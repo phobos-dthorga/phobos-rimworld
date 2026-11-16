@@ -1,0 +1,56 @@
+{
+  "file": "billy-field-kitchen-body-north-3.png",
+  "sha256": "1984aa14290c46f9c53b3a0dd8507c2f42711aa141f1573cd1bb0a5b071a1c1b",
+  "date": "2026-11-17T10:12:56",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga Billy field kitchen: a two-axle army-style kitchen trailer that cooks for camps and work sites of a hard-scrabble frontier colony, towed behind a truck. Image 1 is our approved Pintle bowser: Billy is built on the SAME chassis, so match its drawbar, wheels, mudguards, frame, length, outline weight, shading, palette and finish. Image 2 is our approved generator set: match only how a closed equipment body with vents and hatches is drawn from above. Draw no cab and no engine.\n\nTall canvas, twice as tall as wide. The trailer is LONG AND NARROW: about half as wide as it is long including the drawbar, and its wheels stick out a little beyond the frame on each side, exactly as in Image 1. It fills seven eighths of the canvas height, centred, on a plain pure white background. North facing: the drawbar at the TOP edge, the rear at the BOTTOM edge.\n\nIts plan, from top to bottom: at the top, the triangular A-frame drawbar of dark steel narrowing to a round towing eye, as in Image 1; then ONE LONG CLOSED KITCHEN BODY covering almost the whole deck, seen from above as a long olive-drab rounded rectangle roof with a slightly raised lighter centre panel; along each long side of the roof, a row of three pale canvas-tan roll-up shutter boxes (closed hatch covers); on the roof, two small square louvred vents in a line along the centre and one round dark ventilation fan; at the front left corner of the roof, a short round dark steel stove chimney with a small conical rain cap, seen end-on from above as concentric circles; the tops of four wheels with dark rubber tyres, two each side, close together as a tandem pair just behind the middle, each pair under an olive mudguard as in Image 1; at the bottom, the rear end of the body with a small dark folded step and two small square corner posts.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo cab, engine, tank, tent, awning, open hatches, food, pots, people, animals, smoke, steam, fire, cargo, crates, ladders hanging off the sides, dust, mud, puddles, damage, text, letters, numbers, logos, warning signs, symbols, dials or screens. No floor, ground, cast shadow outside the vehicle, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 3,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    896,
+    1792
+  ],
+  "request_file": "assets/phobos-vehicles/requests/billy-pilot.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 3240,
+    "input_tokens_details": {
+      "image_tokens": 2610,
+      "text_tokens": 630
+    },
+    "output_tokens": 1039,
+    "output_tokens_details": {
+      "image_tokens": 1039,
+      "text_tokens": 0
+    },
+    "total_tokens": 4279
+  },
+  "cost_usd": 0.0552,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "896x1792",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    896,
+    1792
+  ],
+  "seconds": 21.7,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/pintle-bowser-body-north/pintle-bowser-body-north-1.png",
+      "sha256": "9913eb43830a99172097ca3f92b61515dce5cacae43bf7d71ab94869b4be0676",
+      "role": "our approved Pintle bowser, the owner's pick: Billy is built on the SAME chassis, so match its drawbar, wheels, mudguards, frame, length, outline weight, shading, palette and finish; its deck carries a closed kitchen body instead of a tank"
+    },
+    {
+      "image": "assets/phobos-vehicles/generated/generator-set-body-north/generator-set-body-north-3.png",
+      "sha256": "d5002f5b6a9aa11cbb3a5699e751fa991190b76e2f7923fdf3e5ecdce0eb8dcb",
+      "role": "our approved Busbar generator set, the owner's pick: match only how a closed equipment body with vents and hatches is drawn from above; do not copy its cab, length or layout"
+    }
+  ]
+}
