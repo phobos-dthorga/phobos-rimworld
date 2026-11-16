@@ -22,7 +22,8 @@ Every vehicle's weapons checked: guns on their own mounts are swung by hand
   their turret and share its drive.
 - **The M113's M2HB is swung by hand too**, as are the MaxxPro's upgrade guns; they were read as powered turrets.
 - **Aircraft no longer have a turret drive.** Rocket pods and bombs hang fixed, and a helicopter's gun runs off the engines'
-  generators; nothing on an aircraft is cranked by hand any more, and the load is gone from its Systems tab.
+  generators; nothing on an aircraft is cranked by hand any more, and the load is gone from its Systems tab (the owner agreed:
+  "nobody hand-cranks a Hind").
 
 ### Compatibility and limits
 

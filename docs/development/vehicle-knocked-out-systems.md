@@ -299,7 +299,7 @@ weapons on 27 armed vehicles; the classification below is what the code now does
 3. **A machine gun standing alone was matched by its key only** (0.117.2). The M113's M2HB has the key "mainTurret", so it read as a
    powered turret; its turret Def's name is matched now too. The MaxxPro's upgrade guns (M2HB and Mk 19, both on a gunner's ring) are
    matched by their turret Defs.
-4. **Aircraft had a turret drive** (0.117.2, agent's choice, for the owner to revise). Rocket pods and bombs hang fixed on pylons, and the
+4. **Aircraft had a turret drive** (0.117.2; the agent's proposal, confirmed by the owner, 17 Nov 2026: "nobody hand-cranks a Hind"). Rocket pods and bombs hang fixed on pylons, and the
    Hind's and Mongoose's guns run off generators that turn with the engines; the load is gone from the aircraft loadout.
 5. **Fixed smoke launchers took the drive's pace and read as ready while unmanned** (0.117.1).
 
