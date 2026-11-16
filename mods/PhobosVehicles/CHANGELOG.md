@@ -7,15 +7,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.56.0] - 2026-11-16 - Draft
 
-Our vehicles get the new driver system
+Our vehicles get the new driver system, and the bowsers get their own picture
 
 ### Added
+
+- **The Pintle water and fuel bowsers have their own picture**: a pale tank with a walkway and hatches on the Pintle chassis, a hose reel and pump at the rear, picked by the owner (16 November 2026). Both share it and are told apart by the stripe along the tank, **blue on the water bowser and orange on the fuel bowser**, which the player can repaint. Until now both borrowed the Pintle flatbed's picture. **Their upgrades show**: the lagged tank as a padded jacket over the tank, the second hose as a second reel across the front of the tank. Drawn the same length as before. AI-generated with the OpenAI image API (US$0.33 for seven attempts); see the texture record. Not yet tested in game.
 
 - **The driver system on every vehicle this mod gives its own list of systems**: our generator set, and the GTek L-ATV and MaxxPro, the HUMVEE, the RimThunder tanks and HEMTT, and the Trains of the Rim locomotives from their authors' mods. A driver who is hurt, drugged or tired drives them slower, gently, as on every other vehicle. Needs D'thorga Framework 0.113.0. Not yet tested in game.
 
 ### Compatibility and limits
 
 - No settings were added or changed here; the driver system is switched off in D'thorga Framework's list of systems.
+- A lagged water bowser shows the jacket's own orange edge, not its blue stripe. The pump still has no sound of its own.
 
 ### Save compatibility
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!-- The water bowser's upgrades (D'thorga Vehicles 0.55.0). Figures and costs authored. Node keys are saved in the game: never rename or remove one. The icons
-       are the tanker's for the same things (an insulated tank, a hose reel). No overlays until the bowser's own picture is made. Not yet tested in game. -->
+       are the tanker's for the same things (an insulated tank, a hose reel). Each shows on the body (the vehicle's node looks, 16 Nov 2026). Not yet tested in game. -->
   <Vehicles.UpgradeTreeDef DBHLite="true">
     <defName>Phobos_WaterBowser_UpgradeTree</defName>
     <modExtensions>

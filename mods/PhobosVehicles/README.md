@@ -14,7 +14,8 @@ Version 0.56.0, built 16 November 2026 for House D'thorga. **Not yet tested in g
 - **New in 0.55.0 (not yet tested in game): two tank trailers, the Pintle water bowser and the Pintle fuel bowser**, 3 x 8 cells and
   2,500 litres each. **They need D'thorga Framework 0.111.0 or later.** **The water bowser exists only with Dubs Bad Hygiene**, and not in
   its lite mode. **A colonist with construction work sets a bowser up and packs it up**, and **a set-up trailer cannot be hitched**:
-  pack it up first. Their pictures are the Pintle flatbed's, borrowed until their own are made; see [below](#the-pintle-water-and-fuel-bowsers).
+  pack it up first. **New in 0.56.0:** their own picture, a tank on the Pintle chassis, with a blue stripe on the water bowser and an
+  orange one on the fuel bowser; see [below](#the-pintle-water-and-fuel-bowsers).
 - **New in 0.54.0 (not yet tested in game): the Pintle flatbed trailer is as wide as the trucks**, 3 x 7 cells (it was 2 x 5),
   and carries 5,000 kg. **Park every Pintle in open ground before updating**: it grows by a cell on each side and two in length.
 - **Three helicopters take a cargo hook, and so a sling, a fire bucket and the litter kit** (not yet tested in game): the Cherokee
@@ -247,7 +248,9 @@ pumps **400 litres an hour**. They take the load to where it is needed, and stay
 - **Upgrades:** a **lagged tank** (insulation: the load takes four times as long to reach the outside temperature, so water freezes later
   and fuel stays thin longer in the cold) and a **second hose** (the pump moves half as much again).
 - **Its weight is the towing vehicle's to pull**: a full bowser weighs about 4.5 tonnes with water, 4 with fuel.
-- **Pictures:** each borrows the Pintle flatbed's picture, scaled to its size, until its own is made. The pump has no sound yet; the hoses,
+- **Pictures:** both share one picture, a tank on the Pintle chassis, told apart by the stripe along the tank: **blue for water, orange
+  for fuel** (repaint either as you like). The lagged tank shows as a padded jacket over the tank, and the second hose as a second reel
+  across the front of the tank. The pump has no sound yet; the hoses,
   relief valve, leak and purge sound as the tanker's do.
 
 Figures, all authored and approximate: the capacity follows the Ullage's general tank (3,000 litres over six rows of shell; a bowser has

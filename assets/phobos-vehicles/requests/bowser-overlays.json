@@ -1,0 +1,50 @@
+[
+ {
+  "name": "pintle-bowser-lagged-tank",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 896,
+  "height": 1792,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/pintle-bowser-body-north/pintle-bowser-body-north-1.png",
+    "role": "our approved bowser, the owner's pick: this jacket goes over its tank, so match the tank's outline (a long rounded rectangle with domed ends), its hatches and walkway, and the whole picture's outline weight, shading, palette and finish; draw only the jacketed tank"
+   }
+  ],
+  "art_plan": {
+   "canvas": "the body's own canvas, 896 x 1792 (paid rule: overlays use the same canvas as their body); the part is drawn alone and placed on the body by script, as round three's grab, winch and tank were",
+   "body": "pintle-bowser-body-north-1, the owner's pick of 16 Nov 2026",
+   "node": "PhobosBowserLagging (lagged tank: the load takes four times as long to reach the outside temperature)",
+   "placement": "over the body's tank, the same size and place (agent placement, by box)"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga Pintle bowser: its tank wrapped in an insulating jacket. Image 1 is our approved bowser: draw ONLY its tank, at the same long rounded shape, now covered in a padded insulating jacket, and match Image 1's outline weight, shading, palette and finish. Do NOT draw the trailer, drawbar, wheels, mudguards, frame, hose reel or pump box.\n\nDraw ONLY the jacketed tank, alone and centred on a plain pure white background, nothing else on the canvas. It is LONG AND NARROW, about one quarter as wide as it is long, filling seven eighths of the canvas height.\n\nIts top plan: one long rounded rectangle with domed ends, its shell covered all over by a quilted jacket of muted dull green-grey padded panels in neat rectangular sections held by thin dark straps across it; the two round bolted manway hatches and the narrow grated walkway between them on its top line still uncovered, as in Image 1; a thin muted orange accent stripe along each side, as in Image 1.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo trailer, wheels, drawbar, frame, hose, pump, people, animals, dust, mud, text, letters, numbers, logos, warning signs, dials, screens or lamps. No floor, ground, road, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "pintle-bowser-second-hose",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 896,
+  "height": 1792,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/pintle-bowser-body-north/pintle-bowser-body-north-1.png",
+    "role": "our approved bowser, the owner's pick: match its hose reel (at the bottom left, behind the tank) and the whole picture's outline weight, shading, palette and finish; draw only one hose reel"
+   }
+  ],
+  "art_plan": {
+   "canvas": "the body's own canvas, 896 x 1792 (paid rule: overlays use the same canvas as their body); the part is drawn alone and placed on the body by script, as round three's grab, winch and tank were",
+   "body": "pintle-bowser-body-north-1, the owner's pick of 16 Nov 2026",
+   "node": "PhobosBowserSecondHose (second hose: the pump moves half as much again)",
+   "placement": "across the front of the tank, just behind the headboard, on a bracket over the front dome (agent placement, by box: the rear is taken by the first reel and the pump box)"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga Pintle bowser: a second hose reel. Image 1 is our approved bowser: match its hose reel (at the bottom left, behind the tank) and the picture's outline weight, shading, palette and finish. Do NOT draw the trailer or the tank.\n\nDraw ONLY the reel, alone and centred on a plain pure white background, nothing else on the canvas. It fills about two thirds of the canvas width.\n\nIts top plan: one wide short drum lying across the canvas from left to right, about three times as wide as it is deep, wrapped in neat turns of thick black rubber hose, between two dark steel end plates, on a low dark steel bracket frame, with the hose's brass nozzle end resting on top of the coils.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo trailer, tank, wheels, pump box, people, animals, dust, mud, text, letters, numbers, logos, dials, screens or lamps. No floor, ground, road, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+ }
+]

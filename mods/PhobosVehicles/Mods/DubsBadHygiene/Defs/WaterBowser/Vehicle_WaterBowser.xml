@@ -20,12 +20,14 @@
     <label>Pintle water bowser</label>
     <description>Pintle P2: a tank trailer of water on two axles, for camps, outposts and work sites far from any well. Fill it from plumbing with a water tower on the line, hitch it behind any vehicle with a hitch, and where it stands a colonist sets it up and its pump fills the water towers on plumbing beside it. Water freezes in it in the cold. It has no engine: whatever tows it pulls its weight and all it carries.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer</texPath>
+      <texPath>Phobos/Vehicles/PintleBowser/PintleBowser</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
       <shaderType>CutoutComplexPattern</shaderType>
-      <drawSize>(4.57, 9.14)</drawSize>
-      <color>(180, 174, 143)</color>
-      <colorTwo>(222, 119, 14)</colorTwo>
+      <drawSize>(5, 9)</drawSize>
+      <!-- Its own picture since 16 Nov 2026 (shared by both bowsers; owner's pick): the trailer drawn 7.62 cells long in a 5 x 9 picture, as
+           before. Paint: the body's sand as the picture has it; the stripe a water blue (authored), so it reads apart from the fuel bowser. -->
+      <color>(194, 187, 158)</color>
+      <colorTwo>(64, 124, 190)</colorTwo>
     </graphicData>
     <fillPercent>0.6</fillPercent>
     <buildDef>Phobos_WaterBowser_Blueprint</buildDef>
@@ -233,6 +235,46 @@
         <shellPart>TankShell</shellPart>
         <valvePart>TankFittings</valvePart>
       </li>
+      <!-- D'thorga Framework's node looks: the bowser's upgrades on its body (owner's picks, 16 Nov 2026): the lagged tank's jacket over the
+           tank, and the second hose reel across the front of the tank (agent placement). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>lagging</key>
+            <looks>
+              <li>
+                <node>PhobosBowserLagging</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_Lagging</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <key>secondHose</key>
+            <looks>
+              <li>
+                <node>PhobosBowserSecondHose</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_SecondHose</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
+      </li>
     </comps>
   </Vehicles.VehicleDef>
 
@@ -241,9 +283,9 @@
     <label>Pintle water bowser</label>
     <description>Pintle P2: a tank trailer of water that any vehicle with a hitch can tow.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer</texPath>
+      <texPath>Phobos/Vehicles/PintleBowser/PintleBowser</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
-      <drawSize>(4.57, 9.14)</drawSize>
+      <drawSize>(5, 9)</drawSize>
     </graphicData>
     <statBases>
       <MaxHitPoints>220</MaxHitPoints>

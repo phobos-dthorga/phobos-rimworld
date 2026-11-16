@@ -165,7 +165,8 @@ drivetrain model can tow** in D'thorga Framework's settings. A broken drawbar mu
 ## Pintle water and fuel bowsers
 
 Not yet tested in game. Two tank trailers, 3 x 8 cells: a **water bowser** (only with Dubs Bad Hygiene) and a **fuel bowser**. Each holds
-2,500 litres and pumps 400 litres an hour. Until their own pictures are made they look like the flatbed.
+2,500 litres and pumps 400 litres an hour. Both look alike, a tank on the flatbed's chassis: **a blue stripe along the tank means
+water, an orange one fuel**.
 
 1. **Build** from the **motor pool** tab, after **vehicle parts** research.
 2. **Park it** where the load is wanted, unhitched, and press **Set up**. A colonist with construction work comes and sets it up; until
