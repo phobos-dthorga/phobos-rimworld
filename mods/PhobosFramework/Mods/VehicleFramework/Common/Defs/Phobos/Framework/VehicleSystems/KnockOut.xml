@@ -61,6 +61,10 @@
     <batteryFlatBelow>0.05</batteryFlatBelow>
     <handCrankTraversePace>0.2</handCrankTraversePace>
     <handCrankAimPace>0.5</handCrankAimPace>
+    <!-- 0.120.0 (owner, 17 Nov 2026): an autonomous weapon station, one no seat works (GTek's L-ATV fires "without a gunner or even a
+         driver"), has nobody to crank it when its power is gone: it stops, saying why, until the battery or the grid gives it power again.
+         With anyone aboard it is cranked by hand like any turret. -->
+    <autonomousStopsWithoutPower>true</autonomousStopsWithoutPower>
     <handSwungTurretKeys>
       <li>M2HB</li>
       <li>M240</li>

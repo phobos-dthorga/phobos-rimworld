@@ -25,8 +25,22 @@ public sealed class VehicleConduits : VehiclePipes.ILink
 
     static ThingDef? conduit;
 
-    /// <summary>The game's hidden conduit (a power conduit that draws nothing; ludeon.rimworld's HiddenConduit), or the ordinary one if it is ever missing.</summary>
-    public static ThingDef Conduit => conduit ??= DefDatabase<ThingDef>.GetNamedSilentFail("HiddenConduit") ?? ThingDefOf.PowerConduit;
+    /// <summary>
+    /// Our hidden hook-up conduit (Framework 0.120.0: a hidden conduit that is also a power consumer, so the grid pays for what the vehicle takes;
+    /// PhobosVehicleHookUp), else the game's hidden conduit, else the ordinary one. The hidden conduits earlier versions laid are swapped for it
+    /// at the next look (Renew).
+    /// </summary>
+    public static ThingDef Conduit => conduit ??= DefDatabase<ThingDef>.GetNamedSilentFail(HookUpDefName)
+        ?? DefDatabase<ThingDef>.GetNamedSilentFail("HiddenConduit") ?? ThingDefOf.PowerConduit;
+
+    public const string HookUpDefName = "PhobosVehicleHookUp";
+
+    /// <summary>The power consumer that meters the grid's draw for this vehicle: the first piece standing under it, while its conduits lie there.</summary>
+    public static CompPowerTrader? Meter(VehiclePipes.IHost host)
+    {
+        if (!host.ParkedForPipes) return null;
+        return host.Underlay(Key).FirstStanding?.TryGetComp<CompPowerTrader>();
+    }
 
     public static Thing MakeConduit() => ThingMaker.MakeThing(Conduit);
 

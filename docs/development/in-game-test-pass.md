@@ -6,6 +6,8 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **Framework 0.120.0 (17 Nov 2026): rows 149 and 150**, the owner's answers of that day: the grid powers a parked vehicle, and an
+  unpowered autonomous turret stops.
 - **Framework 0.119.1 (17 Nov 2026): rows 147 and 148**, from the owner's screenshots of that day: an empty L-ATV's battery flat on the
   grid, and aircraft systems standing still in flight.
 - **The aircraft batch (Framework 0.119.0, Vehicles 0.58.0, Patches 0.21.0; 17 Nov 2026): rows 139 to 146.** Needs The Dead Man's
@@ -251,6 +253,8 @@ Numbered P1 to P4 since 17 Nov 2026; they were 4 to 7, which clashed with the ro
 | 146 | **Cranked turrets aim worse** (Framework 0.119.0, T5 and T6) | With a crew aboard a tank and the battery flat (dev action), fire on the move and at night | Its gun hits less often than with power: worse on the move, worse at night, worst both. With Combat Extended its shots spread wider |
 | 147 | **Aircraft systems run in flight** (Framework 0.119.1) | Fly a Cherokee across the world map for a few hours with its Systems tab open, in cold weather if you can | Its graphs keep moving in flight: the cab holds near 21 degrees C, the battery charges, the turbine reads cruising. The cab heater reads "left to the climate control, which is running", not "standing by", and the hydraulics card lists each servo once |
 | 148 | **An empty vehicle on the grid charges; an autonomous turret draws only with a target** (Framework 0.119.2) | Leave the L-ATV parked with nobody aboard beside a powered conduit, engine off; later let its turret engage something | Its inspect line says the battery is charging from the power nearby; the turret drive reads standing by on the Systems tab until the gun has a target, then running; the frost goes once it is past 40 %. A flat battery with something drawing reads "flat", never "0 seconds left" |
+| 149 | **The grid runs a parked vehicle** (Framework 0.120.0) | Park a tank or the L-ATV beside a powered conduit with the engine off, man its turret (or let the L-ATV's engage something), and open the power overlay's consumers or the grid's info | The vehicle power hook-up draws about a kilowatt while the turret works and less while only charging; the battery holds or charges instead of running down. Cut the grid's power and the battery takes over |
+| 150 | **An unpowered autonomous turret stops** (Framework 0.120.0) | Park the L-ATV away from any grid with nobody aboard and flatten its battery (dev action), then put a colonist aboard | Empty, its main turret is out of action and says "no power, and nobody aboard to turn it by hand"; with someone aboard it works again, slowly, turned by hand |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 

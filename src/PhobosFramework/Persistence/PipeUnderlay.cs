@@ -79,6 +79,19 @@ public sealed class PipeUnderlay : IExposable
         }
     }
 
+    /// <summary>The first piece of this underlay still standing, or null (Framework 0.120.0: the vehicle's power hook-up meters through one).</summary>
+    public Thing? FirstStanding
+    {
+        get
+        {
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                if (pieces[i] is { Spawned: true, Destroyed: false } piece) return piece;
+            }
+            return null;
+        }
+    }
+
     /// <summary>A piece of this underlay lies on the cell.</summary>
     public bool Holds(IntVec3 cell)
     {

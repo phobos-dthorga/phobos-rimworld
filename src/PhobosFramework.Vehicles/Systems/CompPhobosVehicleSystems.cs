@@ -740,6 +740,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 VehicleSystemsMod.Logger.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") " + (MoveRefusal == null ? "may move again (was: " + refusalBefore + ")" : "will not move: " + MoveRefusal));
             }
             HealthViewVersion++;
+            UpdateHookUp();
             if (ClosedCab && TryGetQuantity("cabTemperature", out float cab)) CabClimate.Set(Vehicle, cab);
             else CabClimate.Forget(Vehicle);
         }
@@ -812,6 +813,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         // tank that ran dry under a running engine is told from one drained while parked. Derived, never saved.
         if (hasFuel) ranWithFuel = EngineRunning;
         shorePowered = null;
+        gridCarries = null;
         UpdateShedding();
         loadAmps = 0f;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
@@ -1568,6 +1570,53 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             if (part.HealthPercent < fraction) below++;
         }
         return count == 0 ? 0f : below / (float)count;
+    }
+
+    /// <summary>
+    /// Whether the grid carries this parked vehicle's loads now (Framework 0.120.0; owner, 17 Nov 2026): its hook-up conduit lies under it, is
+    /// on a grid with power to give, and the grid has not cut it off. Read at most once per update.
+    /// </summary>
+    public bool GridCarriesLoads
+    {
+        get
+        {
+            if (gridCarries.HasValue) return gridCarries.Value;
+            CompPowerTrader? meter = VehicleConduits.Meter(this);
+            gridCarries = meter != null && meter.PowerOn && ShorePowered();
+            return gridCarries.Value;
+        }
+    }
+
+    bool? gridCarries;
+
+    /// <summary>The watts the grid gives this vehicle now, for its inspect line (0 when it is not hooked up). Derived, never saved.</summary>
+    public float GridWatts { get; private set; }
+
+    /// <summary>
+    /// Sets the hook-up's draw on the colony's grid (Framework 0.120.0): the loads the grid carries and the battery's charge, at the vehicle's
+    /// voltage through the supply's efficiency (HookUpRule). The other pieces under the vehicle draw nothing. Off the grid, nothing.
+    /// </summary>
+    void UpdateHookUp()
+    {
+        CompPowerTrader? meter = VehicleConduits.Meter(this);
+        GridWatts = 0f;
+        if (meter == null) return;
+        if (ShorePowered())
+        {
+            double carried = HookUpRule.CarriedAmps(loadAmps, Rules.hookUpRatingAmps);
+            double chargerAmps = 0, charge = 1;
+            foreach (SystemState state in states!)
+            {
+                int q = state.Def.QuantityIndex("charge");
+                if (q < 0 || !Enabled(state)) continue;
+                charge = state.values[q];
+                chargerAmps = new SystemContext(this, state).Parameter("shoreChargeAmps");
+                break;
+            }
+            GridWatts = (float)HookUpRule.GridWatts(carried, HookUpRule.ChargeAmps(chargerAmps, charge), ElectricalVolts(), Rules.hookUpEfficiency);
+        }
+        meter.PowerOutput = -GridWatts;
+        if (GridWatts > 0f) Seen.Note("vehicles.grid-hook-up", Vehicle, GridWatts.ToString("0") + " W");
     }
 
     /// <summary>Whether the parked vehicle stands beside a building on a grid with power to give. Read at most once per update.</summary>

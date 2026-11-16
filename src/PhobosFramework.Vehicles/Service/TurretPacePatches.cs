@@ -118,3 +118,29 @@ public static class TurretAimSway
         return combatExtended!(speed, range, shooter, target, origin, flyOverhead, gravity, sway, spread, recoil);
     }
 }
+
+/// <summary>
+/// An autonomous weapon with no power and nobody aboard is out of action (Framework 0.120.0; owner, 17 Nov 2026): Vehicle Framework asks
+/// TurretDisabled before it scans, aims and fires, so a postfix that only ever turns "works" into "out" stops it, from the weapon's cached
+/// pace (one table read). A turret class that overrides TurretDisabled without calling the base keeps its own answer.
+/// </summary>
+[HarmonyPatch(typeof(VehicleTurret), nameof(VehicleTurret.TurretDisabled), MethodType.Getter)]
+public static class TurretPowerStop
+{
+    public static void Postfix(VehicleTurret __instance, ref bool __result)
+    {
+        if (!__result && TurretPace.For(__instance).stoppedNoPower) __result = true;
+    }
+}
+
+/// <summary>The same weapon's reason, where Vehicle Framework's own gizmo and our Systems tab ask why it is out.</summary>
+[HarmonyPatch(typeof(VehicleTurret), nameof(VehicleTurret.IsDisabled))]
+public static class TurretPowerStopReason
+{
+    public static void Postfix(VehicleTurret __instance, ref bool __result, ref string reason)
+    {
+        if (__result || !TurretPace.For(__instance).stoppedNoPower) return;
+        __result = true;
+        reason = "PhobosVehicleSystems_WeaponNoPowerStopped".Translate().CapitalizeFirst().Resolve();
+    }
+}

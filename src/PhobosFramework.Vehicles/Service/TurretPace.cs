@@ -30,6 +30,9 @@ public static class TurretPace
         /// poor visibility.</summary>
         public float accuracy = 1f;
         public bool damaged, gunnerHurt, handCranked;
+        /// <summary>An autonomous weapon (no seat works it) with no power and nobody aboard to crank it: out of action until it has power
+        /// (Framework 0.120.0; owner, 17 Nov 2026). Read by the TurretPowerStop hooks.</summary>
+        public bool stoppedNoPower;
     }
 
     static readonly ConditionalWeakTable<VehicleTurret, Pace> paces = new();
@@ -60,7 +63,7 @@ public static class TurretPace
     static void Work(VehicleTurret turret, Pace pace)
     {
         pace.traverse = pace.aim = pace.reload = pace.accuracy = 1f;
-        pace.damaged = pace.gunnerHurt = pace.handCranked = false;
+        pace.damaged = pace.gunnerHurt = pace.handCranked = pace.stoppedNoPower = false;
         VehiclePawn vehicle = turret.vehicle;
         CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
         if (comp == null || !comp.Usable) return;
@@ -84,6 +87,14 @@ public static class TurretPace
         }
 
         TurretPower.Paces(comp, turret, out double powerTraverse, out double powerAim, out bool cranked);
+        // An autonomous weapon with no power stops while nobody is aboard to crank it (Framework 0.120.0; owner, 17 Nov 2026: "stops until it
+        // has power"); with someone aboard it is cranked by hand like any other (owner, 16 Nov 2026: hand-cranked, never dead).
+        if (cranked && rules.autonomousStopsWithoutPower && !TurretPower.Claimed(turret) && vehicle.AllPawnsAboard.Count == 0)
+        {
+            pace.stoppedNoPower = true;
+            cranked = false;
+            Seen.Note("vehicles.autonomous-turret-no-power", vehicle, turret.key);
+        }
         pace.handCranked = cranked;
         // T5 and T6 (Framework 0.119.0): cranked by hand, the turret has no stabiliser on the move and no powered sights in the dark.
         if (cranked && rules.crankedTurretsAimWorse)
@@ -145,6 +156,12 @@ public static class TurretPace
         {
             if (turret.def == null || turret.def.turretType == TurretType.Static || turret.ComponentDisabled) continue;
             Pace pace = For(turret);
+            if (pace.stoppedNoPower)
+            {
+                string stopped = turret.gizmoLabel.NullOrEmpty() ? turret.def.LabelCap.Resolve() : turret.gizmoLabel;
+                slowed.Add("PhobosVehicleSystems_WeaponSlowedOne".Translate(stopped.Named("WEAPON"), "PhobosVehicleSystems_WeaponNoPowerStopped".Translate().Resolve().Named("WHY")).Resolve());
+                continue;
+            }
             if (!pace.damaged && !pace.gunnerHurt && !pace.handCranked) continue;
             var why = new List<string>();
             if (pace.handCranked) why.Add("PhobosVehicleSystems_WeaponHandCranked".Translate().Resolve());
@@ -242,6 +259,19 @@ public static class TurretPower
     /// in sight it draws nothing (an authored simplification: a real station's standby draw is small beside its drive's).</item>
     /// </list>
     /// </summary>
+    /// <summary>Whether a seat works this weapon (its role names it); an autonomous weapon station has none (Framework 0.120.0).</summary>
+    public static bool Claimed(VehicleTurret turret)
+    {
+        VehiclePawn? vehicle = turret.vehicle;
+        if (vehicle?.handlers == null) return false;
+        foreach (VehicleRoleHandler handler in vehicle.handlers)
+        {
+            VehicleRole? role = handler?.role;
+            if (role != null && (role.HandlingTypes & HandlingType.Turret) != 0 && role.TurretIds != null && Works(role, turret)) return true;
+        }
+        return false;
+    }
+
     public static bool Crewed(VehicleTurret turret)
     {
         VehiclePawn? vehicle = turret.vehicle;

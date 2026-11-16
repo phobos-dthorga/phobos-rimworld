@@ -344,7 +344,7 @@
         </inputs>
       </li>
       <li>
-        <!-- A parked vehicle beside a powered grid trickle-charges (a gameplay simplification: the grid gives the charge free). -->
+        <!-- A parked vehicle beside a powered grid trickle-charges; since Framework 0.120.0 the grid pays for it through the vehicle's hook-up, and also carries its loads (Input_ElectricalBalance). -->
         <name>shoreCharging</name>
         <quantity>charge</quantity>
         <kind>Into</kind>

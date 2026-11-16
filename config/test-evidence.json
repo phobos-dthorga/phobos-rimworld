@@ -23,7 +23,9 @@
     "143": ["aircraft.evasion-reduced", "aircraft.map-salvo"],
     "145": ["aircraft.altitude-hypoxia"],
     "146": ["vehicles.cranked-turret-aims-worse"],
-    "147": ["aircraft.systems-run-in-flight"]
+    "147": ["aircraft.systems-run-in-flight"],
+    "149": ["vehicles.grid-hook-up"],
+    "150": ["vehicles.autonomous-turret-no-power"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)"

@@ -774,6 +774,10 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public int nightEndsHour = 6;
     /// <summary>How far, in cells, a parked vehicle can reach a powered building to charge from it.</summary>
     public int shorePowerReach = 1;
+    /// <summary>The power hook-up (Framework 0.120.0; owner, 17 Nov 2026): a parked vehicle on a powered grid has its loads carried up to this many
+    /// amps, and the grid pays for them and the battery's charge through a supply this efficient. Authored: about a 1.5 kW supply at 24 V.</summary>
+    public float hookUpRatingAmps = 60f;
+    public float hookUpEfficiency = 0.85f;
     /// <summary>The share of full health a replaced part comes back with; ordinary repair does the rest.</summary>
     public float replacedPartHealth = 0.25f;
     /// <summary>The same, for a part fitted within reach of a working tuning rig, whose hoist and instruments do the job properly.</summary>

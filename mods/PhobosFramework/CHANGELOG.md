@@ -11,6 +11,35 @@ tested in game unless an entry says the owner tested it.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 
+## [0.120.0] - 2026-11-17 - Draft
+
+The grid powers a parked vehicle, and an unpowered autonomous turret stops
+
+### Added
+
+- **A parked vehicle on a powered grid runs on the grid** (owner, 17 Nov 2026: "yes, and it draws real watts"). The hidden conduit a
+  vehicle with a battery lays beneath it is now a power hook-up: the grid carries the vehicle's lights, heaters and turret drives up to
+  60 A and charges its battery, and the colony's grid pays for every watt (about 1.1 kW for a turret drive at 24 V, through an 85 %
+  supply; authored). The battery runs down only for what is beyond 60 A, or if the grid has no power to give. The hook-up shows among
+  the grid's consumers. Before, the grid only trickle-charged at 10 A, free, so a turret on a plugged-in vehicle still ran its battery flat.
+
+### Changed
+
+- **An autonomous turret with no power stops while nobody is aboard** (owner, 17 Nov 2026). A weapon no seat works, such as GTek's L-ATV's
+  weapon station, has nobody to crank it when its battery is flat and it has no grid: it is out of action, saying why ("no power, and
+  nobody aboard to turn it by hand"), until it has power again. With anyone aboard it is cranked by hand like any other turret, as before.
+
+### Compatibility and limits
+
+- The hidden conduits earlier versions laid under parked vehicles are swapped for the hook-up at the next look. A generator set's own
+  conduits draw nothing. A turret class from another mod that answers whether it is disabled without asking Vehicle Framework's own answer
+  keeps its own. No settings changed. Not yet tested in game (rows 149 and 150).
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved. **Before removing the mod**, the hook-up pieces under parked vehicles go with it, as
+  the hidden conduits did: the existing removal steps in the README cover them.
+
 ## [0.119.2] - 2026-11-17 - Draft
 
 An autonomous turret draws power while it has a target

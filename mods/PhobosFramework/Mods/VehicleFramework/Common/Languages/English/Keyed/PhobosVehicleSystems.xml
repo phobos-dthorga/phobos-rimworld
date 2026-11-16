@@ -106,6 +106,7 @@
   <PhobosVehicleSystems_WeaponMountDamaged>{PART} damaged</PhobosVehicleSystems_WeaponMountDamaged>
   <PhobosVehicleSystems_WeaponGunnerHurt>gunner hurt</PhobosVehicleSystems_WeaponGunnerHurt>
   <PhobosVehicleSystems_WeaponHandCranked>turned by hand, no power</PhobosVehicleSystems_WeaponHandCranked>
+  <PhobosVehicleSystems_WeaponNoPowerStopped>out of action: no power, and nobody aboard to turn it by hand</PhobosVehicleSystems_WeaponNoPowerStopped>
   <!-- The Systems tab's crew, weapons, running gear and loads cards (Framework 0.117.0). -->
   <PhobosVehicleSystems_SysCrew>Crew</PhobosVehicleSystems_SysCrew>
   <PhobosVehicleSystems_SysCrewBurning>On fire with people aboard. Get them out, or put the fire out.</PhobosVehicleSystems_SysCrewBurning>

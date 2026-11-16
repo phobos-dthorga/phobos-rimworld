@@ -58,6 +58,9 @@ public class PhobosKnockOutRulesDef : PhobosRulesDef
     /// and lays its gun this much slower.</summary>
     public float handCrankTraversePace = 0.2f;
     public float handCrankAimPace = 0.5f;
+    /// <summary>An autonomous weapon (no seat works it) with no power stops while nobody is aboard to crank it (Framework 0.120.0; owner,
+    /// 17 Nov 2026). Off: it is slowed like a cranked one.</summary>
+    public bool autonomousStopsWithoutPower = true;
     /// <summary>Weapons standing alone that are swung by hand anyway, by a part of their key or turret Def's name: pintle and ring-mounted
     /// machine guns and grenade launchers, which need no power.</summary>
     public List<string> handSwungTurretKeys = new();

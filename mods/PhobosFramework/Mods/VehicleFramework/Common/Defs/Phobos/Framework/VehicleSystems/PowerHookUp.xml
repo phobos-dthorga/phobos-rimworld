@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The vehicle power hook-up (Framework 0.120.0; owner, 17 Nov 2026: the grid carries a parked vehicle's loads, "and it draws real watts").
+    The hidden conduit a parked vehicle with a battery lays beneath it (VehicleConduits), made a power consumer as well as a conduit, as the
+    game's own batteries are both. One piece under each vehicle carries the vehicle's draw on the colony's grid: its loads up to the hook-up's
+    rating and its battery's charge, at its voltage through an 85 % supply (authored); the other pieces draw nothing. Like the game's hidden
+    conduit it draws nothing on the ground and shows in the power overlay. Never built by hand, and it refunds nothing: the vehicle lays it and
+    takes it up. The hidden conduits earlier versions laid are swapped for it at the next look. Not yet tested in game.
+  -->
+  <ThingDef ParentName="PowerConduit">
+    <defName>PhobosVehicleHookUp</defName>
+    <label>vehicle power hook-up</label>
+    <description>Hidden cables from a parked vehicle to the colony's power grid. The grid runs the vehicle's lights, heaters and turret drives and charges its battery, and the colony pays for every watt.</description>
+    <graphicData>
+      <color>(0,0,0,0)</color>
+      <shaderType>Transparent</shaderType>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0</Flammability>
+      <Beauty>0</Beauty>
+    </statBases>
+    <costList Inherit="False" />
+    <designationCategory IsNull="True" />
+    <researchPrerequisites Inherit="False" />
+    <selectable>false</selectable>
+    <building>
+      <ai_neverTrashThis>true</ai_neverTrashThis>
+      <isTargetable>false</isTargetable>
+      <expandHomeArea>false</expandHomeArea>
+      <canBeDamagedByAttacks>false</canBeDamagedByAttacks>
+    </building>
+    <comps Inherit="False">
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <transmitsPower>true</transmitsPower>
+        <basePowerConsumption>0</basePowerConsumption>
+        <shortCircuitInRain>false</shortCircuitInRain>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

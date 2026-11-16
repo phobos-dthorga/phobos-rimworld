@@ -356,6 +356,12 @@ public class Input_ElectricalBalance : VehicleSystemInput
         double supply = context.Comp.EngineRunning ? context.Parameter(supplyParameter) * context.Comp.PartEfficiency(supplyRole, 1f) : 0;
         if (supply > 0 && drivenByRole != null) supply *= context.Comp.PartEfficiency(drivenByRole, 1f);
         if (supply > 0 && supplyFactor != null) supply *= supplyFactor.Evaluate(context);
+        // The power hook-up (Framework 0.120.0): a parked vehicle on a powered grid has its loads carried up to the hook-up's rating, so only
+        // what is beyond it comes from the battery. On the deficit side only: the grid's charge is the shore-charging flow's.
+        if (side == Side.Deficit && context.Comp.GridCarriesLoads)
+        {
+            supply += PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().hookUpRatingAmps;
+        }
         double demand = context.Comp.ActiveLoadAmps();
         return (float)(side == Side.Surplus ? ElectricalBalance.Surplus(supply, demand) : ElectricalBalance.Deficit(supply, demand));
     }
