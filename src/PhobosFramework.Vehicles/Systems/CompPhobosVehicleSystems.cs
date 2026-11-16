@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using Phobos.Framework;
 using Phobos.Framework.Debug;
+using Phobos.Framework.Defs;
 using Phobos.Framework.Items;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Sounds;
@@ -362,6 +363,19 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             return load.when == null || load.when.Holds(context);
         }
         return false;
+    }
+
+    /// <summary>What one load is doing now, for the Systems tab (Framework 0.117.0). Reads the same rules as <see cref="LoadActive"/>.</summary>
+    public LoadState StateOf(ElectricalLoadSpec load)
+    {
+        if (states == null || states.Count == 0) return LoadState.Idle;
+        var context = new SystemContext(this, states[0]);
+        if (load.available != null && !load.available.Holds(context)) return LoadState.NotFitted;
+        if (load.toggle && !IsOn(load)) return LoadState.SwitchedOff;
+        if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return LoadState.Shed;
+        if (load.when != null && !load.when.Holds(context)) return LoadState.Idle;
+        return TryGetQuantity("charge", out float charge) && charge < PhobosRulesDef.Current<PhobosKnockOutRulesDef>().batteryFlatBelow
+            ? LoadState.NoPower : LoadState.Running;
     }
 
     /// <summary>

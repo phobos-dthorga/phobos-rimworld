@@ -33,7 +33,7 @@ or an aircraft in flight.
 | --- | --- | --- |
 | **Dashboard** | Does anything need me now? | Gauges, warning lamps, what the vehicle is waiting for, and its switches. Click a gauge to open Systems at that system |
 | **Health** (called **Vehicle** on the world map) | How hurt is it? | The vehicle's picture with hurt parts tinted, its speed and strength and what each part does to them, every part with its health, conditions, fitting and grade, and a **Wear** block saying when tread, brakes, battery and service will next need a look ("Tread: worn in about 4 days"). **Like parts share a row** (landing wheels, panels) whose bar is split into a segment for each part: click the row to open it, or rest on a segment to see that part |
-| **Systems** | What exactly is going on? | Every reading, one row each, opening to its graph when clicked; parts as small bars; an **Only what needs attention** tick box. Hidden in Plain mode |
+| **Systems** | What exactly is going on? | Every reading, one row each, opening to its graph when clicked; parts as small bars; cards for the **weapons** (ready or out and why, how fast, how they turn), the **running gear** (tracks, and why it cannot move), the **electrical loads** (running, cut to save the battery or without power) and a **crew** in danger; an **Only what needs attention** tick box. Hidden in Plain mode |
 
 **Rest the mouse on any reading or part** to learn what it means, what moves it, and what losing it costs.
 
@@ -137,6 +137,9 @@ Not yet tested in game. A vehicle loses its jobs before it is a wreck, and every
   with poor sight aims slower, and one with hurt hands turns and reloads slower.
 - **A destroyed track stops a tank.** Wheels still limp on. A stopped vehicle says why: "Cannot move: left track destroyed." Yours
   send a message when it happens.
+- **The Systems tab shows all of this**: a **Weapons** card (each weapon, its mount's health, ready or out and why, how fast it works
+  and how it turns), a **Running gear** card (tracks, and why the vehicle cannot move), an **Electrical loads** card (what is running,
+  cut or without power) and a red **Crew** card when people are aboard a burning or dead vehicle.
 - **On your vehicles, a powered turret needs power.** The **turret drive** draws from the battery while someone mans it. With the
   battery flat, or the load shed when the charging fails, the crew **cranks it round by hand**: a fifth of the speed, aiming twice as
   slowly, but it never stops. Pintle and ring-mounted machine guns need no power. **Keep the engine running in a long fight.**

@@ -17,7 +17,7 @@ namespace Phobos.VehicleSystems;
 /// hovering one lights it up on the vehicle. A filter leaves only what needs attention. Engineer mode adds the hidden readings and the
 /// figures. Hidden in Plain mode. Presentation only.
 /// </summary>
-public class ITab_VehicleSystems : ITab
+public partial class ITab_VehicleSystems : ITab
 {
     public sealed class State
     {
@@ -147,6 +147,8 @@ public class ITab_VehicleSystems : ITab
             if (partScratch.Count > 0) DrawParts(comp, ref y, viewWidth, ref hovered);
             PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
         }
+        // Framework 0.117.0: the crew, weapons, running gear and electrical loads (ITab_VehicleSystems.Knocked.cs).
+        DrawKnockOutCards(comp, ref y, viewWidth, engineer, ref anything, ref hovered);
         Powertrain? train = comp.Powertrain;
         if (train != null && VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Off)
         {

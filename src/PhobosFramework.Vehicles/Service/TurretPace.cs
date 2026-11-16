@@ -142,6 +142,19 @@ public static class TurretPace
     }
 }
 
+/// <summary>How a weapon is turned (Framework 0.117.0, for the Systems tab).</summary>
+public enum WeaponDrive
+{
+    /// <summary>Nothing modelled: a fixed launcher, or a vehicle without a turret drive.</summary>
+    None,
+    /// <summary>A pintle or ring-mounted gun, swung by hand anyway.</summary>
+    HandSwung,
+    /// <summary>A powered drive with power.</summary>
+    Powered,
+    /// <summary>A powered drive without power, cranked by hand.</summary>
+    HandCranked,
+}
+
 /// <summary>
 /// A turret's power (Framework 0.115.0; owner, 16 Nov 2026; T3, T4): a powered turret is the electrical load "turret drive", drawing while
 /// someone mans it; with that load shed or the battery flat it is cranked by hand, slowly, never dead. Pintle and ring-mounted machine guns
@@ -163,6 +176,17 @@ public static class TurretPower
         bool powered = TurretPowerRule.Powered(comp.LoadActive(rules.turretDriveLoad), charge, rules.batteryFlatBelow);
         TurretPowerRule.Paces(powered, rules.handCrankTraversePace, rules.handCrankAimPace, out traverse, out aim);
         handCranked = !powered;
+    }
+
+    /// <summary>How a weapon is turned, for the Systems tab (Framework 0.117.0).</summary>
+    public static WeaponDrive DriveOf(CompPhobosVehicleSystems comp, VehicleTurret turret)
+    {
+        PhobosKnockOutRulesDef rules = PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
+        if (!rules.turretPower || turret.def == null || turret.def.turretType == TurretType.Static) return WeaponDrive.None;
+        if (!Powered(Root(turret), rules)) return WeaponDrive.HandSwung;
+        if (comp.Props.loadout?.loads.Any(l => l.name == rules.turretDriveLoad) != true) return WeaponDrive.None;
+        Paces(comp, turret, out _, out _, out bool cranked);
+        return cranked ? WeaponDrive.HandCranked : WeaponDrive.Powered;
     }
 
     /// <summary>Whether the vehicle carries a weapon with a powered drive (and, with <paramref name="manned"/>, whether someone mans one).</summary>

@@ -1,5 +1,22 @@
 namespace Phobos.VehicleSystems;
 
+/// <summary>What one electrical load is doing now (Framework 0.117.0, for the Systems tab).</summary>
+public enum LoadState
+{
+    /// <summary>This vehicle does not have it (its fitted condition does not hold).</summary>
+    NotFitted,
+    /// <summary>Its switch is off.</summary>
+    SwitchedOff,
+    /// <summary>Switched off to save the battery while the charging fails.</summary>
+    Shed,
+    /// <summary>Ready, and not drawing because its work is not going on.</summary>
+    Idle,
+    /// <summary>Drawing on the battery.</summary>
+    Running,
+    /// <summary>Wanted, but the battery is flat.</summary>
+    NoPower,
+}
+
 /// <summary>Which way a vehicle's battery is going, for the inspect line (Framework 0.104.0). None: steady, full, or nothing worth saying.</summary>
 public enum ElectricalTrend
 {

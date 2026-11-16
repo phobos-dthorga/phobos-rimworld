@@ -5,6 +5,34 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.117.0] - 2026-11-17 - Draft
+
+The weapons, running gear, electrical loads and crew on the Systems tab
+
+### Added
+
+- **The Systems tab now shows the newer systems** (the owner's question, 17 Nov 2026: "Shouldn't much of the newer systems show in,
+  well, Systems?"). Until now they showed only as lines in the inspect panel. Four new cards:
+  - **Weapons**: each weapon with the part it stops with (rest the mouse on it to light it up on the vehicle), whether it is ready,
+    unmanned or out of action and why, how fast it works and why it is slow, and how it is turned (powered drive, cranked by hand, or
+    swung by hand).
+  - **Running gear**: a tank's tracks with their health, a thrown one named with the fix, and why the vehicle cannot move.
+  - **Electrical loads**: every load the vehicle has (lights, heaters, the turret drive, the winch, the tanker's pump, the Crawler's
+    instruments), saying whether it is running, standing by, switched off, cut to save the battery or without power. Engineer mode adds
+    each one's draw in amperes. Rest the mouse on one for what it does.
+  - **Crew**: a red card when people are aboard a burning vehicle or a dead hull, as the alert says.
+- The **Only what needs attention** tick box leaves only weapons that are out, slow or damaged, damaged tracks, loads that are cut or
+  without power, and a crew in danger.
+
+### Compatibility and limits
+
+- Display only: the cards read what the vehicle's systems already decide and change nothing. No settings changed. Not yet tested in
+  game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.116.1] - 2026-11-17 - Draft
 
 No conduit over a parked vehicle's own wiring
