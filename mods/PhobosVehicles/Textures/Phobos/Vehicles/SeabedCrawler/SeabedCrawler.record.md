@@ -1,6 +1,6 @@
 # Seabed Crawler textures: asset record
 
-Made on 11 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked by the owner (11 Nov 2026: attempt 3 as the base hull, attempts 1 and 4 as the two refits). The prompt is in `assets/phobos-vehicles/requests/seabed-crawler-pilot.json` and the review in `docs/development/vehicle-seabed-crawler-art.md`. The only reference uploaded was our own approved bulk tanker body, for style; no game or other author's art was uploaded or used as a reference.
+Made on 11 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality: **AI-generated**, picked by the owner (11 Nov 2026: attempt 3 as the base hull, attempts 1 and 4 as the two refits). The prompt is in `assets/phobos-vehicles/requests/seabed-crawler-pilot.json` and the review in `docs/development/vehicle-seabed-crawler.md`. The only reference uploaded was our own approved bulk tanker body, for style; no game or other author's art was uploaded or used as a reference.
 
 **Two steps by script, both free and both leaving the masters untouched:**
 

@@ -12,7 +12,7 @@ namespace Phobos.VehicleSystems;
 public readonly record struct TowGeometry(double HitchToAxle, double AxleToCentre, double JackKnife);
 
 /// <summary>
-/// Recovery (Framework 0.103.0; the recovery family of docs/development/vehicle-upgrade-families.md, built as one piece with the hitch's
+/// Recovery (Framework 0.103.0; the recovery family of docs/development/vehicle-upgrades-round-two.md, built as one piece with the hitch's
 /// recovery tow, owner, 12 Nov 2026). A vehicle with the recovery winch fitted can:
 /// <list type="bullet">
 /// <item><b>Winch</b> a stuck, broken or empty vehicle towards itself, a cell at a time at winch pace, while someone aboard works it, if

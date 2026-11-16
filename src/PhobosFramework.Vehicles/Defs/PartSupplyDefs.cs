@@ -20,7 +20,7 @@ public class RoleNote
 }
 
 /// <summary>
-/// What a vehicle's part of a role costs: to replace when destroyed (docs/development/vehicle-health-consequences.md), and, since
+/// What a vehicle's part of a role costs: to replace when destroyed (docs/development/vehicle-health-design.md), and, since
 /// Framework 0.95.0, to build (docs/development/parts-bills.md). It is the core's role supply with a repair's own figures added, so
 /// one table serves builds and repairs: the roles, our item or materials and the other mods' substitutes are the core's fields. The
 /// first Def that fits the part's role and the vehicle wins; one marked isDefault covers every part with no role of its own, by its

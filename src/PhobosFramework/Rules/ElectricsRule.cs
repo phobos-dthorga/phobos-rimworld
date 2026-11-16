@@ -4,7 +4,7 @@ namespace Phobos.Framework.Rules;
 
 /// <summary>
 /// A vehicle's electrics when the charging fails, game-free (Framework 0.106.0; cross-links round three G16 and avionics A5, A6;
-/// docs/development/vehicle-crosslinks-round-three.md, docs/development/vehicle-avionics.md). Every threshold is authored.
+/// docs/development/vehicle-crosslinks.md, docs/development/vehicle-avionics.md). Every threshold is authored.
 /// </summary>
 public static class ElectricsRule
 {

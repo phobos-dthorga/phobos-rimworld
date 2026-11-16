@@ -173,7 +173,7 @@
         </derivedFrom>
       </li>
       <li>
-        <!-- What the fluid can give the work (Framework 0.73.0, T1 of docs/development/vehicle-crosslinks-round-two.md): the same curve on the
+        <!-- What the fluid can give the work (Framework 0.73.0, T1 of docs/development/vehicle-crosslinks.md): the same curve on the
              fluid alone. The drill rig, the survey truck and the tipper read it to pace their hydraulic work, and stop below a fifth (the rules
              Def). The pump's health is left out on purpose: a damaged pump already slows the work through the vehicle's own work stat, and
              counting it here as well would count it twice. -->

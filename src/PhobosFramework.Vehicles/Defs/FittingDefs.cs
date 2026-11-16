@@ -180,7 +180,7 @@ public class PhobosVehicleFitSetDef : Def
 
 /// <summary>
 /// A family of fittings the player can order in one go or part by part (Framework 0.103.0; owner, 12 Nov 2026: "both";
-/// docs/development/vehicle-upgrade-families.md). Which vehicles a family suits follows from its fittings alone: it is offered wherever any
+/// docs/development/vehicle-upgrades-round-two.md). Which vehicles a family suits follows from its fittings alone: it is offered wherever any
 /// of them suits a part, by role and by what the vehicle is, never by a list of vehicles. Ordering the family orders each fitting on every
 /// part of this vehicle it suits and does not already carry, and switches on the electrical switches it names. Another mod adds its own in XML.
 /// </summary>

@@ -3,7 +3,7 @@ using System;
 namespace Phobos.Framework.Vehicles.Rules;
 
 /// <summary>
-/// What worn tread does to grip (T3 of docs/development/vehicle-crosslinks-round-two.md, Framework 0.73.0), game-free. Worn tyres hold
+/// What worn tread does to grip (T3 of docs/development/vehicle-crosslinks.md, Framework 0.73.0), game-free. Worn tyres hold
 /// less on soft and wet ground long before they fail on a road (common knowledge; no figure claimed). The points are authored: full grip
 /// new, 0.85 when the tread reads worn (60 %), 0.7 when worn through (90 %), 0.5 bald. The drivetrain multiplies the ground's grip by it,
 /// so worn tyres bog and spin in mud sooner and matter little on a road, where grip is rarely what limits.
@@ -31,7 +31,7 @@ public static class TreadRules
     public const double SoftestGrip = 0.3;
 
     /// <summary>
-    /// What a tyre built for soft ground adds to the ground's grip (all-terrain tyres, Framework 0.103.0; docs/development/vehicle-upgrade-families.md).
+    /// What a tyre built for soft ground adds to the ground's grip (all-terrain tyres, Framework 0.103.0; docs/development/vehicle-upgrades-round-two.md).
     /// A deep, open tread bites into mud and sand and does nothing on a firm road, where grip is rarely what limits. The tyre's
     /// <paramref name="softGroundFactor"/> applies in full on the softest going and fades to none on firm ground, in step with how soft the
     /// ground is. Authored: the shape is a gameplay simplification, and the factor is the fitting's (no figure claimed).

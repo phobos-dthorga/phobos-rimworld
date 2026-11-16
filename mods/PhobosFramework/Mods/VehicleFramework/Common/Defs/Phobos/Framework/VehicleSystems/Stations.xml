@@ -212,7 +212,7 @@
     </comps>
   </ThingDef>
 
-  <!-- A vehicle's home (owner, 9 Nov 2026; docs/development/vehicle-depot-bays.md). The bay itself is a fuel tank, a pump and a parts shelf; the pad in front of it is an outline, not a building, so it blocks nothing.
+  <!-- A vehicle's home (owner, 9 Nov 2026; docs/development/vehicle-stations.md). The bay itself is a fuel tank, a pump and a parts shelf; the pad in front of it is an outline, not a building, so it blocks nothing.
        Authored: its size, pad, pump, work speed, cost and power. -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosVehicles_DepotBay</defName>

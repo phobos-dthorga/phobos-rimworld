@@ -553,7 +553,7 @@ public sealed class VehicleFittings
         Add(new FitOrder { partKey = part.props.key, fitting = def }, quiet);
     }
 
-    // ---- Families (Framework 0.103.0; docs/development/vehicle-upgrade-families.md) ----
+    // ---- Families (Framework 0.103.0; docs/development/vehicle-upgrades-round-two.md) ----
 
     /// <summary>The families of fittings this vehicle can take, in their order: those with a fitting that suits one of its parts.</summary>
     public IEnumerable<PhobosVehicleFamilyDef> Families() =>

@@ -28,7 +28,7 @@ public sealed class FleetEntry
 }
 
 /// <summary>
-/// Finds every vehicle the player owns, wherever it is (docs/development/vehicle-garage-design.md). Runs only when the fleet board asks,
+/// Finds every vehicle the player owns, wherever it is (docs/development/vehicle-stations.md). Runs only when the fleet board asks,
 /// and nothing here runs while the board is closed.
 /// </summary>
 public static class FleetService

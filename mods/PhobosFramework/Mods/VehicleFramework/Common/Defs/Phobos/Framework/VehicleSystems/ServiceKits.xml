@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- Consumables as items (S4 of docs/development/vehicle-crosslinks-round-two.md; owner, 10 Nov 2026: agreed). The parts bench makes them
+  <!-- Consumables as items (S4 of docs/development/vehicle-crosslinks.md; owner, 10 Nov 2026: agreed). The parts bench makes them
        from exactly what each service took before, so nothing costs more; what changes is that a service needs the kit aboard, so a caravan
        carries kits and the colony keeps a stock. A save from before them keeps paying in raw materials until the player switches it off
        (GameComponent_PhobosServiceKits). Work, skill, mass and value are authored; value is near the materials' own. Each kit has a picture

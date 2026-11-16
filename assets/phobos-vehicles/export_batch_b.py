@@ -97,7 +97,7 @@ VEHICLES = {
             ('Tipper_BulkBody', [(pick('tipper-bulk-body', 2), (262, 712, 762, 2010))]),
         ],
     },
-    # The Crawler's places follow docs/development/vehicle-seabed-crawler-art.md, except the listening strips: the picked hull has its
+    # The Crawler's places follow docs/development/vehicle-seabed-crawler.md, except the listening strips: the picked hull has its
     # forward thrusters where the plan put them, so they sit along the flanks aft of the diving planes (agent, 12 Nov 2026).
     'SeabedCrawler': {
         'transform': 'SeabedCrawler.transform.json',

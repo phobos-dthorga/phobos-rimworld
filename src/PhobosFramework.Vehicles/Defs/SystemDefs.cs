@@ -831,7 +831,7 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float hitchReachCells = 8f;
     public float hitchUpWork = 900f;
     public float hitchGapCells = 0.3f;
-    /// <summary>Recovery (Framework 0.103.0; docs/development/vehicle-upgrade-families.md, RecoveryRule). The winch: its rated pull in
+    /// <summary>Recovery (Framework 0.103.0; docs/development/vehicle-upgrades-round-two.md, RecoveryRule). The winch: its rated pull in
     /// kilograms-force, the farthest it reaches in cells, the ticks it takes to pull a light load one cell (twice that at its limit), and the
     /// suction the softest ground adds as a share of the stuck vehicle's weight. The recovery tow: the heaviest vehicle towed as a multiple of
     /// the tractor's weight, the tow bar from the hitch to the towed vehicle's front in cells, and how far the towed vehicle may swing.</summary>

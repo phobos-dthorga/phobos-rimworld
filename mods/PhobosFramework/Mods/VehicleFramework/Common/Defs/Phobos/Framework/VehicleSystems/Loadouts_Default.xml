@@ -155,7 +155,7 @@
         </add>
       </li>
       <li>
-        <!-- Framework 0.103.0, the long range family (docs/development/vehicle-upgrade-families.md): a cradle for an auxiliary fuel tank,
+        <!-- Framework 0.103.0, the long range family (docs/development/vehicle-upgrades-round-two.md): a cradle for an auxiliary fuel tank,
              appended to every fuelled land vehicle and boat so the tank has a part to go on and is lost with it. Health and hit weights
              authored; it sits over the engine's cells so Combat Extended can reach it. -->
         <role>AuxTankMount</role>
@@ -224,7 +224,7 @@
         </add>
       </li>
       <li>
-        <!-- Framework 0.73.0 (T2 of docs/development/vehicle-crosslinks-round-two.md): one belt turns the water pump and the alternator on
+        <!-- Framework 0.73.0 (T2 of docs/development/vehicle-crosslinks.md): one belt turns the water pump and the alternator on
              most engines (secondary: Wikipedia, "Serpentine belt"). A worn or snapped one starves both: the coolant climbs and the battery
              drains together. Health and hit weights authored. -->
         <role>Belt</role>
@@ -289,7 +289,7 @@
         </add>
       </li>
       <li>
-        <!-- Framework 0.103.0, the work lights family (docs/development/vehicle-upgrade-families.md): a bracket on the cab roof or a mast
+        <!-- Framework 0.103.0, the work lights family (docs/development/vehicle-upgrades-round-two.md): a bracket on the cab roof or a mast
              for work lamps, appended to every land vehicle so the lamps have a part to go on and are lost with it. Health and hit weight
              authored, a light fixture's; it sits over the engine's cells so Combat Extended can reach it. -->
         <role>LampMount</role>

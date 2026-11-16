@@ -478,5 +478,5 @@ The questions as they were written:
   way; no figures used.
 - RimWorld 1.7 (Ludeon Studios), Vehicle Framework 1.6 build (Smash Phil), Field Tents (lordfelix): read from our decompiles,
   summarised in our own words.
-- Our own records: `vehicle-hitch-design.md`, `vehicle-trailer-research.md`, `vehicle-generator-set.md`, `vehicle-accessories.md`,
+- Our own records: `vehicle-hitch-design.md`, `vehicle-hitch-design.md`, `vehicle-generator-set.md`, `vehicle-accessories.md`,
   `utility-vehicles-design.md`, `military-vehicles-research.md`.

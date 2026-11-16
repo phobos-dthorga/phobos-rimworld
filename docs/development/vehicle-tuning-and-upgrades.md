@@ -244,4 +244,4 @@ The health goes through Vehicle Framework's own per-part health modifier (from t
 ## Sources
 
 - SmashPhil, Vehicle Framework 1.6 (`.local/decompiled/VehicleFramework-1.6/`) and its `develop` branch, MIT; read for research, not copied.
-- Our records: [vehicle health, slice 3](vehicle-health-consequences.md), [utility vehicles](utility-vehicles-design.md).
+- Our records: [vehicle health, slice 3](vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026), [utility vehicles](utility-vehicles-design.md).

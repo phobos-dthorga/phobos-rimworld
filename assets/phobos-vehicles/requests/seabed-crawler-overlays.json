@@ -17,7 +17,7 @@
       }
     ],
     "art_plan": {
-      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler.md",
       "node": "BottomingWheels",
       "place": "(-1, 2) and (2, 2), the flanks beside the sail; one picture, mirrored by script for port",
       "this_request": "BottomingWheels overlay part, north, drawn alone and fitted by script"
@@ -42,7 +42,7 @@
       }
     ],
     "art_plan": {
-      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler.md",
       "node": "Hydrophones",
       "place": "the flanks from z 1 to z 4; one picture, mirrored by script for port",
       "this_request": "Hydrophones overlay part, north, drawn alone and fitted by script"
@@ -67,7 +67,7 @@
       }
     ],
     "art_plan": {
-      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler.md",
       "node": "ActiveSonar",
       "place": "(0..1, 4), capping the bow tip",
       "this_request": "ActiveSonar overlay part, north, drawn alone and fitted by script"
@@ -92,7 +92,7 @@
       }
     ],
     "art_plan": {
-      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler.md",
       "node": "Manipulator (node not yet built)",
       "place": "(-1, 3), the port foredeck",
       "this_request": "Manipulator (node not yet built) overlay part, north, drawn alone and fitted by script"
@@ -117,7 +117,7 @@
       }
     ],
     "art_plan": {
-      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler.md",
       "node": "RadarMast (node not yet built)",
       "place": "(0..1, 2), the sail top; one picture, fitted per hull by script (attempt 4's sail sits further forward)",
       "this_request": "RadarMast (node not yet built) overlay part, north, drawn alone and fitted by script"
@@ -142,7 +142,7 @@
       }
     ],
     "art_plan": {
-      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler-art.md",
+      "vehicle": "Phobos_SeabedCrawler, footprint (4, 9), drawSize (5, 10); the part is fitted by script onto the base hull's 1024 x 2048 master (SeabedCrawler.transform.json), places per docs/development/vehicle-seabed-crawler.md",
       "node": "SeabedDrill (node not yet built)",
       "place": "(0..1, -1), the after-deck",
       "this_request": "SeabedDrill (node not yet built) overlay part, north, drawn alone and fitted by script"

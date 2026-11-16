@@ -25,7 +25,7 @@ public sealed class CompProperties_PhobosDepotBay : CompProperties
     public CompProperties_PhobosDepotBay() => compClass = typeof(CompPhobosDepotBay);
 }
 
-/// <summary>A vehicle's home (docs/development/vehicle-depot-bays.md): one vehicle to a bay, a pad it parks on, a pump that fuels it and a shelf for its parts. Buttons read this and call <see cref="DepotBays"/>.</summary>
+/// <summary>A vehicle's home (docs/development/vehicle-stations.md): one vehicle to a bay, a pad it parks on, a pump that fuels it and a shelf for its parts. Buttons read this and call <see cref="DepotBays"/>.</summary>
 public sealed class CompPhobosDepotBay : ThingComp
 {
     const float HoursPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerHour;

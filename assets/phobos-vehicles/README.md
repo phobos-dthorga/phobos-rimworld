@@ -71,7 +71,7 @@ The owner picked bench 3, engine 2 and diamond bit 3 from a pilot of each, and e
 
 Records: [the art night of 12 Nov 2026](requests/night-2026-11-12-record.md) (batch B, the Crawler's and survey truck's overlays),
 [round three](requests/round-three-record.md) (the Pintle trailer, the tipper's grab, the winch and the long-range tank) and
-[the Seabed Crawler's art record](../../docs/development/vehicle-seabed-crawler-art.md). Every shipped texture has its own record beside it.
+[the Seabed Crawler's art record](../../docs/development/vehicle-seabed-crawler.md#the-seabed-crawlers-picture-research-and-art-record-11-nov-2026). Every shipped texture has its own record beside it.
 
 | Request file | What | Engine | Run |
 | --- | --- | --- | --- |

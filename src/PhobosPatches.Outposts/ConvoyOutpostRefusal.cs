@@ -11,7 +11,7 @@ namespace Phobos.OutpostPatches;
 
 /// <summary>
 /// Refuses the outposts dialog's founding button for a caravan that holds a vehicle, unless the player has asked for the original
-/// behaviour (docs/development/vehicle-garage-design.md). What it stops, read from the code and not reproduced in game: founding adds the
+/// behaviour (docs/development/vehicle-stations.md). What it stops, read from the code and not reproduced in game: founding adds the
 /// outpost to the world and then offers it every pawn in the caravan; for a vehicle that reflects on a method Vehicle Framework's vehicles
 /// do not have, and throws, which leaves the outpost empty to be abandoned; and a caravan with no human left in its own list, which crew
 /// aboard a vehicle are not in, is destroyed.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <!-- Recovery (Framework 0.103.0): the recovery winch and the recovery tow. docs/development/vehicle-upgrade-families.md -->
+  <!-- Recovery (Framework 0.103.0): the recovery winch and the recovery tow. docs/development/vehicle-upgrades-round-two.md -->
   <PhobosRecovery_HitchGizmo>Hitch a trailer or vehicle</PhobosRecovery_HitchGizmo>
   <PhobosRecovery_HitchGizmoDesc>Choose a trailer, or a vehicle to tow home on the tow bar, standing within {CELLS} cells. A colonist walks over and couples it, and it is set straight behind this vehicle. Its weight, and everything in it, then adds to the weight the engine must pull.</PhobosRecovery_HitchGizmoDesc>
   <PhobosRecovery_WinchGizmo>Winch a vehicle</PhobosRecovery_WinchGizmo>

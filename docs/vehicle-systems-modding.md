@@ -345,7 +345,7 @@ cell or the tile, and the vehicle part registers Vehicle Framework's role handle
 reader for its own holder type the same way. A jump-start needs a `PhobosVehicleSystems_JumpStartKit` in stock or aboard when the
 player's setting says so (`JumpStarts.NeedsKit`), found through the core's `Phobos.Framework.Items.ItemFinder`.
 
-**From 0.18.0** (`docs/development/vehicle-crew-and-ground-design.md`):
+**From 0.18.0** (`docs/development/vehicle-world-map-design.md`):
 
 - **The ground on the world map.** A caravan's drivetrain reads the tile through the core's `Phobos.Framework.WorldMap.BiomeGround`:
   the biome's typical terrain (its `terrainsByFertility` entry at fertility 0.5), its `movementDifficulty`, the game's winter offset

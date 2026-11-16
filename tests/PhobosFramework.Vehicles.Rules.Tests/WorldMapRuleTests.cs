@@ -97,7 +97,7 @@ public class WorldMapRuleTests
     }
 }
 
-/// <summary>The caravan's ground by biome, road and winter (docs/development/vehicle-crew-and-ground-design.md).</summary>
+/// <summary>The caravan's ground by biome, road and winter (docs/development/vehicle-world-map-design.md).</summary>
 public class WorldGroundRuleTests
 {
     [Fact]

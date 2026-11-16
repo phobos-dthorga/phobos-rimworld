@@ -19,7 +19,7 @@
   ],
   "art_plan": {
    "vehicle": "Phobos_FlatbedTrailer, footprint (2, 5), drawSize (3, 6), 128 px per unit, so 384 x 768 in game; requested at 768 x 1536, 2 times the drawn length, above the owner's 1.5 times minimum",
-   "measured_against": "owner's list, 12 Nov 2026: no trailer is active on it (RimArrow's MAZ-837810 trailer, 3 x 10, is downloaded but not active; docs/development/vehicle-trailer-research.md). Our trucks that tow it: generator set 2 x 6 drawn 3 x 7, survey truck 3 x 7, tipper 3 x 8, tanker and drill rig 3 x 10. The trailer keeps its 2 x 5 footprint (owner, 11 Nov 2026: one medium flatbed), the generator set's width",
+   "measured_against": "owner's list, 12 Nov 2026: no trailer is active on it (RimArrow's MAZ-837810 trailer, 3 x 10, is downloaded but not active; docs/development/vehicle-hitch-design.md). Our trucks that tow it: generator set 2 x 6 drawn 3 x 7, survey truck 3 x 7, tipper 3 x 8, tanker and drill rig 3 x 10. The trailer keeps its 2 x 5 footprint (owner, 11 Nov 2026: one medium flatbed), the generator set's width",
    "this_request": "north base body only, the bare trailer: replaces the borrowed tipper body (owner's go, 12 Nov 2026)",
    "axle": "the follow rule puts the axle 0.2 cells behind the picture's middle (Vehicle_FlatbedTrailer.xml), so the two axles are a tandem pair just behind the middle",
    "overlays_planned_on_this_canvas": [

@@ -100,7 +100,7 @@ not applied), `scripts/query-code.py` and `scripts/query-patches.py`. "VF:n" is 
 - **A hit can already reach someone inside** (`VehicleStatHandler.HitPawn`, VF:12537; Combat Extended calls the same, CE:372). A hit
   landing on a seat's cells strikes one occupant with the seat's chance to hit (0.3 unless its author says otherwise, VF:20094), times
   1.25 on the seat's own cell, 1 or 0.75 on a neighbouring one. An outside hit reaches only seats marked exposed. **This answers G14
-  of [round three](vehicle-crosslinks-round-three.md), marked "read first" there.**
+  of [round three](vehicle-crosslinks.md#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026), marked "read first" there.**
 - A seat is chosen when its hit area holds the struck cell (`TrySelectHandler`, VF:12610). A seat whose author gives no hit area gets
   the vehicle's centre cell (`ComponentHitbox.Initialize`, VF:9735). **Every seat on our own vehicles gives its cab cells** (read from
   `mods/PhobosVehicles/Defs/Phobos/Vehicles/*/Vehicle_*.xml`, 16 Nov 2026), enclosed, at the default chance.

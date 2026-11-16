@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!--
-    What replacing a destroyed part costs, by the role the part plays (vehicle health slice 3, docs/development/vehicle-health-consequences.md;
+    What replacing a destroyed part costs, by the role the part plays (vehicle health slice 3, docs/development/vehicle-health-design.md;
     Framework 0.36.0). The owner's decisions of 9 Nov 2026: engines and transmissions cost the whole part by default, everything else
     a share of its materials, both settable in the mod settings; our parts always exist, and another mod's are accepted only where they
     make sense. Every figure and the mass classes are authored, held for the owner's review. The first Def that fits a part wins.

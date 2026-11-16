@@ -132,7 +132,7 @@ One row per unbuilt proposal that names another author's mod. The design stays i
 | Avionics A10, A11, A12 | Harrier, fixed-wing framework, VTOL Vehicle | Sight, night and evasion scale their figures | Agreed, hooks | Unchanged; A12 now also reads DMS fire control ([air defence](air-defence-tie-ins.md)) |
 | Avionics A13, A16 | InterRim Ballistic Missile, The Dead Man's Switch | Radar strike warning; countermeasures | Deferred; later | **Revisited** in the air-defence record: DMS Expedition's chaff and seekers change A16's premise |
 | Avionics L5 | Vanilla Vehicles Expanded Warbird and Smuggler | Piston loadout | Agreed | Unchanged |
-| [Round three](vehicle-crosslinks-round-three.md) G13 | Combat Extended | Ammunition aboard a burning vehicle cooks off | Agreed | Unchanged |
+| [Round three](vehicle-crosslinks.md#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026) G13 | Combat Extended | Ammunition aboard a burning vehicle cooks off | Agreed | Unchanged |
 | [Outstanding work](outstanding-work.md) V6 | RimThunder | APU upgrade node | Deferred | Unchanged: RimThunder Core declares 1.6 only |
 | Outstanding work W8 | Trains of the Rim | Steam upgrade tree; safety-valve sound | Deferred, mod dormant | Unchanged |
 | Outstanding work G5 | Crew Presets | Standing crews and convoys | Set aside | Unchanged |
@@ -144,12 +144,12 @@ One row per unbuilt proposal that names another author's mod. The design stays i
 | [Drill rig](vehicle-drill-rig.md), [survey truck](vehicle-survey-truck.md) | Dubs Bad Hygiene; Helixien | Water-well kit; a gas grid | Rejected or low | Unchanged |
 | [Generator set](vehicle-generator-set.md) | VOE Power Grid | Connect the set to its outlet | Noted | Unchanged |
 | [Vehicle accessories](vehicle-accessories.md) Y1-Y4, Y22 | Dubs Bad Hygiene; Vanilla Brewing Expanded; Field Tents; Use Bedrolls; VFE radios; Combat Extended spotlight; Tier 3 Hermano | Crew water and shower; hot drinks; swags and tents; radios from the outlet; fridge stands down | Not built | Unchanged; **Field Tents is active** (updated 9 Nov, replied 12 Nov), so the camp rows are on firmer ground |
-| [Berths](vehicle-berths.md) | Field Tents | Bunks in the caravan bed list | Answered | Unchanged |
+| [Berths](vehicle-accessories.md#sleeping-berths-roof-tents-cab-bunks-and-driving-through-the-night-13-nov-2026) | Field Tents | Bunks in the caravan bed list | Answered | Unchanged |
 | [Hotboxing](vehicle-hotboxing.md) | Drug mods, Ideology | Their smoked drugs through the smoke test | Not built | Unchanged |
 | [Parts bills](parts-bills.md) | Rimefeller synthamide and composite | Faired or insulated upgrade | Candidate | Unchanged |
 | [Factory additions](vfe-factory-additions.md) | Biological Warfare samples; Vanilla Pirates rumsuit; VAE medic bag; Dubs Bad Hygiene; Anomaly; Biotech; Smithy and DMS printers | Ports and ideas | Not done | Unchanged; Luciferium stays out (owner's choice) |
 | [Vaccines and prevention](vaccines-and-prevention.md) | Biological Warfare; Dubs Bad Hygiene; Combat Extended masks | Vaccines; hygiene against disease; masks against airborne disease | Record only | See SD20 |
-| [Workstation effects](workstation-environmental-effects.md) | Rimefeller, VFE Factory refiners, Combat Extended smoke | Workstation gases | Record only | Unchanged; SD8 makes any gas from them reach the right rooms |
+| [Workstation effects](ventilation-and-hydrogen.md#workstation-environmental-effects-design-7-nov-2026) | Rimefeller, VFE Factory refiners, Combat Extended smoke | Workstation gases | Record only | Unchanged; SD8 makes any gas from them reach the right rooms |
 | [Cross-map strikes](cross-map-strikes.md) | DMS Expedition; InterRim Ballistic Missile | Rules for our cross-map weapons | Proposals | **Joined by** the air-defence record |
 | [Radio design](radio-framework-design.md) | Many | Radio tie-ins | Unbuilt | Unchanged: the radio is on the back burner |
 

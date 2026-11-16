@@ -38,7 +38,7 @@ public static class CaravanRules
 /// <summary>
 /// The ground a caravan drives over, as a path cost the drivetrain's ground curves already read (soil 2, sand 4, soft sand and mud
 /// 14, marsh 30), from what the Framework's BiomeGround reads off the tile. Game-free; every figure is authored
-/// (docs/development/vehicle-crew-and-ground-design.md).
+/// (docs/development/vehicle-world-map-design.md).
 /// </summary>
 public static class WorldGroundRules
 {

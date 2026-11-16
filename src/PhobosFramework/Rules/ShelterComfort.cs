@@ -22,7 +22,7 @@ public enum ShelterStage
 /// <summary>
 /// The rule behind shelter thoughts, game-free: a pawn compares the temperature inside with their comfort range (the game's
 /// ComfyTemperatureMin and ComfyTemperatureMax stats, so genes, apparel and traits count), and is glad of a shelter only when it
-/// spares them weather outside that range. Thresholds are authored (docs/development/vehicle-crew-and-ground-design.md). The stage
+/// spares them weather outside that range. Thresholds are authored (docs/development/vehicle-world-map-design.md). The stage
 /// numbers match the order of a ThoughtDef's stages.
 /// </summary>
 public static class ShelterComfort

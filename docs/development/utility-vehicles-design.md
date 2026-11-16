@@ -97,7 +97,7 @@ vehicles the owner already drives. Our vehicles, their loadouts and art come aft
    labels, never the parts list.
 9. **Parts by role, from providers** (owner, 8 Nov 2026; **reversed by the owner on 9 Nov 2026:** our part items now always exist in
    D'thorga Framework and set repair costs, with other mods' accepted only where they make sense; see
-   [vehicle health, slice 3](vehicle-health-consequences.md). The text and table below are kept as written. **Refined by the owner on
+   [vehicle health, slice 3](vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026). The text and table below are kept as written. **Refined by the owner on
    11 Nov 2026:** a build asks for the installed mod's part where it suits and ours otherwise, through a [parts bill](parts-bills.md)
    worked out at start-up, which replaced the tanker's four patch folders in D'thorga Vehicles 0.41.0.) Vehicle Framework ships no part items (its ThingDefs are motes and the
    airdrop container; read 8 Nov 2026), so "VF parts by default" means its mechanics: components, upgrade trees, roles, reactors,
@@ -511,7 +511,7 @@ and fixed the two things that broke ([the dependency audit](dependency-audit-202
   (10 in the truck, 40 in the probe); the bare rig at 0.8 of a deep drill's rate; the generator set's sound enclosure cut; the tipper's
   base load 2,400 kg; a test of a stone load at a Rails and Roads site before any tipper code.
 - **Owner (9 Nov 2026):** vehicle parts are ours, other mods' accepted as substitutes only where it makes sense (the reversal of
-  principle 9, [vehicle health, slice 3](vehicle-health-consequences.md)).
+  principle 9, [vehicle health, slice 3](vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026)).
 - **Owner (8 Nov 2026):** every vehicle of ours fully upgradeable and extendable by its character, with the art planned around
   the tree; parts from Vehicle Framework by default, RimThunder's and Vanilla Vehicles Expanded's part items as soft dependencies,
   together or as replacements, our own replacements where neither is present; a fifth vehicle in full, a tanker that is liquid or

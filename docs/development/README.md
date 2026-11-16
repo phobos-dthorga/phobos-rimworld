@@ -41,8 +41,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 - [Vehicle systems](vehicle-systems-design.md) (8 Nov 2026): the schema-driven service for electrical, coolant, oil and more. Built.
 - [The vehicle tabs](vehicle-tabs-design.md) (8 Nov 2026): the Dashboard, Systems and Health tabs and their history graphs. Built.
-- [A pawn-like health model for vehicles](vehicle-health-design.md) (8 Nov 2026): conditions on Vehicle Framework's parts, slices 0 to 3. Built.
-- [Vehicle health, slice 3](vehicle-health-consequences.md) (8 Nov 2026): the danger clock, destroyed parts, field fixes. Built; wrecks not.
+- [A pawn-like health model for vehicles](vehicle-health-design.md) (8 Nov 2026): conditions on Vehicle Framework's parts, slices 0 to 3. Built; wrecks not.
 - [Knocked out, not destroyed](vehicle-knocked-out-systems.md) (16 Nov 2026): weapons, tracks, working gear and crew lost before a wreck. Partly built.
 - [How our vehicle features look](vehicle-presentation-design.md) (11 Nov 2026): the diagnosis report, fleet board, icons and graphs. Partly built.
 - [Other factions' vehicles: an audit](vehicle-other-factions-audit.md) (11 Nov 2026): every player-faction check against the owner's rule. Built.
@@ -55,22 +54,16 @@ research or design with nothing built; **living** means kept current by every ch
 - [Power and lift](vehicle-power-and-lift-design.md) (8 Nov 2026): many engines, rotor drives, thrust pods and diesel-electric. Built.
 - [Steam boilers](vehicle-steam-design.md) (8 Nov 2026): raising steam, safety valves and the fusible plug for Trains of the Rim. Built.
 - [Electric vehicles](vehicle-electric-design.md) (8 Nov 2026): traction batteries, the electric drive and charging. Built.
-- [The world map and the cab](vehicle-world-map-design.md) (8 Nov 2026): caravans, a closed cab's temperature, the night heater. Built.
-- [Vehicle follow-ups](vehicle-crew-and-ground-design.md) (8 Nov 2026): booster packs, the world map's ground, cab moods, RimHUD. Built.
+- [The world map and the cab](vehicle-world-map-design.md) (8 Nov 2026): caravans, cab climate, booster packs, ground and cab moods. Built.
 - [Avionics for every aircraft](vehicle-avionics.md) (13 Nov 2026): instruments, navigation, sensors and the avionics fit. Partly built.
 - [Sling loads](vehicle-sling-design.md) (11 Nov 2026): a helicopter carries a vehicle under it. Partly built; take-off owner-tested.
-- [Real figures for named vehicles](vehicle-real-figures-design.md) (8 Nov 2026): published power, weights and gearboxes per vehicle. Built.
-- [Kerb mass check](vehicle-kerb-mass-check.md) (8 Nov 2026): the 12 kg per Mass rule against every active vehicle. Built.
-- [Vehicle class by empty mass](vehicle-class-by-empty-mass.md) (16 Nov 2026): light, medium and heavy by empty mass. Record only.
+- [Real figures for named vehicles](vehicle-real-figures-design.md) (8 Nov 2026): power, weights, gearboxes; kerb mass; class by empty mass. Built.
 
 ### Upgrades and cross-links
 
 - [Vehicle tuning and upgrades](vehicle-tuning-and-upgrades.md) (9 Nov 2026): fittings, engine tunes and part grades for any vehicle. Built.
-- [Vehicle upgrades, round two](vehicle-upgrades-round-two.md) (11 Nov 2026): every vehicle's tree and a signature feature each. Partly built.
-- [Vehicle upgrade families](vehicle-upgrade-families.md) (12 Nov 2026): five families of fittings shared across many vehicles. Built.
-- [Vehicle system crosslinks](vehicle-system-crosslinks.md) (9 Nov 2026): eight links between the systems and a block heater. Built.
-- [Vehicle crosslinks, round two](vehicle-crosslinks-round-two.md) (10 Nov 2026): deeper chains, fittings and what the stations do. Partly built.
-- [Vehicle cross-links, round three](vehicle-crosslinks-round-three.md) (13 Nov 2026): the crew, weather, combat damage and hydraulics. Partly built.
+- [Vehicle upgrades, round two](vehicle-upgrades-round-two.md) (11 Nov 2026): every vehicle's tree, signature features, shared families. Partly built.
+- [Vehicle cross-links](vehicle-crosslinks.md) (9 to 13 Nov 2026): three rounds of links between systems, crew, weather and damage. Partly built.
 
 ### Utility vehicles, stations and trailers
 
@@ -79,23 +72,18 @@ research or design with nothing built; **living** means kept current by every ch
 - [The mobile drill rig](vehicle-drill-rig.md) (9 Nov 2026): drills the game's deep resource grid at its own rates. Built.
 - [The tipper hauler](vehicle-tipper-hauler.md) (9 Nov 2026): a high-capacity body and one tip job. Built.
 - [The mobile generator set](vehicle-generator-set.md) (9 Nov 2026): the Busbar, feeding a camp's grid when parked. Built; size and look owner-tested.
-- [Vehicle stations and the motor pool tab](vehicle-stations.md) (9 Nov 2026): the parts bench, the tuning rig and our Architect tab. Built.
-- [Home depot bays](vehicle-depot-bays.md) (9 Nov 2026): a vehicle's home bay, Go to bay, self-refuelling. Built.
-- [The vehicle garage and fleet tools](vehicle-garage-design.md) (8 Nov 2026): a staffed outpost that holds and repairs vehicles. Built.
+- [Vehicle stations](vehicle-stations.md) (8 to 9 Nov 2026): the parts bench, tuning rig, motor pool tab, depot bays and the garage. Built.
 - [Working trailers](vehicle-trailers.md) (13 Nov 2026): the shared base, the bowsers and a catalogue of nineteen trailers. Partly built.
-- [The hitch and the generic trailer](vehicle-hitch-design.md) (11 Nov 2026): our own hitch and a trailer any vehicle can tow. Partly built.
-- [Trailers that follow their tractor](vehicle-trailer-research.md) (11 Nov 2026): how RimThunder hitches and turns a trailer. Record only.
+- [The hitch and the generic trailer](vehicle-hitch-design.md) (11 Nov 2026): our own hitch, a trailer any vehicle tows, RimThunder's way. Partly built.
 - [The field kitchen trailer](vehicle-field-kitchen.md) (13 Nov 2026): Billy, the owner's kitchen on wheels. Record only.
 - [The prisoner transport trailer](vehicle-prisoner-transport.md) (13 Nov 2026): Stockade, the owner's cage trailer. Record only.
-- [Vehicle accessories](vehicle-accessories.md) (13 Nov 2026): a parked vehicle as the heart of a camp; Y1 to Y23. Record only.
-- [Sleeping berths](vehicle-berths.md) (13 Nov 2026): roof tents, cab bunks and driving through the night. Record only.
+- [Vehicle accessories](vehicle-accessories.md) (13 Nov 2026): a parked vehicle as the heart of a camp, Y1 to Y23, and sleeping berths. Record only.
 - [Hotboxing](vehicle-hotboxing.md) (12 Nov 2026): smoking in a vehicle's cab. Record only.
 
 ### Submarines and long range
 
 - [The submersibles framework](submarine-framework.md) (9 Nov 2026): diving, the reserve, and what still reaches a hull. Built.
-- [The Seabed Crawler](vehicle-seabed-crawler.md) (10 Nov 2026): Fathom, the research submarine, its upgrades, sonar and labs. Built.
-- [The Seabed Crawler's picture](vehicle-seabed-crawler-art.md) (11 Nov 2026): the hull and its six upgrade overlays. Built.
+- [The Seabed Crawler](vehicle-seabed-crawler.md) (10 Nov 2026): Fathom, the research submarine: upgrades, sonar, labs and its picture. Built.
 - [Striking another map](cross-map-strikes.md) (11 Nov 2026): DMS Expedition's lost shells and rules for our cross-map weapons. Record only.
 - [Air-defence tie-ins](air-defence-tie-ins.md) (13 Nov 2026): IRBM's and The Dead Man's Switch's radars against our aircraft. Partly built.
 - [Unique military vehicles and submarines](military-vehicles-research.md) (9 Nov 2026): real vehicles no mod covers yet. Record only.
@@ -124,15 +112,13 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Triage](triage.md) (6 Nov 2026): queueing life-saving surgery, classing conditions by effect. Built.
 - [Medical equipment](medical-equipment.md) (5 Nov 2026): bedside oxygen and the burn unit bed. Built.
 - [Medical equipment, second set](medical-equipment-2.md) (7 Nov 2026): the ventilator, steriliser and six more. Built.
-- [Ventilation and hydrogen](ventilation-and-hydrogen.md) (7 Nov 2026): the electrolyser's hydrogen and vents to clear it. Record only.
-- [Workstation environmental effects](workstation-environmental-effects.md) (7 Nov 2026): workstations giving off gases. Record only.
+- [Ventilation and hydrogen](ventilation-and-hydrogen.md) (7 Nov 2026): the electrolyser's hydrogen, vents, and workstation gases. Record only.
 - [Vaccines and prevention](vaccines-and-prevention.md) (7 Nov 2026): doctors preventing disease in healthy pawns. Record only.
 
 ## D'thorga Patches
 
 - [Vehicle patches](vehicle-patches.md) (2 Nov 2026): the Harrier beside RimPacts, bomb costs, castings, Spaceship Turret Hull. Built.
-- [Missile patches](missile-patches.md) (7 Nov 2026): IRBM's strategic warhead hang, RimPacts and Visit Settlements. Built.
-- [Strategic strike](strategic-strike.md) (7 Nov 2026): our model for the extinction-class warhead. Built.
+- [Missile patches](missile-patches.md) (7 Nov 2026): IRBM's strategic warhead hang and our strike model. Built.
 - [Fires on vehicles that never go out](vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix. Built; owner-tested.
 
 ## Factory Additions and Water Tap

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!--
-    Upgrade families (Framework 0.103.0; docs/development/vehicle-upgrade-families.md). The owner chose all five on 12 Nov 2026, each to be
+    Upgrade families (Framework 0.103.0; docs/development/vehicle-upgrades-round-two.md). The owner chose all five on 12 Nov 2026, each to be
     ordered as a whole in one go or part by part. A family names fittings only: which vehicles it suits follows from those fittings' roles
     and matches, never from a list of vehicles, and it sits beside another author's upgrade tree, never inside it. Ordering a family orders
     each fitting on every part of the vehicle it suits, and turns on the switches it names. Long range was part 2 of the batch and

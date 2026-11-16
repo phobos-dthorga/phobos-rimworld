@@ -184,6 +184,11 @@ a disagreement) is reversed. Version history lives in the changelogs. The faults
 
 ## Later, on the owner's word: merges, splits and archive
 
+**The owner's word, 17 Nov 2026:** "You may proceed with the merges, splits and archiving as necessary." **Merges done 17 Nov 2026**
+(all but the factory belts, which go with the splits): each absorbed record is a dated section of its new home under a line naming
+where it came from; the old files are deleted, and every link and plain mention in the repository, code and Def comments included,
+points to the new place. Git history keeps the old files.
+
 Each merge copies every record in as its own dated section, unchanged, under one current status line, so no record loses its
 original scope.
 

@@ -8,7 +8,7 @@ A research record. The owner, 13 November 2026: "One area I have seen that
 is lacking is with the avionics of aircraft, particularly with the Harrier, but this does apply to all aircraft that are part of my
 game, in general." It is the second of three records of the cross-links round three review. It follows
 [the authors' override contract](vehicle-author-overrides.md), whose `avionics` block it fills in, and is followed by [cross-links,
-round three](vehicle-crosslinks-round-three.md), which covers ground vehicles and boats.
+round three](vehicle-crosslinks.md#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026), which covers ground vehicles and boats.
 
 How to read it:
 
@@ -106,7 +106,7 @@ override contract asks for.
 | `Oxygen` | Crew oxygen for a high cruise | Basic | 2 A | Yes |
 
 - **Levels, not eras.** Round one set aside "era-specific electrics" because loadouts do not know an era
-  ([round one](vehicle-system-crosslinks.md)). Two levels say enough: a Warbird's gunsight is Basic, a Harrier's is Full.
+  ([round one](vehicle-crosslinks.md#vehicle-system-crosslinks-research-and-record-9-nov-2026)). Two levels say enough: a Warbird's gunsight is Basic, a Harrier's is Full.
 - **The amps replace the flat 15 A.** An aircraft's avionics draw is the sum of what it carries: a Mosquito about 4 A, a Harrier
   about 45 A. All authored; the direction is real (a radar is the heavy load).
 - **Where a capability sits.** On the author's own part where one suits (`Dashboard`, `Servos`, `Cockpit`), on our Harrier parts,
@@ -407,4 +407,4 @@ The questions as they were put:
 - **Our own records**: [the override contract](vehicle-author-overrides.md), [the turbine design](vehicle-turbine-design.md),
   [power and lift](vehicle-power-and-lift-design.md), [the Harrier patches](vehicle-patches.md),
   [Vehicle Framework mechanics](vehicle-framework-mechanics.md), [the sling](vehicle-sling-design.md),
-  [cross-links round one](vehicle-system-crosslinks.md) and [round two](vehicle-crosslinks-round-two.md).
+  [cross-links round one](vehicle-crosslinks.md#vehicle-system-crosslinks-research-and-record-9-nov-2026) and [round two](vehicle-crosslinks.md#vehicle-crosslinks-round-two-deeper-chains-more-fittings-and-what-the-stations-should-do-10-nov-2026).

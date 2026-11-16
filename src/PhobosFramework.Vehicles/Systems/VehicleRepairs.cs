@@ -38,7 +38,7 @@ public sealed class RepairWork
 
 /// <summary>
 /// The repairs of one player's vehicle that need more than Vehicle Framework's free repair (vehicle health, slice 3;
-/// docs/development/vehicle-health-consequences.md): replacing destroyed parts, serious conditions that need a service, and field
+/// docs/development/vehicle-health-design.md): replacing destroyed parts, serious conditions that need a service, and field
 /// fixes. Owned by the systems comp, which hauls their supplies and runs their work the way it does a service.
 /// </summary>
 public sealed class VehicleRepairs

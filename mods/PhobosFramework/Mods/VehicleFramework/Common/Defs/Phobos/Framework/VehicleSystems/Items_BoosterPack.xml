@@ -9,7 +9,7 @@
     pack weighs about 7 to 9 kg; 6 here). Its picture was made with gpt-image-2 (BoosterPack.record.md). Not yet tested in game.
 
     The recharge recipe makes a fresh pack from a part-used one, so the new pack is at full hit points: a small repair, judged not
-    worth code (docs/development/vehicle-crew-and-ground-design.md).
+    worth code (docs/development/vehicle-world-map-design.md).
   -->
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosVehicleSystems_BoosterPack</defName>

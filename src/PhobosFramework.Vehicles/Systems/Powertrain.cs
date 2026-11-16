@@ -652,7 +652,7 @@ public sealed class Powertrain
 
     /// <summary>
     /// A caravan's ground: the tile's biome (its typical terrain and difficulty), road and snow as a path cost through the same curves
-    /// a map cell uses, and the grade by hilliness (WorldGroundRules; docs/development/vehicle-crew-and-ground-design.md). Rails and
+    /// a map cell uses, and the grade by hilliness (WorldGroundRules; docs/development/vehicle-world-map-design.md). Rails and
     /// other running gear with their own surface keep it. Read once per tile and in-game hour (derived, never saved).
     /// </summary>
     void WorldGround(PlanetTile tile, out double rolling, out double grade, out double grip)

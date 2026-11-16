@@ -14,7 +14,7 @@ public enum GarageRepairLimit
 public readonly record struct GarageRepairBudget(float Points, int Steel, int Components, GarageRepairLimit Limit);
 
 /// <summary>
-/// The rules of a garage that holds and mends vehicles, game-free (docs/development/vehicle-garage-design.md). Every figure comes from
+/// The rules of a garage that holds and mends vehicles, game-free (docs/development/vehicle-stations.md). Every figure comes from
 /// the caller, which reads it from a Def; all of them are authored balance, not measurements.
 /// </summary>
 public static class GarageRule

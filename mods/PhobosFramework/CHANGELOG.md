@@ -9,6 +9,7 @@ tested in game unless an entry says the owner tested it.
 
 - The README no longer calls RimWorld 1.6 supported, marks the 0.107.0 and 0.108.0 notes on visible pipes as replaced by the hidden pipes of 0.108.1, and names the former medical mods as parts of D'thorga Medical. No change in play.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
+- Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 
 ## [0.118.0] - 2026-11-17 - Draft
 
@@ -765,7 +766,7 @@ Upgrade families: a whole family of fittings in one order, the cold-weather pack
 
 ### Added
 
-- **Families of fittings** (owner, 12 Nov 2026: a family can be ordered whole or part by part; docs/development/vehicle-upgrade-families.md). The fittings window has a new **Families** section above the parts. Each family's **Fit all** button orders every fitting of the family on every part of this vehicle it suits, as ordinary jobs for a mechanic, and the parts below still take each piece on its own. Resting the mouse on it lists the work, the materials and the hours; a family already on every part it suits is lit green, and one that cannot be ordered says why. Which vehicles a family suits follows from its fittings, never from a list of vehicles, and it sits beside another author's upgrade tree, never inside it.
+- **Families of fittings** (owner, 12 Nov 2026: a family can be ordered whole or part by part; docs/development/vehicle-upgrades-round-two.md). The fittings window has a new **Families** section above the parts. Each family's **Fit all** button orders every fitting of the family on every part of this vehicle it suits, as ordinary jobs for a mechanic, and the parts below still take each piece on its own. Resting the mouse on it lists the work, the materials and the hours; a family already on every part it suits is lit green, and one that cannot be ordered says why. Which vehicles a family suits follows from its fittings, never from a list of vehicles, and it sits beside another author's upgrade tree, never inside it.
 - **The cold-weather pack**: a block heater in every engine and a deep-cycle battery, with the night heater switched on.
 - **All-terrain tyres**, a new fitting for every wheeled vehicle and a family that fits them on every wheel at once: up to 35% more grip on the softest ground, fading to nothing on a firm road, so a truck bogs and spins in mud far less. They cost 5% of the speed everywhere and wear 15% faster.
 - **Work lights**: a lamp bracket on every land vehicle takes the new **work lamps** fitting, and a family fits them and switches them on. While the vehicle stands still at night the lamps light the ground round it with the game's own light, about 8 cells across, so anyone working there does so at the pace of daylight, and a drill rig counts them as its work lights. They draw on the battery when the engine is off, 10 A on a light vehicle and 5 A on a heavy one.
@@ -2392,7 +2393,7 @@ Tank compartments, for D'thorga Vehicles 0.15.0 (owner, 9 November 2026). **Not 
 
 ## [0.36.0] - 2026-11-09 - Draft
 
-What a badly damaged vehicle costs, and a parts framework of our own (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-consequences.md.
+What a badly damaged vehicle costs, and a parts framework of our own (owner, 9 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-health-design.md.
 
 ### Added
 
@@ -2714,7 +2715,7 @@ Electric vehicles (owner, 8 November 2026). **Not yet tested in game.** Design: 
 
 ## [0.19.0] - 2026-11-08 - Draft
 
-Kerb masses and the tabs after the owner's first look in game (8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-kerb-mass-check.md.
+Kerb masses and the tabs after the owner's first look in game (8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-real-figures-design.md.
 
 ### Added
 
@@ -2736,7 +2737,7 @@ Kerb masses and the tabs after the owner's first look in game (8 November 2026).
 
 ## [0.18.0] - 2026-11-08 - Draft
 
-The follow-ups to the world map and the tabs (owner's go, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-crew-and-ground-design.md.
+The follow-ups to the world map and the tabs (owner's go, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-world-map-design.md.
 
 ### Added
 

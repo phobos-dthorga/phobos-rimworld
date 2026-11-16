@@ -9,7 +9,7 @@ namespace Phobos.Framework.Vehicles.Rules;
 /// capacity reads through its own curve and the worst decides; a tired driver's fitness is multiplied by <see cref="TiredFactor"/>. The
 /// vehicle's stages turn fitness into a speed cap (Systems_Cabin.xml). The curves are authored, a gameplay choice: a one-eyed driver
 /// (sight about half) still drives near full pace, as monocular drivers do on real roads; consciousness counts in full, since a dulled
-/// driver is the commonest real case (NHTSA and the AAA Foundation, cited in docs/development/vehicle-crosslinks-round-three.md).
+/// driver is the commonest real case (NHTSA and the AAA Foundation, cited in docs/development/vehicle-crosslinks.md).
 /// </summary>
 public static class DriverRule
 {

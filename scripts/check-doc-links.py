@@ -11,7 +11,8 @@ import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
 
-LINK = re.compile(r"\[[^\]\n]*\]\((<[^>]+>|[^\s)]+)(?:\s+\"[^\"]*\")?\)")
+# Link text may run onto the next line (wrapped prose); a link left pointing at a merged-away record hid that way.
+LINK = re.compile(r"\[[^\]]{0,400}\]\((<[^>]+>|[^\s)]+)(?:\s+\"[^\"]*\")?\)")
 FENCE = re.compile(r"(?ms)^```.*?^```[^\n]*")
 HEADING = re.compile(r"^#{1,6}[ \t]+(.+?)[ \t#]*$", re.M)
 HTML_ANCHOR = re.compile(r"<a\s+(?:id|name)=\"([^\"]+)\"", re.I)

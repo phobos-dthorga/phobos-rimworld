@@ -24,7 +24,7 @@ public class PhobosGarageExtension : OutpostExtension
 }
 
 /// <summary>
-/// A staffed outpost that holds vehicles with no time limit and slowly mends them (docs/development/vehicle-garage-design.md). The outposts
+/// A staffed outpost that holds vehicles with no time limit and slowly mends them (docs/development/vehicle-stations.md). The outposts
 /// code refuses vehicles, so the garage keeps its own saved list and never offers them to AddPawn. Its vehicles are not ticked, so
 /// nothing about them changes while parked and they cost nothing per tick. All the rules are <see cref="GarageService"/>'s.
 /// </summary>

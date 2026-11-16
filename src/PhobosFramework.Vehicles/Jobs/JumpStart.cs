@@ -15,7 +15,7 @@ namespace Phobos.VehicleSystems;
 /// Jump-starts: finding a donor, a kit, a booster pack and a place to stand, on a map or in a caravan (the service the float menu and
 /// the caravan gizmo call). Two player settings (owner, 8 Nov 2026): the leads must be a crafted jump-start kit (default on), and every
 /// vehicle may be assumed to carry a booster pack, so no donor is needed (default off). A crafted booster pack with a start left serves
-/// without either (docs/development/vehicle-crew-and-ground-design.md).
+/// without either (docs/development/vehicle-world-map-design.md).
 /// </summary>
 public static class JumpStarts
 {

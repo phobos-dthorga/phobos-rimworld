@@ -10,7 +10,7 @@ using Verse;
 namespace Phobos.VehicleSystems;
 
 /// <summary>
-/// A diagnosis at a tuning rig (S1 of docs/development/vehicle-crosslinks-round-two.md; owner, 10 Nov 2026): the player asks for one, a
+/// A diagnosis at a tuning rig (S1 of docs/development/vehicle-crosslinks.md; owner, 10 Nov 2026): the player asks for one, a
 /// mechanic works at the vehicle within reach of a working rig, and a letter reports everything the gauges do not show: every part's
 /// state, grade and fitting, the tunes, every system's readings, every condition and the last day of the gauges. The finding is taken
 /// once as a <see cref="DiagnosisReport"/> and saved with the letter, which opens as a report window (0.78.0,

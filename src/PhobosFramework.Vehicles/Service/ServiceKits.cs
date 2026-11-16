@@ -4,7 +4,7 @@ namespace Phobos.VehicleSystems;
 
 /// <summary>
 /// Whether this colony's vehicle services still take raw materials rather than the kits made at the parts bench (S4 of
-/// docs/development/vehicle-crosslinks-round-two.md; owner, 10 Nov 2026). A colony begun after kits existed needs kits from the start;
+/// docs/development/vehicle-crosslinks.md; owner, 10 Nov 2026). A colony begun after kits existed needs kits from the start;
 /// a save from before them keeps paying in raw materials, so no service already due is stranded, until the player switches it off in
 /// the vehicle systems settings. Saved per colony; the settings window only shows and changes it through <see cref="SetRawAccepted"/>.
 /// </summary>

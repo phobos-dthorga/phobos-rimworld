@@ -5,7 +5,7 @@ using Verse;
 namespace Phobos.VehicleSystems;
 
 /// <summary>
-/// A vehicle's work lamps (the work lights family, Framework 0.103.0; docs/development/vehicle-upgrade-families.md). With the lamps fitted
+/// A vehicle's work lamps (the work lights family, Framework 0.103.0; docs/development/vehicle-upgrades-round-two.md). With the lamps fitted
 /// and their switch on, a vehicle standing still at night lights the ground round it through the game's own light: anyone working there
 /// does so at the pace light gives (the game's own work speed in the dark), and the drill rig counts as lit. The lamps draw on the
 /// vehicle's electrics as any load does, so with the engine off they run the battery down.

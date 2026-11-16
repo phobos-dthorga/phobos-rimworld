@@ -9,6 +9,7 @@ tested in game unless an entry says the owner tested it.
 
 - The README names what the owner has tested in game: the survey truck and its boom (9 November 2026) and the Busbar's size and look (13 November 2026). No change in play.
 - The README is cut to today's gotchas, a list of the vehicles linking the player guide, and links for modders; the how-to lives in the guide and the version notes in this changelog. No change in play.
+- Comments in the Defs and the Crawler's texture record name the design records they now live in, after the merges of 17 November 2026. No change in play.
 
 ## [0.57.0] - 2026-11-17 - Draft
 
@@ -515,7 +516,7 @@ The Seabed Crawler grows to 4 by 9 cells, and its picture is planned (owner, 11 
 
 ### Added
 
-- The Crawler's art record and the request for its first picture, docs/development/vehicle-seabed-crawler-art.md: the real boat from above, the six visible upgrades placed on the canvas before the first picture, the prompt and the costs. No picture is bought until the owner says so, and the Crawler still borrows the bulk tanker's picture.
+- The Crawler's art record and the request for its first picture, docs/development/vehicle-seabed-crawler.md: the real boat from above, the six visible upgrades placed on the canvas before the first picture, the prompt and the costs. No picture is bought until the owner says so, and the Crawler still borrows the bulk tanker's picture.
 
 ### Save compatibility
 
@@ -1039,7 +1040,7 @@ The Lightning as an electric van, with D'thorga Framework 0.20.0. **Not yet test
 
 ## [0.8.0] - 2026-11-08 - Draft
 
-Empty masses for Vanilla Vehicles Expanded, with D'thorga Framework 0.19.0 (owner's choice, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-kerb-mass-check.md.
+Empty masses for Vanilla Vehicles Expanded, with D'thorga Framework 0.19.0 (owner's choice, 8 November 2026). **Not yet tested in game.** Design: docs/development/vehicle-real-figures-design.md.
 
 ### Balance
 

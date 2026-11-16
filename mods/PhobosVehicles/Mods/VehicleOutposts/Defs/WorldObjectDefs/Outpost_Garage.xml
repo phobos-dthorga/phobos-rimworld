@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- The vehicle garage: a staffed outpost that holds vehicles with no time limit and mends them (docs/development/vehicle-garage-design.md).
+  <!-- The vehicle garage: a staffed outpost that holds vehicles with no time limit and mends them (docs/development/vehicle-stations.md).
        The class and the rules are D'thorga Framework's; every figure here is authored balance, for the owner to tune. The world-map icon
        is a stand-in: the game's caravan picture, until generated art is picked. -->
   <WorldObjectDef ParentName="OutpostBase">

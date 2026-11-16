@@ -13,7 +13,7 @@ of its mistakes were made once and written down. This record carries them over s
 marked and left behind. When this record was written no paid picture had been made for this project; since then the bulk
 tanker's body and overlays, the survey truck's body, the inspection pit and a set of icons have been bought under these rules
 (their records sit beside the textures and in `assets/phobos-vehicles/`), and the Seabed Crawler's is planned in
-[its art record](vehicle-seabed-crawler-art.md). The rules stand as written.
+[its art record](vehicle-seabed-crawler.md#the-seabed-crawlers-picture-research-and-art-record-11-nov-2026). The rules stand as written.
 
 ## Read this first (the rules)
 

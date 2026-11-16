@@ -15,7 +15,7 @@ public class MainButtonWorker_PhobosFleet : MainButtonWorker_ToggleTab
 }
 
 /// <summary>
-/// The fleet board: every vehicle the player owns, wherever it is, in one sortable list (docs/development/vehicle-garage-design.md).
+/// The fleet board: every vehicle the player owns, wherever it is, in one sortable list (docs/development/vehicle-stations.md).
 /// Presentation only. The list is a snapshot from <see cref="FleetService"/>, rebuilt on opening, on a refresh and a few times a game hour.
 /// From 0.79.0 (docs/development/vehicle-presentation-design.md, P2) each row shows the vehicle's picture, its fuel and worst part as gauges,
 /// and its state as the dashboard's check-engine lamp, so the fleet can be read without reading.

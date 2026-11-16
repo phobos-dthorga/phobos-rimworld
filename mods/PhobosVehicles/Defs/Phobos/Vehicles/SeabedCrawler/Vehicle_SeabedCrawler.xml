@@ -4,7 +4,7 @@
     The Seabed Crawler, the first real submarine (owner, 10 Nov 2026; docs/development/vehicle-seabed-crawler.md). The bare boat dives, hides and comes home; every other ability is an upgrade with its own research and part.
     Its own picture since Vehicles 0.38.0 (owner's pick, 11 Nov 2026), in house colours: grey-blue hull, muted orange band; the two hull refits swap it through Vehicle Framework's RetextureDef. Biggest boat on the owner's list: Vanilla Vehicles Expanded's Trawler, 2 x 5 drawn 3 x 6, so this is the largest. All figures authored.
     4 x 9 cells, drawn 5 x 10 (owner, 11 Nov 2026: "I want the players to feel the weight and size of it"; it was 3 x 8). The game gives a 4-wide hull the columns x -1 to 2 and a 9-long one z -4 to 4,
-    so the centreline runs between columns 0 and 1: internal parts sit on those two, flank parts on -1 and 2. The art plan is docs/development/vehicle-seabed-crawler-art.md.
+    so the centreline runs between columns 0 and 1: internal parts sit on those two, flank parts on -1 and 2. The art plan is docs/development/vehicle-seabed-crawler.md.
     Parts are saved by position: append only. Not yet tested in game.
   -->
   <Vehicles.VehicleDef ParentName="BaseSeaVehicle">

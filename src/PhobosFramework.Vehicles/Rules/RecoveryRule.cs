@@ -3,7 +3,7 @@ using System;
 namespace Phobos.Framework.Vehicles.Rules;
 
 /// <summary>
-/// Recovery, game-free (Framework 0.103.0, the recovery family of docs/development/vehicle-upgrade-families.md, built as one piece with the
+/// Recovery, game-free (Framework 0.103.0, the recovery family of docs/development/vehicle-upgrades-round-two.md, built as one piece with the
 /// hitch's recovery tow). A winch pulls a stuck vehicle towards the vehicle it is fitted to; whether it can is a balance of forces, in
 /// kilograms-force, the way recovery crews reckon it:
 /// <list type="bullet">

@@ -12,7 +12,7 @@
     the cab settles near 8), the cooler at 4 (in 40 outside, near 29), the night heater at 3 (in -10, near 7). A real diesel parking
     heater burns about 0.2 to 0.5 L an hour (approximate, general); 0.4 chemfuel an hour here. The rule tests hold these figures.
 
-    The heater runs off the engine's coolant (crosslinks 2 and 8, Framework 0.67.0; docs/development/vehicle-system-crosslinks.md): a car's
+    The heater runs off the engine's coolant (crosslinks 2 and 8, Framework 0.67.0; docs/development/vehicle-crosslinks.md): a car's
     heater is a small radiator on the coolant circuit, so it gives nothing until the engine is warm and nothing once the coolant is gone
     (secondary: Wikipedia, "Heater core"). Its pull scales from 0 at 30 degrees C coolant to full at 60 (authored), and with the water
     pump's health, which moves the coolant through it. Climate control heats through the same core. A vehicle with no liquid cooling
