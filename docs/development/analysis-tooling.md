@@ -203,6 +203,13 @@ hand-written script over eight copies.
 
 **Built, 9 Nov 2026 (phobos-modkit 1.4.0), at the owner's suggestion after a stack overflow left nothing in the log.** `python scripts/crash-dump.py` reads the newest RimWorld minidump, with no debugger or symbols: the exception, the thread, a call loop that ran away (how big one level is, how many times it repeats, whether every level held the same objects) and which modules the stack points at. A small dump cannot name .NET methods, so the report says how to get them. The first case is [the crash of 9 Nov](crash-2026-11-09-stack-overflow.md).
 
+### 10. The test pass
+
+**Built, 17 Nov 2026 (phobos-modkit 1.9.0, D'thorga Framework 0.118.0), at the owner's request:** passes seen in play rarely
+reached the test list. `python scripts/test-pass.py report` reads `docs/development/in-game-test-pass.md`, D'thorga Framework's
+seen-in-play notes (with its setting on) and the owner's verdicts from D'thorga Companion's Tests page; `apply --apply` writes them in.
+`config/test-evidence.json` ties each note to its rows. A note says a feature ran without an error, never that it looked right.
+
 ### Not proposed
 
 - **Performance in play** (milliseconds per tick) has no file we can read; the owner uses Dubs Performance

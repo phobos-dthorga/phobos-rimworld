@@ -1,5 +1,7 @@
 {
   "description": "Which 'seen in play' notes the game writes (D'thorga Framework's Seen.Note, with its setting on) stand as evidence for which rows of docs/development/in-game-test-pass.md. A note says a feature ran without an error, never that it looked right: a row it flags waits for the owner's word. tests/test_test_evidence.py holds every key here to a note in the source and every note in the source to a row.",
+  "doc": "docs/development/in-game-test-pass.md",
+  "game": "rimworld",
   "rows": {
     "120": ["vehicles.weapon-stopped-by-mount"],
     "121": ["vehicles.stopped-by-damage", "vehicles.track-thrown"],
