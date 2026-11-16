@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.115.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.116.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -17,6 +17,11 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 
 ## Read this first (gotchas)
 
+- **New in 0.116.0 (not yet tested in game):** a tank's turret can be **blown off** when its ammunition rack goes up (RimThunder's
+  tanks, while ammunition cook-off is on); the **Patch leaks** button is now **Field repairs** and also **re-fits a thrown track or a
+  wrecked wheel** to a quarter of its health, which still needs replacing properly; the tanker's **electric pump** upgrade pumps on the
+  battery with the engine off; and the **Seabed Crawler's laboratories, sonar and listening array draw on the battery**, the
+  laboratories switched off first when the charging fails.
 - **New in 0.115.0, with Vehicle Framework (not yet tested in game): vehicles give out before they are wrecks.** A weapon stops when its
   mount is at a tenth of its health or less, and slows as it is damaged or its gunner hurt; a destroyed track stops a tank; crews of
   other factions leave a burning vehicle or a dead hull, and a **Crew in danger** alert tells you about yours. On your vehicles a

@@ -5,7 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
-The owner's answers of 17 Nov 2026 to the knocked-out record's open rows, in steps.
+## [0.116.0] - 2026-11-17 - Draft
+
+The turret blown off, field-fitted tracks, an electric tanker pump and the Crawler's instruments on the battery (the owner's answers of
+17 Nov 2026 to the knocked-out record's open rows)
 
 ### Added
 
@@ -24,6 +27,22 @@ The owner's answers of 17 Nov 2026 to the knocked-out record's open rows, in ste
   laboratory about 25 amps while someone researches, the sonar about 30 standing by, the listening array about 5) and stops, saying why,
   when the battery is flat. When the charging fails, the laboratories are switched off first, then the sonar, the listening array last
   (the owner's order). Other factions' boats are not affected.
+
+### Compatibility and limits
+
+- New loads on the Systems tab: **electric pump** (a tanker with the upgrade), **laboratory**, **active sonar** and **listening array**
+  (the Crawler). Their draws are authored; no published figures were read.
+- The turret blown off acts only on tanks with a part named as an ammunition rack (RimThunder's), on every faction's, and only while
+  ammunition cook-off is on. Field re-fitting, the pump and the instruments act on your vehicles only.
+- No setting was added or given a new default; the **Field fixes** setting's description now mentions tracks and wheels, and the button
+  it governs is renamed **Field repairs**. Not yet tested in game.
+- Still waiting, at the owner's word: the gun stabiliser and sights losing power come with the aircraft air-defence batch; smoke in a
+  burning cab comes with hotboxing's cab air.
+
+### Save compatibility
+
+- Safe to add to a running game. A track or wheel re-fitted in the field is saved as such until it is replaced; without this version
+  it simply counts as an ordinary part again.
 
 ## [0.115.0] - 2026-11-17 - Draft
 

@@ -263,6 +263,20 @@ tested in game (in-game test pass, checks 120 to 125). Agent choices made while 
   patterns. Hand cranking: traverse 0.2, aim 0.5. A turret on a vehicle without the load (none in the owner's game) is never cranked.
 - **W4, W1:** `FeedSpec` on a fitting (load, quantity, engine); the winch's load is 150 A, never shed, fitted with the winch.
 
+## The owner's answers on the open rows, and what was built (17 Nov 2026)
+
+| Row | The owner's answer | Status |
+| --- | --- | --- |
+| T5, T6 stabiliser and sights | Yes, with the aircraft air-defence batch (one aiming hook) | Waits for that batch |
+| T8 turret blown off | Now, a small change | **Built: Framework 0.116.0.** Vehicle Framework's own reaction, subclassed to follow the cook-off setting and to be set off by a cook-off blast; only tanks with an ammunition rack part (RimThunder's) |
+| M3 field re-fit | Yes, to a quarter | **Built: Framework 0.116.0.** The field-fix button (now Field repairs), twice a patch's work; a re-fitted part stays on the replacement list and out of free repair until replaced (agent's choice: so one component never stands in for a track) |
+| W2 the Crawler's instruments | Laboratories first, then sonar, listening last | **Built: Framework 0.116.0.** Loads in the boat loadout at shed ranks 1, 2 and 4, fitted by stat, drawing only while each works |
+| W3 the tanker's pump | Either: engine by default, an electric upgrade | **Built: Framework 0.116.0, Vehicles 0.57.0.** The pump was already engine-driven (since 0.106.1, which this record had missed); the new node lets it set up and pump on the battery |
+| C3 cab smoke | Yes, with hotboxing | Waits for hotboxing's cab air |
+
+All built rows are not yet tested in game (checks 126 to 129). **Correction:** this record (W3) and the agent's card said the tanker's
+pump "runs on nothing"; it already needed the engine, through the shared set-up code.
+
 ## Who chose what
 
 - **Owner (16 Nov 2026):** the idea, the round, record only, all four areas, and the six answers above.

@@ -140,6 +140,10 @@ Not yet tested in game. A vehicle loses its jobs before it is a wreck, and every
 - **On your vehicles, a powered turret needs power.** The **turret drive** draws from the battery while someone mans it. With the
   battery flat, or the load shed when the charging fails, the crew **cranks it round by hand**: a fifth of the speed, aiming twice as
   slowly, but it never stops. Pintle and ring-mounted machine guns need no power. **Keep the engine running in a long fight.**
+- **A tank's turret can be blown off** when its ammunition rack goes up: a hit on a badly damaged rack, or ammunition cooking off in a
+  fire. Only tanks with an ammunition rack part (RimThunder's), and only while ammunition cook-off is on. The crew rarely survives.
+- **Field repairs** (the button that used to read Patch leaks) also **re-fits a thrown track or a wrecked wheel** with a component from
+  the cargo, back to a quarter of its health: enough to drive home slowly. It still needs replacing properly.
 - **Crews leave a burning vehicle or a dead hull** (one that can neither move nor fire). Raiders and other factions climb out by
   themselves, leaving the vehicle for you to claim. **Yours never leave on their own**: the **Crew in danger** alert lists them.
 
@@ -335,6 +339,8 @@ Not yet tested in game. Fit the **recovery winch** (the **Recovery** family in t
 - **Then tow it home**: with the winch fitted, **Hitch a trailer or vehicle** also takes an ordinary land vehicle up to 1.5 times your
   vehicle's weight. It follows on a tow bar like a trailer; anyone aboard rides along. **Undraft it first** so it rolls free. It has its
   own **Unhitch** button.
+- **The tanker's electric pump** (an upgrade) pumps with the engine off, on the battery, until it is flat; without it the pump runs
+  off the engine. **The Seabed Crawler's laboratories, sonar and listening array** also draw on the battery while they work.
 - **The winch runs on the battery** (about 150 amps while it pulls). It will not start on a flat battery, and a long pull that runs the
   battery flat stops it. **Run the engine while winching.**
 - **Another faction's vehicle** must be claimed first; then it can be winched out and towed home.

@@ -5,12 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.57.0] - 2026-11-17 - Draft
+
+An electric pump for the bulk tanker
+
 ### Added
 
 - **An electric pump upgrade for the Ullage bulk tanker** (with D'thorga Framework 0.116.0; owner, 17 Nov 2026). The pump runs off the
   engine as before; with the upgrade it can set up and pump with the engine off, on the battery, until the battery is flat. 20 steel,
   2 industrial components and 2,000 work (authored). Nothing shows on the body; its picture in the upgrade tree is the deep-cycle
   battery fitting's, reused.
+
+### Compatibility and limits
+
+- Needs D'thorga Framework 0.116.0. No settings changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game; the node is new and nothing it adds is saved beyond Vehicle Framework's own upgrade record.
 
 ## [0.56.2] - 2026-11-16 - Draft
 

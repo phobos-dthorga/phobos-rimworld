@@ -6,6 +6,8 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **Framework 0.116.0 and Vehicles 0.57.0 (17 Nov 2026): rows 126 to 129**, one install with 0.115.0's rows. Riskiest first: **127** (a
+  re-fitted track must not heal to full for free) and **126**.
 - **Knocked out, not destroyed (Framework 0.115.0, 17 Nov 2026): rows 120 to 125.** Riskiest first: **122** (crews bailing out) and **120**
   (weapons tied to mounts, on an old save: every armed vehicle gains a turret ring).
 - **Allies and empty vehicles (Patches 0.19.3, Framework 0.114.5, Vehicles 0.56.2, 16 Nov 2026): rows 118 and 119.**
@@ -211,6 +213,10 @@ result goes into that mod's changelog.
 | 123 | **Damage and a hurt gunner slow a weapon** (Framework 0.115.0) | Damage a turret's mount to about half, then put a gunner with a hurt eye or hand in it | It turns, aims and reloads visibly slower; the inspect pane says which weapon and why |
 | 124 | **Turret power** (Framework 0.115.0) | Man a tank's main gun with the engine off until the battery is flat (or set the charge to zero with the dev action) | The **turret drive** draws on the Systems tab; flat, the turret turns at a crawl and the inspect pane says "turned by hand, no power"; the top machine gun is unaffected |
 | 125 | **The winch on the battery** (Framework 0.115.0) | Flatten a truck's battery, then press **Winch a vehicle**; then start a pull with a charged battery and the engine off | Refused with the reason on a flat battery; a long pull with the engine off stops when the battery runs flat, and says why |
+| 126 | **The turret blown off** (Framework 0.116.0, with Combat Extended and cook-off on). **Use a copy of the save** | God mode: damage a RimThunder tank's ammunition rack to under a quarter and keep hitting it, or set it on fire with ammunition aboard | Now and then the rack goes up and the turret flies off; with cook-off off, it never does |
+| 127 | **Re-fitting a track in the field** (Framework 0.116.0) | Destroy a tank's track, put a component in its cargo, press **Field repairs** | A mechanic re-fits it to 25%; the tank drives; the track stays on the list for a proper replacement and free repair does not heal it further |
+| 128 | **The electric tanker pump** (Framework 0.116.0, Vehicles 0.57.0) | Fit the **electric pump** node, set up with the engine off and pump until the battery is flat | It sets up without the engine, pumps on the battery, then waits and says why; without the node it still needs the engine |
+| 129 | **The Crawler's instruments on the battery** (Framework 0.116.0) | In water with the engine off, research aboard and ping until the battery runs flat | Each stops with a reason; with the alternator lost and the engine running, the laboratory is switched off first |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 
