@@ -458,6 +458,17 @@
           </conditions>
         </when>
       </li>
+      <li>
+        <!-- Framework 0.115.0 (T3; owner, 16 Nov 2026): a powered turret draws while someone mans it, and is shed last, after the lights.
+             Authored draw: about a kilowatt on a 24-volt system for the drive's motors at moderate work; no published figure was read. -->
+        <name>turretDrive</name>
+        <label>turret drive</label>
+        <description>The motors that turn the turret and lay the gun, drawing while someone mans a powered weapon. Without power the crew cranks it round by hand, slowly.</description>
+        <amps>40</amps>
+        <shedOrder>7</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_HasPoweredWeapon" />
+        <when Class="Phobos.VehicleSystems.When_PoweredWeaponManned" />
+      </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
@@ -630,6 +641,17 @@
           </conditions>
         </when>
       </li>
+      <li>
+        <!-- Framework 0.115.0 (T3; owner, 16 Nov 2026): a powered turret draws while someone mans it, and is shed last, after the lights.
+             Authored draw: about a kilowatt on a 24-volt system for the drive's motors at moderate work; no published figure was read. -->
+        <name>turretDrive</name>
+        <label>turret drive</label>
+        <description>The motors that turn the turret and lay the gun, drawing while someone mans a powered weapon. Without power the crew cranks it round by hand, slowly.</description>
+        <amps>40</amps>
+        <shedOrder>7</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_HasPoweredWeapon" />
+        <when Class="Phobos.VehicleSystems.When_PoweredWeaponManned" />
+      </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
@@ -777,6 +799,17 @@
             </li>
           </conditions>
         </when>
+      </li>
+      <li>
+        <!-- Framework 0.115.0 (T3; owner, 16 Nov 2026): a powered turret draws while someone mans it, and is shed last, after the lights.
+             Authored draw: about a kilowatt on a 24-volt system for the drive's motors at moderate work; no published figure was read. -->
+        <name>turretDrive</name>
+        <label>turret drive</label>
+        <description>The motors that turn the turret and lay the gun, drawing while someone mans a powered weapon. Without power the crew cranks it round by hand, slowly.</description>
+        <amps>40</amps>
+        <shedOrder>7</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_HasPoweredWeapon" />
+        <when Class="Phobos.VehicleSystems.When_PoweredWeaponManned" />
       </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
@@ -1021,6 +1054,17 @@
             </li>
           </conditions>
         </when>
+      </li>
+      <li>
+        <!-- Framework 0.115.0 (T3; owner, 16 Nov 2026): a powered turret draws while someone mans it, and is shed last, after the lights.
+             Authored draw: about a kilowatt on a 24-volt system for the drive's motors at moderate work; no published figure was read. -->
+        <name>turretDrive</name>
+        <label>turret drive</label>
+        <description>The motors that turn the turret and lay the gun, drawing while someone mans a powered weapon. Without power the crew cranks it round by hand, slowly.</description>
+        <amps>40</amps>
+        <shedOrder>7</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_HasPoweredWeapon" />
+        <when Class="Phobos.VehicleSystems.When_PoweredWeaponManned" />
       </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>

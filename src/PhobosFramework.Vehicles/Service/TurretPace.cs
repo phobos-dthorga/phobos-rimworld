@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Phobos.Framework.Defs;
+using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using Vehicles;
@@ -78,11 +80,11 @@ public static class TurretPace
             pace.gunnerHurt = sight < 1 || hands < 1;
         }
 
-        double power = TurretPower.Pace(comp, turret, out bool cranked);
+        TurretPower.Paces(comp, turret, out double powerTraverse, out double powerAim, out bool cranked);
         pace.handCranked = cranked;
 
-        pace.traverse = (float)(damage * hands * power);
-        pace.aim = (float)(damage * sight * power);
+        pace.traverse = (float)(damage * hands * powerTraverse);
+        pace.aim = (float)(damage * sight * powerAim);
         pace.reload = (float)(damage * hands);
     }
 
@@ -140,12 +142,52 @@ public static class TurretPace
     }
 }
 
-/// <summary>A turret drive's power (step 5 fills this in; until then every drive has full power).</summary>
+/// <summary>
+/// A turret's power (Framework 0.115.0; owner, 16 Nov 2026; T3, T4): a powered turret is the electrical load "turret drive", drawing while
+/// someone mans it; with that load shed or the battery flat it is cranked by hand, slowly, never dead. Pintle and ring-mounted machine guns
+/// are swung by hand anyway. The player's vehicles only (the owner's choice): other factions' batteries do not evolve.
+/// </summary>
 public static class TurretPower
 {
-    public static double Pace(CompPhobosVehicleSystems comp, VehicleTurret turret, out bool handCranked)
+    const string ChargeQuantity = "charge";
+
+    /// <summary>The traverse and aiming paces the drive's power allows this weapon now.</summary>
+    public static void Paces(CompPhobosVehicleSystems comp, VehicleTurret turret, out double traverse, out double aim, out bool handCranked)
     {
+        traverse = aim = 1;
         handCranked = false;
-        return 1;
+        PhobosKnockOutRulesDef rules = PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
+        if (!rules.turretPower || comp.Tier != DetailTier.Full || !Powered(Root(turret), rules)) return;
+        if (comp.Props.loadout?.loads.Any(l => l.name == rules.turretDriveLoad) != true) return;
+        float charge = comp.TryGetQuantity(ChargeQuantity, out float c) ? c : 1f;
+        bool powered = TurretPowerRule.Powered(comp.LoadActive(rules.turretDriveLoad), charge, rules.batteryFlatBelow);
+        TurretPowerRule.Paces(powered, rules.handCrankTraversePace, rules.handCrankAimPace, out traverse, out aim);
+        handCranked = !powered;
     }
+
+    /// <summary>Whether the vehicle carries a weapon with a powered drive (and, with <paramref name="manned"/>, whether someone mans one).</summary>
+    public static bool AnyPowered(VehiclePawn vehicle, bool manned)
+    {
+        PhobosKnockOutRulesDef rules = PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
+        if (!rules.turretPower) return false;
+        var turrets = vehicle?.CompVehicleTurrets?.Turrets;
+        if (turrets == null) return false;
+        foreach (VehicleTurret turret in turrets)
+        {
+            if (turret.attachedTo != null || !Powered(turret, rules)) continue;
+            if (!manned || turret.IsManned) return true;
+        }
+        return false;
+    }
+
+    /// <summary>The weapon a mounted one rides on (a coaxial gun turns with its turret).</summary>
+    static VehicleTurret Root(VehicleTurret turret)
+    {
+        VehicleTurret root = turret;
+        while (root.attachedTo != null) root = root.attachedTo;
+        return root;
+    }
+
+    static bool Powered(VehicleTurret turret, PhobosKnockOutRulesDef rules) =>
+        turret.def != null && turret.def.turretType != TurretType.Static && !TurretPowerRule.HandSwung(turret.key, rules.handSwungTurretKeys);
 }

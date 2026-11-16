@@ -99,6 +99,18 @@ public class When_PoorVisibility : VehicleSystemCondition
     }
 }
 
+/// <summary>While the vehicle carries a weapon with a powered drive (Framework 0.115.0, T3): what the turret drive load needs to be fitted.</summary>
+public class When_HasPoweredWeapon : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => TurretPower.AnyPowered(context.Vehicle, manned: false);
+}
+
+/// <summary>While someone mans a weapon with a powered drive (Framework 0.115.0, T3): when the turret drive draws on the battery.</summary>
+public class When_PoweredWeaponManned : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => TurretPower.AnyPowered(context.Vehicle, manned: true);
+}
+
 /// <summary>While the vehicle is set up to work.</summary>
 public class When_SetUp : VehicleSystemCondition
 {

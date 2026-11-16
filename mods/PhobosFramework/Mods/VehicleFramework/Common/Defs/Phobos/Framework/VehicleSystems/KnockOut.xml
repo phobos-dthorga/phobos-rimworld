@@ -41,6 +41,26 @@
     <gunnerConditionSlowsWeapons>true</gunnerConditionSlowsWeapons>
     <hurtGunnerPaceFloor>0.5</hurtGunnerPaceFloor>
 
+    <!-- Step 5 (T3, T4): a powered turret is an electrical load, "turret drive", drawing while someone mans a powered weapon (the loadouts'
+         loads). With the load shed or the battery flat, the turret is cranked by hand (the owner's choice: never dead): turning at a fifth of
+         its speed and laying its gun twice as slowly (both authored). The US Army's Bradley course OD1609 says each of its turret drives can
+         be worked by handwheels; that hand cranking is the rule for every powered turret here is our assumption. The player's vehicles only:
+         other factions' batteries do not evolve (the owner's choice). Pintle and ring-mounted machine guns are swung by hand anyway and lose
+         nothing; they are found by these parts of their keys (authored, from the weapons in the owner's game). -->
+    <turretPower>true</turretPower>
+    <turretDriveLoad>turretDrive</turretDriveLoad>
+    <batteryFlatBelow>0.05</batteryFlatBelow>
+    <handCrankTraversePace>0.2</handCrankTraversePace>
+    <handCrankAimPace>0.5</handCrankAimPace>
+    <handSwungTurretKeys>
+      <li>M2HB</li>
+      <li>M240</li>
+      <li>topMG</li>
+      <li>supportMG</li>
+      <li>MountedTurret</li>
+      <li>pintle</li>
+    </handSwungTurretKeys>
+
     <!-- Step 3 (C2): a crew in a burning vehicle, or one that can neither move nor fire, gets out. The owner's choice: other factions' crews
          leave by themselves; the player's are never ordered out, and the player gets an alert. -->
     <crewsBailOut>true</crewsBailOut>

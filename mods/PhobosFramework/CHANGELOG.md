@@ -28,6 +28,12 @@ Knocked out, not destroyed: the owner's build of 17 Nov 2026 (docs/development/v
   hurt hands turns and reloads slower, down to half; a healthy gunner gives the weapon its full speed and no more. The inspect pane says
   which weapons are slowed and why. Every faction's weapons. Weapons in other mods' own turret classes (the Harrier's, VTOL Vehicle's,
   the BMP-1's) keep their own turning speed.
+- **A powered turret needs power, and without it is cranked by hand** (step 5: T3, T4). On your vehicles a powered weapon is a new
+  electrical load, the **turret drive**, drawing about 40 amps while someone mans it and shed last when the charging fails, after the
+  lights. With the load shed or the battery flat the crew cranks the turret round by hand: it turns at a fifth of its speed and lays its
+  gun twice as slowly, but never stops (the owner's choice). Pintle and ring-mounted machine guns are swung by hand anyway and lose
+  nothing. Other factions' turrets are not affected, as their batteries do not run down (the owner's choice). The inspect pane says
+  "turned by hand, no power".
 
 ## [0.114.5] - 2026-11-16 - Draft
 

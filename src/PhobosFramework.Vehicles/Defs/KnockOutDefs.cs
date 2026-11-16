@@ -46,6 +46,21 @@ public class PhobosKnockOutRulesDef : PhobosRulesDef
     /// <summary>The slowest a hurt gunner makes a weapon: their sight paces the aim, their hands the traverse and the reload.</summary>
     public float hurtGunnerPaceFloor = 0.5f;
 
+    // ---- Turret power (step 5: T3, T4) ----
+
+    /// <summary>Off: a turret never loses power, and no turret drive draws on the battery.</summary>
+    public bool turretPower = true;
+    /// <summary>The electrical load that drives the turrets (in the loadouts' loads).</summary>
+    public string turretDriveLoad = "turretDrive";
+    /// <summary>Below this share of charge the battery is flat, and gives the turret drive nothing.</summary>
+    public float batteryFlatBelow = 0.05f;
+    /// <summary>A turret with no power is cranked by hand (owner, 16 Nov 2026: never dead): it turns at this share of its powered speed,
+    /// and lays its gun this much slower.</summary>
+    public float handCrankTraversePace = 0.2f;
+    public float handCrankAimPace = 0.5f;
+    /// <summary>Weapons swung by hand anyway, by a part of their key: pintle and ring-mounted machine guns, which need no power.</summary>
+    public List<string> handSwungTurretKeys = new();
+
     // ---- The crew (step 3: C2) ----
 
     /// <summary>Off: no crew leaves by itself and the player gets no alert; Vehicle Framework's own rules stand.</summary>
