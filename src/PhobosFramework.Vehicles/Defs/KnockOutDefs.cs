@@ -61,6 +61,13 @@ public class PhobosKnockOutRulesDef : PhobosRulesDef
     /// <summary>Weapons swung by hand anyway, by a part of their key: pintle and ring-mounted machine guns, which need no power.</summary>
     public List<string> handSwungTurretKeys = new();
 
+    // ---- Field re-fitting a track or wheel (0.116.0: M3) ----
+
+    /// <summary>A destroyed track or wheel re-fitted in the field comes back to this share of its health (owner, 17 Nov 2026: a quarter).</summary>
+    public float fieldRefitHealth = 0.25f;
+    /// <summary>Re-fitting takes this many times a field patch's work: a track is heavy to drag back on.</summary>
+    public float fieldRefitWorkFactor = 2f;
+
     // ---- The turret blown off (0.116.0: T8) ----
 
     /// <summary>Off: no ammunition rack blows a turret off (an author's own reaction still stands).</summary>

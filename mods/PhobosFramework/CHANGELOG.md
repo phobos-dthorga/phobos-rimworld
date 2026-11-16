@@ -13,6 +13,10 @@ The owner's answers of 17 Nov 2026 to the knocked-out record's open rows, in ste
   (RimThunder's), a hit on a badly damaged rack sets it off one time in four, and a cook-off blast in the vehicle three times in ten; the
   turret flies off and the crew rarely survives. It follows the ammunition cook-off setting, so it is off wherever that is off. Every
   faction's tanks.
+- **A thrown track or a wrecked wheel can be re-fitted in the field** (M3). The **Patch leaks** button is now **Field repairs**: a
+  mechanic also re-fits a destroyed track or wheel with a component from the cargo, back to a quarter of its health (the owner's figure),
+  enough to drive home slowly. It still needs replacing properly, and until then free repair cannot heal it further, so one component never
+  stands in for a whole track. The **Field fixes** setting's description now mentions it; its default is unchanged.
 
 ## [0.115.0] - 2026-11-17 - Draft
 

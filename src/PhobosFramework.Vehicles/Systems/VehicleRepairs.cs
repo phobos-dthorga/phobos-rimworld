@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework.Defs;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
@@ -48,13 +49,29 @@ public sealed class VehicleRepairs
     int cachedCostStamp = -1;
     Dictionary<string, string>? roleOfKey;
     bool fieldFixRequested;
+    // Tracks and wheels re-fitted in the field (Framework 0.116.0, M3): they stay waiting for a proper replacement, so Vehicle Framework's
+    // free repair cannot heal one past its field fit and a single component never stands in for a whole track. Saved: it is the player's work.
+    HashSet<string> refitted = new();
 
     public VehicleRepairs(CompPhobosVehicleSystems comp)
     {
         this.comp = comp;
     }
 
-    public void ExposeData() => Scribe_Values.Look(ref fieldFixRequested, "PhobosVehicleSystems_FieldFixRequested", false);
+    public void ExposeData()
+    {
+        Scribe_Values.Look(ref fieldFixRequested, "PhobosVehicleSystems_FieldFixRequested", false);
+        Scribe_Collections.Look(ref refitted, "PhobosVehicleSystems_FieldRefitted", LookMode.Value);
+        refitted ??= new HashSet<string>();
+    }
+
+    /// <summary>A destroyed track or wheel a mechanic can re-fit in the field (Framework 0.116.0; owner, 17 Nov 2026: back to a quarter).</summary>
+    bool RefittableGear(VehicleComponent part) =>
+        part.Health <= 0f && (comp.Props.trackKeys.Contains(part.props.key) || part.props.tags?.Contains("Wheel") == true);
+
+    /// <summary>Whether there is field work to ask for: a condition to patch or a track or wheel to re-fit.</summary>
+    bool AnyFieldWork() =>
+        comp.Conditions.All.Any(CanFieldFix) || (comp.Vehicle.statHandler?.components.Any(RefittableGear) ?? false);
 
     static VehicleSystemsSettings Settings => VehicleSystemsMod.Settings;
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
@@ -160,7 +177,7 @@ public sealed class VehicleRepairs
     /// <summary>Whether a destroyed part waits for supplies, so Vehicle Framework's free repair must leave it alone.</summary>
     public bool PartBlocked(VehicleComponent part)
     {
-        if (part.Health > 0f || !Settings.destroyedPartsNeedSupplies || !PlayersVehicle) return false;
+        if ((part.Health > 0f && !refitted.Contains(part.props.key)) || !Settings.destroyedPartsNeedSupplies || !PlayersVehicle) return false;
         return ReplacementOptions(part, out _).Count > 0;
     }
 
@@ -191,12 +208,13 @@ public sealed class VehicleRepairs
         if (!PlayersVehicle || comp.Vehicle.statHandler == null) return pending;
         _ = comp.States;    // the conditions' stages are worked out with the systems'
         // A request outlives nothing it was for: once no condition can be patched, the next one must wait to be asked for.
-        if (fieldFixRequested && !comp.Conditions.All.Any(CanFieldFix)) fieldFixRequested = false;
+        if (fieldFixRequested && !AnyFieldWork()) fieldFixRequested = false;
         if (Settings.destroyedPartsNeedSupplies)
         {
             foreach (VehicleComponent part in comp.Vehicle.statHandler.components)
             {
-                if (part.Health > 0f) continue;
+                // A part re-fitted in the field still waits for its proper replacement (M3).
+                if (part.Health > 0f && !refitted.Contains(part.props.key)) continue;
                 List<List<(ThingDef def, int count)>> options = ReplacementOptions(part, out float work);
                 if (options.Count == 0) continue;
                 PhobosVehiclePartGradeDef grade = comp.Fittings.GradeForReplacement(part.props.key);
@@ -227,6 +245,22 @@ public sealed class VehicleRepairs
                 {
                     Key = "fix/" + def.defName + "/" + condition.partKey, Kind = RepairKind.FieldFix, Condition = condition, Part = part, Work = Rules.fieldFixWork,
                     Label = "PhobosVehicleSystems_RepairFieldFix".Translate((part?.props.label ?? condition.partKey).Named("PART")).Resolve(),
+                };
+                repair.Options.Add(Rules.fieldFixSupplies.Select(s => (s.thingDef, s.count)).ToList());
+                pending.Add(repair);
+            }
+        }
+        // A destroyed track or wheel re-fitted in the field, enough to drive home on (Framework 0.116.0, M3).
+        if (Settings.fieldFixes && (fieldFixRequested || !comp.Vehicle.Spawned))
+        {
+            foreach (VehicleComponent part in comp.Vehicle.statHandler.components)
+            {
+                if (!RefittableGear(part)) continue;
+                var repair = new RepairWork
+                {
+                    Key = "refit/" + part.props.key, Kind = RepairKind.FieldFix, Part = part,
+                    Work = Rules.fieldFixWork * PhobosRulesDef.Current<PhobosKnockOutRulesDef>().fieldRefitWorkFactor,
+                    Label = "PhobosVehicleSystems_RepairFieldRefit".Translate(part.props.label.Named("PART")).Resolve(),
                 };
                 repair.Options.Add(Rules.fieldFixSupplies.Select(s => (s.thingDef, s.count)).ToList());
                 pending.Add(repair);
@@ -267,7 +301,7 @@ public sealed class VehicleRepairs
     /// <summary>A condition a colonist can patch: a kind that can be, not yet patched, and above its mildest stage.</summary>
     public static bool CanFieldFix(VehicleCondition condition) => condition.def!.fieldFixable && !condition.fieldFixed && condition.stage > 0;
 
-    public bool AnyFieldFixable => Settings.fieldFixes && PlayersVehicle && comp.Conditions.All.Any(CanFieldFix);
+    public bool AnyFieldFixable => Settings.fieldFixes && PlayersVehicle && AnyFieldWork();
 
     public bool FieldFixRequested => fieldFixRequested;
 
@@ -375,6 +409,7 @@ public sealed class VehicleRepairs
             case RepairKind.ReplacePart:
                 comp.Fittings.FinishReplacement(repair.Part!);
                 comp.Conditions.RemoveOn(repair.Part!.props.key);    // a new part has none of the old one's troubles
+                refitted.Remove(repair.Part!.props.key);             // nor the field fit's
                 // At a tuning rig, its hoist and instruments fit the part properly (S2, Framework 0.73.0); in the field it is a rough fit.
                 comp.RestorePart(repair.Part!, comp.Fittings.NearRig() ? Rules.replacedPartHealthAtRig : Rules.replacedPartHealth);
                 NotifyRepairable();
@@ -388,13 +423,22 @@ public sealed class VehicleRepairs
                 text = comp.Fittings.Complete(repair.Order!, mechanic);
                 break;
             default:
+                if (repair.Condition == null && repair.Part != null)
+                {
+                    // A track or wheel re-fitted in the field (M3): back to the owner's quarter, still waiting for a proper replacement.
+                    comp.RestorePart(repair.Part, PhobosRulesDef.Current<PhobosKnockOutRulesDef>().fieldRefitHealth);
+                    refitted.Add(repair.Part.props.key);
+                    NotifyRepairable();
+                    text = "PhobosVehicleSystems_RepairFieldRefitted".Translate(who, vehicle, repair.Part.props.label.Named("PART")).Resolve();
+                    break;
+                }
                 comp.Conditions.FieldFix(repair.Condition!);
                 text = "PhobosVehicleSystems_RepairFieldFixed".Translate(who, vehicle, (repair.Part?.props.label ?? "").Named("PART")).Resolve();
                 break;
         }
         comp.AfterRepair();
         Invalidate();
-        if (fieldFixRequested && !comp.Conditions.All.Any(CanFieldFix)) fieldFixRequested = false;
+        if (fieldFixRequested && !AnyFieldWork()) fieldFixRequested = false;
         VehicleNotices.Send(text, comp.Vehicle.Spawned ? comp.Vehicle : LookTargets.Invalid, MessageTypeDefOf.TaskCompletion);
         return true;
     }

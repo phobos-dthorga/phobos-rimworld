@@ -291,14 +291,16 @@
   <PhobosVehicleSystems_RepairNeedsOr>{WORK}: needs {SUPPLIES} in its cargo, or one of these instead: {OTHERS}.</PhobosVehicleSystems_RepairNeedsOr>
   <PhobosVehicleSystems_RepairReplaced>{MECHANIC} fitted a new {PART} to the {VEHICLE}.</PhobosVehicleSystems_RepairReplaced>
   <PhobosVehicleSystems_RepairFieldFixed>{MECHANIC} patched the {PART} on the {VEHICLE}. It will hold for now, until it is properly repaired.</PhobosVehicleSystems_RepairFieldFixed>
+  <PhobosVehicleSystems_RepairFieldRefit>re-fitting the {PART}</PhobosVehicleSystems_RepairFieldRefit>
+  <PhobosVehicleSystems_RepairFieldRefitted>{MECHANIC} re-fitted the {PART} on the {VEHICLE}. It will carry it home, slowly, but needs replacing properly.</PhobosVehicleSystems_RepairFieldRefitted>
   <PhobosVehicleSystems_HealthClock>{QUANTITY} {STAGE} in {TIME}</PhobosVehicleSystems_HealthClock>
   <PhobosVehicleSystems_HealthClockEmpty>empty</PhobosVehicleSystems_HealthClockEmpty>
   <PhobosVehicleSystems_HealthClockHours>about {HOURS} hours</PhobosVehicleSystems_HealthClockHours>
   <PhobosVehicleSystems_HealthClockUnderHour>under an hour</PhobosVehicleSystems_HealthClockUnderHour>
   <PhobosVehicleSystems_HealthFieldFixed>patched in the field</PhobosVehicleSystems_HealthFieldFixed>
   <PhobosVehicleSystems_HealthNeedsService>needs {SERVICE}</PhobosVehicleSystems_HealthNeedsService>
-  <PhobosVehicleSystems_RequestFieldFix>Patch leaks</PhobosVehicleSystems_RequestFieldFix>
-  <PhobosVehicleSystems_RequestFieldFixDesc>Have a mechanic patch this vehicle's leaks and shorts with a component from its cargo. A patch slows the damage so it can limp home; it does not repair the part, and it can only be done once.</PhobosVehicleSystems_RequestFieldFixDesc>
+  <PhobosVehicleSystems_RequestFieldFix>Field repairs</PhobosVehicleSystems_RequestFieldFix>
+  <PhobosVehicleSystems_RequestFieldFixDesc>Have a mechanic patch this vehicle's leaks and shorts, and re-fit a thrown track or a wrecked wheel, with a component from its cargo each. A patch slows the damage so it can limp home, and a re-fitted track or wheel carries it home slowly; neither is a proper repair, and a re-fitted part still needs replacing.</PhobosVehicleSystems_RequestFieldFixDesc>
   <PhobosVehicleSystems_CaravanRepair>Repair {VEHICLE}</PhobosVehicleSystems_CaravanRepair>
   <PhobosVehicleSystems_CaravanRepairMoving>The caravan has to stop first.</PhobosVehicleSystems_CaravanRepairMoving>
   <PhobosVehicleSystems_CaravanRepairNoMechanic>Nobody in the caravan can do construction work.</PhobosVehicleSystems_CaravanRepairNoMechanic>
@@ -424,7 +426,7 @@
   <PhobosVehicleSystems_GradeDone>{MECHANIC} refitted the {VEHICLE}'s {PART} with a {GRADE} part.</PhobosVehicleSystems_GradeDone>
   <PhobosVehicleSystems_RepairReplaceGraded>replacing the {PART} with a {GRADE} part</PhobosVehicleSystems_RepairReplaceGraded>
   <PhobosVehicleSystems_SettingFieldFixes>Field fixes</PhobosVehicleSystems_SettingFieldFixes>
-  <PhobosVehicleSystems_SettingFieldFixesDesc>Colonists can patch leaks and shorts away from a base, using a component.</PhobosVehicleSystems_SettingFieldFixesDesc>
+  <PhobosVehicleSystems_SettingFieldFixesDesc>Colonists can patch leaks and shorts, and re-fit a thrown track or a wrecked wheel, away from a base, using a component.</PhobosVehicleSystems_SettingFieldFixesDesc>
   <PhobosVehicleSystems_HealthCondition>{CONDITION}: {STAGE}</PhobosVehicleSystems_HealthCondition>
   <PhobosVehicleSystems_HealthConditionFigure>{CONDITION}: {STAGE} ({SEVERITY})</PhobosVehicleSystems_HealthConditionFigure>
   <PhobosVehicleSystems_HealthReactorExplosive>Can explode when badly damaged.</PhobosVehicleSystems_HealthReactorExplosive>

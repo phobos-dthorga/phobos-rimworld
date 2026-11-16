@@ -61,6 +61,12 @@
       <li>pintle</li>
     </handSwungTurretKeys>
 
+    <!-- 0.116.0 (M3; owner, 17 Nov 2026: back to a quarter): a mechanic re-fits a destroyed track or wheel in the field with the field-patch
+         supplies, through the Field repairs button. It stays waiting for a proper replacement, so free repair cannot heal it further. Twice
+         a patch's work (authored). -->
+    <fieldRefitHealth>0.25</fieldRefitHealth>
+    <fieldRefitWorkFactor>2</fieldRefitWorkFactor>
+
     <!-- 0.116.0 (T8; owner, 17 Nov 2026: "yes, with cook-off"): Vehicle Framework's own turret-blown-off reaction on a tank's ammunition
          rack, aimed at its main weapon. It follows the ammunition cook-off setting (off wherever that is off). A hit on the rack at or under
          a quarter of its health sets it off one time in four, and a cook-off blast in the vehicle three times in ten (all authored). It
