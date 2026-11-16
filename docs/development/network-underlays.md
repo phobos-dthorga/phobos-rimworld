@@ -210,6 +210,13 @@ ours replaced this way counts as removed by the player: it is the player's from 
 The owner asked whether our pieces should block building and chose to keep the convention ("I'd rather follow what already happens
 elsewhere"). Read from `DBH-1.7:DubsBadHygiene/PlaceWorker_Pipe.cs` and the game's `RimWorld.PlaceWorker_Conduit.AllowsPlacing`.
 
+**Changed for conduits under vehicles (owner, 17 Nov 2026, after seeing it in play: "refuse it under a vehicle"; "chemfuel pipes, plumbing,
+etc. all act fine regarding this, it's only the power conduits").** An ordinary conduit built over a parked vehicle's hidden conduits replaced
+them, while a hidden one was refused. From Framework 0.116.1 no conduit can be built over a parked vehicle's own conduits: a placement rule of
+ours (`PlaceWorker_PhobosVehicleConduit`), added by an XML patch to the game's power conduit and so inherited by the hidden and waterproof ones
+and Vanilla Expanded Framework's, refuses a cell holding a piece we laid while Vehicle Framework says a vehicle stands on it, and says why. A
+line run to the vehicle's edge still joins it. Under our buildings the rule above stands. Not yet tested in game.
+
 ## Who chose what
 
 - **Owner (13 Nov 2026):** visible pieces, as the game and other mods show them; the generator set's conduits beneath it as an option

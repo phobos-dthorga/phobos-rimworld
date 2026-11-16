@@ -6,6 +6,7 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **Framework 0.116.1 (17 Nov 2026): row 130**, with the same install.
 - **Framework 0.116.0 and Vehicles 0.57.0 (17 Nov 2026): rows 126 to 129**, one install with 0.115.0's rows. Riskiest first: **127** (a
   re-fitted track must not heal to full for free) and **126**.
 - **Knocked out, not destroyed (Framework 0.115.0, 17 Nov 2026): rows 120 to 125.** Riskiest first: **122** (crews bailing out) and **120**
@@ -217,6 +218,7 @@ result goes into that mod's changelog.
 | 127 | **Re-fitting a track in the field** (Framework 0.116.0) | Destroy a tank's track, put a component in its cargo, press **Field repairs** | A mechanic re-fits it to 25%; the tank drives; the track stays on the list for a proper replacement and free repair does not heal it further |
 | 128 | **The electric tanker pump** (Framework 0.116.0, Vehicles 0.57.0) | Fit the **electric pump** node, set up with the engine off and pump until the battery is flat | It sets up without the engine, pumps on the battery, then waits and says why; without the node it still needs the engine |
 | 129 | **The Crawler's instruments on the battery** (Framework 0.116.0) | In water with the engine off, research aboard and ping until the battery runs flat | Each stops with a reason; with the alternator lost and the engine running, the laboratory is switched off first |
+| 130 | **No conduit over a vehicle's wiring** (Framework 0.116.1) | Park a truck with its engine off, then try to place an ordinary, a hidden and a waterproof conduit on a cell under it, and one beside it | All three refused under it with "its own wiring is here"; the one beside it builds and joins the truck to the grid |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 

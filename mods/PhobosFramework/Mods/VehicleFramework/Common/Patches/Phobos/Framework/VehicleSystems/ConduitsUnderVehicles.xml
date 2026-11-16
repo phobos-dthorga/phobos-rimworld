@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Framework 0.116.1 (owner, 17 Nov 2026: "refuse it under a vehicle"; only the power conduits misbehaved): no conduit is built over the
+    hidden conduits laid beneath a parked vehicle. The game lets an ordinary conduit replace a hidden one; this adds our check to every
+    conduit using the game's own conduit rule (PowerConduit, WaterproofConduit, HiddenConduit and any mod's conduit built the same way).
+  -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[placeWorkers/li="PlaceWorker_Conduit"]/placeWorkers</xpath>
+    <value>
+      <li>Phobos.VehicleSystems.PlaceWorker_PhobosVehicleConduit</li>
+    </value>
+  </Operation>
+</Patch>

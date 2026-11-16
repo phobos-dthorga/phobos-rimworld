@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.116.1] - 2026-11-17 - Draft
+
+No conduit over a parked vehicle's own wiring
+
+### Fixed
+
+- **An ordinary power conduit can no longer be built over the hidden conduits beneath a parked vehicle** (the owner's report and choice,
+  17 Nov 2026). The game lets an ordinary conduit replace a hidden one, so a player's conduit could take the place of a vehicle's own
+  wiring, while a hidden conduit was refused. Now every kind of conduit is refused there, saying the vehicle's own wiring is here; run the
+  line to the vehicle's edge and it connects. Plumbing and chemfuel pipes already behaved. Conduits beneath our buildings follow the
+  game's rule as before.
+
+### Compatibility and limits
+
+- A placement rule added to the game's power conduit, which the hidden and waterproof conduits and Vanilla Expanded Framework's inherit.
+  No settings changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. An ordinary conduit already built under a vehicle stays yours.
+
 ## [0.116.0] - 2026-11-17 - Draft
 
 The turret blown off, field-fitted tracks, an electric tanker pump and the Crawler's instruments on the battery (the owner's answers of
