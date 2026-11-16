@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.112.1] - 2026-11-16 - Draft
+
+The fuel range line on the world map is drawn at last
+
+### Fixed
+
+- **Selecting one of your vehicle caravans on the world map now draws the line showing how far its fuel takes it** (found by the owner, 16 November 2026). It had never appeared since it was added in 0.85.0: Vehicle Framework's caravans skip the step where the game asks a caravan's add-ons to draw over it, in its 1.6 build and its 1.7 build alike. The line is now drawn by its own piece that the game updates every frame, with no patch to Vehicle Framework. Not yet tested in game.
+
+### Compatibility and limits
+
+- No settings were added or changed.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing is saved.
+
 ## [0.112.0] - 2026-11-16 - Draft
 
 A crew stays at its station while there is work, under Vehicle Framework 1.7's five-hour rule

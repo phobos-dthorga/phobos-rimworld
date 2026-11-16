@@ -79,20 +79,8 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
         return command;
     }
 
-    /// <summary>The colour of the reach's edge on the globe (authored: the dashboard's amber, so it reads as "fuel").</summary>
-    static Material? rangeMaterial;
-    static Material RangeMaterial => rangeMaterial ??= MaterialPool.MatFrom(GenDraw.LineTexPath, ShaderDatabase.WorldOverlayTransparent, new Color(0.95f, 0.70f, 0.25f, 0.9f), 3590);
-
-    /// <summary>While the player's vehicle caravan is selected, the edge of where the fuel aboard takes it, drawn on the globe as the game
-    /// draws a caravan's path (Framework 0.85.0; VehicleRange works it out).</summary>
-    public override void PostDrawExtraSelectionOverlays()
-    {
-        VehicleCaravan? caravan = Caravan;
-        if (caravan == null || caravan.Faction != Faction.OfPlayer) return;
-        VehicleRange.Reach? reach = VehicleRange.For(caravan);
-        if (reach == null) return;
-        foreach ((Vector3 a, Vector3 b) in reach.Edge) GenDraw.DrawWorldLineBetween(a, b, RangeMaterial, 0.6f);
-    }
+    // The reach's edge on the globe is drawn by WorldComponent_PhobosCaravanReach: Vehicle Framework's caravan never runs its comps'
+    // selection overlays, so a PostDrawExtraSelectionOverlays here was never called.
 
     public override IEnumerable<Gizmo> GetGizmos()
     {

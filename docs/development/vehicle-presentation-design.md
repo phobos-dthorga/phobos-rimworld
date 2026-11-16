@@ -239,6 +239,11 @@ drawing for the edge. The reach comes from Vehicle Framework's world path grid f
 - **Changes how they play:** fuel becomes a map, not a number.
 - **Cost:** a shortest-path pass over the world grid from the vehicle's tile, cached until its fuel or tile changes; a crow-flies ring
   first if the grid proves awkward. The ring call's exact signature is read when built (Vanilla Gravship Expanded patches it, so it exists).
+- **Never drawn until 0.112.1 (found by the owner, 16 Nov 2026).** 0.85.0 drew the edge from a caravan comp's
+  `PostDrawExtraSelectionOverlays`, but Vehicle Framework's `VehicleCaravan.DrawExtraSelectionOverlays` (1.6 and 1.7) does not call the
+  base method that runs comps' overlays. `WorldComponent_PhobosCaravanReach` now draws it from the game's per-frame world component
+  update while the world is shown; no Harmony. **Lesson:** a hook on another mod's subclass needs checking that the subclass still calls
+  the base method; a build or a test never shows it.
 
 ### P7c. A ground-cost overlay: MEDIUM-HIGH
 
