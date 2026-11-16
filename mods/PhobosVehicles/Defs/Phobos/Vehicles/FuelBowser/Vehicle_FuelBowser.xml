@@ -181,11 +181,13 @@
       <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
         <emptyKilograms>2000</emptyKilograms>
       </li>
-      <!-- The tanker's hoses, relief valve, leak and purge are the same things on a bowser; its pump is its own and has no sound yet
-           (docs/development/sound-catalogue.md: working machinery is never shared). -->
+      <!-- The tanker's hoses, relief valve, leak and purge are the same things on a bowser; its pump is its own (S129, the owner's pick of 17 Nov 2026, shared by
+           the Pintle trailers' one pump), as are its legs (S129). -->
       <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
         <sounds>
           <li><key>Hoses</key><sound>PhobosVehicles_TankerHoses</sound></li>
+          <li><key>Pump</key><sound>PhobosVehicles_BowserPump</sound></li>
+          <li><key>Legs</key><sound>PhobosVehicles_TrailerLegs</sound></li>
           <li><key>Relief</key><sound>PhobosVehicles_TankerRelief</sound></li>
           <li><key>Leak</key><sound>PhobosVehicles_TankerLeak</sound></li>
           <li><key>Purge</key><sound>PhobosVehicles_TankerPurge</sound></li>

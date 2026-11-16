@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The working trailers' sounds (D'thorga Vehicles 0.59.0; the owner's picks of 17 Nov 2026), exported by scripts/art/export_sound.py, levelled
+       against the game's own sounds (assets/phobos-sounds/exports.json). Not yet tested in game. -->
+  <!-- Billy's range and kettle burners while cooking: beside the game's Recipe_CookMeal, -6 dB, a short reach: a background under the frying (owner, 17 Nov 2026). -->
+  <SoundDef>
+    <defName>PhobosVehicles_FieldRangeBurner</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/FieldKitchen/RangeBurner</clipPath>
+          </li>
+        </grains>
+        <volumeRange>7</volumeRange>
+        <distRange>8~25</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- Billy's kettle lid, as a batch starts: beside the game's Metal_Drop, -6 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_FieldKettleLid</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/FieldKitchen/KettleLid</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>15~50</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- The Pintle trailers' pump (S129): beside the game's ChemfuelFiredGenerator_Ambience, -8 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_BowserPump</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/PintleBowser/Pump</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- The shower trailer's water heater while it burns: beside the game's ChemfuelFiredGenerator_Ambience, -12 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_ShowerWaterHeater</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/ShowerTrailer/WaterHeater</clipPath>
+          </li>
+        </grains>
+        <volumeRange>13</volumeRange>
+        <distRange>15~45</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- A trailer's canvas tent pitched or struck (shared: the same canvas on every trailer): beside the game's Metal_Drop, -8 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TrailerTentPitch</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Trailer/TentPitch</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>15~50</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <!-- A trailer's legs wound down or up (S129; shared: the same legs on every trailer): beside the game's Metal_Drop, -3 dB. -->
+  <SoundDef>
+    <defName>PhobosVehicles_TrailerLegs</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Trailer/Legs</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>

@@ -34,6 +34,8 @@ Working trailers set things out: canvas rooms, a power point, and the field kitc
   topped up from its tank, so every litre a shower or flush uses comes off the tank, and a hidden stand-in septic tank that is its waste tank,
   emptied by Dubs' own colonists or by our tanker; hidden plumbing under everything set out; and a water heater that burns half the chemfuel
   while plugged in. With Dubs' own unlimited pumping on, the stand-in never gives water back to the tank.
+- **Sounds for working trailers**: a field stove's burner loop while it cooks and a one-off as a batch starts, the tent's sound as it is
+  pitched and struck, a trailer's legs at a hand set-up or pack-up, and a water heater's burner while it heats; each named in the Defs.
 - **New setting: "Field kitchens cook in a resting caravan"**, on by default (Mod settings, D'thorga Framework, vehicle systems list).
 
 ### Changed

@@ -37,10 +37,14 @@ Billy the field kitchen, and the Pintle shower trailer
 
 - Needs D'thorga Framework 0.121.0. The shower trailer exists only with Dubs Bad Hygiene, and not in Dubs' lite mode.
 - **Billy has its own picture**, a kitchen box van on the bowsers' chassis (the owner's pick of three paid attempts, US$0.166, 17 Nov 2026); the
-  **shower trailer keeps the bowsers' picture** with its teal stripe (owner's choice). The range, kettle, cold box and water heater show
-  stand-in pictures until the owner picks from the candidates made on the night of 17 Nov 2026. The lamp and tent heater use the game's own pictures.
+  **shower trailer keeps the bowsers' picture** with its teal stripe (owner's choice). The range, kettle, cold box and water heater have their
+  own pictures, the owner's picks of the candidates made that day; the lamp and tent heater use the game's own pictures.
+- **Sounds** (the owner's picks of 17 Nov 2026): the range's and kettle's burners while cooking, kept low under the game's frying (owner: a
+  background, not a nuisance); the kettle's lid as a batch starts; the tent pitched and struck; a trailer's legs at set-up and pack-up, on the
+  bowsers too; the Pintle trailers' pump, so **the bowsers' pump is heard now**; and the water heater while it burns. The cold box is silent
+  (owner's choice).
 - Not built in this version: water for Billy's kettle with Dubs Bad Hygiene, the kitchen's dining annex and wash-up sink, enemy bases with set-up
-  trailers (owner, 17 Nov 2026: a later batch), and the trailers' sounds (made but not yet picked). Not yet tested in game.
+  trailers (owner, 17 Nov 2026: a later batch). Not yet tested in game.
 
 ### Save compatibility
 

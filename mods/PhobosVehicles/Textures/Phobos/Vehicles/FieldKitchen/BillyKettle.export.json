@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyKettle.png",
+  "source": "assets/phobos-vehicles/generated/billy-kettle/billy-kettle-13.png",
+  "source_sha256": "77abb90173b86aadb0be671fead2f3dd197832a3fa2945e031d097c319c0ff4a",
+  "target_sha256": "cfc942aeb6142409104b485d4c18655368be11d4b48d6433d229b66d6f07caee",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "77abb90173b86aadb0be671fead2f3dd197832a3fa2945e031d097c319c0ff4a",
+  "date": "2026-11-17T10:44:46",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

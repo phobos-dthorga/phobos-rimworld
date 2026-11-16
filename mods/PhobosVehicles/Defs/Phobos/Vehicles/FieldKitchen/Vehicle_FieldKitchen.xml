@@ -125,6 +125,12 @@
     </li>
     </components>
     <modExtensions>
+      <!-- Its legs, as every trailer of ours (S129, the owner's pick of 17 Nov 2026). -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>Legs</key><sound>PhobosVehicles_TrailerLegs</sound></li>
+        </sounds>
+      </li>
       <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
         <emptyKilograms>1800</emptyKilograms>
       </li>
@@ -153,6 +159,7 @@
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailerSetUp" />
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosSetOut">
         <setOutLabel>the kitchen tent</setOutLabel>
+        <pitchSound>PhobosVehicles_TrailerTentPitch</pitchSound>
         <wallDef>Phobos_CanvasWall</wallDef>
         <doorDef>Phobos_CanvasDoor</doorDef>
         <roofDef>Phobos_CanvasRoof</roofDef>

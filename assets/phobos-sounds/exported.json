@@ -5329,5 +5329,285 @@
       "cfg": 1.0,
       "prompt": "Industrial lifting gear: a large steel safety latch closing on a shackle, a single heavy metal-on-metal clack with a low, solid thud behind it, followed by a short jingle of chain. Nothing else in the background. Close, outdoors, dry. Length: 2 seconds"
     }
+  },
+  "FieldRangeBurner": {
+    "name": "FieldRangeBurner",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/FieldKitchen/RangeBurner.ogg",
+    "sha256": "4b1c560e7ab001f06164fd5624dc8276b3ccb9047eec97450c3f40b4a556296e",
+    "master_sha256": "de6b099ebdcc0065802317ac3ce49e0f3a47c113dd0b1549aa6014ac8545c6a2",
+    "fingerprint": "cfa6f4f5f0700173f5ce3a2acb5b7baa9f390f23ee03a06f7e7273c0dea662ae",
+    "date": "2026-11-17",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.3,
+        9.2426
+      ],
+      "loop_match": 0.209,
+      "loop_crossfade_s": 0.5,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -25.6 LUFS",
+      "gain_db": -8.2
+    },
+    "reference": {
+      "defName": "Recipe_CookMeal",
+      "effective": "-42.7 LUFS",
+      "volume": [
+        7.0,
+        7.0
+      ],
+      "distance": [
+        10.0,
+        50.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -25.7,
+      "true_peak": -10.7,
+      "seconds": 8.44,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A field kitchen's pressurised liquid-fuel burner roaring steadily under a heavy steel cooking range, a constant breathy roar with a faint flutter of flame, unchanging. Outdoors. Length: 8 seconds"
+    }
+  },
+  "BowserPump": {
+    "name": "BowserPump",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/PintleBowser/Pump.ogg",
+    "sha256": "ad8282af5d3eb151ef9cc71d3d47a0c6ff6365a4cf20920ba72b9e71503315ab",
+    "master_sha256": "84127573e67f53bdae6c5295f1aa3ca8adaf9308340e35940bdd9b6671d90cef",
+    "fingerprint": "28b4ee420e5d46c5d2151e10354d35f0ae45113fd99d0cb243c4e7ddda0e0643",
+    "date": "2026-11-17",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        9.532
+      ],
+      "loop_match": 0.237,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.06,
+      "levelled_by": "loudness, to -26.78 LUFS",
+      "gain_db": 0.02
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.9,
+      "true_peak": -8.6,
+      "seconds": 9.08,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small petrol-engine transfer pump on a water trailer running steadily: a busy single-cylinder putter with liquid rushing through a hose, continuous and unchanging. Outdoors. Length: 8 seconds"
+    }
+  },
+  "ShowerWaterHeater": {
+    "name": "ShowerWaterHeater",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/ShowerTrailer/WaterHeater.ogg",
+    "sha256": "1e97ba977cde678f7a28069ad63473db831fefa64ba06e2d191ccdaf750fa370",
+    "master_sha256": "c1cdfe42d7612f1cac603a38bebb23e663ef89e86ee7f75dc3eb601a471ac927",
+    "fingerprint": "7d4cf7048671d7f17107690e300a155a7247fadf01ee947e25e7626104951838",
+    "date": "2026-11-17",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        9.205
+      ],
+      "loop_match": 0.521,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -30.78 LUFS",
+      "gain_db": 0.92
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -30.8,
+      "true_peak": -14.4,
+      "seconds": 8.76,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 41,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A diesel-fired water heater for a field shower running: a steady muffled burner roar with a small fan whirring and water flowing through pipes, continuous and unchanging. Outdoors. Length: 8 seconds"
+    }
+  },
+  "FieldKettleLid": {
+    "name": "FieldKettleLid",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/FieldKitchen/KettleLid.ogg",
+    "sha256": "64b12467e8d4e5b65a511e6e59008a338c87aaf3ffd284f52584dcea610e2dda",
+    "master_sha256": "a1f6cda4e890077f6e49f514539b46da63320e21e504966aa12b6d4aecbc9763",
+    "fingerprint": "b10d1f43a217335c2728ebf97f405be9ea4010813d5d5ccaee3ad2d632f96f3d",
+    "date": "2026-11-17",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -16.66 dBTP",
+      "gain_db": -12.16
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -44.3,
+      "true_peak": -16.9,
+      "seconds": 3.72,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A heavy steel lid on a large field cooking kettle being lifted and set back down: a hollow metal clank and a short rattle, with a soft bubbling of stew underneath. Close, outdoors. Length: 3 seconds"
+    }
+  },
+  "TrailerTentPitch": {
+    "name": "TrailerTentPitch",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Trailer/TentPitch.ogg",
+    "sha256": "7685a678c65293cfdc753de710d66d45dd3c1941100539396d108547e5613232",
+    "master_sha256": "7428c1c95ef117342ba6740a62c8ce64109b807d9348875f947640513de3b3e9",
+    "fingerprint": "0020eb11b23d1dcffb9dcda79f6c3bc7c3e5c6abc568309ffacfd5d32be54332",
+    "date": "2026-11-17",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -18.66 dBTP",
+      "gain_db": -9.96
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -44.6,
+      "true_peak": -18.6,
+      "seconds": 6.16,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A large canvas tent being pitched: heavy canvas flapping and rustling, a metal pole frame clicking together, a guy rope pulled taut and a few mallet knocks on a tent peg. Outdoors, no voices. Length: 6 seconds"
+    }
+  },
+  "TrailerLegs": {
+    "name": "TrailerLegs",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Trailer/Legs.ogg",
+    "sha256": "e2811b439c550aa74664b711d7acdc3156d78dd994e57971c329ed00b1e9ae88",
+    "master_sha256": "5db1d261937e188f0ab72549e8203b7278d453ac7a4124078c395a2f93759cba",
+    "fingerprint": "9e19f4fc120f766c500dccd2a6c463e894684d0ab14d11993494ef0c805ca945",
+    "date": "2026-11-17",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -10.06
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -37.1,
+      "true_peak": -14.0,
+      "seconds": 6.11,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 43,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A trailer's steel stabiliser leg being wound down by hand: a crank ratcheting through several turns, then a firm metal foot thudding onto gravel. Outdoors, no engine, no voices. Length: 4 seconds"
+    }
   }
 }

@@ -584,6 +584,36 @@
       "candidate": "m-cough-wheeze/m-cough-wheeze-43.flac",
       "picked": "2026-11-11",
       "use": "Coughing and wheezing, burned or stung airways (S100)"
+    },
+    {
+      "candidate": "q1-range-burner/q1-range-burner-42.flac",
+      "picked": "2026-11-17",
+      "use": "Billy's field range: burners roaring while cooking (owner: lower it, a background noise, not a nuisance)"
+    },
+    {
+      "candidate": "s129-bowser-pump/s129-bowser-pump-41.flac",
+      "picked": "2026-11-17",
+      "use": "Pintle bowsers' and shower trailer's pump running (S129)"
+    },
+    {
+      "candidate": "q7-water-heater/q7-water-heater-41.flac",
+      "picked": "2026-11-17",
+      "use": "Shower trailer's water heater burning"
+    },
+    {
+      "candidate": "q1-kettle-lid/q1-kettle-lid-42.flac",
+      "picked": "2026-11-17",
+      "use": "Billy's kettle: lid lifted as a batch starts"
+    },
+    {
+      "candidate": "trailer-canvas-pitch/trailer-canvas-pitch-42.flac",
+      "picked": "2026-11-17",
+      "use": "A trailer's canvas tent pitched or struck"
+    },
+    {
+      "candidate": "s129-trailer-legs/s129-trailer-legs-43.flac",
+      "picked": "2026-11-17",
+      "use": "A trailer's legs wound down or up (S129)"
     }
   ],
   "runners_up": [

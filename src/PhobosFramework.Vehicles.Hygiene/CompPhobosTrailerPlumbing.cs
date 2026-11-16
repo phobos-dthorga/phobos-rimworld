@@ -202,6 +202,8 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
 public class CompProperties_PhobosHeaterPowerSaving : CompProperties
 {
     public float savedShare = 0.5f;
+    /// <summary>Its burner, heard while it heats.</summary>
+    public SoundDef? workingSound;
 
     public CompProperties_PhobosHeaterPowerSaving() => compClass = typeof(CompPhobosHeaterPowerSaving);
 }
@@ -209,6 +211,7 @@ public class CompProperties_PhobosHeaterPowerSaving : CompProperties
 public class CompPhobosHeaterPowerSaving : ThingComp, ISetOutLoad
 {
     float lastFuel = -1f;
+    readonly Phobos.Framework.Sounds.SustainedSound burner = new();
 
     public CompProperties_PhobosHeaterPowerSaving Props => (CompProperties_PhobosHeaterPowerSaving)props;
 
@@ -217,6 +220,8 @@ public class CompPhobosHeaterPowerSaving : ThingComp, ISetOutLoad
     public override void CompTickRare()
     {
         base.CompTickRare();
+        // Heard while Dubs' boiler is burning: working, and not idling on its thermostat.
+        burner.Set(Props.workingSound, parent.TryGetComp<CompBoiler>() is { } boiler && boiler.Capacity > 0f, parent);
         if (parent.TryGetComp<CompRefuelable>() is not { } fuel) return;
         float now = fuel.Fuel;
         if (lastFuel >= 0f && now < lastFuel && SetOuts.Powered(parent))
@@ -227,5 +232,11 @@ public class CompPhobosHeaterPowerSaving : ThingComp, ISetOutLoad
             Seen.Note("trailers.heater-power-saving", parent);
         }
         lastFuel = now;
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        burner.End();
+        base.PostDeSpawn(map, mode);
     }
 }

@@ -1429,6 +1429,78 @@
         2.45
       ],
       "picked_by": "the owner"
+    },
+    {
+      "name": "FieldRangeBurner",
+      "use": "Billy's field range: burners roaring while cooking (owner: lower it, a background noise, not a nuisance)",
+      "picked": "2026-11-17",
+      "candidate": "q1-range-burner/q1-range-burner-42.flac",
+      "kind": "loop",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/FieldKitchen/RangeBurner.ogg",
+      "reference": "Recipe_CookMeal",
+      "offset_db": -6,
+      "volume": 7,
+      "why": "Field kitchen and shower trailer sounds (Vehicles 0.59.0): the owner's picks by question card, 17 Nov 2026; reference and offset are agent choices: 6 dB under the game's own frying, which plays over it while a cook works, so the burner is a background (owner's note on the pick)."
+    },
+    {
+      "name": "BowserPump",
+      "use": "Pintle bowsers' and shower trailer's pump running (S129)",
+      "picked": "2026-11-17",
+      "candidate": "s129-bowser-pump/s129-bowser-pump-41.flac",
+      "kind": "loop",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/PintleBowser/Pump.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": -8,
+      "volume": 13,
+      "why": "Field kitchen and shower trailer sounds (Vehicles 0.59.0): the owner's picks by question card, 17 Nov 2026; reference and offset are agent choices: a small trailer pump, 2 dB under the tanker's power take-off pump."
+    },
+    {
+      "name": "ShowerWaterHeater",
+      "use": "Shower trailer's water heater burning",
+      "picked": "2026-11-17",
+      "candidate": "q7-water-heater/q7-water-heater-41.flac",
+      "kind": "loop",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/ShowerTrailer/WaterHeater.ogg",
+      "reference": "ChemfuelFiredGenerator_Ambience",
+      "offset_db": -12,
+      "volume": 13,
+      "why": "Field kitchen and shower trailer sounds (Vehicles 0.59.0): the owner's picks by question card, 17 Nov 2026; reference and offset are agent choices: a small burner, well under a generator; it runs only while the showers want hot water."
+    },
+    {
+      "name": "FieldKettleLid",
+      "use": "Billy's kettle: lid lifted as a batch starts",
+      "picked": "2026-11-17",
+      "candidate": "q1-kettle-lid/q1-kettle-lid-42.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/FieldKitchen/KettleLid.ogg",
+      "reference": "Metal_Drop",
+      "offset_db": -6,
+      "volume": 25,
+      "why": "Field kitchen and shower trailer sounds (Vehicles 0.59.0): the owner's picks by question card, 17 Nov 2026; reference and offset are agent choices: a lid's clank, under a dropped piece of metal."
+    },
+    {
+      "name": "TrailerTentPitch",
+      "use": "A trailer's canvas tent pitched or struck",
+      "picked": "2026-11-17",
+      "candidate": "trailer-canvas-pitch/trailer-canvas-pitch-42.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Trailer/TentPitch.ogg",
+      "reference": "Metal_Drop",
+      "offset_db": -8,
+      "volume": 25,
+      "why": "Field kitchen and shower trailer sounds (Vehicles 0.59.0): the owner's picks by question card, 17 Nov 2026; reference and offset are agent choices: soft canvas and a few peg knocks, under a dropped piece of metal."
+    },
+    {
+      "name": "TrailerLegs",
+      "use": "A trailer's legs wound down or up (S129)",
+      "picked": "2026-11-17",
+      "candidate": "s129-trailer-legs/s129-trailer-legs-43.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Trailer/Legs.ogg",
+      "reference": "Metal_Drop",
+      "offset_db": -3,
+      "volume": 25,
+      "why": "Field kitchen and shower trailer sounds (Vehicles 0.59.0): the owner's picks by question card, 17 Nov 2026; reference and offset are agent choices: a steel crank and foot, as the tanker's hoses sit."
     }
   ]
 }

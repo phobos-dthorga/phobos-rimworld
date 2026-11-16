@@ -5,6 +5,7 @@ using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using Vehicles;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.VehicleSystems;
 
@@ -241,6 +242,7 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
             powerPoint = (Building)GenSpawn.Spawn(point, layout.powerPoint, map, WipeMode.Vanish);
         }
         SetOuts.Register(this);
+        Props.pitchSound?.PlayOneShot(new TargetInfo(Vehicle.Position, map));
         Messages.Message("PhobosSetOut_Done".Translate(Props.setOutLabel.Named("WHAT"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
         Seen.Note("trailers.set-out", Vehicle, placed.Count + " pieces, " + roofed.Count + " roofed cells");
     }
@@ -276,6 +278,7 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
     {
         if (!IsSetOut) return;
         LiftRoof();
+        Props.pitchSound?.PlayOneShot(new TargetInfo(Vehicle.Position, Vehicle.Map));
         foreach (Thing piece in placed)
         {
             if (piece.Destroyed) continue;

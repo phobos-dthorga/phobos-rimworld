@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/ShowerTrailer/WaterHeater.png",
+  "source": "assets/phobos-vehicles/generated/shower-water-heater/shower-water-heater-14.png",
+  "source_sha256": "9ef4ee1f6cab407ccb932d5fee66a4a90dfb66e80e93cc19c300dac6fa697971",
+  "target_sha256": "980123a436571ea68749d9314c8a784f9dceb1ecf2bfc9e2d5697cc9ec471c2a",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "9ef4ee1f6cab407ccb932d5fee66a4a90dfb66e80e93cc19c300dac6fa697971",
+  "date": "2026-11-17T10:44:48",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

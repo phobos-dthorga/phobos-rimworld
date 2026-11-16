@@ -25,6 +25,8 @@
 
   <ThingDef Name="PhobosBillyStoveBase" ParentName="PhobosBillyPieceBase" Abstract="True">
     <thingClass>Phobos.VehicleSystems.Building_PhobosFieldStove</thingClass>
+    <!-- Rare: the burners' heat and their sound settle on it. -->
+    <tickerType>Rare</tickerType>
     <drawerType>MapMeshAndRealTime</drawerType>
     <surfaceType>Item</surfaceType>
     <hasInteractionCell>true</hasInteractionCell>
@@ -78,6 +80,9 @@
     <size>(2,1)</size>
     <modExtensions>
       <li Class="Phobos.VehicleSystems.PhobosCopyStoveRecipesExtension" />
+      <li Class="Phobos.VehicleSystems.PhobosFieldStoveSoundsExtension">
+        <workingSound>PhobosVehicles_FieldRangeBurner</workingSound>
+      </li>
       <li Class="Phobos.VehicleSystems.PhobosSetOutPowerExtension">
         <speedWhenPowered>1.25</speedWhenPowered>
         <wattsWorking>450</wattsWorking>
@@ -99,6 +104,11 @@
       <li Class="Phobos.VehicleSystems.PhobosSetOutPowerExtension">
         <speedWhenPowered>1.25</speedWhenPowered>
         <wattsWorking>300</wattsWorking>
+      </li>
+      <!-- The same burners as the range's (the same physical thing), and its lid as a batch starts. -->
+      <li Class="Phobos.VehicleSystems.PhobosFieldStoveSoundsExtension">
+        <workingSound>PhobosVehicles_FieldRangeBurner</workingSound>
+        <startSound>PhobosVehicles_FieldKettleLid</startSound>
       </li>
     </modExtensions>
   </ThingDef>

@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyColdBox.png",
+  "source": "assets/phobos-vehicles/generated/billy-coldbox/billy-coldbox-11.png",
+  "source_sha256": "afa922ff91698c47b84262d2af09f259423358758b7a1ff4d1aff61b5f8c0311",
+  "target_sha256": "323e4ae45d8a810c2ab65d64d56ee5a9f0d564acf3f39d87cf4cb2fd49d009a2",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "afa922ff91698c47b84262d2af09f259423358758b7a1ff4d1aff61b5f8c0311",
+  "date": "2026-11-17T10:44:47",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

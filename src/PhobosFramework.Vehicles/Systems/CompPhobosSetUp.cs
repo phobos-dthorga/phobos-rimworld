@@ -489,6 +489,8 @@ public abstract class CompPhobosSetUp : VehicleComp
         bool before = deployed;
         FinishByHand(on, worker);
         if (deployed == before) return;
+        // The legs going down or up, on every trailer that has the sound (owner's pick, 17 Nov 2026; S129).
+        if (SetUpByHand) VehicleWorkSounds.Play(Vehicle, "Legs");
         foreach (ISetUpPart part in Parts.ToList()) part.SetUpChanged(deployed);
     }
 

@@ -120,6 +120,7 @@
       </li>
       <li Class="Phobos.VehicleSystems.Hygiene.CompProperties_PhobosHeaterPowerSaving">
         <savedShare>0.5</savedShare>
+        <workingSound>PhobosVehicles_ShowerWaterHeater</workingSound>
       </li>
     </comps>
     <modExtensions>

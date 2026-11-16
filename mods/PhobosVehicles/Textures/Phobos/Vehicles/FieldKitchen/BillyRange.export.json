@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyRange.png",
+  "source": "assets/phobos-vehicles/generated/billy-range/billy-range-11.png",
+  "source_sha256": "dac3d2eef3ae040a3a9686aee069dfbf91cee19f6fd69160644e2e5f0cbb0980",
+  "target_sha256": "7f876cb0b78471f6149f2350195193158666d65c8378fbfa5050a410a541001d",
+  "size": [
+    512,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "dac3d2eef3ae040a3a9686aee069dfbf91cee19f6fd69160644e2e5f0cbb0980",
+  "date": "2026-11-17T10:44:45",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

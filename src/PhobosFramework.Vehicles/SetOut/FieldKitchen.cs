@@ -3,6 +3,7 @@ using System.Linq;
 using HarmonyLib;
 using RimWorld;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.VehicleSystems;
 
@@ -14,17 +15,45 @@ public class Building_PhobosFieldStove : Building_WorkTable, ISetOutLoad
 {
     const int WorkingWindowTicks = 300;
     int lastUsedTick = -99999;
+    readonly Phobos.Framework.Sounds.SustainedSound burners = new();
 
     public bool CookingNow => Find.TickManager.TicksGame - lastUsedTick <= WorkingWindowTicks;
 
     public float WattsNow => CookingNow ? def.GetModExtension<PhobosSetOutPowerExtension>()?.wattsWorking ?? 0f : 0f;
 
+    PhobosFieldStoveSoundsExtension? Sounds => def.GetModExtension<PhobosFieldStoveSoundsExtension>();
+
     public override void UsedThisTick()
     {
         base.UsedThisTick();
-        if (!CookingNow) Seen.Note("trailers.field-stove-cooks", this, SetOuts.Powered(this) ? "powered" : "unpowered");
+        if (!CookingNow)
+        {
+            // A batch starting: the lid's clank once, and the burners until the cook stops (owner's picks, 17 Nov 2026).
+            Sounds?.startSound?.PlayOneShot(new TargetInfo(Position, Map));
+            burners.Set(Sounds?.workingSound, true, this);
+            Seen.Note("trailers.field-stove-cooks", this, SetOuts.Powered(this) ? "powered" : "unpowered");
+        }
         lastUsedTick = Find.TickManager.TicksGame;
     }
+
+    public override void TickRare()
+    {
+        base.TickRare();
+        if (!CookingNow) burners.End();
+    }
+
+    public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
+    {
+        burners.End();
+        base.DeSpawn(mode);
+    }
+}
+
+/// <summary>On a field stove's Def: its burners' loop while cooking, and a one-off as a batch starts (the kettle's lid).</summary>
+public class PhobosFieldStoveSoundsExtension : DefModExtension
+{
+    public SoundDef? workingSound;
+    public SoundDef? startSound;
 }
 
 /// <summary>

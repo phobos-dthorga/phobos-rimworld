@@ -57,6 +57,8 @@ public class CompProperties_PhobosSetOut : VehicleCompProperties
     public IntVec2 powerPointCell = new(1, 5);
     /// <summary>What the pieces draw with nothing working, in watts (lights, the cold box): authored.</summary>
     public float idleWatts;
+    /// <summary>Heard as the tent is pitched and struck (the same canvas on every trailer); none when empty.</summary>
+    public SoundDef? pitchSound;
     /// <summary>The words for what it sets out, as "the kitchen tent": in refusals and messages.</summary>
     [MustTranslate] public string setOutLabel = "";
 
