@@ -395,6 +395,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   original, let the background AI look at it (`python scripts/art/clean_backgrounds.py masks --cpu --stop-at HH:MM`); the exporters then
   clear white the object encloses where the AI is sure it is background, and take the white out of soft edges. Re-exports go through
   `stage`, a review page and `apply`. The AI runs on the graphics card only with the game closed (`docs/development/background-cleanup.md`).
+- **The AI looks at every picture we ship, at every export, not only new ones** (owner, 16 Nov 2026: "so cheap to run that we may as well use
+  it for everything"): run `masks` before any export, re-export, crop or overlay, and **never judge a texture from the raw file alone**: a
+  vehicle's painted parts are stored grey for the game to tint, so look at it tinted on dark ground before showing it to the owner. A paint
+  mask (the `m` files) is never shipped speckled: any pixel left unpainted inside a painted part, or painted outside it, is a fault to fix
+  before the owner sees it (the Pintle bowser's, 16 Nov 2026).
 - **Art the mods don't ship stays off `main`** (owner, 7 Nov 2026): full-size masters of shipped and picked art on the `art-masters`
   branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
   with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and
