@@ -170,6 +170,14 @@ would need a new part item; the record leaves it out unless the owner wants burn
 kitchen and the "A raid on us" row above is withdrawn. Question 4 (water with Dubs Bad Hygiene) was not put yet; its agent default
 stands. Nothing is built yet.
 
+**Answered by the owner, 17 Nov 2026 (the follow-up batch, not yet built):** (4) **water with Dubs Bad Hygiene, 10 L a batch** for the kettle's
+big batches, drawn from plumbing touching the kitchen; (6) build **the dining annex, the wash-up sink and the bigger water tank**; (7) the
+**dry-goods locker later**, with the prisoner trailer or the crib room; (8) the tent heater **burns only while the tent is below 15 °C**;
+(9) **no Field Tents tie-in** (agent's recommendation, owner's choice): our canvas rooms stay our own. Field Tents (lordfelix, active, updated
+14 Nov 2026) makes its rooms through some 57 Harmony patches, and its open reports on 13 and 16 Nov 2026 include errors with packed tents
+stored in a cargo holder and a freeze on load with large mod lists (`scripts/workshop-research.py report 3823513030`, read 17 Nov 2026).
+Players with it can pitch one of its tents beside Billy themselves; a packed Field Tent carried as cargo may meet the reported error.
+
 The questions as they were written:
 
 1. **The name:** "Billy field kitchen" (agent pick), or another?
