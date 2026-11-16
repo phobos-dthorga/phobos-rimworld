@@ -1,0 +1,51 @@
+{
+  "file": "pintle-bowser-lagged-tank-1.png",
+  "sha256": "e878d990856dc08f7c99eb220ba75c3de5c9d1f52b9c1bd74ac3219221e53366",
+  "date": "2026-11-16T20:03:33",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga Pintle bowser: its tank wrapped in an insulating jacket. Image 1 is our approved bowser: draw ONLY its tank, at the same long rounded shape, now covered in a padded insulating jacket, and match Image 1's outline weight, shading, palette and finish. Do NOT draw the trailer, drawbar, wheels, mudguards, frame, hose reel or pump box.\n\nDraw ONLY the jacketed tank, alone and centred on a plain pure white background, nothing else on the canvas. It is LONG AND NARROW, about one quarter as wide as it is long, filling seven eighths of the canvas height.\n\nIts top plan: one long rounded rectangle with domed ends, its shell covered all over by a quilted jacket of muted dull green-grey padded panels in neat rectangular sections held by thin dark straps across it; the two round bolted manway hatches and the narrow grated walkway between them on its top line still uncovered, as in Image 1; a thin muted orange accent stripe along each side, as in Image 1.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo trailer, wheels, drawbar, frame, hose, pump, people, animals, dust, mud, text, letters, numbers, logos, warning signs, dials, screens or lamps. No floor, ground, road, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    896,
+    1792
+  ],
+  "request_file": "assets/phobos-vehicles/requests/bowser-overlays.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1864,
+    "input_tokens_details": {
+      "image_tokens": 1458,
+      "text_tokens": 406
+    },
+    "output_tokens": 1039,
+    "output_tokens_details": {
+      "image_tokens": 1039,
+      "text_tokens": 0
+    },
+    "total_tokens": 2903
+  },
+  "cost_usd": 0.0449,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "896x1792",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    896,
+    1792
+  ],
+  "seconds": 21.6,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/pintle-bowser-body-north/pintle-bowser-body-north-1.png",
+      "sha256": "9913eb43830a99172097ca3f92b61515dce5cacae43bf7d71ab94869b4be0676",
+      "role": "our approved bowser, the owner's pick: this jacket goes over its tank, so match the tank's outline (a long rounded rectangle with domed ends), its hatches and walkway, and the whole picture's outline weight, shading, palette and finish; draw only the jacketed tank"
+    }
+  ]
+}
