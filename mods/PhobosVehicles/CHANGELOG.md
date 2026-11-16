@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.56.2] - 2026-11-16 - Draft
+
+Mounting points marked as not counting toward a vehicle's destruction
+
+### Fixed
+
+- **The cargo hook mount on the Cherokee, the Louie and the Hind no longer keeps a wreck standing** (with D'thorga Framework
+  0.114.5, which does the same for the tank cradle, lamp bracket, winch mount and ferry tank tie-downs on every vehicle). It can still
+  be hit and broken.
+
+### Compatibility and limits
+
+- No settings were added or changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.56.1] - 2026-11-16 - Draft
 
 Fewer stray flecks in our vehicles' paint

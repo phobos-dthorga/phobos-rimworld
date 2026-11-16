@@ -6,6 +6,27 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.19.3] - 2026-11-16 - Draft
+
+RimPacts' allies leave empty vehicles alone
+
+### Fixed
+
+- **With RimPacts, an ally's assault no longer spends hours beating on an empty vehicle.** RimPacts counted a vehicle with nobody aboard
+  as a standing defender, so allies fought it by hand (the owner's save PG8: 11 of 19 soldiers on one empty Highwayman, kicking and
+  clubbing it for over two hours) while its general assault waited. They now go for the people and turrets, and the empty vehicle is
+  left standing to claim after the battle. A crewed vehicle is still attacked. Temporary: it uses RimPacts' own test for an unmanned
+  vehicle, and changes nothing once RimPacts leaves empty vehicles out itself.
+
+### Compatibility and limits
+
+- One Harmony postfix on RimPacts, by name; if RimPacts' code changes, it stays off and the load line says so. No settings were added
+  or changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to and remove from a running game. Nothing is saved.
+
 ## [0.19.2] - 2026-11-16 - Draft
 
 The Prison Labor guard comes out: Prison Labor fixed the crash itself

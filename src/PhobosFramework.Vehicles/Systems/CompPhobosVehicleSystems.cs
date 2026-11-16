@@ -91,6 +91,8 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
     public Dictionary<string, List<string>> roleKeys = new();
     /// <summary>The parts this service appended, by key, in order.</summary>
     public List<string> addedKeys = new();
+    /// <summary>Appended parts that do not count toward the vehicle's destruction: empty mounting points for fittings (Framework 0.114.5).</summary>
+    public HashSet<string> uncountedKeys = new();
     /// <summary>How many parts the design had before the service appended any; the uninstall sweep cuts saved vehicles back to it.</summary>
     public int originalPartCount;
     /// <summary>The loadout's drivetrain (with its overrides) and flight profile, if any.</summary>

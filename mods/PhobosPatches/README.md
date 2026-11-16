@@ -14,12 +14,17 @@ One of House D'thorga's mods (also spelt dthorga).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.19.2, built 16 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.19.3, built 16 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
 ## Read this first (gotchas)
 
+- **New in 0.19.3, with RimPacts (temporary, not yet tested in game): an ally's assault leaves vehicles with nobody aboard alone.**
+  RimPacts counted an empty vehicle as a standing defender, so allies spent hours beating on it by hand while the town's real
+  defenders waited (the owner's save PG8: 11 of 19 soldiers on one empty Highwayman). They now go for the people and turrets, and the
+  empty vehicle is left standing for you to claim after the battle. A crewed vehicle is still attacked. It stands down by itself once
+  RimPacts leaves empty vehicles out on its own.
 - **With the Harrier, a temporary trace logs each step when a vehicle is taken apart** (0.18.0), to find why the Harrier cannot be disassembled (the work stops near the end and the jet stays). It writes to the game's log only while a vehicle is being taken apart, changes nothing in play, and never hides an error. **Try one disassembly of the Harrier, on a copy of your save, and stop there:** each attempt runs the first half of the removal again. The setting **Finding faults (temporary): Log each step when a vehicle is taken apart** (on by default, in **Mod settings > D'thorga Patches: Harrier**) switches it off. Not yet tested in game.
 - **With Combat Extended, a temporary guard keeps its ammo setup from failing** (0.16.7). One bad entry in an ammo set stops the whole setup at startup, and so far The Dead Man's Switch - Synthriada is known to add such entries. The guard drops those entries and changes nothing else. Not yet tested in game.
 - **With Vehicle Framework, fires a vehicle could never put out are put out** (0.16.6): a second fire on one vehicle, or a fire left behind on a map the vehicle has left. A vehicle leaving a map now takes no fire with it. One real fire burns as before. **Tested in game by the owner, 10 November 2026: the stuck fires went out.**
@@ -157,6 +162,16 @@ mods' own files:
 | **Harrier, now** | **7,895** | **56%** | **658 kg** | **700** |
 | Hind | 6,655 | 55% | 573 kg | 1,100 |
 | Mongoose | 5,975 | 63% | 497 kg | 600 |
+
+### RimPacts' assaults and empty vehicles (0.19.3, temporary)
+
+RimPacts lists every standing pawn of the defending faction as an assault target, and a vehicle is a pawn that never goes down, so an
+empty one stayed a live target until it was destroyed. The game's order for such a target is to trash it (melee, sometimes fire),
+because Vehicle Framework rightly says an empty vehicle is no threat and nobody shoots at it; and Vehicle Framework destroys a vehicle
+only when all its parts together fall under 1 %. RimPacts also waits for no live "pawn" target to remain before its general assault.
+This part makes RimPacts' live-target test answer "no" for a vehicle its own unmanned test (nobody aboard, not autonomous) calls
+unmanned, the test it already uses when counting fighters. Soldiers on such a vehicle get a new target at RimPacts' next look, every
+300 ticks. Not yet tested in game. Its row in the register of temporary patches says when it can go.
 
 ### Loading alongside RimPacts
 

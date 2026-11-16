@@ -148,6 +148,7 @@ public static class VehicleSystems
             def.components.Add(part);
             props.roleKeys[role.role] = new List<string> { add.key };
             props.addedKeys.Add(add.key);
+            if (!add.countsTowardDestruction) props.uncountedKeys.Add(add.key);
             added++;
         }
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).

@@ -417,6 +417,13 @@ public class PartToAdd
     public List<VehicleStatDef>? categories;
     public List<StatModifier>? armor;
     public List<string>? tags;
+    /// <summary>
+    /// Whether the part counts toward the vehicle's destruction (Vehicle Framework destroys a vehicle when its parts' health together
+    /// falls under 1 %; Framework 0.114.5, owner, 17 Nov 2026). True for a part that does a job on the vehicle. False for an empty
+    /// mounting point for a fitting (a bracket, a cradle, tie-downs): it can still be hit and broken, but it neither keeps a wreck
+    /// alive nor brings a vehicle closer to destruction (docs/development/vehicle-health-design.md).
+    /// </summary>
+    public bool countsTowardDestruction = true;
 }
 
 public class PartRoleSpec

@@ -6,6 +6,7 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **Allies and empty vehicles (Patches 0.19.3, Framework 0.114.5, Vehicles 0.56.2, 16 Nov 2026): rows 118 and 119.**
 - **Search and Rescue's medics (Medical 0.17.0, 16 Nov 2026): row 117.** Also the new cargo hook latch sound (Framework 0.114.4): hook a vehicle under a helicopter to hear it.
 - **The session of 16 Nov 2026: Framework 0.114.3 and Vehicles 0.56.1, one install.** Rows 108 to 116. Short first: **113** (an aircraft's
   range: read the inspect pane, then zoom out for the circle), **112** (the Health tab's bars), **115** (the bowsers' and vehicles' paint).
@@ -200,6 +201,8 @@ result goes into that mod's changelog.
 | 115 | **The bowsers' picture and every vehicle's paint** (Vehicles 0.56.0 and 0.56.1) | Build a Pintle water bowser and a fuel bowser (god mode is fine) and look at them beside the flatbed; repaint one; fit the lagged tank and the second hose; look closely at the Crawler's hull and a truck's panels | A pale tank on the Pintle chassis, a **blue** stripe on the water bowser and an **orange** one on the fuel bowser; the jacket and the second reel show when fitted; no flecks of the old colour along stripes or scattered on panels; the upgrade pictures still sit where they did |
 | 116 | **No false warnings just after loading** (Framework 0.114.1) | Load a save and at once look at a parked truck's Dashboard, or draft it | No lamp for a weak battery, lost oil pressure or low hydraulics that clears a moment later; it starts at once if it could before. **Passed by log, 16 Nov 2026 (0.114.2):** the lines that showed the fault at 21:11 are absent at 21:49 |
 | 117 | **Search and Rescue's medics with our kits** (Medical 0.17.0). **Use a copy of the save** | Give a colonist with Field rescue and Doctor work on, Medicine 5 or better, an intubation kit and a needle decompression kit to carry. In a fight, let a colonist go down with a collapsed lung or a swelling airway (god mode's hediff tool is fine) | The responder uses the kit where the casualty lies, before carrying them off; a fluids or oxygen kit comes after Search and Rescue's own bleeding care; nothing in the log from either mod |
+| 118 | **RimPacts' allies and empty vehicles** (Patches 0.19.3). **Use a copy of the save** | An ally attacks a town that has vehicles parked (PG8's Esdio town is one); watch for an hour | The allies go for the defenders and turrets; nobody stands kicking an empty vehicle; the load line says allied assaults leave vehicles with nobody aboard alone |
+| 119 | **Wrecks fall when their own parts are gone** (Framework 0.114.5) | God mode: damage an enemy truck until its own parts are near zero, leaving the winch mount or lamp bracket whole | It is destroyed without anyone having to smash the bracket; a parked truck of yours still reads as before on its Health tab |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 

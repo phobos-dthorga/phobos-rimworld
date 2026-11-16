@@ -112,6 +112,12 @@ most, and for a contract other mods' authors can use in XML. Three records; **no
 | X6 | Fault: stale Harrier part figures in the Patches README and a probably stale hit-share note | Patches | — | Part fixed: the Patches README's Harrier part figures corrected in Patches 0.19.0. Open: the hit-share note in Parts_HarrierVtol.xml, not confirmed either way (avionics L6) |
 | X7 | Fault: round one's record miscounted its links | docs | — | Done: corrected 13 Nov 2026 |
 
+## The owner's report of 16 Nov 2026: allies slow to destroy vehicles
+
+| # | Report | Finding | Status |
+| --- | --- | --- | --- |
+| R6 | Allies capturing a town spend an inordinate time attacking its vehicles (save PG8, Framework 0.114.2) | RimPacts counts an empty vehicle as a live defender, and its allies trash it by hand (all 57 logged attacks melee or fire, 11 of 19 soldiers on one Highwayman); our appended parts also made every vehicle about 17 % harder to destroy ([record](vehicle-health-design.md#our-parts-and-a-vehicles-destruction-17-nov-2026)) | **Patched: Patches 0.19.3** (temporary, register row 17, no report at the owner's word); **our empty mounting points no longer count: Framework 0.114.5, Vehicles 0.56.2** (the owner's audit rule). Not yet tested in game (checks 118, 119) |
+
 ## Tie-ins with other mods (13 Nov 2026)
 
 The owner asked for an exploration of cross-links through soft dependencies with other mods: all our mods, the owner's mod list

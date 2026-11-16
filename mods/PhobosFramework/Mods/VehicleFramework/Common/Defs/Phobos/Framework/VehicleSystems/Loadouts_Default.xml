@@ -161,6 +161,7 @@
         <role>AuxTankMount</role>
         <add>
           <key>PhobosAuxTankMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
           <label>auxiliary tank cradle</label>
           <health>30</health>
           <hitWeight>0.1</hitWeight>
@@ -294,6 +295,7 @@
         <role>LampMount</role>
         <add>
           <key>PhobosLampMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
           <label>lamp bracket</label>
           <health>15</health>
           <depth>External</depth>
@@ -308,6 +310,7 @@
         <role>RecoveryMount</role>
         <add>
           <key>PhobosRecoveryMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
           <label>winch mount</label>
           <health>35</health>
           <depth>External</depth>
@@ -903,6 +906,7 @@
         <role>FerryTankMount</role>
         <add>
           <key>PhobosFerryTankMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
           <label>ferry tank tie-downs</label>
           <health>25</health>
           <hitWeight>0.1</hitWeight>

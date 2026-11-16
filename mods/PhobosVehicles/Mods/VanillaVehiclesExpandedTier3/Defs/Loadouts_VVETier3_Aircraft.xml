@@ -140,6 +140,7 @@
         <role>HookMount</role>
         <add>
           <key>PhobosHookMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
           <label>hook mount</label>
           <health>30</health>
           <cellsOf>RotorDrive</cellsOf>

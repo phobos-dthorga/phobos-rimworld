@@ -185,6 +185,34 @@ last pushed 31 October 2026, MIT), cloned read-only into `.local/research/Vehicl
   faction, so every raider's vehicle runs the full systems update each rare tick**; the medical layer keeps vehicles out by design
   (`Patients.IsFleshPerson`).
 
+## Our parts and a vehicle's destruction (17 Nov 2026)
+
+**The owner's question** (16 Nov 2026, from the save PG8): allies took "an inordinate amount of time" to destroy an enemy town's
+vehicles. Read from the save and the code (Vehicle Framework 1.7, Combat Extended's vehicle compatibility, RimPacts' build of
+16 Nov 2026):
+
+- **Most of the time was RimPacts', not ours.** The empty Highwayman was a RimPacts assault target: 11 of the ally's 19 soldiers had
+  it as their focus and fought it by hand (57 log entries, every one melee or fire: mechs kicking, a soldier clubbing it with an
+  anti-tank rifle's stock, over two in-game hours), because the game's order for a non-threat target is to trash it and nobody fires at
+  an empty vehicle. Patched in D'thorga Patches 0.19.3 (temporary-patches.md, row 17).
+- **Our parts made it tougher too.** Vehicle Framework destroys a vehicle when its body integrity, every part's health over every
+  part's full health, falls under 1 % (`VehicleComponent.TakeDamage`; Combat Extended's `DamageComponent` asks the same stat). The
+  parts we append joined that sum: on the Highwayman under Combat Extended, 12 parts and 275 health against its author's 1,650
+  (about 17 % more; about 27 % without Combat Extended, whose patch raises the armour plates).
+
+**The audit (owner's answer, 16 Nov 2026: "only leave the parts out that belong to us where they wouldn't matter ... parts that are
+critical to the wellbeing of a vehicle still remain").** Of the 22 parts our loadouts can append:
+
+| Counts (does a job on the vehicle) | Left out (an empty mounting point for a fitting) |
+| --- | --- |
+| Alternator, battery, starter motor, oil pump, fuel pump, gearbox, radiator, water pump, drive belt, brakes, clutch, avionics bay, traction battery, DC-DC converter, air compressor, hydraulic lines, main rotor gearbox | Auxiliary tank cradle, lamp bracket, winch mount, ferry tank tie-downs, hook mount |
+
+A part left out can still be hit and broken, with every effect it had; it neither keeps a wreck standing nor brings a vehicle closer to
+destruction. `PartToAdd.countsTowardDestruction` marks it; `VehicleStatWorker_PhobosBodyIntegrity` (set on the stat by an XML patch, no
+Harmony) sums the rest, through `IntegrityRule` with tests. A vehicle without our systems is summed exactly as Vehicle Framework sums it.
+On the Highwayman under Combat Extended our share falls from 275 to 195 health (about 12 % more than its author's). Framework 0.114.5,
+Vehicles 0.56.2; not yet tested in game. **Agent's reading:** the rest of our parts are real systems a crew would need, so they stay.
+
 ## The direction
 
 **Why not revive the pawn stack.** It is a patch war with a framework whose 1.7 rework is weeks away: counter-prefixing VF's

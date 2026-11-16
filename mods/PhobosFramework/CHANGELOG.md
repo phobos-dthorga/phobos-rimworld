@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.114.5] - 2026-11-16 - Draft
+
+Empty mounting points no longer keep a wrecked vehicle standing
+
+### Fixed
+
+- **A vehicle is destroyed when its own working parts are gone, not after every bracket of ours is smashed too.** Vehicle Framework
+  destroys a vehicle when all its parts' health together falls under 1 %, and the parts our systems add joined that sum, making every
+  vehicle with our systems tougher than its author made it (about 17 % on the Highwayman under Combat Extended). Empty mounting points
+  for fittings (the tank cradle, lamp bracket, winch mount, ferry tank tie-downs and hook mount) no longer count. They can still be hit
+  and broken. Parts that do a job (the battery, pumps, brakes, clutch and the rest) still count, as on a real vehicle.
+
+### Compatibility and limits
+
+- No settings were added or changed. A vehicle without our systems is judged exactly as Vehicle Framework judges it.
+- Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.114.4] - 2026-11-16 - Draft
 
 The cargo hook's latch sound is the owner's own pick
