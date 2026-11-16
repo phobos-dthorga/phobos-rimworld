@@ -11,6 +11,34 @@ tested in game unless an entry says the owner tested it.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 
+## [0.120.2] - 2026-11-17 - Draft
+
+The game no longer closes by itself when a Mongoose or an Mi-24 Hind fires its rocket pods
+
+### Fixed
+
+- **The game closed by itself, with no error message, when a Mongoose fired its rocket pods under Combat Extended** (the owner's crash
+  of 17 Nov 2026, with a raider's Mongoose; Framework 0.119.0 to 0.120.1). Our fault. Vehicle Framework keeps one shared function that
+  turns a shot's sway into its angle, which Combat Extended fills in. The Mongoose Attack Helicopter and the Mi-24 Hind put their own
+  function round it for each rocket and put back what they found. Since 0.119.0 the Framework put its own round it too, for
+  hand-cranked turrets, and left it there. Once any vehicle's turret had fired, the two each took the other for the original and
+  called each other without end, until the game ran out of room and closed. It would have happened to the player's own Mongoose and
+  Hind as well.
+- The Framework no longer touches that shared function. A hand-cranked turret's wider sway is now applied inside Combat Extended's own
+  function, where every shot ends once whatever other mods put round it.
+
+### Compatibility and limits
+
+- A test now refuses any code of ours that puts a function into one of Vehicle Framework's shared Combat Extended functions.
+- If Combat Extended renames its function, hand-cranked turrets aim as well as powered ones under Combat Extended and the log says so
+  once at start-up; nothing else is affected.
+- As before, a weapon that VTOL Vehicle fires from its own fire points (the Mongoose's gun pods) does not get the wider sway.
+- Found from the crash dump, the log and both mods' code; the fault was not reproduced. No settings changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.120.1] - 2026-11-17 - Draft
 
 The air-defence tie-in loads; lights can be listed, and a vehicle light left behind is put out

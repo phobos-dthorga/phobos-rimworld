@@ -1,4 +1,6 @@
+using System.Reflection;
 using HarmonyLib;
+using Phobos.Framework;
 using UnityEngine;
 using Vehicles;
 using Verse;
@@ -78,44 +80,66 @@ public static class TurretAimReport
 }
 
 /// <summary>
-/// T5 and T6 under Combat Extended (Framework 0.119.0): Combat Extended's compatibility code hands Vehicle Framework a function that turns a
-/// shot's sway into its angle (VehicleTurret.ProjectileAngleCE), and a turret's shot goes through it. While one of a vehicle's turrets fires,
-/// this prefix notes which, and puts our wrapper round that function once: the wrapper widens the sway of a turret cranked by hand, then
-/// calls Combat Extended's own. The finalizer forgets the turret whatever happens. Nothing is skipped.
+/// T5 and T6 under Combat Extended (Framework 0.119.0; reworked in 0.120.2): while a turret cranked by hand fires through Vehicle
+/// Framework's Combat Extended path, this prefix notes which turret and how much worse it aims, and the finalizer forgets it whatever
+/// happens. TurretAimSwayCombatExtended then widens that one shot's sway. Nothing is skipped, and nothing of Vehicle Framework's is
+/// replaced.
+///
+/// Never put a wrapper of ours into VehicleTurret.ProjectileAngleCE, as 0.119.0 did (the crash of 17 Nov 2026). That field is one shared
+/// function, and other mods swap their own into it for a shot and put back what they found (the Mongoose's and the Mi-24 Hind's
+/// Patch_FireTurret_Converge). Ours stayed in it for good, so theirs kept ours as "the original" while ours took theirs as "Combat
+/// Extended's": each called the other until the stack ran out and the game closed. tests/test_no_shared_hook_swaps.py refuses the pattern.
 /// </summary>
 [HarmonyPatch(typeof(VehicleTurret), "FireTurretCE")]
 public static class TurretAimSway
 {
-    static VehicleTurret? firing;
-    static System.Func<float, float, Thing, LocalTargetInfo, Vector3, bool, float, float, float, float, Vector2>? combatExtended;
+    /// <summary>The hand-cranked turret firing now, or null: outside a shot, or for a turret aiming as well as ever.</summary>
+    internal static VehicleTurret? firing;
+    /// <summary>That turret's accuracy factor, below 1.</summary>
+    internal static float accuracy = 1f;
 
     public static void Prefix(VehicleTurret __instance)
     {
+        float factor = TurretPace.For(__instance).accuracy;
+        if (factor >= 1f) return;
         firing = __instance;
-        var current = VehicleTurret.ProjectileAngleCE;
-        if (current != null && current != (System.Func<float, float, Thing, LocalTargetInfo, Vector3, bool, float, float, float, float, Vector2>)Wrapped)
-        {
-            combatExtended = current;
-            VehicleTurret.ProjectileAngleCE = Wrapped;
-        }
+        accuracy = factor;
     }
 
     public static void Finalizer() => firing = null;
+}
 
-    static Vector2 Wrapped(float speed, float range, Thing shooter, LocalTargetInfo target, Vector3 origin, bool flyOverhead, float gravity,
-        float sway, float spread, float recoil)
+/// <summary>
+/// The sway itself (Framework 0.120.2): a prefix on Combat Extended's own function that turns a shot's sway into its angle, the one its
+/// vehicle compatibility hands to Vehicle Framework. It only widens the sway handed in, for the one turret TurretAimSway noted; whatever
+/// other mods wrap round that function, every shot ends here once. The function has no extension point of its own. A tie-in by name (no
+/// reference to Combat Extended's assembly), which stands down when Combat Extended is absent or the function is renamed: hand-cranked
+/// turrets then aim as well as powered ones under Combat Extended, and the load says so. Nothing is skipped.
+/// </summary>
+[HarmonyPatch]
+public static class TurretAimSwayCombatExtended
+{
+    static bool Prepare()
     {
-        VehicleTurret? turret = firing;
-        if (turret != null && turret.vehicle == shooter)
-        {
-            float accuracy = TurretPace.For(turret).accuracy;
-            if (accuracy < 1f)
-            {
-                PhobosKnockOutRulesDef rules = Phobos.Framework.Defs.PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
-                sway = (float)Phobos.Framework.Vehicles.Rules.TurretAimRule.CombatExtendedSway(sway, accuracy, rules.combatExtendedSwayCap);
-            }
-        }
-        return combatExtended!(speed, range, shooter, target, origin, flyOverhead, gravity, sway, spread, recoil);
+        if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) return false;
+        if (TargetMethod() != null) return true;
+        VehicleSystemsMod.Logger.Warn("Combat Extended's shot-angle function was not found, so a turret cranked by hand aims no worse than a powered one.");
+        return false;
+    }
+
+    // scripts/check-targets.py does not read a "Type:Method" name yet, so this one was checked by hand against Combat Extended's installed
+    // assembly (17 Nov 2026): public static, with parameters named shooter and sway.
+    static MethodBase? TargetMethod() => OptionalMods.IsActive(OptionalMods.CombatExtended)
+        ? AccessTools.Method("CombatExtended.Compatibility.VehiclesCompat.VehiclesCompat:ProjectileAngleCE")
+        : null;
+
+    public static void Prefix(Thing shooter, ref float sway)
+    {
+        VehicleTurret? turret = TurretAimSway.firing;
+        if (turret == null || turret.vehicle != shooter) return;
+        PhobosKnockOutRulesDef rules = Phobos.Framework.Defs.PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
+        sway = (float)Phobos.Framework.Vehicles.Rules.TurretAimRule.CombatExtendedSway(sway, TurretAimSway.accuracy, rules.combatExtendedSwayCap);
+        Seen.Note("vehicles.cranked-sway-widened", turret.vehicle, turret.key);
     }
 }
 

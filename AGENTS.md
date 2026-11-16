@@ -348,6 +348,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Never spawn a thing from `PostSpawnSetup`** (the sling's landing fault, 12 Nov 2026). The game runs a pawn's comps before it gives the
   pawn its movement parts, and a pawn spawned beside one in that state throws, leaving both half on the map and the map undrawn. Note what
   happened and act at the next tick (`CompPhobosSling`); `tests/test_no_spawn_in_spawn_setup.py` refuses the pattern.
+- **Never put a function of ours into another mod's shared hook** (the Mongoose crash, 17 Nov 2026), such as Vehicle Framework's
+  `VehicleTurret.ProjectileAngleCE`. Other mods swap their own in for one shot and put back what they found; with ours left there, each
+  took the other for the original and they called each other until the game closed. Patch the function the hook ends in instead
+  (`TurretAimSwayCombatExtended`); `tests/test_no_shared_hook_swaps.py` refuses the pattern.
 - **Derived state is never saved.** `RadioNet` and every link cache hold only what can be recomputed from
   Defs and spawned things; they save nothing, touch no VEF state during load, and recompute lazily on
   first use. Thought workers and gizmos read caches; they never compute.

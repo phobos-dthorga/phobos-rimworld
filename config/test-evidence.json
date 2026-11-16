@@ -22,7 +22,7 @@
     "142": ["aircraft.closed-sky"],
     "143": ["aircraft.evasion-reduced", "aircraft.map-salvo"],
     "145": ["aircraft.altitude-hypoxia"],
-    "146": ["vehicles.cranked-turret-aims-worse"],
+    "146": ["vehicles.cranked-turret-aims-worse", "vehicles.cranked-sway-widened"],
     "147": ["aircraft.systems-run-in-flight"],
     "149": ["vehicles.grid-hook-up"],
     "150": ["vehicles.autonomous-turret-no-power"]
