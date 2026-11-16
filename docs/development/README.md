@@ -15,6 +15,7 @@ promise current behaviour. For using the mods, start at the [documentation index
   matter and four if play brings them up, with what passes for each.
 - [Outstanding work (from 7 Nov 2026)](outstanding-work.md): every open item, the owner's decision on it and its status; kept
   current by every change.
+- [Documentation audit (17 Nov 2026)](docs-audit-2026-11-17.md): the checklist for cleaning up the documents, in the owner's order.
 - [Dependency audit (16 Nov 2026)](dependency-audit-2026-11-16.md): what the mods we build on changed during the owner's break,
   above all Vehicle Framework's 1.7 release; what was fixed, what still stands, and the decisions and in-game checks it raised.
 - [Mod consolidation (7 Nov 2026)](mod-consolidation.md): why eleven mods became six (five medical mods into D'thorga
