@@ -337,7 +337,35 @@ class DocStatusCheckTests(unittest.TestCase):
                                               '## How it would be built\n'), [])
 
 
+class DocIndexCheckTests(unittest.TestCase):
+    def check(self, index, records):
+        with tempfile.TemporaryDirectory() as root:
+            folder = Path(root) / 'docs' / 'development'
+            folder.mkdir(parents=True)
+            (folder / 'README.md').write_text(index, encoding='utf-8')
+            for record in records:
+                (folder / record).write_text('# Record\n', encoding='utf-8')
+            return doc_index.check(root)
+
+    def test_the_repository_index_is_whole(self):
+        self.assertEqual(doc_index.check(ROOT), [])
+
+    def test_one_line_entries_listing_every_record_pass(self):
+        self.assertEqual(self.check('# Index\n\n- [A](a.md) (1 Nov 2026): a record. Built.\n- [Guide](../guide/README.md)\n',
+                                    ['a.md']), [])
+
+    def test_missing_doubled_wrapped_and_long_entries_are_refused(self):
+        faults = self.check('# Index\n\n- [A](a.md): one.\n  and its second line.\n- [A again](a.md): twice.\n'
+                            f'- [C](c.md): {"x" * 200}\n', ['a.md', 'b.md', 'c.md'])
+        self.assertEqual(len(faults), 4)
+        self.assertTrue(any('second line' in f for f in faults))
+        self.assertTrue(any('a.md is listed 2 times' in f for f in faults))
+        self.assertTrue(any('b.md is not listed' in f for f in faults))
+        self.assertTrue(any('characters' in f for f in faults))
+
+
 doc_status = load('scripts/check-doc-status.py', 'check_doc_status')
+doc_index = load('scripts/check-doc-index.py', 'check_doc_index')
 
 
 if __name__ == '__main__':

@@ -1,362 +1,172 @@
 # Development and research
 
-Contributor instructions, research, designs and records. Dated records keep their original scope; they don't
-promise current behaviour. For using the mods, start at the [documentation index](../README.md).
+Contributor instructions, research, designs and records. Dated records keep their original scope; they don't promise current
+behaviour, and each opens with its status. For using the mods, start at the [player guide](../player-guide/README.md).
+
+**Every entry is one line** (`scripts/check-doc-index.py` refuses more): the record, its date, what it is, and its status.
+**Built** or **partly built** means in a mod, not tested in game unless the record says the owner tested it; **record only** means
+research or design with nothing built; **living** means kept current by every change; **archived** means resolved or overtaken.
 
 ## Start here
 
-- [Project direction](project-direction.md): intent, the owner's game, decisions with who made them, and open
-  checks.
-- [Building, testing and deploying](building.md): every C# project in one table, the checks and what runs on GitHub,
-  where things go, the C# toolchain (RimWorld 1.7 leads; 1.6 kept as the minimum) and deploying to the game.
-- [Writing READMEs and in-game text](player-language.md)
-- [The medical mods together](../medical-mods.md): the player's view of which medical mod does what, with a flow diagram.
-- [In-game test pass (8 Nov 2026)](in-game-test-pass.md): the short list of checks for the owner's next session, three that
-  matter and four if play brings them up, with what passes for each.
-- [Outstanding work (from 7 Nov 2026)](outstanding-work.md): every open item, the owner's decision on it and its status; kept
-  current by every change.
-- [Documentation audit (17 Nov 2026)](docs-audit-2026-11-17.md): the checklist for cleaning up the documents, in the owner's order.
-- [Dependency audit (16 Nov 2026)](dependency-audit-2026-11-16.md): what the mods we build on changed during the owner's break,
-  above all Vehicle Framework's 1.7 release; what was fixed, what still stands, and the decisions and in-game checks it raised.
-- [Mod consolidation (7 Nov 2026)](mod-consolidation.md): why eleven mods became six (five medical mods into D'thorga
-  Medical, two patch mods into D'thorga Patches), who decided what, how identities and settings were kept, and what came of it.
-- Which mod needs which: the diagram in the [project README](../../README.md#the-mods).
+- [Project direction](project-direction.md): intent, the owner's game, decisions with who made them, and open checks. Living.
+- [Building, testing and deploying](building.md): every C# project, the gate, what runs on GitHub, deploying to the game. Living.
+- [Analysis tooling](analysis-tooling.md) (7 Nov 2026): the tools for logs, saves, Defs, assemblies and the Workshop. Living.
+- [Writing READMEs and in-game text](player-language.md): plain words for players with no radio, engineering or coding knowledge. Living.
+- [Documentation audit](docs-audit-2026-11-17.md) (17 Nov 2026): the checklist for cleaning up these documents, in the owner's order. Living.
 
-## The radio framework
+## Status and trackers
 
-- [D'thorga Radio Framework: design (snapshot, 18 Oct 2026)](radio-framework-design.md): the owner's design,
-  from the living doc on claude.ai, which stays the master copy.
-- [Radio reference checks (18 Oct 2026)](radio-reference-checks.md): each figure in the design's Reference
-  table, checked by calculation or against its primary source, including the Australian licence limits by mode.
-- [Map scale research (19 Oct 2026)](map-scale-research.md): what a cell and a world tile measure, from the
-  game's own constants, and why Phase 1 uses 1 m per cell.
+- [Outstanding work](outstanding-work.md) (from 7 Nov 2026): every open item, the owner's decision on it and its status. Living.
+- [In-game test pass](in-game-test-pass.md) (from 8 Nov 2026): the checks for the owner's next session, and what passes. Living.
+- [Patches for other authors' faults](temporary-patches.md) (10 Nov 2026): each such patch, temporary or permanent, and how to retire it. Living.
+- [Tie-ins with other mods](tie-in-register.md) (13 Nov 2026): every tie-in folder and C# tie-in, by our mod. Living.
+- [Dependency audit](dependency-audit-2026-11-16.md) (16 Nov 2026): what the mods we build on changed during the owner's break. Decisions answered.
+- [Mod consolidation](mod-consolidation.md) (7 Nov 2026): eleven mods into six, how identities and settings were kept. Done.
 
-## Factory additions
+## D'thorga Framework (core)
 
-- [VFE Factory additions: research and decisions (28 Oct 2026)](vfe-factory-additions.md): how a factory bill
-  works, why the stock neutroamine bill already took human meat, the values in play, decisions and ideas;
-  the drug-lab recipe scan (86 recipes, 44 ported in 0.3.0), the output-cap rule and the offline checker;
-  why bionics had no factory bills, the fabrication bay's bill generator and the machining bay's lost-item bug;
-  the output guard for every machine (0.5.1); the storage switch that lets belts take from any storage
-  (0.6.0), with a survey of the owner's storage buildings; and later the stuck-belt fix, the synthread and soup bills, piped
-  water with Dubs Bad Hygiene (0.10.0), the per-building belt switch on hoppers (0.11.0) and oversized batches in parts (0.11.1).
-- [VFE Factory conveyors and hoppers (28 Oct 2026)](vfe-factory-conveyors.md): what a belt may pull from (only
-  factory hoppers, or storage flagged with Pipe System's extension; since 0.6.0 also switched-on storage), where
-  it pushes, what the flag does not change, and the recipe for flagging another mod's storage.
+- [D'thorga Framework: research and decisions](phobos-framework.md) (4 Nov 2026): room gases, the shared helpers and the health layer. Built.
+- [Parts bills](parts-bills.md) (11 Nov 2026): what a built thing is made of, by role, filled by installed mods' parts or ours. Built.
+- [Pipes and conduits beneath our things](network-underlays.md) (13 Nov 2026): hidden pipes under our buildings and parked vehicles. Built.
+- [A shared logging framework](logging-framework-design.md) (8 Nov 2026): the 10,000-message cap, phobos-log and verbose logging. Partly built.
+- [Colony mood file](mood-snapshot.md) (10 Nov 2026): every colonist's thoughts written at each save for the mood report. Built.
+- [The D'thorga research tree](research-tree.md) (10 Nov 2026): the research tab, its projects and the grant for older colonies. Built.
+- [Radiation control line](radiation-control-line.md) (10 Nov 2026): where colonists suit up for Rimatomics' radiation. Built.
+- [A setup wizard on first load](first-load-setup-wizard.md) (9 Nov 2026): the owner's idea, kept for later. Record only.
 
-## D'thorga Patches (vehicle and missile patches)
+## Vehicles
 
-- [Vehicle patches: research and decisions (2 Nov 2026)](vehicle-patches.md): why the Harrier's flight framework fails beside
-  RimPacts (a Harmony patch in a generic class breaks the next patch of that method), its build cost and bomb costs against
-  the owner's other vehicles, bombs and rockets at the ammunition fabricator, heavy castings at the rotary forger, keeping a
-  sortie's map open, Spaceship Turret Hull under Combat Extended, 1.7 readiness, and bug reports for the mods' authors.
+### Systems and health
 
-- [Missile patches: research and decisions (7 Nov 2026)](missile-patches.md): why a strategic warhead from InterRim Ballistic
-  Missile hung the owner's game at detonation (one frame for the whole map, and a room rebuild after every fallen wall), how
-  D'thorga Missile Patches spreads the blast over frames and holds the rebuild, who chose what, the owner's test protocol, and a
-  bug report for the mod's author.
-- [Strategic strike: design and decisions (7 Nov 2026)](strategic-strike.md): D'thorga Patches' own model for the extinction-class
-  warhead after Dubs Rimatomics' nuke: fireball, blast and heat zones, burns, the pulse, Rimatomics' fallout, who chose what.
+- [Vehicle systems](vehicle-systems-design.md) (8 Nov 2026): the schema-driven service for electrical, coolant, oil and more. Built.
+- [The vehicle tabs](vehicle-tabs-design.md) (8 Nov 2026): the Dashboard, Systems and Health tabs and their history graphs. Built.
+- [A pawn-like health model for vehicles](vehicle-health-design.md) (8 Nov 2026): conditions on Vehicle Framework's parts, slices 0 to 3. Built.
+- [Vehicle health, slice 3](vehicle-health-consequences.md) (8 Nov 2026): the danger clock, destroyed parts, field fixes. Built; wrecks not.
+- [Knocked out, not destroyed](vehicle-knocked-out-systems.md) (16 Nov 2026): weapons, tracks, working gear and crew lost before a wreck. Partly built.
+- [How our vehicle features look](vehicle-presentation-design.md) (11 Nov 2026): the diagnosis report, fleet board, icons and graphs. Partly built.
+- [Other factions' vehicles: an audit](vehicle-other-factions-audit.md) (11 Nov 2026): every player-faction check against the owner's rule. Built.
+- [Headlights that light the ground](vehicle-headlights.md) (12 Nov 2026): a beam of the game's own light ahead of every vehicle. Built.
 
-## D'thorga Vehicles (vehicle systems and utility vehicles)
+### Power, drivetrain and aircraft
 
-- [Vehicle systems: design (8 Nov 2026)](vehicle-systems-design.md): the owner's generic, schema-driven service for real
-  vehicle systems (electrical, coolant and oil first) on D'thorga Framework's Vehicle-Framework-optional part, retrofitted to
-  other authors' vehicles through loadout Defs anyone can write; the schema shape, the service, settings, the first two
-  systems, the roadmap and who chose what; then what was built in D'thorga Framework 0.9.0 (phases A to C, 8 Nov 2026), how it
-  differs, and the owner's test list. Not yet tested in game.
-- [Vehicle drivetrain and engine speed: design (8 Nov 2026)](vehicle-drivetrain-design.md): rpm and a semi-realistic
-  drivetrain worked backwards from the speed Vehicle Framework already gives (gear, load, fuel power, heat), a speed cap only
-  where power or traction runs out, the two clocks, archetypes chosen by effect, parts and damage, a worked example and the
-  owner's open questions; then what D'thorga Framework 0.11.0 built (8 Nov 2026), the owner's answers and a test list. Not yet
-  tested in game.
-- [Gas turbines: design (8 Nov 2026)](vehicle-turbine-design.md): turboshaft helicopters, the Harrier's vectored-thrust engine
-  with water injection, and the tank turbine; flight phases as the aircraft load signal, the vertical-landing hover margin,
-  hot and hung starts from the electrical system, twin engines, and what to confirm in the flight frameworks first; then what was
-  built on 8 Nov 2026 (Framework 0.11.0, Vehicles 0.2.0, Patches 0.14.0), what the decompiles said, the owner's answers and a
-  test list. Not yet tested in game.
-- [Vehicle simulation references (8 Nov 2026)](vehicle-references.md): the study library for the three vehicle designs (books,
-  papers, open code and game documentation), each with its terms, what to take from it and whether it was read.
-- [Power and lift: design (8 Nov 2026)](vehicle-power-and-lift-design.md): any number of engines, helicopters' rotor drives
-  (the Huey's and the Mangusta's transmission limits), thrust-lifted pods losing lift with each thruster, a lift-off check for
-  Vehicle Framework's own aircraft, and a diesel-electric with traction motors fitted to a US Army manual's short-time ratings;
-  built in D'thorga Framework 0.12.0 and D'thorga Vehicles 0.3.0. Not yet tested in game.
-- [Real figures for named vehicles: design (8 Nov 2026)](vehicle-real-figures-design.md): the L-ATV first, then the MaxxPro,
-  Humvee, Land Cruiser J70, PLS (Roaring Tiger's "HEMTT"), M113, M48H, M10, Bradley, Abrams, T-54, BMP-1s and Wiesel with
-  their engines' published power, weights and gearboxes; D'thorga Vehicles 0.4.0. Not yet tested in game.
-- [Steam boilers: design (8 Nov 2026)](vehicle-steam-design.md): raising steam over hours, safety valves, the water glass and
-  injector, water stops, and the fusible plug that melts if the crown sheet is uncovered, for Trains of the Rim's Frisco 4-8-4
-  and Tommy 0-6-0T; D'thorga Framework 0.13.0 and D'thorga Vehicles 0.5.0. Not yet tested in game.
-- [The world map and the cab: design (8 Nov 2026)](vehicle-world-map-design.md): what the vehicle systems did in caravans
-  and what was skipped or wrong, a closed cab's own temperature through the game's held-temperature lookup, the night heater,
-  caravan speed caps and refusals, the jump-start kit and its two settings; D'thorga Framework 0.16.0 and D'thorga Vehicles
-  0.7.0. Not yet tested in game.
-- [A shared logging framework: research and direction (8 Nov 2026)](logging-framework-design.md): why every mod's log dies at
-  10,000 messages a session (one mod's storm killed the owner's), the 1.7 pipeline from Verse.Log through Waylith to Player.log and
-  back, what other mods' loggers do, and the direction: a bounded revive without Harmony, our own log categories with budgets, a
-  shared logger in a sibling repository, a schema and reader across games, and no Rust inside the game. Nothing built yet.
-- [A pawn-like health model for vehicles: research and direction (8 Nov 2026)](vehicle-health-design.md): what the game does
-  for a pawn and Vehicle Framework for a vehicle (it switches the pawn health stack off), why a condition layer on Vehicle
-  Framework's parts beats reviving that stack, the performance budget and measurement protocol, the NPC lite tier, and the
-  four-slice roadmap from the Health tab to repair depth. Not yet tested in game.
-- [Electric vehicles: design (8 Nov 2026)](vehicle-electric-design.md): traction battery temperature and wear, the electric drive,
-  charging that follows the battery, and the Lightning as a test van behind a setting; Framework 0.20.0, Vehicles 0.9.0. Not yet
-  tested in game.
-- [Kerb mass check (8 Nov 2026)](vehicle-kerb-mass-check.md): the 12 kg per Vehicle Framework Mass rule against every active
-  vehicle; authored masses for Vanilla Vehicles Expanded, tunable empty mass; Framework 0.19.0, Vehicles 0.8.0. Not yet tested in game.
-- [Knocked out, not destroyed (16 Nov 2026)](vehicle-knocked-out-systems.md): what a vehicle loses before it is a wreck: weapons that
-  stop with their mount or their power, tracks that stop a tank, working equipment and its feeds, and the people aboard. Rows T1 to
-  T11, M1 to M5, W1 to W6, C1 to C6, a short list and six questions. Record only, nothing built.
-- [Vehicle class by empty mass (16 Nov 2026)](vehicle-class-by-empty-mass.md): light, medium and heavy chosen by empty mass instead
-  of Vehicle Framework's Mass; five Vanilla Vehicles Expanded vehicles would move, real vehicles none. Record only, two questions open.
-- [Vehicle follow-ups: design (8 Nov 2026)](vehicle-crew-and-ground-design.md): booster packs with starts, the world map's ground
-  from each biome's Defs, cab moods by comfort range, and the RimHUD value; D'thorga Framework 0.18.0. Not yet tested in game.
-- [The vehicle tabs: design (8 Nov 2026)](vehicle-tabs-design.md): the Dashboard and Systems inspector tabs, how they hook into
-  Vehicle Framework's Def resolution, the saved day of history behind the graphs, the widgets that went to the Framework core,
-  and what RimHUD does with them; D'thorga Framework 0.17.0. Not yet tested in game.
-- [Vehicle tuning and upgrades: what it would do to the player (9 Nov 2026)](vehicle-tuning-and-upgrades.md): fittings and engine tunes for
-  any vehicle; a proposal with six questions for the owner, nothing built.
-- [Vehicle upgrades, round two (11 Nov 2026)](vehicle-upgrades-round-two.md): which of the owner's 75 vehicles have an upgrade tree
-  and whose it is (the Cherokee has one, from VVE - Upgrades Extended; 21 have none), and a signature feature proposed for each
-  thin one; a proposal with four questions for the owner, nothing built.
-- [Headlights that light the ground (12 Nov 2026)](vehicle-headlights.md): the headlights switch casts a beam of the game's own light ahead of every vehicle our systems run; cost and the raiders' rule
-- [Vehicle upgrade families (12 Nov 2026)](vehicle-upgrade-families.md): five families of fittings shared across many vehicles
-- [Hotboxing: smoking in a vehicle's cab (12 Nov 2026)](vehicle-hotboxing.md): design only; passengers smoke on a trip, a closed cab shares the high, a stoned driver drives slower; what Vehicle Framework allows aboard
-- [Vehicle accessories: camp gear and comforts (13 Nov 2026)](vehicle-accessories.md): research and design only; a parked vehicle as
-  the heart of a camp through four links (a power outlet, a crew water tank, a camp order, life aboard), a catalogue of twenty-one
-  accessories that each use up something real, what other mods already do, and eight questions for the owner. Nothing built.
-- [Sleeping berths: roof tents, cab bunks and driving through the night (13 Nov 2026)](vehicle-berths.md): research and design only, at
-  the owner's request; a fold-out roof tent at camp, bunks that rest riders on the move, a relief driver for night driving, and
-  sleeping inside a parked vehicle, with what each needs from the game and Vehicle Framework. Nothing built.
-- [Working trailers: the shared base and a catalogue (13 Nov 2026)](vehicle-trailers.md): research and design only; set up and
-  pack up with no crew, a power lead the Busbar feeds, set-out pieces and canvas rooms, stores; nineteen trailers, with supply,
-  care and work families and a livestock trailer in depth; faults found on the way. Nothing built.
-- [The field kitchen trailer (13 Nov 2026)](vehicle-field-kitchen.md): research and design only; the owner's kitchen on wheels,
-  cooking on burners with the Busbar's power as a bonus, a canvas kitchen tent, batches of ten and cooking in a resting caravan.
-- [The prisoner transport trailer (13 Nov 2026)](vehicle-prisoner-transport.md): research and design only; the owner's cage trailer,
-  capture straight into it, rations, harsh conditions, raiders who carry colonists off in one, and captives at enemy bases.
-- [Pipes and conduits beneath our things (13 Nov 2026)](network-underlays.md): visible plumbing and pipes beneath our buildings and parked
-  vehicles (Framework 0.107.0), the generator set joining through conduits beneath it, and an audit of everything of ours on a piped supply
-  or power, with proposals for the owner.
-- [The authors' override contract (13 Nov 2026)](vehicle-author-overrides.md): research and design only; what another mod's author can write in XML today, how the game loads XML only when our mod is active, and a proposed override Def with a stable, versioned contract
-- [Tie-ins with other mods: the register (13 Nov 2026)](tie-in-register.md): every tie-in that exists today, 63 folders across six
-  mods plus the C# ones, by our mod: the other mod, what it does, XML or C#, and which are patches for another author's fault. Kept
-  current by every change that adds or widens a tie-in.
-- [Soft-dependency cross-links (13 Nov 2026)](soft-dependency-crosslinks.md): research only; new tie-ins with mods on the owner's list
-  (SD1 to SD44) in both directions, every earlier unbuilt proposal naming another mod in one table, author activity, and a ranked short
-  list. Found on the way: Vehicles at Work drives vehicles our systems refuse to move.
-- [Air-defence tie-ins (13 Nov 2026)](air-defence-tie-ins.md): research only; InterRim Ballistic Missile's and The Dead Man's Switch's
-  radars, fire control, interceptors and satellites against our aircraft, strikes and submarines (AD1 to AD14). Neither mod can see a
-  Vehicle Framework aircraft today; IRBM's CIWS cannot see Combat Extended's shells.
-- [Avionics for every aircraft (13 Nov 2026)](vehicle-avionics.md): research only; the eleven aircraft and their free parts, a nine-capability avionics fit, proposals for instruments and navigation, aircraft power and flight controls, sensors and aiming, crew survival and defences, and the hooks that can scale other authors' figures
-  (recovery, long range, cold weather, work lights, all-terrain tyres), chosen by effects and loadout roles, beside other authors'
-  trees; a proposal with four questions for the owner, nothing built.
-- [Vehicle cross-links, round three (13 Nov 2026)](vehicle-crosslinks-round-three.md): research only; the graph after 0.105.2, twenty
-  new links for every vehicle (the crew, weather and ground, combat damage, electrics and hydraulics), fresh verdicts on round two's
-  unbuilt rows, the faults found on the way, and the ten cheapest links across the round's three records.
-- [Trailers that follow their tractor (11 Nov 2026)](vehicle-trailer-research.md): how RimThunder - Core hitches, draws and turns
-  a trailer (read from code), what Turbo's library and RimArrow add, the limits, and a hitch of our own with a smoother turn;
-  research with three questions for the owner, nothing built.
-- [The hitch and the generic trailer: design (11 Nov 2026)](vehicle-hitch-design.md): a hitch of our own beside the sling, a
-  trailer any vehicle can tow with the load going through the drivetrain model, the smooth turn from one follow rule, and the
-  check that Vehicle Framework draws bodies and overlays at any angle; four decisions for the owner, nothing built.
-- [Other factions' vehicles: an audit of the vehicle code (11 Nov 2026)](vehicle-other-factions-audit.md): every check of the
-  player's faction read against the owner's rule; three small faults, the lite tier leaving raiders' vehicles untouched by the
-  drivetrain, and three decisions for the owner. Nothing changed.
-- [Code audit: saves, cost per tick and missing things (11 Nov 2026)](code-audit-2026-11-11.md): a read of all three across our
-  mods (radio left out); one save fault fixed in Framework 0.96.1, a proposal for optional parts' saved data, and a three-step test
-  list for the owner.
-- [A setup wizard on first load: the idea (9 Nov 2026)](first-load-setup-wizard.md): the owner's idea, kept for later; what it would cover,
-  when to raise it and what to settle first.
-- [Vehicle health, slice 3: what it does to the player (8 Nov 2026, built 9 Nov 2026)](vehicle-health-consequences.md): the danger clock,
-  destroyed parts needing supplies, serious conditions, field fixes, and our own parts framework.
-- [Vehicle system crosslinks: research and record (9 Nov 2026)](vehicle-system-crosslinks.md): the 22 systems form a star round
-  the engine state, with five quantity links between them; eight proposed crosslinks (night heater warming the engine, the cab heater off the
-  coolant, a worn engine burning oil, fire cooking the systems, and more), each answered for itself, with an order and the owner's answers
-  (10 Nov 2026). Links 1, 2 and 8 built in Framework 0.67.0, link 3 in 0.68.0, link 4 in 0.69.0, links 7, 5 and 6 and a block heater in 0.70.0: all eight built, not yet tested in game.
-- [Vehicle crosslinks, round two: deeper chains, more fittings, and what the stations should do (10 Nov 2026)](vehicle-crosslinks-round-two.md):
-  the graph after 0.70.0 and its holes (hydraulics nobody reads, no drive belt, flat brake wear, tread that never loses grip, a rig that only
-  gates); eight deeper links, ten fittings and a boost axis, the rig doing diagnostics and better fits, consumables as items, four things argued
-  against, an order and the owner's questions. T1 to T3, S1, S2 and an inspection pit built in Framework 0.73.0 and Vehicles 0.33.0 (not yet
-  tested in game); S4, service kits as items, in Framework 0.74.0.
-- [How our vehicle features look: research and record (11 Nov 2026)](vehicle-presentation-design.md): everything we show is text and
-  flat bars; what the game gives free (letters that open windows, the health card's row shape, the curve drawer, a vehicle's picture in a
-  rect); the diagnosis as a report window, the fleet board, fittings icons, one dial, graphs (already recorded, free while closed), the
-  damage sheet and the world-map range as the strikingly visual high-benefit pieces, three art batches with costs, what is argued
-  against, and the owner's questions. Nothing built.
-- [Parts bills: what a built thing is made of, by role (11 Nov 2026)](parts-bills.md): a generic core service (Framework 0.95.0): a
-  building or a vehicle lists its roles, and each is filled by another mod's part where installed and suited, ours otherwise; the Def
-  types with an example for a placed building, every vehicle's bill, and what a later chemical industry mod reuses. Not yet tested in game.
-- [Sling loads: a helicopter carries a vehicle under it (11 Nov 2026)](vehicle-sling-design.md): the owner's own airlift with our
-  flavour; a cargo-hook fitting on any helicopter, real masses against sourced hook ratings with hot-day derating, a ground crew, weather
-  limits, a slower thirstier slung flight and an emergency release, each a setting; three slices; nothing built yet.
-- [Crash record: stack overflow on 9 Nov 2026](crash-2026-11-09-stack-overflow.md): a runaway call loop the log never mentioned, what the dump proved and could not,
-  three suspects, the other errors in that log, and how to name the culprit.
-- [Fires on vehicles that never go out (10 Nov 2026)](vehicle-framework-fires.md): 37 fires on one jet, left on the wrong map and never changing; what the saves and
-  the code show, what is still unknown, the two-patch fix in D'thorga Patches 0.16.6, and a draft report for Vehicle Framework's author.
-- [Patches for other authors' faults (register, 10 Nov 2026)](temporary-patches.md): every patch that exists because of a fault in another mod, marked temporary or
-  permanent, with what would make it unnecessary, how to check, and whether the author has been told.
-- [The mobile generator set: design (9 Nov 2026, built 9 Nov 2026)](vehicle-generator-set.md): see the entry under the vehicle family; built with stand-in pictures. Not yet tested in game.
-- [Home depot bays: design (9 Nov 2026)](vehicle-depot-bays.md): a vehicle's home bay, its Go to bay button, self-refuelling and faster service; crews and convoys left to Crew Presets. Not yet tested in game.
-- [Animating our vehicles: research (9 Nov 2026)](vehicle-animation-research.md): what Vehicle Framework and the game can move, why one still image a
-  moving part beats frame sheets and custom shaders, and where motion would benefit each of our five vehicles before more art is made.
-- [Vehicle stations and the motor pool tab: design (9 Nov 2026)](vehicle-stations.md): the parts bench, the tuning rig that tunes and refits need,
-  and our own Architect tab, so parts stop getting lost in long lists. Not yet tested in game.
-- [The vehicle garage and fleet tools: design (8 Nov 2026)](vehicle-garage-design.md): a staffed outpost that holds and slowly
-  repairs vehicles, what the outposts code allows and where it fails for vehicles, and the owner's four fleet tools. Not yet tested in game.
-- [Radiation control line (10 Nov 2026)](radiation-control-line.md): a sign or painted area behind which colonists suit up for Rimatomics' radiation, built on D'thorga Framework's generic protective-gear lines, with the owner's choices. Not yet tested in game.
-- [The D'thorga research tree (10 Nov 2026)](research-tree.md): the D'thorga research tab, its projects, costs and soft tie-ins, the one-time grant for existing colonies, and enforcing research on our vehicles' upgrades. Not yet tested in game.
-- [The Seabed Crawler: design (10 Nov 2026)](vehicle-seabed-crawler.md): the owner's first real submarine and research vessel, its eleven upgrades with their own research and crafted parts,
-  sonar, radar, the research rules, soft tie-ins and the chemistry. The first slices are built; not yet tested in game.
-- [The Seabed Crawler's picture: research and art record (11 Nov 2026)](vehicle-seabed-crawler-art.md): NR-1 from above and what we keep of it,
-  the 4 x 9 boat on a 1024 x 2048 canvas, the six visible upgrade nodes placed before the first picture, the prompt, the costs and the review.
-  Nothing bought before the owner's go.
-- [The submersibles framework: design (9 Nov 2026)](submarine-framework.md): a dive as a state of ours, the reserve, what is hidden and what still reaches a hull,
-  why each patch exists, the limits of the first slice and how to test it. Built in Framework 0.58.0 with a dev-only test hull. Not yet tested in game.
-- [Striking another map: lessons from DMS Expedition's long-range cannon (11 Nov 2026)](cross-map-strikes.md): why the owner's long-range
-  shells vanished at the border under overhead mountain, the other silent ways the game ends a projectile, and proposed rules for our
-  ballistic submarines and other cross-map weapons (launch straight up, never spend a shot that cannot leave, design for enemy launches).
-  Research and proposal; nothing built.
-- [Unique military vehicles and submarines: research (9 Nov 2026)](military-vehicles-research.md): twenty-odd real vehicles no
-  Vehicle Framework mod covers, checked against the 277 items of the three Workshop collections; five shortlisted (recovery,
-  decontamination, shower, landing craft, snow carrier) and five submarines (cargo, chemical, seabed crawler, carrier, polar),
-  with sources and open questions. Research and record only.
-- [Vehicle figures: research (8 Nov 2026)](vehicle-figures-research.md): sourced engine, transmission and weight figures for the
-  L-ATV, MaxxPro, Humvee, PLS, M113, Bradley, M48H, M10, T-54, BMP-1, Wiesel, Land Cruiser J70, the Abrams' turbine and five
-  helicopters, with what was not found.
-- [Steam and diesel-electric: research (8 Nov 2026)](steam-and-diesel-electric-research.md): the Frisco 4500 class and small
-  tank engines, safety valves, crown sheets and fusible plugs, steam tables, fuels and efficiency, diesel-electric shunters'
-  short-time ratings, and engine-out precedents for thrust-lifted craft.
-- [Utility vehicles: design (8 Nov 2026)](utility-vehicles-design.md): the new content mod and why it starts as a stand-in,
-  the parts model and stats, the upgrade-tree and parts-by-provider principles (8 Nov 2026), the extraction-chain family in full
-  (survey truck, drill rig, tipper hauler, generator set, and the bulk tanker that is liquid or gas by upgrade),
-  the catalogue of other utility vehicles, the Vehicle Framework 1.7 gate and the art plan; the tanker is built (not yet tested in
-  game), the other four have records of their own, below.
-- [The survey truck: design (9 Nov 2026)](vehicle-survey-truck.md): the ground-penetrating scanner on wheels, with a long-range mode,
-  a powered array and a battery by upgrade; uranium in its cost; deepchem found, no gas. Research and record only.
-- [The mobile drill rig: design (9 Nov 2026)](vehicle-drill-rig.md): drills the game's deep resource grid at its rates, deepchem to the
-  tanker beside it, an oil-well kit with Rimefeller, electric drilling on the camp's power. Research and record only.
-- [The tipper hauler: design (9 Nov 2026)](vehicle-tipper-hauler.md): a high-capacity body and one tip job; the chunk arithmetic; a
-  spreader for Rails and Roads of the Rim. Research and record only.
-- [The mobile generator set: design (9 Nov 2026)](vehicle-generator-set.md): the family's diesel-electric vehicle; parked, it feeds the
-  grid through a stub building; the camp's power rule for every vehicle of ours. Research and record only.
-- [Vehicle Framework mechanics: research (8 Nov 2026)](vehicle-framework-mechanics.md): Vehicle Framework's 1.7 status and
-  authors, the parts and health system, ticking, events, fuel and electric rules, its per-vehicle settings, how parts and
-  comps retrofit onto other mods' designs and what saves hold, the game's temperature and breakdown hooks, Vanilla
-  Vehicles Expanded's powertrain data, prior art and art requirements; read from source, not observed in play.
-- [Art services for vehicle sprites: research (8 Nov 2026)](vehicle-art-services.md): pay-per-image APIs against
-  subscriptions and PixelLab for Vehicle Framework's three-facing bodies and masks, output terms and ownership traps,
-  the rotate-then-edit pipeline and the cost of four vehicles; prices as read that day.
+- [Vehicle drivetrain and engine speed](vehicle-drivetrain-design.md) (8 Nov 2026): rpm and gears worked back from Vehicle Framework's speed. Built.
+- [Gas turbines](vehicle-turbine-design.md) (8 Nov 2026): turboshaft helicopters, the Harrier's engine and the tank turbine. Built.
+- [Power and lift](vehicle-power-and-lift-design.md) (8 Nov 2026): many engines, rotor drives, thrust pods and diesel-electric. Built.
+- [Steam boilers](vehicle-steam-design.md) (8 Nov 2026): raising steam, safety valves and the fusible plug for Trains of the Rim. Built.
+- [Electric vehicles](vehicle-electric-design.md) (8 Nov 2026): traction batteries, the electric drive and charging. Built.
+- [The world map and the cab](vehicle-world-map-design.md) (8 Nov 2026): caravans, a closed cab's temperature, the night heater. Built.
+- [Vehicle follow-ups](vehicle-crew-and-ground-design.md) (8 Nov 2026): booster packs, the world map's ground, cab moods, RimHUD. Built.
+- [Avionics for every aircraft](vehicle-avionics.md) (13 Nov 2026): instruments, navigation, sensors and the avionics fit. Partly built.
+- [Sling loads](vehicle-sling-design.md) (11 Nov 2026): a helicopter carries a vehicle under it. Partly built; take-off owner-tested.
+- [Real figures for named vehicles](vehicle-real-figures-design.md) (8 Nov 2026): published power, weights and gearboxes per vehicle. Built.
+- [Kerb mass check](vehicle-kerb-mass-check.md) (8 Nov 2026): the 12 kg per Mass rule against every active vehicle. Built.
+- [Vehicle class by empty mass](vehicle-class-by-empty-mass.md) (16 Nov 2026): light, medium and heavy by empty mass. Record only.
 
-## Framework
+### Upgrades and cross-links
 
-- [D'thorga Framework: research and decisions (4 Nov 2026)](phobos-framework.md): the owner's rules (existing effects first,
-  own gases when they earn it, additive only, a manual override), what already carries a gas in the game and in Combat
-  Extended, the room-gas engine copied from the game's temperature design, carbon monoxide as the first own gas, the shared
-  helpers, supplied oxygen (0.2.0), the health layer and per-person care choices the medical mods share (0.3.0), and the owner's
-  test protocol.
-- [Colony mood file: design record (10 Nov 2026)](mood-snapshot.md): at each save, D'thorga Framework writes every colonist's,
-  slave's and prisoner's thoughts as the game works them out, so phobos-modkit's mood report can name what a save leaves out
-  (rooms, pain, beliefs); the file's shape and how the report matches it to its save. Built in Framework 0.64.0, not yet tested in game.
+- [Vehicle tuning and upgrades](vehicle-tuning-and-upgrades.md) (9 Nov 2026): fittings, engine tunes and part grades for any vehicle. Built.
+- [Vehicle upgrades, round two](vehicle-upgrades-round-two.md) (11 Nov 2026): every vehicle's tree and a signature feature each. Partly built.
+- [Vehicle upgrade families](vehicle-upgrade-families.md) (12 Nov 2026): five families of fittings shared across many vehicles. Built.
+- [Vehicle system crosslinks](vehicle-system-crosslinks.md) (9 Nov 2026): eight links between the systems and a block heater. Built.
+- [Vehicle crosslinks, round two](vehicle-crosslinks-round-two.md) (10 Nov 2026): deeper chains, fittings and what the stations do. Partly built.
+- [Vehicle cross-links, round three](vehicle-crosslinks-round-three.md) (13 Nov 2026): the crew, weather, combat damage and hydraulics. Partly built.
+
+### Utility vehicles, stations and trailers
+
+- [Utility vehicles](utility-vehicles-design.md) (8 Nov 2026): the extraction family, the bulk tanker and the catalogue. Built.
+- [The survey truck](vehicle-survey-truck.md) (9 Nov 2026): a ground-penetrating scanner on wheels. Built; its boom owner-tested.
+- [The mobile drill rig](vehicle-drill-rig.md) (9 Nov 2026): drills the game's deep resource grid at its own rates. Built.
+- [The tipper hauler](vehicle-tipper-hauler.md) (9 Nov 2026): a high-capacity body and one tip job. Built.
+- [The mobile generator set](vehicle-generator-set.md) (9 Nov 2026): the Busbar, feeding a camp's grid when parked. Built; size and look owner-tested.
+- [Vehicle stations and the motor pool tab](vehicle-stations.md) (9 Nov 2026): the parts bench, the tuning rig and our Architect tab. Built.
+- [Home depot bays](vehicle-depot-bays.md) (9 Nov 2026): a vehicle's home bay, Go to bay, self-refuelling. Built.
+- [The vehicle garage and fleet tools](vehicle-garage-design.md) (8 Nov 2026): a staffed outpost that holds and repairs vehicles. Built.
+- [Working trailers](vehicle-trailers.md) (13 Nov 2026): the shared base, the bowsers and a catalogue of nineteen trailers. Partly built.
+- [The hitch and the generic trailer](vehicle-hitch-design.md) (11 Nov 2026): our own hitch and a trailer any vehicle can tow. Partly built.
+- [Trailers that follow their tractor](vehicle-trailer-research.md) (11 Nov 2026): how RimThunder hitches and turns a trailer. Record only.
+- [The field kitchen trailer](vehicle-field-kitchen.md) (13 Nov 2026): Billy, the owner's kitchen on wheels. Record only.
+- [The prisoner transport trailer](vehicle-prisoner-transport.md) (13 Nov 2026): Stockade, the owner's cage trailer. Record only.
+- [Vehicle accessories](vehicle-accessories.md) (13 Nov 2026): a parked vehicle as the heart of a camp; Y1 to Y23. Record only.
+- [Sleeping berths](vehicle-berths.md) (13 Nov 2026): roof tents, cab bunks and driving through the night. Record only.
+- [Hotboxing](vehicle-hotboxing.md) (12 Nov 2026): smoking in a vehicle's cab. Record only.
+
+### Submarines and long range
+
+- [The submersibles framework](submarine-framework.md) (9 Nov 2026): diving, the reserve, and what still reaches a hull. Built.
+- [The Seabed Crawler](vehicle-seabed-crawler.md) (10 Nov 2026): Fathom, the research submarine, its upgrades, sonar and labs. Built.
+- [The Seabed Crawler's picture](vehicle-seabed-crawler-art.md) (11 Nov 2026): the hull and its six upgrade overlays. Built.
+- [Striking another map](cross-map-strikes.md) (11 Nov 2026): DMS Expedition's lost shells and rules for our cross-map weapons. Record only.
+- [Air-defence tie-ins](air-defence-tie-ins.md) (13 Nov 2026): IRBM's and The Dead Man's Switch's radars against our aircraft. Partly built.
+- [Unique military vehicles and submarines](military-vehicles-research.md) (9 Nov 2026): real vehicles no mod covers yet. Record only.
+
+### Tie-ins and contracts
+
+- [Soft-dependency cross-links](soft-dependency-crosslinks.md) (13 Nov 2026): new tie-ins with mods on the owner's list, SD1 to SD44. Partly built.
+- [The authors' override contract](vehicle-author-overrides.md) (13 Nov 2026): what another author can set for their vehicles. Record only.
+
+### Research and figures
+
+- [Vehicle Framework mechanics](vehicle-framework-mechanics.md) (8 Nov 2026): its parts, ticking, fuel, settings and saves, from source. Research.
+- [Vehicle figures](vehicle-figures-research.md) (8 Nov 2026): sourced engine, gearbox and weight figures for named vehicles. Research.
+- [Steam and diesel-electric](steam-and-diesel-electric-research.md) (8 Nov 2026): boilers, shunters' ratings, engine-out precedents. Research.
+- [Vehicle simulation references](vehicle-references.md) (8 Nov 2026): the study library behind the vehicle designs. Research.
+- [Animating our vehicles](vehicle-animation-research.md) (9 Nov 2026): what can move, and where motion helps. Partly built; the boom owner-tested.
 
 ## D'thorga Medical
 
-Five mods until 7 November 2026; each record below keeps its own mod's name and scope.
+Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
-### Medical save bridge
+- [Medical save bridge](medical-save-bridge.md) (3 Nov 2026): why adding More Injuries beside MSE2 wiped wounds, and the bridge. Built.
+- [Burns and smoke](burns-and-smoke.md) (4 Nov 2026): burns, burn shock, airway burns, carbon monoxide and fire heat. Built.
+- [Caustic gas](caustic-gas.md) (5 Nov 2026): the game's tox gas on eyes, lungs and skin, slow by default. Built.
+- [Emergency dosing](emergency-dosing.md) (5 Nov 2026): doctors giving painkillers and sedatives by themselves, by effect. Built.
+- [Triage](triage.md) (6 Nov 2026): queueing life-saving surgery, classing conditions by effect. Built.
+- [Medical equipment](medical-equipment.md) (5 Nov 2026): bedside oxygen and the burn unit bed. Built.
+- [Medical equipment, second set](medical-equipment-2.md) (7 Nov 2026): the ventilator, steriliser and six more. Built.
+- [Ventilation and hydrogen](ventilation-and-hydrogen.md) (7 Nov 2026): the electrolyser's hydrogen and vents to clear it. Record only.
+- [Workstation environmental effects](workstation-environmental-effects.md) (7 Nov 2026): workstations giving off gases. Record only.
+- [Vaccines and prevention](vaccines-and-prevention.md) (7 Nov 2026): doctors preventing disease in healthy pawns. Record only.
 
-- [Medical save bridge: research and decisions (3 Nov 2026)](medical-save-bridge.md): why adding More Injuries to a save that
-  runs Medical System Expansion 2 wiped wounds and revived corpses (parts are saved by index, and More Injuries appends eight),
-  the game's own conversion hooks the bridge sits on, who chose what, and the owner's test protocol.
+## D'thorga Patches
 
-### Burns and smoke
+- [Vehicle patches](vehicle-patches.md) (2 Nov 2026): the Harrier beside RimPacts, bomb costs, castings, Spaceship Turret Hull. Built.
+- [Missile patches](missile-patches.md) (7 Nov 2026): IRBM's strategic warhead hang, RimPacts and Visit Settlements. Built.
+- [Strategic strike](strategic-strike.md) (7 Nov 2026): our model for the extinction-class warhead. Built.
+- [Fires on vehicles that never go out](vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix. Built; owner-tested.
 
-- [Burns and smoke: research and decisions (4 Nov 2026)](burns-and-smoke.md): what an incendiary raid left in the save (112
-  plain burns and nothing else), how the game, Combat Extended and More Injuries handle fire and smoke, the medical sources
-  behind the burned fraction, burn shock, airway burns, lung injury and carbon monoxide, fire heat in the open (0.5.0), who chose
-  what, and the test protocol.
+## Factory Additions and Water Tap
 
-### Caustic gas
+- [VFE Factory additions](vfe-factory-additions.md) (28 Oct 2026): factory bills, the output guard, storage switches, piped water. Built.
+- [VFE Factory conveyors and hoppers](vfe-factory-conveyors.md) (28 Oct 2026): what a belt may pull from and push to, from code. Research.
+- [Water tap](water-tap.md) (4 Nov 2026): Dubs Bad Hygiene's bottles and water quality, and the split-stack fix. Built.
 
-- [Caustic gas: research and decisions (5 Nov 2026)](caustic-gas.md): what the game's tox gas really does (read from the code), the owner's
-  slow-acting default and fast-acting setting, three exposures for eyes, lungs and skin, the conditions proposed and reused, who chose
-  what, and a test protocol for when it is built. A game design with authored figures; nothing is built.
+## Radio (on the back burner)
 
-### Medical equipment
+- [D'thorga Radio Framework: design](radio-framework-design.md) (18 Oct 2026): the owner's design, a snapshot of the living doc. Phase 1 built.
+- [Radio reference checks](radio-reference-checks.md) (18 Oct 2026): each reference figure checked against its source. Research.
+- [Map scale research](map-scale-research.md) (19 Oct 2026): what a cell and a world tile measure, and why 1 m per cell. Research.
 
-- [Medical equipment: research and decisions (5 Nov 2026)](medical-equipment.md): bedside oxygen on the pattern of the vitals
-  monitor and IV stand, the burn unit bed, what is reused from Vanilla Gravship Expanded, why Organ Failure's ventilator cannot
-  appear in the owner's game, and the test protocol.
-- [Medical equipment, second set: design (7 Nov 2026)](medical-equipment-2.md): the eight pieces the owner chose, from the
-  ventilator to the steriliser, what each does in play and what it rests on. All eight built in D'thorga Medical 0.7.0, not yet tested in game.
-- [Workstation environmental effects: design (7 Nov 2026)](workstation-environmental-effects.md): the owner's idea of workstations
-  giving off gases, found by what they do and switched on a kind at a time in a running colony; nothing built.
-- [Vaccines and prevention for healthy pawns: design (7 Nov 2026)](vaccines-and-prevention.md): what already prevents disease
-  (penoxycyline, Biological Warfare's vaccines), doctors giving it by themselves, and a head-start vaccine of our own; nothing built.
-- [Ventilation and hydrogen: design (7 Nov 2026)](ventilation-and-hydrogen.md): the electrolyser's hydrogen as a flammable room
-  gas, and the extractor fan, passive vent, fume hood and hydrogen detector. Nothing built.
+## Art and sound
 
-### Emergency dosing
+- [Artwork direction](artwork-direction.md) (19 Oct 2026): the first routes for our art, and why not PixelLab. Research.
+- [Art backlog](art-backlog.md) (6 Nov 2026): every texture and preview the mods ship or still need. Living.
+- [Art automation and medical equipment](art-automation-and-medical-equipment.md) (4 Nov 2026): the overnight art pipeline. Built.
+- [Background clean-up](background-cleanup.md) (12 Nov 2026): the background AI and the paint masks for vehicles. Built.
+- [View-angle models](view-angle-models.md) (7 Nov 2026): models that lock or move the camera, and the trial. Research.
+- [Paid image generation](paid-image-generation-rules.md) (8 Nov 2026): the rules for every picture bought from the OpenAI API. Living.
+- [Art services for vehicle sprites](vehicle-art-services.md) (8 Nov 2026): image APIs and subscriptions compared, with costs. Research.
+- [Sound generation](sound-generation.md) (10 Nov 2026): local sounds with Stable Audio 3, ffmpeg and the listening page. Built.
+- [Sound catalogue](sound-catalogue.md) (10 Nov 2026): every sound we need, with IDs; 117 ship. Partly built.
 
-- [Emergency dosing: research and decisions (5 Nov 2026)](emergency-dosing.md): why no doctor ever gives a painkiller or
-  sedative on their own (More Injuries' drugs are drafted-only right-click options, Search and Rescue's doctors are undrafted
-  by rule), the owner's effects-not-names rule and the index it produced, the need, safety and choice rules, self-medication,
-  the disease-fighting drugs and the bleeding hold (0.3.0), two upstream faults for the owner to report, and the test protocol.
+## The owner's game and tools
 
-### Triage
+- [The owner's mod list](owner-mod-list.md): every mod the owner has on, with suggestions; written by `refresh-mod-list.py`. Living.
+- [RimWorld modding reference](rimworld-modding-reference.md) (18 Oct 2026): versions, About.xml, load folders, Ludeon's EULA. Reference.
+- [Desktop front end for the Phobos tools](tools-desktop-research.md) (9 Nov 2026): the research behind D'thorga Companion. Research.
 
-- [Triage: research and decisions (6 Nov 2026)](triage.md): what Search and Rescue and More Injuries already do and what neither
-  does (queue surgery), how the game creates, orders and forgets a bill, the owner's choices on authority and defaults, the
-  by-effect classing of conditions, the choice of operation, the tag and score, the shared health layer in the framework, and
-  the test protocol.
+## Archive
 
-## Water tap
-
-- [Water tap: research and decisions (4 Nov 2026)](water-tap.md): whether anyone had built one (one near miss), how Dubs Bad Hygiene handles bottles and water quality, why a
-  split stack of untreated water came out clean and how the mod fixes that, and who chose what.
-
-## Artwork
-
-- [Artwork direction (19 Oct 2026)](artwork-direction.md): why PixelLab does not suit RimWorld, the three
-  routes (code-drawn, local Flux.1-schnell through ComfyUI, a paid plan last), licences and records.
-- [Art backlog (6 Nov 2026)](art-backlog.md): every texture and preview the mods ship or still need, which suit the local image
-  model, and what must happen before a run.
-- [Background clean-up (12 Nov 2026)](background-cleanup.md): why white stayed where background should be (inside pictures and on
-  their borders), the BiRefNet AI that tells background from white paint, and the stage, review and apply commands.
-- [Art automation and medical equipment: design (4 Nov 2026)](art-automation-and-medical-equipment.md): where all the current work
-  stands, a hands-off overnight art pipeline, what makes training material, vanilla sprite sizes and the EULA, the medical
-  equipment your mods already have, what they lack, and the open questions.
-- [View-angle models: research record (7 Nov 2026)](view-angle-models.md): why generated assets come out at odd angles, which
-  published models can lock or move the camera, their licences and memory needs on the owner's card, and the trial order.
-- [Paid image generation: rules and lessons from Phobos Ostranauts (8 Nov 2026)](paid-image-generation-rules.md): the twelve
-  rules for every picture bought from the OpenAI image API, where each came from in the Ostranauts records (projection
-  failures, pilots before families, reference roles, what a provider ignores, records, cost discipline), what differs for
-  Vehicle Framework bodies, the prompt skeleton, the pilot flow, the review checklist and what the engine enforces.
-- [Sound generation: research and pipeline (10 Nov 2026)](sound-generation.md): local sound effects with Stable Audio 3 Small
-  SFX through ComfyUI, the models compared and their licences, ffmpeg clean-up, and a listening page with spectrograms,
-  measured flags and a lowered copy for ears that lose the high frequencies; the toolkits that measure the game's own sounds and ship
-  ours; the first four sounds, shipped 10 Nov 2026 (not yet tested in game).
-- [Sound catalogue: every sound we need, now and planned (10 Nov 2026)](sound-catalogue.md): an audit of all our vehicles, machines,
-  devices and systems against what GTek's L-ATV does with Vehicle Framework's events; about 130 sounds with IDs, which are shared and
-  why, which need only XML, an order of work and six questions for the owner. Nothing built beyond the first four.
-
-## Analysis tooling
-
-- [Analysis tooling: proposals (7 Nov 2026)](analysis-tooling.md): eight deterministic tools for logs, saves, mod Defs,
-  assemblies and the Workshop, so sessions read summaries instead of 300 MB saves; the language of each, and why they live in
-  the shared phobos-modkit repository.
-- [Desktop front end for the Phobos tools: research and direction (9 Nov 2026)](tools-desktop-research.md): a program for
-  the person at the screen over every tool, built for humans (or dragons) while agents keep the command line; the owner's
-  decisions (Rust and SQLite, Republic Observatory's layout and feel under House D'thorga, a new sibling repository), what
-  Observatory and OnAir WyrmGrid teach, every question the tools answer today, the kit changes it needs, and the planet
-  globe as the first slice. Research and record only; nothing built.
-
-## RimWorld
-
-- [The owner's mod list](owner-mod-list.md): every mod the owner has on, checked against each mod's own rules,
-  with the official Vanilla Expanded collection and suggestions for what to add next. Kept current by
-  `scripts/refresh-mod-list.py`, which also caches the collection in `vanilla-expanded-collection.json`.
-- [RimWorld modding reference (18 Oct 2026)](rimworld-modding-reference.md): versions, the Waylith engine and
-  1.7, package IDs, `About.xml`, load folders, C# build targets, paths, and Ludeon's EULA on mods, with sources.
-- [RimWorld 1.7 readiness (24 Oct 2026)](rimworld-1.7-readiness.md): which of the owner's mods declare 1.7,
-  which frameworks hold the rest back, what players report broken, and how to try 1.7 on a copy.
+- [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
+- [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
+- [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

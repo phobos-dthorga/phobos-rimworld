@@ -9,6 +9,7 @@
          "run": ["dotnet", "build", "{path}", "--nologo", "-v", "q"]},
         {"name": "doc links", "run": ["{python}", "scripts/check-doc-links.py"]},
         {"name": "doc status", "run": ["{python}", "scripts/check-doc-status.py"]},
+        {"name": "doc index", "run": ["{python}", "scripts/check-doc-index.py"]},
         {"name": "player guide figures", "run": ["{python}", "scripts/art/guide_figures.py", "--check"]},
         {"name": "mod layout and text keys", "run": ["{python}", "scripts/check-mod-layout.py"]},
         {"name": "vehicle schemas", "run": ["{python}", "scripts/check-vehicle-schemas.py"]},

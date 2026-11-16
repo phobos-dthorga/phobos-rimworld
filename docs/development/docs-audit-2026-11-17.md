@@ -114,27 +114,30 @@ Dated records keep their wording; add a one-line note where a reader would act o
 
 ## Batch 2: the development index
 
+**Done 17 Nov 2026.** 109 entries, one line each (the longest 151 characters), grouped by mod and area, with an Archive section;
+the three records proposed for archiving are listed there, not moved.
+
 The index has 110 entries, 39 of them over 350 characters. The upgrade-families entry (:122) is cut off and its tail is glued to the
 avionics entry (:150-152); the generator set is listed twice with opposite status (:198, :240). The "D'thorga Vehicles" section holds
 Framework and process records (logging, the crash record, the code audit, the research tree, the radiation line, the temporary-patches
 register, the setup wizard); five Medical sub-headings hold one entry each.
 
-- [ ] One line per entry: title, date, status (built, record only, archived)
-- [ ] Sections: Start here; Status and trackers; D'thorga Framework (core); Vehicles (systems and health; power, drivetrain and
+- [x] One line per entry: title, date, status (built, record only, archived)
+- [x] Sections: Start here; Status and trackers; D'thorga Framework (core); Vehicles (systems and health; power, drivetrain and
   aircraft; utility vehicles and trailers; submarines; cross-links and tie-ins; research and figures; ideas not built); D'thorga
   Medical; D'thorga Patches (one entry per other author's mod); Factory Additions and Water Tap; Radio (on the back burner); Art and
   sound; The owner's game; Archive
-- [ ] "Start here" links the player guide, not `medical-mods.md`
+- [x] "Start here" links the player guide, not `medical-mods.md`
 
 ## Batch 3: the gate check
 
-**Done 17 Nov 2026, except the index rule**, which comes with batch 2. The checks live in this repository beside the link checker
+**Done 17 Nov 2026.** The checks live in this repository beside the link checker
 (`scripts/check-doc-links.py` was never part of phobos-modkit); moving both there is a separate job if Phobos Ostranauts wants them.
 
 - [x] `scripts/check-doc-status.py` (a gate step): refuses a record whose opening says nothing is built while the record records a
   build. On the documents as they stood before batch 1 it flagged 17 records, all real faults
 - [x] `scripts/check-doc-links.py` checks every `#anchor` against GitHub's spelling of the headings it names
-- [ ] Refuse an index entry longer than one line (with batch 2)
+- [x] `scripts/check-doc-index.py` (a gate step): every record listed exactly once, each entry one line of at most 160 characters
 - [x] AGENTS.md: a build is recorded in the changelog; the design record updates its status line and keeps only what differs from
   the design
 

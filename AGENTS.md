@@ -200,7 +200,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
 ## Documentation
 
 - Player guides live in each mod's README and `docs/`; contributor instructions, research, designs and
-  records in `docs/development/`, each with its index. Add every new document to its index. Guides lead
+  records in `docs/development/`, each with its index. Add every new document to its index, **in one line**: the record, its date,
+  what it is and its status (`scripts/check-doc-index.py`). Guides lead
   with player actions and match the implemented behaviour; dated records keep their original scope.
 - **The player guide (`docs/player-guide/`) is the players' front door** (owner's request, 12 Nov 2026): a chapter per mod or
   area, saying what it does today, without version history, illustrated with the mods' own art. A change that alters what a
