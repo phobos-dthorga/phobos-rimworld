@@ -11,6 +11,7 @@ says the owner tested it.
 - The README says which part is tested in game (the stuck vehicle fires, by the owner on 10 November 2026) and that Vehicle Framework now ships its own 1.7 build. No change in play.
 - The README is cut to today's gotchas, what each part does linking the player guide's Patches chapter, the settings and links for modders. How to play, with the cost, bomb, turret hull and blast tables, moved to the guide; research, the README's modder notes and its dated checks moved to the vehicle and missile patches design records; version notes live in this changelog. No change in play.
 - A code comment and the README name the design records they now live in, after the merges of 17 November 2026. No change in play.
+- The comment on the Harrier's fuller parts list no longer says the airframe's weight decides which part a hit lands on: since the Harrier's build of 16 November 2026 its own rule does, and that rule shares its hits evenly among every part, ours included. No change in play; what it means for the jet is in the avionics record (L6).
 
 ## [0.21.1] - 2026-11-17 - Draft
 

@@ -654,8 +654,9 @@ Cost with several on a map: the sync runs only when a fitting changes, a vehicle
   while hitched.
 - **Agent choices and limits:** no ground anchors or snatch blocks; the winch pulls in a straight line by whole cells and stops a cell
   short; a vehicle on the tow is taken as rolling freely even if its wheels are wrecked; the tow limit is a weight ratio rather than a
-  force balance (the drivetrain already slows the pair); the winch needs only someone aboard, not a colonist's job; towing on the world map
-  and in caravans is not built (leaving the map leaves the towed vehicle where it stood, as for trailers).
+  force balance (the drivetrain already slows the pair); the winch needs only someone aboard, not a colonist's job. Towing on the world map
+  and in caravans was not built here; it came with hitch slice 3 (Framework 0.104.0): a towed vehicle rides along in the hitch's own holder
+  and is set down on arrival (corrected 17 Nov 2026).
 - **Checked:** `RecoveryRule` has eight unit tests; the build passes the gate. Nothing about the winch or the tow is tested in game.
 
 #### Other factions' vehicles (recovery)

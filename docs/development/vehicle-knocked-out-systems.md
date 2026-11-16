@@ -2,7 +2,8 @@
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.115.0 (T1, T9, T10, M1, M2, C2, T2, C4, T3, T4, W1, W4), 0.116.0 (and
 Vehicles 0.57.0: T8, M3, W2, W3) and 0.119.0 (T5 and T6, with the aircraft batch); not built: C3 (with hotboxing's cab air), and T7,
-T11, M4, W5, W6 and C6. Not yet tested in game.
+T11, M4, W5, W6 and C6. Not yet tested in game. M4 was read on 17 Nov 2026: in a raid a vehicle that cannot move is emptied by Vehicle
+Framework's own orders, so it is a pillbox only at a base ([the reading](#m4-read-what-its-orders-do-with-a-vehicle-that-cannot-move-17-nov-2026)).
 
 A research and record round the owner asked for on 16 Nov 2026, after the destruction rule of Framework 0.114.5 ("parts doing real
 work stay in the sum and pure mounting points come out"). The owner's thought: if a part matters because of its job, **losing the
@@ -281,6 +282,40 @@ tested in game (in-game test pass, checks 120 to 125). Agent choices made while 
 
 All built rows are not yet tested in game (checks 126 to 129). **Correction:** this record (W3) and the agent's card said the tanker's
 pump "runs on nothing"; it already needed the engine, through the shared set-up code.
+
+## M4 read: what its orders do with a vehicle that cannot move (17 Nov 2026)
+
+The owner asked for the outstanding reading (17 Nov 2026). Read from Vehicle Framework's 1.7 build (its own, of 14 Nov 2026) and Custom
+Base Framework's Defs and code with `scripts/query-code.py` and `scripts/query-defs.py`. **Nothing is built from this, and none of it is
+observed in game.**
+
+- **In a raid, a vehicle that cannot move is abandoned at once; it is not a pillbox.** Vehicle Framework's raid (`LordJob_ArmoredAssault`,
+  `VF:5806`) gives every vehicle the duty `VF_RangedAggressive` (`VF:6042`). Its think tree, in order: take up a firing position if it has
+  a weapon; **if it cannot move and has people aboard, put them all out** (`VehicleActions.DisembarkAll`); drive at the nearest enemy;
+  wait. "Cannot move" is Vehicle Framework's own `CanMove` (`VF:16256`): speed above 0.1, allowed to move, and its movement online. So a
+  thrown track (M2), a dead engine or any refusal of ours that takes the speed to nothing empties a raider's vehicle at its next think,
+  **whether or not its guns still work**.
+- **The firing-position step never gives a job in this build.** `CombatPositionFinder.TryFindShootPosition` is an empty stub that always
+  answers no (`VF:72814-72820`), and `JobGiver_RangedSupport` gives a job only when it finds one (`VF:3746-3780`). So a raid's vehicles
+  never hold a firing position: they drive at the nearest enemy at a walk, their weapons firing by themselves on the way. No active mod
+  patches either (`scripts/query-patches.py`).
+- **At a base the player attacks, a stopped vehicle does stay a pillbox.** Custom Base Framework's duties send a vehicle that cannot move
+  straight to waiting, crew aboard (`CBF_VehicleAssault`, `CBF_VehiclePatrol`), and `CBF_VehicleHold` only ever waits. Its weapons keep
+  firing by themselves.
+- **What the crew does on foot was not read to the end.** The raid's duty for people is the game's `Follow` (`VF:6046`), given with
+  nobody to follow; that tree then wanders near where they stand. Whether they fight from there is not checked.
+
+**What this changes for our rows:**
+
+- **M4's "a stuck tank is a pillbox" holds at bases and for the player, not in raids.**
+- **C2 is narrower than its record says.** Its reason was that "Vehicle Framework only empties a vehicle when it is destroyed or has stood
+  idle five hours"; in a raid Vehicle Framework already empties one that cannot move. C2 still adds the burning hull, and the vehicle that
+  can still move but has no working weapon. Its "cannot move and cannot shoot" case is one the raid had already emptied.
+- **Check 122 cannot tell the two apart**: destroying a raider's tracks alone should already bring the crew out, before the gun's mount
+  is touched. Worth knowing when the row is tested.
+- **A choice for the owner, not made:** leave it (a raider's crew abandons a tank that has thrown a track, guns working or not), or
+  hold a crew aboard while a weapon still works, which our own condition could do as a think node added to that duty by XML patch,
+  with no Harmony. It changes how another author's raids behave, so it is the owner's call.
 
 ## Weapon mounts audit (17 Nov 2026, Framework 0.117.1 and 0.117.2)
 

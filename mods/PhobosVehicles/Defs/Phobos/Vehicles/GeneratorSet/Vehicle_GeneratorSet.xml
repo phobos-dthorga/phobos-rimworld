@@ -3,7 +3,7 @@
   <!--
     The generator set: a light self-propelled diesel-electric truck that parks, runs out a cable and feeds the grid (docs/development/vehicle-generator-set.md). Every figure is
     authored and untuned. Part keys are saved by position: append only, never reorder. Cells run x from -1 to 1 and z from -3 to 4 (3 x 8 since Vehicles 0.51.0, owner
-    14 Nov 2026: brought in line with the Talus tipper; it was 2 x 6). Its pictures were generated for it on 12 Nov 2026 (assets/phobos-vehicles/requests/night-2026-11-12-record.md). Not yet tested in game.
+    13 Nov 2026: brought in line with the Talus tipper; it was 2 x 6). Its pictures were generated for it on 12 Nov 2026 (assets/phobos-vehicles/requests/night-2026-11-12-record.md). Not yet tested in game.
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_GeneratorSet</defName>
@@ -310,7 +310,7 @@
     </components>
     <modExtensions>
       <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
-        <!-- 8,000 kg and 130 kW since Vehicles 0.51.0 (owner, 14 Nov 2026: a bigger truck), keeping about the same power per tonne (authored). -->
+        <!-- 8,000 kg and 130 kW since Vehicles 0.51.0 (owner, 13 Nov 2026: a bigger truck), keeping about the same power per tonne (authored). -->
         <emptyKilograms>8000</emptyKilograms>
         <ratedKilowatts>130</ratedKilowatts>
       </li>
@@ -340,7 +340,7 @@
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosGeneratorSet">
         <cableEndDef>Phobos_GeneratorStub</cableEndDef>
-        <!-- Vehicles 0.51.0 (owner, 14 Nov 2026: a bigger generator): 2,000 W for 15 chemfuel a day at full output, 133 W per chemfuel a day,
+        <!-- Vehicles 0.51.0 (owner, 13 Nov 2026: a bigger generator): 2,000 W for 15 chemfuel a day at full output, 133 W per chemfuel a day,
              as before and 60% of the game's own chemfuel generator (1,000 W for 4.5 a day, 222 W); idle 2 a day. Authored
              (docs/development/vehicle-generator-set.md). -->
         <baseWatts>2000</baseWatts>

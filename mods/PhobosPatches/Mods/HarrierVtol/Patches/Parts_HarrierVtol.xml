@@ -6,8 +6,11 @@
     carry 27). The four original parts keep their keys, health and order: Vehicle Framework saves a vehicle's parts by position, so
     the existing ones are never moved and new ones are only ever appended (D'thorga Patches gives a saved Harrier the new parts on
     load, at full health). Every figure is authored. Cells are the vehicle's own, facing north: x across (-2 to 2), z along (3 is the
-    nose). The airframe covers every cell at weight 3, so a hit on a cell with a new external part lands on that part a quarter to a
-    third of the time, and internal parts are reached through the airframe as before.
+    nose). Which part a hit lands on is the Harrier's own rule since its build of 16 Nov 2026, not the airframe's weight of 3 as this
+    note first said (read 17 Nov 2026; docs/development/vehicle-avionics.md, L6): four hits in ten are moved onto the cells of one
+    part other than the airframe, chosen evenly among every living part with cells of its own, and the rest onto the airframe, from
+    which Combat Extended reaches internal parts by penetration. Evenly means our ten parts draw ten of thirteen such hits, so the
+    jet's own cockpit, engine and wing tanks each draw about a quarter of what its author's four-part list would give them.
 
     What each part does: the engine, intake and nozzles drive move and flight speed (the engine carries priority, so a dead engine still
     stops the jet, as it did when it was the only such part); avionics, hydraulics and wiring carry flight control, the worst of

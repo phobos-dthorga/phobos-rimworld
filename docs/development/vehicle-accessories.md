@@ -166,8 +166,8 @@ These are the pieces of new code. Everything else in the catalogue is Defs that 
   (`CompPhobosTank` with the water contents Def). 60 L [A], three jerry cans' worth.
 - **How it empties:** riders drink from it on the road (Y4) before they touch their bottles; at camp it feeds the plumbing the
   parked vehicle lays beneath itself, so a Dubs Bad Hygiene basin or shower touching the vehicle draws from it. How Dubs' own
-  storage comp would see our tank (`DBH-1.7:DubsBadHygiene/CompWaterStorage.cs`) was **not read**; that is the first thing to
-  check before building.
+  storage comp would see our tank was **read on 17 Nov 2026**: it cannot see it as it stands, and a hidden stand-in tower beneath
+  the parked vehicle would let it ([the reading](#how-dubs-bad-hygiene-sees-water-and-what-a-vehicles-tank-needs-17-nov-2026)).
 - **How it is refilled** (owner: regularly, by the player): parked on or beside plumbing with water behind it, as vehicles take
   on coolant water today; from our tanker; or by a colonist carrying water from a source, the way Dubs' water tub is filled. It
   never fills by itself. Rain does not fill it [A].
@@ -182,8 +182,8 @@ These are the pieces of new code. Everything else in the catalogue is Defs that 
 | --- | --- | --- |
 | Carry days of water in one place and wash at camp | Travelling dry country without planning water | Water becomes a thing to plan: how many people, how many days, where the next fill is |
 
-Real planning figures for scale [S, unverified]: about 2 L a person a day for drinking in cool weather, 4 L in heat, 5 to 6 L in
-extreme heat; 5 to 7 L with cooking and a little washing; 15 to 30 L with showers (Camping Australia). So 60 L is three people
+Real planning figures for scale [S, the page read 17 Nov 2026]: about 2 L a person a day for drinking in cool weather, 4 L in heat, 5 to 6 L in
+extreme heat or hard activity; 5 to 7 L with cooking and a little washing; 15 to 30 L with showers (Camping Australia). So 60 L is three people
 for about three days without showers, or one day with them.
 
 ### Y3. The camp order: set out and pack up
@@ -330,7 +330,7 @@ refill it and a plain warning when low.**
 - **How** [code, proposed]: the game asks a held thing's holders for a temperature before it uses the weather, and passes the
   thing asked about. We already answer for riders; the same registry would answer for a vehicle's cargo, for the things the
   fridge has claimed. The registry's reader must be given the thing as well as the holder: a small change.
-- **Draw:** 0.8 A on average at 32 °C outside for a 47 L compressor fridge (retailer listings of ARB's figure [S, unverified]);
+- **Draw:** 0.8 A on average at 32 °C outside for a 47 L compressor fridge (ARB's figure as Overland Expo's review gives it [S, the page read 17 Nov 2026]);
   ours scales with the outside temperature from 0.4 A at 15 °C to 1.5 A at 45 °C [A].
 - **Without power** it is a box: the food follows the weather again, and a warning says so once.
 
@@ -370,7 +370,7 @@ refill it and a plain warning when low.**
 ### Y10 to Y12. Kitchen, table, shower
 
 - **Kitchen box:** set out, it is a small cooking bench that burns chemfuel or wood through the game's own refuelling [A], so it
-  needs no vehicle link. A single camp burner uses 150 to 220 g of gas an hour at full flame [S, unverified]; our fuel rate is
+  needs no vehicle link. A single camp burner uses 150 to 220 g of gas an hour at full flame [S, unverified: the one page opened gives 218 g for a two-burner stove]; our fuel rate is
   authored against the game's fuelled stove. **A billy for tea:** where Vanilla Brewing Expanded's coffees and teas are active,
   the kitchen box takes their hot drink recipes. Those recipes and their benches were **not read**; to check before building.
 - **Folding table and chairs:** light, low comfort, no code. The game's tables are gathering spots already (not re-read this
@@ -497,10 +497,49 @@ The questions as they were put:
   Bad Hygiene tie-in; the "slept under the stars" memory; the one-button camp; berths left out; the suggested order; everything
   in "Left out".
 
+## How Dubs Bad Hygiene sees water, and what a vehicle's tank needs (17 Nov 2026)
+
+Read at the owner's word (17 Nov 2026) from Dubs Bad Hygiene's 1.7 code with `scripts/query-code.py`, and from our own water bowser,
+which was built after the question was written. **A proposal; nothing is built or tested in game.**
+
+- **Dubs' fixtures draw water from one place only: the "towers" on their pipe network.** A network gathers every water storage comp
+  (`CompWaterStorage`) on the things piped to it (`DBH:PlumbingNet.cs:136-197`), and a basin, shower, latrine or trough works only while
+  those hold enough (`DBH:Building_AssignableFixture.cs:202`, `PlumbingNet.PullWater`, `:263-267`). Each tower keeps its own litres,
+  saved, up to its Def's cap.
+- **So a vehicle's tank is invisible to them as it stands.** Our tanks keep their litres in `CompPhobosTank`. The water bowser reaches
+  Dubs by pumping into real towers on a network it touches (`Port_DubsPlumbing.Give`), which needs a tower: fine at a colony, no use at
+  a camp, where there is none.
+- **What would work, with no Harmony: a hidden stand-in tower beneath the parked vehicle.** A thing of ours carrying Dubs' own pipe and
+  storage comps, laid with the plumbing the vehicle already lays beneath itself and taken up with it (`PipeUnderlay`, the same rule as
+  every pipe beneath our things). It holds only a small working amount; a service tops it up from the vehicle's tank at intervals and
+  gives the tank back what is left when the vehicle packs up, so every litre a fixture uses comes off the tank and none is made.
+- **Three things the service must respect**, all from `DBH:CompWaterStorage.cs:168-236`:
+  1. **Dubs' own "unlimited pumping" option fills every tower to its cap each tick** (`WaterPumpCapacity` at 0). With it on, water is
+     free everywhere by the player's own choice, so the stand-in must then give nothing back to our tank, or the tank would fill itself.
+  2. **A tower's water quality is reset every 5,000 ticks** from the network's filters, unless it is contaminated. Our tank remembers the
+     worst water it took on, so the service sets the stand-in's quality from the tank at each top-up.
+  3. **The comp expects a pipe comp on the same thing** (its drain path reads it unguarded), so the stand-in is a piped thing in its
+     own right, never a comp put on the vehicle itself. A network also gathers towers only from piped things, and a vehicle is not one.
+- **Riders drinking on the road (Y4) is separate**: that is the caravan's drinking order, not plumbing.
+- **Cost:** one small Def in the Dubs Bad Hygiene folder and one service on the rare tick of a parked vehicle with a tank. It serves
+  the crew water tank (Y2), the camp shower and basin (Y12), and the working trailers that set out Dubs fixtures.
+
 ## Sources
 
-**Web figures were read as search summaries on 13 Nov 2026; the pages themselves were not opened, so each is unverified and none
-should be written into a Def until it is.** Which page gave which figure was not always clear from the summary.
+**Web figures were read as search summaries on 13 Nov 2026. On 17 Nov 2026 the pages were opened at the owner's word; the table says
+which figures the pages themselves state. A figure not confirmed stays unverified and is not written into a Def.**
+
+| Figure | Opened 17 Nov 2026 | What the page says |
+| --- | --- | --- |
+| Fridge draw | Overland Expo's review, yes; Quadratec refused (403); ARB's own page lists no figure | **Confirmed:** "Average Hourly Draw: 0.8 amps (Ambient at 89.6F, Internal at 41F)", for the 47-quart ZERO: 32 °C outside, 5 °C inside. The page does not say 12 V beside it |
+| Water per person | Camping Australia, yes | **Confirmed:** drinking only, 2 L a day in cool weather, 4 L in heat, 5 to 6 L in "extreme heat or hard activity"; 5 to 7 L with cooking and minimal washing; 15 to 30 L with showers and dishes |
+| The Flying Doctor's 10 L a day | No: the PDF link is gone (404) and its site shows no such guide | **Unverified**, and now without a source: do not use |
+| Dual batteries | REDARC, yes | **Confirmed in substance:** a DC-DC charger keeps the starter battery "separate from your auxiliary system, so your accessories never drain the power you need to get moving". "Isolator" is our word, not the page's |
+| Camp burner gas use | Alpinetrek's Outwell Olida page, in part (the product is discontinued, and the text was read through a summary) | **Different:** "Fuel consumption (per hour): 218 g" for a stove with **two** burners of 3,000 W each; whether that is for one burner or both is not said. Our "150 to 220 g for a single burner" is not what this page states: unverified |
+| Shower pump flow | No: the page refused twice (429, too many requests) | **Unverified** |
+| Solar blanket output | No: both pages refused twice (429) | **Unverified.** Our own arithmetic [I]: 200 W at a panel's working voltage of about 18 V is about 11 A at its rated best, which fits the reported 8 to 11 A in good sun, but that is inference, not a source |
+
+Which page gave which figure was not always clear from the original summaries; the list below is as first recorded.
 
 - **Fridge draw** (about 0.8 Ah an hour at 12 V, 5 °C inside, 32 °C outside): retailer listings and a review of ARB's Zero 47
   fridge freezer, among them [Quadratec](https://www.quadratec.com/products/arb-zero-fridge-freezer) and

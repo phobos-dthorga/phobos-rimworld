@@ -3,7 +3,7 @@
 **Status (17 Nov 2026):** built in D'thorga Patches 0.19.1: AD14 (InterRim Ballistic Missile's close-in weapon systems shoot down
 Combat Extended's shells, a temporary patch); built in D'thorga Framework 0.119.0 with Vehicles 0.58.0 and Patches 0.21.0: AD3 and AD2 (the
 aircraft batch, with avionics A12, A14 and A16), AD7 and the launch warning; not built: AD1, AD4 to AD6 and AD8 to AD13. Not yet tested in
-game.
+game. Also read on 17 Nov 2026, with no change to the mods: how VTOL Raids brings its aircraft, and the heat seeker's rule for AD5.
 
 **A research record.** The owner, 13 November 2026, asked that the
 [soft-dependency exploration](soft-dependency-crosslinks.md) include InterRim Ballistic Missile and The Dead Man's Switch "for their
@@ -155,10 +155,10 @@ altitude, and since 12 Nov a combat domain, a terminal intercept factor and a de
 
 ## Other factions' vehicles
 
-- **Raids on us**: raiders' VTOLs are invisible to DMS and IRBM today, like ours. A player with DMS radars expects them to fight raiders'
-  aircraft; AD3 counts only world-map flights, so **how VTOL Raids brings its aircraft onto the map is not checked** and decides whether
-  the player's DMS defences can ever engage them. Under the lite tier, a hostile aircraft has no avionics fit, so AD2's warning and A16's
-  countermeasures would not apply to it unless the lite tier gains them.
+- **Raids on us**: raiders' VTOLs are invisible to DMS's and IRBM's air defences today. **Read 17 Nov 2026: they always will be, as VTOL
+  Raids is written** ([the reading below](#read-17-nov-2026-vtol-raids-and-the-heat-seeker)): its aircraft never fly on the world map, so
+  AD3 can never make them tracks; they are flying pawns on the map, which only ordinary guns under open sky can hit. Under the lite tier,
+  a hostile aircraft has no avionics fit, so AD2's warning and A16's countermeasures would not apply to it unless the lite tier gains them.
 - **A base we attack**: AD1 and AD7 are about exactly this. A DMS base with fire control and an alert network makes an air assault
   costly, and a blockade grounds the attackers.
 - **Captured**: a captured aircraft becomes the player's and is a track like any of ours under AD3.
@@ -181,8 +181,63 @@ Answered by the owner, 13 Nov 2026:
 
 Still open:
 
-1. **AD5**: may our engines change DMS's heat-seeker choice? It changes their targeting, not only a figure.
-2. **Raiders' aircraft**: should a decompile of VTOL Raids come first, to see whether the player's DMS defences can ever face them?
+1. **AD5**: may our engines change DMS's heat-seeker choice? It changes their targeting, not only a figure. **The facts for this
+   decision were read on 17 Nov 2026** ([below](#read-17-nov-2026-vtol-raids-and-the-heat-seeker)), with two shapes it could take.
+2. ~~**Raiders' aircraft**: should a decompile of VTOL Raids come first?~~ **Read 17 Nov 2026** (the owner's go-ahead for analysis):
+   the player's DMS air defences can never face them. A new question takes its place: **should anything of ours let air defences
+   engage aircraft flying on a map?** Nothing is proposed yet.
+
+## Read 17 Nov 2026: VTOL Raids and the heat seeker
+
+The owner asked for the two open questions to be read (17 Nov 2026). Facts are from the code: `VTOLRaids` and `VTOLRaids-FixedWing` are
+decompiles of 3 Nov 2026 of VTOL Raids (`potemkinvillager.vtolraids`, last updated 1 Nov 2026, so current); `VTOLVehicle` is VTOL
+Vehicle's build of 15 Nov 2026; `DMSE` is DMS Expedition's of 12 Nov 2026. Nothing here is built or tested in game.
+
+### How VTOL Raids brings aircraft, and what can shoot at them
+
+- **Its aircraft are added to an ordinary raid, and appear at the map's edge already flying.** A postfix on the game's
+  `IncidentWorker_Raid.TryExecuteWorker` adds them once a raid has been made (`VTOLRaids:1664-1681`); each is spawned on an edge cell as
+  a flying vehicle pawn (`GenSpawn.Spawn`, `VTOLRaids:5336`; the jets the same way, `VTOLRaids-FixedWing:1697`) and later leaves by the
+  nearest edge (`PathingHelper.ExitMap`, `VTOLRaids:5397`). **No world-map flight, no skyfaller, no drop pod.**
+- **So DMS Expedition's and IRBM's air defences never see them**: both engage things the game makes as skyfallers, DMS's own missiles
+  and, since our aircraft batch, world-map flights. A flying pawn on the map is none of these. This is not a gap our AD3 left; there
+  is no world flight to expose.
+- **A closed airspace does not stop them either.** DMS Expedition closes a defended map to AI raids that arrive by drop pod, by
+  refusing those arrival modes (`DMSE/Patch_Airspace_ArrivalMode.cs`); VTOL Raids does not look at the arrival mode, so a raid that
+  walks in still brings its aircraft over a closed sky.
+- **What can hit them: ordinary ranged weapons, from under open sky.** VTOL Vehicle treats an airborne aircraft as a pawn standing on
+  the cell beneath it. A ranged shot may be taken at it unless the shooter stands under any roof; melee never reaches it
+  (`VTOLVehicle/VtolCombatUtility.cs`, `CanGroundVerbHitAirborneVehicle`, through a postfix on the game's `Verb.CanHitTargetFrom`). So a
+  **roofed turret or a colonist firing from indoors cannot engage a raider's aircraft; an unroofed turret can**, DMS Expedition's flak
+  and CIWS turrets included, with their ordinary guns only. Their interceptors and terminal CIWS stay silent.
+- **Our inference, not in the code:** a player who builds DMS radars and launchers against air raids gets nothing from them against
+  VTOL Raids, and may not know why. A line in our player guide is the cheapest answer; anything more is a new design.
+
+### The heat seeker, for AD5
+
+- **The rule** (`DMSE/GuidanceType_HeatSource.cs:22-45`): first the hottest indoor room at least 15 °C warmer than outdoors that the
+  missile can strike; only if there is none, **the spawned pawn with the biggest body** that is hostile to the attacker or has no faction
+  (wild animals count), on a cell it can strike (not under a thick roof, unless the missile penetrates one). With several missiles inside
+  1,200 ticks, each prefers a target the others have not claimed (`DMSE/GuidanceType.cs:191-221`).
+- **Where it is fitted:** two guidance parts, `DMSE_Light_Guidance_IR` (the default on the Stinger body; also fits the light, Maverick and
+  Sparrow bodies) and `DMSE_AdvLight_Guidance_IIR`. Both use the same class and the same 15 °C.
+- **A vehicle is a pawn with a body size from its Def, so it is in that pool.** The game's biggest animals (thrumbo, megasloth,
+  elephant) are 4. Ours: the Kelly drill rig 8; the Ullage bulk tanker, the Talus tipper and the Fathom crawler 7; the Busbar generator
+  set 6.5; the Datum survey truck and the trailers 4. **So today, where no room is 15 °C warmer than outdoors (a warm season, a camp, a convoy
+  fight, a caravan ambush), a heat seeker fired at the player goes for the biggest vehicle on the map, engine cold or not**: usually one
+  of our work trucks. That is the behaviour AD5 would change.
+- **Nobody else is in there.** `scripts/query-patches.py who "*GuidanceType*"` finds no active mod patching it. DMS Expedition offers no
+  XML way in for another mod's seeker rule: its one hook on the result (`ModifySeekResult`) belongs to the missile's own parts.
+- **What AD5 would take:** one postfix on `GuidanceType_HeatSource.PickTarget`, skipping nothing, that acts only when the answer came
+  from the pawn step. Two shapes, for the owner to choose between or refuse:
+  1. **Cold vehicles do not count.** A vehicle with a cold engine is left out, so the seeker takes the hottest running engine, else the
+     biggest creature as now. A parked, cold vehicle can hide; starting engines before a fight has a price.
+  2. **Hot engines come first, the rest as now.** A running engine outranks everything; cold vehicles still rank by size. A smaller
+     change to their rule, and a cold drill rig stays the target it is today.
+- **Limits either way:** only DMS's heat seekers, and only when no hot room wins. It works both ways (the player's own Stingers against
+  raiders' vehicles), and a vehicle on the lite tier has no engine temperature, so it needs a stand-in such as "moved or fired lately".
+  A postfix that moves the answer does not join DMS's sharing of targets between missiles, so a salvo may all pick the one hot engine
+  unless we spread it ourselves. It is their targeting, so it is the owner's call; the author is active (updated 12 Nov 2026).
 
 ## Built: the aircraft batch (17 Nov 2026)
 

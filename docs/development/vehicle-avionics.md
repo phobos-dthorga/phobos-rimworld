@@ -2,7 +2,7 @@
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.106.0 (A5, A6 with round three's G16, A8, A9), 0.110.0 with Vehicles
 0.53.0 (the avionics fit, A1, A2, A7 and L1; A5 also answers L2) and 0.119.0 with Vehicles 0.58.0 and Patches 0.21.0 (A12, A14 with L3, A16);
-not built: A3, A4, A10, A11, A13, A15, A17, L4 and L6 (L5 set aside). Not yet tested in game.
+not built: A3, A4, A10, A11, A13, A15, A17 and L4 (L5 set aside; L6's stale notes corrected, with a reading of 17 Nov 2026). Not yet tested in game.
 
 A research record. The owner, 13 November 2026: "One area I have seen that
 is lacking is with the avionics of aircraft, particularly with the Harrier, but this does apply to all aircraft that are part of my
@@ -265,7 +265,26 @@ gains a way in through AD8 and AD9.
 | L3 | Flight phase, airborne or not, and the bleed share cannot be read from XML | `When_FlightPhase`, `When_Airborne`, `Input_Bleed` | **input** | **Take** when A14 or A15 is: they need it, and authors will too |
 | L4 | Aircraft carry no oil or fuel-feed systems, so a turbine has no oil to lose and no boost pump to fail | Give turbines the lubrication system with their own figures | XML | **Set aside**: more upkeep on every aircraft for little the player would notice; cold starts already fall back sensibly |
 | L5 | The Warbird and the Smuggler get the generic aircraft loadout, so a piston fighter is given a turbofan | A piston-aircraft loadout: the piston drivetrain, cooling and oil, and a propeller | XML | **Take**: it is a fault, and it makes the Warbird feel like one |
-| L6 | The Harrier README's part health figures are stale, and the hit-share note in `Parts_HarrierVtol.xml:9` probably is (inference from `AV8B:2690-2734`) | Correct them when A8 touches those files | Docs | Take then |
+| L6 | The Harrier README's part health figures are stale, and the hit-share note in `Parts_HarrierVtol.xml:9` probably is (inference from `AV8B:2690-2734`) | Correct them when A8 touches those files | Docs | **Done:** the README in Patches 0.19.0; the note on 17 Nov 2026, with a finding ([below](#l6-read-our-ten-parts-thin-out-hits-on-the-harriers-own-17-nov-2026)) |
+
+### L6 read: our ten parts thin out hits on the Harrier's own (17 Nov 2026)
+
+Read at the owner's word from the Harrier's assembly of 16 Nov 2026 (`AV8B`, decompiled that day; its build of 3 Nov has none of
+this) and Vehicle Framework 1.7. **Nothing is changed in play by this reading; the choice at the end is the owner's.**
+
+- **The Harrier now decides where a hit lands itself.** A prefix on Vehicle Framework's `VehicleStatHandler.ApplyDamage` (`AV8B:2839-2857`)
+  moves every hit but EMP: with the Def's `hitSpreadChance` (0.4 on `Harrier_Jet`) onto the cells of **one part other than the airframe,
+  chosen evenly** among every living part with cells of its own (`AV8B:2764-2806`); otherwise onto an airframe cell. At start-up it also
+  takes out of the airframe's cells every cell a smaller part covers, internal parts excepted under Combat Extended (`AV8B:2715-2762`).
+- **So the old note was wrong since that build**: the airframe's weight of 3 no longer shares a cell with an external part.
+- **The finding: "evenly" counts our parts.** The Harrier's own list has three such parts (cockpit, engine, wing fuel tanks), so its
+  author's design sends about 13 % of all hits at each. Our patch adds ten, so thirteen share the four in ten: **about 3 % each**. The
+  engine and the wing tanks, with their leak and fire, are struck about a quarter as often as the author intended; canopy, radar, pylons
+  and the rest soak up the difference. The jet is harder to bring down than its author made it, and has more small repairs.
+- **Not checked in play.** Whether it shows depends on the fire it takes; the arithmetic is from the code.
+- **Choices, none taken:** leave it (a fuller parts list that also spreads damage, as a real airframe's systems would); give fewer of
+  our parts cells of their own, so they are reached only through the airframe; or ask the author for a weight on the spread (the code
+  takes none today). The author is active (updated 15 Nov 2026), so by our rule a request, not a patch.
 
 ## How it shows
 

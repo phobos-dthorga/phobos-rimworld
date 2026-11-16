@@ -395,15 +395,15 @@ on the map, and then only what a set-out building costs.
 5. **Work**: the field workshop (Q9), light tower (Q11), stone saw (Q12); the bridge layer (Q13) after its two checks; the field
    laboratory (Q10) if wanted.
 
-## Faults and stale lines found on the way (listed, not fixed)
+## Faults and stale lines found on the way (corrected 17 Nov 2026, but the last)
 
 | What | Where |
 | --- | --- |
 | ~~The hitch moves a towed vehicle without checking whether it is set up~~ **Fixed in Framework 0.111.0** (B0.2) | `src/PhobosFramework.Vehicles/Hitch/CompPhobosHitch.cs` |
-| "Recovery-tow caravans are not built" is stale: the code takes any towed vehicle along | `vehicle-upgrade-families.md:285-286` |
-| The hitch record calls the Pintle's 2 x 5 "the generator set's width"; the Busbar is now 3 x 8 | `assets/phobos-vehicles/requests/round-three-record.md` |
-| The Busbar's Def comment is dated 14 Nov 2026; the work was 13 Nov | `Vehicle_GeneratorSet.xml`, near its fuel figures |
-| "A vehicle is not an IBillGiver" is not quite right: every pawn is one, with surgery-shaped rules | `vehicle-framework-mechanics.md:159` |
+| ~~"Recovery-tow caravans are not built" is stale: the code takes any towed vehicle along~~ **Corrected** (now in `vehicle-upgrades-round-two.md`) | `vehicle-upgrade-families.md:285-286` |
+| The hitch record calls the Pintle's 2 x 5 "the generator set's width"; the Busbar is now 3 x 8. **Left as written:** it is a dated record of 12 Nov 2026, true on its day | `assets/phobos-vehicles/requests/round-three-record.md` |
+| ~~The Busbar's Def comment is dated 14 Nov 2026; the work was 13 Nov~~ **Corrected** in three places | `Vehicle_GeneratorSet.xml`, near its fuel figures |
+| ~~"A vehicle is not an IBillGiver" is not quite right: every pawn is one, with surgery-shaped rules~~ **Corrected** | `vehicle-framework-mechanics.md:159` |
 | Whether people riding a towed vehicle count on the colonist bar while travelling is still unchecked | `vehicle-hitch-design.md:271` |
 
 ## What was built (13 Nov 2026)

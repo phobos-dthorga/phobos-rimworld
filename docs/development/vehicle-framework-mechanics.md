@@ -160,7 +160,8 @@ carry `Engine`, `Gearbox` and `Alternator`; its aircraft `FuelIntake`, `Transmis
 - **Electric vehicles.** With `electricPowered`, a vehicle not charging drains `dischargeRate` over 60,000 per tick;
   charging moves `chargeRate` from the power net into the tank every 120 ticks while it stands on a cell whose
   `CompPower` transmits and whose net stores more than `chargeRate`; it disconnects while moving.
-- **Cargo** is the `CargoCapacity` stat, which parts can scale. **No workbench:** nothing in VF implements `IBillGiver`.
+- **Cargo** is the `CargoCapacity` stat, which parts can scale. **No workbench:** nothing in VF adds a bill giver of its own. A vehicle is a pawn, and every pawn is the game's `IBillGiver` for
+  surgery-shaped bills only, so it cannot take cooking or crafting bills as a bench does (corrected 17 Nov 2026).
 - **Roles** (`properties.roles`): `key`, `label`, `handlingTypes` (None, Movement, Turret only; there is no worker
   role), `slots`, `slotsToOperate`, `turretIds`, `hitbox`, `exposed`, `chanceToHit`, `comfort`.
   `properties.vehicleJobLimitations` caps how many pawns work on one vehicle. Jobs at a vehicle build on the public
