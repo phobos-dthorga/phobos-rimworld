@@ -142,7 +142,8 @@ Not yet tested in game. A vehicle loses its jobs before it is a wreck, and every
   cut or without power) and a red **Crew** card when people are aboard a burning or dead vehicle.
 - **On your vehicles, a powered turret needs power.** The **turret drive** draws from the battery while someone mans it. With the
   battery flat, or the load shed when the charging fails, the crew **cranks it round by hand**: a fifth of the speed, aiming twice as
-  slowly, but it never stops. Pintle and ring-mounted machine guns need no power. **Keep the engine running in a long fight.**
+  slowly, but it never stops. Machine guns on their own ring or pintle need no power, including a commander's gun on top of a
+  turret; a coaxial gun goes with its turret. Aircraft have no turret drive. **Keep the engine running in a long fight.**
 - **A tank's turret can be blown off** when its ammunition rack goes up: a hit on a badly damaged rack, or ammunition cooking off in a
   fire. Only tanks with an ammunition rack part (RimThunder's), and only while ammunition cook-off is on. The crew rarely survives.
 - **Field repairs** (the button that used to read Patch leaks) also **re-fits a thrown track or a wrecked wheel** with a component from

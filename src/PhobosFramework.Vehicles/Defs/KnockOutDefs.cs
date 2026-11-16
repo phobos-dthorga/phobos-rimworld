@@ -58,8 +58,14 @@ public class PhobosKnockOutRulesDef : PhobosRulesDef
     /// and lays its gun this much slower.</summary>
     public float handCrankTraversePace = 0.2f;
     public float handCrankAimPace = 0.5f;
-    /// <summary>Weapons swung by hand anyway, by a part of their key: pintle and ring-mounted machine guns, which need no power.</summary>
+    /// <summary>Weapons standing alone that are swung by hand anyway, by a part of their key or turret Def's name: pintle and ring-mounted
+    /// machine guns and grenade launchers, which need no power.</summary>
     public List<string> handSwungTurretKeys = new();
+    /// <summary>Weapons riding on a turret that go where it goes, by a part of their key or turret Def's name (Framework 0.117.2).</summary>
+    public List<string> coaxialTurretKeys = new();
+    /// <summary>Weapons riding on a turret that stand on their own ring or pintle on top of it, by a part of their key (Framework 0.117.2).
+    /// A riding weapon worked by a different crew member from its turret's counts as one too.</summary>
+    public List<string> ownMountTurretKeys = new();
 
     // ---- Field re-fitting a track or wheel (0.116.0: M3) ----
 

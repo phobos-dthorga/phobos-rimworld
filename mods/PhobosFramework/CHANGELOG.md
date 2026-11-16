@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.117.2] - 2026-11-17 - Draft
+
+Every vehicle's weapons checked: guns on their own mounts are swung by hand
+
+### Fixed
+
+- **A commander's or loader's machine gun on top of a turret is swung by hand, and needs no power** (the owner's audit of every
+  vehicle's weapons, 17 Nov 2026). Every weapon riding on a turret used to take the turret's drive, so these guns slowed with a flat
+  battery. Seven weapons in the owner's game: the M10's and the Desert Sabre M1A2's commander's M2HB, the Roaring Tiger M1A2's two top
+  guns, the M48H's top gun, the T-54's DShK and the Marshal's mounted gun. A coaxial gun, and the Bradley's TOW launcher, still go with
+  their turret and share its drive.
+- **The M113's M2HB is swung by hand too**, as are the MaxxPro's upgrade guns; they were read as powered turrets.
+- **Aircraft no longer have a turret drive.** Rocket pods and bombs hang fixed, and a helicopter's gun runs off the engines'
+  generators; nothing on an aircraft is cranked by hand any more, and the load is gone from its Systems tab.
+
+### Compatibility and limits
+
+- How a weapon is mounted is read from its key, its turret's name and which crew member works it, from the weapons in the owner's game.
+  A weapon on another author's vehicle whose names say nothing is judged by its crew, or reads as powered when it stands alone. No
+  settings changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.117.1] - 2026-11-17 - Draft
 
 Unmanned weapons no longer read as cranked by hand

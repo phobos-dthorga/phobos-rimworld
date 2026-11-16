@@ -160,7 +160,8 @@ public enum WeaponDrive
 /// <summary>
 /// A turret's power (Framework 0.115.0; owner, 16 Nov 2026; T3, T4): a powered turret is the electrical load "turret drive", drawing while
 /// someone mans it; with that load shed or the battery flat it is cranked by hand, slowly, never dead. Pintle and ring-mounted machine guns
-/// are swung by hand anyway. The player's vehicles only (the owner's choice): other factions' batteries do not evolve.
+/// are swung by hand anyway, and a weapon riding on a turret either shares its drive or stands on its own hand-swung mount
+/// (TurretPowerRule.Classify, Framework 0.117.2). The player's vehicles only (the owner's choice): other factions' batteries do not evolve.
 /// </summary>
 public static class TurretPower
 {
@@ -172,7 +173,7 @@ public static class TurretPower
         traverse = aim = 1;
         handCranked = false;
         PhobosKnockOutRulesDef rules = PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
-        if (!rules.turretPower || comp.Tier != DetailTier.Full || turret.def?.turretType == TurretType.Static || !Powered(Root(turret), rules)) return;
+        if (!rules.turretPower || comp.Tier != DetailTier.Full || !OnPoweredDrive(turret)) return;
         ElectricalLoadSpec? drive = comp.Props.loadout?.loads.FirstOrDefault(l => l.name == rules.turretDriveLoad);
         if (drive == null) return;
         float charge = comp.TryGetQuantity(ChargeQuantity, out float c) ? c : 1f;
@@ -188,10 +189,13 @@ public static class TurretPower
     public static WeaponDrive DriveOf(CompPhobosVehicleSystems comp, VehicleTurret turret)
     {
         PhobosKnockOutRulesDef rules = PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
-        if (!rules.turretPower || turret.def == null || turret.def.turretType == TurretType.Static) return WeaponDrive.None;
-        // A coaxial gun or a launcher on the turret has no drive of its own: it goes where its turret goes (Framework 0.117.1).
-        if (turret.attachedTo != null) return WeaponDrive.TurnsWithTurret;
-        if (!Powered(turret, rules)) return WeaponDrive.HandSwung;
+        if (!rules.turretPower || turret.def == null) return WeaponDrive.None;
+        switch (Kind(turret))
+        {
+            case WeaponMountKind.Fixed: return WeaponDrive.None;
+            case WeaponMountKind.HandSwung: return WeaponDrive.HandSwung;
+            case WeaponMountKind.WithTurret: return WeaponDrive.TurnsWithTurret;
+        }
         if (comp.Props.loadout?.loads.Any(l => l.name == rules.turretDriveLoad) != true) return WeaponDrive.None;
         return TurretPace.For(turret).handCranked ? WeaponDrive.HandCranked : WeaponDrive.Powered;
     }
@@ -205,20 +209,54 @@ public static class TurretPower
         if (turrets == null) return false;
         foreach (VehicleTurret turret in turrets)
         {
-            if (turret.attachedTo != null || !Powered(turret, rules)) continue;
+            if (Kind(turret) != WeaponMountKind.Powered) continue;
             if (!manned || turret.IsManned) return true;
         }
         return false;
     }
 
-    /// <summary>The weapon a mounted one rides on (a coaxial gun turns with its turret).</summary>
-    static VehicleTurret Root(VehicleTurret turret)
+    /// <summary>Whether this weapon is turned by a powered drive: its own, or that of the turret it goes with.</summary>
+    static bool OnPoweredDrive(VehicleTurret turret)
     {
-        VehicleTurret root = turret;
-        while (root.attachedTo != null) root = root.attachedTo;
-        return root;
+        for (VehicleTurret? t = turret; t != null; t = t.attachedTo)
+        {
+            WeaponMountKind kind = Kind(t);
+            if (kind != WeaponMountKind.WithTurret) return kind == WeaponMountKind.Powered;
+        }
+        return false;
     }
 
-    static bool Powered(VehicleTurret turret, PhobosKnockOutRulesDef rules) =>
-        turret.def != null && turret.def.turretType != TurretType.Static && !TurretPowerRule.HandSwung(turret.key, rules.handSwungTurretKeys);
+    /// <summary>How each design's weapons are mounted, worked out once per weapon (Framework 0.117.2). Derived, never saved.</summary>
+    static readonly Dictionary<(VehicleDef, string), WeaponMountKind> kinds = new();
+
+    /// <summary>How this weapon is mounted (TurretPowerRule.Classify).</summary>
+    public static WeaponMountKind Kind(VehicleTurret turret)
+    {
+        VehicleDef? def = turret.vehicle?.VehicleDef;
+        if (def == null || turret.def == null) return WeaponMountKind.Fixed;
+        if (kinds.TryGetValue((def, turret.key), out WeaponMountKind kind)) return kind;
+        PhobosKnockOutRulesDef rules = PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
+        VehicleTurret? parent = turret.attachedTo;
+        kind = TurretPowerRule.Classify(turret.def.turretType == TurretType.Static, parent != null, turret.key ?? "", turret.def.defName,
+            parent != null && SameCrew(turret, parent), rules.handSwungTurretKeys, rules.coaxialTurretKeys, rules.ownMountTurretKeys);
+        // Kept only once the crew roles can be read: a weapon read before the vehicle has its crew handlers is worked out again later.
+        if (parent == null || turret.vehicle?.handlers is { Count: > 0 }) kinds[(def, turret.key ?? "")] = kind;
+        return kind;
+    }
+
+    /// <summary>Whether one crew role works both weapons (a coaxial gun is the main gunner's; a cupola gun is the commander's).</summary>
+    static bool SameCrew(VehicleTurret turret, VehicleTurret parent)
+    {
+        if (turret.vehicle?.handlers == null) return true;
+        foreach (VehicleRoleHandler handler in turret.vehicle.handlers)
+        {
+            VehicleRole? role = handler?.role;
+            if (role?.TurretIds == null) continue;
+            if (Works(role, turret) && Works(role, parent)) return true;
+        }
+        return false;
+    }
+
+    static bool Works(VehicleRole role, VehicleTurret turret) =>
+        role.TurretIds.Contains(turret.key) || (turret.groupKey != null && role.TurretIds.Contains(turret.groupKey));
 }

@@ -277,6 +277,48 @@ tested in game (in-game test pass, checks 120 to 125). Agent choices made while 
 All built rows are not yet tested in game (checks 126 to 129). **Correction:** this record (W3) and the agent's card said the tanker's
 pump "runs on nothing"; it already needed the engine, through the shared set-up code.
 
+## Weapon mounts audit (17 Nov 2026, Framework 0.117.1 and 0.117.2)
+
+The owner's screenshot of a parked M2A3 Bradley at a full battery showed every weapon as "cranked by hand, no power", and the owner
+asked for every vehicle's turret setup to be checked. Read with `scripts/query-defs.py` (as written, parents resolved) over all 60
+weapons on 27 armed vehicles; the classification below is what the code now does, checked by a scratch copy of the rule.
+
+**What was wrong:**
+
+1. **Not drawing read as no power** (0.117.1). The turret drive draws only while someone mans the gun, so every unmanned weapon read as
+   cranked by hand. Now only a drive that is cut, switched off or on a flat battery cranks.
+2. **Every weapon riding on a turret took the turret's drive** (0.117.2). Right for a coaxial gun, which is fixed beside the main gun,
+   and for the Bradley's TOW launcher on the turret's side; wrong for a commander's or loader's machine gun on its own ring or pintle
+   on top of the turret, swung by hand. Seven weapons: the M10's and Desert Sabre M1A2's commander's M2HB, the Roaring Tiger M1A2's
+   top M240 and top M2HB, the M48H's top M240, the T-54's DShK and the Marshal's mounted gun.
+3. **A machine gun standing alone was matched by its key only** (0.117.2). The M113's M2HB has the key "mainTurret", so it read as a
+   powered turret; its turret Def's name is matched now too. The MaxxPro's upgrade guns (M2HB and Mk 19, both on a gunner's ring) are
+   matched by their turret Defs.
+4. **Aircraft had a turret drive** (0.117.2, agent's choice, for the owner to revise). Rocket pods and bombs hang fixed on pylons, and the
+   Hind's and Mongoose's guns run off generators that turn with the engines; the load is gone from the aircraft loadout.
+5. **Fixed smoke launchers took the drive's pace and read as ready while unmanned** (0.117.1).
+
+**The rule now** (`TurretPowerRule.Classify`, with tests; hints in `KnockOut.xml`):
+
+| Weapon | Drive | Found by |
+| --- | --- | --- |
+| Fixed (Static) | None | Vehicle Framework's turret type |
+| Rides a turret, coaxial | The turret's | "coax" in its key or turret Def |
+| Rides a turret, own mount | Hand-swung | a mount word in its key (topMG, topTurret, topMounted, MountedTurret, pintle, cupola), or worked by a different crew member from the turret |
+| Rides a turret, same crew | The turret's | the gunner works both (the Bradley's and M10's coaxial M240, the TOW launcher) |
+| Stands alone, machine gun or grenade launcher | Hand-swung | M2HB, M240, M249, Mk19, supportMG and the mount words, in its key or turret Def |
+| Stands alone, otherwise | Powered, cranked by hand without power | everything else: main guns, autocannons, artillery, rocket launchers |
+
+**What it gives, by vehicle:** powered: every tank's and IFV's main turret (M1A2 both, M10, M48H, Bradley, T-54, Wiesel, M113(M)'s
+mortar turret) and Vanilla Vehicles Expanded's turrets (Bulldog, Bunsen, Highwayman, Roadkill, Scytheman, Tango, Toad, Badger, Burya,
+Goliath's five, Marshal, Paladin, Udar). Hand-swung: the seven riding guns in fault 2, the M113's M2HB, the HEMTT's and M113(M)'s
+support M240. With the turret: four coaxial guns and the TOW launcher. Fixed: ten smoke launchers. No drive: the six aircraft weapons.
+Frontline Workshop's towed 105 mm howitzer has no engine, so it gets none of our systems.
+
+**Limits:** the words are hints from the weapons in the owner's game; a mod whose keys say nothing falls back on the crew test, and a
+weapon standing alone on another author's vehicle with no matching word reads as powered. The Roaring Tiger M1A2's top M2HB has no crew
+role that works it (the author's Def), so it never fires; not ours to fix, and nothing dire, so no report drafted. Not yet tested in game.
+
 ## Who chose what
 
 - **Owner (16 Nov 2026):** the idea, the round, record only, all four areas, and the six answers above.

@@ -16,6 +16,37 @@ public class TurretPowerRuleTests
     [Fact]
     public void AMainGunIsPowered() => Assert.False(TurretPowerRule.HandSwung("M256_A", Patterns));
 
+    static readonly string[] HandSwung = { "M2HB", "M240", "Mk19", "supportMG", "pintle" };
+    static readonly string[] Coaxial = { "coax" };
+    static readonly string[] OwnMount = { "topMG", "topTurret", "topMounted", "MountedTurret", "pintle", "cupola" };
+
+    static WeaponMountKind Kind(bool isFixed, bool rides, string key, string def, bool sameCrew) =>
+        TurretPowerRule.Classify(isFixed, rides, key, def, sameCrew, HandSwung, Coaxial, OwnMount);
+
+    [Fact]
+    public void ASmokeLauncherIsFixed() => Assert.Equal(WeaponMountKind.Fixed, Kind(true, true, "leftSmoke", "RT_GrenadeLauncherUS_A", true));
+
+    [Fact]
+    public void AMainGunIsPoweredByItsOwnDrive() => Assert.Equal(WeaponMountKind.Powered, Kind(false, false, "BushMaster", "RT_M2A3_Tank_Turret", true));
+
+    [Fact]
+    public void AMachineGunStandingAloneIsSwungByHandByItsTurretDef() =>
+        Assert.Equal(WeaponMountKind.HandSwung, Kind(false, false, "mainTurret", "RT_M2HB_MGTurret", true));
+
+    [Fact]
+    public void ACoaxialGunGoesWithItsTurret() => Assert.Equal(WeaponMountKind.WithTurret, Kind(false, true, "subCoaxialMG", "RT_M240_MGTurret", true));
+
+    [Fact]
+    public void AGunOfTheTurretsOwnCrewGoesWithIt() =>
+        Assert.Equal(WeaponMountKind.WithTurret, Kind(false, true, "M240_A", "RT_M240_MGTurret", sameCrew: true));
+
+    [Fact]
+    public void ACommandersGunOnTheTurretIsSwungByHand() =>
+        Assert.Equal(WeaponMountKind.HandSwung, Kind(false, true, "M2HB_A", "RT_M2HB_MGTurret", sameCrew: false));
+
+    [Fact]
+    public void AMountWordInTheKeyWinsOverASharedCrew() => Assert.Equal(WeaponMountKind.HandSwung, Kind(false, true, "topMG", "RT_M240_MGTurret", sameCrew: true));
+
     [Fact]
     public void ARunningLoadOnAChargedBatteryIsPowered() => Assert.True(TurretPowerRule.Powered(true, 0.6, 0.05));
 

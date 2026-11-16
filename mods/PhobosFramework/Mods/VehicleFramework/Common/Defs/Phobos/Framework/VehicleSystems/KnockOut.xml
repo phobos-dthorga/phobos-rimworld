@@ -55,11 +55,30 @@
     <handSwungTurretKeys>
       <li>M2HB</li>
       <li>M240</li>
+      <li>M249</li>
+      <li>Mk19</li>
       <li>topMG</li>
       <li>supportMG</li>
       <li>MountedTurret</li>
       <li>pintle</li>
     </handSwungTurretKeys>
+    <!-- 0.117.2 (the owner's audit, 17 Nov 2026): a weapon riding on a turret either goes where the turret goes, as a coaxial gun or a launcher
+         on the turret's side does, sharing its drive; or stands on its own ring or pintle on top of it, as a commander's or loader's machine
+         gun does, swung by hand. These words in a riding weapon's key decide first (matched against its turret Def's name too, for coaxial);
+         otherwise a riding weapon worked by a different crew member from its turret's is on its own mount, and one worked by the same crew
+         goes with the turret. Matched as hints, from the weapons in the owner's game: RimThunder, Frontline Workshop and Vanilla Vehicles
+         Expanded. -->
+    <coaxialTurretKeys>
+      <li>coax</li>
+    </coaxialTurretKeys>
+    <ownMountTurretKeys>
+      <li>topMG</li>
+      <li>topTurret</li>
+      <li>topMounted</li>
+      <li>MountedTurret</li>
+      <li>pintle</li>
+      <li>cupola</li>
+    </ownMountTurretKeys>
 
     <!-- 0.116.0 (M3; owner, 17 Nov 2026: back to a quarter): a mechanic re-fits a destroyed track or wheel in the field with the field-patch
          supplies, through the Field repairs button. It stays waiting for a proper replacement, so free repair cannot heal it further. Twice
