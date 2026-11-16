@@ -291,6 +291,7 @@
   <PhobosVehicleSystems_RepairNeedsOr>{WORK}: needs {SUPPLIES} in its cargo, or one of these instead: {OTHERS}.</PhobosVehicleSystems_RepairNeedsOr>
   <PhobosVehicleSystems_RepairReplaced>{MECHANIC} fitted a new {PART} to the {VEHICLE}.</PhobosVehicleSystems_RepairReplaced>
   <PhobosVehicleSystems_RepairFieldFixed>{MECHANIC} patched the {PART} on the {VEHICLE}. It will hold for now, until it is properly repaired.</PhobosVehicleSystems_RepairFieldFixed>
+  <PhobosVehicleSystems_TankPumpName>the electric pump</PhobosVehicleSystems_TankPumpName>
   <PhobosVehicleSystems_RepairFieldRefit>re-fitting the {PART}</PhobosVehicleSystems_RepairFieldRefit>
   <PhobosVehicleSystems_RepairFieldRefitted>{MECHANIC} re-fitted the {PART} on the {VEHICLE}. It will carry it home, slowly, but needs replacing properly.</PhobosVehicleSystems_RepairFieldRefitted>
   <PhobosVehicleSystems_HealthClock>{QUANTITY} {STAGE} in {TIME}</PhobosVehicleSystems_HealthClock>

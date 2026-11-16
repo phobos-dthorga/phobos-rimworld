@@ -570,6 +570,20 @@
       <li><def>PhobosVehicleSystem_TankLoad</def></li>
       <li><def>PhobosVehicleSystem_AirBrakes</def></li>
     </systems>
+    <loads>
+      <li>
+        <!-- Framework 0.116.0, Vehicles 0.57.0 (W3; owner, 17 Nov 2026): the electric pump upgrade draws on the battery while it pumps, so it
+             can work with the engine off until the battery is flat. Authored draw: a small transfer pump's motor, about 1 kW on 24 volts;
+             no published figure was read. Shed third when the charging fails with the engine running. -->
+        <name>tankPump</name>
+        <label>electric pump</label>
+        <description>The tank's electric pump, drawing while it pumps. With the engine off it runs on the battery until the battery is flat.</description>
+        <amps>40</amps>
+        <shedOrder>3</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_ElectricPumpFitted" />
+        <when Class="Phobos.VehicleSystems.When_TankPumping" />
+      </li>
+    </loads>
     <partRoles>
       <li>
         <role>Compressor</role>

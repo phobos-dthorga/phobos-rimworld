@@ -17,6 +17,9 @@ The owner's answers of 17 Nov 2026 to the knocked-out record's open rows, in ste
   mechanic also re-fits a destroyed track or wheel with a component from the cargo, back to a quarter of its health (the owner's figure),
   enough to drive home slowly. It still needs replacing properly, and until then free repair cannot heal it further, so one component never
   stands in for a whole track. The **Field fixes** setting's description now mentions it; its default is unchanged.
+- **The tanker's pump can be electric** (W3, with D'thorga Vehicles 0.57.0). It runs off the engine as before; the new **electric pump**
+  upgrade lets it set up and pump with the engine off, drawing about 40 amps from the battery until the battery is flat, when it waits
+  and says why. Set-up still needs someone aboard to start it.
 
 ## [0.115.0] - 2026-11-17 - Draft
 

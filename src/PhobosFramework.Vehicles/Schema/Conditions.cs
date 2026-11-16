@@ -118,6 +118,18 @@ public class When_FittingGrants : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Comp.Fittings.Grants(ability);
 }
 
+/// <summary>While the tanker's electric pump is fitted (Framework 0.116.0, W3).</summary>
+public class When_ElectricPumpFitted : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosTank>()?.ElectricPump == true;
+}
+
+/// <summary>While the tanker's pump is set up and working (Framework 0.116.0, W3).</summary>
+public class When_TankPumping : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosTank>()?.PumpWorking == true;
+}
+
 /// <summary>While the vehicle's recovery winch is pulling (Framework 0.115.0, W1).</summary>
 public class When_Winching : VehicleSystemCondition
 {

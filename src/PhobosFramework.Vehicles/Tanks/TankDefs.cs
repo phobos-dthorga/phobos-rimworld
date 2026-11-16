@@ -174,6 +174,8 @@ public static class TankDefOf
     public static VehicleStatDef Phobos_TankIntegrity = null!;
     public static VehicleStatDef Phobos_TankCapacity = null!;
     public static VehicleStatDef Phobos_RigControl = null!;
+    /// <summary>Above zero while the electric pump upgrade is fitted (Framework 0.116.0, W3).</summary>
+    public static VehicleStatDef Phobos_ElectricPump = null!;
     public static JobDef PhobosVehicleSystems_PurgeTank = null!;
 
     static TankDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(TankDefOf));

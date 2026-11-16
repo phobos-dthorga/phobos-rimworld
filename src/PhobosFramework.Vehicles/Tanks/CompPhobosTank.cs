@@ -483,6 +483,29 @@ public class CompPhobosTank : CompPhobosSetUp
         return null;
     }
 
+    // ---- The pump's power (Framework 0.116.0; owner, 17 Nov 2026: engine-driven, with an electric pump as an upgrade) ----
+
+    /// <summary>The electric pump's feed: its battery load.</summary>
+    static readonly FeedSpec ElectricPumpFeed = new() { load = "tankPump" };
+
+    /// <summary>Whether the electric pump upgrade is fitted. Without it the pump runs off the engine, as it always has.</summary>
+    public bool ElectricPump => Vehicle.GetStatValue(TankDefOf.Phobos_ElectricPump) > 0.5f;
+
+    /// <summary>The engine-driven pump stops when the engine does; the electric one does not, and runs on the battery instead.</summary>
+    protected override bool NeedsEngineNow => !ElectricPump;
+
+    /// <summary>Set up, pumping in or out, and not stalled: when the electric pump draws on the battery.</summary>
+    public bool PumpWorking => deployed && mode != TankPumpMode.Hold && !stalled;
+
+    /// <summary>Why the electric pump cannot run on the battery now (the engine off and the battery flat), or null.</summary>
+    string? BatteryPumpRefusal()
+    {
+        if (!ElectricPump) return null;
+        CompPhobosVehicleSystems? systems = Vehicle.GetComp<CompPhobosVehicleSystems>();
+        if (systems == null || systems.EngineRunning) return null;
+        return Feeds.Refusal(systems, ElectricPumpFeed, "PhobosVehicleSystems_TankPumpName".Translate().Resolve());
+    }
+
     float PumpShare()
     {
         float design = Vehicle.VehicleDef.GetStatValueAbstract(TankDefOf.Phobos_PumpRate);
@@ -556,6 +579,9 @@ public class CompPhobosTank : CompPhobosSetUp
             return;
         }
         pumpStatus = PumpBlocked();
+        if (pumpStatus != null) return;
+        // The electric pump with the engine off runs on the battery, and waits while it is flat (Framework 0.116.0, W3).
+        pumpStatus = BatteryPumpRefusal();
         if (pumpStatus != null) return;
         float rate = Vehicle.GetStatValue(TankDefOf.Phobos_PumpRate);
         if (mode == TankPumpMode.Load)
@@ -727,8 +753,9 @@ public class CompPhobosTank : CompPhobosSetUp
         if (Fitted == null) return "PhobosVehicleSystems_TankNoneFitted".Translate().Resolve();
         if (Selected.contents == null && !Compartments.Any(c => c.contents != null)) return "PhobosVehicleSystems_TankNoContents".Translate().Resolve();
         if (!Vehicle.Spawned) return "PhobosVehicleSystems_TankNotOnMap".Translate().Resolve();
-        if (CrewAndEngineRefusal() is { } crew) return crew;
+        if (CrewAndEngineRefusal(engineNeeded: !ElectricPump) is { } crew) return crew;
         if (StillMoving) return "PhobosVehicleSystems_TankStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        if (BatteryPumpRefusal() is { } unpowered) return unpowered;
         if (PumpShare() < Props.pumpFloor) return "PhobosVehicleSystems_TankPumpDamaged".Translate().Resolve();
         return null;
     }

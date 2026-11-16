@@ -323,7 +323,7 @@ public abstract class CompPhobosSetUp : VehicleComp
     /// engine running). "Running" is the engine switched on, which Vehicle Framework allows only with enough crew aboard to operate it
     /// (VehiclePawn.CanDraft); once it runs, the crew may get out and the work goes on by itself. Every set-up vehicle asks this first.
     /// </summary>
-    protected string? CrewAndEngineRefusal()
+    protected string? CrewAndEngineRefusal(bool engineNeeded = true)
     {
         // On a tow bar or a hitch it is not standing anywhere to work (Framework 0.111.0; vehicle-trailers.md, B0.2): the recovery tow could
         // otherwise drag a tanker with its hoses out.
@@ -335,6 +335,8 @@ public abstract class CompPhobosSetUp : VehicleComp
         if (SetUpByHand) return null;
         if (Vehicle.Drafted) return null;
         if (Vehicle.AllPawnsAboard.Count == 0) return "PhobosVehicleSystems_SetUpNoCrew".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        // Work that runs off the battery (the tanker's electric pump, Framework 0.116.0) needs someone aboard to start it, not the engine.
+        if (!engineNeeded) return null;
         return "PhobosVehicleSystems_SetUpEngineOff".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
     }
 
