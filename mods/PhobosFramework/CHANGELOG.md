@@ -11,6 +11,41 @@ tested in game unless an entry says the owner tested it.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 
+## [0.119.1] - 2026-11-17 - Draft
+
+A parked, empty vehicle's turret no longer drains its battery; aircraft systems keep going in flight
+
+### Fixed
+
+- **A turret drive drew on the battery with nobody aboard** (the owner's report, 17 Nov 2026: a parked L-ATV on the grid stood at 0 %
+  charge with frost on its battery). Vehicle Framework counts a weapon as manned whenever no seat that works it stands empty, which is
+  also true of a weapon no seat claims, so such a turret's drive drew 40 A day and night: four times the 10 A a grid gives a parked
+  vehicle. The drive now draws only while a person sits in a seat that works the weapon (or, for a weapon no seat claims, while anyone is
+  aboard). The frost was real chemistry, not a second fault: a flat lead-acid battery's electrolyte is nearly water and freezes a little
+  below zero, while a charged one is safe far colder; once the battery charges past 40 %, the frost stops.
+- **An aircraft's systems stood still while it flew on the world map** (the owner's report, 17 Nov 2026: the cab heater did not seem to
+  work in aircraft). Vehicle Framework holds an aircraft in flight without ticking it, so from take-off to landing the cab kept its
+  take-off temperature, the generator charged nothing, engines and a lost generator's battery clock never moved, and the whole flight was
+  caught up afterwards as hours parked. The player's aircraft now get the same look in flight that a parked vehicle gets, as often.
+- A battery already empty read "running down ... about 0 seconds left". It now says it is flat.
+- The Systems tab listed a part twice where it fills two roles of one system (the Cherokee's servos under its hydraulics).
+
+### Changed
+
+- On the Systems tab, a cab heater or air conditioner standing by because climate control is doing its job says so ("left to the climate
+  control, which is running") in place of "standing by", which read as broken.
+
+### Compatibility and limits
+
+- With systems running in flight, wear and faults can now arrive in the air as they do on the ground: an engine can overheat, a battery
+  can run down with the generator lost. An aircraft whose every engine fails in flight still flies on; only a hit from air defence brings
+  one down. A vehicle whose battery frost already cost its battery some health needs that repaired as usual. No settings changed. Not yet
+  tested in game (rows 147 and 148).
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.119.0] - 2026-11-17 - Draft
 
 Air combat: aircraft as air-defence targets, warning receivers, chaff and flares, oxygen, and cranked turrets aiming worse

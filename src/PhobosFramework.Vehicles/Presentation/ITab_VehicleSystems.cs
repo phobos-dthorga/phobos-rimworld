@@ -131,6 +131,11 @@ public partial class ITab_VehicleSystems : ITab
                 {
                     VehicleComponent? part = comp.Vehicle.statHandler?.GetComponent(key);
                     if (part == null || (attentionOnly && part.HealthPercent >= WholeShare)) continue;
+                    // One bar a part, however many of the system's roles it fills (Framework 0.119.1; the owner's screenshot of 17 Nov
+                    // 2026: the Cherokee's servos, both pump and lines of its hydraulics, were listed twice).
+                    bool listed = false;
+                    for (int i = 0; i < partScratch.Count && !listed; i++) listed = partScratch[i].part == part;
+                    if (listed) continue;
                     partScratch.Add((role, part));
                 }
             }

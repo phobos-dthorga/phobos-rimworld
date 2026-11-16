@@ -275,6 +275,9 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   **Broken or flat, the aircraft will not take off at night or in fog**; repair it, charge the battery or wait for daylight (the
   setting **Blind take-offs: warn only** lets it go anyway). Without navigation, or with only basic navigation in the dark, a flight
   across the world map is slower and burns more fuel; military aircraft carry full navigation and fly straight in anything.
+- **In flight on the world map, an aircraft's systems keep running**: the cab is heated or cooled, the generator charges the battery,
+  and wear and faults can arrive in the air. Where **climate control** is fitted it works the heater and air conditioner itself, so
+  their own switches read "left to the climate control".
 - **Heavy controls.** Helicopters and planes with servos, and the Harrier, fly on hydraulics: if the fluid leaks or the pump is hit,
   the controls go heavy and it flies slower. Top up the fluid in a service.
 - **Gas turbines** (aircraft, and the M1A2 tanks) wear their hot section when run past their limits, and twice as fast when held at

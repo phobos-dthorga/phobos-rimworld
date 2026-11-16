@@ -239,6 +239,12 @@ public partial class ITab_VehicleSystems
             };
             string label = load.label.NullOrEmpty() ? load.name : load.label.CapitalizeFirst();
             string stateText = key.Translate().Resolve();
+            // Standing by because another load has its job (climate control works the heater): say so (Framework 0.119.1).
+            if (state == LoadState.Idle && load.yieldsTo != null && comp.LoadActive(load.yieldsTo))
+            {
+                ElectricalLoadSpec? other = comp.Props.loadout?.loads.Find(l => l.name == load.yieldsTo);
+                stateText = "PhobosVehicleSystems_SysLoadYields".Translate((other?.label ?? load.yieldsTo).Named("LOAD")).Resolve();
+            }
             if (engineer && state is LoadState.Running or LoadState.NoPower)
                 stateText = "PhobosVehicleSystems_SysLoadAmps".Translate(stateText.Named("STATE"), load.amps.ToString("0.#").Named("AMPS")).Resolve();
             using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft))

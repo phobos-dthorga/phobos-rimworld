@@ -1,3 +1,4 @@
+using Phobos.Framework.Debug;
 using Phobos.Framework.Interface;
 using System.Collections.Generic;
 using System.Linq;
@@ -93,5 +94,27 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
             Gizmo? repair = RepairGizmo(caravan, comp);
             if (repair != null) yield return repair;
         }
+    }
+}
+
+/// <summary>
+/// Keeps an aircraft's systems going while it flies on the world map (Framework 0.119.1; the owner's report of 17 Nov 2026: "in aircraft,
+/// things like the cab heater are not working"). Vehicle Framework's flight holds the aircraft without ticking it (its
+/// ShouldTickContents is false, and the game ticks a world object's contents only when asked), so nothing of ours ran from take-off to
+/// landing: the cab stayed at its take-off temperature, the generator charged nothing, a lost generator's battery clock never ran, and
+/// the whole flight was caught up afterwards as hours parked. This comp, added to Vehicle Framework's AerialVehicle by patch, gives the
+/// player's aircraft the same look a parked vehicle gets, at the same interval. Other factions' aircraft in flight stay as they were:
+/// nothing of theirs evolves off a map. No Harmony; saves nothing.
+/// </summary>
+public class WorldObjectComp_PhobosFlightSystems : WorldObjectComp
+{
+    public override void CompTick()
+    {
+        if ((Find.TickManager.TicksGame + parent.ID) % GenTicks.TickRareInterval != 0) return;
+        if (parent is not AerialVehicleInFlight { Flying: true } flight || flight.Vehicle is not { } vehicle || vehicle.Faction != Faction.OfPlayer) return;
+        CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
+        if (comp is not { Usable: true }) return;
+        using (PhobosTiming.Measure("vehicle rare tick / in flight")) comp.UpdateNow();
+        Seen.Note("aircraft.systems-run-in-flight", vehicle);
     }
 }

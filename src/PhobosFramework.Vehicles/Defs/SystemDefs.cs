@@ -460,6 +460,11 @@ public class ElectricalLoadSpec
     /// <summary>The load's amps come from the loadout's avionics fit (Framework 0.110.0): what its essential capabilities draw, or what the
     /// rest draw. None: the amps written here.</summary>
     public AvionicsAmps ampsFromAvionics = AvionicsAmps.None;
+    /// <summary>The load that does this one's job while it runs (Framework 0.119.1: climate control works the cab heater and the air
+    /// conditioner itself), by name. While that load runs and this one stands by, the Systems tab says who has the job, so a switched-on
+    /// heater that reads "standing by" is not taken for broken (the owner's report, 17 Nov 2026). Presentation only: the load's own
+    /// <c>when</c> still decides whether it draws.</summary>
+    public string? yieldsTo;
 }
 
 public enum AvionicsAmps

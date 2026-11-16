@@ -61,8 +61,14 @@ public static class InspectText
     /// it down named, or charging; nothing when it is steady. Operator and Engineer add the current. Reads the systems' cached status.</summary>
     static string? ElectricsLine(ElectricalStatus status, DisplayMode mode)
     {
+        // Framework 0.119.1 (the owner's screenshot, 17 Nov 2026: "running down ... about 0 seconds left" on an empty battery): with under a
+        // minute of charge left there is nothing to count down, so the line says the battery is flat.
+        bool flat = status.Trend == ElectricalTrend.RunningDown && status.HoursLeft < 1f / 60f;
         string? line = status.Trend switch
         {
+            ElectricalTrend.RunningDown when flat && !string.IsNullOrEmpty(status.Loads) =>
+                "PhobosVehicleSystems_InspectBatteryFlatWith".Translate(status.Loads.CapitalizeFirst().Named("LOADS")).Resolve(),
+            ElectricalTrend.RunningDown when flat => "PhobosVehicleSystems_InspectBatteryFlat".Translate().Resolve(),
             ElectricalTrend.RunningDown when !string.IsNullOrEmpty(status.Loads) =>
                 "PhobosVehicleSystems_InspectBatteryDrainedBy".Translate(status.Loads.CapitalizeFirst().Named("LOADS")).Resolve(),
             ElectricalTrend.RunningDown => "PhobosVehicleSystems_InspectBatteryRunningDown".Translate().Resolve(),
@@ -75,7 +81,7 @@ public static class InspectText
             line = "PhobosVehicleSystems_InspectBatteryAmps".Translate(line.Named("LINE"), status.Amps.ToString("0.#").Named("AMPS")).Resolve();
         }
         // The battery clock (avionics A6, Framework 0.106.0), in words in every mode, while it runs down.
-        if (line != null && status.Trend == ElectricalTrend.RunningDown && !float.IsInfinity(status.HoursLeft))
+        if (line != null && status.Trend == ElectricalTrend.RunningDown && !flat && !float.IsInfinity(status.HoursLeft))
         {
             string time = ((int)(status.HoursLeft * GenDate.TicksPerHour)).ToStringTicksToPeriod();
             line = "PhobosVehicleSystems_InspectBatteryTimeLeft".Translate(line.Named("LINE"), time.Named("TIME")).Resolve();

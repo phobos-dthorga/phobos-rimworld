@@ -182,6 +182,7 @@
       </li>
       <li>
         <name>cabHeater</name>
+        <yieldsTo>climateControl</yieldsTo>
         <label>cab heater</label>
         <description>The cab heater runs below 5 °C while the vehicle is switched on. It draws on the traction battery, so it costs range.</description>
         <amps>12</amps>
@@ -244,6 +245,7 @@
       </li>
       <li>
         <name>airConditioner</name>
+        <yieldsTo>climateControl</yieldsTo>
         <label>air conditioner</label>
         <description>The air conditioner cools the cab above 26 °C while the vehicle is switched on. It draws on the traction battery, so it costs range.</description>
         <amps>10</amps>

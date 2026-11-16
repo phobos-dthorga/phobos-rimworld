@@ -39,6 +39,16 @@
       </li>
     </value>
   </Operation>
+  <!-- An aircraft's systems keep going while it flies on the world map (Framework 0.119.1; the owner's report of 17 Nov 2026): Vehicle
+       Framework holds the aircraft without ticking it, so the cab, the battery and the engines stood still from take-off to landing. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorldObjectDef[defName="AerialVehicle"]/comps</xpath>
+    <value>
+      <li>
+        <compClass>Phobos.VehicleSystems.WorldObjectComp_PhobosFlightSystems</compClass>
+      </li>
+    </value>
+  </Operation>
   <!-- The Dashboard and Systems tabs on the world map (owner, 8 Nov 2026; Framework 0.23.0): on a vehicle caravan and an aircraft in
        flight, beside Vehicle Framework's own. Both Defs already have an inspectorTabs list. -->
   <Operation Class="PatchOperationAdd">

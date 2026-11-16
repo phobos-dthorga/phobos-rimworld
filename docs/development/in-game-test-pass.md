@@ -6,6 +6,8 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **Framework 0.119.1 (17 Nov 2026): rows 147 and 148**, from the owner's screenshots of that day: an empty L-ATV's battery flat on the
+  grid, and aircraft systems standing still in flight.
 - **The aircraft batch (Framework 0.119.0, Vehicles 0.58.0, Patches 0.21.0; 17 Nov 2026): rows 139 to 146.** Needs The Dead Man's
   Switch - Expedition for 139 to 142. **Use a copy of the save.** Riskiest first: **139** (an aircraft in flight hit by a defended
   settlement) and **143** (the Harrier's dodge chance). Tick **Seen in play** in D'thorga Framework's settings first: each row notes
@@ -247,6 +249,8 @@ Numbered P1 to P4 since 17 Nov 2026; they were 4 to 7, which clashed with the ro
 | 144 | **Oxygen and the low cruise** (Framework 0.119.0, A14) | Shoot the Harrier's avionics bay below 60% (god mode) and look at its range before a flight | Crew oxygen reads out, a message says it will fly low, and its range and speed on the world map are shorter than when it is sound |
 | 145 | **Altitude hypoxia** (Framework 0.119.0; tick **Crews feel thin air when oxygen fails at height** first) | As 139, with the Harrier, until a hit knocks its oxygen out | Everyone aboard has altitude hypoxia, which wears off within hours; untick the setting and it never appears |
 | 146 | **Cranked turrets aim worse** (Framework 0.119.0, T5 and T6) | With a crew aboard a tank and the battery flat (dev action), fire on the move and at night | Its gun hits less often than with power: worse on the move, worse at night, worst both. With Combat Extended its shots spread wider |
+| 147 | **Aircraft systems run in flight** (Framework 0.119.1) | Fly a Cherokee across the world map for a few hours with its Systems tab open, in cold weather if you can | Its graphs keep moving in flight: the cab holds near 21 degrees C, the battery charges, the turbine reads cruising. The cab heater reads "left to the climate control, which is running", not "standing by", and the hydraulics card lists each servo once |
+| 148 | **An empty vehicle on the grid charges** (Framework 0.119.1) | Leave the L-ATV parked with nobody aboard beside a powered conduit, engine off | Its inspect line says the battery is charging from the power nearby; no turret drive shows as running on the Systems tab; the frost goes once it is past 40 %. A flat battery with something drawing reads "flat", never "0 seconds left" |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 

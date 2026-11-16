@@ -225,9 +225,35 @@ public static class TurretPower
         foreach (VehicleTurret turret in turrets)
         {
             if (Kind(turret) != WeaponMountKind.Powered) continue;
-            if (!manned || turret.IsManned) return true;
+            if (!manned || Crewed(turret)) return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// Whether a person is at this weapon now (Framework 0.119.1; the owner's report of 17 Nov 2026: a parked, empty L-ATV's battery ran flat
+    /// on the grid). Vehicle Framework's own answer, IsManned, is "no seat that works this weapon stands empty", which is yes for a weapon no
+    /// seat claims and for a seat that needs nobody: such a turret's drive drew 40 A day and night with nobody aboard, four times what a
+    /// grid's trickle charge gives. Here someone must sit in a seat that works the weapon; a weapon no seat claims counts as crewed while
+    /// anyone at all is aboard.
+    /// </summary>
+    public static bool Crewed(VehicleTurret turret)
+    {
+        VehiclePawn? vehicle = turret.vehicle;
+        if (vehicle?.handlers == null) return false;
+        bool claimed = false;
+        bool anyoneAboard = false;
+        foreach (VehicleRoleHandler handler in vehicle.handlers)
+        {
+            if (handler == null) continue;
+            bool occupied = handler.thingOwner is { Count: > 0 };
+            anyoneAboard |= occupied;
+            VehicleRole? role = handler.role;
+            if (role == null || (role.HandlingTypes & HandlingType.Turret) == 0 || role.TurretIds == null || !Works(role, turret)) continue;
+            claimed = true;
+            if (occupied) return true;
+        }
+        return !claimed && anyoneAboard;
     }
 
     /// <summary>Whether this weapon is turned by a powered drive: its own, or that of the turret it goes with.</summary>
