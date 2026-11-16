@@ -125,8 +125,8 @@ working equipment, crew and cab ([record](vehicle-knocked-out-systems.md)). **No
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
-| KO1 | The record: rows T1 to T11, M1 to M5, W1 to W6, C1 to C6, with a short list | docs | All four areas, record only (owner, 16 Nov 2026) | Written; six questions for the owner |
-| KO2 | Fault: the people aboard our own seven vehicles can probably never be hit (their seats give no hitbox; row C1) | Vehicles | — | Open; read from the code, not seen in play |
+| KO1 | The record: rows T1 to T11, M1 to M5, W1 to W6, C1 to C6, with a short list | docs | All four areas, record only; then (16 Nov 2026) hand-cranked turrets, damage only for raiders, the turret blown off with cook-off, AI crews bail out and the player's get an alert, a weapon stops with its mount under 10 %, and the short list queued after the aircraft batch, the vaccines tie-in and Billy | Written and answered; not built |
+| KO2 | ~~Fault: the people aboard our own vehicles can never be hit~~ | Vehicles | — | **Withdrawn, the agent's error** (16 Nov 2026): its script did not read seats' hit areas; every seat has one. Nothing to fix |
 | KO3 | Gap: nothing makes a crew leave a vehicle that can neither move nor shoot, or is burning (row C2) | Framework | — | Open |
 | KO4 | To read before building: field fixes for tracks and wheels (M3), vehicle lords with an immobilised vehicle (M4), the Crawler's instruments as loads (W2), the tanker's pump (W3), real turret drives beyond the Bradley (T4) | docs | — | Open |
 

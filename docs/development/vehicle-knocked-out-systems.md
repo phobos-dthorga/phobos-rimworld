@@ -18,9 +18,11 @@ equipment, crew and cab**. **Record only: nothing here is built, and nothing is 
   built on our battery or hydraulics works on the player's vehicles only. Each row says which.
 - **Our own vehicles carry no weapons**, so the turret rows act on other authors' vehicles (owner, 13 Nov 2026: our conditions may
   scale other authors' figures through hooks that never skip their code). The working-equipment rows are ours.
-- **Two findings on the way** (not fixed, below): the people aboard our own seven vehicles can probably never be hit, and nothing
-  makes a crew leave a vehicle that can neither move nor shoot.
-- **The short list** is at the end, with six questions for the owner.
+- **One finding on the way** (not fixed, below): nothing makes a crew leave a vehicle that can neither move nor shoot.
+- **A correction, made the same day:** the first version of this record said the people aboard our own vehicles could never be hit.
+  **That was the agent's error** (its inventory script did not read seats' hit areas). Every seat on our vehicles has one; row C1 and
+  the faults list are corrected below.
+- **The short list** is at the end, with the owner's answers to its six questions.
 
 ## The principle
 
@@ -94,7 +96,9 @@ not applied), `scripts/query-code.py` and `scripts/query-patches.py`. "VF:n" is 
   landing on a seat's cells strikes one occupant with the seat's chance to hit (0.3 unless its author says otherwise, VF:20094), times
   1.25 on the seat's own cell, 1 or 0.75 on a neighbouring one. An outside hit reaches only seats marked exposed. **This answers G14
   of [round three](vehicle-crosslinks-round-three.md), marked "read first" there.**
-- **A seat with no hitbox can never be chosen** (`TrySelectHandler`, VF:12610: it asks for a hitbox that contains the cell).
+- A seat is chosen when its hit area holds the struck cell (`TrySelectHandler`, VF:12610). A seat whose author gives no hit area gets
+  the vehicle's centre cell (`ComponentHitbox.Initialize`, VF:9735). **Every seat on our own vehicles gives its cab cells** (read from
+  `mods/PhobosVehicles/Defs/Phobos/Vehicles/*/Vehicle_*.xml`, 16 Nov 2026), enclosed, at the default chance.
 - A seat counts as filled only by someone of the vehicle's faction who can do its job (`RoleFulfilled`, VF:20426); a weapon whose
   seat is not filled is unmanned, so disabled.
 - **Nobody is ever told to get out.** People leave when the vehicle is destroyed (VF:18104) and after five idle hours on a map
@@ -136,14 +140,14 @@ original. Verdicts are the agent's, for the owner to overrule.
 
 | # | Idea | How | Lets | Stops | Changes | Built with | Other factions | Verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| T1 | **A weapon needs its mount** | Every main weapon without a part requirement of its author's gets one: on the vehicle's own turret part where there is one, else on a **turret ring** part our loadout appends at the weapon's cells (it does a job, so it counts toward destruction). The weapon stops when the part is under 10 % [A] | Silence a tank's gun without destroying the tank; repair the ring to get it back | Firing a gun whose mount is shot to pieces | A firepower kill exists, for and against the player | XML in loadouts, a little C# to set Vehicle Framework's own requirement at start-up; no hook | **Works for everyone**: it is Vehicle Framework's check, run on a health change | **Take, first** |
+| T1 | **A weapon needs its mount** | Every main weapon without a part requirement of its author's gets one: on the vehicle's own turret part where there is one, else on a **turret ring** part our loadout appends at the weapon's cells (it does a job, so it counts toward destruction). The weapon stops when the part is under 10 % (owner, 16 Nov 2026) | Silence a tank's gun without destroying the tank; repair the ring to get it back | Firing a gun whose mount is shot to pieces | A firepower kill exists, for and against the player | XML in loadouts, a little C# to set Vehicle Framework's own requirement at start-up; no hook | **Works for everyone**: it is Vehicle Framework's check, run on a health change | **Take, first** |
 | T2 | **Damage slows a weapon before it stops** | Traverse falls with the ring's health, aim time rises with the gun's, reload with the loader's or breech's [A curves]; the factor is worked out when health changes | See a battered tank fight worse; choose to pull it back | A gun at 11 % health firing as if new | Damage is felt before the end | Hooks on `TurretRotationTick`, `WarmupTicks`, `MaxTicks` | **Works for everyone** (it reads part health, not our stages) | **Take, after T1** |
-| T3 | **A powered turret needs power** | A turret drive is a switched electrical load (or draws hydraulic pressure); with the engine off it runs the battery down; with the battery flat, the load shed or the pressure gone, the turret is **hand-cranked**: traverse x0.2 [A], aim time x2 [A], never dead where the real vehicle has handwheels | Sit on silent watch and mind the battery; keep fighting, slowly, with a dead engine | Full-speed traverse from a vehicle with no power | The engine, alternator and battery matter in a fight | Our electrical loads and hydraulics, T2's hooks, one restriction class for a weapon with no hand backup | **Player's vehicles only**: stages do not run on the lite tier | **Take; question 2** |
+| T3 | **A powered turret needs power** | A turret drive is a switched electrical load (or draws hydraulic pressure); with the engine off it runs the battery down; with the battery flat, the load shed or the pressure gone, the turret is **hand-cranked**: traverse x0.2 [A], aim time x2 [A], never dead where the real vehicle has handwheels | Sit on silent watch and mind the battery; keep fighting, slowly, with a dead engine | Full-speed traverse from a vehicle with no power | The engine, alternator and battery matter in a fight | Our electrical loads and hydraulics, T2's hooks, one restriction class for a weapon with no hand backup | **Player's vehicles only**: stages do not run on the lite tier | **Take** (owner, 16 Nov 2026: hand-cranked; the player's vehicles only) |
 | T4 | **The right drive for each vehicle** | Loadouts name the drive: electric (the Bradley, read), hydraulic, or **hand-swung** (a pintle or ring-mount machine gun, which needs no power and loses nothing). Fictional vehicles by class [A]: heavy guns powered, light mounts hand-swung | Know which of your vehicles can fight on a flat battery | A hand-swung machine gun going dead with the battery | T3 is honest per vehicle | XML in D'thorga Vehicles' loadouts | As T3 | **Take with T3; the real drives need sources first** |
 | T5 | **A stabiliser to lose** | Without drive power the gun is not steadied: accuracy on the move falls [A] | Stop to shoot when the power is out | Accurate fire on the move from a dead turret | Halting to fire means something | The shot-report hook the avionics record lists for A12 | Player's only | **Hold: one accuracy rollout with avionics** |
 | T6 | **Sights need power** | No power: night and poor-visibility accuracy fall to a plain sight's [A] | Fight by day when crippled | Night-sight accuracy with nothing powering it | Night fighting depends on a healthy vehicle | As T5 | Player's only | **Hold with T5** |
 | T7 | **A wounded or missing loader** | Vehicle Framework already scales reload by gunner count where the author gives a curve; RimThunder - Roaring Tiger's M1A2, M48H and M113(M) do | — | — | — | Nothing | Everyone, already | **Nothing to build** |
-| T8 | **The turret blown off** | Vehicle Framework's own `Reactor_TurretPopper` on the main turret part of tanks that carry their ammunition there, joined to our cook-off (G13) | A spectacular, deadly end for a burning tank | A tank shrugging off an ammunition fire | Fires in tanks are feared | XML | Everyone | **Ask the owner** (question 3): it kills crews |
+| T8 | **The turret blown off** | Vehicle Framework's own `Reactor_TurretPopper` on the main turret part of tanks that carry their ammunition there, joined to our cook-off (G13) | A spectacular, deadly end for a burning tank | A tank shrugging off an ammunition fire | Fires in tanks are feared | XML | Everyone | **Taken** (owner, 16 Nov 2026: yes, with cook-off); it kills crews |
 | T9 | **Aircraft stores** | A pylon or gun part requirement (T1) for the Harrier's, Hind's and Mongoose's weapons; release power belongs to the avionics record | Lose a rocket pod to flak and fly home | Firing from a shot-off pylon | As T1 | As T1 | Everyone | **Take with T1** |
 | T10 | **An author's own rule always stands** | We never replace a part requirement or a restriction an author set; ours is added only where the slot is empty, and a weapon added by an upgrade is looked at when it arrives | — | Our patch silencing an author's design | — | A rule in the code | — | **A rule, with T1** |
 | T11 | Random jams and stoppages | — | — | — | — | — | — | **Argued against**: a roll with nothing the player did or can do, as the fuses of G19 were |
@@ -173,8 +177,8 @@ original. Verdicts are the agent's, for the owner to overrule.
 
 | # | Idea | How | Lets | Stops | Changes | Built with | Other factions | Verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| C1 | **Seats on our vehicles that can be hit** | Our seven vehicles' seats give no hitbox, so by the code nobody aboard can ever be struck. Give each seat its cab cells, enclosed (not exposed), at Vehicle Framework's default chance | A fair risk for a driver under fire | Untouchable crews in soft-skinned trucks | Our trucks stop being the safest place in a firefight | XML in D'thorga Vehicles | Everyone who crews one | **Take: a fault to fix** (below) |
-| C2 | **A crew leaves a vehicle that can neither move nor shoot** | At a rare tick, an AI crew gets out when the vehicle cannot move and has no working weapon, or is burning; then fights or flees on foot as its lord says. The player's crews get an alert, not an order | Finish a fight by disabling, not only by destroying; pick up the vehicle afterwards | Crews sitting in a dead, burning hull | Raids with vehicles end sooner and leave salvage | A cheap check on the lite tier (it reads two answers Vehicle Framework already has), `DisembarkAll` | **This row is for them** | **Take; question 4** |
+| C1 | **Seats on our vehicles that can be hit** | Already so: every seat on our vehicles has its cab cells as a hit area, enclosed, at Vehicle Framework's default chance of 0.3. (The first version of this row called it a fault; that was the agent's error) | — | — | — | Nothing | Everyone who crews one | **Nothing to build** |
+| C2 | **A crew leaves a vehicle that can neither move nor shoot** | At a rare tick, an AI crew gets out when the vehicle cannot move and has no working weapon, or is burning; then fights or flees on foot as its lord says. The player's crews get an alert, not an order | Finish a fight by disabling, not only by destroying; pick up the vehicle afterwards | Crews sitting in a dead, burning hull | Raids with vehicles end sooner and leave salvage | A cheap check on the lite tier (it reads two answers Vehicle Framework already has), `DisembarkAll` | **This row is for them** | **Take** (owner, 16 Nov 2026: AI crews leave, the player's get an alert) |
 | C3 | **Smoke and heat in the cab** | A burning vehicle's cab fills: the people inside take smoke as in a burning room | A reason to get out | Sitting out a vehicle fire unharmed | Fire is the crew's problem too | Needs a cab-air model; the hotboxing design (I7) plans one | Everyone | **Hold: build with hotboxing's cab air** |
 | C4 | **A hurt gunner aims and loads slower** | The gunner's sight and manipulation scale aim time and reload, as the driver system (G1) does for driving | Rotate a wounded gunner out | A half-blind gunner shooting like a fresh one | Crew health matters to firepower | T2's hooks, the pattern of `Input_Driver` | Everyone, cheaply, if read when the crew changes | **Take with T2** |
 | C5 | **What a left vehicle is** | Already built: nobody aboard means no threat, and the claim order takes it. With C2, raiders' vehicles become loot that needs repair | — | — | Salvage is earned in parts and work, no value from nothing | Nothing new | — | **Check in play** |
@@ -201,24 +205,22 @@ does today.
 
 ## Faults found on the way (listed, not fixed)
 
-1. **People aboard our own vehicles can probably never be hit.** None of the seats on the tanker, drill rig, tipper, generator set,
-   survey truck, Crawler or test hull gives a hitbox, and a seat with none is never chosen (VF:12610). Read from the code, not
-   seen in play. Row C1.
-2. **Nothing makes a crew leave a vehicle that can no longer fight or is burning.** Row C2.
-3. **A vehicle stopped by damage is undrafted without a word** (VF:10828). Row M1.
+1. **Nothing makes a crew leave a vehicle that can no longer fight or is burning.** Row C2.
+2. **A vehicle stopped by damage is undrafted without a word** (VF:10828). Row M1.
+3. **Withdrawn:** "people aboard our own vehicles can never be hit". Wrong: the agent's inventory script did not read seats' hit
+   areas, and the vehicles' XML shows every seat has one. Found when the owner chose to have it fixed.
 4. Round three's G14 ("read first": do cab hits hurt the crew?) is answered above: yes, Vehicle Framework and Combat Extended both do.
 
 ## The short list
 
 | Order | Rows | Why first |
 | --- | --- | --- |
-| 1 | **C1** | A fault: untouchable crews. XML only |
-| 2 | **T1 with T9 and T10** | The owner's example, on Vehicle Framework's own hook, for every faction, with no patch |
-| 3 | **M1 and M2** | Mobility kills that say what they are; both small |
-| 4 | **C2** | Ends the dead-hull problem from both sides and makes salvage |
-| 5 | **T2 with C4** | Damage and a hurt gunner felt before the end; the first hooks |
-| 6 | **T3 with T4** | Power and pressure, the other half of the owner's example; needs real drive sources per vehicle |
-| 7 | **W4, then W1** | One feed rule for fittings, with the winch as its first user |
+| 1 | **T1 with T9 and T10** | The owner's example, on Vehicle Framework's own hook, for every faction, with no patch |
+| 2 | **M1 and M2** | Mobility kills that say what they are; both small |
+| 3 | **C2** | Ends the dead-hull problem from both sides and makes salvage |
+| 4 | **T2 with C4** | Damage and a hurt gunner felt before the end; the first hooks |
+| 5 | **T3 with T4** | Power and pressure, the other half of the owner's example; needs real drive sources per vehicle |
+| 6 | **W4, then W1** | One feed rule for fittings, with the winch as its first user |
 
 ## Questions for the owner
 
@@ -232,9 +234,19 @@ does today.
    when the mount is destroyed?
 6. **What to build first**, if anything: the short list in order, or another pick?
 
+**Answered by the owner, 16 Nov 2026:**
+
+1. **Hand-cranked.** A powered turret with no power is slowed, never dead; a hand-swung mount loses nothing.
+2. **Damage only for raiders.** Power and pressure act on the player's vehicles; the lite tier stays as it is.
+3. **The turret blown off: yes, with cook-off** (T8 is taken; it follows the cook-off setting).
+4. **AI crews bail out; the player's get an alert** (C2).
+5. **A weapon stops when its mount is under 10 %** (T1).
+6. **Fix the seats now, queue the rest.** The seats needed no fix (the correction above), so **nothing is built now**, and the short
+   list waits behind the owner's standing order: the aircraft batch, the vaccines tie-in, then the Billy field kitchen.
+
 ## Who chose what
 
-- **Owner (16 Nov 2026):** the idea, the round, record only, and all four areas.
+- **Owner (16 Nov 2026):** the idea, the round, record only, all four areas, and the six answers above.
 - **Agent choices, for the owner to revise:** every row, verdict, figure marked [A] and the short list; the readings of other mods'
   code; the inference that turret drives keep a hand backup.
 
