@@ -13,6 +13,15 @@
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_VVE_Frog</defName>
+    <avionics>
+      <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>10</speed>
+        <cruiseMetres>1500</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>0.8</size>
+      </airTrack>
+    </avionics>
     <label>thrust-lifted pod (three thrusters)</label>
     <priority>Vehicle</priority>
     <selector>
@@ -64,6 +73,15 @@
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_VVE_Toad</defName>
+    <avionics>
+      <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>10</speed>
+        <cruiseMetres>1500</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>1.2</size>
+      </airTrack>
+    </avionics>
     <label>thrust-lifted assault pod (four thrusters)</label>
     <priority>Vehicle</priority>
     <selector>
@@ -123,6 +141,15 @@
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_VVE_Mosquito</defName>
+    <avionics>
+      <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>9</speed>
+        <cruiseMetres>600</cruiseMetres>
+        <lowCruiseMetres>600</lowCruiseMetres>
+        <size>1.0</size>
+      </airTrack>
+    </avionics>
     <label>light helicopter</label>
     <priority>Vehicle</priority>
     <selector>
@@ -187,6 +214,15 @@
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_VVE_Smuggler</defName>
+    <avionics>
+      <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>12</speed>
+        <cruiseMetres>3000</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>1.6</size>
+      </airTrack>
+    </avionics>
     <label>light cargo plane</label>
     <priority>Vehicle</priority>
     <selector>
@@ -235,6 +271,13 @@
     <!-- A fighter in the P-51's mould carries a gunsight (agent default). -->
     <avionics>
       <sight>Basic</sight>
+          <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>14</speed>
+        <cruiseMetres>4500</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>1.3</size>
+      </airTrack>
     </avionics>
     <partRoles>
       <li>

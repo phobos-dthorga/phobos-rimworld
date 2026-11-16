@@ -146,6 +146,15 @@
     <cookOffDamageBase>10</cookOffDamageBase>
     <cookOffDamagePerCubeRootKg>6</cookOffDamagePerCubeRootKg>
     <cookOffDamageMax>60</cookOffDamageMax>
+    <!-- Avionics L3 (Framework 0.119.0): the flight phases, by the flight profiles' names, in which an aircraft on a map is off the ground
+         (When_Airborne). In flight on the world map always counts. Add a framework's own phase names here in XML. -->
+    <airbornePhases>
+      <li>OnStation</li>
+      <li>Departing</li>
+      <li>TakingOff</li>
+      <li>Landing</li>
+      <li>VerticalLanding</li>
+    </airbornePhases>
   </Phobos.VehicleSystems.PhobosVehicleRulesDef>
 
   <!-- The service: supplies loaded into the vehicle's cargo (hauling), then the work at the vehicle (construction). -->

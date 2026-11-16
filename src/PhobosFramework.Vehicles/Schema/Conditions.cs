@@ -256,3 +256,33 @@ public class When_LoadActive : VehicleSystemCondition
     public string load = "";
     protected override bool HoldsRaw(SystemContext context) => context.Comp.LoadActive(load);
 }
+
+/// <summary>
+/// The aircraft is off the ground (Framework 0.119.0; avionics L3): in flight on the world map, or on a map in a flight phase the rules Def lists
+/// as airborne (on station, climbing away, lifting off, settling to land). Phases come from each flight framework's own state, read by name.
+/// </summary>
+public class When_Airborne : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => Airborne(context.Comp);
+
+    public static bool Airborne(CompPhobosVehicleSystems comp)
+    {
+        if (comp.Vehicle.CompVehicleLauncher?.inFlight == true) return true;
+        string? phase = comp.Powertrain?.Phase;
+        return phase != null && PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().airbornePhases.Contains(phase);
+    }
+}
+
+/// <summary>The aircraft is in one of these flight phases (Framework 0.119.0; avionics L3), by the names the flight profiles use: WorldFlight while
+/// in flight on the world map, otherwise the phase its flight framework reports.</summary>
+public class When_FlightPhase : VehicleSystemCondition
+{
+    public List<string> phases = new();
+
+    protected override bool HoldsRaw(SystemContext context)
+    {
+        if (context.Vehicle.CompVehicleLauncher?.inFlight == true) return phases.Contains("WorldFlight");
+        string? phase = context.Comp.Powertrain?.Phase;
+        return phase != null && phases.Contains(phase);
+    }
+}

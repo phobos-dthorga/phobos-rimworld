@@ -12,6 +12,29 @@ says the owner tested it.
 - The README is cut to today's gotchas, what each part does linking the player guide's Patches chapter, the settings and links for modders. How to play, with the cost, bomb, turret hull and blast tables, moved to the guide; research, the README's modder notes and its dated checks moved to the vehicle and missile patches design records; version notes live in this changelog. No change in play.
 - A code comment and the README name the design records they now live in, after the merges of 17 November 2026. No change in play.
 
+## [0.21.0] - 2026-11-17 - Draft
+
+The Harrier's dodge follows its controls and warning receiver, and it can fire chaff and flares
+
+### Added
+
+- **The Harrier's dodge chance follows its flight controls and warning receiver** (owner, 17 Nov 2026; avionics A12, with D'thorga
+  Framework 0.119.0). Sound, with a working receiver, it dodges exactly as its author set. Flight controls shot up or heavy for want of
+  hydraulics cut it in proportion; with the receiver out the crew sees shots late and it dodges 0.75 as well. One postfix on the Harrier's
+  own dodge sum, which both its Combat Extended path and its plain one ask; nothing of the author's is skipped.
+- **A Chaff and flares button for the Harrier in the air** (owner, 17 Nov 2026; avionics A16). With countermeasure cartridges in its cargo
+  and its dispensers working, a salvo uses two and adds 0.25 to its dodge chance for ten seconds, never above 0.85. The button says why
+  when it cannot fire.
+
+### Compatibility and limits
+
+- Needs D'thorga Framework 0.119.0. Reached by name: this part does not reference the Harrier's assembly. No settings changed. Not yet
+  tested in game (row 143).
+
+### Save compatibility
+
+- Safe to add to a running game. A salvo's few seconds are not saved.
+
 ## [0.20.0] - 2026-11-17 - Draft
 
 Mk. 84 bombs made from fill canisters, so the ammunition fabricator finishes them

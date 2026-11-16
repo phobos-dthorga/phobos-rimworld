@@ -37,6 +37,13 @@
       <sight>Full</sight>
       <nightSight>true</nightSight>
       <warning>true</warning>
+          <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>10</speed>
+        <cruiseMetres>800</cruiseMetres>
+        <lowCruiseMetres>800</lowCruiseMetres>
+        <size>1.4</size>
+      </airTrack>
     </avionics>
     <partRoles>
       <li>

@@ -11,6 +11,25 @@ tested in game unless an entry says the owner tested it.
 - The README is cut to today's gotchas, a list of the vehicles linking the player guide, and links for modders; the how-to lives in the guide and the version notes in this changelog. No change in play.
 - Comments in the Defs and the Crawler's texture record name the design records they now live in, after the merges of 17 November 2026. No change in play.
 
+## [0.58.0] - 2026-11-17 - Draft
+
+Every aircraft's figures for air defence, and the Harrier's high cruise
+
+### Added
+
+- **Each aircraft's speed, cruising height, low-cruise height and size on radar** (with D'thorga Framework 0.119.0; air-defence tie-ins
+  AD3): the Harrier fast and high (7,500 m), the Hind and the Cherokee big and low, the Mosquito and Louie low, the thrust pods slow, the
+  Warbird and Smuggler between. All authored on The Dead Man's Switch - Expedition's own scales; they matter only with that mod.
+- **The Harrier cruises high** (avionics A14): with its oxygen set out it flies its long legs low, slower and thirstier.
+
+### Compatibility and limits
+
+- Needs D'thorga Framework 0.119.0. No settings changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game; nothing new is saved.
+
 ## [0.57.0] - 2026-11-17 - Draft
 
 An electric pump for the bulk tanker

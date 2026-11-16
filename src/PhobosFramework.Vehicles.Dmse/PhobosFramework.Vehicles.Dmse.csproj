@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Framework's air-defence tie-in (Framework 0.119.0; docs/development/air-defence-tie-ins.md, AD2, AD3 and AD7). Its own assembly in
+       Mods/VehiclesDmse/1.7, which LoadFolders.xml loads only while both Vehicle Framework and The Dead Man's Switch - Expedition are active. It
+       joins DMS Expedition's published plug-in interface (an AirDefenseExtensionDef in XML), so our aircraft in flight on the world map are
+       tracks its air defence can see and shoot at. RimWorld 1.7 only. Other mods' assemblies are referenced from the installed mods, never
+       copied. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.VehicleSystems.AirDefence</RootNamespace>
+    <AssemblyName>PhobosFramework.Vehicles.Dmse</AssemblyName>
+    <ModFolder>PhobosFramework</ModFolder>
+    <TieInFolder>Mods/VehiclesDmse/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.119.0</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+    <ProjectReference Include="../PhobosFramework.Vehicles/PhobosFramework.Vehicles.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="DMSE">
+      <HintPath>$(DmseAssemblies)\DMSE.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SmashTools">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

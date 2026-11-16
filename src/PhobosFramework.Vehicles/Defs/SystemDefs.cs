@@ -485,12 +485,32 @@ public class AvionicsFit
     public bool warning;
     public bool countermeasures;
     public bool oxygen;
+    /// <summary>The aircraft cruises where its crew needs oxygen (Framework 0.119.0, avionics A14): with its oxygen out it flies low.</summary>
+    public bool cruisesHigh;
+    /// <summary>How the aircraft looks to another mod's air defence in flight (Framework 0.119.0, AD3); null for the rules' defaults.</summary>
+    public AirTrackSpec? airTrack;
 
     public AvionicsFitValues Values => new()
     {
         Attitude = attitude, Navigation = navigation, Autopilot = autopilot, Radar = radar, Sight = sight, NightSight = nightSight,
-        Warning = warning, Countermeasures = countermeasures, Oxygen = oxygen,
+        Warning = warning, Countermeasures = countermeasures, Oxygen = oxygen, CruisesHigh = cruisesHigh,
     };
+}
+
+/// <summary>
+/// What an aircraft in flight shows another mod's air defence (Framework 0.119.0; docs/development/air-defence-tie-ins.md, AD3). The figures
+/// are on The Dead Man's Switch - Expedition's own scales, read from its code and its missiles' Defs (17 Nov 2026): <c>speed</c> on its scale,
+/// where 15 is its default and its cruise missiles are 18 to 32 (above 15 a radar locks more slowly and hits less); heights in metres;
+/// <c>size</c> multiplies the range at which a radar sees it (its missiles are 1 to 2.2). Every figure is authored for play; the direction
+/// is real (a transport helicopter is a bigger, slower, lower target than a jet).
+/// </summary>
+public class AirTrackSpec
+{
+    public float speed = 12f;
+    public float cruiseMetres = 3000f;
+    /// <summary>Where it cruises without oxygen (an aircraft that cruises high, A14).</summary>
+    public float lowCruiseMetres = 1500f;
+    public float size = 1.5f;
 }
 
 /// <summary>
@@ -898,4 +918,7 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float budgetMsSingleCall = 0.5f;
     /// <summary>A danger clock is shown only within this many hours.</summary>
     public float dangerClockHours = 72f;
+    /// <summary>The flight phases, by the flight profiles' names, in which an aircraft on a map is off the ground (Framework 0.119.0, avionics
+    /// L3: When_Airborne). In flight on the world map always counts.</summary>
+    public List<string> airbornePhases = new();
 }

@@ -8,7 +8,7 @@ Settlements** by Nina.Goblin, **Vehicle Framework**, **Vanilla Expanded Framewor
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.20.0, built 16 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.21.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -42,6 +42,9 @@ the [changelog](CHANGELOG.md).
 - **Harrier flight controls:** with avionics, hydraulics or wiring below about 35% the jet cannot take off until repaired. On a hot
   day a heavy Harrier lands on a runway instead of hovering onto its pad, by **D'thorga Framework's** setting "When an aircraft is too
   heavy or too hot to hover onto its pad".
+- **Harrier dodge and chaff (0.21.0):** the jet dodges as its author set while sound; shot-up flight controls or a dead warning receiver
+  make it easier to hit. Load **countermeasure cartridges** (D'thorga Framework's parts bench) into its cargo for its **Chaff and flares**
+  button in the air.
 - **Rearming keeps to one kind of ammunition** (Harrier, Hind, Mongoose). To change kind, choose it on the weapon.
 - **With Combat Extended, allow the two bomb cases in machining bay hoppers** that used to take heavy castings, and **rebuild turret
   hulls built before**, while the ship is landed.

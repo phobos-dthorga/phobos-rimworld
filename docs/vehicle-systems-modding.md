@@ -6,7 +6,9 @@ input, condition or effect. **Not yet tested in game**: the schema may change be
 say so when it does.
 
 **What this page covers (17 Nov 2026):** it was first written for Framework 0.10.0 and describes D'thorga Framework as of 0.117; its
-inputs table was checked against that version's code and lists every input class. **Not yet covered here:** the avionics block on a loadout, weapon mounts and the knock-out rules
+inputs table was checked against that version's code and lists every input class. **Not yet covered here:** the avionics block on a loadout (since 0.119.0 it also takes `cruisesHigh` and an `airTrack` block with
+`speed`, `cruiseMetres`, `lowCruiseMetres` and `size`, how the aircraft looks to The Dead Man's Switch - Expedition's air defence; the
+figures are in `PhobosAirCombatRules`), weapon mounts and the knock-out rules
 (`PhobosKnockOutRules`), load-shedding order (`shedOrder`), fittings and their families, what a fitting needs to work (`FeedSpec`),
 the hitch, the sling, and some conditions and effects (`When_RanDry`, `When_PoorVisibility`, `When_InstrumentWorking`,
 `When_StatAbove`, `When_Winching`, `When_TankPumping`, `Effect_RefuseLaunch`, `Effect_FlightFuel`, `Effect_Sound` and others). Until
@@ -193,6 +195,7 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 | `Input_EngineHeat` | heat into the coolant as a share of the heat at rated power, from the drivetrain; without one, the engine load |
 | `Input_DrivePower` | power at the driven wheels, kW (0 without a drivetrain) |
 | `Input_Turbine` | a turbine `reading`: `Temperature` (degrees C), `OverContinuous` and `OverTop` (degrees past those limits), `SpeedPercent`, `LifePerHour`, `Demand`, `EnginesOut`, `OverTorque` (demand over the rotor drive's limit, minus 1) |
+| `Input_Bleed` | bleed air from the engines (Framework 0.119.0): the share of engines turning while they run, and 1 while they are off, so a parked aircraft reads ready |
 | `Input_TractionLoad` | a diesel-electric's pull over its traction motors' continuous rating (above 1 they heat) |
 | `Input_GearboxWork` | the share of a gearbox's full-work heat: 0 off, `stopped` (0.1) standing, on the move `flatOut` (1) without the drivetrain model and with it `cruising` (0.7) rising to `flatOut` at full load |
 | `Input_OilWithoutCoolant` | where oil settles with no coolant to follow: the air while off; running, `idleCelsius` (55) to `fullCelsius` (95) with load |
@@ -222,6 +225,8 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 (`setting`: `fuelGelling`, `boilerExplosions`, `realisticFeedWater`, `nightHeater`, `lowOilCallsService`, `accessoriesLoadEngine`, `roughGroundWear`, `jumpStartNeedsKit`, `assumeBoosterPack`),
 `When_CaravanResting` (the vehicle's caravan rests for the night), `When_LoadActive` (`load`: one of the loadout's loads is switched
 on and its condition holds),
+`When_Airborne` (in flight on the world map, or on a map in one of the rules Def's `airbornePhases`; Framework 0.119.0), `When_FlightPhase`
+(`phases`: the flight profiles' phase names, `WorldFlight` on the world map; Framework 0.119.0),
 `When_All` and `When_Any` (`conditions`). Every condition takes `invert`.
 
 ### Effects

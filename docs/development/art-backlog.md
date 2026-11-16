@@ -169,6 +169,9 @@ tyres (Framework 0.113.0). **The work lamps fitting keeps its code-drawn stand-i
 attempt looked like headlights; compare it with the headlights button when redrawing). Still drawn in code: the auxiliary fuel tank, ferry
 tank, litter kit and the cold-weather family icon.
 
+**Countermeasure cartridge, 17 Nov 2026:** the owner picked a local klein-base picture (the square box, seed 11) for the cartridge item
+(Framework 0.119.0); it is also the icon of the Harrier's Chaff and flares button, so that button needed no picture of its own.
+
 **Any future button gets its icon in the same change**, or reuses a game or required-mod icon that is confirmed to exist; a lookup that
 can fail falls back to a visible stand-in of our own, never silently to the red X (owner, 7 Nov 2026; in AGENTS.md).
 

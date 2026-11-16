@@ -313,6 +313,29 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 **cannot take off**, and the launch button says why; damaged below 70 %, it flies slower. **An engine out** slows it to 0.8 of its
 speed and a message says so. An aircraft's generator gives about half its output at ground idle and all of it from cruise.
 
+**Air defence, chaff and flares** (with **The Dead Man's Switch - Expedition**; not yet tested in game):
+
+- **Your aircraft can be shot at on the world map.** Flying to or past a defended settlement, its radars track the aircraft and may
+  lock on and fire. A hit damages it, and people in its seats can be hurt. **It comes down at a crash site only if it can no longer
+  fly**: controls shot away, every engine out or the airframe broken. Otherwise it flies on, damaged.
+- **Before sending one near a defence, a prompt names the danger** and asks you to confirm.
+- **Warning receivers** (the Harrier, the Hind and the Mongoose) tell you when a radar tracks the aircraft, locks on, or launches at it.
+  Shot out or without power, they are silent.
+- **Chaff and flares.** Make **countermeasure cartridges** at the vehicle parts bench (ten for 10 steel and 20 chemfuel, after the
+  turbines research) and **load them into the aircraft's cargo**. Aircraft with dispensers (the Harrier and the Hind) fire two at
+  every missile: with a working warning receiver a shot is much less likely to hit; without one, they fire late and help less.
+- **The Harrier's Chaff and flares button**, on a map in the air (with D'thorga Patches), makes it harder to hit for ten seconds.
+  Sound, it dodges as its author set; with shot-up controls or a dead warning receiver it is easier to hit.
+- **A closed sky.** Attacking a base whose alarm closes its airspace, your aircraft there cannot take off until the alert ends.
+- **Oxygen.** The Harrier cruises high on its own oxygen. With the oxygen set out (damaged, without power, or with no engine to feed it)
+  it flies its long legs low, slower and using more fuel. Tick **Crews feel thin air when oxygen fails at height** if you want a crew
+  whose oxygen is shot out up high to be short of breath for a few hours.
+- **Low flyers are seen later**: helicopters and the low cruise stay under the radars' horizon longer.
+- To fly as before, untick **The Dead Man's Switch - Expedition's air defence sees aircraft**.
+
+**Turrets without power aim worse** (not yet tested in game): a powered turret cranked by hand has no stabiliser and no powered
+sights, so it hits less often on the move and at night, and worst of all moving at night. Keep the engine running in a fight.
+
 ## Towing a trailer
 
 Not yet tested in game. Any land vehicle can tow a trailer such as the [Pintle flatbed](working-vehicles.md#pintle-flatbed-trailer).

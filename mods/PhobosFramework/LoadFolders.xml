@@ -2,7 +2,8 @@
 <loadFolders>
   <!-- RimWorld 1.7 only (owner, 8 November 2026; docs/development/building.md). Combat Extended is reached by name. The Dubs Bad
        Hygiene tie-in (the shared plumbing reader) loads only with that mod, the vehicle systems part only with Vehicle Framework, and
-       its water from plumbing only with both; its RimHUD value only with Vehicle Framework and RimHUD. -->
+       its water from plumbing only with both; its RimHUD value only with Vehicle Framework and RimHUD; its air-defence tie-in only with Vehicle Framework and The Dead Man's
+       Switch - Expedition. -->
   <v1.7>
     <li>/</li>
     <li>Common</li>
@@ -16,5 +17,7 @@
     <li IfModActiveAll="SmashPhil.VehicleFramework,Jaxe.RimHUD">Mods/VehiclesRimHUD/Common</li>
     <li IfModActiveAll="SmashPhil.VehicleFramework,OskarPotocki.VanillaFactionsExpanded.Core">Mods/VehiclesOutposts/Common</li>
     <li IfModActiveAll="SmashPhil.VehicleFramework,OskarPotocki.VanillaFactionsExpanded.Core">Mods/VehiclesOutposts/1.7</li>
+    <li IfModActiveAll="SmashPhil.VehicleFramework,Aoba.DeadManSwitch.Expedition">Mods/VehiclesDmse/Common</li>
+    <li IfModActiveAll="SmashPhil.VehicleFramework,Aoba.DeadManSwitch.Expedition">Mods/VehiclesDmse/1.7</li>
   </v1.7>
 </loadFolders>

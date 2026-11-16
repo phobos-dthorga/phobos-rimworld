@@ -6,6 +6,10 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **The aircraft batch (Framework 0.119.0, Vehicles 0.58.0, Patches 0.21.0; 17 Nov 2026): rows 139 to 146.** Needs The Dead Man's
+  Switch - Expedition for 139 to 142. **Use a copy of the save.** Riskiest first: **139** (an aircraft in flight hit by a defended
+  settlement) and **143** (the Harrier's dodge chance). Tick **Seen in play** in D'thorga Framework's settings first: each row notes
+  itself when it runs.
 - **Vehicle Framework 1.7 and the two audits (added 17 Nov 2026): rows 132 to 136.** Riskiest first: **133** (a trailer sent off on its
   own) and **134** (the Harrier).
 - **Framework 0.116.1 (17 Nov 2026): row 130**, with the same install.
@@ -235,6 +239,14 @@ Numbered P1 to P4 since 17 Nov 2026; they were 4 to 7, which clashed with the ro
 | 136 | **What our vehicle code costs in a busy moment** ([code audit](code-audit-2026-11-11.md)) | Turn dev mode on through a raid or with the big factory running, then run the dev action **"Vehicle systems: timing report"** and send the log | The report is written to the log: the one measurement the code audit could not make |
 | 137 | **Guns on their own mounts** (Framework 0.117.2) | With a crew aboard an M1A2 or M10 and the battery flat (dev action), look at the Systems tab; then a Hind's | The main gun and coaxial gun read slowed, cranked by hand; the commander's M2HB reads "swung by hand" at full pace; the Hind shows no turret drive among its loads |
 | 138 | **Mk. 84 bombs from fills** (Patches 0.20.0, with Combat Extended and The Dead Man's Switch) | Add a bill for incendiary bomb fills at an ammunition fabricator (or the machining table), then keep the Mk. 84 Incendiary bill | Fills come out in short loads; then a bomb is finished from a case, five fills and two components without its load being dropped |
+| 139 | **An aircraft hit in flight** (Framework 0.119.0, with The Dead Man's Switch - Expedition) | Fly an aircraft past or to a hostile settlement with air defence (one with radars on the world map), once with **chaff and flare cartridges** in its cargo and once without | It is tracked and may be fired at; a hit says it is damaged and flies on, or names why it came down at a crash site. With cartridges and a working warning receiver it is hit less often, and the cartridges are used two at a time |
+| 140 | **The warning receiver** (Framework 0.119.0, with DMS Expedition) | As 139, with the Harrier or the Hind | Messages say a radar is tracking it, locking on, and that a missile is coming, naming the place; a launch says whether chaff and flares were fired. Shoot the avionics bay out first and the messages stop |
+| 141 | **The launch warning** (Framework 0.119.0, with DMS Expedition) | Send an aircraft to land at a hostile defended settlement | A prompt names the danger and asks to confirm; **Cancel** keeps it on the ground, **Confirm** takes off |
+| 142 | **A closed sky** (Framework 0.119.0, AD7, with DMS Expedition) | Attack a base whose alarm network sets off its airspace blockade, with an aircraft on that map | Its take-off button is disabled, saying the sky is closed while their alert lasts; it can take off once the alert ends |
+| 143 | **The Harrier's dodge and its salvo button** (Patches 0.21.0, Framework 0.119.0) | Fly the Harrier over raiders sound, then with its hydraulics or avionics shot up; put cartridges in its cargo and press **Chaff and flares** in the air | Sound, it dodges as before; damaged, it is hit more often. The button works only in the air, uses two cartridges and says how many are left; disabled, it says why |
+| 144 | **Oxygen and the low cruise** (Framework 0.119.0, A14) | Shoot the Harrier's avionics bay below 60% (god mode) and look at its range before a flight | Crew oxygen reads out, a message says it will fly low, and its range and speed on the world map are shorter than when it is sound |
+| 145 | **Altitude hypoxia** (Framework 0.119.0; tick **Crews feel thin air when oxygen fails at height** first) | As 139, with the Harrier, until a hit knocks its oxygen out | Everyone aboard has altitude hypoxia, which wears off within hours; untick the setting and it never appears |
+| 146 | **Cranked turrets aim worse** (Framework 0.119.0, T5 and T6) | With a crew aboard a tank and the battery flat (dev action), fire on the move and at night | Its gun hits less often than with power: worse on the move, worse at night, worst both. With Combat Extended its shots spread wider |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 

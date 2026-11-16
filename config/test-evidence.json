@@ -15,7 +15,14 @@
     "129": ["vehicles.feed-refused.fieldLab", "vehicles.feed-refused.sonar", "vehicles.feed-refused.listening"],
     "130": ["vehicles.conduit-refused-under-vehicle"],
     "131": ["vehicles.systems-tab.weapons-card", "vehicles.systems-tab.running-gear-card", "vehicles.systems-tab.loads-card", "vehicles.systems-tab.crew-card"],
-    "137": ["vehicles.systems-tab.hand-swung-weapon", "vehicles.systems-tab.weapon-with-turret", "vehicles.turret-hand-cranked"]
+    "137": ["vehicles.systems-tab.hand-swung-weapon", "vehicles.systems-tab.weapon-with-turret", "vehicles.turret-hand-cranked"],
+    "139": ["aircraft.hit-in-flight", "aircraft.shot-down", "aircraft.countermeasures-salvo"],
+    "140": ["aircraft.warning-receiver"],
+    "141": ["aircraft.launch-warning"],
+    "142": ["aircraft.closed-sky"],
+    "143": ["aircraft.evasion-reduced", "aircraft.map-salvo"],
+    "145": ["aircraft.altitude-hypoxia"],
+    "146": ["vehicles.cranked-turret-aims-worse"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)"

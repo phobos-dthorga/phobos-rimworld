@@ -38,6 +38,13 @@
     <avionics>
       <navigation>Full</navigation>
       <autopilot>true</autopilot>
+          <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>9</speed>
+        <cruiseMetres>1500</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>2.4</size>
+      </airTrack>
     </avionics>
     <!-- Sling loads (Vehicles 0.40.0): the CH-47F's centre hook, 26,000 lb (11,800 kg), from the US Army CH-47 fact sheet republished by the
          127th Wing (www.127wg.ang.af.mil, fact sheet 3694458). The Cherokee being VVE's tandem-rotor cargo helicopter, its hook is taken as the

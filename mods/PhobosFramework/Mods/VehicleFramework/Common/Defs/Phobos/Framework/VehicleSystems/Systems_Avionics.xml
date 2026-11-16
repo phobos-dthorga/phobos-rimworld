@@ -25,6 +25,12 @@
       <attitude>1</attitude>
       <navigation>1</navigation>
       <navigationFull>0</navigationFull>
+      <!-- The air-combat batch (Framework 0.119.0): the warning receiver, chaff and flare dispensers, crew oxygen, and whether the aircraft
+           cruises where its crew needs oxygen (avionics A14, A16; air-defence tie-ins AD2). -->
+      <warning>0</warning>
+      <countermeasures>0</countermeasures>
+      <oxygen>0</oxygen>
+      <cruisesHigh>0</cruisesHigh>
     </parameters>
     <quantities>
       <li>
@@ -203,6 +209,179 @@
             </curve>
           </li>
         </derivedFrom>
+      </li>
+      <!--
+        The warning receiver (Framework 0.119.0; air-defence tie-ins AD2). It hears the radars searching for the aircraft, locking on and
+        guiding a shot. Working, it tells the crew in time: they are told, and fire chaff and flares on its cue (A16). Out, the crew learns
+        of a shot only when they see it. Kept on the battery (essential). Real basis: the AV-8B carries an AN/ALR-67 receiver and the Mi-24 a
+        receiver of its own (secondary sources, docs/development/vehicle-avionics.md, section 4). The figures that use it are authored.
+      -->
+      <li>
+        <name>warningReceiver</name>
+        <description>The radar warning receiver: tells the crew when a radar is tracking them, locking on or guiding a shot.</description>
+        <label>warning receiver</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>warning</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Avionics</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>out</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>working</label>
+          </li>
+        </stages>
+      </li>
+      <!--
+        Chaff and flare dispensers (Framework 0.119.0; avionics A16). The dispensers fire cartridges carried in the aircraft's cargo; with none
+        aboard they do nothing. Kept on the battery. Real basis: the AV-8B's AN/ALE-39 and the Mi-24's ASO-2 (secondary sources, as above).
+      -->
+      <li>
+        <name>countermeasures</name>
+        <description>The chaff and flare dispensers. They fire the countermeasure cartridges the aircraft carries in its cargo.</description>
+        <label>chaff and flare dispensers</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>countermeasures</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Avionics</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>out</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>working</label>
+          </li>
+        </stages>
+      </li>
+      <!--
+        Crew oxygen (Framework 0.119.0; avionics A14 with L3). The AV-8B was the first United States production combat aircraft with an
+        on-board oxygen generator, which sieves engine bleed air (MiGFlug, a secondary source): so the set needs its part, its power and an
+        engine giving bleed air. United States rules allow no more than 30 minutes above 12,500 ft cabin altitude without extra oxygen, and
+        none above 14,000 ft (14 CFR 91.211, primary). An aircraft that cruises high (cruisesHigh) with its oxygen out flies its world legs
+        low instead: slower, and thirstier in the thicker air. Factors authored. Hypoxia for a crew whose oxygen fails while already high is
+        the player's setting, off by default.
+      -->
+      <li>
+        <name>crewOxygen</name>
+        <description>The crew's oxygen for a high cruise, made from engine bleed air.</description>
+        <label>crew oxygen</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>oxygen</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Avionics</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Bleed" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>out</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>FlightSpeed</stat>
+                <factor>0.85</factor>
+                <when Class="Phobos.VehicleSystems.When_ParameterBelow">
+                  <parameter>cruisesHigh</parameter>
+                  <value>0.5</value>
+                  <invert>true</invert>
+                </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_FlightFuel">
+                <factor>1.2</factor>
+                <when Class="Phobos.VehicleSystems.When_ParameterBelow">
+                  <parameter>cruisesHigh</parameter>
+                  <value>0.5</value>
+                  <invert>true</invert>
+                </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgOxygenOut</message>
+                <type>CautionInput</type>
+                <when Class="Phobos.VehicleSystems.When_All">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_ParameterBelow">
+                      <parameter>cruisesHigh</parameter>
+                      <value>0.5</value>
+                      <invert>true</invert>
+                    </li>
+                    <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                  </conditions>
+                </when>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>working</label>
+            <labelEngineOff>ready</labelEngineOff>
+          </li>
+        </stages>
       </li>
     </quantities>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>

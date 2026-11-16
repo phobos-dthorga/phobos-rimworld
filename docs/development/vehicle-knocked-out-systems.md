@@ -1,7 +1,7 @@
 # Knocked out, not destroyed: what a vehicle loses before it is a wreck (16 Nov 2026)
 
-**Status (17 Nov 2026):** built in D'thorga Framework 0.115.0 (T1, T9, T10, M1, M2, C2, T2, C4, T3, T4, W1, W4) and 0.116.0 (and
-Vehicles 0.57.0: T8, M3, W2, W3); not built: T5 and T6 (with the aircraft air-defence batch), C3 (with hotboxing's cab air), and T7,
+**Status (17 Nov 2026):** built in D'thorga Framework 0.115.0 (T1, T9, T10, M1, M2, C2, T2, C4, T3, T4, W1, W4), 0.116.0 (and
+Vehicles 0.57.0: T8, M3, W2, W3) and 0.119.0 (T5 and T6, with the aircraft batch); not built: C3 (with hotboxing's cab air), and T7,
 T11, M4, W5, W6 and C6. Not yet tested in game.
 
 A research and record round the owner asked for on 16 Nov 2026, after the destruction rule of Framework 0.114.5 ("parts doing real
@@ -272,7 +272,7 @@ tested in game (in-game test pass, checks 120 to 125). Agent choices made while 
 
 | Row | The owner's answer | Status |
 | --- | --- | --- |
-| T5, T6 stabiliser and sights | Yes, with the aircraft air-defence batch (one aiming hook) | Waits for that batch |
+| T5, T6 stabiliser and sights | Yes, with the aircraft air-defence batch (one aiming hook) | **Built: Framework 0.119.0** (not yet tested in game). The shared hook was wrong: the Harrier's evasion and a turret's aim are separate. Without Combat Extended, a postfix on Vehicle Framework's `TurretShotReport.HitReportFor` scales the turret's hit factor; under it, a wrapper round `VehicleTurret.ProjectileAngleCE` widens the sway. 0.6 on the move, 0.7 in poor visibility, authored |
 | T8 turret blown off | Now, a small change | **Built: Framework 0.116.0.** Vehicle Framework's own reaction, subclassed to follow the cook-off setting and to be set off by a cook-off blast; only tanks with an ammunition rack part (RimThunder's) |
 | M3 field re-fit | Yes, to a quarter | **Built: Framework 0.116.0.** The field-fix button (now Field repairs), twice a patch's work; a re-fitted part stays on the replacement list and out of free repair until replaced (agent's choice: so one component never stands in for a track) |
 | W2 the Crawler's instruments | Laboratories first, then sonar, listening last | **Built: Framework 0.116.0.** Loads in the boat loadout at shed ranks 1, 2 and 4, fitted by stat, drawing only while each works |

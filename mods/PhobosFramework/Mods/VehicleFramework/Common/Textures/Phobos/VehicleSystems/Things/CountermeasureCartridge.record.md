@@ -1,0 +1,6 @@
+# CountermeasureCartridge
+
+Made on 17 Nov 2026 on the owner's own graphics card with FLUX.2 Klein 4B base (klein-base, Apache 2.0) through `scripts/art-run.py`, with our private style model (`phobos-private-vanilla`, trained on the game's sprites; never published) at 50 steps: **AI-generated, picked by the owner on 17 November 2026** (from four attempts: two wordings, two seeds each). The request is `assets/phobos-vehicles/requests/countermeasure-cartridge.json`. Its two references were our own approved item pictures, `JumpStartKit.png` and `BoosterPack.png` (made with OpenAI's image API), for style only. The near-copy check against the game's sprites the style model learnt from found nothing close (closest: structure 0.44, hash distance 37). Exported by `scripts/art/export_sprite.py` (background white to transparency, with the background AI's mask for enclosed white; 128 x 128 px). It is also the icon of the Harrier's Chaff and flares button. The master and its record are on the `art-masters` branch (`vehicles/items/`), the attempts not picked on `art-references` (`generated/vehicles/items-local/`).
+
+- Master: `item-countermeasure-cartridges-11`, SHA-256 `754c2953e3e649f15f3905f02a55cc272ce2ef8bd36610d56f1c6547c4614156`
+- `CountermeasureCartridge.png`: SHA-256 `d8e5f2081e0e1e015e07ee2e6071a06c7d0169ea53891b728bba4b9223dfd15d`

@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/CountermeasureCartridge.png",
+  "source": "assets/phobos-vehicles/generated/item-countermeasure-cartridges/item-countermeasure-cartridges-11.png",
+  "source_sha256": "754c2953e3e649f15f3905f02a55cc272ce2ef8bd36610d56f1c6547c4614156",
+  "target_sha256": "d8e5f2081e0e1e015e07ee2e6071a06c7d0169ea53891b728bba4b9223dfd15d",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "754c2953e3e649f15f3905f02a55cc272ce2ef8bd36610d56f1c6547c4614156",
+  "date": "2026-11-17T04:06:25",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

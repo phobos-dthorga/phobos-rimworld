@@ -25,6 +25,8 @@ public sealed class AvionicsFitValues
     public bool Warning;
     public bool Countermeasures;
     public bool Oxygen;
+    /// <summary>The aircraft cruises where its crew needs oxygen (A14; Framework 0.119.0).</summary>
+    public bool CruisesHigh;
 }
 
 public static class AvionicsRule
@@ -58,12 +60,17 @@ public static class AvionicsRule
         + (fit.Radar ? RadarAmps : 0)
         + (fit.NightSight ? NightSightAmps : 0);
 
-    /// <summary>The avionics system's parameters for this fit: 1 for carried, 0 for not.</summary>
+    /// <summary>The avionics system's parameters for this fit: 1 for carried, 0 for not. The warning receiver, countermeasures and oxygen
+    /// joined with the air-combat batch (Framework 0.119.0).</summary>
     public static (string name, double value)[] Parameters(AvionicsFitValues fit) => new[]
     {
         ("attitude", fit.Attitude ? 1.0 : 0.0),
         ("navigation", fit.Navigation != AvionicsLevel.None ? 1.0 : 0.0),
         ("navigationFull", fit.Navigation == AvionicsLevel.Full ? 1.0 : 0.0),
+        ("warning", fit.Warning ? 1.0 : 0.0),
+        ("countermeasures", fit.Countermeasures ? 1.0 : 0.0),
+        ("oxygen", fit.Oxygen ? 1.0 : 0.0),
+        ("cruisesHigh", fit.CruisesHigh ? 1.0 : 0.0),
     };
 }
 

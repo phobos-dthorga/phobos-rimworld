@@ -14,6 +14,15 @@
   -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_VVE_Goliath</defName>
+    <avionics>
+      <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>9</speed>
+        <cruiseMetres>1500</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>2.4</size>
+      </airTrack>
+    </avionics>
     <label>thrust-lifted siege pod (four thrusters)</label>
     <priority>Vehicle</priority>
     <selector>
@@ -73,6 +82,15 @@
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
     <defName>PhobosVehicleLoadout_VVE_Louie</defName>
+    <avionics>
+      <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>9</speed>
+        <cruiseMetres>800</cruiseMetres>
+        <lowCruiseMetres>800</lowCruiseMetres>
+        <size>1.6</size>
+      </airTrack>
+    </avionics>
     <label>utility helicopter</label>
     <priority>Vehicle</priority>
     <selector>

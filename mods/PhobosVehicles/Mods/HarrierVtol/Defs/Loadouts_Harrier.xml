@@ -74,6 +74,15 @@
       <warning>true</warning>
       <countermeasures>true</countermeasures>
       <oxygen>true</oxygen>
+      <!-- Avionics A14 (Framework 0.119.0): the AV-8B cruises where its crew needs oxygen, from its on-board generator. -->
+      <cruisesHigh>true</cruisesHigh>
+      <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>18</speed>
+        <cruiseMetres>7500</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>1.4</size>
+      </airTrack>
     </avionics>
     <partRoles>
       <li>

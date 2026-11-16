@@ -11,6 +11,54 @@ tested in game unless an entry says the owner tested it.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 
+## [0.119.0] - 2026-11-17 - Draft
+
+Air combat: aircraft as air-defence targets, warning receivers, chaff and flares, oxygen, and cranked turrets aiming worse
+
+### Added
+
+- **Aircraft in flight on the world map are targets for The Dead Man's Switch - Expedition's air defence** (owner, 13 and 17 Nov 2026;
+  air-defence tie-ins AD3). Its radars track every aircraft in flight, any faction's, and a defended settlement may lock on and fire. A hit
+  damages the aircraft where its own hit areas put it, people in seats included, and it comes down at a crash site only if it can no
+  longer fly: flight controls below the take-off floor, every engine out, or the airframe broken (the owner's choice). Low-flying aircraft
+  are seen later, by that mod's own radar rules. Each aircraft's speed, heights and size on radar are set in its loadout.
+- **Warning receivers** (AD2). An aircraft carrying one tells you when a radar is tracking it, when a fire-control radar locks on, and when
+  a missile is launched at it, naming the place. Shot out or without power, it is silent.
+- **Countermeasure cartridges and chaff and flare dispensers** (avionics A16). Make cartridges at the vehicle parts bench (ten for 10 steel
+  and 20 chemfuel, after the turbines research) and load them into an aircraft's cargo. Its dispensers fire two at every missile launched
+  at it: with a working warning receiver a shot hits 0.6 as often and a lock takes half as long again; without one, they fire late and a
+  shot hits 0.85 as often. On a map, aircraft whose dodge chance we scale (the Harrier, through D'thorga Patches) get a **Chaff and
+  flares** button for ten seconds' extra dodge; it shows the cartridges' own picture. The cartridges' picture was made with generative AI
+  on the owner's PC and picked by the owner.
+- **Crew oxygen and the low cruise** (avionics A14 with L3). An aircraft that cruises high (the Harrier) flies its world legs low, at 0.85
+  of its speed and 1.2 times its fuel, while its oxygen set is out; the set needs its part, power, and an engine giving bleed air.
+- **A launch warning** (owner, 17 Nov 2026). Before your aircraft takes off towards or across an air defence that would engage it, that
+  mod's own prompt names the danger and asks you to confirm, as it does for shuttles.
+- **Closed skies** (AD7). An aircraft on the map of a base whose air-defence alarm has closed its airspace is refused take-off, with the
+  reason, until the alert ends.
+- **Cranked turrets aim worse** (knocked out, not destroyed: T5 and T6). A powered turret cranked by hand for want of power has no
+  stabiliser and no powered sights: it hits 0.6 as often on the move and 0.7 as often at night or in poor weather. Under Combat Extended
+  its aim sways more instead, at most three times as much.
+- For other modders: the conditions When_Airborne and When_FlightPhase and the input Input_Bleed (avionics L3); the airborne phases are a
+  list in the rules Def. A registry of take-off refusals from other mods' state (LaunchChecks).
+- **A setting, Crews feel thin air when oxygen fails at height** (off by default; Mod settings, D'thorga Framework, under the aircraft settings).
+  On, everyone aboard an aircraft whose oxygen is shot out while it is up high gets altitude hypoxia: dull, clumsy and with poorer sight for
+  a few hours, faster gone on supplied oxygen, with no lasting harm.
+- **A setting, The Dead Man's Switch - Expedition's air defence sees aircraft** (on by default; same place, shown only with that mod active).
+  Off, aircraft fly over every defence untouched, as before, and there is no launch warning.
+
+### Compatibility and limits
+
+- The air-defence tie-in loads only with Vehicle Framework and The Dead Man's Switch - Expedition, through that mod's published interface
+  for other mods, with no patch into its code; the launch warning patches Vehicle Framework's two launch methods. Aircraft that VTOL
+  Vehicle or the fixed-wing framework fly off the map edge by themselves take off without the warning. Hits come only on the world map:
+  that mod's anti-air on a map does not see Vehicle Framework aircraft. A raider's aircraft has no warning receiver or dispensers working
+  (other factions' electrics do not run), so it never answers a shot. Not yet tested in game (rows 139 to 146).
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved; that mod keeps its own state for each aircraft it tracks.
+
 ## [0.118.0] - 2026-11-17 - Draft
 
 Seen-in-play notes, for testing with D'thorga Companion

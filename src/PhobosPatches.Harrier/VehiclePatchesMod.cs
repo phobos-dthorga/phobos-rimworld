@@ -34,7 +34,7 @@ public class VehiclePatchesMod : Mod
 
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.20.0";
+    public const string ModVersion = "0.21.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Harrier");
 
@@ -49,6 +49,8 @@ public class VehiclePatchesMod : Mod
         HarmonyPatchApplier.ApplyEach(harmony, typeof(VehiclePatchesMod).Assembly, LogPrefix);
         // Temporary: the disassembly trace's patch on the fixed-wing framework's own Destroy, found by name once every assembly is in.
         LongEventHandler.ExecuteWhenFinished(() => DisassemblyTrace.Apply(harmony));
+        // The salvo button on a map (Patches 0.21.0): D'thorga Framework shows it on the vehicles registered here, once the Harrier's types are in.
+        LongEventHandler.ExecuteWhenFinished(HarrierSalvo.Register);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 

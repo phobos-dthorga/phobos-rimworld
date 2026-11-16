@@ -2112,6 +2112,21 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 }.AsPhysicalSwitch();
             }
         }
+        if (Vehicle.Spawned && AirCombat.HasMapSalvo(Vehicle))
+        {
+            // Avionics A16 (Framework 0.119.0; owner, 17 Nov 2026): a salvo of chaff and flares on a map, for a few seconds' extra dodge.
+            // Its icon is the cartridges' own picture: the button spends them.
+            string? refusal = AirCombat.MapSalvoRefusal(Vehicle, When_Airborne.Airborne(this));
+            var salvo = new Command_Action
+            {
+                defaultLabel = "PhobosAirCombat_SalvoGizmo".Translate(),
+                defaultDesc = "PhobosAirCombat_SalvoGizmoDesc".Translate(AirCombat.CartridgesPerSalvo.Named("COUNT"), AirCombat.Cartridges(Vehicle).Named("LEFT")),
+                icon = AirCombat.CartridgeIcon,
+                action = () => AirCombat.MapSalvoNow(Vehicle, When_Airborne.Airborne(this)),
+            };
+            if (refusal != null) salvo.Disable(refusal);
+            yield return salvo;
+        }
         if (Repairs.AnyFieldFixable)
         {
             yield return new Command_Toggle

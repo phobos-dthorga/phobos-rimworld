@@ -35,6 +35,13 @@
       <sight>Full</sight>
       <warning>true</warning>
       <countermeasures>true</countermeasures>
+          <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
+      <airTrack>
+        <speed>10</speed>
+        <cruiseMetres>1000</cruiseMetres>
+        <lowCruiseMetres>1000</lowCruiseMetres>
+        <size>2.0</size>
+      </airTrack>
     </avionics>
     <!-- Sling loads (owner, 12 Nov 2026: the Hind and the Louie join the Cherokee): the Mi-24's external sling load, 2,400 kg. Approximate,
          from secondary sources (warriorlodge.com, "Russian Mil Mi-24"; militarymachine.com, "Mil Mi-24"), which give the airframe's

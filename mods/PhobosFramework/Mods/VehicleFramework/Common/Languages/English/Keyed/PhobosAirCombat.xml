@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Air combat (Framework 0.119.0): warning receivers, hits in flight, chaff and flares, and closed skies. In-world words only. -->
+
+  <!-- The warning receiver. {VEHICLE}: the aircraft; {SITE}: the place whose radar it heard. -->
+  <PhobosAirCombat_WarnTracked>The {VEHICLE}'s warning receiver: a radar at {SITE} is tracking it.</PhobosAirCombat_WarnTracked>
+  <PhobosAirCombat_WarnLockedOn>The {VEHICLE}'s warning receiver: a fire-control radar at {SITE} is locking on. A missile may follow.</PhobosAirCombat_WarnLockedOn>
+  <PhobosAirCombat_WarnLaunched>The {VEHICLE}'s warning receiver: a missile is coming from {SITE}.</PhobosAirCombat_WarnLaunched>
+  <PhobosAirCombat_WarnLaunchedFired>The {VEHICLE}'s warning receiver: a missile is coming from {SITE}. The crew fires chaff and flares.</PhobosAirCombat_WarnLaunchedFired>
+  <PhobosAirCombat_WarnLaunchedNoCartridges>The {VEHICLE}'s warning receiver: a missile is coming from {SITE}, and there are no chaff or flare cartridges left aboard to fire.</PhobosAirCombat_WarnLaunchedNoCartridges>
+  <PhobosAirCombat_Unknown>an unknown defender</PhobosAirCombat_Unknown>
+
+  <!-- A hit in flight. {FACTION}: who fired. -->
+  <PhobosAirCombat_HitFliesOn>The {VEHICLE} was hit by {FACTION}'s air defence. It is damaged but still flying.</PhobosAirCombat_HitFliesOn>
+  <PhobosAirCombat_DownAirframe>shot down by {FACTION}'s air defence: the airframe broke up</PhobosAirCombat_DownAirframe>
+  <PhobosAirCombat_DownEngines>shot down by {FACTION}'s air defence: every engine was knocked out</PhobosAirCombat_DownEngines>
+  <PhobosAirCombat_DownControls>shot down by {FACTION}'s air defence: the flight controls were shot away</PhobosAirCombat_DownControls>
+  <PhobosAirCombat_Hypoxia>The {VEHICLE}'s oxygen failed at height. Everyone aboard is short of breath until well after it comes down.</PhobosAirCombat_Hypoxia>
+
+  <!-- The Harrier's salvo button on a map. {COUNT}: cartridges a salvo uses; {LEFT}: cartridges aboard. -->
+  <PhobosAirCombat_SalvoGizmo>Chaff and flares</PhobosAirCombat_SalvoGizmo>
+  <PhobosAirCombat_SalvoGizmoDesc>Fire a salvo of chaff and flares. For ten seconds the aircraft is harder to hit.\n\nUses {COUNT} cartridges; {LEFT} aboard. Load more into the aircraft's cargo.</PhobosAirCombat_SalvoGizmoDesc>
+  <PhobosAirCombat_SalvoFired>The {VEHICLE} fires chaff and flares. {LEFT} cartridges left aboard.</PhobosAirCombat_SalvoFired>
+  <PhobosAirCombat_SalvoNotAirborne>The {VEHICLE} must be in the air to fire chaff and flares.</PhobosAirCombat_SalvoNotAirborne>
+  <PhobosAirCombat_SalvoDispensersOut>The {VEHICLE}'s chaff and flare dispensers are out: repair its avionics or restore its power.</PhobosAirCombat_SalvoDispensersOut>
+  <PhobosAirCombat_SalvoNoCartridges>The {VEHICLE} has no chaff or flare cartridges aboard. Load some into its cargo.</PhobosAirCombat_SalvoNoCartridges>
+  <PhobosAirCombat_SalvoAlready>The {VEHICLE}'s last salvo is still in the air.</PhobosAirCombat_SalvoAlready>
+
+  <!-- A closed sky over a base whose alarm has gone off. -->
+  <PhobosAirCombat_SkyClosed>The sky here is closed: the defenders' air defence is on alert, and the {VEHICLE} would be shot down on take-off. It opens again once their alert ends.</PhobosAirCombat_SkyClosed>
+</LanguageData>

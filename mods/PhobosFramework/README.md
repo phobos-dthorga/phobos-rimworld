@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.118.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.119.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -40,6 +40,11 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
 - **With Dubs Bad Hygiene, a coolant top-up and the Harrier's injection water need a plumbing pipe with water** beside the parked
   vehicle. Without it, the top-up takes chemfuel and the Harrier's water is free.
 - **The pipes and conduits our things lay beneath them are hidden**: look for them in the plumbing and power overlays.
+- **With The Dead Man's Switch - Expedition, aircraft can be shot at on the world map** (0.119.0): a defended settlement's radars track
+  your aircraft and may fire. A hit damages it; it comes down at a crash site only if it can no longer fly. **Make countermeasure
+  cartridges at the parts bench and load them into an aircraft's cargo** before sending it near a defended place, and keep its avionics
+  repaired: its warning receiver says when it is tracked, and its dispensers fire the cartridges. A launch towards a defence asks you to
+  confirm. To keep the old behaviour, untick **The Dead Man's Switch - Expedition's air defence sees aircraft**.
 - **The game's log is turned back on when it stops itself** at 10,000 messages, at most 25 times a session. Switch off **Keep the
   game's log going after its message limit** to keep the game's own limit.
 
@@ -125,6 +130,8 @@ Under **Options > Mod settings**. RimWorld saves only what you change.
 | Engines and drivetrains | Every closed cab has climate control | Gives climate control to every closed cab, not only modern ones | Off |
 | Engines and drivetrains | When an aircraft is too heavy or too hot to lift off or hover onto its pad | Refuse it (use the runway, or lighten it) / allow it, at a cost to the engine / allow it, with a warning only | Refuse it |
 | Engines and drivetrains | Blind take-offs: warn only | An aircraft with broken or unpowered instruments may take off at night or in fog, with a warning | Off |
+| Engines and drivetrains | Crews feel thin air when oxygen fails at height | Everyone aboard a high-flying aircraft whose oxygen is shot out is short of breath for a few hours | Off |
+| Engines and drivetrains | The Dead Man's Switch - Expedition's air defence sees aircraft (shown with that mod) | Its radars track aircraft in flight on the world map and may fire; a launch towards a defence asks first | On |
 | Steam locomotives | Realistic feed water | Off: a water stop draws a tenth of the real tender | Off |
 | Steam locomotives | Boiler explosions | A boiler without a fusible plug explodes when run dry | Off |
 | Electric vehicles | Battery fires | An overheated traction battery catches fire | Off |

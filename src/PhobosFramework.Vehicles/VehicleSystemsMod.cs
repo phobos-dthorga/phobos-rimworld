@@ -85,6 +85,12 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Blind flying (Framework 0.110.0, avionics A1): an aircraft without working instruments takes off at night or in fog with a
     /// warning instead of being refused (owner, 13 Nov 2026: refuse by default, a setting to warn only).</summary>
     public bool blindFlightWarnOnly;
+    /// <summary>A crew whose oxygen fails at height is short of breath for a while (Framework 0.119.0, avionics A14; owner, 13 and 17 Nov 2026: a
+    /// setting, off by default, giving a short-lived condition of our own). Live.</summary>
+    public bool altitudeHypoxia;
+    /// <summary>Another mod's air defence sees our aircraft in flight on the world map and may shoot at them (Framework 0.119.0, AD3; owner,
+    /// 13 Nov 2026). Shown only while The Dead Man's Switch - Expedition is active. Live.</summary>
+    public bool airDefenceSeesAircraft = true;
     /// <summary>An engine's service falls due as soon as its oil is low, so a worn engine burning oil calls a mechanic early (owner, 10 Nov
     /// 2026: oil use is a reason to service, with a setting to make it only a cost: on). Live.</summary>
     public bool lowOilCallsService = true;
@@ -141,6 +147,8 @@ public class VehicleSystemsSettings : ModSettings
         "realisticFeedWater" => realisticFeedWater,
         "nightHeater" => nightHeater,
         "blindFlightWarnOnly" => blindFlightWarnOnly,
+        "altitudeHypoxia" => altitudeHypoxia,
+        "airDefenceSeesAircraft" => airDefenceSeesAircraft,
         "lowOilCallsService" => lowOilCallsService,
         "accessoriesLoadEngine" => accessoriesLoadEngine,
         "roughGroundWear" => roughGroundWear,
@@ -191,6 +199,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref realisticFeedWater, "PhobosVehicleSystems_RealisticFeedWater", false);
         Scribe_Values.Look(ref nightHeater, "PhobosVehicleSystems_NightHeater", false);
         Scribe_Values.Look(ref blindFlightWarnOnly, "PhobosVehicleSystems_BlindFlightWarnOnly", false);
+        Scribe_Values.Look(ref altitudeHypoxia, "PhobosVehicleSystems_AltitudeHypoxia", false);
+        Scribe_Values.Look(ref airDefenceSeesAircraft, "PhobosVehicleSystems_AirDefenceSeesAircraft", true);
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
         Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
         Scribe_Values.Look(ref roughGroundWear, "PhobosVehicleSystems_RoughGroundWear", true);
@@ -384,6 +394,11 @@ public class VehicleSystemsMod : Mod
             }
         }
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingBlindFlightWarnOnly".Translate(), ref s.blindFlightWarnOnly, "PhobosVehicleSystems_SettingBlindFlightWarnOnlyDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAltitudeHypoxia".Translate(), ref s.altitudeHypoxia, "PhobosVehicleSystems_SettingAltitudeHypoxiaDesc".Translate());
+        if (ModsConfig.IsActive(DmseTieIn.PackageId))
+        {
+            listing.CheckboxLabeled("PhobosVehicleSystems_SettingAirDefenceSees".Translate(), ref s.airDefenceSeesAircraft, "PhobosVehicleSystems_SettingAirDefenceSeesDesc".Translate());
+        }
 
         SettingsUi.Section(listing, "PhobosVehicleSystems_SectionSteam".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingRealisticFeedWater".Translate(), ref s.realisticFeedWater, "PhobosVehicleSystems_SettingRealisticFeedWaterDesc".Translate());

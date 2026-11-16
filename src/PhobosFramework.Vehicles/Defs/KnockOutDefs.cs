@@ -67,6 +67,17 @@ public class PhobosKnockOutRulesDef : PhobosRulesDef
     /// A riding weapon worked by a different crew member from its turret's counts as one too.</summary>
     public List<string> ownMountTurretKeys = new();
 
+    // ---- A cranked turret's aim (0.119.0: T5, T6) ----
+
+    /// <summary>Off: a turret cranked by hand aims as well as a powered one.</summary>
+    public bool crankedTurretsAimWorse = true;
+    /// <summary>A cranked turret has no stabiliser: its accuracy while the vehicle moves (T5).</summary>
+    public float noStabiliserAccuracy = 0.6f;
+    /// <summary>A cranked turret's powered sights are dark: its accuracy at night and in poor weather (T6).</summary>
+    public float noSightsAccuracy = 0.7f;
+    /// <summary>Under Combat Extended the aim sways more instead: never more than this many times the weapon's own sway.</summary>
+    public float combatExtendedSwayCap = 3f;
+
     // ---- Field re-fitting a track or wheel (0.116.0: M3) ----
 
     /// <summary>A destroyed track or wheel re-fitted in the field comes back to this share of its health (owner, 17 Nov 2026: a quarter).</summary>

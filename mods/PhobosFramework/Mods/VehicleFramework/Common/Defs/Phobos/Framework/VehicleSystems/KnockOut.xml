@@ -47,6 +47,15 @@
          be worked by handwheels; that hand cranking is the rule for every powered turret here is our assumption. The player's vehicles only:
          other factions' batteries do not evolve (the owner's choice). Pintle and ring-mounted machine guns are swung by hand anyway and lose
          nothing; they are found by these parts of their keys (authored, from the weapons in the owner's game). -->
+    <!-- 0.119.0 (T5, T6; the owner's yes, 16 Nov 2026, with the aircraft batch): a turret cranked by hand has no stabiliser and its powered
+         sights are dark. On the move it hits 0.6 as often, at night or in poor weather 0.7 as often, and both together 0.42 (all authored;
+         the direction is real: a stabiliser is what lets a tank fire on the move, and a thermal or image-intensifying sight needs power).
+         Without Combat Extended the turret's own hit factor is scaled; under it, the aim's sway is divided by the factor, at most three
+         times the weapon's own. Poor weather is the avionics rule's: night, or weather that costs the game's accuracy. -->
+    <crankedTurretsAimWorse>true</crankedTurretsAimWorse>
+    <noStabiliserAccuracy>0.6</noStabiliserAccuracy>
+    <noSightsAccuracy>0.7</noSightsAccuracy>
+    <combatExtendedSwayCap>3</combatExtendedSwayCap>
     <turretPower>true</turretPower>
     <turretDriveLoad>turretDrive</turretDriveLoad>
     <batteryFlatBelow>0.05</batteryFlatBelow>

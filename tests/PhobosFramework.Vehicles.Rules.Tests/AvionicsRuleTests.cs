@@ -41,6 +41,19 @@ public class AvionicsRuleTests
         Assert.Equal(0, values["attitude"]);
         Assert.Equal(1, values["navigation"]);
         Assert.Equal(1, values["navigationFull"]);
+        Assert.Equal(0, values["warning"]);
+        Assert.Equal(0, values["oxygen"]);
+    }
+
+    [Fact]
+    public void TheAirCombatCapabilitiesAreParametersToo()
+    {
+        var fit = new AvionicsFitValues { Warning = true, Countermeasures = true, Oxygen = true, CruisesHigh = true };
+        var values = AvionicsRule.Parameters(fit).ToDictionary(p => p.name, p => p.value);
+        Assert.Equal(1, values["warning"]);
+        Assert.Equal(1, values["countermeasures"]);
+        Assert.Equal(1, values["oxygen"]);
+        Assert.Equal(1, values["cruisesHigh"]);
     }
 
     [Fact]

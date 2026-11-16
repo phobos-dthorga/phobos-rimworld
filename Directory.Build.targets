@@ -24,6 +24,8 @@
     <UsefulMarksAssemblies Condition="'$(UsefulMarksAssemblies)' == ''">$(WorkshopRoot)\3506573327\$(GameVersion)\Assemblies</UsefulMarksAssemblies>
     <IrbmAssemblies Condition="'$(IrbmAssemblies)' == '' And Exists('$(WorkshopRoot)\3682304832\$(GameVersion)\Assemblies')">$(WorkshopRoot)\3682304832\$(GameVersion)\Assemblies</IrbmAssemblies>
     <IrbmAssemblies Condition="'$(IrbmAssemblies)' == ''">$(WorkshopRoot)\3682304832\1.6\Assemblies</IrbmAssemblies>
+    <!-- The Dead Man's Switch - Expedition ships a 1.7 build (12 November 2026); D'thorga Framework's air-defence tie-in compiles against it. -->
+    <DmseAssemblies Condition="'$(DmseAssemblies)' == ''">$(WorkshopRoot)\3689879335\$(GameVersion)\Assemblies</DmseAssemblies>
     <!-- Where the built assembly lands: mods/<ModFolder>/<TieInFolder/><GameVersion>/Assemblies/. OutDir, not OutputPath:
          by the time this file is imported the SDK has already turned OutputPath into OutDir, and OutDir is what the
          build writes to. -->

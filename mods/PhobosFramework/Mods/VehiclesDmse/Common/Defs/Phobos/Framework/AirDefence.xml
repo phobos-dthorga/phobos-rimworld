@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    D'thorga Framework's air-defence tie-in with The Dead Man's Switch - Expedition (Framework 0.119.0; owner, 13 and 17 Nov 2026;
+    docs/development/air-defence-tie-ins.md, AD2 and AD3). DMS Expedition publishes this Def type for other mods: its air defence asks every
+    track provider named here for tracks, and tells every listener what happens to them. Ours hands it every aircraft in flight on the world
+    map, any faction's, and turns its events into the warning receiver's messages and the crew's chaff and flares. Loaded only while both
+    Vehicle Framework and DMS Expedition are active (LoadFolders.xml). Not yet tested in game.
+  -->
+  <Fortified.AirDefenseExtensionDef>
+    <defName>PhobosAircraftAirDefence</defName>
+    <trackProviders>
+      <li Class="Phobos.VehicleSystems.AirDefence.PhobosAircraftTrackProvider" />
+    </trackProviders>
+    <listeners>
+      <li Class="Phobos.VehicleSystems.AirDefence.PhobosAircraftWarningListener" />
+    </listeners>
+  </Fortified.AirDefenseExtensionDef>
+</Defs>

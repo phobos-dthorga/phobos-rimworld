@@ -1,8 +1,8 @@
 # Avionics for every aircraft (13 Nov 2026)
 
-**Status (17 Nov 2026):** built in D'thorga Framework 0.106.0 (A5, A6 with round three's G16, A8, A9) and 0.110.0 with Vehicles
-0.53.0 (the avionics fit, A1, A2, A7 and L1; A5 also answers L2); not built: A3, A4, A10 to A17 (A14 with L3 joins the air-combat
-batch) and L3 to L6 (L5 set aside). Not yet tested in game.
+**Status (17 Nov 2026):** built in D'thorga Framework 0.106.0 (A5, A6 with round three's G16, A8, A9), 0.110.0 with Vehicles
+0.53.0 (the avionics fit, A1, A2, A7 and L1; A5 also answers L2) and 0.119.0 with Vehicles 0.58.0 and Patches 0.21.0 (A12, A14 with L3, A16);
+not built: A3, A4, A10, A11, A13, A15, A17, L4 and L6 (L5 set aside). Not yet tested in game.
 
 A research record. The owner, 13 November 2026: "One area I have seen that
 is lacking is with the avionics of aircraft, particularly with the Harrier, but this does apply to all aircraft that are part of my
@@ -343,6 +343,18 @@ and Warbird got loadouts of their own for their avionics and hydraulics, and kee
 
 **Owner, 13 Nov 2026:** looking for oxygen on a Harrier after this install, the owner chose to **fold A14 (with L3) into step 5**, the
 air-combat batch (AD3, AD2, A16), so oxygen arrives in the same install.
+
+## Built (17 Nov 2026, the aircraft batch)
+
+**Framework 0.119.0, Vehicles 0.58.0 and Patches 0.21.0, not yet tested in game**, with [air-defence tie-ins](air-defence-tie-ins.md) AD2 and
+AD3: the warning receiver, the dispensers and crew oxygen have readings (`warningReceiver`, `countermeasures`, `crewOxygen`) on the avionics
+system. **A14** as designed (the Harrier `cruisesHigh`; its oxygen needs its part, power and an engine's bleed air through `Input_Bleed`),
+with the owner's hypoxia setting giving a short condition of our own, `PhobosAltitudeHypoxia`, when oxygen fails during a high cruise.
+**L3**: `When_Airborne`, `When_FlightPhase` and `Input_Bleed`. **A16**: cartridges made at the parts bench and carried as cargo, fired
+automatically against DMS Expedition's shots on the world map, and a Harrier button on a map (owner, 17 Nov 2026). **A12**: the Harrier's
+evasion postfix scales by flight control and the receiver, as designed. A hit in flight on the world map damages the aircraft and downs
+it only if it cannot fly (owner, 17 Nov 2026). Limit: aircraft on the world map do not evolve their systems in flight (Vehicle Framework does
+not tick them), so oxygen and power change in flight only when a hit lands.
 
 ## Questions for the owner
 

@@ -1,6 +1,7 @@
 using HarmonyLib;
 using UnityEngine;
 using Vehicles;
+using Verse;
 
 namespace Phobos.VehicleSystems;
 
@@ -54,5 +55,66 @@ public static class TurretTraversePace
     public static void Finalizer(VehicleTurret __instance, float __state)
     {
         if (!float.IsNaN(__state) && __instance.def != null) __instance.def.rotationSpeed = __state;
+    }
+}
+
+/// <summary>
+/// T5 and T6 (Framework 0.119.0): a turret cranked by hand aims worse on the move and in the dark. Without Combat Extended, Vehicle Framework
+/// decides a hit from this report, so the turret's own hit factor is scaled; the report is a value handed back, so the change reaches only this
+/// shot. A postfix; nothing of Vehicle Framework's is skipped.
+/// </summary>
+[HarmonyPatch(typeof(TurretShotReport), nameof(TurretShotReport.HitReportFor))]
+public static class TurretAimReport
+{
+    static readonly AccessTools.StructFieldRef<TurretShotReport, float> FactorFromTurret =
+        AccessTools.StructFieldRefAccess<TurretShotReport, float>("factorFromTurret");
+
+    public static void Postfix(VehicleTurret turret, ref TurretShotReport __result)
+    {
+        if (turret == null) return;
+        float accuracy = TurretPace.For(turret).accuracy;
+        if (accuracy < 1f) FactorFromTurret(ref __result) *= accuracy;
+    }
+}
+
+/// <summary>
+/// T5 and T6 under Combat Extended (Framework 0.119.0): Combat Extended's compatibility code hands Vehicle Framework a function that turns a
+/// shot's sway into its angle (VehicleTurret.ProjectileAngleCE), and a turret's shot goes through it. While one of a vehicle's turrets fires,
+/// this prefix notes which, and puts our wrapper round that function once: the wrapper widens the sway of a turret cranked by hand, then
+/// calls Combat Extended's own. The finalizer forgets the turret whatever happens. Nothing is skipped.
+/// </summary>
+[HarmonyPatch(typeof(VehicleTurret), "FireTurretCE")]
+public static class TurretAimSway
+{
+    static VehicleTurret? firing;
+    static System.Func<float, float, Thing, LocalTargetInfo, Vector3, bool, float, float, float, float, Vector2>? combatExtended;
+
+    public static void Prefix(VehicleTurret __instance)
+    {
+        firing = __instance;
+        var current = VehicleTurret.ProjectileAngleCE;
+        if (current != null && current != (System.Func<float, float, Thing, LocalTargetInfo, Vector3, bool, float, float, float, float, Vector2>)Wrapped)
+        {
+            combatExtended = current;
+            VehicleTurret.ProjectileAngleCE = Wrapped;
+        }
+    }
+
+    public static void Finalizer() => firing = null;
+
+    static Vector2 Wrapped(float speed, float range, Thing shooter, LocalTargetInfo target, Vector3 origin, bool flyOverhead, float gravity,
+        float sway, float spread, float recoil)
+    {
+        VehicleTurret? turret = firing;
+        if (turret != null && turret.vehicle == shooter)
+        {
+            float accuracy = TurretPace.For(turret).accuracy;
+            if (accuracy < 1f)
+            {
+                PhobosKnockOutRulesDef rules = Phobos.Framework.Defs.PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
+                sway = (float)Phobos.Framework.Vehicles.Rules.TurretAimRule.CombatExtendedSway(sway, accuracy, rules.combatExtendedSwayCap);
+            }
+        }
+        return combatExtended!(speed, range, shooter, target, origin, flyOverhead, gravity, sway, spread, recoil);
     }
 }

@@ -1,8 +1,9 @@
 # Air-defence tie-ins: InterRim Ballistic Missile, The Dead Man's Switch and our aircraft (13 Nov 2026)
 
 **Status (17 Nov 2026):** built in D'thorga Patches 0.19.1: AD14 (InterRim Ballistic Missile's close-in weapon systems shoot down
-Combat Extended's shells, a temporary patch); not built: every other row, including the aircraft batch the owner chose (AD3 with AD2
-and avionics A16). Not yet tested in game.
+Combat Extended's shells, a temporary patch); built in D'thorga Framework 0.119.0 with Vehicles 0.58.0 and Patches 0.21.0: AD3 and AD2 (the
+aircraft batch, with avionics A12, A14 and A16), AD7 and the launch warning; not built: AD1, AD4 to AD6 and AD8 to AD13. Not yet tested in
+game.
 
 **A research record.** The owner, 13 November 2026, asked that the
 [soft-dependency exploration](soft-dependency-crosslinks.md) include InterRim Ballistic Missile and The Dead Man's Switch "for their
@@ -176,10 +177,34 @@ Answered by the owner, 13 Nov 2026:
 - **AD14: patch it**, recorded as a temporary patch that stands down if IRBM fixes it. **Built: Patches 0.19.1**, with a setting (on by
   default); row 16 in [patches for other authors' faults](temporary-patches.md). Not yet tested in game.
 
+- **The aircraft batch's details (17 Nov 2026)**: see "Built: the aircraft batch" above.
+
 Still open:
 
 1. **AD5**: may our engines change DMS's heat-seeker choice? It changes their targeting, not only a figure.
 2. **Raiders' aircraft**: should a decompile of VTOL Raids come first, to see whether the player's DMS defences can ever face them?
+
+## Built: the aircraft batch (17 Nov 2026)
+
+**D'thorga Framework 0.119.0, Vehicles 0.58.0 and Patches 0.21.0, not yet tested in game (rows 139 to 146 of the test pass).** The owner's
+word, 17 Nov 2026: "let's do the aircraft batch", and the card answers below.
+
+- **AD3, as designed, through DMS Expedition's own interface.** `PhobosFramework.Vehicles.Dmse`, loaded only with Vehicle Framework and DMS
+  Expedition, names a track provider and a listener in an `AirDefenseExtensionDef`. Every `AerialVehicleInFlight` of any faction becomes an
+  `IAirTrack` (`AircraftTrack`): its position and arrival from Vehicle Framework's own pace (0.001 x flight speed tiles a tick), its height
+  from its loadout's cruise with a climb and descent at each end, its size on radar from the loadout. `ModifyDefense` gives countermeasures
+  their effect on hit chance and lock time; `Notify_Intercepted` goes to D'thorga Framework's `AirCombat.Intercepted`. The fallback postfix on
+  `BlockadeHitUtility.InFlight` was not needed and not built: blockades remain blind to our aircraft (a limit).
+- **AD2.** The listener turns `TrackDetected`, `LockStarted` and `InterceptorLaunched` into the warning receiver's messages; a launch also
+  fires a salvo of chaff and flares if cartridges are aboard.
+- **AD7 and the launch warning (owner's extras).** A take-off refusal reads Fortified Features Framework's `MapComponent_AlertCounter`
+  by name; the warning calls DMS's `InterceptRiskUtility.ConfirmOrDefer` from prefixes on Vehicle Framework's two launch methods.
+- **Found while building:** DMS's own chaff works only on its `MissileConfig`, so ours goes through the track's `ModifyDefense`. Low
+  flying is seen later through DMS's own altitude factor on detection, so avionics A14's low cruise has that effect without any rule of
+  ours. VTOL Vehicle's and the fixed-wing framework's own map-edge departures call `OrderFlyToTiles` directly and get no launch warning.
+- **The owner's card answers (17 Nov 2026):** a hit damages the aircraft and it comes down only if it can no longer fly; countermeasures
+  are automatic on the world map, plus a Harrier button on a map; hypoxia is a short-lived condition of our own; A12, the launch warning and
+  AD7 join the batch.
 
 ## Who chose what
 

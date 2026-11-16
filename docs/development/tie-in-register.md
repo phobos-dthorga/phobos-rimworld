@@ -7,8 +7,8 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **63 tie-in folders across six mods** (recounted 17 Nov 2026: 71 entries in the `LoadFolders.xml` lists, because a folder and its `1.7`
-  subfolder are listed as two entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's `LoadFolders.xml`, plus a
+- **64 tie-in folders across six mods** (recounted 17 Nov 2026, with Framework 0.119.0's air-defence tie-in: 73 entries in the
+  `LoadFolders.xml` lists, because a folder and its `1.7` subfolder are listed as two entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's `LoadFolders.xml`, plus a
   handful of tie-ins in C# that check for a mod by name. D'thorga Radio has none (Vanilla Expanded Framework's pipe system is a hard
   dependency there, not a tie-in).
 - **No tie-in hard-references another author's assembly.** C# finds their types and Defs by name through
@@ -40,6 +40,7 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 | Vehicle Framework + Vanilla Expanded Framework | The vehicle garage outpost and its button on vehicle caravans | C# + XML | `Mods/VehiclesOutposts` |
 | Vehicles at Work (`shengchipangxieyaotuke.vehiclesatwork`) | Its trips leave out vehicles our systems refuse to move, and a called-off trip gives our reason (0.108.4, SD1) | C#, by name | `src/PhobosFramework.Vehicles/Service/VehiclesAtWorkPatches.cs` |
 | Vehicle Framework + RimHUD (`Jaxe.RimHUD`) | A RimHUD value for the vehicle a pawn is in | XML | `Mods/VehiclesRimHUD/Common` |
+| Vehicle Framework + The Dead Man's Switch - Expedition (`Aoba.DeadManSwitch.Expedition`) | Aircraft in flight on the world map are tracks its air defence sees and fires at, through its published `AirDefenseExtensionDef`; the warning receiver hears its radars; chaff and flares cut its hit chance and slow its locks; its launch-risk prompt before our take-offs; a closed sky (Fortified Features Framework's alert counter, by name) refuses take-off (0.119.0; AD2, AD3, AD7) | C# + XML | `Mods/VehiclesDmse` |
 | RimThunder (`rimthunder.core`, `aoba.rimthunder.roca`, `rimthunderteams.rimthunder.desertsabre`) | Its vehicles are never stalled by EMP, as its authors chose, but still take the military effect (0.109.0, SD9) | XML list read by C# | `Rules_VehicleSystems.xml` |
 | Combat Extended (`CETeam.CombatExtended`) | Its smoke inhalation and smoke sensitivity read by our gas rules; vehicle hit weights and blast penetration under its armour; its ammunition system setting and which ammunition cooks off, read for ammunition cooking off in a burning vehicle's cargo (Framework 0.113.0, cross-links G13) | C#, by name | `src/PhobosFramework/Gases/CombatExtendedSmoke.cs`, `MaskFactor.cs`, `CombatExtendedRules`, `src/PhobosFramework/CombatExtendedAmmo.cs` |
 | Any mod with a cough sound | Our coughs stand down when another mod sounds one (the list is empty today) | C# | `src/PhobosFramework/Sounds/PhobosSounds.cs` |
@@ -118,7 +119,7 @@ C# lives in `src/PhobosPatches.*`. Rows marked **fault** are in [patches for oth
 
 | Other mod (packageId) | What the tie-in does | Kind |
 | --- | --- | --- |
-| Harrier VTOL | Build cost (RimThunder's turbine where present), part list, Combat Extended bomb weights and cases, bombs and rockets at The Dead Man's Switch's ammunition printer and lathe; hover gate, sortie and flight-control rules, crew keeps a map open | XML + C# |
+| Harrier VTOL | Build cost (RimThunder's turbine where present), part list, Combat Extended bomb weights and cases, bombs and rockets at The Dead Man's Switch's ammunition printer and lathe; hover gate, sortie and flight-control rules, crew keeps a map open; its dodge chance follows its controls and warning receiver, with a chaff and flares button (0.21.0, A12, A16) | XML + C# |
 | Harrier, Hind, Mongoose | Rearm one ammunition kind at a time (**fault**) | C# |
 | RimThunder (`RimThunder.Core`) | Heavy castings in batches at DMS Expedition's lathe | XML |
 | Vehicle Framework | Fires a vehicle can never lose (**fault**, temporary); the game's progress bar on its work (**fault**) | C# |

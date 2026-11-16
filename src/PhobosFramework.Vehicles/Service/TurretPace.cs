@@ -26,6 +26,9 @@ public static class TurretPace
     {
         public int tick = -RecheckTicks;
         public float traverse = 1f, aim = 1f, reload = 1f;
+        /// <summary>The factor on the weapon's accuracy (Framework 0.119.0, T5 and T6): below 1 while it is cranked by hand on the move or in
+        /// poor visibility.</summary>
+        public float accuracy = 1f;
         public bool damaged, gunnerHurt, handCranked;
     }
 
@@ -56,7 +59,7 @@ public static class TurretPace
 
     static void Work(VehicleTurret turret, Pace pace)
     {
-        pace.traverse = pace.aim = pace.reload = 1f;
+        pace.traverse = pace.aim = pace.reload = pace.accuracy = 1f;
         pace.damaged = pace.gunnerHurt = pace.handCranked = false;
         VehiclePawn vehicle = turret.vehicle;
         CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
@@ -82,6 +85,13 @@ public static class TurretPace
 
         TurretPower.Paces(comp, turret, out double powerTraverse, out double powerAim, out bool cranked);
         pace.handCranked = cranked;
+        // T5 and T6 (Framework 0.119.0): cranked by hand, the turret has no stabiliser on the move and no powered sights in the dark.
+        if (cranked && rules.crankedTurretsAimWorse)
+        {
+            bool poor = When_PoorVisibility.Poor(vehicle);
+            pace.accuracy = (float)TurretAimRule.Factor(true, comp.Moving, poor, rules.noStabiliserAccuracy, rules.noSightsAccuracy);
+            if (pace.accuracy < 1f) Seen.Note("vehicles.cranked-turret-aims-worse", vehicle, turret.key + (comp.Moving ? " moving" : "") + (poor ? " dark" : ""));
+        }
 
         // Seen in play (Framework 0.118.0): what slowed or stopped this weapon, once a session each.
         if (mount != null && mount.HealthPercent <= rules.stopsAtOrBelow) Seen.Note("vehicles.weapon-stopped-by-mount", vehicle, turret.key);

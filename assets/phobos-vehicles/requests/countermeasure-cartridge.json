@@ -1,0 +1,38 @@
+[
+  {
+    "name": "item-countermeasure-cartridges",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A small open steel ammunition-style box holding a neat row of squat cylindrical cartridges standing upright, half with olive-drab casings and half with silver foil caps, one cartridge lying in front of the box. Draw it in exactly the art style of the reference images: a small game item with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, seen from slightly above, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no flames, no aircraft.",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/BoosterPack.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A small open steel ammunition-style box holding a neat row of squat cylindrical cartridges standing upright, half with olive-drab casings and half with silver foil caps, one cartridge lying in front of the box"
+  },
+  {
+    "name": "item-countermeasure-cartridges-pair",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A bundle of four squat cylindrical aircraft decoy cartridges strapped together with a canvas band, two with olive-drab casings and red-banded ends and two with silver foil-wrapped ends. Draw it in exactly the art style of the reference images: a small game item with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, seen from slightly above, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no flames, no aircraft.",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/BoosterPack.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A bundle of four squat cylindrical aircraft decoy cartridges strapped together with a canvas band, two with olive-drab casings and red-banded ends and two with silver foil-wrapped ends"
+  }
+]

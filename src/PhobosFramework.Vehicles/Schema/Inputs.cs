@@ -422,3 +422,20 @@ public class Input_VehicleStat : VehicleSystemInput
     public VehicleStatDef? stat;
     protected override float Raw(SystemContext context) => stat == null ? 0f : context.Vehicle.GetStatValue(stat);
 }
+
+/// <summary>
+/// Bleed air from the engines (Framework 0.119.0; avionics L3): the share of an aircraft's engines turning while they run, so a flame-out takes
+/// its share of the bleed with it, and 1 while they are off (nothing is asked of the bleed, so a parked aircraft reads ready, not failed).
+/// What an oxygen generator sieving engine air needs (the AV-8B's, avionics A14). A vehicle with no engine count reads 1.
+/// </summary>
+public class Input_Bleed : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context)
+    {
+        if (!context.Comp.EngineRunning) return 1f;
+        Powertrain? train = context.Comp.Powertrain;
+        if (train == null) return 1f;
+        (int working, int engines) = train.Engines();
+        return engines <= 0 ? 1f : (float)working / engines;
+    }
+}

@@ -256,6 +256,13 @@ public static class LiftOffPatch
             disableReason = refusal;
             return;
         }
+        // Framework 0.119.0 (AD7): another mod's state may close the sky, such as an air defence on alert over the aircraft's map.
+        if (LaunchChecks.Refusal(vehicle) is { } closed)
+        {
+            __result = false;
+            disableReason = closed;
+            return;
+        }
         if (!HoverLimits.RefusesLaunch(vehicle)) return;
         __result = false;
         disableReason = HoverLimits.LaunchRefusalText(vehicle);

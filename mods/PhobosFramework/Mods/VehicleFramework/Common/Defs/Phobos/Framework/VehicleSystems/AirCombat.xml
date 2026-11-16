@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Air combat (Framework 0.119.0; owner, 13 and 17 Nov 2026; docs/development/air-defence-tie-ins.md, AD2, AD3, AD7, and
+    docs/development/vehicle-avionics.md, A12, A14, A16). What another mod's air defence does to our aircraft, and what their warning receivers,
+    chaff and flares and oxygen do about it. The first loaded instance wins; another mod may patch it. Every figure is authored for play unless
+    a comment says otherwise. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosAirCombatRulesDef>
+    <defName>PhobosAirCombatRules</defName>
+
+    <!-- A hit in flight (AD3; owner, 17 Nov 2026: damage, and down only if it can no longer fly). One interceptor's hit is 60 damage in four
+         hits of 15, landing where the aircraft's own hit areas put them, so a hit near the cockpit can hurt the crew (Vehicle Framework's own
+         seat hits). The aircraft comes down if its flight controls fall below the launch floor (0.35, the rule A8 already uses), every engine
+         is out, or its body integrity falls below a fifth. Authored: a sound Harrier survives one hit and seldom three. -->
+    <interceptDamage>60</interceptDamage>
+    <interceptHits>4</interceptHits>
+    <interceptArmourPenetration>0.5</interceptArmourPenetration>
+    <interceptDamageDef>Bomb</interceptDamageDef>
+    <airframeFailsBelow>0.2</airframeFailsBelow>
+
+    <!-- How an aircraft in flight looks: it climbs to its cruise over the first tile and a half and comes down over the last, so a radar sees
+         it low near both ends. Each aircraft's speed, heights and size on radar are in its loadout's avionics block. -->
+    <climbTiles>1.5</climbTiles>
+
+    <!-- The warning receiver (AD2): a warning of one kind about one aircraft is not repeated within an hour. A launch is always told. -->
+    <warningCooldownHours>1</warningCooldownHours>
+
+    <!-- Countermeasures (A16). Real dispensers fire chaff against radar and flares against heat seekers; one salvo here is one of each. Fired on
+         the receiver's cue, a shot hits 0.6 as often; fired late, by eye, with the receiver out, 0.85 as often; and chaff on the cue makes a
+         lock take half as long again. On a map, the Harrier's button adds 0.25 to its dodge chance for ten seconds (600 ticks). Authored. -->
+    <cartridgeDef>PhobosVehicleSystems_CountermeasureCartridge</cartridgeDef>
+    <cartridgesPerSalvo>2</cartridgesPerSalvo>
+    <hitChanceFactorCued>0.6</hitChanceFactorCued>
+    <hitChanceFactorLate>0.85</hitChanceFactorLate>
+    <lockTimeFactorCued>1.5</lockTimeFactorCued>
+    <mapSalvoEvasionBonus>0.25</mapSalvoEvasionBonus>
+    <mapSalvoTicks>600</mapSalvoTicks>
+
+    <!-- Evasion (A12): with its warning receiver out, the Harrier sees a shot late and dodges 0.75 as well; its flight controls scale it too.
+         No dodge chance goes above 0.85, however many salvos are fired. Authored. -->
+    <noWarningEvasionFactor>0.75</noWarningEvasionFactor>
+    <evasionCap>0.85</evasionCap>
+
+    <!-- Hypoxia (A14; the player's setting, off by default): the crew of an aircraft whose oxygen fails at height is short of breath for a few
+         hours. -->
+    <hypoxiaHediff>PhobosAltitudeHypoxia</hypoxiaHediff>
+    <hypoxiaSeverity>0.5</hypoxiaSeverity>
+  </Phobos.VehicleSystems.PhobosAirCombatRulesDef>
+
+  <!--
+    Countermeasure cartridges (Framework 0.119.0; owner, 17 Nov 2026: made at the parts bench and carried as cargo). Chaff is fine strips of
+    metal-coated glass fibre that blooms into a radar echo; a flare is a magnesium and fluoropolymer charge that burns hotter than an engine
+    (real chemistry: magnesium reduces the fluoropolymer in a fierce exothermic reaction, and the glowing magnesium fluoride outshines an
+    engine's exhaust). Steel stands in for the coated strips and casings and chemfuel for the pyrotechnic, a gameplay simplification. A batch of
+    ten takes ten steel and twenty chemfuel. The dispensers on an aircraft fire them from its cargo, two to a salvo. Not yet tested in game.
+  -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicleSystems_CountermeasureCartridge</defName>
+    <label>countermeasure cartridge</label>
+    <description>A cartridge for an aircraft's chaff and flare dispensers: a puff of metal-coated strips to confuse a radar, or a flare that burns hotter than the engines to draw a heat seeker. Load them into an aircraft's cargo; its dispensers fire them, two at a time, when a missile comes for it.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/CountermeasureCartridge</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.85</drawSize>
+    </graphicData>
+    <stackLimit>50</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <Mass>0.25</Mass>
+      <Flammability>1.5</Flammability>
+      <DeteriorationRate>1</DeteriorationRate>
+      <MarketValue>9</MarketValue>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+  </ThingDef>
+
+  <RecipeDef>
+    <defName>PhobosVehicleSystems_MakeCountermeasureCartridges</defName>
+    <label>make countermeasure cartridges x10</label>
+    <description>Make ten cartridges for an aircraft's chaff and flare dispensers.</description>
+    <jobString>Making countermeasure cartridges.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <workAmount>1500</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </filter>
+        <count>20</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>Chemfuel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <PhobosVehicleSystems_CountermeasureCartridge>10</PhobosVehicleSystems_CountermeasureCartridge>
+    </products>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+    <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
+    <recipeUsers>
+      <li>PhobosVehicles_PartsBench</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <!--
+    Altitude hypoxia (Framework 0.119.0; owner, 17 Nov 2026: a short-lived condition of our own, behind a setting that is off by default). Too
+    little oxygen in the blood after the thin air at height. United States rules allow no more than 30 minutes above 12,500 ft cabin altitude
+    without extra oxygen (14 CFR 91.211, primary); how long a person stays useful shrinks fast with height (FAA AC 61-107B, named, not read).
+    Recovery on the ground is quick for mild cases; the hours here and the weakness it leaves are authored. Supplied oxygen (D'thorga Medical's,
+    or any treatment marked as supplied oxygen) clears it faster through the breathing layer.
+  -->
+  <HediffDef>
+    <defName>PhobosAltitudeHypoxia</defName>
+    <label>altitude hypoxia</label>
+    <description>Too little oxygen in the blood after breathing the thin air at height: dull thinking, clumsy hands and a pounding head. It passes within a few hours of coming down, faster on supplied oxygen.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.55, 0.65, 0.9)</defaultLabelColor>
+    <isBad>true</isBad>
+    <maxSeverity>1</maxSeverity>
+    <initialSeverity>0.5</initialSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-3</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>mild</label>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.1</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.05</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.4</minSeverity>
+        <label>marked</label>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.25</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.15</offset>
+          </li>
+          <li>
+            <capacity>Sight</capacity>
+            <offset>-0.1</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+    <modExtensions>
+      <li Class="Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension">
+        <minSeverity>0.05</minSeverity>
+        <healingPerDayOnOxygen>6</healingPerDayOnOxygen>
+      </li>
+    </modExtensions>
+  </HediffDef>
+</Defs>
