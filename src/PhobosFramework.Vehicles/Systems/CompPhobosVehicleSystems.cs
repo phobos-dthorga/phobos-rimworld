@@ -93,6 +93,8 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
     public List<string> addedKeys = new();
     /// <summary>Appended parts that do not count toward the vehicle's destruction: empty mounting points for fittings (Framework 0.114.5).</summary>
     public HashSet<string> uncountedKeys = new();
+    /// <summary>How many of the design's weapons this service tied to a mount at start-up (Framework 0.115.0, T1).</summary>
+    public int weaponsTied;
     /// <summary>How many parts the design had before the service appended any; the uninstall sweep cuts saved vehicles back to it.</summary>
     public int originalPartCount;
     /// <summary>The loadout's drivetrain (with its overrides) and flight profile, if any.</summary>

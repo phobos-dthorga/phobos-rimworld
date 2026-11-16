@@ -151,6 +151,9 @@ public static class VehicleSystems
             if (!add.countsTowardDestruction) props.uncountedKeys.Add(add.key);
             added++;
         }
+        // Weapons stop when their mount is shot to pieces (Framework 0.115.0, T1): before the reactors, so an appended mount is a part like any other.
+        props.weaponsTied = WeaponMounts.Apply(def, props);
+        if (props.addedKeys.Contains(WeaponMounts.PartKey)) added++;
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).
         foreach (KeyValuePair<string, List<string>> pair in props.roleKeys)
         {
@@ -191,7 +194,7 @@ public static class VehicleSystems
         return added;
     }
 
-    static VehicleComponentProperties MakePart(VehicleDef def, PartToAdd add, CompProperties_PhobosVehicleSystems props)
+    internal static VehicleComponentProperties MakePart(VehicleDef def, PartToAdd add, CompProperties_PhobosVehicleSystems props)
     {
         var hitbox = new ComponentHitbox();
         VehicleComponentProperties? reference = null;

@@ -256,7 +256,8 @@ public class VehicleSystemsMod : Mod
         int loadouts = DefDatabase<PhobosVehicleLoadoutDef>.AllDefsListForReading.Count;
         int fitted = VehicleSystems.Designs.Count(d => d.skippedBecause == null);
         report.On(systems + " systems, " + loadouts + " loadouts, " + fitted + " of " + VehicleSystems.Designs.Count + " vehicle designs fitted, "
-                  + VehicleSystems.Designs.Sum(d => d.partsAdded) + " parts appended");
+                  + VehicleSystems.Designs.Sum(d => d.partsAdded) + " parts appended, "
+                  + VehicleSystems.Designs.Sum(d => d.def.GetCompProperties<CompProperties_PhobosVehicleSystems>()?.weaponsTied ?? 0) + " weapons tied to a mount");
         if (Settings.showOnly) report.On("figures only (setting)");
         if (Settings.boilerExplosions) report.On("boiler explosions (setting)");
         if (Settings.realisticFeedWater) report.On("realistic feed water (setting)");
@@ -292,7 +293,8 @@ public class VehicleSystemsMod : Mod
             foreach (DesignRecord design in VehicleSystems.Designs)
             {
                 Logger.Debug(design.def.defName + " (" + design.modName + "): " + (design.skippedBecause != null ? "no systems, " + design.skippedBecause
-                    : "loadout " + design.loadout?.defName + ", " + design.partsAdded + " parts appended"));
+                    : "loadout " + design.loadout?.defName + ", " + design.partsAdded + " parts appended, "
+                      + (design.def.GetCompProperties<CompProperties_PhobosVehicleSystems>()?.weaponsTied ?? 0) + " weapons tied to a mount"));
             }
         }
     }

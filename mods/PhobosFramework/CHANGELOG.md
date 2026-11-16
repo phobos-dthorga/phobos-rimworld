@@ -5,6 +5,17 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+Knocked out, not destroyed: the owner's build of 17 Nov 2026 (docs/development/vehicle-knocked-out-systems.md), in steps.
+
+### Added
+
+- **A weapon stops when its mount is shot to pieces, and works again once repaired** (step 1: T1, T9, T10). Every turret or gun with no
+  rule of its author's is tied to its mount, and stops while the mount is at or under a tenth of its health (the owner's figure). The
+  mount is the vehicle's own turret part where it has one, the Harrier's pylons, or a new part: a turret ring on a ground vehicle, weapon
+  pylons on an aircraft, at the gunner's seat. The weapon's button says why it is out. It works on every faction's vehicles, so you can
+  silence a raider's gun without destroying the vehicle, and theirs can silence yours. An author's own rule always stands; a gun mounted
+  on another stops with it; fixed smoke launchers are left alone. Weapons an upgrade adds are tied too.
+
 ## [0.114.5] - 2026-11-16 - Draft
 
 Empty mounting points no longer keep a wrecked vehicle standing
