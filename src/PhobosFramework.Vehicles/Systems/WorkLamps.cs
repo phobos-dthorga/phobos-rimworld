@@ -25,7 +25,7 @@ public sealed class WorkLamps
     static readonly ColorInt Colour = new ColorInt(235, 240, 255, 0) * 1.45f;
 
     readonly CompPhobosVehicleSystems comp;
-    readonly VehicleLight light = new VehicleLight();
+    readonly VehicleLight light = new VehicleLight("work lamps");
 
     public WorkLamps(CompPhobosVehicleSystems comp) => this.comp = comp;
 
@@ -45,7 +45,7 @@ public sealed class WorkLamps
             PutOut();
             return;
         }
-        light.Place(vehicle.Map, vehicle.Position, Radius, Colour);
+        light.Place(vehicle, vehicle.Map, vehicle.Position, Radius, Colour);
     }
 
     /// <summary>Takes the light off the map it was on: the lamps went off, the vehicle moved, or it left the map.</summary>

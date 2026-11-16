@@ -12,6 +12,20 @@ says the owner tested it.
 - The README is cut to today's gotchas, what each part does linking the player guide's Patches chapter, the settings and links for modders. How to play, with the cost, bomb, turret hull and blast tables, moved to the guide; research, the README's modder notes and its dated checks moved to the vehicle and missile patches design records; version notes live in this changelog. No change in play.
 - A code comment and the README name the design records they now live in, after the merges of 17 November 2026. No change in play.
 
+## [0.21.1] - 2026-11-17 - Draft
+
+Asks to load after the Hind, the Mongoose and Visit Settlements
+
+### Fixed
+
+- The mod now asks to load after the Hind, the Mongoose and Visit Settlements, as it already did for the other mods its parts work
+  with, so a mod sorter keeps its parts' assemblies after theirs. Found by a new check after D'thorga Framework's air-defence tie-in
+  was rejected for loading too early. No change in play if your list was already in that order.
+
+### Save compatibility
+
+- Safe to add to a running game.
+
 ## [0.21.0] - 2026-11-17 - Draft
 
 The Harrier's dodge follows its controls and warning receiver, and it can fire chaff and flares

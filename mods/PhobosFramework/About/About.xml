@@ -4,7 +4,7 @@
   <name>D'thorga Framework</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.120.0</modVersion>
+  <modVersion>0.120.1</modVersion>
   <description>The shared library the D'thorga mods build on. On its own it changes almost nothing; other mods ask it for what a colonist is breathing and for the small helpers they all share.
 
 What it does:
@@ -32,5 +32,11 @@ Community-created content by House D'thorga (also spelt dthorga). Portions of th
     <li>CETeam.CombatExtended</li>
     <li>Dubwise.DubsBadHygiene</li>
     <li>SmashPhil.VehicleFramework</li>
+    <!-- Framework 0.120.1: the mods a tie-in assembly of ours names types from. The game checks an assembly's types as it loads, so the
+         other mod's assembly must already be in: loaded before The Dead Man's Switch - Expedition, the air-defence tie-in was rejected
+         (the owner's log, 17 Nov 2026). tests/test_tie_in_load_order.py keeps this list complete. -->
+    <li>OskarPotocki.VanillaFactionsExpanded.Core</li>
+    <li>dubwise.rimefeller</li>
+    <li>Aoba.DeadManSwitch.Expedition</li>
   </loadAfter>
 </ModMetaData>

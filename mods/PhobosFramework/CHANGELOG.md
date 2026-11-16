@@ -11,6 +11,38 @@ tested in game unless an entry says the owner tested it.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 
+## [0.120.1] - 2026-11-17 - Draft
+
+The air-defence tie-in loads; lights can be listed, and a vehicle light left behind is put out
+
+### Fixed
+
+- **The air-defence tie-in of 0.119.0 never loaded in the owner's game** (the owner's log, 17 Nov 2026). The game checks an assembly's
+  types as it loads, and D'thorga Framework loaded before The Dead Man's Switch - Expedition, whose types the tie-in names: the game
+  rejected it with "Could not load type" and the aircraft tracks, warning receivers, launch warning and closed skies did nothing.
+  Nothing told a mod sorter to load the Framework after that mod. The Framework now asks to load after The Dead Man's Switch -
+  Expedition, Rimefeller and Vanilla Expanded Framework, the mods its tie-in assemblies name types from. **Sort your mod list again**
+  (RimSort does it) so the Framework comes after The Dead Man's Switch - Expedition.
+
+### Added
+
+- **A vehicle light left behind is put out.** Our headlights and work lamps are lights with no thing behind them, which the game never
+  saves and cannot name. Every one now stands in a list with its vehicle; every few seconds any whose vehicle has gone from its map is
+  put out, with a log line naming the vehicle. No way of leaving a light behind is known: this is a safety net, and its log line would
+  say how it happened (the owner's report of 17 Nov 2026: a white glare over the market that did not go out).
+- Two dev actions: **Lights: what lights this place?** (click a cell: the log lists every glowing thing within 20 cells with its mod,
+  radius and colour, our vehicle lights with their vehicles, and how many lights with no thing behind them are another mod's) and
+  **Lights: put out vehicle lights left behind**.
+
+### Compatibility and limits
+
+- A test now holds every tie-in assembly's mods to the load-after list. Whether the glare the owner saw was ours is not known: nothing
+  saved near it gives light, and no vehicle stood near. No settings changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.120.0] - 2026-11-17 - Draft
 
 The grid powers a parked vehicle, and an unpowered autonomous turret stops

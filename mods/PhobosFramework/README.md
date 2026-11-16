@@ -7,13 +7,15 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.120.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.120.1, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
 ## Read this first (gotchas)
 
-- **Load it before any D'thorga mod that needs it**; the About file asks for that, so RimSort does it for you. It needs no other mod.
+- **Load it before any D'thorga mod that needs it**, and **after The Dead Man's Switch - Expedition, Rimefeller and Vanilla Expanded
+  Framework** where you have them; the About file asks for both, so RimSort does it for you. Loaded before one of them, its tie-in with
+  that mod is rejected with a red error. It needs no other mod.
   **RimWorld 1.7 only.** Its vehicle systems switch on only with **Vehicle Framework**; garages and pipe lines need **Vanilla Expanded
   Framework** as well.
 - **The vehicle systems change every Vehicle Framework vehicle you have, from any mod.** To narrow that, set **Which vehicles** in

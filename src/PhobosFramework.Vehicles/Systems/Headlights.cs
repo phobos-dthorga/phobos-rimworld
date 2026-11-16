@@ -26,7 +26,7 @@ public sealed class Headlights
     public const int LookInterval = 20;
 
     readonly CompPhobosVehicleSystems comp;
-    readonly VehicleLight light = new VehicleLight();
+    readonly VehicleLight light = new VehicleLight("headlights");
     readonly ElectricalLoadSpec? load;
     int lastLook = -LookInterval;
     double litHeading = double.NaN;
@@ -110,7 +110,7 @@ public sealed class Headlights
         var cell = new IntVec3(x, 0, z);
         if (light.Lit && cell == light.Cell && heading == litHeading) return;
         litHeading = heading;
-        light.Place(vehicle.Map, cell, beam.radius, beam.colour * beam.brightness);
+        light.Place(vehicle, vehicle.Map, cell, beam.radius, beam.colour * beam.brightness);
     }
 
     /// <summary>Takes the beam off the map: the switch, the engine or the hour put it out, or the vehicle left the map.</summary>
