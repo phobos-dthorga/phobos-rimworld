@@ -95,6 +95,8 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
     public HashSet<string> uncountedKeys = new();
     /// <summary>How many of the design's weapons this service tied to a mount at start-up (Framework 0.115.0, T1).</summary>
     public int weaponsTied;
+    /// <summary>The design's tracks, by key: a thrown one stops the vehicle (Framework 0.115.0, M2).</summary>
+    public List<string> trackKeys = new();
     /// <summary>How many parts the design had before the service appended any; the uninstall sweep cuts saved vehicles back to it.</summary>
     public int originalPartCount;
     /// <summary>The loadout's drivetrain (with its overrides) and flight profile, if any.</summary>
@@ -132,6 +134,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     bool stagesSettled;
     /// <summary>Whether the detail tier has been read once, so the first reading after a load is not logged as a change.</summary>
     bool tierRead;
+    // Whether damage had stopped this vehicle at the last look, so the player hears of it once (Framework 0.115.0, M1). Derived, never saved:
+    // null until the first look after a load, which sets it without a message.
+    bool? wasStopped;
     bool registered;
     Powertrain? powertrain;
     bool powertrainBuilt;
@@ -578,6 +583,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         {
             case DetailTier.Full:
                 using (PhobosTiming.Measure("vehicle rare tick / full")) UpdateNow();
+                NoticeStopped();
                 Lamps.Update();
                 Beams.Update();
                 CookOff.RareTick(this);
@@ -2021,11 +2027,28 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 
     // ---- Presentation (reads only) ----
 
+    /// <summary>Tells the player once when damage stops one of their vehicles (Vehicle Framework undrafts it without a word), and why.</summary>
+    void NoticeStopped()
+    {
+        if (!Vehicle.Spawned || Vehicle.Faction != Faction.OfPlayer) { wasStopped = null; return; }
+        bool stopped = Mobility.Stopped(Vehicle);
+        bool first = wasStopped == null;
+        bool news = stopped && wasStopped == false;
+        wasStopped = stopped;
+        if (first || !news) return;
+        string? why = Mobility.Line(Vehicle, Props);
+        Messages.Message("PhobosVehicleSystems_MsgCannotMove".Translate(Vehicle.LabelShort.Named("VEHICLE"), (why ?? "").Named("WHY")),
+            Vehicle, MessageTypeDefOf.NegativeEvent);
+    }
+
     public override string? CompInspectStringExtra()
     {
         if (!Usable) return null;
         EnsureStates();
-        return InspectText.For(this);
+        string? text = InspectText.For(this);
+        string? stopped = Vehicle.Spawned ? Mobility.Line(Vehicle, Props) : null;
+        if (stopped == null) return text;
+        return text == null ? stopped : stopped + "\n" + text;
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()

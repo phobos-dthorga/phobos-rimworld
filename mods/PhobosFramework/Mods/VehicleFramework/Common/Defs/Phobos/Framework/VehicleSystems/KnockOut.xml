@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Knocked out, not destroyed (Framework 0.115.0; owner, 16 and 17 Nov 2026; docs/development/vehicle-knocked-out-systems.md): what a
+    vehicle loses before it is a wreck. The first loaded instance wins; another mod may patch it in XML. Figures are authored unless a
+    comment names the owner.
+  -->
+  <Phobos.VehicleSystems.PhobosKnockOutRulesDef>
+    <defName>PhobosKnockOutRules</defName>
+
+    <!-- Step 1 (T1, T9, T10): a weapon stops while its mount is at or under a tenth of its health (the owner's figure) and works again
+         once repaired. Vehicle Framework's own part requirement, so it acts on every faction's vehicles; an author's own always stands. -->
+    <weaponMounts>true</weaponMounts>
+    <stopsAtOrBelow>0.1</stopsAtOrBelow>
+    <!-- A vehicle's own parts to use as the mount, the first found wins: RimThunder's and others' turret part, and the pylons D'thorga
+         Patches gives the Harrier. Matched by key, as a hint: nothing else marks a part as a weapon's mount. -->
+    <authorMountKeys>
+      <li>MainTurret</li>
+      <li>PhobosPylons</li>
+    </authorMountKeys>
+    <!-- Authored: about the health of the vehicles' other working parts of that size (a gearbox 40 to 45, an engine 75). -->
+    <turretRingHealth>60</turretRingHealth>
+    <pylonHealth>40</pylonHealth>
+    <turretRingLabel>turret ring</turretRingLabel>
+    <pylonLabel>weapon pylons</pylonLabel>
+
+    <!-- Step 2 (M1, M2): a destroyed track stops a tracked vehicle; Vehicle Framework averages the parts that feed speed, so a tank with one
+         track gone drove on at about three quarters. Wheels stay averaged: a truck limps on three. A track is a part feeding speed whose key
+         ends as below, the hint the tracked loadout already uses. -->
+    <thrownTracks>true</thrownTracks>
+    <trackKeySuffixes>
+      <li>Track</li>
+    </trackKeySuffixes>
+    <trackThrownAtOrBelow>0</trackThrownAtOrBelow>
+  </Phobos.VehicleSystems.PhobosKnockOutRulesDef>
+</Defs>

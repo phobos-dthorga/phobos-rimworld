@@ -90,6 +90,12 @@
 
   <!-- Inspect text -->
   <PhobosVehicleSystems_InspectStage>{QUANTITY}: {STAGE}</PhobosVehicleSystems_InspectStage>
+  <!-- Knocked out, not destroyed (Framework 0.115.0, M1 and M2). -->
+  <PhobosVehicleSystems_InspectCannotMove>Cannot move.</PhobosVehicleSystems_InspectCannotMove>
+  <PhobosVehicleSystems_InspectCannotMoveDestroyed>Cannot move: {PART} destroyed.</PhobosVehicleSystems_InspectCannotMoveDestroyed>
+  <PhobosVehicleSystems_InspectCannotMoveDamaged>Cannot move: {PART} too badly damaged.</PhobosVehicleSystems_InspectCannotMoveDamaged>
+  <PhobosVehicleSystems_MsgCannotMove>{VEHICLE} has stopped. {WHY}</PhobosVehicleSystems_MsgCannotMove>
+  <PhobosVehicleSystems_StatTrackThrown>Thrown track ({PART}): cannot move</PhobosVehicleSystems_StatTrackThrown>
   <PhobosVehicleSystems_InspectFigure>{QUANTITY} {VALUE}</PhobosVehicleSystems_InspectFigure>
   <PhobosVehicleSystems_InspectFigureStage>{QUANTITY} {VALUE} ({STAGE})</PhobosVehicleSystems_InspectFigureStage>
   <PhobosVehicleSystems_InspectServiceDue>Waiting for a mechanic: {SERVICE}.</PhobosVehicleSystems_InspectServiceDue>

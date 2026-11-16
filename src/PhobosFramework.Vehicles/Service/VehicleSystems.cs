@@ -153,6 +153,8 @@ public static class VehicleSystems
         }
         // Weapons stop when their mount is shot to pieces (Framework 0.115.0, T1): before the reactors, so an appended mount is a part like any other.
         props.weaponsTied = WeaponMounts.Apply(def, props);
+        // A thrown track stops a tracked vehicle (M2).
+        Mobility.Apply(def, props);
         if (props.addedKeys.Contains(WeaponMounts.PartKey)) added++;
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).
         foreach (KeyValuePair<string, List<string>> pair in props.roleKeys)

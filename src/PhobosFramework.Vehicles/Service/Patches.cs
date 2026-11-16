@@ -147,13 +147,21 @@ public class VehicleStatPart_PhobosSystems : VehicleStatPart
     public override float TransformValue(VehiclePawn vehicle, float value)
     {
         CompPhobosVehicleSystems? comp = vehicle?.GetComp<CompPhobosVehicleSystems>();
-        return comp == null || !comp.Usable ? value : value * comp.StatFactor(statDef);
+        if (comp == null || !comp.Usable) return value;
+        // A thrown track stops the vehicle outright (Framework 0.115.0, M2): every faction's, read only when the stat is recalculated.
+        if (statDef == VehicleStatDefOf.MoveSpeed && Mobility.ThrownTrack(vehicle!, comp.Props) != null) return 0f;
+        return value * comp.StatFactor(statDef);
     }
 
     public override string ExplanationPart(VehiclePawn vehicle)
     {
         CompPhobosVehicleSystems? comp = vehicle?.GetComp<CompPhobosVehicleSystems>();
-        if (comp == null || !comp.Usable || comp.StatFactor(statDef) == 1f) return "";
+        if (comp == null || !comp.Usable) return "";
+        if (statDef == VehicleStatDefOf.MoveSpeed && Mobility.ThrownTrack(vehicle!, comp.Props) is { } track)
+        {
+            return "PhobosVehicleSystems_StatTrackThrown".Translate((track.props.label ?? track.props.key).Named("PART")).Resolve();
+        }
+        if (comp.StatFactor(statDef) == 1f) return "";
         return string.Join("\n", comp.StatFactorReasons(statDef));
     }
 }

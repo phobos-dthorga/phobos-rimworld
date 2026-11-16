@@ -15,6 +15,10 @@ Knocked out, not destroyed: the owner's build of 17 Nov 2026 (docs/development/v
   pylons on an aircraft, at the gunner's seat. The weapon's button says why it is out. It works on every faction's vehicles, so you can
   silence a raider's gun without destroying the vehicle, and theirs can silence yours. An author's own rule always stands; a gun mounted
   on another stops with it; fixed smoke launchers are left alone. Weapons an upgrade adds are tied too.
+- **A destroyed track stops a tank** (step 2: M2). It used to drive on at about three quarters of its speed, because the parts that feed
+  speed are averaged. Wheels still average, so a truck limps on three. Every faction's tracked vehicles.
+- **A vehicle that cannot move says why** (step 2: M1): "Cannot move: left track destroyed." in its inspect pane and on its speed's
+  explanation, and a message when one of yours is stopped by damage (it used to be undrafted without a word).
 
 ## [0.114.5] - 2026-11-16 - Draft
 

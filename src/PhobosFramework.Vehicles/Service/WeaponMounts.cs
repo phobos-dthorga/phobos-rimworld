@@ -35,8 +35,8 @@ public static class WeaponMounts
     /// <summary>Ties this design's free weapons to a mount, appending the mount where the design has none. Returns how many weapons it tied.</summary>
     public static int Apply(VehicleDef def, CompProperties_PhobosVehicleSystems props)
     {
-        PhobosWeaponMountsDef rules = PhobosRulesDef.Current<PhobosWeaponMountsDef>();
-        if (!rules.enabled) return 0;
+        PhobosKnockOutRulesDef rules = PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
+        if (!rules.weaponMounts) return 0;
         List<VehicleTurret> free = Templates(def)
             .Where(t => WeaponMountRule.NeedsMount(t.component != null, !string.IsNullOrEmpty(t.parentKey), t.def?.turretType == TurretType.Static))
             .ToList();
@@ -79,7 +79,7 @@ public static class WeaponMounts
         }
     }
 
-    static string? MountFor(VehicleDef def, CompProperties_PhobosVehicleSystems props, PhobosWeaponMountsDef rules, List<VehicleTurret> free)
+    static string? MountFor(VehicleDef def, CompProperties_PhobosVehicleSystems props, PhobosKnockOutRulesDef rules, List<VehicleTurret> free)
     {
         List<string> keys = def.components.Select(p => p.key).ToList();
         int own = WeaponMountRule.AuthorMount(keys, rules.authorMountKeys);
