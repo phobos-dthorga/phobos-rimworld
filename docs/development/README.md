@@ -22,6 +22,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Patches for other authors' faults](temporary-patches.md) (10 Nov 2026): each such patch, temporary or permanent, and how to retire it. Living.
 - [Tie-ins with other mods](tie-in-register.md) (13 Nov 2026): every tie-in folder and C# tie-in, by our mod. Living.
 - [Dependency audit](dependency-audit-2026-11-16.md) (16 Nov 2026): what the mods we build on changed during the owner's break. Decisions answered.
+- [Fault-read of the untested vehicle work](fault-read-2026-11-17.md) (17 Nov 2026): 36 faults in untested vehicle code, each with a fix. Not fixed yet.
 - [Mod consolidation](mod-consolidation.md) (7 Nov 2026): eleven mods into six, how identities and settings were kept. Done.
 
 ## D'thorga Framework (core)
