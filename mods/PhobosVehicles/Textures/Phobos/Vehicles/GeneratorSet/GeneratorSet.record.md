@@ -53,10 +53,10 @@ transform. The originals are unchanged. SHA-256 of every texture now shipped:
 | GeneratorSet_SetUp_east.png | `82d496a96e70ecbec007fa56804cca36ed75a5757636b3edc7323e2cebd23046` |
 | GeneratorSet_SetUp_north.png | `9764459b18159c0dbdf4134aff62715803ded6340661ac5989d1d7fb92fe01d2` |
 | GeneratorSet_SetUp_south.png | `c93e8a6e340d841312e349a1723425ca9c7985111df8c0ded8ae234bb50416d5` |
-| GeneratorSet_east.png | `f210eb6f3464ae6fc0b830ecca7a83f192ae87746e4a17738250220be82da8ef` |
-| GeneratorSet_eastm.png | `604b0c88a9fc0c385c2b6d4616c7895cf8b92598a321894255af1e3d4c610733` |
+| GeneratorSet_east.png | `6a4ed6492dc1384d365a5ad1b2bd5d6d70dbf26b163eb4596918c226417dab26` |
+| GeneratorSet_eastm.png | `aba9f076486581f438aaf39f73ed140bd51894100b7c5debd80fb527b90cad6a` |
 | GeneratorSet_icon.png | `6eed5311b6324e54f80a8f7e7f500b4fde6fa2b6a9a0774162a0d979f8ef8ddf` |
-| GeneratorSet_north.png | `2aca1681edd4c5dc164763a1d736078ed0b79249473b2ee06b5a10951f4c27ae` |
-| GeneratorSet_northm.png | `fe34faf050131fd823e64974b1c9604af2ab661820ac123c8a3d10d35aea19bf` |
-| GeneratorSet_south.png | `8f0b00d92f68dd34dd0017d63051e7075a9147277b94f5dca267b6e5f8fee778` |
-| GeneratorSet_southm.png | `8bd82c7cd7a5db0abbda9a6305dde3d201b07a336afdb1e4cd286d65cf778444` |
+| GeneratorSet_north.png | `1a6f7452cefe4e4e95bb41c5d08f969b045691030b02ae719f701d66fe07367b` |
+| GeneratorSet_northm.png | `79ed79034539fc8b71d4c29fae1f566113f7c99cd11b5cc989881f6ec13abc03` |
+| GeneratorSet_south.png | `063beb7f485307944431460cc1c9abf744e8f39ff4fa549c9de5d8c7954aa7d4` |
+| GeneratorSet_southm.png | `1ebd50ad30bc50c3d29f3e7db3dc4aa1eb98a88789b500e5537b752f01c427c2` |

@@ -65,14 +65,22 @@ def luminance(red, green, blue):
 
 REGION_STEP = 24  # Neighbours closer than this in every channel are one region: cel shading steps within a panel, not a new panel.
 SMALL_REGION = 24  # A region of fewer pixels is a blend at a seam: it is judged by its own mean colour, not by a vote.
+REPAIR_MAX = 400   # master pixels: the largest island a parts map may repaint (authored; a fleck in the shipped texture is 12 pixels or fewer)
+REPAIR_SURE = 0.8  # the share of a part that must have one paint before an island in it is repainted (as paint_check.PART_SURE)
+DARK_SPECK_MAX = 40  # master pixels: a dark speck no larger, wholly inside a sure part, is weathering, not outline (authored)
 
 
-def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION):
+def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, parts=None):
     """The paint of every opaque pixel, decided a region at a time (owner, 16 Nov 2026: the Pintle bowser's per-pixel mask was speckled).
     Our art is cel shaded inside thick dark outlines, so a painted panel is a run of near-alike pixels the outline closes off. Regions
     grow between neighbours closer than REGION_STEP in every channel, never through outline; each region takes the paint most of its
     pixels have, so texture noise and a stray highlight can no longer flip single pixels. A small region (a blend where two colours meet)
-    takes the paint of its own mean colour. Outline and clear pixels are never paint. Returns a list of 'main', 'accent' or None, row by row."""
+    takes the paint of its own mean colour. Outline and clear pixels are never paint. Returns a list of 'main', 'accent' or None, row by row.
+
+    With parts (Segment Anything's map of the master, flattened), a repair follows (owner, 16 Nov 2026: "Yes, repair and show me"): an
+    island of up to REPAIR_MAX pixels, ringed on every side by another paint and touching no outline, inside a part at least REPAIR_SURE of
+    that paint, takes the part's paint. That is the fleck checker's own test (paint_check.py) at full size, so weathering left unpainted on
+    a painted hull is painted, and a bolt head drawn in its own outline is left as drawn."""
     width, height = image.size
     pixels = list(image.get_flattened_data() if hasattr(image, 'get_flattened_data') else image.getdata())
     count = width * height
@@ -134,7 +142,81 @@ def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION):
                     touches[region_kind[other]] = touches.get(region_kind[other], 0) + 1
         if touches:
             final[region] = max(touches, key=lambda key: (touches[key], key is None))
-    return [final[label[index]] if label[index] >= 0 else None for index in range(count)]
+    if parts is not None:
+        tallies = {}
+        for index in range(count):
+            if label[index] >= 0 and parts[index]:
+                tally = tallies.setdefault(parts[index], {})
+                kind = final[label[index]]
+                tally[kind] = tally.get(kind, 0) + 1
+        sure = {}
+        for part, tally in tallies.items():
+            kind, most = max(tally.items(), key=lambda item: item[1])
+            if most / sum(tally.values()) >= REPAIR_SURE:
+                sure[part] = kind
+        for region, members in enumerate(members_of):
+            if region_size[region] > REPAIR_MAX:
+                continue
+            votes = {}
+            for member in members:
+                if parts[member]:
+                    votes[parts[member]] = votes.get(parts[member], 0) + 1
+            if not votes:
+                continue
+            part = max(votes, key=votes.get)
+            if part not in sure or final[region] == sure[part]:
+                continue
+            ringed = True
+            for member in members:
+                for there in neighbours(member):
+                    other = label[there]
+                    if other == region:
+                        continue
+                    if other < 0 or parts[there] != part or final[other] != sure[part]:
+                        ringed = False
+                        break
+                if not ringed:
+                    break
+            if ringed:
+                final[region] = sure[part]
+    result = [final[label[index]] if label[index] >= 0 else None for index in range(count)]
+    if parts is not None:
+        # Dark specks: weathering drawn darker than the outline line, so never painted, and blended into half-painted pixels when the
+        # picture is shrunk (the fleck checker's finding on the Crawler, 16 Nov 2026). A speck of DARK_SPECK_MAX pixels or fewer, every
+        # pixel in one sure part and ringed only by that part's paint, takes it. The outline itself is long and joined up, so it never is.
+        seen = [False] * count
+        for start in range(count):
+            if seen[start] or candidate[start] or pixels[start][3] < 128:
+                continue
+            seen[start] = True
+            speck = [start]
+            head = 0
+            while head < len(speck) and len(speck) <= DARK_SPECK_MAX:
+                here = speck[head]
+                head += 1
+                for there in neighbours(here):
+                    if not seen[there] and not candidate[there] and pixels[there][3] >= 128:
+                        seen[there] = True
+                        speck.append(there)
+            if len(speck) > DARK_SPECK_MAX:
+                while head < len(speck):
+                    here = speck[head]
+                    head += 1
+                    for there in neighbours(here):
+                        if not seen[there] and not candidate[there] and pixels[there][3] >= 128:
+                            seen[there] = True
+                            speck.append(there)
+                continue
+            part = parts[speck[0]]
+            if part not in sure or sure[part] is None or any(parts[member] != part for member in speck):
+                continue
+            members = set(speck)
+            ringed = all(there in members or (candidate[there] and parts[there] == part and result[there] == sure[part])
+                         for member in speck for there in neighbours(member))
+            if ringed:
+                for member in speck:
+                    result[member] = sure[part]
+    return result
 
 
 SEGMENTS = Path(__file__).resolve().parents[2] / '.local' / 'art' / 'segments'
@@ -160,7 +242,7 @@ def part_kinds(image, labels, main_hue, accent_hue, min_saturation=MIN_SATURATIO
             else fallback[index] for index in range(width * height)]
 
 
-def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, per_pixel=False, labels=None):
+def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, per_pixel=False, labels=None, repair=False):
     """(grey-painted texture, mask, default colours). Each paint is scaled on its own, so its grey fills the shader's range and its
     default colour gives the master's tone back. Paint is decided by region (region_kinds) unless per_pixel asks for the old rule, kept
     for comparison only."""
@@ -173,6 +255,9 @@ def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, p
                 red, green, blue, alpha = source[x, y]
                 if alpha >= 128:
                     kinds[y * width + x] = classify(red, green, blue, main_hue, accent_hue, min_saturation)
+    elif labels is not None and repair:
+        flat = list(labels.get_flattened_data() if hasattr(labels, 'get_flattened_data') else labels.getdata())
+        kinds = region_kinds(image, main_hue, accent_hue, min_saturation, parts=flat)
     elif labels is not None:
         kinds = part_kinds(image, labels, main_hue, accent_hue, min_saturation)
     else:
@@ -289,8 +374,8 @@ def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_s
 
 def repaint_body(master, like, out, name, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=(), paint='regions'):
     """A body's texture and paint mask made again from its master on its own saved transform (scale, offset, canvas), so it registers
-    with every overlay already fitted to it. paint is 'regions' (region_kinds), 'parts' (Segment Anything's map, which must have been
-    made first) or 'pixels' (the old per-pixel rule, for comparison). Writes the facings and masks only; the icon and transform stay."""
+    with every overlay already fitted to it. paint is 'regions' (region_kinds), 'repaired' (regions, then flecks repaired by Segment
+    Anything's map), 'parts' (that map alone; both need the map made first) or 'pixels' (the old per-pixel rule, for comparison). Writes the facings and masks only; the icon and transform stay."""
     out.mkdir(parents=True, exist_ok=True)
     transform = json.loads(Path(like).read_text(encoding='utf-8'))
     background = ai_background(master)
@@ -298,12 +383,12 @@ def repaint_body(master, like, out, name, main_hue, accent_hue, min_saturation=M
     if cut.size != tuple(transform['master_size']):
         raise ValueError(f'{master} is {cut.size}, but its transform was made from {transform["master_size"]}')
     labels = None
-    if paint == 'parts':
+    if paint in ('parts', 'repaired'):
         map_path = SEGMENTS / f'{file_sha256(master)}.png'
         if not map_path.is_file():
             raise FileNotFoundError(f'no parts map for {master}: run scripts/art/paint_segments.py on it first')
         labels = Image.open(map_path)
-    texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation, per_pixel=paint == 'pixels', labels=labels)
+    texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation, per_pixel=paint == 'pixels', labels=labels, repair=paint == 'repaired')
     scale, offset, canvas = transform['scale'], tuple(transform['offset']), tuple(transform['canvas'])
     written = write_facings(place(texture, scale, offset, canvas), out, name)
     written += write_facings(place_mask(mask, scale, offset, canvas), out, name, 'm')

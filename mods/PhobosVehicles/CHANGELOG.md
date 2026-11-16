@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.56.1] - 2026-11-16 - Draft
+
+Fewer stray flecks in our vehicles' paint
+
+### Fixed
+
+- **Fewer stray specks of unpainted metal on our vehicles' paint** (the owner's choice, 16 November 2026, after a new checker counted them): weathering drawn into the pictures had been left out of the paint, so it showed as pale or grey flecks once the vehicle was tinted, worst on the Fathom Crawler's dark hull. Specks wholly inside a painted panel now take its paint; bolt heads and other details drawn in their own outline stay as drawn. Counted on each vehicle's front picture: the Ullage tanker 18 to none, the Crawler 87 to 22, its sensor refit 272 to 24, its research refit 36 to 3, the generator set 29 to 15, the bowser 15 to 9, the drill rig 6 to 5, the flatbed 3 to 2, the survey truck 5 to 1; the tipper had none. Shapes and upgrade pictures are unchanged. Not yet tested in game.
+
+### Compatibility and limits
+
+- No settings were added or changed.
+- The few flecks left are mostly blends where two paints meet; the checker keeps counting them.
+
+### Save compatibility
+
+- Safe to add to a running game.
+
 ## [0.56.0] - 2026-11-16 - Draft
 
 Our vehicles get the new driver system, and the bowsers get their own picture

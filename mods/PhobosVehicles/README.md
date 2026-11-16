@@ -7,7 +7,7 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.56.0, built 16 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.56.1, built 16 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 

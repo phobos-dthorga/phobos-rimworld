@@ -166,7 +166,7 @@ def check(name, folder, master, base, colour=(255, 255, 255), accent=(255, 255, 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('--stage', choices=('regions', 'parts', 'pixels'), help='check the staged bodies of this paint instead of the shipped ones')
+    parser.add_argument('--stage', choices=('regions', 'repaired', 'parts', 'pixels'), help='check the staged bodies of this paint instead of the shipped ones')
     parser.add_argument('--only', action='append', default=[])
     parser.add_argument('--allow', type=int, default=0, help='flecks a body may have before the check fails')
     args = parser.parse_args(argv)

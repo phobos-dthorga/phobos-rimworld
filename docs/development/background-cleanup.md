@@ -84,8 +84,12 @@ exits 1 past `--allow`; the review page shows each version's count. **It is a fa
 drill rig 23 then 6, generator set 57 then 29, tipper 0 then 0, flatbed 25 then 3, bowser 86 then 15, Crawler 108 then 87, its research
 refit 425 then 36, its sensor refit 294 then 272. **The region masks are much cleaner but not clean.** The Crawler's dark blue-grey hull
 shows the weathering specks drawn into its art that the regions leave unpainted (chains of them grow past the 24-pixel small-region
-limit). **Next, not built:** repair regions with the parts map (inside a part that is plainly one paint, an island of another takes it), then
-stage, check and show the owner; the checker says whether it helped.
+limit). **Repaired and shipped the same day (Vehicles 0.56.1; owner: "Yes, repair and show me", then "Yes, all ten").** The `repaired` paint
+(`region_kinds` with the parts map) repaints two kinds of island inside a part that is at least 80 % one paint, each ringed on every side
+by that paint: a region of up to 400 master pixels, and a **dark speck** of up to 40, weathering drawn darker than the outline threshold
+and so never painted, which shrinking blended into half-painted pixels. The first kind alone barely helped; the dark specks were the
+cause. After: tanker 0, survey truck 1, drill rig 5, generator set 15, tipper 0, flatbed 2, bowser 9, Crawler 22, research refit 3,
+sensor refit 24, mostly blends at seams. **For a new body: run `paint_segments.py` on its master, then repaint with `repaired`.**
 
 ## Experiment for later: overlay fit (owner, 16 Nov 2026: "documenting the overlay fit as an experiment for later")
 

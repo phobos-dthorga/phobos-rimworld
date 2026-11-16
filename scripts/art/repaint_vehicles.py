@@ -86,13 +86,13 @@ def review():
     rows = []
     for name, folder, master, *_rest, colour, accent in BODIES:
         cells = []
-        for label, base in (('now', TEXTURES / folder), ('regions', STAGE / 'regions' / folder), ('parts', STAGE / 'parts' / folder)):
+        for label, base in (('now', TEXTURES / folder), ('repaired', STAGE / 'repaired' / folder), ('parts', STAGE / 'parts' / folder)):
             texture, mask = base / f'{name}_north.png', base / f'{name}_northm.png'
             if not texture.is_file():
                 cells.append(f'<figure><div class=missing>not staged</div><figcaption>{label}</figcaption></figure>')
                 continue
             flecks, problem = paint_check.check(name, folder, GEN / master, base, colour, accent)
-            label = f'{label}: ' + (problem if problem else f'{len(flecks)} fleck{"" if len(flecks) == 1 else "s"}')
+            caption = f'{label}: ' + (problem if problem else f'{len(flecks)} fleck{"" if len(flecks) == 1 else "s"}')
             picture = tinted(texture, mask, colour, accent)
             whole = REVIEW / f'{name}-{label}.png'
             picture.save(whole)
@@ -104,7 +104,7 @@ def review():
             mask_close = REVIEW / f'{name}-{label}-mask.png'
             Image.open(mask).convert('RGB').crop(box).resize(((box[2] - box[0]) * 3, (box[3] - box[1]) * 3), Image.NEAREST).save(mask_close)
             cells.append(f'<figure><img src="{whole.name}" class=whole><img src="{close.name}" class=close><img src="{mask_close.name}" class=close>'
-                         f'<figcaption>{label}</figcaption></figure>')
+                         f'<figcaption>{caption}</figcaption></figure>')
         rows.append(f'<h2>{html.escape(name)}</h2><div class=row>{"".join(cells)}</div>')
     page = ('<!doctype html><meta charset=utf-8><title>Paint masks</title><style>body{background:#1b1d21;color:#ddd;font-family:Segoe UI,sans-serif;'
             'margin:16px}.row{display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}figure{margin:0;text-align:center}'
@@ -145,7 +145,7 @@ def main(argv=None):
     commands = parser.add_subparsers(dest='command', required=True)
     for command in ('stage', 'apply'):
         sub = commands.add_parser(command)
-        sub.add_argument('--paint', choices=('regions', 'parts', 'pixels'), required=True)
+        sub.add_argument('--paint', choices=('regions', 'repaired', 'parts', 'pixels'), required=True)
         sub.add_argument('--only', action='append', default=[])
     commands.add_parser('review')
     commands.add_parser('masters')
