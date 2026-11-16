@@ -160,6 +160,12 @@ end (the creaks fell 35 dB over 7 s), and no join can hide that. For those, the 
 needed neither: its take 43 had no steady stretch at all, so take 42, the other clean one, ships instead (an agent swap, flagged
 for the owner's ears). Look at a loop's loudness over time (`ffmpeg -af ebur128`) before choosing its span.
 
+**Full steps can roar where the distilled model clicks** (16 Nov 2026, the hook latch's fresh set). Eight takes of a short metal latch
+at full steps (`sa3-sfx-base`, 50 steps, guidance 7) all came out as about a second of clipped, broadband noise, measuring −4 to −7 LUFS
+with true peaks of +3 to +6 dBTP; the same two prompts on the distilled model (`sa3-sfx`) gave eight clean transients at −22 to −26 LUFS,
+none clipped, like the first set's take 51. **For a short, sharp one-shot, start with the distilled model.** One run, one prompt family:
+an observation, not a rule about the model.
+
 ## Running beside the game
 
 `python scripts/art-run.py generate <requests> --cpu --stop-at HH:MM` (owner's request, 10 Nov 2026). RimWorld fills the

@@ -230,7 +230,7 @@ pawn's toxic resistance**. A meltdown (the room over 100 °C, unless its "disabl
 pulses about every 417 ticks and brings its radioactive fog weather. Nothing happens unroofed or in an open-roofed room. **So the
 record's question is answered: toxic resistance cuts it**, and our radiation control line can load with VFE Power by XML, with no
 code. Agent proposal, not built: draw the line at the reactor's ring, and count the ring as a radiation zone for our suits and
-dosimetry. Waits for the owner's pick.
+dosimetry. **Owner, 16 Nov 2026 (later): not now.** The finding stays here for when it is wanted.
 
 **The mods not on the list, checked 16 Nov 2026** with `workshop-research.py report` (latest 50 comments each):
 
@@ -240,8 +240,22 @@ dosimetry. Waits for the owner's pick.
 | Vanilla Furniture Expanded - Spacer Module | 2028381079 | 14 Oct 2026, 1.7 | 7 comments | 21 Oct 2026 | Active; the main report (wall televisions facing backwards) the team could not reproduce |
 | Vanilla Factions Expanded - Insectoids 2 | 3309003431 | 17 Oct 2026, 1.7 | 50 comments | none among the 50 read | **Not now**: several October reports of log spam and lag on 1.7 (a hive with no ideology; traders stocking insects), unanswered |
 
-Celsius and Pharmacist were not checked: their Workshop IDs were not to hand, and none is guessed. Atmosphere Overhaul and Vanilla
-Trading Expanded stay subscribed and switched off, as the owner keeps them.
+Atmosphere Overhaul and Vanilla Trading Expanded stay subscribed and switched off, as the owner keeps them.
+
+**Celsius and Pharmacist, checked 16 Nov 2026 (later)** at the owner's word ("search by name"). The research tool resolves names only
+among installed mods, so the IDs were found by a web search and confirmed by the tool's own details (title, versions, dates); then
+`workshop-research.py report` read the latest 50 comments of each:
+
+| Mod | Workshop ID | Updated | Versions | Last 90 days | Uploader's last reply | Reading |
+| --- | --- | --- | --- | --- | --- | --- |
+| Celsius (Garwel) | 2725863762 | 15 Oct 2026 | 1.7 to 1.3 | 20 comments | 7 Nov 2026 | **Active again** after most of a year away; 1.7 shipped with a rewritten, faster thermal loop. Replaces the game's room temperature with a per-cell model. Gotchas from the comments: **"almost certainly incompatible" with Atmosphere Overhaul** (the uploader, 7 Nov 2026); Odyssey's gravships and vacuum are not handled (the Celsius Patches author, 15 Oct 2026); Celsius Patches (a third party's) is updated for 1.7 and advises switching Freezing and Melting off if trouble starts; a freezer report put down to insulation |
+| Pharmacist: Represcribed (Ceres et al.) | 3527418098 | 10 Dec 2025 | 1.6 only declared | 5 comments | 28 Oct 2026 | The maintained continuation of Fluffy's Pharmacist, keeping its package ID (so **unsubscribe any other Pharmacist first**). The uploader says it works on 1.7 unchanged (18 Oct 2026) and will bump the version tag; no performance cost they could see. Older versions (Fluffy's 1365242717, the "1.5 Unofficial" 3256204706) are not for 1.7 |
+
+**Agent's reading, for our mods:** Celsius would matter to us through heat. Our gases, fire heat (D'thorga Medical's burns), cab
+heaters and the generator set push heat through the game's temperature system, and Celsius replaces that system per cell; nothing of
+ours has been checked against it, so it is a compatibility unknown, not a known conflict. Pharmacist decides which medicine a doctor
+uses per patient, which overlaps D'thorga Medical's dosing and triage only at the edges (our dosing gives drugs, it does not choose
+the medicine for a tend). Neither is on the owner's list; adding either is the owner's call.
 
 The questions as they were put:
 

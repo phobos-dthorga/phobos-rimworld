@@ -224,7 +224,7 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
 
 | ID | Sound | Hook | Note |
 | --- | --- | --- | --- |
-| S128 | A cargo hook latching onto a sling load | Code (the hook-up, CompPhobosSling) | **In, Framework 0.101.0 (12 Nov 2026)**: made on the processor at the owner's word, the **agent's provisional pick** for the owner to confirm (take 51 of four; 53 and 54 clipped; cut to its first clack). `PhobosVehicleSystems_HookLatch` |
+| S128 | A cargo hook latching onto a sling load | Code (the hook-up, CompPhobosSling) | **In, Framework 0.101.0 (12 Nov 2026)**: made on the processor at the owner's word, the **agent's provisional pick** (take 51 of four; 53 and 54 clipped; cut to its first clack). **Owner, 16 Nov 2026: make a fresh set** (`requests/sling-latch-2.json`, two new wordings): eight takes at full steps were all clipped roars and are rejected (r2a, r2b; sound-generation.md); eight on the distilled model are clean (r2c 81 to 84, r2d 91 to 94). Agent's leans from the spectrograms: **r2d-93 cut to its first hit** (a deeper thud under the clack), or **r2c-81** for a clack with a chain rattle. For the owner's pick from the listening page; take 51 ships until then. `PhobosVehicleSystems_HookLatch` |
 
 ## Planned, not built (sounds wait for the feature)
 
@@ -247,7 +247,7 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
 | S124 | Extractor fan, fume hood | Ventilation (deferred) | ventilation-and-hydrogen.md |
 | S125 | Hydrogen detector | Deferred by the owner | ventilation-and-hydrogen.md; same question as S99 |
 | S126 | Each new utility vehicle (excavator, bulldozer, crane, recovery truck, flatbed winch, ambulance without a siren, and more) | Sketched in the catalogue | utility-vehicles-design.md: a unique set each, as above, when built |
-| S128 | The bowsers' pump (a small trailer pump, its own, not the Ullage's power take-off), and legs going down on a trailer | The Pintle water and fuel bowsers, built without a pump sound (Vehicles 0.55.0) | vehicle-trailers.md, Q3 and Q4; their hoses, relief valve, leak and purge share the tanker's, being the same things |
+| S129 | The bowsers' pump (numbered S128 until 16 Nov 2026, which the hook latch already held; a small trailer pump, its own, not the Ullage's power take-off), and legs going down on a trailer | The Pintle water and fuel bowsers, built without a pump sound (Vehicles 0.55.0) | vehicle-trailers.md, Q3 and Q4; their hoses, relief valve, leak and purge share the tanker's, being the same things |
 | S127 | Radio phases 2 to 4 (HF static crashes, dish rotator, direction finding, moonbounce) | Back burner | radio-framework-design.md |
 
 ## Order of work (agent's proposal)

@@ -88,8 +88,9 @@ load-order rule for The Dead Man's Switch sounds. Neither is ours to change; Rim
   idle count through its public `ResetIdleTicks` while they are engaged, as VF's turrets do while aiming or firing. When all is
   quiet the five-hour rule stands. Not yet tested in game.
 - **3: remove it.** Done in Patches 0.19.2.
-- **1: still open.** The owner asked whether our tread wear is our own. It is: one wear figure per vehicle that cuts grip on soft
-  ground and is renewed by new tyres or a tyre service. VF's hand brakes instead scratch the health of each wheel part.
+- **1: leave both** (owner, 16 Nov 2026, later). The owner asked whether our tread wear is our own. It is: one wear figure per vehicle
+  that cuts grip on soft ground and is renewed by new tyres or a tyre service. VF's hand brakes instead scratch the health of each
+  wheel part. They measure different things; a player who finds both too much can switch VF's "Use hand brakes" off. Nothing built.
 
 ## Checks in game (not yet tested)
 

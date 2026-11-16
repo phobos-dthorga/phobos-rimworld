@@ -375,6 +375,7 @@ so it is no loop.
 
 1. **Cheaper CE armour upgrade:** a CE-only patch cutting `Harrier_PlasteelArmour` to about 40 plasteel and 2 components, the Hind's 150
    scaled by 0.625 / 2.25. The base CE armour stays as its author set it, and our README would say rifles go through the jet under CE.
+   **Owner, 16 Nov 2026: leave it alone.** The price is the author's balance choice; closed, nothing built.
 2. **Upgrades outside CE and the wreckage:** no change. The 25% is hard-coded in Vehicle Framework, and the turbine's lumpy 25% chance
    would need C# to smooth.
 3. **Never add killed leavings to a vehicle:** Vehicle Framework adds them inside its cost-list loop, so they would drop once per cost

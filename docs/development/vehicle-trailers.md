@@ -424,7 +424,7 @@ The owner's first batch: "the base with the water and fuel bowsers". Framework 0
   400 L an hour.
 - **The water bowser exists only with Dubs Bad Hygiene**: without it there is no water for a tank, and the kitchen it would also feed is
   not built.
-- **No pump sound** (working machinery is never shared; sound-catalogue.md S128), **a borrowed picture** (the Pintle's, scaled evenly),
+- **No pump sound** (working machinery is never shared; sound-catalogue.md S129), **a borrowed picture** (the Pintle's, scaled evenly),
   and **names**: Pintle P2 water bowser and Pintle P3 fuel bowser, the agent's choice.
 - **Other factions**: raiders bring none, and none stand at enemy bases yet (question 4 was never put).
 

@@ -103,6 +103,8 @@ promise current behaviour. For using the mods, start at the [documentation index
   tested in game.
 - [Kerb mass check (8 Nov 2026)](vehicle-kerb-mass-check.md): the 12 kg per Vehicle Framework Mass rule against every active
   vehicle; authored masses for Vanilla Vehicles Expanded, tunable empty mass; Framework 0.19.0, Vehicles 0.8.0. Not yet tested in game.
+- [Vehicle class by empty mass (16 Nov 2026)](vehicle-class-by-empty-mass.md): light, medium and heavy chosen by empty mass instead
+  of Vehicle Framework's Mass; five Vanilla Vehicles Expanded vehicles would move, real vehicles none. Record only, two questions open.
 - [Vehicle follow-ups: design (8 Nov 2026)](vehicle-crew-and-ground-design.md): booster packs with starts, the world map's ground
   from each biome's Defs, cab moods by comfort range, and the RimHUD value; D'thorga Framework 0.18.0. Not yet tested in game.
 - [The vehicle tabs: design (8 Nov 2026)](vehicle-tabs-design.md): the Dashboard and Systems inspector tabs, how they hook into

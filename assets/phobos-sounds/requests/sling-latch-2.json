@@ -1,0 +1,50 @@
+[
+ {
+  "name": "s128-hook-latch-r2a",
+  "engine": "sa3-sfx-base",
+  "seconds": 4,
+  "seeds": [
+   61,
+   62,
+   63,
+   64
+  ],
+  "prompt": "A heavy forged steel cargo hook beneath a hovering helicopter: its spring-loaded keeper snaps shut over a steel lifting ring with one firm, deep metallic clunk, then a brief settling rattle of chain links as the slings tighten. No engine, no rotor, no voices. Close microphone, outdoors, dry air. Length: 2 seconds"
+ },
+ {
+  "name": "s128-hook-latch-r2c",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   81,
+   82,
+   83,
+   84
+  ],
+  "prompt": "A heavy forged steel cargo hook beneath a hovering helicopter: its spring-loaded keeper snaps shut over a steel lifting ring with one firm, deep metallic clunk, then a brief settling rattle of chain links as the slings tighten. No engine, no rotor, no voices. Close microphone, outdoors, dry air. Length: 2 seconds"
+ },
+ {
+  "name": "s128-hook-latch-r2d",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   91,
+   92,
+   93,
+   94
+  ],
+  "prompt": "Industrial lifting gear: a large steel safety latch closing on a shackle, a single heavy metal-on-metal clack with a low, solid thud behind it, followed by a short jingle of chain. Nothing else in the background. Close, outdoors, dry. Length: 2 seconds"
+ },
+ {
+  "name": "s128-hook-latch-r2b",
+  "engine": "sa3-sfx-base",
+  "seconds": 4,
+  "seeds": [
+   71,
+   72,
+   73,
+   74
+  ],
+  "prompt": "Industrial lifting gear: a large steel safety latch closing on a shackle, a single heavy metal-on-metal clack with a low, solid thud behind it, followed by a short jingle of chain. Nothing else in the background. Close, outdoors, dry. Length: 2 seconds"
+ }
+]
