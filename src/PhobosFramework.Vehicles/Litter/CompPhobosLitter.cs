@@ -121,7 +121,10 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder
             return;
         }
         held.DoTick();
-        if (Vehicle.IsHashIntervalTick(TendCheckTicks)) TendAboard();
+        if (!Vehicle.IsHashIntervalTick(TendCheckTicks)) return;
+        TendAboard();
+        // A doctor stays with the patients while there is care to give.
+        if (Vehicle.AllPawnsAboard.Any(CanTend)) CrewOnStation.Engaged(Vehicle);
     }
 
     /// <summary>Each doctor aboard tends one patient a tend interval, the one in most need first, with the best medicine the cargo holds that

@@ -162,6 +162,7 @@ public class CompPhobosListening : VehicleComp
     {
         base.CompTickRare();
         Listen();
+        if (heardAt.Count > 0) CrewOnStation.Engaged(Vehicle);
     }
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)

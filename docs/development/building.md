@@ -32,7 +32,6 @@ from the owner's saves.
 | `PhobosFramework.Vehicles.Hygiene` | `PhobosFramework/Mods/VehiclesHygiene/` (with Vehicle Framework and Dubs Bad Hygiene both active) | the vehicle systems, the framework's hygiene tie-in, `Vehicles.dll`, `BadHygiene.dll`: vehicles' water from plumbing | no | none | no |
 | `PhobosPatches.Harrier` | `PhobosPatches/Mods/HarrierVtol/` | the framework and its vehicle systems, Vehicle Framework's `Vehicles.dll`, `SmashTools.dll`, `UpdateLogTool.dll` | yes | none | no |
 | `PhobosPatches.Outposts` | `PhobosPatches/Mods/Outposts/` (with Vanilla Expanded Framework and Vehicle Framework both active) | the framework, VEF's `Outposts.dll`, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll` | yes | none | no |
-| `PhobosPatches.PrisonLabor` | `PhobosPatches/Mods/PrisonLabor/` (temporary, while Prison Labor needs the guard) | the framework; finds Prison Labor by name | no | none | none |
 | `PhobosPatches.VehicleFramework` | `PhobosPatches/Mods/VehicleFramework/` (to be removed when the framework handles fires itself) | the framework, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |
 | `PhobosPatches.CombatExtended` | `PhobosPatches/Mods/CombatExtended/` (temporary, while an ammo set can hold empty entries) | the framework; finds Combat Extended by name | no | none | none |
 | `PhobosPatches.Irbm` | `PhobosPatches/Mods/IRBM/` | the framework, InterRim Ballistic Missile's `IRBM.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |

@@ -152,8 +152,7 @@ public class CompPhobosSonar : VehicleComp
         if (!under || !Ready) return;
         float range = Range;
         if (range <= 0f) return;
-        bool hostileWithin = Vehicle.Map.attackTargetsCache.GetPotentialTargetsFor(Vehicle).Any(t => t.Thing.Position.DistanceTo(Vehicle.Position) < range);
-        if (SonarRule.CrewPingsNow(under, Ready, hostileWithin, Rand.Value, Props.crewPingChance)) Ping();
+        if (SonarRule.CrewPingsNow(under, Ready, HostileWithin(range), Rand.Value, Props.crewPingChance)) Ping();
     }
 
     public override void CompTickRare()
@@ -162,7 +161,12 @@ public class CompPhobosSonar : VehicleComp
         if (!Vehicle.Spawned) return;
         GiveAway();
         CrewChoice();
+        if (Fitted && InWater && HostileWithin(Range)) CrewOnStation.Engaged(Vehicle);
     }
+
+    /// <summary>Whether anything hostile to the vehicle stands within this many cells of it.</summary>
+    bool HostileWithin(float range) =>
+        range > 0f && Vehicle.Map.attackTargetsCache.GetPotentialTargetsFor(Vehicle).Any(t => t.Thing.Position.DistanceTo(Vehicle.Position) < range);
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {

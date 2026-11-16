@@ -6,6 +6,22 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.19.2] - 2026-11-16 - Draft
+
+The Prison Labor guard comes out: Prison Labor fixed the crash itself
+
+### Fixed
+
+- **Removed the temporary Prison Labor guard** (from 0.16.5). Prison Labor 1.7.1 (13 November 2026) no longer calls back into the method it patches when a warden considers feeding a motivated prisoner, which is what closed the game, so the guard had nothing left to do. Keep Prison Labor up to date: an older Prison Labor build without the guard can close the game again.
+
+### Compatibility and limits
+
+- No settings were added or changed.
+
+### Save compatibility
+
+- Safe to install on a running game. The guard saved nothing.
+
 ## [0.19.1] - 2026-11-13 - Draft
 
 The missile mod's close-in weapon systems see Combat Extended's shells

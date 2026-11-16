@@ -438,7 +438,12 @@ public class CompPhobosSubmersible : VehicleComp
     {
         base.CompTickRare();
         Advance();
-        if (Hidden && Vehicle.Spawned) Watch();
+        if (Hidden && Vehicle.Spawned)
+        {
+            Watch();
+            // Nobody can step out of a hull that is under (SubmersibleNoLandingBelow), so Vehicle Framework's idle rule would only refuse.
+            CrewOnStation.Engaged(Vehicle);
+        }
         SyncSounds();
     }
 

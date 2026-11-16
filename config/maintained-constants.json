@@ -41,7 +41,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.111.1",
+      "value": "0.112.0",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -137,7 +137,7 @@
     "PhobosPatches.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.19.1",
+      "value": "0.19.2",
       "description": "D'thorga Patches's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -182,14 +182,6 @@
         },
         {
           "path": "src/PhobosPatches.AircraftRearm/AircraftRearmPatchesMod.cs",
-          "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
-        },
-        {
-          "path": "src/PhobosPatches.PrisonLabor/PhobosPatches.PrisonLabor.csproj",
-          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
-        },
-        {
-          "path": "src/PhobosPatches.PrisonLabor/PrisonLaborPatchesMod.cs",
           "pattern": "\\bModVersion\\s*=\\s*\"(?P<value>[0-9.]+)\""
         },
         {

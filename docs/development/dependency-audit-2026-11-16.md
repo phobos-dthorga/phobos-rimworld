@@ -82,6 +82,15 @@ load-order rule for The Dead Man's Switch sounds. Neither is ours to change; Rim
    rule alone?
 3. **Prison Labor guard.** Remove it at the next Patches release, or keep it standing down for a while?
 
+**Answers (owner, 16 Nov 2026):**
+
+- **2: use Vehicle Framework's own means where they exist.** Built in Framework 0.112.0 (`CrewOnStation`): our stations reset VF's
+  idle count through its public `ResetIdleTicks` while they are engaged, as VF's turrets do while aiming or firing. When all is
+  quiet the five-hour rule stands. Not yet tested in game.
+- **3: remove it.** Done in Patches 0.19.2.
+- **1: still open.** The owner asked whether our tread wear is our own. It is: one wear figure per vehicle that cuts grip on soft
+  ground and is renewed by new tyres or a tyre service. VF's hand brakes instead scratch the health of each wheel part.
+
 ## Checks in game (not yet tested)
 
 1. **The reach ring** on the world map for a vehicle caravan, after installing Framework 0.111.1: about the size it was before.

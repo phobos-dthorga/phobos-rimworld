@@ -30,7 +30,6 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | **Visit Settlements** (Nina.Goblin) | A visited settlement's map stays open while any colonist of yours there is conscious, on foot or in a vehicle. Its food drops no longer fail every tick | Pawns already lost this way stay lost: load an earlier save |
 | **Vanilla Expanded Framework** outposts, with **Vehicle Framework** | A caravan with vehicles can't found an outpost through "create outpost", which could lose them | Leave the vehicles first and come on foot. The setting **D'thorga Patches: outposts** turns this off |
 | **Vehicle Framework** | Fires a vehicle could never put out are put out; a vehicle leaving a map takes no fire with it | Nothing |
-| **Prison Labor** | A temporary guard stops a crash when a warden considers feeding a motivated prisoner | Nothing; it switches itself off once Prison Labor is fixed |
 | **Combat Extended** ammo sets | A temporary guard drops ammo set entries that would stop CE's whole ammo setup (The Dead Man's Switch - Synthriada adds such entries) | Nothing |
 
 ![The Mk. 82 and Mk. 84 bomb cases](images/patches-items.png)
@@ -51,8 +50,7 @@ refusals.
 
 ## What has been tested in game
 
-- **Tested by the owner:** Vehicle Framework's stuck fires went out, and the Prison Labor guard let a colony run past its crash (both
-  10 November 2026); one missile strike on an earlier version.
+- **Tested by the owner:** Vehicle Framework's stuck fires went out (10 November 2026); one missile strike on an earlier version.
 - **Not yet tested in game:** everything else.
 
 Every table and setting is in [D'thorga Patches' README](../../mods/PhobosPatches/README.md).

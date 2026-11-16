@@ -4,7 +4,7 @@ Every Phobos patch that exists because of a fault in someone else's mod: whose f
 
 ## Read this first
 
-- **Fifteen entries are marked temporary (one a diagnostic), five permanent.** Every marking is the agent's, for the owner to overrule. Only the first two were called temporary by the owner.
+- **Fourteen entries are marked temporary (one a diagnostic), five permanent.** Every marking is the agent's, for the owner to overrule. Only the Prison Labor guard and the fires patch (row 2) were called temporary by the owner. **Row 1, the Prison Labor guard, was removed in Patches 0.19.2 (16 Nov 2026)** at the owner's word, after Prison Labor 1.7.1 fixed the fault; rows keep their numbers so other records still point right.
 - **"Temporary" means it should come out when the author fixes the fault.** "Permanent" means our own design needs it, whatever the author does.
 - **Before removing one, check the fault is really gone** in the mod's new build (`python scripts/query-code.py compare OLD.dll NEW.dll`, or read the method named below). A new update date alone proves nothing.
 - **"Drafted" means the author does not have it.** The owner confirmed on 10 Nov 2026 that only the Prison Labor report has been posted, and that they post reports only for dire faults. So these patches may be needed for a long time unless an author finds the fault on their own.
@@ -27,7 +27,6 @@ More Injuries and Medical Surgery Expanded 2 were not re-checked for this regist
 
 | # | Patch (mod, class) | Whose fault, and what | It can go when | Stands down by itself? | Report |
 | --- | --- | --- | --- | --- | --- |
-| 1 | Patches 0.16.5, `PrisonLaborFoodGuard` | Prison Labor: a food postfix calls the method it patches, and the game closes | `GetFoodRestrictionPatch.Postfix` no longer calls `GetCurrentRespectedRestriction`. **Met in Prison Labor 1.7.1 (13 Nov 2026)**: the postfix now returns `CurrentFoodPolicy` (compared with `query-code.py compare` on 16 Nov 2026), so the guard stands down; remove it at a later Patches release | **Yes**, and the load line says so | **Posted by the owner**, 10 Nov 2026; fixed by the authors. [Steps](crash-2026-11-09-stack-overflow.md) |
 | 2 | Patches 0.16.6, `VehicleFires` | Vehicle Framework: attached fires are left behind on leaving a map, and only the first is ever put out | `VehiclePawn.DeSpawn` puts fires out and a vehicle keeps one | No | Drafted. [Steps](vehicle-framework-fires.md) |
 | 3 | Patches, `VisitMapStaysOpen` | Visit Settlements: its downing postfix calls `DeinitializeMap` directly, skipping every rule that keeps a map open | That path goes through the game's map removal rules | Partly: off if its code has changed | Drafted, [missile patches](missile-patches.md) |
 | 4 | Patches, `SettlementEventsGuard` | Visit Settlements: the food sum reads the food need of pawns that do not eat, and throws every tick | The sum skips pawns with no food need | Partly: off if its code has changed | Drafted, [missile patches](missile-patches.md) |

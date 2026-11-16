@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.112.0] - 2026-11-16 - Draft
+
+A crew stays at its station while there is work, under Vehicle Framework 1.7's five-hour rule
+
+### Added
+
+- **A crew on station stays aboard while the station is busy.** Vehicle Framework 1.7 sends everyone out of a vehicle that has stood still for five in-game hours, unless its turrets are aiming or firing. Our stations now count as busy in the same way: a submarine while it is under (nobody can get out anyway), a vehicle carrying patients while a doctor aboard can tend them, a sonar while something hostile is within its reach, and a listening array while it hears something. When all is quiet, the crew get out after five hours as Vehicle Framework intends. It works for any faction's vehicles, raiders' boats included. Not yet tested in game.
+
+### Compatibility and limits
+
+- No settings were added or changed.
+- Uses Vehicle Framework 1.7's own way of resetting the count; no new patches.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing saved changes.
+
 ## [0.111.1] - 2026-11-16 - Draft
 
 Built for Vehicle Framework's 1.7 release of 14 November 2026
