@@ -1,9 +1,14 @@
 # How our vehicle features look: research and record (11 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.78.0 to 0.96.0 (with Medical 0.13.1 and 0.14.1, and Vehicles 0.43.0 for the
+art): P1, P2, P3, P5, P7a, P7b, the graphs G1 to G4, and art batches A, B and C; not built: P4, P7c and P7e (waiting on the owner)
+and P7d (on the back burner). Not yet tested in game, apart from the plain diagnosis letter that came before this record (the owner,
+11 Nov 2026).
+
 The owner, after their first Diagnose letter in game (a plain list of parts and readings): "a research and record purview where I want to
 improve, visually, how this appears and perhaps that of other areas too, at your suggestion"; open to more art through the OpenAI image
 API. Two questions followed while the plan was read: whether graphs are practical and what they would cost in performance, and whether
-anything "strikingly visual and playful" would be of high benefit. This is the research and record. **Nothing here is built.** Every
+anything "strikingly visual and playful" would be of high benefit. This is the research and record. Every
 proposal answers for itself (what it lets the player do, stops them doing, and changes), figures and costs are the agent's and labelled,
 and the owner's call is asked at the end.
 

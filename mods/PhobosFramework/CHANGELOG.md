@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The README no longer calls RimWorld 1.6 supported, marks the 0.107.0 and 0.108.0 notes on visible pipes as replaced by the hidden pipes of 0.108.1, and names the former medical mods as parts of D'thorga Medical. No change in play.
+
 ## [0.117.2] - 2026-11-17 - Draft
 
 Every vehicle's weapons checked: guns on their own mounts are swung by hand

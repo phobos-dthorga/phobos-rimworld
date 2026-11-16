@@ -1,9 +1,14 @@
 # A shared logging framework: research and direction (8 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.28.0: the bounded revive (GameLogKeeper), the storm counter and the probe
+dev actions; phobos-log 1.0.0, pinned at `external/phobos-log` and adopted in Framework 0.33.0 and Patches 0.16.0; verbose logging in
+Framework 0.114.0 (below). Not built: the JSON-lines sink, the schema and the shared reader, and the Ostranauts sink (outstanding work,
+L4 and L5). Not yet tested in game. The record below keeps its 8 Nov reasoning.
+
 A design record. The owner's logs "keep exceeding some set limit" the game has in place; they proposed a logging framework of our
 own, built on generic concepts so every Phobos RimWorld mod takes part, possibly with a Rust core generic enough for other games.
-This round is research and record only (owner, 8 Nov 2026). Two read-only explorations (our own logging and tooling; other mods'
-loggers), one design critique and the game's and engine's decompiles fed it. Nothing here is built.
+That first round was research and record, with no build (owner, 8 Nov 2026). Two read-only explorations (our own logging and
+tooling; other mods' loggers), one design critique and the game's and engine's decompiles fed it.
 
 ## Read this first
 

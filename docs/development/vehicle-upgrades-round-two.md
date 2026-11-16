@@ -1,6 +1,13 @@
 # Vehicle upgrades, round two: what every vehicle has, and a signature feature for each (11 Nov 2026)
 
-**A proposal with an inventory. Nothing here is built, and nothing is tested in game.** The owner asked on 11 Nov 2026 whether to
+**Status (17 Nov 2026):** built in D'thorga Framework 0.97.0 (and Vehicles 0.42.0: batch 1, the generator set's heat exchanger, the
+claim order and the core part store), 0.101.0 (and Vehicles 0.45.0: batch 2, the hitch and the Pintle flatbed trailer, and batch 3,
+the four signatures: the service lead, the loading grab, the water bucket and the litter kit) and 0.103.0 (and Vehicles 0.47.0: the
+shared [families](vehicle-upgrade-families.md)); not built: the Trains of the Rim tree (skipped while that mod looks dormant) and
+anything for the Roaring Tiger; the submarine test hull stays bare by the owner's choice. Not yet tested in game, apart from the
+families' check of 13 Nov 2026 (the families record says what passed).
+
+A proposal with an inventory. The owner asked on 11 Nov 2026 whether to
 think about upgrades and unique features for vehicles that already have them and especially for those that do not, naming the
 Cherokee, and approved the plan this record follows. The inventory is observed from the owner's mod list; every proposal is
 agent-authored for the owner to pick from, and no figure is set yet.
@@ -18,7 +25,7 @@ agent-authored for the owner to pick from, and no figure is set yet.
 - **Two earlier decisions stand and are not reopened here:** the generator set's sound enclosure was cut by the owner (9 Nov
   2026), and the tipper's tailgate spreader was cut because no code reads what it would move
   ([the tipper record](vehicle-tipper-hauler.md)).
-- **Four questions for the owner** are at the end. The first build waits for them.
+- **Four questions for the owner** are at the end, answered on 11 and 12 Nov 2026; the builds that followed are in the status line.
 
 ## What exists today
 
@@ -327,7 +334,8 @@ D'thorga Framework 0.97.0 and D'thorga Vehicles 0.42.0, not yet tested in game.
 
 **Decided by the owner, 12 Nov 2026:** batch 3 builds **all four signatures** (the service lead, the loading grab, the water bucket
 and the litter kit; built in Framework 0.101.0 and Vehicles 0.45.0, not yet tested in game, sections above); the **shared families
-get a design record first**, with nothing built: [vehicle upgrade families](vehicle-upgrade-families.md); **Trains of the Rim is
+get a design record first**, with nothing built: [vehicle upgrade families](vehicle-upgrade-families.md) (all five built since, in
+Framework 0.103.0 and Vehicles 0.47.0); **Trains of the Rim is
 skipped** while it looks dormant (last updated 26 Aug 2025, declares 1.6 only), to be raised again if it is updated. Batch 2, the
 hitch and the Pintle flatbed trailer, is built in the same versions ([the hitch design](vehicle-hitch-design.md)).
 

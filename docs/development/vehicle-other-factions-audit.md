@@ -1,9 +1,14 @@
 # Other factions' vehicles: an audit of the vehicle code (11 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.96.1 (the three faults F1 to F3 and the hover-beyond message fixed; the
+setting "Every faction's vehicles run the full model" removed) and 0.97.0 (the claim order); not built: the drive-only tier for other
+factions (the owner kept the lite tier as it is). Not yet tested in game.
+
 **A code read, not a game test.** The owner asked on 11 Nov 2026 for a retroactive pass over the vehicle code against their new rule:
 design every vehicle mechanic with other factions' vehicles in mind, raiders and at least the vehicles at a base the player attacks
 (AGENTS.md). Every check of the player's faction in `src/PhobosFramework.Vehicles*` was read: 66 lines. Line numbers are of the source
-on 11 Nov 2026, commit a077974. Classifications and proposals are agent-authored; nothing was changed.
+on 11 Nov 2026, commit a077974. Classifications and proposals are agent-authored; the read itself changed nothing, and the fixes that followed are in the status
+line.
 
 ## Read this first
 

@@ -166,8 +166,9 @@ tanker's body and overlays, the survey truck's body, the inspection pit and a se
   dome stores, a propellant line a recolour of the water line, the Ward-3's damaged forms the game's own damage tint.
   Ten PixelLab submissions once hit a queue limit and were not retried; a 40-generation storyboard was rejected and not
   retried either.
-- **Rule for us.** Script first: east and south from the north by rotation, masks by posterising panel zones, the icon by
-  downscale, damage by the framework. Pay for the north body, the reference edits that fix the turned facings, and
+- **Rule for us.** Script first: east and south from the north by rotation, paint masks by region repaired with Segment Anything's
+  parts map (`repaired`, since 16 Nov 2026, replacing the earlier rule of posterising panel zones; see [background clean-up](background-cleanup.md#paint-masks-by-region-16-nov-2026)),
+  the icon by downscale, damage by the framework. Pay for the north body, the reference edits that fix the turned facings, and
   overlays. The cap, the dry run and the estimate are in the engine; the discipline is ours.
 
 ### Keeping the record honest
@@ -187,7 +188,7 @@ tanker's body and overlays, the survey truck's body, the inspection pit and a se
 | Facings | One sprite, the game rotates it | Three bodies (north, east, south; west mirrored), derived from one design |
 | State | Colour, normal and damage maps, loose forms | Colour masks for the pattern shader; overlays for raised gear and damage; no normal maps |
 | Upgrades | None | **The body is the bare platform, and every upgrade node that changes the look is its own overlay set** on the body's canvas (owner, 8 Nov 2026: every vehicle is upgradeable, and the art follows the tree). The request record lists the nodes before the first picture, so a later node never redraws the body |
-| Background | Mostly opaque full-footprint squares (transparency kept failing) | Transparent bodies with a margin: generate on plain white and cut out by script (Ostranauts' edge flood fill), or use the API's transparent background, which is in preview on gpt-image-2 |
+| Background | Mostly opaque full-footprint squares (transparency kept failing) | Transparent bodies with a margin: generate on plain white and cut out by script: the exporters clear what BiRefNet calls background, enclosed white included, and take the white out of soft edges (since 12 Nov 2026, replacing Ostranauts' edge flood fill; [background clean-up](background-cleanup.md)). The API's transparent background is in preview on gpt-image-2 |
 | Portrait | The world sprite served as the portrait | A 64 px icon, by downscale of the north body |
 | Provider | ChatGPT's built-in tool (no cost or seed disclosed) | The gpt-image-2 API: token usage returned, cost recorded per picture, no seed |
 

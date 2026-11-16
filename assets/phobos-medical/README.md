@@ -1,7 +1,18 @@
 # Medical equipment art
 
-Candidates for the planned medical equipment mod. **The owner's picks, and what ships, are listed in the design record.** The prompts are
-agent-authored and held for the owner's review. See the [design record](../../docs/development/art-automation-and-medical-equipment.md).
+Candidates for D'thorga Medical's equipment part (Medical Equipment until it joined D'thorga Medical on 7 Nov 2026). **What ships is
+recorded beside each texture** in `mods/PhobosMedical/`, and the early picks in the design record. The prompts are agent-authored and
+held for the owner's review. See the [design record](../../docs/development/art-automation-and-medical-equipment.md).
+
+| Request file | What | Run, and what shipped |
+| --- | --- | --- |
+| [test-run.json](requests/test-run.json) | A short test of the engines and step counts | 5 Nov 2026 |
+| [first-batch.json](requests/first-batch.json) | The oxygen machines, burn bed, chamber, field kit, dressings, resuscitator and the Workshop preview | 5 Nov 2026; picks in Medical Equipment 0.2.3 and 0.3.0 |
+| [second-batch.json](requests/second-batch.json) | The concentrator redrawn, the chamber from its flat stand-in, Triage's button icon | 6 Nov 2026; the button icon's pick in Triage 0.1.2 |
+| [third-batch.json](requests/third-batch.json) | The second set of equipment (11 pieces), the electrolyser and the chamber top-down | Night 3, 8 Nov 2026; picks in Medical 0.14.1 |
+| [depth-trial.json](requests/depth-trial.json) | The electrolyser and chamber through the depth-control LoRA | Night 3, 8 Nov 2026; the chamber's pick in Medical 0.14.1 |
+| [frost.json](requests/frost.json) | The liquid oxygen store's frost | Night 3, 8 Nov 2026; none used (the frost is drawn in code, Medical 0.15.0) |
+| [radiation-icons.json](requests/radiation-icons.json) | The radiation control point and the zone tools (with Rimatomics) | 10 Nov 2026; picks in Medical 0.11.1 |
 
 **Generate only through the runner, and only on the owner's go:**
 

@@ -50,7 +50,7 @@ like the framework's gas mix. A vent works only where it can reach outdoors, whi
 
 | Question | For |
 | --- | --- |
-| Which mod holds the vent buildings? Agent lean: **D'thorga Burns and Smoke**, which owns room hazards (smoke, carbon monoxide), with the services in the framework. The alternatives are Medical Equipment (beside the electrolyser) or a small new mod | Owner |
+| Which mod holds the vent buildings? Agent lean: **D'thorga Burns and Smoke**, which owns room hazards (smoke, carbon monoxide), with the services in the framework. The alternatives are Medical Equipment (beside the electrolyser) or a small new mod. **Since 7 Nov 2026 Burns and Smoke and Medical Equipment are both parts of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)), so either answer means D'thorga Medical | Owner |
 | Should a flash fire also damage pawns in the room directly, or only through the game's fire? | Owner, after play |
 | Do the game's own vents (Odyssey's, vanilla's) count as passive vents for our gases? Inference first, under the gas rule | Agent, from the code |
 | The hydrogen figures above, before any Def carries them | Agent: find sources |

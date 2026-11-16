@@ -1,5 +1,10 @@
 # The hitch and the generic trailer: design (11 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.101.0, 0.103.0, 0.104.0 and 0.111.0 (and Vehicles 0.45.0 and 0.54.0):
+slices 1 to 3, slice 4's recovery tow, trailers taken on journeys, the hitch refusing a vehicle set up for work, and the Pintle flatbed
+at 3 x 7; not built: the special trailers and road trains of slice 4 (the working trailers are designed in
+[vehicle-trailers.md](vehicle-trailers.md)). Not yet tested in game.
+
 **Status (12 Nov 2026): slices 1 to 3 are built**, slices 1 and 2 in D'thorga Framework 0.101.0 and D'thorga Vehicles 0.45.0, slice 3 in
 Framework 0.104.0, and slice 4's recovery tow in Framework 0.103.0, **none yet tested in game**: see "Slice 2 as built" and "Slice 3 as built"
 below for what was built and where it differs from the plan. It follows
@@ -20,7 +25,7 @@ figure is set yet.
   vehicle's loadout, with no change to another author's Def or picture.
 - **The turn is a real trailer's**, from one rule: the trailer's axle stays a fixed length behind the hitch and is dragged
   toward it. Two lengths per trailer replace RimThunder's eight hand-written offsets.
-- **Four decisions for the owner** are at the end. The first build waits for them.
+- **Four decisions for the owner** are at the end. The first build waited for them (it has since been built; see the status lines above).
 
 ## The check: does Vehicle Framework honour a free angle?
 

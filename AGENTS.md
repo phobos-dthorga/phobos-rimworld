@@ -207,6 +207,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   player builds, presses or sees updates its chapter in the same commit. Its figures are drawn from shipped textures by
   `python scripts/art/guide_figures.py` (listed in `docs/player-guide/images/figures.json`); redraw them when a texture they use
   changes. The gate checks their sources exist.
+- **A design record's status is one line at its top** (owner, 17 Nov 2026, after the documentation audit found about thirty records
+  opening with "nothing is built" over a build): `**Status (date):**`, saying what is built and what is not, updated in the change that
+  builds it. What a version delivered goes in its changelog; the record keeps only what differs from its design.
+  `scripts/check-doc-status.py` refuses an opening that says nothing is built while the record records a build, and
+  `scripts/check-doc-links.py` checks every `#anchor` against the headings it names.
 - Charts and diagrams are GitHub's native Mermaid, in the Markdown itself. Never use Figma (owner rule):
   not for charts, diagrams or designs, and do not suggest or mention its connector.
 - Write plainly: answer first, short sentences, **bold** for must-dos, tables for comparisons, gotchas at

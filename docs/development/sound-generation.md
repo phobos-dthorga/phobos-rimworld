@@ -2,6 +2,7 @@
 
 **Status:** the tools are built and tested offline; the pilot ran on 10 Nov 2026, and the owner's four picks shipped in Framework 0.71.0,
 Medical 0.12.0 and Vehicles 0.31.0 (see [Into the game](#into-the-game-built-10-nov-2026-not-yet-tested-in-game)). **Not yet tested in game.**
+Since then the catalogue's phases have shipped: 117 sounds in all on 17 Nov 2026 ([sound catalogue](sound-catalogue.md)).
 
 ## Read this first (gotchas)
 
@@ -14,6 +15,9 @@ Medical 0.12.0 and Vehicles 0.31.0 (see [Into the game](#into-the-game-built-10-
 - **Masters are never changed.** Each candidate is a lossless FLAC kept byte for byte; every copy anyone hears is made from it.
 - **Licence:** generated sounds are ours, and shipping them in a free mod needs no notice (see [Licence](#licence)).
 - **The quiet rule stands** (AGENTS.md): sounds only where usefulness is high, quiet, never alarming, with a volume setting.
+  **Changed 10 Nov 2026 (owner):** our vehicles get a full set, and every vehicle and machine of ours sounds like itself; "only where
+  usefulness is high" no longer limits them. Quiet, never alarming and the one volume setting still stand (AGENTS.md;
+  [sound catalogue](sound-catalogue.md)).
 
 ## What it lets us do
 
@@ -260,7 +264,8 @@ sonar is built yet; the owner may move it to a sonar or listening upgrade when o
 ## Open questions
 
 1. **Archive branches for sounds?** Images go to `art-masters` and `art-references`; whether sounds should too is the owner's call.
-2. **Which sounds first** after the pilot, and for which mod.
+2. ~~**Which sounds first** after the pilot, and for which mod.~~ Answered 10 Nov 2026: the generic library first, then our vehicles'
+   voices and work, then medical ([sound catalogue, owner's answers](sound-catalogue.md#owners-answers-10-nov-2026)).
 3. **Whether the template settings suit Small SFX.** Its output is stereo at 44,100 Hz (first sound, 10 Nov 2026); the full
    pilot answers the rest.
 4. **Medium:** worth its 9.2 GB only if Small SFX falls short.

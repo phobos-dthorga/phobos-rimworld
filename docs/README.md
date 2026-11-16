@@ -16,15 +16,15 @@
 - [Vehicle systems for modders](vehicle-systems-modding.md): give your Vehicle Framework vehicles their own batteries, coolant,
   air brakes or systems of your own, in XML, with D'thorga Framework.
 
-Each mod's README holds every figure, setting and test, with the gotchas first. **Every mod is RimWorld 1.7 only from 8 November 2026.** As of 7 November 2026, when seven mods became two ([why](development/mod-consolidation.md)):
+Each mod's README holds every figure, setting and test, with the gotchas first. **Every mod is RimWorld 1.7 only from 8 November 2026.** On 7 November 2026 eleven mods became six, seven of them merged into D'thorga Medical and D'thorga Patches ([why](development/mod-consolidation.md)); D'thorga Vehicles followed on 8 November 2026, making seven:
 
 | Mod | Version | What it does | Guide |
 | --- | --- | --- | --- |
 | **D'thorga Framework** | 0.117.2 | The shared library: what a pawn breathes, carbon monoxide from fires, the health layer and per-person care choices the medical mods share, and with Vehicle Framework the vehicle systems (battery, coolant, oil, engines and drivetrains, gas turbines, tyres, brakes, wear and service) | [README](../mods/PhobosFramework/README.md) |
-| **D'thorga Vehicles** | 0.57.0 | Vehicles that need looking after: the bulk tanker, and named loadouts that give other mods' vehicles the systems they really have | [README](../mods/PhobosVehicles/README.md) |
+| **D'thorga Vehicles** | 0.57.0 | Vehicles that need looking after: working vehicles of its own (the Ullage bulk tanker, Kelly drill rig, Talus tipper, Datum survey truck, Busbar generator set and Fathom seabed crawler, and the Pintle trailers), and named loadouts that give other mods' vehicles the systems they really have | [README](../mods/PhobosVehicles/README.md) |
 | **D'thorga Medical** | 0.17.0 | Burns and smoke, emergency dosing, triage, hospital and field equipment, and a safe way to add More Injuries to a running colony: five mods in one | [README](../mods/PhobosMedical/README.md) |
 | **D'thorga Factory Additions** | 0.13.0 | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, a deep hopper, other mods' drug labs as factory bills, and fixes | [README](../mods/PhobosFactoryAdditions/README.md) |
-| **D'thorga Patches** | 0.19.3 | The Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, and InterRim Ballistic Missile's strategic blast | [README](../mods/PhobosPatches/README.md) |
+| **D'thorga Patches** | 0.19.3 | The Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, InterRim Ballistic Missile's strategic blast, Visit Settlements' visited maps, Vehicle Framework's stuck fires, and smaller fixes | [README](../mods/PhobosPatches/README.md) |
 | **D'thorga Water Tap** | 0.2.4 | A Dubs Bad Hygiene fixture that keeps bottled water ready and refills itself | [README](../mods/PhobosWaterTap/README.md) |
 | **D'thorga Radio Framework** | 0.1.8 | Hand-held VHF and UHF radios, a base station, coax and antennas; a real link budget decides every contact | [README](../mods/PhobosRadioFramework/README.md) |
 

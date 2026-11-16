@@ -1,9 +1,11 @@
 # Building, testing and deploying
 
-**Status (8 Nov 2026): fourteen C# projects, RimWorld 1.7 only** (owner, 8 Nov 2026). Every project builds one assembly,
+**Status (17 Nov 2026): twenty-two C# projects, RimWorld 1.7 only** (owner, 8 Nov 2026). Every project builds one assembly,
 `net10.0` against the 1.7.4998 reference (Harmony 3 where a mod patches), into `mods/<Mod>/1.7/Assemblies/`. A tie-in assembly
-builds into `mods/<Mod>/Mods/<Other>/1.7/Assemblies/` instead. Other mods that still ship only a 1.6 build (Vehicle Framework,
-VFE Factory, InterRim Ballistic Missile) are referenced from that folder, which the 1.7 game loads too.
+builds into `mods/<Mod>/Mods/<Other>/1.7/Assemblies/` instead. Two other mods we reference still ship only a 1.6 build (VFE
+Factory and InterRim Ballistic Missile, checked 17 Nov 2026); they are referenced from that folder, which the 1.7 game loads too.
+Vehicle Framework shipped its 1.7 build on 14 Nov 2026, and we build against it
+([dependency audit](dependency-audit-2026-11-16.md)).
 `Directory.Build.targets` at the root turns the target into the game version, the output folder, the game and Harmony
 references and the Workshop folders of other mods' assemblies, so a project file only names its mod folder (`ModFolder`), its
 tie-in folder if any (`TieInFolder`) and whether it patches (`UsesHarmony`). `python scripts/deploy.py --build --apply --all`
@@ -21,7 +23,7 @@ from the owner's saves.
 | Project (`src/`) | Builds into (`mods/`, per version) | References besides the game | Harmony | Rule tests (`tests/`) | On GitHub |
 | --- | --- | --- | --- | --- | --- |
 | `PhobosFramework` | `PhobosFramework/` | nothing | no | `PhobosFramework.Rules.Tests` | builds and tests |
-| `PhobosMedical` | `PhobosMedical/` | the framework, VEF's `PipeSystem.dll` (Vanilla Gravship Expanded through Defs only; More Injuries by name at run time) | yes | `PhobosMedical.Rules.Tests` | builds and tests |
+| `PhobosMedical` | `PhobosMedical/` | the framework, VEF's `PipeSystem.dll` (Vanilla Gravship Expanded through Defs only; More Injuries by name at run time) | yes | `PhobosMedical.Rules.Tests` | tests only |
 | `PhobosFactory` | `PhobosFactoryAdditions/` | VEF's `PipeSystem.dll`, VFE Factory's `VanillaFurnitureExpandedFactory.dll` | yes | `PhobosFactory.Rules.Tests` | tests only |
 | `PhobosFactory.Hygiene` | `PhobosFactoryAdditions/Mods/DubsBadHygiene/` | the factory core, the framework's hygiene tie-in, `PipeSystem.dll`, Dubs Bad Hygiene's `BadHygiene.dll` | yes | none | no |
 | `PhobosFramework.Hygiene` | `PhobosFramework/Mods/DubsBadHygiene/` | Dubs Bad Hygiene's `BadHygiene.dll`: the shared plumbing reader | no | none | no |
@@ -34,6 +36,11 @@ from the owner's saves.
 | `PhobosPatches.Outposts` | `PhobosPatches/Mods/Outposts/` (with Vanilla Expanded Framework and Vehicle Framework both active) | the framework, VEF's `Outposts.dll`, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll` | yes | none | no |
 | `PhobosPatches.VehicleFramework` | `PhobosPatches/Mods/VehicleFramework/` (to be removed when the framework handles fires itself) | the framework, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |
 | `PhobosPatches.CombatExtended` | `PhobosPatches/Mods/CombatExtended/` (temporary, while an ammo set can hold empty entries) | the framework; finds Combat Extended by name | no | none | none |
+| `PhobosFramework.Vehicles.Pipes` | `PhobosFramework/Mods/VehiclesPipes/` (with Vehicle Framework and Vanilla Expanded Framework both active) | the framework and its vehicle systems, Vehicle Framework's `Vehicles.dll`, VEF's `PipeSystem.dll`: the bulk-tank port on pipe networks | no | none | no |
+| `PhobosFramework.Vehicles.Rimefeller` | `PhobosFramework/Mods/VehiclesRimefeller/` (with Vehicle Framework and Rimefeller both active) | the framework and its vehicle systems, `Vehicles.dll`, `SmashTools.dll`, Rimefeller's `Rimefeller.dll` | yes | none | no |
+| `PhobosPatches.AircraftRearm` | `PhobosPatches/Mods/AircraftRearm/` (with the Harrier, the Hind or the Mongoose active) | the framework, Vehicle Framework's `Vehicles.dll`, `SmashTools.dll`, `UpdateLogTool.dll`; finds the aircraft mods' methods by name | yes | none | no |
+| `PhobosPatches.RimPacts` | `PhobosPatches/Mods/RimPacts/` | the framework; reads RimPacts by name | yes | `PhobosPatches.Rules.Tests` | tests only |
+| `PhobosPatches.VisitSettlements` | `PhobosPatches/Mods/VisitSettlements/` | the framework; finds Visit Settlements, RimPacts and Vehicle Framework members by name | yes | `PhobosPatches.Rules.Tests` | tests only |
 | `PhobosPatches.Irbm` | `PhobosPatches/Mods/IRBM/` | the framework, InterRim Ballistic Missile's `IRBM.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |
 | `PhobosWaterTap` | `PhobosWaterTap/` | Dubs Bad Hygiene's `BadHygiene.dll` | no | `PhobosWaterTap.Rules.Tests` | tests only |
 | `PhobosRadio` | `PhobosRadioFramework/` | VEF's `PipeSystem.dll` | no | `PhobosRadio.Physics.Tests` | tests only |
@@ -65,6 +72,12 @@ from the owner's saves.
 
 ## The checks (run before every commit)
 
+**Before every commit, run `python scripts/check-all.py` and chain the commit on its exit code**
+(`python scripts/check-all.py && git commit ...`), as AGENTS.md requires. It is phobos-modkit's gate: it builds every project, runs
+every rule-test project and the Python tests, and checks links, mod layout, text keys, vehicle schemas, the research tree, version
+copies and changelogs, printing only what failed. Its steps are in `config/gate.json`, found by glob, so a new project is never left
+out. `--only` and `--skip` narrow it while iterating. The commands below are some of its steps, for running one alone:
+
 ```text
 python scripts/check-doc-links.py
 python scripts/check-mod-layout.py
@@ -75,9 +88,9 @@ python scripts/check-vehicle-schemas.py (offline; for the vehicle systems' syste
 python scripts/deploy.py --build --apply --all   (with RimWorld closed)
 ```
 
-The first three are the ones AGENTS.md requires before every commit; gate on their exit codes. **On GitHub**
-(`.github/workflows/checks.yml`) every push runs those three, every rule-test project, and builds for 1.7 every
-project that references only the game, D'thorga Framework and Harmony. `check-factory-patches` and `deploy` need the installed
+`check-factory-patches` and `deploy` are not part of the gate. **On GitHub** (`.github/workflows/checks.yml`) every push runs
+the gate without the mod builds (`check-all.py --skip "build *"`), so every rule-test project and every check that needs no other
+mod, and builds D'thorga Framework's core for 1.7. `check-factory-patches` and `deploy` need the installed
 game and run only on a machine with RimWorld.
 
 - **check-doc-links** finds relative Markdown links whose target file is missing. It does not check `#heading` fragments.
@@ -101,6 +114,10 @@ game and run only on a machine with RimWorld.
 - **The unit tests** (`tests/test_*.py`) exercise every script in `scripts/` and `scripts/art/` against synthetic folders.
 
 ### Other scripts
+
+The scripts below are some of the tools. **The full set, the order to use them in and their gaps are in
+[analysis-tooling.md](analysis-tooling.md)**; AGENTS.md says which one answers which question (saves, logs, Defs, code, Harmony
+patches, start-up time, settings, crash dumps, `check-targets.py`, `cleanup.py`).
 
 | Script | What it does | Flags |
 | --- | --- | --- |
@@ -170,10 +187,11 @@ warnings as errors, no `.deps.json`), and `Directory.Build.targets` everything t
 depends on the target: `GameVersion` (1.7), the output folder
 `mods/$(ModFolder)/$(TieInFolder)$(GameVersion)/Assemblies/` (set as `OutDir`, `TargetDir` and `TargetPath`, because the SDK
 has already derived those from `OutputPath` by the time the file is imported), the Krafs reference, Harmony
-3 when a project sets `UsesHarmony`, and the Workshop folders `VefAssemblies` and `DbhAssemblies` (both mods ship 1.7
-assemblies), `VfeFactoryAssemblies` and `VehicleFrameworkAssemblies` (1.6 only: neither ships a 1.7
-build yet, and the game loads their 1.6 assemblies on 1.7). Override any of them with `-p:Name=...` or an environment
-variable, or `WorkshopRoot` for all four.
+3 when a project sets `UsesHarmony`, and the Workshop folders `VefAssemblies`, `DbhAssemblies`, `RimefellerAssemblies` and
+`UsefulMarksAssemblies` (these mods ship 1.7 assemblies), `VfeFactoryAssemblies`, `VehicleFrameworkAssemblies` and `IrbmAssemblies` (each takes the
+mod's 1.7 folder when it exists and its 1.6 folder only until then; Vehicle Framework shipped 1.7 on 14 Nov 2026, while VFE Factory
+and IRBM still ship only 1.6, and the game loads those on 1.7). Override any of them with `-p:Name=...` or an environment
+variable, or `WorkshopRoot` for all of them.
 
 A project file that references another mod (D'thorga Radio Framework's):
 

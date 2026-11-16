@@ -14,7 +14,8 @@ One of House D'thorga's mods (also spelt dthorga).
 It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga Vehicle Patches** and **D'thorga Missile Patches**
 ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.19.3, built 16 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Patches.** The Harrier and turret hull
+Version 0.19.3, built 16 November 2026 for House D'thorga. **Partly tested in game as D'thorga Patches:** the Vehicle Framework fires part (owner, 10 November 2026; see
+below); the rest not yet. The Harrier and turret hull
 parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the missile part was tried once by the owner, see
 [InterRim Ballistic Missile](#interrim-ballistic-missile).
 
@@ -47,8 +48,8 @@ parts are unchanged from Vehicle Patches 0.6.0 (not yet tested in game); the mis
   incompatible. Your save needs nothing: the old mods saved nothing of their own. The missile settings carry over by themselves.
 - **Needs Harmony and D'thorga Framework. Load it after the mods it patches.** The About file asks for this, so RimSort does it for
   you. **You have to switch it on yourself**: nothing else requires it. It does nothing without the mods it patches.
-- **RimWorld 1.7 only** (from 0.13.1; 1.6 is no longer supported). Vehicle Framework still ships only a 1.6 build, which the
-  game runs on 1.7. **The Harrier part needs D'thorga Framework 0.33.0 or later**, whose vehicle systems now give a saved
+- **RimWorld 1.7 only** (from 0.13.1; 1.6 is no longer supported). Vehicle Framework shipped its own 1.7 build on 14 November 2026,
+  and this mod builds against it. **The Harrier part needs D'thorga Framework 0.33.0 or later**, whose vehicle systems now give a saved
   Harrier its new parts.
 - **New in 0.16.3, and for the Hind and the Mongoose from 0.16.4: rearming keeps to one kind of ammunition** (not yet tested in game). It tops up with what is already loaded. **To change kind, choose it on the weapon:** that still swaps the magazine. If the loaded kind runs out of stock, a part-full magazine waits rather than being swapped by itself.
 - **New in 0.14.0: a Harrier too heavy for its engine to hover in the day's heat will not hover onto its pad** (not yet tested in
@@ -507,7 +508,7 @@ prefix on the missile mod's `StrategicImpactCountdown.ApplyStrategicDamage` queu
   the game's load steps. `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes: the fabricator, all five bombs and all three rocket recipes
   exist among the owner's active mods. **Not yet tested in game.**
 - 2 November 2026: the Harrier, its bundled framework, Vehicle Framework, RimPacts, Harmony and RimThunder read in their files and
-  decompiled assemblies, and the owner's log and newest save read. The assembly builds with no warnings for RimWorld 1.6, and the
+  decompiled assemblies, and the owner's log and newest save read. The assembly builds with no warnings for RimWorld 1.6 (1.6 retired 8 Nov 2026), and the
   Harmony members it calls exist with the same signatures in Harmony 3.0.0-rc.3, which the owner's 1.7 game runs.
   `scripts/check-factory-patches.py --mod PhobosVehiclePatches` passes; it can't see the Mk. 82 change, which depends on another
   mod's patch, so that one was checked by reading. **Not yet tested in game.**

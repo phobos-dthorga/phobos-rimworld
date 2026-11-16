@@ -7,6 +7,10 @@ GitHub `develop` branch (SmashPhil, head b557926d of 31 Oct 2026), the decompile
 unless noted), Combat Extended's `VehiclesCompat` decompile, the RimWorld 1.7 assembly, and Vanilla Vehicles Expanded's
 XML on GitHub. Read 8 Nov 2026.
 
+**Note (17 Nov 2026):** since 14 Nov 2026 Vehicle Framework ships a 1.7 build on the Workshop, and D'thorga Framework builds against
+it. Where this record says VF on Steam is a 1.6 build, that the 1.7 game loads the 1.6 build, or that 1.7 is still to come, that was
+true on 8 Nov 2026 and is no longer. What changed for us is in the [dependency audit](dependency-audit-2026-11-16.md).
+
 ## Read this first
 
 - **Vehicle Framework (VF) on Steam is a 1.6 build.** Workshop item 3014915404 declares 1.4, 1.5 and 1.6, last updated

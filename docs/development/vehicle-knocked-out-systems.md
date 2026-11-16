@@ -1,10 +1,15 @@
 # Knocked out, not destroyed: what a vehicle loses before it is a wreck (16 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.115.0 (T1, T9, T10, M1, M2, C2, T2, C4, T3, T4, W1, W4) and 0.116.0 (and
+Vehicles 0.57.0: T8, M3, W2, W3); not built: T5 and T6 (with the aircraft air-defence batch), C3 (with hotboxing's cab air), and T7,
+T11, M4, W5, W6 and C6. Not yet tested in game.
+
 A research and record round the owner asked for on 16 Nov 2026, after the destruction rule of Framework 0.114.5 ("parts doing real
 work stay in the sum and pure mounting points come out"). The owner's thought: if a part matters because of its job, **losing the
 part, or what feeds it, should cost the vehicle that job**: "turrets that become disabled through the ill of battle ... or simply
 because they lose hydraulic pressure, or electrical power". Scope chosen by the owner: **turrets and weapons, mobility, working
-equipment, crew and cab**. **Record only: nothing here is built, and nothing is tested in game.** The owner picks.
+equipment, crew and cab**. It began as a record for the owner to pick from; what was built is in the status line above and the two
+sections at the end.
 
 ## Read this first
 

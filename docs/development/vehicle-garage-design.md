@@ -4,6 +4,10 @@
 of Vanilla Expanded Framework's 1.7 build and Vehicle Framework's 1.6 build (the one the 1.7 game loads), and are summarised
 in our own words. Where this record says something will happen in play, that is an inference until the owner has seen it.
 
+**Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026, and D'thorga Framework 0.111.1 builds against it
+([the dependency audit](dependency-audit-2026-11-16.md)). The VF references in this record were read from its 1.6 build, which the
+game loaded when this was written; check one against the 1.7 build before acting on it.
+
 The owner asked on 8 November 2026 for a garage built on the outposts system, because the player will now be dealing with a
 lot more vehicles, and for other ways of handling a large fleet.
 

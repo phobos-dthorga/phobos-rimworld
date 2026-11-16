@@ -1,8 +1,12 @@
 # View-angle models: research record (7 Nov 2026)
 
+**Status (17 Nov 2026):** route 2 (depth control) was downloaded and tried in night 3 (8 Nov 2026), and on 12 Nov the owner
+picked the depth route's chamber and the plain redraw's electrolyser (both ship in Medical 0.14.1). Routes 1, 3 and 4 are
+not tried: style model v3, which route 1 needs, never finished training.
+
 The owner asked (7 Nov 2026) whether there is a model, or models, we could download that would suit RimWorld's own art style better,
-because a lot of the local model's assets come out at odd angles. **A research record only**: nothing here has been downloaded,
-installed, trained or generated, and no candidate has been tried. Every claim about a model comes from its own model card or
+because a lot of the local model's assets come out at odd angles. **Written as a research record only**: when it was written, nothing
+here had been downloaded, installed, trained or generated, and no candidate had been tried. Every claim about a model comes from its own model card or
 repository, read on 7 November 2026; everything marked *agent inference* is ours. **Update, 8 Nov 2026:** route 2 has had its
 first trial; see "First trial: night 3" near the end.
 
@@ -142,7 +146,9 @@ is planned until route 2 has been judged.
 
 Route 2 ran in night 3, on the owner's go (8 Nov 2026), beside a plain redraw of the same two pieces from a top-down stand-in.
 As prepared, no new engine was needed: the depth map went in as the first reference image, the design as the second, with
-`refcontrol` in the prompt. **The owner has not judged these images yet; everything below is agent observation.**
+`refcontrol` in the prompt. **The owner had not judged these images when this was written; everything below is agent observation.**
+**Judged 12 Nov 2026:** the owner picked the depth route's chamber (seed 11) and the plain redraw's electrolyser (seed 12); both ship
+in Medical 0.14.1 ([the night's record](../../assets/phobos-vehicles/requests/night-2026-11-12-record.md)).
 
 | Test piece | Plain top-down redraw (stand-in as reference) | Depth route (depth map, then the pick) |
 | --- | --- | --- |

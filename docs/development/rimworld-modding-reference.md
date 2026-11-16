@@ -6,6 +6,10 @@
 1.7.4998-unstable, Harmony 3.0.0-rc.4) and `net472` for 1.6 (Harmony 2.4.3) from one project file; see
 [building](building.md). The rest of this record is kept as written on 18 Oct.
 
+**Superseded (8 Nov 2026): RimWorld 1.7 only.** The owner retired 1.6 on 8 Nov 2026. Every project now builds one target,
+`net10.0` against the 1.7 reference with Harmony 3, and no mod declares or ships 1.6. Read "build for 1.6" and "`net472`" below as
+history ([building](building.md#rimworld-16-retired)).
+
 **The short version:** build for RimWorld 1.6 on .NET Framework 4.7.2 with Harmony 2, and keep 1.7 in view.
 1.7 runs on Ludeon's new Waylith engine, wants .NET 10 and Harmony 3, and is only on Steam's unstable beta
 branch. Ludeon says most 1.6 mods run on 1.7 unchanged.
@@ -84,7 +88,7 @@ Source: [RimWorld Wiki, Mod Folder Structure](https://rimworldwiki.com/wiki/Modd
 Observed in a probe build against Krafs.Rimworld.Ref 1.6.4871 (18 Oct 2026): the package brings Unity's own
 `mscorlib` and `netstandard`, so it needs no other framework references. Those define most nullable attributes
 publicly, but `MemberNotNullAttribute` only internally, and lack `IsExternalInit` and the `required` member
-attributes. [Building](building.md#newer-c-on-rimworld-16) has the table and the PolySharp fix.
+attributes. [Building](building.md#rimworld-16-retired) says how 1.6 was built until it was retired, PolySharp included.
 
 The 1.7 column comes from the community page
 [RimWorld 1.7 Mod Updates](https://rimworldwiki.com/wiki/Modding_Tutorials/RimWorld_1.7_Mod_Updates)

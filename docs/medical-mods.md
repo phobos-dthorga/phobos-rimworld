@@ -59,11 +59,13 @@ All of these except the Save Bridge share **D'thorga Framework**: one answer to 
 
 ## What none of them does yet
 
-- **Hold a collapsed lung in the field.** A tension pneumothorax needs an operation; a field needle decompression to buy time is
-  an idea for Medical Equipment, not built.
-- **A ventilator.** More Injuries: Organ Failure's ventilator surgery depends on another mod's life-support research, so most
-  colonies never see it. One of our own is on the list for Medical Equipment.
+- **Clear a collapsed lung in the field.** A tension pneumothorax still needs an operation. Since D'thorga Medical 0.7.0, with More
+  Injuries, a needle decompression kit buys time: a doctor with Medicine 5 or better eases it, never clears it. Not yet tested in game.
 - **Animals.** Burns and Smoke's conditions are for humanlike pawns only; Triage and Dosing look after people.
+
+**Built since this list was written:** a ventilator of our own (D'thorga Medical 0.7.0, its equipment part), a bedside machine that
+breathes for one patient through a breathing tube, with an intubation kit. More Injuries: Organ Failure's own ventilator surgery
+still depends on another mod's life-support research. Not yet tested in game.
 
 ## Where to read more
 

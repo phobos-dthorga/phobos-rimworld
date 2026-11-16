@@ -15,6 +15,9 @@ upgrades let it rest on the bottom, listen, ping, and carry a laboratory. The di
   in dev mode and build a fresh one.
 - **Stay down kills the crew if you leave it on.** Past the end of the air, the crew breathes stale air. You can call it off while
   anyone aboard can still work the boat; **after that the order stands and the boat is lost.**
+- **The laboratories, the sonar set and the listening array run on the boat's battery.** Each draws while it works and stops, saying
+  why, when the battery is flat. If the charging fails, the laboratories go off first, then the sonar, and the listening array last
+  ([when the charging fails](vehicle-care.md#when-the-charging-fails)).
 - **Every sonar ping gives your boat away** for a minute.
 - **Enemy boats dive too**, and ping now and then while they hunt.
 

@@ -7,7 +7,8 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **63 tie-in folders across six mods**, all switched on by `IfModActive` or `IfModActiveAll` in the mod's `LoadFolders.xml`, plus a
+- **63 tie-in folders across six mods** (recounted 17 Nov 2026: 71 entries in the `LoadFolders.xml` lists, because a folder and its `1.7`
+  subfolder are listed as two entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's `LoadFolders.xml`, plus a
   handful of tie-ins in C# that check for a mod by name. D'thorga Radio has none (Vanilla Expanded Framework's pipe system is a hard
   dependency there, not a tie-in).
 - **No tie-in hard-references another author's assembly.** C# finds their types and Defs by name through

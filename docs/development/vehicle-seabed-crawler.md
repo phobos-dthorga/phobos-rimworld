@@ -1,15 +1,20 @@
 # The Seabed Crawler: design (10 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.62.0 to 0.81.0 and 0.116.0 (and Vehicles 0.28.0 to 0.43.0): the research tab,
+the bare hull at 4 x 9 with its own picture and overlays, bottoming wheels, air scrubber, wet and advanced laboratories with aboard-only
+research, listening array, sonar set, both hull refits, and the laboratories, sonar and listening array drawing on the battery; not built:
+the manipulator arm, oxygen candles, radar mast, seabed drill, reactor and the soft tie-ins. Not yet tested in game.
+
 **First slice built in D'thorga Vehicles 0.28.0 and D'thorga Framework 0.62.0: the research tab and three projects, the bare hull, and the bottoming wheels and air scrubber, each with its part. The wet laboratory followed in Vehicles 0.29.0 and Framework 0.65.0 (see [what was built](#the-wet-laboratory-as-built)), then aboard-only research and the advanced laboratory in Vehicles 0.30.0 and Framework 0.66.0 (see [aboard-only research as built](#aboard-only-research-as-built)), then the listening array in Vehicles 0.32.0 and Framework 0.72.0 (see [the listening array as built](#the-listening-array-as-built)), then the sonar set and two hull refits in Vehicles 0.38.0 and Framework 0.81.0 (see [the sonar set as built](#the-sonar-set-as-built) and [the hull refits as built](#the-hull-refits-as-built)). Everything else here is still design. The boat became 4 x 9 cells in Vehicles 0.36.0 (owner, 11 Nov 2026), and has its own picture since Vehicles 0.38.0 ([the art record](vehicle-seabed-crawler-art.md)). Not yet tested in game.** The owner chose this as the first real submarine on 10 November 2026, for its unique mechanics, and asked that it also be a research vessel, carry sonar and perhaps radar, and take tie-ins to other mods as soft dependencies. Agent-authored for the owner's review: every figure is **authored** unless it says otherwise. It builds on [the submersibles framework](submarine-framework.md), and the real boat behind it is in [the research record](military-vehicles-research.md).
 
 ## Read this first
 
 - **The bare boat does very little (owner, 10 Nov 2026).** It can dive, hide and come home. **Each special ability is its own upgrade, with its own research and its own crafted part.** Nothing below the base hull comes free.
-- **Public name:** D'thorga Seabed Crawler. Defs use `Phobos_SeabedCrawler`.
+- **Public name:** Fathom seabed crawler, as the game shows it (it was planned as "D'thorga Seabed Crawler"). Defs use `Phobos_SeabedCrawler`.
 - **Goes in D'thorga Vehicles**, as a part of the existing mod and not a mod of its own. Anything another boat could use goes in D'thorga Framework, per the rule on generic functions.
 - **Parts cannot be added by an upgrade.** Vehicle Framework saves parts by position, so a part any upgrade needs is on the Def before that upgrade ships, appended at the end, and the upgrade switches on what it does.
 - **Radar and sonar here are not the radio framework**, which stays on the back burner (owner, 9 Nov 2026). This design touches none of it.
-- **Paid art waits for the owner's go.** See [the art plan](#the-art-plan).
+- **Paid art waited for the owner's go; it has since been bought and picked** (the hull in Vehicles 0.38.0, the overlays on 12 Nov 2026). See [the art plan](#the-art-plan).
 
 ## What the real boat gives us
 
@@ -196,7 +201,7 @@ search radar for The Dead Man's Switch (AD8). Every other tie-in of ours is in t
 
 ## The art plan
 
-**The boat is 4 x 9 cells, drawn 5 x 10 (owner, 11 Nov 2026: "I want the players to feel the weight and size of it"; it was 3 x 8 drawn 4 x 9), in Vehicles 0.36.0.** The game lays a 4-wide hull out on columns x -1 to 2, so the centreline runs between columns 0 and 1; every part kept its place in the list and took new cells (the Def says which). The biggest other boat on the owner's list is Vanilla Vehicles Expanded's Trawler, 2 x 5 drawn 3 x 6, so the Crawler sets its own mark. The picture, the six visible nodes placed on its canvas, the prompt, the costs and the review are in [the art record](vehicle-seabed-crawler-art.md); **nothing is bought before the owner sees the dry run's ceiling and says go.** **Its own picture is in since Vehicles 0.38.0**: attempt 3 of the pilot as the base hull, attempts 1 and 4 as the two refits' hulls, each widened by script to fill the footprint; the test hull wears the base hull too. The six overlays wait for their own paid batch and the owner's go.
+**The boat is 4 x 9 cells, drawn 5 x 10 (owner, 11 Nov 2026: "I want the players to feel the weight and size of it"; it was 3 x 8 drawn 4 x 9), in Vehicles 0.36.0.** The game lays a 4-wide hull out on columns x -1 to 2, so the centreline runs between columns 0 and 1; every part kept its place in the list and took new cells (the Def says which). The biggest other boat on the owner's list is Vanilla Vehicles Expanded's Trawler, 2 x 5 drawn 3 x 6, so the Crawler sets its own mark. The picture, the six visible nodes placed on its canvas, the prompt, the costs and the review are in [the art record](vehicle-seabed-crawler-art.md); **nothing is bought before the owner sees the dry run's ceiling and says go.** **Its own picture is in since Vehicles 0.38.0**: attempt 3 of the pilot as the base hull, attempts 1 and 4 as the two refits' hulls, each widened by script to fill the footprint; the test hull wears the base hull too. The six overlays wait for their own paid batch and the owner's go. **Done since: all six were generated and picked on 12 Nov 2026, and the three for built nodes are wired in Vehicles 0.43.0** ([the art record](vehicle-seabed-crawler-art.md)).
 
 ## How to test it (the owner's)
 
@@ -229,4 +234,4 @@ Short list, highest consequence first. On a map with deep water and dev mode on.
 
 ## Open questions for the owner
 
-All are answered, under [Who chose what](#who-chose-what). **Building waits for the owner's word that the research tree work is finished** (10 Nov 2026), so that upgrade research is enforced from the first node.
+All are answered, under [Who chose what](#who-chose-what). **Building waits for the owner's word that the research tree work is finished** (10 Nov 2026), so that upgrade research is enforced from the first node. **The owner gave the go on 10 Nov 2026, and building began in Vehicles 0.28.0** (see the status line at the top).

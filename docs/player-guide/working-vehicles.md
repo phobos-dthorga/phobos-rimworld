@@ -7,7 +7,7 @@ the sea, and three trailers any of them can tow: a flatbed and two bowsers. It a
 
 ## Read this first (gotchas)
 
-- **Not yet tested in game**, except the survey truck and its boom (below).
+- **Not yet tested in game**, except the survey truck and its boom and the Busbar's size and look (below).
 - **Needs Vehicle Framework and D'thorga Framework**, loaded before it. RimWorld 1.7 only.
 - **Each vehicle has its own research on the D'thorga tab**, after **vehicle parts**, and is built from the Architect's
   **motor pool** tab. Its upgrades need the research they name.
@@ -193,22 +193,26 @@ water, an orange one fuel**.
 4. **Park it on or beside** the pipes, stacks or vehicle you want, and press **Set up**.
 5. Press **Load** or **Unload**. The inspect pane says what the pump is waiting for. **Hold** stops the pump.
 
+**Electric pump** (an upgrade): the pump runs off the engine unless this is fitted. With it, the tanker can set up and pump with the
+engine off, on its battery, until the battery is flat; then the pump waits and the inspect pane says why. Someone still has to be
+aboard to set it up.
+
 | It carries | Pumped to and from | Watch out for |
 | --- | --- | --- |
 | Chemfuel, deepchem | Other vehicles' fuel tanks, chemfuel generators within reach of the hose (filled first, to their set level), stacks, Vanilla Chemfuel Expanded's pipes, Rimefeller's pipeline | Thickens in deep cold, with the cold fuel setting on |
-| Crude oil (Rimefeller) | Barrels on the ground, Rimefeller's pipeline | None |
+| Crude oil (Rimefeller) | Stacks and barrels on the ground, Rimefeller's pipeline | None |
 | Water | Dubs Bad Hygiene's plumbing | Freezes below 0 °C |
 | Nutrient paste, hemogen | Their pipes | The whole load spoils after about 18 hours above 0 °C; the insulated tank doubles that |
 | Astrofuel, oxygen | Vanilla Gravship Expanded's pipes | Oxygen vents in a fire or great heat |
 | Beer, insect jelly, wort | Stacks on the ground | Wort spoils after 5 days above 0 °C |
 | FSX, prometheum (Combat Extended) | Stacks on the ground | A hit may set off FSX; prometheum needs the pressure vessel and any spill burns |
+| Toxic sludge (Biotech) | Wastepacks | Dissolves after 8 days above 0 °C and pollutes the ground |
+| Fecal sludge (Dubs Bad Hygiene) | Septic tanks and barrels | It is what it is |
+| Napalm (Rimefeller) | Stacks and barrels | |
 
 **With Rimefeller:** park the tanker with its engine off against a Rimefeller pipeline, with its compartment set to crude oil or
 chemfuel. It lays Rimefeller's hidden pipeline beneath itself and pumps to and from Rimefeller's storage tanks; the pipeline under it
 goes when it drives off.
-| Toxic sludge (Biotech) | Wastepacks | Dissolves after 8 days above 0 °C and pollutes the ground |
-| Fecal sludge (Dubs Bad Hygiene) | Septic tanks and barrels | It is what it is |
-| Napalm, crude oil (Rimefeller) | Stacks and barrels | |
 
 - **An empty tank must be purged before it carries something else**: select a colonist and right-click the truck (four in-game
   hours; it takes water with Dubs Bad Hygiene).
@@ -279,8 +283,10 @@ itself. A few you will notice:
 
 ## What has been tested in game
 
-- **Tested by the owner:** the survey truck and its boom (9 November 2026).
-- **Not yet tested in game:** the other five vehicles, the trailers and towing, the bowsers and setting up a trailer, every upgrade, the bulk buying, and how the pictures sit. Where each upgrade's
+- **Tested by the owner:** the survey truck and its boom (9 November 2026); the Busbar's size and look (13 November 2026); a
+  helicopter lifting a vehicle on its sling, through take-off to the world map (12 November 2026; see
+  [aircraft and sling loads](vehicle-care.md#aircraft-and-sling-loads)).
+- **Not yet tested in game:** the other five vehicles and the Busbar's power, the trailers and towing, the bowsers and setting up a trailer, every upgrade, the bulk buying, and how the pictures sit. Where each upgrade's
   picture sits on its vehicle is a first placement, to be adjusted once seen in game.
 
 Every figure and its source is in [D'thorga Vehicles' README](../../mods/PhobosVehicles/README.md).

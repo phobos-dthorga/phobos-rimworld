@@ -1,7 +1,7 @@
 # Contributing
 
 Questions, design feedback, documentation fixes, translations, reproducible bug reports and code are
-welcome. Ten mods are built and partly tested in game; in-game reports with a log, corrections to the
+welcome. Seven mods are built and partly tested in game; in-game reports with a log, corrections to the
 physics, chemistry and medicine behind them, and translations are the most useful contributions right now.
 
 **Maintainer workflow (18 October 2026):** owner-directed maintainer and agent changes use checked commits
@@ -50,7 +50,8 @@ or personal paths. Use synthetic test fixtures.
 
 ## Writing and research
 
-Every change to a mod updates its `CHANGELOG.md` and README in the same commit. Player text follows
+Every change to a mod updates its `CHANGELOG.md` and README in the same commit. A change that alters what a player builds,
+presses or sees also updates its chapter of the [player guide](docs/player-guide/README.md). Player text follows
 [writing READMEs and in-game text](docs/development/player-language.md) and lives in language files, not
 code.
 

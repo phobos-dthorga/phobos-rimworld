@@ -32,9 +32,9 @@ Seven mods. Each one's version is in [the documentation index](docs/README.md), 
 | [D'thorga Vehicles](mods/PhobosVehicles/README.md) | Six working vehicles (a bulk tanker, drill rig, tipper, survey truck, generator set and seabed crawler) and real figures for other mods' vehicles | Partly: the survey truck |
 | [D'thorga Medical](mods/PhobosMedical/README.md) | Five mods in one since 7 November 2026: burns, burn shock, airway burns and smoke; doctors who dose and operate on their own (triage); oxygen, a burn unit bed and other hospital kit; radiation control with Rimatomics; and a safe way to add More Injuries to a running colony | Partly, as the five mods before the merge; not yet as one |
 | [D'thorga Factory Additions](mods/PhobosFactoryAdditions/README.md) | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, other mods' drug labs as factory bills, and fixes | Partly |
-| [D'thorga Patches](mods/PhobosPatches/README.md) | Fixes and honest costs for other authors' mods: the Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, InterRim Ballistic Missile's strategic blast, Visit Settlements and Vehicle Framework | Partly: the stuck vehicle fires, a crash guard, and the missile fix once |
+| [D'thorga Patches](mods/PhobosPatches/README.md) | Fixes and honest costs for other authors' mods: the Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, InterRim Ballistic Missile's strategic blast, Visit Settlements and Vehicle Framework | Partly: the stuck vehicle fires, and the missile fix once |
 | [D'thorga Water Tap](mods/PhobosWaterTap/README.md) | A plumbing fixture for Dubs Bad Hygiene that keeps bottled water ready and refills from your water towers | No |
-| [D'thorga Radio Framework](mods/PhobosRadioFramework/README.md) | Phase 1 of the radio design: hand-held VHF and UHF radios, a base station, coax and antennas, a real link budget | No |
+| [D'thorga Radio Framework](mods/PhobosRadioFramework/README.md) | Phase 1 of the radio design: hand-held VHF and UHF radios, a base station, coax and antennas, a real link budget. **On the back burner since 9 November 2026**: no new features until the owner picks it up again | No |
 
 What each mod needs from other authors, and from one another:
 

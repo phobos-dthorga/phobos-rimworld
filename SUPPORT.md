@@ -12,7 +12,7 @@ Support is best-effort, with no promised response time.
 | A mod is greyed out with a missing dependency | Switch on the mod it names (D'thorga Framework, Harmony, Vanilla Expanded Framework and so on) and load it above. |
 | Part of D'thorga Medical does nothing | Check the load lines in `Player.log`: each mod prints one line saying what it switched on and what it left off, and why; D'thorga Medical prints one per part. |
 | A doctor will not do something you expected | Select the doctor, right-click the patient: the game names the reason. D'thorga Medical's triage and dosing parts add their own reasons there and in messages. |
-| A mod shows "potentially unsupported" in yellow | Your RimWorld version isn't in the mod's `supportedVersions`. The radio framework declares 1.6 only; the others declare 1.6 and 1.7. |
+| A mod shows "potentially unsupported" in yellow | Your RimWorld version isn't in the mod's `supportedVersions`. Every mod here declares RimWorld 1.7 only (since 8 November 2026). |
 | Errors after removing a mod | Read its README's "Read this first": most need a button pressed or bills deleted before removal. |
 
 ## A useful bug report
@@ -24,8 +24,8 @@ Include:
 - the steps to reproduce, and whether it began after adding a mod or loading a save;
 - the relevant lines from `Player.log`, especially any line starting with `[D'thorga`.
 
-`Player.log` is in `%USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Logs\` on RimWorld 1.7, and in
-the folder above on 1.6. **Each launch overwrites it**: copy it before restarting the game. `Player-prev.log` holds the run before.
+`Player.log` is in `%USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Logs\` (RimWorld 1.7).
+**Each launch overwrites it**: copy it before restarting the game. `Player-prev.log` holds the run before.
 
 Redact personal details such as your user name from paths before posting a log. Never upload credentials, game files or other
 authors' mods. Sensitive reports go through [SECURITY](SECURITY.md).

@@ -20,7 +20,7 @@ It follows the Phobos Ostranauts and Phobos Kenshi guides, adapted to RimWorld.
 2. **Version line**: "Version N, <date>. Not yet tested in game." until the owner says otherwise.
 3. **Read this first (gotchas):**
    - requirements (Harmony, D'thorga Framework, DLCs, other mods) and where it goes in the load order;
-   - the game versions it supports (1.7 leads, 1.6 kept);
+   - the game versions it supports (RimWorld 1.7 only, since 8 November 2026);
    - whether it is safe to add to and remove from a save, and what to do first;
    - settings to decide before starting a colony;
    - **whether it is tested in game.**

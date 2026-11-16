@@ -1,9 +1,14 @@
 # Vehicle crosslinks, round two: deeper chains, more fittings, and what the stations should do (10 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.73.0 (and Vehicles 0.33.0: T1, T2, T3, S1, S2 and the inspection pit), 0.74.0
+(S4) and 0.106.0 (T6); not built: T4, T5, T8, S3, the fittings F2 to F8 (all carried into [round three](vehicle-crosslinks-round-three.md)),
+T7 (merged into round three's G8) and the boost tune axis. Not yet tested in game, apart from the Diagnose letter (the owner, 11 Nov
+2026: it arrives and lists every part and reading).
+
 The owner, 10 Nov 2026, after the first eight crosslinks were built: "a research and record purview, where we can perhaps do any
 tertiary cross-linking, and as well any functional upgrades much like our block heater"; also whether to add crafting stations, to
 start differentiating them, or to change the tuning rig; "all suggestions, ideas, and even perhaps disagreements are good." This is
-the research and record. **Nothing here is built.** Every proposal answers for itself (what it lets the player do, stops them doing,
+the research and record. Every proposal answers for itself (what it lets the player do, stops them doing,
 and changes), figures are the agent's and authored, sources are labelled, and the owner's call is asked at the end.
 
 **Next round:** [round three](vehicle-crosslinks-round-three.md) (13 Nov 2026), with [avionics](vehicle-avionics.md) and [the authors' override contract](vehicle-author-overrides.md).

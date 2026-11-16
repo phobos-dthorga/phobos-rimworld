@@ -67,3 +67,26 @@ Damage marks are exported with `--marks`, which keeps only their darkness: as dr
 
 The owner picked bench 3, engine 2 and diamond bit 3 from a pilot of each, and each became the style reference for its group: the family held together well and every upgrade icon was accepted at one attempt. **The moderation filter blocked workshop prompts about a third of the time and 4 of 6 in the second batch** (`moderation_blocked`, a false alarm on ordinary machinery, not charged); the tuning rig and the depot bay therefore have one attempt each. Rewording and swapping the reference made little difference. The drawing scripts in this folder no longer write these files, so re-running one cannot overwrite them.
 
+## Later requests and records (9 to 16 Nov 2026)
+
+Records: [the art night of 12 Nov 2026](requests/night-2026-11-12-record.md) (batch B, the Crawler's and survey truck's overlays),
+[round three](requests/round-three-record.md) (the Pintle trailer, the tipper's grab, the winch and the long-range tank) and
+[the Seabed Crawler's art record](../../docs/development/vehicle-seabed-crawler-art.md). Every shipped texture has its own record beside it.
+
+| Request file | What | Engine | Run |
+| --- | --- | --- | --- |
+| [survey-truck-pilot.json](requests/survey-truck-pilot.json), [survey-truck-boom.json](requests/survey-truck-boom.json) | The survey truck's body and boom | OpenAI | 9 Nov 2026 |
+| [dash-telltales.json](requests/dash-telltales.json) | The dashboard's 15 warning lights | Local (Klein) | 10 Nov 2026 |
+| [gizmos.json](requests/gizmos.json), [gizmos-more.json](requests/gizmos-more.json) | Vehicle buttons | Local (Klein) | 10 Nov 2026 |
+| [gizmo-bulkorder-coins.json](requests/gizmo-bulkorder-coins.json) | The bulk order button with a stack of coins | Local (Klein) | 10 Nov 2026 |
+| [station-inspection-pit.json](requests/station-inspection-pit.json) | The inspection pit | OpenAI | 10 Nov 2026 |
+| [presentation-batch-a.json](requests/presentation-batch-a.json) | Diagnose and jump-start buttons, service items | OpenAI | 11 Nov 2026 |
+| [presentation-fittings.json](requests/presentation-fittings.json) | Fitting and tune pictures | OpenAI | 11 Nov 2026 |
+| [sling-icons.json](requests/sling-icons.json) | Sling buttons, the cargo hook and the sling set | OpenAI | 11 Nov 2026 |
+| [seabed-crawler-pilot.json](requests/seabed-crawler-pilot.json) | The Crawler's body | OpenAI | 11 Nov 2026 |
+| [batch-b-pilots.json](requests/batch-b-pilots.json), [batch-b-family.json](requests/batch-b-family.json), [batch-b-family-retry.json](requests/batch-b-family-retry.json) | The generator set, drill rig and tipper: bodies, then parts (the retry is the drill rig's well-pipe rack) | OpenAI | 12 Nov 2026 |
+| [seabed-crawler-overlays.json](requests/seabed-crawler-overlays.json), [survey-truck-overlays.json](requests/survey-truck-overlays.json) | The Crawler's and survey truck's overlays | OpenAI | 12 Nov 2026 |
+| [survey-truck-boom-extras.json](requests/survey-truck-boom-extras.json) | The survey truck's geophones and resistivity reel | OpenAI | 12 Nov 2026 |
+| [trailer-pilot.json](requests/trailer-pilot.json), [trailer-overlays.json](requests/trailer-overlays.json), [fittings-overlays.json](requests/fittings-overlays.json) | Round three: the Pintle trailer, its greedy boards, the tipper's grab, the winch and the long-range tank | OpenAI | 12 Nov 2026 |
+| [bowser-pilot.json](requests/bowser-pilot.json), [bowser-overlays.json](requests/bowser-overlays.json) | The Pintle bowser's body, lagged tank and second hose | OpenAI | 16 Nov 2026 |
+| [fitting-icons-local.json](requests/fitting-icons-local.json) | Fitting icons: snorkel, all-terrain tyres, work lamps, recovery winch | Local (Klein) | 16 Nov 2026 |

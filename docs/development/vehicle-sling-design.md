@@ -1,6 +1,12 @@
 # Sling loads: a helicopter carries a vehicle under it (11 Nov 2026)
 
-Design record. **Nothing here is built or tested in game yet.** The owner asked for a vehicle airlift of our own, "with our own flavour on
+**Status (17 Nov 2026):** built in D'thorga Framework 0.92.0 to 0.114.4 (and Vehicles 0.40.0 and 0.46.0): slice 1 (hook, sling set,
+lift and carry), slice 2 (weather, the slower flight, choosing the set-down, emergency release and wrecks), the landing fix (0.101.1),
+helicopters that fly across the map (0.102.0, with the Louie's and the Hind's hooks), the pictures and the latch sound; not built: our
+own stand-in that hovers over the load and takes orders in mid-air (the agent's choice, below). Take-off and the world-map line were
+tested in game by the owner on 12 Nov 2026; everything else is not yet tested in game.
+
+Design record. The owner asked for a vehicle airlift of our own, "with our own flavour on
 it", after seeing Yaroslav's [Cherokee Sling — Vehicle Airlift](https://steamcommunity.com/sharedfiles/filedetails/?id=3836765380)
 (Workshop, updated 9 Nov 2026). That mod's published source was read on 11 Nov 2026 only to learn how such a mod meets Vehicle Framework's
 flight; nothing of it is copied or adapted, and ours is designed from the questions below.

@@ -8,7 +8,7 @@ helpers every D'thorga mod shares.
 One of House D'thorga's mods (also spelt dthorga).
 
 Version 0.117.2, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
-oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
+oxygen working through what are now D'thorga Medical's burns and smoke part and its equipment part (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
 With **Vehicle Framework** active (RimWorld 1.7 only), it also gives vehicles real systems: a battery and alternator, coolant and
@@ -179,10 +179,10 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **From 0.108.1 the pipes and conduits our things lay beneath them are hidden again** (Dubs Bad Hygiene's hidden plumbing, the game's hidden
   conduit, a Vanilla Expanded Framework line's transparent pipe): **look for them in the plumbing and power overlays.** The visible ones 0.107.0
   and 0.108.0 laid turn hidden by themselves; your own pipes are never touched. A pipe of ours deconstructed gives nothing back. Not yet tested in game.
-- **From 0.108.0, every vehicle of ours parked with its engine off shows its pipes and conduits** (plumbing if it takes water, power conduit if it
+- **Superseded by 0.108.1's hidden pipes (above): from 0.108.0, every vehicle of ours parked with its engine off shows its pipes and conduits** (plumbing if it takes water, power conduit if it
   has a battery, the pipe of any line it uses), whether or not a run touches it; they go when its engine starts or it moves. A conduit run
   touching a parked vehicle charges its battery. Old hidden pipes from earlier versions are found and made visible once. Not yet tested in game.
-- **From 0.107.0 the pipes our things lay beneath them are visible** (Dubs Bad Hygiene's plumbing, a Vanilla Expanded Framework net's own pipe), and the
+- **Superseded by 0.108.1's hidden pipes (above): from 0.107.0 the pipes our things lay beneath them are visible** (Dubs Bad Hygiene's plumbing, a Vanilla Expanded Framework net's own pipe), and the
   generator set can join the grid through power conduits laid beneath it. Older hidden pipes are swapped for visible ones by themselves. With Vanilla
   Chemfuel Expanded, **a parked fuelled vehicle against a chemfuel pipe fills its tank from the line** (engine off, not set up), and the depot bay
   fills from a chemfuel pipe touching it. Not yet tested in game.
@@ -242,12 +242,12 @@ flowchart LR
     CO --> Breathed
     Mask["Gas mask: stops smoke,<br/>not carbon monoxide"] -.-> Breathed
     Sealed["Sealed helmet with its own air:<br/>stops both"] -.-> Breathed
-    Breathed --> Users["Burns and Smoke's lung damage and poisoning;<br/>Medical Equipment's oxygen need"]
+    Breathed --> Users["D'thorga Medical: burns and smoke part's lung damage<br/>and poisoning; equipment part's oxygen need"]
 ```
 
-**The health layer** (0.3.0) answers for every D'thorga medical mod who the doctors look after (colonists, slaves, prisoners,
+**The health layer** (0.3.0) answers for every part of D'thorga Medical who the doctors look after (colonists, slaves, prisoners,
 guests) and under what care, how dangerous a condition is and how soon it kills, and which doctor could operate. It also puts one
-button per registered care choice on each of those people: D'thorga Triage's "Doctors may operate" is the first. How the medical
+button per registered care choice on each of those people: D'thorga Medical's triage part's "Doctors may operate" is the first. How the medical
 mods share the work is in [the medical mods together](../../docs/medical-mods.md).
 
 ## Vehicle systems (with Vehicle Framework)
@@ -544,9 +544,9 @@ Supplied oxygen (0.2.0) is a treatment, not a gas: put `Phobos.Framework.Breathi
 
 ## Checks done (6 November 2026)
 
-- Built for RimWorld 1.7 and 1.6. The game-free rules pass 26 unit tests: 17 for the gas layer (door and vent rates, exchange,
+- Built for RimWorld 1.7 and 1.6 (1.6 retired 8 Nov 2026; 1.7 only since). The game-free rules pass 26 unit tests: 17 for the gas layer (door and vent rates, exchange,
   venting, decay, rebuild, mask and signal choice, the owner's source rule), 5 for supplied oxygen and 4 for the danger rule.
 - **The owner's reports (5 November 2026):** the gas layer and supplied oxygen working in game, through Burns and Smoke and
-  Medical Equipment.
+  Medical Equipment (since 7 November 2026 D'thorga Medical's burns and smoke part and equipment part).
 - **Not checked in game:** the health layer and its care-choice button, the door walk through regions, the vent lookup, the save
   and reload of room gas, and the cost on a big fire.

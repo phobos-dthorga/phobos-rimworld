@@ -1,6 +1,12 @@
 # Animating our vehicles: research (9 Nov 2026)
 
-**A research record. Nothing is built; nothing here is tested in game.** The owner asked (9 Nov 2026) whether our vehicles can make use of
+**Status (17 Nov 2026):** built in D'thorga Framework 0.51.0, 0.98.0 and 0.100.0 (and Vehicles 0.23.0): parts that swing out flat on
+a hinge when a vehicle sets up, first the survey truck's boom; pictures that change with upgrades; upgrade pictures that ride on the
+swinging boom. Not built: the rest of the motion table below (spinning heads, fans, exhaust puffs, the rig's mast and the tipper's
+lift). The survey truck's boom swinging out was tested in game by the owner on 9 Nov 2026 (Vehicles 0.23.0); the rest is not yet
+tested in game.
+
+**A research record.** The owner asked (9 Nov 2026) whether our vehicles can make use of
 animations, how they would work, whether they need several versions of a similar sprite, and whether shaders could do the job instead to
 lessen the cost of generated images; then, before any more art is made, where motion would benefit each of our designs.
 

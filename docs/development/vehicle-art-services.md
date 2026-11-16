@@ -15,7 +15,7 @@ for items and icons, and this record replaces that record's paid-route row.
 - **Rotate, then edit.** A true top-down east facing is the north facing turned a quarter, and south is north turned a
   half. A script does the turns for free; the model then only fixes lighting and the parts that differ end to end.
   Facings that start from the same pixels match far better than three separate generations.
-- **Best value: the Gemini image API** (Nano Banana 2.1, about US$0.034 an image at 1K, half in batch). **Good
+- **Not chosen (the owner picked OpenAI, above).** As read: **best value, the Gemini image API** (Nano Banana 2.1, about US$0.034 an image at 1K, half in batch). **Good
   fallback: the OpenAI image API** (gpt-image-2, US$0.041 at medium quality, prepaid, no ChatGPT subscription needed).
   **Backup for reference edits: fal.ai** (FLUX.2 pro edit, about US$0.045).
 - **PixelLab does not fit the bodies.** Its rotation tools stop at 128 to 256 px and are trained on characters; vehicle
@@ -58,6 +58,10 @@ corners, straight top-down, no perspective. Outputs ship in a free public Worksh
 
 ## The pipeline this points to (agent recommendation)
 
+**Superseded (8 Nov 2026): the owner chose the OpenAI image API for vehicle bodies, not Gemini.** The pipeline in use is in
+[Running the OpenAI engine](#running-the-openai-engine) below and the [paid generation rules](paid-image-generation-rules.md). The
+recommendation is kept as written.
+
 1. **North body:** Nano Banana 2.1 through the Gemini API with a short style prompt and one to three style references
    (our own approved sprites, never the game's art in anything that ships); generate at 1K or 2K, downscale by script
    with area resampling and alpha clean-up to the exact size.
@@ -67,7 +71,8 @@ corners, straight top-down, no perspective. Outputs ship in a free public Worksh
 3. **Overlays:** reference edits of the body, cut out by script against the base. **A part that moves (a mast, a boom, a dish, a rotary head, a tipper
    body) is its own picture at rest on the body's canvas, with the body drawn without it; never a frame sheet** ([the animation research](vehicle-animation-research.md)).
 4. **Masks:** by script, posterising the panel zones into flat colour regions, or hand-painted over a faded copy; a
-   model pass at the same price where the script cannot separate them.
+   model pass at the same price where the script cannot separate them. **Superseded (16 Nov 2026):** paint masks are made by region
+   and repaired with Segment Anything's parts map ([background clean-up](background-cleanup.md#paint-masks-by-region-16-nov-2026)).
 5. **Icon:** downscale the north or east body and sharpen the outline, by script.
 6. **Fallbacks:** gpt-image-2 medium if Gemini's style drifts; FLUX.2 pro edit on fal for the turned-image edits.
 7. **Records:** every image through the near-copy check (`scripts/art/near_copy.py`) with a record naming the tool,

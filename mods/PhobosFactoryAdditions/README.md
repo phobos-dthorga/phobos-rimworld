@@ -759,7 +759,7 @@ optional and run from 0 to 1. An item without the game's `CompProperties_FoodPoi
   after checking that the bills appear on the granulator, synthesizer (human meat back) and refinery.
 - 29 October 2026, 0.5.0: VFE Factory's machining bill generator, Pipe System's output step, menu and
   ingredient cache, the game's stacking and recipe code, and Dubs Rimatomics' recipe unlock patch read in
-  their decompiled 1.7 assemblies. The assembly builds with no warnings for RimWorld 1.6; every game and
+  their decompiled 1.7 assemblies. The assembly builds with no warnings for RimWorld 1.6 (1.6 retired 8 Nov 2026; 1.7 only since); every game and
   Pipe System member it calls exists in the 1.7 assemblies. The output-limit rule has unit tests, and
   `scripts/check-factory-patches.py` passes against the owner's installation (RimWorld 1.7, 300 active mods),
   including the three bench templates. The bill counts above come from a scan of the installed mods' files.
@@ -801,7 +801,7 @@ optional and run from 0 to 1. An item without the game's `CompProperties_FoodPoi
 - 2 November 2026, 0.9.1: Pipe System's default result worker read (it returns the bill's count).
   `scripts/check-factory-patches.py` passes with the stock soup correction. Not yet tested in game.
 - 2 November 2026, 0.10.0: Dubs Bad Hygiene's plumbing, the game's food poisoning and its assembly loader, and Pipe
-  System's process tick read in their decompiled 1.7 assemblies; both assemblies build with no warnings against 1.6,
+  System's process tick read in their decompiled 1.7 assemblies; both assemblies build with no warnings against 1.6 (1.6 retired 8 Nov 2026; 1.7 only since),
   and every member they call exists in the 1.7 assemblies. The water rule has unit tests, and
   `scripts/check-factory-patches.py` passes. Not yet tested in game.
 - 2 November 2026, 0.11.0: VFE Factory's belt pull read in its IL as well as decompiled, because the decompiler

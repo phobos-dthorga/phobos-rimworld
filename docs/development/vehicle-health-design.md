@@ -4,8 +4,9 @@ A design record. The owner's primary aim for the vehicle work (8 Nov 2026): a he
 detailed as the game's for colonists, where the detail is most extreme, with NPC vehicles allowed to be far more diffuse, and
 **performance as the one hard constraint**. The first deliverable the owner named: rectify the vehicle Health tab so it shows all
 the complex damage a vehicle can take, no differently from a pawn. Three read-only explorations (the game's pawn model, Vehicle
-Framework's part model, our own code) and one critique fed this record. **Nothing here is tested in game**; the measured table in
-"Performance" is empty until the owner runs the protocol.
+Framework's part model, our own code) and one critique fed this record. **Nothing here is tested in game, apart from one
+measurement:** the owner's dev-mode cost reading of 9 Nov 2026 (Framework 0.42.0) found the whole model within its budget; its
+figures are under "Performance". The four-run protocol table there is still empty.
 
 ## Read this first
 
@@ -15,7 +16,8 @@ Framework's part model, our own code) and one critique fed this record. **Nothin
   of the structure and false of the behaviour.
 - **Owner's decisions (8 Nov 2026):** (1) **a condition layer on VF's parts**, VF's part health the one authority, our own Health
   tab replacing VF's; reviving the pawn hediff stack rejected; (2) this round: this record, measurement and an NPC tier, then the
-  Health tab; (3) **NPC vehicles run a lite tier by default**, with a setting to run the full model for everyone; (4) the repair
+  Health tab; (3) **NPC vehicles run a lite tier by default**, with a setting to run the full model for everyone (**the setting was
+  removed in Framework 0.96.1**, owner, 11 Nov 2026: other factions always run the lite tier; [the audit](vehicle-other-factions-audit.md)); (4) the repair
   direction for later: **destroyed parts and serious conditions need supplies**, behind a setting; ordinary damage keeps VF's
   free repair.
 - **The budget in one line:** the whole vehicle model, every map, averages **no more than 0.05 ms a tick**; nothing runs every
@@ -120,6 +122,7 @@ EMP and extinguishing are lost under CE.
 Read before freezing slice 2's Def shape, as the roadmap asked: SmashPhil's `develop` branch (github.com/SmashPhil/Vehicle-Framework,
 last pushed 31 October 2026, MIT), cloned read-only into `.local/research/VehicleFramework-develop` and diffed against `release/1.6`
 (147 commits, 920 files). SmashPhil's code; our summary. **Nothing here is released yet**; the 1.7 game still loads VF 1.6.
+(Note, 17 Nov 2026: since 14 Nov 2026 Vehicle Framework ships a 1.7 build; see the [dependency audit](dependency-audit-2026-11-16.md).)
 
 - **The health model is unchanged.** `VehicleComponent`, `VehicleStatHandler`, the reactors and `VehiclePawn_Health` differ from
   1.6 only in comments, logging and formatting. Reactors still run inside `VehicleComponent.TakeDamage` after the health is
@@ -134,6 +137,7 @@ last pushed 31 October 2026, MIT), cloned read-only into `.local/research/Vehicl
   this ships, VF's health loss beside our tread wear. **Open question for the owner when VF 1.7 ships**: leave both, or have tread
   wear stand down while VF's hand brakes are on. **VF 1.7 shipped on 14 Nov 2026 with hand brakes exactly as read here** (on by
   default, `brakeDamagePerNode` 0.15), so the question is now live ([dependency audit](dependency-audit-2026-11-16.md)).
+  **Answered by the owner, 16 Nov 2026: leave both**, as they measure different things; nothing to build (outstanding-work V9a).
 - **New: acceleration and braking** (`AccelerationController`, an `AccelerationRate` stat, a `Braking` event, tyre screech): may
   meet our drivetrain's speed cap; to read when it ships, not now.
 - **New events:** `FactionChanged`, `PositionChanged`, `RotationChanged`.
@@ -279,7 +283,8 @@ and treated as a best case for players (AGENTS.md).
 a tab, a save conversion, Def load. **Never** on a cadence, never per frame with no tab open, never anything per tick that scales
 with parts times conditions. The 12 ms frame work queue is for one-off long jobs, never the steady state.
 
-**NPC vehicles, the diffuse tier** (owner, 8 Nov 2026: lite by default, a setting to run the full model for everyone). A pure rule
+**NPC vehicles, the diffuse tier** (owner, 8 Nov 2026: lite by default, a setting to run the full model for everyone; the setting
+was removed in Framework 0.96.1, so other factions always run lite). A pure rule
 in the core decides each vehicle's tier from its faction and whether it is spawned: a player vehicle is **Full**; a non-player
 vehicle on a map is **Lite** (no rare-tick integration, no history, no services, no loads; hits are counted and a condition's
 effect is applied once and never evolves); a non-player vehicle not on a map is **Off**. The tier is re-read on the rare tick
@@ -309,10 +314,10 @@ vehicles). Record TPS and our milliseconds in the table below.
 
 | Slice | What | Needs | Status |
 | --- | --- | --- | --- |
-| 0 | **Measurement and the NPC tier:** the core detail-tier rule (tested) and timing accumulator; `CompTickRare` by tier; the setting "Every vehicle runs the full model" (off); dev actions for the timing report and tiers | nothing | Built in Framework 0.25.0 (this round); not yet tested in game |
+| 0 | **Measurement and the NPC tier:** the core detail-tier rule (tested) and timing accumulator; `CompTickRare` by tier; the setting "Every vehicle runs the full model" (off; removed in Framework 0.96.1); dev actions for the timing report and tiers | nothing | Built in Framework 0.25.0 (this round); not yet tested in game, apart from the owner's cost reading of 9 Nov 2026 (within budget) |
 | 1 | **The Health tab as a projection of what exists:** replaces VF's tab in `inspectorTabs` (a setting keeps VF's); VF's stats drawn by us from its figures (its drawing helper takes a Unity type the 1.7 build cannot pass) with an impactor tooltip (the parts in each stat's categories and our factors); parts grouped External then Internal by role, each with health, efficiency and armour; under each part the stages, refusals and VF leaks that already exist; a crew row; hover lights the hitbox; the same tab on the world map | slice 0 for honest numbers | Built in Framework 0.26.0 (this round); not yet tested in game |
 | 2 | **Conditions proper:** per-part severity quantities keyed by part; hit-born (damage kind by role or depth, from the reactor, idempotent), stage-born (`Effect_AddCondition`), wear-born; stat effects through the existing stat part; `clearsOnRepair`, fading, or a service; the tab's "under each part" slot fills; the schema check covers them | slice 1's slot; slice 0's tier; SmashPhil's develop branch read (above) | Built in Framework 0.29.0; not yet tested in game |
-| 3 | **Consequences and repair depth:** leaks as conditions with the danger clock ("engine seizes in about 2 h"); destroyed parts need replacement supplies (owner, setting on); field fixes; permanent conditions; the part-efficiency postfix only if the owner wants the efficiency column itself to move; wreck-on-death as a separate recorded question | slice 2 | Open |
+| 3 | **Consequences and repair depth:** leaks as conditions with the danger clock ("engine seizes in about 2 h"); destroyed parts need replacement supplies (owner, setting on); field fixes; permanent conditions; the part-efficiency postfix only if the owner wants the efficiency column itself to move; wreck-on-death as a separate recorded question | slice 2 | Built in Framework 0.36.0 (and Vehicles 0.14.0): the danger clock, destroyed parts needing supplies, one serious condition needing a service, and field fixes; permanent damage and wrecks left out ([slice 3's record](vehicle-health-consequences.md)); not yet tested in game |
 
 ### Slice 2 as built (Framework 0.29.0)
 
@@ -338,7 +343,8 @@ vehicles). Record TPS and our milliseconds in the table below.
 
 ## Risks and unknowns
 
-- **VF 1.7 is unknown:** the tab hook order, `inspectorTabs` XML, the internal `HighlightedComponent`, event names, the
+- (Note, 17 Nov 2026: Vehicle Framework has shipped a 1.7 build since 14 Nov 2026; the [dependency audit](dependency-audit-2026-11-16.md)
+  says what changed for us.) **VF 1.7 is unknown:** the tab hook order, `inspectorTabs` XML, the internal `HighlightedComponent`, event names, the
   `VehicleComponent` surface, and whether VF adds part conditions of its own. Slice 1 is a projection and survives most of that;
   slice 2's Def shape waits for a branch read; every VF-internal access goes through one accessor class so a rename is one fix.
 - **CE's bypasses:** no `HealthChanged`, no virtual `TakeDamage`, reactors with pre-armour damage twice. Health-lost accounting
@@ -356,7 +362,8 @@ vehicles). Record TPS and our milliseconds in the table below.
   ever added it must be a dictionary miss for vehicles without conditions. The stat-level path is preferred.
 - **VF's free repair against conditions:** replacement supplies for destroyed parts is a balance change for every VF vehicle; it
   needs its setting, and other authors' vehicles are included.
-- **Nothing is measured yet:** every figure above is a budget. The table must be filled before slice 2 ships.
+- **Nothing is measured yet:** every figure above is a budget. The table must be filled before slice 2 ships. (Measured since: the
+  owner's reading of 9 Nov 2026, under "Performance".)
 - **NPC vehicles ran the full model** until slice 0: the owner's TPS before it cannot be attributed to any one cause.
 - **VF's own oddities, recorded and not fixed:** the crew-hit direction looks unrotated (VF:10503); health upgrades appear to heal
   fully on every load (VF:34509); a side-defined explosive part explodes at the vehicle's centre (VF:8066).

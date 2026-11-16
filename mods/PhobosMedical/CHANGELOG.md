@@ -6,6 +6,10 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The README's dated checks note that RimWorld 1.6 was retired on 8 November 2026. No change in play.
+
 ## [0.17.0] - 2026-11-16 - Draft
 
 Search and Rescue's field responders use our kits where a colonist fell

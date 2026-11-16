@@ -10,7 +10,8 @@ Vehicles 0.8.0 (Drafts). **Not yet tested in game.**
   Land Cruiser, Wiesel, T-55, BMP-1 family, M113, Bradley, M1A2s, M10, M48, PLS, Harrier, Hind, Mongoose and the trains). The 12 kg
   rule reached only Vanilla Vehicles Expanded's fictional vehicles and unknown mods.
 - **Vehicle Framework's Mass figures are not comparable between mods**, so no formula fixes them: RimThunder's M48 (Mass 1000) is a
-  45 t tank, Frontline Workshop's Land Cruiser (Mass 2000) weighs 2.2 t.
+  50 t tank (Taiwan's CM-11, secondary: Wikipedia, as [the figures research](vehicle-figures-research.md) and the M48H's Def have it;
+  corrected 17 Nov 2026 from 45 t), Frontline Workshop's Land Cruiser (Mass 2000) weighs 2.2 t.
 - **Owner's choice (8 Nov 2026): authored masses for the VVE vehicles** by the real class each description names, and the empty mass
   tunable per design in Vehicle Framework's settings window, so any player can correct a vehicle from another mod.
 

@@ -1,6 +1,10 @@
 # Air-defence tie-ins: InterRim Ballistic Missile, The Dead Man's Switch and our aircraft (13 Nov 2026)
 
-**A research record. Nothing is built, and nothing here is tested in game.** The owner, 13 November 2026, asked that the
+**Status (17 Nov 2026):** built in D'thorga Patches 0.19.1: AD14 (InterRim Ballistic Missile's close-in weapon systems shoot down
+Combat Extended's shells, a temporary patch); not built: every other row, including the aircraft batch the owner chose (AD3 with AD2
+and avionics A16). Not yet tested in game.
+
+**A research record.** The owner, 13 November 2026, asked that the
 [soft-dependency exploration](soft-dependency-crosslinks.md) include InterRim Ballistic Missile and The Dead Man's Switch "for their
 anti-air, RADAR, FCS, etc.". This record answers that part. It joins four existing designs: [avionics](vehicle-avionics.md) (A10 to
 A13, A16), [cross-map strikes](cross-map-strikes.md), the [submarine framework](submarine-framework.md) and the

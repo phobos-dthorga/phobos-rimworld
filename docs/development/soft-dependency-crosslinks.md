@@ -1,13 +1,19 @@
 # Soft-dependency cross-links: new tie-ins with other mods (13 Nov 2026)
 
-**A research record. Nothing is built, and nothing here is tested in game.** The owner, 13 November 2026, asked for "an exploration
+**Status (17 Nov 2026):** built in D'thorga Framework 0.108.4 and 0.109.0 (and Vehicles 0.52.0, Medical 0.16.0 and 0.17.0, Factory
+Additions 0.13.0): SD1 (vehicles our systems refuse to move), SD4 (the tanker on Rimefeller's pipeline), SD5 (the tanker fills
+generators), SD9 (EMP on vehicles), SD21 (iodide at the radiation line), SD22 (Search and Rescue's medics), SD23 (the drip stand) and
+SD30 (narrowed to our vehicle parts bench); not built: every other row, including SD20 (chosen 16 Nov 2026), SD6 (read, "not now") and
+SD8 (set aside, nothing to build). Not yet tested in game. The section "Questions for the owner" has the detail.
+
+**A research record.** The owner, 13 November 2026, asked for "an exploration
 into the kind of cross-links we can make regarding soft-dependencies with other mods", and chose:
 
 | Question | Owner's answer |
 | --- | --- |
 | Which of our mods | All of them: Vehicles and Framework, Medical, Factory Additions and Water Tap, plus InterRim Ballistic Missile and The Dead Man's Switch "for their anti-air, RADAR, FCS, etc." |
 | Candidates | The owner's mod list first, plus a short list of strong mods not on it |
-| Outcome | Record only; the owner picks |
+| Outcome | A record first, nothing to be built until the owner picks |
 | Direction | Both ways: their things feeding our systems, and our systems giving their things a role |
 
 It is one of three records:

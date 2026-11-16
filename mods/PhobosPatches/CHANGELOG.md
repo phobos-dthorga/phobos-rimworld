@@ -6,6 +6,10 @@ says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The README says which part is tested in game (the stuck vehicle fires, by the owner on 10 November 2026) and that Vehicle Framework now ships its own 1.7 build. No change in play.
+
 ## [0.19.3] - 2026-11-16 - Draft
 
 RimPacts' allies leave empty vehicles alone

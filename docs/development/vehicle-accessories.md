@@ -8,6 +8,10 @@ and our own source, and are summarised in our own words. Figures marked **[A]** 
 secondary source and are **unverified** (see Sources); **[I]** is our inference. Vehicle Framework references are from its **1.6**
 decompile, the only one we hold; its 1.7 build may differ.
 
+**Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026, and D'thorga Framework 0.111.1 builds against it
+([the dependency audit](dependency-audit-2026-11-16.md)). The VF references in this record were read from its 1.6 build, which the
+game loaded when this was written; check one against the 1.7 build before acting on it.
+
 ## Read this first
 
 - **What an accessory is:** something fitted to a vehicle, or carried by it and set out beside it, that makes a camp or a trip

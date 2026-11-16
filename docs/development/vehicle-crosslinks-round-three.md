@@ -1,6 +1,10 @@
 # Vehicle cross-links, round three: the crew, weather and ground, combat damage, electrics and hydraulics (13 Nov 2026)
 
-**A research record. Nothing is built, and nothing here is tested in game.** The owner, 13 November 2026, asked for "a research and
+**Status (17 Nov 2026):** built in D'thorga Framework 0.106.0 (T6, G18, G15, G9 and G16, with the avionics record's A5, A6, A8 and
+A9) and 0.113.0 (G1 with G2, G5, G7 with the snorkel, and G13); not built: G3, G4, G6, G8, G10 to G12, G14, G17, G19, G20, and
+round two's T4, T5, T8 and F2 to F8. Not yet tested in game.
+
+A research record. The owner, 13 November 2026, asked for "a research and
 record purview for any further and deeper cross-links we can make", with avionics as the gap they see most, "but I want this
 purview to cover all vehicles, ground-based and all." It is the third of three records in this review:
 
@@ -301,7 +305,8 @@ no crashes); (2) **weather takes grip, on by default with a setting**; (3) **unl
 (4) **ammunition cook-off now, on by default, but only where Combat Extended is detected and its own ammunition settings allow it**
 (if that cannot be detected reliably, it stays off and the record says why); (5) **river fording with a snorkel fitting is in**.
 **The first batch, when the owner says build:** the quick wins **T6, G18, G15**; aircraft power **A5, A9, A6 with G16, A8**; and
-night driving **G9**. G1 with G2 and G5 are agreed but not in the first batch. Nothing is built yet.
+night driving **G9**. G1 with G2 and G5 are agreed but not in the first batch. Nothing was built when they answered; the first
+batch came in Framework 0.106.0, and G1, G2, G5, G7 and G13 in 0.113.0 (above).
 
 The questions as they were put:
 

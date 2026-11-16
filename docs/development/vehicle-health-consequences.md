@@ -2,7 +2,8 @@
 
 **Status: built in Framework 0.36.0 and Vehicles 0.14.0, on the owner's go of 9 Nov 2026. Not yet tested in game, nor is slice 2 it builds
 on.** The answers to its questions are in [Decisions](#decisions-9-nov-2026). Findings marked "from the code" are read from our decompile of Vehicle Framework
-1.6 (the build the 1.7 game loads) and summarised in our own words; what this record says will happen in play is a proposal.
+1.6 (the build the 1.7 game loaded then) and summarised in our own words; what this record says will happen in play is a proposal.
+(Note, 17 Nov 2026: since 14 Nov 2026 Vehicle Framework ships a 1.7 build; see the [dependency audit](dependency-audit-2026-11-16.md).)
 
 This record answers the project's rule that every new behaviour says, before it is built, what it lets the player do, what it stops
 them doing and how it changes the way they play. The architecture is settled in [the vehicle health design](vehicle-health-design.md).
@@ -10,7 +11,8 @@ them doing and how it changes the way they play. The architecture is settled in 
 ## Read this first
 
 - **Built:** the danger clock, destroyed parts needing supplies, one serious condition needing a service, and field fixes. **Permanent
-  damage is left out for now, and wrecks wait until Vehicle Framework 1.7 ships.**
+  damage is left out for now, and wrecks wait until Vehicle Framework 1.7 ships.** (Vehicle Framework 1.7 shipped on 14 Nov 2026;
+  wrecks are still not built.)
 - **The player sets the prices** in the mod settings: engines and transmissions at 100% of the whole part by default, everything else
   at 50% of its materials (agent default for the 50%).
 - **Every vehicle from every mod is affected** by destroyed parts needing supplies, so it stays behind a setting (on by default, the

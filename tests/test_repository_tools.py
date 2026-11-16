@@ -276,7 +276,7 @@ class DocLinkCheckTests(unittest.TestCase):
             (root / 'docs').mkdir()
             (root / 'docs' / 'guide.md').write_text('# Guide\n', encoding='utf-8')
             (root / 'README.md').write_text(
-                '[guide](docs/guide.md#top) [gone](docs/gone.md) [out](../elsewhere.md) '
+                '[guide](docs/guide.md#guide) [gone](docs/gone.md) [out](../elsewhere.md) '
                 '[web](https://example.com/a.md)\n\n```text\n[fenced](docs/fenced.md)\n```\n', encoding='utf-8')
             checked, failures = doc_links.check(root, ['README.md', 'docs/guide.md'])
         self.assertEqual(checked, 3)
@@ -289,6 +289,55 @@ class DocLinkCheckTests(unittest.TestCase):
             (root / 'secret.md').write_text('# Ignored locally\n', encoding='utf-8')
             (root / 'README.md').write_text('[secret](secret.md)\n', encoding='utf-8')
             self.assertEqual(doc_links.check(root, ['README.md'])[1], ['README.md: missing secret.md'])
+
+    def test_anchors_must_name_a_heading(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            (root / 'guide.md').write_text(
+                "# Guide\n\n## RimWorld 1.6, retired\n\n## Notes\n\n## Notes\n\n<a id=\"kept\"></a>\n", encoding='utf-8')
+            (root / 'README.md').write_text(
+                '[a](guide.md#rimworld-16-retired) [b](guide.md#notes-1) [c](guide.md#kept) [d](#top)\n'
+                '[gone](guide.md#newer-c-on-rimworld-16)\n\n## Top\n', encoding='utf-8')
+            checked, failures = doc_links.check(root, ['README.md', 'guide.md'])
+        self.assertEqual(checked, 5)
+        self.assertEqual(failures, ['README.md: no heading for guide.md#newer-c-on-rimworld-16'])
+
+    def test_slugs_follow_github(self):
+        self.assertEqual(doc_links.slug("Read this first (gotchas)"), 'read-this-first-gotchas')
+        self.assertEqual(doc_links.slug("D'thorga Framework: research"), 'dthorga-framework-research')
+        self.assertEqual(doc_links.slug("`Input_Driver` and [fording](x.md)"), 'input_driver-and-fording')
+
+
+class DocStatusCheckTests(unittest.TestCase):
+    def write(self, root, text):
+        folder = Path(root) / 'docs' / 'development'
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / 'record.md').write_text(text, encoding='utf-8')
+        return doc_status.check(root)[1]
+
+    def test_repository_records_agree_with_themselves(self):
+        self.assertEqual(doc_status.check(ROOT)[1], [])
+
+    def test_an_opening_that_says_nothing_is_built_is_refused_when_the_record_records_a_build(self):
+        with tempfile.TemporaryDirectory() as root:
+            faults = self.write(root, '# Record\n\nA research record. Nothing is built.\n\n## Built\n\nBuilt in Framework 0.110.0.\n')
+        self.assertEqual(len(faults), 1)
+        self.assertIn('Nothing is built', faults[0])
+
+    def test_a_build_recorded_in_the_opening_counts(self):
+        with tempfile.TemporaryDirectory() as root:
+            faults = self.write(root, '# Record\n\nNothing here is built.\n\nLater: built in D\'thorga Framework 0.78.0.\n\n## More\n')
+        self.assertEqual(len(faults), 1)
+
+    def test_a_status_line_and_records_still_to_be_built_pass(self):
+        with tempfile.TemporaryDirectory() as root:
+            self.assertEqual(self.write(root, '# Record\n\n**Status (17 Nov 2026):** built in Framework 0.110.0: the fit; '
+                                              'not built: the override Def.\n\n## Built\n'), [])
+            self.assertEqual(self.write(root, '# Record\n\nResearch and record only.\n\n## Planned, not built\n\n'
+                                              '## How it would be built\n'), [])
+
+
+doc_status = load('scripts/check-doc-status.py', 'check_doc_status')
 
 
 if __name__ == '__main__':

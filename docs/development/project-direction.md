@@ -6,7 +6,8 @@
   published free on the Steam Workshop for anyone to use and build on.
 - **The first project is the [D'thorga Radio Framework](radio-framework-design.md)** (working title).
   It is an XML-extensible framework where a real link budget decides every contact. Phase 1 (local
-  VHF/UHF on one map) is being built; later phases wait for their gates and the owner's go-ahead.
+  VHF/UHF on one map) was built, up to Radio Framework 0.1.6. **It has been on the back burner since 9 Nov 2026** (owner): no
+  new features or phases until the owner picks it up again; a fix for something reported broken is still fine.
 - **Frameworks that others can extend.** Hardware and tuning are Defs, so other modders add bands, radios
   and antennas in XML. Tie-ins with other mods are optional and switch on only when those mods are active.
 - **Keep it a working slice.** Build the smallest version that proves the idea in play, then grow it. Drop
@@ -58,8 +59,8 @@ load folder or patch.
 | 18 Oct 2026 | MIT for original work, as Phobos Ostranauts; Ludeon's content and other authors' material are excluded (`LICENSE`) | agent default, following Ostranauts |
 | 18 Oct 2026 | `packageId` form `PhobosDthorga.<ModName>`; the Harmony ID is the `packageId` | **agent default, owner to confirm before the first public build** |
 | 18 Oct 2026 | Layout: `mods/<Mod>/` is the shipped folder, `src/<Project>/` holds C#, `workshop/<Mod>/` holds page drafts once publishing starts | agent default, following Ostranauts |
-| 18 Oct 2026 | Build for 1.6 first (net472, Harmony 2). Ship the 1.6 build to 1.7 through `LoadFolders.xml` until a native net10.0 build is needed | agent default, following the design's Versions decision |
-| 18 Oct 2026 | **PolySharp** for every 1.6 (net472) project, set once in `Directory.Build.props`, so newer C# works on Unity's 2018-era libraries; proven by a throwaway probe build ([building](building.md#newer-c-on-rimworld-16)) | owner (agent proposed) |
+| 18 Oct 2026 | Build for 1.6 first (net472, Harmony 2). Ship the 1.6 build to 1.7 through `LoadFolders.xml` until a native net10.0 build is needed. **Superseded** (4 Nov 2026 by 1.7 leading; 8 Nov 2026 by RimWorld 1.7 only) | agent default, following the design's Versions decision |
+| 18 Oct 2026 | **PolySharp** for every 1.6 (net472) project, set once in `Directory.Build.props`, so newer C# works on Unity's 2018-era libraries; proven by a throwaway probe build ([building](building.md#rimworld-16-retired)). **Superseded** (8 Nov 2026, by RimWorld 1.7 only: no project builds net472, so no PolySharp) | owner (agent proposed) |
 | 18 Oct 2026 | Workshop publication tooling comes from Ostranauts in the change that prepares the first public beta, not before | agent default |
 | 18 Oct 2026 | Direct pushes to `main`; no pull requests unless the owner asks | agent default, following Ostranauts |
 | 19 Oct 2026 | **Phase 1 of the radio framework is open**: local VHF/UHF on one map (link-budget service, hand-helds, base station, antennas, feedline, walls and mountain, three display modes) | owner |
@@ -75,7 +76,7 @@ load folder or patch.
 | 7 Nov 2026 | **The save bridge joins D'thorga Medical** and asks on load: convert now, not now, or never for this save | owner (the agent had recommended keeping it separate) |
 | 7 Nov 2026 | Factory Additions, Water Tap, Radio Framework and D'thorga Framework stay separate mods | owner (agreed with the agent's recommendation) |
 | 7 Nov 2026 | Identities and versions of the merged mods: `PhobosDthorga.Medical` 0.6.0 and `PhobosDthorga.Patches` 0.7.0, continuing above the highest version merged in; every namespace, class, defName and saved key kept | agent default (version argued to the owner, who agreed with the plan as a whole) |
-| 8 Nov 2026 | **RimWorld 1.7 only going forward**: no resources on 1.6 compatibility; new projects single-target, existing ones drop 1.6 when next touched (AGENTS.md) | owner (the "when next touched" part is an agent default) |
+| 8 Nov 2026 | **RimWorld 1.7 only going forward**: no resources on 1.6 compatibility; new projects single-target, existing ones drop 1.6 when next touched (AGENTS.md). **"When next touched" superseded** (8 Nov 2026, by the owner's "drop RimWorld 1.6 from every mod now", below) | owner (the "when next touched" part is an agent default) |
 | 8 Nov 2026 | **Real vehicle systems as a generic, schema-driven service** (electrical, coolant and oil first; "this is just a start"), retrofitted to other authors' Vehicle Framework vehicles as settings, extensible by anyone through XML loadouts, documented ([design](vehicle-systems-design.md)) | owner (placement in D'thorga Framework's Vehicle-Framework-optional part is an agent default) |
 | 8 Nov 2026 | **A new mod, D'thorga Vehicles** (`PhobosDthorga.Vehicles`), for utility vehicles on Vehicle Framework; created as a stand-in carrying loadouts for other mods' vehicles until the framework is built ([design](utility-vehicles-design.md)) | owner (on the agent's recommendation) |
 | 8 Nov 2026 | The framework before any custom vehicle; the records before any code | owner |
@@ -105,9 +106,9 @@ load folder or patch.
 | 8 Nov 2026 | The world map: **a closed cab with its own temperature** (the game's cold, heat and comfort rules apply); **engine off at a caravan's night camp, with an optional fuel-burning night heater as a setting**; **the drivetrain's speed cap and the "will not move" refusals apply to caravans**, with a caravan jump-start; **a craftable jump-start kit** behind the setting "Jump-start leads must be crafted" (on) and "Every vehicle carries a booster pack" (off) ([world map](vehicle-world-map-design.md)) | owner (the cab's figures and the open VVE vehicles are the agent's) |
 | 8 Nov 2026 | **Generic functions go to the Framework core**, in the same change as their first consumer (AGENTS.md) | owner |
 | 8 Nov 2026 | **Two vehicle inspector tabs**: "Dashboard" (glanceable) and "Systems" (in depth, hidden in Plain mode); **a day of graph history, saved** (an exception to "nothing derived is saved"); RimHUD needs no hook ([tabs](vehicle-tabs-design.md)) | owner (the layouts are the agent's) |
-| 9 Nov 2026 | **UHF's easier path is through openings, not through rock**: the band's obstruction factor applies to walls and built roofs, and rock and natural roofs count in full (owner, who is a licensed amateur; built in Radio Framework 0.1.6) |  |
+| 9 Nov 2026 | **UHF's easier path is through openings, not through rock**: the band's obstruction factor applies to walls and built roofs, and rock and natural roofs count in full (owner, who is a licensed amateur; built in Radio Framework 0.1.6) | owner |
 | 11 Nov 2026 | **What a thing of ours is built from is a parts bill, by role** (owner): every vehicle's cost brought in line with the tanker's, other mods' parts as soft dependencies where installed and suited, ours otherwise; one table worked out at start-up, generic in the Framework core so a later chemical industry mod's placed buildings use it; costs to match similar trucks ([parts bills](parts-bills.md)) | Built in Framework 0.95.0 and Vehicles 0.41.0; not yet tested in game |
-| 9 Nov 2026 | **The radio framework goes on the back burner** (owner): no new features or phases until the owner picks it up again. It stands at Radio Framework 0.1.6 |  |
+| 9 Nov 2026 | **The radio framework goes on the back burner** (owner): no new features or phases until the owner picks it up again. It stands at Radio Framework 0.1.6 | owner |
 
 ## Open checks
 

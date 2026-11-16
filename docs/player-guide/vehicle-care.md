@@ -110,7 +110,7 @@ left on still run the battery down.
 
 - **Parts can carry conditions** shown under the part on the Health tab: a holed radiator keeps leaking coolant, a shot battery
   drains itself, a boiled-over engine has a warped head and runs hotter. **Repair the part to full health to clear them.**
-- **Patch leaks**: away from a base, a mechanic can patch leaks and shorts with a component from the cargo. A patch slows the damage
+- **Field repairs**: away from a base, a mechanic can patch leaks and shorts with a component from the cargo. A patch slows the damage
   so the vehicle can limp home; it is not a repair.
 - **A destroyed part needs replacing.** At 0% it waits for supplies in the vehicle's cargo and a mechanic; then ordinary repair
   carries on. **An engine or transmission costs the whole part** (made at the parts bench), anything else half its materials. A
@@ -371,9 +371,19 @@ Not yet tested in game. Fit the **recovery winch** (the **Recovery** family in t
 
 ## What has been tested in game
 
-- **Tested by the owner:** a sling lift with the Cherokee, from hooking up through take-off to the world map, where the load is
-  listed (12 November 2026). **The landing and setting the load down are not yet tested in game.**
-- **Not yet tested in game:** the vehicle systems, the workshop, fittings and tunes, claiming and the other world-map features.
+- **Tested by the owner:**
+  - a sling lift with the Cherokee, from hooking up through take-off to the world map, where the load is listed (12 November
+    2026). **The landing and setting the load down are not yet tested in game;**
+  - headlights light the ground at night, and work lamps light the work round a parked vehicle (13 November 2026);
+  - families and tunes ordered several at once queue up properly (13 November 2026);
+  - **Diagnose**: the mechanic's look-over arrives and lists every part and reading (11 November 2026). The report's tinted picture
+    and graph are not yet tested in game;
+  - a damaged oil pump wears the engine down over time, and a damaged gearbox slows the vehicle (10 November 2026);
+  - an upgrade waiting for its research refuses and names the project (10 November 2026);
+  - the dev-mode self-test passes on a throwaway vehicle, and the dev-mode cost reading finds the vehicle model within its budget
+    (9 November 2026).
+- **Not yet tested in game:** everything else: most of the vehicle systems, the workshop and its buildings, the mechanic's jobs for
+  fittings and tunes, claiming and the other world-map features.
 - **Read from the code and checked offline:** every system above passes its rule tests, and a dev-mode **"Vehicle systems: run the
   self-test"** checks most of it on a throwaway vehicle without touching your colony.
 

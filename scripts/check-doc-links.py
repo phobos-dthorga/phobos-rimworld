@@ -1,7 +1,9 @@
-"""Check relative inline Markdown file links; no network or game installation.
+"""Check relative inline Markdown file links and their #anchors; no network or game installation.
 
-Checks tracked and untracked (non-ignored) Markdown. Fenced examples are ignored. Remote URLs and
-fragments are not validated by this check.
+Checks tracked and untracked (non-ignored) Markdown. Fenced examples are ignored. Remote URLs are not
+validated. An anchor into a Markdown file must name one of its headings as GitHub spells them (or an
+explicit <a id> / <a name>); two links to a heading renamed away survived until 17 Nov 2026 because
+anchors went unchecked.
 """
 from pathlib import Path
 import re
@@ -11,6 +13,28 @@ from urllib.parse import unquote, urlsplit
 
 LINK = re.compile(r"\[[^\]\n]*\]\((<[^>]+>|[^\s)]+)(?:\s+\"[^\"]*\")?\)")
 FENCE = re.compile(r"(?ms)^```.*?^```[^\n]*")
+HEADING = re.compile(r"^#{1,6}[ \t]+(.+?)[ \t#]*$", re.M)
+HTML_ANCHOR = re.compile(r"<a\s+(?:id|name)=\"([^\"]+)\"", re.I)
+
+
+def slug(heading):
+    """GitHub's anchor for a heading: inline links reduced to their text, lower case, punctuation dropped, spaces to hyphens."""
+    text = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", heading)
+    text = re.sub(r"<[^>]+>", "", text).lower()
+    text = "".join(ch for ch in text if ch.isalnum() or ch in " -_")
+    return text.replace(" ", "-")
+
+
+def anchors(content):
+    """Every anchor a Markdown file offers, with GitHub's -1, -2 suffixes for repeated headings."""
+    found, seen = set(), {}
+    for match in HEADING.finditer(content):
+        base = slug(match.group(1))
+        count = seen.get(base, 0)
+        seen[base] = count + 1
+        found.add(base if count == 0 else f"{base}-{count}")
+    found.update(HTML_ANCHOR.findall(content))
+    return found
 
 
 def listed_files(root):
@@ -25,6 +49,14 @@ def check(root, names=None):
     published = set(listed_files(root) if names is None else names)
     failures = []
     checked = 0
+    offered = {}
+
+    def anchors_of(target):
+        key = target.resolve()
+        if key not in offered:
+            offered[key] = anchors(FENCE.sub("", target.read_text(encoding="utf-8-sig")))
+        return offered[key]
+
     for name in sorted(published):
         path = root / name
         if not name.endswith(".md") or not path.is_file():
@@ -33,7 +65,13 @@ def check(root, names=None):
         for match in LINK.finditer(content):
             link = match.group(1).strip("<>")
             parsed = urlsplit(link)
-            if parsed.scheme or parsed.netloc or not parsed.path:
+            if parsed.scheme or parsed.netloc:
+                continue
+            if not parsed.path:
+                if parsed.fragment:
+                    checked += 1
+                    if unquote(parsed.fragment).lower() not in anchors_of(path):
+                        failures.append(f"{name}: no heading for {link}")
                 continue
             if parsed.path.startswith("/"):
                 target = root / unquote(parsed.path.lstrip("/"))
@@ -49,6 +87,9 @@ def check(root, names=None):
                          or any(other.startswith(relative + "/") for other in published))
             if not available or not target.exists():
                 failures.append(f"{name}: missing {link}")
+            elif parsed.fragment and target.is_file() and target.suffix == ".md":
+                if unquote(parsed.fragment).lower() not in anchors_of(target):
+                    failures.append(f"{name}: no heading for {link}")
     return checked, failures
 
 
@@ -56,6 +97,5 @@ if __name__ == "__main__":
     checked, failures = check(Path(__file__).resolve().parents[1])
     for failure in failures:
         print(failure)
-    print(f"Checked {checked} relative file links; {len(failures)} missing targets. "
-          "Fragments/external URLs not checked.")
+    print(f"Checked {checked} relative file links and anchors; {len(failures)} broken. External URLs not checked.")
     sys.exit(bool(failures))

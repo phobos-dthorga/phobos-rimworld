@@ -1,6 +1,6 @@
 # The mobile generator set: design (9 Nov 2026)
 
-**Built in D'thorga Framework 0.44.0 and D'thorga Vehicles 0.17.0; its own pictures and the heavy-duty fan in Framework 0.98.0 and Vehicles 0.43.0 (12 Nov 2026, the owner's picks). Not yet tested in game. Agent-authored for the owner to confirm.**
+**Built in D'thorga Framework 0.44.0 and D'thorga Vehicles 0.17.0; its own pictures and the heavy-duty fan in Framework 0.98.0 and Vehicles 0.43.0 (12 Nov 2026, the owner's picks); 3 x 8 since Vehicles 0.51.0. Not yet tested in game, except the Busbar's new size and look (tested in game by the owner, 13 Nov 2026). Agent-authored for the owner to confirm.**
 **What was built differs from what follows in three places:** the battery buffer holds the grid up when the engine cannot, and since Framework 0.104.0 (owner, 12 Nov 2026) the set also creeps on it
 with the engine off (section "The hybrid", not yet tested in game); the
 `WorkLights` node is not built, because no moving vehicle light exists to reuse and a light at the cable end would be in the wrong place; and the pictures were stand-ins drawn in
@@ -9,6 +9,9 @@ wires, fuel follows the grid's draw, no VOE tie-in, and the buffer is in the fir
 generator-set sketch in [utility vehicles](utility-vehicles-design.md) and follows the shape of that record's bulk tanker. Facts marked
 "from the code" were read on 9 Nov 2026 from our decompiles (`all.cs` is the game's, `VF.cs` is Vehicle Framework 1.6's, the build the
 1.7 game loads) and are summarised in our own words; everything the record says will happen in play is a proposal.
+
+**Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026, and D'thorga Framework 0.111.1 builds against it
+([the dependency audit](dependency-audit-2026-11-16.md)). "The build the 1.7 game loads" above was true when written.
 
 ## Read this first
 
@@ -194,7 +197,8 @@ flat rate whatever the load, so this is kinder than vanilla and is labelled as s
 **Argued against or later.** A towed set (the owner's call: self-propelled, with a cab). Helixien gas as a fuel (owner, 9 Nov 2026: no). A
 second VehicleDef for a bigger set (an upgrade node moves the figure instead). Making the stub a battery as well (open question below).
 Feeding VEF pipe nets or a gravship's grid (nothing asked for it). A trailer version for Vehicle Framework's towing when 1.7 ships
-(catalogue). **A sound enclosure (cut by the owner, 9 Nov 2026):** the game has no noise, so its only figure was heat pushed into a room,
+(catalogue; **note, 17 Nov 2026:** VF 1.7 shipped on 14 Nov 2026, and we tow with our own hitch since Framework 0.101.0, so a trailer
+version would use ours; none is planned). **A sound enclosure (cut by the owner, 9 Nov 2026):** the game has no noise, so its only figure was heat pushed into a room,
 which matters only for a set run indoors, and the owner knows of no other mod or feature that models noise. A mood penalty for colonists
 sleeping near a running set was offered as a job for it and not taken.
 
@@ -302,7 +306,7 @@ light at night through the game's `CompGlower`. The cable out and the outriggers
 **The owner, 13 Nov 2026:** the Busbar "feels really small in size and needs to be brought inline with the other vehicles". It was 2 x 6
 (drawn 3 x 7), the only two-cell-wide truck of ours, from the agent's choice of 9 Nov that a light truck should look light beside the
 3 x 10 tanker (the table below). The owner chose **3 x 8, like the Talus tipper (drawn 4 x 9)**, **heavier**, and **a bigger
-generator**. Not yet tested in game.
+generator**. Not yet tested in game, except its size and look (tested in game by the owner, 13 Nov 2026: "looks much better now").
 
 | Figure | Before | After | Label |
 | --- | --- | --- | --- |
@@ -356,8 +360,8 @@ into it and may be stuck: **park it in the open before updating**. The depot bay
 | Fuel in step with the camp's draw (a governor), or a flat burn as the game's generators? | In step with the draw. It is what a diesel-electric does, and the engine model already has the load |
 | A VOE Power Grid tie-in now? | No folder in the first build; the precedent matters, the tie-in does not |
 | Build order after the tanker? | **Decided by the owner, 9 Nov 2026: the generator set first**: it is the smallest, it proves the diesel-electric drive and the power stub, and every other vehicle plugs into it |
-| 1,200 W and 9 chemfuel a day at full output, 60% of the fixed generator's fuel economy? | Keep the 1,200 W; tune the fuel in play, never below the fixed generator's watts per chemfuel |
-| The 2 x 6 footprint, after the owner found 2 x 6 small for the tanker? | 2 x 6: a light truck should look light beside the 3 x 10 tanker; the drawSize overhang gives it presence |
+| 1,200 W and 9 chemfuel a day at full output, 60% of the fixed generator's fuel economy? | Keep the 1,200 W; tune the fuel in play, never below the fixed generator's watts per chemfuel. **Since the resize (Vehicles 0.51.0): 2,000 W and 15 chemfuel a day flat out**, at the same 60 % economy |
+| The 2 x 6 footprint, after the owner found 2 x 6 small for the tanker? | ~~2 x 6: a light truck should look light beside the 3 x 10 tanker; the drawSize overhang gives it presence~~ **Answered by the owner, 13 Nov 2026: 3 x 8**, built in Vehicles 0.51.0 (section "The resize to 3 x 8") |
 
 ## Who chose what
 

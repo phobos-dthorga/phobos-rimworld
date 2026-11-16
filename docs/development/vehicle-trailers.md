@@ -1,8 +1,13 @@
 # Working trailers: the shared base and a catalogue (13 Nov 2026)
 
-**A research and design record. Built so far (13 Nov 2026, the owner's first batch; nothing tested in game): set up and pack up by hand
-(B0.1), the hitch that respects it (B0.2) and the two bowsers (Q3, Q4), in Framework 0.111.0 and Vehicles 0.55.0; see "What was built"
-below.** The rest is design only. The owner, 13 November 2026: "I want to do
+**Status (17 Nov 2026):** built in D'thorga Framework 0.111.0 (and Vehicles 0.54.0, 0.55.0 and 0.56.0): set up and pack up by hand
+(B0.1), the hitch that respects it (B0.2), the Pintle flatbed at 3 x 7, and the water and fuel bowsers (Q3, Q4) with their own picture;
+not built: the power lead, set-out pieces, the dry-goods locker and every other trailer in the catalogue. Not yet tested in game.
+
+**Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026 (`dependency-audit-2026-11-16.md`); the VF line
+references below were read from its 1.6 build, as written at the time.
+
+**A research and design record.** "What was built" below has the first batch. The rest is designed, not built. The owner, 13 November 2026: "I want to do
 a research and record purview on utilitarian trailers", with two ideas of their own, **a military-style field kitchen on wheels
 powered by the Busbar as required** ([vehicle-field-kitchen.md](vehicle-field-kitchen.md)) and **something to transport prisoners
 with** ([vehicle-prisoner-transport.md](vehicle-prisoner-transport.md)), and asked for the agent's ideas too. This record holds
@@ -32,7 +37,8 @@ summarised in our own words. **[A]** is an authored starting value; **[S]** is a
 
 ### Our hitch and trailer today [code]
 
-- **The Pintle flatbed** (`mods/PhobosVehicles/Defs/Phobos/Vehicles/FlatbedTrailer/Vehicle_FlatbedTrailer.xml`): 2 x 5 cells,
+- **The Pintle flatbed** (`mods/PhobosVehicles/Defs/Phobos/Vehicles/FlatbedTrailer/Vehicle_FlatbedTrailer.xml`), as read on 13 Nov
+  2026 (**since Vehicles 0.54.0 it is 3 x 7 cells, 2,800 kg empty, 5,000 kg of cargo**): 2 x 5 cells,
   2,000 kg empty, 3,000 kg of cargo, no seats; parts chassis, deck, drawbar, axles, lights; one upgrade (greedy boards).
 - **The hitch** (`src/PhobosFramework.Vehicles/Hitch/`, Framework 0.101.0 to 0.104.0, untested): any land vehicle with a
   loadout can tow; the trailer stays on the map and can be shot; a colonist couples it in about a third of an hour; the towed
@@ -424,7 +430,7 @@ The owner's first batch: "the base with the water and fuel bowsers". Framework 0
   400 L an hour.
 - **The water bowser exists only with Dubs Bad Hygiene**: without it there is no water for a tank, and the kitchen it would also feed is
   not built.
-- **No pump sound** (working machinery is never shared; sound-catalogue.md S129), **a borrowed picture** (the Pintle's, scaled evenly),
+- **No pump sound** (working machinery is never shared; sound-catalogue.md S129), **a borrowed picture** (the Pintle's, scaled evenly; **the bowsers have their own picture since Vehicles 0.56.0**),
   and **names**: Pintle P2 water bowser and Pintle P3 fuel bowser, the agent's choice.
 - **Other factions**: raiders bring none, and none stand at enemy bases yet (question 4 was never put).
 
@@ -433,8 +439,8 @@ The owner's first batch: "the base with the water and fuel bowsers". Framework 0
 **Answered by the owner, 13 Nov 2026:** (1) **the first batch is the base with the water and fuel bowsers** (Q0, Q3, Q4), the
 field kitchen and the prisoner transport next; (2) **canvas rooms, yes**, for the kitchen, aid post, crib room and laboratory;
 (3) **3 x 7 is the bare minimum, and the other trailers are at least vehicle-sized or near** (later the same day; see B0.6).
-Questions 4 and 5 were not put yet; their agent defaults stand until the owner says otherwise. Nothing is built: each batch waits
-on the owner's go.
+Questions 4 and 5 were not put yet; their agent defaults stand until the owner says otherwise. Nothing was built then: each batch
+waits on the owner's go (the first batch has since been built; see "What was built").
 
 The questions as they were written:
 

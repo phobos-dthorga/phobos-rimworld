@@ -1,7 +1,13 @@
 # Vehicle tuning and upgrades: design (9 Nov 2026)
 
-**Status: fittings, tunes and enemy sets are built (D'thorga Framework 0.40.0), and part grades (0.41.0). Nothing here is tested in game
-beyond a save loading with it installed.** The owner's direction (9 Nov 2026): our framework of parts and supplies should become "one of
+**Status (17 Nov 2026):** built in D'thorga Framework 0.40.0 (fittings, tunes and enemy sets), 0.41.0 (part grades), 0.43.0 (the
+tuning rig), 0.91.0 (what they cost) and 0.106.0 (our vehicles' upgrades priced like tunes); not built: nothing this design proposes
+is recorded as waiting. Tested in game by the owner: the dev-mode self-test of fittings, tunes, part replacement and grades on a
+throwaway vehicle (9 Nov 2026, 76 passed), a save from before 0.40.0 loading again on 0.40.2 (9 Nov 2026), and families and tunes
+ordered several at once queueing as they should (13 Nov 2026). Everything else, the mechanic's job and the window included, is
+not yet tested in game.
+
+The owner's direction (9 Nov 2026): our framework of parts and supplies should become "one of
 possible tuning and full of upgrades as well". Findings marked "from the code" are read from our decompile of Vehicle Framework 1.6 and
 summarised in our own words.
 

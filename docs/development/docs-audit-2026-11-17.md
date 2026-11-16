@@ -22,39 +22,42 @@ Line numbers are of commit `bf8e3985`. Verdicts are agent-authored; the order of
 
 ## Batch 1: wrong facts
 
+**Done 17 Nov 2026**, every item checked against the changelogs, Defs or source before it was changed. Corrections to this
+list are under "Corrections and finds" below.
+
 ### Status lines that contradict their own documents
 
 Each opens with "nothing built" (or similar) and records a build further down. Fix: one dated status line at the top, saying what is
 built and what is not.
 
-- [ ] `vehicle-avionics.md` (:3 against "Built", :328)
-- [ ] `vehicle-presentation-design.md` (:6 against :10)
-- [ ] `vehicle-knocked-out-systems.md` (:7 against "As built", :247)
-- [ ] `vehicle-system-crosslinks.md` (:4 against :154), `vehicle-crosslinks-round-two.md` (:6 against :225),
+- [x] `vehicle-avionics.md` (:3 against "Built", :328)
+- [x] `vehicle-presentation-design.md` (:6 against :10)
+- [x] `vehicle-knocked-out-systems.md` (:7 against "As built", :247)
+- [x] `vehicle-system-crosslinks.md` (:4 against :154), `vehicle-crosslinks-round-two.md` (:6 against :225),
   `vehicle-crosslinks-round-three.md` (:3 and :304 against :271 and :291)
-- [ ] `vehicle-upgrades-round-two.md` (:3 and :21 against :325)
-- [ ] `vehicle-other-factions-audit.md` ("nothing was changed", :6, against :104)
-- [ ] `vehicle-health-design.md` (slice 3 "Open", :315, built in 0.36.0; performance table "empty until the owner runs the
+- [x] `vehicle-upgrades-round-two.md` (:3 and :21 against :325)
+- [x] `vehicle-other-factions-audit.md` ("nothing was changed", :6, against :104)
+- [x] `vehicle-health-design.md` (slice 3 "Open", :315, built in 0.36.0; performance table "empty until the owner runs the
   protocol", :7, though Framework CHANGELOG records it measured within budget on 9 Nov)
-- [ ] `vehicle-sling-design.md` (:3 against :7, :15 and :22; six stacked status paragraphs at :3-31)
-- [ ] `vehicle-animation-research.md` (:3 against :18)
-- [ ] `soft-dependency-crosslinks.md` (:3 against :194; SD1, 4, 5, 9, 21, 22, 23 and 30 built)
-- [ ] `air-defence-tie-ins.md` (:3 against AD14, :172)
-- [ ] `logging-framework-design.md` (:6 against :185)
-- [ ] `sound-catalogue.md` (:3-5 against :268 onward)
-- [ ] `art-backlog.md` (:17 "nothing here has been generated"; electrolyser :30, night 3 queue :209 all done)
-- [ ] `view-angle-models.md` (:4-7 against the trial it reports; :145 "not judged yet")
-- [ ] `utility-vehicles-design.md` (:4 and :187 call the four extraction vehicles unbuilt; all built 9 Nov; :214 build order)
-- [ ] `vehicle-seabed-crawler.md` (:199 overlays "wait for their paid batch", :232 "building waits": both done)
-- [ ] `vehicle-trailers.md` (:35 Pintle 2 x 5 "today", now 3 x 7; borrowed picture, own art since Vehicles 0.56.0)
-- [ ] `vehicle-generator-set.md` (:361 still argues for 2 x 6, answered by the 3 x 8 resize at :300)
-- [ ] `outstanding-work.md` (I1 :249 "not built" against V3 :62; IDs I1 to I3 used twice, :33-35 and :249-251)
-- [ ] `docs/medical-mods.md` (:62-65 ventilator and needle decompression kit "not built"; both shipped in Medical 0.7.0)
-- [ ] Tested-in-game lists behind the changelogs: `player-guide/vehicle-care.md` (:371-377; headlights and work lamps, fittings and
+- [x] `vehicle-sling-design.md` (:3 against :7, :15 and :22; six stacked status paragraphs at :3-31)
+- [x] `vehicle-animation-research.md` (:3 against :18)
+- [x] `soft-dependency-crosslinks.md` (:3 against :194; SD1, 4, 5, 9, 21, 22, 23 and 30 built)
+- [x] `air-defence-tie-ins.md` (:3 against AD14, :172)
+- [x] `logging-framework-design.md` (:6 against :185)
+- [x] `sound-catalogue.md` (:3-5 against :268 onward)
+- [x] `art-backlog.md` (:17 "nothing here has been generated"; electrolyser :30, night 3 queue :209 all done)
+- [x] `view-angle-models.md` (:4-7 against the trial it reports; :145 "not judged yet")
+- [x] `utility-vehicles-design.md` (:4 and :187 call the four extraction vehicles unbuilt; all built 9 Nov; :214 build order)
+- [x] `vehicle-seabed-crawler.md` (:199 overlays "wait for their paid batch", :232 "building waits": both done)
+- [x] `vehicle-trailers.md` (:35 Pintle 2 x 5 "today", now 3 x 7; borrowed picture, own art since Vehicles 0.56.0)
+- [x] `vehicle-generator-set.md` (:361 still argues for 2 x 6, answered by the 3 x 8 resize at :300)
+- [x] `outstanding-work.md` (I1 :249 "not built" against V3 :62; IDs I1 to I3 used twice, :33-35 and :249-251)
+- [x] `docs/medical-mods.md` (:62-65 ventilator and needle decompression kit "not built"; both shipped in Medical 0.7.0)
+- [x] Tested-in-game lists behind the changelogs: `player-guide/vehicle-care.md` (:371-377; headlights and work lamps, fittings and
   tunes queueing, the diagnosis letter, oil pump and gearbox, research refusal, the self-test are recorded as owner-tested in
   Framework's CHANGELOG), `vehicle-headlights.md` (:3), `player-guide/working-vehicles.md` (:282; the Busbar's look, the sling's
   take-off), Vehicles README (:10 and :73 against :180), Patches README (:17 against :30)
-- [ ] Open questions already answered: drivetrain (:292), turbine (:291), systems design (:388-398), survey truck (shore load),
+- [x] Open questions already answered: drivetrain (:292), turbine (:291), systems design (:388-398), survey truck (shore load),
   `sound-generation.md` question 2; health design :136 says the hand-brake question "is now live", answered "Leave both" on 16 Nov
   (outstanding-work V9a)
 
@@ -62,51 +65,51 @@ built and what is not.
 
 Dated records keep their wording; add a one-line note where a reader would act on it. Living documents are corrected.
 
-- [ ] `building.md`: "fourteen C# projects" (:3; `src/` holds 22, five missing from the table), Vehicle Framework "ships only 1.6"
+- [x] `building.md`: "fourteen C# projects" (:3; `src/` holds 22, five missing from the table), Vehicle Framework "ships only 1.6"
   (:4-6, :174-175), the required checks (:66-79 never name `check-all.py`), the scripts table (:103-114, four of about fourteen tools)
-- [ ] `rimworld-modding-reference.md` (:5-9 build for 1.6; :87 links a heading that no longer exists)
-- [ ] `project-direction.md` (:62 the same dead link; :7-9 the radio "being built" against the back-burner row :110; superseded rows
+- [x] `rimworld-modding-reference.md` (:5-9 build for 1.6; :87 links a heading that no longer exists)
+- [x] `project-direction.md` (:62 the same dead link; :7-9 the radio "being built" against the back-burner row :110; superseded rows
   :61, :62 and :78 unmarked; rows out of date order; two empty "By" cells)
-- [ ] `player-language.md` (:23 "1.7 leads, 1.6 kept")
-- [ ] `SUPPORT.md` (:15 "the others declare 1.6 and 1.7": every mod declares 1.7 only; :28)
-- [ ] `CONTRIBUTING.md` (:4 "Ten mods"; :53 should name the player-guide chapter too)
-- [ ] Mod READMEs: Framework :547, Medical :205, :337, :474, :677, :825, Factory Additions :762-804, Patches :50 and checks,
+- [x] `player-language.md` (:23 "1.7 leads, 1.6 kept")
+- [x] `SUPPORT.md` (:15 "the others declare 1.6 and 1.7": every mod declares 1.7 only; :28)
+- [x] `CONTRIBUTING.md` (:4 "Ten mods"; :53 should name the player-guide chapter too)
+- [x] Mod READMEs: Framework :547, Medical :205, :337, :474, :677, :825, Factory Additions :762-804, Patches :50 and checks,
   Water Tap :123, Radio :112 and :115
-- [ ] Vehicle Framework 1.7 as unreleased: `vehicle-systems-design.md` (:26-29), `vehicle-framework-mechanics.md` (:12-16, :31-34;
+- [x] Vehicle Framework 1.7 as unreleased: `vehicle-systems-design.md` (:26-29), `vehicle-framework-mechanics.md` (:12-16, :31-34;
   add a pointer to the dependency audit), `vehicle-health-design.md` (:122, :341), `vehicle-health-consequences.md` (:4, :13),
   `utility-vehicles-design.md` (:26, :171, :434-446), `submarine-framework.md` (:14), `vehicle-generator-set.md` (:196)
-- [ ] `in-game-test-pass.md`: the Vehicle Framework development-build section (:224-232) is obsolete; rows 4 to 6 are numbered twice
+- [x] `in-game-test-pass.md`: the Vehicle Framework development-build section (:224-232) is obsolete; rows 4 to 6 are numbered twice
   (:80-92); the dependency audit's and the code audit's in-game checks are missing
 
 ### Reversed decisions still written as the rule
 
-- [ ] Parts from other mods first (reversed 9 Nov): `utility-vehicles-design.md` :8-9 and :139-175; point to `parts-bills.md`
-- [ ] Visible pipes (reversed to hidden 13 Nov): index entry, `network-underlays.md` audit table :161-169, Framework README :182-187
-- [ ] Posterised masks and flood-fill cut-outs: `paid-image-generation-rules.md` :169 and :189, `vehicle-art-services.md` :69-70
-- [ ] Gemini for vehicle bodies: `vehicle-art-services.md` :59-77 (the owner chose OpenAI)
-- [ ] Region paint masks superseded by "repaired": `background-cleanup.md` :64 and :68
-- [ ] "Sounds only where usefulness is high": `sound-generation.md` :16 (our vehicles get a full set)
-- [ ] The lighter health model's setting (removed in 0.96.1): `vehicle-health-design.md` :16-18 and :312
+- [x] Parts from other mods first (reversed 9 Nov): `utility-vehicles-design.md` :8-9 and :139-175; point to `parts-bills.md`
+- [x] Visible pipes (reversed to hidden 13 Nov): index entry, `network-underlays.md` audit table :161-169, Framework README :182-187
+- [x] Posterised masks and flood-fill cut-outs: `paid-image-generation-rules.md` :169 and :189, `vehicle-art-services.md` :69-70
+- [x] Gemini for vehicle bodies: `vehicle-art-services.md` :59-77 (the owner chose OpenAI)
+- [x] Region paint masks superseded by "repaired": `background-cleanup.md` :64 and :68
+- [x] "Sounds only where usefulness is high": `sound-generation.md` :16 (our vehicles get a full set)
+- [x] The lighter health model's setting (removed in 0.96.1): `vehicle-health-design.md` :16-18 and :312
 
 ### Smaller facts
 
-- [ ] Old mod names as current: Framework README (:11, :245-250, :549), `caustic-gas.md` :3, `ventilation-and-hydrogen.md` :53,
+- [x] Old mod names as current: Framework README (:11, :245-250, :549), `caustic-gas.md` :3, `ventilation-and-hydrogen.md` :53,
   `art-automation-and-medical-equipment.md` :11-22, `art-backlog.md`, `docs/README.md` :19 ("seven mods became two"), :24, :27
-- [ ] `mods/README.md` :13 (Vehicles "a stand-in"), curly apostrophes
-- [ ] Root README: :35 lists the crash guard removed in Patches 0.19.2 as tested; :37 and the Radio README omit that the radio is
+- [x] `mods/README.md` :13 (Vehicles "a stand-in"), curly apostrophes
+- [x] Root README: :35 lists the crash guard removed in Patches 0.19.2 as tested; :37 and the Radio README omit that the radio is
   on the back burner
-- [ ] `tie-in-register.md` :10 says 63 folders; a count of `IfModActive` folders on 17 Nov finds 71: recount
-- [ ] The Crawler's public name: "D'thorga Seabed Crawler" (`vehicle-seabed-crawler.md` :8) against "Fathom" (Vehicles README :121,
+- [x] `tie-in-register.md` :10 says 63 folders; a count of `IfModActive` folders on 17 Nov finds 71: recount
+- [x] The Crawler's public name: "D'thorga Seabed Crawler" (`vehicle-seabed-crawler.md` :8) against "Fathom" (Vehicles README :121,
   `player-guide/submarines.md` :3): check the shipped label
-- [ ] The M48's weight: 45 t (`vehicle-kerb-mass-check.md` :24) against 50 t elsewhere: check the source
-- [ ] `player-guide/working-vehicles.md`: crude oil listed twice in the tanker table (:197, :211); the tanker's electric pump and the
+- [x] The M48's weight: 45 t (`vehicle-kerb-mass-check.md` :24) against 50 t elsewhere: check the source
+- [x] `player-guide/working-vehicles.md`: crude oil listed twice in the tanker table (:197, :211); the tanker's electric pump and the
   Crawler's instruments on the battery reach only `vehicle-care.md`
-- [ ] `docs/vehicle-systems-modding.md` pins Framework 0.10.0 (:3) and lacks seven inputs shipped Defs use: `Input_DarkDriving`,
+- [x] `docs/vehicle-systems-modding.md` pins Framework 0.10.0 (:3) and lacks seven inputs shipped Defs use: `Input_DarkDriving`,
   `Input_Driver`, `Input_Fording`, `Input_GeneratorDrive`, `Input_LoadShedding`, `Input_TankLoad`, `Input_VehicleStat`
-- [ ] Asset READMEs: `assets/phobos-radio` (:10 base station "placeholder", picked 12 Nov), `assets/phobos-sounds` (request table
+- [x] Asset READMEs: `assets/phobos-radio` (:10 base station "placeholder", picked 12 Nov), `assets/phobos-sounds` (request table
   lists one of eight), `assets/phobos-medical` (:1-4 "planned" mod; three of seven requests), `assets/phobos-vehicles` (stops 9 Nov)
-- [ ] `analysis-tooling.md` :10-13 "four tools are built" (all eight are; `check-targets.py` and `cleanup.py` missing)
-- [ ] `owner-mod-list.md`: hand suggestions dated 22-25 Oct say "about 290 mods" (:165) against 346 (:17); "a new-colony list" (:22).
+- [x] `analysis-tooling.md` :10-13 "four tools are built" (all eight are; `check-targets.py` and `cleanup.py` missing)
+- [x] `owner-mod-list.md`: hand suggestions dated 22-25 Oct say "about 290 mods" (:165) against 346 (:17); "a new-colony list" (:22).
   A layout change goes through `scripts/refresh-mod-list.py` first
 
 ## Batch 2: the development index
@@ -125,10 +128,14 @@ register, the setup wizard); five Medical sub-headings hold one entry each.
 
 ## Batch 3: the gate check
 
-- [ ] In phobos-modkit, under its own rules, then the pin moved here: refuse a document whose opening says nothing is built while it
-  holds a "Built in" or "As built" section; refuse an index entry longer than one line; check link anchors (`check-doc-links.py`
-  skips them today, which is how two dead anchors survived)
-- [ ] AGENTS.md: a build is recorded in the changelog; the design record updates its status line and keeps only what differs from
+**Done 17 Nov 2026, except the index rule**, which comes with batch 2. The checks live in this repository beside the link checker
+(`scripts/check-doc-links.py` was never part of phobos-modkit); moving both there is a separate job if Phobos Ostranauts wants them.
+
+- [x] `scripts/check-doc-status.py` (a gate step): refuses a record whose opening says nothing is built while the record records a
+  build. On the documents as they stood before batch 1 it flagged 17 records, all real faults
+- [x] `scripts/check-doc-links.py` checks every `#anchor` against GitHub's spelling of the headings it names
+- [ ] Refuse an index entry longer than one line (with batch 2)
+- [x] AGENTS.md: a build is recorded in the changelog; the design record updates its status line and keeps only what differs from
   the design
 
 ## Batch 4: slimmer READMEs
@@ -189,6 +196,29 @@ Splits:
 Archive (resolved): `code-audit-2026-11-11.md`, `crash-2026-11-09-stack-overflow.md`, `rimworld-1.7-readiness.md`
 (`version-readiness.py` replaces it). Not merged: the one-record-per-vehicle documents (survey truck, drill rig, tipper hauler,
 generator set, field kitchen, prisoner transport).
+
+## Corrections and finds (17 Nov 2026)
+
+Corrections to the audit, found while fixing:
+
+- **The tie-in register's 63 was right.** The 71 counted each `LoadFolders.xml` entry, where a folder and its `1.7` subfolder are
+  two; every one of the 63 folders has its row. The register now explains the count.
+- **The Crawler's public name is "Fathom seabed crawler"**, the label in the shipped Def; its design record was the one wrong.
+- **One open question in `art-automation-and-medical-equipment.md` is not settled**: the licence of FLUX 3 Image Klein. It stays open.
+- **Night 3 (8 Nov) did not all run**: the third style-model training stopped at its time limit with nothing saved, and the three
+  steps after it never started. `art-backlog.md` now says so.
+- **`outstanding-work.md` keeps I1 to I7 for the ideas** (five records link them) and renames the earlier I1 to I3 to Ia to Ic.
+- `vehicle-upgrade-families.md` and `vehicle-tuning-and-upgrades.md` also said nothing was tested in game, against owner tests in the
+  changelog; both are fixed.
+
+Found on the way, outside batch 1 and not yet acted on:
+
+- [ ] `mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/HyperbaricChamber.record.md` names the v1 style model; the master's
+  own record (`assets/phobos-medical/generated/hyperbaric-chamber-depth/hyperbaric-chamber-depth-11.json`) names the depth model
+- [ ] Re-running `assets/phobos-radio/make_textures.py` would overwrite the owner's picked base station with the old placeholder
+- [ ] The tanker's upgrade overlay pictures (`Upgrades/*.png`), used by the player guide's figures, have no record beside them
+- [ ] `docs/vehicle-systems-modding.md` still lacks about 17 conditions and effects; its opening now names the main ones
+- [ ] D'thorga Patches' README "Checks done" holds a Factory Additions item
 
 ## What this audit cannot say
 

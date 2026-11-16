@@ -10,6 +10,8 @@ Version 0.1.8, built 13 November 2026 for House D'thorga. **Not yet tested in ga
 
 ## Read this first (gotchas)
 
+- **On the back burner since 9 November 2026.** No new features or phases until the owner picks it up again. It stays as it is, and
+  a fix for something reported broken is still made.
 - **Requires Vanilla Expanded Framework** (its pipe network carries the coax feedline). Load this mod
   after Core, the DLCs and Vanilla Expanded Framework. It needs no Harmony.
 - **RimWorld 1.7 only** (from 0.1.3; 1.6 is no longer supported). Its About file now lists 1.7, so the mod list no longer calls
@@ -110,9 +112,10 @@ See [building, testing and deploying](../../docs/development/building.md).
 ## Checks done
 
 - 4 and 5 Nov 2026 (0.1.1, 0.1.2): a native 1.7 build beside the 1.6 one, against VEF's PipeSystem for each version; named
-  placeholders in messages. Not yet loaded in the game on either version.
+  placeholders in messages. Not yet loaded in the game on either version. (1.6 retired 8 Nov 2026: the mod is 1.7 only from 0.1.3.)
 
 - 19 Oct 2026: builds with 0 warnings against RimWorld 1.6.4871 and VEF's PipeSystem 1.0.1.0; the 25
   physics unit tests pass; every XML file parses, every Def reference, texture path and string key
   resolves; the mod folder passes `scripts/check-mod-layout.py`. Deployed to the owner's Mods folder.
-  **Not yet loaded in the game**: the Def loading, the VEF net, the gizmos and the thought are untested.
+  **Not yet loaded in the game**: the Def loading, the VEF net, the gizmos and the thought are untested. (1.6 retired 8 Nov 2026:
+  it now builds against RimWorld 1.7 only.)

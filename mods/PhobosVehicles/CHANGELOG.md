@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The README names what the owner has tested in game: the survey truck and its boom (9 November 2026) and the Busbar's size and look (13 November 2026). No change in play.
+
 ## [0.57.0] - 2026-11-17 - Draft
 
 An electric pump for the bulk tanker

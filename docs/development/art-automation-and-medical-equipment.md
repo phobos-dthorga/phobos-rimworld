@@ -1,6 +1,13 @@
 # Art automation and medical equipment: design (4 Nov 2026, updated 5 Nov 2026)
 
-A working design that keeps these plans in one place. **The art pipeline and most of the equipment below are not built;**
+**Status (17 Nov 2026):** the table under "Where everything stands" is as of 7 Nov 2026. Since then the five medical mods have been
+parts of D'thorga Medical and the two patch mods parts of D'thorga Patches (7 Nov; [mod consolidation](mod-consolidation.md)), so there
+are seven mods, not ten. Every medical machine and item has its own generated picture (Medical 0.14.1, 12 Nov) and the liquid oxygen
+store's frost is drawn in code (Medical 0.15.0). The pipeline ran more local nights (8 and 10 Nov), and vehicle bodies come from the
+OpenAI image API since 8 Nov ([paid generation rules](paid-image-generation-rules.md)). Style model v3's training was cut off by the
+stop time on 8 Nov with no model saved, so v1 stays in use. The equipment's later versions are in D'thorga Medical's changelog.
+
+A working design that keeps these plans in one place. **When this was written, the art pipeline and most of the equipment below were not built;**
 D'thorga Medical Equipment's oxygen machines and burn unit bed are (status table, 6 Nov 2026), and the owner has tested the
 concentrator and the bed. The owner's
 choices, agent suggestions and untested assumptions are labelled, so the owner can change any of them. Update this page as things
@@ -88,7 +95,8 @@ python scripts/art-run.py generate assets/phobos-medical/requests/test-run.json 
 
 - A rehearsal of every way a run can end against a stand-in ComfyUI, in `tests/test_art_run_rehearsal.py`: finishing, the game starting mid-image, the stop time, a full disk, an unreadable process list, one failure, three in a row, a missing model, a stuck image and the server vanishing. It found and fixed three faults.
 
-**No image has been generated with the new engines, no step count has been timed on this card, and nothing has run against the real ComfyUI's generation.** The sorter's sharpness mark also gave all four of those candidates full marks, so it may need raising once real batches exist.
+**No image has been generated with the new engines, no step count has been timed on this card, and nothing has run against the real ComfyUI's generation.**
+(True on 5 Nov 2026 before the first night. **Since then** the real runs began that day: three nights by 7 Nov, as the status table says.) The sorter's sharpness mark also gave all four of those candidates full marks, so it may need raising once real batches exist.
 
 **What a run needs from the owner:** the go and a stop time, and the commands allowed beforehand, because a permission prompt would stall a night's work. New downloads are named first; licences are checked before anything runs.
 
@@ -157,7 +165,8 @@ from the figures Black Forest Labs publishes, this section is general practice f
 - **A good set:** one consistent style, varied subjects, about 20 to 50 images at around 1024 px, plain backgrounds, approved images only.
 - **Captions describe the subject, not the style**, after a made-up trigger word: "phobosstyle, oxygen tank with a frosted valve".
 - **Hardware:** [Black Forest Labs' guide](https://docs.bfl.ai/flux_2/flux2_klein_training) lists Klein 4B training at 12 GB of graphics memory and 32 GB of system memory; this machine has 12 GB and 63 GB. Untested here.
-- **The tool:** [ai-toolkit](https://github.com/ostris/ai-toolkit) by Ostris (MIT), cloned to `C:\AI\ai-toolkit` and **installed by the owner on 5 Nov 2026** with `install-phobos.sh` in Git Bash (from PowerShell, give Git Bash's full path, because plain `bash` finds Windows' WSL shortcut). Checked: it sees the card, Klein's model files load from the local cache, and it accepts our training job with the card hidden from it. **No training has run yet.**
+- **The tool:** [ai-toolkit](https://github.com/ostris/ai-toolkit) by Ostris (MIT), cloned to `C:\AI\ai-toolkit` and **installed by the owner on 5 Nov 2026** with `install-phobos.sh` in Git Bash (from PowerShell, give Git Bash's full path, because plain `bash` finds Windows' WSL shortcut). Checked: it sees the card, Klein's model files load from the local cache, and it accepts our training job with the card hidden from it. **No training had run at install.**
+  The first real run followed on 5 Nov 2026, after the two fixes at the top of this section.
 - **Each trained model gets a record** of its images, settings and tool, and the art keeps its AI disclosure.
 
 ### Vanilla sprites
@@ -285,12 +294,12 @@ tier, not medical advice: the NHS England review noted there that clinical evide
 | Question | For |
 | --- | --- |
 | Which model and workflow does Hiddensoul's setup use? A ComfyUI workflow JSON would be ideal | Owner to ask |
-| Allow installing ai-toolkit, by running `bash /c/AI/ai-toolkit/install-phobos.sh`? | Owner |
+| ~~Allow installing ai-toolkit, by running `bash /c/AI/ai-toolkit/install-phobos.sh`?~~ Settled: the owner installed it on 5 Nov 2026 | Owner |
 | Accept FLUX 3 Image Klein's terms and read its licence, or stay on Apache models? | Owner |
-| The go and a stop time for the short test run | Owner |
-| Pick the radio art candidates still waiting since 19 October (`assets/phobos-radio/generated/review.html`) | Owner |
-| Review the medical art prompts (`assets/phobos-medical/requests/first-batch.json`) | Owner |
-| Is the electrolyser's water a Dubs Bad Hygiene pipe tie-in or a water item? Assumed for now (0.3.0) | Owner |
-| Should vented hydrogen be a room gas of ours, flammable in a closed room? It may earn its place under the gas rule | Owner |
-| Is the frost one overlay texture or several frames? | Agent, when the store's art is picked |
+| ~~The go and a stop time for the short test run~~ Settled: the test run and three nights ran by 7 Nov 2026 | Owner |
+| ~~Pick the radio art candidates still waiting since 19 October (`assets/phobos-radio/generated/review.html`)~~ Settled: picked on 7 Nov 2026, the base station on 12 Nov (Radio 0.1.7) | Owner |
+| ~~Review the medical art prompts (`assets/phobos-medical/requests/first-batch.json`)~~ Settled: the batch ran on 5 Nov 2026 and the owner picked from it | Owner |
+| ~~Is the electrolyser's water a Dubs Bad Hygiene pipe tie-in or a water item?~~ Settled 7 Nov 2026: with Dubs Bad Hygiene it draws from the plumbing; without it, water stays assumed ([medical equipment record](medical-equipment.md)) | Owner |
+| ~~Should vented hydrogen be a room gas of ours, flammable in a closed room?~~ Settled 7 Nov 2026: yes, the owner's call; not built ([ventilation and hydrogen](ventilation-and-hydrogen.md)) | Owner |
+| ~~Is the frost one overlay texture or several frames?~~ Settled 12 Nov 2026: neither; the frost is drawn in code from the store's outline (Medical 0.15.0) | Agent, when the store's art is picked |
 | Licences of any further model or tool | Agent, before use |

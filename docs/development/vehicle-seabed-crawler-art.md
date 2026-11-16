@@ -1,5 +1,9 @@
 # The Seabed Crawler's picture: research and art record (11 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Vehicles 0.38.0 and 0.43.0 (with Framework 0.98.0): the base hull and two refit hulls, and
+all six overlays generated and picked on 12 Nov 2026, three of them wired to built nodes (bottoming wheels, listening array, sonar set);
+not built: the arm, the radar mast and the seabed drill, whose pictures wait as files for their nodes. Not yet tested in game.
+
 **The pilot is picked and exported (Vehicles 0.38.0): the base hull and two refit hulls. The six overlays were generated and picked on 12 November 2026 (US$0.97 for 18 attempts; [the night's record](../../assets/phobos-vehicles/requests/night-2026-11-12-record.md)) and the three built nodes wired in Vehicles 0.43.0. **One change from the plan below (agent, owner to revise):** the listening strips run along the flanks aft of the diving planes, because the picked hull has its forward thrusters where the plan put them. Nothing here is tested in game.** The owner asked on 11 November 2026 for the Crawler's art, as a research-and-record piece first. Agent-authored for the owner's review; every proportion and placement below is **[A]** authored unless it says otherwise. The boat's design is in [the Crawler record](vehicle-seabed-crawler.md); the real boat behind it is in [the military vehicles research](military-vehicles-research.md).
 
 ## Read this first
@@ -34,12 +38,12 @@ The game gives a 4-wide hull the columns x -1 to 2 and a 9-long one z -4 to 4 (`
 | --- | --- | --- | --- | --- |
 | `BottomingWheels` | yes | (-1, 2) and (2, 2), the flanks beside the sail | two small dark wheel housings bulging from the hull's sides | 1 |
 | `Hydrophones` | yes | the flanks from z 1 to z 4 | a thin pale sensor strip along each flank, ending at the bow | 1 |
-| `ActiveSonar` | no | (0..1, 4), the bow tip | a round pale dome capping the bow | 1 |
+| `ActiveSonar` | yes (since Vehicles 0.43.0) | (0..1, 4), the bow tip | a round pale dome capping the bow | 1 |
 | `Manipulator` | no | (-1, 3), the port foredeck | a folded two-joint arm lying on its cradle | 1 |
 | `RadarMast` | no | (0..1, 2), the sail top | a short mast with a bar antenna, stowed flat along the sail | 1 |
 | `SeabedDrill` | no | (0..1, -1), the after-deck | a squat hoist frame over a drill well in the casing | 1 |
 
-The two built nodes are wired as `graphicOverlays` on their `UpgradeNode`s as soon as their pictures are picked; the four unbuilt nodes' pictures ship as files with their records and are wired when each node is built. Damage overlays (the tanker has them; the Crawler has none) are a follow-on, not in this work. The dev-only submarine test hull is the same size and takes the Crawler's body once it exists. The drill rig and tipper still borrow the tanker's picture: out of scope here.
+The built nodes (two when this was written; three since the sonar set) are wired as `graphicOverlays` on their `UpgradeNode`s as soon as their pictures are picked; the four unbuilt nodes' pictures ship as files with their records and are wired when each node is built. Damage overlays (the tanker has them; the Crawler has none) are a follow-on, not in this work. The dev-only submarine test hull is the same size and takes the Crawler's body once it exists. The drill rig and tipper still borrow the tanker's picture: out of scope here.
 
 ## The prompts
 

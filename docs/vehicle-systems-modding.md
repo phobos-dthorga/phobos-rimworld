@@ -1,9 +1,18 @@
 # Vehicle systems for modders
 
 How to give your Vehicle Framework vehicles their own batteries, coolant, air brakes or anything else, and how to add systems of
-your own, with D'thorga Framework's vehicle systems (0.10.0, RimWorld 1.7). Everything is XML; C# only when you want a new kind of
+your own, with D'thorga Framework's vehicle systems (RimWorld 1.7). Everything is XML; C# only when you want a new kind of
 input, condition or effect. **Not yet tested in game**: the schema may change before the first public release, and this page will
 say so when it does.
+
+**What this page covers (17 Nov 2026):** it was first written for Framework 0.10.0 and describes D'thorga Framework as of 0.117; its
+inputs table was checked against that version's code and lists every input class. **Not yet covered here:** the avionics block on a loadout, weapon mounts and the knock-out rules
+(`PhobosKnockOutRules`), load-shedding order (`shedOrder`), fittings and their families, what a fitting needs to work (`FeedSpec`), parts
+bills, the hitch, the sling, and some conditions and effects (`When_RanDry`, `When_PoorVisibility`, `When_InstrumentWorking`,
+`When_StatAbove`, `When_Winching`, `When_TankPumping`, `Effect_RefuseLaunch`, `Effect_FlightFuel`, `Effect_Sound` and others). Until
+then, the shipped Defs under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/` are the
+reference, and [the authors' override contract](development/vehicle-author-overrides.md) and [parts bills](development/parts-bills.md)
+describe two of them.
 
 ## Read this first (gotchas)
 
@@ -198,6 +207,13 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 | `Input_Fire` | how fiercely the vehicle burns: its biggest attached fire on its own map as a share of a full-grown fire (0 to 1); 0 under water or off the map |
 | `Input_Condition` | 1 when `condition` holds |
 | `Input_Setting` | 1 when the player's setting of that name is on (`fuelGelling`) |
+| `Input_DarkDriving` | 1 while the vehicle is on a map, moving, with its headlights off, over ground whose light is below `darkBelow` (0.3, the game's own line between dark and lit), else 0 |
+| `Input_Driver` | the person at the wheel: the fittest one in a driving seat while the engine runs. `reading` `Fitness` (the default) gives their fitness to drive, 0 to 1, from the game's consciousness, sight and manipulation and whether they are tired; `Tired` gives 1 while they are tired. With nobody at the wheel or the engine off, it reads fit (1) and rested (0) |
+| `Input_Fording` | 1 while a land vehicle lighter than `lowIntakeBelowKg` (2,000 kg) has its engine running on a river's terrain, times the system's `intakeExposure` parameter (a snorkel sets it to 0); else 0 |
+| `Input_GeneratorDrive` | the share of its output the alternator or generator gives at the engine's speed: a turbine's follows its spool speed through `turbineSpool`, shared among the engines still working; any other engine reads the `piston` input (1 without one). Used as an `Input_ElectricalBalance`'s `supplyFactor` |
+| `Input_LoadShedding` | 1 while the electrics are switching loads off to save a failing battery, else 0 |
+| `Input_TankLoad` | how heavily a bulk tank's load sits on the vehicle: how full the fitted tank is, times its `loadWeight` (0 with no tank fitted) |
+| `Input_VehicleStat` | one of Vehicle Framework's vehicle stats on this vehicle, named by `stat`, as Vehicle Framework works it out from its parts (`FlightControl`, for example); 0 with no `stat` |
 
 ### Conditions
 

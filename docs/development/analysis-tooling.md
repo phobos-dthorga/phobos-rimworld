@@ -8,10 +8,16 @@ specific to RimWorld and the owner's other game repositories carry drifting copi
 
 **Gotchas**
 
-- **This is a record; four tools are built.** On 7 Nov 2026 log triage (tool 1) shipped as `scripts/triage-log.py`, the
-  save index (tool 2, without map grids or save comparison yet) as `scripts/query-save.py`, the mod and Def index
-  (tool 3) as `scripts/query-defs.py`, and Workshop research (tool 5) as `scripts/workshop-research.py`; the others are
-  proposals.
+- **All eight tools are built (17 Nov 2026), and a ninth.** On 7 Nov 2026 log triage (tool 1) shipped as `scripts/triage-log.py`,
+  the save index (tool 2) as `scripts/query-save.py` (map grids and save comparison came later), the mod and Def index (tool 3) as
+  `scripts/query-defs.py`, and Workshop research (tool 5) as `scripts/workshop-research.py`. On 8 Nov 2026 followed the assembly
+  reader's Harmony part (tool 4) as `scripts/query-patches.py`, StartupImpact sessions (tool 6) as `scripts/startup-impact.py`, the
+  version readiness scan (tool 7) as `scripts/version-readiness.py`, and release tooling (tool 8) as `scripts/release.py`. Crash dumps
+  (tool 9) came on 9 Nov 2026 as `scripts/crash-dump.py`. Each section below says what was built and what was left out.
+- **Beyond this record:** `python scripts/check-targets.py` checks every Harmony patch and reflected lookup named in a string against
+  the game's and the active mods' assemblies (part of the gate), and `python scripts/cleanup.py` lists what the tools, builds and
+  tests left behind, for the owner to remove with `--apply`. Also `scripts/query-code.py` (the game's and other mods' code) and
+  `scripts/mod-settings.py` (the owner's settings); AGENTS.md says which tool answers which question.
 - **A tool saves nothing until an instruction points at it.** Each tool's first change here adds a one-line
   rule to `AGENTS.md` ("before reading a log, run ..."), in the same commit.
 - **Save tools always read a frozen copy** in the session's scratchpad and delete it afterwards, as

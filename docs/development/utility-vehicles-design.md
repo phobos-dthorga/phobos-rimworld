@@ -1,13 +1,22 @@
 # Utility vehicles: design (8 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.34.0 onward (and Vehicles 0.12.0 to 0.21.0): all five vehicles of the first
+family, the bulk tanker (Vehicles 0.12.0), the generator set (0.17.0), the survey truck and the drill rig (0.18.0) and the tipper (0.21.0),
+each since given its own picture; not built: the catalogue sketched below and the bulk trading and quests. The survey truck and its boom
+were tested in game by the owner on 9 Nov 2026; the rest is not yet tested in game.
+
+**Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026 (1.7.2534), and D'thorga Framework 0.111.1 builds against it ([the dependency audit](dependency-audit-2026-11-16.md)). Where this record speaks of VF's 1.6 build as the one the game loads, or of a "VF 1.7 gate", that was true when written.
+
+**Reversed by the owner, 9 Nov 2026:** our part items always exist and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's parts are substitutes, accepted per role where they make sense. [Parts bills](parts-bills.md) owns this rule now; the provider-first wording here is history.
+
 **The stand-in is built and has grown: D'thorga Vehicles (0.16.0, 9 Nov 2026) carries loadouts and drivetrains for other
 authors' vehicles. One vehicle of ours is built, the bulk tanker (Framework 0.34.0 onward, Vehicles 0.12.0 onward); not yet tested in
-game. The other four are designed in full in their own records (9 Nov 2026, research and record only):**
+game. The other four are designed in full in their own records (9 Nov 2026, written as research and record before any was built):**
 [the survey truck](vehicle-survey-truck.md), [the drill rig](vehicle-drill-rig.md), [the tipper hauler](vehicle-tipper-hauler.md) and
 [the generator set](vehicle-generator-set.md). They wait for the owner's answers to their questions and the owner's go. **Updated 8 Nov 2026 (owner's directions, answered in this record):** a fifth vehicle designed in full, the bulk
 tanker, liquid or gas by upgrade; every vehicle of ours upgradeable and extendable from its first Def, with the art following the
 upgrade tree; parts from Vehicle Framework's mechanics by default and from RimThunder's and Vanilla Vehicles Expanded's part items
-where they are present, our own parts only as fallbacks. Every figure read from another mod in this update was read with the patches
+where they are present, our own parts only as fallbacks (reversed on 9 Nov 2026: see the note above and [parts bills](parts-bills.md)). Every figure read from another mod in this update was read with the patches
 of the owner's full list applied (query-defs patched, patched-Defs file of 8 Nov 2026 08:58 UTC, game 1.7.5000, 335 mods).
 
 A design record. The owner asked on 8 Nov 2026 for utilitarian
@@ -138,6 +147,8 @@ draw through `graphicOverlays` that our comps add and remove (Vehicle Framework'
 
 ### Parts and where they come from (principle 9; agent defaults, owner to confirm)
 
+**Reversed by the owner, 9 Nov 2026:** our part items always exist and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's parts are substitutes, accepted per role where they make sense. [Parts bills](parts-bills.md) owns this rule now; the provider-first wording here is history.
+
 What the providers actually ship, read 8 Nov 2026 with every patch of the owner's list applied:
 
 | Provider | For us | Part items it ships |
@@ -168,7 +179,7 @@ cost (`mods/PhobosPatches/Mods/HarrierVtol/Patches/Cost_HarrierVtol.xml`). With 
 engine-class nodes to each tree (light, medium, heavy diesel, turbine where it fits), each costing that engine item and switching the
 systems service's drivetrain Def, which already models these engines on RimThunder's own vehicles. Build site: VF's `buildDef`
 blueprint with the swapped costs; assembling at RimThunder's bench is a later option, not a dependency. **Watch:** RimThunder Core's
-engines live in its `1.6/StandaloneModule` folder, loaded today; re-read the folder and the defNames at the Vehicle Framework 1.7 gate.
+engines live in its `1.6/StandaloneModule` folder, loaded today; re-read the folder and the defNames at the Vehicle Framework 1.7 gate (VF 1.7 shipped 14 Nov 2026; see the note at the top).
 
 Two sets name the roles in the vehicles below: the **light-truck set** (1 engine, 1 transmission, 1 fuel tank, 2 axles of running
 gear, 1 electrical set, 1 radiator) and the **heavy-truck set** (1 heavy engine, 1 transmission, 1 fuel tank, 3 axles of running
@@ -184,8 +195,12 @@ agent's and wait for the owner.
 
 ### The four unbuilt vehicles, in their own records (9 Nov 2026)
 
+**Note, 17 Nov 2026: all four are built** (generator set Vehicles 0.17.0, survey truck and drill rig 0.18.0, tipper 0.21.0, all on 9 Nov
+2026). **Sizes as built today:** survey truck 3 x 7 (since Vehicles 0.22.1), drill rig 3 x 10, tipper 3 x 8, generator set 3 x 8 (since
+Vehicles 0.51.0). The table below keeps the sizes as first designed.
+
 Each has a design record in the tanker's shape: what it does to the player, the honest mechanics it hooks, its figures, upgrade tree,
-parts, art request and open questions. Research and record only; nothing of them is built. The sections that used to stand here
+parts, art request and open questions. Research and record only when written; nothing of them was built then. The sections that used to stand here
 (8 Nov 2026) were the sketches those records replace; the figures below are the records', all authored unless a record says otherwise.
 
 | Vehicle | Size | What it lets the player do | What it stops them doing | How it changes the way they play | Record |
@@ -212,7 +227,9 @@ flowchart LR
 **Build order after the tanker (owner, 9 Nov 2026):** **the generator set first** (the smallest, it proves the diesel-electric drive
 and the power stub, and every other vehicle plugs into it), then the rig and survey truck together, then the tipper. The rig record had
 leaned to the rig first, to prove the shared deploy base; the generator set now proves it. None of them starts until the tanker has been
-seen working in game and the owner gives the go.
+seen working in game and the owner gives the go. **What happened (note, 17 Nov 2026):** all four were built on 9 Nov 2026, the
+generator set first (Vehicles 0.17.0), then the survey truck and the drill rig (0.18.0) and the tipper (0.21.0). No changelog records the
+tanker tested in game before then.
 
 **What the records corrected in this one:** the deep drill costs **100 steel and 2 components** (its Def, as written and as patched),
 not 150; a generator set is a self-propelled truck, not a trailer; the rig's pump feeds only `Phobos_RigStability`; a tracks node and
@@ -432,6 +449,9 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | Military and naval | Recovery vehicle, decontamination truck, shower truck, landing craft, snow carrier, and five submarines | Researched 9 Nov 2026 with a Workshop gap check; see [unique military vehicles and submarines](military-vehicles-research.md) | | | | none for any of them | Record only; the owner picks |
 
 ## Vehicle Framework 1.7 gate and the build plan
+
+**Note, 17 Nov 2026: the gate is passed.** VF 1.7 (1.7.2534) shipped on 14 Nov 2026; D'thorga Framework 0.111.1 builds against it
+and fixed the two things that broke ([the dependency audit](dependency-audit-2026-11-16.md)).
 
 - **1.7 only.** One build target; no `1.6` folder; `supportedVersions` 1.7.
 - Defs follow the schema VF's 1.6 build reads, which is what the 1.7 game loads today; C# compiles against the installed

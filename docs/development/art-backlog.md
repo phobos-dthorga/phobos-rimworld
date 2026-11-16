@@ -1,5 +1,14 @@
 # Art backlog: what to make with the local image model (6 Nov 2026, updated 7 Nov 2026)
 
+**Status (17 Nov 2026):** night 3 ran on 8 Nov 2026, and the owner's picks from it ship (Medical 0.14.1, Patches 0.16.9, Radio 0.1.7);
+the store's frost is drawn in code (Medical 0.15.0); vehicle bodies and parts come from the paid API. Not done: style model v3 (its
+training was cut off by the stop time on 8 Nov, with no model saved), the radio whip (held), the coax atlases, the work lamps fitting
+icon and the rest of the outstanding list below.
+
+**Old mod names below.** On 7 Nov 2026 Medical Equipment, Burns and Smoke, Emergency Dosing and Triage became parts of D'thorga Medical,
+and D'thorga Vehicle Patches became part of D'thorga Patches ([mod consolidation](mod-consolidation.md)). The rows keep the names they
+were written with.
+
 **Update, 12 Nov 2026: most of this list is done.** The owner judged night 3's candidates and picked the medical second set, the
 electrolyser, the chamber's top-down redraw, both bomb cases and the radio base station (Medical 0.14.1, Patches 0.16.9, Radio 0.1.7); the
 paid image API drew the tipper, drill rig and generator set and their parts, and the Crawler's and survey truck's overlays (Vehicles
@@ -14,7 +23,7 @@ recovery winch and long-range tank on our trucks, from the paid API ([round thre
 7 Nov 2026.
 
 Every texture and preview the Phobos RimWorld mods ship or still need, which of them suit the local image model, and what has to
-happen before a run. A record only: nothing here has been generated for it. How the pipeline works is in the
+happen before a run. Written on 6 Nov 2026, before anything on it was generated. How the pipeline works is in the
 [art automation design](art-automation-and-medical-equipment.md); the picks so far are in [its list of picks](art-automation-and-medical-equipment.md#the-owners-picks).
 
 ## Read this first (gotchas)
@@ -27,8 +36,9 @@ happen before a run. A record only: nothing here has been generated for it. How 
 - **A giant red X on a button means a missing texture, not missing art.** It is the game's stand-in when a file isn't found, and
   it is a bug to fix in code straight away, before any new icon exists.
 - **Text on Workshop previews is never generated.** The model draws a background or hero image; a script adds the mod's name.
-- **Every picked machine and item has its Def since Medical Equipment 0.3.0.** Outstanding art: the electrolyser, the chamber's
-  top-down redraw at 1 by 3, and the store's frost; each has a scripted placeholder or works without it.
+- **Every picked machine and item has its Def since Medical Equipment 0.3.0.** Outstanding art on 7 Nov: the electrolyser, the chamber's
+  top-down redraw at 1 by 3, and the store's frost. **Done since:** the electrolyser and the chamber shipped in Medical 0.14.1 (12 Nov
+  2026), and the frost is drawn in code (Medical 0.15.0).
 - **Art the mods don't ship lives off main** (owner, 7 Nov 2026): full-size masters on the `art-masters` branch, references and
   superseded picks on `art-references`, added with `scripts/art/archive_branch.py`.
 - **Everything that ships keeps an asset record** (tool, model, prompt, seeds, hashes, date, AI disclosure) and passes the near-copy
@@ -60,26 +70,26 @@ Equipment's picked background, re-titled by script.
 | Asset | Now | Needs | Local model? | Waiting on |
 | --- | --- | --- | --- | --- |
 | Oxygen concentrator (1x1) | Shipped pick, 0.2.3 | Nothing | | |
-| Electrolyser (2x2) | Scripted placeholder in 0.3.0; no pick: none suited (owner, 7 Nov) | A new batch with a fresh brief, top-down, square | Yes | Go |
+| Electrolyser (2x2) | **Shipped pick, Medical 0.14.1 (12 Nov 2026): top-down 12 from night 3.** Was a scripted placeholder in 0.3.0; no pick: none suited (owner, 7 Nov) | Nothing | Yes | Done |
 | Liquid oxygen store (2x2) | Shipped pick, 0.3.0, one view (it doesn't rotate); the owner wants to see it in game before judging it | Nothing, unless the owner asks for a redraw after seeing it | | Owner's look in game |
-| Liquid oxygen store's frost | Nothing; the store works without it (0.3.0) | One frost texture shown while it works, faded in and out by code, following DMS2's Pressure Chamber | Part: the model draws the rime, a script cuts it out | Go, then code to show it |
-| Hyperbaric chamber (1x3) | Scripted placeholder in 0.3.0. Pick for its look: 102, drawn at an angle; rotating it doesn't fix that (tried 7 Nov) | A top-down redraw at 1 by 3 on a square canvas (the game draws beds on square textures), with 102 as the design reference; a new 1 by 3 layout drawing first | Yes | Go |
+| Liquid oxygen store's frost | **Drawn in code, Medical 0.15.0 (12 Nov 2026)**: the owner ruled a picture unneeded (12 Nov: "the frost was a shader"), and night 3's four attempts redrew the whole store at an angle | Nothing | Script | Done |
+| Hyperbaric chamber (1x3) | **Shipped pick, Medical 0.14.1 (12 Nov 2026): depth 11 from night 3's depth-control trial.** Was a scripted placeholder in 0.3.0; pick 102 for its look was drawn at an angle, and rotating it didn't fix that (tried 7 Nov) | Nothing | Yes | Done |
 | Field oxygen kit (item) | Shipped pick, 0.3.0: oxygen-mask-104 | Nothing | | |
 | Silver burn dressing (medicine) | Shipped pick, 0.3.0: 101 | Nothing | | |
 | Manual resuscitator (item) | Shipped pick, 0.3.0: 103 | Nothing | | |
 | Bedside oxygen stand | Shipped pick, 0.2.3 (replacing 0.1.1's) | Nothing | | |
 | Burn unit bed | Shipped pick, 0.2.0. East and north are the top-down view turned | Nothing: a bed drawn from directly above needs no separate side views (agent judgement) | | |
-| Ventilator (1x1) | Scripted placeholder in 0.7.0 | Generated art: a bedside cabinet from above with a breathing-wave screen, a bellows column and a tube to the bed | Yes | Go |
-| Safety shower and eyewash (1x1) | Scripted placeholder in 0.7.0 | Generated art: a green drench head with a pull handle over a grated tray, and an eyewash bowl, from above | Yes | Go |
-| Oxygen cylinder trolley (1x1, VGE) | Scripted placeholder in 0.7.0 | Generated art: a wheeled frame with two oxygen cylinders end-on, a regulator and a mask tube, from above | Yes | Go |
-| Nebuliser (1x1) | Scripted placeholder in 0.7.0 | Generated art: a small compressor with a tube to a mask and a drug cup, from above | Yes | Go |
-| Bronchodilator vial (item) | Scripted placeholder in 0.7.0 | Generated art: a strip of twist-top plastic vials | Yes | Go |
-| Anaesthesia machine (1x1) | Scripted placeholder in 0.7.0 | Generated art: a trolley with a monitor, coloured vaporisers, flow meters and a breathing bag, from above | Yes | Go |
-| Needle decompression kit (item, More Injuries) | Scripted placeholder in 0.7.0 | Generated art: a long needle with a green hub beside its sheath | Yes | Go |
-| Fluids kit (item) | Scripted placeholder in 0.7.0 | Generated art: a clear bag of fluid with a label and a coiled giving set | Yes | Go |
-| Steriliser (1x1) | Scripted placeholder in 0.7.0 | Generated art: a square autoclave with a round pressure door and locking wheel, from above | Yes | Go |
-| Carbon monoxide and smoke alarm (ceiling) | Scripted placeholder in 0.7.0 | Generated art: a small white ceiling disc with a grille and a red light, seen from below | Yes | Go |
-| Intubation kit (item) | Scripted placeholder in 0.7.0 | Generated art: a laryngoscope and a clear breathing tube with its cuff | Yes | Go |
+| Ventilator (1x1) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a bedside cabinet from above with a breathing-wave screen, a bellows column and a tube to the bed | Yes | Done |
+| Safety shower and eyewash (1x1) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a green drench head with a pull handle over a grated tray, and an eyewash bowl, from above | Yes | Done |
+| Oxygen cylinder trolley (1x1, VGE) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a wheeled frame with two oxygen cylinders end-on, a regulator and a mask tube, from above | Yes | Done |
+| Nebuliser (1x1) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a small compressor with a tube to a mask and a drug cup, from above | Yes | Done |
+| Bronchodilator vial (item) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a strip of twist-top plastic vials | Yes | Done |
+| Anaesthesia machine (1x1) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a trolley with a monitor, coloured vaporisers, flow meters and a breathing bag, from above | Yes | Done |
+| Needle decompression kit (item, More Injuries) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a long needle with a green hub beside its sheath | Yes | Done |
+| Fluids kit (item) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a clear bag of fluid with a label and a coiled giving set | Yes | Done |
+| Steriliser (1x1) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a square autoclave with a round pressure door and locking wheel, from above | Yes | Done |
+| Carbon monoxide and smoke alarm (ceiling) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a small white ceiling disc with a grille and a red light, seen from below | Yes | Done |
+| Intubation kit (item) | Shipped pick, Medical 0.14.1 (12 Nov 2026, from night 3); scripted placeholder in 0.7.0 | Generated art: a laryngoscope and a clear breathing tube with its cuff | Yes | Done |
 | Workshop preview (640x360) | Shipped pick: hero-medical-2, a field hospital tent at dusk (10 Nov 2026, replacing the 7 Nov ward) | Nothing | | |
 
 ### Proposed medical equipment (agent ideas, 6 Nov 2026, for the owner)
@@ -107,12 +117,12 @@ machine are good tie-ins once Emergency Dosing has a way for machines to give dr
 
 ### Phobos Radio Framework
 
-Five textures are the owner's picks (7 Nov 2026); the base station and the two feedline atlases are still flat placeholders from `assets/phobos-radio/make_textures.py` (19 Oct 2026).
+Five textures are the owner's picks (7 Nov 2026); the base station and the two feedline atlases are still flat placeholders from `assets/phobos-radio/make_textures.py` (19 Oct 2026). **Since 12 Nov 2026 the base station is the owner's pick too** (Radio 0.1.7); the two atlases stay scripted.
 
 | Asset | Now | Local model? | Note |
 | --- | --- | --- | --- |
 | Hand-held radio (worn item) | Shipped pick: handheld-2 (7 Nov) | | |
-| Base station (2x2) | Placeholder | Yes | Candidates from 19 Oct exist (`assets/phobos-radio/generated`) |
+| Base station (2x2) | **Shipped pick: base-station-remake-2-13 from night 3 (12 Nov 2026, Radio 0.1.7)**; was a placeholder | Yes | |
 | Whip antenna (drawn 1x1.5) | Stand-in: mast-remake-12, a thin lattice mast (owner, 7 Nov) | Yes | A real whip still to pick: tall and thin, drawn upright on a tall canvas |
 | Mast (drawn 1x2.5) | Shipped pick: klein-mast-flat-63, a guyed lattice tower (7 Nov) | | |
 | Coax feedline atlas and its blueprint atlas | Placeholder | Script | A 4x4 linked atlas whose edges must line up exactly |
@@ -137,7 +147,7 @@ Five textures are the owner's picks (7 Nov 2026); the base station and the two f
 
 | Asset | Now | Local model? | Note |
 | --- | --- | --- | --- |
-| Mk. 82 and Mk. 84 bomb cases (items, 0.6.0) | Scripted stand-ins, drawn by `assets/vehicle-patches/draw_standins.py` (owner's direction, 7 Nov) | Yes | Two empty olive-drab bomb bodies from above, the Mk. 84 fatter: open nose ring, open tail, two lugs, no fins and no yellow band (the band marks a filling). The stand-ins can serve as layout references. Waiting on a go |
+| Mk. 82 and Mk. 84 bomb cases (items, 0.6.0) | **Shipped picks from night 3, seed 12 each (12 Nov 2026, Patches 0.16.9).** Were scripted stand-ins, drawn by `assets/vehicle-patches/draw_standins.py` (owner's direction, 7 Nov) | Yes | Two empty olive-drab bomb bodies from above, the Mk. 84 fatter: open nose ring, open tail, two lugs, no fins and no yellow band (the band marks a filling). The stand-ins served as layout references |
 | Workshop preview | Shipped pick: hero-patches-1 (10 Nov, replacing the 7 Nov garage) | | |
 
 ### Button icons (owner, 6 Nov 2026)
@@ -208,7 +218,7 @@ Proposed 6 Nov 2026 for the owner to confirm. Generation doesn't need them; expo
 
 ## Night 3 queue (owner's choices, 7 Nov 2026)
 
-Prepared, not run: it waits for the owner's go and stop time. Plan `.local/art/night-3.json`; one command:
+**Ran on 8 Nov 2026 (04:57 to 09:20), on the owner's go; the owner judged it on 12 Nov** ([the night's record](../../assets/phobos-vehicles/requests/night-2026-11-12-record.md)). Steps 1 to 6 finished. Step 7, training v3, was cut off by the stop time after 57 minutes with no model saved, so steps 8 to 10 never started. As prepared on 7 Nov: plan `.local/art/night-3.json`; one command:
 `python scripts/art-run.py night .local/art/night-3.json --stop-at HH:MM`. The dry run passed every step. Four seeds a piece (11 to 14),
 references plus the v1 style model, and the fixed view phrase "seen from directly above, south face hinted" in every prompt.
 
@@ -231,6 +241,9 @@ The store's frost (its code waits for it, owner), the electrolyser, the chamber'
 station, the second set of medical equipment
 ([its record](medical-equipment-2.md)) and the four vents ([ventilation and hydrogen](ventilation-and-hydrogen.md)). Every new button
 gets its icon in the same change (owner rule, 7 Nov 2026).
+
+**Since then (12 Nov 2026):** every item on this list shipped or was settled, except the whip (held until the radio resumes) and the
+four vents (ventilation is not built).
 
 **Fixing the angle first:** the chamber redraw and the electrolyser are the test pieces for the depth-control trial in
 [the view-angle models record](view-angle-models.md), on the owner's go; the rest of the list runs through the current route.

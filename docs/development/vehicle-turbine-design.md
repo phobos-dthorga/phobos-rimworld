@@ -288,7 +288,10 @@ performance". **Not yet tested in game.**
   (authored). A helicopter steers with its rotors: no reaction control bleed.
 - **Cost:** one wind read, two load checks and a multiplication per aircraft per systems update (every 250 ticks).
 
-## Open questions for the owner
+## Questions put to the owner (answered, see "As built" above)
+
+Settled on 8 Nov 2026: the owner answered 1, 2, 3 and 6; 4, 5 and 7 took the agent's leans, for the owner to revise. The table is
+the questions as they were put.
 
 | Question | Agent lean |
 | --- | --- |

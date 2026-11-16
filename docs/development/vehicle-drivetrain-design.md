@@ -289,7 +289,10 @@ the propeller law, the terrain curves, and a 500-sample benchmark under 50 ms (`
 3. A truck idling at night with its headlights on: the battery slowly drains; driving charges it.
 4. Save and reload with vehicles moving: no errors, the same gears after a few seconds.
 
-## Open questions for the owner
+## Questions put to the owner (answered, see "As built" above)
+
+Settled on 8 Nov 2026: the owner answered 2 and 3; 1, 4, 5 and 6 took the agent's leans, for the owner to revise. The table is the
+questions as they were put.
 
 | Question | Agent lean |
 | --- | --- |

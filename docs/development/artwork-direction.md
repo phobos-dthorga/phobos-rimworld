@@ -17,8 +17,8 @@ art at 2× or 4× and downscale deterministically.
 
 | Route | Cost | Fits RimWorld's look | Notes |
 | --- | --- | --- | --- |
-| Code-drawn vector-style sprites (`assets/phobos-radio/make_textures.py`) | None | Yes, when done with care | Reproducible, no AI disclosure needed, exact geometry for linked atlases. The current ones are crude placeholders. |
-| **Local generation: ComfyUI with Flux.1-schnell** on the owner's RTX 4070 Ti (12 GB) | None beyond disk and time | Good for item and building bases and for the Workshop preview | Set up 19 Oct 2026 under `C:\AI\` (not in the repository). `scripts/generate-art.py` drives it and writes a record beside every image. |
+| Code-drawn vector-style sprites (`assets/phobos-radio/make_textures.py`) | None | Yes, when done with care | Reproducible, no AI disclosure needed, exact geometry for linked atlases. The current ones are crude placeholders. **Since 12 Nov 2026 only the two coax atlases are:** the owner picked generated art for the rest (7 and 12 Nov). |
+| **Local generation: ComfyUI with Flux.1-schnell** on the owner's RTX 4070 Ti (12 GB) | None beyond disk and time | Good for item and building bases and for the Workshop preview | Set up 19 Oct 2026 under `C:\AI\` (not in the repository). `scripts/generate-art.py` drives it and writes a record beside every image. **Since 5 Nov 2026** Flux.1-schnell makes only the Workshop previews; sprites and icons come from FLUX.2 Klein 4B base with references and the private style model ([art automation](art-automation-and-medical-equipment.md#models)), and vehicle bodies from the OpenAI image API. |
 | ChatGPT Imagegen (a paid plan) | Subscription | Good; the Ostranauts workflow exists | Only if local generation disappoints, and then for one month at the public-beta gate. **Revised 8 Nov 2026:** the paid route is a pay-per-image API, not a subscription; see [art services for vehicle sprites](vehicle-art-services.md). |
 
 ## Licences and disclosure
@@ -58,8 +58,9 @@ icons stay scripted. Every candidate carries its record; game-scale previews are
 
 ## Open
 
-- [ ] The owner judges the candidates (`assets/phobos-radio/generated/review.html`) and names the station,
-      mast and whip to export; rejected batches are then deleted and listed with reasons.
+- [x] The owner judges the candidates (`assets/phobos-radio/generated/review.html`) and names the station,
+      mast and whip to export; rejected batches are then deleted and listed with reasons. **Done:** the mast and a stand-in whip were
+      picked on 7 Nov 2026, the base station on 12 Nov (Radio 0.1.7); a real whip is held until the radio resumes.
 - [x] `AGENTS.md`'s Artwork section no longer names PixelLab (checked 6 Nov 2026).
 - [ ] Two copies of the review scripts exist: the shared ones in `scripts/art/` are current (5 Nov 2026); the older
       `contact_sheet.py`, `export_sprite.py` and `review_page.py` in `assets/phobos-radio/` stay until the radio art is redone with

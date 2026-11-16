@@ -202,7 +202,7 @@ fire heat stand down; add a mod there if it models the air cell by cell.
 
 ### Checks done (6 November 2026)
 
-- Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (skin shares, burn area by kind, burned
+- Built against the RimWorld 1.7 and 1.6 reference assemblies (1.6 retired 8 Nov 2026; 1.7 only since). The game-free rules (skin shares, burn area by kind, burned
   fraction, burned-off parts, the Baux score, its floor and the treatment factor by medicine quality, carbon monoxide uptake and
   clearance, the airway curve, the fire heat's shape and cap) pass 23 unit tests.
 - **Fire heat in the open is not yet tested in game.** Read from the 1.7 game's code: which method answers every cell-temperature
@@ -334,7 +334,7 @@ the drug comp's addictiveness and category are read from the same Defs. Balance 
 
 - **The owner reports doctors' dosing working in game on 0.3.0** (5 November 2026, one screenshot: penicillin and ketamine on a patient). Self-medication and the bleeding hold
   are not yet tested in game.
-- Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (effect from stages, need bands, safety,
+- Built against the RimWorld 1.7 and 1.6 reference assemblies (1.6 retired 8 Nov 2026; 1.7 only since). The game-free rules (effect from stages, need bands, safety,
   choice and tiers, self-medication's threshold and policy gate) pass 23 unit tests.
 - 0.1.0 loaded in the owner's game with no error naming it (5 November 2026); its load line showed the faults 0.1.1 fixes. That
   is a load, not a test of dosing.
@@ -471,7 +471,7 @@ wins). The per-person authority is D'thorga Framework's patient comp; the saved 
 
 ### Checks done (6 November 2026)
 
-- Built against the RimWorld 1.7 and 1.6 reference assemblies. The game-free rules (authority, condition class, the choice of
+- Built against the RimWorld 1.7 and 1.6 reference assemblies (1.6 retired 8 Nov 2026; 1.7 only since). The game-free rules (authority, condition class, the choice of
   operation and its refusal, the tag and the score) pass 13 unit tests.
 - Read from the 1.7 code: how a bill is created and ordered, that the game removes stale medical bills only when a doctor looks,
   that a prioritised scanner is honoured by the job giver, and that comp fields on a pawn load without the mod.
@@ -674,7 +674,7 @@ The display mode, and the uninstall button. Plain mode shows no figures.
 
 ### Checks done (7 November 2026)
 
-- Built against the RimWorld 1.7 and 1.6 reference assemblies; the game-free rules pass their unit tests; the Defs pass the repository's checks.
+- Built against the RimWorld 1.7 and 1.6 reference assemblies (1.6 retired 8 Nov 2026; 1.7 only since); the game-free rules pass their unit tests; the Defs pass the repository's checks.
 - **Owner's report (5 November 2026, on 0.1.0):** a patient's breathing improves on the oxygen concentrator.
 - **Owner's report (6 November 2026, on 0.2.0):** the burn unit bed looks right and gives a burned patient air-cell care.
 - **Not checked in game:** everything new in 0.3.0 (the chamber, the field kit, the hand pump, the dressings, the electrolyser and the store, and their pipe links), the bedside oxygen stand and its pipe link, the inspect text from 0.2.1, the feel of the numbers, the uninstall button, and the 0.2.3 art.
@@ -822,7 +822,7 @@ every pawn's parts** repeats the after-load check.
 
 - **The owner's first load (3 November 2026, on 0.1.0 and 0.1.1):** a copy of a 330-mod colony with Medical System Expansion 2
   and Combat Extended went cleanly, then saved and reloaded (INERT).
-- Built for RimWorld 1.7 and 1.6. The game-free rules (the index re-numbering and the mod-list comparison) pass 8 unit tests.
+- Built for RimWorld 1.7 and 1.6 (1.6 retired 8 Nov 2026; 1.7 only since). The game-free rules (the index re-numbering and the mod-list comparison) pass 8 unit tests.
 - **Not checked in game:** a new colony, and the 0.1.2 build (Harmony 3 on 1.7).
 
 ### Settings

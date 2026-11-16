@@ -5,6 +5,10 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The README's dated checks note that RimWorld 1.6 was retired on 8 November 2026. No change in play.
+
 ## [0.13.0] - 2026-11-13 - Draft
 
 Vehicle parts on the production line

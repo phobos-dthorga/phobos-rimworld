@@ -6,6 +6,8 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **Vehicle Framework 1.7 and the two audits (added 17 Nov 2026): rows 132 to 136.** Riskiest first: **133** (a trailer sent off on its
+  own) and **134** (the Harrier).
 - **Framework 0.116.1 (17 Nov 2026): row 130**, with the same install.
 - **Framework 0.116.0 and Vehicles 0.57.0 (17 Nov 2026): rows 126 to 129**, one install with 0.115.0's rows. Riskiest first: **127** (a
   re-fitted track must not heal to full for free) and **126**.
@@ -86,13 +88,19 @@ result goes into that mod's changelog.
 
 ## If play brings them up
 
+Numbered P1 to P4 since 17 Nov 2026; they were 4 to 7, which clashed with the rows above.
+
 | # | What | When it comes up | What passes |
 | --- | --- | --- | --- |
-| 4 | The Harrier over a RimPacts battle (Patches 0.11.0) | A RimPacts client state is under attack | Press **Join** first; the jet then flies sorties. Without joining, the jet's button says why it cannot go |
-| 5 | Caustic gas (Medical 0.8.0: slow-acting, eye scarring, wilting plants, rinsing) | A tox gas event, or a tox weapon in a fight | Exposed pawns worsen slowly rather than at once; a pawn who rinses at a shower or eyewash improves. Rinsing at Dubs Bad Hygiene's showers is the open question |
-| 6 | Machining bays reading every stack in a deep factory hopper (Factory Additions 0.11.4) | A bay waits for an ingredient that a deep input hopper holds | The bay takes it from any stack in the hopper, not only the first |
-| 7 | Vehicle systems on the world map: climate control by era and bleed air (Framework 0.22.0 and 0.24.0, Vehicles 0.10.0) | A caravan travels with a vehicle in heat or cold | The cab's temperature stays comfortable, and the Systems tab shows what is running |
+| P1 | The Harrier over a RimPacts battle (Patches 0.11.0) | A RimPacts client state is under attack | Press **Join** first; the jet then flies sorties. Without joining, the jet's button says why it cannot go |
+| P2 | Caustic gas (Medical 0.8.0: slow-acting, eye scarring, wilting plants, rinsing) | A tox gas event, or a tox weapon in a fight | Exposed pawns worsen slowly rather than at once; a pawn who rinses at a shower or eyewash improves. Rinsing at Dubs Bad Hygiene's showers is the open question |
+| P3 | Machining bays reading every stack in a deep factory hopper (Factory Additions 0.11.4) | A bay waits for an ingredient that a deep input hopper holds | The bay takes it from any stack in the hopper, not only the first |
+| P4 | Vehicle systems on the world map: climate control by era and bleed air (Framework 0.22.0 and 0.24.0, Vehicles 0.10.0) | A caravan travels with a vehicle in heat or cold | The cab's temperature stays comfortable, and the Systems tab shows what is running |
 
+## More checks, from 8 onward
+
+| # | What it proves | What to do | What passes |
+| --- | --- | --- | --- |
 | 8 | Fittings and tunes (Framework 0.40.0) | Open **Fittings and tunes** from a vehicle's Dashboard. Order a turbocharger and a power tune, with the materials to hand and a mechanic of Construction 8 | The materials are hauled, the work is done, the Health tab says Fitted; a lower-skilled mechanic is refused and told why |
 | 9 | Part grades (Framework 0.41.0) | **After check 1.** On a working part, press **Grade** and choose heavy-duty; on a part destroyed with the dev action, choose salvaged before it is replaced. Save and load | The part's health on the Health tab rises by about 30% or falls by about 30%, and is the same after the load |
 | 10 | Stations (Framework 0.43.0) | Open the **motor pool** tab and build a **vehicle parts bench** and a **tuning rig**. Order a tune on a vehicle parked away from the rig, then drive it within the outline | The bench lists only vehicle parts; the machining table lists none of ours; the tune waits and says why, then a mechanic does it once the vehicle is within reach |
@@ -220,9 +228,17 @@ result goes into that mod's changelog.
 | 129 | **The Crawler's instruments on the battery** (Framework 0.116.0) | In water with the engine off, research aboard and ping until the battery runs flat | Each stops with a reason; with the alternator lost and the engine running, the laboratory is switched off first |
 | 130 | **No conduit over a vehicle's wiring** (Framework 0.116.1) | Park a truck with its engine off, then try to place an ordinary, a hidden and a waterproof conduit on a cell under it, and one beside it | All three refused under it with "its own wiring is here"; the one beside it builds and joins the truck to the grid. **Passed in part: the owner, 17 Nov 2026, on 0.116.1: "seem to be working well" on a first look; fuller testing to come** |
 | 131 | **The newer systems on the Systems tab** (Framework 0.117.0) | Open a tank's Systems tab in Operator mode, then in Engineer mode; damage its turret part and a track with god mode; flatten the battery with someone manning the gun; tick **Only what needs attention** | Weapons, Running gear and Electrical loads cards appear; the damaged mount shows as a chip that lights the part on hover, the gun reads slow then out of action with why, the track is named, the turret drive reads "no power" and Engineer mode adds amperes; the tick box leaves only what is wrong. **0.117.1:** with nobody aboard and the battery charged, no weapon reads slowed or cranked by hand, and the coaxial gun and TOW launcher say "turns with the Main Turret" |
+| 132 | **The reach ring with Vehicle Framework 1.7** (Framework 0.111.1; [dependency audit](dependency-audit-2026-11-16.md)) | Form a vehicle caravan and look at the world map | The reach ring is about the size it was before Vehicle Framework 1.7 |
+| 133 | **A lone trailer** (Vehicle Framework 1.7; [dependency audit](dependency-audit-2026-11-16.md)). **Use a copy of the save** | Try to send an unhitched Pintle trailer off as a caravan on its own, then try to draft and drive it | It cannot go anywhere without a truck. If it can, say so: the trailer then needs a refusal of its own |
+| 134 | **The Harrier on Vehicle Framework 1.7** ([dependency audit](dependency-audit-2026-11-16.md)) | Launch the Harrier once and land it | It takes off and lands with no red error; its author changed its Vehicle Framework patches twice during the break |
+| 135 | **Other factions' aircraft and a captured vehicle** ([code audit](code-audit-2026-11-11.md)) | Meet a raider's or visitor's aircraft; if you can, capture any vehicle | No messages about their engines; a captured vehicle shows its systems at the next look |
+| 136 | **What our vehicle code costs in a busy moment** ([code audit](code-audit-2026-11-11.md)) | Turn dev mode on through a raid or with the big factory running, then run the dev action **"Vehicle systems: timing report"** and send the log | The report is written to the log: the one measurement the code audit could not make |
 | 137 | **Guns on their own mounts** (Framework 0.117.2) | With a crew aboard an M1A2 or M10 and the battery flat (dev action), look at the Systems tab; then a Hind's | The main gun and coaxial gun read slowed, cranked by hand; the commander's M2HB reads "swung by hand" at full pace; the Hind shows no turret drive among its loads |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
+
+**Obsolete (17 Nov 2026):** Vehicle Framework shipped its 1.7 release on 14 Nov 2026, and our mods build against it
+([dependency audit](dependency-audit-2026-11-16.md)); its checks are rows 132 to 134. Kept as written below.
 
 **Do this only after checks 19 to 22, so a fault can be told apart from the pipes.** The development build is Workshop item 3522907382; its source is the `develop` branch of [SmashPhil/Vehicle-Framework](https://github.com/SmashPhil/Vehicle-Framework), at 1.7.2503 when read. It shares a package ID with the stable version, so only one can be on.
 

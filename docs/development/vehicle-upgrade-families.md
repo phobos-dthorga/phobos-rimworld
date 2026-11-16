@@ -1,8 +1,14 @@
 # Vehicle upgrade families: upgrades shared across many vehicles (12 Nov 2026)
 
-**All five built, nothing tested in game.** Built in D'thorga Framework 0.103.0 and Vehicles 0.47.0 (parts 1 to 3, 12 Nov 2026): the order for a whole family, the cold-weather pack, all-terrain tyres and work lights, then long range, then recovery with the hitch's recovery tow. The sections "Built in part 1", "Built in part 2" and "Built in part 3" say what was built and where it departs from the proposal; the text before it is the proposal as the owner answered it. On 11 Nov 2026 the owner chose both a signature feature per
+**Status (17 Nov 2026):** built in D'thorga Framework 0.103.0 (and Vehicles 0.47.0; parts 1 to 3, 12 Nov 2026): the order for a
+whole family, the cold-weather pack, all-terrain tyres and work lights, then long range, then recovery with the hitch's recovery tow;
+not built: nothing of the five families is left. Tested in game by the owner (13 Nov 2026, on Framework 0.105.1): work lamps work, and
+families and tunes ordered several at once queue as they should; that test also led to two changes in 0.105.2 (new tyres renew the
+tread, and work lamps start switched off). Everything else is not yet tested in game.
+
+The sections "Built in part 1", "Built in part 2" and "Built in part 3" say what was built and where it departs from the proposal; the text before it is the proposal as the owner answered it. On 11 Nov 2026 the owner chose both a signature feature per
 vehicle and "shared families" for the rest ([round two](vehicle-upgrades-round-two.md)); on 12 Nov 2026 they asked for this record
-first, with nothing built. **Every family, figure and fit below is agent-proposed** for the owner to pick from. Facts marked "from
+first, before any building. **Every family, figure and fit below is agent-proposed** for the owner to pick from. Facts marked "from
 the code" were read on 12 Nov 2026 from our source and Vehicle Framework's 1.6 decompile with `scripts/query-code.py`.
 
 ## Read this first
@@ -17,7 +23,7 @@ the code" were read on 12 Nov 2026 from our source and Vehicle Framework's 1.6 d
 - **Three of the five are mostly XML** on systems that already exist. Two need a small piece of code each (said per family).
 - **Not proposed:** dust filters (nothing models dust or intake wear today, so it would be a new system, not a family) and armour
   (Vehicle Framework's own upgrade trees and Combat Extended already own a vehicle's armour; a second armour path would fight them).
-- **Four questions for the owner** are at the end, answered on 12 Nov 2026; all five families are built (not yet tested in game).
+- **Four questions for the owner** are at the end, answered on 12 Nov 2026; all five families are built (tested in game only in part; see the status line).
 
 ## What already exists to build on
 

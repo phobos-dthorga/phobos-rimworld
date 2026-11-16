@@ -1,5 +1,10 @@
 # Pipes and conduits beneath our things (13 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.107.0 to 0.108.4 and 0.116.1: the rule, pieces beneath every parked vehicle,
+**hidden pieces from 0.108.1** (the owner's reversal), the plumbing overlay joining up, hidden chemfuel pipes, N10 (parked vehicles refuel
+from a chemfuel line) and no conduit built over a parked vehicle's own wiring; not built: N4 and N7, which turned out not to be needed
+(the tap and the depot bay already join their nets). Not yet tested in game.
+
 What our buildings and vehicles lay beneath themselves to join a network (plumbing, power, Vanilla Expanded Framework's pipe nets),
 what changed in D'thorga Framework 0.107.0 to 0.108.1, and an audit of everything of ours that uses a piped supply or power, with proposals for
 the owner to pick from. **Built in 0.107.0: the first two sections. The audit's proposals are not built.** Nothing here is tested in
@@ -156,17 +161,20 @@ player's runs beside it join to ours. `PipeUnderlay.Changes` (never saved) tells
 Read on 13 Nov 2026 from our mods' Defs and patches (a scan of every `ThingDef` and `VehicleDef` of ours for power, fuel, Vanilla
 Expanded Framework pipe, Dubs Bad Hygiene and Rimefeller comps), and from the vehicle systems' code.
 
+**Note, 17 Nov 2026: every piece in the "Lays beneath today" column is hidden since Framework 0.108.1** (owner, 13 Nov 2026, after seeing
+0.108.0 in play). Where a row said "visible", that described 0.107.0 and 0.108.0 and has been corrected below.
+
 | # | Thing (mod) | Uses | How it joins today | Lays beneath today | Proposal |
 | --- | --- | --- | --- | --- | --- |
-| N1 | Conveyor oven (Factory Additions, with Dubs Bad Hygiene) | Water | Plumbing beneath it | Yes, visible from 0.107.0 | Keep |
-| N2 | Safety shower and eyewash (Medical, with Dubs Bad Hygiene) | Water | Plumbing beneath it | Yes, visible | Keep |
+| N1 | Conveyor oven (Factory Additions, with Dubs Bad Hygiene) | Water | Plumbing beneath it | Yes, hidden since 0.108.1 (visible in 0.107.0 and 0.108.0) | Keep |
+| N2 | Safety shower and eyewash (Medical, with Dubs Bad Hygiene) | Water | Plumbing beneath it | Yes, hidden since 0.108.1 | Keep |
 | N3 | Electrolyser (Medical) | Water, power, oxygen | Plumbing beneath it; power wired; oxygen through Vanilla Expanded Framework's own comps with Vanilla Gravship Expanded | Plumbing only | Keep: power is wired, as the game's buildings are; the oxygen net is the framework's own connection |
 | N4 | **Bottle tap (Water Tap)** | Water | Dubs Bad Hygiene's own fixture comp | **No** | **Not built, and not needed** (13 Nov 2026): the tap carries Dubs Bad Hygiene's own pipe comp on its cell, so it joins the plumbing as Dubs' sinks and toilets do: a pipe touching it connects. A pipe beneath it would make two pipe comps in one cell, which Dubs refuses with an error (DubsBadHygiene HygienePipeMapComp, "More than 1 pipe comp in the same cell"), and our underlay would find the cell piped and lay nothing |
 | N5 | Liquid oxygen store, oxygen concentrator, nebuliser, hyperbaric chamber, oxygen trolley, bedside stand (Medical) | Power, oxygen | Wired; oxygen as cylinders or the framework's own comps | No | Keep: wired power is the game's convention for a building, and the oxygen net is the framework's own |
 | N6 | Anaesthesia machine, burn unit bed, ventilator, gas alarm (Medical) | Power | Wired | No | Keep |
 | N7 | Depot bay, vehicle parts bench, dyno bay, power point (Framework) | Power; the bay also holds fuel | Wired; the bay's tank is filled by hand | No | Keep power wired. **The bay already fills from a chemfuel pipe** (found 13 Nov 2026): Vanilla Expanded Framework adds its own pipe refill (CompRefillWithPipes) at start-up to every building whose refuelable tank takes a fuel some net links to (PipeSystem AutoLinkRefuelables), and the bay's tank takes chemfuel, which Vanilla Chemfuel Expanded's line links at 1 unit to 1 chemfuel. A pipe touching the bay joins it, as with any Vanilla Expanded building; nothing of ours is built. Not yet tested in game |
-| N8 | Our vehicles that take water | Water | Plumbing beneath them while parked against a run | Yes, visible | Keep |
-| N9 | Bulk tanker, drill rig | Each net its contents or outlets use; Dubs plumbing and septic | Pipes beneath while parked against a run | Yes, visible | Keep |
+| N8 | Our vehicles that take water | Water | Plumbing beneath them while parked against a run | Yes, hidden since 0.108.1 | Keep |
+| N9 | Bulk tanker, drill rig | Each net its contents or outlets use; Dubs plumbing and septic | Pipes beneath while parked against a run | Yes, hidden since 0.108.1 | Keep |
 | N10 | **Every fuelled vehicle of ours** | Chemfuel | Refuelled by hand, a tanker or a depot bay | No | **Built: Framework 0.107.0, not yet tested in game.** A parked fuelled vehicle of the player's joins any net whose linkToRefuelables names its own fuel (Vanilla Chemfuel Expanded's chemfuel line), lays that line's visible pipe beneath it, and with its engine off and not set up fills from the net's storage at 30 an hour (authored, as the depot bay's pump; at most an hour a look), converting the net's units by its ratio (PipeRefuelRule, with tests). Other factions' vehicles do not: only the player's join pipes, as for every link |
 | N11 | Electric vehicles | Power | Charge parked beside a powered building or over a conduit | No | Keep: they read the grid as it stands; nothing to lay |
 | N12 | Generator set | Power | The cable end, or conduits beneath it (0.107.0) | Yes, when set up that way | Built |
@@ -189,7 +197,7 @@ joins and leaves the grid.
 
 **Answered by the owner, 13 Nov 2026:** (1) the bottle tap **lays plumbing** (N4); (2) parked fuelled vehicles **refuel from a chemfuel
 pipe** (N10); (3) the depot bay **fills from one** (N7); (4) a deconstructed piece **stays removed** until the thing is placed afresh,
-as built. Nothing of N4, N7 or N10 is built yet.
+as built. Nothing of N4, N7 or N10 was built then (since: N10 is built in 0.107.0; N4 and N7 proved unneeded, see the audit table).
 
 The questions as they were put:
 

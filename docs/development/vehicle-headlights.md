@@ -1,6 +1,8 @@
 # Headlights that light the ground (12 Nov 2026)
 
-**Built in D'thorga Framework 0.104.0. Not yet tested in game.**
+**Built in D'thorga Framework 0.104.0. Tested in game by the owner (13 Nov 2026, on Framework 0.105.1): headlights light the
+ground. Not yet tested in game: the battery's warnings, other factions' vehicles lit at night, and the game speed with several
+trucks driving at night.**
 
 The owner asked on 12 November 2026 for "functional headlights by default for all vehicles that are under our Vehicle mod's wing. We
 have a gizmo for headlights so why not make it properly functional?" Until 0.104.0 the headlights were only an electrical load: their

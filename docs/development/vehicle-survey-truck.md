@@ -296,7 +296,7 @@ Icon: the truck from the north with the boom raised, on the house palette. Body 
 | Accept VVE's car parts as repair substitutes for this truck? | No: car wheels and a car transmission do not fit a portal-axle 4x4; RimThunder's medium engine yes |
 | The hydrogeology report: 15 cells and a day's overlay, or something else? | 15 cells, one day; it reveals, never makes water |
 | Auto-idle thresholds: start at 30%, stop at 80%? | Yes: they are the electrical system's existing low stage and charging taper |
-| Where does the 3,600 W shore load come off the net? | In the generator set record: shore power debits the net as a real load for every vehicle of ours |
+| Where does the 3,600 W shore load come off the net? | In the generator set record: shore power debits the net as a real load for every vehicle of ours. **Answered as built (Framework 0.46.0):** a small power point of ours draws 700 W, or 1,000 W with the array on (`CompPhobosSurveyTruck`'s `consoleWatts` and `arrayWatts`), in the game's watts so one generator set can run it, not 3,600 W |
 | Research gate for `PoweredArray`: Fabrication plus long-range, or long-range alone? | Both; it is the costly overhaul |
 
 ## Who chose what

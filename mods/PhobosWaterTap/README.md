@@ -120,7 +120,7 @@ whenever the bottle or the plumbing research doesn't exist. The record of how th
 
 ## Checks done
 
-On 4 November 2026, against RimWorld 1.7.4998 and the owner's 326 active mods: it compiles against Dubs Bad Hygiene's 1.6 and 1.7 assemblies, and the
+On 4 November 2026, against RimWorld 1.7.4998 and the owner's 326 active mods: it compiles against Dubs Bad Hygiene's 1.6 and 1.7 assemblies (1.6 retired 8 Nov 2026; 1.7 only since), and the
 game members it calls were found in the installed 1.7 game. The tap's rules pass 29 unit tests. The patch checker found every xpath and Def name. **None of this is an in-game test.**
 Not checked: anything on a running colony, including the texture in place, pawns using the tap, belts taking from it, and the colony limit.
 

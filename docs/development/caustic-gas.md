@@ -1,5 +1,7 @@
 # Caustic gas: research and decisions (5 Nov 2026)
 
+**Since 7 November 2026 D'thorga Burns and Smoke is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)): its burns and smoke part. The rest is as recorded.
+
 A record for a future feature of [D'thorga Burns and Smoke](../../mods/PhobosMedical/README.md): what the game's tox gas does
 now, and the lingering injuries a caustic gas could add. **Built in D'thorga Medical 0.7.0 (7 Nov 2026), not yet tested in game**;
 see As built below for where it differs from the proposal.

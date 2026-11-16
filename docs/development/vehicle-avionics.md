@@ -1,6 +1,10 @@
 # Avionics for every aircraft (13 Nov 2026)
 
-**A research record. Nothing is built, and nothing here is tested in game.** The owner, 13 November 2026: "One area I have seen that
+**Status (17 Nov 2026):** built in D'thorga Framework 0.106.0 (A5, A6 with round three's G16, A8, A9) and 0.110.0 with Vehicles
+0.53.0 (the avionics fit, A1, A2, A7 and L1; A5 also answers L2); not built: A3, A4, A10 to A17 (A14 with L3 joins the air-combat
+batch) and L3 to L6 (L5 set aside). Not yet tested in game.
+
+A research record. The owner, 13 November 2026: "One area I have seen that
 is lacking is with the avionics of aircraft, particularly with the Harrier, but this does apply to all aircraft that are part of my
 game, in general." It is the second of three records of the cross-links round three review. It follows
 [the authors' override contract](vehicle-author-overrides.md), whose `avionics` block it fills in, and is followed by [cross-links,
@@ -346,7 +350,8 @@ air-combat batch (AD3, AD2, A16), so oxygen arrives in the same install.
 instrument part **gain an appended avionics bay**; (3) no working oxygen means **a low cruise, plus a setting to give crews hypoxia
 where it is detected, off by default** (hypoxia only where D'thorga Medical's breathing layer, or another mod's, can carry it);
 (4) countermeasures **later**; (5) **no aircraft is worse off on install day**. Later the same day: the avionics bay is **marked on our own
-screens** (the Health tab's damage picture and the diagnosis report), never drawn on other authors' art. Nothing is built yet.
+screens** (the Health tab's damage picture and the diagnosis report), never drawn on other authors' art. Nothing was built when they
+answered; see the status line at the top.
 
 The questions as they were put:
 

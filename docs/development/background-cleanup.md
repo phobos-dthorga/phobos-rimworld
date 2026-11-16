@@ -61,11 +61,14 @@ along the stripe, half-painted hoops. BiRefNet knows object from background, not
   paint grow into a region inside the outlines, never across a change of paint; a region of fewer than 24 pixels takes the paint of the
   large region it touches most) and by **Segment Anything 2.1's parts** (Meta, Apache 2.0, `scripts/art/paint_segments.py` on the
   graphics card: 2 min 14 s for all ten masters, about 1,000 to 2,400 prompt points each). Segment Anything cut panels well but swallowed
-  thin details (the bowser's stripe) and left flecks on the Crawler. **The owner picked regions for all ten.** The parts maps stay in
+  thin details (the bowser's stripe) and left flecks on the Crawler. **The owner picked regions for all ten.** **Later the same day the
+  `repaired` paint replaced them** (regions repaired with the parts map, Vehicles 0.56.1; see the fleck checker below), and it is the
+  one to use now. The parts maps stay in
   `.local/art/segments` for any later comparison.
 - **Never judge a vehicle texture raw:** painted parts are stored grey for the game to tint. The review page tints them roughly as the game
   does (the texture multiplied by the Def's colours under the mask) on dark ground.
-- The commands: `python scripts/art/repaint_vehicles.py stage --paint regions`, `review`, `apply --paint regions`; `parts` needs
+- The commands as first written: `python scripts/art/repaint_vehicles.py stage --paint regions`, `review`, `apply --paint regions`.
+  **Use `--paint repaired` now** (16 Nov 2026), after `paint_segments.py` on each master; `parts` needs
   `paint_segments.py` first (`masters` lists them). Each body reuses its own saved transform, so overlays still register.
 - Not yet tested in game.
 

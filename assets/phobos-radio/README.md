@@ -7,6 +7,7 @@ Every image the mod ships is listed here with how it was made. Nothing is taken 
 | --- | --- | --- | --- |
 | `mods/PhobosRadioFramework/About/Preview.png` (640 × 360) | owner's pick, 7 Nov 2026 | `workshop-preview-3` (Flux.1-schnell, 19 Oct 2026), the name added by `scripts/art/make_preview.py`; see `Preview.record.md` | 7 Nov 2026 |
 | `Common/Textures/Phobos/Radio/Things/Handheld.png`, `Mast.png`, `Whip.png` (a stand-in), `UI/Signal.png`, `UI/CoaxIcon.png` | owner's picks, 7 Nov 2026 | generated, exported by `scripts/art/export_sprite.py`; a record beside each | 7 Nov 2026 |
-| `Common/Textures/Phobos/Radio/Things/BaseStation.png` (128), `Linked/Coax_Atlas.png` and `Coax_Blueprint_Atlas.png` (256, 4 × 4 linked tiles) | agent | `make_textures.py` in this folder: flat shapes in the mod's palette, pure Python, reproducible | 19 Oct 2026 |
+| `Common/Textures/Phobos/Radio/Things/BaseStation.png` (256) | owner's pick, 12 Nov 2026 (Radio 0.1.7) | generated in night 3 (`base-station-remake-2-13`, from [requests/remake-2.json](requests/remake-2.json)), exported by `scripts/art/export_sprite.py`; see `BaseStation.record.md` | 8 Nov 2026 |
+| `Common/Textures/Phobos/Radio/Linked/Coax_Atlas.png` and `Coax_Blueprint_Atlas.png` (256, 4 × 4 linked tiles) | agent | `make_textures.py` in this folder: flat shapes in the mod's palette, pure Python, reproducible | 19 Oct 2026 |
 
 Placeholders are marked as such in the changelog and replaced before the public beta.

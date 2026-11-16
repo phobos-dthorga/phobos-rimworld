@@ -7,7 +7,8 @@ of the general systems D'thorga Framework gives every vehicle.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.57.0, built 17 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.57.0, built 17 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
+9 November 2026) and the Busbar's size and look (owner, 13 November 2026).
 
 ## Read this first (gotchas)
 
@@ -69,7 +70,8 @@ Version 0.57.0, built 17 November 2026 for House D'thorga. **Not yet tested in g
   front bumper and an **auxiliary fuel tank** between the wheels while each is fitted. Placements are first guesses, to be adjusted once seen.
 - **New in 0.45.0 (not yet tested in game): the Pintle flatbed trailer.** Any land vehicle can tow it through D'thorga Framework's hitch
   (0.101.0 or later); see [below](#the-pintle-flatbed-trailer). **From Framework 0.104.0 it goes on journeys** with the vehicle towing it (not yet tested in game).
-- **Not yet tested in game.** Everything is read from the mods' files and checked offline.
+- **Not yet tested in game**, except the survey truck and its boom and the Busbar's size and look (below). Everything else is read
+  from the mods' files and checked offline.
 
 ## What it changes
 
@@ -163,7 +165,7 @@ would one day be the Talus T2, and a refit adds a letter.
 
 ## The Busbar generator set
 
-**Not yet tested in game.** A medium diesel-electric truck, 3 by 8 cells like the Talus tipper since 0.51.0 (it was 2 by 6): its engine turns a generator, electric motors drive the back axle, and when it is parked it can feed your grid.
+**Tested in game by the owner on 13 November 2026 (Vehicles 0.51.0): its size and look. Its output, the conduits, its upgrades and an older save's Busbar are not yet tested in game.** A medium diesel-electric truck, 3 by 8 cells like the Talus tipper since 0.51.0 (it was 2 by 6): its engine turns a generator, electric motors drive the back axle, and when it is parked it can feed your grid.
 
 - **Build it** from the **motor pool** tab of the Architect menu. It needs Machining and Electricity, and one engine assembly, drivetrain kit and electrical kit from the **vehicle parts bench** (D'thorga Framework).
 - **Press Set up.** A cable end appears beside the truck; wire things to it, or touch a conduit to it. The truck cannot move until you press **Pack up**.
@@ -291,7 +293,7 @@ More upgrades are designed, including radar, and are not built yet. The bottomin
 
 ## How the trucks work together
 
-The survey truck finds it, the drill rig brings it up, the tipper hauls the ore, the tanker carries the fluids, the bowsers keep a camp in fuel and water, and the generator set powers the camp ([the design](../../docs/development/utility-vehicles-design.md)).
+The survey truck finds it, the drill rig brings it up, the tipper hauls the ore, the tanker carries the fluids, the bowsers keep a camp in fuel and water, and the generator set powers the camp ([the first design record, 8 November 2026](../../docs/development/utility-vehicles-design.md)).
 
 ## For modders
 

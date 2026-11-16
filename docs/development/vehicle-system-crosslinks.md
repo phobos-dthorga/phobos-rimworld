@@ -1,7 +1,10 @@
 # Vehicle system crosslinks: research and record (9 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.67.0 to 0.70.0 (and Vehicles 0.30.2): all eight links and the block heater
+upgrade; not built: nothing from this round is left. Not yet tested in game.
+
 The owner, 9 Nov 2026: "I just want to enrich the simulation layer under everything. Create crosslinks and so forth." This is the research
-and record part of that, with nothing built. It reads what the 22 vehicle systems already feed each other, from the Defs and the code, and
+and record part of that, written before anything was built. It reads what the 22 vehicle systems already feed each other, from the Defs and the code, and
 proposes the links that would earn their place. Every proposal answers for itself (what it lets the player do, stops them doing, and changes),
 as the standing rule asks. Figures here are agent proposals for the owner to revise; sources are labelled, and nothing is tested in game.
 
@@ -163,7 +166,7 @@ otherwise.
 | How hard should fire cook? | Put out within an in-game hour: hot but undamaged; left to burn: boils over | **The agent's lean** (link 4) |
 | Link 5 on or off by default? | On, with a setting | **On, with a setting to turn it off** |
 
-## Proposed: a block heater upgrade (agent's proposal from the owner's answer, not built)
+## Proposed: a block heater upgrade (agent's proposal from the owner's answer; built in Framework 0.70.0, above)
 
 The night heater works only at a caravan's night camp. A **block heater** is an electric element in the engine that plugs into mains
 power, which is how real vehicles in cold places are kept warm overnight at home (secondary: Wikipedia, "Block heater").

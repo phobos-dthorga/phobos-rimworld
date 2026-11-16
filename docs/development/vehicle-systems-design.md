@@ -25,7 +25,9 @@ written; the build is the next plan. Code readings behind it are in
 - **Changing which vehicles get the service needs a restart.** Parts and the comp are added while Defs load.
 - **Vehicle Framework on 1.7 is its 1.6 build.** The Workshop copy (3014915404) declares 1.4 to 1.6; the game loads it on
   1.7 and the owner plays that way. SmashPhil is active and has said a 1.7 release "with more changes" is near (GitHub
-  issue 379, 1 Nov 2026). We compile against the installed DLL and expect a rebuild when 1.7 ships.
+  issue 379, 1 Nov 2026). We compile against the installed DLL and expect a rebuild when 1.7 ships. (Note, 17 Nov 2026:
+  since 14 Nov 2026 Vehicle Framework ships a 1.7 build, and we build against it; see the
+  [dependency audit](dependency-audit-2026-11-16.md).)
 - **Combat Extended hits only parts with real cells** (its own damage model replaces Vehicle Framework's). Every part
   the service adds carries cells next to the engine's and a low hit weight under Vehicle Framework, which the service
   inverts under Combat Extended, where a smaller weight is hit more (corrected 8 Nov 2026; each part may give its own
@@ -385,7 +387,10 @@ Cross-links between the systems are reviewed in rounds: [one](vehicle-system-cro
 - **Simulating per tick**: the rare tick is what Vehicle Framework already calls on every comp; a fraction of a
   millisecond per tick matters with the owner's mod list.
 
-## Open questions for the owner
+## Questions put to the owner (settled, see "As built" below)
+
+Settled on 8 Nov 2026: on the owner's go to build phases A to C, every question below took the agent's lean, which the owner may
+still change. The table is the questions as they were put.
 
 | Question | Agent lean |
 | --- | --- |

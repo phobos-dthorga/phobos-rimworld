@@ -1,6 +1,7 @@
 # Vehicle class by empty mass (16 Nov 2026)
 
-A design record for idea I3 in [outstanding work](outstanding-work.md): sort a vehicle into the light, medium or heavy class by its
+A design record for the idea "choose a vehicle's class by its empty mass" in [outstanding work](outstanding-work.md)'s list of
+ideas (numbered I3 there on 16 Nov 2026): sort a vehicle into the light, medium or heavy class by its
 empty mass in kilograms instead of Vehicle Framework's Mass figure. **Record only; nothing is built.** The owner asked for the record
 on 16 Nov 2026.
 
@@ -91,6 +92,6 @@ watch.
 
 ## Who chose what
 
-- **Owner (16 Nov 2026):** a record for I3, nothing built.
+- **Owner (16 Nov 2026):** a record for this idea (class by empty mass), nothing built.
 - **Agent choices, owner to revise:** the exact bounds, class decided at start-up only, no setting, the reading of each vehicle's real
   class.

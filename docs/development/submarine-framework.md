@@ -1,5 +1,13 @@
 # The submersibles framework: design (9 Nov 2026, updated 10 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.58.0 to 0.60.0 (and Vehicles 0.26.0): diving, spotting, staying down,
+chest-deep water, a boat that can be lost, and the dev-only test hull; the first real boat, the Fathom seabed crawler, is built since
+Vehicles 0.28.0 ([its record](vehicle-seabed-crawler.md)); not built: enemy submarines and next slices 2 to 5 below. Not yet tested in
+game.
+
+**Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026, and D'thorga Framework 0.111.1 builds against it
+([the dependency audit](dependency-audit-2026-11-16.md)). Where this record says VF runs as its 1.6 build, that was true when written.
+
 **Status: built in D'thorga Framework 0.58.0, 0.59.0 (spotting, staying down, chest-deep water) and 0.60.0 (a boat can be lost), with a dev-only test hull in D'thorga Vehicles 0.26.0. Not yet tested in game.** The owner asked on 9 November 2026 to begin a framework
 for submarines inside the existing framework. The ideas it serves are in [unique military vehicles and submarines](military-vehicles-research.md). Agent-authored design, for the owner's review.
 
@@ -9,8 +17,8 @@ for submarines inside the existing framework. The ideas it serves are in [unique
 - **No boat interiors, by the owner's choice** (10 Nov 2026). The owner first wanted submarines built like gravships, with a walkable interior, but has seen recent mods take that approach with terrible performance. Depth comes from research, upgrades and our vehicle systems instead. That approach is also what makes **enemy submarines** affordable, and the owner wants them in time.
 - **Vehicle Framework has no depth, so a dive is a state of ours.** The hull stays on its cells. It cannot be aimed at until it is spotted, takes no hits but explosions, cannot fire or land anyone, and runs down a reserve. This is a gameplay simplification **[authored]**, not a model of water.
 - **The reserve is one number**, hours of air and charge at rest. Tying it to the batteries, and giving a boat a chemical engine, are later slices.
-- **The first real boat is [the Seabed Crawler](vehicle-seabed-crawler.md)** (owner, 10 Nov 2026), which is designed and not built.
-- **No playable submarine exists yet.** The test hull is spawned with a dev action, wears the Seabed Crawler's hull picture and has no upgrade tree because it is not a design.
+- **The first real boat is [the Seabed Crawler](vehicle-seabed-crawler.md)** (owner, 10 Nov 2026), which is designed and not built. **Built since Vehicles 0.28.0** (note, 17 Nov 2026).
+- **No playable submarine existed when this was written; the Crawler is one now.** The test hull is spawned with a dev action, wears the Seabed Crawler's hull picture and has no upgrade tree because it is not a design.
 - **Vehicle Framework runs here as its 1.6 build**, which the 1.7 game loads. Everything below was read from that build's decompile, and `python scripts/check-targets.py` holds every patch to the installed assemblies. Those checks say the names exist, not that the behaviour is right.
 
 ## What each behaviour does to the player
@@ -136,7 +144,7 @@ Short list, highest consequence first. Enable dev mode and use a map with a lake
 - **Ballistic submarines and other weapons that strike another map** (owner, 11 Nov 2026). Read [striking another map](cross-map-strikes.md) first: a shell handed to the world map through the game's landing step can vanish without a trace, and it proposes launching straight up instead.
 - **Equipment for recovering lost boats** (owner's idea, 10 Nov 2026). The research record's recovery vehicle and the Crawler's manipulator are natural starting points.
 
-1. The first real boat, [the Seabed Crawler](vehicle-seabed-crawler.md), with its own picture, overlays and upgrade tree (owner, 10 Nov 2026).
+1. The first real boat, [the Seabed Crawler](vehicle-seabed-crawler.md), with its own picture, overlays and upgrade tree (owner, 10 Nov 2026). **Built** (Vehicles 0.28.0 to 0.43.0).
 2. The reserve drawn from the electrical system's batteries, and diesel only on the surface.
 3. Torpedo tubes through `turretsThatFireBelow`, and refusing move orders into shallows.
 4. A chemical reserve for the Ictíneo-style boat, once the owner has settled its mass balance.

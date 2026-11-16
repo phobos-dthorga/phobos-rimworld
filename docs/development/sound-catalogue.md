@@ -1,7 +1,13 @@
 # Sound catalogue: every sound we need, now and planned (10 Nov 2026)
 
-**Status:** an audit and a plan. Four sounds are shipped ([sound generation](sound-generation.md)); everything else here is a
-proposal. Nothing in this record is built or tested in game. Each row has an ID (S-numbers) so request files, commits and the
+**Status (17 Nov 2026):** 117 sounds ship (`assets/phobos-sounds/exports.json`): the pilot's four (10 Nov; Framework 0.71.0,
+Medical 0.12.0, Vehicles 0.31.0), the generic library (10 Nov; Framework 0.75.0), phase 1, our vehicles' voices (11 Nov; Framework
+0.76.0), phase 2 and medical (11 Nov; Framework 0.82.0, Medical 0.14.0) and the hook latch (Framework 0.101.0, the owner's pick in
+0.114.4); every vehicle sound was re-levelled on 13 Nov (Framework 0.108.1). None is tested in game. Not built: the steriliser (S93,
+skipped) and every sound under "Planned, not built", such as the bowsers' pump (S129).
+
+**Status when written (10 Nov 2026):** an audit and a plan. Four sounds were shipped ([sound generation](sound-generation.md));
+everything else here was a proposal. Each row has an ID (S-numbers) so request files, commits and the
 owner's picks can name it.
 
 ## Read this first (gotchas)
