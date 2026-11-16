@@ -1,0 +1,92 @@
+[
+ {
+  "name": "crawler-laboratory",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A conical glass flask of blue water and an orange test tube in a small rack on a grey lab bench. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A conical glass flask of blue water and an orange test tube in a small rack on a grey lab bench",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Sonar.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Hydrophones.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "crawler-advanced-laboratory",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A grey analyser cabinet with a dark screen showing a blue trace, and a tray of orange sample tubes in front of it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A grey analyser cabinet with a dark screen showing a blue trace, and a tray of orange sample tubes in front of it",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Sonar.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Hydrophones.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "crawler-laboratory-refit",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A curved section of grey submarine hull plating, open at one end, with a conical glass flask of blue water standing inside it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A curved section of grey submarine hull plating, open at one end, with a conical glass flask of blue water standing inside it",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Sonar.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Hydrophones.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "crawler-scrubber",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, Three pale air-scrubber canisters with blue bands standing upright in a grey steel rack. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "Three pale air-scrubber canisters with blue bands standing upright in a grey steel rack",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Sonar.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Hydrophones.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "crawler-sensor-refit",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A smooth grey submarine sail with an orange band and a short mast sending out orange rings. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A smooth grey submarine sail with an orange band and a short mast sending out orange rings",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Sonar.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Hydrophones.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ }
+]

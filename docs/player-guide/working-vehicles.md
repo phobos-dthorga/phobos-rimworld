@@ -1,7 +1,7 @@
 # Working vehicles
 
 **D'thorga Vehicles** adds six vehicles that do a job: find ore, drill it, haul it, move fluids, power a camp, and explore under
-the sea, and three trailers any of them can tow: a flatbed and two bowsers. It also gives other mods' vehicles the figures their real counterparts have. The submarine has
+the sea, and five trailers any of them can tow: a flatbed, two bowsers, the Billy field kitchen and a shower trailer. It also gives other mods' vehicles the figures their real counterparts have. The submarine has
 [its own chapter](submarines.md); looking after any vehicle is in [looking after vehicles](vehicle-care.md).
 [Back to the guide](README.md).
 
@@ -45,6 +45,8 @@ the game opens with its designation: the name, its first letter and a mark numbe
 | **Pintle flatbed trailer** | P1 | 3 x 7 | A second load behind any land vehicle | The hook-and-ring coupling a drawbar trailer hangs from |
 | **Pintle water bowser** | P2 | 3 x 8 | 2,500 litres of water to a camp (Dubs Bad Hygiene) | A bowser is a tank trailer, named after Sylvanus Bowser's fuel pump |
 | **Pintle fuel bowser** | P3 | 3 x 8 | 2,500 litres of chemfuel to vehicles and generators | As the water bowser |
+| **Billy field kitchen** | Billy | 3 x 8 | A kitchen tent at camp; cooks in a resting caravan | The camp billy, the pot every Australian camp boils |
+| **Pintle shower trailer** | P4 | 3 x 8 | Showers and toilets at camp (Dubs Bad Hygiene) | As the bowsers |
 
 How they work together:
 
@@ -197,6 +199,55 @@ the tank means water, an orange one fuel** (repaint either as you like).
 **Upgrades:** a **lagged tank** (the load takes four times as long to reach the outside temperature, so water freezes later and fuel
 stays thin longer in the cold; it shows as a padded jacket) and a **second hose** (half as much again an hour; a second reel across the
 front). The pump has no sound of its own yet; the hoses, relief valve, leaks and purges sound as the tanker's do.
+
+## Billy field kitchen
+
+Not yet tested in game. A kitchen on a 3 x 8 trailer, named for the camp billy. **It cooks with the game's own cooking**, so your
+cooks, bills, ingredients and food poisoning work exactly as at home.
+
+1. **Build** from the **motor pool** tab, after **vehicle parts** research.
+2. **Park it** with a **clear patch beside it: 6 cells out from its side, as long as the trailer** (no buildings, items, trees or
+   people; either side will do). Press **Set up**. A colonist with construction work comes and pitches the tent (about an hour's
+   work). If there is no room, the button is greyed out and says what is in the way.
+3. Beside it stands a **canvas kitchen tent**, a real room with a canvas roof, so cooking there is **not** the slower, riskier cooking
+   outdoors. Inside: a **field range**, a **field kettle**, a **shelf for meals**, a **cold box** and a **lamp**. A **power point** stands
+   outside the flap.
+4. **Fuel** the range and kettle with **chemfuel or wood**, and give them bills:
+   - **The range** cooks everything your stoves cook, other mods' recipes too.
+   - **The kettle** cooks **simple or fine meals ten at a time**, for less work than ten single meals.
+5. **Power is a bonus, never a need.** Wire the power point to a grid or the **Busbar**'s cable end (within 6 cells, as any building
+   wires) and the range and kettle work **a quarter faster**, the **cold box keeps raw food at 4 °C**, and the lamp lights.
+6. **Pack up** before you tow it. Everything goes back aboard with its fuel, bills and contents; anything lying on the tent floor stays
+   on the ground. **Packing up waits while someone is cooking.**
+
+**On the road:** while a caravan rests for the night, its cooks turn **raw food from its packs into simple meals** at a Billy it carries,
+on its own or hitched behind a vehicle: **up to 20 a cook**, burning half a unit of fuel a meal from the kitchen's burners, or chemfuel
+and wood in the packs. Raw food goes nearly twice as far that way. Turn it off with **Field kitchens cook in a resting caravan** in
+D'thorga Framework's settings.
+
+**Upgrades:** a **second range** (two cooks at once), a **big kettle** (meals twenty at a time) and an **insulated tent** (a chemfuel
+heater keeps the tent at about 15 °C in the cold, about 2 chemfuel a day). A new range or heater appears at the next set-up.
+
+**Its picture is borrowed from the bowsers for now**, painted olive; the range, kettle and cold box have stand-in pictures.
+
+## Pintle shower trailer
+
+Not yet tested in game. **Only with Dubs Bad Hygiene** (not its lite mode). The field ablutions block: a 3 x 8 trailer with a 2,000 L
+water tank, two showers and two flushing toilets.
+
+1. **Build** from the **motor pool** tab, after **vehicle parts** research.
+2. **Park it** with a clear patch beside it (5 cells out, 6 along) and press **Set up**. A colonist pitches a **canvas shower tent**
+   with **two showers and two toilets** inside, a **water heater** outside the tent and a **power point**. Everything is plumbed into
+   the trailer.
+3. **Fill its tank**: set a water bowser beside it on **Unload** and the shower trailer on **Load**, or fill it from plumbing with a
+   water tower. Every shower and flush comes off its tank.
+4. **Fuel the water heater with chemfuel.** It burns only while the showers want hot water. Plugged in, it **burns half the chemfuel**.
+   Without hot water, people wash cold and dislike it.
+5. **The waste tank** fills as the toilets are used (about 70 flushes). Your colonists empty it into **sludge drums** when it is half
+   full, as they do a septic tank, or a tanker parked against the trailer's rear can pump it out. Its inspect pane shows how full it is.
+6. **Pack up** before towing: the water in its pipes goes back into the tank, and the waste stays aboard.
+
+**Upgrades:** the water bowser's **lagged tank** and **second hose**, and a **third shower**.
 
 ## Ullage bulk tanker
 

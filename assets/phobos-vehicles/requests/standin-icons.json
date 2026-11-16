@@ -1,0 +1,290 @@
+[
+ {
+  "name": "fitting-auxfueltank",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A squat steel auxiliary fuel tank held in a cradle by two dark steel straps, with a round orange filler cap on top and a short fuel line. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A squat steel auxiliary fuel tank held in a cradle by two dark steel straps, with a round orange filler cap on top and a short fuel line",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "fitting-ferrytank",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A long cylindrical steel ferry fuel tank with rounded ends lying on its side on a low steel frame, with an orange filler cap on top. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A long cylindrical steel ferry fuel tank with rounded ends lying on its side on a low steel frame, with an orange filler cap on top",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "fitting-litterkit",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A canvas stretcher on two dark wooden carrying poles, with a small white panel showing a red cross on the canvas. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A canvas stretcher on two dark wooden carrying poles, with a small white panel showing a red cross on the canvas",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "fitting-worklamps-floodbox",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, Two square work floodlight boxes with wide flat pale yellow lenses, mounted side by side on a steel bar bracket, with a short black cable hanging below; site floodlights, not round headlights. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "Two square work floodlight boxes with wide flat pale yellow lenses, mounted side by side on a steel bar bracket, with a short black cable hanging below; site floodlights, not round headlights",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "fitting-worklamps-lightbar",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A steel roof light rail holding a row of four small square work lamps with pale yellow lenses, angled downward, with mounting feet at each end; site work lamps, not round headlights. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A steel roof light rail holding a row of four small square work lamps with pale yellow lenses, angled downward, with mounting feet at each end; site work lamps, not round headlights",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "family-coldweather",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A grey diesel engine block with an orange electric heater cord plugged into its side, and a pale blue snowflake above it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A grey diesel engine block with an orange electric heater cord plugged into its side, and a pale blue snowflake above it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "hitch-hitch",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A steel tow ball on a dark rear bumper bracket with an orange trailer coupling lowered over it and locked. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A steel tow ball on a dark rear bumper bracket with an orange trailer coupling lowered over it and locked",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "hitch-unhitch",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A steel tow ball on a dark rear bumper bracket with an orange trailer coupling lifted clear above it, and a pale arrow pointing up. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A steel tow ball on a dark rear bumper bracket with an orange trailer coupling lifted clear above it, and a pale arrow pointing up",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "hitch-winch",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A steel recovery winch drum on an orange frame, its steel cable stretched taut to a heavy hook. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A steel recovery winch drum on an orange frame, its steel cable stretched taut to a heavy hook",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "hitch-stopwinch",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A steel recovery winch drum on an orange frame with a bold red bar across it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A steel recovery winch drum on an orange frame with a bold red bar across it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "litter-unload",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A canvas stretcher on two dark carrying poles, with a bold blue arrow pointing down beneath it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A canvas stretcher on two dark carrying poles, with a bold blue arrow pointing down beneath it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "service-lead",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, An orange cable reel with a heavy black jump lead running to a red clamp on a grey battery terminal. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "An orange cable reel with a heavy black jump lead running to a red clamp on a grey battery terminal",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "sling-waterdrop",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, An orange collapsible firefighting bucket hanging from a line, pouring a stream of blue water down onto orange flames. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no helicopter.",
+  "subject": "An orange collapsible firefighting bucket hanging from a line, pouring a stream of blue water down onto orange flames",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "sonar-ping",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small grey submarine hull seen from directly above with an orange hatch, surrounded by three widening pale blue rings of sound. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no sea creatures.",
+  "subject": "A small grey submarine hull seen from directly above with an orange hatch, surrounded by three widening pale blue rings of sound",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "stations-grab",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A steel two-jawed clamshell grab bucket hanging from a short orange crane arm over a brown rock chunk. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A steel two-jawed clamshell grab bucket hanging from a short orange crane arm over a brown rock chunk",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "item-firebucket",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, An orange collapsible canvas firefighting bucket with a dark rim, a steel bail handle with a lifting ring, and a dark valve at its base. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no water, no flames.",
+  "subject": "An orange collapsible canvas firefighting bucket with a dark rim, a steel bail handle with a lifting ring, and a dark valve at its base",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/BoosterPack.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ }
+]

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Set-out pieces (D'thorga Framework 0.121.0; docs/development/vehicle-trailers.md, B0.4): the canvas room a working trailer pitches beside itself.
+    Walls and a door make a real room in the game's eyes, so work and cooking inside lose the outdoor penalties; the canvas roof keeps rain and
+    the worst of the weather off. None of them can be built, deconstructed or moved by hand: the trailer that set them out takes them in again.
+    Their pictures are the game's own, used by path and tinted canvas (never copied). Not yet tested in game.
+  -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>Phobos_CanvasWall</defName>
+    <label>canvas wall</label>
+    <description>A wall of heavy canvas on a light pole frame, pitched as part of a field tent. It keeps the wind and rain out and makes the tent a room, but stops little else. The trailer that pitched it takes it down again when it packs up.</description>
+    <thingClass>Phobos.VehicleSystems.Building_PhobosCanvasWall</thingClass>
+    <category>Building</category>
+    <graphicData>
+      <texPath>Things/Building/Linked/Wall/Wall_Atlas_Smooth</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <linkType>CornerFiller</linkType>
+      <linkFlags>
+        <li>Custom9</li>
+      </linkFlags>
+      <color>(176, 164, 128)</color>
+    </graphicData>
+    <uiIconPath>Things/Building/Linked/WallSmooth_MenuIcon</uiIconPath>
+    <uiIconColor>(176, 164, 128)</uiIconColor>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <blockWind>true</blockWind>
+    <castEdgeShadows>false</castEdgeShadows>
+    <fillPercent>1</fillPercent>
+    <coversFloor>true</coversFloor>
+    <tickerType>Never</tickerType>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>false</neverMultiSelect>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <filthLeaving IsNull="True" />
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Beauty>0</Beauty>
+    </statBases>
+    <building>
+      <isInert>true</isInert>
+      <canPlaceOverWall>false</canPlaceOverWall>
+      <deconstructible>false</deconstructible>
+      <allowAutoroof>false</allowAutoroof>
+      <ai_chillDestination>false</ai_chillDestination>
+      <isPlaceOverableWall>false</isPlaceOverableWall>
+      <paintable>false</paintable>
+    </building>
+    <holdsRoof>true</holdsRoof>
+    <staticSunShadowHeight>0.5</staticSunShadowHeight>
+    <blockLight>true</blockLight>
+    <useHitPoints>true</useHitPoints>
+  </ThingDef>
+
+  <ThingDef ParentName="DoorBase">
+    <defName>Phobos_CanvasDoor</defName>
+    <label>canvas flap</label>
+    <description>A door flap in a field tent's canvas wall. The trailer that pitched it takes it down again when it packs up.</description>
+    <thingClass>Phobos.VehicleSystems.Building_PhobosCanvasDoor</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Door/DoorSimple_Mover</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(176, 164, 128)</color>
+      <damageData>
+        <enabled>false</enabled>
+      </damageData>
+    </graphicData>
+    <uiIconPath>Things/Building/Door/DoorSimple_MenuIcon</uiIconPath>
+    <uiIconColor>(176, 164, 128)</uiIconColor>
+    <stuffCategories Inherit="False" />
+    <costStuffCount>0</costStuffCount>
+    <designationCategory IsNull="True" />
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <filthLeaving IsNull="True" />
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <WorkToBuild>0</WorkToBuild>
+      <DoorOpenSpeed>1.4</DoorOpenSpeed>
+    </statBases>
+    <building>
+      <deconstructible>false</deconstructible>
+      <allowAutoroof>false</allowAutoroof>
+      <paintable>false</paintable>
+    </building>
+  </ThingDef>
+
+  <!-- A light roof that never falls in: a canvas fly holds no weight. The walls take it off before they go (Building_PhobosCanvasWall). -->
+  <RoofDef>
+    <defName>Phobos_CanvasRoof</defName>
+    <label>canvas roof</label>
+    <isThickRoof>false</isThickRoof>
+    <canCollapse>false</canCollapse>
+  </RoofDef>
+</Defs>

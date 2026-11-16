@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The shower trailer's working parts (D'thorga Vehicles 0.59.0; docs/development/vehicle-trailers.md, Q7). Each carries Dubs Bad Hygiene's own comps, so
+    Dubs' plumbing treats them as its own kinds of thing; D'thorga Framework's CompPhobosTrailerPlumbing lays and lifts them with the trailer's set-up.
+    Marked DBHLite: Dubs drops them in its lite mode, as it drops its own towers and tanks. Not yet tested in game.
+
+    The stand-ins are hidden: not drawn, not selectable, beneath the trailer. The tower holds only a working amount, topped up from the trailer's tank;
+    the septic tank is the trailer's waste tank and treats nothing by itself (a holding tank), 1,000 of Dubs' sewage units, about 70 flushes at Dubs'
+    own 14 a flush (authored).
+  -->
+  <ThingDef Name="PhobosTrailerStandInBase" ParentName="BuildingBase" Abstract="True" DBHLite="true">
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Stations/PowerPoint</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <drawerType>None</drawerType>
+    <altitudeLayer>Conduits</altitudeLayer>
+    <passability>Standable</passability>
+    <selectable>false</selectable>
+    <useHitPoints>false</useHitPoints>
+    <rotatable>false</rotatable>
+    <tickerType>Normal</tickerType>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <clearBuildingArea>false</clearBuildingArea>
+    <filthLeaving IsNull="True" />
+    <building>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <deconstructible>false</deconstructible>
+      <claimable>false</claimable>
+    </building>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosTrailerStandInBase" DBHLite="true">
+    <defName>Phobos_TrailerWaterStandIn</defName>
+    <label>trailer water feed</label>
+    <description>The trailer's water feed into its plumbing, filled from its own tank.</description>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_WaterStorage">
+        <WaterStorageCap>200</WaterStorageCap>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosTrailerStandInBase" DBHLite="true">
+    <defName>Phobos_TrailerSepticStandIn</defName>
+    <label>trailer waste tank</label>
+    <description>The trailer's waste tank, where its toilets drain.</description>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_SepticTank">
+        <capacity>1000</capacity>
+        <priority>2</priority>
+        <TreatedPerDay>0</TreatedPerDay>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- The water heater: Dubs' own boiler and hot-water store (its HotWaterTank's figures), burning chemfuel at its gas boiler's rate (4 a day of use, 25 held)
+       and only when the plumbing wants hot water (Dubs' thermostat). Plugged into power, D'thorga Framework puts half the chemfuel it burned back
+       (owner, 17 Nov 2026: power a bonus). Stand-in picture until the owner picks one of the night of 17 Nov 2026. -->
+  <ThingDef ParentName="BuildingBase" DBHLite="true">
+    <defName>Phobos_ShowerWaterHeater</defName>
+    <label>field water heater</label>
+    <description>A chemfuel water heater and hot-water tank on a skid, set out beside a shower trailer's tent to give its showers hot water. It burns only when the showers want hot water. Plugged into power, its electric element does half the work, so it burns half the chemfuel.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/ShowerTrailer/WaterHeater</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.5</fillPercent>
+    <rotatable>true</rotatable>
+    <tickerType>Normal</tickerType>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <building>
+      <deconstructible>false</deconstructible>
+    </building>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="DubCore.CompProperties_HeatStore">
+        <compClass>DubsBadHygiene.CompHeatStore</compClass>
+        <StoreCapacity>100</StoreCapacity>
+        <RiseRate>0.0024</RiseRate>
+        <FallRate>0.00001</FallRate>
+        <ForRunningWater>true</ForRunningWater>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_CompBoiler">
+        <BaseCapacity>100</BaseCapacity>
+        <ThermostatControl>true</ThermostatControl>
+        <ShouldUsePowerModes>false</ShouldUsePowerModes>
+      </li>
+      <li Class="CompProperties_Refuelable">
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <fuelConsumptionRate>4.0</fuelConsumptionRate>
+        <fuelCapacity>25.0</fuelCapacity>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </fuelFilter>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+      </li>
+      <li Class="Phobos.VehicleSystems.Hygiene.CompProperties_PhobosHeaterPowerSaving">
+        <savedShare>0.5</savedShare>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosSetOutPowerExtension">
+        <wattsWorking>300</wattsWorking>
+      </li>
+    </modExtensions>
+  </ThingDef>
+</Defs>

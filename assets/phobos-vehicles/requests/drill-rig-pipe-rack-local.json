@@ -1,0 +1,25 @@
+[
+ {
+  "name": "drill-rig-well-pipe-rack-local",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A rack of water-well liner pipes, part of a drill rig truck, drawn alone: five long straight pale grey plumbing pipes lying side by side, their long axes from top to bottom, each with a threaded coupling collar at its top end, held by two dark steel clamp straps across them on a low steel rack; the bundle fills most of the canvas height, centred. Draw it in exactly the art style of the reference image: a top-down game sprite seen from directly above, a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners. Do not redraw the truck. One part only, on a plain pure white background. No truck, no cab, no wheels, no floor, no shadow, no text, no people.",
+  "subject": "a rack of five pale grey water-well liner pipes held by two clamp straps, seen from directly above",
+  "references": [
+   "assets/phobos-vehicles/generated/drill-rig-body-north/drill-rig-body-north-2.png"
+  ],
+  "width": 768,
+  "height": 1536,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "retry_of": "drill-rig-well-pipe-rack (paid API refused it twice on 12 Nov 2026); local this time",
+   "this_request": "part drawn alone, fitted onto the picked body with export_vehicle.py overlay"
+  }
+ }
+]

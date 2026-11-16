@@ -417,6 +417,12 @@ public abstract class CompPhobosSetUp : VehicleComp
     protected bool OrderByHand(bool on)
     {
         if (!SetUpByHand) return false;
+        // A part (the set-out pieces) may refuse: no room beside it, or someone at work in its tent (Framework 0.121.0).
+        if (PartsRefusal(on) is { } refused)
+        {
+            Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            return true;
+        }
         handOrder = on ? HandSetUpOrder.SetUp : HandSetUpOrder.PackUp;
         HandSetUps.Note(this, true);
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
@@ -445,7 +451,23 @@ public abstract class CompPhobosSetUp : VehicleComp
         {
             return "PhobosTrailer_SetUpWhileTowed".Translate(Vehicle.LabelShort.Named("VEHICLE"), towedBy.Vehicle.LabelShort.Named("TRACTOR")).Resolve();
         }
-        return handOrder == HandSetUpOrder.SetUp ? HandSetUpRefusal() : null;
+        return handOrder == HandSetUpOrder.SetUp ? HandSetUpRefusal() ?? PartsRefusal(true) : PartsRefusal(false);
+    }
+
+    // ---- Its parts (Framework 0.121.0; docs/development/vehicle-trailers.md, B0.4) ----
+
+    /// <summary>The trailer's parts that have their say when it sets up or packs up: the set-out pieces, the Dubs Bad Hygiene stand-ins.</summary>
+    IEnumerable<ISetUpPart> Parts => Vehicle.AllComps.OfType<ISetUpPart>();
+
+    /// <summary>Why a part refuses setting up (<paramref name="on"/>) or packing up now, or null.</summary>
+    public string? PartsRefusal(bool on)
+    {
+        foreach (ISetUpPart part in Parts)
+        {
+            string? refusal = on ? part.SetUpPartRefusal() : part.PackUpPartRefusal();
+            if (refusal != null) return refusal;
+        }
+        return null;
     }
 
     /// <summary>Why it cannot be set up now, for a vehicle set up by hand; the subclass's own refusal.</summary>
@@ -458,12 +480,16 @@ public abstract class CompPhobosSetUp : VehicleComp
         handOrder = HandSetUpOrder.None;
         HandSetUps.Note(this, false);
         if (done == HandSetUpOrder.None) return;
-        if (done == HandSetUpOrder.SetUp && HandSetUpRefusal() is { } refusal)
+        bool on = done == HandSetUpOrder.SetUp;
+        if ((on ? HandSetUpRefusal() ?? PartsRefusal(true) : PartsRefusal(false)) is { } refusal)
         {
             Messages.Message(refusal, Vehicle, MessageTypeDefOf.RejectInput);
             return;
         }
-        FinishByHand(done == HandSetUpOrder.SetUp, worker);
+        bool before = deployed;
+        FinishByHand(on, worker);
+        if (deployed == before) return;
+        foreach (ISetUpPart part in Parts.ToList()) part.SetUpChanged(deployed);
     }
 
     /// <summary>Makes the change a colonist's work has earned: set up when <paramref name="on"/>, packed up otherwise.</summary>

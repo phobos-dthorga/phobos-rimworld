@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- D'thorga Framework 0.121.0: a set-out piece works faster while its trailer is plugged in (Billy's range and kettle). Added to the game's own
+       work-speed stat for work tables, so the bill's speed, its explanation and other mods' readings agree. Acts only on pieces whose Def names
+       a speed (PhobosSetOutPowerExtension); every other work table is untouched. Not yet tested in game. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/StatDef[defName="WorkTableWorkSpeedFactor"]/parts</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.StatPart_PhobosSetOutPower" />
+    </value>
+  </Operation>
+</Patch>

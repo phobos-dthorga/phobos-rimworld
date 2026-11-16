@@ -108,6 +108,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Ammunition in a burning vehicle's cargo can cook off (Framework 0.113.0, cross-links G13; owner, 13 Nov 2026: on by default,
     /// and only ever where Combat Extended's ammunition system is on). Live.</summary>
     public bool ammoCookOff = true;
+    /// <summary>A resting caravan's cooks turn its raw food into simple meals at a field kitchen it carries, once a night (Framework 0.121.0;
+    /// vehicle-field-kitchen.md; owner, 13 Nov 2026: a setting, on by default). Live.</summary>
+    public bool caravanCooking = true;
     /// <summary>A jump-start needs a crafted jump-start kit, in stock or aboard (owner, 8 Nov 2026: default on). Live.</summary>
     public bool jumpStartNeedsKit = true;
     /// <summary>Every vehicle is assumed to carry a booster pack, so a jump-start needs no other vehicle (owner, 8 Nov 2026: off). Live.</summary>
@@ -154,6 +157,7 @@ public class VehicleSystemsSettings : ModSettings
         "roughGroundWear" => roughGroundWear,
         "weatherGrip" => weatherGrip,
         "ammoCookOff" => ammoCookOff,
+        "caravanCooking" => caravanCooking,
         "jumpStartNeedsKit" => jumpStartNeedsKit,
         "assumeBoosterPack" => assumeBoosterPack,
         "cabMoods" => cabMoods,
@@ -207,6 +211,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref headlightBeams, "PhobosVehicleSystems_HeadlightBeams", true);
         Scribe_Values.Look(ref weatherGrip, "PhobosVehicleSystems_WeatherGrip", true);
         Scribe_Values.Look(ref ammoCookOff, "PhobosVehicleSystems_AmmoCookOff", true);
+        Scribe_Values.Look(ref caravanCooking, "PhobosVehicleSystems_CaravanCooking", true);
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
         Scribe_Values.Look(ref cabMoods, "PhobosVehicleSystems_CabMoods", true);
@@ -279,6 +284,7 @@ public class VehicleSystemsMod : Mod
         if (!Settings.weatherGrip) report.Off("weather on grip", "off (setting)");
         if (!Settings.ammoCookOff) report.Off("ammunition cook-off", "off (setting)");
         else if (!CookOff.AmmoSystemOn) report.Off("ammunition cook-off", "Combat Extended's ammunition is not in use");
+        if (!Settings.caravanCooking) report.Off("caravan cooking", "off (setting)");
         if (Settings.jumpStartNeedsKit) report.On("jump-start leads must be crafted (setting)");
         else report.Off("jump-start leads", "free (setting)");
         if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
@@ -375,6 +381,7 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingHeadlightBeams".Translate(), ref s.headlightBeams, "PhobosVehicleSystems_SettingHeadlightBeamsDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingWeatherGrip".Translate(), ref s.weatherGrip, "PhobosVehicleSystems_SettingWeatherGripDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingAmmoCookOff".Translate(), ref s.ammoCookOff, "PhobosVehicleSystems_SettingAmmoCookOffDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingCaravanCooking".Translate(), ref s.caravanCooking, "PhobosVehicleSystems_SettingCaravanCookingDesc".Translate());
         if (GameComponent_PhobosServiceKits.InGame)
         {
             // This colony's own choice, saved with it (S4): shown here for convenience, changed only through its service.

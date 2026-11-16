@@ -41,7 +41,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.120.5",
+      "value": "0.121.0",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -257,7 +257,7 @@
     "PhobosVehicles.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.58.0",
+      "value": "0.59.0",
       "description": "D'thorga Vehicles's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {

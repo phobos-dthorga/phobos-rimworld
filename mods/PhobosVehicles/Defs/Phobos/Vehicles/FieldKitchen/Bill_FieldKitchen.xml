@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- What Billy is made of, by role (docs/development/parts-bills.md; D'thorga Vehicles 0.59.0): the bowsers' two-axle running gear and the wiring for
+       its lights and power point. Each role is filled at start-up by an installed mod's part where it suits and by ours otherwise. Counts authored. -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_FieldKitchen</defName>
+    <label>field kitchen parts</label>
+    <target>Phobos_FieldKitchen_Blueprint</target>
+    <parts>
+      <Wheels>4</Wheels>
+      <Suspension>2</Suspension>
+      <Frame>1</Frame>
+      <Wiring>1</Wiring>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

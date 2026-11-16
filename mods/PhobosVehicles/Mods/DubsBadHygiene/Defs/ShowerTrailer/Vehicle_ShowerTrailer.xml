@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The shower trailer (D'thorga Vehicles 0.59.0; docs/development/vehicle-trailers.md, Q7; owner, 17 Nov 2026: flushing toilets with a waste tank, a chemfuel
+    water heater with power a bonus). Loaded only with Dubs Bad Hygiene, whose showers and toilets it sets out, and marked DBHLite so Dubs drops it in its lite
+    mode, where fixtures need no water. The water bowser's chassis and tank (2,000 L of water here, authored); a colonist sets it up where it stands, and it
+    pitches a canvas shower tent beside itself with two of Dubs' showers and two flushing toilets, a chemfuel water heater outside the tent, and a power point.
+    Beneath it while set up lie two hidden stand-ins of Dubs' own kinds (D'thorga Framework's CompPhobosTrailerPlumbing): a water tower topped up from its
+    tank, and a septic tank that is its waste tank, emptied by Dubs' own colonists into sludge drums at half full, or by our tanker parked against its rear.
+    Its picture is the bowsers', borrowed until its own is made (owner, 17 Nov 2026). Tent: 5 cells out from its side and 6 along it, inside 3 x 4, the flap at
+    the front (agent layout). Cells run x -1 to 1, z -3 to 4, the front north. Part keys are saved by position: append only. Not yet tested in game.
+  -->
+  <Vehicles.VehicleDef ParentName="BaseVehiclePawn" DBHLite="true">
+    <defName>Phobos_ShowerTrailer</defName>
+    <label>Pintle shower trailer</label>
+    <description>Pintle P4: a shower and toilet trailer for camps and work sites, the field ablutions block. Hitch it behind any vehicle with a hitch; where it stands, a colonist sets it up and it pitches a canvas shower tent beside itself with two showers and two flushing toilets, and a chemfuel water heater outside, all plumbed into its own 2,000 L water tank and its waste tank. Fill its tank from plumbing or a water bowser beside it. Its waste tank is emptied into sludge drums when half full, or pumped out by a tanker parked against its rear. Plugged into power, the heater burns half the chemfuel. It has no engine: whatever tows it pulls its weight.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/PintleBowser/PintleBowser</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(5, 9)</drawSize>
+      <!-- Its own picture since 16 Nov 2026 (shared by both bowsers; owner's pick): the trailer drawn 7.62 cells long in a 5 x 9 picture, as
+           before. Paint: the body's sand as the picture has it; the stripe a water blue (authored), so it reads apart from the fuel bowser. -->
+      <color>(194, 187, 158)</color>
+      <colorTwo>(70, 160, 150)</colorTwo>
+    </graphicData>
+    <fillPercent>0.6</fillPercent>
+    <buildDef>Phobos_ShowerTrailer_Blueprint</buildDef>
+    <size>(3, 8)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.2</Flammability>
+      <MarketValue>1400</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>60</Mass>
+      <MoveSpeed>11</MoveSpeed>
+      <CargoCapacity>100</CargoCapacity>
+      <RepairRate>0.6</RepairRate>
+      <Phobos_TankCapacity>2000</Phobos_TankCapacity>
+      <Phobos_PumpRate>400</Phobos_PumpRate>
+      <Phobos_TankIntegrity>1</Phobos_TankIntegrity>
+      <Phobos_RigControl>1</Phobos_RigControl>
+    </vehicleStats>
+    <race>
+      <baseBodySize>4</baseBodySize>
+    </race>
+    <properties>
+      <diagonalRotation>false</diagonalRotation>
+      <worldSpeedMultiplier>1</worldSpeedMultiplier>
+      <visibilityWeight>4</visibilityWeight>
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles />
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>chassis</label>
+      <health>170</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <from>(-1, -3)</from>
+        <to>(1, 4)</to>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>TankShell</key>
+      <label>tank shell</label>
+      <health>90</health>
+      <depth>External</depth>
+      <reactors>
+        <li Class="Phobos.VehicleSystems.Reactor_PhobosTankShell" />
+      </reactors>
+      <hitbox>
+        <from>(-1, -1)</from>
+        <to>(1, 3)</to>
+      </hitbox>
+      <categories>
+        <li>Phobos_TankIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>TankFittings</key>
+      <label>tank fittings and relief valve</label>
+      <health>35</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -2)</li>
+          <li>(0, -2)</li>
+          <li>(1, -2)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_TankIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Pump</key>
+      <label>pump and hose</label>
+      <health>35</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, -3)</li>
+          <li>(1, -3)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_PumpRate</li>
+      </categories>
+    </li>
+    <li>
+      <key>Valves</key>
+      <label>valves and meter</label>
+      <health>25</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -3)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>Phobos_RigControl</li>
+      </categories>
+    </li>
+    <li>
+      <key>Drawbar</key>
+      <label>drawbar and coupling</label>
+      <health>60</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, 4)</li>
+          <li>(0, 4)</li>
+          <li>(1, 4)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Axles</key>
+      <label>axles and wheels</label>
+      <health>70</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, -2)</li>
+          <li>(1, -2)</li>
+          <li>(-1, -1)</li>
+          <li>(1, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>lights</label>
+      <health>10</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -3)</li>
+          <li>(1, -3)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2000</emptyKilograms>
+      </li>
+      <!-- The tanker's hoses, relief valve, leak and purge are the same things on a bowser; its pump is its own and has no sound yet
+           (docs/development/sound-catalogue.md: working machinery is never shared). -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>Hoses</key><sound>PhobosVehicles_TankerHoses</sound></li>
+          <li><key>Relief</key><sound>PhobosVehicles_TankerRelief</sound></li>
+          <li><key>Leak</key><sound>PhobosVehicles_TankerLeak</sound></li>
+          <li><key>Purge</key><sound>PhobosVehicles_TankerPurge</sound></li>
+        </sounds>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_ShowerTrailer_UpgradeTree</def>
+      </li>
+      <!-- How it follows (authored): the Pintle's lengths scaled by 8/7 with its length. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
+        <hitchToAxle>4.9</hitchToAxle>
+        <axleToCentre>0.31</axleToCentre>
+        <jackKnifeDegrees>70</jackKnifeDegrees>
+        <drawbarPart>Drawbar</drawbarPart>
+        <setUpWork>2500</setUpWork>
+        <packUpWork>1800</packUpWork>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTank">
+        <fittings>
+          <!-- The lagging upgrade first: the first tank fitted is the one used. -->
+          <li>
+            <node>PhobosBowserLagging</node>
+            <phase>Liquid</phase>
+            <hoursToOutside>24</hoursToOutside>
+            <spoilRate>0.5</spoilRate>
+            <loadWeight>1</loadWeight>
+            <onlyContents>
+              <li>PhobosTank_Water</li>
+            </onlyContents>
+          </li>
+          <li>
+            <phase>Liquid</phase>
+            <hoursToOutside>6</hoursToOutside>
+            <spoilRate>1</spoilRate>
+            <loadWeight>1</loadWeight>
+            <onlyContents>
+              <li>PhobosTank_Water</li>
+            </onlyContents>
+          </li>
+        </fittings>
+        <shellPart>TankShell</shellPart>
+        <valvePart>TankFittings</valvePart>
+      </li>
+      <!-- D'thorga Framework's node looks: the bowser's upgrades on its body (owner's picks, 16 Nov 2026): the lagged tank's jacket over the
+           tank, and the second hose reel across the front of the tank (agent placement). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>lagging</key>
+            <looks>
+              <li>
+                <node>PhobosBowserLagging</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_Lagging</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <key>secondHose</key>
+            <looks>
+              <li>
+                <node>PhobosBowserSecondHose</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_SecondHose</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
+      </li>
+      <!-- What it sets out: the parts follow the tank's set-up (D'thorga Framework 0.121.0). Dubs' own fixtures, made of steel. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosSetOut">
+        <setOutLabel>the shower tent</setOutLabel>
+        <wallDef>Phobos_CanvasWall</wallDef>
+        <doorDef>Phobos_CanvasDoor</doorDef>
+        <roofDef>Phobos_CanvasRoof</roofDef>
+        <powerPointDef>Phobos_PowerPoint</powerPointDef>
+        <powerPointCell>(1, 4)</powerPointCell>
+        <idleWatts>20</idleWatts>
+        <rooms>
+          <li>
+            <from>(0, -3)</from>
+            <to>(4, 2)</to>
+            <door>(2, 2)</door>
+          </li>
+        </rooms>
+        <pieces>
+          <li>
+            <def>ShowerSimple</def>
+            <stuff>Steel</stuff>
+            <from>(3, -2)</from>
+            <to>(3, -2)</to>
+            <facing>Inward</facing>
+          </li>
+          <li>
+            <def>ShowerSimple</def>
+            <stuff>Steel</stuff>
+            <from>(3, -1)</from>
+            <to>(3, -1)</to>
+            <facing>Inward</facing>
+          </li>
+          <li>
+            <def>ShowerSimple</def>
+            <stuff>Steel</stuff>
+            <from>(3, 0)</from>
+            <to>(3, 0)</to>
+            <facing>Inward</facing>
+            <node>PhobosShowerThirdShower</node>
+          </li>
+          <li>
+            <def>ToiletStuff</def>
+            <stuff>Steel</stuff>
+            <from>(1, -2)</from>
+            <to>(1, -2)</to>
+            <facing>Outward</facing>
+          </li>
+          <li>
+            <def>ToiletStuff</def>
+            <stuff>Steel</stuff>
+            <from>(1, -1)</from>
+            <to>(1, -1)</to>
+            <facing>Outward</facing>
+          </li>
+          <li>
+            <def>Phobos_ShowerWaterHeater</def>
+            <from>(0, 3)</from>
+            <to>(0, 3)</to>
+            <facing>Outward</facing>
+          </li>
+        </pieces>
+      </li>
+      <!-- Dubs' side: the stand-in tower kept at 150 L from the tank, and the stand-in septic that is its waste tank, beneath its rear row. -->
+      <li Class="Phobos.VehicleSystems.Hygiene.CompProperties_PhobosTrailerPlumbing">
+        <towerDef>Phobos_TrailerWaterStandIn</towerDef>
+        <septicDef>Phobos_TrailerSepticStandIn</septicDef>
+        <water>PhobosTank_Water</water>
+        <workingLitres>150</workingLitres>
+        <towerCell>(-1, -3)</towerCell>
+        <septicCell>(1, -3)</septicCell>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable" DBHLite="true">
+    <defName>Phobos_ShowerTrailer_Blueprint</defName>
+    <label>Pintle shower trailer</label>
+    <description>Pintle P4: a shower and toilet trailer that any vehicle with a hitch can tow, its canvas tent, showers, toilets and water heater packed aboard.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/PintleBowser/PintleBowser</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(5, 9)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>220</MaxHitPoints>
+      <WorkToBuild>9000</WorkToBuild>
+      <Flammability>0.2</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <size>(3, 8)</size>
+    <!-- The shell only: its parts are in Bill_WaterBowser.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
+    <costList>
+      <Steel>260</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <thingToSpawn>Phobos_ShowerTrailer</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+</Defs>

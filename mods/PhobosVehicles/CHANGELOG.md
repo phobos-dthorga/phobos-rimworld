@@ -12,6 +12,39 @@ tested in game unless an entry says the owner tested it.
 - Comments in the Defs and the Crawler's texture record name the design records they now live in, after the merges of 17 November 2026. No change in play.
 - The Busbar's Def comments give the right day for its change of size, 13 November 2026. No change in play.
 
+## [0.59.0] - 2026-11-17 - Draft
+
+Billy the field kitchen, and the Pintle shower trailer
+
+### Added
+
+- **Billy field kitchen** (with D'thorga Framework 0.121.0; the owner's design of 13 Nov 2026, built at the owner's word on 17 Nov 2026): a 3 x 8
+  trailer that any vehicle with a hitch tows. A colonist sets it up in about an hour of work and it pitches a canvas kitchen tent beside itself, a
+  real room, with a field range, a field kettle, a shelf for meals, a cold box, a lamp and a power point outside the flap; packing up takes it all
+  in again, with the range's fuel and bills kept. The range burns chemfuel or wood and cooks every recipe the game's and other mods' stoves cook.
+  The kettle cooks simple and fine meals ten at a time for 80 percent of the work. Plugged into a grid or the Busbar, the range and kettle work a
+  quarter faster, the cold box keeps its food at 4 degrees and the lamp lights. Its upgrades: a second range, a big kettle (meals twenty at a
+  time) and an insulated tent with a chemfuel heater.
+- **Caravan cooking at Billy**: once a night a resting caravan's cooks turn its raw food into simple meals at a Billy it carries, on its own
+  wheels or hitched, up to twenty a cook, burning half a unit of fuel a meal (the setting is D'thorga Framework's, on by default).
+- **Pintle P4 shower trailer** (with Dubs Bad Hygiene only; owner's choices of 17 Nov 2026: flushing toilets with a waste tank, a chemfuel water
+  heater with power a bonus): the water bowser's chassis with a 2,000 L water tank. Set up, it pitches a canvas shower tent with two of Dubs'
+  showers and two flushing toilets, a chemfuel water heater outside and a power point; everything is plumbed into its tank and its waste tank. Fill
+  it from a water bowser or plumbing. Dubs' colonists empty its waste tank into sludge drums at half full, or a tanker parked against its rear
+  pumps it out. Plugged in, the heater burns half the chemfuel. Its upgrades: the water bowser's lagged tank and second hose, and a third shower.
+
+### Compatibility and limits
+
+- Needs D'thorga Framework 0.121.0. The shower trailer exists only with Dubs Bad Hygiene, and not in Dubs' lite mode.
+- **Both trailers borrow the bowsers' picture** until their own are made (owner, 17 Nov 2026); the range, kettle, cold box and water heater show
+  stand-in pictures until the owner picks from the candidates made on the night of 17 Nov 2026. The lamp and tent heater use the game's own pictures.
+- Not built in this version: water for Billy's kettle with Dubs Bad Hygiene, the kitchen's dining annex and wash-up sink, enemy bases with set-up
+  trailers (owner, 17 Nov 2026: a later batch), and the trailers' sounds (made but not yet picked). Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Pack both trailers up before removing the mod: a pitched tent's walls, roof and pieces belong to it.
+
 ## [0.58.0] - 2026-11-17 - Draft
 
 Every aircraft's figures for air defence, and the Harrier's high cruise

@@ -12,6 +12,47 @@ tested in game unless an entry says the owner tested it.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 - The Vehicles at Work tie-in names each of its three helpers in full in its own patch, so the build checks now confirm the helpers and the patches' parameters against the installed mod, as they do for the shot-angle tie-in with Combat Extended. No change in play.
 
+## [0.121.0] - 2026-11-17 - Draft
+
+Working trailers set things out: canvas rooms, a power point, and the field kitchen's and shower trailer's workings
+
+### Added
+
+- **Set-out pieces** (the trailer base's B0.3 and B0.4, built with D'thorga Vehicles 0.59.0): a working trailer names in its Def the buildings it
+  sets out beside itself when a colonist sets it up, and a canvas room of walls, a flap door and a canvas roof. Pieces go on whichever side is
+  clear; each refusal says what is in the way. While packed, the pieces are held inside the trailer with their fuel, bills and contents, so nothing
+  is lost and a save holds each once. The roof always comes off before its walls, so it never falls on anyone. A trailer destroyed while set up
+  leaves its pieces standing. Other modders can make working trailers in XML.
+- **A power point for set-out pieces**: the rig's own, set out beside the tent. Pieces that take power read it: work tables named for it work
+  faster while plugged in (a part on the game's own work-speed stat), lamps light, and the draw shown at the power point follows what is working.
+- **The field kitchen's workings**: a range that takes every recipe of the tables the game's cooks use (found by that list at start-up, so other
+  mods' stove recipes work), a kettle offering recipes only with an upgrade fitted, and a cold box that is the game's own kind of holder (haulers
+  fill it, cooks take from it) keeping its food at 4 degrees while plugged in.
+- **Caravan cooking**: once a night, a resting caravan's cooks turn raw food into simple meals at a field kitchen it carries, on its own wheels
+  or behind a hitch, burning the kitchen's fuel or chemfuel and wood from the packs.
+- **The shower trailer's Dubs Bad Hygiene workings** (only with Dubs Bad Hygiene): a hidden stand-in water tower beneath the parked trailer, kept
+  topped up from its tank, so every litre a shower or flush uses comes off the tank, and a hidden stand-in septic tank that is its waste tank,
+  emptied by Dubs' own colonists or by our tanker; hidden plumbing under everything set out; and a water heater that burns half the chemfuel
+  while plugged in. With Dubs' own unlimited pumping on, the stand-in never gives water back to the tank.
+- **New setting: "Field kitchens cook in a resting caravan"**, on by default (Mod settings, D'thorga Framework, vehicle systems list).
+
+### Changed
+
+- **A trailer's parts have their say in setting up and packing up**: the set-up button is greyed out with the reason when there is no room for
+  the tent or someone is working inside it.
+- **Two shared tank calls**, take out and put in, for parts of a trailer that use its tank.
+
+### Compatibility and limits
+
+- New test rows 152 to 155. The water heater's power bonus is half the chemfuel, not faster heating: Dubs' boiler cannot heat faster than its store
+  fills (agent's choice for the owner's "power a bonus"). Caravan meals roll food poisoning at the cook's own chance plus the game's 2 percent for
+  cooking outdoors. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Pack trailers up before removing the mod: a pitched tent's walls, canvas roof and pieces would be left as
+  unknown things.
+
 ## [0.120.5] - 2026-11-17 - Draft
 
 Thirty-six faults fixed in the vehicle work of the last week, before the owner tested it: found by a read of the code at the owner's word

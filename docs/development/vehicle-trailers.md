@@ -1,6 +1,6 @@
 # Working trailers: the shared base and a catalogue (13 Nov 2026)
 
-**Status (17 Nov 2026):** built in D'thorga Framework 0.111.0 (and Vehicles 0.54.0, 0.55.0 and 0.56.0): set up and pack up by hand
+**Status (17 Nov 2026):** built in D'thorga Framework 0.111.0 and 0.121.0 (and Vehicles 0.54.0 to 0.56.0 and 0.59.0): set up and pack up by hand (B0.1), the hitch that respects it (B0.2), the power lead (B0.3), set-out pieces and canvas rooms (B0.4), the Pintle flatbed at 3 x 7, the water and fuel bowsers (Q3, Q4), the Billy field kitchen (Q1) and the shower trailer (Q7); not built: the dry-goods locker and every other trailer in the catalogue. Not yet tested in game.
 (B0.1), the hitch that respects it (B0.2), the Pintle flatbed at 3 x 7, and the water and fuel bowsers (Q3, Q4) with their own picture;
 not built: the power lead, set-out pieces, the dry-goods locker and every other trailer in the catalogue. Not yet tested in game.
 
@@ -433,6 +433,24 @@ The owner's first batch: "the base with the water and fuel bowsers". Framework 0
 - **No pump sound** (working machinery is never shared; sound-catalogue.md S129), **a borrowed picture** (the Pintle's, scaled evenly; **the bowsers have their own picture since Vehicles 0.56.0**),
   and **names**: Pintle P2 water bowser and Pintle P3 fuel bowser, the agent's choice.
 - **Other factions**: raiders bring none, and none stand at enemy bases yet (question 4 was never put).
+
+## What was built: the field kitchen batch (17 Nov 2026)
+
+Framework 0.121.0 and Vehicles 0.59.0, **not yet tested in game** (checks 152 to 155). The kitchen's own record has its part
+([vehicle-field-kitchen.md](vehicle-field-kitchen.md#what-was-built-17-nov-2026)).
+
+| Piece | Built | Where |
+| --- | --- | --- |
+| B0.3 A power lead | **Built** as the rig's power point, set out with the pieces; pieces read whether it has power, and its draw follows what works | `CompPhobosSetOut` |
+| B0.4 Set-out pieces and canvas rooms | **Built.** Pieces and rooms named in the trailer's Def, on whichever side is clear, with refusals saying what is in the way; walls, a flap door and a canvas roof (our own Defs, the game's pictures by path); the roof comes off before its walls; pieces are held inside the trailer while packed. A part of the trailer's set-up, so it follows a tank's set-up or a plain one | `Framework/SetOut/` |
+| Q7 Shower and latrine | **Built**, with Dubs Bad Hygiene only (owner, 17 Nov 2026: flushing toilets with a waste tank; a chemfuel heater, power a bonus). The reading of 17 Nov 2026 in [vehicle-accessories.md](vehicle-accessories.md#how-dubs-bad-hygiene-sees-water-and-what-a-vehicles-tank-needs-17-nov-2026) built as proposed: a hidden stand-in tower topped up from the tank, and a hidden stand-in septic tank as the waste tank | `CompPhobosTrailerPlumbing` |
+
+**Changed from the design, agent's choices for the owner to revise:** the shower trailer is the **Pintle P4**, a 2,000 L tank on the bowsers'
+chassis, set up through its tank like the bowsers; its tent holds two of Dubs' own showers and two flushing toilets (a third shower by upgrade),
+with Dubs' own chemfuel boiler and hot-water store as its water heater outside the tent. **Power's bonus is half the chemfuel**, not faster
+heating: Dubs' boiler cannot heat faster than its store fills. The waste tank holds 1,000 of Dubs' sewage units (about 70 flushes) and treats
+nothing; Dubs' colonists empty it into sludge drums at half full, as Dubs does a septic tank whose draining is allowed, and our tanker can pump it
+from beside the trailer's rear. Its upgrades are the water bowser's two and the third shower. The dry-goods locker is not built.
 
 ## Questions for the owner
 

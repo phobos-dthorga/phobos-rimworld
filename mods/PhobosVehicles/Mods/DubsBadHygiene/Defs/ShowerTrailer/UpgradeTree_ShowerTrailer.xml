@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The shower trailer's upgrades (D'thorga Vehicles 0.59.0: the water bowser's two, the same things on the same tank and showing on the same borrowed picture, and a third shower). Figures and costs authored. Node keys are saved in the game: never rename or remove one. The icons
+       are the tanker's for the same things (an insulated tank, a hose reel). Each shows on the body (the vehicle's node looks, 16 Nov 2026). Not yet tested in game. -->
+  <Vehicles.UpgradeTreeDef DBHLite="true">
+    <defName>Phobos_ShowerTrailer_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
+      <!-- Priced like our fittings and tunes (Framework 0.106.0; owner, 13 Nov 2026): the figures below are the base. -->
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosBowserLagging</key>
+      <label>lagged tank</label>
+      <displayLabel>true</displayLabel>
+      <description>Insulation round the tank: the water takes four times as long to reach the outside temperature, so it freezes later on a cold night.</description>
+      <icon>Phobos/Vehicles/BulkTanker/Upgrades/InsulatedLiquidTank</icon>
+      <work>2000</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>30</Steel>
+        <Cloth>60</Cloth>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosBowserSecondHose</key>
+      <label>second hose</label>
+      <displayLabel>true</displayLabel>
+      <description>A second hose and a bigger pump outlet: the pump moves half as much again.</description>
+      <icon>Phobos/Vehicles/BulkTanker/Upgrades/HoseReel</icon>
+      <work>1200</work>
+      <gridCoordinate>(12, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_PumpRate</def>
+              <value>200</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>20</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosShowerThirdShower</key>
+      <label>third shower</label>
+      <displayLabel>true</displayLabel>
+      <description>A third shower in the shower tent, set out at the next set-up, so a crew washes faster after a shift.</description>
+      <icon>DBH/Things/Building/Showers/showerSimple_south</icon>
+      <work>1500</work>
+      <gridCoordinate>(7, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>40</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

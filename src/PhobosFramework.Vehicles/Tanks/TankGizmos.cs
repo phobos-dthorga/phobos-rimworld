@@ -120,7 +120,8 @@ public static class TankGizmos
             icon = SystemIcons.For(Icons + (on ? "PackUp" : "SetUp")),
             action = () => tank.SetDeployed(!on),
         };
-        string? refused = on ? null : tank.CannotDeploy();
+        // A trailer's parts have their say too (Framework 0.121.0): no room for its tent, or someone at work in it.
+        string? refused = on ? tank.PartsRefusal(false) : tank.CannotDeploy() ?? tank.PartsRefusal(true);
         if (refused != null) command.Disable(refused);
         return command;
     }

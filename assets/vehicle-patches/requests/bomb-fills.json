@@ -1,0 +1,74 @@
+[
+ {
+  "name": "bomb-fill-incendiary",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The item in the first reference image, a sealed olive-drab steel canister lying on its side with a light red band around its middle, a round filler cap at one end and a carry handle on top. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a small game item with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded corners and a few small clean details, seen from slightly above. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no numbers, no people, no flames.",
+  "subject": "a sealed olive-drab steel canister lying on its side with a light red band around its middle, a round filler cap at one end and a carry handle on top",
+  "references": [
+   "assets/vehicle-patches/references/BombFillIncendiary-large.png",
+   ".local/references/vanilla-medical/MedicineIndustrial_a.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "bomb-fill-smoke",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The item in the first reference image, a sealed olive-drab steel canister lying on its side with a light green band around its middle, a round filler cap at one end and a carry handle on top. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a small game item with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded corners and a few small clean details, seen from slightly above. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no numbers, no people, no flames.",
+  "subject": "a sealed olive-drab steel canister lying on its side with a light green band around its middle, a round filler cap at one end and a carry handle on top",
+  "references": [
+   "assets/vehicle-patches/references/BombFillSmoke-large.png",
+   ".local/references/vanilla-medical/MedicineIndustrial_a.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "bomb-fill-toxgas",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The item in the first reference image, a sealed grey steel canister lying on its side with a dark green band around its middle, a round filler cap at one end and a carry handle on top. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a small game item with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded corners and a few small clean details, seen from slightly above. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no numbers, no people, no flames.",
+  "subject": "a sealed grey steel canister lying on its side with a dark green band around its middle, a round filler cap at one end and a carry handle on top",
+  "references": [
+   "assets/vehicle-patches/references/BombFillToxGas-large.png",
+   ".local/references/vanilla-medical/MedicineIndustrial_a.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "bomb-coil-emp",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The item in the first reference image, a sturdy steel frame holding three fat copper wire coils side by side, with a dark cable connector. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a small game item with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded corners and a few small clean details, seen from slightly above. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no numbers, no people, no flames.",
+  "subject": "a sturdy steel frame holding three fat copper wire coils side by side, with a dark cable connector",
+  "references": [
+   "assets/vehicle-patches/references/BombCoilEMP-large.png",
+   ".local/references/vanilla-medical/MedicineIndustrial_a.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ }
+]

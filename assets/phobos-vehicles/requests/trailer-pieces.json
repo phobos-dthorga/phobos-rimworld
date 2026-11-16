@@ -1,0 +1,82 @@
+[
+ {
+  "name": "billy-range",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The object in the first reference image, a long field kitchen cooking range: an olive-drab steel cabinet with a steel cook top holding two round burners under black cast-iron pot grates and a ribbed griddle plate, a short round flue stub at the back right corner, a row of dark control knobs along the south edge and an orange fuel connector on the east end. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no flames, no smoke, no food, no text, no labels, no people.",
+  "subject": "a long field kitchen cooking range: an olive-drab steel cabinet with a steel cook top holding two round burners under black cast-iron pot grates and a ribbed griddle plate, a short round flue stub at the back right corner, a row of dark control knobs along the south edge and an orange fuel connector on the east end",
+  "references": [
+   "assets/phobos-vehicles/references/BillyRange-large.png",
+   "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Electrolyser.png"
+  ],
+  "width": 1536,
+  "height": 768,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "billy-kettle",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The object in the first reference image, a big field cooking kettle: a large round double-walled steel pot with a closed hinged lid and a lid handle, standing on a square olive-drab burner frame with a leg at each corner, and a draw-off tap with an orange handle on its south side. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no flames, no smoke, no food, no text, no labels, no people.",
+  "subject": "a big field cooking kettle: a large round double-walled steel pot with a closed hinged lid and a lid handle, standing on a square olive-drab burner frame with a leg at each corner, and a draw-off tap with an orange handle on its south side",
+  "references": [
+   "assets/phobos-vehicles/references/BillyKettle-large.png",
+   "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Steriliser.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "billy-coldbox",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The object in the first reference image, a field kitchen cold box: a pale insulated chest with a closed lid, two steel latches on its west side, a dark slatted compressor grille at its east end, a small blue badge on the south face and a power cable leading away. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no flames, no smoke, no food, no text, no labels, no people.",
+  "subject": "a field kitchen cold box: a pale insulated chest with a closed lid, two steel latches on its west side, a dark slatted compressor grille at its east end, a small blue badge on the south face and a power cable leading away",
+  "references": [
+   "assets/phobos-vehicles/references/BillyColdBox-large.png",
+   "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Steriliser.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "shower-water-heater",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The object in the first reference image, a field shower water heater on an olive-drab steel skid: a round pale hot-water tank seen from above beside a dark steel burner box with a round flue and slatted vents, a red hot pipe and a blue cold pipe running out to the south. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no flames, no smoke, no food, no text, no labels, no people.",
+  "subject": "a field shower water heater on an olive-drab steel skid: a round pale hot-water tank seen from above beside a dark steel burner box with a round flue and slatted vents, a red hot pipe and a blue cold pipe running out to the south",
+  "references": [
+   "assets/phobos-vehicles/references/ShowerWaterHeater-large.png",
+   "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Steriliser.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors"
+ }
+]

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Billy's kettle cooks in big batches (D'thorga Vehicles 0.59.0; owner, 13 Nov 2026: batches of ten). The same ingredients per meal as the game's
+    own simple and fine meals; the work is 80 % of cooking them one by one, the saving a big pot gives (authored: the game's x4 takes 1,200 and 1,800
+    work, so ten take 3,000 and 4,500, and these take 2,400 and 3,600). Batches of twenty need the "big kettle" upgrade on the trailer. Not yet tested in game.
+  -->
+  <RecipeDef ParentName="CookMealBase">
+    <defName>Phobos_CookMealSimpleTen</defName>
+    <label>cook simple meal x10</label>
+    <description>Cook 10 straightforward meals from one ingredient in a big field kettle.</description>
+    <jobString>Cooking 10 simple meals.</jobString>
+    <workAmount>2400</workAmount>
+    <workSpeedStat>CookSpeed</workSpeedStat>
+    <requiredGiverWorkType>Cooking</requiredGiverWorkType>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_CookMeal</soundWorking>
+    <allowMixingIngredients>true</allowMixingIngredients>
+    <ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>FoodRaw</li>
+          </categories>
+        </filter>
+        <count>5.0</count>
+      </li>
+    </ingredients>
+    <products>
+      <MealSimple>10</MealSimple>
+    </products>
+    <workSkill>Cooking</workSkill>
+    <displayPriority>120</displayPriority>
+    <recipeUsers>
+      <li>Phobos_BillyKettle</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef ParentName="CookMealFineBulkBase">
+    <defName>Phobos_CookMealFineTen</defName>
+    <label>cook fine meal x10</label>
+    <description>Cook 10 somewhat complex meals from meat and plant ingredients in a big field kettle.</description>
+    <jobString>Cooking 10 fine meals.</jobString>
+    <workAmount>3600</workAmount>
+    <requiredGiverWorkType>Cooking</requiredGiverWorkType>
+    <workSkill>Cooking</workSkill>
+    <ingredients>
+      <li>
+        <filter>
+          <customSummary>protein</customSummary>
+          <categories>
+            <li>MeatRaw</li>
+            <li>AnimalProductRaw</li>
+          </categories>
+        </filter>
+        <count>2.5</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>PlantFoodRaw</li>
+          </categories>
+        </filter>
+        <count>2.5</count>
+      </li>
+    </ingredients>
+    <products>
+      <MealFine>10</MealFine>
+    </products>
+    <displayPriority>220</displayPriority>
+    <recipeUsers>
+      <li>Phobos_BillyKettle</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef ParentName="CookMealBase">
+    <defName>Phobos_CookMealSimpleTwenty</defName>
+    <label>cook simple meal x20</label>
+    <description>Cook 20 straightforward meals from one ingredient in the biggest field kettle.</description>
+    <jobString>Cooking 20 simple meals.</jobString>
+    <workerClass>Phobos.VehicleSystems.RecipeWorker_PhobosNeedsNode</workerClass>
+    <workAmount>4800</workAmount>
+    <workSpeedStat>CookSpeed</workSpeedStat>
+    <requiredGiverWorkType>Cooking</requiredGiverWorkType>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_CookMeal</soundWorking>
+    <allowMixingIngredients>true</allowMixingIngredients>
+    <ingredientValueGetterClass>IngredientValueGetter_Nutrition</ingredientValueGetterClass>
+    <ingredients>
+      <li>
+        <filter>
+          <categories>
+            <li>FoodRaw</li>
+          </categories>
+        </filter>
+        <count>10.0</count>
+      </li>
+    </ingredients>
+    <products>
+      <MealSimple>20</MealSimple>
+    </products>
+    <workSkill>Cooking</workSkill>
+    <displayPriority>130</displayPriority>
+    <recipeUsers>
+      <li>Phobos_BillyKettle</li>
+    </recipeUsers>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosRecipeNodeExtension">
+        <node>PhobosBillyBigKettle</node>
+      </li>
+    </modExtensions>
+  </RecipeDef>
+
+  <RecipeDef ParentName="CookMealFineBulkBase">
+    <defName>Phobos_CookMealFineTwenty</defName>
+    <label>cook fine meal x20</label>
+    <description>Cook 20 somewhat complex meals from meat and plant ingredients in the biggest field kettle.</description>
+    <jobString>Cooking 20 fine meals.</jobString>
+    <workerClass>Phobos.VehicleSystems.RecipeWorker_PhobosNeedsNode</workerClass>
+    <workAmount>7200</workAmount>
+    <requiredGiverWorkType>Cooking</requiredGiverWorkType>
+    <workSkill>Cooking</workSkill>
+    <ingredients>
+      <li>
+        <filter>
+          <customSummary>protein</customSummary>
+          <categories>
+            <li>MeatRaw</li>
+            <li>AnimalProductRaw</li>
+          </categories>
+        </filter>
+        <count>5.0</count>
+      </li>
+      <li>
+        <filter>
+          <categories>
+            <li>PlantFoodRaw</li>
+          </categories>
+        </filter>
+        <count>5.0</count>
+      </li>
+    </ingredients>
+    <products>
+      <MealFine>20</MealFine>
+    </products>
+    <displayPriority>230</displayPriority>
+    <recipeUsers>
+      <li>Phobos_BillyKettle</li>
+    </recipeUsers>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosRecipeNodeExtension">
+        <node>PhobosBillyBigKettle</node>
+      </li>
+    </modExtensions>
+  </RecipeDef>
+</Defs>

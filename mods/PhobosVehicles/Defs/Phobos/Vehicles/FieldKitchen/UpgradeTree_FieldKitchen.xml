@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Billy's upgrades (D'thorga Vehicles 0.59.0; docs/development/vehicle-field-kitchen.md). Each sets out more at the next set-up, or offers bigger
+       batches. Figures and costs authored. Node keys are saved in the game: never rename or remove one. Not yet tested in game. -->
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_FieldKitchen_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosBillySecondRange</key>
+      <label>second range</label>
+      <displayLabel>true</displayLabel>
+      <description>A second field range in the kitchen tent, so two cooks can work at once. It is set out at the next set-up.</description>
+      <icon>Phobos/Vehicles/FieldKitchen/BillyRange</icon>
+      <work>2000</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>60</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosBillyBigKettle</key>
+      <label>big kettle</label>
+      <displayLabel>true</displayLabel>
+      <description>A bigger pot for the kettle: it can cook meals twenty at a time.</description>
+      <icon>Phobos/Vehicles/FieldKitchen/BillyKettle</icon>
+      <work>1200</work>
+      <gridCoordinate>(7, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>40</Steel>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosBillyInsulatedTent</key>
+      <label>insulated tent</label>
+      <displayLabel>true</displayLabel>
+      <description>A lined tent and a small chemfuel heater, set out at the next set-up: the heater keeps the tent at 15 °C or so in the cold, burning about two chemfuel a day.</description>
+      <icon>Things/Building/Misc/TempControl/Heater</icon>
+      <work>1800</work>
+      <gridCoordinate>(12, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Cloth>80</Cloth>
+        <Steel>25</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

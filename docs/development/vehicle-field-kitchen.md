@@ -1,6 +1,8 @@
 # The field kitchen trailer (13 Nov 2026)
 
-**A research and design record. Nothing is built, and nothing here is tested in game.** The owner, 13 November 2026: "A
+**Status (17 Nov 2026):** built in D'thorga Framework 0.121.0 and Vehicles 0.59.0 ("What was built" below): the tent and its pieces, power, batches of ten and twenty, caravan cooking and three upgrades; not built: the kettle's water, the dining annex and wash-up, enemy bases, its own picture and sounds. Not yet tested in game.
+
+**A research and design record.** The owner, 13 November 2026: "A
 military-style portable kitchen on wheels, powered by the Busbar as required." The owner chose the same day that it **always
 cooks on fuel burners, and gains its electric extras when plugged into the Busbar or a power line**. It is trailer **Q1** in
 [vehicle-trailers.md](vehicle-trailers.md) and stands on that record's shared base (B0): set up and pack up, a power lead,
@@ -182,6 +184,34 @@ The questions as they were written:
 - **Owner (13 Nov 2026, later):** the name Billy; batches of ten; caravan cooking as a setting on by default; canvas rooms (the
   kitchen tent); no siege kitchens.
 - **Agent defaults, owner to revise:** the range copying every stove recipe; the cold box; every figure marked [A]; the upgrade tree.
+
+## What was built (17 Nov 2026)
+
+Built at the owner's word ("let's get this Field Kitchen plus Latrine and Shower built out", 17 Nov 2026) in D'thorga Framework 0.121.0 and
+Vehicles 0.59.0, with the trailer base's power lead and set-out pieces ([vehicle-trailers.md](vehicle-trailers.md)). **Not yet tested in game**
+(checks 152 to 154). How it plays is in [the player guide](../player-guide/working-vehicles.md).
+
+**What differs from the design above, agent's choices for the owner to revise:**
+
+- **Tent layout:** the canvas room is 6 cells out from the trailer's side and its full 8 cells long, inside 4 x 6 (the design said 5 x 4 inside): the
+  range, a second range by upgrade and the kettle along the far wall, worked from the middle; the shelf and cold box along the trailer side; the lamp
+  in a corner; the flap at the front, the power point outside it. It goes on whichever side is clear.
+- **Fuel, one for one:** the game's refuelling counts units, so the burners take chemfuel or wood one for one at the fuelled stove's rate (160 a
+  day of use, 50 held). The design's "40 chemfuel a day, chemfuel being denser" would need a fuel model of our own.
+- **Power:** 450 W the range and 300 W the kettle while cooking, 100 W the cold box, 50 W the lamp (the design said 600 W cooking, 150 W idle).
+- **The cold box holds four stacks of raw food** (the design said 75 kg), and is a holder of the game's own kind, so haulers fill it and cooks
+  take from it.
+- **Packing up keeps everything:** the range's fuel and bills, the cold box's contents and the shelf's storage settings are held inside the trailer
+  while packed. The design said packing up refuses while the shelf holds meals; instead, meals on the shelf stay on the ground when it goes.
+  Packing up refuses only while someone works at a piece.
+- **Upgrades built:** second range, big kettle (x20), insulated tent (a chemfuel tent heater keeping it to 15 °C, about 2 chemfuel a day,
+  burning whenever it is lit, as a campfire does). **Not built:** the dining annex and the wash-up node; and the bigger water tank, because
+  **the kettle's water with Dubs Bad Hygiene is not built** (question 4 was never put; it needs the kettle to draw from plumbing per batch).
+- **Caravan cooking:** spoilt meals use the cook's own food-poisoning chance plus the game's 2 percent for cooking outdoors; it reads the
+  caravan's fuel from the kitchen's packed burners first, then chemfuel or wood in the packs. A Billy never set up has no burners yet, so it
+  burns from the packs only.
+- **Its body picture is borrowed** from the bowsers (owner, 17 Nov 2026), painted olive and canvas; the range, kettle and cold box show
+  stand-ins until the owner picks from the candidates made that night.
 
 ## Sources
 

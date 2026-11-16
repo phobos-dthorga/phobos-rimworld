@@ -748,6 +748,45 @@ public class CompPhobosTank : CompPhobosSetUp
         AfterLoadChange();
     }
 
+    /// <summary>
+    /// Takes up to this much of a fluid out of the compartments holding it, for a part of the trailer that uses it (Framework 0.121.0: the shower
+    /// trailer's stand-in water tower). Returns what came out, and the worst quality it came from.
+    /// </summary>
+    public float TakeOut(PhobosTankContentsDef fluid, float most, out int quality)
+    {
+        quality = 0;
+        float taken = 0f;
+        foreach (TankCompartment compartment in Compartments)
+        {
+            if (taken >= most) break;
+            if (compartment.contents != fluid || compartment.amount <= 0f) continue;
+            float take = Mathf.Min(most - taken, compartment.amount);
+            compartment.amount -= take;
+            taken += take;
+            quality = Mathf.Max(quality, compartment.quality);
+        }
+        if (taken > 0f) AfterLoadChange();
+        return taken;
+    }
+
+    /// <summary>Puts up to this much of a fluid back into compartments holding it or set to it, as far as they have room. Returns what went in.</summary>
+    public float PutIn(PhobosTankContentsDef fluid, float most, int quality)
+    {
+        float room = CompartmentCapacity;
+        float put = 0f;
+        foreach (TankCompartment compartment in Compartments)
+        {
+            if (put >= most) break;
+            if (compartment.contents != fluid) continue;
+            float add = Mathf.Min(most - put, Mathf.Max(0f, room - compartment.amount));
+            compartment.amount += add;
+            compartment.quality = Mathf.Max(compartment.quality, quality);
+            put += add;
+        }
+        if (put > 0f) AfterLoadChange();
+        return put;
+    }
+
     /// <summary>Why the tanker cannot set up now, or null.</summary>
     public string? CannotDeploy()
     {

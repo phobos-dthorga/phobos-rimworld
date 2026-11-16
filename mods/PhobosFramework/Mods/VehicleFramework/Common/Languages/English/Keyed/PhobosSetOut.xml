@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Set-out pieces, canvas rooms, the field kitchen and the shower trailer (D'thorga Framework 0.121.0). -->
+  <PhobosSetOut_BlockedEdge>the edge of the map is in the way</PhobosSetOut_BlockedEdge>
+  <PhobosSetOut_BlockedGround>the ground will not take it</PhobosSetOut_BlockedGround>
+  <PhobosSetOut_BlockedBuilding>{THING} stands in the way</PhobosSetOut_BlockedBuilding>
+  <PhobosSetOut_BlockedPawn>{THING} is standing in the way</PhobosSetOut_BlockedPawn>
+  <PhobosSetOut_BlockedItem>{THING} is lying in the way</PhobosSetOut_BlockedItem>
+  <PhobosSetOut_BlockedTree>a tree is in the way</PhobosSetOut_BlockedTree>
+  <PhobosSetOut_NoRoom>There is no room for {WHAT} beside {VEHICLE}: {REASON}, and the other side is no better. Clear a patch beside it, or move it.</PhobosSetOut_NoRoom>
+  <PhobosSetOut_PieceInUse>Someone is working at the {PIECE} of {VEHICLE}. Wait until they finish, or call them away, before packing up.</PhobosSetOut_PieceInUse>
+  <PhobosSetOut_Done>{VEHICLE} has {WHAT} pitched beside it.</PhobosSetOut_Done>
+  <PhobosSetOut_PackedUp>{VEHICLE} has packed {WHAT} away.</PhobosSetOut_PackedUp>
+  <PhobosSetOut_InspectSetOut>Pitched: {WHAT}.</PhobosSetOut_InspectSetOut>
+  <PhobosSetOut_InspectPowered>Pitched: {WHAT}, plugged in and drawing {WATTS} W.</PhobosSetOut_InspectPowered>
+  <PhobosSetOut_InspectUnpowered>Pitched: {WHAT}. No power at its power point: what needs power is off. Wire the power point to a grid or a generator.</PhobosSetOut_InspectUnpowered>
+  <PhobosSetOut_StatPowered>Plugged in</PhobosSetOut_StatPowered>
+  <PhobosSetOut_RecipeNeedsNode>Needs an upgrade fitted to the trailer this stands beside.</PhobosSetOut_RecipeNeedsNode>
+  <PhobosSetOut_ColdBoxHolds>Holds {COUNT} of {MAX} stacks.</PhobosSetOut_ColdBoxHolds>
+  <PhobosSetOut_ColdBoxCold>Running: keeping its food at {TEMPERATURE}.</PhobosSetOut_ColdBoxCold>
+  <PhobosSetOut_ColdBoxWarm>Not running: no power, so its food is at the air's temperature.</PhobosSetOut_ColdBoxWarm>
+
+  <PhobosTrailer_PlainSetUpRefusal>{VEHICLE} is set up, with its tent pitched. Pack it up first.</PhobosTrailer_PlainSetUpRefusal>
+  <PhobosTrailer_PlainGizmoSetUpDesc>A colonist with construction work comes, chocks the wheels, puts the legs down and pitches the tent beside it with everything inside. It needs a clear patch beside it. Nothing can tow it while it is set up.</PhobosTrailer_PlainGizmoSetUpDesc>
+  <PhobosTrailer_PlainGizmoPackUpDesc>A colonist comes, strikes the tent and packs everything away so it can be towed again. What is in the tent's cupboards stays in them; anything lying on the floor stays on the ground.</PhobosTrailer_PlainGizmoPackUpDesc>
+
+  <PhobosCaravanCooking_Cooked>{CARAVAN}'s cooks made {COUNT} {MEAL}s at the field kitchen tonight.</PhobosCaravanCooking_Cooked>
+  <PhobosCaravanCooking_NoCook>{CARAVAN} has a field kitchen, but nobody fit to cook tonight.</PhobosCaravanCooking_NoCook>
+  <PhobosCaravanCooking_NoFood>{CARAVAN} has a field kitchen, but no raw food to cook tonight.</PhobosCaravanCooking_NoFood>
+  <PhobosCaravanCooking_NoFuel>{CARAVAN} has a field kitchen, but nothing to burn: carry chemfuel or wood, or fill its burners before you leave.</PhobosCaravanCooking_NoFuel>
+
+  <PhobosVehicleSystems_SettingCaravanCooking>Field kitchens cook in a resting caravan</PhobosVehicleSystems_SettingCaravanCooking>
+  <PhobosVehicleSystems_SettingCaravanCookingDesc>On by default: once a night, while a caravan rests, its cooks turn raw food from its packs into simple meals at a field kitchen it carries, on its own wheels or behind a hitch, up to twenty a cook. Each meal burns half a unit of the kitchen's fuel, or chemfuel and wood from the packs. It nearly doubles how far carried raw food goes. Off: field kitchens cook only when set up on a map.</PhobosVehicleSystems_SettingCaravanCookingDesc>
+
+  <PhobosTrailerPlumbing_InspectWaste>Waste tank: {PERCENT} full.</PhobosTrailerPlumbing_InspectWaste>
+</LanguageData>

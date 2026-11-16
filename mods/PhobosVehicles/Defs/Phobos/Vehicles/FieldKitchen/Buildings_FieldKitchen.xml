@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    What Billy sets out in its kitchen tent (D'thorga Vehicles 0.59.0; docs/development/vehicle-field-kitchen.md). None can be built or taken down by
+    hand: the trailer pitches them and packs them in again, holding them while packed, so a range keeps its fuel and bills. Figures authored and labelled
+    so: the burners as the game's fuelled stove (160 a day of use, 50 held), one for one in wood or chemfuel; x1.25 speed and the watts while plugged in.
+    Pictures: stand-ins until the owner picks from the night of 17 Nov 2026; the lamp and heater use the game's own pictures by path. Not yet tested in game.
+  -->
+  <ThingDef Name="PhobosBillyPieceBase" ParentName="BuildingBase" Abstract="True">
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.5</fillPercent>
+    <useHitPoints>true</useHitPoints>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.2</staticSunShadowHeight>
+    <constructEffect>ConstructMetal</constructEffect>
+    <rotatable>true</rotatable>
+    <building>
+      <deconstructible>false</deconstructible>
+      <claimable>true</claimable>
+    </building>
+  </ThingDef>
+
+  <ThingDef Name="PhobosBillyStoveBase" ParentName="PhobosBillyPieceBase" Abstract="True">
+    <thingClass>Phobos.VehicleSystems.Building_PhobosFieldStove</thingClass>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <surfaceType>Item</surfaceType>
+    <hasInteractionCell>true</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <inspectorTabs>
+      <li>ITab_Bills</li>
+    </inspectorTabs>
+    <statBases>
+      <MaxHitPoints>160</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>160.0</fuelConsumptionRate>
+        <fuelCapacity>50.0</fuelCapacity>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+            <li>WoodLog</li>
+          </thingDefs>
+        </fuelFilter>
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+        <canEjectFuel>true</canEjectFuel>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>3</heatPerSecond>
+      </li>
+    </comps>
+    <placeWorkers>
+      <li>PlaceWorker_PreventInteractionSpotOverlap</li>
+    </placeWorkers>
+    <building>
+      <isMealSource>true</isMealSource>
+      <heatPerTickWhileWorking>0.10</heatPerTickWhileWorking>
+      <workTableRoomRole>Kitchen</workTableRoomRole>
+      <workTableNotInRoomRoleFactor>0.8</workTableNotInRoomRoleFactor>
+    </building>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosBillyStoveBase">
+    <defName>Phobos_BillyRange</defName>
+    <label>field range</label>
+    <description>A steel field cooking range with two burners and a griddle, set out in a field kitchen's tent. It burns chemfuel or wood and cooks everything a stove at home can. Plugged into power, a fan on its burners makes it a quarter faster.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/FieldKitchen/BillyRange</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(2,1)</drawSize>
+    </graphicData>
+    <size>(2,1)</size>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCopyStoveRecipesExtension" />
+      <li Class="Phobos.VehicleSystems.PhobosSetOutPowerExtension">
+        <speedWhenPowered>1.25</speedWhenPowered>
+        <wattsWorking>450</wattsWorking>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosBillyStoveBase">
+    <defName>Phobos_BillyKettle</defName>
+    <label>field kettle</label>
+    <description>A big double-walled cooking pot on a burner frame, for stews by the dozen. It burns chemfuel or wood and cooks meals ten at a time, for less work than ten cooked one by one. Plugged into power, it is a quarter faster.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/FieldKitchen/BillyKettle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosSetOutPowerExtension">
+        <speedWhenPowered>1.25</speedWhenPowered>
+        <wattsWorking>300</wattsWorking>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosBillyPieceBase">
+    <defName>Phobos_BillyColdBox</defName>
+    <label>cold box</label>
+    <description>An insulated box with a small compressor, for the kitchen's raw food. Cooks take ingredients straight from it. While the kitchen is plugged into power it keeps what it holds at fridge cold; without power it is only a box.</description>
+    <thingClass>Phobos.VehicleSystems.Building_PhobosColdBox</thingClass>
+    <graphicData>
+      <texPath>Phobos/Vehicles/FieldKitchen/BillyColdBox</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <tickerType>Rare</tickerType>
+    <fillPercent>0.4</fillPercent>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <inspectorTabs>
+      <li>ITab_Storage</li>
+      <li>Phobos.VehicleSystems.ITab_PhobosColdBoxContents</li>
+    </inspectorTabs>
+    <building>
+      <maxItemsInCell>4</maxItemsInCell>
+      <fixedStorageSettings>
+        <filter>
+          <categories>
+            <li>FoodRaw</li>
+          </categories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <priority>Important</priority>
+        <filter>
+          <categories>
+            <li>FoodRaw</li>
+          </categories>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosSetOutPowerExtension">
+        <wattsWorking>100</wattsWorking>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosBillyPieceBase">
+    <defName>Phobos_BillyLamp</defName>
+    <label>tent lamp</label>
+    <description>A lamp on a stand for a field tent. It lights only while the trailer that pitched the tent is plugged into power.</description>
+    <graphicData>
+      <texPath>Things/Building/Furniture/LampStanding</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <passability>Standable</passability>
+    <fillPercent>0.15</fillPercent>
+    <rotatable>false</rotatable>
+    <tickerType>Rare</tickerType>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <glowRadius>9</glowRadius>
+        <glowColor>(217,217,208,0)</glowColor>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosSetOutLight" />
+    </comps>
+  </ThingDef>
+
+  <!-- The insulated tent's heater (upgrade "insulated tent"): burns chemfuel, as a campfire burns wood, and warms the tent to 15 °C at most. -->
+  <ThingDef ParentName="PhobosBillyPieceBase">
+    <defName>Phobos_BillyTentHeater</defName>
+    <label>tent heater</label>
+    <description>A small chemfuel heater for an insulated field tent. It keeps the tent at 15 °C or so in the cold, burning about two chemfuel a day.</description>
+    <graphicData>
+      <texPath>Things/Building/Misc/TempControl/Heater</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <rotatable>false</rotatable>
+    <tickerType>Normal</tickerType>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <comps>
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>2.0</fuelConsumptionRate>
+        <fuelCapacity>10.0</fuelCapacity>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </fuelFilter>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>21</heatPerSecond>
+        <heatPushMaxTemperature>15</heatPushMaxTemperature>
+      </li>
+      <li Class="CompProperties_Flickable" />
+    </comps>
+  </ThingDef>
+</Defs>

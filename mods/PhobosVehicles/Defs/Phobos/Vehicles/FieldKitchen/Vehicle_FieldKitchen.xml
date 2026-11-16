@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Billy, the field kitchen trailer (D'thorga Vehicles 0.59.0; docs/development/vehicle-field-kitchen.md; owner, 13 Nov 2026: "a military-style portable kitchen
+    on wheels, powered by the Busbar as required", burners always and power a bonus; the name Billy; batches of ten; caravan cooking as a setting on by default).
+    A colonist sets it up where it stands, and it pitches a canvas kitchen tent beside itself with a field range, a kettle, a shelf for meals, a cold box and
+    a lamp, and a power point outside the flap; packing up takes them all in again.
+
+    Size 3 x 8 (the owner's sizes: "3 x 7 is the bare minimum", other trailers "at least vehicle sized or near"; 3 x 8 is the agent's reading). Its picture is
+    borrowed from the bowsers until its own is made (owner, 17 Nov 2026: borrow for now), painted olive and canvas. Tent: 6 cells out from its side and its
+    own length, inside 4 x 6, its flap at the front (agent layout). Cells run x -1 to 1, z -3 to 4, the front (the drawbar) north; set-out cells count out
+    from its side. Part keys are saved by position: append only, never reorder. Figures authored. Not yet tested in game.
+  -->
+  <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
+    <defName>Phobos_FieldKitchen</defName>
+    <label>Billy field kitchen</label>
+    <description>A field kitchen on a two-axle trailer, named for the camp billy. Hitch it behind any vehicle with a hitch; where it stands, a colonist sets it up and it pitches a canvas kitchen tent beside itself, with a range that cooks anything a stove can, a big kettle for meals ten at a time, a shelf for the meals, a cold box and a lamp. Its burners take chemfuel or wood; plugged into power through the point outside the tent's flap, it cooks a quarter faster, keeps the cold box cold and lights the tent. On the road, a resting caravan's cooks can turn its raw food into meals at it. It has no engine: whatever tows it pulls its weight.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/PintleBowser/PintleBowser</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(5, 9)</drawSize>
+      <color>(112, 118, 78)</color>
+      <colorTwo>(176, 164, 128)</colorTwo>
+    </graphicData>
+    <fillPercent>0.6</fillPercent>
+    <buildDef>Phobos_FieldKitchen_Blueprint</buildDef>
+    <size>(3, 8)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.7</Flammability>
+      <MarketValue>1400</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>45</Mass>
+      <MoveSpeed>11</MoveSpeed>
+      <CargoCapacity>300</CargoCapacity>
+      <RepairRate>0.6</RepairRate>
+    </vehicleStats>
+    <race>
+      <baseBodySize>4</baseBodySize>
+    </race>
+    <properties>
+      <diagonalRotation>false</diagonalRotation>
+      <worldSpeedMultiplier>1</worldSpeedMultiplier>
+      <visibilityWeight>4</visibilityWeight>
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles />
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>chassis</label>
+      <health>170</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <from>(-1, -3)</from>
+        <to>(1, 4)</to>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>KitchenBody</key>
+      <label>kitchen body and lockers</label>
+      <health>110</health>
+      <depth>External</depth>
+      <hitbox>
+        <from>(-1, -2)</from>
+        <to>(1, 3)</to>
+      </hitbox>
+    </li>
+    <li>
+      <key>Drawbar</key>
+      <label>drawbar and coupling</label>
+      <health>60</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, 4)</li>
+          <li>(0, 4)</li>
+          <li>(1, 4)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Axles</key>
+      <label>axles and wheels</label>
+      <health>70</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, -1)</li>
+          <li>(1, -1)</li>
+          <li>(-1, 0)</li>
+          <li>(1, 0)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>lights</label>
+      <health>10</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -3)</li>
+          <li>(1, -3)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>1800</emptyKilograms>
+      </li>
+      <!-- Caravan cooking (owner, 13 Nov 2026: a setting, on by default): up to 20 simple meals a cook a night, 0.5 fuel a meal (authored). -->
+      <li Class="Phobos.VehicleSystems.PhobosCaravanCookingExtension">
+        <mealsPerCook>20</mealsPerCook>
+        <fuelPerMeal>0.5</fuelPerMeal>
+        <meal>MealSimple</meal>
+        <recipe>CookMealSimple</recipe>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_FieldKitchen_UpgradeTree</def>
+      </li>
+      <!-- How it follows (authored): the bowsers' lengths, the same chassis. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
+        <hitchToAxle>4.9</hitchToAxle>
+        <axleToCentre>0.31</axleToCentre>
+        <jackKnifeDegrees>70</jackKnifeDegrees>
+        <drawbarPart>Drawbar</drawbarPart>
+        <!-- About an hour to pitch the tent and set out the kitchen (the field kitchen record: "may take up to an hour"), less to strike it. -->
+        <setUpWork>3000</setUpWork>
+        <packUpWork>2000</packUpWork>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailerSetUp" />
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosSetOut">
+        <setOutLabel>the kitchen tent</setOutLabel>
+        <wallDef>Phobos_CanvasWall</wallDef>
+        <doorDef>Phobos_CanvasDoor</doorDef>
+        <roofDef>Phobos_CanvasRoof</roofDef>
+        <powerPointDef>Phobos_PowerPoint</powerPointDef>
+        <powerPointCell>(1, 5)</powerPointCell>
+        <!-- The lamp's draw; the range, kettle and cold box add theirs while working. -->
+        <idleWatts>50</idleWatts>
+        <rooms>
+          <li>
+            <from>(0, -3)</from>
+            <to>(5, 4)</to>
+            <door>(2, 4)</door>
+          </li>
+        </rooms>
+        <pieces>
+          <li>
+            <def>Phobos_BillyRange</def>
+            <from>(4, -2)</from>
+            <to>(4, -1)</to>
+            <facing>Inward</facing>
+          </li>
+          <li>
+            <def>Phobos_BillyRange</def>
+            <from>(4, 0)</from>
+            <to>(4, 1)</to>
+            <facing>Inward</facing>
+            <node>PhobosBillySecondRange</node>
+          </li>
+          <li>
+            <def>Phobos_BillyKettle</def>
+            <from>(4, 2)</from>
+            <to>(4, 2)</to>
+            <facing>Inward</facing>
+          </li>
+          <li>
+            <def>Phobos_BillyLamp</def>
+            <from>(4, 3)</from>
+            <to>(4, 3)</to>
+          </li>
+          <li>
+            <def>Shelf</def>
+            <stuff>Steel</stuff>
+            <from>(1, -2)</from>
+            <to>(1, -1)</to>
+            <facing>Outward</facing>
+            <storeOnly>FoodMeals</storeOnly>
+          </li>
+          <li>
+            <def>Phobos_BillyColdBox</def>
+            <from>(1, 0)</from>
+            <to>(1, 0)</to>
+            <facing>Outward</facing>
+          </li>
+          <li>
+            <def>Phobos_BillyTentHeater</def>
+            <from>(1, 3)</from>
+            <to>(1, 3)</to>
+            <node>PhobosBillyInsulatedTent</node>
+          </li>
+        </pieces>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
+    <defName>Phobos_FieldKitchen_Blueprint</defName>
+    <label>Billy field kitchen</label>
+    <description>A field kitchen trailer that any vehicle with a hitch can tow, with its canvas tent, range, kettle and cold box packed aboard.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/PintleBowser/PintleBowser</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(5, 9)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>220</MaxHitPoints>
+      <WorkToBuild>9000</WorkToBuild>
+      <Flammability>0.7</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <size>(3, 8)</size>
+    <!-- The shell, the tent's canvas and the kitchen's steel: its running gear is in Bill_FieldKitchen.xml (docs/development/parts-bills.md). Steel first. -->
+    <costList>
+      <Steel>240</Steel>
+      <Cloth>150</Cloth>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <thingToSpawn>Phobos_FieldKitchen</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+</Defs>

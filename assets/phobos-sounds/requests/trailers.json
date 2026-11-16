@@ -1,0 +1,83 @@
+[
+ {
+  "name": "q1-range-burner",
+  "engine": "sa3-sfx",
+  "seconds": 10,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A field kitchen's pressurised liquid-fuel burner roaring steadily under a heavy steel cooking range, a constant breathy roar with a faint flutter of flame, unchanging. Outdoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "q1-kettle-lid",
+  "engine": "sa3-sfx",
+  "seconds": 5,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A heavy steel lid on a large field cooking kettle being lifted and set back down: a hollow metal clank and a short rattle, with a soft bubbling of stew underneath. Close, outdoors. Length: 3 seconds"
+ },
+ {
+  "name": "q1-coldbox-hum",
+  "engine": "sa3-sfx",
+  "seconds": 10,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small portable 12-volt fridge compressor running quietly: a soft, steady low hum with a faint rattle, continuous and unchanging. Close, indoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "trailer-canvas-pitch",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A large canvas tent being pitched: heavy canvas flapping and rustling, a metal pole frame clicking together, a guy rope pulled taut and a few mallet knocks on a tent peg. Outdoors, no voices. Length: 6 seconds"
+ },
+ {
+  "name": "s129-trailer-legs",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A trailer's steel stabiliser leg being wound down by hand: a crank ratcheting through several turns, then a firm metal foot thudding onto gravel. Outdoors, no engine, no voices. Length: 4 seconds"
+ },
+ {
+  "name": "s129-bowser-pump",
+  "engine": "sa3-sfx",
+  "seconds": 10,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A small petrol-engine transfer pump on a water trailer running steadily: a busy single-cylinder putter with liquid rushing through a hose, continuous and unchanging. Outdoors. Length: 8 seconds",
+  "loop": true
+ },
+ {
+  "name": "q7-water-heater",
+  "engine": "sa3-sfx",
+  "seconds": 10,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "A diesel-fired water heater for a field shower running: a steady muffled burner roar with a small fan whirring and water flowing through pipes, continuous and unchanging. Outdoors. Length: 8 seconds",
+  "loop": true
+ }
+]

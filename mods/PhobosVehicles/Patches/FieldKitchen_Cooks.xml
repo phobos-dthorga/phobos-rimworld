@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- D'thorga Vehicles 0.59.0: the game's cooks go to Billy's range and kettle as to any stove. The cooking work giver keeps a list of the tables it
+       looks at; this adds ours to it. Not yet tested in game. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorkGiverDef[defName="DoBillsCook"]/fixedBillGiverDefs</xpath>
+    <value>
+      <li>Phobos_BillyRange</li>
+      <li>Phobos_BillyKettle</li>
+    </value>
+  </Operation>
+</Patch>
