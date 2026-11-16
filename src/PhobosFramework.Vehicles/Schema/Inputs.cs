@@ -217,6 +217,67 @@ public class Input_DarkDriving : VehicleSystemInput
     }
 }
 
+/// <summary>
+/// The driver (cross-links round three, G1 with G2; Framework 0.113.0): their fitness to drive, 0 to 1 (<see cref="DriverRule"/>: the game's
+/// consciousness, sight and manipulation, and whether they are tired), or 1 while they are tired. The fittest person in a driving seat
+/// counts, as the one at the wheel; with nobody there (a trailer, an autonomous vehicle, an empty one) or the engine off it reads fit and
+/// rested. Read on the rare tick from the game's own cached capacities.
+/// </summary>
+public class Input_Driver : VehicleSystemInput
+{
+    public enum Reading
+    {
+        Fitness,
+        Tired,
+    }
+
+    public Reading reading = Reading.Fitness;
+
+    protected override float Raw(SystemContext context)
+    {
+        double best = -1;
+        bool tired = false;
+        // Only while the engine runs (drafted, a caravan on the move, flying): a parked vehicle with a tired crew aboard says nothing.
+        if (context.Comp.EngineRunning && context.Vehicle.PawnsByHandlingType.TryGetValue(HandlingType.Movement, out System.Collections.Generic.List<Pawn>? drivers) && drivers != null)
+        {
+            foreach (Pawn pawn in drivers)
+            {
+                if (pawn?.health?.capacities == null) continue;
+                bool isTired = pawn.needs?.rest != null && pawn.needs.rest.CurCategory >= RestCategory.Tired;
+                PawnCapacitiesHandler capacities = pawn.health.capacities;
+                double fitness = DriverRule.Fitness(capacities.GetLevel(PawnCapacityDefOf.Consciousness), capacities.GetLevel(PawnCapacityDefOf.Sight),
+                    capacities.GetLevel(PawnCapacityDefOf.Manipulation), isTired);
+                if (fitness <= best) continue;
+                best = fitness;
+                tired = isTired;
+            }
+        }
+        if (best < 0) return reading == Reading.Fitness ? 1f : 0f;
+        return reading == Reading.Fitness ? (float)best : tired ? 1f : 0f;
+    }
+}
+
+/// <summary>
+/// 1 while a land vehicle with a low air intake has its engine running in a river's moving water (cross-links round three, G7; Framework
+/// 0.113.0; owner, 13 Nov 2026: river fording with a snorkel fitting), else 0. The fording class is by weight: a vehicle lighter than
+/// <c>lowIntakeBelowKg</c> (authored 2,000 kg: cars, light utility vehicles, buggies) breathes low enough to draw water; heavier ones ford
+/// the game's shallow rivers unaided, as a HMMWV fords 76 cm without a kit (TM 9-2320-280-10). The system's <c>intakeExposure</c>
+/// parameter multiplies it, so the snorkel fitting (×0) closes it off.
+/// </summary>
+public class Input_Fording : VehicleSystemInput
+{
+    public float lowIntakeBelowKg = 2000f;
+
+    protected override float Raw(SystemContext context)
+    {
+        Vehicles.VehiclePawn vehicle = context.Vehicle;
+        if (!vehicle.Spawned || !context.Comp.EngineRunning || vehicle.VehicleDef.type != VehicleType.Land) return 0f;
+        if (context.Comp.Repairs.Kilograms >= lowIntakeBelowKg) return 0f;
+        TerrainDef? terrain = vehicle.Map.terrainGrid.TerrainAt(vehicle.Position);
+        return terrain != null && terrain.IsRiver ? context.Parameter("intakeExposure") : 0f;
+    }
+}
+
 /// <summary>The efficiency of the parts bound to a role, averaged, 0 to 1; <c>missing</c> when the vehicle has none.</summary>
 public class Input_PartEfficiency : VehicleSystemInput
 {

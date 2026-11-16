@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.112.1, built 16 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.113.0, built 16 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -29,6 +29,11 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **New in 0.31.0, with Vanilla Expanded Framework (not yet tested in game): garages.** A convoy that has stopped can set up a garage on
   the world map. Vehicles left in one stay with no time limit, and whoever is stationed there mends them from steel and components
   you bring by caravan. **Before removing this mod, take every vehicle out of every garage**, or they go with it.
+- **New in 0.113.0 (not yet tested in game): the driver, the weather, rivers and ammunition.** A driver who is hurt, drugged,
+  half-blind or tired **drives slower** (at worst three tenths slower; never a crash), through a new **driver** system you can switch
+  off in the list of systems. **Rain, snow and ice take grip** on hills, in mud and when towing (a setting, on). **A light vehicle
+  in a river can draw water into its engine**: fit the new **snorkel**. With Combat Extended's ammunition in use, **ammunition in a
+  burning vehicle's cargo can cook off** (a setting, on).
 - **New in 0.110.0 (not yet tested in game): aircraft avionics.** An aircraft whose flight instruments are broken or without power
   **will not take off at night or in fog** (the setting **Blind take-offs: warn only** lets it go with a warning). Without working
   navigation, or with only basic navigation in the dark, a world-map flight is slower and thirstier. Hydraulic flight controls go

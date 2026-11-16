@@ -128,6 +128,24 @@
     <claimMaxHours>6</claimMaxHours>
     <claimGuardCells>12</claimGuardCells>
     <claimGoodwillLoss>30</claimGoodwillLoss>
+    <!-- Weather on grip (cross-links round three G5, Framework 0.113.0; owner, 13 Nov 2026: on, with a setting). The driven wheels' grip in
+         rain, falling snow and on ice (WeatherGripRule), scaled by the weather's own rate; all authored. -->
+    <weatherGripRain>0.85</weatherGripRain>
+    <weatherGripSnow>0.75</weatherGripSnow>
+    <weatherGripIce>0.6</weatherGripIce>
+    <!-- Ammunition cooking off in a burning vehicle (G13, Framework 0.113.0; owner, 13 Nov 2026: on where Combat Extended's ammunition is on).
+         At a full-grown fire a blast comes every half hour on average; each uses a quarter of the cook-off-prone ammunition aboard (at least
+         2 kg); its radius is 1.5 cells plus 0.6 per cube root of a kilogram (a 25 kg blast about 3.3 cells), at most 5.9 (the game's
+         mortar shell); its damage 10 plus 6 per cube root of a kilogram, at most 60. All authored (CookOffRule). -->
+    <cookOffMtbHours>0.5</cookOffMtbHours>
+    <cookOffShare>0.25</cookOffShare>
+    <cookOffLeastKg>2</cookOffLeastKg>
+    <cookOffRadiusBase>1.5</cookOffRadiusBase>
+    <cookOffRadiusPerCubeRootKg>0.6</cookOffRadiusPerCubeRootKg>
+    <cookOffRadiusMax>5.9</cookOffRadiusMax>
+    <cookOffDamageBase>10</cookOffDamageBase>
+    <cookOffDamagePerCubeRootKg>6</cookOffDamagePerCubeRootKg>
+    <cookOffDamageMax>60</cookOffDamageMax>
   </Phobos.VehicleSystems.PhobosVehicleRulesDef>
 
   <!-- The service: supplies loaded into the vehicle's cargo (hauling), then the work at the vehicle (construction). -->

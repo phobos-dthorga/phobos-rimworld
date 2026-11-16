@@ -40,7 +40,7 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 | Vehicles at Work (`shengchipangxieyaotuke.vehiclesatwork`) | Its trips leave out vehicles our systems refuse to move, and a called-off trip gives our reason (0.108.4, SD1) | C#, by name | `src/PhobosFramework.Vehicles/Service/VehiclesAtWorkPatches.cs` |
 | Vehicle Framework + RimHUD (`Jaxe.RimHUD`) | A RimHUD value for the vehicle a pawn is in | XML | `Mods/VehiclesRimHUD/Common` |
 | RimThunder (`rimthunder.core`, `aoba.rimthunder.roca`, `rimthunderteams.rimthunder.desertsabre`) | Its vehicles are never stalled by EMP, as its authors chose, but still take the military effect (0.109.0, SD9) | XML list read by C# | `Rules_VehicleSystems.xml` |
-| Combat Extended (`CETeam.CombatExtended`) | Its smoke inhalation and smoke sensitivity read by our gas rules; vehicle hit weights and blast penetration under its armour | C#, by name | `src/PhobosFramework/Gases/CombatExtendedSmoke.cs`, `MaskFactor.cs`, `CombatExtendedRules` |
+| Combat Extended (`CETeam.CombatExtended`) | Its smoke inhalation and smoke sensitivity read by our gas rules; vehicle hit weights and blast penetration under its armour; its ammunition system setting and which ammunition cooks off, read for ammunition cooking off in a burning vehicle's cargo (Framework 0.113.0, cross-links G13) | C#, by name | `src/PhobosFramework/Gases/CombatExtendedSmoke.cs`, `MaskFactor.cs`, `CombatExtendedRules`, `src/PhobosFramework/CombatExtendedAmmo.cs` |
 | Any mod with a cough sound | Our coughs stand down when another mod sounds one (the list is empty today) | C# | `src/PhobosFramework/Sounds/PhobosSounds.cs` |
 
 ## D'thorga Vehicles

@@ -183,6 +183,24 @@
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.113.0, cross-links round three G7 (owner, 13 Nov 2026: river fording with a snorkel fitting). A raised air intake up the
+         windscreen pillar, as on expedition and military vehicles, so a light vehicle can cross rivers without drawing water into its
+         engine. Only offered where the intake sits low (under 2,000 kg, as Input_Fording reads it). Materials, work and skill authored. -->
+    <defName>PhobosFitting_Snorkel</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/Snorkel</iconPath>
+    <label>snorkel</label>
+    <description>A raised air intake that runs up beside the windscreen to above the roof. The engine breathes high and dry, so the vehicle can cross a river without drawing water into the engine.</description>
+    <roles><li>Engine</li></roles>
+    <materials><Steel>30</Steel><ComponentIndustrial>1</ComponentIndustrial></materials>
+    <work>4000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <parameterFactors><li><system>PhobosVehicleSystem_Service</system><parameter>intakeExposure</parameter><factor>0</factor><label>water drawn into the intake</label></li></parameterFactors>
+    <piston>Yes</piston>
+    <maxKilograms>2000</maxKilograms>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- Framework 0.103.0, the work lights family: on the lamp bracket every land vehicle has (Loadouts_Default.xml). It grants WorkLights,
          which shows the lamps' switch and counts as work lights for a drill rig; the light itself is the game's own (WorkLamps). Materials,
          work and skill authored. -->

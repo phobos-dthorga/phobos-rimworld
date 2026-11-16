@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.113.0] - 2026-11-16 - Draft
+
+The driver, the weather, the river and the ammunition: four more cross-links from round three
+
+### Added
+
+- **The driver matters** (cross-links G1 with G2; owner, 13 Nov 2026: gently). A new driver system on every land vehicle, boat, electric vehicle and locomotive. The person at the wheel who is hurt, drugged, half-blind, one-handed, freezing or tired drives slower: at most a tenth slower while merely tired or a little off, a fifth when impaired, three tenths at the very worst, and never a crash. A worse driver is also harder on tyres and brakes, up to a tenth more wear. It reads the game's own consciousness, sight and manipulation, so every cause the game already knows counts, and a one-eyed driver still drives near full pace. The fittest person in a driving seat counts; trailers and empty or autonomous vehicles are never slowed. A message says when the driver is impaired or tired. Switch it off with the "driver" system in the settings' list of systems. Not yet tested in game.
+- **Rain, snow and ice take grip** (G5; owner: on, with a setting). In the open, rain leaves the driven wheels 85 % of their grip, falling snow 75 % (gentle snow a little more), ice under the wheels 60 %; the worst one counts. Grip only limits on hills, in mud and when towing, so a laden truck or a heavy tow can crawl or stall in a blizzard that would pull through in the dry. The tow forecast reads it too. Speed in bad weather is still the game's own. Not yet tested in game.
+- **Rivers and the air intake, and a snorkel** (G7; owner: fording with a snorkel fitting is in). A light vehicle (under 2,000 kg) with its engine running in a river's moving water can draw water into its engine: a failure every two hours on average while it stays there, taking 30 % of the engine's health, with a warning as it enters the water. Heavier vehicles ford the game's shallow rivers unaided. **New fitting: snorkel**, offered on light piston-engined vehicles after vehicle tuning research (30 steel, 1 component, 4,000 work, Construction 3), closes the intake to the water. Not yet tested in game.
+- **Ammunition aboard cooks off in a fire** (G13; owner: on by default, only where Combat Extended's ammunition is in use). A burning vehicle carrying ammunition that Combat Extended itself lets cook off goes off in blasts, about every half hour at a full fire: each uses a quarter of that ammunition and grows with the mass it uses, up to the size of a mortar shell. Works on any faction's burning vehicle. Without Combat Extended, or with its ammunition system off, nothing happens and the load line says why. Not yet tested in game.
+
+### Compatibility and limits
+
+- **Settings added** (Mod settings, D'thorga Framework, the engines section): **Rain, snow and ice take grip**, on by default; **Ammunition aboard can cook off in a fire**, on by default. The driver rule has no setting of its own: it is the new "driver" system in the list of systems, on by default.
+- **The snorkel has no picture yet**: the fittings window shows its name alone until its icon is made.
+- The driver and fording rules run on your own vehicles. Other factions' vehicles run the lite tier, where no system stages run, so raiders are not slowed by their drivers; weather on grip applies to any vehicle whose drive is modelled. Aircraft keep no driver system: a pilot's state belongs with the avionics.
+- Weather on grip is read on a map only. On the world map, a tile's winter already counts in its going.
+- The AV-8B Harrier mod's jet has its own cook-off when badly damaged; ours reads only ammunition in a vehicle's cargo, so the two do not overlap.
+- For modders: Input_Driver, Input_Fording and the intakeExposure parameter on the service system are new building blocks; the weather and cook-off figures are in the rules Def.
+
+### Save compatibility
+
+- Safe to add to a running game. The driver system starts on existing vehicles at the next look; nothing new is saved except its values.
+
 ## [0.112.1] - 2026-11-16 - Draft
 
 The fuel range line on the world map is drawn at last

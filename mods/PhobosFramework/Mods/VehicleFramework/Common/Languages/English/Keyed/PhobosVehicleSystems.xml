@@ -43,6 +43,10 @@
   <PhobosVehicleSystems_SettingRoughGroundDesc>On by default: driving over rough ground wears tyres, tracks and suspension faster than a road does, up to three times as fast on the worst ground a vehicle can cross, so roads save repairs. Off: they wear by distance alone, wherever the vehicle drives.</PhobosVehicleSystems_SettingRoughGroundDesc>
   <PhobosVehicleSystems_SettingHeadlightBeams>Headlights light the ground</PhobosVehicleSystems_SettingHeadlightBeams>
   <PhobosVehicleSystems_SettingHeadlightBeamsDesc>On by default: at night, a vehicle with its headlights switched on lights the ground ahead of it, engine running or not, and so does another faction's vehicle while it drives. Off, headlights still draw on the battery but give no light, which saves a little work for the game when many vehicles drive at night.</PhobosVehicleSystems_SettingHeadlightBeamsDesc>
+  <PhobosVehicleSystems_SettingWeatherGrip>Rain, snow and ice take grip</PhobosVehicleSystems_SettingWeatherGrip>
+  <PhobosVehicleSystems_SettingWeatherGripDesc>On by default: in the open, rain, falling snow and ice under the wheels leave the driven wheels less grip. It tells on hills, in mud and when towing a heavy load, where a vehicle may crawl or stall that would pull through in the dry. Speed in bad weather is slowed by the game itself either way.</PhobosVehicleSystems_SettingWeatherGripDesc>
+  <PhobosVehicleSystems_SettingAmmoCookOff>Ammunition aboard can cook off in a fire</PhobosVehicleSystems_SettingAmmoCookOff>
+  <PhobosVehicleSystems_SettingAmmoCookOffDesc>On by default: ammunition carried in a burning vehicle's cargo can go off, a little at a time, in blasts that grow with how much is aboard. Only with Combat Extended's ammunition system in use, and only ammunition that Combat Extended itself lets cook off. Pull the ammunition out or put the fire out quickly.</PhobosVehicleSystems_SettingAmmoCookOffDesc>
   <PhobosVehicleSystems_SettingRawServices>This colony: services take raw materials instead of kits</PhobosVehicleSystems_SettingRawServices>
   <PhobosVehicleSystems_SettingRawServicesDesc>Saved with this colony, not for every game. Off: a vehicle's tyres, brakes and engine service, and a new drive belt, need a kit made at the vehicle parts bench and loaded aboard, so caravans carry kits. On: they take the steel, components and chemfuel the kits are made of, as before. A colony started before kits existed begins with this on, so no service already due is held up; switch it off once you have kits. A new colony begins with it off.</PhobosVehicleSystems_SettingRawServicesDesc>
   <PhobosVehicleSystems_SettingLowOilService>Low oil calls for a service</PhobosVehicleSystems_SettingLowOilService>
@@ -161,6 +165,11 @@
   <PhobosVehicleSystems_MsgServiceDue>The {VEHICLE} is due for a service.</PhobosVehicleSystems_MsgServiceDue>
   <PhobosVehicleSystems_MsgServiceOverdue>The {VEHICLE} is overdue for a service; its parts are failing more often.</PhobosVehicleSystems_MsgServiceOverdue>
   <PhobosVehicleSystems_MsgBreakdown>The {VEHICLE}'s {PART} has failed.</PhobosVehicleSystems_MsgBreakdown>
+  <PhobosVehicleSystems_MsgDriverImpaired>The {VEHICLE}'s driver is in no state to drive fast and is taking it carefully. Rest, medicine or another driver would help.</PhobosVehicleSystems_MsgDriverImpaired>
+  <PhobosVehicleSystems_MsgDriverTired>The {VEHICLE}'s driver is tired and slowing down. A rest stop or a fresh driver would help.</PhobosVehicleSystems_MsgDriverTired>
+  <PhobosVehicleSystems_MsgFording>The {VEHICLE} is in the river with its engine breathing close to the water. A snorkel would keep it out.</PhobosVehicleSystems_MsgFording>
+  <PhobosVehicleSystems_MsgIntakeWater>The {VEHICLE} drew river water into its engine, and its {PART} is damaged.</PhobosVehicleSystems_MsgIntakeWater>
+  <PhobosVehicleSystems_MsgCookOff>Ammunition aboard the {VEHICLE} is cooking off in the fire! Keep clear, or get the fire out.</PhobosVehicleSystems_MsgCookOff>
   <PhobosVehicleSystems_MsgTyresWorn>The {VEHICLE}'s tyres or tracks are worn.</PhobosVehicleSystems_MsgTyresWorn>
   <PhobosVehicleSystems_MsgTyreFailed>The {VEHICLE}'s worn-out {PART} has failed on the move.</PhobosVehicleSystems_MsgTyreFailed>
   <PhobosVehicleSystems_MsgBrakesWorn>The {VEHICLE}'s brakes are worn; its driver is taking it gently.</PhobosVehicleSystems_MsgBrakesWorn>

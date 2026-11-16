@@ -160,7 +160,7 @@ Open **Fittings and tunes** from the vehicle's Dashboard, from a right-click wit
 shows while a dyno bay is in reach. It works on any vehicle, from any mod, that has a loadout.
 
 - **Fittings** go on one part each: uprated radiator, oil cooler, turbocharger, heavy-duty alternator, deep-cycle battery,
-  heavy-duty springs, road tyres, block heater, and a cargo hook for helicopters. **A fitting is lost if its part is destroyed.**
+  heavy-duty springs, road tyres, block heater, a snorkel for light vehicles that cross rivers, and a cargo hook for helicopters. **A fitting is lost if its part is destroyed.**
   Wheels are grouped into axles; a choice on an axle is ordered for each of its wheels.
 - **Tunes** set up the whole engine (economy, stock, power) and the final drive (tall, stock, short). Piston engines only. **A tall
   final drive cannot make a vehicle faster than it was built to go.**
@@ -204,6 +204,22 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Other factions' vehicles light up only while they drive**, so a raid arriving at night shows itself.
 - **Turn the light off** with the setting **Headlights light the ground** in the vehicle systems settings, if many vehicles at night
   slow the game.
+
+## The driver, the weather and rivers
+
+- **Who drives matters.** A driver who is hurt, drugged, half-blind, one-handed, freezing or tired drives slower: up to a tenth
+  slower when merely tired or a little off, a fifth when impaired, three tenths at the very worst. Nothing is ever crashed for it.
+  A worse driver also wears tyres and brakes a little faster. **Rest, medicine or a fresh driver put it right**; the vehicle's
+  Systems tab shows how fit its driver is. Someone with one eye still drives near full pace.
+- **Rain, snow and ice take grip.** It only tells where grip is what holds a vehicle back: hills, mud and towing. A laden truck or
+  a heavy tow may crawl or stall in a blizzard or on ice that it would pull through in the dry. All-terrain tyres help. The setting
+  **Rain, snow and ice take grip** turns it off.
+- **Light vehicles and rivers.** A car, buggy or light utility vehicle (under 2 tonnes) with its engine running in a river can draw
+  water into its engine and damage it; a message warns as it enters the water. **A short crossing is a small gamble; driving along
+  a river is asking for it.** Fit a **snorkel** to cross safely. Heavier vehicles ford the shallow rivers unaided.
+- **Ammunition in a burning vehicle can go off** (with Combat Extended's ammunition in use). Each blast uses part of what is aboard
+  and grows with it. **Get the ammunition out or the fire out quickly, and keep people clear.** The setting **Ammunition aboard can
+  cook off in a fire** turns it off.
 
 ## On the world map
 

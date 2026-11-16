@@ -798,6 +798,23 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// <summary>A turbine held at a rating above maximum continuous for longer than its time limit uses hot-section life this many times as
     /// fast (Framework 0.110.0, avionics L1). Authored.</summary>
     public float ratingOverLimitLifeFactor = 2f;
+    /// <summary>Weather on grip (Framework 0.113.0, cross-links G5; WeatherGripRule): the driven wheels' grip in rain, falling snow and on ice.
+    /// Authored.</summary>
+    public float weatherGripRain = 0.85f;
+    public float weatherGripSnow = 0.75f;
+    public float weatherGripIce = 0.6f;
+    /// <summary>Ammunition cooking off in a burning vehicle (Framework 0.113.0, cross-links G13; CookOffRule): the mean hours between blasts at
+    /// a full-grown fire, the share of the ammunition aboard one blast uses and the least it uses, and a blast's radius and damage from the
+    /// kilograms it uses. Authored.</summary>
+    public float cookOffMtbHours = 0.5f;
+    public float cookOffShare = 0.25f;
+    public float cookOffLeastKg = 2f;
+    public float cookOffRadiusBase = 1.5f;
+    public float cookOffRadiusPerCubeRootKg = 0.6f;
+    public float cookOffRadiusMax = 5.9f;
+    public float cookOffDamageBase = 10f;
+    public float cookOffDamagePerCubeRootKg = 6f;
+    public float cookOffDamageMax = 60f;
     /// <summary>The hitch (Framework 0.101.0, authored): how far a trailer may stand from the vehicle that hitches it, the work of coupling it
     /// up, and the gap from a vehicle's rear edge to its hitch, in cells.</summary>
     public float hitchReachCells = 8f;

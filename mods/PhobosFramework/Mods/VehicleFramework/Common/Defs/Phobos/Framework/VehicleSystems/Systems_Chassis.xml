@@ -173,6 +173,18 @@
               </points>
             </curve>
           </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <!-- G1 (Framework 0.113.0): a driver in a bad way is harder on the machine, up to x1.1 at the worst (authored). Without the
+                 driver system, as fit. -->
+            <quantity>driverFitness</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>1</value></fallback>
+            <curve>
+              <points>
+                <li>(0.6, 1.1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
         </inputs>
       </li>
     </flows>
@@ -308,6 +320,18 @@
         <factorParameter>wearPerHourMoving</factorParameter>
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_Moving" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <!-- G1 (Framework 0.113.0): a driver in a bad way is harder on the machine, up to x1.1 at the worst (authored). Without the
+                 driver system, as fit. -->
+            <quantity>driverFitness</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>1</value></fallback>
+            <curve>
+              <points>
+                <li>(0.6, 1.1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
         </inputs>
       </li>
     </flows>

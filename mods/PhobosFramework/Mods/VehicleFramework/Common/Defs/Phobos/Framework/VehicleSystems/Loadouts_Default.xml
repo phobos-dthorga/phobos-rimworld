@@ -187,6 +187,7 @@
       <li><def>PhobosVehicleSystem_Brakes</def></li>
       <li><def>PhobosVehicleSystem_Transmission</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
+      <li><def>PhobosVehicleSystem_Driver</def></li>
     </systems>
     <partRoles>
       <li>
@@ -498,6 +499,7 @@
       <li><def>PhobosVehicleSystem_Brakes</def></li>
       <li><def>PhobosVehicleSystem_Transmission</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
+      <li><def>PhobosVehicleSystem_Driver</def></li>
     </systems>
     <loads>
       <li>
@@ -674,6 +676,7 @@
       <li><def>PhobosVehicleSystem_Service</def></li>
       <li><def>PhobosVehicleSystem_Transmission</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
+      <li><def>PhobosVehicleSystem_Driver</def></li>
     </systems>
     <loads>
       <li>

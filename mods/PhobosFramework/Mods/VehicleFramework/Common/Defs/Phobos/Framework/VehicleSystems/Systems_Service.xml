@@ -24,7 +24,46 @@
       <li>Radiator</li>
       <li>Belt</li>
     </roles>
+    <parameters>
+      <!-- River fording (cross-links round three G7, Framework 0.113.0): how open the engine's air intake is to river water. 1 for every
+           engine; the snorkel fitting makes it 0; an electric vehicle has no air intake (0 below). -->
+      <intakeExposure>1</intakeExposure>
+    </parameters>
     <quantities>
+      <li>
+        <!-- G7 (owner, 13 Nov 2026: river fording with a snorkel fitting is in). A light vehicle (under 2,000 kg, Input_Fording) with its
+             engine running in a river's moving water can draw water into its intake: water does not compress, so it can bend a connecting
+             rod (hydrostatic lock; PropertyCasualty360's technical notebook, secondary). A breakdown every 2 hours on average while it
+             lasts, taking 30 % of the engine's health (authored): a short crossing is a small gamble, driving up a river is asking for it.
+             Heavier vehicles ford the game's shallow rivers unaided. -->
+        <name>fording</name>
+        <description>Whether the engine is breathing close to river water. A light vehicle without a snorkel can draw water into its engine.</description>
+        <label>fording</label>
+        <unit>OnOff</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Fording" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>water at the intake</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgFording</message>
+                <type>CautionInput</type>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Breakdown">
+                <role>Engine</role>
+                <mtbHours>2</mtbHours>
+                <healthFraction>0.3</healthFraction>
+                <message>PhobosVehicleSystems_MsgIntakeWater</message>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
       <li>
         <name>engineHours</name>
         <description>Running hours since the last service. The longer past due, the more often a belt snaps or the engine breaks down.</description>
@@ -194,6 +233,10 @@
        no chemfuel (authored). Inherits the rest from the service above. -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef ParentName="PhobosVehicleSystemServiceBase">
     <defName>PhobosVehicleSystem_ElectricService</defName>
+    <parameters>
+      <!-- No air intake to draw water (G7). -->
+      <intakeExposure>0</intakeExposure>
+    </parameters>
     <description>An hour meter on the motor. Parts fail now and then as they age, more often once a service is due and far more once it is overdue. A mechanic's service, with a component loaded aboard, checks the motor, the converter and the connections and resets the meter.</description>
     <service>
       <label>a motor service</label>

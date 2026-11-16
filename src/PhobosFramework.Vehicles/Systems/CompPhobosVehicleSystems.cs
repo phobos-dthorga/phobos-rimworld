@@ -564,6 +564,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 using (PhobosTiming.Measure("vehicle rare tick / full")) UpdateNow();
                 Lamps.Update();
                 Beams.Update();
+                CookOff.RareTick(this);
                 if (++pipeLooks >= RareTicksPerPipeLook)
                 {
                     pipeLooks = 0;
@@ -577,6 +578,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                     if (states != null) SweepPartHealth();
                 }
                 Beams.Update();
+                // Any faction's burning vehicle cooks off its ammunition (G13): cheap, read only while it burns.
+                CookOff.RareTick(this);
                 break;
             default:
                 beams?.PutOut();

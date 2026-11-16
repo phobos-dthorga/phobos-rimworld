@@ -1,0 +1,25 @@
+[
+  {
+    "name": "fitting-snorkel",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Diagnose.png",
+        "role": "our approved icon from the same family (the diagnose clipboard, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "icon": "fitting: a snorkel (raised air intake)",
+      "size": "drawn by the game at about 24 to 32 px beside a fitting, tune or part in the fittings window and the Health tab; requested at 1024",
+      "this_request": "cross-links round three G7 (Framework 0.113.0), waiting on the owner's go; two attempts"
+    },
+    "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a small icon beside a list entry in a strategy game.\n\nCreate an ORIGINAL small game icon for the D'thorga vehicle fitting: a snorkel, a raised engine air intake. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA vehicle snorkel standing alone: a tall, slightly bent black tube that rises straight up, with a bracket clamp halfway, ending at the top in a chunky forward-facing air ram head with slots.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 32 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+  }
+]

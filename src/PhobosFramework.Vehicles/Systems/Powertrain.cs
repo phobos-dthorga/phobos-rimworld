@@ -394,7 +394,7 @@ public sealed class Powertrain
             lastSpeed = intended;
             ReadGround(vehicle, out conditions.RollingResistance, out conditions.Grip);
             conditions.RollingResistance *= 1 + 2 * comp.RoleShareBelow("Wheels", 0.2f);
-            conditions.Grip *= TreadGrip(conditions.Grip);
+            conditions.Grip *= TreadGrip(conditions.Grip) * WeatherGrip(vehicle);
         }
         else if (caravan != null && caravan.vehiclePather != null && caravan.vehiclePather.MovingNow)
         {
@@ -546,6 +546,20 @@ public sealed class Powertrain
         return TreadRules.GripFactor(wear) * TreadRules.SoftGroundFactor(groundGrip, comp.Fittings.ParameterFactor(RunningGearSystem, SoftGroundGripParameter));
     }
 
+    /// <summary>What rain, falling snow and ice under the wheels do to grip on a map (cross-links G5, Framework 0.113.0; WeatherGripRule): the
+    /// game's own rain and snow rates, eased between weathers as the game eases them, none under a roof. Rails, and the player's "weather takes
+    /// grip" setting switched off, keep it all. On the world map the tile's winter already counts in its path cost.</summary>
+    double WeatherGrip(VehiclePawn vehicle)
+    {
+        if (OwnSurface || !VehicleSystemsMod.Settings.weatherGrip || !vehicle.Spawned || vehicle.Map == null) return 1;
+        Map map = vehicle.Map;
+        IntVec3 cell = vehicle.Position;
+        bool open = !cell.Roofed(map);
+        PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+        return WeatherGripRule.Factor(open ? map.weatherManager.RainRate : 0, open ? map.weatherManager.SnowRate : 0,
+            map.terrainGrid.TerrainAt(cell)?.IsIce == true, rules.weatherGripRain, rules.weatherGripSnow, rules.weatherGripIce);
+    }
+
     /// <summary>The running gear system and its soft-ground grip parameter, which a fitting moves (all-terrain tyres).</summary>
     const string RunningGearSystem = "PhobosVehicleSystem_RunningGear";
     const string SoftGroundGripParameter = "softGroundGrip";
@@ -570,7 +584,7 @@ public sealed class Powertrain
         VehiclePawn vehicle = comp.Vehicle;
         ReadGround(vehicle, out double rolling, out double grip);
         rolling *= 1 + 2 * comp.RoleShareBelow("Wheels", 0.2f);
-        grip *= TreadGrip(grip);
+        grip *= TreadGrip(grip) * WeatherGrip(vehicle);
         return TowRule.Modelled(Spec, MassKg(), towedKg, rolling, grip, comp.PartEfficiency("Wheels", 1f), UsableGears());
     }
 

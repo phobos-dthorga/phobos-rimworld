@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.56.0] - 2026-11-16 - Draft
+
+Our vehicles get the new driver system
+
+### Added
+
+- **The driver system on every vehicle this mod gives its own list of systems**: our generator set, and the GTek L-ATV and MaxxPro, the HUMVEE, the RimThunder tanks and HEMTT, and the Trains of the Rim locomotives from their authors' mods. A driver who is hurt, drugged or tired drives them slower, gently, as on every other vehicle. Needs D'thorga Framework 0.113.0. Not yet tested in game.
+
+### Compatibility and limits
+
+- No settings were added or changed here; the driver system is switched off in D'thorga Framework's list of systems.
+
+### Save compatibility
+
+- Safe to add to a running game.
+
 ## [0.55.0] - 2026-11-13 - Draft
 
 Two tank trailers: the Pintle water bowser and the Pintle fuel bowser

@@ -136,8 +136,8 @@ needs only the direction: a driver in a bad way drives slower and harder on the 
 
 | # | Link | Reads and changes | Lets the player | Stops them | Changes how they play | Cost | An override can | Verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| G1 | **One driver rule** | The driver's consciousness, sight and manipulation (the game's capacities, as `VF:11566` already reads) → the speed cap, down to ×0.7 at worst, and tyre and brake wear up to ×1.1 [A]. The [hotboxing record](vehicle-hotboxing.md)'s stoned driver becomes one case of it, as do concussion, a lost eye, a broken hand and hypothermia | See why a truck crawls ("the driver can barely see: driving carefully") | Driving at full pace with a half-conscious, half-blind or one-handed driver | The player picks the driver, and medicine and rest matter to a convoy | hub | Scale it or switch it off per vehicle (an autonomous vehicle has no driver) | **Take.** Build with hotboxing |
-| G2 | **A tired driver** | The driver's rest need below the game's "tired" level → feeds G1 a further ×0.9 and one message [A] | Notice a long day on the road | Driving through the night without a rest stop and no cost | Caravans gain a reason to stop, and two drivers to swap | input | Scale or off | **Take with G1** |
+| G1 | **One driver rule** | The driver's consciousness, sight and manipulation (the game's capacities, as `VF:11566` already reads) → the speed cap, down to ×0.7 at worst, and tyre and brake wear up to ×1.1 [A]. The [hotboxing record](vehicle-hotboxing.md)'s stoned driver becomes one case of it, as do concussion, a lost eye, a broken hand and hypothermia | See why a truck crawls ("the driver can barely see: driving carefully") | Driving at full pace with a half-conscious, half-blind or one-handed driver | The player picks the driver, and medicine and rest matter to a convoy | hub | Scale it or switch it off per vehicle (an autonomous vehicle has no driver) | **Take.** Build with hotboxing. **Built in Framework 0.113.0, not yet tested in game** (see below) |
+| G2 | **A tired driver** | The driver's rest need below the game's "tired" level → feeds G1 a further ×0.9 and one message [A] | Notice a long day on the road | Driving through the night without a rest stop and no cost | Caravans gain a reason to stop, and two drivers to swap | input | Scale or off | **Take with G1** **Built in Framework 0.113.0, not yet tested in game.** |
 | G3 | **A driver who breaks stops the vehicle** | The driver in a mental break → the vehicle stops and refuses to move, with the reason, until the break ends or another driver takes the wheel [I] | Understand why a truck has stopped in a raid | A berserk or wandering driver driving on | Mood management reaches the convoy | input | Off | **Take**, small |
 | G4 | **The cab's comfort reaches the crew** | Already done: the cab's temperature is the crew's (`CabClimate.cs`), and the game's own needs and conditions follow | — | — | — | built | — | **Recorded, not proposed**: G1 now carries its effect to the vehicle |
 
@@ -160,9 +160,9 @@ its wording not checked).
 
 | # | Link | Reads and changes | Lets the player | Stops them | Changes how they play | Cost | An override can | Verdict |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| G5 | **Rain, snow and ice take grip** | A new `Input_Weather` (rain, snow and sand rates from `all.cs:47739-47743`) and frozen water under the vehicle → the drivetrain's grip: rain ×0.85, snow ×0.75, ice ×0.6 [A], on top of tread (T3) and tyres. Speed in weather is already Vehicle Framework's; this is grip: hills, mud, a heavy trailer | See why a laden truck stalls on a hill in a blizzard | Towing a heavy trailer uphill in snow as if it were dry | All-terrain tyres and a heavier tractor matter in winter; the forecast before hitching reads it | input + hub | Scale each weather's factor | **Take** |
+| G5 | **Rain, snow and ice take grip** | A new `Input_Weather` (rain, snow and sand rates from `all.cs:47739-47743`) and frozen water under the vehicle → the drivetrain's grip: rain ×0.85, snow ×0.75, ice ×0.6 [A], on top of tread (T3) and tyres. Speed in weather is already Vehicle Framework's; this is grip: hills, mud, a heavy trailer | See why a laden truck stalls on a hill in a blizzard | Towing a heavy trailer uphill in snow as if it were dry | All-terrain tyres and a heavier tractor matter in winter; the forecast before hitching reads it | input + hub | Scale each weather's factor | **Take** **Built in Framework 0.113.0, not yet tested in game.** |
 | G6 | **Wet brakes after a ford** | Driving out of shallow water, marsh or a river → a short-lived `brakesWet` quantity: speed cap ×0.9 and a message until a minute or two of driving dries them [A] | Read the ford in the convoy's pace | Nothing much | A small, honest touch | input + XML | Off | **Take**, small |
-| G7 | **The intake and deep water** | A small engine with its engine running in moving river water → a small chance an hour of engine damage (water in the intake) [A], none with a snorkel fitting | Cross a river with a snorkel or a big truck | Driving a small car through a river with nothing to keep the water out | A snorkel becomes a real fitting for river country | input + fitting | Set the vehicle's fording class | **Ask the owner** (question 5): the game's water is shallow by name, and land vehicles keep out of deep water |
+| G7 | **The intake and deep water** | A small engine with its engine running in moving river water → a small chance an hour of engine damage (water in the intake) [A], none with a snorkel fitting | Cross a river with a snorkel or a big truck | Driving a small car through a river with nothing to keep the water out | A snorkel becomes a real fitting for river country | input + fitting | Set the vehicle's fording class | **Ask the owner** (question 5): the game's water is shallow by name, and land vehicles keep out of deep water. **Built in Framework 0.113.0, not yet tested in game.** |
 | G8 | **Dust clogs the air filter** (round two's T7) | An `airFilter` quantity in the Service system rising with engine hours, faster in arid biomes and much faster in weather with a sand rate → power ×0.9 and fuel ×1.1 when clogged [A], cleared by the engine service; F8 slows it | Keep a desert truck strong by servicing it | Running a desert convoy on a clogged filter for nothing | Desert and sandstorm country cost services | input + XML | Scale the rate | **Take** after G5 (same input) |
 | G9 | **Darkness without headlights** | At night, moving, headlights off and the cell unlit (the game's light grid) → speed cap ×0.85, lower with poor sight (G1) [A] | Headlights earn their battery cost | Driving at full pace in the dark with the lights off | A real choice at night: lights and a draining battery, or slow and dark; raiders' lit vehicles already show themselves ([headlights record](vehicle-headlights.md)) | input | Off (a vehicle with night vision) | **Take** **Built in Framework 0.106.0, not yet tested in game.** |
 | G10 | **Wind on high vehicles and trailers** | `windSpeedFactor` (`all.cs:47745`) on tall vehicles and trailers | — | — | Hardly seen in play | input | — | **Argued against**: see below |
@@ -173,7 +173,7 @@ its wording not checked).
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | G11 | **A holed tank, where its author gave it no reaction** | A hit on the fuel tank part of a vehicle with no `Reactor_FuelLeak` (checked once at start-up) → a `HoledTank` condition draining fuel an hour, as `HoledRadiator` drains coolant [A] | Patch a leak in the field, as for the radiator | A tank shot through keeping all its fuel | Combat damage reaches range on every vehicle | XML + input | Off (an armoured tank) | **Take** |
 | G12 | **Hits to the electrics drop loads** | A hit on the battery or alternator part → a `ShortedWiring` condition: one switched load, chosen at random, drops out until repaired; the headlights are among them [A]. Shares G16's rule | See the headlights die after a hit | Nothing | A shot-up truck limps home dim | XML + G16 | Off | **Take with G16** |
-| G13 | **Ammunition aboard cooks off in a fire** | A burning vehicle (round one's link 4, `Input_Fire`) carrying ammunition in its cargo → a chance of an explosion, larger with more aboard [A]; Combat Extended's ammunition read where installed | Keep ammunition off a burning truck, or pull it out | Parking a fuel-and-ammo convoy in a fire with no risk | Fires become emergencies | input | Off | **Ask the owner** (question 4) |
+| G13 | **Ammunition aboard cooks off in a fire** | A burning vehicle (round one's link 4, `Input_Fire`) carrying ammunition in its cargo → a chance of an explosion, larger with more aboard [A]; Combat Extended's ammunition read where installed | Keep ammunition off a burning truck, or pull it out | Parking a fuel-and-ammo convoy in a fire with no risk | Fires become emergencies | input | Off | **Ask the owner** (question 4) **Built in Framework 0.113.0, not yet tested in game.** |
 | G14 | **Hits through the cab hurt the crew** | To check first: whether Vehicle Framework already passes damage to seated people when a cab part is hit | — | — | — | — | — | **Read first** |
 | G15 | **Fire reaches the tyres and the battery** | Extends round one's link 4: a fire also damages the wheels' and the battery's parts an hour [A] | See a burnt-out truck need tyres and a battery, not only a radiator | A truck walking away from a fire on its old tyres | Fire's cost is honest | XML | Scale or off | **Take** **Built in Framework 0.106.0, not yet tested in game.** |
 
@@ -267,6 +267,32 @@ Next after these: T4 with F3 (brake wear by mass and speed), G11 (a holed tank),
 5. **Brakes**: T4 with F3, then T5 with F6.
 6. **The cold-weather family's additions**: T8, F4, F5, F7.
 7. **One hydraulics rollout** for G17 and the avionics record's A7.
+
+## Built in Framework 0.113.0 (16 Nov 2026)
+
+The owner's go of 16 November 2026 ("start work on the cross-links"), building the rows agreed for later. Not yet tested in game.
+Where the build differs from the rows above, the build is what holds:
+
+- **G1 with G2, the driver**, is its own system (`PhobosVehicleSystem_Driver`, `Systems_Driver.xml`) on every land vehicle, boat,
+  electric vehicle and locomotive, so the settings' list of systems switches it off (no separate setting). `DriverRule` reads the
+  game's consciousness, sight and manipulation through authored curves (a one-eyed driver, sight about 0.5, reads 0.85) and the worst
+  decides; tiredness (the game's "tired" level) multiplies by 0.9, which is G2. Stages: from 0.8 to 0.95 x0.9, from 0.6 x0.8, below 0.6
+  x0.7 (the owner's floor), with messages; the tyre and brake wear flows read the fitness up to x1.1. The fittest person in a driving
+  seat counts, and only while the engine runs. Aircraft are left out: a pilot's state belongs with the avionics.
+- **G5, weather on grip**, multiplies the driven wheels' grip in the drivetrain model (and the tow forecast) by `WeatherGripRule`: the
+  game's own rain and snow rates, eased between weathers, none under a roof, and ice from the terrain's Ice tag; the worst of the three
+  counts. Map only; rails keep their grip. Setting **Rain, snow and ice take grip**, on.
+- **G7, fording**: `Input_Fording` on the service system, for a land vehicle under 2,000 kg (authored; heavier ones ford unaided, as a
+  HMMWV fords 76 cm without a kit) with its engine running on terrain tagged River; a breakdown with a 2-hour mean time, 30 % of the
+  engine's health. The **snorkel** fitting sets the service system's new `intakeExposure` to 0 and is offered only under 2,000 kg on
+  piston engines. Electric vehicles have no intake.
+- **G13, cook-off**, is a service on the rare tick (`CookOff`), not a system stage, so it runs for any faction's burning vehicle, the
+  lite tier included. It reads Combat Extended by name (`CombatExtendedAmmo`): its ammunition system setting, and the ammunition its
+  own Defs mark as able to cook off or detonate. Anything unreadable counts as off. Figures in the rules Def (`CookOffRule`). Setting
+  **Ammunition aboard can cook off in a fire**, on.
+- **A correction to "Other factions' vehicles" below**: other factions' vehicles run the lite tier, where no system stage runs, so G1
+  and G9 (built in 0.106.0) do not slow raiders as the table said they would. G5 reaches any vehicle whose drive is modelled, and G13
+  any burning vehicle. Running G1 and G9 for raiders would need the lite tier to evaluate those two quantities: a later choice.
 
 ## Questions for the owner
 

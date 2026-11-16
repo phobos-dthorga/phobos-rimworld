@@ -96,6 +96,12 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Headlights light the ground ahead of the vehicle (Framework 0.104.0; owner, 12 Nov 2026: by default). Off, they still draw
     /// on the battery and give no light: for a player who wants every last tick. Live.</summary>
     public bool headlightBeams = true;
+    /// <summary>Rain, falling snow and ice take grip from the driven wheels, which tells on hills, in mud and when towing (Framework 0.113.0,
+    /// cross-links G5; owner, 13 Nov 2026: on, with this setting). Live.</summary>
+    public bool weatherGrip = true;
+    /// <summary>Ammunition in a burning vehicle's cargo can cook off (Framework 0.113.0, cross-links G13; owner, 13 Nov 2026: on by default,
+    /// and only ever where Combat Extended's ammunition system is on). Live.</summary>
+    public bool ammoCookOff = true;
     /// <summary>A jump-start needs a crafted jump-start kit, in stock or aboard (owner, 8 Nov 2026: default on). Live.</summary>
     public bool jumpStartNeedsKit = true;
     /// <summary>Every vehicle is assumed to carry a booster pack, so a jump-start needs no other vehicle (owner, 8 Nov 2026: off). Live.</summary>
@@ -138,6 +144,8 @@ public class VehicleSystemsSettings : ModSettings
         "lowOilCallsService" => lowOilCallsService,
         "accessoriesLoadEngine" => accessoriesLoadEngine,
         "roughGroundWear" => roughGroundWear,
+        "weatherGrip" => weatherGrip,
+        "ammoCookOff" => ammoCookOff,
         "jumpStartNeedsKit" => jumpStartNeedsKit,
         "assumeBoosterPack" => assumeBoosterPack,
         "cabMoods" => cabMoods,
@@ -187,6 +195,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
         Scribe_Values.Look(ref roughGroundWear, "PhobosVehicleSystems_RoughGroundWear", true);
         Scribe_Values.Look(ref headlightBeams, "PhobosVehicleSystems_HeadlightBeams", true);
+        Scribe_Values.Look(ref weatherGrip, "PhobosVehicleSystems_WeatherGrip", true);
+        Scribe_Values.Look(ref ammoCookOff, "PhobosVehicleSystems_AmmoCookOff", true);
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
         Scribe_Values.Look(ref cabMoods, "PhobosVehicleSystems_CabMoods", true);
@@ -247,6 +257,9 @@ public class VehicleSystemsMod : Mod
         if (!Settings.accessoriesLoadEngine) report.Off("accessories loading the engine", "off (setting)");
         if (!Settings.roughGroundWear) report.Off("rough-ground wear", "off (setting)");
         if (!Settings.headlightBeams) report.Off("headlight beams", "off (setting)");
+        if (!Settings.weatherGrip) report.Off("weather on grip", "off (setting)");
+        if (!Settings.ammoCookOff) report.Off("ammunition cook-off", "off (setting)");
+        else if (!CookOff.AmmoSystemOn) report.Off("ammunition cook-off", "Combat Extended's ammunition is not in use");
         if (Settings.jumpStartNeedsKit) report.On("jump-start leads must be crafted (setting)");
         else report.Off("jump-start leads", "free (setting)");
         if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
@@ -332,6 +345,8 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingAccessoryLoad".Translate(), ref s.accessoriesLoadEngine, "PhobosVehicleSystems_SettingAccessoryLoadDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingRoughGround".Translate(), ref s.roughGroundWear, "PhobosVehicleSystems_SettingRoughGroundDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingHeadlightBeams".Translate(), ref s.headlightBeams, "PhobosVehicleSystems_SettingHeadlightBeamsDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingWeatherGrip".Translate(), ref s.weatherGrip, "PhobosVehicleSystems_SettingWeatherGripDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAmmoCookOff".Translate(), ref s.ammoCookOff, "PhobosVehicleSystems_SettingAmmoCookOffDesc".Translate());
         if (GameComponent_PhobosServiceKits.InGame)
         {
             // This colony's own choice, saved with it (S4): shown here for convenience, changed only through its service.

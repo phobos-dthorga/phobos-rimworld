@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The driver (cross-links round three, G1 with G2; Framework 0.113.0; docs/development/vehicle-crosslinks-round-three.md). The owner's
+    answer (13 Nov 2026): a driver's health, drugs and tiredness slow every vehicle, gently, at worst x0.7 of speed, and nothing is ever
+    crashed for it. The game's own capacities carry every cause (DriverRule): pain, drugs, a concussion, hypothermia and heatstroke lower
+    consciousness, so a freezing cab slows the vehicle through the game's own conditions with no second model; a lost eye lowers sight; a
+    broken hand lowers manipulation. A tired driver (the game's "tired" rest level) is a tenth less fit. The fittest person in a driving seat
+    counts; a trailer, an autonomous vehicle or an empty one reads fit. Its own system, so a player can switch it off in the settings' list
+    of systems. A worse driver also wears tyres and brakes up to x1.1 (the running gear's and brakes' wear flows read driverFitness).
+    Every stage edge and factor is authored. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_Driver</defName>
+    <label>driver</label>
+    <description>Whoever is at the wheel. A driver who is hurt, drugged, half-blind, one-handed or tired drives slower and harder on the vehicle. Nothing is ever crashed for it: rest, medicine or a fresh driver put it right.</description>
+    <quantities>
+      <li>
+        <name>driverFitness</name>
+        <description>How fit the driver is to drive: awake and clear-headed, able to see, with the use of their hands, and rested.</description>
+        <label>driver</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Driver" />
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>badly impaired</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.7</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgDriverImpaired</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.6</from>
+            <to>0.8</to>
+            <label>impaired</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.8</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgDriverImpaired</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.8</from>
+            <to>0.95</to>
+            <label>driving carefully</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.9</factor>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <!-- G2: one message when the driver tires; the slowing itself is in driverFitness above. -->
+        <name>driverTired</name>
+        <description>Whether the driver is tired.</description>
+        <label>driver tired</label>
+        <unit>OnOff</unit>
+        <hidden>true</hidden>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Driver">
+            <reading>Tired</reading>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <from>0.5</from>
+            <label>tired</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgDriverTired</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

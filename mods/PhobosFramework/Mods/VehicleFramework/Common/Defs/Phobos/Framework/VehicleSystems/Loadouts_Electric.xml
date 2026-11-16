@@ -57,6 +57,7 @@
           <nightHeaterFuelPerHour>0</nightHeaterFuelPerHour>
         </set>
       </li>
+      <li><def>PhobosVehicleSystem_Driver</def></li>
     </systems>
     <partRoles>
       <li>
