@@ -1,5 +1,6 @@
 # AllTerrainTyres
 
-**Drawn in code** by `assets/phobos-vehicles/draw_family_icons.py` (Pillow): a dark tyre side-on with deep square lugs round its tread and a grey rim, standing in brown mud. No image generator, no reference images and no game or other author's art.
+Made on 16 Nov 2026 on the owner's own graphics card with FLUX.2 Klein 4B base (klein-base, Apache 2.0) through `scripts/art-run.py`, with our private style model (`phobos-private-vanilla`, trained on the game's sprites; never published) at 50 steps: **AI-generated, picked by the owner on 16 November 2026** (one attempt, beside the stand-in it replaces). The request is `assets/phobos-vehicles/requests/fitting-icons-local.json`. Its two references were our own approved fitting icons, `Turbocharger.png` and `UpratedRadiator.png` (made with OpenAI's image API), for style only. The near-copy check against the game's sprites the style model learnt from found nothing close. Exported by `scripts/art/export_sprite.py` (background white to transparency, with the background AI's mask for enclosed white; 128 x 128 px). The master and its record are on the `art-masters` branch (`vehicles/fittings/`), the attempts not picked on `art-references` (`generated/vehicles/fittings-local/`). It replaces the stand-in drawn in code by `assets/phobos-vehicles/draw_family_icons.py` (Framework 0.103.0).
 
-- `AllTerrainTyres.png`: SHA-256 `22d777e897cce42d5a98fac2c70fb472c4cb5a038632a745c779efa089cc8ef8`
+- Master: `fitting-allterrain-tyre-11`, SHA-256 `29c7c5a472c42d9cc3534fe7f1ee5886c74c7e6ec770d8a22b4bf32a5ea6e1f1`
+- `AllTerrainTyres.png`: SHA-256 `d0fac8404c1f96794b7f90dfc7971810968eef57e2c38a31e643089fa6fb1827`

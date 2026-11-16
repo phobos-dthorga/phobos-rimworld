@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/RecoveryWinch.png",
+  "source": "assets/phobos-vehicles/generated/fitting-recoverywinch/fitting-recoverywinch-11.png",
+  "source_sha256": "aa227a3bc553b8037bdfb6a5ee75853ec900d7401524d895345f66053a0cbd0a",
+  "target_sha256": "2c5ee29cf92b0ca659af96278516587c159da1c5297c6930122bb1bffdf78cc8",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "aa227a3bc553b8037bdfb6a5ee75853ec900d7401524d895345f66053a0cbd0a",
+  "date": "2026-11-16T19:43:38",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

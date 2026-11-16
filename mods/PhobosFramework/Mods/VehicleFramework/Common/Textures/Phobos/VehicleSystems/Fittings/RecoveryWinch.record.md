@@ -1,5 +1,6 @@
 # RecoveryWinch
 
-**Drawn in code** by `assets/phobos-vehicles/draw_family_icons.py` (Pillow): a grey winch drum wrapped in dark rope between two dark flanges on an orange frame, its steel rope running down to a hook. No image generator, no reference images and no game or other author's art.
+Made on 16 Nov 2026 on the owner's own graphics card with FLUX.2 Klein 4B base (klein-base, Apache 2.0) through `scripts/art-run.py`, with our private style model (`phobos-private-vanilla`, trained on the game's sprites; never published) at 50 steps: **AI-generated, picked by the owner on 16 November 2026** (one attempt, beside the stand-in it replaces). The request is `assets/phobos-vehicles/requests/fitting-icons-local.json`. Its two references were our own approved fitting icons, `Turbocharger.png` and `UpratedRadiator.png` (made with OpenAI's image API), for style only. The near-copy check against the game's sprites the style model learnt from found nothing close. Exported by `scripts/art/export_sprite.py` (background white to transparency, with the background AI's mask for enclosed white; 128 x 128 px). The master and its record are on the `art-masters` branch (`vehicles/fittings/`), the attempts not picked on `art-references` (`generated/vehicles/fittings-local/`). It replaces the stand-in drawn in code by `assets/phobos-vehicles/draw_family_icons.py` (Framework 0.103.0).
 
-- `RecoveryWinch.png`: SHA-256 `8c84aa918da6bb02c967fee7181e12ce8224f99cda74fb7ebb5ed09ec6e018e3`
+- Master: `fitting-recoverywinch-11`, SHA-256 `aa227a3bc553b8037bdfb6a5ee75853ec900d7401524d895345f66053a0cbd0a`
+- `RecoveryWinch.png`: SHA-256 `2c5ee29cf92b0ca659af96278516587c159da1c5297c6930122bb1bffdf78cc8`

@@ -188,6 +188,7 @@
         {"label": "Heavy-duty springs", "icon": "vs:Fittings/HeavySprings.png"},
         {"label": "Road tyres", "icon": "vs:Fittings/RoadTyres.png"},
         {"label": "Block heater", "icon": "vs:Fittings/BlockHeater.png"},
+        {"label": "Snorkel", "icon": "vs:Fittings/Snorkel.png"},
         {"label": "Cargo hook", "icon": "vs:Fittings/CargoHook.png"},
         {"label": "Economy tune", "icon": "vs:Fittings/TuneEngineEconomy.png"},
         {"label": "Stock tune", "icon": "vs:Fittings/TuneEngineStock.png"},

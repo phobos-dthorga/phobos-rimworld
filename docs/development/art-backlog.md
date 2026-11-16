@@ -153,6 +153,11 @@ Five textures are the owner's picks (7 Nov 2026); the base station and the two f
 | Load switch | D'thorga Framework | Stand-in drawn by `assets/vehicle-systems/draw_icons.py`, kept by the owner (10 Nov 2026) | Every generated version drew a medical cross or a blank plate, likely from the medicine references; try neutral references if it is redrawn | Yes |
 | Dashboard warning lights (15) | D'thorga Framework | Shipped picks from the night of 10 Nov 2026: white shapes the dashboard tints, exported with `export_sprite.py --silhouette` | Nothing | Yes |
 
+**Fitting icons, 16 Nov 2026:** the owner picked local klein-base pictures for the snorkel (head 12), the recovery winch and the all-terrain
+tyres (Framework 0.113.0). **The work lamps fitting keeps its code-drawn stand-in, to be regenerated later** (owner, 16 Nov 2026: the new
+attempt looked like headlights; compare it with the headlights button when redrawing). Still drawn in code: the auxiliary fuel tank, ferry
+tank, litter kit and the cold-weather family icon.
+
 **Any future button gets its icon in the same change**, or reuses a game or required-mod icon that is confirmed to exist; a lookup that
 can fail falls back to a visible stand-in of our own, never silently to the red X (owner, 7 Nov 2026; in AGENTS.md).
 

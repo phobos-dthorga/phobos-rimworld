@@ -143,13 +143,13 @@ def stop_winch(draw):
     draw.line((90, 430, 422, 70), fill=RED, width=44)
 
 
+# The all-terrain tyres and recovery winch fittings were replaced by the owner's generated picks on 16 Nov 2026 (their records say how);
+# they are left out here so a rerun cannot draw over them. Their drawing functions stay as the stand-ins' history.
 ICONS = [
-    ('Fittings/AllTerrainTyres', all_terrain_tyres, 'a dark tyre side-on with deep square lugs round its tread and a grey rim, standing in brown mud'),
     ('Fittings/WorkLamps', work_lamps, 'two orange floodlights with pale yellow lenses on a dark bracket bar, their pale beams spreading downward'),
     ('Families/ColdWeather', cold_weather, 'a grey engine block with an orange heater lead, a dark battery with red and grey terminals, and a pale blue snowflake above'),
     ('Fittings/AuxFuelTank', aux_fuel_tank, 'a squat grey tank on two dark cradle straps with an orange filler cap, and a yellow fuel drop beside it'),
     ('Fittings/FerryTank', ferry_tank, 'a long grey cylindrical tank with an orange filler cap lying on a floor line, under the dark outline of a swept wing'),
-    ('Fittings/RecoveryWinch', recovery_winch, 'a grey winch drum wrapped in dark rope between two dark flanges on an orange frame, its steel rope running down to a hook'),
     ('Hitch/Winch', winch_button, 'a grey winch drum on an orange frame, its steel rope pulling a brown truck outline towards it, with an orange arrow'),
     ('Hitch/StopWinch', stop_winch, 'a grey winch drum on an orange frame, crossed by a red bar'),
 ]

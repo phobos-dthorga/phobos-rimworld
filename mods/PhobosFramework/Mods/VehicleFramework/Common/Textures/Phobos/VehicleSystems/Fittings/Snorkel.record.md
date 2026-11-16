@@ -1,0 +1,6 @@
+# Snorkel
+
+Made on 16 Nov 2026 on the owner's own graphics card with FLUX.2 Klein 4B base (klein-base, Apache 2.0) through `scripts/art-run.py`, with our private style model (`phobos-private-vanilla`, trained on the game's sprites; never published) at 50 steps: **AI-generated, picked by the owner on 16 November 2026** (from four attempts: two wordings, two seeds each). The request is `assets/phobos-vehicles/requests/fitting-icons-local.json`. Its two references were our own approved fitting icons, `Turbocharger.png` and `UpratedRadiator.png` (made with OpenAI's image API), for style only. The near-copy check against the game's sprites the style model learnt from found nothing close. Exported by `scripts/art/export_sprite.py` (background white to transparency, with the background AI's mask for enclosed white; 128 x 128 px). The master and its record are on the `art-masters` branch (`vehicles/fittings/`), the attempts not picked on `art-references` (`generated/vehicles/fittings-local/`).
+
+- Master: `fitting-snorkel-head-12`, SHA-256 `6a08a76b991a02729755bc2a27dcbcc7aad8888bf6f25cfc9268dfb535cb5e44`
+- `Snorkel.png`: SHA-256 `5cf9e13184eb94727b50eccb27cec3abaafa532b0c4d990d1d69f4d3628c6821`

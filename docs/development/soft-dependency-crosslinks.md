@@ -216,7 +216,34 @@ Answered by the owner, 13 Nov 2026:
 - **SD8 set aside: nothing to build.** Vanilla Temperature Expanded's wall-mounted vent is the game's own vent class, so our gases already
   pass through it; its ducts are an air-conditioning network between AC units and compressors and join no rooms' air.
 
-Still open:
+**Answered by the owner, 16 Nov 2026:** (1) **SD20: build the vaccine work anyway**, as an optional tie-in; (2) **SD6: decompile VFE
+Power's reactor and record** what it does to people, nothing built until the owner picks; (3) **check the mods not on the list**
+(Helixien gas first) by their latest player comments and authors' activity, and report; (4) **build SD22 next, then the aircraft
+batch** (AD3 with AD2 and avionics A16). SD22 had been chosen on 13 Nov 2026 but was left out of that batch without a note; found
+16 Nov 2026.
+
+**SD6 read, 16 Nov 2026** (our decompile of Vanilla Furniture Expanded - Power's `VanillaPowerExpanded.dll`, the 1.6 build it loads on
+1.7; summarised in our own words, kept in `.local/`). `CompPowerPlantNuclear` overloads once the reactor is more than half full of
+uranium: it then adds `ToxicBuildup` to every flesh pawn within 5 to 11.25 cells (the radius grows with the fuel, times its own
+"radiation multiplier" setting), 0.0288 a pulse (about ±15 % per pawn), a pulse every 1,250 to 1,875 ticks, **multiplied by 1 minus the
+pawn's toxic resistance**. A meltdown (the room over 100 °C, unless its "disable meltdowns" setting is on) widens the ring to 35 cells,
+pulses about every 417 ticks and brings its radioactive fog weather. Nothing happens unroofed or in an open-roofed room. **So the
+record's question is answered: toxic resistance cuts it**, and our radiation control line can load with VFE Power by XML, with no
+code. Agent proposal, not built: draw the line at the reactor's ring, and count the ring as a radiation zone for our suits and
+dosimetry. Waits for the owner's pick.
+
+**The mods not on the list, checked 16 Nov 2026** with `workshop-research.py report` (latest 50 comments each):
+
+| Mod | Workshop ID | Updated | Last 90 days | Uploader's last reply | Reading |
+| --- | --- | --- | --- | --- | --- |
+| Vanilla Helixien Gas Expanded | 2877699803 | 14 Oct 2026, 1.7 | 5 comments | none among the 50 read | Quiet and stable; the problem comments are old or one-offs (pipe tab menus moving, a removal warning). Safe to try |
+| Vanilla Furniture Expanded - Spacer Module | 2028381079 | 14 Oct 2026, 1.7 | 7 comments | 21 Oct 2026 | Active; the main report (wall televisions facing backwards) the team could not reproduce |
+| Vanilla Factions Expanded - Insectoids 2 | 3309003431 | 17 Oct 2026, 1.7 | 50 comments | none among the 50 read | **Not now**: several October reports of log spam and lag on 1.7 (a hive with no ideology; traders stocking insects), unanswered |
+
+Celsius and Pharmacist were not checked: their Workshop IDs were not to hand, and none is guessed. Atmosphere Overhaul and Vanilla
+Trading Expanded stay subscribed and switched off, as the owner keeps them.
+
+The questions as they were put:
 
 1. **SD20**: wait on Biological Warfare's quiet author, or build the vaccine work anyway since Factory Additions already makes its items?
 2. **SD6**: worth a decompile of VFE Power to see what its overloaded reactor does to people?

@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Snorkel.png",
+  "source": "assets/phobos-vehicles/generated/fitting-snorkel-head/fitting-snorkel-head-12.png",
+  "source_sha256": "6a08a76b991a02729755bc2a27dcbcc7aad8888bf6f25cfc9268dfb535cb5e44",
+  "target_sha256": "5cf9e13184eb94727b50eccb27cec3abaafa532b0c4d990d1d69f4d3628c6821",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "6a08a76b991a02729755bc2a27dcbcc7aad8888bf6f25cfc9268dfb535cb5e44",
+  "date": "2026-11-16T19:43:37",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

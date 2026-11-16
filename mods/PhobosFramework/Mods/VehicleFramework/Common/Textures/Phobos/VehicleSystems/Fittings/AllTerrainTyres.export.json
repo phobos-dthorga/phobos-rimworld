@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/AllTerrainTyres.png",
+  "source": "assets/phobos-vehicles/generated/fitting-allterrain-tyre/fitting-allterrain-tyre-11.png",
+  "source_sha256": "29c7c5a472c42d9cc3534fe7f1ee5886c74c7e6ec770d8a22b4bf32a5ea6e1f1",
+  "target_sha256": "d0fac8404c1f96794b7f90dfc7971810968eef57e2c38a31e643089fa6fb1827",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "29c7c5a472c42d9cc3534fe7f1ee5886c74c7e6ec770d8a22b4bf32a5ea6e1f1",
+  "date": "2026-11-16T19:43:40",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

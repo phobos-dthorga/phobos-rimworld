@@ -1,0 +1,89 @@
+[
+  {
+    "name": "fitting-snorkel-tube",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A vehicle snorkel standing alone: a tall black tube rising straight up with one bend near the bottom, a steel bracket clamp halfway up, and a chunky forward-facing air intake head with slots on top. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A vehicle snorkel standing alone: a tall black tube rising straight up with one bend near the bottom, a steel bracket clamp halfway up, and a chunky forward-facing air intake head with slots on top"
+  },
+  {
+    "name": "fitting-snorkel-head",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A raised engine air intake standing upright: a black pipe with a big round mushroom-shaped cap of slotted vents on top and a flat steel mounting plate at its foot. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A raised engine air intake standing upright: a black pipe with a big round mushroom-shaped cap of slotted vents on top and a flat steel mounting plate at its foot"
+  },
+  {
+    "name": "fitting-allterrain-tyre",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A single chunky off-road vehicle tyre seen from the side, deep blocky square tread lugs all round, a grey steel wheel rim in the middle. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A single chunky off-road vehicle tyre seen from the side, deep blocky square tread lugs all round, a grey steel wheel rim in the middle"
+  },
+  {
+    "name": "fitting-worklamps",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A pair of square vehicle floodlights side by side on a short steel bar bracket, bright pale yellow lenses facing forward. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A pair of square vehicle floodlights side by side on a short steel bar bracket, bright pale yellow lenses facing forward"
+  },
+  {
+    "name": "fitting-recoverywinch",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A heavy vehicle recovery winch: a steel drum wound with steel cable between two end plates, a small electric motor on one end and a big steel hook hanging from the cable. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "subject": "A heavy vehicle recovery winch: a steel drum wound with steel cable between two end plates, a small electric motor on one end and a big steel hook hanging from the cable"
+  }
+]

@@ -16,10 +16,13 @@ The driver, the weather, the river and the ammunition: four more cross-links fro
 - **Rivers and the air intake, and a snorkel** (G7; owner: fording with a snorkel fitting is in). A light vehicle (under 2,000 kg) with its engine running in a river's moving water can draw water into its engine: a failure every two hours on average while it stays there, taking 30 % of the engine's health, with a warning as it enters the water. Heavier vehicles ford the game's shallow rivers unaided. **New fitting: snorkel**, offered on light piston-engined vehicles after vehicle tuning research (30 steel, 1 component, 4,000 work, Construction 3), closes the intake to the water. Not yet tested in game.
 - **Ammunition aboard cooks off in a fire** (G13; owner: on by default, only where Combat Extended's ammunition is in use). A burning vehicle carrying ammunition that Combat Extended itself lets cook off goes off in blasts, about every half hour at a full fire: each uses a quarter of that ammunition and grows with the mass it uses, up to the size of a mortar shell. Works on any faction's burning vehicle. Without Combat Extended, or with its ammunition system off, nothing happens and the load line says why. Not yet tested in game.
 
+### Changed
+
+- **New pictures for the snorkel, the recovery winch and the all-terrain tyres** in the fittings window, made on the owner's own graphics card and picked by the owner (16 November 2026). The winch and tyres replace the stand-ins drawn in code in 0.103.0; the work lamps keep theirs for now.
+
 ### Compatibility and limits
 
 - **Settings added** (Mod settings, D'thorga Framework, the engines section): **Rain, snow and ice take grip**, on by default; **Ammunition aboard can cook off in a fire**, on by default. The driver rule has no setting of its own: it is the new "driver" system in the list of systems, on by default.
-- **The snorkel has no picture yet**: the fittings window shows its name alone until its icon is made.
 - The driver and fording rules run on your own vehicles. Other factions' vehicles run the lite tier, where no system stages run, so raiders are not slowed by their drivers; weather on grip applies to any vehicle whose drive is modelled. Aircraft keep no driver system: a pilot's state belongs with the avionics.
 - Weather on grip is read on a map only. On the world map, a tile's winter already counts in its going.
 - The AV-8B Harrier mod's jet has its own cook-off when badly damaged; ours reads only ammunition in a vehicle's cargo, so the two do not overlap.
