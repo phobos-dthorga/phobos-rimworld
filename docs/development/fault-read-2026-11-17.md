@@ -1,7 +1,7 @@
 # Fault-read of the untested vehicle work (17 Nov 2026)
 
-**Status (17 Nov 2026):** a reading only; nothing is fixed yet. 36 findings listed below (13 aircraft, 6 grid, 7 knocked-out, 10 trailers), each with its place and a fix to make;
-the fixes wait for the owner's go.
+**Status (17 Nov 2026):** all 36 findings (13 aircraft, 6 grid, 7 knocked-out, 10 trailers) fixed in D'thorga Framework 0.120.5 at the owner's
+go ("all now, one version"), as each row's Fix says, except where [As fixed](#as-fixed-framework-01205) differs. Not yet tested in game.
 
 The owner asked for analysis while quota allowed (17 Nov 2026) and chose this as the first job: read the vehicle code built since
 12 November, none of it tested in game, for faults before the owner meets them in play. Four independent reads, one per area:
@@ -78,6 +78,39 @@ Line numbers are from the day.
 | H8 | A recovery-towed vehicle parked on a diagonal is drawn 45 degrees off when the tow faces east or west | `CompPhobosHitch.cs:332-339` | Clear its angle |
 | H9 | Position is set before rotation, so the in-between footprint can leave the map near an edge | `CompPhobosHitch.cs:332-333` | Set rotation first, or check both |
 | H10 | Small: a pending couple survives leaving the map; a failed spawn would drop the trailer; no retry gate while there is no room | `TowTravel.cs` | Clear on despawn; check the spawn; a gate |
+
+## As fixed (Framework 0.120.5)
+
+Where the fix differs from the row, or needs a word. Everything else is as its row says.
+
+- **A2:** the penetration under Combat Extended comes from the rule cook-off already uses (`CombatExtendedRules.BlastPenetrationForDamage`:
+  CE's Bomb, 62 MPa for 156 damage), so about 6 for a hit of 15 against the Harrier's 4 to 8. Without CE the authored 0.5 stands.
+- **A3:** Vehicle Framework keeps no take-off point, so the track measures from where it first sees the flight (the start of the leg it was
+  on). After a load mid-route a later leg reads as climbing near its start: an approximation, in the changelog's limits.
+- **A4:** the revision is the destination tile and the order's identity (`ArrivalAction`), so a new order voids interceptors and a waypoint
+  passed does not.
+- **A8:** a floor, `combatExtendedLeastSway` 1 in the knock-out rules, authored; widened from that by the same factor.
+- **G3:** shore power from the grid now means our meter beneath the vehicle is on and its net has power beyond the meter's own draw; the
+  service lead stays. `shorePowerReach` is gone from the rules Def. A vehicle where every cell already holds a conduit lays no meter, so has no
+  grid shore power: in the limits.
+- **G6:** `GridWatts` is kept for the seen-in-play note; its comment no longer claims an inspect line.
+- **H3:** where the follow rule's first step has no room, the trailer is set down beside the tractor unhitched, with a message
+  (`PhobosHitch_SetDownLetGo`), rather than stopping the tractor each time it moves.
+- **H4:** a prefix on `WorldPawns.PassToWorld` that skips only for a pawn held by our hitch (the recorded reason is in `HitchPatches.cs`).
+  The trailer then travels in the hitch's holder alone.
+- **H5:** a vehicle on the recovery tow counts as moving; the winch takes pieces up at each cell and lays them once where it stops.
+- **K1:** our comp raises Vehicle Framework's own "health changed" after Combat Extended's "damage taken", so every listener (the mount
+  requirement, movement permissions, the fuel-leak check) answers again.
+- **K2:** a postfix on `VehicleStatWorker.TransformValue` keeps a thrown track's 0 after upgrade offsets.
+- **K3:** `Mobility.StoppedByDamage`: a thrown track, parts at nothing, or a speed that would be above the line in good order.
+- **K7:** our Systems tab no longer asks Vehicle Framework about a weapon three deep whose mount is out; Vehicle Framework's own gizmo still
+  would. Draft for its author, for the owner to post if they choose:
+
+  > **VehicleTurret.IsDisabled can loop forever.** In `VehicleTurret.IsDisabled(out string reason)`, the walk up the turret chain after
+  > `ComponentDisabled` steps with `vehicleTurret = attachedTo`, which is always this turret's own parent, not the loop variable's. For a
+  > turret attached to a turret attached to a root turret, whose root's component requirement is unmet and whose middle turret has none,
+  > the loop never ends and the game hangs when the turret's gizmo is drawn. Stepping with `vehicleTurret = vehicleTurret.attachedTo`
+  > would fix it. Found by reading the 1.7 build; not seen in play.
 
 ## Tool gap found on the way
 

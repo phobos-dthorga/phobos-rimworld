@@ -184,6 +184,8 @@ public class CompPhobosListening : VehicleComp
         heardAt.Clear();
         range = 0f;
         summary = null;
+        // Framework 0.120.5 (fault-read K5): nobody listens off the map, so the array's load stops with the rest.
+        Manned = false;
         base.PostDeSpawn(map, mode);
     }
 

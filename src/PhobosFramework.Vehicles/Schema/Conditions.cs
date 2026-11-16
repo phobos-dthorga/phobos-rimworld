@@ -265,10 +265,12 @@ public class When_Airborne : VehicleSystemCondition
 {
     protected override bool HoldsRaw(SystemContext context) => Airborne(context.Comp);
 
-    public static bool Airborne(CompPhobosVehicleSystems comp)
+    public static bool Airborne(CompPhobosVehicleSystems comp, bool live = false)
     {
         if (comp.Vehicle.CompVehicleLauncher?.inFlight == true) return true;
-        string? phase = comp.Powertrain?.Phase;
+        // With live, the phase is read from the aircraft now (Framework 0.120.5, fault-read A5): a button asks between rare ticks, when the
+        // sampled phase can be up to one behind.
+        string? phase = live ? comp.Powertrain?.PhaseNow(comp.Vehicle) : comp.Powertrain?.Phase;
         return phase != null && PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().airbornePhases.Contains(phase);
     }
 }

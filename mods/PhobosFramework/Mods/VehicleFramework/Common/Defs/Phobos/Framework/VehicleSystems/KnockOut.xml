@@ -56,6 +56,9 @@
     <noStabiliserAccuracy>0.6</noStabiliserAccuracy>
     <noSightsAccuracy>0.7</noSightsAccuracy>
     <combatExtendedSwayCap>3</combatExtendedSwayCap>
+    <!-- Framework 0.120.5: a weapon with less sway of its own than this is widened from this, since many turrets carry none under Combat
+         Extended. Authored, an agent's starting value (17 Nov 2026) for the owner to tune in play. -->
+    <combatExtendedLeastSway>1</combatExtendedLeastSway>
     <turretPower>true</turretPower>
     <turretDriveLoad>turretDrive</turretDriveLoad>
     <batteryFlatBelow>0.05</batteryFlatBelow>

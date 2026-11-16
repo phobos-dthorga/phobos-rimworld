@@ -187,8 +187,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         }
         Remember(pose);
         Hitches.Note(this, candidate);
-        // Hitched, a trailer takes up the pipes it laid while it stood (Framework 0.111.0).
-        candidate.GetComp<CompPhobosTrailer>()?.LookAtPipes();
+        // Hitched, a trailer takes up the pipes it laid while it stood (Framework 0.111.0); a vehicle on the recovery tow too (0.120.5, H5).
+        Hitches.LookAtPipes(candidate);
         weightTick = -1;
         RefreshWeight();
         Systems?.Powertrain?.MarkMassDirty();
@@ -211,8 +211,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         towedKg = 0;
         plainCap = 1f;
         Hitches.Forget(was);
-        // Let go, a trailer is parked: it lays its pipes where it stands (Framework 0.111.0).
-        if (was.Spawned) was.GetComp<CompPhobosTrailer>()?.LookAtPipes();
+        // Let go, a trailer is parked: it lays its pipes where it stands (Framework 0.111.0); a recovered vehicle too (0.120.5, H5).
+        if (was.Spawned) Hitches.LookAtPipes(was);
         // The facings show it square again: the extra turn is a picture of the tow only, and is not saved by Vehicle Framework.
         was.Transform.rotation = 0f;
         Systems?.Powertrain?.MarkMassDirty();
@@ -325,12 +325,23 @@ public sealed partial class CompPhobosHitch : VehicleComp
         var rot = new Rot4(facing);
         if (cell != towed.Position || rot != towed.Rotation)
         {
-            CellRect next = GenAdj.OccupiedRect(cell, rot, size);
+            // Vehicle Framework's own footprint (Framework 0.120.5, fault-read H1): it reads a vehicle facing south as north and west as east,
+            // so the game's rect was a cell out for an even-length trailer, and one set down on the edge was destroyed as it spawned.
+            CellRect next = towed.VehicleRect(cell, rot);
             if (!Clear(next, map, towed)) return false;
+            // The game moves the footprint at each setter (H9): the step between must stand on the map too, so the turn or the move comes
+            // first, whichever keeps it there; neither, and the trailer stays put.
+            bool turnFirst = !towed.VehicleRect(cell, towed.Rotation).InBounds(map);
+            if (turnFirst && !towed.VehicleRect(towed.Position, rot).InBounds(map)) return false;
             CellRect before = towed.OccupiedRect();
             // As Vehicle Framework moves a vehicle a cell: its own patches on Position and Rotation reclaim the cells and its regions.
+            if (turnFirst) towed.Rotation = rot;
             towed.Position = cell;
-            towed.Rotation = rot;
+            if (!turnFirst) towed.Rotation = rot;
+            // H2: Vehicle Framework keeps the cell a vehicle was heading for and turns it to face that cell at every load; moved by us, it
+            // would face where it stood before. H8: a diagonal left from its own driving drew it 45 degrees off the tow.
+            towed.vehiclePather?.ResetToCurrentPosition();
+            towed.Angle = 0f;
             foreach (IntVec3 c in before.Cells.Concat(next.Cells).Distinct())
             {
                 if (c.InBounds(map)) map.pathing.RecalculatePerceivedPathCostAt(c);
@@ -338,6 +349,15 @@ public sealed partial class CompPhobosHitch : VehicleComp
         }
         towed.Transform.rotation = (float)HitchRule.Remainder(pose.Heading);
         return true;
+    }
+
+    /// <summary>Whether the trailer could stand where this pose puts it: its cells on the map and clear (fault-read H3).</summary>
+    bool PoseFits(TrailerPose pose, TowGeometry props, VehiclePawn towed, Map map)
+    {
+        (double cx, double cz) = HitchRule.CentreOf(pose, props.AxleToCentre);
+        int facing = HitchRule.Cardinal(pose.Heading);
+        (int x, int z) = HitchRule.CellFor(cx, cz, towed.def.Size.x, towed.def.Size.z, facing);
+        return Clear(towed.VehicleRect(new IntVec3(x, 0, z), new Rot4(facing)), map, towed);
     }
 
     /// <summary>Whether the trailer can stand on these cells: on the map, on ground a person can walk, and clear of every other vehicle
@@ -400,6 +420,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         base.OnDeSpawn();
         Hitches.NoteWaiting(this, false);
         if (winchTarget != null) StopWinch(null);
+        // A couple asked for on this map cannot be done from another (fault-read H10): a colonist sent later found it "not here".
+        pending = null;
         // A vehicle that leaves the map (a caravan, a garage, any journey) takes what it tows with it (slice 3, Framework 0.104.0). A destroyed
         // vehicle has already let go in OnDestroy, which Vehicle Framework runs before the despawn.
         if (trailer is { Spawned: true }) TakeAlong();
@@ -435,6 +457,12 @@ public sealed partial class CompPhobosHitch : VehicleComp
         Scribe_References.Look(ref winchTarget, "PhobosHitch_WinchTarget");
         Scribe_Values.Look(ref winchWait, "PhobosHitch_WinchWait");
         ExposeHeld();
+        // The weight behind is derived, never saved (fault-read H6): worked out again on load, since off the map nothing ticks to do it.
+        if (Scribe.mode == LoadSaveMode.PostLoadInit && trailer != null)
+        {
+            weightTick = -1;
+            RefreshWeight();
+        }
     }
 
     // ---- What the player sees ----
@@ -586,6 +614,30 @@ public static class Hitches
     {
         Check();
         return towing.TryGetValue(trailer, out CompPhobosHitch? hitch) && hitch.Trailer == trailer ? hitch : null;
+    }
+
+    /// <summary>
+    /// Lays or takes up the pipes and conduits of a vehicle the hitch or winch has just taken or let go (Framework 0.120.5, fault-read H5): a
+    /// trailer's, and a vehicle's own systems', as each says whether it is parked.
+    /// </summary>
+    public static void LookAtPipes(VehiclePawn vehicle)
+    {
+        if (vehicle == null || !vehicle.Spawned) return;
+        foreach (ThingComp comp in vehicle.AllComps)
+        {
+            if (comp is VehiclePipes.IHost host) VehiclePipes.Update(host);
+        }
+    }
+
+    /// <summary>Takes up what a vehicle laid where it stood, as the winch drags it a cell: a vehicle moved by us never raises Vehicle
+    /// Framework's move events, which take them up (fault-read H5). It lays them again where the winch leaves it.</summary>
+    public static void TakeUpPipes(VehiclePawn vehicle)
+    {
+        if (vehicle == null) return;
+        foreach (ThingComp comp in vehicle.AllComps)
+        {
+            if (comp is VehiclePipes.IHost host) VehiclePipes.Leave(host);
+        }
     }
 
     public static void NoteWaiting(CompPhobosHitch hitch, bool isWaiting)

@@ -23,7 +23,7 @@ public static class CrewBailOut
         bool crew = vehicle.AllPawnsAboard.Count > 0;
         if (!crew) return CrewDanger.None;
         bool designMoves = vehicle.VehicleDef.GetStatValueAbstract(VehicleStatDefOf.MoveSpeed) > Mobility.StoppedAtOrBelow;
-        return CrewRule.Danger(crew, comp.FireShare > 0f, designMoves, !Mobility.Stopped(vehicle), AnyWeaponWorks(vehicle));
+        return CrewRule.Danger(crew, comp.FireShare > 0f, designMoves, !Mobility.StoppedByDamage(vehicle, comp.Props), AnyWeaponWorks(vehicle));
     }
 
     /// <summary>Whether any weapon that fires (not a fixed smoke launcher) is still on its mount and free to work.</summary>

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Phobos.Framework;
 using Phobos.Framework.Defs;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
@@ -56,6 +57,18 @@ public static class WeaponMounts
             turret.component = requirement;
         }
         return free.Count;
+    }
+
+    /// <summary>
+    /// After a hit, under Combat Extended (Framework 0.120.5, fault-read K1): its armour patch replaces Vehicle Framework's damage step and
+    /// raises only "damage taken", never "health changed", so the part requirements that stop a weapon (and Vehicle Framework's own movement
+    /// permissions and fuel-leak check) were never asked again and a weapon fired on with its mount shot out. Raising Vehicle Framework's
+    /// own event here lets each answer for itself; every listener only re-reads health, so a second raise after a vanilla hit is harmless.
+    /// </summary>
+    public static void AfterDamage(VehiclePawn vehicle)
+    {
+        if (vehicle == null || !OptionalMods.IsActive(OptionalMods.CombatExtended)) return;
+        vehicle.EventRegistry?[VehicleEventDefOf.HealthChanged]?.ExecuteEvents();
     }
 
     /// <summary>Every weapon template the design can carry: its own, and those its upgrades add.</summary>

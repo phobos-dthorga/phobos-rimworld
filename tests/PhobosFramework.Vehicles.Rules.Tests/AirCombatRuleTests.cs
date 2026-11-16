@@ -116,4 +116,12 @@ public class AirCombatRuleTests
         Assert.Equal(6, TurretAimRule.CombatExtendedSway(2, 0.1, 3), 9);
         Assert.Equal(2, TurretAimRule.CombatExtendedSway(2, 1, 3), 9);
     }
+
+    [Fact]
+    public void CombatExtendedSwayWidensAWeaponWithNoneOfItsOwn()
+    {
+        Assert.Equal(2, TurretAimRule.CombatExtendedSway(0, 0.5, 3, least: 1), 9);
+        Assert.Equal(4, TurretAimRule.CombatExtendedSway(2, 0.5, 3, least: 1), 9);
+        Assert.Equal(0, TurretAimRule.CombatExtendedSway(0, 1, 3, least: 1), 9);
+    }
 }

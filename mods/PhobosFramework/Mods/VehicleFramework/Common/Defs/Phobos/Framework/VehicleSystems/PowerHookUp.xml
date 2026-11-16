@@ -37,6 +37,8 @@
         <transmitsPower>true</transmitsPower>
         <basePowerConsumption>0</basePowerConsumption>
         <shortCircuitInRain>false</shortCircuitInRain>
+        <!-- Framework 0.120.5 (fault-read G2): a hidden piece shows no "needs power" mark while the grid turns it on. -->
+        <showPowerNeededIfOff>false</showPowerNeededIfOff>
       </li>
     </comps>
   </ThingDef>

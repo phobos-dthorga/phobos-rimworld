@@ -772,8 +772,6 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// <summary>The hour the night's loads (lights) come on and the hour they go off.</summary>
     public int nightStartsHour = 19;
     public int nightEndsHour = 6;
-    /// <summary>How far, in cells, a parked vehicle can reach a powered building to charge from it.</summary>
-    public int shorePowerReach = 1;
     /// <summary>The power hook-up (Framework 0.120.0; owner, 17 Nov 2026): a parked vehicle on a powered grid has its loads carried up to this many
     /// amps, and the grid pays for them and the battery's charge through a supply this efficient. Authored: about a 1.5 kW supply at 24 V.</summary>
     public float hookUpRatingAmps = 60f;

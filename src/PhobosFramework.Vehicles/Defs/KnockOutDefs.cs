@@ -80,6 +80,8 @@ public class PhobosKnockOutRulesDef : PhobosRulesDef
     public float noSightsAccuracy = 0.7f;
     /// <summary>Under Combat Extended the aim sways more instead: never more than this many times the weapon's own sway.</summary>
     public float combatExtendedSwayCap = 3f;
+    /// <summary>The sway a cranked turret starts from under Combat Extended when its own is less (0.120.5, fault-read A8). Authored.</summary>
+    public float combatExtendedLeastSway = 1f;
 
     // ---- Field re-fitting a track or wheel (0.116.0: M3) ----
 

@@ -52,7 +52,7 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 
 | What you see | Why | What to do |
 | --- | --- | --- |
-| **Won't start**: a flat or very cold battery | Lights and heaters ran it down; the alternator is damaged; deep frost | **Jump-start it** (below), park beside a powered conduit or battery to charge from the grid, warm it up, repair the alternator |
+| **Won't start**: a flat or very cold battery | Lights and heaters ran it down; the alternator is damaged; deep frost | **Jump-start it** (below), park with a powered conduit touching it, engine off, to charge from the grid, warm it up, repair the alternator |
 | **Running hot**, then overheating, then boiling over | A holed radiator, low coolant, hard work in the heat, a snapped drive belt | Stop and let it cool; repair the radiator; a **coolant top-up**, due at 60% |
 | Oil low, hot or losing pressure | Oil burns as the engine runs, faster when worn; a damaged oil pump | A **service** tops it up |
 | Slower, then failing tyres | Tread wears, up to three times as fast off the roads | A service with a **tyre set** |
@@ -73,7 +73,9 @@ off **This colony: services take raw materials instead of kits** in the settings
 networks it uses across its footprint: plumbing if it takes water, power conduit if it has a battery, and the pipe of any line it uses (a
 tanker's contents, a chemfuel line for its fuel). **You see them in the plumbing and power overlays**, not on the floor. Run a pipe or
 conduit to any side and it joins; a conduit run from a powered grid **runs the vehicle on the grid**: its lights, heaters and turret
-drives (up to 60 A) and its battery's charge, paid for in watts from your grid. An autonomous turret with a flat battery and no grid stops
+drives (up to 60 A) and its battery's charge, paid for in watts from your grid. The grid does so only when it has power to spare and
+has switched the vehicle on, and never while its engine runs, when the engine does the work; a conduit touching only a corner, or a
+powered machine beside it, does not count. An autonomous turret with a flat battery and no grid stops
 until it has power, unless someone aboard turns it by hand. They go the moment its engine starts or it drives
 off, and come back when it stops with its engine off. A vehicle set up for work keeps the pipes its work needs. A piece you deconstruct
 stays gone until the vehicle is parked again, and gives nothing back.

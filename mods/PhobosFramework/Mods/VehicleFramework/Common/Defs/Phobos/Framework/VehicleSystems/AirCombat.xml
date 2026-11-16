@@ -12,7 +12,9 @@
     <!-- A hit in flight (AD3; owner, 17 Nov 2026: damage, and down only if it can no longer fly). One interceptor's hit is 60 damage in four
          hits of 15, landing where the aircraft's own hit areas put them, so a hit near the cockpit can hurt the crew (Vehicle Framework's own
          seat hits). The aircraft comes down if its flight controls fall below the launch floor (0.35, the rule A8 already uses), every engine
-         is out, or its body integrity falls below a fifth. Authored: a sound Harrier survives one hit and seldom three. -->
+         is out, or its body integrity falls below a fifth. Authored: a sound Harrier survives one hit and seldom three. The penetration
+         here is on the game's scale; under Combat Extended each hit is given CE's own blast penetration for its damage instead (its Bomb's
+         62 MPa for 156 damage, so about 6 for a hit of 15; Framework 0.120.5). -->
     <interceptDamage>60</interceptDamage>
     <interceptHits>4</interceptHits>
     <interceptArmourPenetration>0.5</interceptArmourPenetration>

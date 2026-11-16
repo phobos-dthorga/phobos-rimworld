@@ -4,6 +4,7 @@ using Fortified;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using RimWorld.Planet;
+using SmashTools;
 using UnityEngine;
 using Vehicles;
 using Vehicles.World;
@@ -20,8 +21,17 @@ namespace Phobos.VehicleSystems.AirDefence;
 public sealed class AircraftTrack : IAirTrack
 {
     readonly AerialVehicleInFlight flight;
+    /// <summary>Where the flight was first seen: the start of the leg it was on, as Vehicle Framework keeps no take-off point. Never saved.</summary>
+    readonly Vector3 firstSeen;
 
-    public AircraftTrack(AerialVehicleInFlight flight) => this.flight = flight;
+    public AircraftTrack(AerialVehicleInFlight flight)
+    {
+        this.flight = flight;
+        // Framework 0.120.5 (fault-read A3): the climb is measured from here. A flight first seen right after launch is measured from its
+        // take-off; after a load mid-route, from the start of the leg it is on (a later leg then reads as climbing near its start: an
+        // approximation, labelled in the record).
+        firstSeen = flight.position;
+    }
 
     public AerialVehicleInFlight Flight => flight;
 
@@ -35,7 +45,12 @@ public sealed class AircraftTrack : IAirTrack
 
     public PlanetTile Destination => flight.flightPath is { Empty: false } path ? path.Last.Tile : flight.Tile;
 
-    float FlightSpeed => Vehicle?.CompVehicleLauncher?.FlightSpeed ?? 0f;
+    /// <summary>Its pace: Vehicle Framework flies a reconnaissance circle at a fixed speed, whatever the aircraft (fault-read A12).</summary>
+    float FlightSpeed => flight.recon ? AerialVehicleInFlight.ReconFlightSpeed : Vehicle?.CompVehicleLauncher?.FlightSpeed ?? 0f;
+
+    /// <summary>Where it really is: Vehicle Framework's <c>position</c> is the start of the current leg, and the aircraft slides from there
+    /// towards the next node (Framework 0.120.5, fault-read A1: DMS saw every aircraft at the start of its leg).</summary>
+    Vector3 Here => flight.DrawPos;
 
     float TilesLeft => flight.flightPath is { Empty: false } path ? path.DistanceLeft : 0f;
 
@@ -58,16 +73,18 @@ public sealed class AircraftTrack : IAirTrack
 
     public int TicksToArrival => AirCombatRule.TicksToArrival(TilesLeft, FlightSpeed);
 
-    /// <summary>Changes whenever the player sends the aircraft somewhere else, so an interceptor already on its way to the old route misses.</summary>
+    /// <summary>
+    /// Changes whenever the player sends the aircraft somewhere else, so an interceptor already on its way to the old route misses. Framework
+    /// 0.120.5 (fault-read A4): from the destination and the order itself, not the nodes left, since Vehicle Framework takes a node off at
+    /// every waypoint passed and circles by pushing and taking them, which voided every interceptor in the air without a roll.
+    /// </summary>
     public int RouteRevision
     {
         get
         {
             if (flight.flightPath is not { Empty: false } path) return 0;
-            int hash = path.Count;
-            List<FlightNode> nodes = path.Path;
-            for (int i = 0; i < nodes.Count; i++) hash = hash * 31 + nodes[i].Tile.tileId;
-            return hash;
+            int order = path.ArrivalAction == null ? 0 : RuntimeHelpers.GetHashCode(path.ArrivalAction);
+            return path.Last.Tile.tileId * 31 + order;
         }
     }
 
@@ -76,7 +93,7 @@ public sealed class AircraftTrack : IAirTrack
     /// <summary>Where the aircraft will be, following its route node by node at its flight speed.</summary>
     public Vector3 PositionAt(int ticksAhead)
     {
-        Vector3 here = flight.position;
+        Vector3 here = Here;
         if (ticksAhead <= 0 || flight.flightPath is not { Empty: false } path) return here;
         double tilesAhead = AirCombatRule.TilesPerTickPerSpeed * FlightSpeed * ticksAhead;
         foreach (FlightNode node in path.Path)
@@ -96,9 +113,11 @@ public sealed class AircraftTrack : IAirTrack
     {
         AirTrackSpec spec = AirCombat.Track(Vehicle);
         float left = TilesLeft;
-        float total = flight.flightPath?.TotalDistance ?? left;
         double ahead = AirCombatRule.TilesPerTickPerSpeed * FlightSpeed * Mathf.Max(0, ticksAhead);
-        double flown = Mathf.Max(0f, total - left) + ahead;
+        // Measured from where the flight was first seen, in the same units as the distance left (fault-read A3): Vehicle Framework's
+        // TotalDistance leaves out the leg from the aircraft to its first node, so it was nothing on a direct flight, which then read
+        // as a tenth of its cruise the whole way.
+        double flown = Ext_Math.SphericalDistance(firstSeen, Here) + ahead;
         double stillLeft = Mathf.Max(0f, (float)(left - ahead));
         return (float)AirCombatRule.Altitude(spec.cruiseMetres, spec.lowCruiseMetres, AirCombat.FliesLow(Vehicle), flown, stillLeft,
             Framework.Defs.PhobosRulesDef.Current<PhobosAirCombatRulesDef>().climbTiles);
@@ -133,10 +152,20 @@ public class PhobosAircraftTrackProvider : AirTrackProvider
     static readonly List<IAirTrack> cache = new();
     static readonly HashSet<int> known = new();
     static int cacheTick = -1;
+    static Game? game;
 
     public override void CollectTracks(List<IAirTrack> into)
     {
         if (!VehicleSystemsMod.Settings.airDefenceSeesAircraft) return;
+        // A loaded game starts afresh (Framework 0.120.5, fault-read A7): world object IDs repeat between games, so a flight launched again
+        // after a load could look known and DMS woke late; and the last game's flights were handed out until the first tick.
+        if (game != Current.Game)
+        {
+            game = Current.Game;
+            known.Clear();
+            cache.Clear();
+            cacheTick = -1;
+        }
         int now = Find.TickManager.TicksGame;
         if (now != cacheTick)
         {

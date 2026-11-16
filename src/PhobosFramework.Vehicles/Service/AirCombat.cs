@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Phobos.Framework;
 using Phobos.Framework.Defs;
+using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using RimWorld.Planet;
@@ -34,8 +36,14 @@ public static class AirCombat
         vehicle == null ? null : CompPhobosVehicleSystems.Of(vehicle) ?? vehicle.GetComp<CompPhobosVehicleSystems>();
 
     /// <summary>Whether one of the avionics capabilities works now: carried, its part sound enough and powered.</summary>
-    public static bool Works(VehiclePawn? vehicle, string quantity) =>
-        Systems(vehicle) is { Usable: true } comp && comp.TryGetQuantity(quantity, out float value) && value >= WorkingFrom;
+    public static bool Works(VehiclePawn? vehicle, string quantity)
+    {
+        if (Systems(vehicle) is not { Usable: true } comp) return false;
+        // Built first if nothing has looked yet (Framework 0.120.5, fault-read A6): another faction's systems are made on first look, so its
+        // receiver read as broken, and its dodge was cut, until it was hit or the player selected it.
+        _ = comp.States;
+        return comp.TryGetQuantity(quantity, out float value) && value >= WorkingFrom;
+    }
 
     /// <summary>Whether the aircraft carries the capability at all (whatever its state).</summary>
     public static bool Carries(VehiclePawn? vehicle, Func<AvionicsFit, bool> capability) =>
@@ -122,6 +130,11 @@ public static class AirCombat
         bool launched = warning == Warning.Launched;
         // Fired on the receiver's cue, or late, by eye, without it: either way a shot is answered while cartridges last.
         bool fired = launched && SpendSalvo(vehicle);
+        // Spent without a receiver, the player still hears of it (Framework 0.120.5, fault-read A13): the cartridges went silently.
+        if (fired && !receiver && vehicle.Faction == Faction.OfPlayer)
+        {
+            Messages.Message("PhobosAirCombat_FiredByEye".Translate(vehicle.LabelShort.Named("VEHICLE")), new GlobalTargetInfo(flight), MessageTypeDefOf.NegativeEvent);
+        }
         if (vehicle.Faction != Faction.OfPlayer || !receiver) return;
         Seen.Note("aircraft.warning-receiver", vehicle, warning.ToString());
         Dictionary<Warning, int> last = lastWarned.GetOrCreateValue(vehicle);
@@ -162,13 +175,19 @@ public static class AirCombat
 
         (int hits, double each) = AirCombatRule.SplitDamage(rules.interceptDamage, rules.interceptHits);
         DamageDef damage = rules.interceptDamageDef ?? DamageDefOf.Bomb;
+        // Framework 0.120.5 (fault-read A2): under Combat Extended the penetration is on its scale (MPa for a blast), as armour-worthy as its
+        // own blasts of the same damage (CombatExtendedRules, as cook-off does). The Def's figure is on the game's scale, and against CE's
+        // armour every hit was deflected: the Harrier could never be brought down there.
+        float penetration = OptionalMods.IsActive(OptionalMods.CombatExtended)
+            ? CombatExtendedRules.BlastPenetrationForDamage(UnityEngine.Mathf.RoundToInt((float)each), true)
+            : rules.interceptArmourPenetration;
         IntVec2 size = vehicle.VehicleDef.Size;
         for (int i = 0; i < hits; i++)
         {
             var cell = new IntVec2(Rand.RangeInclusive(-(size.x - 1) / 2, size.x / 2), Rand.RangeInclusive(-(size.z - 1) / 2, size.z / 2));
-            vehicle.statHandler.TakeDamage(new DamageInfo(damage, (float)each, rules.interceptArmourPenetration), cell);
+            vehicle.statHandler.TakeDamage(new DamageInfo(damage, (float)each, penetration), cell);
         }
-        comp?.UpdateNow();
+        comp?.UpdateNow(evenIfNoTimePassed: true);
         Seen.Note("aircraft.hit-in-flight", vehicle, by?.Name);
 
         if (high && !Works(vehicle, OxygenQuantity)) Hypoxia(vehicle);
@@ -246,6 +265,9 @@ public static class AirCombat
 
     /// <summary>The cartridges one salvo uses.</summary>
     public static int CartridgesPerSalvo => Math.Max(1, Rules.cartridgesPerSalvo);
+
+    /// <summary>How long a salvo fired from the map lasts, in seconds at normal speed, for its button's text (from the rules' ticks).</summary>
+    public static int SalvoSeconds => Math.Max(1, (int)Math.Round(Rules.mapSalvoTicks / (double)GenTicks.TicksPerRealSecond));
 
     /// <summary>The cartridges' own picture, for the salvo button; if it cannot be found, our switch icon, never the game's red cross.</summary>
     public static UnityEngine.Texture2D CartridgeIcon =>

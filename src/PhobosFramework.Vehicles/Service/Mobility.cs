@@ -44,9 +44,24 @@ public static class Mobility
         return null;
     }
 
-    /// <summary>Whether damage has stopped the vehicle: its speed is at Vehicle Framework's line.</summary>
+    /// <summary>Whether the vehicle cannot move: its speed is at Vehicle Framework's line, for whatever reason (damage, or a load past
+    /// what it can carry).</summary>
     public static bool Stopped(VehiclePawn vehicle) =>
         vehicle.statHandler != null && vehicle.GetStatValue(VehicleStatDefOf.MoveSpeed) <= StoppedAtOrBelow;
+
+    /// <summary>
+    /// Whether damage is what stopped it (Framework 0.120.5, fault-read K3): a thrown track, or parts so worn that the speed they leave is
+    /// at the line while the same vehicle in good order would be above it. A truck loaded past what it can carry stops too (Vehicle
+    /// Framework's weight curve reaches nothing at 125 %), and read as knocked out it raised the crew alert and the "has stopped" message.
+    /// </summary>
+    public static bool StoppedByDamage(VehiclePawn vehicle, CompProperties_PhobosVehicleSystems props)
+    {
+        if (!Stopped(vehicle)) return false;
+        if (ThrownTrack(vehicle, props) != null) return true;
+        float efficiency = vehicle.statHandler.StatEfficiency(VehicleStatDefOf.MoveSpeed);
+        if (efficiency <= 0f) return true;
+        return vehicle.GetStatValue(VehicleStatDefOf.MoveSpeed) / efficiency > StoppedAtOrBelow;
+    }
 
     /// <summary>The part to name as why the vehicle cannot move, or null.</summary>
     public static VehicleComponent? Cause(VehiclePawn vehicle, CompProperties_PhobosVehicleSystems props)
@@ -67,7 +82,7 @@ public static class Mobility
     /// <summary>"Cannot move: left track destroyed." for a vehicle damage has stopped; null otherwise.</summary>
     public static string? Line(VehiclePawn vehicle, CompProperties_PhobosVehicleSystems props)
     {
-        if (!Stopped(vehicle)) return null;
+        if (!StoppedByDamage(vehicle, props)) return null;
         VehicleComponent? cause = Cause(vehicle, props);
         if (cause == null) return "PhobosVehicleSystems_InspectCannotMove".Translate().Resolve();
         string part = cause.props.label ?? cause.props.key;

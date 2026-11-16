@@ -27,6 +27,7 @@
   <PhobosHitch_CannotFollow>The trailer cannot follow: {TRAILER} would run into something, so {TRACTOR} has stopped. Take a wider way round, or unhitch it.</PhobosHitch_CannotFollow>
   <PhobosHitch_LeftBehind>{TRAILER} stays behind: it could not be taken along on the journey.</PhobosHitch_LeftBehind>
   <PhobosHitch_NoRoomToSetDown>There is no room near {TRACTOR} to set {TRAILER} down. It stays on the tow bar; clear some ground or move {TRACTOR}.</PhobosHitch_NoRoomToSetDown>
+  <PhobosHitch_SetDownLetGo>{TRAILER} is set down beside {TRACTOR}, unhitched: there is no room behind {TRACTOR} for it to follow from here. Move {TRACTOR} to open ground and hitch it up again.</PhobosHitch_SetDownLetGo>
   <PhobosHitch_SetDownFailed>{TRAILER} could not be set down and is still on the tow bar. Move to open ground and it will be set down there.</PhobosHitch_SetDownFailed>
 
   <PhobosHitch_InspectTowing>Towing {TRAILER}: {WEIGHT} kg.</PhobosHitch_InspectTowing>

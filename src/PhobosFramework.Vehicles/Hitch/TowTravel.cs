@@ -110,21 +110,43 @@ public sealed partial class CompPhobosHitch : IThingHolder
             if (Vehicle.Faction == Faction.OfPlayer) Say("PhobosHitch_NoRoomToSetDown".Translate(towed.LabelShort.Named("TRAILER"), Vehicle.LabelShort.Named("TRACTOR")).Resolve(), Vehicle, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
-        if (!Place(towed, at, map, rotation)) return;
         // Its pose is where it really stands, pointing at the hitch: the follow rule draws it into line as soon as the vehicle moves.
         (double tx, double tz) = HitchRule.TrueCentre(at.x, at.z, size.x, size.z, facing);
         double heading = HitchRule.HeadingOf(hx - tx, hz - tz);
         // AxleFor puts the axle its length behind a point along the heading: from the centre, that is the axle (CentreOf's inverse).
-        Remember(HitchRule.AxleFor(tx, tz, heading, props.AxleToCentre));
+        TrailerPose stand = HitchRule.AxleFor(tx, tz, heading, props.AxleToCentre);
+        // Framework 0.120.5 (fault-read H3): set down beside the vehicle at a map edge, the follow rule's first step drew it into line off
+        // the map, and the vehicle was stopped each time it moved. Where that first step has no room, it is set down let go, and the player
+        // told why; hitched again later, it follows from where it stands.
+        TrailerPose first = HitchRule.Limit(hx, hz, HitchRule.Follow(hx, hz, stand, props.HitchToAxle), VehicleHeading(Vehicle), props.JackKnife, props.HitchToAxle);
+        bool follows = PoseFits(first, props, towed, map);
+        if (!Place(towed, at, map, rotation)) return;
+        Remember(stand);
         settle = SettleTicks;
         needsLook = true;
         weightTick = -1;
+        if (!follows)
+        {
+            Unhitch(quiet: true);
+            if (Vehicle.Faction == Faction.OfPlayer)
+            {
+                Say("PhobosHitch_SetDownLetGo".Translate(towed.LabelShort.Named("TRAILER"), Vehicle.LabelShort.Named("TRACTOR")).Resolve(),
+                    new LookTargets(Vehicle, towed), MessageTypeDefOf.NeutralEvent);
+            }
+        }
     }
 
     /// <summary>A towed thing with no tow geometry left (its Def changed): it comes down near the vehicle, let go.</summary>
     void PlaceAnywhere(VehiclePawn towed, Map map)
     {
-        if (!FindStand(Vehicle.Position, Vehicle.Rotation, towed, map, out IntVec3 at)) return;
+        // Tried again only after a pause, as the set-down behind is (fault-read H10): it looked for room every tick.
+        int now = Find.TickManager.TicksGame;
+        if (now < nextSetDownTry) return;
+        if (!FindStand(Vehicle.Position, Vehicle.Rotation, towed, map, out IntVec3 at))
+        {
+            nextSetDownTry = now + SetDownRetryTicks;
+            return;
+        }
         if (Place(towed, at, map, Vehicle.Rotation)) Unhitch(quiet: true);
     }
 
@@ -133,19 +155,23 @@ public sealed partial class CompPhobosHitch : IThingHolder
     bool Place(VehiclePawn towed, IntVec3 cell, Map map, Rot4 rotation)
     {
         Held.Remove(towed);
+        string? failure = null;
         try
         {
             GenSpawn.Spawn(towed, cell, map, rotation);
+            // The game can also refuse without throwing (fault-read H10): it is set down only if it really stands on the map.
+            if (!towed.Spawned) failure = "the game did not put it on the map";
         }
         catch (System.Exception e)
         {
-            VehicleSystemsMod.Logger.Error($"Setting {towed.LabelShort} down behind {Vehicle.LabelShort} at {cell} failed: {e}");
-            if (!towed.Spawned && !towed.Destroyed && !Held.Contains(towed)) Held.TryAdd(towed, canMergeWithExistingStacks: false);
-            Say("PhobosHitch_SetDownFailed".Translate(towed.LabelShort.Named("TRAILER")).Resolve(), Vehicle, MessageTypeDefOf.NegativeEvent);
-            nextSetDownTry = Find.TickManager.TicksGame + SetDownRetryTicks;
-            return false;
+            failure = e.ToString();
         }
-        return true;
+        if (failure == null) return true;
+        VehicleSystemsMod.Logger.Error($"Setting {towed.LabelShort} down behind {Vehicle.LabelShort} at {cell} failed: {failure}");
+        if (!towed.Spawned && !towed.Destroyed && !Held.Contains(towed)) Held.TryAdd(towed, canMergeWithExistingStacks: false);
+        Say("PhobosHitch_SetDownFailed".Translate(towed.LabelShort.Named("TRAILER")).Resolve(), Vehicle, MessageTypeDefOf.NegativeEvent);
+        nextSetDownTry = Find.TickManager.TicksGame + SetDownRetryTicks;
+        return false;
     }
 
     /// <summary>The nearest cell to <paramref name="ideal"/>, within the hitch's reach, where the towed vehicle stands clear: on walkable ground,
@@ -157,7 +183,9 @@ public sealed partial class CompPhobosHitch : IThingHolder
         for (int i = 0; i < count; i++)
         {
             IntVec3 cell = ideal + GenRadial.RadialPattern[i];
-            CellRect rect = GenAdj.OccupiedRect(cell, rotation, towed.def.Size);
+            // Vehicle Framework's own footprint (Framework 0.120.5, fault-read H1): south reads as north and west as east, so the game's rect
+            // was a cell out for an even-length trailer, and one set down on the north or east edge was destroyed as it spawned.
+            CellRect rect = towed.VehicleRect(cell, rotation);
             if (rect.Overlaps(own) || !Clear(rect, map, towed)) continue;
             found = cell;
             return true;

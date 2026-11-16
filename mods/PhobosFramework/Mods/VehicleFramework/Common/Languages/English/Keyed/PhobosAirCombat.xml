@@ -7,6 +7,7 @@
   <PhobosAirCombat_WarnLockedOn>The {VEHICLE}'s warning receiver: a fire-control radar at {SITE} is locking on. A missile may follow.</PhobosAirCombat_WarnLockedOn>
   <PhobosAirCombat_WarnLaunched>The {VEHICLE}'s warning receiver: a missile is coming from {SITE}.</PhobosAirCombat_WarnLaunched>
   <PhobosAirCombat_WarnLaunchedFired>The {VEHICLE}'s warning receiver: a missile is coming from {SITE}. The crew fires chaff and flares.</PhobosAirCombat_WarnLaunchedFired>
+  <PhobosAirCombat_FiredByEye>The {VEHICLE}'s crew fires chaff and flares late, by eye, at a missile they had no warning of: its warning receiver is out.</PhobosAirCombat_FiredByEye>
   <PhobosAirCombat_WarnLaunchedNoCartridges>The {VEHICLE}'s warning receiver: a missile is coming from {SITE}, and there are no chaff or flare cartridges left aboard to fire.</PhobosAirCombat_WarnLaunchedNoCartridges>
   <PhobosAirCombat_Unknown>an unknown defender</PhobosAirCombat_Unknown>
 
@@ -19,7 +20,7 @@
 
   <!-- The Harrier's salvo button on a map. {COUNT}: cartridges a salvo uses; {LEFT}: cartridges aboard. -->
   <PhobosAirCombat_SalvoGizmo>Chaff and flares</PhobosAirCombat_SalvoGizmo>
-  <PhobosAirCombat_SalvoGizmoDesc>Fire a salvo of chaff and flares. For ten seconds the aircraft is harder to hit.\n\nUses {COUNT} cartridges; {LEFT} aboard. Load more into the aircraft's cargo.</PhobosAirCombat_SalvoGizmoDesc>
+  <PhobosAirCombat_SalvoGizmoDesc>Fire a salvo of chaff and flares. For {SECONDS} seconds the aircraft is harder to hit.\n\nUses {COUNT} cartridges; {LEFT} aboard. Load more into the aircraft's cargo.</PhobosAirCombat_SalvoGizmoDesc>
   <PhobosAirCombat_SalvoFired>The {VEHICLE} fires chaff and flares. {LEFT} cartridges left aboard.</PhobosAirCombat_SalvoFired>
   <PhobosAirCombat_SalvoNotAirborne>The {VEHICLE} must be in the air to fire chaff and flares.</PhobosAirCombat_SalvoNotAirborne>
   <PhobosAirCombat_SalvoDispensersOut>The {VEHICLE}'s chaff and flare dispensers are out: repair its avionics or restore its power.</PhobosAirCombat_SalvoDispensersOut>

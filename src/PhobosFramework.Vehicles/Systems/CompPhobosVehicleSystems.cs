@@ -558,6 +558,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         Vehicle.AddEvent(VehicleEventDefOf.DamageTaken, () => HealthViewVersion++);
         Vehicle.AddEvent(VehicleEventDefOf.Repaired, () => HealthViewVersion++);
         Vehicle.AddEvent(VehicleEventDefOf.HealthChanged, () => HealthViewVersion++);
+        // Under Combat Extended a hit raises "damage taken" alone, so the part requirements are asked again here (fault-read K1).
+        Vehicle.AddEvent(VehicleEventDefOf.DamageTaken, () => WeaponMounts.AfterDamage(Vehicle));
         // An aircraft taking off hears the refusals the player set to warn only (Framework 0.110.0).
         if (Vehicle.CompVehicleLauncher != null) Vehicle.AddEvent(VehicleEventDefOf.AerialVehicleLaunch, WarnAtLaunch);
         if (Powertrain != null)
@@ -694,7 +696,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     // ---- The update ----
 
     /// <summary>Catches the systems up to now: flows, stages and their effects. Safe to call often; does nothing twice in a tick.</summary>
-    public void UpdateNow()
+    /// <param name="evenIfNoTimePassed">After a hit (Framework 0.120.5, fault-read A10): a second hit in the same tick found no time
+    /// passed and read the systems as they were before it, so oxygen lost to it never counted. Forced, it advances by one tick.</param>
+    public void UpdateNow(bool evenIfNoTimePassed = false)
     {
         if (updating || !Usable || Current.Game == null) return;
         updating = true;
@@ -705,7 +709,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             if (states == null) return;
             int now = Find.TickManager.TicksGame;
             double hours = ElapsedRule.Hours(now, lastUpdateTick, Rules.maxCatchUpHours);
-            if (hours <= 0) return;
+            if (hours <= 0)
+            {
+                if (!evenIfNoTimePassed) return;
+                hours = 1.0 / GenDate.TicksPerHour;
+            }
             lastUpdateTick = now;
             SweepPartHealth();
             RefreshCaches();
@@ -1581,37 +1589,43 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         get
         {
             if (gridCarries.HasValue) return gridCarries.Value;
-            CompPowerTrader? meter = VehicleConduits.Meter(this);
-            gridCarries = meter != null && meter.PowerOn && ShorePowered();
+            // Not while the engine runs (Framework 0.120.5, fault-read G4): the alternator carries the loads then, and the engine burns fuel for
+            // them, so the grid paying too was paying twice.
+            gridCarries = !EngineRunning && GridHookedUp();
             return gridCarries.Value;
         }
     }
 
     bool? gridCarries;
 
-    /// <summary>The watts the grid gives this vehicle now, for its inspect line (0 when it is not hooked up). Derived, never saved.</summary>
+    /// <summary>The watts the grid gives this vehicle now (0 when it is not hooked up), noted when seen in play. Derived, never saved.</summary>
     public float GridWatts { get; private set; }
 
     /// <summary>
     /// Sets the hook-up's draw on the colony's grid (Framework 0.120.0): the loads the grid carries and the battery's charge, at the vehicle's
     /// voltage through the supply's efficiency (HookUpRule). The other pieces under the vehicle draw nothing. Off the grid, nothing.
+    /// Framework 0.120.5 (fault-read G3 and G4): the draw is asked of the grid whenever the meter's own net has power to give, so the grid
+    /// can turn the meter on or off by its own rules; nothing is asked while the engine runs, and no charge while a service lead gives it.
     /// </summary>
     void UpdateHookUp()
     {
         CompPowerTrader? meter = VehicleConduits.Meter(this);
         GridWatts = 0f;
         if (meter == null) return;
-        if (ShorePowered())
+        if (!EngineRunning && NetOffers(meter))
         {
             double carried = HookUpRule.CarriedAmps(loadAmps, Rules.hookUpRatingAmps);
             double chargerAmps = 0, charge = 1;
-            foreach (SystemState state in states!)
+            if (!ServiceLeads.Feeding(Vehicle))
             {
-                int q = state.Def.QuantityIndex("charge");
-                if (q < 0 || !Enabled(state)) continue;
-                charge = state.values[q];
-                chargerAmps = new SystemContext(this, state).Parameter("shoreChargeAmps");
-                break;
+                foreach (SystemState state in states!)
+                {
+                    int q = state.Def.QuantityIndex("charge");
+                    if (q < 0 || !Enabled(state)) continue;
+                    charge = state.values[q];
+                    chargerAmps = new SystemContext(this, state).Parameter("shoreChargeAmps");
+                    break;
+                }
             }
             GridWatts = (float)HookUpRule.GridWatts(carried, HookUpRule.ChargeAmps(chargerAmps, charge), ElectricalVolts(), Rules.hookUpEfficiency);
         }
@@ -1619,34 +1633,37 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         if (GridWatts > 0f) Seen.Note("vehicles.grid-hook-up", Vehicle, GridWatts.ToString("0") + " W");
     }
 
-    /// <summary>Whether the parked vehicle stands beside a building on a grid with power to give. Read at most once per update.</summary>
+    /// <summary>Whether the meter's own net has power to give beyond what the meter itself draws: stored energy, or a surplus.</summary>
+    static bool NetOffers(CompPowerTrader meter)
+    {
+        PowerNet? net = meter.PowerNet;
+        if (net == null) return false;
+        if (net.CurrentStoredEnergy() > 1f) return true;
+        float ours = meter.PowerOn ? meter.PowerOutput * CompPower.WattsToWattDaysPerTick : 0f;
+        return net.CurrentEnergyGainRate() - ours > 0f;
+    }
+
+    /// <summary>Whether the grid hook-up delivers now: the meter beneath the vehicle is switched on by its grid, and that grid has power.</summary>
+    bool GridHookedUp()
+    {
+        CompPowerTrader? meter = VehicleConduits.Meter(this);
+        return meter != null && meter.PowerOn && NetOffers(meter);
+    }
+
+    /// <summary>
+    /// Whether the parked vehicle has shore power: a generator set's service lead feeding it, or its grid hook-up delivering. Read at most once
+    /// per update. Framework 0.120.5 (fault-read G3): it was any powered net within a cell, the meter on or not, so the battery charged
+    /// with nothing billed beside a powered appliance, on a grid short of surplus, or in a brown-out. A vehicle standing where every cell
+    /// already has a conduit has no meter of its own, and so no shore power from that grid.
+    /// </summary>
     public bool ShorePowered()
     {
         if (shorePowered.HasValue) return shorePowered.Value;
         shorePowered = false;
         VehiclePawn vehicle = Vehicle;
         if (!vehicle.Spawned || Moving) return false;
-        // A generator set's service lead is a charger on this vehicle (Framework 0.101.0).
-        if (ServiceLeads.Feeding(vehicle))
-        {
-            shorePowered = true;
-            return true;
-        }
-        Map map = vehicle.Map;
-        foreach (IntVec3 cell in vehicle.OccupiedRect().ExpandedBy(Rules.shorePowerReach))
-        {
-            if (!cell.InBounds(map)) continue;
-            foreach (Thing thing in cell.GetThingList(map))
-            {
-                PowerNet? net = (thing as ThingWithComps)?.GetComp<CompPower>()?.PowerNet;
-                if (net != null && (net.CurrentStoredEnergy() > 1f || net.CurrentEnergyGainRate() > 0f))
-                {
-                    shorePowered = true;
-                    return true;
-                }
-            }
-        }
-        return false;
+        shorePowered = ServiceLeads.Feeding(vehicle) || GridHookedUp();
+        return shorePowered.Value;
     }
 
     /// <summary>Starts or stops the engine, saying which, or why it would not start. The one switch Vehicle Framework has for this is the draft.</summary>
@@ -1692,10 +1709,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 
     /// <summary>
     /// Whether its pipes and conduits lie beneath it now (Framework 0.108.0; owner, 13 Nov 2026, UnderlayRule): the player's, standing on a map, not moving,
-    /// with its engine off, or set up for work (its work runs through them while the engine turns it).
+    /// with its engine off, or set up for work (its work runs through them while the engine turns it). Framework 0.120.5 (fault-read H5): a
+    /// vehicle on the recovery tow counts as moving, as a towed trailer does.
     /// </summary>
     public bool ParkedForPipes => Phobos.Framework.Rules.UnderlayRule.Lays(Vehicle.Spawned, Vehicle.Faction == Faction.OfPlayer,
-        Vehicle.vehiclePather is { Moving: true }, ignitionHint ?? Vehicle.Drafted, Vehicle.GetComps<CompPhobosSetUp>().Any(setUp => setUp.Deployed));
+        Vehicle.vehiclePather is { Moving: true } || Hitches.Towing(Vehicle) != null, ignitionHint ?? Vehicle.Drafted,
+        Vehicle.GetComps<CompPhobosSetUp>().Any(setUp => setUp.Deployed));
 
     /// <summary>The engine's state an ignition event is about, while that event is handled: the event may come before the switch itself turns. Never saved.</summary>
     bool? ignitionHint;
@@ -2115,7 +2134,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     void NoticeStopped()
     {
         if (!Vehicle.Spawned || Vehicle.Faction != Faction.OfPlayer) { wasStopped = null; return; }
-        bool stopped = Mobility.Stopped(Vehicle);
+        bool stopped = Mobility.StoppedByDamage(Vehicle, Props);
         bool first = wasStopped == null;
         bool news = stopped && wasStopped == false;
         wasStopped = stopped;
@@ -2165,13 +2184,14 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         {
             // Avionics A16 (Framework 0.119.0; owner, 17 Nov 2026): a salvo of chaff and flares on a map, for a few seconds' extra dodge.
             // Its icon is the cartridges' own picture: the button spends them.
-            string? refusal = AirCombat.MapSalvoRefusal(Vehicle, When_Airborne.Airborne(this));
+            string? refusal = AirCombat.MapSalvoRefusal(Vehicle, When_Airborne.Airborne(this, live: true));
             var salvo = new Command_Action
             {
                 defaultLabel = "PhobosAirCombat_SalvoGizmo".Translate(),
-                defaultDesc = "PhobosAirCombat_SalvoGizmoDesc".Translate(AirCombat.CartridgesPerSalvo.Named("COUNT"), AirCombat.Cartridges(Vehicle).Named("LEFT")),
+                defaultDesc = "PhobosAirCombat_SalvoGizmoDesc".Translate(AirCombat.CartridgesPerSalvo.Named("COUNT"), AirCombat.Cartridges(Vehicle).Named("LEFT"),
+                    AirCombat.SalvoSeconds.Named("SECONDS")),
                 icon = AirCombat.CartridgeIcon,
-                action = () => AirCombat.MapSalvoNow(Vehicle, When_Airborne.Airborne(this)),
+                action = () => AirCombat.MapSalvoNow(Vehicle, When_Airborne.Airborne(this, live: true)),
             };
             if (refusal != null) salvo.Disable(refusal);
             yield return salvo;

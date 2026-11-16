@@ -90,6 +90,23 @@ public static class LaunchPromptInFlight
         if (__instance.Faction != Faction.OfPlayer || !VehicleSystemsMod.Settings.airDefenceSeesAircraft) return true;
         PlanetTile to = LaunchPrompt.Last(targetData);
         if (!to.Valid) return true;
+        // From where it is now (Framework 0.120.5, fault-read A11): the flight's Tile is the last waypoint it reached. Read only on the order.
+        int here = WorldHelper.GetNearestTile(__instance.DrawPos);
+        PlanetTile from = here >= 0 ? (PlanetTile)here : __instance.Tile;
+        return LaunchPrompt.Confirm(from, to, () => __instance.Launch(targetData, arrivalAction));
+    }
+}
+
+/// <summary>The same warning when an aircraft takes off from a caravan on the world map (fault-read A11): Vehicle Framework's caravan launch
+/// goes straight to the flight's order, past both launches above.</summary>
+[HarmonyPatch(typeof(VehicleCaravan), nameof(VehicleCaravan.Launch))]
+public static class LaunchPromptFromCaravan
+{
+    public static bool Prefix(VehicleCaravan __instance, TargetData<GlobalTargetInfo> targetData, IArrivalAction arrivalAction)
+    {
+        if (__instance.Faction != Faction.OfPlayer || !VehicleSystemsMod.Settings.airDefenceSeesAircraft) return true;
+        PlanetTile to = LaunchPrompt.Last(targetData);
+        if (!to.Valid) return true;
         return LaunchPrompt.Confirm(__instance.Tile, to, () => __instance.Launch(targetData, arrivalAction));
     }
 }

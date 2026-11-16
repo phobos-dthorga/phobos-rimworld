@@ -142,6 +142,14 @@ public partial class ITab_VehicleSystems
     /// expect (a disabled part it cannot name), so that reads as out with no reason.</summary>
     static bool Disabled(VehicleTurret turret, out string? reason)
     {
+        // Framework 0.120.5 (fault-read K7): Vehicle Framework's walk up a weapon's mounts steps by the first weapon's own parent each time,
+        // so for a weapon three deep whose mount is out it never ends and the game hangs. None on the owner's list is that deep; such a
+        // weapon is shown as out with no reason rather than asked.
+        if (turret.attachedTo?.attachedTo != null && turret.ComponentDisabled)
+        {
+            reason = null;
+            return true;
+        }
         try
         {
             return turret.IsDisabled(out reason);

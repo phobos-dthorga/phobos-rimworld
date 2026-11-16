@@ -114,10 +114,12 @@ public static class TurretAimRule
 
     /// <summary>
     /// Combat Extended aims through a sway angle: a weapon aimed less steadily sways more. The sway is divided by the accuracy factor, so half
-    /// the accuracy is twice the sway, up to the cap.
+    /// the accuracy is twice the sway, up to the cap. A weapon whose own sway is less than <paramref name="least"/> is widened from that
+    /// (Framework 0.120.5, fault-read A8): many turrets carry no sway of their own under Combat Extended, and nothing times nothing left
+    /// them aiming as well cranked as powered.
     /// </summary>
-    public static double CombatExtendedSway(double sway, double factor, double capFactor) =>
-        factor >= 1 || factor <= 0 ? sway : sway * Math.Min(Math.Max(1, capFactor), 1 / factor);
+    public static double CombatExtendedSway(double sway, double factor, double capFactor, double least = 0) =>
+        factor >= 1 || factor <= 0 ? sway : Math.Max(sway, Math.Max(0, least)) * Math.Min(Math.Max(1, capFactor), 1 / factor);
 
     static double Clamp(double value) => value < 0.05 ? 0.05 : value > 1 ? 1 : value;
 }

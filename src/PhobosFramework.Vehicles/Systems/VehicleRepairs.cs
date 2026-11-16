@@ -174,10 +174,23 @@ public sealed class VehicleRepairs
         return options.Count == 0 ? "PhobosVehicleSystems_GradeFree".Translate().Resolve() : options[0].Select(line => line.def.label + " x" + line.count).ToCommaList(useAnd: true);
     }
 
+    /// <summary>
+    /// Whether a part is a field re-fit still waiting for its proper replacement. Framework 0.120.5 (fault-read K6): one brought back to full
+    /// health some other way (free repair while destroyed parts needed no supplies) is whole again, so its mark goes; it had stayed, and
+    /// turning that setting back on listed a sound part for replacement.
+    /// </summary>
+    bool Refitted(VehicleComponent part)
+    {
+        if (!refitted.Contains(part.props.key)) return false;
+        if (part.HealthPercent < 1f) return true;
+        refitted.Remove(part.props.key);
+        return false;
+    }
+
     /// <summary>Whether a destroyed part waits for supplies, so Vehicle Framework's free repair must leave it alone.</summary>
     public bool PartBlocked(VehicleComponent part)
     {
-        if ((part.Health > 0f && !refitted.Contains(part.props.key)) || !Settings.destroyedPartsNeedSupplies || !PlayersVehicle) return false;
+        if ((part.Health > 0f && !Refitted(part)) || !Settings.destroyedPartsNeedSupplies || !PlayersVehicle) return false;
         return ReplacementOptions(part, out _).Count > 0;
     }
 
@@ -214,7 +227,7 @@ public sealed class VehicleRepairs
             foreach (VehicleComponent part in comp.Vehicle.statHandler.components)
             {
                 // A part re-fitted in the field still waits for its proper replacement (M3).
-                if (part.Health > 0f && !refitted.Contains(part.props.key)) continue;
+                if (part.Health > 0f && !Refitted(part)) continue;
                 List<List<(ThingDef def, int count)>> options = ReplacementOptions(part, out float work);
                 if (options.Count == 0) continue;
                 PhobosVehiclePartGradeDef grade = comp.Fittings.GradeForReplacement(part.props.key);

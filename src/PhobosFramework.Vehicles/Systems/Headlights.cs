@@ -107,7 +107,9 @@ public sealed class Headlights
         double heading = CompPhobosHitch.VehicleHeading(vehicle);
         IntVec3 at = vehicle.Position;
         (int x, int z) = HeadlightRule.BeamCell(at.x + 0.5, at.z + 0.5, heading, vehicle.VehicleDef.Size.z / 2.0, beam.ahead);
-        var cell = new IntVec3(x, 0, z);
+        // A beam reaching past the map's edge lights the edge's cell (Framework 0.120.5): put out there, it stayed dark until the next rare
+        // tick, since the per-tick look only moves a lit beam.
+        var cell = new IntVec3(x, 0, z).ClampInsideMap(vehicle.Map);
         if (light.Lit && cell == light.Cell && heading == litHeading) return;
         litHeading = heading;
         light.Place(vehicle, vehicle.Map, cell, beam.radius, beam.colour * beam.brightness);

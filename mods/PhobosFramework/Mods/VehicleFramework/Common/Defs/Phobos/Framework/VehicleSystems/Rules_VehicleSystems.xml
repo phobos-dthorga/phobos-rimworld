@@ -121,7 +121,6 @@
     <letterCooldownHours>48</letterCooldownHours>
     <nightStartsHour>19</nightStartsHour>
     <nightEndsHour>6</nightEndsHour>
-    <shorePowerReach>1</shorePowerReach>
     <!-- The power hook-up (Framework 0.120.0; owner, 17 Nov 2026): a parked vehicle on a powered grid has its loads carried up to 60 A, about a
          1.5 kW supply at 24 V, and the colony's grid pays for them and the battery's charge through an 85 % efficient supply. Authored. -->
     <hookUpRatingAmps>60</hookUpRatingAmps>
@@ -158,6 +157,10 @@
       <li>TakingOff</li>
       <li>Landing</li>
       <li>VerticalLanding</li>
+      <!-- Framework 0.120.5 (fault-read A5): a fixed-wing aircraft's attack run and its approach to the runway are off the ground too; the
+           Harrier's chaff and flares button was refused "on the ground" during an attack run. -->
+      <li>AttackRun</li>
+      <li>RunwayLanding</li>
     </airbornePhases>
   </Phobos.VehicleSystems.PhobosVehicleRulesDef>
 

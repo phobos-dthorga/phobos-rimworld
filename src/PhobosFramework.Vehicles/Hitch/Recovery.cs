@@ -142,6 +142,8 @@ public sealed partial class CompPhobosHitch
         if (GapTo(stuck) > Rules.winchReachCells) return "PhobosRecovery_TooFar".Translate(stuck.LabelShort.Named("TOWED"), Rules.winchReachCells.Named("CELLS")).Resolve();
         if (Beside(stuck)) return "PhobosRecovery_AlreadyBeside".Translate(stuck.LabelShort.Named("TOWED"), Vehicle.LabelShort.Named("TRACTOR")).Resolve();
         if (stuck.vehiclePather is { Moving: true }) return "PhobosRecovery_TowedMoving".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
+        // Framework 0.120.5 (fault-read H7): as the hitch refuses since 0.111.0, the winch leaves a vehicle set up for work where it stands.
+        if (SetUpRefusal(stuck) is { } setUp) return setUp;
         double required = RequiredFor(stuck), available = Available();
         if (!RecoveryRule.CanPull(required, available))
         {
@@ -173,6 +175,8 @@ public sealed partial class CompPhobosHitch
     {
         VehiclePawn? was = winchTarget;
         winchTarget = null;
+        // Where the winch left it, it lays its pipes again (fault-read H5).
+        if (was != null) Hitches.LookAtPipes(was);
         winchWait = 0;
         winchRequired = winchAvailable = -1;
         if (trailer == null) Vehicle.RequestTickStop(this);
@@ -255,11 +259,16 @@ public sealed partial class CompPhobosHitch
         {
             if (step == IntVec3.Zero) continue;
             IntVec3 cell = stuck.Position + step;
-            CellRect next = GenAdj.OccupiedRect(cell, stuck.Rotation, stuck.def.Size);
+            // Vehicle Framework's own footprint, as the hitch reads it (Framework 0.120.5, fault-read H1).
+            CellRect next = stuck.VehicleRect(cell, stuck.Rotation);
             if (!ClearFor(next, map, stuck)) continue;
             CellRect before = stuck.OccupiedRect();
             // As Vehicle Framework moves a vehicle a cell (its own patches on Position reclaim the cells and its regions), as the hitch does.
             stuck.Position = cell;
+            // H2: the cell it was heading for goes with it, or it turns back to face it at the next load. H5: what it laid where it stood
+            // comes up; it lays again where it stops.
+            stuck.vehiclePather?.ResetToCurrentPosition();
+            Hitches.TakeUpPipes(stuck);
             foreach (IntVec3 c in before.Cells)
             {
                 if (c.InBounds(map)) map.pathing.RecalculatePerceivedPathCostAt(c);

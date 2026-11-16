@@ -56,7 +56,9 @@ public static class TurretTraversePace
 
     public static void Finalizer(VehicleTurret __instance, float __state)
     {
-        if (!float.IsNaN(__state) && __instance.def != null) __instance.def.rotationSpeed = __state;
+        // Only a figure the prefix saved is put back (Framework 0.120.5, fault-read K7): if the prefix never ran (an earlier prefix threw),
+        // __state is Harmony's default 0, and writing that would stop every turret of this design. NaN fails the test too.
+        if (__state > 0f && __instance.def != null) __instance.def.rotationSpeed = __state;
     }
 }
 
@@ -137,7 +139,8 @@ public static class TurretAimSwayCombatExtended
         VehicleTurret? turret = TurretAimSway.firing;
         if (turret == null || turret.vehicle != shooter) return;
         PhobosKnockOutRulesDef rules = Phobos.Framework.Defs.PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
-        sway = (float)Phobos.Framework.Vehicles.Rules.TurretAimRule.CombatExtendedSway(sway, TurretAimSway.accuracy, rules.combatExtendedSwayCap);
+        sway = (float)Phobos.Framework.Vehicles.Rules.TurretAimRule.CombatExtendedSway(sway, TurretAimSway.accuracy, rules.combatExtendedSwayCap,
+            rules.combatExtendedLeastSway);
         Seen.Note("vehicles.cranked-sway-widened", turret.vehicle, turret.key);
     }
 }

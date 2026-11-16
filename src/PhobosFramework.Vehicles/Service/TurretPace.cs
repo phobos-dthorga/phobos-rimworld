@@ -93,6 +93,10 @@ public static class TurretPace
         {
             pace.stoppedNoPower = true;
             cranked = false;
+            // Framework 0.120.5 (fault-read G1): a stopped weapon drops its target. Vehicle Framework clears a target only while the weapon
+            // works and looks for a new one only when it has none, so one kept here held the drive "manned" and drawing, and the weapon
+            // never looked for a target again once power came back.
+            if (turret.targetInfo.IsValid) turret.SetTarget(LocalTargetInfo.Invalid);
             Seen.Note("vehicles.autonomous-turret-no-power", vehicle, turret.key);
         }
         pace.handCranked = cranked;
@@ -100,8 +104,10 @@ public static class TurretPace
         if (cranked && rules.crankedTurretsAimWorse)
         {
             bool poor = When_PoorVisibility.Poor(vehicle);
-            pace.accuracy = (float)TurretAimRule.Factor(true, comp.Moving, poor, rules.noStabiliserAccuracy, rules.noSightsAccuracy);
-            if (pace.accuracy < 1f) Seen.Note("vehicles.cranked-turret-aims-worse", vehicle, turret.key + (comp.Moving ? " moving" : "") + (poor ? " dark" : ""));
+            // Read from the vehicle now (Framework 0.120.5, fault-read A9): the systems' own flag is set on the rare tick, a few seconds behind.
+            bool moving = vehicle.vehiclePather is { Moving: true } || comp.Moving;
+            pace.accuracy = (float)TurretAimRule.Factor(true, moving, poor, rules.noStabiliserAccuracy, rules.noSightsAccuracy);
+            if (pace.accuracy < 1f) Seen.Note("vehicles.cranked-turret-aims-worse", vehicle, turret.key + (moving ? " moving" : "") + (poor ? " dark" : ""));
         }
 
         // Seen in play (Framework 0.118.0): what slowed or stopped this weapon, once a session each.
@@ -209,6 +215,8 @@ public static class TurretPower
         ElectricalLoadSpec? drive = comp.Props.loadout?.loads.FirstOrDefault(l => l.name == rules.turretDriveLoad);
         if (drive == null) return;
         float charge = comp.TryGetQuantity(ChargeQuantity, out float c) ? c : 1f;
+        // Framework 0.120.5 (fault-read G5): a flat battery on a grid that carries the loads still powers the drive, as 0.120.0 meant.
+        if (comp.GridCarriesLoads) charge = 1f;
         // Framework 0.117.1 (the owner's screenshot, 17 Nov 2026): the drive has power unless it is cut, switched off or the battery is
         // flat. It draws only while someone mans the gun, so "not drawing" read as "no power" on every unmanned weapon at a full battery.
         LoadState state = comp.StateOf(drive);

@@ -418,6 +418,9 @@ public sealed class Powertrain
         }
     }
 
+    /// <summary>The flight phase as the aircraft's own framework reports it now, read by name; null for an aircraft without a profile.</summary>
+    public string? PhaseNow(VehiclePawn vehicle) => Profile?.reader?.Read(vehicle);
+
     void SampleAircraft(VehiclePawn vehicle, double seconds)
     {
         Phase = Profile!.reader?.Read(vehicle);

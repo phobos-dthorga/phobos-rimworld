@@ -12,6 +12,60 @@ tested in game unless an entry says the owner tested it.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 - The Vehicles at Work tie-in names each of its three helpers in full in its own patch, so the build checks now confirm the helpers and the patches' parameters against the installed mod, as they do for the shot-angle tie-in with Combat Extended. No change in play.
 
+## [0.120.5] - 2026-11-17 - Draft
+
+Thirty-six faults fixed in the vehicle work of the last week, before the owner tested it: found by a read of the code at the owner's word
+(docs/development/fault-read-2026-11-17.md). Not yet tested in game.
+
+### Fixed
+
+- **Under Combat Extended, air defence can bring an aircraft down.** An interceptor's hit is now as armour-piercing as Combat Extended's own
+  blasts of its size; every hit had been turned by the Harrier's armour.
+- **Under Combat Extended, a weapon stops when its mount is shot out**, and raiders' crews leave a vehicle that can neither move nor fire.
+  Combat Extended's damage never told Vehicle Framework that a part's health had changed.
+- **A thrown track stops a tank that has a speed upgrade.** The upgrade's extra speed had been added back after the track's nothing.
+- **The Dead Man's Switch sees an aircraft where it is, at its real height.** It had seen each aircraft at the start of its leg, and at a tenth
+  of its cruising height for the whole of a direct flight. Passing a waypoint no longer makes every missile already in the air miss.
+- **The Harrier's chaff and flares button works during an attack run and a runway approach.**
+- **An autonomous turret stopped for lack of power fires again when power returns.** It had kept its target, drawing power for a drive that
+  was off, and never looked for another until the game was loaded again. A flat battery on a grid that carries the vehicle's loads no
+  longer stops it.
+- **The grid pays for what it gives a parked vehicle, and only that.** A vehicle now charges from the grid only through the conduits laid
+  beneath it, once the grid has switched them on: not beside a powered machine, not with a conduit touching only a corner, not in a brown-out.
+  Nothing is billed while its engine runs, and no charge is billed while a generator set's service lead gives it.
+- **Parking on the grid no longer shows a needs-power mark on every cell**, nor clicks as each comes on.
+- **A trailer or towed vehicle arriving at the north or east edge of a map is no longer destroyed as it is set down.** Even-length vehicles
+  facing south or west were checked against the wrong cells. The hitch and the winch use Vehicle Framework's own footprint now.
+- **A towed or winched vehicle no longer turns to face its old place at every load**, nor draws itself 45 degrees off the tow.
+- **A tractor arriving at a map edge is no longer stuck.** Where there is no room behind it for its trailer to follow, the trailer is set down
+  beside it unhitched, and the player is told.
+- **A trailer ticked in the caravan window while hitched is no longer saved twice** and lost after a load mid-journey.
+- **A vehicle on the recovery tow or winch takes its pipes and conduits with it**, rather than leaving them behind and laying more on the way.
+- **The winch refuses a vehicle set up for work**, as the hitch does.
+- **The weight behind a tow is known again after a load mid-journey.**
+- **An overloaded truck no longer reads as knocked out**, with the crew alert and the has-stopped message.
+- **The tanker's electric pump runs on an empty fuel tank**, as its upgrade says.
+- **Smaller:** a raider's warning receiver works before anyone looks at it; a launch from a caravan gets the air-defence warning, and every
+  warning measures from where the aircraft is; a reconnaissance flight's speed is Vehicle Framework's; a loaded game no longer wakes air
+  defence late; a second hit in one moment counts against oxygen; a cranked turret with no sway of its own aims worse under Combat Extended
+  too; on the move is read at once for a cranked turret's aim; the salvo button's time comes from its rule; a blind salvo is reported; a
+  headlight reaching past the map's edge lights the edge; the listening array draws no power off the map; a field re-fit healed to full is
+  forgotten; a couple asked for on another map is called off; two rare paths that could hang the game or stop a turret are guarded.
+
+### Balance
+
+- Under Combat Extended a cranked turret's sway starts from at least 1 before it is widened (an authored starting value, 17 Nov 2026, for the
+  owner to tune).
+
+### Compatibility and limits
+
+- An aircraft's height is measured from where its flight was first seen. After a load mid-route, a later leg reads as climbing near its
+  start: an approximation.
+- A vehicle parked where every cell already has a conduit has no hook-up of its own, so no shore power from that grid; leave a cell free.
+- Vehicle Framework's own weapon gizmo can still hang the game on a weapon mounted three deep whose mount is out; none on the owner's list is.
+  A report for its author is drafted in the fault-read record.
+- The rules setting for how far a parked vehicle reached for shore power is gone; the conduits beneath it do that now.
+
 ## [0.120.4] - 2026-11-17 - Draft
 
 The lights dev action names the sky

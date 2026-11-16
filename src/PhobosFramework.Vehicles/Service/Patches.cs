@@ -167,6 +167,24 @@ public class VehicleStatPart_PhobosSystems : VehicleStatPart
 }
 
 /// <summary>
+/// A thrown track stops the vehicle even with a speed upgrade (Framework 0.120.5, fault-read K2): Vehicle Framework adds an upgrade's
+/// MoveSpeed offset after every stat part (`VehicleStatWorker.TransformValue`), so our part's 0 became the offset (Vanilla Vehicles
+/// Expanded's Bulldog drove on at about 0.7 cells a second with a track gone). A postfix on that step, which has no extension point after
+/// the offset, keeps the 0. It reads only when the stat is recalculated, and skips nothing.
+/// </summary>
+[HarmonyPatch(typeof(VehicleStatWorker), nameof(VehicleStatWorker.TransformValue))]
+public static class ThrownTrackAfterOffsets
+{
+    public static void Postfix(VehicleStatWorker __instance, VehiclePawn vehicle, ref float __result)
+    {
+        if (__result <= 0f || __instance.statDef != VehicleStatDefOf.MoveSpeed || vehicle == null) return;
+        CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
+        if (comp == null || !comp.Usable) return;
+        if (Mobility.ThrownTrack(vehicle, comp.Props) != null) __result = 0f;
+    }
+}
+
+/// <summary>
 /// A destroyed part waits for supplies (vehicle health, slice 3): this list is what Vehicle Framework's repair job, its caravans and the
 /// garage heal from, and it has no extension point. A postfix that takes the waiting parts out of a list made fresh for each call.
 /// </summary>

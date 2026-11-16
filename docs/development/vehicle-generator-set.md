@@ -94,7 +94,10 @@ electricity alone"). Built in D'thorga Framework 0.104.0 on the battery buffer n
 **The family rule (owner, 9 Nov 2026), written once here.** Any vehicle of ours with electric loads draws from the generator set's net when
 it is parked beside it, through the shore-power path that already exists. Our systems service calls a parked vehicle shore-powered when
 any thing within `shorePowerReach` (1 cell) of its footprint sits on a power net with stored energy above 1 or a positive gain
-(`ShorePowered()`, `src/PhobosFramework.Vehicles/Systems/CompPhobosVehicleSystems.cs:983-1004`; `Rules_VehicleSystems.xml:22`), and a
+(`ShorePowered()`, `src/PhobosFramework.Vehicles/Systems/CompPhobosVehicleSystems.cs:983-1004`; `Rules_VehicleSystems.xml:22`). **Since
+Framework 0.120.5** (fault-read G3, 17 Nov 2026) it is shore-powered only through its own grid hook-up, the hidden conduits laid beneath
+it, whose meter the grid has switched on and billed, or through a service lead; `shorePowerReach` is gone. The hidden conduits join the
+set's net by touching the stub or a conduit of it, so the rule below still holds, now paid for. A
 shore-powered vehicle's starting battery trickle-charges at `shoreChargeAmps`, 10 A (`Systems_Electrical.xml:36, 230-239`). The set's
 stub is a thing on a power net, so any vehicle parked beside the stub, beside a conduit of that net, or beside a powered building of
 that net is on the camp's power. Vehicle Framework's own electric vehicles charge the same way, from a transmitter touching their
