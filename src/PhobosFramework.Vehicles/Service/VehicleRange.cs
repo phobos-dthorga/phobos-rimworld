@@ -106,7 +106,10 @@ public static class VehicleRange
             {
                 if (!paths.Passable(end, vehicle.VehicleDef)) return -1;
             }
-            return VehicleCaravan_PathFollower.CostToMove(vehicles, ticksPerMove, new PlanetTile(from, layer), end);
+            // Vehicle Framework 1.7's older overload (vehicles, ticksPerMove, start, end) drops ticksPerMove on the way to this one,
+            // so every tile would cost the 1-tick minimum; this overload carries it.
+            var move = new TicksPerMoveData { tile = new PlanetTile(from, layer), nextTile = end, ticksPerMove = ticksPerMove };
+            return VehicleCaravan_PathFollower.CostToMove(vehicles, in move);
         }
 
         Dictionary<int, double> reached = TravelReachRule.Within(caravan.Tile.tileId, budget, Neighbours, Cost, MaxTiles);

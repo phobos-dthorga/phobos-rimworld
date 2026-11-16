@@ -2,8 +2,8 @@
   <!-- D'thorga Framework's vehicle systems part (design: docs/development/vehicle-systems-design.md). Its own assembly in
        Mods/VehicleFramework/<version>, which LoadFolders.xml loads only while Vehicle Framework is active, so the Framework's core
        never references Vehicle Framework. RimWorld 1.7 only (owner, 8 November 2026): one target, net10.0 with Harmony 3. Vehicle
-       Framework's assemblies (MIT) are referenced from the installed mod and never copied; it ships only a 1.6 build, which the 1.7
-       game loads, and Directory.Build.targets points there. -->
+       Framework's assemblies (MIT) are referenced from the installed mod and never copied; Directory.Build.targets points at the
+       folder the game loads (its 1.7 build since 14 November 2026). 1.7 moved shared types such as Path.Node into CoreLib. -->
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.VehicleSystems</RootNamespace>
@@ -11,7 +11,7 @@
     <ModFolder>PhobosFramework</ModFolder>
     <TieInFolder>Mods/VehicleFramework/</TieInFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.111.0</Version>
+    <Version>0.111.1</Version>
     <!-- Vehicle Framework targets .NET Framework 4.8; the game loads it whatever it declares. -->
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
@@ -25,6 +25,10 @@
     </Reference>
     <Reference Include="SmashTools">
       <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="CoreLib" Condition="Exists('$(VehicleFrameworkAssemblies)\CoreLib.dll')">
+      <HintPath>$(VehicleFrameworkAssemblies)\CoreLib.dll</HintPath>
       <Private>false</Private>
     </Reference>
   </ItemGroup>

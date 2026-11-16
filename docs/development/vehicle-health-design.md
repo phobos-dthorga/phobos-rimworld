@@ -132,7 +132,8 @@ last pushed 31 October 2026, MIT), cloned read-only into `.local/research/Vehicl
   ten of the owner's subscribed Workshop mods have `<li>Wheel</li>` in their vehicle Defs (Vanilla Vehicles Expanded among them), and our Wheels role binds by
   that tag. Consequences: condition rules must filter by kind of damage (built: `exceptDamageDefs`), and wheels will wear twice once
   this ships, VF's health loss beside our tread wear. **Open question for the owner when VF 1.7 ships**: leave both, or have tread
-  wear stand down while VF's hand brakes are on.
+  wear stand down while VF's hand brakes are on. **VF 1.7 shipped on 14 Nov 2026 with hand brakes exactly as read here** (on by
+  default, `brakeDamagePerNode` 0.15), so the question is now live ([dependency audit](dependency-audit-2026-11-16.md)).
 - **New: acceleration and braking** (`AccelerationController`, an `AccelerationRate` stat, a `Braking` event, tyre screech): may
   meet our drivetrain's speed cap; to read when it ships, not now.
 - **New events:** `FactionChanged`, `PositionChanged`, `RotationChanged`.

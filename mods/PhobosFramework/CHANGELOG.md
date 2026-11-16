@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.111.1] - 2026-11-16 - Draft
+
+Built for Vehicle Framework's 1.7 release of 14 November 2026
+
+### Fixed
+
+- **The vehicle reach ring on the world map is the right size again with Vehicle Framework 1.7.** Its 1.7 release left the older way of asking what a tile costs to cross in place but stopped it passing the caravan's speed on, so every tile counted as almost free and the ring would have filled out to its limit. The ring now asks the new way. Not yet tested in game.
+- **Built against the Vehicle Framework the game actually loads.** The vehicle parts were still compiled against Vehicle Framework's old 1.6 files after its 1.7 files arrived. They now follow the game's own choice, and do the same for Vanilla Furniture Expanded - Factory and InterRim Ballistic Missile when those ship 1.7. Not yet tested in game.
+
+### Dependencies
+
+- Vehicle Framework 1.7 (1.7.2534, 14 November 2026). The vehicle parts also read its new CoreLib file, which ships with it.
+
+### Compatibility and limits
+
+- No settings were added or changed.
+- Read from the code, not yet seen in game: Vehicle Framework 1.7 now sends everyone out of a vehicle that has stood still for five in-game hours, and lets a caravan made only of vehicles that need no driver leave with no colonist. Neither is changed here; both are listed for the owner in docs/development/dependency-audit-2026-11-16.md.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing saved changes.
+
 ## [0.111.0] - 2026-11-13 - Draft
 
 Working trailers: set up by a colonist, a hitch that respects set-up, and one tank pumping into another

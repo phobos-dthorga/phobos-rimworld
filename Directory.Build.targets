@@ -12,12 +12,17 @@
     <VefAssemblies Condition="'$(VefAssemblies)' == ''">$(WorkshopRoot)\2023507013\$(GameVersion)\Assemblies</VefAssemblies>
     <DbhAssemblies Condition="'$(DbhAssemblies)' == ''">$(WorkshopRoot)\836308268\$(GameVersion)\Assemblies</DbhAssemblies>
     <RimefellerAssemblies Condition="'$(RimefellerAssemblies)' == ''">$(WorkshopRoot)\1321849735\$(GameVersion)\Assemblies</RimefellerAssemblies>
-    <!-- VFE Factory and Vehicle Framework ship only 1.6 (checked 4 November 2026); the game loads that on 1.7 and so do we. -->
+    <!-- VFE Factory, Vehicle Framework and InterRim Ballistic Missile shipped only 1.6 for a while, and the game loads that on 1.7.
+         Each takes the game version's folder as soon as its author ships one, and 1.6 only while none exists, so we always build
+         against what the game loads. A fixed 1.6 path went stale when Vehicle Framework shipped 1.7 on 14 November 2026: the
+         gate kept building against the old assembly while the game ran the new one (audit of 16 November 2026). -->
+    <VfeFactoryAssemblies Condition="'$(VfeFactoryAssemblies)' == '' And Exists('$(WorkshopRoot)\3686924415\$(GameVersion)\Assemblies')">$(WorkshopRoot)\3686924415\$(GameVersion)\Assemblies</VfeFactoryAssemblies>
     <VfeFactoryAssemblies Condition="'$(VfeFactoryAssemblies)' == ''">$(WorkshopRoot)\3686924415\1.6\Assemblies</VfeFactoryAssemblies>
+    <VehicleFrameworkAssemblies Condition="'$(VehicleFrameworkAssemblies)' == '' And Exists('$(WorkshopRoot)\3014915404\$(GameVersion)\Assemblies')">$(WorkshopRoot)\3014915404\$(GameVersion)\Assemblies</VehicleFrameworkAssemblies>
     <VehicleFrameworkAssemblies Condition="'$(VehicleFrameworkAssemblies)' == ''">$(WorkshopRoot)\3014915404\1.6\Assemblies</VehicleFrameworkAssemblies>
     <!-- Useful Marks ships 1.5, 1.6 and 1.7 builds (checked 7 November 2026); D'thorga Medical's tie-in compiles against the 1.7 one. -->
     <UsefulMarksAssemblies Condition="'$(UsefulMarksAssemblies)' == ''">$(WorkshopRoot)\3506573327\$(GameVersion)\Assemblies</UsefulMarksAssemblies>
-    <!-- InterRim Ballistic Missile ships only 1.6 (checked 7 November 2026); the game loads that on 1.7 and so do we. -->
+    <IrbmAssemblies Condition="'$(IrbmAssemblies)' == '' And Exists('$(WorkshopRoot)\3682304832\$(GameVersion)\Assemblies')">$(WorkshopRoot)\3682304832\$(GameVersion)\Assemblies</IrbmAssemblies>
     <IrbmAssemblies Condition="'$(IrbmAssemblies)' == ''">$(WorkshopRoot)\3682304832\1.6\Assemblies</IrbmAssemblies>
     <!-- Where the built assembly lands: mods/<ModFolder>/<TieInFolder/><GameVersion>/Assemblies/. OutDir, not OutputPath:
          by the time this file is imported the SDK has already turned OutputPath into OutDir, and OutDir is what the
