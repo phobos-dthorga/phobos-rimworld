@@ -13,6 +13,10 @@ A crew stays at its station while there is work, under Vehicle Framework 1.7's f
 
 - **A crew on station stays aboard while the station is busy.** Vehicle Framework 1.7 sends everyone out of a vehicle that has stood still for five in-game hours, unless its turrets are aiming or firing. Our stations now count as busy in the same way: a submarine while it is under (nobody can get out anyway), a vehicle carrying patients while a doctor aboard can tend them, a sonar while something hostile is within its reach, and a listening array while it hears something. When all is quiet, the crew get out after five hours as Vehicle Framework intends. It works for any faction's vehicles, raiders' boats included. Not yet tested in game.
 
+### Changed
+
+- **Part health is shown in the game's own health colours**: red below 40 %, orange below 70 %, yellow below full, and the game's green when whole, as on a colonist's Health tab and Vehicle Framework's own. Before this our vehicle tabs, the fleet board and the diagnosis used three colours of our own. Not yet tested in game.
+
 ### Compatibility and limits
 
 - No settings were added or changed.

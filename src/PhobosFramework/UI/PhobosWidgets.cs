@@ -17,18 +17,25 @@ public static class PhobosWidgets
     public static readonly Color Bad = new(0.85f, 0.32f, 0.28f);
     public static readonly Color Off = new(0.45f, 0.45f, 0.48f);
 
-    /// <summary>Health at or above this share reads as good (authored).</summary>
-    public const float HealthGoodShare = 0.7f;
-    /// <summary>Health at or above this share, and below good, reads as caution; below it, bad (authored).</summary>
-    public const float HealthCautionShare = 0.35f;
+    /// <summary>Health below this share reads red, as on the game's Health tab and Vehicle Framework's.</summary>
+    public const float HealthRedBelow = 0.4f;
+    /// <summary>Health below this share, and not red, reads as impaired (orange).</summary>
+    public const float HealthImpairedBelow = 0.7f;
+    /// <summary>Health below this share, and not impaired, reads as slightly impaired (yellow); at or above it, good.</summary>
+    public const float HealthSlightlyImpairedBelow = 0.999f;
 
     /// <summary>
-    /// The colour for a share of health (0 to 1): good, caution, bad, or off when nothing is left. Our own colours, so a tab
-    /// never needs another mod's colour helper (on RimWorld 1.7, a 1.6 mod's method that returns a Unity type cannot be called
-    /// from a 1.7 build).
+    /// The colour for a share of health (0 to 1), in the game's own health colours and bands: red, impaired, slightly impaired, good,
+    /// and grey when nothing is left. Vehicle Framework's own part colours (VehicleTabHelper_Health.ComponentEfficiencyColor, read in its
+    /// 1.7 build, 16 Nov 2026) use the same colours and bands, so our tabs read like the game's and VF's (owner, 16 Nov 2026: vanilla or
+    /// vanilla-like where possible). Read from the game directly, so no tab needs Vehicle Framework to draw it.
     /// </summary>
     public static Color HealthColour(float share) =>
-        share <= 0f ? Off : share >= HealthGoodShare ? Good : share >= HealthCautionShare ? Caution : Bad;
+        share <= 0f ? Color.gray
+        : share < HealthRedBelow ? HealthUtility.RedColor
+        : share < HealthImpairedBelow ? HealthUtility.ImpairedColor
+        : share < HealthSlightlyImpairedBelow ? HealthUtility.SlightlyImpairedColor
+        : HealthUtility.GoodConditionColor;
     static readonly Color GaugeBackground = new(0.12f, 0.12f, 0.13f);
 
     /// <summary>A horizontal gauge: a bar filled to a share, in a colour, with an optional label above and figure inside.</summary>

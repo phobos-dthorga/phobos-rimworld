@@ -24,20 +24,24 @@ Vehicle Framework adds its own Upgrades tab inside `VehicleDef.ResolveReferences
 builds the resolved tab list; our prefix there (`Service/Patches.cs`, which calls `VehicleSystems.Apply`) runs earlier still, so
 `Apply` appends the two tab types to `def.inspectorTabs` for every fitted design and the game resolves them. The game makes one
 shared instance of each tab type, so per-vehicle UI state (scroll, a pending scroll target) lives in the core's `TabState<T>`, keyed
-by the vehicle's ID and cleared when the tab closes. **To re-check when VF 1.7 ships:** that `ResolveReferences` keeps the order.
+by the vehicle's ID and cleared when the tab closes. **Re-checked for VF 1.7 (16 Nov 2026):** `VehicleDef.ResolveReferences` is unchanged, so the order holds.
 
 ## What each tab shows
 
 | | Dashboard (460×300) | Systems (560×450, scrolls) |
 | --- | --- | --- |
-| Always | The waiting line (a refusal, or the due service and what it lacks, or "Nothing needs you."); a gauge per quantity marked `showOnDashboard` (battery charge, coolant temperature, oil level, tread wear, brake wear, steam pressure, hot-section life, cab temperature), coloured by stage; a warning light per notable stage, red when the stage refuses, damages or explodes; the switches (each toggle load, lit green when on and active, amber when on but idle) and the service button | A section per running system: each quantity's figure and stage with a bar for fractions and temperatures; each role's parts with their health in green, amber or red (the core's `HealthColour`), the part lit on the vehicle when hovered; the engine (gear, rpm, load; what holds the vehicle back); the turbine (speed, temperature, phase, rating, engines working) |
+| Always | The waiting line (a refusal, or the due service and what it lacks, or "Nothing needs you."); a gauge per quantity marked `showOnDashboard` (battery charge, coolant temperature, oil level, tread wear, brake wear, steam pressure, hot-section life, cab temperature), coloured by stage; a warning light per notable stage, red when the stage refuses, damages or explodes; the switches (each toggle load, lit green when on and active, amber when on but idle) and the service button | A section per running system: each quantity's figure and stage with a bar for fractions and temperatures; each role's parts with their health in the game's own health colours and bands (the core's `HealthColour`; from 16 Nov 2026, before which it was our own green, amber and red), the part lit on the vehicle when hovered; the engine (gear, rpm, load; what holds the vehicle back); the turbine (speed, temperature, phase, rating, engines working) |
 | Operator | Figures on the gauges; the tachometer and gear, or the turbine's speed and temperature | as above |
 | Engineer | the same | a day's graph under each quantity (the game's curve drawer, scaled to the quantity's range); the flows an hour; kilowatts; mass; the hover margin |
 
 **No part icons, and no Vehicle Framework colour helper.** Vehicle Framework ships only a 1.6 assembly, whose methods name Unity's
 `UnityEngine.CoreModule`; a 1.7 build compiles against the Waylith engine's stubs, so a call that passes a `Rect` or returns a `Color`
 through Vehicle Framework's assembly does not compile (found at build, 8 Nov 2026). The tab shows each part's name and health
-instead. **To revisit when VF 1.7 ships.**
+instead. **Revisited when VF 1.7 shipped (16 Nov 2026, outstanding item V9):** a test build calling VF 1.7's
+`VehicleTabHelper_Health.ComponentEfficiencyColor` compiles, so the barrier is gone. That helper only picks the game's
+`HealthUtility` colours by band (under 40 %, 70 %, 100 %), so the core's `HealthColour` now uses the same game colours and bands
+directly, with no call into VF, and our tabs read like the game's and VF's own. VF 1.7 has no part icons to borrow, so parts
+keep their names.
 
 Presentation only: every click delegates to the comp (`SetSwitch`, `SetServiceRequested`) or opens the other tab. The widgets
 (`Gauge`, `WarningLight`, `HistoryGraph`, `Section`, `Tachometer`) (with `HealthColour`) went to the Framework core's `UI/PhobosWidgets.cs` (namespace `Phobos.Framework.Interface`), as the owner's
