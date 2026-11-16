@@ -3,7 +3,7 @@ using System;
 namespace Phobos.Framework.Vehicles.Rules;
 
 /// <summary>
-/// How whole a vehicle is, for Vehicle Framework's rule that destroys it when the figure falls under 1 % (owner, 17 Nov 2026). Game-free.
+/// How whole a vehicle is, for Vehicle Framework's rule that destroys it when the figure falls under 1 % (owner, 16 Nov 2026). Game-free.
 /// Vehicle Framework adds up every part's health over every part's full health. The parts we append joined that sum, so a vehicle
 /// with our systems took more destroying than its author made it. A part that does a job on the vehicle still counts (a battery, a
 /// pump, brakes), since a real vehicle has them; an empty mounting point for a fitting (a lamp bracket, a tank cradle, a winch mount,

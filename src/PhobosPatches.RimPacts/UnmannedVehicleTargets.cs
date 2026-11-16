@@ -9,7 +9,7 @@ namespace Phobos.RimPactsPatches;
 
 /// <summary>
 /// TEMPORARY (docs/development/temporary-patches.md, row 17): RimPacts' assaults no longer attack a vehicle with nobody aboard
-/// (owner, 17 Nov 2026, from the save PG8: 11 of an ally's 19 soldiers spent hours kicking one empty Highwayman).
+/// (owner, 16 Nov 2026, from the save PG8: 11 of an ally's 19 soldiers spent hours kicking one empty Highwayman).
 ///
 /// What RimPacts does (read in its build of 16 Nov 2026): BuildAssaultTargets lists every standing pawn of the defending faction, and
 /// a vehicle is a pawn. RptAssaultTarget.IsLive calls a target live while it is on the map and, for a pawn, neither dead nor downed. A

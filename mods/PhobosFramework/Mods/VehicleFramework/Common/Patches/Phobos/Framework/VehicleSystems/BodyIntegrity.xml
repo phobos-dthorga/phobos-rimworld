@@ -2,7 +2,7 @@
 <Patch>
   <!--
     Vehicle Framework destroys a vehicle when its body integrity (every part's health over every part's full health) falls under 1 %.
-    Our appended parts joined that sum. From Framework 0.114.5 (owner, 17 Nov 2026), our empty mounting points for fittings (lamp
+    Our appended parts joined that sum. From Framework 0.114.5 (owner, 16 Nov 2026), our empty mounting points for fittings (lamp
     bracket, tank cradle, winch mount, ferry tie-downs, hook mount) are left out of it; every other part counts as before. Our worker
     sums a vehicle without our systems exactly as Vehicle Framework's does (docs/development/vehicle-health-design.md).
   -->

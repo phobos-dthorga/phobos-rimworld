@@ -185,7 +185,7 @@ last pushed 31 October 2026, MIT), cloned read-only into `.local/research/Vehicl
   faction, so every raider's vehicle runs the full systems update each rare tick**; the medical layer keeps vehicles out by design
   (`Patients.IsFleshPerson`).
 
-## Our parts and a vehicle's destruction (17 Nov 2026)
+## Our parts and a vehicle's destruction (16 Nov 2026)
 
 **The owner's question** (16 Nov 2026, from the save PG8): allies took "an inordinate amount of time" to destroy an enemy town's
 vehicles. Read from the save and the code (Vehicle Framework 1.7, Combat Extended's vehicle compatibility, RimPacts' build of

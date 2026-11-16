@@ -116,7 +116,19 @@ most, and for a contract other mods' authors can use in XML. Three records; **no
 
 | # | Report | Finding | Status |
 | --- | --- | --- | --- |
-| R6 | Allies capturing a town spend an inordinate time attacking its vehicles (save PG8, Framework 0.114.2) | RimPacts counts an empty vehicle as a live defender, and its allies trash it by hand (all 57 logged attacks melee or fire, 11 of 19 soldiers on one Highwayman); our appended parts also made every vehicle about 17 % harder to destroy ([record](vehicle-health-design.md#our-parts-and-a-vehicles-destruction-17-nov-2026)) | **Patched: Patches 0.19.3** (temporary, register row 17, no report at the owner's word); **our empty mounting points no longer count: Framework 0.114.5, Vehicles 0.56.2** (the owner's audit rule). Not yet tested in game (checks 118, 119) |
+| R6 | Allies capturing a town spend an inordinate time attacking its vehicles (save PG8, Framework 0.114.2) | RimPacts counts an empty vehicle as a live defender, and its allies trash it by hand (all 57 logged attacks melee or fire, 11 of 19 soldiers on one Highwayman); our appended parts also made every vehicle about 17 % harder to destroy ([record](vehicle-health-design.md#our-parts-and-a-vehicles-destruction-16-nov-2026)) | **Patched: Patches 0.19.3** (temporary, register row 17, no report at the owner's word); **our empty mounting points no longer count: Framework 0.114.5, Vehicles 0.56.2** (the owner's audit rule). Not yet tested in game (checks 118, 119) |
+
+## Knocked out, not destroyed (16 Nov 2026)
+
+The owner asked for a research and record round on vehicles losing a job before they are wrecks: turrets and weapons, mobility,
+working equipment, crew and cab ([record](vehicle-knocked-out-systems.md)). **Nothing built**; the owner picks.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| KO1 | The record: rows T1 to T11, M1 to M5, W1 to W6, C1 to C6, with a short list | docs | All four areas, record only (owner, 16 Nov 2026) | Written; six questions for the owner |
+| KO2 | Fault: the people aboard our own seven vehicles can probably never be hit (their seats give no hitbox; row C1) | Vehicles | — | Open; read from the code, not seen in play |
+| KO3 | Gap: nothing makes a crew leave a vehicle that can neither move nor shoot, or is burning (row C2) | Framework | — | Open |
+| KO4 | To read before building: field fixes for tracks and wheels (M3), vehicle lords with an immobilised vehicle (M4), the Crawler's instruments as loads (W2), the tanker's pump (W3), real turret drives beyond the Bradley (T4) | docs | — | Open |
 
 ## Tie-ins with other mods (13 Nov 2026)
 
