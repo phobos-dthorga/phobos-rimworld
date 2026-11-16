@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.114.4] - 2026-11-16 - Draft
+
+The cargo hook's latch sound is the owner's own pick
+
+### Changed
+
+- **A new sound for a helicopter's cargo hook latching onto a sling load**: a heavy latch clack with a low thud, then a short jingle
+  of chain. The owner picked it from a fresh set made on 16 November 2026 (take 94 of eight clean takes), replacing the provisional
+  sound of 0.101.0. It plays at the same level and volume as before. Made locally with an AI sound model (Stable Audio 3) on the
+  processor; its record sits beside the file.
+
+### Compatibility and limits
+
+- No settings were added or changed.
+- Not yet tested in game: hook a vehicle under a helicopter to hear it.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.114.3] - 2026-11-16 - Draft
 
 An aircraft's range said in words, and a circle only where there is one to draw

@@ -224,7 +224,7 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
 
 | ID | Sound | Hook | Note |
 | --- | --- | --- | --- |
-| S128 | A cargo hook latching onto a sling load | Code (the hook-up, CompPhobosSling) | **In, Framework 0.101.0 (12 Nov 2026)**: made on the processor at the owner's word, the **agent's provisional pick** (take 51 of four; 53 and 54 clipped; cut to its first clack). **Owner, 16 Nov 2026: make a fresh set** (`requests/sling-latch-2.json`, two new wordings): eight takes at full steps were all clipped roars and are rejected (r2a, r2b; sound-generation.md); eight on the distilled model are clean (r2c 81 to 84, r2d 91 to 94). Agent's leans from the spectrograms: **r2d-93 cut to its first hit** (a deeper thud under the clack), or **r2c-81** for a clack with a chain rattle. For the owner's pick from the listening page; take 51 ships until then. `PhobosVehicleSystems_HookLatch` |
+| S128 | A cargo hook latching onto a sling load | Code (the hook-up, CompPhobosSling) | **In, Framework 0.101.0 (12 Nov 2026)**: made on the processor at the owner's word, the **agent's provisional pick** (take 51 of four; 53 and 54 clipped; cut to its first clack). **Owner, 16 Nov 2026: make a fresh set** (`requests/sling-latch-2.json`, two new wordings): eight takes at full steps were all clipped roars and are rejected (r2a, r2b; sound-generation.md); eight on the distilled model are clean (r2c 81 to 84, r2d 91 to 94). **The owner picked r2d-94** (16 Nov 2026), shipped whole in Framework 0.114.4 (trimmed only at the silence after 2.36 s), replacing take 51. `PhobosVehicleSystems_HookLatch` |
 
 ## Planned, not built (sounds wait for the feature)
 

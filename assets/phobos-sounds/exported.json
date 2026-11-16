@@ -5287,18 +5287,18 @@
   "HookLatch": {
     "name": "HookLatch",
     "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/HookLatch.ogg",
-    "sha256": "a72239609af7c83468dcc006db6803430412c79cbd9966eb13dea96e1451550d",
-    "master_sha256": "9fc69e61cf136229647d36b1bff7971223c44123f6824cb4d603e7ce824cc043",
-    "fingerprint": "144db09a89a8390a4129bb8ca3403ad5389d2f0abb034965fa1f69f2f3a84ae6",
-    "date": "2026-11-12",
+    "sha256": "2b094f02d30a0a3083bff41b6bdb4123bd170cee306d01eb05f1cf7ce8258d85",
+    "master_sha256": "1c44000343f45eefae2c2da5ed5c617ab93c70e456cc432a22bb5c4c997fed3e",
+    "fingerprint": "bc1909d3cd21a94abbe25234a8c3b9224f0c4a7e8c40a1ff36735259a20f6624",
+    "date": "2026-11-16",
     "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
     "processing": {
       "cut_s": [
-        0.1,
-        1.05
+        0.0,
+        2.45
       ],
       "levelled_by": "loudness, to -23.73 LUFS",
-      "gain_db": -0.1
+      "gain_db": 2.87
     },
     "reference": {
       "defName": "Interact_Repair_Start",
@@ -5311,11 +5311,10 @@
       "channels": 1
     },
     "result": {
-      "lufs": -26.7,
-      "true_peak": -1.7,
-      "seconds": 0.87,
+      "lufs": -24.0,
+      "true_peak": -2.9,
+      "seconds": 2.32,
       "flags": [
-        "highs",
         "spiky"
       ],
       "seam_dip_db": null,
@@ -5325,10 +5324,10 @@
       "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
       "model": "stable_audio_3_small_sfx.safetensors",
       "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
-      "seed": 51,
+      "seed": 94,
       "steps": 8,
       "cfg": 1.0,
-      "prompt": "A heavy steel cargo hook under a helicopter snapping shut on a lifting ring: one solid spring-loaded metal latch clack with a short chain rattle as the strops take up, no engine noise. Close, outdoors, dry. Length: 2 seconds"
+      "prompt": "Industrial lifting gear: a large steel safety latch closing on a shackle, a single heavy metal-on-metal clack with a low, solid thud behind it, followed by a short jingle of chain. Nothing else in the background. Close, outdoors, dry. Length: 2 seconds"
     }
   }
 }

@@ -4,13 +4,13 @@
 
 | | |
 | --- | --- |
-| Picked by | the agent, provisionally, for the owner to confirm, 2026-11-12 |
-| Master | assets/phobos-sounds/generated/s128-hook-latch/s128-hook-latch-51.flac (sha256 9fc69e61cf136229647d36b1bff7971223c44123f6824cb4d603e7ce824cc043) |
-| Model | stable_audio_3_small_sfx.safetensors (sha256 ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515), seed 51, 8 steps, guidance 1.0 |
-| Prompt | A heavy steel cargo hook under a helicopter snapping shut on a lifting ring: one solid spring-loaded metal latch clack with a short chain rattle as the strops take up, no engine noise. Close, outdoors, dry. Length: 2 seconds |
-| Made into | oneshot, mono, 44100 Hz, Ogg Vorbis quality 5; cut_s [0.1, 1.05], levelled_by loudness, to -23.73 LUFS, gain_db -0.1 |
+| Picked by | the owner, 2026-11-16 |
+| Master | assets/phobos-sounds/generated/s128-hook-latch-r2d/s128-hook-latch-r2d-94.flac (sha256 1c44000343f45eefae2c2da5ed5c617ab93c70e456cc432a22bb5c4c997fed3e) |
+| Model | stable_audio_3_small_sfx.safetensors (sha256 ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515), seed 94, 8 steps, guidance 1.0 |
+| Prompt | Industrial lifting gear: a large steel safety latch closing on a shackle, a single heavy metal-on-metal clack with a low, solid thud behind it, followed by a short jingle of chain. Nothing else in the background. Close, outdoors, dry. Length: 2 seconds |
+| Made into | oneshot, mono, 44100 Hz, Ogg Vorbis quality 5; cut_s [0.0, 2.45], levelled_by loudness, to -23.73 LUFS, gain_db 2.87 |
 | Levelled against | the game's Interact_Repair_Start (effective -42.9 LUFS) +0 dB, through volume 11 |
-| Result | -26.7 LUFS, true peak -1.7 dBTP, 0.87 s; flags: highs, spiky |
-| File | sha256 a72239609af7c83468dcc006db6803430412c79cbd9966eb13dea96e1451550d, made 2026-11-12 with ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers |
+| Result | -24.0 LUFS, true peak -2.9 dBTP, 2.32 s; flags: spiky |
+| File | sha256 2b094f02d30a0a3083bff41b6bdb4123bd170cee306d01eb05f1cf7ce8258d85, made 2026-11-16 with ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers |
 
 Not yet tested in game.
