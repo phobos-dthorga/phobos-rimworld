@@ -114,7 +114,7 @@
   <PhobosVehicleSystems_SysWeaponPace>working at {PACE} ({WHY})</PhobosVehicleSystems_SysWeaponPace>
   <PhobosVehicleSystems_SysDriveHandSwung>swung by hand</PhobosVehicleSystems_SysDriveHandSwung>
   <PhobosVehicleSystems_SysDrivePowered>powered drive</PhobosVehicleSystems_SysDrivePowered>
-  <PhobosVehicleSystems_SysDriveHandCranked>powered drive without power: cranked by hand</PhobosVehicleSystems_SysDriveHandCranked>
+  <PhobosVehicleSystems_SysDriveWithTurret>turns with the {TURRET}</PhobosVehicleSystems_SysDriveWithTurret>
   <PhobosVehicleSystems_SysRunningGear>Running gear</PhobosVehicleSystems_SysRunningGear>
   <PhobosVehicleSystems_SysTrackThrown>{PART} thrown. A mechanic can re-fit it where it stands.</PhobosVehicleSystems_SysTrackThrown>
   <PhobosVehicleSystems_SysLoads>Electrical loads</PhobosVehicleSystems_SysLoads>

@@ -153,6 +153,8 @@ public enum WeaponDrive
     Powered,
     /// <summary>A powered drive without power, cranked by hand.</summary>
     HandCranked,
+    /// <summary>Mounted on another weapon (a coaxial gun, a launcher on the turret's side): it turns with that one (Framework 0.117.1).</summary>
+    TurnsWithTurret,
 }
 
 /// <summary>
@@ -170,10 +172,14 @@ public static class TurretPower
         traverse = aim = 1;
         handCranked = false;
         PhobosKnockOutRulesDef rules = PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
-        if (!rules.turretPower || comp.Tier != DetailTier.Full || !Powered(Root(turret), rules)) return;
-        if (comp.Props.loadout?.loads.Any(l => l.name == rules.turretDriveLoad) != true) return;
+        if (!rules.turretPower || comp.Tier != DetailTier.Full || turret.def?.turretType == TurretType.Static || !Powered(Root(turret), rules)) return;
+        ElectricalLoadSpec? drive = comp.Props.loadout?.loads.FirstOrDefault(l => l.name == rules.turretDriveLoad);
+        if (drive == null) return;
         float charge = comp.TryGetQuantity(ChargeQuantity, out float c) ? c : 1f;
-        bool powered = TurretPowerRule.Powered(comp.LoadActive(rules.turretDriveLoad), charge, rules.batteryFlatBelow);
+        // Framework 0.117.1 (the owner's screenshot, 17 Nov 2026): the drive has power unless it is cut, switched off or the battery is
+        // flat. It draws only while someone mans the gun, so "not drawing" read as "no power" on every unmanned weapon at a full battery.
+        LoadState state = comp.StateOf(drive);
+        bool powered = TurretPowerRule.Powered(state is LoadState.Running or LoadState.Idle, charge, rules.batteryFlatBelow);
         TurretPowerRule.Paces(powered, rules.handCrankTraversePace, rules.handCrankAimPace, out traverse, out aim);
         handCranked = !powered;
     }
@@ -183,10 +189,11 @@ public static class TurretPower
     {
         PhobosKnockOutRulesDef rules = PhobosRulesDef.Current<PhobosKnockOutRulesDef>();
         if (!rules.turretPower || turret.def == null || turret.def.turretType == TurretType.Static) return WeaponDrive.None;
-        if (!Powered(Root(turret), rules)) return WeaponDrive.HandSwung;
+        // A coaxial gun or a launcher on the turret has no drive of its own: it goes where its turret goes (Framework 0.117.1).
+        if (turret.attachedTo != null) return WeaponDrive.TurnsWithTurret;
+        if (!Powered(turret, rules)) return WeaponDrive.HandSwung;
         if (comp.Props.loadout?.loads.Any(l => l.name == rules.turretDriveLoad) != true) return WeaponDrive.None;
-        Paces(comp, turret, out _, out _, out bool cranked);
-        return cranked ? WeaponDrive.HandCranked : WeaponDrive.Powered;
+        return TurretPace.For(turret).handCranked ? WeaponDrive.HandCranked : WeaponDrive.Powered;
     }
 
     /// <summary>Whether the vehicle carries a weapon with a powered drive (and, with <paramref name="manned"/>, whether someone mans one).</summary>

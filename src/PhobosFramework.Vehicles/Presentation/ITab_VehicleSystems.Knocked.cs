@@ -96,7 +96,7 @@ public partial class ITab_VehicleSystems
                 : "PhobosVehicleSystems_SysWeaponOutWhy".Translate(reason!.Named("WHY")).Resolve();
             colour = PhobosWidgets.Bad;
         }
-        else if (turret.def.turretType != TurretType.Static && !turret.IsManned)
+        else if (!turret.IsManned)
         {
             status = "PhobosVehicleSystems_SysWeaponUnmanned".Translate().Resolve();
             colour = DetailColour;
@@ -121,12 +121,17 @@ public partial class ITab_VehicleSystems
         {
             WeaponDrive.HandSwung => "PhobosVehicleSystems_SysDriveHandSwung".Translate().Resolve(),
             WeaponDrive.Powered => "PhobosVehicleSystems_SysDrivePowered".Translate().Resolve(),
-            WeaponDrive.HandCranked => "PhobosVehicleSystems_SysDriveHandCranked".Translate().Resolve(),
+            // Cranked by hand is already the reason in the pace just before it.
+            WeaponDrive.HandCranked => null,
+            WeaponDrive.TurnsWithTurret => "PhobosVehicleSystems_SysDriveWithTurret".Translate(ParentName(turret.attachedTo).Named("TURRET")).Resolve(),
             _ => null,
         };
         if (drive != null) parts.Add(drive.Colorize(DetailColour));
         y += PhobosWidgets.WrappedLine(ArrowSize + 8f, y, width - ArrowSize - 14f, string.Join(" · ", parts)) + 4f;
     }
+
+    static string ParentName(VehicleTurret? parent) =>
+        parent == null ? "" : parent.gizmoLabel.NullOrEmpty() ? parent.def?.LabelCap.Resolve() ?? parent.key : parent.gizmoLabel;
 
     /// <summary>Vehicle Framework's own answer to whether a weapon is out of action, and why. Its check throws on a state it does not
     /// expect (a disabled part it cannot name), so that reads as out with no reason.</summary>

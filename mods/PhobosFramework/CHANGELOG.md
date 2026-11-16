@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.117.1] - 2026-11-17 - Draft
+
+Unmanned weapons no longer read as cranked by hand
+
+### Fixed
+
+- **A weapon nobody mans no longer says it is turned by hand with no power** (the owner's screenshot of a Bradley at a full battery,
+  17 Nov 2026). The turret drive draws only while someone mans the gun, and not drawing was read as having no power, so every idle
+  weapon showed as slowed on the Systems tab and in the inspect panel. Now a turret is cranked by hand only when its drive is cut to
+  save the battery, switched off, or the battery is flat. In a fight nothing changes: a manned gun always had its power.
+- **A coaxial gun or a launcher on a turret's side now says it turns with that turret**, instead of claiming a drive of its own. It
+  shares the turret's power, as before.
+- **Smoke launchers fixed to a turret are no longer slowed by the turret drive**, and read as unmanned when nobody is at them instead
+  of ready.
+
+### Compatibility and limits
+
+- No settings changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.117.0] - 2026-11-17 - Draft
 
 The weapons, running gear, electrical loads and crew on the Systems tab
