@@ -32,7 +32,7 @@ or an aircraft in flight.
 | Tab | Answers | Shows |
 | --- | --- | --- |
 | **Dashboard** | Does anything need me now? | Gauges, warning lamps, what the vehicle is waiting for, and its switches. Click a gauge to open Systems at that system |
-| **Health** (called **Vehicle** on the world map) | How hurt is it? | The vehicle's picture with hurt parts tinted, its speed and strength and what each part does to them, every part with its health, conditions, fitting and grade, and a **Wear** block saying when tread, brakes, battery and service will next need a look ("Tread: worn in about 4 days"). **Like parts share a row** (landing wheels, panels) with a small square for each: click the row to open it, or rest on a square to see that part |
+| **Health** (called **Vehicle** on the world map) | How hurt is it? | The vehicle's picture with hurt parts tinted, its speed and strength and what each part does to them, every part with its health, conditions, fitting and grade, and a **Wear** block saying when tread, brakes, battery and service will next need a look ("Tread: worn in about 4 days"). **Like parts share a row** (landing wheels, panels) whose bar is split into a segment for each part: click the row to open it, or rest on a segment to see that part |
 | **Systems** | What exactly is going on? | Every reading, one row each, opening to its graph when clicked; parts as small bars; an **Only what needs attention** tick box. Hidden in Plain mode |
 
 **Rest the mouse on any reading or part** to learn what it means, what moves it, and what losing it costs.
@@ -227,7 +227,7 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   inspect text says why.
 - **The ground matters**: deserts are sand, swamps mud, jungle undergrowth, and winter adds snow. A road is firm whatever the land.
 - **Select a vehicle caravan to see its reach** on the fuel aboard, outlined in amber on the globe, and how many hours of driving
-  the fuel allows.
+  the fuel allows. **Select an aircraft in flight** to see an amber circle at the distance its fuel still flies.
 - **The fleet button** on the bottom bar lists every vehicle you own, wherever it is, with its picture, fuel and worst part.
 - **A vehicle parked in the wild is lost after a while**; a letter warns you three days ahead.
 - **Garages** (needs Vanilla Expanded Framework): a stopped convoy can set one up. Vehicles left there stay with no time limit, and

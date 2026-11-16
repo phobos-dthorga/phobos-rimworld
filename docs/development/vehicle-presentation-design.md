@@ -244,6 +244,12 @@ drawing for the edge. The reach comes from Vehicle Framework's world path grid f
   base method that runs comps' overlays. `WorldComponent_PhobosCaravanReach` now draws it from the game's per-frame world component
   update while the world is shown; no Harmony. **Lesson:** a hook on another mod's subclass needs checking that the subclass still calls
   the base method; a build or a test never shows it.
+- **Aircraft in flight had none (0.114.1, the owner's second report, 16 Nov 2026):** both screenshots were of aircraft in flight
+  (`AerialVehicleInFlight`), and the reach was only ever worked out for `VehicleCaravan`. Now a circle round the aircraft at the tiles
+  its fuel still flies: Vehicle Framework's launch planner (`CompVehicleLauncher.FuelNeededToLaunchAtDist`, 1.7) turned round
+  (`ReachRule.FlightTiles`, tested), measured as VF measures (`Ext_Math.SphericalDistance` via `WorldGrid.ApproxDistanceInTiles`), and
+  drawn as a great circle on the globe. A circle, not an edge: flight ignores terrain. Our factors on world-flight fuel come through the
+  postfix on `FuelConsumptionWorldMultiplier`. Verbose logging says why nothing is drawn when nothing is.
 
 ### P7c. A ground-cost overlay: MEDIUM-HIGH
 

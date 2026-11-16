@@ -67,6 +67,16 @@
       "kinds": "folders",
       "olderThanDays": 7,
       "why": "vehicle bodies re-painted by scripts/art/repaint_vehicles.py stage, and their review page; applied or set aside within a week"
+    },
+    {
+      "name": "Frozen game logs",
+      "folder": ".local/logs",
+      "match": [
+        "frozen-*"
+      ],
+      "kinds": "folders",
+      "olderThanDays": 14,
+      "why": "copies of Player.log taken before the owner's next launch could overwrite them, for reading verbose logs; read within a fortnight"
     }
   ]
 }

@@ -95,10 +95,12 @@ uniqueness", the owner picked **groups with pips** over the game's own hurt-part
 - Parts whose names differ only by where they sit share a row (`PartGroupRule`, game-free, with tests): the position words are a
   language key (`PhobosVehicleSystems_HealthPositionWords`), so a translation folds by its own words and an unknown language folds
   nothing. A row is named by the words its members share, pluralised by the game's own language worker.
-- A folded row shows **a pip a part** in its health colour, the worst health and the worst efficiency. A click opens or closes it;
+- A folded row shows **a pip a part** in its health colour, the worst health and the worst efficiency. **Changed in 0.114.1** (the owner's
+  report, 16 Nov 2026: the bars "appear incorrect"): a lone square in the bar's column read as a bar almost empty, so every part has its
+  full bar again and a folded row has one bar split into a segment a part, each filled to that part's health. A click opens or closes it;
   resting on a pip is resting on that part (its tooltip, its outline on the picture, its light on the map). A row with a hurt part or
   a part with a condition, fitting or grade line starts open. Picking a part on the picture opens its row.
-- A whole part shows one pip, a hurt one its bar: bars only where something is wrong.
+- A whole part showed one pip, a hurt one its bar (0.114.0; reversed in 0.114.1, above).
 - **Found in the same screenshots and fixed:** percentages rounded up to "100%" under a slightly-worn colour (now rounded down,
   `PhobosWidgets.HealthPercent`); slight wear tinting the whole picture (now faint); a hovered part outlined a box a cell (now one
   outline); Flight Speed listed twice (Vehicle Framework yields it for the vehicle and again for its launcher comp); a wear line cut

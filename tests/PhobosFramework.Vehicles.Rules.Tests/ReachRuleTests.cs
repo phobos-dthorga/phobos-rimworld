@@ -15,4 +15,20 @@ public class ReachRuleTests
     [InlineData(7, 5, 1)]      // exactly one cell a side
     public void TheMarginCoversThePictureOnEachSide(double drawn, int footprint, int margin) =>
         Assert.Equal(margin, ReachRule.Margin(drawn, footprint));
+
+    [Fact]
+    public void FlightRangeTurnsVehicleFrameworksFuelNeedRound()
+    {
+        // Vehicle Framework: fuel needed = rate x multiplier x tiles / (0.001 x speed). For 10 tiles at speed 16, rate 0.002, multiplier 1.5:
+        double needed = 0.002 * 1.5 * 10 / (0.001 * 16);
+        Assert.Equal(10, ReachRule.FlightTiles(needed, 16, 0.002, 1.5), 6);
+    }
+
+    [Fact]
+    public void NoFuelOrNoBurnIsNoRange()
+    {
+        Assert.Equal(0, ReachRule.FlightTiles(0, 16, 0.002, 1));
+        Assert.Equal(0, ReachRule.FlightTiles(100, 16, 0, 1));
+        Assert.Equal(0, ReachRule.FlightTiles(100, 0, 0.002, 1));
+    }
 }

@@ -122,6 +122,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     bool serviceRequested;
     bool updating;
     bool healthsRestored;
+    /// <summary>Whether the stages have been taken from the first real update since the states were made (Framework 0.114.1; never saved).
+    /// Made at load, before the systems' first proper update, the derived readings were not yet true, so every vehicle passed through
+    /// "too weak to start", "oil pressure gone" and "hydraulics too low" for one update (the owner's verbose log, 16 Nov 2026).</summary>
+    bool stagesSettled;
+    /// <summary>Whether the detail tier has been read once, so the first reading after a load is not logged as a change.</summary>
+    bool tierRead;
     bool registered;
     Powertrain? powertrain;
     bool powertrainBuilt;
@@ -555,7 +561,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         RefreshBay();
         DetailTier was = Tier;
         Tier = ReadTier();
-        if (Tier != was && VehicleSystemsMod.Logger.DebugEnabled)
+        bool firstRead = !tierRead;
+        tierRead = true;
+        if (Tier != was && !firstRead && VehicleSystemsMod.Logger.DebugEnabled)
         {
             VehicleSystemsMod.Logger.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ", " + (Vehicle.Faction?.Name ?? "no faction") + ") detail tier " + was + " -> " + Tier);
         }
@@ -661,6 +669,15 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             foreach (SystemState state in states)
             {
                 if (Enabled(state)) state.Def.Worker.Advance(new SystemContext(this, state), hours);
+            }
+            if (!stagesSettled)
+            {
+                // The first update: take the stages the true readings give, quietly, as where each starts (no effects on entry or exit).
+                stagesSettled = true;
+                foreach (SystemState state in states)
+                {
+                    for (int q = 0; q < state.values.Length; q++) state.stage[q] = StageOf(state, q);
+                }
             }
             foreach (SystemState state in states)
             {

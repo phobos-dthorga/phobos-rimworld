@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.114.1] - 2026-11-16 - Draft
+
+Health bars that read as health bars, a range circle round aircraft in flight, and a tidier start after loading
+
+### Fixed
+
+- **Every part on the vehicle Health tab has its full health bar again** (the owner's report, 16 November 2026: the bars "appear incorrect"). 0.114.0 showed a whole part as one small square, which read as a bar almost empty. A folded row of like parts now shows **one bar split into a segment for each part**, each filled to that part's health in its colour; rest on a segment to see that part. Long part names end in an ellipsis rather than being cut off. Not yet tested in game.
+- **An aircraft in flight now shows how far its fuel takes it**: an amber circle round it on the world map, from Vehicle Framework's own fuel and flight-speed figures, with our factors on fuel use (a slung load, lost navigation) included. The range line had only ever been worked out for vehicle caravans on the ground, so aircraft had none (the owner's report). Not yet tested in game.
+- **Just after loading a save, vehicles no longer pass for a moment through "too weak to start", "oil pressure gone" and "hydraulics too low"**, which could refuse a start or light a warning for that moment. Found in the owner's first verbose log. Each vehicle now starts from the stages its true readings give.
+
+### Changed
+
+- **Verbose logging** says why no range line or circle is drawn for a selected caravan or aircraft, gives an aircraft's figures behind its circle, and notes when the weather changes a vehicle's grip. Another faction's vehicles no longer log a change of detail at load that was only their first reading.
+
+### Compatibility and limits
+
+- No settings were added or changed.
+- **None of the errors in the owner's log of 16 November 2026 came from our mods**: every error and warning was read in full, traces included. The 28 that name House D'thorga are Vehicle Framework's, naming the player's faction while it loads other factions' vehicles.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.114.0] - 2026-11-16 - Draft
 
 A tidier vehicle Health tab, and verbose logging

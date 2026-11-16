@@ -193,8 +193,8 @@ public class ITab_PhobosVehicleHealth : ITab
         float y = 0f;
         VehicleComponent? hovered = null, sheetHovered = null, picked = null;
 
-        // One part's row and the lines under it. A sound part shows one pip; a hurt one its bar (Framework 0.114.0: bars only where
-        // something is wrong).
+        // One part's row and the lines under it, with its health bar (Framework 0.114.1: a whole part's single square read as a nearly
+        // empty bar, the owner's report of 16 Nov 2026, so every part has its full bar again).
         void DrawPart(PartRow part, float indent)
         {
             var row = new Rect(0f, y, viewWidth, Row);
@@ -228,10 +228,10 @@ public class ITab_PhobosVehicleHealth : ITab
                 GUI.DrawTexture(new Rect(iconsX, y + (Row - RowIcon) / 2f, RowIcon, RowIcon), icon);
             }
             bool sound = part.HealthShare >= PhobosWidgets.HealthSlightlyImpairedBelow;
-            Widgets.Label(new Rect(4f + indent, y, iconsX - 6f - indent, Row), sound ? part.Label : part.Label.Colorize(part.HealthColour));
-            var gauge = new Rect(viewWidth * GaugeX, y + 4f, viewWidth * GaugeShare, Row - 8f);
-            if (sound) PhobosWidgets.Pip(new Rect(gauge.x, gauge.y, PipWidth, gauge.height), part.HealthColour);
-            else PhobosWidgets.Gauge(gauge, part.HealthShare, part.HealthColour);
+            float nameRoom = iconsX - 6f - indent;
+            string name = part.Label.Truncate(nameRoom, view.Truncated);
+            Widgets.Label(new Rect(4f + indent, y, nameRoom, Row), sound ? name : name.Colorize(part.HealthColour));
+            PhobosWidgets.Gauge(new Rect(viewWidth * GaugeX, y + 4f, viewWidth * GaugeShare, Row - 8f), part.HealthShare, part.HealthColour);
             using (new TextBlock(TextAnchor.MiddleRight))
             {
                 Widgets.Label(new Rect(viewWidth * 0.68f, y, viewWidth * 0.14f, Row), part.HealthText);
@@ -269,9 +269,9 @@ public class ITab_PhobosVehicleHealth : ITab
                     DrawPart(bundle.Members[0], 0f);
                     continue;
                 }
-                // Like parts folded into one row (Framework 0.114.0; owner, 16 Nov 2026): a pip a part, in its health colour. A click
-                // opens and closes the row; resting on a pip is resting on that part. A row with a hurt part, or one with something
-                // to say, starts open.
+                // Like parts folded into one row (Framework 0.114.0; owner, 16 Nov 2026): one bar split into a segment a part, each filled to
+                // that part's health in its colour (0.114.1: separate squares read as nearly empty bars). A click opens and closes the row;
+                // resting on a segment is resting on that part. A row with a hurt part, or one with something to say, starts open.
                 bool open = bundle.OpenByDefault != view.Flipped.Contains(bundle.Key);
                 if (!open && view.ScrollToPicked && view.Picked != null && bundle.Holds(view.Picked))
                 {
@@ -284,17 +284,17 @@ public class ITab_PhobosVehicleHealth : ITab
                 GUI.DrawTexture(new Rect(4f, y + (Row - ArrowSize) / 2f, ArrowSize, ArrowSize), open ? TexButton.Collapse : TexButton.Reveal);
                 bool sound = bundle.WorstShare >= PhobosWidgets.HealthSlightlyImpairedBelow;
                 Widgets.Label(new Rect(BundleIndent, y, viewWidth * NameShare - BundleIndent, Row), sound ? bundle.Label : bundle.Label.Colorize(bundle.WorstColour));
-                float pipsWidth = viewWidth * GaugeShare;
-                float pip = Mathf.Min(PipWidth, (pipsWidth - PipGap * (bundle.Members.Count - 1)) / bundle.Members.Count);
-                float pipX = viewWidth * GaugeX;
+                float barWidth = viewWidth * GaugeShare;
+                float segment = (barWidth - SegmentGap * (bundle.Members.Count - 1)) / bundle.Members.Count;
+                float segmentX = viewWidth * GaugeX;
                 PartRow? pipOver = null;
                 foreach (PartRow member in bundle.Members)
                 {
-                    var pipRect = new Rect(pipX, y + 4f, pip, Row - 8f);
-                    PhobosWidgets.Pip(pipRect, member.HealthColour);
-                    if (member.Part.props.key == view.Picked || view.SheetHover == member.Part.props.key) Widgets.DrawBox(pipRect.ExpandedBy(1f));
-                    if (Mouse.IsOver(new Rect(pipX - PipGap / 2f, y, pip + PipGap, Row))) pipOver = member;
-                    pipX += pip + PipGap;
+                    var segmentRect = new Rect(segmentX, y + 4f, segment, Row - 8f);
+                    PhobosWidgets.Gauge(segmentRect, member.HealthShare, member.HealthColour);
+                    if (member.Part.props.key == view.Picked || view.SheetHover == member.Part.props.key) Widgets.DrawBox(segmentRect.ExpandedBy(1f), 2);
+                    if (Mouse.IsOver(new Rect(segmentX - SegmentGap / 2f, y, segment + SegmentGap, Row))) pipOver = member;
+                    segmentX += segment + SegmentGap;
                 }
                 using (new TextBlock(TextAnchor.MiddleRight))
                 {
@@ -338,9 +338,8 @@ public class ITab_PhobosVehicleHealth : ITab
     const float NameShare = 0.42f;
     const float GaugeX = 0.44f;
     const float GaugeShare = 0.22f;
-    /// <summary>A pip's width and the gap between pips; a folded row's opening arrow, and how far its name and its members sit in.</summary>
-    const float PipWidth = 10f;
-    const float PipGap = 3f;
+    /// <summary>The gap between a folded row's bar segments; its opening arrow, and how far its name and its members sit in.</summary>
+    const float SegmentGap = 3f;
     const float ArrowSize = 14f;
     const float BundleIndent = 22f;
 
@@ -365,6 +364,8 @@ public class ITab_PhobosVehicleHealth : ITab
         public bool ScrollToPicked;
         /// <summary>The folded rows the player has opened or closed against their start (kept while the tab stays open; never saved).</summary>
         public readonly HashSet<string> Flipped = new();
+        /// <summary>Part names as cut to fit their column, kept so none is measured twice.</summary>
+        public readonly Dictionary<string, string> Truncated = new();
         public readonly List<WearRow> Wear = new();
         /// <summary>The wear rows' words as cut to fit, kept so no row is measured twice.</summary>
         public readonly Dictionary<string, string> WearTruncated = new();
@@ -441,6 +442,7 @@ public class ITab_PhobosVehicleHealth : ITab
 
         public void Build(CompPhobosVehicleSystems comp, DisplayMode mode)
         {
+            Truncated.Clear();
             Version = comp.HealthViewVersion;
             Mode = mode;
             VehiclePawn vehicle = comp.Vehicle;

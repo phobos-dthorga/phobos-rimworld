@@ -7,7 +7,7 @@ helpers every D'thorga mod shares.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.114.0, built 16 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
+Version 0.114.1, built 16 November 2026 for House D'thorga. **Partly tested in game:** the owner reports the gas layer and the supplied
 oxygen working through Burns and Smoke and Medical Equipment (5 November 2026). The health layer new in 0.3.0 and the **vehicle
 systems new in 0.9.0, and their engines, drivetrains and gas turbines new in 0.11.0, are not yet tested in game.** The rest is read from the game's and the mods' code.
 
@@ -29,8 +29,9 @@ and wear that a mechanic services. See [Vehicle systems](#vehicle-systems-with-v
 - **New in 0.31.0, with Vanilla Expanded Framework (not yet tested in game): garages.** A convoy that has stopped can set up a garage on
   the world map. Vehicles left in one stay with no time limit, and whoever is stationed there mends them from steel and components
   you bring by caravan. **Before removing this mod, take every vehicle out of every garage**, or they go with it.
-- **New in 0.114.0 (not yet tested in game): a tidier vehicle Health tab, and verbose logging.** Like parts (wheels, panels, covers)
-  share one row with a small square for each; **click the row to open it**. On the world map the tab is called **Vehicle**. For
+- **New in 0.114.0 and 0.114.1 (not yet tested in game): a tidier vehicle Health tab, and verbose logging.** Like parts (wheels, panels,
+  covers) share one row whose bar is split into a segment for each; **click the row to open it**. An aircraft in flight shows an amber
+  circle at the range its fuel still flies. On the world map the tab is called **Vehicle**. For
   chasing a fault, **Verbose logging** at the foot of this mod's settings writes extra detail to the game's log, for everything or
   for one part at a time; it is off by default.
 - **New in 0.113.0 (not yet tested in game): the driver, the weather, rivers and ammunition.** A driver who is hurt, drugged,

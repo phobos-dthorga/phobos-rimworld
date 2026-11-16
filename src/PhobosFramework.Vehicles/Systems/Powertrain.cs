@@ -556,9 +556,21 @@ public sealed class Powertrain
         IntVec3 cell = vehicle.Position;
         bool open = !cell.Roofed(map);
         PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
-        return WeatherGripRule.Factor(open ? map.weatherManager.RainRate : 0, open ? map.weatherManager.SnowRate : 0,
+        double factor = WeatherGripRule.Factor(open ? map.weatherManager.RainRate : 0, open ? map.weatherManager.SnowRate : 0,
             map.terrainGrid.TerrainAt(cell)?.IsIce == true, rules.weatherGripRain, rules.weatherGripSnow, rules.weatherGripIce);
+        if (VehicleSystemsMod.StagesLog.DebugEnabled && System.Math.Abs(factor - loggedWeatherGrip) >= 0.05)
+        {
+            // Verbose only, and only when it moves by a twentieth: weather on grip had said nothing (the owner's verbose log, 16 Nov 2026).
+            VehicleSystemsMod.StagesLog.Debug(vehicle.LabelShort + " (" + vehicle.ThingID + ") grip from the weather x" + factor.ToString("0.##") + " (rain "
+                + map.weatherManager.RainRate.ToString("0.##") + ", snow " + map.weatherManager.SnowRate.ToString("0.##") + (open ? "" : ", under a roof")
+                + (map.terrainGrid.TerrainAt(cell)?.IsIce == true ? ", on ice" : "") + ")");
+        }
+        loggedWeatherGrip = factor;
+        return factor;
     }
+
+    /// <summary>The weather's grip factor last reported to the verbose log (never saved).</summary>
+    double loggedWeatherGrip = 1;
 
     /// <summary>The running gear system and its soft-ground grip parameter, which a fitting moves (all-terrain tyres).</summary>
     const string RunningGearSystem = "PhobosVehicleSystem_RunningGear";
