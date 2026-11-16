@@ -111,6 +111,19 @@ public class When_PoweredWeaponManned : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => TurretPower.AnyPowered(context.Vehicle, manned: true);
 }
 
+/// <summary>While a fitting that grants this ability is on a part that is not destroyed (Framework 0.115.0, W1): a load fitted with it.</summary>
+public class When_FittingGrants : VehicleSystemCondition
+{
+    public string ability = "";
+    protected override bool HoldsRaw(SystemContext context) => context.Comp.Fittings.Grants(ability);
+}
+
+/// <summary>While the vehicle's recovery winch is pulling (Framework 0.115.0, W1).</summary>
+public class When_Winching : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosHitch>()?.Winching != null;
+}
+
 /// <summary>While the vehicle is set up to work.</summary>
 public class When_SetUp : VehicleSystemCondition
 {

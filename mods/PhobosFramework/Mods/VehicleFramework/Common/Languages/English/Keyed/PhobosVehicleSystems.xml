@@ -102,6 +102,10 @@
   <PhobosVehicleSystems_WeaponMountDamaged>{PART} damaged</PhobosVehicleSystems_WeaponMountDamaged>
   <PhobosVehicleSystems_WeaponGunnerHurt>gunner hurt</PhobosVehicleSystems_WeaponGunnerHurt>
   <PhobosVehicleSystems_WeaponHandCranked>turned by hand, no power</PhobosVehicleSystems_WeaponHandCranked>
+  <!-- What feeds a fitting (Framework 0.115.0, W4). {WHAT} is the fitting in words ("the winch"). -->
+  <PhobosFeeds_EngineOff>{VEHICLE}'s engine must be running for {WHAT} to work.</PhobosFeeds_EngineOff>
+  <PhobosFeeds_NoPower>{VEHICLE} has no power for {WHAT}: the battery is flat, or the load has been shed. Run the engine to charge it.</PhobosFeeds_NoPower>
+  <PhobosFeeds_Short>{VEHICLE} has too little {SUPPLY} for {WHAT}.</PhobosFeeds_Short>
   <!-- Crews in danger (Framework 0.115.0, C2). -->
   <PhobosVehicleSystems_AlertCrewInDanger>Crew in danger</PhobosVehicleSystems_AlertCrewInDanger>
   <PhobosVehicleSystems_AlertCrewInDangerDesc>People are still aboard these vehicles:\n\n{VEHICLES}\n\nGet them out, or put the fire out and repair what stopped the vehicle.</PhobosVehicleSystems_AlertCrewInDangerDesc>

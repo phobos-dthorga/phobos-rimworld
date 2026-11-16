@@ -230,6 +230,10 @@
     <minSkill>5</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
     <grants><li>RecoveryWinch</li></grants>
+    <!-- Framework 0.115.0 (W1): an electric winch, the "winch" load in the land loadouts. It will not start, and stops, on a flat battery. -->
+    <feed>
+      <load>winch</load>
+    </feed>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>

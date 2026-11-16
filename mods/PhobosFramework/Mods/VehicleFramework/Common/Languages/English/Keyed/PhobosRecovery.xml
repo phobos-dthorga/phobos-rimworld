@@ -18,6 +18,7 @@
   <PhobosRecovery_BeingTowed>{TRACTOR} is being towed by {TOW}.</PhobosRecovery_BeingTowed>
 
   <PhobosRecovery_NoWinch>{TRACTOR} has no working recovery winch.</PhobosRecovery_NoWinch>
+  <PhobosRecovery_WinchName>the winch</PhobosRecovery_WinchName>
   <PhobosRecovery_UnhitchFirst>{TRACTOR} is towing {TOWED}. Unhitch it before using the winch.</PhobosRecovery_UnhitchFirst>
   <PhobosRecovery_WaitingToHitch>{TRACTOR} is waiting for someone to couple {TOWED}.</PhobosRecovery_WaitingToHitch>
   <PhobosRecovery_NobodyAboard>Nobody is aboard {TRACTOR} to work the winch.</PhobosRecovery_NobodyAboard>

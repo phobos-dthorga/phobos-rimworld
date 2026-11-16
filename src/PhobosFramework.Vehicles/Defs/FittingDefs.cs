@@ -52,6 +52,9 @@ public class PhobosVehicleFittingDef : Def
     /// <summary>Abilities the fitting gives the vehicle, by name (Framework 0.92.0): "CargoHook" lets a helicopter lift a vehicle on a sling.
     /// A fitting that grants something need move no figure.</summary>
     public List<string> grants = new();
+    /// <summary>What the fitting needs to work (Framework 0.115.0, W4): an electrical load, a quantity it draws on, the engine. Null: it needs
+    /// nothing (an awning, a roof rack).</summary>
+    public FeedSpec? feed;
     /// <summary>Wear quantities the fitting renews on the parts it goes on (Framework 0.105.2): new tyres renew "treadWear". Each part fitted
     /// takes away its share of the wear (FittingRule.WearAfterRenewing), so a whole set takes all of it.</summary>
     public List<string> renews = new();

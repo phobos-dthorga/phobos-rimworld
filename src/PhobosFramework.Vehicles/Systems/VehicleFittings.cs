@@ -464,6 +464,11 @@ public sealed class VehicleFittings
     public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability)
         && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f });
 
+    /// <summary>The fittings on parts that are not destroyed, as <see cref="Grants"/> counts them.</summary>
+    public IEnumerable<PhobosVehicleFittingDef> FittedDefs() => fitted
+        .Where(f => f.def != null && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f })
+        .Select(f => f.def!);
+
     public FitOrder? OrderOn(string partKey) => orders.FirstOrDefault(o => o.partKey == partKey);
 
     public FitOrder? OrderFor(VehicleTuneAxis axis) => orders.FirstOrDefault(o => o.tune != null && o.tune.axis == axis);

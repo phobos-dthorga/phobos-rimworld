@@ -34,6 +34,10 @@ Knocked out, not destroyed: the owner's build of 17 Nov 2026 (docs/development/v
   gun twice as slowly, but never stops (the owner's choice). Pintle and ring-mounted machine guns are swung by hand anyway and lose
   nothing. Other factions' turrets are not affected, as their batteries do not run down (the owner's choice). The inspect pane says
   "turned by hand, no power".
+- **The recovery winch runs on the battery** (step 6: W1 and W4). It is a new electrical load, drawing about 150 amps while it pulls and
+  never shed. It will not start on a flat battery, and a long pull that runs the battery flat stops it, each time saying why: run the
+  engine while winching. This is the first user of a single rule for what a fitting needs to work (power, the engine, or a supply such as
+  hydraulic fluid), which the field kitchen's power lead and the camp accessories will use.
 
 ## [0.114.5] - 2026-11-16 - Draft
 

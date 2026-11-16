@@ -123,8 +123,12 @@ public sealed partial class CompPhobosHitch
         if (Hitches.Towing(Vehicle) is { } by) return "PhobosRecovery_BeingTowed".Translate(Vehicle.LabelShort.Named("TRACTOR"), by.Vehicle.LabelShort.Named("TOW")).Resolve();
         if (Vehicle.AllPawnsAboard.Count == 0) return "PhobosRecovery_NobodyAboard".Translate(Vehicle.LabelShort.Named("TRACTOR")).Resolve();
         if (Vehicle.vehiclePather is { Moving: true }) return "PhobosHitch_Moving".Translate(Vehicle.LabelShort.Named("TRACTOR")).Resolve();
-        return null;
+        return WinchFeedRefusal();
     }
+
+    /// <summary>Why the winch has no power now (Framework 0.115.0, W1: it is an electrical load), or null. The fitting declares its feed.</summary>
+    string? WinchFeedRefusal() =>
+        Feeds.Refusal(Systems, Feeds.ForAbility(Systems, RecoveryAbility), "PhobosRecovery_WinchName".Translate().Resolve());
 
     /// <summary>Why this vehicle's winch cannot pull <paramref name="stuck"/> now, or null.</summary>
     public string? WinchRefusalFor(VehiclePawn stuck)
@@ -204,6 +208,12 @@ public sealed partial class CompPhobosHitch
             return;
         }
         if (--winchWait > 0) return;
+        // A winch that has lost its power (the battery run flat on a long pull) stops, and says why (Framework 0.115.0, W1).
+        if (WinchFeedRefusal() is { } unpowered)
+        {
+            StopWinch(unpowered, MessageTypeDefOf.RejectInput);
+            return;
+        }
         if (Beside(stuck))
         {
             StopWinch("PhobosRecovery_WinchDone".Translate(tractor.Named("TRACTOR"), towed.Named("TOWED")).Resolve(), MessageTypeDefOf.TaskCompletion);

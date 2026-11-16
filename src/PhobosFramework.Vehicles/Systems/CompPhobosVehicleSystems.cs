@@ -362,6 +362,23 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         return false;
     }
 
+    /// <summary>
+    /// Whether a load could run now if its work began (Framework 0.115.0, W4): it is fitted, switched on, not shed, and the battery is above
+    /// flat. Unlike <see cref="LoadActive"/> it does not ask the load's own "when" (a winch's load runs only while it pulls). A vehicle whose
+    /// loadout has no such load is not refused: the load is not modelled there.
+    /// </summary>
+    public bool LoadCouldRun(string name, float flatBelow)
+    {
+        PhobosVehicleLoadoutDef? loadout = Props.loadout;
+        ElectricalLoadSpec? load = loadout?.loads.FirstOrDefault(l => l.name == name);
+        if (load == null) return true;
+        if (states == null || states.Count == 0) return true;
+        if (load.toggle && !IsOn(load)) return false;
+        if (!LoadAvailable(load)) return false;
+        if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
+        return !TryGetQuantity("charge", out float charge) || charge >= flatBelow;
+    }
+
     /// <summary>Whether this vehicle has the load fitted (its <c>available</c> condition), so its switch shows.</summary>
     public bool LoadAvailable(ElectricalLoadSpec load) =>
         load.available == null || states == null || states.Count == 0 || load.available.Holds(new SystemContext(this, states[0]));

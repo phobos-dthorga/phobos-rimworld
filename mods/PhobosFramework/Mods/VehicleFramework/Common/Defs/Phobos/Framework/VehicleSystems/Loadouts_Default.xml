@@ -469,6 +469,20 @@
         <available Class="Phobos.VehicleSystems.When_HasPoweredWeapon" />
         <when Class="Phobos.VehicleSystems.When_PoweredWeaponManned" />
       </li>
+      <li>
+        <!-- Framework 0.115.0 (W1): the recovery winch is an electric winch, drawing while it pulls and never shed (it stops only on a flat
+             battery). Authored draw: a vehicle recovery winch under load draws a few hundred amps at 12 volts; this is an average over a
+             pull, not a verified figure. With the engine running the alternator carries much of it. -->
+        <name>winch</name>
+        <label>recovery winch</label>
+        <description>The recovery winch's motor, drawing while it pulls. A long pull on a flat battery stops it: run the engine while winching.</description>
+        <amps>150</amps>
+        <shedOrder>0</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_FittingGrants">
+          <ability>RecoveryWinch</ability>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_Winching" />
+      </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
@@ -651,6 +665,20 @@
         <shedOrder>7</shedOrder>
         <available Class="Phobos.VehicleSystems.When_HasPoweredWeapon" />
         <when Class="Phobos.VehicleSystems.When_PoweredWeaponManned" />
+      </li>
+      <li>
+        <!-- Framework 0.115.0 (W1): the recovery winch is an electric winch, drawing while it pulls and never shed (it stops only on a flat
+             battery). Authored draw: a vehicle recovery winch under load draws a few hundred amps at 12 volts; this is an average over a
+             pull, not a verified figure. With the engine running the alternator carries much of it. -->
+        <name>winch</name>
+        <label>recovery winch</label>
+        <description>The recovery winch's motor, drawing while it pulls. A long pull on a flat battery stops it: run the engine while winching.</description>
+        <amps>150</amps>
+        <shedOrder>0</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_FittingGrants">
+          <ability>RecoveryWinch</ability>
+        </available>
+        <when Class="Phobos.VehicleSystems.When_Winching" />
       </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
