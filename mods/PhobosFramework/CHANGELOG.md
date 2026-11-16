@@ -11,6 +11,17 @@ tested in game unless an entry says the owner tested it.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 
+## [0.120.4] - 2026-11-17 - Draft
+
+The lights dev action names the sky
+
+### Changed
+
+- **Lights: what lights this place?** now says whether the cell is open to the sky and how much light the sky gives it now, and how many
+  lights the map holds. The owner's glare over the market (17 Nov 2026) turned out to be daylight on snow in an open courtyard ringed by
+  overhead mountain, which is dark under its rock: lamps alone bring a cell to at most 50 % in the game's sum, so readings of 93 to 99 %
+  that fell as the evening came on were the sky. No change in play. Not yet tested in game.
+
 ## [0.120.3] - 2026-11-17 - Draft
 
 The lights dev action reads where each light really is

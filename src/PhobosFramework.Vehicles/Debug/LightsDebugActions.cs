@@ -54,6 +54,13 @@ public static class LightsDebugActions
         if (map == null || !at.InBounds(map)) return;
         var text = new StringBuilder();
         text.AppendLine("Lights reaching " + at + " (the game calls it " + map.glowGrid.GroundGlowAt(at).ToStringPercent() + " lit):");
+        // Framework 0.120.4 (the owner's glare of 17 Nov 2026 was daylight on an open courtyard ringed by overhead mountain): the sky lights
+        // every cell with no roof, and lamps alone bring a cell to at most 50 % (the game's own cap) unless it is overlit, at exactly 100 %.
+        RoofDef? roof = at.GetRoof(map);
+        float sky = map.skyManager.CurSkyGlow;
+        text.AppendLine(roof == null
+            ? "  The sky: no roof here, so the sky lights it at " + sky.ToStringPercent() + " now. Lamps alone give at most 50 %; anything between that and 100 % is the sky."
+            : "  The sky: roofed (" + roof.LabelCap + "), so the sky gives nothing here.");
 
         // Who lit each thing's light, by thing ID: the glowers the grid holds lit.
         var byId = new Dictionary<int, CompGlower>();
@@ -100,7 +107,7 @@ public static class LightsDebugActions
                 text.AppendLine("  at " + light.position + ", " + distance.ToString("0") + " cells away, radius " + light.glowRadius.ToString("0.#")
                     + (light.overlightRadius > 0f ? ", overlit to " + light.overlightRadius.ToString("0.#") : "") + ", colour " + light.glowColor + ": " + what);
             }
-            if (reaching == 0) text.AppendLine("  none: nothing in the light grid reaches this cell, so the glow is the sky's or drawn, not light.");
+            if (reaching == 0) text.AppendLine("  No light of any thing, ground or mod reaches this cell (" + records.Length + " lights on the map): what lights it is the sky, or something drawn.");
         }
 
         Log.Message(VehicleSystemsMod.LogPrefix + " " + text.ToString().TrimEnd());
