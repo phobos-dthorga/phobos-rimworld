@@ -7,7 +7,7 @@
     pitches a canvas shower tent beside itself with two of Dubs' showers and two flushing toilets, a chemfuel water heater outside the tent, and a power point.
     Beneath it while set up lie two hidden stand-ins of Dubs' own kinds (D'thorga Framework's CompPhobosTrailerPlumbing): a water tower topped up from its
     tank, and a septic tank that is its waste tank, emptied by Dubs' own colonists into sludge drums at half full, or by our tanker parked against its rear.
-    Its picture is the bowsers', borrowed until its own is made (owner, 17 Nov 2026). Tent: 5 cells out from its side and 6 along it, inside 3 x 4, the flap at
+    Its picture is the bowsers' (owner, 17 Nov 2026: keep it; it is the same tank trailer, told apart by a teal stripe). Tent: 5 cells out from its side and 6 along it, inside 3 x 4, the flap at
     the front (agent layout). Cells run x -1 to 1, z -3 to 4, the front north. Part keys are saved by position: append only. Not yet tested in game.
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn" DBHLite="true">

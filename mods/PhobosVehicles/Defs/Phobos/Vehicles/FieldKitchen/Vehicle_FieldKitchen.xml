@@ -6,8 +6,8 @@
     A colonist sets it up where it stands, and it pitches a canvas kitchen tent beside itself with a field range, a kettle, a shelf for meals, a cold box and
     a lamp, and a power point outside the flap; packing up takes them all in again.
 
-    Size 3 x 8 (the owner's sizes: "3 x 7 is the bare minimum", other trailers "at least vehicle sized or near"; 3 x 8 is the agent's reading). Its picture is
-    borrowed from the bowsers until its own is made (owner, 17 Nov 2026: borrow for now), painted olive and canvas. Tent: 6 cells out from its side and its
+    Size 3 x 8 (the owner's sizes: "3 x 7 is the bare minimum", other trailers "at least vehicle sized or near"; 3 x 8 is the agent's reading). Its own picture
+    since 17 Nov 2026 (the owner's pick of three paid attempts, a kitchen box van on the bowsers' chassis). Tent: 6 cells out from its side and its
     own length, inside 4 x 6, its flap at the front (agent layout). Cells run x -1 to 1, z -3 to 4, the front (the drawbar) north; set-out cells count out
     from its side. Part keys are saved by position: append only, never reorder. Figures authored. Not yet tested in game.
   -->
@@ -16,11 +16,12 @@
     <label>Billy field kitchen</label>
     <description>A field kitchen on a two-axle trailer, named for the camp billy. Hitch it behind any vehicle with a hitch; where it stands, a colonist sets it up and it pitches a canvas kitchen tent beside itself, with a range that cooks anything a stove can, a big kettle for meals ten at a time, a shelf for the meals, a cold box and a lamp. Its burners take chemfuel or wood; plugged into power through the point outside the tent's flap, it cooks a quarter faster, keeps the cold box cold and lights the tent. On the road, a resting caravan's cooks can turn its raw food into meals at it. It has no engine: whatever tows it pulls its weight.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/PintleBowser/PintleBowser</texPath>
+      <texPath>Phobos/Vehicles/FieldKitchen/BillyFieldKitchen</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
       <shaderType>CutoutComplexPattern</shaderType>
       <drawSize>(5, 9)</drawSize>
-      <color>(112, 118, 78)</color>
+      <!-- Its own picture since 17 Nov 2026 (owner's pick, attempt 3): the body takes the paint, olive as drawn; the canvas shutters stay as drawn. -->
+      <color>(145, 141, 109)</color>
       <colorTwo>(176, 164, 128)</colorTwo>
     </graphicData>
     <fillPercent>0.6</fillPercent>
@@ -221,7 +222,7 @@
     <label>Billy field kitchen</label>
     <description>A field kitchen trailer that any vehicle with a hitch can tow, with its canvas tent, range, kettle and cold box packed aboard.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/PintleBowser/PintleBowser</texPath>
+      <texPath>Phobos/Vehicles/FieldKitchen/BillyFieldKitchen</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <drawSize>(5, 9)</drawSize>
     </graphicData>

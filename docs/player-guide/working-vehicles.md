@@ -228,7 +228,7 @@ D'thorga Framework's settings.
 **Upgrades:** a **second range** (two cooks at once), a **big kettle** (meals twenty at a time) and an **insulated tent** (a chemfuel
 heater keeps the tent at about 15 °C in the cold, about 2 chemfuel a day). A new range or heater appears at the next set-up.
 
-**Its picture is borrowed from the bowsers for now**, painted olive; the range, kettle and cold box have stand-in pictures.
+It looks like an olive kitchen box van with canvas shutters and a stove chimney. The range, kettle and cold box have stand-in pictures for now.
 
 ## Pintle shower trailer
 

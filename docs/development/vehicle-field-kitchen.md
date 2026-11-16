@@ -210,8 +210,8 @@ Vehicles 0.59.0, with the trailer base's power lead and set-out pieces ([vehicle
 - **Caravan cooking:** spoilt meals use the cook's own food-poisoning chance plus the game's 2 percent for cooking outdoors; it reads the
   caravan's fuel from the kitchen's packed burners first, then chemfuel or wood in the packs. A Billy never set up has no burners yet, so it
   burns from the packs only.
-- **Its body picture is borrowed** from the bowsers (owner, 17 Nov 2026), painted olive and canvas; the range, kettle and cold box show
-  stand-ins until the owner picks from the candidates made that night.
+- **Its own body picture** the same day: a kitchen box van on the bowsers' chassis, the owner's pick of three paid attempts (US$0.166;
+  `BillyFieldKitchen.record.md`). The range, kettle and cold box show stand-ins until the owner picks from the candidates made that night.
 
 ## Sources
 

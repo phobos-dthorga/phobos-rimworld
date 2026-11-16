@@ -44,6 +44,9 @@ BODIES = [
      [(406, 184), (362, 193), (419, 258), (353, 253), (384, 66)], (180, 174, 143), (222, 119, 14)),
     ('PintleBowser', 'PintleBowser', 'pintle-bowser-body-north/pintle-bowser-body-north-1.png', DEFAULT_MAIN, (8, 37), 0.12,
      [(446, 80), (425, 195), (467, 195), (410, 261), (495, 261)], (194, 187, 158), (64, 124, 190)),
+    # Billy (17 Nov 2026): the body takes the paint; its canvas shutters (saturation 0.16) stay as drawn, below the 0.21 floor (fewest flecks of 0.17 to 0.21).
+    ('BillyFieldKitchen', 'FieldKitchen', 'billy-field-kitchen-body-north/billy-field-kitchen-body-north-3.png', DEFAULT_MAIN, DEFAULT_ACCENT, 0.21,
+     [(446, 77), (424, 198), (468, 198), (413, 254), (479, 254)], (112, 118, 78), (176, 164, 128)),
     ('SeabedCrawler', 'SeabedCrawler', 'seabed-crawler-body-north/widened/seabed-crawler-3-wide.png', (185, 240), (8, 32), 0.05, [], (70, 78, 86), (214, 124, 44)),
     ('SeabedCrawler_Research', 'SeabedCrawler', 'seabed-crawler-body-north/widened/seabed-crawler-1-wide.png', (185, 240), (8, 32), 0.05, [], (70, 78, 86), (214, 124, 44)),
     ('SeabedCrawler_Sensor', 'SeabedCrawler', 'seabed-crawler-body-north/widened/seabed-crawler-4-wide.png', (185, 240), (8, 32), 0.05, [], (70, 78, 86), (214, 124, 44)),
