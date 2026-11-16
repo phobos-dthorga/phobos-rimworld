@@ -250,6 +250,10 @@
   <PhobosVehicleSystems_TuneAirLeakDesc>How fast a parked truck loses its brake air. Only trucks with air brakes use it.</PhobosVehicleSystems_TuneAirLeakDesc>
 
   <!-- The Dashboard and Systems tabs -->
+  <PhobosVehicleSystems_TabVehicle>Vehicle</PhobosVehicleSystems_TabVehicle>
+  <PhobosVehicleSystems_HealthBundleTip>Click to open or close. Rest on a square to see that part.</PhobosVehicleSystems_HealthBundleTip>
+  <!-- For translators: the words that say where a part sits, separated by commas. Parts whose names differ only by these words share one row on the Health tab. -->
+  <PhobosVehicleSystems_HealthPositionWords>left,right,front,rear,back,upper,lower,top,bottom,inner,outer,centre,center,middle,port,starboard,forward,aft,fore,first,second,third,fourth,main,primary,secondary</PhobosVehicleSystems_HealthPositionWords>
   <PhobosVehicleSystems_TabDashboard>Dashboard</PhobosVehicleSystems_TabDashboard>
   <PhobosVehicleSystems_TabSystems>Systems</PhobosVehicleSystems_TabSystems>
   <PhobosVehicleSystems_TabHealth>Health</PhobosVehicleSystems_TabHealth>

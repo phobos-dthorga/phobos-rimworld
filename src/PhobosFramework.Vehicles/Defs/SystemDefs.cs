@@ -60,6 +60,10 @@ public class StageSpec
     public float from = float.NaN;
     public float to = float.NaN;
     [MustTranslate] public string label = "";
+    /// <summary>What the stage is called while the engine is off, where its usual word would mislead (Framework 0.114.0; owner, 16 Nov
+    /// 2026: a parked helicopter read "hydraulic pressure 0%, control boost 100% (boosted)"). The inspect line then gives this word alone,
+    /// without the figure. Empty: the usual label.</summary>
+    [MustTranslate] public string? labelEngineOff;
     /// <summary>Whether Plain mode names this stage on the inspect line (a normal stage stays quiet there).</summary>
     public bool notable;
     public List<VehicleSystemEffect> effects = new();

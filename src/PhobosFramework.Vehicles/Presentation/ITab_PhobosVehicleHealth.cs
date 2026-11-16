@@ -4,10 +4,12 @@ using System.Text;
 using Phobos.Framework;
 using Phobos.Framework.Interface;
 using Phobos.Framework.Rules;
+using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using UnityEngine;
 using Vehicles;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.VehicleSystems;
 
@@ -31,6 +33,8 @@ public class ITab_PhobosVehicleHealth : ITab
     /// <summary>The damage sheet's column (Framework 0.79.0, P7a), drawn when the tab is at least <see cref="SheetNeedsWidth"/> wide.</summary>
     const float SheetWidth = 210f;
     const float SheetNeedsWidth = 820f;
+    /// <summary>The share of the left column a wear row's words take when its little graph is shown beside them.</summary>
+    const float WearWordsShare = 0.74f;
 
     public ITab_PhobosVehicleHealth()
     {
@@ -143,13 +147,16 @@ public class ITab_PhobosVehicleHealth : ITab
                 Widgets.DrawHighlightIfMouseover(row);
                 using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
                 {
-                    Widgets.Label(new Rect(rect.x + 4f, y, rect.width * (figures ? 0.62f : 1f) - 4f, Row), wear.Label.Colorize(wear.Colour));
+                    // Cut with an ellipsis where it does not fit, never mid-word and silently (found by the owner, 16 Nov 2026: "Hot-section
+                    // life used: No"); the whole line is in the tooltip.
+                    float room = rect.width * (figures ? WearWordsShare : 1f) - 4f;
+                    Widgets.Label(new Rect(rect.x + 4f, y, room, Row), wear.Label.Truncate(room, view.WearTruncated).Colorize(wear.Colour));
                 }
                 if (figures && wear.Ring != null)
                 {
-                    PhobosWidgets.Sparkline(new Rect(rect.x + rect.width * 0.64f, y + 3f, rect.width * 0.36f, Row - 6f), wear.Ring, wear.Min, wear.Max, wear.Colour);
+                    PhobosWidgets.Sparkline(new Rect(rect.x + rect.width * (WearWordsShare + 0.02f), y + 3f, rect.width * (0.98f - WearWordsShare), Row - 6f), wear.Ring, wear.Min, wear.Max, wear.Colour);
                 }
-                TooltipHandler.TipRegion(row, wear.Tip);
+                TooltipHandler.TipRegion(row, wear.Label + "\n\n" + wear.Tip);
                 y += Row;
             }
         }
@@ -185,68 +192,138 @@ public class ITab_PhobosVehicleHealth : ITab
         Widgets.BeginScrollView(rect, ref view.Scroll, inner);
         float y = 0f;
         VehicleComponent? hovered = null, sheetHovered = null, picked = null;
+
+        // One part's row and the lines under it. A sound part shows one pip; a hurt one its bar (Framework 0.114.0: bars only where
+        // something is wrong).
+        void DrawPart(PartRow part, float indent)
+        {
+            var row = new Rect(0f, y, viewWidth, Row);
+            if (part.Part.props.key == view.Picked)
+            {
+                Widgets.DrawHighlightSelected(row);
+                picked = part.Part;
+                if (view.ScrollToPicked)
+                {
+                    view.Scroll.y = Mathf.Max(0f, y - Row * 2f);
+                    view.ScrollToPicked = false;
+                }
+            }
+            if (Mouse.IsOver(row))
+            {
+                Widgets.DrawHighlight(row);
+                hovered = part.Part;
+            }
+            else if (view.SheetHover == part.Part.props.key)
+            {
+                Widgets.DrawHighlight(row);
+                sheetHovered = part.Part;
+            }
+            // As the game's health card: the part's name in its health colour, and a stack of small pictures at the right of the
+            // name column for what is fitted to it and how well it is made (Framework 0.87.0).
+            float nameWidth = viewWidth * NameShare;
+            float iconsX = nameWidth;
+            foreach (UnityEngine.Texture2D icon in part.Icons)
+            {
+                iconsX -= RowIcon + 2f;
+                GUI.DrawTexture(new Rect(iconsX, y + (Row - RowIcon) / 2f, RowIcon, RowIcon), icon);
+            }
+            bool sound = part.HealthShare >= PhobosWidgets.HealthSlightlyImpairedBelow;
+            Widgets.Label(new Rect(4f + indent, y, iconsX - 6f - indent, Row), sound ? part.Label : part.Label.Colorize(part.HealthColour));
+            var gauge = new Rect(viewWidth * GaugeX, y + 4f, viewWidth * GaugeShare, Row - 8f);
+            if (sound) PhobosWidgets.Pip(new Rect(gauge.x, gauge.y, PipWidth, gauge.height), part.HealthColour);
+            else PhobosWidgets.Gauge(gauge, part.HealthShare, part.HealthColour);
+            using (new TextBlock(TextAnchor.MiddleRight))
+            {
+                Widgets.Label(new Rect(viewWidth * 0.68f, y, viewWidth * 0.14f, Row), part.HealthText);
+                Widgets.Label(new Rect(viewWidth * 0.84f, y, viewWidth * 0.16f, Row), part.EfficiencyText);
+            }
+            TooltipHandler.TipRegion(row, new TipSignal(part.Tip, part.TipId));
+            y += Row;
+            foreach (ConditionRow condition in part.Conditions)
+            {
+                var line = new Rect(0f, y, viewWidth, ConditionHeight);
+                Widgets.DrawHighlightIfMouseover(line);
+                using (new TextBlock(GameFont.Tiny))
+                {
+                    Widgets.Label(new Rect(24f + indent, y, viewWidth - 24f - indent, ConditionHeight), condition.Label.Colorize(condition.Colour));
+                }
+                if (condition.SystemDefName != null && Widgets.ButtonInvisible(line) && mode != DisplayMode.Plain)
+                {
+                    ITab_VehicleSystems.ScrollTo(comp.Vehicle.thingIDNumber, condition.SystemDefName);
+                    if (onWorld) PhobosTabs.OpenWorldTab(typeof(WITab_PhobosVehicleSystems));
+                    else InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
+                }
+                y += ConditionHeight;
+            }
+        }
+
         foreach (PartGroup group in view.Parts!)
         {
             // A card a group, as the Systems tab has (Framework 0.94.0), its dot in the colour of the worst part in it.
             float top = y;
             PhobosWidgets.CardHeader(ref y, 0f, viewWidth, group.Header, GroupColour(group));
-            foreach (PartRow part in group.Rows)
+            foreach (PartBundle bundle in group.Bundles)
             {
+                if (bundle.Members.Count == 1)
+                {
+                    DrawPart(bundle.Members[0], 0f);
+                    continue;
+                }
+                // Like parts folded into one row (Framework 0.114.0; owner, 16 Nov 2026): a pip a part, in its health colour. A click
+                // opens and closes the row; resting on a pip is resting on that part. A row with a hurt part, or one with something
+                // to say, starts open.
+                bool open = bundle.OpenByDefault != view.Flipped.Contains(bundle.Key);
+                if (!open && view.ScrollToPicked && view.Picked != null && bundle.Holds(view.Picked))
+                {
+                    // The part picked on the picture is inside: open the row so it can be marked and scrolled to.
+                    if (!view.Flipped.Add(bundle.Key)) view.Flipped.Remove(bundle.Key);
+                    open = true;
+                }
                 var row = new Rect(0f, y, viewWidth, Row);
-                if (part.Part.props.key == view.Picked)
+                if (Mouse.IsOver(row)) Widgets.DrawHighlight(row);
+                GUI.DrawTexture(new Rect(4f, y + (Row - ArrowSize) / 2f, ArrowSize, ArrowSize), open ? TexButton.Collapse : TexButton.Reveal);
+                bool sound = bundle.WorstShare >= PhobosWidgets.HealthSlightlyImpairedBelow;
+                Widgets.Label(new Rect(BundleIndent, y, viewWidth * NameShare - BundleIndent, Row), sound ? bundle.Label : bundle.Label.Colorize(bundle.WorstColour));
+                float pipsWidth = viewWidth * GaugeShare;
+                float pip = Mathf.Min(PipWidth, (pipsWidth - PipGap * (bundle.Members.Count - 1)) / bundle.Members.Count);
+                float pipX = viewWidth * GaugeX;
+                PartRow? pipOver = null;
+                foreach (PartRow member in bundle.Members)
                 {
-                    Widgets.DrawHighlightSelected(row);
-                    picked = part.Part;
-                    if (view.ScrollToPicked)
-                    {
-                        view.Scroll.y = Mathf.Max(0f, y - Row * 2f);
-                        view.ScrollToPicked = false;
-                    }
+                    var pipRect = new Rect(pipX, y + 4f, pip, Row - 8f);
+                    PhobosWidgets.Pip(pipRect, member.HealthColour);
+                    if (member.Part.props.key == view.Picked || view.SheetHover == member.Part.props.key) Widgets.DrawBox(pipRect.ExpandedBy(1f));
+                    if (Mouse.IsOver(new Rect(pipX - PipGap / 2f, y, pip + PipGap, Row))) pipOver = member;
+                    pipX += pip + PipGap;
                 }
-                if (Mouse.IsOver(row))
-                {
-                    Widgets.DrawHighlight(row);
-                    hovered = part.Part;
-                }
-                else if (view.SheetHover == part.Part.props.key)
-                {
-                    Widgets.DrawHighlight(row);
-                    sheetHovered = part.Part;
-                }
-                // As the game's health card: the part's name in its health colour, and a stack of small pictures at the right of the
-                // name column for what is fitted to it and how well it is made (Framework 0.87.0).
-                float nameWidth = viewWidth * 0.42f;
-                float iconsX = nameWidth;
-                foreach (UnityEngine.Texture2D icon in part.Icons)
-                {
-                    iconsX -= RowIcon + 2f;
-                    GUI.DrawTexture(new Rect(iconsX, y + (Row - RowIcon) / 2f, RowIcon, RowIcon), icon);
-                }
-                Widgets.Label(new Rect(4f, y, iconsX - 6f, Row), part.HealthShare >= 0.999f ? part.Label : part.Label.Colorize(part.HealthColour));
-                PhobosWidgets.Gauge(new Rect(viewWidth * 0.44f, y + 4f, viewWidth * 0.22f, Row - 8f), part.HealthShare, part.HealthColour);
                 using (new TextBlock(TextAnchor.MiddleRight))
                 {
-                    Widgets.Label(new Rect(viewWidth * 0.68f, y, viewWidth * 0.14f, Row), part.HealthText);
-                    Widgets.Label(new Rect(viewWidth * 0.84f, y, viewWidth * 0.16f, Row), part.EfficiencyText);
+                    Widgets.Label(new Rect(viewWidth * 0.68f, y, viewWidth * 0.14f, Row), bundle.WorstText);
+                    Widgets.Label(new Rect(viewWidth * 0.84f, y, viewWidth * 0.16f, Row), bundle.EfficiencyText);
                 }
-                TooltipHandler.TipRegion(row, new TipSignal(part.Tip, part.TipId));
-                y += Row;
-                foreach (ConditionRow condition in part.Conditions)
+                if (pipOver != null)
                 {
-                    var line = new Rect(0f, y, viewWidth, ConditionHeight);
-                    Widgets.DrawHighlightIfMouseover(line);
-                    using (new TextBlock(GameFont.Tiny))
-                    {
-                        Widgets.Label(new Rect(24f, y, viewWidth - 24f, ConditionHeight), condition.Label.Colorize(condition.Colour));
-                    }
-                    if (condition.SystemDefName != null && Widgets.ButtonInvisible(line) && mode != DisplayMode.Plain)
-                    {
-                        ITab_VehicleSystems.ScrollTo(comp.Vehicle.thingIDNumber, condition.SystemDefName);
-                        if (onWorld) PhobosTabs.OpenWorldTab(typeof(WITab_PhobosVehicleSystems));
-                        else InspectPaneUtility.OpenTab(typeof(ITab_VehicleSystems));
-                    }
-                    y += ConditionHeight;
+                    hovered = pipOver.Part;
+                    TooltipHandler.TipRegion(row, new TipSignal(pipOver.Tip, pipOver.TipId));
                 }
+                else TooltipHandler.TipRegion(row, new TipSignal(bundle.Tip, bundle.TipId));
+                if (Widgets.ButtonInvisible(row))
+                {
+                    if (!view.Flipped.Add(bundle.Key)) view.Flipped.Remove(bundle.Key);
+                    SoundDefOf.Tick_High.PlayOneShotOnCamera();
+                }
+                y += Row;
+                if (!open)
+                {
+                    // Closed, its members still answer the picture: the one picked or under the mouse there lights on the map.
+                    foreach (PartRow member in bundle.Members)
+                    {
+                        if (member.Part.props.key == view.Picked) picked = member.Part;
+                        else if (view.SheetHover == member.Part.props.key) sheetHovered = member.Part;
+                    }
+                    continue;
+                }
+                foreach (PartRow member in bundle.Members) DrawPart(member, BundleIndent);
             }
             PhobosWidgets.CardEnd(top, ref y, 0f, viewWidth);
         }
@@ -256,6 +333,16 @@ public class ITab_PhobosVehicleHealth : ITab
         view.LitKey = hovered?.props.key;
         if (!onWorld) VehicleHighlight.Set(comp.Vehicle, hovered ?? sheetHovered ?? picked);
     }
+
+    /// <summary>The parts list's columns, as shares of its width: the name, then the bar or pips.</summary>
+    const float NameShare = 0.42f;
+    const float GaugeX = 0.44f;
+    const float GaugeShare = 0.22f;
+    /// <summary>A pip's width and the gap between pips; a folded row's opening arrow, and how far its name and its members sit in.</summary>
+    const float PipWidth = 10f;
+    const float PipGap = 3f;
+    const float ArrowSize = 14f;
+    const float BundleIndent = 22f;
 
     // ---- The row model: built when the comp says something changed, drawn every frame without allocation. ----
 
@@ -276,7 +363,11 @@ public class ITab_PhobosVehicleHealth : ITab
         public string? SheetHover;
         public string? Picked;
         public bool ScrollToPicked;
+        /// <summary>The folded rows the player has opened or closed against their start (kept while the tab stays open; never saved).</summary>
+        public readonly HashSet<string> Flipped = new();
         public readonly List<WearRow> Wear = new();
+        /// <summary>The wear rows' words as cut to fit, kept so no row is measured twice.</summary>
+        public readonly Dictionary<string, string> WearTruncated = new();
         public int WearStamp = -1;
         public DisplayMode WearMode;
 
@@ -287,6 +378,7 @@ public class ITab_PhobosVehicleHealth : ITab
             WearStamp = comp.History.WearStamp;
             WearMode = mode;
             Wear.Clear();
+            WearTruncated.Clear();
             foreach (SystemState state in comp.States)
             {
                 if (!comp.IsEnabled(state)) continue;
@@ -369,9 +461,12 @@ public class ITab_PhobosVehicleHealth : ITab
             Stats.Clear();
             VehiclePawn vehicle = comp.Vehicle;
             List<VehicleComponent> components = vehicle.statHandler.components;
+            // Vehicle Framework lists a stat once for the vehicle and again for each comp that names it (an aircraft's flight speed came
+            // twice: found by the owner, 16 Nov 2026), so each is shown once.
+            var seen = new HashSet<VehicleStatDef>();
             foreach (VehicleStatDef stat in vehicle.VehicleDef.StatCategoryDefs())
             {
-                if (stat.alwaysHide) continue;
+                if (stat.alwaysHide || !seen.Add(stat)) continue;
                 float value = stat.Worker.GetValue(vehicle);
                 float baseValue = stat.Worker.GetBaseValue(vehicle.VehicleDef);
                 float share = baseValue > 0f ? value / baseValue : 1f;
@@ -484,6 +579,7 @@ public class ITab_PhobosVehicleHealth : ITab
             Parts = new List<PartGroup>();
             if (external.Rows.Count > 0) Parts.Add(external);
             if (internalGroup.Rows.Count > 0) Parts.Add(internalGroup);
+            foreach (PartGroup group in Parts) Fold(group, figures, comp.Vehicle.thingIDNumber);
             Height = Row;
             foreach (PartGroup group in Parts)
             {
@@ -492,6 +588,48 @@ public class ITab_PhobosVehicleHealth : ITab
                 Height += 6f;
             }
         }
+
+        /// <summary>Folds a group's like parts into rows (PartGroupRule): one row for the landing wheels, one for the engine covers.</summary>
+        static void Fold(PartGroup group, bool figures, int vehicleId)
+        {
+            var labels = new List<string>(group.Rows.Count);
+            foreach (PartRow row in group.Rows) labels.Add(row.Label);
+            foreach (PartGroupRule.Group folded in PartGroupRule.Groups(labels, PositionWords))
+            {
+                var bundle = new PartBundle { Key = group.Header + "/" + folded.Label };
+                float worstEfficiency = float.MaxValue;
+                foreach (int index in folded.Members)
+                {
+                    PartRow row = group.Rows[index];
+                    bundle.Members.Add(row);
+                    bundle.WorstShare = Mathf.Min(bundle.WorstShare, row.HealthShare);
+                    if (row.FeedsStat) worstEfficiency = Mathf.Min(worstEfficiency, row.Part.Efficiency);
+                    if (row.HealthShare < PhobosWidgets.HealthSlightlyImpairedBelow || row.Conditions.Count > 0) bundle.OpenByDefault = true;
+                }
+                bundle.Label = bundle.Members.Count == 1 ? bundle.Members[0].Label
+                    : Find.ActiveLanguageWorker.Pluralize(folded.Label, bundle.Members.Count).CapitalizeFirst();
+                bundle.WorstColour = PhobosWidgets.HealthColour(bundle.WorstShare);
+                bundle.WorstText = figures ? PhobosWidgets.HealthPercent(bundle.WorstShare) : ShareWord(bundle.WorstShare);
+                bundle.EfficiencyText = worstEfficiency == float.MaxValue ? "-" : figures ? worstEfficiency.ToStringPercent() : "";
+                bundle.TipId = vehicleId ^ bundle.Key.GetHashCode() ^ 0x0B0D;
+                PartBundle captured = bundle;
+                bundle.Tip = () => BundleTip(captured);
+                group.Bundles.Add(bundle);
+            }
+        }
+
+        static string BundleTip(PartBundle bundle)
+        {
+            var text = new StringBuilder(bundle.Label);
+            foreach (PartRow member in bundle.Members) text.Append('\n').Append("  ").Append(member.Label).Append(": ").Append(member.HealthText);
+            text.Append("\n\n").Append("PhobosVehicleSystems_HealthBundleTip".Translate());
+            return text.ToString();
+        }
+
+        static string[]? positionWords;
+
+        /// <summary>The words that say where a part sits, from the language file, so a translation folds parts by its own words.</summary>
+        static string[] PositionWords => positionWords ??= "PhobosVehicleSystems_HealthPositionWords".Translate().Resolve().Split(',');
 
         static PartRow MakeRow(CompPhobosVehicleSystems comp, VehicleComponent part, string? role, bool figures, bool leaking)
         {
@@ -504,8 +642,9 @@ public class ITab_PhobosVehicleHealth : ITab
                 Label = label,
                 HealthShare = share,
                 HealthColour = PhobosWidgets.HealthColour(share),
-                HealthText = figures ? part.HealthPercent.ToStringPercent() : ShareWord(share),
+                HealthText = figures ? PhobosWidgets.HealthPercent(share) : ShareWord(share),
                 EfficiencyText = !feedsStat ? "-" : figures ? part.Efficiency.ToStringPercent() : "",
+                FeedsStat = feedsStat,
                 TipId = comp.Vehicle.thingIDNumber ^ part.props.key.GetHashCode(),
             };
             if (comp.Fittings.FittedOn(part.props.key)?.Icon is { } fittingIcon) row.Icons.Add(fittingIcon);
@@ -656,6 +795,32 @@ public class ITab_PhobosVehicleHealth : ITab
     {
         public string Header = "";
         public readonly List<PartRow> Rows = new();
+        /// <summary>The same rows as the list shows them: like parts folded into one row (Framework 0.114.0).</summary>
+        public readonly List<PartBundle> Bundles = new();
+    }
+
+    /// <summary>One row of the parts list: a part alone, or like parts folded together with a pip each.</summary>
+    sealed class PartBundle
+    {
+        public string Key = "";
+        public string Label = "";
+        public readonly List<PartRow> Members = new();
+        public float WorstShare = 1f;
+        public Color WorstColour;
+        public string WorstText = "";
+        public string EfficiencyText = "";
+        public bool OpenByDefault;
+        public int TipId;
+        public Func<string> Tip = () => "";
+
+        public bool Holds(string key)
+        {
+            foreach (PartRow member in Members)
+            {
+                if (member.Part.props.key == key) return true;
+            }
+            return false;
+        }
     }
 
     sealed class PartRow
@@ -666,6 +831,7 @@ public class ITab_PhobosVehicleHealth : ITab
         public Color HealthColour;
         public string HealthText = "";
         public string EfficiencyText = "";
+        public bool FeedsStat;
         public int TipId;
         public Func<string> Tip = () => "";
         public readonly List<ConditionRow> Conditions = new();

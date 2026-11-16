@@ -202,6 +202,11 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
     public void HookedUp(Pawn crew)
     {
         if (hooked == null) return;
+        if (VehicleSystemsMod.SlingLog.DebugEnabled)
+        {
+            VehicleSystemsMod.SlingLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") hooked up " + hooked.LabelShort + " (" + hooked.ThingID + "), "
+                + LoadKilograms(hooked).ToString("0") + " kg of " + CapacityKilograms(Vehicle.MapHeld).ToString("0") + " kg");
+        }
         awaitingCrew = false;
         SlingWaits.Note(this, false);
         Latch(hooked);
@@ -456,6 +461,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         }
         VehiclePawn load = Carried!;
         PlanetTile tile = PhobosSlingWreck.FreeTileNear(below);
+        VehicleSystemsMod.SlingLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") released " + load.LabelShort + " (" + load.ThingID + ") in flight over tile " + below + ", wreck at " + tile);
         if (!tile.Valid)
         {
             Say("PhobosSling_ReleaseNoTile".Translate(load.LabelShort.Named("LOAD")).Resolve(), MessageTypeDefOf.RejectInput, historical: false);

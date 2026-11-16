@@ -712,6 +712,12 @@ public sealed class VehicleFittings
     {
         NamedArgument who = mechanic.LabelShort.Named("MECHANIC");
         NamedArgument vehicle = comp.Vehicle.LabelShort.Named("VEHICLE");
+        if (VehicleSystemsMod.RepairsLog.DebugEnabled)
+        {
+            VehicleSystemsMod.RepairsLog.Debug(comp.Vehicle.LabelShort + " (" + comp.Vehicle.ThingID + ") fit order by " + mechanic.LabelShort + ": part " + order.partKey
+                + (order.grade != null ? ", grade " + order.grade.defName : "") + (order.fitting != null ? ", fitting " + order.fitting.defName : "")
+                + (order.tune != null ? ", tune " + order.tune.defName : "") + (order.remove ? ", removal" : ""));
+        }
         string text;
         if (order.grade != null)
         {

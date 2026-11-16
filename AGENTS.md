@@ -447,6 +447,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
   unused save indexes and other cache entries, the shared tools' development build, old install backups, test repositories, .NET's
   per-build logs, older RimWorld crash dumps and git watcher daemons; the owner runs `--apply`. **Something new that a script or test
   of ours leaves behind gets a rule in `config/cleanup.json`** in the same change, never a one-off deletion.
+- **Detail for chasing a fault is a Debug line** (owner, 16 Nov 2026: verbose logging): `Logger.Debug(...)`, behind `Logger.DebugEnabled` where
+  the line costs anything to build. A mod's logs are static fields of its Mod class, so D'thorga Framework's settings can list a tick for each.
 - **Log through the shared logger** (phobos-log, public, pinned at `external/phobos-log` and compiled into D'thorga Framework; owner, 8
   Nov 2026): `Phobos.Framework.Logging.Logs.For(mod, part)` in a static field named `Logger`, never `Log`, with its gates before a line
   that can repeat. A dev action's own answer still goes through the game's `Log`. Existing mods adopt it when next touched.

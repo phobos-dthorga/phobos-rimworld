@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Phobos.Framework.Gases;
 using Phobos.Framework.Health;
 using Phobos.Framework.Rules;
@@ -26,10 +27,37 @@ public class FrameworkSettings : ModSettings
     public bool systemSoundsOnOtherVehicles = true;
     /// <summary>Whose parts a build of ours asks for (Bills/Bills; owner, 11 Nov 2026: other mods' where installed, with a setting; applied at the next start).</summary>
     public Bills.BillPartsSource billPartsSource = Bills.BillPartsSource.OthersWhereInstalled;
+    /// <summary>Verbose logging (owner, 16 Nov 2026: a master switch and a tick per part; both off by default): every log of ours writes
+    /// its detail lines.</summary>
+    public bool verboseAll;
+    /// <summary>The logs whose detail is asked for one by one, by their keys (Logging/LogTopic.Key).</summary>
+    public List<string> verboseTopics = new();
+    /// <summary>The same keys for a quick look-up; replaced whole when a tick changes, so a log read on another thread never sees it half made.</summary>
+    HashSet<string> verboseSet = new();
+
+    /// <summary>Whether the log of this key writes its detail lines now.</summary>
+    public bool Verbose(string key) => verboseAll || verboseSet.Contains(key);
+
+    /// <summary>Ticks or unticks one log's detail.</summary>
+    public void SetVerbose(string key, bool on)
+    {
+        var next = new HashSet<string>(verboseSet);
+        if (on) next.Add(key);
+        else next.Remove(key);
+        verboseSet = next;
+        verboseTopics = new List<string>(next);
+    }
 
     public override void ExposeData()
     {
         base.ExposeData();
+        Scribe_Values.Look(ref verboseAll, "PhobosFramework_VerboseAll", false);
+        Scribe_Collections.Look(ref verboseTopics, "PhobosFramework_VerboseTopics", LookMode.Value);
+        if (Scribe.mode == LoadSaveMode.PostLoadInit || Scribe.mode == LoadSaveMode.LoadingVars)
+        {
+            verboseTopics ??= new List<string>();
+            verboseSet = new HashSet<string>(verboseTopics);
+        }
         Scribe_Values.Look(ref soundVolume, "PhobosFramework_SoundVolume", 1f);
         Scribe_Values.Look(ref systemSoundsOnOtherVehicles, "PhobosFramework_SystemSoundsOnOtherVehicles", true);
         Scribe_Values.Look(ref billPartsSource, "PhobosFramework_BillPartsSource", Bills.BillPartsSource.OthersWhereInstalled);
@@ -51,7 +79,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.113.0";
+    public const string ModVersion = "0.114.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -94,10 +122,12 @@ public class FrameworkMod : Mod
 
     public override string SettingsCategory() => "PhobosFramework_SettingsCategory".Translate();
 
+    readonly SettingsScroll scroll = new();
+
     public override void DoSettingsWindowContents(Rect inRect)
     {
-        var listing = new Listing_Standard();
-        listing.Begin(inRect);
+        // Scrolled since 0.114.0: the list of logs made the page longer than the window.
+        Listing_Standard listing = scroll.Begin(inRect);
         listing.Label("PhobosFramework_SettingGasSourceMode".Translate(), tooltip: "PhobosFramework_SettingGasSourceModeDesc".Translate());
         foreach (GasSourceMode mode in System.Enum.GetValues(typeof(GasSourceMode)))
         {
@@ -142,6 +172,19 @@ public class FrameworkMod : Mod
             listing.CheckboxLabeled("PhobosFramework_SettingWritePatchedDefs".Translate(), ref Settings.writePatchedDefsOnce,
                 "PhobosFramework_SettingWritePatchedDefsDesc".Translate(Debug.PatchedDefsDump.OutputPath.Named("PATH")));
         }
-        listing.End();
+        // Verbose logging (owner, 16 Nov 2026): the master switch, then a tick for each log of ours, named as its lines are headed in the log.
+        listing.GapLine();
+        listing.Label("PhobosFramework_SectionVerbose".Translate(), tooltip: "PhobosFramework_SectionVerboseDesc".Translate());
+        listing.CheckboxLabeled("PhobosFramework_SettingVerboseAll".Translate(), ref Settings.verboseAll, "PhobosFramework_SettingVerboseAllDesc".Translate());
+        foreach (Logging.LogTopic topic in Logging.Logs.Topics)
+        {
+            bool on = Settings.verboseAll || Settings.Verbose(topic.Key);
+            bool before = on;
+            if (Settings.verboseAll) GUI.color = Color.gray;
+            listing.CheckboxLabeled("PhobosFramework_SettingVerboseTopic".Translate(topic.Label.Named("LOG")), ref on, "PhobosFramework_SettingVerboseTopicDesc".Translate());
+            GUI.color = Color.white;
+            if (!Settings.verboseAll && on != before) Settings.SetVerbose(topic.Key, on);
+        }
+        scroll.End(listing);
     }
 }

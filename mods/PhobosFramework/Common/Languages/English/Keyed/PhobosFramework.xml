@@ -63,4 +63,11 @@
   <PhobosFramework_BillPartsOthersDesc>Where a mod you have installed makes a part that suits, a build asks for that part. Everything else is ours. Repairs accept either, as before.</PhobosFramework_BillPartsOthersDesc>
   <PhobosFramework_BillPartsOurs>Always our own parts</PhobosFramework_BillPartsOurs>
   <PhobosFramework_BillPartsOursDesc>A build asks only for our own parts and materials, whatever else is installed.</PhobosFramework_BillPartsOursDesc>
+  <!-- Verbose logging (0.114.0) -->
+  <PhobosFramework_SectionVerbose>Verbose logging</PhobosFramework_SectionVerbose>
+  <PhobosFramework_SectionVerboseDesc>Extra detail in the game's log (Player.log) from D'thorga mods, for chasing a fault. Off by default. Each mod may write a few hundred detail lines every ten minutes at most, so the log cannot be flooded.</PhobosFramework_SectionVerboseDesc>
+  <PhobosFramework_SettingVerboseAll>Verbose logging: everything</PhobosFramework_SettingVerboseAll>
+  <PhobosFramework_SettingVerboseAllDesc>Every D'thorga log below writes its detail. Louder than ticking only the part you are chasing.</PhobosFramework_SettingVerboseAllDesc>
+  <PhobosFramework_SettingVerboseTopic>Verbose: {LOG}</PhobosFramework_SettingVerboseTopic>
+  <PhobosFramework_SettingVerboseTopicDesc>This log writes its detail lines. The name is the heading its lines carry in the log. Takes effect at once.</PhobosFramework_SettingVerboseTopicDesc>
 </LanguageData>

@@ -30,7 +30,7 @@ public static class DiagnosisText
 
     /// <summary>A part's state: its health as a figure or a word, in its health's colour.</summary>
     public static string PartState(DiagnosisPart part, bool figures) =>
-        (figures ? part.share.ToStringPercent() : HealthWords.Of(part.share)).Colorize(PhobosWidgets.HealthColour(part.share));
+        (figures ? PhobosWidgets.HealthPercent(part.share) : HealthWords.Of(part.share)).Colorize(PhobosWidgets.HealthColour(part.share));
 
     public static string Body(DiagnosisReport report, bool figures)
     {

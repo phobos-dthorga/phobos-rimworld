@@ -32,7 +32,7 @@ or an aircraft in flight.
 | Tab | Answers | Shows |
 | --- | --- | --- |
 | **Dashboard** | Does anything need me now? | Gauges, warning lamps, what the vehicle is waiting for, and its switches. Click a gauge to open Systems at that system |
-| **Health** | How hurt is it? | The vehicle's picture with hurt parts tinted, its speed and strength and what each part does to them, every part with its health, conditions, fitting and grade, and a **Wear** block saying when tread, brakes, battery and service will next need a look ("Tread: worn in about 4 days") |
+| **Health** (called **Vehicle** on the world map) | How hurt is it? | The vehicle's picture with hurt parts tinted, its speed and strength and what each part does to them, every part with its health, conditions, fitting and grade, and a **Wear** block saying when tread, brakes, battery and service will next need a look ("Tread: worn in about 4 days"). **Like parts share a row** (landing wheels, panels) with a small square for each: click the row to open it, or rest on a square to see that part |
 | **Systems** | What exactly is going on? | Every reading, one row each, opening to its graph when clicked; parts as small bars; an **Only what needs attention** tick box. Hidden in Plain mode |
 
 **Rest the mouse on any reading or part** to learn what it means, what moves it, and what losing it costs.

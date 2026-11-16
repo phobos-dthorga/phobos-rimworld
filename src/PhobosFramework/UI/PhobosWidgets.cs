@@ -36,6 +36,22 @@ public static class PhobosWidgets
         : share < HealthImpairedBelow ? HealthUtility.ImpairedColor
         : share < HealthSlightlyImpairedBelow ? HealthUtility.SlightlyImpairedColor
         : HealthUtility.GoodConditionColor;
+
+    /// <summary>
+    /// A share of health as a percentage that agrees with <see cref="HealthColour"/> (Framework 0.114.0; found by the owner, 16 Nov 2026: a
+    /// part at 99.6 % was coloured as slightly worn and written "100%"). Rounded down, and "100%" only at the share the colour calls good.
+    /// </summary>
+    public static string HealthPercent(float share) =>
+        (share >= HealthSlightlyImpairedBelow ? 1f : Mathf.Min(0.99f, Mathf.Floor(Mathf.Max(0f, share) * 100f) / 100f)).ToStringPercent();
+
+    /// <summary>A pip: one small square in a health colour, standing for one part in a folded row (Framework 0.114.0).</summary>
+    public static void Pip(Rect rect, Color colour)
+    {
+        Widgets.DrawBoxSolid(rect, PipEdge);
+        Widgets.DrawBoxSolid(rect.ContractedBy(1f), colour);
+    }
+
+    static readonly Color PipEdge = new(0.05f, 0.05f, 0.06f);
     static readonly Color GaugeBackground = new(0.12f, 0.12f, 0.13f);
 
     /// <summary>A horizontal gauge: a bar filled to a share, in a colour, with an optional label above and figure inside.</summary>

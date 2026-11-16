@@ -5,6 +5,41 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.114.0] - 2026-11-16 - Draft
+
+A tidier vehicle Health tab, and verbose logging
+
+### Added
+
+- **Verbose logging** (owner's request, 16 November 2026). D'thorga Framework's settings gain a **Verbose logging** block at the foot: one tick for everything, and a tick for each of our logs, named as its lines are headed in the game's log. Ticked, a log writes detail lines for chasing a fault: every vehicle system stage as it changes, breakdowns and ammunition cook-off with their figures, why a vehicle will not move and when it may again, which loadout each vehicle design took at start-up, hitching and letting go, sling hook-ups and releases, and each repair and fitting job with what it used. Works without dev mode and takes effect at once. Not yet tested in game.
+
+### Changed
+
+- **The vehicle Health tab folds like parts into one row** (owner's pick, 16 November 2026: the list looked busy, above all on a helicopter with thirty parts). Landing wheels, engine covers, panels and the like share a row with **a small square for each part, in its health colour**. Click the row to open it; rest on a square to see that part and light it on the picture and the map. A row with a hurt part, or a part with something to say (a fitting, a condition), starts open. **A sound part shows one square instead of a full green bar**, so bars appear only where something is wrong. Not yet tested in game.
+- **On the world map our Health tab is labelled Vehicle**, so it reads apart from the crew's own Health tab beside it. The owner's first choice, "Vehicle health", does not fit the game's tab buttons.
+- **With the engine off, an aircraft's inspect line says "control boost ready"** in place of "control boost 100% (boosted)", which read oddly beside "hydraulic pressure 0%". Wording only.
+- The Framework's settings page scrolls.
+
+### Fixed
+
+- **A part a fraction below full health was coloured as slightly worn but written "100%"** (found by the owner on the Harrier's engine and wing tanks). Health percentages now round down and say 100% only when the part is whole, on the Health tab, the damage picture and the diagnosis.
+- **The damage picture no longer paints a slightly worn part solid yellow**: slight wear is a faint tint, and real damage keeps the strong one. On the Harrier a barely worn engine had tinted most of the jet.
+- **Resting on a part outlines it once**, not as a grid of boxes, one for each cell it covers.
+- **A stat is listed once** on the Health tab: an aircraft's Flight Speed came twice.
+- **A wear line too long for its column ends in an ellipsis** and shows whole in its tooltip, where "Hot-section life used: No change lately" was cut to "No".
+
+### Compatibility and limits
+
+- **Settings added** (Mod settings, D'thorga Framework, at the foot of the page): **Verbose logging: everything**, off by default; and **Verbose: (log name)** for each of our logs, each off by default. Today those are D'thorga Framework, its Bills, Screens, Vehicle systems, Vehicle stages, Vehicle repairs and fittings, Hitch and trailers and Sling loads, and one for each part of D'thorga Patches that is loaded.
+- Detail lines share the logger's safety limit: each mod writes at most 400 of them every ten minutes, and says how many it held back.
+- Dev mode alone no longer turns detail lines on; nothing wrote any before this version.
+- D'thorga Medical, Factory Additions, the radio framework and Water Tap do not use the shared logger yet, so they have no ticks.
+- Parts fold by the words in their names that say where they sit (left, right, front, rear and so on); a translation supplies its own list.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.113.0] - 2026-11-16 - Draft
 
 The driver, the weather, the river and the ammunition: four more cross-links from round three

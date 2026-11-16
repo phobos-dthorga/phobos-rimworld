@@ -158,7 +158,9 @@ public class WITab_PhobosVehicleHealth : WITab_PhobosVehicles
     public WITab_PhobosVehicleHealth()
     {
         size = new Vector2(1080f, 430f);
-        labelKey = "PhobosVehicleSystems_TabHealth";
+        // "Vehicle" on the world map (owner, 16 Nov 2026), where the crew's own Health tab sits beside it; the game's tab buttons are 72 px
+        // wide, so the owner's first choice, "Vehicle health", does not fit.
+        labelKey = "PhobosVehicleSystems_TabVehicle";
     }
 
     protected override void DrawVehicle(CompPhobosVehicleSystems comp, Rect rect) => ITab_PhobosVehicleHealth.Draw(comp, rect, onWorld: true);

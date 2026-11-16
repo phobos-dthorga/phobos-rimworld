@@ -158,11 +158,13 @@ public sealed partial class CompPhobosHitch : VehicleComp
         if (candidate == null) return;
         if ((Refusal() ?? RefusalFor(candidate)) is { } refusal)
         {
+            VehicleSystemsMod.HitchLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") could not hitch " + candidate.LabelShort + " (" + candidate.ThingID + "): " + refusal);
             Say(refusal, candidate, MessageTypeDefOf.RejectInput);
             return;
         }
         if (!Couple(candidate))
         {
+            VehicleSystemsMod.HitchLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") could not hitch " + candidate.LabelShort + " (" + candidate.ThingID + "): no room behind it");
             Say("PhobosHitch_NoRoom".Translate(Vehicle.LabelShort.Named("TRACTOR"), candidate.LabelShort.Named("TRAILER")).Resolve(), candidate, MessageTypeDefOf.RejectInput);
             return;
         }
@@ -191,6 +193,11 @@ public sealed partial class CompPhobosHitch : VehicleComp
         RefreshWeight();
         Systems?.Powertrain?.MarkMassDirty();
         Vehicle.RequestTickStart(this);
+        if (VehicleSystemsMod.HitchLog.DebugEnabled)
+        {
+            VehicleSystemsMod.HitchLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") hitched " + candidate.LabelShort + " (" + candidate.ThingID + "), towing "
+                + towedKg.ToString("0") + " kg, hitch to axle " + props.HitchToAxle.ToString("0.##") + " cells");
+        }
         return true;
     }
 
@@ -199,6 +206,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
     {
         VehiclePawn? was = trailer;
         if (was == null || HoldsTowed) return;
+        VehicleSystemsMod.HitchLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") let go of " + was.LabelShort + " (" + was.ThingID + ")" + (quiet ? ", quietly" : ""));
         trailer = null;
         towedKg = 0;
         plainCap = 1f;

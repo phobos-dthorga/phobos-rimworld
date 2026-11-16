@@ -61,6 +61,11 @@ public static class CookOff
         Consume(vehicle, used);
         float radius = (float)CookOffRule.Radius(used, rules.cookOffRadiusBase, rules.cookOffRadiusPerCubeRootKg, rules.cookOffRadiusMax);
         int damage = CookOffRule.Damage(used, rules.cookOffDamageBase, rules.cookOffDamagePerCubeRootKg, rules.cookOffDamageMax);
+        if (VehicleSystemsMod.StagesLog.DebugEnabled)
+        {
+            VehicleSystemsMod.StagesLog.Debug(vehicle.LabelShort + " (" + vehicle.ThingID + ") cook-off: " + aboardKg.ToString("0.#") + " kg aboard, " + used.ToString("0.#")
+                + " kg used, radius " + radius.ToString("0.#") + ", damage " + damage + ", fire " + comp.FireShare.ToStringPercent());
+        }
         if (vehicle.Faction == Faction.OfPlayer && comp.MayNotify(NoticeKey, rules.messageCooldownHours))
         {
             Messages.Message("PhobosVehicleSystems_MsgCookOff".Translate(vehicle.LabelShort.Named("VEHICLE")), vehicle, MessageTypeDefOf.ThreatSmall);

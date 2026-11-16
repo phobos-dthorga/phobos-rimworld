@@ -15,6 +15,12 @@ public static class DamageSheet
 {
     /// <summary>How strongly a hurt cell is tinted over the picture (authored).</summary>
     const float TintAlpha = 0.38f;
+    /// <summary>The tint of a part that is only slightly worn (Framework 0.114.0, authored): faint, so an engine a fraction below full does
+    /// not paint the whole picture yellow (found by the owner, 16 Nov 2026, on the Harrier).</summary>
+    const float SlightTintAlpha = 0.12f;
+    /// <summary>The thickness of the line round the part under the mouse.</summary>
+    const float OutlineWidth = 2f;
+    static readonly HashSet<IntVec2> outlineScratch = new();
     /// <summary>A part at or above this share is whole and left clear.</summary>
     const float WholeShare = 0.999f;
     static readonly Color Background = new(0.09f, 0.09f, 0.1f);
@@ -121,7 +127,7 @@ public static class DamageSheet
         {
             if (pair.Value >= WholeShare) continue;
             Color colour = PhobosWidgets.HealthColour(pair.Value);
-            colour.a = TintAlpha;
+            colour.a = pair.Value >= PhobosWidgets.HealthImpairedBelow ? SlightTintAlpha : TintAlpha;
             Widgets.DrawBoxSolid(CellRectOf(pair.Key), colour);
         }
 
@@ -141,13 +147,25 @@ public static class DamageSheet
             foreach (VehicleComponentProperties props in def.components ?? new List<VehicleComponentProperties>())
             {
                 if (props.key != outline || props.hitbox?.Hitbox is not { } cells) continue;
-                foreach (IntVec2 cell in cells) Widgets.DrawBox(CellRectOf(cell), 1);
+                // One line round the whole part, not a box a cell (Framework 0.114.0; owner, 16 Nov 2026: a part of many cells, such as
+                // an airframe, drew as a grid of squares): an edge is drawn only where the cell beside it is not the part's.
+                HashSet<IntVec2> own = outlineScratch;
+                own.Clear();
+                foreach (IntVec2 cell in cells) own.Add(cell);
+                foreach (IntVec2 cell in cells)
+                {
+                    Rect box = CellRectOf(cell);
+                    if (!own.Contains(new IntVec2(cell.x, cell.z + 1))) Widgets.DrawBoxSolid(new Rect(box.x, box.y, box.width, OutlineWidth), Color.white);
+                    if (!own.Contains(new IntVec2(cell.x, cell.z - 1))) Widgets.DrawBoxSolid(new Rect(box.x, box.yMax - OutlineWidth, box.width, OutlineWidth), Color.white);
+                    if (!own.Contains(new IntVec2(cell.x - 1, cell.z))) Widgets.DrawBoxSolid(new Rect(box.x, box.y, OutlineWidth, box.height), Color.white);
+                    if (!own.Contains(new IntVec2(cell.x + 1, cell.z))) Widgets.DrawBoxSolid(new Rect(box.xMax - OutlineWidth, box.y, OutlineWidth, box.height), Color.white);
+                }
             }
         }
         if (hovered != null && shares.TryGetValue(hovered, out SheetPart over))
         {
             bool figures = VehicleSystemsMod.Settings.displayMode != Phobos.Framework.DisplayMode.Plain;
-            TooltipHandler.TipRegion(area, over.Label + ": " + (figures ? over.Share.ToStringPercent() : HealthWords.Of(over.Share)));
+            TooltipHandler.TipRegion(area, over.Label + ": " + (figures ? PhobosWidgets.HealthPercent(over.Share) : HealthWords.Of(over.Share)));
         }
         return hovered;
     }

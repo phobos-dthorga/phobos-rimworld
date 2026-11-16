@@ -340,6 +340,11 @@ public class Effect_Breakdown : VehicleSystemEffect
         if (!Rand.Chance((float)FailureRule.ChanceIn(hours, mtbHours))) return;
         VehicleComponent? part = context.Comp.BreakRole(role, healthFraction);
         if (part != null) VehicleSystemSounds.PlayOnce(context.Comp, sound);
+        if (VehicleSystemsMod.StagesLog.DebugEnabled)
+        {
+            VehicleSystemsMod.StagesLog.Debug(context.Vehicle.LabelShort + " (" + context.Vehicle.ThingID + ") breakdown rolled on role " + role + " (mean " + mtbHours
+                + " h, " + healthFraction.ToStringPercent() + " of health): " + (part == null ? "no part to break" : part.props.key));
+        }
         if (part == null || message.NullOrEmpty() || context.Vehicle.Faction != Faction.OfPlayer) return;
         Messages.Message(message.Translate(context.Vehicle.LabelShort.Named("VEHICLE"), (part.props.label ?? part.props.key).Named("PART")),
             context.Vehicle, MessageTypeDefOf.NegativeEvent);

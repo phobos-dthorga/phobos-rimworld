@@ -182,6 +182,27 @@ microseconds; Rust would add a UTF-16 to UTF-8 marshal per line, native binaries
 caught. No gain was named. Rust earns its place where volume is, in the reader, and modkit already is Rust where that matters; with
 budgets our files will be smaller than `Player.log`, so even that need is doubtful.
 
+## Verbose logging, built (Framework 0.114.0, 16 Nov 2026)
+
+The owner looked for a verbose option in D'thorga Framework's settings and found none (16 Nov 2026). The core could write Debug lines,
+but only in dev mode, and no code of ours wrote one. Built at the owner's pick (a master switch and a tick per part, both off):
+
+- **What it lets the player do:** switch on the detail of one log, or all, to chase a fault without dev mode. **What it stops:**
+  nothing in play. **How it changes play:** not at all; a report to us can carry the lines that explain it.
+- `Logs.For(mod, part)` registers each log as a `LogTopic`; D'thorga Framework's settings list them and save the ticked keys
+  (`PhobosFramework_VerboseAll`, `PhobosFramework_VerboseTopics`). A log's `DebugEnabled` asks the settings, so a tick takes effect at
+  once. **Dev mode no longer turns Debug on by itself** (the table above said it would): a player who keeps dev mode on would have had
+  every part's detail at once.
+- **Make a mod's logs in its Mod class**, as static fields, so they exist when the settings window can open; a log made lazily in a
+  service is not listed until first used.
+- **Ask `DebugEnabled` before building a line that costs anything.**
+- The first lines, all in the vehicle systems part: stage changes, breakdowns and cook-off (`Vehicle stages`); move refusals, detail
+  tier changes and each design's loadout at start-up (`Vehicle systems`); repair and fitting jobs (`Vehicle repairs and fittings`);
+  hitching (`Hitch and trailers`); hook-ups and releases (`Sling loads`).
+- Debug lines keep the budget's 400 a mod every ten minutes. If that proves too few for a real chase, the budget is the place to
+  change (phobos-log, under its own rules).
+- Not yet tested in game.
+
 ## Recorded alternatives (not chosen)
 
 - **A dedup prefix on `Verse.Log.Error`** that collapses repeated identical errors: the only option that makes a storm *cheaper* (the

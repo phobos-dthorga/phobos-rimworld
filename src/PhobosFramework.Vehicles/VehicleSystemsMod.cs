@@ -222,6 +222,12 @@ public class VehicleSystemsSettings : ModSettings
 public class VehicleSystemsMod : Mod
 {
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Vehicle systems");
+    /// <summary>The finer logs for verbose logging (Framework 0.114.0; owner, 16 Nov 2026: a tick per part). Each writes only Debug lines
+    /// so far: stage changes, breakdowns and cook-off; repairs and fittings done; hitching; sling loads.</summary>
+    public static readonly Phobos.Logging.PhobosLog StagesLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Vehicle stages");
+    public static readonly Phobos.Logging.PhobosLog RepairsLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Vehicle repairs and fittings");
+    public static readonly Phobos.Logging.PhobosLog HitchLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Hitch and trailers");
+    public static readonly Phobos.Logging.PhobosLog SlingLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Sling loads");
 
     /// <summary>The Harmony ID is the Framework's packageId with the part's name; never change it once published.</summary>
     public const string HarmonyId = "PhobosDthorga.Framework.VehicleSystems";
@@ -279,6 +285,14 @@ public class VehicleSystemsMod : Mod
         }
         report.Log();
         foreach (string problem in VehicleSystems.Problems) Log.Warning(LogPrefix + " Vehicle systems: " + problem);
+        if (Logger.DebugEnabled)
+        {
+            foreach (DesignRecord design in VehicleSystems.Designs)
+            {
+                Logger.Debug(design.def.defName + " (" + design.modName + "): " + (design.skippedBecause != null ? "no systems, " + design.skippedBecause
+                    : "loadout " + design.loadout?.defName + ", " + design.partsAdded + " parts appended"));
+            }
+        }
     }
 
     public override string SettingsCategory() => "PhobosVehicleSystems_SettingsCategory".Translate();

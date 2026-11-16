@@ -211,7 +211,7 @@ public class Dialog_PhobosDiagnosis : Window
             float labelWidth = view.width * 0.34f;
             using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(4f, y, labelWidth - 4f, Row), part.label);
             var gauge = new Rect(labelWidth, y + 4f, view.width * 0.30f, Row - 8f);
-            PhobosWidgets.Gauge(gauge, part.share, PhobosWidgets.HealthColour(part.share), figure: figures ? part.share.ToStringPercent() : HealthWords.Of(part.share));
+            PhobosWidgets.Gauge(gauge, part.share, PhobosWidgets.HealthColour(part.share), figure: figures ? PhobosWidgets.HealthPercent(part.share) : HealthWords.Of(part.share));
             string notes = string.Join(", ", new[] { part.grade, part.fitting }.Where(s => s != null));
             if (notes.Length > 0)
             {

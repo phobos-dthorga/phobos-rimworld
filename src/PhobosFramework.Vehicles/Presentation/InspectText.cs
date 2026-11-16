@@ -28,6 +28,12 @@ public static class InspectText
                     if (stage != null && stage.notable) parts.Add("PhobosVehicleSystems_InspectStage".Translate(quantity.label.Named("QUANTITY"), stage.label.Named("STAGE")));
                     continue;
                 }
+                if (stage != null && !stage.labelEngineOff.NullOrEmpty() && !comp.EngineRunning)
+                {
+                    // With the engine off this stage has its own word, said without the figure ("control boost ready").
+                    parts.Add("PhobosVehicleSystems_InspectStage".Translate(quantity.label.Named("QUANTITY"), stage.labelEngineOff.Named("STAGE")).Resolve());
+                    continue;
+                }
                 string figure = Format(quantity, state.values[q]);
                 parts.Add(stage != null && (stage.notable || mode == DisplayMode.Engineer)
                     ? "PhobosVehicleSystems_InspectFigureStage".Translate(quantity.label.Named("QUANTITY"), figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve()

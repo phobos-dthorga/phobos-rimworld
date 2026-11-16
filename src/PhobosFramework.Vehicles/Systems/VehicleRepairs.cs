@@ -360,6 +360,11 @@ public sealed class VehicleRepairs
     bool Do(RepairWork repair, Pawn mechanic)
     {
         List<(ThingDef def, int count)>? payment = AffordableOption(repair);
+        if (VehicleSystemsMod.RepairsLog.DebugEnabled)
+        {
+            VehicleSystemsMod.RepairsLog.Debug(comp.Vehicle.LabelShort + " (" + comp.Vehicle.ThingID + ") " + repair.Kind + " '" + repair.Label + "' by " + mechanic.LabelShort + ": "
+                + (payment == null ? "supplies not aboard, not done" : "done, using " + (payment.Count == 0 ? "nothing" : string.Join(", ", payment.ConvertAll(p => p.count + " " + p.def.defName)))));
+        }
         if (payment == null) return false;
         foreach ((ThingDef def, int count) in payment) comp.TakeFromCargo(def, count);
         NamedArgument who = mechanic.LabelShort.Named("MECHANIC");

@@ -555,6 +555,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         RefreshBay();
         DetailTier was = Tier;
         Tier = ReadTier();
+        if (Tier != was && VehicleSystemsMod.Logger.DebugEnabled)
+        {
+            VehicleSystemsMod.Logger.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ", " + (Vehicle.Faction?.Name ?? "no faction") + ") detail tier " + was + " -> " + Tier);
+        }
         // A vehicle that has just become the player's (captured) starts its clock now: the hours it spent as another faction's,
         // when nothing evolved, are not caught up at once. From here it runs on the player's own settings.
         if (Tier == DetailTier.Full && was != DetailTier.Full && Current.Game != null) lastUpdateTick = Find.TickManager.TicksGame;
@@ -667,7 +671,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             Conditions.Advance((float)hours);
             RecacheStatFactors();
             History.Sample(states, now);
+            string? refusalBefore = MoveRefusal;
             MoveRefusal = FirstRefusal(draft: false);
+            if (MoveRefusal != refusalBefore && VehicleSystemsMod.Logger.DebugEnabled)
+            {
+                VehicleSystemsMod.Logger.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") " + (MoveRefusal == null ? "may move again (was: " + refusalBefore + ")" : "will not move: " + MoveRefusal));
+            }
             HealthViewVersion++;
             if (ClosedCab && TryGetQuantity("cabTemperature", out float cab)) CabClimate.Set(Vehicle, cab);
             else CabClimate.Forget(Vehicle);
@@ -954,6 +963,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 }
                 state.stage[q] = index;
                 StageSpec? entered = state.CurrentStage(q);
+                if (VehicleSystemsMod.StagesLog.DebugEnabled)
+                {
+                    VehicleSystemsMod.StagesLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") " + state.Def.defName + "." + state.Def.quantities[q].name
+                        + " = " + state.values[q].ToString("0.###") + ": " + (old?.label ?? "no stage") + " -> " + (entered?.label ?? "no stage"));
+                }
                 if (entered != null)
                 {
                     context.StageKey = StageKey(state, q);

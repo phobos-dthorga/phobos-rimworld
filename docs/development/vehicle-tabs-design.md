@@ -83,6 +83,32 @@ figures (its `DrawVehicleStat` takes a Unity `Rect`, which a 1.7 build cannot pa
 per vehicle and rebuilt only when the comp's `HealthViewVersion` moves; a system's stages sit under the parts of its first role
 (agent choice, so a condition has one home as a pawn's does). Not yet tested in game.
 
+## The Health tab's parts, folded (Framework 0.114.0, 16 Nov 2026)
+
+The owner's screenshots of 16 Nov 2026 (a Harrier on the world map, a Cherokee on a map) showed the parts list as busy: the Cherokee
+lists about thirty parts, nearly all whole, each with a full green bar. Asked how to tidy it "like Systems, while keeping a sense of
+uniqueness", the owner picked **groups with pips** over the game's own hurt-parts-only list and over both together.
+
+- **What it lets the player do:** read a vehicle's parts in a dozen rows, and see at once which one of four wheels is hurt.
+  **What it stops:** nothing; every part is one click away. **How it changes play:** a hurt part stands out, where it was one bar
+  among thirty.
+- Parts whose names differ only by where they sit share a row (`PartGroupRule`, game-free, with tests): the position words are a
+  language key (`PhobosVehicleSystems_HealthPositionWords`), so a translation folds by its own words and an unknown language folds
+  nothing. A row is named by the words its members share, pluralised by the game's own language worker.
+- A folded row shows **a pip a part** in its health colour, the worst health and the worst efficiency. A click opens or closes it;
+  resting on a pip is resting on that part (its tooltip, its outline on the picture, its light on the map). A row with a hurt part or
+  a part with a condition, fitting or grade line starts open. Picking a part on the picture opens its row.
+- A whole part shows one pip, a hurt one its bar: bars only where something is wrong.
+- **Found in the same screenshots and fixed:** percentages rounded up to "100%" under a slightly-worn colour (now rounded down,
+  `PhobosWidgets.HealthPercent`); slight wear tinting the whole picture (now faint); a hovered part outlined a box a cell (now one
+  outline); Flight Speed listed twice (Vehicle Framework yields it for the vehicle and again for its launcher comp); a wear line cut
+  mid-phrase (now an ellipsis and the whole line in the tooltip).
+- **The world-map tab is labelled "Vehicle"**: the crew's Health tab (Vehicle Framework's, for the people aboard) sits beside ours.
+  The owner chose "Vehicle health"; the game draws inspect tabs 72 px wide (`InspectPaneUtility.DoTabs`), so the agent shortened it.
+- A stage may carry `labelEngineOff`, said without its figure on the inspect line while the engine is off: the aircraft's control
+  boost reads "ready" when parked (owner, 16 Nov 2026).
+- Not yet tested in game.
+
 ## Who chose what
 
 - **Owner (8 Nov 2026):** the two tabs and their names; a day of saved history.
