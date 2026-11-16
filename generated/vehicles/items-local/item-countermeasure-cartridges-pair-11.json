@@ -1,0 +1,33 @@
+{
+  "file": "item-countermeasure-cartridges-pair-11.png",
+  "sha256": "cbf4a389b5ee0ebf09ed88b8fafc46328f2f816cc3a41ecf98b02df1761538e3",
+  "date": "2026-11-17T03:59:44",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A bundle of four squat cylindrical aircraft decoy cartridges strapped together with a canvas band, two with olive-drab casings and red-banded ends and two with silver foil-wrapped ends. Draw it in exactly the art style of the reference images: a small game item with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, seen from slightly above, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no flames, no aircraft.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/countermeasure-cartridge.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 161.5,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png",
+      "sha256": "42f693342680c093d07aed46e4d35d477e58b3f9f3149147a5810b957ef84408"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/BoosterPack.png",
+      "sha256": "95a94d13e21fec1d5572cd01d4117460232921502d06b00c68bb3fbf9d0ce79a"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
