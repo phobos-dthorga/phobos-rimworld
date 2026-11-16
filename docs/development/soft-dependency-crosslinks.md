@@ -232,6 +232,39 @@ record's question is answered: toxic resistance cuts it**, and our radiation con
 code. Agent proposal, not built: draw the line at the reactor's ring, and count the ring as a radiation zone for our suits and
 dosimetry. **Owner, 16 Nov 2026 (later): not now.** The finding stays here for when it is wanted.
 
+**SD22 built, 16 Nov 2026: D'thorga Medical 0.17.0** (not yet tested in game). Read first from a fresh decompile of Search and
+Rescue's 6 Nov 2026 build (`.local/decompiled/SearchAndRescue-2026-11-06`; our 3 Nov copy was older), summarised in our own words:
+
+- **Its treatments cannot be joined from outside.** `Compatibility.FindTreatmentOptions` builds each patient's options from a fixed
+  `MedicalIntervention` list inside its code; its `CompatibilityRegistry` of other mods' jobs is hard-coded and internal, with no Def,
+  extension or public call.
+- **Why its medics never used our kits.** Its work type `SAR_FieldRescue` (natural priority 1325) runs before Doctor (1300), and its
+  emergency care sits in Doctor at 130, above our device lane at 95. A responder always had its work first, and that work never
+  includes ours.
+- **Nothing locks us out.** It holds a patient reserved only for the length of each of its own jobs, and it blocks only the work
+  givers it has registered, so ours runs between its jobs.
+
+**What was built (no Harmony):** two WorkGiverDefs of our existing device work giver inside `SAR_FieldRescue`, in
+`mods/PhobosMedical/Mods/SearchAndRescue` (loaded only with it): airway and breathing devices (intubation, hand pump, needle
+decompression) at 121, just above its treatment (120); oxygen and fluids at 106, between its paramedic rescue (119) and routine
+treatment (105). A new `PhobosDeviceWorkExtension` on a WorkGiverDef names a lane's devices and asks for Doctor work switched on, as
+its own treatment lanes do (`DeviceRule.InLane`, `DeviceRule.MayDoFieldDeviceWork`, with tests). **Agent choices, for the owner to
+revise:** both priorities, and the split of devices between them. **Read from the code, not seen in play:** that its coordination
+lets a responder take our job between its own, and that its doctor waits rather than fails while ours holds the patient for a few
+seconds.
+
+**Set aside: the rescue ending at a vehicle with a litter kit.** Where it evacuates to comes from its own list of beds and
+facilities (`CompatibilityRegistry.FacilityBeds`, `Building_Bed` types), also hard-coded, and our litter holder is no bed. Doing it
+from our side would mean patching its planner, which our rules keep for faults that are "rather extreme" (AGENTS.md); its author is
+active (Workshop update 6 Nov 2026, replies 10 Nov), so the clean route is a request. **Draft for the owner to post if wanted**
+(agents never post):
+
+> Hi! Would you consider a small public way for other mods to tell Search and Rescue about their medical jobs and evacuation
+> destinations? Right now the compatibility registry is internal, so a mod that adds hand-held medical kits (we make intubation,
+> needle decompression, fluids and oxygen kits) or a vehicle with stretcher berths can't let your coordination plan around them. A
+> DefModExtension on a JobDef (role: treatment, transport) and one on a ThingDef (an evacuation destination with a capacity) would
+> be enough for us, and other authors could add to it in XML. Thank you for a great mod!
+
 **The mods not on the list, checked 16 Nov 2026** with `workshop-research.py report` (latest 50 comments each):
 
 | Mod | Workshop ID | Updated | Last 90 days | Uploader's last reply | Reading |

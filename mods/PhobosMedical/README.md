@@ -10,12 +10,14 @@ It replaces five earlier mods, merged into it on 7 November 2026 ([why](../../do
 Burns and Smoke**, **D'thorga Emergency Dosing**, **D'thorga Triage**, **D'thorga Medical Equipment** and **D'thorga Medical Save
 Bridge**. Each is now a part of this mod, with its own section below.
 
-Version 0.16.0, built 13 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
+Version 0.17.0, built 16 November 2026 for House D'thorga. **Not yet tested in game as D'thorga Medical.** What the owner tested of
 the five parts before the merge is in each part's section; the parts' behaviour is unchanged, except that the save bridge now asks
 first.
 
 ## Read this first (gotchas)
 
+- **New in 0.17.0, with Search and Rescue (not yet tested in game): field responders use our kits where a colonist fell**, as
+  **Field rescue** work, if they also have **Doctor work switched on**. **Give your medics kits to carry.** Details in the equipment part.
 - **New in 0.11.0, with Rimatomics only (not yet tested in game): radiation control.** A sign or a painted area marks where radiation gear is needed; colonists stop at the line to suit up and take the gear off on the way out. See [Radiation control](#radiation-control-with-rimatomics).
 - **New in 0.10.0 (not yet tested in game): clinical equipment has its own research, on the D'thorga tab.** **An existing colony gets a project free, once, if it had already done the research that project replaces.** New colonies research them normally.
 - **Switching from the five old mods: switch all five off in RimSort and this one on, in the same change, then load your colony.**
@@ -397,8 +399,9 @@ the mods' code.
 - **Doctors take the worst case first** (a setting). A doctor choosing between patients in beds goes to the one tagged worst
   rather than the nearest. The tag: immediate (dying within 6 hours, or a vital function at the floor), urgent (dying, with
   time), delayed (crippled), minor, expectant.
-- **Field care stays with Search and Rescue and More Injuries.** This mod never tends, bandages or transfuses; it only queues
-  operations and orders the doctors' surgical work. Search and Rescue already raises the evacuation of a patient who needs
+- **Field care stays with Search and Rescue and More Injuries.** Triage never tends, bandages or transfuses; it only queues
+  operations and orders the doctors' surgical work (from 0.17.0 the equipment part's kits are used in the field by Search and Rescue's
+  responders; see the equipment part). Search and Rescue already raises the evacuation of a patient who needs
   surgery; once in a bed, the bill this mod queued is what gets done.
 - **With Emergency Dosing**, a patient waiting for an operation may still get a painkiller; the game anaesthetises at the
   table. Nothing changes there.
@@ -521,6 +524,16 @@ burn dressings for burns; and an electrolyser and a liquid oxygen store to make 
 - **New in 0.7.0: the fluids kit for burn shock** (not yet tested in game). Doctors hang one by themselves on a patient in burn shock who
   has had no fluids yet, or poorer ones than the kit gives (it counts as nearly the best care). It works with or without More
   Injuries; with it, you can also order More Injuries' saline bag as a bill, which counts as the very best care.
+- **New in 0.17.0, with Search and Rescue: its field responders use these kits where a colonist fell** (not yet tested in game).
+  Search and Rescue's own treatments never include our kits, and its field rescue work comes before Doctor work, so a responder
+  kneeling at a casualty used to stop the bleeding and never reach for the intubation kit beside them. Now two jobs sit inside
+  **Field rescue** in the Work tab: **airway and breathing devices** (the intubation kit, the hand pump, the needle decompression
+  kit) **just before its own treatment**, since they kill within minutes, and **oxygen and fluids kits** after its paramedic rescue.
+  **The responder also needs Doctor work switched on**, as for Search and Rescue's own treatment, and the same Medicine skill each kit
+  asks for. **Give your medics kits to carry** (a Combat Extended loadout, or their inventory): a kit carried is used first, and Search
+  and Rescue's own restocking does not fetch ours. A hand pump is worked one turn (about an hour) at most before the responder looks again,
+  so an evacuation is never held up for long. Search and Rescue itself is not changed. **Carrying a casualty to a parked vehicle's
+  litters is not part of this:** Search and Rescue chooses where to evacuate from a list inside its code.
 - **New in 0.16.0, with VFE Medical: its intravenous drip stand gives fluids** (not yet tested in game). A patient in burn shock lying in
   the hospital bed it serves counts as on fluids (quality 0.7) without anyone hanging a kit. A fluids kit is still the better care, so
   doctors hang one when they have it.
@@ -655,6 +668,7 @@ The display mode, and the uninstall button. Plain mode shows no figures.
 
 - **Oxygen machines:** give a building `Phobos.Medical.Comps.CompProperties_PhobosOxygenSupply` and `CompProperties_Facility`; add a `CompProperties_Refuelable` and it burns fuel. On a bed it serves its own occupant instead, and its `treatment` can name a stronger condition.
 - **Patient devices:** give an item `Phobos.Medical.Defs.PhobosPatientDeviceExtension` (its need, the treatment condition, the time to use it, and whether it is used up or worked continuously), and doctors use it by themselves.
+- **Device work lanes:** a WorkGiverDef using `Phobos.Medical.Jobs.WorkGiver_PhobosUseDevice` can carry `Phobos.Medical.Defs.PhobosDeviceWorkExtension`: `needs` limits it to some devices (none named: all), and `requireDoctorWork` asks that the worker also has Doctor work on. That is how the two field rescue lanes for Search and Rescue are made (`Mods/SearchAndRescue`), and how another mod's work type can take device work.
 - **Liquid stores:** pair Vanilla Expanded Framework's resource storage comp with `Phobos.Medical.Comps.CompProperties_PhobosBoilOff`.
 - Mark your own burn injury Def with `Phobos.Medical.Defs.PhobosBurnCareExtension` so a burn unit bed gives its patient air-cell care. Mark your own condition with `Phobos.Framework.Breathing.PhobosOxygenResponsiveExtension` so that it counts as needing oxygen. Balance lives in `Common/Defs/Phobos/Medical/Rules.xml` and on each machine's comp.
 

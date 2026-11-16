@@ -72,8 +72,9 @@ public static class DeviceService
 
     /// <summary>The job for the first device this patient needs that the doctor can reach, or null. With <paramref name="explain"/>, a
     /// refusal worth knowing is given as the reason the right-click menu shows: only for a real patient (never a vehicle or anyone
-    /// standing), and never "breathes well enough", which would follow every right-click on a healthy person (owner's report, 7 Nov 2026).</summary>
-    public static Job? MakeJob(Pawn doctor, Pawn patient, bool explain = false)
+    /// standing), and never "breathes well enough", which would follow every right-click on a healthy person (owner's report, 7 Nov 2026).
+    /// <paramref name="lane"/> limits it to the devices one work lane covers; null covers them all.</summary>
+    public static Job? MakeJob(Pawn doctor, Pawn patient, bool explain = false, IReadOnlyCollection<DeviceNeed>? lane = null)
     {
         DeviceRefusal reason = DeviceRefusal.NotNeeded;
         int skillNeeded = 0;
@@ -81,6 +82,7 @@ public static class DeviceService
         foreach (ThingDef def in Devices)
         {
             PhobosPatientDeviceExtension device = Extension(def);
+            if (!DeviceRule.InLane(device.need, lane)) continue;
             if (!IsPatient(patient, device)) continue;
             anyPatient = true;
             DeviceRefusal refusal = Refusal(patient, device);
@@ -111,6 +113,12 @@ public static class DeviceService
     }
 
     /// <summary>One the doctor carries, else the nearest one they can reach and reserve.</summary>
+    /// <summary>Whether this worker may take a lane's device work: a lane that asks for Doctor work needs it switched on, and caring
+    /// work open, as Search and Rescue's own treatment lanes do.</summary>
+    public static bool MayWorkLane(Pawn worker, PhobosDeviceWorkExtension? lane) =>
+        lane == null || !lane.requireDoctorWork || DeviceRule.MayDoFieldDeviceWork(worker.WorkTagIsDisabled(WorkTags.Caring),
+            worker.workSettings?.EverWork == true ? worker.workSettings.GetPriority(WorkTypeDefOf.Doctor) : 0);
+
     public static Thing? FindDevice(Pawn doctor, ThingDef def)
     {
         Thing? carried = doctor.inventory?.innerContainer.FirstOrDefault(thing => thing.def == def);

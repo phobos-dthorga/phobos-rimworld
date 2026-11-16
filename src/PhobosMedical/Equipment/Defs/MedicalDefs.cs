@@ -107,6 +107,17 @@ public class PhobosPatientDeviceExtension : DefModExtension
     }
 }
 
+/// <summary>
+/// One lane of device work, on a WorkGiverDef using <c>WorkGiver_PhobosUseDevice</c>: which devices it covers (none named: all), and
+/// whether the worker must also have Doctor work switched on (a lane placed in another mod's work type, such as Search and
+/// Rescue's field rescue, whose own treatment lanes ask the same). Without it the work giver covers every device.
+/// </summary>
+public class PhobosDeviceWorkExtension : DefModExtension
+{
+    public List<DeviceNeed>? needs;
+    public bool requireDoctorWork;
+}
+
 [DefOf]
 public static class MedicalDefOf
 {

@@ -93,3 +93,30 @@ public class WorthTellingTests
         Assert.True(DeviceRule.WorthTelling(DeviceRefusal.AlreadyOnOxygen));
     }
 }
+
+public class DeviceLaneTests
+{
+    [Fact]
+    public void ALaneNamingNoNeedsCoversEveryDevice()
+    {
+        Assert.True(DeviceRule.InLane(DeviceNeed.Fluids, null));
+        Assert.True(DeviceRule.InLane(DeviceNeed.Fluids, new DeviceNeed[0]));
+    }
+
+    [Fact]
+    public void ALaneCoversOnlyTheNeedsItNames()
+    {
+        var airway = new[] { DeviceNeed.Intubation, DeviceNeed.BreathingAssist, DeviceNeed.Decompression };
+        Assert.True(DeviceRule.InLane(DeviceNeed.Decompression, airway));
+        Assert.False(DeviceRule.InLane(DeviceNeed.Fluids, airway));
+    }
+
+    [Fact]
+    public void AFieldResponderWithDoctorWorkOnMayUseDevices() => Assert.True(DeviceRule.MayDoFieldDeviceWork(false, 3));
+
+    [Fact]
+    public void AFieldResponderWithDoctorWorkOffMayNot() => Assert.False(DeviceRule.MayDoFieldDeviceWork(false, 0));
+
+    [Fact]
+    public void SomeoneWhoCannotDoCaringWorkMayNot() => Assert.False(DeviceRule.MayDoFieldDeviceWork(true, 1));
+}

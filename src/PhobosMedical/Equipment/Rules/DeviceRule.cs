@@ -79,6 +79,14 @@ public static class DeviceRule
     /// <summary>Whether a refusal is worth showing in the right-click menu: not "breathes well enough", which is simply normal.</summary>
     public static bool WorthTelling(DeviceRefusal refusal) => refusal is not (DeviceRefusal.None or DeviceRefusal.NotNeeded);
 
+    /// <summary>Whether a work lane covers this device: a lane that names no needs covers them all.</summary>
+    public static bool InLane(DeviceNeed need, System.Collections.Generic.IReadOnlyCollection<DeviceNeed>? lane) =>
+        lane == null || lane.Count == 0 || System.Linq.Enumerable.Contains(lane, need);
+
+    /// <summary>Whether a field responder may also use devices: as Search and Rescue's own treatment lanes ask, caring work must be
+    /// open to them and Doctor work switched on (priority above zero).</summary>
+    public static bool MayDoFieldDeviceWork(bool caringDisabled, int doctorPriority) => !caringDisabled && doctorPriority > 0;
+
     /// <summary>The one reason to tell when several devices refuse: the most urgent.</summary>
     public static DeviceRefusal MostUrgent(DeviceRefusal a, DeviceRefusal b) => a < b ? a : b;
 }

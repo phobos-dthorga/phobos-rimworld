@@ -79,6 +79,7 @@ All XML; the code is in the Framework.
 | Useful Marks (`Andromeda.UsefulMarks`) | Triage tags show as its marks; our overlay stands down | C# | `Mods/UsefulMarks/1.7` |
 | Dubs Rimatomics (`Dubwise.Rimatomics`) | The radiation control line and its designators; potassium iodide taken before going in (0.16.0, SD21) | XML (+ Framework C#) | `Mods/Rimatomics` |
 | VFE Medical (`vanillaexpanded.vfemedical`) | Its intravenous drip stand keeps a burn-shock patient on fluids (0.16.0, SD23) | XML list read by C# | `BurnsAndSmoke/Rules.xml` |
+| Search and Rescue (`ch4acko3.searchandrescue`) | Its field responders use our hand-held kits, as two lanes in its Field rescue work type (0.17.0, SD22) | XML (work givers in its work type) | `Mods/SearchAndRescue` |
 | Atmosphere Overhaul (`acutus.AtmosphereOverhaul.release`), Celsius (`Garwel.Celsius`) | Our fire-heat zones stand down | XML list read by C# | `BurnsAndSmoke/Rules.xml` |
 
 ## D'thorga Factory Additions

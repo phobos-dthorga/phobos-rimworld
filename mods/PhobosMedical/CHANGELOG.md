@@ -6,6 +6,32 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.17.0] - 2026-11-16 - Draft
+
+Search and Rescue's field responders use our kits where a colonist fell
+
+### Added
+
+- **With Search and Rescue, its field responders use our hand-held kits in the field.** Its own treatments never included them, and its
+  field rescue work comes before Doctor work, so a responder at a casualty stopped the bleeding and never reached for the kit beside
+  them. Two jobs now sit inside Field rescue in the Work tab: airway and breathing devices (intubation kit, hand pump, needle
+  decompression kit) just before its own treatment, and oxygen and fluids kits after its paramedic rescue. The responder also needs
+  Doctor work switched on, as for its own treatment, and the skill each kit asks for. A kit the responder carries is used first.
+
+### Compatibility and limits
+
+- Search and Rescue is not changed and nothing of it is patched; the jobs load only while it is active.
+- Its restocking does not fetch our kits: give medics kits to carry (a Combat Extended loadout, or their inventory).
+- Carrying a casualty to a parked vehicle's litters is not included: Search and Rescue chooses where to evacuate from a list inside
+  its code.
+- The two priorities (just above its treatment; after its paramedic rescue) are agent choices, read against its build of 6 November
+  2026, for the owner to revise.
+- No settings were added or changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.16.0] - 2026-11-13 - Draft
 
 Drip stands give burn-shock fluids, and potassium iodide before the radiation line

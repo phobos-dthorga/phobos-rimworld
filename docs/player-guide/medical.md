@@ -178,6 +178,10 @@ bedroom and hospital, a **burn unit bed** if fire is a threat, and a **safety sh
 
 **Oxygen canisters, and kits made from them, explode when they burn** (Vanilla Gravship Expanded's rule).
 
+**With Search and Rescue, its field responders use these kits where a colonist fell**, as Field rescue work, if they also have
+Doctor work switched on. The airway kits, the hand pump and the decompression kit come just before its own treatment; oxygen and
+fluids after it. **Give your medics kits to carry:** Search and Rescue's restocking does not fetch them. Not yet tested in game.
+
 ## Radiation control (with Rimatomics)
 
 ![The radiation control point and the tools to paint and clear a controlled area](images/radiation-control.png)

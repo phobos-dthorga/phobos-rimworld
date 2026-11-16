@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Search and Rescue's field responders use our hand-held devices in the field (SD22, owner's go-ahead, 16 Nov 2026;
+    docs/development/soft-dependency-crosslinks.md). Loaded only while Search and Rescue is active (LoadFolders.xml).
+
+    Search and Rescue plans its own treatments from a fixed list inside its code, which our devices cannot join, and its field rescue
+    work type (natural priority 1325) runs before Doctor work, where our device lane sits (priority 95, below its emergency care at
+    130). So a responder at a downed colonist did everything it knows and never reached for our kit. These two lanes put the same
+    device work inside its field rescue work type. Like its own treatment lanes, they ask that the responder also has Doctor work
+    switched on. No Harmony: Search and Rescue is not changed.
+
+    Priorities, agent choices (owner to revise), against Search and Rescue's 1.7 build of 6 Nov 2026: evacuation hauling 160,
+    treatment 120, paramedic rescue 119, routine treatment 105, follow-up 85.
+    - 121, just above its treatment: a closing airway, breathing too weak to live on, and pressure in the chest kill within minutes,
+      and each device is quick to fit (a hand pump is worked one turn at most, then the responder looks again).
+    - 106, below its paramedic rescue and above its routine treatment: supplied oxygen and burn-shock fluids, which buy hours.
+  -->
+  <WorkGiverDef>
+    <defName>PhobosMedical_FieldRescueAirwayDevices</defName>
+    <label>use airway and breathing devices in the field</label>
+    <giverClass>Phobos.Medical.Jobs.WorkGiver_PhobosUseDevice</giverClass>
+    <workType>SAR_FieldRescue</workType>
+    <priorityInType>121</priorityInType>
+    <verb>use an airway device on</verb>
+    <gerund>using an airway device on</gerund>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+    <modExtensions>
+      <li Class="Phobos.Medical.Defs.PhobosDeviceWorkExtension">
+        <requireDoctorWork>true</requireDoctorWork>
+        <needs>
+          <li>Intubation</li>
+          <li>BreathingAssist</li>
+          <li>Decompression</li>
+        </needs>
+      </li>
+    </modExtensions>
+  </WorkGiverDef>
+
+  <WorkGiverDef>
+    <defName>PhobosMedical_FieldRescueSupportDevices</defName>
+    <label>give oxygen and fluids in the field</label>
+    <giverClass>Phobos.Medical.Jobs.WorkGiver_PhobosUseDevice</giverClass>
+    <workType>SAR_FieldRescue</workType>
+    <priorityInType>106</priorityInType>
+    <verb>give oxygen or fluids to</verb>
+    <gerund>giving oxygen or fluids to</gerund>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <modExtensions>
+      <li Class="Phobos.Medical.Defs.PhobosDeviceWorkExtension">
+        <requireDoctorWork>true</requireDoctorWork>
+        <needs>
+          <li>SuppliedOxygen</li>
+          <li>Fluids</li>
+        </needs>
+      </li>
+    </modExtensions>
+  </WorkGiverDef>
+</Defs>
