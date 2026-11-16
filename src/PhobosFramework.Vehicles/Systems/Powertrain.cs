@@ -409,6 +409,7 @@ public sealed class Powertrain
         }
         Result = DrivetrainModel.Evaluate(Spec, conditions);
         Cap = conditions.Speed > 0 ? DrivetrainModel.SmoothCap(Cap, Result.Cap) : 1;
+        if (VehicleSystemsMod.DriveLog.DebugEnabled) LogDrive(vehicle, conditions);
         if (Turbine != null)
         {
             (int working, int engines) = Engines();
@@ -569,6 +570,27 @@ public sealed class Powertrain
         return factor;
     }
 
+    /// <summary>What the drive log last said (never saved): it speaks only when what holds the vehicle back changes, the cap moves by a
+    /// tenth, or the clutch starts or stops slipping, so a steady drive writes nothing.</summary>
+    DriveLimit loggedLimit = DriveLimit.None;
+    double loggedCap = 1;
+    bool loggedSlip;
+
+    void LogDrive(VehiclePawn vehicle, DriveConditions conditions)
+    {
+        if (Result.Limit == loggedLimit && System.Math.Abs(Cap - loggedCap) < 0.1 && Result.ClutchSlipping == loggedSlip) return;
+        loggedLimit = Result.Limit;
+        loggedCap = Cap;
+        loggedSlip = Result.ClutchSlipping;
+        VehicleSystemsMod.DriveLog.Debug(vehicle.LabelShort + " (" + vehicle.ThingID + ") " + (conditions.Speed > 0 ? "driving" : "standing")
+            + ": held by " + (Result.Limit == DriveLimit.None ? "nothing" : Result.Limit == DriveLimit.Traction ? "grip" : "power")
+            + ", speed cap x" + Cap.ToString("0.##") + " (this moment x" + Result.Cap.ToString("0.##") + ")" + (Result.ClutchSlipping ? ", clutch slipping" : "")
+            + "; gear " + Result.Gear + " of " + conditions.UsableGears + ", " + Result.Rpm.ToString("0") + " rpm, load " + Result.Load.ToString("0.##")
+            + "; " + conditions.MassKg.ToString("0") + " kg" + (conditions.TowedMassKg > 0 ? " towing " + conditions.TowedMassKg.ToString("0") + " kg" : "")
+            + ", grip " + conditions.Grip.ToString("0.##") + ", rolling " + conditions.RollingResistance.ToString("0.###") + ", grade " + conditions.Grade.ToString("0.###")
+            + ", driven wheels " + conditions.DrivenWheelsWorking.ToString("0.##") + (vehicle.Spawned ? "" : " (world map)"));
+    }
+
     /// <summary>The weather's grip factor last reported to the verbose log (never saved).</summary>
     double loggedWeatherGrip = 1;
 
@@ -597,7 +619,14 @@ public sealed class Powertrain
         ReadGround(vehicle, out double rolling, out double grip);
         rolling *= 1 + 2 * comp.RoleShareBelow("Wheels", 0.2f);
         grip *= TreadGrip(grip) * WeatherGrip(vehicle);
-        return TowRule.Modelled(Spec, MassKg(), towedKg, rolling, grip, comp.PartEfficiency("Wheels", 1f), UsableGears());
+        TowVerdict verdict = TowRule.Modelled(Spec, MassKg(), towedKg, rolling, grip, comp.PartEfficiency("Wheels", 1f), UsableGears());
+        if (VehicleSystemsMod.HitchLog.DebugEnabled)
+        {
+            VehicleSystemsMod.HitchLog.Debug(vehicle.LabelShort + " (" + vehicle.ThingID + ") tow forecast for " + towedKg.ToString("0") + " kg behind "
+                + MassKg().ToString("0") + " kg: " + verdict.Outcome + ", speed x" + verdict.SpeedShare.ToString("0.##") + ", held by " + verdict.Limit
+                + " (grip " + grip.ToString("0.##") + ", rolling " + rolling.ToString("0.###") + ")");
+        }
+        return verdict;
     }
 
     void ReadGround(VehiclePawn vehicle, out double rolling, out double grip)

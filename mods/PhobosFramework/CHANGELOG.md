@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.114.2] - 2026-11-16 - Draft
+
+Verbose logging for the drive model
+
+### Added
+
+- **A new verbose log, Vehicle drive** (the owner's pick of the first gap to fill, 16 November 2026). Ticked, it says when what holds a vehicle back changes (its engine's power, the ground's grip, or nothing), when its speed cap moves by a tenth, and when the clutch starts or stops slipping, with the figures behind it: gear, engine speed and load, weight and anything towed, grip, rolling resistance, slope and the driven wheels' state. A steady drive writes nothing. **Hitch and trailers** also gives each towing forecast's verdict and figures. Not yet tested in game.
+
+### Compatibility and limits
+
+- **One setting added** (Mod settings, D'thorga Framework, Verbose logging): **Verbose: D'thorga Framework: Vehicle drive**, off by default, like the other ticks.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.114.1] - 2026-11-16 - Draft
 
 Health bars that read as health bars, a range circle round aircraft in flight, and a tidier start after loading

@@ -228,6 +228,8 @@ public class VehicleSystemsMod : Mod
     public static readonly Phobos.Logging.PhobosLog RepairsLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Vehicle repairs and fittings");
     public static readonly Phobos.Logging.PhobosLog HitchLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Hitch and trailers");
     public static readonly Phobos.Logging.PhobosLog SlingLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Sling loads");
+    /// <summary>The drive model (Framework 0.114.2; owner, 16 Nov 2026: the first gap to fill): what holds a vehicle back, its cap, the clutch.</summary>
+    public static readonly Phobos.Logging.PhobosLog DriveLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Vehicle drive");
 
     /// <summary>The Harmony ID is the Framework's packageId with the part's name; never change it once published.</summary>
     public const string HarmonyId = "PhobosDthorga.Framework.VehicleSystems";

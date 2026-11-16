@@ -199,6 +199,10 @@ but only in dev mode, and no code of ours wrote one. Built at the owner's pick (
 - The first lines, all in the vehicle systems part: stage changes, breakdowns and cook-off (`Vehicle stages`); move refusals, detail
   tier changes and each design's loadout at start-up (`Vehicle systems`); repair and fitting jobs (`Vehicle repairs and fittings`);
   hitching (`Hitch and trailers`); hook-ups and releases (`Sling loads`).
+- **0.114.1 and 0.114.2**, from the owner's first verbose log (16 Nov 2026): why no range is drawn for a selected caravan or aircraft;
+  an aircraft's range figures; weather on grip; no tier change logged for a vehicle's first reading after a load; and a **Vehicle drive**
+  log (what holds a vehicle back, its cap, the clutch, with the figures), the owner's pick of the first gap. Still without the shared
+  logger: Medical, Factory Additions, Water Tap and the radio framework.
 - Debug lines keep the budget's 400 a mod every ten minutes. If that proves too few for a real chase, the budget is the place to
   change (phobos-log, under its own rules).
 - Not yet tested in game.
