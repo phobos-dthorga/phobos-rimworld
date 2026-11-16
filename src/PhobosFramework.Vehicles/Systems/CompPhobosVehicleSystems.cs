@@ -97,6 +97,8 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
     public int weaponsTied;
     /// <summary>The design's tracks, by key: a thrown one stops the vehicle (Framework 0.115.0, M2).</summary>
     public List<string> trackKeys = new();
+    /// <summary>The part holding the ammunition rack that can blow the turret off, if the design has one (Framework 0.116.0, T8).</summary>
+    public string? ammoRackKey;
     /// <summary>How many parts the design had before the service appended any; the uninstall sweep cuts saved vehicles back to it.</summary>
     public int originalPartCount;
     /// <summary>The loadout's drivetrain (with its overrides) and flight profile, if any.</summary>

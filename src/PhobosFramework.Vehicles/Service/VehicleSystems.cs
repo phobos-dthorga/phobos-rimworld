@@ -155,6 +155,8 @@ public static class VehicleSystems
         props.weaponsTied = WeaponMounts.Apply(def, props);
         // A thrown track stops a tracked vehicle (M2).
         Mobility.Apply(def, props);
+        // A tank's ammunition rack can blow its turret off (T8; after the mounts, which the reaction needs).
+        TurretPopping.Apply(def, props);
         if (props.addedKeys.Contains(WeaponMounts.PartKey)) added++;
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).
         foreach (KeyValuePair<string, List<string>> pair in props.roleKeys)

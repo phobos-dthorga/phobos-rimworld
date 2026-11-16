@@ -27,6 +27,9 @@ public static class CookOff
 
     static bool Enabled => VehicleSystemsMod.Settings.ammoCookOff && !VehicleSystemsMod.Settings.showOnly && CombatExtendedAmmo.SystemOn;
 
+    /// <summary>Whether ammunition may go up at all now; the turret-blown-off reaction follows it (Framework 0.116.0, T8).</summary>
+    public static bool Allowed => Enabled;
+
     /// <summary>The kilograms of ammunition aboard that can cook off.</summary>
     public static float AmmoKilograms(VehiclePawn vehicle)
     {
@@ -72,6 +75,8 @@ public static class CookOff
         }
         GenExplosion.DoExplosion(vehicle.Position, vehicle.Map, radius, DamageDefOf.Bomb, vehicle, damage,
             CombatExtendedRules.BlastPenetrationForDamage(damage, true));
+        // A tank's ammunition rack may go up with it, and the turret with that (Framework 0.116.0, T8).
+        if (vehicle.Spawned) TurretPopping.AfterCookOff(comp);
     }
 
     const string NoticeKey = "PhobosCookOff";

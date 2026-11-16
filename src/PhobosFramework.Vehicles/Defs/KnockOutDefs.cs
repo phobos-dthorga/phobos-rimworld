@@ -61,6 +61,20 @@ public class PhobosKnockOutRulesDef : PhobosRulesDef
     /// <summary>Weapons swung by hand anyway, by a part of their key: pintle and ring-mounted machine guns, which need no power.</summary>
     public List<string> handSwungTurretKeys = new();
 
+    // ---- The turret blown off (0.116.0: T8) ----
+
+    /// <summary>Off: no ammunition rack blows a turret off (an author's own reaction still stands).</summary>
+    public bool turretPopping = true;
+    /// <summary>A part holding the ammunition, by key (case aside): RimThunder's tanks call it AmmoRack.</summary>
+    public List<string> ammoRackKeys = new();
+    /// <summary>The chance a hit sets the rack off once it is at or under this share of its health.</summary>
+    public float popChanceOnHit = 0.25f;
+    public float popAtOrBelowRackHealth = 0.25f;
+    /// <summary>The chance a cook-off blast in the vehicle sets the rack off.</summary>
+    public float popChanceOnCookOff = 0.3f;
+    /// <summary>The blast's radius, in cells.</summary>
+    public int popRadius = 2;
+
     // ---- The crew (step 3: C2) ----
 
     /// <summary>Off: no crew leaves by itself and the player gets no alert; Vehicle Framework's own rules stand.</summary>

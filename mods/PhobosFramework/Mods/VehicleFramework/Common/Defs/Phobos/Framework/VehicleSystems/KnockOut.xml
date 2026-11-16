@@ -61,6 +61,19 @@
       <li>pintle</li>
     </handSwungTurretKeys>
 
+    <!-- 0.116.0 (T8; owner, 17 Nov 2026: "yes, with cook-off"): Vehicle Framework's own turret-blown-off reaction on a tank's ammunition
+         rack, aimed at its main weapon. It follows the ammunition cook-off setting (off wherever that is off). A hit on the rack at or under
+         a quarter of its health sets it off one time in four, and a cook-off blast in the vehicle three times in ten (all authored). It
+         kills the crew more often than not. Only tanks with a rack part, by key: RimThunder's. -->
+    <turretPopping>true</turretPopping>
+    <ammoRackKeys>
+      <li>AmmoRack</li>
+    </ammoRackKeys>
+    <popChanceOnHit>0.25</popChanceOnHit>
+    <popAtOrBelowRackHealth>0.25</popAtOrBelowRackHealth>
+    <popChanceOnCookOff>0.3</popChanceOnCookOff>
+    <popRadius>2</popRadius>
+
     <!-- Step 3 (C2): a crew in a burning vehicle, or one that can neither move nor fire, gets out. The owner's choice: other factions' crews
          leave by themselves; the player's are never ordered out, and the player gets an alert. -->
     <crewsBailOut>true</crewsBailOut>

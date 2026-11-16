@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+The owner's answers of 17 Nov 2026 to the knocked-out record's open rows, in steps.
+
+### Added
+
+- **A tank's turret can be blown off when its ammunition goes up** (T8). On tanks that keep their ammunition in a rack part
+  (RimThunder's), a hit on a badly damaged rack sets it off one time in four, and a cook-off blast in the vehicle three times in ten; the
+  turret flies off and the crew rarely survives. It follows the ammunition cook-off setting, so it is off wherever that is off. Every
+  faction's tanks.
+
 ## [0.115.0] - 2026-11-17 - Draft
 
 Knocked out, not destroyed: weapons, tracks and crews give out before a vehicle is a wreck (the owner's build of 17 Nov 2026,
