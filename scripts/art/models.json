@@ -116,6 +116,43 @@
       "optional": true,
       "sha256": "9ab37426bf4de0567af6b5d21b16151357149139362e6e8992021b8ce356a154",
       "why": "BiRefNet (Zheng Peng and colleagues; ComfyUI's repackaged single file, 444 MB): finds which white in a picture is background, including background a shape encloses (the cargo hook's opening, owner, 12 Nov 2026). Runs on the processor beside the game"
+    },
+    {
+      "file": "model.safetensors",
+      "folder": "segmentation/sam2.1-hiera-large",
+      "repo": "facebook/sam2.1-hiera-large",
+      "path": "model.safetensors",
+      "licence": "apache-2.0",
+      "optional": true,
+      "sha256": "dc407dce21301fd94abb395c5099b4f2c455fdc8a8f261ac3d0ea6d4cd197230",
+      "why": "SAM 2.1 large (Meta, Apache 2.0, 898 MB), read by ComfyUI's own transformers: cuts a vehicle picture into its parts, so a paint mask can be painted a whole part at a time (owner, 16 Nov 2026: compared side by side with the outlined-region method)"
+    },
+    {
+      "file": "config.json",
+      "folder": "segmentation/sam2.1-hiera-large",
+      "repo": "facebook/sam2.1-hiera-large",
+      "path": "config.json",
+      "licence": "apache-2.0",
+      "optional": true,
+      "why": "SAM 2.1 large's config.json, read with the weights"
+    },
+    {
+      "file": "preprocessor_config.json",
+      "folder": "segmentation/sam2.1-hiera-large",
+      "repo": "facebook/sam2.1-hiera-large",
+      "path": "preprocessor_config.json",
+      "licence": "apache-2.0",
+      "optional": true,
+      "why": "SAM 2.1 large's preprocessor_config.json, read with the weights"
+    },
+    {
+      "file": "processor_config.json",
+      "folder": "segmentation/sam2.1-hiera-large",
+      "repo": "facebook/sam2.1-hiera-large",
+      "path": "processor_config.json",
+      "licence": "apache-2.0",
+      "optional": true,
+      "why": "SAM 2.1 large's processor_config.json, read with the weights"
     }
   ]
 }

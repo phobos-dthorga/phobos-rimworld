@@ -50,6 +50,25 @@ The second and third need no AI: the background was pure white, so the white is 
   (`export_sprite.ai_background`), so every export from then on clears what the AI calls background; a new original needs `masks` first.
 - **Speed:** about 15 s a picture on 8 processor threads beside the game; the 305 originals behind our textures took about 76 minutes.
 
+## Paint masks, by region (16 Nov 2026)
+
+**Owner's report (16 Nov 2026):** the Pintle bowser's texture and paint mask "look atrocious", and the owner asked that the AI be used for
+everything. The background AI had been used (its answers match every shipped texture but the three held back on 12 Nov); what looked bad
+was the **paint mask**, made a pixel at a time by hue and saturation, so texture noise and soft edges flipped single pixels: orange flecks
+along the stripe, half-painted hoops. BiRefNet knows object from background, not one panel from another, so it cannot make a paint mask.
+
+- **Two methods, compared side by side on all ten bodies (owner's choice):** by **regions** (`region_kinds`: alike neighbours with the same
+  paint grow into a region inside the outlines, never across a change of paint; a region of fewer than 24 pixels takes the paint of the
+  large region it touches most) and by **Segment Anything 2.1's parts** (Meta, Apache 2.0, `scripts/art/paint_segments.py` on the
+  graphics card: 2 min 14 s for all ten masters, about 1,000 to 2,400 prompt points each). Segment Anything cut panels well but swallowed
+  thin details (the bowser's stripe) and left flecks on the Crawler. **The owner picked regions for all ten.** The parts maps stay in
+  `.local/art/segments` for any later comparison.
+- **Never judge a vehicle texture raw:** painted parts are stored grey for the game to tint. The review page tints them roughly as the game
+  does (the texture multiplied by the Def's colours under the mask) on dark ground.
+- The commands: `python scripts/art/repaint_vehicles.py stage --paint regions`, `review`, `apply --paint regions`; `parts` needs
+  `paint_segments.py` first (`masters` lists them). Each body reuses its own saved transform, so overlays still register.
+- Not yet tested in game.
+
 ## The commands
 
 ```text

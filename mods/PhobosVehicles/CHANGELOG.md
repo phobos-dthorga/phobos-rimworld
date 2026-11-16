@@ -15,6 +15,10 @@ Our vehicles get the new driver system, and the bowsers get their own picture
 
 - **The driver system on every vehicle this mod gives its own list of systems**: our generator set, and the GTek L-ATV and MaxxPro, the HUMVEE, the RimThunder tanks and HEMTT, and the Trains of the Rim locomotives from their authors' mods. A driver who is hurt, drugged or tired drives them slower, gently, as on every other vehicle. Needs D'thorga Framework 0.113.0. Not yet tested in game.
 
+### Fixed
+
+- **Cleaner paint on every vehicle of ours** (the owner's report of the bowser, 16 November 2026): the parts that take the player's colours are now worked out a whole panel at a time, not a dot at a time, so no stray flecks of the old colour sit along stripes and edges, and no panel is half painted. The Ullage tanker, Datum survey truck, Kelly drill rig, Busbar generator set, Talus tipper, Pintle flatbed and bowsers, and the Fathom Crawler with both refits are made again from their original pictures; their shapes and upgrade pictures are unchanged. Not yet tested in game.
+
 ### Compatibility and limits
 
 - No settings were added or changed here; the driver system is switched off in D'thorga Framework's list of systems.

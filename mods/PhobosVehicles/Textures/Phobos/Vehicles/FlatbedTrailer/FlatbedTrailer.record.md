@@ -6,13 +6,13 @@
 
 **Re-exported 13 Nov 2026 for D'thorga Vehicles 0.54.1**, when the trailer grew to 3 x 7 cells drawn at 4 x 8: from the same original, at the same look (5 cells long in a 3 x 6 picture became 20/3 in 4 x 8), so it is drawn at 128 px a cell instead of being stretched to about 96. The boards were refitted with `assets/phobos-vehicles/export_round_three.py --only FlatbedTrailer`. Checked by eye on dark ground beside the old picture.
 
-- `FlatbedTrailer_east.png`: SHA-256 `622af3b4a951e5b2204e66cefd5343093462818ee98628ccf778d7c14d68d15a`
-- `FlatbedTrailer_eastm.png`: SHA-256 `10ba78f8a59a0f22bf7db9aeaa747fb75aad9dd71e2bfe8a2477d90a8e17bfbd`
+- `FlatbedTrailer_east.png`: SHA-256 `f570df2f6b75eac07177fd2ceb61dd9d9b84383f0da5298578f14cf830663800`
+- `FlatbedTrailer_eastm.png`: SHA-256 `19c7b6a71052bc521a010d4f1eedca5551005665b8028eb08e5e1c94eed681c9`
 - `FlatbedTrailer_icon.png`: SHA-256 `e55c9a49640384cabe67a8d726b6798ffbaca59202e769be34e7e369edffbb64`
-- `FlatbedTrailer_north.png`: SHA-256 `176f52cb435e2da7a6da301188b398af9c32cd68ccc3191b0df513f517cb3cae`
-- `FlatbedTrailer_northm.png`: SHA-256 `e0a0cb8548d437d4c69899e9da73671080a56408e617b99fc2796873b4825630`
-- `FlatbedTrailer_south.png`: SHA-256 `3ce766eaca682c7de7a66e276000a78921da179994ceefacbccf085931662b33`
-- `FlatbedTrailer_southm.png`: SHA-256 `e07559bd92516348af7d74f86ef979b621f3af7d3d9fce1be89fa029b0b0c563`
+- `FlatbedTrailer_north.png`: SHA-256 `8b3e826d65512c1f5754e11c7f7b02a99f739d493bf88fa0eeb47cc57eb0e5f8`
+- `FlatbedTrailer_northm.png`: SHA-256 `0201b5d359da59fdc04b1fd66ed5c773b8327dc6dda2e71c56b1fd0cf569840a`
+- `FlatbedTrailer_south.png`: SHA-256 `ec98d7e14e09f45a8ebc088aa4e6ae73c8eea7e4a57ce57a9bdb3e6533fc7f07`
+- `FlatbedTrailer_southm.png`: SHA-256 `300af166866c4bde75b4721a7c988cf4e348ef591f842dbc9657bf7399e36b14`
 
 ## The greedy boards
 

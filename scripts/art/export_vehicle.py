@@ -13,7 +13,9 @@ because a generator's placement is only approximate.
 
 Paint: Vehicle Framework's pattern shader multiplies the texture by the player's colour where the mask is set, so painted areas are made
 grey in the texture, as Vanilla Vehicles Expanded's are (measured 8 Nov 2026: saturation about 0 under the mask), and the colour that
-reproduces the master is written to the transform file for the Def. Mask red is the main paint, green the accent.
+reproduces the master is written to the transform file for the Def. Mask red is the main paint, green the accent. Paint is decided a
+region at a time, never a pixel at a time (owner, 16 Nov 2026: the Pintle bowser's per-pixel mask was speckled): see region_kinds.
+"repaint" makes a body's facings and masks again on its saved transform (scripts/art/repaint_vehicles.py drives it for every body).
 """
 import argparse
 import colorsys
@@ -61,19 +63,127 @@ def luminance(red, green, blue):
     return 0.299 * red + 0.587 * green + 0.114 * blue
 
 
-def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION):
+REGION_STEP = 24  # Neighbours closer than this in every channel are one region: cel shading steps within a panel, not a new panel.
+SMALL_REGION = 24  # A region of fewer pixels is a blend at a seam: it is judged by its own mean colour, not by a vote.
+
+
+def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION):
+    """The paint of every opaque pixel, decided a region at a time (owner, 16 Nov 2026: the Pintle bowser's per-pixel mask was speckled).
+    Our art is cel shaded inside thick dark outlines, so a painted panel is a run of near-alike pixels the outline closes off. Regions
+    grow between neighbours closer than REGION_STEP in every channel, never through outline; each region takes the paint most of its
+    pixels have, so texture noise and a stray highlight can no longer flip single pixels. A small region (a blend where two colours meet)
+    takes the paint of its own mean colour. Outline and clear pixels are never paint. Returns a list of 'main', 'accent' or None, row by row."""
+    width, height = image.size
+    pixels = list(image.get_flattened_data() if hasattr(image, 'get_flattened_data') else image.getdata())
+    count = width * height
+    label = [-1] * count
+    pixel_kind = [None] * count
+    candidate = [False] * count
+    for index, (red, green, blue, alpha) in enumerate(pixels):
+        if alpha >= 128 and max(red, green, blue) / 255 >= OUTLINE_VALUE:
+            candidate[index] = True
+            pixel_kind[index] = classify(red, green, blue, main_hue, accent_hue, min_saturation)
+
+    def neighbours(here):
+        x, y = here % width, here // width
+        if x > 0:
+            yield here - 1
+        if x < width - 1:
+            yield here + 1
+        if y > 0:
+            yield here - width
+        if y < height - 1:
+            yield here + width
+
+    # Regions: alike neighbours with the same paint, never across outline nor across a change of paint (so a stripe's soft end cannot
+    # leak into the panel beside it and be outvoted).
+    region_kind, region_size, members_of = [], [], []
+    for start in range(count):
+        if not candidate[start] or label[start] >= 0:
+            continue
+        region = len(region_kind)
+        kind = pixel_kind[start]
+        label[start] = region
+        members = [start]
+        head = 0
+        while head < len(members):
+            here = members[head]
+            head += 1
+            red, green, blue, _ = pixels[here]
+            for there in neighbours(here):
+                if not candidate[there] or label[there] >= 0 or pixel_kind[there] != kind:
+                    continue
+                other = pixels[there]
+                if abs(other[0] - red) <= REGION_STEP and abs(other[1] - green) <= REGION_STEP and abs(other[2] - blue) <= REGION_STEP:
+                    label[there] = region
+                    members.append(there)
+        region_kind.append(kind)
+        region_size.append(len(members))
+        members_of.append(members)
+    # A small region is a fleck of noise or a blend at a seam: it takes the paint of the large region it touches most. One alone in
+    # outline keeps its own.
+    final = list(region_kind)
+    for region, members in enumerate(members_of):
+        if region_size[region] >= SMALL_REGION:
+            continue
+        touches = {}
+        for member in members:
+            for there in neighbours(member):
+                other = label[there]
+                if other >= 0 and other != region and region_size[other] >= SMALL_REGION:
+                    touches[region_kind[other]] = touches.get(region_kind[other], 0) + 1
+        if touches:
+            final[region] = max(touches, key=lambda key: (touches[key], key is None))
+    return [final[label[index]] if label[index] >= 0 else None for index in range(count)]
+
+
+SEGMENTS = Path(__file__).resolve().parents[2] / '.local' / 'art' / 'segments'
+
+
+def part_kinds(image, labels, main_hue, accent_hue, min_saturation=MIN_SATURATION):
+    """The paint of every opaque pixel, decided a part at a time from Segment Anything's label map (scripts/art/paint_segments.py): a
+    part takes the paint most of its pixels have. Pixels in no part, and the outline, fall back to region_kinds. For comparison with the
+    region method (owner, 16 Nov 2026: both, side by side)."""
+    width, height = image.size
+    fallback = region_kinds(image, main_hue, accent_hue, min_saturation)
+    pixels = list(image.get_flattened_data() if hasattr(image, 'get_flattened_data') else image.getdata())
+    parts = list(labels.get_flattened_data() if hasattr(labels, 'get_flattened_data') else labels.getdata())
+    votes = {}
+    for index, (red, green, blue, alpha) in enumerate(pixels):
+        part = parts[index]
+        if part == 0 or alpha < 128 or max(red, green, blue) / 255 < OUTLINE_VALUE:
+            continue
+        tally = votes.setdefault(part, {'main': 0, 'accent': 0, None: 0})
+        tally[classify(red, green, blue, main_hue, accent_hue, min_saturation)] += 1
+    decided = {part: max(tally, key=lambda key: (tally[key], key is None)) for part, tally in votes.items()}
+    return [decided[parts[index]] if parts[index] in decided and pixels[index][3] >= 128 and max(pixels[index][:3]) / 255 >= OUTLINE_VALUE
+            else fallback[index] for index in range(width * height)]
+
+
+def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, per_pixel=False, labels=None):
     """(grey-painted texture, mask, default colours). Each paint is scaled on its own, so its grey fills the shader's range and its
-    default colour gives the master's tone back."""
+    default colour gives the master's tone back. Paint is decided by region (region_kinds) unless per_pixel asks for the old rule, kept
+    for comparison only."""
     source = image.load()
     width, height = image.size
+    if per_pixel:
+        kinds = [None] * (width * height)
+        for y in range(height):
+            for x in range(width):
+                red, green, blue, alpha = source[x, y]
+                if alpha >= 128:
+                    kinds[y * width + x] = classify(red, green, blue, main_hue, accent_hue, min_saturation)
+    elif labels is not None:
+        kinds = part_kinds(image, labels, main_hue, accent_hue, min_saturation)
+    else:
+        kinds = region_kinds(image, main_hue, accent_hue, min_saturation)
     groups = {'main': [], 'accent': []}
     for y in range(height):
         for x in range(width):
-            red, green, blue, alpha = source[x, y]
-            if alpha >= 128:
-                kind = classify(red, green, blue, main_hue, accent_hue, min_saturation)
-                if kind:
-                    groups[kind].append((red, green, blue))
+            kind = kinds[y * width + x]
+            if kind:
+                red, green, blue, _ = source[x, y]
+                groups[kind].append((red, green, blue))
     gains, defaults = {}, {}
     for kind, pixels in groups.items():
         if not pixels:
@@ -94,7 +204,7 @@ def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION):
             red, green, blue, alpha = source[x, y]
             if alpha < 128:
                 continue
-            kind = classify(red, green, blue, main_hue, accent_hue, min_saturation)
+            kind = kinds[y * width + x]
             if kind:
                 grey = min(255, round(luminance(red, green, blue) * gains[kind]))
                 written[x, y] = (grey, grey, grey, alpha)
@@ -175,6 +285,32 @@ def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_s
                                         'min_saturation': min_saturation, 'holes': [list(point) for point in holes],
                                         'ai_mask': file_sha256(master) if background is not None else None})
     return {'width_cells': width_cells, 'colours': colours, 'files': written}
+
+
+def repaint_body(master, like, out, name, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=(), paint='regions'):
+    """A body's texture and paint mask made again from its master on its own saved transform (scale, offset, canvas), so it registers
+    with every overlay already fitted to it. paint is 'regions' (region_kinds), 'parts' (Segment Anything's map, which must have been
+    made first) or 'pixels' (the old per-pixel rule, for comparison). Writes the facings and masks only; the icon and transform stay."""
+    out.mkdir(parents=True, exist_ok=True)
+    transform = json.loads(Path(like).read_text(encoding='utf-8'))
+    background = ai_background(master)
+    cut = white_to_alpha(Image.open(master), holes=holes, background=background)
+    if cut.size != tuple(transform['master_size']):
+        raise ValueError(f'{master} is {cut.size}, but its transform was made from {transform["master_size"]}')
+    labels = None
+    if paint == 'parts':
+        map_path = SEGMENTS / f'{file_sha256(master)}.png'
+        if not map_path.is_file():
+            raise FileNotFoundError(f'no parts map for {master}: run scripts/art/paint_segments.py on it first')
+        labels = Image.open(map_path)
+    texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation, per_pixel=paint == 'pixels', labels=labels)
+    scale, offset, canvas = transform['scale'], tuple(transform['offset']), tuple(transform['canvas'])
+    written = write_facings(place(texture, scale, offset, canvas), out, name)
+    written += write_facings(place_mask(mask, scale, offset, canvas), out, name, 'm')
+    record(out, name, master, written, {'kind': 'body-repaint', 'paint': paint, 'like': Path(like).name, 'colours': colours,
+                                        'main_hue': list(main_hue), 'accent_hue': list(accent_hue), 'min_saturation': min_saturation,
+                                        'holes': [list(point) for point in holes], 'ai_mask': file_sha256(master) if background is not None else None})
+    return {'colours': colours, 'files': written}
 
 
 def export_overlay(master, like, out, name, fit=None, marks=False, holes=()):

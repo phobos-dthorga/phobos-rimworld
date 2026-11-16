@@ -5,7 +5,9 @@
     {
       "name": "Install backups",
       "folder": ".local/deploy-backups",
-      "match": ["*-????????-??????"],
+      "match": [
+        "*-????????-??????"
+      ],
       "kinds": "folders",
       "group": "^(?P<group>.+)-\\d{8}-\\d{6}$",
       "order": "name",
@@ -16,14 +18,19 @@
     {
       "name": "Test repositories",
       "folder": "{temp}",
-      "match": ["archive-test-*", "phobos-artwork-archive-test-*"],
+      "match": [
+        "archive-test-*",
+        "phobos-artwork-archive-test-*"
+      ],
       "kinds": "folders",
       "why": "throwaway git repositories from tests/test_archive_branch.py"
     },
     {
       "name": ".NET build logs",
       "folder": "{temp}",
-      "match": ["Microsoft.NET.Workload_*.log"],
+      "match": [
+        "Microsoft.NET.Workload_*.log"
+      ],
       "kinds": "files",
       "olderThanDays": 1,
       "why": "a log the .NET tools write at every build; nothing reads them"
@@ -31,7 +38,9 @@
     {
       "name": "RimWorld crash dumps",
       "folder": "{env:LOCALAPPDATA}/CrashDumps",
-      "match": ["RimWorld.exe.*.dmp"],
+      "match": [
+        "RimWorld.exe.*.dmp"
+      ],
       "kinds": "files",
       "keepNewest": 1,
       "olderThanDays": 1,
@@ -40,10 +49,24 @@
     {
       "name": "Background clean-up staging",
       "folder": ".local/art",
-      "match": ["clean-stage", "clean-review"],
+      "match": [
+        "clean-stage",
+        "clean-review"
+      ],
       "kinds": "folders",
       "olderThanDays": 7,
       "why": "textures re-exported by scripts/art/clean_backgrounds.py stage, and their review page; applied or set aside within a week"
+    },
+    {
+      "name": "Paint mask staging",
+      "folder": ".local/art",
+      "match": [
+        "paint-stage",
+        "paint-review"
+      ],
+      "kinds": "folders",
+      "olderThanDays": 7,
+      "why": "vehicle bodies re-painted by scripts/art/repaint_vehicles.py stage, and their review page; applied or set aside within a week"
     }
   ]
 }
