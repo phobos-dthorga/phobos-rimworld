@@ -291,7 +291,9 @@ water tank, two showers and two flushing toilets.
 
 1. **Research bulk tanker** (after Electricity) and build it. It comes with a bare deck.
 2. **Fit a tank** in its Upgrades tab: a general, insulated or high-volume liquid tank, or a **pressure vessel** with Vanilla
-   Gravship Expanded. One tank at a time.
+   Gravship Expanded. One tank at a time. **The tanker's other upgrades branch from the tanks**: the compartments need a liquid
+   tank, and the electric pump and second hose reel need any tank. **Compartments must come off before their tank can**; the pump
+   and hose reel stay on the truck when you swap tanks. The Upgrade and Remove buttons say what to fit or take off first.
 3. **Choose contents.**
 4. **Park it on or beside** the pipes, stacks or vehicle you want, and press **Set up**.
 5. Press **Load** or **Unload**. The inspect pane says what the pump is waiting for. **Hold** stops the pump.

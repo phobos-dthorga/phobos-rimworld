@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.128.0] - 2026-11-17 - Draft
+
+Upgrades that need any one of several, and a quieter inspect pane for vehicles
+
+### Added
+
+- **Upgrades that need any one of several** (owner, 17 Nov 2026, from a screenshot of the tanker's flat upgrade tree): an upgrade tree
+  can now say a node needs any one of a set of others, such as a tank of any kind, and whether that one is held on while the node is
+  fitted. The Upgrades tab draws each such link as a branch, and its Upgrade and Remove buttons say what to fit or take off first
+  instead of doing nothing. Other factions' vehicles follow it when they come with upgrades. The bulk tanker in D'thorga Vehicles
+  0.64.2 uses it. For modders: see Upgrades that need any one of several in the vehicle systems modding guide.
+
+### Fixed
+
+- **The vehicle inspect pane lists only readings worth a look** (owner's screenshot, 17 Nov 2026: in Engineer mode the tanker listed
+  all sixteen readings in one long line). In every display mode it now names only readings at a stage worth a look, such as a freezing
+  cab or gearbox, with their figures in Operator and Engineer modes, plus what the vehicle waits for, the battery and the Engineer
+  summary. Every reading is still on the Dashboard and Systems tabs.
+
+### Compatibility and limits
+
+- Safe to add to a running colony and to remove: nothing new is saved. An upgrade already fitted without its new parent stays fitted.
+  No setting added or changed. New test row 176. Not yet tested in game.
+
 ## [0.127.0] - 2026-11-17 - Draft
 
 The drill rig, the tanker and a loading chute work with storage (universal hoppers UH3, UH5 and UH13)

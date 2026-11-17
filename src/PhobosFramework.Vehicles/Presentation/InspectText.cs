@@ -7,8 +7,9 @@ using Verse;
 namespace Phobos.VehicleSystems;
 
 /// <summary>
-/// The vehicle's inspect lines, by display mode (presentation only). Plain names only the stages worth a look and a service that is
-/// due; Operator adds each quantity's figure; Engineer adds the engine's load, the electrical draw and the air temperature.
+/// The vehicle's inspect lines, by display mode (presentation only). Every mode names only the readings worth a look and a service that
+/// is due; Operator and Engineer give those readings' figures; Engineer adds the engine's load, the electrical draw and the air
+/// temperature. Every reading's figure is on the Dashboard and Systems tabs.
 /// </summary>
 public static class InspectText
 {
@@ -23,21 +24,22 @@ public static class InspectText
             {
                 QuantitySpec quantity = state.Def.quantities[q];
                 StageSpec? stage = state.CurrentStage(q);
+                // Only readings worth a look, in every mode (Framework 0.127.1; owner's screenshot, 17 Nov 2026: Engineer listed all sixteen of
+                // the tanker's readings in one line, "the mess of text"). Every reading stays on the Dashboard and Systems tabs.
+                if (stage == null || !stage.notable) continue;
                 if (mode == DisplayMode.Plain || quantity.hidden)
                 {
-                    if (stage != null && stage.notable) parts.Add("PhobosVehicleSystems_InspectStage".Translate(quantity.label.Named("QUANTITY"), stage.label.Named("STAGE")));
+                    parts.Add("PhobosVehicleSystems_InspectStage".Translate(quantity.label.Named("QUANTITY"), stage.label.Named("STAGE")));
                     continue;
                 }
-                if (stage != null && !stage.labelEngineOff.NullOrEmpty() && !comp.EngineRunning)
+                if (!stage.labelEngineOff.NullOrEmpty() && !comp.EngineRunning)
                 {
                     // With the engine off this stage has its own word, said without the figure ("control boost ready").
                     parts.Add("PhobosVehicleSystems_InspectStage".Translate(quantity.label.Named("QUANTITY"), stage.labelEngineOff.Named("STAGE")).Resolve());
                     continue;
                 }
                 string figure = Format(quantity, state.values[q]);
-                parts.Add(stage != null && (stage.notable || mode == DisplayMode.Engineer)
-                    ? "PhobosVehicleSystems_InspectFigureStage".Translate(quantity.label.Named("QUANTITY"), figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve()
-                    : "PhobosVehicleSystems_InspectFigure".Translate(quantity.label.Named("QUANTITY"), figure.Named("VALUE")).Resolve());
+                parts.Add("PhobosVehicleSystems_InspectFigureStage".Translate(quantity.label.Named("QUANTITY"), figure.Named("VALUE"), stage.label.Named("STAGE")).Resolve());
             }
         }
         var lines = new List<string>();

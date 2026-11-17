@@ -39,6 +39,9 @@ or an aircraft in flight.
 
 **Rest the mouse on any reading or part** to learn what it means, what moves it, and what losing it costs.
 
+The **inspect pane** at the bottom left names only the readings worth a look ("cab freezing"), with their figures in Operator and
+Engineer modes, and what the vehicle is waiting for. Every other reading is on the Dashboard and Systems tabs.
+
 ### Warning lamps
 
 A lamp lights on the Dashboard when a system needs attention, as on a real dashboard; a soft chime sounds when a red one comes

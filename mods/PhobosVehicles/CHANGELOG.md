@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.64.2] - 2026-11-17 - Draft
+
+The bulk tanker's upgrades branch from its tanks, with D'thorga Framework 0.128.0
+
+### Fixed
+
+- **The tanker's upgrade tree branches from its tanks** (owner, 17 Nov 2026): the compartments, the second hose reel and the electric
+  pump could be fitted to a bare deck. Now the compartments need a liquid tank and must come off before it, and the hose reel and
+  electric pump need any tank but stay on the truck when the tank is swapped. Lines in the Upgrades tab show which tanks each hangs
+  from, and the buttons say what to fit or take off first. The tree is laid out again to match.
+
+### Save compatibility
+
+- Node keys are unchanged. A tanker already carrying compartments, a hose reel or a pump without a tank keeps them.
+
+### Compatibility and limits
+
+- Needs D'thorga Framework 0.128.0: install the two together, or an older Framework logs an error for the tree. Test row 176. Not
+  yet tested in game.
+
 ## [0.64.1] - 2026-11-17 - Draft
 
 The bulk bunker's own picture

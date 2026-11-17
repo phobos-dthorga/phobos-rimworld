@@ -605,6 +605,16 @@ fittings and tunes do, under the player's settings **Time to fit and tune**, **M
 more to fit and tune**; taking one off refunds a share of what it cost when fitted. Trees without it keep their own costs. D'thorga
 Vehicles' trees (`UpgradeTree_BulkTanker.xml` and the others) opt in.
 
+## Upgrades that need any one of several
+
+Vehicle Framework's `prerequisiteNodes` all have to be fitted. For "any one of" (alternatives such as the tanker's tanks), put
+`Phobos.VehicleSystems.PhobosUpgradeAnyOf` in the tree's `modExtensions` with one `links` entry per node: its `node`, the keys in
+`anyOf`, and `holdsParent` true when the fitted parent cannot come off while the node is on (the compartments inside a tank) or left
+false when the parents may swap under it (a hose reel on the truck). The Upgrades tab draws each link as a branch from every parent
+to a bar and down to the node, and its buttons say what to fit or take off first. A key the tree does not have (one added only by a
+tie-in patch) is never fitted and not drawn, so a link may name optional nodes. Vehicle Framework's random upgrades for other
+factions' vehicles respect it too. `UpgradeTree_BulkTanker.xml` is the worked example.
+
 ## The shipped systems
 
 | System | Quantities | Roles | Notes |

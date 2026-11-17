@@ -3,7 +3,8 @@
 **Status (17 Nov 2026):** built in D'thorga Framework 0.34.0 and D'thorga Vehicles 0.12.0 (8 Nov 2026), the first vehicle of ours,
 and grown since: the second wave of fluids (Framework 0.35.0, Vehicles 0.13.0), compartments (0.37.0, 0.15.0), bulk buying at a
 settlement (0.38.0, 0.16.0), chemfuel into generators and crude through Rimefeller's pipeline (Framework 0.109.0, Vehicles 0.52.0), and
-an electric pump that runs on the battery with the engine off (Framework 0.116.0, Vehicles 0.57.0). Not built: quests, RimThunder
+an electric pump that runs on the battery with the engine off (Framework 0.116.0, Vehicles 0.57.0), and an upgrade tree that branches
+from the tanks (Framework 0.128.0, Vehicles 0.64.2). Not built: quests, RimThunder
 engine-class nodes, the fire monitor port, helixien gas and liquid oxygen. **Not yet tested in game:** no changelog records an owner
 test of the tanker.
 
@@ -189,6 +190,23 @@ power take-off pump is the real machine.
 | Changes | A burst tank loses every compartment at once, and only what burns feeds the blast |
 
 **Agent's choices:** three compartments at most, one to each hatch on the liquid tanks; one tank temperature; water, nutrient paste, hemogen and wort whitelisted as food, because no item of theirs carries a nutrition value (the owner may blacklist any of them). The rule is food against non-food only, so sludge may share with fuel.
+
+## As built: the upgrade tree branches from the tanks (17 Nov 2026, D'thorga Framework 0.128.0 and D'thorga Vehicles 0.64.2, Drafts)
+
+**Not yet tested in game.** The owner asked whether the tree should branch (17 Nov 2026, from a screenshot of a flat row of six tanks
+and four loose upgrades); the agent recommended it and the owner chose it. Vehicle Framework's prerequisites all have to be fitted, so a
+"needs any one of" link (`PhobosUpgradeAnyOf`, D'thorga Framework) carries it.
+
+| | |
+| --- | --- |
+| Lets the player | Read the tree as it works: the tanks are the choice, and what hangs from them is shown hanging from them |
+| Stops them | Fitting compartments, a second hose reel or an electric pump to a bare deck; taking a tank off with compartments inside it |
+| Changes | Swapping a tank with compartments now means taking the compartments off first (as a real bulkhead would come out with its tank) |
+
+**Agent's choices:** the hose reel and the electric pump are on the truck, not the tank, so they need a tank to be fitted but do not
+hold it on: a tank swap leaves them in place. The compartments hold their tank on. The other nine trees of ours were checked the same
+day and left flat: their upgrades are independent of each other, or already chained (the Seabed Crawler) or exclusive where they should
+be (the drill rig's bits, the tipper's bodies, the survey truck's sensors).
 
 ## Bulk trading and quests (owner's decisions, 9 Nov 2026; not built)
 

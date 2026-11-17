@@ -39,6 +39,7 @@ From the code. "Wins over" says what each beats when two sources disagree.
 | **Hitch point** extension, `PhobosHitchPointExtension` | On the vehicle's own Def | Where the hitch sits | The default, just behind the rear edge | `Hitch/CompPhobosHitch.cs:18-23` |
 | **Engine sound** and **work sounds** extensions | On the vehicle's own Def | The vehicle's own engine loops and the sounds of its work, by key | Silence | `Systems/EngineSound.cs:17`; `Systems/VehicleWorkSounds.cs:28` |
 | `PhobosEnforceUpgradeResearch` | On an upgrade tree | The tree's nodes need the research they name | Vehicle Framework's own behaviour (it never checks) | `Service/UpgradeResearch.cs:11-12` |
+| `PhobosUpgradeAnyOf` | On an upgrade tree | A node needs any one of several others, and may hold that one on | Vehicle Framework's own prerequisites, all of which must be fitted | `Service/UpgradeAnyOf.cs`; `Rules/UpgradeAnyOfRule.cs` |
 | `FieldResearchExtension` | On a research project or tab | Only a laboratory aboard a vehicle can work on it | | `Service/FieldResearch.cs:7-11` |
 | `CompProperties_PhobosTrailer` | In a trailer's own Def | It is a trailer: two lengths and a jack-knife angle. A trailer gets no systems | | `Hitch/CompPhobosTrailer.cs:9-22`; `Service/VehicleSystems.cs:55` |
 | `CompProperties_PhobosSubmersible`, `CompProperties_PhobosTank` | In the vehicle's own Def | It dives; it carries a bulk tank | | `Systems/CompPhobosSubmersible.cs:27-28`; the guide |

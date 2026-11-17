@@ -49,7 +49,8 @@ More Injuries and Medical Surgery Expanded 2 were not re-checked for this regist
 | Patch | Why it stays |
 | --- | --- |
 | Framework, `PartsOnLoad` | Vehicle Framework saves parts by position, and we append parts to its vehicles. We need this for as long as we append |
-| Framework, `UpgradeNeedsResearchPatch`, `UpgradeResearchButtonPatch` | Vehicle Framework declares research on upgrades and never checks it, and our design needs it checked on our own vehicles. **Could become temporary** if Vehicle Framework starts reading `UpgradeNode.researchPrerequisites` |
+| Framework, `UpgradeAnyOfPatch`, `UpgradeAnyOfLinesPatch` | Vehicle Framework's prerequisites all have to be fitted; our tanker's tree needs "any one of" (Framework 0.128.0). **Could become temporary** if Vehicle Framework adds alternatives to its prerequisites |
+| Framework, `UpgradeNeedsResearchPatch`, `UpgradeRefusalButtonPatch` (the research and any-of refusals) | Vehicle Framework declares research on upgrades and never checks it, and our design needs it checked on our own vehicles. **Could become temporary** if Vehicle Framework starts reading `UpgradeNode.researchPrerequisites` |
 | Framework, `FlyingAircraftStayAwakePatch` | The game's six-hourly sweep is working as designed; our simulation needs aircraft kept awake in flight |
 | Patches, `AirborneCrewKeepsMap` | Sorties need a map kept open around crew inside a vehicle. **Could become temporary** if Vehicle Framework's own check starts covering crew in the air |
 | Patches, `ConvoyOutpostRefusal` | Has a player setting, and refuses founding that can lose vehicles (read from the code, not reproduced). **Could become temporary** if Vehicle Expanded's outposts learn to handle vehicles |
