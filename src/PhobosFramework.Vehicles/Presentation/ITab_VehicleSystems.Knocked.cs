@@ -211,11 +211,12 @@ public partial class ITab_VehicleSystems
     /// </summary>
     static void DrawLoads(CompPhobosVehicleSystems comp, ref float y, float width, bool engineer, ref bool anything)
     {
-        PhobosVehicleLoadoutDef? loadout = comp.Props.loadout;
-        if (loadout == null || loadout.loads.Count == 0) return;
+        // The loadout's loads and the fittings' (Framework 0.129.0, vehicle accessories).
+        IReadOnlyList<ElectricalLoadSpec> loads = comp.Loads;
+        if (loads.Count == 0) return;
         loadScratch.Clear();
         bool anyShed = false, anyNoPower = false;
-        foreach (ElectricalLoadSpec load in loadout.loads)
+        foreach (ElectricalLoadSpec load in loads)
         {
             LoadState state = comp.StateOf(load);
             if (state == LoadState.NotFitted) continue;
@@ -251,11 +252,11 @@ public partial class ITab_VehicleSystems
             // Standing by because another load has its job (climate control works the heater): say so (Framework 0.119.1).
             if (state == LoadState.Idle && load.yieldsTo != null && comp.LoadActive(load.yieldsTo))
             {
-                ElectricalLoadSpec? other = comp.Props.loadout?.loads.Find(l => l.name == load.yieldsTo);
+                ElectricalLoadSpec? other = comp.LoadNamed(load.yieldsTo);
                 stateText = "PhobosVehicleSystems_SysLoadYields".Translate((other?.label ?? load.yieldsTo).Named("LOAD")).Resolve();
             }
             if (engineer && state is LoadState.Running or LoadState.NoPower)
-                stateText = "PhobosVehicleSystems_SysLoadAmps".Translate(stateText.Named("STATE"), load.amps.ToString("0.#").Named("AMPS")).Resolve();
+                stateText = "PhobosVehicleSystems_SysLoadAmps".Translate(stateText.Named("STATE"), comp.AmpsNow(load).ToString("0.#").Named("AMPS")).Resolve();
             using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft))
             {
                 Widgets.Label(new Rect(6f, y, nameEnd - 10f, Row - 4f), label.Truncate(nameEnd - 10f));

@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/CampOutlet.png",
+  "source": "assets/phobos-vehicles/generated/button-camp-outlet/button-camp-outlet-1.png",
+  "source_sha256": "e4abbb351164e538e0d13fe4c86eb12543c1c02d9461b3a741da4852e08cf353",
+  "target_sha256": "1556375e42f671a4fef9104fd24eadfb7e9edfb603d69dccd338f6a0660139aa",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "e4abbb351164e538e0d13fe4c86eb12543c1c02d9461b3a741da4852e08cf353",
+  "date": "2026-11-17T22:12:15",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

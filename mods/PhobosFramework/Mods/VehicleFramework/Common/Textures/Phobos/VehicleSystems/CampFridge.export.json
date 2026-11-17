@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/CampFridge.png",
+  "source": "assets/phobos-vehicles/generated/button-camp-fridge/button-camp-fridge-2.png",
+  "source_sha256": "f97ab288335c866c186c86b2a9510954b6d376caaefa5ba19628d61d6434a1d0",
+  "target_sha256": "d8391a896e8654225b2f147eeb7a2e942c66d0194409e26db05acb327f612f4f",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "f97ab288335c866c186c86b2a9510954b6d376caaefa5ba19628d61d6434a1d0",
+  "date": "2026-11-17T22:12:14",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

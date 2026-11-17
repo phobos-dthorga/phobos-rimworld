@@ -1,6 +1,8 @@
 # Vehicle accessories: camp gear and comforts (13 Nov 2026)
 
-**A research and design record. Nothing is built, and nothing here is tested in game.** The owner, 13 November 2026: "I wish to
+**Status (17 Nov 2026):** the power budget batch is built in D'thorga Framework 0.129.0: loads, weight and kits on fittings, the house battery (Y5), the power outlet (Y1) and the 12-volt fridge (Y7); [what was built](#built-the-power-budget-17-nov-2026). Not yet tested in game. Everything else here is a design.
+
+**A research and design record.** The owner, 13 November 2026: "I wish to
 explore vehicle accessories the player can install whether it's for entertainment, to help with camping, or something different
 ... these can be added to their vehicles either as part upgrades involving steel, components, etc. and/or as craftables from a
 workbench of some kind." Facts marked **[code]** were read on 13 Nov 2026 with `scripts/query-code.py`, `scripts/query-defs.py`
@@ -460,6 +462,23 @@ hostile vehicles on a map the cost is none, because the lite tier skips all of i
 3. **Water:** read Dubs' storage code first; then the tank (Y2), drinking aboard, the basin and shower (Y12).
 4. **The road:** life aboard (Y4) together with hotboxing: the stereo (Y13), reading, a cuppa.
 5. **The rest**, as wanted: the solar panel (Y6), then Y15 to Y20.
+
+## Built: the power budget (17 Nov 2026)
+
+The owner said build (17 Nov 2026) and answered three cards: the fridge chooses its food **automatically** (no dialog); accessories are
+**crafted kits**; the art is **bought from the OpenAI image API** now (fridge kit 2, house battery 1, inverter 1, fridge button 2, outlet
+button 1, about US$0.545). Rows 178 to 180 of [the in-game test pass](in-game-test-pass.md). What differs from the design above:
+
+| Piece | Where | Differs from the design |
+| --- | --- | --- |
+| Loads, weight and kits on fittings | `PhobosVehicleFittingDef.loads`, `kilograms`, `givesBack`; the comp's `Loads` list; the cargo stat part | A fitting's load joins the loadout's, so the switch, tabs and shedding see it. A wrecked accessory still weighs until taken off |
+| Mounts | Three parts appended to every land vehicle: fridge bay, house battery tray, outlet panel | One part each rather than one cargo bay, because a part takes one fitting. Boats and aircraft get none yet (agent default) |
+| House battery (Y5) | `Systems_HouseBattery.xml`, a system that runs only while one is fitted (`needsGrant`) | Camp loads draw on it alone and stop at a cut-off of a tenth instead of the shedding order. It charges from the alternator's surplus once the starting battery is above 90 %, both counted on the same surplus (a simplification) |
+| Power outlet (Y1) | `CampOutlet`, the hook-up meter turned round | Gives only what its devices ask (counting a device waiting for power), never to batteries, up to 300 W on 12 V, 600 W on 24 V. Its switch keeps the conduit down while idling |
+| Fridge (Y7) | `CampFridge`, the held-temperature registry told which item is asked about | Chooses by how far each stack has gone at full rot speed, so a chilled stack does not drop out at the next look. Whole stacks only |
+
+The shed order is approximate: the outlet shares rank 1 with the air conditioning and the fridge rank 2 with the next load, rather than
+new ranks ahead of them.
 
 ## Questions for the owner
 

@@ -215,6 +215,8 @@
   <PhobosVehicleSystems_MsgRanDry>The {VEHICLE} ran out of fuel with its engine running, and its fuel pump ran dry. Keep some fuel in the tank to spare the pump.</PhobosVehicleSystems_MsgRanDry>
   <PhobosVehicleSystems_MsgAirLow>The {VEHICLE}'s air pressure is low. Its brakes will lock on if it falls further: keep the engine running to build air, and have the compressor or a leak looked at.</PhobosVehicleSystems_MsgAirLow>
   <PhobosVehicleSystems_MsgBatteryLow>The {VEHICLE}'s battery is running low.</PhobosVehicleSystems_MsgBatteryLow>
+  <PhobosVehicleSystems_MsgHouseBatteryLow>The {VEHICLE}'s house battery is running low. Its fridge and power outlet stop when it is nearly flat; run the engine or park it on shore power.</PhobosVehicleSystems_MsgHouseBatteryLow>
+  <PhobosVehicleSystems_MsgFridgeNoPower>The fridge in the {VEHICLE} has lost power, and the food it kept cold will warm.</PhobosVehicleSystems_MsgFridgeNoPower>
   <PhobosVehicleSystems_MsgStartingPowerLow>The {VEHICLE}'s battery may soon be too weak to start the engine. Start it to charge the battery, or switch off its lights and heaters.</PhobosVehicleSystems_MsgStartingPowerLow>
   <PhobosVehicleSystems_MsgBatteryFreezing>The {VEHICLE}'s flat battery is freezing and may crack. Charge it or move it somewhere warmer.</PhobosVehicleSystems_MsgBatteryFreezing>
   <PhobosVehicleSystems_MsgRunningHot>The {VEHICLE}'s engine is running hot.</PhobosVehicleSystems_MsgRunningHot>
@@ -456,6 +458,8 @@
   <PhobosVehicleSystems_TuneWork>setting up the {SETTING}</PhobosVehicleSystems_TuneWork>
   <PhobosVehicleSystems_FitDone>{MECHANIC} fitted the {FITTING} to the {VEHICLE}'s {PART}.</PhobosVehicleSystems_FitDone>
   <PhobosVehicleSystems_FitRemovedDone>{MECHANIC} took the {FITTING} off the {VEHICLE}'s {PART}.</PhobosVehicleSystems_FitRemovedDone>
+  <PhobosVehicleSystems_FitKitReturned>The {KIT} went back into its cargo.</PhobosVehicleSystems_FitKitReturned>
+  <PhobosVehicleSystems_StatFittedKilograms>Fitted accessories: -{KILOGRAMS} kg</PhobosVehicleSystems_StatFittedKilograms>
   <PhobosVehicleSystems_TuneDone>{MECHANIC} finished setting up the {VEHICLE}'s {SETTING}.</PhobosVehicleSystems_TuneDone>
   <PhobosVehicleSystems_FitOrderedMessage>{WORK}: added to the {VEHICLE}'s work.</PhobosVehicleSystems_FitOrderedMessage>
   <PhobosVehicleSystems_FitCancelledMessage>{WORK}: cancelled on the {VEHICLE}.</PhobosVehicleSystems_FitCancelledMessage>

@@ -306,6 +306,9 @@ public class PhobosVehicleSystemDef : Def
     public List<PartHitRule> onPartHit = new();
     /// <summary>The system stands down on a vehicle with an open cab (the Cabin system).</summary>
     public bool needsClosedCab;
+    /// <summary>The system stands down unless a fitting on the vehicle grants this ability (Framework 0.129.0: the house battery runs only
+    /// once one is fitted). Null: it always runs.</summary>
+    public string? needsGrant;
     public ServiceSpec? service;
     public JumpStartSpec? jumpStart;
     /// <summary>The part roles the system reads; the schema check warns when a loadout binds none of them.</summary>
@@ -481,6 +484,12 @@ public class ElectricalLoadSpec
     /// heater that reads "standing by" is not taken for broken (the owner's report, 17 Nov 2026). Presentation only: the load's own
     /// <c>when</c> still decides whether it draws.</summary>
     public string? yieldsTo;
+    /// <summary>A camp load (Framework 0.129.0, vehicle accessories: the fridge, the power outlet): with a house battery fitted it draws on that
+    /// battery and never the starting battery, and its low-voltage cut-off stops it instead of the shedding order.</summary>
+    public bool campLoad;
+    /// <summary>Multiplied together with <see cref="amps"/> to give what the load draws now (Framework 0.129.0): a fridge by the air's
+    /// temperature, an outlet by what the camp asks of it. Empty: the amps written here.</summary>
+    public List<VehicleSystemInput> ampsInputs = new();
 }
 
 public enum AvionicsAmps
@@ -792,6 +801,15 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// amps, and the grid pays for them and the battery's charge through a supply this efficient. Authored: about a 1.5 kW supply at 24 V.</summary>
     public float hookUpRatingAmps = 60f;
     public float hookUpEfficiency = 0.85f;
+    /// <summary>Vehicle accessories (Framework 0.129.0; docs/development/vehicle-accessories.md): the power outlet's most watts on a 12 V vehicle,
+    /// scaled by the system's voltage (300 W on 12 V, 600 W on 24 V; authored, so it never rivals the generator set), and its inverter's efficiency.</summary>
+    public float outletWattsAt12Volts = 300f;
+    public float inverterEfficiency = 0.85f;
+    /// <summary>The fridge: how much cargo food it keeps cold, and how cold (authored: a 47 L compressor fridge's useful load, 4 degrees C).</summary>
+    public float fridgeKilograms = 30f;
+    public float fridgeDegrees = 4f;
+    /// <summary>The house battery's low-voltage cut-off: camp loads stop below this share of its charge, as a real one's does (authored).</summary>
+    public float houseBatteryCutoff = 0.1f;
     /// <summary>The share of full health a replaced part comes back with; ordinary repair does the rest.</summary>
     public float replacedPartHealth = 0.25f;
     /// <summary>The same, for a part fitted within reach of a working tuning rig, whose hoist and instruments do the job properly.</summary>

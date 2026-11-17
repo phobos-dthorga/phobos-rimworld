@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Vehicle accessories, the power budget (Framework 0.129.0; docs/development/vehicle-accessories.md, the owner's first batch of 13 Nov 2026):
+    a 12 V fridge, a house battery and a power outlet. Each is a kit made at the vehicle parts bench (owner's choice, 17 Nov 2026), loaded into the
+    vehicle's cargo and fitted to its own mount, which every land vehicle has (Loadouts_Default.xml). Taking one off gives its kit back; the
+    brackets and wiring (the steel in each fitting) are not returned (owner, 13 Nov 2026). Each weighs what its kit weighs, taken from the cargo
+    capacity; none changes speed or fuel through drag (owner).
+    Every cost, work, skill, weight and draw is authored, agent defaults for the owner to revise; the real figures they lean on are in the
+    record's sources. Not yet tested in game.
+  -->
+
+  <!-- ===== The kits ===== -->
+
+  <ThingDef Name="PhobosCampKitBase" ParentName="ResourceBase" Abstract="True">
+    <stackLimit>1</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+      <DeteriorationRate>1</DeteriorationRate>
+    </statBases>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>4</Crafting>
+      </skillRequirements>
+      <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    </recipeMaker>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- A 12 V compressor fridge of about 47 L, ARB's size (the record's sources). 20 kg authored. -->
+    <defName>PhobosVehicleSystems_FridgeUnit</defName>
+    <label>12-volt fridge</label>
+    <description>A compressor fridge built to run off a vehicle's battery. Fitted to a vehicle's fridge bay, it keeps the food in the cargo that would spoil first cold, as long as the battery holds out.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/FridgeUnit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.9</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>20</Mass>
+      <WorkToMake>3000</WorkToMake>
+      <MarketValue>220</MarketValue>
+    </statBases>
+    <costList>
+      <Steel>25</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- A 100 Ah deep-cycle battery: about 25 kg is typical of a sealed lead-acid one (secondary, unverified). -->
+    <defName>PhobosVehicleSystems_HouseBatteryUnit</defName>
+    <label>house battery</label>
+    <description>A deep-cycle battery and its isolator. Fitted to a vehicle's house battery tray, it runs the fridge and the power outlet so they never flatten the battery that starts the engine. It charges while the engine runs, once the starting battery is full, or from shore power.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/HouseBattery</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.85</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>25</Mass>
+      <WorkToMake>2000</WorkToMake>
+      <MarketValue>160</MarketValue>
+    </statBases>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <defName>PhobosVehicleSystems_PowerInverter</defName>
+    <label>power inverter</label>
+    <description>An inverter with a weatherproof outlet. Fitted to a vehicle's outlet panel, it lets the parked vehicle power lamps, a radio or a bench at a camp through a conduit, up to a few hundred watts, from its battery or its idling engine.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/PowerInverter</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.8</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>4</Mass>
+      <WorkToMake>2000</WorkToMake>
+      <MarketValue>130</MarketValue>
+    </statBases>
+    <costList>
+      <Steel>10</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+  </ThingDef>
+
+  <!-- ===== The fittings ===== -->
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_CampFridge</defName>
+    <iconPath>Phobos/VehicleSystems/Things/FridgeUnit</iconPath>
+    <label>12-volt fridge</label>
+    <description>A compressor fridge in the cargo space. While it has power it keeps up to 30 kg of the cargo's food at 4 °C, choosing what would spoil first. It draws more in hot weather, and without a house battery it runs the starting battery down with the engine off.</description>
+    <roles><li>FridgeBay</li></roles>
+    <materials><PhobosVehicleSystems_FridgeUnit>1</PhobosVehicleSystems_FridgeUnit><Steel>5</Steel></materials>
+    <givesBack><PhobosVehicleSystems_FridgeUnit>1</PhobosVehicleSystems_FridgeUnit></givesBack>
+    <kilograms>20</kilograms>
+    <work>2500</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <grants><li>Fridge</li></grants>
+    <loads>
+      <li>
+        <!-- 0.8 A on average at 32 degrees C for a 47 L compressor fridge (ARB's figure as Overland Expo's review gives it, secondary); ours runs
+             from 0.2 A near freezing to 1.5 A at 45 degrees C (authored), at 12 V, halved on a 24 V truck. Shed last of the camp loads. -->
+        <name>campFridge</name>
+        <label>fridge</label>
+        <description>The 12-volt fridge in the cargo space. Switched on and with power, it keeps the food that would spoil first cold.</description>
+        <amps>1</amps>
+        <toggle>true</toggle>
+        <defaultOn>true</defaultOn>
+        <campLoad>true</campLoad>
+        <shedOrder>2</shedOrder>
+        <iconPath>Phobos/VehicleSystems/CampFridge</iconPath>
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_Ambient">
+            <curve>
+              <points>
+                <li>(0, 0.2)</li>
+                <li>(15, 0.4)</li>
+                <li>(32, 0.8)</li>
+                <li>(45, 1.5)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+        </ampsInputs>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_HouseBattery</defName>
+    <iconPath>Phobos/VehicleSystems/Things/HouseBattery</iconPath>
+    <label>house battery</label>
+    <description>A second battery of 100 ampere-hours for the camp loads, behind an isolator. The fridge and the power outlet draw on it alone and stop when it is nearly flat, so the starting battery is always kept for the engine. It charges while the engine runs once the starting battery is full, or from shore power.</description>
+    <roles><li>HouseBatteryTray</li></roles>
+    <materials><PhobosVehicleSystems_HouseBatteryUnit>1</PhobosVehicleSystems_HouseBatteryUnit><Steel>5</Steel></materials>
+    <givesBack><PhobosVehicleSystems_HouseBatteryUnit>1</PhobosVehicleSystems_HouseBatteryUnit></givesBack>
+    <kilograms>25</kilograms>
+    <work>2000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <grants><li>HouseBattery</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_PowerOutlet</defName>
+    <iconPath>Phobos/VehicleSystems/Things/PowerInverter</iconPath>
+    <label>power outlet</label>
+    <description>An inverter and an outlet. Switched on while the vehicle stands still, the conduit beneath it powers whatever is wired to it nearby (lamps, a radio, a bench) up to 300 watts, or 600 on a 24-volt truck. With the engine off it runs on the battery; leave the engine idling to carry it longer on fuel. It never fills a colony's batteries.</description>
+    <roles><li>OutletPanel</li></roles>
+    <materials><PhobosVehicleSystems_PowerInverter>1</PhobosVehicleSystems_PowerInverter><Steel>5</Steel></materials>
+    <givesBack><PhobosVehicleSystems_PowerInverter>1</PhobosVehicleSystems_PowerInverter></givesBack>
+    <kilograms>4</kilograms>
+    <work>2000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <grants><li>PowerOutlet</li></grants>
+    <loads>
+      <li>
+        <!-- What it draws is what it gives the camp, at the vehicle's voltage through the inverter (CampRule.OutletAmps). Off once fitted: the
+             player switches it on at camp. Shed first of the camp loads, with the air conditioning. -->
+        <name>campOutlet</name>
+        <label>power outlet</label>
+        <description>The vehicle's power outlet. Switched on while it stands still, the conduit beneath it powers devices wired to it nearby.</description>
+        <amps>1</amps>
+        <toggle>true</toggle>
+        <defaultOn>false</defaultOn>
+        <campLoad>true</campLoad>
+        <shedOrder>1</shedOrder>
+        <iconPath>Phobos/VehicleSystems/CampOutlet</iconPath>
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_OutletAmps" />
+        </ampsInputs>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

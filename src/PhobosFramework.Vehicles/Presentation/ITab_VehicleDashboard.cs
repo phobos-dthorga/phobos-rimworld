@@ -254,10 +254,10 @@ public class ITab_VehicleDashboard : ITab
                 }
             }
         }
-        PhobosVehicleLoadoutDef? loadout = comp.Props.loadout;
-        if (loadout != null)
+        if (comp.Props.loadout != null)
         {
-            foreach (ElectricalLoadSpec load in loadout.loads.Where(l => l.toggle && comp.LoadAvailable(l)))
+            // The loadout's switches and the fittings' (Framework 0.129.0, vehicle accessories).
+            foreach (ElectricalLoadSpec load in comp.Loads.Where(l => l.toggle && comp.LoadAvailable(l)))
             {
                 Rect rect = NextSwitch();
                 bool on = comp.IsOn(load);

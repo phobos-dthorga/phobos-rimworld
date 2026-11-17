@@ -1,0 +1,102 @@
+[
+  {
+    "name": "item-fridge-unit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png",
+        "role": "our approved vehicle parts item from the same family (the jump-start kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicleSystems_FridgeUnit, the 12-volt fridge kit (Framework 0.129.0); also the fridge fitting's icon",
+      "size": "drawn by the game on one cell; requested at 1024",
+      "this_request": "the power budget batch of vehicle accessories, two attempts at the owner's word (17 Nov 2026)"
+    },
+    "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga 12-volt fridge: a portable compressor fridge for a four-wheel-drive vehicle. Image 1 is our approved item from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA squat rectangular chest fridge with a pale grey body, darker grey rounded corner protectors, a hinged lid with a recessed handle, a small dark ventilation grille on one end and two short folding carry handles. One small round blue indicator on the front panel.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, food, text, letters, numbers, logos, brand marks, dials, screens or shadow beyond the object."
+  },
+  {
+    "name": "item-house-battery",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png",
+        "role": "our approved vehicle parts item from the same family (the jump-start kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicleSystems_HouseBatteryUnit, the house battery kit (Framework 0.129.0); also the house battery fitting's icon",
+      "size": "drawn by the game on one cell; requested at 1024",
+      "this_request": "the power budget batch of vehicle accessories, two attempts at the owner's word (17 Nov 2026)"
+    },
+    "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga house battery: a heavy deep-cycle battery for a camping vehicle, with its isolator. Image 1 is our approved item from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA chunky dark grey battery box with a moulded carry strap across its top, two stout terminals on the top (one capped red, one capped black), and a small pale isolator box with two short cables clipped to its side.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, plus or minus signs, logos, brand marks, dials, screens, sparks or shadow beyond the object."
+  },
+  {
+    "name": "item-power-inverter",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png",
+        "role": "our approved vehicle parts item from the same family (the jump-start kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicleSystems_PowerInverter, the power outlet kit (Framework 0.129.0); also the power outlet fitting's icon",
+      "size": "drawn by the game on one cell; requested at 1024",
+      "this_request": "the power budget batch of vehicle accessories, two attempts at the owner's word (17 Nov 2026)"
+    },
+    "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga power inverter: a small power inverter that lets a parked vehicle power a camp. Image 1 is our approved item from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA compact rectangular metal box with cooling fins along its sides, painted a muted orange, with one weatherproof outlet under a hinged grey flap on its front and a short coiled heavy cable ending in two battery clamps, one red and one black.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, brand marks, dials, screens, sparks or shadow beyond the object."
+  },
+  {
+    "name": "button-camp-fridge",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightHeater.png",
+        "role": "our approved switch button icon from the same family (the night heater): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "button": "the fridge's on/off switch on a vehicle (load campFridge, Framework 0.129.0)",
+      "size": "drawn by the game at 64 to 75 px in the command bar; requested at 1024",
+      "this_request": "the power budget batch of vehicle accessories, two attempts at the owner's word (17 Nov 2026)"
+    },
+    "prompt": "GAME BUTTON ICON. One single object seen from the front, centred, flat on the canvas, like a button picture in a strategy game's command bar.\n\nCreate an ORIGINAL game button icon for the D'thorga fridge switch: a vehicle's 12-volt fridge keeping food cold. Image 1 is our approved switch icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA small pale grey chest fridge with its lid propped open, a soft pale blue cold glow rising from inside, and one simple six-armed snowflake shape in pale blue floating just above the opening.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly at 64 pixels.\n\nNo people, food, text, letters, numbers, logos, dials or screens."
+  },
+  {
+    "name": "button-camp-outlet",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightHeater.png",
+        "role": "our approved switch button icon from the same family (the night heater): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "button": "the power outlet's on/off switch on a vehicle (load campOutlet, Framework 0.129.0)",
+      "size": "drawn by the game at 64 to 75 px in the command bar; requested at 1024",
+      "this_request": "the power budget batch of vehicle accessories, two attempts at the owner's word (17 Nov 2026)"
+    },
+    "prompt": "GAME BUTTON ICON. One single object seen from the front, centred, flat on the canvas, like a button picture in a strategy game's command bar.\n\nCreate an ORIGINAL game button icon for the D'thorga power outlet switch: a parked vehicle powering a camp. Image 1 is our approved switch icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA heavy weatherproof power outlet on a rounded pale grey plate, its hinged flap open, with a thick black plug pushed in and its cable curving away to a small glowing warm yellow camp lantern.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly at 64 pixels.\n\nNo people, text, letters, numbers, logos, lightning bolts, dials or screens."
+  }
+]

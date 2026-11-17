@@ -460,6 +460,35 @@ public sealed class VehicleFittings
 
     public PhobosVehicleFittingDef? FittedOn(string partKey) => fitted.FirstOrDefault(f => f.partKey == partKey)?.def;
 
+    /// <summary>The kilograms the fittings take from the cargo capacity (Framework 0.129.0, vehicle accessories), wrecked or not: a smashed
+    /// fridge still weighs what it weighs until it is taken off.</summary>
+    public float KilogramsFitted
+    {
+        get
+        {
+            float kilograms = 0f;
+            foreach (FittedPart part in fitted) kilograms += part.def?.kilograms ?? 0f;
+            return kilograms;
+        }
+    }
+
+    /// <summary>Puts what a fitting gives back when taken off into the vehicle's cargo (owner, 13 Nov 2026: a removed accessory gives its kit
+    /// back), and returns the sentence saying so, or null when it gives nothing.</summary>
+    string? GiveBack(PhobosVehicleFittingDef? def)
+    {
+        if (def == null || def.givesBack.Count == 0) return null;
+        var names = new List<string>();
+        foreach (ThingDefCountClass back in def.givesBack)
+        {
+            if (back.thingDef == null || back.count <= 0) continue;
+            Thing thing = ThingMaker.MakeThing(back.thingDef);
+            thing.stackCount = back.count;
+            comp.Vehicle.AddOrTransfer(thing);
+            names.Add(back.Label);
+        }
+        return names.Count == 0 ? null : "PhobosVehicleSystems_FitKitReturned".Translate(names.ToCommaList(useAnd: true).Named("KIT")).Resolve();
+    }
+
     /// <summary>Whether a fitting on this vehicle grants this ability (a cargo hook), its part still standing.</summary>
     public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability)
         && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f });
@@ -659,7 +688,8 @@ public sealed class VehicleFittings
         int switched = 0;
         foreach (string name in family.switchOn)
         {
-            ElectricalLoadSpec? load = comp.Props.loadout?.loads.FirstOrDefault(l => l.name == name && l.toggle);
+            ElectricalLoadSpec? load = comp.LoadNamed(name);
+            if (load is { toggle: false }) load = null;
             if (load == null || comp.IsOn(load)) continue;
             comp.SetSwitch(load, true);
             switched++;
@@ -765,16 +795,21 @@ public sealed class VehicleFittings
         }
         else if (order.remove)
         {
-            string label = FittedOn(order.partKey)?.label ?? "";
+            PhobosVehicleFittingDef? old = FittedOn(order.partKey);
+            string label = old?.label ?? "";
             fitted.RemoveAll(f => f.partKey == order.partKey);
             text = "PhobosVehicleSystems_FitRemovedDone".Translate(who, label.Named("FITTING"), vehicle, PartLabel(order.partKey).Named("PART")).Resolve();
+            if (GiveBack(old) is { } back) text += " " + back;
         }
         else
         {
             Renew(order.fitting!, order.partKey);
+            PhobosVehicleFittingDef? replaced = FittedOn(order.partKey);
             fitted.RemoveAll(f => f.partKey == order.partKey);
             fitted.Add(new FittedPart { partKey = order.partKey, def = order.fitting });
             text = "PhobosVehicleSystems_FitDone".Translate(who, order.fitting!.label.Named("FITTING"), vehicle, PartLabel(order.partKey).Named("PART")).Resolve();
+            // A fitting put on over another takes that one off: its kit comes back too (Framework 0.129.0).
+            if (replaced != null && replaced != order.fitting && GiveBack(replaced) is { } back) text += " " + back;
             Seen.Note("vehicles.fitting-done." + order.fitting.defName, comp.Vehicle, PartLabel(order.partKey));
         }
         orders.Remove(order);

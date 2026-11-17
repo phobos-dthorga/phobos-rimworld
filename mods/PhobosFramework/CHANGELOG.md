@@ -5,6 +5,34 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.129.0] - 2026-11-17 - Draft
+
+Vehicle accessories, the power budget: a 12-volt fridge, a house battery and a power outlet
+
+### Added
+
+- **A 12-volt fridge** (accessories Y7): made at the vehicle parts bench and fitted to a land vehicle's new fridge bay. While it has
+  power it keeps the cargo food closest to spoiling cold, up to 30 kg at 4 degrees C, choosing by itself (owner's choice, 17 Nov 2026).
+  It draws more in the heat, and says once if it loses power. Without a house battery it runs the starting battery down with the engine off.
+- **A house battery** (Y5): a second 100 Ah battery on its own tray. The fridge and outlet draw on it alone and stop at a low-voltage
+  cut-off, so the battery that starts the engine is always kept. It charges from the alternator once the starting battery is full, or from
+  shore power, and shows on the Dashboard while fitted.
+- **A power outlet** (Y1): switched on while the vehicle stands still, the hidden conduit beneath it powers lamps, a radio or a bench wired
+  to it, up to 300 W (600 W on 24 V), giving only what they ask and never filling a colony's batteries. It runs on the battery, or the
+  engine idling keeps its conduit down and carries it on fuel.
+- **Accessories are kits** (owner's choice): the fridge, house battery and power inverter are made at the vehicle parts bench (vehicle
+  electrics research), loaded into the cargo and fitted. Taking one off puts its kit back in the cargo (owner, 13 Nov 2026); the brackets
+  and wiring are not returned. Each weighs what its kit weighs, taken from the cargo capacity, and the stat says so.
+- **For other modders**: a fitting may now bring its own electrical loads, a weight in kilograms and what it gives back; a load may scale
+  its amps by inputs and be a camp load; a system may run only while a fitting grants an ability.
+- The kits' and switches' pictures are AI-generated with OpenAI's image API, picked by the owner (17 Nov 2026).
+
+### Compatibility and limits
+
+- Land vehicles only: every land vehicle gains a fridge bay, a house battery tray and an outlet panel to fit them to. No setting added.
+- Safe to add to a running colony. Before removing the mod, take the accessories off to get their kits back; a vehicle keeps nothing of
+  them otherwise. New test rows 178 to 180. Not yet tested in game.
+
 ## [0.128.0] - 2026-11-17 - Draft
 
 Upgrades that need any one of several, and a quieter inspect pane for vehicles

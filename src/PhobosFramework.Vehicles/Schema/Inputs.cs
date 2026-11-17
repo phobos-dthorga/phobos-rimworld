@@ -443,9 +443,17 @@ public class Input_ElectricalBalance : VehicleSystemInput
     public VehicleSystemInput? supplyFactor;
     /// <summary>The role that turns the supplier, if any (the drive belt, Framework 0.73.0): its efficiency scales the supply; none reads as sound.</summary>
     public string? drivenByRole;
+    /// <summary>Reads the supply's figures in another system (Framework 0.129.0: the house battery charges from the electrical system's
+    /// alternator, whose figures a heavy vehicle's loadout sets). Null: this system's own. Not on the vehicle: nothing.</summary>
+    public PhobosVehicleSystemDef? fromSystem;
 
     protected override float Raw(SystemContext context)
     {
+        if (fromSystem != null)
+        {
+            if (context.Comp.ContextOf(fromSystem) is not { } other) return 0f;
+            context = other;
+        }
         double supply = context.Comp.EngineRunning ? context.Parameter(supplyParameter) * context.Comp.PartEfficiency(supplyRole, 1f) : 0;
         if (supply > 0 && drivenByRole != null) supply *= context.Comp.PartEfficiency(drivenByRole, 1f);
         if (supply > 0 && supplyFactor != null) supply *= supplyFactor.Evaluate(context);
@@ -458,6 +466,32 @@ public class Input_ElectricalBalance : VehicleSystemInput
         double demand = context.Comp.ActiveLoadAmps();
         return (float)(side == Side.Surplus ? ElectricalBalance.Surplus(supply, demand) : ElectricalBalance.Deficit(supply, demand));
     }
+}
+
+/// <summary>The outlet's draw in amps: the watts it gives now at the vehicle's voltage, through the inverter (CampRule.OutletAmps).</summary>
+public class Input_OutletAmps : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context)
+    {
+        PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+        return (float)CampRule.OutletAmps(context.Comp.OutletWatts, context.Comp.ElectricalVolts(), rules.inverterEfficiency);
+    }
+}
+
+/// <summary>12 divided by the vehicle's voltage (Framework 0.129.0): a load authored in amps at 12 V draws half as many on a 24 V truck for the same watts.</summary>
+public class Input_TwelveVoltShare : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context)
+    {
+        float volts = context.Comp.ElectricalVolts();
+        return volts > 0f ? 12f / volts : 1f;
+    }
+}
+
+/// <summary>What the camp loads draw from the house battery now, in amps (Framework 0.129.0, Y5).</summary>
+public class Input_CampLoadAmps : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context) => context.Comp.CampLoadAmps;
 }
 
 /// <summary>1 when the parked vehicle stands beside a building on a powered grid (a conduit, a battery), else 0.</summary>

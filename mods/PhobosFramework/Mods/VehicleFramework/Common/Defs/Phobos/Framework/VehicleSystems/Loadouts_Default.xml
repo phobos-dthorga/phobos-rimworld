@@ -202,6 +202,8 @@
       <li><def>PhobosVehicleSystem_Transmission</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_Driver</def></li>
+      <!-- Framework 0.129.0: the house battery, which runs only once one is fitted (its system's needsGrant). -->
+      <li><def>PhobosVehicleSystem_HouseBattery</def></li>
     </systems>
     <partRoles>
       <li>
@@ -349,6 +351,48 @@
           <depth>External</depth>
           <hitWeight>0.15</hitWeight>
           <hitWeightCE>6</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- Framework 0.129.0, vehicle accessories (docs/development/vehicle-accessories.md, the power budget): a bay in the cargo space for a
+             12 V fridge, a tray for a house battery and a panel for a power outlet, appended to every land vehicle so each accessory has a
+             part to go on and is lost with it (one fitting to a part). Inside the body; health and hit weight authored, small boxes'. -->
+        <role>FridgeBay</role>
+        <add>
+          <key>PhobosFridgeBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>fridge bay</label>
+          <health>20</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>HouseBatteryTray</role>
+        <add>
+          <key>PhobosHouseBatteryTray</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>house battery tray</label>
+          <health>25</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>OutletPanel</role>
+        <add>
+          <key>PhobosOutletPanel</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>outlet panel</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>3</hitWeightCE>
           <cellsOf>Engine</cellsOf>
         </add>
       </li>
@@ -565,6 +609,8 @@
       <li><def>PhobosVehicleSystem_Driver</def></li>
       <!-- Framework 0.123.0, cross-links round three G17 (owner, 17 Nov 2026): power steering on heavy vehicles. -->
       <li><def>PhobosVehicleSystem_PowerSteering</def></li>
+      <!-- Framework 0.129.0: the house battery, which runs only once one is fitted. -->
+      <li><def>PhobosVehicleSystem_HouseBattery</def></li>
     </systems>
     <partRoles>
       <li>

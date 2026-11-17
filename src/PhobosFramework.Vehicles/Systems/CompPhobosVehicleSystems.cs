@@ -157,6 +157,32 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// <summary>This vehicle's fittings and tunes (docs/development/vehicle-tuning-and-upgrades.md).</summary>
     public VehicleFittings Fittings => fittings ??= new VehicleFittings(this);
 
+    /// <summary>
+    /// Every electrical load on this vehicle: its loadout's, then those the fittings on standing parts bring (Framework 0.129.0, vehicle
+    /// accessories: a fridge, a power outlet). A fitting's load never replaces a loadout's of the same name. Rebuilt at each look and whenever
+    /// the fittings change; derived, never saved.
+    /// </summary>
+    public IReadOnlyList<ElectricalLoadSpec> Loads
+    {
+        get
+        {
+            if (loadsCache != null) return loadsCache;
+            var list = new List<ElectricalLoadSpec>();
+            if (Props.loadout != null) list.AddRange(Props.loadout.loads);
+            foreach (PhobosVehicleFittingDef def in Fittings.FittedDefs())
+            {
+                foreach (ElectricalLoadSpec load in def.loads)
+                {
+                    if (!list.Exists(l => l.name == load.name)) list.Add(load);
+                }
+            }
+            loadsCache = list;
+            return list;
+        }
+    }
+
+    List<ElectricalLoadSpec>? loadsCache;
+
     /// <summary>What the hydraulic fluid can give a vehicle's hydraulic work, 0 to 1; 1 for a vehicle with no hydraulics (T1, Framework 0.73.0).</summary>
     public float HydraulicSupply => TryGetQuantity("hydraulicSupply", out float supply) ? supply : 1f;
 
@@ -316,10 +342,23 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
 
-    bool Enabled(SystemState state) => !VehicleSystemsMod.Settings.disabledSystems.Contains(state.Def.defName) && (!state.Def.needsClosedCab || ClosedCab);
+    bool Enabled(SystemState state) => !VehicleSystemsMod.Settings.disabledSystems.Contains(state.Def.defName) && (!state.Def.needsClosedCab || ClosedCab)
+        && (state.Def.needsGrant == null || Fittings.Grants(state.Def.needsGrant));
 
     /// <summary>Whether a system runs on this vehicle now (not switched off in the settings, and its cab is closed if it needs one).</summary>
     public bool IsEnabled(SystemState state) => Enabled(state);
+
+    /// <summary>The context of one of this vehicle's systems, if it has it and it runs now (Framework 0.129.0), for an input that reads another
+    /// system's figures.</summary>
+    public SystemContext? ContextOf(PhobosVehicleSystemDef def)
+    {
+        if (states == null) return null;
+        foreach (SystemState state in states)
+        {
+            if (state.Def == def && Enabled(state)) return new SystemContext(this, state);
+        }
+        return null;
+    }
 
     /// <summary>Counts up whenever something the Health tab shows may have changed (a hit, a repair, an update), so the tab rebuilds
     /// its rows then and only then. Derived, never saved.</summary>
@@ -347,9 +386,19 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// <summary>Whether a load of the loadout is on: switched on by the player when it has a switch, and its own condition holds.</summary>
     public bool SwitchOn(string name)
     {
-        PhobosVehicleLoadoutDef? loadout = Props.loadout;
-        ElectricalLoadSpec? load = loadout?.loads.FirstOrDefault(l => l.name == name);
+        ElectricalLoadSpec? load = LoadNamed(name);
         return load != null && IsOn(load);
+    }
+
+    /// <summary>The load of this name, the loadout's or a fitting's, or null.</summary>
+    public ElectricalLoadSpec? LoadNamed(string name)
+    {
+        IReadOnlyList<ElectricalLoadSpec> loads = Loads;
+        for (int i = 0; i < loads.Count; i++)
+        {
+            if (loads[i].name == name) return loads[i];
+        }
+        return null;
     }
 
     /// <summary>The least a system's parameter may be, set by what is fitted (a large battery). Derived, never saved.</summary>
@@ -359,14 +408,17 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 
     public bool LoadActive(string name)
     {
-        PhobosVehicleLoadoutDef? loadout = Props.loadout;
-        if (loadout == null || states == null || states.Count == 0) return false;
-        foreach (ElectricalLoadSpec load in loadout.loads)
+        if (states == null || states.Count == 0) return false;
+        foreach (ElectricalLoadSpec load in Loads)
         {
             if (load.name != name) continue;
             if (load.toggle && !IsOn(load)) return false;
             if (IsShorted(load)) return false;
-            if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
+            if (OnHouseBattery(load))
+            {
+                if (!HouseBatteryRuns) return false;
+            }
+            else if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
             var context = new SystemContext(this, states[0]);
             if (load.available != null && !load.available.Holds(context)) return false;
             return load.when == null || load.when.Holds(context);
@@ -382,6 +434,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         if (load.available != null && !load.available.Holds(context)) return LoadState.NotFitted;
         if (load.toggle && !IsOn(load)) return LoadState.SwitchedOff;
         if (IsShorted(load)) return LoadState.Shorted;
+        // A camp load on a house battery stops at its cut-off instead of being shed (Framework 0.129.0).
+        if (OnHouseBattery(load))
+        {
+            if (!HouseBatteryRuns) return LoadState.NoPower;
+            return load.when != null && !load.when.Holds(context) ? LoadState.Idle : LoadState.Running;
+        }
         if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return LoadState.Shed;
         if (load.when != null && !load.when.Holds(context)) return LoadState.Idle;
         return TryGetQuantity("charge", out float charge) && charge < PhobosRulesDef.Current<PhobosKnockOutRulesDef>().batteryFlatBelow
@@ -395,8 +453,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// </summary>
     public bool LoadCouldRun(string name, float flatBelow)
     {
-        PhobosVehicleLoadoutDef? loadout = Props.loadout;
-        ElectricalLoadSpec? load = loadout?.loads.FirstOrDefault(l => l.name == name);
+        ElectricalLoadSpec? load = LoadNamed(name);
         if (load == null) return true;
         if (states == null || states.Count == 0) return true;
         if (load.toggle && !IsOn(load)) return false;
@@ -871,12 +928,14 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         if (hasFuel) ranWithFuel = EngineRunning;
         shorePowered = null;
         gridCarries = null;
+        loadsCache = null;
         UpdateShedding();
         RefreshShortedLoads();
         loadAmps = 0f;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
         Electrics = ReadElectrics();
         NotifyShedding();
+        UpdateFridge();
         // Crosslink 5: the alternator takes shaft power for what the loads draw, so the engine works a little harder for them.
         AccessoryShare = AccessoryLoad();
         if (AccessoryShare > 0f) EngineLoad = Mathf.Min(1f, EngineLoad + AccessoryShare);
@@ -889,14 +948,16 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 
     float AccessoryLoad()
     {
-        if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || !EngineRunning || loadAmps <= 0f) return 0f;
+        // The camp loads count too while the engine runs (Framework 0.129.0): the alternator puts back into the house battery what they draw.
+        float amps = loadAmps + CampLoadAmps;
+        if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || !EngineRunning || amps <= 0f) return 0f;
         if (Vehicle.CompFueledTravel?.Props.electricPowered == true) return 0f;
         double rated = Powertrain?.Spec.RatedPowerKw ?? 0;
-        return (float)AccessoryRules.EngineShare(loadAmps, ElectricalVolts(), rated);
+        return (float)AccessoryRules.EngineShare(amps, ElectricalVolts(), rated);
     }
 
     /// <summary>The electrical system's voltage: its <c>systemVolts</c> figure (12, or 24 on heavy vehicles), 12 when no system has one.</summary>
-    float ElectricalVolts()
+    internal float ElectricalVolts()
     {
         const float DefaultVolts = 12f;
         if (states == null) return DefaultVolts;
@@ -910,25 +971,107 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     float SumLoads(SystemContext context)
     {
         float amps = 0f;
+        float camp = 0f;
         switchedLoadsOn.Clear();
         shedLoads.Clear();
-        PhobosVehicleLoadoutDef? loadout = Props.loadout;
-        if (loadout == null) return 0f;
-        foreach (ElectricalLoadSpec load in loadout.loads)
+        foreach (ElectricalLoadSpec load in Loads)
         {
             if (load.toggle && !IsOn(load)) continue;
             if (load.available != null && !load.available.Holds(context)) continue;
             if (load.when != null && !load.when.Holds(context)) continue;
             if (IsShorted(load)) continue;
+            // A camp load with a house battery fitted draws on that battery alone, and stops at its cut-off rather than by the shedding order
+            // (Framework 0.129.0, vehicle accessories).
+            if (OnHouseBattery(load))
+            {
+                if (!HouseBatteryRuns) continue;
+                camp += AmpsNow(load, context);
+                if (load.toggle) switchedLoadsOn.Add(load.label);
+                continue;
+            }
             if (ElectricsRule.IsShed(load.shedOrder, ShedDepth))
             {
                 shedLoads.Add(load.label);
                 continue;
             }
-            amps += load.amps;
+            amps += AmpsNow(load, context);
             if (load.toggle) switchedLoadsOn.Add(load.label);
         }
+        CampLoadAmps = camp;
         return amps;
+    }
+
+    /// <summary>What a load draws now: its amps, times its inputs where it has any (a fridge by the heat, an outlet by what the camp asks).</summary>
+    public float AmpsNow(ElectricalLoadSpec load, SystemContext context)
+    {
+        float amps = load.amps;
+        for (int i = 0; i < load.ampsInputs.Count; i++) amps *= load.ampsInputs[i].Evaluate(context);
+        return amps;
+    }
+
+    /// <summary>What a load draws now, for the tabs and its switch.</summary>
+    public float AmpsNow(ElectricalLoadSpec load) => states == null || states.Count == 0 ? load.amps : AmpsNow(load, new SystemContext(this, states[0]));
+
+    // ---- Vehicle accessories (Framework 0.129.0; docs/development/vehicle-accessories.md, the power budget) ----
+
+    /// <summary>The ability a house battery fitting grants, and the house battery system's quantity.</summary>
+    public const string HouseBatteryGrant = "HouseBattery";
+    const string HouseChargeQuantity = "houseCharge";
+
+    /// <summary>What the camp loads draw from the house battery now, in amps (0 without one). Derived, never saved.</summary>
+    public float CampLoadAmps { get; private set; }
+
+    /// <summary>Whether a house battery is fitted on a standing part.</summary>
+    public bool HouseBatteryFitted => Fittings.Grants(HouseBatteryGrant);
+
+    /// <summary>Whether this load draws on the house battery: a camp load, with one fitted.</summary>
+    bool OnHouseBattery(ElectricalLoadSpec load) => load.campLoad && HouseBatteryFitted;
+
+    /// <summary>Whether the house battery is above its low-voltage cut-off (true while its reading is unknown).</summary>
+    bool HouseBatteryRuns => !TryGetQuantity(HouseChargeQuantity, out float house) || CampRule.HouseBatteryRuns(house, Rules.houseBatteryCutoff);
+
+    /// <summary>The watts the power outlet gives the camp now (Framework 0.129.0, Y1). Derived, never saved.</summary>
+    public float OutletWatts { get; private set; }
+
+    /// <summary>Whether the outlet turned the meter round at the last look, so the grid neither carries the loads nor charges the battery.</summary>
+    public bool OutletGiving { get; private set; }
+
+    /// <summary>Whether a load runs now: fitted, switched on, not shed, and its battery above flat (the Systems tab's "running").</summary>
+    bool LoadRuns(string name) => LoadNamed(name) is { } load && StateOf(load) == LoadState.Running;
+
+    /// <summary>Whether a power outlet is fitted and switched on: its conduit stays down while the engine idles.</summary>
+    public bool OutletWanted
+    {
+        get
+        {
+            if (!Fittings.Grants(CampOutlet.Grant)) return false;
+            ElectricalLoadSpec? load = LoadNamed(CampOutlet.LoadName);
+            return load != null && IsOn(load);
+        }
+    }
+
+    /// <summary>The cargo food the fridge keeps cold now, by its rule (Framework 0.129.0, Y7). Derived at each look, never saved.</summary>
+    readonly HashSet<Thing> chilled = new HashSet<Thing>();
+    bool fridgeHadPower;
+
+    /// <summary>The temperature the fridge keeps this cargo thing at, or null when it keeps it at nothing.</summary>
+    public float? ChilledTemperature(Thing thing) =>
+        chilled.Count > 0 && chilled.Contains(thing) ? (float)CampRule.FridgeTemperature(Rules.fridgeDegrees, Ambient) : null;
+
+    /// <summary>Chooses the food the fridge keeps cold while it runs, and says once when it loses power with food aboard.</summary>
+    void UpdateFridge()
+    {
+        bool fitted = Fittings.Grants(CampFridge.Grant);
+        bool running = fitted && LoadRuns(CampFridge.LoadName);
+        if (fitted && fridgeHadPower && !running && chilled.Count > 0 && Vehicle.Faction == Faction.OfPlayer && SwitchOn(CampFridge.LoadName))
+        {
+            Messages.Message("PhobosVehicleSystems_MsgFridgeNoPower".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.CautionInput);
+        }
+        fridgeHadPower = running;
+        chilled.Clear();
+        if (!running) return;
+        CampFridge.Choose(Vehicle, Rules.fridgeKilograms, chilled);
+        if (chilled.Count > 0) Seen.Note("vehicles.fridge-chilling", Vehicle, chilled.Count + " stacks");
     }
 
     /// <summary>The labels of the switched loads running now (lights, heaters), from the last sum. Derived, never saved.</summary>
@@ -948,8 +1091,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 
     void UpdateShedding()
     {
-        PhobosVehicleLoadoutDef? loadout = Props.loadout;
-        shedRanks ??= loadout == null || loadout.loads.Count == 0 ? 0 : loadout.loads.Max(l => l.shedOrder);
+        shedRanks ??= Loads.Count == 0 ? 0 : Loads.Max(l => l.shedOrder);
         if (shedRanks.Value == 0 || !TryGetQuantity("charge", out float charge))
         {
             ShedDepth = 0;
@@ -1221,6 +1363,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     {
         powertrain = null;
         powertrainBuilt = false;
+        loadsCache = null;
+        shedRanks = null;
         Vehicle.statHandler?.MarkAllDirty();
         Repairs.Invalidate();
         HealthViewVersion++;
@@ -1649,7 +1793,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             if (gridCarries.HasValue) return gridCarries.Value;
             // Not while the engine runs (Framework 0.120.5, fault-read G4): the alternator carries the loads then, and the engine burns fuel for
             // them, so the grid paying too was paying twice.
-            gridCarries = !EngineRunning && GridHookedUp();
+            gridCarries = !EngineRunning && !OutletGiving && GridHookedUp();
             return gridCarries.Value;
         }
     }
@@ -1669,7 +1813,20 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     {
         CompPowerTrader? meter = VehicleConduits.Meter(this);
         GridWatts = 0f;
+        OutletWatts = 0f;
+        OutletGiving = false;
         if (meter == null) return;
+        // The power outlet (Framework 0.129.0, Y1): switched on, it turns the same meter round, giving the camp's devices what they ask, up to
+        // its rating. The vehicle then draws nothing from that grid.
+        if (OutletWanted && LoadRuns(CampOutlet.LoadName))
+        {
+            OutletGiving = true;
+            OutletWatts = (float)CampRule.OutletWatts(CampOutlet.CampAsks(meter), CampRule.OutletRating(Rules.outletWattsAt12Volts, ElectricalVolts()));
+            meter.PowerOn = true;
+            meter.PowerOutput = OutletWatts;
+            if (OutletWatts > 0f) Seen.Note("vehicles.outlet-giving", Vehicle, OutletWatts.ToString("0") + " W");
+            return;
+        }
         if (!EngineRunning && NetOffers(meter))
         {
             double carried = HookUpRule.CarriedAmps(loadAmps, Rules.hookUpRatingAmps);
@@ -1720,7 +1877,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         shorePowered = false;
         VehiclePawn vehicle = Vehicle;
         if (!vehicle.Spawned || Moving) return false;
-        shorePowered = ServiceLeads.Feeding(vehicle) || GridHookedUp();
+        shorePowered = ServiceLeads.Feeding(vehicle) || (!OutletGiving && GridHookedUp());
         return shorePowered.Value;
     }
 
@@ -1772,7 +1929,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// </summary>
     public bool ParkedForPipes => Phobos.Framework.Rules.UnderlayRule.Lays(Vehicle.Spawned, Vehicle.Faction == Faction.OfPlayer,
         Vehicle.vehiclePather is { Moving: true } || Hitches.Towing(Vehicle) != null, ignitionHint ?? Vehicle.Drafted,
-        Vehicle.GetComps<CompPhobosSetUp>().Any(setUp => setUp.Deployed));
+        // A switched-on power outlet keeps them down while the engine idles to carry the camp (Framework 0.129.0, Y1), as set-up work does.
+        Vehicle.GetComps<CompPhobosSetUp>().Any(setUp => setUp.Deployed) || OutletWanted);
 
     /// <summary>The engine's state an ignition event is about, while that event is handled: the event may come before the switch itself turns. Never saved.</summary>
     bool? ignitionHint;
@@ -1933,7 +2091,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                     if (effect.Active(context)) howMany += effect.ShortedLoads;
                 }
                 if (howMany <= 0) continue;
-                candidates ??= loadout.loads.Where(l => l.toggle && LoadAvailable(l)).ToList();
+                candidates ??= Loads.Where(l => l.toggle && LoadAvailable(l)).ToList();
                 int seed = Gen.HashCombineInt(Vehicle.thingIDNumber, GenText.StableStringHash(condition.partKey));
                 foreach (int index in WiringRule.Pick(seed, candidates.Count, howMany)) shortedLoads.Add(candidates[index].name);
             }
@@ -1945,7 +2103,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             return;
         }
         if (Vehicle.Faction != Faction.OfPlayer || loadout == null) return;
-        List<string> fresh = loadout.loads.Where(l => shortedLoads.Contains(l.name) && !shortedBefore.Contains(l.name)).Select(l => l.label).ToList();
+        List<string> fresh = Loads.Where(l => shortedLoads.Contains(l.name) && !shortedBefore.Contains(l.name)).Select(l => l.label).ToList();
         if (fresh.Count == 0) return;
         Messages.Message("PhobosVehicleSystems_MsgWiringShorted".Translate(Vehicle.LabelShort.Named("VEHICLE"), fresh.ToCommaList(useAnd: true).Named("LOADS")),
             Vehicle, MessageTypeDefOf.NegativeEvent);
@@ -2283,17 +2441,16 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (!Usable || Vehicle.Faction != Faction.OfPlayer) yield break;
         if (homeBay is { parent.Destroyed: false }) yield return BayGizmos.GoButton(this, homeBay);
-        PhobosVehicleLoadoutDef? loadout = Props.loadout;
-        if (loadout != null)
+        if (Props.loadout != null)
         {
-            foreach (ElectricalLoadSpec load in loadout.loads)
+            foreach (ElectricalLoadSpec load in Loads)
             {
                 if (!load.toggle || !LoadAvailable(load)) continue;
                 ElectricalLoadSpec captured = load;
                 yield return new Command_Toggle
                 {
                     defaultLabel = captured.label,
-                    defaultDesc = captured.description + "\n\n" + "PhobosVehicleSystems_LoadDraw".Translate(captured.amps.ToString("0").Named("AMPS")),
+                    defaultDesc = captured.description + "\n\n" + "PhobosVehicleSystems_LoadDraw".Translate(AmpsNow(captured).ToString("0.#").Named("AMPS")),
                     icon = SystemIcons.For(captured.iconPath),
                     isActive = () => IsOn(captured),
                     toggleAction = () => SetSwitch(captured, !IsOn(captured)),

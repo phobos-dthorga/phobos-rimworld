@@ -124,6 +124,13 @@
     <!-- The power hook-up (Framework 0.120.0; owner, 17 Nov 2026): a parked vehicle on a powered grid has its loads carried up to 60 A, about a
          1.5 kW supply at 24 V, and the colony's grid pays for them and the battery's charge through an 85 % efficient supply. Authored. -->
     <hookUpRatingAmps>60</hookUpRatingAmps>
+    <!-- Vehicle accessories (Framework 0.129.0; docs/development/vehicle-accessories.md). All authored: the outlet's watts on 12 V (doubled on
+         24 V) and its inverter's efficiency; the fridge's load in kilograms and its temperature; the house battery's low-voltage cut-off. -->
+    <outletWattsAt12Volts>300</outletWattsAt12Volts>
+    <inverterEfficiency>0.85</inverterEfficiency>
+    <fridgeKilograms>30</fridgeKilograms>
+    <fridgeDegrees>4</fridgeDegrees>
+    <houseBatteryCutoff>0.1</houseBatteryCutoff>
     <hookUpEfficiency>0.85</hookUpEfficiency>
     <!-- Claiming another faction's vehicle (owner, 11 Nov 2026: unattended, nobody aboard). All authored. -->
     <claimBaseHours>0.5</claimBaseHours>

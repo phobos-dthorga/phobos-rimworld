@@ -150,7 +150,14 @@ public class VehicleStatPart_PhobosSystems : VehicleStatPart
         if (comp == null || !comp.Usable) return value;
         // A thrown track stops the vehicle outright (Framework 0.115.0, M2): every faction's, read only when the stat is recalculated.
         if (statDef == VehicleStatDefOf.MoveSpeed && Mobility.ThrownTrack(vehicle!, comp.Props) != null) return 0f;
-        return value * comp.StatFactor(statDef);
+        float result = value * comp.StatFactor(statDef);
+        // Fitted accessories take their kilograms from the cargo capacity (Framework 0.129.0, vehicle accessories); never below nothing.
+        if (statDef == VehicleStatDefOf.CargoCapacity)
+        {
+            float kilograms = comp.Fittings.KilogramsFitted;
+            if (kilograms > 0f) result = Math.Max(0f, result - kilograms);
+        }
+        return result;
     }
 
     public override string ExplanationPart(VehiclePawn vehicle)
@@ -161,8 +168,14 @@ public class VehicleStatPart_PhobosSystems : VehicleStatPart
         {
             return "PhobosVehicleSystems_StatTrackThrown".Translate((track.props.label ?? track.props.key).Named("PART")).Resolve();
         }
-        if (comp.StatFactor(statDef) == 1f) return "";
-        return string.Join("\n", comp.StatFactorReasons(statDef));
+        string fitted = "";
+        if (statDef == VehicleStatDefOf.CargoCapacity && comp.Fittings.KilogramsFitted > 0f)
+        {
+            fitted = "PhobosVehicleSystems_StatFittedKilograms".Translate(comp.Fittings.KilogramsFitted.ToString("0").Named("KILOGRAMS")).Resolve();
+        }
+        if (comp.StatFactor(statDef) == 1f) return fitted;
+        string reasons = string.Join("\n", comp.StatFactorReasons(statDef));
+        return fitted.Length == 0 ? reasons : reasons + "\n" + fitted;
     }
 }
 
@@ -299,7 +312,7 @@ public static class HeldTemperaturePatch
     public static void Postfix(IThingHolder holder, Thing forThing, ref float temperature, ref bool __result)
     {
         if (__result || holder == null) return;
-        if (HeldTemperature.TryGet(holder, out float held))
+        if (HeldTemperature.TryGet(holder, forThing, out float held))
         {
             temperature = held;
             __result = true;

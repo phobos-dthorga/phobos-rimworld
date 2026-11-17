@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The house battery (Framework 0.129.0; docs/development/vehicle-accessories.md, Y5): a second battery for the camp loads (the fridge, the power
+    outlet), so they never flatten the battery that starts the engine. It runs only once a house battery is fitted (needsGrant).
+    Not yet tested in game.
+
+    Sources and labels:
+    - A second battery behind an isolator or a DC-DC charger takes the camp loads so the starting battery is never drained. Secondary: REDARC's
+      explanation of dual battery systems (unverified; see the accessories record's sources).
+    - 100 Ah, the low-voltage cut-off (the rules Def's houseBatteryCutoff), the 10 A shore charger and the charging taper are authored.
+    - It charges from what the alternator gives beyond the vehicle's own loads once the starting battery is nearly full (authored: from 90 %,
+      fully from 98 %), which is how an isolator behaves. While both batteries charge together the same surplus is counted for each, a
+      simplification.
+    Charge is a fraction of the battery's capacity, so every flow below is amperes divided by ampere-hours: a fraction per hour.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_HouseBattery</defName>
+    <label>house battery</label>
+    <description>A second battery for the camp's fridge and power outlet, charged while the engine runs once the starting battery is full, or from shore power. It never flattens the battery that starts the engine.</description>
+    <needsGrant>HouseBattery</needsGrant>
+    <roles>
+      <li>HouseBatteryTray</li>
+    </roles>
+    <parameters>
+      <houseAmpHours>100</houseAmpHours>
+      <houseShoreChargeAmps>10</houseShoreChargeAmps>
+    </parameters>
+    <quantities>
+      <li>
+        <name>houseCharge</name>
+        <label>house battery</label>
+        <description>What the house battery holds for the camp loads. It fills while the engine runs once the starting battery is full, or from shore power; below a tenth the camp loads stop.</description>
+        <telltale>Phobos/VehicleSystems/Dash/Battery</telltale>
+        <showOnDashboard>true</showOnDashboard>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.2</to>
+            <label>low</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgHouseBatteryLow</message>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.2</from>
+            <label>charged</label>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <flows>
+      <li>
+        <name>houseCharging</name>
+        <quantity>houseCharge</quantity>
+        <kind>Into</kind>
+        <divideByParameter>houseAmpHours</divideByParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ElectricalBalance">
+            <side>Surplus</side>
+            <fromSystem>PhobosVehicleSystem_Electrical</fromSystem>
+            <drivenByRole>Belt</drivenByRole>
+            <!-- The electrical system's own alternator curve, as its charging flow has it. -->
+            <supplyFactor Class="Phobos.VehicleSystems.Input_GeneratorDrive">
+              <piston Class="Phobos.VehicleSystems.Input_EngineRpm">
+                <multiplier>2.5</multiplier>
+                <curve>
+                  <points>
+                    <li>(1200, 0)</li>
+                    <li>(1800, 0.5)</li>
+                    <li>(2400, 0.7)</li>
+                    <li>(4000, 0.9)</li>
+                    <li>(6000, 1)</li>
+                  </points>
+                </curve>
+              </piston>
+              <turbineSpool>
+                <points>
+                  <li>(60, 0.5)</li>
+                  <li>(80, 0.85)</li>
+                  <li>(90, 1)</li>
+                </points>
+              </turbineSpool>
+            </supplyFactor>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <curve>
+              <points>
+                <li>(0.9, 0)</li>
+                <li>(0.98, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>houseCharge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.8, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>houseShoreCharging</name>
+        <quantity>houseCharge</quantity>
+        <kind>Into</kind>
+        <factorParameter>houseShoreChargeAmps</factorParameter>
+        <divideByParameter>houseAmpHours</divideByParameter>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning">
+          <invert>true</invert>
+        </when>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_ShorePower" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>houseCharge</quantity>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(0.8, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <name>houseDrain</name>
+        <quantity>houseCharge</quantity>
+        <kind>From</kind>
+        <divideByParameter>houseAmpHours</divideByParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_CampLoadAmps" />
+        </inputs>
+      </li>
+      <li>
+        <!-- About 5 % a month, as the starting battery (authored). -->
+        <name>houseSelfDischarge</name>
+        <quantity>houseCharge</quantity>
+        <kind>From</kind>
+        <factor>0.00007</factor>
+      </li>
+    </flows>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+</Defs>

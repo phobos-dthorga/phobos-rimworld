@@ -242,6 +242,25 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Open vehicles shelter nobody**: bikes and open boats feel the weather.
 - **An idling engine warms the room it stands in**, so a truck in a garage heats it.
 
+## Camp accessories: fridge, house battery and power outlet
+
+Research **vehicle electrics**, make the kit at the **vehicle parts bench**, put it in the vehicle's cargo and fit it from the
+fittings window. Every land vehicle has a **fridge bay**, a **house battery tray** and an **outlet panel** for them. Taking one off puts
+the kit back in the cargo.
+
+| Accessory | What it does | What it costs to run |
+| --- | --- | --- |
+| **12-volt fridge** (20 kg) | Keeps up to 30 kg of the cargo's food at 4 °C, choosing what would spoil first. It has its own switch | 0.2 to 1.5 A, more in the heat |
+| **House battery** (25 kg) | A second 100 Ah battery for the fridge and outlet, so they never flatten the battery that starts the engine. Below a tenth it cuts them off | Charges while driving once the starting battery is full, or on shore power |
+| **Power outlet** (4 kg) | Switched on while parked, the conduit beneath the vehicle powers lamps, a radio or a bench wired to it, up to 300 W (600 W on a 24 V truck) | What it gives, in amps: a 200 W radio is about 20 A on 12 V |
+
+- **Without a house battery, the fridge and outlet drain the starting battery with the engine off.** A fridge alone flattens a stock
+  battery in under two days parked; the vehicle warns when the battery gets too weak to start.
+- **To run a camp longer, leave the engine idling**: the outlet keeps its conduit down and the alternator carries it, burning fuel.
+- **The outlet gives only what its devices ask**, and never fills a colony's batteries. Switched on, the vehicle draws nothing from
+  that grid.
+- Each accessory takes its weight off the cargo capacity.
+
 ## Headlights
 
 - **The headlights button is off until you press it.** Switched on, a vehicle lights the ground ahead of it at night, engine running

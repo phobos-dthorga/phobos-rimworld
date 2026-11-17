@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/HouseBattery.png",
+  "source": "assets/phobos-vehicles/generated/item-house-battery/item-house-battery-1.png",
+  "source_sha256": "369611e2d2688bc160b539febd17452dcaf587a529d96c5f799de986fe5a4ea1",
+  "target_sha256": "6abecd0073053f5aee0dc816c9aa099b19da5ac7399f51b8681884e2c9bbeaf0",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "369611e2d2688bc160b539febd17452dcaf587a529d96c5f799de986fe5a4ea1",
+  "date": "2026-11-17T22:12:11",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

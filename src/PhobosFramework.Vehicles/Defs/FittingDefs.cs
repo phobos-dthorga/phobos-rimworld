@@ -66,6 +66,16 @@ public class PhobosVehicleFittingDef : Def
     public Match powerCounts = Match.Any;
     public float minKilograms = float.NaN;
     public float maxKilograms = float.NaN;
+    /// <summary>Electrical loads the fitting brings while fitted (Framework 0.129.0, vehicle accessories): a fridge, a power outlet. They join
+    /// the loadout's own, with a switch where they have one, so a powered accessory is one Def that works on every loadout. Names must not
+    /// repeat a loadout's load.</summary>
+    public List<ElectricalLoadSpec> loads = new();
+    /// <summary>Kilograms the fitting takes from the vehicle's cargo capacity while fitted (Framework 0.129.0, vehicle accessories: a flat
+    /// weight rather than a share, so a 20 kg fridge costs a road train what it costs a ute). No drag or speed change (owner).</summary>
+    public float kilograms;
+    /// <summary>What taking the fitting off gives back into the cargo (owner, 13 Nov 2026: a removed accessory gives its kit back; brackets
+    /// and wiring are not returned). Empty: nothing comes back, as before.</summary>
+    public List<ThingDefCountClass> givesBack = new();
 
     public bool Suits(double kilograms, bool hasPiston, bool isTracked, bool powerReachesRoad) =>
         (piston == Match.Any || (piston == Match.Yes) == hasPiston)
@@ -79,7 +89,9 @@ public class PhobosVehicleFittingDef : Def
         foreach (string error in base.ConfigErrors()) yield return error;
         if (roles.Count == 0) yield return "names no roles";
         if (work <= 0f) yield return "work must be above 0";
-        if (statFactors.Count == 0 && parameterFactors.Count == 0 && powerFactor == 1f && fuelFactor == 1f && fuelCapacityFactor == 1f && grants.Count == 0) yield return "moves no figure and grants nothing";
+        if (statFactors.Count == 0 && parameterFactors.Count == 0 && powerFactor == 1f && fuelFactor == 1f && fuelCapacityFactor == 1f && grants.Count == 0
+            && loads.Count == 0 && kilograms == 0f) yield return "moves no figure and grants nothing";
+        if (kilograms < 0f) yield return "kilograms must not be below 0";
         if (fuelCapacityFactor <= 0f) yield return "fuelCapacityFactor must be above 0";
         foreach (StatFactorSpec spec in statFactors)
         {
