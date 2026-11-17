@@ -252,7 +252,7 @@ Not yet tested in game: rows 167 to 169 of [the in-game test pass](in-game-test-
 | Row | Where | What differs from the idea above |
 | --- | --- | --- |
 | UH1 | Framework 0.125.0, `CompPhobosTipper.Place`, with the game-free `TipRule.Destination` | Storage of the truck's own side only; the game's own `IsValidStorageFor` decides room. A thing that full storage would take stays aboard (owner's card); the tip passes over it to the next, so a mixed load still comes off |
-| UH2 | Vehicles 0.63.0, `PhobosVehicles_BulkBunker` | 3 by 4 at 8 a cell (owner's card); chunks ticked to start, priority Normal; tipper research (owner's card); motor pool tab; 120 steel, 3,000 work (authored). Carries the game's hopper mark and Pipe System's factory-hopper mark; The Dead Man's Switch link in `Mods/DeadManSwitch`. Not the grinder's mark (it reads one cell). Picture: a stand-in drawn in code (owner) |
+| UH2 | Vehicles 0.63.0, `PhobosVehicles_BulkBunker` | 3 by 4 at 8 a cell (owner's card); chunks ticked to start, priority Normal; tipper research (owner's card); motor pool tab; 120 steel, 3,000 work (authored). Carries the game's hopper mark and Pipe System's factory-hopper mark; The Dead Man's Switch link in `Mods/DeadManSwitch`. Not the grinder's mark (it reads one cell). Picture: a stand-in drawn in code (owner), then its own OpenAI picture from Vehicles 0.64.1 (owner's pick) |
 | UH6 | Factory Additions 0.14.0, `Mods/DeadManSwitch` | As proposed: VFE Factory's hopper (and the deep hopper, which inherits it) links to the automatic benches; the feed hopper is a factory hopper with our filter mark |
 | UH12 | Framework 0.125.0, `CompPhobosVehicleLoadOut` and `VehicleLoadOut` | On every storage building, off to start (owner's card). Lives in the Framework's vehicle part, not the core: without Vehicle Framework it would be a button that does nothing. The grab also leaves a stored thing a colonist has already claimed |
 | UH3 | Framework 0.127.0, `CompPhobosDrillRig.ProducePortion` through `StorageNearby` | Storage within 3 cells of the hole (`storageReach`, authored), nearest first; the rest beside the hole as before. Second round, owner's card |
@@ -267,7 +267,8 @@ size card stated the bunker's kind, goods shown on its cells, and its chunks-fir
 **Second round, answered by the owner on 17 Nov 2026 (cards):** build UH3, UH5, UH9 and UH13; question 5 becomes test row 175; question 6,
 research and record (below); the bunker's real art by the OpenAI image API. The request is written
 (`assets/phobos-vehicles/requests/bulk-bunker-pilot.json`: one building, two attempts, medium quality, our parts bench for style and our
-stand-in for layout); its dry run says at most US$0.40. **Nothing is bought until the owner says go and sets the cap.**
+stand-in for layout); its dry run said at most US$0.40. **Bought at the owner's go** (cap US$0.50, spent about US$0.155): the owner
+picked attempt 1, shipped in Vehicles 0.64.1; attempt 2 is kept for other uses ([the review](../../assets/phobos-vehicles/requests/bulk-bunker-pilot-record.md)).
 
 ## Crushed stone (UH16): research, 17 Nov 2026
 

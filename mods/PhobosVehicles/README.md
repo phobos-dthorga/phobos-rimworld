@@ -8,7 +8,7 @@ top of the general systems D'thorga Framework gives every vehicle.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**:
 [working vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.64.0, built 17 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
+Version 0.64.1, built 17 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
 9 November 2026) and the Busbar's size and look (owner, 13 November 2026).
 
 ## Read this first (gotchas)
@@ -22,10 +22,10 @@ Version 0.64.0, built 17 November 2026 for House D'thorga. **Not yet tested in g
 - **The bulk bunker** (tipper research, motor pool tab; 0.63.0) holds one full tipper load, 96 chunks. **Haulers fill it with chunks
   lying about the map**, as any stockpile that takes chunks: lower its priority or untick chunks to keep room for a truck. Back a tipper
   up to its open end and tip; what does not fit stays aboard. Belts, paste dispensers and The Dead Man's Switch's automatic benches can
-  draw from it. **Its picture is a stand-in** until generated art is picked.
+  draw from it.
 - **The loading chute** (tipper research, motor pool tab; 0.64.0) drops what lands in it into a vehicle parked across its spout.
   **It starts set to take nothing: tick what it should load.** With no vehicle there it holds up to four stacks and the belt behind it
-  waits. Its picture is a stand-in too.
+  waits. **Its picture is a stand-in** until generated art is picked.
 - **The general systems come from D'thorga Framework**, not this mod: battery and alternator, coolant and oil, tyres or tracks,
   brakes, gearbox, wear and service ([looking after vehicles](../../docs/player-guide/vehicle-care.md)).
 - **Our vehicles are built from parts.** Where RimThunder or Vanilla Vehicles Expanded is installed, a build asks for their parts;

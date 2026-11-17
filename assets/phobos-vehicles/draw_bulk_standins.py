@@ -4,12 +4,12 @@ from directly above (docs/development/universal-hoppers.md).
 Run with any Python that has Pillow (the ComfyUI one does):
     C:/AI/ComfyUI/ComfyUI_windows_portable/python_embeded/python.exe -I assets/phobos-vehicles/draw_bulk_standins.py [name ...]
 
-- BulkBunker (UH2, Vehicles 0.63.0): 3 by 4 cells, open at the south end, where a truck backs up and tips in.
+- BulkBunker (UH2) was drawn here until the owner picked its generated picture (17 Nov 2026); its drawing is in git history.
 - LoadingChute (UH13, Vehicles 0.64.0): one cell, a steel funnel whose spout is on its south edge, the side a vehicle parks across.
 
 Each is drawn on a transparent canvas at twice the size and scaled down, which smooths the edges, so there is no background to clean.
 No image generator, game art or other author's art is used. Generated art replaces each on the owner's go; then its entry here goes, so
-this script cannot overwrite the pick (the owner chose the OpenAI image API for the bunker, 17 Nov 2026).
+this script cannot overwrite the pick.
 """
 import datetime as dt
 import hashlib
@@ -50,61 +50,6 @@ def stripes(d, box, height):
     d._image.paste(beam, (left, top))
 
 
-def bunker():
-    cells = (3, 4)
-    c = CELL * SCALE
-    w, h = cells[0] * c, cells[1] * c
-    image = Image.new('RGBA', (w, h), (0, 0, 0, 0))
-    d = ImageDraw.Draw(image)
-    line = 9 * SCALE
-    edge = 6 * SCALE  # a small margin so the outline is inside the footprint
-    wall = int(0.30 * c)
-    left, top, right, bottom = edge, edge, w - edge, h - edge
-
-    # The floor slab, with its expansion joints one cell apart and a shadow band inside the walls.
-    d.rectangle((left, top, right, bottom), fill=FLOOR)
-    d.rectangle((left + wall, top + wall, right - wall, top + wall + int(0.18 * c)), fill=FLOOR_SHADOW)
-    d.rectangle((left + wall, top + wall, left + wall + int(0.12 * c), bottom), fill=FLOOR_SHADOW)
-    for x in range(1, cells[0]):
-        d.line((x * c, top + wall, x * c, bottom), fill=JOINT, width=3 * SCALE)
-    for y in range(1, cells[1]):
-        d.line((left + wall, y * c, right - wall, y * c), fill=JOINT, width=3 * SCALE)
-
-    # A drain grate in the floor, near the back wall.
-    gx, gy = w // 2, top + wall + int(0.55 * c)
-    gw, gh = int(0.55 * c), int(0.22 * c)
-    d.rectangle((gx - gw // 2, gy - gh // 2, gx + gw // 2, gy + gh // 2), fill=GRATE, outline=INK, width=line // 2)
-    for k in range(1, 6):
-        x = gx - gw // 2 + k * gw // 6
-        d.line((x, gy - gh // 2 + 6 * SCALE, x, gy + gh // 2 - 6 * SCALE), fill=CAP, width=3 * SCALE)
-
-    # Walls on the north, west and east, each with a steel cap along its inner edge.
-    for box in ((left, top, right, top + wall), (left, top, left + wall, bottom), (right - wall, top, right, bottom)):
-        d.rectangle(box, fill=WALL)
-    d.rectangle((left, top + wall - int(0.08 * c), right, top + wall), fill=WALL_SHADE)
-    cap = int(0.07 * c)
-    d.rectangle((left + wall - cap, top + wall - cap, right - wall + cap, top + wall), fill=CAP)
-    d.rectangle((left + wall - cap, top + wall - cap, left + wall, bottom), fill=CAP)
-    d.rectangle((right - wall, top + wall - cap, right - wall + cap, bottom), fill=CAP)
-    d.line((left + wall - cap, top + wall - cap, right - wall + cap, top + wall - cap), fill=CAP_LIGHT, width=3 * SCALE)
-
-    # The wheel stop across the open south end: a low steel beam with warning stripes, where the tailgate meets the bunker.
-    stop_h = int(0.16 * c)
-    sy = bottom - stop_h
-    stripes(d, (left + wall, sy, right - wall, bottom), stop_h)
-    # Clear the stripes that ran past the beam's ends.
-    d.rectangle((left, sy, left + wall, bottom), fill=WALL)
-    d.rectangle((right - wall, sy, right, bottom), fill=WALL)
-    d.rectangle((left + wall, sy, right - wall, bottom), outline=INK, width=line // 2)
-
-    # Outlines: the walls' inner edges and the whole footprint.
-    d.line((left + wall, top + wall, left + wall, bottom), fill=INK, width=line // 2)
-    d.line((right - wall, top + wall, right - wall, bottom), fill=INK, width=line // 2)
-    d.line((left + wall, top + wall, right - wall, top + wall), fill=INK, width=line // 2)
-    d.rectangle((left, top, right, bottom), outline=INK, width=line)
-    return image.resize((cells[0] * CELL, cells[1] * CELL), Image.LANCZOS)
-
-
 def chute():
     c = CELL * SCALE
     image = Image.new('RGBA', (c, c), (0, 0, 0, 0))
@@ -137,10 +82,6 @@ def chute():
 
 
 DRAWINGS = {
-    'BulkBunker': ('BulkBunker/BulkBunker', bunker,
-                   'the bulk bunker seen from directly above, a concrete bay with steel-capped walls on three sides and a striped wheel '
-                   'stop across its open south end',
-                   'the OpenAI image API (owner, 17 Nov 2026); request `assets/phobos-vehicles/requests/bulk-bunker-pilot.json`'),
     'LoadingChute': ('LoadingChute/LoadingChute', chute,
                      'the loading chute seen from directly above, a square steel funnel narrowing to a spout over its south edge, with a '
                      'striped lip',

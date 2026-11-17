@@ -82,6 +82,7 @@ Records: [the art night of 12 Nov 2026](requests/night-2026-11-12-record.md) (ba
 | [station-inspection-pit.json](requests/station-inspection-pit.json) | The inspection pit | OpenAI | 10 Nov 2026 |
 | [presentation-batch-a.json](requests/presentation-batch-a.json) | Diagnose and jump-start buttons, service items | OpenAI | 11 Nov 2026 |
 | [presentation-fittings.json](requests/presentation-fittings.json) | Fitting and tune pictures | OpenAI | 11 Nov 2026 |
+| [bulk-bunker-pilot.json](requests/bulk-bunker-pilot.json) ([review](requests/bulk-bunker-pilot-record.md)) | The bulk bunker, two attempts; attempt 1 picked | OpenAI | 17 Nov 2026 |
 | [sling-icons.json](requests/sling-icons.json) | Sling buttons, the cargo hook and the sling set | OpenAI | 11 Nov 2026 |
 | [seabed-crawler-pilot.json](requests/seabed-crawler-pilot.json) | The Crawler's body | OpenAI | 11 Nov 2026 |
 | [batch-b-pilots.json](requests/batch-b-pilots.json), [batch-b-family.json](requests/batch-b-family.json), [batch-b-family-retry.json](requests/batch-b-family-retry.json) | The generator set, drill rig and tipper: bodies, then parts (the retry is the drill rig's well-pipe rack) | OpenAI | 12 Nov 2026 |

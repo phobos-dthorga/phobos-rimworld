@@ -164,7 +164,6 @@ up to it, back the truck's tail to the stripe and press Tip.
 - Its goods lie on its cells like a shelf's, so **belts take from it as from a factory hopper** (with VFE Factory), a factory machine's
   input cell on it reads that cell, a paste dispenser beside it draws from the cell it touches, and **The Dead Man's Switch's automatic
   benches link to it** like their own feed hopper.
-- Its picture is a stand-in until generated art is picked.
 
 **The loading chute** (research tipper hauler, Architect, **motor pool** tab; 30 steel) is a one-cell funnel that drops whatever
 lands in it into the cargo of a vehicle parked across its **spout**, the cell it points at (outlined when you select it). Bring goods

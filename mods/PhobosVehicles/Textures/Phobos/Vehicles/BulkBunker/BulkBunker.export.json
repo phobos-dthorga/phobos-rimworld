@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/BulkBunker/BulkBunker.png",
+  "source": "assets/phobos-vehicles/generated/bulk-bunker-pilot/bulk-bunker-pilot-1.png",
+  "source_sha256": "a782cae6a67855689a9ad6d207516f13f0d2ada84030b49a73a972672f0a18fa",
+  "target_sha256": "6c4ceff0657af73a8a5517c5b38a85be5f70013ed99187fe8a2f8a965aca0acf",
+  "size": [
+    384,
+    512
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "a782cae6a67855689a9ad6d207516f13f0d2ada84030b49a73a972672f0a18fa",
+  "date": "2026-11-17T20:41:40",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

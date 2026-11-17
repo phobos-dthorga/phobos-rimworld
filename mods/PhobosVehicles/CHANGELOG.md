@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.64.1] - 2026-11-17 - Draft
+
+The bulk bunker's own picture
+
+### Changed
+
+- **The bulk bunker has its own picture**, AI-generated with OpenAI's image API and picked by the owner from two attempts (17 Nov
+  2026), in place of the stand-in drawn in code. No change in play. The loading chute's picture is still a stand-in.
+
 ## [0.64.0] - 2026-11-17 - Draft
 
 The loading chute, with D'thorga Framework 0.127.0 (universal hoppers UH13)
