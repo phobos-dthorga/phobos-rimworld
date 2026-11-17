@@ -49,6 +49,7 @@ committed; they are marked †.
 | 14 | **Altitude is one of the next few slices**: thin air taking engine power, recorded in [world elevation](world-elevation-and-descents.md). "I really do love this idea", but there is already much to test | owner; not built |
 | 15 | **Descents and engine braking stay held** until after the ledger | owner (agent's recommendation) |
 | 16 | **Fix the four safe gaps of the elevation record with this build** (rails, roads, the tile read, the record's descent term); wear per stop on the world map is its own question | owner (agent's recommendation); built in Framework 0.131.0 |
+| 17 | **Queue a turbine slice beside altitude**: the gaps T-1, T-2 and T-4 built after testing, and aircraft fuel following the turbine model (T-3) designed and brought as its own decision | owner (agent's recommendation); not built |
 
 ## Where we are, top-down
 
@@ -430,12 +431,40 @@ Fuel as it now comes out, by the hand-worked figures above: the drill rig drilli
 overdrive (100 before); the tanker pumping about 14 a day (14 before, by Vehicle Framework's idle rate) and idling about 7; the survey
 truck about 6 to 8 (8 before). **The drill rig is the one that changed much**, and its share of the engine is the figure to tune.
 
+### How far each kind of engine has come (18 Nov 2026)
+
+Read from the code after 0.131.0, at the owner's question whether turbines had come as far as engines. They have not:
+
+| Engine kind | Who has it | Ledger takes power from driving | Ledger reaches fuel | Loads reach the engine's own model | Lost power as power (S4) |
+| --- | --- | --- | --- | --- | --- |
+| Piston, on the ground | Trucks, tanks, our working vehicles, diesel-electrics, boats | Yes | Yes | Yes: heat and load | Yes |
+| Turbine, on the ground | The M1 Abrams family (AGT1500) | Yes | Yes, on the turbine's idle floor | **No** | Yes |
+| Turbine, in the air | Helicopters, jets, the Harrier | **No**: only the generator is on the ledger; the rest is bleed air | **No**: Vehicle Framework's flat rate | **No** | Falls back to a speed factor |
+| Electric | Electric vehicles | No, by design: loads draw the traction pack | n/a | n/a | Speed factor |
+| Steam and thrusters | Trains of the Rim's steam locomotives, drop pods | No | No | No | No |
+
+The gaps:
+
+- **T-1, ground turbines:** the turbine model's demand, and so its spool, temperature and hot-section wear, is worked out from driving
+  power alone (`Powertrain.SampleGround`, the line `demand = Result.EnginePowerKw / Spec.RatedPowerKw`). Ledger loads do not heat or
+  wear the turbine, where on a piston engine they add heat.
+- **T-2, aircraft:** the generator's share raises the engine load (heat, sound) but not the turbine model's demand; the other
+  accessories are bleed air inside the turbine model (step S7 would put them on the ledger's shape).
+- **T-3, aircraft fuel:** `Powertrain.ApplyFuel` stops for anything not on the ground, so aircraft burn Vehicle Framework's flat rate
+  times the sling and avionics factors, whatever the setting. The turbine model works out a fuel fraction that nothing burns. Kept so
+  on purpose until now: comps do not tick in world flight, and two aircraft mods (VTOL, the Harrier's framework) burn at fixed rates
+  of their own. **Changing it changes every aircraft's range, so it comes to the owner as its own decision.**
+- **T-4, a small artefact:** the alternator's efficiency is read at the engine's speed times 2.5, and a turbine's speed (spool share
+  of a rated speed up to 20,000 rpm) reads the curve's far end, about 45 %. Its output comes from the spool curve and is right; only
+  its cost is slightly high.
+
 ### Next slices
 
 - **Altitude** (decision 14): thin air taking engine power, from each world tile's real elevation, with a turbocharger holding
   power higher. The research is in [world elevation](world-elevation-and-descents.md). It would be one more factor on the engine's
   available power, beside the faults of step S4.
-- **Turbine bleed air on the ledger** (S7).
+- **Turbines** (decision 17), beside altitude, after the owner has tested what is waiting: T-1, T-2 with S7 (bleed air in the ledger's
+  shape), T-4, and a design for T-3 brought to the owner as its own decision.
 - **Descents and engine braking** stay held (decision 15).
 
 ### The recording before (18 Nov 2026)
