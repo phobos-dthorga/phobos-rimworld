@@ -1,5 +1,7 @@
 # The tipper hauler: design (9 Nov 2026)
 
+**Status (17 Nov 2026):** built in D'thorga Framework 0.49.0 and D'thorga Vehicles 0.21.0, with its own pictures since Vehicles 0.43.0; not yet tested in game. Tipping into storage is not built ([universal hoppers](universal-hoppers.md), UH1).
+
 **Built in D'thorga Framework 0.49.0 and D'thorga Vehicles 0.21.0. Its own pictures since Vehicles 0.43.0 (owner's picks, 12 Nov 2026; [the night's record](../../assets/phobos-vehicles/requests/night-2026-11-12-record.md)): the chassis-cab, and the plain, rock and bulk bodies as pictures of their own over it, chosen by the upgrade fitted. The body does not yet move when it tips, and the high sides and work lights are not drawn. Not yet tested in game.** The owner chose to build it on 9 Nov 2026 without the Rails and Roads stone test, which still decides only whether it can serve as a road builder's wagon. What was built differs from what follows: there is no `WorkLights` node, because nothing yet lights a moving vehicle's surroundings and the node would move no figure; the load comes off a few things every rare tick rather than one at a time; and the tip picks its own cells, leaving out buildings entirely.
 
 **The design as written, agent-authored for the owner to confirm;** every figure is authored unless a line
@@ -119,7 +121,8 @@ ours would be a worse outpost and a Harmony patch on a system that works. **The 
 chain, rig to base.** *A loose-cargo or volume model:* nothing in the game or Vehicle Framework carries volume; mass does the work. *Tipping into a
 stockpile zone selectively:* hauling with extra steps; the game's haulers already do it from the pile. *A conveyor tie-in:* Vanilla Factory Expanded's
 belts pull only from its hoppers (code-verified earlier, in memory); a tip onto a hopper cell already works through the placement rules and needs
-no code of ours. *A heated body for frozen loads:* cold only slows an item's rot, so heating would move no figure a player wants moved; cut.
+no code of ours. **Corrected 17 Nov 2026: it does not work.** The tip as built refuses every cell with a building on it
+(`CompPhobosTipper.cs:89`), a hopper included; [universal hoppers](universal-hoppers.md) proposes the change as UH1. *A heated body for frozen loads:* cold only slows an item's rot, so heating would move no figure a player wants moved; cut.
 
 ## The truck
 

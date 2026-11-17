@@ -130,6 +130,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
 - [VFE Factory additions](vfe-factory-additions.md) (28 Oct 2026): factory bills, the output guard, piped water, endless mince. Built.
 - [VFE Factory conveyors and hoppers](vfe-factory-conveyors.md) (28 Oct 2026): what belts pull from and push to; storage switches, stuck belts. Built.
+- [Universal hoppers](universal-hoppers.md) (17 Nov 2026): who reads a hopper, a bunker for the Talus, belts to vehicles, UH1 to UH16. Record only.
 - [Water tap](water-tap.md) (4 Nov 2026): Dubs Bad Hygiene's bottles and water quality, and the split-stack fix. Built.
 
 ## Radio (on the back burner)

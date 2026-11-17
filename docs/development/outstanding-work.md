@@ -103,6 +103,15 @@ anything else ([record](vehicle-accessories.md)). **Nothing built**; the owner p
 | Y22 | To read before the water work: how Dubs Bad Hygiene's water storage would see a tank on a vehicle | Framework | — | **Read 17 Nov 2026:** it cannot, as it stands: fixtures draw only from towers on their pipe network. Proposed, not built: a hidden stand-in tower beneath the parked vehicle, topped up from our tank, no Harmony ([the reading](vehicle-accessories.md#how-dubs-bad-hygiene-sees-water-and-what-a-vehicles-tank-needs-17-nov-2026)) |
 | Y23 | To verify before any Def carries them: the record's web figures (fridge draw, water per person, shower flow, solar output, burner gas use), read only as search summaries | docs | — | **Part done, 17 Nov 2026** ([the table](vehicle-accessories.md#sources)): fridge draw, water per person and the dual-battery rule confirmed from the pages; the burner figure is not what its page says; shower flow and solar output still unverified (the pages refused); the Flying Doctor's 10 L has lost its source |
 
+## Universal hoppers (17 Nov 2026)
+
+The owner asked for a research and record round on near-universal hoppers, with chunks from the Talus carried by belt as the first
+example ([record](universal-hoppers.md)). **Nothing built**; the owner picks.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| UH | [Universal hoppers](universal-hoppers.md): UH1 to UH16 in three families (vehicles into hoppers, hoppers into other mods, belts out to vehicles), and six questions for the owner | Framework, Vehicles, Factory Additions | Scope: the three families, active mods only, chunks not a new material (17 Nov 2026) | Record written; not built. Agent's suggested first step: UH1 (the Talus tips into storage) with UH6 (marks between VFE Factory's and The Dead Man's Switch's hoppers) |
+
 ## Working trailers (13 Nov 2026)
 
 The owner asked for a research and record round on working trailers, with a field kitchen powered by the Busbar and a prisoner

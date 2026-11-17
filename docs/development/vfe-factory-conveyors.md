@@ -55,6 +55,11 @@ deliver into a shelf, a fridge or a hopper. Several belts into one belt make a m
 three belt outputs is a splitter with a Filter tab (details in the memory of 24 and 26 Oct 2026: forward,
 left and right outputs only; round robin; a narrowed filter sends allowed items straight ahead only).
 
+**Added 17 Nov 2026** (code read for [universal hoppers](universal-hoppers.md); not tested in game): a belt whose cell ahead holds
+a building with `CompRefuelable` refuels it directly, taking only fuel its filter allows and only what it needs
+(`CompleteTransfer`, `Building_Conveyor.cs:1810-1852`; `GetDumpCapability`, `1408-1429`). Ahead of any other building that is
+neither a belt nor storage, the belt waits for ever. On open ground it drops one stack per cell, then waits.
+
 ## Machines use the same flag
 
 Pipe System's `Process.InputFactoryHopperDetected` returns true for a cell holding any thing whose Def
