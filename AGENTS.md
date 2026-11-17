@@ -101,7 +101,7 @@ delivered, record the delivery in the changelog or design record, and add or ame
   own reasoning. **Read a mod's latest player comments before suggesting it** (owner, 22 Oct 2026: a Workshop
   description and a recent update date don't show unfixed bugs), and say which picks are comment-checked. **Read
   them with `python scripts/workshop-research.py report <mod>`** (names, package IDs or Workshop IDs; paced and
-  cached), and use its `versions` report for which active mods declare the game's version. **Answer what a Steam collection
+  cached: details for an hour, comments for a day, and its first line says what came from the cache), and use its `versions` report for which active mods declare the game's version. **Answer what a Steam collection
   holds with `python scripts/workshop-research.py collection <ID or URL>`** (`--grep "*tank*"` for a vehicle type), the first
   check of whether another mod already does a thing: Steam's item pages refuse automated fetches, its keyless APIs do not, so
   never curl a Workshop page. `docs/development/project-direction.md` names the mods that matter to these designs. The PC
