@@ -34,11 +34,11 @@
   <PhobosVehicleSystems_DrivetrainFull>Full drivetrain (default)</PhobosVehicleSystems_DrivetrainFull>
   <PhobosVehicleSystems_DrivetrainFullDesc>As above, and a vehicle slows where its engine runs out of power (heavy loads, steep or soft ground) or its wheels run out of grip. A vehicle that cannot grip crawls on at a fraction of its speed rather than stopping.</PhobosVehicleSystems_DrivetrainFullDesc>
   <PhobosVehicleSystems_SettingLoadFuel>Fuel use follows engine load</PhobosVehicleSystems_SettingLoadFuel>
-  <PhobosVehicleSystems_SettingLoadFuelDesc>Off by default: vehicles burn fuel at the rate their authors set. On: a laden vehicle climbing through sand burns more, an empty one on a road less, and an idling engine burns a little while parked. At an ordinary cruise the rate matches the author's.</PhobosVehicleSystems_SettingLoadFuelDesc>
+  <PhobosVehicleSystems_SettingLoadFuelDesc>On by default: a laden vehicle climbing through sand burns more, an empty one on a road less, an idling engine about half of what it did, and whatever the engine drives (lights, the air conditioner, a pump, a drill) costs fuel. At an ordinary cruise with nothing extra on, the rate matches the vehicle author's. Off: vehicles burn fuel at the flat rate their authors set, and working vehicles at their own fixed rates.</PhobosVehicleSystems_SettingLoadFuelDesc>
   <PhobosVehicleSystems_SettingNightHeater>Night heater at camp</PhobosVehicleSystems_SettingNightHeater>
   <PhobosVehicleSystems_SettingNightHeaterDesc>Off by default: a caravan's vehicles shut their engines down at the night camp, and their cabs cool to the night air. On: a vehicle whose night heater switch is on burns a little fuel through the night to keep its cab and its engine warm, as trucks' parking heaters do, so it starts easily in the morning. Switch each vehicle's night heater on before the caravan leaves.</PhobosVehicleSystems_SettingNightHeaterDesc>
   <PhobosVehicleSystems_SettingAccessoryLoad>Accessories load the engine</PhobosVehicleSystems_SettingAccessoryLoad>
-  <PhobosVehicleSystems_SettingAccessoryLoadDesc>On by default: lights, heaters and climate control take their power from the engine through the alternator, so the engine runs a little warmer for them, and burns a little more fuel when fuel follows the engine's load. Off: they cost the engine nothing.</PhobosVehicleSystems_SettingAccessoryLoadDesc>
+  <PhobosVehicleSystems_SettingAccessoryLoadDesc>On by default: whatever the engine drives besides the wheels takes its power: the alternator for the lights, heaters and batteries, the radiator fan when the engine runs hot, the air conditioner, the air brakes' compressor and a tanker's pump. The engine has a little less left for driving, runs a little warmer, and burns more fuel when fuel follows the engine's load. Off: they cost the engine nothing.</PhobosVehicleSystems_SettingAccessoryLoadDesc>
   <PhobosVehicleSystems_SettingRoughGround>Rough ground wears tyres and suspension</PhobosVehicleSystems_SettingRoughGround>
   <PhobosVehicleSystems_SettingRoughGroundDesc>On by default: driving over rough ground wears tyres, tracks and suspension faster than a road does, up to three times as fast on the worst ground a vehicle can cross, so roads save repairs. Off: they wear by distance alone, wherever the vehicle drives.</PhobosVehicleSystems_SettingRoughGroundDesc>
   <PhobosVehicleSystems_SettingHeadlightBeams>Headlights light the ground</PhobosVehicleSystems_SettingHeadlightBeams>
@@ -150,6 +150,10 @@
   <PhobosVehicleSystems_InspectBatteryRunningDown>The battery is running down.</PhobosVehicleSystems_InspectBatteryRunningDown>
   <PhobosVehicleSystems_InspectBatteryFlat>The battery is flat, and something is still drawing on it.</PhobosVehicleSystems_InspectBatteryFlat>
   <PhobosVehicleSystems_InspectBatteryFlatWith>{LOADS} on: the battery is flat.</PhobosVehicleSystems_InspectBatteryFlatWith>
+  <PhobosVehicleLedger_Alternator>alternator</PhobosVehicleLedger_Alternator>
+  <PhobosVehicleLedger_Driving>The engine is also driving: {LOADS}.</PhobosVehicleLedger_Driving>
+  <PhobosVehicleLedger_Part>{LOAD} {KILOWATTS} kW</PhobosVehicleLedger_Part>
+  <PhobosVehicleSystems_MsgBeltSlipping>{VEHICLE}'s drive belt is slipping under its load: the battery charges less and the engine cools less. Switch something off, and have the belt replaced.</PhobosVehicleSystems_MsgBeltSlipping>
   <PhobosVehicleFuel_Burning>Burning about {AMOUNT} {FUEL} a day.</PhobosVehicleFuel_Burning>
   <PhobosVehicleFuel_BurningFor>Burning about {AMOUNT} {FUEL} a day: {PARTS}.</PhobosVehicleFuel_BurningFor>
   <PhobosVehicleFuel_Part>{USE} {AMOUNT}</PhobosVehicleFuel_Part>

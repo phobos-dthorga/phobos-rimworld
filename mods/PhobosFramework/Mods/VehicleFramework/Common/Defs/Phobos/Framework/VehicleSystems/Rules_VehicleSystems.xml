@@ -40,6 +40,12 @@
     <shedLowCharge>0.3</shedLowCharge>
     <shedRecoveredCharge>0.35</shedRecoveredCharge>
     <flatRecoveryFactor>2</flatRecoveryFactor>
+    <!-- Framework 0.131.0 (the engine-load ledger): what a sound drive belt carries, as a share of rated power (authored: comfortably more
+         than everything on it at once, so only a worn or damaged belt slips), and the grade a road or a railway keeps of the country's
+         (authored: roads are cut and filled to about half the hills they cross; a railway's ruling grade is a quarter or less). -->
+    <beltCapacityShare>0.3</beltCapacityShare>
+    <roadGradeFactor>0.5</roadGradeFactor>
+    <railGradeFactor>0.25</railGradeFactor>
     <replacedPartHealth>0.25</replacedPartHealth>
     <!-- Framework 0.73.0 (docs/development/vehicle-crosslinks.md, S1, S2 and T1; owner, 10 Nov 2026). All authored. -->
     <replacedPartHealthAtRig>0.6</replacedPartHealthAtRig>

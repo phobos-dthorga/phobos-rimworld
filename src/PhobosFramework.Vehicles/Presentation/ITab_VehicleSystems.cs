@@ -174,6 +174,13 @@ public partial class ITab_VehicleSystems : ITab
                     Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysMass".Translate(train.MassKg().ToString("N0").Named("MASS")).Resolve());
                     y += Row;
                 }
+                // The engine-load ledger (Framework 0.131.0): what else the engine is driving now.
+                if (InspectText.LoadsLine(comp, VehicleSystemsMod.Settings.displayMode) is { } loads)
+                {
+                    float loadsHeight = Mathf.Max(Row, Text.CalcHeight(loads, viewWidth - 12f));
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, loadsHeight), loads);
+                    y += loadsHeight;
+                }
                 if (comp.Hitch is { Trailer: not null } hitch)
                 {
                     // Hitch slice 3 (Framework 0.104.0): what it tows and, while held back, what holds it, in the display mode's words.

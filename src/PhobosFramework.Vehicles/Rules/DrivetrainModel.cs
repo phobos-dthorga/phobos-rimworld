@@ -112,6 +112,10 @@ public struct DriveConditions
     /// <summary>The share of the engine's power lost to a fault (Framework 0.130.0, step S4): a choked air filter, a warped head, a starved
     /// fuel feed. 0 for none; the engine gives (1 - this) of what it could at every speed.</summary>
     public double PowerLoss;
+    /// <summary>Shaft power the engine is giving to other things, kW (Framework 0.131.0, the engine-load ledger): the alternator, a fan,
+    /// an air conditioner, a pump. It comes off what is left for driving at every speed. The standing set a rated figure already
+    /// includes (a water pump) is not counted here.</summary>
+    public double AccessoryKw;
 }
 
 /// <summary>What the model works out from a sample. Derived, never saved.</summary>
@@ -222,9 +226,11 @@ public static class DrivetrainModel
         result.TractiveForceN = Math.Min(force, tractionLimit);
         // Step S4 (Framework 0.130.0): the share of its power a fault leaves the engine.
         double power = 1 - Clamp01(c.PowerLoss);
+        // The engine-load ledger (Framework 0.131.0): what the engine gives to other things comes off what is left for driving.
+        double accessoryKw = Math.Max(0, c.AccessoryKw);
         if (spec.Transmission == TransmissionKind.DieselElectric)
         {
-            DieselElectric(spec, c, speed, force, requiredKw, tractionCap, power, ref result);
+            DieselElectric(spec, c, speed, force, requiredKw, tractionCap, power, accessoryKw, ref result);
             return result;
         }
 
@@ -232,12 +238,13 @@ public static class DrivetrainModel
         {
             double share = speed / Math.Max(0.1, spec.DesignSpeed) * 0.85;
             // A propeller's load goes as the cube of its speed, so a weakened engine turns it at the cube root of what it has left.
-            double reach = Math.Pow(Math.Max(0.01, power), 1.0 / 3.0);
+            double left = Math.Max(0.01, power - accessoryKw / Math.Max(0.1, spec.RatedPowerKw));
+            double reach = Math.Pow(left, 1.0 / 3.0);
             double held = Math.Min(share, reach);
             result.Gear = 0;
             result.Rpm = Math.Max(spec.IdleRpm, held * spec.RatedRpm);
             result.EnginePowerKw = Math.Min(1, held * held * held) * spec.RatedPowerKw;
-            result.Load = Math.Min(1, held * held * held / Math.Max(0.01, power));
+            result.Load = Math.Min(1, held * held * held / left);
             result.Cap = share > reach ? reach / share : 1;
             if (result.Cap < 1) result.Limit = DriveLimit.Power;
             Finish(spec, ref result);
@@ -249,7 +256,7 @@ public static class DrivetrainModel
         double clutch = c.ClutchCapacity <= 0 ? 1 : Clamp01(c.ClutchCapacity);
         // What the engine can put through the clutch: a slipping clutch and a fault both take their share, but only the clutch slips.
         double usable = clutch * power;
-        int gear = ChooseGear(spec, speed, requiredKw, gears, c.CurrentGear, usable);
+        int gear = ChooseGear(spec, speed, requiredKw + accessoryKw, gears, c.CurrentGear, usable);
         double rpm = EngineRpm(spec, speed, gear);
         if (spec.Transmission == TransmissionKind.Automatic && gear == 1 && rpm < spec.LaunchRpm)
         {
@@ -258,15 +265,15 @@ public static class DrivetrainModel
         }
         result.Gear = spec.Transmission == TransmissionKind.Automatic ? gear : 0;
         result.Rpm = Math.Max(spec.Engine == EngineKind.Electric ? 0 : spec.IdleRpm, rpm);
-        double availableKw = AvailablePowerKw(spec, result.Rpm) * usable;
+        double availableKw = Math.Max(0, AvailablePowerKw(spec, result.Rpm) * usable - accessoryKw);
         result.EnginePowerKw = Math.Min(requiredKw, availableKw);
         result.Load = availableKw <= 0 ? 1 : Math.Min(1, requiredKw / availableKw);
 
         // Power: the highest speed at which some gear can supply the road load.
         double powerCap = 1;
-        if (requiredKw > BestAvailableKw(spec, speed, gears) * usable)
+        if (requiredKw + accessoryKw > BestAvailableKw(spec, speed, gears) * usable)
         {
-            powerCap = PowerLimitedSpeed(spec, c, speed, gears, usable) / speed;
+            powerCap = PowerLimitedSpeed(spec, c, speed, gears, usable, accessoryKw) / speed;
             if (clutch < 1 && powerCap < 1) result.ClutchSlipping = true;
         }
         double cap = Math.Min(powerCap, tractionCap);
@@ -287,16 +294,16 @@ public static class DrivetrainModel
     /// idle to rated (a straight line, authored: real throttles step through notches).
     /// </summary>
     static void DieselElectric(DrivetrainSpec spec, in DriveConditions c, double speed, double force, double requiredKw, double tractionCap,
-        double power, ref DriveResult result)
+        double power, double accessoryKw, ref DriveResult result)
     {
-        double usableKw = spec.RatedPowerKw * spec.Efficiency * power;
+        double ratedLeftKw = Math.Max(0.1, spec.RatedPowerKw * power - accessoryKw);
+        double usableKw = ratedLeftKw * spec.Efficiency;
         double forceLimit = spec.MaxTractiveEffortN > 0 ? spec.MaxTractiveEffortN : double.MaxValue;
         double powerCap = 1;
         if (force * speed / 1000 > usableKw || force > forceLimit) powerCap = DieselElectricSpeed(spec, c, speed, usableKw, forceLimit) / speed;
         double cap = Math.Min(powerCap, tractionCap);
         result.Gear = 0;
         result.TractiveForceN = Math.Min(result.TractiveForceN, forceLimit);
-        double ratedLeftKw = spec.RatedPowerKw * power;
         result.EnginePowerKw = Math.Min(ratedLeftKw, requiredKw);
         if (cap < 1)
         {
@@ -388,14 +395,14 @@ public static class DrivetrainModel
     }
 
     /// <summary>A bisection (16 steps) for the highest speed up to the intended one that some gear can hold.</summary>
-    public static double PowerLimitedSpeed(DrivetrainSpec spec, in DriveConditions c, double intended, int gears, double clutch = 1)
+    public static double PowerLimitedSpeed(DrivetrainSpec spec, in DriveConditions c, double intended, int gears, double clutch = 1, double accessoryKw = 0)
     {
         double low = 0, high = intended;
         for (int i = 0; i < 16; i++)
         {
             double mid = (low + high) / 2;
             double need = Math.Max(0, RoadLoad(spec, c, mid) * mid / 1000) / Math.Max(0.1, spec.Efficiency);
-            if (BestAvailableKw(spec, mid, gears) * clutch >= need) low = mid;
+            if (BestAvailableKw(spec, mid, gears) * clutch >= need + accessoryKw) low = mid;
             else high = mid;
         }
         return low;

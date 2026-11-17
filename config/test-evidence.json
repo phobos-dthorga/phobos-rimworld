@@ -53,7 +53,9 @@
     "179": ["vehicles.outlet-giving"],
     "181": ["vehicles.battery-dead"],
     "182": ["vehicles.engine-power-lost"],
-    "183": ["vehicles.fuel-rates"]
+    "183": ["vehicles.fuel-rates"],
+    "184": ["vehicles.engine-loads"],
+    "186": ["vehicles.belt-slipping"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

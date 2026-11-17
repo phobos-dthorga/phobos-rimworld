@@ -53,6 +53,29 @@ public class PowerLossTests
     }
 
     [Fact]
+    public void WhatTheEngineGivesToOtherThingsComesOffDriving()
+    {
+        // The engine-load ledger (Framework 0.131.0): 15 kW to a fan and an air conditioner holds a climbing truck slower.
+        DriveConditions bare = On(60, 0.12, 0);
+        DriveConditions loaded = On(60, 0.12, 0);
+        loaded.AccessoryKw = 15;
+        DriveResult without = DrivetrainModel.Evaluate(Mule(), bare);
+        DriveResult with = DrivetrainModel.Evaluate(Mule(), loaded);
+        Assert.True(with.Cap < without.Cap);
+    }
+
+    [Fact]
+    public void OnTheFlatTheSameLoadsOnlyMakeTheEngineWorkHarder()
+    {
+        DriveConditions loaded = On(36, 0, 0);
+        loaded.AccessoryKw = 15;
+        DriveResult without = DrivetrainModel.Evaluate(Mule(), On(36, 0, 0));
+        DriveResult with = DrivetrainModel.Evaluate(Mule(), loaded);
+        Assert.Equal(1.0, with.Cap);
+        Assert.True(with.Load > without.Load);
+    }
+
+    [Fact]
     public void ADieselElectricLosesItsPowerTheSameWay()
     {
         var spec = new DrivetrainSpec

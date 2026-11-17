@@ -384,7 +384,8 @@ public class Input_PartEfficiency : VehicleSystemInput
 {
     public string role = "";
     public float missing = 1f;
-    protected override float Raw(SystemContext context) => context.Comp.PartEfficiency(role, missing);
+    // Framework 0.131.0: a role that drives something (the drive belt) reads with what it still passes when it slips.
+    protected override float Raw(SystemContext context) => context.Comp.DriveShare(role, missing);
 }
 
 /// <summary>The path cost of the ground under the vehicle: 0 on a road or floor, 2 on soil, 14 in mud or soft sand, more with snow
@@ -463,7 +464,7 @@ public class Input_ElectricalBalance : VehicleSystemInput
             context = other;
         }
         double supply = context.Comp.EngineRunning ? context.Parameter(supplyParameter) * context.Comp.PartEfficiency(supplyRole, 1f) : 0;
-        if (supply > 0 && drivenByRole != null) supply *= context.Comp.PartEfficiency(drivenByRole, 1f);
+        if (supply > 0 && drivenByRole != null) supply *= context.Comp.DriveShare(drivenByRole);
         if (supply > 0 && supplyFactor != null) supply *= supplyFactor.Evaluate(context);
         // The power hook-up (Framework 0.120.0): a parked vehicle on a powered grid has its loads carried up to the hook-up's rating, so only
         // what is beyond it comes from the battery. On the deficit side only: the grid's charge is the shore-charging flow's.

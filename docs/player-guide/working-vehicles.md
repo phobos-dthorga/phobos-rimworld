@@ -96,7 +96,7 @@ Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehi
 1. **Research survey truck** (after Ground-penetrating scanner) and build it: it also takes 10 uranium.
 2. **Park it outdoors with room beside it** and press **Set up**. Its boom swings out to whichever side is clear, about three cells
    from the middle of the truck. If both sides are blocked, it says so and will not set up.
-3. **A colonist on Research work runs the survey**, at their research speed. The engine idles while they work, at 8 chemfuel a day,
+3. **A colonist on Research work runs the survey**, at their research speed. The engine idles while they work, at about 6 to 8 chemfuel a day,
    or it runs off a grid within 6 cells of its power point at 700 W.
 4. **Select the set-up truck to see what it has found.** Finds are the game's own deposits, with the game's odds and sizes.
 
@@ -130,7 +130,9 @@ within 15 cells. With Rimefeller, a set-up survey truck counts as the scanner a 
 
 **Fit one bit or the other, not both**: pick by the job.
 
-- **It burns 40 chemfuel a day while drilling**, unless you fit the **electric power pack** and have a powered grid within 6 cells.
+- **It burns close to 100 chemfuel a day while drilling**, and nearly twice that in overdrive, because drilling takes half its engine:
+  its 160 tank lasts under two days of drilling. (With the setting "Fuel use follows engine load" off, it burns a flat 40 a day.)
+  Fit the **electric power pack** and have a powered grid within 6 cells to drill without fuel.
 - **Drilling can bring insects**, by the game's own rule and your storyteller's odds. **A faster rig meets them sooner**: the risk per
   lump is the same as a deep drill's. **Keep guards near it.**
 - **At night, without work lights, it drills at 80%.**

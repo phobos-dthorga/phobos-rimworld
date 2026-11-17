@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    What an engine drives besides its wheels (Framework 0.131.0; docs/development/vehicle-engine-loads.md, the engine-load ledger). Each Def is
+    one load, applied to every vehicle with an engine on the ground whose "available" holds. What a load takes comes off the power left for
+    driving, and is burned as fuel and turned to heat with the rest. The alternator is not here: it is worked out from the electrics, for the
+    amps it actually makes. Another mod adds a load by adding a Def. Not yet tested in game.
+
+    Sizes are given at the engine's rated speed, as a share of its rated power (a load that grows with the engine) or in kilowatts (one that
+    does not), and follow engine speed by an exponent: 0 steady, 1 with speed, 3 with its cube as pumps and fans go (the affinity laws).
+
+    Sources and labels:
+    - Table 5-11 of the National Research Council's "Technologies and Approaches to Reducing the Fuel Consumption of Medium- and Heavy-Duty
+      Vehicles" (National Academies Press, 2010), credited there to the Technology and Maintenance Council, gives a heavy truck's fan, air
+      compressor, air conditioner and power steering in horsepower at 600, 1,200 and 1,800 rpm. Read from the page. It names no engine; the
+      shares of rated power here take a 400 hp engine at 1,800 rpm, the example engine of FleetOwner's "Smart Accessories" (1997), and are
+      authored on that footing.
+    - Loads marked baseline are the standing set a rated power figure already includes (a net rating is taken "in as-installed condition",
+      with "accessories like the alternator and water pump": Chevy Hardcore, 2015, describing SAE J1349; the standard itself was not read).
+      They are counted in the fuel at the nominal cruise, so a cruise still burns the vehicle author's rate, and take nothing from driving.
+  -->
+
+  <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+    <defName>PhobosShaftLoad_WaterPump</defName>
+    <label>water pump</label>
+    <description>The pump that moves the coolant, turned by the drive belt whenever the engine runs.</description>
+    <order>10</order>
+    <!-- Authored: 1 % of rated power at rated speed. No measured figure could be read: published ones run from 0.2 kW to several kW for a
+         car's pump and "up to 7 kW" on a heavy diesel under its engine brake, all seen only as search summaries. -->
+    <shareOfRated>0.01</shareOfRated>
+    <speedExponent>3</speedExponent>
+    <beltDriven>true</beltDriven>
+    <baseline>true</baseline>
+    <available Class="Phobos.VehicleSystems.When_HasQuantity">
+      <quantity>coolantTemperature</quantity>
+    </available>
+  </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+    <defName>PhobosShaftLoad_SteeringPump</defName>
+    <label>power steering pump</label>
+    <description>The power steering's pump, turned by the drive belt whenever the engine runs.</description>
+    <order>20</order>
+    <!-- Table 5-11: hydraulic power steering, unloaded, 0.4, 1.1 and 3.0 hp at 600, 1,200 and 1,800 rpm: 3 hp of 400 at rated speed, rising
+         about with the square of speed. The extra while steering at low speed is left out (authored simplification). -->
+    <shareOfRated>0.0075</shareOfRated>
+    <speedExponent>2</speedExponent>
+    <beltDriven>true</beltDriven>
+    <baseline>true</baseline>
+    <available Class="Phobos.VehicleSystems.When_HasQuantity">
+      <quantity>steeringAssist</quantity>
+    </available>
+  </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+    <defName>PhobosShaftLoad_RadiatorFan</defName>
+    <label>radiator fan</label>
+    <description>The radiator's fan, on the drive belt through a clutch that takes hold as the engine runs hot. It takes a good deal of power at speed.</description>
+    <order>30</order>
+    <!-- Table 5-11: an engaged fan takes 1.5, 5 and 20 hp at 600, 1,200 and 1,800 rpm; released, an on/off clutch takes nothing. 20 hp of 400
+         at rated speed is 5 %, rising with the cube of speed. Its clutch takes hold between 95 and 103 degrees C of coolant (authored: above
+         the thermostat's 82 to 90, below "running hot" at 110). The cooling it gives is already in the radiator's figures; this is its cost. -->
+    <shareOfRated>0.05</shareOfRated>
+    <speedExponent>3</speedExponent>
+    <beltDriven>true</beltDriven>
+    <available Class="Phobos.VehicleSystems.When_HasQuantity">
+      <quantity>coolantTemperature</quantity>
+    </available>
+    <inputs>
+      <li Class="Phobos.VehicleSystems.Input_Quantity">
+        <quantity>coolantTemperature</quantity>
+        <curve>
+          <points>
+            <li>(95, 0)</li>
+            <li>(103, 1)</li>
+          </points>
+        </curve>
+      </li>
+    </inputs>
+  </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+    <defName>PhobosShaftLoad_AirConditioner</defName>
+    <label>air-conditioner compressor</label>
+    <description>The air conditioner's compressor, on the drive belt, working while the cab is being cooled. It takes more while the cab is hot than to hold it cool.</description>
+    <order>40</order>
+    <!-- Table 5-11: 7.5 hp (5.6 kW) cooling a hot cab, 3.5 hp (2.6 kW) holding a cool one, "not including blower", at any engine speed. In
+         kilowatts, not a share: a cab is a cab whatever the engine. It works while the air conditioner's own load runs, or climate control
+         is cooling a cab above 22 degrees C, as the cab's cooling flows do; between 24 and 32 degrees C of cab it goes from holding to
+         cooling (authored). The 30 A (15 A at 24 V) of the air conditioner's electrical load stays: its blower and condenser fan. -->
+    <kilowatts>5.6</kilowatts>
+    <speedExponent>0</speedExponent>
+    <beltDriven>true</beltDriven>
+    <when Class="Phobos.VehicleSystems.When_Any">
+      <conditions>
+        <li Class="Phobos.VehicleSystems.When_LoadActive">
+          <load>airConditioner</load>
+        </li>
+        <li Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_LoadActive">
+              <load>climateControl</load>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_QuantityAbove">
+              <quantity>cabTemperature</quantity>
+              <value>22</value>
+            </li>
+          </conditions>
+        </li>
+      </conditions>
+    </when>
+    <inputs>
+      <li Class="Phobos.VehicleSystems.Input_Quantity">
+        <quantity>cabTemperature</quantity>
+        <fallback Class="Phobos.VehicleSystems.Input_Constant">
+          <value>32</value>
+        </fallback>
+        <curve>
+          <points>
+            <li>(24, 0.47)</li>
+            <li>(32, 1)</li>
+          </points>
+        </curve>
+      </li>
+    </inputs>
+  </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+    <defName>PhobosShaftLoad_AirCompressor</defName>
+    <label>air compressor</label>
+    <description>The air brakes' compressor, geared to the engine, working while the brakes' air is being topped up.</description>
+    <order>50</order>
+    <!-- Table 5-11: a loaded compressor takes 1.1, 2.5 and 4.0 hp at 600, 1,200 and 1,800 rpm (4 hp of 400 at rated speed is 1 %, rising with
+         speed), and 0.2 to 1.0 hp unloaded, which is left out. It is loaded while the air is below full (authored: from 0.97 down to 0.9 of
+         full it comes on). Reopened by the owner on 18 Nov 2026, after round two of the cross-links argued it out. -->
+    <shareOfRated>0.01</shareOfRated>
+    <speedExponent>1</speedExponent>
+    <available Class="Phobos.VehicleSystems.When_HasQuantity">
+      <quantity>airPressure</quantity>
+    </available>
+    <inputs>
+      <li Class="Phobos.VehicleSystems.Input_Quantity">
+        <quantity>airPressure</quantity>
+        <curve>
+          <points>
+            <li>(0.9, 1)</li>
+            <li>(0.97, 0)</li>
+          </points>
+        </curve>
+      </li>
+      <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+        <role>Compressor</role>
+      </li>
+    </inputs>
+  </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+    <defName>PhobosShaftLoad_TankPump</defName>
+    <label>tank pump</label>
+    <description>A tanker's pump, driven from the engine through a power take-off while it loads or unloads. The electric pump runs on the battery instead.</description>
+    <order>60</order>
+    <!-- Authored: 10 kW at the shaft, steady. A pump's shaft power is its flow times its pressure over its efficiency; the tanker's pump rate
+         is in game units with no litres figure yet, so this stands between the 8 and 15 kW the engine-loads record works out for a truck's
+         transfer pump. Before 0.131.0 the engine-driven pump cost nothing above idling (the record's check C6). -->
+    <kilowatts>10</kilowatts>
+    <speedExponent>0</speedExponent>
+    <when Class="Phobos.VehicleSystems.When_All">
+      <conditions>
+        <li Class="Phobos.VehicleSystems.When_TankPumping" />
+        <li Class="Phobos.VehicleSystems.When_ElectricPumpFitted">
+          <invert>true</invert>
+        </li>
+      </conditions>
+    </when>
+  </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+</Defs>

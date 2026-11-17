@@ -12,6 +12,9 @@ public class CompProperties_PhobosDrillRig : CompProperties_PhobosRigWork
 {
     /// <summary>Authored. On the engine: 40 chemfuel a day. On a grid: 300 game watts, the deep drill's 200 and the rig's hydraulics.</summary>
     public float drillFuelPerDay = 40f;
+    /// <summary>The share of the engine's rated power drilling takes (Framework 0.131.0; authored, as the 0.5 written in code before it):
+    /// the compressor and the mast's hydraulics. With fuel following engine load this sets the fuel, in place of drillFuelPerDay.</summary>
+    public float engineShare = 0.5f;
     public float electricWatts = 300f;
     /// <summary>The rate at night with no work lights fitted: its own upgrade or the work lamps family (Framework 0.103.0).</summary>
     public float unlitFactor = 0.8f;
@@ -97,7 +100,7 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
     bool ElectricNow => ElectricFitted && PluggedIn;
     protected override bool WantsPowerPoint => ElectricFitted;
     public override bool WantsEngine => deployed && Working && !ElectricNow;
-    public override float EngineDemand => Demand(0.5f);
+    public override float EngineDemand => Demand(Props.engineShare);
     protected override VehicleStatDef WorkStat => RigDefOf.Phobos_DrillRate;
     protected override float FuelPerDay => Props.drillFuelPerDay;
     protected override float DrawWatts => ElectricFitted ? Props.electricWatts : 0f;

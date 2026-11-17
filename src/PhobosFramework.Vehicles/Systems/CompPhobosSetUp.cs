@@ -551,4 +551,12 @@ public interface IVehicleEngineDemand
 
     /// <summary>How hard it works the engine, from 0 to 1.</summary>
     float EngineDemand { get; }
+
+    /// <summary>The share of the engine's rated power the work itself takes at the shaft (Framework 0.131.0, the engine-load ledger): what
+    /// the engine model burns fuel for. By default the demand; 0 for work that only holds the engine at a higher idle.</summary>
+    float WorkPowerShare => EngineDemand;
+
+    /// <summary>Whether the engine model may burn this work's fuel when fuel follows engine load (Framework 0.131.0). False for work that
+    /// keeps a fuel rate of its own whatever the setting (the generator set, by the owner's decision of 18 Nov 2026).</summary>
+    bool FuelFromModel => true;
 }

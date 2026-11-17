@@ -1,6 +1,6 @@
 # World elevation: slopes, descents and engine braking, altitude, and radio line of sight (18 Nov 2026)
 
-**Status (18 Nov 2026):** A research record. Nothing in it is built or decided, and nothing here is tested in game.
+**Status (18 Nov 2026):** A research record. Built from it: the fixes for gaps D3 to D5 (D'thorga Framework 0.131.0, not yet tested in game), and D2 corrected in its record. Not built: descents and engine braking (held), altitude (queued as a next slice), anything for radio, and D1. The tile's size is undecided.
 
 The owner asked how slopes could be simulated in a game like RimWorld, after engine braking came up beside the
 [engine loads](vehicle-engine-loads.md) work, and asked for research and a record before anything concrete is decided. They added
@@ -128,7 +128,9 @@ Traced through `Rules/DrivetrainModel.cs`†, were it handed a negative grade:
 
 ### Gaps found on the way
 
-Read from code by the survey, not confirmed in play.
+Read from code by the survey, not confirmed in play. **D2 to D5 were put right in Framework 0.131.0** at the owner's word (18 Nov 2026):
+a road keeps half the country's grade and a railway a quarter (authored, in the rules Def), a leg reads the tile it is driving into, and
+the cross-links record no longer promises a descent term. D1 stays open: it would change how fast caravans wear their brakes.
 
 | # | Gap | Where |
 | --- | --- | --- |
@@ -352,7 +354,8 @@ touches every vehicle and aircraft. Radio line of sight is the one that would sh
 
 ## What is left to decide
 
-Nothing here is decided. In the order they would be needed:
+The owner's answers of 18 Nov 2026: **altitude is one of the next few slices** ("I really do love this idea"); **descents stay held**
+until after the engine-load ledger; **the four safe gaps are fixed** (above). The rest is undecided. In the order they would be needed:
 
 1. **How big a tile is**: 6.6 to 9 km, about 30 km, or left open. It sets radio's reach and the vehicles' net slope.
 2. **Whether descents are wanted at all**, and if so which way: hills up and down, net slope, or both.

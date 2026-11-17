@@ -152,6 +152,12 @@
         <target Class="Phobos.VehicleSystems.Input_Parameter"><parameter>coolerTarget</parameter></target>
         <factorParameter>coolerRate</factorParameter>
         <when Class="Phobos.VehicleSystems.When_LoadActive"><load>airConditioner</load></when>
+        <inputs>
+          <!-- Framework 0.131.0 (the engine-load ledger): the compressor is on the drive belt. A vehicle with no belt reads as sound. -->
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Belt</role>
+          </li>
+        </inputs>
       </li>
       <li>
         <name>climateHeating</name>
@@ -198,6 +204,12 @@
             <li Class="Phobos.VehicleSystems.When_QuantityAbove"><quantity>cabTemperature</quantity><value>22</value></li>
           </conditions>
         </when>
+        <inputs>
+          <!-- Framework 0.131.0: climate control cools through the same belt-driven compressor. -->
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Belt</role>
+          </li>
+        </inputs>
       </li>
       <li>
         <name>nightHeater</name>

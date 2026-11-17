@@ -70,4 +70,15 @@ public static class WorldGroundRules
         4 => 0.08,
         _ => 0,
     };
+
+    /// <summary>
+    /// The grade a vehicle meets on a tile (Framework 0.131.0; docs/development/world-elevation-and-descents.md, gaps D3 and D4): the
+    /// country's, by hilliness, times what its way keeps of it. A road is cut and filled, so it keeps a share; a railway is graded
+    /// flatter still. Before this a road through mountains was the full 8 %, though Vehicle Framework counts no hills at all on a road,
+    /// and a train climbed like a truck.
+    /// </summary>
+    public static double Grade(int hilliness, bool road, bool rails, double roadFactor, double railFactor) =>
+        Grade(hilliness) * (rails ? Clamp01(railFactor) : road ? Clamp01(roadFactor) : 1);
+
+    static double Clamp01(double value) => value < 0 ? 0 : value > 1 ? 1 : value;
 }

@@ -243,6 +243,34 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Open vehicles shelter nobody**: bikes and open boats feel the weather.
 - **An idling engine warms the room it stands in**, so a truck in a garage heats it.
 
+## Fuel, and what the engine drives
+
+Not yet tested in game. With **Fuel use follows engine load** on (the default), a vehicle with the full drivetrain model burns fuel
+for what its engine actually does.
+
+- **At an ordinary cruise with nothing extra on, it burns the rate its author set.** Climbing, towing and soft ground burn more;
+  an empty run on a road burns less.
+- **Idling burns about half of what it used to**, a quarter of the cruise rate.
+- **Whatever the engine drives costs fuel and a little power**:
+
+| What | When it works | What it takes |
+| --- | --- | --- |
+| **Alternator** | Always, for the lights, heaters and whatever the batteries are taking | A little: about half a kilowatt for lights and a heater; more just after a start, while the battery refills |
+| **Air-conditioner compressor** | While the cab is being cooled | 2.6 kW holding a cool cab, up to 5.6 kW cooling a hot one |
+| **Radiator fan** | When the engine runs hot | A lot at high engine speed, almost nothing at idle |
+| **Air brakes' compressor** (heavy trucks) | While the air is topped up after stops | About 1 % of the engine |
+| **A tanker's pump** | While it pumps on the engine | 10 kW |
+
+- **You feel it most standing still.** An idling heavy truck with its air conditioner on burns a third to two-thirds more than one
+  without, and a small car more than twice as much. On a road the same loads are a few per cent.
+- **On a climb, in mud or under a heavy tow, switching loads off gets a little speed back**: what they take comes off what is left
+  for driving.
+- **The Systems tab lists what the engine is driving** in Operator and Engineer display modes, with kilowatts in Engineer mode.
+- **A worn or damaged drive belt slips under a heavy load.** A message says so: the battery charges less and the engine cools
+  less. Switch something off, and have the belt replaced.
+- **Working vehicles burn by the work**: a drill rig drilling takes half its engine, close to 100 chemfuel a day.
+- **To go back to flat rates**, switch **Fuel use follows engine load** off in D'thorga Framework's settings, under vehicle systems.
+
 ## Camp accessories: fridge, house battery and power outlet
 
 Research **vehicle electrics**, make the kit at the **vehicle parts bench**, put it in the vehicle's cargo and fit it from the

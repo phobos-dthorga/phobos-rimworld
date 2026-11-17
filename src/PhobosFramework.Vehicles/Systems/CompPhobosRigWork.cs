@@ -84,6 +84,10 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
 
     public abstract bool WantsEngine { get; }
     public abstract float EngineDemand { get; }
+    /// <summary>The share of the engine's power the work takes at the shaft (Framework 0.131.0): the demand, unless a rig says otherwise.
+    /// Declared here so a subclass's figure is the one the engine reads.</summary>
+    public virtual float WorkPowerShare => EngineDemand;
+    public virtual bool FuelFromModel => true;
     /// <summary>The stat the working parts feed: what overdrive wears.</summary>
     protected abstract VehicleStatDef WorkStat { get; }
 
@@ -170,7 +174,8 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
             RunOverdrive();
             CompPowerTrader? trader = powerPoint?.GetComp<CompPowerTrader>();
             if (trader != null) trader.PowerOutput = -DrawWatts * OverdriveFactor;
-            if (!stalled && WantsEngine && HasFuel) BurnWorkFuel(WorkFuel(OverdriveRule.FuelPerDay(FuelPerDay, overdrive, RigProps.overdriveFuelFactor) * DaysPerRareTick, DaysPerRareTick));
+            // Framework 0.131.0: with fuel following engine load the engine model burns for the work; otherwise this fixed rate, as before.
+            if (!stalled && WantsEngine && HasFuel && Systems?.WorkFuelFromModel != true) BurnWorkFuel(WorkFuel(OverdriveRule.FuelPerDay(FuelPerDay, overdrive, RigProps.overdriveFuelFactor) * DaysPerRareTick, DaysPerRareTick));
         }
     }
 

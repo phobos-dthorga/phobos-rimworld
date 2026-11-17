@@ -1,8 +1,9 @@
 # Engine loads: a top-down review and a design (18 Nov 2026)
 
 **Status (18 Nov 2026):** A research and design record, with its code checks done the same day. Built: the fixes for C1 and C4 (D'thorga
-Framework 0.129.1, Vehicles 0.65.1) and the step back's S1 to S6 and S8 (Framework 0.130.0), not yet tested in game, S8 not yet measured
-after. Not built: S7, the engine-load ledger itself and C6. It reviews the vehicle simulation as it stood in D'thorga Framework 0.129.0.
+Framework 0.129.1, Vehicles 0.65.1), the step back's S1 to S6 and S8 (Framework 0.130.0) and the engine-load ledger with every load
+and C6 (Framework 0.131.0); not yet tested in game, S8 not yet measured after. Not built: S7 (turbine bleed air on the ledger) and
+altitude, the next slice. It reviews the vehicle simulation as it stood in D'thorga Framework 0.129.0.
 
 The owner asked for a deeper simulation layer: parts the engine drives, such as the alternator and the water pump, take a little
 horsepower from it according to their own load, and so a little chemfuel, with effects reaching three and four links further out.
@@ -44,6 +45,10 @@ committed; they are marked †.
 | 10 | **Start the step back, S1 to S8, next** | owner (agent's recommendation); built in Framework 0.130.0, bar S7 |
 | 11 | **Lost power as power** (step S4): a choked filter, a warped head and a weak fuel pump take power from the engine in the full model, and stay a speed factor without it | owner (agent's recommendation) |
 | 12 | **Record the owner's running game for S8 now**, before the step back is installed | owner |
+| 13 | **Build the ledger with every load at once**: alternator, fan, air conditioner, water pump with the belt's slip, air compressor, steering pump and the work loads | owner (the agent had recommended a first slice); built in Framework 0.131.0 |
+| 14 | **Altitude is one of the next few slices**: thin air taking engine power, recorded in [world elevation](world-elevation-and-descents.md). "I really do love this idea", but there is already much to test | owner; not built |
+| 15 | **Descents and engine braking stay held** until after the ledger | owner (agent's recommendation) |
+| 16 | **Fix the four safe gaps of the elevation record with this build** (rails, roads, the tile read, the record's descent term); wear per stop on the world map is its own question | owner (agent's recommendation); built in Framework 0.131.0 |
 
 ## Where we are, top-down
 
@@ -400,6 +405,39 @@ Built at the owner's word (decision 10); not yet tested in game. What each step 
 Also found and fixed while building: the electrical loads' fuel was priced at full-power fuel with the engine's friction counted again,
 about 15 % too much; it is now what they add on the Willans line (`Powertrain.FuelKwNow`).
 
+### The ledger as it stands (Framework 0.131.0, 18 Nov 2026)
+
+Built at the owner's word (decision 13); not yet tested in game. Where it differs from the design above:
+
+| Part | As it stands | Where |
+| --- | --- | --- |
+| The rule | `ShaftLoadRule`: a load's kilowatts from its size, the engine's speed and its inputs; the alternator's output and shaft power; the belt's grip | `Rules/ShaftLoadRule.cs`, tested |
+| Loads in XML | **A Def of their own**, `PhobosVehicleShaftLoadDef`, not a list on each loadout: one Def is one load and applies to every engine on the ground whose `available` holds, so a load is written once and another mod adds one by adding a Def | `Defs/ShaftLoadDefs.cs`, `ShaftLoads.xml` |
+| The ledger | Worked out in the hub's update: the alternator from the electrics, then each Def; its share of rated power is the engine picture's loads share | `CompPhobosVehicleSystems.ReadLedger` |
+| Driving | The loads beyond the baseline come off available power in every transmission | `DriveConditions.AccessoryKw`, `Rules/DrivetrainModel.cs` |
+| Net against gross | Baseline loads (the water pump, the steering pump) are counted into the nominal cruise's fuel and take nothing from driving | `Powertrain.NominalCruiseFuelKw`, `BaselineShaftKwAt` |
+| The alternator | Charged for the amps it makes: the loads' and the batteries', never more than its supply | `ShaftLoadRule.AlternatorOutputAmps` |
+| The belt | Carries 30 % of rated power when sound (authored), times its condition; asked for more it slips, and everything on it is underdriven: the alternator's supply, the water pump's flow and the cab's cooling read the grip | `ShaftLoadRule.BeltGrip`, `DriveShare` |
+| The fan | Its cost only. The cooling it gives is already in the radiator's figures, so cooling is unchanged; it takes power as the coolant passes 95 to 103 °C (authored) | `ShaftLoads.xml` |
+| The air conditioner | A new belt load of 2.6 to 5.6 kW, in kilowatts whatever the engine. The 30 A electrical load stays as its blower and fans; it was not moved. **Watch:** on a small car that is more than twice the idle fuel, since the figures are a heavy truck's cab | `ShaftLoads.xml` |
+| The air compressor | Loaded while the air is below full, 1 % of rated power; its unloaded drag is left out | `ShaftLoads.xml` |
+| The oil pump | Not a load, as designed: it is inside the friction term | |
+| Work loads | Fuel through the engine model while fuel follows engine load, each work saying whether it may: the drill rig (its share now a Def figure) and the survey truck yes; the tipper and the generator set keep their own. The tanker's pump is a 10 kW load (C6) | `IVehicleEngineDemand.WorkPowerShare`, `FuelFromModel` |
+| The fuel default | "Fuel use follows engine load" on by default (decision 1) | `VehicleSystemsMod.cs` |
+| Not on it yet | Turbine bleed air (S7); a hydraulic pump's own load beyond what work demands; the steering pump's extra while turning | |
+
+Fuel as it now comes out, by the hand-worked figures above: the drill rig drilling about 97 a day (40 before) and about 190 in
+overdrive (100 before); the tanker pumping about 14 a day (14 before, by Vehicle Framework's idle rate) and idling about 7; the survey
+truck about 6 to 8 (8 before). **The drill rig is the one that changed much**, and its share of the engine is the figure to tune.
+
+### Next slices
+
+- **Altitude** (decision 14): thin air taking engine power, from each world tile's real elevation, with a turbocharger holding
+  power higher. The research is in [world elevation](world-elevation-and-descents.md). It would be one more factor on the engine's
+  available power, beside the faults of step S4.
+- **Turbine bleed air on the ledger** (S7).
+- **Descents and engine braking** stay held (decision 15).
+
 ### The recording before (18 Nov 2026)
 
 The owner's running game, a minute, with `python scripts/perf.py record` (decision 12). **D'thorga Framework took 1.0 % of the main
@@ -430,7 +468,7 @@ was seen in game, and nothing has been changed.
 | C3 | Stated simplification | While both batteries charge (the starting battery between 90 and 98 %), the same alternator surplus is counted into each | `Systems_HouseBattery.xml:12-14` | The ledger's alternator row: one supply, shared |
 | C4 | **Fault** | **The diesel-electric's alternator gives nothing at idle and never reaches full output.** The alternator turns at 2.5 times engine speed and cuts in at 1,200 rpm. The Goat DE2 and the default diesel-electric idle at 450 rpm (1,125 at the alternator: nothing) and are rated at 1,000 rpm (2,500 at the alternator: about 71 % of its 100 A). A shunter standing with its lights on runs its battery flat. Every other engine of ours idles at 600 rpm or more and gives about a third to a half at idle, as intended | `Systems_Electrical.xml:285-305`, `:333-353`; `Loadouts_TrainsOfTheRim.xml:181-183`; `Drivetrains.xml:262-264` | **Fixed in Framework 0.129.1 and Vehicles 0.65.1** (decision 8): each engine's Def has an `alternatorRatio`, 2.5 by default (MOTOR: an alternator "spins at two to three times the speed of the engine") and 4 on the diesel-electrics (authored), giving about half at idle and 90 % at rated speed |
 | C5 | Missing link | The cab heater warms the cab from the coolant's temperature but takes no heat out of the coolant: the coolant's flows are combustion, the radiator, the soak, the two engine heaters and fire | `Systems_Cabin.xml:120-147`; `Systems_Cooling.xml:290`, `:321`, `:367`, `:375`, `:387`, `:406` | A heat link beside the ledger: a cold engine idling with the heater on warms more slowly, as a real one does |
-| C6 | **Fault** | **The tanker's engine-driven pump costs nothing above idling.** The tank is not one of the set-up comps that ask for the engine (`IVehicleEngineDemand`); its pump only needs the ignition on. So pumping burns Vehicle Framework's idle half rate, 14 a day for the tanker, not the 6 its record gives, and the engine shows idle: no load, no heat from the pump | `Tanks/CompPhobosTank.cs:65`, `:495`; `Systems/CompPhobosSetUp.cs:347`, `:546-552` | A pump row on the ledger (work loads, above). Its record's 6 a day is corrected there when it is built |
+| C6 | **Fault** | **The tanker's engine-driven pump costs nothing above idling.** The tank is not one of the set-up comps that ask for the engine (`IVehicleEngineDemand`); its pump only needs the ignition on. So pumping burns Vehicle Framework's idle half rate, 14 a day for the tanker, not the 6 its record gives, and the engine shows idle: no load, no heat from the pump | `Tanks/CompPhobosTank.cs:65`, `:495`; `Systems/CompPhobosSetUp.cs:347`, `:546-552` | **Fixed in Framework 0.131.0**: the tank pump is a 10 kW load on the ledger. Pumping burns about 14 a day, idling without pumping about 7; the tanker's record still says 6 |
 | C7 | Missing link | The Engineer display shows two load figures that disagree whenever loads are on or work runs: the hub's (with the electrical loads and standing work) and the drive model's (driving alone) | `Presentation/InspectText.cs:56-57`, `:168-169` | S1: one engine state, read by both |
 
 ## Settings to report when this is built
@@ -444,7 +482,7 @@ Nothing changes now. When decision 1 is built, the reply that delivers it must n
 
 ## Records that speak ahead of the code
 
-True once decision 1 is built; overstated under today's defaults. Left as they are until then.
+True since Framework 0.131.0, which built decision 1; they were overstated under the defaults before it.
 
 - [Vehicle accessories](vehicle-accessories.md): the outlet "burns fuel for it, by the rule already in place".
 - [Vehicle upgrades, round two](vehicle-upgrades-round-two.md): work lamps run "at a fuel cost".

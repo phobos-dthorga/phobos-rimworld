@@ -209,13 +209,25 @@ public static class InspectText
         _ => "PhobosVehicleFuel_UseEngine".Translate().Resolve(),
     };
 
+    /// <summary>What the engine is driving besides the wheels (Framework 0.131.0, the engine-load ledger), or null with nothing: Operator
+    /// the names, Engineer each with its kilowatts. Reads the ledger the vehicle worked out at its last look.</summary>
+    public static string? LoadsLine(CompPhobosVehicleSystems comp, DisplayMode mode)
+    {
+        IReadOnlyList<ShaftLoadNow> loads = comp.ShaftLoads;
+        if (mode == DisplayMode.Plain || loads.Count == 0) return null;
+        string parts = string.Join(", ", loads.Select(l => mode == DisplayMode.Engineer
+            ? "PhobosVehicleLedger_Part".Translate(l.Label.Named("LOAD"), l.Kilowatts.ToString("0.#").Named("KILOWATTS")).Resolve()
+            : l.Label));
+        return "PhobosVehicleLedger_Driving".Translate(parts.Named("LOADS")).Resolve();
+    }
+
     /// <summary>The Engineer's power line (Framework 0.130.0, step S1), from the engine's one picture: its whole load, the shaft power driving
     /// and the loads take, the fuel power for it and the heat into the coolant. The inspect pane and the Systems tab both show this.</summary>
     public static string PowerLine(CompPhobosVehicleSystems comp, Powertrain train)
     {
-        double fuelKw = train.FuelKwNow(comp.Engine.AccessoryShare);
+        double fuelKw = train.FuelKwNow(comp.Engine);
         return "PhobosVehicleSystems_InspectPower".Translate(comp.Engine.Load.ToStringPercent().Named("LOAD"),
-            train.ShaftKwNow(comp.Engine.AccessoryShare).ToString("0").Named("ENGINE"), fuelKw.ToString("0").Named("FUEL"),
+            train.ShaftKwNow(comp.Engine).ToString("0").Named("ENGINE"), fuelKw.ToString("0").Named("FUEL"),
             (fuelKw * train.Spec.CoolantHeatShare).ToString("0").Named("HEAT")).Resolve();
     }
 

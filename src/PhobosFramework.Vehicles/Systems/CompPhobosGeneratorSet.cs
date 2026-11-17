@@ -98,6 +98,8 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
 
     public bool WantsEngine => deployed && running && !stalled;
     public float EngineDemand => load;
+    /// <summary>The generator set keeps its own fuel curve (owner, 18 Nov 2026): the engine model never burns for it.</summary>
+    public bool FuelFromModel => false;
     public int CableReach => (int)Vehicle.GetStatValue(GeneratorDefOf.Phobos_CableReach);
     float BufferCapacity => Vehicle.GetStatValue(GeneratorDefOf.Phobos_GeneratorBuffer);
 

@@ -136,4 +136,15 @@ public class WorldGroundRuleTests
     [InlineData(3, 0.05)]
     [InlineData(4, 0.08)]
     public void HillsSetTheGrade(int hilliness, double grade) => Assert.Equal(grade, WorldGroundRules.Grade(hilliness), 6);
+
+    [Fact]
+    public void ARoadKeepsPartOfTheGradeAndARailwayLess()
+    {
+        Assert.Equal(0.08, WorldGroundRules.Grade(4, false, false, 0.5, 0.25), 9);
+        Assert.Equal(0.04, WorldGroundRules.Grade(4, true, false, 0.5, 0.25), 9);
+        Assert.Equal(0.02, WorldGroundRules.Grade(4, true, true, 0.5, 0.25), 9);
+        Assert.Equal(0, WorldGroundRules.Grade(1, true, false, 0.5, 0.25), 9);
+        // A factor outside 0 to 1 is held in bounds: a way never makes the country steeper.
+        Assert.Equal(0.05, WorldGroundRules.Grade(3, true, false, 3, 0.25), 9);
+    }
 }

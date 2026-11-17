@@ -70,8 +70,9 @@ public class VehicleSystemsSettings : ModSettings
     public DisplayMode displayMode = DisplayMode.Plain;
     /// <summary>The drivetrain and turbines: off, figures only, or feeding load, heat and the speed cap. Live.</summary>
     public DrivetrainMode drivetrainMode = DrivetrainMode.Full;
-    /// <summary>Fuel follows the engine model's load instead of the vehicle author's flat rates (owner, 8 Nov 2026: off by default). Live.</summary>
-    public bool loadDependentFuel;
+    /// <summary>Fuel follows the engine model's load instead of the vehicle author's flat rates. On by default since Framework 0.131.0
+    /// (owner, 18 Nov 2026, reversing the default of 8 Nov 2026): the author's rate still holds at a nominal cruise. Live.</summary>
+    public bool loadDependentFuel = true;
     /// <summary>What happens when a jet is too heavy or the day too hot for it to hover onto its pad (owner, 8 Nov 2026: a choice). Live.</summary>
     public HoverLimit hoverLimit = HoverLimit.RefusePadUseRunway;
     /// <summary>A steam boiler without a fusible plug explodes if its crown sheet is uncovered (owner, 8 Nov 2026: off by default, with
@@ -197,7 +198,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref enemyFitSets, "PhobosVehicleSystems_EnemyFitSets", true);
         Scribe_Values.Look(ref displayMode, "PhobosVehicleSystems_DisplayMode", DisplayMode.Plain);
         Scribe_Values.Look(ref drivetrainMode, "PhobosVehicleSystems_DrivetrainMode", DrivetrainMode.Full);
-        Scribe_Values.Look(ref loadDependentFuel, "PhobosVehicleSystems_LoadDependentFuel", false);
+        Scribe_Values.Look(ref loadDependentFuel, "PhobosVehicleSystems_LoadDependentFuel", true);
         Scribe_Values.Look(ref hoverLimit, "PhobosVehicleSystems_HoverLimit", HoverLimit.RefusePadUseRunway);
         Scribe_Values.Look(ref boilerExplosions, "PhobosVehicleSystems_BoilerExplosions", false);
         Scribe_Values.Look(ref realisticFeedWater, "PhobosVehicleSystems_RealisticFeedWater", false);

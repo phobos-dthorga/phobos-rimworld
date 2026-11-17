@@ -813,6 +813,14 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float shedRecoveredCharge = 0.35f;
     /// <summary>A battery that went flat powers its loads again at this many times the flat line (check C1; authored).</summary>
     public float flatRecoveryFactor = 2f;
+    /// <summary>What a sound drive belt can carry, as a share of the engine's rated power (Framework 0.131.0, the engine-load ledger;
+    /// authored: comfortably more than everything on it at once, so only a worn or damaged belt slips). A belt in poorer condition
+    /// carries that share times its condition; asked for more, it slips and underdrives everything on it.</summary>
+    public float beltCapacityShare = 0.3f;
+    /// <summary>The share of the country's grade a road keeps on the world map (Framework 0.131.0; authored: roads are cut and filled),
+    /// and the share a railway keeps (authored: a ruling grade is a quarter of a road's or less).</summary>
+    public float roadGradeFactor = 0.5f;
+    public float railGradeFactor = 0.25f;
     /// <summary>The longest integration step in hours.</summary>
     public float stepHours = 0.025f;
     /// <summary>A stage's message is not repeated within this many hours, so a value hovering on a threshold stays quiet.</summary>

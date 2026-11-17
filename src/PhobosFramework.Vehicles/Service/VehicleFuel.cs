@@ -85,7 +85,7 @@ public static class VehicleFuel
         if (comp?.Powertrain is not { Full: true, Ground: true } train) return 1;
         if (comp.Vehicle.CompFueledTravel is not { } fuel || fuel.Props.electricPowered) return 1;
         double factor = comp.Fittings.TunedFuelFactor * comp.EngineFuelFactor;
-        if (VehicleFittings.FuelFollowsModel) factor *= train.CruiseFuelShare(comp.AccessoryShare);
+        if (VehicleFittings.FuelFollowsModel) factor *= train.CruiseFuelShare(comp.LedgerExtraShare);
         return factor;
     }
 }

@@ -5,6 +5,58 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.131.0] - 2026-11-18 - Draft
+
+The engine-load ledger: what the engine drives takes its power and its fuel
+
+### Added
+
+- **A ledger of what the engine drives besides the wheels**, worked out at each look: the alternator, the water pump, the power steering
+  pump, the radiator fan (when the engine runs hot), the air-conditioner compressor (while the cab is cooled), the air brakes' compressor
+  (while the air is topped up) and a tanker's engine-driven pump. What they take comes off the power left for driving, so a vehicle at
+  the limit of its power (a climb, mud, a tow) is a little slower with them on, and it is burned as fuel and turned to heat with the rest.
+- **The Systems tab says what the engine is driving**: the names in Operator mode, each with its kilowatts in Engineer mode.
+- **A worn or damaged drive belt slips under a heavy load**: it passes only what it can carry, so the battery charges less and the
+  engine cools less, and a message says so. Switching loads off stops the slipping.
+- **For other modders**: a shaft load is a Def (PhobosVehicleShaftLoadDef), so a mod adds one in XML: its size as kilowatts or a share
+  of rated power, how it follows engine speed, the conditions and inputs that work it, and whether the belt turns it.
+
+### Changed
+
+- **"Fuel use follows engine load" is now on by default** (owner, 18 Nov 2026). A vehicle with the full drivetrain model burns the
+  author's rate at an ordinary cruise with nothing extra on, more under load, and about half of what it did at idle; what the engine
+  drives costs fuel. A player who has switched the setting either way keeps their choice. Vehicles without the model, aircraft and
+  other factions' vehicles are unchanged.
+- **The alternator is charged for the electricity it makes**: what the loads draw and what the batteries are taking, and never more
+  than it can give at that speed. Recharging a battery after a start now costs the engine; a winch pulling more than an idling
+  alternator can give no longer does (the battery covers the rest, as before).
+- **Working vehicles burn by what the engine does, while fuel follows engine load.** The Kelly drill rig's drilling takes half its
+  engine (its share is now a Def figure), which burns close to 100 chemfuel a day where its fixed rate was 40, and nearly twice that in
+  overdrive. The Datum survey truck burns about what it did. The Ullage tanker's engine-driven pump is a 10 kW load: pumping burns about
+  14 a day, as it did, while idling without pumping now burns about 7. The Talus tipper's tipping and the Busbar generator set keep
+  their fuel as it was (the generator set by the owner's decision). With the setting off, every fixed rate is as before.
+- **The air conditioner's compressor is on the drive belt**: with the belt snapped the cab is no longer cooled. Its electrical load
+  stays, as its blower and fans.
+- **On the world map a road keeps half the country's grade and a railway a quarter** (authored), where both took all of it: a road
+  through mountains is a 4 % climb, not 8 %. And a caravan's ground is read from the tile it is driving into, not the one it is leaving.
+
+### Fixed
+
+- The tanker's engine-driven pump cost the engine nothing above idling (the engine-loads record's check C6).
+
+### Balance
+
+- Sizes are authored from a heavy truck's published figures against a 400 hp engine: the fan 5 % of rated power at rated speed, the air
+  compressor 1 %, the steering pump 0.75 %, the air conditioner 5.6 kW cooling a hot cab and 2.6 kW holding a cool one. The water pump's
+  1 % and the tanker pump's 10 kW have no measured source. A sound belt carries 30 % of rated power (authored).
+
+### Compatibility and limits
+
+- Safe to add to an existing save: nothing new is saved.
+- The fan's cooling is already in the radiator's figures; the ledger adds only what it costs when the engine runs hot.
+- Turbine bleed air is not yet on the ledger. Altitude taking engine power, and descents with engine braking, are recorded for later.
+- Not yet tested in game.
+
 ## [0.130.0] - 2026-11-18 - Draft
 
 The step back before engine loads: one engine picture, one fuel service, lost power as power, and three hot spots fixed

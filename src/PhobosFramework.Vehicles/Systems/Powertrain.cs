@@ -39,7 +39,6 @@ public sealed class Powertrain
     public readonly TurbineSpec? Turbine;
     readonly TurbineSpec? dryTurbine;
     readonly double fullLoadHeatKw;
-    readonly double nominalCruiseFuelKw;
     /// <summary>The engine power and speed at the nominal cruise (step S6: what the world map's range assumes). Derived, never saved.</summary>
     readonly double cruiseEngineKw, cruiseRpm;
     readonly double fuelKgFull;
@@ -135,7 +134,6 @@ public sealed class Powertrain
             Spec.RatedPowerKw = tunedPower / fittings.PowerFactor;
             Spec.FinalDrive = tunedDrive / fittings.FinalDriveFactor;
             DriveResult atCruise = DrivetrainModel.Evaluate(Spec, cruise);
-            nominalCruiseFuelKw = Math.Max(0.1, atCruise.FuelPowerKw);
             cruiseEngineKw = atCruise.EnginePowerKw;
             cruiseRpm = atCruise.Rpm;
             Spec.RatedPowerKw = tunedPower;
@@ -391,6 +389,8 @@ public sealed class Powertrain
             DrivenWheelsWorking = comp.PartEfficiency("Wheels", 1f),
             // Step S4 (Framework 0.130.0): what a choked filter, a warped head or a starved feed takes from the engine.
             PowerLoss = 1 - comp.EnginePowerFactor,
+            // The engine-load ledger (Framework 0.131.0): what the engine was giving to other things at the last look.
+            AccessoryKw = running ? comp.LedgerExtraKw : 0,
         };
         Vehicles.World.VehicleCaravan? caravan = vehicle.GetVehicleCaravan();
         if (vehicle.Spawned && vehicle.vehiclePather != null && vehicle.vehiclePather.Moving)
@@ -410,7 +410,7 @@ public sealed class Powertrain
         else if (caravan != null && caravan.vehiclePather != null && caravan.vehiclePather.MovingNow)
         {
             conditions.Speed = Spec.DesignSpeed;
-            WorldGround(caravan.Tile, out conditions.RollingResistance, out conditions.Grade, out conditions.Grip);
+            WorldGround(LegTile(caravan), out conditions.RollingResistance, out conditions.Grade, out conditions.Grip);
             conditions.Grip *= TreadGrip(conditions.Grip);
         }
         else
@@ -673,6 +673,17 @@ public sealed class Powertrain
     }
 
     /// <summary>
+    /// The tile a moving caravan's ground is read from (Framework 0.131.0, gap D5): the one it is driving into. Vehicle Framework sets a
+    /// caravan's own tile only when a leg ends, so reading that had it climb the hill it had just come off. A caravan turned back
+    /// mid-leg heads for its own tile, which is then the answer.
+    /// </summary>
+    static PlanetTile LegTile(Vehicles.World.VehicleCaravan caravan)
+    {
+        PlanetTile next = caravan.vehiclePather.NextTile;
+        return next.Valid ? next : caravan.Tile;
+    }
+
+    /// <summary>
     /// A caravan's ground: the tile's biome (its typical terrain and difficulty), road and snow as a path cost through the same curves
     /// a map cell uses, and the grade by hilliness (WorldGroundRules; docs/development/vehicle-world-map-design.md). Rails and
     /// other running gear with their own surface keep it. Read once per tile and in-game hour (derived, never saved).
@@ -687,7 +698,10 @@ public sealed class Powertrain
             if (BiomeGround.TryRead(tile, out TileGround ground))
             {
                 WorldPathCost = WorldGroundRules.PathCost(ground.TerrainPathCost, ground.BiomeDifficulty, ground.Road, ground.WinterOffset);
-                worldGrade = WorldGroundRules.Grade((int)ground.Hilliness);
+                // Framework 0.131.0 (gaps D3 and D4): a road keeps part of the country's grade, a railway less.
+                PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+                bool rails = !double.IsNaN(fixedRolling) && !double.IsNaN(fixedGrip);
+                worldGrade = WorldGroundRules.Grade((int)ground.Hilliness, ground.Road, rails, rules.roadGradeFactor, rules.railGradeFactor);
                 WorldGroundRead = ground;
             }
             else
@@ -717,19 +731,31 @@ public sealed class Powertrain
     /// <summary>The caravan tile's ground as last read (null off the world map or before the first read), for the dev log.</summary>
     public TileGround? WorldGroundRead { get; private set; }
 
-    /// <summary>The shaft power the engine gives now, kW: driving's and the electrical loads' (Framework 0.130.0, step S1).</summary>
-    public double ShaftKwNow(double accessoryShare) => Math.Max(0, Result.EnginePowerKw) + Math.Max(0, accessoryShare) * Spec.RatedPowerKw;
+    /// <summary>The shaft power the engine gives now, kW (Framework 0.130.0, step S1): driving's, or standing work's when work turns the
+    /// engine (the drive sample knows nothing of that), and the ledger's.</summary>
+    public double ShaftKwNow(EngineState engine, bool withWork = true) =>
+        (engine.Why == EngineWhy.Working ? (withWork ? comp.WorkPowerShare * Spec.RatedPowerKw : 0) : Math.Max(0, Result.EnginePowerKw))
+        + Math.Max(0, engine.AccessoryShare) * Spec.RatedPowerKw;
 
     /// <summary>The fuel power the engine burns now for that shaft power, kW: the one figure the fuel burn and the Engineer line both read
     /// (step S1). The loads cost only what they add on the Willans line, a kilowatt over the indicated efficiency, with friction counted
     /// once; before 0.130.0 they were priced at rated-power fuel, friction and all, about 15 % too much.</summary>
-    public double FuelKwNow(double accessoryShare) => DrivetrainModel.FuelPowerKw(Spec, ShaftKwNow(accessoryShare), Result.Rpm);
+    /// <param name="withWork">Whether standing work's own power is counted: not in the fuel sum for work that burns a rate of its own.</param>
+    public double FuelKwNow(EngineState engine, bool withWork = true) =>
+        DrivetrainModel.FuelPowerKw(Spec, ShaftKwNow(engine, withWork), engine.Why == EngineWhy.Working ? engine.Rpm : Result.Rpm);
 
-    /// <summary>The fuel at the nominal cruise with these loads on, as a share of the cruise without them (Framework 0.130.0, step S6): what
-    /// the world map's range puts on Vehicle Framework's rate when the fuel follows the model. 1 with no loads.</summary>
-    public double CruiseFuelShare(double accessoryShare) =>
-        DrivetrainModel.FuelPowerKw(Spec, cruiseEngineKw + Math.Max(0, accessoryShare) * Spec.RatedPowerKw, Math.Max(cruiseRpm, Spec.IdleRpm))
-        / Math.Max(0.1, nominalCruiseFuelKw);
+    /// <summary>The fuel power at the nominal cruise, kW, that the author's rate stands for (Framework 0.131.0): the cruise's own, with the
+    /// standing loads a rated figure already includes (a water pump), so that a cruise with nothing extra on burns the author's rate.</summary>
+    public double NominalCruiseFuelKw =>
+        Math.Max(0.1, DrivetrainModel.FuelPowerKw(Spec, cruiseEngineKw + comp.BaselineShaftKwAt(CruiseRpm), CruiseRpm));
+
+    double CruiseRpm => Math.Max(cruiseRpm, Spec.IdleRpm);
+
+    /// <summary>The fuel at the nominal cruise with these extra loads on, as a share of the nominal cruise (Framework 0.130.0, step S6): what
+    /// the world map's range puts on Vehicle Framework's rate when the fuel follows the model. 1 with nothing extra on.</summary>
+    public double CruiseFuelShare(double extraShare) =>
+        DrivetrainModel.FuelPowerKw(Spec, cruiseEngineKw + comp.BaselineShaftKwAt(CruiseRpm) + Math.Max(0, extraShare) * Spec.RatedPowerKw, CruiseRpm)
+        / NominalCruiseFuelKw;
 
     /// <summary>When the player lets fuel follow the model, or a fitting or tune changes what the engine burns: the difference between
     /// that and Vehicle Framework's own use (full rate moving, half idling), burned or given back over the hours that passed. Normalised
@@ -741,14 +767,18 @@ public sealed class Powertrain
         double tuned = comp.Fittings.TunedFuelFactor * comp.EngineFuelFactor;
         if ((!followsModel && tuned == 1) || !Full || !Ground || hours <= 0) return;
         CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;
-        if (fuel == null || fuel.Props.electricPowered || !comp.EngineRunningRaw) return;
+        // Standing work turns the engine with nobody driving (Framework 0.131.0): the model burns for it too, where the work says it may
+        // and the fuel follows the model; otherwise the work burns its own fixed rate, as before.
+        bool working = comp.WorkTurningEngine && followsModel && comp.WorkFuelFromModel;
+        if (fuel == null || fuel.Props.electricPowered || !(comp.EngineRunningRaw || working)) return;
         // On a map Vehicle Framework burns its daily rate while moving and half of it idling; on the world map its own per-tick world
-        // rate (with the author's world multiplier) while the caravan moves, and nothing while it stands.
+        // rate (with the author's world multiplier) while the caravan moves, and nothing while it stands. With nobody at the controls
+        // it burns nothing.
         bool onMap = comp.Vehicle.Spawned;
         double vfPerHour = onMap ? fuel.FuelEfficiency / 24.0 : FuelRules.WorldPerHour(fuel.ConsumptionRateWorldPerTick, ElapsedRule.TicksPerHour);
-        double vfShare = comp.Moving ? 1 : onMap ? FuelRateRule.FrameworkIdleShare : 0;
-        // Crosslink 5: the loads' shaft power is burned with the drive's, on the same Willans line (step S1).
-        double modelShare = FittingRule.TunedFuelShare(followsModel ? FuelKwNow(comp.AccessoryShare) / Math.Max(0.1, nominalCruiseFuelKw) : vfShare, tuned);
+        double vfShare = !comp.EngineRunningRaw ? 0 : comp.Moving ? 1 : onMap ? FuelRateRule.FrameworkIdleShare : 0;
+        // The ledger's shaft power is burned with the drive's, on the same Willans line (step S1).
+        double modelShare = FittingRule.TunedFuelShare(followsModel ? FuelKwNow(comp.Engine, comp.WorkFuelFromModel) / NominalCruiseFuelKw : vfShare, tuned);
         double perHour = FuelRules.ExtraPerHour(vfPerHour, vfShare, modelShare);
         // Step S2 (Framework 0.130.0): through the one fuel service, so the vehicle can say what it burns and why.
         if (perHour > 0) VehicleFuel.Burn(comp.Vehicle, (float)(perHour * hours), FuelUse.Engine, comp);

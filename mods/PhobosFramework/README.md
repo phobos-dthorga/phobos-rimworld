@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.130.0, built 18 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.131.0, built 18 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -129,10 +129,10 @@ Under **Options > Mod settings**. RimWorld saves only what you change.
 | Systems | Flammable tank loads explode | A destroyed tank of something flammable explodes, more violently the fuller; off, it only spills | On |
 | Systems | A tank needs upgrades for compartments | Off: every liquid tank has three compartments free | On |
 | Engines and drivetrains | Drivetrain off / Drivetrain shown, speeds unchanged / Full drivetrain | Whether engine power and grip slow a vehicle (down to a crawl, never below 15% of its speed) | Full |
-| Engines and drivetrains | Fuel use follows engine load | Laden climbs burn more, empty road runs less, idling a little. Off: the author's rate | Off |
+| Engines and drivetrains | Fuel use follows engine load | Laden climbs burn more, empty road runs less, idling about half, and whatever the engine drives costs fuel. At an ordinary cruise the author's rate. Off: the author's flat rate, and working vehicles' own fixed rates | On (since 0.131.0) |
 | Engines and drivetrains | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, for fuel | Off |
 | Engines and drivetrains | Low oil calls for a service | A service falls due once oil is below 60% | On |
-| Engines and drivetrains | Accessories load the engine | Lights, heaters and climate control cost the engine a little heat (and fuel, with load-following fuel) | On |
+| Engines and drivetrains | Accessories load the engine | What the engine drives besides the wheels takes its power: the alternator, the radiator fan when hot, the air conditioner, the air brakes' compressor, a tanker's pump. Less power for driving, a little more heat, and more fuel with load-following fuel | On |
 | Engines and drivetrains | Rough ground wears tyres and suspension | Up to three times the tyre wear off the roads | On |
 | Engines and drivetrains | Headlights light the ground | Switched-on headlights light the ground at night; off if many vehicles slow the game | On |
 | Engines and drivetrains | Rain, snow and ice take grip | Wet and frozen ground takes grip on hills, in mud and when towing | On |

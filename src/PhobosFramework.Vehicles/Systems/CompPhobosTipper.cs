@@ -50,6 +50,9 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
 
     public bool WantsEngine => deployed;
     public float EngineDemand => Props.engineDemand;
+    /// <summary>Tipping and the grab cost heat and power, not fuel (Framework 0.131.0; the engine-loads record): a truck left with its
+    /// grab out would otherwise drain its tank standing.</summary>
+    public bool FuelFromModel => false;
 
     ThingOwner Cargo => Vehicle.inventory.innerContainer;
 

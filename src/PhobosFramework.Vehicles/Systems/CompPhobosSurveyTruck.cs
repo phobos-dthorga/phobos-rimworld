@@ -88,6 +88,9 @@ public sealed class CompPhobosSurveyTruck : CompPhobosRigWork
 
     public override bool WantsEngine => deployed && power.EngineWanted;
     public override float EngineDemand => Demand(power.Recharging || power.Fast ? Props.highIdleShare : 0f);
+    /// <summary>The high idle is a speed, not work at the shaft (Framework 0.131.0): the instruments reach the engine through the alternator.
+    /// Overdrive is the one case it works the engine itself.</summary>
+    public override float WorkPowerShare => Overdrive ? 1f : 0f;
     protected override VehicleStatDef WorkStat => RigDefOf.Phobos_ScanRate;
     protected override float FuelPerDay => Props.idleFuelPerDay;
     /// <summary>Drawn whenever it is set up, as the game's scanner draws whenever it is on: a net that cannot carry it then shows as not plugged in, rather than flickering.</summary>

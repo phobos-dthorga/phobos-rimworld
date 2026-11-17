@@ -662,7 +662,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             Engine = Engine.WithDrive((float)train.Result.Rpm, (float)train.Result.Load);
             EngineLoad = Engine.Load;
             // Step S4 (Framework 0.130.0): a fault's lost power holding the vehicle back where power runs short.
-            if (EnginePowerFactor < 1f && train.Result.Limit == DriveLimit.Power) Seen.Note("vehicles.engine-power-lost", Vehicle, EnginePowerFactor.ToStringPercent());
+            if (EnginePowerFactor < 1f && train.Result.Limit == DriveLimit.Power && SeenInPlay.On) Seen.Note("vehicles.engine-power-lost", Vehicle, EnginePowerFactor.ToStringPercent());
         }
     }
 
@@ -928,6 +928,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         engineDemands ??= vehicle.AllComps.OfType<IVehicleEngineDemand>().ToList();
         WorkTurningEngine = false;
         bool workWanted = false;
+        bool workByModel = true;
+        float workPower = 0f;
         foreach (IVehicleEngineDemand demand in engineDemands)
         {
             if (demand.WantsEngine) workWanted = true;
@@ -935,7 +937,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             EngineRunning = true;
             WorkTurningEngine = true;
             EngineLoad = Mathf.Max(EngineLoad, demand.EngineDemand);
+            workPower = Mathf.Max(workPower, demand.WorkPowerShare);
+            workByModel &= demand.FuelFromModel;
         }
+        WorkPowerShare = WorkTurningEngine ? workPower : 0f;
+        WorkFuelFromModel = WorkTurningEngine && workByModel && ModelBurnsWorkFuel;
         // T6 (Framework 0.106.0): whether the engine turned at the last look that still found fuel; frozen once the tank is empty, so a
         // tank that ran dry under a running engine is told from one drained while parked. Derived, never saved.
         if (hasFuel) ranWithFuel = EngineRunning;
@@ -956,10 +962,23 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         bool wanted = drafted || caravanMoving || flying || (train?.IsAircraft == true && train.AircraftRunning) || workWanted;
         EngineWhy why = EngineStateRule.Why(BatteryDrive is { OnBattery: true }, EngineRunning, wanted, hasFuel, flying || (train?.IsAircraft == true && EngineRunning),
             Moving, WorkTurningEngine);
-        // Step S1 (Framework 0.130.0): the engine's one picture, put together here and nowhere else.
-        Engine = new EngineState(why, EngineRunning ? EngineRpm(AlternatorFallbackIdleRpm, AlternatorFallbackCruiseRpm) : 0f, driveLoad, AccessoryLoad());
+        // Step S1 (Framework 0.130.0): the engine's one picture, put together here and nowhere else. Since 0.131.0 the loads' share is the
+        // whole ledger's: the alternator and everything else the engine drives.
+        float rpm = EngineRunning ? EngineRpm(AlternatorFallbackIdleRpm, AlternatorFallbackCruiseRpm) : 0f;
+        Engine = new EngineState(why, rpm, driveLoad, ReadLedger(rpm));
         EngineLoad = Engine.Load;
     }
+
+    /// <summary>The share of the engine's rated power standing work takes at the shaft now (Framework 0.131.0); 0 with none. Derived.</summary>
+    public float WorkPowerShare { get; private set; }
+
+    /// <summary>Whether the engine model burns the fuel for the standing work going on now (Framework 0.131.0): fuel follows engine load,
+    /// the vehicle has a full ground drivetrain, and every work turning the engine allows it. Then the work burns no rate of its own.</summary>
+    public bool WorkFuelFromModel { get; private set; }
+
+    /// <summary>Whether this vehicle's work fuel could come from the engine model at all.</summary>
+    public bool ModelBurnsWorkFuel => VehicleFittings.FuelFollowsModel && Powertrain is { Full: true, Ground: true }
+        && Vehicle.CompFueledTravel?.Props.electricPowered != true;
 
     /// <summary>The engine's one picture (Framework 0.130.0, step S1): whether it turns and why, its speed, and the shares of its power that
     /// driving and the loads take. Put together at each update and refreshed by the once-a-second drive sample. Derived, never saved.</summary>
@@ -973,16 +992,187 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// Derived on each update, never saved.</summary>
     public float AccessoryShare => Engine.AccessoryShare;
 
-    float AccessoryLoad()
+    // ---- The engine-load ledger (Framework 0.131.0; docs/development/vehicle-engine-loads.md) ----
+
+    readonly List<ShaftLoadNow> shaftLoads = new();
+
+    /// <summary>What the engine drives besides the wheels at the last look, each with the shaft power it took: the alternator first, then
+    /// every <see cref="PhobosVehicleShaftLoadDef"/> working. Derived, never saved.</summary>
+    public IReadOnlyList<ShaftLoadNow> ShaftLoads => shaftLoads;
+
+    /// <summary>All of it together, kW.</summary>
+    public float LedgerKw { get; private set; }
+
+    /// <summary>The part that comes off the power left for driving, kW: everything but the baseline loads a rated figure already includes.</summary>
+    public float LedgerExtraKw { get; private set; }
+
+    /// <summary>The same as a share of the engine's rated power, for the world map's range.</summary>
+    public float LedgerExtraShare { get; private set; }
+
+    /// <summary>The share of what it is asked to carry that the drive belt passes now: 1 gripping, less slipping, 0 snapped.</summary>
+    public float BeltGrip { get; private set; } = 1f;
+
+    const string BeltRole = "Belt";
+    const string AlternatorRole = "Alternator";
+    static string? alternatorLabel;
+
+    /// <summary>
+    /// Works the ledger out for this look and returns its share of the engine's rated power: 0 with the player's setting off, the engine
+    /// stopped, no rated power known, or an electric vehicle (its loads draw on the traction battery). The alternator is charged for the
+    /// amps it actually makes: what the loads draw and what the batteries take, never more than it can give at this speed.
+    /// </summary>
+    float ReadLedger(float rpm)
     {
-        // The camp loads count too while the engine runs (Framework 0.129.0): the alternator puts back into the house battery what they draw.
-        float amps = loadAmps + CampLoadAmps;
-        if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || !EngineRunning || amps <= 0f) return 0f;
+        shaftLoads.Clear();
+        LedgerKw = 0f;
+        LedgerExtraKw = 0f;
+        LedgerExtraShare = 0f;
+        BeltGrip = 1f;
+        Powertrain? train = Powertrain;
+        if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || !EngineRunning || train == null || states == null || states.Count == 0) return 0f;
         if (Vehicle.CompFueledTravel?.Props.electricPowered == true) return 0f;
-        double rated = Powertrain?.Spec.RatedPowerKw ?? 0;
-        // Framework 0.130.0 (step S5): the alternator's efficiency follows its speed, from the rules Def (Remy's typical 55 %).
-        return (float)AccessoryRules.EngineShare(amps, ElectricalVolts(), rated, Rules.alternatorEfficiency.Evaluate(AlternatorRpm()));
+        double rated = train.Spec.RatedPowerKw;
+        if (rated <= 0) return 0f;
+        PhobosVehicleRulesDef rules = Rules;
+        double alternatorKw = ShaftLoadRule.AlternatorKilowatts(
+            ShaftLoadRule.AlternatorOutputAmps(AlternatorSupplyAmps(), loadAmps + CampLoadAmps, ChargingAmps()), ElectricalVolts(),
+            rules.alternatorEfficiency.Evaluate(AlternatorRpm()));
+        // An aircraft's generator is on its engine's gearbox and its other loads are bleed air (the turbine design): only the generator here.
+        bool ground = train.Ground && !train.IsAircraft;
+        double beltKw = alternatorKw, otherKw = 0, baselineKw = 0;
+        if (alternatorKw > 0) shaftLoads.Add(new ShaftLoadNow(alternatorLabel ??= "PhobosVehicleLedger_Alternator".Translate().Resolve(), (float)alternatorKw));
+        int firstDef = shaftLoads.Count;
+        if (ground)
+        {
+            var context = new SystemContext(this, states[0]);
+            List<PhobosVehicleShaftLoadDef> defs = ShaftLoadDefs;
+            for (int i = 0; i < defs.Count; i++)
+            {
+                PhobosVehicleShaftLoadDef def = defs[i];
+                double kw = ShaftKilowatts(def, context, rpm, train);
+                if (kw <= 0) continue;
+                if (def.beltDriven) beltKw += kw;
+                else otherKw += kw;
+                if (def.baseline) baselineKw += kw;
+                shaftLoads.Add(new ShaftLoadNow(def.label, (float)kw));
+                beltDrivenNow.Add(def.beltDriven);
+            }
+        }
+        // The belt passes only what it can carry (a slipping belt underdrives everything on it; a snapped one drives nothing).
+        float beltCondition = PartEfficiency(BeltRole, -1f);
+        double grip = beltCondition < 0f ? 1 : ShaftLoadRule.BeltGrip(beltKw, rules.beltCapacityShare, rated, beltCondition);
+        if (grip < 1)
+        {
+            int flag = 0;
+            for (int i = 0; i < shaftLoads.Count; i++)
+            {
+                bool onBelt = i < firstDef || beltDrivenNow[flag++];
+                if (onBelt) shaftLoads[i] = new ShaftLoadNow(shaftLoads[i].Label, (float)(shaftLoads[i].Kilowatts * grip));
+            }
+            NoticeBeltSlip((float)grip, beltCondition);
+        }
+        beltDrivenNow.Clear();
+        BeltGrip = (float)grip;
+        // The baseline loads are all on the belt or steady; a slipping belt takes their share down with the rest.
+        double total = beltKw * grip + otherKw;
+        double baselineTaken = baselineKw * grip;
+        LedgerKw = (float)total;
+        LedgerExtraKw = (float)System.Math.Max(0, total - baselineTaken);
+        LedgerExtraShare = (float)System.Math.Min(1, LedgerExtraKw / rated);
+        if (LedgerExtraKw > 0f && SeenInPlay.On) Seen.Note("vehicles.engine-loads", Vehicle, LedgerKw.ToString("0.0") + " kW");
+        return (float)System.Math.Min(1, total / rated);
     }
+
+    /// <summary>Whether each ledger entry after the alternator is on the belt, in step with <see cref="shaftLoads"/> while a look is worked out.</summary>
+    readonly List<bool> beltDrivenNow = new();
+
+    static List<PhobosVehicleShaftLoadDef>? shaftLoadDefs;
+
+    /// <summary>Every shaft load Def, in the order the Systems tab lists them.</summary>
+    static List<PhobosVehicleShaftLoadDef> ShaftLoadDefs =>
+        shaftLoadDefs ??= DefDatabase<PhobosVehicleShaftLoadDef>.AllDefsListForReading.OrderBy(d => d.order).ThenBy(d => d.defName).ToList();
+
+    static double ShaftKilowatts(PhobosVehicleShaftLoadDef def, SystemContext context, double rpm, Powertrain train)
+    {
+        if (def.available != null && !def.available.Holds(context)) return 0;
+        if (def.when != null && !def.when.Holds(context)) return 0;
+        double inputs = 1;
+        for (int i = 0; i < def.inputs.Count && inputs > 0; i++) inputs *= def.inputs[i].Evaluate(context);
+        return ShaftLoadRule.Kilowatts(def.kilowatts, def.shareOfRated, train.Spec.RatedPowerKw, rpm, train.Spec.RatedRpm, def.speedExponent, inputs);
+    }
+
+    /// <summary>
+    /// What the baseline loads take at an engine speed, kW: the standing set a rated figure already includes, which the fuel model counts
+    /// into its nominal cruise so that a cruise still burns the author's rate. 0 with the player's setting off or on an electric vehicle.
+    /// </summary>
+    public double BaselineShaftKwAt(double rpm)
+    {
+        Powertrain? train = Powertrain;
+        if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || train == null || !train.Ground || train.IsAircraft || states == null || states.Count == 0) return 0;
+        if (Vehicle.CompFueledTravel?.Props.electricPowered == true) return 0;
+        var context = new SystemContext(this, states[0]);
+        double total = 0;
+        List<PhobosVehicleShaftLoadDef> defs = ShaftLoadDefs;
+        for (int i = 0; i < defs.Count; i++)
+        {
+            PhobosVehicleShaftLoadDef def = defs[i];
+            if (!def.baseline || (def.available != null && !def.available.Holds(context))) continue;
+            total += ShaftLoadRule.Kilowatts(def.kilowatts, def.shareOfRated, train.Spec.RatedPowerKw, rpm, train.Spec.RatedRpm, def.speedExponent, 1);
+        }
+        return total;
+    }
+
+    /// <summary>What the alternator can give now, in amps: its rating, by its own and its belt's condition and its speed.</summary>
+    double AlternatorSupplyAmps()
+    {
+        if (states == null) return 0;
+        foreach (SystemState state in states)
+        {
+            if (!Enabled(state) || !state.system.parameters.ContainsKey(AlternatorAmpsParameter)) continue;
+            return new SystemContext(this, state).Parameter(AlternatorAmpsParameter) * PartEfficiency(AlternatorRole, 1f) * PartEfficiency(BeltRole, 1f)
+                * AlternatorOutputShare();
+        }
+        return 0;
+    }
+
+    const string AlternatorAmpsParameter = "alternatorAmps";
+
+    /// <summary>What the batteries were taking from the alternator at the last update, in amps: the flows into the starting battery and
+    /// the house battery, which with the engine running are the alternator's alone (shore charging runs only with it stopped).</summary>
+    double ChargingAmps() => IntoAmps("charge", "batteryAmpHours") + IntoAmps(HouseChargeQuantity, "houseAmpHours");
+
+    double IntoAmps(string quantity, string ampHoursParameter)
+    {
+        if (states == null) return 0;
+        foreach (SystemState state in states)
+        {
+            int q = state.Def.QuantityIndex(quantity);
+            if (q < 0 || !Enabled(state)) continue;
+            double perHour = 0;
+            foreach (FlowSample sample in state.samples)
+            {
+                if (sample.Quantity == q && sample.Kind == FlowKind.Into) perHour += sample.Rate;
+            }
+            return perHour * new SystemContext(this, state).Parameter(ampHoursParameter);
+        }
+        return 0;
+    }
+
+    /// <summary>A role's working share for what it drives (Framework 0.131.0): its parts' condition, and for the drive belt what a slipping
+    /// belt still passes. The alternator's supply and the water pump's flow read this, so a loaded, worn belt underdrives both.</summary>
+    public float DriveShare(string role, float missing = 1f) => PartEfficiency(role, missing) * (role == BeltRole ? BeltGrip : 1f);
+
+    void NoticeBeltSlip(float grip, float beltCondition)
+    {
+        if (grip >= BeltSlipNoticed || beltCondition <= 0f || Vehicle?.Faction != Faction.OfPlayer) return;
+        Seen.Note("vehicles.belt-slipping", Vehicle, grip.ToStringPercent());
+        if (!MayNotify("beltSlip", Rules.messageCooldownHours)) return;
+        VehicleNotices.Send("PhobosVehicleSystems_MsgBeltSlipping".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle,
+            MessageTypeDefOf.NegativeEvent);
+    }
+
+    /// <summary>A belt passing less than this share of its load is worth telling the player about (authored).</summary>
+    const float BeltSlipNoticed = 0.9f;
 
     /// <summary>How fast the alternator turns now, in rpm: the engine's speed times its Def's alternator ratio (check C4). Derived.</summary>
     public float AlternatorRpm() => EngineRpm(AlternatorFallbackIdleRpm, AlternatorFallbackCruiseRpm) * (float)(Powertrain?.AlternatorRatio ?? EngineXml.DefaultAlternatorRatio);
@@ -1158,7 +1348,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     }
 
     /// <summary>The generator's working share: the alternator's efficiency times its drive belt's, 1 when sound or not modelled.</summary>
-    float GeneratorShare() => PartEfficiency("Alternator", 1f) * PartEfficiency("Belt", 1f);
+    float GeneratorShare() => PartEfficiency(AlternatorRole, 1f) * DriveShare(BeltRole);
 
     /// <summary>Whether the vehicle's loads have power now (check C1, Framework 0.129.1; <see cref="ElectricsRule.LoadsPowered"/>): the one
     /// answer every load, switch, weapon drive and fitting reads. Derived at each update, never saved; true until the first.</summary>
