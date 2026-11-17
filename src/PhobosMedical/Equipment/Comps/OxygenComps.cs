@@ -130,9 +130,25 @@ public class Hediff_PhobosOnOxygen : HediffWithComps
     /// <summary>A patient's breathing with every breathing treatment left out: what their own body manages.</summary>
     public static float BreathingWithoutTreatments(Pawn patient)
     {
+        // With no breathing treatment on the patient there is nothing to leave out, and the game's own remembered figure is the same
+        // one. The full calculation below walks the whole body, and doctors ask this for every patient and every device they consider.
+        if (!HasBreathingTreatment(patient)) return patient.health.capacities.GetLevel(PawnCapacityDefOf.Breathing);
         MeasuringWithout = true;
         try { return PawnCapacityUtility.CalculateCapacityLevel(patient.health.hediffSet, PawnCapacityDefOf.Breathing); }
         finally { MeasuringWithout = false; }
+    }
+
+    /// <summary>Whether the patient carries a condition whose stage answers to <see cref="MeasuringWithout"/>: oxygen, hand ventilation
+    /// or a ventilator. A dead pawn's remembered figure is zero, so it takes the full calculation, as before.</summary>
+    static bool HasBreathingTreatment(Pawn patient)
+    {
+        if (patient.Dead) return true;
+        List<Hediff> hediffs = patient.health.hediffSet.hediffs;
+        for (int i = 0; i < hediffs.Count; i++)
+        {
+            if (hediffs[i] is Hediff_PhobosOnOxygen || hediffs[i] is Hediff_PhobosVentilated) return true;
+        }
+        return false;
     }
 
     public void SetRaisesBreathing(bool value)

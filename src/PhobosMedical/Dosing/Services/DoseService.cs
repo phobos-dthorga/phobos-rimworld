@@ -104,29 +104,59 @@ public static class DoseService
 
     /// <summary>
     /// The decision for a patient. With a doctor, items come from the doctor's inventory first, then the nearest reachable
-    /// unforbidden stack; without one (the dev action), from the map around the patient.
+    /// unforbidden stack; without one (the dev action), from the map around the patient. Reach is looked for only for the item the
+    /// rule would choose, and the next best when that one is out of reach; <paramref name="everyItem"/> looks for all of them, so
+    /// the dev action can say which are out of reach.
     /// </summary>
-    public static DoseDecision Decide(Pawn? doctor, Pawn patient)
+    public static DoseDecision Decide(Pawn? doctor, Pawn patient, bool everyItem = false)
     {
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
         DosingSettings settings = DosingMod.Settings;
         DoseNeed painNeed = NeedOf(patient, rules);
-        DoseDecision? pain = painNeed == DoseNeed.None ? null : DecideFor(doctor, patient, painNeed, DoseIndex.Options, rules, settings);
+        DoseDecision? pain = painNeed == DoseNeed.None ? null : DecideFor(doctor, patient, painNeed, DoseIndex.Options, rules, settings, everyItem);
         if (pain?.Chosen != null) return pain;
         // Held back from pain relief, or nothing in reach for it: the disease may still have a dose waiting.
         if (settings.immunityDosing && LosingToDisease(patient, rules))
         {
-            DoseDecision immunity = DecideFor(doctor, patient, DoseNeed.Immunity, DoseIndex.ImmunityOptions, rules, settings);
+            DoseDecision immunity = DecideFor(doctor, patient, DoseNeed.Immunity, DoseIndex.ImmunityOptions, rules, settings, everyItem);
             if (immunity.Chosen != null || pain == null) return immunity;
         }
         return pain ?? new DoseDecision { Need = DoseNeed.None };
     }
 
-    static DoseDecision DecideFor(Pawn? doctor, Pawn patient, DoseNeed need, IReadOnlyList<DoseOption> options, PhobosDosingRulesDef rules, DosingSettings settings)
+    static DoseLimits DoctorLimits(PhobosDosingRulesDef rules, DosingSettings settings) =>
+        new(rules.redoseBelowFraction, rules.overdoseLimit, rules.capacityFloor, settings.recreationalForPain, settings.ignoreAversionForMedical, rules.bleedHoldRate);
+
+    /// <summary>
+    /// Whether the rules would let anyone give this patient a dose right now, wherever the items are: the same safety and the same
+    /// choice as <see cref="Decide"/>, without looking for anything. The patient list asks this once per rebuild, so a patient in
+    /// pain whose last dose is still working costs the doctors nothing until it wears off.
+    /// </summary>
+    public static bool AnyDoseAllowed(Pawn patient, DosingSettings settings, PhobosDosingRulesDef rules)
+    {
+        DoseNeed painNeed = NeedOf(patient, rules);
+        if (painNeed != DoseNeed.None && AnyAllowed(patient, painNeed, DoseIndex.Options, rules, settings)) return true;
+        return settings.immunityDosing && LosingToDisease(patient, rules) && AnyAllowed(patient, DoseNeed.Immunity, DoseIndex.ImmunityOptions, rules, settings);
+    }
+
+    static bool AnyAllowed(Pawn patient, DoseNeed need, IReadOnlyList<DoseOption> options, PhobosDosingRulesDef rules, DosingSettings settings)
+    {
+        HediffSet set = patient.health.hediffSet;
+        DoseLimits limits = DoctorLimits(rules, settings);
+        float painkillerActive = PainkillerActive(options, set, false);
+        candidates.Clear();
+        for (int i = 0; i < options.Count; i++)
+        {
+            candidates.Add(new DoseCandidate(options[i].Effect, Evaluate(options[i], patient, need, painkillerActive, limits) == DoseRefusal.None));
+        }
+        return DoseChoiceRule.Choose(candidates, need, set.BleedRateTotal > 0f, rules.Weights) >= 0;
+    }
+
+    static DoseDecision DecideFor(Pawn? doctor, Pawn patient, DoseNeed need, IReadOnlyList<DoseOption> options, PhobosDosingRulesDef rules, DosingSettings settings, bool everyItem)
     {
         var decision = new DoseDecision { Need = need };
         bool bleeding = patient.health.hediffSet.BleedRateTotal > 0f;
-        var limits = new DoseLimits(rules.redoseBelowFraction, rules.overdoseLimit, rules.capacityFloor, settings.recreationalForPain, settings.ignoreAversionForMedical, rules.bleedHoldRate);
+        DoseLimits limits = DoctorLimits(rules, settings);
         // A medical painkiller still working blocks every other painkiller: relief and costs stack. A sedative may still
         // follow at extreme pain; it is checked against its own conditions only.
         float painkillerActive = PainkillerActive(options, patient.health.hediffSet, false);
@@ -137,18 +167,46 @@ public static class DoseService
             bool present = IsPresent(doctor, patient, option.Def);
             DoseRefusal refusal = DoseRefusal.None;
             Thing? item = null;
-            if (present)
+            // The rules first and the search last: reach is the only costly check, and most options never need it.
+            if (present) refusal = Evaluate(option, patient, decision.Need, painkillerActive, limits);
+            bool allowed = present && refusal == DoseRefusal.None;
+            if (allowed && everyItem)
             {
-                // The rules first and the path search last: reach is the only costly check, and most options never need it.
-                refusal = Evaluate(option, patient, decision.Need, painkillerActive, limits);
-                if (refusal == DoseRefusal.None) item = FindItem(doctor, patient, option.Def);
+                item = FindItem(doctor, patient, option.Def);
+                allowed = item != null;
             }
-            candidates.Add(new DoseCandidate(option.Effect, item != null));
+            candidates.Add(new DoseCandidate(option.Effect, allowed));
             decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, need, bleeding, rules.Weights)));
         }
-        int chosen = DoseChoiceRule.Choose(candidates, need, bleeding, rules.Weights);
-        if (chosen >= 0) decision.Chosen = decision.Verdicts[chosen];
+        ChooseInReach(decision, doctor, patient, false, bleeding, rules.Weights);
         return decision;
+    }
+
+    /// <summary>
+    /// The rule's choice among the options the safety rule allows, looking for an item only once the rule has chosen it. An item out
+    /// of reach is struck out and the rule asked again, so the answer is the one it would give with every item looked for first:
+    /// the best allowed option that someone can actually fetch. Reads and rewrites the shared candidate list.
+    /// </summary>
+    static void ChooseInReach(DoseDecision decision, Pawn? doctor, Pawn patient, bool own, bool bleeding, DoseWeights weights)
+    {
+        while (true)
+        {
+            int chosen = DoseChoiceRule.Choose(candidates, decision.Need, bleeding, weights);
+            if (chosen < 0) return;
+            DoseVerdict verdict = decision.Verdicts[chosen];
+            if (verdict.Item == null)
+            {
+                Thing? item = own ? FindOwnItem(patient, verdict.Option.Def) : FindItem(doctor, patient, verdict.Option.Def);
+                verdict = new DoseVerdict(verdict.Option, item, verdict.Present, verdict.Refusal, verdict.Score);
+                decision.Verdicts[chosen] = verdict;
+            }
+            if (verdict.Item != null)
+            {
+                decision.Chosen = verdict;
+                return;
+            }
+            candidates[chosen] = new DoseCandidate(verdict.Option.Effect, false);
+        }
     }
 
     /// <summary>
@@ -228,7 +286,7 @@ public static class DoseService
     /// What this pawn would take for themself, whatever their state: the same safety and the same choice as a doctor's, with the
     /// drug policy as the gate. Any painkiller still working blocks the next, recreational ones too, or highs would stack.
     /// </summary>
-    public static DoseDecision SelfDecide(Pawn pawn)
+    public static DoseDecision SelfDecide(Pawn pawn, bool everyItem = false)
     {
         PhobosDosingRulesDef rules = PhobosDosingRulesDef.Current;
         int desire = DrugDesire(pawn);
@@ -249,16 +307,17 @@ public static class DoseService
             bool present = IsPresent(pawn, pawn, option.Def);
             DoseRefusal refusal = DoseRefusal.None;
             Thing? item = null;
-            if (present)
+            if (present) refusal = PolicyPermits(pawn, policy, option, desire) ? Evaluate(option, pawn, decision.Need, painkillerActive, limits) : DoseRefusal.PolicyForbids;
+            bool allowed = present && refusal == DoseRefusal.None;
+            if (allowed && everyItem)
             {
-                refusal = PolicyPermits(pawn, policy, option, desire) ? Evaluate(option, pawn, decision.Need, painkillerActive, limits) : DoseRefusal.PolicyForbids;
-                if (refusal == DoseRefusal.None) item = FindOwnItem(pawn, option.Def);
+                item = FindOwnItem(pawn, option.Def);
+                allowed = item != null;
             }
-            candidates.Add(new DoseCandidate(option.Effect, item != null));
+            candidates.Add(new DoseCandidate(option.Effect, allowed));
             decision.Verdicts.Add(new DoseVerdict(option, item, present, refusal, DoseChoiceRule.Score(option.Effect, bleeding, rules.Weights)));
         }
-        int chosen = DoseChoiceRule.Choose(candidates, decision.Need, bleeding, rules.Weights);
-        if (chosen >= 0) decision.Chosen = decision.Verdicts[chosen];
+        ChooseInReach(decision, pawn, pawn, true, bleeding, rules.Weights);
         return decision;
     }
 
@@ -295,17 +354,19 @@ public static class DoseService
             thing => thing.IngestibleNow && !thing.IsForbidden(pawn) && !thing.IsBurning() && pawn.CanReserve(thing, 10, 1) && thing.IsSociallyProper(pawn));
     }
 
-    /// <summary>The job for a doctor to give the chosen item, or null with the first refusal set as the job fail reason.</summary>
-    public static Job? MakeJob(Pawn doctor, Pawn patient)
+    /// <summary>The job for a doctor to give the chosen item, or null. With <paramref name="explain"/> (the doctor's right-click), the
+    /// first refusal is set as the reason the menu shows; an ordinary look for work builds no text nobody will read.</summary>
+    public static Job? MakeJob(Pawn doctor, Pawn patient, bool explain = false)
     {
         DoseDecision decision = Decide(doctor, patient);
         if (decision.Chosen is DoseVerdict chosen && chosen.Item != null)
         {
             Job job = JobMaker.MakeJob(DosingDefOf.PhobosDose, chosen.Item, patient);
             job.count = 1;
+            Medical.Seen.Note("medical.dose-job-made", patient, chosen.Option.Def.label);
             return job;
         }
-        JobFailReason.Is(ReasonText(decision));
+        if (explain) JobFailReason.Is(ReasonText(decision));
         return null;
     }
 
@@ -375,14 +436,13 @@ public static class DoseService
         for (int i = 0; i < things.Count; i++)
         {
             Thing thing = things[i];
-            if (!thing.Spawned || thing.IsForbidden(seeker) || thing.IsBurning()) continue;
-            if (doctor != null && (!doctor.CanReserve(thing, 10, 1) || !doctor.CanReach(thing, PathEndMode.ClosestTouch, Danger.Some))) continue;
+            if (!thing.Spawned) continue;
+            // Distance first: the reservation and reach checks are the costly ones, and only a stack nearer than the best so far can win.
             float distance = (thing.Position - seeker.Position).LengthHorizontalSquared;
-            if (distance < bestDistance)
-            {
-                bestDistance = distance;
-                best = thing;
-            }
+            if (distance >= bestDistance || thing.IsForbidden(seeker) || thing.IsBurning()) continue;
+            if (doctor != null && (!doctor.CanReserve(thing, 10, 1) || !doctor.CanReach(thing, PathEndMode.ClosestTouch, Danger.Some))) continue;
+            bestDistance = distance;
+            best = thing;
         }
         return best;
     }

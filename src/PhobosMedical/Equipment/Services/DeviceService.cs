@@ -105,6 +105,7 @@ public static class DeviceService
             }
             Job job = JobMaker.MakeJob(MedicalDefOf.PhobosMedical_UseDevice, item, patient);
             job.count = 1;
+            Seen.Note("medical.device-job-made", patient, def.label);
             return job;
         }
         if (explain && anyPatient && DeviceRule.WorthTelling(reason))

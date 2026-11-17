@@ -13,6 +13,35 @@ entry says the owner tested it.
 - A comment in the oxygen chain's Defs names the design record its electrolysis source now lives in. No change in play.
 - Comments in the second equipment set's Defs no longer call its art a placeholder: the owner's picks shipped in 0.14.1. No change in play.
 
+## [0.17.1] - 2026-11-17 - Draft
+
+Doctors looking for work cost less with many wounded on the map
+
+### Fixed
+
+- **A doctor looking for work no longer recalculates every patient's breathing from the whole body.** Each check of whether a patient
+  needs oxygen, a hand pump or a ventilator did that calculation afresh, for every kit, every patient and every doctor, and again for
+  each of the three kit jobs with Search and Rescue. A patient with no breathing treatment on them now uses the figure the game already
+  keeps, which is the same number. Patients on oxygen, a hand pump or a ventilator are still measured in full, as before.
+- **Painkiller and disease dosing is decided once for all doctors, not once per doctor.** A patient in pain whose last dose is still
+  working, or whom the safety rules hold back, used to be weighed again by every doctor each time they looked for work, against every
+  pain-relieving item in the game. The patient list now holds only patients someone may dose right now. It is rebuilt every 250 ticks
+  as before, so a patient can wait up to that long after a dose wears off, as they already could after falling ill.
+- **A doctor looks for one item, not all of them.** The best allowed item is chosen first and only that one is looked for; the next
+  best is tried only if the first is out of reach. The choice is the same one as before. Self-medication works the same way.
+- **The triage pass asks for each surgeon's success chance once per operation and pass**, not once per patient and condition.
+- Refusal text for dosing is built only for a right-click, where it is shown.
+
+### Compatibility and limits
+
+- Found by reading the code against the owner's save of 17 November 2026 (25 downed people, 16 of them prisoners, on one map). No
+  timing was measured in play, so how much of the slow-down this removes is not known; other mods' doctoring work is not changed.
+- No settings were added or changed. Two seen-in-play notes were added for testing. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.17.0] - 2026-11-16 - Draft
 
 Search and Rescue's field responders use our kits where a colonist fell

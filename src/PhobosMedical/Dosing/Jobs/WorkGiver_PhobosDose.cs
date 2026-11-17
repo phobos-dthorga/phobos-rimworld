@@ -9,7 +9,9 @@ namespace Phobos.Dosing.Jobs;
 
 /// <summary>
 /// Doctor work: give a resting patient in severe pain, or losing to a disease, the best dose within reach. Reads the per-map patient cache and
-/// delegates the decision to the service; it mutates nothing itself.
+/// delegates the decision to the service; it mutates nothing itself. The cache lists only patients the rules would let someone dose now,
+/// so a ward full of patients whose last dose is still working costs a doctor looking for work nothing; a right-click reads the patient
+/// directly and still says why.
 /// </summary>
 public class WorkGiver_PhobosDose : WorkGiver_Scanner
 {
@@ -35,8 +37,8 @@ public class WorkGiver_PhobosDose : WorkGiver_Scanner
             return false;
         }
         if (!pawn.CanReserve(patient, 1, -1, null, forced)) return false;
-        return DoseService.MakeJob(pawn, patient) != null;
+        return DoseService.MakeJob(pawn, patient, explain: forced) != null;
     }
 
-    public override Job? JobOnThing(Pawn pawn, Thing t, bool forced = false) => t is Pawn patient ? DoseService.MakeJob(pawn, patient) : null;
+    public override Job? JobOnThing(Pawn pawn, Thing t, bool forced = false) => t is Pawn patient ? DoseService.MakeJob(pawn, patient, explain: forced) : null;
 }

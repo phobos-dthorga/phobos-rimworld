@@ -43,6 +43,8 @@ public static class TriagePlanner
     static readonly List<RecipeDef> candidateRecipes = new();
     static readonly List<BodyPartRecord?> candidateParts = new();
     static readonly Dictionary<RecipeDef, bool> ingredientsPresent = new();
+    /// <summary>The best surgeon's chance for a recipe, for this pass: reading it asks every colonist for a stat the game does not keep.</summary>
+    static readonly Dictionary<RecipeDef, float> bestSurgeon = new();
     static readonly Dictionary<Hediff, ConditionClass> classes = new();
     static readonly List<Bill> ownBills = new();
     /// <summary>Patients and conditions already told about: one "no one can operate" message each. Derived; a reload may repeat one.</summary>
@@ -55,6 +57,7 @@ public static class TriagePlanner
         entries.Clear();
         patientsWithBills.Clear();
         ingredientsPresent.Clear();
+        bestSurgeon.Clear();
         TriageSettings settings = TriageMod.Settings;
         PhobosTriageRulesDef rules = PhobosTriageRulesDef.Current;
         TriageBillLedger? ledger = TriageBillLedger.Current;
@@ -154,7 +157,7 @@ public static class TriagePlanner
             RecipeDef recipe = operation.Recipe;
             if (!TryPart(pawn, recipe, hediff, out BodyPartRecord? part)) continue;
             bool researchDone = recipe.AvailableNow;
-            float best = doctorExists ? Doctors.BestSurgeonSuccess(map, recipe, pawn) : -1f;
+            float best = doctorExists ? BestSurgeon(map, recipe, pawn) : -1f;
             bool present = IngredientsPresent(recipe, map);
             bool careAllows = Patients.CareAllows(pawn, MedicalCareCategory.NoMeds, operation.NeedsMedicine);
             bool violation = recipe.Worker.IsViolationOnPawn(pawn, part, Faction.OfPlayer);
@@ -213,6 +216,21 @@ public static class TriagePlanner
             }
         }
         return false;
+    }
+
+    /// <summary>
+    /// The best surgeon's chance for this recipe, read once per pass. A patient who could doctor right now is left out of their own
+    /// operation, so their answer is worked out for them alone; everyone else, lying down or not a doctor, shares one answer.
+    /// </summary>
+    static float BestSurgeon(Map map, RecipeDef recipe, Pawn patient)
+    {
+        if (Doctors.CanDoctorNow(patient)) return Doctors.BestSurgeonSuccess(map, recipe, patient);
+        if (!bestSurgeon.TryGetValue(recipe, out float best))
+        {
+            best = Doctors.BestSurgeonSuccess(map, recipe, null);
+            bestSurgeon[recipe] = best;
+        }
+        return best;
     }
 
     static bool IngredientsPresent(RecipeDef recipe, Map map)

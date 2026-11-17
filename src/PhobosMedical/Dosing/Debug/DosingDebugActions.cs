@@ -49,7 +49,7 @@ public static class DosingDebugActions
         foreach (object selected in Find.Selector.SelectedObjects)
         {
             if (selected is not Pawn pawn) continue;
-            DoseDecision decision = DoseService.SelfDecide(pawn);
+            DoseDecision decision = DoseService.SelfDecide(pawn, everyItem: true);
             text.Append('\n').Append(pawn.LabelShort).Append(": pain ").Append(pawn.health.hediffSet.PainTotal.ToString("0.00"))
                 .Append(", blocked by ").Append(DoseService.SelfBlockFor(pawn, DosingMod.Settings, Defs.PhobosDosingRulesDef.Current))
                 .Append(", would take ").Append(decision.Chosen?.Option.Def.defName ?? "nothing");
@@ -69,7 +69,7 @@ public static class DosingDebugActions
         foreach (object selected in Find.Selector.SelectedObjects)
         {
             if (selected is not Pawn pawn) continue;
-            DoseDecision decision = DoseService.Decide(null, pawn);
+            DoseDecision decision = DoseService.Decide(null, pawn, everyItem: true);
             text.Append('\n').Append(pawn.LabelShort).Append(": pain ").Append(pawn.health.hediffSet.PainTotal.ToString("0.00"))
                 .Append(", bleeding ").Append(pawn.health.hediffSet.BleedRateTotal.ToString("0.00"))
                 .Append(", resting ").Append(pawn.Downed || pawn.InBed() ? "yes" : "no")

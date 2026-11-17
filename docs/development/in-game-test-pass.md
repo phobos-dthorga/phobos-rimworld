@@ -6,6 +6,8 @@ result goes into that mod's changelog.
 
 ## Read this first
 
+- **Doctors with many wounded (Medical 0.17.1; 17 Nov 2026): row 166.** Load the save with the downed prisoners and compare the
+  speed with before; the two notes only say a doctor was still given the work.
 - **Serious work at the rig (Framework 0.124.0; 17 Nov 2026): row 165**, with the same install as round four.
 - **Cross-links round four (Framework 0.123.0, Vehicles 0.62.0; 17 Nov 2026): rows 158 to 164.** Riskiest first: **161** (the cold-weather
   pack must not swap fittings back and forth) and **158** (hits on tanks and wiring). Tick **Seen in play** first: each row notes itself.
@@ -273,6 +275,7 @@ Numbered P1 to P4 since 17 Nov 2026; they were 4 to 7, which clashed with the ro
 | 163 | **Boost and the transmission cooler** (Framework 0.123.0) | On a piston vehicle, fit a **turbocharger**, then open the fittings window again; order **high boost**. Then take the turbocharger off. Fit a **transmission cooler** to a gearbox | With the turbocharger on, a **Boost** row (low, standard, high) appears under Engine; after high boost the vehicle is a little faster and hotter. With the turbocharger gone the Boost row disappears and the boost stops counting. The cooler is offered on the gearbox |
 | 164 | **Raiders feel a hurt driver and the dark** (Framework 0.123.0) | Let a raid with vehicles come at night (or use a raid with a downed-then-revived driver); select a raider vehicle and hover its speed | A raider vehicle with a hurt or tired driver, or one with no headlights at night, shows the driver's or the dark's factor in its speed explanation. Raiders with headlights are not slowed by the dark |
 | 165 | **Serious work waits for the dyno bay** (Framework 0.124.0, cross-links S3) | Away from any dyno bay, give a vehicle a badly warped head (dev action **Vehicle systems: give a part condition**, warped cylinder head on the engine, 0.6) and load 15 steel and 3 components aboard. Then drive it to within reach of a working dyno bay | Away from the bay, its inspect line says the machining is waiting to be parked by a dyno bay, and no mechanic starts it. At the bay a mechanic machines the head, and the condition goes. A turbine's hot-section overhaul waits the same way |
+| 166 | **Doctors' work with many wounded** (Medical 0.17.1) | Load the save of 17 Nov with about 25 downed people on the map, unpause at the speed you had, and watch for a minute. Then right-click a patient in pain with a doctor | The game runs faster than it did with the same wounded on the map, or no slower. Doctors still give painkillers and use the oxygen, hand pump and fluids kits as before, and a right-click on a patient who may not be dosed still says why |
 
 ## Trying Vehicle Framework's development build (planned 10 Nov 2026)
 

@@ -27,6 +27,7 @@
     "149": ["vehicles.grid-hook-up"],
     "150": ["vehicles.autonomous-turret-no-power"],
     "152": ["trailers.set-out", "trailers.pack-up"],
+    "166": ["medical.dose-job-made", "medical.device-job-made"],
     "153": ["trailers.field-stove-cooks", "trailers.cold-box-cold"],
     "154": ["trailers.caravan-cooking"],
     "155": ["trailers.shower-plumbing-laid", "trailers.heater-power-saving"],
