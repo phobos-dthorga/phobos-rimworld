@@ -232,6 +232,10 @@
     </onEvents>
     <service>
       <label>a hot-section overhaul</label>
+      <!-- Framework 0.124.0 (cross-links round two S3; owner, 17 Nov 2026): a turbine's hot section is overhauled in a hangar, so it waits for the
+           vehicle to be parked by a working tuning rig. A worn hot section only breaks down more often, never refuses to start or fly, so an
+           aircraft can always come home for it. -->
+      <needsRig>true</needsRig>
       <dueQuantity>hotSectionLife</dueQuantity>
       <dueAbove>1</dueAbove>
       <restores>

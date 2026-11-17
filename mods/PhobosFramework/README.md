@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.123.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.124.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -141,7 +141,7 @@ Under **Options > Mod settings**. RimWorld saves only what you change.
 | Repairs | Destroyed parts need replacing | A part at 0% needs supplies and a mechanic before repair | On |
 | Repairs | Replacing an engine or transmission costs / Replacing any other part costs | The share of the part's materials a replacement takes | 100% / 50% |
 | Repairs | Field fixes | Patch leaks and shorts, and re-fit a thrown track or wrecked wheel, away from a base | On |
-| Repairs | Tunes and changes of grade need a dyno bay | Within reach of a powered dyno bay | On |
+| Repairs | Tunes, changes of grade and heavy overhauls need a dyno bay | Tunes, grade changes, head machining and turbine overhauls wait for a powered dyno bay in reach | On |
 | Repairs | Time to fit and tune / Materials to fit and tune | Quick, shorter, standard or long; light, standard or heavy | Standard / Standard |
 | Repairs | Bigger vehicles cost more to fit and tune | Scales fitting costs by weight | On |
 | Repairs | Power points have the larger socket | Looks only: which picture a working truck's power point uses | Off |

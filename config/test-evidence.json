@@ -37,7 +37,8 @@
     "161": ["vehicles.fitting-done.PhobosFitting_GearReductionStarter", "vehicles.fitting-done.PhobosFitting_FuelHeater", "vehicles.fitting-done.PhobosFitting_CabInsulation", "vehicles.fitting-done.PhobosFitting_BatteryWarmer"],
     "162": ["vehicles.stage.steeringAssist", "vehicles.stage.steeringFluid"],
     "163": ["vehicles.tune-done.PhobosTune_BoostHigh", "vehicles.fitting-done.PhobosFitting_TransmissionCooler"],
-    "164": ["vehicles.lite-tier-slowed"]
+    "164": ["vehicles.lite-tier-slowed"],
+    "165": ["vehicles.rig-service-done"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

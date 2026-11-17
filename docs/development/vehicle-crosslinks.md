@@ -6,7 +6,7 @@ stations should do; round three added the crew, weather and ground, combat damag
 loses before it is a wreck carries on in [knocked out, not destroyed](vehicle-knocked-out-systems.md).
 
 **Status (17 Nov 2026):** round one is built (D'thorga Framework 0.67.0 to 0.70.0); rounds two and three are built except engine braking
-(T5 with F6, held by the owner), S3, and the rows argued against or left for later (G10, G19, G20). Not yet tested in game. Each round's
+(T5 with F6, held by the owner) and the rows argued against or left for later (G10, G19, G20). Not yet tested in game. Each round's
 own status line opens its section.
 
 **The rounds:** [Vehicle system crosslinks: research and record](#vehicle-system-crosslinks-research-and-record-9-nov-2026); [Vehicle crosslinks, round two: deeper chains, more fittings, and what the stations should do](#vehicle-crosslinks-round-two-deeper-chains-more-fittings-and-what-the-stations-should-do-10-nov-2026); [Vehicle cross-links, round three: the crew, weather and ground, combat damage, electrics and hydraulics](#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026).
@@ -223,7 +223,7 @@ engineering references; the figures in the proposals are authored for play, not 
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.73.0 (and Vehicles 0.33.0: T1, T2, T3, S1, S2 and the inspection pit), 0.74.0
 (S4), 0.106.0 (T6) and 0.123.0 (T4, T7 as round three's G8, T8, F2, F3, F4, F5, F7, F8, F10 and the boost tune axis; [what was built](#built-in-framework-01230-17-nov-2026));
-not built: T5 with F6 (engine braking, held by the owner on 17 Nov 2026) and S3. Not yet tested in game, apart from the Diagnose letter
+S3 in 0.124.0 ([below](#s3-serious-work-waits-for-the-rig)); not built: T5 with F6 (engine braking, held by the owner on 17 Nov 2026). Not yet tested in game, apart from the Diagnose letter
 (the owner, 11 Nov 2026: it arrives and lists every part and reading).
 
 The owner, 10 Nov 2026, after the first eight crosslinks were built: "a research and record purview, where we can perhaps do any
@@ -383,6 +383,13 @@ future cracked block, **require the rig**, with the same refusal text the tunes 
 - **Stops them:** rebuilding an engine's top end in a field with a toolbox.
 - **Changes how they play:** a badly warped head means a trip home. Since the slight warp is still fixed by an ordinary repair, no
   vehicle is stranded by it.
+
+**Built in D'thorga Framework 0.124.0 (owner, 17 Nov 2026: "proceed with your recommendations"), not yet tested in game (test row 165).**
+A service may say `needsRig`; machining the warped head and the turbine's hot-section overhaul do. Each waits, with its supplies still
+loaded wherever the vehicle is, until the vehicle is parked within reach of a working rig, and the inspect line says so in the words a
+waiting tune uses. It follows the player's existing setting, now **Tunes, changes of grade and heavy overhauls need a dyno bay** (on):
+turned off, both are worked anywhere again. No aircraft is stranded: a worn hot section only breaks down more often, never refuses to
+start or fly. A cracked block does not exist yet; it would take the same flag.
 
 #### S4. Consumables become items made at the parts bench (the big one)
 

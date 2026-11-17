@@ -2071,16 +2071,22 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         return litres;
     }
 
-    /// <summary>The first due service whose own supplies are all aboard and whose water can be had, or null: a mechanic need not wait
-    /// for another service's supplies.</summary>
+    /// <summary>The first due service whose own supplies are all aboard, whose water can be had, and which needs no rig it is away from,
+    /// or null: a mechanic need not wait for another service's supplies.</summary>
     public SystemState? ReadyService()
     {
         foreach (SystemState state in DueServices())
         {
-            if (state.Def.service != null && SuppliesAboard(state) && WaterReady(state, out _)) return state;
+            if (state.Def.service != null && SuppliesAboard(state) && WaterReady(state, out _) && !WaitsForRig(state)) return state;
         }
         return null;
     }
+
+    /// <summary>Whether a due service is serious work this vehicle must be at a tuning rig for and is not (cross-links S3, Framework 0.124.0).</summary>
+    public bool WaitsForRig(SystemState state) => state.Def.service is { needsRig: true } && !Fittings.AtRig();
+
+    /// <summary>The first due service that waits only for a tuning rig, for the inspect line; null when none does.</summary>
+    public SystemState? ServiceWaitingForRig() => DueServices().FirstOrDefault(WaitsForRig);
 
     /// <summary>Uses the supplies from the cargo, restores the quantities, and says so.</summary>
     public bool CompleteService(Pawn mechanic)
@@ -2096,6 +2102,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         Conditions.ClearBy(service);
         servicedThisRequest.Add(state.Def.defName);
         RecordEvent(VehicleEventKind.Service, state.Def.defName);
+        if (service.needsRig) Seen.Note("vehicles.rig-service-done", Vehicle, service.label);
         if (serviceRequested && !Props.systems.Any(s => s.def.service != null && !servicedThisRequest.Contains(s.def.defName)
                                                          && !VehicleSystemsMod.Settings.disabledSystems.Contains(s.def.defName)))
         {

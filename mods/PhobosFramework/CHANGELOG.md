@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.124.0] - 2026-11-17 - Draft
+
+Serious work waits for the dyno bay
+
+### Added
+
+- **Heavy overhauls need a dyno bay** (cross-links S3): machining a badly warped cylinder head and a turbine's hot-section overhaul now wait
+  until the vehicle is parked within reach of a working dyno bay. Their supplies are still loaded wherever it is, and its inspect line says
+  what it is waiting for. A slightly warped head is still put right by an ordinary repair anywhere, and a worn hot section only breaks down
+  more often, so nothing is stranded far from home. Other modders can mark any service so.
+
+### Changed
+
+- **The setting "Tunes and changes of grade need a dyno bay" is now "Tunes, changes of grade and heavy overhauls need a dyno bay"**, and
+  covers the two overhauls too. Still on by default; turned off, all of them are worked anywhere.
+
+### Compatibility and limits
+
+- Safe to add to a running colony: a head or turbine already waiting for the work simply waits for a dyno bay. New test row 165. Not yet
+  tested in game.
+
 ## [0.123.0] - 2026-11-17 - Draft
 
 Cross-links, round four: brakes and clutches that feel the load, shots that hole tanks and short wiring, wet brakes, dusty filters, power

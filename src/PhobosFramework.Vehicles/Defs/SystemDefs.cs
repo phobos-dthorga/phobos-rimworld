@@ -227,6 +227,10 @@ public class ServiceSpec
     public float dueAbove = float.NaN;
     public float dueBelow = float.NaN;
     public List<ServiceDueRule> alsoDue = new();
+    /// <summary>Serious work that waits for the vehicle to be parked within reach of a working tuning rig (cross-links round two S3,
+    /// Framework 0.124.0; owner, 17 Nov 2026): machining a cylinder head, a turbine's hot-section overhaul. The player's "tunes and changes
+    /// of grade need a dyno bay" setting covers it too (VehicleFittings.AtRig). Supplies are still loaded wherever the vehicle is.</summary>
+    public bool needsRig;
     public List<QuantityRestore> restores = new();
     public List<ThingDefCountClass> supplies = new();
     /// <summary>What the service took before its kit existed (S4, Framework 0.74.0): taken instead of <c>supplies</c> while the colony

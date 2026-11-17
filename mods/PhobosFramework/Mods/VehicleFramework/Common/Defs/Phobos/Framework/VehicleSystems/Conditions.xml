@@ -226,6 +226,9 @@
     <needsServiceFrom>0.4</needsServiceFrom>
     <service>
       <label>machining the cylinder head flat</label>
+      <!-- Framework 0.124.0 (cross-links round two S3; owner, 17 Nov 2026): real head machining needs a machine shop, so it waits for the vehicle to
+           be parked by a working tuning rig. A slight warp is still put right by an ordinary repair anywhere, so nothing is stranded. -->
+      <needsRig>true</needsRig>
       <supplies>
         <Steel>15</Steel>
         <ComponentIndustrial>3</ComponentIndustrial>

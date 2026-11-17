@@ -248,7 +248,8 @@ public sealed class VehicleRepairs
             VehicleComponent? part = comp.Vehicle.statHandler.GetComponent(condition.partKey);
             if (def.service != null && def.NeedsService(condition.severity))
             {
-                var repair = new RepairWork { Key = "service/" + def.defName + "/" + condition.partKey, Kind = RepairKind.ConditionService, Condition = condition, Part = part, Work = def.service.work, Label = def.service.label };
+                // NeedsRig (cross-links S3, Framework 0.124.0): machining a warped head waits for a tuning rig.
+                var repair = new RepairWork { Key = "service/" + def.defName + "/" + condition.partKey, Kind = RepairKind.ConditionService, Condition = condition, Part = part, Work = def.service.work, Label = def.service.label, NeedsRig = def.service.needsRig };
                 repair.Options.Add(def.service.SuppliesNow.Select(s => (s.thingDef, s.count)).ToList());
                 pending.Add(repair);
             }
@@ -431,6 +432,7 @@ public sealed class VehicleRepairs
             case RepairKind.ConditionService:
                 comp.Conditions.Remove(repair.Condition!);
                 text = "PhobosVehicleSystems_Serviced".Translate(who, vehicle, repair.Label.Named("SERVICE")).Resolve();
+                if (repair.NeedsRig) Seen.Note("vehicles.rig-service-done", comp.Vehicle, repair.Label);
                 break;
             case RepairKind.Fitting:
                 text = comp.Fittings.Complete(repair.Order!, mechanic);

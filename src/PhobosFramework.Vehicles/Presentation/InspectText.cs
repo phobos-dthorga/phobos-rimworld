@@ -115,6 +115,11 @@ public static class InspectText
             string supplies = missing.Select(m => GenLabel.ThingLabel(m.def, null, m.count)).ToCommaList(useAnd: true);
             return "PhobosVehicleSystems_InspectServiceNeeds".Translate(services.Named("SERVICE"), supplies.Named("SUPPLIES")).Resolve();
         }
+        // Serious work waits for a tuning rig (cross-links S3, Framework 0.124.0): say so, as a tune waiting for one does.
+        if (comp.ServiceWaitingForRig()?.Def.service is { } rigWork)
+        {
+            return "PhobosVehicleSystems_RepairNeedsRig".Translate(rigWork.label.CapitalizeFirst().Named("WORK"), VehicleFittings.RigReach.Named("CELLS")).Resolve();
+        }
         return !comp.WaterReady(out string? waterReason) && waterReason != null
             ? "PhobosVehicleSystems_InspectServiceWater".Translate(due.Def.service.label.Named("SERVICE"), waterReason.Named("REASON")).Resolve()
             : "PhobosVehicleSystems_InspectServiceDue".Translate(due.Def.service.label.Named("SERVICE")).Resolve();
