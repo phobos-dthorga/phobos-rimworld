@@ -32,5 +32,8 @@
   <PhobosVehicleSystems_SettingCaravanCooking>Field kitchens cook in a resting caravan</PhobosVehicleSystems_SettingCaravanCooking>
   <PhobosVehicleSystems_SettingCaravanCookingDesc>On by default: once a night, while a caravan rests, its cooks turn raw food from its packs into simple meals at a field kitchen it carries, on its own wheels or behind a hitch, up to twenty a cook. Each meal burns half a unit of the kitchen's fuel, or chemfuel and wood from the packs. It nearly doubles how far carried raw food goes. Off: field kitchens cook only when set up on a map.</PhobosVehicleSystems_SettingCaravanCookingDesc>
 
+  <PhobosKettleWater_NoPlumbing>No water: each batch needs {LITRES} L. Fill the kitchen's own tank from a water bowser, or set it up beside plumbing with water.</PhobosKettleWater_NoPlumbing>
+  <PhobosKettleWater_NotEnough>Not enough water: each batch needs {LITRES} L. Fill the kitchen's tank from a water bowser or plumbing.</PhobosKettleWater_NotEnough>
+  <PhobosTrailerPlumbing_InspectOwnWater>Water tank: {LITRES} of {CAPACITY} L.</PhobosTrailerPlumbing_InspectOwnWater>
   <PhobosTrailerPlumbing_InspectWaste>Waste tank: {PERCENT} full.</PhobosTrailerPlumbing_InspectWaste>
 </LanguageData>

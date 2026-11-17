@@ -20,6 +20,14 @@ public class CompProperties_PhobosTrailerPlumbing : VehicleCompProperties
     /// <summary>What the stand-in tower is kept topped up to from the trailer's tank, in litres (authored): a working amount, never the whole tank.</summary>
     public float workingLitres = 150f;
     public IntVec2 towerCell = new(-1, -3);
+    /// <summary>
+    /// Own water (Framework 0.122.0, Billy): the trailer has no tank comp of its own, and its water lives in the stand-in tower while it is set up and
+    /// in the trailer while it is packed. Bowsers and plumbing fill it through the tower, as they fill any tower. The tower is the bigger one while
+    /// <see cref="towerNode"/> is fitted.
+    /// </summary>
+    public bool ownWater;
+    public ThingDef? towerDefWithNode;
+    public string? towerNode;
     public IntVec2 septicCell = new(1, -3);
 
     public CompProperties_PhobosTrailerPlumbing() => compClass = typeof(CompPhobosTrailerPlumbing);
@@ -38,6 +46,8 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     Thing? tower;
     Thing? septic;
     float waste;
+    float ownWater;
+    float ownWaterAtLay;
     PipeUnderlay underlay = new();
 
     public CompProperties_PhobosTrailerPlumbing Props => (CompProperties_PhobosTrailerPlumbing)props;
@@ -57,6 +67,14 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     /// <summary>Dubs' own "unlimited pumping": every tower is kept full by the player's choice, so the stand-in must never give water back.</summary>
     static bool UnlimitedPumping => ModOption.WaterPumpCapacity.Val == 0f;
 
+    ThingDef? TowerDef => Props.towerNode is { Length: > 0 } node && Props.towerDefWithNode != null && VehicleUpgrades.Unlocked(Vehicle, node) ? Props.towerDefWithNode : Props.towerDef;
+
+    /// <summary>What the trailer's own water holds when full, in litres: its stand-in tower's size.</summary>
+    public float OwnWaterCapacity => TowerDef?.GetCompProperties<CompProperties_WaterStorage>()?.WaterStorageCap ?? 0f;
+
+    /// <summary>The trailer's own water now, in litres, in the tower while set up or kept while packed.</summary>
+    public float OwnWater => Tower is { } water && tower is { Spawned: true } ? water.WaterStorage : ownWater;
+
     IntVec3 Cell(IntVec2 local) => Vehicle.Position + new IntVec3(local.x, 0, local.z).RotatedBy(Vehicle.Rotation);
 
     public string? SetUpPartRefusal() => null;
@@ -73,10 +91,17 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     void Lay()
     {
         Map map = Vehicle.Map;
-        if (tower is not { Spawned: true } && Props.towerDef != null)
+        if (tower is not { Spawned: true } && TowerDef != null)
         {
-            tower = GenSpawn.Spawn(ThingMaker.MakeThing(Props.towerDef), Cell(Props.towerCell), map, WipeMode.Vanish);
+            tower = GenSpawn.Spawn(ThingMaker.MakeThing(TowerDef), Cell(Props.towerCell), map, WipeMode.Vanish);
             tower.SetFaction(Vehicle.Faction);
+            if (Props.ownWater && Tower is { } own)
+            {
+                // The trailer's own water goes into its tower; what a smaller tower cannot hold, after the bigger tank was taken off, stays aboard.
+                own.WaterStorage = UnityEngine.Mathf.Min(ownWater, own.Props.WaterStorageCap);
+                ownWater -= own.WaterStorage;
+                ownWaterAtLay = own.WaterStorage;
+            }
         }
         if (septic is not { Spawned: true } && Props.septicDef != null)
         {
@@ -113,8 +138,10 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
         Map map = Vehicle.Map;
         if (Tower is { } water && tower is { Spawned: true })
         {
-            // The tower's working water goes back into the tank, unless Dubs' unlimited pumping filled it from nothing.
-            if (!UnlimitedPumping && Props.water != null && water.WaterStorage > 0f) Tank?.PutIn(Props.water, water.WaterStorage, (int)water.WaterQuality);
+            // The tower's working water goes back into the tank, unless Dubs' unlimited pumping filled it from nothing; own water stays aboard, and
+            // under unlimited pumping only what it held when laid.
+            if (Props.ownWater) ownWater += UnlimitedPumping ? ownWaterAtLay : water.WaterStorage;
+            else if (!UnlimitedPumping && Props.water != null && water.WaterStorage > 0f) Tank?.PutIn(Props.water, water.WaterStorage, (int)water.WaterQuality);
             water.WaterStorage = 0f;
             tower.Destroy(DestroyMode.Vanish);
         }
@@ -136,6 +163,7 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     /// <summary>Keeps the stand-in tower at its working amount from the trailer's tank.</summary>
     void TopUp()
     {
+        if (Props.ownWater) return;
         if (Tower is not { } water || Props.water == null || Tank is not { } tank) return;
         float wanted = Props.workingLitres - water.WaterStorage;
         if (wanted < 1f || UnlimitedPumping) return;
@@ -163,7 +191,11 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
             }
             septic.Destroy(mode == DestroyMode.KillFinalize ? DestroyMode.KillFinalize : DestroyMode.Vanish);
         }
-        if (tower is { Spawned: true }) tower.Destroy(DestroyMode.Vanish);
+        if (tower is { Spawned: true })
+        {
+            if (Props.ownWater && mode != DestroyMode.KillFinalize && Tower is { } own) ownWater += own.WaterStorage;
+            tower.Destroy(DestroyMode.Vanish);
+        }
         tower = null;
         septic = null;
         underlay.Clear();
@@ -175,7 +207,9 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
         if (UiGuard.Resting(GuardKey)) return UiGuard.FallbackText;
         try
         {
-            if (PlumbingFeed.LiteMode || WasteCapacity <= 0f) return null;
+            if (PlumbingFeed.LiteMode) return null;
+            if (Props.ownWater) return "PhobosTrailerPlumbing_InspectOwnWater".Translate(OwnWater.ToString("0").Named("LITRES"), OwnWaterCapacity.ToString("0").Named("CAPACITY")).Resolve();
+            if (WasteCapacity <= 0f) return null;
             return "PhobosTrailerPlumbing_InspectWaste".Translate(Mathf.Clamp01(Waste / WasteCapacity).ToStringPercent().Named("PERCENT")).Resolve();
         }
         catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
@@ -189,6 +223,8 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
         Scribe_References.Look(ref tower, "PhobosTrailerPlumbing_Tower");
         Scribe_References.Look(ref septic, "PhobosTrailerPlumbing_Septic");
         Scribe_Values.Look(ref waste, "PhobosTrailerPlumbing_Waste");
+        Scribe_Values.Look(ref ownWater, "PhobosTrailerPlumbing_OwnWater");
+        Scribe_Values.Look(ref ownWaterAtLay, "PhobosTrailerPlumbing_OwnWaterAtLay");
         Scribe_Deep.Look(ref underlay, "PhobosTrailerPlumbing_Underlay");
         underlay ??= new PipeUnderlay();
     }

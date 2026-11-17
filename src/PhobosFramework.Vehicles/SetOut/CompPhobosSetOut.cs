@@ -89,13 +89,17 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
     Layout LayoutFor(int onSide)
     {
         var layout = new Layout();
+        // Rooms may share a wall (the kitchen's annex is pitched against its front): a shared cell is built once, and a door in either room's
+        // wall there wins, so the kitchen's flap becomes the door between the two.
+        var walls = new Dictionary<IntVec3, bool>();
         foreach (SetOutRoom room in Props.rooms.Where(r => Wanted(r.node)))
         {
             CellRect rect = ToMap(room.from, room.to, onSide);
             IntVec3 door = ToMap(room.door, onSide);
-            foreach (IntVec3 cell in rect.EdgeCells) layout.walls.Add((cell, cell == door));
+            foreach (IntVec3 cell in rect.EdgeCells) walls[cell] = (walls.TryGetValue(cell, out bool already) && already) || cell == door;
             layout.inside.AddRange(rect.ContractedBy(1).Cells);
         }
+        foreach (KeyValuePair<IntVec3, bool> wall in walls) layout.walls.Add((wall.Key, wall.Value));
         foreach (SetOutPiece piece in Props.pieces.Where(p => p.def != null && Wanted(p.node)))
         {
             CellRect rect = ToMap(piece.from, piece.to, onSide);

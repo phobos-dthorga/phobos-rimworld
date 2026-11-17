@@ -225,8 +225,13 @@ on its own or hitched behind a vehicle: **up to 20 a cook**, burning half a unit
 and wood in the packs. Raw food goes nearly twice as far that way. Turn it off with **Field kitchens cook in a resting caravan** in
 D'thorga Framework's settings.
 
-**Upgrades:** a **second range** (two cooks at once), a **big kettle** (meals twenty at a time) and an **insulated tent** (a chemfuel
-heater keeps the tent at about 15 °C in the cold, about 2 chemfuel a day). A new range or heater appears at the next set-up.
+**With Dubs Bad Hygiene, the kettle needs water:** 10 L a batch, from **Billy's own 200 L tank**. Fill it from a water bowser parked beside
+it (bowser on **Unload**) or from plumbing; its inspect pane shows how much is left, and without water the kettle's bills wait and say why.
+
+**Upgrades:** a **second range** (two cooks at once), a **big kettle** (meals twenty at a time), an **insulated tent** (a chemfuel heater
+keeps the tent at about 15 °C, burning about 2 chemfuel a day **only while it is cold**), and a **dining annex** (a second tent in front
+with a table and four chairs; needs 6 more cells clear in front). With Dubs Bad Hygiene: a **wash-up basin** (a cleaner tent, so less food
+poisoning) and a **bigger water tank** (600 L). New pieces appear at the next set-up.
 
 It looks like an olive kitchen box van with canvas shutters and a stove chimney. Its burners murmur while someone cooks, kept low on purpose.
 

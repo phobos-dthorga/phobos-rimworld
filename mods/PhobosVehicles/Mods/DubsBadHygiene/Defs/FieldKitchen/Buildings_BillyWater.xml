@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Billy's own water with Dubs Bad Hygiene (D'thorga Vehicles 0.60.0; owner, 17 Nov 2026: water for the kettle, and the bigger water tank). Billy has no
+    tank of its own kind: its water lives in this hidden stand-in tower beneath it while it is set up, and in the trailer while it is packed (D'thorga
+    Framework's CompPhobosTrailerPlumbing, "own water"). A water bowser or plumbing fills it as it fills any tower. 200 L, or 600 L with the bigger water
+    tank (the field kitchen record's figures, authored). Not marked DBHLite: the trailer names them in every mode, and in Dubs' lite mode, which has no
+    plumbing, they are never laid. Not yet tested in game.
+  -->
+  <ThingDef ParentName="PhobosTrailerStandInBase">
+    <defName>Phobos_BillyWaterTank</defName>
+    <label>kitchen water tank</label>
+    <description>The field kitchen's own water tank, feeding its plumbing.</description>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_WaterStorage">
+        <WaterStorageCap>200</WaterStorageCap>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosTrailerStandInBase">
+    <defName>Phobos_BillyWaterTankLarge</defName>
+    <label>kitchen water tank</label>
+    <description>The field kitchen's own bigger water tank, feeding its plumbing.</description>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_WaterStorage">
+        <WaterStorageCap>600</WaterStorageCap>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

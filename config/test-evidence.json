@@ -29,7 +29,8 @@
     "152": ["trailers.set-out", "trailers.pack-up"],
     "153": ["trailers.field-stove-cooks", "trailers.cold-box-cold"],
     "154": ["trailers.caravan-cooking"],
-    "155": ["trailers.shower-plumbing-laid", "trailers.heater-power-saving"]
+    "155": ["trailers.shower-plumbing-laid", "trailers.heater-power-saving"],
+    "156": ["trailers.kettle-water-drawn"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)"

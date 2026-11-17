@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Billy with Dubs Bad Hygiene (D'thorga Vehicles 0.60.0; owner, 17 Nov 2026): its own water (200 L, 600 L with the bigger water tank), hidden plumbing
+    under its tent, a wash basin in the tent by upgrade (Dubs' own basin, which raises a room's cleanliness, and so lowers the kitchen's food poisoning),
+    and the kettle's batches taking 10 L each from that plumbing. Loaded only with Dubs Bad Hygiene; without it Billy needs no water. Not yet tested in game.
+  -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_FieldKitchen"]/comps</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.Hygiene.CompProperties_PhobosTrailerPlumbing">
+        <ownWater>true</ownWater>
+        <towerDef>Phobos_BillyWaterTank</towerDef>
+        <towerDefWithNode>Phobos_BillyWaterTankLarge</towerDefWithNode>
+        <towerNode>PhobosBillyBiggerTank</towerNode>
+        <towerCell>(0, -3)</towerCell>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_FieldKitchen"]/comps/li[@Class="Phobos.VehicleSystems.CompProperties_PhobosSetOut"]/pieces</xpath>
+    <value>
+      <li>
+        <def>BasinStuff</def>
+        <stuff>Steel</stuff>
+        <from>(1, 1)</from>
+        <to>(1, 1)</to>
+        <facing>Outward</facing>
+        <node>PhobosBillyWashUp</node>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_FieldKitchen_UpgradeTree"]/nodes</xpath>
+    <value>
+      <li>
+        <key>PhobosBillyWashUp</key>
+        <label>wash-up basin</label>
+        <displayLabel>true</displayLabel>
+        <description>A plumbed wash basin in the kitchen tent, set out at the next set-up. It keeps the tent cleaner, so food cooked there spoils people less often. It draws on the kitchen's water.</description>
+        <icon>DBH/Things/Building/Toilets/basin_south</icon>
+        <work>1200</work>
+        <gridCoordinate>(7, 10)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <ingredients>
+          <Steel>30</Steel>
+          <ComponentIndustrial>1</ComponentIndustrial>
+        </ingredients>
+      </li>
+      <li>
+        <key>PhobosBillyBiggerTank</key>
+        <label>bigger water tank</label>
+        <displayLabel>true</displayLabel>
+        <description>The kitchen's water tank goes from 200 to 600 litres, so it cooks for longer between fills. It takes effect at the next set-up.</description>
+        <icon>Phobos/Vehicles/BulkTanker/Upgrades/HighVolumeLiquidTank</icon>
+        <work>1500</work>
+        <gridCoordinate>(12, 10)</gridCoordinate>
+        <drawSize>(80, 80)</drawSize>
+        <ingredients>
+          <Steel>50</Steel>
+        </ingredients>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="Phobos_BillyKettle"]/comps</xpath>
+    <value>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="Phobos.VehicleSystems.Hygiene.CompProperties_PhobosKettleWater">
+        <litresPerBatch>10</litresPerBatch>
+      </li>
+    </value>
+  </Operation>
+</Patch>

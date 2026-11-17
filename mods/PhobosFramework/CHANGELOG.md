@@ -12,6 +12,27 @@ tested in game unless an entry says the owner tested it.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 - The Vehicles at Work tie-in names each of its three helpers in full in its own patch, so the build checks now confirm the helpers and the patches' parameters against the installed mod, as they do for the shot-angle tie-in with Combat Extended. No change in play.
 
+## [0.122.0] - 2026-11-17 - Draft
+
+A kettle that needs water, a trailer's own water, rooms that share a wall, and a heater that burns only when cold
+
+### Added
+
+- **A field stove's parts can hold its bills back**: the stove asks them through the game's own bill check, so a kettle without water waits and
+  says why, with no Harmony. With Dubs Bad Hygiene, the kettle's batches take their water from the plumbing beneath it.
+- **A trailer's own water** (with Dubs Bad Hygiene): a trailer with no tank comp keeps its water in its hidden stand-in tower while set up and
+  aboard while packed, in a bigger tower while an upgrade is fitted; bowsers and plumbing fill it as any tower.
+- **A heater that burns only when cold**: a generic part for any fuelled heater, burning its fuel only below a set temperature.
+
+### Changed
+
+- **Set-out rooms may share a wall**: a shared wall is built once, and a door in either room's wall there wins, so one room's flap opens into
+  the next.
+
+### Compatibility and limits
+
+- New test row 156. No settings changed. Not yet tested in game.
+
 ## [0.121.0] - 2026-11-17 - Draft
 
 Working trailers set things out: canvas rooms, a power point, and the field kitchen's and shower trailer's workings

@@ -12,6 +12,33 @@ tested in game unless an entry says the owner tested it.
 - Comments in the Defs and the Crawler's texture record name the design records they now live in, after the merges of 17 November 2026. No change in play.
 - The Busbar's Def comments give the right day for its change of size, 13 November 2026. No change in play.
 
+## [0.60.0] - 2026-11-17 - Draft
+
+Billy's water, dining annex and wash basin
+
+### Added
+
+- **Water for Billy's kettle** (with Dubs Bad Hygiene only; owner, 17 Nov 2026): each batch of ten or twenty takes 10 L from the plumbing under the
+  kitchen. **Billy carries its own 200 L water tank**, filled from a water bowser beside it or from plumbing, as any water tower is; without water
+  the kettle's bills wait and its inspect pane says why. Without Dubs Bad Hygiene the kettle needs no water.
+- **Three upgrades for Billy**: a **dining annex**, a second canvas room pitched against the kitchen's front with a table and four chairs, so the
+  crew eat at a table (it needs a patch 6 cells longer in front of the trailer); a **wash-up basin** in the tent (Dubs Bad Hygiene), which keeps
+  the tent cleaner, so food cooked there spoils people less often; and a **bigger water tank**, 600 L (Dubs Bad Hygiene).
+
+### Changed
+
+- **The tent heater burns only while the tent is below 15 degrees** (owner, 17 Nov 2026), and nothing in warm weather; its inspect pane says so.
+- **Billy's power point stands outside the tent's far wall**, clear of the dining annex.
+
+### Compatibility and limits
+
+- Needs D'thorga Framework 0.122.0. No settings changed. Not yet tested in game (test row 156).
+- No tie-in with Field Tents (owner's choice): a packed Field Tent carried as vehicle cargo may meet that mod's own reported error.
+
+### Save compatibility
+
+- Safe to add to a running game. A Billy set up before this version sets out its new pieces at its next set-up.
+
 ## [0.59.0] - 2026-11-17 - Draft
 
 Billy the field kitchen, and the Pintle shower trailer

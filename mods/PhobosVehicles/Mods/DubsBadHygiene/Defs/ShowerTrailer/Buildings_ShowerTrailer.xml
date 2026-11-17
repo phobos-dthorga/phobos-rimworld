@@ -9,7 +9,8 @@
     the septic tank is the trailer's waste tank and treats nothing by itself (a holding tank), 1,000 of Dubs' sewage units, about 70 flushes at Dubs'
     own 14 a flush (authored).
   -->
-  <ThingDef Name="PhobosTrailerStandInBase" ParentName="BuildingBase" Abstract="True" DBHLite="true">
+  <!-- Not marked DBHLite (Vehicles 0.60.0): Billy's water tanks, kept in lite mode, inherit it too; an abstract base costs nothing. -->
+  <ThingDef Name="PhobosTrailerStandInBase" ParentName="BuildingBase" Abstract="True">
     <thingClass>Building</thingClass>
     <graphicData>
       <texPath>Phobos/VehicleSystems/Stations/PowerPoint</texPath>

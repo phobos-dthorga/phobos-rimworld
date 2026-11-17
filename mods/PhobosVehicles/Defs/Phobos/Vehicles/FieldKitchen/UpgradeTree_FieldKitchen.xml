@@ -51,6 +51,20 @@
         <ComponentIndustrial>1</ComponentIndustrial>
       </ingredients>
     </li>
+    <li>
+      <key>PhobosBillyDiningAnnex</key>
+      <label>dining annex</label>
+      <displayLabel>true</displayLabel>
+      <description>A second canvas room pitched against the kitchen tent's front, with a table and four chairs, so the crew eat at a table. It is set out at the next set-up and needs a patch 6 cells longer in front of the trailer.</description>
+      <icon>Things/Building/Linked/WallSmooth_MenuIcon</icon>
+      <work>2000</work>
+      <gridCoordinate>(2, 10)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Cloth>100</Cloth>
+        <Steel>60</Steel>
+      </ingredients>
+    </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

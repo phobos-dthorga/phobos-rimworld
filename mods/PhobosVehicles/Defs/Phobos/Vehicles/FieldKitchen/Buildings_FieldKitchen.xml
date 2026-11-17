@@ -190,7 +190,7 @@
   <ThingDef ParentName="PhobosBillyPieceBase">
     <defName>Phobos_BillyTentHeater</defName>
     <label>tent heater</label>
-    <description>A small chemfuel heater for an insulated field tent. It keeps the tent at 15 °C or so in the cold, burning about two chemfuel a day.</description>
+    <description>A small chemfuel heater for an insulated field tent. It keeps the tent at 15 °C or so in the cold, burning about two chemfuel a day, and burns nothing while the tent is warmer than that.</description>
     <graphicData>
       <texPath>Things/Building/Misc/TempControl/Heater</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -207,6 +207,8 @@
       <li Class="CompProperties_Refuelable">
         <fuelConsumptionRate>2.0</fuelConsumptionRate>
         <fuelCapacity>10.0</fuelCapacity>
+        <!-- Burnt only while the tent is cold (owner, 17 Nov 2026): the comp below marks it used each tick below 15 °C. -->
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
         <fuelFilter>
           <thingDefs>
             <li>Chemfuel</li>
@@ -220,6 +222,9 @@
         <heatPushMaxTemperature>15</heatPushMaxTemperature>
       </li>
       <li Class="CompProperties_Flickable" />
+      <li Class="Phobos.Framework.Environment.CompProperties_PhobosBurnWhenCold">
+        <belowCelsius>15</belowCelsius>
+      </li>
     </comps>
   </ThingDef>
 </Defs>

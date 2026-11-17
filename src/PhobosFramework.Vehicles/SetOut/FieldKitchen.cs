@@ -11,7 +11,20 @@ namespace Phobos.VehicleSystems;
 /// A field range or kettle (Framework 0.121.0; docs/development/vehicle-field-kitchen.md): the game's own work table, burning its fuel through
 /// the game's refuelling, that remembers when it last cooked so the trailer's power point draws for it only then.
 /// </summary>
-public class Building_PhobosFieldStove : Building_WorkTable, ISetOutLoad
+/// <summary>
+/// A part of a field stove that can hold its bills back (Framework 0.122.0: the kettle's water with Dubs Bad Hygiene). The stove asks it whether it
+/// may work, and tells it when a batch starts.
+/// </summary>
+public interface IFieldStoveGate
+{
+    /// <summary>Why the stove cannot start or carry on a bill now, or null.</summary>
+    string? StoveRefusal();
+
+    /// <summary>A batch has started at the stove.</summary>
+    void BatchStarted();
+}
+
+public class Building_PhobosFieldStove : Building_WorkTable, ISetOutLoad, IBillGiver
 {
     const int WorkingWindowTicks = 300;
     int lastUsedTick = -99999;
@@ -23,6 +36,29 @@ public class Building_PhobosFieldStove : Building_WorkTable, ISetOutLoad
 
     PhobosFieldStoveSoundsExtension? Sounds => def.GetModExtension<PhobosFieldStoveSoundsExtension>();
 
+    /// <summary>Why a part holds its bills back, or null.</summary>
+    public string? GateRefusal()
+    {
+        foreach (ThingComp comp in AllComps)
+        {
+            if (comp is IFieldStoveGate gate && gate.StoveRefusal() is { } refusal) return refusal;
+        }
+        return null;
+    }
+
+    // The game asks a work table through this interface whether its bills may run, both before a cook starts and while one works (JobDriver_DoBill's
+    // fail check), so re-implementing it here holds the stove's bills back when a part says so, with no Harmony.
+    bool IBillGiver.CurrentlyUsableForBills() => CurrentlyUsableForBills() && GateRefusal() == null;
+
+    bool IBillGiver.UsableForBillsAfterFueling() => UsableForBillsAfterFueling() && GateRefusal() == null;
+
+    public override string GetInspectString()
+    {
+        string text = base.GetInspectString();
+        if (GateRefusal() is not { } refusal) return text;
+        return text.NullOrEmpty() ? refusal : text + "\n" + refusal;
+    }
+
     public override void UsedThisTick()
     {
         base.UsedThisTick();
@@ -31,6 +67,10 @@ public class Building_PhobosFieldStove : Building_WorkTable, ISetOutLoad
             // A batch starting: the lid's clank once, and the burners until the cook stops (owner's picks, 17 Nov 2026).
             Sounds?.startSound?.PlayOneShot(new TargetInfo(Position, Map));
             burners.Set(Sounds?.workingSound, true, this);
+            foreach (ThingComp comp in AllComps)
+            {
+                if (comp is IFieldStoveGate gate) gate.BatchStarted();
+            }
             Seen.Note("trailers.field-stove-cooks", this, SetOuts.Powered(this) ? "powered" : "unpowered");
         }
         lastUsedTick = Find.TickManager.TicksGame;
