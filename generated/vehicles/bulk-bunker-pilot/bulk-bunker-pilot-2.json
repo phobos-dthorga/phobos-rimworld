@@ -1,0 +1,56 @@
+{
+  "file": "bulk-bunker-pilot-2.png",
+  "sha256": "6823b194101f77e907ca8c5a132e503473e09f36f6001d2c84a8b3d79d550f20",
+  "date": "2026-11-17T20:36:26",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down into the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for the D'thorga bulk bunker: an open concrete storage bay that a dump truck reverses up to and tips stone into, in a hard-scrabble frontier colony. Image 1 is our approved vehicle parts bench from the same family of buildings: match its outline weight, shading, palette and finish only. Do NOT copy its shape or contents. Image 2 is our rough layout drawing of this bunker: keep its layout only and redraw it in the finished style.\n\nTall canvas. The bunker fills about 92 percent of the canvas width and 94 percent of its height, centred, on a plain pure white background. It is four units long from top to bottom and three units wide.\n\nIts plan: a flat, empty, pale grey concrete floor slab with faint expansion joints, one unit apart. Thick poured-concrete walls with a steel cap along their inner edge run along the top, left and right sides. The bottom side is open: across it lies a low steel wheel stop painted with worn yellow and dark diagonal hazard stripes. One small plain steel drain grate is set in the floor near the top wall. A faint worn patch on the floor shows where loads are tipped.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo stone, rocks, chunks, rubble, goods, people, animals, vehicles, tools, text, letters, numbers, logos, dials, screens or dust. No ground beyond the bunker, no shadow outside it, no perspective, no tilt.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1536,
+    2048
+  ],
+  "request_file": "assets/phobos-vehicles/requests/bulk-bunker-pilot.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1505,
+    "input_tokens_details": {
+      "image_tokens": 1104,
+      "text_tokens": 401
+    },
+    "output_tokens": 2223,
+    "output_tokens_details": {
+      "image_tokens": 2223,
+      "text_tokens": 0
+    },
+    "total_tokens": 3728
+  },
+  "cost_usd": 0.0775,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1536x2048",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1536,
+    2048
+  ],
+  "seconds": 27.9,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+      "sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785",
+      "role": "our approved vehicle parts bench from the motor pool's family of buildings: match its outline weight, shading, palette and finish only; do not copy its shape or contents"
+    },
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/BulkBunker/BulkBunker.png",
+      "sha256": "c3306312db75561723e40b235107d248599de07d28531104698763fe76bbd450",
+      "role": "our own stand-in drawing of this bunker, drawn in code: keep its layout only (walls on three sides, the open south end with its striped wheel stop, the drain grate near the back wall); redraw everything in the finished style"
+    }
+  ]
+}
