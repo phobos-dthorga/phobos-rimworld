@@ -158,8 +158,8 @@ share a storage group with ordinary ones.
 | --- | --- |
 | **Input**, fed by one belt with mixed ingredients | The belt fills it until all four places hold something; the machine takes what it needs from any of them |
 | **Input**, filled by haulers | Tick every ingredient in its filter and raise its priority |
-| **Output** of items that don't stack (weapons, bionics, armour) | Holds up to four **different** finished items; an identical one waits until the first is taken away |
-| **Output** of items that stack | As an ordinary hopper: the batch waits once that stack reaches the bill's cap |
+| **Output** of items that don't stack (weapons, bionics, armour) | Holds up to four finished items, identical ones included; the machine waits once all four places are full |
+| **Output** of items that stack | Fills all four places: up to four full stacks (300 canned soups) before the machine waits. The too-full message's "max 75 units" is per stack |
 
 For the machining or fabrication bay (three input cells, up to four solid ingredients plus chemfuel), put deep hoppers on the input
 cells; chemfuel needs no hopper with Vanilla Chemfuel Expanded.

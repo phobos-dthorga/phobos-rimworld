@@ -5,6 +5,28 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.14.1] - 2026-11-18 - Draft
+
+A deep hopper holds four stacks of a machine's output
+
+### Fixed
+
+- **A deep factory hopper on a machine's output cell now fills all four of its places.** Machines only ever added to the first stack
+  they found, so the automated cannery stopped at 75 canned soups with three places empty (owner's report). A batch now tops up the
+  stacks there and starts a new one in a free place, and the machine waits only when the hopper has no room left: 300 canned soups.
+  Items that don't stack, such as bionics, fill all four places too, identical ones included. Canned soup's stack limit is unchanged
+  everywhere; an ordinary hopper still holds one stack.
+
+### Save compatibility
+
+- Safe to add to a running colony and to remove. Nothing new is saved; a batch caught part-way out uses the remainder the mod already
+  keeps for oversized batches.
+
+### Compatibility and limits
+
+- The too-full message still names the bill's limit (max 75 units), which is now per stack in a deep hopper.
+- New test row 194. Not yet tested in game.
+
 ## [0.14.0] - 2026-11-17 - Draft
 
 Hoppers shared with The Dead Man's Switch (universal hoppers UH6)

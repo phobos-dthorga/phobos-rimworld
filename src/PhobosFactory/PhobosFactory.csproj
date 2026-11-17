@@ -8,9 +8,11 @@
     <AssemblyName>PhobosFactory</AssemblyName>
     <ModFolder>PhobosFactoryAdditions</ModFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.14.0</Version>
+    <Version>0.14.1</Version>
   </PropertyGroup>
   <ItemGroup>
+    <!-- D'thorga Framework, already a dependency in About.xml: its seen-in-play notes (Seen.cs). Never copied. -->
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
     <!-- Vanilla Expanded Framework's PipeSystem.dll (one folder per game version), referenced from the installed mod and
          never copied: its licence (CC BY-NC-ND 4.0) permits depending on it, not redistributing it. -->
     <Reference Include="PipeSystem">

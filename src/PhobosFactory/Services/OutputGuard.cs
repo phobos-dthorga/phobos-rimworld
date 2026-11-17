@@ -48,6 +48,12 @@ public static class OutputGuard
             if (output == null || output.MadeFromStuff) return OutputStep.PipeSystemPlaces;
             count = result.GetCount(process);
             if (OutputRule.IsOversized(count, output.stackLimit)) return OutputStep.PlaceInParts;
+            // A deep hopper: the game's direct placement tops up the stacks already there and starts new ones in its free places,
+            // where Pipe System would join only the first stack it finds. It waits only when no room is left for this item.
+            if (OutputRule.FillsWholeCell(cell.GetMaxItemsAllowedInCell(map)))
+            {
+                return cell.GetItemStackSpaceLeftFor(map, output) > 0 ? OutputStep.PlaceInParts : OutputStep.Wait;
+            }
             return WouldLoseBatch(process, output, count, cell, map) ? OutputStep.Wait : OutputStep.PipeSystemPlaces;
         }
         finally
@@ -68,7 +74,9 @@ public static class OutputGuard
         var batch = ThingMaker.MakeThing(output);
         batch.stackCount = count;
         ApplyIngredientsAndQuality?.Invoke(process, batch);
-        if (!GenPlace.TryPlaceThing(batch, cell, map, ThingPlaceMode.Direct, out placed))
+        bool whole = GenPlace.TryPlaceThing(batch, cell, map, ThingPlaceMode.Direct, out placed);
+        if (Seen.On) NoteSeveralStacks(output, cell, map);
+        if (!whole)
         {
             BatchInParts.Remember(process, output, batch.stackCount);
             return false;
@@ -78,6 +86,17 @@ public static class OutputGuard
         // is given, so it gets a throwaway one rather than the placed stack, which could be rolled for dirty water twice.
         process.HandleIngredientsAndQuality(ThingMaker.MakeThing(output));
         return true;
+    }
+
+    /// <summary>Notes a machine's output seen in a second stack on one cell (test row 194).</summary>
+    private static void NoteSeveralStacks(ThingDef output, IntVec3 cell, Map map)
+    {
+        int stacks = 0;
+        foreach (var thing in cell.GetThingList(map))
+        {
+            if (thing.def == output) stacks++;
+        }
+        if (stacks > 1) Seen.Note("factory.deep-hopper-output-stacks", cell.GetEdifice(map), stacks + " stacks of " + output.label);
     }
 
     private static bool WouldLoseBatch(Process process, ThingDef output, int batch, IntVec3 cell, Map map)

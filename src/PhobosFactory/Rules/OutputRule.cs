@@ -22,6 +22,14 @@ public static class OutputRule
     public static bool IsOversized(int batch, int stackLimit) => batch > stackLimit;
 
     /// <summary>
+    /// Whether an output cell holds several stacks (a deep factory hopper holds four), so a batch that doesn't fit on the stack
+    /// already there starts a stack of its own instead of waiting. Pipe System only ever joins the first matching stack on the
+    /// cell, so without this a deep hopper took 75 canned soups and then waited with three places empty (owner's report,
+    /// 18 Nov 2026). The item's stack limit is unchanged everywhere; only the cell's room is used.
+    /// </summary>
+    public static bool FillsWholeCell(int maxItemsInCell) => maxItemsInCell > 1;
+
+    /// <summary>
     /// The output limit for a generated bill: the wanted one, but never above the item's stack limit, so
     /// Pipe System's "too full (max N units)" names a number the item can reach. At least 1, because 0 tells
     /// Pipe System to drop a blocked batch around the machine instead of waiting.

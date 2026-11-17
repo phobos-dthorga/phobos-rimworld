@@ -27,6 +27,12 @@ public class OutputRuleTests
     public void ABatchAboveOneStackIsOversized(int batch, int stackLimit, bool oversized) =>
         Assert.Equal(oversized, OutputRule.IsOversized(batch, stackLimit));
 
+    [Theory]
+    [InlineData(4, true)] // The deep factory hopper.
+    [InlineData(1, false)] // VFE Factory's own hopper, and bare floor.
+    public void OnlyACellHoldingSeveralStacksTakesANewStack(int maxItemsInCell, bool fills) =>
+        Assert.Equal(fills, OutputRule.FillsWholeCell(maxItemsInCell));
+
     [Fact]
     public void AGeneratedBillWaitsAtANumberTheItemCanReach()
     {
