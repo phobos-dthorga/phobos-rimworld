@@ -47,7 +47,8 @@
     "172": ["vehicles.rig-into-storage"],
     "173": ["vehicles.tank-into-storage"],
     "174": ["vehicles.chute-loaded"],
-    "176": ["vehicles.upgrade-needs-one-of", "vehicles.upgrade-held-on"]
+    "176": ["vehicles.upgrade-needs-one-of", "vehicles.upgrade-held-on"],
+    "177": ["vehicles.fitting-done.PhobosFitting_CargoHook", "vehicles.fitting-done.PhobosFitting_LitterKit"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

@@ -8,7 +8,7 @@ top of the general systems D'thorga Framework gives every vehicle.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**:
 [working vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.64.2, built 17 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
+Version 0.65.0, built 17 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
 9 November 2026) and the Busbar's size and look (owner, 13 November 2026).
 
 ## Read this first (gotchas)
@@ -62,8 +62,8 @@ Version 0.64.2, built 17 November 2026 for House D'thorga. **Not yet tested in g
 | [X-1 submarine test hull](../../docs/player-guide/submarines.md#the-x-1-test-hull) | 4 x 9 | Dev mode only, for trying out diving; cannot be built |
 
 **Other mods' vehicles** get their real counterparts' systems and figures: air brakes on the Big Rig and HEMTT, gas turbines on the
-Harrier, Hind, Mongoose, Cherokee and M1A2s, real engines and weights on military vehicles, boilers on steam locomotives, cargo hooks
-on three helicopters, climate control on modern vehicles. The full list is in
+Harrier, Hind, Mongoose, Cherokee, RimArrow's Ka-27PS and Mi-38 and the M1A2s, real engines and weights on military vehicles, boilers
+on steam locomotives, cargo hooks on five helicopters, climate control on modern vehicles. The full list is in
 [the guide](../../docs/player-guide/working-vehicles.md#other-mods-vehicles); every figure's source is written beside it in the
 loadout files under `Mods/`.
 

@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    RimArrow: Search & Rescue (rimarrow.srt, by Turbo; Vehicles 0.65.0, owner's request of 17 Nov 2026): the Ka-27PS and the Mi-38, two
+    twin-turboshaft transport helicopters on RimThunder's helicopter baseline. Without these they fell to the generic aircraft loadout,
+    which fits a jet's turbofan and stock flight profile, with no rotor drive, sling, hook mount or cabin. Each now has what the
+    Cherokee has. Both fly through Vehicle Framework's own launch (PropellerTakeoff), so the stock rotorcraft profile reads their phases.
+    Their own parts are bound where they exist (engines, rotor drive, servos, cabin fittings); only a hook mount is appended, so the
+    shared fittings and families (litter kit, cargo hook, cold-weather pack and the rest) suit them by role, beside RimArrow's own
+    upgrade trees and never inside them.
+
+    Their variants (Ka-27PSD; Mi-38T and Mi-38PS) are nodes of RimArrow's own upgrade trees on one VehicleDef each, so one loadout
+    covers every variant of each.
+
+    Save note, read from RimArrow's code (17 Nov 2026): its SRT.Protection assembly re-creates missing parts on a save written before its
+    own 14 Nov format, from the vehicle's Def list, which by then holds the parts appended here too. Nothing of ours needs to stand down.
+    Not yet tested in game.
+
+    The drivetrain is the Framework's authored helicopter turboshaft (Drivetrains.xml) with a drive limit of 0.9 of both engines'
+    maximum continuous, authored as on the Hind and the Cherokee: no published transmission limit was looked for or found for either.
+  -->
+
+  <!--
+    The Ka-27PS (RAH_Ka27PS_Vehicle): the search-and-rescue Ka-27, two Klimov TV3-117V turboshafts driving coaxial rotors, so it has no
+    tail rotor to lose. Its Transmission, Main Reduction Gearbox and Coaxial Rotor Assembly are its rotor drive.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_RimArrow_Ka27</defName>
+    <label>coaxial search-and-rescue helicopter</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>RAH_Ka27PS_Vehicle</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <set>
+        <transmissionLimit>0.9</transmissionLimit>
+      </set>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
+    <!-- Avionics: a naval search-and-rescue helicopter flying over water and at night carries full navigation and an autopilot (agent
+         defaults, as for the Cherokee). How it looks to another mod's air defence in flight: on DMS Expedition's scales, authored; slower
+         and smaller than the Hind (speed 10, size 2.0), as a Ka-27 cruises slower than a Mi-24 and is shorter. -->
+    <avionics>
+      <navigation>Full</navigation>
+      <autopilot>true</autopilot>
+      <airTrack>
+        <speed>8</speed>
+        <cruiseMetres>1500</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>1.7</size>
+      </airTrack>
+    </avionics>
+    <!-- Sling loads: 5,000 kg, approximate. No figure for the Ka-27 itself was found (17 Nov 2026). This is its civil derivative's: the
+         Ka-32's EASA type certificate data sheet gives a maximum external load of 5,000 kg (European Union Aviation Safety Agency,
+         easa.europa.eu/downloads/7923). Jane's gives the related Ka-29 4,000 kg (secondary, via web3d.org's copy), so the Ka-27's may lie
+         between the two. -->
+    <sling>
+      <ratedKilograms>5000</ratedKilograms>
+    </sling>
+    <partRoles>
+      <li>
+        <!-- The flight controls' hydraulic boost, on the Servos part (Flight Controls), as on the Cherokee. -->
+        <role>HydraulicPump</role>
+        <all>true</all>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <all>true</all>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>RotorDrive</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Transmission</li>
+              <li>Gearbox</li>
+              <li>RotorMast</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- A hook mount under the belly for the cargo hook fitting: appended, so a hook is lost with its mount. Health and place
+             authored, as on the Cherokee. -->
+        <role>HookMount</role>
+        <add>
+          <key>PhobosHookMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>hook mount</label>
+          <health>40</health>
+          <cellsOf>RotorDrive</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- The cabin for the litter kit: its own Upholstery part (Cabin Fittings), so the kit is lost with it. -->
+        <role>Cabin</role>
+        <find>
+          <li>
+            <key>Upholstery</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- Exact keys: a looser match would also take the LeftEngineCover and RightEngineCover panels. -->
+        <role>Engine1</role>
+        <find>
+          <li>
+            <key>LeftEngine</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <key>RightEngine</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <!--
+    The Mi-38 (RAH_Mi38_Vehicle): a medium transport with one main rotor and a tail rotor. Its Transmission, Main Reduction Gearbox and
+    Main Rotor Assembly are its rotor drive; the Tail Rotor Drive and Tail Rotor Assembly stay RimArrow's own parts, unbound, since our
+    rotor drive models power to the main rotor, not the tail's anti-torque.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_RimArrow_Mi38</defName>
+    <label>medium transport helicopter</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>RAH_Mi38_Vehicle</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <set>
+        <transmissionLimit>0.9</transmissionLimit>
+      </set>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
+    <!-- Avionics: a modern transport with a glass cockpit, full navigation and an autopilot (agent defaults). Air track authored on DMS
+         Expedition's scales: as fast as the Hind and a little larger. -->
+    <avionics>
+      <navigation>Full</navigation>
+      <autopilot>true</autopilot>
+      <airTrack>
+        <speed>10</speed>
+        <cruiseMetres>1500</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>2.2</size>
+      </airTrack>
+    </avionics>
+    <!-- Sling loads: 5,000 kg, the maker's maximum payload on the external sling (Russian Helicopters' Mi-38 catalogue page, rhc.ru;
+         Rosoboronexport's Mi-38T page, roe.ru). Some secondary sites give 7 t with no source behind it; it is not used. -->
+    <sling>
+      <ratedKilograms>5000</ratedKilograms>
+    </sling>
+    <partRoles>
+      <li>
+        <role>HydraulicPump</role>
+        <all>true</all>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <all>true</all>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>RotorDrive</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Transmission</li>
+              <li>Gearbox</li>
+              <li>RotorMast</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HookMount</role>
+        <add>
+          <key>PhobosHookMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>hook mount</label>
+          <health>40</health>
+          <cellsOf>RotorDrive</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Cabin</role>
+        <find>
+          <li>
+            <key>Upholstery</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li>
+            <key>LeftEngine</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <key>RightEngine</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

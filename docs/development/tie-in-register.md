@@ -59,6 +59,7 @@ All XML; the code is in the Framework.
 | Harrier VTOL (`potemkinvillager.av8bharrier`), Hind (`potemkinvillager.mi24hindhelicopter`), Mongoose (`potemkinvillager.mongooseattackhelicopter`) | Aircraft loadouts | `Mods/HarrierVtol`, `Mods/HindHelicopter`, `Mods/MongooseHelicopter` |
 | GTek L-ATV (`killerbot.jltv`), MaxxPro (`killerbot.navistarmaxxpro`) | Loadouts | `Mods/GTekLATV`, `Mods/GTekMaxxPro` |
 | Frontline Workshop (`serinairo.frontlineworkshop`), BMP-1 (`turbo.rimworld.bmp1ifv`) | Loadouts | `Mods/FrontlineWorkshop`, `Mods/BMP1` |
+| RimArrow: Search and Rescue (`rimarrow.srt`) | Helicopter loadouts for the Ka-27PS and the Mi-38: turboshafts, rotor drive, hydraulics, sling, hook mount, litter cabin (0.65.0) | `Mods/RimArrowSearchRescue` |
 | Trains of the Rim (`princeofpluto.vehicles.trains`) | Boilers for its locomotives; steam engines never stalled by EMP (0.52.0) | `Mods/TrainsOfTheRim` |
 | Dubs Bad Hygiene | Tanker contents: water and fecal sludge; the survey truck's groundwater node; the Pintle water bowser (0.55.0, dropped in its lite mode) | `Mods/DubsBadHygiene` |
 | Rimefeller | Napalm and crude in barrels; the drill rig's well-kit node; crude and chemfuel through its pipeline (0.52.0) | `Mods/Rimefeller` |

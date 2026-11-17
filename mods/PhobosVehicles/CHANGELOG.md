@@ -5,6 +5,32 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.65.0] - 2026-11-17 - Draft
+
+RimArrow: Search and Rescue's helicopters join the vehicle systems
+
+### Added
+
+- **The Ka-27PS and the Mi-38** (RimArrow: Search and Rescue, by Turbo; owner's request of 17 Nov 2026) are fitted as the helicopters
+  they are. Before, they counted as jets: a turbofan, the jet's flight rules, and no rotor drive, sling, hook mount or cabin. Now each has
+  two turboshafts bound to its own engines, its own transmission, gearbox and rotor as the rotor drive, hydraulic flight controls, full
+  navigation and an autopilot, and a mount for the cargo hook. Its cabin fittings take the litter kit, and every shared fitting and
+  upgrade family that suits a helicopter suits them, beside RimArrow's own upgrade trees. Every variant (Ka-27PSD, Mi-38T, Mi-38PS) is
+  covered.
+- **Sling ratings:** 5,000 kg for each. The Mi-38's is the maker's figure. For the Ka-27 none was found, so it is its civil derivative
+  the Ka-32's certified figure, approximate. The Ka-27 has coaxial rotors and no tail rotor; the Mi-38's tail rotor stays RimArrow's own part.
+
+### Compatibility and limits
+
+- Loaded only with RimArrow: Search and Rescue active, and after it. RimArrow's own save conversion re-creates missing parts from the
+  vehicle's Def list, which includes the hook mount added here, so the two agree. Any faction's Ka-27 or Mi-38 gets the same loadout; it
+  changes how the vehicle runs, not who owns one. No settings were added or changed. Test row 177. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running colony; a helicopter you already own gains its hook mount at the next load. The owner's colony had neither
+  helicopter when this was written.
+
 ## [0.64.2] - 2026-11-17 - Draft
 
 The bulk tanker's upgrades branch from its tanks, with D'thorga Framework 0.128.0
