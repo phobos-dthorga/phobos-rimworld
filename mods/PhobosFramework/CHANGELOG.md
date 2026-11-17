@@ -5,6 +5,52 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.130.0] - 2026-11-18 - Draft
+
+The step back before engine loads: one engine picture, one fuel service, lost power as power, and three hot spots fixed
+
+### Added
+
+- **Vehicles say what they burn.** In Operator mode the inspect panel shows "Burning about X chemfuel a day"; in Engineer mode it also
+  splits it into the engine, standing work, heaters, a leak and flying work, from what the vehicle actually burned over the last hour or so.
+- **For other modders**: an engine power effect for stages (Effect_EnginePower), an input for the alternator's output
+  (Input_AlternatorOutput), a fuel use on the fuel-burning effect (use: Heater, Leak and so on), and the alternator's curves and the
+  load-shedding thresholds in the rules Def, where XML can patch them.
+
+### Changed
+
+- **A choked air filter, a warped cylinder head and a weak fuel pump now take power from the engine** instead of slowing the vehicle
+  everywhere (the owner's pick, 18 Nov 2026). With the full drivetrain model the vehicle keeps its speed on a road and labours where power
+  runs short: climbs, mud, towing and heavy loads. Vehicles without that model (aircraft, the simple model) are slowed by the same
+  factor as before. The dashboard and the stat card still name the fault.
+- **The alternator's efficiency follows its speed**: 58 % at low speed, 55 % at a road engine's cruise, falling to 45 % flat out (the
+  owner's pick: Remy's typical 55 %, falling with speed), where it was 0.6 throughout. Lights, heaters and the camp loads cost the engine
+  a little more power than before: a few per cent at idle, up to about a tenth at speed.
+- **The electrical loads' fuel is charged at what they add**: 2.5 kilowatts of fuel power for each kilowatt at the shaft, with the engine's
+  friction counted once; before, they were charged at full-power fuel, friction and all, about 15 % too much. This only matters with
+  "Fuel use follows engine load" on.
+- **The world map's range uses the factor the burn itself uses**: tunes, a clogged air filter and, with the fuel model on, the loads.
+  Before, it counted tunes only.
+- **The Engineer inspect line shows the engine's load once**, on the engine's line, where two different load figures could disagree;
+  the other line keeps the electrical draw and the air.
+- Under the hood: one engine picture worked out once per update (why it turns, its speed, driving's and the loads' shares); one fuel
+  service every burn of ours goes through; power's units changed in one place, the game's watts still taken as real watts; the
+  alternator's output curve written once in the rules Def where three systems each had a copy.
+
+### Fixed
+
+- **Three costs the owner's recording of 18 Nov 2026 found.** A mechanic repairing a vehicle asked every tick whether a tuning rig was near,
+  and each asking walked every building the colony owns; depot bays did the same for every vehicle on every rare tick; and the game's very
+  frequent question of what a vehicle holds made three component lookups each time. Rigs and bays now come from a list of their own on
+  each map, the rig answer is kept for a second, and the held components are found once. Each vehicle's update also stopped allocating
+  its stat-factor tables and stopped asking every stat in the game of every stage. Not yet measured after the change.
+
+### Compatibility and limits
+
+- Safe to add to an existing save: nothing new is saved. The fuel rates build up again over the first hour after a load.
+- Bleed air on turbines (step S7) waits for the engine-load ledger it is to join.
+- Not yet tested in game.
+
 ## [0.129.1] - 2026-11-18 - Draft
 
 Two faults in the vehicle electrics, found while reviewing engine loads

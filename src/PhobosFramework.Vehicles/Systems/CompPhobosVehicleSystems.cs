@@ -656,7 +656,14 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         using (PhobosTiming.Measure("vehicle sample")) train.Sample();
         // The engine load the systems read follows the sample just taken, so it never lags a change of flight phase or gear by the
         // seconds until the next full update (the inspect text showed "Load 50%" beside "Engine load 100%"; owner's screenshot, 11 Nov 2026).
-        if (train.Full && EngineRunning && !WorkTurningEngine) EngineLoad = Mathf.Min(1f, (float)train.Result.Load + AccessoryShare);
+        // Since Framework 0.130.0 (step S1) the sample refreshes the engine's one picture, which the load is read from.
+        if (train.Full && EngineRunning && !WorkTurningEngine)
+        {
+            Engine = Engine.WithDrive((float)train.Result.Rpm, (float)train.Result.Load);
+            EngineLoad = Engine.Load;
+            // Step S4 (Framework 0.130.0): a fault's lost power holding the vehicle back where power runs short.
+            if (EnginePowerFactor < 1f && train.Result.Limit == DriveLimit.Power) Seen.Note("vehicles.engine-power-lost", Vehicle, EnginePowerFactor.ToStringPercent());
+        }
     }
 
     /// <summary>The engine sound that follows rpm and load, for a vehicle whose Def names one (derived, never saved).</summary>
@@ -920,8 +927,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         // A set-up vehicle's work turns the engine with nobody driving. EngineRunningRaw stays as it was, so the drivetrain's fuel sum adds nothing: the work burns its own.
         engineDemands ??= vehicle.AllComps.OfType<IVehicleEngineDemand>().ToList();
         WorkTurningEngine = false;
+        bool workWanted = false;
         foreach (IVehicleEngineDemand demand in engineDemands)
         {
+            if (demand.WantsEngine) workWanted = true;
             if (!demand.WantsEngine || !hasFuel || demand is CompPhobosSetUp { Stalled: true }) continue;
             EngineRunning = true;
             WorkTurningEngine = true;
@@ -943,14 +952,26 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         NotifyPower();
         UpdateFridge();
         // Crosslink 5: the alternator takes shaft power for what the loads draw, so the engine works a little harder for them.
-        AccessoryShare = AccessoryLoad();
-        if (AccessoryShare > 0f) EngineLoad = Mathf.Min(1f, EngineLoad + AccessoryShare);
+        float driveLoad = EngineLoad;
+        bool wanted = drafted || caravanMoving || flying || (train?.IsAircraft == true && train.AircraftRunning) || workWanted;
+        EngineWhy why = EngineStateRule.Why(BatteryDrive is { OnBattery: true }, EngineRunning, wanted, hasFuel, flying || (train?.IsAircraft == true && EngineRunning),
+            Moving, WorkTurningEngine);
+        // Step S1 (Framework 0.130.0): the engine's one picture, put together here and nowhere else.
+        Engine = new EngineState(why, EngineRunning ? EngineRpm(AlternatorFallbackIdleRpm, AlternatorFallbackCruiseRpm) : 0f, driveLoad, AccessoryLoad());
+        EngineLoad = Engine.Load;
     }
+
+    /// <summary>The engine's one picture (Framework 0.130.0, step S1): whether it turns and why, its speed, and the shares of its power that
+    /// driving and the loads take. Put together at each update and refreshed by the once-a-second drive sample. Derived, never saved.</summary>
+    public EngineState Engine { get; private set; }
+
+    /// <summary>What this vehicle burned lately for each use (step S2), written by <see cref="VehicleFuel"/>. Derived, never saved.</summary>
+    public VehicleFuelLog FuelLog { get; } = new();
 
     /// <summary>The share of the engine's rated power the switched-on loads take through the alternator now (crosslink 5): 0 with the
     /// player's setting off, the engine stopped, no rated power known, or an electric vehicle (its loads draw on the traction battery).
     /// Derived on each update, never saved.</summary>
-    public float AccessoryShare { get; private set; }
+    public float AccessoryShare => Engine.AccessoryShare;
 
     float AccessoryLoad()
     {
@@ -959,7 +980,26 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || !EngineRunning || amps <= 0f) return 0f;
         if (Vehicle.CompFueledTravel?.Props.electricPowered == true) return 0f;
         double rated = Powertrain?.Spec.RatedPowerKw ?? 0;
-        return (float)AccessoryRules.EngineShare(amps, ElectricalVolts(), rated);
+        // Framework 0.130.0 (step S5): the alternator's efficiency follows its speed, from the rules Def (Remy's typical 55 %).
+        return (float)AccessoryRules.EngineShare(amps, ElectricalVolts(), rated, Rules.alternatorEfficiency.Evaluate(AlternatorRpm()));
+    }
+
+    /// <summary>How fast the alternator turns now, in rpm: the engine's speed times its Def's alternator ratio (check C4). Derived.</summary>
+    public float AlternatorRpm() => EngineRpm(AlternatorFallbackIdleRpm, AlternatorFallbackCruiseRpm) * (float)(Powertrain?.AlternatorRatio ?? EngineXml.DefaultAlternatorRatio);
+
+    /// <summary>The engine speeds assumed without a drivetrain model, as the engine-speed input's defaults have always been (authored).</summary>
+    const float AlternatorFallbackIdleRpm = 800f, AlternatorFallbackCruiseRpm = 2000f;
+
+    /// <summary>The alternator's (or a turbine's generator's) output as a share of its rating now (step S5): the rules Def's one curve.</summary>
+    public float AlternatorOutputShare()
+    {
+        Powertrain? train = Powertrain;
+        if (train?.Turbine != null)
+        {
+            (int working, int engines) = train.Engines();
+            return (float)ElectricsRule.GeneratorShare(Rules.generatorSpoolOutput.Evaluate((float)train.TurbineNow.SpeedPercent), working, engines);
+        }
+        return Rules.alternatorOutput.Evaluate(AlternatorRpm());
     }
 
     /// <summary>The electrical system's voltage: its <c>systemVolts</c> figure (12, or 24 on heavy vehicles), 12 when no system has one.</summary>
@@ -1114,7 +1154,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             return;
         }
         ShedDepth = ElectricsRule.ShedDepth(EngineRunning, GeneratorShare(), charge, Electrics.Trend == ElectricalTrend.RunningDown, ShedDepth,
-            shedRanks.Value);
+            shedRanks.Value, Rules.shedGeneratorLost, Rules.shedLowCharge, Rules.shedRecoveredCharge);
     }
 
     /// <summary>The generator's working share: the alternator's efficiency times its drive belt's, 1 when sound or not modelled.</summary>
@@ -1130,7 +1170,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     {
         bool hasBattery = TryGetQuantity("charge", out float charge);
         LoadsPowered = ElectricsRule.LoadsPowered(EngineRunning, GeneratorShare(), GridCarriesLoads, hasBattery, charge,
-            PhobosRulesDef.Current<PhobosKnockOutRulesDef>().batteryFlatBelow, LoadsPowered);
+            PhobosRulesDef.Current<PhobosKnockOutRulesDef>().batteryFlatBelow, LoadsPowered, Rules.shedGeneratorLost, Rules.flatRecoveryFactor);
     }
 
     /// <summary>One message when a flat battery puts the switched-on loads out, for the player's vehicles; none at the first look after a load.</summary>
@@ -2048,6 +2088,14 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// <summary>The factor the stages put on the fuel the engine burns now (Framework 0.123.0: a clogged air filter; derived, never saved).</summary>
     public float EngineFuelFactor { get; private set; } = 1f;
 
+    /// <summary>The share of the engine's power the stages leave it now (Framework 0.130.0, step S4: a choked air filter, a warped head, a
+    /// starved fuel feed); derived, never saved. The drivetrain model reads it where <see cref="PowerLossInModel"/>; otherwise it is folded
+    /// into the move speed factor.</summary>
+    public float EnginePowerFactor { get; private set; } = 1f;
+
+    /// <summary>Whether lost engine power is carried by the drivetrain model (full mode, a ground drivetrain) rather than as lost speed.</summary>
+    public bool PowerLossInModel => Powertrain is { Full: true, Ground: true };
+
     /// <summary>The stage labels behind a stat's factor, for the stat card's explanation.</summary>
     public IEnumerable<string> StatFactorReasons(VehicleStatDef stat)
     {
@@ -2055,21 +2103,28 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         {
             foreach (VehicleSystemEffect effect in stage.effects)
             {
-                if (effect.Active(context) && effect.StatFactor(stat) != 1f)
-                {
-                    yield return owner + ": " + stage.label + " x" + effect.StatFactor(stat).ToStringByStyle(ToStringStyle.FloatTwo);
-                }
+                if (!effect.Active(context)) continue;
+                // Step S4 (Framework 0.130.0): lost engine power shows on move speed where it is taken as speed (no full drivetrain model).
+                float factor = effect.StatFactor(stat);
+                if (stat == VehicleStatDefOf.MoveSpeed && !PowerLossInModel) factor *= effect.EnginePowerFactor;
+                if (factor != 1f) yield return owner + ": " + stage.label + " x" + factor.ToStringByStyle(ToStringStyle.FloatTwo);
             }
         }
         foreach (string reason in Fittings.StatFactorReasons(stat)) yield return reason;
     }
 
+    /// <summary>Kept between updates so working the factors out allocates nothing (Framework 0.130.0, step S8). Derived, never saved.</summary>
+    readonly Dictionary<VehicleStatDef, float> freshFactors = new();
+    readonly HashSet<VehicleStatDef> changedStats = new();
+
     void RecacheStatFactors()
     {
-        var fresh = new Dictionary<VehicleStatDef, float>();
+        Dictionary<VehicleStatDef, float> fresh = freshFactors;
+        fresh.Clear();
         float charge = 1f;
         float flightFuel = 1f;
         float engineFuel = 1f;
+        float enginePower = 1f;
         foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
         {
             foreach (VehicleSystemEffect effect in stage.effects)
@@ -2078,17 +2133,25 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 charge *= effect.ChargeFactor;
                 flightFuel *= effect.FlightFuelFactor;
                 engineFuel *= effect.EngineFuelFactor;
-                foreach (VehicleStatDef stat in DefDatabase<VehicleStatDef>.AllDefsListForReading)
-                {
-                    float factor = effect.StatFactor(stat);
-                    if (factor != 1f) fresh[stat] = (fresh.TryGetValue(stat, out float before) ? before : 1f) * factor;
-                }
+                enginePower *= effect.EnginePowerFactor;
+                // Step S8: the effect names its one stat, where every stat in the game was asked in turn before.
+                if (effect.FactorStat is not { } stat) continue;
+                float factor = effect.StatFactor(stat);
+                if (factor != 1f) fresh[stat] = (fresh.TryGetValue(stat, out float before) ? before : 1f) * factor;
             }
         }
         ChargeFactor = charge;
         FlightFuelFactor = flightFuel;
         EngineFuelFactor = engineFuel;
-        var changed = new HashSet<VehicleStatDef>(fresh.Keys);
+        // Step S4 (Framework 0.130.0): lost power is lost power where the drivetrain model can carry it; elsewhere it is lost speed, as before.
+        EnginePowerFactor = enginePower;
+        if (enginePower < 1f && !PowerLossInModel && VehicleStatDefOf.MoveSpeed is { } moveSpeed)
+        {
+            fresh[moveSpeed] = (fresh.TryGetValue(moveSpeed, out float before) ? before : 1f) * enginePower;
+        }
+        HashSet<VehicleStatDef> changed = changedStats;
+        changed.Clear();
+        changed.UnionWith(fresh.Keys);
         changed.SymmetricExceptWith(statFactors.Keys);
         foreach (KeyValuePair<VehicleStatDef, float> pair in fresh)
         {

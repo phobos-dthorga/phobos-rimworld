@@ -1,0 +1,55 @@
+using System;
+
+namespace Phobos.Framework.Vehicles.Rules;
+
+/// <summary>What a vehicle's fuel is burned for (Framework 0.130.0; docs/development/vehicle-engine-loads.md, step S2). Append only: the
+/// names are shown and logged.</summary>
+public enum FuelUse
+{
+    /// <summary>The engine model's correction to Vehicle Framework's own flat rate (driving, idling, the loads): may be negative, a refund.</summary>
+    Engine,
+    /// <summary>Standing work: a drill, a scanner, a generator head.</summary>
+    Work,
+    /// <summary>A fuel-burning heater: the night heater, an electric vehicle's cab or pack heater.</summary>
+    Heater,
+    /// <summary>Fuel lost from a holed tank.</summary>
+    Leak,
+    /// <summary>A helicopter's own flying work outside Vehicle Framework's flight, such as a water-bucket run.</summary>
+    Flight,
+    /// <summary>Taken out because the tank or pack can hold less than it holds (a worn pack): not a rate, never shown as one.</summary>
+    Spilled,
+}
+
+/// <summary>
+/// How fast a vehicle burns its fuel for each use, from what it burned lately (Framework 0.130.0, step S2). Each use keeps one figure that
+/// grows by what is burned and fades with a time constant of a game hour, so the rate it gives is the last hour or so, smoothed, and
+/// nothing is stored per burn. Game-free.
+/// </summary>
+public static class FuelRateRule
+{
+    /// <summary>The fade's time constant in game ticks: an hour (authored).</summary>
+    public const double FadeTicks = 2500;
+
+    /// <summary>Game ticks in a day, as the game has it.</summary>
+    public const double TicksPerDay = 60000;
+
+    /// <summary>The figure after fading from <paramref name="lastTick"/> to <paramref name="now"/> and adding <paramref name="amount"/>.</summary>
+    public static double Add(double figure, int lastTick, int now, double amount) => Faded(figure, lastTick, now) + amount;
+
+    /// <summary>The figure faded to <paramref name="now"/>.</summary>
+    public static double Faded(double figure, int lastTick, int now)
+    {
+        if (now <= lastTick || figure == 0) return figure;
+        return figure * Math.Exp(-(now - lastTick) / FadeTicks);
+    }
+
+    /// <summary>The rate per day the figure stands for: a steady burn of r a tick settles at r times the time constant.</summary>
+    public static double PerDay(double figure, int lastTick, int now) => Faded(figure, lastTick, now) / FadeTicks * TicksPerDay;
+
+    /// <summary>Vehicle Framework's own burn now, per day: its daily rate in full while moving, half while drafted and standing on a map
+    /// (CompFueledTravel.ConsumptionRatePerTick), nothing undrafted.</summary>
+    public static double FrameworkPerDay(double dailyRate, bool burning, bool moving) => !burning ? 0 : moving ? dailyRate : dailyRate * FrameworkIdleShare;
+
+    /// <summary>The share of its daily rate Vehicle Framework burns while a vehicle stands drafted on a map (a fact of its code).</summary>
+    public const double FrameworkIdleShare = 0.5;
+}

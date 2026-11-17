@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using Phobos.Framework.Vehicles.Rules;
 using Phobos.Framework.Rules;
 using RimWorld;
 using SmashTools;
@@ -61,8 +62,6 @@ public abstract class CompPhobosSetUp : VehicleComp
     const string LookKey = "PhobosSetUpLook";
     const string PartKey = "PhobosSetUpPart";
     const float TicksPerSecond = 60f;
-    /// <summary>Vehicle Framework burns half its daily rate while a vehicle idles (read from its source).</summary>
-    const float IdlingFuelShare = 0.5f;
     /// <summary>Trees are not walls: a part may swing over them, but only if neither side is free of them.</summary>
     const int HardBlocked = -1;
 
@@ -530,8 +529,11 @@ public abstract class CompPhobosSetUp : VehicleComp
     protected float WorkFuel(float amount, float days)
     {
         CompFueledTravel? fuel = Vehicle.CompFueledTravel;
-        return fuel == null ? amount : OverdriveRule.WorkFuel(amount, fuel.FuelEfficiency * IdlingFuelShare * days, Vehicle.Drafted);
+        return fuel == null ? amount : OverdriveRule.WorkFuel(amount, (float)(fuel.FuelEfficiency * FuelRateRule.FrameworkIdleShare * days), Vehicle.Drafted);
     }
+
+    /// <summary>Burns the work's fuel through the one fuel service (Framework 0.130.0, step S2), so the vehicle shows what its work costs.</summary>
+    protected void BurnWorkFuel(float amount) => VehicleFuel.Burn(Vehicle, amount, FuelUse.Work);
 }
 
 /// <summary>What a colonist has been asked to do at a vehicle set up by hand. Saved by name: append only.</summary>

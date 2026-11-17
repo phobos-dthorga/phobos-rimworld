@@ -23,14 +23,18 @@ public static class ElectricsRule
     /// </summary>
     /// <param name="generator">The generator's working share: its part's efficiency times its drive belt's, 1 when sound.</param>
     /// <param name="previousDepth">The depth at the last look, for the low-battery case's recovery margin.</param>
-    public static int ShedDepth(bool engineRunning, double generator, double charge, bool runningDown, int previousDepth, int ranks)
+    /// <param name="generatorLost">Below this working share the generator counts as lost (a rules Def figure since Framework 0.130.0).</param>
+    /// <param name="lowCharge">Below this charge a battery running down starts the shedding.</param>
+    /// <param name="recoveredCharge">Shedding begun on a low battery ends only above this.</param>
+    public static int ShedDepth(bool engineRunning, double generator, double charge, bool runningDown, int previousDepth, int ranks,
+        double generatorLost = GeneratorLost, double lowCharge = LowCharge, double recoveredCharge = RecoveredCharge)
     {
         if (!engineRunning || ranks <= 0) return 0;
-        bool lost = generator < GeneratorLost;
-        bool low = charge < LowCharge && runningDown;
-        bool recovering = previousDepth > 0 && charge < RecoveredCharge;
+        bool lost = generator < generatorLost;
+        bool low = charge < lowCharge && runningDown;
+        bool recovering = previousDepth > 0 && charge < recoveredCharge;
         if (!lost && !low && !recovering) return 0;
-        int depth = charge >= 0.6 ? 2 : charge >= 0.45 ? 4 : charge >= LowCharge ? 5 : ranks;
+        int depth = charge >= 0.6 ? 2 : charge >= 0.45 ? 4 : charge >= lowCharge ? 5 : ranks;
         return Math.Max(1, Math.Min(ranks, depth));
     }
 
@@ -50,11 +54,11 @@ public static class ElectricsRule
     /// <param name="generator">The generator's working share: its part's efficiency times its drive belt's, 1 when sound.</param>
     /// <param name="poweredBefore">The answer at the last look, for the recovery margin.</param>
     public static bool LoadsPowered(bool engineRunning, double generator, bool gridCarries, bool hasBattery, double charge, double flatBelow,
-        bool poweredBefore)
+        bool poweredBefore, double generatorLost = GeneratorLost, double recoveryFactor = FlatRecoveryFactor)
     {
         if (!hasBattery || gridCarries) return true;
-        if (engineRunning && generator >= GeneratorLost) return true;
-        return charge >= (poweredBefore ? flatBelow : flatBelow * FlatRecoveryFactor);
+        if (engineRunning && generator >= generatorLost) return true;
+        return charge >= (poweredBefore ? flatBelow : flatBelow * recoveryFactor);
     }
 
     /// <summary>

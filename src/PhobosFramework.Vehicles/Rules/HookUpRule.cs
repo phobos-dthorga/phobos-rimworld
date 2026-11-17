@@ -1,4 +1,5 @@
 using System;
+using Phobos.Framework.Rules;
 
 namespace Phobos.Framework.Vehicles.Rules;
 
@@ -21,11 +22,12 @@ public static class HookUpRule
         return chargerAmps * (1 - charge) / 0.2;
     }
 
-    /// <summary>The watts the grid gives: the amps it delivers at the vehicle's voltage, divided by the supply's efficiency.</summary>
+    /// <summary>The grid's watts, in the game's own, for the amps it delivers at the vehicle's voltage through the supply's efficiency
+    /// (the conversion through <see cref="PowerUnits"/> since Framework 0.130.0, step S3).</summary>
     public static double GridWatts(double carriedAmps, double chargeAmps, double volts, double efficiency)
     {
         double amps = Math.Max(0, carriedAmps) + Math.Max(0, chargeAmps);
         if (amps <= 0 || volts <= 0) return 0;
-        return amps * volts / Math.Min(1, Math.Max(0.05, efficiency));
+        return PowerUnits.ToGameWatts(PowerUnits.Input(PowerUnits.Watts(amps, volts), efficiency));
     }
 }

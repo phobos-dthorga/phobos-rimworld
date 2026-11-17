@@ -40,6 +40,8 @@ public sealed class Powertrain
     readonly TurbineSpec? dryTurbine;
     readonly double fullLoadHeatKw;
     readonly double nominalCruiseFuelKw;
+    /// <summary>The engine power and speed at the nominal cruise (step S6: what the world map's range assumes). Derived, never saved.</summary>
+    readonly double cruiseEngineKw, cruiseRpm;
     readonly double fuelKgFull;
     readonly double waterTankKg;
     readonly double waterKgPerSecond;
@@ -132,7 +134,10 @@ public sealed class Powertrain
             double tunedPower = Spec.RatedPowerKw, tunedDrive = Spec.FinalDrive;
             Spec.RatedPowerKw = tunedPower / fittings.PowerFactor;
             Spec.FinalDrive = tunedDrive / fittings.FinalDriveFactor;
-            nominalCruiseFuelKw = Math.Max(0.1, DrivetrainModel.Evaluate(Spec, cruise).FuelPowerKw);
+            DriveResult atCruise = DrivetrainModel.Evaluate(Spec, cruise);
+            nominalCruiseFuelKw = Math.Max(0.1, atCruise.FuelPowerKw);
+            cruiseEngineKw = atCruise.EnginePowerKw;
+            cruiseRpm = atCruise.Rpm;
             Spec.RatedPowerKw = tunedPower;
             Spec.FinalDrive = tunedDrive;
         }
@@ -384,6 +389,8 @@ public sealed class Powertrain
             UsableGears = UsableGears(),
             ClutchCapacity = ClutchCapacity(),
             DrivenWheelsWorking = comp.PartEfficiency("Wheels", 1f),
+            // Step S4 (Framework 0.130.0): what a choked filter, a warped head or a starved feed takes from the engine.
+            PowerLoss = 1 - comp.EnginePowerFactor,
         };
         Vehicles.World.VehicleCaravan? caravan = vehicle.GetVehicleCaravan();
         if (vehicle.Spawned && vehicle.vehiclePather != null && vehicle.vehiclePather.Moving)
@@ -710,6 +717,20 @@ public sealed class Powertrain
     /// <summary>The caravan tile's ground as last read (null off the world map or before the first read), for the dev log.</summary>
     public TileGround? WorldGroundRead { get; private set; }
 
+    /// <summary>The shaft power the engine gives now, kW: driving's and the electrical loads' (Framework 0.130.0, step S1).</summary>
+    public double ShaftKwNow(double accessoryShare) => Math.Max(0, Result.EnginePowerKw) + Math.Max(0, accessoryShare) * Spec.RatedPowerKw;
+
+    /// <summary>The fuel power the engine burns now for that shaft power, kW: the one figure the fuel burn and the Engineer line both read
+    /// (step S1). The loads cost only what they add on the Willans line, a kilowatt over the indicated efficiency, with friction counted
+    /// once; before 0.130.0 they were priced at rated-power fuel, friction and all, about 15 % too much.</summary>
+    public double FuelKwNow(double accessoryShare) => DrivetrainModel.FuelPowerKw(Spec, ShaftKwNow(accessoryShare), Result.Rpm);
+
+    /// <summary>The fuel at the nominal cruise with these loads on, as a share of the cruise without them (Framework 0.130.0, step S6): what
+    /// the world map's range puts on Vehicle Framework's rate when the fuel follows the model. 1 with no loads.</summary>
+    public double CruiseFuelShare(double accessoryShare) =>
+        DrivetrainModel.FuelPowerKw(Spec, cruiseEngineKw + Math.Max(0, accessoryShare) * Spec.RatedPowerKw, Math.Max(cruiseRpm, Spec.IdleRpm))
+        / Math.Max(0.1, nominalCruiseFuelKw);
+
     /// <summary>When the player lets fuel follow the model, or a fitting or tune changes what the engine burns: the difference between
     /// that and Vehicle Framework's own use (full rate moving, half idling), burned or given back over the hours that passed. Normalised
     /// so a nominal cruise matches.</summary>
@@ -725,12 +746,12 @@ public sealed class Powertrain
         // rate (with the author's world multiplier) while the caravan moves, and nothing while it stands.
         bool onMap = comp.Vehicle.Spawned;
         double vfPerHour = onMap ? fuel.FuelEfficiency / 24.0 : FuelRules.WorldPerHour(fuel.ConsumptionRateWorldPerTick, ElapsedRule.TicksPerHour);
-        double vfShare = comp.Moving ? 1 : onMap ? 0.5 : 0;
-        // Crosslink 5: the loads' share of rated power is burned at the engine's rated-power efficiency, added to the drive's fuel.
-        double accessoryFuelKw = comp.AccessoryShare * DrivetrainModel.FuelPowerKw(Spec, Spec.RatedPowerKw, Spec.RatedRpm);
-        double modelShare = FittingRule.TunedFuelShare(followsModel ? (Result.FuelPowerKw + accessoryFuelKw) / Math.Max(0.1, nominalCruiseFuelKw) : vfShare, tuned);
+        double vfShare = comp.Moving ? 1 : onMap ? FuelRateRule.FrameworkIdleShare : 0;
+        // Crosslink 5: the loads' shaft power is burned with the drive's, on the same Willans line (step S1).
+        double modelShare = FittingRule.TunedFuelShare(followsModel ? FuelKwNow(comp.AccessoryShare) / Math.Max(0.1, nominalCruiseFuelKw) : vfShare, tuned);
         double perHour = FuelRules.ExtraPerHour(vfPerHour, vfShare, modelShare);
-        if (perHour > 0 && !fuel.EmptyTank) fuel.ConsumeFuel((float)(perHour * hours));
-        else if (perHour < 0) fuel.Refuel((float)(-perHour * hours));
+        // Step S2 (Framework 0.130.0): through the one fuel service, so the vehicle can say what it burns and why.
+        if (perHour > 0) VehicleFuel.Burn(comp.Vehicle, (float)(perHour * hours), FuelUse.Engine, comp);
+        else if (perHour < 0) VehicleFuel.GiveBack(comp.Vehicle, (float)(-perHour * hours), FuelUse.Engine, comp);
     }
 }

@@ -54,8 +54,9 @@
             <label>clogged</label>
             <notable>true</notable>
             <effects>
-              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
-                <stat>MoveSpeed</stat>
+              <!-- Framework 0.130.0 (step S4): power lost from the engine; the full drivetrain model slows the vehicle only where power runs
+                   short, and anything without it takes the same 0.93 on its speed. -->
+              <li Class="Phobos.VehicleSystems.Effect_EnginePower">
                 <factor>0.93</factor>
               </li>
               <li Class="Phobos.VehicleSystems.Effect_EngineFuel">

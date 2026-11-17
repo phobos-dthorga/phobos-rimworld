@@ -522,17 +522,35 @@ public sealed class VehicleFittings
         if (AssumeRigForTest) return true;
         VehiclePawn vehicle = comp.Vehicle;
         if (!vehicle.Spawned) return false;
+        // Framework 0.130.0 (step S8): a repair job asks every tick, so the answer is kept for a second of game time while the vehicle stands
+        // where it stood (paused, it is kept: the inspect pane asks every frame), and the rigs come from the map's own list.
+        int now = Find.TickManager.TicksGame;
+        if (now - nearRigTick < NearRigTicks && vehicle.Position == nearRigCell && vehicle.Rotation == nearRigRotation && vehicle.Map == nearRigMap) return nearRig;
         CellRect area = DrawnArea(vehicle);
-        foreach (ThingDef def in RigDefs)
+        bool found = false;
+        foreach (CompPhobosTuningRig station in CompPhobosTuningRig.PlayersOn(vehicle.Map))
         {
-            foreach (Building rig in vehicle.Map.listerBuildings.AllBuildingsColonistOfDef(def))
+            if (station.Working && station.Reaches(area))
             {
-                CompPhobosTuningRig? station = rig.GetComp<CompPhobosTuningRig>();
-                if (station != null && station.Working && station.Reaches(area)) return true;
+                found = true;
+                break;
             }
         }
-        return false;
+        nearRig = found;
+        nearRigTick = now;
+        nearRigCell = vehicle.Position;
+        nearRigRotation = vehicle.Rotation;
+        nearRigMap = vehicle.Map;
+        return found;
     }
+
+    /// <summary>How long the rig answer is kept: a second of game time (authored). Derived, never saved.</summary>
+    const int NearRigTicks = 60;
+    bool nearRig;
+    int nearRigTick = int.MinValue / 2;
+    IntVec3 nearRigCell;
+    Rot4 nearRigRotation;
+    Map? nearRigMap;
 
     /// <summary>The cells the vehicle's picture covers, not only those it occupies (Framework 0.77.0): an aircraft's wings and rotor spread
     /// far past its footprint, and a rig placed clear of them was out of reach. Turned east or west, the picture turns with it.</summary>

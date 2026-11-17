@@ -156,6 +156,7 @@
           <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
             <perHour>0.02</perHour>
             <ofCapacity>true</ofCapacity>
+            <use>Leak</use>
           </li>
         </effects>
       </li>
@@ -168,6 +169,7 @@
           <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
             <perHour>0.08</perHour>
             <ofCapacity>true</ofCapacity>
+            <use>Leak</use>
           </li>
         </effects>
       </li>
@@ -179,6 +181,7 @@
           <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
             <perHour>0.25</perHour>
             <ofCapacity>true</ofCapacity>
+            <use>Leak</use>
           </li>
         </effects>
       </li>
@@ -258,8 +261,8 @@
             <perHour>30</perHour>
             <when Class="Phobos.VehicleSystems.When_EngineRunning" />
           </li>
-          <li Class="Phobos.VehicleSystems.Effect_StatFactor">
-            <stat>MoveSpeed</stat>
+          <!-- Framework 0.130.0 (step S4): a badly warped head loses compression, so the engine loses power rather than the vehicle speed. -->
+          <li Class="Phobos.VehicleSystems.Effect_EnginePower">
             <factor>0.9</factor>
           </li>
         </effects>

@@ -170,7 +170,7 @@ public abstract class CompPhobosRigWork : CompPhobosSetUp, IVehicleEngineDemand
             RunOverdrive();
             CompPowerTrader? trader = powerPoint?.GetComp<CompPowerTrader>();
             if (trader != null) trader.PowerOutput = -DrawWatts * OverdriveFactor;
-            if (!stalled && WantsEngine && HasFuel) Vehicle.CompFueledTravel?.ConsumeFuel(WorkFuel(OverdriveRule.FuelPerDay(FuelPerDay, overdrive, RigProps.overdriveFuelFactor) * DaysPerRareTick, DaysPerRareTick));
+            if (!stalled && WantsEngine && HasFuel) BurnWorkFuel(WorkFuel(OverdriveRule.FuelPerDay(FuelPerDay, overdrive, RigProps.overdriveFuelFactor) * DaysPerRareTick, DaysPerRareTick));
         }
     }
 

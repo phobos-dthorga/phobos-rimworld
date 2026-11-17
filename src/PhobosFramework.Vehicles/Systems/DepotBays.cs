@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework.Environment;
 using RimWorld;
 using Vehicles;
 using Verse;
@@ -76,6 +77,13 @@ public sealed class CompPhobosDepotBay : ThingComp
         base.PostSpawnSetup(respawningAfterLoad);
         tank = parent.GetComp<CompRefuelable>();
         power = parent.GetComp<CompPowerTrader>();
+        MapRegistry<CompPhobosDepotBay>.Add(parent.Map, this);
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        base.PostDeSpawn(map, mode);
+        MapRegistry<CompPhobosDepotBay>.Remove(map, this);
     }
 
     public override void CompTickRare()
@@ -116,23 +124,27 @@ public sealed class CompPhobosDepotBay : ThingComp
 /// <summary>The service the bays' buttons and the vehicle's own comp go through.</summary>
 public static class DepotBays
 {
-    static List<ThingDef>? defs;
-
-    static List<ThingDef> Defs => defs ??= DefDatabase<ThingDef>.AllDefsListForReading.Where(d => d.GetCompProperties<CompProperties_PhobosDepotBay>() != null).ToList();
-
+    /// <summary>The player's bays on a map (Framework 0.130.0, step S8: from the map's own list; every vehicle asks on every rare tick, and
+    /// walking every colony building for it showed in the owner's recording of 18 Nov 2026).</summary>
     public static IEnumerable<CompPhobosDepotBay> On(Map map)
     {
-        foreach (ThingDef def in Defs)
+        IReadOnlyList<CompPhobosDepotBay> bays = MapRegistry<CompPhobosDepotBay>.On(map);
+        for (int i = 0; i < bays.Count; i++)
         {
-            foreach (Building building in map.listerBuildings.AllBuildingsColonistOfDef(def))
-            {
-                CompPhobosDepotBay? bay = building.GetComp<CompPhobosDepotBay>();
-                if (bay != null) yield return bay;
-            }
+            if (bays[i].parent.Faction == Faction.OfPlayer) yield return bays[i];
         }
     }
 
-    public static CompPhobosDepotBay? Of(VehiclePawn vehicle) => vehicle.Spawned ? On(vehicle.Map).FirstOrDefault(b => b.Assigned == vehicle) : null;
+    public static CompPhobosDepotBay? Of(VehiclePawn vehicle)
+    {
+        if (!vehicle.Spawned) return null;
+        IReadOnlyList<CompPhobosDepotBay> bays = MapRegistry<CompPhobosDepotBay>.On(vehicle.Map);
+        for (int i = 0; i < bays.Count; i++)
+        {
+            if (bays[i].Assigned == vehicle && bays[i].parent.Faction == Faction.OfPlayer) return bays[i];
+        }
+        return null;
+    }
 
     /// <summary>The player's vehicles on this bay's map, for choosing one.</summary>
     public static IEnumerable<VehiclePawn> Candidates(CompPhobosDepotBay bay) =>

@@ -11,9 +11,24 @@ public class AccessoryRulesTests
     [Fact]
     public void ALightTrucksLightsAndHeaterTakeAboutOnePercent()
     {
-        // 9 A of headlamps, 12 A of heater blower and 4 A of instruments at 12 V: 300 W delivered, 500 W at the shaft of a 50 kW engine.
-        Assert.Equal(0.01, AccessoryRules.EngineShare(25, 12, 50), 6);
+        // 9 A of headlamps, 12 A of heater blower and 4 A of instruments at 12 V: 300 W delivered, 500 W at the shaft of a 50 kW engine at 0.6.
+        Assert.Equal(0.01, AccessoryRules.EngineShare(25, 12, 50, 0.6), 6);
     }
+
+    [Fact]
+    public void TheTypicalEfficiencyIsRemys()
+    {
+        // 300 W delivered at 55 % is about 545 W at the shaft.
+        Assert.Equal(300 / 0.55 / 1000 / 50, AccessoryRules.EngineShare(25, 12, 50), 9);
+    }
+
+    [Fact]
+    public void ALessEfficientAlternatorTakesMore() =>
+        Assert.True(AccessoryRules.EngineShare(25, 12, 50, 0.45) > AccessoryRules.EngineShare(25, 12, 50, 0.58));
+
+    [Fact]
+    public void AnEfficiencyOffTheCurvesEndCannotAskForInfinitePower() =>
+        Assert.Equal(300 / 0.1 / 1000, AccessoryRules.ShaftKilowatts(300, 0), 9);
 
     [Fact]
     public void ThePowerAtTheShaftIsMoreThanTheLoadsDraw() =>

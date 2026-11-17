@@ -51,7 +51,9 @@
     "177": ["vehicles.fitting-done.PhobosFitting_CargoHook", "vehicles.fitting-done.PhobosFitting_LitterKit"],
     "178": ["vehicles.fridge-chilling"],
     "179": ["vehicles.outlet-giving"],
-    "181": ["vehicles.battery-dead"]
+    "181": ["vehicles.battery-dead"],
+    "182": ["vehicles.engine-power-lost"],
+    "183": ["vehicles.fuel-rates"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

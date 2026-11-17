@@ -788,6 +788,31 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
 {
     /// <summary>The most game hours a vehicle catches up on at once, after a long time unspawned or switched off.</summary>
     public float maxCatchUpHours = 24f;
+    /// <summary>A piston engine's alternator output as a share of its rating, against the alternator's own speed in rpm (Framework 0.130.0,
+    /// step S5: written once here, where the starting and house batteries each had a copy). Shaped from the drivetrain record's sources;
+    /// authored. The alternator turns at the engine's speed times its Def's alternatorRatio.</summary>
+    public SimpleCurve alternatorOutput = new()
+    {
+        new CurvePoint(1200f, 0f), new CurvePoint(1800f, 0.5f), new CurvePoint(2400f, 0.7f), new CurvePoint(4000f, 0.9f), new CurvePoint(6000f, 1f),
+    };
+    /// <summary>A turbine's generator output against its spool speed in percent (avionics A5): about half at ground idle, full from cruise.
+    /// Authored; written once here (step S5).</summary>
+    public SimpleCurve generatorSpoolOutput = new() { new CurvePoint(60f, 0.5f), new CurvePoint(80f, 0.85f), new CurvePoint(90f, 1f) };
+    /// <summary>Electrical watts out per watt of shaft power in, against the alternator's speed in rpm (step S5; the owner's pick of 18 Nov
+    /// 2026: Remy's typical 55 %, falling with speed). Remy's white paper (Bradfield, 2015) gives 55 % as typical and measured duty-cycle
+    /// averages of 54 to 60.5 %, its losses growing with speed; the shape is authored from that.</summary>
+    public SimpleCurve alternatorEfficiency = new()
+    {
+        new CurvePoint(1800f, 0.58f), new CurvePoint(4000f, 0.55f), new CurvePoint(6000f, 0.5f), new CurvePoint(10000f, 0.45f),
+    };
+    /// <summary>Load shedding (cross-links G16): a generator below this share of its output counts as lost; below <see cref="shedLowCharge"/>
+    /// a battery running down with the engine on sheds; shedding ends once the charge is back above <see cref="shedRecoveredCharge"/>.
+    /// Authored; moved here from code in step S5.</summary>
+    public float shedGeneratorLost = 0.2f;
+    public float shedLowCharge = 0.3f;
+    public float shedRecoveredCharge = 0.35f;
+    /// <summary>A battery that went flat powers its loads again at this many times the flat line (check C1; authored).</summary>
+    public float flatRecoveryFactor = 2f;
     /// <summary>The longest integration step in hours.</summary>
     public float stepHours = 0.025f;
     /// <summary>A stage's message is not repeated within this many hours, so a value hovering on a threshold stays quiet.</summary>

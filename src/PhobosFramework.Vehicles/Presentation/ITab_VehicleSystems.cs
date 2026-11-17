@@ -165,12 +165,11 @@ public partial class ITab_VehicleSystems : ITab
                 PhobosWidgets.CardHeader(ref y, 0f, viewWidth, "PhobosVehicleSystems_SysDrivetrain".Translate(), train.Cap < 0.99 ? PhobosWidgets.Caution : PhobosWidgets.Good);
                 string gear = r.Gear > 0 ? "PhobosVehicleSystems_SysGear".Translate(r.Gear.Named("GEAR")).Resolve() + ", " : "";
                 Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), gear + "PhobosVehicleSystems_SysRpm".Translate(r.Rpm.ToString("N0").Named("RPM")).Resolve()
-                    + ", " + "PhobosVehicleSystems_SysLoad".Translate(((float)r.Load).ToStringPercent().Named("LOAD")).Resolve());
+                    + ", " + "PhobosVehicleSystems_SysLoad".Translate(comp.Engine.Load.ToStringPercent().Named("LOAD")).Resolve());
                 y += Row;
                 if (engineer)
                 {
-                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_InspectPower".Translate(((float)r.Load).ToStringPercent().Named("LOAD"),
-                        r.EnginePowerKw.ToString("0").Named("ENGINE"), r.FuelPowerKw.ToString("0").Named("FUEL"), r.HeatKw.ToString("0").Named("HEAT")).Resolve());
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), InspectText.PowerLine(comp, train));
                     y += Row;
                     Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysMass".Translate(train.MassKg().ToString("N0").Named("MASS")).Resolve());
                     y += Row;

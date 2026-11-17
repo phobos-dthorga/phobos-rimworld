@@ -1,3 +1,4 @@
+using Phobos.Framework.Environment;
 using Phobos.Framework.Interface;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,23 @@ public sealed class CompPhobosTuningRig : ThingComp
     {
         base.PostSpawnSetup(respawningAfterLoad);
         power = parent.GetComp<CompPowerTrader>();
+        MapRegistry<CompPhobosTuningRig>.Add(parent.Map, this);
+    }
+
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        base.PostDeSpawn(map, mode);
+        MapRegistry<CompPhobosTuningRig>.Remove(map, this);
+    }
+
+    /// <summary>The player's tuning rigs on a map (Framework 0.130.0, step S8: from the map's own list, not a walk of every building).</summary>
+    public static IEnumerable<CompPhobosTuningRig> PlayersOn(Map map)
+    {
+        IReadOnlyList<CompPhobosTuningRig> rigs = MapRegistry<CompPhobosTuningRig>.On(map);
+        for (int i = 0; i < rigs.Count; i++)
+        {
+            if (rigs[i].parent.Faction == Faction.OfPlayer) yield return rigs[i];
+        }
     }
 
     public bool Working => power == null || power.PowerOn;

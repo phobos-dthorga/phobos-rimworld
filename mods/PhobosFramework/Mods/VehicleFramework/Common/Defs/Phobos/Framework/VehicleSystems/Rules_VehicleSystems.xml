@@ -6,6 +6,40 @@
     <defName>PhobosVehicleRules</defName>
     <maxCatchUpHours>24</maxCatchUpHours>
     <stepHours>0.025</stepHours>
+    <!-- Framework 0.130.0 (docs/development/vehicle-engine-loads.md, step S5): the alternator's figures, written once here for every system
+         that charges a battery. Output against the alternator's own speed (the engine's times its Def's alternatorRatio), shaped from the
+         drivetrain record's sources and authored; a turbine's generator against its spool speed (avionics A5, authored). Efficiency against
+         the alternator's speed: the owner's pick of 18 Nov 2026, Remy's typical 55 % falling with speed (Bradfield, Remy Inc., 2015: 55 %
+         typical, measured duty-cycle averages of 54 to 60.5 %, losses growing with speed); the shape is authored. -->
+    <alternatorOutput>
+      <points>
+        <li>(1200, 0)</li>
+        <li>(1800, 0.5)</li>
+        <li>(2400, 0.7)</li>
+        <li>(4000, 0.9)</li>
+        <li>(6000, 1)</li>
+      </points>
+    </alternatorOutput>
+    <generatorSpoolOutput>
+      <points>
+        <li>(60, 0.5)</li>
+        <li>(80, 0.85)</li>
+        <li>(90, 1)</li>
+      </points>
+    </generatorSpoolOutput>
+    <alternatorEfficiency>
+      <points>
+        <li>(1800, 0.58)</li>
+        <li>(4000, 0.55)</li>
+        <li>(6000, 0.5)</li>
+        <li>(10000, 0.45)</li>
+      </points>
+    </alternatorEfficiency>
+    <!-- Load shedding (cross-links G16) and a flat battery's recovery (check C1), moved here from code in step S5. All authored. -->
+    <shedGeneratorLost>0.2</shedGeneratorLost>
+    <shedLowCharge>0.3</shedLowCharge>
+    <shedRecoveredCharge>0.35</shedRecoveredCharge>
+    <flatRecoveryFactor>2</flatRecoveryFactor>
     <replacedPartHealth>0.25</replacedPartHealth>
     <!-- Framework 0.73.0 (docs/development/vehicle-crosslinks.md, S1, S2 and T1; owner, 10 Nov 2026). All authored. -->
     <replacedPartHealthAtRig>0.6</replacedPartHealthAtRig>

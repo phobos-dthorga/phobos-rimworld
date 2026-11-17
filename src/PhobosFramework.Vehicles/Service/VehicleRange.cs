@@ -13,7 +13,7 @@ namespace Phobos.VehicleSystems;
 /// How far a vehicle caravan can drive on the fuel aboard (Framework 0.85.0; docs/development/vehicle-presentation-design.md, P7b), on
 /// Vehicle Framework's own world costs: each step costs the ticks Vehicle Framework's caravan follower would spend moving into the next tile
 /// (terrain, hills, winter and roads, for the caravan's slowest speed), and the fuel burns only while it moves, at Vehicle Framework's world
-/// rate with our fittings' and tunes' factor. The vehicle that runs dry first sets the reach. Worked out when asked for, then kept until
+/// rate with the factor the burn itself uses (VehicleFuel.WorldMoveFactor since 0.130.0). The vehicle that runs dry first sets the reach. Worked out when asked for, then kept until
 /// the caravan's tile, its fuel (to a hundredth of the tank) or its speed changes; nothing per tick.
 /// </summary>
 public static class VehicleRange
@@ -54,7 +54,8 @@ public static class VehicleRange
         {
             CompFueledTravel? fuel = vehicle.CompFueledTravel;
             if (fuel == null) continue;
-            float factor = vehicle.GetComp<CompPhobosVehicleSystems>()?.Fittings.TunedFuelFactor ?? 1f;
+            // Framework 0.130.0 (step S6): the factor the burn itself uses, tunes, a clogged filter and the loads included, not the tunes alone.
+            float factor = (float)VehicleFuel.WorldMoveFactor(vehicle.GetComp<CompPhobosVehicleSystems>());
             float perTick = fuel.ConsumptionRateWorldPerTick * factor;
             if (perTick <= 0f) continue;
             float ticks = fuel.Fuel / perTick;

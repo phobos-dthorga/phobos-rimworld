@@ -149,7 +149,7 @@ public static class WaterDrops
         TargetRefusal(sling, target, out IntVec3 water);
         WaterRunPlan plan = PlanFor(helicopter, water, target);
         double litres = Litres(sling);
-        helicopter.CompFueledTravel?.ConsumeFuel(FuelFor(helicopter, plan));
+        VehicleFuel.Burn(helicopter, FuelFor(helicopter, plan), Phobos.Framework.Vehicles.Rules.FuelUse.Flight);
         PhobosWaterRun.Start(helicopter, water, target, plan, litres, Radius(litres));
         Messages.Message("PhobosWaterDrop_Started".Translate(helicopter.LabelShort.Named("HELICOPTER"), ((float)litres).ToString("N0").Named("LITRES")).Resolve(),
             new LookTargets(target, helicopter.Map), MessageTypeDefOf.TaskCompletion, historical: false);

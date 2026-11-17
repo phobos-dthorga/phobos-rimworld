@@ -14,7 +14,9 @@
     - An alternator gives nothing below its cut-in speed and its full output only well above idle; it turns about 2.5 to 3 times
       engine speed through its pulley (secondary: the drivetrain record's sources, docs/development/vehicle-drivetrain-design.md).
       The output curve on rotor speed (nothing below 1,200 rpm, half at 1,800, 70% at 2,400, full from 6,000) is shaped from
-      those sources and authored; an idling engine gives roughly half, so lights left on at idle slowly drain the battery.
+      those sources and authored; an idling engine gives roughly half, so lights left on at idle slowly drain the battery. Since
+      Framework 0.130.0 the curve lives once in the rules Def (alternatorOutput, Rules_VehicleSystems.xml), with the pulley ratio on
+      each engine's Def (alternatorRatio).
     - A start of about 150 A for about 6 s is 0.25 Ah (our inference from typical starter currents; authored); a cold start draws
       more (authored factor).
     - The charging taper (a full battery accepts little) and the self-discharge are authored.
@@ -282,29 +284,9 @@
             <!-- Framework 0.106.0 (avionics A5): a piston engine's alternator follows its rotor speed as before; a turbine's generator
                  follows the spool speed instead (about half at ground idle, full from cruise, authored), shared among the engines still
                  working. Before, a turbine's spool read through the piston curve as an rpm far past its top: full output at idle. -->
-            <supplyFactor Class="Phobos.VehicleSystems.Input_GeneratorDrive">
-              <piston Class="Phobos.VehicleSystems.Input_EngineRpm">
-                <!-- Framework 0.129.1 (check C4): the engine's own alternator ratio, so a slow engine's alternator still turns; 2.5 without a drivetrain. -->
-                <alternatorSpeed>true</alternatorSpeed>
-                <multiplier>2.5</multiplier>
-                <curve>
-                  <points>
-                    <li>(1200, 0)</li>
-                    <li>(1800, 0.5)</li>
-                    <li>(2400, 0.7)</li>
-                    <li>(4000, 0.9)</li>
-                    <li>(6000, 1)</li>
-                  </points>
-                </curve>
-              </piston>
-              <turbineSpool>
-                <points>
-                  <li>(60, 0.5)</li>
-                  <li>(80, 0.85)</li>
-                  <li>(90, 1)</li>
-                </points>
-              </turbineSpool>
-            </supplyFactor>
+            <!-- Framework 0.130.0 (step S5): the rules Def's one alternator curve on its own speed (the engine's times its alternator
+                 ratio), or a turbine's spool curve; it was written out here three times. -->
+            <supplyFactor Class="Phobos.VehicleSystems.Input_AlternatorOutput" />
           </li>
           <li Class="Phobos.VehicleSystems.Input_Quantity">
             <quantity>charge</quantity>
@@ -332,29 +314,9 @@
             <!-- Framework 0.106.0 (avionics A5): a piston engine's alternator follows its rotor speed as before; a turbine's generator
                  follows the spool speed instead (about half at ground idle, full from cruise, authored), shared among the engines still
                  working. Before, a turbine's spool read through the piston curve as an rpm far past its top: full output at idle. -->
-            <supplyFactor Class="Phobos.VehicleSystems.Input_GeneratorDrive">
-              <piston Class="Phobos.VehicleSystems.Input_EngineRpm">
-                <!-- Framework 0.129.1 (check C4): the engine's own alternator ratio, so a slow engine's alternator still turns; 2.5 without a drivetrain. -->
-                <alternatorSpeed>true</alternatorSpeed>
-                <multiplier>2.5</multiplier>
-                <curve>
-                  <points>
-                    <li>(1200, 0)</li>
-                    <li>(1800, 0.5)</li>
-                    <li>(2400, 0.7)</li>
-                    <li>(4000, 0.9)</li>
-                    <li>(6000, 1)</li>
-                  </points>
-                </curve>
-              </piston>
-              <turbineSpool>
-                <points>
-                  <li>(60, 0.5)</li>
-                  <li>(80, 0.85)</li>
-                  <li>(90, 1)</li>
-                </points>
-              </turbineSpool>
-            </supplyFactor>
+            <!-- Framework 0.130.0 (step S5): the rules Def's one alternator curve on its own speed (the engine's times its alternator
+                 ratio), or a turbine's spool curve; it was written out here three times. -->
+            <supplyFactor Class="Phobos.VehicleSystems.Input_AlternatorOutput" />
           </li>
         </inputs>
       </li>

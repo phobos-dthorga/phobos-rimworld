@@ -12,6 +12,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="../../src/PhobosFramework.Vehicles/Rules/*.cs" Link="Rules/%(Filename)%(Extension)" />
+    <!-- Framework 0.130.0 (step S3): the vehicle rules change power's units through the core's one rule. -->
+    <Compile Include="../../src/PhobosFramework/Rules/PowerUnits.cs" Link="Rules/PowerUnits.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />

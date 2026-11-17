@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework;
+using Phobos.Framework.Vehicles.Rules;
+using Vehicles;
 using RimWorld;
 using Verse;
 
@@ -50,11 +52,14 @@ public static class InspectText
         if (engine != null) lines.Add(engine);
         string? electrics = ElectricsLine(comp.Electrics, mode);
         if (electrics != null) lines.Add(electrics);
+        string? fuel = FuelLine(comp, mode);
+        if (fuel != null) lines.Add(fuel);
         if (comp.PipeFuelLine != null) lines.Add(comp.PipeFuelLine);
         if (mode == DisplayMode.Engineer)
         {
-            lines.Add("PhobosVehicleSystems_InspectEngineer".Translate(comp.EngineLoad.ToStringPercent().Named("LOAD"),
-                comp.ActiveLoadAmps().ToString("0").Named("AMPS"), comp.Ambient.ToStringTemperature("F0").Named("AIR")).Resolve());
+            // Framework 0.130.0 (step S1, check C7): the load is shown once, on the engine's line; this line keeps the electrics and the air.
+            lines.Add("PhobosVehicleSystems_InspectEngineer".Translate(comp.ActiveLoadAmps().ToString("0").Named("AMPS"),
+                comp.Ambient.ToStringTemperature("F0").Named("AIR")).Resolve());
         }
         return lines.Count == 0 ? null : string.Join("\n", lines);
     }
@@ -142,7 +147,7 @@ public static class InspectText
         if (mode == DisplayMode.Plain)
         {
             if (spinning) return "PhobosVehicleSystems_InspectWheelsSpinning".Translate();
-            if (r.Load > 0.9) return "PhobosVehicleSystems_InspectLabouring".Translate();
+            if (comp.Engine.Load > 0.9f) return "PhobosVehicleSystems_InspectLabouring".Translate();
             return null;
         }
         string line;
@@ -169,11 +174,49 @@ public static class InspectText
         }
         else if (mode == DisplayMode.Engineer)
         {
-            line += " " + "PhobosVehicleSystems_InspectPower".Translate(((float)r.Load).ToStringPercent().Named("LOAD"), r.EnginePowerKw.ToString("0").Named("ENGINE"),
-                r.FuelPowerKw.ToString("0").Named("FUEL"), r.HeatKw.ToString("0").Named("HEAT")).Resolve();
+            line += " " + PowerLine(comp, train);
             if (train.Cap < 0.99) line += " " + "PhobosVehicleSystems_InspectCap".Translate(((float)train.Cap).ToStringPercent().Named("CAP")).Resolve();
         }
         return line;
+    }
+
+    static readonly List<(FuelUse use, double perDay)> fuelParts = new();
+
+    /// <summary>What the vehicle burns now and why (Framework 0.130.0, steps S2 and S6), from the one fuel service: Operator the amount a
+    /// day, Engineer the amount for each use too. Plain shows nothing; the fuel gauge is there for it.</summary>
+    static string? FuelLine(CompPhobosVehicleSystems comp, DisplayMode mode)
+    {
+        if (mode == DisplayMode.Plain || comp.Tier != Phobos.Framework.Rules.DetailTier.Full) return null;
+        CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;
+        if (fuel == null || fuel.Props.fuelType == null) return null;
+        double total = VehicleFuel.PerDay(comp, fuelParts);
+        if (total <= VehicleFuel.MinShownPerDay) return null;
+        NamedArgument amount = ((float)total).ToString("0.#").Named("AMOUNT");
+        NamedArgument fuelName = fuel.Props.fuelType.label.Named("FUEL");
+        if (mode != DisplayMode.Engineer || fuelParts.Count < 2) return "PhobosVehicleFuel_Burning".Translate(amount, fuelName).Resolve();
+        string parts = string.Join(", ", fuelParts.Select(p => "PhobosVehicleFuel_Part".Translate(UseLabel(p.use).Named("USE"),
+            ((float)p.perDay).ToString("0.#").Named("AMOUNT")).Resolve()));
+        Seen.Note("vehicles.fuel-rates", comp.Vehicle, parts);
+        return "PhobosVehicleFuel_BurningFor".Translate(amount, fuelName, parts.Named("PARTS")).Resolve();
+    }
+
+    static string UseLabel(FuelUse use) => use switch
+    {
+        FuelUse.Work => "PhobosVehicleFuel_UseWork".Translate().Resolve(),
+        FuelUse.Heater => "PhobosVehicleFuel_UseHeater".Translate().Resolve(),
+        FuelUse.Leak => "PhobosVehicleFuel_UseLeak".Translate().Resolve(),
+        FuelUse.Flight => "PhobosVehicleFuel_UseFlight".Translate().Resolve(),
+        _ => "PhobosVehicleFuel_UseEngine".Translate().Resolve(),
+    };
+
+    /// <summary>The Engineer's power line (Framework 0.130.0, step S1), from the engine's one picture: its whole load, the shaft power driving
+    /// and the loads take, the fuel power for it and the heat into the coolant. The inspect pane and the Systems tab both show this.</summary>
+    public static string PowerLine(CompPhobosVehicleSystems comp, Powertrain train)
+    {
+        double fuelKw = train.FuelKwNow(comp.Engine.AccessoryShare);
+        return "PhobosVehicleSystems_InspectPower".Translate(comp.Engine.Load.ToStringPercent().Named("LOAD"),
+            train.ShaftKwNow(comp.Engine.AccessoryShare).ToString("0").Named("ENGINE"), fuelKw.ToString("0").Named("FUEL"),
+            (fuelKw * train.Spec.CoolantHeatShare).ToString("0").Named("HEAT")).Resolve();
     }
 
     /// <summary>How far a reading is from its limit: "750C below" or "20C over", never "-750C", which reads as a temperature under zero

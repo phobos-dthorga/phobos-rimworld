@@ -21,11 +21,36 @@ public static class Patch_PawnChildHolders_Sling
     public static void Postfix(Pawn __instance, List<IThingHolder> outChildren)
     {
         if (__instance is not VehiclePawn vehicle) return;
-        if (vehicle.GetComp<CompPhobosSling>() is { Carried: not null } sling && !outChildren.Contains(sling)) outChildren.Add(sling);
-        if (vehicle.GetComp<CompPhobosLitter>() is { Patients.Count: > 0 } litter && !outChildren.Contains(litter)) outChildren.Add(litter);
+        // Framework 0.130.0 (step S8): the game asks for a pawn's holders very often, and three comp lookups on every vehicle each time showed
+        // in the owner's recording of 18 Nov 2026; the comps are found once per vehicle.
+        if (!Found.TryGetValue(vehicle, out Holders? held))
+        {
+            held = new Holders(vehicle.GetComp<CompPhobosSling>(), vehicle.GetComp<CompPhobosLitter>(), vehicle.GetComp<CompPhobosHitch>());
+            // Kept only once the vehicle's comps exist: asked while it loads, an empty answer must not stick.
+            if (vehicle.AllComps.Count > 0) Found.AddOrUpdate(vehicle, held);
+        }
+        if (held.Sling is { Carried: not null } sling && !outChildren.Contains(sling)) outChildren.Add(sling);
+        if (held.Litter is { Patients.Count: > 0 } litter && !outChildren.Contains(litter)) outChildren.Add(litter);
         // A trailer or a towed vehicle taken along off the map (hitch slice 3, Framework 0.104.0), with anyone riding in it.
-        if (vehicle.GetComp<CompPhobosHitch>() is { HoldsTowed: true } hitch && !outChildren.Contains(hitch)) outChildren.Add(hitch);
+        if (held.Hitch is { HoldsTowed: true } hitch && !outChildren.Contains(hitch)) outChildren.Add(hitch);
     }
+
+    sealed class Holders
+    {
+        public readonly CompPhobosSling? Sling;
+        public readonly CompPhobosLitter? Litter;
+        public readonly CompPhobosHitch? Hitch;
+
+        public Holders(CompPhobosSling? sling, CompPhobosLitter? litter, CompPhobosHitch? hitch)
+        {
+            Sling = sling;
+            Litter = litter;
+            Hitch = hitch;
+        }
+    }
+
+    /// <summary>Each vehicle's holder comps, found once. Derived, never saved; a vehicle that goes away takes its entry with it.</summary>
+    static readonly System.Runtime.CompilerServices.ConditionalWeakTable<VehiclePawn, Holders> Found = new();
 }
 
 /// <summary>

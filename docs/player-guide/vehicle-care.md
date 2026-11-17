@@ -63,10 +63,10 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 | Loses its top gears, slips under load | A damaged gearbox or clutch | Repair the gearbox and clutch |
 | **Clutch slipping**, then **won't drive** | The clutch wears a little at each take-off, more with a heavy load | A new clutch with a **clutch kit** |
 | A little slower after crossing water | **Wet brakes**: the driver takes it gently | Nothing: a short drive dries them |
-| Slower and thirstier in the desert | **A clogged air filter**: dust, far worse in a sandstorm | An engine **service** fits a clean one; a **heavy-duty air filter** clogs slower |
+| Labours on hills, in mud and towing, and thirstier, in the desert | **A clogged air filter**: dust, far worse in a sandstorm. The engine loses power, so on a road it keeps its speed | An engine **service** fits a clean one; a **heavy-duty air filter** clogs slower |
 | A heavy truck **crawls** | **Power steering** failed: its pump is hit or its fluid low | Repair the pump; a **power steering top-up** (2 chemfuel) |
 | **Low air**, then **won't drive** | Air brakes on heavy trucks need air: a leak, a damaged compressor, or standing for hours | At **low air**, keep the engine running; below it the brakes lock until it idles a few minutes |
-| A weak fuel pump after running out of fuel | Running the tank dry with the engine on costs the pump 5 % | Keep some fuel in the tank; repair the pump |
+| A weak fuel pump after running out of fuel | Running the tank dry with the engine on costs the pump 5 %. A pump at half or less starves the engine, which then labours on hills and under load | Keep some fuel in the tank; repair the pump |
 | **Won't start** below about -8 °C | Cold fuel gels (only with the **cold fuel** setting on) | Warm the vehicle in a heated room |
 | Parts failing now and then | More often once a service is due (120 running hours), far more once overdue (180) | A **service** |
 
@@ -122,7 +122,8 @@ left on still run the battery down.
 ## Damage and repairs
 
 - **Parts can carry conditions** shown under the part on the Health tab: a holed radiator keeps leaking coolant, a shot battery
-  drains itself, a boiled-over engine has a warped head and runs hotter. **Repair the part to full health to clear them.**
+  drains itself, a boiled-over engine has a warped head and runs hotter (badly warped, it also loses power and labours on hills and
+  under load). **Repair the part to full health to clear them.**
 - **A shot-through fuel tank leaks fuel**, even parked, where the vehicle's maker did not already make its tank leak. **A hit on the
   battery or alternator can short the wiring**: a message names what stopped working (the headlights, a heater...), and the Systems
   tab says it is dead. Repair the part, or patch it in the field.
@@ -270,7 +271,8 @@ the kit back in the cargo.
   electrical goes out**, the lights and the night heater included, and a message names what went out. It all comes back once the
   engine runs (jump-start it) or the vehicle is plugged in.
 - **The vehicle's inspect panel says what the battery is doing**, in words: which lights or heaters are running it down, that it is
-  charging, or that it is flat.
+  charging, or that it is flat. In Operator and Engineer display modes it also says **about how much fuel the vehicle burns a day**,
+  and in Engineer mode what for: the engine, its work, its heaters or a leak.
 - **Driving in the dark with the headlights off is slower**: a land vehicle goes at 85 % of its speed over ground the game counts as
   dark, and its warning lamp says **no lights**. Lamps and lit roads count as light.
 - **Other factions' vehicles light up only while they drive**, so a raid arriving at night shows itself.

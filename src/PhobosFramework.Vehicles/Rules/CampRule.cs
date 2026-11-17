@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework.Rules;
 
 namespace Phobos.Framework.Vehicles.Rules;
 
@@ -17,9 +18,11 @@ public static class CampRule
     /// <summary>What the outlet gives the camp now: what the camp's devices ask beyond its other sources, up to the outlet's rating. Never below 0.</summary>
     public static double OutletWatts(double campAsksWatts, double ratingWatts) => Math.Max(0, Math.Min(campAsksWatts, ratingWatts));
 
-    /// <summary>What giving those watts draws from the vehicle's electrics, in amps at its voltage through the inverter's efficiency.</summary>
+    /// <summary>What giving those watts (the game's own) draws from the vehicle's electrics, in amps at its voltage through the inverter's
+    /// efficiency (the conversion through <see cref="PowerUnits"/> since Framework 0.130.0, step S3).</summary>
     public static double OutletAmps(double watts, double systemVolts, double inverterEfficiency) =>
-        watts <= 0 || systemVolts <= 0 || inverterEfficiency <= 0 ? 0 : watts / systemVolts / inverterEfficiency;
+        watts <= 0 || systemVolts <= 0 || inverterEfficiency <= 0 ? 0
+            : PowerUnits.Amps(PowerUnits.Input(PowerUnits.FromGameWatts(watts), inverterEfficiency, 0), systemVolts);
 
     /// <summary>
     /// Which food the fridge keeps cold: the stacks closest to spoiling first, each whole stack or not at all, until the next would pass its

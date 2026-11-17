@@ -38,9 +38,14 @@ public abstract class VehicleSystemEffect
     /// <summary>A factor on the fuel the engine burns while the stage lasts, beside the fittings' and tunes' (Framework 0.123.0: a clogged air
     /// filter; 1 for no change). Read where the drivetrain model settles the burn.</summary>
     public virtual float EngineFuelFactor => 1f;
+    /// <summary>The share of the engine's power still available while the stage lasts (Framework 0.130.0, step S4); 1 for no loss.</summary>
+    public virtual float EnginePowerFactor => 1f;
     /// <summary>How many switched loads a hit to the wiring has shorted while the stage lasts (Framework 0.123.0, cross-links G12; 0 for none).</summary>
     public virtual int ShortedLoads => 0;
     public virtual float StatFactor(VehicleStatDef stat) => 1f;
+    /// <summary>The one stat this effect changes, if any (Framework 0.130.0, step S8: the update asks it rather than every stat in turn).
+    /// An effect overriding <see cref="StatFactor"/> must name its stat here.</summary>
+    public virtual VehicleStatDef? FactorStat => null;
     /// <summary>A factor on how fast an electric vehicle charges from the grid while the stage lasts (1 for no change).</summary>
     public virtual float ChargeFactor => 1f;
 }
@@ -136,12 +141,26 @@ public class Effect_ShortLoads : VehicleSystemEffect
     public override int ShortedLoads => loads;
 }
 
+/// <summary>
+/// Takes power from the engine while the stage lasts (Framework 0.130.0; docs/development/vehicle-engine-loads.md, step S4; the owner's pick of
+/// 18 Nov 2026): a choked air filter, a warped head, a starved fuel feed. In the full drivetrain model it lowers the power the engine can
+/// give, so the vehicle slows only where power runs short (a climb, mud, a tow, a heavy load) and the model's figures show the loss. A
+/// vehicle without that model (drivetrain off or simplified, an aircraft, a boat on the simple model) takes it as the same factor on its
+/// move speed, as before.
+/// </summary>
+public class Effect_EnginePower : VehicleSystemEffect
+{
+    public float factor = 1f;
+    public override float EnginePowerFactor => factor;
+}
+
 /// <summary>Multiplies one of Vehicle Framework's stats (move speed, cargo) while the stage lasts.</summary>
 public class Effect_StatFactor : VehicleSystemEffect
 {
     public VehicleStatDef? stat;
     public float factor = 1f;
     public override float StatFactor(VehicleStatDef asked) => asked == stat ? factor : 1f;
+    public override VehicleStatDef? FactorStat => stat;
 }
 
 /// <summary>Stops the engine: the vehicle is undrafted when the stage starts.</summary>
@@ -241,13 +260,17 @@ public class Effect_ConsumeFuel : VehicleSystemEffect
     /// charge differ from mod to mod.</summary>
     public bool ofCapacity;
 
+    /// <summary>What the fuel is burned for, as the vehicle tells the player (Framework 0.130.0, step S2): a heater unless the XML says
+    /// otherwise (a holed tank is a leak).</summary>
+    public FuelUse use = FuelUse.Heater;
+
     public override void Apply(SystemContext context, float hours)
     {
         CompFueledTravel? fuel = context.Vehicle.CompFueledTravel;
         if (fuel == null || fuel.EmptyTank) return;
         float rate = perHourParameter != null ? context.Parameter(perHourParameter) : perHour;
         if (ofCapacity) rate *= fuel.FuelCapacity;
-        fuel.ConsumeFuel(Mathf.Min(rate * hours, fuel.Fuel));
+        VehicleFuel.Burn(context.Vehicle, rate * hours, use, context.Comp);
     }
 }
 
@@ -274,7 +297,7 @@ public class Effect_LimitCharge : VehicleSystemEffect
         if (fuel == null || !context.Comp.TryGetQuantity(quantity, out float value)) return;
         float share = Mathf.Clamp(remaining ? 1f - value : value, floor, 1f);
         float cap = fuel.FuelCapacity * share;
-        if (fuel.Fuel > cap + 0.01f) fuel.ConsumeFuel(fuel.Fuel - cap);
+        if (fuel.Fuel > cap + 0.01f) VehicleFuel.Burn(context.Vehicle, fuel.Fuel - cap, FuelUse.Spilled, context.Comp);
     }
 }
 

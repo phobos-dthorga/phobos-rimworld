@@ -382,7 +382,7 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
             running = offered > 0f;
             runningLoop.Set(Props.runningSound, running, Vehicle);
             float used = WorkFuel(step.FuelUsed, DaysPerRareTick);
-            if (used > 0f) Vehicle.CompFueledTravel?.ConsumeFuel(used);
+            if (used > 0f) BurnWorkFuel(used);
             RecoverHeat();
         }
     }

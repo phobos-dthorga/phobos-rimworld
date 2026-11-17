@@ -551,6 +551,16 @@ public class Input_GeneratorDrive : VehicleSystemInput
     }
 }
 
+/// <summary>
+/// The alternator's (or a turbine's generator's) output as a share of its rating now (Framework 0.130.0, step S5): the rules Def's one
+/// curve on the alternator's own speed for a piston engine, its spool curve shared among the working engines for a turbine. Use this rather
+/// than copying the curves into each system that charges a battery.
+/// </summary>
+public class Input_AlternatorOutput : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context) => context.Comp.AlternatorOutputShare();
+}
+
 /// <summary>1 while the electrics are shedding loads to save the battery (cross-links G16, Framework 0.106.0), else 0.</summary>
 public class Input_LoadShedding : VehicleSystemInput
 {

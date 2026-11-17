@@ -145,11 +145,19 @@
   <PhobosVehicleSystems_InspectFigureStage>{QUANTITY} {VALUE} ({STAGE})</PhobosVehicleSystems_InspectFigureStage>
   <PhobosVehicleSystems_InspectServiceDue>Waiting for a mechanic: {SERVICE}.</PhobosVehicleSystems_InspectServiceDue>
   <PhobosVehicleSystems_InspectServiceNeeds>Waiting for supplies for {SERVICE}: {SUPPLIES}.</PhobosVehicleSystems_InspectServiceNeeds>
-  <PhobosVehicleSystems_InspectEngineer>Engine load {LOAD}, electrical draw {AMPS} A, air {AIR}.</PhobosVehicleSystems_InspectEngineer>
+  <PhobosVehicleSystems_InspectEngineer>Electrical draw {AMPS} A, air {AIR}.</PhobosVehicleSystems_InspectEngineer>
   <PhobosVehicleSystems_InspectBatteryDrainedBy>{LOADS} on: the battery is running down.</PhobosVehicleSystems_InspectBatteryDrainedBy>
   <PhobosVehicleSystems_InspectBatteryRunningDown>The battery is running down.</PhobosVehicleSystems_InspectBatteryRunningDown>
   <PhobosVehicleSystems_InspectBatteryFlat>The battery is flat, and something is still drawing on it.</PhobosVehicleSystems_InspectBatteryFlat>
   <PhobosVehicleSystems_InspectBatteryFlatWith>{LOADS} on: the battery is flat.</PhobosVehicleSystems_InspectBatteryFlatWith>
+  <PhobosVehicleFuel_Burning>Burning about {AMOUNT} {FUEL} a day.</PhobosVehicleFuel_Burning>
+  <PhobosVehicleFuel_BurningFor>Burning about {AMOUNT} {FUEL} a day: {PARTS}.</PhobosVehicleFuel_BurningFor>
+  <PhobosVehicleFuel_Part>{USE} {AMOUNT}</PhobosVehicleFuel_Part>
+  <PhobosVehicleFuel_UseEngine>the engine</PhobosVehicleFuel_UseEngine>
+  <PhobosVehicleFuel_UseWork>work</PhobosVehicleFuel_UseWork>
+  <PhobosVehicleFuel_UseHeater>heaters</PhobosVehicleFuel_UseHeater>
+  <PhobosVehicleFuel_UseLeak>a leak</PhobosVehicleFuel_UseLeak>
+  <PhobosVehicleFuel_UseFlight>flying work</PhobosVehicleFuel_UseFlight>
   <PhobosVehicleSystems_InspectBatteryDead>The battery is flat: nothing electrical works until it is charged.</PhobosVehicleSystems_InspectBatteryDead>
   <PhobosVehicleSystems_InspectBatteryDeadWith>{LOADS} left on, but the battery is flat: nothing electrical works until it is charged.</PhobosVehicleSystems_InspectBatteryDeadWith>
   <PhobosVehicleSystems_MsgBatteryDead>{VEHICLE}'s battery is flat, and its {LOADS} have gone out. Run the engine or plug it in to charge it.</PhobosVehicleSystems_MsgBatteryDead>

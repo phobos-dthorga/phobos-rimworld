@@ -279,7 +279,7 @@
       <li>
         <!-- Framework 0.55.0. The stages are authored: half a pump feeds a working engine poorly, and under a tenth it cannot feed one at all. -->
         <name>fuelFeed</name>
-        <description>Fuel reaching the engine. Weak, the vehicle is slower; with none it will not start.</description>
+        <description>Fuel reaching the engine. Weak, the engine loses power and labours on hills and under load; with none it will not start.</description>
         <telltale>Phobos/VehicleSystems/Dash/Fuel</telltale>
         <label>fuel feed</label>
         <unit>Fraction</unit>
@@ -308,8 +308,9 @@
             <label>weak</label>
             <notable>true</notable>
             <effects>
-              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
-                <stat>MoveSpeed</stat>
+              <!-- Framework 0.130.0 (step S4): a weak pump starves the engine when it is asked for much, so it loses power; at a light
+                   cruise it keeps up. Without the full drivetrain model, the same 0.75 on speed. -->
+              <li Class="Phobos.VehicleSystems.Effect_EnginePower">
                 <factor>0.75</factor>
               </li>
             </effects>

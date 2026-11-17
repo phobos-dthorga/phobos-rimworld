@@ -1,8 +1,8 @@
 # Engine loads: a top-down review and a design (18 Nov 2026)
 
-**Status (18 Nov 2026):** A research and design record, with its code checks done the same day. Two of the faults the checks found are
-fixed (C1 and C4, D'thorga Framework 0.129.1 and Vehicles 0.65.1, not yet tested in game); the ledger, the step back and the third
-fault (C6) are not built. It reviews the vehicle simulation as it stood in D'thorga Framework 0.129.0.
+**Status (18 Nov 2026):** A research and design record, with its code checks done the same day. Built: the fixes for C1 and C4 (D'thorga
+Framework 0.129.1, Vehicles 0.65.1) and the step back's S1 to S6 and S8 (Framework 0.130.0), not yet tested in game, S8 not yet measured
+after. Not built: S7, the engine-load ledger itself and C6. It reviews the vehicle simulation as it stood in D'thorga Framework 0.129.0.
 
 The owner asked for a deeper simulation layer: parts the engine drives, such as the alternator and the water pump, take a little
 horsepower from it according to their own load, and so a little chemfuel, with effects reaching three and four links further out.
@@ -41,7 +41,9 @@ committed; they are marked †.
 | 7 | **Confirm the possible faults and source the missing figures before building** | owner (agent's recommendation); done the same day, below |
 | 8 | **Fix C1 and C4 now; C6 waits for the ledger's work loads** | owner (agent's recommendation); built in Framework 0.129.1 and Vehicles 0.65.1 |
 | 9 | **The ledger's alternator runs at 0.55 efficiency, falling with speed** (Remy's typical figure, against today's 0.6) | owner (agent's recommendation); not built |
-| 10 | **Start the step back, S1 to S8, next** | owner (agent's recommendation) |
+| 10 | **Start the step back, S1 to S8, next** | owner (agent's recommendation); built in Framework 0.130.0, bar S7 |
+| 11 | **Lost power as power** (step S4): a choked filter, a warped head and a weak fuel pump take power from the engine in the full model, and stay a speed factor without it | owner (agent's recommendation) |
+| 12 | **Record the owner's running game for S8 now**, before the step back is installed | owner |
 
 ## Where we are, top-down
 
@@ -379,6 +381,41 @@ In order, each for the owner's go-ahead. None is built.
 Then the loads, in this order (agent's proposal): the ledger with the alternator moved onto it and the fuel default changed (decision
 1); the fan and the air conditioner, the two that matter most; the water pump with the belt's slip; the compressor and steering pump;
 the work loads.
+
+### What the step back became (Framework 0.130.0, 18 Nov 2026)
+
+Built at the owner's word (decision 10); not yet tested in game. What each step is now, and where it differs from the plan above:
+
+| Step | Built as | Where |
+| --- | --- | --- |
+| S1 | `EngineState`: why the engine turns (off, out of fuel, on the battery, idling, driving, working, flying), its speed, driving's share and the loads' share, put together once per update and refreshed by the once-a-second sample. The Engineer line shows the load once (C7). Reading the code in full showed seam 1 overstated: the hub was already the one authority, and the other places are its inputs (the ignition switch, the battery drive, the generator head) | `Systems/EngineState.cs`, `Rules/EngineStateRule.cs`, `CompPhobosVehicleSystems.RefreshCaches` |
+| S2 | `VehicleFuel`: every burn of ours says what it is for (engine, work, heater, leak, flight, spilled) and a fading figure per use gives the rate; Vehicle Framework's own flat burn is read, not routed. The inspect panel shows chemfuel a day (Operator) and its uses (Engineer) | `Service/VehicleFuel.cs`, `Rules/FuelRateRule.cs` |
+| S3 | `PowerUnits` in the core: watts, amps, kilowatts, power in through an efficiency, and the game's watts, taken as real ones (1, named; decision 4) | `src/PhobosFramework/Rules/PowerUnits.cs` |
+| S4 | `Effect_EnginePower` and the drivetrain's `PowerLoss` (decision 11); the stat card still names the fault where it falls back to speed | `Schema/Effects.cs`, `Rules/DrivetrainModel.cs` |
+| S5 | The alternator's output, its spool curve and its efficiency (0.55 falling with speed, decision 9), the shedding thresholds and the flat battery's recovery, all in the rules Def; one `Input_AlternatorOutput` where three copies stood | `Rules_VehicleSystems.xml`, `Defs/SystemDefs.cs`, `Schema/Inputs.cs` |
+| S6 | The world map's range reads `VehicleFuel.WorldMoveFactor`, the factor the burn uses; the Engineer power line reads the engine's one picture through one helper for the inspect panel and the Systems tab | `Service/VehicleRange.cs`, `Presentation/InspectText.cs` |
+| S7 | Not built: bleed air joins the ledger's shape when the ledger exists | — |
+| S8 | See below | `Environment/MapRegistry.cs` in the core, `VehicleFittings.NearRig`, `DepotBays`, `SlingPatches`, `RecacheStatFactors` |
+
+Also found and fixed while building: the electrical loads' fuel was priced at full-power fuel with the engine's friction counted again,
+about 15 % too much; it is now what they add on the Willans line (`Powertrain.FuelKwNow`).
+
+### The recording before (18 Nov 2026)
+
+The owner's running game, a minute, with `python scripts/perf.py record` (decision 12). **D'thorga Framework took 1.0 % of the main
+thread**, and nearly all of it was not the engine model:
+
+| What | Share of the main thread | Cause | Fixed in 0.130.0 |
+| --- | --- | --- | --- |
+| A vehicle repair job | 0.6 % | Its check, every tick, of whether a tuning rig was near walked every building the colony owns (the game's `ListerBuildings.AllBuildingsColonistOfDef`) | Rigs from a list of their own on each map; the answer kept a second |
+| The vehicle systems' rare tick | 0.2 % | Of which depot bays, 0.1 %: the same walk, for every vehicle | Bays from a list of their own |
+| The sling's held-things patch | 0.1 % | Three component lookups on every vehicle each time the game asks what it holds | Found once per vehicle |
+| A lock wait under our code | 0.1 % | Most likely the log keeper's lock on each game log message; not chased | No |
+
+**The tool could not split the game loop this time**: every frame was "outside the named parts", under `RimWorldWaylith.Program.Main`,
+and it warned that the simulation hardly ran, though a repair job only ticks while the game runs. The first recording on the same build
+(17 Nov 2026) matched 99.2 %. That is a phobos-modkit gap to look into; the shares by mod and method above do not depend on it. **The
+recording after waits for the owner to install 0.130.0**; `python scripts/perf.py compare` then sets the two side by side.
 
 ## What the checks found (18 Nov 2026)
 
