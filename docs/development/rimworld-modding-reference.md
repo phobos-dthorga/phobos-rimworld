@@ -98,6 +98,13 @@ The 1.7 column comes from the community page
   **Prepatcher** stop working until Prepatcher is updated.
 - **Harmony 3 type-checks injected parameters** such as `__instance` and `__result`, and rejects a patch
   whose types don't match.
+- **Never `Assembly.GetExecutingAssembly()`; always `typeof(OurType).Assembly`** (17 Nov 2026, our finding, from
+  [pardeike/HarmonyRimWorld issue 52](https://github.com/pardeike/HarmonyRimWorld/issues/52) by Loading Progress's author). Harmony
+  3.0.3.0 on 1.7 installs patches by replacing method bodies; inside a constructor another mod has patched, the call then returns
+  `0Harmony`. Loading Progress patches every `Mod` constructor while its start-up timing is on, so `PatchAll(GetExecutingAssembly())`
+  there applies nothing, silently: 32 mods in the owner's game, Combat Extended and Simple Sidearms among them. The launch option
+  `-harmony-detours` restores the old behaviour for players. Ours: D'thorga Patches 0.21.2 fixed the one part that used it, and
+  `tests/test_no_executing_assembly.py` refuses the call in `src/`.
 - 1.7 translates Unity calls through a shim (UnityStubs); switching to native Waylith methods should be
   faster.
 - **Shaders:** compiled 1.6 shaders in asset bundles still work, but new shaders are GLSL source, compiled

@@ -128,6 +128,8 @@ for what went missing, and with vehicles the save may fail to load.
 ## When something goes wrong
 
 - **Read [help and troubleshooting](../../SUPPORT.md).** It says where the game's log is, and what a useful report needs.
+- **Several other mods quietly stopped working at once since 17 November 2026?** That is a bug in Harmony 3.0.3.0 with Loading
+  Progress, not in our mods; [the fix](../../SUPPORT.md#harmony-3030-and-loading-progress) is one launch option. Our mods don't need it.
 - **Every D'thorga mod writes one line to the log as it loads**, naming its version and the optional mods it found. That line is
   the first thing to check.
 - **Every button of ours that refuses says why**: rest the mouse on it. A building's inspect pane names the one thing it waits

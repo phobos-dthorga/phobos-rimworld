@@ -334,7 +334,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   patch only what has no extension point; prefer postfixes; a prefix that skips the original needs a
   recorded reason. Name overloads by parameter types. Each patch has a comment saying what it changes
   and why. Harmony 3 on RimWorld 1.7 rejects patches whose injected types don't match: use exact types
-  for `__instance` and `__result`.
+  for `__instance` and `__result`. **Find our patches with `typeof(OurType).Assembly`, never `Assembly.GetExecutingAssembly()`**
+  (17 Nov 2026: in a constructor another mod has patched, Harmony 3.0.3.0 answers with its own assembly;
+  `tests/test_no_executing_assembly.py` refuses it).
 - **Optional tie-ins only** (owner rule for every Phobos mod): a feature that needs another mod switches on
   only when that mod is active, through `LoadFolders.xml` `IfModActive` folders, `MayRequire` and
   `PatchOperationFindMod` in XML, and `ModsConfig.IsActive` in C#. Never hard-reference an optional mod's
