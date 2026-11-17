@@ -22,10 +22,10 @@ from PIL import Image, ImageDraw, ImageFont
 ROOT = Path(__file__).resolve().parents[2]
 MANIFEST = ROOT / 'docs' / 'player-guide' / 'images' / 'figures.json'
 
-BACKGROUND = (0x1E, 0x20, 0x1C)   # close to the game's window colour
-CARD = (0x2A, 0x2D, 0x27)
-TEXT = (0xE6, 0xE1, 0xD3)
-MUTED = (0xA8, 0xA3, 0x96)
+BACKGROUND = (0x15, 0x19, 0x1D)   # the game's own window colour, Widgets.WindowBGFillColor (21, 25, 29)
+CARD = (0x22, 0x28, 0x2F)         # a step lighter, in the same cool slate
+TEXT = (0xE4, 0xE8, 0xEC)
+MUTED = (0x9C, 0xA6, 0xB0)
 GAP = 16
 LABEL_SIZE = 18
 NOTE_SIZE = 14
