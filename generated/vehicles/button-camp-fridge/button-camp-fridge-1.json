@@ -1,0 +1,51 @@
+{
+  "file": "button-camp-fridge-1.png",
+  "sha256": "548244d6677186a769088ad59997f867184d7409bfed59b5ee9ac29b99de0460",
+  "date": "2026-11-17T22:05:43",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "GAME BUTTON ICON. One single object seen from the front, centred, flat on the canvas, like a button picture in a strategy game's command bar.\n\nCreate an ORIGINAL game button icon for the D'thorga fridge switch: a vehicle's 12-volt fridge keeping food cold. Image 1 is our approved switch icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA small pale grey chest fridge with its lid propped open, a soft pale blue cold glow rising from inside, and one simple six-armed snowflake shape in pale blue floating just above the opening.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly at 64 pixels.\n\nNo people, food, text, letters, numbers, logos, dials or screens.",
+  "seed": 1,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/camp-power-budget.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 313,
+    "input_tokens_details": {
+      "image_tokens": 64,
+      "text_tokens": 249
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2069
+  },
+  "cost_usd": 0.0544,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.8,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightHeater.png",
+      "sha256": "7838276523c4fe9efe00a244627d9bf40c3967f15e5b434f2efa42d7bbd5cec4",
+      "role": "our approved switch button icon from the same family (the night heater): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
