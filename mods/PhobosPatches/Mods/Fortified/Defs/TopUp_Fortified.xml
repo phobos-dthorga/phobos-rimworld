@@ -19,5 +19,8 @@
     <wantedMember>AmountToAutofill</wantedMember>
     <ingredientMember>Props.fixedIngredient</ingredientMember>
     <leastLoadMember>CostPerPawn</leastLoadMember>
+    <!-- D'thorga Framework 0.136.0: the platform's capacity and what it holds, for the player's fill level. -->
+    <capacityMember>Props.maxIngredientCount</capacityMember>
+    <heldMember>IngredientCount</heldMember>
   </Phobos.Framework.TopUp.PhobosTopUpDef>
 </Defs>

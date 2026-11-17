@@ -29,6 +29,11 @@ public class PhobosTopUpDef : Def
     /// <summary>On the comp: the least load, read from the machine itself where it has a natural one (a drone's cost); wins over
     /// <see cref="leastLoad"/> when given.</summary>
     public string? leastLoadMember;
+    /// <summary>On the comp: how much it can hold, a whole number ("Props.maxIngredientCount"). With <see cref="heldMember"/>, lets the
+    /// player's fill level ask for more than the machine's own (Framework 0.136.0); without them the machine's own level is used.</summary>
+    public string? capacityMember;
+    /// <summary>On the comp: how much it holds now, a whole number ("IngredientCount").</summary>
+    public string? heldMember;
     /// <summary>Buildings with the comp are topped up by haulers.</summary>
     public bool buildings = true;
     /// <summary>Mechanoids with the comp are topped up by a mechanitor, as the game's mech repair is (Framework 0.135.0).</summary>
@@ -38,6 +43,8 @@ public class PhobosTopUpDef : Def
     [Unsaved] MemberPath? wanted;
     [Unsaved] MemberPath? ingredient;
     [Unsaved] MemberPath? least;
+    [Unsaved] MemberPath? capacity;
+    [Unsaved] MemberPath? held;
     [Unsaved] bool resolved;
 
     /// <summary>Why this Def stands down, in words, or null while it works.</summary>
@@ -60,6 +67,7 @@ public class PhobosTopUpDef : Def
         if (wantedMember.NullOrEmpty()) yield return "wantedMember is empty";
         if (ingredientMember.NullOrEmpty()) yield return "ingredientMember is empty";
         if (leastLoad < 1) yield return "leastLoad must be 1 or more";
+        if (capacityMember.NullOrEmpty() != heldMember.NullOrEmpty()) yield return "give capacityMember and heldMember together, or neither";
     }
 
     void Resolve()
@@ -77,9 +85,22 @@ public class PhobosTopUpDef : Def
         ingredient = MemberPath.On(type, ingredientMember, out problem);
         if (ingredient == null) return;
         if (!typeof(ThingDef).IsAssignableFrom(ingredient.ValueType)) { problem = ingredientMember + " is not a ThingDef"; return; }
-        if (leastLoadMember.NullOrEmpty()) return;
-        least = MemberPath.On(type, leastLoadMember!, out problem);
-        if (least != null && least.ValueType != typeof(int)) problem = leastLoadMember + " is not a whole number";
+        if (!leastLoadMember.NullOrEmpty())
+        {
+            least = WholeNumber(leastLoadMember!);
+            if (problem != null) return;
+        }
+        if (capacityMember.NullOrEmpty() || heldMember.NullOrEmpty()) return;
+        capacity = WholeNumber(capacityMember!);
+        if (problem != null) return;
+        held = WholeNumber(heldMember!);
+    }
+
+    MemberPath? WholeNumber(string path)
+    {
+        MemberPath? found = MemberPath.On(type!, path, out problem);
+        if (found != null && found.ValueType != typeof(int)) problem = path + " is not a whole number";
+        return problem == null ? found : null;
     }
 
     /// <summary>What a comp of this kind wants now; null when it wants nothing, names no material, or could not be read.</summary>
@@ -89,9 +110,13 @@ public class PhobosTopUpDef : Def
         if (problem != null) return null;
         try
         {
-            if (wanted!.Read(comp) is not int amount || amount <= 0) return null;
+            int ownWanted = wanted!.Read(comp) is int own ? own : 0;
+            int cap = capacity?.Read(comp) is int c ? c : 0;
+            int holds = held?.Read(comp) is int h ? h : 0;
+            int amount = Rules.TopUpRule.Wanted(ownWanted, holds, cap, FrameworkMod.Settings.topUpLevel);
+            if (amount <= 0) return null;
             if (ingredient!.Read(comp) is not ThingDef material) return null;
-            int floor = least?.Read(comp) is int own && own > 0 ? own : leastLoad;
+            int floor = least?.Read(comp) is int perLoad && perLoad > 0 ? perLoad : leastLoad;
             return new TopUpWant(material, amount, floor);
         }
         catch (Exception error)

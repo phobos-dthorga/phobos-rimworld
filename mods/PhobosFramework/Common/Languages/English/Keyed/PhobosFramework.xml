@@ -17,6 +17,16 @@
   <PhobosFramework_SettingSystemSoundsOnOtherVehiclesDesc>The sounds of D'thorga Framework's vehicle systems (a tyre bursting, an engine knocking, coolant boiling, a key turned on a flat battery, the soft chime when a red warning lamp lights) belong to the systems, so they play on any vehicle running them, including other mods' vehicles given our systems. Their engines, doors and weapons always keep their own authors' sounds. Off: only D'thorga's own vehicles play these.</PhobosFramework_SettingSystemSoundsOnOtherVehiclesDesc>
   <PhobosFramework_SettingTopUpMachines>Keep machines and mechanoids topped up</PhobosFramework_SettingTopUpMachines>
   <PhobosFramework_SettingTopUpMachinesDesc>Some machines and mechanoids hold a store of material and only offer a right-click order to fill it, such as a drone platform's steel. With this on, colonists doing hauling work refill such machines by themselves, and a mechanitor refills such mechanoids, walking out to them as they do to repair them. They come once the store is short of the level its own fill order fills it to by enough to be worth the walk. The order by hand still works. Off: they are filled by hand only.</PhobosFramework_SettingTopUpMachinesDesc>
+  <PhobosFramework_SettingTopUpLevel>How full to fill them</PhobosFramework_SettingTopUpLevel>
+  <PhobosFramework_SettingTopUpLevelDesc>How much material colonists bring when they top up a machine or mechanoid. Every choice fills at least as far as the machine's own fill order would, never less. Higher levels keep more spare material in the machine and take more of it out of your stockpiles. A machine whose mod gives no capacity always fills to its own level.</PhobosFramework_SettingTopUpLevelDesc>
+  <PhobosFramework_TopUpLevelOwnLevel>Its own fill level</PhobosFramework_TopUpLevelOwnLevel>
+  <PhobosFramework_TopUpLevelOwnLevelDesc>As far as the machine's own fill order fills it. A drone platform fills to its starting store: 60 steel in an engineering drone bay, 80 in a Hermit Crab.</PhobosFramework_TopUpLevelOwnLevelDesc>
+  <PhobosFramework_TopUpLevelHalf>At least half full</PhobosFramework_TopUpLevelHalf>
+  <PhobosFramework_TopUpLevelHalfDesc>At least half of what it can hold: 180 steel in an engineering drone bay.</PhobosFramework_TopUpLevelHalfDesc>
+  <PhobosFramework_TopUpLevelThreeQuarters>At least three-quarters full</PhobosFramework_TopUpLevelThreeQuarters>
+  <PhobosFramework_TopUpLevelThreeQuartersDesc>At least three-quarters of what it can hold: 270 steel in an engineering drone bay.</PhobosFramework_TopUpLevelThreeQuartersDesc>
+  <PhobosFramework_TopUpLevelFull>Full</PhobosFramework_TopUpLevelFull>
+  <PhobosFramework_TopUpLevelFullDesc>All it can hold: 360 steel in an engineering drone bay, 160 in a Hermit Crab.</PhobosFramework_TopUpLevelFullDesc>
   <PhobosFramework_TopUpNoneToFetch>no {MATERIAL} to fetch</PhobosFramework_TopUpNoneToFetch>
   <PhobosFramework_SettingShowGasOverlay>Show gases at the mouse (dev mode)</PhobosFramework_SettingShowGasOverlay>
   <PhobosFramework_SettingKeepGameLogAlive>Keep the game's log going after its message limit</PhobosFramework_SettingKeepGameLogAlive>

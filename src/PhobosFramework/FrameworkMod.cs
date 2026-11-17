@@ -30,6 +30,8 @@ public class FrameworkSettings : ModSettings
     /// <summary>Haulers keep machines that hold a material topped up by themselves, and mechanitors the mechanoids that carry one (TopUp/TopUps;
     /// owner, 18 Nov 2026; on by default, agent default).</summary>
     public bool topUpMachines = true;
+    /// <summary>How full topping up fills a store (Framework 0.136.0; owner, 18 Nov 2026: a setting; agent default: the machine's own level).</summary>
+    public TopUpLevel topUpLevel = TopUpLevel.OwnLevel;
     /// <summary>"Seen in play" notes for testing (Framework 0.118.0; owner, 17 Nov 2026: off by default): Debug/SeenInPlay.cs.</summary>
     public bool noteSeenInPlay;
     /// <summary>Verbose logging (owner, 16 Nov 2026: a master switch and a tick per part; both off by default): every log of ours writes
@@ -73,6 +75,7 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref keepGameLogAlive, "PhobosFramework_KeepGameLogAlive", true);
         Scribe_Values.Look(ref noteSeenInPlay, "PhobosFramework_NoteSeenInPlay", false);
         Scribe_Values.Look(ref topUpMachines, "PhobosFramework_TopUpMachines", true);
+        Scribe_Values.Look(ref topUpLevel, "PhobosFramework_TopUpLevel", TopUpLevel.OwnLevel);
     }
 }
 
@@ -86,7 +89,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.135.0";
+    public const string ModVersion = "0.136.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -127,6 +130,7 @@ public class FrameworkMod : Mod
         string topUps = "topping up: " + TopUp.TopUps.BuildingKindCount + " kind(s) of building by haulers, " + TopUp.TopUps.MechanoidKindCount
             + " kind(s) of mechanoid by mechanitors";
         foreach (TopUp.PhobosTopUpDef broken in TopUp.TopUps.Problems) topUps += "; " + broken.defName + " stands down (" + broken.problem + ")";
+        topUps += ", filling to " + Settings.topUpLevel;
         if (!Settings.topUpMachines) report.Off(topUps, "setting");
         else report.On(topUps);
         report.Log();
@@ -174,6 +178,18 @@ public class FrameworkMod : Mod
         }
         listing.Gap();
         listing.CheckboxLabeled("PhobosFramework_SettingTopUpMachines".Translate(), ref Settings.topUpMachines, "PhobosFramework_SettingTopUpMachinesDesc".Translate());
+        if (Settings.topUpMachines)
+        {
+            listing.Label("PhobosFramework_SettingTopUpLevel".Translate(), tooltip: "PhobosFramework_SettingTopUpLevelDesc".Translate());
+            foreach (TopUpLevel level in System.Enum.GetValues(typeof(TopUpLevel)))
+            {
+                if (listing.RadioButton(("PhobosFramework_TopUpLevel" + level).Translate(), Settings.topUpLevel == level, 8f,
+                        ("PhobosFramework_TopUpLevel" + level + "Desc").Translate()))
+                {
+                    Settings.topUpLevel = level;
+                }
+            }
+        }
         listing.CheckboxLabeled("PhobosFramework_SettingShowGasOverlay".Translate(), ref Settings.showGasOverlay,
             "PhobosFramework_SettingShowGasOverlayDesc".Translate());
         listing.CheckboxLabeled("PhobosFramework_SettingKeepGameLogAlive".Translate(), ref Settings.keepGameLogAlive,

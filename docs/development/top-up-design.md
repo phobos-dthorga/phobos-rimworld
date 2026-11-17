@@ -1,6 +1,6 @@
 # Topping up machines that hold a material (18 Nov 2026)
 
-**Status (18 Nov 2026):** built in D'thorga Framework 0.134.0 (the work, the Def type, the setting) and 0.135.0 (mechanoids, by a mechanitor; our own job), with D'thorga Patches 0.22.0 naming Fortified Features Framework's platform comp, which covers four buildings and two mechanoids; nothing else is named yet. Not yet tested in game.
+**Status (18 Nov 2026):** built in D'thorga Framework 0.134.0 (the work, the Def type, the setting) 0.135.0 (mechanoids, by a mechanitor; our own job) and 0.136.0 (the fill-level setting), with D'thorga Patches 0.22.0 naming Fortified Features Framework's platform comp, which covers four buildings and two mechanoids; nothing else is named yet. Not yet tested in game.
 
 ## Read this first
 
@@ -71,8 +71,11 @@ The comp (or its parent thing) must be a container the game's haul-to-container 
 
 ## Limits and open questions
 
-- **Fill level.** Platforms fill to their starting store, as their own order does. **For the owner:** should ours fill them to full
-  capacity instead (360 steel in an engineering bay)? It would need the Def to read capacity and holdings, a small addition.
+- **Fill level** (owner, 18 Nov 2026: "Provide a configurable setting?"): built in 0.136.0. **How full to fill them** offers the
+  machine's own level (agent default, as before), at least half, at least three-quarters, or full, as preset choices rather than a
+  slider (the owner's standing preference for presets). Every level only raises the machine's own; the share is rounded up to a whole
+  piece; nothing goes past capacity (`TopUpRule.Wanted`, tested). The Def reads capacity and holdings (`capacityMember`, `heldMember`:
+  Fortified's `Props.maxIngredientCount` and `IngredientCount`); a Def without them fills to its own level whatever the setting.
 - **Mechanoids** (owner, 18 Nov 2026: the Hermit Crab and the Cluster Weaver "would be good too", and "have the mechanitor approach
   them, sort'a like when they do to repair them"): built in 0.135.0. Covered: `DMS_Mech_HermitCrab` (40 steel a drone, 80 starting,
   160 capacity) and `DMS_Mech_ClusterWeaver` (15, 450, 450), read from The Dead Man's Switch's `Races_Automatroid_*.xml`.

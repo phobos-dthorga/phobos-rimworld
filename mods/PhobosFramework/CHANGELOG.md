@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.136.0] - 2026-11-18 - Draft
+
+How full topping up fills a machine is now your choice
+
+### Added
+
+- **A new setting, How full to fill them**, under Keep machines and mechanoids topped up: **Its own fill level** (the default, as
+  before), **At least half full**, **At least three-quarters full** or **Full**. A higher level keeps more spare material in the
+  machine and takes more out of your stockpiles. No choice ever fills a machine less than its own fill order would. An engineering
+  drone bay holds 360 steel: its own level is 60, half 180, three-quarters 270.
+- **For other modders**: a PhobosTopUpDef can name the comp's capacity and what it holds now (capacityMember and heldMember,
+  together); without them the machine fills to its own level whatever the setting says.
+
+### Compatibility and limits
+
+- A haul is still one stack a trip, so filling a drone bay from empty to full takes a few trips.
+- Not yet tested in game.
+
 ## [0.135.0] - 2026-11-18 - Draft
 
 Mechanitors top up the mechanoids that carry a store

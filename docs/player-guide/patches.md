@@ -342,7 +342,9 @@ and the **FPV nest**) hold steel that each drone they send out uses up. On their
 
 - **Colonists doing hauling work now refill them by themselves**, once a platform is short by one drone's worth of steel or more.
 - **Keep steel where haulers can reach it**, and leave the platform unforbidden.
-- **A platform fills to the level its own Fill order reaches**, which is its starting store, not its full capacity.
+- **How full is your choice**: **How full to fill them** in D'thorga Framework's settings. The default is the platform's own level
+  (its starting store, as its own Fill order); you can ask for at least half, at least three-quarters, or full. An engineering
+  drone bay holds 360 steel: its own level is 60.
 - **The order by hand still works**, for less than a drone's worth too.
 - **The Hermit Crab and the Cluster Weaver carry steel for drones too.** A **mechanitor** brings it, walking out to them as they do to
   repair them: it is Smithing work, so give your mechanitor Smithing. Not while the mechanoid is fighting or burning.

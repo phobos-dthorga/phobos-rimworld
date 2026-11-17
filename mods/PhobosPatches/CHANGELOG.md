@@ -10,6 +10,8 @@ says the owner tested it.
 
 - With D'thorga Framework 0.135.0, the Hermit Crab and the Cluster Weaver are topped up too: a mechanitor brings them steel, as
   they do to repair them. The drone platform Def is the same; only its notes changed.
+- The drone platform Def names the platform's capacity and holdings, so D'thorga Framework 0.136.0's setting How full to fill
+  them can fill platforms past their starting store, up to full.
 
 ### Changed
 

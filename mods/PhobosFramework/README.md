@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.135.0, built 18 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.136.0, built 18 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -111,6 +111,7 @@ Under **Options > Mod settings**. RimWorld saves only what you change.
 | D'thorga sounds volume | Every D'thorga mod's sounds, from 0% (silent) to 200%; at 100% each matches a comparable game sound. Changes at once | 100% |
 | Vehicle system sounds on other mods' vehicles too | The vehicle systems' sounds (a tyre bursting, an engine knocking, the warning chime) play on any vehicle running them. Off: only D'thorga's own vehicles | On |
 | Parts for building | Whose parts a build of ours asks for: **Other mods' parts where installed**, or **Always our own parts**. **Needs a restart.** Repairs accept either | Other mods' parts where installed |
+| How full to fill them (under the one above) | Its own fill level (as the machine's own fill order), at least half, at least three-quarters, or full. Never less than its own level | Its own fill level |
 | Keep machines and mechanoids topped up | Colonists doing hauling work refill machines that hold a store of material and only offer a right-click fill order, such as a drone platform's steel, and a mechanitor refills mechanoids that carry one, as they repair them (named by D'thorga Patches). Off: by hand only | On |
 | Show gases at the mouse (dev mode) | A label at the mouse names every gas in that cell's room | Off |
 | Keep the game's log going after its message limit | Turns the game's log back on when it stops at 10,000 messages, at most 25 times a session, with a line naming the message that filled it | On |
