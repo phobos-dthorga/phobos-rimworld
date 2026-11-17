@@ -30,13 +30,14 @@ delivered, record the delivery in the changelog or design record, and add or ame
   together. A note says the code ran without an error, never that the result looked right: **a row it flags is "seen working, awaiting
   the owner's word"** until the owner passes or fails it (D'thorga Companion's Tests page). **Answer what the test list is waiting for
   with `python scripts/test-pass.py report`**, and write the owner's verdicts and new sightings into it with `apply --apply` (phobos-modkit's
-  test-pass; a preview without the flag), never by hand-copying them.
+  test-pass; a preview without the flag), never by hand-copying them. **A verdict the owner gives in conversation** goes in the same way:
+  `apply --verdict "ROW:WORD:NOTE" --apply`, WORD `passed`, `partial` (part of the row, the note saying which) or `failed`.
 - The owner runs gameplay tests. Do not control the owner's mouse or keyboard; give instructions for
   interactive steps. Never edit, replace or delete save files without explicit authorisation (read-only
   copies for diagnosis are fine; delete them afterwards). **Answer questions about a save with
   `python scripts/query-save.py`** (pawns, hediffs, things, what holds a thing, map grids such as gas, roofs and
   terrain with `grid`, pollution on the world map with `planet` (`--near` a place, `--compare` a save, `--history` for when it arrived), settlements by faction with `world`, mods' saved state such as RimPacts' wars with `components`,
-  where the colony's mood suffers, who may break and where to start with `mood` (`--pawn` for one; a save holds remembered
+  how high places stand and how rough the land is with `terrain` (`--near` a place), where the colony's mood suffers, who may break and where to start with `mood` (`--pawn` for one; a save holds remembered
   thoughts only, and Framework's colony mood file from the same save adds every situational one), what changed since another save with `diff`, any read-only SQL; it indexes a frozen copy and
   deletes it) and read the raw save only for what the index does not hold. Read the owner's `Player.log` before assuming a
   reported fault is the owner's error, and **start with `python scripts/triage-log.py`**: it summarises the log

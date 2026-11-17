@@ -240,7 +240,8 @@ hand-written fixtures.
 ### Not proposed
 
 - **The world-grid rebuild** moved from `.local/tools/planet.py` into phobos-modkit 0.19.0 (9 Nov 2026) when a second use
-  appeared: `python scripts/query-save.py planet` reports pollution on the world map from it.
+  appeared: `python scripts/query-save.py planet` reports pollution on the world map from it, and since phobos-modkit 1.14.0
+  (18 Nov 2026) `terrain` reports heights, hilliness and the steps between neighbouring tiles, which a scratch script had measured.
 
 ## Shared frameworks (7 Nov 2026)
 
