@@ -284,6 +284,8 @@
                  working. Before, a turbine's spool read through the piston curve as an rpm far past its top: full output at idle. -->
             <supplyFactor Class="Phobos.VehicleSystems.Input_GeneratorDrive">
               <piston Class="Phobos.VehicleSystems.Input_EngineRpm">
+                <!-- Framework 0.129.1 (check C4): the engine's own alternator ratio, so a slow engine's alternator still turns; 2.5 without a drivetrain. -->
+                <alternatorSpeed>true</alternatorSpeed>
                 <multiplier>2.5</multiplier>
                 <curve>
                   <points>
@@ -332,6 +334,8 @@
                  working. Before, a turbine's spool read through the piston curve as an rpm far past its top: full output at idle. -->
             <supplyFactor Class="Phobos.VehicleSystems.Input_GeneratorDrive">
               <piston Class="Phobos.VehicleSystems.Input_EngineRpm">
+                <!-- Framework 0.129.1 (check C4): the engine's own alternator ratio, so a slow engine's alternator still turns; 2.5 without a drivetrain. -->
+                <alternatorSpeed>true</alternatorSpeed>
                 <multiplier>2.5</multiplier>
                 <curve>
                   <points>

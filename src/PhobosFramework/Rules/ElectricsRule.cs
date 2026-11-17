@@ -37,6 +37,26 @@ public static class ElectricsRule
     /// <summary>Whether a load of this rank is off at this depth (rank 0 is essential and never off).</summary>
     public static bool IsShed(int rank, int depth) => rank > 0 && rank <= depth;
 
+    /// <summary>A battery that went flat powers its loads again only once it holds this many times the flat line (authored), so a
+    /// trickle charge does not flick them on and off.</summary>
+    public const double FlatRecoveryFactor = 2;
+
+    /// <summary>
+    /// Whether a vehicle's loads have power now (Framework 0.129.1; docs/development/vehicle-engine-loads.md, check C1): with no battery,
+    /// a grid carrying them, or the engine turning a working generator, always; otherwise only while the battery holds charge. A battery
+    /// that went flat comes back at <see cref="FlatRecoveryFactor"/> times the line. The one rule for every load, switch, weapon drive and
+    /// fitting: before it, a lamp burned on a flat battery while the Systems tab called the same load dead.
+    /// </summary>
+    /// <param name="generator">The generator's working share: its part's efficiency times its drive belt's, 1 when sound.</param>
+    /// <param name="poweredBefore">The answer at the last look, for the recovery margin.</param>
+    public static bool LoadsPowered(bool engineRunning, double generator, bool gridCarries, bool hasBattery, double charge, double flatBelow,
+        bool poweredBefore)
+    {
+        if (!hasBattery || gridCarries) return true;
+        if (engineRunning && generator >= GeneratorLost) return true;
+        return charge >= (poweredBefore ? flatBelow : flatBelow * FlatRecoveryFactor);
+    }
+
     /// <summary>
     /// What share of its output an aircraft's generator gives (A5): it is driven from the engine's gearbox, so it follows the spool speed
     /// on <paramref name="spoolOutput"/> (about half at ground idle, full from cruise, authored), and with engines out only the working

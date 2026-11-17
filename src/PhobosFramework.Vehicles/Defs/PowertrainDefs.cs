@@ -65,6 +65,10 @@ public class EngineXml
     public float indicatedEfficiency = 0.40f;
     public float coolantHeatShare = 0.28f;
     public float idleFuelShare;
+    /// <summary>How many times faster than the crankshaft the alternator turns, through its pulley or gears (check C4, Framework 0.129.1).
+    /// 2.5 suits a road engine (MOTOR magazine, 2000: "two to three times the speed of the engine"); a slow engine needs more, or its
+    /// alternator idles below the speed it starts charging at.</summary>
+    public float alternatorRatio = 2.5f;
     public TurbineXml? turbine;
 }
 

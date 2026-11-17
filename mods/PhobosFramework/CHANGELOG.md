@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.129.1] - 2026-11-18 - Draft
+
+Two faults in the vehicle electrics, found while reviewing engine loads
+
+### Fixed
+
+- **A flat battery now puts the lights out.** With the engine off and no grid nearby, headlights, work lamps and the night heater kept
+  running on a battery with nothing left in it, and the night heater kept burning fuel, while the Systems tab called the same loads
+  dead. Now every load, switch, weapon drive and powered fitting asks one rule: a load has power while the engine turns a working
+  alternator, a grid carries it, or the battery holds charge. A battery that went flat powers things again once it holds twice the flat
+  line, so a trickle charge does not flick lights on and off. A message says when the battery goes flat and which loads went out, and
+  the inspect line says nothing electrical works until it is charged. Camp loads on a house battery are not affected.
+- **A slow diesel-electric engine now charges its battery at idle.** The alternator turned at 2.5 times engine speed on every engine,
+  so the diesel-electric shunter's alternator, idling at 450 rpm, never reached the speed it starts charging at, and gave about 71 %
+  at full speed. Each engine now has its own alternator ratio: 2.5 as before, and 4 on the Framework's diesel-electric (authored),
+  which gives about half at idle and 90 % at full speed.
+
+### Compatibility and limits
+
+- For other modders: an engine's Def may set alternatorRatio, and the engine-speed input may follow it with alternatorSpeed.
+- Weapon drives read the same rule, so a working alternator now powers a turret drive on a flat battery, as a grid already did.
+- Safe to add to an existing save. Found by reading the code (docs/development/vehicle-engine-loads.md, checks C1 and C4); not yet
+  tested in game.
+
 ## [0.129.0] - 2026-11-17 - Draft
 
 Vehicle accessories, the power budget: a 12-volt fridge, a house battery and a power outlet

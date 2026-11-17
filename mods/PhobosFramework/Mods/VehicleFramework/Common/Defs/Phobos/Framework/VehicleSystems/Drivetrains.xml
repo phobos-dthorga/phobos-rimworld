@@ -263,6 +263,9 @@
       <launchRpm>450</launchRpm>
       <ratedRpm>1000</ratedRpm>
       <kilowattsPerTonne>8</kilowattsPerTonne>
+      <!-- Framework 0.129.1 (check C4): a slow engine turns its auxiliary generator faster. At 2.5 it gave nothing at 450 rpm idle and 71 % at
+           rated; at 4 (authored) it gives about half at idle and 90 % at rated, as a road engine's does. -->
+      <alternatorRatio>4</alternatorRatio>
     </engine>
     <transmission>
       <kind>DieselElectric</kind>

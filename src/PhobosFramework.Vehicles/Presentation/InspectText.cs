@@ -68,6 +68,10 @@ public static class InspectText
         bool flat = status.Trend == ElectricalTrend.RunningDown && status.HoursLeft < 1f / 60f;
         string? line = status.Trend switch
         {
+            // Check C1 (Framework 0.129.1): a battery too flat to power anything, naming the switches left on.
+            ElectricalTrend.Flat when !string.IsNullOrEmpty(status.Loads) =>
+                "PhobosVehicleSystems_InspectBatteryDeadWith".Translate(status.Loads.CapitalizeFirst().Named("LOADS")).Resolve(),
+            ElectricalTrend.Flat => "PhobosVehicleSystems_InspectBatteryDead".Translate().Resolve(),
             ElectricalTrend.RunningDown when flat && !string.IsNullOrEmpty(status.Loads) =>
                 "PhobosVehicleSystems_InspectBatteryFlatWith".Translate(status.Loads.CapitalizeFirst().Named("LOADS")).Resolve(),
             ElectricalTrend.RunningDown when flat => "PhobosVehicleSystems_InspectBatteryFlat".Translate().Resolve(),
@@ -78,7 +82,7 @@ public static class InspectText
             ElectricalTrend.ChargingFromGrid => "PhobosVehicleSystems_InspectBatteryChargingFromGrid".Translate().Resolve(),
             _ => null,
         };
-        if (line != null && mode != DisplayMode.Plain)
+        if (line != null && mode != DisplayMode.Plain && status.Trend != ElectricalTrend.Flat)
         {
             line = "PhobosVehicleSystems_InspectBatteryAmps".Translate(line.Named("LINE"), status.Amps.ToString("0.#").Named("AMPS")).Resolve();
         }

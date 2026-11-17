@@ -16,11 +16,10 @@ public static class Feeds
     public static string? Refusal(CompPhobosVehicleSystems? comp, FeedSpec? feed, string what)
     {
         if (comp == null || feed == null || !comp.Usable || comp.Tier != Phobos.Framework.Rules.DetailTier.Full) return null;
-        float flat = PhobosRulesDef.Current<PhobosKnockOutRulesDef>().batteryFlatBelow;
         bool hasQuantity = feed.quantity != null && comp.TryGetQuantity(feed.quantity, out _);
         float quantity = hasQuantity && comp.TryGetQuantity(feed.quantity!, out float q) ? q : 1f;
         FeedShortfall shortfall = FeedRule.Check(feed.engineRunning, comp.EngineRunning, feed.load != null,
-            feed.load == null || comp.LoadCouldRun(feed.load, flat), hasQuantity, quantity, feed.atLeast);
+            feed.load == null || comp.LoadCouldRun(feed.load), hasQuantity, quantity, feed.atLeast);
         if (shortfall != FeedShortfall.None) Seen.Note("vehicles.feed-refused." + (feed.load ?? feed.quantity ?? "engine"), comp.Vehicle, shortfall.ToString());
         string vehicle = comp.Vehicle.LabelShort;
         return shortfall switch

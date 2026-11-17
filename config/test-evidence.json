@@ -50,7 +50,8 @@
     "176": ["vehicles.upgrade-needs-one-of", "vehicles.upgrade-held-on"],
     "177": ["vehicles.fitting-done.PhobosFitting_CargoHook", "vehicles.fitting-done.PhobosFitting_LitterKit"],
     "178": ["vehicles.fridge-chilling"],
-    "179": ["vehicles.outlet-giving"]
+    "179": ["vehicles.outlet-giving"],
+    "181": ["vehicles.battery-dead"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

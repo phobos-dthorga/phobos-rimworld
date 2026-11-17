@@ -203,8 +203,6 @@ public enum WeaponDrive
 /// </summary>
 public static class TurretPower
 {
-    const string ChargeQuantity = "charge";
-
     /// <summary>The traverse and aiming paces the drive's power allows this weapon now.</summary>
     public static void Paces(CompPhobosVehicleSystems comp, VehicleTurret turret, out double traverse, out double aim, out bool handCranked)
     {
@@ -214,13 +212,11 @@ public static class TurretPower
         if (!rules.turretPower || comp.Tier != DetailTier.Full || !OnPoweredDrive(turret)) return;
         ElectricalLoadSpec? drive = comp.Props.loadout?.loads.FirstOrDefault(l => l.name == rules.turretDriveLoad);
         if (drive == null) return;
-        float charge = comp.TryGetQuantity(ChargeQuantity, out float c) ? c : 1f;
-        // Framework 0.120.5 (fault-read G5): a flat battery on a grid that carries the loads still powers the drive, as 0.120.0 meant.
-        if (comp.GridCarriesLoads) charge = 1f;
-        // Framework 0.117.1 (the owner's screenshot, 17 Nov 2026): the drive has power unless it is cut, switched off or the battery is
-        // flat. It draws only while someone mans the gun, so "not drawing" read as "no power" on every unmanned weapon at a full battery.
+        // Framework 0.117.1 (the owner's screenshot, 17 Nov 2026): the drive has power unless it is cut, switched off or without power. It
+        // draws only while someone mans the gun, so "not drawing" (idle) still has power. Since 0.129.1 "without power" is the one rule
+        // every load reads (check C1), which already counts a grid carrying the loads (fault-read G5) and a working alternator.
         LoadState state = comp.StateOf(drive);
-        bool powered = TurretPowerRule.Powered(state is LoadState.Running or LoadState.Idle, charge, rules.batteryFlatBelow);
+        bool powered = state is LoadState.Running or LoadState.Idle;
         TurretPowerRule.Paces(powered, rules.handCrankTraversePace, rules.handCrankAimPace, out traverse, out aim);
         handCranked = !powered;
     }

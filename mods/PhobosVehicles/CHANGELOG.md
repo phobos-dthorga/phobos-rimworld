@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.65.1] - 2026-11-18 - Draft
+
+The diesel-electric shunter charges its battery at idle
+
+### Fixed
+
+- **Trains of the Rim's diesel-electric shunter** now charges its battery while idling: its engine turns its alternator 4 times faster
+  (authored), using D'thorga Framework 0.129.1's alternator ratio. Before, at 450 rpm the alternator never reached its charging speed,
+  so a shunter standing with its lights on ran its battery flat.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.129.1 or later.
+
+### Compatibility and limits
+
+- Safe to add to an existing save. Trains of the Rim declares only RimWorld 1.6, so this is checked by arithmetic only; not yet tested
+  in game.
+
 ## [0.65.0] - 2026-11-17 - Draft
 
 RimArrow: Search and Rescue's helicopters join the vehicle systems

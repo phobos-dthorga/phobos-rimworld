@@ -57,6 +57,42 @@ public class ElectricsRuleTests
     }
 
     [Fact]
+    public void AFlatBatteryWithTheEngineOffPowersNothing()
+    {
+        Assert.True(ElectricsRule.LoadsPowered(false, 1, false, true, 0.6, 0.05, true));
+        Assert.False(ElectricsRule.LoadsPowered(false, 1, false, true, 0.01, 0.05, true));
+    }
+
+    [Fact]
+    public void AGridOrARunningGeneratorPowersTheLoadsOnAFlatBattery()
+    {
+        Assert.True(ElectricsRule.LoadsPowered(false, 1, true, true, 0, 0.05, false));
+        Assert.True(ElectricsRule.LoadsPowered(true, 1, false, true, 0, 0.05, false));
+    }
+
+    [Fact]
+    public void ALostGeneratorLeavesTheLoadsOnTheBattery()
+    {
+        Assert.False(ElectricsRule.LoadsPowered(true, 0.1, false, true, 0.01, 0.05, true));
+        Assert.True(ElectricsRule.LoadsPowered(true, 0.1, false, true, 0.5, 0.05, true));
+    }
+
+    [Fact]
+    public void AVehicleWithNoBatteryIsAlwaysPowered()
+    {
+        Assert.True(ElectricsRule.LoadsPowered(false, 0, false, false, 0, 0.05, false));
+    }
+
+    [Fact]
+    public void AFlatBatteryComesBackOnlyAboveTheRecoveryMargin()
+    {
+        // Gone flat: 0.07 is above the line but under twice it, so still dead; once powered, 0.07 holds.
+        Assert.False(ElectricsRule.LoadsPowered(false, 1, false, true, 0.07, 0.05, false));
+        Assert.True(ElectricsRule.LoadsPowered(false, 1, false, true, 0.1, 0.05, false));
+        Assert.True(ElectricsRule.LoadsPowered(false, 1, false, true, 0.07, 0.05, true));
+    }
+
+    [Fact]
     public void TheGeneratorFollowsTheSpoolAndTheWorkingEngines()
     {
         Assert.Equal(0.5, ElectricsRule.GeneratorShare(0.5, 2, 2), 9);

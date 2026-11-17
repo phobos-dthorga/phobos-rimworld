@@ -419,6 +419,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 if (!HouseBatteryRuns) return false;
             }
             else if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
+            // Check C1 (Framework 0.129.1): a flat battery with nothing else to carry the loads powers none of them.
+            else if (!LoadsPowered) return false;
             var context = new SystemContext(this, states[0]);
             if (load.available != null && !load.available.Holds(context)) return false;
             return load.when == null || load.when.Holds(context);
@@ -441,17 +443,18 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             return load.when != null && !load.when.Holds(context) ? LoadState.Idle : LoadState.Running;
         }
         if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return LoadState.Shed;
-        if (load.when != null && !load.when.Holds(context)) return LoadState.Idle;
-        return TryGetQuantity("charge", out float charge) && charge < PhobosRulesDef.Current<PhobosKnockOutRulesDef>().batteryFlatBelow
-            ? LoadState.NoPower : LoadState.Running;
+        // Check C1 (Framework 0.129.1): the same rule as LoadActive, so the tab and the load agree; before, the tab called a load dead on a
+        // flat battery even while the alternator carried it, and the load ran on regardless.
+        if (!LoadsPowered) return LoadState.NoPower;
+        return load.when != null && !load.when.Holds(context) ? LoadState.Idle : LoadState.Running;
     }
 
     /// <summary>
-    /// Whether a load could run now if its work began (Framework 0.115.0, W4): it is fitted, switched on, not shed, and the battery is above
-    /// flat. Unlike <see cref="LoadActive"/> it does not ask the load's own "when" (a winch's load runs only while it pulls). A vehicle whose
+    /// Whether a load could run now if its work began (Framework 0.115.0, W4): it is fitted, switched on, not shed, and it has power (since
+    /// 0.129.1 the one rule, <see cref="LoadsPowered"/>; a camp load, its house battery). Unlike <see cref="LoadActive"/> it does not ask the load's own "when" (a winch's load runs only while it pulls). A vehicle whose
     /// loadout has no such load is not refused: the load is not modelled there.
     /// </summary>
-    public bool LoadCouldRun(string name, float flatBelow)
+    public bool LoadCouldRun(string name)
     {
         ElectricalLoadSpec? load = LoadNamed(name);
         if (load == null) return true;
@@ -459,8 +462,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         if (load.toggle && !IsOn(load)) return false;
         if (!LoadAvailable(load)) return false;
         if (IsShorted(load)) return false;
+        if (OnHouseBattery(load)) return HouseBatteryRuns;
         if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
-        return !TryGetQuantity("charge", out float charge) || charge >= flatBelow;
+        return LoadsPowered;
     }
 
     /// <summary>Whether this vehicle has the load fitted (its <c>available</c> condition), so its switch shows.</summary>
@@ -931,10 +935,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         loadsCache = null;
         UpdateShedding();
         RefreshShortedLoads();
+        UpdatePower();
         loadAmps = 0f;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
         Electrics = ReadElectrics();
         NotifyShedding();
+        NotifyPower();
         UpdateFridge();
         // Crosslink 5: the alternator takes shaft power for what the loads draw, so the engine works a little harder for them.
         AccessoryShare = AccessoryLoad();
@@ -974,6 +980,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         float camp = 0f;
         switchedLoadsOn.Clear();
         shedLoads.Clear();
+        deadLoads.Clear();
         foreach (ElectricalLoadSpec load in Loads)
         {
             if (load.toggle && !IsOn(load)) continue;
@@ -992,6 +999,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             if (ElectricsRule.IsShed(load.shedOrder, ShedDepth))
             {
                 shedLoads.Add(load.label);
+                continue;
+            }
+            // Check C1 (Framework 0.129.1): on a dead battery a load draws nothing, but a switch left on is still named, so the player
+            // knows what will come back on.
+            if (!LoadsPowered)
+            {
+                if (load.toggle) deadLoads.Add(load.label);
                 continue;
             }
             amps += AmpsNow(load, context);
@@ -1078,6 +1092,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     readonly List<string> switchedLoadsOn = new List<string>();
     /// <summary>The labels of the loads switched on but shed to save the battery, from the last sum. Derived, never saved.</summary>
     readonly List<string> shedLoads = new List<string>();
+    /// <summary>The labels of the loads switched on but dead on a flat battery (check C1, Framework 0.129.1), from the last sum. Derived, never saved.</summary>
+    readonly List<string> deadLoads = new List<string>();
 
     /// <summary>
     /// How many ranks of loads are shed to save the battery now (cross-links G16 and avionics A6, Framework 0.106.0;
@@ -1097,9 +1113,41 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             ShedDepth = 0;
             return;
         }
-        float generator = PartEfficiency("Alternator", 1f) * PartEfficiency("Belt", 1f);
-        ShedDepth = ElectricsRule.ShedDepth(EngineRunning, generator, charge, Electrics.Trend == ElectricalTrend.RunningDown, ShedDepth,
+        ShedDepth = ElectricsRule.ShedDepth(EngineRunning, GeneratorShare(), charge, Electrics.Trend == ElectricalTrend.RunningDown, ShedDepth,
             shedRanks.Value);
+    }
+
+    /// <summary>The generator's working share: the alternator's efficiency times its drive belt's, 1 when sound or not modelled.</summary>
+    float GeneratorShare() => PartEfficiency("Alternator", 1f) * PartEfficiency("Belt", 1f);
+
+    /// <summary>Whether the vehicle's loads have power now (check C1, Framework 0.129.1; <see cref="ElectricsRule.LoadsPowered"/>): the one
+    /// answer every load, switch, weapon drive and fitting reads. Derived at each update, never saved; true until the first.</summary>
+    public bool LoadsPowered { get; private set; } = true;
+    bool powerWasOn = true;
+    bool powerLookedOnce;
+
+    void UpdatePower()
+    {
+        bool hasBattery = TryGetQuantity("charge", out float charge);
+        LoadsPowered = ElectricsRule.LoadsPowered(EngineRunning, GeneratorShare(), GridCarriesLoads, hasBattery, charge,
+            PhobosRulesDef.Current<PhobosKnockOutRulesDef>().batteryFlatBelow, LoadsPowered);
+    }
+
+    /// <summary>One message when a flat battery puts the switched-on loads out, for the player's vehicles; none at the first look after a load.</summary>
+    void NotifyPower()
+    {
+        bool was = powerWasOn;
+        powerWasOn = LoadsPowered;
+        if (!powerLookedOnce)
+        {
+            powerLookedOnce = true;
+            return;
+        }
+        if (was == LoadsPowered || LoadsPowered || deadLoads.Count == 0 || Vehicle?.Faction != Faction.OfPlayer) return;
+        string loads = deadLoads.ToCommaList(useAnd: true);
+        Seen.Note("vehicles.battery-dead", Vehicle, loads);
+        VehicleNotices.Send("PhobosVehicleSystems_MsgBatteryDead".Translate(Vehicle.LabelShort.Named("VEHICLE"), loads.Named("LOADS")).Resolve(),
+            Vehicle, MessageTypeDefOf.NegativeEvent);
     }
 
     /// <summary>One message when shedding starts and one when it ends, for the player's vehicles; none at the first look after a load.</summary>
@@ -1171,6 +1219,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     ElectricalStatus ReadElectrics()
     {
         if (states == null || Vehicle?.Faction != Faction.OfPlayer) return default;
+        // Check C1 (Framework 0.129.1): nothing draws on a dead battery, so it reads as flat, naming any switches left on.
+        if (!LoadsPowered) return new ElectricalStatus(ElectricalTrend.Flat, 0f, deadLoads.Count == 0 ? "" : deadLoads.ToCommaList(useAnd: true));
         foreach (SystemState state in states)
         {
             int q = state.Def.QuantityIndex("charge");

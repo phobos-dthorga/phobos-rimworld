@@ -26,6 +26,8 @@ public enum ElectricalTrend
     RunningDown,
     Charging,
     ChargingFromGrid,
+    /// <summary>Too flat to power anything, with nothing else carrying the loads (Framework 0.129.1, check C1).</summary>
+    Flat,
 }
 
 /// <summary>

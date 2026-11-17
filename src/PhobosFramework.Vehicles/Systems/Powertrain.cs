@@ -47,6 +47,8 @@ public sealed class Powertrain
     readonly double fixedRolling;
     readonly double fixedGrip;
     public readonly double KerbKg;
+    /// <summary>How many times faster than the crankshaft the alternator turns (check C4, Framework 0.129.1), from the engine's Def.</summary>
+    public readonly double AlternatorRatio;
     /// <summary>The roles that count as engines: Engine1, Engine2 and so on when a loadout binds them, else the one Engine.</summary>
     readonly string[] engineRoles;
 
@@ -77,6 +79,7 @@ public sealed class Powertrain
         KerbKg = Tuning.Value(vehicleDef, Tuning.Drivetrain, Tuning.EmptyKilograms, KerbFor(vehicleDef, def, overrides));
         fuelKgFull = Get("fuelKilogramsFull", mass.fuelKilogramsFull);
         EngineXml engine = def?.engine ?? new EngineXml();
+        AlternatorRatio = Get("alternatorRatio", engine.alternatorRatio);
         // Fittings and tunes move only piston engines' figures (their Defs say so); a change builds the powertrain again.
         VehicleFittings fittings = comp.Fittings;
         Spec = new DrivetrainSpec

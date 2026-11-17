@@ -58,9 +58,6 @@ public static class TurretPowerRule
         return HandSwung(key, handSwung) || HandSwung(turretDefName, handSwung) ? WeaponMountKind.HandSwung : WeaponMountKind.Powered;
     }
 
-    /// <summary>Whether the drive has power: its load is running and the battery is above flat.</summary>
-    public static bool Powered(bool loadRunning, double batteryShare, double flatBelow) => loadRunning && batteryShare >= flatBelow;
-
     /// <summary>The traverse and aiming paces of a drive: full with power, the hand-cranked figures without.</summary>
     public static void Paces(bool powered, double crankTraverse, double crankAim, out double traverse, out double aim)
     {

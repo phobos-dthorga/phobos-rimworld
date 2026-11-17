@@ -102,7 +102,15 @@ public class Input_EngineRpm : VehicleSystemInput
     public float multiplier = 1f;
     public float idle = 800f;
     public float cruise = 2000f;
-    protected override float Raw(SystemContext context) => context.Comp.EngineRpm(idle, cruise) * multiplier;
+    /// <summary>The alternator's speed instead of the engine's (check C4, Framework 0.129.1): times the engine's own alternator ratio where
+    /// the vehicle has a drivetrain, otherwise times <see cref="multiplier"/>.</summary>
+    public bool alternatorSpeed;
+
+    protected override float Raw(SystemContext context)
+    {
+        float rpm = context.Comp.EngineRpm(idle, cruise);
+        return alternatorSpeed && context.Comp.Powertrain is { } train ? rpm * (float)train.AlternatorRatio : rpm * multiplier;
+    }
 }
 
 /// <summary>Engine heat into the coolant as a share of full-load heat, from the drivetrain model; without one, the engine load.</summary>

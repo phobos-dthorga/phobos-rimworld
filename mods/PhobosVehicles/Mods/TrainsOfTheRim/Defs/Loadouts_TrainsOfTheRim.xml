@@ -182,6 +182,8 @@
       <launchRpm>450</launchRpm>
       <ratedRpm>1000</ratedRpm>
       <ratedKilowatts>328</ratedKilowatts>
+      <!-- Framework 0.129.1 (check C4): the Framework's diesel-electric ratio, so the battery charges at idle (authored). -->
+      <alternatorRatio>4</alternatorRatio>
     </engine>
     <transmission>
       <kind>DieselElectric</kind>

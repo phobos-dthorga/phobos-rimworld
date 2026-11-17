@@ -48,15 +48,6 @@ public class TurretPowerRuleTests
     public void AMountWordInTheKeyWinsOverASharedCrew() => Assert.Equal(WeaponMountKind.HandSwung, Kind(false, true, "topMG", "RT_M240_MGTurret", sameCrew: true));
 
     [Fact]
-    public void ARunningLoadOnAChargedBatteryIsPowered() => Assert.True(TurretPowerRule.Powered(true, 0.6, 0.05));
-
-    [Fact]
-    public void AFlatBatteryIsNoPower() => Assert.False(TurretPowerRule.Powered(true, 0.01, 0.05));
-
-    [Fact]
-    public void AShedLoadIsNoPower() => Assert.False(TurretPowerRule.Powered(false, 1, 0.05));
-
-    [Fact]
     public void WithPowerTheTurretIsFullPace()
     {
         TurretPowerRule.Paces(true, 0.2, 0.5, out double traverse, out double aim);

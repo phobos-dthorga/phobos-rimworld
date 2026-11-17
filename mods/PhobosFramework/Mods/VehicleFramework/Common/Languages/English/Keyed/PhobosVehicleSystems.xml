@@ -150,6 +150,9 @@
   <PhobosVehicleSystems_InspectBatteryRunningDown>The battery is running down.</PhobosVehicleSystems_InspectBatteryRunningDown>
   <PhobosVehicleSystems_InspectBatteryFlat>The battery is flat, and something is still drawing on it.</PhobosVehicleSystems_InspectBatteryFlat>
   <PhobosVehicleSystems_InspectBatteryFlatWith>{LOADS} on: the battery is flat.</PhobosVehicleSystems_InspectBatteryFlatWith>
+  <PhobosVehicleSystems_InspectBatteryDead>The battery is flat: nothing electrical works until it is charged.</PhobosVehicleSystems_InspectBatteryDead>
+  <PhobosVehicleSystems_InspectBatteryDeadWith>{LOADS} left on, but the battery is flat: nothing electrical works until it is charged.</PhobosVehicleSystems_InspectBatteryDeadWith>
+  <PhobosVehicleSystems_MsgBatteryDead>{VEHICLE}'s battery is flat, and its {LOADS} have gone out. Run the engine or plug it in to charge it.</PhobosVehicleSystems_MsgBatteryDead>
   <PhobosVehicleSystems_InspectBatteryCharging>The alternator is charging the battery.</PhobosVehicleSystems_InspectBatteryCharging>
   <PhobosVehicleSystems_InspectBatteryChargingFromGrid>The battery is charging from the power nearby.</PhobosVehicleSystems_InspectBatteryChargingFromGrid>
   <PhobosVehicleSystems_InspectBatteryAmps>{LINE} ({AMPS} A)</PhobosVehicleSystems_InspectBatteryAmps>
