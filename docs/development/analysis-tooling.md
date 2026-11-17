@@ -231,7 +231,9 @@ Microsoft's [dotnet-trace and dotnet-counters](https://learn.microsoft.com/dotne
 gives the main thread by part of the game loop, the mod that caused each share of ticking (the innermost mod on the stack),
 the busiest methods, patched game methods and garbage collection; `compare` sets two recordings side by side as shares.
 Recording needs the owner's go-ahead each time, because attaching can hitch the game. Dubs Performance Analyzer stays useful
-for watching a figure live. [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope)'s recorder times sections a mod marks
+for watching a figure live. Inside the game, the owner's pick (17 Nov 2026) is keyz's
+[Frame Profiler Plus](https://github.com/keyz182/FrameProfilerPlus) on Ludeon's 1.7 Frame Profiler: each mod's Harmony patch
+time and tick time by ThingDef, comp and job driver, captured while the slow moment is on screen. [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope)'s recorder times sections a mod marks
 inside the game, which this does not. **Not yet run against the game**: checked on a small program of our own and on
 hand-written fixtures.
 
