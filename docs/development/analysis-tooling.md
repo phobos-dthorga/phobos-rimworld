@@ -221,11 +221,22 @@ the accepted borrowings and drawn-in-code pictures with their reasons; `check` f
 records, never the images, and caches nothing. `check` joined the gate the same day, once that day's missing records were written:
 it enforces the standing rule that every texture has an asset record beside it.
 
+### 12. Performance in play
+
+**Built, 17 Nov 2026 (phobos-modkit 1.13.0), at the owner's request** ("BUILD THE TOOL"), after a slow game with many wounded
+pawns could only be answered by reading code (D'thorga Medical 0.17.1). This line used to say performance in play had no file we
+could read. Then RimWorld 1.7 turned out to run on Microsoft's CoreCLR with the standard .NET diagnostics pipe open, so
+Microsoft's [dotnet-trace and dotnet-counters](https://learn.microsoft.com/dotnet/core/diagnostics/) record it from outside.
+`python scripts/perf.py record` samples every thread's call stack and the runtime's counters for 30 seconds. The report then
+gives the main thread by part of the game loop, the mod that caused each share of ticking (the innermost mod on the stack),
+the busiest methods, patched game methods and garbage collection; `compare` sets two recordings side by side as shares.
+Recording needs the owner's go-ahead each time, because attaching can hitch the game. Dubs Performance Analyzer stays useful
+for watching a figure live. [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope)'s recorder times sections a mod marks
+inside the game, which this does not. **Not yet run against the game**: checked on a small program of our own and on
+hand-written fixtures.
+
 ### Not proposed
 
-- **Performance in play** (milliseconds per tick) has no file we can read; the owner uses Dubs Performance
-  Analyzer. The long-term answer is a RimWorld adapter for
-  [Phobos Scope](https://github.com/phobos-dthorga/phobos-scope)'s recorder, which belongs to that repository.
 - **The world-grid rebuild** moved from `.local/tools/planet.py` into phobos-modkit 0.19.0 (9 Nov 2026) when a second use
   appeared: `python scripts/query-save.py planet` reports pollution on the world map from it.
 

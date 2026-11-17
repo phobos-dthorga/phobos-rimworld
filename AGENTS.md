@@ -71,6 +71,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   every Harmony patch on it in load order (wildcards), `mod <name>` for what a mod patches, `hotspots` for methods several mods
   patch; "may skip the original" marks a bool prefix. It reads every active mod's assemblies through their metadata, never
   running them. Use it before decompiling a mod to look for patches, and before adding a patch of ours, to see who else is there.
+- **Answer where the running game spends its time, and which mods cause it, with `python scripts/perf.py`** (owner, 17 Nov 2026:
+  "build the tool"), never by reading code alone: `record --label` while the slow moment is on screen, then `report`, `mod <name>`
+  and `compare` (shares of ticking, so a faster game cannot hide a gain). It attaches Microsoft's dotnet-trace and dotnet-counters
+  to RimWorld 1.7 from outside and changes nothing in it, but **ask the owner before recording their running game, and to save
+  first**: attaching can hitch it. A performance fix is checked with a recording before and after; a recording measures, never tests.
 - **Answer how long the game takes to start, and which mods cost it, with `python scripts/startup-impact.py`** (owner, 8 Nov 2026):
   every launch, the costliest mods, `compare` for what changed between two launches, `mod <name>` for one mod. Start-up time varies
   between identical launches, so trust only a difference that repeats. **Answer which active mods are ready for a game version
