@@ -7,7 +7,7 @@ required.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's
 [medical chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links for modders.
 
-Version 0.17.1, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
+Version 0.18.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
 D'thorga Medical (11 November 2026), and burns, dosing, the oxygen concentrator, the burn unit bed and the save bridge on the five
 mods it replaced (3 to 6 November 2026). Everything else is not yet tested in game, nor is the merged mod as a whole.
 
@@ -60,6 +60,8 @@ mods it replaced (3 to 6 November 2026). Everything else is not yet tested in ga
   - **No surgery in the hyperbaric chamber**: move the patient to a hospital bed.
   - **With Search and Rescue, give your medics kits to carry**: its restocking never fetches ours, and its responders need Doctor
     work switched on to use them.
+  - **Care on the ground gives way to the carry** (0.18.0, not yet tested in game): our doctors never hold a downed person against
+    whoever comes to carry them to bed, and a dose against a disease waits for the bed. Needs D'thorga Framework 0.126.0.
 
 ## The parts
 

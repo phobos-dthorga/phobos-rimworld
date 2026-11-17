@@ -20,6 +20,13 @@
   <PhobosLitter_UnloadGizmo>Unload casualties</PhobosLitter_UnloadGizmo>
   <PhobosLitter_UnloadGizmoDesc>Set the {COUNT} people on the litters down beside the vehicle, for a doctor to take to bed.</PhobosLitter_UnloadGizmoDesc>
 
+  <!-- Framework 0.126.0: the vehicle as a casualty collection point. -->
+  <PhobosLitter_CollectGizmo>Take casualties aboard</PhobosLitter_CollectGizmo>
+  <PhobosLitter_CollectGizmoDesc>While this is on, doctors carry downed people to this vehicle's litters when it is nearer than their bed, or when they have no bed, until every litter is taken. Anyone bleeding badly is treated where they lie first if a field medic is at hand. Fly them home, then use Unload casualties for the short carry to bed.</PhobosLitter_CollectGizmoDesc>
+  <PhobosLitter_CollectOn>{VEHICLE} is taking casualties aboard: doctors bring downed people here when it is nearer than their bed.</PhobosLitter_CollectOn>
+  <PhobosLitter_CollectOff>{VEHICLE} is no longer taking casualties aboard. Anyone already on its litters stays there.</PhobosLitter_CollectOff>
+  <PhobosLitter_CollectFull>Every litter aboard {VEHICLE} is taken. Doctors take the next casualties to bed.</PhobosLitter_CollectFull>
+
   <PhobosLitter_Inspect>Litters: {COUNT} of {SLOTS} taken</PhobosLitter_Inspect>
   <PhobosLitter_InspectPatients>On the litters: {NAMES}</PhobosLitter_InspectPatients>
 </LanguageData>

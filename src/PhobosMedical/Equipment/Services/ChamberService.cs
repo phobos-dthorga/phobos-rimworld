@@ -27,7 +27,8 @@ public static class ChamberService
     public static IReadOnlyList<Pawn> PatientsForChamber(Map map) => waiting.Get(map, CacheIntervalTicks);
 
     /// <summary>
-    /// A patient a doctor should carry to a chamber: one of the colony's people, downed and not yet in a bed, who needs oxygen, with a
+    /// A patient a doctor should carry to a chamber: one of the colony's people (prisoners and guests included, as the chamber must then
+    /// be a bed for them), downed and not yet in a bed, who needs oxygen, with a
     /// care setting that lets doctors act. Patients already in a bed stay where they are (the game's own rescue has placed them).
     /// </summary>
     public static bool WantsChamber(Pawn patient) =>

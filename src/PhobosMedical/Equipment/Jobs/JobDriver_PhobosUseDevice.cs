@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Phobos.Framework.Health;
 using Phobos.Medical.Defs;
 using Phobos.Medical.Services;
 using RimWorld;
@@ -30,7 +31,8 @@ public class JobDriver_PhobosUseDevice : JobDriver
 
     public override bool TryMakePreToilReservations(bool errorOnFailed)
     {
-        if (!pawn.Reserve(Patient, job, 1, -1, null, errorOnFailed)) return false;
+        // On the ground the hold keeps other doctors away, never a carrier: a pump gives way to the carry to a bed (FieldCare).
+        if (!FieldCare.Reserve(pawn, Patient, job, errorOnFailed)) return false;
         if (pawn.inventory == null || !pawn.inventory.Contains(Device))
         {
             if (!pawn.Reserve(Device, job, 1, 1, null, errorOnFailed)) return false;
@@ -42,6 +44,7 @@ public class JobDriver_PhobosUseDevice : JobDriver
     {
         this.FailOnDespawnedNullOrForbidden(PatientInd);
         this.FailOn(() => Patient.Dead);
+        Seen.WhenFieldCareGaveWay(this, () => job.targetB.Pawn);
         Toil fromInventory = Toils_Misc.TakeItemFromInventoryToCarrier(pawn, DeviceInd);
         Toil toPatient = Toils_Goto.GotoThing(PatientInd, PathEndMode.Touch);
         yield return Toils_Jump.JumpIf(fromInventory, () => pawn.inventory != null && pawn.inventory.Contains(Device));

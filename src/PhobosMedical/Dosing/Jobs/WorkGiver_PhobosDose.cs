@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Phobos.Dosing.Defs;
 using Phobos.Dosing.Services;
+using Phobos.Framework.Health;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -36,7 +37,7 @@ public class WorkGiver_PhobosDose : WorkGiver_Scanner
             if (forced) DoseService.ExplainNotPatient(patient, DosingMod.Settings, PhobosDosingRulesDef.Current);
             return false;
         }
-        if (!pawn.CanReserve(patient, 1, -1, null, forced)) return false;
+        if (!FieldCare.CanReserve(pawn, patient, forced)) return false;
         return DoseService.MakeJob(pawn, patient, explain: forced) != null;
     }
 

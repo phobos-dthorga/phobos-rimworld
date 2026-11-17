@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.126.0] - 2026-11-17 - Draft
+
+Field care gives way to the carry, and helicopters take casualties aboard
+
+### Added
+
+- **Take casualties aboard** (the owner's idea of 17 Nov 2026): a switch on any vehicle with the litter kit fitted, off to start. While it
+  is on, doctors carry downed people to its litters when it is nearer than their bed, or when they have no bed, until every litter is
+  taken; it then says so, and the next casualties go to bed as usual. Colonists, slaves, prisoners and guests are carried; anyone set to
+  no medical care is left alone. With Search and Rescue, its field responders do this work too, ahead of carrying to a far bed, and a
+  casualty bleeding towards death is treated where they lie first. Fly them home and press Unload casualties for the short carry to bed.
+  It cannot be switched on while the vehicle moves or flies. Its button has a picture of its own, drawn in code like the Unload button.
+- **Field care for every mod**: the shared health layer now tells a patient on the ground from one in a bed, and gives doctors a way to
+  hold a patient on the ground that never stops a carrier. D'thorga Medical 0.18.0 uses it for all its doctor jobs.
+
+### Compatibility and limits
+
+- Safe to add to a running colony and to remove: the switch saves one value per vehicle. Priorities are agent choices, for the owner to
+  revise. Other factions' vehicles never take casualties aboard: it is the player's order. A captured vehicle with the kit gets the switch.
+- No settings were added or changed. New test row 171 (and row 170 for the field care, with D'thorga Medical 0.18.0). Not yet tested
+  in game.
+
 ## [0.125.0] - 2026-11-17 - Draft
 
 The tipper fills storage, and trucks load from it (universal hoppers UH1 and UH12)

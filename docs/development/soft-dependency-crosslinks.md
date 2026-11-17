@@ -1,7 +1,7 @@
 # Soft-dependency cross-links: new tie-ins with other mods (13 Nov 2026)
 
-**Status (17 Nov 2026):** built in D'thorga Framework 0.108.4 and 0.109.0 (and Vehicles 0.52.0, Medical 0.16.0 and 0.17.0, Factory
-Additions 0.13.0): SD1 (vehicles our systems refuse to move), SD4 (the tanker on Rimefeller's pipeline), SD5 (the tanker fills
+**Status (17 Nov 2026):** built in D'thorga Framework 0.108.4 and 0.109.0 (and Vehicles 0.52.0, Medical 0.16.0, 0.17.0 and 0.18.0,
+Factory Additions 0.13.0; SD22's carry to a vehicle's litters in Framework 0.126.0): SD1 (vehicles our systems refuse to move), SD4 (the tanker on Rimefeller's pipeline), SD5 (the tanker fills
 generators), SD9 (EMP on vehicles), SD21 (iodide at the radiation line), SD22 (Search and Rescue's medics), SD23 (the drip stand) and
 SD30 (narrowed to our vehicle parts bench); not built: every other row, including SD20 (chosen 16 Nov 2026), SD6 (read, "not now") and
 SD8 (set aside, nothing to build). Not yet tested in game. The section "Questions for the owner" has the detail.
@@ -258,6 +258,17 @@ its own treatment lanes do (`DeviceRule.InLane`, `DeviceRule.MayDoFieldDeviceWor
 revise:** both priorities, and the split of devices between them. **Read from the code, not seen in play:** that its coordination
 lets a responder take our job between its own, and that its doctor waits rather than fails while ours holds the patient for a few
 seconds.
+
+**Correction, 17 Nov 2026 (D'thorga Medical 0.18.0, Framework 0.126.0).** "Nothing locks us out" held, but we locked it out. The owner
+reported downed prisoners left in the field until they died. Read from the save PG11, Search and Rescue's alpha.26 source and our code:
+our dose, device and rinse jobs claimed the patient before the doctor walked off to fetch the item (one dose had held a prisoner for over
+6,200 ticks), and Search and Rescue cannot see our jobs, so it kept matching a carrier to the patient, failed to reserve them and retried
+90 to 300 ticks later. It also switches off the game's warden carry for a prisoner it manages, so nothing else moved them. **The fix:** a
+doctor of ours holds a patient on the ground on our own reservation layer (`PhobosFieldCare`, `Phobos.Framework.Health.FieldCare`), which
+keeps other doctors of ours away and never a carrier; in a bed the game's layer, as before. A dose against a disease waits for the bed
+(`FieldCareRule`). Still Search and Rescue's own, and not changed: it puts its treatment before transport. **The litter route set aside
+above is now ours without touching it:** a vehicle's **Take casualties aboard** switch (vehicle-upgrades-round-two.md, the litter kit)
+puts a carry to the litters in its field rescue work at 161.
 
 **Set aside: the rescue ending at a vehicle with a litter kit.** Where it evacuates to comes from its own list of beds and
 facilities (`CompatibilityRegistry.FacilityBeds`, `Building_Bed` types), also hard-coded, and our litter holder is no bed. Doing it

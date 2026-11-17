@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Phobos.Framework.Health;
 using Phobos.Medical.Defs;
 using Phobos.Medical.Services;
 using RimWorld;
@@ -33,7 +34,7 @@ public class WorkGiver_PhobosUseDevice : WorkGiver_Scanner
     public override bool HasJobOnThing(Pawn pawn, Thing t, bool forced = false)
     {
         if (t is not Pawn patient || patient == pawn) return false;
-        if (!pawn.CanReserve(patient, 1, -1, null, forced)) return false;
+        if (!FieldCare.CanReserve(pawn, patient, forced)) return false;
         return DeviceService.MakeJob(pawn, patient, explain: forced, lane: Lane?.needs) != null;
     }
 

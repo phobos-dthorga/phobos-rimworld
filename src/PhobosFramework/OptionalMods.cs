@@ -22,6 +22,8 @@ public static class OptionalMods
     public const string CombatExtended = "CETeam.CombatExtended";
     public const string MoreInjuries = "Th3Fr3d.ExtendedInjuries";
     public const string MoreInjuriesOrganFailure = "wenders.moreinjuries.organbridge";
+    /// <summary>Search and Rescue: its field medics treat a casualty where they lie.</summary>
+    public const string SearchAndRescue = "ch4acko3.searchandrescue";
 
     public static bool IsActive(string packageId)
     {

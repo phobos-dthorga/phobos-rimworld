@@ -67,7 +67,7 @@ public static class RinseService
 
     public static Job? RinsePatientJob(Pawn doctor, Pawn patient)
     {
-        if (patient == doctor || !IsPatientNeedingRinse(patient) || !doctor.CanReserve(patient)) return null;
+        if (patient == doctor || !IsPatientNeedingRinse(patient) || !FieldCare.CanReserve(doctor, patient)) return null;
         Thing? station = ClosestStation(doctor, forSelf: false);
         if (station == null) return null;
         Job job = JobMaker.MakeJob(MedicalDefOf.PhobosMedical_RinsePatient, station, patient);

@@ -331,6 +331,11 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   lie on the litters. **Put a colonist who can doctor in the crew and medicine in the cargo**: while the helicopter stands, they tend the
   patients. In flight nobody gets worse. Press **Unload casualties** at the other end, then take them to bed. **Leaving by caravan sets
   the patients down first.** The kit takes a fifth of the cargo space.
+  **Take casualties aboard** (not yet tested in game) makes the parked helicopter the place casualties go: with it switched on, doctors
+  (and Search and Rescue's field responders) carry downed people to its litters whenever it is nearer than their bed, or they have no
+  bed, until every litter is taken; then it says so. Prisoners and guests are carried too; anyone set to no medical care is not. Someone
+  bleeding badly is treated where they lie first when a field medic is at hand. **Switch it off before you leave** if you do not want
+  it working at the next landing site. It cannot be switched on while the helicopter moves or flies.
 
 **Flight controls** (not yet tested in game): an aircraft whose control surfaces, actuators, hydraulics or wiring are wrecked below 35 %
 **cannot take off**, and the launch button says why; damaged below 70 %, it flies slower. **An engine out** slows it to 0.8 of its

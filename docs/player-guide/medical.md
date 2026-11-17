@@ -44,7 +44,9 @@ flowchart TD
 **A bed is where most of it happens.** Painkillers, oxygen, burn care and every operation need the patient down or in bed. **Stock
 decides everything**: medicine, painkillers, oxygen and kits have to be made or bought, and a doctor carrying them is fastest.
 **Field care and surgery are separate jobs**: Search and Rescue and More Injuries (other authors) treat the patient where they
-fell and carry them to bed; D'thorga Medical takes over once they are there.
+fell and carry them to bed; D'thorga Medical takes over once they are there. **Our doctors never hold someone on the ground against
+a carrier:** a painkiller, a hand pump or a kit given where they lie stops when someone comes to carry them, and goes on at the bed. A
+dose against a disease waits for the bed. Not yet tested in game.
 
 ## Burns and smoke
 
@@ -239,8 +241,9 @@ Expanded's rule).
 
 **With Search and Rescue, its field responders use these kits where a colonist fell**, as Field rescue work, if they also have
 Doctor work switched on. The airway kits, the hand pump and the decompression kit come just before its own treatment; oxygen and
-fluids after it. **Give your medics kits to carry:** Search and Rescue's restocking does not fetch them. Carrying a casualty to a
-parked vehicle's litters is not part of this. Not yet tested in game.
+fluids after it. **Give your medics kits to carry:** Search and Rescue's restocking does not fetch them. To have casualties carried
+to a parked helicopter instead of a far bed, switch on its **Take casualties aboard** (D'thorga Framework, in the
+[vehicle care chapter](vehicle-care.md)). Not yet tested in game.
 
 ## Radiation control (with Rimatomics)
 

@@ -13,6 +13,38 @@ entry says the owner tested it.
 - A comment in the oxygen chain's Defs names the design record its electrolysis source now lives in. No change in play.
 - Comments in the second equipment set's Defs no longer call its art a placeholder: the owner's picks shipped in 0.14.1. No change in play.
 
+## [0.18.0] - 2026-11-17 - Draft
+
+Field care gives way to the carry to a bed
+
+### Fixed
+
+- **Downed people on the ground are no longer held back from the carry to a bed by our doctors.** A doctor setting off to give a
+  painkiller, work a hand pump, fit a kit or rinse acid off claimed the patient before walking to fetch the item, and kept the claim
+  until done. Anyone coming to carry the patient to a bed, the game's carriers and Search and Rescue's alike, found them claimed and
+  gave up, to try again a few seconds later. On the owner's map of 17 November, downed prisoners lay in the field until they bled out,
+  died of thirst or froze, while carry jobs were handed out and ended again. Now a doctor's claim on a patient on the ground only keeps
+  other doctors from doubling up: a carrier lifts the patient regardless, the doctor's job ends, and care goes on at the bed. In a bed,
+  claims work as before.
+
+### Changed
+
+- **A dose against a disease waits for the bed.** It works over days, so no doctor walks out to someone on the ground the carrier is
+  about to lift. Painkillers, breathing and fluid kits and rinsing are still given where the patient lies.
+- The hand pump gives way too: only a bed with oxygen fixes what it holds off (agent default, for the owner to revise).
+
+### Compatibility and limits
+
+- No Harmony and no change to Search and Rescue or More Injuries. Search and Rescue also puts its own treatment before the carry; if
+  prisoners still lie in the field after this, its dev action Dump scheduler state names the reason for each patient, and its setting
+  Treatment before transport priority is the dial for it.
+- No settings were added or changed. One seen-in-play note was added for testing, with test row 170. Needs D'thorga Framework 0.126.0.
+  Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.17.1] - 2026-11-17 - Draft
 
 Doctors looking for work cost less with many wounded on the map

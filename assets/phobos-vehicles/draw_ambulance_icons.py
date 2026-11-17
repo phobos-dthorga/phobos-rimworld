@@ -2,9 +2,11 @@
 drop button, the fire bucket item, the litter kit fitting and the Unload casualties button. No image generator and no game or other
 author's art is involved; each has a record beside it (D'thorga Framework 0.101.0).
 
-    python assets/phobos-vehicles/draw_ambulance_icons.py
+    python assets/phobos-vehicles/draw_ambulance_icons.py                  every picture
+    python assets/phobos-vehicles/draw_ambulance_icons.py Litter/Collect   one picture only
 """
 import hashlib
+import sys
 from pathlib import Path
 
 from PIL import Image, ImageDraw
@@ -22,6 +24,7 @@ WATER = (86, 150, 210, 255)
 FLAME = (236, 170, 60, 255)
 CANVAS = (204, 190, 150, 255)
 WHITE = (236, 236, 230, 255)
+GREEN = (96, 170, 90, 255)
 LINE = 18
 
 
@@ -78,16 +81,26 @@ def unload(draw):
     draw.polygon([(196, 40), (316, 40), (316, 150), (380, 150), (256, 270), (132, 150), (196, 150)], fill=WATER, outline=OUTLINE, width=LINE)
 
 
+def collect(draw):
+    # Framework 0.126.0, "Take casualties aboard": the stretcher with a green arrow rising from it, up and aboard.
+    stretcher(draw, 320)
+    draw.polygon([(196, 270), (316, 270), (316, 160), (380, 160), (256, 40), (132, 160), (196, 160)], fill=GREEN, outline=OUTLINE, width=LINE)
+
+
 ICONS = [
     ('Sling/WaterDrop', water_drop, 'an orange bucket on a line pouring blue water onto orange and red flames'),
     ('Things/FireBucket', fire_bucket, 'an orange bucket with a dark rim, a steel bail and ring, and a dark valve at its foot'),
     ('Fittings/LitterKit', litter_kit, 'a canvas stretcher on dark poles below a white square with a red cross'),
     ('Litter/Unload', unload, 'a canvas stretcher on dark poles below a blue arrow pointing down'),
+    ('Litter/Collect', collect, 'a canvas stretcher on dark poles below a green arrow pointing up'),
 ]
 
 
-def main():
+def main(only):
+    """Draws every picture, or only those named (as Litter/Collect), so a new one leaves the shipped files as they are."""
     for name, drawing, what in ICONS:
+        if only and name not in only:
+            continue
         path = FOLDER / f'{name}.png'
         path.parent.mkdir(parents=True, exist_ok=True)
         image = Image.new('RGBA', (WORK, WORK), (0, 0, 0, 0))
@@ -101,4 +114,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    main(set(sys.argv[1:]))

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Framework 0.126.0. A doctor treating a patient on the ground holds them on this layer, not the game's, so the hold keeps other
+       doctors of ours away but never a carrier: field care gives way to the carry to a bed (Phobos.Framework.Health.FieldCare). Not yet
+       tested in game. -->
+  <ReservationLayerDef>
+    <defName>PhobosFieldCare</defName>
+  </ReservationLayerDef>
+</Defs>

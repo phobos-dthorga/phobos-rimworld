@@ -45,11 +45,48 @@
     <useHitPoints>false</useHitPoints>
   </ThingDef>
 
-  <!-- The litter kit: a colonist carries a downed person to a litter aboard a vehicle. Ordered from the right-click menu only. -->
+  <!-- The litter kit: a colonist carries a downed person to a litter aboard a vehicle. Ordered from the right-click menu, or given as work
+       while the vehicle is taking casualties aboard (Framework 0.126.0). -->
   <JobDef>
     <defName>PhobosVehicleSystems_CarryToLitter</defName>
     <driverClass>Phobos.VehicleSystems.JobDriver_PhobosCarryToLitter</driverClass>
     <reportString>carrying TargetA to a litter.</reportString>
     <casualInterruptible>false</casualInterruptible>
   </JobDef>
+
+  <!--
+    Taking casualties aboard (Framework 0.126.0; the owner's idea of 17 Nov 2026). Skipped outright while no vehicle on the map is switched
+    on, so it costs nothing until the player uses it. Not yet tested in game. Priorities are agent choices, owner to revise:
+    - Doctor 66: just above D'thorga Medical's pressure chamber transfer (65) and the game's own rescue (60), below its tending.
+    - Search and Rescue's field rescue work 161: just above its evacuation to a bed (160, its 6 Nov build), so a responder with this work
+      switched on takes the casualty to the switched-on vehicle instead. It waits for its own medics: a casualty bleeding towards death is
+      treated first (LitterService), and a medic treating holds them. Loaded only with Search and Rescue (MayRequire).
+  -->
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_DoctorCarryToLitter</defName>
+    <label>carry casualties to a vehicle's litters</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosCarryToLitter</giverClass>
+    <workType>Doctor</workType>
+    <priorityInType>66</priorityInType>
+    <verb>carry to a litter</verb>
+    <gerund>carrying to a litter</gerund>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <WorkGiverDef MayRequire="ch4acko3.searchandrescue">
+    <defName>PhobosVehicleSystems_FieldRescueCarryToLitter</defName>
+    <label>carry casualties to a vehicle's litters in the field</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosCarryToLitter</giverClass>
+    <workType>SAR_FieldRescue</workType>
+    <priorityInType>161</priorityInType>
+    <verb>carry to a litter</verb>
+    <gerund>carrying to a litter</gerund>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
 </Defs>

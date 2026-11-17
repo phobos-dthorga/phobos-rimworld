@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Phobos.Framework.Health;
 using Phobos.Medical.Services;
 using RimWorld;
 using Verse;
@@ -55,7 +56,7 @@ public class WorkGiver_PhobosRinsePatient : WorkGiver_Scanner
     {
         if (t is not Pawn patient) return null;
         Job? job = RinseService.RinsePatientJob(pawn, patient);
-        if (job == null && forced && patient != pawn && RinseService.IsPatientNeedingRinse(patient) && pawn.CanReserve(patient))
+        if (job == null && forced && patient != pawn && RinseService.IsPatientNeedingRinse(patient) && FieldCare.CanReserve(pawn, patient))
         {
             JobFailReason.Is("PhobosMedical_NoRinseStation".Translate());
         }
@@ -69,14 +70,16 @@ public class JobDriver_PhobosRinsePatient : JobDriver
     Thing Station => job.targetA.Thing;
     Pawn Patient => job.targetB.Pawn;
 
+    // On the ground the hold on the patient keeps other doctors away, never a carrier (FieldCare).
     public override bool TryMakePreToilReservations(bool errorOnFailed) =>
-        pawn.Reserve(Patient, job, 1, -1, null, errorOnFailed) && pawn.Reserve(Station, job, 1, -1, null, errorOnFailed);
+        FieldCare.Reserve(pawn, Patient, job, errorOnFailed) && pawn.Reserve(Station, job, 1, -1, null, errorOnFailed);
 
     protected override IEnumerable<Toil> MakeNewToils()
     {
         this.FailOnDespawnedOrNull(TargetIndex.A);
         this.FailOnDespawnedNullOrForbidden(TargetIndex.B);
         this.FailOn(() => Patient.Dead || !RinseService.NeedsRinse(Patient));
+        Seen.WhenFieldCareGaveWay(this, () => job.targetB.Pawn);
         yield return Toils_Goto.GotoThing(TargetIndex.A, PathEndMode.Touch);
         yield return Toils_General.Do(() =>
         {

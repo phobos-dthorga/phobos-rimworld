@@ -41,7 +41,9 @@
     "164": ["vehicles.lite-tier-slowed"],
     "165": ["vehicles.rig-service-done"],
     "167": ["vehicles.tip-into-storage"],
-    "168": ["vehicles.grab-from-storage"]
+    "168": ["vehicles.grab-from-storage"],
+    "170": ["medical.field-care-gave-way"],
+    "171": ["vehicles.litter-collection-carry"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

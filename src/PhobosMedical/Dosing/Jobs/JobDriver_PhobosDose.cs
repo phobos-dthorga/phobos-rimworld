@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Phobos.Dosing.Defs;
 using Phobos.Dosing.Services;
+using Phobos.Framework.Health;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -21,7 +22,8 @@ public class JobDriver_PhobosDose : JobDriver
 
     public override bool TryMakePreToilReservations(bool errorOnFailed)
     {
-        if (!pawn.Reserve(Patient, job, 1, -1, null, errorOnFailed)) return false;
+        // On the ground the hold keeps other doctors away, never a carrier (FieldCare).
+        if (!FieldCare.Reserve(pawn, Patient, job, errorOnFailed)) return false;
         if (pawn.inventory == null || !pawn.inventory.Contains(Item))
         {
             if (!pawn.Reserve(Item, job, 10, 1, null, errorOnFailed)) return false;
@@ -34,6 +36,7 @@ public class JobDriver_PhobosDose : JobDriver
     {
         this.FailOnDespawnedNullOrForbidden(PatientInd);
         this.FailOn(() => Patient.Dead || !DoseService.NeedsDose(Patient, DosingMod.Settings, PhobosDosingRulesDef.Current));
+        Medical.Seen.WhenFieldCareGaveWay(this, () => job.targetB.Pawn);
         Toil fromInventory = Toils_Misc.TakeItemFromInventoryToCarrier(pawn, ItemInd);
         Toil toPatient = Toils_Goto.GotoThing(PatientInd, PathEndMode.Touch);
         yield return Toils_Jump.JumpIf(fromInventory, () => pawn.inventory != null && pawn.inventory.Contains(TargetThingA));

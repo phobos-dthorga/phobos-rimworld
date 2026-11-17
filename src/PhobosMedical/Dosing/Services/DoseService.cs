@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Phobos.Dosing.Defs;
 using Phobos.Dosing.Rules;
 using Phobos.Framework.Health;
+using Phobos.Framework.Rules;
 using RimWorld;
 using Verse;
 using Verse.AI;
@@ -69,12 +70,13 @@ public static class DoseService
         NeedOf(pawn, rules) != DoseNeed.None || (settings.immunityDosing && LosingToDisease(pawn, rules));
 
     /// <summary>
-    /// A resting patient with a disease that can kill and that is winning the race against their immunity, read from the game's own rates: every
-    /// comp that moves the disease's severity, tending included, and the immunity record the game itself ticks.
+    /// A patient in bed with a disease that can kill and that is winning the race against their immunity, read from the game's own rates: every
+    /// comp that moves the disease's severity, tending included, and the immunity record the game itself ticks. A dose against a disease works
+    /// over days, so it waits for the bed (Medical 0.18.0, FieldCareRule): no doctor walks out to someone on the ground the carrier is about to lift.
     /// </summary>
     public static bool LosingToDisease(Pawn pawn, PhobosDosingRulesDef rules)
     {
-        if (!pawn.Downed && !pawn.InBed()) return false;
+        if (!FieldCareRule.MayActNow(CareUrgency.WaitsForBed, pawn.InBed())) return false;
         List<Hediff> hediffs = pawn.health.hediffSet.hediffs;
         for (int i = 0; i < hediffs.Count; i++)
         {

@@ -2,7 +2,8 @@
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.97.0 (and Vehicles 0.42.0: batch 1, the generator set's heat exchanger, the
 claim order and the core part store), 0.101.0 (and Vehicles 0.45.0: batch 2, the hitch and the Pintle flatbed trailer, and batch 3,
-the four signatures: the service lead, the loading grab, the water bucket and the litter kit) and 0.103.0 (and Vehicles 0.47.0: the
+the four signatures: the service lead, the loading grab, the water bucket and the litter kit; its Take casualties aboard switch in
+0.126.0) and 0.103.0 (and Vehicles 0.47.0: the
 shared [families](#vehicle-upgrade-families-upgrades-shared-across-many-vehicles-12-nov-2026)); not built: the Trains of the Rim tree (skipped while that mod looks dormant) and
 anything for the Roaring Tiger; the submarine test hull stays bare by the owner's choice. Not yet tested in game, apart from the
 families' check of 13 Nov 2026 (the families record says what passed).
@@ -305,6 +306,22 @@ guest or a prisoner of ours (anyone downed and not hostile).
 **Left out, said plainly:** patients on litters are not fed while they wait; their weight does not count against the cargo capacity;
 whether the colonist bar counts them in flight is unchecked (as for the sling's passengers); a vehicle destroyed in flight loses them
 with it; a doctor on the ground cannot tend them aboard (unload them first). D'thorga Medical has no tie-in: none was needed.
+
+**Take casualties aboard (Framework 0.126.0, 17 Nov 2026; the owner's idea, built the same day).** A switch on any vehicle with the kit,
+off to start and saved per vehicle. While it is on, Doctor work (priority 66) and, with Search and Rescue, its field rescue work (161,
+above its evacuation to a bed at 160) carry downed people to the litters (`LitterService`, `WorkGiver_PhobosCarryToLitter`, the existing
+carry job). **Who:** the colony's people, prisoners and guests on the ground whose care is not "no care". **Where:** the nearest switched-on
+vehicle when it is nearer than the patient's bed or they have none (`LitterRule.PrefersLitter`, straight-line distances, no radius);
+litters promised to carriers on the way count as taken. **When:** with Search and Rescue, a casualty the game would tend urgently is treated
+first; without it the carry is at once, as the game's own rescue is, and a crew doctor tends aboard. All agent choices, owner to revise.
+
+| Lets the player | Stops the player | Changes how they play |
+| --- | --- | --- |
+| Make a parked helicopter the collection point for casualties far from home, with no right-click per patient | Nothing while off; while on, carriers walking a casualty across the map to a bed when a litter is nearer | Rescue away from base becomes: land, switch on, fly home, unload |
+
+**Other factions' vehicles:** the switch is the player's order, so a raider's or a base's parked vehicle never takes casualties aboard. A
+captured vehicle with the kit gains the switch. **Cost:** with every switch off the work giver is skipped by one check of a short list;
+switched on, a bed search per casualty at most every 250 ticks.
 
 ## About the other mods
 

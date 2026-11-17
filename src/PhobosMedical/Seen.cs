@@ -19,4 +19,14 @@ public static class Seen
         string? detail = on == null ? what : what == null ? on.LabelShort : on.LabelShort + ": " + what;
         SeenInPlay.Note(Mod, MedicalMod.ModVersion, key, detail);
     }
+
+    /// <summary>A finish action for every job of ours that goes to a patient: notes care that gave way to someone carrying them (Medical 0.18.0).</summary>
+    public static void WhenFieldCareGaveWay(Verse.AI.JobDriver driver, System.Func<Pawn?> patient) =>
+        driver.AddFinishAction(condition =>
+        {
+            if (condition != Verse.AI.JobCondition.Succeeded && patient() is { } lifted && Phobos.Framework.Health.FieldCare.BeingCarried(lifted))
+            {
+                Seen.Note("medical.field-care-gave-way", lifted, driver.job.def.label);
+            }
+        });
 }

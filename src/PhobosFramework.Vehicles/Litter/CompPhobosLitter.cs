@@ -37,6 +37,10 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder
 
     ThingOwner<Pawn> held;
     bool holdThroughDespawn;
+    /// <summary>"Take casualties aboard" is on (Framework 0.126.0): the player's order, saved. Set only by <see cref="LitterService"/>.</summary>
+    internal bool collecting;
+
+    public bool Collecting => collecting;
     /// <summary>When each doctor aboard last tended, by load ID. Not saved: at worst a doctor tends a little sooner after a load.</summary>
     readonly Dictionary<int, int> lastTend = new();
 
@@ -85,6 +89,7 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder
         Vehicle.RequestTickStart(this);
         Messages.Message("PhobosLitter_Loaded".Translate(carrier.LabelShort.Named("CARRIER"), patient.LabelShort.Named("PATIENT"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
             Vehicle, MessageTypeDefOf.TaskCompletion, historical: false);
+        LitterService.NotifyLoaded(this);
         return true;
     }
 
@@ -182,10 +187,12 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder
         base.PostSpawnSetup(respawningAfterLoad);
         holdThroughDespawn = false;
         if (held.Count > 0) Vehicle.RequestTickStart(this);
+        LitterService.Spawned(this);
     }
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
+        LitterService.Despawned(this);
         // A caravan, or anything but a flight, takes the vehicle off the map: the patients are set down where it stood first.
         if (!Flying) SetDown(map, Vehicle.Position, held.Count > 0 ? "PhobosLitter_SetDownLeaving" : null);
         base.PostDeSpawn(map, mode);
@@ -212,6 +219,7 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder
     {
         base.PostExposeData();
         Scribe_Deep.Look(ref held, "PhobosLitter_Held", this);
+        Scribe_Values.Look(ref collecting, "PhobosLitter_Collecting");
         if (Scribe.mode == LoadSaveMode.PostLoadInit) held ??= new ThingOwner<Pawn>(this);
     }
 
@@ -220,7 +228,21 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
-        if (Vehicle.Faction != Faction.OfPlayer || !Vehicle.Spawned || held.Count == 0) yield break;
+        if (Vehicle.Faction != Faction.OfPlayer || !Vehicle.Spawned) yield break;
+        if (KitFitted || collecting)
+        {
+            var collect = new Command_Toggle
+            {
+                defaultLabel = "PhobosLitter_CollectGizmo".Translate(),
+                defaultDesc = "PhobosLitter_CollectGizmoDesc".Translate(),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Litter/Collect"),
+                isActive = () => collecting,
+                toggleAction = () => LitterService.SetCollecting(this, !collecting),
+            };
+            if (!collecting && LitterService.SwitchOnRefusal(this) is { } refusal) collect.Disable(refusal);
+            yield return collect;
+        }
+        if (held.Count == 0) yield break;
         var unload = new Command_Action
         {
             defaultLabel = "PhobosLitter_UnloadGizmo".Translate(),
@@ -251,7 +273,8 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder
 }
 
 /// <summary>Carrying a downed person to a litter aboard a vehicle (Framework 0.101.0): pick them up, take them to the vehicle, strap them in.
-/// Ordered from the right-click menu only.</summary>
+/// Ordered from the right-click menu, or given as work while the vehicle takes casualties aboard (Framework 0.126.0, LitterService). It holds
+/// the patient on the game's own layer, so it waits for anyone treating them there.</summary>
 public class JobDriver_PhobosCarryToLitter : JobDriver
 {
     const int StrapInTicks = 250;
