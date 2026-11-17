@@ -99,6 +99,10 @@ All are Industrial, named `PhobosResearch_<Name>`. Those names stay fixed once a
 - **The grant:** `ResearchReplacesExtension` lists what a project replaces. A brand new project, with nothing to take over, says so with an empty `<replaces />` and is never granted. `ResearchGrantComponent` saves the names of projects already considered, so a project added later also grants once. It uses `AddProgress` when a project's requirements are not all done, because `FinishProject` finishes unfinished requirements too and would give away other mods' research.
 - **Removing a mod:** the first load logs one-time "could not load reference" errors for its projects, then the next save is clean (read from the game's code). Projects are not granted a second time if the mod returns.
 
+## Later audits
+
+- [Research gates audit, 17 Nov 2026](research-gates-audit-2026-11-17.md): the trailers and truck upgrades against this tree, with proposals. **Answer what gates a thing, or what a project unlocks, with `python scripts/research-gates.py`** (`--ungated`, `--weak`, `--project`).
+
 ## Still unknown
 
 - Nothing has run in game. Vehicle Framework was read from its 1.6 decompile.

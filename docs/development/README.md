@@ -33,6 +33,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [A shared logging framework](logging-framework-design.md) (8 Nov 2026): the 10,000-message cap, phobos-log and verbose logging. Partly built.
 - [Colony mood file](mood-snapshot.md) (10 Nov 2026): every colonist's thoughts written at each save for the mood report. Built.
 - [The D'thorga research tree](research-tree.md) (10 Nov 2026): the research tab, its projects and the grant for older colonies. Built.
+- [Research gates audit](research-gates-audit-2026-11-17.md) (17 Nov 2026): what is gated, what is not, and proposals R1 to R9; with `scripts/research-gates.py`. Proposals, nothing changed.
 - [Radiation control line](radiation-control-line.md) (10 Nov 2026): where colonists suit up for Rimatomics' radiation. Built.
 - [A setup wizard on first load](first-load-setup-wizard.md) (9 Nov 2026): the owner's idea, kept for later. Record only.
 
