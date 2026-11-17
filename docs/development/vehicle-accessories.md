@@ -669,7 +669,7 @@ game loaded when this was written; check one against the 1.7 build before acting
   - People with no bunk simply get more tired; nothing else happens to them.
 - **What it costs, all by rules already built or agreed:** fuel for the extra hours; the headlights' amps, or the 0.85 speed of a
   vehicle driving unlit at night (built, Framework 0.106.0); a tired crew at the far end if bunks are short; and, once the gentle
-  driver rule (G1, agreed, not built) is in, a tired driver's slower pace.
+  driver rule (G1, built in Framework 0.113.0, not yet tested in game), a tired driver's slower pace.
 - **How:** a postfix on the game's night-rest answer, after Vehicle Framework's, that turns a "stop" into a "go" only when the
   switch is on and the rule holds; and the change of places through Vehicle Framework's own seat calls. How a caravan's seats
   are kept while travelling was **not read in full**; that is the first check before building.

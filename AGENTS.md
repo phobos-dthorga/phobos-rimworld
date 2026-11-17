@@ -315,7 +315,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
   world. A store such as a water tank runs down as it is used and is refilled by the player's people, never by itself. Gear with nothing
   to plug in (an awning, a roof rack) costs its materials and its weight, with no wear or upkeep (`docs/development/vehicle-accessories.md`).
 - **No drag or aerodynamics** (owner, 13 Nov 2026: "not something that can be accurately modelled in Rimworld without large assumptions"):
-  nothing of ours changes a vehicle's speed or fuel use through air resistance.
+  nothing of ours changes a vehicle's speed or fuel use through air resistance. **One exception** (owner, 18 Nov 2026): the drivetrain
+  model keeps its one fixed drag figure per vehicle class; no fitting, accessory, load or upgrade ever changes it.
 - **Design every vehicle mechanic with other factions' vehicles in mind** (owner, 11 Nov 2026): raiders who arrive in vehicles and, at the very
   least, the vehicles standing at a base the player attacks. Each vehicle design record has a section saying what the mechanic does on a vehicle
   in a raid on us, on one parked at a base we attack, and on one we capture; it works on any faction's vehicle unless the record says why not,

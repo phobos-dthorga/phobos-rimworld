@@ -24,7 +24,7 @@ the Fathom seabed crawler ([seabed crawler](vehicle-seabed-crawler.md)). The pla
 
 **Reversed by the owner, 9 Nov 2026:** our part items always exist and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's parts are substitutes, accepted per role where they make sense. [Parts bills](parts-bills.md) owns this rule now; the provider-first wording here is history.
 
-**The stand-in is built and has grown: D'thorga Vehicles (0.16.0, 9 Nov 2026) carries loadouts and drivetrains for other
+**As it stood on 9 Nov 2026 (all five vehicles are built since: see the status line above). The stand-in is built and has grown: D'thorga Vehicles (0.16.0, 9 Nov 2026) carries loadouts and drivetrains for other
 authors' vehicles. One vehicle of ours is built, the bulk tanker (Framework 0.34.0 onward, Vehicles 0.12.0 onward); not yet tested in
 game. The other four are designed in full in their own records (9 Nov 2026, written as research and record before any was built):**
 [the survey truck](vehicle-survey-truck.md), [the drill rig](vehicle-drill-rig.md), [the tipper hauler](vehicle-tipper-hauler.md) and

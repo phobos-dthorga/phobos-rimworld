@@ -485,7 +485,7 @@ left when a vehicle dies. Better to see what 1.7 does before building on it.
 ### Cost and risk
 
 - **Performance:** all of it runs on hits, repairs, jobs and the tab's rebuild. Nothing runs every tick, inside the budget of the
-  [vehicle health design](vehicle-health-design.md) (0.05 ms a tick for the whole vehicle model). Still unmeasured: H4 is open.
+  [vehicle health design](vehicle-health-design.md) (0.05 ms a tick for the whole vehicle model). This part is still unmeasured: H4 is open (the one measurement above is of a whole vehicle's rare tick).
 - **Combat Extended** writes part health directly, so "destroyed" is read from the part's health at the sweep and the repair job, not
   from an event.
 - **A vehicle stranded for want of a part** is the main risk. Field fixes, and the fact that only destroyed parts cost anything, are

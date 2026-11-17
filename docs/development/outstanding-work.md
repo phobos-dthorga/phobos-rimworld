@@ -52,7 +52,8 @@ at its top.
 ## Cross-links round three (13 Nov 2026)
 
 The owner asked for a research and record review of deeper cross-links for every vehicle, with aircraft avionics as the gap seen
-most, and for a contract other mods' authors can use in XML. Three records; **nothing built**; the owner picks.
+most, and for a contract other mods' authors can use in XML. Three records, written before anything was built; what has been built
+since is in each row.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
@@ -69,7 +70,8 @@ All its rows are done: see [Done: The owner's report of 16 Nov 2026: allies slow
 ## Knocked out, not destroyed (16 Nov 2026)
 
 The owner asked for a research and record round on vehicles losing a job before they are wrecks: turrets and weapons, mobility,
-working equipment, crew and cab ([record](vehicle-knocked-out-systems.md)). **Nothing built**; the owner picks.
+working equipment, crew and cab ([record](vehicle-knocked-out-systems.md)). Written before anything was built; what has been built
+since is in each row.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
@@ -88,10 +90,27 @@ first, both directions, InterRim Ballistic Missile and The Dead Man's Switch for
 | TI2 | [Soft-dependency cross-links](soft-dependency-crosslinks.md): SD1 to SD44, earlier proposals carried forward, a ranked short list | Framework, Vehicles, Medical, Factory Additions | Scope as above (13 Nov 2026). **The next batch** (owner, 13 Nov 2026): SD4, SD5, SD9 (vehicles); SD30 (factory); SD21, SD22, SD23 (medical); SD8 (gases) | Record written. **Built 13 Nov 2026** (not yet tested in game): SD9 (Framework 0.109.0, Vehicles 0.52.0), SD5, SD4, SD21 (Framework 0.109.0, Medical 0.16.0), SD23 (Medical 0.16.0), SD30 narrowed to our parts bench (Factory Additions 0.13.0). SD8 set aside: nothing to build. Checks 91 to 97. **SD22 was left out without a note** (found 16 Nov 2026). **Owner, 16 Nov 2026:** build SD22 next, then the aircraft batch (TI3); build SD20 anyway; decompile and record SD6; check the mods not on the list. **SD22 built: Medical 0.17.0** (not yet tested in game; check 117): Search and Rescue's responders use our kits as two lanes in its field rescue work type, no Harmony; the litter-vehicle half set aside (its evacuation list is internal), with a draft request for its author. **Later the same day:** SD6 read, then **not now** (owner); the mods not on the list checked, Celsius and Pharmacist included (found by name; [record](soft-dependency-crosslinks.md)) |
 | TI3 | [Air-defence tie-ins](air-defence-tie-ins.md): AD1 to AD14; avionics A13 and A16 revisited | Framework, Patches | IRBM and DMS in scope (13 Nov 2026). **Our aircraft become DMS targets, with countermeasures** (owner, 13 Nov 2026): AD3 with AD2 and avionics A16. Cards of 17 Nov 2026: down only if unflyable; automatic countermeasures plus a Harrier button; A12, the launch warning and AD7 join | **Built 17 Nov 2026: Framework 0.119.0, Vehicles 0.58.0, Patches 0.21.0**, not yet tested in game (checks 139 to 146): AD3, AD2, AD7 and the launch warning. The cartridge's picture picked by the owner the same day. **Read 17 Nov 2026:** VTOL Raids spawns its aircraft at the map's edge already flying, never on the world map, so neither DMS's nor IRBM's air defences can ever engage them, and a closed airspace does not stop them; only unroofed ordinary guns can. **Still open, the owner's choice:** AD5, with its facts read (today a heat seeker with no hot room to chase goes for the biggest vehicle, cold or not: usually one of our work trucks) and two shapes offered ([the reading](air-defence-tie-ins.md#read-17-nov-2026-vtol-raids-and-the-heat-seeker)) |
 
+## Engine loads (18 Nov 2026)
+
+The owner asked for a research and record round on a deeper simulation layer, where what the engine drives (the alternator, the
+water pump and more) takes power from it and so chemfuel, with a top-down look at the vehicle simulation first
+([record](vehicle-engine-loads.md)). **Nothing built**; the owner picks.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| EL1 | The record: where the simulation stands, the seams, one ledger of engine loads, the chains, sizes worked from the model | docs | The whole fuel model on by default; drag kept as one fixed figure; work loads on the ledger with re-derived figures (owner, 18 Nov 2026) | Written; not built |
+| EL2 | The step back, S1 to S8: one engine state, one fuel service, one unit, lost power as power, figures to the rules Def, displays reading one fuel figure, bleed air in the same shape, the performance overrun closed | Framework | — | Open: waits for the owner's go, in that order |
+| EL3 | The loads: the ledger with the alternator and the fuel default; the fan and air conditioner; the water pump and belt slip; compressor and steering pump; work loads | Framework, Vehicles | Decisions of 18 Nov 2026 | Open: after EL2 |
+| EL4 | **Owner to rule: the generator set's fuel.** Re-derived from a real generator head it burns 72 a day at full output against 15 today. Keep today's through one named figure for what a game watt stands for (the agent's recommendation), or use the real figure | Vehicles | — | Open, the owner's choice |
+| EL5 | **Owner to accept or tune: idle fuel halves** with the fuel model on (about a quarter of the cruise rate, against Vehicle Framework's half) | Framework | — | Open, the owner's choice |
+| EL6 | To confirm before building, C1 to C7: loads running on a flat battery, an aircraft's cab heater charged twice, the diesel-electric's alternator at idle, the cab heater and the coolant, the tanker's pump burning nothing, two "load" figures | Framework | — | Open: read from code, not confirmed |
+| EL7 | To source before any Def carries them: a water pump's shaft power, the alternator's efficiency (0.6 looks high beside a trade figure), real loads for the tanker's pump and the drill rig | docs | — | Open |
+| EL8 | Records to bring up to date: [Vehicle Framework mechanics](vehicle-framework-mechanics.md) against its 1.7 build (five points), a design record for the grid hook-up of Framework 0.120.0, one set of battery and alternator figures across records | docs | — | Open |
+
 ## Vehicle accessories (13 Nov 2026)
 
 The owner asked for a research and record round on accessories a player can install on vehicles, for entertainment, camping or
-anything else ([record](vehicle-accessories.md)). **Nothing built**; the owner picks.
+anything else ([record](vehicle-accessories.md)). Written before anything was built; what has been built since is in each row.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
@@ -106,7 +125,7 @@ anything else ([record](vehicle-accessories.md)). **Nothing built**; the owner p
 ## Universal hoppers (17 Nov 2026)
 
 The owner asked for a research and record round on near-universal hoppers, with chunks from the Talus carried by belt as the first
-example ([record](universal-hoppers.md)). **Nothing built**; the owner picks.
+example ([record](universal-hoppers.md)). Written before anything was built; what has been built since is in the row.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
@@ -116,7 +135,7 @@ example ([record](universal-hoppers.md)). **Nothing built**; the owner picks.
 
 The owner asked for a research and record round on working trailers, with a field kitchen powered by the Busbar and a prisoner
 transport of their own, and the agent's ideas ([base and catalogue](vehicle-trailers.md), [field kitchen](vehicle-field-kitchen.md),
-[prisoner transport](vehicle-prisoner-transport.md)). **Nothing built**; the owner picks.
+[prisoner transport](vehicle-prisoner-transport.md)). Written before anything was built; what has been built since is in each row.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
