@@ -105,6 +105,9 @@ public class QuantitySpec
     public List<VehicleSystemInput>? derivedFrom;
     /// <summary>Hidden quantities work as usual but never appear on the inspect line.</summary>
     public bool hidden;
+    /// <summary>A reading that means nothing on an aircraft (fording a river): its tabs and the diagnosis leave it out there (Framework
+    /// 0.136.1; the owner's screenshot of 18 Nov 2026 showed "Fording: off" on a Harrier). It still works as usual.</summary>
+    public bool groundOnly;
     /// <summary>Shown as a gauge on the vehicle's Dashboard tab.</summary>
     public bool showOnDashboard;
     /// <summary>A slow reading that only rises between services (tread, brakes, hours since service): kept hourly for fifteen days and

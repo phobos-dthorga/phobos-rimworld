@@ -120,6 +120,7 @@ public partial class ITab_VehicleSystems : ITab
             {
                 QuantitySpec quantity = system.Def.quantities[q];
                 if (quantity.hidden && !engineer) continue;
+                if (!comp.Shows(quantity)) continue;
                 if (attentionOnly && system.CurrentStage(q) is not { notable: true }) continue;
                 rowScratch.Add(q);
             }

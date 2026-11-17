@@ -91,7 +91,7 @@ public sealed class VehicleDiagnostics
             {
                 QuantitySpec quantity = state.Def.quantities[q];
                 StageSpec? stage = state.CurrentStage(q);
-                if (stage == null && quantity.hidden) continue;
+                if ((stage == null && quantity.hidden) || !comp.Shows(quantity)) continue;
                 GaugeReading gauge = GaugeReading.For(state, q);
                 report.readings.Add(new DiagnosisReading
                 {

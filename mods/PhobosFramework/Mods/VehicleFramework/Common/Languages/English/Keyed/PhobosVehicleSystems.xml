@@ -511,6 +511,9 @@
   <PhobosVehicleSystems_HealthWearDue>{READING}: {STAGE} in about {TIME}</PhobosVehicleSystems_HealthWearDue>
   <PhobosVehicleSystems_HealthWearNow>{READING}: {STAGE} now</PhobosVehicleSystems_HealthWearNow>
   <PhobosVehicleSystems_HealthWearSteady>{READING}: no change lately</PhobosVehicleSystems_HealthWearSteady>
+  <PhobosVehicleSystems_HealthWearFar>{READING}: far from {STAGE}</PhobosVehicleSystems_HealthWearFar>
+  <PhobosVehicleSystems_HealthMassKg>{MASS} kg</PhobosVehicleSystems_HealthMassKg>
+  <PhobosVehicleSystems_HealthMassTip>Empty, it weighs {EMPTY} kg. As loaded now, with its fuel, cargo, crew and ammunition: {NOW} kg.</PhobosVehicleSystems_HealthMassTip>
   <PhobosVehicleSystems_HealthWearTip>At the rate it has worn since its last service or new part, over the last {DAYS} days, idle days included. Drive harder or less and the date moves.</PhobosVehicleSystems_HealthWearTip>
   <PhobosVehicleSystems_HealthCrewNone>Nobody aboard.</PhobosVehicleSystems_HealthCrewNone>
   <PhobosVehicleSystems_HealthCrewRow>{ROLE}: {NAME}, {CONDITION}</PhobosVehicleSystems_HealthCrewRow>

@@ -934,7 +934,9 @@ public sealed class Powertrain
         if (extra > 0) VehicleFuel.Burn(vehicle, (float)extra, FuelUse.Engine, comp);
         else if (extra < 0) VehicleFuel.GiveBack(vehicle, (float)-extra, FuelUse.Engine, comp);
         MapFuelFollowed = true;
-        if (SeenInPlay.On && Math.Abs(extra) > 0.0005) Seen.Note("vehicles.aircraft-fuel", vehicle, (Phase ?? "?") + " x" + (owed / Math.Max(0.0001, seen)).ToString("0.##"));
+        if (SeenInPlay.On && Math.Abs(extra) > 0.0005) Seen.Note("vehicles.aircraft-fuel", vehicle, (Phase ?? "?")
+            // Amounts, not a ratio (Framework 0.136.1): at lift-off nothing else had burned yet, and the ratio read "x48944".
+            + ": engines owed " + owed.ToString("0.###") + ", others burned " + seen.ToString("0.###"));
     }
 
     /// <summary>Our own code burned this much of the tank (negative: gave it back), so it is not something the tank lost to anyone else.</summary>

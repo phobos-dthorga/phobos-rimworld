@@ -81,6 +81,8 @@
         <label>fording</label>
         <unit>OnOff</unit>
         <hidden>true</hidden>
+        <!-- Framework 0.136.1: nothing an aircraft's tabs need to show. -->
+        <groundOnly>true</groundOnly>
         <derivedFrom>
           <li Class="Phobos.VehicleSystems.Input_Fording" />
         </derivedFrom>

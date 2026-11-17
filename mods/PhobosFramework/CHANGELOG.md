@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.136.1] - 2026-11-18 - Draft
+
+Small fixes from the owner's look at a Harrier in flight
+
+### Fixed
+
+- **The Health tab shows the mass the drivetrain model drives or flies**, where the vehicle has one, in Operator and Engineer modes: a
+  Harrier read "700 kg", the figure its author gave, against the 6,340 kg it flies at. The tooltip adds what it weighs as loaded now,
+  with its fuel, cargo, crew and ammunition. Vehicles without the model are unchanged.
+- **A wear forecast more than a year away no longer gives a date**: "Air filter: far from clogged", where it read "clogged in about 298
+  years".
+- **An aircraft's Systems tab and diagnosis no longer list "Fording"**, which means nothing in the air. For other modders: a reading
+  marked groundOnly is left off aircraft's tabs; it still works as usual.
+- The verbose note for aircraft fuel gives the amounts, not a ratio, which read "x48944" at lift-off.
+
+### Compatibility and limits
+
+- Parts at 99 % still show amber, by design: any damage at all reads as slightly worn, as the game's own health colours do.
+- Nothing new is saved; safe to add to a running colony.
+
+Not yet tested in game. Aircraft fuel between places was passed by the owner on 18 Nov 2026 (row 187, in part).
+
 ## [0.136.0] - 2026-11-18 - Draft
 
 How full topping up fills a machine is now your choice

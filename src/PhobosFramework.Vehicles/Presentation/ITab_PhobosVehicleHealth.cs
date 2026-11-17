@@ -426,6 +426,12 @@ public class ITab_PhobosVehicleHealth : ITab
                 row.Label = "PhobosVehicleSystems_HealthWearNow".Translate(reading.Named("READING"), current.label.Named("STAGE")).Resolve();
                 row.Colour = current.Severe ? PhobosWidgets.Bad : PhobosWidgets.Caution;
             }
+            else if (next != null && samples is double far && far * QuantityHistory.WearStrideTicks > WearFarTicks)
+            {
+                // Framework 0.136.1 (the owner's screenshot, 18 Nov 2026: "Clogged in about 298 years"): past a year a date means nothing.
+                row.Label = "PhobosVehicleSystems_HealthWearFar".Translate(reading.Named("READING"), next.label.Named("STAGE")).Resolve();
+                row.Colour = PhobosWidgets.Good;
+            }
             else if (next != null && samples is double until)
             {
                 int ticks = (int)Math.Min(int.MaxValue / 2, until * QuantityHistory.WearStrideTicks);
@@ -473,6 +479,10 @@ public class ITab_PhobosVehicleHealth : ITab
                 float baseValue = stat.Worker.GetBaseValue(vehicle.VehicleDef);
                 float share = baseValue > 0f ? value / baseValue : 1f;
                 VehicleStatDef captured = stat;
+                // Framework 0.136.1 (the owner's screenshot, 18 Nov 2026: a Harrier "700 kg"): the mass the drivetrain model drives or flies,
+                // where the vehicle has one, so this tab agrees with the Systems tab and the hover check.
+                Powertrain? train = comp.Powertrain;
+                bool modelMass = figures && train != null && stat.defName == MassStat;
                 var parts = new List<VehicleComponent>();
                 foreach (VehicleComponent part in components)
                 {
@@ -481,13 +491,19 @@ public class ITab_PhobosVehicleHealth : ITab
                 Stats.Add(new StatRow
                 {
                     Label = stat.LabelCap,
-                    Value = figures ? stat.Worker.StatValueFormatted(vehicle) : ShareWord(share),
+                    Value = modelMass ? "PhobosVehicleSystems_HealthMassKg".Translate(train!.KerbKg.ToString("N0").Named("MASS")).Resolve()
+                        : figures ? stat.Worker.StatValueFormatted(vehicle) : ShareWord(share),
                     Colour = stat.operationType == EfficiencyOperationType.None ? Color.white : PhobosWidgets.HealthColour(share),
                     TipId = vehicle.thingIDNumber ^ stat.index ^ 0x5A17,
-                    Tip = () => StatTip(comp, captured, parts, figures),
+                    Tip = modelMass ? () => StatTip(comp, captured, parts, figures) + "\n\n" + "PhobosVehicleSystems_HealthMassTip".Translate(
+                            train!.KerbKg.ToString("N0").Named("EMPTY"), train.MassKg().ToString("N0").Named("NOW")).Resolve()
+                        : () => StatTip(comp, captured, parts, figures),
                 });
             }
         }
+
+        /// <summary>Vehicle Framework's mass stat, by its defName.</summary>
+        const string MassStat = "Mass";
 
         static string StatTip(CompPhobosVehicleSystems comp, VehicleStatDef stat, List<VehicleComponent> parts, bool figures)
         {
@@ -758,6 +774,8 @@ public class ITab_PhobosVehicleHealth : ITab
     const int WearMinSamples = 6;
     /// <summary>A stage due sooner than this shows amber (authored: two days).</summary>
     const int WearSoonTicks = 2 * GenDate.TicksPerDay;
+    /// <summary>A stage further off than this is "far from" it, with no date (authored: a year).</summary>
+    const double WearFarTicks = GenDate.TicksPerYear;
 
     sealed class WearRow
     {

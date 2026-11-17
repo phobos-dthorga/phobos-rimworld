@@ -1068,6 +1068,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// <summary>The share of the engine's rated power standing work takes at the shaft now (Framework 0.131.0); 0 with none. Derived.</summary>
     public float WorkPowerShare { get; private set; }
 
+    /// <summary>Whether a reading means anything on this vehicle, for the tabs and the diagnosis: a ground-only one does not on an aircraft.</summary>
+    public bool Shows(QuantitySpec quantity) => !quantity.groundOnly || Powertrain?.IsAircraft != true;
+
     /// <summary>Whether the engine model burns the fuel for the standing work going on now (Framework 0.131.0): fuel follows engine load,
     /// the vehicle has a full ground drivetrain, and every work turning the engine allows it. Then the work burns no rate of its own.</summary>
     public bool WorkFuelFromModel { get; private set; }
