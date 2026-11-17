@@ -103,6 +103,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Vehicle figures](vehicle-figures-research.md) (8 Nov 2026): sourced engine, gearbox and weight figures for named vehicles. Research.
 - [Steam and diesel-electric](steam-and-diesel-electric-research.md) (8 Nov 2026): boilers, shunters' ratings, engine-out precedents. Research.
 - [Vehicle simulation references](vehicle-references.md) (8 Nov 2026): the study library behind the vehicle designs. Research.
+- [World elevation and descents](world-elevation-and-descents.md) (18 Nov 2026): tile heights measured; descents, altitude, radio line of sight. Research.
 - [Animating our vehicles](vehicle-animation-research.md) (9 Nov 2026): what can move, and where motion helps. Partly built; the boom owner-tested.
 
 ## D'thorga Medical

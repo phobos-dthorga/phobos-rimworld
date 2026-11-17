@@ -109,6 +109,22 @@ water pump and more) takes power from it and so chemfuel, with a top-down look a
 | EL9 | Fix the three faults the checks found | Framework, Vehicles | C1 and C4 now, C6 with the ledger's work loads; the ledger's alternator at 0.55 falling with speed; the step back next (owner, 18 Nov 2026) | **C1 and C4 fixed: Framework 0.129.1, Vehicles 0.65.1**, not yet tested in game (check 181). C6 waits for EL3 |
 | EL8 | Records to bring up to date: [Vehicle Framework mechanics](vehicle-framework-mechanics.md) against its 1.7 build (five points), a design record for the grid hook-up of Framework 0.120.0, one set of battery and alternator figures across records | docs | — | Open |
 
+## World elevation and descents (18 Nov 2026)
+
+The owner asked how slopes could be simulated, after engine braking came up beside the engine loads, and for research and a record
+before anything is decided; the answer also bears on the radio mod ([record](world-elevation-and-descents.md)). **Nothing built or
+decided**; the owner picks.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| WE1 | The record: what a tile holds, slopes measured on the owner's world, real descents and engine brakes, altitude, radio line of sight | docs | Research and record first (owner, 18 Nov 2026) | Written |
+| WE2 | **Owner to decide: how big a world tile is.** Three anchors: 6.6 to 9 km (a walker), 29 km (our vehicles' own speed), 31.5 km (an Earth-sized planet, as Atmosphere Overhaul assumes). It sets radio's reach and the vehicles' net slope | Radio, Framework | — | Open, the owner's choice |
+| WE3 | **Owner to decide: descents.** Whether they are wanted; hills up and down, net slope from elevation, or both; brake wear only or a brake temperature with fade. Engine braking (cross-links T5 with F6) stays held until then | Framework | — | Open, the owner's choice |
+| WE4 | **Owner to decide: altitude.** Thinner air taking engine power, rotor lift and cooling | Framework | — | Open, the owner's choice |
+| WE5 | Gaps D1 to D5, read from code: no wear per stop on the world map; the heavy-duty brakes' descent term never built; rails get the hill grade; Vehicle Framework counts no hills on a road and our grade does; a leg reads the tile being left | Framework | — | Open: read from code, not confirmed in play |
+| WE6 | Radio: line of sight from elevation, hilltop sites and repeaters, the tile's size | Radio | On the back burner | Recorded for when the owner picks radio up again; nothing to do now |
+| WE7 | A tool for it: the slope measurement was a scratch script over the save index. Worth adding to phobos-modkit's save tool (elevation, hilliness and neighbour differences) if elevation is taken up | phobos-modkit | — | Open: only if WE2 to WE4 go ahead |
+
 ## Vehicle accessories (13 Nov 2026)
 
 The owner asked for a research and record round on accessories a player can install on vehicles, for entertainment, camping or
