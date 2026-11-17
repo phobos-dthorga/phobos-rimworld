@@ -16,7 +16,8 @@ specific to RimWorld and the owner's other game repositories carry drifting copi
   (tool 9) came on 9 Nov 2026 as `scripts/crash-dump.py`. Each section below says what was built and what was left out.
 - **Beyond this record:** `python scripts/check-targets.py` checks every Harmony patch and reflected lookup named in a string against
   the game's and the active mods' assemblies (part of the gate), and `python scripts/cleanup.py` lists what the tools, builds and
-  tests left behind, for the owner to remove with `--apply`. Also `scripts/query-code.py` (the game's and other mods' code) and
+  tests left behind, for the owner to remove with `--apply`; `python scripts/art-audit.py` (section 11) says which shipped art is drawn
+  in code, borrowed or unrecorded. Also `scripts/query-code.py` (the game's and other mods' code) and
   `scripts/mod-settings.py` (the owner's settings); AGENTS.md says which tool answers which question.
 - **A tool saves nothing until an instruction points at it.** Each tool's first change here adds a one-line
   rule to `AGENTS.md` ("before reading a log, run ..."), in the same commit.
@@ -209,6 +210,16 @@ hand-written script over eight copies.
 reached the test list. `python scripts/test-pass.py report` reads `docs/development/in-game-test-pass.md`, D'thorga Framework's
 seen-in-play notes (with its setting on) and the owner's verdicts from D'thorga Companion's Tests page; `apply --apply` writes them in.
 `config/test-evidence.json` ties each note to its rows. A note says a feature ran without an error, never that it looked right.
+
+### 11. Art audit
+
+**Built, 17 Nov 2026 (phobos-modkit 1.12.0), at the owner's request after a one-off audit of stand-in art.** `python scripts/art-audit.py`
+pairs every shipped texture with its record (its own, a body's shared by the name before an underscore, or its folder's), classes it by
+the record's first statement of how it was made (so a generated picture made from a stand-in drawing stays generated), and lists every
+picture a Def, patch or class uses that belongs to another of our things or is not ours. `config/art-audit.json` holds the patterns and
+the accepted borrowings and drawn-in-code pictures with their reasons; `check` fails on a texture without a record. It reads names and
+records, never the images, and caches nothing. Not in the gate yet: `check` passed on 17 Nov 2026 once that day's missing records were
+written, and can join the gate when the owner wants records enforced.
 
 ### Not proposed
 

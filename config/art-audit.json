@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "description": "How the art audit (python scripts/art-audit.py, phobos-modkit's art-audit) reads this repository: where shipped images are, the records beside them, how a record says the picture was made, and borrowings and images accepted as they are. Kinds are decided by the pattern that matches first in a record, so a generated picture whose record mentions the stand-in it replaced stays generated. Accepted entries are agent choices from docs/development/art-backlog.md unless they name the owner; the owner may revise any.",
+  "game": "rimworld",
+  "images": ["mods/*/**/Textures/**/*.png"],
+  "groupBy": ["mods/*", "src/*"],
+  "records": {
+    "suffixes": [".record.md", ".export.json"],
+    "sharedByPrefix": true,
+    "folderRecord": true
+  },
+  "kinds": [
+    {"kind": "generated", "label": "Generated",
+     "patterns": ["AI-generated", "\\bFLUX\\b", "ComfyUI", "gpt-image", "OpenAI'?s? image API", "image generator was", "/generated/"]},
+    {"kind": "code-drawn", "label": "Drawn in code", "listed": true,
+     "patterns": ["drawn in code", "drawn with Pillow", "\\(Pillow\\b", "drawn by script", "code-drawn"]}
+  ],
+  "standIn": ["\\*\\*A stand-in", "\\bstand-in\\*\\*", "\\*\\*A placeholder", "\\bA \\*\\*placeholder","^\\*\\*Stand-in"],
+  "defs": ["mods/*/**/Defs/**/*.xml", "mods/*/**/Patches/**/*.xml"],
+  "code": ["src/**/*.cs"],
+  "textureFields": ["telltale"],
+  "commonWords": ["phobos", "dthorga", "things", "thing", "building", "buildings", "item", "items", "icons", "icon", "gizmo",
+                  "gizmos", "vehicles", "vehicle", "systems", "upgrades", "upgrade", "base", "blueprint", "frame", "medical",
+                  "radio", "patches", "framework", "textures", "the", "and", "with", "for"],
+  "accepted": [
+    {"texture": "Phobos/Vehicles/PintleBowser/*", "owner": "Phobos_ShowerTrailer*",
+     "reason": "the bowsers' body on the shower trailer: kept, the owner's choice (17 Nov 2026)"},
+    {"texture": "Phobos/Vehicles/SeabedCrawler/*", "owner": "*TestHull*",
+     "reason": "the Crawler's body on the submarine test hull: kept, dev-only and cannot be built"},
+    {"texture": "UI/Gizmos/ExtractOxygen_Gizmo",
+     "reason": "Vanilla Gravship Expanded's own canister button on the liquid oxygen store, used in place (allowed reuse)"},
+    {"texture": "UI/Buttons/*", "reason": "the game's own buttons, used in place (allowed reuse)"},
+    {"texture": "Damage/*", "reason": "the game's own damage overlays, used in place"},
+    {"texture": "DBH/Things/Building/*",
+     "reason": "Dubs Bad Hygiene's own shower and basin pictures on the upgrades that set out those fixtures, used in place (agent choice, 17 Nov 2026)"},
+    {"texture": "World/WorldObjects/*", "reason": "the game's own world-map icons, used in place (agent choice, 17 Nov 2026)"},
+    {"texture": "UI/Icons/WorldObject_*", "reason": "the game's own world-map icons, used in place (agent choice, 17 Nov 2026)"},
+    {"image": "mods/PhobosRadioFramework/*/Textures/Phobos/Radio/Linked/Coax_*Atlas.png",
+     "reason": "the coax atlases stay drawn by script, as an atlas's edges must line up (records added 17 Nov 2026)"},
+    {"image": "mods/PhobosMedical/*/Textures/Phobos/Medical/Things/LiquidOxygenStore_Frost.png",
+     "reason": "the store's frost is drawn in code by design, registered to the store's outline"},
+    {"image": "mods/PhobosFramework/*/Textures/Phobos/VehicleSystems/Switch.png",
+     "reason": "the load switch is kept as drawn (owner, 10 Nov 2026)"}
+  ]
+}
