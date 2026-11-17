@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Drone platforms (D'thorga Patches 0.22.0; docs/development/top-up-design.md; owner, 18 Nov 2026: colonists never refilled The Dead
+    Man's Switch's engineering drone bays with steel). Fortified Features Framework's platform comp holds the store and offers only a
+    right-click "fill" order; this names the comp, so D'thorga Framework's haulers top it up to the level that order fills it to (the platform's starting store, which the player cannot change). Every
+    building with the comp is covered: the engineering drone bay, the trashpan and hound stations and the FPV nest. The least load is
+    the platform's own cost of one drone, so a hauler walks once a drone's worth is missing.
+
+    The three names are members of Fortified.CompMechPlatform as read on 18 Nov 2026 (the build of 12 Nov 2026): AmountToAutofill (its
+    target less what it holds), Props.fixedIngredient and CostPerPawn. Loaded only with Fortified Features Framework. An addition, not
+    a fix of a fault; docs/development/temporary-patches.md notes it under "Left out on purpose", with how to retire it. Not yet tested in game.
+  -->
+  <Phobos.Framework.TopUp.PhobosTopUpDef>
+    <defName>PhobosTopUp_FortifiedMechPlatform</defName>
+    <label>drone platform</label>
+    <compClass>Fortified.CompMechPlatform</compClass>
+    <wantedMember>AmountToAutofill</wantedMember>
+    <ingredientMember>Props.fixedIngredient</ingredientMember>
+    <leastLoadMember>CostPerPawn</leastLoadMember>
+  </Phobos.Framework.TopUp.PhobosTopUpDef>
+</Defs>

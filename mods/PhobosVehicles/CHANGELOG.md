@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.65.3] - 2026-11-18 - Draft
+
+Billy's kettle takes its water again with Dubs Bad Hygiene
+
+### Fixed
+
+- **Billy's kettle took no water with Dubs Bad Hygiene.** The patch that gives the kettle its plumbing and its 10 litres a batch
+  failed at start-up with an error in the log, so batches cooked without water. It now applies. Found in the owner's log of
+  18 November 2026, on Vehicles 0.65.0.
+
+### Compatibility and limits
+
+- A kettle already set out takes its plumbing at the next set-up: pack Billy up and set it up again.
+- Not yet tested in game.
+
 ## [0.65.2] - 2026-11-18 - Draft
 
 Which real engines hold their power in high country

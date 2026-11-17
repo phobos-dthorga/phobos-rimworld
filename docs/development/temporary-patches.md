@@ -61,6 +61,8 @@ Medical's save bridge is mixed: re-numbering body parts is permanent, because mo
 
 Patches that add features or integrate mods, not fix faults: the factory belts' storage access and bench bills, the Harrier's hover and flight gates, the survey truck counting as a scanner, Rimefeller and Dubs tie-ins, IRBM's strike model and quiet reveals, balance changes such as the Harrier's costs, and compatibility patches for Combat Extended and RimThunder. Each of these does something the other mod never set out to do, so there is nothing for its author to fix.
 
+**Topping up drone platforms** (Patches 0.22.0, [record](top-up-design.md)) is also an addition, not a fix, but it names three members of Fortified Features Framework's `CompMechPlatform` (`AmountToAutofill`, `Props.fixedIngredient`, `CostPerPawn`) in a Def, read by name. It stands down by itself with a warning if a name goes. It can go if Fortified gains hauling work of its own for its platforms: look for a work giver that names `CompMechPlatform` (`python scripts/query-code.py refs CompMechPlatform`). The author has not been told.
+
 ## How to use this
 
 - **A new patch for another author's fault gets a row here in the same change** (`AGENTS.md`).

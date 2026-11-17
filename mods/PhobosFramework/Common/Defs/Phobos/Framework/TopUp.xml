@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Topping up (D'thorga Framework 0.134.0; docs/development/top-up-design.md; owner, 18 Nov 2026): hauling work that keeps machines
+    which hold a material filled to the level their own fill order fills them to. Which machines is said in PhobosTopUpDefs, each in the folder of
+    the mod whose machines it names; with none, this work is skipped at once. Below ordinary hauling's "haul things" in priority, as the
+    game's own refuelling sits (authored). Not yet tested in game.
+  -->
+  <WorkGiverDef>
+    <defName>PhobosFramework_TopUp</defName>
+    <label>top up machines that hold materials</label>
+    <giverClass>Phobos.Framework.TopUp.WorkGiver_PhobosTopUp</giverClass>
+    <workType>Hauling</workType>
+    <verb>top up</verb>
+    <gerund>topping up</gerund>
+    <priorityInType>20</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>

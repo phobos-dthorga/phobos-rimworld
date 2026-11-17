@@ -135,6 +135,7 @@ C# lives in `src/PhobosPatches.*`. Rows marked **fault** are in [patches for oth
 | RimPacts (`wowgag.RimPacts`) | War quest countdown; arrival-filter fix (**fault**); the sortie gate says why | C# |
 | Visit Settlements (`ninagoblin.visitsettlements`) | Visited map stays open during a battle (**fault**); food-drop guard (**fault**) | C# |
 | Prison Labor (`avius.prisonlabor`) | Crash guard (**fault**, temporary) | C# |
+| Fortified Features Framework (`AOBA.Framework`) | Haulers keep its drone platforms topped up with steel (0.22.0; a `PhobosTopUpDef` naming three members of its platform comp, read by D'thorga Framework) | XML, by name |
 | Vanilla Expanded Framework outposts + Vehicle Framework | Refuses founding an outpost from a caravan holding a vehicle (a setting) | C# |
 
 ## Local only, outside the repository

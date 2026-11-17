@@ -8,7 +8,7 @@ Settlements** by Nina.Goblin, **Vehicle Framework**, **Vanilla Expanded Framewor
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.21.2, built 17 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.22.0, built 18 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -79,6 +79,8 @@ Each part in a line or three; the guide chapter has the figures, tables and how 
 - **Heavy castings 12 at a time at the rotary forger**
   ([forger](../../docs/player-guide/patches.md#heavy-castings-at-the-rotary-forger)).
 - **A temporary guard** drops ammo set entries that would stop Combat Extended's whole ammo setup.
+- **Colonists refill The Dead Man's Switch's drone platforms with steel by themselves**
+  ([drone platforms](../../docs/player-guide/patches.md#drone-platforms)).
 
 ### Spaceship Turret Hull
 

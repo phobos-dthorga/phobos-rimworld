@@ -5,6 +5,33 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.134.0] - 2026-11-18 - Draft
+
+Haulers keep machines topped up, and a report on why nobody loads a vehicle
+
+### Added
+
+- **Haulers keep machines that hold a material topped up.** Some machines hold a store, such as a drone platform's steel, and only
+  offer a right-click order to fill it. Colonists doing hauling work now bring the material by themselves whenever such a machine is
+  short of the level its own fill order fills it to, once it is short by enough to be worth the walk. The order by hand still works.
+  Which machines are covered is said by other mods of ours in data: D'thorga Patches 0.22.0 names the drone platforms of Fortified
+  Features Framework, which The Dead Man's Switch uses. With none named, the work is skipped at once.
+- **A new setting, Haulers keep machines topped up** (on), in D'thorga Framework's settings. Off: such machines are filled by hand only.
+- **A dev action, Vehicle systems: why is nobody loading this vehicle?** With a vehicle selected that has a cargo order nobody is
+  carrying out, it writes to the log where the loading stops: the order, whether the vehicle is on the loading list, its weight
+  against its limit, and how many colonists have the work switched off, may not go to it, cannot reach it, or would take the job now.
+- **For other modders**: a PhobosTopUpDef names a comp class and where on it to read how much more it wants and of what; every
+  building with that comp is then topped up. No code is needed. A wrong name is reported once at start-up and that Def stands down.
+
+### Compatibility and limits
+
+- Topping up reads other authors' comps by member name. If an update of theirs renames one, the load line and one warning say which
+  Def stands down, and those machines go back to being filled by hand until the Def is put right.
+- Buildings only: a store carried by something that walks (a carrier mechanoid) is not topped up.
+- A machine is filled only to the level its own fill order reaches, which for a drone platform is its starting store, not its
+  full capacity.
+- Not yet tested in game.
+
 ## [0.133.0] - 2026-11-18 - Draft
 
 Trailers get our Health tab, and tyres that wear as they are towed

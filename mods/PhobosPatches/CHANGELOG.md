@@ -13,6 +13,29 @@ says the owner tested it.
 - A code comment and the README name the design records they now live in, after the merges of 17 November 2026. No change in play.
 - The comment on the Harrier's fuller parts list no longer says the airframe's weight decides which part a hit lands on: since the Harrier's build of 16 November 2026 its own rule does, and that rule shares its hits evenly among every part, ours included. No change in play; what it means for the jet is in the avionics record (L6).
 
+## [0.22.0] - 2026-11-18 - Draft
+
+Drone platforms are kept topped up with steel
+
+### Added
+
+- **Colonists refill drone platforms by themselves.** The engineering drone bay, the trashpan and hound stations and the FPV nest
+  of The Dead Man's Switch hold steel for their drones and only offered a right-click order to fill them. Colonists doing hauling
+  work now bring the steel whenever a platform is short by one drone's worth or more. The order by hand still works. It needs
+  D'thorga Framework 0.134.0, whose setting Haulers keep machines topped up switches it off.
+
+### Dependencies
+
+- D'thorga Framework 0.134.0 or later.
+
+### Compatibility and limits
+
+- Loaded only with Fortified Features Framework. It names three members of that mod's platform comp; if an update renames one,
+  D'thorga Framework's load line says the top-up stands down and the platforms go back to being filled by hand.
+- A platform is filled to the level its own fill order reaches (its starting store), not to its full capacity.
+- A platform carried by a mechanoid is not topped up, only platforms that are buildings.
+- Not yet tested in game.
+
 ## [0.21.2] - 2026-11-17 - Draft
 
 The missile patches no longer depend on which mod is timing the load

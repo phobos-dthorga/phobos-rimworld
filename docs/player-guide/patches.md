@@ -34,6 +34,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | **Visit Settlements** (Nina.Goblin) | A visited settlement's map stays open while any colonist of yours there is conscious, on foot or in a vehicle. Its food drops no longer fail every tick | Pawns already lost this way stay lost: load an earlier save |
 | **Vanilla Expanded Framework** outposts, with **Vehicle Framework** | A caravan with vehicles can't found an outpost through "create outpost", which could lose them | Leave the vehicles first and come on foot. The setting **Refuse to found an outpost from a caravan with vehicles** turns this off |
 | **Vehicle Framework** | Fires a vehicle could never put out are put out; a vehicle leaving a map takes no fire with it. Repairs and upgrades show the game's progress bar | Nothing |
+| **The Dead Man's Switch** drone platforms (Fortified Features Framework) | Colonists refill the engineering drone bay, the trashpan and hound stations and the FPV nest with steel by themselves | Nothing: keep steel in reach. [Drone platforms](#drone-platforms) |
 | **Combat Extended** ammo sets | A temporary guard drops ammo set entries that would stop CE's whole ammo setup (The Dead Man's Switch - Synthriada adds such entries) | Nothing |
 
 ![The Mk. 82 and Mk. 84 bomb cases](images/patches-items.png)
@@ -333,6 +334,17 @@ puts the original behaviour back, with no restart.
 - **Repairs and upgrades show the game's progress bar** beside Vehicle Framework's sparks (temporary).
 - **With Combat Extended, one bad entry in an ammo set no longer stops the whole ammo setup** at startup (temporary). The Dead Man's
   Switch - Synthriada adds such entries; they are dropped and the log says how many.
+
+## Drone platforms
+
+Not yet tested in game. The Dead Man's Switch's drone platforms (the **engineering drone bay**, the **trashpan** and **hound stations**
+and the **FPV nest**) hold steel that each drone they send out uses up. On their own they only offer a right-click order, **Fill**.
+
+- **Colonists doing hauling work now refill them by themselves**, once a platform is short by one drone's worth of steel or more.
+- **Keep steel where haulers can reach it**, and leave the platform unforbidden.
+- **A platform fills to the level its own Fill order reaches**, which is its starting store, not its full capacity.
+- **The order by hand still works**, for less than a drone's worth too.
+- **To switch it off**, untick **Haulers keep machines topped up** in D'thorga Framework's settings.
 
 ## Where to find things
 
