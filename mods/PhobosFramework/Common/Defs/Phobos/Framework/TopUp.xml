@@ -2,10 +2,36 @@
 <Defs>
   <!--
     Topping up (D'thorga Framework 0.134.0; docs/development/top-up-design.md; owner, 18 Nov 2026): hauling work that keeps machines
-    which hold a material filled to the level their own fill order fills them to. Which machines is said in PhobosTopUpDefs, each in the folder of
+    which hold a material filled to the level their own fill order fills them to, and (Framework 0.135.0) mechanitor work that does the same
+    for the colony's mechanoids. Which machines is said in PhobosTopUpDefs, each in the folder of
     the mod whose machines it names; with none, this work is skipped at once. Below ordinary hauling's "haul things" in priority, as the
     game's own refuelling sits (authored). Not yet tested in game.
   -->
+  <!-- The job both use: fetch one stack and put it straight into the named comp's store (Framework 0.135.0). -->
+  <JobDef>
+    <defName>PhobosFramework_TopUp</defName>
+    <driverClass>Phobos.Framework.TopUp.JobDriver_PhobosTopUp</driverClass>
+    <reportString>topping up TargetB.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <!-- A mechanitor tops up the colony's mechanoids that carry a store (Framework 0.135.0; owner, 18 Nov 2026: "have the mechanitor approach
+       them, sort'a like when they do to repair them"), as the game's own mech repair: Smithing work, mechanitors only, just after repair
+       (the game's is 200). -->
+  <WorkGiverDef>
+    <defName>PhobosFramework_TopUpMechanoid</defName>
+    <label>top up mechanoids that carry materials</label>
+    <giverClass>Phobos.Framework.TopUp.WorkGiver_PhobosTopUpMechanoid</giverClass>
+    <workType>Smithing</workType>
+    <verb>top up</verb>
+    <gerund>topping up</gerund>
+    <priorityInType>190</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+  </WorkGiverDef>
+
   <WorkGiverDef>
     <defName>PhobosFramework_TopUp</defName>
     <label>top up machines that hold materials</label>

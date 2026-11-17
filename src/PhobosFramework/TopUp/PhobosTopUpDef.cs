@@ -6,7 +6,8 @@ using Verse;
 namespace Phobos.Framework.TopUp;
 
 /// <summary>
-/// Names a kind of machine that holds a material and wants more of it, so haulers keep it topped up by themselves (Framework 0.134.0;
+/// Names a kind of machine that holds a material and wants more of it, so haulers keep it topped up by themselves (and, since 0.135.0,
+/// a mechanitor the colony's mechanoids that carry one) (Framework 0.134.0;
 /// docs/development/top-up-design.md; owner, 18 Nov 2026: colonists never refilled the drone bays' steel, "genericize this where
 /// possible"). In XML only: the comp that holds the store, by its class's full name, and where on that comp to read how much more it
 /// wants and of what. Every building whose Def carries that comp is then topped up; nothing is patched and no other mod's assembly is
@@ -28,6 +29,10 @@ public class PhobosTopUpDef : Def
     /// <summary>On the comp: the least load, read from the machine itself where it has a natural one (a drone's cost); wins over
     /// <see cref="leastLoad"/> when given.</summary>
     public string? leastLoadMember;
+    /// <summary>Buildings with the comp are topped up by haulers.</summary>
+    public bool buildings = true;
+    /// <summary>Mechanoids with the comp are topped up by a mechanitor, as the game's mech repair is (Framework 0.135.0).</summary>
+    public bool mechanoids = true;
 
     [Unsaved] Type? type;
     [Unsaved] MemberPath? wanted;
@@ -64,6 +69,8 @@ public class PhobosTopUpDef : Def
         type = OptionalMods.TypeNamed(compClass);
         if (type == null) { problem = "no class named " + compClass; return; }
         if (!typeof(ThingComp).IsAssignableFrom(type)) { problem = compClass + " is not a comp"; return; }
+        // The job puts the material straight into the comp's own store (Framework 0.135.0), so the comp must keep one.
+        if (!typeof(IThingHolder).IsAssignableFrom(type)) { problem = compClass + " keeps no store of its own (it is not an IThingHolder)"; return; }
         wanted = MemberPath.On(type, wantedMember, out problem);
         if (wanted == null) return;
         if (wanted.ValueType != typeof(int)) { problem = wantedMember + " is not a whole number"; return; }

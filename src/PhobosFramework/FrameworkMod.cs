@@ -27,7 +27,8 @@ public class FrameworkSettings : ModSettings
     public bool systemSoundsOnOtherVehicles = true;
     /// <summary>Whose parts a build of ours asks for (Bills/Bills; owner, 11 Nov 2026: other mods' where installed, with a setting; applied at the next start).</summary>
     public Bills.BillPartsSource billPartsSource = Bills.BillPartsSource.OthersWhereInstalled;
-    /// <summary>Haulers keep machines that hold a material topped up by themselves (TopUp/TopUps; owner, 18 Nov 2026; on by default, agent default).</summary>
+    /// <summary>Haulers keep machines that hold a material topped up by themselves, and mechanitors the mechanoids that carry one (TopUp/TopUps;
+    /// owner, 18 Nov 2026; on by default, agent default).</summary>
     public bool topUpMachines = true;
     /// <summary>"Seen in play" notes for testing (Framework 0.118.0; owner, 17 Nov 2026: off by default): Debug/SeenInPlay.cs.</summary>
     public bool noteSeenInPlay;
@@ -85,7 +86,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.134.0";
+    public const string ModVersion = "0.135.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -123,7 +124,8 @@ public class FrameworkMod : Mod
                   (Sounds.PhobosSoundVolume.Marked == 1 ? "" : "s"));
         report.On("parts bills: " + Bills.PartsBills.Applied + " applied" + (Bills.PartsBills.Failed > 0 ? ", " + Bills.PartsBills.Failed + " failed" : "")
                   + (Bills.PartsBills.OthersAllowed ? ", other mods' parts where installed" : ", always our own parts"));
-        string topUps = "topping up: " + TopUp.TopUps.KindCount + " kind" + (TopUp.TopUps.KindCount == 1 ? "" : "s") + " of machine kept filled by haulers";
+        string topUps = "topping up: " + TopUp.TopUps.BuildingKindCount + " kind(s) of building by haulers, " + TopUp.TopUps.MechanoidKindCount
+            + " kind(s) of mechanoid by mechanitors";
         foreach (TopUp.PhobosTopUpDef broken in TopUp.TopUps.Problems) topUps += "; " + broken.defName + " stands down (" + broken.problem + ")";
         if (!Settings.topUpMachines) report.Off(topUps, "setting");
         else report.On(topUps);

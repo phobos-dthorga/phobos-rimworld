@@ -4,7 +4,8 @@
     Drone platforms (D'thorga Patches 0.22.0; docs/development/top-up-design.md; owner, 18 Nov 2026: colonists never refilled The Dead
     Man's Switch's engineering drone bays with steel). Fortified Features Framework's platform comp holds the store and offers only a
     right-click "fill" order; this names the comp, so D'thorga Framework's haulers top it up to the level that order fills it to (the platform's starting store, which the player cannot change). Every
-    building with the comp is covered: the engineering drone bay, the trashpan and hound stations and the FPV nest. The least load is
+    building with the comp is covered (the engineering drone bay, the trashpan and hound stations and the FPV nest), and since D'thorga
+    Framework 0.135.0 every mechanoid with it too (the Hermit Crab and the Cluster Weaver), by a mechanitor, as mech repair is. The least load is
     the platform's own cost of one drone, so a hauler walks once a drone's worth is missing.
 
     The three names are members of Fortified.CompMechPlatform as read on 18 Nov 2026 (the build of 12 Nov 2026): AmountToAutofill (its

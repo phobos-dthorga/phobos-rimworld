@@ -8,6 +8,11 @@ says the owner tested it.
 
 ### Changed
 
+- With D'thorga Framework 0.135.0, the Hermit Crab and the Cluster Weaver are topped up too: a mechanitor brings them steel, as
+  they do to repair them. The drone platform Def is the same; only its notes changed.
+
+### Changed
+
 - The README says which part is tested in game (the stuck vehicle fires, by the owner on 10 November 2026) and that Vehicle Framework now ships its own 1.7 build. No change in play.
 - The README is cut to today's gotchas, what each part does linking the player guide's Patches chapter, the settings and links for modders. How to play, with the cost, bomb, turret hull and blast tables, moved to the guide; research, the README's modder notes and its dated checks moved to the vehicle and missile patches design records; version notes live in this changelog. No change in play.
 - A code comment and the README name the design records they now live in, after the merges of 17 November 2026. No change in play.

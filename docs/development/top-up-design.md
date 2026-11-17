@@ -1,6 +1,6 @@
 # Topping up machines that hold a material (18 Nov 2026)
 
-**Status (18 Nov 2026):** built in D'thorga Framework 0.134.0 (the work, the Def type, the setting) and D'thorga Patches 0.22.0 (the drone platforms of Fortified Features Framework); nothing else is named yet. Not yet tested in game.
+**Status (18 Nov 2026):** built in D'thorga Framework 0.134.0 (the work, the Def type, the setting) and 0.135.0 (mechanoids, by a mechanitor; our own job), with D'thorga Patches 0.22.0 naming Fortified Features Framework's platform comp, which covers four buildings and two mechanoids; nothing else is named yet. Not yet tested in game.
 
 ## Read this first
 
@@ -42,7 +42,8 @@ Read from Fortified Features Framework's build of 12 Nov 2026 (the installed one
 | `TopUps` | Finds, once, every building Def carrying a named comp; says which of the player's buildings on a map want enough; makes the job | `src/PhobosFramework/TopUp/TopUps.cs` |
 | `TopUpRule` | Game-free: worth a walk once the least load is missing (an order by hand always); bring what is wanted less what others already carry | `src/PhobosFramework/Rules/TopUpRule.cs`, tested |
 | `WorkGiver_PhobosTopUp` | Hauling work; skipped at once with no Def, the setting off, or nothing wanting | `TopUps.cs`, `Common/Defs/Phobos/Framework/TopUp.xml` |
-| The job | The game's own haul-to-container with the further stacks queued: exactly what the machine's own Fill order gives, so it fills as it does by hand | `TopUps.JobFor` |
+| The job | Since 0.135.0 our own (`JobDriver_PhobosTopUp`): fetch one stack, go to the target (following a mechanoid), and put no more than it still wants straight into the named comp's store; drop the rest. 0.134.0 used the game's haul-to-container, which puts things into a thing's *first* store: on a mechanoid with another (Fortified's dead man's switch holds things too) that could be the wrong one | `TopUps.JobFor`, `TopUps.Deliver` |
+| Mechanoids | `WorkGiver_PhobosTopUpMechanoid`: mechanitors only, Smithing, priority 190 (the game's mech repair is 200), any path danger, skipped while the mechanoid is fighting, burning, hostile or berserk, as `WorkGiver_RepairMech` asks | `TopUps.cs`, `TopUp.xml` |
 | Drone platforms | `PhobosTopUp_FortifiedMechPlatform`: `AmountToAutofill`, `Props.fixedIngredient`, least load `CostPerPawn` (one drone's worth) | `mods/PhobosPatches/Mods/Fortified/Defs/TopUp_Fortified.xml` |
 
 **Cost to run.** Nothing ticks and nothing is saved. A hauler looking for work reads each named building's want through reflection
@@ -72,16 +73,19 @@ The comp (or its parent thing) must be a container the game's haul-to-container 
 
 - **Fill level.** Platforms fill to their starting store, as their own order does. **For the owner:** should ours fill them to full
   capacity instead (360 steel in an engineering bay)? It would need the Def to read capacity and holdings, a small addition.
-- **Buildings only** (agent default). A platform carried by a mechanoid, such as The Dead Man's Switch's carrier automatroids, is not
-  topped up: hauling to something that walks is another job.
+- **Mechanoids** (owner, 18 Nov 2026: the Hermit Crab and the Cluster Weaver "would be good too", and "have the mechanitor approach
+  them, sort'a like when they do to repair them"): built in 0.135.0. Covered: `DMS_Mech_HermitCrab` (40 steel a drone, 80 starting,
+  160 capacity) and `DMS_Mech_ClusterWeaver` (15, 450, 450), read from The Dead Man's Switch's `Races_Automatroid_*.xml`.
 - **Other factions.** The work is the player's haulers' only; another faction's platforms start full in Fortified's own code and are
   not touched.
 - **The next cases** are the owner's to bring as they meet them; each is one Def if the machine reads like this one.
 
 ## Who chose what
 
-- **Owner (18 Nov 2026):** that the drone bays should be refilled automatically, and that the answer be generic in the Framework.
-- **Agent defaults:** the setting and its default (on); the work's priority; one drone's worth as the least load; buildings only;
+- **Owner (18 Nov 2026):** that the drone bays should be refilled automatically, and that the answer be generic in the Framework;
+  that the Hermit Crab and Cluster Weaver be included, with the mechanitor walking out to them as for repair.
+- **Agent defaults:** the setting and its default (on), and its new name covering both; the works' priorities; Smithing for the
+  mechanitor's share (as repair); one stack a trip; one drone's worth as the least load;
   filling to the level the machine's own order reaches; the Def living in D'thorga Patches under Fortified's folder.
 
 ## Sources

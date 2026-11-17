@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.135.0] - 2026-11-18 - Draft
+
+Mechanitors top up the mechanoids that carry a store
+
+### Added
+
+- **A mechanitor tops up the colony's mechanoids that carry a store of material**, walking out to them as they do to repair them:
+  The Dead Man's Switch's Hermit Crab and Cluster Weaver, which carry steel for the drones they send out. It is Smithing work, for
+  mechanitors only, just after mech repair, and skipped while the mechanoid is fighting, burning, hostile or berserk.
+
+### Changed
+
+- **Topping up puts the material straight into the machine's own store.** It used the game's haul-to-container job, which puts
+  things into the first store a thing has; on a mechanoid with another store that could have been the wrong one. One stack a trip.
+- **The setting is now called Keep machines and mechanoids topped up** (was Haulers keep machines topped up). It covers both; its
+  default (on) and its saved value are unchanged.
+- **For other modders**: a PhobosTopUpDef can leave out buildings or mechanoids (buildings, mechanoids, both on by default), and its
+  comp must keep a store of its own (an IThingHolder), or the Def stands down with a warning.
+
+### Compatibility and limits
+
+- A mechanoid that walks away is followed; one that turns hostile or berserk ends the trip, and the steel is dropped where the
+  mechanitor stands.
+- Not yet tested in game.
+
 ## [0.134.0] - 2026-11-18 - Draft
 
 Haulers keep machines topped up, and a report on why nobody loads a vehicle
