@@ -11,7 +11,7 @@ Capitalised upgrade names
 
 ### Fixed
 
-- Every upgrade's name now starts with a capital letter, as other vehicle mods' do: the upgrade tab shows a name exactly as written, so the kitchen's bigger water tank read in lower case (owner's report, 17 November 2026). 52 upgrades across every vehicle, the tie-in ones included. Names and saves are otherwise unchanged. Not yet tested in game.
+- Every upgrade's name now starts with a capital letter, as other vehicle mods' do: the upgrade tab shows a name exactly as written, so the kitchen's bigger water tank read in lower case (owner's report, 17 November 2026). 55 upgrades across every vehicle, the tie-in ones included (the tanker's three gas vessels in a follow-up the same day), and a test now refuses a lower-case one. Names and saves are otherwise unchanged. Not yet tested in game.
 
 ### Changed
 

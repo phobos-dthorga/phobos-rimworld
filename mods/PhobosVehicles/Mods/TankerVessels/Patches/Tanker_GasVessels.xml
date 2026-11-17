@@ -9,7 +9,7 @@
       <researchPrerequisites>
         <li>Fabrication</li>
       </researchPrerequisites>
-      <label>pressure vessel</label>
+      <label>Pressure vessel</label>
       <displayLabel>true</displayLabel>
       <description>A cylinder with domed ends and a relief valve, for gases: 1,200 units.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/PressureVessel</icon>
@@ -57,7 +57,7 @@
       <researchPrerequisites>
         <li>Fabrication</li>
       </researchPrerequisites>
-      <label>light vessel</label>
+      <label>Light vessel</label>
       <displayLabel>true</displayLabel>
       <description>A slim, cheaper vessel: 800 units, and much less weight on the truck.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/LightPressureVessel</icon>
@@ -105,7 +105,7 @@
       <researchPrerequisites>
         <li>Fabrication</li>
       </researchPrerequisites>
-      <label>heavy-wall vessel</label>
+      <label>Heavy-wall vessel</label>
       <displayLabel>true</displayLabel>
       <description>A thick-walled vessel: 1,000 units, with a tougher shell.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HeavyWallVessel</icon>
