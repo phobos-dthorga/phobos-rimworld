@@ -46,23 +46,46 @@ public static class VehicleRange
     static readonly ConditionalWeakTable<VehicleCaravan, Reach> Cache = new();
 
     /// <summary>The ticks of driving the fuel aboard allows, the least of every vehicle that burns fuel, or null when none does.</summary>
-    public static float? BudgetTicks(VehicleCaravan caravan, out int fuelKey)
+    public static float? BudgetTicks(VehicleCaravan caravan, out int fuelKey) => BudgetTicks(caravan, out fuelKey, out _);
+
+    /// <summary>
+    /// The same, counting since Framework 0.137.0 the fuel in the cargo for every vehicle refuelling from it: the vehicles on one kind of
+    /// fuel share what is carried (CargoFuelRule). <paramref name="fromCargo"/> says whether any cargo fuel was counted.
+    /// </summary>
+    public static float? BudgetTicks(VehicleCaravan caravan, out int fuelKey, out bool fromCargo)
     {
-        float? budget = null;
         fuelKey = 0;
+        fromCargo = false;
+        var users = new List<FuelUser>();
+        var pools = new List<double>();
+        var poolOf = new Dictionary<ThingDef, int>();
         foreach (VehiclePawn vehicle in caravan.VehiclesListForReading)
         {
             CompFueledTravel? fuel = vehicle.CompFueledTravel;
             if (fuel == null) continue;
+            CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
             // Framework 0.130.0 (step S6): the factor the burn itself uses, tunes, a clogged filter and the loads included, not the tunes alone.
-            float factor = (float)VehicleFuel.WorldMoveFactor(vehicle.GetComp<CompPhobosVehicleSystems>());
+            float factor = (float)VehicleFuel.WorldMoveFactor(comp);
             float perTick = fuel.ConsumptionRateWorldPerTick * factor;
             if (perTick <= 0f) continue;
-            float ticks = fuel.Fuel / perTick;
-            if (budget == null || ticks < budget) budget = ticks;
+            int pool = -1;
+            if (comp is { RefuelFromCargo: true } && CargoRefuel.Burns(vehicle))
+            {
+                ThingDef fuelType = fuel.Props.fuelType;
+                if (!poolOf.TryGetValue(fuelType, out pool))
+                {
+                    int carried = CargoRefuel.Carried(vehicle);
+                    pool = carried > 0 ? pools.Count : -1;
+                    if (pool >= 0) pools.Add(carried);
+                    poolOf[fuelType] = pool;
+                    fuelKey = fuelKey * 31 + carried;
+                }
+                if (pool >= 0) fromCargo = true;
+            }
+            users.Add(new FuelUser(fuel.Fuel, perTick, pool));
             fuelKey = fuelKey * 31 + Mathf.RoundToInt(fuel.FuelPercent * FuelSteps);
         }
-        return budget;
+        return CargoFuelRule.BudgetTicks(users, pools) is double ticks ? (float)ticks : null;
     }
 
     /// <summary>The caravan's reach, worked out again only when its tile, fuel or speed has changed; null when nothing in it burns fuel.</summary>

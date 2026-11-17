@@ -523,6 +523,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 
     bool? climateFitted;
 
+    /// <summary>Whether this vehicle tops its tank up from the caravan's cargo on the world map (Framework 0.137.0; owner, 18 Nov 2026:
+    /// off until the player switches it on, so fuel carried to sell is not burned). Saved.</summary>
+    public bool RefuelFromCargo;
+
+    /// <summary>Whether the player has been told the cargo holds no more of this vehicle's fuel, so it is said once (derived, never saved).</summary>
+    internal bool CargoFuelGoneTold;
+
     // ---- Saving ----
 
     public override void PostExposeData()
@@ -562,6 +569,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         pipeUnderlays ??= new Dictionary<string, Phobos.Framework.Persistence.PipeUnderlay>();
         Scribe_Values.Look(ref lastUpdateTick, "PhobosVehicleSystems_LastUpdate", -1);
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
+        Scribe_Values.Look(ref RefuelFromCargo, "PhobosVehicleSystems_RefuelFromCargo", false);
         Conditions.ExposeData();
         Repairs.ExposeData();
         Fittings.ExposeData();

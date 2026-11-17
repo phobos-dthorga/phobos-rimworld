@@ -60,7 +60,8 @@
     "188": ["vehicles.thin-air"],
     "189": ["vehicles.trailer-towed", "vehicles.trailer-towed-world"],
     "190": ["framework.top-up"],
-    "192": ["framework.top-up-mechanoid"]
+    "192": ["framework.top-up-mechanoid"],
+    "193": ["vehicles.cargo-refuel"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

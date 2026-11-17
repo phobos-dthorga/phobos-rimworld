@@ -39,9 +39,11 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
         if (caravan == null) return null;
         var lines = new List<string>();
         // How long the fuel aboard lasts on the move (Framework 0.85.0); its reach is drawn on the globe while the caravan is selected.
-        if (caravan.Faction == Faction.OfPlayer && VehicleRange.BudgetTicks(caravan, out _) is float budget)
+        if (caravan.Faction == Faction.OfPlayer && VehicleRange.BudgetTicks(caravan, out _, out bool cargo) is float budget)
         {
-            lines.Add("PhobosVehicleSystems_CaravanRange".Translate(((int)budget).ToStringTicksToPeriod().Named("TIME")).Resolve());
+            // Framework 0.137.0: with the fuel in the cargo of every vehicle refuelling from it.
+            lines.Add((cargo ? "PhobosVehicleSystems_CaravanRangeWithCargo" : "PhobosVehicleSystems_CaravanRange")
+                .Translate(((int)budget).ToStringTicksToPeriod().Named("TIME")).Resolve());
         }
         foreach (CompPhobosVehicleSystems comp in Comps(caravan))
         {
@@ -93,7 +95,17 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
             if (gizmo != null) yield return gizmo;
             Gizmo? repair = RepairGizmo(caravan, comp);
             if (repair != null) yield return repair;
+            // Framework 0.137.0: refuel from the cargo on the way (owner, 18 Nov 2026).
+            Gizmo? refuel = CargoRefuel.Toggle(comp.Vehicle, comp);
+            if (refuel != null) yield return refuel;
         }
+    }
+
+    /// <summary>Framework 0.137.0: the player's caravans top their tanks up from their cargo, at the rare interval, staggered by caravan.</summary>
+    public override void CompTick()
+    {
+        if ((Find.TickManager.TicksGame + parent.ID) % GenTicks.TickRareInterval != 0 || Caravan is not { } caravan) return;
+        using (PhobosTiming.Measure("caravan refuel from cargo")) CargoRefuel.Tick(caravan);
     }
 }
 

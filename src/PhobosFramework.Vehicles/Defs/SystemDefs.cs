@@ -831,6 +831,11 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// and the share a railway keeps (authored: a ruling grade is a quarter of a road's or less).</summary>
     public float roadGradeFactor = 0.5f;
     public float railGradeFactor = 0.25f;
+    /// <summary>Refuelling from cargo on the world map (Framework 0.137.0): a tank tops up when it falls to this share (owner, 18 Nov 2026:
+    /// a quarter), and pouring a whole tank holds the caravan up this many hours, less in proportion (owner: a short stop; the quarter
+    /// hour is authored).</summary>
+    public float refuelFromCargoBelow = 0.25f;
+    public float refuelStopHoursPerTank = 0.25f;
     /// <summary>Thin air (Framework 0.132.0; docs/development/vehicle-altitude-and-turbines.md): the height a turbocharged piston engine
     /// holds its rated power to, in metres, unless its Def says otherwise; and how closely a radiator's cooling follows the air's
     /// pressure (1: in step; below 1, a little less than in step). The record gives each figure's source or says it is authored.</summary>

@@ -5,6 +5,33 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.137.0] - 2026-11-18 - Draft
+
+Refuelling from cargo on the world map
+
+### Added
+
+- **Refuel from cargo.** A vehicle caravan carrying the fuel one of its vehicles burns shows a "Refuel from cargo" button for that vehicle. Switched on, that vehicle tops its tank up from the caravan's cargo whenever the tank falls to a quarter, so the caravan no
+  longer halts for fuel while there are cans aboard. Each top-up holds the caravan up a little while (a quarter hour for a whole tank,
+  less for less), and a quiet message says what was poured and what is left; running out of cans is said once. It takes fuel from the
+  same places the game's own refuel button does: every vehicle's cargo and every pawn's.
+- **The caravan's fuel line and its reach on the globe count the cans** for every vehicle switched on. Vehicles on the same fuel share
+  what is carried; a vehicle left off still runs on its tank alone.
+
+### Compatibility and limits
+
+- **Off for every vehicle until you switch it on** (owner, 18 Nov 2026), so fuel carried to trade is never burned.
+- World map only: on a map, colonists refuel vehicles as before. Aircraft top up once landed, never in flight; the ferry tank is for long
+  flights.
+- Your own caravans only. Other factions' caravans are left alone.
+- The engine is taken to keep burning through the short stop, a small amount; the reach counts driving time, not the stops.
+
+### Save compatibility
+
+- Safe to add to a running colony. Each vehicle saves whether its switch is on; removing the mod loses only that.
+
+Not yet tested in game (row 193 of the test list).
+
 ## [0.136.1] - 2026-11-18 - Draft
 
 Small fixes from the owner's look at a Harrier in flight

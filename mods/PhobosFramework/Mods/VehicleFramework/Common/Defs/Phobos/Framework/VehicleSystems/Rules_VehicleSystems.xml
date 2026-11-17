@@ -46,6 +46,10 @@
     <beltCapacityShare>0.3</beltCapacityShare>
     <roadGradeFactor>0.5</roadGradeFactor>
     <railGradeFactor>0.25</railGradeFactor>
+    <!-- Framework 0.137.0: refuelling from cargo on the world map. A tank tops up at a quarter (owner, 18 Nov 2026), and pouring a
+         whole tank holds the caravan up a quarter of an hour, less in proportion (authored; the owner chose a short stop). -->
+    <refuelFromCargoBelow>0.25</refuelFromCargoBelow>
+    <refuelStopHoursPerTank>0.25</refuelStopHoursPerTank>
     <!-- Framework 0.132.0 (docs/development/vehicle-altitude-and-turbines.md, which names each figure's source or says it is authored):
          thin air at height, and turbines. A turbocharged piston engine holds its rated power to turbochargerHoldsToMetres; a radiator's
          cooling follows the air's pressure to the power airCoolingExponent; a turbine's generator is costed at generatorRatedRpm times

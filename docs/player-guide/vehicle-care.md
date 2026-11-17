@@ -363,6 +363,10 @@ the kit back in the cargo.
   the fuel allows. **Select an aircraft in flight** and its inspect pane says how many more tiles its fuel flies; **zoom out** to see an
   amber circle at that distance (it is far out: a helicopter's is a good way round the planet). An aircraft that can reach anywhere
   says so and has no circle.
+- **Refuel from cargo** (not yet tested in game): carry the fuel your vehicles burn in the caravan's cargo, then press **Refuel *vehicle* from
+  cargo** on the caravan. Whenever its tank falls to a quarter, the crew top it up from the cans with a short stop, so the caravan no longer
+  halts for fuel. **It starts off for every vehicle**, so fuel you carry to sell is safe until you switch it on. The fuel line and the reach on
+  the globe count the cans for every vehicle switched on. It works on the world map only; aircraft top up once landed, never in the air.
 - **The fleet button** on the bottom bar lists every vehicle you own, wherever it is, with its picture, fuel and worst part.
 - **A vehicle parked in the wild is lost after a while**; a letter warns you three days ahead.
 - **Garages** (needs Vanilla Expanded Framework): a stopped convoy can set one up. Vehicles left there stay with no time limit, and

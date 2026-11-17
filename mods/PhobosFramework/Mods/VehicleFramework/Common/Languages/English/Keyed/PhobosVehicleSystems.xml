@@ -632,6 +632,11 @@
   <!-- The range on the world map (Framework 0.85.0). -->
   <PhobosVehicleSystems_FlightRange>Fuel aboard to fly about {TILES} more tiles. Zoom out to see the amber circle at that distance.</PhobosVehicleSystems_FlightRange>
   <PhobosVehicleSystems_FlightRangeAnywhere>Fuel aboard to fly about {TILES} more tiles: enough to reach anywhere on the planet.</PhobosVehicleSystems_FlightRangeAnywhere>
+  <PhobosVehicleSystems_CaravanRangeWithCargo>Fuel aboard, with what is in the cargo, for about {TIME} of driving. Its reach is outlined on the globe while the caravan is selected.</PhobosVehicleSystems_CaravanRangeWithCargo>
+  <PhobosVehicleSystems_CargoRefuelLabel>Refuel {VEHICLE} from cargo</PhobosVehicleSystems_CargoRefuelLabel>
+  <PhobosVehicleSystems_CargoRefuelDesc>While the caravan travels, top the tank up from the {FUEL} it carries whenever it falls to {BELOW}, so the caravan does not stop for want of fuel. Each top-up holds the caravan up for a little while as the crew pour it in. {CARRIED} {FUEL} in the cargo now. Leave it off for fuel you are carrying to trade.</PhobosVehicleSystems_CargoRefuelDesc>
+  <PhobosVehicleSystems_CargoRefuelled>{VEHICLE} topped up with {AMOUNT} {FUEL} from the cargo; {LEFT} left.</PhobosVehicleSystems_CargoRefuelled>
+  <PhobosVehicleSystems_CargoRefuelGone>{VEHICLE} needs fuel, but there is no {FUEL} left in the cargo.</PhobosVehicleSystems_CargoRefuelGone>
   <PhobosVehicleSystems_CaravanRange>Fuel aboard for about {TIME} of driving. Its reach is outlined on the globe while the caravan is selected.</PhobosVehicleSystems_CaravanRange>
   <PhobosVehicleSystems_MarkWhen>{EVENT}\n{AGO} ago</PhobosVehicleSystems_MarkWhen>
   <PhobosVehicleSystems_HydraulicsDry>{VEHICLE} has too little hydraulic fluid left to work. A mechanic's hydraulic top-up refills it; mend the leaking lines first, or it drains again.</PhobosVehicleSystems_HydraulicsDry>
