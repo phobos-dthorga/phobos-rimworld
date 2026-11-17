@@ -1,0 +1,28 @@
+[
+ {
+  "name": "triage-tag-disc",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "A single bold pictogram: a round badge disc with a bold plus-shaped medical cross cut cleanly through its middle, so the white shows through the cross. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a bold map marker symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+  "subject": "a round badge disc with a bold plus-shaped medical cross cut cleanly through its middle, so the white shows through the cross",
+  "width": 512,
+  "height": 512,
+  "seeds": [
+   11,
+   12
+  ]
+ },
+ {
+  "name": "triage-tag-label",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "A single bold pictogram: a field triage label: an upright rectangular card tag with clipped top corners, a round reinforced hole near the top with a short loop of string through it, and a bold plus-shaped medical cross cut cleanly through the middle of the card so the white shows through. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a bold map marker symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+  "subject": "a field triage label: an upright rectangular card tag with clipped top corners, a round reinforced hole near the top with a short loop of string through it, and a bold plus-shaped medical cross cut cleanly through the middle of the card so the white shows through",
+  "width": 512,
+  "height": 512,
+  "seeds": [
+   11,
+   12
+  ]
+ }
+]

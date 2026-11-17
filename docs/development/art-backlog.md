@@ -32,6 +32,12 @@ At the owner's request, every shipped picture (475 PNGs under `mods/**/Textures`
 texture path checked. No vehicle body is drawn in code any more; what is left is mostly buttons. **This list supersedes the older rows
 below where they differ.**
 
+**The run is prepared** (17 Nov 2026): `python scripts/art-run.py night .local/art/night-6.json --stop-at HH:MM`, with the game closed.
+Its dry run passed: 54 images, two seeds each (the bomb fills, the stand-in icons with two wordings for the work lamps, the Crawler's
+icons and the triage tags), about two and a half hours. The requests for the first three were written with Billy on 17 Nov; only the
+triage tags (`assets/phobos-medical/requests/triage-tags.json`, a disc and a luggage-style label, two wordings) are new. The tag is
+exported with `export_sprite.py --silhouette`, so the game can tint it, and its outline is then drawn from the pick by script.
+
 **Drawn in code, for the next local run (owner's pick, 17 Nov 2026; a go and a stop time first):**
 
 | Mod | Pictures |
