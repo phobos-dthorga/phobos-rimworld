@@ -1,0 +1,60 @@
+[
+ {
+  "name": "litter-collect",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A canvas stretcher on two dark carrying poles, with a bold green arrow pointing up beneath it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "A canvas stretcher on two dark carrying poles, with a bold green arrow pointing up beneath it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [11, 12],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "fitting-batterywarmer",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A dark vehicle battery with two terminal posts, wrapped round its sides in a quilted orange heating blanket with a short black power lead and plug. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle, no flames.",
+  "subject": "A dark vehicle battery with two terminal posts, wrapped round its sides in a quilted orange heating blanket with a short black power lead and plug",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [11, 12],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "billy-tent-lamp",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A camp lantern on a short olive-drab steel tripod stand, its round pale yellow glass globe under a small dark steel cap with a carry ring, a black cable running off one tripod leg. Draw it in exactly the art style of the reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no light rays, no glow, no text, no labels, no people.",
+  "subject": "A camp lantern on a short olive-drab steel tripod stand, seen from directly above",
+  "references": [
+   "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Electrolyser.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [11, 12],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "billy-tent-heater",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A portable tent heater: a squat olive-drab steel box with a round dark grille on its top, a carry handle across it, a small orange fuel cap at one corner and a short black flexible duct leaving its east side. Draw it in exactly the art style of the reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no flames, no smoke, no text, no labels, no people.",
+  "subject": "A portable tent heater, an olive-drab box with a round top grille and a flexible duct, seen from directly above",
+  "references": [
+   "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Electrolyser.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [11, 12],
+  "lora": "phobos-private-vanilla.safetensors"
+ }
+]

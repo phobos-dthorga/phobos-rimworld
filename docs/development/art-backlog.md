@@ -1,9 +1,9 @@
 # Art backlog: what to make with the local image model (6 Nov 2026, updated 7 Nov 2026)
 
-**Status (17 Nov 2026):** night 3 ran on 8 Nov 2026, and the owner's picks from it ship (Medical 0.14.1, Patches 0.16.9, Radio 0.1.7);
-the store's frost is drawn in code (Medical 0.15.0); vehicle bodies and parts come from the paid API. Not done: style model v3 (its
-training was cut off by the stop time on 8 Nov, with no model saved), the radio whip (held), and the 26 code-drawn pictures and tent
-pieces in [the stand-in art audit](#stand-in-art-audit-17-nov-2026), which is now the current list.
+**Status (18 Nov 2026):** night 6 ran on 18 Nov 2026 and made all 62 candidates for [the stand-in art audit](#stand-in-art-audit-17-nov-2026)'s
+list; **the owner's picks are pending**, so nothing from it ships yet. Night 3's picks ship (Medical 0.14.1, Patches 0.16.9, Radio 0.1.7); the
+store's frost is drawn in code (Medical 0.15.0); vehicle bodies and parts come from the paid API. Not done: style model v3 (its training was
+cut off by the stop time on 8 Nov, with no model saved), the radio whip (held), Billy's canvas wall atlas and door, and the loading chute.
 
 **Old mod names below.** On 7 Nov 2026 Medical Equipment, Burns and Smoke, Emergency Dosing and Triage became parts of D'thorga Medical,
 and D'thorga Vehicle Patches became part of D'thorga Patches ([mod consolidation](mod-consolidation.md)). The rows keep the names they
@@ -37,6 +37,16 @@ Its dry run passed: 54 images, two seeds each (the bomb fills, the stand-in icon
 icons and the triage tags), about two and a half hours. The requests for the first three were written with Billy on 17 Nov; only the
 triage tags (`assets/phobos-medical/requests/triage-tags.json`, a disc and a luggage-style label, two wordings) are new. The tag is
 exported with `export_sprite.py --silhouette`, so the game can tint it, and its outline is then drawn from the pick by script.
+
+**Night 6 ran on 18 Nov 2026** (06:53, paused at 07:13 when the owner started the game, resumed 08:19 on the owner's word, finished 10:11),
+all 62 candidates at about two and a half minutes each, with Klein 4B base and the private style model. **Agent's addition, for the owner
+to revise:** `assets/phobos-vehicles/requests/night-6-extras.json`, run last: the litter "collect" button (it was missing from the list),
+a battery warmer icon (it borrows the deep-cycle battery's), and a first try at Billy's tent lamp and heater. The near-copy check flagged
+`sonar-ping-12` against a vanilla icon of four skulls on a cross; looked at by the agent, a false positive (concentric rings on a mostly
+white ground). The picking page is `.local/art/night-6-review/index.html`, each candidate beside the picture the mod uses now.
+**Agent's first read, not a pick:** the bomb fills, work lamps, fire bucket, water drop, grab, sonar ping, the Crawler's icons, the
+triage silhouettes and the tent lamp look strong; the stretcher buttons (litter kit, unload, collect) came out as signboards, and the
+hitch and stop-winch buttons read poorly, so those may want a second wording.
 
 **Drawn in code, for the next local run (owner's pick, 17 Nov 2026; a go and a stop time first):**
 
