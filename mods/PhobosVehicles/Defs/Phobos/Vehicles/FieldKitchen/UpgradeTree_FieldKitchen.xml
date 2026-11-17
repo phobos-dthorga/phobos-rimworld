@@ -11,7 +11,7 @@
     <nodes>
     <li>
       <key>PhobosBillySecondRange</key>
-      <label>second range</label>
+      <label>Second range</label>
       <displayLabel>true</displayLabel>
       <description>A second field range in the kitchen tent, so two cooks can work at once. It is set out at the next set-up.</description>
       <icon>Phobos/Vehicles/FieldKitchen/BillyRange</icon>
@@ -28,7 +28,7 @@
     </li>
     <li>
       <key>PhobosBillyBigKettle</key>
-      <label>big kettle</label>
+      <label>Big kettle</label>
       <displayLabel>true</displayLabel>
       <description>A bigger pot for the kettle: it can cook meals twenty at a time.</description>
       <icon>Phobos/Vehicles/FieldKitchen/BillyKettle</icon>
@@ -44,7 +44,7 @@
     </li>
     <li>
       <key>PhobosBillyInsulatedTent</key>
-      <label>insulated tent</label>
+      <label>Insulated tent</label>
       <displayLabel>true</displayLabel>
       <description>A lined tent and a small chemfuel heater, set out at the next set-up: the heater keeps the tent at 15 °C or so in the cold, burning about two chemfuel a day.</description>
       <icon>Things/Building/Misc/TempControl/Heater</icon>
@@ -59,7 +59,7 @@
     </li>
     <li>
       <key>PhobosBillyDiningAnnex</key>
-      <label>dining annex</label>
+      <label>Dining annex</label>
       <displayLabel>true</displayLabel>
       <description>A second canvas room pitched against the kitchen tent's front, with a table and four chairs, so the crew eat at a table. It is set out at the next set-up and needs a patch 6 cells longer in front of the trailer.</description>
       <icon>Things/Building/Linked/WallSmooth_MenuIcon</icon>

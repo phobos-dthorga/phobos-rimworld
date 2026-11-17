@@ -13,7 +13,7 @@
     <nodes>
     <li>
       <key>PhobosTrailerHighSides</key>
-      <label>greedy boards</label>
+      <label>Greedy boards</label>
       <displayLabel>true</displayLabel>
       <description>Taller side boards: 1,000 kg more of anything. The vehicle towing it pulls the extra weight too.</description>
       <icon>Phobos/Vehicles/Tipper/Upgrades/HighSides</icon>

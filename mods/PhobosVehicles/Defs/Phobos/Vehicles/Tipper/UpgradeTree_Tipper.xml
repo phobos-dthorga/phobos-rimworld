@@ -11,7 +11,7 @@
     <nodes>
     <li>
       <key>HighSides</key>
-      <label>greedy boards</label>
+      <label>Greedy boards</label>
       <displayLabel>true</displayLabel>
       <description>Taller side boards, which drivers call greedy boards: 600 kg more of anything.</description>
       <icon>Phobos/Vehicles/Tipper/Upgrades/HighSides</icon>
@@ -34,7 +34,7 @@
     </li>
     <li>
       <key>RockBody</key>
-      <label>rock body</label>
+      <label>Rock body</label>
       <displayLabel>true</displayLabel>
       <description>A short, steep body with a thick floor. It carries the same, but sheds its load half as fast again.</description>
       <icon>Phobos/Vehicles/Tipper/Upgrades/RockBody</icon>
@@ -64,7 +64,7 @@
     </li>
     <li>
       <key>BulkBody</key>
-      <label>bulk body</label>
+      <label>Bulk body</label>
       <displayLabel>true</displayLabel>
       <description>A long, shallow body: 3,600 kg before any greedy boards, for ore and steel, but it tips slower.</description>
       <icon>Phobos/Vehicles/Tipper/Upgrades/BulkBody</icon>
@@ -100,7 +100,7 @@
       <!-- Owner, 12 Nov 2026: the loading grab, batch 3 signature (docs/development/vehicle-upgrades-round-two.md). Lift and cost authored;
            reach and pace are in the rules Def. No picture on the body yet: no crane picture exists for the tipper. -->
       <key>PhobosLoadingGrab</key>
-      <label>loading grab</label>
+      <label>Loading grab</label>
       <displayLabel>true</displayLabel>
       <description>A small hydraulic crane behind the cab with a two-jawed grab. With a driver aboard and the truck stopped, it lifts loose chunks and stacks lying within 4 cells into the cargo, up to 500 kg a lift, with no one else to carry them. The truck cannot tip while the grab is out.</description>
       <icon>Phobos/VehicleSystems/Stations/Grab</icon>

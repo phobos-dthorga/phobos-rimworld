@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.61.1] - 2026-11-17 - Draft
+
+Capitalised upgrade names
+
+### Fixed
+
+- Every upgrade's name now starts with a capital letter, as other vehicle mods' do: the upgrade tab shows a name exactly as written, so the kitchen's bigger water tank read in lower case (owner's report, 17 November 2026). 52 upgrades across every vehicle, the tie-in ones included. Names and saves are otherwise unchanged. Not yet tested in game.
+
 ### Changed
 
 - The README names what the owner has tested in game: the survey truck and its boom (9 November 2026) and the Busbar's size and look (13 November 2026). No change in play.

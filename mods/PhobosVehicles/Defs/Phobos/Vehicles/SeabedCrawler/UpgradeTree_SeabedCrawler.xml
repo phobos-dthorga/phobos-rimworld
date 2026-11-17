@@ -11,7 +11,7 @@
     <nodes>
       <li>
         <key>BottomingWheels</key>
-        <label>bottoming wheels</label>
+        <label>Bottoming wheels</label>
         <displayLabel>true</displayLabel>
         <description>Retractable wheels that let the boat rest on the bottom. Settled there, it uses half the air and charge and is a quarter as easy to find, but it cannot move until it lifts off.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/BottomingWheels</icon>
@@ -48,7 +48,7 @@
       </li>
       <li>
         <key>Scrubber</key>
-        <label>air scrubber</label>
+        <label>Air scrubber</label>
         <displayLabel>true</displayLabel>
         <description>Canisters that clean the air. The boat can stay under for six hours longer, and a crew that stays down past empty breathes stale air more slowly.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Scrubber</icon>
@@ -79,7 +79,7 @@
       <li>
         <!-- The research vessel (owner, 10 Nov 2026): two scientist's seats, a new role that the upgrade adds and Vehicle Framework saves. Its factor matches the game's simple research bench (0.75); its grade takes any project that needs no particular bench. Removing it puts everyone aboard ashore first, as Vehicle Framework does for any role. -->
         <key>WetLab</key>
-        <label>wet laboratory</label>
+        <label>Wet laboratory</label>
         <displayLabel>true</displayLabel>
         <description>A small laboratory with two scientist's seats. Seated scientists with an Intellectual skill of 7 or more carry on the colony's research: at three quarters of a simple research bench's speed while at rest, and half that under way. It takes on any project that needs no particular bench.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Laboratory</icon>
@@ -124,7 +124,7 @@
       <li>
         <!-- The advanced laboratory: grade 2 stands in for a hi-tech research bench and its equipment; the factor rises to that bench's 1.0. Its research is aboard-only. -->
         <key>DeepLab</key>
-        <label>advanced laboratory</label>
+        <label>Advanced laboratory</label>
         <displayLabel>true</displayLabel>
         <description>An analyser bench for the wet laboratory. It can take on any project a hi-tech research bench can, and its scientists work at a hi-tech bench's speed.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/AdvancedLaboratory</icon>
@@ -158,7 +158,7 @@
       <li>
         <!-- The listening array, first of the second row (sensors; the active sonar set goes beside it). Passive: it only hears, so it gives nothing away. Range authored. -->
         <key>Hydrophones</key>
-        <label>listening array</label>
+        <label>Listening array</label>
         <displayLabel>true</displayLabel>
         <description>Hydrophones along the hull. Anyone aboard who is awake can listen for hostile movement within 40 cells: things in the water across all of it, things on land within half of it, and other boats under the water by their noise. It hears half as far on the move, and makes no sound itself.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Hydrophones</icon>
@@ -196,7 +196,7 @@
       <li>
         <!-- The sonar set, beside the listening array. Active: every ping finds and gives away (docs/development/vehicle-seabed-crawler.md, "The sonar set as built"). Range authored. -->
         <key>ActiveSonar</key>
-        <label>sonar set</label>
+        <label>Sonar set</label>
         <displayLabel>true</displayLabel>
         <description>A sonar transducer under the bow, worked from a screen inside. A ping finds everything hostile in the water within 60 cells, moving or still, and every boat under the water, though one resting on the bottom only from half as far. The ping is heard twice as far away, and a boat under the water is followed for a minute after it pings.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Sonar</icon>
@@ -238,7 +238,7 @@
         <!-- Hull refits (owner, 11 Nov 2026: hulls 1, 3 and 4 of the pilot as variants on upgrade pathways). Vehicle Framework holds one body picture at a time, so the two refits exclude each other.
              Each swaps the picture through its RetextureDef (RetextureDefs_SeabedCrawler.xml) and changes figures that matter. -->
         <key>SensorRefit</key>
-        <label>sensor refit</label>
+        <label>Sensor refit</label>
         <displayLabel>true</displayLabel>
         <description>A smooth, faired sail rebuilt around the sensors. The listening array hears 20 cells further and a sonar ping reaches 30 cells further, but the narrower deck carries 200 less. Cannot be fitted with the laboratory refit.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/SensorRefit</icon>
@@ -281,7 +281,7 @@
         <!-- The laboratory refit: a hull section let in for the laboratory, so it follows the advanced laboratory. It edits the scientist role the wet laboratory added (editKey), which Vehicle
              Framework keeps on the role and drops again on refund; the advanced laboratory cannot be refunded while this is fitted, so the role is always there. -->
         <key>LaboratoryRefit</key>
-        <label>laboratory refit</label>
+        <label>Laboratory refit</label>
         <displayLabel>true</displayLabel>
         <description>A hull section let in amidships for a longer laboratory. It seats a third scientist and its scientists work 15 per cent of a research bench faster, but the longer hull is slower. Cannot be fitted with the sensor refit.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/LaboratoryRefit</icon>

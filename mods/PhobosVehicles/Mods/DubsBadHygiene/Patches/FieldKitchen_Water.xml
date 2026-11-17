@@ -37,7 +37,7 @@
     <value>
       <li>
         <key>PhobosBillyWashUp</key>
-        <label>wash-up basin</label>
+        <label>Wash-up basin</label>
         <displayLabel>true</displayLabel>
         <description>A plumbed wash basin in the kitchen tent, set out at the next set-up. It keeps the tent cleaner, so food cooked there spoils people less often. It draws on the kitchen's water.</description>
         <icon>DBH/Things/Building/Toilets/basin_south</icon>
@@ -54,7 +54,7 @@
       </li>
       <li>
         <key>PhobosBillyBiggerTank</key>
-        <label>bigger water tank</label>
+        <label>Bigger water tank</label>
         <displayLabel>true</displayLabel>
         <description>The kitchen's water tank goes from 200 to 600 litres, so it cooks for longer between fills. It takes effect at the next set-up.</description>
         <icon>Phobos/Vehicles/BulkTanker/Upgrades/HighVolumeLiquidTank</icon>

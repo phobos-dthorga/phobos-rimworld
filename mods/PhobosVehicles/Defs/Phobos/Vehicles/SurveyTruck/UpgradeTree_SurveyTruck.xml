@@ -11,7 +11,7 @@
     <nodes>
     <li>
       <key>GeophoneArray</key>
-      <label>geophone array</label>
+      <label>Geophone array</label>
       <displayLabel>true</displayLabel>
       <description>Spikes along the boom that listen to the ground. Heavy deposits, steel above all, are found more often, and the survey runs a little faster.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/GeophoneArray</icon>
@@ -45,7 +45,7 @@
     </li>
     <li>
       <key>RadiometricProbe</key>
-      <label>radiometric probe</label>
+      <label>Radiometric probe</label>
       <displayLabel>true</displayLabel>
       <description>A shielded gamma and neutron source on the boom. Uranium is found far more often, and the survey runs a little faster.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/RadiometricProbe</icon>
@@ -92,7 +92,7 @@
     </li>
     <li>
       <key>LongRangeArray</key>
-      <label>long-range array</label>
+      <label>Long-range array</label>
       <displayLabel>true</displayLabel>
       <description>A dish on a mast. The survey can search nearby lands for one chosen ore, and a find becomes a place to travel to.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/LongRangeArray</icon>
@@ -131,7 +131,7 @@
     </li>
     <li>
       <key>PoweredArray</key>
-      <label>powered array</label>
+      <label>Powered array</label>
       <displayLabel>true</displayLabel>
       <description>A big transducer array. Switched on and supplied, the survey runs three times as fast. It needs a powered grid or the large battery.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/PoweredArray</icon>
@@ -171,7 +171,7 @@
     </li>
     <li>
       <key>SurveyBattery</key>
-      <label>large battery</label>
+      <label>Large battery</label>
       <displayLabel>true</displayLabel>
       <description>A 600 ampere-hour battery. It runs the survey with the engine off, and the engine starts itself to recharge it when it runs low, burning fuel with nobody at the wheel.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/SurveyBattery</icon>
@@ -210,7 +210,7 @@
     </li>
     <li>
       <key>WorkLights</key>
-      <label>work lights</label>
+      <label>Work lights</label>
       <displayLabel>true</displayLabel>
       <description>Lamps on the cabin roof for working through the night.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/WorkLights</icon>

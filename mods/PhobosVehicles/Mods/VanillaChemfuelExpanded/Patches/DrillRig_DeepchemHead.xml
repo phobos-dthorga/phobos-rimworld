@@ -6,7 +6,7 @@
     <value>
       <li>
         <key>DeepchemHead</key>
-        <label>deepchem head</label>
+        <label>Deepchem head</label>
         <displayLabel>true</displayLabel>
         <description>A sealed head and a small tank. The rig can raise deepchem, at the rate of a pumpjack at best, into a 300-unit buffer that a tanker parked beside it can load from, or that runs into a pipe laid to it.</description>
         <icon>Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead</icon>

@@ -12,7 +12,7 @@
     <nodes>
     <li>
       <key>PhobosBowserLagging</key>
-      <label>lagged tank</label>
+      <label>Lagged tank</label>
       <displayLabel>true</displayLabel>
       <description>Insulation round the tank: the water takes four times as long to reach the outside temperature, so it freezes later on a cold night.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/InsulatedLiquidTank</icon>
@@ -26,7 +26,7 @@
     </li>
     <li>
       <key>PhobosBowserSecondHose</key>
-      <label>second hose</label>
+      <label>Second hose</label>
       <displayLabel>true</displayLabel>
       <description>A second hose and a bigger pump outlet: the pump moves half as much again.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HoseReel</icon>

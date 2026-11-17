@@ -11,7 +11,7 @@
     <nodes>
     <li>
       <key>BiggerAlternator</key>
-      <label>uprated alternator</label>
+      <label>Uprated alternator</label>
       <displayLabel>true</displayLabel>
       <description>A bigger alternator behind the cab: 650 W more at full output, and fuel burned at the same watts per unit.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/BiggerAlternator</icon>
@@ -51,7 +51,7 @@
     </li>
     <li>
       <key>CableReel</key>
-      <label>cable reel</label>
+      <label>Cable reel</label>
       <displayLabel>true</displayLabel>
       <description>A long cable on a drum. You choose where the cable end goes, up to 12 cells from the truck, so the truck can stand somewhere safe.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/CableReel</icon>
@@ -89,7 +89,7 @@
     </li>
     <li>
       <key>BatteryBuffer</key>
-      <label>battery buffer</label>
+      <label>Battery buffer</label>
       <displayLabel>true</displayLabel>
       <description>A battery box under the deck. It fills from spare power and keeps the grid alive for a time when the tank runs dry or the engine is hurt.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/BatteryBuffer</icon>
@@ -130,7 +130,7 @@
            cost are authored; the heat rate and the 21 C target come from the game's own heater (CompPhobosGeneratorSet). Its icon and
            overlay are the owner's pick of 12 Nov 2026. -->
       <key>HeatRecovery</key>
-      <label>exhaust heat exchanger</label>
+      <label>Exhaust heat exchanger</label>
       <displayLabel>true</displayLabel>
       <description>A heat exchanger on the exhaust. While the set makes power, it warms the room the cable end stands in, more as more power is drawn, until the room reaches 21 C. Outdoors the heat goes to waste. The exchanger's back pressure costs 25 W of output.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/HeatExchanger</icon>
@@ -175,7 +175,7 @@
            revise; docs/development/vehicle-generator-set.md): a parked radiator cools at 0.7 of its moving rate, and the fan's 0.3 brings
            it to the full rate, so a set left working hard in summer heat keeps its coolant in hand. Cost authored. -->
       <key>HeavyFan</key>
-      <label>heavy-duty fan</label>
+      <label>Heavy-duty fan</label>
       <displayLabel>true</displayLabel>
       <description>A bigger cooling fan with a heavier guard. A parked engine's radiator gets no air from driving; this fan moves as much air through it as the road would, so the set stays cool working hard in hot weather.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/HeavyFan</icon>
@@ -204,7 +204,7 @@
       <!-- Owner, 12 Nov 2026: the service lead, batch 3 signature (docs/development/vehicle-upgrades-round-two.md). Reach and cost authored;
            the lead's 300 W is in the rules Def. No picture on the body: the lead is drawn as a line while the set is selected. -->
       <key>PhobosServiceLead</key>
-      <label>service lead</label>
+      <label>Service lead</label>
       <displayLabel>true</displayLabel>
       <description>A heavy cable on a small reel, with clamps and a charger. While the set is set up and running, the lead reaches one of your vehicles within 6 cells, charges its battery, and gives it a start if it is too flat to start. It takes 300 W before the camp's grid does.</description>
       <icon>Phobos/VehicleSystems/ServiceLead</icon>

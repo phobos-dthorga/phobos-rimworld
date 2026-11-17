@@ -11,7 +11,7 @@
     <nodes>
     <li>
       <key>DiamondBit</key>
-      <label>diamond core bit</label>
+      <label>Diamond core bit</label>
       <displayLabel>true</displayLabel>
       <description>A slim bit that cuts a core of rock. The rig drills at twenty times a deep drill, on ore and on stone.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/DiamondBit</icon>
@@ -97,7 +97,7 @@
     </li>
     <li>
       <key>TallMast</key>
-      <label>tall mast</label>
+      <label>Tall mast</label>
       <displayLabel>true</displayLabel>
       <description>A longer mast section. The string can be walked further from the hole, from about 2.6 cells to about 3.6, at some cost in stability.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/TallMast</icon>
@@ -128,7 +128,7 @@
     </li>
     <li>
       <key>ElectricPowerPack</key>
-      <label>electric power pack</label>
+      <label>Electric power pack</label>
       <displayLabel>true</displayLabel>
       <description>A cable and a switchbox. Beside a powered grid the rig drills on the grid with its engine off, burning no fuel.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/ElectricPowerPack</icon>
@@ -166,7 +166,7 @@
     </li>
     <li>
       <key>WorkLights</key>
-      <label>work lights</label>
+      <label>Work lights</label>
       <displayLabel>true</displayLabel>
       <description>Lamp masts on the cab and rear. Without them, drilling at night goes at 80% of the rate.</description>
       <icon>Phobos/Vehicles/DrillRig/Upgrades/WorkLights</icon>

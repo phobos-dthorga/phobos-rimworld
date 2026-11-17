@@ -6,7 +6,7 @@
     <value>
       <li>
         <key>WellDrillingKit</key>
-        <label>oil well kit</label>
+        <label>Oil well kit</label>
         <displayLabel>true</displayLabel>
         <description>A casing rack and a cellar frame. Set up over oil with steel in its cargo, the rig sinks a well as a derrick would, and leaves the well head behind for a derrick to pump.</description>
         <icon>Phobos/Vehicles/DrillRig/Upgrades/WellDrillingKit</icon>

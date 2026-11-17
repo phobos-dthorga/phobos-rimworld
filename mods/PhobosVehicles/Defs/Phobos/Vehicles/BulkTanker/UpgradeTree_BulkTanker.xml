@@ -16,7 +16,7 @@
     <nodes>
     <li>
       <key>LiquidTank</key>
-      <label>general tank</label>
+      <label>General tank</label>
       <displayLabel>true</displayLabel>
       <description>A plain baffled tank for liquids: 3,000 units.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/LiquidTank</icon>
@@ -57,7 +57,7 @@
     </li>
     <li>
       <key>InsulatedLiquidTank</key>
-      <label>insulated tank</label>
+      <label>Insulated tank</label>
       <displayLabel>true</displayLabel>
       <description>A lagged tank: 2,700 units. Its contents take about a day to reach the outside temperature, and food spoils half as fast.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/InsulatedLiquidTank</icon>
@@ -99,7 +99,7 @@
     </li>
     <li>
       <key>HighVolumeLiquidTank</key>
-      <label>high-volume tank</label>
+      <label>High-volume tank</label>
       <displayLabel>true</displayLabel>
       <description>A squarer tank that holds more: 3,300 units. A full load slows the truck more.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HighVolumeLiquidTank</icon>
@@ -140,7 +140,7 @@
     </li>
     <li>
       <key>HoseReel</key>
-      <label>second hose reel</label>
+      <label>Second hose reel</label>
       <displayLabel>true</displayLabel>
       <description>A second hose: the pump moves half as much again.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HoseReel</icon>
@@ -177,7 +177,7 @@
       <!-- Vehicles 0.57.0 (W3; owner, 17 Nov 2026: "either", the engine by default and an electric pump as an upgrade). Nothing visible on
            the body, so no overlay; the picture is our deep-cycle battery fitting's, reused. Materials and work authored. -->
       <key>ElectricPump</key>
-      <label>electric pump</label>
+      <label>Electric pump</label>
       <displayLabel>true</displayLabel>
       <description>An electric motor on the pump: it can pump with the engine off, from the battery, until the battery is flat. Quieter, and no fuel burnt while it works.</description>
       <icon>Phobos/VehicleSystems/Fittings/DeepCycleBattery</icon>
@@ -201,7 +201,7 @@
     </li>
     <li>
       <key>TwoCompartments</key>
-      <label>two compartments</label>
+      <label>Two compartments</label>
       <displayLabel>true</displayLabel>
       <description>A bulkhead divides a liquid tank in two, each half with its own fluid. Filled alike, they hold as much as the whole tank.</description>
       <icon>Phobos/VehicleSystems/Tank/TwoCompartments</icon>
@@ -220,7 +220,7 @@
     </li>
     <li>
       <key>ThreeCompartments</key>
-      <label>three compartments</label>
+      <label>Three compartments</label>
       <displayLabel>true</displayLabel>
       <description>A second bulkhead: three fluids at once, one to each hatch.</description>
       <icon>Phobos/VehicleSystems/Tank/ThreeCompartments</icon>
