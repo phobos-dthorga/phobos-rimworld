@@ -112,6 +112,7 @@ load folder or patch.
 | 18 Nov 2026 | Fuel use: **the whole fuel model on by default**, reversing the default of 8 Nov 2026 above; other authors' fuel rates still hold at the nominal cruise the model is normalised to. Not built: the default changes with the engine-load work ([engine loads](vehicle-engine-loads.md)) | owner (the agent had recommended a small extra burn on top of the flat rate) |
 | 18 Nov 2026 | Air drag: **the drivetrain keeps its one fixed drag figure per vehicle class**, the recorded exception to the no-drag rule of 13 Nov 2026; no fitting, accessory, load or upgrade ever changes drag (AGENTS.md) | owner (agent's recommendation) |
 | 18 Nov 2026 | **Working vehicles' fuel joins one ledger of engine loads, with figures re-derived from real power**; each old rate shown beside its new one for the owner to accept or overrule; the generator set's row waits for the owner's ruling ([engine loads](vehicle-engine-loads.md)) | owner's criterion (realism); reading it as the answer is the agent's |
+| 18 Nov 2026 | Engine loads, the owner's rulings: **the generator set keeps today's fuel**, with the real figure recorded as information; **idle at about a quarter of the cruise rate is accepted**; **the air-brake compressor becomes a ledger load**, reopening round two's row; **the possible faults are confirmed before building** ([engine loads](vehicle-engine-loads.md)) | owner (the compressor, idle and order as the agent recommended; the generator set by the owner's own wording) |
 
 ## Open checks
 

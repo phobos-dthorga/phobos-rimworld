@@ -1,7 +1,7 @@
 # Engine loads: a top-down review and a design (18 Nov 2026)
 
-**Status (18 Nov 2026):** A research and design record. Nothing in it is built, and nothing here is tested in game; it reviews
-the vehicle simulation as it stands in D'thorga Framework 0.129.0.
+**Status (18 Nov 2026):** A research and design record, with its code checks done the same day. Nothing in it is built, and nothing
+here is tested in game; it reviews the vehicle simulation as it stands in D'thorga Framework 0.129.0.
 
 The owner asked for a deeper simulation layer: parts the engine drives, such as the alternator and the water pump, take a little
 horsepower from it according to their own load, and so a little chemfuel, with effects reaching three and four links further out.
@@ -15,10 +15,13 @@ look, then the design.
 - **No load takes power from driving today**, and every belt-driven part turns for free.
 - **The loads are not small in fuel.** The game's normal cruise uses about a tenth of an engine's rated power, so each kilowatt a load
   takes adds 2 to 4 % to the fuel burned at a cruise ([worked figures](#how-big-the-loads-are-worked-figures)).
-- **Turning the fuel model on by default halves idle fuel** against Vehicle Framework's rule. That follows from the owner's decision
-  of 18 Nov and is theirs to accept or tune.
+- **Turning the fuel model on by default halves idle fuel** against Vehicle Framework's rule. The owner accepted that (18 Nov 2026).
 - **Re-derived work figures come out 2 to 5 times today's** for the drill rig and the generator set. The table is in
-  [work loads](#work-loads-old-figures-against-re-derived-ones); the generator set's row needs the owner's ruling.
+  [work loads](#work-loads-old-figures-against-re-derived-ones). The generator set keeps today's fuel (owner, 18 Nov 2026), with the
+  real figure recorded beside it.
+- **Three faults in built code were found while checking** ([what the checks found](#what-the-checks-found-18-nov-2026)): lamps and
+  the night heater run on a flat battery with the engine off; the diesel-electric's alternator gives nothing at idle; and the tanker's
+  pump costs nothing above idling. Each was read from the code; none was seen in game.
 
 How to read the citations: `file:line` with no mark was re-read for this record on 18 Nov 2026. A dagger (†) marks a line a survey
 agent read and this record's author did not re-read. Vehicle Framework lines are from its 1.7 decompile, kept in `.local/` and never
@@ -31,6 +34,10 @@ committed; they are marked †.
 | 1 | **The whole fuel model is on by default**: "Fuel use follows engine load" defaults to on, reversing the default of 8 Nov 2026. Other authors' fuel rates still hold at the nominal cruise the model is normalised to | owner (the agent had recommended a small extra burn instead) |
 | 2 | **Air drag stays, as one fixed figure per vehicle class.** It is the recorded exception to the rule of 13 Nov 2026; no fitting, accessory, load or upgrade ever changes drag | owner (agent's recommendation) |
 | 3 | **Work loads join the same ledger, with figures re-derived from real power.** The owner asked which choice was more realistic; re-deriving is, so it is taken as the answer. Each old rate is shown beside its re-derived one for the owner to accept or overrule | owner's criterion (realism); the reading of it as an answer is the agent's |
+| 4 | **The generator set keeps today's fuel** (2 a day idling to 15 at full output), and the record keeps the real figure beside it as information ("it's useful information") | owner (the agent had recommended keeping it through one named figure for what a game watt stands for; that figure stays a proposal under S3) |
+| 5 | **Idle at about a quarter of the cruise rate is accepted**, as the fuel model gives it | owner (agent's recommendation) |
+| 6 | **The air-brake compressor becomes a ledger load**, reopening the row round two argued against | owner (agent's recommendation) |
+| 7 | **Confirm the possible faults and source the missing figures before building** | owner (agent's recommendation); done the same day, below |
 
 ## Where we are, top-down
 
@@ -146,9 +153,9 @@ Two things follow.
 - **Friction, not the road, is most of the fuel at a cruise.** At 12 m/s on a floor the tanker needs 19 kW at the engine and loses 19 kW
   to its own friction.
 - **With the fuel model on, idle burns about a quarter of the cruise rate, where Vehicle Framework burns half.** Decision 1 therefore
-  halves idle fuel for every vehicle with a full ground drivetrain. That is the model as built, with the friction figures as authored;
-  if the owner would rather idle stayed near half, the friction constant (`DrivetrainSpec.FrictionConstant`, 0.03, authored) is the
-  figure to raise.
+  halves idle fuel for every vehicle with a full ground drivetrain. That is the model as built, with the friction figures as authored,
+  and the owner accepted it (decision 5). If play says otherwise, the friction constant (`DrivetrainSpec.FrictionConstant`, 0.03,
+  authored) is the figure to tune.
 
 **A kilowatt at the shaft costs 2.5 kW of fuel** (one over the diesel's indicated efficiency of 0.40), which is 2 to 4 % of the fuel
 at a cruise. For the tanker:
@@ -160,6 +167,24 @@ at a cruise. For the tanker:
 | Air conditioner cooling a hot cab | 5.6 kW (7.5 hp) | +15 % (4.1 a day) | National Academies, table 5-11 |
 | Air compressor, loaded, 1,800 rpm | 3.0 kW (4 hp) | +8 % (2.2 a day) | National Academies, table 5-11 |
 | Radiator fan engaged, 1,800 rpm | 14.9 kW (20 hp) | +39 % (10.8 a day) | National Academies, table 5-11 |
+
+**Measured on a real vehicle.** The University of Minnesota measured every accessory's input power on a hybrid city bus in service
+(Campbell and Kittelson, CTS 09-23, 2009): a 2007 Cummins ISB rated at 194 kW, close to our tanker's 224 kW. Averages over its
+routes in Minneapolis in August and September:
+
+| Accessory | Average input, air conditioning off | Average input, air conditioning on |
+| --- | --- | --- |
+| Engine fan (hydraulic) | 6.3 kW | 6.3 kW |
+| Alternator | 2.3 kW | 1.6 kW, plus 2.9 kW for the air conditioner's fans |
+| Power steering pump | 1.8 kW | 1.8 kW |
+| Air compressor | 0.6 kW | 0.6 kW |
+| Air-conditioner compressor | | 6.1 kW |
+| **All of them** | **11.0 kW** | **19.3 kW** |
+
+A city bus in summer is a hard case (its fan and pumps are hydraulic, and the study's point is that they waste much of what they
+take), but it shows these loads are kilowatts, not watts, on an engine this size. The same report finds the power steering pump
+averaging 45 % efficiency against a peak of 81 %, and the alternator taking more input as engine speed rises while its output stays
+the same. The study did not measure the water pump.
 
 The records called cross-link 5 "honestly small (about 1 %)". That is its share of rated power. Against the fuel a cruise burns, the
 same load is 3 to 6 %, and at idle, where the engine burns a quarter as much, it is four times that again. **Idle and standing work
@@ -216,12 +241,12 @@ its last tidy.
 
 | Load | Driven by | What sets its size | Real figure | Source and standing |
 | --- | --- | --- | --- | --- |
-| **Alternator** | belt | What it **produces**: the loads it carries plus what it is putting into the starting and house batteries, never more than it can supply at that speed, over its efficiency | Efficiency 0.6 today. A trade article gives "a 130-amp alternator in full-field mode siphons 8-10 hp" | Efficiency: authored inside Wikipedia's 55 to 70 %. FleetOwner (Stewart Siegel, 1997), read from the page; it does not say the voltage, and at 14 V that figure means under 30 %, at 28 V 55 to 61 % (our inference). **The 0.6 deserves a second look** |
-| **Water pump** | belt | Engine speed cubed (the pump affinity laws), times the pump's condition | None found | **No source yet: no Def may carry a figure until one is found** |
+| **Alternator** | belt | What it **produces**: the loads it carries plus what it is putting into the starting and house batteries, never more than it can supply at that speed, over its efficiency, which falls as it spins faster | Remy's white paper: "a typical engine efficiency of 40%, a belt efficiency of 98% and an alternator efficiency of 55%", so only 21 % of the fuel's energy reaches the wiring; measured duty-cycle averages of 60.5 % (line-haul tractor, 84 A), 54.1 % (city tractor, 40 A) and 59.1 % (school bus, 102 A). MOTOR magazine: a claw-pole alternator "is only about 50% efficient" | Mike Bradfield, Remy Inc.; MOTOR (2000); both read from the source. **Today's 0.6 sits at the top of the measured averages; the agent recommends 0.55, Remy's typical figure**, with a gentle fall at high speed. FleetOwner's "130-amp alternator in full-field mode siphons 8-10 hp" would mean under 30 % at 14 V and is left as an outlier |
+| **Water pump** | belt | Engine speed cubed (the pump affinity laws), times the pump's condition | A conventional engine-driven pump "in the range of 1 to 2 kW" against 30 to 60 W for a small electric one; on a heavy diesel, "up to 7 kW", needed "only in retarder operation, but not in fired diesel engine operation" | **Unverified**: both read only as search summaries (a ResearchGate paper comparing electric and mechanical pumps; Springer's SN Applied Sciences, 2021, whose page needs a login). No Def carries a figure until a page is read |
 | **Radiator fan** | belt, through its clutch | Engaged above a coolant temperature, with engine speed; a viscous clutch drags a little when released | Engaged: 1.5, 5 and 20 hp at 600, 1,200 and 1,800 rpm. Viscous, released: 1.1, 2.3 and 6 hp | National Academies (2010), table 5-11, from the Technology and Maintenance Council; read from the page |
-| **Air-conditioner compressor** | belt | Cab temperature against its set point; cycles off when the cab is cool | 7.5 hp cooling a hot cab, 3.5 hp holding a cool one, "not including blower" | Same table. FleetOwner gives 5 hp. Moves the 30 A electrical load to the belt, leaving only its blower on the electrical side |
-| **Air-brake compressor** | gear train | Loaded while the tanks fill, a small drag otherwise | Loaded: 1.1, 2.5 and 4 hp at 600, 1,200 and 1,800 rpm. Unloaded: 0.2, 0.5 and 1 hp | Same table. FleetOwner: 3.5 hp loading. **Reopens a row argued against in round two** as "a hub change for an effect under 1 %": the hub change is now paid once, and by the worked figures the effect is about 8 % of cruise fuel while loaded. Agent's proposal |
-| **Power steering pump** | belt | A small constant drag; more while steering at low speed | 0.4, 1.1 and 3 hp unloaded at the three speeds | Same table. FleetOwner: "a constant 3/4 hp" |
+| **Air-conditioner compressor** | belt | Cab temperature against its set point; cycles off when the cab is cool | 7.5 hp cooling a hot cab, 3.5 hp holding a cool one, "not including blower"; 6.1 kW averaged on the Minnesota bus | Same table, and the Minnesota report. NREL: the compressor's power "can be greater than the engine power required to move a mid-sized vehicle 56 km/h (35 mph)" (Farrington, Cuddy, Keyser and Rugh, 1999, read from the paper). FleetOwner gives 5 hp. Moves the 30 A electrical load to the belt, leaving only its blower on the electrical side |
+| **Air-brake compressor** | gear train | Loaded while the tanks fill, a small drag otherwise | Loaded: 1.1, 2.5 and 4 hp at 600, 1,200 and 1,800 rpm. Unloaded: 0.2, 0.5 and 1 hp; 0.6 kW averaged on the Minnesota bus | Same table. FleetOwner: 3.5 hp loading. **Reopened by the owner** (decision 6), against round two's "a hub change for an effect under 1 %": the hub change is now paid once, and by the worked figures the effect is about 8 % of cruise fuel while loaded |
+| **Power steering pump** | belt | A small constant drag; more while steering at low speed | 0.4, 1.1 and 3 hp unloaded at the three speeds; 1.8 kW averaged on the Minnesota bus, a city route with much steering | Same table. FleetOwner: "a constant 3/4 hp" |
 | **Hydraulic pump** | power take-off | The work in hand: rams, a grab, a mast | By application | The table says "varies by application" |
 | **Oil pump** | gear train | Not a load of its own: the model's friction term is "friction and pumping power" and already holds it | | Agent default, to avoid charging it twice (`DrivetrainModel.cs:170-175`) |
 | **Standing work** | power take-off | See [work loads](#work-loads-old-figures-against-re-derived-ones) | | |
@@ -236,20 +261,20 @@ model (load plus friction at the working speed, over 0.40, against the cruise).
 
 | Vehicle | Today | Illustrative real load | Straight through the model | The agent's recommendation |
 | --- | --- | --- | --- | --- |
-| Ullage tanker, pumping | 6 a day in [its record](vehicle-bulk-tanker.md); **no burn for the pump was found in code** (no caller of `ConsumeFuel` in the tank code) | 8 to 15 kW at the shaft, 1,000 rpm | 14 to 19 a day | Re-derive, from the pump's own flow and pressure. Confirm first whether the pump burns anything today |
-| Kelly drill rig, drilling | 40 a day (`CompPhobosDrillRig.cs:14`) | 75 to 150 kW, a quarter to a half of its engine, 1,800 rpm | 56 to 97 a day | Re-derive at a sourced duty. Its 160 tank would then last under three days of drilling: say so in its guide |
+| Ullage tanker, pumping | 6 a day in [its record](vehicle-bulk-tanker.md); **in code, 14 a day: Vehicle Framework's idle half rate, with nothing for the pump** (check C6) | 8 to 15 kW at the shaft, 1,000 rpm | 14 to 19 a day | Re-derive from the pump's flow and pressure: shaft power is flow times pressure over the pump's efficiency. Darley's HM truck pumps, for example, are rated at 946 L a minute at 10.3 bar (HM250) up to 1,892 (HM500), which is about 16 to 33 kW of water power before losses (our arithmetic); a fuel transfer pump works at a fraction of that pressure. Needs a litres figure for the game's pump rate (600 units an hour) |
+| Kelly drill rig, drilling | 40 a day (`CompPhobosDrillRig.cs:14`); its engine demand is already set to half of rated (`CompPhobosDrillRig.cs:100`, authored) | 150 kW, the half of its 300 kW engine the code already asks for, at 1,800 rpm | 97 a day | Re-derive from that existing demand. Makers' figures are engine ratings, not drilling draw: truck-mounted rotary rigs carry 147 to 405 kW engines (Comacchio GEO-T 15, Bauer BG 36, from a search summary). Its 160 tank would last under two days of drilling: say so in its guide |
 | Datum survey truck, scanning | 8 a day (`CompPhobosSurveyTruck.cs:41`) | About 1 kW of instruments through the alternator, at idle | 6.4 a day (worked with the heavy diesel's figures; the truck uses a medium diesel) | Re-derive; it barely moves |
-| Busbar generator set | 2 a day idle to 15 at full output (`Vehicle_GeneratorSet.xml:348-349`) | 100 kW electrical at 1,800 rpm | 6.4 idle, 72 at full output | **The owner's ruling needed**, below |
+| Busbar generator set | 2 a day idle to 15 at full output (`Vehicle_GeneratorSet.xml:348-349`) | 100 kW electrical at 1,800 rpm | 6.4 idle, 72 at full output | **Kept at today's figures** (owner, decision 4); the real figure stays here as information |
 | Talus tipper, tipping | No figure of its own | A ram pump for some seconds | Too brief to matter in a day | A load for the heat and the power, not for the fuel |
 
 **The generator set is where realism and play collide.** Its 2,000 W is the game's watts, which its own record says are not real
 watts. A real 100 kW head would burn 72 a day for the same 2,000 W, which no player would run beside the game's own generator. The
-rule against value loops only forbids being better than that generator, so both figures are legal. The choice:
+rule against value loops only forbids being better than that generator, so both figures are legal.
 
-- **Keep today's fuel, through one named conversion** (the agent's recommendation): a rules-Def figure for how many real watts one of
-  the game's watts stands for, set so full output costs what it costs today (about 6.5, by these figures). The same figure then
-  settles seam 3 for the outlet and the grid hook-up, which today convert one to one.
-- **Use the real figure**, and accept a generator set that is a poor bargain as camp power.
+**The owner kept today's fuel (decision 4), and the real figure stays here as information.** In the ledger the generator head is
+therefore one load whose size follows today's curve (2 a day idling to 15 at full output, worked back to kilowatts), not the real
+head's. A rules-Def figure for how many real watts one of the game's watts stands for (about 6.5 by these sums) would express the same
+thing once, and settle seam 3 for the outlet and the grid hook-up; it stays the agent's proposal under step S3.
 
 **Why re-derived figures are so much larger:** the fuel unit is set by the game's cruise, and that cruise is light (9 to 14 % of rated
 power). Real work that takes a third of an engine therefore costs several times the driving rate. The proportions to the engine are
@@ -351,19 +376,21 @@ Then the loads, in this order (agent's proposal): the ledger with the alternator
 1); the fan and the air conditioner, the two that matter most; the water pump with the belt's slip; the compressor and steering pump;
 the work loads.
 
-## To confirm
+## What the checks found (18 Nov 2026)
 
-Read from the code and not yet confirmed. Each needs the check named before it is called a fault.
+Seven things looked wrong in the first reading. Each was then read in full in the code, at the owner's word (decision 7). **Three are
+faults, two are missing links, one is a stated simplification and one is not a fault.** All of this is read from the code; none of it
+was seen in game, and nothing has been changed.
 
-| # | What looks wrong | The check |
-| --- | --- | --- |
-| C1 | Lamps and heaters may keep running on a flat battery with the engine off: `LoadActive` has no flat-battery test, where the Systems tab's `StateOf` has one (`CompPhobosVehicleSystems.cs:409-427` against `:430-447`) | Read what the drain flow does at zero charge and what the headlights read (`Systems/Headlights.cs`); then one look in game |
-| C2 | An aircraft's cab heater may be charged twice, through bleed air and as a 4 A load (`Powertrain.cs:472`†, `Loadouts_Default.xml:1168-1174`†) | Read both paths for one turbine aircraft |
-| C3 | The house battery's charging surplus is counted twice (a stated simplification at `Systems_HouseBattery.xml:12-14`†) | Settled by charging the alternator for what it produces |
-| C4 | The diesel-electric idles at 450 rpm, below the alternator's cut-in after its pulley, so it may never charge at idle | Work the curve for that drivetrain (`Systems_Electrical.xml:285-305`†, `Drivetrains.xml:258-275`) |
-| C5 | The cab heater reads coolant temperature but takes no heat out of the coolant (`Systems_Cabin.xml:120-147`†) | Read the cooling flows; small, and honest physics says it should |
-| C6 | The tanker's pump: its record says 6 a day, and no burn was found | Read the tank's pumping code for any fuel use |
-| C7 | The Engineer line shows two different "load" figures (`InspectText.cs:56`†, `:168`†) | Read both; S1 removes the second |
+| # | Verdict | What the code does | Where | What would put it right |
+| --- | --- | --- | --- | --- |
+| C1 | **Fault** | **Lamps and the night heater keep running on a flat battery with the engine off.** Whether a load runs (`LoadActive`) never asks about the battery; nothing is shed with the engine off; and charge stops at zero, so the drain simply stops. Headlight beams, work lamps and the night heater (which also keeps burning its chemfuel) all read `LoadActive`. Meanwhile the Systems tab says "no power", from a battery test of its own that also says so with the engine running and the alternator carrying the loads | `CompPhobosVehicleSystems.cs:409-427` against `:430-447`; `Systems/Headlights.cs:63`, `:78`; `Systems/WorkLamps.cs:43`; `src/PhobosFramework/Rules/ElectricsRule.cs:28`; `Systems_Cabin.xml:95`, `Systems_Cooling.xml:264` | One rule for "this load has power": the alternator or the grid carries it, or the battery holds charge. `LoadActive` and the Systems tab both read it. A small fix, possible now or with S1 |
+| C2 | Not a fault | An aircraft's cab heater is two things on one system: its bleed air is the heat (0.5 % of the engine's work) and its 4 A is "for the valves and fan", as its comment says. Nothing is counted twice | `Powertrain.cs:468-474`; `Loadouts_Default.xml:1166-1188` | Nothing |
+| C3 | Stated simplification | While both batteries charge (the starting battery between 90 and 98 %), the same alternator surplus is counted into each | `Systems_HouseBattery.xml:12-14` | The ledger's alternator row: one supply, shared |
+| C4 | **Fault** | **The diesel-electric's alternator gives nothing at idle and never reaches full output.** The alternator turns at 2.5 times engine speed and cuts in at 1,200 rpm. The Goat DE2 and the default diesel-electric idle at 450 rpm (1,125 at the alternator: nothing) and are rated at 1,000 rpm (2,500 at the alternator: about 71 % of its 100 A). A shunter standing with its lights on runs its battery flat. Every other engine of ours idles at 600 rpm or more and gives about a third to a half at idle, as intended | `Systems_Electrical.xml:285-305`, `:333-353`; `Loadouts_TrainsOfTheRim.xml:181-183`; `Drivetrains.xml:262-264` | A drive ratio per engine: the 2.5 becomes a named parameter (MOTOR: an alternator "spins at two to three times the speed of the engine") that a slow engine raises. Fits step S5, where the curve is written once |
+| C5 | Missing link | The cab heater warms the cab from the coolant's temperature but takes no heat out of the coolant: the coolant's flows are combustion, the radiator, the soak, the two engine heaters and fire | `Systems_Cabin.xml:120-147`; `Systems_Cooling.xml:290`, `:321`, `:367`, `:375`, `:387`, `:406` | A heat link beside the ledger: a cold engine idling with the heater on warms more slowly, as a real one does |
+| C6 | **Fault** | **The tanker's engine-driven pump costs nothing above idling.** The tank is not one of the set-up comps that ask for the engine (`IVehicleEngineDemand`); its pump only needs the ignition on. So pumping burns Vehicle Framework's idle half rate, 14 a day for the tanker, not the 6 its record gives, and the engine shows idle: no load, no heat from the pump | `Tanks/CompPhobosTank.cs:65`, `:495`; `Systems/CompPhobosSetUp.cs:347`, `:546-552` | A pump row on the ledger (work loads, above). Its record's 6 a day is corrected there when it is built |
+| C7 | Missing link | The Engineer display shows two load figures that disagree whenever loads are on or work runs: the hub's (with the electrical loads and standing work) and the drive model's (driving alone) | `Presentation/InspectText.cs:56-57`, `:168-169` | S1: one engine state, read by both |
 
 ## Settings to report when this is built
 
@@ -401,6 +428,11 @@ Findings are the sources'; the sizing, the ledger and every recommendation are o
 | Source | What it supports | How it was read |
 | --- | --- | --- |
 | National Research Council and Transportation Research Board, *Technologies and Approaches to Reducing the Fuel Consumption of Medium- and Heavy-Duty Vehicles* (National Academies Press, 2010), chapter 5, tables 5-11 and 5-12 ([chapter](https://www.nationalacademies.org/read/12845/chapter/7)). Table 5-11 is credited there to the Technology and Maintenance Council, table 5-12 to SAE J1343 | Fan, air compressor, air conditioner and power steering power at three engine speeds; the share of time each runs | From the page, 18 Nov 2026 |
+| Jeffrey Campbell and David Kittelson, *Superbus Phase I: Accessory Loads Onboard a Parallel Hybrid-Electric City Bus*, CTS 09-23, University of Minnesota Center for Transportation Studies, August 2009 ([report](https://cts-d10resmod-prd.oit.umn.edu/pdf/cts-09-23.pdf)) | Measured average input power of each accessory on a bus with a 194 kW Cummins ISB; the power steering pump's efficiency; the alternator's input rising with engine speed | From the report's text, 18 Nov 2026 |
+| Mike Bradfield, Remy Inc., *Improving Alternator Efficiency Measurably Reduces Fuel Costs*, white paper, 2015 ([paper](https://cdn.base.parameter1.com/files/base/acbm/ooh/document/2015/03/High-Efficiency-White-Paper.pdf)) | Alternator efficiency 55 % typical; belt 98 %; measured duty-cycle averages of 54.1 to 60.5 %; how its losses grow with speed | From the paper's text; a manufacturer's paper |
+| R. Farrington, M. Cuddy, M. Keyser and J. Rugh, *Opportunities to Reduce Air-Conditioning Loads Through Lower Cabin Soak Temperatures*, NREL/CP-540-26615, National Renewable Energy Laboratory, 1999 ([paper](https://www.osti.gov/servlets/purl/9822)) | An air-conditioning compressor can take more than moving a mid-sized car at 56 km/h | From the paper's text |
+| "Eye on Electronics", MOTOR magazine, May 2000 ([page](https://www.motor.com/magazine-summary/eye-electronics-2-may-2000/)) | A claw-pole alternator about 50 % efficient; 6 kW to drive 200 A; it spins at two to three times engine speed | From the page; author not named there |
+| Darley, HM250, HM350 and HM500 pump sheet, 2023 ([sheet](https://www.darley.com/wp-content/uploads/2022/10/HM250_350_500_2023.pdf)) | Flows and pressures of PTO-driven truck pumps, from which pumping power is worked out | From the sheet's text; it gives no input power |
 | Stewart Siegel, "Smart Accessories", FleetOwner, 1 Nov 1997 ([article](https://www.fleetowner.com/news/article/21660429/smart-accessories)) | Trade figures for the alternator, compressor, air conditioner, steering and fan; "10% of the fuel burned goes to running accessories", which it qualifies with "no one knows precisely" | From the page; a trade article, secondary |
 | Randy Bolig, "Horsepower Ratings: Gross Versus Net", Chevy Hardcore, 18 Nov 2015 ([article](https://www.chevyhardcore.com/news/horsepower-ratings-gross-versus-net)) | A net rating is taken with the alternator and water pump fitted | From the page; secondary. SAE J1349 itself was not read. The article does not mention the fan |
 | Wikipedia, "Alternator (automotive)" | Alternator efficiency of 55 to 70 % | As cited in `AccessoryRules.cs`; secondary, approximate |
@@ -408,9 +440,12 @@ Findings are the sources'; the sizing, the ledger and every recommendation are o
 
 **Unverified: seen only as search summaries, the pages could not be read. No Def may carry these.**
 
-- An air-conditioner compressor's peak draw of 5 to 6 kW (NREL: Rugh, Hovland and Andersen; Farrington and others).
+- An air-conditioner compressor's peak draw of 5 to 6 kW (NREL: Rugh, Hovland and Andersen).
 - Claw-pole alternator efficiency of roughly 40 to 60 %, about 53 % at idle and 42 % at 6,000 rpm (a University of Adelaide thesis).
-- Average accessory power of 11.0 kW with the air conditioner off and 19.3 kW with it on (University of Minnesota, CTS 09-23; the
-  vehicle type was not confirmed).
+- Bosch's peak efficiency of about 65 % for an air-cooled alternator, falling quickly with speed (Bosch "Yellow Jackets" guide, 2003;
+  the copy found is over the fetch limit).
 - Cooling-system losses of 23.5 kW on a light-duty diesel, cut to 3.6 kW with electric pumps and fans (SAE 2005-01-2020).
-- Any figure for a water pump's shaft power.
+- **A water pump's shaft power**: 1 to 2 kW for a conventional car pump (a ResearchGate paper comparing electric and mechanical
+  pumps); up to 7 kW on a heavy diesel, but only under the engine brake (SN Applied Sciences, 2021, behind a login). The ledger's
+  water pump waits for one of these to be read.
+- Truck-mounted rotary drill rigs' engine ratings of 147 to 405 kW (makers' pages, as search summaries; ratings, not drilling draw).
