@@ -24,6 +24,27 @@ NR-1 (US Navy, launched 25 January 1969): a research submarine with two retracta
 
 ## The upgrades
 
+**The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.
+
+<!-- upgrade-tree: Phobos_SeabedCrawler_UpgradeTree -->
+```mermaid
+flowchart TB
+  subgraph alt1 ["Only one of these"]
+    SensorRefit["Sensor refit"]
+    LaboratoryRefit["Laboratory refit"]
+  end
+  BottomingWheels["Bottoming wheels"]
+  Scrubber["Air scrubber"]
+  WetLab["Wet laboratory"]
+  DeepLab["Advanced laboratory"]
+  Hydrophones["Listening array"]
+  ActiveSonar["Sonar set"]
+  WetLab --> DeepLab
+  Hydrophones --> ActiveSonar
+  ActiveSonar --> SensorRefit
+  DeepLab --> LaboratoryRefit
+```
+
 Every row is one Vehicle Framework `UpgradeNode`, with `ingredients` holding its own crafted part (`Vehicles.decompiled.cs:34859`). **Its own research has to be enforced by us.** The node has a `researchPrerequisites` field (`:34855`), but Vehicle Framework never reads it: `CompUpgradeTree.PrerequisitesMet` (`:21674`) checks only `prerequisiteNodes`, so listing a project there would gate nothing. Another session plans an opt-in marker for this, `PhobosEnforceUpgradeResearch` on the `UpgradeTreeDef` with a postfix on `PrerequisitesMet` (not built). Node keys are saved in the game: never rename or remove one. Each node moves a figure that changes an outcome.
 
 | Node key | Upgrade | Own research | Own crafted part | Needs first | Figure it moves |

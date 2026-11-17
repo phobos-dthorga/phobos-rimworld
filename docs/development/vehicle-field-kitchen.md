@@ -115,6 +115,21 @@ set-out pieces with a canvas room, and stores. Marks as there: **[code]** read o
 
 ## Upgrade tree (from its first Def, owner's rule)
 
+**The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.
+
+<!-- upgrade-tree: Phobos_FieldKitchen_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosBillySecondRange["Second range"]
+  PhobosBillyBigKettle["Big kettle"]
+  PhobosBillyInsulatedTent["Insulated tent"]
+  PhobosBillyDiningAnnex["Dining annex"]
+  PhobosBillyWashUp["Wash-up basin (tie-in: DubsBadHygiene)"]
+  PhobosBillyBiggerTank["Bigger water tank (tie-in: DubsBadHygiene)"]
+  classDef tiein stroke-dasharray: 5 5
+  class PhobosBillyWashUp,PhobosBillyBiggerTank tiein
+```
+
 Every node moves a figure that changes an outcome; each visible node gets its own overlay, planned before the first picture.
 
 | Node | Does | Cost [A] |

@@ -109,7 +109,9 @@ vehicles the owner already drives. Our vehicles, their loadouts and art come aft
    `ComponentRequirement` for damage states; VF 1.6 decompile, `Vehicles.decompiled.cs:6219`). Upgrades are additive on saves: a
    new node later is fine, a removed or renamed node key is not (VF saves the unlocked keys and skips a key it cannot find on load,
    `CompUpgradeTree.ReloadUnlocks`, `:21884`). Parts stay fixed per Def and append-only; a node changes stats, comps, overlays and
-   labels, never the parts list.
+   labels, never the parts list. **A tree branches only where one upgrade does nothing, or makes no physical sense, without
+   another** (owner, 17 Nov 2026; the rule and its four kinds of link are in AGENTS.md, "Upgrade trees"), and each tree's design
+   record carries its diagram, drawn and held current by `scripts/check-upgrade-trees.py`.
 9. **Parts by role, from providers** (owner, 8 Nov 2026; **reversed by the owner on 9 Nov 2026:** our part items now always exist in
    D'thorga Framework and set repair costs, with other mods' accepted only where they make sense; see
    [vehicle health, slice 3](vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026). The text and table below are kept as written. **Refined by the owner on

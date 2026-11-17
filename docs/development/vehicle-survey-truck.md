@@ -210,6 +210,24 @@ seismic reflection, depth of investigation or borehole logging. Deep ore is the 
 
 ## Upgrade tree
 
+**The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.
+
+<!-- upgrade-tree: Phobos_SurveyTruck_UpgradeTree -->
+```mermaid
+flowchart TB
+  subgraph alt1 ["Only one of these"]
+    GeophoneArray["Geophone array"]
+    RadiometricProbe["Radiometric probe"]
+  end
+  LongRangeArray["Long-range array"]
+  PoweredArray["Powered array"]
+  SurveyBattery["Large battery"]
+  WorkLights["Work lights"]
+  Hydrogeology["Groundwater sensor (tie-in: DubsBadHygiene)"]
+  classDef tiein stroke-dasharray: 5 5
+  class Hydrogeology tiein
+```
+
 Vehicle Framework nodes (`UpgradeNode`: `work`, `ingredients`, `researchPrerequisites`, `prerequisiteNodes`, `disableIfUpgradeNodesEnabled`,
 `graphicOverlays`, `refundFraction` 0.5; from the code, `Vehicles.decompiled.cs:34815-34866`). `StatUpgrade` sets or adds stats
 (`:33992-34218`); `CompUpgrade` activates a comp, creating it if missing (`:33709-33785`). **No node changes the parts list** (principle 8).

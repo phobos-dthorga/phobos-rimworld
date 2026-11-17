@@ -85,6 +85,7 @@ python -m unittest discover -s tests
 dotnet test tests/<Project>             each rule-test project whose rules you changed
 python scripts/check-factory-patches.py (needs the installed game; for Factory Additions and its tie-ins)
 python scripts/check-vehicle-schemas.py (offline; for the vehicle systems' systems and loadouts)
+python scripts/check-upgrade-trees.py   (offline; our upgrade trees and their diagrams; show prints them, --write redraws)
 python scripts/deploy.py --build --apply --all   (with RimWorld closed)
 ```
 

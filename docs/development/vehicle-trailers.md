@@ -452,6 +452,46 @@ heating: Dubs' boiler cannot heat faster than its store fills. The waste tank ho
 nothing; Dubs' colonists empty it into sludge drums at half full, as Dubs does a septic tank whose draining is allowed, and our tanker can pump it
 from beside the trailer's rear. Its upgrades are the water bowser's two and the third shower. The dry-goods locker is not built.
 
+## Upgrade trees as they stand
+
+**The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.
+
+### The Pintle flatbed
+
+<!-- upgrade-tree: Phobos_FlatbedTrailer_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosTrailerHighSides["Greedy boards"]
+```
+
+### The fuel bowser
+
+<!-- upgrade-tree: Phobos_FuelBowser_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosBowserLagging["Lagged tank"]
+  PhobosBowserSecondHose["Second hose"]
+```
+
+### The water bowser (Dubs Bad Hygiene)
+
+<!-- upgrade-tree: Phobos_WaterBowser_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosBowserLagging["Lagged tank"]
+  PhobosBowserSecondHose["Second hose"]
+```
+
+### The shower trailer (Dubs Bad Hygiene)
+
+<!-- upgrade-tree: Phobos_ShowerTrailer_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosBowserLagging["Lagged tank"]
+  PhobosBowserSecondHose["Second hose"]
+  PhobosShowerThirdShower["Third shower"]
+```
+
 ## Questions for the owner
 
 **Answered by the owner, 13 Nov 2026:** (1) **the first batch is the base with the water and fuel bowsers** (Q0, Q3, Q4), the

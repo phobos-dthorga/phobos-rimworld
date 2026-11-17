@@ -189,6 +189,24 @@ Deepchem is an item Def with deep-resource fields (`query-defs VCHE_Deepchem`); 
 
 ## Upgrade tree
 
+**The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.
+
+<!-- upgrade-tree: Phobos_DrillRig_UpgradeTree -->
+```mermaid
+flowchart TB
+  subgraph alt1 ["Only one of these"]
+    DiamondBit["Diamond core bit"]
+    RcHammer["RC hammer"]
+  end
+  TallMast["Tall mast"]
+  ElectricPowerPack["Electric power pack"]
+  WorkLights["Work lights"]
+  WellDrillingKit["Oil well kit (tie-in: Rimefeller)"]
+  DeepchemHead["Deepchem head (tie-in: VanillaChemfuelExpanded)"]
+  classDef tiein stroke-dasharray: 5 5
+  class WellDrillingKit,DeepchemHead tiein
+```
+
 Vehicle Framework nodes (`UpgradeNode`: `work`, `ingredients`, `researchPrerequisites`, `prerequisiteNodes`, `disableIfUpgradeNodesEnabled`,
 `graphicOverlays`, `refundFraction` 0.5; VF 1.6 decompile `Vehicles.decompiled.cs:34815-34866`); `StatUpgrade` moves a stat (`:33992-34218`),
 `CompUpgrade` activates a comp (`:33709-33785`). Node keys are stable once a save can hold them; every figure below is authored.

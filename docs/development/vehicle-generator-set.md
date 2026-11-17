@@ -222,6 +222,19 @@ sleeping near a running set was offered as a job for it and not taken.
 
 ## Upgrade tree
 
+**The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.
+
+<!-- upgrade-tree: Phobos_GeneratorSet_UpgradeTree -->
+```mermaid
+flowchart TB
+  BiggerAlternator["Uprated alternator"]
+  CableReel["Cable reel"]
+  BatteryBuffer["Battery buffer"]
+  HeatRecovery["Exhaust heat exchanger"]
+  HeavyFan["Heavy-duty fan"]
+  PhobosServiceLead["Service lead"]
+```
+
 Every node moves a figure; none changes the parts list (principle 8). Node keys are stable once a save can hold them.
 
 | Node key | Figure it moves | Cost | Research | Prerequisite or exclusive with | Look |

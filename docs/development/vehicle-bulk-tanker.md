@@ -208,6 +208,42 @@ hold it on: a tank swap leaves them in place. The compartments hold their tank o
 day and left flat: their upgrades are independent of each other, or already chained (the Seabed Crawler) or exclusive where they should
 be (the drill rig's bits, the tipper's bodies, the survey truck's sensors).
 
+**The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.
+
+<!-- upgrade-tree: Phobos_Tanker_UpgradeTree -->
+```mermaid
+flowchart TB
+  subgraph alt1 ["Only one of these"]
+    LiquidTank["General tank"]
+    InsulatedLiquidTank["Insulated tank"]
+    HighVolumeLiquidTank["High-volume tank"]
+    PressureVessel["Pressure vessel (tie-in: TankerVessels)"]
+    LightPressureVessel["Light vessel (tie-in: TankerVessels)"]
+    HeavyWallVessel["Heavy-wall vessel (tie-in: TankerVessels)"]
+  end
+  HoseReel["Second hose reel"]
+  ElectricPump["Electric pump"]
+  TwoCompartments["Two compartments"]
+  ThreeCompartments["Three compartments"]
+  TwoCompartments --> ThreeCompartments
+  any1(("any one"))
+  LiquidTank -.- any1
+  InsulatedLiquidTank -.- any1
+  HighVolumeLiquidTank -.- any1
+  any1 ==>|holds it on| TwoCompartments
+  any2(("any one"))
+  LiquidTank -.- any2
+  InsulatedLiquidTank -.- any2
+  HighVolumeLiquidTank -.- any2
+  PressureVessel -.- any2
+  LightPressureVessel -.- any2
+  HeavyWallVessel -.- any2
+  any2 --> ElectricPump
+  any2 --> HoseReel
+  classDef tiein stroke-dasharray: 5 5
+  class PressureVessel,LightPressureVessel,HeavyWallVessel tiein
+```
+
 ## Bulk trading and quests (owner's decisions, 9 Nov 2026; not built)
 
 **Bulk buying only at a settlement the player has travelled to**, with the tanker in the caravan: "the player should have reasons to go out and explore, not an easy way to sit at home". No buying from visiting traders or orbital traders. **As built, 9 Nov 2026 (Framework 0.38.0, Vehicles 0.16.0, Drafts; not yet tested in game):** a Bulk order button on the caravan, priced by the game's own `TradeUtility.GetPricePlayerBuy` with the caravan's best negotiator, buying only, leaving `RimWorld.TradeDeal` alone: at least seven mods on the owner's list patch its `TryExecute`. What a settlement offers is its trader's own `WillTrade`. It lets the player fill up far from home; it stops them buying from home, or buying the same fluid at one settlement twice in 15 days (authored); it changes the tanker into a reason to travel. The amount is set in a small window with the game's own count control, `TransferableUIUtility.DoCountAdjustInterface` (Framework 0.39.0, owner's choice: interfaces follow the game's patterns), which needs no patch. Agent's choice: fluids that exist only in pipes are not sold. **Quests come later**, generic and in the Framework, so other vehicles of ours can use them too.

@@ -303,6 +303,14 @@ delivered, record the delivery in the changelog or design record, and add or ame
   tree shaped by the vehicle, every node moving a figure that changes an outcome, node keys stable once a save can hold them; the
   base body is drawn bare and every visible node is its own overlay set, planned before the first picture
   (`docs/development/utility-vehicles-design.md`, principle 8).
+- **Upgrade trees branch only where one upgrade does nothing, or makes no physical sense, without another** (owner, 17 Nov 2026,
+  after the tanker's flat tree let compartments go on a bare deck). Research paces progress; a tree never adds gating of its own, and
+  "better with" is no link. Four links, each for its own reason: **either/or** for things that fill the same place (Vehicle Framework's
+  exclusion list, on both nodes); **needs all of** for building on one earlier upgrade (`prerequisiteNodes`); **needs any one of**
+  for alternatives (`PhobosUpgradeAnyOf`); and **holds it on** only for what sits inside or on its parent. Alternatives share a row,
+  dependants sit below, and free-standing upgrades take their own row. A tie-in node may hang from ours, never ours from a tie-in's;
+  other authors' trees are left alone. **`python scripts/check-upgrade-trees.py`** (part of the gate) checks every tree, `show` prints
+  them, and `--write` redraws the Mermaid diagram each tree's design record carries under its `<!-- upgrade-tree: DEFNAME -->` line.
 - **A vehicle accessory uses up something real** (owner, 13 Nov 2026): battery and alternator power, fuel, water or goods from the game
   world. A store such as a water tank runs down as it is used and is refilled by the player's people, never by itself. Gear with nothing
   to plug in (an awning, a roof rack) costs its materials and its weight, with no wear or upkeep (`docs/development/vehicle-accessories.md`).
