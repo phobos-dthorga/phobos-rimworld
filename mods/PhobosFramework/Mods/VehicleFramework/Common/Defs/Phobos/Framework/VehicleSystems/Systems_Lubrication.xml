@@ -267,7 +267,14 @@
     <description>The fuel pump feeds the engine: a damaged one starves it of power, and a ruined one will not let it start. When the setting is on, fuel also thickens below about -8 °C and the engine will not start until the vehicle is warmer.</description>
     <roles>
       <li>FuelPump</li>
+      <!-- Framework 0.123.0 (G11): the fuel tank, where a vehicle's own parts include one (Loadouts_Default.xml finds it by name). -->
+      <li>FuelTank</li>
     </roles>
+    <parameters>
+      <!-- Framework 0.123.0 (cross-links round two F7, the fuel heater): how exposed the fuel is to gelling in the cold. 1 for every vehicle; the
+           fuel heater fitting makes it 0, the block heater's pattern. -->
+      <fuelGelExposure>1</fuelGelExposure>
+    </parameters>
     <quantities>
       <li>
         <!-- Framework 0.55.0. The stages are authored: half a pump feeds a working engine poorly, and under a tenth it cannot feed one at all. -->
@@ -319,6 +326,10 @@
         <derivedFrom>
           <li Class="Phobos.VehicleSystems.Input_Setting">
             <setting>fuelGelling</setting>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <!-- Framework 0.123.0: the fuel heater fitting takes it to 0. -->
+            <parameter>fuelGelExposure</parameter>
           </li>
           <li Class="Phobos.VehicleSystems.Input_Ambient">
             <curve>
@@ -373,5 +384,24 @@
         </effects>
       </li>
     </onEvents>
+    <onPartHit>
+      <li>
+        <!-- Framework 0.123.0, cross-links round three G11: a shot or shrapnel through the tank leaves it leaking (Conditions.xml), as a holed
+             radiator does, at 0.03 severity per hit point (authored, the battery's figure). Never on a tank whose author already made it leak
+             with Vehicle Framework's own reaction, which would leak it twice. Not an animal's bite or Vehicle Framework's hand-brake scratch. -->
+        <role>FuelTank</role>
+        <condition>PhobosVehicleCondition_HoledTank</condition>
+        <perHealthLost>0.03</perHealthLost>
+        <unlessReactor>Vehicles.Reactor_FuelLeak</unlessReactor>
+        <armorCategories>
+          <li>Sharp</li>
+          <li>Blunt</li>
+        </armorCategories>
+        <exceptDamageDefs>
+          <li>Scratch</li>
+          <li>Bite</li>
+        </exceptDamageDefs>
+      </li>
+    </onPartHit>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

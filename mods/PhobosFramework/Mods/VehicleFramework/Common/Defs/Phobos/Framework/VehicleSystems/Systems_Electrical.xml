@@ -38,6 +38,11 @@
            watts for each watt the loads draw; AccessoryRules). 12 here; heavy vehicles set 24, the voltage their loads' amperes were
            authored for (Loadouts_Default.xml). -->
       <systemVolts>12</systemVolts>
+      <!-- Framework 0.123.0, the cold-weather fittings (cross-links round two T8 and F4): 1 until a battery warmer is fitted, whose fitting makes
+           it 0 (the block heater's pattern); and how well the starter turns a cold engine on what the battery gives, which a gear-reduction
+           starter raises to 1.3 (authored). -->
+      <batteryWarmerAbsent>1</batteryWarmerAbsent>
+      <starterAssist>1</starterAssist>
     </parameters>
     <quantities>
       <li>
@@ -79,7 +84,12 @@
           <li Class="Phobos.VehicleSystems.Input_Quantity">
             <quantity>charge</quantity>
           </li>
-          <li Class="Phobos.VehicleSystems.Input_Ambient">
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <!-- Framework 0.123.0 (F4): a gear-reduction starter turns the engine on less of the battery. -->
+            <parameter>starterAssist</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_BatteryTemperature">
+            <!-- The battery's own temperature since Framework 0.123.0 (T8): the air's, or warmed by a battery warmer on shore power. -->
             <curve>
               <points>
                 <li>(-40, 0.3)</li>
@@ -172,7 +182,8 @@
         <unit>Fraction</unit>
         <hidden>true</hidden>
         <derivedFrom>
-          <li Class="Phobos.VehicleSystems.Input_Ambient">
+          <li Class="Phobos.VehicleSystems.Input_BatteryTemperature">
+            <!-- Framework 0.123.0 (T8): a battery warmer on shore power keeps it from freezing. -->
             <curve>
               <points>
                 <li>(-40, 1)</li>
@@ -438,6 +449,35 @@
           <li>Blunt</li>
         </armorCategories>
         <!-- Not an animal's scratch or bite, and not the scratch Vehicle Framework's hand brakes give wheels. -->
+        <exceptDamageDefs>
+          <li>Scratch</li>
+          <li>Bite</li>
+        </exceptDamageDefs>
+      </li>
+      <li>
+        <!-- Framework 0.123.0, cross-links round three G12: a hit on the battery or the alternator cuts into the wiring beside it, and the
+             switched loads on the cut circuits stop working (Conditions.xml). 0.03 severity per hit point, as the shorted battery's; a small
+             nick (below 0.1) does nothing. Authored. -->
+        <role>Battery</role>
+        <condition>PhobosVehicleCondition_ShortedWiring</condition>
+        <perHealthLost>0.03</perHealthLost>
+        <armorCategories>
+          <li>Sharp</li>
+          <li>Blunt</li>
+        </armorCategories>
+        <exceptDamageDefs>
+          <li>Scratch</li>
+          <li>Bite</li>
+        </exceptDamageDefs>
+      </li>
+      <li>
+        <role>Alternator</role>
+        <condition>PhobosVehicleCondition_ShortedWiring</condition>
+        <perHealthLost>0.03</perHealthLost>
+        <armorCategories>
+          <li>Sharp</li>
+          <li>Blunt</li>
+        </armorCategories>
         <exceptDamageDefs>
           <li>Scratch</li>
           <li>Bite</li>

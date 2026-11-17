@@ -38,6 +38,8 @@
       <li><def>PhobosVehicleSystem_Transmission</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_Driver</def></li>
+      <!-- Framework 0.123.0 (cross-links G17): power steering, as on the default heavy loadout. -->
+      <li><def>PhobosVehicleSystem_PowerSteering</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_Humvee</def>

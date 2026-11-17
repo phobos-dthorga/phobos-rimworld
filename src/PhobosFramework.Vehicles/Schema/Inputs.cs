@@ -203,6 +203,8 @@ public class Input_Moving : VehicleSystemInput
 /// 1 while the vehicle drives through darkness with no headlights on (cross-links round three, G9; Framework 0.106.0): it is on a map,
 /// moving, its headlights (if it has any) are not switched on, and the light on its own cell, as the game's light grid gives it, is below
 /// <c>darkBelow</c> (0.3 is the game's own line between dark and lit). Lit roads, lamps and day cost nothing. Read on the rare tick.
+/// Since Framework 0.123.0 it is read for other factions' vehicles too (the light tier's quantities): theirs burn their lights at night
+/// while they move, so only one with no headlights at all is slowed.
 /// </summary>
 public class Input_DarkDriving : VehicleSystemInput
 {
@@ -211,7 +213,7 @@ public class Input_DarkDriving : VehicleSystemInput
     protected override float Raw(SystemContext context)
     {
         Vehicles.VehiclePawn vehicle = context.Vehicle;
-        if (!vehicle.Spawned || !context.Comp.Moving) return 0f;
+        if (!vehicle.Spawned || !context.Comp.MovingNow) return 0f;
         if (context.Comp.Beams.On) return 0f;
         return vehicle.Map.glowGrid.GroundGlowAt(vehicle.Position) < darkBelow ? 1f : 0f;
     }
@@ -221,7 +223,9 @@ public class Input_DarkDriving : VehicleSystemInput
 /// The driver (cross-links round three, G1 with G2; Framework 0.113.0): their fitness to drive, 0 to 1 (<see cref="DriverRule"/>: the game's
 /// consciousness, sight and manipulation, and whether they are tired), or 1 while they are tired. The fittest person in a driving seat
 /// counts, as the one at the wheel; with nobody there (a trailer, an autonomous vehicle, an empty one) or the engine off it reads fit and
-/// rested. Read on the rare tick from the game's own cached capacities.
+/// rested. Read on the rare tick from the game's own cached capacities. Since Framework 0.123.0: someone in a mental break is passed over
+/// (Vehicle Framework already lets nobody in a break drive, VehicleRoleHandler.CanOperateRole, so a vehicle whose only driver breaks
+/// cannot move: G3 is Vehicle Framework's own), and another faction's vehicle is read while it moves (the light tier's quantities).
 /// </summary>
 public class Input_Driver : VehicleSystemInput
 {
@@ -238,11 +242,11 @@ public class Input_Driver : VehicleSystemInput
         double best = -1;
         bool tired = false;
         // Only while the engine runs (drafted, a caravan on the move, flying): a parked vehicle with a tired crew aboard says nothing.
-        if (context.Comp.EngineRunning && context.Vehicle.PawnsByHandlingType.TryGetValue(HandlingType.Movement, out System.Collections.Generic.List<Pawn>? drivers) && drivers != null)
+        if (context.Comp.BeingDriven && context.Vehicle.PawnsByHandlingType.TryGetValue(HandlingType.Movement, out System.Collections.Generic.List<Pawn>? drivers) && drivers != null)
         {
             foreach (Pawn pawn in drivers)
             {
-                if (pawn?.health?.capacities == null) continue;
+                if (pawn?.health?.capacities == null || pawn.InMentalState) continue;
                 bool isTired = pawn.needs?.rest != null && pawn.needs.rest.CurCategory >= RestCategory.Tired;
                 PawnCapacitiesHandler capacities = pawn.health.capacities;
                 double fitness = DriverRule.Fitness(capacities.GetLevel(PawnCapacityDefOf.Consciousness), capacities.GetLevel(PawnCapacityDefOf.Sight),
@@ -275,6 +279,95 @@ public class Input_Fording : VehicleSystemInput
         if (context.Comp.Repairs.Kilograms >= lowIntakeBelowKg) return 0f;
         TerrainDef? terrain = vehicle.Map.terrainGrid.TerrainAt(vehicle.Position);
         return terrain != null && terrain.IsRiver ? context.Parameter("intakeExposure") : 0f;
+    }
+}
+
+/// <summary>
+/// What the move asks of the brakes and the clutch (cross-links round two T4; Framework 0.123.0; BrakeWearRule): <c>Mass</c>, everything
+/// aboard and behind the hitch against the empty mass, from 1 up to <c>most</c>; <c>Speed</c>, the square of the speed the vehicle was
+/// last moving at against its design speed, between <c>least</c> and <c>mostSpeed</c>; or <c>Work</c>, the two multiplied. Without the
+/// drivetrain model all read 1. On the world map a caravan moves at its design speed, so there the speed reads 1.
+/// </summary>
+public class Input_BrakeWork : VehicleSystemInput
+{
+    public enum Reading
+    {
+        Mass,
+        Speed,
+        /// <summary>Both: the mass's factor times the speed's, what one stop asks of the brakes.</summary>
+        Work,
+    }
+
+    public Reading reading = Reading.Mass;
+    /// <summary>The speed factor's floor.</summary>
+    public float least = 0.25f;
+    /// <summary>The mass factor's ceiling.</summary>
+    public float most = 3f;
+    /// <summary>The speed factor's ceiling.</summary>
+    public float mostSpeed = 1.5f;
+
+    protected override float Raw(SystemContext context)
+    {
+        Powertrain? train = context.Comp.Powertrain;
+        if (train == null || !train.Ground) return 1f;
+        double speed = context.Vehicle.Spawned ? BrakeWearRule.SpeedFactor(train.LastMovingSpeed, train.Spec.DesignSpeed, least, mostSpeed) : 1;
+        if (reading == Reading.Speed) return (float)speed;
+        double mass = BrakeWearRule.MassFactor(train.MassKg(), context.Comp.Hitch?.TowedKilograms ?? 0, train.KerbKg, most);
+        return (float)(reading == Reading.Work ? mass * speed : mass);
+    }
+}
+
+/// <summary>
+/// 1 while a vehicle on a map moves through water its wheels can reach (shallow water, marsh or a river: the game's water terrain; land
+/// vehicles keep out of deep water), else 0 (cross-links round three G6, Framework 0.123.0: wet brakes after a ford).
+/// </summary>
+public class Input_Wading : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context)
+    {
+        Vehicles.VehiclePawn vehicle = context.Vehicle;
+        if (!vehicle.Spawned || !context.Comp.MovingNow) return 0f;
+        TerrainDef? terrain = vehicle.Map.terrainGrid.TerrainAt(vehicle.Position);
+        return terrain != null && terrain.IsWater ? 1f : 0f;
+    }
+}
+
+/// <summary>
+/// How dusty the air the engine breathes is, as a multiple of the ordinary (cross-links round three G8, Framework 0.123.0; DustRule): from
+/// the place's yearly rainfall (a desert 3, wet country 1) and, on a map, the weather's sand while the vehicle stands in the open. On the
+/// world map, the caravan's tile.
+/// </summary>
+public class Input_Dust : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context)
+    {
+        Vehicles.VehiclePawn vehicle = context.Vehicle;
+        if (vehicle.Spawned)
+        {
+            Map map = vehicle.Map;
+            return (float)DustRule.Factor(map.TileInfo?.rainfall ?? 1000f, map.weatherManager.SandRate, vehicle.Position.Roofed(map));
+        }
+        Vehicles.World.VehicleCaravan? caravan = vehicle.GetVehicleCaravan();
+        if (caravan == null) return 1f;
+        return (float)DustRule.Factor(Find.WorldGrid[caravan.Tile]?.rainfall ?? 1000f, 0, roofed: false);
+    }
+}
+
+/// <summary>
+/// The battery's temperature: the air's, or at least <c>warmTo</c> while a battery warmer is fitted (the system's <c>batteryWarmerAbsent</c>
+/// below 0.5) and the parked vehicle has shore power (cross-links round two T8, the battery warmer; Framework 0.123.0). Cold-climate plug-in
+/// kits pair a block heater with a battery blanket (general, secondary); warmTo is authored. A simplification: the battery is warm only while
+/// plugged in, and cools to the air at once when the vehicle leaves.
+/// </summary>
+public class Input_BatteryTemperature : VehicleSystemInput
+{
+    public float warmTo = 5f;
+
+    protected override float Raw(SystemContext context)
+    {
+        float air = context.Comp.Ambient;
+        if (context.Parameter("batteryWarmerAbsent") >= 0.5f || context.Comp.EngineRunning || !context.Comp.ShorePowered()) return air;
+        return System.Math.Max(air, warmTo);
     }
 }
 

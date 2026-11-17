@@ -392,6 +392,7 @@ public sealed class Powertrain
             conditions.Speed = intended;
             conditions.Acceleration = Mathf.Clamp((float)((intended - lastSpeed) / seconds), -3f, 3f);
             lastSpeed = intended;
+            LastMovingSpeed = measured;
             ReadGround(vehicle, out conditions.RollingResistance, out conditions.Grip);
             conditions.RollingResistance *= 1 + 2 * comp.RoleShareBelow("Wheels", 0.2f);
             conditions.Grip *= TreadGrip(conditions.Grip) * WeatherGrip(vehicle);
@@ -527,10 +528,18 @@ public sealed class Powertrain
         return gears;
     }
 
+    /// <summary>The speed the vehicle was last seen moving at on a map, in metres a second, kept after it stops: what a stop's brake work reads
+    /// (cross-links T4, Framework 0.123.0). Derived, never saved; 0 until it has moved.</summary>
+    public double LastMovingSpeed { get; private set; }
+
+    /// <summary>What the clutch can hold: a damaged part slips under high load (drivetrain design), and since Framework 0.123.0 (cross-links T4)
+    /// a worn one too, by its wear (BrakeWearRule.ClutchHolds); the worse of the two shares multiplies.</summary>
     double ClutchCapacity()
     {
         float efficiency = comp.PartEfficiency("Clutch", 1f);
-        return efficiency >= 0.5f ? 1 : Math.Max(0.1, efficiency / 0.5f);
+        double part = efficiency >= 0.5f ? 1 : Math.Max(0.1, efficiency / 0.5f);
+        double worn = comp.TryGetQuantity("clutchWear", out float wear) ? BrakeWearRule.ClutchHolds(wear) : 1;
+        return Math.Max(0.1, part * worn);
     }
 
     static Vector3 SubCellPosition(VehiclePawn vehicle)
@@ -704,7 +713,8 @@ public sealed class Powertrain
     public void ApplyFuel(double hours)
     {
         bool followsModel = VehicleFittings.FuelFollowsModel;
-        double tuned = comp.Fittings.TunedFuelFactor;
+        // A stage's fuel factor joins the fittings' (Framework 0.123.0: a clogged air filter, cross-links G8).
+        double tuned = comp.Fittings.TunedFuelFactor * comp.EngineFuelFactor;
         if ((!followsModel && tuned == 1) || !Full || !Ground || hours <= 0) return;
         CompFueledTravel? fuel = comp.Vehicle.CompFueledTravel;
         if (fuel == null || fuel.Props.electricPowered || !comp.EngineRunningRaw) return;

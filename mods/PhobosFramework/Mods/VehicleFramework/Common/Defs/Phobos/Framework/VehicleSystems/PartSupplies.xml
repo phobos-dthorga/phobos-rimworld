@@ -177,6 +177,7 @@
       <li><role>Compressor</role><text>Pumps the air its brakes need. Without it the brakes stay on.</text></li>
       <li><role>HydraulicPump</role><text>Pressurises the oil that moves its rams and motors.</text></li>
       <li><role>HydraulicLines</role><text>Carry hydraulic oil to the working gear.</text></li>
+      <li><role>SteeringPump</role><text>Takes the weight off the steering. Without it a heavy vehicle crawls.</text></li>
     </roleNotes>
     <roles>
       <li>Starter</li>
@@ -188,6 +189,7 @@
       <li>Compressor</li>
       <li>HydraulicPump</li>
       <li>HydraulicLines</li>
+      <li>SteeringPump</li>
     </roles>
     <materials>
       <Steel>12</Steel>

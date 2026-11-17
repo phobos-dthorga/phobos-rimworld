@@ -51,6 +51,8 @@
     <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>1.25</factor><label>engine heat at full load</label></li></parameterFactors>
     <piston>Yes</piston>
     <powerCounts>Yes</powerCounts>
+    <!-- Framework 0.123.0: it opens the boost tune (the Boost axis, below). -->
+    <grants><li>Boost</li></grants>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
@@ -270,6 +272,122 @@
     <statFactors><li><stat>CargoCapacity</stat><factor>0.7</factor></li></statFactors>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
+  <!--
+    Framework 0.123.0, cross-links rounds two and three (owner, 17 Nov 2026: the brakes, the cold-weather pack, dust, and the transmission
+    cooler). Materials, work and skill authored on the same scale as the fittings above; their pictures are stand-ins borrowed from our own
+    nearest icons until the next local art run draws their own (docs/development/art-backlog.md).
+  -->
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- F3, with T4: heavier pads and bigger discs or drums. Wear at stops and on the move both 0.6 (authored). -->
+    <defName>PhobosFitting_HeavyBrakes</defName>
+    <iconPath>Phobos/Vehicles/Parts/BrakePadSet</iconPath>
+    <label>heavy-duty brakes</label>
+    <description>Bigger discs and thicker pads, made for a laden truck. They take a load's stopping in their stride and wear more slowly.</description>
+    <roles><li>Brakes</li></roles>
+    <materials><Steel>50</Steel><ComponentIndustrial>5</ComponentIndustrial></materials>
+    <work>8000</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <parameterFactors>
+      <li><system>PhobosVehicleSystem_Brakes</system><parameter>wearPerStop</parameter><factor>0.6</factor><label>brake wear at each stop</label></li>
+      <li><system>PhobosVehicleSystem_Brakes</system><parameter>wearPerHourMoving</parameter><factor>0.6</factor><label>brake wear on the move</label></li>
+    </parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- F2: a small radiator for the gearbox oil. Its cooling 1.4 (authored). -->
+    <defName>PhobosFitting_TransmissionCooler</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/OilCooler</iconPath>
+    <label>transmission cooler</label>
+    <description>A small radiator for the gearbox oil. The gearbox sheds its heat faster, so it stays cool hauling heavy in hot weather.</description>
+    <roles><li>Transmission</li></roles>
+    <materials><Steel>50</Steel><ComponentIndustrial>5</ComponentIndustrial></materials>
+    <work>10000</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <parameterFactors><li><system>PhobosVehicleSystem_Transmission</system><parameter>coolRate</parameter><factor>1.4</factor><label>gearbox cooling</label></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- F4: a geared starter turns a cold engine on less current. Starting power from the battery x1.3, the charge a start takes x0.7 (authored). -->
+    <defName>PhobosFitting_GearReductionStarter</defName>
+    <iconPath>Phobos/VehicleSystems/Dash/Starter</iconPath>
+    <label>gear-reduction starter</label>
+    <description>A geared starter motor that turns the engine over on less current. A cold engine starts on a tired battery, and each start takes less from it.</description>
+    <roles><li>Starter</li></roles>
+    <materials><Steel>25</Steel><ComponentIndustrial>5</ComponentIndustrial></materials>
+    <work>5000</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <parameterFactors>
+      <li><parameter>starterAssist</parameter><factor>1.3</factor><label>starting power from the battery</label></li>
+      <li><parameter>starterAmpHours</parameter><factor>0.7</factor><label>charge each start takes</label></li>
+    </parameterFactors>
+    <piston>Yes</piston>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- F5: lining for the cab. It meets the outside air at 0.6 the rate and the night heater burns 0.7 as much (authored). -->
+    <defName>PhobosFitting_CabInsulation</defName>
+    <iconPath>Phobos/VehicleSystems/Dash/Cab</iconPath>
+    <label>cab insulation</label>
+    <description>Felt and foam lining behind the cab's panels. The cab holds its warmth or its cool far longer, and the night heater burns less fuel to keep it warm.</description>
+    <roles><li>Cabin</li></roles>
+    <materials><Steel>20</Steel><Cloth>40</Cloth></materials>
+    <work>6000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <parameterFactors>
+      <li><system>PhobosVehicleSystem_Cabin</system><parameter>insulationRate</parameter><factor>0.6</factor><label>heat lost to the outside</label></li>
+      <li><system>PhobosVehicleSystem_Cabin</system><parameter>nightHeaterFuelPerHour</parameter><factor>0.7</factor><label>night heater fuel</label></li>
+    </parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- F7: an electric fuel heater in the line, so the fuel never gels (fuelGelExposure to 0, the block heater's pattern). It matters only with
+         the fuel gelling setting on. -->
+    <defName>PhobosFitting_FuelHeater</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/BlockHeater</iconPath>
+    <label>fuel heater</label>
+    <description>An electric heater in the fuel line and filter. The fuel stays thin in the deepest cold, so the engine starts where the fuel would otherwise have gelled.</description>
+    <roles><li>FuelPump</li></roles>
+    <materials><Steel>20</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
+    <work>5000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <parameterFactors><li><system>PhobosVehicleSystem_Fuel</system><parameter>fuelGelExposure</parameter><factor>0</factor><label>fuel gelling in the cold</label></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- F10, with T8: a battery blanket on shore power (Input_BatteryTemperature). batteryWarmerAbsent to 0, the block heater's pattern. -->
+    <defName>PhobosFitting_BatteryWarmer</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/DeepCycleBattery</iconPath>
+    <label>battery warmer</label>
+    <description>An electric blanket round the battery. Parked beside a powered grid, the battery stays above freezing, so it does not freeze and gives the starter its full strength on a cold morning.</description>
+    <roles><li>Battery</li></roles>
+    <materials><Steel>15</Steel><ComponentIndustrial>2</ComponentIndustrial><Cloth>10</Cloth></materials>
+    <work>4000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <!-- No system named: the 12 V electrics of an electric vehicle carry the same figure. -->
+    <parameterFactors><li><parameter>batteryWarmerAbsent</parameter><factor>0</factor></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- F8, with G8: a bigger, finer air cleaner. It clogs at 0.4 the rate (authored). -->
+    <defName>PhobosFitting_HeavyAirFilter</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/Snorkel</iconPath>
+    <label>heavy-duty air filter</label>
+    <description>A large air cleaner with a pre-filter that spins the dust out first. In deserts and sandstorms the engine keeps its power far longer between services.</description>
+    <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
+    <materials><Steel>30</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>4000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <parameterFactors><li><system>PhobosVehicleSystem_Service</system><parameter>airFilterPerHour</parameter><factor>0.4</factor><label>air filter clogging</label></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
   <!-- Tunes: three named settings to an axis (owner), the default being the engine as built. -->
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
@@ -352,6 +470,52 @@
     <minSkill>5</minSkill>
     <finalDriveFactor>1.2</finalDriveFactor>
     <flatFuelFactor>1.05</flatFuelFactor>
+  </Phobos.VehicleSystems.PhobosVehicleTuneDef>
+
+  <!-- Boost (Framework 0.123.0; owner, 17 Nov 2026): a third axis, offered only with a turbocharger fitted (it grants Boost). Power 0.95, 1 and 1.1
+       and heat 0.9, 1 and 1.25 (authored, the agent's figures from cross-links round two); the fuel follows the power. Taking the turbocharger
+       off stands the boost tune down. Pictures borrowed from the engine tunes until the next art run. -->
+
+  <Phobos.VehicleSystems.PhobosVehicleTuneDef>
+    <defName>PhobosTune_BoostLow</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneEngineEconomy</iconPath>
+    <label>low boost</label>
+    <description>The wastegate opens early. A little less power, and a cooler, gentler engine.</description>
+    <axis>Boost</axis>
+    <order>0</order>
+    <materials><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <work>8000</work>
+    <minSkill>5</minSkill>
+    <powerFactor>0.95</powerFactor>
+    <fuelFactor>0.96</fuelFactor>
+    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>0.9</factor><label>engine heat at full load</label></li></parameterFactors>
+  </Phobos.VehicleSystems.PhobosVehicleTuneDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleTuneDef>
+    <defName>PhobosTune_BoostStandard</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneEngineStock</iconPath>
+    <label>standard boost</label>
+    <description>The turbocharger as fitted.</description>
+    <axis>Boost</axis>
+    <isDefault>true</isDefault>
+    <order>1</order>
+    <work>4000</work>
+    <minSkill>3</minSkill>
+  </Phobos.VehicleSystems.PhobosVehicleTuneDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleTuneDef>
+    <defName>PhobosTune_BoostHigh</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneEnginePower</iconPath>
+    <label>high boost</label>
+    <description>The wastegate held shut longer. More power, paid for in heat and fuel.</description>
+    <axis>Boost</axis>
+    <order>2</order>
+    <materials><ComponentIndustrial>4</ComponentIndustrial></materials>
+    <work>15000</work>
+    <minSkill>8</minSkill>
+    <powerFactor>1.1</powerFactor>
+    <fuelFactor>1.1</fuelFactor>
+    <parameterFactors><li><system>PhobosVehicleSystem_Cooling</system><parameter>heatAtFullLoad</parameter><factor>1.25</factor><label>engine heat at full load</label></li></parameterFactors>
   </Phobos.VehicleSystems.PhobosVehicleTuneDef>
 
   <!-- Enemy sets, by faction tech level (owner, 9 Nov 2026). Stat fittings act at once; power and tunes matter once the vehicle is captured. -->

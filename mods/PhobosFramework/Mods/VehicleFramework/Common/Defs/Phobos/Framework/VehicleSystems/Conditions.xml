@@ -139,6 +139,87 @@
   </Phobos.VehicleSystems.PhobosVehicleConditionDef>
 
   <Phobos.VehicleSystems.PhobosVehicleConditionDef>
+    <!-- Framework 0.123.0, cross-links round three G11: a fuel tank shot through, on a vehicle whose author gave its tank no leak of its own (the
+         rule in Systems_Lubrication.xml passes over a tank with Vehicle Framework's Reactor_FuelLeak). The same ladder as the radiator's, as a
+         share of the tank an hour (authored): a seep loses a full tank in about two days, a bad leak in half a day, a tank torn open in about
+         four hours. Agent-authored text, held for the owner's review. -->
+    <defName>PhobosVehicleCondition_HoledTank</defName>
+    <label>holed fuel tank</label>
+    <description>Shot or shrapnel has holed the fuel tank, and fuel leaks away even with the engine stopped. Repair the tank to stop it, or patch it in the field.</description>
+    <fieldFixable>true</fieldFixable>
+    <stages>
+      <li>
+        <to>0.3</to>
+        <label>seeping</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
+            <perHour>0.02</perHour>
+            <ofCapacity>true</ofCapacity>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <from>0.3</from>
+        <to>0.7</to>
+        <label>leaking</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
+            <perHour>0.08</perHour>
+            <ofCapacity>true</ofCapacity>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <from>0.7</from>
+        <label>pouring out</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_ConsumeFuel">
+            <perHour>0.25</perHour>
+            <ofCapacity>true</ofCapacity>
+          </li>
+        </effects>
+      </li>
+    </stages>
+  </Phobos.VehicleSystems.PhobosVehicleConditionDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleConditionDef>
+    <!-- Framework 0.123.0, cross-links round three G12: a hit on the battery or the alternator cuts a circuit, and the switched loads on it
+         (headlights, heaters, work lamps, the air conditioner) stop working until the part is repaired. Which ones is worked out from the vehicle
+         and the part (WiringRule), so a loaded game shorts the same circuit. A small hit does nothing; the severity per hit point is in
+         Systems_Electrical.xml. Agent-authored text, held for the owner's review. -->
+    <defName>PhobosVehicleCondition_ShortedWiring</defName>
+    <label>shorted wiring</label>
+    <description>A hit has cut into the wiring, and the switched equipment on the damaged circuits no longer works. Repair the part to put it right, or patch it in the field.</description>
+    <fieldFixable>true</fieldFixable>
+    <stages>
+      <li>
+        <from>0.1</from>
+        <to>0.5</to>
+        <label>one circuit dead</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_ShortLoads">
+            <loads>1</loads>
+          </li>
+        </effects>
+      </li>
+      <li>
+        <from>0.5</from>
+        <label>two circuits dead</label>
+        <notable>true</notable>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_ShortLoads">
+            <loads>2</loads>
+          </li>
+        </effects>
+      </li>
+    </stages>
+  </Phobos.VehicleSystems.PhobosVehicleConditionDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleConditionDef>
     <defName>PhobosVehicleCondition_WarpedHead</defName>
     <label>warped cylinder head</label>
     <description>Boiling over has warped the engine's cylinder head. Hot gas leaks into the coolant, so the engine runs hotter, and a badly warped head costs power. Repair the engine to fix a slight warp; a bad one needs the head taken off and machined flat.</description>

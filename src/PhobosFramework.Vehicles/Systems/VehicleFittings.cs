@@ -220,7 +220,7 @@ public sealed class VehicleFittings
     void Recache()
     {
         if (statFactors != null) return;
-        FitFigures figures = FitFigures.Of(fitted.Select(part => (part.def!, PartsOf(part.def!))), tunes);
+        FitFigures figures = FitFigures.Of(fitted.Select(part => (part.def!, PartsOf(part.def!))), ActiveTunes());
         statFactors = figures.Stats;
         parameterFactors = figures.Parameters;
         power = (float)figures.Power;
@@ -525,8 +525,24 @@ public sealed class VehicleFittings
     public bool CanTune(VehicleTuneAxis axis)
     {
         if (!PowerCounts) return false;
-        return axis == VehicleTuneAxis.Engine || comp.Powertrain!.Spec.Transmission is TransmissionKind.Automatic or TransmissionKind.Direct;
+        return axis switch
+        {
+            VehicleTuneAxis.Engine => true,
+            // Framework 0.123.0: boost needs something to boost (the turbocharger grants it).
+            VehicleTuneAxis.Boost => HasBoost,
+            _ => comp.Powertrain!.Spec.Transmission is TransmissionKind.Automatic or TransmissionKind.Direct,
+        };
     }
+
+    /// <summary>The ability a fitting grants that opens the boost axis (the turbocharger).</summary>
+    public const string BoostAbility = "Boost";
+
+    /// <summary>Whether a fitting on the vehicle grants boost (Framework 0.123.0), counted from what is fitted, so a boost tune stands down the
+    /// moment its turbocharger is taken off or lost.</summary>
+    bool HasBoost => fitted.Any(f => f.def != null && f.def.grants.Contains(BoostAbility));
+
+    /// <summary>The tunes that act now: all of them, but a boost tune only while its turbocharger is fitted.</summary>
+    IEnumerable<PhobosVehicleTuneDef> ActiveTunes() => tunes.Where(t => t.axis != VehicleTuneAxis.Boost || HasBoost);
 
     public static IEnumerable<PhobosVehicleTuneDef> TunesOf(VehicleTuneAxis axis) =>
         DefDatabase<PhobosVehicleTuneDef>.AllDefsListForReading.Where(t => t.axis == axis).OrderBy(t => t.order);
@@ -595,7 +611,13 @@ public sealed class VehicleFittings
                 string key = part.props.key;
                 if (taken.Contains(key) || !OptionsFor(part).Contains(fitting)) continue;
                 PhobosVehicleFittingDef? now = FittedOn(key);
-                if (now == fitting || OrderOn(key)?.fitting == fitting) continue;
+                if (now == fitting || OrderOn(key)?.fitting == fitting)
+                {
+                    // Framework 0.123.0: a part that already carries (or awaits) one of the family's fittings is taken by it, so a later fitting
+                    // of the same family for the same part (the battery warmer after the deep-cycle battery) never fits over it, and back.
+                    taken.Add(key);
+                    continue;
+                }
                 if (Refusal(fitting, part) is { } refusal)
                 {
                     firstRefusal ??= refusal;
@@ -738,6 +760,8 @@ public sealed class VehicleFittings
             tunes.RemoveAll(t => t.axis == order.tune.axis);
             if (!order.tune.isDefault) tunes.Add(order.tune);
             text = "PhobosVehicleSystems_TuneDone".Translate(who, vehicle, order.tune.label.Named("SETTING")).Resolve();
+            // The key is built from the tune's name (Framework 0.123.0); config/test-evidence.json lists it as a prefix.
+            Seen.Note("vehicles.tune-done." + order.tune.defName, comp.Vehicle);
         }
         else if (order.remove)
         {
@@ -751,6 +775,7 @@ public sealed class VehicleFittings
             fitted.RemoveAll(f => f.partKey == order.partKey);
             fitted.Add(new FittedPart { partKey = order.partKey, def = order.fitting });
             text = "PhobosVehicleSystems_FitDone".Translate(who, order.fitting!.label.Named("FITTING"), vehicle, PartLabel(order.partKey).Named("PART")).Resolve();
+            Seen.Note("vehicles.fitting-done." + order.fitting.defName, comp.Vehicle, PartLabel(order.partKey));
         }
         orders.Remove(order);
         Changed();

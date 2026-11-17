@@ -96,6 +96,8 @@ public enum VehicleTuneAxis
 {
     Engine,
     Gearing,
+    /// <summary>The turbocharger's boost (Framework 0.123.0; owner, 17 Nov 2026): offered only while a fitting that grants "Boost" is fitted.</summary>
+    Boost,
 }
 
 /// <summary>One named setting of an engine or a gearbox, saved per vehicle: three to an axis (owner), the one marked default as built.</summary>

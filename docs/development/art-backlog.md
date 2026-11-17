@@ -52,6 +52,7 @@ exported with `export_sprite.py --silhouette`, so the game can tint it, and its 
 | Thing | Uses | Status |
 | --- | --- | --- |
 | Billy's canvas walls and door, tent lamp, tent heater | The game's smooth wall atlas and simple door (tinted canvas), standing lamp and heater, by path | **Own pictures in a later batch** (owner, 17 Nov 2026); the wall atlas from a script, as its edges must line up |
+| Framework 0.123.0's seven fittings, three boost tunes and the clutch kit | Our own nearest icons: brake pad set (heavy-duty brakes), oil cooler (transmission cooler), the dashboard's starter and cab lamps (gear-reduction starter, cab insulation), block heater (fuel heater), deep-cycle battery (battery warmer), snorkel (heavy-duty air filter), the engine tunes' three (low, standard, high boost), drivetrain kit (clutch kit) | **Own pictures in the next local run** (owner's choice of stand-ins, 17 Nov 2026) |
 | Pintle P4 shower trailer | The bowsers' body | Kept: the owner's choice (17 Nov 2026) |
 | Submarine test hull | The Crawler's body | Kept: dev-only, cannot be built |
 | Deep hopper and fabrication bay | Vanilla Expanded's art, through their parents | Optional, low priority (below) |

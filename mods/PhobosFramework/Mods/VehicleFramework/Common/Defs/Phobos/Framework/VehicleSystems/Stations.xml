@@ -277,6 +277,7 @@
             <li>PhobosVehicles_TurbineAssembly</li>
             <li>PhobosVehicles_TyreSet</li>
             <li>PhobosVehicles_BrakePadSet</li>
+            <li>PhobosVehicles_ClutchKit</li>
             <li>PhobosVehicles_ServiceKit</li>
             <li>PhobosVehicles_DriveBelt</li>
             <li>ComponentIndustrial</li>

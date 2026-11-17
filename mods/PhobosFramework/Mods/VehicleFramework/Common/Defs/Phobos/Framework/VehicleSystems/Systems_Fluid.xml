@@ -232,4 +232,114 @@
       <work>600</work>
     </service>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
+
+  <!--
+    Power steering (cross-links round three G17, Framework 0.123.0; owner, 17 Nov 2026), on heavy vehicles. A pump driven by the engine and a
+    small reservoir of its own, apart from any working hydraulics, as on real trucks. Without it a vehicle still steers, but with "much more effort,
+    especially in sharp turns and at low speeds" (Nissan's and Mazda's owner's manuals, cited in docs/development/vehicle-crosslinks.md); on a
+    heavy vehicle that is a crawl, x0.6 of speed (authored). The assist is the pump's health and the fluid, not the engine: a parked truck does
+    not show heavy steering. A towed vehicle with its engine off is moved by the vehicle towing it, so its own steering is not read (a limit).
+    Figures authored. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleSystemDef>
+    <defName>PhobosVehicleSystem_PowerSteering</defName>
+    <label>power steering</label>
+    <description>An engine-driven pump that takes the weight off a heavy vehicle's steering. With its fluid low or the pump shot through, the steering is heavy and the driver crawls.</description>
+    <roles>
+      <li>SteeringPump</li>
+    </roles>
+    <quantities>
+      <li>
+        <name>steeringFluid</name>
+        <description>The power steering's fluid. A hit on the pump spills it; low fluid weakens the assist.</description>
+        <label>steering fluid</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Full</startsAt>
+        <stages>
+          <li>
+            <to>0.5</to>
+            <label>low</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgSteeringFluidLow</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>steeringAssist</name>
+        <description>How much help the steering has: the pump and its fluid together.</description>
+        <label>steering assist</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>SteeringPump</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>steeringFluid</quantity>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.4, 0.5)</li>
+                <li>(0.7, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.4</to>
+            <label>steering heavy</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.6</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgSteeringHeavy</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.4</from>
+            <label>assisted</label>
+          </li>
+        </stages>
+      </li>
+    </quantities>
+    <onPartHit>
+      <li>
+        <!-- A hit on the pump or its hoses spills the fluid (authored, the working hydraulics' figure). -->
+        <role>SteeringPump</role>
+        <quantity>steeringFluid</quantity>
+        <perHealthLost>-0.03</perHealthLost>
+      </li>
+    </onPartHit>
+    <service>
+      <label>a power steering top-up</label>
+      <dueQuantity>steeringFluid</dueQuantity>
+      <dueBelow>0.6</dueBelow>
+      <restores>
+        <li>
+          <quantity>steeringFluid</quantity>
+          <value>1</value>
+        </li>
+      </restores>
+      <!-- A litre or two of hydraulic oil, the chemfuel stand-in the working hydraulics use (authored). -->
+      <supplies>
+        <Chemfuel>2</Chemfuel>
+      </supplies>
+      <work>300</work>
+    </service>
+  </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

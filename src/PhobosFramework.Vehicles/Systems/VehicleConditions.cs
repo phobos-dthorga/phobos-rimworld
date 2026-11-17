@@ -96,6 +96,8 @@ public sealed class VehicleConditions
             condition = new VehicleCondition { def = def, partKey = part.props.key, role = role, system = system };
             list.Add(condition);
             comp.RecordEvent(VehicleEventKind.Fault, system, def.defName);
+            // Seen in play (Framework 0.123.0): the key is built from the condition's name; config/test-evidence.json lists it as a prefix.
+            Seen.Note("vehicles.condition." + def.defName, comp.Vehicle, part.props.label ?? part.props.key);
         }
         condition.severity = (float)SeverityRule.Next(condition.severity, amount, 0, 0);
     }

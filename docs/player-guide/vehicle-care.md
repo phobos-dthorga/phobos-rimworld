@@ -56,8 +56,12 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 | **Running hot**, then overheating, then boiling over | A holed radiator, low coolant, hard work in the heat, a snapped drive belt | Stop and let it cool; repair the radiator; a **coolant top-up**, due at 60% |
 | Oil low, hot or losing pressure | Oil burns as the engine runs, faster when worn; a damaged oil pump | A **service** tops it up |
 | Slower, then failing tyres | Tread wears, up to three times as fast off the roads | A service with a **tyre set** |
-| Slower, then **won't drive** | Brakes wear with every stop | A service with a **brake pad set** |
+| Slower, then **won't drive** | Brakes wear with every stop, faster laden, towing or fast | A service with a **brake pad set**; **heavy-duty brakes** wear slower |
 | Loses its top gears, slips under load | A damaged gearbox or clutch | Repair the gearbox and clutch |
+| **Clutch slipping**, then **won't drive** | The clutch wears a little at each take-off, more with a heavy load | A new clutch with a **clutch kit** |
+| A little slower after crossing water | **Wet brakes**: the driver takes it gently | Nothing: a short drive dries them |
+| Slower and thirstier in the desert | **A clogged air filter**: dust, far worse in a sandstorm | An engine **service** fits a clean one; a **heavy-duty air filter** clogs slower |
+| A heavy truck **crawls** | **Power steering** failed: its pump is hit or its fluid low | Repair the pump; a **power steering top-up** (2 chemfuel) |
 | **Low air**, then **won't drive** | Air brakes on heavy trucks need air: a leak, a damaged compressor, or standing for hours | At **low air**, keep the engine running; below it the brakes lock until it idles a few minutes |
 | A weak fuel pump after running out of fuel | Running the tank dry with the engine on costs the pump 5 % | Keep some fuel in the tank; repair the pump |
 | **Won't start** below about -8 °C | Cold fuel gels (only with the **cold fuel** setting on) | Warm the vehicle in a heated room |
@@ -65,7 +69,7 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 
 **Services start by themselves when due.** The **Service when possible** button asks for one now. Haulers bring the supplies to the
 vehicle's cargo, then a constructor does the work. A service takes kits made at the parts bench: a **tyre set**, a **brake pad
-set**, an **engine service kit**, a **drive belt**. A colony from before kits existed keeps paying in raw materials until you switch
+set**, a **clutch kit**, an **engine service kit**, a **drive belt**. A colony from before kits existed keeps paying in raw materials until you switch
 off **This colony: services take raw materials instead of kits** in the settings.
 
 **The coolant top-up** takes water from a plumbing pipe beside the parked vehicle with Dubs Bad Hygiene, or 3 chemfuel without it.
@@ -116,6 +120,9 @@ left on still run the battery down.
 
 - **Parts can carry conditions** shown under the part on the Health tab: a holed radiator keeps leaking coolant, a shot battery
   drains itself, a boiled-over engine has a warped head and runs hotter. **Repair the part to full health to clear them.**
+- **A shot-through fuel tank leaks fuel**, even parked, where the vehicle's maker did not already make its tank leak. **A hit on the
+  battery or alternator can short the wiring**: a message names what stopped working (the headlights, a heater...), and the Systems
+  tab says it is dead. Repair the part, or patch it in the field.
 - **Field repairs**: away from a base, a mechanic can patch leaks and shorts with a component from the cargo. A patch slows the damage
   so the vehicle can limp home; it is not a repair.
 - **A destroyed part needs replacing.** At 0% it waits for supplies in the vehicle's cargo and a mechanic; then ordinary repair
@@ -193,8 +200,14 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Fittings** go on one part each: uprated radiator, oil cooler, turbocharger, heavy-duty alternator, deep-cycle battery,
   heavy-duty springs, road tyres, block heater, a snorkel for light vehicles that cross rivers, and a cargo hook for helicopters. **A fitting is lost if its part is destroyed.**
   Wheels are grouped into axles; a choice on an axle is ordered for each of its wheels.
+- **More fittings** (not yet tested in game): **heavy-duty brakes** (wear slower), a **transmission cooler** (a cooler gearbox when
+  hauling heavy in the heat), a **gear-reduction starter** (a cold engine starts on a tired battery), **cab insulation** (on a vehicle
+  with a cab part: the cab keeps its warmth and the night heater burns less), a **fuel heater** (fuel never gels), a **battery warmer**
+  (parked by a powered grid, the battery stays above freezing) and a **heavy-duty air filter** (for deserts). **An engine, a battery and
+  every other part still take one fitting each**, so choose: a snorkel or a heavy-duty air filter, a deep-cycle battery or a warmer.
 - **Tunes** set up the whole engine (economy, stock, power) and the final drive (tall, stock, short). Piston engines only. **A tall
-  final drive cannot make a vehicle faster than it was built to go.**
+  final drive cannot make a vehicle faster than it was built to go.** With a **turbocharger** fitted, a third row, **Boost**, offers low,
+  standard and high boost: high boost gives a tenth more power for more heat and fuel. Take the turbocharger off and the boost stops.
 - **Grades**: **salvaged** parts are cheap, frail and fault-prone, and cannot hold a fitting; **heavy-duty** parts cost more, take
   more punishment and shrug off faults. Choose one when a part is destroyed, or to refit a working part.
 - **It is real work.** Materials are brought, then a mechanic works: a turbocharger on a 5-tonne vehicle is about 12 hours and 100
@@ -205,8 +218,9 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   their own costs.
 - **Rest the mouse on any choice** to see what it would change ("engine power up, fuel burned up" in Plain mode). Its details stay in the strip at the foot of the window until you rest on another choice, so you can move down and scroll them.
 - **Families** (not yet tested in game): above the parts, **Fit all** orders a whole family in one go, on every part it suits; each
-  piece can still be fitted on its own below. The **cold-weather pack** puts a block heater in every engine and a deep-cycle battery
-  in, and switches the night heater on. **All-terrain tyres** go on every wheel: far more grip in mud, sand and snow, a little slower,
+  piece can still be fitted on its own below. The **cold-weather pack** puts a block heater in every engine, a deep-cycle battery, a
+  gear-reduction starter, a fuel heater and cab insulation in, and switches the night heater on. Ordering it again orders only what is
+  missing; a battery warmer goes on a battery only when you choose it there yourself. **All-terrain tyres** go on every wheel: far more grip in mud, sand and snow, a little slower,
   faster wear. New tyres renew the tread: each wheel fitted takes away its share of the wear. **Work lights** fit work lamps to the vehicle's **lamp bracket**; they start switched off, so switch them on where the work is: at night, while the vehicle stands
   still, they light the ground round it so work there goes at daylight pace, drawing on the battery. **Long range** fits an
   **auxiliary fuel tank** to a land vehicle or boat (half as much fuel again) or a **ferry tank** to an aircraft (three quarters as
@@ -244,7 +258,9 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 - **Who drives matters.** A driver who is hurt, drugged, half-blind, one-handed, freezing or tired drives slower: up to a tenth
   slower when merely tired or a little off, a fifth when impaired, three tenths at the very worst. Nothing is ever crashed for it.
   A worse driver also wears tyres and brakes a little faster. **Rest, medicine or a fresh driver put it right**; the vehicle's
-  Systems tab shows how fit its driver is. Someone with one eye still drives near full pace.
+  Systems tab shows how fit its driver is. Someone with one eye still drives near full pace. A driver who breaks down mentally cannot
+  drive at all until it passes or someone else takes the wheel. **Raiders' drivers count too**: a raid with a hurt or tired driver
+  comes in slower, as does a raider with no headlights at night.
 - **Rain, snow and ice take grip.** It only tells where grip is what holds a vehicle back: hills, mud and towing. A laden truck or
   a heavy tow may crawl or stall in a blizzard or on ice that it would pull through in the dry. All-terrain tyres help. The setting
   **Rain, snow and ice take grip** turns it off.

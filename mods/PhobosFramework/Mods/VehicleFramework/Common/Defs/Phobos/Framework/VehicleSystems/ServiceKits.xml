@@ -72,6 +72,30 @@
   </ThingDef>
 
   <ThingDef ParentName="PhobosServiceKitBase">
+    <!-- Framework 0.123.0 (cross-links round two T4): a clutch wears with take-offs and is renewed with this. Its picture is the drivetrain kit's,
+         a stand-in until the next local art run (docs/development/art-backlog.md). Materials, work, mass and value authored. -->
+    <defName>PhobosVehicles_ClutchKit</defName>
+    <label>clutch kit</label>
+    <description>A clutch plate, pressure plate and release bearing for one vehicle. A mechanic fits a new clutch with one loaded aboard.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/DrivetrainKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>45</MarketValue>
+      <Mass>8</Mass>
+      <Flammability>0.3</Flammability>
+      <WorkToMake>900</WorkToMake>
+    </statBases>
+    <costList>
+      <Steel>8</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosServiceKitBase">
     <defName>PhobosVehicles_ServiceKit</defName>
     <label>engine service kit</label>
     <description>Oil, filters and seals for one engine service. A mechanic services an engine with one loaded aboard.</description>

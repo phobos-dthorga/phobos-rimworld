@@ -5,9 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.62.0] - 2026-11-17 - Draft
+
+Power steering on our heavy trucks, with D'thorga Framework 0.123.0
+
+### Added
+
+- **Power steering** (D'thorga Framework 0.123.0's cross-links G17) on the Busbar generator set and on the L-ATV, MaxxPro and HMMWV tie-ins,
+  whose loadouts list their own systems; our other heavy trucks take it from the Framework's heavy loadout. The Busbar also has its fuel tank
+  (which a shot can now hole) and its cab (for cab insulation) named.
+
 ### Changed
 
 - The shower trailer's water heater Def no longer calls its picture a stand-in, and the bulk tanker's seven upgrade icons each have an asset record saying which overlay they were cut from. No change in play.
+
+### Dependencies
+
+- D'thorga Framework 0.123.0.
+
+### Save compatibility
+
+- Safe to add to a running colony: the power steering pump is appended to each truck, whole.
+
+### Compatibility and limits
+
+- No settings changed. Not yet tested in game (row 162 of the test pass).
 
 ## [0.61.1] - 2026-11-17 - Draft
 

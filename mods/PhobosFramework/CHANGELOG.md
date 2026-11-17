@@ -5,12 +5,63 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.123.0] - 2026-11-17 - Draft
+
+Cross-links, round four: brakes and clutches that feel the load, shots that hole tanks and short wiring, wet brakes, dusty filters, power
+steering, the cold-weather pack's new fittings, boost, and raiders who feel a hurt driver and the dark
+
+### Added
+
+- **A shot-through fuel tank leaks** (cross-links G11): a hit on a vehicle's own fuel tank gives it a holed fuel tank, seeping, leaking or
+  pouring out, losing fuel even with the engine off until it is repaired or patched in the field. Only on a tank whose author gave it no leak
+  of its own, so Vanilla Vehicles Expanded's tanks, which already leak, never leak twice.
+- **A hit to the wiring kills a circuit** (G12): a hit on the battery or the alternator can short one or two of the vehicle's switched loads
+  (headlights, heaters, work lamps, the air conditioner). A message names them, the Systems tab says each is dead, and a repair puts them
+  right. The same circuits stay dead after a load, with nothing saved for it.
+- **Brakes and clutches wear by the load** (T4): brake wear grows with everything aboard and behind the hitch (up to three times) and with
+  the speed it is stopped from, so a laden or towing truck needs pads sooner. A new **clutch wear** grows a little at each take-off, more
+  with a heavy load; worn, the clutch slips on a hard pull, and worn through, the vehicle will not drive until a mechanic fits a new one from
+  a **clutch kit** made at the parts bench (8 steel, 1 component; on the depot bay's shelf by default).
+- **Wet brakes after a ford** (G6): driving through shallow water, marsh or a river soaks the brakes, and the driver goes a little slower
+  until about half an hour's driving dries them.
+- **Dust clogs the air filter** (G8): while the engine runs, dust builds up in its filter, three times as fast in a desert and four times
+  faster again in a sandstorm. Clogged, the engine is down on power and burns a tenth more fuel, and calls for its engine service, which
+  fits a clean one. In wet country a filter lasts past its service.
+- **Power steering on heavy vehicles** (G17): heavy land vehicles get a power steering pump and its own fluid. Hit, it spills its fluid; with
+  the fluid low or the pump wrecked, the steering is heavy and the vehicle crawls at about 60 % speed until it is repaired and topped up
+  (a top-up takes 2 chemfuel).
+- **New fittings**: heavy-duty brakes (wear at 0.6), a transmission cooler (gearbox cooling 1.4), a gear-reduction starter (a cold engine
+  starts on a tired battery, and each start takes less), cab insulation (the cab holds its warmth longer and the night heater burns less), a
+  fuel heater (the fuel never gels), a battery warmer (on shore power the battery stays above freezing) and a heavy-duty air filter
+  (clogs at 0.4 the rate). Their pictures are borrowed from our nearest icons until the next art run.
+- **The cold-weather pack** now also orders the gear-reduction starter, the fuel heater and cab insulation.
+- **Boost**, a third tune beside Engine and Gearing, offered only with a turbocharger fitted: low, standard and high boost. High boost gives
+  a tenth more power for a quarter more heat and a tenth more fuel. Taking the turbocharger off stands the boost down.
+- **Raiders feel a hurt driver and the dark**: other factions' vehicles now read their driver's state and driving in the dark, as ours do, so
+  a raid with a hurt or tired driver comes in slower. Raiders burn their headlights at night, so only one with none is slowed by the dark.
+
 ### Changed
 
+- **A driver in a mental break is passed over** when the driver's fitness is read. Vehicle Framework already lets nobody in a break drive, so
+  a vehicle whose only driver breaks cannot move: cross-links G3 was its already, and is recorded so.
+- **A family never fits over its own fitting**: a part that already carries one of a family's fittings is taken by it, so ordering the pack
+  twice orders nothing new (with two fittings for one part, they would have swapped back and forth).
 - The README no longer calls RimWorld 1.6 supported, marks the 0.107.0 and 0.108.0 notes on visible pipes as replaced by the hidden pipes of 0.108.1, and names the former medical mods as parts of D'thorga Medical. No change in play.
 - The README is cut to today's gotchas, a feature list linking the player guide, the settings and links for modders; version notes live in this changelog and the modder material in the new framework modding page. No change in play.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 - The Vehicles at Work tie-in names each of its three helpers in full in its own patch, so the build checks now confirm the helpers and the patches' parameters against the installed mod, as they do for the shot-angle tie-in with Combat Extended. No change in play.
+
+### Save compatibility
+
+- Safe to add to a running colony. Heavy vehicles gain a power steering pump part, appended and whole; fuel tanks and cabs are found among
+  each vehicle's own parts. Clutch wear, the air filter and wet brakes start new and clean.
+
+### Compatibility and limits
+
+- An automatic gearbox's torque converter wears like a clutch here (a simplification). A towed vehicle's own steering is not read. The
+  battery warmer keeps the battery warm only while plugged in. The cab insulation goes only where the vehicle has a cab, upholstery or roof
+  part to fit it to. A part takes one fitting, so the pack's deep-cycle battery and a battery warmer do not go on the same battery.
+- No settings added, removed or changed. New test rows 158 to 164. Not yet tested in game.
 
 ## [0.122.1] - 2026-11-17 - Draft
 

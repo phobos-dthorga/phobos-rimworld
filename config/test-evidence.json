@@ -30,9 +30,20 @@
     "153": ["trailers.field-stove-cooks", "trailers.cold-box-cold"],
     "154": ["trailers.caravan-cooking"],
     "155": ["trailers.shower-plumbing-laid", "trailers.heater-power-saving"],
-    "156": ["trailers.kettle-water-drawn"]
+    "156": ["trailers.kettle-water-drawn"],
+    "158": ["vehicles.condition.PhobosVehicleCondition_HoledTank", "vehicles.condition.PhobosVehicleCondition_ShortedWiring", "vehicles.wiring-shorted"],
+    "159": ["vehicles.stage.clutchWear", "vehicles.fitting-done.PhobosFitting_HeavyBrakes"],
+    "160": ["vehicles.stage.brakesWet", "vehicles.stage.airFilter"],
+    "161": ["vehicles.fitting-done.PhobosFitting_GearReductionStarter", "vehicles.fitting-done.PhobosFitting_FuelHeater", "vehicles.fitting-done.PhobosFitting_CabInsulation", "vehicles.fitting-done.PhobosFitting_BatteryWarmer"],
+    "162": ["vehicles.stage.steeringAssist", "vehicles.stage.steeringFluid"],
+    "163": ["vehicles.tune-done.PhobosTune_BoostHigh", "vehicles.fitting-done.PhobosFitting_TransmissionCooler"],
+    "164": ["vehicles.lite-tier-slowed"]
   },
   "prefixes": {
-    "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)"
+    "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",
+    "vehicles.stage.": "a notable stage entered, by the quantity's name (Framework 0.123.0)",
+    "vehicles.condition.": "a part given a condition, by the condition's defName (Framework 0.123.0)",
+    "vehicles.fitting-done.": "a fitting finished, by its defName (Framework 0.123.0)",
+    "vehicles.tune-done.": "a tune finished, by its defName (Framework 0.123.0)"
   }
 }

@@ -167,8 +167,20 @@ public class PartHitRule
     public List<DamageDef>? damageDefs;
     /// <summary>Never these kinds of damage: Scratch, which Vehicle Framework's hand brakes use on wheels, and animals' bites.</summary>
     public List<DamageDef>? exceptDamageDefs;
+    /// <summary>Not on a part whose author already gave it a reaction of this kind (Framework 0.123.0, cross-links G11: a fuel tank whose
+    /// author made it leak with Vehicle Framework's Reactor_FuelLeak gets no holed tank of ours as well). Named in XML by the class's full name.</summary>
+    public System.Type? unlessReactor;
 
     bool Filtered => armorCategories != null || damageDefs != null;
+
+    /// <summary>Whether the rule may act on this part: false where the part's own author has already given it the reaction named in
+    /// <see cref="unlessReactor"/>.</summary>
+    public bool AppliesTo(VehicleComponent part)
+    {
+        if (unlessReactor == null) return true;
+        List<Reactor>? reactors = part.props?.reactors;
+        return reactors == null || !reactors.Any(reactor => reactor != null && unlessReactor.IsInstanceOfType(reactor));
+    }
 
     /// <summary>What losing this much of the part's health moves the quantity or adds to the condition.</summary>
     public float Amount(float healthLost, float maxHealth) => (float)Phobos.Framework.Vehicles.Rules.PartHitMath.Amount(perHealthLost, perShareLost, healthLost, maxHealth);
@@ -928,4 +940,7 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// <summary>The flight phases, by the flight profiles' names, in which an aircraft on a map is off the ground (Framework 0.119.0, avionics
     /// L3: When_Airborne). In flight on the world map always counts.</summary>
     public List<string> airbornePhases = new();
+    /// <summary>The quantities another faction's vehicle keeps up on the light tier, by name (Framework 0.123.0; owner, 17 Nov 2026): derived
+    /// ones only, read from their inputs on the rare tick, whose stat factors then reach the vehicle (CompPhobosVehicleSystems.UpdateLiteQuantities).</summary>
+    public List<string> liteTierQuantities = new();
 }

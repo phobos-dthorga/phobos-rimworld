@@ -277,6 +277,14 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     // Read once per update and by the inputs during it.
     public bool EngineRunning { get; private set; }
     public bool Moving { get; private set; }
+
+    /// <summary>Whether the vehicle is moving now, on any tier (Framework 0.123.0): the player's from the last update, another faction's (whose
+    /// update does not run) read from its pather on the map.</summary>
+    public bool MovingNow => Tier == DetailTier.Lite ? Vehicle.Spawned && Vehicle.vehiclePather is { Moving: true } : Moving;
+
+    /// <summary>Whether someone is driving it now, on any tier (Framework 0.123.0): the player's while its engine runs, another faction's while
+    /// it moves on the map.</summary>
+    public bool BeingDriven => Tier == DetailTier.Lite ? MovingNow : EngineRunning;
     public float EngineLoad { get; private set; }
     public float Ambient { get; private set; } = 21f;
     float loadAmps;
@@ -357,6 +365,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         {
             if (load.name != name) continue;
             if (load.toggle && !IsOn(load)) return false;
+            if (IsShorted(load)) return false;
             if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
             var context = new SystemContext(this, states[0]);
             if (load.available != null && !load.available.Holds(context)) return false;
@@ -372,6 +381,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         var context = new SystemContext(this, states[0]);
         if (load.available != null && !load.available.Holds(context)) return LoadState.NotFitted;
         if (load.toggle && !IsOn(load)) return LoadState.SwitchedOff;
+        if (IsShorted(load)) return LoadState.Shorted;
         if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return LoadState.Shed;
         if (load.when != null && !load.when.Holds(context)) return LoadState.Idle;
         return TryGetQuantity("charge", out float charge) && charge < PhobosRulesDef.Current<PhobosKnockOutRulesDef>().batteryFlatBelow
@@ -391,6 +401,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         if (states == null || states.Count == 0) return true;
         if (load.toggle && !IsOn(load)) return false;
         if (!LoadAvailable(load)) return false;
+        if (IsShorted(load)) return false;
         if (ElectricsRule.IsShed(load.shedOrder, ShedDepth)) return false;
         return !TryGetQuantity("charge", out float charge) || charge >= flatBelow;
     }
@@ -633,6 +644,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 using (PhobosTiming.Measure("vehicle rare tick / lite"))
                 {
                     if (states != null) SweepPartHealth();
+                    UpdateLiteQuantities();
                 }
                 Beams.Update();
                 // Any faction's burning vehicle cooks off its ammunition (G13): cheap, read only while it burns.
@@ -644,6 +656,43 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 beams?.PutOut();
                 break;
         }
+    }
+
+    /// <summary>
+    /// The few quantities another faction's vehicle keeps up on the light tier (Framework 0.123.0; owner, 17 Nov 2026: raiders feel the driver
+    /// and the dark too): the rules Def's <c>liteTierQuantities</c>, today the driver's fitness (G1, G2) and driving in the dark (G9). Each is
+    /// read from its own inputs and takes its stage quietly (no message, no effect on entering), so only its stat factors reach the vehicle:
+    /// a raid with a hurt or tired driver, or a vehicle with no headlights at night, comes in slower. Nothing else evolves. Read on the rare
+    /// tick: a few capacity reads and one light-grid look per moving vehicle.
+    /// </summary>
+    void UpdateLiteQuantities()
+    {
+        List<string> names = Rules.liteTierQuantities;
+        if (names.Count == 0 || !Usable || Current.Game == null) return;
+        EnsureStates();
+        if (states == null) return;
+        bool changed = false;
+        foreach (SystemState state in states)
+        {
+            if (!Enabled(state)) continue;
+            SystemContext? context = null;
+            foreach (string name in names)
+            {
+                int q = state.Def.QuantityIndex(name);
+                if (q < 0 || state.Def.quantities[q].derivedFrom is not { } inputs) continue;
+                context ??= new SystemContext(this, state);
+                double value = 1;
+                foreach (VehicleSystemInput input in inputs) value *= input.Evaluate(context);
+                state.values[q] = SystemIntegrator.Clamp(value, state.min[q], state.max[q]);
+                int stage = StageOf(state, q);
+                if (stage == state.stage[q]) continue;
+                state.stage[q] = stage;
+                changed = true;
+            }
+        }
+        if (!changed) return;
+        RecacheStatFactors();
+        if (StatFactor(VehicleStatDefOf.MoveSpeed) < 1f) Seen.Note("vehicles.lite-tier-slowed", Vehicle, StatFactor(VehicleStatDefOf.MoveSpeed).ToString("0.##"));
     }
 
     /// <summary>
@@ -823,6 +872,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         shorePowered = null;
         gridCarries = null;
         UpdateShedding();
+        RefreshShortedLoads();
         loadAmps = 0f;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
         Electrics = ReadElectrics();
@@ -869,6 +919,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             if (load.toggle && !IsOn(load)) continue;
             if (load.available != null && !load.available.Holds(context)) continue;
             if (load.when != null && !load.when.Holds(context)) continue;
+            if (IsShorted(load)) continue;
             if (ElectricsRule.IsShed(load.shedOrder, ShedDepth))
             {
                 shedLoads.Add(load.label);
@@ -1051,6 +1102,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                     if (entered.notable && entered.Severe && state.Def.quantities[q].telltale != null) VehicleSystemSounds.Chime(this);
                     // A stage worth a look marks the graphs; not the stages a load works out again (they are not saved).
                     if (entered.notable && state.staged) RecordEvent(VehicleEventKind.Stage, state.Def.defName, state.Def.quantities[q].name, index);
+                    // Seen in play (Framework 0.123.0): the key is built from the quantity's name; config/test-evidence.json lists it as a prefix.
+                    if (entered.notable && state.staged) Seen.Note("vehicles.stage." + state.Def.quantities[q].name, Vehicle, entered.label);
                 }
             }
             StageSpec? current = state.CurrentStage(q);
@@ -1207,7 +1260,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             foreach (PartHitRule rule in state.Def.onPartHit)
             {
                 // Every role the part plays: the health lost is counted once, whichever role's reactor saw it first.
-                if (!PartPlays(part, rule.role) || !rule.Matches(damage)) continue;
+                if (!PartPlays(part, rule.role) || !rule.Matches(damage) || !rule.AppliesTo(part)) continue;
                 float amount = rule.Amount(healthLost, part.MaxHealth);
                 if (!string.IsNullOrEmpty(rule.quantity)) AddToQuantity(rule.quantity, amount);
                 if (rule.condition != null)
@@ -1334,6 +1387,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         RecacheStatFactors();
         MoveRefusal = FirstRefusal(draft: false);
         HealthViewVersion++;
+        // A hit that shorts the wiring (G12, Framework 0.123.0) puts its circuits out at once, not at the next update; a repair brings them back.
+        if (Tier != DetailTier.Full || states.Count == 0) return;
+        RefreshShortedLoads();
+        loadAmps = SumLoads(new SystemContext(this, states[0]));
+        Beams.Update();
     }
 
     /// <summary>Every stage in force, with the context its effects run in: the systems' quantities, then the parts' conditions. The
@@ -1779,6 +1837,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// <summary>The factor on the fuel this aircraft burns on the world map now (Framework 0.110.0, avionics A2; derived, never saved).</summary>
     public float FlightFuelFactor { get; private set; } = 1f;
 
+    /// <summary>The factor the stages put on the fuel the engine burns now (Framework 0.123.0: a clogged air filter; derived, never saved).</summary>
+    public float EngineFuelFactor { get; private set; } = 1f;
+
     /// <summary>The stage labels behind a stat's factor, for the stat card's explanation.</summary>
     public IEnumerable<string> StatFactorReasons(VehicleStatDef stat)
     {
@@ -1800,6 +1861,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         var fresh = new Dictionary<VehicleStatDef, float>();
         float charge = 1f;
         float flightFuel = 1f;
+        float engineFuel = 1f;
         foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
         {
             foreach (VehicleSystemEffect effect in stage.effects)
@@ -1807,6 +1869,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 if (!effect.Active(context)) continue;
                 charge *= effect.ChargeFactor;
                 flightFuel *= effect.FlightFuelFactor;
+                engineFuel *= effect.EngineFuelFactor;
                 foreach (VehicleStatDef stat in DefDatabase<VehicleStatDef>.AllDefsListForReading)
                 {
                     float factor = effect.StatFactor(stat);
@@ -1816,6 +1879,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         }
         ChargeFactor = charge;
         FlightFuelFactor = flightFuel;
+        EngineFuelFactor = engineFuel;
         var changed = new HashSet<VehicleStatDef>(fresh.Keys);
         changed.SymmetricExceptWith(statFactors.Keys);
         foreach (KeyValuePair<VehicleStatDef, float> pair in fresh)
@@ -1838,6 +1902,55 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     }
 
     // ---- Loads ----
+
+    /// <summary>The loads a hit to the wiring has shorted now, by name (cross-links G12, Framework 0.123.0): worked out from the conditions in
+    /// force at each update and whenever a condition changes. Derived, never saved: the same parts give the same circuits (WiringRule).</summary>
+    readonly HashSet<string> shortedLoads = new();
+    readonly List<string> shortedBefore = new();
+    bool shortsLookedOnce;
+
+    /// <summary>Whether a hit to the wiring has shorted this load.</summary>
+    public bool IsShorted(ElectricalLoadSpec load) => shortedLoads.Count > 0 && shortedLoads.Contains(load.name);
+
+    void RefreshShortedLoads()
+    {
+        shortedBefore.Clear();
+        shortedBefore.AddRange(shortedLoads);
+        shortedLoads.Clear();
+        PhobosVehicleLoadoutDef? loadout = Props.loadout;
+        if (conditions != null && conditions.Count > 0 && loadout != null && states != null && states.Count > 0)
+        {
+            List<ElectricalLoadSpec>? candidates = null;
+            foreach (VehicleCondition condition in conditions.All)
+            {
+                StageSpec? stage = condition.CurrentStage;
+                if (stage == null) continue;
+                SystemContext? context = conditions.ContextFor(condition);
+                if (context == null) continue;
+                int howMany = 0;
+                foreach (VehicleSystemEffect effect in stage.effects)
+                {
+                    if (effect.Active(context)) howMany += effect.ShortedLoads;
+                }
+                if (howMany <= 0) continue;
+                candidates ??= loadout.loads.Where(l => l.toggle && LoadAvailable(l)).ToList();
+                int seed = Gen.HashCombineInt(Vehicle.thingIDNumber, GenText.StableStringHash(condition.partKey));
+                foreach (int index in WiringRule.Pick(seed, candidates.Count, howMany)) shortedLoads.Add(candidates[index].name);
+            }
+        }
+        if (!shortsLookedOnce)
+        {
+            // The first look after a load: the circuits a save left shorted are no news.
+            shortsLookedOnce = true;
+            return;
+        }
+        if (Vehicle.Faction != Faction.OfPlayer || loadout == null) return;
+        List<string> fresh = loadout.loads.Where(l => shortedLoads.Contains(l.name) && !shortedBefore.Contains(l.name)).Select(l => l.label).ToList();
+        if (fresh.Count == 0) return;
+        Messages.Message("PhobosVehicleSystems_MsgWiringShorted".Translate(Vehicle.LabelShort.Named("VEHICLE"), fresh.ToCommaList(useAnd: true).Named("LOADS")),
+            Vehicle, MessageTypeDefOf.NegativeEvent);
+        Seen.Note("vehicles.wiring-shorted", Vehicle, string.Join(", ", fresh));
+    }
 
     public bool IsOn(ElectricalLoadSpec load) => loadSwitches.TryGetValue(load.name, out bool on) ? on : load.defaultOn;
 

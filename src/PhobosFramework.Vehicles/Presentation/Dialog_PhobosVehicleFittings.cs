@@ -101,7 +101,7 @@ public class Dialog_PhobosVehicleFittings : Window
         rowsVersion = Fittings.Version;
         rowsUntil = RealTime.LastRealTime + (float)VehicleFittings.DisplayCacheSeconds;
         axes.Clear();
-        foreach (VehicleTuneAxis axis in new[] { VehicleTuneAxis.Engine, VehicleTuneAxis.Gearing })
+        foreach (VehicleTuneAxis axis in new[] { VehicleTuneAxis.Engine, VehicleTuneAxis.Boost, VehicleTuneAxis.Gearing })
         {
             if (Fittings.CanTune(axis)) axes.Add(axis);
         }
@@ -213,7 +213,12 @@ public class Dialog_PhobosVehicleFittings : Window
     {
         FitOrder? order = Fittings.OrderFor(axis);
         PhobosVehicleTuneDef? current = Fittings.Current(axis);
-        string name = axis == VehicleTuneAxis.Engine ? "PhobosVehicleSystems_TuneAxisEngine".Translate() : "PhobosVehicleSystems_TuneAxisGearing".Translate();
+        string name = axis switch
+        {
+            VehicleTuneAxis.Engine => "PhobosVehicleSystems_TuneAxisEngine".Translate(),
+            VehicleTuneAxis.Boost => "PhobosVehicleSystems_TuneAxisBoost".Translate(),
+            _ => "PhobosVehicleSystems_TuneAxisGearing".Translate(),
+        };
         using (new TextBlock(GameFont.Small, TextAnchor.UpperLeft)) Widgets.Label(new Rect(0f, y + 2f, 110f, 24f), name);
         float x = 112f;
         bool plain = VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain;

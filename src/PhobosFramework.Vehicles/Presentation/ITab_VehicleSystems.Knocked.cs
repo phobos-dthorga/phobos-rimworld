@@ -219,10 +219,10 @@ public partial class ITab_VehicleSystems
         {
             LoadState state = comp.StateOf(load);
             if (state == LoadState.NotFitted) continue;
-            bool wrong = state is LoadState.Shed or LoadState.NoPower;
+            bool wrong = state is LoadState.Shed or LoadState.NoPower or LoadState.Shorted;
             if (attentionOnly && !wrong) continue;
             anyShed |= state == LoadState.Shed;
-            anyNoPower |= state == LoadState.NoPower;
+            anyNoPower |= state is LoadState.NoPower or LoadState.Shorted;
             loadScratch.Add(load);
         }
         if (loadScratch.Count == 0) return;
@@ -243,6 +243,7 @@ public partial class ITab_VehicleSystems
                 LoadState.SwitchedOff => ("PhobosVehicleSystems_SysLoadSwitchedOff", PhobosWidgets.Off),
                 LoadState.Shed => ("PhobosVehicleSystems_SysLoadShed", PhobosWidgets.Caution),
                 LoadState.NoPower => ("PhobosVehicleSystems_SysLoadNoPower", PhobosWidgets.Bad),
+                LoadState.Shorted => ("PhobosVehicleSystems_SysLoadShorted", PhobosWidgets.Bad),
                 _ => ("PhobosVehicleSystems_SysLoadIdle", DetailColour),
             };
             string label = load.label.NullOrEmpty() ? load.name : load.label.CapitalizeFirst();

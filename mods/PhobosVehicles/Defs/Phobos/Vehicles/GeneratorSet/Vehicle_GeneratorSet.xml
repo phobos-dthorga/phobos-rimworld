@@ -502,6 +502,8 @@
       <li><def>PhobosVehicleSystem_TractionMotors</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_Driver</def></li>
+      <!-- Framework 0.123.0 (cross-links G17): power steering, as on the default heavy loadout. -->
+      <li><def>PhobosVehicleSystem_PowerSteering</def></li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_RoadDieselElectric</def>
@@ -609,6 +611,35 @@
             <key>TractionMotors</key>
           </li>
         </find>
+      </li>
+      <li>
+        <!-- Framework 0.123.0 (cross-links G11, F5 and G17): the tank a shot can hole, the cab a fitting can insulate, and the power steering
+             pump, as on the default heavy loadout. -->
+        <role>FuelTank</role>
+        <find>
+          <li>
+            <key>FuelTank</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Cabin</role>
+        <find>
+          <li>
+            <key>Cab</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>SteeringPump</role>
+        <add>
+          <key>PhobosSteeringPump</key>
+          <label>power steering pump</label>
+          <health>15</health>
+          <hitWeight>0.2</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
       </li>
     </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>

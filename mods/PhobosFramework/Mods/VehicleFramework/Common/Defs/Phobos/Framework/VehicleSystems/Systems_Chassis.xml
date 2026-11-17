@@ -287,6 +287,37 @@
         </stages>
       </li>
       <li>
+        <!-- Framework 0.123.0, cross-links round three G6: brakes driven through water work less well until light use dries them (the
+             Manitoba Public Insurance driver's handbook and Hyundai's owner's manual, cited in docs/development/vehicle-crosslinks.md). Shallow
+             water, marsh or a river soaks them at once; about half a game hour of driving dries them, or two hours standing (authored). While
+             wet, the driver takes it gently: x0.9 of speed (authored). -->
+        <name>brakesWet</name>
+        <description>How wet the brakes are after driving through water. Wet brakes grip less, so the driver goes gently until a little driving dries them.</description>
+        <label>brakes wet</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <hidden>true</hidden>
+        <stages>
+          <li>
+            <from>0.3</from>
+            <label>wet</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.9</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgBrakesWet</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
         <name>brakeParts</name>
         <description>The state of the brakes themselves. Wrecked, the vehicle cannot be driven.</description>
         <telltale>Phobos/VehicleSystems/Dash/Brake</telltale>
@@ -320,6 +351,11 @@
         <factorParameter>wearPerHourMoving</factorParameter>
         <inputs>
           <li Class="Phobos.VehicleSystems.Input_Moving" />
+          <li Class="Phobos.VehicleSystems.Input_BrakeWork">
+            <!-- T4 (Framework 0.123.0): a laden or towing vehicle, and a fast one, works its brakes harder (BrakeWearRule): the mass up to x3,
+                 the speed's square from x0.25 to x1.5. An empty vehicle at its usual pace wears as before. -->
+            <reading>Work</reading>
+          </li>
           <li Class="Phobos.VehicleSystems.Input_Quantity">
             <!-- G1 (Framework 0.113.0): a driver in a bad way is harder on the machine, up to x1.1 at the worst (authored). Without the
                  driver system, as fit. -->
@@ -333,6 +369,41 @@
             </curve>
           </li>
         </inputs>
+      </li>
+      <li>
+        <!-- G6: water soaks the brakes at once (authored). -->
+        <name>soak</name>
+        <quantity>brakesWet</quantity>
+        <kind>Into</kind>
+        <factor>20</factor>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Wading" />
+        </inputs>
+      </li>
+      <li>
+        <!-- G6: driving out of the water dries them in about half a game hour (authored). -->
+        <name>dryDriving</name>
+        <quantity>brakesWet</quantity>
+        <kind>From</kind>
+        <factor>2</factor>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Moving" />
+          <li Class="Phobos.VehicleSystems.Input_Wading">
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(1, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
+      </li>
+      <li>
+        <!-- G6: standing, they dry in the air in about two hours (authored). -->
+        <name>dryStanding</name>
+        <quantity>brakesWet</quantity>
+        <kind>From</kind>
+        <factor>0.5</factor>
       </li>
     </flows>
     <onEvents>
@@ -348,6 +419,10 @@
             <quantity>brakeWear</quantity>
             <amount>1</amount>
             <scaleByParameter>wearPerStop</scaleByParameter>
+            <!-- T4 (Framework 0.123.0): the stop's work, by the mass stopped and the speed it was stopped from. -->
+            <scaleBy Class="Phobos.VehicleSystems.Input_BrakeWork">
+              <reading>Work</reading>
+            </scaleBy>
           </li>
         </effects>
       </li>
@@ -392,13 +467,56 @@
     <description>The gearbox's oil heats with hard driving, faster in a damaged gearbox. Too hot, the gearbox wears while the vehicle moves.</description>
     <roles>
       <li>Transmission</li>
+      <li>Clutch</li>
     </roles>
     <parameters>
       <heatAtFullLoad>180</heatAtFullLoad>
       <coolRate>2</coolRate>
       <soakRate>0.5</soakRate>
+      <!-- Framework 0.123.0, cross-links round two T4: the clutch's wear at each take-off, before the load's factor (authored: about 1,750
+           take-offs of an empty vehicle before it slips, twice the brake pads' life, as a clutch outlasts pads). -->
+      <wearPerStart>0.0004</wearPerStart>
     </parameters>
     <quantities>
+      <li>
+        <!-- T4 (Framework 0.123.0): a clutch takes up the drive at each take-off and wears, harder the heavier the load behind it (BrakeWearRule;
+             general, secondary: Wikipedia, "Clutch"). Worn, it slips under load in the drivetrain model (Powertrain.ClutchCapacity) and the
+             driver is told; worn through, the vehicle will not drive until a new one is fitted. -->
+        <name>clutchWear</name>
+        <description>How much of the clutch's lining is gone. It wears at each take-off, more with a heavy load. Worn, it slips on a hard pull; worn through, the vehicle will not drive.</description>
+        <wearTrend>true</wearTrend>
+        <telltale>Phobos/VehicleSystems/Dash/Gearbox</telltale>
+        <remainingLabel>clutch</remainingLabel>
+        <label>clutch wear</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.7</from>
+            <to>0.95</to>
+            <label>slipping</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgClutchSlipping</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+          <li>
+            <from>0.95</from>
+            <label>worn through</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_RefuseMove">
+                <reason>PhobosVehicleSystems_RefuseClutchWorn</reason>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
       <li>
         <name>transmissionTemperature</name>
         <description>The gearbox's heat. Hard pulling warms it and moving air cools it.</description>
@@ -469,5 +587,41 @@
         <factorParameter>soakRate</factorParameter>
       </li>
     </flows>
+    <onEvents>
+      <li>
+        <!-- T4: each take-off wears the clutch, by the load it pulls away (the mass's factor, up to x3). -->
+        <eventDef>MoveStart</eventDef>
+        <effects>
+          <li Class="Phobos.VehicleSystems.Effect_AddQuantity">
+            <quantity>clutchWear</quantity>
+            <amount>1</amount>
+            <scaleByParameter>wearPerStart</scaleByParameter>
+            <scaleBy Class="Phobos.VehicleSystems.Input_BrakeWork">
+              <reading>Mass</reading>
+            </scaleBy>
+          </li>
+        </effects>
+      </li>
+    </onEvents>
+    <service>
+      <label>a new clutch</label>
+      <dueQuantity>clutchWear</dueQuantity>
+      <dueAbove>0.7</dueAbove>
+      <restores>
+        <li>
+          <quantity>clutchWear</quantity>
+          <value>0</value>
+        </li>
+      </restores>
+      <!-- Framework 0.123.0: a clutch kit made at the parts bench (ServiceKits.xml); a colony that still accepts raw materials pays what it is made of. -->
+      <supplies>
+        <PhobosVehicles_ClutchKit>1</PhobosVehicles_ClutchKit>
+      </supplies>
+      <rawSupplies>
+        <Steel>8</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </rawSupplies>
+      <work>2000</work>
+    </service>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

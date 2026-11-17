@@ -15,6 +15,8 @@ public enum LoadState
     Running,
     /// <summary>Wanted, but the battery is flat.</summary>
     NoPower,
+    /// <summary>Its circuit is shorted by a hit to the wiring, until the battery or alternator is repaired (Framework 0.123.0, cross-links G12).</summary>
+    Shorted,
 }
 
 /// <summary>Which way a vehicle's battery is going, for the inspect line (Framework 0.104.0). None: steady, full, or nothing worth saying.</summary>

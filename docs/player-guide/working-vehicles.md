@@ -22,6 +22,8 @@ the sea, and five trailers any of them can tow: a flatbed, two bowsers, the Bill
 - **The water bowser exists only with Dubs Bad Hygiene**, and not in its lite mode, which has no plumbing.
 - **A vehicle that is set up cannot drive.** Its engine can still be started, but press **Pack up** before you move it.
 - **Heavy trucks have air brakes**: after standing for hours, draft one and let it idle a few minutes before it will drive.
+- **Heavy trucks have power steering** (not yet tested in game): a hit on its pump spills the fluid, and with it gone the truck crawls
+  until the pump is repaired and topped up. **A laden or towing truck also wears its brakes and clutch faster** than an empty one.
 - **A trailer goes on journeys with the vehicle towing it**, cargo and all (see the towing section of the vehicle care chapter).
 - **Before removing the mod, scrap every one of these vehicles**: they go with it.
 

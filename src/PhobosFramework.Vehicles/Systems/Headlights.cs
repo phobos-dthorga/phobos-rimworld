@@ -51,8 +51,21 @@ public sealed class Headlights
     public bool Lit => light.Lit;
 
     /// <summary>Whether the headlights are switched on and burning by the systems' rules (night), whether or not the setting draws their beam
-    /// on the ground: what the driver sees by (G9).</summary>
-    public bool On => load != null && comp.Tier == DetailTier.Full && comp.LoadActive(load.name);
+    /// on the ground: what the driver sees by (G9). Another faction's burn by the light tier's rule (Framework 0.123.0, now that G9 reaches them).</summary>
+    public bool On
+    {
+        get
+        {
+            if (load == null) return false;
+            VehiclePawn vehicle = comp.Vehicle;
+            return comp.Tier switch
+            {
+                DetailTier.Full => comp.LoadActive(load.name),
+                DetailTier.Lite => vehicle != null && vehicle.Spawned && HeadlightRule.LiteBurns(When_Night.IsNight(vehicle), vehicle.vehiclePather is { Moving: true }),
+                _ => false,
+            };
+        }
+    }
 
     static VehicleSystemsSettings Settings => VehicleSystemsMod.Settings;
 

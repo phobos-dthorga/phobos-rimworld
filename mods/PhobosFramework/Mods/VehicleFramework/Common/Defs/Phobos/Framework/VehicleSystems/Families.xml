@@ -12,11 +12,18 @@
     <defName>PhobosFamily_ColdWeather</defName>
     <iconPath>Phobos/VehicleSystems/Families/ColdWeather</iconPath>
     <label>cold-weather pack</label>
-    <description>A block heater in every engine and a deep-cycle battery, with the night heater switched on: a vehicle ready for winter camps and frozen mornings.</description>
+    <description>A block heater in every engine, a deep-cycle battery, a gear-reduction starter, a fuel heater and an insulated cab, with the night heater switched on: a vehicle ready for winter camps and frozen mornings. A battery takes one fitting, so a battery warmer goes on in place of the deep-cycle battery only when you choose it for that battery yourself.</description>
     <order>1</order>
     <fittings>
       <li>PhobosFitting_BlockHeater</li>
       <li>PhobosFitting_DeepCycleBattery</li>
+      <!-- Framework 0.123.0 (cross-links round two T8, F4, F5 and F7; owner, 17 Nov 2026). A part takes one fitting and the pack fits in this
+           order, so the deep-cycle battery takes the battery first; the warmer goes only on a battery the player chooses it for by hand
+           (or a second battery). A limit of one fitting to a part. -->
+      <li>PhobosFitting_BatteryWarmer</li>
+      <li>PhobosFitting_GearReductionStarter</li>
+      <li>PhobosFitting_FuelHeater</li>
+      <li>PhobosFitting_CabInsulation</li>
     </fittings>
     <switchOn>
       <li>nightHeater</li>

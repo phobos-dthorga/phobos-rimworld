@@ -155,6 +155,19 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.123.0, cross-links round three G11: the vehicle's own fuel tank, by name (ours are FuelTank, Vanilla Vehicles Expanded's
+             Chemtank). Never added: a vehicle whose author drew no tank part has none to hole. -->
+        <role>FuelTank</role>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>fueltank</li>
+              <li>chemtank</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
         <!-- Framework 0.103.0, the long range family (docs/development/vehicle-upgrades-round-two.md): a cradle for an auxiliary fuel tank,
              appended to every fuelled land vehicle and boat so the tank has a part to go on and is lost with it. Health and hit weights
              authored; it sits over the engine's cells so Combat Extended can reach it. -->
@@ -303,6 +316,26 @@
           <hitWeightCE>6</hitWeightCE>
           <cellsOf>Engine</cellsOf>
         </add>
+      </li>
+      <li>
+        <!-- Framework 0.123.0, cab insulation (cross-links round two F5): the cab's own part, by name, for a fitting that belongs to the cab:
+             ours Cab, a part named cabin, Vanilla Vehicles Expanded's Upholstery, else a roof (not any key holding "cab": a cable reel would
+             match). Never added: a vehicle with no such part takes no cab fitting. -->
+        <role>Cabin</role>
+        <find>
+          <li>
+            <key>Cab</key>
+          </li>
+          <li>
+            <keyContains>cabin</keyContains>
+          </li>
+          <li>
+            <keyContains>upholstery</keyContains>
+          </li>
+          <li>
+            <keyContains>roof</keyContains>
+          </li>
+        </find>
       </li>
       <li>
         <!-- Framework 0.103.0, the recovery family: a mounting plate in the front bumper for a winch, appended to every land vehicle so the
@@ -530,7 +563,32 @@
       <li><def>PhobosVehicleSystem_Transmission</def></li>
       <li><def>PhobosVehicleSystem_Cabin</def></li>
       <li><def>PhobosVehicleSystem_Driver</def></li>
+      <!-- Framework 0.123.0, cross-links round three G17 (owner, 17 Nov 2026): power steering on heavy vehicles. -->
+      <li><def>PhobosVehicleSystem_PowerSteering</def></li>
     </systems>
+    <partRoles>
+      <li>
+        <!-- Framework 0.123.0 (G17): the power steering pump, found by name or added beside the engine, which drives it. Health and hit weights
+             authored, a pump's. -->
+        <role>SteeringPump</role>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>steeringpump</li>
+              <li>powersteering</li>
+            </keyContainsAny>
+          </li>
+        </find>
+        <add>
+          <key>PhobosSteeringPump</key>
+          <label>power steering pump</label>
+          <health>15</health>
+          <hitWeight>0.2</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+    </partRoles>
     <loads>
       <li>
         <!-- Framework 0.103.0: the work lamps, once fitted (When_Granted). Two LED floodlights of about 60 W on 24 V, so 5 A (authored).

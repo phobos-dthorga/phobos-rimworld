@@ -162,6 +162,12 @@
       <li>AttackRun</li>
       <li>RunwayLanding</li>
     </airbornePhases>
+    <!-- Framework 0.123.0 (owner, 17 Nov 2026: raiders feel the driver and the dark too): the quantities another faction's vehicle keeps up on the
+         light tier, read on the rare tick. Their stages' stat factors reach the vehicle; nothing else of theirs evolves. -->
+    <liteTierQuantities>
+      <li>driverFitness</li>
+      <li>darkDriving</li>
+    </liteTierQuantities>
   </Phobos.VehicleSystems.PhobosVehicleRulesDef>
 
   <!-- The service: supplies loaded into the vehicle's cargo (hauling), then the work at the vehicle (construction). -->

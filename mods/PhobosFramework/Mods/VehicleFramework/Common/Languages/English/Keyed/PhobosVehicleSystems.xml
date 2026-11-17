@@ -129,6 +129,8 @@
   <PhobosVehicleSystems_SysLoadSwitchedOff>switched off</PhobosVehicleSystems_SysLoadSwitchedOff>
   <PhobosVehicleSystems_SysLoadShed>cut to save the battery</PhobosVehicleSystems_SysLoadShed>
   <PhobosVehicleSystems_SysLoadNoPower>no power: the battery is flat</PhobosVehicleSystems_SysLoadNoPower>
+  <!-- Framework 0.123.0 (G12). -->
+  <PhobosVehicleSystems_SysLoadShorted>dead: its wiring is shorted</PhobosVehicleSystems_SysLoadShorted>
   <PhobosVehicleSystems_SysLoadAmps>{STATE}, {AMPS} A</PhobosVehicleSystems_SysLoadAmps>
   <!-- What feeds a fitting (Framework 0.115.0, W4). {WHAT} is the fitting in words ("the winch"). -->
   <PhobosFeeds_EngineOff>{VEHICLE}'s engine must be running for {WHAT} to work.</PhobosFeeds_EngineOff>
@@ -195,6 +197,14 @@
   <PhobosVehicleSystems_RefuseFuelGelled>The {VEHICLE}'s fuel has thickened in the cold. Warm the vehicle in a heated room, or wait for a warmer day.</PhobosVehicleSystems_RefuseFuelGelled>
   <PhobosVehicleSystems_RefuseBrakesWorn>The {VEHICLE}'s brakes are worn through. A mechanic must fit new pads before it drives.</PhobosVehicleSystems_RefuseBrakesWorn>
   <PhobosVehicleSystems_RefuseBrakesWrecked>The {VEHICLE}'s brakes are wrecked. Repair the vehicle before it drives.</PhobosVehicleSystems_RefuseBrakesWrecked>
+  <!-- Framework 0.123.0: cross-links rounds two and three (T4, G6, G8, G12, G17). -->
+  <PhobosVehicleSystems_RefuseClutchWorn>The {VEHICLE}'s clutch is worn through and can no longer take up the drive. A mechanic must fit a new one before it drives.</PhobosVehicleSystems_RefuseClutchWorn>
+  <PhobosVehicleSystems_MsgClutchSlipping>The {VEHICLE}'s clutch is wearing thin and slips on a hard pull. A mechanic can fit a new one with a clutch kit loaded aboard.</PhobosVehicleSystems_MsgClutchSlipping>
+  <PhobosVehicleSystems_MsgBrakesWet>The {VEHICLE}'s brakes are wet from the water, and the driver is taking it gently until they dry.</PhobosVehicleSystems_MsgBrakesWet>
+  <PhobosVehicleSystems_MsgAirFilterClogged>The {VEHICLE}'s air filter is clogged with dust: the engine is down on power and thirstier. An engine service fits a clean one.</PhobosVehicleSystems_MsgAirFilterClogged>
+  <PhobosVehicleSystems_MsgWiringShorted>A hit has shorted the {VEHICLE}'s wiring: the {LOADS} no longer work. Repairing the damaged part puts them right.</PhobosVehicleSystems_MsgWiringShorted>
+  <PhobosVehicleSystems_MsgSteeringFluidLow>The {VEHICLE}'s power steering is low on fluid. A mechanic can top it up.</PhobosVehicleSystems_MsgSteeringFluidLow>
+  <PhobosVehicleSystems_MsgSteeringHeavy>The {VEHICLE}'s power steering has failed, and the driver crawls with the heavy wheel. Repair the steering pump and top up its fluid.</PhobosVehicleSystems_MsgSteeringHeavy>
   <PhobosVehicleSystems_RefuseAirBrakes>The {VEHICLE}'s air brakes are still held on. Leave the engine running a few minutes to build air pressure.</PhobosVehicleSystems_RefuseAirBrakes>
   <PhobosVehicleSystems_RefuseLiftOff>The {VEHICLE}'s engines cannot lift it as it is: too heavy for this heat, or with engines out. Unload some cargo or passengers, repair its engines, or wait for cooler air.</PhobosVehicleSystems_RefuseLiftOff>
   <PhobosVehicleSystems_RefuseRaisingSteam>The {VEHICLE} has too little steam to move. Keep it drafted with its fire lit until the boiler is up to pressure: from cold that takes hours.</PhobosVehicleSystems_RefuseRaisingSteam>
@@ -369,6 +379,8 @@
   <PhobosVehicleSystems_FitNoParts>Nothing on this vehicle can take a fitting.</PhobosVehicleSystems_FitNoParts>
   <PhobosVehicleSystems_TuneAxisEngine>Engine</PhobosVehicleSystems_TuneAxisEngine>
   <PhobosVehicleSystems_TuneAxisGearing>Gearing</PhobosVehicleSystems_TuneAxisGearing>
+  <!-- Framework 0.123.0: the turbocharger's boost, shown only with one fitted. -->
+  <PhobosVehicleSystems_TuneAxisBoost>Boost</PhobosVehicleSystems_TuneAxisBoost>
   <!-- Framework 0.83.0: a tune's figures in its tooltip, in the Engineer display mode only. -->
   <PhobosVehicleSystems_TuneFigures>In figures, on this vehicle:
 {FIGURES}</PhobosVehicleSystems_TuneFigures>

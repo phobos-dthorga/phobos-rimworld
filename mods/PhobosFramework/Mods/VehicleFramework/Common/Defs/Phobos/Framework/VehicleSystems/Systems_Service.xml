@@ -28,8 +28,47 @@
       <!-- River fording (cross-links round three G7, Framework 0.113.0): how open the engine's air intake is to river water. 1 for every
            engine; the snorkel fitting makes it 0; an electric vehicle has no air intake (0 below). -->
       <intakeExposure>1</intakeExposure>
+      <!-- Framework 0.123.0, cross-links round three G8 (with round two's T7): how fast dust clogs the air filter while the engine runs, before the
+           place's dust (Input_Dust: x1 in wet country, x3 in a desert, x4 more in a sandstorm). 0.0025 an hour is authored: about 280 running
+           hours to clog in wet country, past the 120-hour service, so only dusty country clogs a filter between services. The heavy-duty air
+           filter fitting takes it to 0.4 of this. -->
+      <airFilterPerHour>0.0025</airFilterPerHour>
     </parameters>
     <quantities>
+      <li>
+        <!-- G8: clogged above 0.7, the engine breathes poorly: less power (x0.93 of speed, as the warped head's power loss is shown) and a
+             tenth more fuel (US Army TM 9-2350-222-10-2 on dusty running, cited in docs/development/vehicle-crosslinks.md; the figures are
+             authored). The engine service fits a clean filter. -->
+        <name>airFilter</name>
+        <description>How clogged the engine's air filter is. Dust clogs it while the engine runs, far faster in deserts and sandstorms; clogged, the engine loses power and burns more fuel until it is serviced.</description>
+        <wearTrend>true</wearTrend>
+        <remainingLabel>air filter</remainingLabel>
+        <label>air filter</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <startsAt>Empty</startsAt>
+        <stages>
+          <li>
+            <from>0.7</from>
+            <label>clogged</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>MoveSpeed</stat>
+                <factor>0.93</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_EngineFuel">
+                <factor>1.1</factor>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgAirFilterClogged</message>
+                <type>CautionInput</type>
+              </li>
+            </effects>
+          </li>
+        </stages>
+      </li>
       <li>
         <!-- G7 (owner, 13 Nov 2026: river fording with a snorkel fitting is in). A light vehicle (under 2,000 kg, Input_Fording) with its
              engine running in a river's moving water can draw water into its intake: water does not compress, so it can bend a connecting
@@ -192,6 +231,17 @@
           <li Class="Phobos.VehicleSystems.Input_EngineRunning" />
         </inputs>
       </li>
+      <li>
+        <!-- G8: dust into the filter while the engine runs. -->
+        <name>dust</name>
+        <quantity>airFilter</quantity>
+        <kind>Into</kind>
+        <factorParameter>airFilterPerHour</factorParameter>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_EngineRunning" />
+          <li Class="Phobos.VehicleSystems.Input_Dust" />
+        </inputs>
+      </li>
     </flows>
     <service>
       <label>an engine service</label>
@@ -206,10 +256,19 @@
           <below>0.6</below>
           <setting>lowOilCallsService</setting>
         </li>
+        <li>
+          <!-- G8 (Framework 0.123.0): a clogged air filter calls a mechanic too. -->
+          <quantity>airFilter</quantity>
+          <above>0.7</above>
+        </li>
       </alsoDue>
       <restores>
         <li>
           <quantity>engineHours</quantity>
+          <value>0</value>
+        </li>
+        <li>
+          <quantity>airFilter</quantity>
           <value>0</value>
         </li>
         <li>
@@ -234,8 +293,9 @@
   <Phobos.VehicleSystems.PhobosVehicleSystemDef ParentName="PhobosVehicleSystemServiceBase">
     <defName>PhobosVehicleSystem_ElectricService</defName>
     <parameters>
-      <!-- No air intake to draw water (G7). -->
+      <!-- No air intake to draw water (G7), nor an air filter to clog (G8). -->
       <intakeExposure>0</intakeExposure>
+      <airFilterPerHour>0</airFilterPerHour>
     </parameters>
     <description>An hour meter on the motor. Parts fail now and then as they age, more often once a service is due and far more once it is overdue. A mechanic's service, with a component loaded aboard, checks the motor, the converter and the connections and resets the meter.</description>
     <service>

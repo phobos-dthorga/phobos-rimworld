@@ -35,6 +35,11 @@ public abstract class VehicleSystemEffect
     public virtual string? LaunchWarning(SystemContext context) => null;
     /// <summary>A factor on the fuel an aircraft burns on the world map while the stage lasts (Framework 0.110.0, avionics A2; 1 for no change).</summary>
     public virtual float FlightFuelFactor => 1f;
+    /// <summary>A factor on the fuel the engine burns while the stage lasts, beside the fittings' and tunes' (Framework 0.123.0: a clogged air
+    /// filter; 1 for no change). Read where the drivetrain model settles the burn.</summary>
+    public virtual float EngineFuelFactor => 1f;
+    /// <summary>How many switched loads a hit to the wiring has shorted while the stage lasts (Framework 0.123.0, cross-links G12; 0 for none).</summary>
+    public virtual int ShortedLoads => 0;
     public virtual float StatFactor(VehicleStatDef stat) => 1f;
     /// <summary>A factor on how fast an electric vehicle charges from the grid while the stage lasts (1 for no change).</summary>
     public virtual float ChargeFactor => 1f;
@@ -110,6 +115,25 @@ public class Effect_FlightFuel : VehicleSystemEffect
 {
     public float factor = 1f;
     public override float FlightFuelFactor => factor;
+}
+
+/// <summary>Multiplies the fuel the engine burns while the stage lasts (Framework 0.123.0, cross-links G8: a clogged air filter). It reaches the
+/// burn through the drivetrain model, so with the model switched off it changes nothing.</summary>
+public class Effect_EngineFuel : VehicleSystemEffect
+{
+    public float factor = 1f;
+    public override float EngineFuelFactor => factor;
+}
+
+/// <summary>
+/// Shorts <c>loads</c> of the vehicle's switched loads while the stage lasts (Framework 0.123.0, cross-links G12): a hit to the battery or the
+/// alternator cuts a circuit, and what is on it stops working until the part is repaired. Which ones is worked out from the vehicle and the
+/// part (WiringRule), the same at every look, so nothing about it is saved. The player is told which when it happens.
+/// </summary>
+public class Effect_ShortLoads : VehicleSystemEffect
+{
+    public int loads = 1;
+    public override int ShortedLoads => loads;
 }
 
 /// <summary>Multiplies one of Vehicle Framework's stats (move speed, cargo) while the stage lasts.</summary>

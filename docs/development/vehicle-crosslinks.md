@@ -5,8 +5,9 @@ joined in a star round the engine state and proposed eight links; round two look
 stations should do; round three added the crew, weather and ground, combat damage, electrics and hydraulics. What a vehicle
 loses before it is a wreck carries on in [knocked out, not destroyed](vehicle-knocked-out-systems.md).
 
-**Status (17 Nov 2026):** round one is built (D'thorga Framework 0.67.0 to 0.70.0); rounds two and three are partly built.
-Each round's own status line opens its section.
+**Status (17 Nov 2026):** round one is built (D'thorga Framework 0.67.0 to 0.70.0); rounds two and three are built except engine braking
+(T5 with F6, held by the owner), S3, and the rows argued against or left for later (G10, G19, G20). Not yet tested in game. Each round's
+own status line opens its section.
 
 **The rounds:** [Vehicle system crosslinks: research and record](#vehicle-system-crosslinks-research-and-record-9-nov-2026); [Vehicle crosslinks, round two: deeper chains, more fittings, and what the stations should do](#vehicle-crosslinks-round-two-deeper-chains-more-fittings-and-what-the-stations-should-do-10-nov-2026); [Vehicle cross-links, round three: the crew, weather and ground, combat damage, electrics and hydraulics](#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026).
 
@@ -221,9 +222,9 @@ engineering references; the figures in the proposals are authored for play, not 
 
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.73.0 (and Vehicles 0.33.0: T1, T2, T3, S1, S2 and the inspection pit), 0.74.0
-(S4) and 0.106.0 (T6); not built: T4, T5, T8, S3, the fittings F2 to F8 (all carried into [round three](#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026)),
-T7 (merged into round three's G8) and the boost tune axis. Not yet tested in game, apart from the Diagnose letter (the owner, 11 Nov
-2026: it arrives and lists every part and reading).
+(S4), 0.106.0 (T6) and 0.123.0 (T4, T7 as round three's G8, T8, F2, F3, F4, F5, F7, F8, F10 and the boost tune axis; [what was built](#built-in-framework-01230-17-nov-2026));
+not built: T5 with F6 (engine braking, held by the owner on 17 Nov 2026) and S3. Not yet tested in game, apart from the Diagnose letter
+(the owner, 11 Nov 2026: it arrives and lists every part and reading).
 
 The owner, 10 Nov 2026, after the first eight crosslinks were built: "a research and record purview, where we can perhaps do any
 tertiary cross-linking, and as well any functional upgrades much like our block heater"; also whether to add crafting stations, to
@@ -520,8 +521,10 @@ manual**; no figure in this record is measured from a real machine, and every on
 
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.106.0 (T6, G18, G15, G9 and G16, with the avionics record's A5, A6, A8 and
-A9) and 0.113.0 (G1 with G2, G5, G7 with the snorkel, and G13); not built: G3, G4, G6, G8, G10 to G12, G14, G17, G19, G20, and
-round two's T4, T5, T8 and F2 to F8. Not yet tested in game.
+A9), 0.113.0 (G1 with G2, G5, G7 with the snorkel, and G13) and 0.123.0 (G6, G8, G11, G12, G17, G1 and G9 for raiders, and round two's
+T4, T8, F2 to F5, F7, F8 and boost; [what was built](#built-in-framework-01230-17-nov-2026)); G3, G4 and G14 were Vehicle Framework's
+and the game's already; not built: G10 and G19 (argued against), G20 (the radio, on the back burner) and round two's T5 with F6 (held).
+Not yet tested in game.
 
 A research record. The owner, 13 November 2026, asked for "a research and
 record purview for any further and deeper cross-links we can make", with avionics as the gap they see most, "but I want this
@@ -816,6 +819,52 @@ Where the build differs from the rows above, the build is what holds:
 - **A correction to "Other factions' vehicles" below**: other factions' vehicles run the lite tier, where no system stage runs, so G1
   and G9 (built in 0.106.0) do not slow raiders as the table said they would. G5 reaches any vehicle whose drive is modelled, and G13
   any burning vehicle. Running G1 and G9 for raiders would need the lite tier to evaluate those two quantities: a later choice.
+
+### Built in Framework 0.123.0 (17 Nov 2026)
+
+The owner's picks of 17 November 2026, as cards: every group (combat damage, brake and clutch wear, the cold-weather pack, the crew,
+fords and dust), and of the held rows **power steering, the transmission cooler and the boost axis**; **engine braking (T5 with F6) left
+held**; raiders to feel G1 and G9 too; the fittings' pictures as stand-ins for now. Built in D'thorga Framework 0.123.0 and Vehicles 0.62.0,
+not yet tested in game (test rows 158 to 164). Where the build differs from the rows above, the build is what holds:
+
+- **G3 is Vehicle Framework's already.** Its `VehicleRoleHandler.CanOperateRole` (VehicleFramework-1.7, `Vehicles.decompiled.cs:20545`)
+  refuses any role to a pawn in a mental state, so a vehicle whose only driver breaks cannot move until the break ends or another takes the
+  wheel, and Vehicle Framework says so. What was ours to do: the driver's fitness (G1) now passes over a broken driver. No refusal of our own.
+- **G11, the holed tank**, needs a fuel tank part: a new `FuelTank` role finds one by name (`FuelTank`, `Chemtank`), never adds one. The
+  part-hit rule gains `unlessReactor`, so a tank whose author gave it Vehicle Framework's `Reactor_FuelLeak` gets no holed tank of ours.
+  Vanilla Vehicles Expanded's land vehicles carry that reactor (read for the Traveller with `query-defs.py show`), so the row reaches our own
+  trucks and other authors' vehicles without one.
+- **G12, shorted wiring**, is a condition on the battery or alternator from 0.1 severity: one circuit dead, two from 0.5. Which switched loads
+  is picked from the vehicle and the part (`WiringRule`), so nothing is saved; shorted loads join the shed ones in every load check, the
+  headlights included, and the Systems tab says "dead: its wiring is shorted".
+- **T4, brakes and the clutch.** The brakes' wear on the move and at each stop multiply by `BrakeWearRule`: the mass aboard and behind the
+  hitch against the empty mass (1 to 3) times the square of the speed against the design speed (0.25 to 1.5). The clutch's wear is a new
+  quantity on the transmission, 0.0004 a take-off times the mass factor; worn, it slips in the drivetrain model (`ClutchHolds`), and worn
+  through the vehicle will not drive. **The world grade was left out** of the clutch: a take-off is a map event, with no grade to read. A
+  **clutch kit** (8 steel, 1 component) renews it, after S4. An automatic's torque converter wears the same (a simplification).
+- **G6, wet brakes**: a hidden `brakesWet` on the brakes, soaked at once in the game's water terrain on the move, dried in about half an
+  hour of driving or two standing; above 0.3, x0.9 of speed and a message.
+- **G8 with F8, the air filter**: on the service system, 0.0025 an hour while the engine runs times `DustRule` (rainfall of 1,000 mm and up
+  1, a desert 3; x4 in a sandstorm in the open). Clogged above 0.7: x0.93 of speed and x1.1 fuel through a new `Effect_EngineFuel` (it
+  reaches the burn through the drivetrain model only), and it calls the engine service. Electric vehicles have none.
+- **G17, power steering**, is its own system with its own `SteeringPump` role, pump and fluid, not the working hydraulics: real trucks keep
+  them apart, and binding the hydraulic pump role on the heavy loadout would have bound it twice on the tipper, the drill rig and the survey
+  truck. On the default heavy and tracked loadouts, and added by hand to the Busbar, the L-ATV, the MaxxPro and the HMMWV. Below 0.4
+  assist, x0.6 of speed. A towed vehicle's own steering is not read.
+- **The cold-weather fittings.** T8 as the **battery warmer** (the battery reads at least 5 °C while plugged in, through a new
+  `Input_BatteryTemperature`), F4 the **gear-reduction starter** (starting power x1.3, a start's draw x0.7), F5 **cab insulation** (on a new
+  `Cabin` role found as the vehicle's `Cab`, a cabin, its upholstery or its roof), F7 the **fuel heater** (`fuelGelExposure` to 0). The pack
+  takes the starter, the fuel heater and the insulation; the battery keeps the deep-cycle battery, one fitting to a part. **A fault found
+  on the way and fixed:** a family with two fittings for one part would have fitted each over the other in turn; a part already carrying
+  one of the family's fittings now counts as taken.
+- **F2, F3**: the transmission cooler and heavy-duty brakes, as the rows say.
+- **Boost**: a third tune axis, `Boost`, shown only while a fitting grants it (the turbocharger); low, standard and high as the row says,
+  with fuel 0.96 and 1.1 (the agent's addition: fuel follows the power). A boost tune stops counting the moment the turbocharger goes.
+- **Raiders and G1, G9**: the light tier keeps up the rules Def's `liteTierQuantities` (driver fitness and dark driving) on the rare tick,
+  quietly, so only their stat factors reach the vehicle. Raiders burn their headlights at night while moving, so the dark slows only one
+  with no headlights.
+- **Notes for testing**: every notable stage entered, condition given, fitting and tune finished now notes itself (prefixes in
+  `config/test-evidence.json`).
 
 ### Questions for the owner
 
