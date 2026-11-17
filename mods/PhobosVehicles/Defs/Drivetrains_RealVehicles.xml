@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
   <!--
+    Thin air (D'thorga Framework 0.132.0; docs/development/vehicle-altitude-and-turbines.md, which gives each source): an engine marked
+    turbocharged holds its rated power in high country to the Framework's height; the others lose it from the sea up.
+    - Turbocharged: the L-ATV's Banks 866T, the MaxxPro's MaxxForce D9.3, the Land Cruiser's 1VD-FTV, the PLS's Caterpillar C15, the
+      Bradley's Cummins VTA-903T, the M48H's AVDS-1790, the Booker's MTU 8V 199 and the Wiesel's five-cylinder.
+    - Not turbocharged: the HMMWV's 160 hp 6.5 L (naturally aspirated, in AM General's own sheet), the M113's 212 hp 6V53 (a two-stroke
+      with a scavenging blower only), the T-54's V-54 and the BMP-1's UTD-20.
+    - The AGT1500 is a gas turbine and follows the air's pressure.
+  -->
+  <!--
     Real figures for the single-engine military and utility vehicles on the owner's list (part 2 of the owner's approved proposals,
     8 Nov 2026; docs/development/vehicle-real-figures-design.md). Every figure comes from docs/development/vehicle-figures-research.md
     and is labelled primary, secondary, our inference or authored. Masses are the published curb or combat weights; the model adds
@@ -27,6 +36,7 @@
       <ratedKilowatts>276</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -64,6 +74,7 @@
       <ratedKilowatts>280</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -138,6 +149,7 @@
       <ratedKilowatts>151</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -176,6 +188,7 @@
       <ratedKilowatts>447</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -249,6 +262,7 @@
       <ratedKilowatts>447</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -285,6 +299,7 @@
       <ratedKilowatts>560</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -321,6 +336,7 @@
       <ratedKilowatts>600</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -429,6 +445,7 @@
       <ratedKilowatts>64</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>Automatic</kind>

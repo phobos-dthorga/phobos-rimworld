@@ -46,6 +46,14 @@
     <beltCapacityShare>0.3</beltCapacityShare>
     <roadGradeFactor>0.5</roadGradeFactor>
     <railGradeFactor>0.25</railGradeFactor>
+    <!-- Framework 0.132.0 (docs/development/vehicle-altitude-and-turbines.md, which names each figure's source or says it is authored):
+         thin air at height, and turbines. A turbocharged piston engine holds its rated power to turbochargerHoldsToMetres; a radiator's
+         cooling follows the air's pressure to the power airCoolingExponent; a turbine's generator is costed at generatorRatedRpm times
+         its spool share; a worn hot section burns turbineWearFuelPenalty of its lost condition more for the same work. -->
+    <turbochargerHoldsToMetres>1500</turbochargerHoldsToMetres>
+    <airCoolingExponent>0.8</airCoolingExponent>
+    <generatorRatedRpm>4000</generatorRatedRpm>
+    <turbineWearFuelPenalty>0.45</turbineWearFuelPenalty>
     <replacedPartHealth>0.25</replacedPartHealth>
     <!-- Framework 0.73.0 (docs/development/vehicle-crosslinks.md, S1, S2 and T1; owner, 10 Nov 2026). All authored. -->
     <replacedPartHealthAtRig>0.6</replacedPartHealthAtRig>

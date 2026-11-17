@@ -6,6 +6,10 @@
     from decompiles on 8 Nov 2026 and never copied: no Phobos assembly references these mods. A member that does not exist simply
     never matches. Vehicle Framework's own "in flight" flag is set on a map only while leaving it, so on-map phases come from the
     frameworks' FlightState field.
+    Fuel (Framework 0.132.0; docs/development/vehicle-altitude-and-turbines.md): flying between tiles, the author's rate holds at the
+    worldFuelPhase's demand (a cruise). Over a map it holds at the mapFuelPhase's demand; for the two flight frameworks that burn a rate
+    of their own on a map, mapFuelRateMember names where they keep it (read by name, as the phases are), and the aircraft's fuel on a
+    map is left alone if it cannot be read.
   -->
 
   <!--
@@ -24,6 +28,8 @@
     <reactionControlBleed>0.03</reactionControlBleed>
     <gustBleedFactor>0.5</gustBleedFactor>
     <cabinBleed>0.005</cabinBleed>
+    <mapFuelPhase>OnStation</mapFuelPhase>
+    <mapFuelRateMember>FlightProps.fuelConsumptionPerTick</mapFuelRateMember>
     <label>fixed-wing jet</label>
     <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
       <rules>
@@ -65,6 +71,8 @@
     <!-- Cabin heat and air conditioning from bleed air (Framework 0.24.0; authored). A helicopter steers with its rotors: no reaction
          control bleed. -->
     <cabinBleed>0.005</cabinBleed>
+    <mapFuelPhase>OnStation</mapFuelPhase>
+    <mapFuelRateMember>FlightProps.fuelConsumptionPerTick</mapFuelRateMember>
     <label>helicopter</label>
     <hoverPowerAtMaxGross>0.9</hoverPowerAtMaxGross>
     <reader Class="Phobos.VehicleSystems.PhaseReader_Members">

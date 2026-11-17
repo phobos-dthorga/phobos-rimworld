@@ -181,6 +181,13 @@ public partial class ITab_VehicleSystems : ITab
                     Widgets.Label(new Rect(6f, y, viewWidth - 12f, loadsHeight), loads);
                     y += loadsHeight;
                 }
+                // Framework 0.132.0: thin air at height, while it takes power worth a look.
+                if (InspectText.ThinAirLine(comp, VehicleSystemsMod.Settings.displayMode) is { } thinAir)
+                {
+                    float airHeight = Mathf.Max(Row, Text.CalcHeight(thinAir, viewWidth - 12f));
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, airHeight), thinAir);
+                    y += airHeight;
+                }
                 if (comp.Hitch is { Trailer: not null } hitch)
                 {
                     // Hitch slice 3 (Framework 0.104.0): what it tows and, while held back, what holds it, in the display mode's words.
@@ -211,6 +218,20 @@ public partial class ITab_VehicleSystems : ITab
                 Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysRating".Translate(train.RatingLabel.Named("RATING")).Resolve() + ", "
                     + "PhobosVehicleSystems_SysEnginesWorking".Translate(working.Named("WORKING"), engines.Named("ENGINES")).Resolve());
                 y += Row;
+                // Framework 0.132.0: an aircraft's ledger (its generator and its bleed air) and the thin air, which a ground vehicle's
+                // drivetrain card shows.
+                if (!train.Ground && InspectText.LoadsLine(comp, VehicleSystemsMod.Settings.displayMode) is { } airLoads)
+                {
+                    float loadsHeight = Mathf.Max(Row, Text.CalcHeight(airLoads, viewWidth - 12f));
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, loadsHeight), airLoads);
+                    y += loadsHeight;
+                }
+                if (!train.Ground && InspectText.ThinAirLine(comp, VehicleSystemsMod.Settings.displayMode) is { } thinAloft)
+                {
+                    float airHeight = Mathf.Max(Row, Text.CalcHeight(thinAloft, viewWidth - 12f));
+                    Widgets.Label(new Rect(6f, y, viewWidth - 12f, airHeight), thinAloft);
+                    y += airHeight;
+                }
                 if (engineer && train.BleedShare > 0)
                 {
                     Widgets.Label(new Rect(6f, y, viewWidth - 12f, Row), "PhobosVehicleSystems_SysBleed".Translate(((float)train.BleedShare).ToStringPercent("0.#").Named("SHARE")).Resolve());

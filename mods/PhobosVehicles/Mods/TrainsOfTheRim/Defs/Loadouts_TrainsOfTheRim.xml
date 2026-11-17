@@ -184,6 +184,9 @@
       <ratedKilowatts>328</ratedKilowatts>
       <!-- Framework 0.129.1 (check C4): the Framework's diesel-electric ratio, so the battery charges at idle (authored). -->
       <alternatorRatio>4</alternatorRatio>
+      <!-- Framework 0.132.0: the EffiShunter 300's Caterpillar C13B is turbocharged and aftercooled (CZ LOKO's product page; a
+           Caterpillar dealer's page for the engine), so it holds its power in high country. -->
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>DieselElectric</kind>

@@ -46,6 +46,15 @@ public class Input_Ambient : VehicleSystemInput
 }
 
 /// <summary>
+/// How well the air around the vehicle carries heat away, as a share of sea level's (Framework 0.132.0): 1 at the sea, less in the thin
+/// air of high country (0.86 at 1,500 m), 1 with the player's thin-air setting off. A radiator's flow multiplies by it.
+/// </summary>
+public class Input_AirCooling : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context) => context.Comp.AirCooling;
+}
+
+/// <summary>
 /// The temperature oil settles at with no coolant to follow (a gas turbine, an air-cooled engine): the air while the engine is off,
 /// running, from <c>idleCelsius</c> at no load to <c>fullCelsius</c> at full load.
 /// </summary>

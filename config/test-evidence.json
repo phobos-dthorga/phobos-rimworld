@@ -55,7 +55,9 @@
     "182": ["vehicles.engine-power-lost"],
     "183": ["vehicles.fuel-rates"],
     "184": ["vehicles.engine-loads"],
-    "186": ["vehicles.belt-slipping"]
+    "186": ["vehicles.belt-slipping"],
+    "187": ["vehicles.aircraft-fuel"],
+    "188": ["vehicles.thin-air"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

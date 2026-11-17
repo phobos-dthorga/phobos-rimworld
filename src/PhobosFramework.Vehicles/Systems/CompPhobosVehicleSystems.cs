@@ -10,6 +10,7 @@ using Phobos.Framework.Rules;
 using Phobos.Framework.Sounds;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
+using RimWorld.Planet;
 using SmashTools;
 using UnityEngine;
 using Vehicles;
@@ -897,6 +898,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         bool hasFuel = fuel == null || !fuel.EmptyTank;
         bool flying = vehicle.CompVehicleLauncher?.inFlight ?? false;
         Vehicles.World.VehicleCaravan? caravan = vehicle.GetVehicleCaravan();
+        RefreshAir(vehicle, caravan);
         bool caravanMoving = caravan != null && caravan.vehiclePather != null && caravan.vehiclePather.MovingNow;
         bool drafted = vehicle.Spawned && vehicle.Drafted;
         bool movingOnMap = vehicle.Spawned && vehicle.vehiclePather != null && vehicle.vehiclePather.Moving;
@@ -969,6 +971,56 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         EngineLoad = Engine.Load;
     }
 
+    // ---- Thin air (Framework 0.132.0; docs/development/vehicle-altitude-and-turbines.md) ----
+
+    /// <summary>How high the vehicle stands, in metres above the sea: its map's tile, or its caravan's. 0 with the player's setting off.
+    /// A local map has no height of its own. Derived, never saved.</summary>
+    public float Elevation { get; private set; }
+
+    /// <summary>The air's pressure here as a share of sea level's, for an engine that breathes it; 1 at the sea, with the setting off,
+    /// and for an electric motor or a thruster. A turbine's output and a rotor's lift read it.</summary>
+    public float AirPressure { get; private set; } = 1f;
+
+    /// <summary>The share of its rated power thin air leaves the engine here: 1 at the sea and for a turbocharged engine below the
+    /// height it holds power to. The drivetrain model takes it as lost power (step S4's way), where the vehicle has the full model.</summary>
+    public float AirPowerFactor { get; private set; } = 1f;
+
+    /// <summary>How well the air here carries a radiator's heat away, as a share of sea level's.</summary>
+    public float AirCooling { get; private set; } = 1f;
+
+    PlanetTile airTile = PlanetTile.Invalid;
+    bool airRead;
+
+    void RefreshAir(VehiclePawn vehicle, Vehicles.World.VehicleCaravan? caravan)
+    {
+        if (!VehicleSystemsMod.Settings.thinAir)
+        {
+            Elevation = 0f;
+            AirPressure = AirPowerFactor = AirCooling = 1f;
+            airRead = false;
+            return;
+        }
+        // In flight between tiles a vehicle's comps do not tick: it keeps the air of the tile it left.
+        PlanetTile tile = vehicle.Spawned ? vehicle.Map.Tile : caravan != null ? caravan.Tile : airTile;
+        if (!airRead || tile != airTile)
+        {
+            airRead = true;
+            airTile = tile;
+            Elevation = Phobos.Framework.WorldMap.TileAir.ElevationMetres(tile);
+        }
+        Powertrain? train = Powertrain;
+        AirPressure = train is { BreathesAir: true } ? (float)AirRule.PressureRatio(Elevation) : 1f;
+        AirPowerFactor = train == null ? 1f : (float)train.AirPowerShare(Elevation);
+        AirCooling = (float)AirRule.Cooling(Elevation, Rules.airCoolingExponent);
+        if (AirPowerFactor < ThinAirNoticed && EngineRunning && SeenInPlay.On)
+        {
+            Seen.Note("vehicles.thin-air", vehicle, Elevation.ToString("0") + " m x" + AirPowerFactor.ToString("0.##"));
+        }
+    }
+
+    /// <summary>Thin air worth a line on the inspect pane: the engine has less than this share of its power left (authored).</summary>
+    public const float ThinAirNoticed = 0.97f;
+
     /// <summary>The share of the engine's rated power standing work takes at the shaft now (Framework 0.131.0); 0 with none. Derived.</summary>
     public float WorkPowerShare { get; private set; }
 
@@ -1012,6 +1064,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// <summary>The share of what it is asked to carry that the drive belt passes now: 1 gripping, less slipping, 0 snapped.</summary>
     public float BeltGrip { get; private set; } = 1f;
 
+    /// <summary>What the alternator or generator takes at the shaft now, kW (Framework 0.132.0): an aircraft's turbine counts it into
+    /// its demand. 0 with the engine stopped.</summary>
+    public float GeneratorKw { get; private set; }
+
+    static string? reactionLabel, cabinAirLabel;
+
     const string BeltRole = "Belt";
     const string AlternatorRole = "Alternator";
     static string? alternatorLabel;
@@ -1028,6 +1086,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         LedgerExtraKw = 0f;
         LedgerExtraShare = 0f;
         BeltGrip = 1f;
+        GeneratorKw = 0f;
         Powertrain? train = Powertrain;
         if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || !EngineRunning || train == null || states == null || states.Count == 0) return 0f;
         if (Vehicle.CompFueledTravel?.Props.electricPowered == true) return 0f;
@@ -1037,7 +1096,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         double alternatorKw = ShaftLoadRule.AlternatorKilowatts(
             ShaftLoadRule.AlternatorOutputAmps(AlternatorSupplyAmps(), loadAmps + CampLoadAmps, ChargingAmps()), ElectricalVolts(),
             rules.alternatorEfficiency.Evaluate(AlternatorRpm()));
-        // An aircraft's generator is on its engine's gearbox and its other loads are bleed air (the turbine design): only the generator here.
+        // An aircraft's generator is on its engine's gearbox and its other loads are bleed air (the turbine design), listed below.
         bool ground = train.Ground && !train.IsAircraft;
         double beltKw = alternatorKw, otherKw = 0, baselineKw = 0;
         if (alternatorKw > 0) shaftLoads.Add(new ShaftLoadNow(alternatorLabel ??= "PhobosVehicleLedger_Alternator".Translate().Resolve(), (float)alternatorKw));
@@ -1058,6 +1117,25 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 beltDrivenNow.Add(def.beltDriven);
             }
         }
+        else if (train.IsAircraft)
+        {
+            // Gap T-2 and step S7 (Framework 0.132.0): bleed air in the ledger's shape. Each is the share of flying's work the engines
+            // give up as air, so in kilowatts it grows with how hard they fly.
+            double flying = train.FlightDemand * rated;
+            double reaction = train.ReactionBleedShare * flying, cabin = train.CabinBleedShare * flying;
+            if (reaction > 0)
+            {
+                otherKw += reaction;
+                shaftLoads.Add(new ShaftLoadNow(reactionLabel ??= "PhobosVehicleLedger_ReactionControl".Translate().Resolve(), (float)reaction));
+                beltDrivenNow.Add(false);
+            }
+            if (cabin > 0)
+            {
+                otherKw += cabin;
+                shaftLoads.Add(new ShaftLoadNow(cabinAirLabel ??= "PhobosVehicleLedger_CabinAir".Translate().Resolve(), (float)cabin));
+                beltDrivenNow.Add(false);
+            }
+        }
         // The belt passes only what it can carry (a slipping belt underdrives everything on it; a snapped one drives nothing).
         float beltCondition = PartEfficiency(BeltRole, -1f);
         double grip = beltCondition < 0f ? 1 : ShaftLoadRule.BeltGrip(beltKw, rules.beltCapacityShare, rated, beltCondition);
@@ -1073,6 +1151,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         }
         beltDrivenNow.Clear();
         BeltGrip = (float)grip;
+        GeneratorKw = (float)(alternatorKw * grip);
         // The baseline loads are all on the belt or steady; a slipping belt takes their share down with the rest.
         double total = beltKw * grip + otherKw;
         double baselineTaken = baselineKw * grip;
@@ -1123,16 +1202,30 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     }
 
     /// <summary>What the alternator can give now, in amps: its rating, by its own and its belt's condition and its speed.</summary>
-    double AlternatorSupplyAmps()
+    double AlternatorSupplyAmps() => AlternatorRatedAmps() * AlternatorOutputShare();
+
+    /// <summary>The alternator's rating in amps, by its own and its belt's condition; 0 without one.</summary>
+    double AlternatorRatedAmps()
     {
         if (states == null) return 0;
         foreach (SystemState state in states)
         {
             if (!Enabled(state) || !state.system.parameters.ContainsKey(AlternatorAmpsParameter)) continue;
-            return new SystemContext(this, state).Parameter(AlternatorAmpsParameter) * PartEfficiency(AlternatorRole, 1f) * PartEfficiency(BeltRole, 1f)
-                * AlternatorOutputShare();
+            return new SystemContext(this, state).Parameter(AlternatorAmpsParameter) * PartEfficiency(AlternatorRole, 1f) * PartEfficiency(BeltRole, 1f);
         }
         return 0;
+    }
+
+    /// <summary>
+    /// What an aircraft's generator takes in a cruise for the loads switched on now, kW (Framework 0.132.0): the steady loads alone,
+    /// with the generator at full speed and no battery to refill, because the figure is held for a whole flight between tiles, where
+    /// nothing ticks. 0 with the player's "accessories load the engine" setting off.
+    /// </summary>
+    public double CruiseGeneratorKw()
+    {
+        if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || states == null || states.Count == 0) return 0;
+        double amps = System.Math.Min(loadAmps + CampLoadAmps, AlternatorRatedAmps());
+        return ShaftLoadRule.AlternatorKilowatts(amps, ElectricalVolts(), Rules.alternatorEfficiency.Evaluate(Rules.generatorRatedRpm));
     }
 
     const string AlternatorAmpsParameter = "alternatorAmps";
@@ -1174,8 +1267,15 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// <summary>A belt passing less than this share of its load is worth telling the player about (authored).</summary>
     const float BeltSlipNoticed = 0.9f;
 
-    /// <summary>How fast the alternator turns now, in rpm: the engine's speed times its Def's alternator ratio (check C4). Derived.</summary>
-    public float AlternatorRpm() => EngineRpm(AlternatorFallbackIdleRpm, AlternatorFallbackCruiseRpm) * (float)(Powertrain?.AlternatorRatio ?? EngineXml.DefaultAlternatorRatio);
+    /// <summary>How fast the alternator turns now, in rpm: the engine's speed times its Def's alternator ratio (check C4). A turbine's
+    /// generator sits on its accessory gearbox, geared to its own speed (gap T-4, Framework 0.132.0): the rules Def's rated speed at full
+    /// spool, not the spool's tens of thousands of rpm times a pulley ratio. Derived.</summary>
+    public float AlternatorRpm()
+    {
+        Powertrain? train = Powertrain;
+        if (train?.Turbine != null) return EngineRunning ? (float)(train.TurbineNow.SpeedPercent / 100) * Rules.generatorRatedRpm : 0f;
+        return EngineRpm(AlternatorFallbackIdleRpm, AlternatorFallbackCruiseRpm) * (float)(train?.AlternatorRatio ?? EngineXml.DefaultAlternatorRatio);
+    }
 
     /// <summary>The engine speeds assumed without a drivetrain model, as the engine-speed input's defaults have always been (authored).</summary>
     const float AlternatorFallbackIdleRpm = 800f, AlternatorFallbackCruiseRpm = 2000f;
@@ -2331,7 +2431,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             }
         }
         ChargeFactor = charge;
-        FlightFuelFactor = flightFuel;
+        // Gap T-3 (Framework 0.132.0): flying between tiles follows the engines too, through the same factor the stages use.
+        FlightFuelFactor = flightFuel * (float)(Powertrain?.WorldFlightFuelShare() ?? 1);
         EngineFuelFactor = engineFuel;
         // Step S4 (Framework 0.130.0): lost power is lost power where the drivetrain model can carry it; elsewhere it is lost speed, as before.
         EnginePowerFactor = enginePower;

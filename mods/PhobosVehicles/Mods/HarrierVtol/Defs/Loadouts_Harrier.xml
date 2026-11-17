@@ -21,7 +21,12 @@
     <engine>
       <kind>Turbofan</kind>
       <ratedRpm>10000</ratedRpm>
-      <idleFuelShare>0.25</idleFuelShare>
+      <!-- Framework 0.132.0: the Framework's jet figure (authored), so the generator's few kilowatts are the small share of the engine's
+           work they really are. It sizes the ledger's shares and nothing else: the thrust comes from the ratings. -->
+      <kilowattsPerTonne>1500</kilowattsPerTonne>
+      <!-- The Framework's jet figure since 0.132.0, the first version to read it (authored from civil turbofans' published idle fuel
+           flows; none was found for the Pegasus). -->
+      <idleFuelShare>0.05</idleFuelShare>
       <turbine>
         <idleSpeedPercent>60</idleSpeedPercent>
         <ratings>

@@ -50,6 +50,8 @@ public static class InspectText
         if (waiting != null) lines.Add(waiting);
         string? engine = EngineLine(comp, mode);
         if (engine != null) lines.Add(engine);
+        string? air = ThinAirLine(comp, mode);
+        if (air != null) lines.Add(air);
         string? electrics = ElectricsLine(comp.Electrics, mode);
         if (electrics != null) lines.Add(electrics);
         string? fuel = FuelLine(comp, mode);
@@ -170,7 +172,8 @@ public static class InspectText
         {
             // A turbine's work is its demand against maximum continuous and the rating it runs at; the drivetrain's kilowatts are a piston
             // engine's and read 0 here (owner's screenshot, 11 Nov 2026).
-            line += " " + "PhobosVehicleSystems_InspectTurbineLoad".Translate(((float)r.Load).ToStringPercent().Named("LOAD"), train.RatingLabel.Named("RATING")).Resolve();
+            // The engine's whole load since Framework 0.132.0: flying or driving, and what the ledger lists on top.
+            line += " " + "PhobosVehicleSystems_InspectTurbineLoad".Translate(comp.Engine.Load.ToStringPercent().Named("LOAD"), train.RatingLabel.Named("RATING")).Resolve();
         }
         else if (mode == DisplayMode.Engineer)
         {
@@ -178,6 +181,20 @@ public static class InspectText
             if (train.Cap < 0.99) line += " " + "PhobosVehicleSystems_InspectCap".Translate(((float)train.Cap).ToStringPercent().Named("CAP")).Resolve();
         }
         return line;
+    }
+
+    /// <summary>Thin air (Framework 0.132.0), in every mode, only while the engine runs and has lost power worth a look: how much it has
+    /// left. Engineer adds the height and the air's pressure.</summary>
+    public static string? ThinAirLine(CompPhobosVehicleSystems comp, DisplayMode mode)
+    {
+        if (!comp.EngineRunning || comp.Tier != Phobos.Framework.Rules.DetailTier.Full) return null;
+        // A turbine's share is the air's pressure; a piston engine's is what its breathing leaves it.
+        float left = comp.Powertrain is { Full: true, BreathesAir: true } ? comp.AirPowerFactor : 1f;
+        if (left >= CompPhobosVehicleSystems.ThinAirNoticed) return null;
+        string line = "PhobosVehicleSystems_InspectThinAir".Translate(left.ToStringPercent().Named("POWER")).Resolve();
+        if (mode != DisplayMode.Engineer) return line;
+        return line + " " + "PhobosVehicleSystems_InspectThinAirFigures".Translate(comp.Elevation.ToString("N0").Named("METRES"),
+            ((float)Phobos.Framework.Rules.AirRule.PressureRatio(comp.Elevation)).ToStringPercent().Named("PRESSURE")).Resolve();
     }
 
     static readonly List<(FuelUse use, double perDay)> fuelParts = new();

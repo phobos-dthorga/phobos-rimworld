@@ -66,14 +66,18 @@ public static class TurbineModel
     public const double SeaLevelDensity = 1.225;
 
     /// <summary>The share of rated output left at an ambient temperature: 0.7% less per °C above 15 °C (authored, inside the 0.5 to 0.9%
-    /// published for industrial machines).</summary>
-    public static double Derate(TurbineSpec spec, double ambient) => Math.Max(0.2, 1 - spec.DeratePerDegree * Math.Max(0, ambient - 15));
+    /// published for industrial machines). Since Framework 0.132.0 thin air takes its share too: <paramref name="pressureRatio"/> is the
+    /// air's pressure against sea level (AirRule.PressureRatio), 1 at the sea, and output falls in step with it.</summary>
+    public static double Derate(TurbineSpec spec, double ambient, double pressureRatio = 1) =>
+        Math.Max(0.2, 1 - spec.DeratePerDegree * Math.Max(0, ambient - 15)) * Math.Min(1, Math.Max(0.05, pressureRatio));
 
     /// <summary>Air density at an ambient temperature, sea-level pressure (ideal gas).</summary>
     public static double Density(double ambient) => SeaLevelDensity * 288.15 / (273.15 + ambient);
 
     /// <summary>Works the turbine through at a demand (a share of maximum continuous).</summary>
-    public static TurbineState Evaluate(TurbineSpec spec, double demand, double ambient, double condition, int working, int engines, bool running)
+    /// <param name="pressureRatio">The air's pressure against sea level (1 at the sea): thin air leaves less to give.</param>
+    public static TurbineState Evaluate(TurbineSpec spec, double demand, double ambient, double condition, int working, int engines, bool running,
+        double pressureRatio = 1)
     {
         var state = new TurbineState { Demand = demand, Rating = spec.Continuous.Name, OverTorque = running ? OverTorque(spec, demand) : -1 };
         if (!running || working <= 0)
@@ -84,7 +88,7 @@ public static class TurbineModel
             return state;
         }
         double share = (double)working / Math.Max(1, engines);
-        state.Available = Derate(spec, ambient) * Math.Max(0.05, condition) * share;
+        state.Available = Derate(spec, ambient, pressureRatio) * Math.Max(0.05, condition) * share;
         double ratio = demand / Math.Max(0.01, state.Available);
         state.SpeedPercent = spec.IdleSpeedPercent + (100 - spec.IdleSpeedPercent) * Math.Sqrt(Math.Min(1.2, Math.Max(0, ratio)));
         double idleTemperature = ambient + spec.IdleTemperatureAboveAmbient;
@@ -121,8 +125,8 @@ public static class TurbineModel
         double.IsInfinity(spec.DriveLimitShare) ? -1 : demand / Math.Max(0.01, spec.DriveLimitShare) - 1;
 
     /// <summary>What can hold a helicopter up: the engines' output after the derate, condition and engines out, capped by the rotor drive.</summary>
-    public static double LiftPowerAvailable(TurbineSpec spec, double ambient, double condition, double engineShare) =>
-        Math.Min(Derate(spec, ambient) * Math.Max(0, condition) * engineShare * spec.Top.Share, spec.DriveLimitShare);
+    public static double LiftPowerAvailable(TurbineSpec spec, double ambient, double condition, double engineShare, double pressureRatio = 1) =>
+        Math.Min(Derate(spec, ambient, pressureRatio) * Math.Max(0, condition) * engineShare * spec.Top.Share, spec.DriveLimitShare);
 
     /// <summary>
     /// The thrust each rating must give for a thrust-lifted craft built to lift <paramref name="liftToWeight"/> times its maximum gross
@@ -130,25 +134,53 @@ public static class TurbineModel
     /// </summary>
     public static double ThrustForLiftToWeight(double liftToWeight, double maxGrossKg) => liftToWeight * maxGrossKg * DrivetrainModel.Gravity / 1000;
 
-    /// <summary>The share of full-power fuel burned at a demand: the idle share plus the rest in proportion (a Willans shape).</summary>
-    public static double FuelFraction(double idleShare, double demand) => idleShare + (1 - idleShare) * Math.Min(1, Math.Max(0, demand));
+    /// <summary>The share of maximum-continuous fuel burned at a demand: the idle share plus the rest in proportion (a Willans shape).
+    /// Above maximum continuous it goes on rising, as far as <paramref name="maxDemand"/> (the top rating's share).</summary>
+    public static double FuelFraction(double idleShare, double demand, double maxDemand = 1) =>
+        idleShare + (1 - idleShare) * Math.Min(Math.Max(1, maxDemand), Math.Max(0, demand));
 
-    /// <summary>Thrust a rating gives at an ambient temperature, kN.</summary>
-    public static double ThrustKn(TurbineSpec spec, TurbineRating rating, double ambient, double condition) =>
-        rating.ThrustKn * Derate(spec, ambient) * Math.Max(0, condition);
+    /// <summary>What a worn hot section adds to the fuel burned for the same work (Framework 0.132.0): nothing new, and
+    /// <paramref name="penalty"/> of the lost condition after that (condition 0.9 with a penalty of 0.3 burns 3 % more).</summary>
+    public static double WearFuelFactor(double condition, double penalty) => 1 + Math.Max(0, penalty) * Math.Min(1, Math.Max(0, 1 - condition));
+
+    /// <summary>
+    /// The fuel an aircraft burns at a demand, as a share of what it burns at its reference demand in good order (Framework 0.132.0): the
+    /// author's rate holds at the reference (a cruise, or flying about on a map), and a hover, a climb, an idle, the loads and a worn
+    /// engine move it from there. 1 when the reference burns nothing.
+    /// </summary>
+    public static double FuelShare(double idleShare, double demand, double referenceDemand, double maxDemand, double wearFactor)
+    {
+        double reference = FuelFraction(idleShare, referenceDemand, maxDemand);
+        return reference <= 0 ? 1 : FuelFraction(idleShare, demand, maxDemand) * Math.Max(1, wearFactor) / reference;
+    }
+
+    /// <summary>
+    /// What our code must still burn (positive) or hand back (negative) so that an aircraft has burned what its engines owe since the last
+    /// look, given what its tank is seen to have lost to everything else meanwhile (the game's own burn, its flight framework's). While
+    /// the tank leaks the loss seen is not all engine, so nothing is ever handed back then.
+    /// </summary>
+    public static double FuelCorrection(double owed, double seenBurned, bool leaking)
+    {
+        double extra = Math.Max(0, owed) - Math.Max(0, seenBurned);
+        return leaking && extra < 0 ? 0 : extra;
+    }
+
+    /// <summary>Thrust a rating gives at an ambient temperature and air pressure (a share of sea level's), kN.</summary>
+    public static double ThrustKn(TurbineSpec spec, TurbineRating rating, double ambient, double condition, double pressureRatio = 1) =>
+        rating.ThrustKn * Derate(spec, ambient, pressureRatio) * Math.Max(0, condition);
 
     /// <summary>
     /// A jet's vertical-landing check: the best rating the aircraft may use (wet only with water aboard) against its weight. Returns
     /// thrust ÷ weight for the best dry and the best wet rating; at or above 1 it can hover.
     /// </summary>
-    public static (double dry, double wet) HoverMargin(TurbineSpec spec, double massKg, double ambient, double condition)
+    public static (double dry, double wet) HoverMargin(TurbineSpec spec, double massKg, double ambient, double condition, double pressureRatio = 1)
     {
         double weightKn = massKg * DrivetrainModel.Gravity / 1000;
         double dry = 0, wet = 0;
         foreach (TurbineRating rating in spec.Ratings)
         {
             if (rating.ThrustKn <= 0) continue;
-            double margin = ThrustKn(spec, rating, ambient, condition) / Math.Max(0.1, weightKn);
+            double margin = ThrustKn(spec, rating, ambient, condition, pressureRatio) / Math.Max(0.1, weightKn);
             if (rating.Wet) wet = Math.Max(wet, margin);
             else dry = Math.Max(dry, margin);
         }
@@ -158,10 +190,11 @@ public static class TurbineModel
     /// <summary>
     /// A helicopter's hover power as a share of all engines' maximum-continuous power: ideal momentum theory, power rising with weight
     /// to the 1.5 power and with the inverse square root of air density. <paramref name="atMaxGross"/> is the hover power needed at
-    /// maximum gross weight in sea-level air at 15 °C (authored per aircraft).
+    /// maximum gross weight in sea-level air at 15 °C (authored per aircraft). <paramref name="pressureRatio"/> is the air's pressure
+    /// against sea level (Framework 0.132.0): thin air at height asks more, as hot air does.
     /// </summary>
-    public static double HoverPowerNeeded(double atMaxGross, double weightShare, double ambient) =>
-        atMaxGross * Math.Pow(Math.Max(0, weightShare), 1.5) * Math.Sqrt(Density(15) / Density(ambient));
+    public static double HoverPowerNeeded(double atMaxGross, double weightShare, double ambient, double pressureRatio = 1) =>
+        atMaxGross * Math.Pow(Math.Max(0, weightShare), 1.5) * Math.Sqrt(Density(15) / (Density(ambient) * Math.Min(1, Math.Max(0.05, pressureRatio))));
 
     /// <summary>Hot-section life used per hour above the continuous limit: doubling every 25 °C over it (authored; creep is strongly
     /// temperature-dependent, but no figure is cited yet). Zero inside the limit.</summary>

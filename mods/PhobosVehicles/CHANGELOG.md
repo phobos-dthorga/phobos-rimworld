@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.65.2] - 2026-11-18 - Draft
+
+Which real engines hold their power in high country
+
+### Changed
+
+- **Each real engine says whether it is turbocharged**, for D'thorga Framework 0.132.0's thin air. Turbocharged engines hold their
+  rated power to about 1,500 m: the L-ATV, the MaxxPro, the Land Cruiser, the PLS, the Bradley, the M48H, the M10 Booker, the Wiesel
+  and Trains of the Rim's diesel-electric shunter. The HMMWV, the M113, the T-54 and the BMP-1 have no turbocharger and lose power
+  from the sea up, about a tenth at 1,000 m. It tells only where power holds a vehicle back: a climb, soft ground, a heavy tow. The
+  Abrams' gas turbine loses power with height all the way.
+- **The Harrier's engine has a size and a new idle fuel share** (both authored), for the Framework's aircraft fuel: its alternator and
+  bleed air are now the small share of the engine's work they really are, and idling on the ground burns about a quarter of what
+  flying about does.
+
+### Dependencies
+
+- Install D'thorga Framework 0.132.0 with it. An older Framework does not know the new figures and reports them as errors at start-up.
+
+Not yet tested in game.
+
 ## [0.65.1] - 2026-11-18 - Draft
 
 The diesel-electric shunter charges its battery at idle

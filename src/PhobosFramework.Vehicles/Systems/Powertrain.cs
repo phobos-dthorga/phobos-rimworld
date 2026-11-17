@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework.Debug;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using Phobos.Framework.WorldMap;
@@ -50,6 +51,12 @@ public sealed class Powertrain
     public readonly double KerbKg;
     /// <summary>How many times faster than the crankshaft the alternator turns (check C4, Framework 0.129.1), from the engine's Def.</summary>
     public readonly double AlternatorRatio;
+    /// <summary>Whether air is forced into a piston engine (Framework 0.132.0): turbocharged as built, or with a fitting that grants
+    /// <see cref="ForcedInductionGrant"/>. It then holds its rated power in thin air up to <see cref="HoldsPowerToMetres"/>.</summary>
+    public readonly bool ForcedInduction;
+    public readonly double HoldsPowerToMetres;
+    /// <summary>What a fitting grants that forces air into the engine (the turbocharger's boost).</summary>
+    public const string ForcedInductionGrant = "Boost";
     /// <summary>The roles that count as engines: Engine1, Engine2 and so on when a loadout binds them, else the one Engine.</summary>
     readonly string[] engineRoles;
 
@@ -83,6 +90,9 @@ public sealed class Powertrain
         AlternatorRatio = Get("alternatorRatio", engine.alternatorRatio);
         // Fittings and tunes move only piston engines' figures (their Defs say so); a change builds the powertrain again.
         VehicleFittings fittings = comp.Fittings;
+        ForcedInduction = engine.turbocharged || fittings.Grants(ForcedInductionGrant);
+        float holds = Get("holdsPowerToMetres", engine.holdsPowerToMetres);
+        HoldsPowerToMetres = !float.IsNaN(holds) && holds > 0 ? holds : PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().turbochargerHoldsToMetres;
         Spec = new DrivetrainSpec
         {
             Engine = engine.kind,
@@ -221,6 +231,19 @@ public sealed class Powertrain
     static DrivetrainMode Mode => VehicleSystemsMod.Settings.drivetrainMode;
 
     public bool IsAircraft => Profile != null;
+
+    /// <summary>Whether the engine breathes the air around it (Framework 0.132.0): a piston engine or a gas turbine. An electric motor
+    /// and a thruster do not, and thin air takes nothing from them.</summary>
+    public bool BreathesAir => Spec.Engine is EngineKind.Piston or EngineKind.Turboshaft or EngineKind.Turbofan;
+
+    /// <summary>The share of its rated power thin air leaves this engine at a height in metres (AirRule): a naturally aspirated piston
+    /// engine loses it from the sea up, a turbocharged one holds it to its limit, a turbine follows the air's pressure.</summary>
+    public double AirPowerShare(double elevationMetres) => Spec.Engine switch
+    {
+        EngineKind.Piston => AirRule.PistonPower(elevationMetres, ForcedInduction, HoldsPowerToMetres),
+        EngineKind.Turboshaft or EngineKind.Turbofan => AirRule.PressureRatio(elevationMetres),
+        _ => 1,
+    };
     public bool Ground => Spec.Transmission != TransmissionKind.None;
     public bool Full => Mode == DrivetrainMode.Full;
 
@@ -368,7 +391,9 @@ public sealed class Powertrain
         VehiclePawn vehicle = comp.Vehicle;
         int now = Find.TickManager.TicksGame;
         double seconds = lastTick < 0 ? 1 : Math.Max(0.01, (now - lastTick) / (double)TicksPerSecond);
-        if (IsAircraft) SampleAircraft(vehicle, seconds);
+        // The ticks this sample stands for, for the fuel an aircraft owes (Framework 0.132.0); none after a long gap, such as a flight.
+        int gap = lastTick < 0 ? 0 : now - lastTick;
+        if (IsAircraft) SampleAircraft(vehicle, seconds, gap > MaxFuelGapTicks ? 0 : gap);
         else SampleGround(vehicle, seconds);
         if (Turbine != null) TrackRating(vehicle, now);
         lastTick = now;
@@ -387,8 +412,9 @@ public sealed class Powertrain
             UsableGears = UsableGears(),
             ClutchCapacity = ClutchCapacity(),
             DrivenWheelsWorking = comp.PartEfficiency("Wheels", 1f),
-            // Step S4 (Framework 0.130.0): what a choked filter, a warped head or a starved feed takes from the engine.
-            PowerLoss = 1 - comp.EnginePowerFactor,
+            // Step S4 (Framework 0.130.0): what a choked filter, a warped head or a starved feed takes from the engine; and since
+            // 0.132.0 what thin air at height takes.
+            PowerLoss = 1 - comp.EnginePowerFactor * comp.AirPowerFactor,
             // The engine-load ledger (Framework 0.131.0): what the engine was giving to other things at the last look.
             AccessoryKw = running ? comp.LedgerExtraKw : 0,
         };
@@ -424,15 +450,16 @@ public sealed class Powertrain
         if (Turbine != null)
         {
             (int working, int engines) = Engines();
-            double demand = Spec.RatedPowerKw > 0 ? Result.EnginePowerKw / Spec.RatedPowerKw : 0;
-            TurbineNow = TurbineModel.Evaluate(Turbine, demand, comp.Ambient, Condition(), working, engines, running);
+            // Gap T-1 (Framework 0.132.0): what the engine gives to other things heats and wears the turbine as driving does.
+            double demand = Spec.RatedPowerKw > 0 ? (Result.EnginePowerKw + (running ? comp.LedgerExtraKw : 0)) / Spec.RatedPowerKw : 0;
+            TurbineNow = TurbineModel.Evaluate(Turbine, demand, comp.Ambient, Condition(), working, engines, running, comp.AirPressure);
         }
     }
 
     /// <summary>The flight phase as the aircraft's own framework reports it now, read by name; null for an aircraft without a profile.</summary>
     public string? PhaseNow(VehiclePawn vehicle) => Profile?.reader?.Read(vehicle);
 
-    void SampleAircraft(VehiclePawn vehicle, double seconds)
+    void SampleAircraft(VehiclePawn vehicle, double seconds, int ticks)
     {
         Phase = Profile!.reader?.Read(vehicle);
         PhaseSpec = Profile.Phase(Phase);
@@ -443,17 +470,24 @@ public sealed class Powertrain
         TurbineSpec usable = water ? spec : dryTurbine ?? spec;
         ApplyDriveLimit(usable);
         bool hovering = running && PhaseSpec != null && PhaseSpec.hover;
-        BleedShare = running ? Bleed(vehicle, hovering) : 0;
-        double demand = PhaseSpec == null ? 0 : PhaseSpec.hover ? HoverDemand(usable) : PhaseSpec.demand;
-        demand = BleedRule.Demand(demand, BleedShare);
-        TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running);
+        ReactionBleedShare = running ? ReactionBleed(vehicle, hovering) : 0;
+        CabinBleedShare = running && CabinBleedOn() ? Profile.cabinBleed : 0;
+        double air = comp.AirPressure;
+        // What flying asks of the engines, then what else they give (Framework 0.132.0, gap T-2 and step S7): bleed air, and the
+        // generator at the vehicle's last look. All of it heats and wears the turbine and burns fuel; the ledger lists it.
+        double flying = PhaseSpec == null ? 0 : PhaseSpec.hover ? HoverDemand(usable) : PhaseSpec.demand;
+        double shaft = running ? ShaftShare(comp.GeneratorKw) : 0;
+        double demand = BleedRule.Demand(flying, BleedShare) + shaft;
+        TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running, air);
         bool beyond = hovering && Full && TurbineNow.OverTop > 0;
         if (beyond && VehicleSystemsMod.Settings.hoverLimit == VehicleSystemsSettings.HoverLimit.WarnOnly)
         {
             // Warn only (owner's setting, 8 Nov 2026): the engine is held at its top rating, so nothing wears past it.
             demand = TurbineNow.Available * usable.Top.Share;
-            TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running);
+            flying = Math.Max(0, demand - shaft) / (1 + BleedShare);
+            TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running, air);
         }
+        FlightDemand = running ? flying : 0;
         if (beyond && !hoverWarned && vehicle.Faction == Faction.OfPlayer)
         {
             hoverWarned = true;
@@ -463,25 +497,43 @@ public sealed class Powertrain
         if (!hovering) hoverWarned = false;
         HoverWet = usable.Ratings.Any(r => r.Wet && r.Name == TurbineNow.Rating);
         if (running && HoverWet && waterTankKg > 0) comp.AddToQuantity("injectionWater", (float)(-waterKgPerSecond * seconds / waterTankKg));
+        // The load here is flying's alone since Framework 0.132.0; the bleed air and the generator are the ledger's, added by the engine's
+        // one picture (EngineState), so nothing is counted twice.
         Result = new DriveResult
         {
-            Load = Math.Min(1, demand),
+            Load = Math.Min(1, flying),
             Rpm = TurbineNow.SpeedPercent / 100 * Spec.RatedRpm,
             Cap = 1,
         };
         Cap = 1;
+        OweFuel(vehicle, running, demand, ticks);
     }
 
     /// <summary>The share of the engine's work bled off now: reaction control in a hover (more in wind) and cabin heat (derived).</summary>
-    public double BleedShare { get; private set; }
+    public double BleedShare => ReactionBleedShare + CabinBleedShare;
 
-    double Bleed(VehiclePawn vehicle, bool hovering)
+    /// <summary>The reaction controls' share of it (the puffer jets, in a hover), and the cabin's (heat or air conditioning).</summary>
+    public double ReactionBleedShare { get; private set; }
+    public double CabinBleedShare { get; private set; }
+
+    /// <summary>What flying asks of an aircraft's engines now, as a share of maximum continuous: its phase's demand, or its hover's; 0
+    /// with them stopped. The bleed air and the generator come on top (the ledger). Derived.</summary>
+    public double FlightDemand { get; private set; }
+
+    /// <summary>A shaft load as a share of the engines' rated output.</summary>
+    double ShaftShare(double kilowatts) => Spec.RatedPowerKw > 0 ? Math.Max(0, kilowatts) / Spec.RatedPowerKw : 0;
+
+    bool CabinBleedOn() => Profile != null && Profile.cabinBleed > 0 && (comp.LoadActive("cabHeater") || comp.LoadActive("climateControl"));
+
+    double ReactionBleed(VehiclePawn vehicle, bool hovering)
     {
         if (Profile == null) return 0;
         float wind = vehicle.Spawned && vehicle.Map != null ? vehicle.Map.windManager.WindSpeed : 0f;
-        bool cabin = Profile.cabinBleed > 0 && (comp.LoadActive("cabHeater") || comp.LoadActive("climateControl"));
-        return BleedRule.Share(hovering, Profile.reactionControlBleed, Profile.gustBleedFactor, wind, cabin, Profile.cabinBleed);
+        return BleedRule.Share(hovering, Profile.reactionControlBleed, Profile.gustBleedFactor, wind, false, 0);
     }
+
+    double Bleed(VehiclePawn vehicle, bool hovering) =>
+        Profile == null ? 0 : ReactionBleed(vehicle, hovering) + (CabinBleedOn() ? Profile.cabinBleed : 0);
 
     /// <summary>Whether this hover's over-limit message has been sent (once per hover; derived, never saved).</summary>
     bool hoverWarned;
@@ -500,7 +552,7 @@ public sealed class Powertrain
         double mass = MassKg();
         if (spec.Continuous.ThrustKn > 0) return mass * DrivetrainModel.Gravity / 1000 / spec.Continuous.ThrustKn;
         double maxGross = KerbKg + comp.Vehicle.GetStatValue(VehicleStatDefOf.CargoCapacity) + fuelKgFull;
-        return TurbineModel.HoverPowerNeeded(Profile!.hoverPowerAtMaxGross, mass / Math.Max(1, maxGross), comp.Ambient);
+        return TurbineModel.HoverPowerNeeded(Profile!.hoverPowerAtMaxGross, mass / Math.Max(1, maxGross), comp.Ambient, comp.AirPressure);
     }
 
     /// <summary>Whether the aircraft can hover now: dry, only with water, or not at all; and the best margin (1 means just enough).</summary>
@@ -509,7 +561,7 @@ public sealed class Powertrain
         TurbineSpec spec = Turbine ?? new TurbineSpec();
         if (spec.Continuous.ThrustKn > 0 || spec.Ratings.Any(r => r.ThrustKn > 0))
         {
-            (double dry, double wet) = TurbineModel.HoverMargin(spec, MassKg(), comp.Ambient, Condition() * EngineShare());
+            (double dry, double wet) = TurbineModel.HoverMargin(spec, MassKg(), comp.Ambient, Condition() * EngineShare(), comp.AirPressure);
             // The same thrust asks more of the engine with bleed air taken (BleedRule), so the margin shrinks by as much.
             double bled = BleedRule.Demand(1, Profile != null ? Bleed(comp.Vehicle, hovering: true) : 0);
             dry /= bled;
@@ -519,7 +571,7 @@ public sealed class Powertrain
         }
         ApplyDriveLimit(spec);
         double needed = BleedRule.Demand(HoverDemand(spec), Profile != null ? Bleed(comp.Vehicle, hovering: true) : 0);
-        double available = TurbineModel.LiftPowerAvailable(spec, comp.Ambient, Condition(), EngineShare());
+        double available = TurbineModel.LiftPowerAvailable(spec, comp.Ambient, Condition(), EngineShare(), comp.AirPressure);
         return (available >= needed, available >= needed, available / Math.Max(0.01, needed));
     }
 
@@ -762,6 +814,11 @@ public sealed class Powertrain
     /// so a nominal cruise matches.</summary>
     public void ApplyFuel(double hours)
     {
+        if (IsAircraft)
+        {
+            ApplyAircraftFuel();
+            return;
+        }
         bool followsModel = VehicleFittings.FuelFollowsModel;
         // A stage's fuel factor joins the fittings' (Framework 0.123.0: a clogged air filter, cross-links G8).
         double tuned = comp.Fittings.TunedFuelFactor * comp.EngineFuelFactor;
@@ -783,5 +840,106 @@ public sealed class Powertrain
         // Step S2 (Framework 0.130.0): through the one fuel service, so the vehicle can say what it burns and why.
         if (perHour > 0) VehicleFuel.Burn(comp.Vehicle, (float)(perHour * hours), FuelUse.Engine, comp);
         else if (perHour < 0) VehicleFuel.GiveBack(comp.Vehicle, (float)(-perHour * hours), FuelUse.Engine, comp);
+    }
+
+    // ---- Aircraft fuel (Framework 0.132.0, gap T-3; docs/development/vehicle-altitude-and-turbines.md) ----
+
+    /// <summary>A sample older than this many ticks is stale: nothing is owed for the gap, and the tank's loss across it is not read (an
+    /// aircraft back from a flight between tiles, a load).</summary>
+    const int MaxFuelGapTicks = 600;
+
+    /// <summary>What the tank may lose to everything else beyond its frameworks' own rates before it stops counting as engine fuel
+    /// (authored: a twentieth over, for rounding).</summary>
+    const double SeenFuelMargin = 1.05;
+
+    /// <summary>Whether this aircraft's fuel follows its engines: the player's own, with the setting on and the full model.</summary>
+    public bool AircraftFuelFollows => IsAircraft && Full && VehicleSystemsMod.Settings.aircraftFuel && comp.Vehicle.Faction == Faction.OfPlayer
+        && comp.Vehicle.CompFueledTravel is { } fuel && !fuel.Props.electricPowered;
+
+    /// <summary>Whether the last look set this aircraft's fuel on a map to what its engines owed (derived; the fuel line reads it).</summary>
+    public bool MapFuelFollowed { get; private set; }
+
+    double fuelOwed, owedTicks, othersAtMost;
+    float fuelSeen = -1f;
+    int fuelSeenTick = -1;
+
+    double MaxFuelDemand => Turbine?.Top.Share ?? 1;
+
+    double WearFuel => Turbine == null ? 1
+        : TurbineModel.WearFuelFactor(Condition(), PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().turbineWearFuelPenalty);
+
+    /// <summary>
+    /// What flying between tiles burns against the author's rate: 1 with the engines in good order and nothing switched on, more with a
+    /// worn hot section, cabin air and what the generator carries. Vehicle Framework reads the figure this goes into both to burn the
+    /// fuel and to say how far the aircraft can reach, so the two always agree.
+    /// </summary>
+    public double WorldFlightFuelShare()
+    {
+        if (!AircraftFuelFollows || Profile!.Phase(Profile.worldFuelPhase) is not { demand: > 0 } cruise) return 1;
+        double demand = BleedRule.Demand(cruise.demand, CabinBleedOn() ? Profile.cabinBleed : 0) + ShaftShare(comp.CruiseGeneratorKw());
+        return TurbineModel.FuelShare(Spec.IdleFuelShare, demand, cruise.demand, MaxFuelDemand, WearFuel);
+    }
+
+    /// <summary>The fuel the flight framework itself burns each tick while flying on a map (the author's on-map rate), or Vehicle
+    /// Framework's own for an aircraft with none; NaN when the profile names a place for it that cannot be read.</summary>
+    double MapFuelPerTick(VehiclePawn vehicle, CompFueledTravel fuel)
+    {
+        if (Profile!.mapFuelRateMember.NullOrEmpty()) return fuel.ConsumptionRatePerTickRaw;
+        float own = PhaseReader_Members.Number(vehicle, Profile.mapFuelRateMember!);
+        return float.IsNaN(own) || own <= 0f ? double.NaN : own;
+    }
+
+    /// <summary>Adds what the engines owe for the ticks this sample stands for, on a map: the author's on-map rate holds while flying
+    /// about in good order, and a hover, a climb, an idle, the loads and a worn engine move it from there.</summary>
+    void OweFuel(VehiclePawn vehicle, bool running, double demand, int ticks)
+    {
+        if (!running || ticks <= 0 || !vehicle.Spawned || !AircraftFuelFollows) return;
+        CompFueledTravel fuel = vehicle.CompFueledTravel;
+        double perTick = MapFuelPerTick(vehicle, fuel);
+        FlightPhaseSpec? reference = Profile!.Phase(Profile.mapFuelPhase.NullOrEmpty() ? Profile.worldFuelPhase : Profile.mapFuelPhase);
+        if (double.IsNaN(perTick) || reference == null || reference.demand <= 0) return;
+        fuelOwed += perTick * ticks * TurbineModel.FuelShare(Spec.IdleFuelShare, demand, reference.demand, MaxFuelDemand, WearFuel);
+        owedTicks += ticks;
+        // The most everything else can have burned meanwhile: the flight framework's rate and Vehicle Framework's own.
+        othersAtMost += ticks * SeenFuelMargin * ((Profile.mapFuelRateMember.NullOrEmpty() ? 0 : perTick) + fuel.ConsumptionRatePerTickRaw);
+    }
+
+    /// <summary>
+    /// Settles an aircraft's fuel on a map: what its engines owed since the last look, less what the tank is seen to have lost to
+    /// everything else meanwhile (Vehicle Framework's burn, the flight framework's), burned or handed back. Reading the tank rather
+    /// than each framework's rules means a framework that changes when it burns is never charged twice. Our own burns are told to
+    /// <see cref="NoteOwnFuel"/>, so they never count as someone else's.
+    /// </summary>
+    void ApplyAircraftFuel()
+    {
+        VehiclePawn vehicle = comp.Vehicle;
+        CompFueledTravel? fuel = vehicle.CompFueledTravel;
+        double owed = fuelOwed, ticks = owedTicks, atMost = othersAtMost;
+        fuelOwed = 0;
+        owedTicks = 0;
+        othersAtMost = 0;
+        MapFuelFollowed = false;
+        if (fuel == null) return;
+        int now = Find.TickManager.TicksGame;
+        bool fresh = fuelSeenTick >= 0 && now - fuelSeenTick <= MaxFuelGapTicks;
+        float before = fuelSeen;
+        fuelSeen = fuel.Fuel;
+        fuelSeenTick = now;
+        if (!fresh || ticks <= 0 || !vehicle.Spawned || !AircraftFuelFollows) return;
+        bool leaking = fuel.FuelLeaking;
+        double seen = Math.Min(Math.Max(0, before - fuel.Fuel), atMost);
+        double extra = TurbineModel.FuelCorrection(owed, seen, leaking);
+        // What the frameworks burned counts as the engine's on the fuel line, with our correction to it.
+        comp.FuelLog.Note(FuelUse.Engine, leaking ? Math.Min(seen, owed) : seen);
+        if (extra > 0) VehicleFuel.Burn(vehicle, (float)extra, FuelUse.Engine, comp);
+        else if (extra < 0) VehicleFuel.GiveBack(vehicle, (float)-extra, FuelUse.Engine, comp);
+        MapFuelFollowed = true;
+        if (SeenInPlay.On && Math.Abs(extra) > 0.0005) Seen.Note("vehicles.aircraft-fuel", vehicle, (Phase ?? "?") + " x" + (owed / Math.Max(0.0001, seen)).ToString("0.##"));
+    }
+
+    /// <summary>Our own code burned this much of the tank (negative: gave it back), so it is not something the tank lost to anyone else.</summary>
+    public void NoteOwnFuel(float burned)
+    {
+        if (fuelSeenTick >= 0) fuelSeen -= burned;
     }
 }

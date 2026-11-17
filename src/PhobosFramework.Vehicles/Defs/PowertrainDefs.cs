@@ -70,6 +70,12 @@ public class EngineXml
     /// alternator idles below the speed it starts charging at.</summary>
     public float alternatorRatio = DefaultAlternatorRatio;
     public const float DefaultAlternatorRatio = 2.5f;
+    /// <summary>Whether a piston engine is turbocharged or supercharged as built (Framework 0.132.0): it then holds its rated power in thin
+    /// air up to <see cref="holdsPowerToMetres"/>. A naturally aspirated engine loses power from the sea up; fitting a turbocharger gives it
+    /// the same hold. Turbines and electric motors do not read it.</summary>
+    public bool turbocharged;
+    /// <summary>The height a turbocharged engine holds its rated power to, in metres (NaN: the rules Def's turbochargerHoldsToMetres).</summary>
+    public float holdsPowerToMetres = float.NaN;
     public TurbineXml? turbine;
 }
 
@@ -201,6 +207,17 @@ public class PhobosVehicleFlightProfileDef : Def
     /// <summary>Bleed air for cabin heat and air conditioning while the cab heater or climate control runs, as an extra share of the
     /// engine's work. 0 for none.</summary>
     public float cabinBleed;
+    /// <summary>The phase whose demand the author's world-flight fuel rate stands for (Framework 0.132.0): a cruise. With the engines in
+    /// good order and nothing switched on, flying between tiles burns exactly the author's rate.</summary>
+    public string worldFuelPhase = "WorldFlight";
+    /// <summary>The phase whose demand the on-map fuel rate stands for: flying about on a map. Empty: the world-flight phase.</summary>
+    public string? mapFuelPhase;
+    /// <summary>
+    /// Where the flight framework keeps the fuel it burns each tick while flying on a map, as a dotted path of members on the vehicle
+    /// (FlightProps.fuelConsumptionPerTick), read by name as the phase reader's are. Empty: Vehicle Framework's own rate, for aircraft
+    /// that fly only through its launcher. Named but not found, the aircraft's fuel on a map is left alone, never guessed.
+    /// </summary>
+    public string? mapFuelRateMember;
 
     public FlightPhaseSpec? Phase(string? name) => name == null ? null : phases.FirstOrDefault(p => p.phase == name);
 
@@ -215,6 +232,7 @@ public class PhobosVehicleFlightProfileDef : Def
                 if (Phase(phase) == null) yield return "the reader can report the phase " + phase + ", which the profile does not list";
             }
         }
+        if (!mapFuelPhase.NullOrEmpty() && Phase(mapFuelPhase) == null) yield return "the on-map fuel phase " + mapFuelPhase + " is not one of the profile's";
     }
 }
 
@@ -278,6 +296,21 @@ public class PhaseReader_Members : PhaseReader
             }
         }
         return null;
+    }
+
+    /// <summary>A number read from a dotted path of members on a vehicle, by name (Framework 0.132.0: the flight framework's own fuel
+    /// rate); NaN when the path does not exist or is not a number.</summary>
+    public static float Number(VehiclePawn vehicle, string path)
+    {
+        if (Value(vehicle, path) is not IConvertible number) return float.NaN;
+        try
+        {
+            return Convert.ToSingle(number);
+        }
+        catch (Exception)
+        {
+            return float.NaN;
+        }
     }
 
     static object? Value(object root, string path)

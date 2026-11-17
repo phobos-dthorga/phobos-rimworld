@@ -2,8 +2,9 @@
 
 **Status (18 Nov 2026):** A research and design record, with its code checks done the same day. Built: the fixes for C1 and C4 (D'thorga
 Framework 0.129.1, Vehicles 0.65.1), the step back's S1 to S6 and S8 (Framework 0.130.0) and the engine-load ledger with every load
-and C6 (Framework 0.131.0); not yet tested in game, S8 not yet measured after. Not built: S7 (turbine bleed air on the ledger) and
-altitude, the next slice. It reviews the vehicle simulation as it stood in D'thorga Framework 0.129.0.
+and C6 (Framework 0.131.0), and S7 with the turbine gaps and altitude (Framework 0.132.0, in
+[thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md)); not yet tested in game, S8 not yet measured after. It
+reviews the vehicle simulation as it stood in D'thorga Framework 0.129.0.
 
 The owner asked for a deeper simulation layer: parts the engine drives, such as the alternator and the water pump, take a little
 horsepower from it according to their own load, and so a little chemfuel, with effects reaching three and four links further out.
@@ -49,6 +50,7 @@ committed; they are marked †.
 | 14 | **Altitude is one of the next few slices**: thin air taking engine power, recorded in [world elevation](world-elevation-and-descents.md). "I really do love this idea", but there is already much to test | owner; not built |
 | 15 | **Descents and engine braking stay held** until after the ledger | owner (agent's recommendation) |
 | 16 | **Fix the four safe gaps of the elevation record with this build** (rails, roads, the tile read, the record's descent term); wear per stop on the world map is its own question | owner (agent's recommendation); built in Framework 0.131.0 |
+| 18 | **Build the turbine slice and altitude now, as one slice, with aircraft fuel following the engines in world flight and on a map**: "I'd rather test when the new features are more complete" | owner, 18 Nov 2026; built in Framework 0.132.0 |
 | 17 | **Queue a turbine slice beside altitude**: the gaps T-1, T-2 and T-4 built after testing, and aircraft fuel following the turbine model (T-3) designed and brought as its own decision | owner (agent's recommendation); not built |
 
 ## Where we are, top-down
@@ -433,7 +435,8 @@ truck about 6 to 8 (8 before). **The drill rig is the one that changed much**, a
 
 ### How far each kind of engine has come (18 Nov 2026)
 
-Read from the code after 0.131.0, at the owner's question whether turbines had come as far as engines. They have not:
+Read from the code after 0.131.0, at the owner's question whether turbines had come as far as engines. They had not. **Framework
+0.132.0 closed the turbine rows** ([its record](vehicle-altitude-and-turbines.md)); the table stands as it was read:
 
 | Engine kind | Who has it | Ledger takes power from driving | Ledger reaches fuel | Loads reach the engine's own model | Lost power as power (S4) |
 | --- | --- | --- | --- | --- | --- |
@@ -460,11 +463,9 @@ The gaps:
 
 ### Next slices
 
-- **Altitude** (decision 14): thin air taking engine power, from each world tile's real elevation, with a turbocharger holding
-  power higher. The research is in [world elevation](world-elevation-and-descents.md). It would be one more factor on the engine's
-  available power, beside the faults of step S4.
-- **Turbines** (decision 17), beside altitude, after the owner has tested what is waiting: T-1, T-2 with S7 (bleed air in the ledger's
-  shape), T-4, and a design for T-3 brought to the owner as its own decision.
+- **Altitude** (decision 14) and **turbines** (decision 17) **are built** (Framework 0.132.0; decision 18): thin air taking
+  engine power, turbine output, rotor lift and cooling; T-1, T-2 with S7, T-4; and T-3, aircraft fuel following the engines between
+  tiles and on a map. Their record is [thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md). Not yet tested in game.
 - **Descents and engine braking** stay held (decision 15).
 
 ### The recording before (18 Nov 2026)

@@ -13,6 +13,9 @@
     - Kerb mass is Vehicle Framework's Mass × 12 kg (authored), overridable per loadout.
     Gas turbines (docs/development/vehicle-turbine-design.md): ratings, limits and idle shares authored unless named. JSBSim's generic
     turbine gives the idle temperature line (ambient + 363 °C) and a start at 15% core speed (secondary: JSBSim FGTurbine).
+    Thin air (Framework 0.132.0; docs/development/vehicle-altitude-and-turbines.md): the diesels here are turbocharged as built, as
+    trucks', tanks' and locomotives' are, and hold their rated power to the rules Def's height; the petrol car and the boat are not
+    (authored: the class each archetype stands for). A turbocharger fitting gives any piston engine the same hold.
   -->
   <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
     <defName>PhobosDrivetrain_LightPetrol</defName>
@@ -53,6 +56,7 @@
       <kilowattsPerTonne>30</kilowattsPerTonne>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -80,6 +84,7 @@
       <kilowattsPerTonne>20</kilowattsPerTonne>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -177,14 +182,20 @@
     </transmission>
   </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
 
-  <!-- Aircraft engines. No transmission: their load comes from the flight profile's phases. -->
+  <!-- Aircraft engines. No transmission: their load comes from the flight profile's phases.
+       Their power per tonne (Framework 0.132.0) is authored, so that a generator's few kilowatts are the small share of the engines'
+       work they really are: before, an aircraft took the truck's default of 30 kW a tonne and its generator read ten times too heavy.
+       It sizes the ledger's shares and nothing else: lift and thrust come from the ratings. -->
   <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
     <defName>PhobosDrivetrain_AeroTurbofan</defName>
     <label>jet engine</label>
     <engine>
       <kind>Turbofan</kind>
       <ratedRpm>10000</ratedRpm>
-      <idleFuelShare>0.25</idleFuelShare>
+      <kilowattsPerTonne>1500</kilowattsPerTonne>
+      <!-- Framework 0.132.0, the first version to read it: 0.05, so that idling at 8 % burns about a ninth of take-off fuel. The ICAO
+           engine emissions databank's turbofans idle (7 % thrust) on 9 to 14 % of their take-off flow; no military engine is in it. -->
+      <idleFuelShare>0.05</idleFuelShare>
       <turbine>
         <idleSpeedPercent>60</idleSpeedPercent>
         <ratings>
@@ -209,7 +220,10 @@
     <engine>
       <kind>Turboshaft</kind>
       <ratedRpm>20000</ratedRpm>
-      <idleFuelShare>0.25</idleFuelShare>
+      <kilowattsPerTonne>250</kilowattsPerTonne>
+      <!-- Framework 0.132.0, the first version to read it: 0.2, so that ground idle at a tenth of the power burns about a quarter of
+           maximum-continuous fuel, as the Swiss Federal Office of Civil Aviation's helicopter guidance works out for a large twin. -->
+      <idleFuelShare>0.2</idleFuelShare>
       <turbine>
         <idleSpeedPercent>60</idleSpeedPercent>
         <ratings>
@@ -235,6 +249,7 @@
     <engine>
       <kind>Thruster</kind>
       <ratedRpm>10000</ratedRpm>
+      <kilowattsPerTonne>1500</kilowattsPerTonne>
       <turbine>
         <idleSpeedPercent>0</idleSpeedPercent>
         <deratePerDegree>0</deratePerDegree>
@@ -266,6 +281,7 @@
       <!-- Framework 0.129.1 (check C4): a slow engine turns its auxiliary generator faster. At 2.5 it gave nothing at 450 rpm idle and 71 % at
            rated; at 4 (authored) it gives about half at idle and 90 % at rated, as a road engine's does. -->
       <alternatorRatio>4</alternatorRatio>
+      <turbocharged>true</turbocharged>
     </engine>
     <transmission>
       <kind>DieselElectric</kind>

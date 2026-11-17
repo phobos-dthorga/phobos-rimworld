@@ -35,6 +35,10 @@
   <PhobosVehicleSystems_DrivetrainFullDesc>As above, and a vehicle slows where its engine runs out of power (heavy loads, steep or soft ground) or its wheels run out of grip. A vehicle that cannot grip crawls on at a fraction of its speed rather than stopping.</PhobosVehicleSystems_DrivetrainFullDesc>
   <PhobosVehicleSystems_SettingLoadFuel>Fuel use follows engine load</PhobosVehicleSystems_SettingLoadFuel>
   <PhobosVehicleSystems_SettingLoadFuelDesc>On by default: a laden vehicle climbing through sand burns more, an empty one on a road less, an idling engine about half of what it did, and whatever the engine drives (lights, the air conditioner, a pump, a drill) costs fuel. At an ordinary cruise with nothing extra on, the rate matches the vehicle author's. Off: vehicles burn fuel at the flat rate their authors set, and working vehicles at their own fixed rates.</PhobosVehicleSystems_SettingLoadFuelDesc>
+  <PhobosVehicleSystems_SettingAircraftFuel>Aircraft fuel follows the engines</PhobosVehicleSystems_SettingAircraftFuel>
+  <PhobosVehicleSystems_SettingAircraftFuelDesc>On by default: an aircraft burns fuel by what its engines are doing. Flying between places, one in good order with nothing switched on burns exactly what its author set; a worn engine, cabin air and heavy electrical loads add a little. Over a map, flying about burns what its author set, a hover or a climb burns more, and an aircraft left idling on the ground with its pilot aboard burns fuel too, so shut it down when it is not needed. Off: aircraft burn fuel at the flat rates their authors set.</PhobosVehicleSystems_SettingAircraftFuelDesc>
+  <PhobosVehicleSystems_SettingThinAir>Thin air at height</PhobosVehicleSystems_SettingThinAir>
+  <PhobosVehicleSystems_SettingThinAirDesc>On by default: the higher the country, the thinner the air. An engine without a turbocharger loses power from the sea up (about a seventh at 1,500 m), a turbocharged one holds its power to about 1,500 m, a gas turbine loses power all the way, a helicopter needs more power to hover, and radiators cool a little less. Only your own vehicles with the full drivetrain model are affected, and the world map shows how high each place stands. Off: everywhere is treated as sea level.</PhobosVehicleSystems_SettingThinAirDesc>
   <PhobosVehicleSystems_SettingNightHeater>Night heater at camp</PhobosVehicleSystems_SettingNightHeater>
   <PhobosVehicleSystems_SettingNightHeaterDesc>Off by default: a caravan's vehicles shut their engines down at the night camp, and their cabs cool to the night air. On: a vehicle whose night heater switch is on burns a little fuel through the night to keep its cab and its engine warm, as trucks' parking heaters do, so it starts easily in the morning. Switch each vehicle's night heater on before the caravan leaves.</PhobosVehicleSystems_SettingNightHeaterDesc>
   <PhobosVehicleSystems_SettingAccessoryLoad>Accessories load the engine</PhobosVehicleSystems_SettingAccessoryLoad>
@@ -153,6 +157,11 @@
   <PhobosVehicleLedger_Alternator>alternator</PhobosVehicleLedger_Alternator>
   <PhobosVehicleLedger_Driving>The engine is also driving: {LOADS}.</PhobosVehicleLedger_Driving>
   <PhobosVehicleLedger_Part>{LOAD} {KILOWATTS} kW</PhobosVehicleLedger_Part>
+  <!-- Framework 0.132.0: an aircraft's bleed air on the same list, and thin air at height. -->
+  <PhobosVehicleLedger_ReactionControl>air for the puffer jets</PhobosVehicleLedger_ReactionControl>
+  <PhobosVehicleLedger_CabinAir>cabin air</PhobosVehicleLedger_CabinAir>
+  <PhobosVehicleSystems_InspectThinAir>The air is thin up here: the engine has {POWER} of its power.</PhobosVehicleSystems_InspectThinAir>
+  <PhobosVehicleSystems_InspectThinAirFigures>({METRES} m above the sea; the air presses {PRESSURE} as hard as at the sea.)</PhobosVehicleSystems_InspectThinAirFigures>
   <PhobosVehicleSystems_MsgBeltSlipping>{VEHICLE}'s drive belt is slipping under its load: the battery charges less and the engine cools less. Switch something off, and have the belt replaced.</PhobosVehicleSystems_MsgBeltSlipping>
   <PhobosVehicleFuel_Burning>Burning about {AMOUNT} {FUEL} a day.</PhobosVehicleFuel_Burning>
   <PhobosVehicleFuel_BurningFor>Burning about {AMOUNT} {FUEL} a day: {PARTS}.</PhobosVehicleFuel_BurningFor>

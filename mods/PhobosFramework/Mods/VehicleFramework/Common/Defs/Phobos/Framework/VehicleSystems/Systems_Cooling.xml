@@ -343,6 +343,9 @@
             <moving>1</moving>
             <stoppedBonusStat>Phobos_StoppedAirflow</stoppedBonusStat>
           </li>
+          <!-- Framework 0.132.0: thin air at height carries less heat away (1 at the sea; the rules Def's airCoolingExponent). The colder
+               air up there, which the game already gives, works the other way. -->
+          <li Class="Phobos.VehicleSystems.Input_AirCooling" />
           <li Class="Phobos.VehicleSystems.Input_EngineRpm">
             <curve>
               <points>

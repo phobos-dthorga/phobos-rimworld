@@ -821,6 +821,16 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// and the share a railway keeps (authored: a ruling grade is a quarter of a road's or less).</summary>
     public float roadGradeFactor = 0.5f;
     public float railGradeFactor = 0.25f;
+    /// <summary>Thin air (Framework 0.132.0; docs/development/vehicle-altitude-and-turbines.md): the height a turbocharged piston engine
+    /// holds its rated power to, in metres, unless its Def says otherwise; and how closely a radiator's cooling follows the air's
+    /// pressure (1: in step; below 1, a little less than in step). The record gives each figure's source or says it is authored.</summary>
+    public float turbochargerHoldsToMetres = 1500f;
+    public float airCoolingExponent = 0.8f;
+    /// <summary>Turbines (Framework 0.132.0): the speed a turbine's accessory gearbox turns its generator at with the engine at full
+    /// speed, in rpm, where its efficiency is read (authored: mid-curve, where an alternator works best); and what a worn hot section
+    /// adds to the fuel burned for the same work, as a share of the condition lost.</summary>
+    public float generatorRatedRpm = 4000f;
+    public float turbineWearFuelPenalty = 0.45f;
     /// <summary>The longest integration step in hours.</summary>
     public float stepHours = 0.025f;
     /// <summary>A stage's message is not repeated within this many hours, so a value hovering on a threshold stays quiet.</summary>

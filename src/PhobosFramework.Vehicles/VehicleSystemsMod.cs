@@ -106,6 +106,12 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Rain, falling snow and ice take grip from the driven wheels, which tells on hills, in mud and when towing (Framework 0.113.0,
     /// cross-links G5; owner, 13 Nov 2026: on, with this setting). Live.</summary>
     public bool weatherGrip = true;
+    /// <summary>Thin air at height takes engine power, rotor lift and cooling (Framework 0.132.0; owner, 18 Nov 2026: altitude, built with the
+    /// turbine slice). Off, every tile is at the sea. Live.</summary>
+    public bool thinAir = true;
+    /// <summary>An aircraft's fuel follows its engines: flying between tiles, and hovering, climbing and idling on a map (Framework 0.132.0;
+    /// owner, 18 Nov 2026: "world flight and on-map phases"). Off, aircraft burn their authors' flat rates. Live.</summary>
+    public bool aircraftFuel = true;
     /// <summary>Ammunition in a burning vehicle's cargo can cook off (Framework 0.113.0, cross-links G13; owner, 13 Nov 2026: on by default,
     /// and only ever where Combat Extended's ammunition system is on). Live.</summary>
     public bool ammoCookOff = true;
@@ -157,6 +163,8 @@ public class VehicleSystemsSettings : ModSettings
         "accessoriesLoadEngine" => accessoriesLoadEngine,
         "roughGroundWear" => roughGroundWear,
         "weatherGrip" => weatherGrip,
+        "thinAir" => thinAir,
+        "aircraftFuel" => aircraftFuel,
         "ammoCookOff" => ammoCookOff,
         "caravanCooking" => caravanCooking,
         "jumpStartNeedsKit" => jumpStartNeedsKit,
@@ -211,6 +219,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref roughGroundWear, "PhobosVehicleSystems_RoughGroundWear", true);
         Scribe_Values.Look(ref headlightBeams, "PhobosVehicleSystems_HeadlightBeams", true);
         Scribe_Values.Look(ref weatherGrip, "PhobosVehicleSystems_WeatherGrip", true);
+        Scribe_Values.Look(ref thinAir, "PhobosVehicleSystems_ThinAir", true);
+        Scribe_Values.Look(ref aircraftFuel, "PhobosVehicleSystems_AircraftFuel", true);
         Scribe_Values.Look(ref ammoCookOff, "PhobosVehicleSystems_AmmoCookOff", true);
         Scribe_Values.Look(ref caravanCooking, "PhobosVehicleSystems_CaravanCooking", true);
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
@@ -378,6 +388,8 @@ public class VehicleSystemsMod : Mod
         }
         listing.Gap(6f);
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLoadFuel".Translate(), ref s.loadDependentFuel, "PhobosVehicleSystems_SettingLoadFuelDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAircraftFuel".Translate(), ref s.aircraftFuel, "PhobosVehicleSystems_SettingAircraftFuelDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingThinAir".Translate(), ref s.thinAir, "PhobosVehicleSystems_SettingThinAirDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLowOilService".Translate(), ref s.lowOilCallsService, "PhobosVehicleSystems_SettingLowOilServiceDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingAccessoryLoad".Translate(), ref s.accessoriesLoadEngine, "PhobosVehicleSystems_SettingAccessoryLoadDesc".Translate());

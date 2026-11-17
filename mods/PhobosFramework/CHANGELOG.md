@@ -5,6 +5,68 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.132.0] - 2026-11-18 - Draft
+
+Thin air in high country, and aircraft that burn fuel by what their engines do
+
+### Added
+
+- **Thin air at height.** Every world tile has a height above the sea, and a map is as high as its tile. An engine without a
+  turbocharger loses power from the sea up (about 15 per cent at 1,500 m), a turbocharged one holds its power to about 1,500 m and
+  loses it more slowly above, and a gas turbine loses power all the way. Lost power tells only where power is what holds a vehicle
+  back: a climb, mud, sand, a heavy tow. A helicopter needs more power to hover in thin air while its engines give less, so the lift
+  check before launch and the hover margin follow the height; a jet has less thrust for a vertical landing. Radiators cool a little
+  less. While it matters, the inspect pane and the Systems tab say the air is thin and how much power the engine has left.
+- **Aircraft fuel follows the engines.** Flying between places, an aircraft in good order with nothing switched on burns exactly
+  what its author set; a worn hot section, cabin air and electrical loads add a few per cent, and the range shown before a flight
+  counts them. Over a map, flying about burns what its author set, and a lift-off, a climb and a hover burn more: a Harrier hovering
+  down burns about twice what it does flying about.
+- **An aircraft's Systems tab lists what its engines give besides flying**: the alternator, cabin air and, on a jet with puffer jets
+  in a hover, the air for them.
+- **For other modders**: an engine Def says whether it is turbocharged and to what height it holds its power; a flight profile names
+  the phases its fuel rates stand for and where a flight framework keeps its own on-map fuel rate; a system's flow can read how well
+  the air cools (Input_AirCooling). The thin-air rule is in the Framework's core (AirRule) for anything that breathes or flies.
+
+### Changed
+
+- **An aircraft idling on the ground with its pilot aboard now burns fuel**, where the Harrier, the Hind and the Mongoose burned
+  none: about a quarter of the flying rate on a jet and nearer two-fifths on a helicopter. Take the pilot out when it is not needed.
+- **What a gas turbine drives now heats and wears it.** On a turbine tank the alternator and anything else on the engine's ledger
+  count into the turbine's work, as they already did for a piston engine's heat. On an aircraft the alternator and the bleed air do.
+- **A turbine's generator is costed at a sensible speed.** It was read at the turbine's own speed times a pulley ratio, the worst
+  end of the alternator's efficiency curve; it now turns at its own geared speed, so it takes a little less from the engine.
+- **An aircraft engine's size is now a class figure** (authored: 250 kW a tonne for helicopter turboshafts, 1,500 for jets and
+  thrusters), where an aircraft with no figure took a truck's 30 kW a tonne. It only sizes what the alternator and bleed air take
+  as a share of the engines' work, which read about ten times too heavy before. Lift and thrust are unchanged.
+- **The engine line's load on a turbine is the engine's whole load**: flying or driving, and what the ledger lists on top.
+- **Idle fuel shares for aircraft turbines** are re-authored from published idle fuel flows now that something reads them: 0.05 for
+  a jet, 0.2 for a helicopter's turboshaft (both were 0.25 and read by nothing).
+
+### Balance
+
+- Every figure is in the design record with its source or the word authored. The ones to watch in play: how thirsty idling on the
+  ground feels, and a helicopter lifting a full load from high country.
+
+### Compatibility and limits
+
+- **Two new settings, both on by default**, under vehicle systems: Aircraft fuel follows the engines, and Thin air at height. Off,
+  aircraft burn their authors' flat rates and every tile is treated as sea level.
+- **Only the player's own vehicles are affected.** Other factions' vehicles and aircraft keep their authors' rates and lose nothing
+  to thin air. Thin air takes engine power only from a vehicle with the full drivetrain model; electric vehicles and thrusters are
+  not affected.
+- A flight between places has no cruising height: it keeps the air of the place it left. Off the planet's surface the air reads as
+  sea level.
+- On a map the fuel is settled by reading what the tank lost to the game and the flight framework, then burning or handing back the
+  difference, so nothing is charged twice. While a tank leaks nothing is handed back. If a flight framework's own fuel rate cannot
+  be found, that aircraft's fuel on a map is left alone.
+- No new Harmony patch: flying between places goes through the one patch that already carried a sling load's fuel.
+
+### Save compatibility
+
+- Safe to add to a running colony. Nothing new is saved.
+
+Not yet tested in game (rows 187 and 188 of the test list).
+
 ## [0.131.0] - 2026-11-18 - Draft
 
 The engine-load ledger: what the engine drives takes its power and its fuel

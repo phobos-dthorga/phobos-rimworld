@@ -1,6 +1,6 @@
 # World elevation: slopes, descents and engine braking, altitude, and radio line of sight (18 Nov 2026)
 
-**Status (18 Nov 2026):** A research record. Built from it: the fixes for gaps D3 to D5 (D'thorga Framework 0.131.0, not yet tested in game), and D2 corrected in its record. Not built: descents and engine braking (held), altitude (queued as a next slice), anything for radio, and D1. The tile's size is undecided.
+**Status (18 Nov 2026):** A research record. Built from it: the fixes for gaps D3 to D5 (D'thorga Framework 0.131.0, not yet tested in game), and D2 corrected in its record. Altitude is built too (Framework 0.132.0, in [thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md), not yet tested in game). Not built: descents and engine braking (held), anything for radio, and D1. The tile's size is undecided.
 
 The owner asked how slopes could be simulated in a game like RimWorld, after engine braking came up beside the
 [engine loads](vehicle-engine-loads.md) work, and asked for research and a record before anything concrete is decided. They added

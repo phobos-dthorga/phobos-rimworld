@@ -22,7 +22,10 @@ public static class VehicleFuel
         if (fuel == null || amount <= 0f || fuel.EmptyTank) return 0f;
         float burned = Mathf.Min(amount, fuel.Fuel);
         fuel.ConsumeFuel(burned);
-        (comp ?? vehicle.GetComp<CompPhobosVehicleSystems>())?.FuelLog.Note(use, burned);
+        comp ??= vehicle.GetComp<CompPhobosVehicleSystems>();
+        comp?.FuelLog.Note(use, burned);
+        // An aircraft settles its fuel by what its tank is seen to lose (Framework 0.132.0): our own burns are not anyone else's.
+        comp?.Powertrain?.NoteOwnFuel(burned);
         return burned;
     }
 
@@ -32,7 +35,9 @@ public static class VehicleFuel
         CompFueledTravel? fuel = vehicle.CompFueledTravel;
         if (fuel == null || amount <= 0f) return;
         fuel.Refuel(amount);
-        (comp ?? vehicle.GetComp<CompPhobosVehicleSystems>())?.FuelLog.Note(use, -amount);
+        comp ??= vehicle.GetComp<CompPhobosVehicleSystems>();
+        comp?.FuelLog.Note(use, -amount);
+        comp?.Powertrain?.NoteOwnFuel(-amount);
     }
 
     /// <summary>Vehicle Framework's own burn now, per day: on a map while drafted (full moving, half standing), on the world map while its
@@ -42,6 +47,8 @@ public static class VehicleFuel
         VehiclePawn vehicle = comp.Vehicle;
         CompFueledTravel? fuel = vehicle.CompFueledTravel;
         if (fuel == null || fuel.EmptyTank || comp.BatteryDrive is { OnBattery: true }) return 0;
+        // An aircraft whose fuel follows its engines (Framework 0.132.0) has what its frameworks burn counted in its own log already.
+        if (comp.Powertrain is { MapFuelFollowed: true }) return 0;
         if (vehicle.Spawned) return FuelRateRule.FrameworkPerDay(fuel.FuelEfficiency, vehicle.Drafted, vehicle.vehiclePather is { Moving: true });
         Vehicles.World.VehicleCaravan? caravan = vehicle.GetVehicleCaravan();
         bool moving = caravan?.vehiclePather != null && caravan.vehiclePather.MovingNow;

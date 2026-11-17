@@ -20,6 +20,10 @@ them running. It applies to **every Vehicle Framework vehicle from any mod**, no
 - **Loaded vehicles slow on soft ground.** A heavy truck in sand, mud or snow labours, and **crawls with "Wheels spinning"** where it
   has no grip (never below 15% of its speed). **Drivetrain shown, speeds unchanged** in the settings keeps every vehicle at its
   author's speeds.
+- **An aircraft idling on the ground with its pilot aboard burns fuel**, and a hover burns more than flying about. Take the pilot
+  out when it is not needed. **Aircraft fuel follows the engines** in the settings turns this off.
+- **High country takes engine power**: an engine without a turbocharger, a gas turbine and a helicopter's lift all lose some
+  where the land stands high. **Thin air at height** in the settings turns this off.
 - **Removing D'thorga Framework or Vehicle Framework from a colony that used the systems: press the removal button first.** Load
   the colony, press **Remove the added parts from this colony's vehicles** in the settings, save, then remove the mod. Without it,
   saved vehicles may fail to load. Before that, also **take every vehicle out of every garage**, **recover every sling wreck** on the
@@ -271,6 +275,31 @@ for what its engine actually does.
 - **Working vehicles burn by the work**: a drill rig drilling takes half its engine, close to 100 chemfuel a day.
 - **To go back to flat rates**, switch **Fuel use follows engine load** off in D'thorga Framework's settings, under vehicle systems.
 
+### Thin air in high country
+
+Not yet tested in game. **The higher a place stands, the thinner its air**, and an engine that breathes it has less to give. The
+world map's terrain tab shows each tile's elevation; a map is as high as its tile.
+
+| Height | Engine with no turbocharger | Turbocharged engine | Gas turbine | A helicopter needs, to hover |
+| --- | --- | --- | --- | --- |
+| The sea | all its power | all | all | its usual power |
+| 500 m | 95 % | all | 94 % | 2 % more |
+| 1,000 m | 89 % | all | 89 % | 5 % more |
+| 1,500 m | 85 % | all | 83 % | 8 % more |
+| 2,500 m | 75 % | 89 % | 74 % | 13 % more |
+| 4,000 m | 63 % | 74 % | 61 % | 22 % more |
+
+- **You only feel lost power where power is what holds the vehicle back**: a climb, mud, sand, a heavy tow. On a road it keeps
+  its speed.
+- **A turbocharger holds an engine's power to about 1,500 m**, and loses it more slowly above that. Trucks, modern tanks and locomotives have one as built; the HMMWV, the M113, the T-54 and the BMP-1 do not. Fitting a
+  **turbocharger** to an engine without one gives it the same hold.
+- **A helicopter is hit twice**: its engines give less and its rotor needs more. One that lifts a full load at the coast may refuse
+  to lift it from a high plateau, and says so. Lighten it, or wait for cooler air.
+- **Radiators cool a little less** in thin air; the colder air up there mostly makes up for it.
+- **While it matters, the inspect pane says** "The air is thin up here" and how much power the engine has left.
+- Electric vehicles are not affected. Other factions' vehicles are not affected.
+- **To switch it off**, untick **Thin air at height** in D'thorga Framework's settings, under vehicle systems.
+
 ## Camp accessories: fridge, house battery and power outlet
 
 Research **vehicle electrics**, make the kit at the **vehicle parts bench**, put it in the vehicle's cargo and fit it from the
@@ -356,7 +385,19 @@ the kit back in the cargo.
   the controls go heavy and it flies slower. Top up the fluid in a service.
 - **Gas turbines** (aircraft, and the M1A2 tanks) wear their hot section when run past their limits, and twice as fast when held at
   take-off power longer than allowed; a **hot-section overhaul**
-  (10 plasteel, 3 components) puts it right. With one of two engines out, the other runs hot.
+  (10 plasteel, 3 components) puts it right. With one of two engines out, the other runs hot. **What a turbine drives besides the
+  rotor or the tracks runs it a little hotter**: its generator, cabin air and, on the Harrier in a hover, air for the puffer jets.
+  The Systems tab lists them.
+- **An aircraft burns fuel by what its engines are doing** (not yet tested in game; the setting **Aircraft fuel follows the
+  engines**, on by default):
+  - **Flying between places**, one in good order with nothing switched on burns exactly what its author set. A worn hot section,
+    cabin air and heavy electrical loads add a few per cent, and the range shown before a flight already counts them.
+  - **Over a map**, flying about burns what its author set. A lift-off, a climb and a hover burn more: a Harrier hovering down
+    onto its pad burns about twice what it does flying about.
+  - **Idling on the ground with a pilot aboard burns fuel**, where it used to burn none: about a quarter to two-fifths of the flying
+    rate. **Take the pilot out, or undraft it, when it is not needed.**
+- **Thin air in high country** takes power from the engines and asks more of the rotor: see
+  [thin air in high country](#thin-air-in-high-country).
 - **Carrying a vehicle on a sling** (take-off tested in game by the owner; the landing not yet):
   1. Fit the helicopter a **cargo hook** (Fittings and tunes). The **Cherokee**, the **Louie**, the **Hind**, and RimArrow's **Ka-27PS**
      and **Mi-38** have a mount for one (all but the Cherokee not yet tested in game). The Hind flies across the map: its load hangs under it there and comes down once
