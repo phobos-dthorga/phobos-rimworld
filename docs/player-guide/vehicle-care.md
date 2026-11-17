@@ -402,7 +402,7 @@ the kit back in the cargo.
     rate. **Take the pilot out, or undraft it, when it is not needed.**
 - **Thin air in high country** takes power from the engines and asks more of the rotor: see
   [thin air in high country](#thin-air-in-high-country).
-- **Carrying a vehicle on a sling** (take-off tested in game by the owner; the landing not yet):
+- **Carrying a vehicle on a sling** (lifting and landing tested in game by the owner, with the Cherokee):
   1. Fit the helicopter a **cargo hook** (Fittings and tunes). The **Cherokee**, the **Louie**, the **Hind**, and RimArrow's **Ka-27PS**
      and **Mi-38** have a mount for one (all but the Cherokee not yet tested in game). The Hind flies across the map: its load hangs under it there and comes down once
      it has landed.
