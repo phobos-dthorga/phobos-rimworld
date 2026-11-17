@@ -3,7 +3,8 @@
 **Status (18 Nov 2026):** A research and design record, with its code checks done the same day. Built: the fixes for C1 and C4 (D'thorga
 Framework 0.129.1, Vehicles 0.65.1), the step back's S1 to S6 and S8 (Framework 0.130.0) and the engine-load ledger with every load
 and C6 (Framework 0.131.0), and S7 with the turbine gaps and altitude (Framework 0.132.0, in
-[thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md)); not yet tested in game, S8 not yet measured after. It
+[thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md)); not yet tested in game. S8 measured after: D'thorga Framework's share of ticking fell from
+1.3 % to 0.3 %. It
 reviews the vehicle simulation as it stood in D'thorga Framework 0.129.0.
 
 The owner asked for a deeper simulation layer: parts the engine drives, such as the alternator and the water pump, take a little
@@ -484,6 +485,31 @@ thread**, and nearly all of it was not the engine model:
 and it warned that the simulation hardly ran, though a repair job only ticks while the game runs. The first recording on the same build
 (17 Nov 2026) matched 99.2 %. That is a phobos-modkit gap to look into; the shares by mod and method above do not depend on it. **The
 recording after waits for the owner to install 0.130.0**; `python scripts/perf.py compare` then sets the two side by side.
+
+**Since then (phobos-modkit 1.14.0):** the gap was Harmony 3's names for patched methods (`DoSingleTick_Patch6`); read again, this
+recording splits as 66.7 % ticking, 11.2 % map drawing, 9.3 % the engine's frame drawing, 6.7 % the alerts column, 4.0 % sound and 2 % not
+named.
+
+### The recording after (18 Nov 2026)
+
+The owner's running game again, a minute, on D'thorga Framework 0.137.0 (the step back, the ledger, thin air, aircraft fuel and refuelling
+from cargo all in), with an up-to-date save and the colony map on screen. Compared as shares, since a faster game ticks more often:
+
+| | Before (0.129.0) | After (0.137.0) |
+| --- | --- | --- |
+| D'thorga Framework, share of ticking | 1.3 % | **0.3 %** |
+| D'thorga Framework, on the main thread | about 0.6 s a minute | 0.115 s a minute (0.2 %) |
+| Ticking, share of the main thread | 66.7 % | 64.4 % |
+
+- **Step S8 holds**: the repair job's walk, the depot bays' walk and the sling's lookups no longer show. The whole vehicle systems' rare tick,
+  ledger and engine model included, is about 0.1 % of the main thread; the drivetrain's sample 0.02 %.
+- **Our largest item now is the room gases' lookup** (`MapComponent_PhobosRoomGases.For`, 0.1 %), most of it a type check in the
+  runtime's slow path. Small; noted, not chased.
+- **D'thorga Medical rose from 0.2 % to 0.6 % of ticking**, almost all one stockpile filter (`SpecialThingFilterWorker_PhobosContaminated.Matches`,
+  0.3 % of the main thread). Not part of this work; worth a look of its own.
+- **The game's biggest single cost is not ours**: LightsOut, 17 % of ticking, two thirds of it called by Fortified Features Framework and
+  Turn It On and Off.
+- One recording each side, with different scenes: a difference of a point or two between them is noise. Ours fell by a factor of four.
 
 ## What the checks found (18 Nov 2026)
 
