@@ -9,6 +9,7 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 - The README says the radio framework is on the back burner since 9 November 2026, and its dated checks note that RimWorld 1.6 was retired. No change in play.
 - The README no longer repeats the player guide: the play test and how to read the signal are in the guide's Radio chapter. No change in play.
+- The coax feedline atlas and its blueprint atlas have asset records: drawn in code on 19 October 2026, and meant to stay drawn by script. No change in play.
 
 ## [0.1.8] - 2026-11-13 - Draft
 

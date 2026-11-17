@@ -2,8 +2,8 @@
 
 **Status (17 Nov 2026):** night 3 ran on 8 Nov 2026, and the owner's picks from it ship (Medical 0.14.1, Patches 0.16.9, Radio 0.1.7);
 the store's frost is drawn in code (Medical 0.15.0); vehicle bodies and parts come from the paid API. Not done: style model v3 (its
-training was cut off by the stop time on 8 Nov, with no model saved), the radio whip (held), the coax atlases, the work lamps fitting
-icon and the rest of the outstanding list below.
+training was cut off by the stop time on 8 Nov, with no model saved), the radio whip (held), and the 26 code-drawn pictures and tent
+pieces in [the stand-in art audit](#stand-in-art-audit-17-nov-2026), which is now the current list.
 
 **Old mod names below.** On 7 Nov 2026 Medical Equipment, Burns and Smoke, Emergency Dosing and Triage became parts of D'thorga Medical,
 and D'thorga Vehicle Patches became part of D'thorga Patches ([mod consolidation](mod-consolidation.md)). The rows keep the names they
@@ -25,6 +25,36 @@ recovery winch and long-range tank on our trucks, from the paid API ([round thre
 Every texture and preview the Phobos RimWorld mods ship or still need, which of them suit the local image model, and what has to
 happen before a run. Written on 6 Nov 2026, before anything on it was generated. How the pipeline works is in the
 [art pipeline](art-pipeline.md); the picks so far are in [its list of picks](art-pipeline.md#the-owners-picks).
+
+## Stand-in art audit (17 Nov 2026)
+
+At the owner's request, every shipped picture (475 PNGs under `mods/**/Textures`) was paired with its asset record and every Def's
+texture path checked. No vehicle body is drawn in code any more; what is left is mostly buttons. **This list supersedes the older rows
+below where they differ.**
+
+**Drawn in code, for the next local run (owner's pick, 17 Nov 2026; a go and a stop time first):**
+
+| Mod | Pictures |
+| --- | --- |
+| D'thorga Framework | Fittings: **work lamps** (a redraw, owner, 16 Nov: the last try looked like headlights), auxiliary fuel tank, ferry tank, litter kit; the cold-weather family; hitch, unhitch, winch, stop winch; litter unload, service lead, water drop, sonar ping, the station's grab; the fire bucket (an item seen on the map) |
+| D'thorga Vehicles | The Crawler's laboratory, advanced laboratory, laboratory refit, scrubber and sensor refit icons |
+| D'thorga Patches | The Mk. 84 fills: incendiary, smoke and tox canisters and the EMP coil pack (briefs in the Vehicle Patches table below) |
+| D'thorga Medical | The triage tag and its outline |
+
+**Borrowed pictures:**
+
+| Thing | Uses | Status |
+| --- | --- | --- |
+| Billy's canvas walls and door, tent lamp, tent heater | The game's smooth wall atlas and simple door (tinted canvas), standing lamp and heater, by path | **Own pictures in a later batch** (owner, 17 Nov 2026); the wall atlas from a script, as its edges must line up |
+| Pintle P4 shower trailer | The bowsers' body | Kept: the owner's choice (17 Nov 2026) |
+| Submarine test hull | The Crawler's body | Kept: dev-only, cannot be built |
+| Deep hopper and fabrication bay | Vanilla Expanded's art, through their parents | Optional, low priority (below) |
+| Liquid oxygen store's button, belt toggle, tap arrows | The game's or Vanilla Expanded's own icons, in place | Allowed reuse, not stand-ins |
+
+**Kept as they are:** the load switch (owner, 10 Nov 2026), the store's frost (drawn in code by design) and the coax atlases (drawn by
+script; records added 17 Nov 2026). **Held:** the whip antenna (until the radio resumes) and the drill rig's well-pipe rack (refused
+twice by the paid API). The audit also gave the bulk tanker's seven upgrade icons and the coax atlases the records they lacked, and
+removed "placeholder" from comments over art that had shipped.
 
 ## Read this first (gotchas)
 

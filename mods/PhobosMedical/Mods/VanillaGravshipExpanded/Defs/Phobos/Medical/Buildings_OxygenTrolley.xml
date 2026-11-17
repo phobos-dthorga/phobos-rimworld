@@ -3,7 +3,7 @@
   <!-- An oxygen cylinder trolley, the second set's fourth piece (owner's order, 7 Nov 2026), with Vanilla Gravship Expanded only (its
        canisters). Unlike the bedside stand it needs no bed: it serves one patient lying in any of the eight cells around it, in a bed or on
        the floor, and is light and quick to pick up and set down, so it is wheeled to a casualty (agent choice). Two large cylinders' worth of
-       canisters. Cost, work and capacity authored; placeholder art. -->
+       canisters. Cost, work and capacity authored; art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosMedical_OxygenTrolley</defName>
     <label>oxygen cylinder trolley</label>

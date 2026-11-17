@@ -2,7 +2,7 @@
 <Defs>
   <!-- A ventilator, the second set's first piece (owner's order, 7 Nov 2026). Placed against a hospital bed like the concentrator. It breathes
        for a patient whose breathing has failed, but only through a breathing tube: an intubation kit's tube or a tracheostomy. Power, cost,
-       work and the floor are authored; real intensive-care ventilators draw roughly 100 to 300 W (from memory, unverified). Placeholder art. -->
+       work and the floor are authored; real intensive-care ventilators draw roughly 100 to 300 W (from memory, unverified). Art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosMedical_Ventilator</defName>
     <label>ventilator</label>

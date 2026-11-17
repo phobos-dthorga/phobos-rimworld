@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- The shower trailer's water heater Def no longer calls its picture a stand-in, and the bulk tanker's seven upgrade icons each have an asset record saying which overlay they were cut from. No change in play.
+
 ## [0.61.1] - 2026-11-17 - Draft
 
 Capitalised upgrade names

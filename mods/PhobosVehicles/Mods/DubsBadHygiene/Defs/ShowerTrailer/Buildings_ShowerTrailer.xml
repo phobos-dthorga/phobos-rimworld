@@ -66,7 +66,7 @@
 
   <!-- The water heater: Dubs' own boiler and hot-water store (its HotWaterTank's figures), burning chemfuel at its gas boiler's rate (4 a day of use, 25 held)
        and only when the plumbing wants hot water (Dubs' thermostat). Plugged into power, D'thorga Framework puts half the chemfuel it burned back
-       (owner, 17 Nov 2026: power a bonus). Stand-in picture until the owner picks one of the night of 17 Nov 2026. -->
+       (owner, 17 Nov 2026: power a bonus). Its picture is the owner's pick from the night of 17 Nov 2026. -->
   <ThingDef ParentName="BuildingBase" DBHLite="true">
     <defName>Phobos_ShowerWaterHeater</defName>
     <label>field water heater</label>

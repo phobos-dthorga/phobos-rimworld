@@ -2,7 +2,7 @@
 <Defs>
   <!-- A carbon monoxide and smoke alarm, the second set's third piece (owner's order, 7 Nov 2026). A small ceiling fixture: it takes no floor
        space and can sit over furniture. It warns once when a gas passes its level and wakes the room's sleepers (owner's choice). Separate
-       from the hydrogen detector planned with the vents (owner: two alarms, as in Ostranauts). Power, cost and work authored; placeholder art. -->
+       from the hydrogen detector planned with the vents (owner: two alarms, as in Ostranauts). Power, cost and work authored; art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosMedical_GasAlarm</defName>
     <label>carbon monoxide and smoke alarm</label>

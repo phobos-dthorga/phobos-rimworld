@@ -2,7 +2,7 @@
 <Defs>
   <!-- A safety shower and eyewash, the second set's second piece (owner's order, 7 Nov 2026). Stood on to rinse. Water per rinse from the
        ANSI/ISEA Z358.1 figures as reported by ISHN, approximate (on its comp); with Dubs Bad Hygiene it is drawn from the plumbing, without
-       it assumed. Cost and work authored. Placeholder art. -->
+       it assumed. Cost and work authored. Art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosMedical_SafetyShower</defName>
     <label>safety shower and eyewash</label>

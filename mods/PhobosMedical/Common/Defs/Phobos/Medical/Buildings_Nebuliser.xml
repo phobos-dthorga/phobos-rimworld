@@ -3,7 +3,7 @@
   <!-- A nebuliser, the second set's fifth piece (owner's order, 7 Nov 2026). Built against a hospital bed. It eases airway spasm after smoke
        by turning a bronchodilator into a mist the patient breathes; the drug is its own vial, burned as fuel (agent choice: Emergency Dosing
        gives drugs that already exist by their effect, and nothing in the game opens airways). Power, cost, the rate and the effect authored.
-       Placeholder art. -->
+       Art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosMedical_Nebuliser</defName>
     <label>nebuliser</label>
@@ -87,7 +87,7 @@ It does not repair damaged lungs or clear carbon monoxide.</description>
   </ThingDef>
 
   <!-- The anaesthesia machine, the second set's sixth piece. Built against a hospital bed like a vitals monitor: safer anaesthesia means safer
-       surgery, through the game's own surgery success factor on the bed (+8%, authored; the vitals monitor gives +5%). Placeholder art. -->
+       surgery, through the game's own surgery success factor on the bed (+8%, authored; the vitals monitor gives +5%). Art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosMedical_AnaesthesiaMachine</defName>
     <label>anaesthesia machine</label>
@@ -154,7 +154,7 @@ It does not repair damaged lungs or clear carbon monoxide.</description>
   <!-- The steriliser, the second set's last piece. An autoclave keeps instruments clean; in the game that is the room's cleanliness, which
        already lowers infection and raises surgery success, so the steriliser adds to it (agent choice; the record calls it the weakest of the
        eight because it overlaps with cleanliness). Cleanliness 4 is about seven sterile tiles' worth (each 0.6), authored. Heated by its own
-       burner, so it needs no power (agent choice). Placeholder art. -->
+       burner, so it needs no power (agent choice). Art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosMedical_Steriliser</defName>
     <label>steriliser</label>

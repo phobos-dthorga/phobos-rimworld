@@ -3,7 +3,7 @@
   <!-- A needle decompression kit, the second set's seventh piece, only with More Injuries (its collapsed lung is the one condition of pressure in
        the chest). A field hold: it lets the trapped air out, taking 0.5 off the collapse (about a day of its worsening at 0.5 a day), never
        clearing it, so its thoracotomy is still needed. Doctors with Medicine 5 or better use it by themselves (agent choice). Cost, work and
-       skill authored. Placeholder art. -->
+       skill authored. Art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosMedical_DecompressionKit</defName>
     <label>needle decompression kit</label>

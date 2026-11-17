@@ -54,7 +54,7 @@
 
   <!-- An intubation kit: a laryngoscope to see past the tongue and a single-use breathing tube. Doctors use it by themselves on a patient
        whose airway is closing, or who lies at a ventilator waiting for a tube; a quick doctor job (owner, 7 Nov 2026), Medicine 4 or better
-       (authored skill check). The tube is used up. Cost, work and skill authored. Placeholder art. -->
+       (authored skill check). The tube is used up. Cost, work and skill authored. Art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosMedical_IntubationKit</defName>
     <label>intubation kit</label>
@@ -104,7 +104,7 @@
   </ThingDef>
 
   <!-- Bronchodilator vials for the nebuliser, burned as its fuel. Neutroamine stands in for the drug precursor, as for the silver dressing;
-       one neutroamine makes four vials (authored). Placeholder art. -->
+       one neutroamine makes four vials (authored). Art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosMedical_BronchodilatorVial</defName>
     <label>bronchodilator vial</label>
@@ -146,7 +146,7 @@
   <!-- A fluids kit for burn shock: a bag of fluid and a giving set. Doctors hang one by themselves on a patient in burn shock whose fluids so
        far are poorer than the kit's (quality 0.9, the burn rules Def's, authored), as a quick job. It goes through the same fluids care as
        More Injuries' saline bill, which stays for players who order it (owner: More Injuries' saline when active, ours otherwise; both
-       work, one service). Cost, work and skill authored. Placeholder art. -->
+       work, one service). Cost, work and skill authored. Art picked by the owner (12 Nov 2026). -->
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosMedical_FluidsKit</defName>
     <label>fluids kit</label>
