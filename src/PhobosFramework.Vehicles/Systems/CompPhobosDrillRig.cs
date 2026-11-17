@@ -19,6 +19,9 @@ public class CompProperties_PhobosDrillRig : CompProperties_PhobosRigWork
     public List<ThingDef> pipedResources = new();
     /// <summary>The work to raise one unit of a piped resource: a tenth of the deepchem pumpjack's 60 ticks a unit (the owner's order of magnitude, 9 Nov 2026).</summary>
     public float pipedWorkPerUnit = 6f;
+    /// <summary>How far from the hole, in cells, a storage building may stand and still be filled straight from the rig (Framework 0.126.0,
+    /// UH3). Authored: a short chute from the rig's shaker, enough for a hopper or a bulk bunker set beside the rig.</summary>
+    public float storageReach = 3f;
     /// <summary>Where the buffer can empty itself, besides a tanker drawing from it.</summary>
     public List<RigBufferOutlet> bufferOutlets = new();
     /// <summary>Other work the rig can do at the hole, offered by other mods' tie-ins, tried when no ore is in reach.</summary>
@@ -276,7 +279,10 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         thing.stackCount = Mathf.Max(1, GenMath.RoundRandom(amount * portionYield));
         IntVec3 hole = Hole;
         CellRect footprint = Vehicle.OccupiedRect();
-        GenPlace.TryPlaceThing(thing, hole, map, ThingPlaceMode.Near, null, p => p != hole && !footprint.Contains(p));
+        // Into storage of the rig's side within reach of the hole first, nearest first (Framework 0.126.0, UH3); otherwise beside the hole as before.
+        IEnumerable<IntVec3> reach = GenRadial.RadialCellsAround(hole, Props.storageReach, true).Where(c => !footprint.Contains(c));
+        StorageNearby.Place(thing, map, reach, Vehicle.Faction, hole, p => p != hole && !footprint.Contains(p), out Building_Storage? into);
+        if (into != null) Seen.Note("vehicles.rig-into-storage", Vehicle, into.LabelShort);
         VehicleWorkSounds.Play(Vehicle, "Portion");
         Find.HistoryEventsManager.RecordEvent(new HistoryEvent(HistoryEventDefOf.Mined, worker.Named(HistoryEventArgsNames.Doer)));
         ReadNext();

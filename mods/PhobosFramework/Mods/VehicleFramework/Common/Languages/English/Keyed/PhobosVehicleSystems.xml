@@ -738,6 +738,9 @@
   <PhobosVehicleSystems_MayLoadOn>A truck's loading grab may now lift goods out of the {STORAGE}.</PhobosVehicleSystems_MayLoadOn>
   <PhobosVehicleSystems_MayLoadOff>Trucks' loading grabs now leave the {STORAGE} alone.</PhobosVehicleSystems_MayLoadOff>
   <PhobosVehicleSystems_MayLoadInspect>Vehicles may load from here.</PhobosVehicleSystems_MayLoadInspect>
+  <PhobosVehicleSystems_ChuteNoVehicle>Waiting for a vehicle parked across its spout.</PhobosVehicleSystems_ChuteNoVehicle>
+  <PhobosVehicleSystems_ChuteVehicleMoving>Waiting for {VEHICLE} to stop.</PhobosVehicleSystems_ChuteVehicleMoving>
+  <PhobosVehicleSystems_ChuteVehicleFull>Waiting: {VEHICLE} has no room left for what it holds.</PhobosVehicleSystems_ChuteVehicleFull>
   <PhobosVehicleSystems_TipLine>Tipping: {COUNT} stacks still aboard.</PhobosVehicleSystems_TipLine>
 
   <PhobosVehicleSystems_OverdriveGizmo>Overdrive</PhobosVehicleSystems_OverdriveGizmo>

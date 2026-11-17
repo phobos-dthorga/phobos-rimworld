@@ -1,7 +1,6 @@
 # Universal hoppers: research and ideas (17 Nov 2026)
 
-**Status (17 Nov 2026):** UH1 and UH12 built in D'thorga Framework 0.125.0, UH2 in D'thorga Vehicles 0.63.0, UH6 in D'thorga Factory
-Additions 0.14.0 (owner's go, 17 Nov 2026; [what was built](#built-17-nov-2026)); not yet tested in game. The other rows are ideas.
+**Status (17 Nov 2026):** UH1 and UH12 built in D'thorga Framework 0.125.0, UH3, UH5 and UH13's workings in Framework 0.127.0, UH2 in D'thorga Vehicles 0.63.0, the UH13 chute in Vehicles 0.64.0, UH6 in D'thorga Factory Additions 0.14.0 and UH9 as a guide note (owner's go, 17 Nov 2026; [what was built](#built-17-nov-2026)); not yet tested in game. UH16 was researched and stays parked. The other rows are ideas.
 
 The owner's request, 17 Nov 2026: "I just thought of something and its (near-)Universal Hoppers! Like, we could have one that takes
 aggregate from our Talus and the patched conveyors of ours would then transport all that throughout the machinations of our colony!
@@ -256,10 +255,42 @@ Not yet tested in game: rows 167 to 169 of [the in-game test pass](in-game-test-
 | UH2 | Vehicles 0.63.0, `PhobosVehicles_BulkBunker` | 3 by 4 at 8 a cell (owner's card); chunks ticked to start, priority Normal; tipper research (owner's card); motor pool tab; 120 steel, 3,000 work (authored). Carries the game's hopper mark and Pipe System's factory-hopper mark; The Dead Man's Switch link in `Mods/DeadManSwitch`. Not the grinder's mark (it reads one cell). Picture: a stand-in drawn in code (owner) |
 | UH6 | Factory Additions 0.14.0, `Mods/DeadManSwitch` | As proposed: VFE Factory's hopper (and the deep hopper, which inherits it) links to the automatic benches; the feed hopper is a factory hopper with our filter mark |
 | UH12 | Framework 0.125.0, `CompPhobosVehicleLoadOut` and `VehicleLoadOut` | On every storage building, off to start (owner's card). Lives in the Framework's vehicle part, not the core: without Vehicle Framework it would be a button that does nothing. The grab also leaves a stored thing a colonist has already claimed |
+| UH3 | Framework 0.127.0, `CompPhobosDrillRig.ProducePortion` through `StorageNearby` | Storage within 3 cells of the hole (`storageReach`, authored), nearest first; the rest beside the hole as before. Second round, owner's card |
+| UH5 | Framework 0.127.0, `Port_Items.Give` through `StorageNearby` | Storage under or beside the tanker (its contact cells), any building of its side that takes the item, not only hoppers. Built though ranked low: the owner's card |
+| UH9 | The player guide's factory chapter | A note only, as proposed |
+| UH13 | Framework 0.127.0 (`CompPhobosLoadingChute`, `LoadingChute`), Vehicles 0.64.0 (`PhobosVehicles_LoadingChute`) | A one-cell storage building, 4 stacks, starting with nothing allowed and Low priority, so haulers never fill it unasked (agent defaults). Up to 4 stacks a rare tick into a standing vehicle of its side covering the cell it faces, by the cargo's room. Not a factory hopper, so belts never take from it. Tipper research, 30 steel (authored). Picture: a stand-in drawn in code |
 
 **Answered by the owner, 17 Nov 2026:** the bunker's size, what a full bunker does, where the switch appears and the research, all as
 the agent recommended; stand-in art until it is clearer what to ask the image generator for. Questions 1 to 4 below are settled (the
-size card stated the bunker's kind, goods shown on its cells, and its chunks-first filter); questions 5 and 6 stay open.
+size card stated the bunker's kind, goods shown on its cells, and its chunks-first filter).
+
+**Second round, answered by the owner on 17 Nov 2026 (cards):** build UH3, UH5, UH9 and UH13; question 5 becomes test row 175; question 6,
+research and record (below); the bunker's real art by the OpenAI image API. The request is written
+(`assets/phobos-vehicles/requests/bulk-bunker-pilot.json`: one building, two attempts, medium quality, our parts bench for style and our
+stand-in for layout); its dry run says at most US$0.40. **Nothing is bought until the owner says go and sets the cap.**
+
+## Crushed stone (UH16): research, 17 Nov 2026
+
+The owner asked for research and a record. **Verdict: keep it parked.** Rails and Roads of the Rim (Continued), by Vampiresbane, never
+uses chunks, pays for stone in stone blocks, and fixes its list of materials in code, so a crushed stone would have nothing to feed.
+Read from its 1.6 Defs and decompiled assembly (`.local/decompiled/RailsAndRoadsOfTheRim-1.6`) on 17 Nov 2026 **[code]**:
+
+- **It runs on its 1.6 folder in the owner's 1.7 game** (the game takes the highest folder at or below its own); it declares 1.3 to 1.6,
+  and its one 1.7 question on the Workshop (8 Nov 2026) has no answer. Updated 14 Sep 2026; the uploader last replied 15 Sep 2026.
+- **A road tile's cost is paid from the building caravan's inventory**, in proportion to the work done; a shortage slows the work and
+  stops the caravan (`RailsAndRoadsOfTheRim.cs:72-178`). Stone roads ask 1,800 stone, 240 wood and 300 steel a tile; asphalt 3,600
+  stone, 600 steel and 300 chemfuel; a railroad 800 stone (`1.6/Defs/RoadDefs/RoadDefs.xml`), scaled by elevation, hills and swamp.
+- **"Stone" means any stone block**, by the game's StoneBlocks category; every other material must be one exact item
+  (`IsThis`, `RailsAndRoadsOfTheRim.cs:556-570`). **The materials are a fixed list in code** (`DefModExtension_RotR_RoadDef.cs:12`): an
+  XML patch adding a new item to a road's cost is silently ignored.
+- **Its road-building machines waive stone altogether** (the ISR2G, on by default), and no part of it, nor any mod on the owner's
+  list, has a crushed stone, gravel, ballast or crusher item. Trains of the Rim's ballast floors cost 2 blocks and 1 steel a cell.
+
+**Our reading [I]:** a stone road tile already costs 90 chunks' worth of blocks (20 blocks a chunk, mass kept), and the stonecutter
+makes them. A crushed stone counted 1:1 with blocks gains nothing; counted better, it makes value from nothing. Getting it accepted
+would mean filing it under stone blocks (every block filter in the game would then take it) or a Harmony patch on a private method of a
+mod not yet declared for 1.7. **What already works with no new material:** the Talus carries blocks from the stonecutter to a road
+crew's caravan. A gravel floor on the map is the one place crushed stone might earn a place one day; nothing asks for it now.
 
 ## Questions for the owner
 
@@ -267,17 +298,19 @@ size card stated the bunker's kind, goods shown on its cells, and its chunks-fir
 2. **How big?** (agent default: one base Talus load, 96 chunks, for example 3 by 4 cells at 8 a cell **[A]**, as wide as the truck.)
 3. **What may it hold?** (agent default: anything haulable through its filter, with chunks ticked to start.)
 4. **What first?** (agent default: UH1 and UH6 together, since neither needs art; then UH2; then UH12.)
-5. **Look at UH11 in game first?** A belt ending beside a parked Talus with the loading grab may already load it. (agent default:
-   one look, when the owner next has a belt and the truck on the same map.)
-6. **Crushed stone, UH16:** leave parked, or explore? (agent default: parked.)
+5. **Look at UH11 in game first?** A belt ending beside a parked Talus with the loading grab may already load it. **Answered: test
+   row 175.**
+6. **Crushed stone, UH16:** leave parked, or explore? **Answered: researched (above); parked on the findings.**
 
 ## Who chose what
 
 - **Owner (17 Nov 2026):** universal hoppers as a research and record round; chunks, not a new material; the three families; active
   mods only. Then: build UH1, UH6, UH2 and UH12; a 3 by 4 bunker at 8 a cell; full storage keeps the rest aboard; the switch on every
-  storage building; the tipper research; stand-in art.
+  storage building; the tipper research; stand-in art. Second round: UH3, UH5, UH9 and UH13; UH11 as a test row; UH16 researched;
+  the bunker's art by the OpenAI image API.
 - **Agent defaults, owner to revise:** every verdict and the order; the bunker's kind, size and filter; where each piece lives; the
-  rule that load-out serves only its own faction; parking UH16.
+  rule that load-out serves only its own faction; parking UH16 after its research; the chute's capacity, empty starting filter, research
+  and cost; the rig's 3-cell reach.
 - **Agent's reading, not the owner's:** every **[I]** figure in this record.
 
 ## Sources

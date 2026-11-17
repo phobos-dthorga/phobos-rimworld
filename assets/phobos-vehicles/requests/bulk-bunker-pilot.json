@@ -1,0 +1,29 @@
+[
+  {
+    "name": "bulk-bunker-pilot",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 2048,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+        "role": "our approved vehicle parts bench from the motor pool's family of buildings: match its outline weight, shading, palette and finish only; do not copy its shape or contents"
+      },
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/BulkBunker/BulkBunker.png",
+        "role": "our own stand-in drawing of this bunker, drawn in code: keep its layout only (walls on three sides, the open south end with its striped wheel stop, the drain grate near the back wall); redraw everything in the finished style"
+      }
+    ],
+    "art_plan": {
+      "building": "PhobosVehicles_BulkBunker, footprint (3, 4), drawSize (3, 4), 128 px per unit so 384 x 512 in game; requested at 4 times that",
+      "measured_against": "the Talus tipper truck, 3 cells wide, which backs up to its open end; the depot bay and inspection pit of the same motor pool tab",
+      "this_request": "a pilot of one building, two attempts; the owner chose the OpenAI image API for it on 17 Nov 2026. The goods it holds are the game's own items drawn over it, so the bay is drawn empty"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down into the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for the D'thorga bulk bunker: an open concrete storage bay that a dump truck reverses up to and tips stone into, in a hard-scrabble frontier colony. Image 1 is our approved vehicle parts bench from the same family of buildings: match its outline weight, shading, palette and finish only. Do NOT copy its shape or contents. Image 2 is our rough layout drawing of this bunker: keep its layout only and redraw it in the finished style.\n\nTall canvas. The bunker fills about 92 percent of the canvas width and 94 percent of its height, centred, on a plain pure white background. It is four units long from top to bottom and three units wide.\n\nIts plan: a flat, empty, pale grey concrete floor slab with faint expansion joints, one unit apart. Thick poured-concrete walls with a steel cap along their inner edge run along the top, left and right sides. The bottom side is open: across it lies a low steel wheel stop painted with worn yellow and dark diagonal hazard stripes. One small plain steel drain grate is set in the floor near the top wall. A faint worn patch on the floor shows where loads are tipped.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo stone, rocks, chunks, rubble, goods, people, animals, vehicles, tools, text, letters, numbers, logos, dials, screens or dust. No ground beyond the bunker, no shadow outside it, no perspective, no tilt."
+  }
+]

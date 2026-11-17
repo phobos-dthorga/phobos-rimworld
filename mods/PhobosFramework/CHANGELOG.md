@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.127.0] - 2026-11-17 - Draft
+
+The drill rig, the tanker and a loading chute work with storage (universal hoppers UH3, UH5 and UH13)
+
+### Added
+
+- **The drill rig fills storage beside it** (UH3): each portion goes into a storage building of the colony's own within 3 cells of the
+  hole (authored reach) that would take it and has room, nearest first, so a rig beside a bulk bunker or a hopper feeds a line with no
+  hauling. What no storage takes, or what does not fit, is set down beside the hole as before.
+- **The tanker's item port fills storage touching it** (UH5): stacks pumped out as items go into a storage building of the colony's own
+  under or beside the tanker, such as a hopper at the start of a belt, before being set down beside it.
+- **The loading chute's workings** (UH13): a one-cell storage building that drops what it holds, a few stacks every few seconds, into the
+  cargo of a standing vehicle of its own side parked across its spout, as much as the cargo has room for. With no vehicle there, a moving
+  one or a full one, it holds its goods and its inspect line says what it waits for. The building itself is in D'thorga Vehicles 0.64.0.
+
+### Compatibility and limits
+
+- Safe to add to a running colony and to remove: nothing new is saved. Never fills or loads another faction's storage or vehicle. New
+  test rows 172 to 175. Not yet tested in game.
+
 ## [0.126.0] - 2026-11-17 - Draft
 
 Field care gives way to the carry, and helicopters take casualties aboard

@@ -71,7 +71,10 @@ public class Port_Items : TankPort
         Thing stack = ThingMaker.MakeThing(thing);
         stack.stackCount = count;
         VehiclePawn vehicle = tank.Vehicle;
-        return GenPlace.TryPlaceThing(stack, vehicle.Position, vehicle.Map, ThingPlaceMode.Near) ? count * unitsPerItem : 0f;
+        // Into storage of the tanker's side touching it first, such as a hopper at the end of a belt (Framework 0.126.0, UH5); otherwise beside it as before.
+        bool placed = StorageNearby.Place(stack, vehicle.Map, tank.ContactCells(), vehicle.Faction, vehicle.Position, null, out Building_Storage? into);
+        if (into != null) Seen.Note("vehicles.tank-into-storage", vehicle, into.LabelShort);
+        return placed ? count * unitsPerItem : 0f;
     }
 }
 

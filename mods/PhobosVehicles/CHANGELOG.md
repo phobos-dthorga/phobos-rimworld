@@ -5,6 +5,34 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.64.0] - 2026-11-17 - Draft
+
+The loading chute, with D'thorga Framework 0.127.0 (universal hoppers UH13)
+
+### Added
+
+- **The loading chute**: a one-cell steel funnel that drops whatever lands in it into the cargo of a vehicle parked across its spout,
+  the cell it points at. Fill it by belt (VFE Factory) or by hand; with no vehicle there, or a full one, it holds up to four stacks and
+  waits. It starts set to take nothing, so haulers never fill it unasked: tick what it should load. Tipper research, motor pool tab,
+  30 steel (agent defaults, authored). Its picture is a stand-in drawn in code.
+
+### Changed
+
+- The bulk bunker's stand-in picture is now drawn by the same script as the chute's; the picture itself is unchanged. Its generated
+  picture is to come from the OpenAI image API (owner's choice, 17 Nov 2026).
+
+### Dependencies
+
+- D'thorga Framework 0.127.0, for the chute's workings.
+
+### Save compatibility
+
+- Safe to add to a running colony. To remove the mod, empty and deconstruct every loading chute, as with the bulk bunker.
+
+### Compatibility and limits
+
+- New test row 174. Not yet tested in game.
+
 ## [0.63.0] - 2026-11-17 - Draft
 
 The bulk bunker, with D'thorga Framework 0.125.0 (universal hoppers UH2)

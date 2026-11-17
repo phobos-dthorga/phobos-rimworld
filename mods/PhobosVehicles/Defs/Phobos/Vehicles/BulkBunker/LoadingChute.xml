@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    The loading chute (Vehicles 0.64.0; docs/development/universal-hoppers.md, UH13). A one-cell storage building: belts deliver into it
+    as into any storage whose filter takes the item (VFE Factory), haulers fill it at its priority, and D'thorga Framework's comp drops what
+    it holds into the cargo of a standing vehicle of its own side that covers its spout, the cell it faces (Framework 0.126.0). With no
+    vehicle there it holds its goods, up to 4 stacks, and the belt behind it waits; its inspect line says what it waits for.
+    It starts with nothing allowed, as VFE Factory's hoppers do, so haulers never carry random goods into it: tick what it should load.
+    Not a factory hopper: belts must not take from it. Research, cost, work and capacity are authored, agent defaults for the owner to
+    revise (17 Nov 2026). Its picture is a stand-in drawn in code.
+  -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosVehicles_LoadingChute</defName>
+    <label>loading chute</label>
+    <description>A steel funnel that drops whatever lands in it into the cargo of a vehicle parked across its spout. Point the spout where a vehicle will stand, and bring goods to it by belt or by hand. With no vehicle there, or a full one, it holds up to four stacks and waits.\n\nIt starts set to take nothing: tick what it should load in its storage settings.</description>
+    <thingClass>Building_Storage</thingClass>
+    <graphicData>
+      <texPath>Phobos/Vehicles/LoadingChute/LoadingChute</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <damageData>
+        <rect>(0.05,0.05,0.9,0.9)</rect>
+      </damageData>
+    </graphicData>
+    <size>(1,1)</size>
+    <rotatable>true</rotatable>
+    <defaultPlacingRot>South</defaultPlacingRot>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>42</pathCost>
+    <fillPercent>0.4</fillPercent>
+    <surfaceType>Item</surfaceType>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.2</staticSunShadowHeight>
+    <tickerType>Rare</tickerType>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <constructEffect>ConstructMetal</constructEffect>
+    <costList>
+      <Steel>30</Steel>
+    </costList>
+    <statBases>
+      <WorkToBuild>600</WorkToBuild>
+      <MaxHitPoints>150</MaxHitPoints>
+      <Flammability>0</Flammability>
+    </statBases>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>126</uiOrder>
+    <researchPrerequisites>
+      <li>PhobosResearch_Tipper</li>
+    </researchPrerequisites>
+    <inspectorTabs>
+      <li>ITab_Storage</li>
+    </inspectorTabs>
+    <comps>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosLoadingChute" />
+    </comps>
+    <building>
+      <maxItemsInCell>4</maxItemsInCell>
+      <preventDeteriorationOnTop>true</preventDeteriorationOnTop>
+      <ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
+      <blueprintClass>Blueprint_Storage</blueprintClass>
+      <fixedStorageSettings>
+        <filter>
+          <disallowNotEverStorable>true</disallowNotEverStorable>
+          <categories>
+            <li>Root</li>
+          </categories>
+          <disallowedCategories>
+            <li>Plants</li>
+            <li>Buildings</li>
+          </disallowedCategories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <priority>Low</priority>
+        <filter />
+      </defaultStorageSettings>
+    </building>
+  </ThingDef>
+
+</Defs>

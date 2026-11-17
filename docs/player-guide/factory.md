@@ -164,6 +164,12 @@ share a storage group with ordinary ones.
 For the machining or fabrication bay (three input cells, up to four solid ingredients plus chemfuel), put deep hoppers on the input
 cells; chemfuel needs no hopper with Vanilla Chemfuel Expanded.
 
+## Belts that refuel buildings
+
+VFE Factory's belts already do this on their own: **a belt pointing into a building that burns fuel** (a wood-fired or chemfuel
+generator, a fueled stove) **feeds it directly**, only fuel it takes and only as much as it needs, with no hopper. When it is full the belt
+waits. A vehicle is not a building, so a belt cannot refuel one: use the tanker's hose.
+
 ## Hoppers shared with The Dead Man's Switch
 
 With **The Dead Man's Switch** active (0.14.0), each mod's hoppers feed the other's machines:

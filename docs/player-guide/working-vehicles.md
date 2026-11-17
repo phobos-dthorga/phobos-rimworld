@@ -119,7 +119,8 @@ within 15 cells. With Rimefeller, a set-up survey truck counts as the scanner a 
 1. **Research drill rig** (after Deep drilling) and build it.
 2. **Reverse it up to a deposit** a scanner or survey truck has found: **it drills the cell behind its rear**. Press **Set up**; a
    ring shows its reach.
-3. **A colonist on Mining work drills**, with the game's portions and their Mining skill. What comes up lands beside the hole.
+3. **A colonist on Mining work drills**, with the game's portions and their Mining skill. What comes up lands beside the hole, or
+   **into storage of yours within 3 cells of the hole** (a bulk bunker, a hopper, a shelf) when its settings take it and it has room.
 
 | Fit | Drilling speed against a deep drill |
 | --- | --- |
@@ -164,6 +165,11 @@ up to it, back the truck's tail to the stripe and press Tip.
   input cell on it reads that cell, a paste dispenser beside it draws from the cell it touches, and **The Dead Man's Switch's automatic
   benches link to it** like their own feed hopper.
 - Its picture is a stand-in until generated art is picked.
+
+**The loading chute** (research tipper hauler, Architect, **motor pool** tab; 30 steel) is a one-cell funnel that drops whatever
+lands in it into the cargo of a vehicle parked across its **spout**, the cell it points at (outlined when you select it). Bring goods
+by belt or by hand. **It starts set to take nothing: tick what it should load.** With no vehicle there, or a full one, it holds up to
+four stacks and the belt behind it waits; its inspect line says what it is waiting for. Its picture is a stand-in.
 
 **Loading from storage.** Every storage building has a **Vehicles may load from here** button, off to start. Switched on, the
 loading grab may lift goods out of it, so belts or haulers can fill a bunker or a shelf while the truck is away and the grab takes the
@@ -290,6 +296,9 @@ water tank, two showers and two flushing toilets.
 3. **Choose contents.**
 4. **Park it on or beside** the pipes, stacks or vehicle you want, and press **Set up**.
 5. Press **Load** or **Unload**. The inspect pane says what the pump is waiting for. **Hold** stops the pump.
+
+**Stacks pumped out go into storage first**: a storage building of yours under or beside the tanker, such as a hopper at the start
+of a belt, takes what its settings allow before the rest is set down beside it.
 
 **Electric pump** (an upgrade): the pump runs off the engine unless this is fitted. With it, the tanker can set up and pump with the
 engine off, on its battery, until the battery is flat; then the pump waits and the inspect pane says why. Someone still has to be

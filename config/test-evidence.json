@@ -43,7 +43,10 @@
     "167": ["vehicles.tip-into-storage"],
     "168": ["vehicles.grab-from-storage"],
     "170": ["medical.field-care-gave-way"],
-    "171": ["vehicles.litter-collection-carry"]
+    "171": ["vehicles.litter-collection-carry"],
+    "172": ["vehicles.rig-into-storage"],
+    "173": ["vehicles.tank-into-storage"],
+    "174": ["vehicles.chute-loaded"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

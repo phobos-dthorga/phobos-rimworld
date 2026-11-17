@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.126.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.127.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -46,6 +46,8 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
 - **Every storage building now has a "Vehicles may load from here" switch, off to start** (0.125.0). Only with it on can a truck's
   loading grab lift goods out of that storage. **A tipper now fills storage behind it first**: whatever a storage building in the tip
   area would take goes in until it is full, and the rest of those things stay aboard rather than spilling beside it.
+  **The drill rig and the tanker's item port fill storage beside them too** (0.127.0), and **a loading chute** (D'thorga Vehicles)
+  drops what it holds into a vehicle parked across its spout.
 - **With The Dead Man's Switch - Expedition, aircraft can be shot at on the world map** (0.119.0): a defended settlement's radars track
   your aircraft and may fire. A hit damages it; it comes down at a crash site only if it can no longer fly. **Make countermeasure
   cartridges at the parts bench and load them into an aircraft's cargo** before sending it near a defended place, and keep its avionics
