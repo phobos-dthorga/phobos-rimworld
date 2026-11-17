@@ -1,0 +1,51 @@
+{
+  "file": "item-fridge-unit-2.png",
+  "sha256": "6bb8027c71773231a1870b0c72cdcfb30d22d7783b14ff2087e9c62750d34773",
+  "date": "2026-11-17T22:03:16",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga 12-volt fridge: a portable compressor fridge for a four-wheel-drive vehicle. Image 1 is our approved item from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA squat rectangular chest fridge with a pale grey body, darker grey rounded corner protectors, a hinged lid with a recessed handle, a small dark ventilation grille on one end and two short folding carry handles. One small round blue indicator on the front panel.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, food, text, letters, numbers, logos, brand marks, dials, screens or shadow beyond the object.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/camp-power-budget.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 325,
+    "input_tokens_details": {
+      "image_tokens": 64,
+      "text_tokens": 261
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2081
+  },
+  "cost_usd": 0.0545,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 28.9,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png",
+      "sha256": "42f693342680c093d07aed46e4d35d477e58b3f9f3149147a5810b957ef84408",
+      "role": "our approved vehicle parts item from the same family (the jump-start kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
