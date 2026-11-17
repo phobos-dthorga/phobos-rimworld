@@ -1,5 +1,4 @@
 using System;
-using System.Reflection;
 using HarmonyLib;
 using Phobos.Framework;
 using Phobos.Framework.Work;
@@ -74,7 +73,7 @@ public class MissilePatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.21.1";
+    public const string ModVersion = "0.21.2";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "IRBM");
 
@@ -93,7 +92,9 @@ public class MissilePatchesMod : Mod
             Logger.Info("Settings carried over from D'thorga Missile Patches.");
         }
         var harmony = new Harmony(PackageId);
-        HarmonyPatchApplier.ApplyEach(harmony, Assembly.GetExecutingAssembly(), LogPrefix);
+        // By type, never Assembly.GetExecutingAssembly(): inside a constructor another mod has patched, Harmony 3.0.3.0 on RimWorld 1.7
+        // answers that with its own assembly, and no patch of ours would be found (17 Nov 2026; tests/test_no_executing_assembly.py).
+        HarmonyPatchApplier.ApplyEach(harmony, typeof(MissilePatchesMod).Assembly, LogPrefix);
         Strike.RimPactsAssaultSize.Apply(harmony);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }

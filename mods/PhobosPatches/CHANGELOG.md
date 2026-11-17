@@ -13,6 +13,28 @@ says the owner tested it.
 - A code comment and the README name the design records they now live in, after the merges of 17 November 2026. No change in play.
 - The comment on the Harrier's fuller parts list no longer says the airframe's weight decides which part a hit lands on: since the Harrier's build of 16 November 2026 its own rule does, and that rule shares its hits evenly among every part, ours included. No change in play; what it means for the jet is in the avionics record (L6).
 
+## [0.21.2] - 2026-11-17 - Draft
+
+The missile patches no longer depend on which mod is timing the load
+
+### Fixed
+
+- **The InterRim Ballistic Missile part finds its own patches whatever else is installed.** It asked the game which code was running to
+  find them. On RimWorld 1.7 with Harmony 3.0.3.0 (17 November 2026) that answer is wrong inside a mod's start-up code that another mod
+  has patched, and Loading Progress patches every mod's start-up code to time it. With both, the part could start with none of its patches
+  applied and no error: the fast blast sweep, shelter and rubble among them. It now names itself instead, which cannot be answered wrongly.
+  Every other part already did.
+
+### Compatibility and limits
+
+- Read from the code and from Harmony's own issue 52 (pardeike/HarmonyRimWorld), not seen in play: whether the part's patches were in fact
+  missing in the owner's game that evening was not checked. A test now refuses the same call anywhere in our code. No settings were added
+  or changed. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a running game. Nothing new is saved.
+
 ## [0.21.1] - 2026-11-17 - Draft
 
 Asks to load after the Hind, the Mongoose and Visit Settlements
