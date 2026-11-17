@@ -576,6 +576,9 @@ public class LoadoutSelector
     public Match fuelled = Match.Any;
     public Match electricPowered = Match.Any;
     public Match flies = Match.Any;
+    /// <summary>Whether the design is a trailer (CompProperties_PhobosTrailer; Framework 0.133.0). No by default, so a loadout written for
+    /// driven vehicles never claims a trailer; the trailer loadout says Yes.</summary>
+    public Match trailer = Match.No;
     public List<ThingDef>? fuelTypes;
     public List<ThingDef>? excludeFuelTypes;
     public float massMin = float.NaN;
@@ -604,6 +607,7 @@ public class LoadoutSelector
         if (!Fits(electricPowered, fuel != null && fuel.electricPowered)) return false;
         bool flying = def.GetCompProperties<CompProperties_VehicleLauncher>() != null;
         if (!Fits(flies, flying)) return false;
+        if (!Fits(trailer, IsTrailer(def))) return false;
         if (fuelTypes != null && (fuel?.fuelType == null || !fuelTypes.Contains(fuel.fuelType))) return false;
         if (excludeFuelTypes != null && fuel?.fuelType != null && excludeFuelTypes.Contains(fuel.fuelType)) return false;
         if (!float.IsNaN(massMin) || !float.IsNaN(massMax))
@@ -638,6 +642,9 @@ public class LoadoutSelector
     }
 
     static bool Fits(Match match, bool value) => match == Match.Any || (match == Match.Yes) == value;
+
+    /// <summary>Whether a design is a trailer: towed, with no engine, crew or seats of its own.</summary>
+    public static bool IsTrailer(VehicleDef def) => def.comps?.Any(c => c is CompProperties_PhobosTrailer) == true;
 
     public static float BaseStat(VehicleDef def, VehicleStatDef? stat)
     {

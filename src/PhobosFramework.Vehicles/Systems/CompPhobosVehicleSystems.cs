@@ -103,6 +103,8 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
     public string? ammoRackKey;
     /// <summary>How many parts the design had before the service appended any; the uninstall sweep cuts saved vehicles back to it.</summary>
     public int originalPartCount;
+    /// <summary>The design is a trailer (Framework 0.133.0): no engine, crew or hitch of its own; it moves when what tows it moves.</summary>
+    public bool trailer;
     /// <summary>The loadout's drivetrain (with its overrides) and flight profile, if any.</summary>
     public LoadoutDrivetrain? drivetrain;
     public PhobosVehicleFlightProfileDef? flightProfile;
@@ -321,6 +323,36 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 
     /// <summary>Whether the service runs for this vehicle: it has systems and the player has not swept them out.</summary>
     public bool Usable => Vehicle != null && Props.systems.Count > 0 && !VehicleSystems.Swept;
+
+    // ---- A trailer's systems (Framework 0.133.0; docs/development/vehicle-trailers.md, "A trailer's own systems") ----
+
+    /// <summary>Whether this vehicle is a trailer: towed, with no engine, crew or hitch of its own.</summary>
+    public bool IsTrailer => Props.trailer;
+
+    /// <summary>The tractor catching this trailer up while it rides off the map in the hitch's holder, where nothing ticks it. Set only
+    /// for the length of that update; never saved.</summary>
+    CompPhobosVehicleSystems? catchingUpFor;
+
+    /// <summary>Whether what tows this trailer is moving: on a map, its tractor's pather (the hitch drags the trailer cell by cell, so
+    /// the trailer's own pather never moves); off the map, the tractor that is catching it up.</summary>
+    bool TowMoving()
+    {
+        if (catchingUpFor != null) return catchingUpFor.Moving;
+        return Hitches.Towing(Vehicle)?.Vehicle is { Spawned: true, vehiclePather.Moving: true };
+    }
+
+    /// <summary>
+    /// The tractor's rare tick, while this trailer rides with it off the map (a caravan, the garage): brings the trailer's systems up to
+    /// now, moving as the tractor moves. A trailer in the holder has no ticks of its own, so without this its tyres would never wear on
+    /// the world map, and its next update on a map would count every hour away as standing still.
+    /// </summary>
+    public void CatchUpTowedBy(CompPhobosVehicleSystems tractor)
+    {
+        if (!IsTrailer || catchingUpFor != null) return;
+        catchingUpFor = tractor;
+        try { UpdateNow(); }
+        finally { catchingUpFor = null; }
+    }
 
     /// <summary>
     /// How closely this vehicle is simulated (the core's DetailTierRule; owner, 8 Nov 2026): the player's own in full; another
@@ -698,6 +730,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         {
             case DetailTier.Full:
                 using (PhobosTiming.Measure("vehicle rare tick / full")) UpdateNow();
+                // A trailer riding with this vehicle off the map does not tick: this vehicle catches it up (Framework 0.133.0).
+                if (!Vehicle.Spawned && Hitch is { HoldsTowed: true, Trailer: { } held } && held.GetComp<CompPhobosVehicleSystems>() is { Usable: true } heldSystems)
+                {
+                    heldSystems.CatchUpTowedBy(this);
+                }
                 NoticeStopped();
                 Lamps.Update();
                 Beams.Update();
@@ -902,7 +939,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         bool caravanMoving = caravan != null && caravan.vehiclePather != null && caravan.vehiclePather.MovingNow;
         bool drafted = vehicle.Spawned && vehicle.Drafted;
         bool movingOnMap = vehicle.Spawned && vehicle.vehiclePather != null && vehicle.vehiclePather.Moving;
-        Moving = movingOnMap || caravanMoving || flying;
+        // A trailer never moves under its own pather: the hitch sets its place each tick (Framework 0.133.0).
+        Moving = movingOnMap || caravanMoving || flying || (IsTrailer && TowMoving());
+        if (IsTrailer && Moving && SeenInPlay.On)
+        {
+            if (catchingUpFor != null) Seen.Note("vehicles.trailer-towed-world", vehicle);
+            else Seen.Note("vehicles.trailer-towed", vehicle);
+        }
         EngineRunning = hasFuel && (drafted || caravanMoving || flying);
         EngineRunningRaw = EngineRunning;
         EngineLoad = EngineRunning ? (Moving ? 1f : 0.5f) : 0f;
@@ -927,7 +970,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             EngineLoad = 0f;
         }
         // A set-up vehicle's work turns the engine with nobody driving. EngineRunningRaw stays as it was, so the drivetrain's fuel sum adds nothing: the work burns its own.
-        engineDemands ??= vehicle.AllComps.OfType<IVehicleEngineDemand>().ToList();
+        // A trailer has no engine for its work to turn: its pumps and set-up run without one (Framework 0.133.0).
+        engineDemands ??= IsTrailer ? new List<IVehicleEngineDemand>() : vehicle.AllComps.OfType<IVehicleEngineDemand>().ToList();
         WorkTurningEngine = false;
         bool workWanted = false;
         bool workByModel = true;
@@ -2305,9 +2349,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// <summary>
     /// Whether its pipes and conduits lie beneath it now (Framework 0.108.0; owner, 13 Nov 2026, UnderlayRule): the player's, standing on a map, not moving,
     /// with its engine off, or set up for work (its work runs through them while the engine turns it). Framework 0.120.5 (fault-read H5): a
-    /// vehicle on the recovery tow counts as moving, as a towed trailer does.
+    /// vehicle on the recovery tow counts as moving, as a towed trailer does. On a trailer this host lays none (Framework 0.133.0): the trailer's
+    /// own comp (CompPhobosTrailer) lays its pipes.
     /// </summary>
-    public bool ParkedForPipes => Phobos.Framework.Rules.UnderlayRule.Lays(Vehicle.Spawned, Vehicle.Faction == Faction.OfPlayer,
+    public bool ParkedForPipes => !IsTrailer && Phobos.Framework.Rules.UnderlayRule.Lays(Vehicle.Spawned, Vehicle.Faction == Faction.OfPlayer,
         Vehicle.vehiclePather is { Moving: true } || Hitches.Towing(Vehicle) != null, ignitionHint ?? Vehicle.Drafted,
         // A switched-on power outlet keeps them down while the engine idles to carry the camp (Framework 0.129.0, Y1), as set-up work does.
         Vehicle.GetComps<CompPhobosSetUp>().Any(setUp => setUp.Deployed) || OutletWanted);

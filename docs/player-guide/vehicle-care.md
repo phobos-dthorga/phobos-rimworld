@@ -483,6 +483,9 @@ Not yet tested in game. Any land vehicle can tow a trailer such as the [Pintle f
   cannot be set up either.
 - **Two tanks within reach of a hose pump one into the other**: set one up on **Unload** and the other on **Load**, both holding the same
   fluid. A trailer that takes water lays hidden plumbing beneath itself while it stands unhitched.
+- **A trailer's tyres wear as it is towed**, on the map and on journeys, faster off the roads, just like a vehicle's. Its **Health** tab
+  shows them, and its **Systems** tab lists the tread and the tyre service. **A service fits new tyres from a tyre set**, as for any
+  vehicle: haulers bring it to the trailer and a constructor does the work. Worn-through tyres can burst and damage the trailer's axles. A trailer has no Dashboard: it has no driver or engine.
 
 ## Recovering a stuck vehicle
 

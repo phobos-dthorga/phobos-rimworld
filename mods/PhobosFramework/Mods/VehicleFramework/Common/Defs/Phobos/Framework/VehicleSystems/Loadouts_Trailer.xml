@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Trailers (Framework 0.133.0; docs/development/vehicle-trailers.md, "A trailer's own systems"; owner, 18 Nov 2026: "You should go ahead"
+    with a slim trailer loadout, after the Billy field kitchen showed Vehicle Framework's plain Health tab). Any design with a trailer comp
+    (CompProperties_PhobosTrailer), matched by that and never by name; every other loadout's selector says no to trailers.
+
+    One system: tyres (running gear), on the trailer's own wheeled part. A trailer has no engine, fuel, electrics, cab, driver or brakes
+    of ours, so it gets none of their systems; its tyres wear as whatever tows it moves, on the map and on the world map, at a driven
+    vehicle's rate (authored, the same figures as the land loadouts). With the systems come our Health tab, its wear lines, our repairs and
+    the tyre service. No hitch (a trailer never tows a trailer) and no Dashboard tab. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+    <defName>PhobosVehicleLoadout_Trailer</defName>
+    <label>trailer</label>
+    <kind>Trailer</kind>
+    <priority>Effect</priority>
+    <noHitch>true</noHitch>
+    <selector>
+      <trailer>Yes</trailer>
+      <vehicleTypes>
+        <li>Land</li>
+      </vehicleTypes>
+    </selector>
+    <cabin>
+      <closed>false</closed>
+    </cabin>
+    <systems>
+      <li>
+        <def>PhobosVehicleSystem_RunningGear</def>
+      </li>
+    </systems>
+    <partRoles>
+      <li>
+        <role>Wheels</role>
+        <all>true</all>
+        <find>
+          <li>
+            <tag>Wheel</tag>
+          </li>
+          <li>
+            <categories>
+              <li>MoveSpeed</li>
+            </categories>
+            <depth>External</depth>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

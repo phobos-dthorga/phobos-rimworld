@@ -1,6 +1,6 @@
 # Working trailers: the shared base and a catalogue (13 Nov 2026)
 
-**Status (17 Nov 2026):** built in D'thorga Framework 0.111.0 and 0.121.0 (and Vehicles 0.54.0 to 0.56.0 and 0.59.0): set up and pack up by hand (B0.1), the hitch that respects it (B0.2), the power lead (B0.3), set-out pieces and canvas rooms (B0.4), the Pintle flatbed at 3 x 7, the water and fuel bowsers (Q3, Q4), the Billy field kitchen (Q1) and the shower trailer (Q7); not built: the dry-goods locker and every other trailer in the catalogue. Not yet tested in game.
+**Status (18 Nov 2026):** built in D'thorga Framework 0.111.0, 0.121.0 and 0.133.0 (and Vehicles 0.54.0 to 0.56.0 and 0.59.0): set up and pack up by hand (B0.1), the hitch that respects it (B0.2), the power lead (B0.3), set-out pieces and canvas rooms (B0.4), the Pintle flatbed at 3 x 7, the water and fuel bowsers (Q3, Q4), the Billy field kitchen (Q1), the shower trailer (Q7) and a trailer's own systems (tyres, our Health tab); not built: the dry-goods locker and every other trailer in the catalogue. Not yet tested in game.
 
 **Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026 (`dependency-audit-2026-11-16.md`); the VF line
 references below were read from its 1.6 build, as written at the time.
@@ -45,7 +45,8 @@ summarised in our own words. **[A]** is an authored starting value; **[S]** is a
   different deck" (`vehicle-hitch-design.md:114-122`).
 - **What a trailer lacks:** a trailer gets no loadout, so no `CompPhobosVehicleSystems`: no Dashboard, fittings, electrics,
   conduits beneath it or shore power (`src/PhobosFramework.Vehicles/Service/VehicleSystems.cs:54-55`). It has no fuel comp, so it
-  cannot be drafted.
+  cannot be drafted. **Changed in Framework 0.133.0:** a trailer now has a loadout of its own, tyres only
+  ([A trailer's own systems](#a-trailers-own-systems-18-nov-2026)).
 - **Set-up today needs crew and a running engine:** `CompPhobosSetUp` refuses otherwise
   (`src/PhobosFramework.Vehicles/Systems/CompPhobosSetUp.cs:320-325`), which a trailer can never satisfy.
 
@@ -449,6 +450,38 @@ with Dubs' own chemfuel boiler and hot-water store as its water heater outside t
 heating: Dubs' boiler cannot heat faster than its store fills. The waste tank holds 1,000 of Dubs' sewage units (about 70 flushes) and treats
 nothing; Dubs' colonists empty it into sludge drums at half full, as Dubs does a septic tank whose draining is allowed, and our tanker can pump it
 from beside the trailer's rear. Its upgrades are the water bowser's two and the third shower. The dry-goods locker is not built.
+
+## A trailer's own systems (18 Nov 2026)
+
+**Built in D'thorga Framework 0.133.0. Not yet tested in game.** The owner's screenshot of the Billy field kitchen showed Vehicle
+Framework's plain Health tab (a part list, a blank Mass line) where our vehicles show ours, and asked whether that should be. It was
+the design as built on 13 Nov 2026 ("a trailer gets no loadout"), but our Health tab, wear, repairs and fittings had since come to hang
+off the same systems comp, so trailers missed more than intended. The agent recommended a slim trailer loadout; **the owner said "You
+should go ahead, please"** (18 Nov 2026).
+
+**What it lets the player do:** see a trailer's state on our Health tab (parts grouped with pips, wear lines) and keep its tyres up with
+the same tyre service as any vehicle. **What it stops them doing:** towing a trailer forever with no upkeep; worn-through tyres can burst
+and hurt its axles. **How it changes play:** trailers join the vehicle maintenance round, and a long tow off the roads shows on them.
+
+| Piece | What it does | Where |
+| --- | --- | --- |
+| **The trailer loadout** | Tyres only (`PhobosVehicleSystem_RunningGear`) on the trailer's wheeled part; a land vehicle's figures (authored). No engine, fuel, electrics, cab, driver or brakes. Its kind, **Trailers**, has its own switch in the settings window, on | `Loadouts_Trailer.xml` |
+| **The selector's trailer switch** | `trailer` is `No` unless given, so no other loadout claims a trailer | `LoadoutSelector` |
+| **Moving while towed** | A trailer counts as moving while its tractor's pather moves (the hitch sets the trailer's cell, so its own pather never moves) | `CompPhobosVehicleSystems.TowMoving` |
+| **On the world map** | A trailer in the hitch's holder has no ticks: the tractor's rare tick catches it up, moving as the tractor moves | `CatchUpTowedBy` |
+| **What it does not take** | No hitch (whatever the loadout says), no Dashboard tab, no pipes from the systems comp (the trailer's own comp lays them), no engine demand (its pumps and set-up never "run the engine"), no dark-driving slowdown (the tractor's driver sees the way) | `VehicleSystems.Apply`, `ParkedForPipes`, `RefreshCaches`, `Input_DarkDriving` |
+
+**Other factions' trailers.** None arrive today (raiders bring no trailers). The detail tiers apply as to any vehicle: another
+faction's trailer on a map counts its hits and keeps the light tier's quantities; nothing evolves off the map. A captured trailer starts
+its clock on capture, as a captured vehicle does.
+
+**Cost to run.** One more vehicle on the full tier per player trailer: one system with four quantities on the rare tick, and one
+dictionary look-up for the tow. A held trailer is caught up once per tractor rare tick.
+
+**Limits and open questions.** The trailer's worn stages lower its own move speed, which nothing reads while it is towed: the real
+cost is a burst tyre damaging the axles. **Nothing yet stops a trailer with wrecked axles from being towed**: the hitch never read the
+axles, though the systems' "cannot move" message now names them (`Mobility.StoppedByDamage`). Whether a tow should refuse is the
+owner's call. The settings window gains a **Trailers** checkbox among the loadout kinds (agent default: on).
 
 ## Upgrade trees as they stand
 

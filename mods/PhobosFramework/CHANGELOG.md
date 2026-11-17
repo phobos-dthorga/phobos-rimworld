@@ -5,6 +5,34 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.133.0] - 2026-11-18 - Draft
+
+Trailers get our Health tab, and tyres that wear as they are towed
+
+### Added
+
+- **Trailers have systems of their own: their tyres.** The Billy field kitchen, the Pintle flatbed, the two bowsers and the shower
+  trailer now wear their tyres while they are towed, on the map and on caravan journeys, faster off the roads, just as a vehicle's do.
+  Worn tyres are named on the trailer; worn through, they can burst and damage its axles. A tyre service renews them with a tyre set.
+- **A trailer shows our Health tab** (parts grouped with pips, wear lines, Mass with a value) where it showed Vehicle Framework's plain
+  list, and a **Systems** tab with its tread and the tyre service. It has no Dashboard: it has no driver or engine.
+- **A new checkbox, Trailers**, among the vehicle kinds in D'thorga Framework's vehicle settings (on): off, trailers go back to having
+  no systems of ours, after a restart.
+- **For other modders**: a loadout's selector has a trailer switch, No unless given, so a loadout claims trailers only when it says
+  so. Any trailer made in XML with our trailer comp takes the trailer loadout.
+
+### Save compatibility
+
+- Safe in an existing save. A trailer's tyres start new. Nothing about a trailer's parts changes: its loadout adds no parts.
+
+### Compatibility and limits
+
+- Nothing yet stops a tow when a trailer's axles are wrecked; the trailer only says it cannot move. A trailer's tread wear lowers its
+  own speed figure, which nothing reads while it is towed.
+- A trailer never gets a hitch of its own, never counts as running an engine for its pumps or set-up, never lays a second set of pipes,
+  and is not slowed by the dark (the vehicle towing it sees the way).
+- Not yet tested in game.
+
 ## [0.132.0] - 2026-11-18 - Draft
 
 Thin air in high country, and aircraft that burn fuel by what their engines do

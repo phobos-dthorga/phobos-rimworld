@@ -19,6 +19,7 @@
   <PhobosVehicleSystems_KindCombustionTracked>Tracked vehicles</PhobosVehicleSystems_KindCombustionTracked>
   <PhobosVehicleSystems_KindSteam>Steam locomotives</PhobosVehicleSystems_KindSteam>
   <PhobosVehicleSystems_KindElectric>Electric vehicles</PhobosVehicleSystems_KindElectric>
+  <PhobosVehicleSystems_KindTrailer>Trailers</PhobosVehicleSystems_KindTrailer>
   <PhobosVehicleSystems_SectionSystems>Systems</PhobosVehicleSystems_SectionSystems>
   <PhobosVehicleSystems_SettingShowOnly>Figures only, no consequences</PhobosVehicleSystems_SettingShowOnly>
   <PhobosVehicleSystems_SettingShowOnlyDesc>The systems run and show their state, but nothing happens to the vehicles: no wear, failures, refusals or slowing. Messages still tell you what would have happened.</PhobosVehicleSystems_SettingShowOnlyDesc>

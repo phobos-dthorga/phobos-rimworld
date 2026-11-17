@@ -231,6 +231,8 @@ public class Input_DarkDriving : VehicleSystemInput
     {
         Vehicles.VehiclePawn vehicle = context.Vehicle;
         if (!vehicle.Spawned || !context.Comp.MovingNow) return 0f;
+        // A trailer has no driver to slow: the vehicle towing it is the one that sees the way (Framework 0.133.0).
+        if (context.Comp.IsTrailer) return 0f;
         if (context.Comp.Beams.On) return 0f;
         return vehicle.Map.glowGrid.GroundGlowAt(vehicle.Position) < darkBelow ? 1f : 0f;
     }

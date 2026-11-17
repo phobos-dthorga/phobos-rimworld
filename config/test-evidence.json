@@ -57,7 +57,8 @@
     "184": ["vehicles.engine-loads"],
     "186": ["vehicles.belt-slipping"],
     "187": ["vehicles.aircraft-fuel"],
-    "188": ["vehicles.thin-air"]
+    "188": ["vehicles.thin-air"],
+    "189": ["vehicles.trailer-towed", "vehicles.trailer-towed-world"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

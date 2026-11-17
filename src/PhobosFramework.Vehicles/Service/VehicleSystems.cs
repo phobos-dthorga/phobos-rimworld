@@ -51,8 +51,8 @@ public static class VehicleSystems
         Designs.Add(record);
         try
         {
-            // A trailer (Framework 0.101.0) has no engine, seats or systems of its own: it is towed, never fitted.
-            if (def.comps?.Any(c => c is CompProperties_PhobosTrailer) == true) { record.skippedBecause = "a trailer"; return; }
+            // A trailer (Framework 0.101.0) has no engine, seats or crew. Since Framework 0.133.0 it takes a loadout of its own (the selector's
+            // trailer switch keeps every other loadout off it): its running gear wears as it is towed, so it has our Health tab and repairs.
             PhobosVehicleLoadoutDef? loadout = Choose(def, out bool tied);
             record.loadout = loadout;
             record.tied = tied;
@@ -97,6 +97,7 @@ public static class VehicleSystems
             originalPartCount = def.components.Count,
             drivetrain = loadout.drivetrain,
             flightProfile = loadout.flightProfile,
+            trailer = LoadoutSelector.IsTrailer(def),
         };
         foreach (LoadoutSystem entry in loadout.systems)
         {
@@ -182,7 +183,8 @@ public static class VehicleSystems
         if (props.roleKeys.ContainsKey(LitterRoles.Cabin) && !def.comps.Any(c => c is CompProperties_PhobosLitter)) def.comps.Add(new CompProperties_PhobosLitter());
         // The hitch (Framework 0.101.0): every land vehicle with a loadout can tow a trailer, unless its loadout says not; whether it may tow
         // now (our drivetrain, or the player's setting for others) is asked when the player orders it.
-        if (def.type == VehicleType.Land && !loadout.noHitch && !def.comps.Any(c => c is CompProperties_PhobosHitch)) def.comps.Add(new CompProperties_PhobosHitch());
+        // A trailer never gets one, whatever its loadout says: nothing tows a trailer behind a trailer.
+        if (def.type == VehicleType.Land && !loadout.noHitch && !props.trailer && !def.comps.Any(c => c is CompProperties_PhobosHitch)) def.comps.Add(new CompProperties_PhobosHitch());
         // The Dashboard and Systems tabs, before ThingDef.ResolveReferences resolves the tab list (this runs in its prefix; re-check the
         // order when Vehicle Framework releases 1.7). Only fitted designs get them.
         def.inspectorTabs ??= new List<System.Type>();
@@ -193,7 +195,8 @@ public static class VehicleSystems
             if (slot >= 0) def.inspectorTabs[slot] = typeof(ITab_PhobosVehicleHealth);
             else def.inspectorTabs.Add(typeof(ITab_PhobosVehicleHealth));
         }
-        if (!def.inspectorTabs.Contains(typeof(ITab_VehicleDashboard))) def.inspectorTabs.Add(typeof(ITab_VehicleDashboard));
+        // A trailer has no driver, engine or gauges, so no Dashboard (Framework 0.133.0); its Systems tab lists its tyres' wear and service.
+        if (!props.trailer && !def.inspectorTabs.Contains(typeof(ITab_VehicleDashboard))) def.inspectorTabs.Add(typeof(ITab_VehicleDashboard));
         if (!def.inspectorTabs.Contains(typeof(ITab_VehicleSystems))) def.inspectorTabs.Add(typeof(ITab_VehicleSystems));
         return added;
     }
