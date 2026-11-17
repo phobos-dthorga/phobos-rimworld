@@ -184,7 +184,7 @@
       <Flammability>0.3</Flammability>
     </statBases>
     <researchPrerequisites>
-      <li>PhobosResearch_VehicleParts</li>
+      <li>PhobosResearch_Trailers</li>
     </researchPrerequisites>
     <size>(3, 7)</size>
     <!-- The shell only: its parts are in Bill_FlatbedTrailer.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->

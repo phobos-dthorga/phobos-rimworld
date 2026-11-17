@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Field ablutions (D'thorga Vehicles 0.61.0; research-gates-audit-2026-11-17.md, R3, the owner's pick of 17 Nov 2026, cost as proposed): the shower
+       trailer, after Dubs Bad Hygiene's own plumbing and septic tanks, so hot showers in the field follow plumbing at home. Dubs Central Heating's
+       heating counts too where it is on (its boilers heat the colony's water; the trailer's heater is one). Marked DBHLite: it goes with the trailer
+       in Dubs' lite mode. Until Vehicles 0.61.0 the trailer opened with Vehicle parts: a colony that had it keeps it, granted once. -->
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase" DBHLite="true">
+    <defName>PhobosResearch_FieldAblutions</defName>
+    <label>field ablutions</label>
+    <description>Showers, flushing toilets and a water heater on a trailer that pitches its own tent: washing and toilets for a camp far from any plumbing.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>3.2</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_Trailers</li>
+      <li>Plumbing</li>
+      <li>SepticTanks</li>
+      <li MayRequire="dubwise.dubscentralheating">LogBoilers</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces><li>PhobosResearch_VehicleParts</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+</Defs>

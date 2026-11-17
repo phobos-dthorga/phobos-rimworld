@@ -9,8 +9,8 @@ the sea, and five trailers any of them can tow: a flatbed, two bowsers, the Bill
 
 - **Not yet tested in game**, except the survey truck and its boom and the Busbar's size and look (below).
 - **Needs Vehicle Framework and D'thorga Framework**, loaded before it. RimWorld 1.7 only.
-- **Each vehicle has its own research on the D'thorga tab**, after **vehicle parts**, and is built from the Architect's
-  **motor pool** tab. Its upgrades need the research they name.
+- **Each vehicle has its own research on the D'thorga tab**, after **vehicle parts** (the trailers after **towing and trailers**), and
+  is built from the Architect's **motor pool** tab. Its upgrades need the research they name.
 - **They are built from parts.** Make an engine assembly, transmission and kits at the **vehicle parts bench** first. Where
   RimThunder or Vanilla Vehicles Expanded is installed, a build asks for their parts instead.
 - **To set up, someone must be aboard and the engine running.** Until then **Set up** (and the tipper's **Tip** and grab) is greyed out
@@ -160,7 +160,7 @@ within 15 cells. With Rimefeller, a set-up survey truck counts as the scanner a 
 A two-axle flatbed as wide as the trucks that tow it: 2,800 kg empty, 5,000 kg of cargo, with low sides and a drawbar. Its one upgrade, the greedy boards (+1,000 kg), shows as
 taller side boards.
 
-1. **Build it** from the **motor pool** tab, after **vehicle parts** research.
+1. **Build it** from the **motor pool** tab, after **towing and trailers** research.
 2. **Load it** through its cargo tab while it stands unhitched.
 3. **Hitch it**: select a land vehicle, press **Hitch a trailer** and pick the trailer, within 8 cells. A colonist who hauls walks over and
    couples it, and it is set straight behind the vehicle.
@@ -179,7 +179,7 @@ Not yet tested in game. Two tank trailers, 3 x 8 cells, as long as the Busbar: a
 and stay at a camp while the truck that brought them leaves. Both look alike, a tank on the flatbed's chassis: **a blue stripe along
 the tank means water, an orange one fuel** (repaint either as you like).
 
-1. **Build** from the **motor pool** tab, after **vehicle parts** research.
+1. **Build** from the **motor pool** tab, after **towing and trailers** research (the water bowser also needs Dubs' **plumbing**).
 2. **Park it** where the load is wanted, unhitched, and press **Set up**. A colonist with construction work comes, chocks the wheels,
    lowers the legs and runs the hoses out (1,500 work: about half an hour for an average builder). Until then the inspect pane says
    it waits for a colonist, and **Cancel set-up** calls it off.
@@ -205,7 +205,8 @@ front). The pump has no sound of its own yet; the hoses, relief valve, leaks and
 Not yet tested in game. A kitchen on a 3 x 8 trailer, named for the camp billy. **It cooks with the game's own cooking**, so your
 cooks, bills, ingredients and food poisoning work exactly as at home.
 
-1. **Build** from the **motor pool** tab, after **vehicle parts** research.
+1. **Build** from the **motor pool** tab, after **field kitchen** research (after towing and trailers and electricity). The second range
+   and the big kettle also need **field catering at scale**.
 2. **Park it** with a **clear patch beside it: 6 cells out from its side, as long as the trailer** (no buildings, items, trees or
    people; either side will do). Press **Set up**. A colonist with construction work comes and pitches the tent (about an hour's
    work). If there is no room, the button is greyed out and says what is in the way.
@@ -240,7 +241,8 @@ It looks like an olive kitchen box van with canvas shutters and a stove chimney.
 Not yet tested in game. **Only with Dubs Bad Hygiene** (not its lite mode). The field ablutions block: a 3 x 8 trailer with a 2,000 L
 water tank, two showers and two flushing toilets.
 
-1. **Build** from the **motor pool** tab, after **vehicle parts** research.
+1. **Build** from the **motor pool** tab, after **field ablutions** research (after towing and trailers, and Dubs' plumbing and septic
+   tanks).
 2. **Park it** with a clear patch beside it (5 cells out, 6 along) and press **Set up**. A colonist pitches a **canvas shower tent**
    with **two showers and two toilets** inside, a **water heater** outside the tent and a **power point**. Everything is plumbed into
    the trailer.

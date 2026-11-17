@@ -1,6 +1,6 @@
 # Research gates audit (17 Nov 2026)
 
-**Status (17 Nov 2026):** an audit and proposals; no gate here is changed yet. The report tool `scripts/research-gates.py` is new with it.
+**Status (17 Nov 2026):** built the same day at the owner's picks (Vehicles 0.61.0, Framework 0.122.1, not yet tested in game): R1 to R4, R6 and R8 at the proposed costs; R5 and R7 not chosen; R9 as written. The report tool `scripts/research-gates.py` is new with it.
 
 The owner, 17 Nov 2026, before testing Framework 0.122.0 and Vehicles 0.60.0: "I wish to do an audit for where we could benefit from
 gating anything behind either pre-existing or new research." This lists what is gated today, what is not, and proposals R1 to R9 for the
@@ -85,5 +85,6 @@ of it because it is the best gated already (three of its six upgrades, and its g
 
 ## Who chose what
 
-- **Owner (17 Nov 2026):** that the audit be done before testing.
+- **Owner (17 Nov 2026):** that the audit be done before testing; then R1, R2, R3, R4, R6 and R8 at the proposed costs, the truck upgrades
+  left as they are (not R5), and not R7.
 - **Agent:** the reading, every proposal, cost and recommendation. All are the owner's to choose from and revise.

@@ -12,6 +12,15 @@ tested in game unless an entry says the owner tested it.
 - Comments in the Defs and code name the design records they now live in, after fifteen design records were merged into eleven on 17 November 2026. No change in play.
 - The Vehicles at Work tie-in names each of its three helpers in full in its own patch, so the build checks now confirm the helpers and the patches' parameters against the installed mod, as they do for the shot-angle tie-in with Combat Extended. No change in play.
 
+## [0.122.1] - 2026-11-17 - Draft
+
+The litter kit needs research
+
+### Balance
+
+- **The litter kit needs vehicle tuning**, as every other fitting does (research-gates audit of 17 Nov 2026, the owner's pick); it needed none.
+  A litter kit already fitted stays fitted. Not yet tested in game.
+
 ## [0.122.0] - 2026-11-17 - Draft
 
 A kettle that needs water, a trailer's own water, rooms that share a wall, and a heater that burns only when cold

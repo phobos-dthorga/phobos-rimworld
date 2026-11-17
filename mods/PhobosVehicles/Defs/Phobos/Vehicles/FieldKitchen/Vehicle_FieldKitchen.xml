@@ -289,7 +289,7 @@
       <Flammability>0.7</Flammability>
     </statBases>
     <researchPrerequisites>
-      <li>PhobosResearch_VehicleParts</li>
+      <li>PhobosResearch_FieldKitchen</li>
     </researchPrerequisites>
     <size>(3, 8)</size>
     <!-- The shell, the tent's canvas and the kitchen's steel: its running gear is in Bill_FieldKitchen.xml (docs/development/parts-bills.md). Steel first. -->

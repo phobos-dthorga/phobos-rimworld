@@ -44,6 +44,9 @@
         <work>1200</work>
         <gridCoordinate>(7, 10)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
+        <researchPrerequisites>
+          <li>Plumbing</li>
+        </researchPrerequisites>
         <ingredients>
           <Steel>30</Steel>
           <ComponentIndustrial>1</ComponentIndustrial>
@@ -58,6 +61,9 @@
         <work>1500</work>
         <gridCoordinate>(12, 10)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
+        <researchPrerequisites>
+          <li>Plumbing</li>
+        </researchPrerequisites>
         <ingredients>
           <Steel>50</Steel>
         </ingredients>

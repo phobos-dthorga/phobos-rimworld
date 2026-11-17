@@ -18,6 +18,9 @@
       <work>2000</work>
       <gridCoordinate>(2, 6)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_FieldCatering</li>
+      </researchPrerequisites>
       <ingredients>
         <Steel>60</Steel>
         <ComponentIndustrial>2</ComponentIndustrial>
@@ -32,6 +35,9 @@
       <work>1200</work>
       <gridCoordinate>(7, 6)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_FieldCatering</li>
+      </researchPrerequisites>
       <ingredients>
         <Steel>40</Steel>
       </ingredients>

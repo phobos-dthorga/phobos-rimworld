@@ -12,6 +12,32 @@ tested in game unless an entry says the owner tested it.
 - Comments in the Defs and the Crawler's texture record name the design records they now live in, after the merges of 17 November 2026. No change in play.
 - The Busbar's Def comments give the right day for its change of size, 13 November 2026. No change in play.
 
+## [0.61.0] - 2026-11-17 - Draft
+
+Research for the trailers
+
+### Added
+
+- **Four research projects on the D'thorga tab** (research-gates audit of 17 Nov 2026, the owner's picks, costs as proposed): **towing and
+  trailers** (1,000, after vehicle parts) for the flatbed and the bowsers; **field kitchen** (2,000, after towing and trailers and electricity)
+  for Billy, and with it caravan cooking; **field catering at scale** (1,500, after field kitchen) for Billy's second range and big kettle;
+  and, with Dubs Bad Hygiene, **field ablutions** (1,500, after towing and trailers and Dubs' plumbing and septic tanks; Dubs Central
+  Heating's heating too where it is on) for the shower trailer.
+
+### Balance
+
+- Until now every trailer opened with vehicle parts. **The water bowser also needs Dubs' plumbing**, and **Billy's wash-up basin and bigger
+  water tank need it too**.
+
+### Save compatibility
+
+- Safe to add to a running game. **A colony that had vehicle parts is granted the four projects once, free**, so it keeps everything it could
+  build. A new colony researches them. Trailers already built are untouched.
+
+### Compatibility and limits
+
+- Needs D'thorga Framework 0.122.1. No settings changed. Not yet tested in game (test row 157).
+
 ## [0.60.0] - 2026-11-17 - Draft
 
 Billy's water, dining annex and wash basin

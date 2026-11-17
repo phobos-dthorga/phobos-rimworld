@@ -102,4 +102,62 @@
       </li>
     </modExtensions>
   </ResearchProjectDef>
+
+  <!-- The working trailers (Vehicles 0.61.0; research-gates-audit-2026-11-17.md, R1, R2 and R4, the owner's picks of 17 Nov 2026, costs as proposed).
+       Until then every trailer opened with Vehicle parts. -->
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_Trailers</defName>
+    <label>towing and trailers</label>
+    <description>Drawbars, couplings and running gear for trailers any vehicle with a hitch can tow: the flatbed and the water and fuel bowsers.</description>
+    <baseCost>1000</baseCost>
+    <researchViewX>1</researchViewX>
+    <researchViewY>2.6</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+      <li MayRequire="oskarpotocki.vanillavehiclesexpanded">VVE_BasicVehicles</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <!-- Until Vehicles 0.61.0 Vehicle parts opened these: a colony that had it keeps them, granted once. -->
+        <replaces><li>PhobosResearch_VehicleParts</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_FieldKitchen</defName>
+    <label>field kitchen</label>
+    <description>A kitchen on a trailer that pitches its own tent: cook anything a stove can far from home, meals ten at a time, and in a resting caravan.</description>
+    <baseCost>2000</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>2.6</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_Trailers</li>
+      <li>Electricity</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <!-- Until Vehicles 0.61.0 Vehicle parts opened these: a colony that had it keeps them, granted once. -->
+        <replaces><li>PhobosResearch_VehicleParts</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_FieldCatering</defName>
+    <label>field catering at scale</label>
+    <description>A second range and the biggest kettle for the field kitchen, to feed a large camp: two cooks at once, and meals twenty at a time.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>3</researchViewX>
+    <researchViewY>2.6</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_FieldKitchen</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <!-- Until Vehicles 0.61.0 Vehicle parts opened these: a colony that had it keeps them, granted once. -->
+        <replaces><li>PhobosResearch_VehicleParts</li></replaces>
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
 </Defs>

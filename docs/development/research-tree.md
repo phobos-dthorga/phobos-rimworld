@@ -4,7 +4,8 @@ The owner asked on 10 Nov 2026 for "a research tree for our designs along with a
 
 ## Read this first
 
-- **One new tab, D'thorga**, with a lane for vehicles and a lane for medicine: 12 vehicle projects and 6 medical ones.
+- **One new tab, D'thorga**, with a lane for vehicles and a lane for medicine: 12 vehicle projects and 6 medical ones, and since 17 Nov 2026 four
+  trailer projects under the vehicle lane ([the audit](research-gates-audit-2026-11-17.md)).
 - **Old saves keep what they could build.** The first time a save loads with the tree, each project is finished for free if the older research it replaces was already done. This happens once per project. New colonies research everything normally.
 - **Our vehicles' upgrades now need their research.** Vehicle Framework declares research on upgrades and never checks it, so those gates did nothing before. Other authors' vehicles are unchanged.
 - **Every cost is authored**, a gameplay choice to tune in play. So is every position and soft requirement.
@@ -24,6 +25,7 @@ graph LR
   subgraph Vanilla
     Machining; Electricity; Batteries; Fabrication; DeepDrilling; GroundPenetratingScanner
     MedicineProduction; DrugProduction; VitalsMonitor; HospitalBed
+    Plumbing; SepticTanks
   end
   Machining --> VehicleParts
   Electricity --> VehicleElectrics
@@ -50,6 +52,13 @@ graph LR
   DrugProduction --> Bronchodilators
   VitalsMonitor --> Anaesthesia
   HospitalBed --> BurnCare
+  VehicleParts --> Trailers
+  Trailers --> FieldKitchen
+  Electricity --> FieldKitchen
+  FieldKitchen --> FieldCatering
+  Trailers --> FieldAblutions
+  Plumbing --> FieldAblutions
+  SepticTanks --> FieldAblutions
 ```
 
 All are Industrial, named `PhobosResearch_<Name>`. Those names stay fixed once a save can hold them.
@@ -68,6 +77,10 @@ All are Industrial, named `PhobosResearch_<Name>`. Those names stay fixed once a
 | GeneratorSet | 2,100 | VehicleParts, VehicleElectrics | VVE_BasicVehicles, VFE_IndustrialGenerators | Generator set | Machining, Electricity |
 | DrillRig | 3,600 | VehicleParts, DeepDrilling | VVE_BasicVehicles | Drill rig | DeepDrilling |
 | SurveyTruck | 2,800 | VehicleParts, GroundPenetratingScanner | VVE_BasicVehicles | Survey truck | GroundPenetratingScanner |
+| Trailers | 1,000 | VehicleParts | VVE_BasicVehicles | Flatbed, fuel and water bowsers (17 Nov 2026) | VehicleParts |
+| FieldKitchen | 2,000 | Trailers, Electricity | | Billy field kitchen, caravan cooking | VehicleParts |
+| FieldCatering | 1,500 | FieldKitchen | | Billy's second range and big kettle | VehicleParts |
+| FieldAblutions | 1,500 | Trailers, Plumbing, SepticTanks (Dubs Bad Hygiene folder) | LogBoilers (Dubs Central Heating) | Pintle shower trailer | VehicleParts |
 | BasicClinicalKit | 1,000 | MedicineProduction | Cpr | Steriliser, resuscitator, intubation kit, fluids kit, burn dressing | MedicineProduction |
 | Respiratory | 2,400 | BasicClinicalKit | | Nebuliser, oxygen concentrator, ventilator | MedicineProduction |
 | Bronchodilators | 600 | DrugProduction | | Bronchodilator vial | DrugProduction |
