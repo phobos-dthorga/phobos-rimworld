@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    The bulk bunker (Vehicles 0.63.0; docs/development/universal-hoppers.md, UH2). A storage building a tipper backs up to and tips into:
+    3 by 4 cells at 8 things a cell holds 96 chunks, one full base Talus load (owner's choice of size, 17 Nov 2026). Its goods lie on its
+    cells like a shelf's, so every reader of a hopper sees them with no code of ours:
+    - building.isHopper: the game's paste dispensers read a cell of it that touches them.
+    - Pipe System's FactoryHopperExtension (Vanilla Expanded Framework): VFE Factory's belts take from it, and a machine's input cell
+      on it reads that cell. D'thorga Factory Additions gives every storage its "Belts may take from here" switch; a flagged building
+      starts with it on.
+    - The Dead Man's Switch's automatic benches link to it through Mods/DeadManSwitch (the facility comp and material-source mark).
+    - D'thorga Framework gives every storage building "Vehicles may load from here", off to start (UH12).
+    Not the nutrient paste grinder's mark: the grinder reads only a hopper's centre cell, which a wide bunker rarely fills.
+    The tipper's own rule (Framework 0.125.0, UH1) puts a load into it first and keeps aboard what does not fit.
+    Cost, work, hit points and priority are authored, agent defaults for the owner to revise. Its picture is a stand-in drawn in code.
+  -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosVehicles_BulkBunker</defName>
+    <label>bulk bunker</label>
+    <description>An open concrete bay with steel-capped walls on three sides. A truck backs up to its open end and tips straight into it. It holds a whole truckload of loose goods, eight to a cell, laid out where workers, belts and machines can reach them. It starts set to take chunks; change that in its storage settings.\n\nConveyor belts, where a colony has them, take from it as from a factory hopper, and a paste dispenser beside it draws from the cell it touches. With its "Vehicles may load from here" switch on, a truck's loading grab can lift goods back out of it.</description>
+    <thingClass>Building_Storage</thingClass>
+    <graphicData>
+      <texPath>Phobos/Vehicles/BulkBunker/BulkBunker</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(3,4)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <size>(3,4)</size>
+    <rotatable>true</rotatable>
+    <defaultPlacingRot>South</defaultPlacingRot>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>42</pathCost>
+    <fillPercent>0.4</fillPercent>
+    <surfaceType>Item</surfaceType>
+    <canOverlapZones>false</canOverlapZones>
+    <castEdgeShadows>true</castEdgeShadows>
+    <staticSunShadowHeight>0.2</staticSunShadowHeight>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <constructEffect>ConstructMetal</constructEffect>
+    <costList>
+      <Steel>120</Steel>
+    </costList>
+    <statBases>
+      <WorkToBuild>3000</WorkToBuild>
+      <MaxHitPoints>400</MaxHitPoints>
+      <Flammability>0</Flammability>
+      <Beauty>-4</Beauty>
+    </statBases>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>125</uiOrder>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+    <researchPrerequisites>
+      <li>PhobosResearch_Tipper</li>
+    </researchPrerequisites>
+    <inspectorTabs>
+      <li>ITab_Storage</li>
+    </inspectorTabs>
+    <!-- Empty here so that tie-in patches and other mods' class patches add to one list each, never a second node. -->
+    <comps />
+    <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+    </placeWorkers>
+    <building>
+      <isHopper>true</isHopper>
+      <maxItemsInCell>8</maxItemsInCell>
+      <preventDeteriorationOnTop>true</preventDeteriorationOnTop>
+      <ignoreStoredThingsBeauty>true</ignoreStoredThingsBeauty>
+      <blueprintClass>Blueprint_Storage</blueprintClass>
+      <storageGroupTag>PhobosVehicles_BulkBunker</storageGroupTag>
+      <fixedStorageSettings>
+        <filter>
+          <disallowNotEverStorable>true</disallowNotEverStorable>
+          <categories>
+            <li>Root</li>
+          </categories>
+          <disallowedCategories>
+            <li>Plants</li>
+            <li>Buildings</li>
+          </disallowedCategories>
+        </filter>
+      </fixedStorageSettings>
+      <defaultStorageSettings>
+        <priority>Normal</priority>
+        <filter>
+          <categories>
+            <li>Chunks</li>
+          </categories>
+        </filter>
+      </defaultStorageSettings>
+    </building>
+    <modExtensions>
+      <li Class="PipeSystem.FactoryHopperExtension" MayRequire="OskarPotocki.VanillaFactionsExpanded.Core">
+        <isfactoryHopper>true</isfactoryHopper>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+</Defs>

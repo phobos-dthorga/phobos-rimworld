@@ -7,7 +7,8 @@ read from each mod's `LoadFolders.xml`, the `MayRequire` entries in our Defs and
 
 ## Read this first
 
-- **64 tie-in folders across six mods** (recounted 17 Nov 2026, with Framework 0.119.0's air-defence tie-in: 73 entries in the
+- **66 tie-in folders across six mods** (recounted 17 Nov 2026, with Framework 0.119.0's air-defence tie-in and the two Dead Man's
+  Switch folders of Vehicles 0.63.0 and Factory Additions 0.14.0: 75 entries in the
   `LoadFolders.xml` lists, because a folder and its `1.7` subfolder are listed as two entries), all switched on by `IfModActive` or `IfModActiveAll` in the mod's `LoadFolders.xml`, plus a
   handful of tie-ins in C# that check for a mod by name. D'thorga Radio has none (Vanilla Expanded Framework's pipe system is a hard
   dependency there, not a tie-in).
@@ -66,6 +67,8 @@ All XML; the code is in the Framework.
 | Combat Extended (`ceteam.combatextended`) | FSX and prometheum tanker contents; pressure vessels | `Mods/CombatExtended`, `Mods/TankerVessels` |
 | Vanilla Nutrient Paste Expanded (`vanillaexpanded.vnutriente`), VRE Sanguophage (`vanillaracesexpanded.sanguophage`), Biotech (`ludeon.rimworld.biotech`) | Nutrient paste, hemogen and wastepack tanker contents | `Mods/VanillaNutrientPasteExpanded`, `Mods/VanillaRacesSanguophage`, `Mods/Biotech` |
 | Vanilla Expanded Framework | The garage outpost Def | `Mods/VehicleOutposts` |
+| Vanilla Expanded Framework | The bulk bunker is a factory hopper (Pipe System's mark), for VFE Factory's belts and machines (0.63.0, UH2) | `MayRequire` in `Defs/Phobos/Vehicles/BulkBunker/BulkBunker.xml` |
+| The Dead Man's Switch (`aoba.deadmanswitch.core`) | The bulk bunker links to its automatic benches as a material source (0.63.0, UH2) | `Mods/DeadManSwitch` |
 | Vanilla Vehicles Expanded, VFE Power (`vanillaexpanded.vfepower`), RimThunder Core (`RimThunder.Core`) | `MayRequire` research prerequisites | `Defs/Phobos/Vehicles/Research.xml` |
 | RimThunder, Vanilla Vehicles Expanded, Rimefeller, Vanilla Gravship Expanded | Their engines, transmissions, tyres, wheels, radiators, batteries, alternators, tanks, suspension, wiring, exhausts, castings, synthylene and oxygen canisters stand in for our parts, by role | Framework's `PartSupplies.xml` |
 
@@ -106,6 +109,7 @@ Hard dependencies: Vanilla Expanded Framework and VFE Factory. All XML unless ma
 | VRE Android (`vanillaracesexpanded.android`) | Granulator bills draw piped neutroamine |
 | Vehicle Framework (`SmashPhil.VehicleFramework`) | Every part made at D'thorga Framework's vehicle parts bench as a bill on the automated fabrication bay (0.13.0, SD30) |
 | Dubs Bad Hygiene | **C# + XML**: factory machines draw plumbed water; food bills wait for water and carry food-poisoning rules |
+| The Dead Man's Switch (`aoba.deadmanswitch.core`) | Factory hoppers link to its automatic benches as material sources; its feed hopper is a factory hopper whose filter belts obey (0.14.0, UH6) |
 
 ## D'thorga Water Tap
 

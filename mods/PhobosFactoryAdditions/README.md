@@ -7,7 +7,7 @@ bills, from neutroamine out of human meat to other mods' drug lab recipes, each 
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.13.0, built 13 November 2026 for House D'thorga. **Partly tested in game:** the human-meat bill (owner, 28 October 2026),
+Version 0.14.0, built 17 November 2026 for House D'thorga. **Partly tested in game:** the human-meat bill (owner, 28 October 2026),
 the drug lab bills appearing on their machines (29 October 2026), belts taking from switched-on storage only when they point away
 from it (29 and 30 October 2026), and a bill with no recipe taken off a machine (10 November 2026). Everything else is not yet tested
 in game.
@@ -23,8 +23,10 @@ the [changelog](CHANGELOG.md).
 - **Each tie-in loads only while its mod is active** (an `IfModActive` folder per mod): Medicines+ (with Deep Pills' infusions inside
   it, which need both), Ushankas Biological Warfare, Combat Extended, Dubs Rimatomics, Hemofungus, Complementary Odyssey, Glitterworld Medicine Production, Farmable
   Neutroamine, Passive Exoskeletons, Simple Washing Machine, Vanilla Cooking Expanded, Vanilla Chemfuel Expanded, Vanilla Races
-  Expanded - Android, "[sbz] Fridge" and Dubs Bad Hygiene (whose part is a second small assembly). The vehicle parts bills need
-  Vehicle Framework.
+  Expanded - Android, "[sbz] Fridge", The Dead Man's Switch and Dubs Bad Hygiene (whose part is a second small assembly). The vehicle
+  parts bills need Vehicle Framework.
+- **With The Dead Man's Switch, its feed hopper is a factory hopper** (0.14.0): belts take from it what its storage settings allow,
+  whether or not its auger has power, and **factory hoppers link to its automatic benches**, which then draw from them with no colonist.
 - **RimWorld 1.7 only.**
 - **A machine draws only from its three input cells, and nobody stocks them for it.** Pawns never carry ingredients to a machine that
   feeds from hoppers, and a hopper at its default **Low** priority is never stocked from better storage. **Feed each ingredient by

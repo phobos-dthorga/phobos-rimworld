@@ -720,7 +720,7 @@
 
   <PhobosVehicleSystems_TipGizmo>Tip</PhobosVehicleSystems_TipGizmo>
   <PhobosVehicleSystems_TipGizmoStop>Stop tipping</PhobosVehicleSystems_TipGizmoStop>
-  <PhobosVehicleSystems_TipGizmoDesc>Raise the body and tip everything in the cargo onto the ground behind the truck, inside the outlined area. It cannot move while it tips. Whatever will not fit stays aboard.</PhobosVehicleSystems_TipGizmoDesc>
+  <PhobosVehicleSystems_TipGizmoDesc>Raise the body and tip everything in the cargo out behind the truck, inside the outlined area. A storage building there, such as a bulk bunker or a hopper, takes whatever its storage settings allow, until it is full; the rest of those things stay aboard. Everything else goes on the ground. It cannot move while it tips. Whatever will not fit stays aboard.</PhobosVehicleSystems_TipGizmoDesc>
   <PhobosVehicleSystems_TipHeld>{VEHICLE} is tipping. Stop it first.</PhobosVehicleSystems_TipHeld>
   <PhobosVehicleSystems_TipNotOnMap>It can only tip on a map.</PhobosVehicleSystems_TipNotOnMap>
   <PhobosVehicleSystems_TipEmpty>There is nothing aboard to tip.</PhobosVehicleSystems_TipEmpty>
@@ -731,6 +731,13 @@
   <PhobosVehicleSystems_TipStopped>The body has come down: the engine or the controls have failed.</PhobosVehicleSystems_TipStopped>
   <PhobosVehicleSystems_TipStarted>{VEHICLE} is raising its body.</PhobosVehicleSystems_TipStarted>
   <PhobosVehicleSystems_TipDone>{VEHICLE} put down {COUNT} stacks.</PhobosVehicleSystems_TipDone>
+  <PhobosVehicleSystems_TipDoneStored>{VEHICLE} put down {COUNT} stacks, {STORED} of them into storage.</PhobosVehicleSystems_TipDoneStored>
+  <PhobosVehicleSystems_TipStorageFull>The storage behind it is full. {COUNT} stacks stay aboard.</PhobosVehicleSystems_TipStorageFull>
+  <PhobosVehicleSystems_MayLoad>Vehicles may load from here</PhobosVehicleSystems_MayLoad>
+  <PhobosVehicleSystems_MayLoadDesc>When on, a truck's loading grab parked within reach may lift goods out of this storage into its cargo, as it lifts things lying loose.\n\nWhen off, the grab leaves this storage alone. Colonists, and belts where there are any, are not affected either way.</PhobosVehicleSystems_MayLoadDesc>
+  <PhobosVehicleSystems_MayLoadOn>A truck's loading grab may now lift goods out of the {STORAGE}.</PhobosVehicleSystems_MayLoadOn>
+  <PhobosVehicleSystems_MayLoadOff>Trucks' loading grabs now leave the {STORAGE} alone.</PhobosVehicleSystems_MayLoadOff>
+  <PhobosVehicleSystems_MayLoadInspect>Vehicles may load from here.</PhobosVehicleSystems_MayLoadInspect>
   <PhobosVehicleSystems_TipLine>Tipping: {COUNT} stacks still aboard.</PhobosVehicleSystems_TipLine>
 
   <PhobosVehicleSystems_OverdriveGizmo>Overdrive</PhobosVehicleSystems_OverdriveGizmo>
@@ -774,7 +781,7 @@
   <!-- The tipper's loading grab (Framework 0.101.0). -->
   <PhobosVehicleSystems_GrabGizmo>Work the grab</PhobosVehicleSystems_GrabGizmo>
   <PhobosVehicleSystems_GrabGizmoStop>Stow the grab</PhobosVehicleSystems_GrabGizmoStop>
-  <PhobosVehicleSystems_GrabGizmoDesc>The driver works the crane behind the cab, lifting loose things lying within {CELLS} cells of the truck into the cargo, up to {LIFT} kg a lift. Things in a stockpile or on a shelf are left. It stops by itself when nothing is left in reach or the cargo is full. The truck cannot move or tip while the grab is out.</PhobosVehicleSystems_GrabGizmoDesc>
+  <PhobosVehicleSystems_GrabGizmoDesc>The driver works the crane behind the cab, lifting loose things lying within {CELLS} cells of the truck into the cargo, up to {LIFT} kg a lift. Things in a stockpile or on a shelf are left, unless that storage has "Vehicles may load from here" switched on. It stops by itself when nothing is left in reach or the cargo is full. The truck cannot move or tip while the grab is out.</PhobosVehicleSystems_GrabGizmoDesc>
   <PhobosVehicleSystems_GrabHeld>{VEHICLE} has its grab out. Stow it first.</PhobosVehicleSystems_GrabHeld>
   <PhobosVehicleSystems_GrabNotOnMap>It can only work the grab on a map.</PhobosVehicleSystems_GrabNotOnMap>
   <PhobosVehicleSystems_GrabStopFirst>{VEHICLE} is still moving. Stop it first.</PhobosVehicleSystems_GrabStopFirst>
@@ -783,7 +790,7 @@
   <PhobosVehicleSystems_GrabWhileTipping>{VEHICLE} is tipping. Let it finish first.</PhobosVehicleSystems_GrabWhileTipping>
   <PhobosVehicleSystems_TipGrabOut>{VEHICLE} has its grab out. Stow it first.</PhobosVehicleSystems_TipGrabOut>
   <PhobosVehicleSystems_GrabFull>The cargo is full.</PhobosVehicleSystems_GrabFull>
-  <PhobosVehicleSystems_GrabNothing>Nothing loose lies within the grab's reach.</PhobosVehicleSystems_GrabNothing>
+  <PhobosVehicleSystems_GrabNothing>Nothing loose, and nothing in storage that vehicles may load from, lies within the grab's reach.</PhobosVehicleSystems_GrabNothing>
   <PhobosVehicleSystems_GrabStopped>The grab has stopped: the engine or the controls have failed.</PhobosVehicleSystems_GrabStopped>
   <PhobosVehicleSystems_GrabStarted>{VEHICLE} has swung its grab out.</PhobosVehicleSystems_GrabStarted>
   <PhobosVehicleSystems_GrabDone>{VEHICLE} lifted {COUNT} loads aboard, {MASS} kg.</PhobosVehicleSystems_GrabDone>

@@ -55,4 +55,34 @@ public class GrabRuleTests
 
     [Fact]
     public void AnExactFitIsTaken() => Assert.Equal(5, GrabRule.CountForLift(5, 100, 500, 2000));
+
+    [Fact]
+    public void LooseThingsAreAlwaysLiftable() => Assert.True(GrabRule.MayLift(false, false, false, true));
+
+    [Fact]
+    public void StorageSwitchedOnLetsItLift() => Assert.True(GrabRule.MayLift(true, true, true, false));
+
+    [Fact]
+    public void StorageSwitchedOffKeepsItsGoods() => Assert.False(GrabRule.MayLift(true, true, false, false));
+
+    [Fact]
+    public void AnotherSidesStorageIsNeverEmptied() => Assert.False(GrabRule.MayLift(true, false, true, false));
+
+    [Fact]
+    public void AClaimedStoredThingIsLeft() => Assert.False(GrabRule.MayLift(true, true, true, true));
+}
+
+public class TipDestinationTests
+{
+    [Fact]
+    public void StorageWithRoomTakesIt() => Assert.Equal(TipDestination.Storage, TipRule.Destination(true, true, true));
+
+    [Fact]
+    public void FullStorageKeepsItAboardEvenWithGroundFree() => Assert.Equal(TipDestination.StaysAboard, TipRule.Destination(true, false, true));
+
+    [Fact]
+    public void WhatNoStorageTakesGoesOnTheGround() => Assert.Equal(TipDestination.Ground, TipRule.Destination(false, false, true));
+
+    [Fact]
+    public void NoRoomAnywhereKeepsItAboard() => Assert.Equal(TipDestination.StaysAboard, TipRule.Destination(false, true, false));
 }

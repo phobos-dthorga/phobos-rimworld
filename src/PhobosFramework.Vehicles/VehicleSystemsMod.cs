@@ -260,6 +260,8 @@ public class VehicleSystemsMod : Mod
         // XML patches (PatchOperationPhobosFlag) run after every mod's constructor, so the flags are ready for them.
         PatchFlags.Register("PhobosVehicleSystems.electricLightning", () => Settings.electricLightning);
         HarmonyPatchApplier.ApplyEach(new Harmony(HarmonyId), typeof(VehicleSystemsMod).Assembly, LogPrefix);
+        // Before the load line, which counts them (Framework 0.125.0, UH12).
+        LongEventHandler.ExecuteWhenFinished(VehicleLoadOut.AddSwitches);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
         Phobos.Framework.Work.PhobosGameEvents.GameLoaded += VehicleSelfTest.AfterLoad;
     }
@@ -292,6 +294,7 @@ public class VehicleSystemsMod : Mod
         if (Settings.climateControlAll) report.On("climate control in every closed cab (setting)");
         if (Settings.keepVehicleFrameworkHealthTab) report.Off("the Health tab", "Vehicle Framework's kept (setting)");
         report.On("other factions' vehicles on the lite tier");
+        report.On("\"Vehicles may load from here\" on " + VehicleLoadOut.SwitchesAdded + " storage types");
         if (Settings.batteryFires) report.On("battery fires (setting)");
         if (Settings.electricLightning) report.On("the Lightning runs on batteries (setting)");
         foreach (IGrouping<string, DesignRecord> skipped in VehicleSystems.Designs.Where(d => d.skippedBecause != null && d.loadout != null).GroupBy(d => d.skippedBecause!))

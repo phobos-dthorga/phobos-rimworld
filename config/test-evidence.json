@@ -39,7 +39,9 @@
     "162": ["vehicles.stage.steeringAssist", "vehicles.stage.steeringFluid"],
     "163": ["vehicles.tune-done.PhobosTune_BoostHigh", "vehicles.fitting-done.PhobosFitting_TransmissionCooler"],
     "164": ["vehicles.lite-tier-slowed"],
-    "165": ["vehicles.rig-service-done"]
+    "165": ["vehicles.rig-service-done"],
+    "167": ["vehicles.tip-into-storage"],
+    "168": ["vehicles.grab-from-storage"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

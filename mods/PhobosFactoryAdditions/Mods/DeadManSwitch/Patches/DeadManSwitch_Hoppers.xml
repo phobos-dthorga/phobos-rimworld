@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Loaded only while The Dead Man's Switch (aoba.deadmanswitch.core, by AobaKuma, Bread Mo and team) is active (LoadFolders.xml).
+       Factory Additions 0.14.0; docs/development/universal-hoppers.md, UH6. Each mod's hoppers become readable by the other's machines.
+
+       1. VFE Factory's factory hopper, and our deep factory hopper that inherits it, become material sources for The Dead Man's Switch's
+          automatic benches: Fortified Features Framework's LinkedStorageIngredientPuller draws bill ingredients from linked facilities
+          whose Def carries ModExtension_MaterialSource (code read 17 Nov 2026). The facility comp takes the feed hopper's figures (4 links,
+          6 cells); the bench family's linkable list is on its shared parent DMS_BenchBase, so its plain benches may link too, gaining
+          nothing. A belt can then fill a hopper that an automatic bench draws from.
+       2. The Dead Man's Switch's feed hopper (DMS_Hopper, 2 by 1, 3 things a cell) becomes a factory hopper, so VFE Factory's belts take
+          from it and its machines read it on an input cell, as VFE Factory does for Vanilla Chemfuel Expanded's chemfuel tap. It holds
+          chunks, corpses, raw food and wood, so BeltFilterExtension makes belts take only what its storage settings allow. Belts and
+          machines do not ask whether its auger has power; its own benches still do. -->
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="VFEFactory_FactoryHopper"]/comps</xpath>
+    <value>
+      <li Class="CompProperties_Facility">
+        <maxSimultaneous>4</maxSimultaneous>
+        <maxDistance>6</maxDistance>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="VFEFactory_FactoryHopper"]</xpath>
+    <value>
+      <li Class="Fortified.ModExtension_MaterialSource" />
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[@Name="DMS_BenchBase"]/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities</xpath>
+    <value>
+      <li>VFEFactory_FactoryHopper</li>
+      <li>PhobosFactory_DeepFactoryHopper</li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="DMS_Hopper"]</xpath>
+    <value>
+      <li Class="PipeSystem.FactoryHopperExtension">
+        <isfactoryHopper>true</isfactoryHopper>
+      </li>
+      <li Class="Phobos.Factory.BeltFilterExtension" />
+    </value>
+  </Operation>
+
+</Patch>

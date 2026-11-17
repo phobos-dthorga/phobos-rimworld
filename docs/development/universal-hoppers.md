@@ -1,6 +1,7 @@
 # Universal hoppers: research and ideas (17 Nov 2026)
 
-**Status (17 Nov 2026):** research and record only; nothing is built.
+**Status (17 Nov 2026):** UH1 and UH12 built in D'thorga Framework 0.125.0, UH2 in D'thorga Vehicles 0.63.0, UH6 in D'thorga Factory
+Additions 0.14.0 (owner's go, 17 Nov 2026; [what was built](#built-17-nov-2026)); not yet tested in game. The other rows are ideas.
 
 The owner's request, 17 Nov 2026: "I just thought of something and its (near-)Universal Hoppers! Like, we could have one that takes
 aggregate from our Talus and the patched conveyors of ours would then transport all that throughout the machinations of our colony!
@@ -231,7 +232,7 @@ Agent default, for the owner to revise.
 | Piece | Mod | Why |
 | --- | --- | --- |
 | UH1, UH3, UH12: the tip, the rig outlet, the grab | D'thorga Framework's vehicle part | The Talus's code is there |
-| The "Vehicles may load from here" switch | D'thorga Framework core | Generic: a second copy of the belt switch's idea |
+| The "Vehicles may load from here" switch | D'thorga Framework's vehicle part (built there, 17 Nov 2026; first proposed for the core) | Only a vehicle can use it, so without Vehicle Framework it would be a dead button |
 | UH2: the bunker's Def and art | D'thorga Vehicles | Content. Its marks for other mods sit behind `MayRequire` |
 | UH6: marks between VFE Factory's and The Dead Man's Switch's hoppers | D'thorga Factory Additions, in a folder loaded only with The Dead Man's Switch | It already depends on VFE Factory |
 
@@ -243,6 +244,22 @@ Each tie-in gets a row in [the tie-in register](tie-in-register.md) in the chang
 - **UH2**, as plain storage, saves what any shelf saves. Removing the mod leaves its goods on the ground.
 - **UH12** saves one switch per storage building, as "Belts may take from here" does.
 - **UH13** would save what it holds; a save made with it needs the chute emptied before the mod is removed.
+
+## Built (17 Nov 2026)
+
+The owner said go on orders 1 to 3 (UH1 with UH6, then UH2, then UH12), with stand-in art for the bunker, and answered four cards.
+Not yet tested in game: rows 167 to 169 of [the in-game test pass](in-game-test-pass.md).
+
+| Row | Where | What differs from the idea above |
+| --- | --- | --- |
+| UH1 | Framework 0.125.0, `CompPhobosTipper.Place`, with the game-free `TipRule.Destination` | Storage of the truck's own side only; the game's own `IsValidStorageFor` decides room. A thing that full storage would take stays aboard (owner's card); the tip passes over it to the next, so a mixed load still comes off |
+| UH2 | Vehicles 0.63.0, `PhobosVehicles_BulkBunker` | 3 by 4 at 8 a cell (owner's card); chunks ticked to start, priority Normal; tipper research (owner's card); motor pool tab; 120 steel, 3,000 work (authored). Carries the game's hopper mark and Pipe System's factory-hopper mark; The Dead Man's Switch link in `Mods/DeadManSwitch`. Not the grinder's mark (it reads one cell). Picture: a stand-in drawn in code (owner) |
+| UH6 | Factory Additions 0.14.0, `Mods/DeadManSwitch` | As proposed: VFE Factory's hopper (and the deep hopper, which inherits it) links to the automatic benches; the feed hopper is a factory hopper with our filter mark |
+| UH12 | Framework 0.125.0, `CompPhobosVehicleLoadOut` and `VehicleLoadOut` | On every storage building, off to start (owner's card). Lives in the Framework's vehicle part, not the core: without Vehicle Framework it would be a button that does nothing. The grab also leaves a stored thing a colonist has already claimed |
+
+**Answered by the owner, 17 Nov 2026:** the bunker's size, what a full bunker does, where the switch appears and the research, all as
+the agent recommended; stand-in art until it is clearer what to ask the image generator for. Questions 1 to 4 below are settled (the
+size card stated the bunker's kind, goods shown on its cells, and its chunks-first filter); questions 5 and 6 stay open.
 
 ## Questions for the owner
 
@@ -257,7 +274,8 @@ Each tie-in gets a row in [the tie-in register](tie-in-register.md) in the chang
 ## Who chose what
 
 - **Owner (17 Nov 2026):** universal hoppers as a research and record round; chunks, not a new material; the three families; active
-  mods only.
+  mods only. Then: build UH1, UH6, UH2 and UH12; a 3 by 4 bunker at 8 a cell; full storage keeps the rest aboard; the switch on every
+  storage building; the tipper research; stand-in art.
 - **Agent defaults, owner to revise:** every verdict and the order; the bunker's kind, size and filter; where each piece lives; the
   rule that load-out serves only its own faction; parking UH16.
 - **Agent's reading, not the owner's:** every **[I]** figure in this record.

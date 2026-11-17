@@ -164,6 +164,22 @@ share a storage group with ordinary ones.
 For the machining or fabrication bay (three input cells, up to four solid ingredients plus chemfuel), put deep hoppers on the input
 cells; chemfuel needs no hopper with Vanilla Chemfuel Expanded.
 
+## Hoppers shared with The Dead Man's Switch
+
+With **The Dead Man's Switch** active (0.14.0), each mod's hoppers feed the other's machines:
+
+- **A factory hopper or deep factory hopper within 6 cells of its automatic benches** (auto mill, furnace, reaction chamber, machine
+  printer) links to them like its own feed hopper, so **a belt can fill a hopper that such a bench draws from with no colonist**. Its
+  plain benches may link too, which does nothing.
+- **Its feed hopper is a factory hopper**: a belt pointing away from it takes what its storage settings allow, and a VFE Factory
+  machine's input cell on it reads it, so its chunks can feed the **automated masonry saw** and **smelter**. Belts and machines take
+  from it whether or not its auger has power; its own benches still need power.
+
+**A whole chunk line** (not yet tested in game): a Talus tips chunks into a **bulk bunker** (D'thorga Vehicles, see
+[the tipper](working-vehicles.md#talus-tipper-truck)); a belt pointing away from the bunker carries them one at a time to a masonry
+saw's input hopper. A truckload is about **ten days' work for one saw** (6,400 ticks a chunk), so build two or three saws off the same
+belt, or let the bunker hold the load while one saw works through it.
+
 ## New bills
 
 Each appears in a machine's **Processes** tab (**Add process**) once its research is done, Complex factories (granulator,

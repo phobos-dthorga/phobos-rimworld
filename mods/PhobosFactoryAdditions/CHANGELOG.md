@@ -5,10 +5,33 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.14.0] - 2026-11-17 - Draft
+
+Hoppers shared with The Dead Man's Switch (universal hoppers UH6)
+
+### Added
+
+- **With The Dead Man's Switch, each mod's hoppers feed the other's machines.** VFE Factory's factory hopper and our deep factory hopper
+  link to its automatic benches (auto mill, furnace, reaction chamber, machine printer) like its own feed hopper, so a belt can fill a
+  hopper that such a bench then draws from with no colonist. Its feed hopper becomes a factory hopper: belts take from it, only what its
+  storage settings allow, and VFE Factory's machines read it on an input cell, so its chunks can reach the automated masonry saw and
+  smelter.
+
 ### Changed
 
 - The README's dated checks note that RimWorld 1.6 was retired on 8 November 2026. No change in play.
 - The README is cut to today's gotchas, what each part does linking the player guide's Factory chapter, the settings and links for modders. How to play, with every bill's figures, moved to the guide; the fault diagnosis, the README's modder notes and its dated checks moved to the design record; version notes live in this changelog. No change in play.
+
+### Save compatibility
+
+- Safe to add to a running colony and to remove: XML only, nothing saved. A bench and hopper linked while it was active are simply
+  unlinked after removal.
+
+### Compatibility and limits
+
+- Only while The Dead Man's Switch is active. Its plain benches may also link to a factory hopper within 6 cells, which gives them
+  nothing. Belts and machines take from its feed hopper whether or not its auger has power; its own benches still need it powered.
+- New test row 169. Not yet tested in game.
 
 ## [0.13.0] - 2026-11-13 - Draft
 

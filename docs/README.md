@@ -37,10 +37,10 @@ Every mod is RimWorld 1.7 only. These numbers are kept in step with each mod's A
 
 | Mod | Version | README |
 | --- | --- | --- |
-| **D'thorga Framework** | 0.124.0 | [README](../mods/PhobosFramework/README.md) |
-| **D'thorga Vehicles** | 0.62.0 | [README](../mods/PhobosVehicles/README.md) |
+| **D'thorga Framework** | 0.125.0 | [README](../mods/PhobosFramework/README.md) |
+| **D'thorga Vehicles** | 0.63.0 | [README](../mods/PhobosVehicles/README.md) |
 | **D'thorga Medical** | 0.17.1 | [README](../mods/PhobosMedical/README.md) |
-| **D'thorga Factory Additions** | 0.13.0 | [README](../mods/PhobosFactoryAdditions/README.md) |
+| **D'thorga Factory Additions** | 0.14.0 | [README](../mods/PhobosFactoryAdditions/README.md) |
 | **D'thorga Patches** | 0.21.1 | [README](../mods/PhobosPatches/README.md) |
 | **D'thorga Water Tap** | 0.2.4 | [README](../mods/PhobosWaterTap/README.md) |
 | **D'thorga Radio Framework** | 0.1.8 | [README](../mods/PhobosRadioFramework/README.md) |

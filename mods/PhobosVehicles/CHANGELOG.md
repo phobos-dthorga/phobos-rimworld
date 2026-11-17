@@ -5,6 +5,36 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.63.0] - 2026-11-17 - Draft
+
+The bulk bunker, with D'thorga Framework 0.125.0 (universal hoppers UH2)
+
+### Added
+
+- **The bulk bunker**: a 3 by 4 open concrete bay, 8 things a cell, which holds 96 chunks, one full load of the Talus (owner's choice
+  of size, 17 Nov 2026). A tipper backs up to its open end and tips straight in. It starts set to take chunks; anything else can be
+  allowed in its storage settings. Its goods lie on its cells like a shelf's, so VFE Factory's belts take from it and its machines read
+  it on an input cell, a paste dispenser beside it draws from the cell it touches, and with The Dead Man's Switch its automatic benches
+  link to it as to their own feed hopper. Unlocked by the tipper research (owner's choice); built from the motor pool tab, 120 steel
+  (authored).
+- Its picture is a stand-in drawn in code (owner, 17 Nov 2026), until generated art is picked.
+
+### Dependencies
+
+- D'thorga Framework 0.125.0, for the tip into storage.
+
+### Save compatibility
+
+- Safe to add to a running colony. To remove the mod, empty and deconstruct every bulk bunker first: the game removes the building and
+  its goods are left lying on the ground.
+
+### Compatibility and limits
+
+- Haulers fill it with chunks lying about the map, as they would any stockpile that takes them; lower its priority or untick chunks
+  to keep it free for a truck.
+- Vanilla Nutrient Paste Expanded's grinder does not read it: the grinder looks only at a hopper's centre cell.
+- New test rows 167 and 169. Not yet tested in game.
+
 ## [0.62.0] - 2026-11-17 - Draft
 
 Power steering on our heavy trucks, with D'thorga Framework 0.123.0

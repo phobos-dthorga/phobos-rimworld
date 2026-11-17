@@ -110,7 +110,7 @@ example ([record](universal-hoppers.md)). **Nothing built**; the owner picks.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
-| UH | [Universal hoppers](universal-hoppers.md): UH1 to UH16 in three families (vehicles into hoppers, hoppers into other mods, belts out to vehicles), and six questions for the owner | Framework, Vehicles, Factory Additions | Scope: the three families, active mods only, chunks not a new material (17 Nov 2026) | Record written; not built. Agent's suggested first step: UH1 (the Talus tips into storage) with UH6 (marks between VFE Factory's and The Dead Man's Switch's hoppers) |
+| UH | [Universal hoppers](universal-hoppers.md): UH1 to UH16 in three families (vehicles into hoppers, hoppers into other mods, belts out to vehicles), and six questions for the owner | Framework, Vehicles, Factory Additions | Scope: the three families, active mods only, chunks not a new material (17 Nov 2026). **Build orders 1 to 3** (owner, 17 Nov 2026): UH1 with UH6, then UH2, then UH12; stand-in art; four cards answered as recommended | **Built 17 Nov 2026** (not yet tested in game, rows 167 to 169): UH1 and UH12 in Framework 0.125.0, UH2 in Vehicles 0.63.0, UH6 in Factory Additions 0.14.0. Open: questions 5 (a look at UH11 in game) and 6 (crushed stone); the other rows stay ideas |
 
 ## Working trailers (13 Nov 2026)
 

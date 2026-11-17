@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.125.0] - 2026-11-17 - Draft
+
+The tipper fills storage, and trucks load from it (universal hoppers UH1 and UH12)
+
+### Added
+
+- **The tipper tips into storage** (UH1): a storage building of the colony's own inside the outlined tip area, such as a bulk bunker,
+  a hopper or a shelf, now takes whatever its storage settings allow, nearest cell first. Once it is full, the rest of those things
+  stay aboard and the truck says why (owner's choice, 17 Nov 2026), rather than spilling beside it. Things no storage there would take
+  still go on the ground as before, so a mixed load comes off in one tip. The report says how many stacks went into storage.
+- **Vehicles may load from here** (UH12): every storage building, from every mod, has this switch, off to start. With it on, a
+  truck's loading grab parked within reach may lift goods out of that storage as it lifts loose things, so belts or haulers can fill a
+  load-out bunker or shelf while the truck is away. Only storage of the truck's own side, and never a thing someone has already claimed
+  to carry. The button reuses the loading grab's picture.
+
+### Compatibility and limits
+
+- Safe to add to a running colony and to remove: the switch saves one value per storage building, and nothing else is saved but a
+  count for the tip's report. New test rows 167 and 168. Not yet tested in game.
+
 ## [0.124.0] - 2026-11-17 - Draft
 
 Serious work waits for the dyno bay

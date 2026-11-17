@@ -148,12 +148,34 @@ within 15 cells. With Rimefeller, a set-up survey truck counts as the scanner a 
 3. **With a driver aboard and stopped, press Tip.** Everything in its cargo lands in the outlined half-circle behind it,
    **including any spare parts you loaded**. Whatever will not fit stays aboard, and it says how many.
 
+**Tipping into storage.** A storage building of yours inside the outlined half-circle (a bulk bunker, a hopper, a shelf) takes
+whatever its storage settings allow, nearest cell first. **When it is full, the rest of those things stay aboard** instead of spilling
+beside it; things it would not take still go on the ground, so a mixed load comes off in one tip. The message says how many stacks
+went into storage.
+
+**The bulk bunker** (research tipper hauler, Architect, **motor pool** tab; 120 steel) is built for this: an open 3 by 4 bay that
+holds 8 things a cell, **96 chunks, one full load**. Build it with its open end (the striped wheel stop) where the truck will reverse
+up to it, back the truck's tail to the stripe and press Tip.
+
+- It starts set to take **chunks**; tick anything else in its storage settings.
+- **Haulers fill it with chunks lying about the map**, as any stockpile that takes chunks. To keep it free for the truck, lower its
+  priority or untick chunks until you need it.
+- Its goods lie on its cells like a shelf's, so **belts take from it as from a factory hopper** (with VFE Factory), a factory machine's
+  input cell on it reads that cell, a paste dispenser beside it draws from the cell it touches, and **The Dead Man's Switch's automatic
+  benches link to it** like their own feed hopper.
+- Its picture is a stand-in until generated art is picked.
+
+**Loading from storage.** Every storage building has a **Vehicles may load from here** button, off to start. Switched on, the
+loading grab may lift goods out of it, so belts or haulers can fill a bunker or a shelf while the truck is away and the grab takes the
+lot when it comes. The grab never lifts from another faction's storage, or a thing a colonist is already on the way to carry.
+
 **Upgrades:** **greedy boards** (taller sides, +600 kg), and either a **rock body** (tips half as fast again) or a **bulk body**
 (3,600 kg, tips slower). And a **loading grab**, a small crane that shows folded behind the cab once fitted:
 
 - **With a driver aboard and stopped, press Work the grab.** It lifts loose things lying within 4 cells (the blue outline) into the
   cargo, one stack or up to 500 kg a lift, every 20 seconds or so. Nobody else has to carry.
-- **It leaves things in a stockpile or on a shelf**, forbidden things and corpses.
+- **It leaves things in a stockpile or on a shelf**, forbidden things and corpses, unless that storage has **Vehicles may load from
+  here** switched on (above).
 - It stops by itself when nothing is left in reach or the cargo is full, and says how much came aboard.
 - **It cannot tip while the grab is out.** Press Stow the grab first.
 

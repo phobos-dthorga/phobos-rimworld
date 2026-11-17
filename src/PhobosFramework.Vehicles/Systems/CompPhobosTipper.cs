@@ -36,6 +36,8 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
 
     float allowance;
     int tipped;
+    /// <summary>How many of the things tipped went into storage (Framework 0.125.0, UH1), for the report.</summary>
+    int stored;
     /// <summary>The loading grab is out (Framework 0.101.0): the truck is held as when tipping, and the rare tick lifts instead of tipping.</summary>
     bool grabbing;
     int lifted;
@@ -56,6 +58,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         base.PostExposeData();
         Scribe_Values.Look(ref allowance, "PhobosTipperAllowance");
         Scribe_Values.Look(ref tipped, "PhobosTipperTipped");
+        Scribe_Values.Look(ref stored, "PhobosTipperStored");
         Scribe_Values.Look(ref grabbing, "PhobosTipperGrabbing");
         Scribe_Values.Look(ref lifted, "PhobosTipperLifted");
         Scribe_Values.Look(ref liftedKilograms, "PhobosTipperLiftedKg");
@@ -83,8 +86,8 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         }
     }
 
-    /// <summary>A cell this thing can land on: open ground with room for an item, or a stack of the same thing with room left.</summary>
-    static bool Fits(IntVec3 cell, Map map, Thing thing)
+    /// <summary>Open ground this thing can land on: room for an item, or a stack of the same thing with room left.</summary>
+    static bool FitsGround(IntVec3 cell, Map map, Thing thing)
     {
         if (!cell.Standable(map) || cell.GetEdifice(map) != null) return false;
         if (cell.GetItemCount(map) < cell.GetMaxItemsAllowedInCell(map)) return true;
@@ -95,7 +98,67 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         return false;
     }
 
-    IntVec3 CellFor(Thing thing) => Fan().Where(c => Fits(c, Vehicle.Map, thing)).FirstOrFallback(IntVec3.Invalid);
+    /// <summary>
+    /// Where one thing goes now, and the cell (Framework 0.125.0; docs/development/universal-hoppers.md, UH1). A storage building of the truck's
+    /// own side in the outlined area that would take it gets it, nearest cell with room first, by the game's own storage rule; once full, the
+    /// thing stays aboard (owner, 17 Nov 2026). Anything no storage there would take goes on open ground, as before. TipRule.Destination decides.
+    /// </summary>
+    TipDestination Place(Thing thing, List<IntVec3> fan, out IntVec3 cell, out Building_Storage? into)
+    {
+        Map map = Vehicle.Map;
+        bool storageWouldTake = false;
+        IntVec3 storageCell = IntVec3.Invalid;
+        IntVec3 groundCell = IntVec3.Invalid;
+        into = null;
+        foreach (IntVec3 c in fan)
+        {
+            if (c.GetEdifice(map) is Building_Storage store)
+            {
+                // Another side's storage is a building like any other: nothing lands on it.
+                if (store.Faction != Vehicle.Faction || !store.Accepts(thing)) continue;
+                storageWouldTake = true;
+                if (c.IsValidStorageFor(map, thing))
+                {
+                    storageCell = c;
+                    into = store;
+                    break;
+                }
+            }
+            else if (!groundCell.IsValid && FitsGround(c, map, thing)) groundCell = c;
+        }
+        TipDestination where = TipRule.Destination(storageWouldTake, storageCell.IsValid, groundCell.IsValid);
+        cell = where switch
+        {
+            TipDestination.Storage => storageCell,
+            TipDestination.Ground => groundCell,
+            _ => IntVec3.Invalid,
+        };
+        if (where != TipDestination.Storage) into = null;
+        return where;
+    }
+
+    /// <summary>Whether anything aboard can come off now; if not, whether full storage is what holds it.</summary>
+    bool AnythingCanGo(out bool storageFull)
+    {
+        storageFull = false;
+        List<IntVec3> fan = Fan().ToList();
+        for (int i = 0; i < Cargo.Count; i++)
+        {
+            if (Place(Cargo[i], fan, out _, out _) != TipDestination.StaysAboard) return true;
+            if (StorageWouldTake(Cargo[i], fan)) storageFull = true;
+        }
+        return false;
+    }
+
+    bool StorageWouldTake(Thing thing, List<IntVec3> fan)
+    {
+        Map map = Vehicle.Map;
+        foreach (IntVec3 c in fan)
+        {
+            if (c.GetEdifice(map) is Building_Storage store && store.Faction == Vehicle.Faction && store.Accepts(thing)) return true;
+        }
+        return false;
+    }
 
     /// <summary>Why it cannot tip now, or null.</summary>
     public string? CannotTip()
@@ -108,12 +171,12 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         if (Vehicle.CompFueledTravel is { EmptyTank: true }) return "PhobosVehicleSystems_TipNoFuel".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor) return "PhobosVehicleSystems_TipControls".Translate().Resolve();
         if (Systems?.HydraulicRefusal() is { } dry) return dry;
-        return CellFor(Cargo[0]).IsValid ? null : FullLine();
+        return AnythingCanGo(out bool storageFull) ? null : FullLine(storageFull);
     }
 
     CompPhobosVehicleSystems? Systems => Vehicle.GetComp<CompPhobosVehicleSystems>();
 
-    string FullLine() => "PhobosVehicleSystems_TipFull".Translate(Cargo.Count.Named("COUNT")).Resolve();
+    string FullLine(bool storageFull) => (storageFull ? "PhobosVehicleSystems_TipStorageFull" : "PhobosVehicleSystems_TipFull").Translate(Cargo.Count.Named("COUNT")).Resolve();
 
     public void Start()
     {
@@ -126,6 +189,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         deployed = true;
         allowance = 0f;
         tipped = 0;
+        stored = 0;
         VehicleWorkSounds.Loop(Vehicle, "Rams", true);
         Tell("PhobosVehicleSystems_TipStarted".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
@@ -137,7 +201,9 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         deployed = false;
         VehicleWorkSounds.Loop(Vehicle, "Rams", false);
         VehicleWorkSounds.Play(Vehicle, "Tailgate");
-        string report = "PhobosVehicleSystems_TipDone".Translate(Vehicle.LabelShort.Named("VEHICLE"), tipped.Named("COUNT")).Resolve();
+        string report = stored > 0
+            ? "PhobosVehicleSystems_TipDoneStored".Translate(Vehicle.LabelShort.Named("VEHICLE"), tipped.Named("COUNT"), stored.Named("STORED")).Resolve()
+            : "PhobosVehicleSystems_TipDone".Translate(Vehicle.LabelShort.Named("VEHICLE"), tipped.Named("COUNT")).Resolve();
         Tell(reason == null ? report : report + " " + reason, reason == null ? MessageTypeDefOf.TaskCompletion : MessageTypeDefOf.CautionInput);
     }
 
@@ -176,6 +242,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         }
         int things = TipRule.WholeThings(ref allowance, Vehicle.GetStatValue(TipperDefOf.Phobos_TipRate) * (Systems?.HydraulicSupply ?? 1f), SecondsPerRareTick);
         if (things > 0) VehicleWorkSounds.Play(Vehicle, "Slide");
+        List<IntVec3> fan = things > 0 ? Fan().ToList() : new List<IntVec3>();
         for (int i = 0; i < things; i++)
         {
             if (Cargo.Count == 0)
@@ -183,23 +250,40 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
                 Finish(null);
                 return;
             }
-            if (TipOne()) continue;
-            Finish(FullLine());
+            if (TipOne(fan, out _)) continue;
+            AnythingCanGo(out bool storageFull);
+            Finish(FullLine(storageFull));
             return;
         }
         if (Cargo.Count == 0) Finish(null);
     }
 
-    /// <summary>Puts down the first thing in the cargo. False when the ground has no room for it, and it stays aboard.</summary>
-    bool TipOne()
+    /// <summary>
+    /// Puts down the first thing in the cargo that has somewhere to go, into storage or onto the ground (Place decides). False when nothing aboard
+    /// has, and the rest stays aboard. A thing held back by full storage is passed over, so the rest of a mixed load still comes off.
+    /// </summary>
+    bool TipOne(List<IntVec3> fan, out Building_Storage? into)
     {
-        Thing thing = Cargo[0];
-        IntVec3 cell = CellFor(thing);
-        if (!cell.IsValid) return false;
-        Cargo.Remove(thing);
-        if (!GenPlace.TryPlaceThing(thing, cell, Vehicle.Map, ThingPlaceMode.Direct) && !thing.Destroyed && thing.stackCount > 0) Cargo.TryAdd(thing);
-        else tipped++;
-        return true;
+        into = null;
+        for (int i = 0; i < Cargo.Count; i++)
+        {
+            Thing thing = Cargo[i];
+            TipDestination where = Place(thing, fan, out IntVec3 cell, out into);
+            if (where == TipDestination.StaysAboard) continue;
+            Cargo.Remove(thing);
+            if (!GenPlace.TryPlaceThing(thing, cell, Vehicle.Map, ThingPlaceMode.Direct) && !thing.Destroyed && thing.stackCount > 0) Cargo.TryAdd(thing);
+            else
+            {
+                tipped++;
+                if (into != null)
+                {
+                    stored++;
+                    Seen.Note("vehicles.tip-into-storage", Vehicle, into.LabelShort);
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     void Tell(string text, MessageTypeDef type) => Messages.Message(text, Vehicle, type, historical: false);
@@ -250,12 +334,12 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         }
     }
 
-    /// <summary>What the grab may take: loose items on the ground, not forbidden, not stored, not too heavy for one lift; never pawns,
-    /// corpses or packed buildings.</summary>
+    /// <summary>What the grab may take: items not forbidden and not too heavy for one lift, lying loose or in storage of the truck's side whose
+    /// "Vehicles may load from here" switch is on (Framework 0.125.0, UH12; VehicleLoadOut decides); never pawns, corpses or packed buildings.</summary>
     bool Grabbable(Thing thing)
     {
         if (thing.def.category != ThingCategory.Item || !thing.def.EverHaulable || thing is Corpse || thing is MinifiedThing) return false;
-        if (thing.IsForbidden(Faction.OfPlayer) || thing.IsInAnyStorage()) return false;
+        if (thing.IsForbidden(Faction.OfPlayer) || !VehicleLoadOut.MayLift(thing, Vehicle.Faction)) return false;
         return GrabRule.CountForLift(thing.stackCount, thing.GetStatValue(StatDefOf.Mass), LiftKilograms, double.MaxValue) > 0;
     }
 
@@ -362,12 +446,14 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
                 FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve());
                 return;
             }
+            Building_Storage? from = VehicleLoadOut.StoredIn(thing);
             int moved = Vehicle.AddOrTransfer(thing, count);
             if (moved <= 0)
             {
                 FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve());
                 return;
             }
+            if (from != null) Seen.Note("vehicles.grab-from-storage", Vehicle, from.LabelShort);
             lifted++;
             liftedKilograms += moved * unit;
             VehicleWorkSounds.Play(Vehicle, "Slide");

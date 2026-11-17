@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Loaded only while The Dead Man's Switch (aoba.deadmanswitch.core, by AobaKuma, Bread Mo and team) is active (LoadFolders.xml).
+       Vehicles 0.63.0; docs/development/universal-hoppers.md, UH2.
+
+       Its automatic benches (auto mill, furnace, reaction chamber, machine printer) draw bill ingredients with no colonist from linked
+       facilities whose Def carries Fortified Features Framework's ModExtension_MaterialSource, reading the storage's held things
+       (Fortified's LinkedStorageIngredientPuller, code read 17 Nov 2026). Its own feed hopper is linked that way; this does the same for
+       the bulk bunker: a facility comp with the feed hopper's figures (4 links, 6 cells), the mark, and the bunker added to the bench
+       family's linkable list. That list is on the shared parent DMS_BenchBase, so its plain benches may link to a bunker too; a link
+       gives them nothing. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="PhobosVehicles_BulkBunker"]/comps</xpath>
+    <value>
+      <li Class="CompProperties_Facility">
+        <maxSimultaneous>4</maxSimultaneous>
+        <maxDistance>6</maxDistance>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="PhobosVehicles_BulkBunker"]</xpath>
+    <value>
+      <li Class="Fortified.ModExtension_MaterialSource" />
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[@Name="DMS_BenchBase"]/comps/li[@Class="CompProperties_AffectedByFacilities"]/linkableFacilities</xpath>
+    <value>
+      <li>PhobosVehicles_BulkBunker</li>
+    </value>
+  </Operation>
+
+</Patch>

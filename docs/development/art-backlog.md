@@ -43,7 +43,7 @@ exported with `export_sprite.py --silhouette`, so the game can tint it, and its 
 | Mod | Pictures |
 | --- | --- |
 | D'thorga Framework | Fittings: **work lamps** (a redraw, owner, 16 Nov: the last try looked like headlights), auxiliary fuel tank, ferry tank, litter kit; the cold-weather family; hitch, unhitch, winch, stop winch; litter unload, service lead, water drop, sonar ping, the station's grab; the fire bucket (an item seen on the map) |
-| D'thorga Vehicles | The Crawler's laboratory, advanced laboratory, laboratory refit, scrubber and sensor refit icons |
+| D'thorga Vehicles | The Crawler's laboratory, advanced laboratory, laboratory refit, scrubber and sensor refit icons. **The bulk bunker** (3 by 4 building, Vehicles 0.63.0): a stand-in drawn by `assets/phobos-vehicles/draw_bunker_standin.py` until it is clearer what to ask the image generator for (owner, 17 Nov 2026); not in the night-6 run |
 | D'thorga Patches | The Mk. 84 fills: incendiary, smoke and tox canisters and the EMP coil pack (briefs in the Vehicle Patches table below) |
 | D'thorga Medical | The triage tag and its outline |
 
