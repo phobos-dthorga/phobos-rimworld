@@ -11,6 +11,7 @@
         {"name": "doc status", "run": ["{python}", "scripts/check-doc-status.py"]},
         {"name": "doc index", "run": ["{python}", "scripts/check-doc-index.py"]},
         {"name": "player guide figures", "run": ["{python}", "scripts/art/guide_figures.py", "--check"]},
+        {"name": "art records", "run": ["{python}", "scripts/art-audit.py", "check"]},
         {"name": "mod layout and text keys", "run": ["{python}", "scripts/check-mod-layout.py"]},
         {"name": "vehicle schemas", "run": ["{python}", "scripts/check-vehicle-schemas.py"]},
         {"name": "research tree", "run": ["{python}", "scripts/check-research.py"]},

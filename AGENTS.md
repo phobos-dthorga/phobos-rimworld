@@ -448,8 +448,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Answer what art is still a stand-in, borrowed or unrecorded with `python scripts/art-audit.py`** (owner, 17 Nov 2026), before reading
   texture records or Defs by hand: every shipped texture paired with its record and classed by the record's first statement of how it was
   made, and every picture a Def uses that belongs to another thing or is not ours (`--all` adds the accepted ones, `--mod`, `--kind`;
-  `check` fails on a texture with no record). **A record opens with how its picture was made**, and a borrowing the owner keeps goes in
-  `config/art-audit.json` with its reason.
+  `check`, part of the gate, fails on a texture with no record). **A record opens with how its picture was made**, and a borrowing the
+  owner keeps goes in `config/art-audit.json` with its reason.
 - **Ship a sound only through `python scripts/art/export_sound.py assets/phobos-sounds/exports.json`**: it levels the pick against a named game
   sound, mixes to mono at 44.1 kHz as the game's are, refuses a clip, whine, seam dip or gap, and writes the record beside the file; `--check`
   verifies them, and a test runs it. Never copy a sound into a mod by hand. Every SoundDef of ours carries

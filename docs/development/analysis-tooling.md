@@ -218,8 +218,8 @@ pairs every shipped texture with its record (its own, a body's shared by the nam
 the record's first statement of how it was made (so a generated picture made from a stand-in drawing stays generated), and lists every
 picture a Def, patch or class uses that belongs to another of our things or is not ours. `config/art-audit.json` holds the patterns and
 the accepted borrowings and drawn-in-code pictures with their reasons; `check` fails on a texture without a record. It reads names and
-records, never the images, and caches nothing. Not in the gate yet: `check` passed on 17 Nov 2026 once that day's missing records were
-written, and can join the gate when the owner wants records enforced.
+records, never the images, and caches nothing. `check` joined the gate the same day, once that day's missing records were written:
+it enforces the standing rule that every texture has an asset record beside it.
 
 ### Not proposed
 
