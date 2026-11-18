@@ -318,7 +318,13 @@ flies as an aeroplane, at 17.5.
 - **Overlays, each its own picture:** two proprotor discs that spin and two sets of still blades; cargo hook, second hook; ramp
   gun (two); belly turret; refuelling probe; radar nose; rescue hoist; ropes; inlet barriers; armour kit (if anything of it
   shows); damage looks for the cockpit, cabin, wings and nacelles. The batch-2 overlays are drawn with the rest, so the body
-  never needs redrawing.
+  never needs redrawing. **Revised 18 Nov 2026, when the requests were written** ([osprey-overlays.json](../../assets/phobos-vehicles/requests/osprey-overlays.json)):
+  - **Paid, on the body's canvas:** refuelling probe, radar nose, both ramp guns, rescue hoist, inlet barriers, the infrared jammer.
+  - **Paid, alone on their own canvas:** one still rotor, and the nacelle at 30°, 60° and fully forward, for the renderer of our own.
+  - **Not drawn, because nothing of them shows from above:** the cargo hooks and the belly turret (under the aircraft; a slung load
+    already draws its strop) and the armour kit (inside the cabin). Their upgrades show in the Health tab, not on the picture.
+  - **Made free by script** (rule 11 of the paid rules): the spinning rotor disc from the still rotor; the upright nacelle cut from
+    the body by its part mask; the damage looks drawn on each part's mask; the ropes drawn by code when in use.
 - **Paint mask** by region, then repaired by parts; judged tinted on dark ground, with the fleck count, before the owner sees it.
 - **Icons:** the vehicle's, and one for each of seventeen upgrades and each new button, on the owner's local model.
 - **Before any paid picture:** the trial across services (under [size](#size)), a dry run with its cost, and a spending

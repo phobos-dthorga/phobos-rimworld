@@ -1,0 +1,259 @@
+[
+  {
+    "name": "osprey-probe",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Draw ONLY the in-flight refuelling probe, exactly where it belongs on that aircraft: a long, thin, straight tube fixed along the RIGHT side of the nose (the right of the canvas), starting beside the cockpit canopy and reaching forward, past the tip of the nose, by about a quarter of the nose's length, ending in a small rounded nozzle. Keep the same canvas, the same scale and the same position as Image 1, so the drawing lies precisely over the aircraft when the two are stacked. It is a slender part: about as wide as one cockpit window frame.\n\nDo NOT draw the aircraft itself: no fuselage, wings, nacelles, tail or any other part of Image 1. Everything that is not the in-flight refuelling probe is plain pure white.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "an overlay on the body's canvas, registered to it, for a visible upgrade",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  },
+  {
+    "name": "osprey-radar-nose",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Draw ONLY a terrain-following radar nose cap, exactly where it belongs on that aircraft: a slightly longer, fuller rounded radome that replaces the very front of the nose, from the tip back to just ahead of the cockpit canopy, in a slightly darker grey than the airframe with one thin seam line where it joins. Keep the same canvas, the same scale and the same position as Image 1, so the drawing lies precisely over the aircraft when the two are stacked. It is only the front tip of the nose, about one sixth of the nose's length.\n\nDo NOT draw the aircraft itself: no fuselage, wings, nacelles, tail or any other part of Image 1. Everything that is not a terrain-following radar nose cap is plain pure white.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "an overlay on the body's canvas, registered to it, for a visible upgrade",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  },
+  {
+    "name": "osprey-ramp-gun-762",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Draw ONLY a 7.62 mm machine gun on the rear loading ramp, exactly where it belongs on that aircraft: a light machine gun on a small pintle mount at the top end of the rear loading ramp, on the fuselage centre line just ahead of the tailplane, its barrel pointing straight back toward the BOTTOM of the canvas, with a small ammunition box beside it. Keep the same canvas, the same scale and the same position as Image 1, so the drawing lies precisely over the aircraft when the two are stacked. It is small: shorter than the tailplane is deep.\n\nDo NOT draw the aircraft itself: no fuselage, wings, nacelles, tail or any other part of Image 1. Everything that is not a 7.62 mm machine gun on the rear loading ramp is plain pure white.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "an overlay on the body's canvas, registered to it, for a visible upgrade",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  },
+  {
+    "name": "osprey-ramp-gun-50",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Draw ONLY a .50 calibre heavy machine gun on the rear loading ramp, exactly where it belongs on that aircraft: a heavy machine gun with a thick barrel and a square receiver on a sturdy pintle mount at the top end of the rear loading ramp, on the fuselage centre line just ahead of the tailplane, its barrel pointing straight back toward the BOTTOM of the canvas, with a larger ammunition can beside it. Keep the same canvas, the same scale and the same position as Image 1, so the drawing lies precisely over the aircraft when the two are stacked. It is a little larger than a light machine gun would be, still smaller than the tailplane is deep.\n\nDo NOT draw the aircraft itself: no fuselage, wings, nacelles, tail or any other part of Image 1. Everything that is not a .50 calibre heavy machine gun on the rear loading ramp is plain pure white.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "an overlay on the body's canvas, registered to it, for a visible upgrade",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  },
+  {
+    "name": "osprey-hoist",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Draw ONLY a rescue hoist, exactly where it belongs on that aircraft: a small folded hoist arm (a short davit with a cable drum) on the RIGHT side of the fuselage roof just ahead of the rear loading ramp, lying along the fuselage, its drum toward the front. Keep the same canvas, the same scale and the same position as Image 1, so the drawing lies precisely over the aircraft when the two are stacked. It is small: about the size of one roof hatch.\n\nDo NOT draw the aircraft itself: no fuselage, wings, nacelles, tail or any other part of Image 1. Everything that is not a rescue hoist is plain pure white.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "an overlay on the body's canvas, registered to it, for a visible upgrade",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  },
+  {
+    "name": "osprey-inlet-barriers",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Draw ONLY engine inlet barrier filters on both engine nacelles, exactly where it belongs on that aircraft: on EACH of the two upright engine nacelles at the wing tips, a flat rectangular filter screen with a fine mesh pattern and a dark frame, covering the nacelle's top surface between its two orange bands, the hub caps left uncovered. Keep the same canvas, the same scale and the same position as Image 1, so the drawing lies precisely over the aircraft when the two are stacked. Each screen is a little narrower than its nacelle.\n\nDo NOT draw the aircraft itself: no fuselage, wings, nacelles, tail or any other part of Image 1. Everything that is not engine inlet barrier filters on both engine nacelles is plain pure white.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "an overlay on the body's canvas, registered to it, for a visible upgrade",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  },
+  {
+    "name": "osprey-jammer",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Draw ONLY infrared countermeasure turrets, exactly where it belongs on that aircraft: two small round sensor turrets with dark domed windows, one on the outer face of EACH sponson near its rear end. Keep the same canvas, the same scale and the same position as Image 1, so the drawing lies precisely over the aircraft when the two are stacked. Each turret is about the size of a hub cap.\n\nDo NOT draw the aircraft itself: no fuselage, wings, nacelles, tail or any other part of Image 1. Everything that is not infrared countermeasure turrets is plain pure white.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "an overlay on the body's canvas, registered to it, for a visible upgrade",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  },
+  {
+    "name": "osprey-rotor",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 2048,
+    "height": 2048,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft. Draw ONLY one of its proprotors, alone, standing still, seen from straight above its hub: three long, broad blades at exactly 120 degrees to each other around a round hub cap like the hub caps in Image 1, each blade straight and slightly tapered, with a muted orange band near its tip. The hub sits at the exact CENTRE of the canvas and the blade tips almost reach the canvas edges. Everything else plain pure white. Do NOT draw the aircraft.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "a part drawn alone, for the renderer of our own that draws the rotors and tilting nacelles",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  },
+  {
+    "name": "osprey-nacelle-30",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 2048,
+    "height": 2048,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, its nacelles upright. Draw ONLY one engine nacelle of the aircraft in Image 1 (its left one), alone, centred on the canvas, seen from directly above, in the same finish, colours and two orange bands as Image 1. Its rotor hub cap is at the nacelle's FRONT end; no rotor blades. The nacelle pivots about its rear end, which stays at the canvas centre's lower edge. Everything else plain pure white. Do NOT draw the wing or anything else of the aircraft. The nacelle is tilted forward a third of the way from upright: from above it looks a little longer than in Image 1, and its front end with the hub cap has moved toward the TOP of the canvas.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "a part drawn alone, for the renderer of our own that draws the rotors and tilting nacelles",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  },
+  {
+    "name": "osprey-nacelle-60",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 2048,
+    "height": 2048,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, its nacelles upright. Draw ONLY one engine nacelle of the aircraft in Image 1 (its left one), alone, centred on the canvas, seen from directly above, in the same finish, colours and two orange bands as Image 1. Its rotor hub cap is at the nacelle's FRONT end; no rotor blades. The nacelle pivots about its rear end, which stays at the canvas centre's lower edge. Everything else plain pure white. Do NOT draw the wing or anything else of the aircraft. The nacelle is tilted forward two thirds of the way from upright: from above it looks much longer than in Image 1, a pod lying nearly flat with its hub cap toward the TOP of the canvas.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "a part drawn alone, for the renderer of our own that draws the rotors and tilting nacelles",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  },
+  {
+    "name": "osprey-nacelle-90",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 2048,
+    "height": 2048,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): match its finish, scale and position exactly"
+      },
+      {
+        "image": "assets/phobos-vehicles/references/osprey-flat-nacelles-2048.png",
+        "role": "our trial picture whose nacelles lie flat: the forward shape to follow, not its finish"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, its nacelles upright. Draw ONLY one engine nacelle of the aircraft in Image 1 (its left one), alone, centred on the canvas, seen from directly above, in the same finish, colours and two orange bands as Image 1. Its rotor hub cap is at the nacelle's FRONT end; no rotor blades. The nacelle pivots about its rear end, which stays at the canvas centre's lower edge. Everything else plain pure white. Do NOT draw the wing or anything else of the aircraft. The nacelle is turned fully forward for aeroplane flight: from above it is a long pod lying flat, its pointed front with the hub cap toward the TOP of the canvas, like the nacelles in Image 2. Image 2 is another picture of this aircraft with its nacelles lying flat: follow the SHAPE of its nacelles, not their finish.\n\nStyle: exactly the finish of Image 1, a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale grey panels, darker grey metal, small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, text, letters, numbers, logos, dust, damage, shadows outside the object, floor, ground, perspective or tilt of the camera.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey; body 4,096 px square at about 207 px a metre (the owner's pick, 18 Nov 2026)",
+      "this_request": "a part drawn alone, for the renderer of our own that draws the rotors and tilting nacelles",
+      "not_drawn_and_why": "the cargo hooks, belly turret and armour kit are under or inside the aircraft and cannot be seen from above; the spinning rotor disc is made by script from the still rotor; the upright nacelle is cut from the body by its part mask; damage looks are made by script on each part's mask",
+      "design": "docs/development/vehicle-osprey.md#art"
+    }
+  }
+]
