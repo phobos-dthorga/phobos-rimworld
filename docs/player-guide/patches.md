@@ -103,7 +103,7 @@ waits rather than being swapped by itself.
 
 A Harrier too heavy for its engine to hover in the day's heat will not hover onto its pad. The vertical-landing button and order say
 why, an automatic return home uses a runway instead, and a landing that runs out of injection water part-way is called off with the
-reason. **This follows D'thorga Framework's setting "When an aircraft is too heavy or too hot to hover onto its pad"**: use the runway
+reason. **This follows D'thorga Framework's setting "When an aircraft is too heavy or too hot to lift off, hover onto its pad or land at a journey's end"**: use the runway
 (the default), allow it at a cost to the engine, or warn only. D'thorga Vehicles gives the Harrier its real engine figures; without
 it the Framework's general jet engine judges the hover ([aircraft](vehicle-care.md#aircraft-and-sling-loads)).
 

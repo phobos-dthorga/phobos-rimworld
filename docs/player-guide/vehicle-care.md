@@ -295,6 +295,9 @@ world map's terrain tab shows each tile's elevation; a map is as high as its til
   **turbocharger** to an engine without one gives it the same hold.
 - **A helicopter is hit twice**: its engines give less and its rotor needs more. One that lifts a full load at the coast may refuse
   to lift it from a high plateau, and says so. Lighten it, or wait for cooler air.
+- **Where it lands counts too** (not yet tested in game). When you pick a destination, a line warns if it would arrive too heavy to
+  hover in the air there. With the default setting it then **comes in for a rolling landing**, which wears its undercarriage a
+  little; it never stops to refuel in such air. "Allow it, at a cost to the engine" lands it straight down and strains its engines.
 - **Radiators cool a little less** in thin air; the colder air up there mostly makes up for it.
 - **While it matters, the inspect pane says** "The air is thin up here" and how much power the engine has left.
 - Electric vehicles are not affected. Other factions' vehicles are not affected.

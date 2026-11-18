@@ -88,7 +88,11 @@
     "193": ["vehicles.cargo-refuel"],
     "194": ["factory.deep-hopper-output-stacks"],
     "195": ["vehicles.upgrade-needs-research"],
-    "197": ["aircraft.landed-refuel", "aircraft.landed-refuel-lift-off"]
+    "197": ["aircraft.landed-refuel", "aircraft.landed-refuel-lift-off"],
+    "198": {"parts": {
+      "the rolling landing": [{"key": "aircraft.landing-check", "variant": "run-on"}],
+      "the engines take the strain": [{"key": "aircraft.landing-check", "variant": "strained"}]
+    }}
   },
   "order": [
     {"name": "a piston engine warns before its battery cannot start it", "row": "69",

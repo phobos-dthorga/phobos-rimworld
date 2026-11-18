@@ -43,6 +43,12 @@ public static class FlightCargoReach
 
     /// <summary>Whether something is under the mouse to fly to (Vehicle Framework's own test).</summary>
     public static bool TargetValid => TargetUnderMouse != null && TargetUnderMouse().IsValid;
+
+    /// <summary>The tile under the mouse in the destination picker, or null (Framework 0.140.0, the landing check's warning).</summary>
+    public static PlanetTile? MouseTile => TargetUnderMouse != null && TargetUnderMouse() is { IsValid: true } target ? target.Tile : null;
+
+    /// <summary>The fuel the journey being picked burns, or 0 where it cannot be read.</summary>
+    public static float FuelCost(FuelTargetUpdater updater) => TotalFuelCost == null ? 0f : TotalFuelCost(updater);
 }
 
 /// <summary>Allows a journey the fuel aboard covers, saying how many stops it makes on the way (Framework 0.139.0).</summary>

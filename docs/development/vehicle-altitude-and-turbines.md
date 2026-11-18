@@ -3,7 +3,9 @@
 **Status (18 Nov 2026):** Built in D'thorga Framework 0.132.0 and D'thorga Vehicles 0.65.2: thin air at height (engine power, turbine
 output, rotor lift, radiator cooling), the turbine gaps T-1, T-2 with step S7 and T-4, and aircraft fuel following the engines both
 between tiles and on a map (T-3). **Not yet tested in game** (rows 187 and 188). Not built: thin air for other factions' vehicles and
-the light model, a flight's own cruising height, water boiling lower, brake cooling, and descents (held).
+the light model, a flight's own cruising height, water boiling lower, brake cooling, and descents (held). The landing check at a
+journey's end is built in Framework 0.140.0 ([below](#the-landing-check-at-a-journeys-end-framework-01400)), **not yet tested in game**
+(row 198).
 
 This record follows [engine loads](vehicle-engine-loads.md), which found that turbines had not come as far as piston engines (its
 gaps T-1 to T-4), and [world elevation](world-elevation-and-descents.md), which found that every world tile has a real height in
@@ -33,6 +35,9 @@ metres. The owner chose to build both in one slice, so engines and air are teste
 | 5 | The tank is read, not the flight frameworks' rules, to know what they burned (below) | agent's choice |
 | 6 | Thin air leaves other factions' vehicles and the light model alone | agent default, from the standing decision that the light model has no drivetrain |
 | 7 | A flight between tiles keeps its departure tile's air; no cruising height is modelled | agent default |
+| 8 | **An aircraft that cannot hover in the air where its journey ends comes in for a rolling landing** under the refuse setting, wearing its undercarriage | owner (agent's recommendation), 18 Nov 2026, over a crash landing or straining the engines |
+| 9 | The landing is judged in the destination tile's air, at the weight on arrival; a refuelling stop is never made where it could not hover | agent default |
+| 10 | A rolling landing costs one undercarriage part 5 % of its full health, or one outer part where the aircraft has no undercarriage part | agent default (authored) |
 
 ## What each behaviour lets the player do, stops them doing, and changes
 
@@ -109,9 +114,48 @@ grants `Boost` (the turbocharger) gives any piston engine the same hold. The rea
 - **Other factions' vehicles and the light model are untouched.** Lost power is carried by the drivetrain model, which they do not
   have; taking it as lost speed would slow every raider in high country whether or not power held them back.
 - **A flight between tiles has no cruising height.** It keeps the air of the tile it left, for its lift check at launch; where it
-  lands, the air of that map applies to its hover.
+  lands, the air of that tile decides its landing ([the landing check](#the-landing-check-at-a-journeys-end-framework-01400)).
 - **Fuel does not change with height.** Thin air leaves less power; the work done burns what it burned.
 - **Not built:** water boiling lower, brakes cooling less, steam locomotives, electric motors' cooling.
+
+### The landing check at a journey's end (Framework 0.140.0)
+
+The lift check before launch reads the air of the place the aircraft leaves. A journey to a higher or hotter place, or one on which
+an engine is lost, could land beyond the engines without a word. Raised on 18 Nov 2026 when the owner asked what engine work the V-22
+Osprey would need ([modern military vehicles](modern-military-vehicles.md)); worth having for every helicopter and pod already in play.
+
+| Lets the player | Stops them | Changes how they play |
+| --- | --- | --- |
+| See before launch that a heavy aircraft cannot hover down at a high or hot destination, and lighten it or accept the cost | Landing a full load at a high, hot outpost as if it were the coast | A high outpost wants lighter loads, cooler hours or an undercarriage repaired now and then |
+
+**How it works:**
+
+- **The moment:** a prefix on Vehicle Framework's `FlightPath.ConsumeNode` as the journey's last tile is reached, before its arrival
+  action lands the aircraft on a map or as a caravan (`LandingCheck`, `Patch_FlightPath_ConsumeNode_LandingCheck`). A strafing run,
+  a crash already under way, circling and recon are left alone. The landing itself is Vehicle Framework's, unchanged.
+- **The air:** the hover check (`Powertrain.HoverCheck`, now with a weight, temperature and pressure of its own) at that tile's
+  temperature now (`GenTemperature.GetTemperatureAtTile`) and, with "Thin air at height" on, its pressure. The weight is the aircraft's
+  now. Engines lost on the way count, as at launch.
+- **What follows**, by the hover-limit setting:
+  - **Refuse** (the default): it comes in for a rolling landing, as a helicopter does when it cannot hover and as the Harrier takes its
+    runway. Its undercarriage takes 5 % of one part's full health (`RunOnWearShare`, authored), never below 1. With no part bound to
+    the `LandingGear` role, which no loadout binds yet, one of its outer parts takes it.
+  - **Allow at a cost:** it lands as usual and its engines take one over-limit lift's strain (`HoverLimits.Strain`, shared with the launch).
+  - **Warn only**, or figures only: it lands and a message says so.
+- **Before launch:** the destination picker adds a line where the aircraft would arrive too heavy to hover there, with the share of
+  the power it needs, at its weight less the fuel the journey burns (a postfix on `FuelTargetUpdater.ValidateTargets`, after the cargo
+  reach one).
+- **Refuelling stops** ([cargo refuel](vehicle-cargo-refuel.md)): under refuse, it never sets down where it could not hover, and flies
+  on; under the other settings it sets down and the outcome applies.
+- **The player's aircraft only.** Other factions' aircraft do not fly these journeys; in a raid or at a base we attack, none of this
+  applies.
+
+**Simplifications (authored):** a rolling landing needs open ground, which every landing site in the game already is, so no surface is
+checked; the warning uses the temperature at the time of picking, and the landing the temperature on arrival; a slung load is not in
+the hover weight (the sling has its own hook limits), so setting it down first would change nothing here.
+
+**Not built:** "drop the stores" (outstanding work V6) for an aircraft that could hover lighter. A helicopter cannot throw out its
+cargo in flight, and no aircraft we tie into dumps fuel; it waits for an aircraft with external stores.
 
 ## Turbines catch up
 

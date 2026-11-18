@@ -2178,6 +2178,24 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         Repairs.NotifyRepairable();    // Vehicle Framework's list of vehicles to repair is fed only by real hits
     }
 
+    /// <summary>The role a loadout binds an aircraft's wheels, skids or landing legs to (Framework 0.140.0).</summary>
+    public const string LandingGearRole = "LandingGear";
+
+    /// <summary>A hard landing's wear (Framework 0.140.0, the rolling landing of LandingCheck): one landing-gear part loses a share of its
+    /// full health, or, where the loadout binds none, one of the vehicle's outer parts, its airframe. Never below one health: wear, not
+    /// a break.</summary>
+    public void WearLanding(float shareOfHealth)
+    {
+        if (shareOfHealth <= 0f || Vehicle?.statHandler == null) return;
+        VehicleComponent? part = PartsOf(LandingGearRole).Where(p => p.Health > 1f).RandomElementWithFallback()
+            ?? Vehicle.statHandler.components.Where(p => p.props.depth == VehicleComponent.VehiclePartDepth.External && p.Health > 1f).RandomElementWithFallback();
+        if (part == null) return;
+        part.SetHealth(Mathf.Max(1f, part.Health - shareOfHealth * part.MaxHealth));
+        RememberPartHealth(part);
+        Vehicle.statHandler.MarkAllDirty();
+        Repairs.NotifyRepairable();
+    }
+
     /// <summary>A sudden failure: one living part of the role loses a share of its full health. Returns the part, or null.</summary>
     public VehicleComponent? BreakRole(string role, float fraction)
     {

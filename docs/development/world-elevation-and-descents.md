@@ -1,6 +1,6 @@
 # World elevation: slopes, descents and engine braking, altitude, and radio line of sight (18 Nov 2026)
 
-**Status (18 Nov 2026):** A research record. Built from it: the fixes for gaps D3 to D5 (D'thorga Framework 0.131.0, not yet tested in game), and D2 corrected in its record. Altitude is built too (Framework 0.132.0, in [thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md), not yet tested in game). Not built: descents and engine braking (held), anything for radio, and D1. The tile's size is undecided.
+**Status (18 Nov 2026):** A research record. Built from it: the fixes for gaps D3 to D5 (D'thorga Framework 0.131.0, not yet tested in game), and D2 corrected in its record. Altitude is built too (Framework 0.132.0, in [thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md), not yet tested in game). Not built: descents and engine braking (held), anything for radio, and D1. A tile is about 30 km across (owner, 18 Nov 2026).
 
 The owner asked how slopes could be simulated in a game like RimWorld, after engine braking came up beside the
 [engine loads](vehicle-engine-loads.md) work, and asked for research and a record before anything concrete is decided. They added
@@ -20,8 +20,8 @@ of the owner's looks like when measured, what real trucks do on a descent, and w
 - **At the game's speeds a loaded truck on a steep road is at the real-world limit of its brakes.** By the same sum a Wyoming study
   used on real passes, our heavier trucks on an 8 % road descent need an engine brake or a lower speed.
 - **Soft ground brakes by itself.** On soil, rolling resistance swallows a 5 % descent. Descents matter on roads and hard ground.
-- **How big a tile is has never been decided**, and the game does not say. Three anchors give 6.6 to 9 km, 29 km and 31.5 km.
-  Radio depends on this more than vehicles do.
+- **A tile is about 30 km across** (owner, 18 Nov 2026). The game does not say; three anchors give 6.6 to 9 km, 29 km and 31.5 km,
+  and the owner took the two that agree. Radio depends on this more than vehicles do.
 - **Elevation's best use for vehicles may be altitude, not slope**: thinner air takes engine power, rotor lift and cooling.
 - **For radio, elevation is the terrain.** Line of sight, hilltop sites and what stands in the way can all be read from it cheaply.
 
@@ -97,7 +97,9 @@ The game never says, anywhere, in code or text. It commits only to metres for el
 - The second and third agree within 7 %, from unrelated starting points.
 - The first disagrees by a factor of four. That is the game's two clocks: people on a map move far faster than a 5 km/h walk if a
   cell is a metre.
-- **Nothing here decides it.** It is listed under [what is left to decide](#what-is-left-to-decide), and it matters most to radio.
+- **Decided (owner, 18 Nov 2026): about 30 km**, the agent's recommendation, where the second and third anchors meet. Nothing reads
+  it in code yet. It sets the vehicles' net slope if descents are built, real aircraft ranges in tiles (the V-22's 741 km on one tank
+  is about 25 tiles, our arithmetic), and radio's reach: at 30 km a tile, VHF from mast to mast barely leaves its own tile.
 
 ## What reads elevation and hilliness today
 
@@ -357,7 +359,7 @@ touches every vehicle and aircraft. Radio line of sight is the one that would sh
 The owner's answers of 18 Nov 2026: **altitude is one of the next few slices** ("I really do love this idea"); **descents stay held**
 until after the engine-load ledger; **the four safe gaps are fixed** (above). The rest is undecided. In the order they would be needed:
 
-1. **How big a tile is**: 6.6 to 9 km, about 30 km, or left open. It sets radio's reach and the vehicles' net slope.
+1. ~~How big a tile is~~: **decided, about 30 km** (owner, 18 Nov 2026; [above](#how-big-a-tile-is)).
 2. **Whether descents are wanted at all**, and if so which way: hills up and down, net slope, or both.
 3. **How far descents go**: brake wear only, or a brake temperature with fade.
 4. **Whether altitude should take engine power and lift.**

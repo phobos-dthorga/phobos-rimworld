@@ -204,7 +204,9 @@ public static class CargoRefuel
         }
         comp.CargoFuelGoneTold = false;
         PlanetTile below = (PlanetTile)WorldHelper.GetNearestTile(flight.DrawPos);
-        string? refusal = NoLandingReason(below);
+        // Framework 0.140.0: nor where it could not hover at its weight in that tile's air, under the refuse setting (LandingCheck).
+        LandingCheck.Outcome landing = LandingCheck.Outcome.Fine;
+        string? refusal = NoLandingReason(below) ?? LandingCheck.StopRefusal(vehicle, below, out landing);
         if (refusal != null)
         {
             if (!comp.LandingRefusedTold)
@@ -229,6 +231,8 @@ public static class CargoRefuel
             CarriedAboard(vehicle).Named("LEFT"), ((int)stopTicks).ToStringTicksToPeriod().Named("TIME")).Resolve(),
             flight, MessageTypeDefOf.SilentInput, historical: false);
         if (Seen.Wants("aircraft.landed-refuel", vehicle)) Seen.Note("aircraft.landed-refuel", vehicle, pour + " " + fuel.Props.fuelType.defName);
+        // Beyond the engines under allow at a cost or warn only: it set down all the same, and that comes at its price.
+        LandingCheck.Apply(vehicle, landing, flight);
     }
 
     /// <summary>

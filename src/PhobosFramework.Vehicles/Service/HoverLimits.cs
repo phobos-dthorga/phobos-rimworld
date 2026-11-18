@@ -52,13 +52,18 @@ public static class HoverLimits
             if (ours) Messages.Message("PhobosVehicleSystems_MsgLiftBeyond".Translate(vehicle.LabelShort.Named("VEHICLE")), vehicle, MessageTypeDefOf.CautionInput);
             return;
         }
-        if (!VehicleSystemsMod.Settings.showOnly)
-        {
-            if (comp.TryGetQuantity("hotSectionLife", out _)) comp.AddToQuantity("hotSectionLife", LaunchStrainLife);
-            else comp.WearRole("Engine", LaunchStrainWear);
-        }
+        Strain(comp);
         // Another faction's aircraft is worn the same, but the player is not told of it.
         if (ours) Messages.Message("PhobosVehicleSystems_MsgLiftStrained".Translate(vehicle.LabelShort.Named("VEHICLE")), vehicle, MessageTypeDefOf.CautionInput);
+    }
+
+    /// <summary>One lift-off or landing with the engines past their limits: hot-section life, or engine health without a turbine system.
+    /// Nothing with figures only. Shared by the launch and, since Framework 0.140.0, the landing at a journey's end (LandingCheck).</summary>
+    public static void Strain(CompPhobosVehicleSystems comp)
+    {
+        if (VehicleSystemsMod.Settings.showOnly) return;
+        if (comp.TryGetQuantity("hotSectionLife", out _)) comp.AddToQuantity("hotSectionLife", LaunchStrainLife);
+        else comp.WearRole("Engine", LaunchStrainWear);
     }
 
     /// <summary>Hot-section life one over-limit lift-off uses (authored: about five hours past the continuous limit's worst).</summary>

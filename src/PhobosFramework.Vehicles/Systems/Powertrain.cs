@@ -547,21 +547,29 @@ public sealed class Powertrain
     bool HasWater() => waterTankKg > 0 && comp.TryGetQuantity("injectionWater", out float water) && water > 0.001f;
 
     /// <summary>The demand a hover asks, as a share of maximum continuous: weight against thrust for jets, momentum theory for rotors.</summary>
-    double HoverDemand(TurbineSpec spec)
+    double HoverDemand(TurbineSpec spec) => HoverDemand(spec, MassKg(), comp.Ambient, comp.AirPressure);
+
+    double HoverDemand(TurbineSpec spec, double mass, double ambient, double pressure)
     {
-        double mass = MassKg();
         if (spec.Continuous.ThrustKn > 0) return mass * DrivetrainModel.Gravity / 1000 / spec.Continuous.ThrustKn;
         double maxGross = KerbKg + comp.Vehicle.GetStatValue(VehicleStatDefOf.CargoCapacity) + fuelKgFull;
-        return TurbineModel.HoverPowerNeeded(Profile!.hoverPowerAtMaxGross, mass / Math.Max(1, maxGross), comp.Ambient, comp.AirPressure);
+        return TurbineModel.HoverPowerNeeded(Profile!.hoverPowerAtMaxGross, mass / Math.Max(1, maxGross), ambient, pressure);
     }
 
     /// <summary>Whether the aircraft can hover now: dry, only with water, or not at all; and the best margin (1 means just enough).</summary>
-    public (bool dry, bool wet, double margin) HoverCheck()
+    public (bool dry, bool wet, double margin) HoverCheck() => HoverCheck(MassKg(), comp.Ambient, comp.AirPressure);
+
+    /// <summary>The kilograms of fuel one unit of the tank weighs (Framework 0.140.0), so a journey's burn can be taken off the weight.</summary>
+    public double FuelKgPerUnit => comp.Vehicle.CompFueledTravel is { FuelCapacity: > 0 } fuel ? fuelKgFull / fuel.FuelCapacity : 0;
+
+    /// <summary>The same check at another weight and in another place's air (Framework 0.140.0: the landing check at a journey's end):
+    /// the destination tile's temperature and, where the engine breathes air, its pressure.</summary>
+    public (bool dry, bool wet, double margin) HoverCheck(double massKg, double ambient, double pressure)
     {
         TurbineSpec spec = Turbine ?? new TurbineSpec();
         if (spec.Continuous.ThrustKn > 0 || spec.Ratings.Any(r => r.ThrustKn > 0))
         {
-            (double dry, double wet) = TurbineModel.HoverMargin(spec, MassKg(), comp.Ambient, Condition() * EngineShare(), comp.AirPressure);
+            (double dry, double wet) = TurbineModel.HoverMargin(spec, massKg, ambient, Condition() * EngineShare(), pressure);
             // The same thrust asks more of the engine with bleed air taken (BleedRule), so the margin shrinks by as much.
             double bled = BleedRule.Demand(1, Profile != null ? Bleed(comp.Vehicle, hovering: true) : 0);
             dry /= bled;
@@ -570,8 +578,8 @@ public sealed class Powertrain
             return (dry >= 1, wet >= 1, Math.Max(dry, wet));
         }
         ApplyDriveLimit(spec);
-        double needed = BleedRule.Demand(HoverDemand(spec), Profile != null ? Bleed(comp.Vehicle, hovering: true) : 0);
-        double available = TurbineModel.LiftPowerAvailable(spec, comp.Ambient, Condition(), EngineShare(), comp.AirPressure);
+        double needed = BleedRule.Demand(HoverDemand(spec, massKg, ambient, pressure), Profile != null ? Bleed(comp.Vehicle, hovering: true) : 0);
+        double available = TurbineModel.LiftPowerAvailable(spec, ambient, Condition(), EngineShare(), pressure);
         return (available >= needed, available >= needed, available / Math.Max(0.01, needed));
     }
 

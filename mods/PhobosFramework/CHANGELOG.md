@@ -5,6 +5,32 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.140.0] - 2026-11-18 - Draft
+
+Aircraft are checked for a hover where their journey ends
+
+### Added
+
+- **An aircraft's landing is judged in the air where it arrives**, not only where it left. A helicopter or lifting pod flown to a higher or hotter place, or one that lost an engine on the way, may arrive too heavy to hover down. Under the default hover setting it then comes in for a rolling landing, as a real helicopter does, and its undercarriage (or, lacking one, its airframe) takes a little wear. Under "Allow it, at a cost to the engine" it lands straight down and its engines take the strain; under "warn only" a message says so.
+- **The destination picker warns before launch** when the aircraft would arrive too heavy to hover in the air there, with the share of the power it would need.
+- **Refuelling stops avoid such air**: under the default setting an aircraft refuelling from its cargo never sets down where it could not hover, and flies on.
+
+### Changed
+
+- The hover-limit setting now reads "When an aircraft is too heavy or too hot to lift off, hover onto its pad or land at a journey's end", and its default choice's description says what happens at a journey's end. Its default is unchanged.
+
+### Balance
+
+- A rolling landing costs one undercarriage part a twentieth of its full health, never taking it below 1 (authored).
+
+### Save compatibility
+
+- Safe to add mid-game. Nothing new is saved.
+
+### Compatibility and limits
+
+- Only the player's aircraft, and only those whose lift is checked at launch (Vehicle Framework's own helicopters and pods), with the full engine model on. A slung load is not in the hover weight. Not yet tested in game.
+
 ## [0.139.1] - 2026-11-18 - Draft
 
 One mechanic per vehicle service, and one message when repairs stall
