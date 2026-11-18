@@ -1,0 +1,39 @@
+{
+  "file": "osprey-inlet-barriers-add-1.png",
+  "sha256": "37c9e994687a3004601b38482601a6cc0ec0327712c68f0c5cea6328fc42fde3",
+  "date": "2026-11-18T23:21:59",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Add air intake filters on the two engine nacelles to this aircraft: on top of EACH of the two engine nacelles at the wing tips, a flat rectangular filter screen with a fine mesh pattern inside a dark frame, covering the nacelle between its two orange bands and leaving the round hub cap visible in its middle. Change NOTHING else: keep every other line, panel, colour and the plain white background exactly as in Image 1, at the same scale and in the same position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the aircraft.",
+  "seed": 1,
+  "size": [
+    4096,
+    4096
+  ],
+  "request_file": "assets/phobos-vehicles/requests/osprey-overlays-2.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a1ee9a-9c51-7773-97ec-792e937d713c",
+  "usage": null,
+  "cost_usd": 0.3,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    4096,
+    4096
+  ],
+  "asked_resolution": "4K",
+  "asked_aspect_ratio": "1:1",
+  "sent_seed": 1,
+  "seconds": 50.8,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+      "sha256": "ee23c00d7e73cc9464a77ffdb9f07e52161dac43cdf3c2d4b2786b2e68a814ab",
+      "role": "our approved aircraft body (the owner's pick): the picture to add to, changing nothing else"
+    }
+  ]
+}
