@@ -334,6 +334,7 @@ public partial class CompPhobosFlight : VehicleComp
         FlightRegistry.Add(this);
         StartTicking();
         Seen.Note("aircraft.flight-takeoff", v);
+        LandingSurface.OnTakeOff(v);    // Framework 0.158.0: what the ground beneath does as it lifts off
     }
 
     /// <summary>Starts a roll along the strip ahead, straight along its heading of four, to leave the ground at the end (Framework 0.151.0).</summary>
@@ -353,6 +354,7 @@ public partial class CompPhobosFlight : VehicleComp
         FlightRegistry.Add(this);
         StartTicking();
         Seen.Note("aircraft.flight-roll", v, variant: "takeoff");
+        LandingSurface.OnTakeOff(v, rolling: true);
     }
 
     /// <summary>Why it may not set off for another place from where it is now, or null: on the ground, why it may not take off; in the air,
@@ -995,6 +997,7 @@ public partial class CompPhobosFlight : VehicleComp
         landRolling = false;
         rollFromX = rollFromZ = float.NaN;
         PutDown(cell, landRot);
+        LandingSurface.OnTouchDown(v, rolling: true);    // Framework 0.158.0, judged where it came to rest
         if (!VehicleSystemsMod.Settings.showOnly)
         {
             CompPhobosVehicleSystems.Of(v)?.WearLanding(hard ? (float)FlightPathRule.ForcedLandingShare(m) : LandingCheck.RunOnWearShare);
@@ -1029,6 +1032,7 @@ public partial class CompPhobosFlight : VehicleComp
             return;
         }
         PutDown(landCell, landRot);
+        LandingSurface.OnTouchDown(v, rolling: false);    // Framework 0.158.0
         Seen.Note("aircraft.flight-landed", v, variant: "landed");
     }
 
@@ -1090,6 +1094,7 @@ public partial class CompPhobosFlight : VehicleComp
             return;
         }
         PutDown(cell, rot);
+        LandingSurface.OnTouchDown(v, rolling: false);    // Framework 0.158.0; a wreck is judged by nothing
         CompPhobosVehicleSystems? comp = CompPhobosVehicleSystems.Of(v);
         if (comp != null && !VehicleSystemsMod.Settings.showOnly)
         {

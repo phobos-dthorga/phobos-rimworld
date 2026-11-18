@@ -2166,13 +2166,15 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         return Mathf.Clamp01(biggest / Fire.MaxFireSize);
     }
 
-    /// <summary>Slow damage to one living part of the role, without armour or reactions (wear, heat).</summary>
-    public void WearRole(string role, float amount, float shareOfHealth = 0f)
+    /// <summary>Slow damage to one living part of the role, without armour or reactions (wear, heat). With <paramref name="neverBreaks"/>
+    /// (Framework 0.158.0) it stops at one health: wear, never a break.</summary>
+    public void WearRole(string role, float amount, float shareOfHealth = 0f, bool neverBreaks = false)
     {
         if (amount <= 0f && shareOfHealth <= 0f) return;
-        VehicleComponent? part = PartsOf(role).Where(p => p.Health > 0f).RandomElementWithFallback();
+        VehicleComponent? part = PartsOf(role).Where(p => p.Health > (neverBreaks ? 1f : 0f)).RandomElementWithFallback();
         if (part == null) return;
-        part.SetHealth(part.Health - amount - shareOfHealth * part.MaxHealth);
+        float health = part.Health - amount - shareOfHealth * part.MaxHealth;
+        part.SetHealth(neverBreaks ? Mathf.Max(1f, health) : health);
         RememberPartHealth(part);
         Vehicle.statHandler.MarkAllDirty();
         Repairs.NotifyRepairable();    // Vehicle Framework's list of vehicles to repair is fed only by real hits

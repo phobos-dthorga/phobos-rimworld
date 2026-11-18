@@ -4,8 +4,8 @@
 0.146.0 and 0.148.0), our own flight over the map (Framework 0.147.0 and 0.149.0, built by the flight work) and its upgrade tree (Vehicles
 0.72.0, Framework 0.150.0: second hook, armour kit, infrared jammer, terrain radar, inlet barrier), the rolling take-off (Vehicles 0.73.0,
 Framework 0.151.0) its guns (Vehicles 0.74.0, Framework 0.152.0: either ramp gun and the belly gun), circling (Vehicles 0.75.0, Framework 0.153.0) and a
-fast-rope bar and rescue hoist, as fittings (Vehicles 0.77.0, Framework 0.155.0). Not built: armour by class, the
-terrain radar's night-and-weather rule, sounds and drawn icons. The owner flew slice 1 in dev mode: "It does
+fast-rope bar and rescue hoist, as fittings (Vehicles 0.77.0, Framework 0.155.0), armour by class (Vehicles 0.78.0, Framework 0.156.0) and
+what it lands on (Framework 0.159.0). Not built: the terrain radar's night-and-weather rule, sounds and drawn icons. The owner flew slice 1 in dev mode: "It does
 work but is extremely bare bones" (19 Nov 2026).
 
 The owner asked for the Osprey on 18 November 2026: "the Osprey is definitely something I would like to implement!" This is its
@@ -270,6 +270,20 @@ Three cases from three real events, each a small rule in the health layer **[A]*
 
 **The inlet barrier** (an upgrade) takes most of the sand wear away, for a little engine power, as the real one is meant to **[S]**.
 **Decided: all three cases, with the inlet barrier** (owner, 18 Nov 2026).
+
+**Built in Framework 0.159.0** (`LandingSurface`, `LandingSurfaceRule`, figures in `LandingSurface.xml`), for every aircraft on our own
+flight, any faction's; not yet tested in game. At each lift-off and touch-down the cells under the aircraft are read:
+
+- **Loose ground** is natural soil or sand that takes footprints, read from the terrain's own fields, never its name, so other mods'
+  ground counts. Each engine loses 0.5% of its health over wholly loose ground, in proportion to the share that is loose, never below one
+  health **[A]**: about a hundred dusty trips wear an engine to its last health. **Rolling** on or off halves it **[A]**, as crews in
+  brown-out land rolling where they can **[I]**. **The inlet barrier** stops 80% of it **[A]**.
+- **Dry growth** is any flammable plant on ground that does not put out fire. A 4% chance of a small fire with growth under the whole
+  aircraft, three times that in a heat wave **[A]**.
+- **Wet or snowy ground costs nothing:** rain falling on the map, or more than a little snow on the cell **[A]**. Floors and rock cost
+  nothing, as decided.
+- Not judged: an aborted take-off roll (it never left the ground) and a crash that wrecks the aircraft. The "figures only" setting stops it.
+- What it does on other factions' aircraft: the same, a raiders' Osprey included, at no cost while it is not landing or lifting off.
 
 ### The upgrade tree
 

@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.159.0] - 2026-11-19 - Draft
+
+What the ground does to an aircraft as it lifts off and lands
+
+### Added
+
+- **Dust wears an aircraft's engines.** An aircraft on our own flight that lifts off or touches down on loose, dry soil or sand loses a little of each engine's health, about half a percent on wholly loose ground: roughly a hundred dusty trips wear an engine to its last health, never to a break. Landing or leaving rolling halves it, and an inlet barrier stops four fifths of it. Loose ground is read from what the terrain is, so other mods' sand and soil count too.
+- **Its exhaust can set dry growth alight.** Over dry grass or bushes there is a small chance of a fire beneath it at each lift-off or touch-down, three times as likely in a heat wave.
+- **Floors, rock, wet ground and snow cost nothing**, so a landing pad pays for itself. Rain falling on the map makes all ground wet.
+- It works on any faction's aircraft. With verbose logging on, each case writes a debug line.
+
+### Changed
+
+- **The engine's wear can stop short of a break**, for wear that should never destroy a part. Shared with the engine model's list of which roles are an aircraft's engines.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Every figure is authored, in the landing-surface rules file, where another mod may patch it. The figures-only setting turns it off. An aborted take-off roll and a crash that wrecks the aircraft are not judged.
+
 ## [0.158.0] - 2026-11-19 - Draft
 
 EMP hardening by kit

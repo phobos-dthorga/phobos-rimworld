@@ -454,6 +454,10 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   over the spot and says so.
 - **Circle here** (not yet tested in game): pick a spot and it flies round it until you give another order. The button beside it,
   **Circles: wide, clockwise**, picks tight, wide or very wide (12, 19 or 30 cells out) and the way round.
+- **Where it lands matters** (not yet tested in game). Each time it lifts off or touches down on **loose, dry soil or sand**, the dust
+  wears its engines a little: about a hundred such trips wear an engine out unless it is repaired. Landing or leaving **rolling**
+  halves it, and the **inlet barrier** stops most of it. Over **dry grass or bushes** its exhaust may start a small fire, more likely in
+  a heat wave. **Floors, rock, wet ground and snow cost nothing: build it a landing pad.**
 - **If it cannot stay up** (out of fuel, or an engine lost while heavily loaded), it comes down where it is: hard over open ground,
   damaging its undercarriage and shaking its people about; wrecked over a building, a roof, another vehicle or deep water. Watch its fuel.
 - **Fittings, as on every aircraft:** a litter kit for stretchers, a ferry tank, cabin oxygen, and a **cargo hook** to sling up to
@@ -478,7 +482,7 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   - **Armour kit:** rifle-proof plates in the cockpit and cabins; they weigh 360 kg, carried as cargo.
   - **Infrared jammer:** two turrets that make air defences hit far less often; they draw power.
   - **Terrain-following radar:** a fuller nose; it draws power. What it lets it do, flying blind at night and in weather, comes later.
-  - **Inlet barrier:** filters on the intakes, for a little engine power.
+  - **Inlet barrier:** filters on the intakes, for a little engine power. They keep most of the dust out (below).
 - **Its guns** (not yet tested in game), each an upgrade with its own research:
   - **Ramp gun, 7.62 mm or .50** (one or the other: there is one mount). The **crew chief** works it, so put someone in that seat. It
     points behind the aircraft and swings 60 degrees to each side, by hand, so it works without power. The .50 swings more slowly and

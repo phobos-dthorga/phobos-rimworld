@@ -125,8 +125,7 @@ public sealed class Powertrain
         };
         fixedRolling = def?.running.fixedRollingResistance ?? float.NaN;
         fixedGrip = def?.running.fixedGrip ?? float.NaN;
-        engineRoles = Enumerable.Range(1, MaxEngines).Select(i => "Engine" + i).Where(role => comp.Props.roleKeys.ContainsKey(role)).ToArray();
-        if (engineRoles.Length == 0) engineRoles = new[] { "Engine" };
+        engineRoles = EngineRolesOf(comp);
         if (def != null && def.transmission.gears.Count > 0) Spec.Gears = def.transmission.gears.Select(g => (double)g).ToArray();
         if (engine.torqueCurve != null && engine.torqueCurve.Points.Count >= 2)
         {
@@ -196,6 +195,14 @@ public sealed class Powertrain
 
     /// <summary>The most engines a loadout may bind (Engine1 to Engine8).</summary>
     public const int MaxEngines = 8;
+
+    /// <summary>The roles a vehicle's engines are bound to: "Engine1" to "Engine8" where its loadout names them, one role per engine, else
+    /// the one "Engine" role (Framework 0.158.0: shared with the landing-surface rule, which wears each engine).</summary>
+    public static string[] EngineRolesOf(CompPhobosVehicleSystems comp)
+    {
+        string[] roles = Enumerable.Range(1, MaxEngines).Select(i => "Engine" + i).Where(role => comp.Props.roleKeys.ContainsKey(role)).ToArray();
+        return roles.Length == 0 ? new[] { "Engine" } : roles;
+    }
 
     /// <summary>Empty mass, a full cargo hold and full fuel: the weight a craft is designed to lift.</summary>
     /// <summary>The heaviest the aircraft is built to be, kilograms: empty, full cargo, full fuel (the hover rule's and the cruising

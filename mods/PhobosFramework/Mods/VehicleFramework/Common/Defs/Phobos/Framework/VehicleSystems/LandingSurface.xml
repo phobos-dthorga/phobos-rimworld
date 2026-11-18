@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    What the ground under an aircraft on our own flight does to it as it lifts off or touches down (Framework 0.158.0; the owner's decision
+    of 18 Nov 2026, docs/development/vehicle-osprey.md, "What it lands on"). The first loaded instance wins; another mod may patch it. Every
+    figure is authored for play. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosLandingSurfaceRulesDef>
+    <defName>PhobosLandingSurfaceRules</defName>
+
+    <!-- Loose, dry soil or sand under it: each engine loses half a percent of its health at each lift-off or touch-down, so about a hundred
+         dusty trips (a lift-off and a touch-down each) take an engine from new to one health, never broken, unless it is repaired. The real basis: an Osprey's engine stalled on dust at
+         Bellows, Hawaii, in 2015, and its engines lasted under 400 hours in service against the design's far longer life. Rolling on or off
+         throws up half the dust (crews in brown-out land rolling where they can). An inlet barrier keeps four fifths of it out. -->
+    <engineWearPerEvent>0.005</engineWearPerEvent>
+    <rollingFactor>0.5</rollingFactor>
+    <barrierStops>0.8</barrierStops>
+
+    <!-- Dry growth under it: a 4% chance at each lift-off or touch-down of a small fire, with growth under the whole aircraft, three times
+         that in a heat wave. The real basis: an Osprey's exhaust set a grass fire at a North Carolina range in 2013. -->
+    <fireChancePerEvent>0.04</fireChancePerEvent>
+    <heatWaveFactor>3</heatWaveFactor>
+    <fireSize>0.3</fireSize>
+
+    <!-- Under more snow than this, ground is neither dusty nor dry. Rain falling makes all ground wet. -->
+    <snowAtMost>0.2</snowAtMost>
+  </Phobos.VehicleSystems.PhobosLandingSurfaceRulesDef>
+</Defs>

@@ -194,6 +194,11 @@
     "225": {"parts": {
       "the EMP hardening is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosEmpHardening", "detail": "fitted"}],
       "an EMP meets the hardened electrics": ["vehicles.emp-hardened"]
+    }},
+    "226": {"parts": {
+      "dust wears the engines": [{"key": "aircraft.landing-dust", "variant": "bare", "expect": {"loose": "> 0", "wear": "> 0"}}],
+      "the inlet barrier keeps most of it out": [{"key": "aircraft.landing-dust", "variant": "barrier", "expect": {"wear": "> 0"}}],
+      "dry growth catches fire": [{"key": "aircraft.landing-fire"}]
     }}
   },
   "order": [
