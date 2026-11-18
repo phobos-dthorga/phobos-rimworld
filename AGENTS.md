@@ -73,8 +73,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   and run `python scripts/source-repos.py --write`** when the mod is missing or unconfirmed there (phobos-modkit's rimworld-sources:
   About.xml, the Workshop page, then a GitHub search, each repository checked against the mod's packageId). An unconfirmed
   candidate may still be its source (a rename, or source with no About.xml): judge it and say so. Where one exists, read it at the tag or
-  commit matching the build in play, with its commit history for what changed and why; clone it into `.local/decompiled/<Name>-src`,
-  where `query-code.py` indexes it. Decompile only when there is no public source, when it does not match the installed build, or
+  commit matching the build in play, with its commit history for what changed and why; **clone it with `python scripts/source-repos.py
+  --clone-into .local/decompiled`** (lean clones: whole history, source files only; `--update-clones` to bring them up to date), where
+  `query-code.py` indexes it. **Watch what the clones cost** (owner, 18 Nov 2026): every `refresh-mod-list.py` run prints their size and
+  the drive's free space, and the tool refuses new clones on a short drive. **Never delete a clone, or anything else to free space,
+  without first telling the owner** what is short and what their choices are, and waiting for their decision. Decompile only when there is no public source, when it does not match the installed build, or
   for a quick check of the file the game actually loads, and say which you read.
 - **Answer what an update of the game or of a mod we tie into changed with `python scripts/assembly-archive.py compare <file>`**
   (owner, 18 Nov 2026: Steam replaces the older build, so it could not be compared). Every `refresh-mod-list.py` run keeps new

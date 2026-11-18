@@ -9,6 +9,11 @@ logging in, answers are cached for a week, and a run that meets the limit says w
     python scripts/source-repos.py --write       look up and record the answers in config/source-repos.json
     python scripts/source-repos.py --mod some.packageid --only-named   one installed mod
     python scripts/source-repos.py --recheck --write   look again at mods already confirmed
+    python scripts/source-repos.py --clone-into .local/decompiled   lean clones of confirmed repositories, and what they cost
+    python scripts/source-repos.py --clone-into .local/decompiled --update-clones   bring them up to date too
+
+The clones are checked on every refresh-mod-list.py run (watch_line): their total size and the drive's free space. The tool
+never deletes a clone; when space runs short it says so and lists the choices, and the owner decides (AGENTS.md).
 """
 from pathlib import Path
 import sys
@@ -18,6 +23,23 @@ import _modkit  # noqa: E402  (the shared tools' import path)
 import deploy  # noqa: E402  (shared path settings)
 
 ROOT = Path(__file__).resolve().parents[1]
+CLONES = ROOT / '.local' / 'decompiled'
+
+
+def watch_line():
+    """One line on the source clones and their drive, with a call for a decision when space runs short or they pass
+    their budget. Reads sizes only; never deletes."""
+    _modkit.ensure()
+    from phobos_modkit import source_clones as sc
+    clones = sc.existing(CLONES)
+    total = sum(size for _, size in clones)
+    free, size = sc.drive(CLONES)
+    line = (f'Source clones: {len(clones)}, {total / 1e9:.2f} GB; their drive has {free / 1e9:.1f} GB free '
+            f'({free / size:.0%}).')
+    if sc.short_of_space(free, size) or total > sc.BUDGET_BYTES:
+        line += (' Storage needs a decision (nothing deleted): run python scripts/source-repos.py --clone-into '
+                 '.local/decompiled for the choices.')
+    return line
 
 
 def main(argv=None, out=None):

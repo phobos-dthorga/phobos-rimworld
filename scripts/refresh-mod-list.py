@@ -548,6 +548,10 @@ def snapshot(game, workshop, config):
     lines = [line for line in out.getvalue().splitlines() if line.strip()]
     summary = next((line for line in lines if 'kept now' in line or 'skipped' in line or 'error' in line.lower()), '')
     print(('Assembly archive: ' + summary) if code == 0 else 'Assembly archive failed: ' + ' '.join(lines[-2:]))
+    try:
+        print(importlib.import_module('source-repos').watch_line())
+    except Exception as error:  # a watch must never stop the refresh
+        print(f'Source clone watch failed: {error}')
 
 
 if __name__ == '__main__':
