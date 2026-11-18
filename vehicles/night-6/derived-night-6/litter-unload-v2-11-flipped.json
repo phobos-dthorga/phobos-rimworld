@@ -1,0 +1,8 @@
+{
+  "file": "litter-unload-v2-11-flipped.png",
+  "derived_from": "assets/phobos-vehicles/generated/litter-unload-v2/litter-unload-v2-11.png",
+  "source_sha256": "ac339289119c750a8710e35569801529f2cecfb56cd76b923a1cb1ca1bc7ea5a",
+  "sha256": "5ba666cfcefe5cf0ffa20c8bfade90ef305a889efc98ae3e81b1360bde9e770e",
+  "how": "turned upside down with Pillow (ImageOps.flip), so the blue arrow points down; the stretcher is symmetric top to bottom",
+  "date": "2026-11-18T13:20:40"
+}
