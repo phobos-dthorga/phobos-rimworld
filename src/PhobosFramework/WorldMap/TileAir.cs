@@ -27,24 +27,37 @@ public static class TileAir
     public const int MaxWalkTiles = 2000;
 
     static readonly List<PlanetTile> neighbours = new();
+    static readonly List<PlanetTile> walked = new();
 
     /// <summary>
     /// The highest ground on a straight leg between two surface tiles (D'thorga Framework 0.141.0, the cruising height between tiles): its
-    /// highest tile of any kind and its highest mountainous one (NaN for none), both ends included. The walk steps each time to the neighbour
-    /// whose centre is nearest the far end, which follows the great circle a flight draws. False, and nothing read, for a tile off the
-    /// planet's surface or a walk that does not arrive.
+    /// highest tile of any kind and its highest mountainous one (NaN for none), both ends included. False, and nothing read, for a tile off
+    /// the planet's surface or a walk that does not arrive.
     /// </summary>
     public static bool HighestOnLeg(PlanetTile from, PlanetTile to, out float highestMetres, out float highestMountainousMetres)
     {
         highestMetres = 0f;
         highestMountainousMetres = float.NaN;
+        if (!WalkLeg(from, to, walked)) return false;
+        Highest(walked, 0, walked.Count - 1, out highestMetres, out highestMountainousMetres);
+        return true;
+    }
+
+    /// <summary>
+    /// The tiles of a straight leg between two surface tiles, in order, both ends included (Framework 0.142.0, so a leg can be split where an
+    /// aircraft is on it). The walk steps each time to the neighbour whose centre is nearest the far end, which follows the great circle a
+    /// flight draws. False, and the list empty, for a tile off the planet's surface or a walk that does not arrive.
+    /// </summary>
+    public static bool WalkLeg(PlanetTile from, PlanetTile to, List<PlanetTile> tiles)
+    {
+        tiles.Clear();
         WorldGrid? grid = Find.WorldGrid;
         if (grid == null || !OnSurface(from) || !OnSurface(to) || from.Layer != to.Layer) return false;
         Vector3 target = grid.GetTileCenter(to);
         PlanetTile here = from;
         for (int step = 0; step <= MaxWalkTiles; step++)
         {
-            Note(here, ref highestMetres, ref highestMountainousMetres);
+            tiles.Add(here);
             if (here == to) return true;
             grid.GetTileNeighbors(here, neighbours);
             PlanetTile next = here;
@@ -58,10 +71,20 @@ public static class TileAir
                     next = neighbour;
                 }
             }
-            if (next == here) return false;
+            if (next == here) break;
             here = next;
         }
+        tiles.Clear();
         return false;
+    }
+
+    /// <summary>The highest ground among tiles <paramref name="first"/> to <paramref name="last"/> of a walk, both included: of any kind, and
+    /// mountainous (NaN for none).</summary>
+    public static void Highest(IReadOnlyList<PlanetTile> tiles, int first, int last, out float highestMetres, out float highestMountainousMetres)
+    {
+        highestMetres = 0f;
+        highestMountainousMetres = float.NaN;
+        for (int i = System.Math.Max(0, first); i <= last && i < tiles.Count; i++) Note(tiles[i], ref highestMetres, ref highestMountainousMetres);
     }
 
     static bool OnSurface(PlanetTile tile) => tile.Valid && tile.LayerDef != null && !tile.LayerDef.isSpace;

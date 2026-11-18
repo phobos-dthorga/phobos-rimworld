@@ -1130,6 +1130,22 @@
           <cellsOf>Engine</cellsOf>
         </add>
       </li>
+      <li>
+        <!-- Framework 0.142.0, the cruising height (owner, 19 Nov 2026: a cabin oxygen fitting): a panel in the cabin for the cabin oxygen
+             fitting, appended to every aircraft so it has a part of its own beside the litter kit and is lost with it. Inside the body; health
+             and hit weights authored, a small box's. -->
+        <role>OxygenPanel</role>
+        <add>
+          <key>PhobosOxygenPanel</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>cabin oxygen panel</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
     </partRoles>
     <loads>
       <li>

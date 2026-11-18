@@ -113,6 +113,38 @@ public class CruiseRuleTests
     }
 
     [Fact]
+    public void ATwinThatLosesAnEngineFliesOnTurnsBackOrStruggles()
+    {
+        // The owner's rule of 19 Nov 2026: on if it still can, back if the way home is within the engines left, else across.
+        Assert.Equal(CruiseTurn.FlyOn, CruiseRule.AfterEngineLost(true, false, false));
+        Assert.Equal(CruiseTurn.TurnBack, CruiseRule.AfterEngineLost(false, true, true));
+        Assert.Equal(CruiseTurn.Struggle, CruiseRule.AfterEngineLost(false, true, false));
+        Assert.Equal(CruiseTurn.Struggle, CruiseRule.AfterEngineLost(false, false, true));
+        // Worked: a twin helicopter with a 4,500 m ceiling, at 0.8 of its heaviest, over a leg whose far half crosses a 3,000 m range. One
+        // engine left climbs to about 2,500 m: the range ahead refuses, the 1,000 m plain behind does not, so it turns back.
+        double ceiling = CruiseRule.CeilingNow(4500, 0.8, 0.5);
+        Assert.InRange(ceiling, 2400, 2650);
+        CruiseLeg ahead = CruiseRule.Leg(CruiseLift.Rotor, 1000, 4500, 0.8, 0.5, double.NaN, CruiseRule.Floor(double.NaN, 3000));
+        CruiseLeg back = CruiseRule.Leg(CruiseLift.Rotor, 1000, 4500, 0.8, 0.5, double.NaN, CruiseRule.Floor(1000, double.NaN));
+        Assert.Equal(CruiseTurn.TurnBack, CruiseRule.AfterEngineLost(ahead.Flyable, back.Flyable, true));
+        // At its heaviest, one engine climbs to under 600 m: even the plain behind is beyond it, and it struggles across.
+        Assert.InRange(CruiseRule.CeilingNow(4500, 1, 0.5), 500, 650);
+        CruiseLeg heavyBack = CruiseRule.Leg(CruiseLift.Rotor, 1000, 4500, 1, 0.5, double.NaN, CruiseRule.Floor(1000, double.NaN));
+        Assert.False(heavyBack.Flyable);
+    }
+
+    [Fact]
+    public void TheTileAlongALegFollowsTheShareFlown()
+    {
+        Assert.Equal(0, CruiseRule.TileAlong(0, 10));
+        Assert.Equal(9, CruiseRule.TileAlong(1, 10));
+        Assert.Equal(5, CruiseRule.TileAlong(0.5, 11));
+        Assert.Equal(0, CruiseRule.TileAlong(0.7, 1));
+        Assert.Equal(0, CruiseRule.TileAlong(double.NaN, 10));
+        Assert.Equal(9, CruiseRule.TileAlong(3, 10));
+    }
+
+    [Fact]
     public void FuelOverTheSameGroundIsFuelOverSpeed()
     {
         CruiseLeg leg = CruiseRule.Leg(CruiseLift.Jet, 7000, 11000, 1, 1, 3810, 300);

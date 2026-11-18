@@ -418,12 +418,15 @@ the kit back in the cargo.
   - **Climbing over high ground.** It always keeps 300 m above the ground on the way, 600 m over mountains. A helicopter forced up
     over a range burns a little more.
   - **Kept down because someone aboard has no oxygen**: a crew whose oxygen set is broken, or passengers in a cabin that is not
-    pressurised, keep it below 3,810 m. **A jet flown low is slower and thirstier**: a Harrier with its oxygen out flies at about
+    pressurised, keep it below 3,810 m. A **cabin oxygen** fitting (Fittings and tunes) gives everyone aboard oxygen while the engine
+    runs. **A jet flown low is slower and thirstier**: a Harrier with its oxygen out flies at about
     84 % of its speed and burns about 40 % more over the same ground. Repair the oxygen set (on its avionics part).
   - **Kept down by its engines**: heavy, or with an engine lost, it cannot climb as high.
   - **Refused**: the ground on the way stands higher than it can climb. The tooltip says about how many kilograms lighter it must
-    be, or that it must fly round; pick a stop to one side of the mountains. If an engine is lost on the way and a stretch becomes
-    too high, it struggles across slow and thirsty, and a message says so.
+    be, or that it must fly round; pick a stop to one side of the mountains.
+  - **An engine lost on the way** (to an air defence's hit): a twin flies on lower and slower if it still can. If the ground ahead is
+    now too high but the way back is not, it **turns back and lands where it last stopped**, and a message says why. If neither, it
+    struggles across, slow and thirsty.
   - The fuel the launch screen shows, and whether it says there is enough, count the height of every stretch.
 - **Thin air in high country** takes power from the engines and asks more of the rotor: see
   [thin air in high country](#thin-air-in-high-country).

@@ -95,7 +95,9 @@
     }},
     "199": {"parts": {
       "climbing over high ground": [{"key": "aircraft.cruise-height", "variant": "Ground", "expect": {"fuel": ">= 1"}}],
-      "kept low without oxygen": [{"key": "aircraft.cruise-height", "variant": "Oxygen", "expect": {"fuel": ">= 1.05", "speed": "<= 0.95"}}]
+      "kept low without oxygen": [{"key": "aircraft.cruise-height", "variant": "Oxygen", "expect": {"fuel": ">= 1.05", "speed": "<= 0.95"}}],
+      "an engine lost on the way": [{"key": "aircraft.cruise-height", "variant": "EngineLostTurnBack"},
+        {"key": "aircraft.cruise-height", "variant": "EngineLostStruggle"}, {"key": "aircraft.cruise-height", "variant": "EngineLostFlyOn"}]
     }},
     "200": {"parts": {
       "heavier than its authored figure": [{"key": "aircraft.follows-hover", "variant": "above"}],

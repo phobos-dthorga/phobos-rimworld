@@ -164,6 +164,38 @@
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.142.0, the cruising height between tiles (owner, 19 Nov 2026: passengers covered only with a cabin oxygen fitting). An
+         oxygen concentrator with masks at every seat, as the V-22's cabin troops wear "on-board oxygen masks above 10,000 feet" (secondary,
+         the modern military record). It runs only while the engine turns and draws 3 A (authored: half again the crew set's 2 A, for more
+         masks). Working, nobody aboard keeps the aircraft below the oxygen line. Materials, weight, work and skill authored. No picture yet:
+         the fittings window shows its name; it has no switch of its own. -->
+    <defName>PhobosFitting_CabinOxygen</defName>
+    <label>cabin oxygen</label>
+    <description>An oxygen concentrator in the cabin with a mask at every seat, crew and passengers alike. While the engine runs it lets the aircraft cruise high with people aboard who would otherwise need it to fly low. It draws a little power, and stops with the engine or a flat battery.</description>
+    <roles><li>OxygenPanel</li></roles>
+    <materials><Steel>20</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
+    <kilograms>15</kilograms>
+    <work>3000</work>
+    <minSkill>4</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <grants><li>CabinOxygen</li></grants>
+    <feed>
+      <load>cabinOxygen</load>
+      <engineRunning>true</engineRunning>
+    </feed>
+    <loads>
+      <li>
+        <name>cabinOxygen</name>
+        <label>cabin oxygen</label>
+        <description>The cabin's oxygen concentrator and masks. It runs while the engine turns.</description>
+        <amps>3</amps>
+        <shedOrder>3</shedOrder>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- Framework 0.103.0, the all-terrain tyres family (docs/development/vehicle-upgrades-round-two.md): the opposite of road tyres. Its soft-
          ground grip (TreadRules.SoftGroundFactor) is full on the softest going and nothing on a firm road; the speed and wear costs apply
          everywhere, a simplification. Every figure authored. -->

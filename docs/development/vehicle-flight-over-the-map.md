@@ -1,7 +1,7 @@
 # Our own flight over the map: hovering, circling, leaving the ground rolling, and a cruising height (18 Nov 2026)
 
 **Status (18 Nov 2026):** the cruising height between tiles is built in D'thorga Framework 0.141.0 (with D'thorga Vehicles 0.66.0), and of
-the flight phases, the part that stands without our own flight: phases that follow the hover figure ([what was built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)).
+the flight phases, the part that stands without our own flight: phases that follow the hover figure; the owner's answers of 19 Nov 2026 (cabin oxygen, a twin that limps back) in Framework 0.142.0 ([what was built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)).
 Not built: our own flight over the map, its phase reader, the forward-flight and rolling shares, leaving the ground rolling and circling.
 Nothing here is tested in game (rows 199 and 200). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
@@ -543,6 +543,19 @@ Vehicles 0.66.0; **not yet tested in game** (rows 199 and 200). Where it differs
 | Who has figures | The Harrier (7,000 m, 15,240 m published, read as 11,000; jet), the Hind (1,000 m, 4,500 m; rotor), the Mongoose (1,000 m, 4,725 m; rotor); the shared helicopter profiles (1,000 m, 4,500 m, authored); the stock aeroplane profile (3,000 m, 8,000 m, propeller, authored). Pods none: their thrusters do not breathe air | the loadouts, `FlightProfiles.xml` |
 | The setting | **Cruising height between places**, on | vehicle systems settings |
 | **Phases that follow the hover** | A phase marked `followsHover` asks its authored demand at the heaviest weight in sea-level air at 15 °C and moves from there as the hover figure does (`TurbineModel.FollowHover`). The VTOL helicopter profile's on-station and climbing-away phases use it. The authored figure stays the one the on-map fuel rate stands for. It is the design's "the hover figure times the forward-flight share" in a form that works today: a forward phase of our own flight is the same flag with the demand written as the hover figure times the share | `PowertrainDefs.cs`, `Powertrain.SampleAircraft` |
+
+**The owner's answers to the build's four questions (19 Nov 2026), built in Framework 0.142.0** (not yet tested in game):
+
+| Question | Answer | As built |
+| --- | --- | --- |
+| The oxygen line | **3,810 m by default** (owner); an aircraft's own where its source gives one | Unchanged |
+| Who has oxygen | **Passengers only with a cabin oxygen fitting** (owner) | `PhobosFitting_CabinOxygen` on a cabin oxygen panel appended to every aircraft (one fitting to a part, so it never competes with the litter kit): 20 steel, 3 components, 15 kg, 3 A while the engine runs (`feed`: its load and the engine). Working, nobody aboard needs the line. **It changes nothing in play yet**: only the Harrier cruises above the line, and it seats one; it is for the Osprey |
+| A leg too high in flight | **Struggle across; and where a twin still has the power, limp back** ("It's all about the dynamic and memorable stories you generate") | `CruiseRule.AfterEngineLost`: at the 250-tick look in flight, an engine lost since the leg was judged splits the leg where the aircraft is (`TileAir.WalkLeg`, Vehicle Framework's `transition`). On if the engines left clear the ground ahead; back to set down as a caravan at the stop it left if they clear the ground crossed and that stop is open land (`CargoRefuel.NoLandingReason`); else across. Speed follows at once (Vehicle Framework's `SetSpeed`, by name) |
+| The no-drag rule | **Keep it** as a second exception | Written into `src/PhobosFramework.Vehicles/AGENTS.md`: height alone, never a fitting, accessory, load or upgrade |
+
+**What the one-engine ceiling comes to** (the rule's fit, worth knowing in play): a helicopter with a 4,500 m published ceiling climbs to
+about 580 m on one engine at its heaviest and about 2,500 m at 0.8 of it. A heavy twin that loses an engine over any high country
+usually cannot fly on; light, it often can.
 
 **Other factions' aircraft:**
 

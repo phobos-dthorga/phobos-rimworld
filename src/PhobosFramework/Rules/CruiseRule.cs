@@ -28,6 +28,17 @@ public enum CruiseLimit
     Refused,
 }
 
+/// <summary>What an aircraft that has lost an engine partway along a leg does.</summary>
+public enum CruiseTurn
+{
+    /// <summary>It can still climb over the ground ahead: on, at the height the engines left allow.</summary>
+    FlyOn,
+    /// <summary>It cannot, but can over the ground behind: back to the stop it left, to set down there.</summary>
+    TurnBack,
+    /// <summary>Neither: it struggles across the ground ahead, slow and thirsty.</summary>
+    Struggle,
+}
+
 /// <summary>One leg's height and what it does to the flight; never saved.</summary>
 public readonly record struct CruiseLeg(
     double HeightMetres,
@@ -157,6 +168,23 @@ public static class CruiseRule
                 return (thicker, 1 / thicker);
             }
         }
+    }
+
+    /// <summary>
+    /// What an aircraft does when it loses an engine partway along a leg (D'thorga Framework 0.142.0; owner, 19 Nov 2026: "if you have a spare,
+    /// and the literal horsepower requirements for it still, then yes, limping back could be a viable option"). With the engines it has left:
+    /// it flies on if it can still climb over the ground ahead; else it turns back for the stop it left if it can climb over the ground it has
+    /// crossed and can set down there; else it struggles across the ground ahead (the owner's first pick).
+    /// </summary>
+    public static CruiseTurn AfterEngineLost(bool aheadFlyable, bool backFlyable, bool canSetDownBehind) =>
+        aheadFlyable ? CruiseTurn.FlyOn : backFlyable && canSetDownBehind ? CruiseTurn.TurnBack : CruiseTurn.Struggle;
+
+    /// <summary>The tile of a walk of <paramref name="count"/> tiles an aircraft is over, <paramref name="fraction"/> of the way along.</summary>
+    public static int TileAlong(double fraction, int count)
+    {
+        if (count <= 1) return 0;
+        double share = double.IsNaN(fraction) ? 0 : Math.Min(1, Math.Max(0, fraction));
+        return (int)Math.Round(share * (count - 1));
     }
 
     /// <summary>

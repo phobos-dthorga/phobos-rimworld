@@ -148,6 +148,11 @@ public class WorldObjectComp_PhobosFlightSystems : WorldObjectComp
         using (PhobosTiming.Measure("vehicle rare tick / in flight")) comp.UpdateNow();
         if (flight.Flying) Seen.Note("aircraft.systems-run-in-flight", comp.Vehicle);
         using (PhobosTiming.Measure("aircraft refuel from cargo")) CargoRefuel.FlightLook(flight, comp.Vehicle, comp);
+        // Framework 0.142.0: an engine lost on the way is noticed, and the leg judged again where the aircraft is.
+        if (flight.Flying)
+        {
+            using (PhobosTiming.Measure("aircraft cruising height")) CruiseHeight.FlightLook(flight, comp.Vehicle);
+        }
     }
 
     /// <summary>Framework 0.139.0: the refuel-from-cargo switch on an aircraft in flight. Presentation only.</summary>

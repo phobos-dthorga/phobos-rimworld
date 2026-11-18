@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using HarmonyLib;
 using Phobos.Framework;
 using Phobos.Framework.Rules;
 using Phobos.Framework.WorldMap;
@@ -40,14 +41,24 @@ public static class CruiseHeight
     /// <summary>Whether the rule governs this aircraft.</summary>
     public static bool Governs(VehiclePawn? vehicle) => Spec(vehicle, out _) != null;
 
+    /// <summary>The ability the cabin oxygen fitting grants (Framework 0.142.0): masks at every seat, fed while the engine runs.</summary>
+    public const string CabinOxygenAbility = "CabinOxygen";
+
+    /// <summary>Whether the cabin oxygen fitting is fitted and working now: its electrical load could run and the engine is turning.</summary>
+    public static bool CabinOxygen(VehiclePawn vehicle)
+    {
+        if (AirCombat.Systems(vehicle) is not { Usable: true } comp || !comp.Fittings.Grants(CabinOxygenAbility)) return false;
+        return Feeds.Refusal(comp, Feeds.ForAbility(comp, CabinOxygenAbility), "PhobosVehicleSystems_CabinOxygenWhat".Translate().Resolve()) == null;
+    }
+
     /// <summary>
-    /// The height above which someone aboard has no oxygen, metres, or NaN when nobody does: a pressurised cabin, or every crew member on a
-    /// working oxygen set with no passengers. Passengers (seats that neither drive nor man a weapon) have no set (agent's simplification: the
-    /// avionics' oxygen is the crew's). Only flesh breathes.
+    /// The height above which someone aboard has no oxygen, metres, or NaN when nobody does: a pressurised cabin, a working cabin oxygen
+    /// fitting (Framework 0.142.0; owner, 19 Nov 2026), or every crew member on a working oxygen set with no passengers. Without the cabin
+    /// fitting, passengers (seats that neither drive nor man a weapon) have no oxygen: the avionics' set is the crew's. Only flesh breathes.
     /// </summary>
     public static double OxygenLine(VehiclePawn vehicle, CruiseSpec spec)
     {
-        if (spec.pressurised) return double.NaN;
+        if (spec.pressurised || CabinOxygen(vehicle)) return double.NaN;
         bool crewOxygen = AirCombat.Carries(vehicle, fit => fit.oxygen) && AirCombat.Works(vehicle, AirCombat.OxygenQuantity);
         List<Pawn>? passengers = vehicle.PawnsByHandlingType.TryGetValue(HandlingType.None, out List<Pawn>? list) ? list : null;
         foreach (Pawn pawn in vehicle.AllPawnsAboard)
@@ -84,11 +95,14 @@ public static class CruiseHeight
 
     /// <summary>One leg for this aircraft as it is now (weight, engines, people aboard), or null when the rule does not govern it or the leg
     /// cannot be walked.</summary>
-    public static CruiseLeg? Leg(VehiclePawn vehicle, PlanetTile from, PlanetTile to, double fuelBurnedBefore = 0)
+    public static CruiseLeg? Leg(VehiclePawn vehicle, PlanetTile from, PlanetTile to, double fuelBurnedBefore = 0) =>
+        LegOver(vehicle, Floor(from, to), fuelBurnedBefore);
+
+    /// <summary>A leg over ground that asks this height (ground and clearance), for this aircraft as it is now; null when the rule does not
+    /// govern it or the height is unknown.</summary>
+    static CruiseLeg? LegOver(VehiclePawn vehicle, double floor, double fuelBurnedBefore = 0)
     {
-        if (Spec(vehicle, out Powertrain? train) is not { } spec || train == null) return null;
-        double floor = Floor(from, to);
-        if (double.IsNaN(floor)) return null;
+        if (Spec(vehicle, out Powertrain? train) is not { } spec || train == null || double.IsNaN(floor)) return null;
         double mass = Math.Max(1, train.MassKg() - Math.Max(0, fuelBurnedBefore) * train.FuelKgPerUnit);
         double share = mass / Math.Max(1, train.MaxGrossKg());
         return CruiseRule.Leg(spec.lift, spec.designMetres, spec.ceilingMetres, share, train.WorkingEngineShare, OxygenLine(vehicle, spec), floor);
@@ -110,6 +124,8 @@ public static class CruiseHeight
         public AerialVehicleInFlight? Aerial;
         public PlanetTile To = PlanetTile.Invalid;
         public CruiseLeg? Leg;
+        /// <summary>The engines working when the leg was last judged, so one lost on the way is noticed (Framework 0.142.0).</summary>
+        public int Engines = -1;
     }
 
     static readonly ConditionalWeakTable<VehiclePawn, Flying> flying = new();
@@ -131,6 +147,7 @@ public static class CruiseHeight
             state.Aerial = aerial;
             state.To = to;
             state.Leg = Leg(vehicle, aerial.Tile, to);
+            state.Engines = WorkingEngines(vehicle);
             if (state.Leg is { } leg) Begun(vehicle, aerial, leg);
         }
         return state.Leg;
@@ -150,10 +167,81 @@ public static class CruiseHeight
             });
         }
         if (leg.Flyable) return;
-        // Agent's choice (owner to revise): a leg found beyond the engines in flight is flown, struggling, at the height the ground asks, and the
-        // player is told; the destination picker refuses such a leg before launch.
+        // A leg found beyond the engines as it begins (an engine lost at the last stop) is flown, struggling, at the height the ground asks, and
+        // the player is told (owner, 19 Nov 2026: struggle across); the destination picker refuses such a leg before launch.
         Messages.Message("PhobosVehicleSystems_MsgCruiseBeyond".Translate(vehicle.LabelShort.Named("VEHICLE"), ((float)leg.ShortMetres).ToString("0").Named("METRES")),
             new GlobalTargetInfo(aerial), MessageTypeDefOf.NegativeEvent);
+    }
+
+    static int WorkingEngines(VehiclePawn vehicle) => AirCombat.Systems(vehicle)?.Powertrain?.Engines().working ?? -1;
+
+    static readonly AccessTools.FieldRef<AerialVehicleInFlight, float>? Transition =
+        AccessTools.Field("Vehicles.World.AerialVehicleInFlight:transition") is { } field
+            ? AccessTools.FieldRefAccess<AerialVehicleInFlight, float>(field) : null;
+    static readonly Action<AerialVehicleInFlight>? SetSpeed =
+        AccessTools.Method("Vehicles.World.AerialVehicleInFlight:SetSpeed") is { } method
+            ? AccessTools.MethodDelegate<Action<AerialVehicleInFlight>>(method) : null;
+    static readonly List<PlanetTile> legTiles = new();
+
+    /// <summary>
+    /// The look at an aircraft of ours in flight, every 250 ticks (Framework 0.142.0; owner, 19 Nov 2026): when it has lost an engine since its
+    /// leg was judged, the leg is judged again where it is. It flies on if the engines left still climb over the ground ahead; turns back to set
+    /// down at the stop it left if they climb over the ground behind and it can land there; else struggles across. Speed follows at once.
+    /// </summary>
+    public static void FlightLook(AerialVehicleInFlight flight, VehiclePawn vehicle)
+    {
+        if (Current(vehicle) is null || !flying.TryGetValue(vehicle, out Flying? state)) return;
+        int working = WorkingEngines(vehicle);
+        if (working < 0 || working >= state.Engines)
+        {
+            state.Engines = Math.Max(state.Engines, working);
+            return;
+        }
+        state.Engines = working;
+        PlanetTile from = flight.Tile;
+        if (!TileAir.WalkLeg(from, state.To, legTiles)) return;
+        int here = CruiseRule.TileAlong(Transition != null ? Transition(flight) : 0f, legTiles.Count);
+        TileAir.Highest(legTiles, here, legTiles.Count - 1, out float aheadHigh, out float aheadMountains);
+        TileAir.Highest(legTiles, 0, here, out float backHigh, out float backMountains);
+        CruiseLeg? ahead = LegOver(vehicle, CruiseRule.Floor(aheadHigh, aheadMountains));
+        CruiseLeg? back = LegOver(vehicle, CruiseRule.Floor(backHigh, backMountains));
+        if (ahead is not { } onward) return;
+        bool canSetDown = CargoRefuel.NoLandingReason(from) == null;
+        CruiseTurn turn = Settings.showOnly ? CruiseTurn.FlyOn : CruiseRule.AfterEngineLost(onward.Flyable, back?.Flyable == true, canSetDown);
+        NamedArgument who = vehicle.LabelShort.Named("VEHICLE");
+        string metres = ((float)onward.ShortMetres).ToString("0");
+        switch (turn)
+        {
+            case CruiseTurn.TurnBack:
+                // The leg back is judged here, over the ground already crossed; the flight's next leg is that one, so Current keeps it.
+                state.To = from;
+                state.Leg = back;
+                flight.OrderFlyToTiles(new List<FlightNode> { new(from) }, new ArrivalAction_LandToCaravan(vehicle));
+                Messages.Message("PhobosVehicleSystems_MsgCruiseTurnBack".Translate(who, metres.Named("METRES")), new GlobalTargetInfo(flight),
+                    MessageTypeDefOf.NegativeEvent);
+                break;
+            case CruiseTurn.Struggle:
+                state.Leg = onward;
+                SetSpeed?.Invoke(flight);
+                Messages.Message("PhobosVehicleSystems_MsgCruiseBeyond".Translate(who, metres.Named("METRES")), new GlobalTargetInfo(flight),
+                    MessageTypeDefOf.NegativeEvent);
+                break;
+            default:
+                state.Leg = onward;
+                SetSpeed?.Invoke(flight);
+                break;
+        }
+        string variant = "EngineLost" + turn;
+        CruiseLeg flown = state.Leg ?? onward;
+        if (Seen.Wants("aircraft.cruise-height", vehicle, variant))
+        {
+            Seen.Note("aircraft.cruise-height", vehicle, working + " engine(s) left", variant, new[]
+            {
+                new KeyValuePair<string, double>("metres", flown.HeightMetres),
+                new KeyValuePair<string, double>("fuel", flown.FuelFactor),
+                new KeyValuePair<string, double>("speed", flown.SpeedFactor),
+            });
+        }
     }
 
     /// <summary>The factor on the world-flight fuel multiplier for the leg being flown; 1 off a governed leg, while priced by the picker, or with

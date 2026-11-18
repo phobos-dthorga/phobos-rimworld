@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.142.0] - 2026-11-19 - Draft
+
+Cabin oxygen for passengers, and a twin that loses an engine on the way limps home
+
+### Added
+
+- **A twin that loses an engine on the way is judged again where it is.** If the engines left still climb over the ground ahead, it flies on, lower and slower. If not, but they climb over the ground it has crossed and it can set down where it last stopped, **it turns back and lands there**, and a message says why. If neither, it struggles across, slow and thirsty, and a message says so.
+- **Cabin oxygen**, a new fitting for every aircraft, on a cabin oxygen panel of its own (20 steel and 3 components; needs the vehicle electrics research). With the engine running it gives everyone aboard oxygen, passengers included, so they no longer keep the aircraft below 3,810 m. It draws 3 A and adds 15 kg. Without it, only the crew's own oxygen set covers the crew.
+
+### Changed
+
+- The oxygen line stays at 3,810 m, now as your decision of 19 November 2026; an aircraft whose source gives its own figure keeps it.
+
+### Save compatibility
+
+- Safe with a running save. Every aircraft gains a cabin oxygen panel part at its next load, as the other appended parts do. Nothing else new is saved.
+
+### Compatibility and limits
+
+- Today cabin oxygen changes nothing in play: only the Harrier is built to cruise above the oxygen line, and it carries no passengers. It is there for the Osprey, built to cruise at 4,600 m with troops in the back.
+- A lost engine is noticed at the next look, within about four seconds at normal speed; in practice it is lost to an air defence's hit.
+- A turned-back aircraft lands as a caravan where it last stopped; its old journey is dropped. It never turns back to water, steep mountains or an enemy's ground.
+- Not yet tested in game.
+
 ## [0.141.0] - 2026-11-18 - Draft
 
 A cruising height between places, and a helicopter on station that works as hard as its load and the air ask
