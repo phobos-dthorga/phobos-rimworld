@@ -464,6 +464,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   repaint with `repaired`; `python scripts/art/repaint_vehicles.py` stages, reviews and applies
   every body's masks again, and **`python scripts/art/paint_check.py` counts the visible flecks** left before the owner sees them
   (`docs/development/vehicle-paint-masks.md`).
+- **Cut every vehicle master into its named parts with Segment Anything wherever a part earns it** (owner, 18 Nov 2026: "if we
+  can extract some kind of benefit like that"): a damage look on the part its design's parts table names, the anchor of anything
+  that turns or sits on the body (a rotor hub, a turret ring, a hook), a paint region, or the part as its own overlay. Prompt each
+  part at the place the design or its plan drawing gives, show the owner the parts before anything is exported, and use the
+  graphics card only with the game closed and on the owner's go.
 - **Art the mods don't ship stays off `main`** (owner, 7 Nov 2026): full-size masters of shipped and picked art on the `art-masters`
   branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
   with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and

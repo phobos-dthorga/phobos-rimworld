@@ -145,7 +145,7 @@ A drivetrain Def of its own, two engines bound as `Engine1` and `Engine2`:
 | Hover power at its heaviest (25,855 kg), sea level, 15 °C | **1.055** of maximum continuous | **[I]: fitted** so the model gives the guide's hover ceiling, 1,646 m at 21,319 kg **[P]** |
 | Rolling share | 0.886 | Worked from its two published take-off weights (our own flight's record) |
 | Forward-flight share | 0.6 | **[A]** |
-| Ceiling; design cruise height | 7,620 m **[P]**; 4,600 m **[A]**, where its top speed is published **[S]** |
+| Ceiling; design cruise height | 7,620 m; 4,600 m | **[P]**; **[A]**, where its top speed is published **[S]** |
 | Drive limit | None set | No source gives the gearboxes' rating |
 
 Momentum theory by itself gives the ideal hover power at 25,855 kg as 5,620 kW, 0.64 of maximum continuous; real rotors and the
@@ -324,6 +324,49 @@ flies as an aeroplane, at 17.5.
 - **Before any paid picture:** the trial across services (under [size](#size)), a dry run with its cost, and a spending
   limit from the owner. One pilot picture from each, inspected at full size, before anything else.
 - **Only our own art is ever uploaded** as a reference.
+- **The parts cut out by Segment Anything** (the owner's rule of 18 Nov 2026): each nacelle, the cockpit, the cabin, the wings
+  and the tail, for their damage looks and paint regions, and the two hubs as the anchors the rotors turn about.
+
+### Tilting nacelles (agent proposal, 18 Nov 2026)
+
+The owner asked for the nacelles to be seen tilting forward, by a workaround if need be, "as long as it's not a hack of a very
+dark arts kind".
+
+**What stands in the way [code].** Vehicle Framework's overlays only turn flat, like a clock hand. Its `Transform` has a scale
+field, but nothing in Vehicle Framework draws with it (read 18 Nov 2026), so an overlay cannot be squashed. An upright nacelle and
+a forward one are different shapes seen from above, so no single picture, turned, shows the change.
+
+**The way round it, with no Harmony and no game code changed.** Vehicle Framework lets a mod add a renderer of its own to a
+vehicle (`VehicleDrawTracker.AddRenderer`, public), and the game's own drawing call takes a full transform, stretch included. A
+renderer of ours draws each nacelle and its rotor:
+
+- **The rotor, exactly.** Seen from straight above, a disc tilted from flat by an angle shows as an ellipse, shortened along the
+  aircraft's length by the cosine of that angle. That is plain projection, not an approximation. So one rotor picture, spun in its
+  own plane and then shortened, is right at every angle. The rotor is the largest and most visible part (11.6 m across), so it
+  carries most of the effect.
+- **The rotor moves forward as the nacelle tips**, by the nacelle's length times the sine of the angle.
+- **The nacelle itself** from a few pictures at set angles (upright, 30, 60 and forward), made from the picked body as reference
+  edits so they match it, the nearest one shown, or the two either side blended.
+- **Cost:** a few more draws per Osprey on screen each frame, nothing per tick.
+
+**When it tilts [A], each from the flight state our own flight already keeps:**
+
+| Moment | Nacelles |
+| --- | --- |
+| Parked, hovering, lifting off, settling | Upright |
+| Rolling take-off and rolling landing | Part forward |
+| Flying forward fast over the map | Part forward, with speed |
+| Leaving the map | Fully forward on the way to the edge; the real conversion takes "as little as 16 seconds" **[P, guide]** |
+| Arriving | Comes in forward and turns upright before it can hover |
+
+**What it lets, stops and changes (a proposal for the owner):**
+
+| Lets the player | Stops them | Changes how they play |
+| --- | --- | --- |
+| See at a glance whether the Osprey can stop and hover now | Stopping in a hover at once from fast forward flight: it must turn its nacelles upright first, a few seconds | Approaches are planned; the arrival over a hot landing zone takes a moment |
+
+**Open:** whether the conversion time is a rule (it slows the change from fast flight to hover) or only a look. Not
+built; the nacelle pictures are added to the art batch only if the owner wants the tilt.
 
 ## Sound
 

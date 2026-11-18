@@ -342,9 +342,19 @@ def make_image(req, references, api_key, opener=urllib.request.urlopen, sleep=ti
             raise ApiError(f'fal made the image but it could not be downloaded: {redact(network, api_key)}') from None
     else:
         raise _ran_then_failed(ApiError('fal answered with an address this engine will not open', 422))
+    original = None
     size = png_size(data)
     if size is None:
-        raise _ran_then_failed(ApiError(f'fal sent {images[0].get("content_type") or "a file"} where a PNG was asked for', 422))
+        # Some models answer in JPEG whatever is asked (Seedream 4.5's edit takes no format at all; found 18 Nov 2026, when the
+        # first such picture was paid for and then thrown away). The original is kept byte for byte, as every generated
+        # picture is, and a PNG made from it is the candidate the rest of the tools read.
+        suffix = original_suffix(data)
+        converted = to_png(data) if suffix else None
+        if converted is None:
+            raise _ran_then_failed(ApiError(f'fal sent {images[0].get("content_type") or "a file"} that is neither a PNG nor a '
+                                            'JPEG or WebP picture this engine can convert', 422))
+        original, data = (suffix, data), converted
+        size = png_size(data)
     estimate = estimate_usd(req)
     info = {'endpoint': model_name, 'request_id': submitted.get('request_id'), 'usage': None,
             'cost_usd': round(estimate, 4), 'cost_is_estimate': True,
@@ -357,9 +367,39 @@ def make_image(req, references, api_key, opener=urllib.request.urlopen, sleep=ti
         info['sent_seed'] = int(attempt)
     if reply.get('description'):
         info['model_said'] = str(reply['description'])[:500]
+    if original:
+        info['returned_format'] = original[0].lstrip('.')
+        info[ORIGINAL_KEY] = original   # Taken out by the caller, which writes the file; never put in a record.
     if size != [req['width'], req['height']]:
         info['size_note'] = f'asked for {req["width"]}x{req["height"]}, received {size[0]}x{size[1]}'
     return data, info
+
+
+ORIGINAL_KEY = '_original'
+
+
+def original_suffix(data):
+    """The file suffix for a JPEG or WebP picture, or None for anything else."""
+    if data[:3] == b'\xff\xd8\xff':
+        return '.jpg'
+    if data[:4] == b'RIFF' and data[8:12] == b'WEBP':
+        return '.webp'
+    return None
+
+
+def to_png(data):
+    """The same picture as PNG bytes, or None if it cannot be read. Pillow is imported here, so the engine runs without it
+    until a model answers in another format."""
+    try:
+        import io
+        from PIL import Image
+        with Image.open(io.BytesIO(data)) as picture:
+            picture.load()
+            out = io.BytesIO()
+            picture.save(out, format='PNG')
+            return out.getvalue()
+    except (ImportError, OSError, ValueError):
+        return None
 
 
 def balance(api_key, opener=urllib.request.urlopen):

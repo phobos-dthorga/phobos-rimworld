@@ -158,6 +158,24 @@ class Calls(unittest.TestCase):
         self.assertEqual((info['request_id'], info['returned_size'], info['cost_is_estimate'], info['sent_seed']), ('r1', [3072, 4096], True, 7))
         self.assertAlmostEqual(info['cost_usd'], 0.30)
 
+    def test_a_jpeg_answer_is_kept_as_it_came_and_converted(self):
+        from PIL import Image
+        buffer = io.BytesIO()
+        Image.new('RGB', (40, 30), (200, 100, 50)).save(buffer, format='JPEG')
+        jpeg = buffer.getvalue()
+        opener = FakeFal(SUBMITTED, {'status': 'COMPLETED'}, RESULT, jpeg)
+        data, info = fal.make_image(good_request(model=SEEDREAM, width=3300, height=4096), [('plan.png', PNG)], KEY, opener,
+                                    sleep=lambda s: None)
+        self.assertEqual(fal.png_size(data), [40, 30])
+        self.assertEqual(info[fal.ORIGINAL_KEY], ('.jpg', jpeg))
+        self.assertEqual(info['returned_format'], 'jpg')
+
+    def test_an_answer_that_is_no_picture_is_refused_and_may_have_been_billed(self):
+        opener = FakeFal(SUBMITTED, {'status': 'COMPLETED'}, RESULT, b'not a picture at all')
+        with self.assertRaises(paid.ApiError) as caught:
+            fal.make_image(good_request(), [('plan.png', PNG)], KEY, opener, sleep=lambda s: None)
+        self.assertTrue(caught.exception.maybe_billed)
+
     def test_the_key_is_never_sent_to_the_address_the_picture_is_fetched_from(self):
         opener = happy()
         fal.make_image(good_request(), [('plan.png', PNG)], KEY, opener, sleep=lambda s: None)
@@ -256,6 +274,19 @@ class PaidRunCase(unittest.TestCase):
         self.assertEqual(record['references'][0]['role'], 'layout')
         self.assertIn('fal Terms of Service', record['terms'])
         self.assertNotIn(KEY, json.dumps(record))
+
+    def test_a_converted_pictures_original_is_written_beside_it_and_named_in_the_record(self):
+        def jpeg_answer(req, references, api_key, attempt=None):
+            data, info = self.fake_make_image(req, references, api_key, attempt)
+            info[fal.ORIGINAL_KEY] = ('.jpg', b'\xff\xd8\xffjpeg bytes')
+            return data, info
+        with mock.patch.object(fal, 'make_image', jpeg_answer):
+            self.run_paid(1.00)
+        kept = self.generated / 'osprey' / 'osprey-1.original.jpg'
+        self.assertEqual(kept.read_bytes(), b'\xff\xd8\xffjpeg bytes')
+        record = json.loads((self.generated / 'osprey' / 'osprey-1.json').read_text(encoding='utf-8'))
+        self.assertEqual(record['original_file'], 'osprey-1.original.jpg')
+        self.assertNotIn(fal.ORIGINAL_KEY, record)
 
     def test_the_cap_stops_the_run_before_an_image_that_could_pass_it(self):
         result = self.run_paid(0.50)

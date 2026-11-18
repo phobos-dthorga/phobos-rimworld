@@ -800,6 +800,14 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
                 seconds = round(time.monotonic() - began, 1)
                 target.write_bytes(data)
                 if remote:
+                    # A picture that came back in another format: its original is kept byte for byte beside the PNG made
+                    # from it (the art rule), and the record names both.
+                    original = paid_info.pop(fal.ORIGINAL_KEY, None)
+                    if original:
+                        kept = target.with_name(target.stem + '.original' + original[0])
+                        kept.write_bytes(original[1])
+                        paid_info['original_file'] = kept.name
+                        paid_info['original_sha256'] = hashlib.sha256(original[1]).hexdigest()
                     record = make_paid_record(req, target, data, seed, request_file, reference_sources, paid_info, seconds)
                 else:
                     record = make_record(req, engine_name, target, data, version, model, model_hash, seed, request_file,
