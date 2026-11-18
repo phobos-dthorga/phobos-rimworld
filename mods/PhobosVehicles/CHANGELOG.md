@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.68.0] - 2026-11-19 - Draft
+
+The Talus unloads its gathering at a bulk bunker by itself
+
+### Added
+
+- **The Talus unloads by itself.** Choose a bulk bunker or a stockpile under **Unload at** in its **Gather what** window: each time it is full it backs up there tail first, tips what it gathered (spare parts stay aboard) and goes back out. **The bulk bunker is always backed up to from its open end**, the striped wheel stop, never against a wall. D'thorga Framework 0.144.0 does the work, and its lifts now take about 20 granite chunks lying together.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.144.0 or later. With an older Framework the game reports the bunker's backing-up side as an unknown class at start-up.
+
+### Save compatibility
+
+- Safe with a running save. Bunkers already built get their open end at the next load.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Which end is open is read from the bunker's picture, which turns with it; a bunker built before this version keeps its rotation, so its open end is where it always was.
+
 ## [0.67.0] - 2026-11-19 - Draft
 
 The Talus gathers by itself once its loading grab is fitted

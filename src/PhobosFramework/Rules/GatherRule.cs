@@ -11,6 +11,32 @@ public enum GatherPhase
     Driving,
     /// <summary>Picking things up where it stands.</summary>
     Working,
+    /// <summary>Taking its load to the place it unloads at (Framework 0.144.0).</summary>
+    Returning,
+    /// <summary>Putting its load down there.</summary>
+    Unloading,
+}
+
+/// <summary>Why a vehicle's unloading worker (a tipper's tip) stopped, or <see cref="None"/> while it works or has just started (Framework 0.144.0).</summary>
+public enum UnloadEnd
+{
+    None,
+    /// <summary>Nothing it was asked to put down is left aboard.</summary>
+    Emptied,
+    /// <summary>The place has no room for the rest: it stays aboard.</summary>
+    PlaceFull,
+    /// <summary>Something failed: fuel, the engine, the controls, the hydraulics. The worker says what.</summary>
+    Fault,
+    /// <summary>The player stopped it by hand.</summary>
+    Stopped,
+}
+
+/// <summary>Which side of a building a vehicle backs up to, against the way the building faces (Framework 0.144.0): the bulk bunker's open end is behind it.</summary>
+public enum BackUpSide
+{
+    Any,
+    Front,
+    Back,
 }
 
 /// <summary>Why a vehicle's gathering worker (a truck's grab) stopped, or <see cref="None"/> while it works or has just started.</summary>
@@ -39,6 +65,12 @@ public enum GatherRunEnd
     Threat,
     Fault,
     Stopped,
+    /// <summary>The place it unloads at had no room for its load (Framework 0.144.0).</summary>
+    UnloadFull,
+    /// <summary>It found no way to back up to the place it unloads at.</summary>
+    NoWayToUnload,
+    /// <summary>The place it unloads at is gone.</summary>
+    UnloadPlaceGone,
 }
 
 /// <summary>
@@ -83,4 +115,29 @@ public static class GatherRule
     /// engine is already off, or when enemies come (the driver may want to move it at once).
     /// </summary>
     public static bool SwitchesOffAtEnd(GatherRunEnd end) => end is not (GatherRunEnd.Orders or GatherRunEnd.EngineOff or GatherRunEnd.Threat);
+
+    /// <summary>
+    /// What an unloading's stop means for the run (Framework 0.144.0): null to go back out for more, or how the run ends. Emptied on the last
+    /// trip ends it with nothing left; emptied with no room aboard (the cargo full of things it does not gather) ends it full.
+    /// </summary>
+    public static GatherRunEnd? AfterUnload(UnloadEnd end, bool lastTrip, bool roomLeft) => end switch
+    {
+        UnloadEnd.PlaceFull => GatherRunEnd.UnloadFull,
+        UnloadEnd.Fault => GatherRunEnd.Fault,
+        UnloadEnd.Stopped => GatherRunEnd.Stopped,
+        _ when lastTrip => GatherRunEnd.NothingLeft,
+        _ when !roomLeft => GatherRunEnd.Full,
+        _ => null,
+    };
+
+    /// <summary>
+    /// The way a vehicle faces, as the game numbers rotations (0 north, 1 east, 2 south, 3 west), to back up to a building's side: away from
+    /// the building on that side. Null for any side.
+    /// </summary>
+    public static int? BackUpFacing(BackUpSide side, int buildingRotation) => side switch
+    {
+        BackUpSide.Front => ((buildingRotation % 4) + 4) % 4,
+        BackUpSide.Back => (((buildingRotation + 2) % 4) + 4) % 4,
+        _ => null,
+    };
 }

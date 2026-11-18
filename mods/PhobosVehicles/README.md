@@ -8,12 +8,12 @@ top of the general systems D'thorga Framework gives every vehicle.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**:
 [working vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.67.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
+Version 0.68.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
 9 November 2026) and the Busbar's size and look (owner, 13 November 2026).
 
 ## Read this first (gotchas)
 
-- **Needs Vehicle Framework and D'thorga Framework 0.143.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About
+- **Needs Vehicle Framework and D'thorga Framework 0.144.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About
   file asks for that, so RimSort does it for you. Vanilla Expanded Framework is optional: it brings the garages.
 - **Safe to add to a running colony.** **Safe to remove only once none of our own vehicles is left**: scrap every tipper, tanker,
   drill rig, survey truck, generator set, seabed crawler and trailer first, or they go with the mod. **Pack up a set-up generator set
@@ -25,8 +25,10 @@ Version 0.67.0, built 19 November 2026 for House D'thorga. **Not yet tested in g
   draw from it.
 - **The Talus gathers by itself once its loading grab is fitted** (0.67.0): **Gather what** chooses what, as for a stockpile (chunks
   and raw resources to start), and **Gather** sends it about the map with someone aboard to drive. **It never takes from storage, nor
-  anything forbidden: forbid what you want left.** It stops when full, when nothing is left, when enemies come or at any other order,
-  where it is. It is as slow as the grab: a full load of chunks takes most of two days. Not yet tested in game.
+  anything forbidden: forbid what you want left.** **Choose a bulk bunker or a stockpile under Unload at** and, each time it is full,
+  it backs up there tail first (a bunker from its open end), tips what it gathered, spare parts excepted, and goes back out (0.68.0).
+  Each lift takes the same kind lying together, about 20 granite chunks. It stops when nothing is left, when enemies come, when its
+  unloading place is full or at any other order. Not yet tested in game.
 - **The loading chute** (tipper research, motor pool tab; 0.64.0) drops what lands in it into a vehicle parked across its spout.
   **It starts set to take nothing: tick what it should load.** With no vehicle there it holds up to four stacks and the belt behind it
   waits. **Its picture is a stand-in** until generated art is picked.

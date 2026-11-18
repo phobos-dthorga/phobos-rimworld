@@ -1,6 +1,6 @@
 # Gathering runs: a vehicle that fetches loose materials by itself (19 Nov 2026)
 
-**Status (19 Nov 2026):** built in D'thorga Framework 0.143.0 and D'thorga Vehicles 0.67.0, on the Talus with its loading grab; several chunks a lift in Framework 0.144.0; not yet tested in game. Unloading at a chosen place is not built yet (the owner's card of 19 Nov 2026: build it next).
+**Status (19 Nov 2026):** built in D'thorga Framework 0.143.0 and D'thorga Vehicles 0.67.0, on the Talus with its loading grab; several chunks a lift and unloading at a chosen place in Framework 0.144.0 and Vehicles 0.68.0; not yet tested in game. Militarised service vehicles are an idea to research, not yet designed.
 
 The owner's request, 19 Nov 2026: "a helper with the Talus Tipper Truck that is executed via a gizmo and is only available to activate
 when the Loading Grab implement upgrade is present. With suitable driver or similar ability for the vehicle to drive, it will source
@@ -24,7 +24,8 @@ and checked against the decompile of the build installed on 18 Nov 2026, or from
   carry, or anything under the fog of war **[A]**. To keep something, forbid it.
 - **It stops by itself** when the cargo is full, nothing it can reach is left, enemies threaten the map **[A]**, the grab or engine fails,
   or you give the truck any other order. One message at the end says what it gathered and why it stopped.
-- **When full, it stops where it is.** Driving home and tipping into a bunker is the next step, not built (below, "Unloading, later").
+- **When full, it unloads where you chose, or stops where it is.** Since Framework 0.144.0, with a storage building or stockpile chosen
+  under **Unload at**, it backs up there tail first, tips what it gathered and goes back out (below, "Unloading").
 - **The pace is the grab's: a lift every 20 seconds at normal speed** (`grabSecondsPerLift`, authored in Framework 0.101.0). Until
   Framework 0.144.0 a lift took one stack or one chunk, so a full base body of granite chunks was 96 lifts, **about 1.9 in-game days**.
   **Since 0.144.0 a lift also takes the same kind lying within 2 cells of the first thing** (`grabJawCells`, authored), up to the lift's
@@ -84,25 +85,47 @@ The owner asked for the parts other mods of ours can reuse. Each lives once, in 
 | Part | Where | What it is for |
 | --- | --- | --- |
 | `GatherRule` | The core's `Rules/`, tested in `tests/PhobosFramework.Rules.Tests` | The stand-off ring, whether it always reaches, what a worker's stop means for the run, when a drive is stuck and when to give up |
-| `Dialog_PhobosThingFilter` | The core's `UI/` | A window with the game's stockpile filter and, if asked, an area choice. For any thing of ours the player tells what to take: a run's filter today, a bunker's or a chute's later |
-| `VehicleAutoDrive` | The Framework's vehicle part, `Service/` | Whether a vehicle can drive itself now and why not, starting its engine, finding a place to stand near a cell, ordering the drive, telling an order of ours from the player's, halting. Any errand a vehicle runs by itself: an unloading trip, a fuel run, a recovery |
+| `Dialog_PhobosThingFilter` and `FilterDropdown` | The core's `UI/` | A window with the game's stockpile filter and any choices above it (an area, a place to unload). For any thing of ours the player tells what to take: a run's filter today, a bunker's or a chute's later |
+| `VehicleAutoDrive` | The Framework's vehicle part, `Service/` | Whether a vehicle can drive itself now and why not, starting its engine, finding a place to stand near a cell or to back up to a set of cells, ordering the drive with an end facing, telling an order of ours from the player's, halting. Any errand a vehicle runs by itself: an unloading trip, a fuel run, a recovery |
 | `IVehicleGatherWorker` | The Framework's vehicle part, `Gather/` | What a vehicle picks things up with where it stands. The Talus's grab is the first; a fork-lift, a magnet or a pump hose would be others |
+| `IVehicleUnloadWorker` and `PhobosBackUpSideExtension` | The Framework's vehicle part, `Gather/` | What a vehicle puts its load down with, over its tail (the Talus's tip), and which side of a building it backs up to |
 | `CompPhobosGatherRun` | The Framework's vehicle part, `Gather/` | The run itself: filter, area, phases, buttons, the end report. Put on any vehicle whose Def also carries a worker, with its filters in XML |
 
 What stays in the Talus: that its grab is the worker, and its Def's filters (chunks and raw resources to start, anything but corpses to
 choose from **[A]**).
 
-## Unloading, later
+## Unloading
 
-Not built: the owner said "later on". What exists and what is missing, so the next step starts from the facts:
+**Built in Framework 0.144.0 and Vehicles 0.68.0** (the owner's card of 19 Nov 2026: a chosen place, next). Not yet tested in game.
 
-- **There already:** the tip fills storage behind the truck first (Framework 0.125.0, UH1), and the bulk bunker is storage built for one
-  load (Vehicles 0.63.0, UH2). A run that drives to a bunker and tips would deliver into it with no new tipping code.
-- **Missing:** the truck must stand with its **tail** to the bunker. Vehicle Framework's plain `Goto` job leaves a vehicle facing the way it
-  last moved; an end facing is given only by its `PathOrderData.endRotation`, through `TryOrderMoveTo`, which in the installed build
-  queues behind a held "queue order" key **[code]** (`VehiclePathFollower.TryOrderMoveTo`). A Phase `Returning` and `Unloading` would be
-  appended to the phases, with a place to unload chosen like the filter, and a way to arrive tail first (a last short reverse, or setting
-  the end facing). That is the one honest unknown.
+| Behaviour | What it lets them do | What it stops them doing | How it changes the way they play |
+| --- | --- | --- | --- |
+| **Unload at a chosen place** | Leave a run going until the map is clear: the truck shuttles between piles and a bunker or stockpile with no one but its driver | Unload anywhere but their own storage that takes something it gathers; tip its spare parts with the load | A quarry run becomes "send it and come back to a full bunker"; a bunker feeding belts can be kept topped up by a truck |
+| **Tail first, from a bunker's open end** | Trust the truck to back up the right way to a bunker with walls on three sides | Tip over a bunker's wall | Bunkers are built with their open end facing the yard, as a real one is |
+| **The place full ends the run** | See at once that the bunker needs emptying | Pile what would not fit beside the bunker | A full bunker is a job for belts or haulers, not a heap |
+
+**How it works.** Two phases are appended (`Returning`, `Unloading`). When the grab stops full, or a look finds the cargo full, a run with a
+place goes back; when a look finds nothing left to gather and something it gathered is aboard, it goes back for a last trip and then ends.
+
+- **Where it stands.** `VehicleAutoDrive.TryFindBackUpSpot` takes every cell of the place that has no place cell beyond it in a facing,
+  and puts the vehicle's centre so the first cell behind its body is that cell: its tail against the place, facing away, its body clear of
+  it on ground it can drive. The middle of a side comes first (a bunker's centre cell before its corners), then the nearest; each is
+  tested as `TryFindStandCell` tests a place. A building whose Def carries `PhobosBackUpSideExtension` is backed up to only on that side
+  (`GatherRule.BackUpFacing`); the bulk bunker's says **Back**, because its one picture turns with it and opens at the bottom when it faces
+  north (`BulkBunker.xml`; the pilot record's layout) **[I]**.
+- **Arriving tail first.** It orders the drive and then sets Vehicle Framework's end facing (`VehiclePathFollower.SetEndRotation`), which
+  Vehicle Framework applies when the vehicle arrives (`PatherArrived` sets `FullRotation`) **[code]**: the same turn on arrival the
+  player's own right-click with a facing gives. `TryOrderMoveTo` was not used: it reads the "queue order" key, which only means something
+  in a click. A spot it cannot reach, or where it stalls for 2,000 ticks, is passed over; five failures in a row end the run.
+- **Tipping.** The Talus's tip is the unloading worker (`IVehicleUnloadWorker`). For a run it puts down only what the filter allows, so
+  spare parts stay aboard, and fills storage in its fan before the ground, as it always has. A full place ends the run with the tip's own
+  words ("14 chunks stay aboard"); emptied, the truck goes back out.
+- **Its words.** The end message adds how many things it tipped, where and on how many trips; its inspect line says it is taking its load
+  to the place, or tipping there. The Gather button's description says what it does when full.
+
+**Limits.** A stockpile has no open end, so the truck backs up to its nearest straight side, and the tip's fan may put a few things on
+cells just outside it. A place whose filter takes only some of what the run gathers gets those; the rest lands in the fan beside it, as
+any tip does. Only one place, not a list.
 
 ## Other factions' vehicles
 
@@ -116,9 +139,10 @@ that has never run.
 - **Seeking** reads only the lists of the kinds the filter allows, at most once a rare tick, and tests at most 16 things and a few ring
   cells each for a place to stand: the reachability test is Vehicle Framework's region search, the one its right-click menu runs.
 - **Driving and working** look once a rare tick (every 250 ticks).
-- **Saved** on the run's comp, each key stable: its filter, its area, the phase, the thing it is heading for, where it will stand, when it
-  last moved, its tallies, and whether it started the engine. The list of things out of reach is not saved: after a load it may try one
-  again. The grab saves that it works for a run. **Safe to add mid-game. Safe to remove** only with no run going: a run left going on a
+- **Saved** on the run's comp, each key stable: its filter, its area, its unloading place, the phase, the thing it is heading for, where it
+  will stand and which way it will face, whether this is its last trip, when it last moved, its tallies, and whether it started the
+  engine. The lists of things out of reach and of spots it failed to back up to are not saved: after a load it may try one again. The grab
+  and the tip each save that they work for a run. **Safe to add mid-game. Safe to remove** only with no run going: a run left going on a
   save without the mod leaves a truck that may have its engine running.
 
 ## Prior art
@@ -155,7 +179,8 @@ with disadvantages as well as advantages, since a truck that is better at everyt
   materials around the map; stockpile-like filters; the code generic where reasonable; unloading later.
 - **Owner (19 Nov 2026, cards):** several chunks a lift; enemies end the run; unloading at a chosen place next; the buttons' own icons
   later; and the idea of militarised service vehicles, to research.
-- **Agent:** the jaw's reach of 2 cells; loose things only; never forbidden, claimed or fogged things; the optional area; ending on enemies; engine started and
+- **Agent:** the jaw's reach of 2 cells; for unloading, the middle of a side first, the bunker backed up to from behind, only what it
+  gathers tipped (spare parts stay), a full place ending the run, one place rather than a list; loose things only; never forbidden, claimed or fogged things; the optional area; ending on enemies; engine started and
   stopped by the run; the stand-off ring; 16 things a look, 2,000 ticks' patience, five failed drives; the Talus's two filters; the game's
   haul and stone-chunk icons on the two buttons until our own are drawn; every leaned answer above.
 

@@ -112,6 +112,10 @@
         {"key": "vehicles.gather-run.end", "variant": "NothingLeft", "expect": {"loads": ">= 1"}}
       ],
       "other orders end it": [{"key": "vehicles.gather-run.end", "variant": "Orders"}]
+    }},
+    "202": {"parts": {
+      "it backs up to the bunker and tips": [{"key": "vehicles.gather-run.unload", "variant": "building"}],
+      "it finishes after unloading": [{"key": "vehicles.gather-run.end", "variant": "NothingLeft", "expect": {"trips": ">= 1"}}]
     }}
   },
   "order": [

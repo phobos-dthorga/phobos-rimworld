@@ -74,6 +74,36 @@ public class GatherRuleTests
     }
 
     [Fact]
+    public void AnEmptiedTruckWithRoomGoesBackOut() => Assert.Null(GatherRule.AfterUnload(UnloadEnd.Emptied, false, true));
+
+    [Fact]
+    public void TheLastTripEndsWithNothingLeft() => Assert.Equal(GatherRunEnd.NothingLeft, GatherRule.AfterUnload(UnloadEnd.Emptied, true, true));
+
+    [Fact]
+    public void ACargoFullOfOtherThingsEndsFull() => Assert.Equal(GatherRunEnd.Full, GatherRule.AfterUnload(UnloadEnd.Emptied, false, false));
+
+    [Fact]
+    public void AFullPlaceEndsTheRunEvenOnTheLastTrip() => Assert.Equal(GatherRunEnd.UnloadFull, GatherRule.AfterUnload(UnloadEnd.PlaceFull, true, true));
+
+    [Fact]
+    public void AFailedTipEndsTheRun() => Assert.Equal(GatherRunEnd.Fault, GatherRule.AfterUnload(UnloadEnd.Fault, false, true));
+
+    [Fact]
+    public void StoppingTheTipByHandEndsTheRun() => Assert.Equal(GatherRunEnd.Stopped, GatherRule.AfterUnload(UnloadEnd.Stopped, false, true));
+
+    [Fact]
+    public void ABunkerFacingNorthIsBackedUpToFromTheSouth() => Assert.Equal(2, GatherRule.BackUpFacing(BackUpSide.Back, 0));
+
+    [Fact]
+    public void ABunkerFacingWestIsBackedUpToFromTheEast() => Assert.Equal(1, GatherRule.BackUpFacing(BackUpSide.Back, 3));
+
+    [Fact]
+    public void TheFrontIsTheWayTheBuildingFaces() => Assert.Equal(1, GatherRule.BackUpFacing(BackUpSide.Front, 1));
+
+    [Fact]
+    public void AnySideHasNoFacing() => Assert.Null(GatherRule.BackUpFacing(BackUpSide.Any, 2));
+
+    [Fact]
     public void OtherOrdersAndEnemiesLeaveTheEngineRunning()
     {
         Assert.False(GatherRule.SwitchesOffAtEnd(GatherRunEnd.Orders));

@@ -190,12 +190,21 @@ lot when it comes. The grab never lifts from another faction's storage, or a thi
 **Gathering by itself.** With the loading grab fitted, the Talus gets two more buttons:
 
 1. **Press Gather what** and choose what it fetches, exactly as for a stockpile. It starts with **chunks and raw resources**
-   (steel, wood, silver and the like). The button at the top keeps it inside one of your areas, or lets it go anywhere.
+   (steel, wood, silver and the like). The buttons at the top keep it inside one of your areas (or anywhere), and choose **where it
+   unloads**: nowhere, or one of your storage buildings or stockpiles that takes something it gathers.
 2. **Put someone aboard who can drive, and press Gather.** It starts its engine, drives to the nearest loose things you chose, stops
    about five cells from them, lifts everything you chose within reach, and moves on to the next pile.
-3. **It stops by itself** when its cargo is full or nothing it can reach is left, and one message says how many loads and kilograms it
-   brought from how many places, and why it stopped. If it started the engine, it switches it off again. **It stops where it is**:
-   drive it home and tip it yourself.
+3. **When its cargo is full:**
+   - **With somewhere to unload,** it drives there, backs up with its tail against it and tips what it gathered, then goes back out.
+     **A bulk bunker is always backed up to from its open end** (the striped wheel stop); a stockpile or a shelf from whichever side is
+     nearest. When nothing is left to gather it tips the last of its load there and stops.
+   - **With nowhere to unload,** it stops where it is: drive it home and tip it yourself.
+4. **One message at the end** says how many loads and kilograms it gathered from how many places, how much it tipped on how many trips,
+   and why it stopped. If it started the engine, it switches it off again.
+
+- **It tips only what it gathers.** Anything else in its cargo, such as spare parts, stays aboard.
+- **If its unloading place fills up, the run ends** and says so; what would not fit stays aboard. Leave room in the bunker, or set
+  belts or haulers to empty it.
 
 - **It only takes loose things.** It leaves stockpiles and shelves alone, and anything forbidden, anything a colonist is about to carry,
   and anything under the fog. **To keep something where it lies, forbid it.**

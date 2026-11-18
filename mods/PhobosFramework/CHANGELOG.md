@@ -7,7 +7,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.144.0] - 2026-11-19 - Draft
 
-The loading grab lifts several chunks at once
+The loading grab lifts several chunks at once, and a gathering run unloads where you choose
+
+### Added
+
+- **A gathering run can unload by itself.** In **Gather what**, choose a storage building or stockpile of yours under **Unload at** (only places that take something it gathers are listed). Each time its cargo is full, the truck drives there, backs up with its tail against it, tips what it gathered and goes back out; when nothing is left to gather it tips the last of its load and stops. A bulk bunker is always backed up to from its open end; a stockpile or shelf from its nearest straight side. The end message also says how many things it tipped, where, and on how many trips.
+- **It tips only what it gathers:** anything else in the cargo, such as spare parts, stays aboard.
+- **What ends it now also:** its unloading place full (what would not fit stays aboard, and the message says how much), no way to back up to it after five tries, or the place gone.
+- **For modders:** an unloading worker for any vehicle, a marker that says which side of a storage building vehicles back up to, a way to back a vehicle up to any set of cells and to give a drive an end facing, and choices of any kind above the filter window. See vehicle-systems-modding.md, "Gathering runs".
 
 ### Changed
 
@@ -15,11 +22,12 @@ The loading grab lifts several chunks at once
 
 ### Save compatibility
 
-- Safe with a running save. Nothing new is saved.
+- Safe with a running save. The lift change saves nothing new. A run's unloading place, its way back and its trip count are saved on the truck, and the tip saves that it works for a run; a truck that never unloads saves nothing new.
 
 ### Compatibility and limits
 
 - **Not yet tested in game.** The 2 cells are an authored figure in the vehicle rules (grabJawCells); 0 gives one stack a lift, as before.
+- The truck arrives tail first by Vehicle Framework's own turn on arrival, the one its right-click with a facing gives; nothing is patched. One unloading place, not a list. At a stockpile the tip's fan may put a few things just outside it.
 
 ## [0.143.0] - 2026-11-19 - Draft
 

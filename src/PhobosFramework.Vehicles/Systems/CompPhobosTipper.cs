@@ -30,7 +30,7 @@ public class CompProperties_PhobosTipper : VehicleCompProperties
 /// A truck that puts its whole load on the ground behind it (docs/development/vehicle-tipper-hauler.md). Nothing in the game or Vehicle Framework tips, so this does, a few things each rare tick, which is cheap and reads as a steady slide.
 /// While tipping it holds the truck still, through the set-up base. It picks cells itself, because the game's own placement logs an error when nothing fits, and a full yard is an ordinary thing for a tipper to meet.
 /// </summary>
-public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleGatherWorker
+public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleGatherWorker, IVehicleUnloadWorker
 {
     const float SecondsPerRareTick = GenTicks.TickRareInterval / 60f;
 
@@ -48,6 +48,12 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
     System.Predicate<Thing>? grabWanted;
     GatherWorkEnd lastGrabEnd;
     string? lastGrabReason;
+    /// <summary>The tip works for a gathering run (Framework 0.144.0): it puts down only what the run gathers, and the run reports.</summary>
+    bool tipForRun;
+    /// <summary>What the run's tip puts down. Not saved: the run hands it back after a load, and the tip puts nothing down until it has it.</summary>
+    System.Predicate<Thing>? tipWhich;
+    UnloadEnd lastTipEnd;
+    string? lastTipReason;
 
     public CompProperties_PhobosTipper Props => (CompProperties_PhobosTipper)props;
     protected override string DeployedSaveKey => "PhobosTipperTipping";
@@ -75,10 +81,15 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         Scribe_Values.Look(ref grabForRun, "PhobosTipperGrabForRun");
         Scribe_Values.Look(ref lastGrabEnd, "PhobosTipperGrabEnd", GatherWorkEnd.None);
         Scribe_Values.Look(ref lastGrabReason, "PhobosTipperGrabReason");
+        // Framework 0.144.0: the tip working for a gathering run, and how it last stopped.
+        Scribe_Values.Look(ref tipForRun, "PhobosTipperTipForRun");
+        Scribe_Values.Look(ref lastTipEnd, "PhobosTipperTipEnd", UnloadEnd.None);
+        Scribe_Values.Look(ref lastTipReason, "PhobosTipperTipReason");
         if (Scribe.mode == LoadSaveMode.PostLoadInit && !deployed)
         {
             grabbing = false;
             grabForRun = false;
+            tipForRun = false;
         }
     }
 
@@ -88,6 +99,8 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         grabbing = false;
         grabForRun = false;
         grabWanted = null;
+        tipForRun = false;
+        tipWhich = null;
         base.PostDeSpawn(map, mode);
     }
 
@@ -163,6 +176,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         List<IntVec3> fan = Fan().ToList();
         for (int i = 0; i < Cargo.Count; i++)
         {
+            if (!Tips(Cargo[i])) continue;
             if (Place(Cargo[i], fan, out _, out _) != TipDestination.StaysAboard) return true;
             if (StorageWouldTake(Cargo[i], fan)) storageFull = true;
         }
@@ -179,47 +193,92 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         return false;
     }
 
-    /// <summary>Why it cannot tip now, or null.</summary>
-    public string? CannotTip()
+    /// <summary>Whether this thing aboard comes off in this tip: everything by hand; for a gathering run, only what the run gathers (Framework 0.144.0).</summary>
+    bool Tips(Thing thing) => !tipForRun || (tipWhich != null && tipWhich(thing));
+
+    /// <summary>How many things aboard this tip puts down.</summary>
+    int ToTip
     {
+        get
+        {
+            if (!tipForRun) return Cargo.Count;
+            int count = 0;
+            for (int i = 0; i < Cargo.Count; i++)
+            {
+                if (Tips(Cargo[i])) count++;
+            }
+            return count;
+        }
+    }
+
+    /// <summary>Why it cannot tip now, or null.</summary>
+    public string? CannotTip() => CannotTip(out _);
+
+    /// <summary>Why it cannot tip now, or null; <paramref name="kind"/> says whether nothing is aboard to tip, the place is full, or a fault.</summary>
+    string? CannotTip(out UnloadEnd kind)
+    {
+        kind = UnloadEnd.Fault;
         if (!Vehicle.Spawned) return "PhobosVehicleSystems_TipNotOnMap".Translate().Resolve();
         if (grabbing) return "PhobosVehicleSystems_TipGrabOut".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
-        if (Cargo.Count == 0) return "PhobosVehicleSystems_TipEmpty".Translate().Resolve();
+        kind = UnloadEnd.Emptied;
+        if (ToTip == 0) return "PhobosVehicleSystems_TipEmpty".Translate().Resolve();
+        kind = UnloadEnd.Fault;
         if (StillMoving) return "PhobosVehicleSystems_TipStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (CrewAndEngineRefusal() is { } crew) return crew;
         if (Vehicle.CompFueledTravel is { EmptyTank: true }) return "PhobosVehicleSystems_TipNoFuel".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor) return "PhobosVehicleSystems_TipControls".Translate().Resolve();
         if (Systems?.HydraulicRefusal() is { } dry) return dry;
-        return AnythingCanGo(out bool storageFull) ? null : FullLine(storageFull);
+        kind = UnloadEnd.PlaceFull;
+        if (!AnythingCanGo(out bool storageFull)) return FullLine(storageFull);
+        kind = UnloadEnd.None;
+        return null;
     }
 
     CompPhobosVehicleSystems? Systems => Vehicle.GetComp<CompPhobosVehicleSystems>();
 
-    string FullLine(bool storageFull) => (storageFull ? "PhobosVehicleSystems_TipStorageFull" : "PhobosVehicleSystems_TipFull").Translate(Cargo.Count.Named("COUNT")).Resolve();
+    string FullLine(bool storageFull) => (storageFull ? "PhobosVehicleSystems_TipStorageFull" : "PhobosVehicleSystems_TipFull").Translate(ToTip.Named("COUNT")).Resolve();
 
     public void Start()
     {
+        tipForRun = false;
+        tipWhich = null;
         string? refused = CannotTip();
         if (refused != null)
         {
             Tell(refused, MessageTypeDefOf.RejectInput);
             return;
         }
+        RaiseBody();
+        Tell("PhobosVehicleSystems_TipStarted".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
+    }
+
+    void RaiseBody()
+    {
         deployed = true;
         allowance = 0f;
         tipped = 0;
         stored = 0;
+        lastTipEnd = UnloadEnd.None;
+        lastTipReason = null;
         VehicleWorkSounds.Loop(Vehicle, "Rams", true);
-        Tell("PhobosVehicleSystems_TipStarted".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
 
-    public void Stop() => Finish(null);
+    public void Stop() => Finish(null, UnloadEnd.Stopped);
 
-    void Finish(string? reason)
+    /// <summary>Lowers the body. Worked by hand, it reports what it put down; for a gathering run it only notes why it stopped, and the run reports.</summary>
+    void Finish(string? reason, UnloadEnd kind)
     {
         deployed = false;
+        lastTipEnd = kind;
+        lastTipReason = reason;
         VehicleWorkSounds.Loop(Vehicle, "Rams", false);
         VehicleWorkSounds.Play(Vehicle, "Tailgate");
+        if (tipForRun)
+        {
+            tipForRun = false;
+            tipWhich = null;
+            return;
+        }
         string report = stored > 0
             ? "PhobosVehicleSystems_TipDoneStored".Translate(Vehicle.LabelShort.Named("VEHICLE"), tipped.Named("COUNT"), stored.Named("STORED")).Resolve()
             : "PhobosVehicleSystems_TipDone".Translate(Vehicle.LabelShort.Named("VEHICLE"), tipped.Named("COUNT")).Resolve();
@@ -238,7 +297,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         if (Stalled)
         {
             if (grabbing) FinishGrab(StalledLine, GatherWorkEnd.Fault);
-            else Finish(StalledLine);
+            else Finish(StalledLine, UnloadEnd.Fault);
             return;
         }
         if (grabbing)
@@ -250,31 +309,33 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         VehicleWorkSounds.Loop(Vehicle, "Rams", true);
         if (Vehicle.CompFueledTravel is { EmptyTank: true } || Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor)
         {
-            Finish("PhobosVehicleSystems_TipStopped".Translate().Resolve());
+            Finish("PhobosVehicleSystems_TipStopped".Translate().Resolve(), UnloadEnd.Fault);
             return;
         }
         // The body is raised by hydraulic rams: the fluid paces it, and too little stops it (T1, Framework 0.73.0).
         if (Systems?.HydraulicRefusal() is { } dry)
         {
-            Finish(dry);
+            Finish(dry, UnloadEnd.Fault);
             return;
         }
+        // Just after a load, the run has not yet handed back what it tips: put nothing down until it has.
+        if (tipForRun && tipWhich == null) return;
         int things = TipRule.WholeThings(ref allowance, Vehicle.GetStatValue(TipperDefOf.Phobos_TipRate) * (Systems?.HydraulicSupply ?? 1f), SecondsPerRareTick);
         if (things > 0) VehicleWorkSounds.Play(Vehicle, "Slide");
         List<IntVec3> fan = things > 0 ? Fan().ToList() : new List<IntVec3>();
         for (int i = 0; i < things; i++)
         {
-            if (Cargo.Count == 0)
+            if (ToTip == 0)
             {
-                Finish(null);
+                Finish(null, UnloadEnd.Emptied);
                 return;
             }
             if (TipOne(fan, out _)) continue;
             AnythingCanGo(out bool storageFull);
-            Finish(FullLine(storageFull));
+            Finish(FullLine(storageFull), UnloadEnd.PlaceFull);
             return;
         }
-        if (Cargo.Count == 0) Finish(null);
+        if (ToTip == 0) Finish(null, UnloadEnd.Emptied);
     }
 
     /// <summary>
@@ -287,6 +348,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         for (int i = 0; i < Cargo.Count; i++)
         {
             Thing thing = Cargo[i];
+            if (!Tips(thing)) continue;
             TipDestination where = Place(thing, fan, out IntVec3 cell, out into);
             if (where == TipDestination.StaysAboard) continue;
             Cargo.Remove(thing);
@@ -312,7 +374,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
     {
         base.PostDraw();
         if (!deployed || grabbing) return;
-        int left = Cargo.Count;
+        int left = ToTip;
         if (tipped + left > 0) Phobos.Framework.Interface.MapProgressBar.DrawOver(Vehicle, (float)tipped / (tipped + left));
     }
 
@@ -327,7 +389,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
     public override string? CompInspectStringExtra()
     {
         // A gathering run says what it is doing in its own line.
-        if (!deployed || grabForRun) return null;
+        if (!deployed || grabForRun || tipForRun) return null;
         return grabbing
             ? "PhobosVehicleSystems_GrabLine".Translate(lifted.Named("COUNT")).Resolve()
             : "PhobosVehicleSystems_TipLine".Translate(Cargo.Count.Named("COUNT")).Resolve();
@@ -543,6 +605,44 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
     public int GatheredLoads => lifted;
 
     public float GatheredKilograms => liftedKilograms;
+
+    // ---- The tip as a gathering run's unloading worker (Framework 0.144.0; docs/development/vehicle-gathering-runs.md) ----
+
+    public bool CanUnloadAtAll => true;
+
+    public UnloadEnd StartUnloading(System.Predicate<Thing> which, out string? refusal)
+    {
+        // Set first, so the refusal counts only what the run tips.
+        tipForRun = true;
+        tipWhich = which;
+        refusal = CannotTip(out UnloadEnd kind);
+        if (refusal != null)
+        {
+            tipForRun = false;
+            tipWhich = null;
+            return kind;
+        }
+        RaiseBody();
+        return UnloadEnd.None;
+    }
+
+    public void ResumeUnloading(System.Predicate<Thing> which)
+    {
+        if (tipForRun) tipWhich = which;
+    }
+
+    public bool Unloading => deployed && !grabbing && tipForRun;
+
+    public void StopUnloading()
+    {
+        if (Unloading) Finish(null, UnloadEnd.Stopped);
+    }
+
+    public UnloadEnd LastUnloadEnd => lastTipEnd;
+
+    public string? LastUnloadReason => lastTipReason;
+
+    public int UnloadedCount => tipped;
 
     /// <summary>One rare tick of the grab: lifts paced by the rules and the hydraulic fluid, each one stack (or what one lift and the room
     /// allow) moved aboard through Vehicle Framework's own cargo call.</summary>

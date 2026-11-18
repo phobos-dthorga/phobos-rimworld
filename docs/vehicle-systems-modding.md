@@ -627,10 +627,17 @@ and decides what is wanted.
 - **The run** takes `defaultFilter` (what it gathers until the player chooses) and `choosableFilter` (what may be chosen), both written as
   a stockpile's `ThingFilter` is; `thingsPerLook`, `stuckTicks`, `failedDrivesToGiveUp`, `stopForEnemies`; and `runIconPath` and
   `filterIconPath` for its two buttons. D'thorga Vehicles' Talus (`Vehicle_Tipper.xml`) is the worked example.
+- **Unloading** (Framework 0.144.0): a comp implementing `Phobos.VehicleSystems.IVehicleUnloadWorker` puts the load down over the
+  vehicle's tail (the tipper's tip is the worked example); with one, the run's **Gather what** window offers **Unload at**, and the run
+  backs up to the chosen place when full. Put `<li Class="Phobos.VehicleSystems.PhobosBackUpSideExtension"><side>Back</side></li>` in a
+  storage building's `modExtensions` to have vehicles back up only to that side (`Front` or `Back` of the way it faces), as the bulk
+  bunker does.
 - **Driving by itself** for your own errands is `Phobos.VehicleSystems.VehicleAutoDrive`: `CannotDrive`, `StartEngine`, `TryFindStandCell`,
-  `DriveTo`, `HeadingFor`, `Halt`. It gives the game's own Goto job, as Vehicle Framework's right-click does, and patches nothing.
-- **The filter window** is `Phobos.Framework.Interface.Dialog_PhobosThingFilter`, in the core: the game's stockpile filter and, if you pass
-  a getter and setter, a choice of area. `ThingFilterWords.Summary` says a filter in a few words.
+  `TryFindBackUpSpot`, `DriveTo` (with an end facing), `Face`, `HeadingFor`, `Halt`. It gives the game's own Goto job, as Vehicle
+  Framework's right-click does, and patches nothing.
+- **The filter window** is `Phobos.Framework.Interface.Dialog_PhobosThingFilter`, in the core: the game's stockpile filter and any
+  `FilterDropdown` rows you pass above it (`FilterDropdown.Area` gives the area choice). `ThingFilterWords.Summary` says a filter in a
+  few words.
 
 ## The shipped systems
 

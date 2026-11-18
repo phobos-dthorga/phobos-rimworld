@@ -50,8 +50,10 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   drops what it holds into a vehicle parked across its spout.
 - **A truck with a loading grab can gather by itself** (0.143.0; the Talus in D'thorga Vehicles): **Gather** sends it about the map,
   with someone aboard to drive, to lift loose things you chose with **Gather what**, a stockpile's filter. **It never takes from
-  storage, nor anything forbidden: forbid what you want left.** It stops when full, when nothing is left, when enemies come, or at any
-  other order, and stops where it is. Not yet tested in game.
+  storage, nor anything forbidden: forbid what you want left.** **Since 0.144.0 it can unload by itself**: choose a bunker or stockpile
+  under **Unload at** and, when full, it backs up there tail first (a bulk bunker from its open end), tips what it gathered and goes back
+  out. A lift takes the same kind lying together, about 20 granite chunks. It stops when nothing is left, when enemies come, when its
+  unloading place is full, or at any other order. Not yet tested in game.
 - **Vehicle accessories** (0.129.0): a **12-volt fridge**, a **house battery** and a **power outlet**, each made as a kit at the
   vehicle parts bench (vehicle electrics research) and fitted to its own new part on every land vehicle. **Without a house battery the
   fridge and outlet run the starting battery down with the engine off**; fit one to keep the engine's battery for starting. Taking an

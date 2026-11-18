@@ -99,6 +99,11 @@
       <li Class="PipeSystem.FactoryHopperExtension" MayRequire="OskarPotocki.VanillaFactionsExpanded.Core">
         <isfactoryHopper>true</isfactoryHopper>
       </li>
+      <!-- A truck unloading here by itself backs up to the open end, which is behind the bunker: its one picture turns with it, and the
+           picture opens at the bottom when the bunker faces north (D'thorga Framework 0.144.0; docs/development/vehicle-gathering-runs.md). -->
+      <li Class="Phobos.VehicleSystems.PhobosBackUpSideExtension">
+        <side>Back</side>
+      </li>
     </modExtensions>
   </ThingDef>
 
