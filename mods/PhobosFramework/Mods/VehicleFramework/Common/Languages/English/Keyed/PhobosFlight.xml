@@ -24,7 +24,6 @@
   <PhobosFlight_RefuseNotMoving>The {VEHICLE} is not flying anywhere to stop.</PhobosFlight_RefuseNotMoving>
   <PhobosFlight_RefuseCannotHover>The {VEHICLE}'s engines cannot hold it in a hover now: it has to keep moving.</PhobosFlight_RefuseCannotHover>
   <PhobosFlight_RefuseLand>The {VEHICLE} cannot land there: {WHY}.</PhobosFlight_RefuseLand>
-  <PhobosFlight_RefuseLaunchInAir>The {VEHICLE} must land before it can set off for another place.</PhobosFlight_RefuseLaunchInAir>
   <PhobosFlight_RefuseBoard>Nobody can climb aboard the {VEHICLE} while it is in the air.</PhobosFlight_RefuseBoard>
   <PhobosFlight_RefuseLoad>Nothing can be loaded into the {VEHICLE} while it is in the air.</PhobosFlight_RefuseLoad>
   <PhobosFlight_RefuseUnload>Nothing can be unloaded from the {VEHICLE} while it is in the air.</PhobosFlight_RefuseUnload>
@@ -49,6 +48,11 @@
   <PhobosFlight_MsgComingDown>The {VEHICLE} is coming down: {WHY}.</PhobosFlight_MsgComingDown>
   <PhobosFlight_MsgHardLanding>The {VEHICLE} came down hard. Its undercarriage and airframe are damaged, and everyone aboard was shaken about.</PhobosFlight_MsgHardLanding>
   <PhobosFlight_MsgWrecked>The {VEHICLE} came down where it could not land ({WHY}) and was wrecked.</PhobosFlight_MsgWrecked>
+
+  <!-- Leaving and arriving (Framework 0.149.0) -->
+  <PhobosFlight_MsgDeparting>The {VEHICLE} is setting off: it flies to the edge of the map on the side of its journey, and leaves from there.</PhobosFlight_MsgDeparting>
+  <PhobosFlight_MsgDepartureCancelled>The {VEHICLE} is no longer leaving: it takes the new order instead.</PhobosFlight_MsgDepartureCancelled>
+  <PhobosFlight_MsgArrivedSpotRefused>{WHY} The {VEHICLE} has come in over the edge and is holding there; pick another spot.</PhobosFlight_MsgArrivedSpotRefused>
 
   <!-- The inspect pane -->
   <PhobosFlight_StateLiftingOff>lifting off</PhobosFlight_StateLiftingOff>

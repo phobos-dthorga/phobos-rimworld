@@ -426,12 +426,13 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
 - **It flies over the map** (not yet tested in game): draft it with its two pilots aboard and press **Take off**. Then **Fly to** a
   spot, or right-click the ground; **Hold here** stops it; **Land here** shows its outline at the mouse, turns with the usual keys, and
   needs open sky and firm ground with nothing built on it. It flies over walls, rivers and buildings, its guns fire from the air, and
-  nobody boards, unloads or steps out until it lands. **Land it before launching** to another place: the launch button waits until it is
-  on the ground.
+  nobody boards, unloads or steps out until it lands. **To go to another place**, press the launch button, on the ground or in the
+  air: it flies to the map's edge on that side and leaves from there. **Arriving**, it comes in over the edge it flew from, already
+  flying, and lands on the spot you chose, or holds over a map it attacks for your orders.
 - **If it cannot stay up** (out of fuel, or an engine lost while heavily loaded), it comes down where it is: hard over open ground,
   damaging its undercarriage and shaking its people about; wrecked over a building, a roof, another vehicle or deep water. Watch its fuel.
-- **Still to come, before it is tested:** its upgrades (cargo hooks, ramp gun, belly gun, armour kit, inlet barrier and more), flying
-  off the map's edge and arriving in the air, and the short rolling take-off for heavy loads. Not yet tested in game.
+- **Still to come, before it is tested:** its upgrades (cargo hooks, ramp gun, belly gun, armour kit, inlet barrier and more), and the
+  short rolling take-off for heavy loads. Not yet tested in game.
 
 ## Other mods' vehicles
 

@@ -105,6 +105,28 @@ public class FlightPathRuleTests
     }
 
     [Fact]
+    public void ItLeavesAndEntersByTheEdgeOnTheSideOfTheJourney()
+    {
+        // A 250 by 250 map held 6 cells in from each side; from its centre.
+        (double x, double z) = FlightPathRule.EdgePoint(125, 125, 0, 6, 244, 6, 244);
+        Assert.Equal(125, x, 6);
+        Assert.Equal(244, z, 6);
+        (x, z) = FlightPathRule.EdgePoint(125, 125, 90, 6, 244, 6, 244);
+        Assert.Equal(244, x, 6);
+        Assert.Equal(125, z, 6);
+        (x, z) = FlightPathRule.EdgePoint(125, 125, 225, 6, 244, 6, 244);
+        Assert.Equal(6, x, 6);
+        Assert.Equal(6, z, 6);
+        // From off centre, the nearer side is met first.
+        (x, z) = FlightPathRule.EdgePoint(200, 125, 60, 6, 244, 6, 244);
+        Assert.Equal(244, x, 6);
+        Assert.InRange(z, 125, 244);
+        // A point outside is brought in first.
+        (x, z) = FlightPathRule.EdgePoint(-50, 125, 270, 6, 244, 6, 244);
+        Assert.Equal(6, x, 6);
+    }
+
+    [Fact]
     public void APointIsHeldInsideTheMap()
     {
         Assert.Equal((5.0, 200.0), FlightPathRule.Clamp(-3, 400, 5, 245, 5, 200));

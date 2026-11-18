@@ -1,10 +1,11 @@
 # Our own flight over the map: hovering, circling, leaving the ground rolling, and a cruising height (18 Nov 2026)
 
 **Status (19 Nov 2026):** the hover half (slice 2) is built in D'thorga Framework 0.147.0, with the V-22 Osprey flying on it in
-D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); the cruising height between tiles in Framework 0.141.0 and
-0.142.0 ([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: leaving and arriving in flight
-(slice 3), leaving the ground rolling (slice 4), circling (slice 5), ropes and a raider's flight (slice 6), and stock helicopters on our
-flight. Nothing here is tested in game (rows 199, 200, 204 and 205). The owner answered
+D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); leaving and arriving in flight (slice 3) in Framework 0.149.0
+([built](#built-19-nov-2026-leaving-and-arriving-in-flight)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
+([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: leaving the ground rolling (slice 4), circling
+(slice 5), ropes and a raider's flight (slice 6), and stock helicopters on our flight. Nothing here is tested in game (rows 199, 200, 204 to
+206). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -570,6 +571,27 @@ usually cannot fly on; light, it often can.
 **Not built, and why:** `PhaseReader_OwnFlight`, the forward-flight and rolling shares and the three thresholds. Each reads or
 decides something only our own flight does (its state; whether it may stop, fly on or roll), so they come with the hover half
 (slice 2) rather than as fields nothing reads.
+
+## Built (19 Nov 2026): leaving and arriving in flight
+
+At the owner's word ("Proceed with slice 3, leaving and arriving in flight", 19 Nov 2026), D'thorga Framework 0.149.0; **not yet tested in
+game** (row 206). Where it differs from the design:
+
+| Part | As built | Where |
+| --- | --- | --- |
+| Leaving | **A prefix on `CompVehicleLauncher.Launch`, last in line**, skipping the original for an aircraft on our flight: it does nothing when an earlier prefix (our air-defence prompt) has held the launch back. It keeps the picker's nodes and arrival, takes off if on the ground, fires Vehicle Framework's launch event (so the sling and the over-limit strain listen as at its own lift-off), and flies to the edge point on the bearing of the journey's first place (`FlightPathRule.EdgePoint`, tested) | `Patch_Launch_Flight`, `CompPhobosFlight.Depart` |
+| The hand-over | At the edge: despawned, its claim released, `AerialVehicleInFlight.Create` and `OrderFlyToTiles`, Vehicle Framework's "left the map" event and message, as its own lift-off does | `HandOver` |
+| Saved | The journey's nodes and arrival, until the edge | `PhobosFlight_DepartNodes`, `PhobosFlight_DepartAction` |
+| A new order | Fly to, hold or land on the map ends a departure under way, with a message | `CancelDeparture` |
+| The launch button in the air | **A postfix running first** answers afresh (a steady flight, its crew and fuel); our other refusals still follow. The lift-off's over-limit refusal stands aside for an aircraft already up | `Patch_CanLaunch_Flight`, `LiftOffPatch` |
+| Where it came from | **Noted at each leg's start in a postfix on the flight speed getter** (Vehicle Framework reads it as each leg begins, after a load too), not kept when the flight is ordered: one place serves every way a journey is ordered | `FlightLegs` |
+| Arriving on a chosen spot | A prefix on `ArrivalAction_LandToCell.SpawnSkyfaller` (a crash, which overrides it, stays Vehicle Framework's): spawned over the edge it flew in from, flying, ordered to land on the spot; a spot no longer clear is refused with a message and it holds inside the edge | `Patch_LandToCell_Flight`, `FlightArrival` |
+| **Arriving on a map made or loaded for the journey** | **Not an arrival mode of ours: prefixes on Vehicle Framework's three arrival workers** (centre, edge, targeted), so every arrival the picker offers already comes in flying, with no option added and none to keep in step with its list. Centre flies to the middle and holds; edge holds 12 cells in (authored); targeted holds and opens the landing outline | `Patch_CenterDrop_Flight`, `Patch_EdgeDrop_Flight`, `Patch_TargetedDrop_Flight` |
+| Where it comes in | On the edge on the bearing of the place it flew from (the game's world heading), **at the nearest place along the edge, up to 40 cells either way (authored), where spawning would destroy nothing**: a vehicle wipes the plants beneath it as it spawns | `FlightArrival.ClearPlace` |
+| The landing check | Stands aside for an arrival onto a map; still judges a landing as a caravan | `LandingCheck.cs` |
+
+**Other factions' aircraft:** they do not fly journeys between tiles, so none of this applies to a raid on us or a base we attack. One we
+capture leaves and arrives flying as any of ours.
 
 ## Built (19 Nov 2026): the hover half
 

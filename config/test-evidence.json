@@ -131,6 +131,12 @@
     "205": {"parts": {
       "a hard landing on open ground": [{"key": "aircraft.flight-forced", "variant": "hard-landing"}],
       "wrecked where it cannot land": [{"key": "aircraft.flight-forced", "variant": "wrecked"}]
+    }},
+    "206": {"parts": {
+      "it flies off the edge": ["aircraft.flight-departed"],
+      "it arrives over a spot it lands on": [{"key": "aircraft.flight-arrived", "variant": "Land"}],
+      "it arrives over a map it attacks or explores": [{"key": "aircraft.flight-arrived", "variant": "Centre"},
+        {"key": "aircraft.flight-arrived", "variant": "Edge"}, {"key": "aircraft.flight-arrived", "variant": "Targeted"}]
     }}
   },
   "order": [

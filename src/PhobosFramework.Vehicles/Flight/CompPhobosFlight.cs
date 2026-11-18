@@ -5,7 +5,9 @@ using Phobos.Framework.Rules;
 using RimWorld;
 using SmashTools;
 using UnityEngine;
+using RimWorld.Planet;
 using Vehicles;
+using Vehicles.World;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -75,6 +77,9 @@ public class CompPhobosFlight : VehicleComp
     float targetX = float.NaN, targetZ = float.NaN;
     IntVec3 landCell = IntVec3.Invalid;
     Rot4 landRot = Rot4.North;
+    // Leaving the map (Framework 0.149.0): the journey Vehicle Framework's destination picker chose, kept until it reaches the edge.
+    List<FlightNode>? departNodes;
+    IArrivalAction? departAction;
 
     // Derived, never saved.
     float speed;
@@ -122,7 +127,13 @@ public class CompPhobosFlight : VehicleComp
         Scribe_Values.Look(ref targetZ, "PhobosFlight_TargetZ", float.NaN);
         Scribe_Values.Look(ref landCell, "PhobosFlight_LandCell", IntVec3.Invalid);
         Scribe_Values.Look(ref landRot, "PhobosFlight_LandRot", Rot4.North);
+        Scribe_Collections.Look(ref departNodes, "PhobosFlight_DepartNodes", LookMode.Deep);
+        Scribe_Deep.Look(ref departAction, "PhobosFlight_DepartAction");
+        if (Scribe.mode == LoadSaveMode.PostLoadInit && departNodes is { Count: 0 }) departNodes = null;
     }
+
+    /// <summary>Whether it is on its way to the map's edge to leave for another place.</summary>
+    public bool Departing => departNodes != null;
 
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
@@ -172,6 +183,14 @@ public class CompPhobosFlight : VehicleComp
             Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
+        BeginTakeOff();
+        HoverLimits.OnLaunch(Vehicle);
+    }
+
+    /// <summary>Starts the climb from where it stands. The over-limit strain or warning is the caller's: our button's, or Vehicle
+    /// Framework's launch event when it is leaving for another place (whose listeners include it).</summary>
+    void BeginTakeOff()
+    {
         VehiclePawn v = Vehicle;
         v.vehiclePather.StopDead();
         Vector3 centre = v.TrueCenter();
@@ -184,8 +203,119 @@ public class CompPhobosFlight : VehicleComp
         state = FlightState.LiftingOff;
         FlightRegistry.Add(this);
         StartTicking();
-        HoverLimits.OnLaunch(v);
         Seen.Note("aircraft.flight-takeoff", v);
+    }
+
+    /// <summary>Why it may not set off for another place from where it is now, or null: on the ground, why it may not take off; in the air,
+    /// a steady flight and its crew and fuel (Vehicle Framework judged it as standing on the ground).</summary>
+    public string? DepartRefusal()
+    {
+        if (!Airborne) return TakeOffRefusal();
+        VehiclePawn v = Vehicle;
+        NamedArgument who = v.LabelShort.Named("VEHICLE");
+        if (state is FlightState.LiftingOff or FlightState.ComingDown or FlightState.Settling) return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
+        if (!v.HasEnoughOperators) return "PhobosFlight_RefuseCrew".Translate(who).Resolve();
+        if (v.CompFueledTravel is { } fuel && fuel.Fuel <= 0f) return "PhobosFlight_RefuseNoFuel".Translate(who).Resolve();
+        return null;
+    }
+
+    /// <summary>
+    /// Sets off for another place (Framework 0.149.0; the design's slice 3): lifts off if it is on the ground, flies to the map's edge on the
+    /// side of the first place on the journey, and there hands over to Vehicle Framework's world flight with the journey and arrival the
+    /// destination picker chose. Vehicle Framework's launch event fires now, as it does at its own lift-off.
+    /// </summary>
+    public void Depart(List<FlightNode> nodes, IArrivalAction arrivalAction)
+    {
+        VehiclePawn v = Vehicle;
+        if (DepartRefusal() is { } refused)
+        {
+            Messages.Message(refused, v, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        if (nodes.NullOrEmpty())
+        {
+            return;
+        }
+        if (!Airborne) BeginTakeOff();
+        departNodes = nodes;
+        departAction = arrivalAction;
+        landCell = IntVec3.Invalid;
+        PlanetTile first = nodes[0].Tile;
+        PlanetTile here = v.Map.Tile;
+        double bearing = first.Valid && first != here ? Find.WorldGrid.GetHeadingFromTo(here, first) : heading;
+        (float ex, float ez) = EdgeBounds();
+        (double tx, double tz) = FlightPathRule.EdgePoint(x, z, bearing, ex, v.Map.Size.x - ex, ez, v.Map.Size.z - ez);
+        (targetX, targetZ) = ((float)tx, (float)tz);
+        if (state == FlightState.Hover) state = FlightState.Moving;
+        v.EventRegistry[VehicleEventDefOf.AerialVehicleLaunch].ExecuteEvents();
+        if (v.Faction == Faction.OfPlayer)
+        {
+            Messages.Message("PhobosFlight_MsgDeparting".Translate(v.LabelShort.Named("VEHICLE")).Resolve(), v, MessageTypeDefOf.SilentInput, historical: false);
+        }
+    }
+
+    /// <summary>A new order on the map ends a departure under way, and says so.</summary>
+    void CancelDeparture()
+    {
+        if (!Departing) return;
+        departNodes = null;
+        departAction = null;
+        Messages.Message("PhobosFlight_MsgDepartureCancelled".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+    }
+
+    /// <summary>At the map's edge: off the map and into Vehicle Framework's world flight, as its own lift-off hands over.</summary>
+    void HandOver()
+    {
+        VehiclePawn v = Vehicle;
+        Map map = v.Map;
+        List<FlightNode> nodes = departNodes!;
+        IArrivalAction action = departAction!;
+        departNodes = null;
+        departAction = null;
+        state = FlightState.Ground;
+        climb = 0f;
+        speed = 0f;
+        ClearTarget();
+        v.Transform.rotation = 0f;
+        FlightRegistry.Remove(this);
+        StopTicking();
+        Seen.Note("aircraft.flight-departed", v);
+        v.DeSpawn(DestroyMode.Vanish);
+        map.GetDetachedMapComponent<VehiclePositionManager>().ReleaseClaimed(v);
+        AerialVehicleInFlight flight = AerialVehicleInFlight.Create(v, map.Tile);
+        flight.OrderFlyToTiles(nodes, action);
+        v.EventRegistry[VehicleEventDefOf.AerialVehicleLeftMap].ExecuteEvents();
+        if (v.Faction == Faction.OfPlayer)
+        {
+            Messages.Message("VF_AerialVehicleLeft".Translate(v.LabelShort.Named("VEHICLE")).Resolve(), MessageTypeDefOf.PositiveEvent);
+        }
+    }
+
+    /// <summary>
+    /// Enters a map already flying, at a point on its edge, heading inward (Framework 0.149.0): an arrival from another place. The vehicle has
+    /// just been spawned there by FlightArrival; this puts it in the air at full height and speed.
+    /// </summary>
+    public void EnterFlying(float px, float pz, float inward)
+    {
+        VehiclePawn v = Vehicle;
+        (x, z) = Clamped(px, pz);
+        heading = (float)FlightPathRule.Normalise(inward);
+        climb = 1f;
+        speed = Props.speedCellsPerSecond;
+        ClearTarget();
+        landCell = IntVec3.Invalid;
+        departNodes = null;
+        departAction = null;
+        state = FlightState.Hover;
+        if (v.CompVehicleLauncher is { } launcher)
+        {
+            launcher.inFlight = false;
+            launcher.launchProtocol?.Release();
+        }
+        v.vehiclePather.StopDead();
+        FlightRegistry.Add(this);
+        StartTicking();
+        SyncPosition();
     }
 
     /// <summary>Why it may not be sent to this point now, or null.</summary>
@@ -205,6 +335,7 @@ public class CompPhobosFlight : VehicleComp
             Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
+        CancelDeparture();
         Vector3 c = cell.ToVector3Shifted();
         (targetX, targetZ) = Clamped(c.x, c.z);
         landCell = IntVec3.Invalid;
@@ -232,6 +363,7 @@ public class CompPhobosFlight : VehicleComp
             Messages.Message("PhobosFlight_RefuseCannotHover".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
+        CancelDeparture();
         // Brake to rest where it can stop: the point its present speed carries it to.
         double stop = speed * speed / (2 * Props.accelerationCellsPerSecond);
         double rad = heading * Math.PI / 180;
@@ -255,6 +387,7 @@ public class CompPhobosFlight : VehicleComp
             Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
+        CancelDeparture();
         landCell = cell;
         landRot = rot;
         Vector3 c = Ext_Vehicles.TrueCenter(cell, new Rot8(rot), Vehicle.VehicleDef.Size, 0f);
@@ -393,6 +526,12 @@ public class CompPhobosFlight : VehicleComp
     void Arrive()
     {
         if (state == FlightState.ComingDown) return;
+        // Leaving for another place: at the edge it hands over, whether or not it could hover (Framework 0.149.0).
+        if (Departing)
+        {
+            HandOver();
+            return;
+        }
         speed = 0f;
         ClearTarget();
         if (hold == FlightHold.ForwardOnly)
@@ -513,10 +652,17 @@ public class CompPhobosFlight : VehicleComp
     (float X, float Z) Clamped(float px, float pz)
     {
         IntVec3 size = Vehicle.Map.Size;
+        (float ex, float ez) = EdgeBounds();
+        (double cx, double cz) = FlightPathRule.Clamp(px, pz, ex, size.x - ex, ez, size.z - ez);
+        return ((float)cx, (float)cz);
+    }
+
+    /// <summary>How far in from each side its true centre is held: half its longest side and a cell, the same both ways so it can turn.</summary>
+    (float X, float Z) EdgeBounds()
+    {
         IntVec2 footprint = Vehicle.VehicleDef.Size;
         float edge = Mathf.Max(footprint.x, footprint.z) / 2f + 1f;
-        (double cx, double cz) = FlightPathRule.Clamp(px, pz, edge, size.x - edge, edge, size.z - edge);
-        return ((float)cx, (float)cz);
+        return (edge, edge);
     }
 
     /// <summary>

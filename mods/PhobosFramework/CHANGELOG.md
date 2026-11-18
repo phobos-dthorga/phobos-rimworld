@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.149.0] - 2026-11-19 - Draft
+
+Aircraft on our own flight leave and arrive flying
+
+### Added
+
+- **Leaving for another place, an aircraft on our own flight flies off the map's edge.** Press the launch button and pick a place as usual, from the ground or in the air: it lifts off if it must, flies to the edge on the side of its journey and leaves from there, with no lift-off animation. The launch button works in the air, where it no longer refuses for a diagonal heading or a roof beneath. A new order on the map before it reaches the edge cancels the journey and says so. A save made on the way out keeps the journey.
+- **Arriving, it comes in over the edge on the side it flew from, already flying.** Sent to a spot on a map, it flies to it and lands; if the spot is no longer clear, it holds near the edge and says why. Sent to attack a settlement or explore a site, it flies to the middle or holds near the edge, as the arrival chosen asks; where the player was to pick the spot, the landing outline opens. It comes in where nothing beneath it would be destroyed by its arrival.
+- **The landing check at a journey's end stands aside for it** on a map, where its flight judges the landing as it happens; it still judges a landing as a caravan.
+
+### Changed
+
+- The over-limit refusal for a lift-off no longer refuses an aircraft that is already in the air.
+
+### Save compatibility
+
+- Safe with a running save. An aircraft saved on its way to the edge keeps its journey.
+
+### Compatibility and limits
+
+- A crash on arrival, and landing as a caravan, stay Vehicle Framework's own. Circling, the rolling take-off and other factions' aircraft on our flight are not built yet.
+- Not yet tested in game.
+
 ## [0.148.0] - 2026-11-19 - Draft
 
 A tiltrotor leans its nacelles forward as it flies about the map

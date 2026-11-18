@@ -114,6 +114,24 @@ public static class FlightPathRule
         return 2 + 8 * shortfall;
     }
 
+    /// <summary>
+    /// Where a line from a point along a heading meets the edge of a rectangle (Framework 0.149.0: where an aircraft leaves a map toward its
+    /// destination, and where one coming from a place enters it). The point is taken inside the rectangle; the heading clockwise from north.
+    /// </summary>
+    public static (double X, double Z) EdgePoint(double x, double z, double heading, double minX, double maxX, double minZ, double maxZ)
+    {
+        (x, z) = Clamp(x, z, minX, maxX, minZ, maxZ);
+        double rad = heading * Math.PI / 180;
+        double dx = Math.Sin(rad), dz = Math.Cos(rad);
+        double t = double.PositiveInfinity;
+        if (dx > 1e-9) t = Math.Min(t, (maxX - x) / dx);
+        else if (dx < -1e-9) t = Math.Min(t, (minX - x) / dx);
+        if (dz > 1e-9) t = Math.Min(t, (maxZ - z) / dz);
+        else if (dz < -1e-9) t = Math.Min(t, (minZ - z) / dz);
+        if (double.IsInfinity(t)) return (x, z);
+        return Clamp(x + dx * t, z + dz * t, minX, maxX, minZ, maxZ);
+    }
+
     /// <summary>A point brought inside a rectangle (for the true position held inside the map less half the aircraft's longest side).</summary>
     public static (double X, double Z) Clamp(double x, double z, double minX, double maxX, double minZ, double maxZ) =>
         (Math.Min(maxX, Math.Max(minX, x)), Math.Min(maxZ, Math.Max(minZ, z)));

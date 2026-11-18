@@ -36,21 +36,6 @@ public static class Patch_VehicleDrawTracker_DrawPos_Flight
 }
 
 /// <summary>
-/// The launch button in the air: refused until it lands, saying so, since leaving the map from the air is not built yet (the design's slice
-/// 3). A postfix that only ever refuses; it acts after the other aircraft frameworks' prefixes, for our aircraft only.
-/// </summary>
-[HarmonyPatch(typeof(CompVehicleLauncher), nameof(CompVehicleLauncher.CanLaunchWithCargoCapacity))]
-public static class Patch_CanLaunch_Flight
-{
-    public static void Postfix(CompVehicleLauncher __instance, ref bool __result, ref string disableReason)
-    {
-        if (!__result || !FlightRegistry.InAir(__instance.Vehicle)) return;
-        __result = false;
-        disableReason = "PhobosFlight_RefuseLaunchInAir".Translate(__instance.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
-    }
-}
-
-/// <summary>
 /// A ground order given to an aircraft in the air becomes "fly here" (finding 7): Vehicle Framework's "go here" (one vehicle or a group)
 /// ends here, and a group order skips each vehicle's own refusal. A prefix that skips the original, and must: the original would hand the
 /// aircraft to the path follower that drives it on the ground. It skips only for an aircraft of ours in the air.

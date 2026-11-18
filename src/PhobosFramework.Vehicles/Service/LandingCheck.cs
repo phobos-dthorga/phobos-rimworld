@@ -155,6 +155,9 @@ public static class Patch_FlightPath_ConsumeNode_LandingCheck
         {
             if (__instance.Count != 1 || __instance.Circling || ___aerialVehicle == null || ___aerialVehicle.recon) return;
             if (!LandingCheck.Lands(__instance.ArrivalAction)) return;
+            // Framework 0.149.0: an aircraft on our own flight comes over a map flying, where its flight judges the landing as it happens;
+            // the check stands only for one landing as a caravan, where there is no map.
+            if (__instance.ArrivalAction is not ArrivalAction_LandToCaravan && FlightArrival.Flies(___aerialVehicle.Vehicle)) return;
             LandingCheck.OnArrival(___aerialVehicle, __instance.First.Tile);
         }
         catch (Exception e)

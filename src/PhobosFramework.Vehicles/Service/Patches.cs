@@ -294,7 +294,9 @@ public static class LiftOffPatch
             disableReason = closed;
             return;
         }
-        if (!HoverLimits.RefusesLaunch(vehicle)) return;
+        // Framework 0.149.0: an aircraft of ours already in the air is not refused for a hover it no longer has to make: its own flight's
+        // thresholds keep it up or bring it down.
+        if (FlightRegistry.InAir(vehicle) || !HoverLimits.RefusesLaunch(vehicle)) return;
         __result = false;
         disableReason = HoverLimits.LaunchRefusalText(vehicle);
     }
