@@ -1,7 +1,7 @@
 # Our own flight over the map: hovering, circling, leaving the ground rolling, and a cruising height (18 Nov 2026)
 
-**Status (18 Nov 2026):** a design record. No part of it is in code yet, and nothing here is tested in game. Four questions are
-open for the owner ([below](#questions-for-the-owner)).
+**Status (18 Nov 2026):** a design record. No part of it is in code yet, and nothing here is tested in game. The owner answered
+its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)).
 
 The owner chose on 18 November 2026 that our aircraft fly over the map on flight code of our own, built on neither existing flight
 mod: "We simply learn where we can from said, named, mods because I wish to go our own, more improved, route", designed for
@@ -34,6 +34,8 @@ flight mod states a licence.
   flight costs in fuel and speed, and who needs oxygen. It can be built before any of the rest and serves every aircraft in play.
 - **Circling is designed here and built second.** Until it is built, an aircraft too heavy to hover takes off rolling only as part
   of leaving the map.
+- **The owner's four answers (18 Nov 2026):** stock helicopters may fly on it behind a setting that starts off; eight headings;
+  people beneath a hover are slowed, with a setting; running dry in the air has real consequences.
 - **Several textbook relations could not be read at their source** (the FAA's handbooks and Leishman's textbook refused automated
   reading on the day). They are marked unverified in [sources](#sources); the rules that lean on them are labelled as our own
   derivation or as authored.
@@ -151,7 +153,7 @@ heading is the nearest of eight, and the drawn angle is the true one.
 - **What it saves:** five patches on turret aiming, a copy of Vehicle Framework's firing code that would drift with every update
   of it, and a hit box that disagrees with the picture.
 
-This is an agent recommendation and [question 2](#questions-for-the-owner).
+**Decided: eight headings** (owner, 18 Nov 2026, the agent's recommendation).
 
 ### How it is drawn
 
@@ -242,6 +244,7 @@ drive a flying aircraft. On the ground the aircraft taxis as any vehicle does.
 
 - **People** cross beneath a hovering aircraft slowly and cannot stand there. This is Vehicle Framework's own rule for any
   vehicle's cells, kept because it suits: the real Osprey's downwash is over 80 knots **[S]**. A passing aircraft slows nobody.
+  **Decided: slowed, with a setting to switch the slowing off** (owner, 18 Nov 2026, the agent's recommendation).
 - **Ground vehicles** go round the spot beneath a hover, as they go round any vehicle.
 - **Roofs:** no take-off or landing with a roof over any footprint cell. Flying over a roofed building or a mountain is free.
 - **Fog:** flying over hidden ground is allowed and reveals nothing.
@@ -305,8 +308,8 @@ Vehicle Framework stops a vehicle's engines when its tank is empty **[code]**. I
   which leaves its wreck and deals with the crew as any destroyed vehicle's.
 - **Moving forward above its forward-flight share with engines still running** it is not coming down: it flies on to a strip.
 
-This follows the owner's standing rule that an explicit order has real consequences. It is an agent default and
-[question 4](#questions-for-the-owner).
+This follows the owner's standing rule that an explicit order has real consequences. **Decided as written** (owner, 18 Nov 2026,
+the agent's recommendation).
 
 ### Circling (designed now, built second)
 
@@ -578,6 +581,7 @@ None exists yet. Proposed, each in D'thorga Framework's settings under vehicle s
 | --- | --- | --- |
 | **Cruising height between tiles** | On | Off: every leg is flown as today, with no ceiling, no cost for flying low and the fixed oxygen figures |
 | **People are slowed beneath a hovering aircraft** | On | Off: path costs beneath a hover are never worked out, so people cross freely (they still cannot stand there) |
+| **Stock helicopters fly over the map** | **Off** (owner, 18 Nov 2026) | On: Vehicle Framework's own helicopters hover and fly over the map on this flight ([below](#stock-helicopters-on-our-flight)) |
 
 The hover-limit setting that exists ("When an aircraft is too heavy or too hot to lift off or hover onto its pad") governs the
 three thresholds as it governs the hover check today.
@@ -596,8 +600,29 @@ Agent's proposal; each slice waits for the owner's word.
 | 5 | **Circling**: the orbit, holding for aircraft that cannot hover, side-firing arcs, aeroplanes' strips | Gunships and transports |
 | 6 | **Ropes and a hoist; a raider's flight AI** | The Osprey's rescue fit; aircraft in raids |
 
-Slices 2 to 4 need an aircraft of ours to fly on; the Osprey's Def is the first. [Question 1](#questions-for-the-owner) asks
-whether stock helicopters should get it too.
+Slices 2 to 4 need an aircraft to fly on. The Osprey's Def is the first of ours; with the owner's setting, stock helicopters can
+carry them sooner ([below](#stock-helicopters-on-our-flight)).
+
+### Stock helicopters on our flight
+
+**Decided (owner, 18 Nov 2026): a setting, off by default.** The agent had recommended a dev-only proof and nothing a player
+sees. With the setting on, Vehicle Framework's own helicopters fly over the map on this flight; with it off they fly exactly as
+their authors made them.
+
+- **Which:** the rotorcraft that lift through Vehicle Framework's own launch and nothing else: the Cherokee, the Louie and the
+  Mosquito on the owner's list. The thrust pods (Frog, Toad, Goliath) are left out at first **[A]**. Aircraft on another flight
+  mod (the Hind, the Mongoose, the Harrier) are never touched: they already fly on their own.
+- **How:** the comp is added to each in XML, in a folder that loads only with that helicopter's mod, and stands idle while the
+  setting is off. It does not tick then, so it costs nothing.
+- **Their pictures are left as they are.** We add only the ground shadow. They were drawn for Vehicle Framework's own flight, so a
+  hover may look odd; the eight headings are the ones their pictures already have.
+- **Their engines:** each already has a flight profile of ours. With the setting on its phases come from our flight; with it off,
+  from Vehicle Framework's flags as today.
+- **What it gives back:** the sling's "hover over the load and lift it", set aside on 12 Nov 2026 as too risky against Vehicle
+  Framework's shared launch, becomes possible on the Cherokee.
+- **Changing the setting** takes effect for an aircraft on the ground. One in the air finishes its flight first.
+- **To settle when it is built:** each helicopter's speeds and flight height over a map are ours to author, since their authors
+  never set any; they are labelled as ours and kept in proportion to each one's world speed.
 
 ## To read or prove before building
 
@@ -627,30 +652,30 @@ whether stock helicopters should get it too.
 | Vortex ring state: sinking into its own downwash | The player does not fly the descent; a rule with no decision in it |
 | Folding, a visible tilt between tiles | Change no outcome (the modern military record) |
 
-## Questions for the owner
+## The owner's answers (18 Nov 2026)
 
-1. **Should stock Vehicle Framework helicopters fly on our flight too?** The Cherokee, Louie and Mosquito leave the map the
-   moment they lift today, which is why the sling's "hover over the load" was set aside. Slice 0 uses one by dev action whatever
-   the answer. Choices: dev-only proof and nothing a player sees (**recommended** for now, since their pictures were drawn for
-   Vehicle Framework's own flight and their authors chose how they fly); a setting, off by default, that gives them our flight; or
-   never.
-2. **Eight headings with a smoothly turning picture, or a free angle?** Recommended: eight. It is what keeps the patch count at
-   five; a gun's arc may be up to 22.5 degrees off the picture.
-3. **People beneath a hover: slowed, or free?** Recommended: slowed, with the setting above. Letting them stand beneath it needs
-   the every-pawn patches this design exists to avoid.
-4. **Running dry in the air: a forced landing with damage and injuries, and a wreck over buildings or water?** Recommended: yes,
-   as written, by the owner's rule on explicit orders. The gentler choice is a forced landing that never destroys the aircraft.
+Asked as four cards after the record was written; the owner answered all four the same day.
+
+| # | Question | The agent recommended | The owner chose |
+| --- | --- | --- | --- |
+| 1 | Should stock Vehicle Framework helicopters (the Cherokee, Louie and Mosquito) fly on our flight too? | A dev-only proof, nothing a player sees | **A setting, off by default** ([what it means](#stock-helicopters-on-our-flight)) |
+| 2 | Eight headings with a smoothly turning picture, or a free angle? | Eight headings | **Eight headings** |
+| 3 | People beneath a hover: slowed, or free to walk and stand? | Slowed, with a setting | **Slowed, with a setting** |
+| 4 | Running dry or losing its engines in the air | Real consequences: a hard landing with damage and injuries over open ground; a wreck over buildings, impassable ground, another vehicle or deep water | **Real consequences** |
+
+Slice 0's dev-only proof still comes first, on a stock helicopter, whatever the setting.
 
 ## Who chose what
 
 - **Owner (18 Nov 2026):** our own flight, learning from both mods and building on neither; hovering and circling designed
-  together, hover first; one aircraft for every player; the three engine gaps written into this record.
-- **Agent recommendations, for the owner to accept or change:** the comp on a stock vehicle; eight headings; no patch on walking
-  beneath; the three thresholds; the roll rule's straight line; the cruise rule and its clearance; the build order; everything
+  together, hover first; one aircraft for every player; the three engine gaps written into this record. **Later the same day:**
+  stock helicopters on our flight behind a setting that starts off (against the agent's recommendation of a dev-only proof);
+  eight headings; people slowed beneath a hover, with a setting; real consequences for running dry.
+- **Agent recommendations, for the owner to accept or change:** the comp on a stock vehicle; the three thresholds; the roll rule's straight line; the cruise rule and its clearance; the build order; everything
   under "Argued against".
 - **Agent defaults, owner to revise:** blasts shielded beneath a hover and traps sprung by a passing aircraft, both accepted at
-  first; melee raiders left to gather; line of sight as the ground's; the forced landing; the Harrier's design height of 7,000 m,
-  chosen so its built figures do not move; no bobbing in the hover.
+  first; melee raiders left to gather; line of sight as the ground's; the Harrier's design height of 7,000 m, chosen so its built
+  figures do not move; no bobbing in the hover; which stock helicopters the setting covers, and the pods left out.
 - **Authored, to be set when built:** the forward-flight share 0.6; every speed, turn rate, height and strip length; the 300 m and
   600 m clearances; the oxygen line's 3,050 m; the power 0.25 for shaft turbines; the forced landing's damage.
 
