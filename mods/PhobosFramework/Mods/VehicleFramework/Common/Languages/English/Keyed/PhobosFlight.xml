@@ -4,13 +4,13 @@
 
   <!-- Buttons -->
   <PhobosFlight_TakeOff>Take off</PhobosFlight_TakeOff>
-  <PhobosFlight_TakeOffDesc>Lift the {VEHICLE} straight up from where it stands and hold it in a hover over the map. Its engines must be running, its crew aboard and the sky above it open, and it must be light enough to hover in today's air.</PhobosFlight_TakeOffDesc>
+  <PhobosFlight_TakeOffDesc>Lift the {VEHICLE} straight up from where it stands and hold it in a hover over the map. Its engines must be running, its crew aboard and the sky above it open, and it must be light enough to hover in today's air. Too heavy to lift straight up, it can still leave for another place by rolling along a strip of clear, open ground ahead of it, shown while it is selected.</PhobosFlight_TakeOffDesc>
   <PhobosFlight_FlyTo>Fly to</PhobosFlight_FlyTo>
   <PhobosFlight_FlyToDesc>Pick a spot on the map. The {VEHICLE} turns, flies there over anything in the way and holds in a hover. You can also right-click the ground with it selected.</PhobosFlight_FlyToDesc>
   <PhobosFlight_Hold>Hold here</PhobosFlight_Hold>
   <PhobosFlight_HoldDesc>Stop the {VEHICLE} as soon as it can and hold it in a hover.</PhobosFlight_HoldDesc>
   <PhobosFlight_Land>Land here</PhobosFlight_Land>
-  <PhobosFlight_LandDesc>Pick a clear, open spot and which way to face. The {VEHICLE} flies over it, turns and comes straight down. It needs open sky and firm ground with nothing built on it.</PhobosFlight_LandDesc>
+  <PhobosFlight_LandDesc>Pick a clear, open spot and which way to face. The {VEHICLE} flies over it, turns and comes straight down. It needs open sky and firm ground with nothing built on it. If it cannot hover, it lands rolling instead: it touches down at the spot and rolls on ahead, so the ground in front of the spot must be clear too.</PhobosFlight_LandDesc>
 
   <!-- Refusals -->
   <PhobosFlight_RefuseNotOnGround>The {VEHICLE} is not standing on the ground.</PhobosFlight_RefuseNotOnGround>
@@ -27,6 +27,12 @@
   <PhobosFlight_RefuseBoard>Nobody can climb aboard the {VEHICLE} while it is in the air.</PhobosFlight_RefuseBoard>
   <PhobosFlight_RefuseLoad>Nothing can be loaded into the {VEHICLE} while it is in the air.</PhobosFlight_RefuseLoad>
   <PhobosFlight_RefuseUnload>Nothing can be unloaded from the {VEHICLE} while it is in the air.</PhobosFlight_RefuseUnload>
+  <PhobosFlight_RefuseRolling>The {VEHICLE} is still moving on the ground: let it stop first.</PhobosFlight_RefuseRolling>
+  <PhobosFlight_RefuseRollOnlyLeaving>The {VEHICLE} is too heavy to lift straight up in this air. It can still take off rolling along a strip of {CELLS} clear cells ahead of it, but only to leave for another place: send it on a journey instead.</PhobosFlight_RefuseRollOnlyLeaving>
+  <PhobosFlight_RefuseTooHeavyShed>The {VEHICLE} is too heavy to take off at all in this air, even rolling. Take about {KILOGRAMS} kg out of it, wait for cooler air, or repair its engines.</PhobosFlight_RefuseTooHeavyShed>
+  <PhobosFlight_RefuseStrip>The {VEHICLE} is too heavy to lift straight up, so it must roll {CELLS} cells straight ahead to take off, and that strip will not do: {WHY}. Turn it or move it to clear, open ground.</PhobosFlight_RefuseStrip>
+  <PhobosFlight_RefuseCannotHoverFlyTo>The {VEHICLE}'s engines cannot hold it in a hover now, so it could not stop there: let it carry on where it is going, or land it on a clear strip.</PhobosFlight_RefuseCannotHoverFlyTo>
+  <PhobosFlight_RefuseCannotHoverNoStrip>The {VEHICLE}'s engines cannot hold it in a hover now, and it cannot land rolling: it has to keep flying until it is lighter or the air cooler.</PhobosFlight_RefuseCannotHoverNoStrip>
   <PhobosFlight_RefuseStepOut>Nobody can step out of the {VEHICLE} while it is in the air: land it first.</PhobosFlight_RefuseStepOut>
 
   <!-- Why a spot will not do (finishing "it cannot land there:") -->
@@ -36,6 +42,7 @@
   <PhobosFlight_SpotBuilding>something is built on part of the spot</PhobosFlight_SpotBuilding>
   <PhobosFlight_SpotVehicle>another vehicle stands on part of the spot</PhobosFlight_SpotVehicle>
   <PhobosFlight_SpotGround>part of the ground there cannot take its weight</PhobosFlight_SpotGround>
+  <PhobosFlight_SpotNoFloor>part of it is not a built floor</PhobosFlight_SpotNoFloor>
 
   <!-- Why it is coming down -->
   <PhobosFlight_WhyNoFuel>its fuel has run out</PhobosFlight_WhyNoFuel>
@@ -52,6 +59,9 @@
   <!-- Leaving and arriving (Framework 0.149.0) -->
   <PhobosFlight_MsgDeparting>The {VEHICLE} is setting off: it flies to the edge of the map on the side of its journey, and leaves from there.</PhobosFlight_MsgDeparting>
   <PhobosFlight_MsgDepartureCancelled>The {VEHICLE} is no longer leaving: it takes the new order instead.</PhobosFlight_MsgDepartureCancelled>
+  <PhobosFlight_MsgRollAborted>The {VEHICLE} stopped its take-off roll: {WHY}. It has braked to a stop and is no longer leaving.</PhobosFlight_MsgRollAborted>
+  <PhobosFlight_MsgRolledIn>The {VEHICLE} has landed rolling and stopped at the end of its strip.</PhobosFlight_MsgRolledIn>
+  <PhobosFlight_MsgRolledShort>The {VEHICLE} had to stop short on its landing roll ({WHY}) and braked hard. Its undercarriage is damaged.</PhobosFlight_MsgRolledShort>
   <PhobosFlight_MsgArrivedSpotRefused>{WHY} The {VEHICLE} has come in over the edge and is holding there; pick another spot.</PhobosFlight_MsgArrivedSpotRefused>
 
   <!-- The inspect pane -->
@@ -60,7 +70,9 @@
   <PhobosFlight_StateMoving>flying</PhobosFlight_StateMoving>
   <PhobosFlight_StateSettling>coming in to land</PhobosFlight_StateSettling>
   <PhobosFlight_StateComingDown>coming down</PhobosFlight_StateComingDown>
-  <PhobosFlight_InspectPlain>In the air: {DOING}.</PhobosFlight_InspectPlain>
-  <PhobosFlight_InspectFigures>In the air: {DOING}, {METRES} m up, {SPEED} cells a second.</PhobosFlight_InspectFigures>
+  <PhobosFlight_StateTakeoffRoll>rolling to take off</PhobosFlight_StateTakeoffRoll>
+  <PhobosFlight_StateRollingLanding>landing on a strip</PhobosFlight_StateRollingLanding>
+  <PhobosFlight_InspectPlain>Flight: {DOING}.</PhobosFlight_InspectPlain>
+  <PhobosFlight_InspectFigures>Flight: {DOING}, {METRES} m up, {SPEED} cells a second.</PhobosFlight_InspectFigures>
   <PhobosFlight_InspectMargin>Power to hover: {MARGIN} of what it needs.</PhobosFlight_InspectMargin>
 </LanguageData>

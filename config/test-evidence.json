@@ -138,6 +138,12 @@
       "it arrives over a map it attacks or explores": [{"key": "aircraft.flight-arrived", "variant": "Centre"},
         {"key": "aircraft.flight-arrived", "variant": "Edge"}, {"key": "aircraft.flight-arrived", "variant": "Targeted"}]
     }},
+    "207": {"parts": {
+      "it rolls and lifts off": [{"key": "aircraft.flight-roll", "variant": "takeoff"}, {"key": "aircraft.flight-roll", "variant": "lifted-off"}],
+      "a blocked roll stops": [{"key": "aircraft.flight-roll", "variant": "stopped"}],
+      "it lands rolling": [{"key": "aircraft.flight-landed", "variant": "rolled"}],
+      "a blocked landing roll stops short": [{"key": "aircraft.flight-landed", "variant": "rolled-short"}]
+    }},
     "220": {"parts": {
       "the armour kit's weight and armour are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "ArmourKit", "detail": "fitted"}],
       "the inlet barrier's power loss is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "InletBarrier", "detail": "fitted"}],

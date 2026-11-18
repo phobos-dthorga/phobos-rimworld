@@ -46,6 +46,8 @@ public static class HoverLimits
     {
         CompPhobosVehicleSystems? comp = CompPhobosVehicleSystems.Of(vehicle);
         if (comp?.Powertrain == null || !comp.Powertrain.ChecksLiftAtLaunch || !Beyond(vehicle)) return;
+        // Framework 0.151.0: a take-off roll is within the engines, not past them; nothing is strained.
+        if (vehicle.GetComp<CompPhobosFlight>() is { State: FlightState.TakeoffRoll }) return;
         bool ours = vehicle.Faction == Faction.OfPlayer;
         if (VehicleSystemsMod.Settings.hoverLimit == VehicleSystemsSettings.HoverLimit.WarnOnly)
         {

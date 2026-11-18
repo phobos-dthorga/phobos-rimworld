@@ -2,10 +2,11 @@
 
 **Status (19 Nov 2026):** the hover half (slice 2) is built in D'thorga Framework 0.147.0, with the V-22 Osprey flying on it in
 D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); leaving and arriving in flight (slice 3) in Framework 0.149.0
-([built](#built-19-nov-2026-leaving-and-arriving-in-flight)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
-([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: leaving the ground rolling (slice 4), circling
-(slice 5), ropes and a raider's flight (slice 6), and stock helicopters on our flight. Nothing here is tested in game (rows 199, 200, 204 to
-206). The owner answered
+([built](#built-19-nov-2026-leaving-and-arriving-in-flight)); leaving the ground rolling (slice 4) in Framework 0.151.0 and Vehicles 0.73.0
+([built](#built-19-nov-2026-leaving-the-ground-rolling)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
+([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: circling (slice 5), ropes and a raider's
+flight (slice 6), aeroplanes that never hover, and stock helicopters on our flight. Nothing here is tested in game (rows 199, 200, 204 to
+207). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -571,6 +572,26 @@ usually cannot fly on; light, it often can.
 **Not built, and why:** `PhaseReader_OwnFlight`, the forward-flight and rolling shares and the three thresholds. Each reads or
 decides something only our own flight does (its state; whether it may stop, fly on or roll), so they come with the hover half
 (slice 2) rather than as fields nothing reads.
+
+## Built (19 Nov 2026): leaving the ground rolling
+
+At the owner's word ("Proceed with slice 4, the rolling take-off", 19 Nov 2026), D'thorga Framework 0.151.0 and D'thorga Vehicles 0.73.0;
+**not yet tested in game** (row 207). Where it differs from the design above, as agent choices the owner may revise:
+
+| Part | As built | Where |
+| --- | --- | --- |
+| The rule | As designed, tested on the record's worked table and both rolling shares; a refused aircraft is told how much lighter to be (a rotor's margin follows the weight to the 1.5) | `RollRule` |
+| When it rolls | **Only when leaving for another place**, as the design asked until circling is built. **Take off** refuses with the strip needed; **Fly to** is refused while it cannot hover, since it would come down at the spot | `TakeOffRefusal`, `FlyToRefusal` |
+| The strip | **Along one of four headings**, the way it faces (Vehicle Framework's own four-way rotation), not eight: the strip's cells and its footprint stay whole cells | `FlightRules.StripCells`, `StripRefusal` |
+| The roll | An even acceleration reaching its lift-off speed (0.6 of its top speed over the map, authored) at the strip's end; the strip ahead looked at every 30 ticks; stopped by a blocked strip, no fuel, or engines that can no longer roll it. Then it climbs while flying on. No over-limit strain: a roll is within the engines | `RollStep`, `AbortRoll`, `HoverLimits.OnLaunch` |
+| The launch button on the ground | Our flight answers after Vehicle Framework's own refusals, in place of the lift check at launch: straight up, a clear strip, or why not | `Patch_CanLaunch_Flight`, `LiftOffPatch` |
+| A rolling landing | **Touches down at the spot and rolls on ahead** for the full roll, braking evenly, down over the first two-fifths (authored); it turns to its heading over the spot rather than lining up from afar. Ordered while it could hover and unable to when it gets there, it rolls in if the strip is clear and comes down where it is if not. Blocked on the roll, it stops short and its undercarriage takes a forced landing's wear | `BeginRollingLanding`, `RollingLandingStep`, `RolledIn` |
+| **Ordered down without a strip** | **Refused, not a forced landing**: the design let it be ordered down anyway. Refusing keeps one mis-click from wrecking an aircraft; circling will give it somewhere to wait | `LandRefusal` |
+| The picture | The strip outlined ahead of a selected aircraft that must roll, green or red, worked out every half second | `FlightDrawing.Strip` |
+| Saved | The roll's start, its length, and whether the landing rolls | `PhobosFlight_RollFromX`, `_RollFromZ`, `_RollCells`, `_LandRolling` |
+
+**Other factions' aircraft:** they do not leave for other places, so none roll to take off; a captured one rolls as any of ours. One that
+cannot hover lands rolling only on an order, so a raider's aircraft is unchanged.
 
 ## Built (19 Nov 2026): leaving and arriving in flight
 

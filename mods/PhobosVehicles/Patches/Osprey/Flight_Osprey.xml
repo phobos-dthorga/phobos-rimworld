@@ -3,7 +3,7 @@
   <!--
     The Osprey flies over a map on our own flight (D'thorga Framework 0.147.0, D'thorga Vehicles 0.71.0; docs/development/vehicle-flight-over-the-map.md,
     the hover half). A patch file of its own, so its Def (Defs/Phobos/Vehicles/Osprey/Vehicle_Osprey.xml) is never edited by two pieces of work at once.
-    Leaving the map and arriving stay Vehicle Framework's, from the ground, until the design's slice 3.
+    It leaves and arrives in flight (Framework 0.149.0), and too heavy to lift straight up it rolls along a strip (Framework 0.151.0, Vehicles 0.73.0).
   -->
 
   <!-- The flight comp. Speeds over a map, climb and descent are authored, in proportion to its speed between places (17.5); its flight height
@@ -19,6 +19,10 @@
         <descentSeconds>8</descentSeconds>
         <fallSeconds>3</fallSeconds>
         <flightHeightMetres>60</flightHeightMetres>
+        <!-- Its take-off roll, 5 cells just too heavy to lift straight up to 20 at its rolling share: authored at the map's own compressed
+             scale (7.5 to 30 m at 1.5 m a cell), not a published roll. Rough ground does: its gear is built for it, so no built floor. -->
+        <shortestRollCells>5</shortestRollCells>
+        <fullRollCells>20</fullRollCells>
       </li>
     </value>
   </Operation>
@@ -49,6 +53,9 @@
         <!-- The figure the on-map fuel rate stands for: the forward demand at its heaviest in sea-level air at 15 C (1.055 x 0.6). -->
         <li><phase>Forward</phase><label>flying over the map</label><demand>0.63</demand><forwardFlight>true</forwardFlight></li>
         <li><phase>WorldFlight</phase><label>cruising as an aeroplane</label><demand>0.6</demand></li>
+        <!-- A take-off roll runs the engines flat out; a rolling landing asks less as it slows (both authored). -->
+        <li><phase>TakeoffRoll</phase><label>rolling to take off</label><demand>1.0</demand></li>
+        <li><phase>RunwayLanding</phase><label>landing on a strip</label><demand>0.4</demand></li>
       </phases>
     </value>
   </Operation>
@@ -58,6 +65,9 @@
     <value>
       <mapFuelPhase>Forward</mapFuelPhase>
       <forwardFlightShare>0.6</forwardFlightShare>
+      <!-- The least hover margin it can still roll off the ground at: its published 52,600 lb straight up against 57,000 lb rolling,
+           as a rotor's (a 1.5 power on the weight ratio; RollRule). -->
+      <rollingShare>0.886</rollingShare>
     </value>
   </Operation>
 </Patch>

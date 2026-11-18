@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.73.0] - 2026-11-19 - Draft
+
+The Osprey takes off and lands rolling when too heavy to hover
+
+### Added
+
+- **The Osprey can take off rolling.** Up to its published rolling take-off weight, 57,000 lb against 52,600 lb straight up, it leaves for another place along a strip of 5 to 20 clear cells ahead of it, the heavier the longer. Its gear takes rough ground, so no built floor is needed. It lands rolling on a strip of 20 cells when it cannot hover.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.151.0 or later, which carries the rolling take-off. With an older Framework the game reports unknown fields in the Osprey's flight profile at start-up.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The strip lengths are authored, not published figures.
+
 ## [0.72.0] - 2026-11-19 - Draft
 
 The Osprey's upgrades: second hook, armour kit, infrared jammer, terrain radar, inlet barrier

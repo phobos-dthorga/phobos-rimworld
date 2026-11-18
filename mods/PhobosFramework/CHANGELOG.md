@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.151.0] - 2026-11-19 - Draft
+
+Aircraft too heavy to lift straight up take off and land rolling along a strip
+
+### Added
+
+- **A rolling take-off.** An aircraft on our own flight that is a little too heavy to lift straight up in today's air can still leave for another place: pressing the launch button, it rolls straight ahead along a strip of clear, open ground and lifts off at its end, climbing as it flies on. The heavier it is, the longer the strip, from its shortest roll just over the hover limit to its full roll at its rolling limit. Below that limit it cannot take off at all, and the refusal says about how many kilograms to take out.
+- **The strip is shown.** Select such an aircraft on the ground and the strip it would need is outlined ahead of it, green while clear and red while something blocks it. The launch button's refusal names what blocks it.
+- **A rolling landing.** An aircraft that cannot hover lands rolling: told to land, it touches down at the spot and rolls on ahead to a stop, so the ground ahead of the spot must be clear too. One told to land while it could still hover, that can no longer hover when it gets there, lands rolling if the strip ahead is clear, and comes down where it is if not, as before. It costs the undercarriage the wear of a rolling landing.
+- **During the roll** the strip ahead is looked at twice a second. Blocked, out of fuel or with its engines failing, it brakes to a stop and stays home; on a landing roll it stops short, braking hard, and its undercarriage is damaged.
+- **Two new engine phases** for an aircraft on our own flight, the take-off roll and the landing on a strip, so its engines and fuel follow the roll.
+
+### Changed
+
+- **Take off** (the button that lifts straight up and hovers) refuses an aircraft that would have to roll, saying how long a strip it needs and that it can roll only when leaving for another place. Until aircraft can circle over a map, one that cannot hover has nowhere to wait.
+- **Fly to** is refused while an aircraft cannot hover, for the same reason: it keeps on its way, or lands on a strip.
+- **The launch button for an aircraft on our own flight** now answers on the ground too, in place of the lift check at launch: straight up, a roll along a clear strip, or why neither will do. In the air it already did.
+- **The inspect line** for an aircraft on our own flight begins "Flight:" instead of "In the air:", since it now also shows a roll on the ground.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The roll runs along one of four headings, the way the aircraft faces, not eight as the design says. A rolling landing turns to its heading over the spot rather than lining up from afar. An aircraft that cannot hover and has no clear strip cannot be ordered down; it waits for circling (the design's next slice). Strip lengths are authored at the map's compressed scale.
+
 ## [0.150.0] - 2026-11-19 - Draft
 
 Upgrades that switch on an aircraft's systems: hook rating, infrared jammer, terrain radar, inlet barrier, kit weight

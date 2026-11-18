@@ -190,6 +190,8 @@ public static class Patch_Launch_Flight
 /// The launch button for an aircraft of ours in the air, answered afresh (finding 6): Vehicle Framework judged it as standing on the ground,
 /// refusing it for a roof over the cell beneath or a diagonal heading, neither of which matters in the air. It runs first, so our other
 /// refusals (damaged controls, a closed sky, a sling) still follow. A postfix.
+/// Framework 0.151.0: on the ground too, after Vehicle Framework's own refusals, our flight answers in place of the hover-limit check: a
+/// straight lift-off, a roll along a clear strip ahead, or why neither will do (the design's slice 4).
 /// </summary>
 [HarmonyPatch(typeof(CompVehicleLauncher), nameof(CompVehicleLauncher.CanLaunchWithCargoCapacity))]
 [HarmonyPriority(Priority.First)]
@@ -197,7 +199,13 @@ public static class Patch_CanLaunch_Flight
 {
     public static void Postfix(CompVehicleLauncher __instance, ref bool __result, ref string disableReason)
     {
-        if (FlightRegistry.Get(__instance.Vehicle) is not { } flight) return;
+        CompPhobosFlight? flight = FlightRegistry.Get(__instance.Vehicle);
+        if (flight == null)
+        {
+            // On the ground: Vehicle Framework's refusal stands; ours is asked only where it would allow.
+            if (!__result || __instance.Vehicle is not { Spawned: true } vehicle || vehicle.GetComp<CompPhobosFlight>() is not { } grounded) return;
+            flight = grounded;
+        }
         string? refused = flight.DepartRefusal();
         __result = refused == null;
         disableReason = refused!;

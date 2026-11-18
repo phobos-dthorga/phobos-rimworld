@@ -265,6 +265,11 @@ public class PhobosVehicleFlightProfileDef : Def
     /// Also the share of the hover figure a forward phase asks.
     /// </summary>
     public float forwardFlightShare = 0.6f;
+    /// <summary>
+    /// The least hover margin at which an aircraft on our own flight leaves the ground rolling along a strip (Framework 0.151.0; the design's
+    /// slice 4); NaN for one that cannot roll. Worked out from two published take-off weights (RollRule): the Osprey's 0.886.
+    /// </summary>
+    public float rollingShare = float.NaN;
 
     public FlightPhaseSpec? Phase(string? name) => name == null ? null : phases.FirstOrDefault(p => p.phase == name);
 
@@ -282,6 +287,7 @@ public class PhobosVehicleFlightProfileDef : Def
         if (!mapFuelPhase.NullOrEmpty() && Phase(mapFuelPhase) == null) yield return "the on-map fuel phase " + mapFuelPhase + " is not one of the profile's";
         if (cruise != null) foreach (string error in cruise.ConfigErrors("the profile")) yield return error;
         if (forwardFlightShare <= 0f || forwardFlightShare > 1f) yield return "forwardFlightShare must be above 0 and at most 1";
+        if (!float.IsNaN(rollingShare) && (rollingShare <= 0f || rollingShare >= 1f)) yield return "rollingShare must be above 0 and below 1";
     }
 }
 
@@ -300,9 +306,10 @@ public abstract class PhaseReader
 /// </summary>
 public class PhaseReader_OwnFlight : PhaseReader
 {
-    public const string Idle = "Idle", Hover = "Hover", Forward = "Forward", WorldFlight = "WorldFlight";
+    public const string Idle = "Idle", Hover = "Hover", Forward = "Forward", WorldFlight = "WorldFlight", TakeoffRoll = "TakeoffRoll",
+        RunwayLanding = "RunwayLanding";
 
-    public override IEnumerable<string> Phases() => new[] { Idle, Hover, Forward, WorldFlight };
+    public override IEnumerable<string> Phases() => new[] { Idle, Hover, Forward, WorldFlight, TakeoffRoll, RunwayLanding };
 
     public override string? Read(VehiclePawn vehicle)
     {
@@ -312,6 +319,8 @@ public class PhaseReader_OwnFlight : PhaseReader
         {
             FlightState.Ground => vehicle.Drafted ? Idle : null,
             FlightState.Moving => Forward,
+            FlightState.TakeoffRoll => TakeoffRoll,
+            FlightState.RollingLanding => RunwayLanding,
             _ => Hover,
         };
     }

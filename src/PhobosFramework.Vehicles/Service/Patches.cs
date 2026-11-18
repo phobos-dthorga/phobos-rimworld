@@ -294,9 +294,9 @@ public static class LiftOffPatch
             disableReason = closed;
             return;
         }
-        // Framework 0.149.0: an aircraft of ours already in the air is not refused for a hover it no longer has to make: its own flight's
-        // thresholds keep it up or bring it down.
-        if (FlightRegistry.InAir(vehicle) || !HoverLimits.RefusesLaunch(vehicle)) return;
+        // Framework 0.149.0 and 0.151.0: an aircraft on our own flight answers for itself (Patch_CanLaunch_Flight): in the air its
+        // thresholds, on the ground a straight lift-off or a roll along a strip.
+        if (FlightArrival.Flies(vehicle) || !HoverLimits.RefusesLaunch(vehicle)) return;
         __result = false;
         disableReason = HoverLimits.LaunchRefusalText(vehicle);
     }

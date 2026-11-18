@@ -105,12 +105,56 @@ public static class FlightRules
         VehiclePositionManager claims = map.GetDetachedMapComponent<VehiclePositionManager>();
         foreach (IntVec3 c in GenAdj.OccupiedRect(cell, rot, vehicle.VehicleDef.Size))
         {
-            if (!c.InBounds(map)) return "PhobosFlight_SpotEdge".Translate().Resolve();
-            if (!forced && c.Fogged(map)) return "PhobosFlight_SpotUnseen".Translate().Resolve();
-            if (c.Roofed(map)) return "PhobosFlight_SpotRoof".Translate().Resolve();
-            if (c.GetEdifice(map) != null) return "PhobosFlight_SpotBuilding".Translate().Resolve();
-            if (claims.ClaimedBy(c) is { } other && other != vehicle) return "PhobosFlight_SpotVehicle".Translate().Resolve();
-            if (!c.Standable(vehicle, map)) return "PhobosFlight_SpotGround".Translate().Resolve();
+            if (CellRefusal(vehicle, map, claims, c, forced, needsFloor: false) is { } why) return why;
+        }
+        return null;
+    }
+
+    /// <summary>Why one cell will not take the vehicle on the ground, as words finishing "it cannot land there:", or null.</summary>
+    static string? CellRefusal(VehiclePawn vehicle, Map map, VehiclePositionManager claims, IntVec3 c, bool forced, bool needsFloor)
+    {
+        if (!c.InBounds(map)) return "PhobosFlight_SpotEdge".Translate().Resolve();
+        if (!forced && c.Fogged(map)) return "PhobosFlight_SpotUnseen".Translate().Resolve();
+        if (c.Roofed(map)) return "PhobosFlight_SpotRoof".Translate().Resolve();
+        if (c.GetEdifice(map) != null) return "PhobosFlight_SpotBuilding".Translate().Resolve();
+        if (claims.ClaimedBy(c) is { } other && other != vehicle) return "PhobosFlight_SpotVehicle".Translate().Resolve();
+        if (!c.Standable(vehicle, map)) return "PhobosFlight_SpotGround".Translate().Resolve();
+        if (needsFloor && !c.GetTerrain(map).layerable) return "PhobosFlight_SpotNoFloor".Translate().Resolve();
+        return null;
+    }
+
+    /// <summary>
+    /// The cells of a strip (Framework 0.151.0; the design's slice 4): the footprint run straight ahead from this cell, facing this way, for so
+    /// many cells, as wide as the aircraft.
+    /// </summary>
+    public static IEnumerable<IntVec3> StripCells(VehiclePawn vehicle, IntVec3 start, Rot4 rot, int cells)
+    {
+        var seen = new HashSet<IntVec3>();
+        IntVec3 step = rot.FacingCell;
+        for (int i = 0; i <= cells; i++)
+        {
+            foreach (IntVec3 c in GenAdj.OccupiedRect(start + step * i, rot, vehicle.VehicleDef.Size))
+            {
+                if (seen.Add(c)) yield return c;
+            }
+        }
+    }
+
+    /// <summary>Why a strip will not do for a roll, as words finishing "it cannot land there:", or null: every cell as a landing spot's,
+    /// and a built floor where the aircraft needs one. The first blocked cell, for the picture.</summary>
+    public static string? StripRefusal(VehiclePawn vehicle, IntVec3 start, Rot4 rot, int cells, bool needsFloor, out IntVec3 blockedAt)
+    {
+        blockedAt = IntVec3.Invalid;
+        Map map = vehicle.Map;
+        if (map == null || !start.IsValid) return "PhobosFlight_SpotEdge".Translate().Resolve();
+        VehiclePositionManager claims = map.GetDetachedMapComponent<VehiclePositionManager>();
+        foreach (IntVec3 c in StripCells(vehicle, start, rot, cells))
+        {
+            if (CellRefusal(vehicle, map, claims, c, forced: false, needsFloor) is { } why)
+            {
+                blockedAt = c;
+                return why;
+            }
         }
         return null;
     }
@@ -217,6 +261,8 @@ public static class FlightText
         string doing = flight.State switch
         {
             FlightState.LiftingOff => "PhobosFlight_StateLiftingOff".Translate().Resolve(),
+            FlightState.TakeoffRoll => "PhobosFlight_StateTakeoffRoll".Translate().Resolve(),
+            FlightState.RollingLanding => "PhobosFlight_StateRollingLanding".Translate().Resolve(),
             FlightState.Moving => "PhobosFlight_StateMoving".Translate().Resolve(),
             FlightState.Settling => "PhobosFlight_StateSettling".Translate().Resolve(),
             FlightState.ComingDown => "PhobosFlight_StateComingDown".Translate().Resolve(),
@@ -248,5 +294,39 @@ public static class FlightDrawing
         float shrink = 1f - 0.3f * climb;
         var scale = new Vector3(size.x * shrink, 1f, size.z * shrink);
         Graphics.DrawMesh(MeshPool.plane10, Matrix4x4.TRS(at, Quaternion.AngleAxis(flight.Heading, Vector3.up), scale), ShadowMaterial, 0);
+    }
+
+    // The strip last worked out (Framework 0.151.0): drawn every frame while selected, worked out again every half second.
+    static VehiclePawn? stripFor;
+    static int stripAt = -1000;
+    static readonly List<IntVec3> stripCells = new();
+    static bool stripClear;
+    static IntVec3 stripFrom;
+    static Rot4 stripFacing;
+    const int StripEveryTicks = 30;
+
+    /// <summary>
+    /// The strip ahead of a selected aircraft on the ground that is too heavy to lift straight up but can roll (Framework 0.151.0): its
+    /// outline in green while clear, red while something blocks it. Nothing is drawn for one that can lift straight up or cannot leave.
+    /// </summary>
+    public static void Strip(CompPhobosFlight flight)
+    {
+        VehiclePawn v = flight.Vehicle;
+        int now = Find.TickManager.TicksGame;
+        if (stripFor != v || now - stripAt >= StripEveryTicks || now < stripAt || v.Position != stripFrom || v.Rotation != stripFacing)
+        {
+            stripFor = v;
+            stripAt = now;
+            stripFrom = v.Position;
+            stripFacing = v.Rotation;
+            stripCells.Clear();
+            (RollVerdict verdict, int cells, _) = flight.RollNeed();
+            if (verdict == RollVerdict.Rolls)
+            {
+                stripCells.AddRange(FlightRules.StripCells(v, v.Position, v.Rotation, cells));
+                stripClear = flight.StripAheadRefusal(cells) == null;
+            }
+        }
+        if (stripCells.Count > 0) GenDraw.DrawFieldEdges(stripCells, stripClear ? Color.green : Color.red);
     }
 }
