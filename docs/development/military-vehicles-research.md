@@ -6,6 +6,9 @@ flying, VTOL or ground-based"), with submarines added as their own category on t
 choices, agent defaults and agent recommendations are labelled as such. Names players would see follow the brand rule,
 `D'thorga <Plain Word>`; none is checked against the Workshop yet beyond the gap table below.
 
+**Companion (18 Nov 2026):** modern aircraft and vehicles, the V-22 tiltrotor among them, and vehicles that work without
+a crew are in [Modern military aircraft and vehicles](modern-military-vehicles.md).
+
 How to read this file:
 
 - **[P]** primary source (a navy, a maker, an archive); **[S]** secondary (Wikipedia, GlobalSecurity, a magazine);

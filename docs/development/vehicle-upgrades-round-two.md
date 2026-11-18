@@ -8,6 +8,9 @@ shared [families](#vehicle-upgrade-families-upgrades-shared-across-many-vehicles
 anything for the Roaring Tiger; the submarine test hull stays bare by the owner's choice. Not yet tested in game, apart from the
 families' check of 13 Nov 2026 (the families record says what passed).
 
+**Changed 18 Nov 2026:** the owner removed VVE - Upgrades Extended from the mod list, as our own upgrades now cover it. What this
+record says about its trees, the Cherokee's five stat nodes among them, describes the list as it stood on 11 Nov 2026.
+
 **Merged here on 17 Nov 2026**, each kept as written: [Vehicle upgrade families: upgrades shared across many vehicles](#vehicle-upgrade-families-upgrades-shared-across-many-vehicles-12-nov-2026).
 
 A proposal with an inventory. The owner asked on 11 Nov 2026 whether to
