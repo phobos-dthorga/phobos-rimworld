@@ -1,0 +1,21 @@
+{
+  "file": "triage-tag-label-12.png",
+  "sha256": "e2370a221ca4f773bd09f8bdfe7b5e798b3ca58e96a74bc957db2c5570cc71db",
+  "date": "2026-11-18T09:54:22",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "A single bold pictogram: a field triage label: an upright rectangular card tag with clipped top corners, a round reinforced hole near the top with a short loop of string through it, and a bold plus-shaped medical cross cut cleanly through the middle of the card so the white shows through. Solid pure black flat shape on a plain pure white background, centred, filling about three quarters of a square canvas, thick simple rounded forms with clean edges, like a bold map marker symbol. One flat colour only. No shading, no gradient, no outline box, no background, no text, no letters, no numbers.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-medical/requests/triage-tags.json",
+  "size": [
+    512,
+    512
+  ],
+  "seconds": 10.7
+}

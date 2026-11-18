@@ -1,0 +1,33 @@
+{
+  "file": "bomb-coil-emp-11.png",
+  "sha256": "f3f1fe4d6926eb930822972681f995dfb493802677c4e2758c5443a0d60123c8",
+  "date": "2026-11-18T07:10:58",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The item in the first reference image, a sturdy steel frame holding three fat copper wire coils side by side, with a dark cable connector. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a small game item with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded corners and a few small clean details, seen from slightly above. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no numbers, no people, no flames.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-patches/requests/bomb-fills.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 146.2,
+  "references": [
+    {
+      "image": "assets/vehicle-patches/references/BombCoilEMP-large.png",
+      "sha256": "ae1f045d80f1a28c5cb10a1207639734635cc94b139811f80d371ca03951178a"
+    },
+    {
+      "image": ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      "sha256": "1257cf2d03aa58dea41ce09e7b2a4e96a9d8f5ed57d8f6744fd176bec7c72c00"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
