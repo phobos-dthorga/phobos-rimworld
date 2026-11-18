@@ -1,0 +1,1051 @@
+{
+  "format": 1,
+  "description": "Where the public source of each mod this project ties into lives, from phobos-modkit's rimworld-sources. A repository counts as confirmed only when an About.xml in it names the mod's package ID. Read a mod's source here before decompiling it (AGENTS.md).",
+  "updated": "2026-11-18",
+  "mods": {
+    "adaptive.storage.framework": {
+      "name": "Adaptive Storage Framework",
+      "package_id": "adaptive.storage.framework",
+      "workshop_id": "3033901359",
+      "repository": "https://github.com/bbradson/Adaptive-Storage-Framework",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-03-26",
+      "licence": "MIT",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "agentorange.passiveexoskeletons": {
+      "name": "Passive Exoskeletons",
+      "package_id": "agentorange.passiveexoskeletons",
+      "workshop_id": "3807490214",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "andromeda.usefulmarks": {
+      "name": "Useful Marks",
+      "package_id": "andromeda.usefulmarks",
+      "workshop_id": "3506573327",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "aoba.deadmanswitch.core": {
+      "name": "The Dead Man's Switch",
+      "package_id": "aoba.deadmanswitch.core",
+      "workshop_id": "3819799478",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "AobaKuma/Fortified-Framework",
+          "found": "About.xml",
+          "note": "it is aoba.framework's repository"
+        },
+        {
+          "repository": "nuevosik/UniversalPTBR",
+          "found": "GitHub search",
+          "note": "it is githubversion.traducaouniversal.ptbr's repository"
+        },
+        {
+          "repository": "gmm89m/DMS-Cloak-Invisibility-Patch",
+          "found": "GitHub search",
+          "note": "its About.xml names gmm89m.dmscloak.pacth"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "aoba.deadmanswitch.expedition": {
+      "name": "The Dead Man's Switch - Expedition",
+      "package_id": "aoba.deadmanswitch.expedition",
+      "workshop_id": "3689879335",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "aoba.framework": {
+      "name": "Fortified Features Framework",
+      "package_id": "aoba.framework",
+      "workshop_id": "3498575851",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "aoba.rimthunder.roca": {
+      "name": "RimThunder - Roaring Tiger",
+      "package_id": "aoba.rimthunder.roca",
+      "workshop_id": "3022258867",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "SmashPhil/Vehicles",
+          "found": "About.xml",
+          "note": "it is smashphil.vehicleframework's repository"
+        },
+        {
+          "repository": "AobaKuma/RimThunder-Core",
+          "found": "About.xml",
+          "note": "it is rimthunder.core's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "brrainz.harmony": {
+      "name": "Harmony",
+      "package_id": "brrainz.harmony",
+      "workshop_id": "2009463077",
+      "repository": "https://github.com/pardeike/HarmonyRimWorld",
+      "found": "GitHub search",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-11-18",
+      "licence": "MIT",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "ceteam.combatextended": {
+      "name": "Combat Extended",
+      "package_id": "ceteam.combatextended",
+      "workshop_id": "2890901044",
+      "repository": "https://github.com/CombatExtended-Continued/CombatExtended",
+      "found": "About.xml",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-11-16",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "ch4acko3.searchandrescue": {
+      "name": "Search and Rescue",
+      "package_id": "ch4acko3.searchandrescue",
+      "workshop_id": "3796056278",
+      "repository": "https://github.com/CH4ACKO3/SearchAndRescue",
+      "found": "About.xml",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-11-17",
+      "licence": "MIT",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "dubwise.dubsbadhygiene": {
+      "name": "Dubs Bad Hygiene",
+      "package_id": "dubwise.dubsbadhygiene",
+      "workshop_id": "836308268",
+      "repository": "https://github.com/Dubwise56/Dubs-Bad-Hygiene",
+      "found": "About.xml",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-10-26",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "dubwise.rimatomics": {
+      "name": "Dubs Rimatomics",
+      "package_id": "dubwise.rimatomics",
+      "workshop_id": "1127530465",
+      "repository": "https://github.com/Dubwise56/Rimatomics",
+      "found": "About.xml",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-10-23",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "dubwise.rimefeller": {
+      "name": "Rimefeller",
+      "package_id": "dubwise.rimefeller",
+      "workshop_id": "1321849735",
+      "repository": "https://github.com/Dubwise56/Rimefeller",
+      "found": "About.xml",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-10-22",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "hmv.lunartika": {
+      "name": "HUMVEE",
+      "package_id": "hmv.lunartika",
+      "workshop_id": "3824413979",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "SmashPhil/Vehicles",
+          "found": "About.xml",
+          "note": "it is smashphil.vehicleframework's repository"
+        },
+        {
+          "repository": "emipa606/Humvee",
+          "found": "GitHub search",
+          "note": "it is mlie.humvee's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "jaxe.rimhud": {
+      "name": "RimHUD",
+      "package_id": "jaxe.rimhud",
+      "workshop_id": "1508850027",
+      "repository": "https://github.com/Jaxe-Dev/RimHUD",
+      "found": "Workshop page",
+      "confirmed": "source/+/About/About.xml",
+      "pushed": "2025-08-15",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "kazepsi.irbm": {
+      "name": "InterRim Ballistic Missile",
+      "package_id": "kazepsi.irbm",
+      "workshop_id": "3682304832",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "killerbot.jltv": {
+      "name": "GTek's Vehicles - Oshkosh L-ATV",
+      "package_id": "killerbot.jltv",
+      "workshop_id": "3319106730",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "SmashPhil/Vehicles",
+          "found": "About.xml",
+          "note": "it is smashphil.vehicleframework's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "killerbot.navistarmaxxpro": {
+      "name": "GTek's Vehicles - Navistar MaxxPro MRAP",
+      "package_id": "killerbot.navistarmaxxpro",
+      "workshop_id": "3290888503",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "SmashPhil/Vehicles",
+          "found": "About.xml",
+          "note": "it is smashphil.vehicleframework's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "kimo.vfef.rebalance": {
+      "name": "VFE Factories: Buffs and tweaks",
+      "package_id": "kimo.vfef.rebalance",
+      "workshop_id": "3708068232",
+      "repository": "https://github.com/Kimorepos/VFE-Factories-Buffs-and-tweaks",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-04-19",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "kongkim.farmableneutroamine": {
+      "name": "Farmable Neutroamine",
+      "package_id": "kongkim.farmableneutroamine",
+      "workshop_id": "3222103279",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "nanonator102/Farmable-Neutroamine",
+          "found": "Workshop page",
+          "note": "its About.xml names nanonator102.farmableneutroamine"
+        },
+        {
+          "repository": "mantrasong/FarmableNeutroamine",
+          "found": "GitHub search",
+          "note": "it is mantrasong.farmableneutroamine.1's repository"
+        },
+        {
+          "repository": "JoeOwnage67/FARMABLE-NEUTROAMINE-MEDIEVAL",
+          "found": "GitHub search",
+          "note": "it is joedaly.neutro.medieval's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "local.washingmachine": {
+      "name": "[DG]Simple Washing Machine",
+      "package_id": "local.washingmachine",
+      "workshop_id": "3820234705",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "mk.spaceshipturrethull": {
+      "name": "Spaceship Turret Hull",
+      "package_id": "mk.spaceshipturrethull",
+      "workshop_id": "3536128547",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "mrhydralisk.complementaryodyssey": {
+      "name": "Complementary Odyssey",
+      "package_id": "mrhydralisk.complementaryodyssey",
+      "workshop_id": "3546612303",
+      "repository": "https://github.com/MrHydralisk/Complementary-Odyssey",
+      "found": "About.xml",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-08-01",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "mrhydralisk.glitterworldmedicineproduction": {
+      "name": "Glitterworld Medicine Production",
+      "package_id": "mrhydralisk.glitterworldmedicineproduction",
+      "workshop_id": "2885153505",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "mse2.core": {
+      "name": "Medical System Expansion 2",
+      "package_id": "mse2.core",
+      "workshop_id": "2056706586",
+      "repository": "https://github.com/JonM0/MedicalSystemExpansion2",
+      "found": "About.xml",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-01-01",
+      "licence": "MIT",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "ninagoblin.visitsettlements": {
+      "name": "Visit Settlements",
+      "package_id": "ninagoblin.visitsettlements",
+      "workshop_id": "3535955435",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "alt44s/Visit-Settlements",
+          "found": "About.xml",
+          "note": "it is alt4s.visitsettlements's repository"
+        },
+        {
+          "repository": "alt44s/Visit-Settlements-Migration-Build",
+          "found": "Workshop page",
+          "note": "it is alt4s.visitsettlements's repository"
+        },
+        {
+          "repository": "Resx1983/Visit-Settlements-Traducci-n-",
+          "found": "GitHub search",
+          "note": "no About.xml in it; it may hold the source alone"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "nosleep.hemofungus": {
+      "name": "Hemofungus",
+      "package_id": "nosleep.hemofungus",
+      "workshop_id": "3259446830",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "ods.deeppills": {
+      "name": "Deep Pills",
+      "package_id": "ods.deeppills",
+      "workshop_id": "3758899296",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "orion.hospitality": {
+      "name": "Hospitality (Continued)",
+      "package_id": "orion.hospitality",
+      "workshop_id": "3509486825",
+      "repository": "https://github.com/Zaljerem/Hospitality",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-11-13",
+      "licence": "GPL-3.0",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "oskarpotocki.vanillafactionsexpanded.core": {
+      "name": "Vanilla Expanded Framework",
+      "package_id": "oskarpotocki.vanillafactionsexpanded.core",
+      "workshop_id": "2023507013",
+      "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-11-17",
+      "licence": "NOASSERTION",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "oskarpotocki.vanillavehiclesexpanded": {
+      "name": "Vanilla Vehicles Expanded",
+      "package_id": "oskarpotocki.vanillavehiclesexpanded",
+      "workshop_id": "3014906877",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "SmashPhil/Vehicles",
+          "found": "About.xml",
+          "note": "it is smashphil.vehicleframework's repository"
+        },
+        {
+          "repository": "Vanilla-Expanded/VanillaExpandedFramework",
+          "found": "About.xml",
+          "note": "it is oskarpotocki.vanillafactionsexpanded.core's repository"
+        },
+        {
+          "repository": "juanosarg/VanillaVehiclesExpanded",
+          "found": "GitHub search",
+          "note": "it is vanillaexpanded.afvehicles's repository"
+        },
+        {
+          "repository": "Lawlietr/VVET3_NoWreckRequired",
+          "found": "GitHub search",
+          "note": "no About.xml in it; it may hold the source alone"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "oskarpotocki.vanillavehiclesexpandedtier3": {
+      "name": "Vanilla Vehicles Expanded - Tier 3",
+      "package_id": "oskarpotocki.vanillavehiclesexpandedtier3",
+      "workshop_id": "3047892432",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "SmashPhil/Vehicles",
+          "found": "About.xml",
+          "note": "it is smashphil.vehicleframework's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "papito.medicinesplus.at": {
+      "name": "Medicines+",
+      "package_id": "papito.medicinesplus.at",
+      "workshop_id": "2878860499",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "alextd/RimWorld-SmartMedicine",
+          "found": "GitHub search",
+          "note": "it is debuuugggg.smartmedicine's repository"
+        },
+        {
+          "repository": "Atla55/Medicines-Plus",
+          "found": "GitHub search",
+          "note": "its About.xml names atlas.medicinesplus.at"
+        },
+        {
+          "repository": "Skullywag/ExtendedMedicine",
+          "found": "GitHub search",
+          "note": "it is another mod's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "potemkinvillager.av8bharrier": {
+      "name": "Harrier VTOL Attack Aircraft",
+      "package_id": "potemkinvillager.av8bharrier",
+      "workshop_id": "3826359341",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "potemkinvillager.mi24hindhelicopter": {
+      "name": "Hind Helicopter Gunship",
+      "package_id": "potemkinvillager.mi24hindhelicopter",
+      "workshop_id": "3822052079",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "potemkinvillager.mongooseattackhelicopter": {
+      "name": "Mongoose Attack Helicopter",
+      "package_id": "potemkinvillager.mongooseattackhelicopter",
+      "workshop_id": "3819896964",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "princeofpluto.vehicles.trains": {
+      "name": "Trains of the Rim",
+      "package_id": "princeofpluto.vehicles.trains",
+      "workshop_id": "3530446424",
+      "repository": "https://github.com/PrinceOfPluto/Trains-of-the-Rim",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2025-08-26",
+      "licence": "MIT",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "SmashPhil/Vehicles",
+          "found": "About.xml",
+          "note": "it is smashphil.vehicleframework's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "rimarrow.srt": {
+      "name": "Rimarrow: Search & Rescue",
+      "package_id": "rimarrow.srt",
+      "workshop_id": "3838997972",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "rimthunder.core": {
+      "name": "RimThunder - Core",
+      "package_id": "rimthunder.core",
+      "workshop_id": "3070495204",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "SmashPhil/Vehicles",
+          "found": "About.xml",
+          "note": "it is smashphil.vehicleframework's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "rimthunderteams.rimthunder.desertsabre": {
+      "name": "RimThunder - Desert Sabre - Continued",
+      "package_id": "rimthunderteams.rimthunder.desertsabre",
+      "workshop_id": "3724793908",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "SmashPhil/Vehicles",
+          "found": "About.xml",
+          "note": "it is smashphil.vehicleframework's repository"
+        },
+        {
+          "repository": "AobaKuma/RimThunder-Core",
+          "found": "About.xml",
+          "note": "it is rimthunder.core's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "sbz.neatstoragefridge": {
+      "name": "[sbz] Fridge",
+      "package_id": "sbz.neatstoragefridge",
+      "workshop_id": "3486264784",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "VitaKaninen/LightsOnWallFridges",
+          "found": "GitHub search",
+          "note": "it is vita.lightsonwallfridges's repository"
+        },
+        {
+          "repository": "stack-junkie/rimfridge-wall-access-fix",
+          "found": "GitHub search",
+          "note": "its About.xml names ckvam.rimfridge.wallaccessfix"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "serinairo.frontlineworkshop": {
+      "name": "Frontline Workshop",
+      "package_id": "serinairo.frontlineworkshop",
+      "workshop_id": "3817025489",
+      "repository": "https://github.com/Airomeda/FrontlineWorkshop",
+      "found": "GitHub search",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-10-10",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "SmashPhil/Vehicles",
+          "found": "About.xml",
+          "note": "it is smashphil.vehicleframework's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "smashphil.vehicleframework": {
+      "name": "Vehicle Framework",
+      "package_id": "smashphil.vehicleframework",
+      "workshop_id": "3014915404",
+      "repository": "https://github.com/SmashPhil/Vehicle-Framework",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-11-18",
+      "licence": "MIT",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "th3fr3d.extendedinjuries": {
+      "name": "More Injuries (Continued)",
+      "package_id": "th3fr3d.extendedinjuries",
+      "workshop_id": "3348840185",
+      "repository": "https://github.com/frederik-hoeft/rimworld-more-injuries",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-05-28",
+      "licence": "GPL-3.0",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "ushanka.biologicalwarfare": {
+      "name": "Ushankas Biological Warfare",
+      "package_id": "ushanka.biologicalwarfare",
+      "workshop_id": "3221550806",
+      "repository": "https://github.com/BlueEagle421/BiologicalWarfare",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2025-12-27",
+      "licence": "MIT",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "AndroidQuazar/VanillaExpandedFramework",
+          "found": "About.xml",
+          "note": "no such repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "vanillaexpanded.gravship": {
+      "name": "Vanilla Gravship Expanded - Chapter 1",
+      "package_id": "vanillaexpanded.gravship",
+      "workshop_id": "3609835606",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "Vanilla-Expanded/VanillaExpandedFramework",
+          "found": "About.xml",
+          "note": "it is oskarpotocki.vanillafactionsexpanded.core's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "vanillaexpanded.vchemfuele": {
+      "name": "Vanilla Chemfuel Expanded",
+      "package_id": "vanillaexpanded.vchemfuele",
+      "workshop_id": "2792917473",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "WhatsAnIStem/rimworld_chemreactorpatch",
+          "found": "GitHub search",
+          "note": "its About.xml names roygbiv.chemreactorpatch"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "vanillaexpanded.vcooke": {
+      "name": "Vanilla Cooking Expanded",
+      "package_id": "vanillaexpanded.vcooke",
+      "workshop_id": "2134308519",
+      "repository": "https://github.com/juanosarg/VanillaCookingExpanded",
+      "found": "GitHub search",
+      "confirmed": "About/About.xml",
+      "pushed": "2022-04-29",
+      "licence": "",
+      "archived": true,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "Vanilla-Expanded/VanillaExpandedFramework",
+          "found": "About.xml",
+          "note": "it is oskarpotocki.vanillafactionsexpanded.core's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "vanillaexpanded.vfefactory": {
+      "name": "Vanilla Furniture Expanded - Factory",
+      "package_id": "vanillaexpanded.vfefactory",
+      "workshop_id": "3686924415",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "Vanilla-Expanded/VanillaExpandedFramework",
+          "found": "About.xml",
+          "note": "it is oskarpotocki.vanillafactionsexpanded.core's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "vanillaexpanded.vfemedical": {
+      "name": "Vanilla Furniture Expanded - Medical Module",
+      "package_id": "vanillaexpanded.vfemedical",
+      "workshop_id": "1718191613",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "Vanilla-Expanded/VanillaExpandedFramework",
+          "found": "About.xml",
+          "note": "it is oskarpotocki.vanillafactionsexpanded.core's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "vanillaexpanded.vnutriente": {
+      "name": "Vanilla Nutrient Paste Expanded",
+      "package_id": "vanillaexpanded.vnutriente",
+      "workshop_id": "2920385763",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "MrHydralisk/VNPE-Reimagined-Progression",
+          "found": "GitHub search",
+          "note": "it is mrhydralisk.vnpereimaginedprogression's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "vanillaracesexpanded.sanguophage": {
+      "name": "Vanilla Races Expanded - Sanguophage",
+      "package_id": "vanillaracesexpanded.sanguophage",
+      "workshop_id": "2963116383",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "Vanilla-Expanded/VanillaExpandedFramework",
+          "found": "About.xml",
+          "note": "it is oskarpotocki.vanillafactionsexpanded.core's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
+    "wenders.moreinjuries.organbridge": {
+      "name": "More Injuries: Organ Failure",
+      "package_id": "wenders.moreinjuries.organbridge",
+      "workshop_id": "3733035523",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
+    "wowgag.rimpacts": {
+      "name": "RimPacts - Diplomacy Overhaul",
+      "package_id": "wowgag.rimpacts",
+      "workshop_id": "3762723122",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    }
+  }
+}

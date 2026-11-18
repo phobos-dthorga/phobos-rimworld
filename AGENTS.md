@@ -69,8 +69,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   9 Nov 2026: not the game's assembly, and whole-file only for small mods; an unread file exits as a success with zeros); the
   owner has it set up (`docs/development/analysis-tooling.md`).
 - **Public source before a decompile** (owner, 18 Nov 2026: the original source "will be so much more rich in what it can offer").
-  Before decompiling another author's assembly, look for its public repository, GitHub first: the `url` in its About.xml, its
-  Workshop page (`workshop-research.py report`), then a search for its name and packageId. Where one exists, read it at the tag or
+  Before decompiling another author's assembly, look for its public repository, GitHub first: **read `config/source-repos.json`,
+  and run `python scripts/source-repos.py --write`** when the mod is missing or unconfirmed there (phobos-modkit's rimworld-sources:
+  About.xml, the Workshop page, then a GitHub search, each repository checked against the mod's packageId). An unconfirmed
+  candidate may still be its source (a rename, or source with no About.xml): judge it and say so. Where one exists, read it at the tag or
   commit matching the build in play, with its commit history for what changed and why; clone it into `.local/decompiled/<Name>-src`,
   where `query-code.py` indexes it. Decompile only when there is no public source, when it does not match the installed build, or
   for a quick check of the file the game actually loads, and say which you read.
