@@ -68,6 +68,17 @@ delivered, record the delivery in the changelog or design record, and add or ame
   two trees decompiled the same way. A single assembly's metadata, call graph or constants are REA's job only where it can read them (evaluated
   9 Nov 2026: not the game's assembly, and whole-file only for small mods; an unread file exits as a success with zeros); the
   owner has it set up (`docs/development/analysis-tooling.md`).
+- **Public source before a decompile** (owner, 18 Nov 2026: the original source "will be so much more rich in what it can offer").
+  Before decompiling another author's assembly, look for its public repository, GitHub first: the `url` in its About.xml, its
+  Workshop page (`workshop-research.py report`), then a search for its name and packageId. Where one exists, read it at the tag or
+  commit matching the build in play, with its commit history for what changed and why; clone it into `.local/decompiled/<Name>-src`,
+  where `query-code.py` indexes it. Decompile only when there is no public source, when it does not match the installed build, or
+  for a quick check of the file the game actually loads, and say which you read.
+- **Answer what an update of the game or of a mod we tie into changed with `python scripts/assembly-archive.py compare <file>`**
+  (owner, 18 Nov 2026: Steam replaces the older build, so it could not be compared). Every `refresh-mod-list.py` run keeps new
+  versions of `Assembly-CSharp.dll` and of every active mod our About.xml and LoadFolders.xml name (phobos-modkit's rimworld-archive,
+  outside this repository); `list` shows what is kept, `--show Type.Member` one member's diff. For a game build no snapshot saw,
+  the owner can fetch it with DepotDownloader (the kit's `docs/rimworld-archive.md`); agents never log in to Steam.
 - **Answer which mods patch a method with `python scripts/query-patches.py`** (owner, 8 Nov 2026): `who "Type.Method"` for
   every Harmony patch on it in load order (wildcards), `mod <name>` for what a mod patches, `hotspots` for methods several mods
   patch; "may skip the original" marks a bool prefix. It reads every active mod's assemblies through their metadata, never

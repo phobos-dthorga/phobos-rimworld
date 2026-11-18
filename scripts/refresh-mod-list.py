@@ -5,7 +5,9 @@ DLCs, the game's Mods folder and the Steam Workshop folder) and Steam's Workshop
 last updated). Rewrites only the document's generated blocks; the hand-written suggestions stay as they
 are. Never writes to the game, its config or Steam. With --online it also asks Steam's public Web API
 (no key, nothing personal sent) for the official Vanilla Expanded collection and saves the answer beside
-the document, so later offline runs keep that table current.
+the document, so later offline runs keep that table current. Each refresh also takes a snapshot of the
+game's assembly and of the mods ours tie into (scripts/assembly-archive.py), so the build before an update is
+kept for comparing; --no-snapshot skips it.
 
     python scripts/refresh-mod-list.py             refresh the document
     python scripts/refresh-mod-list.py --online    also re-read the Vanilla Expanded collection
@@ -506,6 +508,7 @@ def main(argv=None):
     parser.add_argument('--workshop', help='RimWorld Workshop content folder (steamapps/workshop/content/294100)')
     parser.add_argument('--config', help="the game's Config folder, which holds ModsConfig.xml")
     parser.add_argument('--doc', default=str(DOC), help='the document to refresh')
+    parser.add_argument('--no-snapshot', action='store_true', help="don't keep new versions of the game's and tied mods' assemblies")
     args = parser.parse_args(argv)
 
     game = deploy.game_path(args.game)
@@ -530,7 +533,21 @@ def main(argv=None):
         print(f'Refreshed {doc.relative_to(ROOT) if doc.is_relative_to(ROOT) else doc}.')
     else:
         print('Nothing changed.')
+    if not args.no_snapshot:
+        snapshot(game, workshop, config)
     return 0
+
+
+def snapshot(game, workshop, config):
+    """Keep any new version of the game's assembly and of the mods ours tie into; one line saying what was kept."""
+    import io
+    import importlib
+    archive = importlib.import_module('assembly-archive')
+    out = io.StringIO()
+    code = archive.main(['snapshot', '--if-installed', '--game', str(game), '--workshop', str(workshop), '--config', str(config)], out=out)
+    lines = [line for line in out.getvalue().splitlines() if line.strip()]
+    summary = next((line for line in lines if 'kept now' in line or 'skipped' in line or 'error' in line.lower()), '')
+    print(('Assembly archive: ' + summary) if code == 0 else 'Assembly archive failed: ' + ' '.join(lines[-2:]))
 
 
 if __name__ == '__main__':

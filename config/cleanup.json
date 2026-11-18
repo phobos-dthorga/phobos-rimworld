@@ -77,6 +77,15 @@
       "kinds": "folders",
       "olderThanDays": 14,
       "why": "copies of Player.log taken before the owner's next launch could overwrite them, for reading verbose logs; read within a fortnight"
+    },
+    {
+      "name": "Unpacked archive copies",
+      "folder": "{env:LOCALAPPDATA}/phobos-modkit/assembly-archive/extracted",
+      "match": [
+        "[0-9a-f]???????????????"
+      ],
+      "kinds": "folders",
+      "why": "older builds unpacked from the assembly archive for comparing (scripts/assembly-archive.py); the archive keeps every one compressed, so these unpack again when needed"
     }
   ]
 }
