@@ -8,7 +8,7 @@ top of the general systems D'thorga Framework gives every vehicle.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**:
 [working vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.79.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
+Version 0.80.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
 9 November 2026) and the Busbar's size and look (owner, 13 November 2026).
 
 ## Read this first (gotchas)
@@ -26,7 +26,9 @@ Version 0.79.0, built 19 November 2026 for House D'thorga. **Not yet tested in g
 - **The five service trucks are armoured part by part** (0.76.0): every part is skin, thin sheet metal that stops nothing aimed at
   it, as on a real civilian truck. **Rifle fire hurts them more than before without Combat Extended** (0.10 against the old 0.40);
   with it each part is 2 mm of steel where the whole truck read as 0.4 mm, and shots strike them across their full width. The
-  Health tab names each part's armour. Not yet tested in game.
+  Health tab names each part's armour. **Armour kits** (0.80.0), after **truck armour** research: engine and tank guards (rifle-proof,
+  300 kg), run-flat tyres (120 kg) and EMP hardening (60 kg). **A kit's weight is carried as cargo**: the engine works harder on every
+  truck, and on the Talus it also takes cargo room. Not yet tested in game.
 - **The Talus gathers by itself once its loading grab is fitted** (0.67.0): **Gather what** chooses what, as for a stockpile (chunks
   and raw resources to start), and **Gather** sends it about the map with someone aboard to drive. **It never takes from storage, nor
   anything forbidden: forbid what you want left.** **Choose a bulk bunker or a stockpile under Unload at** and, each time it is full,
@@ -41,7 +43,8 @@ Version 0.79.0, built 19 November 2026 for House D'thorga. **Not yet tested in g
   forward as it climbs away (0.70.0). **Its upgrades** (0.72.0): a second cargo hook, an armour kit, an infrared jammer, a terrain radar and
   an inlet barrier, each with its own research; its stretchers, ferry tanks, cargo hook and cabin oxygen are the usual fittings. **Its
   guns** (0.74.0): a ramp gun, 7.62 mm or .50, worked by the crew chief, and a belly minigun that fires by itself while it has power,
-  each with real cartridges under Combat Extended. **Still to come:** armour by class. Not yet tested in game.
+  each with real cartridges under Combat Extended. **Armoured part by part** (0.78.0): skin, with splinter armour on the engines and gearboxes; the armour kit makes the cockpit and cabins
+  rifle-proof. Not yet tested in game.
 - **The general systems come from D'thorga Framework**, not this mod: battery and alternator, coolant and oil, tyres or tracks,
   brakes, gearbox, wear and service ([looking after vehicles](../../docs/player-guide/vehicle-care.md)).
 - **Our vehicles are built from parts.** Where RimThunder or Vanilla Vehicles Expanded is installed, a build asks for their parts;

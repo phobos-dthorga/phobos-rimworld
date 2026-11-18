@@ -223,6 +223,9 @@ flowchart TB
   PoweredArray["Powered array"]
   SurveyBattery["Large battery"]
   WorkLights["Work lights"]
+  PhobosEngineGuards["Engine and tank guards"]
+  PhobosRunFlatTyres["Run-flat tyres"]
+  PhobosEmpHardening["EMP hardening"]
   Hydrogeology["Groundwater sensor (tie-in: DubsBadHygiene)"]
   classDef tiein stroke-dasharray: 5 5
   class Hydrogeology tiein

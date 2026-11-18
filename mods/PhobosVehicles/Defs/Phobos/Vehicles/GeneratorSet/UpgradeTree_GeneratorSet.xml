@@ -228,6 +228,141 @@
         <ComponentIndustrial>2</ComponentIndustrial>
       </ingredients>
     </li>
+    <li>
+      <!-- Armour kits without a picture of their own (D'thorga Vehicles 0.80.0; vehicle-militarised-service-vehicles.md, "The kits").
+           Each raises named parts by class with Add (vehicle-armour.md; Combat Extended's figures in Mods/CombatExtended), and its real
+           kilograms [A] load the engine as cargo would (owner, 19 Nov 2026), taking cargo room on the Talus only. Figures and costs authored.
+           scripts/check-vehicle-armour.py holds each kit to its class on both scales. Not yet tested in game. -->
+      <key>PhobosEngineGuards</key>
+      <label>Engine and tank guards</label>
+      <displayLabel>true</displayLabel>
+      <description>Steel guards around the engine and the fuel tank, against rifle fire. A guarded tank still leaks and a guarded engine still burns once they are finally holed: it takes heavier fire to get there.</description>
+      <upgradeExplanation>Engine and fuel tank: from skin to rifle armour, which stops ordinary rifle bullets.\nKit weight: 300 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Osprey/Upgrades/ArmourKit</icon>
+      <work>2500</work>
+      <gridCoordinate>(2, 16)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckArmour</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.VehicleUpgrade">
+          <armor>
+            <li>
+              <key>Engine</key>
+              <type>Add</type>
+              <statModifiers>
+                <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.27</ArmorRating_Blunt>
+              </statModifiers>
+            </li>
+            <li>
+              <key>FuelTank</key>
+              <type>Add</type>
+              <statModifiers>
+                <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.27</ArmorRating_Blunt>
+              </statModifiers>
+            </li>
+          </armor>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>300</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>100</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosRunFlatTyres</key>
+      <label>Run-flat tyres</label>
+      <displayLabel>true</displayLabel>
+      <description>Steel-belted tyres with run-flat inserts, so the wheels shrug off shell fragments and pistol bullets.</description>
+      <upgradeExplanation>Wheels: from skin to splinter armour, which stops shell fragments and pistol bullets.\nKit weight: 120 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/VehicleSystems/Fittings/AllTerrainTyres</icon>
+      <work>1500</work>
+      <gridCoordinate>(7, 16)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckArmour</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.VehicleUpgrade">
+          <armor>
+            <li>
+              <key>FrontWheels</key>
+              <type>Add</type>
+              <statModifiers>
+                <ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.12</ArmorRating_Blunt>
+              </statModifiers>
+            </li>
+            <li>
+              <key>RearWheels</key>
+              <type>Add</type>
+              <statModifiers>
+                <ArmorRating_Sharp>0.15</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.12</ArmorRating_Blunt>
+              </statModifiers>
+            </li>
+          </armor>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>120</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>30</Steel>
+        <Cloth>30</Cloth>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosEmpHardening</key>
+      <label>EMP hardening</label>
+      <displayLabel>true</displayLabel>
+      <description>Shielded wiring, filtered power and a spare engine control unit, so an electromagnetic pulse does the electrics less harm and stalls the engine less often, as it does on a military vehicle.</description>
+      <upgradeExplanation>Electrics: an electromagnetic pulse harms them as it does a military vehicle's.\nKit weight: 60 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Parts/ElectricalKit</icon>
+      <work>2000</work>
+      <gridCoordinate>(12, 16)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckArmour</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_EmpHardening</def>
+              <value>1</value>
+            </li>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>60</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>15</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
+      </ingredients>
+    </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

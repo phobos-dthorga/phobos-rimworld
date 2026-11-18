@@ -152,6 +152,9 @@ flowchart TB
   end
   HighSides["Greedy boards"]
   PhobosLoadingGrab["Loading grab"]
+  PhobosEngineGuards["Engine and tank guards"]
+  PhobosRunFlatTyres["Run-flat tyres"]
+  PhobosEmpHardening["EMP hardening"]
 ```
 
 | Node key | Figure it moves | Cost | Research | Prerequisite or exclusive with | Look |

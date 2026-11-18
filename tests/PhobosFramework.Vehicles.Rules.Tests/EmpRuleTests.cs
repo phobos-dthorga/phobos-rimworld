@@ -41,6 +41,21 @@ public class EmpRuleTests
     }
 
     [Fact]
+    public void AHardenedPartTakesTheMilitaryRating()
+    {
+        Assert.Equal(1, EmpRule.HardenedSeverity(partRating: 2, militaryRating: 1));
+        Assert.Equal(1, EmpRule.HardenedSeverity(4, 1));
+    }
+
+    [Fact]
+    public void HardeningNeverMakesAPartWorse()
+    {
+        Assert.Equal(1, EmpRule.HardenedSeverity(1, militaryRating: 3));
+        Assert.Equal(0, EmpRule.HardenedSeverity(0, 1));
+        Assert.Equal(0, EmpRule.HardenedSeverity(2, -1));
+    }
+
+    [Fact]
     public void MechanicalVehiclesAndOptedOutOnesAreNeverStunned()
     {
         Assert.False(EmpRule.Stuns(EmpHardening.Mechanical, authorSaysNoStun: false));

@@ -225,6 +225,9 @@ flowchart TB
   ElectricPump["Electric pump"]
   TwoCompartments["Two compartments"]
   ThreeCompartments["Three compartments"]
+  PhobosEngineGuards["Engine and tank guards"]
+  PhobosRunFlatTyres["Run-flat tyres"]
+  PhobosEmpHardening["EMP hardening"]
   TwoCompartments --> ThreeCompartments
   any1(("any one"))
   LiquidTank -.- any1

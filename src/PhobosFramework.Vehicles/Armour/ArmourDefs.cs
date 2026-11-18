@@ -72,3 +72,13 @@ public static class ArmourClasses
         return index < 0 ? null : classes[index];
     }
 }
+
+/// <summary>The armour kits' own stats (Framework 0.158.0; vehicle-militarised-service-vehicles.md, "The kits").</summary>
+[DefOf]
+public static class ArmourDefOf
+{
+    /// <summary>Above zero once the EMP hardening kit is fitted: the vehicle's electrics take the military EMP rating.</summary>
+    public static VehicleStatDef Phobos_EmpHardening = null!;
+
+    static ArmourDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(ArmourDefOf));
+}

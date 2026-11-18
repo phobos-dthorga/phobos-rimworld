@@ -233,6 +233,9 @@ flowchart TB
   HeatRecovery["Exhaust heat exchanger"]
   HeavyFan["Heavy-duty fan"]
   PhobosServiceLead["Service lead"]
+  PhobosEngineGuards["Engine and tank guards"]
+  PhobosRunFlatTyres["Run-flat tyres"]
+  PhobosEmpHardening["EMP hardening"]
 ```
 
 Every node moves a figure; none changes the parts list (principle 8). Node keys are stable once a save can hold them.

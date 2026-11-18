@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The armour kits' own stats (D'thorga Framework 0.158.0; docs/development/vehicle-militarised-service-vehicles.md, "The kits"). A kit's
+       armour is written on its node, part by part, and its weight goes in Phobos_KitKilograms (AircraftUpgrades.xml). Not yet tested in game. -->
+  <Vehicles.VehicleStatDef>
+    <!-- The EMP hardening kit (owner, 19 Nov 2026: hardening is its own kit): above zero, the vehicle's electrics take the military EMP
+         rating of the vehicle rules instead of a worse one (EmpHardeningPatch). -->
+    <defName>Phobos_EmpHardening</defName>
+    <label>EMP hardening</label>
+    <description>Shielded wiring and filtered power, so an electromagnetic pulse does the electrics less harm and stalls the engine less often.</description>
+    <category>VehicleBasics</category>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <maxValue>1</maxValue>
+    <toStringStyle>PercentZero</toStringStyle>
+    <operationType>None</operationType>
+    <upgradeEffectType>Positive</upgradeEffectType>
+    <showOnVehicleTypes>
+      <li>Land</li>
+      <li>Air</li>
+    </showOnVehicleTypes>
+  </Vehicles.VehicleStatDef>
+</Defs>

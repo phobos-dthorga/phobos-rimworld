@@ -105,6 +105,27 @@
 
   <!-- The working trailers (Vehicles 0.61.0; research-gates-audit-2026-11-17.md, R1, R2 and R4, the owner's picks of 17 Nov 2026, costs as proposed).
        Until then every trailer opened with Vehicle parts. -->
+  <!-- The service trucks' armour kits, first tier (D'thorga Vehicles 0.80.0; owner, 19 Nov 2026: research in two tiers;
+       docs/development/vehicle-militarised-service-vehicles.md, "The kits"). After flak armour, which teaches the same ballistic steel and
+       fabric. Its kits so far: engine and tank guards, run-flat tyres and EMP hardening. -->
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_TruckArmour</defName>
+    <label>truck armour</label>
+    <description>Steel guards, run-flat tyres and shielded wiring for the service trucks, so a stray bullet or a pulse does not leave them stranded.</description>
+    <baseCost>1800</baseCost>
+    <researchViewX>4</researchViewX>
+    <researchViewY>1.6</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+      <li>FlakArmor</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
   <ResearchProjectDef ParentName="PhobosResearchTruckBase">
     <defName>PhobosResearch_Trailers</defName>
     <label>towing and trailers</label>

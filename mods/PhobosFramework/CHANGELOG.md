@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.158.0] - 2026-11-19 - Draft
+
+EMP hardening by kit
+
+### Added
+
+- **EMP hardening a vehicle can be fitted with**: a vehicle whose EMP hardening stat is above zero takes the military EMP rating on its electrics instead of a worse one, so a pulse harms them less and stalls the engine less often. Hardening only ever helps: a part already rated lower keeps its own rating. D'thorga Vehicles' service trucks are the first to use it, through an upgrade.
+
+### Save compatibility
+
+- Safe with a running save. Nothing new is saved.
+
+### Compatibility and limits
+
+- **Not yet tested in game** (test row 225).
+
 ## [0.157.0] - 2026-11-19 - Draft
 
 Raiders may come in by aircraft, put down near the colony, and the aircraft leaves

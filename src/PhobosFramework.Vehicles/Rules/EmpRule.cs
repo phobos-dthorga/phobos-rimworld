@@ -36,6 +36,18 @@ public static class EmpRule
         return rating < 0 ? 0 : rating > 4 ? 4 : rating;
     }
 
+    /// <summary>
+    /// The rating a part has on a vehicle that has been hardened by kit (Framework 0.158.0; vehicle-militarised-service-vehicles.md, "The
+    /// kits"; owner, 19 Nov 2026: hardening is its own kit): the military rating, where the part was rated any worse. A kit only ever
+    /// helps, so a part already at or below the military rating keeps its own, and a part with no rating stays unharmed.
+    /// </summary>
+    public static int HardenedSeverity(int partRating, int militaryRating)
+    {
+        if (partRating <= 0) return 0;
+        int military = militaryRating < 0 ? 0 : militaryRating > 4 ? 4 : militaryRating;
+        return partRating < military ? partRating : military;
+    }
+
     /// <summary>Whether an EMP may stun (stall) the vehicle: never a mechanical one, nor one whose author opted out of being stunned.</summary>
     public static bool Stuns(EmpHardening hardening, bool authorSaysNoStun) => hardening != EmpHardening.Mechanical && !authorSaysNoStun;
 }

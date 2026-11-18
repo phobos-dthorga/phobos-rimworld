@@ -1,6 +1,6 @@
 # Militarised service vehicles: research and design (19 Nov 2026)
 
-**Status (19 Nov 2026):** a design record; its prerequisite, the trucks' armour by class (MV2), is built in Framework 0.154.0 and Vehicles 0.76.0. No kit is in code, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
+**Status (19 Nov 2026):** a design record, partly built. Its prerequisite, the trucks' armour by class (MV2), is in Framework 0.154.0 and Vehicles 0.76.0; the kits with no picture (engine and tank guards, run-flat tyres, EMP hardening) and the truck armour research are in Vehicles 0.80.0 and Framework 0.158.0. The drawn kits, the guns and the under-fire switch are not built, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
 
 The owner's request, 19 Nov 2026, with the answer that enemies end a [gathering run](vehicle-gathering-runs.md): "perhaps we could
 offer upgrades where we militarize some or all of our service vehicles? Either with advantages only or some disadvantages as a result
@@ -269,6 +269,12 @@ Classes are those of [the armour design](vehicle-armour.md): Splinter 5 mm, Rifl
   or from whether the design has guns (`VehicleEmp.cs:27-33`, `EmpRule.ClassFor`). A kit must be read per vehicle, at the time of the
   burst. Its 60 kg (shielded looms, filters, a spare control unit) is authored. A gun by upgrade still does not harden a truck: the
   owner chose the kit instead.
+- **Built (Vehicles 0.80.0, Framework 0.158.0; not yet tested in game):** engine and tank guards, run-flat tyres and EMP hardening on all
+  five trucks, after the first-tier research **truck armour** (after flak armour; agent's choice of parent, 1,800 points). Each tree gives
+  them their own row at the foot. EMP hardening is a vehicle stat (`Phobos_EmpHardening`): while it is above zero, `EmpHardeningPatch`
+  lowers a part's rating to the rules' military one for that one call of Vehicle Framework's `ApplyEMPDamage`, and puts it back in a
+  finalizer (`EmpRule.HardenedSeverity`, tested). Kit weights go in `Phobos_KitKilograms`, which the engine model already weighs. The
+  second research tier and the under-fire switch come with the cab, in step 3: neither has anything to unlock or switch before it.
 
 ### The gun ring and its guns (owner: a choice of mounts, by role; ours, plus optional extras)
 

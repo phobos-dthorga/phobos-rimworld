@@ -88,6 +88,21 @@ three, the survey truck's six (geophone array to groundwater), and the generator
 
 Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehicle's picture. **They cost what our fittings and tunes do** (from Framework 0.106.0, not yet tested in game): several hours' work and much more steel and components, more on a heavier vehicle, under the same two settings, *Time to fit and tune* and *Materials to fit and tune*.
 
+## Armour and kits
+
+- **Every service truck is armoured part by part** (not yet tested in game): skin, thin sheet metal that stops nothing aimed at it, as
+  on a real civilian truck. The **Health** tab names each part's armour and what it stops. With Combat Extended, shots strike a truck
+  across its full width.
+- **Kits make a truck harder to stop.** Each is an upgrade on all five service trucks, after the **truck armour** research (not yet
+  tested in game):
+  - **Engine and tank guards:** the engine and fuel tank become rifle-proof. A guarded tank still leaks, and a guarded engine still
+    burns, once they are finally holed: it takes heavier fire to get there. 300 kg.
+  - **Run-flat tyres:** the wheels stop shell fragments and pistol bullets. 120 kg.
+  - **EMP hardening:** an EMP harms the electrics less and stalls the engine less often, as on a military vehicle. 60 kg.
+- **A kit's weight is carried as cargo**: the engine works harder and burns more fuel, as with the same weight aboard. **On the Talus
+  it also comes off cargo room**; the other trucks keep their small stowage.
+- **Still to come:** an armoured cab, heavier cab plates, body plates and a ram bar, which will show on the truck, and gun mounts.
+
 ## Datum survey truck
 
 ![The survey truck driving, and set up with outriggers down and its arrays fitted](images/survey-truck-fitted.png)
@@ -472,7 +487,9 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
     battery, engines off and nobody aboard, it stops until it has power again. It weighs 360 kg, carried as cargo.
   - **Load them:** with Combat Extended, 7.62x51 mm NATO or .50 BMG rounds; without it, steel. A gun stops if the aft cabin is
     wrecked, and works more slowly as it is damaged.
-- **Still to come, before it is tested:** armour by class. Not yet tested in game.
+- **Armoured part by part** (not yet tested in game): skin, thin sheet metal, everywhere but its engines and proprotor gearboxes, which
+  stop shell fragments and pistol bullets. The armour kit makes the cockpit and both cabins rifle-proof. The **Health** tab names each
+  part's armour.
 
 ## Other mods' vehicles
 

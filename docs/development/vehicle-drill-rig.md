@@ -201,6 +201,9 @@ flowchart TB
   TallMast["Tall mast"]
   ElectricPowerPack["Electric power pack"]
   WorkLights["Work lights"]
+  PhobosEngineGuards["Engine and tank guards"]
+  PhobosRunFlatTyres["Run-flat tyres"]
+  PhobosEmpHardening["EMP hardening"]
   WellDrillingKit["Oil well kit (tie-in: Rimefeller)"]
   DeepchemHead["Deepchem head (tie-in: VanillaChemfuelExpanded)"]
   classDef tiein stroke-dasharray: 5 5

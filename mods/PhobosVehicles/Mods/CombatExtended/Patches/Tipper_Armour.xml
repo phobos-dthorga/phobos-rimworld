@@ -13,4 +13,52 @@
       </armor>
     </value>
   </Operation>
+  <!-- The armour kits with Combat Extended (D'thorga Vehicles 0.80.0): engine and tank guards add Skin to Rifle (6 mm, 36 MPa), run-flat
+       tyres Skin to Splinter (3 mm, 16 MPa). -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tipper_UpgradeTree"]/nodes/li[key="PhobosEngineGuards"]/upgrades/li[@Class="Vehicles.VehicleUpgrade"]/armor</xpath>
+    <value>
+      <armor>
+          <li>
+            <key>Engine</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Sharp>6</ArmorRating_Sharp>
+              <ArmorRating_Blunt>36</ArmorRating_Blunt>
+            </statModifiers>
+          </li>
+          <li>
+            <key>FuelTank</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Sharp>6</ArmorRating_Sharp>
+              <ArmorRating_Blunt>36</ArmorRating_Blunt>
+            </statModifiers>
+          </li>
+      </armor>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tipper_UpgradeTree"]/nodes/li[key="PhobosRunFlatTyres"]/upgrades/li[@Class="Vehicles.VehicleUpgrade"]/armor</xpath>
+    <value>
+      <armor>
+          <li>
+            <key>FrontWheels</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Sharp>3</ArmorRating_Sharp>
+              <ArmorRating_Blunt>16</ArmorRating_Blunt>
+            </statModifiers>
+          </li>
+          <li>
+            <key>RearWheels</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Sharp>3</ArmorRating_Sharp>
+              <ArmorRating_Blunt>16</ArmorRating_Blunt>
+            </statModifiers>
+          </li>
+      </armor>
+    </value>
+  </Operation>
 </Patch>

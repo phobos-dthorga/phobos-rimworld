@@ -5,6 +5,34 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.80.0] - 2026-11-19 - Draft
+
+Armour kits for the service trucks, first part: the kits that need no picture
+
+### Added
+
+- **Three armour kits for all five service trucks**, each an upgrade after the new **truck armour** research (after flak armour): **engine and tank guards** make the engine and fuel tank rifle-proof (300 kg); **run-flat tyres** make the wheels stop shell fragments and pistol bullets (120 kg); **EMP hardening** makes an electromagnetic pulse harm the electrics as it does a military vehicle's (60 kg). With Combat Extended the guards are 8 mm of steel and the tyres 5 mm, and each kit's explanation in the Upgrades tab says what it does in words.
+- **A kit's weight is carried as cargo**: the engine works harder and burns more fuel, as with the same weight aboard. On the Talus it also takes the same weight off cargo room; the other four keep their small stowage (owner's choice).
+- A guarded engine still burns and a guarded tank still leaks once they are finally holed: it takes heavier fire to get there.
+- The kits borrow existing icons (the Osprey's armour kit, the all-terrain tyres, the electrical kit) until their own are drawn.
+
+### Fixed
+
+- The README and the player guide no longer say the Osprey's armour by class is still to come: it arrived in 0.78.0.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.158.0 or later, for EMP hardening.
+
+### Save compatibility
+
+- Safe with a running save. The kits are new upgrade nodes; nothing is removed or renamed.
+
+### Compatibility and limits
+
+- **Still to come:** the armoured cab, heavy cab plates, body plates and the ram bar, which show on the truck and wait on their pictures, and the switch to keep working when enemies are about.
+- **Not yet tested in game** (test rows 224 and 225).
+
 ## [0.79.0] - 2026-11-19 - Draft
 
 Raiders may come in aboard the Osprey

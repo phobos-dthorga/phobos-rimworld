@@ -59,3 +59,35 @@ public static class EmpNoStunPatch
         if (__result > 0 && __instance.vehicle != null && VehicleEmp.NeverStunned(__instance.vehicle.VehicleDef)) __result = 0;
     }
 }
+
+/// <summary>
+/// The EMP hardening kit (Framework 0.158.0; vehicle-militarised-service-vehicles.md, "The kits"; owner, 19 Nov 2026: hardening is its own
+/// kit, whether or not the truck carries a gun). A part's EMP rating belongs to its design, shared by every vehicle of that design, and
+/// Vehicle Framework reads it in this one method. On a vehicle whose kit is fitted (Phobos_EmpHardening above zero), the rating is lowered
+/// to the military one for this call alone and put back in a finalizer, so it is restored even if the method throws. The call runs on the
+/// game's main thread and nothing else reads the rating meanwhile. A prefix that never skips the original; the postfix above still
+/// takes the stall away from a design never stalled. Costs one stat read per part per EMP hit, and nothing otherwise.
+/// </summary>
+[HarmonyPatch(typeof(VehicleComponent), nameof(VehicleComponent.ApplyEMPDamage))]
+public static class EmpHardeningPatch
+{
+    public static void Prefix(VehicleComponent __instance, out VehicleEMPSeverity? __state)
+    {
+        __state = null;
+        VehicleComponentProperties? props = __instance.props;
+        VehiclePawn? vehicle = __instance.vehicle;
+        if (props == null || vehicle == null || props.empSeverity == VehicleEMPSeverity.None) return;
+        if (vehicle.GetStatValue(ArmourDefOf.Phobos_EmpHardening) <= 0f) return;
+        int military = (int)PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().empSeverityMilitary;
+        var hardened = (VehicleEMPSeverity)EmpRule.HardenedSeverity((int)props.empSeverity, military);
+        if (hardened == props.empSeverity) return;
+        __state = props.empSeverity;
+        props.empSeverity = hardened;
+        if (Seen.Wants("vehicles.emp-hardened", vehicle)) Seen.Note("vehicles.emp-hardened", vehicle, props.key + ": " + __state + " to " + hardened);
+    }
+
+    public static void Finalizer(VehicleComponent __instance, VehicleEMPSeverity? __state)
+    {
+        if (__state is { } original && __instance.props != null) __instance.props.empSeverity = original;
+    }
+}

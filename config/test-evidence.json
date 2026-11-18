@@ -186,6 +186,14 @@
     "223": {"parts": {
       "the Osprey's armour class is shown": [{"key": "vehicles.armour-class-shown", "detail": "*Osprey*"}],
       "Combat Extended shoots at the Osprey's full width": [{"key": "vehicles.armour-hit-width", "variant": "Phobos_Osprey", "expect": {"width": "5..5"}}]
+    }},
+    "224": {"parts": {
+      "the engine and tank guards are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosEngineGuards", "detail": "fitted"}],
+      "the run-flat tyres are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosRunFlatTyres", "detail": "fitted"}]
+    }},
+    "225": {"parts": {
+      "the EMP hardening is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosEmpHardening", "detail": "fitted"}],
+      "an EMP meets the hardened electrics": ["vehicles.emp-hardened"]
     }}
   },
   "order": [
