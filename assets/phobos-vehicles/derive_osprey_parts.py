@@ -7,6 +7,7 @@ assets/phobos-vehicles/requests/osprey-overlays-record.md. Reads the owner's pic
 nacelle's pointed cap lifted from an edit, and the clean rotor redraw; writes new files to
 assets/phobos-vehicles/generated/osprey-derived/, each with a record. No input is changed.
 
+  ramp-gun-50/762.png  both ramp guns at their real length, on the one ramp mount (owner's choice: the .50 "b", real size)
   radar-nose.png       the radar cap from the pick's own nose tip, a shade darker, with a seam line: it lines up exactly
   rotor.png            the clean rotor redraw (osprey-rotor-clean-4k) cut from its white ground, centred on its hub
   rotor-spin.png       the same rotor spinning: an average of it turned through a third of a turn
@@ -39,6 +40,10 @@ NOSE_BOX = (1800, 200, 2300, 414)                  # The pick's nose tip down to
 NOSE_SEAM_WIDTH = 6                                # Pixels: as the edit drew the seam (rows 414 to 420)
 NOSE_SHADE = 0.88                                  # The cap's panel against the pick's grey [A]
 OUTLINE_COLOUR = (42, 33, 48)                      # The drawing's near-black line, read from the pick
+SAM = G / 'osprey-overlays-sam'
+METRE_PX = 208                                     # The pick's pixels a metre: 3,628 px nose to tail for 17.48 m (measured)
+GUN_762_LENGTH_M, GUN_50_LENGTH_M = 1.25, 1.65     # About right for an M240 and an M2 [A: from general knowledge, not sourced]
+MOUNT_SHARE = 0.3                                  # The pintle, this share of the gun's length back from its grips [A]
 
 
 def sha(path):
@@ -56,6 +61,36 @@ def save(image, name, record):
     record = dict(record, file=name, sha256=sha(target), made_by='assets/phobos-vehicles/derive_osprey_parts.py (Pillow)')
     target.with_suffix('.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
     print(f'wrote {target.relative_to(ROOT).as_posix()}')
+
+
+def gun_mount(gun):
+    """A gun drawn pointing aft (down the canvas): its length, its centre line (the barrel's middle in its last rows) and its
+    mount, MOUNT_SHARE of its length back from its front end on that line."""
+    x0, y0, x1, y1 = opaque_box(gun)
+    alpha = gun.getchannel('A')
+    xs = [x for y in range(y1 - 40, y1) for x in range(x0, x1) if alpha.getpixel((x, y)) >= 128]
+    centre_x = sum(xs) / len(xs)
+    return y1 - y0, (centre_x, y0 + (y1 - y0) * MOUNT_SHARE)
+
+
+def guns_real_size():
+    """Both ramp guns at their real length (owner, 19 Nov 2026), shrunk about their mount; the 7.62 mm gun moved onto the .50's
+    mount on the ramp, as they are either/or on one mount (the design's upgrade tree)."""
+    fifty, seven = (Image.open(SAM / name).convert('RGBA') for name in ('ramp-gun-50-b.png', 'ramp-gun-762.png'))
+    _, mount = gun_mount(fifty)
+    for gun, metres, name, source in ((fifty, GUN_50_LENGTH_M, 'ramp-gun-50.png', 'ramp-gun-50-b.png'),
+                                      (seven, GUN_762_LENGTH_M, 'ramp-gun-762.png', 'ramp-gun-762.png')):
+        length, own_mount = gun_mount(gun)
+        scale = metres * METRE_PX / length
+        box = opaque_box(gun)
+        piece = gun.crop(box)
+        piece = piece.resize((max(1, round(piece.width * scale)), max(1, round(piece.height * scale))), Image.LANCZOS)
+        offset = ((own_mount[0] - box[0]) * scale, (own_mount[1] - box[1]) * scale)
+        out = Image.new('RGBA', gun.size, (0, 0, 0, 0))
+        out.alpha_composite(piece, (round(mount[0] - offset[0]), round(mount[1] - offset[1])))
+        save(out, name, {'from': (SAM / source).relative_to(ROOT).as_posix(), 'scale': round(scale, 3), 'length_m': metres,
+                         'mount_px': [round(mount[0], 1), round(mount[1], 1)],
+                         'why': 'real size, the owner\'s choice of 19 Nov 2026; both on the ramp mount the .50 was drawn on'})
 
 
 def radar_nose():
@@ -219,6 +254,7 @@ def nacelles():
 
 
 if __name__ == '__main__':
+    guns_real_size()
     radar_nose()
     rotor()
     nacelles()

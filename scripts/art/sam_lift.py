@@ -23,7 +23,9 @@ SPEC.json:
              piece's file, and [x0, y0, x1, y1] where it sits in the body's pixels; the part is shrunk to the piece and laid back there,
              and NAME-piece.png keeps it at the edit's size,
              "pale_is_ground": pixels paler than this in every channel are cleared, for a part reaching past the body's edge
-             where the white ground shows between its pieces (a hoist's boom and pulley)}]
+             where the white ground shows between its pieces (a hoist's boom and pulley),
+             "add_polygons": [[[x, y], ...], ...] in the edit's pixels: a flat piece of the part, measured at full size, that
+             Segment Anything chopped (a mounting plate the colour of the body), added back whole}]
 After Segment Anything: specks smoothed away, holes filled, stray pieces dropped.
 
 --cpu runs on the processor: slower, but it leaves the graphics card alone, so it may run while the game does (as the background
@@ -41,7 +43,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
-from PIL import Image, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter
 from scipy import ndimage
 from transformers import Sam2Model, Sam2Processor
 
@@ -194,6 +196,10 @@ def lift(model, processor, device, body_path, item, out):
         for cx, cy, r in item['discs']:
             within |= (cols - cx * width) ** 2 + (rows - cy * height) ** 2 <= (r * width) ** 2
         whole &= within
+    for polygon in item.get('add_polygons', []):   # A flat piece of the part Segment Anything chopped (a mounting plate).
+        shape = Image.new('L', (width, height), 0)
+        ImageDraw.Draw(shape).polygon([tuple(point) for point in polygon], fill=255)
+        whole |= (np.asarray(shape) > 127) & inside
     if 'darker_than' in item:      # A dark part over a pale body: only its own dark tones, its holes filled.
         whole &= pixels.mean(axis=2) < item['darker_than']
     whole = smooth(whole, odd(SMOOTH_AT_4K * scale)) & inside

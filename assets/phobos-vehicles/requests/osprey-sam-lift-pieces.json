@@ -48,7 +48,28 @@
         2400,
         3800
       ],
-      "pale_is_ground": 225
+      "pale_is_ground": 225,
+      "add_polygons": [
+        [
+          [
+            1063,
+            518
+          ],
+          [
+            1299,
+            530
+          ],
+          [
+            1265,
+            974
+          ],
+          [
+            1035,
+            964
+          ]
+        ]
+      ],
+      "_plate_measured": "19 Nov 2026 at full size: the plate outline's outer edges along rows 560, 650 and 950 and columns 1080 and 1250"
     },
     {
       "name": "inlet-barrier-a",

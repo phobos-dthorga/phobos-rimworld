@@ -232,6 +232,10 @@ plates stop is not stated in what was read; Rifle is **[A]**.
 Every turret Def sets its Combat Extended recoil outright (the armour record). Without Combat Extended each fires a base-game
 projectile of its calibre's size, authored.
 
+**Decided (owner, 19 Nov 2026): the ramp guns are drawn at their real length**, about 1.25 m and 1.65 m [A: from general
+knowledge], on the one ramp mount; about two cells in game. The overlays and how they were made are in
+`assets/phobos-vehicles/requests/osprey-overlays-record.md`.
+
 ### Avionics, oxygen and defences
 
 | Item | Fit | Source |

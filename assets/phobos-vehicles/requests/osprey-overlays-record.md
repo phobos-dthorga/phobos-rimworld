@@ -1,7 +1,7 @@
 # The V-22 Osprey's overlays and parts, first round (18 Nov 2026)
 
-**Status (19 Nov 2026):** three rounds; every overlay and part now clean at full size, waiting on the owner's picks of three
-pairs and the guns' size. Nothing is exported or shipped. This file started as the first round's record. Requests: [osprey-overlays.json](osprey-overlays.json),
+**Status (19 Nov 2026):** three rounds; every overlay and part clean at full size and picked by the owner, the guns at real
+size. Nothing is exported or shipped. This file started as the first round's record. Requests: [osprey-overlays.json](osprey-overlays.json),
 all edits of the owner's pick through fal (Nano Banana Pro), at a US$3.50 cap; spent about US$2.70 by the table's ceilings, the
 three refusals counted because fal may charge a refused request that has run.
 
@@ -104,11 +104,21 @@ by the ceilings (eight at 2K, one at 4K). Made into `generated/osprey-overlays-s
 | Spinning rotor | From the 4K rotor by script | Clean |
 | Nacelles 0 to 90 | The hub taken off whole rows at a time; the pointed cap now covers the rounded front to its seam | No ghost, no gap |
 
-**Open with the owner:** which of each pair; and the guns' size. The 7.62 mm gun is drawn about 4.2 m long, the .50s 3.5 m and
-2.7 m, against an M240's 1.25 m and an M2's 1.65 m [A: from general knowledge]. Shrinking them by script is free.
+The owner, on seeing the page: "These are SO MUCH BETTER."
+
+**The owner's picks (19 Nov 2026):**
+
+| Question | Answer | Made |
+| --- | --- | --- |
+| .50 gun | **(b), the compact one** | |
+| Rescue hoist | **(b), drum on top** | Its mounting plate, chopped by Segment Anything, measured at full size and added back whole (`add_polygons`) |
+| Inlet barrier | **(a), the coarser grille** | |
+| The guns' size | **Real size** | Both shrunk about their mount by `derive_osprey_parts.py` (.50 to 1.65 m, 7.62 mm to 1.25 m); the 7.62 mm moved onto the .50's ramp mount, as the two are either/or on one mount |
+
+The nine paid pictures are on `art-references` (`generated/vehicles/osprey/overlays/`), as generated, beside the earlier twelve.
 
 ## Next
 
-1. The owner's picks and the guns' size.
-2. The new paid pictures to `art-references`, as generated, with the earlier rounds' twelve.
-3. The background AI and export at the body's scale.
+1. The background AI and export at the body's scale; the inlet barrier on the tilted nacelles goes through the same script as
+   the nacelle.
+2. A faint pale edge stays on parts that reach past the body (the hoist's pulley): the exporters take white out of soft edges.
