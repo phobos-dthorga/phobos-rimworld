@@ -856,7 +856,7 @@
   <!-- The tipper's loading grab (Framework 0.101.0). -->
   <PhobosVehicleSystems_GrabGizmo>Work the grab</PhobosVehicleSystems_GrabGizmo>
   <PhobosVehicleSystems_GrabGizmoStop>Stow the grab</PhobosVehicleSystems_GrabGizmoStop>
-  <PhobosVehicleSystems_GrabGizmoDesc>The driver works the crane behind the cab, lifting loose things lying within {CELLS} cells of the truck into the cargo, up to {LIFT} kg a lift. Things in a stockpile or on a shelf are left, unless that storage has "Vehicles may load from here" switched on. It stops by itself when nothing is left in reach or the cargo is full. The truck cannot move or tip while the grab is out.</PhobosVehicleSystems_GrabGizmoDesc>
+  <PhobosVehicleSystems_GrabGizmoDesc>The driver works the crane behind the cab, lifting loose things lying within {CELLS} cells of the truck into the cargo, up to {LIFT} kg a lift. Each lift takes the nearest thing and the same kind lying beside it, so a heap of chunks comes up many at a time. Things in a stockpile or on a shelf are left, unless that storage has "Vehicles may load from here" switched on. It stops by itself when nothing is left in reach or the cargo is full. The truck cannot move or tip while the grab is out.</PhobosVehicleSystems_GrabGizmoDesc>
   <PhobosVehicleSystems_GrabHeld>{VEHICLE} has its grab out. Stow it first.</PhobosVehicleSystems_GrabHeld>
   <PhobosVehicleSystems_GrabNotOnMap>It can only work the grab on a map.</PhobosVehicleSystems_GrabNotOnMap>
   <PhobosVehicleSystems_GrabStopFirst>{VEHICLE} is still moving. Stop it first.</PhobosVehicleSystems_GrabStopFirst>

@@ -148,6 +148,9 @@
     <batteryDriveChargeWatts>400</batteryDriveChargeWatts>
     <grabReachCells>4</grabReachCells>
     <grabSecondsPerLift>20</grabSecondsPerLift>
+    <!-- Framework 0.144.0 (owner, 19 Nov 2026: several chunks a lift; the figure authored): a lift's jaws also close on the same kind lying
+         within 2 cells of the first thing, up to the lift's rated load, so a lift of granite chunks takes about 20. 0 is one stack a lift. -->
+    <grabJawCells>2</grabJawCells>
     <!-- A helicopter's water bucket (Framework 0.101.0, all authored): a medium helicopter bucket's 3,000 litres, 100 litres to put out a
          cell, a fire and its water within 50 cells, a run at 0.15 cells a tick, 3 seconds to climb and to come down, a dip of 6 and a pour
          of 2. The litter kit brings 4 litters. -->

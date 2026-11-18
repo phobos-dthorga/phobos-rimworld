@@ -1,6 +1,6 @@
 # Gathering runs: a vehicle that fetches loose materials by itself (19 Nov 2026)
 
-**Status (19 Nov 2026):** built in D'thorga Framework 0.143.0 and D'thorga Vehicles 0.67.0, on the Talus with its loading grab; not yet tested in game. Unloading at a chosen place is not built (the owner: "later on").
+**Status (19 Nov 2026):** built in D'thorga Framework 0.143.0 and D'thorga Vehicles 0.67.0, on the Talus with its loading grab; several chunks a lift in Framework 0.144.0; not yet tested in game. Unloading at a chosen place is not built yet (the owner's card of 19 Nov 2026: build it next).
 
 The owner's request, 19 Nov 2026: "a helper with the Talus Tipper Truck that is executed via a gizmo and is only available to activate
 when the Loading Grab implement upgrade is present. With suitable driver or similar ability for the vehicle to drive, it will source
@@ -25,9 +25,11 @@ and checked against the decompile of the build installed on 18 Nov 2026, or from
 - **It stops by itself** when the cargo is full, nothing it can reach is left, enemies threaten the map **[A]**, the grab or engine fails,
   or you give the truck any other order. One message at the end says what it gathered and why it stopped.
 - **When full, it stops where it is.** Driving home and tipping into a bunker is the next step, not built (below, "Unloading, later").
-- **The pace is the grab's: one stack or one chunk a lift, a lift every 20 seconds at normal speed** (`grabSecondsPerLift`, authored in
-  Framework 0.101.0). A full base body of granite chunks is 96 lifts: about 32 minutes at normal speed, or **about 1.9 in-game days**. That
-  was always the grab's pace; a run makes it obvious. Question 1 below.
+- **The pace is the grab's: a lift every 20 seconds at normal speed** (`grabSecondsPerLift`, authored in Framework 0.101.0). Until
+  Framework 0.144.0 a lift took one stack or one chunk, so a full base body of granite chunks was 96 lifts, **about 1.9 in-game days**.
+  **Since 0.144.0 a lift also takes the same kind lying within 2 cells of the first thing** (`grabJawCells`, authored), up to the lift's
+  500 kg: about 20 granite chunks from a heap, so a heaped full load is about 5 lifts, near **2.4 in-game hours** of lifting, plus the
+  drives. Scattered chunks still take a lift each (the owner's card, 19 Nov 2026).
 - **No Harmony patch.** It drives with the game's own "go to" job, the one Vehicle Framework gives when you right-click a cell **[code]**.
 
 ## What each behaviour does to the player
@@ -127,19 +129,33 @@ grab, or gather by a filter. If its hauler takes the Talus mid-run, the run sees
 
 ## Questions for the owner
 
+**Answered by the owner on 19 Nov 2026 (cards):** 1, several chunks a lift, built in Framework 0.144.0; 2, enemies end the run, as built;
+5, unloading at a chosen place, built next; and the two buttons' own icons in a small batch later that day, on the owner's go.
+
 | # | Question | Agent lean |
 | --- | --- | --- |
-| 1 | The grab's pace, a lift every 20 seconds, makes a full body of chunks about 1.9 in-game days. Keep it, or let one lift take several chunks lying side by side? | A lift may take every unit of one kind within a cell or two of the first, up to the lift's 500 kg: about 20 granite chunks a lift. Realistic for a grab, and it keeps the 20 seconds |
-| 2 | Should enemies end a run, or only pause it until they are gone? | End it, as built: the driver may be needed, and a message says so |
+| 1 | The grab's pace, a lift every 20 seconds, makes a full body of chunks about 1.9 in-game days. Keep it, or let one lift take several chunks lying side by side? | **Decided: several a lift** (owner). A lift takes the same kind within 2 cells of the first, up to its 500 kg |
+| 2 | Should enemies end a run, or only pause it until they are gone? | **Decided: end it** (owner) |
 | 3 | Should a run also take from storage with "Vehicles may load from here" switched on? | No: that is what the grab by hand is for. A run clears loose things |
 | 4 | The default filter: chunks and raw resources. Add stone blocks? | Keep it; the filter is there to change it |
-| 5 | Unloading: a chosen bunker or stockpile, with the run driving home, tipping and going out again? | Yes, as the next step; the end facing is the work to do first |
+| 5 | Unloading: a chosen bunker or stockpile, with the run driving home, tipping and going out again? | **Decided: a chosen place, next** (owner) |
+
+## The owner's idea: militarised service vehicles (19 Nov 2026)
+
+With the answer on enemies, the owner asked: "perhaps we could offer upgrades where we militarize some or all of our service vehicles?
+Either with advantages only or some disadvantages as a result to boot?" **Not designed or built.** It is a family of new behaviours, so
+it needs its own record first, saying what each upgrade lets the player do, what it stops them doing and how it changes play (armour
+that weighs and slows, a gun ring that needs a gunner, a run that carries on under fire), checked against what our fittings, the
+modern military vehicles record and Combat Extended already give. **Agent lean:** research it as its own record when the owner says go,
+with disadvantages as well as advantages, since a truck that is better at everything would leave the tree no choice.
 
 ## Who chose what
 
 - **Owner (19 Nov 2026):** the helper on the Talus, behind the loading grab, by a button; a driver or a vehicle that drives itself; raw
   materials around the map; stockpile-like filters; the code generic where reasonable; unloading later.
-- **Agent:** loose things only; never forbidden, claimed or fogged things; the optional area; ending on enemies; engine started and
+- **Owner (19 Nov 2026, cards):** several chunks a lift; enemies end the run; unloading at a chosen place next; the buttons' own icons
+  later; and the idea of militarised service vehicles, to research.
+- **Agent:** the jaw's reach of 2 cells; loose things only; never forbidden, claimed or fogged things; the optional area; ending on enemies; engine started and
   stopped by the run; the stand-off ring; 16 things a look, 2,000 ticks' patience, five failed drives; the Talus's two filters; the game's
   haul and stone-chunk icons on the two buttons until our own are drawn; every leaned answer above.
 

@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.144.0] - 2026-11-19 - Draft
+
+The loading grab lifts several chunks at once
+
+### Changed
+
+- **A loading grab's lift takes several things at once.** Each lift takes the nearest thing and then the same kind lying within 2 cells of it, up to the lift's 500 kg and the room aboard: a heap of granite chunks comes up about 20 a lift instead of one. A gathering run's full load of heaped chunks takes about 2.4 in-game hours of lifting instead of about 1.9 days. Scattered things still take a lift each. Worked by hand or on a run alike. Your choice of 19 November 2026.
+
+### Save compatibility
+
+- Safe with a running save. Nothing new is saved.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The 2 cells are an authored figure in the vehicle rules (grabJawCells); 0 gives one stack a lift, as before.
+
 ## [0.143.0] - 2026-11-19 - Draft
 
 Gathering runs: a truck with a loading grab fetches loose things about the map by itself

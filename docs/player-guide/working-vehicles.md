@@ -180,7 +180,8 @@ lot when it comes. The grab never lifts from another faction's storage, or a thi
 (3,600 kg, tips slower). And a **loading grab**, a small crane that shows folded behind the cab once fitted:
 
 - **With a driver aboard and stopped, press Work the grab.** It lifts loose things lying within 4 cells (the blue outline) into the
-  cargo, one stack or up to 500 kg a lift, every 20 seconds or so. Nobody else has to carry.
+  cargo, up to 500 kg a lift, every 20 seconds or so. **Each lift takes the nearest thing and the same kind lying within 2 cells of
+  it**, so a heap of granite chunks comes up about 20 at a time. Nobody else has to carry.
 - **It leaves things in a stockpile or on a shelf**, forbidden things and corpses, unless that storage has **Vehicles may load from
   here** switched on (above).
 - It stops by itself when nothing is left in reach or the cargo is full, and says how much came aboard.
@@ -198,7 +199,8 @@ lot when it comes. The grab never lifts from another faction's storage, or a thi
 
 - **It only takes loose things.** It leaves stockpiles and shelves alone, and anything forbidden, anything a colonist is about to carry,
   and anything under the fog. **To keep something where it lies, forbid it.**
-- **It is slow, as the grab is**: one stack or one chunk a lift, every 20 seconds or so. A full load of chunks takes most of two days.
+- **It works at the grab's pace**: a lift every 20 seconds or so, each taking up to 500 kg of one kind lying together. Chunks lying in
+  heaps come up quickly; chunks scattered one here and one there take a lift each, and a drive between.
 - **It stops if enemies come**, leaving its engine running so you can move it at once. Any other order you give it, a right-click
   somewhere, switching its engine off or pressing Stop gathering, ends the run too.
 - Its inspect line says what it is doing: choosing, driving to something, or lifting, with what it has gathered so far.

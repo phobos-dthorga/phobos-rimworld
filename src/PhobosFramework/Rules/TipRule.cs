@@ -64,4 +64,26 @@ public static class GrabRule
         if (limit <= 0) return 0;
         return (int)System.Math.Min(stackCount, System.Math.Floor(limit / unitKilograms + 1e-9));
     }
+
+    /// <summary>
+    /// How many of each lot one lift takes (Framework 0.144.0; owner, 19 Nov 2026: several chunks a lift): the lots in the order the jaws close
+    /// on them (the nearest thing first, then the same kind lying beside it), each as much as is left of the lift's rated load and the room
+    /// aboard allow. A lot whose single unit is too heavy for what is left gets none, and the next lighter one may still go in. A massless lot
+    /// comes whole and costs nothing.
+    /// </summary>
+    public static int[] FillLift(System.Collections.Generic.IReadOnlyList<(int StackCount, double UnitKilograms)> lots, double liftKilograms,
+        double freeKilograms)
+    {
+        var counts = new int[lots.Count];
+        double left = System.Math.Min(liftKilograms, freeKilograms);
+        for (int i = 0; i < lots.Count; i++)
+        {
+            if (left <= 0) break;
+            (int stack, double unit) = lots[i];
+            int count = CountForLift(stack, unit, left, double.MaxValue);
+            counts[i] = count;
+            if (unit > 0) left -= count * unit;
+        }
+        return counts;
+    }
 }

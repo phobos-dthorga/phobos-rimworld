@@ -1,3 +1,4 @@
+using System.Linq;
 using Phobos.Framework.Rules;
 using Xunit;
 
@@ -70,6 +71,47 @@ public class GrabRuleTests
 
     [Fact]
     public void AClaimedStoredThingIsLeft() => Assert.False(GrabRule.MayLift(true, true, true, true));
+
+    static (int, double)[] Chunks(int count, double kilograms)
+    {
+        var lots = new (int, double)[count];
+        for (int i = 0; i < count; i++) lots[i] = (1, kilograms);
+        return lots;
+    }
+
+    [Fact]
+    public void ALiftOfGraniteChunksTakesTwenty()
+    {
+        int[] counts = GrabRule.FillLift(Chunks(25, 25), 500, 2400);
+        Assert.Equal(20, counts.Sum());
+        Assert.Equal(0, counts[20]);
+    }
+
+    [Fact]
+    public void TheRoomAboardEndsALiftEarly() => Assert.Equal(4, GrabRule.FillLift(Chunks(25, 25), 500, 110).Sum());
+
+    [Fact]
+    public void TheFirstLotStillTakesWhatOneLiftAlwaysDid() => Assert.Equal(6, GrabRule.FillLift(new[] { (10, 75.0), (10, 75.0) }, 500, 2000)[0]);
+
+    [Fact]
+    public void WhatIsLeftOfALiftGoesToTheNext()
+    {
+        int[] counts = GrabRule.FillLift(new[] { (10, 75.0), (10, 75.0) }, 500, 2000);
+        Assert.Equal(new[] { 6, 0 }, counts);
+    }
+
+    [Fact]
+    public void ALighterLotFillsWhatAHeavyOneCannot()
+    {
+        int[] counts = GrabRule.FillLift(new[] { (1, 450.0), (1, 100.0), (1, 25.0) }, 500, 2000);
+        Assert.Equal(new[] { 1, 0, 1 }, counts);
+    }
+
+    [Fact]
+    public void AFullTruckLiftsNothing() => Assert.Equal(0, GrabRule.FillLift(Chunks(5, 25), 500, 0).Sum());
+
+    [Fact]
+    public void NoLotsNoLift() => Assert.Empty(GrabRule.FillLift(System.Array.Empty<(int, double)>(), 500, 2000));
 }
 
 public class TipDestinationTests

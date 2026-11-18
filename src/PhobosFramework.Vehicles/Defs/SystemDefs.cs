@@ -983,6 +983,10 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// lift takes. What one lift carries is the vehicle's stat Phobos_GrabLift, set by the grab's node.</summary>
     public float grabReachCells = 4f;
     public float grabSecondsPerLift = 20f;
+    /// <summary>How far round the first thing a lift's jaws also close on the same kind, in cells (Framework 0.144.0; owner, 19 Nov 2026:
+    /// several chunks a lift). Authored: 2 cells each way, so a lift can fill its 500 kg with about 20 granite chunks lying together. 0 takes
+    /// one stack a lift, as before.</summary>
+    public int grabJawCells = 2;
     /// <summary>A helicopter's water bucket (Framework 0.101.0, all authored; WaterDropRule): the litres a bucket holds, the litres that put out a
     /// cell, how far from the helicopter a fire and the water may be, the run's speed in cells a tick, and the seconds to climb (and to come
     /// down), to dip and to pour.</summary>

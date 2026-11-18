@@ -372,6 +372,36 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
     /// <summary>What the grab takes now: for a gathering run, what the run wants (it asks the grab's own limits too); otherwise its own rule.</summary>
     bool TakesNow(Thing thing) => grabForRun ? grabWanted != null && grabWanted(thing) : Grabbable(thing);
 
+    /// <summary>
+    /// What one lift's jaws close on: the first thing, then things of the same kind (and the same material) lying within the rules' jaw reach of
+    /// it, nearest first, each in the grab's reach and one it takes now (Framework 0.144.0; owner, 19 Nov 2026). GrabRule.FillLift says how
+    /// much of each goes in.
+    /// </summary>
+    List<Thing> JawLoad(Thing first)
+    {
+        var load = new List<Thing> { first };
+        int jaw = Rules.grabJawCells;
+        if (jaw <= 0) return load;
+        Map map = Vehicle.Map;
+        CellRect footprint = Vehicle.OccupiedRect();
+        CellRect reach = footprint.ExpandedBy(GatherReachCells);
+        var near = new List<(Thing Thing, int Distance)>();
+        foreach (IntVec3 cell in CellRect.CenteredOn(first.Position, jaw).ClipInsideMap(map))
+        {
+            if (footprint.Contains(cell) || !reach.Contains(cell)) continue;
+            List<Thing> things = cell.GetThingList(map);
+            for (int i = 0; i < things.Count; i++)
+            {
+                Thing other = things[i];
+                if (other == first || other.def != first.def || other.Stuff != first.Stuff || !TakesNow(other)) continue;
+                near.Add((other, cell.DistanceToSquared(first.Position)));
+            }
+        }
+        near.Sort((a, b) => a.Distance.CompareTo(b.Distance));
+        foreach ((Thing other, _) in near) load.Add(other);
+        return load;
+    }
+
     /// <summary>The nearest thing in reach the grab can take now, or null.</summary>
     Thing? NextForGrab()
     {
@@ -547,23 +577,42 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
                 FinishGrab("PhobosVehicleSystems_GrabNothing".Translate().Resolve(), GatherWorkEnd.NothingInReach);
                 return;
             }
-            float unit = thing.GetStatValue(StatDefOf.Mass);
-            int count = GrabRule.CountForLift(thing.stackCount, unit, LiftKilograms, free);
-            if (count <= 0)
+            // One lift: the nearest thing, and the same kind lying beside it while the lift's rated load and the room allow (Framework 0.144.0).
+            List<Thing> jaws = JawLoad(thing);
+            var lots = new List<(int, double)>(jaws.Count);
+            foreach (Thing held in jaws) lots.Add((held.stackCount, held.GetStatValue(StatDefOf.Mass)));
+            int[] counts = GrabRule.FillLift(lots, LiftKilograms, free);
+            if (counts[0] <= 0)
             {
                 FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve(), GatherWorkEnd.Full);
                 return;
             }
-            Building_Storage? from = VehicleLoadOut.StoredIn(thing);
-            int moved = Vehicle.AddOrTransfer(thing, count);
-            if (moved <= 0)
+            int lotsTaken = 0;
+            int units = 0;
+            float kilograms = 0f;
+            for (int j = 0; j < jaws.Count; j++)
             {
-                FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve(), GatherWorkEnd.Full);
-                return;
+                if (counts[j] <= 0) continue;
+                Thing held = jaws[j];
+                Building_Storage? from = VehicleLoadOut.StoredIn(held);
+                int moved = Vehicle.AddOrTransfer(held, counts[j]);
+                if (moved <= 0)
+                {
+                    if (j > 0) continue;
+                    FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve(), GatherWorkEnd.Full);
+                    return;
+                }
+                if (from != null) Seen.Note("vehicles.grab-from-storage", Vehicle, from.LabelShort);
+                lotsTaken++;
+                units += moved;
+                kilograms += moved * (float)lots[j].Item2;
             }
-            if (from != null) Seen.Note("vehicles.grab-from-storage", Vehicle, from.LabelShort);
             lifted++;
-            liftedKilograms += moved * unit;
+            liftedKilograms += kilograms;
+            if (lotsTaken > 1 && Seen.Wants("vehicles.grab-jaw", Vehicle))
+            {
+                Seen.Note("vehicles.grab-jaw", Vehicle, values: new List<KeyValuePair<string, double>> { new("things", lotsTaken), new("kg", kilograms) });
+            }
             VehicleWorkSounds.Play(Vehicle, "Slide");
         }
     }
