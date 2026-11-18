@@ -11,6 +11,7 @@ replace it on the owner's go, and then its entry here is removed so this can't o
 
 - Flight/TakeOff, Flight/FlyTo, Flight/Hold, Flight/Land: our own flight's four buttons (Framework 0.147.0, 19 Nov 2026), drawn while
   the game was running, so the graphics card was not free; generated pictures can replace them on the owner's go.
+- Flight/Circle, Flight/CircleSize: circling's two buttons (Framework 0.153.0, 19 Nov 2026), stand-ins likewise.
 
 The other buttons this once drew have generated pictures the owner picked (9 and 10 Nov 2026).
 """
@@ -116,6 +117,28 @@ def land():
     return image
 
 
+# Circling (Framework 0.153.0): stand-ins too. A steel arrow sweeping round an amber centre; and three rings, small to large, for the
+# size and way round.
+def circle():
+    image, draw = canvas()
+    outlined_ellipse(draw, (402, 402, 622, 622), AMBER)
+    # The sweep: a thick ring open at the top right, ending in an arrowhead.
+    draw.arc((150, 150, 874, 874), start=-40, end=250, fill=OUTLINE, width=int(LINE * 3.2))
+    draw.arc((150 + LINE * 0.6, 150 + LINE * 0.6, 874 - LINE * 0.6, 874 - LINE * 0.6), start=-38, end=248, fill=STEEL_SHADE, width=int(LINE * 1.7))
+    outlined_polygon(draw, [(560, 60), (840, 200), (600, 330)], STEEL_SHADE)
+    return image
+
+
+def circle_size():
+    image, draw = canvas()
+    # Three rings standing on one point, small to large, so they read as sizes rather than a target.
+    for box in ((120, 120, 904, 904), (270, 390, 754, 874), (400, 620, 624, 844)):
+        draw.ellipse(box, outline=OUTLINE, width=int(LINE * 2.2))
+        inset = LINE * 0.45
+        draw.ellipse((box[0] + inset, box[1] + inset, box[2] - inset, box[3] - inset), outline=AMBER, width=int(LINE * 1.25))
+    return image
+
+
 # A gun's three fire modes (Framework 0.152.0): Vehicle Framework names its own fire-mode pictures, but on RimWorld 1.7 it no longer
 # loads them, so a turret of ours showed the red cross. Brass cartridges: one, three, and a belt.
 BRASS = (222, 176, 82, 255)
@@ -167,6 +190,8 @@ DRAWINGS = {
     'Flight/FlyTo': (fly_to, 'a steel arrow flying toward an amber target ring, for "Fly to"'),
     'Flight/Hold': (hold, 'two amber bars, the sign for a pause, in a pale ring, for "Hold here"'),
     'Flight/Land': (land, 'an amber arrow coming down onto a pale landing pad, for "Land here"'),
+    'Flight/Circle': (circle, 'a steel arrow sweeping round an amber centre, for "Circle here"'),
+    'Flight/CircleSize': (circle_size, 'three amber rings, small to large, for the circle size and way round'),
 }
 
 

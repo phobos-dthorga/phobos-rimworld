@@ -4,11 +4,23 @@
 
   <!-- Buttons -->
   <PhobosFlight_TakeOff>Take off</PhobosFlight_TakeOff>
-  <PhobosFlight_TakeOffDesc>Lift the {VEHICLE} straight up from where it stands and hold it in a hover over the map. Its engines must be running, its crew aboard and the sky above it open, and it must be light enough to hover in today's air. Too heavy to lift straight up, it can still leave for another place by rolling along a strip of clear, open ground ahead of it, shown while it is selected.</PhobosFlight_TakeOffDesc>
+  <PhobosFlight_TakeOffDesc>Lift the {VEHICLE} straight up from where it stands and hold it in a hover over the map. Its engines must be running, its crew aboard and the sky above it open, and it must be light enough to hover in today's air. Too heavy to lift straight up, it rolls along a strip of clear, open ground ahead of it, shown while it is selected, and circles once it is up.</PhobosFlight_TakeOffDesc>
   <PhobosFlight_FlyTo>Fly to</PhobosFlight_FlyTo>
-  <PhobosFlight_FlyToDesc>Pick a spot on the map. The {VEHICLE} turns, flies there over anything in the way and holds in a hover. You can also right-click the ground with it selected.</PhobosFlight_FlyToDesc>
+  <PhobosFlight_FlyToDesc>Pick a spot on the map. The {VEHICLE} turns, flies there over anything in the way and holds in a hover; if it cannot hover, it circles over the spot. You can also right-click the ground with it selected.</PhobosFlight_FlyToDesc>
   <PhobosFlight_Hold>Hold here</PhobosFlight_Hold>
-  <PhobosFlight_HoldDesc>Stop the {VEHICLE} as soon as it can and hold it in a hover.</PhobosFlight_HoldDesc>
+  <PhobosFlight_HoldDesc>Stop the {VEHICLE} as soon as it can and hold it in a hover. If it cannot hover, it circles where it is instead.</PhobosFlight_HoldDesc>
+  <PhobosFlight_Circle>Circle here</PhobosFlight_Circle>
+  <PhobosFlight_CircleDesc>Pick a spot. The {VEHICLE} flies round it, at the size and way round chosen beside this button, until you give it another order. It can circle when it is too heavy to hover.</PhobosFlight_CircleDesc>
+  <PhobosFlight_CircleSettings>Circles: {SIZE}, {WAY}</PhobosFlight_CircleSettings>
+  <PhobosFlight_CircleSettingsDesc>Choose how wide the {VEHICLE} circles and which way round. A circle under way changes at once.</PhobosFlight_CircleSettingsDesc>
+  <PhobosFlight_CircleTight>tight</PhobosFlight_CircleTight>
+  <PhobosFlight_CircleWide>wide</PhobosFlight_CircleWide>
+  <PhobosFlight_CircleVeryWide>very wide</PhobosFlight_CircleVeryWide>
+  <PhobosFlight_Clockwise>clockwise</PhobosFlight_Clockwise>
+  <PhobosFlight_Anticlockwise>anticlockwise</PhobosFlight_Anticlockwise>
+  <PhobosFlight_CircleSizeOption>Circle {SIZE} ({CELLS} cells out)</PhobosFlight_CircleSizeOption>
+  <PhobosFlight_CircleCurrent>{OPTION} (now)</PhobosFlight_CircleCurrent>
+  <PhobosFlight_CircleOtherWay>Go round {WAY}</PhobosFlight_CircleOtherWay>
   <PhobosFlight_Land>Land here</PhobosFlight_Land>
   <PhobosFlight_LandDesc>Pick a clear, open spot and which way to face. The {VEHICLE} flies over it, turns and comes straight down. It needs open sky and firm ground with nothing built on it. If it cannot hover, it lands rolling instead: it touches down at the spot and rolls on ahead, so the ground in front of the spot must be clear too.</PhobosFlight_LandDesc>
 
@@ -22,17 +34,15 @@
   <PhobosFlight_RefuseNotFlying>The {VEHICLE} is not flying steadily enough to take that order now.</PhobosFlight_RefuseNotFlying>
   <PhobosFlight_RefuseOffMap>That is beyond the edge of the map.</PhobosFlight_RefuseOffMap>
   <PhobosFlight_RefuseNotMoving>The {VEHICLE} is not flying anywhere to stop.</PhobosFlight_RefuseNotMoving>
-  <PhobosFlight_RefuseCannotHover>The {VEHICLE}'s engines cannot hold it in a hover now: it has to keep moving.</PhobosFlight_RefuseCannotHover>
   <PhobosFlight_RefuseLand>The {VEHICLE} cannot land there: {WHY}.</PhobosFlight_RefuseLand>
   <PhobosFlight_RefuseBoard>Nobody can climb aboard the {VEHICLE} while it is in the air.</PhobosFlight_RefuseBoard>
   <PhobosFlight_RefuseLoad>Nothing can be loaded into the {VEHICLE} while it is in the air.</PhobosFlight_RefuseLoad>
   <PhobosFlight_RefuseUnload>Nothing can be unloaded from the {VEHICLE} while it is in the air.</PhobosFlight_RefuseUnload>
   <PhobosFlight_RefuseRolling>The {VEHICLE} is still moving on the ground: let it stop first.</PhobosFlight_RefuseRolling>
-  <PhobosFlight_RefuseRollOnlyLeaving>The {VEHICLE} is too heavy to lift straight up in this air. It can still take off rolling along a strip of {CELLS} clear cells ahead of it, but only to leave for another place: send it on a journey instead.</PhobosFlight_RefuseRollOnlyLeaving>
   <PhobosFlight_RefuseTooHeavyShed>The {VEHICLE} is too heavy to take off at all in this air, even rolling. Take about {KILOGRAMS} kg out of it, wait for cooler air, or repair its engines.</PhobosFlight_RefuseTooHeavyShed>
   <PhobosFlight_RefuseStrip>The {VEHICLE} is too heavy to lift straight up, so it must roll {CELLS} cells straight ahead to take off, and that strip will not do: {WHY}. Turn it or move it to clear, open ground.</PhobosFlight_RefuseStrip>
-  <PhobosFlight_RefuseCannotHoverFlyTo>The {VEHICLE}'s engines cannot hold it in a hover now, so it could not stop there: let it carry on where it is going, or land it on a clear strip.</PhobosFlight_RefuseCannotHoverFlyTo>
-  <PhobosFlight_RefuseCannotHoverNoStrip>The {VEHICLE}'s engines cannot hold it in a hover now, and it cannot land rolling: it has to keep flying until it is lighter or the air cooler.</PhobosFlight_RefuseCannotHoverNoStrip>
+  <PhobosFlight_RefuseCirclingNoHover>The {VEHICLE}'s engines cannot hold it in a hover now, so it keeps circling. Send it somewhere, or land it on a clear strip.</PhobosFlight_RefuseCirclingNoHover>
+  <PhobosFlight_RefuseCannotHoverNoStrip>The {VEHICLE}'s engines cannot hold it in a hover now, and it cannot land rolling: it has to keep flying, or circle, until it is lighter or the air cooler.</PhobosFlight_RefuseCannotHoverNoStrip>
   <PhobosFlight_RefuseStepOut>Nobody can step out of the {VEHICLE} while it is in the air: land it first.</PhobosFlight_RefuseStepOut>
 
   <!-- Why a spot will not do (finishing "it cannot land there:") -->
@@ -59,6 +69,8 @@
   <!-- Leaving and arriving (Framework 0.149.0) -->
   <PhobosFlight_MsgDeparting>The {VEHICLE} is setting off: it flies to the edge of the map on the side of its journey, and leaves from there.</PhobosFlight_MsgDeparting>
   <PhobosFlight_MsgDepartureCancelled>The {VEHICLE} is no longer leaving: it takes the new order instead.</PhobosFlight_MsgDepartureCancelled>
+  <PhobosFlight_MsgCannotLandCircling>The {VEHICLE} cannot hover now, and the ground ahead of its landing spot is not clear for it to land rolling. It is circling over the spot: clear the ground ahead of it, or pick another place to land.</PhobosFlight_MsgCannotLandCircling>
+  <PhobosFlight_MsgCirclingInstead>The {VEHICLE}'s engines cannot hold it in a hover, so it circles here instead.</PhobosFlight_MsgCirclingInstead>
   <PhobosFlight_MsgRollAborted>The {VEHICLE} stopped its take-off roll: {WHY}. It has braked to a stop and is no longer leaving.</PhobosFlight_MsgRollAborted>
   <PhobosFlight_MsgRolledIn>The {VEHICLE} has landed rolling and stopped at the end of its strip.</PhobosFlight_MsgRolledIn>
   <PhobosFlight_MsgRolledShort>The {VEHICLE} had to stop short on its landing roll ({WHY}) and braked hard. Its undercarriage is damaged.</PhobosFlight_MsgRolledShort>
@@ -70,6 +82,7 @@
   <PhobosFlight_StateMoving>flying</PhobosFlight_StateMoving>
   <PhobosFlight_StateSettling>coming in to land</PhobosFlight_StateSettling>
   <PhobosFlight_StateComingDown>coming down</PhobosFlight_StateComingDown>
+  <PhobosFlight_StateOrbit>circling</PhobosFlight_StateOrbit>
   <PhobosFlight_StateTakeoffRoll>rolling to take off</PhobosFlight_StateTakeoffRoll>
   <PhobosFlight_StateRollingLanding>landing on a strip</PhobosFlight_StateRollingLanding>
   <PhobosFlight_InspectPlain>Flight: {DOING}.</PhobosFlight_InspectPlain>

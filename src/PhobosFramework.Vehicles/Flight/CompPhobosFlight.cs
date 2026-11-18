@@ -31,6 +31,8 @@ public enum FlightState
     TakeoffRoll,
     /// <summary>Coming down onto a strip and rolling to a stop, unable to hover (Framework 0.151.0).</summary>
     RollingLanding,
+    /// <summary>Flying round a centre, ordered or because it cannot hover where it would hold (Framework 0.153.0).</summary>
+    Orbit,
 }
 
 /// <summary>
@@ -62,6 +64,13 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
     public bool needsBuiltFloor;
     /// <summary>Its speed leaving the ground at the end of a roll, as a share of its top speed over the map (authored).</summary>
     public float liftOffSpeedShare = 0.6f;
+    /// <summary>Its speed circling, cells a second (Framework 0.153.0); left out, seven tenths of its top speed (authored).</summary>
+    public float orbitSpeedCellsPerSecond = float.NaN;
+    /// <summary>Its tightest circle's radius, cells: never tighter than its turn allows at its circling speed.</summary>
+    public float orbitRadiusCells = 12f;
+
+    /// <summary>Its speed circling, cells a second.</summary>
+    public float OrbitSpeed => float.IsNaN(orbitSpeedCellsPerSecond) ? speedCellsPerSecond * 0.7f : orbitSpeedCellsPerSecond;
 
     public CompProperties_PhobosFlight() => compClass = typeof(CompPhobosFlight);
 
@@ -71,6 +80,9 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
         if (speedCellsPerSecond <= 0f || accelerationCellsPerSecond <= 0f || turnDegreesPerSecond <= 0f) yield return "flight speeds must be positive";
         if (climbSeconds <= 0f || descentSeconds <= 0f || fallSeconds <= 0f) yield return "flight climb, descent and fall times must be positive";
         if (shortestRollCells < 1 || fullRollCells < shortestRollCells) yield return "a roll needs shortestRollCells of at least 1 and fullRollCells no shorter";
+        if (OrbitSpeed <= 0f || OrbitSpeed > speedCellsPerSecond) yield return "orbitSpeedCellsPerSecond must be above 0 and no more than speedCellsPerSecond";
+        double tightest = OrbitRule.TightestRadius(OrbitSpeed, turnDegreesPerSecond);
+        if (orbitRadiusCells < tightest) yield return $"orbitRadiusCells {orbitRadiusCells} is tighter than it can turn at its circling speed ({tightest:0.0} cells)";
     }
 }
 
@@ -97,6 +109,10 @@ public class CompPhobosFlight : VehicleComp
     float rollFromX = float.NaN, rollFromZ = float.NaN;
     int rollCells;
     bool landRolling;
+    // Circling (Framework 0.153.0): the centre and radius flown now (NaN when not circling), and the player's size and way round.
+    float orbitX = float.NaN, orbitZ = float.NaN, orbitRadius;
+    int orbitSize = 1;
+    bool orbitClockwise = true;
 
     // Derived, never saved.
     float speed;
@@ -151,6 +167,11 @@ public class CompPhobosFlight : VehicleComp
         Scribe_Values.Look(ref rollFromZ, "PhobosFlight_RollFromZ", float.NaN);
         Scribe_Values.Look(ref rollCells, "PhobosFlight_RollCells");
         Scribe_Values.Look(ref landRolling, "PhobosFlight_LandRolling");
+        Scribe_Values.Look(ref orbitX, "PhobosFlight_OrbitX", float.NaN);
+        Scribe_Values.Look(ref orbitZ, "PhobosFlight_OrbitZ", float.NaN);
+        Scribe_Values.Look(ref orbitRadius, "PhobosFlight_OrbitRadius");
+        Scribe_Values.Look(ref orbitSize, "PhobosFlight_OrbitSize", 1);
+        Scribe_Values.Look(ref orbitClockwise, "PhobosFlight_OrbitClockwise", true);
         if (Scribe.mode == LoadSaveMode.PostLoadInit && departNodes is { Count: 0 }) departNodes = null;
     }
 
@@ -181,19 +202,18 @@ public class CompPhobosFlight : VehicleComp
 
     // ---- Orders: each says what it did, or why not ----
 
-    /// <summary>Why it may not lift straight up from where it stands now, or null. Too heavy to lift straight up but able to roll, it can
-    /// leave only for another place, since it could hold nowhere on the map until it can circle (the design's slice 4).</summary>
+    /// <summary>Why it may not leave the ground from where it stands now, or null: straight up, or too heavy for that, along a clear strip
+    /// ahead (Framework 0.151.0; since 0.153.0 for any flight, as it can circle where it cannot hover).</summary>
     public string? TakeOffRefusal()
     {
         if (GroundRefusal() is { } ground) return ground;
         (RollVerdict verdict, int cells, float m) = RollNeed();
-        NamedArgument who = Vehicle.LabelShort.Named("VEHICLE");
-        return verdict switch
+        if (verdict == RollVerdict.Refused) return TooHeavy(m);
+        if (verdict == RollVerdict.Rolls && StripAheadRefusal(cells) is { } why)
         {
-            RollVerdict.Rolls => "PhobosFlight_RefuseRollOnlyLeaving".Translate(who, cells.Named("CELLS")).Resolve(),
-            RollVerdict.Refused => TooHeavy(m),
-            _ => null,
-        };
+            return "PhobosFlight_RefuseStrip".Translate(Vehicle.LabelShort.Named("VEHICLE"), cells.Named("CELLS"), why.Named("WHY")).Resolve();
+        }
+        return null;
     }
 
     /// <summary>
@@ -249,12 +269,18 @@ public class CompPhobosFlight : VehicleComp
         return null;
     }
 
-    /// <summary>Lifts straight up from where it stands.</summary>
+    /// <summary>Lifts straight up from where it stands, or rolls along the strip ahead and circles once up.</summary>
     public void TakeOff()
     {
         if (TakeOffRefusal() is { } refused)
         {
             Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        (RollVerdict verdict, int cells, _) = RollNeed();
+        if (verdict == RollVerdict.Rolls)
+        {
+            BeginRoll(cells);
             return;
         }
         BeginTakeOff();
@@ -303,20 +329,10 @@ public class CompPhobosFlight : VehicleComp
     /// a steady flight and its crew and fuel (Vehicle Framework judged it as standing on the ground).</summary>
     public string? DepartRefusal()
     {
-        if (!Airborne)
-        {
-            if (GroundRefusal() is { } ground) return ground;
-            (RollVerdict verdict, int cells, float m) = RollNeed();
-            if (verdict == RollVerdict.Refused) return TooHeavy(m);
-            if (verdict == RollVerdict.Rolls && StripAheadRefusal(cells) is { } why)
-            {
-                return "PhobosFlight_RefuseStrip".Translate(Vehicle.LabelShort.Named("VEHICLE"), cells.Named("CELLS"), why.Named("WHY")).Resolve();
-            }
-            return null;
-        }
+        if (!Airborne) return TakeOffRefusal();
         VehiclePawn v = Vehicle;
         NamedArgument who = v.LabelShort.Named("VEHICLE");
-        if (state is FlightState.LiftingOff or FlightState.ComingDown or FlightState.Settling) return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
+        if (state is FlightState.LiftingOff or FlightState.ComingDown or FlightState.Settling or FlightState.RollingLanding) return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
         if (!v.HasEnoughOperators) return "PhobosFlight_RefuseCrew".Translate(who).Resolve();
         if (v.CompFueledTravel is { } fuel && fuel.Fuel <= 0f) return "PhobosFlight_RefuseNoFuel".Translate(who).Resolve();
         return null;
@@ -354,7 +370,7 @@ public class CompPhobosFlight : VehicleComp
         (float ex, float ez) = EdgeBounds();
         (double tx, double tz) = FlightPathRule.EdgePoint(x, z, bearing, ex, v.Map.Size.x - ex, ez, v.Map.Size.z - ez);
         (targetX, targetZ) = ((float)tx, (float)tz);
-        if (state == FlightState.Hover) state = FlightState.Moving;
+        LeaveOrbit();
         v.EventRegistry[VehicleEventDefOf.AerialVehicleLaunch].ExecuteEvents();
         if (v.Faction == Faction.OfPlayer)
         {
@@ -384,6 +400,7 @@ public class CompPhobosFlight : VehicleComp
         climb = 0f;
         speed = 0f;
         ClearTarget();
+        orbitX = orbitZ = float.NaN;
         v.Transform.rotation = 0f;
         FlightRegistry.Remove(this);
         StopTicking();
@@ -433,9 +450,6 @@ public class CompPhobosFlight : VehicleComp
         if (!Airborne || state is FlightState.LiftingOff or FlightState.ComingDown or FlightState.TakeoffRoll or FlightState.RollingLanding)
             return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
         if (!cell.InBounds(Vehicle.Map)) return "PhobosFlight_RefuseOffMap".Translate(who).Resolve();
-        // Framework 0.151.0: one that cannot hover could only come down where it stopped, until it can circle (slice 5): it keeps on its
-        // way, or lands rolling.
-        if (hold == FlightHold.ForwardOnly) return "PhobosFlight_RefuseCannotHoverFlyTo".Translate(who).Resolve();
         return null;
     }
 
@@ -451,31 +465,45 @@ public class CompPhobosFlight : VehicleComp
         Vector3 c = cell.ToVector3Shifted();
         (targetX, targetZ) = Clamped(c.x, c.z);
         landCell = IntVec3.Invalid;
-        if (state is FlightState.Hover or FlightState.Settling)
-        {
-            if (state == FlightState.Settling) state = FlightState.LiftingOff;
-            else state = FlightState.Moving;
-        }
+        if (state == FlightState.Settling) state = FlightState.LiftingOff;
+        else LeaveOrbit();
         FleckMaker.Static(cell, Vehicle.Map, FleckDefOf.FeedbackGoto);
     }
 
-    /// <summary>Whether it is flying somewhere it could be told to stop.</summary>
-    public bool CanHold => state == FlightState.Moving;
+    /// <summary>Whether it is flying somewhere, or circling, so that it could be told to hold.</summary>
+    public bool CanHold => state is FlightState.Moving or FlightState.Orbit;
 
-    /// <summary>Stops where it is and hovers, or says why not.</summary>
+    /// <summary>Why it may not hold now, or null: not moving, or circling already and unable to hover.</summary>
+    public string? HoldRefusal()
+    {
+        NamedArgument who = Vehicle.LabelShort.Named("VEHICLE");
+        if (!CanHold) return "PhobosFlight_RefuseNotMoving".Translate(who).Resolve();
+        if (state == FlightState.Orbit && hold != FlightHold.Hover) return "PhobosFlight_RefuseCirclingNoHover".Translate(who).Resolve();
+        return null;
+    }
+
+    /// <summary>Stops where it is and hovers; one that cannot hover circles here instead (Framework 0.153.0), and says so.</summary>
     public void Hold()
     {
-        if (state != FlightState.Moving)
+        VehiclePawn v = Vehicle;
+        if (HoldRefusal() is { } refused)
         {
-            Messages.Message("PhobosFlight_RefuseNotMoving".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.RejectInput, historical: false);
-            return;
-        }
-        if (hold != FlightHold.Hover)
-        {
-            Messages.Message("PhobosFlight_RefuseCannotHover".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            Messages.Message(refused, v, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
         CancelDeparture();
+        if (hold != FlightHold.Hover)
+        {
+            // The design's holding: where a hovering aircraft would hold, one that cannot hover circles, starting on its present course.
+            ClearTarget();
+            float r = OrbitRadiusNow();
+            (double cx, double cz) = OrbitRule.CentreFrom(x, z, heading, r, orbitClockwise);
+            BeginOrbit((float)cx, (float)cz);
+            Seen.Note("aircraft.flight-orbit", v, variant: "holding");
+            Messages.Message("PhobosFlight_MsgCirclingInstead".Translate(v.LabelShort.Named("VEHICLE")).Resolve(), v, MessageTypeDefOf.SilentInput, historical: false);
+            return;
+        }
+        LeaveOrbit();
         // Brake to rest where it can stop: the point its present speed carries it to.
         double stop = speed * speed / (2 * Props.accelerationCellsPerSecond);
         double rad = heading * Math.PI / 180;
@@ -521,7 +549,100 @@ public class CompPhobosFlight : VehicleComp
         landRolling = NeedsRollingLanding();
         Vector3 c = Ext_Vehicles.TrueCenter(cell, new Rot8(rot), Vehicle.VehicleDef.Size, 0f);
         (targetX, targetZ) = (c.x, c.z);
-        if (state is FlightState.Hover) state = FlightState.Moving;
+        LeaveOrbit();
+    }
+
+    // ---- Circling (Framework 0.153.0; the design's slice 5) ----
+
+    /// <summary>Why it may not be told to circle this point now, or null.</summary>
+    public string? CircleRefusal(IntVec3 cell)
+    {
+        NamedArgument who = Vehicle.LabelShort.Named("VEHICLE");
+        if (!Airborne || state is FlightState.LiftingOff or FlightState.ComingDown or FlightState.Settling or FlightState.TakeoffRoll or FlightState.RollingLanding)
+            return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
+        if (!cell.InBounds(Vehicle.Map)) return "PhobosFlight_RefuseOffMap".Translate(who).Resolve();
+        return null;
+    }
+
+    /// <summary>Flies round a point, at the player's chosen size and way round, until told otherwise; the circle is kept inside the map.</summary>
+    public void Circle(IntVec3 cell)
+    {
+        if (CircleRefusal(cell) is { } refused)
+        {
+            Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        CancelDeparture();
+        landCell = IntVec3.Invalid;
+        landRolling = false;
+        ClearTarget();
+        Vector3 c = cell.ToVector3Shifted();
+        BeginOrbit(c.x, c.z);
+        Seen.Note("aircraft.flight-orbit", Vehicle, variant: "ordered");
+        FleckMaker.Static(cell, Vehicle.Map, FleckDefOf.FeedbackGoto);
+    }
+
+    /// <summary>The player's circle size, an index into <see cref="OrbitRule.SizeShares"/>.</summary>
+    public int OrbitSize => Mathf.Clamp(orbitSize, 0, OrbitRule.SizeShares.Length - 1);
+
+    /// <summary>Whether it circles clockwise, seen from above.</summary>
+    public bool OrbitClockwise => orbitClockwise;
+
+    /// <summary>A circle size's radius for this aircraft, cells, before fitting it to the map.</summary>
+    public float RadiusOfSize(int size) => Props.orbitRadiusCells * (float)OrbitRule.SizeShares[Mathf.Clamp(size, 0, OrbitRule.SizeShares.Length - 1)];
+
+    /// <summary>Sets the size of its circles; a circle under way widens or tightens at once.</summary>
+    public void SetOrbitSize(int size)
+    {
+        orbitSize = Mathf.Clamp(size, 0, OrbitRule.SizeShares.Length - 1);
+        if (state == FlightState.Orbit) BeginOrbit(orbitX, orbitZ);
+    }
+
+    /// <summary>Turns its circles the other way round; a circle under way changes at once.</summary>
+    public void ReverseOrbit()
+    {
+        orbitClockwise = !orbitClockwise;
+    }
+
+    /// <summary>The radius it circles at now: the player's size, made smaller where the map is too small for it.</summary>
+    float OrbitRadiusNow()
+    {
+        (float ex, float ez) = EdgeBounds();
+        IntVec3 size = Vehicle.Map.Size;
+        return (float)OrbitRule.FitRadius(RadiusOfSize(OrbitSize), ex, size.x - ex, ez, size.z - ez);
+    }
+
+    /// <summary>Starts circling a centre (moved inward as little as it must be so the circle stays on the map).</summary>
+    void BeginOrbit(float cx, float cz)
+    {
+        (float ex, float ez) = EdgeBounds();
+        IntVec3 size = Vehicle.Map.Size;
+        orbitRadius = OrbitRadiusNow();
+        (double fx, double fz) = OrbitRule.FitCentre(cx, cz, orbitRadius, ex, size.x - ex, ez, size.z - ez);
+        (orbitX, orbitZ) = ((float)fx, (float)fz);
+        state = FlightState.Orbit;
+    }
+
+    /// <summary>Stops circling, flying on to whatever target it now has.</summary>
+    void LeaveOrbit()
+    {
+        orbitX = orbitZ = float.NaN;
+        if (state is FlightState.Hover or FlightState.Orbit) state = FlightState.Moving;
+    }
+
+    /// <summary>One tick round the circle: steering at its tangent (OrbitRule), within its turn rate, at its circling speed.</summary>
+    void OrbitStep(float dt)
+    {
+        if (float.IsNaN(orbitX))
+        {
+            state = FlightState.Moving;
+            return;
+        }
+        if (climb < 1f) climb = Mathf.Min(1f, climb + dt / Props.climbSeconds);
+        double wanted = OrbitRule.Heading(x, z, orbitX, orbitZ, orbitRadius, orbitClockwise, heading);
+        heading = (float)FlightPathRule.TurnToward(heading, wanted, Props.turnDegreesPerSecond * dt);
+        speed = (float)FlightPathRule.NextSpeed(speed, 1e6, Props.OrbitSpeed, Props.accelerationCellsPerSecond, dt);
+        MoveAlongHeading(speed * dt);
     }
 
     // ---- Each tick in the air ----
@@ -548,6 +669,9 @@ public class CompPhobosFlight : VehicleComp
                 break;
             case FlightState.RollingLanding:
                 RollingLandingStep(dt, now);
+                break;
+            case FlightState.Orbit:
+                OrbitStep(dt);
                 break;
             case FlightState.LiftingOff:
                 climb = Mathf.Min(1f, climb + dt / Props.climbSeconds);
@@ -640,6 +764,13 @@ public class CompPhobosFlight : VehicleComp
     {
         if (!HasTarget)
         {
+            if (state == FlightState.Moving && hold == FlightHold.ForwardOnly)
+            {
+                // Framework 0.153.0: nowhere to go and unable to stop: it circles on from its course.
+                (double cx, double cz) = OrbitRule.CentreFrom(x, z, heading, OrbitRadiusNow(), orbitClockwise);
+                BeginOrbit((float)cx, (float)cz);
+                return;
+            }
             speed = 0f;
             if (state == FlightState.Moving) state = FlightState.Hover;
             return;
@@ -686,13 +817,23 @@ public class CompPhobosFlight : VehicleComp
             BeginRollingLanding();
             return;
         }
-        speed = 0f;
-        ClearTarget();
         if (hold == FlightHold.ForwardOnly)
         {
-            BeginFall("PhobosFlight_WhyCannotHover".Translate().Resolve());
+            // Framework 0.153.0: over a point it cannot hover at, it circles over it (the design's holding). Sent to land there and no strip
+            // clear ahead of the spot, it circles too, and says why, rather than come down where it is.
+            VehiclePawn v = Vehicle;
+            if (landCell.IsValid && v.Faction == Faction.OfPlayer)
+            {
+                Messages.Message("PhobosFlight_MsgCannotLandCircling".Translate(v.LabelShort.Named("VEHICLE")).Resolve(), v, MessageTypeDefOf.CautionInput);
+            }
+            landCell = IntVec3.Invalid;
+            ClearTarget();
+            BeginOrbit(x, z);
+            Seen.Note("aircraft.flight-orbit", v, variant: "holding");
             return;
         }
+        speed = 0f;
+        ClearTarget();
         if (landCell.IsValid)
         {
             heading = landRot.AsAngle;
@@ -727,8 +868,16 @@ public class CompPhobosFlight : VehicleComp
         // Off the ground: on to wherever it was going, climbing.
         rollFromX = rollFromZ = float.NaN;
         climb = 0.01f;
-        state = HasTarget ? FlightState.Moving : FlightState.Hover;
         Seen.Note("aircraft.flight-roll", Vehicle, variant: "lifted-off");
+        if (HasTarget) state = FlightState.Moving;
+        else if (hold == FlightHold.Hover) state = FlightState.Hover;
+        else
+        {
+            // Framework 0.153.0: rolled off with no journey, it circles on from its course, climbing, until it is told where to go.
+            (double cx, double cz) = OrbitRule.CentreFrom(x, z, heading, OrbitRadiusNow(), orbitClockwise);
+            BeginOrbit((float)cx, (float)cz);
+            Seen.Note("aircraft.flight-orbit", Vehicle, variant: "holding");
+        }
     }
 
     /// <summary>The roll is stopped (the strip blocked, the engines failing): it brakes to a stop where it is, the journey off, and says why.</summary>
@@ -843,6 +992,14 @@ public class CompPhobosFlight : VehicleComp
     {
         if (state == FlightState.ComingDown) return;
         VehiclePawn v = Vehicle;
+        if (!HasTarget && speed > 0f)
+        {
+            // Framework 0.153.0: circling, it has no point ahead; it glides on along its course while it comes down.
+            double stop = speed * speed / (2 * Props.accelerationCellsPerSecond);
+            double rad = heading * Math.PI / 180;
+            (targetX, targetZ) = Clamped((float)(x + Math.Sin(rad) * stop), (float)(z + Math.Cos(rad) * stop));
+        }
+        orbitX = orbitZ = float.NaN;
         state = FlightState.ComingDown;
         landCell = IntVec3.Invalid;
         if (v.Faction == Faction.OfPlayer)
@@ -907,6 +1064,7 @@ public class CompPhobosFlight : VehicleComp
         ClearTarget();
         landCell = IntVec3.Invalid;
         landRolling = false;
+        orbitX = orbitZ = float.NaN;
         v.Transform.rotation = 0f;
         v.FullRotation = new Rot8(rot);
         if (v.Position != cell) v.Position = cell;
@@ -995,7 +1153,7 @@ public class CompPhobosFlight : VehicleComp
 
     /// <summary>How far forward the nacelles of a tiltrotor should lean now, 0 upright to 1 fully forward, from its speed over the map
     /// (for D'thorga Vehicles' tiltrotor renderer; 0 on the ground and in a hover).</summary>
-    public float ForwardTiltShare => state == FlightState.Moving ? Mathf.Clamp01(speed / Props.speedCellsPerSecond) * 0.5f : 0f;
+    public float ForwardTiltShare => state is FlightState.Moving or FlightState.Orbit ? Mathf.Clamp01(speed / Props.speedCellsPerSecond) * 0.5f : 0f;
 
     /// <summary><see cref="ForwardTiltShare"/> for any vehicle; 0 for one without our flight.</summary>
     public static float ForwardTiltShareOf(VehiclePawn vehicle) => FlightRegistry.Get(vehicle)?.ForwardTiltShare ?? 0f;

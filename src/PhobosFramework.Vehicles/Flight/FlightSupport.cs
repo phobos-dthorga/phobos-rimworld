@@ -211,7 +211,7 @@ public static class FlightGizmos
             yield return takeOff;
             yield break;
         }
-        bool busy = flight.State is FlightState.LiftingOff or FlightState.ComingDown;
+        bool busy = flight.State is FlightState.LiftingOff or FlightState.ComingDown or FlightState.TakeoffRoll or FlightState.RollingLanding;
         var flyTo = new Command_Action
         {
             defaultLabel = "PhobosFlight_FlyTo".Translate(),
@@ -229,8 +229,29 @@ public static class FlightGizmos
             icon = Icon("Hold"),
             action = flight.Hold,
         };
-        if (!flight.CanHold) hold.Disable("PhobosFlight_RefuseNotMoving".Translate(who));
+        if (flight.HoldRefusal() is { } holdRefused) hold.Disable(holdRefused);
         yield return hold;
+
+        // Circling (Framework 0.153.0): a centre to fly round, and the size and way round, chosen from preset buttons.
+        var circle = new Command_Action
+        {
+            defaultLabel = "PhobosFlight_Circle".Translate(),
+            defaultDesc = "PhobosFlight_CircleDesc".Translate(who),
+            icon = Icon("Circle"),
+            action = () => Find.Targeter.BeginTargeting(CellsOnly, target => flight.Circle(target.Cell)),
+        };
+        if (busy || flight.State == FlightState.Settling) circle.Disable("PhobosFlight_RefuseNotFlying".Translate(who));
+        yield return circle;
+
+        string size = SizeName(flight.OrbitSize);
+        string way = WayName(flight.OrbitClockwise);
+        yield return new Command_Action
+        {
+            defaultLabel = "PhobosFlight_CircleSettings".Translate(size.Named("SIZE"), way.Named("WAY")),
+            defaultDesc = "PhobosFlight_CircleSettingsDesc".Translate(who),
+            icon = Icon("CircleSize"),
+            action = () => Find.WindowStack.Add(new FloatMenu(CircleOptions(flight))),
+        };
 
         var land = new Command_Action
         {
@@ -242,6 +263,33 @@ public static class FlightGizmos
         };
         if (busy) land.Disable("PhobosFlight_RefuseNotFlying".Translate(who));
         yield return land;
+    }
+
+    static string SizeName(int size) => size switch
+    {
+        0 => "PhobosFlight_CircleTight".Translate().Resolve(),
+        1 => "PhobosFlight_CircleWide".Translate().Resolve(),
+        _ => "PhobosFlight_CircleVeryWide".Translate().Resolve(),
+    };
+
+    static string WayName(bool clockwise) =>
+        (clockwise ? "PhobosFlight_Clockwise" : "PhobosFlight_Anticlockwise").Translate().Resolve();
+
+    /// <summary>The preset sizes, the present one marked, and the other way round: each one button, as the game's own menus are.</summary>
+    static List<FloatMenuOption> CircleOptions(CompPhobosFlight flight)
+    {
+        var options = new List<FloatMenuOption>();
+        for (int i = 0; i < OrbitRule.SizeShares.Length; i++)
+        {
+            int size = i;
+            string label = "PhobosFlight_CircleSizeOption".Translate(SizeName(size).Named("SIZE"),
+                Mathf.RoundToInt(flight.RadiusOfSize(size)).Named("CELLS")).Resolve();
+            if (size == flight.OrbitSize) label = "PhobosFlight_CircleCurrent".Translate(label.Named("OPTION")).Resolve();
+            options.Add(new FloatMenuOption(label, () => flight.SetOrbitSize(size)));
+        }
+        string other = WayName(!flight.OrbitClockwise);
+        options.Add(new FloatMenuOption("PhobosFlight_CircleOtherWay".Translate(other.Named("WAY")).Resolve(), flight.ReverseOrbit));
+        return options;
     }
 
     static readonly TargetingParameters CellsOnly = new()
@@ -264,6 +312,7 @@ public static class FlightText
             FlightState.TakeoffRoll => "PhobosFlight_StateTakeoffRoll".Translate().Resolve(),
             FlightState.RollingLanding => "PhobosFlight_StateRollingLanding".Translate().Resolve(),
             FlightState.Moving => "PhobosFlight_StateMoving".Translate().Resolve(),
+            FlightState.Orbit => "PhobosFlight_StateOrbit".Translate().Resolve(),
             FlightState.Settling => "PhobosFlight_StateSettling".Translate().Resolve(),
             FlightState.ComingDown => "PhobosFlight_StateComingDown".Translate().Resolve(),
             _ => "PhobosFlight_StateHover".Translate().Resolve(),

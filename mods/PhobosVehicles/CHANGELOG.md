@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.75.0] - 2026-11-19 - Draft
+
+The Osprey circles
+
+### Added
+
+- **The Osprey can circle a spot** at 5 cells a second, its tightest circle 12 cells out, and holds by circling when it is too heavy to hover. Both figures are authored, not published.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.153.0 or later, which carries circling. With an older Framework the game reports unknown fields in the Osprey's flight comp at start-up.
+
+### Compatibility and limits
+
+- **Not yet tested in game.**
+
 ## [0.74.0] - 2026-11-19 - Draft
 
 The Osprey's guns: a ramp gun, 7.62 mm or .50, and a belly minigun

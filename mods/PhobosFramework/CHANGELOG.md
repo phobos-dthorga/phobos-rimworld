@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.153.0] - 2026-11-19 - Draft
+
+Aircraft on our own flight circle, and hold by circling where they cannot hover
+
+### Added
+
+- **Circle here.** A new button for an aircraft on our own flight: pick a spot and it flies round it until given another order, keeping the circle on the map. Beside it, **Circles: wide, clockwise** (or whatever is chosen) opens three preset sizes, from the aircraft's tightest circle to two and a half times as wide, and the other way round. A circle under way changes at once.
+- **Holding by circling.** An aircraft that cannot hover now circles where a hovering one would hold: told to hold, sent to a spot, or arriving at a landing spot whose strip is no longer clear (with a message saying why), it circles over it instead of coming down.
+- **The rolling take-off is no longer only for leaving.** Too heavy to lift straight up, Take off rolls it along the strip ahead, and once up it circles on from its course until told where to go.
+- **Two new buttons with their own pictures** (stand-ins drawn in code, until generated art is picked).
+
+### Changed
+
+- **Fly to** is open again to an aircraft that cannot hover: it circles over the spot when it gets there.
+- **Hold here** works while circling: an aircraft that can hover stops and hovers; one that cannot keeps circling and says so.
+- **An aircraft that comes down while circling** glides on along its course as it comes down, rather than dropping where it was.
+- **Circling counts as forward flight** for the engines and fuel, and a tiltrotor's nacelles lean forward in it as in any forward flight.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Aeroplanes that never hover and side-firing gun arcs, also in the design's circling slice, are not built: no aircraft of ours yet needs them. An aircraft that cannot hover still cannot be ordered down without a clear strip; it circles instead.
+
 ## [0.152.0] - 2026-11-19 - Draft
 
 Pictures for a gun's fire modes, and a note when a gun fires

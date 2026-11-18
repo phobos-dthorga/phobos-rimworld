@@ -138,6 +138,10 @@
       "it arrives over a map it attacks or explores": [{"key": "aircraft.flight-arrived", "variant": "Centre"},
         {"key": "aircraft.flight-arrived", "variant": "Edge"}, {"key": "aircraft.flight-arrived", "variant": "Targeted"}]
     }},
+    "208": {"parts": {
+      "it circles a spot it is sent to": [{"key": "aircraft.flight-orbit", "variant": "ordered"}],
+      "unable to hover, it circles where it would hold": [{"key": "aircraft.flight-orbit", "variant": "holding"}]
+    }},
     "207": {"parts": {
       "it rolls and lifts off": [{"key": "aircraft.flight-roll", "variant": "takeoff"}, {"key": "aircraft.flight-roll", "variant": "lifted-off"}],
       "a blocked roll stops": [{"key": "aircraft.flight-roll", "variant": "stopped"}],

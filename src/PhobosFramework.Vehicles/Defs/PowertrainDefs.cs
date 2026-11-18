@@ -319,6 +319,7 @@ public class PhaseReader_OwnFlight : PhaseReader
         {
             FlightState.Ground => vehicle.Drafted ? Idle : null,
             FlightState.Moving => Forward,
+            FlightState.Orbit => Forward,
             FlightState.TakeoffRoll => TakeoffRoll,
             FlightState.RollingLanding => RunwayLanding,
             _ => Hover,

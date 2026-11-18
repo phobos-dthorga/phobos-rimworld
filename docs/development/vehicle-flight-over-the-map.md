@@ -3,10 +3,11 @@
 **Status (19 Nov 2026):** the hover half (slice 2) is built in D'thorga Framework 0.147.0, with the V-22 Osprey flying on it in
 D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); leaving and arriving in flight (slice 3) in Framework 0.149.0
 ([built](#built-19-nov-2026-leaving-and-arriving-in-flight)); leaving the ground rolling (slice 4) in Framework 0.151.0 and Vehicles 0.73.0
-([built](#built-19-nov-2026-leaving-the-ground-rolling)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
-([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: circling (slice 5), ropes and a raider's
-flight (slice 6), aeroplanes that never hover, and stock helicopters on our flight. Nothing here is tested in game (rows 199, 200, 204 to
-207). The owner answered
+([built](#built-19-nov-2026-leaving-the-ground-rolling)); circling (slice 5) in Framework 0.153.0 and Vehicles 0.75.0
+([built](#built-19-nov-2026-circling)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
+([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: ropes and a raider's flight (slice 6),
+aeroplanes that never hover, side-firing gun arcs, runs, and stock helicopters on our flight. Nothing here is tested in game (rows 199,
+200, 204 to 208). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -68,6 +69,7 @@ flight mod states a licence.
 | **Flying over the map** | Lift off, move anywhere over the map, hold over a spot, land where the ground is clear, and fire the aircraft's guns from the air | Landing under a roof, on a building or on another vehicle; boarding, loading or repairing it in the air | An aircraft becomes something used on a map, not only a way between maps: it covers a landing, lifts a load, crosses a river |
 | **Hovering costs the most** | Hold still over a spot for as long as the fuel lasts | Hovering heavy, hot or high: below a margin of 1 it sinks | Short hovers and quick work; a heavy aircraft keeps moving |
 | **Forward flight is cheaper** | Stay in the air, moving, at a weight it could not hover at | Stopping | A crippled or heavy aircraft is flown, never parked in the sky |
+| **Circling** (built in slice 5) | Fly round a spot until told otherwise, at a preset size and either way round; hold over a spot by circling when too heavy or crippled to hover | Circling tighter than it can turn; stopping still while it cannot hover | A heavy aircraft no longer has to leave at once: it can wait over the map while a strip is cleared or its load lightens |
 | **Leaving the ground rolling** | Take off with a load too heavy to lift straight up, along a clear strip | Doing it without a strip, or beyond the rolling share | A strip at home is worth clearing; the far end of the trip decides the load |
 | **A cruising height** | Climb over high ground; fly at the height the aircraft was built for and get its author's speed and range | Crossing a range higher than its ceiling at that weight; a high cruise with nobody on oxygen | Heavy loads and lost engines mean routes round the mountains; oxygen and a pressurised cabin earn their place |
 | **Running the tank dry in the air** | Nothing: it is a consequence | Treating fuel as optional | The fuel line is watched; a forced landing costs the airframe and may cost the crew |
@@ -572,6 +574,26 @@ usually cannot fly on; light, it often can.
 **Not built, and why:** `PhaseReader_OwnFlight`, the forward-flight and rolling shares and the three thresholds. Each reads or
 decides something only our own flight does (its state; whether it may stop, fly on or roll), so they come with the hover half
 (slice 2) rather than as fields nothing reads.
+
+## Built (19 Nov 2026): circling
+
+At the owner's word ("Proceed with slice 5, circling", 19 Nov 2026), D'thorga Framework 0.153.0 and D'thorga Vehicles 0.75.0; **not yet
+tested in game** (row 208). Where it differs from the design above, as agent choices the owner may revise:
+
+| Part | As built | Where |
+| --- | --- | --- |
+| The orbit | As designed: the tangent the way round, turned in or out by up to 70 degrees as far off the circle as half its radius (both authored). Tested flown at the Osprey's figures from 40 cells off: it settles within a cell of its circle, either way round | `OrbitRule`, `OrbitStep` |
+| Its figures | The circling speed and tightest radius in the comp (`orbitSpeedCellsPerSecond`, `orbitRadiusCells`), not in a separate flight Def; a radius tighter than its turn at that speed (r = v / turn rate) is a config error. The Osprey: 5 cells a second, 12 cells against 8.2 | `CompProperties_PhobosFlight` |
+| Size and way round | **Three presets**, 1, 1.6 and 2.5 times the tightest (authored), and the other way round, from one button's menu showing the present choice; kept per aircraft. A circle that would leave the map has its centre moved in, or its radius cut to fit | `FlightGizmos.CircleOptions`, `OrbitRule.FitCentre` |
+| Holding | **Hold here** circles from its present course; **Fly to** circles over the spot on arrival; the end of a roll with no journey circles on from its course; a landing whose strip is no longer clear circles over the spot and says why. An engine lost in a hover still brings it down, as designed | `Hold`, `Arrive`, `RollStep` |
+| The rolling take-off | Open to **Take off** too, now that it can hold: slice 4's "only when leaving" is lifted | `TakeOffRefusal`, `TakeOff` |
+| Coming down from a circle | Glides on along its course while it comes down, as one moving to a point does | `BeginFall` |
+| Engines and drawing | Circling is the `Forward` phase; a tiltrotor's nacelles lean forward in it | `PhaseReader_OwnFlight`, `ForwardTiltShare` |
+| Saved | The centre and radius flown, and the player's size and way round | `PhobosFlight_OrbitX`, `_OrbitZ`, `_OrbitRadius`, `_OrbitSize`, `_OrbitClockwise` |
+| **Not built** | **Aeroplanes that never hover** (the strip rule above): no aircraft of ours is an aeroplane on our flight yet, and the Harrier flies on its own mod; built with the first one. **Side-firing gun arcs**: no aircraft of ours has a side-firing gun; the Osprey's ramp and belly guns (Vehicles 0.74.0) are written with their own arcs. **Runs** (a pass through two points): no bomb or gun needs one yet | |
+
+**Other factions' aircraft:** none fly orders on our flight until a raider's flight is built (slice 6); a captured one circles as any of
+ours.
 
 ## Built (19 Nov 2026): leaving the ground rolling
 

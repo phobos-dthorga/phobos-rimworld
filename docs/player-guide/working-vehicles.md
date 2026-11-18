@@ -431,11 +431,14 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   flying, and lands on the spot you chose, or holds over a map it attacks for your orders.
 - **Too heavy to lift straight up, it rolls** (not yet tested in game). On a hot day, high up or fully loaded it may be a little too
   heavy to hover, yet still able to take off rolling along a strip: **select it and the strip it needs is outlined ahead of it, green
-  when clear, red when blocked**. It rolls only when leaving for another place (the launch button), 5 to 20 cells straight ahead the
-  way it faces, longer the heavier it is; Take off says how long a strip it needs. Clear the strip or turn it to open ground. Heavier
-  still, it cannot take off at all, and the button says about how much to unload. **While it cannot hover**, it cannot be told to
-  fly to a spot and stop: let it carry on, or **Land here**, which lands rolling: it touches down at the spot and rolls on 20 cells
-  ahead, so keep that ground clear too.
+  when clear, red when blocked**. Take off or the launch button rolls it 5 to 20 cells straight ahead the way it faces, longer the
+  heavier it is, and the buttons say how long a strip it needs. Clear the strip or turn it to open ground. Heavier still, it cannot
+  take off at all, and the button says about how much to unload. **While it cannot hover it circles** wherever it would otherwise
+  stop: after a rolling take-off, at a spot you send it to, or when you press Hold here. **Land here** lands it rolling: it touches
+  down at the spot and rolls on 20 cells ahead, so keep that ground clear too; if it is not clear when it gets there, it circles
+  over the spot and says so.
+- **Circle here** (not yet tested in game): pick a spot and it flies round it until you give another order. The button beside it,
+  **Circles: wide, clockwise**, picks tight, wide or very wide (12, 19 or 30 cells out) and the way round.
 - **If it cannot stay up** (out of fuel, or an engine lost while heavily loaded), it comes down where it is: hard over open ground,
   damaging its undercarriage and shaking its people about; wrecked over a building, a roof, another vehicle or deep water. Watch its fuel.
 - **Fittings, as on every aircraft:** a litter kit for stretchers, a ferry tank, cabin oxygen, and a **cargo hook** to sling up to
