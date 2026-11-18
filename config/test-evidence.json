@@ -138,6 +138,12 @@
       "it arrives over a map it attacks or explores": [{"key": "aircraft.flight-arrived", "variant": "Centre"},
         {"key": "aircraft.flight-arrived", "variant": "Edge"}, {"key": "aircraft.flight-arrived", "variant": "Targeted"}]
     }},
+    "212": {"parts": {
+      "it lifts from a hover": [{"key": "vehicles.sling-hover", "variant": "lifted"}],
+      "it sets down from a hover": [{"key": "vehicles.sling-hover", "variant": "set-down"}],
+      "release over a map": [{"key": "vehicles.sling-hover", "variant": "released"}],
+      "a load falls as it comes down": [{"key": "vehicles.sling-hover", "variant": "fell"}]
+    }},
     "211": {"parts": {
       "the Cherokee flies on our flight": [{"key": "aircraft.flight-stock", "variant": "VVE_Cherokee"}],
       "the Louie flies on our flight": [{"key": "aircraft.flight-stock", "variant": "VVE_Louie"}],

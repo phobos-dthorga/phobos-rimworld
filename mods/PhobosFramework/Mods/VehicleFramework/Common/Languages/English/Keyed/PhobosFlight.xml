@@ -63,6 +63,7 @@
   <PhobosFlight_RefuseHoistTooHeavy>{PERSON} and their gear weigh {KILOGRAMS} kg, more than the hoist's {RATED} kg.</PhobosFlight_RefuseHoistTooHeavy>
   <PhobosFlight_RefuseHoistNoRoom>There is no free seat aboard the {VEHICLE}.</PhobosFlight_RefuseHoistNoRoom>
   <PhobosFlight_RefuseCirclingNoHover>The {VEHICLE}'s engines cannot hold it in a hover now, so it keeps circling. Send it somewhere, or land it on a clear strip.</PhobosFlight_RefuseCirclingNoHover>
+  <PhobosFlight_RefuseLandWithLoad>The {VEHICLE} has {LOAD} hanging below: set it down first, or it would be landed on.</PhobosFlight_RefuseLandWithLoad>
   <PhobosFlight_RefuseCannotHoverNoStrip>The {VEHICLE}'s engines cannot hold it in a hover now, and it cannot land rolling: it has to keep flying, or circle, until it is lighter or the air cooler.</PhobosFlight_RefuseCannotHoverNoStrip>
   <PhobosFlight_RefuseStepOut>Nobody can step out of the {VEHICLE} while it is in the air: land it first.</PhobosFlight_RefuseStepOut>
 

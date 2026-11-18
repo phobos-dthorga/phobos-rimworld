@@ -592,7 +592,7 @@ yet tested in game** (row 211). As [designed](#stock-helicopters-on-our-flight),
 | **Their speeds** | **A floor of 4 cells a second** (agent's choice): the Osprey's ratio of map to world speed (7 to 17.5) would give the Cherokee 1.8, slower than a person walks. The Louie 4, the Mosquito 4.2. Turn rates, climb, descent, flight heights (60, 50 and 40 m) and tightest circles authored by kind, each circle above what its turn allows | the patch files |
 | What they lack | No rolling take-off (their profile gives no rolling share), no ropes or hoist (no mounts offered), nothing marking them for raiders | |
 | Over hidden ground | Drawn over it, as the Osprey; the cost accepted: one parked on unseen ground at a base the player attacks shows through the fog | `seeThroughFog` |
-| The sling | Unchanged: the load is taken as the helicopter sets off for another place, then hangs below it as it flies to the edge, as for the Hind. Hovering over a load on the map to pick it up is not built | `CompPhobosSling` |
+| The sling | The load is taken as the helicopter sets off for another place, as for the Hind; and since Framework 0.161.0 it can be lifted and set down from a hover on the map ([the sling record](vehicle-sling-design.md#built-19-nov-2026-lifting-and-setting-down-from-a-hover)) | `CompPhobosSling` |
 | The landing-surface rule | Applies to them as to every aircraft on our flight (Framework 0.159.0), on the engine roles they have | `LandingSurface` |
 
 ## Built (19 Nov 2026): a raider's flight

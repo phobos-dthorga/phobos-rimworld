@@ -2,8 +2,10 @@
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.92.0 to 0.114.4 (and Vehicles 0.40.0 and 0.46.0): slice 1 (hook, sling set,
 lift and carry), slice 2 (weather, the slower flight, choosing the set-down, emergency release and wrecks), the landing fix (0.101.1),
-helicopters that fly across the map (0.102.0, with the Louie's and the Hind's hooks), the pictures and the latch sound; not built: our
-own stand-in that hovers over the load and takes orders in mid-air (the agent's choice, below). Take-off and the world-map line were
+helicopters that fly across the map (0.102.0, with the Louie's and the Hind's hooks), the pictures and the latch sound; and, for a helicopter
+on our own flight, the hover over the load, setting it down from the air and release over a map (Framework 0.161.0,
+[built](#built-19-nov-2026-lifting-and-setting-down-from-a-hover), not yet tested in game). Not built: the same for a helicopter on another
+flight mod (the Hind) or on Vehicle Framework's own launch. Take-off and the world-map line were
 tested in game by the owner on 12 Nov 2026; everything else is not yet tested in game.
 
 Design record. The owner asked for a vehicle airlift of our own, "with our own flavour on
@@ -312,6 +314,26 @@ decompile (`.local/decompiled`, 12 Nov 2026):
 crashes of such a helicopter on the map, are its own framework's and not handled: a Hind brought down on the map loses its load with it,
 as the Cherokee's does when destroyed (`PostDestroy` sets the load down where there is room). The lookups by name cannot be checked by
 `scripts/check-targets.py`, which lists them as worked out at run time.
+
+## Built (19 Nov 2026): lifting and setting down from a hover
+
+At the owner's word ("Proceed with picking up a sling load from a hover", 19 Nov 2026), D'thorga Framework 0.161.0; **not yet tested in
+game** (row 212). What slice 2 set aside, because Vehicle Framework's launch is shared with every aircraft, is possible for a helicopter on
+our own flight (the Osprey, and the Cherokee, the Louie and the Mosquito with their setting on), which flies over the map without that launch.
+
+| What | How | Lets, stops, changes |
+| --- | --- | --- |
+| **Lift from a hover** | In the air, **Lift a vehicle** works as on the ground (the same reach, weight, weather and hook-up rules); once the load is hooked up (by a colonist, or by itself with the ground crew setting off), the helicopter flies to hover beside it, off its footprint by both vehicles' half-lengths and a cell (authored), and the hook takes it. Three tries at getting near, then it gives up and says so | Lets a load be taken without landing; the helicopter waits in the air while the ground crew works |
+| **Too heavy to hover with it** | Refused when choosing, with the load's weight: it would lift it and then never hold a hover to set it down. Judged by the engine model at today's air, as every hover is | Stops a lift that would strand the load on the hook |
+| **The load's weight counts** | The engine model's mass now includes what hangs from the hook (`Powertrain.MassKg`), so the hover, the cruise height between places and its ceiling feel it, on every helicopter with our systems | Changes the engines' judgement with a load on |
+| **Set load down here** | In the air with a load: pick a spot and facing, its outline white where it fits and red where not; the helicopter flies to hover beside it and lowers the load there, or says why not if the spot has filled | Lets a load be put anywhere on the map from the air |
+| **Emergency release on a map** | Lets the load fall from the helicopter's height onto the nearest clear ground below, through the drop's damage rule (SlingDrops), with a confirmation; off with the release setting | Lets the crew save the helicopter |
+| **Coming down with a load** | With release and drops on, the load falls from where it hangs as the helicopter starts to come down; off, it stays on the hook and is set down once the helicopter is on the ground | The owner's real consequences |
+| **No landing on the load** | **Land here** is refused while a load hangs, saying to set it down first; an arrival told to land holds near the edge instead | Stops a helicopter landing on its own load |
+| **Slower with a load** | Over the map at the slung flight's own share of its speed (0.7, authored, as between places), with the setting on | |
+
+**Not built:** the same for the Hind (on VTOL Vehicle's flight) or a helicopter on Vehicle Framework's own launch; a load drawn swinging
+or lowered on a line (it hangs under the helicopter as before).
 
 ## Other factions' vehicles
 

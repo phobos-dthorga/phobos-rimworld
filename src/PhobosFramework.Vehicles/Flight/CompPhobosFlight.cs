@@ -163,6 +163,25 @@ public partial class CompPhobosFlight : VehicleComp
     /// <summary>Whether this vehicle flies on the map on our own flight now: it has the comp, and the comp is active.</summary>
     public static bool FliesOnOurs(VehiclePawn? vehicle) => vehicle?.GetComp<CompPhobosFlight>() is { Active: true };
 
+    /// <summary>Whether it is hovering, or flying and able to stop in one (Framework 0.161.0): what a lift from a hover needs.</summary>
+    public bool HoversSteadily => (state is FlightState.Hover or FlightState.Moving or FlightState.Orbit) && hold == FlightHold.Hover;
+
+    /// <summary>Whether it could still hold a hover with this much more weight on it (Framework 0.161.0: a load on the hook), under the player's
+    /// hover-limit setting; true where its engines are not judged.</summary>
+    public bool WouldHoverWith(double extraKg)
+    {
+        if (CompPhobosVehicleSystems.Of(Vehicle) is not { Powertrain: { JudgesHover: true } train } systems) return true;
+        if (train.Engines().working <= 0) return false;
+        (bool dry, bool wet, double m) = train.HoverCheck(train.MassKg() + Math.Max(0, extraKg), systems.Ambient, systems.AirPressure);
+        return FlightRules.Hold(Vehicle, dry || wet ? Mathf.Max(1f, (float)m) : (float)m, ForwardShare) == FlightHold.Hover;
+    }
+
+    /// <summary>Its height now, metres.</summary>
+    public float HeightMetresNow => Climb * Props.flightHeightMetres;
+
+    /// <summary>The share of its speed it flies at now: less with a load hanging (the sling's slung flight, Framework 0.161.0).</summary>
+    float LoadSpeedShare => Vehicle.GetComp<CompPhobosSling>()?.MapSpeedShare ?? 1f;
+
     /// <summary>How far it has climbed: 0 on the ground to 1 at its flight height.</summary>
     public float Climb => state == FlightState.Ground ? 0f : climb;
 
@@ -569,6 +588,8 @@ public partial class CompPhobosFlight : VehicleComp
         NamedArgument who = Vehicle.LabelShort.Named("VEHICLE");
         if (!Airborne || state is FlightState.ComingDown or FlightState.TakeoffRoll or FlightState.RollingLanding)
             return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
+        // Framework 0.161.0: a load hanging below would be landed on; it is set down first.
+        if (Vehicle.GetComp<CompPhobosSling>() is { Carried: { } load }) return "PhobosFlight_RefuseLandWithLoad".Translate(who, load.LabelShort.Named("LOAD")).Resolve();
         if (NeedsRollingLanding())
         {
             // Framework 0.151.0: it cannot hover, so it lands on a strip of its full roll ahead of the spot, facing as asked.
@@ -695,7 +716,7 @@ public partial class CompPhobosFlight : VehicleComp
         if (climb < 1f) climb = Mathf.Min(1f, climb + dt / Props.climbSeconds);
         double wanted = OrbitRule.Heading(x, z, orbitX, orbitZ, orbitRadius, orbitClockwise, heading);
         heading = (float)FlightPathRule.TurnToward(heading, wanted, Props.turnDegreesPerSecond * dt);
-        speed = (float)FlightPathRule.NextSpeed(speed, 1e6, Props.OrbitSpeed, Props.accelerationCellsPerSecond, dt);
+        speed = (float)FlightPathRule.NextSpeed(speed, 1e6, Props.OrbitSpeed * LoadSpeedShare, Props.accelerationCellsPerSecond, dt);
         MoveAlongHeading(speed * dt);
     }
 
@@ -759,6 +780,8 @@ public partial class CompPhobosFlight : VehicleComp
                 break;
         }
         if (raider != null && v.Spawned && Airborne && (now + v.thingIDNumber) % RaiderThinkTicks == 0) RaiderThink();
+        // Framework 0.161.0: a load to lift or set down from a hover.
+        if (v.Spawned && Airborne && (now + v.thingIDNumber) % RaiderThinkTicks == 15) v.GetComp<CompPhobosSling>()?.FlightThink(this);
     }
 
     bool HasTarget => !float.IsNaN(targetX);
@@ -846,7 +869,7 @@ public partial class CompPhobosFlight : VehicleComp
         double share = FlightPathRule.TurnSpeedShare(FlightPathRule.Turn(heading, wanted));
         bool mustKeepMoving = hold == FlightHold.ForwardOnly && state == FlightState.Moving;
         // An aircraft that cannot hover flies its leg through at speed; it does not brake to stop where it cannot hold.
-        speed = (float)FlightPathRule.NextSpeed(speed, mustKeepMoving ? 1e6 : distance, Props.speedCellsPerSecond * share, Props.accelerationCellsPerSecond, dt);
+        speed = (float)FlightPathRule.NextSpeed(speed, mustKeepMoving ? 1e6 : distance, Props.speedCellsPerSecond * share * LoadSpeedShare, Props.accelerationCellsPerSecond, dt);
         float move = speed * dt;
         if (move >= distance)
         {
@@ -1066,6 +1089,8 @@ public partial class CompPhobosFlight : VehicleComp
             (targetX, targetZ) = Clamped((float)(x + Math.Sin(rad) * stop), (float)(z + Math.Cos(rad) * stop));
         }
         orbitX = orbitZ = float.NaN;
+        // Framework 0.161.0: a load hanging below falls from where it hangs (with release and drops on).
+        v.GetComp<CompPhobosSling>()?.OnFlightFalling(HeightMetresNow);
         // Framework 0.155.0: whoever is on a rope or the hoist falls from where they were (the owner's real consequences).
         if (state == FlightState.LineWork) DropLines();
         state = FlightState.ComingDown;
@@ -1156,6 +1181,8 @@ public partial class CompPhobosFlight : VehicleComp
         FlightRegistry.Remove(this);
         // A raiders' aircraft goes on thinking on the ground (Framework 0.157.0).
         if (raider == null) StopTicking();
+        // Framework 0.161.0: down with a load still on the hook (its release off when it came down): set down beside it.
+        v.GetComp<CompPhobosSling>()?.OnFlightLanded();
     }
 
     // ---- Where it is ----

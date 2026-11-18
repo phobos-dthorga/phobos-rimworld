@@ -446,6 +446,12 @@ the kit back in the cargo.
      in game): click open ground within reach, or right-click to let the crew pick the nearest clear spot. If there was no room, press
      **Set the load down** once there is.
 
+  5. **From a hover** (not yet tested in game): a helicopter flying over the map on our own flight (the Osprey, and the Cherokee, the
+     Louie and the Mosquito with their setting on) can do it without landing. Press **Lift a vehicle** in the air; once the load is hooked
+     up, the helicopter hovers beside it and takes it. In the air with a load, **Set load down here** picks a spot, and the helicopter
+     hovers beside it and lowers it; **Emergency release** drops it where it hangs, and it lands hard. It cannot land with a load
+     hanging: set it down first. **It must be able to hover with the load on**, so a heavy load on a hot day is refused.
+
   The load, with its cargo and people, must weigh no more than the hook takes today: less on hot days. **No lift in a gale or a
   thunderstorm**; the button says which. **A slung flight is slower and burns more fuel**, and the range shown is shorter.
 

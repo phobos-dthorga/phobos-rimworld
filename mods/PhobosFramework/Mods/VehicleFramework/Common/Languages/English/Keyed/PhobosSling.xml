@@ -63,6 +63,18 @@
   <PhobosSling_FellInCrash>{HELICOPTER} came down in a crash, and {LOAD} fell from its sling and landed hard: {HARM}.</PhobosSling_FellInCrash>
   <PhobosSling_HarmNone>no harm done</PhobosSling_HarmNone>
   <PhobosSling_HarmShare>its parts lost about {SHARE} of their health, and anyone inside was hurt</PhobosSling_HarmShare>
+  <PhobosSling_CannotHoverToLift>{HELICOPTER} cannot hold a steady hover now, and it lifts a load from a hover: lighten it, or wait for cooler air.</PhobosSling_CannotHoverToLift>
+  <PhobosSling_CannotHoverToSetDown>{HELICOPTER} cannot hold a steady hover now, and it sets a load down from a hover: lighten it, or wait for cooler air.</PhobosSling_CannotHoverToSetDown>
+  <PhobosSling_TooHeavyToHover>{HELICOPTER} could take {LOAD} ({WEIGHT} kg) on its hook, but could not hover with it in this air, so it could never set it down from a hover: lighten either, or wait for cooler air.</PhobosSling_TooHeavyToHover>
+  <PhobosSling_CouldNotReach>{HELICOPTER} could not get into a hover beside its load or the spot, so it has given up: try again from nearer.</PhobosSling_CouldNotReach>
+  <PhobosSling_SetDownHereGizmo>Set load down here</PhobosSling_SetDownHereGizmo>
+  <PhobosSling_SetDownHereGizmoDesc>Pick where {LOAD} goes and which way it faces. The helicopter flies to hover beside the spot and lowers it there; the load's outline shows white where it fits and red where it does not.</PhobosSling_SetDownHereGizmoDesc>
+  <PhobosSling_WillSetDown>{HELICOPTER} is flying to set {LOAD} down.</PhobosSling_WillSetDown>
+  <PhobosSling_SpotBlockedNow>The spot for {LOAD} is no longer clear, so it is still on the hook. Pick another.</PhobosSling_SpotBlockedNow>
+  <PhobosSling_ReleaseOnMapDesc>Let {LOAD} go where it hangs. It falls from the helicopter's height onto the nearest clear ground below and lands hard, damaged, with anyone riding in it hurt or killed.</PhobosSling_ReleaseOnMapDesc>
+  <PhobosSling_ReleaseOnMapConfirm>Let {LOAD} fall about {METRES} m? It will be damaged, and anyone riding in it may be hurt or killed.</PhobosSling_ReleaseOnMapConfirm>
+  <PhobosSling_ReleasedOnMap>{HELICOPTER} let {LOAD} go. It fell and landed hard: {HARM}.</PhobosSling_ReleasedOnMap>
+  <PhobosSling_InspectSettingDown>Flying to set it down.</PhobosSling_InspectSettingDown>
   <PhobosSling_ReleaseGizmo>Emergency release</PhobosSling_ReleaseGizmo>
   <PhobosSling_ReleaseGizmoDesc>Let {LOAD} go. It falls from cruising height and lands hard below, badly damaged, with anyone riding in it hurt or killed. It lies there as a wreck until a caravan reaches it. The helicopter flies on lighter.</PhobosSling_ReleaseGizmoDesc>
   <PhobosSling_ReleaseConfirm>Let {LOAD} fall? It will be badly damaged, and the {PEOPLE} people riding in it may be hurt or killed. It lies where it falls as a wreck for a caravan to recover.</PhobosSling_ReleaseConfirm>

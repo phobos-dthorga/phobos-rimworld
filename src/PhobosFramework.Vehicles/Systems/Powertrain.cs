@@ -380,7 +380,9 @@ public sealed class Powertrain
         if (massTick >= 0 && now - massTick < 250) return massKg;
         massTick = now;
         VehiclePawn vehicle = comp.Vehicle;
-        double total = KerbKg + MassUtility.InventoryMass(vehicle) + (vehicle.GetComp<CompPhobosTank>()?.LoadKilograms ?? 0f) + KitKg;
+        // Framework 0.161.0: a load hanging from the hook is weight the rotors lift, for the hover and the cruise alike.
+        double total = KerbKg + MassUtility.InventoryMass(vehicle) + (vehicle.GetComp<CompPhobosTank>()?.LoadKilograms ?? 0f) + KitKg
+            + (vehicle.GetComp<CompPhobosSling>()?.CarriedKilograms ?? 0f);
         foreach (Pawn pawn in vehicle.AllPawnsAboard) total += pawn.GetStatValue(StatDefOf.Mass);
         if (vehicle.CompVehicleTurrets?.Turrets != null)
         {

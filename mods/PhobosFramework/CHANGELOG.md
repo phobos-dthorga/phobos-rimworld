@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.161.0] - 2026-11-19 - Draft
+
+A helicopter on our own flight lifts and sets down a sling load from a hover
+
+### Added
+
+- **Lift a vehicle from a hover.** A helicopter flying over the map on our own flight (the Osprey; the Cherokee, the Louie and the Mosquito with their setting on) can take a sling load without landing: press Lift a vehicle in the air, and once the load is hooked up it hovers beside it and the hook takes it.
+- **Set load down here.** In the air with a load, pick a spot and which way it faces; the helicopter hovers beside it and lowers the load there.
+- **Emergency release over a map.** The load falls from where it hangs and lands hard, damaged. With the release setting on, a helicopter that has to come down drops its load the same way.
+
+### Changed
+
+- **A load on the hook now weighs on the engines**: the hover, the cruising height between places and the ceiling count it, for every helicopter with our systems. A lift from a hover is refused if the helicopter could not hover with the load on.
+- **Land here is refused while a load hangs**, saying to set it down first; over the map it flies at the slung flight's slower speed.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Only for helicopters on our own flight: the Hind and helicopters on Vehicle Framework's own launch still lift as they set off and set down after landing. Hovering beside the load, rather than over it, is our simplification: the aircraft's footprint stays clear of the load's.
+
 ## [0.160.0] - 2026-11-19 - Draft
 
 Stock helicopters may fly over the map on our own flight, behind a setting that starts off
