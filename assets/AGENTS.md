@@ -26,6 +26,12 @@ standing rules for every picture and sound the mods ship or the tools generate. 
   that turns or sits on the body (a rotor hub, a turret ring, a hook), a paint region, or the part as its own overlay. Prompt each
   part at the place the design or its plan drawing gives, show the owner the parts before anything is exported, and use the
   graphics card only with the game closed and on the owner's go.
+- **Ask for the graphics card readily when a job is short** (owner, 18 Nov 2026: "I genuinely don't mind handing over the GPU where
+  the time quota is at, around, or under several minutes, ESPECIALLY where the gains from such are so much greater"). A local job
+  of several minutes or less (Segment Anything, the background AI, a few pictures or sounds) is asked for in the moment, with its
+  expected time and what it gains. Never put it off to a later night, fold it into a bigger batch or take a weaker or paid route
+  just to avoid asking. The go is still the owner's, the game still closed, and the models are unloaded afterwards; longer runs
+  stay overnight.
 - **Art the mods don't ship stays off `main`** (owner, 7 Nov 2026): full-size masters of shipped and picked art on the `art-masters`
   branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
   with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and
