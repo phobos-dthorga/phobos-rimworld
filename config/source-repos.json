@@ -195,6 +195,25 @@
       ],
       "checked": "2026-11-18"
     },
+    "dsweber2.enhancedideology": {
+      "name": "Enhanced Ideology",
+      "package_id": "dsweber2.enhancedideology",
+      "workshop_id": "3793123680",
+      "repository": "https://github.com/dsweber2/EnhancedIdeology",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-11-09",
+      "licence": "CC-BY-4.0",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-18"
+    },
     "dubwise.dubsbadhygiene": {
       "name": "Dubs Bad Hygiene",
       "package_id": "dubwise.dubsbadhygiene",
