@@ -39,7 +39,13 @@ it is our own picture now, so it may be sent as one.
 
 ## Next
 
-1. The background AI and Segment Anything on the pick, on the owner's go with the game closed: the parts for damage looks, paint
-   regions and the rotor hubs.
+1. ~~The background AI and Segment Anything on the pick~~ **Parts cut on the owner's go, 18 Nov 2026, with the game closed**, by the
+   new `scripts/art/name_parts.py` from [osprey-parts.json](osprey-parts.json): twelve parts and three fuselage sections, in
+   `.local/art/parts/` under the pick's SHA-256, with a review picture. Three runs: the first missed the right sponson and let parts
+   overlap; the second clipped each part to its plan box and settled overlaps by priority; the third widened the nacelles' boxes
+   (the pick draws them longer than the plan) and smoothed harder. Left as found, to tidy at export: a small patch of the right
+   sponson on the right wing's root, a ragged edge where the tailplane meets the fuselage, and a stray speck in the left hub. The
+   hubs' centres, the rotors' anchors, are (583, 1659) and (3507, 1668) in the pick's pixels. The background AI had nothing to
+   look at: its tool covers only pictures behind shipped textures, so it runs on the pick at export.
 2. The overlays, and the nacelle pictures at set angles, as reference edits of the pick on the same service: a dry run and the
    owner's spending limit first.
