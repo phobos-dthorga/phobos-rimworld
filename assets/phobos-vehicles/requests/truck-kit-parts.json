@@ -1,0 +1,48 @@
+[
+ {
+  "name": "kit-part-ram-bar",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW, camera directly above. A heavy steel ram bar for the front of a truck, drawn alone, seen from directly above: one thick dark gunmetal beam running left to right across the whole canvas, with two short square uprights and two angled braces running back (downwards) from it, and a few round bolt heads. Draw it in exactly the art style of the reference image: a top-down game sprite seen from directly above, a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners. Do not redraw the truck. One part only, on a plain pure white background. No truck, no cab, no wheels, no floor, no shadow, no text, no people.",
+  "subject": "a heavy steel ram bar seen from directly above, drawn alone",
+  "references": [
+   "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png"
+  ],
+  "width": 1024,
+  "height": 384,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "route": "drawn alone and fitted onto each truck by script, as the drill rig's pipe rack was; added 19 Nov 2026 after the first eight cab edits showed the local model redraws rather than edits",
+   "serves": "PhobosRamBar on all five trucks; PhobosBodyPlates on the Talus, Ullage and Kelly (mirrored for the far side)"
+  }
+ },
+ {
+  "name": "kit-part-body-skirt",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW, camera directly above. One long armour skirt plate for the side of a truck's cargo bed, drawn alone, seen from directly above: a long narrow flat olive drab steel plate running from top to bottom of the canvas, with a row of small round bolt heads along it and two hanging brackets on its inner edge. Draw it in exactly the art style of the reference image: a top-down game sprite seen from directly above, a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners. Do not redraw the truck. One part only, on a plain pure white background. No truck, no cab, no wheels, no floor, no shadow, no text, no people.",
+  "subject": "a long olive armour skirt plate seen from directly above, drawn alone",
+  "references": [
+   "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png"
+  ],
+  "width": 384,
+  "height": 1024,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "route": "drawn alone and fitted onto each truck by script, as the drill rig's pipe rack was; added 19 Nov 2026 after the first eight cab edits showed the local model redraws rather than edits",
+   "serves": "PhobosRamBar on all five trucks; PhobosBodyPlates on the Talus, Ullage and Kelly (mirrored for the far side)"
+  }
+ }
+]

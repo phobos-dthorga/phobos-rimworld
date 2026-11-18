@@ -57,6 +57,11 @@ Osprey's 17 upgrade icons (its session picks them; their fast-rope and rescue-ho
 fire-mode buttons drawn in code today, candidate sounds (`assets/phobos-sounds/requests/night-7.json`: the Osprey's first set, S112 to
 S115 and an armour-plate fitting), then the borrowed icons as a stretch (`assets/vehicle-systems/requests/stretch-icons.json`).
 **Agent's choice:** the edits run without the private style model, so the body's own look carries; three seeds each, seed 11 first.
+**First eight (19 Nov 2026, 08:56 to 09:07, stopped when the game opened):** the local model redraws the cab rather than editing it
+(shapes drift, some turned end to end, both ram bars put on the roof), so lifting a kit out by difference will mostly fail; one
+armoured cab and one heavy-plates try keep the layout. The plan was reordered: icons, buttons and sounds first, then the ram bar and
+body skirt **drawn alone** (`assets/phobos-vehicles/requests/truck-kit-parts.json`, fitted by script as the pipe rack was), then the
+remaining cab edits. If the cab edits stay poor, the cab kits want the paid edit route, which held a body's shape (owner's choice).
 
 **Drawn in code, for the next local run (owner's pick, 17 Nov 2026; a go and a stop time first):**
 
