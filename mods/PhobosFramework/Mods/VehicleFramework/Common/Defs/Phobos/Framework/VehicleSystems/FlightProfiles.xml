@@ -156,15 +156,23 @@
       <lift>Rotor</lift>
     </cruise>
     <liftCheckAtLaunch>true</liftCheckAtLaunch>
-    <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
-      <rules>
-        <li><phase>WorldFlight</phase><comp>CompVehicleLauncher</comp><member>inFlight</member><equals>True</equals></li>
-        <li><phase>Taxi</phase><member>Drafted</member><equals>True</equals></li>
-      </rules>
+    <!-- Framework 0.160.0: with "Stock helicopters fly over the map" on, the Cherokee, the Louie and the Mosquito fly over the map on our own
+         flight, and their phases in the air there come from it: a hover asks the fitted hover figure, forward flight the hover figure times
+         the forward-flight share (0.85 x 0.6 = 0.51, as the Osprey's). Otherwise, and for every other helicopter sharing this profile, the
+         members as before. -->
+    <reader Class="Phobos.VehicleSystems.PhaseReader_OwnFlightOr">
+      <fallback Class="Phobos.VehicleSystems.PhaseReader_Members">
+        <rules>
+          <li><phase>WorldFlight</phase><comp>CompVehicleLauncher</comp><member>inFlight</member><equals>True</equals></li>
+          <li><phase>Taxi</phase><member>Drafted</member><equals>True</equals></li>
+        </rules>
+      </fallback>
     </reader>
     <phases>
       <li><phase>Taxi</phase><label>rotors turning</label><demand>0.2</demand><moving>false</moving></li>
       <li><phase>WorldFlight</phase><label>cruising</label><demand>0.7</demand></li>
+      <li><phase>Hover</phase><label>hovering</label><hover>true</hover></li>
+      <li><phase>Forward</phase><label>flying over the map</label><demand>0.51</demand><forwardFlight>true</forwardFlight></li>
     </phases>
   </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
 

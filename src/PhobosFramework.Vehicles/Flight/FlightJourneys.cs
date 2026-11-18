@@ -55,7 +55,7 @@ public static class FlightArrival
     /// <summary>How far either way along the edge it looks for a clear place to come in (authored).</summary>
     const int SearchAlongEdge = 40;
 
-    public static bool Flies(VehiclePawn? vehicle) => vehicle?.GetComp<CompPhobosFlight>() != null;
+    public static bool Flies(VehiclePawn? vehicle) => CompPhobosFlight.FliesOnOurs(vehicle);
 
     /// <summary>Spawns the vehicle on the map's edge, in the air, and gives it its first order. False when it could not, so Vehicle
     /// Framework's own landing goes ahead instead.</summary>
@@ -191,7 +191,7 @@ public static class Patch_Launch_Flight
     {
         if (!__runOriginal) return false;
         VehiclePawn vehicle = __instance.Vehicle;
-        if (vehicle == null || !vehicle.Spawned || vehicle.GetComp<CompPhobosFlight>() is not { } flight) return true;
+        if (vehicle == null || !vehicle.Spawned || vehicle.GetComp<CompPhobosFlight>() is not { Active: true } flight) return true;
         List<FlightNode> nodes = targetData.targets.Select(target => new FlightNode(target)).ToList();
         flight.Depart(nodes, arrivalAction);
         return false;
@@ -215,7 +215,7 @@ public static class Patch_CanLaunch_Flight
         if (flight == null)
         {
             // On the ground: Vehicle Framework's refusal stands; ours is asked only where it would allow.
-            if (!__result || __instance.Vehicle is not { Spawned: true } vehicle || vehicle.GetComp<CompPhobosFlight>() is not { } grounded) return;
+            if (!__result || __instance.Vehicle is not { Spawned: true } vehicle || vehicle.GetComp<CompPhobosFlight>() is not { Active: true } grounded) return;
             flight = grounded;
         }
         string? refused = flight.DepartRefusal();

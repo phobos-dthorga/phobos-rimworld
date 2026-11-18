@@ -500,6 +500,8 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
 D'thorga Vehicles also gives other mods' vehicles the systems and figures their real counterparts have, so each climbs, labours and
 bogs like itself. Every other vehicle gets the general systems ([looking after vehicles](vehicle-care.md)).
 
+**Stock helicopters can fly over the map too** (not yet tested in game): switch on **Stock helicopters fly over the map** in D'thorga Framework's settings (it starts off) and the Cherokee, the Louie and the Mosquito take the Osprey's buttons: take off, fly to, hold, circle and land, and they leave and arrive flying. They cannot roll to take off or use ropes or a hoist. Their pictures were drawn for flying straight off the map, so a hover may look a little odd.
+
 | Vehicle (mod) | What changes |
 | --- | --- |
 | Big Rig (VVE - Tier 3), M1075 HEMTT (RimThunder - Roaring Tiger) | Air brakes and an air compressor: idle before driving after a long stand |

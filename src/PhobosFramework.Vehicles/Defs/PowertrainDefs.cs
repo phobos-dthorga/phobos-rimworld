@@ -327,6 +327,29 @@ public class PhaseReader_OwnFlight : PhaseReader
     }
 }
 
+/// <summary>
+/// Our own flight's phases while it answers for the aircraft, else another reader's (Framework 0.160.0): for a profile shared by stock
+/// helicopters that fly on our flight only with the player's setting, and by others that never do. In the air on our flight, a hover
+/// (lifting off, holding, settling, at its lines, coming down) or forward flight (flying, circling, a roll); otherwise the fallback reads.
+/// </summary>
+public class PhaseReader_OwnFlightOr : PhaseReader
+{
+    public PhaseReader? fallback;
+
+    public override IEnumerable<string> Phases() =>
+        new[] { PhaseReader_OwnFlight.Hover, PhaseReader_OwnFlight.Forward }.Concat(fallback?.Phases() ?? Enumerable.Empty<string>()).Distinct();
+
+    public override string? Read(VehiclePawn vehicle)
+    {
+        if (vehicle.CompVehicleLauncher is not { inFlight: true } && vehicle.GetComp<CompPhobosFlight>() is { Airborne: true } flight)
+        {
+            return flight.State is FlightState.Moving or FlightState.Orbit or FlightState.TakeoffRoll or FlightState.RollingLanding
+                ? PhaseReader_OwnFlight.Forward : PhaseReader_OwnFlight.Hover;
+        }
+        return fallback?.Read(vehicle);
+    }
+}
+
 /// <summary>One rule: if the member (on the vehicle, or on its comp of the named type) matches, the aircraft is in this phase.</summary>
 public class PhaseRule
 {

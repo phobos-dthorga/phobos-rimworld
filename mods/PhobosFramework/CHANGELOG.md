@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.160.0] - 2026-11-19 - Draft
+
+Stock helicopters may fly over the map on our own flight, behind a setting that starts off
+
+### Added
+
+- **New setting: Stock helicopters fly over the map** (vehicle systems, Engines and drivetrains), **off by default** (owner, 18 Nov 2026). On, a stock helicopter given our flight takes off, flies about, hovers, circles and lands on the map as the Osprey does, with the same buttons, and leaves and arrives flying. Off, it flies exactly as its author made it. One already in the air when the setting goes off finishes its flight first.
+- **Its engines follow our flight while it does**: a hover asks the fitted hover figure, forward flight a little over half of it, as for the Osprey. Other helicopters sharing their figures are unchanged.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Their pictures were drawn for flying straight off the map, so a hover may look a little odd. They cannot roll to take off or use ropes or a hoist. A slung load is still picked up as a helicopter leaves for another place, not from a hover on the map.
+
 ## [0.159.0] - 2026-11-19 - Draft
 
 What the ground does to an aircraft as it lifts off and lands

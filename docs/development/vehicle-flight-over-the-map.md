@@ -7,8 +7,9 @@ D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); 
 ([built](#built-19-nov-2026-circling)); ropes and a hoist (slice 6's first half) in Framework 0.155.0 and Vehicles 0.77.0
 ([built](#built-19-nov-2026-ropes-and-a-hoist)); a raider's flight (slice 6's other half) in Framework 0.157.0 and Vehicles 0.79.0
 ([built](#built-19-nov-2026-a-raiders-flight)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
-([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: aeroplanes that never hover, side-firing
-gun arcs, runs, and stock helicopters on our flight. Nothing here is tested in game (rows 199, 200, 204 to 210). The owner answered
+([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)); stock helicopters on our flight, behind a setting that
+starts off, in Framework 0.160.0 and Vehicles 0.81.0 ([built](#built-19-nov-2026-stock-helicopters-on-our-flight)). Not built: aeroplanes
+that never hover, side-firing gun arcs and runs. Nothing here is tested in game (rows 199, 200, 204 to 211). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -578,6 +579,22 @@ usually cannot fly on; light, it often can.
 decides something only our own flight does (its state; whether it may stop, fly on or roll), so they come with the hover half
 (slice 2) rather than as fields nothing reads.
 
+## Built (19 Nov 2026): stock helicopters on our flight
+
+At the owner's word ("Yes, please", 19 Nov 2026, to building it), D'thorga Framework 0.160.0 and D'thorga Vehicles 0.81.0; **not
+yet tested in game** (row 211). As [designed](#stock-helicopters-on-our-flight), with these differences and choices:
+
+| Part | As built | Where |
+| --- | --- | --- |
+| Which | The Cherokee and the Louie (Vanilla Vehicles Expanded - Tier 3) and the Mosquito (Vanilla Vehicles Expanded), each in a patch file that loads only with its mod. The thrust pods are left out, as designed | `Flight_VanillaVehiclesExpandedTier3.xml`, `Flight_VanillaVehiclesExpanded.xml` |
+| **Idle while off** | The comp carries `onlyWithStockSetting`; while the setting is off it answers for nothing (no buttons, no strip, none of our patches act), so Vehicle Framework flies it as before. One already in the air finishes its flight on ours whatever the setting | `CompPhobosFlight.Active`, `FliesOnOurs` |
+| Their engines | The shared stock helicopter profile reads our flight's hover and forward phases while it answers, and the members it read before otherwise, so the Ka-27 and Mi-38 sharing it are unchanged. Forward demand 0.51 (its hover figure 0.85 times the forward-flight share 0.6, as the Osprey's) | `PhaseReader_OwnFlightOr`, `FlightProfiles.xml` |
+| **Their speeds** | **A floor of 4 cells a second** (agent's choice): the Osprey's ratio of map to world speed (7 to 17.5) would give the Cherokee 1.8, slower than a person walks. The Louie 4, the Mosquito 4.2. Turn rates, climb, descent, flight heights (60, 50 and 40 m) and tightest circles authored by kind, each circle above what its turn allows | the patch files |
+| What they lack | No rolling take-off (their profile gives no rolling share), no ropes or hoist (no mounts offered), nothing marking them for raiders | |
+| Over hidden ground | Drawn over it, as the Osprey; the cost accepted: one parked on unseen ground at a base the player attacks shows through the fog | `seeThroughFog` |
+| The sling | Unchanged: the load is taken as the helicopter sets off for another place, then hangs below it as it flies to the edge, as for the Hind. Hovering over a load on the map to pick it up is not built | `CompPhobosSling` |
+| The landing-surface rule | Applies to them as to every aircraft on our flight (Framework 0.159.0), on the engine roles they have | `LandingSurface` |
+
 ## Built (19 Nov 2026): a raider's flight
 
 At the owner's word ("Proceed with slice 6's other half, a raider's flight", 19 Nov 2026), D'thorga Framework 0.157.0 and D'thorga Vehicles
@@ -794,7 +811,7 @@ None exists yet. Proposed, each in D'thorga Framework's settings under vehicle s
 | **Cruising height between tiles** | On | Off: every leg is flown as today, with no ceiling, no cost for flying low and the fixed oxygen figures |
 | **People are slowed beneath a hovering aircraft** | On | Off: path costs beneath a hover are never worked out, so people cross freely (they still cannot stand there) |
 | **Raiders may arrive by aircraft** (built 0.157.0) | **On** (owner, 19 Nov 2026) | Off: no raid arrives by aircraft |
-| **Stock helicopters fly over the map** | **Off** (owner, 18 Nov 2026) | On: Vehicle Framework's own helicopters hover and fly over the map on this flight ([below](#stock-helicopters-on-our-flight)) |
+| **Stock helicopters fly over the map** (built 0.160.0) | **Off** (owner, 18 Nov 2026) | On: Vehicle Framework's own helicopters hover and fly over the map on this flight ([below](#stock-helicopters-on-our-flight)) |
 
 The hover-limit setting that exists ("When an aircraft is too heavy or too hot to lift off or hover onto its pad") governs the
 three thresholds as it governs the hover check today.

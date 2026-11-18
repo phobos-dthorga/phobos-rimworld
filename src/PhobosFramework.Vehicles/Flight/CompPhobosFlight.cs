@@ -89,6 +89,12 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
     /// <summary>How far from the foot of the hoist, on the ground, it can reach someone or set them down, cells (authored).</summary>
     public float hoistReachCells = 3f;
 
+    /// <summary>
+    /// Stands idle unless the player's "Stock helicopters fly over the map" setting is on (Framework 0.160.0; owner, 18 Nov 2026: a setting, off
+    /// by default): set on another author's helicopter given our flight in XML, so it flies as its author made it while the setting is off.
+    /// </summary>
+    public bool onlyWithStockSetting;
+
     /// <summary>Its speed circling, cells a second.</summary>
     public float OrbitSpeed => float.IsNaN(orbitSpeedCellsPerSecond) ? speedCellsPerSecond * 0.7f : orbitSpeedCellsPerSecond;
 
@@ -147,6 +153,15 @@ public partial class CompPhobosFlight : VehicleComp
 
     public FlightState State => state;
     public bool Airborne => state != FlightState.Ground;
+
+    /// <summary>
+    /// Whether our flight answers for this aircraft now (Framework 0.160.0): always for our own aircraft; for a stock helicopter only with the
+    /// player's setting on. One already in the air finishes its flight first, whatever the setting.
+    /// </summary>
+    public bool Active => Airborne || !Props.onlyWithStockSetting || VehicleSystemsMod.Settings.stockHelicoptersFly;
+
+    /// <summary>Whether this vehicle flies on the map on our own flight now: it has the comp, and the comp is active.</summary>
+    public static bool FliesOnOurs(VehiclePawn? vehicle) => vehicle?.GetComp<CompPhobosFlight>() is { Active: true };
 
     /// <summary>How far it has climbed: 0 on the ground to 1 at its flight height.</summary>
     public float Climb => state == FlightState.Ground ? 0f : climb;
@@ -334,6 +349,8 @@ public partial class CompPhobosFlight : VehicleComp
         FlightRegistry.Add(this);
         StartTicking();
         Seen.Note("aircraft.flight-takeoff", v);
+        // Framework 0.160.0: a stock helicopter on our flight, by its Def.
+        if (Props.onlyWithStockSetting && Seen.On && Seen.Wants("aircraft.flight-stock", v, v.def.defName)) Seen.Note("aircraft.flight-stock", v, variant: v.def.defName);
         LandingSurface.OnTakeOff(v);    // Framework 0.158.0: what the ground beneath does as it lifts off
     }
 
@@ -1196,7 +1213,7 @@ public partial class CompPhobosFlight : VehicleComp
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
-        if (!Vehicle.Spawned || Vehicle.Faction != Faction.OfPlayer) yield break;
+        if (!Vehicle.Spawned || Vehicle.Faction != Faction.OfPlayer || !Active) yield break;
         foreach (Gizmo gizmo in FlightGizmos.For(this)) yield return gizmo;
     }
 
@@ -1215,7 +1232,7 @@ public partial class CompPhobosFlight : VehicleComp
             FlightDrawing.Shadow(this);
             DrawLines();
         }
-        else if (Vehicle.Spawned && Find.Selector.IsSelected(Vehicle)) FlightDrawing.Strip(this);
+        else if (Vehicle.Spawned && Active && Find.Selector.IsSelected(Vehicle)) FlightDrawing.Strip(this);
     }
 
     /// <summary>How far forward the nacelles of a tiltrotor should lean now, 0 upright to 1 fully forward, from its speed over the map

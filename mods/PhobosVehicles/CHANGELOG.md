@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.81.0] - 2026-11-19 - Draft
+
+The Cherokee, the Louie and the Mosquito may fly over the map on our own flight
+
+### Added
+
+- **With D'thorga Framework's setting Stock helicopters fly over the map on** (it starts off), Vanilla Vehicles Expanded's Cherokee and Louie and Vanilla Vehicles Expanded's Mosquito fly about the map on our flight. Their speeds over a map are ours, as their authors set none: 4 cells a second for the Cherokee and the Louie, 4.2 for the Mosquito, with turn rates, climbs and flight heights by kind. The thrust pods are not included.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.160.0 or later. With an older Framework the game reports an unknown field in these helicopters' flight comp at start-up.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Over unseen ground they are drawn as the Osprey is, so one parked on unseen ground at a base you attack shows through the fog.
+
 ## [0.80.0] - 2026-11-19 - Draft
 
 Armour kits for the service trucks, first part: the kits that need no picture

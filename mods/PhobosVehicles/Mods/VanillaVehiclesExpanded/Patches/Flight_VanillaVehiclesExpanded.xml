@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Stock helicopters on our own flight (D'thorga Framework 0.160.0, D'thorga Vehicles 0.81.0; owner, 18 Nov 2026: a setting, off by default):
+    the Mosquito, a light helicopter, takes our flight comp, idle until "Stock helicopters fly over the map" is on. Its picture is left as its
+    author drew it. Figures agent-authored: 4.2 cells a second (10.5 x 0.4, the Osprey's ratio of map to world speed), quick to turn, climb
+    and descend; its tightest circle at 2.9 cells a second and 60 degrees a second would be 2.8 cells, 5 authored. The thrust pods (the Frog
+    and the Toad) are left out (agent's default in the design record).
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Mosquito"]/comps</xpath>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Mosquito"]</xpath>
+      <value><comps /></value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Mosquito"]/comps</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFlight">
+        <onlyWithStockSetting>true</onlyWithStockSetting>
+        <speedCellsPerSecond>4.2</speedCellsPerSecond>
+        <accelerationCellsPerSecond>2.2</accelerationCellsPerSecond>
+        <turnDegreesPerSecond>60</turnDegreesPerSecond>
+        <climbSeconds>5</climbSeconds>
+        <descentSeconds>6</descentSeconds>
+        <fallSeconds>3</fallSeconds>
+        <flightHeightMetres>40</flightHeightMetres>
+        <orbitRadiusCells>5</orbitRadiusCells>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Drawn over hidden ground while it flies there, as the Osprey; one parked on unseen ground at a base you attack shows through the fog. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Mosquito"]</xpath>
+    <value>
+      <seeThroughFog>true</seeThroughFog>
+    </value>
+  </Operation>
+</Patch>

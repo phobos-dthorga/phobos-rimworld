@@ -138,6 +138,11 @@
       "it arrives over a map it attacks or explores": [{"key": "aircraft.flight-arrived", "variant": "Centre"},
         {"key": "aircraft.flight-arrived", "variant": "Edge"}, {"key": "aircraft.flight-arrived", "variant": "Targeted"}]
     }},
+    "211": {"parts": {
+      "the Cherokee flies on our flight": [{"key": "aircraft.flight-stock", "variant": "VVE_Cherokee"}],
+      "the Louie flies on our flight": [{"key": "aircraft.flight-stock", "variant": "VVE_Louie"}],
+      "the Mosquito flies on our flight": [{"key": "aircraft.flight-stock", "variant": "VVE_Mosquito"}]
+    }},
     "210": {"parts": {
       "it comes in over the edge": [{"key": "aircraft.raider", "variant": "arrived"}],
       "it puts its raiders down": [{"key": "aircraft.raider", "variant": "landed"}, {"key": "aircraft.raider", "variant": "roping"}],

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Stock helicopters on our own flight (D'thorga Framework 0.160.0, D'thorga Vehicles 0.81.0; docs/development/vehicle-flight-over-the-map.md,
+    "Stock helicopters on our flight"; owner, 18 Nov 2026: a setting, off by default). The Cherokee and the Louie take our flight comp, which
+    stands idle, costing nothing, until "Stock helicopters fly over the map" is on. Their pictures are left as their authors drew them.
+
+    Every figure is ours, since their authors set none for flying about a map (agent-authored, owner to revise). Speeds over a map: the
+    Osprey's ratio of map speed to world speed (7 to 17.5) would give the Cherokee 1.8 cells a second, slower than a person walks, so a floor
+    of 4 is authored. Turn rates, climb and descent by their kind: the tandem-rotor Cherokee slow and heavy, the Louie a utility helicopter of
+    the Huey's kind. Each tightest circle sits above what its turn rate allows at its circling speed (r = v / turn rate). No rolling take-off:
+    their flight profile gives no rolling share.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Cherokee"]/comps</xpath>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Cherokee"]</xpath>
+      <value><comps /></value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Cherokee"]/comps</xpath>
+    <value>
+      <!-- 4 cells a second, 30 degrees a second: its tightest circle at 2.8 cells a second would be 5.3 cells; 9 authored. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFlight">
+        <onlyWithStockSetting>true</onlyWithStockSetting>
+        <speedCellsPerSecond>4</speedCellsPerSecond>
+        <accelerationCellsPerSecond>1.2</accelerationCellsPerSecond>
+        <turnDegreesPerSecond>30</turnDegreesPerSecond>
+        <climbSeconds>8</climbSeconds>
+        <descentSeconds>9</descentSeconds>
+        <fallSeconds>3</fallSeconds>
+        <flightHeightMetres>60</flightHeightMetres>
+        <orbitRadiusCells>9</orbitRadiusCells>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Louie"]/comps</xpath>
+    <nomatch Class="PatchOperationAdd">
+      <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Louie"]</xpath>
+      <value><comps /></value>
+    </nomatch>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Louie"]/comps</xpath>
+    <value>
+      <!-- 4 cells a second (9.95 x 0.4), 45 degrees a second: its tightest circle at 2.8 cells a second would be 3.6 cells; 7 authored. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFlight">
+        <onlyWithStockSetting>true</onlyWithStockSetting>
+        <speedCellsPerSecond>4</speedCellsPerSecond>
+        <accelerationCellsPerSecond>1.8</accelerationCellsPerSecond>
+        <turnDegreesPerSecond>45</turnDegreesPerSecond>
+        <climbSeconds>6</climbSeconds>
+        <descentSeconds>7</descentSeconds>
+        <fallSeconds>3</fallSeconds>
+        <flightHeightMetres>50</flightHeightMetres>
+        <orbitRadiusCells>7</orbitRadiusCells>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Drawn over hidden ground while they fly there, as the Osprey (the game hides a thing on a fogged cell unless its Def says otherwise).
+       The cost, accepted: one parked on unseen ground at a base you attack shows through the fog. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Cherokee" or defName="VVE_Louie"]</xpath>
+    <value>
+      <seeThroughFog>true</seeThroughFog>
+    </value>
+  </Operation>
+</Patch>

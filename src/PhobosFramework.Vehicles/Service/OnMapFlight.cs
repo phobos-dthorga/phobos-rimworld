@@ -43,7 +43,7 @@ public static class OnMapFlight
     public static bool FliesItself(Type? vehicleClass) => vehicleClass != null && For(vehicleClass) != null;
 
     /// <summary>Whether this vehicle flies on the map by itself: on our own flight (Framework 0.147.0), or another flight mod's.</summary>
-    public static bool FliesItself(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosFlight>() != null || For(vehicle.GetType()) != null;
+    public static bool FliesItself(VehiclePawn vehicle) => CompPhobosFlight.FliesOnOurs(vehicle) || For(vehicle.GetType()) != null;
 
     /// <summary>Whether this vehicle is in the air on its map now: taking off, flying, landing or leaving. Always false for an aircraft that
     /// does not fly on the map by itself (Vehicle Framework's own are off the map in the air).</summary>
