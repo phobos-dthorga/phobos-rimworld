@@ -1,7 +1,7 @@
 # Armour for our armed vehicles: Combat Extended first, Vehicle Framework as the fallback (18 Nov 2026)
 
-**Status (18 Nov 2026):** a design record. No part of it is in code yet, and nothing here is tested in game. Its questions are
-put to the owner with [the Osprey's](vehicle-osprey.md).
+**Status (18 Nov 2026):** a design record. No part of it is in code yet, and nothing here is tested in game. Its one question
+was answered by the owner the same day, with [the Osprey's](vehicle-osprey.md#the-owners-answers-18-nov-2026).
 
 The owner decided on 18 November 2026 how armour works on the armed vehicles of [modern military vehicles](modern-military-vehicles.md):
 "Combat Extended is the priority, with Vehicle Framework a fallback for other users who go without CE for when we finally publish
@@ -24,8 +24,9 @@ Nov 2026) and was **not** compared with the installed build; Vehicle Framework's
   parts stack into armour nobody intended. Our Defs give each cell one outer part. No patch.
 - **Under Combat Extended a vehicle is hit only through a box one cell wide at its centre**, whatever its footprint. One small
   postfix widens it for a Def that asks, as the Hind's and the Harrier's authors do.
-- **An aircraft in the air is shot at, and shoots, as from the ground** in the first build (agent recommendation; a question for
-  the owner). Real height under Combat Extended needs patches on code that runs for every bullet every tick.
+- **An aircraft in the air is shot at, and shoots, as from the ground** in the first build (owner, 18 Nov 2026, the agent's
+  recommendation). Real height under Combat Extended needs patches on code that runs for every bullet every tick; it can follow
+  as its own slice.
 - **Nothing here changes another author's vehicle.**
 
 ## What each behaviour lets, stops and changes
@@ -165,8 +166,8 @@ first armed vehicle is built.
 
 ### In the air
 
-**Agent recommendation: in the first build an aircraft in the air has the same hit box it has on the ground, and its guns fire
-from the turret Def's ordinary shot height.** A wall between a shooter and the aircraft blocks the shot both ways, as
+**Decided (owner, 18 Nov 2026, the agent's recommendation): in the first build an aircraft in the air has the same hit box it
+has on the ground, and its guns fire from the turret Def's ordinary shot height.** Real height may follow as a later slice. A wall between a shooter and the aircraft blocks the shot both ways, as
 [our own flight over the map](vehicle-flight-over-the-map.md#being-shot-at-and-shooting) already accepts for line of sight, and as
 both existing flight mods do: neither raises its aircraft **[code]**.
 
@@ -180,8 +181,8 @@ What real height under Combat Extended would take **[code]**:
 
 Not traced: how Combat Extended's explosive rounds and fuses, its roof test above a height of 2, and raiders' choice of target
 treat a raised vehicle. **What it would give:** guns that fire over walls and are fired at over walls, and targets under a roof
-that an aircraft cannot hit. It is the more truthful model and the riskier one; it is [question 5](vehicle-osprey.md#questions-for-the-owner)
-in the Osprey's record.
+that an aircraft cannot hit. It is the more truthful model and the riskier one, and it was question 5 of
+[the Osprey's record](vehicle-osprey.md#the-owners-answers-18-nov-2026).
 
 ### What cannot reach it
 
@@ -220,9 +221,10 @@ Extended folder must replace that part's armour and that turret's projectile, ea
 
 ## Who chose what
 
-- **Owner (18 Nov 2026):** Combat Extended first, Vehicle Framework the fallback; vehicles armed as the real machine.
+- **Owner (18 Nov 2026):** Combat Extended first, Vehicle Framework the fallback; vehicles armed as the real machine; an
+  aircraft in the air shot at and shooting as from the ground in the first build.
 - **Agent recommendations:** classes named by the threat stopped; XML patches with a gate check, in place of a class table filled
-  in by code at start-up; one outer part to a cell; the width extension; ground-level hit boxes in the air for the first build.
+  in by code at start-up; one outer part to a cell; the width extension.
 - **Authored:** every blunt figure; every Vehicle Framework rating; the margin of each sharp figure over its round.
 
 ## Sources

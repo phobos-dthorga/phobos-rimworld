@@ -1,7 +1,7 @@
 # The V-22 Osprey: design (18 Nov 2026)
 
 **Status (18 Nov 2026):** a design record. No part of it is in code yet, no picture is made, and nothing here is tested in game.
-Eight questions are open for the owner ([below](#questions-for-the-owner)).
+The owner answered its eight questions the same day ([their answers](#the-owners-answers-18-nov-2026)).
 
 The owner asked for the Osprey on 18 November 2026: "the Osprey is definitely something I would like to implement!" This is its
 design record, row MV3 in [outstanding work](outstanding-work.md). It is the first aircraft of ours, the first vehicle on
@@ -25,8 +25,10 @@ inference; **[A]** an authored gameplay choice. Metric figures marked "(converte
   our arithmetic, not a test, and a good sign for the model.
 - **It is unarmoured, as the real one is**, with an armour kit as an upgrade. Rifle fire goes through it and hurts what is inside.
 - **It defends a landing; it does not attack.** One gun on the ramp, and a belly gun as an upgrade that costs load.
-- **Its speed, size and weight are in proportion to the Hind's**, the owner's anchor. Its range is in proportion to the Mi-38's,
+- **Its speed and weight are in proportion to the Hind's**, the owner's anchor. Its range is in proportion to the Mi-38's,
   the nearest transport, because the Hind's author gave it a range no real helicopter has.
+- **It is drawn on the Mi-38's scale, about 30 cells across its rotors** (owner, 18 Nov 2026): "I wish for this to be our hero
+  vehicle, essentially. Plus it's easier to scale down than scale up".
 - **One picture from above**, bare, with everything a player can fit drawn as its own overlay.
 
 ## The owner's decisions it stands on
@@ -88,16 +90,24 @@ The fuller table is in [modern military vehicles](modern-military-vehicles.md#th
 
 ### Size
 
+**Decided (owner, 18 Nov 2026): the Mi-38's scale.** "I wish for this to be our hero vehicle, essentially. Plus it's easier to
+scale down than scale up". The agent had recommended the Hind's scale, a picture of 16 x 11 cells.
+
 | | Real | In game | How |
 | --- | --- | --- | --- |
-| Footprint | fuselage 17.48 m | **5 x 9** cells | The Hind's fuselage is 17.5 m on 9 cells; five wide for the body, sponsons and inner wing **[I]** |
-| Picture | 25.78 m across the rotors, 17.48 m long | **16 x 11** cells | The Hind's picture is 12 cells for 19.79 m with rotors: 0.61 cells a metre **[I]** |
+| Picture, across the rotors | 25.78 m | **about 30 cells** | The Mi-38's picture is 24.79 cells for a 21.1 m rotor: 1.175 cells a metre **[I]** |
+| Picture, nose to tail | 17.48 m | **about 20.5 cells** | The same scale |
+| The airframe without its rotors | wingspan 13.97 m, plus the nacelles | about 18 x 20.5 cells | The rotors are overlays of their own, each about 13.6 cells across |
+| Footprint | fuselage 17.48 m | **5 x 9** cells | The Mi-38's footprint is 5 x 11 for a 20.28 m body; the same ratio gives 9 **[I]** |
 
-Both footprint sides are odd, so the fault in reading an even-length vehicle's cells (row CR7) cannot touch it. The Mi-38's
-author draws at about twice that scale (24.8 cells for a 21.1 m rotor); on that scale the Osprey would be 30 cells across.
-**Art limit to settle before the pilot picture:** our trucks ship at 128 px a cell, and the paid engine's largest picture is
-1,536 px wide, which gives 96 px a cell for a 16-cell picture. That is 1.5 times the game's closest zoom, which is what the art
-rule asks, but it is below our trucks.
+- **The footprint stays 5 x 9** (agent default): it is what must be clear to land, what a strip is as wide as, and what is hit.
+  The picture overhangs it widely, as the Mi-38's does. Both sides are odd, so the fault in reading an even-length vehicle's
+  cells (row CR7) cannot touch it.
+- **The art limit, to settle before the pilot picture.** Our trucks ship at 128 px a cell. The paid engine's largest picture is
+  1,536 px on its long side, which gives the airframe about 73 px a cell and a whole 30-cell picture about 51. So one paid
+  picture is not enough at this size. The choices, to be put to the owner with a dry run and its cost before anything is spent:
+  the airframe made in sections and joined by script; or made on the owner's local model at a larger size. The owner's rule that
+  art is only ever scaled down stands.
 
 ### Weights, speed and crew
 
@@ -114,8 +124,8 @@ rule asks, but it is below our trucks.
 | Troops | 24 seats | **[P]**, **[S]** |
 
 **The cargo figure is in real kilograms, where other authors' are not.** The Cherokee carries 4,600 for a Chinook's real 10,886 kg
-and the Mi-38 5,000 for a real 6,000 kg, so in game the Osprey would out-carry the Cherokee, which the real one does not. The
-owner's rule leaves their figures as they are. The alternative is in [question 2](#questions-for-the-owner).
+and the Mi-38 5,000 for a real 6,000 kg, so in game the Osprey out-carries the Cherokee, which the real one does not. The
+owner's rule leaves their figures as they are. **Decided: 5,600 kg, and two pilots needed** (owner, 18 Nov 2026).
 
 ### Engines and lift
 
@@ -174,6 +184,7 @@ an engine lost afterwards takes its own rotor with it.
 - **Not anchored to the Hind here:** its author's world multiplier gives it a range of 3,500 by the same formula, more than
   eight times the Mi-38's, where the real Hind's 450 km is half the Mi-38's.
 - **A full tank is 1,500 chemfuel.** That is the price of the real machine's thirst, and it is the figure to tune first.
+  **Decided: a 1,500 tank burning 200 a day** (owner, 18 Nov 2026).
 - Fuel by flight phase, thin air and the cruising height apply as built or designed; nothing new is needed.
 
 ### Parts and armour
@@ -238,7 +249,7 @@ Three cases from three real events, each a small rule in the health layer **[A]*
 | Built floor or rock | Nothing | |
 
 **The inlet barrier** (an upgrade) takes most of the sand wear away, for a little engine power, as the real one is meant to **[S]**.
-This is [question 7](#questions-for-the-owner).
+**Decided: all three cases, with the inlet barrier** (owner, 18 Nov 2026).
 
 ### The upgrade tree
 
@@ -275,7 +286,7 @@ The guide's is used.
   batteries, wiring, hydraulics. Our own parts set the price; other mods' are accepted only where they suit, as for every vehicle.
 - **Work:** 60,000 **[A]**; the Cherokee's is 52,000 and the Mi-38's 90,000.
 - **Research:** "Tiltrotor aircraft", 6,000, after our turbines research **[A]**; the Cherokee's is 4,000. Each upgrade has its
-  own small project on our research tab, as the Crawler's do. This is [question 8](#questions-for-the-owner).
+  own small project on our research tab, as the Crawler's do. **Decided as written** (owner, 18 Nov 2026).
 
 ## Flying it
 
@@ -304,8 +315,8 @@ flies as an aeroplane, at 17.5.
   never needs redrawing.
 - **Paint mask** by region, then repaired by parts; judged tinted on dark ground, with the fleck count, before the owner sees it.
 - **Icons:** the vehicle's, and one for each of seventeen upgrades and each new button, on the owner's local model.
-- **Before any paid picture:** the size settled ([question 1](#questions-for-the-owner)), a dry run with its cost, and a spending
-  limit from the owner. One pilot picture, inspected at full size, before anything else.
+- **Before any paid picture:** how a picture this large is made (the art limit under [size](#size)), a dry run with its cost,
+  and a spending limit from the owner. One pilot picture, inspected at full size, before anything else.
 - **Only our own art is ever uploaded** as a reference.
 
 ## Sound
@@ -328,26 +339,30 @@ What is built before the owner's first test:
 
 **Second batch:** circling; ropes and the hoist; the tanker kit and the probe; the crewless fit; a raider's flight AI.
 
-## Questions for the owner
+## The owner's answers (18 Nov 2026)
 
-1. **Size.** A 5 x 9 footprint with a 16 x 11 picture, on the Hind's scale (recommended); or larger, toward the Mi-38's scale.
-2. **Cargo.** 5,600 kg in real kilograms (recommended: the engine model stays honest); or 3,600 kg, so it carries less than the
-   Cherokee as the real one does.
-3. **Pilots.** Two needed, as the real one (recommended); or two seats with one needed.
-4. **Fuel.** A 1,500 tank burning 200 a day (recommended); or a lighter 900 burning 120, the same range at less chemfuel a fill.
-5. **In the air under Combat Extended.** Shot at and shooting as from the ground in the first build (recommended); or real height
-   now, with its patches on code that runs for every bullet ([the armour record](vehicle-armour.md#in-the-air)).
-6. **The first batch's upgrades.** The twelve marked batch 1 (recommended); or fewer.
-7. **What it lands on.** Sand wear and a fire risk, with the inlet barrier (recommended); or leave it out.
-8. **Research.** One project of 6,000 after our turbines research, and a small one per upgrade (recommended); or dearer and later.
+Asked as eight cards in two rounds after the record was written; the owner answered all eight the same day.
+
+| # | Question | The agent recommended | The owner chose |
+| --- | --- | --- | --- |
+| 1 | Size | The Hind's scale: a 16 x 11 picture | **The Mi-38's scale**, about 30 cells across: "I wish for this to be our hero vehicle, essentially. Plus it's easier to scale down than scale up" |
+| 2 | Cargo | 5,600 kg, in real kilograms | **5,600 kg** |
+| 3 | Pilots | Two needed | **Two needed** |
+| 4 | Fuel | A 1,500 tank burning 200 a day | **1,500 and 200** |
+| 5 | In the air under Combat Extended | Shot at and shooting as from the ground in the first build; real height as a later slice | **As from the ground, first** |
+| 6 | The first batch's upgrades | The twelve marked batch 1 | **The twelve** |
+| 7 | What it lands on | Sand wear and a fire risk, with the inlet barrier | **Yes, with the inlet barrier** |
+| 8 | Research | 6,000 after our turbines research, a small project per upgrade | **6,000, after turbines** |
 
 ## Who chose what
 
 - **Owner (18 Nov 2026):** the Osprey; its real name; armed as the real machine; our own flight; the Hind as the anchor; the tanker
-  kit kept; a good portion built with proper art before a first test.
-- **Agent recommendations, for the owner to accept or change:** the eight questions' recommended answers; real kilograms; the
-  Mi-38 as the anchor for range.
-- **Agent defaults, owner to revise:** the parts list and every health figure; no drive limit; three flight-control channels as
+  kit kept; a good portion built with proper art before a first test. **Later the same day:** the Mi-38's scale, as the hero
+  vehicle (against the agent's recommendation of the Hind's scale); 5,600 kg; two pilots; 1,500 and 200; ground-level hit boxes
+  in the air first; the twelve upgrades; what it lands on, with the inlet barrier; research at 6,000 after turbines.
+- **Agent recommendations, for the owner to accept or change:** the Mi-38 as the anchor for range; how a picture this large is
+  made, when it is put to them.
+- **Agent defaults, owner to revise:** the 5 x 9 footprint under the larger picture; the parts list and every health figure; no drive limit; three flight-control channels as
   parts; the guns' arcs; the batch split; the shell's cost; the on-map flight figures; the cabin fits' seat counts.
 - **Authored:** everything marked [A].
 
