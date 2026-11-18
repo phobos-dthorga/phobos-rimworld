@@ -510,6 +510,12 @@ delivered, record the delivery in the changelog or design record, and add or ame
   the repository's and every backup, compared by the changelogs each carries (phobos-modkit's installs; `docs/development/mod-installs.md`).
   The Companion's Mods page runs it. So **a changelog entry is what the owner reads before updating**: keep its bold opening when
   rewording it, and save effects under "Save compatibility". deploy writes `InstallRecord.json` into every installed copy.
+  Status also says which mods need a build (`python scripts/deploy.py --build-only` builds without installing, fine while the game
+  runs), the files an install would change, its settings changes (`mod-settings.py changes --json`) and the test rows it brings.
+- **Answer whether textures need encoding before a launch with `python scripts/textures.py`** (owner, 18 Nov 2026: "it's always a
+  wild guess"): every active mod, ours and others', stale (the game would show the old picture: it loads a `.dds` instead of the
+  `.png` beside it without comparing dates), never encoded, or left over. `encode --mod` writes `.dds` files with RimSort's own
+  todds preset into the named mods' folders, **Workshop ones included, by the owner's choice**, and refuses while RimWorld runs.
 - Scale checks to the change; test rules and persistence, not static documentation. **Before committing, run
   `python scripts/check-all.py` and chain the commit on its exit code** (`python scripts/check-all.py && git commit ...`),
   never on reading output: phobos-modkit's gate builds every project, runs every rule-test project and the Python tests,

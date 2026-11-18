@@ -11,6 +11,7 @@ game path comes from --game, the RIMWORLD_PATH environment variable, .local/inst
     python scripts/deploy.py --apply PhobosRadioFramework    copy one mod
     python scripts/deploy.py --all                           preview every mod
     python scripts/deploy.py --build --apply --all           build everything, then copy every mod
+    python scripts/deploy.py --build-only                    build everything and copy nothing (fine while the game runs)
 
 After copying, it encodes each installed mod's textures to DDS with RimSort's todds, using RimSort's own "optimized" preset, so
 RimSort's texture step is not needed for our mods (owner, 13 Nov 2026: a fresh install had wiped the DDS files RimSort made, and
@@ -41,11 +42,13 @@ from urllib.request import url2pathname
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_GAME_PATH = Path(r'C:\Program Files (x86)\Steam\steamapps\common\RimWorld')
 SETTINGS_FILE = ROOT / '.local' / 'install-settings.json'
-DEFAULT_TODDS = Path(r'C:\Program Files (x86)\RimSort\todds\todds.exe')
-# RimSort's "optimized" todds preset, as its source has it (RimSort/RimSort, app/utils/todds/wrapper.py, commit c02f2b3, 15 Oct 2026):
-# BC1, BC7 where there is alpha, re-encode only what is newer than its DDS (RimSort's "overwrite" off, as the owner has it), flipped
-# vertically as the game reads DDS, sizes fixed to multiples of 4, only paths containing "Textures". The folder goes last.
-RIMSORT_OPTIMIZED = ('-f', 'BC1', '-af', 'BC7', '-on', '-vf', '-fs', '-ss', 'Textures', '-t', '-p')
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import _modkit  # noqa: E402  (the shared tools' import path)
+
+_modkit.ensure()
+# RimSort's todds and its "optimized" preset live once, in phobos-modkit's RimWorld texture tool (kit 1.21.0), which the Companion's
+# texture check also runs: BC1, BC7 where there is alpha, re-encode only what is newer than its DDS, flipped as the game reads DDS.
+from phobos_modkit.games.rimworld.textures import DEFAULT_TODDS, RIMSORT_OPTIMIZED  # noqa: E402
 BACKUPS = ROOT / '.local' / 'deploy-backups'
 # RimWorld.exe is 1.7 on Windows (seen in tasklist, 30 Oct 2026); RimWorldWin64.exe is 1.6.
 GAME_PROCESSES = ('RimWorld.exe', 'RimWorldWin64.exe', 'RimWorldWin.exe', 'RimWorldLinux', 'RimWorldLinux.x86_64',
@@ -256,7 +259,6 @@ def write_install_record(target, mod, root=ROOT, log=print):
     The kit owns the record's format. A failure is reported, never raised: only the record goes without. Returns the record or None.
     """
     try:
-        _kit()
         from phobos_modkit import installs
         from phobos_modkit.games.rimworld.installs import identity
         record = installs.record_for(root, installs.load_config(root), mod, identity(target)[1])
@@ -273,15 +275,6 @@ def write_install_record(target, mod, root=ROOT, log=print):
 INSTALL_RECORD = 'InstallRecord.json'
 
 
-def _kit():
-    """Puts the pinned phobos-modkit on the import path."""
-    here = str(Path(__file__).resolve().parent)
-    if here not in sys.path:
-        sys.path.insert(0, here)
-    import _modkit
-    _modkit.ensure()
-
-
 # The test-moment message's rows (seen-in-play checks, E8): read by D'thorga Framework's Rules/TestRowsRule from its installed folder.
 TEST_ROWS_MOD = 'PhobosFramework'
 TEST_ROWS_FILE = 'TestRows.tsv'
@@ -290,7 +283,6 @@ WAITING = ('open', 'partial', 'seen')
 
 def test_rows_text(root=ROOT):
     """The test rows still waiting for the owner, one line per piece of evidence: row, title, key, case, detail wildcard (tab-separated)."""
-    _kit()
     from phobos_modkit import testpass
     config = testpass.load_config(root)
     rows = testpass.parse_rows((Path(root) / config['doc']).read_text(encoding='utf-8'))
@@ -350,7 +342,13 @@ def main(argv=None):
     parser.add_argument('--game', help='RimWorld folder (default: RIMWORLD_PATH, .local/install-settings.json, or Steam)')
     parser.add_argument('--todds', help="RimSort's todds.exe (default: RIMSORT_TODDS, install-settings.json, or RimSort's install)")
     parser.add_argument('--no-dds', action='store_true', help="leave the textures as PNG; RimSort's texture step can make the DDS files")
+    parser.add_argument('--build-only', action='store_true',
+                        help='build every project under src/ and stop: nothing is copied, so it may run while the game does')
     args = parser.parse_args(argv)
+    if args.build_only:
+        build()
+        print(f'built {len(projects())} projects; nothing was copied.')
+        return 0
     mods = all_mods() if args.all else args.mods
     if not mods:
         parser.error('name a mod, or pass --all')

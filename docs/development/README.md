@@ -166,7 +166,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
 - [The owner's mod list](owner-mod-list.md): every mod the owner has on, with suggestions; written by `refresh-mod-list.py`. Living.
 - [RimWorld modding reference](rimworld-modding-reference.md) (18 Oct 2026): versions, About.xml, load folders, Ludeon's EULA. Reference.
-- [Mod installs](mod-installs.md) (18 Nov 2026): updating, going back and backups by the changelogs; Companion's Mods page. Built, untested.
+- [Mod installs](mod-installs.md) (18 Nov 2026): updates, going back, backups, builds and textures; Companion's Mods page. Built, untested.
 - [Desktop front end for the Phobos tools](tools-desktop-research.md) (9 Nov 2026): the research behind D'thorga Companion. Research.
 
 ## Archive

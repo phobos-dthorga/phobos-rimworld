@@ -12,6 +12,9 @@ come from the options, then the environment, then .local/install-settings.json, 
     python scripts/mod-settings.py snapshot FILE         every value now; then compare FILE later to see what changed
     python scripts/mod-settings.py changes --since REV   settings our code added, removed or gave a new default since a
                                                          commit (REV is anything git understands: a hash, HEAD~5, a tag)
+    python scripts/mod-settings.py changes --since REV --json
+                                                         the same as JSON, each with its mod and, where one is found, the label
+                                                         the settings window shows (phobos-modkit's installs reads it)
 
 The owner asked on 10 Nov 2026 to be told whenever a setting of ours is added or changed, so they can look at it or set it;
 `changes` is how a session finds out, reading only the repository's history, never the game.
@@ -19,9 +22,11 @@ The owner asked on 10 Nov 2026 to be told whenever a setting of ours is added or
 from pathlib import Path
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _csharp  # noqa: E402  (our settings classes' defaults)
@@ -73,17 +78,72 @@ def changes(old, new):
     return found
 
 
+def project_mods(root=ROOT):
+    """{project folder name: mod folder} from each C# project's ModFolder property."""
+    found = {}
+    for csproj in Path(root, 'src').glob('*/*.csproj'):
+        match = re.search(r'<ModFolder>\s*([^<]+?)\s*</ModFolder>', csproj.read_text(encoding='utf-8', errors='replace'))
+        if match:
+            found[csproj.parent.name] = match.group(1)
+    return found
+
+
+def class_mods(sources_list, root=ROOT):
+    """{settings class name: mod folder}, from the project folder each class's file sits in."""
+    projects = project_mods(root)
+    found = {}
+    for sources in sources_list:
+        for name, cls in _csharp.read_settings_classes(sources).items():
+            parts = Path(cls.path).parts
+            if len(parts) > 1 and parts[0] == 'src' and parts[1] in projects:
+                found.setdefault(name, projects[parts[1]])
+    return found
+
+
+def keyed_texts(root=ROOT):
+    """{key: English text} from every mod's Keyed language files."""
+    texts = {}
+    for file in Path(root, 'mods').glob('*/**/Languages/English/Keyed/*.xml'):
+        try:
+            for element in ET.parse(file).getroot():
+                if isinstance(element.tag, str) and element.text:
+                    texts.setdefault(element.tag, element.text.strip())
+        except (ET.ParseError, OSError):
+            continue
+    return texts
+
+
+def setting_label(key, texts):
+    """The settings window's label for a saved key, where the mod follows its own naming (Prefix_Thing beside
+    Prefix_SettingThing); None when no label is found."""
+    prefix, _, rest = key.partition('_')
+    for candidate in (f'{prefix}_Setting{rest}', f'{key}Label', f'{key}_Label', key):
+        if rest and candidate in texts:
+            return texts[candidate]
+    return None
+
+
 def report_changes(argv, out=None):
     out = out or sys.stdout
+    as_json = '--json' in argv
+    argv = [a for a in argv if a != '--json']
     if len(argv) != 2 or argv[0] != '--since':
-        print('usage: mod-settings.py changes --since REV', file=sys.stderr)
+        print('usage: mod-settings.py changes --since REV [--json]', file=sys.stderr)
         return 2
     try:
-        old = defaults_document(sources=sources_at(argv[1]))
+        old_sources = sources_at(argv[1])
+        old = defaults_document(sources=old_sources)
     except subprocess.CalledProcessError as error:
         print(f'git could not read {argv[1]}: {(error.stderr or "").strip()}', file=sys.stderr)
         return 2
-    found = changes(old, defaults_document())
+    new_sources = sources_now()
+    found = changes(old, defaults_document(sources=new_sources))
+    if as_json:
+        mods, texts = class_mods([new_sources, old_sources]), keyed_texts()
+        json.dump([{'mod': mods.get(cls), 'class': cls, 'key': key, 'label': setting_label(key, texts), 'what': what,
+                    'before': before, 'after': after} for cls, key, what, before, after in found], out)
+        out.write('\n')
+        return 0
     if not found:
         print(f'No setting of ours was added, removed or given a new default since {argv[1]}.', file=out)
         return 0

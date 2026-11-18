@@ -1,8 +1,9 @@
 # Mod installs: updating, going back and backups, seen through the changelogs
 
-**Status (18 Nov 2026):** built, not yet used by the owner. phobos-modkit 1.20.0's `installs` tool, `config/installs.json`,
-`scripts/installs.py`, deploy's install record and D'thorga Companion's Mods page (0.10.0) are in place. Installing an older
-version straight from git history, and deleting old backups from the Companion, are not built.
+**Status (18 Nov 2026):** built, not yet tested on screen. phobos-modkit 1.20.0's `installs` and 1.21.0's additions and
+`rimworld-textures`, `config/installs.json`, `scripts/installs.py`, `scripts/textures.py`, deploy's install record and
+`--build-only`, and D'thorga Companion's Mods page (0.10.0, round two in 0.11.0) are in place. Installing an older version straight
+from git history, and deleting old backups from the Companion, are not built.
 
 ## Read this first (gotchas)
 
@@ -50,6 +51,33 @@ flowchart LR
 - **The moves** (phobos-modkit `docs/installs.md`): backup copies the install; restore copies the backup beside the game's mods
   folder, swaps it in with two renames on the game's drive, and keeps the replaced install as a new backup; install runs deploy.
 
+## Round two: builds, before and after, textures (owner, 18 Nov 2026)
+
+The owner asked, after seeing the page: "Some way to compile the latest changes, as needed. Refresh after a compile. Perhaps the
+ability to pre-empt any new changes before a compile is even done, showing changes both before and after. The ability to tell whether
+textures needs to be optimized before my next game launch [...] it's always a wild guess currently." **Owner's picks:** check and fix
+textures; a Build button plus "Install everything that changed"; all four before-and-after extras (files, settings, test rows, side by
+side); a "Before you play" strip.
+
+| Question | Answer |
+| --- | --- |
+| What does it let the owner do? | Build while playing; install every changed mod in one press and one restart; see, before building, what an install would change in files, settings and the test list; know before launching whether any mod would show an old picture, and fix it |
+| What does it stop them doing? | Launching with stale textures unknowingly; installing a mod whose code was never built; encoding while the game runs |
+| How does it change the way they work? | One glance at "Before you play" replaces guessing; RimSort's texture step is needed only when the page says so |
+
+| Piece | How |
+| --- | --- |
+| Needs a build | A C# project's own files, its `Compile Include` files from elsewhere and the root build files, newer than the assembly it built (`config/installs.json` `build`). Referenced projects are not counted: their changes need not rebuild it |
+| Build | `scripts/deploy.py --build-only`: every project, nothing copied, so it runs while the game does |
+| Files | Every file installing would add, change or remove, by kind; `.dds` and `TestRows.tsv` exist only in installs and are left out (`installOnly`) |
+| Settings | `scripts/mod-settings.py changes --since <installed commit> --json`, with each setting's mod (from its project's `ModFolder`) and, where found, the label the settings window shows (`Prefix_Setting<Name>` beside the saved key `Prefix_<Name>`) |
+| Look out for | Test rows still waiting whose named version of the mod lies after the installed one and no later than the repository's |
+| Textures | `scripts/textures.py`: stale, never encoded and left over, from file names and dates only, about 3 s for 355 mods. A stale `.dds` shows the old picture: the game skips a `.png` with a `.dds` of the same name beside it, without comparing dates (`Verse.ModContentLoader.ShadowedByDds`, read 18 Nov 2026) |
+
+**Checked on the owner's PC (18 Nov 2026):** Steam dates files when it downloads them (the oldest file in 265 active Workshop mods
+was dated 18 Oct 2026, though many are years old), so a changed picture is newer than its old `.dds`. The first check found no
+stale textures, and 11 newly added mods never encoded (the [LFS] UI Rethemed family and Block Unwanted Minutiae, 825 pictures).
+
 ## Changes to the process (agent defaults, for the owner to revise)
 
 - **Changelog entries now matter to the owner directly**: the Mods page reads them as the list of what an update brings. Write each
@@ -60,7 +88,9 @@ flowchart LR
   uncommitted changes, so an install made mid-way through another session's work shows as such.
 - Restore keeps the backup rather than moving it (agent default): it costs one more copy of a mod (about 8 to 50 MB) and means
   nothing is ever lost by going back.
-- The 1 GB free-space margin and the one-hour install limit are agent defaults.
+- The 1 GB free-space margin and the one-hour install limit are agent defaults; so are the texture check's two-minute margin (a
+  `.png` counts as newer than its `.dds` only by more than that) and the eight threads it reads with.
+- Writing `.dds` files into Workshop mods' folders is the owner's choice (18 Nov 2026); the tools still never delete there.
 
 ## Not built yet (each waits for the owner's word)
 

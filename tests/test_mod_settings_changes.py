@@ -54,5 +54,20 @@ class SettingChangesTests(unittest.TestCase):
         self.assertEqual(2, settings.report_changes(['--since', 'no-such-revision-anywhere'], io.StringIO()))
 
 
+
+class SettingLabelTests(unittest.TestCase):
+    def test_the_settings_window_label_is_found_beside_the_saved_key(self):
+        texts = {'PhobosFramework_SettingTopUpLevel': 'How full to fill them', 'PhobosTest_BLabel': 'Bees'}
+        self.assertEqual('How full to fill them', settings.setting_label('PhobosFramework_TopUpLevel', texts))
+        self.assertEqual('Bees', settings.setting_label('PhobosTest_B', texts))
+        self.assertIsNone(settings.setting_label('PhobosTest_C', texts))
+        self.assertIsNone(settings.setting_label('NoUnderscore', {'NoUnderscore': 'x'}))
+
+    def test_each_class_is_given_the_mod_its_project_builds_into(self):
+        found = settings.class_mods([source(A)], root=ROOT)
+        self.assertEqual({}, {k: v for k, v in found.items() if k.endswith('TestSettings')})  # src/Test is no real project
+        real = settings.class_mods([settings.sources_now()])
+        self.assertEqual('PhobosFramework', real.get('Phobos.Framework.FrameworkSettings'))
+
 if __name__ == '__main__':
     unittest.main()
