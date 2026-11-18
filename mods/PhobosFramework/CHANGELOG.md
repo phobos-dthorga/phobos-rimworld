@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.148.0] - 2026-11-19 - Draft
+
+A tiltrotor leans its nacelles forward as it flies about the map
+
+### Changed
+
+- **A tiltrotor's nacelles lean forward in flight over the map.** On our own flight they tip up to half-way forward as it picks up speed, each rotor flattening and moving forward, and stand upright again in a hover and on the ground. Its rotors now spin whenever it is in the air, drafted or not. The V-22 Osprey is the first to show it.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** It reads our own flight's lean (0.147.0) and changes nothing in it.
+
 ## [0.147.0] - 2026-11-19 - Draft
 
 Our own flight over the map: take off, fly, hover and land where you choose

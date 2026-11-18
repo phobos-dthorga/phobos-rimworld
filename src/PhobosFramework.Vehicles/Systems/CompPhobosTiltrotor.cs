@@ -66,8 +66,9 @@ public class CompProperties_PhobosTiltrotor : VehicleCompProperties
 /// ours added to Vehicle Framework's draw tracker (public, no Harmony), so it draws on the map and through Vehicle Framework's take-off and
 /// landing, which draw the vehicle the same way. The nacelles are the nearest of a few pictures at set angles, in the vehicle's paint;
 /// each rotor is still blades with the engines off and a spinning disc with them on, drawn shortened along the aircraft's length by the
-/// cosine of the tilt and moved forward as the nacelle tips (TiltrotorRule). Upright on the map; tipping forward through the climb away
-/// and back on the approach. Presentation only: it reads the vehicle and changes nothing, and saves nothing.
+/// cosine of the tilt and moved forward as the nacelle tips (TiltrotorRule). On the map it leans forward with our own flight's speed
+/// (Framework 0.148.0); it tips forward through Vehicle Framework's climb away and back on its approach. Presentation only: it reads the
+/// vehicle and changes nothing, and saves nothing.
 /// </summary>
 public class CompPhobosTiltrotor : VehicleComp
 {
@@ -77,6 +78,7 @@ public class CompPhobosTiltrotor : VehicleComp
     Color paintOne;
     Color paintTwo;
     float reachCells = float.NaN;
+    CompPhobosFlight? flight;
 
     CompProperties_PhobosTiltrotor Props => (CompProperties_PhobosTiltrotor)props;
 
@@ -88,18 +90,22 @@ public class CompPhobosTiltrotor : VehicleComp
         Vehicle.DrawTracker.AddRenderer(renderer);   // Kept for the vehicle's life: its take-off and landing draw through it too.
     }
 
-    /// <summary>The nacelles' tilt now: upright on the map, and through a VTOL take-off or landing by how far along it is.</summary>
+    /// <summary>
+    /// The nacelles' tilt now. On the map, our own flight's forward lean (Framework 0.147.0: up to half-way forward as it speeds up over
+    /// the map, upright on the ground and in a hover); through Vehicle Framework's VTOL take-off or landing, by how far along it is.
+    /// </summary>
     float Tilt()
     {
-        if (Vehicle.Spawned) return 0f;
+        if (Vehicle.Spawned) return 90f * CompPhobosFlight.ForwardTiltShareOf(Vehicle);
         if (Vehicle.CompVehicleLauncher?.launchProtocol is not LaunchProtocol protocol) return 0f;
         bool landing = protocol.CurAnimationProperties == protocol.LandingProperties;
         float vertical = protocol is VTOLTakeoff vtol ? vtol.TimeInAnimationVTOL : 1f;
         return TiltrotorRule.LaunchTilt(landing, vertical, protocol.TimeInAnimation);
     }
 
-    /// <summary>Engines running: the rotors spin. On the map, while it is drafted (its engines on); always in a take-off or landing.</summary>
-    bool Running() => !Vehicle.Spawned || Vehicle.Drafted;
+    /// <summary>Engines running: the rotors spin. On the map while it is drafted (its engines on) or in the air on our own flight; always in
+    /// Vehicle Framework's take-off or landing.</summary>
+    bool Running() => !Vehicle.Spawned || Vehicle.Drafted || (flight ??= Vehicle.GetComp<CompPhobosFlight>())?.Airborne == true;
 
     void Draw(in TransformData transform)
     {
