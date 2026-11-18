@@ -1,0 +1,209 @@
+[
+ {
+  "name": "flight-takeoff",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small grey tiltrotor aircraft seen from above lifting straight up off a round pale landing pad, with a bold amber arrow pointing up beneath it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No vehicle other than the one described.",
+  "subject": "A small grey tiltrotor aircraft seen from above lifting straight up off a round pale landing pad, with a bold amber arrow pointing up beneath it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Take off",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/TakeOff.png",
+   "why": "replaces the flight session's code-drawn stand-in (assets/vehicle-systems/draw_icons.py) on the owner's pick; then its entry leaves DRAWINGS"
+  }
+ },
+ {
+  "name": "flight-flyto",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small grey aircraft seen from above flying toward an amber target ring, with a short bold arrow from the aircraft to the ring. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No vehicle other than the one described.",
+  "subject": "A small grey aircraft seen from above flying toward an amber target ring, with a short bold arrow from the aircraft to the ring",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Fly to",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/FlyTo.png",
+   "why": "replaces the flight session's code-drawn stand-in (assets/vehicle-systems/draw_icons.py) on the owner's pick; then its entry leaves DRAWINGS"
+  }
+ },
+ {
+  "name": "flight-hold",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small grey aircraft seen from above hovering over a dashed amber circle, with two bold amber pause bars beside it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No vehicle other than the one described.",
+  "subject": "A small grey aircraft seen from above hovering over a dashed amber circle, with two bold amber pause bars beside it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Hold here",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Hold.png",
+   "why": "replaces the flight session's code-drawn stand-in (assets/vehicle-systems/draw_icons.py) on the owner's pick; then its entry leaves DRAWINGS"
+  }
+ },
+ {
+  "name": "flight-land",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small grey aircraft seen from above coming down onto a round pale landing pad marked with a cross, with a bold amber arrow pointing down. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No vehicle other than the one described.",
+  "subject": "A small grey aircraft seen from above coming down onto a round pale landing pad marked with a cross, with a bold amber arrow pointing down",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Land here",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Land.png",
+   "why": "replaces the flight session's code-drawn stand-in (assets/vehicle-systems/draw_icons.py) on the owner's pick; then its entry leaves DRAWINGS"
+  }
+ },
+ {
+  "name": "flight-circle",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small grey aircraft seen from above flying round a curved amber arrow that circles an amber centre dot. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No vehicle other than the one described.",
+  "subject": "A small grey aircraft seen from above flying round a curved amber arrow that circles an amber centre dot",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Circle here",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Circle.png",
+   "why": "replaces the flight session's code-drawn stand-in (assets/vehicle-systems/draw_icons.py) on the owner's pick; then its entry leaves DRAWINGS"
+  }
+ },
+ {
+  "name": "flight-circlesize",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, Three amber rings of small, medium and large size nested around one centre dot, with a curved arrow on the largest ring. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No vehicle other than the one described.",
+  "subject": "Three amber rings of small, medium and large size nested around one centre dot, with a curved arrow on the largest ring",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Circles: wide, clockwise",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/CircleSize.png",
+   "why": "replaces the flight session's code-drawn stand-in (assets/vehicle-systems/draw_icons.py) on the owner's pick; then its entry leaves DRAWINGS"
+  }
+ },
+ {
+  "name": "firemode-single",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, One brass rifle cartridge standing upright. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No gun, no vehicle.",
+  "subject": "One brass rifle cartridge standing upright",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Single shot",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/FireMode/Single.png",
+   "why": "replaces the Osprey session's code-drawn stand-in (assets/vehicle-systems/draw_icons.py) on the owner's pick; then its entry leaves DRAWINGS"
+  }
+ },
+ {
+  "name": "firemode-burst",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, Three brass rifle cartridges standing upright side by side. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No gun, no vehicle.",
+  "subject": "Three brass rifle cartridges standing upright side by side",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Burst",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/FireMode/Burst.png",
+   "why": "replaces the Osprey session's code-drawn stand-in (assets/vehicle-systems/draw_icons.py) on the owner's pick; then its entry leaves DRAWINGS"
+  }
+ },
+ {
+  "name": "firemode-auto",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, Five brass rifle cartridges linked in a short steel ammunition belt, curving gently. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No gun, no vehicle.",
+  "subject": "Five brass rifle cartridges linked in a short steel ammunition belt, curving gently",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Automatic",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/FireMode/Auto.png",
+   "why": "replaces the Osprey session's code-drawn stand-in (assets/vehicle-systems/draw_icons.py) on the owner's pick; then its entry leaves DRAWINGS"
+  }
+ }
+]

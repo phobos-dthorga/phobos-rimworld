@@ -1,0 +1,170 @@
+[
+ {
+  "name": "truck-kit-engineguards",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A boxy truck engine block with a dark steel guard cage bolted round it and a squat fuel tank beside it wrapped in a riveted steel plate. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+  "subject": "A boxy truck engine block with a dark steel guard cage bolted round it and a squat fuel tank beside it wrapped in a riveted steel plate",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "upgrade_node": "PhobosEngineGuards",
+   "trucks": "all five service trucks",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/EngineGuards.png",
+   "why": "the trucks' armour kits (vehicle-militarised-service-vehicles.md); the owner's go of 19 Nov 2026 for an overnight local run"
+  }
+ },
+ {
+  "name": "truck-kit-runflattyres",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, One chunky dark truck tyre with a deep tread, shown cut open at one side to reveal a thick rigid orange ring insert inside it. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+  "subject": "One chunky dark truck tyre with a deep tread, shown cut open at one side to reveal a thick rigid orange ring insert inside it",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "upgrade_node": "PhobosRunFlatTyres",
+   "trucks": "all five service trucks",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/RunFlatTyres.png",
+   "why": "the trucks' armour kits (vehicle-militarised-service-vehicles.md); the owner's go of 19 Nov 2026 for an overnight local run"
+  }
+ },
+ {
+  "name": "truck-kit-emphardening",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A bundle of thick grey cables in a braided metal sleeve running into a small sealed steel box with a lightning-bolt shaped shield plate on its lid. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+  "subject": "A bundle of thick grey cables in a braided metal sleeve running into a small sealed steel box with a lightning-bolt shaped shield plate on its lid",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "upgrade_node": "PhobosEmpHardening",
+   "trucks": "all five service trucks",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/EmpHardening.png",
+   "why": "the trucks' armour kits (vehicle-militarised-service-vehicles.md); the owner's go of 19 Nov 2026 for an overnight local run"
+  }
+ },
+ {
+  "name": "truck-kit-armouredcab",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A squat truck cab made of bolted flat olive steel plates with a narrow dark armoured windscreen and rows of bolt heads. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+  "subject": "A squat truck cab made of bolted flat olive steel plates with a narrow dark armoured windscreen and rows of bolt heads",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "upgrade_node": "PhobosArmouredCab",
+   "trucks": "all five service trucks",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/ArmouredCab.png",
+   "why": "the trucks' armour kits (vehicle-militarised-service-vehicles.md); the owner's go of 19 Nov 2026 for an overnight local run"
+  }
+ },
+ {
+  "name": "truck-kit-heavycabplates",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, Three thick stacked olive steel armour slabs with chamfered edges and heavy bolts at their corners. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+  "subject": "Three thick stacked olive steel armour slabs with chamfered edges and heavy bolts at their corners",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "upgrade_node": "PhobosHeavyCabPlates",
+   "trucks": "all five service trucks",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/HeavyCabPlates.png",
+   "why": "the trucks' armour kits (vehicle-militarised-service-vehicles.md); the owner's go of 19 Nov 2026 for an overnight local run"
+  }
+ },
+ {
+  "name": "truck-kit-bodyplates",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, One long flat olive steel side skirt plate for a truck, with a row of bolt heads along its top edge and two hanging brackets. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+  "subject": "One long flat olive steel side skirt plate for a truck, with a row of bolt heads along its top edge and two hanging brackets",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "upgrade_node": "PhobosBodyPlates",
+   "trucks": "all five service trucks",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/BodyPlates.png",
+   "why": "the trucks' armour kits (vehicle-militarised-service-vehicles.md); the owner's go of 19 Nov 2026 for an overnight local run"
+  }
+ },
+ {
+  "name": "truck-kit-rambar",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A heavy dark steel ram bar for the front of a truck: a thick horizontal beam with two square uprights and angled braces. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+  "subject": "A heavy dark steel ram bar for the front of a truck: a thick horizontal beam with two square uprights and angled braces",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "upgrade_node": "PhobosRamBar",
+   "trucks": "all five service trucks",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/RamBar.png",
+   "why": "the trucks' armour kits (vehicle-militarised-service-vehicles.md); the owner's go of 19 Nov 2026 for an overnight local run"
+  }
+ }
+]

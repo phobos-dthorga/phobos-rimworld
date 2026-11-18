@@ -49,6 +49,15 @@ white ground). The picking page is `.local/art/night-6-review/index.html`, each 
 triage silhouettes and the tent lamp look strong; the stretcher buttons (litter kit, unload, collect) came out as signboards, and the
 hitch and stop-winch buttons read poorly, so those may want a second wording.
 
+**Night 7 is queued (19 Nov 2026, the owner's go: "can begin when I hopefully go to bed")**: `.local/art/night-7.json`, started by a
+watcher once RimWorld has been closed for ten minutes, stop time 15:00. Its dry run passed: 144 images and 39 sound clips, in this order:
+the trucks' drawn armour kits as edits of each picked body's cab or bed (`assets/phobos-vehicles/requests/truck-armour-kits.json`, cut by
+`assets/phobos-vehicles/draw_kit_crops.py`, the kit then lifted out with `scripts/art/edit_difference.py`), the seven kit icons, the
+Osprey's 17 upgrade icons (its session picks them; their fast-rope and rescue-hoist pictures also serve the fittings), the flight and
+fire-mode buttons drawn in code today, candidate sounds (`assets/phobos-sounds/requests/night-7.json`: the Osprey's first set, S112 to
+S115 and an armour-plate fitting), then the borrowed icons as a stretch (`assets/vehicle-systems/requests/stretch-icons.json`).
+**Agent's choice:** the edits run without the private style model, so the body's own look carries; three seeds each, seed 11 first.
+
 **Drawn in code, for the next local run (owner's pick, 17 Nov 2026; a go and a stop time first):**
 
 | Mod | Pictures |

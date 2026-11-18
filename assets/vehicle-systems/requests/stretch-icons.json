@@ -1,0 +1,278 @@
+[
+ {
+  "name": "gather-run",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small olive tipper truck seen from above with a crane grab reaching out over a little pile of grey stone chunks. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands.",
+  "subject": "A small olive tipper truck seen from above with a crane grab reaching out over a little pile of grey stone chunks",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Gather",
+   "since": "Framework 0.143.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "gather-what",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A tick list on a small clipboard beside two grey stone chunks and a wooden log. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A tick list on a small clipboard beside two grey stone chunks and a wooden log",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Gather what",
+   "since": "Framework 0.143.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "fitting-heavydutybrakes",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A thick steel brake disc with a large orange brake calliper clamped over its edge. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A thick steel brake disc with a large orange brake calliper clamped over its edge",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Heavy-duty brakes",
+   "since": "Framework 0.123.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "fitting-transmissioncooler",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small finned steel oil cooler with two braided hoses and an orange gearbox emblem plate. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A small finned steel oil cooler with two braided hoses and an orange gearbox emblem plate",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Transmission cooler",
+   "since": "Framework 0.123.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "fitting-gearreductionstarter",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A stubby cylindrical starter motor with a small gear cluster exposed at one end and a heavy cable lug. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A stubby cylindrical starter motor with a small gear cluster exposed at one end and a heavy cable lug",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Gear-reduction starter",
+   "since": "Framework 0.123.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "fitting-cabinsulation",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A rolled-up thick quilted grey insulation mat with a silver foil face, tied with an orange strap. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A rolled-up thick quilted grey insulation mat with a silver foil face, tied with an orange strap",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Cab insulation",
+   "since": "Framework 0.123.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "fitting-fuelheater",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, An inline fuel filter canister wrapped in an orange heating band with a small cable. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "An inline fuel filter canister wrapped in an orange heating band with a small cable",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Fuel heater",
+   "since": "Framework 0.123.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "fitting-heavyairfilter",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A large round pleated air filter element in a steel housing with a pre-cleaner bowl on top. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A large round pleated air filter element in a steel housing with a pre-cleaner bowl on top",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Heavy-duty air filter",
+   "since": "Framework 0.123.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "tune-boostlow",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A turbocharger with a round pressure gauge whose needle points low, in the green. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A turbocharger with a round pressure gauge whose needle points low, in the green",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Low boost",
+   "since": "Framework 0.123.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "tune-booststandard",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A turbocharger with a round pressure gauge whose needle points to the middle. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A turbocharger with a round pressure gauge whose needle points to the middle",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Standard boost",
+   "since": "Framework 0.123.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "tune-boosthigh",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A turbocharger with a round pressure gauge whose needle points high, into the red. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A turbocharger with a round pressure gauge whose needle points high, into the red",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "High boost",
+   "since": "Framework 0.123.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ },
+ {
+  "name": "fitting-clutchkit",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A round clutch plate with friction lining and a pressure plate beside it, held together by a steel strap. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A round clutch plate with friction lining and a pressure plate beside it, held together by a steel strap",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Clutch kit",
+   "since": "Framework 0.123.0",
+   "why": "stretch: a borrowed icon replaced (art-backlog.md, Borrowed pictures; own pictures in the next local run, owner, 17 Nov 2026)"
+  }
+ }
+]
