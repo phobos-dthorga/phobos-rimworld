@@ -1895,6 +1895,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// <summary>Stands repairs to this vehicle down for a while and says so, instead of a mechanic working for ever at nothing.</summary>
     public void PauseRepairs(Pawn? mechanic)
     {
+        // Framework 0.139.1: already stood down, it is not said again (six reports of one stall, 18 Nov 2026).
+        if (RepairsPaused) return;
         repairsPausedUntil = Find.TickManager.TicksGame + PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().repairPauseTicks;
         freeRepairWatch.Reset();
         VehicleSystemsMod.Logger.Warn("Repairs to " + Vehicle.LabelShort + " (" + Vehicle.def.defName + ") got nowhere for " + (mechanic?.LabelShort ?? "a mechanic") + "; standing down for now.");

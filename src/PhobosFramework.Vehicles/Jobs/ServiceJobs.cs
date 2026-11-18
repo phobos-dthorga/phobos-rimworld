@@ -32,6 +32,17 @@ static class ServiceTargets
         }
     }
 
+    /// <summary>Whether another of the pawn's faction is servicing this vehicle now (Framework 0.139.1).</summary>
+    public static bool ServicedByAnother(Pawn pawn, VehiclePawn vehicle)
+    {
+        if (vehicle.Map == null) return false;
+        foreach (Pawn other in vehicle.Map.mapPawns.SpawnedPawnsInFaction(pawn.Faction))
+        {
+            if (other != pawn && other.CurJobDef == VehicleSystemsJobDefOf.PhobosVehicleSystems_ServiceVehicle && other.CurJob.targetA.Thing == vehicle) return true;
+        }
+        return false;
+    }
+
     public static bool Workable(Pawn pawn, VehiclePawn vehicle, bool forced) =>
         vehicle.Spawned && !vehicle.Drafted && !vehicle.vehiclePather.Moving && !vehicle.IsForbidden(pawn) && (forced || !vehicle.IsBurning());
 }
@@ -128,6 +139,19 @@ public class WorkGiver_PhobosServiceVehicle : VehicleWorkGiver
 
     public override bool CanBeWorkedOn(VehiclePawn vehicle) =>
         !vehicle.Drafted && vehicle.GetComp<CompPhobosVehicleSystems>() is { RepairsPaused: false } comp && comp.ReadyService() != null;
+
+    /// <summary>
+    /// One mechanic per service (Framework 0.139.1). Vehicle Framework keeps one worker reservation per vehicle whatever the job, and a
+    /// job joining one made for another job (repairs allow several workers) is held to that job's limit, while its check of whether our
+    /// job is taken counts only claims made for ours; so six mechanics could start the same service together (the owner's session of
+    /// 18 Nov 2026), and those who found it already done each reported a stall. Read from Vehicle Framework 1.7 (18 Nov 2026):
+    /// VehicleReservationManager.Reserve and CanReserve.
+    /// </summary>
+    public override Job? JobOnThing(Pawn pawn, Thing t, bool forced = false)
+    {
+        if (t is VehiclePawn vehicle && ServiceTargets.ServicedByAnother(pawn, vehicle)) return null;
+        return base.JobOnThing(pawn, t, forced);
+    }
 }
 
 /// <summary>
@@ -189,9 +213,24 @@ public class JobDriver_PhobosServiceVehicle : PhobosVehicleWorkDriver
 
     protected override SkillDef Skill => SkillDefOf.Construction;
 
+    protected override IEnumerable<Toil> MakeNewToils()
+    {
+        // Framework 0.139.1: repairs stood down from this vehicle end the job for anyone still at it, without a second report.
+        this.FailOn(() => Systems?.RepairsPaused == true);
+        foreach (Toil toil in base.MakeNewToils()) yield return toil;
+    }
+
     protected override void WorkComplete(Pawn actor)
     {
-        Finished(actor, Systems?.CompleteService(actor) == true);
+        // Framework 0.139.1: no service is ready any more (another mechanic did it, or it now waits for the dyno bay or its supplies):
+        // the job ends quietly. Only a service that is ready and still cannot be done is a stall worth standing repairs down for.
+        CompPhobosVehicleSystems? systems = Systems;
+        if (systems?.ReadyService() == null)
+        {
+            EndJobWith(JobCondition.Incompletable);
+            return;
+        }
+        Finished(actor, systems.CompleteService(actor));
     }
 }
 

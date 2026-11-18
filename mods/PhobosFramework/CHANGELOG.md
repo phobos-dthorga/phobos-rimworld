@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.139.1] - 2026-11-18 - Draft
+
+One mechanic per vehicle service, and one message when repairs stall
+
+### Fixed
+
+- **Several mechanics could start the same vehicle service at once**, and each who found it already done said repairs had stalled: six such messages for one L-ATV in the owner's session of 18 November 2026. Vehicle Framework keeps one worker reservation per vehicle, whatever the job, so a service could join a reservation made for repairs. Now only one mechanic takes a vehicle's service at a time.
+- **A mechanic who arrives to find no service ready** (another did it, or it now waits for the dyno bay or its supplies) goes off to other work quietly, instead of standing repairs down for a day.
+- **Repairs stood down from a vehicle are announced once**, and anyone still servicing it stops at once.
+
+### Compatibility and limits
+
+- Safe with a running save. Not yet tested in game.
+
 ## [0.139.0] - 2026-11-18 - Draft
 
 Aircraft set down on a journey to refuel from the fuel they carry
