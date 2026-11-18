@@ -615,6 +615,23 @@ to a bar and down to the node, and its buttons say what to fit or take off first
 tie-in patch) is never fitted and not drawn, so a link may name optional nodes. Vehicle Framework's random upgrades for other
 factions' vehicles respect it too. `UpgradeTree_BulkTanker.xml` is the worked example.
 
+## Gathering runs
+
+A vehicle can fetch loose things about the map by itself (Framework 0.143.0; [the design](development/vehicle-gathering-runs.md)). Give it
+two comps: a worker that picks things up where it stands, and `Phobos.VehicleSystems.CompProperties_PhobosGatherRun`, which drives it
+and decides what is wanted.
+
+- **The worker** is any comp implementing `Phobos.VehicleSystems.IVehicleGatherWorker`: whether it is fitted, its reach in cells beyond
+  the body, what it could lift at all, the room left aboard, and start, stop and why it stopped (`GatherWorkEnd`). The tipper's loading
+  grab (`CompPhobosTipper`) is the worked example.
+- **The run** takes `defaultFilter` (what it gathers until the player chooses) and `choosableFilter` (what may be chosen), both written as
+  a stockpile's `ThingFilter` is; `thingsPerLook`, `stuckTicks`, `failedDrivesToGiveUp`, `stopForEnemies`; and `runIconPath` and
+  `filterIconPath` for its two buttons. D'thorga Vehicles' Talus (`Vehicle_Tipper.xml`) is the worked example.
+- **Driving by itself** for your own errands is `Phobos.VehicleSystems.VehicleAutoDrive`: `CannotDrive`, `StartEngine`, `TryFindStandCell`,
+  `DriveTo`, `HeadingFor`, `Halt`. It gives the game's own Goto job, as Vehicle Framework's right-click does, and patches nothing.
+- **The filter window** is `Phobos.Framework.Interface.Dialog_PhobosThingFilter`, in the core: the game's stockpile filter and, if you pass
+  a getter and setter, a choice of area. `ThingFilterWords.Summary` says a filter in a few words.
+
 ## The shipped systems
 
 | System | Quantities | Roles | Notes |

@@ -330,6 +330,25 @@
         <def>Phobos_Tipper_UpgradeTree</def>
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTipper" />
+      <!-- The gathering run (D'thorga Framework 0.143.0; docs/development/vehicle-gathering-runs.md): with its loading grab fitted and someone
+           aboard to drive, it fetches loose things the player chose about the map. Chunks and raw resources to start (the owner's "raw
+           materials"); anything but corpses may be chosen (agent default). Not yet tested in game. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosGatherRun">
+        <defaultFilter>
+          <categories>
+            <li>Chunks</li>
+            <li>ResourcesRaw</li>
+          </categories>
+        </defaultFilter>
+        <choosableFilter>
+          <categories>
+            <li>Root</li>
+          </categories>
+          <disallowedCategories>
+            <li>Corpses</li>
+          </disallowedCategories>
+        </choosableFilter>
+      </li>
       <!-- The tipping body is a picture of its own over the chassis, so it can slide when it tips; the rock and bulk bodies replace the
            plain one when fitted (D'thorga Framework's node looks, 12 Nov 2026). -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">

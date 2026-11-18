@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.67.0] - 2026-11-19 - Draft
+
+The Talus gathers by itself once its loading grab is fitted
+
+### Added
+
+- **The Talus gathers by itself.** With its loading grab fitted it gets **Gather** and **Gather what**: choose what it fetches as for a stockpile (chunks and raw resources to start, anything but corpses to choose from), put someone aboard who can drive, and it collects loose things about the map until its cargo is full or nothing it can reach is left. It never takes from storage or anything forbidden, and stops where it is. D'thorga Framework 0.143.0 does the work.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.143.0 or later. With an older Framework the game reports the Talus's gathering comp as an unknown class at start-up.
+
+### Save compatibility
+
+- Safe with a running save. A Talus already built gets the buttons at its next load once its grab is fitted.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** As slow as the grab: a full load of chunks takes about 1.9 in-game days.
+
 ## [0.66.0] - 2026-11-18 - Draft
 
 The Harrier, the Hind and the Mongoose get cruising figures of their own

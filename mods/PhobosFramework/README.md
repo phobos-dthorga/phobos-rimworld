@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.142.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.143.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -48,6 +48,10 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   area would take goes in until it is full, and the rest of those things stay aboard rather than spilling beside it.
   **The drill rig and the tanker's item port fill storage beside them too** (0.127.0), and **a loading chute** (D'thorga Vehicles)
   drops what it holds into a vehicle parked across its spout.
+- **A truck with a loading grab can gather by itself** (0.143.0; the Talus in D'thorga Vehicles): **Gather** sends it about the map,
+  with someone aboard to drive, to lift loose things you chose with **Gather what**, a stockpile's filter. **It never takes from
+  storage, nor anything forbidden: forbid what you want left.** It stops when full, when nothing is left, when enemies come, or at any
+  other order, and stops where it is. Not yet tested in game.
 - **Vehicle accessories** (0.129.0): a **12-volt fridge**, a **house battery** and a **power outlet**, each made as a kit at the
   vehicle parts bench (vehicle electrics research) and fitted to its own new part on every land vehicle. **Without a house battery the
   fridge and outlet run the starting battery down with the engine off**; fit one to keep the engine's battery for starting. Taking an
@@ -93,6 +97,7 @@ Every vehicle gets systems that fit what it is, by what it runs on and whether i
 - **Caravans, fuel reach, the fleet button and garages**: [on the world map](../../docs/player-guide/vehicle-care.md#on-the-world-map).
 - **Aircraft checks, avionics, sling loads, water drops and the air ambulance**:
   [aircraft and sling loads](../../docs/player-guide/vehicle-care.md#aircraft-and-sling-loads).
+- **Gathering runs** (a truck with a loading grab fetching loose things by itself): [the Talus](../../docs/player-guide/working-vehicles.md#talus-tipper-truck).
 - **Towing and the recovery winch**: [towing a trailer](../../docs/player-guide/vehicle-care.md#towing-a-trailer),
   [recovering a stuck vehicle](../../docs/player-guide/vehicle-care.md#recovering-a-stuck-vehicle).
 - **Other factions' vehicles and claiming them**: [other factions' vehicles](../../docs/player-guide/vehicle-care.md#other-factions-vehicles).

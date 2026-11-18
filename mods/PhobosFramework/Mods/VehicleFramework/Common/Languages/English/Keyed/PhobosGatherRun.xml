@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- A vehicle driving itself on an errand (Framework 0.143.0; docs/development/vehicle-gathering-runs.md). -->
+  <PhobosAutoDrive_NotOnMap>It can only drive itself about on a map.</PhobosAutoDrive_NotOnMap>
+  <PhobosAutoDrive_Towed>{VEHICLE} is hitched to {TRACTOR}.</PhobosAutoDrive_Towed>
+  <PhobosAutoDrive_NoFuel>{VEHICLE} has no fuel.</PhobosAutoDrive_NoFuel>
+  <PhobosAutoDrive_CannotMove>{VEHICLE} cannot move: its engine or running gear is too badly damaged.</PhobosAutoDrive_CannotMove>
+  <PhobosAutoDrive_NoDriver>{VEHICLE} needs someone aboard to drive it.</PhobosAutoDrive_NoDriver>
+
+  <!-- The gathering run. -->
+  <PhobosGather_Gizmo>Gather</PhobosGather_Gizmo>
+  <PhobosGather_GizmoStop>Stop gathering</PhobosGather_GizmoStop>
+  <PhobosGather_GizmoDesc>With someone aboard to drive, {VEHICLE} goes about the map by itself, stops beside loose {WHAT}, and lifts them aboard with its grab from up to {CELLS} cells away. It goes on until its cargo is full or nothing it can reach is left.\n\nIt never takes from stockpiles or shelves, nor anything forbidden or that a colonist is about to carry: forbid anything you want left where it is. It stops if enemies come, or if you give it any other order. Change what it gathers with Gather what.</PhobosGather_GizmoDesc>
+  <PhobosGather_FilterGizmo>Gather what</PhobosGather_FilterGizmo>
+  <PhobosGather_FilterGizmoDesc>Choose what {VEHICLE} gathers, as you would for a stockpile, and where it may go for it.\n\nNow: {WHAT}, {AREA}.</PhobosGather_FilterGizmoDesc>
+  <PhobosGather_FilterTitle>What {VEHICLE} gathers</PhobosGather_FilterTitle>
+
+  <PhobosGather_NoWorker>{VEHICLE} needs a loading grab to gather.</PhobosGather_NoWorker>
+  <PhobosGather_NothingChosen>Nothing is chosen to gather. Choose something with Gather what.</PhobosGather_NothingChosen>
+  <PhobosGather_EnemiesNear>Not while enemies are about.</PhobosGather_EnemiesNear>
+  <PhobosGather_AlreadyFull>{VEHICLE}'s cargo is already full.</PhobosGather_AlreadyFull>
+
+  <PhobosGather_Started>{VEHICLE} sets off to gather {WHAT}.</PhobosGather_Started>
+  <PhobosGather_Done>{VEHICLE} has finished gathering: {COUNT} loads, {MASS} kg, from {PLACES} places.</PhobosGather_Done>
+  <PhobosGather_DoneNothing>{VEHICLE} has stopped gathering, with nothing gathered.</PhobosGather_DoneNothing>
+  <PhobosGather_EndFull>Its cargo is full.</PhobosGather_EndFull>
+  <PhobosGather_EndNothingLeft>Nothing more of what you chose lies anywhere it can reach.</PhobosGather_EndNothingLeft>
+  <PhobosGather_EndNoWay>It could not find a way to what is left.</PhobosGather_EndNoWay>
+  <PhobosGather_EndOrders>{VEHICLE} was given other orders.</PhobosGather_EndOrders>
+  <PhobosGather_EndEngineOff>Its engine was switched off.</PhobosGather_EndEngineOff>
+  <PhobosGather_EndThreat>Enemies are about. It has stopped where it is, with its engine running.</PhobosGather_EndThreat>
+  <PhobosGather_EndStopped>You stopped it.</PhobosGather_EndStopped>
+  <PhobosGather_EndFault>Something aboard has failed.</PhobosGather_EndFault>
+
+  <PhobosGather_LineSeeking>Gathering: choosing what to fetch next.</PhobosGather_LineSeeking>
+  <PhobosGather_LineDriving>Gathering: driving to {THING}, {CELLS} cells away.</PhobosGather_LineDriving>
+  <PhobosGather_LineWorking>Gathering: lifting with the grab. {COUNT} loads, {MASS} kg so far.</PhobosGather_LineWorking>
+</LanguageData>

@@ -102,6 +102,15 @@
     "200": {"parts": {
       "heavier than its authored figure": [{"key": "aircraft.follows-hover", "variant": "above"}],
       "lighter than its authored figure": [{"key": "aircraft.follows-hover", "variant": "below"}]
+    }},
+    "201": {"parts": {
+      "it sets off": [{"key": "vehicles.gather-run.start"}],
+      "it drives to a pile and lifts there": [{"key": "vehicles.gather-run.lift"}],
+      "it finishes with something gathered": [
+        {"key": "vehicles.gather-run.end", "variant": "Full", "expect": {"loads": ">= 1"}},
+        {"key": "vehicles.gather-run.end", "variant": "NothingLeft", "expect": {"loads": ">= 1"}}
+      ],
+      "other orders end it": [{"key": "vehicles.gather-run.end", "variant": "Orders"}]
     }}
   },
   "order": [

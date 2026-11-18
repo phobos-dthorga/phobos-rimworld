@@ -5,6 +5,33 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.143.0] - 2026-11-19 - Draft
+
+Gathering runs: a truck with a loading grab fetches loose things about the map by itself
+
+### Added
+
+- **Gathering runs.** A truck whose loading grab is fitted (D'thorga Vehicles' Talus) gets a **Gather** button. With someone aboard who can drive, or a vehicle that needs no driver, it starts its engine, drives to the nearest loose things you chose, stops about five cells from them, lifts what is in reach with its grab and moves on, until its cargo is full or nothing it can reach is left. One message then says how many loads and kilograms it brought from how many places, and why it stopped; an engine it started is switched off again. It stops where it is: unloading is for later.
+- **Gather what**, a window with the game's own stockpile filter for what it fetches, and a choice of one of your areas to keep it in, or anywhere.
+- **What a run leaves alone:** anything in a stockpile or on a shelf, anything forbidden, anything a colonist is about to carry, and anything under the fog. Forbid what you want left where it lies.
+- **What ends a run:** a full cargo, nothing left it can reach, five drives in a row that reach nothing, enemies threatening the map (the engine is left running so it can move at once), the grab or engine failing, switching the engine off, any other order you give it, or Stop gathering. Its inspect line says what it is doing meanwhile.
+- **For modders,** the parts are reusable: any vehicle comp can be a run's worker, the run comp takes its two filters in XML, a vehicle can drive itself on other errands through the same service, and the filter window works for anything of ours that is told what to take. See vehicle-systems-modding.md, "Gathering runs".
+
+### Changed
+
+- The loading grab tells a run why it stopped (full, nothing in reach, a fault, or stowed by hand) and stays quiet while it works for one; worked by hand it reports as before.
+
+### Save compatibility
+
+- Safe with a running save. A truck that has never gathered saves nothing new. A run going when you save carries on after loading; the list of things it gave up on is not saved, so it may try one of them once more.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Driving uses the game's own go-to order, as Vehicle Framework's right-click does: nothing is patched.
+- **As slow as the grab**: one stack or one chunk a lift, every 20 seconds or so, so a full load of granite chunks takes about 1.9 in-game days.
+- The run's two buttons use the game's haul and stone-chunk pictures until our own are drawn.
+- With Vehicles at Work, a hauler that takes the truck mid-run ends the run as another order; not tested.
+
 ## [0.142.0] - 2026-11-19 - Draft
 
 Cabin oxygen for passengers, and a twin that loses an engine on the way limps home

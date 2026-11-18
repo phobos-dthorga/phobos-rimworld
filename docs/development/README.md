@@ -81,6 +81,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [The survey truck](vehicle-survey-truck.md) (9 Nov 2026): a ground-penetrating scanner on wheels. Built; its boom owner-tested.
 - [The mobile drill rig](vehicle-drill-rig.md) (9 Nov 2026): drills the game's deep resource grid at its own rates. Built.
 - [The tipper hauler](vehicle-tipper-hauler.md) (9 Nov 2026): a high-capacity body and one tip job. Built.
+- [Gathering runs](vehicle-gathering-runs.md) (19 Nov 2026): a vehicle fetching loose things by itself, by filter; the Talus first. Built.
 - [The mobile generator set](vehicle-generator-set.md) (9 Nov 2026): the Busbar, feeding a camp's grid when parked. Built; size and look owner-tested.
 - [Vehicle stations](vehicle-stations.md) (8 to 9 Nov 2026): the parts bench, tuning rig, motor pool tab, depot bays and the garage. Built.
 - [Working trailers](vehicle-trailers.md) (13 Nov 2026): the shared base, the bowsers and a catalogue of nineteen trailers. Partly built.

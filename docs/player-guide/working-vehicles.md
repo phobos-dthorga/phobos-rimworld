@@ -186,6 +186,23 @@ lot when it comes. The grab never lifts from another faction's storage, or a thi
 - It stops by itself when nothing is left in reach or the cargo is full, and says how much came aboard.
 - **It cannot tip while the grab is out.** Press Stow the grab first.
 
+**Gathering by itself.** With the loading grab fitted, the Talus gets two more buttons:
+
+1. **Press Gather what** and choose what it fetches, exactly as for a stockpile. It starts with **chunks and raw resources**
+   (steel, wood, silver and the like). The button at the top keeps it inside one of your areas, or lets it go anywhere.
+2. **Put someone aboard who can drive, and press Gather.** It starts its engine, drives to the nearest loose things you chose, stops
+   about five cells from them, lifts everything you chose within reach, and moves on to the next pile.
+3. **It stops by itself** when its cargo is full or nothing it can reach is left, and one message says how many loads and kilograms it
+   brought from how many places, and why it stopped. If it started the engine, it switches it off again. **It stops where it is**:
+   drive it home and tip it yourself.
+
+- **It only takes loose things.** It leaves stockpiles and shelves alone, and anything forbidden, anything a colonist is about to carry,
+  and anything under the fog. **To keep something where it lies, forbid it.**
+- **It is slow, as the grab is**: one stack or one chunk a lift, every 20 seconds or so. A full load of chunks takes most of two days.
+- **It stops if enemies come**, leaving its engine running so you can move it at once. Any other order you give it, a right-click
+  somewhere, switching its engine off or pressing Stop gathering, ends the run too.
+- Its inspect line says what it is doing: choosing, driving to something, or lifting, with what it has gathered so far.
+
 ## Pintle flatbed trailer
 
 A two-axle flatbed as wide as the trucks that tow it: 2,800 kg empty, 5,000 kg of cargo, with low sides and a drawbar. Its one upgrade, the greedy boards (+1,000 kg), shows as

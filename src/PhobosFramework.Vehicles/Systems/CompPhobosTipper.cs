@@ -30,7 +30,7 @@ public class CompProperties_PhobosTipper : VehicleCompProperties
 /// A truck that puts its whole load on the ground behind it (docs/development/vehicle-tipper-hauler.md). Nothing in the game or Vehicle Framework tips, so this does, a few things each rare tick, which is cheap and reads as a steady slide.
 /// While tipping it holds the truck still, through the set-up base. It picks cells itself, because the game's own placement logs an error when nothing fits, and a full yard is an ordinary thing for a tipper to meet.
 /// </summary>
-public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
+public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleGatherWorker
 {
     const float SecondsPerRareTick = GenTicks.TickRareInterval / 60f;
 
@@ -42,6 +42,12 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
     bool grabbing;
     int lifted;
     float liftedKilograms;
+    /// <summary>The grab is out for a gathering run (Framework 0.143.0): it lifts only what the run wants, and the run reports, not the grab.</summary>
+    bool grabForRun;
+    /// <summary>What the run wants. Not saved: the run hands it back after a load, and the grab lifts nothing until it has it.</summary>
+    System.Predicate<Thing>? grabWanted;
+    GatherWorkEnd lastGrabEnd;
+    string? lastGrabReason;
 
     public CompProperties_PhobosTipper Props => (CompProperties_PhobosTipper)props;
     protected override string DeployedSaveKey => "PhobosTipperTipping";
@@ -65,13 +71,23 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         Scribe_Values.Look(ref grabbing, "PhobosTipperGrabbing");
         Scribe_Values.Look(ref lifted, "PhobosTipperLifted");
         Scribe_Values.Look(ref liftedKilograms, "PhobosTipperLiftedKg");
-        if (Scribe.mode == LoadSaveMode.PostLoadInit && !deployed) grabbing = false;
+        // Framework 0.143.0: the grab working for a gathering run, and how it last stopped, which the run reads.
+        Scribe_Values.Look(ref grabForRun, "PhobosTipperGrabForRun");
+        Scribe_Values.Look(ref lastGrabEnd, "PhobosTipperGrabEnd", GatherWorkEnd.None);
+        Scribe_Values.Look(ref lastGrabReason, "PhobosTipperGrabReason");
+        if (Scribe.mode == LoadSaveMode.PostLoadInit && !deployed)
+        {
+            grabbing = false;
+            grabForRun = false;
+        }
     }
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
         deployed = false;
         grabbing = false;
+        grabForRun = false;
+        grabWanted = null;
         base.PostDeSpawn(map, mode);
     }
 
@@ -221,7 +237,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         // the engine to work it again (Framework 0.106.1).
         if (Stalled)
         {
-            if (grabbing) FinishGrab(StalledLine);
+            if (grabbing) FinishGrab(StalledLine, GatherWorkEnd.Fault);
             else Finish(StalledLine);
             return;
         }
@@ -310,7 +326,8 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
 
     public override string? CompInspectStringExtra()
     {
-        if (!deployed) return null;
+        // A gathering run says what it is doing in its own line.
+        if (!deployed || grabForRun) return null;
         return grabbing
             ? "PhobosVehicleSystems_GrabLine".Translate(lifted.Named("COUNT")).Resolve()
             : "PhobosVehicleSystems_TipLine".Translate(Cargo.Count.Named("COUNT")).Resolve();
@@ -341,10 +358,19 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
     /// "Vehicles may load from here" switch is on (Framework 0.125.0, UH12; VehicleLoadOut decides); never pawns, corpses or packed buildings.</summary>
     bool Grabbable(Thing thing)
     {
+        if (!LiftableAtAll(thing)) return false;
+        return !thing.IsForbidden(Faction.OfPlayer) && VehicleLoadOut.MayLift(thing, Vehicle.Faction);
+    }
+
+    /// <summary>The grab's own limits, wherever the thing lies: an item, never a corpse or a packed building, with one unit no heavier than a lift.</summary>
+    bool LiftableAtAll(Thing thing)
+    {
         if (thing.def.category != ThingCategory.Item || !thing.def.EverHaulable || thing is Corpse || thing is MinifiedThing) return false;
-        if (thing.IsForbidden(Faction.OfPlayer) || !VehicleLoadOut.MayLift(thing, Vehicle.Faction)) return false;
         return GrabRule.CountForLift(thing.stackCount, thing.GetStatValue(StatDefOf.Mass), LiftKilograms, double.MaxValue) > 0;
     }
+
+    /// <summary>What the grab takes now: for a gathering run, what the run wants (it asks the grab's own limits too); otherwise its own rule.</summary>
+    bool TakesNow(Thing thing) => grabForRun ? grabWanted != null && grabWanted(thing) : Grabbable(thing);
 
     /// <summary>The nearest thing in reach the grab can take now, or null.</summary>
     Thing? NextForGrab()
@@ -359,7 +385,7 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
             for (int i = 0; i < things.Count; i++)
             {
                 Thing thing = things[i];
-                if (!Grabbable(thing)) continue;
+                if (!TakesNow(thing)) continue;
                 int distance = cell.DistanceToSquared(from);
                 if (distance >= bestDistance) continue;
                 best = thing;
@@ -370,8 +396,12 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
     }
 
     /// <summary>Why the grab cannot be worked now, or null.</summary>
-    public string? CannotGrab()
+    public string? CannotGrab() => CannotGrab(out _);
+
+    /// <summary>Why the grab cannot be worked now, or null; <paramref name="kind"/> says whether it is full, has nothing in reach, or a fault.</summary>
+    string? CannotGrab(out GatherWorkEnd kind)
     {
+        kind = GatherWorkEnd.Fault;
         if (!Vehicle.Spawned) return "PhobosVehicleSystems_GrabNotOnMap".Translate().Resolve();
         if (deployed && !grabbing) return "PhobosVehicleSystems_GrabWhileTipping".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
         if (StillMoving) return "PhobosVehicleSystems_GrabStopFirst".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
@@ -379,37 +409,110 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         if (Vehicle.CompFueledTravel is { EmptyTank: true }) return "PhobosVehicleSystems_GrabNoFuel".Translate().Resolve();
         if (Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor) return "PhobosVehicleSystems_GrabControls".Translate().Resolve();
         if (Systems?.HydraulicRefusal() is { } dry) return dry;
+        kind = GatherWorkEnd.Full;
         if (FreeKilograms <= 0f) return "PhobosVehicleSystems_GrabFull".Translate().Resolve();
+        kind = GatherWorkEnd.NothingInReach;
         if (NextForGrab() == null) return "PhobosVehicleSystems_GrabNothing".Translate().Resolve();
+        kind = GatherWorkEnd.None;
         return null;
     }
 
     public void StartGrab()
     {
+        grabForRun = false;
+        grabWanted = null;
         if (CannotGrab() is { } refused)
         {
             Tell(refused, MessageTypeDefOf.RejectInput);
             return;
         }
+        SwingGrabOut();
+        Tell("PhobosVehicleSystems_GrabStarted".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
+    }
+
+    void SwingGrabOut()
+    {
         deployed = true;
         grabbing = true;
         allowance = 0f;
         lifted = 0;
         liftedKilograms = 0f;
+        lastGrabEnd = GatherWorkEnd.None;
+        lastGrabReason = null;
         VehicleWorkSounds.Loop(Vehicle, "Rams", true);
-        Tell("PhobosVehicleSystems_GrabStarted".Translate(Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput);
     }
 
-    public void StopGrab() => FinishGrab(null);
+    public void StopGrab() => FinishGrab(null, GatherWorkEnd.Stopped);
 
-    void FinishGrab(string? reason)
+    /// <summary>Stows the grab. Worked by hand, it reports what it lifted; for a gathering run it only notes why it stopped, and the run reports.</summary>
+    void FinishGrab(string? reason, GatherWorkEnd kind)
     {
         deployed = false;
         grabbing = false;
+        lastGrabEnd = kind;
+        lastGrabReason = reason;
         VehicleWorkSounds.Loop(Vehicle, "Rams", false);
+        if (grabForRun)
+        {
+            grabForRun = false;
+            grabWanted = null;
+            return;
+        }
         string report = "PhobosVehicleSystems_GrabDone".Translate(Vehicle.LabelShort.Named("VEHICLE"), lifted.Named("COUNT"), liftedKilograms.ToString("N0").Named("MASS")).Resolve();
         Tell(reason == null ? report : report + " " + reason, reason == null ? MessageTypeDefOf.TaskCompletion : MessageTypeDefOf.CautionInput);
     }
+
+    // ---- The grab as a gathering run's worker (Framework 0.143.0; docs/development/vehicle-gathering-runs.md) ----
+
+    public bool CanGatherAtAll => HasGrab;
+
+    public int GatherReachCells => (int)Rules.grabReachCells;
+
+    public bool InGatherReach(IntVec3 cell)
+    {
+        CellRect footprint = Vehicle.OccupiedRect();
+        return !footprint.Contains(cell) && footprint.ExpandedBy(GatherReachCells).Contains(cell);
+    }
+
+    public bool CouldGather(Thing thing) => LiftableAtAll(thing);
+
+    public float GatherRoomKilograms => FreeKilograms;
+
+    public GatherWorkEnd StartGathering(System.Predicate<Thing> wanted, out string? refusal)
+    {
+        // Set first, so the refusal looks for what the run wants.
+        grabForRun = true;
+        grabWanted = wanted;
+        refusal = CannotGrab(out GatherWorkEnd kind);
+        if (refusal != null)
+        {
+            grabForRun = false;
+            grabWanted = null;
+            return kind;
+        }
+        SwingGrabOut();
+        return GatherWorkEnd.None;
+    }
+
+    public void ResumeGathering(System.Predicate<Thing> wanted)
+    {
+        if (grabForRun) grabWanted = wanted;
+    }
+
+    public bool Gathering => Grabbing && grabForRun;
+
+    public void StopGathering()
+    {
+        if (Gathering) FinishGrab(null, GatherWorkEnd.Stopped);
+    }
+
+    public GatherWorkEnd LastGatherEnd => lastGrabEnd;
+
+    public string? LastGatherReason => lastGrabReason;
+
+    public int GatheredLoads => lifted;
+
+    public float GatheredKilograms => liftedKilograms;
 
     /// <summary>One rare tick of the grab: lifts paced by the rules and the hydraulic fluid, each one stack (or what one lift and the room
     /// allow) moved aboard through Vehicle Framework's own cargo call.</summary>
@@ -418,14 +521,16 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
         VehicleWorkSounds.Loop(Vehicle, "Rams", true);
         if (Vehicle.CompFueledTravel is { EmptyTank: true } || Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor || !HasGrab)
         {
-            FinishGrab("PhobosVehicleSystems_GrabStopped".Translate().Resolve());
+            FinishGrab("PhobosVehicleSystems_GrabStopped".Translate().Resolve(), GatherWorkEnd.Fault);
             return;
         }
         if (Systems?.HydraulicRefusal() is { } dry)
         {
-            FinishGrab(dry);
+            FinishGrab(dry, GatherWorkEnd.Fault);
             return;
         }
+        // Just after a load, the run has not yet handed back what it wants: lift nothing until it has.
+        if (grabForRun && grabWanted == null) return;
         float perSecond = Rules.grabSecondsPerLift > 0f ? 1f / Rules.grabSecondsPerLift : 1f;
         int lifts = TipRule.WholeThings(ref allowance, perSecond * (Systems?.HydraulicSupply ?? 1f), SecondsPerRareTick);
         for (int i = 0; i < lifts; i++)
@@ -433,27 +538,27 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand
             float free = FreeKilograms;
             if (free <= 0f)
             {
-                FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve());
+                FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve(), GatherWorkEnd.Full);
                 return;
             }
             Thing? thing = NextForGrab();
             if (thing == null)
             {
-                FinishGrab("PhobosVehicleSystems_GrabNothing".Translate().Resolve());
+                FinishGrab("PhobosVehicleSystems_GrabNothing".Translate().Resolve(), GatherWorkEnd.NothingInReach);
                 return;
             }
             float unit = thing.GetStatValue(StatDefOf.Mass);
             int count = GrabRule.CountForLift(thing.stackCount, unit, LiftKilograms, free);
             if (count <= 0)
             {
-                FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve());
+                FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve(), GatherWorkEnd.Full);
                 return;
             }
             Building_Storage? from = VehicleLoadOut.StoredIn(thing);
             int moved = Vehicle.AddOrTransfer(thing, count);
             if (moved <= 0)
             {
-                FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve());
+                FinishGrab("PhobosVehicleSystems_GrabFull".Translate().Resolve(), GatherWorkEnd.Full);
                 return;
             }
             if (from != null) Seen.Note("vehicles.grab-from-storage", Vehicle, from.LabelShort);

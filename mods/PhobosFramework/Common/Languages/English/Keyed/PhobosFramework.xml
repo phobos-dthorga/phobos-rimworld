@@ -91,4 +91,12 @@
   <PhobosFramework_SettingSayWhenTestHappensDesc>With the notes above and dev mode both on, a message in the corner says the first time in a session that something on the test list has just happened, so you can look at it while it is on screen. It needs the test rows the install script puts in this mod's folder; a copy from the Workshop has none and says nothing. Off for normal play.</PhobosFramework_SettingSayWhenTestHappensDesc>
   <PhobosFramework_SeenTestRow>Test list row {ROW}: {TITLE} ({DETAIL})</PhobosFramework_SeenTestRow>
   <PhobosBurnWhenCold_Idle>Warm enough: burning nothing until it falls below {TEMPERATURE}.</PhobosBurnWhenCold_Idle>
+
+  <!-- The window for choosing what a thing takes (Framework 0.143.0). -->
+  <PhobosFramework_FilterWithin>Only within: {AREA}</PhobosFramework_FilterWithin>
+  <PhobosFramework_FilterWithinDesc>Keep it inside one of your areas, the same ones you can restrict colonists to, or let it go anywhere on the map.</PhobosFramework_FilterWithinDesc>
+  <PhobosFramework_FilterAnywhere>anywhere</PhobosFramework_FilterAnywhere>
+  <PhobosFramework_FilterEverything>everything</PhobosFramework_FilterEverything>
+  <PhobosFramework_FilterNothing>nothing</PhobosFramework_FilterNothing>
+  <PhobosFramework_FilterSomeAndMore>{NAMES} and {COUNT} more kinds</PhobosFramework_FilterSomeAndMore>
 </LanguageData>
