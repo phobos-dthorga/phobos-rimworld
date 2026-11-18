@@ -900,7 +900,8 @@ for both hovering and circling from the start, and the hover half is built first
 **What each decision sets in motion:**
 
 - **1, armour.** A read of how Combat Extended resolves a hit on a Vehicle Framework vehicle, then one armour
-  declaration per Def that serves both.
+  declaration per Def that serves both. **Designed 18 Nov 2026:** [armour for our armed vehicles](vehicle-armour.md);
+  not built. The Osprey's own design record followed the same day: [the V-22 Osprey](vehicle-osprey.md).
 - **2, 3 and the fourteenth.** A design record for our own flight over the map, in D'thorga Framework's core because
   every aircraft of ours will use it. It comes before the Osprey's own design record. **Written 18 Nov 2026:**
   [our own flight over the map](vehicle-flight-over-the-map.md); nothing in it is in code.

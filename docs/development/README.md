@@ -98,6 +98,8 @@ research or design with nothing built; **living** means kept current by every ch
 - [Air-defence tie-ins](air-defence-tie-ins.md) (13 Nov 2026): IRBM's and The Dead Man's Switch's radars against our aircraft. Partly built.
 - [Unique military vehicles and submarines](military-vehicles-research.md) (9 Nov 2026): real vehicles no mod covers yet. Record only.
 - [Modern military aircraft and vehicles](modern-military-vehicles.md) (18 Nov 2026): the Osprey, armed candidates, crewless fits. Record only.
+- [Armour for our armed vehicles](vehicle-armour.md) (18 Nov 2026): classes by the threat stopped; Combat Extended first. Record only.
+- [The V-22 Osprey](vehicle-osprey.md) (18 Nov 2026): our first aircraft: figures, parts, guns, upgrades, art plan. Record only.
 
 ### Tie-ins and contracts
 
