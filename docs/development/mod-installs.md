@@ -1,0 +1,70 @@
+# Mod installs: updating, going back and backups, seen through the changelogs
+
+**Status (18 Nov 2026):** built, not yet used by the owner. phobos-modkit 1.20.0's `installs` tool, `config/installs.json`,
+`scripts/installs.py`, deploy's install record and D'thorga Companion's Mods page (0.10.0) are in place. Installing an older
+version straight from git history, and deleting old backups from the Companion, are not built.
+
+## Read this first (gotchas)
+
+- **What you gain or lose is read from the changelogs.** Every installed copy and every backup carries the `CHANGELOG.md` it was
+  installed with, so comparing two of them says which entries one has and the other lacks. A changelog says what changed, never
+  that it works in game. **Not yet tested in game, or on screen by the owner.**
+- **Going back past a change a save depends on can break that save.** Entries under "Save compatibility" are put first on every
+  comparison. Read them before going back with a colony you care about, and keep a save copy.
+- **Going back and installing wait until RimWorld is closed.** A backup can be made while it runs.
+- **Nothing is deleted.** Going back keeps the backup, and the install it replaced becomes a new backup. Old backups are
+  `python scripts/cleanup.py`'s to list, and go only when the owner runs it with `--apply`.
+
+## What it answers for (owner's request, 18 Nov 2026)
+
+The owner asked for a part of D'thorga Companion "dedicated to the updating, reversing changes, making backups, etc. all with
+regard to our mods", starting with seeing the changelogs "track and update to what I'm either benefitting from or losing as
+certain changes are made".
+
+| Question | Answer |
+| --- | --- |
+| What does it let the owner do? | See, for each mod, what installing the repository's copy would give them, and what going back to any backup would take away, by the changelog entries; then back up, go back or install with one confirmed press |
+| What does it stop them doing? | Going back or installing while the game runs; going back to a folder that is not one of that mod's backups; filling a drive (each move leaves at least 1 GB free); losing the install they replace |
+| How does it change the way they work? | Updating stops being "ask a session to deploy" and becomes a choice made with the changes in front of them; a bad update can be undone from the window without knowing where backups live |
+
+## How it works
+
+```mermaid
+flowchart LR
+  repo["Repository copy<br/>mods/&lt;Mod&gt;"] -- "deploy.py writes<br/>InstallRecord.json" --> inst["Installed copy<br/>RimWorld/Mods/&lt;Mod&gt;"]
+  inst -- "replaced install,<br/>by deploy or restore" --> back["Backups<br/>.local/deploy-backups"]
+  back -- "restore (a copy;<br/>the backup is kept)" --> inst
+  inst -- "backup" --> back
+  kit["phobos-modkit installs status"] -. "compares the changelogs<br/>each copy carries" .-> repo & inst & back
+  comp["D'thorga Companion<br/>Mods page"] --> kit
+```
+
+- **`config/installs.json`** opts this repository in: the game, the mods folder, the backups folder (deploy's), the settings file
+  naming the game's folder, the folders every mod shares (`src`, `external/phobos-log`), and the install command
+  (`scripts/deploy.py --build --apply {mod}`).
+- **The install record**: every deploy writes `InstallRecord.json` into the installed copy (never the repository's): the commit,
+  the time, and any files with uncommitted changes under the mod's folder or the shared ones. Status shows how many commits have
+  touched the mod since. Copies installed before 18 November 2026 have none.
+- **Matching entries**: by their text, wherever they sit, so an Unreleased entry that later gains a version is neither gained nor
+  lost. A lost and a gained entry with the same version, section and bold opening are one entry **reworded**.
+- **The moves** (phobos-modkit `docs/installs.md`): backup copies the install; restore copies the backup beside the game's mods
+  folder, swaps it in with two renames on the game's drive, and keeps the replaced install as a new backup; install runs deploy.
+
+## Changes to the process (agent defaults, for the owner to revise)
+
+- **Changelog entries now matter to the owner directly**: the Mods page reads them as the list of what an update brings. Write each
+  entry so it stands alone, keep its bold opening when rewording it (so it reads as reworded, not lost and gained), and put save
+  effects under "Save compatibility". The existing rule that every change updates its changelog in the same commit is what keeps
+  the page honest.
+- **Uncommitted work installs too.** deploy installs the working tree, as before; the record and the page say how many files had
+  uncommitted changes, so an install made mid-way through another session's work shows as such.
+- Restore keeps the backup rather than moving it (agent default): it costs one more copy of a mod (about 8 to 50 MB) and means
+  nothing is ever lost by going back.
+- The 1 GB free-space margin and the one-hour install limit are agent defaults.
+
+## Not built yet (each waits for the owner's word)
+
+- **Going back to any older version, not only a backup**: build and install from a git tag or commit, through a separate worktree.
+  It would need the submodules and a full build at that commit.
+- **Deleting old backups from the Companion**: today `python scripts/cleanup.py` lists them and the owner runs `--apply`.
+- **The Workshop**: none of this touches Steam, and a Workshop copy of a mod is not an install this tool knows.

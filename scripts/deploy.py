@@ -17,6 +17,10 @@ RimSort's texture step is not needed for our mods (owner, 13 Nov 2026: a fresh i
 every update meant running todds over every mod again). todds comes from --todds, RIMSORT_TODDS, install-settings.json
 ("toddsPath") or RimSort's default install; without it the mods still work from their PNG files. --no-dds skips the step.
 
+Every install writes InstallRecord.json into the installed copy (the commit, the time and any uncommitted files it came from), for
+D'thorga Companion's Mods page and phobos-modkit's installs tool: what updating or going back would gain or lose
+(docs/development/mod-installs.md).
+
 Installing D'thorga Framework also writes TestRows.tsv into the installed copy, never the repository's mod folder (seen-in-play
 checks, E8, 18 Nov 2026): the test rows still waiting for the owner and the notes that stand for each, for the Framework's dev-mode
 test-moment message. A Workshop copy has none and shows no message.
@@ -239,9 +243,43 @@ def deploy(mod, game, apply, root=ROOT, backups=BACKUPS, running=game_running, l
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
     log(f'  copied {len(files)} files')
+    write_install_record(target, mod, root, log)
     if mod == TEST_ROWS_MOD:
         write_test_rows(target, root, log)
     return len(files)
+
+
+def write_install_record(target, mod, root=ROOT, log=print):
+    """
+    Writes InstallRecord.json into the installed copy, never the repository's mod folder: the commit, the time and any uncommitted files
+    it was installed from, for D'thorga Companion's Mods page and phobos-modkit's installs tool (docs/development/mod-installs.md).
+    The kit owns the record's format. A failure is reported, never raised: only the record goes without. Returns the record or None.
+    """
+    try:
+        _kit()
+        from phobos_modkit import installs
+        from phobos_modkit.games.rimworld.installs import identity
+        record = installs.record_for(root, installs.load_config(root), mod, identity(target)[1])
+        installs.write_record(target, record)
+    except Exception as error:  # noqa: BLE001 (the install itself has succeeded; the record only feeds the Companion)
+        log(f'  the install record could not be written ({error})')
+        return None
+    commit = (record.get('commit') or 'no commit')[:8]
+    extra = f', with {record["uncommittedCount"]} uncommitted files' if record['uncommittedCount'] else ''
+    log(f'  wrote {INSTALL_RECORD}: {record["version"] or "no version"} from {commit}{extra}')
+    return record
+
+
+INSTALL_RECORD = 'InstallRecord.json'
+
+
+def _kit():
+    """Puts the pinned phobos-modkit on the import path."""
+    here = str(Path(__file__).resolve().parent)
+    if here not in sys.path:
+        sys.path.insert(0, here)
+    import _modkit
+    _modkit.ensure()
 
 
 # The test-moment message's rows (seen-in-play checks, E8): read by D'thorga Framework's Rules/TestRowsRule from its installed folder.
@@ -252,11 +290,7 @@ WAITING = ('open', 'partial', 'seen')
 
 def test_rows_text(root=ROOT):
     """The test rows still waiting for the owner, one line per piece of evidence: row, title, key, case, detail wildcard (tab-separated)."""
-    here = str(Path(__file__).resolve().parent)
-    if here not in sys.path:
-        sys.path.insert(0, here)
-    import _modkit
-    _modkit.ensure()
+    _kit()
     from phobos_modkit import testpass
     config = testpass.load_config(root)
     rows = testpass.parse_rows((Path(root) / config['doc']).read_text(encoding='utf-8'))

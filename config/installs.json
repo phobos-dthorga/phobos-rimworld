@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "description": "Where this repository's mods are installed and backed up, and how one is installed: phobos-modkit's installs tool and D'thorga Companion's Mods page read it (docs/development/mod-installs.md).",
+  "game": "rimworld",
+  "mods": "mods",
+  "backups": ".local/deploy-backups",
+  "settings": ".local/install-settings.json",
+  "sharedSources": ["src", "external/phobos-log"],
+  "install": ["{python}", "scripts/deploy.py", "--build", "--apply", "{mod}"]
+}

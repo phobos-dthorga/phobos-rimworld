@@ -505,6 +505,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   November 2026); name mods instead of `--all` for one; deploy also encodes our textures to DDS with RimSort's todds, so RimSort's
   texture step is not needed for our mods. Never edit `ModsConfig.xml` or the owner's RimSort
   lists unless the owner asks, and back them up first.
+- **Answer what updating or going back would change with `python scripts/installs.py`** (owner, 18 Nov 2026: a part of D'thorga
+  Companion for "updating, reversing changes, making backups", showing what each change gains or loses): each mod's installed copy,
+  the repository's and every backup, compared by the changelogs each carries (phobos-modkit's installs; `docs/development/mod-installs.md`).
+  The Companion's Mods page runs it. So **a changelog entry is what the owner reads before updating**: keep its bold opening when
+  rewording it, and save effects under "Save compatibility". deploy writes `InstallRecord.json` into every installed copy.
 - Scale checks to the change; test rules and persistence, not static documentation. **Before committing, run
   `python scripts/check-all.py` and chain the commit on its exit code** (`python scripts/check-all.py && git commit ...`),
   never on reading output: phobos-modkit's gate builds every project, runs every rule-test project and the Python tests,

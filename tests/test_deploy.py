@@ -158,6 +158,29 @@ class DeployTests(unittest.TestCase):
             self.assertEqual('untouched', (Path(game) / 'Mods' / 'ModsConfig.xml').read_text(encoding='utf-8'))
             self.assertEqual([], list(Path(game).glob('Example-deploying-*')))
 
+    def test_apply_writes_the_install_record_into_the_installed_copy_only(self):
+        with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as game:
+            mod = fake_repo(root)
+            (mod / 'About' / 'About.xml').write_text('<ModMetaData><modVersion>1.2.3</modVersion></ModMetaData>', encoding='utf-8')
+            (Path(root) / 'config').mkdir()
+            (Path(root) / 'config' / 'installs.json').write_text(json.dumps(
+                {'schemaVersion': 1, 'game': 'rimworld', 'mods': 'mods', 'backups': '.local/deploy-backups'}), encoding='utf-8')
+            (Path(game) / 'Mods').mkdir()
+            deploy.deploy('Example', game, apply=True, root=root, running=lambda: False, log=lambda s: None)
+            record = json.loads((Path(game) / 'Mods' / 'Example' / 'InstallRecord.json').read_text(encoding='utf-8'))
+            self.assertEqual((record['format'], record['mod'], record['version']), (1, 'Example', '1.2.3'))
+            self.assertIn('installed', record)
+            self.assertFalse((mod / 'InstallRecord.json').exists())
+
+    def test_a_record_that_cannot_be_written_is_reported_not_raised(self):
+        with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as game:
+            fake_repo(root)
+            (Path(game) / 'Mods').mkdir()
+            lines = []
+            deploy.deploy('Example', game, apply=True, root=root, running=lambda: False, log=lines.append)
+            self.assertTrue(any('install record could not be written' in line for line in lines))
+            self.assertTrue((Path(game) / 'Mods' / 'Example' / 'About' / 'About.xml').is_file())
+
     @unittest.skipUnless(sys.platform == 'win32', 'Windows refuses to rename a folder holding an open file')
     def test_an_open_file_stops_it_before_anything_changes(self):
         with tempfile.TemporaryDirectory() as root, tempfile.TemporaryDirectory() as game, tempfile.TemporaryDirectory() as backups:
