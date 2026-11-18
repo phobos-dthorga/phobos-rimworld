@@ -160,7 +160,8 @@ Reactors: `Reactor_FuelLeak` on fuel tanks, `Reactor_Explosive` on engines as VV
 later, a hydraulic leak that drains the hydraulic quantity of the systems service. Damage states and raised equipment
 draw through `graphicOverlays` that our comps add and remove (Vehicle Framework's `ComponentRequirement` on an overlay is never applied, read 9 Nov 2026;
 [the animation research](vehicle-animation-research.md)). Combat Extended armour follows the Harrier part's scale
-(millimetres and megapascals, light vehicle). Repair order is list order, so the engine and controls come early.
+(millimetres and megapascals, light vehicle). (**19 Nov 2026:** no Combat Extended armour patch exists yet for any vehicle of ours,
+so each reads its game-scale figure as millimetres; it comes with [the armour base work](vehicle-armour.md), row MV2.) Repair order is list order, so the engine and controls come early.
 
 ### Parts and where they come from (principle 9; agent defaults, owner to confirm)
 

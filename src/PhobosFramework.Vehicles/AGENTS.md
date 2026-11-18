@@ -24,6 +24,12 @@ the general engineering rules there (parts bills, pipes beneath, optional tie-in
   model keeps its one fixed drag figure per vehicle class; no fitting, accessory, load or upgrade ever changes it. **A second exception**
   (owner, 19 Nov 2026): an aircraft's cruising height between tiles sets its speed and fuel by the air's density at the height flown
   (`CruiseRule`); height alone moves them, never a fitting, accessory, load or upgrade.
+- **An armour or weapon kit's weight is carried mass** (owner, 19 Nov 2026: "weight counts like cargo"): its kilograms take cargo room
+  and load the engine as the same weight of cargo would. Never through Vehicle Framework's mass stat, which slows nothing, and still
+  no drag. Plain accessories keep their rule: their weight takes cargo room only (`docs/development/vehicle-militarised-service-vehicles.md`).
+- **Our service trucks may be armed by upgrade, by a choice of mounts** (owner, 19 Nov 2026, replacing "our own vehicles carry no
+  weapons" for them): our own guns first, an installed mod's gun as an optional extra mount, and no hard dependency for any of it.
+  A machine that is unarmed in reality still stays unarmed (owner, 18 Nov 2026); real service trucks were armed with such kits.
 - **Design every vehicle mechanic with other factions' vehicles in mind** (owner, 11 Nov 2026): raiders who arrive in vehicles and, at the very
   least, the vehicles standing at a base the player attacks. Each vehicle design record has a section saying what the mechanic does on a vehicle
   in a raid on us, on one parked at a base we attack, and on one we capture; it works on any faction's vehicle unless the record says why not,

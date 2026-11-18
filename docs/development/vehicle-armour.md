@@ -146,7 +146,11 @@ The same round on the Rifle class (8 mm) is stopped; the plate loses 15.
   replaces each part's armour and each armour upgrade's figures, sets `fillPercent` as the body's height, adds the turret
   extensions and swaps each turret's projectile for Combat Extended's.
 - **An armour kit is an upgrade node** that raises named parts by one or more classes and adds its weight to the mass stat. Its
-  Combat Extended figures are in the same patch file.
+  Combat Extended figures are in the same patch file. **Corrected 19 Nov 2026:** Vehicle Framework's mass stat slows nothing and
+  does not reach our engine model, so a kit's weight is **carried mass** instead (owner, 19 Nov 2026: it takes cargo room and loads
+  the engine as the same weight of cargo would), through a weight given per upgrade node
+  ([militarised service vehicles](vehicle-militarised-service-vehicles.md#weight-as-carried-mass-owner)). A kit raises parts with
+  `Add` only, and never through a `health` upgrade, which repairs the part at every load.
 - **`hitWeight` is written for both.** The two frameworks read it opposite ways, so the Combat Extended patch replaces it too.
 
 ### One outer part to a cell

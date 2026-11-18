@@ -1,6 +1,6 @@
 # Gathering runs: a vehicle that fetches loose materials by itself (19 Nov 2026)
 
-**Status (19 Nov 2026):** built in D'thorga Framework 0.143.0 and D'thorga Vehicles 0.67.0, on the Talus with its loading grab; several chunks a lift and unloading at a chosen place in Framework 0.144.0 and Vehicles 0.68.0; not yet tested in game. Militarised service vehicles are an idea to research, not yet designed.
+**Status (19 Nov 2026):** built in D'thorga Framework 0.143.0 and D'thorga Vehicles 0.67.0, on the Talus with its loading grab; several chunks a lift and unloading at a chosen place in Framework 0.144.0 and Vehicles 0.68.0; not yet tested in game. Militarised service vehicles have their own record.
 
 The owner's request, 19 Nov 2026: "a helper with the Talus Tipper Truck that is executed via a gizmo and is only available to activate
 when the Loading Grab implement upgrade is present. With suitable driver or similar ability for the vehicle to drive, it will source
@@ -172,6 +172,11 @@ it needs its own record first, saying what each upgrade lets the player do, what
 that weighs and slows, a gun ring that needs a gunner, a run that carries on under fire), checked against what our fittings, the
 modern military vehicles record and Combat Extended already give. **Agent lean:** research it as its own record when the owner says go,
 with disadvantages as well as advantages, since a truck that is better at everything would leave the tree no choice.
+
+**Researched the same day, at the owner's word:** [militarised service vehicles](vehicle-militarised-service-vehicles.md), a design
+record with the owner's six answers (a choice of gun mounts; weight counting like cargo; all five trucks, the Talus first; an armoured
+truck may keep working while enemies are about, behind a switch; our own guns plus optional extras; no hard dependency). Nothing of it
+is in code.
 
 ## Who chose what
 

@@ -24,6 +24,9 @@ sections at the end.
   built on our battery or hydraulics works on the player's vehicles only. Each row says which.
 - **Our own vehicles carry no weapons**, so the turret rows act on other authors' vehicles (owner, 13 Nov 2026: our conditions may
   scale other authors' figures through hooks that never skip their code). The working-equipment rows are ours.
+  **19 Nov 2026:** the owner chose a choice of gun mounts by upgrade for our service trucks
+  ([militarised service vehicles](vehicle-militarised-service-vehicles.md), designed, not in code); once built, the turret rows act
+  on ours as on any other.
 - **One finding on the way** (not fixed, below): nothing makes a crew leave a vehicle that can neither move nor shoot.
 - **A correction, made the same day:** the first version of this record said the people aboard our own vehicles could never be hit.
   **That was the agent's error** (its inventory script did not read seats' hit areas). Every seat on our vehicles has one; row C1 and
