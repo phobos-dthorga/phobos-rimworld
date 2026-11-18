@@ -1,9 +1,10 @@
 # The V-22 Osprey: design (18 Nov 2026)
 
-**Status (19 Nov 2026):** the first slice of the Osprey is built in D'thorga Vehicles 0.69.0: its Def (body and paint, crew, parts on the
-footprint, real weights and engines, fuel, Vehicle Framework's VTOL take-off and landing, damage looks), drivetrain, flight profile,
-loadout, parts bill and research; its art is exported. Not built: the renderer for its rotors and nacelles, its upgrades and guns, armour
-by class, our own flight over the map, sounds and icons. Nothing here is tested in game.
+**Status (19 Nov 2026):** the first two slices are built: its Def in D'thorga Vehicles 0.69.0 (body and paint, crew, parts on the footprint,
+real weights and engines, fuel, Vehicle Framework's VTOL take-off and landing, damage looks, drivetrain, flight profile, loadout, bill,
+research) and its rotors and tilting nacelles in Vehicles 0.70.0 with Framework 0.146.0. Not built: its upgrades and guns, armour by class,
+our own flight over the map (being built in parallel), sounds and icons. The owner flew slice 1 in dev mode: "It does work but is
+extremely bare bones" (19 Nov 2026). Nothing here is passed in game.
 
 The owner asked for the Osprey on 18 November 2026: "the Osprey is definitely something I would like to implement!" This is its
 design record, row MV3 in [outstanding work](outstanding-work.md). It is the first aircraft of ours, the first vehicle on
@@ -416,6 +417,12 @@ owner to revise:
 - **It flies on Vehicle Framework's own VTOL take-off** (`Vehicles.VTOLTakeoff`): 300 ticks straight up, then a climb away up the screen,
   with curves written for it. Our own flight over the map replaces this on the map.
 - **The bill** counts the rotor drive as three parts (both proprotor gearboxes and the interconnect shaft) and the tanks as four.
+
+**Slice 2, Vehicles 0.70.0 with Framework 0.146.0:** the rotors and nacelles, drawn by `CompPhobosTiltrotor` through Vehicle
+Framework's public renderer list (no Harmony): the nearest of the four nacelle pictures, in its paint; each rotor still or spinning,
+the two counter-rotating, shortened by the cosine of the tilt and moved forward by the sine (`TiltrotorRule`, tested); upright on the
+map, tipping through Vehicle Framework's take-off and landing. The owner's look at slice 1 in dev mode (19 Nov 2026): it works, but it
+cannot fly about the map (our own flight, being built) and looked bare launching (these rotors). Row 203 of the test list.
 
 **Second batch:** circling; ropes and the hoist; the tanker kit and the probe; the crewless fit; a raider's flight AI.
 

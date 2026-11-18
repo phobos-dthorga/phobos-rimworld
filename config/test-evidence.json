@@ -116,6 +116,12 @@
     "202": {"parts": {
       "it backs up to the bunker and tips": [{"key": "vehicles.gather-run.unload", "variant": "building"}],
       "it finishes after unloading": [{"key": "vehicles.gather-run.end", "variant": "NothingLeft", "expect": {"trips": ">= 1"}}]
+    }},
+    "203": {"parts": {
+      "still rotors with the engines off": [{"key": "vehicles.tiltrotor-drawn", "variant": "still"}],
+      "spinning rotors when drafted": [{"key": "vehicles.tiltrotor-drawn", "variant": "spinning"}],
+      "nacelles tipping through a take-off or landing": [{"key": "vehicles.tiltrotor-drawn", "variant": "tilting"}],
+      "fully forward in the climb away": [{"key": "vehicles.tiltrotor-drawn", "variant": "forward"}]
     }}
   },
   "order": [

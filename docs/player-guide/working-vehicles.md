@@ -422,7 +422,8 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
 - **Its weights and engines are the real machine's**, so it lifts less on a hot day or high up, and with a full cabin flies below the
   height where its passengers would need oxygen.
 - **Paint it:** the grey takes your main colour, the orange bands your second.
-- **Still to come, before it is tested:** its rotors and tilting nacelles drawn, its upgrades (cargo hooks, ramp gun, belly gun,
+- **Its rotors spin when it is drafted**, and on take-off its nacelles tip forward as it climbs away.
+- **Still to come, before it is tested:** its upgrades (cargo hooks, ramp gun, belly gun,
   armour kit, inlet barrier and more), and our own flight over the map. Not yet tested in game.
 
 ## Other mods' vehicles

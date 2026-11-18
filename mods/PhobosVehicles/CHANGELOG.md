@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.70.0] - 2026-11-19 - Draft
+
+The Osprey's rotors and tilting nacelles
+
+### Added
+
+- **The Osprey's rotors and nacelles are drawn.** Two three-bladed rotors, still with the engines off and spinning when drafted, the two turning opposite ways; nacelles in its paint. On take-off it rises with the nacelles upright, then tips them forward through the climb away, each rotor flattening and moving forward; landing does the reverse. A nacelle below 60% health shows soot and holes. With the inlet barrier fitted (an upgrade still to come), its nacelles show the filter.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.146.0 or later, which draws them. With an older Framework the game reports the Osprey's tiltrotor look as an unknown class at start-up.
+
+### Save compatibility
+
+- Safe with a running save. Ospreys already built show their rotors at the next load.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** On the map the nacelles stay upright: tilting in flight over the map comes with our own flight. Its upgrades, guns, armour and sounds follow.
+
 ## [0.69.0] - 2026-11-19 - Draft
 
 The V-22 Osprey, our first aircraft: its first slice

@@ -565,6 +565,41 @@
           </landingProperties>
         </launchProtocol>
       </li>
+      <!-- Its rotors and tilting nacelles (D'thorga Vehicles 0.70.0, Framework 0.146.0): D'thorga Framework's tiltrotor renderer draws the
+           nacelle at 0, 30, 60 or 90 degrees in its paint, with the inlet barrier's set once that upgrade is fitted and damage below 60%
+           health; each rotor still or spinning, foreshortened as it tips and moved forward. Upright on the map; tipping forward through the
+           climb away and back on the approach. Places in cells from the body's centre, measured off the art by
+           assets/phobos-vehicles/export_osprey.py (Osprey.layout.json); the right side is the left turned over. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTiltrotor">
+        <nacellePath>Phobos/Vehicles/Osprey/Osprey_Nacelle</nacellePath>
+        <variants>
+          <li>
+            <node>InletBarrier</node>
+            <suffix>Barrier</suffix>
+          </li>
+        </variants>
+        <rotorPath>Phobos/Vehicles/Osprey/Osprey_Rotor</rotorPath>
+        <rotorSpinPath>Phobos/Vehicles/Osprey/Osprey_RotorSpin</rotorSpinPath>
+        <!-- 11.61 m [S] at 1.175 cells a metre is 13.6 cells; its picture is 14 cells square. -->
+        <rotorDrawCells>14</rotorDrawCells>
+        <sides>
+          <li>
+            <part>LeftNacelle</part>
+            <hub>(-8.277, 2.211)</hub>
+            <pivot>(-8.255, -0.509)</pivot>
+            <damageSide>Left</damageSide>
+            <bladeStart>0</bladeStart>
+          </li>
+          <li>
+            <part>RightNacelle</part>
+            <hub>(8.254, 2.157)</hub>
+            <pivot>(8.257, -0.509)</pivot>
+            <mirrored>true</mirrored>
+            <damageSide>Right</damageSide>
+            <bladeStart>60</bladeStart>
+          </li>
+        </sides>
+      </li>
       <!-- Damage pictures while a part is below 60% health: the bulk tanker's marks cut to each part's outline by
            assets/phobos-vehicles/derive_osprey_parts.py (19 Nov 2026). The nacelles' come with the renderer. Agent placements. -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosDamageLooks">

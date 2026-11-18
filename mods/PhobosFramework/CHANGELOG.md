@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.146.0] - 2026-11-19 - Draft
+
+A tiltrotor's rotors and nacelles drawn, tipping forward as it climbs away
+
+### Added
+
+- **Tiltrotor rotors and nacelles drawn.** A vehicle can name a tiltrotor look in its Def: its nacelles in its paint, each rotor still with the engines off and spinning when drafted, the two turning opposite ways. Through a take-off the nacelles stay upright as it rises, then tip forward as it climbs away, each rotor flattening to a line and moving forward; a landing does the reverse. A damaged nacelle shows its damage picture, and an upgrade can swap in another set of nacelle pictures. The V-22 Osprey in D'thorga Vehicles 0.70.0 is the first to use it. Its geometry is a game-free rule with its own tests.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** It draws through Vehicle Framework's public renderer list, with no Harmony patch. On the map the nacelles stay upright until our own flight over the map tilts them in flight. Between Framework 0.144.0 and this one, 0.145.0 is held for our own flight, being built in parallel.
+
 ## [0.144.0] - 2026-11-19 - Draft
 
 The loading grab lifts several chunks at once, and a gathering run unloads where you choose
