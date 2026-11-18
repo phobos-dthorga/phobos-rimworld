@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using HarmonyLib;
+using Phobos.Framework;
 using Phobos.Framework.Vehicles.Rules;
+using RimWorld;
 using Vehicles;
 using Verse;
 
@@ -89,5 +92,54 @@ public static class EmpHardeningPatch
     public static void Finalizer(VehicleComponent __instance, VehicleEMPSeverity? __state)
     {
         if (__state is { } original && __instance.props != null) __instance.props.empSeverity = original;
+    }
+}
+
+/// <summary>
+/// EMP on vehicles under Combat Extended (Framework 0.162.0; temporary-patches.md, row 18). With its armour setting on (the default),
+/// Combat Extended's prefix on <see cref="VehicleStatHandler.ApplyDamage"/> replaces the method with its own, which has no EMP step, so
+/// under Combat Extended an EMP did nothing to any vehicle: neither Vehicle Framework's stall nor our parts' ratings nor the hardening
+/// kit (found by the fault-read of 19 Nov 2026). This postfix runs Vehicle Framework's own EMP step, by name, only when the method did
+/// not run, the hit is an EMP that still carries an amount, and Combat Extended's setting is why (<see cref="EmpRule.EmpStepMissed"/>):
+/// a hit another prefix held back on purpose has its amount set to nothing and stays held back. Temporary: if Combat Extended gives its
+/// vehicle damage an EMP step, this would double it, so scripts/upstream.py's report on this method is the check. One type test per hit.
+/// </summary>
+[HarmonyPatch(typeof(VehicleStatHandler), nameof(VehicleStatHandler.ApplyDamage))]
+public static class EmpUnderCombatExtendedPatch
+{
+    static readonly MethodInfo? Electrify = AccessTools.Method("Vehicles.VehicleStatHandler:ElectrifyAllComponents");
+    static FieldInfo? settingsField;
+    static FieldInfo? armourField;
+    static bool looked;
+
+    public static void Postfix(VehicleStatHandler __instance, VehiclePawn ___vehicle, DamageInfo dinfo, bool __runOriginal)
+    {
+        if (dinfo.Def != DamageDefOf.EMP || Electrify == null) return;
+        if (!EmpRule.EmpStepMissed(true, dinfo.Amount, __runOriginal, CombatExtendedTakesVehicleDamage())) return;
+        if (___vehicle == null || ___vehicle.Destroyed) return;
+        try
+        {
+            Electrify.Invoke(__instance, new object[] { dinfo });
+            if (Seen.Wants("vehicles.emp-under-combat-extended", ___vehicle))
+                Seen.Note("vehicles.emp-under-combat-extended", ___vehicle, "EMP step run");
+        }
+        catch (Exception problem)
+        {
+            VehicleSystemsMod.Logger.Warn("An EMP could not reach " + ___vehicle.LabelShort + " under Combat Extended: " + problem.Message);
+        }
+    }
+
+    /// <summary>Whether Combat Extended's armour setting, which takes over a vehicle's damage, is on; false without Combat Extended.</summary>
+    static bool CombatExtendedTakesVehicleDamage()
+    {
+        if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) return false;
+        if (!looked)
+        {
+            looked = true;
+            settingsField = OptionalMods.TypeNamed("CombatExtended.Controller")?.GetField("settings", BindingFlags.Public | BindingFlags.Static);
+            armourField = OptionalMods.SettingField(settingsField?.FieldType, "patchArmorDamage", typeof(bool));
+        }
+        if (settingsField == null || armourField == null) return true;  // Combat Extended's default is on.
+        return settingsField.GetValue(null) is not { } settings || armourField.GetValue(settings) is not bool on || on;
     }
 }

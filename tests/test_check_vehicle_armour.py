@@ -86,7 +86,7 @@ class VehicleArmourTests(unittest.TestCase):
         self.assertEqual([], problems)
         self.assertGreaterEqual(len(vehicles), 5)
         # The Osprey's armour kit is read, with its Combat Extended twin, so its check is real.
-        kits = armour.load_kits(Path(ROOT), {'Phobos_Osprey_UpgradeTree'})['Phobos_Osprey_UpgradeTree']
+        kits = armour.load_kits(Path(ROOT), {'Phobos_Osprey_UpgradeTree'})[0]['Phobos_Osprey_UpgradeTree']
         self.assertIn('ArmourKit', kits)
         self.assertIsNotNone(kits['ArmourKit'].ce_armour)
 
@@ -196,6 +196,34 @@ class VehicleArmourTests(unittest.TestCase):
     def test_a_kit_that_sets_on_an_armoured_vehicle_fails(self):
         problems = self.kit(kind='Set')
         self.assertTrue(any('must be of type Add' in p for p in problems))
+
+    # Two kits on one part (Framework 0.162.0, the fault-read of 19 Nov 2026): fitted together, both count.
+    SECOND_NODE = """<li><key>Plates</key>{excludes}<upgrades><li Class="Vehicles.VehicleUpgrade"><armor><li><key>Cab</key><type>Add</type>
+    <statModifiers><ArmorRating_Sharp>0.35</ArmorRating_Sharp><ArmorRating_Blunt>0.27</ArmorRating_Blunt></statModifiers></li></armor></li></upgrades></li>
+</nodes>"""
+    SECOND_PATCH = KIT_PATCH.replace('li[key="Cab"]', 'li[key="Plates"]')
+
+    def two_kits(self, excludes=''):
+        defs = vehicle(GOOD_PARTS).replace('<components>', '<comps><li Class="Vehicles.CompProperties_UpgradeTree"><def>Test_TruckTree</def></li>'
+                                            '</comps><components>')
+        patch = CE_PATCH.replace('</Patch>\n', self.KIT_PATCH.format(sharp='6', blunt='36').replace('</Patch>\n', '')
+                                 + self.SECOND_PATCH.format(sharp='6', blunt='36'))
+        tree = self.KIT_TREE.format(kind='Add', sharp='0.35', blunt='0.27').replace('</nodes>', self.SECOND_NODE.format(excludes=excludes))
+        return self.write(defs, patch=patch, tree=tree)
+
+    def test_two_independent_kits_on_one_part_are_summed(self):
+        self.assertTrue(any('kits Cab + Plates' in p and "no class's rating" in p for p in self.two_kits()))
+
+    def test_either_or_kits_on_one_part_are_not_summed(self):
+        self.assertEqual([], self.two_kits('<disableIfUpgradeNodesEnabled><li>Cab</li></disableIfUpgradeNodesEnabled>'))
+
+    def test_a_combat_extended_kit_naming_another_part_fails(self):
+        defs = vehicle(GOOD_PARTS).replace('<components>', '<comps><li Class="Vehicles.CompProperties_UpgradeTree"><def>Test_TruckTree</def></li>'
+                                            '</comps><components>')
+        extra = self.KIT_PATCH.format(sharp='6', blunt='36').replace('</armor></value>', '<li><key>Cabb</key><type>Add</type>'
+                                                                     '<statModifiers><ArmorRating_Sharp>6</ArmorRating_Sharp></statModifiers></li></armor></value>')
+        problems = self.write(defs, patch=CE_PATCH.replace('</Patch>\n', extra), tree=self.KIT_TREE.format(kind='Add', sharp='0.35', blunt='0.27'))
+        self.assertTrue(any('Combat Extended armour for Cabb, which the node does not name' in p for p in problems))
 
     def test_an_add_passes(self):
         add = ('<li Class="Vehicles.VehicleUpgrade"><armor><li><key>Cab</key><type>Add</type>'

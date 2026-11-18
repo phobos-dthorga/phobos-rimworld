@@ -204,7 +204,8 @@
     }},
     "225": {"parts": {
       "the EMP hardening is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosEmpHardening", "detail": "fitted"}],
-      "an EMP meets the hardened electrics": ["vehicles.emp-hardened"]
+      "an EMP meets the hardened electrics": ["vehicles.emp-hardened"],
+      "an EMP reaches a vehicle under Combat Extended": ["vehicles.emp-under-combat-extended"]
     }},
     "226": {"parts": {
       "dust wears the engines": [{"key": "aircraft.landing-dust", "variant": "bare", "expect": {"loose": "> 0", "wear": "> 0"}}],

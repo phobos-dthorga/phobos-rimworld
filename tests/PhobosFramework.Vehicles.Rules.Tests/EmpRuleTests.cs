@@ -56,6 +56,26 @@ public class EmpRuleTests
     }
 
     [Fact]
+    public void AnEmpCombatExtendedTookIsGivenItsStep()
+    {
+        Assert.True(EmpRule.EmpStepMissed(isEmp: true, amount: 50f, methodRan: false, combatExtendedTakesVehicleDamage: true));
+    }
+
+    [Fact]
+    public void TheStepIsNeverRunTwiceNorForOtherDamage()
+    {
+        Assert.False(EmpRule.EmpStepMissed(true, 50f, methodRan: true, combatExtendedTakesVehicleDamage: true));
+        Assert.False(EmpRule.EmpStepMissed(isEmp: false, 50f, false, true));
+    }
+
+    [Fact]
+    public void AHitHeldBackOnPurposeStaysHeldBack()
+    {
+        Assert.False(EmpRule.EmpStepMissed(true, amount: 0f, methodRan: false, combatExtendedTakesVehicleDamage: true));
+        Assert.False(EmpRule.EmpStepMissed(true, 50f, methodRan: false, combatExtendedTakesVehicleDamage: false));
+    }
+
+    [Fact]
     public void MechanicalVehiclesAndOptedOutOnesAreNeverStunned()
     {
         Assert.False(EmpRule.Stuns(EmpHardening.Mechanical, authorSaysNoStun: false));

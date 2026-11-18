@@ -48,6 +48,15 @@ public static class EmpRule
         return partRating < military ? partRating : military;
     }
 
+    /// <summary>
+    /// Whether Vehicle Framework's EMP step must be run for it (Framework 0.162.0): Combat Extended's armour setting replaces the whole
+    /// damage method on a vehicle with its own, which has no EMP step, so an EMP never reached a vehicle. Only an EMP that still carries
+    /// an amount, only when the method did not run, and only when Combat Extended is the reason: a hit another mod held back on purpose
+    /// (a hull under water, an aircraft in the air) has its amount set to nothing and stays held back.
+    /// </summary>
+    public static bool EmpStepMissed(bool isEmp, float amount, bool methodRan, bool combatExtendedTakesVehicleDamage) =>
+        isEmp && amount > 0f && !methodRan && combatExtendedTakesVehicleDamage;
+
     /// <summary>Whether an EMP may stun (stall) the vehicle: never a mechanical one, nor one whose author opted out of being stunned.</summary>
     public static bool Stuns(EmpHardening hardening, bool authorSaysNoStun) => hardening != EmpHardening.Mechanical && !authorSaysNoStun;
 }

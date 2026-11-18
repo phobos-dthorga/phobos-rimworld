@@ -66,8 +66,9 @@ public static class CombatExtendedHitWidth
             answer = width > 0f ? new Tuple<bool, Vector2>(true, new Vector2(width, def.fillPercent)) : NoAnswer;
             answers[def] = answer;
         }
-        // The vehicle's Def is the case, so each vehicle's test row reads its own note.
-        if (answer.Item1 && noted.Add(def) && Seen.Wants("vehicles.armour-hit-width", pawn, def.defName))
+        // The vehicle's Def is the case, so each vehicle's test row reads its own note. Asked before the Def is marked noted, so turning
+        // the setting on later in a session still notes it (the fault-read of 19 Nov 2026).
+        if (answer.Item1 && Seen.Wants("vehicles.armour-hit-width", pawn, def.defName) && noted.Add(def))
         {
             Seen.Note("vehicles.armour-hit-width", pawn, variant: def.defName,
                 values: new List<KeyValuePair<string, double>> { new("width", answer.Item2.x) });

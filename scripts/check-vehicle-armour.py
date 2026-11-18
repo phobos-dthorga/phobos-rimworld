@@ -16,6 +16,12 @@ Phobos.VehicleSystems.PhobosArmourExtension, our mark for a design armoured by c
 
 And for every upgrade tree of ours: an armour entry of type Set on a node with no upgradeExplanation, which Vehicle Framework applies as
 soon as the Upgrades tab shows the node (VehicleUpgrade's description writes it), and a stat entry of type Set, which does nothing.
+
+And for each armoured vehicle's kits (nodes whose VehicleUpgrade adds armour): every set of kits that can be fitted together (no two
+either/or, each with the kits it needs) must leave each part on one class on both scales, so two independent kits on one part are
+summed (Framework 0.162.0, after the fault-read of 19 Nov 2026); and each kit's Combat Extended patch must name exactly the parts the
+node names, each of type Add (an extra or misspelt key reaches a part the vehicle lacks, which Vehicle Framework's unlock throws on).
+Not checked: parts our loadouts append at start-up, and a vehicle armoured by class whose mark is added by a patch rather than its Def.
 Exit code 1 when anything is wrong.
 """
 import argparse
@@ -74,6 +80,8 @@ class Kit:
     prereqs: list
     armour: dict = field(default_factory=dict)
     ce_armour: dict | None = None
+    excludes: list = field(default_factory=list)
+    ce_source: str = ''
 
 
 def same(figure, class_figure):
@@ -230,50 +238,86 @@ def load_kits(root, trees):
                 if armour:
                     key = node.findtext('key', '')
                     prereqs = [li.text for li in node.findall('prerequisiteNodes/li')]
-                    kits[name][key] = Kit(key, path.relative_to(root).as_posix(), prereqs, armour)
+                    excludes = [li.text for li in node.findall('disableIfUpgradeNodesEnabled/li')]
+                    kits[name][key] = Kit(key, path.relative_to(root).as_posix(), prereqs, armour, excludes=excludes)
+    stray = []
     for path in sorted((root / 'mods').glob(f'*/{CE_PATCHES}/*.xml')):
         doc = parse(path)
         for op in doc.iter('Operation') if doc is not None else []:
             m = KIT_ARMOUR.match((op.findtext('xpath') or '').strip())
-            if m and m.group(1) in kits and m.group(2) in kits[m.group(1)]:
-                kits[m.group(1)][m.group(2)].ce_armour = armour_entries(op.find('value/armor'))
-    return kits
+            if not m or m.group(1) not in kits:
+                continue
+            where = f'{path.relative_to(root).as_posix()}: {m.group(1)} node {m.group(2)}'
+            if m.group(2) not in kits[m.group(1)]:
+                stray.append(f'{where}: Combat Extended armour for a node that adds no armour in the tree, or does not exist')
+                continue
+            kit = kits[m.group(1)][m.group(2)]
+            kit.ce_armour, kit.ce_source = armour_entries(op.find('value/armor')), where
+    return kits, stray
+
+
+def fittable_sets(kits, part_key):
+    """Every set of kits touching a part that can be fitted together: closed under the kits each needs, with no two either/or."""
+    touching = [k for k in kits.values() if part_key in k.armour]
+    sets = []
+    for mask in range(1, 1 << len(touching)):
+        needed = {touching[i].key for i in range(len(touching)) if mask >> i & 1}
+        todo = list(needed)
+        while todo:
+            for need in kits[todo.pop()].prereqs:
+                if need in kits and need not in needed:
+                    needed.add(need)
+                    todo.append(need)
+        if any(other in needed for key in needed for other in kits[key].excludes):
+            continue
+        group = frozenset(k for k in needed if part_key in kits[k].armour)
+        if group and group not in sets:
+            sets.append(group)
+    return sets
 
 
 def check_kits(vehicle, kits, classes):
-    """Each kit adds by class: the part's own figures, plus this kit's and every kit it builds on, are one class on each scale."""
+    """Each kit adds by class: whatever kits can be fitted together, each part they touch ends on one class on both scales."""
     problems = []
     parts = {p.key: p for p in vehicle.parts}
+    usable = {}
     for kit in kits.values():
         where = f'{kit.source}: {vehicle.def_name} kit {kit.key}'
-        chain, todo = [], [kit.key]
-        while todo:
-            key = todo.pop()
-            if key in kits and key not in [k.key for k in chain]:
-                chain.append(kits[key])
-                todo.extend(kits[key].prereqs)
         for part_key, (kind, _, _) in kit.armour.items():
-            part = parts.get(part_key)
-            if part is None:
+            if part_key not in parts:
                 problems.append(f'{where}: names part {part_key}, which {vehicle.def_name} does not have')
-                continue
-            if kind != 'Add':
+            elif kind != 'Add':
                 problems.append(f'{where}: armour on {part_key} must be of type Add on a vehicle armoured by class')
+            elif kit.ce_armour is None or part_key not in kit.ce_armour:
+                problems.append(f'{where}: no Combat Extended figures for {part_key}, so it would add {kit.armour[part_key][1]} mm')
+            else:
+                usable.setdefault(part_key, True)
                 continue
-            sharp = part.sharp + sum(k.armour[part_key][1] or 0 for k in chain if part_key in k.armour)
-            blunt = part.blunt + sum(k.armour[part_key][2] or 0 for k in chain if part_key in k.armour)
+            usable[part_key] = False
+        for part_key, (kind, _, _) in (kit.ce_armour or {}).items():
+            if part_key not in kit.armour:
+                problems.append(f'{kit.ce_source}: Combat Extended armour for {part_key}, which the node does not name; on a vehicle '
+                                f'without that part Vehicle Framework\'s unlock throws')
+            elif kind != 'Add':
+                problems.append(f'{kit.ce_source}: Combat Extended armour on {part_key} must be of type Add')
+    for part_key, ok in usable.items():
+        if not ok:
+            continue
+        part = parts[part_key]
+        for group in fittable_sets(kits, part_key):
+            chosen = [kits[k] for k in sorted(group)]
+            where = f'{chosen[0].source}: {vehicle.def_name} kits {" + ".join(k.key for k in chosen)}'
+            sharp = part.sharp + sum(k.armour[part_key][1] or 0 for k in chosen)
+            blunt = part.blunt + sum(k.armour[part_key][2] or 0 for k in chosen)
             game = class_of(classes, sharp, blunt, 'rating')
             if game is None:
-                problems.append(f'{where}: brings {part_key} to {sharp:g}/{blunt:g}, which is no class\'s rating')
+                problems.append(f'{where}: bring {part_key} to {sharp:g}/{blunt:g}, which is no class\'s rating')
                 continue
-            if any(k.ce_armour is None or part_key not in k.ce_armour for k in chain if part_key in k.armour):
-                problems.append(f'{where}: no Combat Extended figures for {part_key}, so it would add {kit.armour[part_key][1]} mm')
-                continue
-            ce_sharp = (part.ce_sharp or 0) + sum(k.ce_armour[part_key][1] or 0 for k in chain if part_key in k.armour)
-            ce_blunt = (part.ce_blunt or 0) + sum(k.ce_armour[part_key][2] or 0 for k in chain if part_key in k.armour)
+            ce_sharp = (part.ce_sharp or 0) + sum(k.ce_armour[part_key][1] or 0 for k in chosen)
+            ce_blunt = (part.ce_blunt or 0) + sum(k.ce_armour[part_key][2] or 0 for k in chosen)
             ce = class_of(classes, ce_sharp, ce_blunt, 'ce')
             if ce is None or ce.name != game.name:
-                problems.append(f'{where}: brings {part_key} to {game.name} in the Def but {ce_sharp:g} mm / {ce_blunt:g} MPa with Combat '
+                problems.append(f'{where}: bring {part_key} to {game.name} in the Def but {ce_sharp:g} mm / {ce_blunt:g} MPa with Combat '
                                 f'Extended; {game.name} is {game.sharp_mm:g} / {game.blunt_mpa:g}')
     return problems
 
@@ -352,7 +396,8 @@ def run(root):
         return [f'{CLASSES_FILE.as_posix()}: no armour classes found'], {}
     vehicles = load_vehicles(root)
     problems = apply_ce_patches(root, vehicles)
-    kits = load_kits(root, {v.tree for v in vehicles.values() if v.tree})
+    kits, stray = load_kits(root, {v.tree for v in vehicles.values() if v.tree})
+    problems += stray
     for vehicle in vehicles.values():
         problems += check_vehicle(vehicle, classes)
         if vehicle.tree and all(p.sharp is not None and p.blunt is not None for p in vehicle.parts):

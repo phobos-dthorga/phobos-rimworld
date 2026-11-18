@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.162.0] - 2026-11-19 - Draft
+
+EMP reaches vehicles under Combat Extended
+
+### Fixed
+
+- **An EMP now reaches vehicles under Combat Extended.** With its armour setting on, as it is by default, Combat Extended takes over a vehicle's damage with its own, which had no EMP step, so an EMP did nothing to any vehicle: no stall, no harm to the electrics, and the trucks' EMP hardening kit made no difference. Vehicle Framework's own EMP step now runs when Combat Extended skipped it. A hit held back on purpose (a hull under water, an aircraft in the air) stays held back.
+- The seen-in-play note for Combat Extended's wider hit box is written even when notes are turned on partway through a session.
+
+### Save compatibility
+
+- Safe with a running save. Nothing new is saved.
+
+### Compatibility and limits
+
+- Temporary: if Combat Extended gives its vehicle damage an EMP step of its own, this would double it, so it is checked at each Combat Extended update.
+- **Not yet tested in game** (test row 225).
+
 ## [0.161.0] - 2026-11-19 - Draft
 
 A helicopter on our own flight lifts and sets down a sling load from a hover

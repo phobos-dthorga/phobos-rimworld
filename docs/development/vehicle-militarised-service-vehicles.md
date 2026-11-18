@@ -275,6 +275,11 @@ Classes are those of [the armour design](vehicle-armour.md): Splinter 5 mm, Rifl
   lowers a part's rating to the rules' military one for that one call of Vehicle Framework's `ApplyEMPDamage`, and puts it back in a
   finalizer (`EmpRule.HardenedSeverity`, tested). Kit weights go in `Phobos_KitKilograms`, which the engine model already weighs. The
   second research tier and the under-fire switch come with the cab, in step 3: neither has anything to unlock or switch before it.
+- **Under Combat Extended an EMP did nothing to any vehicle** (found by the fault-read of 19 Nov 2026): its armour setting replaces
+  Vehicle Framework's damage method with one that has no EMP step, so the kit cost 60 kg for nothing there. Framework 0.162.0 runs
+  Vehicle Framework's own EMP step when Combat Extended skipped it (`EmpUnderCombatExtendedPatch`; temporary-patches.md row 18).
+  `scripts/check-vehicle-armour.py` now also sums kits that can be fitted together on one part, and refuses a Combat Extended kit
+  patch naming a part its node does not.
 
 ### The gun ring and its guns (owner: a choice of mounts, by role; ours, plus optional extras)
 
