@@ -1,0 +1,25 @@
+{
+  "made_by": "assets/phobos-vehicles/draw_osprey_plan.py (Pillow shapes; no generator, no photograph, no other art)",
+  "pixels_a_metre": 103.1,
+  "published": {
+    "length_m": 17.48,
+    "rotor_m": 11.61,
+    "rotor_centres_m": 14.17,
+    "tail_span_m": 5.61
+  },
+  "approximate_for_layout_only": {
+    "fuselage_width_m": 2.3,
+    "sponson_width_m": 4.4,
+    "wing_at_m": 6.9,
+    "wing_chord_m": 2.5,
+    "nacelle_m": [
+      1.5,
+      2.6
+    ],
+    "tail_chord_m": 1.9
+  },
+  "files": {
+    "osprey-plan.png": "8e3b8f86bb1d804b1b45e8b71dd0b5f8a9c6cf9760b7d34d77760a27ada13156",
+    "osprey-plan-check.png": "0ab74dfb6cc551f87ea7bb5d228c57443b0aa87c3cad57a144fb4a04c4bb3ba4"
+  }
+}

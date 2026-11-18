@@ -1,0 +1,49 @@
+{
+  "file": "osprey-trial-seedream-45-1.png",
+  "sha256": "b00ce0dd47146c24bc853b4827568c9f5f40464a52b23505b6df233b8a42215b",
+  "date": "2026-11-18T22:34:03",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. The aircraft's centre line runs straight up the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite of a tiltrotor transport aircraft for a hard-scrabble frontier colony: a twin-engine machine that lifts off like a helicopter and flies like an aeroplane, parked on the ground with its engine nacelles turned upright.\n\nImage 1 is our approved truck from the same maker: match its outline weight, its shading and its finish only. Do NOT copy its shape, its layout or its colours. Image 2 is this aircraft's plan, drawn to scale: keep its layout and its proportions exactly, part for part, and redraw every part in the finish of Image 1 with real detail.\n\nDraw the BARE AIRFRAME only. The two rotors, their blades, every gun, the cargo hooks, the refuelling probe, the nose radar and the rescue hoist are drawn separately as overlays, so leave them out: each nacelle ends in a plain round hub cap with no blades.\n\nSquare canvas. The aircraft is centred and its length fills seven eighths of the canvas height, on a plain pure white background. North facing: the rounded nose and cockpit at the TOP edge, the twin-fin tail at the BOTTOM edge.\n\nIts plan, from top to bottom: a rounded nose with a dark glazed cockpit canopy; a long straight fuselage with a flat roof; a straight, constant-width wing set across the top of the fuselage about two fifths of the way back, with a raised fairing where it crosses; an upright engine nacelle on each wing tip, seen from above as a compact rounded block with a round hub cap in its middle; a wide sponson low on each side of the fuselage beneath and behind the wing, holding the main wheels; a rear fuselage that narrows toward the tail, with the outline of a loading ramp across it; a wide tailplane across the very rear with a thin upright fin at each tip.\n\nMaterials: pale grey airframe panels, slightly darker grey walkway strips along the wing and the roof, darker grey nacelles with one muted orange band around each, dark blue-grey cockpit glazing, small panel lines, hatches and rivet rows.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, many small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo rotors, rotor blades, propellers, guns, missiles, hooks, probes, antennas, people, cargo, dust, dirt, damage, text, letters, numbers, logos, flags, roundels, dials, screens or lamps. No floor, ground, runway, shadow outside the aircraft, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    4096,
+    4096
+  ],
+  "request_file": "assets/phobos-vehicles/requests/osprey-trial.json",
+  "generator": "ByteDance Seedream 4.5, with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/bytedance/seedream/v4.5/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: ByteDance Seedream 4.5, with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/bytedance/seedream/v4.5/edit",
+  "request_id": "01a1ee6e-7cde-7fb1-b723-e2ddd587952c",
+  "usage": null,
+  "cost_usd": 0.04,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    4096,
+    4096
+  ],
+  "asked_image_size": {
+    "width": 4096,
+    "height": 4096
+  },
+  "sent_seed": 1,
+  "returned_format": "jpg",
+  "original_file": "osprey-trial-seedream-45-1.original.jpg",
+  "original_sha256": "9b75e29c4e3a436f7df72632636dce40c7ce8121ec5b89c9891fe0e0a0f372ff",
+  "seconds": 64.8,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+      "sha256": "3c7b752f08adb7eeb84a1f161cdec1d8686765dd289322165fe54fa72c7c07ce",
+      "role": "approved vehicle of the same maker: match its outline weight, shading and finish only; do not copy its shape, layout or colours"
+    },
+    {
+      "image": "assets/phobos-vehicles/references/osprey-plan.png",
+      "sha256": "8e3b8f86bb1d804b1b45e8b71dd0b5f8a9c6cf9760b7d34d77760a27ada13156",
+      "role": "this aircraft's plan, drawn by our own script from published dimensions: keep its layout and proportions exactly"
+    }
+  ]
+}
