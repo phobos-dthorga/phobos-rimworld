@@ -1,6 +1,8 @@
 # The V-22 Osprey's body: a trial across four services (18 Nov 2026)
 
-**Status (18 Nov 2026):** four pictures made, one from each service; the owner's pick is pending. Nothing is exported or shipped.
+**Status (18 Nov 2026):** four pictures made, one from each service. **The owner picked Nano Banana Pro**, with Nano Banana 2 "a very
+close call". The pick is on `art-masters` (`vehicles/osprey/`), the other three and the plan drawing on `art-references`
+(`generated/vehicles/osprey/`). Nothing is exported or shipped.
 
 The owner asked for the Osprey's body to come from another service than ChatGPT for its look ([the Osprey's record](../../../docs/development/vehicle-osprey.md#size)),
 so the same brief went to four models through fal.ai (the `fal` engine, [its rules](../../../docs/development/paid-image-generation-rules.md#running-the-fal-engine)).
@@ -27,9 +29,17 @@ first run was US$1.80 and for the re-run US$0.05.
 **Nano Banana Pro**, as the pilot: it follows the brief, matches our finish and cuts out cleanly, at a mid price. FLUX 3 kept the
 shape best but added the least; Nano Banana 2 drew the wrong nacelles; Seedream ignored the exclusions.
 
-## Next, after the owner's pick
+## The owner's pick (18 Nov 2026)
 
-1. The pick goes to `art-masters` and the other three to `art-references` with `scripts/art/archive_branch.py`; none is truly fugly.
-2. The background AI and Segment Anything on the pick, on the owner's go with the game closed: the parts for damage looks, paint
+**Google Nano Banana Pro**, the agent's recommendation too: "Google Nano Banana Pro is my choice too but the Google Nano Banana 2 is a
+very close call." Archived the same evening with `scripts/art/archive_branch.py`: the pick to `art-masters`, the rest to
+`art-references`; none was truly fugly. Nano Banana 2's flat-lying nacelles are kept in mind as a reference for the forward
+nacelle pictures the tilt needs ([the Osprey's record](../../../docs/development/vehicle-osprey.md#tilting-nacelles-18-nov-2026)):
+it is our own picture now, so it may be sent as one.
+
+## Next
+
+1. The background AI and Segment Anything on the pick, on the owner's go with the game closed: the parts for damage looks, paint
    regions and the rotor hubs.
-3. The overlays, as reference edits of the pick on the same service.
+2. The overlays, and the nacelle pictures at set angles, as reference edits of the pick on the same service: a dry run and the
+   owner's spending limit first.

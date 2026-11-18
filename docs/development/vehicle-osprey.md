@@ -327,7 +327,7 @@ flies as an aeroplane, at 17.5.
 - **The parts cut out by Segment Anything** (the owner's rule of 18 Nov 2026): each nacelle, the cockpit, the cabin, the wings
   and the tail, for their damage looks and paint regions, and the two hubs as the anchors the rotors turn about.
 
-### Tilting nacelles (agent proposal, 18 Nov 2026)
+### Tilting nacelles (18 Nov 2026)
 
 The owner asked for the nacelles to be seen tilting forward, by a workaround if need be, "as long as it's not a hack of a very
 dark arts kind".
@@ -359,14 +359,16 @@ renderer of ours draws each nacelle and its rotor:
 | Leaving the map | Fully forward on the way to the edge; the real conversion takes "as little as 16 seconds" **[P, guide]** |
 | Arriving | Comes in forward and turns upright before it can hover |
 
-**What it lets, stops and changes (a proposal for the owner):**
+**What it lets, stops and changes:**
 
 | Lets the player | Stops them | Changes how they play |
 | --- | --- | --- |
 | See at a glance whether the Osprey can stop and hover now | Stopping in a hover at once from fast forward flight: it must turn its nacelles upright first, a few seconds | Approaches are planned; the arrival over a hot landing zone takes a moment |
 
-**Open:** whether the conversion time is a rule (it slows the change from fast flight to hover) or only a look. Not
-built; the nacelle pictures are added to the art batch only if the owner wants the tilt.
+**Decided (owner, 18 Nov 2026): the tilt is wanted, and converting takes real time in play**, so an Osprey coming in fast cannot
+stop and hover until its nacelles are upright again. The angle is part of the flight state our own flight saves; the nacelle
+pictures at set angles join the first batch's art. How long a full conversion takes in game is authored when built, in
+proportion to the real "as little as 16 seconds". Not built.
 
 ## Sound
 
@@ -383,7 +385,7 @@ What is built before the owner's first test:
 | Flight | The cruising height, the hover half, leaving and arriving, leaving the ground rolling (our own flight's slices 1 to 4) |
 | Armour | The classes, the Combat Extended patch file, the width extension, the gate check |
 | The Osprey | Its Def, engines, parts, bill, research, the batch-1 upgrades, both ramp guns and the belly gun, its avionics fit |
-| Art and sound | The body, every overlay, the mask, the icons; its sounds |
+| Art and sound | The body (the owner's pick of 18 Nov 2026: Nano Banana Pro through fal), every overlay, the nacelles at set angles and their renderer, the mask, the icons; its sounds |
 | Also | The stock-helicopters setting; a fault-read by a separate reader before the install; seen-in-play notes and verbose logging throughout |
 
 **Second batch:** circling; ropes and the hoist; the tanker kit and the probe; the crewless fit; a raider's flight AI.
