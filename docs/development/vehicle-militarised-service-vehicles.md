@@ -1,6 +1,6 @@
 # Militarised service vehicles: research and design (19 Nov 2026)
 
-**Status (19 Nov 2026):** a design record. No part of it is in code, no picture is drawn, and nothing here is tested in game. The owner answered fourteen of its questions the same day (below); one table awaits the owner's adjustment.
+**Status (19 Nov 2026):** a design record. No part of it is in code, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
 
 The owner's request, 19 Nov 2026, with the answer that enemies end a [gathering run](vehicle-gathering-runs.md): "perhaps we could
 offer upgrades where we militarize some or all of our service vehicles? Either with advantages only or some disadvantages as a result
@@ -52,7 +52,7 @@ The first six shaped the record; the last eight answered its questions.
 | Other factions' trucks | **Later, behind a setting that starts off**, after the player's side is tested |
 | EMP | **Hardening is its own kit**, with its own cost and weight, whether or not the truck carries a gun |
 | A gun on a crewless truck | **Yes, a remote station**: a powered mount that fires with nobody aboard |
-| Which guns on which truck | **By role**; the agent's table below is for the owner to adjust |
+| Which guns on which truck | **By role**, then each truck confirmed on its own card: the table below |
 | A stranded vehicle whose gun works | **Its crew stays and fights, raiders' too** |
 | The order to build | **Protection first** |
 
@@ -297,7 +297,7 @@ Classes are those of [the armour design](vehicle-armour.md): Splinter 5 mm, Rifl
   (`PhobosTopUpDef`) are the other route; which is better is for the build to read.
 - **The Kelly's mast and the Talus's grab** share the roof line with the ring; the art plan must place them before a picture is made.
 
-**Guns by role** (owner: by role; **this table is the agent's proposal, for the owner to adjust**):
+**Guns by role** (owner, 19 Nov 2026: by role, then confirmed truck by truck on cards, as the agent proposed; the reasons are the agent's):
 
 | Truck | Machine gun | Heavy machine gun | Grenade launcher | Remote station | Why [A] |
 | --- | --- | --- | --- | --- | --- |
@@ -476,8 +476,8 @@ of realistic to do so, down the line. It'd be great for our generator vehicle." 
 
 ## Questions for the owner
 
-**All eight were answered by the owner on 19 Nov 2026 (cards).** One thing is left: the guns-by-role table above is the agent's
-proposal and waits for the owner's adjustment.
+**All eight were answered by the owner on 19 Nov 2026 (cards), and the guns-by-role table was then confirmed truck by truck.**
+Nothing is open; the figures marked [A] remain the owner's to revise.
 
 | # | Question | Answer |
 | --- | --- | --- |
@@ -486,7 +486,7 @@ proposal and waits for the owner's adjustment.
 | 3 | May other factions' trucks carry these kits and guns, behind a setting that starts off? | **Decided: later, behind a setting that starts off** |
 | 4 | A gun added by upgrade does not make a truck "military" for EMP today. Should it? | **Decided: no; hardening is its own kit** (against the agent's lean) |
 | 5 | The crewless fit (MV4) is unarmed. May a crewless truck carry a gun? | **Decided: yes, a remote station** (against the agent's lean) |
-| 6 | Which mounts on which truck? All three on all five, or lighter guns only on the Datum (4.5 t)? | **Decided: by role**; the agent's table awaits adjustment |
+| 6 | Which mounts on which truck? All three on all five, or lighter guns only on the Datum (4.5 t)? | **Decided: by role**, each truck confirmed: the table above |
 | 7 | KO4: does a crew stay aboard a truck that cannot move while its gun still works? | **Decided: any faction's crew stays and fights** (beyond the agent's lean) |
 | 8 | The order to build | **Decided: protection first**, as below |
 
@@ -504,8 +504,8 @@ four trucks, by role; (8) the stranded-crew rule; (9) other factions, behind the
 - **Owner (earlier, kept):** Combat Extended first with Vehicle Framework the fallback (18 Nov); armed as the real machine (18 Nov);
   no drag (13 Nov); passive gear costs materials and weight only (13 Nov); mods need active authors (22 Oct); no stand-in vehicle art.
 - **Agent:** every figure in the kit and gun tables; the classes each kit reaches; the weight sum and the cab's 14 square metres;
-  guns swung by hand; the static smoke launcher as the lead route; the mount verdicts by mod; the guns-by-role table; the remote
-  station's and the hardening kit's figures; the ammunition locker.
+  guns swung by hand; the static smoke launcher as the lead route; the mount verdicts by mod; the reasons in the guns-by-role table
+  (the table itself is the owner's); the remote station's and the hardening kit's figures; the ammunition locker.
 
 ## Sources
 
