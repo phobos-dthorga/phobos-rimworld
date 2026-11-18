@@ -8,11 +8,15 @@
   <Phobos.VehicleSystems.PhobosLandingSurfaceRulesDef>
     <defName>PhobosLandingSurfaceRules</defName>
 
-    <!-- Loose, dry soil or sand under it: each engine loses half a percent of its health at each lift-off or touch-down, so about a hundred
-         dusty trips (a lift-off and a touch-down each) take an engine from new to one health, never broken, unless it is repaired. The real basis: an Osprey's engine stalled on dust at
+    <!-- Loose, dry soil or sand under it: each engine loses half a percent of its health at each lift-off or touch-down, so about seventy
+         dusty trips (a lift-off and a touch-down each) take an engine from new to the floor below, unless it is repaired. The real basis: an Osprey's engine stalled on dust at
          Bellows, Hawaii, in 2015, and its engines lasted under 400 hours in service against the design's far longer life. Rolling on or off
          throws up half the dust (crews in brown-out land rolling where they can). An inlet barrier keeps four fifths of it out. -->
     <engineWearPerEvent>0.005</engineWearPerEvent>
+    <!-- Dust never takes an engine below 30% of its health (Framework 0.163.0, fault-read L2 of 19 Nov 2026): the engine model counts an
+         engine out at 20%, and both engines wear together, so without a floor a lift-off that was allowed could lose both a second later.
+         Seventy dusty trips take a new engine to the floor; there it gives much less power until it is repaired. -->
+    <engineWearFloor>0.3</engineWearFloor>
     <rollingFactor>0.5</rollingFactor>
     <barrierStops>0.8</barrierStops>
 

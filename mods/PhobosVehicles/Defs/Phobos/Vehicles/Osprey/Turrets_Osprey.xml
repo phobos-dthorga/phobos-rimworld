@@ -2,8 +2,11 @@
 <Defs>
   <!-- The V-22 Osprey's guns, slice 4 (D'thorga Vehicles 0.74.0, Framework 0.152.0; docs/development/vehicle-osprey.md, "Guns"). Fitted by
        the upgrade tree, never standing on the Def. Figures [S] sourced, [A] authored. Without Combat Extended each fires a base-game bullet
-       of its calibre's size and is fed from steel, as Vehicle Framework's own generic ammunition is [A]; with it, Mods/CombatExtended/Patches
-       gives each its real cartridge. Every Def sets its Combat Extended recoil outright (vehicle-armour.md: it defaults to -1 and is always
+       of its calibre's size and is fed from steel, as Vehicle Framework's own generic ammunition is: a twentieth of a steel for a 7.62 mm
+       round and a quarter for a .50 [A: about 25 g and 115 g of cartridge against steel's half kilogram], so a 200-round belt is 10 or 50
+       steel and the belly gun's 1,500 rounds 75 (it was one steel a round until 0.82.0, fault-read W5). With Combat Extended's ammunition
+       system on, Combat Extended itself gives each its real cartridges from the ammunition set named below, one a round; our patch in
+       Mods/CombatExtended/Patches gives the bullet, the reach and the sound. Every Def sets its Combat Extended recoil outright (vehicle-armour.md: it defaults to -1 and is always
        added). The fire-mode pictures are ours: Vehicle Framework no longer loads its own on RimWorld 1.7. Not yet tested in game. -->
 
   <!-- The M240 on the ramp [S]: 7.62x51 mm, 650 to 950 rounds a minute [S]. 5 ticks between shots is 720 a minute. A belt of 200 [A]. -->
@@ -20,7 +23,7 @@
     <matchParentColor>false</matchParentColor>
     <gizmoIconTexPath>Phobos/Vehicles/Osprey/Upgrades/RampGun762</gizmoIconTexPath>
     <magazineCapacity>200</magazineCapacity>
-    <chargePerAmmoCount>1</chargePerAmmoCount>
+    <chargePerAmmoCount>0.05</chargePerAmmoCount>
     <genericAmmo>true</genericAmmo>
     <ammunition>
       <thingDefs>
@@ -85,7 +88,7 @@
     <matchParentColor>false</matchParentColor>
     <gizmoIconTexPath>Phobos/Vehicles/Osprey/Upgrades/RampGun50</gizmoIconTexPath>
     <magazineCapacity>200</magazineCapacity>
-    <chargePerAmmoCount>1</chargePerAmmoCount>
+    <chargePerAmmoCount>0.25</chargePerAmmoCount>
     <genericAmmo>true</genericAmmo>
     <ammunition>
       <thingDefs>
@@ -144,7 +147,7 @@
     <turretType>Rotatable</turretType>
     <gizmoIconTexPath>Things/Item/Equipment/WeaponRanged/Minigun</gizmoIconTexPath>
     <magazineCapacity>1500</magazineCapacity>
-    <chargePerAmmoCount>1</chargePerAmmoCount>
+    <chargePerAmmoCount>0.05</chargePerAmmoCount>
     <genericAmmo>true</genericAmmo>
     <ammunition>
       <thingDefs>

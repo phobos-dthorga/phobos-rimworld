@@ -21,10 +21,11 @@ public static class LandingSurface
     static bool faulted;
     static readonly List<IntVec3> dryCells = new();
 
-    /// <summary>The aircraft is leaving the ground, straight up or (<paramref name="rolling"/>) along a strip.</summary>
+    /// <summary>The aircraft is leaving the ground, straight up or (<paramref name="rolling"/>) along a strip. A roll is judged as it starts,
+    /// so one that is then stopped has still raised its dust.</summary>
     public static void OnTakeOff(VehiclePawn vehicle, bool rolling = false) => Judge(vehicle, rolling, "take-off");
 
-    /// <summary>The aircraft has touched down, straight down or (<paramref name="rolling"/>) at the start of a roll.</summary>
+    /// <summary>The aircraft has touched down, straight down or (<paramref name="rolling"/>) at the end of its landing roll, where it stopped.</summary>
     public static void OnTouchDown(VehiclePawn vehicle, bool rolling) => Judge(vehicle, rolling, "touch-down");
 
     static void Judge(VehiclePawn vehicle, bool rolling, string when)
@@ -73,7 +74,8 @@ public static class LandingSurface
         bool barrier = vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_InletBarrierLoss) > 0f;
         double share = LandingSurfaceRule.EngineWearShare(looseShare, rolling, barrier, rules.engineWearPerEvent, rules.rollingFactor, rules.barrierStops);
         if (share <= 0) return;
-        foreach (string role in Powertrain.EngineRolesOf(comp)) comp.WearRole(role, 0f, (float)share, neverBreaks: true);
+        // Never below the rules' floor, which stands above the share at which the engine model counts an engine out (fault-read L2).
+        foreach (string role in Powertrain.EngineRolesOf(comp)) comp.WearRole(role, 0f, (float)share, rules.engineWearFloor);
         string variant = barrier ? "barrier" : "bare";
         if (VehicleSystemsMod.Logger.DebugEnabled)
             VehicleSystemsMod.Logger.Debug(vehicle.LabelShort + " " + when + " over " + looseShare.ToString("P0") + " loose ground" + (rolling ? ", rolling" : "")

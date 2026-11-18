@@ -11,6 +11,9 @@ public class PhobosLandingSurfaceRulesDef : PhobosRulesDef
 {
     /// <summary>The share of each engine's full health one lift-off or touch-down over wholly loose, dry ground costs.</summary>
     public float engineWearPerEvent = 0.005f;
+    /// <summary>Dust never wears an engine below this share of its full health. Above the 20% at which the engine model counts an engine
+    /// out, so dust alone grounds nothing: a badly worn engine gives less power until it is repaired.</summary>
+    public float engineWearFloor = 0.3f;
     /// <summary>The factor on that wear when rolling on or off: less dust is thrown up ahead of the intakes.</summary>
     public float rollingFactor = 0.5f;
     /// <summary>The share of the dust an inlet barrier keeps out.</summary>

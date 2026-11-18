@@ -79,4 +79,15 @@ public class TiltrotorRuleTests
         Assert.Equal(320f, TiltrotorRule.SpinAngle(1, 40, 0, true), 3);
         Assert.Equal(60f, TiltrotorRule.SpinAngle(0, 40, 60, true), 3);
     }
+
+    [Fact]
+    public void TheSpinStaysSmoothAfterLongPlay()
+    {
+        // 18 million ticks is 300 in-game days: as a float product, successive ticks landed on the same angle or jumped 32 degrees.
+        const int late = 18_000_000;
+        float one = TiltrotorRule.SpinAngle(late, 23f, 0f, false);
+        float two = TiltrotorRule.SpinAngle(late + 1, 23f, 0f, false);
+        float step = (two - one + 360f) % 360f;
+        Assert.InRange(step, 22.9f, 23.1f);
+    }
 }

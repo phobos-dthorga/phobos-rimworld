@@ -254,7 +254,7 @@
   <ResearchProjectDef ParentName="PhobosResearchTruckBase">
     <defName>PhobosResearch_OspreyTerrainRadar</defName>
     <label>terrain-following radar</label>
-    <description>A radar that lets a low-flying aircraft hug the ground blind, at night and in weather.</description>
+    <description>A radar in the nose that maps the ground ahead of a low-flying aircraft.</description>
     <baseCost>2000</baseCost>
     <researchViewX>5</researchViewX>
     <researchViewY>2.0</researchViewY>

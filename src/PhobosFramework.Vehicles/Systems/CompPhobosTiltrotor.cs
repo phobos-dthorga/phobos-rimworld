@@ -67,13 +67,22 @@ public class CompProperties_PhobosTiltrotor : VehicleCompProperties
 /// landing, which draw the vehicle the same way. The nacelles are the nearest of a few pictures at set angles, in the vehicle's paint;
 /// each rotor is still blades with the engines off and a spinning disc with them on, drawn shortened along the aircraft's length by the
 /// cosine of the tilt and moved forward as the nacelle tips (TiltrotorRule). On the map it leans forward with our own flight's speed
-/// (Framework 0.148.0); it tips forward through Vehicle Framework's climb away and back on its approach. Presentation only: it reads the
-/// vehicle and changes nothing, and saves nothing.
+/// (Framework 0.148.0): half-way while it flies about, fully while it leaves for the map's edge or comes in from it (the flight's own
+/// figure, since the fault-read of 19 Nov 2026). Where an aircraft still goes through Vehicle Framework's own take-off and landing it
+/// tips with those. Presentation only: it reads the vehicle and changes nothing, and saves nothing.
+/// <para>Fault-read fixes of 19 Nov 2026: the spinning disc and the damage marks are see-through pictures and are drawn with the
+/// transparent shader (Cutout threw away all of the disc but its hub, T1); the nacelles' paint masks are named as Vehicle Framework
+/// names them, with an "m", and are asked for by that name (the game's own loader looks for "_m", T2); the renderer is added after a
+/// load as well as at spawn, so an aircraft loaded while off the map draws with its rotors when Vehicle Framework draws it (T4).</para>
 /// </summary>
 public class CompPhobosTiltrotor : VehicleComp
 {
+    /// <summary>Vehicle Framework's suffix for a paint mask beside a picture.</summary>
+    const string MaskSuffix = "m";
+
     Renderer? renderer;
     readonly Dictionary<string, Graphic> graphics = new();
+    readonly Dictionary<string, Graphic> painted = new();
     readonly Dictionary<string, Vector2> sizes = new();
     Color paintOne;
     Color paintTwo;
@@ -85,14 +94,28 @@ public class CompPhobosTiltrotor : VehicleComp
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
+        AddRenderer();
+    }
+
+    /// <summary>After a load Vehicle Framework has made the vehicle a new draw tracker, spawned or not, and then calls this.</summary>
+    public override void PostLoad()
+    {
+        base.PostLoad();
+        AddRenderer();
+    }
+
+    /// <summary>Once for this comp, which lives as long as its vehicle's draw tracker does: its take-off and landing draw through it too.</summary>
+    void AddRenderer()
+    {
         if (renderer != null || Vehicle.DrawTracker == null) return;
         renderer = new Renderer(this);
-        Vehicle.DrawTracker.AddRenderer(renderer);   // Kept for the vehicle's life: its take-off and landing draw through it too.
+        Vehicle.DrawTracker.AddRenderer(renderer);
     }
 
     /// <summary>
-    /// The nacelles' tilt now. On the map, our own flight's forward lean (Framework 0.147.0: up to half-way forward as it speeds up over
-    /// the map, upright on the ground and in a hover); through Vehicle Framework's VTOL take-off or landing, by how far along it is.
+    /// The nacelles' tilt now. On the map, our own flight's forward lean (upright on the ground and in a hover, up to half-way forward as
+    /// it speeds up over the map, fully forward on its way to or from the map's edge); through Vehicle Framework's VTOL take-off or
+    /// landing, by how far along it is.
     /// </summary>
     float Tilt()
     {
@@ -114,10 +137,7 @@ public class CompPhobosTiltrotor : VehicleComp
         {
             paintOne = Vehicle.DrawColor;
             paintTwo = Vehicle.DrawColorTwo;
-            foreach (string key in new List<string>(graphics.Keys))
-            {
-                if (key.StartsWith("paint:")) graphics.Remove(key);
-            }
+            painted.Clear();
         }
         float tilt = Tilt();
         int picture = TiltrotorRule.NearestPicture(tilt, Props.angles);
@@ -131,11 +151,11 @@ public class CompPhobosTiltrotor : VehicleComp
         int ticks = Find.TickManager?.TicksGame ?? 0;
         if (float.IsNaN(reachCells)) reachCells = Reach();
         bool noted = false;
+        string nacelle = Props.nacellePath + angle + suffix;
         foreach (TiltrotorSide side in Props.sides)
         {
             Mesh mesh = side.mirrored ? MeshPool.plane10Flip : MeshPool.plane10;
             // The nacelle: its picture's bottom edge on the pivot, so it grows forward as it tips.
-            string nacelle = Props.nacellePath + angle + suffix;
             Graphic nacelleGraphic = Painted(nacelle);
             Vector2 nacelleSize = SizeOf(nacelle, nacelleGraphic);
             Vector3 nacelleAt = transform.position + turn * new Vector3(side.pivot.x, 0f, side.pivot.y + nacelleSize.y / 2f);
@@ -144,13 +164,14 @@ public class CompPhobosTiltrotor : VehicleComp
             if (Vehicle.statHandler?.GetComponent(side.part) is { } part && part.HealthPercent < Props.damageBelowHealth)
             {
                 string damage = Props.nacellePath + angle + "Damage" + side.damageSide;
-                Graphic damageGraphic = Bare(damage);
+                Graphic damageGraphic = Bare(damage, seeThrough: true);
                 Vector3 damageAt = nacelleAt;
                 damageAt.y = baseY + Altitudes.AltInc * 2.5f;
                 Graphics.DrawMesh(mesh, Matrix4x4.TRS(damageAt, turn, new Vector3(nacelleSize.x, 1f, nacelleSize.y)), damageGraphic.MatSingle, 0);
             }
             // The rotor: on the hub upright, moving forward as the nacelle tips, its disc shortened along the length by the cosine.
-            Graphic rotorGraphic = Bare(running ? Props.rotorSpinPath : Props.rotorPath);
+            // The spinning disc is a see-through blur; the still blades are solid.
+            Graphic rotorGraphic = running ? Bare(Props.rotorSpinPath, seeThrough: true) : Bare(Props.rotorPath);
             float forward = TiltrotorRule.RotorForward(tilt, reachCells);
             Vector3 rotorAt = transform.position + turn * new Vector3(side.hub.x, 0f, side.hub.y + forward);
             rotorAt.y = baseY + Altitudes.AltInc * 3f;
@@ -192,22 +213,23 @@ public class CompPhobosTiltrotor : VehicleComp
         return "";
     }
 
+    /// <summary>A picture in the vehicle's two paints, by the mask beside it.</summary>
     Graphic Painted(string path)
     {
-        string key = "paint:" + path;
-        if (!graphics.TryGetValue(key, out Graphic? graphic))
+        if (!painted.TryGetValue(path, out Graphic? graphic))
         {
-            graphic = GraphicDatabase.Get<Graphic_Single>(path, ShaderDatabase.CutoutComplex, Vector2.one, paintOne, paintTwo);
-            graphics[key] = graphic;
+            graphic = GraphicDatabase.Get<Graphic_Single>(path, ShaderDatabase.CutoutComplex, Vector2.one, paintOne, paintTwo, null, path + MaskSuffix);
+            painted[path] = graphic;
         }
         return graphic;
     }
 
-    Graphic Bare(string path)
+    /// <summary>A picture as drawn, unpainted: solid, or see-through where its own alpha is meant to show what is beneath.</summary>
+    Graphic Bare(string path, bool seeThrough = false)
     {
         if (!graphics.TryGetValue(path, out Graphic? graphic))
         {
-            graphic = GraphicDatabase.Get<Graphic_Single>(path, ShaderDatabase.Cutout, Vector2.one, Color.white);
+            graphic = GraphicDatabase.Get<Graphic_Single>(path, seeThrough ? ShaderDatabase.Transparent : ShaderDatabase.Cutout, Vector2.one, Color.white);
             graphics[path] = graphic;
         }
         return graphic;

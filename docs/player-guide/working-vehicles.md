@@ -455,8 +455,8 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
 - **Circle here** (not yet tested in game): pick a spot and it flies round it until you give another order. The button beside it,
   **Circles: wide, clockwise**, picks tight, wide or very wide (12, 19 or 30 cells out) and the way round.
 - **Where it lands matters** (not yet tested in game). Each time it lifts off or touches down on **loose, dry soil or sand**, the dust
-  wears its engines a little: about a hundred such trips wear an engine out unless it is repaired. Landing or leaving **rolling**
-  halves it, and the **inlet barrier** stops most of it. Over **dry grass or bushes** its exhaust may start a small fire, more likely in
+  wears its engines a little: about seventy such trips wear a new engine right down unless it is repaired. Dust alone never stops an
+  engine, but a worn one gives much less power. Landing or leaving **rolling** halves it, and the **inlet barrier** stops most of it. Over **dry grass or bushes** its exhaust may start a small fire, more likely in
   a heat wave. **Floors, rock, wet ground and snow cost nothing: build it a landing pad.**
 - **If it cannot stay up** (out of fuel, or an engine lost while heavily loaded), it comes down where it is: hard over open ground,
   damaging its undercarriage and shaking its people about; wrecked over a building, a roof, another vehicle or deep water. Watch its fuel.
@@ -487,9 +487,10 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   - **Ramp gun, 7.62 mm or .50** (one or the other: there is one mount). The **crew chief** works it, so put someone in that seat. It
     points behind the aircraft and swings 60 degrees to each side, by hand, so it works without power. The .50 swings more slowly and
     hits harder and further.
-  - **Belly gun:** a minigun under the belly that **fires all round by itself**, at a low or a high rate. It needs power: with a dead
-    battery, engines off and nobody aboard, it stops until it has power again. It weighs 360 kg, carried as cargo.
-  - **Load them:** with Combat Extended, 7.62x51 mm NATO or .50 BMG rounds; without it, steel. A gun stops if the aft cabin is
+  - **Belly gun:** a minigun under the belly that **fires all round by itself**, at a low or a high rate; its automatic aim is switched
+    on as it is fitted, and its button switches it off. It needs power: with a dead battery, engines off and nobody aboard, it stops
+    until it has power again. It weighs 360 kg, carried as cargo.
+  - **Load them:** with Combat Extended's ammunition on, 7.62x51 mm NATO or .50 BMG rounds; otherwise steel, a little for each belt. A gun stops if the aft cabin is
     wrecked, and works more slowly as it is damaged.
 - **Armoured part by part** (not yet tested in game): skin, thin sheet metal, everywhere but its engines and proprotor gearboxes, which
   stop shell fragments and pistol bullets. The armour kit makes the cockpit and both cabins rifle-proof. The **Health** tab names each

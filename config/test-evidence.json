@@ -172,15 +172,15 @@
       "a blocked landing roll stops short": [{"key": "aircraft.flight-landed", "variant": "rolled-short"}]
     }},
     "220": {"parts": {
-      "the armour kit's weight and armour are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "ArmourKit", "detail": "fitted"}],
-      "the inlet barrier's power loss is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "InletBarrier", "detail": "fitted"}],
+      "the armour kit's weight and armour are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "ArmourKit", "detail": "*: fitted"}],
+      "the inlet barrier's power loss is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "InletBarrier", "detail": "*: fitted"}],
       "the infrared jammer covers it from an air defence": ["aircraft.jammer-cover"]
     }},
     "221": {"parts": {
       "the 7.62 mm ramp gun fires": [{"key": "vehicles.weapon-fired", "variant": "RampM240"}],
       "the .50 ramp gun fires": [{"key": "vehicles.weapon-fired", "variant": "RampM2HB"}],
       "the crew chief swings the ramp gun by hand": [{"key": "vehicles.systems-tab.hand-swung-weapon", "detail": "*RampM*"}],
-      "the belly gun's weight is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "BellyGun", "detail": "fitted"}],
+      "the belly gun's weight is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "BellyGun", "detail": "*: fitted"}],
       "the belly gun fires by itself": [{"key": "vehicles.weapon-fired", "variant": "BellyGun"}],
       "the belly gun stops without power": [{"key": "vehicles.autonomous-turret-no-power", "detail": "*BellyGun"}]
     }},
@@ -199,11 +199,11 @@
       "Combat Extended shoots at the Osprey's full width": [{"key": "vehicles.armour-hit-width", "variant": "Phobos_Osprey", "expect": {"width": "5..5"}}]
     }},
     "224": {"parts": {
-      "the engine and tank guards are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosEngineGuards", "detail": "fitted"}],
-      "the run-flat tyres are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosRunFlatTyres", "detail": "fitted"}]
+      "the engine and tank guards are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosEngineGuards", "detail": "*: fitted"}],
+      "the run-flat tyres are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosRunFlatTyres", "detail": "*: fitted"}]
     }},
     "225": {"parts": {
-      "the EMP hardening is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosEmpHardening", "detail": "fitted"}],
+      "the EMP hardening is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosEmpHardening", "detail": "*: fitted"}],
       "an EMP meets the hardened electrics": ["vehicles.emp-hardened"],
       "an EMP reaches a vehicle under Combat Extended": ["vehicles.emp-under-combat-extended"]
     }},

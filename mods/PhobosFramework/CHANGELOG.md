@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.163.0] - 2026-11-19 - Draft
+
+A tiltrotor's rotors show when they spin; dust never puts an engine out
+
+### Added
+
+- **A gun that fires by itself can be switched on as it is fitted.** An upgrade that adds a weapon no seat works may now turn its automatic aim on at fitting; the player can turn it off again. Used by the Osprey's belly gun.
+
+### Fixed
+
+- **A tiltrotor's spinning rotors are drawn.** The spinning disc is a see-through picture and was drawn in a way that threw away everything under half solid, so the rotors would have vanished, all but the hub, whenever the engines ran. Damage marks on the nacelles are drawn the same way now.
+- **A tiltrotor's nacelles take the vehicle's paint by their masks.** The masks were never found, so the nacelles were tinted all over.
+- **A tiltrotor loaded from a save while between places keeps its rotors** when it is next drawn.
+- **The spinning disc turns smoothly after long play.** After about 300 in-game days it would have turned in jumps.
+- **Dust never wears an engine below 30% of its health.** It stopped at one health, far under the point where an engine counts as out, so dust alone could have put both engines out together just after a lift-off that was allowed. A badly worn engine now gives much less power until it is repaired, and no more.
+- **Six seen-in-play notes for fitted upgrades can now be matched** by the test list.
+
+### Changed
+
+- **A take-off roll is judged for dust as it starts**, as the code always did; the record said a stopped roll was not judged.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Found by a fault-read of 19 November 2026, by reading the code. The dust floor is authored. Rotors and the inlet barrier are still not drawn in the paint and upgrade windows, on a blueprint or on the world map.
+
 ## [0.162.0] - 2026-11-19 - Draft
 
 EMP reaches vehicles under Combat Extended

@@ -155,7 +155,7 @@
       <key>TerrainRadar</key>
       <label>Terrain-following radar</label>
       <displayLabel>true</displayLabel>
-      <description>A radar in a fuller nose that lets the pilots fly low and blind, at night and in weather. It draws power while the engines run.</description>
+      <description>A terrain-following radar in a fuller nose. It draws power while the engines run.</description>
       <icon>Phobos/Vehicles/Osprey/Upgrades/TerrainRadar</icon>
       <work>3500</work>
       <gridCoordinate>(3, 10)</gridCoordinate>
@@ -192,12 +192,12 @@
     </li>
     <li>
       <!-- "An inlet barrier system to reduce the power loss from the engine ingesting dust and sand particles" [S]; it costs 3% of the
-           power [A]. Its sand-wear saving waits for the landing-ground rule (the record's "What it lands on"). The nacelles show the filter,
-           drawn by the tiltrotor renderer. -->
+           power [A], and keeps four fifths of the dust out of the engines where it lands on loose ground (Framework 0.159.0, the record's
+           "What it lands on"). The nacelles show the filter, drawn by the tiltrotor renderer. -->
       <key>InletBarrier</key>
       <label>Inlet barrier</label>
       <displayLabel>true</displayLabel>
-      <description>Filters over the engine intakes that keep sand and dust out, for a little engine power.</description>
+      <description>Filters over the engine intakes that keep most of the sand and dust out when it lands on loose ground, for a little engine power.</description>
       <icon>Phobos/Vehicles/Osprey/Upgrades/InletBarrier</icon>
       <work>2500</work>
       <gridCoordinate>(10, 10)</gridCoordinate>
@@ -225,7 +225,9 @@
       <!-- The guns, slice 4 (D'thorga Vehicles 0.74.0; Turrets_Osprey.xml). The ramp has one mount, so the two ramp guns are either/or [S:
            "M240 machine gun or .50 in (12.7 mm) M2 Browning machine gun on ramp, removable"]. The crew chief works it, swinging it by hand
            (its key names the gun, which D'thorga Framework's weapon rules read as hand-swung); it faces aft, 60 degrees each side [A]. Its
-           weight is small beside the cabin's load and is not counted [A]. -->
+           weight is small beside the cabin's load and is not counted [A]. The seat edit comes before the gun, so the gun finds its seat
+           when it is fitted, and makes the seat needed to work it: without that an empty seat counted as crewed and the gun fired with
+           nobody aboard (fault-read D3, 0.82.0). -->
       <key>RampGun762</key>
       <label>Ramp gun, 7.62 mm</label>
       <displayLabel>true</displayLabel>
@@ -241,6 +243,19 @@
         <li>RampGun50</li>
       </disableIfUpgradeNodesEnabled>
       <upgrades>
+        <li Class="Vehicles.VehicleUpgrade">
+          <roles>
+            <li>
+              <key>crewChief</key>
+              <editKey>rampGun762</editKey>
+              <handlingTypes>Turret</handlingTypes>
+              <slotsToOperate>1</slotsToOperate>
+              <turretIds>
+                <li>RampM240</li>
+              </turretIds>
+            </li>
+          </roles>
+        </li>
         <li Class="Vehicles.TurretUpgrade">
           <turrets>
             <li>
@@ -259,18 +274,6 @@
               </renderProperties>
             </li>
           </turrets>
-        </li>
-        <li Class="Vehicles.VehicleUpgrade">
-          <roles>
-            <li>
-              <key>crewChief</key>
-              <editKey>rampGun762</editKey>
-              <handlingTypes>Turret</handlingTypes>
-              <turretIds>
-                <li>RampM240</li>
-              </turretIds>
-            </li>
-          </roles>
         </li>
         <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
       </upgrades>
@@ -295,6 +298,19 @@
         <li>RampGun762</li>
       </disableIfUpgradeNodesEnabled>
       <upgrades>
+        <li Class="Vehicles.VehicleUpgrade">
+          <roles>
+            <li>
+              <key>crewChief</key>
+              <editKey>rampGun50</editKey>
+              <handlingTypes>Turret</handlingTypes>
+              <slotsToOperate>1</slotsToOperate>
+              <turretIds>
+                <li>RampM2HB</li>
+              </turretIds>
+            </li>
+          </roles>
+        </li>
         <li Class="Vehicles.TurretUpgrade">
           <turrets>
             <li>
@@ -313,18 +329,6 @@
               </renderProperties>
             </li>
           </turrets>
-        </li>
-        <li Class="Vehicles.VehicleUpgrade">
-          <roles>
-            <li>
-              <key>crewChief</key>
-              <editKey>rampGun50</editKey>
-              <handlingTypes>Turret</handlingTypes>
-              <turretIds>
-                <li>RampM2HB</li>
-              </turretIds>
-            </li>
-          </roles>
         </li>
         <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
       </upgrades>
@@ -365,6 +369,13 @@
               </renderProperties>
             </li>
           </turrets>
+        </li>
+        <!-- A player's weapon starts with its automatic aim switched off (Vehicle Framework switches it on only for other factions), so
+             a gun meant to fire by itself is switched on as it is fitted (0.82.0, fault-read W2). The player may switch it off again. -->
+        <li Class="Phobos.VehicleSystems.PhobosAutoTargetUpgrade">
+          <turretKeys>
+            <li>BellyGun</li>
+          </turretKeys>
         </li>
         <li Class="Vehicles.StatUpgrade">
           <vehicleStats>

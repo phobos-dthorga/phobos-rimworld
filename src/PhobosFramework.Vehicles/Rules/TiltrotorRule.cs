@@ -56,7 +56,8 @@ public static class TiltrotorRule
     /// <summary>The still blades' or spinning disc's turn, in degrees, at a tick: left and right rotors turn opposite ways.</summary>
     public static float SpinAngle(int ticks, float degreesPerTick, float startDegrees, bool reversed)
     {
-        float turned = (ticks * degreesPerTick) % 360f;
+        // In double: as a float the product loses whole degrees after some months of play, and the disc turns in jumps (fault-read T6).
+        float turned = (float)((double)ticks * degreesPerTick % 360.0);
         return (startDegrees + (reversed ? -turned : turned) + 720f) % 360f;
     }
 

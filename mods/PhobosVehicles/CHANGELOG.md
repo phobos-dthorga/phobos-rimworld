@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.82.0] - 2026-11-19 - Draft
+
+The Osprey's faults found by reading, before its first test
+
+### Fixed
+
+- **The Osprey's guns can be fitted.** Fitting the ramp gun or the belly gun threw errors, spent the materials and added no gun: the aircraft lacked the part of its definition that holds a vehicle's guns.
+- **The ramp gun needs its crew chief.** It aimed and fired with the seat empty. Fitting a ramp gun now makes the crew chief's seat needed to work it.
+- **The belly gun stops without power, as its text says.** It never stopped and drew nothing. It now has its own station on the electrics, drawing while the gun has a target; with no power and nobody aboard the gun stops. Its automatic aim is switched on as it is fitted, where before it did nothing until its button was found.
+- **The Osprey is built from turbine engines.** Its blueprint asked for piston engines.
+- **The infrared jammer and the terrain radar draw power only while the engines run.** They drained a parked aircraft's battery.
+- **A rolling or hard landing wears the undercarriage.** With no part named as landing gear, the wear fell on any outer part, a wing or the cockpit as often as the gear.
+- **Without Combat Extended the guns cost far less steel to load**: a twentieth of a steel for a 7.62 mm round and a quarter for a .50, where every round cost one. A belly gun load is 75 steel, not 1,500.
+- **With Combat Extended, cartridges are left to Combat Extended**, which sets them itself while its ammunition system is on. With that system off the guns now load steel instead of asking for cartridges.
+- **The terrain radar's text no longer promises flying blind at night and in weather**, which is not built yet. The inlet barrier's text says what it now does.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.163.0 or later, which carries the belly gun's automatic aim and the rotor fixes.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Found by a fault-read of 19 November 2026, by reading the code. Still open: the parts our systems add all sit in the left nacelle.
+
 ## [0.81.0] - 2026-11-19 - Draft
 
 The Cherokee, the Louie and the Mosquito may fly over the map on our own flight

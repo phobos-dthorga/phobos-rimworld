@@ -77,7 +77,7 @@
         <li>
           <key>crewChief</key>
           <label>crew chief</label>
-          <!-- Works the ramp and, from a later slice, the ramp gun [S]. -->
+          <!-- Works the ramp and, with a ramp gun fitted, the gun [S]: the gun's node makes the seat needed to work it. -->
           <slots>1</slots>
           <hitbox>
             <cells>
@@ -670,6 +670,9 @@
           </landingProperties>
         </launchProtocol>
       </li>
+      <!-- It carries no gun as built, but its tree fits three, and Vehicle Framework's turret upgrade needs this comp to hold them: without
+           it every gun node threw and added nothing (fault-read D1, 19 Nov 2026; D'thorga Vehicles 0.82.0). -->
+      <li Class="Vehicles.CompProperties_VehicleTurrets" />
       <!-- Its upgrades (D'thorga Vehicles 0.72.0): UpgradeTree_Osprey.xml. -->
       <li Class="Vehicles.CompProperties_UpgradeTree">
         <def>Phobos_Osprey_UpgradeTree</def>
@@ -917,8 +920,9 @@
     <sling>
       <ratedKilograms>4536</ratedKilograms>
     </sling>
-    <!-- Its upgrades' draws (D'thorga Vehicles 0.72.0): each only while its node is fitted and the engines run. The jammer's 40 A is
-         authored; the radar's is the avionics rule's radar figure. -->
+    <!-- Its upgrades' draws (D'thorga Vehicles 0.72.0): each only while its node is fitted and the engines run (the engines' condition
+         was missing until 0.82.0, fault-read D5: they drew from a parked aircraft's battery). The jammer's 40 A is authored; the radar's is
+         the avionics rule's radar figure. -->
     <loads>
       <li>
         <name>infraredJammer</name>
@@ -929,6 +933,7 @@
           <stat>Phobos_InfraredJammer</stat>
           <value>0</value>
         </available>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
       </li>
       <li>
         <name>terrainRadar</name>
@@ -939,6 +944,20 @@
           <stat>Phobos_TerrainRadar</stat>
           <value>0</value>
         </available>
+        <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+      </li>
+      <li>
+        <!-- The belly gun's station (0.82.0, fault-read D4). Aircraft carry no turret drive load (Framework 0.117.2: nobody cranks a Hind's
+             gun), so nothing could stop the belly gun for want of power. This one is fitted only while a powered weapon is aboard, which on
+             the Osprey is the belly gun alone (the ramp guns are swung by hand), and draws only while the gun has a target, as every weapon
+             no seat works does. With no power and nobody aboard the gun stops. 25 A authored: a small remote turret's drive and sight. -->
+        <name>turretDrive</name>
+        <label>belly gun station</label>
+        <description>The belly gun's drive and sight, drawing while it tracks a target. Without power the gun stops.</description>
+        <amps>25</amps>
+        <shedOrder>7</shedOrder>
+        <available Class="Phobos.VehicleSystems.When_HasPoweredWeapon" />
+        <when Class="Phobos.VehicleSystems.When_PoweredWeaponManned" />
       </li>
     </loads>
     <partRoles>
@@ -993,6 +1012,20 @@
         <role>Cabin</role>
         <find>
           <li><key>ForwardCabin</key></li>
+        </find>
+      </li>
+      <li>
+        <!-- The three undercarriage legs, which a rolling or hard landing wears (0.82.0, fault-read D7: with none bound, the wear fell on a
+             random outer part, the cockpit or a wing as often as the gear). -->
+        <role>LandingGear</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>NoseGear</li>
+              <li>MainGear</li>
+            </keyContainsAny>
+          </li>
         </find>
       </li>
     </partRoles>

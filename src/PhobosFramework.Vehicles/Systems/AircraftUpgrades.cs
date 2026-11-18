@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using RimWorld;
 using Vehicles;
 
@@ -34,5 +35,32 @@ public class PhobosSystemsUpgrade : Upgrade
         (CompPhobosVehicleSystems.Of(vehicle) ?? vehicle.GetComp<CompPhobosVehicleSystems>())?.Notify_FittingsChanged();
         string key = node?.key ?? "";
         if (Seen.Wants("vehicles.upgrade-rebuilds-systems", vehicle, key)) Seen.Note("vehicles.upgrade-rebuilds-systems", vehicle, how, key);
+    }
+}
+
+/// <summary>
+/// Listed on an upgrade node after the turret upgrade that adds a weapon no seat works (the Osprey's belly gun): switches the weapon's
+/// automatic aim on as it is fitted (Framework 0.163.0; fault-read W2 of 19 Nov 2026). Vehicle Framework starts a player's weapon with it
+/// off and switches it on only for other factions, so a gun described as firing by itself did nothing until its button was found. Only
+/// at fitting, never after a load: the player's later choice, which Vehicle Framework saves, stands. Saves nothing.
+/// </summary>
+public class PhobosAutoTargetUpgrade : Upgrade
+{
+    /// <summary>The keys of the weapons to switch on, as their turret entries name them.</summary>
+    public List<string> turretKeys = new();
+
+    public override bool UnlockOnLoad => false;
+
+    public override void Unlock(VehiclePawn vehicle, bool unlockingPostLoad)
+    {
+        if (unlockingPostLoad || vehicle.CompVehicleTurrets?.Turrets is not { } turrets) return;
+        foreach (VehicleTurret turret in turrets)
+        {
+            if (turretKeys.Contains(turret.key)) turret.AutoTarget = true;
+        }
+    }
+
+    public override void Refund(VehiclePawn vehicle)
+    {
     }
 }

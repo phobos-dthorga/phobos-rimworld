@@ -10,6 +10,10 @@
     <defName>PhobosBill_Osprey</defName>
     <label>V-22 Osprey parts</label>
     <target>Phobos_Osprey_Blueprint</target>
+    <!-- Turbines: without this word the engine roles were filled by the piston-engine supply (fault-read D2, 19 Nov 2026). -->
+    <tags>
+      <li>Turbine</li>
+    </tags>
     <parts>
       <Engine1>1</Engine1>
       <Engine2>1</Engine2>
