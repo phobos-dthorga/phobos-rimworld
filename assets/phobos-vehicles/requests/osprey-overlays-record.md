@@ -153,6 +153,14 @@ went from 70 to 49. The rest are painted bits inside the seam lines themselves, 
 island inside a part of another paint; here the line is the unpainted part). Treating the Osprey's lighter seam lines as outline
 would remove them, at the cost of the darkest panels (the sponsons' sides) staying dark grey under any livery: put to the owner.
 
+**Seams (19 Nov 2026, the owner's look at a map of the 49 flecks: "I am quite the perfectionist"):** the rims in the master
+are clean; the fault was the export's. A seam's darkest pixels fell under the outline value and stayed bare, its lighter ones were
+painted, so a hatch rim showed grey bars among dark red ones. Now each thin dark mark (a seam, a hatch rim, a rivet: darker than
+0.45 and under 9 px wide, so a wide dark panel such as a sponson side is not caught) is taken whole and given the paint of the
+panels around it, so a seam reads as a darker groove in the paint; one touching glass stays bare, and the silhouette's own outline
+is left as drawn (`export_vehicle.thin_lines`, off unless a vehicle asks). Tried first the other way (seams never painted): bare
+grey lines with a pale fringe, worse. Flecks 49 to 8 single pixels. No art was changed.
+
 **Upgrade icons:** the owner's choice: all 17 drawn on the local model, overnight
 ([osprey-upgrade-icons.json](osprey-upgrade-icons.json): 34 pictures, about 1.5 hours; two of our drill rig's upgrade icons as
 style references, with the private style model, as the last local batch).

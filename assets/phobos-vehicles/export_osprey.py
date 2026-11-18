@@ -52,6 +52,10 @@ PAINT = {'main_hue': (200, 280), 'accent_hue': (0, 34), 'min_saturation': 0.0, '
 # Regions, then flecks repaired with Segment Anything's parts map of the shrunk body (owner's go, 19 Nov 2026: made by
 # paint_segments.py on osprey-body-at-scale.png, 2 min 42 s on the graphics card); 'regions' if no map has been made.
 BODY_PAINT = 'repaired'
+# Thin dark marks (seams, hatch rims, rivets) taken whole, each with the paint of the panels around it; any touching glass stays bare.
+# The Osprey's seams are a lighter dark than its outline, so they came out half painted and half bare: speckled at full zoom, with grey
+# bars on the hatch rims (the owner's look, 19 Nov 2026). Darker than 0.45 and under 9 px wide [A, tried on this body].
+LINES = (0.45, 9)
 HEADROOM = 1.03                  # The body is pre-shrunk to this much above its drawn size, so the exporter still only shrinks
 OVERLAYS = {'Probe': SAM / 'probe.png', 'RadarNose': DERIVED / 'radar-nose.png', 'Hoist': SAM / 'hoist-b.png', 'Jammer': SAM / 'jammer.png'}
 DAMAGE = ('Cockpit', 'ForwardCabin', 'AftCabin', 'LeftWing', 'RightWing', 'Tail')   # The body's outer parts (vehicle-osprey.md)
@@ -187,7 +191,7 @@ def main(argv=None):
 
     body_master, prescale = prepare_body(work)
     result = ev.export_body(body_master, out, NAME, CELLS_LONG, DRAW, PAINT['main_hue'], PAINT['accent_hue'], PAINT['min_saturation'],
-                            main_max_saturation=PAINT['main_max_saturation'], trim=1, paint=BODY_PAINT)
+                            main_max_saturation=PAINT['main_max_saturation'], trim=1, paint=BODY_PAINT, line=LINES)
     files += result['files']
     mapping = Mapping(prescale, result['transform'])
     print(f'body: {result["width_cells"]:.2f} cells wide; Def colours {result["colours"]}', flush=True)
@@ -233,7 +237,7 @@ def main(argv=None):
             source = DERIVED / f'nacelle-{angle}{suffix}.png'
             piece = renderer_piece(source, mapping.total)
             texture, mask, _ = ev.separate_paint(piece, PAINT['main_hue'], PAINT['accent_hue'], PAINT['min_saturation'],
-                                                 main_max_saturation=PAINT['main_max_saturation'])
+                                                 main_max_saturation=PAINT['main_max_saturation'], line=LINES)
             if suffix:   # The grille is bare metal: no paint where the barrier is (it took the body colour, seen 19 Nov 2026).
                 grille = renderer_piece(DERIVED / f'nacelle-{angle}-barrier-only.png', mapping.total).getchannel('A')
                 grille = grille.point(lambda a: 255 if a >= 32 else 0).filter(ImageFilter.MaxFilter(3))

@@ -173,3 +173,38 @@ class GreyPaintTests(unittest.TestCase):
 
     def test_without_a_ceiling_a_colourless_pixel_stays_unpainted(self):
         self.assertIsNone(ev.classify(150, 150, 150, (38, 95), (8, 34)))
+
+
+class ThinLineTests(unittest.TestCase):
+    """The Osprey's seams (19 Nov 2026): a thin dark mark is found, a wide dark panel and the silhouette's outline are not, and a
+    seam takes the paint of the panel it crosses, darkest pixels too."""
+
+    @staticmethod
+    def panel():
+        image = Image.new('RGBA', (60, 60), (0, 0, 0, 0))
+        for x in range(5, 55):
+            for y in range(5, 55):
+                image.putpixel((x, y), (204, 205, 209, 255))      # the airframe's grey
+        for y in range(10, 50):
+            for x in (28, 29, 30):
+                image.putpixel((x, y), (50, 47, 55, 255))         # a seam, 3 px wide, its middle darker than the outline value
+            image.putpixel((29, y), (40, 38, 44, 255))
+        for x in range(38, 52):
+            for y in range(20, 40):
+                image.putpixel((x, y), (58, 56, 64, 255))         # a wide dark panel (a sponson side)
+        return image
+
+    def test_a_seam_is_thin_and_a_wide_dark_panel_is_not(self):
+        thin = ev.thin_lines(self.panel(), (0.45, 9))
+        self.assertEqual(thin.getpixel((29, 30)), 255)
+        self.assertEqual(thin.getpixel((45, 30)), 0)
+
+    def test_the_silhouette_outline_is_never_thin(self):
+        thin = ev.thin_lines(self.panel(), (0.45, 9))
+        self.assertEqual(thin.getpixel((29, 6)), 0)
+
+    def test_the_whole_seam_takes_the_panel_paint(self):
+        grey = dict(min_saturation=0.0, main_max_saturation=0.15)
+        kinds = ev.region_kinds(self.panel(), (200, 280), (0, 34), line=(0.45, 9), **grey)
+        self.assertEqual(kinds[30 * 60 + 29], 'main')
+        self.assertEqual(kinds[30 * 60 + 28], 'main')

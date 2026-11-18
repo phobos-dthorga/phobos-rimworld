@@ -26,7 +26,7 @@ import json
 from pathlib import Path
 import sys
 
-from PIL import Image, ImageFilter
+from PIL import Image, ImageChops, ImageFilter
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from export_sprite import ai_background, file_sha256, white_to_alpha  # noqa: E402
@@ -75,7 +75,23 @@ REPAIR_SURE = 0.8  # the share of a part that must have one paint before an isla
 DARK_SPECK_MAX = 40  # master pixels: a dark speck no larger, wholly inside a sure part, is weathering, not outline (authored)
 
 
-def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, parts=None, main_max_saturation=1.0):
+def thin_lines(image, line):
+    """Dark marks too thin to be a panel: seam lines, hatch rims, rivets. line is (value, width): darker than value (0 to 1) and gone
+    under an opening of width pixels. A wide dark panel survives the opening, so it is not caught (the Osprey, 19 Nov 2026: its seam
+    lines are a lighter, purple-tinted dark than its outline, so some of their pixels were painted and a seam came out speckled).
+    region_kinds gives each such mark, its darkest pixels too, the paint of the panels it touches most: left half outline and half
+    paint, a hatch rim showed as grey bars among dark red ones."""
+    value, width = line
+    r, g, b, a = image.convert('RGBA').split()
+    brightest = ImageChops.lighter(ImageChops.lighter(r, g), b)
+    dark = ImageChops.multiply(brightest.point(lambda v: 255 if v < value * 255 else 0), a.point(lambda v: 255 if v >= 128 else 0))
+    wide = dark.filter(ImageFilter.MinFilter(width)).filter(ImageFilter.MaxFilter(width))
+    # The silhouette's own outline is as thin as a seam: anything within reach of the clear ground stays outline, as drawn.
+    edge = a.point(lambda v: 255 if v < 128 else 0).filter(ImageFilter.MaxFilter(2 * width + 1))
+    return ImageChops.subtract(ImageChops.subtract(dark, wide), edge)
+
+
+def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, parts=None, main_max_saturation=1.0, line=None):
     """The paint of every opaque pixel, decided a region at a time (owner, 16 Nov 2026: the Pintle bowser's per-pixel mask was speckled).
     Our art is cel shaded inside thick dark outlines, so a painted panel is a run of near-alike pixels the outline closes off. Regions
     grow between neighbours closer than REGION_STEP in every channel, never through outline; each region takes the paint most of its
@@ -92,10 +108,16 @@ def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, par
     label = [-1] * count
     pixel_kind = [None] * count
     candidate = [False] * count
+    # With line set, a thin dark mark (a seam, a hatch rim, a rivet) is one region of its own, whatever paint its pixels would get one
+    # by one, and takes the paint of the panels it touches most: a seam reads as a darker groove in the paint along its whole length,
+    # and a frame between two windows, touching only glass, stays bare (the Osprey, 19 Nov 2026: its seams came out speckled).
+    lines = thin_lines(image, line) if line else None
+    thin = list(lines.get_flattened_data() if hasattr(lines, 'get_flattened_data') else lines.getdata()) if line else [0] * count
     for index, (red, green, blue, alpha) in enumerate(pixels):
-        if alpha >= 128 and max(red, green, blue) / 255 >= OUTLINE_VALUE:
+        if alpha >= 128 and (max(red, green, blue) / 255 >= OUTLINE_VALUE or thin[index]):
             candidate[index] = True
-            pixel_kind[index] = classify(red, green, blue, main_hue, accent_hue, min_saturation, main_max_saturation)
+            pixel_kind[index] = None if thin[index] else classify(red, green, blue, main_hue, accent_hue, min_saturation,
+                                                                    main_max_saturation)
 
     def neighbours(here):
         x, y = here % width, here // width
@@ -124,7 +146,7 @@ def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, par
             head += 1
             red, green, blue, _ = pixels[here]
             for there in neighbours(here):
-                if not candidate[there] or label[there] >= 0 or pixel_kind[there] != kind:
+                if not candidate[there] or label[there] >= 0 or pixel_kind[there] != kind or bool(thin[there]) != bool(thin[here]):
                     continue
                 other = pixels[there]
                 if abs(other[0] - red) <= REGION_STEP and abs(other[1] - green) <= REGION_STEP and abs(other[2] - blue) <= REGION_STEP:
@@ -137,15 +159,17 @@ def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, par
     # outline keeps its own.
     final = list(region_kind)
     for region, members in enumerate(members_of):
-        if region_size[region] >= SMALL_REGION:
+        if region_size[region] >= SMALL_REGION and not thin[members[0]]:
             continue
         touches = {}
         for member in members:
             for there in neighbours(member):
                 other = label[there]
-                if other >= 0 and other != region and region_size[other] >= SMALL_REGION:
+                if other >= 0 and other != region and region_size[other] >= SMALL_REGION and not thin[members_of[other][0]]:
                     touches[region_kind[other]] = touches.get(region_kind[other], 0) + 1
-        if touches:
+        if touches and thin[members[0]] and None in touches:
+            final[region] = None   # A thin mark touching glass or bare metal is its frame: it stays bare, as drawn
+        elif touches:
             final[region] = max(touches, key=lambda key: (touches[key], key is None))
     if parts is not None:
         tallies = {}
@@ -256,7 +280,7 @@ def part_kinds(image, labels, main_hue, accent_hue, min_saturation=MIN_SATURATIO
 
 
 def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, per_pixel=False, labels=None, repair=False,
-                   main_max_saturation=1.0):
+                   main_max_saturation=1.0, line=None):
     """(grey-painted texture, mask, default colours). Each paint is scaled on its own, so its grey fills the shader's range and its
     default colour gives the master's tone back. Paint is decided by region (region_kinds) unless per_pixel asks for the old rule, kept
     for comparison only."""
@@ -271,11 +295,11 @@ def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, p
                     kinds[y * width + x] = classify(red, green, blue, main_hue, accent_hue, min_saturation, main_max_saturation)
     elif labels is not None and repair:
         flat = list(labels.get_flattened_data() if hasattr(labels, 'get_flattened_data') else labels.getdata())
-        kinds = region_kinds(image, main_hue, accent_hue, min_saturation, parts=flat, main_max_saturation=main_max_saturation)
+        kinds = region_kinds(image, main_hue, accent_hue, min_saturation, parts=flat, main_max_saturation=main_max_saturation, line=line)
     elif labels is not None:
         kinds = part_kinds(image, labels, main_hue, accent_hue, min_saturation)
     else:
-        kinds = region_kinds(image, main_hue, accent_hue, min_saturation, main_max_saturation=main_max_saturation)
+        kinds = region_kinds(image, main_hue, accent_hue, min_saturation, main_max_saturation=main_max_saturation, line=line)
     groups = {'main': [], 'accent': []}
     for y in range(height):
         for x in range(width):
@@ -358,7 +382,7 @@ def record(out, name, master, written, details):
 
 
 def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=(),
-                main_max_saturation=1.0, trim=0, paint='regions'):
+                main_max_saturation=1.0, trim=0, paint='regions', line=None):
     """trim takes this many pixels off the silhouette's outer edge, for a master whose outline fades into the white through a ring
     of grey that shows as a pale dotted rim on dark ground (the Osprey, 19 Nov 2026: its outline is about 7 px thick at game size).
     paint 'repaired' repairs the regions' flecks with Segment Anything's parts map of the master (paint_segments.py first)."""
@@ -373,7 +397,7 @@ def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_s
     offset = (round(canvas[0] / 2 - (left + right) / 2 * scale), round(canvas[1] / 2 - (top + bottom) / 2 * scale))
     labels = parts_map(master) if paint == 'repaired' else None
     texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation, labels=labels, repair=labels is not None,
-                                            main_max_saturation=main_max_saturation)
+                                            main_max_saturation=main_max_saturation, line=line)
     written = write_facings(place(texture, scale, offset, canvas), out, name)
     written += write_facings(place_mask(mask, scale, offset, canvas), out, name, 'm')
     natural = place(cut, scale, offset, canvas)
@@ -390,6 +414,7 @@ def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_s
     width_cells = (right - left) * scale / PIXELS_PER_CELL
     record(out, name, master, written, {'kind': 'body', 'cells_long': cells_long, 'draw_size': list(draw), 'width_cells': round(width_cells, 2), 'colours': colours,
                                         'min_saturation': min_saturation, 'main_max_saturation': main_max_saturation, 'trim': trim,
+                                        'line': list(line) if line else None,
                                         'main_hue': list(main_hue), 'accent_hue': list(accent_hue),
                                         'holes': [list(point) for point in holes],
                                         'ai_mask': file_sha256(master) if background is not None else None})
