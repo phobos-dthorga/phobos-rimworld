@@ -1,0 +1,158 @@
+[
+  {
+    "name": "osprey-trial-nano-banana-pro",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+        "role": "approved vehicle of the same maker: match its outline weight, shading and finish only; do not copy its shape, layout or colours"
+      },
+      {
+        "image": "assets/phobos-vehicles/references/osprey-plan.png",
+        "role": "this aircraft's plan, drawn by our own script from published dimensions: keep its layout and proportions exactly"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey, footprint (5, 9); the picture is about 30 x 20.5 cells with its rotors, on the Mi-38's scale (owner, 18 Nov 2026). The airframe without rotors is about 18 x 20.5 cells; on a 4,096 px square with its length at seven eighths, that is about 175 px a cell, above our trucks' 128",
+      "measured_against": "owner's list, 18 Nov 2026: the Mi-38 draws 24.79 cells for a 21.1 m rotor, 1.175 cells a metre; the Hind 12 cells for 19.79 m",
+      "this_request": "a trial of the look, one picture a service from the same brief and the same two references of our own; the owner picks the service, and the pick is the pilot",
+      "overlays_planned_on_this_canvas": [
+        "two proprotor discs and two sets of still blades",
+        "cargo hook, second hook",
+        "ramp gun (7.62 mm, .50)",
+        "belly turret",
+        "refuelling probe",
+        "radar nose",
+        "rescue hoist",
+        "ropes",
+        "inlet barriers",
+        "damage looks for cockpit, cabin, wings and nacelles"
+      ],
+      "design": "docs/development/vehicle-osprey.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. The aircraft's centre line runs straight up the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite of a tiltrotor transport aircraft for a hard-scrabble frontier colony: a twin-engine machine that lifts off like a helicopter and flies like an aeroplane, parked on the ground with its engine nacelles turned upright.\n\nImage 1 is our approved truck from the same maker: match its outline weight, its shading and its finish only. Do NOT copy its shape, its layout or its colours. Image 2 is this aircraft's plan, drawn to scale: keep its layout and its proportions exactly, part for part, and redraw every part in the finish of Image 1 with real detail.\n\nDraw the BARE AIRFRAME only. The two rotors, their blades, every gun, the cargo hooks, the refuelling probe, the nose radar and the rescue hoist are drawn separately as overlays, so leave them out: each nacelle ends in a plain round hub cap with no blades.\n\nSquare canvas. The aircraft is centred and its length fills seven eighths of the canvas height, on a plain pure white background. North facing: the rounded nose and cockpit at the TOP edge, the twin-fin tail at the BOTTOM edge.\n\nIts plan, from top to bottom: a rounded nose with a dark glazed cockpit canopy; a long straight fuselage with a flat roof; a straight, constant-width wing set across the top of the fuselage about two fifths of the way back, with a raised fairing where it crosses; an upright engine nacelle on each wing tip, seen from above as a compact rounded block with a round hub cap in its middle; a wide sponson low on each side of the fuselage beneath and behind the wing, holding the main wheels; a rear fuselage that narrows toward the tail, with the outline of a loading ramp across it; a wide tailplane across the very rear with a thin upright fin at each tip.\n\nMaterials: pale grey airframe panels, slightly darker grey walkway strips along the wing and the roof, darker grey nacelles with one muted orange band around each, dark blue-grey cockpit glazing, small panel lines, hatches and rivet rows.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, many small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo rotors, rotor blades, propellers, guns, missiles, hooks, probes, antennas, people, cargo, dust, dirt, damage, text, letters, numbers, logos, flags, roundels, dials, screens or lamps. No floor, ground, runway, shadow outside the aircraft, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "osprey-trial-nano-banana-2",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-2/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+        "role": "approved vehicle of the same maker: match its outline weight, shading and finish only; do not copy its shape, layout or colours"
+      },
+      {
+        "image": "assets/phobos-vehicles/references/osprey-plan.png",
+        "role": "this aircraft's plan, drawn by our own script from published dimensions: keep its layout and proportions exactly"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey, footprint (5, 9); the picture is about 30 x 20.5 cells with its rotors, on the Mi-38's scale (owner, 18 Nov 2026). The airframe without rotors is about 18 x 20.5 cells; on a 4,096 px square with its length at seven eighths, that is about 175 px a cell, above our trucks' 128",
+      "measured_against": "owner's list, 18 Nov 2026: the Mi-38 draws 24.79 cells for a 21.1 m rotor, 1.175 cells a metre; the Hind 12 cells for 19.79 m",
+      "this_request": "a trial of the look, one picture a service from the same brief and the same two references of our own; the owner picks the service, and the pick is the pilot",
+      "overlays_planned_on_this_canvas": [
+        "two proprotor discs and two sets of still blades",
+        "cargo hook, second hook",
+        "ramp gun (7.62 mm, .50)",
+        "belly turret",
+        "refuelling probe",
+        "radar nose",
+        "rescue hoist",
+        "ropes",
+        "inlet barriers",
+        "damage looks for cockpit, cabin, wings and nacelles"
+      ],
+      "design": "docs/development/vehicle-osprey.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. The aircraft's centre line runs straight up the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite of a tiltrotor transport aircraft for a hard-scrabble frontier colony: a twin-engine machine that lifts off like a helicopter and flies like an aeroplane, parked on the ground with its engine nacelles turned upright.\n\nImage 1 is our approved truck from the same maker: match its outline weight, its shading and its finish only. Do NOT copy its shape, its layout or its colours. Image 2 is this aircraft's plan, drawn to scale: keep its layout and its proportions exactly, part for part, and redraw every part in the finish of Image 1 with real detail.\n\nDraw the BARE AIRFRAME only. The two rotors, their blades, every gun, the cargo hooks, the refuelling probe, the nose radar and the rescue hoist are drawn separately as overlays, so leave them out: each nacelle ends in a plain round hub cap with no blades.\n\nSquare canvas. The aircraft is centred and its length fills seven eighths of the canvas height, on a plain pure white background. North facing: the rounded nose and cockpit at the TOP edge, the twin-fin tail at the BOTTOM edge.\n\nIts plan, from top to bottom: a rounded nose with a dark glazed cockpit canopy; a long straight fuselage with a flat roof; a straight, constant-width wing set across the top of the fuselage about two fifths of the way back, with a raised fairing where it crosses; an upright engine nacelle on each wing tip, seen from above as a compact rounded block with a round hub cap in its middle; a wide sponson low on each side of the fuselage beneath and behind the wing, holding the main wheels; a rear fuselage that narrows toward the tail, with the outline of a loading ramp across it; a wide tailplane across the very rear with a thin upright fin at each tip.\n\nMaterials: pale grey airframe panels, slightly darker grey walkway strips along the wing and the roof, darker grey nacelles with one muted orange band around each, dark blue-grey cockpit glazing, small panel lines, hatches and rivet rows.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, many small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo rotors, rotor blades, propellers, guns, missiles, hooks, probes, antennas, people, cargo, dust, dirt, damage, text, letters, numbers, logos, flags, roundels, dials, screens or lamps. No floor, ground, runway, shadow outside the aircraft, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "osprey-trial-seedream-45",
+    "engine": "fal",
+    "model": "fal-ai/bytedance/seedream/v4.5/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+        "role": "approved vehicle of the same maker: match its outline weight, shading and finish only; do not copy its shape, layout or colours"
+      },
+      {
+        "image": "assets/phobos-vehicles/references/osprey-plan.png",
+        "role": "this aircraft's plan, drawn by our own script from published dimensions: keep its layout and proportions exactly"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey, footprint (5, 9); the picture is about 30 x 20.5 cells with its rotors, on the Mi-38's scale (owner, 18 Nov 2026). The airframe without rotors is about 18 x 20.5 cells; on a 4,096 px square with its length at seven eighths, that is about 175 px a cell, above our trucks' 128",
+      "measured_against": "owner's list, 18 Nov 2026: the Mi-38 draws 24.79 cells for a 21.1 m rotor, 1.175 cells a metre; the Hind 12 cells for 19.79 m",
+      "this_request": "a trial of the look, one picture a service from the same brief and the same two references of our own; the owner picks the service, and the pick is the pilot",
+      "overlays_planned_on_this_canvas": [
+        "two proprotor discs and two sets of still blades",
+        "cargo hook, second hook",
+        "ramp gun (7.62 mm, .50)",
+        "belly turret",
+        "refuelling probe",
+        "radar nose",
+        "rescue hoist",
+        "ropes",
+        "inlet barriers",
+        "damage looks for cockpit, cabin, wings and nacelles"
+      ],
+      "design": "docs/development/vehicle-osprey.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. The aircraft's centre line runs straight up the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite of a tiltrotor transport aircraft for a hard-scrabble frontier colony: a twin-engine machine that lifts off like a helicopter and flies like an aeroplane, parked on the ground with its engine nacelles turned upright.\n\nImage 1 is our approved truck from the same maker: match its outline weight, its shading and its finish only. Do NOT copy its shape, its layout or its colours. Image 2 is this aircraft's plan, drawn to scale: keep its layout and its proportions exactly, part for part, and redraw every part in the finish of Image 1 with real detail.\n\nDraw the BARE AIRFRAME only. The two rotors, their blades, every gun, the cargo hooks, the refuelling probe, the nose radar and the rescue hoist are drawn separately as overlays, so leave them out: each nacelle ends in a plain round hub cap with no blades.\n\nSquare canvas. The aircraft is centred and its length fills seven eighths of the canvas height, on a plain pure white background. North facing: the rounded nose and cockpit at the TOP edge, the twin-fin tail at the BOTTOM edge.\n\nIts plan, from top to bottom: a rounded nose with a dark glazed cockpit canopy; a long straight fuselage with a flat roof; a straight, constant-width wing set across the top of the fuselage about two fifths of the way back, with a raised fairing where it crosses; an upright engine nacelle on each wing tip, seen from above as a compact rounded block with a round hub cap in its middle; a wide sponson low on each side of the fuselage beneath and behind the wing, holding the main wheels; a rear fuselage that narrows toward the tail, with the outline of a loading ramp across it; a wide tailplane across the very rear with a thin upright fin at each tip.\n\nMaterials: pale grey airframe panels, slightly darker grey walkway strips along the wing and the roof, darker grey nacelles with one muted orange band around each, dark blue-grey cockpit glazing, small panel lines, hatches and rivet rows.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, many small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo rotors, rotor blades, propellers, guns, missiles, hooks, probes, antennas, people, cargo, dust, dirt, damage, text, letters, numbers, logos, flags, roundels, dials, screens or lamps. No floor, ground, runway, shadow outside the aircraft, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "osprey-trial-flux-3",
+    "engine": "fal",
+    "model": "blackforestlabs/flux-3/edit-image",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/bulk-tanker-body-north/bulk-tanker-body-north-2.png",
+        "role": "approved vehicle of the same maker: match its outline weight, shading and finish only; do not copy its shape, layout or colours"
+      },
+      {
+        "image": "assets/phobos-vehicles/references/osprey-plan.png",
+        "role": "this aircraft's plan, drawn by our own script from published dimensions: keep its layout and proportions exactly"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey, footprint (5, 9); the picture is about 30 x 20.5 cells with its rotors, on the Mi-38's scale (owner, 18 Nov 2026). The airframe without rotors is about 18 x 20.5 cells; on a 4,096 px square with its length at seven eighths, that is about 175 px a cell, above our trucks' 128",
+      "measured_against": "owner's list, 18 Nov 2026: the Mi-38 draws 24.79 cells for a 21.1 m rotor, 1.175 cells a metre; the Hind 12 cells for 19.79 m",
+      "this_request": "a trial of the look, one picture a service from the same brief and the same two references of our own; the owner picks the service, and the pick is the pilot",
+      "overlays_planned_on_this_canvas": [
+        "two proprotor discs and two sets of still blades",
+        "cargo hook, second hook",
+        "ramp gun (7.62 mm, .50)",
+        "belly turret",
+        "refuelling probe",
+        "radar nose",
+        "rescue hoist",
+        "ropes",
+        "inlet barriers",
+        "damage looks for cockpit, cabin, wings and nacelles"
+      ],
+      "design": "docs/development/vehicle-osprey.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. The aircraft's centre line runs straight up the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite of a tiltrotor transport aircraft for a hard-scrabble frontier colony: a twin-engine machine that lifts off like a helicopter and flies like an aeroplane, parked on the ground with its engine nacelles turned upright.\n\nImage 1 is our approved truck from the same maker: match its outline weight, its shading and its finish only. Do NOT copy its shape, its layout or its colours. Image 2 is this aircraft's plan, drawn to scale: keep its layout and its proportions exactly, part for part, and redraw every part in the finish of Image 1 with real detail.\n\nDraw the BARE AIRFRAME only. The two rotors, their blades, every gun, the cargo hooks, the refuelling probe, the nose radar and the rescue hoist are drawn separately as overlays, so leave them out: each nacelle ends in a plain round hub cap with no blades.\n\nSquare canvas. The aircraft is centred and its length fills seven eighths of the canvas height, on a plain pure white background. North facing: the rounded nose and cockpit at the TOP edge, the twin-fin tail at the BOTTOM edge.\n\nIts plan, from top to bottom: a rounded nose with a dark glazed cockpit canopy; a long straight fuselage with a flat roof; a straight, constant-width wing set across the top of the fuselage about two fifths of the way back, with a raised fairing where it crosses; an upright engine nacelle on each wing tip, seen from above as a compact rounded block with a round hub cap in its middle; a wide sponson low on each side of the fuselage beneath and behind the wing, holding the main wheels; a rear fuselage that narrows toward the tail, with the outline of a loading ramp across it; a wide tailplane across the very rear with a thin upright fin at each tip.\n\nMaterials: pale grey airframe panels, slightly darker grey walkway strips along the wing and the roof, darker grey nacelles with one muted orange band around each, dark blue-grey cockpit glazing, small panel lines, hatches and rivet rows.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, many small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art, not a blueprint.\n\nNo rotors, rotor blades, propellers, guns, missiles, hooks, probes, antennas, people, cargo, dust, dirt, damage, text, letters, numbers, logos, flags, roundels, dials, screens or lamps. No floor, ground, runway, shadow outside the aircraft, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]
