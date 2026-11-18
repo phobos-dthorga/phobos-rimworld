@@ -1,9 +1,10 @@
 # Our own flight over the map: hovering, circling, leaving the ground rolling, and a cruising height (18 Nov 2026)
 
-**Status (18 Nov 2026):** the cruising height between tiles is built in D'thorga Framework 0.141.0 (with D'thorga Vehicles 0.66.0), and of
-the flight phases, the part that stands without our own flight: phases that follow the hover figure; the owner's answers of 19 Nov 2026 (cabin oxygen, a twin that limps back) in Framework 0.142.0 ([what was built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)).
-Not built: our own flight over the map, its phase reader, the forward-flight and rolling shares, leaving the ground rolling and circling.
-Nothing here is tested in game (rows 199 and 200). The owner answered
+**Status (19 Nov 2026):** the hover half (slice 2) is built in D'thorga Framework 0.147.0, with the V-22 Osprey flying on it in
+D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); the cruising height between tiles in Framework 0.141.0 and
+0.142.0 ([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: leaving and arriving in flight
+(slice 3), leaving the ground rolling (slice 4), circling (slice 5), ropes and a raider's flight (slice 6), and stock helicopters on our
+flight. Nothing here is tested in game (rows 199, 200, 204 and 205). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -569,6 +570,35 @@ usually cannot fly on; light, it often can.
 **Not built, and why:** `PhaseReader_OwnFlight`, the forward-flight and rolling shares and the three thresholds. Each reads or
 decides something only our own flight does (its state; whether it may stop, fly on or roll), so they come with the hover half
 (slice 2) rather than as fields nothing reads.
+
+## Built (19 Nov 2026): the hover half
+
+At the owner's word ("Proceed with the hover half of our own flight", 19 Nov 2026), D'thorga Framework 0.147.0 and D'thorga Vehicles 0.71.0;
+**not yet tested in game** (rows 204 and 205). Where it differs from the design above:
+
+| Part | As built | Where |
+| --- | --- | --- |
+| The rule | `FlightPathRule` in the core, game-free and tested: turning the short way, speeding up and braking to arrive at rest, turning before running, the eight and four headings, the three thresholds as `Judge`, a forced landing's wear and harm, the shadow's slide | `src/PhobosFramework/Rules/FlightPathRule.cs` |
+| The comp | `CompPhobosFlight`, on the stock vehicle class, ticking only in the air. **Its figures are comp properties, not a `PhobosFlightDef`** (agent's choice: one less Def type, the same XML for another author) | `Flight/CompPhobosFlight.cs` |
+| States | Ground, LiftingOff, Hover, Moving, Settling, ComingDown: the design's hover half. Spooling, the take-off roll, the rolling landing, orbit and departing are not built | |
+| Where it is | One true centre and heading, saved; the cell and the nearest of eight headings set from them when either changes, so Vehicle Framework claims the footprint again; the picture's turn between headings is `Transform.rotation`, read back from the heading Vehicle Framework draws, so four headings work as eight | `SyncPosition`, `FlightRules.CellFor` |
+| Drawing | **The postfix on `VehicleDrawTracker.DrawPos`** (finding 1): its true centre on the Skyfaller layer. The shadow is the game's skyfaller shadow picture on the shadow layer, sliding south-east and shrinking as it climbs, drawn from the comp. The body does not grow with height: Vehicle Framework draws no scale | `FlightPatches.cs`, `FlightDrawing` |
+| Orders | **Take off**, **Fly to** (the game's cell targeter), **Hold here**, **Land here** (Vehicle Framework's own landing targeter, with its outline and turning; four headings to land on). A ground order to an aircraft in the air, one or a group, becomes "fly here" in a prefix on `PawnGotoAction`; Vehicle Framework's own "go here" still asks whether the spot is reachable by ground, so **Fly to** is the way over water or walls. **"Cover that" is not built** | `FlightGizmos`, `Patch_PawnGotoAction_Flight` |
+| The thresholds | The hover margin once a second, read three ways: hover at 1, fly on down to the forward-flight share (on the flight profile, 0.6 authored), else fall. In a hover below 1 it comes down where it is; moving below 1 it flies its leg through without braking and comes down on the move at the end, **as a forced landing, until the rolling landing of slice 4 exists** (agent's choice). The hover-limit setting: allow at a cost strains the engines each second past 1; warn only and figures only never bring it down for its margin. With every engine out it falls whatever the setting | `FlightRules.Hold` |
+| A forced landing | Over open ground it lands where it is, facing the nearest of four headings: `WearLanding` twice at 0.1 to 0.6 of a part's health by the shortfall, and 2 to 10 blunt harm to each person aboard (both authored). Over a building, a roof, impassable ground, deep water or another vehicle it is destroyed through Vehicle Framework's own destruction, its people put out first | `ForcedLanding` |
+| Engines in the air | Undrafting is undone at once, with a message; running dry is a fall | `Engines` |
+| Guards | Boarding (`TryAddPawn` with a role), loading (`AddOrTransfer`), unloading (the two drop helpers), stepping out (the shared `DisembarkPawn` prefix), work (`VehicleWorkGiver.JobOnThing`) and the work lists (`VehicleListers`) refused in the air, each with a message at most every 5 seconds. Melee and fire on the ground cannot reach it (the shared `ApplyDamage` prefix: only ranged and explosive damage does) | `FlightPatches.cs`, `SubmersiblePatches.cs` |
+| CR8 fixed | A prefix and finalizer on `VehiclePawn.Destroy` mark a vehicle being destroyed, and the shared guard lets its people out, a hull under water included | `Patch_VehiclePawn_Destroy_Access` |
+| The launch button | Refused in the air, saying it must land first, until slice 3 | `Patch_CanLaunch_Flight` |
+| Engine phases | `PhaseReader_OwnFlight` reads the comp: Idle on the ground with engines running, Hover in lift-off, hover and landing, Forward while moving, WorldFlight between places. A phase marked `forwardFlight` asks the hover figure times the forward-flight share | `PowertrainDefs.cs`, `Powertrain.SampleAircraft` |
+| The seam | `OnMapFlight` answers from our flight first, so the sling, the litter and the water bucket see it | `OnMapFlight.cs` |
+| The Osprey | A patch file of its own adds the comp (7 cells a second, 35 degrees a second, 6 s up, 8 s down, 60 m, all authored), `seeThroughFog`, our reader and phases, and the on-map fuel's reference phase | `mods/PhobosVehicles/Patches/Osprey/Flight_Osprey.xml` |
+| Tilting nacelles | `CompPhobosFlight.ForwardTiltShareOf` gives up to half-forward with speed over the map, for the tiltrotor renderer to read | |
+| Settings | **None added.** "People are slowed beneath a hovering aircraft" and "Stock helicopters fly over the map" are not built: people are slowed as beneath any vehicle, and only aircraft that name the comp fly | |
+| Buttons' pictures | Stand-ins until their own are drawn | `Phobos/VehicleSystems/Flight/` |
+
+**Measured:** nothing yet. The cost of a cell crossed is the design's figure to measure with `python scripts/perf.py`, with the owner's
+leave, before a second aircraft flies on it.
 
 ## Patches
 

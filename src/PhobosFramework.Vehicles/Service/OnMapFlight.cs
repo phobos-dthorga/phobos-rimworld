@@ -42,13 +42,15 @@ public static class OnMapFlight
     /// <summary>Whether vehicles of this class fly on the map by themselves.</summary>
     public static bool FliesItself(Type? vehicleClass) => vehicleClass != null && For(vehicleClass) != null;
 
-    /// <summary>Whether this vehicle flies on the map by itself.</summary>
-    public static bool FliesItself(VehiclePawn vehicle) => For(vehicle.GetType()) != null;
+    /// <summary>Whether this vehicle flies on the map by itself: on our own flight (Framework 0.147.0), or another flight mod's.</summary>
+    public static bool FliesItself(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosFlight>() != null || For(vehicle.GetType()) != null;
 
     /// <summary>Whether this vehicle is in the air on its map now: taking off, flying, landing or leaving. Always false for an aircraft that
     /// does not fly on the map by itself (Vehicle Framework's own are off the map in the air).</summary>
     public static bool Airborne(VehiclePawn vehicle)
     {
+        // Framework 0.147.0: our own flight is the first, direct answer.
+        if (FlightRegistry.InAir(vehicle)) return true;
         if (For(vehicle.GetType()) is not { Airborne: { } getter }) return false;
         try { return getter.Invoke(vehicle, none) is true; }
         catch (Exception e)
@@ -61,6 +63,7 @@ public static class OnMapFlight
     /// <summary>How far the vehicle has climbed, 0 on the ground to 1 at cruise; 1 when airborne and its climb cannot be read, 0 otherwise.</summary>
     public static float Climb(VehiclePawn vehicle)
     {
+        if (FlightRegistry.Get(vehicle) is { } flight) return flight.Climb;
         if (!Airborne(vehicle)) return 0f;
         if (For(vehicle.GetType()) is not { Progress: { } getter }) return 1f;
         try { return getter.Invoke(vehicle, none) is float progress ? UnityEngine.Mathf.Clamp01(progress) : 1f; }

@@ -5,6 +5,38 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.147.0] - 2026-11-19 - Draft
+
+Our own flight over the map: take off, fly, hover and land where you choose
+
+### Added
+
+- **Aircraft fly over the map on flight of our own.** An aircraft with it lifts straight up from where it stands, flies to any spot over walls, rivers and buildings, holds in a hover and comes straight down where you choose. Four buttons do it: **Take off**, **Fly to**, **Hold here** and **Land here** (which shows the aircraft's outline and lets you turn it); right-clicking the ground with it selected also sends it there. Each says what it did, and each refusal says why. The V-22 Osprey in D'thorga Vehicles 0.71.0 is the first to fly on it.
+- **It turns smoothly and casts a shadow.** The aircraft faces the nearest of its eight headings, its picture turning smoothly between them, and is drawn over buildings, people and smoke; its shadow on the ground slides away as it climbs.
+- **What the engines leave it decides what it may do.** Light enough, it hovers. Too heavy, too hot or too high for a hover but strong enough to stay up moving forward, it keeps flying and comes down on the move where it cannot hold still. Too weak for even that (an engine lost, or one left on a twin that is heavily loaded), it comes down where it is. It will not lift off too heavy to hover under the hover-limit setting's default, and the other two choices of that setting work as they do for a lift-off.
+- **Running dry in the air has real consequences.** Over open ground it comes down hard: its undercarriage and an outer part are worn by how far short of a hover it was, and everyone aboard is shaken about. Over a building, impassable ground, another vehicle or deep water it is wrecked, and its people are put out alive.
+- **Nothing comes and goes in the air.** Nobody boards it, steps out of it, loads or unloads it or works on it while it flies, each refused with a message; the engines cannot be stopped in the air. Blows and fire on the ground cannot reach it; shots and blasts still can, on its own parts. Its guns fire in the air as on the ground.
+- **A landing spot is checked twice:** when you pick it (every cell on the map, seen, open to the sky, free of buildings and other vehicles, on ground that takes its weight) and again as it touches down. Blocked by then, it climbs back, says why and waits for a new spot.
+- **Its engines follow the flight.** A hover asks the hover figure, forward flight the hover figure times the forward-flight share (0.6, authored), so a heavy aircraft on a hot, high map works harder and burns more over the map.
+- **For other authors:** a vehicle gets our flight by naming the flight comp in its Def, with its speeds, climb, descent and flight height, and its flight profile's phase reader for our own flight.
+
+### Fixed
+
+- **A submarine destroyed while it was under took its crew with it.** Its people are now put out as it is destroyed, as any vehicle's are. Found by reading the code; not seen in play.
+
+### Save compatibility
+
+- Safe with a running save. An aircraft saved in the air loads in the air, where it was, facing the way it was. Nothing new is saved for any other vehicle.
+- Land every aircraft before removing D'thorga Framework: one removed with it in the air is left on the cell beneath it.
+
+### Compatibility and limits
+
+- Leaving the map and arriving from it are still Vehicle Framework's, from the ground: land first, then launch. Flying off the map's edge, arriving in the air, a rolling take-off and circling are not built yet. The launch button is refused in the air, saying so.
+- People walk beneath a hovering aircraft slowly and cannot stand there, as beneath any vehicle; a hovering aircraft clears smoke and gas beneath it, as any vehicle moving over them does. Line of sight is the ground's: a wall between a shooter and the aircraft blocks the shot.
+- Other factions' aircraft do not fly on it yet: it has no orders of its own for raiders.
+- The four buttons' pictures are stand-ins until their own are drawn.
+- Not yet tested in game.
+
 ## [0.146.0] - 2026-11-19 - Draft
 
 A tiltrotor's rotors and nacelles drawn, tipping forward as it climbs away
@@ -15,7 +47,7 @@ A tiltrotor's rotors and nacelles drawn, tipping forward as it climbs away
 
 ### Compatibility and limits
 
-- **Not yet tested in game.** It draws through Vehicle Framework's public renderer list, with no Harmony patch. On the map the nacelles stay upright until our own flight over the map tilts them in flight. Between Framework 0.144.0 and this one, 0.145.0 is held for our own flight, being built in parallel.
+- **Not yet tested in game.** It draws through Vehicle Framework's public renderer list, with no Harmony patch. On the map the nacelles stay upright until our own flight over the map tilts them in flight. Framework 0.145.0 was left unused: our own flight, built in parallel, became 0.147.0.
 
 ## [0.144.0] - 2026-11-19 - Draft
 

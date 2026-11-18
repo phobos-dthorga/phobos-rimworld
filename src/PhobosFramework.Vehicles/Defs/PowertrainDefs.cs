@@ -182,6 +182,9 @@ public class FlightPhaseSpec
     /// with weight, heat and height (Framework 0.141.0): for phases flown on the rotors that are not a hover, such as on station or forward
     /// flight. The authored figure stays the one the on-map fuel rate stands for.</summary>
     public bool followsHover;
+    /// <summary>The demand is the hover figure times the profile's forward-flight share (Framework 0.147.0, our own flight's forward phase):
+    /// flying forward on the rotors, following weight, heat and height as the hover does.</summary>
+    public bool forwardFlight;
     /// <summary>Whether the engines run in this phase (false for parked).</summary>
     public bool running = true;
     /// <summary>Whether the aircraft is moving in this phase (false for idling on the pad), for the systems' airflow and wear.</summary>
@@ -255,6 +258,13 @@ public class PhobosVehicleFlightProfileDef : Def
     public string? mapFuelRateMember;
     /// <summary>How every aircraft on this profile flies between tiles, unless its loadout gives its own (Framework 0.141.0); null for none.</summary>
     public CruiseSpec? cruise;
+    /// <summary>
+    /// The least hover margin at which an aircraft on our own flight stays in the air moving forward (Framework 0.147.0;
+    /// docs/development/vehicle-flight-over-the-map.md, "three thresholds"): a rotor moving forward needs less power than one hovering.
+    /// Authored at 0.6: pilots feel the change as translational lift at about 16 to 24 knots (secondary), but no textbook figure was read.
+    /// Also the share of the hover figure a forward phase asks.
+    /// </summary>
+    public float forwardFlightShare = 0.6f;
 
     public FlightPhaseSpec? Phase(string? name) => name == null ? null : phases.FirstOrDefault(p => p.phase == name);
 
@@ -271,6 +281,7 @@ public class PhobosVehicleFlightProfileDef : Def
         }
         if (!mapFuelPhase.NullOrEmpty() && Phase(mapFuelPhase) == null) yield return "the on-map fuel phase " + mapFuelPhase + " is not one of the profile's";
         if (cruise != null) foreach (string error in cruise.ConfigErrors("the profile")) yield return error;
+        if (forwardFlightShare <= 0f || forwardFlightShare > 1f) yield return "forwardFlightShare must be above 0 and at most 1";
     }
 }
 
@@ -280,6 +291,30 @@ public abstract class PhaseReader
     public abstract string? Read(VehiclePawn vehicle);
 
     public virtual IEnumerable<string> Phases() => Enumerable.Empty<string>();
+}
+
+/// <summary>
+/// Reads the phase from our own flight (Framework 0.147.0; docs/development/vehicle-flight-over-the-map.md, "Flight phases for the engine
+/// model"): no lookup by name, the comp's own state. Between tiles, Vehicle Framework's in-flight flag, as every profile reads it. On the
+/// ground with the engines running, Idle; parked, no phase (engines off).
+/// </summary>
+public class PhaseReader_OwnFlight : PhaseReader
+{
+    public const string Idle = "Idle", Hover = "Hover", Forward = "Forward", WorldFlight = "WorldFlight";
+
+    public override IEnumerable<string> Phases() => new[] { Idle, Hover, Forward, WorldFlight };
+
+    public override string? Read(VehiclePawn vehicle)
+    {
+        if (vehicle.CompVehicleLauncher is { inFlight: true }) return WorldFlight;
+        if (vehicle.GetComp<CompPhobosFlight>() is not { } flight) return null;
+        return flight.State switch
+        {
+            FlightState.Ground => vehicle.Drafted ? Idle : null,
+            FlightState.Moving => Forward,
+            _ => Hover,
+        };
+    }
 }
 
 /// <summary>One rule: if the member (on the vehicle, or on its comp of the named type) matches, the aircraft is in this phase.</summary>

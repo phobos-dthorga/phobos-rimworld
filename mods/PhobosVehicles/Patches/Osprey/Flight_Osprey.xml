@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    The Osprey flies over a map on our own flight (D'thorga Framework 0.147.0, D'thorga Vehicles 0.71.0; docs/development/vehicle-flight-over-the-map.md,
+    the hover half). A patch file of its own, so its Def (Defs/Phobos/Vehicles/Osprey/Vehicle_Osprey.xml) is never edited by two pieces of work at once.
+    Leaving the map and arriving stay Vehicle Framework's, from the ground, until the design's slice 3.
+  -->
+
+  <!-- The flight comp. Speeds over a map, climb and descent are authored, in proportion to its speed between places (17.5); its flight height
+       of 60 m is authored too, a low transit height for a map. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Osprey"]/comps</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFlight">
+        <speedCellsPerSecond>7</speedCellsPerSecond>
+        <accelerationCellsPerSecond>1.5</accelerationCellsPerSecond>
+        <turnDegreesPerSecond>35</turnDegreesPerSecond>
+        <climbSeconds>6</climbSeconds>
+        <descentSeconds>8</descentSeconds>
+        <fallSeconds>3</fallSeconds>
+        <flightHeightMetres>60</flightHeightMetres>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Drawn over hidden ground while it flies there: the game hides a thing on a fogged cell unless its Def says otherwise (finding 2). -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Osprey"]</xpath>
+    <value>
+      <seeThroughFog>true</seeThroughFog>
+    </value>
+  </Operation>
+
+  <!-- Its engines read our flight's own state, not Vehicle Framework's flags. On a map it flies on its rotors: a hover asks the fitted hover
+       figure; forward flight the hover figure times the forward-flight share (0.6, authored); between places, the cruise as before. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleFlightProfileDef[defName="PhobosFlightProfile_Osprey"]/reader</xpath>
+    <value>
+      <reader Class="Phobos.VehicleSystems.PhaseReader_OwnFlight" />
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleFlightProfileDef[defName="PhobosFlightProfile_Osprey"]/phases</xpath>
+    <value>
+      <phases>
+        <li><phase>Idle</phase><label>rotors turning</label><demand>0.2</demand><moving>false</moving></li>
+        <li><phase>Hover</phase><label>hovering</label><hover>true</hover></li>
+        <!-- The figure the on-map fuel rate stands for: the forward demand at its heaviest in sea-level air at 15 C (1.055 x 0.6). -->
+        <li><phase>Forward</phase><label>flying over the map</label><demand>0.63</demand><forwardFlight>true</forwardFlight></li>
+        <li><phase>WorldFlight</phase><label>cruising as an aeroplane</label><demand>0.6</demand></li>
+      </phases>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleFlightProfileDef[defName="PhobosFlightProfile_Osprey"]</xpath>
+    <value>
+      <mapFuelPhase>Forward</mapFuelPhase>
+      <forwardFlightShare>0.6</forwardFlightShare>
+    </value>
+  </Operation>
+</Patch>

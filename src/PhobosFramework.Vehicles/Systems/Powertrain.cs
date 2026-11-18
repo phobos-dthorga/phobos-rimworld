@@ -480,6 +480,8 @@ public sealed class Powertrain
         // Framework 0.141.0: a phase flown on the rotors that is not a hover follows the hover figure from its authored one.
         double flying = PhaseSpec == null ? 0 : PhaseSpec.hover ? HoverDemand(usable)
             : PhaseSpec.followsHover ? TurbineModel.FollowHover(PhaseSpec.demand, HoverDemand(usable), HoverDemand(usable, MaxGrossKg(), StandardAmbient, 1))
+            // Framework 0.147.0: our own flight's forward phase, the hover figure times the forward-flight share.
+            : PhaseSpec.forwardFlight ? HoverDemand(usable) * Profile.forwardFlightShare
             : PhaseSpec.demand;
         if (running && PhaseSpec is { followsHover: true } follows && Seen.On)
         {

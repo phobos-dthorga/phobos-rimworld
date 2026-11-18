@@ -56,6 +56,13 @@ public static class SubmersibleDamageBelow
     [HarmonyPriority(BeforeEveryOtherPrefix)]
     public static bool Prefix(VehiclePawn ___vehicle, ref DamageInfo dinfo)
     {
+        // Framework 0.147.0: an aircraft of ours in the air is out of reach of blows and of fire on the ground, as a hull under water is of most
+        // things; shots and blasts still hit it, by its own parts and hit boxes. The same one rule (VehicleAccess).
+        if (FlightRegistry.Any && FlightRegistry.InAir(___vehicle) && !VehicleAccess.ReachesInAir(dinfo))
+        {
+            dinfo.SetAmount(0f);
+            return false;
+        }
         if (!Submersibles.AnyHidden || !Submersibles.IsHidden(___vehicle)) return true;
         if (!Submersibles.AbsorbHit(___vehicle, ref dinfo)) return true;
         dinfo.SetAmount(0f);
@@ -73,12 +80,22 @@ public static class SubmersibleTurretsHeld
     }
 }
 
-/// <summary>Nobody steps out of a hull that is under. A prefix that skips the original, and needs to: it would put the person in the water beside the boat, and disembarking has no check to add to.</summary>
+/// <summary>
+/// Nobody steps out of a hull that is under, or of an aircraft of ours in the air (Framework 0.147.0). A prefix that skips the original, and needs
+/// to: it would put the person in the water beside the boat, or on the ground beneath the aircraft, and disembarking has no check to add to.
+/// A vehicle being destroyed lets its people out (Framework 0.147.0, row CR8: before, a submarine destroyed while under took its crew with it).
+/// </summary>
 [HarmonyPatch(typeof(VehiclePawn), nameof(VehiclePawn.DisembarkPawn))]
 public static class SubmersibleNoLandingBelow
 {
     public static bool Prefix(VehiclePawn __instance)
     {
+        if (VehicleAccess.Destroying.Count > 0 && VehicleAccess.Destroying.Contains(__instance)) return true;
+        if (FlightRegistry.Any && FlightRegistry.InAir(__instance))
+        {
+            VehicleAccess.RefuseInAir(__instance, "PhobosFlight_RefuseStepOut");
+            return false;
+        }
         if (!Submersibles.AnyHidden || !Submersibles.IsHidden(__instance)) return true;
         Submersibles.RefuseLanding(__instance);
         return false;

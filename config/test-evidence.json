@@ -122,6 +122,15 @@
       "spinning rotors when drafted": [{"key": "vehicles.tiltrotor-drawn", "variant": "spinning"}],
       "nacelles tipping through a take-off or landing": [{"key": "vehicles.tiltrotor-drawn", "variant": "tilting"}],
       "fully forward in the climb away": [{"key": "vehicles.tiltrotor-drawn", "variant": "forward"}]
+    }},
+    "204": {"parts": {
+      "it takes off": ["aircraft.flight-takeoff"],
+      "it lands on the spot": [{"key": "aircraft.flight-landed", "variant": "landed"}],
+      "it climbs back from a blocked spot": [{"key": "aircraft.flight-landed", "variant": "climbed-back"}]
+    }},
+    "205": {"parts": {
+      "a hard landing on open ground": [{"key": "aircraft.flight-forced", "variant": "hard-landing"}],
+      "wrecked where it cannot land": [{"key": "aircraft.flight-forced", "variant": "wrecked"}]
     }}
   },
   "order": [

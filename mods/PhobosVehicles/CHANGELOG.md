@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.71.0] - 2026-11-19 - Draft
+
+The Osprey flies over the map
+
+### Added
+
+- **The V-22 Osprey flies over the map on D'thorga Framework 0.147.0's own flight**: it takes off straight up, flies to any spot, holds in a hover and lands where you choose, at up to 7 cells a second (authored, in proportion to its speed between places), 60 m up (authored). Its engines read the flight: a hover asks its fitted hover figure, forward flight 0.6 of it. It is drawn over hidden ground while it flies there. A patch file of its own, so the Osprey's Def is unchanged.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.147.0 or later.
+
+### Save compatibility
+
+- Safe with a running save.
+
+### Compatibility and limits
+
+- Leaving the map and arriving are still Vehicle Framework's, from the ground. Not yet tested in game.
+
 ## [0.70.0] - 2026-11-19 - Draft
 
 The Osprey's rotors and tilting nacelles

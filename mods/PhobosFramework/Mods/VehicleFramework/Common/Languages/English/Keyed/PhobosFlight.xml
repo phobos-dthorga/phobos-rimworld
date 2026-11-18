@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Our own flight over the map, the hover half (D'thorga Framework 0.147.0; docs/development/vehicle-flight-over-the-map.md). -->
+
+  <!-- Buttons -->
+  <PhobosFlight_TakeOff>Take off</PhobosFlight_TakeOff>
+  <PhobosFlight_TakeOffDesc>Lift the {VEHICLE} straight up from where it stands and hold it in a hover over the map. Its engines must be running, its crew aboard and the sky above it open, and it must be light enough to hover in today's air.</PhobosFlight_TakeOffDesc>
+  <PhobosFlight_FlyTo>Fly to</PhobosFlight_FlyTo>
+  <PhobosFlight_FlyToDesc>Pick a spot on the map. The {VEHICLE} turns, flies there over anything in the way and holds in a hover. You can also right-click the ground with it selected.</PhobosFlight_FlyToDesc>
+  <PhobosFlight_Hold>Hold here</PhobosFlight_Hold>
+  <PhobosFlight_HoldDesc>Stop the {VEHICLE} as soon as it can and hold it in a hover.</PhobosFlight_HoldDesc>
+  <PhobosFlight_Land>Land here</PhobosFlight_Land>
+  <PhobosFlight_LandDesc>Pick a clear, open spot and which way to face. The {VEHICLE} flies over it, turns and comes straight down. It needs open sky and firm ground with nothing built on it.</PhobosFlight_LandDesc>
+
+  <!-- Refusals -->
+  <PhobosFlight_RefuseNotOnGround>The {VEHICLE} is not standing on the ground.</PhobosFlight_RefuseNotOnGround>
+  <PhobosFlight_RefuseEnginesOff>The {VEHICLE}'s engines are not running: draft it first.</PhobosFlight_RefuseEnginesOff>
+  <PhobosFlight_RefuseCrew>The {VEHICLE} does not have the crew it needs to fly.</PhobosFlight_RefuseCrew>
+  <PhobosFlight_RefuseNoFuel>The {VEHICLE} has no fuel.</PhobosFlight_RefuseNoFuel>
+  <PhobosFlight_RefuseRoof>There is a roof over part of the {VEHICLE}: it needs open sky to lift off.</PhobosFlight_RefuseRoof>
+  <PhobosFlight_RefuseTooHeavy>The {VEHICLE} is too heavy to lift straight up in this air. Unload it, wait for cooler air, or repair its engines.</PhobosFlight_RefuseTooHeavy>
+  <PhobosFlight_RefuseNotFlying>The {VEHICLE} is not flying steadily enough to take that order now.</PhobosFlight_RefuseNotFlying>
+  <PhobosFlight_RefuseOffMap>That is beyond the edge of the map.</PhobosFlight_RefuseOffMap>
+  <PhobosFlight_RefuseNotMoving>The {VEHICLE} is not flying anywhere to stop.</PhobosFlight_RefuseNotMoving>
+  <PhobosFlight_RefuseCannotHover>The {VEHICLE}'s engines cannot hold it in a hover now: it has to keep moving.</PhobosFlight_RefuseCannotHover>
+  <PhobosFlight_RefuseLand>The {VEHICLE} cannot land there: {WHY}.</PhobosFlight_RefuseLand>
+  <PhobosFlight_RefuseLaunchInAir>The {VEHICLE} must land before it can set off for another place.</PhobosFlight_RefuseLaunchInAir>
+  <PhobosFlight_RefuseBoard>Nobody can climb aboard the {VEHICLE} while it is in the air.</PhobosFlight_RefuseBoard>
+  <PhobosFlight_RefuseLoad>Nothing can be loaded into the {VEHICLE} while it is in the air.</PhobosFlight_RefuseLoad>
+  <PhobosFlight_RefuseUnload>Nothing can be unloaded from the {VEHICLE} while it is in the air.</PhobosFlight_RefuseUnload>
+  <PhobosFlight_RefuseStepOut>Nobody can step out of the {VEHICLE} while it is in the air: land it first.</PhobosFlight_RefuseStepOut>
+
+  <!-- Why a spot will not do (finishing "it cannot land there:") -->
+  <PhobosFlight_SpotEdge>part of it would be off the edge of the map</PhobosFlight_SpotEdge>
+  <PhobosFlight_SpotUnseen>part of the spot has not been seen</PhobosFlight_SpotUnseen>
+  <PhobosFlight_SpotRoof>part of the spot is under a roof</PhobosFlight_SpotRoof>
+  <PhobosFlight_SpotBuilding>something is built on part of the spot</PhobosFlight_SpotBuilding>
+  <PhobosFlight_SpotVehicle>another vehicle stands on part of the spot</PhobosFlight_SpotVehicle>
+  <PhobosFlight_SpotGround>part of the ground there cannot take its weight</PhobosFlight_SpotGround>
+
+  <!-- Why it is coming down -->
+  <PhobosFlight_WhyNoFuel>its fuel has run out</PhobosFlight_WhyNoFuel>
+  <PhobosFlight_WhyEngines>its engines cannot keep it in the air</PhobosFlight_WhyEngines>
+  <PhobosFlight_WhyCannotHover>its engines cannot hold it in a hover</PhobosFlight_WhyCannotHover>
+
+  <!-- Messages -->
+  <PhobosFlight_MsgEnginesKept>The {VEHICLE}'s engines cannot be stopped in the air: they are kept running. Land it first.</PhobosFlight_MsgEnginesKept>
+  <PhobosFlight_MsgSpotBlocked>The {VEHICLE} could not set down: {WHY}. It has climbed back up and is holding in a hover; pick another spot.</PhobosFlight_MsgSpotBlocked>
+  <PhobosFlight_MsgComingDown>The {VEHICLE} is coming down: {WHY}.</PhobosFlight_MsgComingDown>
+  <PhobosFlight_MsgHardLanding>The {VEHICLE} came down hard. Its undercarriage and airframe are damaged, and everyone aboard was shaken about.</PhobosFlight_MsgHardLanding>
+  <PhobosFlight_MsgWrecked>The {VEHICLE} came down where it could not land ({WHY}) and was wrecked.</PhobosFlight_MsgWrecked>
+
+  <!-- The inspect pane -->
+  <PhobosFlight_StateLiftingOff>lifting off</PhobosFlight_StateLiftingOff>
+  <PhobosFlight_StateHover>hovering</PhobosFlight_StateHover>
+  <PhobosFlight_StateMoving>flying</PhobosFlight_StateMoving>
+  <PhobosFlight_StateSettling>coming in to land</PhobosFlight_StateSettling>
+  <PhobosFlight_StateComingDown>coming down</PhobosFlight_StateComingDown>
+  <PhobosFlight_InspectPlain>In the air: {DOING}.</PhobosFlight_InspectPlain>
+  <PhobosFlight_InspectFigures>In the air: {DOING}, {METRES} m up, {SPEED} cells a second.</PhobosFlight_InspectFigures>
+  <PhobosFlight_InspectMargin>Power to hover: {MARGIN} of what it needs.</PhobosFlight_InspectMargin>
+</LanguageData>
