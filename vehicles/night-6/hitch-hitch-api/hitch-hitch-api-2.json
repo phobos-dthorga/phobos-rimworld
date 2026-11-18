@@ -1,0 +1,51 @@
+{
+  "file": "hitch-hitch-api-2.png",
+  "sha256": "c72b5e9ebe2ba3ad8f4bb12f0c3a9637eeb97b8ee39318c40aceec3d8b304d06",
+  "date": "2026-11-18T13:24:58",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a command button in a strategy game.\n\nImage 1 is our approved 'unhitch' button: a steel tow ball on a dark square hitch plate with a bold orange arrow pointing UP away from the ball. Create its partner, the 'hitch' button: the SAME tow ball, plate, colours and style, but the bold orange arrow comes down from the top of the canvas and points DOWN, its arrowhead just above the ball, as if lowering a trailer coupling onto it.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nStyle: exactly as image 1: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels.\n\nThe arrow MUST point downwards. No people, hands, vehicles, trailers, text, letters, numbers, logos, floor, ground or cast shadow.",
+  "seed": 2,
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/night-6-hitch-paid.json",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 305,
+    "input_tokens_details": {
+      "image_tokens": 64,
+      "text_tokens": 241
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2061
+  },
+  "cost_usd": 0.0544,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 24.7,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Unhitch.png",
+      "sha256": "cb824010df095fc6a67318e0b7e7087a98a17af98555f33492f8b0222d3876dc",
+      "role": "our approved unhitch button (picked 18 Nov 2026), the pair this button belongs with: keep its tow ball, dark plate, orange arrow, outline weight, shading, palette and finish exactly, and change ONLY the arrow's direction"
+    }
+  ]
+}

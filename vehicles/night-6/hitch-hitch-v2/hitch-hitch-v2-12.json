@@ -1,0 +1,33 @@
+{
+  "file": "hitch-hitch-v2-12.png",
+  "sha256": "c53b8e77fc40876c14d5ba7d22502051a348c233d5ae8da5c8978b450bef6cf7",
+  "date": "2026-11-18T13:14:22",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The object in the first reference image, a steel tow ball on a dark hitch plate, but with the bold orange arrow coming down from above and pointing straight down onto the ball, as if coupling a trailer on. Keep its shape, colours and finish. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/night-6-redraw.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 162.5,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/hitch-unhitch/hitch-unhitch-12.png",
+      "sha256": "db23f1c9429e3dcb5c9c3af9d0c6442071a24c3ab92d7f9eca556e141136b4ff"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+      "sha256": "916cd1de2e3f26a2d047d234f81f0fff9dd3be18fc0d18740360113113dd555a"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
