@@ -24,6 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import art_paths  # noqa: E402
 import safeguards  # noqa: E402
 from export_sprite import AI_MASKS, file_sha256  # noqa: E402
 
@@ -76,9 +77,11 @@ def originals():
     return sorted(p for p in found if not p.name.endswith('-sheet.png'))
 
 
-def plan(device='cpu'):
-    pictures = originals()
-    todo = [p for p in pictures if not (AI_MASKS / f'{file_sha256(p)}.png').is_file()]
+def plan(device='cpu', also=()):
+    """The originals, those the AI has not looked at, and the minutes left. `also` adds pictures no shipped texture is cut from
+    yet: a new vehicle's art before its first export (the rule: the AI looks before any export)."""
+    pictures = sorted(set(originals()) | {Path(p).resolve() for p in also})
+    todo = [p for p in pictures if not art_paths.find('bgmasks', f'{file_sha256(p)}.png')]
     return pictures, todo, len(todo) * SECONDS_EACH[device] / 60
 
 
@@ -86,7 +89,7 @@ def masks(args):
     device = 'gpu' if args.gpu else 'cpu'
     now = _dt.datetime.now()
     stop_at = safeguards.parse_stop_at(args.stop_at, now)
-    pictures, todo, minutes = plan(device)
+    pictures, todo, minutes = plan(device, args.also)
     print(f'{len(pictures)} originals, {len(todo)} still to look at: about {minutes:.0f} minutes on the {"graphics card" if args.gpu else "processor"}')
     if not todo:
         return 0
@@ -120,8 +123,8 @@ def masks(args):
 
 VEHICLES = ROOT / 'mods' / 'PhobosVehicles' / 'Textures' / 'Phobos' / 'Vehicles'
 VEHICLE_EXPORT = ROOT / 'assets' / 'phobos-vehicles' / 'generated' / 'export'
-STAGE = ROOT / '.local' / 'art' / 'clean-stage'
-REVIEW = ROOT / '.local' / 'art' / 'clean-review'
+STAGE = art_paths.work('clean-stage')     # In the art tools' working folder (art_paths.py): K: on the owner's PC since 19 Nov 2026
+REVIEW = art_paths.work('clean-review')
 # Paint hue ranges that were not the exporter's defaults, from the bodies' texture records (the Crawler's grey-blue hull).
 BODY_HUES = {'SeabedCrawler': ((185, 240), (8, 32))}
 # Bodies whose export record was not kept: their master, from the texture record; the rest is read back from the transform.
@@ -325,7 +328,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     commands = parser.add_subparsers(dest='command', required=True)
     commands.add_parser('plan', help='list the originals and what is left to look at')
-    commands.add_parser('stage', help='re-export every texture the records can rebuild into .local/art/clean-stage, then write the review')
+    commands.add_parser('stage', help="re-export every texture the records can rebuild into the art tools' working folder "
+                        '(clean-stage), then write the review')
     applying = commands.add_parser('apply', help='copy the reviewed, unflagged textures into the mods')
     applying.add_argument('--skip', action='append', default=[], help='a texture file name to leave as it is; repeatable')
     applying.add_argument('--include', action='append', default=[], help='a flagged texture to apply after all, once looked at; repeatable')
@@ -334,6 +338,8 @@ def main(argv=None):
     where.add_argument('--cpu', action='store_true', help='on the processor, below-normal priority, away from the game')
     where.add_argument('--gpu', action='store_true', help='on the graphics card; refused while the game runs')
     run.add_argument('--stop-at', required=True, help='HH:MM (its next occurrence) or a full ISO date and time')
+    run.add_argument('--also', action='append', default=[], help="another original to look at, such as a new vehicle's art before "
+                     'its first export; repeatable')
     run.add_argument('--cpu-cores', help='the logical processors to use, such as 16-31 (default: those away from the game)')
     run.add_argument('--comfy', help="ComfyUI portable folder (default: the art tools' own, which COMFYUI_PATH can change)")
     args = parser.parse_args(argv)

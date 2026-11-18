@@ -18,7 +18,7 @@ PARTS.json says, in the plan's metres (across from the centre line, back from th
   "sections" [{"name", "of", "from_m", "to_m"}]: a band of an object, cut along the plan's length where no line in the picture
              divides the parts (a cockpit, a cabin, a ramp along one fuselage)
 
-Writes to .local/art/parts/<the master's SHA-256>/: one mask per part (white is the part), parts.json with each part's area, box, centre
+Writes to parts/<the master's SHA-256>/ in the art tools' working folder (art_paths.py; formerly .local/art): one mask per part (white is the part), parts.json with each part's area, box, centre
 and score in the master's pixels, and review.png: the picture on dark ground with every part outlined and named. Uses the graphics
 card and refuses while RimWorld runs (the owner's rule: no GPU work while gaming); graphics memory is released at the end.
 """
@@ -35,7 +35,10 @@ from PIL import Image, ImageDraw, ImageFont
 from transformers import Sam2Model, Sam2Processor
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / '.local' / 'art' / 'parts'
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import art_paths  # noqa: E402
+
+OUT = art_paths.work('parts')   # The art tools' working folder (art_paths.py): K: on the owner's PC since 19 Nov 2026
 MODEL = Path('C:/AI/ComfyUI/ComfyUI_windows_portable/ComfyUI/models/segmentation/sam2.1-hiera-large')
 WHITE = 235           # Paler than this in every channel is the background around the vehicle (as paint_segments.py).
 BOX_MARGIN = 0.12     # The plan's box is widened by this share each way: a picture follows its plan closely, not exactly.

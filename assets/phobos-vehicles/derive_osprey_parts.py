@@ -18,6 +18,7 @@ assets/phobos-vehicles/generated/osprey-derived/, each with a record. No input i
 import hashlib
 import json
 import math
+import sys
 from pathlib import Path
 
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageMath
@@ -27,7 +28,8 @@ G = ROOT / 'assets/phobos-vehicles/generated'
 OUT = G / 'osprey-derived'
 PICK = G / 'osprey-trial-nano-banana-pro/osprey-trial-nano-banana-pro-1.png'
 LIFTED = G / 'osprey-overlays-lifted'
-PARTS = ROOT / '.local/art/parts'
+sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
+import art_paths  # noqa: E402  The art tools' working folder, where Segment Anything's part masks are
 FORWARD_GROWTH = 0.6                               # Fully forward, the nacelle shows this share longer than upright [A]
 SPIN_STEPS = 40                                    # Turns averaged over a third of a turn (the rotor repeats every 120 degrees)
 SPIN_PEAK_ALPHA = 110                              # The spinning disc's densest ring, out of 255 [A]
@@ -187,7 +189,7 @@ def rotor():
 
 def nacelles():
     pick = Image.open(PICK).convert('RGBA')
-    folder = PARTS / sha(PICK)
+    folder = art_paths.find('parts', sha(PICK))
     mask = Image.open(folder / 'LeftNacelle.png').convert('L')
     hub = Image.open(folder / 'LeftHub.png').convert('L')
     box = mask.getbbox()

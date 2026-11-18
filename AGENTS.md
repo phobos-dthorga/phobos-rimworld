@@ -107,6 +107,11 @@ running a script does not load them.
   the drive's free space, and the tool refuses new clones on a short drive. **Never delete a clone, or anything else to free space,
   without first telling the owner** what is short and what their choices are, and waiting for their decision. Decompile only when there is no public source, when it does not match the installed build, or
   for a quick check of the file the game actually loads, and say which you read.
+- **New local data goes on the drive the owner chose, never the repository's drive** (owner, 19 Nov 2026: "Just use K: from now on
+  instead of D:"; D: was at 2% free). Caches, work files, clones and staging that are neither shipped nor committed take their folder
+  from a key in `.local/install-settings.json` (`sourceClonesPath`; `artWorkPath` for the art tools' masks, parts and staging, read
+  through `scripts/art/art_paths.py`, which still finds files made earlier in `.local/art`). A new tool that writes much gives itself
+  such a key. The repository, shipped textures and committed files stay where they are.
 - **Answer what an update of the game or of a mod we tie into changed with `python scripts/assembly-archive.py compare <file>`**
   (owner, 18 Nov 2026: Steam replaces the older build, so it could not be compared). Every `refresh-mod-list.py` run keeps new
   versions of `Assembly-CSharp.dll` and of every active mod our About.xml and LoadFolders.xml name (phobos-modkit's rimworld-archive,

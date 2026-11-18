@@ -58,6 +58,39 @@ class ProcessTests(unittest.TestCase):
             self.assertNotIn("'rimworld.exe' in", text, f'{name} checks for one game name; use safeguards.game_running')
 
 
+class ArtWorkPathTests(unittest.TestCase):
+    """The art tools' working folder (owner, 19 Nov 2026: K: instead of D:), and files made before the move still found."""
+
+    def setUp(self):
+        import json
+        import tempfile
+        import art_paths
+        self.art_paths = art_paths
+        self.folder = tempfile.mkdtemp()
+        self.settings = os.path.join(self.folder, 'install-settings.json')
+        self.work = os.path.join(self.folder, 'work')
+        with open(self.settings, 'w', encoding='utf-8') as fh:
+            json.dump({'artWorkPath': self.work}, fh)
+
+    def tearDown(self):
+        import shutil
+        shutil.rmtree(self.folder, ignore_errors=True)
+
+    def test_the_environment_wins_then_the_settings_then_the_old_folder(self):
+        ap = self.art_paths
+        self.assertEqual(str(ap.work_root({'PHOBOS_ART_WORK': 'X:/art'}, self.settings)), str(ap.Path('X:/art')))
+        self.assertEqual(str(ap.work_root({}, self.settings)), self.work)
+        self.assertEqual(ap.work_root({}, os.path.join(self.folder, 'missing.json')), ap.OLD)
+
+    def test_a_file_is_read_from_the_new_folder_and_none_when_nowhere(self):
+        ap = self.art_paths
+        os.makedirs(os.path.join(self.work, 'bgmasks'))
+        open(os.path.join(self.work, 'bgmasks', 'abc.png'), 'wb').close()
+        self.assertEqual(str(ap.find('bgmasks', 'abc.png', environ={}, settings_file=self.settings)),
+                         os.path.join(self.work, 'bgmasks', 'abc.png'))
+        self.assertIsNone(ap.find('bgmasks', 'not-made-anywhere.png', environ={}, settings_file=self.settings))
+
+
 class StopReasonTests(unittest.TestCase):
     def test_nothing_wrong_means_no_reason(self):
         self.assertIsNone(safeguards.stop_reason(NOON, LATER, {'explorer.exe'}, PLENTY))

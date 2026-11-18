@@ -17,9 +17,15 @@ from pathlib import Path
 from PIL import Image
 
 
+import sys  # noqa: E402
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import art_paths  # noqa: E402
+
 # Masks from the background AI (scripts/art/clean_backgrounds.py), named by the SHA-256 of the picture they were made from: white where
-# the picture shows its object, black where it shows background. Kept on this PC only.
-AI_MASKS = Path(__file__).resolve().parents[2] / '.local' / 'art' / 'bgmasks'
+# the picture shows its object, black where it shows background. Kept on this PC only, in the art tools' working folder (art_paths.py;
+# K: on the owner's PC since 19 Nov 2026); masks made before the move are still read from .local/art/bgmasks.
+AI_MASKS = art_paths.work('bgmasks')
 AI_SEED_BELOW = 64  # The AI is sure this is background: clearing may start here (authored, 12 Nov 2026).
 AI_OBJECT_FROM = 192  # The AI is sure this is the object: clearing never enters it, however white it is (authored).
 AI_WHOLE_PATCH = 0.9  # An enclosed white patch is cleared only if the AI would clear this share of it or more, else none (authored).
@@ -31,8 +37,8 @@ def file_sha256(path):
 
 def ai_background(path):
     """The background AI's mask for this picture file, or None if the AI has not looked at it."""
-    mask = AI_MASKS / f'{file_sha256(path)}.png'
-    return Image.open(mask).convert('L') if mask.is_file() else None
+    mask = art_paths.find('bgmasks', f'{file_sha256(path)}.png')
+    return Image.open(mask).convert('L') if mask else None
 
 
 def unmixed(value, alpha):
