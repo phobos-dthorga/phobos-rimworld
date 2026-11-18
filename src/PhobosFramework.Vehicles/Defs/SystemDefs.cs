@@ -745,6 +745,11 @@ public class PhobosVehicleLoadoutDef : Def
     public List<ElectricalLoadSpec> loads = new();
     /// <summary>What the aircraft's avionics carry (Framework 0.110.0); null for a loadout with none.</summary>
     public AvionicsFit? avionics;
+    /// <summary>This aircraft's own cruising figures (Framework 0.141.0), in place of its flight profile's; null to use the profile's.</summary>
+    public CruiseSpec? cruise;
+
+    /// <summary>The cruising figures that govern an aircraft of this loadout: its own, else its flight profile's; null when neither gives them.</summary>
+    public CruiseSpec? Cruise => cruise is { Given: true } ? cruise : flightProfile?.cruise is { Given: true } shared ? shared : null;
 
     public override void ResolveReferences()
     {
@@ -785,6 +790,7 @@ public class PhobosVehicleLoadoutDef : Def
                 if (!system.def.parameters.values.ContainsKey(name)) yield return system.def.defName + " has no parameter " + name;
             }
         }
+        if (cruise != null) foreach (string error in cruise.ConfigErrors("the loadout")) yield return error;
         var loadNames = new HashSet<string>();
         foreach (ElectricalLoadSpec load in loads)
         {

@@ -62,7 +62,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [The world map and the cab](vehicle-world-map-design.md) (8 Nov 2026): caravans, cab climate, booster packs, ground and cab moods. Built.
 - [Avionics for every aircraft](vehicle-avionics.md) (13 Nov 2026): instruments, navigation, sensors and the avionics fit. Partly built.
 - [Sling loads](vehicle-sling-design.md) (11 Nov 2026): a helicopter carries a vehicle under it. Partly built; take-off owner-tested.
-- [Our own flight over the map](vehicle-flight-over-the-map.md) (18 Nov 2026): hover, circling, rolling take-off, cruising height. Record only.
+- [Our own flight over the map](vehicle-flight-over-the-map.md) (18 Nov 2026): hover, circling, rolling take-off, cruising height. Cruising height built.
 - [Real figures for named vehicles](vehicle-real-figures-design.md) (8 Nov 2026): power, weights, gearboxes; kerb mass; class by empty mass. Built.
 
 ### Upgrades and cross-links

@@ -224,6 +224,13 @@ public class When_Setting : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => VehicleSystemsMod.Settings.FlagOn(setting);
 }
 
+/// <summary>The cruising height between tiles governs this aircraft (Framework 0.141.0): its setting is on and the aircraft has cruising
+/// figures. With <c>invert</c>, for fixed figures that stand only where it does not (avionics A14's low flight).</summary>
+public class When_CruiseHeight : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => CruiseHeight.Governs(context.Comp.Vehicle);
+}
+
 /// <summary>The cab has automatic climate control fitted (the vehicle, its loadout, its tech level or the player's setting).</summary>
 public class When_ClimateControl : VehicleSystemCondition
 {

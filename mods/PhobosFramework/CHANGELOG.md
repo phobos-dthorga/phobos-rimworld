@@ -5,6 +5,36 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.141.0] - 2026-11-18 - Draft
+
+A cruising height between places, and a helicopter on station that works as hard as its load and the air ask
+
+### Added
+
+- **Each stretch of a flight between places is flown at a height of its own.** An aircraft climbs to the height it was built for unless its engines cannot climb that high at its weight (heavier, or with an engine lost, the ceiling falls), or someone aboard has no oxygen: a crew whose oxygen set is out, or passengers in a cabin that is not pressurised, keep it down to 3,810 m (12,500 ft). It is always raised 300 m above the highest ground on the way, 600 m over mountains.
+- **A jet flown low is slower and thirstier; a helicopter forced up over mountains burns more.** At the height it was built for, an aircraft flies exactly as its author made it. The Harrier with its oxygen out comes to about 84 % of its speed and 1.19 times its fuel a tick, as the fixed figures before it did.
+- **A stretch over ground higher than the aircraft can climb is refused before launch**, saying about how many kilograms lighter it must be, or that it must fly round. The destination picker prices a journey stretch by stretch, so the fuel shown and the not-enough-fuel refusal follow the heights, and its tooltip says how high a stretch is flown and why where that is not the height it was built for (in words in Plain mode, with metres and shares in Operator, and the whole working in Engineer).
+- **A stretch found to be beyond the engines in flight** (an engine lost on the way) is flown, struggling, at the height the ground asks, and you are told.
+- **An air defence of The Dead Man's Switch sees the aircraft at the height it is really flying.**
+- **New setting: Cruising height between places** (D'thorga Framework, vehicle systems), on by default.
+- **Aircraft authors can give their aircraft cruising figures in XML**: a cruise block on the loadout or the flight profile, with the height it is built to cruise at, its published ceiling, what holds it up (rotor, jet or propeller), its own oxygen line and whether its cabin is pressurised.
+- **A helicopter on station or climbing away asks of its engines what its load and the air ask.** Those phases' figures now hold at the heaviest weight in sea-level air at 15 °C and move from there as the power to hover does: a light helicopter on a cool day works its engines less and burns less fuel on station, a heavy one on a hot, high map more. This is the VTOL Vehicle framework's Hind and Mongoose today.
+
+### Changed
+
+- The oxygen set's fixed low-flight figures (0.85 of speed, 1.2 times the fuel) now stand only where the cruising height does not govern the aircraft: its setting off, or an aircraft with no cruising figures.
+
+### Save compatibility
+
+- Safe with a running save. Nothing new is saved: a stretch's height is worked out when it begins, and again after a load.
+
+### Compatibility and limits
+
+- Only your own aircraft with the full drivetrain model and cruising figures are affected. The Harrier, the Hind and the Mongoose carry their own figures (from D'thorga Vehicles); Vehicle Framework's own helicopters and the Warbird and Smuggler carry authored ones. Thrust-lifted pods have none: their thrusters do not breathe air.
+- The ceiling comes from the published one by our own fit; on one engine it reads about a quarter higher than the few published one-engine figures. The ground is read along a straight line between the stops, tile by tile.
+- Not built: phases read from flight of our own over a map, and the forward-flight and rolling shares that decide whether an aircraft may hover, fly on or roll. They wait for that flight.
+- Not yet tested in game.
+
 ## [0.140.1] - 2026-11-18 - Draft
 
 Four faults found by reading the code, before they were met in play

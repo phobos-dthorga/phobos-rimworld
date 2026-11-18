@@ -27,6 +27,13 @@
       </set>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_Helicopter</flightProfile>
+    <!-- The cruising height between tiles (Framework 0.141.0). Service ceiling 4,500 m for the Mi-24D (secondary: aerospaceweb.org and
+         airvectors.net; other sources give 4,900 to 5,750 m by variant). Built to cruise at 1,000 m (authored, as every helicopter of ours). -->
+    <cruise>
+      <designMetres>1000</designMetres>
+      <ceilingMetres>4500</ceilingMetres>
+      <lift>Rotor</lift>
+    </cruise>
     <!-- Avionics (Framework 0.110.0): the Mi-24's fit as the record gives it (agent defaults; secondary sources): full navigation, an
          autopilot, a full sight, a warning receiver and countermeasures. Its instruments go in an appended avionics bay (owner, 13 Nov 2026). -->
     <avionics>

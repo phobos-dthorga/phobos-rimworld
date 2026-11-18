@@ -30,6 +30,13 @@
       </set>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_Helicopter</flightProfile>
+    <!-- The cruising height between tiles (Framework 0.141.0). Service ceiling 4,725 m for the A129 Mangusta (secondary: army-technology.com
+         and colettiscombataircraft.com). Built to cruise at 1,000 m (authored, as every helicopter of ours). -->
+    <cruise>
+      <designMetres>1000</designMetres>
+      <ceilingMetres>4725</ceilingMetres>
+      <lift>Rotor</lift>
+    </cruise>
     <!-- Avionics (Framework 0.110.0): a fictional attack helicopter, fitted as one (agent defaults): full navigation, a full sight, a night
          sight and a warning receiver. Its instruments go in an appended avionics bay (owner, 13 Nov 2026). -->
     <avionics>

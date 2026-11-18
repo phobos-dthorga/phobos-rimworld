@@ -196,6 +196,16 @@ public static class TurbineModel
     public static double HoverPowerNeeded(double atMaxGross, double weightShare, double ambient, double pressureRatio = 1) =>
         atMaxGross * Math.Pow(Math.Max(0, weightShare), 1.5) * Math.Sqrt(Density(15) / (Density(ambient) * Math.Min(1, Math.Max(0.05, pressureRatio))));
 
+    /// <summary>
+    /// A flight phase's demand that follows the hover figure (Framework 0.141.0; docs/development/vehicle-flight-over-the-map.md, "Flight phases
+    /// for the engine model"): its authored demand holds at the heaviest weight in sea-level air at 15 °C, and from there it moves as the
+    /// power a hover needs moves, with weight, heat and height. A rotor flying slowly or hovering in turn on station, or flying forward, needs
+    /// a share of the hover's power that stays roughly in step with it (our inference, from momentum theory: the induced power behind both
+    /// follows weight to the 1.5 and density to the -0.5).
+    /// </summary>
+    public static double FollowHover(double authoredDemand, double hoverNow, double hoverNominal) =>
+        hoverNominal <= 0 ? authoredDemand : authoredDemand * Math.Max(0, hoverNow) / hoverNominal;
+
     /// <summary>Hot-section life used per hour above the continuous limit: doubling every 25 °C over it (authored; creep is strongly
     /// temperature-dependent, but no figure is cited yet). Zero inside the limit.</summary>
     public static double LifePerHour(double overContinuous) => overContinuous <= 0 ? 0 : 0.01 * Math.Pow(2, overContinuous / 25);

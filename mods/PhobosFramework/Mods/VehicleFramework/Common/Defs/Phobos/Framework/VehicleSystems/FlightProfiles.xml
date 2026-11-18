@@ -6,6 +6,8 @@
     from decompiles on 8 Nov 2026 and never copied: no Phobos assembly references these mods. A member that does not exist simply
     never matches. Vehicle Framework's own "in flight" flag is set on a map only while leaving it, so on-map phases come from the
     frameworks' FlightState field.
+    Cruising height (Framework 0.141.0; docs/development/vehicle-flight-over-the-map.md): a profile's cruise block serves every aircraft on it
+    without figures of its own; a loadout's own replaces it. Thrust-lifted pods have none: their thrusters do not breathe air.
     Fuel (Framework 0.132.0; docs/development/vehicle-altitude-and-turbines.md): flying between tiles, the author's rate holds at the
     worldFuelPhase's demand (a cruise). Over a map it holds at the mapFuelPhase's demand; for the two flight frameworks that burn a rate
     of their own on a map, mapFuelRateMember names where they keep it (read by name, as the phases are), and the aircraft's fuel on a
@@ -75,6 +77,13 @@
     <mapFuelRateMember>FlightProps.fuelConsumptionPerTick</mapFuelRateMember>
     <label>helicopter</label>
     <hoverPowerAtMaxGross>0.9</hoverPowerAtMaxGross>
+    <!-- The cruising height between tiles (Framework 0.141.0): for a helicopter with no figures of its own, built to cruise at 1,000 m with
+         a 4,500 m ceiling (both authored, in line with the Mi-24's and the A129's published ceilings of 4,500 and 4,725 m). -->
+    <cruise>
+      <designMetres>1000</designMetres>
+      <ceilingMetres>4500</ceilingMetres>
+      <lift>Rotor</lift>
+    </cruise>
     <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
       <rules>
         <li><phase>Departing</phase><member>FlightState</member><equals>DepartingMap</equals></li>
@@ -93,8 +102,10 @@
       <li><phase>SpoolingDown</phase><label>spooling down</label><demand>0.05</demand><moving>false</moving></li>
       <li><phase>TakingOff</phase><label>lifting off</label><hover>true</hover></li>
       <li><phase>Landing</phase><label>settling to land</label><hover>true</hover></li>
-      <li><phase>OnStation</phase><label>on station</label><demand>0.7</demand></li>
-      <li><phase>Departing</phase><label>climbing away</label><demand>0.85</demand></li>
+      <!-- Framework 0.141.0: on station and climbing away follow the hover figure from their authored demands, which hold at the heaviest
+           weight in sea-level air at 15 degrees C: a light helicopter asks less of its engines, a heavy one on a hot, high map more. -->
+      <li><phase>OnStation</phase><label>on station</label><demand>0.7</demand><followsHover>true</followsHover></li>
+      <li><phase>Departing</phase><label>climbing away</label><demand>0.85</demand><followsHover>true</followsHover></li>
       <li><phase>WorldFlight</phase><label>cruising</label><demand>0.6</demand></li>
     </phases>
   </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
@@ -106,6 +117,13 @@
          control bleed. -->
     <cabinBleed>0.005</cabinBleed>
     <label>aircraft</label>
+    <!-- The cruising height between tiles (Framework 0.141.0): a propeller aeroplane with no figures of its own (Vanilla Vehicles Expanded's
+         Warbird and Smuggler), built to cruise at 3,000 m with an 8,000 m ceiling. Both authored. -->
+    <cruise>
+      <designMetres>3000</designMetres>
+      <ceilingMetres>8000</ceilingMetres>
+      <lift>Propeller</lift>
+    </cruise>
     <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
       <rules>
         <li><phase>WorldFlight</phase><comp>CompVehicleLauncher</comp><member>inFlight</member><equals>True</equals></li>
@@ -130,6 +148,13 @@
     <cabinBleed>0.005</cabinBleed>
     <label>helicopter</label>
     <hoverPowerAtMaxGross>0.85</hoverPowerAtMaxGross>
+    <!-- The cruising height between tiles (Framework 0.141.0): for a helicopter with no figures of its own, built to cruise at 1,000 m with
+         a 4,500 m ceiling (both authored, in line with the Mi-24's and the A129's published ceilings of 4,500 and 4,725 m). -->
+    <cruise>
+      <designMetres>1000</designMetres>
+      <ceilingMetres>4500</ceilingMetres>
+      <lift>Rotor</lift>
+    </cruise>
     <liftCheckAtLaunch>true</liftCheckAtLaunch>
     <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
       <rules>

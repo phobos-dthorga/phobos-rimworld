@@ -58,6 +58,19 @@ public static class AirCombat
     public static bool FliesLow(VehiclePawn? vehicle) =>
         Carries(vehicle, fit => fit.cruisesHigh) && !Works(vehicle, OxygenQuantity);
 
+    /// <summary>The height an air defence sees the aircraft cruise at, metres: the leg's own where the cruising height between tiles governs it
+    /// (Framework 0.141.0), so what it burns and what a radar sees agree; else its track's figure, low without oxygen (A14).</summary>
+    public static double TrackCruiseMetres(VehiclePawn? vehicle, AirTrackSpec spec, out bool low)
+    {
+        if (CruiseHeight.Current(vehicle) is { } leg)
+        {
+            low = false;
+            return leg.HeightMetres;
+        }
+        low = FliesLow(vehicle);
+        return spec.cruiseMetres;
+    }
+
     // ---- Countermeasures (A16) ----
 
     /// <summary>Countermeasure cartridges in the aircraft's cargo.</summary>

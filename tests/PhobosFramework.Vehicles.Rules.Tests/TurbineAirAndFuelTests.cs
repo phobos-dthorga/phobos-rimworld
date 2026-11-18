@@ -96,4 +96,19 @@ public class TurbineAirAndFuelTests
         Assert.Equal(4, TurbineModel.FuelCorrection(10, 6, leaking: true), 9);
         Assert.Equal(0, TurbineModel.FuelCorrection(3, 6, leaking: true), 9);
     }
+
+    [Fact]
+    public void APhaseThatFollowsTheHoverHoldsItsAuthorsFigureAtTheHeaviestWeightAtSeaLevel()
+    {
+        // Framework 0.141.0: the Hind on station, authored 0.7 against a hover of 0.9 at its heaviest.
+        double nominal = TurbineModel.HoverPowerNeeded(0.9, 1, 15);
+        Assert.Equal(0.7, TurbineModel.FollowHover(0.7, nominal, nominal), 9);
+        // Light, it asks less; hot and high, more, by the same shares the hover does.
+        double light = TurbineModel.HoverPowerNeeded(0.9, 0.7, 15);
+        Assert.Equal(0.7 * System.Math.Pow(0.7, 1.5), TurbineModel.FollowHover(0.7, light, nominal), 9);
+        double hotHigh = TurbineModel.HoverPowerNeeded(0.9, 1, 35, ThinAir);
+        Assert.True(TurbineModel.FollowHover(0.7, hotHigh, nominal) > 0.7);
+        // Without a hover figure to follow, the authored demand stands.
+        Assert.Equal(0.7, TurbineModel.FollowHover(0.7, 0.5, 0), 9);
+    }
 }

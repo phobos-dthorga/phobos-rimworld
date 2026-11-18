@@ -24,6 +24,9 @@ them running. It applies to **every Vehicle Framework vehicle from any mod**, no
   out when it is not needed. **Aircraft fuel follows the engines** in the settings turns this off.
 - **High country takes engine power**: an engine without a turbocharger, a gas turbine and a helicopter's lift all lose some
   where the land stands high. **Thin air at height** in the settings turns this off.
+- **Aircraft fly each stretch between places at a height of their own**: over the highest ground on the way, and lower when their
+  engines cannot climb at their weight or someone aboard has no oxygen. A stretch over mountains too high for them is refused before
+  launch. **Cruising height between places** in the settings turns this off.
 - **Removing D'thorga Framework or Vehicle Framework from a colony that used the systems: press the removal button first.** Load
   the colony, press **Remove the added parts from this colony's vehicles** in the settings, save, then remove the mod. Without it,
   saved vehicles may fail to load. Before that, also **take every vehicle out of every garage**, **recover every sling wreck** on the
@@ -408,6 +411,20 @@ the kit back in the cargo.
     onto its pad burns about twice what it does flying about.
   - **Idling on the ground with a pilot aboard burns fuel**, where it used to burn none: about a quarter to two-fifths of the flying
     rate. **Take the pilot out, or undraft it, when it is not needed.**
+  - **A helicopter on station over a map works as hard as its load and the air ask** (not yet tested in game): the Hind and the
+    Mongoose burn less flying about light on a cool day, and more heavy on a hot, high one.
+- **Each stretch between places is flown at a height of its own** (not yet tested in game; the setting **Cruising height between
+  places**, on by default). The launch screen's tooltip says when a stretch is not flown at the aircraft's best height, and why:
+  - **Climbing over high ground.** It always keeps 300 m above the ground on the way, 600 m over mountains. A helicopter forced up
+    over a range burns a little more.
+  - **Kept down because someone aboard has no oxygen**: a crew whose oxygen set is broken, or passengers in a cabin that is not
+    pressurised, keep it below 3,810 m. **A jet flown low is slower and thirstier**: a Harrier with its oxygen out flies at about
+    84 % of its speed and burns about 40 % more over the same ground. Repair the oxygen set (on its avionics part).
+  - **Kept down by its engines**: heavy, or with an engine lost, it cannot climb as high.
+  - **Refused**: the ground on the way stands higher than it can climb. The tooltip says about how many kilograms lighter it must
+    be, or that it must fly round; pick a stop to one side of the mountains. If an engine is lost on the way and a stretch becomes
+    too high, it struggles across slow and thirsty, and a message says so.
+  - The fuel the launch screen shows, and whether it says there is enough, count the height of every stretch.
 - **Thin air in high country** takes power from the engines and asks more of the rotor: see
   [thin air in high country](#thin-air-in-high-country).
 - **Carrying a vehicle on a sling** (lifting and landing tested in game by the owner, with the Cherokee):

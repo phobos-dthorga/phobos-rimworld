@@ -196,7 +196,9 @@ public sealed class Powertrain
     public const int MaxEngines = 8;
 
     /// <summary>Empty mass, a full cargo hold and full fuel: the weight a craft is designed to lift.</summary>
-    double MaxGrossKg() => KerbKg + comp.Vehicle.GetStatValue(VehicleStatDefOf.CargoCapacity) + fuelKgFull;
+    /// <summary>The heaviest the aircraft is built to be, kilograms: empty, full cargo, full fuel (the hover rule's and the cruising
+    /// height's reference weight).</summary>
+    public double MaxGrossKg() => KerbKg + comp.Vehicle.GetStatValue(VehicleStatDefOf.CargoCapacity) + fuelKgFull;
 
     static TurbineSpec MakeTurbine(TurbineXml xml, bool includeWet)
     {
@@ -475,7 +477,22 @@ public sealed class Powertrain
         double air = comp.AirPressure;
         // What flying asks of the engines, then what else they give (Framework 0.132.0, gap T-2 and step S7): bleed air, and the
         // generator at the vehicle's last look. All of it heats and wears the turbine and burns fuel; the ledger lists it.
-        double flying = PhaseSpec == null ? 0 : PhaseSpec.hover ? HoverDemand(usable) : PhaseSpec.demand;
+        // Framework 0.141.0: a phase flown on the rotors that is not a hover follows the hover figure from its authored one.
+        double flying = PhaseSpec == null ? 0 : PhaseSpec.hover ? HoverDemand(usable)
+            : PhaseSpec.followsHover ? TurbineModel.FollowHover(PhaseSpec.demand, HoverDemand(usable), HoverDemand(usable, MaxGrossKg(), StandardAmbient, 1))
+            : PhaseSpec.demand;
+        if (running && PhaseSpec is { followsHover: true } follows && Seen.On)
+        {
+            string side = flying >= follows.demand ? "above" : "below";
+            if (Seen.Wants("aircraft.follows-hover", vehicle, side))
+            {
+                Seen.Note("aircraft.follows-hover", vehicle, Phase, side, new[]
+                {
+                    new KeyValuePair<string, double>("demand", flying),
+                    new KeyValuePair<string, double>("authored", follows.demand),
+                });
+            }
+        }
         double shaft = running ? ShaftShare(comp.GeneratorKw) : 0;
         double demand = BleedRule.Demand(flying, BleedShare) + shaft;
         TurbineNow = TurbineModel.Evaluate(usable, demand, comp.Ambient, Condition(), working, engines, running, air);
@@ -508,6 +525,9 @@ public sealed class Powertrain
         Cap = 1;
         OweFuel(vehicle, running, demand, ticks);
     }
+
+    /// <summary>Sea-level air's standard temperature, °C: where an authored flight demand holds.</summary>
+    const double StandardAmbient = 15;
 
     /// <summary>The share of the engine's work bled off now: reaction control in a hover (more in wind) and cabin heat (derived).</summary>
     public double BleedShare => ReactionBleedShare + CabinBleedShare;
@@ -552,9 +572,11 @@ public sealed class Powertrain
     double HoverDemand(TurbineSpec spec, double mass, double ambient, double pressure)
     {
         if (spec.Continuous.ThrustKn > 0) return mass * DrivetrainModel.Gravity / 1000 / spec.Continuous.ThrustKn;
-        double maxGross = KerbKg + comp.Vehicle.GetStatValue(VehicleStatDefOf.CargoCapacity) + fuelKgFull;
-        return TurbineModel.HoverPowerNeeded(Profile!.hoverPowerAtMaxGross, mass / Math.Max(1, maxGross), ambient, pressure);
+        return TurbineModel.HoverPowerNeeded(Profile!.hoverPowerAtMaxGross, mass / Math.Max(1, MaxGrossKg()), ambient, pressure);
     }
+
+    /// <summary>The share of its engines still working, 0 to 1.</summary>
+    public double WorkingEngineShare => EngineShare();
 
     /// <summary>Whether the aircraft can hover now: dry, only with water, or not at all; and the best margin (1 means just enough).</summary>
     public (bool dry, bool wet, double margin) HoverCheck() => HoverCheck(MassKg(), comp.Ambient, comp.AirPressure);

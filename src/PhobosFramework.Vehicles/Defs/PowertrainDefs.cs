@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using Vehicles;
 using Verse;
@@ -177,10 +178,44 @@ public class FlightPhaseSpec
     public float demand;
     /// <summary>The demand is the hover check (weight against hover thrust) rather than a figure.</summary>
     public bool hover;
+    /// <summary>The demand is the authored figure at the heaviest weight in sea-level air at 15 °C, and follows what a hover needs from there,
+    /// with weight, heat and height (Framework 0.141.0): for phases flown on the rotors that are not a hover, such as on station or forward
+    /// flight. The authored figure stays the one the on-map fuel rate stands for.</summary>
+    public bool followsHover;
     /// <summary>Whether the engines run in this phase (false for parked).</summary>
     public bool running = true;
     /// <summary>Whether the aircraft is moving in this phase (false for idling on the pad), for the systems' airflow and wear.</summary>
     public bool moving = true;
+}
+
+/// <summary>
+/// How an aircraft flies between tiles (Framework 0.141.0; docs/development/vehicle-flight-over-the-map.md, "A cruising height between
+/// tiles"): the height its author's speed and range are for, the ceiling it is published with, and who aboard needs oxygen. Written on the
+/// aircraft's loadout, where the figures are its own, or on its flight profile for every aircraft that shares it. With none, a leg is
+/// flown as its author made it.
+/// </summary>
+public class CruiseSpec
+{
+    /// <summary>The height the aircraft is built to cruise at, metres: where its author's speed and fuel rate hold exactly.</summary>
+    public float designMetres = float.NaN;
+    /// <summary>Its published service ceiling, metres, taken as at its heaviest weight with every engine. Above 11,000 m reads as 11,000.</summary>
+    public float ceilingMetres = float.NaN;
+    /// <summary>What holds it up between tiles: Rotor, Jet or Propeller.</summary>
+    public CruiseLift lift = CruiseLift.Rotor;
+    /// <summary>The height above which anyone aboard without oxygen keeps it down, metres (NaN: the rule's 3,810 m, 12,500 ft).</summary>
+    public float oxygenLineMetres = float.NaN;
+    /// <summary>A pressurised cabin: nobody aboard needs oxygen at any height.</summary>
+    public bool pressurised;
+
+    public bool Given => !float.IsNaN(designMetres) && designMetres > 0 && !float.IsNaN(ceilingMetres) && ceilingMetres > 0;
+
+    public double OxygenLine => float.IsNaN(oxygenLineMetres) ? CruiseRule.DefaultOxygenLineMetres : oxygenLineMetres;
+
+    public IEnumerable<string> ConfigErrors(string owner)
+    {
+        if (!Given) yield return owner + "'s cruise needs designMetres and ceilingMetres, both positive";
+        else if (designMetres > ceilingMetres) yield return owner + "'s cruise designMetres is above its ceilingMetres";
+    }
 }
 
 /// <summary>
@@ -218,6 +253,8 @@ public class PhobosVehicleFlightProfileDef : Def
     /// that fly only through its launcher. Named but not found, the aircraft's fuel on a map is left alone, never guessed.
     /// </summary>
     public string? mapFuelRateMember;
+    /// <summary>How every aircraft on this profile flies between tiles, unless its loadout gives its own (Framework 0.141.0); null for none.</summary>
+    public CruiseSpec? cruise;
 
     public FlightPhaseSpec? Phase(string? name) => name == null ? null : phases.FirstOrDefault(p => p.phase == name);
 
@@ -233,6 +270,7 @@ public class PhobosVehicleFlightProfileDef : Def
             }
         }
         if (!mapFuelPhase.NullOrEmpty() && Phase(mapFuelPhase) == null) yield return "the on-map fuel phase " + mapFuelPhase + " is not one of the profile's";
+        if (cruise != null) foreach (string error in cruise.ConfigErrors("the profile")) yield return error;
     }
 }
 

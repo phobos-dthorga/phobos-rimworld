@@ -1,6 +1,9 @@
 # Our own flight over the map: hovering, circling, leaving the ground rolling, and a cruising height (18 Nov 2026)
 
-**Status (18 Nov 2026):** a design record. No part of it is in code yet, and nothing here is tested in game. The owner answered
+**Status (18 Nov 2026):** the cruising height between tiles is built in D'thorga Framework 0.141.0 (with D'thorga Vehicles 0.66.0), and of
+the flight phases, the part that stands without our own flight: phases that follow the hover figure ([what was built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)).
+Not built: our own flight over the map, its phase reader, the forward-flight and rolling shares, leaving the ground rolling and circling.
+Nothing here is tested in game (rows 199 and 200). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -519,6 +522,40 @@ worth keeping.
   scale; no new patch.
 - **What it shows:** the launch screen says the height and what holds it down. Plain mode says it in words ("flying low:
   slower and thirstier"); Engineer mode gives the metres and the factors.
+
+### Built (18 Nov 2026): the cruising height and phases that follow the hover
+
+At the owner's word ("proceed with both cruising height and engine phases", 18 Nov 2026), D'thorga Framework 0.141.0 and D'thorga
+Vehicles 0.66.0; **not yet tested in game** (rows 199 and 200). Where it differs from the design above:
+
+| Part | As built | Where |
+| --- | --- | --- |
+| The rule | `CruiseRule` in the core, game-free and tested against this record's worked tables (the jet's 1.19 and 0.84, the tiltrotor's and helicopter's rows, the Osprey's 4,000 m on one engine) | `src/PhobosFramework/Rules/CruiseRule.cs` |
+| The ground | `TileAir.HighestOnLeg`: the walk as designed, its highest tile and its highest mountainous one, so the clearance is taken per tile (the highest of ground plus 300 m and mountains plus 600 m) | `src/PhobosFramework/WorldMap/TileAir.cs` |
+| The figures | A `cruise` block on the loadout (the aircraft's own) or the flight profile (shared): design height, published ceiling, lift (rotor, jet, propeller), oxygen line, pressurised | `PowertrainDefs.cs`, `SystemDefs.cs` |
+| **The oxygen line** | **3,810 m (12,500 ft, 14 CFR 91.211) by default, an aircraft's own where it has one.** The record's step 4 said 3,050 m while its jet row used 3,810 m; the agent took the jet row's figure as the default and kept 3,050 m for an aircraft whose source gives it (the Osprey's, when its Def is written). Agent's choice | `CruiseRule.DefaultOxygenLineMetres` |
+| Who needs oxygen | Flesh aboard, unless the cabin is pressurised: the crew are covered by a working oxygen set; passengers (seats that neither drive nor man a weapon) never are. Agent's simplification | `CruiseHeight.OxygenLine` |
+| Per leg | Worked out when Vehicle Framework first asks for the leg's speed (as each leg begins) and kept for that leg; nothing saved. Fuel through the world-flight multiplier every tick, speed through flight speed once per leg, each a postfix of its own beside the sling's | `CruiseHeight.Current`, `CruiseHeightPatches.cs` |
+| The picker | Vehicle Framework prices a journey at one rate; a postfix on its update prices it leg by leg (weight less the fuel the legs before burn), so the fuel shown, "not enough fuel" and the line's colour follow the heights. A refused leg fails the target with how many kilograms to shed, or "fly round" where even the empty aircraft could not | `CruisePicker` |
+| **A leg beyond the engines in flight** | **Flown, struggling, at the height the ground asks, with a message.** The design refuses it in the picker and said nothing for one found in flight (an engine lost on the way). Agent's choice; a forced landing is the alternative | `CruiseHeight.Begun` |
+| The oxygen set's fixed figures | Stand only where the cruising height does not govern the aircraft (a new condition, `When_CruiseHeight`, inverted) | `Systems_Avionics.xml` |
+| Air defence | The Dead Man's Switch's track reads the leg's height where it governs | `AirCombat.TrackCruiseMetres` |
+| Who has figures | The Harrier (7,000 m, 15,240 m published, read as 11,000; jet), the Hind (1,000 m, 4,500 m; rotor), the Mongoose (1,000 m, 4,725 m; rotor); the shared helicopter profiles (1,000 m, 4,500 m, authored); the stock aeroplane profile (3,000 m, 8,000 m, propeller, authored). Pods none: their thrusters do not breathe air | the loadouts, `FlightProfiles.xml` |
+| The setting | **Cruising height between places**, on | vehicle systems settings |
+| **Phases that follow the hover** | A phase marked `followsHover` asks its authored demand at the heaviest weight in sea-level air at 15 °C and moves from there as the hover figure does (`TurbineModel.FollowHover`). The VTOL helicopter profile's on-station and climbing-away phases use it. The authored figure stays the one the on-map fuel rate stands for. It is the design's "the hover figure times the forward-flight share" in a form that works today: a forward phase of our own flight is the same flag with the demand written as the hover figure times the share | `PowertrainDefs.cs`, `Powertrain.SampleAircraft` |
+
+**Other factions' aircraft:**
+
+| Where | The cruising height | Phases that follow the hover |
+| --- | --- | --- |
+| **A raid on us** | Nothing: their aircraft do not fly journeys between tiles | A VTOL helicopter of theirs on station works its engines by its load and the air, for heat and wear; its fuel is untouched, as all their aircraft fuel is |
+| **Parked at a base we attack** | Nothing | Nothing: parked, its engines do not run |
+| **One we capture** | Governs it from its first journey as ours, as any of our aircraft | As in a raid, with our fuel rules once it is ours |
+| **Cost with several** | One leg's walk per journey leg of ours, kept for the leg; nothing per tick but a table lookup | One more hover figure per aircraft sample (once a second) |
+
+**Not built, and why:** `PhaseReader_OwnFlight`, the forward-flight and rolling shares and the three thresholds. Each reads or
+decides something only our own flight does (its state; whether it may stop, fly on or roll), so they come with the hover half
+(slice 2) rather than as fields nothing reads.
 
 ## Patches
 

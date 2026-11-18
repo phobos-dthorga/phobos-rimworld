@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.66.0] - 2026-11-18 - Draft
+
+The Harrier, the Hind and the Mongoose get cruising figures of their own
+
+### Added
+
+- **The Harrier, the Hind and the Mongoose fly each stretch between places at a height of their own**, with D'thorga Framework 0.141.0's cruising height. The Harrier is built to cruise at 7,000 m (authored) with a published 15,240 m ceiling, read as 11,000 m; the Hind at 1,000 m (authored) with 4,500 m; the Mongoose at 1,000 m with 4,725 m. The ceilings come from secondary sources named in the loadouts.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.141.0 or later for the figures to mean anything; with an older Framework the game reports the unknown cruise block once at start-up.
+
+### Save compatibility
+
+- Safe with a running save. Nothing new is saved.
+
+### Compatibility and limits
+
+- Not yet tested in game.
+
 ## [0.65.5] - 2026-11-18 - Draft
 
 Upgrade trees drop a marker that does nothing now

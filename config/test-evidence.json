@@ -92,6 +92,14 @@
     "198": {"parts": {
       "the rolling landing": [{"key": "aircraft.landing-check", "variant": "run-on"}],
       "the engines take the strain": [{"key": "aircraft.landing-check", "variant": "strained"}]
+    }},
+    "199": {"parts": {
+      "climbing over high ground": [{"key": "aircraft.cruise-height", "variant": "Ground", "expect": {"fuel": ">= 1"}}],
+      "kept low without oxygen": [{"key": "aircraft.cruise-height", "variant": "Oxygen", "expect": {"fuel": ">= 1.05", "speed": "<= 0.95"}}]
+    }},
+    "200": {"parts": {
+      "heavier than its authored figure": [{"key": "aircraft.follows-hover", "variant": "above"}],
+      "lighter than its authored figure": [{"key": "aircraft.follows-hover", "variant": "below"}]
     }}
   },
   "order": [

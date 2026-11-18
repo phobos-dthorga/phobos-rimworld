@@ -67,6 +67,15 @@
       <def>PhobosDrivetrain_Pegasus</def>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>
+    <!-- The cruising height between tiles (Framework 0.141.0; docs/development/vehicle-flight-over-the-map.md). Built to cruise at 7,000 m
+         (authored: the height at which the rule gives back avionics A14's fixed low-flight figures, 0.85 and 1.2, at the 3,810 m oxygen line).
+         Service ceiling 50,000 ft, 15,240 m (secondary: Pima Air and Space Museum's AV-8B Harrier II+ specifications, pimaair.org; the same
+         figure on globalmilitary.net); the rule reads anything above 11,000 m as 11,000. A jet: flown low it is slower and thirstier. -->
+    <cruise>
+      <designMetres>7000</designMetres>
+      <ceilingMetres>15240</ceilingMetres>
+      <lift>Jet</lift>
+    </cruise>
     <!-- Avionics (Framework 0.110.0): the AV-8B's fit as the record gives it (agent defaults; secondary sources: an inertial navigation set and
          moving map, angle-rate bombing and a head-up display, the Night Attack Harrier's infrared sensor, a radar warning receiver, chaff and
          flares, and crew oxygen). About 46 A in all, against the flat 15 A before. Its instruments sit on D'thorga Patches' avionics part. -->

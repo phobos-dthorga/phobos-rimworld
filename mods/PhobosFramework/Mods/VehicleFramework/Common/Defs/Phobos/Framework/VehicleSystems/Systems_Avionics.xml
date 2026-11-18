@@ -343,21 +343,37 @@
             <label>out</label>
             <notable>true</notable>
             <effects>
+              <!-- Framework 0.141.0: where the cruising height between tiles governs the aircraft, the height flown sets its speed and fuel
+                   (the oxygen line keeps it down), so these fixed figures stand only where it does not. -->
               <li Class="Phobos.VehicleSystems.Effect_StatFactor">
                 <stat>FlightSpeed</stat>
                 <factor>0.85</factor>
-                <when Class="Phobos.VehicleSystems.When_ParameterBelow">
-                  <parameter>cruisesHigh</parameter>
-                  <value>0.5</value>
-                  <invert>true</invert>
+                <when Class="Phobos.VehicleSystems.When_All">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_ParameterBelow">
+                      <parameter>cruisesHigh</parameter>
+                      <value>0.5</value>
+                      <invert>true</invert>
+                    </li>
+                    <li Class="Phobos.VehicleSystems.When_CruiseHeight">
+                      <invert>true</invert>
+                    </li>
+                  </conditions>
                 </when>
               </li>
               <li Class="Phobos.VehicleSystems.Effect_FlightFuel">
                 <factor>1.2</factor>
-                <when Class="Phobos.VehicleSystems.When_ParameterBelow">
-                  <parameter>cruisesHigh</parameter>
-                  <value>0.5</value>
-                  <invert>true</invert>
+                <when Class="Phobos.VehicleSystems.When_All">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_ParameterBelow">
+                      <parameter>cruisesHigh</parameter>
+                      <value>0.5</value>
+                      <invert>true</invert>
+                    </li>
+                    <li Class="Phobos.VehicleSystems.When_CruiseHeight">
+                      <invert>true</invert>
+                    </li>
+                  </conditions>
                 </when>
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">

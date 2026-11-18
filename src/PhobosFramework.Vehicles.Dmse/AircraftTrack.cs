@@ -119,7 +119,8 @@ public sealed class AircraftTrack : IAirTrack
         // as a tenth of its cruise the whole way.
         double flown = Ext_Math.SphericalDistance(firstSeen, Here) + ahead;
         double stillLeft = Mathf.Max(0f, (float)(left - ahead));
-        return (float)AirCombatRule.Altitude(spec.cruiseMetres, spec.lowCruiseMetres, AirCombat.FliesLow(Vehicle), flown, stillLeft,
+        double cruise = AirCombat.TrackCruiseMetres(Vehicle, spec, out bool low);
+        return (float)AirCombatRule.Altitude(cruise, spec.lowCruiseMetres, low, flown, stillLeft,
             Framework.Defs.PhobosRulesDef.Current<PhobosAirCombatRulesDef>().climbTiles);
     }
 
