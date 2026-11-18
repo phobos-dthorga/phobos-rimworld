@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.137.2] - 2026-11-18 - Draft
+
+Every vehicle's upgrades name the research they wait for
+
+### Fixed
+
+- **A vehicle upgrade waiting for its research now says which project, on every vehicle.** Vehicle Framework 1.7.2537 (18 November 2026) started enforcing the research named on any author's upgrades; its own button then gave a line about needing another upgrade instead. The Upgrade button's tooltip and its message now name the project, as they already did on our own vehicles. On the owner's list this reaches the Harrier: Incendiary Bombs wait for IEDs and EMP Bombs for Microelectronics Basics.
+- **God mode still lets an upgrade go on without its research**, as it lets a building go up. Vehicle Framework's new check has no such pass; any upgrade the node needs must still be fitted.
+
+### Changed
+
+- Our own research lock on upgrades is gone, because Vehicle Framework now does the same job. Our vehicles behave exactly as before.
+- The tree marker for upgrade research does nothing now and our trees no longer carry it; it still loads, for older XML.
+
+### Compatibility and limits
+
+- Needs Vehicle Framework 1.7.2537 or later for research on upgrades to be enforced at all; on an older Vehicle Framework the research is not checked.
+- Safe with a running save. Upgrades already fitted or under way are left alone.
+- Not yet tested in game (test row 195).
+
 ## [0.137.1] - 2026-11-18 - Draft
 
 Own pictures for the last vehicle buttons drawn in code

@@ -99,6 +99,9 @@ existing colony that had already researched what one of our projects replaced ge
 | Clinical equipment, respiratory care, burn care, anaesthesia, bronchodilators, piped oxygen | Medicine production, Hospital bed, Vitals monitor, Drug production, Oxygen Network | D'thorga Medical's equipment ([medical](medical.md#equipment)) |
 | Local radio | Microelectronics basics | Radios, the base station and antennas ([radio](radio.md)) |
 
+**Vehicle upgrades wait for the research they name**, on every vehicle, ours or another mod's (the Harrier's incendiary and EMP
+bombs, for two). Select the upgrade and the **Upgrade** button names the project still to finish; pressing it says the same.
+
 ## Adding a mod to a running colony
 
 **Every D'thorga mod is safe to add to a colony you are already playing.** Back up the save, switch the mod on, load. Two

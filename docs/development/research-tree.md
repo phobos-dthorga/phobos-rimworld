@@ -7,7 +7,7 @@ The owner asked on 10 Nov 2026 for "a research tree for our designs along with a
 - **One new tab, D'thorga**, with a lane for vehicles and a lane for medicine: 12 vehicle projects and 6 medical ones, and since 17 Nov 2026 four
   trailer projects under the vehicle lane ([the audit](research-gates-audit-2026-11-17.md)).
 - **Old saves keep what they could build.** The first time a save loads with the tree, each project is finished for free if the older research it replaces was already done. This happens once per project. New colonies research everything normally.
-- **Our vehicles' upgrades now need their research.** Vehicle Framework declares research on upgrades and never checks it, so those gates did nothing before. Other authors' vehicles are unchanged.
+- **Our vehicles' upgrades now need their research.** Vehicle Framework declared research on upgrades and never checked it, so those gates did nothing before. Since its 1.7.2537 (18 Nov 2026) it checks them on every author's tree, and our refusal names the missing project on all of them (Framework 0.137.2).
 - **Every cost is authored**, a gameplay choice to tune in play. So is every position and soft requirement.
 
 ## What it does for the player
@@ -108,7 +108,7 @@ All are Industrial, named `PhobosResearch_<Name>`. Those names stay fixed once a
 
 - **Tab:** `PhobosDthorga`, in the Framework's always-loaded folder. It loads only with Vehicle Framework or D'thorga Medical active, because the game lists even empty tabs.
 - **Where projects live:** with their content. Parts and stations in the Framework's Vehicle Framework folder, trucks in D'thorga Vehicles, medical in D'thorga Medical, piped oxygen in Medical's Gravship folder.
-- **Upgrades:** the marker `PhobosEnforceUpgradeResearch` on an upgrade tree makes its nodes need their research. A postfix on `CompUpgradeTree.PrerequisitesMet` covers the click, the greyed node and the highlight. A prefix on `ITab_Vehicle_Upgrades.DrawButtons` says which project is missing; it skips the original only when research refuses, because Vehicle Framework's own refusal text is fixed. God mode bypasses it, as the game does. Upgrades fitted or already under way are left alone.
+- **Upgrades:** from Framework 0.61.0 to 0.137.1, the marker `PhobosEnforceUpgradeResearch` on a tree made its nodes need their research, through a postfix on `CompUpgradeTree.PrerequisitesMet`. Since Vehicle Framework 1.7.2537 that method checks research itself, on every tree, so 0.137.2 removed the postfix and the marker from our trees, and kept a god-mode pass (`UpgradeResearchGodModePatch`). A prefix on `ITab_Vehicle_Upgrades.DrawButtons` says which project is missing; it skips the original only when research refuses, because Vehicle Framework's own refusal text is fixed. God mode bypasses it, as the game does. Upgrades fitted or already under way are left alone.
 - **The grant:** `ResearchReplacesExtension` lists what a project replaces. A brand new project, with nothing to take over, says so with an empty `<replaces />` and is never granted. `ResearchGrantComponent` saves the names of projects already considered, so a project added later also grants once. It uses `AddProgress` when a project's requirements are not all done, because `FinishProject` finishes unfinished requirements too and would give away other mods' research.
 - **Removing a mod:** the first load logs one-time "could not load reference" errors for its projects, then the next save is clean (read from the game's code). Projects are not granted a second time if the mod returns.
 

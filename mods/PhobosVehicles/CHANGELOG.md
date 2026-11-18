@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.65.5] - 2026-11-18 - Draft
+
+Upgrade trees drop a marker that does nothing now
+
+### Changed
+
+- **Our eleven upgrade trees no longer carry the research marker.** Vehicle Framework 1.7.2537 enforces the research on every tree itself, so the marker had nothing left to do. Every upgrade still waits for the same research and says which project (D'thorga Framework 0.137.2).
+
+### Dependencies
+
+- Needs D'thorga Framework 0.137.2 or later beside it, and Vehicle Framework 1.7.2537 or later for upgrade research to be checked.
+
+### Compatibility and limits
+
+- Safe with a running save. No change in play.
+- Not yet tested in game (test row 195).
+
 ## [0.65.4] - 2026-11-18 - Draft
 
 Own pictures for the Crawler's upgrades and Billy's tent lamp and heater

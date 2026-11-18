@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using HarmonyLib;
 using Phobos.Framework.Rules;
 using RimWorld;
@@ -8,18 +9,21 @@ using Verse;
 
 namespace Phobos.VehicleSystems;
 
-/// <summary>On an upgrade tree: its nodes need the research they name. Vehicle Framework declares that research and never checks it, so a tree opts in here and every other author's tree is unchanged (docs/development/research-tree.md).</summary>
+/// <summary>
+/// No longer needed: Vehicle Framework enforces the research named on every upgrade tree's nodes since 1.7.2537 (18 Nov 2026), and
+/// our trees dropped this marker in Framework 0.137.2. Kept so an upgrade tree written for an older version, by us or another author
+/// (docs/development/vehicle-author-overrides.md), still loads. It does nothing.
+/// </summary>
 public sealed class PhobosEnforceUpgradeResearch : DefModExtension
 {
 }
 
-/// <summary>Decides whether research holds an upgrade back. God mode passes, as it does for the game's own build menu.</summary>
+/// <summary>Decides whether research holds an upgrade back, on any author's tree, as Vehicle Framework now does. God mode passes, as it does for the game's own build menu.</summary>
 public static class UpgradeResearchGate
 {
-    public static ResearchProjectDef? Missing(CompUpgradeTree tree, UpgradeNode? node)
+    public static ResearchProjectDef? Missing(UpgradeNode? node)
     {
         if (node == null || DebugSettings.godMode) return null;
-        if (tree.Props?.def?.GetModExtension<PhobosEnforceUpgradeResearch>() == null) return null;
         return ResearchGateRule.FirstMissing(node.researchPrerequisites, project => project.IsFinished);
     }
 
@@ -27,13 +31,20 @@ public static class UpgradeResearchGate
         "PhobosVehicleSystems_UpgradeNeedsResearch".Translate(project.label.Named("RESEARCH"));
 }
 
-/// <summary>Makes an opted-in upgrade count as locked until its research is done. One patch covers the click, the greyed node and the highlight, which all ask this method. Saved upgrades load by key, so nothing already fitted is affected.</summary>
+/// <summary>
+/// God mode lets an upgrade go on without its research, as it lets a building go up (Vehicle Framework's own check, since 1.7.2537, has no
+/// such pass). It opens the node only when research alone held it back: every upgrade it needs is fitted. Runs before our other postfixes on
+/// this method, so the any-of links (<see cref="UpgradeAnyOfPatch"/>) still apply.
+/// </summary>
 [HarmonyPatch(typeof(CompUpgradeTree), nameof(CompUpgradeTree.PrerequisitesMet))]
-public static class UpgradeNeedsResearchPatch
+public static class UpgradeResearchGodModePatch
 {
-    public static void Postfix(CompUpgradeTree __instance, UpgradeNode node, ref bool __result)
+    [HarmonyPriority(Priority.First)]
+    public static void Postfix(UpgradeNode node, HashSet<string> ___upgrades, ref bool __result)
     {
-        if (__result && UpgradeResearchGate.Missing(__instance, node) != null) __result = false;
+        if (__result || !DebugSettings.godMode || node == null) return;
+        if (node.prerequisiteNodes != null && !node.prerequisiteNodes.TrueForAll(___upgrades.Contains)) return;
+        __result = true;
     }
 }
 
@@ -41,7 +52,7 @@ public static class UpgradeNeedsResearchPatch
 /// Says why an upgrade cannot go on or come off: the research it waits for, the one-of-several upgrade it needs first (<see cref="UpgradeAnyOf"/>), or
 /// the upgrade sitting on it. Skips the original only while one of those refuses: Vehicle Framework's own refusal is a fixed line about another upgrade,
 /// which would be wrong here, and its Remove button simply vanishes, and every refusal has to say why. Draws its own button and message for those cases;
-/// Cancel and every other refusal stay with the original.
+/// Cancel and every other refusal stay with the original. The research reason is given on every author's tree, since Vehicle Framework enforces it on all.
 /// </summary>
 [HarmonyPatch(typeof(ITab_Vehicle_Upgrades), "DrawButtons", new[] { typeof(Rect) })]
 public static class UpgradeRefusalButtonPatch
@@ -66,10 +77,11 @@ public static class UpgradeRefusalButtonPatch
             return false;
         }
         if (tree.Disabled(___selectedNode)) return true;
-        ResearchProjectDef? missing = UpgradeResearchGate.Missing(tree, ___selectedNode);
+        ResearchProjectDef? missing = UpgradeResearchGate.Missing(___selectedNode);
         if (missing != null)
         {
-            Refused(rect, UpgradeLabelKey, UpgradeResearchGate.Refusal(missing));
+            string reason = UpgradeResearchGate.Refusal(missing);
+            if (Refused(rect, UpgradeLabelKey, reason)) Seen.Note("vehicles.upgrade-needs-research", vehicle, reason);
             return false;
         }
         string? needs = UpgradeAnyOf.Refusal(tree, ___selectedNode);

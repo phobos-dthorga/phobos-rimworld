@@ -5,7 +5,6 @@
   <Vehicles.UpgradeTreeDef>
     <defName>Phobos_FieldKitchen_UpgradeTree</defName>
     <modExtensions>
-      <li Class="Phobos.VehicleSystems.PhobosEnforceUpgradeResearch" />
       <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
     </modExtensions>
     <nodes>

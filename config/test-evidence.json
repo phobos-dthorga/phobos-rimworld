@@ -62,7 +62,8 @@
     "190": ["framework.top-up"],
     "192": ["framework.top-up-mechanoid"],
     "193": ["vehicles.cargo-refuel"],
-    "194": ["factory.deep-hopper-output-stacks"]
+    "194": ["factory.deep-hopper-output-stacks"],
+    "195": ["vehicles.upgrade-needs-research"]
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

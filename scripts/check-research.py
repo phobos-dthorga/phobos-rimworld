@@ -12,7 +12,8 @@ For each project on one of our tabs:
 - it lists what it replaces, for the one-time grant to existing colonies, or says it is brand new with an empty <replaces />.
 
 Across mods/: every PhobosResearch_ name used anywhere is a project we define, every upgrade's research is ours, the game's or
-conditional, and every upgrade tree of ours carries the marker that makes that research count.
+conditional, and no upgrade tree of ours carries the old research marker, which does nothing since Vehicle Framework 1.7.2537
+(18 Nov 2026) enforces upgrade research itself.
 
 A conditional name is not looked up: a misspelt one would silently drop in game. Spot-check them with query-defs.py who.
 
@@ -186,15 +187,15 @@ def position_errors(projects):
 
 
 def upgrade_errors(files, mods_dir, ours, known):
-    """Every upgrade's research, and the marker on every tree of ours."""
+    """Every upgrade's research, and no tree of ours carrying the old marker."""
     errors = []
     for path, root in files:
         conditional = is_conditional_file(path, mods_dir)
         where = path.relative_to(mods_dir).as_posix()
         for tree in root.findall(TREE_TAG):
-            marked = any(li.get('Class') == MARKER_CLASS for li in tree.findall('modExtensions/li'))
-            if not marked:
-                errors.append(f'{where}: {(tree.findtext("defName") or "?").strip()} lacks {MARKER_CLASS}, so its research does nothing')
+            if any(li.get('Class') == MARKER_CLASS for li in tree.findall('modExtensions/li')):
+                errors.append(f'{where}: {(tree.findtext("defName") or "?").strip()} carries {MARKER_CLASS}, which does nothing now: '
+                              'Vehicle Framework enforces upgrade research on every tree')
         for node in root.iter('li'):
             if node.find('key') is None:
                 continue

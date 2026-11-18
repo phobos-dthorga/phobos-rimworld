@@ -24,7 +24,7 @@ def project(name='PhobosResearch_One', x=0, y=0, needs='<li>Machining</li>', tab
             f'<researchViewY>{y}</researchViewY><prerequisites>{needs}</prerequisites>{replaces}</ResearchProjectDef>')
 
 
-def tree(marker=MARKER, research='Machining'):
+def tree(marker='', research='Machining'):
     return (f'<Vehicles.UpgradeTreeDef><defName>Test_Tree</defName>{marker}<nodes><li><key>Node</key>'
             f'<researchPrerequisites><li>{research}</li></researchPrerequisites></li></nodes></Vehicles.UpgradeTreeDef>')
 
@@ -91,8 +91,8 @@ class CheckResearchTests(unittest.TestCase):
     def test_an_upgrade_with_unknown_research_is_refused(self):
         self.assert_caught(TAB + project() + tree(research='Nonsense'), 'upgrade Node')
 
-    def test_a_tree_without_the_marker_is_refused(self):
-        self.assert_caught(TAB + project() + tree(marker=''), 'lacks')
+    def test_a_tree_with_the_old_marker_is_refused(self):
+        self.assert_caught(TAB + project() + tree(marker=MARKER), 'does nothing now')
 
     def test_a_misspelt_project_name_in_a_gate_is_refused(self):
         thing = '<ThingDef><researchPrerequisites><li>PhobosResearch_Typo</li></researchPrerequisites></ThingDef>'
