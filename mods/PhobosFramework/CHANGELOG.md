@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.137.3] - 2026-11-18 - Draft
+
+A turbine's battery warns before it strands you
+
+### Fixed
+
+- **A vehicle with a turbine, such as the Abrams, now warns before its battery is too weak to light it.** A turbine needs more of the battery than a piston engine, and the only warning it had was the piston engine's, which came after the turbine could no longer light. Now a message says the battery may soon be too weak to light the turbine, and that a start now may light it hot, from twice the point where it refuses. Turbine vehicles no longer get the piston engine's warning.
+
+### Changed
+
+- The testing notes (D'thorga Framework's seen-in-play setting, off by default) count the grid hook-up only when it draws a watt or more, and say how much goes to the vehicle's loads and how much to charging. A full battery on the grid draws about a tenth of a watt, matching what the battery loses by itself, and was noted on every parked vehicle as 0 W.
+
+### Compatibility and limits
+
+- Safe with a running save. The new warning's threshold is an authored figure.
+- Not yet tested in game.
+
 ## [0.137.2] - 2026-11-18 - Draft
 
 Every vehicle's upgrades name the research they wait for

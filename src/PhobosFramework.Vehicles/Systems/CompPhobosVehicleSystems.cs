@@ -2262,9 +2262,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             if (OutletWatts > 0f) Seen.Note("vehicles.outlet-giving", Vehicle, OutletWatts.ToString("0") + " W");
             return;
         }
+        double carried = 0, charging = 0;
         if (!EngineRunning && NetOffers(meter))
         {
-            double carried = HookUpRule.CarriedAmps(loadAmps, Rules.hookUpRatingAmps);
+            carried = HookUpRule.CarriedAmps(loadAmps, Rules.hookUpRatingAmps);
             double chargerAmps = 0, charge = 1;
             if (!ServiceLeads.Feeding(Vehicle))
             {
@@ -2277,11 +2278,20 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                     break;
                 }
             }
-            GridWatts = (float)HookUpRule.GridWatts(carried, HookUpRule.ChargeAmps(chargerAmps, charge), ElectricalVolts(), Rules.hookUpEfficiency);
+            charging = HookUpRule.ChargeAmps(chargerAmps, charge);
+            GridWatts = (float)HookUpRule.GridWatts(carried, charging, ElectricalVolts(), Rules.hookUpEfficiency);
         }
         meter.PowerOutput = -GridWatts;
-        if (GridWatts > 0f) Seen.Note("vehicles.grid-hook-up", Vehicle, GridWatts.ToString("0") + " W");
+        // Framework 0.137.3: noted only for a real draw. A full battery on the grid settles where the charger's last trickle matches the
+        // battery's self-discharge, a float charge of a few milliamps (a tenth of a watt), which noted every parked vehicle as "0 W".
+        if (GridWatts >= SeenGridWatts)
+        {
+            Seen.Note("vehicles.grid-hook-up", Vehicle, GridWatts.ToString("0") + " W: loads " + carried.ToString("0.0") + " A, charging " + charging.ToString("0.0") + " A");
+        }
     }
+
+    /// <summary>The least grid draw the seen-in-play note counts as the hook-up at work, in the game's watts (testing only, never play).</summary>
+    const float SeenGridWatts = 1f;
 
     /// <summary>Whether the meter's own net has power to give beyond what the meter itself draws: stored energy, or a surplus.</summary>
     static bool NetOffers(CompPowerTrader meter)

@@ -243,6 +243,7 @@
   <PhobosVehicleSystems_MsgHouseBatteryLow>The {VEHICLE}'s house battery is running low. Its fridge and power outlet stop when it is nearly flat; run the engine or park it on shore power.</PhobosVehicleSystems_MsgHouseBatteryLow>
   <PhobosVehicleSystems_MsgFridgeNoPower>The fridge in the {VEHICLE} has lost power, and the food it kept cold will warm.</PhobosVehicleSystems_MsgFridgeNoPower>
   <PhobosVehicleSystems_MsgStartingPowerLow>The {VEHICLE}'s battery may soon be too weak to start the engine. Start it to charge the battery, or switch off its lights and heaters.</PhobosVehicleSystems_MsgStartingPowerLow>
+  <PhobosVehicleSystems_MsgTurbineStartLow>The {VEHICLE}'s battery may soon be too weak to light its turbine, and a start now may light it hot. Start it soon to charge the battery, or switch off its lights and heaters.</PhobosVehicleSystems_MsgTurbineStartLow>
   <PhobosVehicleSystems_MsgBatteryFreezing>The {VEHICLE}'s flat battery is freezing and may crack. Charge it or move it somewhere warmer.</PhobosVehicleSystems_MsgBatteryFreezing>
   <PhobosVehicleSystems_MsgRunningHot>The {VEHICLE}'s engine is running hot.</PhobosVehicleSystems_MsgRunningHot>
   <PhobosVehicleSystems_MsgOverheating>The {VEHICLE}'s engine is overheating and taking damage. Stop it and let it cool.</PhobosVehicleSystems_MsgOverheating>

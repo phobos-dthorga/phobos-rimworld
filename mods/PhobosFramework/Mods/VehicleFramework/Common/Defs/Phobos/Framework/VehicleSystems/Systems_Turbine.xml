@@ -177,6 +177,21 @@
               </li>
             </effects>
           </li>
+          <li>
+            <!-- Framework 0.137.3 (the owner's rule of 12 Nov 2026, a warning before a vehicle is stranded): twice the no-light line, as the
+                 piston engine's warning is twice its no-start line. Before, a turbine's only warning was the piston one at 0.1 to 0.2 starting
+                 power, below the 0.25 it needs to light, so it came after the turbine was stranded (the Abrams, 17 Nov 2026). Below 0.4 a
+                 start also lights the turbine hot (the IgnitionOn effects below). The threshold is authored. -->
+            <from>0.25</from>
+            <to>0.5</to>
+            <label>barely enough to light</label>
+            <notable>true</notable>
+            <effects>
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgTurbineStartLow</message>
+              </li>
+            </effects>
+          </li>
         </stages>
       </li>
     </quantities>

@@ -4,6 +4,7 @@
   "game": "rimworld",
   "rows": {
     "8": ["vehicles.tune-done.PhobosTune_EnginePower", "vehicles.tune-done.PhobosTune_GearingShort"],
+    "69": ["vehicles.stage.startingPower", "vehicles.stage.turbineStart"],
     "74": ["vehicles.stage.airPressure"],
     "76": ["vehicles.stage.darkDriving"],
     "103": ["vehicles.stage.turbineOverLimit"],

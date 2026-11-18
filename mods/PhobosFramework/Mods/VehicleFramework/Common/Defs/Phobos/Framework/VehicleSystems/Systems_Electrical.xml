@@ -140,6 +140,12 @@
             <effects>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgStartingPowerLow</message>
+                <!-- Framework 0.137.3: not on a turbine, which cannot light below 0.25 and so is already stranded here; its own warning is
+                     the turbine-start stage's (Systems_Turbine.xml). -->
+                <when Class="Phobos.VehicleSystems.When_HasQuantity">
+                  <quantity>turbineStart</quantity>
+                  <invert>true</invert>
+                </when>
               </li>
             </effects>
           </li>
