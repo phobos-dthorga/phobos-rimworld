@@ -33,11 +33,15 @@ WHITE = 235           # paler than this in every channel is the background aroun
 
 
 def game_running():
+    """Through safeguards.py's list of the game's process names: 1.7 runs as RimWorld.exe, and a check for the 1.6 name alone let a
+    graphics card job run beside the game (18 Nov 2026)."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent))   # -I leaves the script's folder off the path.
+    from safeguards import game_running as watched, parse_tasklist
     try:
-        listing = subprocess.run(['tasklist'], capture_output=True, text=True, timeout=20).stdout.lower()
+        listing = subprocess.run(['tasklist', '/FO', 'CSV', '/NH'], capture_output=True, text=True, timeout=20).stdout
     except (OSError, subprocess.SubprocessError):
         return False
-    return 'rimworldwin64.exe' in listing
+    return bool(watched(parse_tasklist(listing)))
 
 
 def sha(path):

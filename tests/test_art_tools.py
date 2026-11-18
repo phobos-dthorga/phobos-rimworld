@@ -45,6 +45,18 @@ class ProcessTests(unittest.TestCase):
         self.assertEqual(safeguards.game_running({'rimworldwin64.exe'}), 'rimworldwin64.exe')
         self.assertIsNone(safeguards.game_running({'explorer.exe'}))
 
+    def test_no_art_tool_names_the_game_by_itself(self):
+        """18 Nov 2026: two graphics card tools looked for the 1.6 name only and ran beside the 1.7 game. Every tool asks
+        safeguards.py, which knows both."""
+        folder = os.path.join(ROOT, 'scripts', 'art')
+        for name in sorted(os.listdir(folder)):
+            if not name.endswith('.py') or name == 'safeguards.py':
+                continue
+            with open(os.path.join(folder, name), encoding='utf-8') as source:
+                text = source.read().lower()
+            self.assertNotIn("'rimworldwin64.exe' in", text, f'{name} checks for one game name; use safeguards.game_running')
+            self.assertNotIn("'rimworld.exe' in", text, f'{name} checks for one game name; use safeguards.game_running')
+
 
 class StopReasonTests(unittest.TestCase):
     def test_nothing_wrong_means_no_reason(self):
