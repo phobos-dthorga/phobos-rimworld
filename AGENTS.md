@@ -422,6 +422,14 @@ running a script does not load them.
   rewording it, and save effects under "Save compatibility". deploy writes `InstallRecord.json` into every installed copy.
   Status also says which mods need a build (`python scripts/deploy.py --build-only` builds without installing, fine while the game
   runs), the files an install would change, its settings changes (`mod-settings.py changes --json`) and the test rows it brings.
+- **Answer what code is behind a changelog entry with `python scripts/changes.py`** (owner, 19 Nov 2026: a code viewer in D'thorga
+  Companion "to show off all the new and shiny code associated with any particular CHANGELOG item"): `entry --changelog PATH --text
+  "its opening"` gives the commit that first wrote the entry and its diff, code first. Nothing new is asked of a changelog; it rests
+  on the rule that a change and its entry go in one commit. **A commit that writes several entries is shown whole**, the others
+  named, so a smaller commit gives the owner a sharper view: where two changes are separate anyway, commit them separately.
+- **A script the owner may wait on says how far along it is** (owner, 19 Nov 2026: progress bars with status updates): count its
+  steps through phobos-modkit's `Progress` (`scripts/deploy.py`'s `Steps`), which writes only when a program asks, so a console
+  sees no change. The Companion draws the bar.
 - **Answer whether textures need encoding before a launch with `python scripts/textures.py`** (owner, 18 Nov 2026: "it's always a
   wild guess"): every active mod, ours and others', stale (the game would show the old picture: it loads a `.dds` instead of the
   `.png` beside it without comparing dates), never encoded, or left over. `encode --mod` writes `.dds` files with RimSort's own

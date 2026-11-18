@@ -78,6 +78,21 @@ side); a "Before you play" strip.
 was dated 18 Oct 2026, though many are years old), so a changed picture is newer than its old `.dds`. The first check found no
 stale textures, and 11 newly added mods never encoded (the [LFS] UI Rethemed family and Block Unwanted Minutiae, 825 pictures).
 
+## Round three: progress, and the code behind an entry (owner, 19 Nov 2026)
+
+The owner asked for "progress bars along with some associated status updates, wherever the two would be appropriate", and a code
+viewer "that helps show off all the new and shiny code associated with any particular CHANGELOG item", built for every game they mod.
+
+| Piece | How |
+| --- | --- |
+| Progress | phobos-modkit 1.24.0's progress lines (`docs/manifest.md` there): `deploy.py` counts a step for each project built, mod copied and mod's textures encoded; `installs` passes them on and adds its own for status, backup and going back; the texture check counts mods. Written only when a program asks, so a console is unchanged |
+| The code behind an entry | `python scripts/changes.py entry`: the commit that first wrote the entry into its changelog (`git log -S`), and its diff with code first. No new markup in a changelog |
+
+**What it means for how we write changes (for the owner to decide):** nothing has to change. The view is as sharp as the commit is
+small: 0.140.1's commit wrote eight entries and changed 21 files, so each of its entries shows all 21. Three choices, in order of
+cost: leave commits as they are (agent default); commit separate changes separately where they are separate anyway (the rule added to
+AGENTS.md, no extra cost); or one commit for every entry, which costs a full gate run each and would slow every release.
+
 ## Changes to the process (agent defaults, for the owner to revise)
 
 - **Changelog entries now matter to the owner directly**: the Mods page reads them as the list of what an update brings. Write each

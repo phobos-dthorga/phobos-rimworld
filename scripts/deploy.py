@@ -49,6 +49,7 @@ _modkit.ensure()
 # RimSort's todds and its "optimized" preset live once, in phobos-modkit's RimWorld texture tool (kit 1.21.0), which the Companion's
 # texture check also runs: BC1, BC7 where there is alpha, re-encode only what is newer than its DDS, flipped as the game reads DDS.
 from phobos_modkit.games.rimworld.textures import DEFAULT_TODDS, RIMSORT_OPTIMIZED  # noqa: E402
+from phobos_modkit.progress import Progress  # noqa: E402
 BACKUPS = ROOT / '.local' / 'deploy-backups'
 # RimWorld.exe is 1.7 on Windows (seen in tasklist, 30 Oct 2026); RimWorldWin64.exe is 1.6.
 GAME_PROCESSES = ('RimWorld.exe', 'RimWorldWin64.exe', 'RimWorldWin.exe', 'RimWorldLinux', 'RimWorldLinux.x86_64',
@@ -324,9 +325,26 @@ def projects(root=ROOT):
     return sorted((Path(root) / 'src').glob('*/*.csproj'))
 
 
-def build(root=ROOT, run=subprocess.run, log=print):
+class Steps:
+    """
+    Counts a run's steps for a program showing progress (phobos-modkit's progress lines, written only when it asks for them): a project
+    built, a mod copied, a mod's textures encoded. A person at a console sees deploy's ordinary lines and nothing more.
+    """
+
+    def __init__(self, total=0, progress=None):
+        self.total, self.done = total, 0
+        self.progress = progress if progress is not None else Progress()
+
+    def __call__(self, label):
+        self.done += 1
+        self.progress(label, min(self.done, self.total) if self.total else None, self.total or None)
+
+
+def build(root=ROOT, run=subprocess.run, log=print, steps=None):
     """Build every project under src/ (each for both game versions). Raises RuntimeError on the first failure."""
+    steps = steps or Steps(len(projects(root)))
     for project in projects(root):
+        steps(f'Building {project.stem}')
         log(f'building {project.relative_to(root).as_posix()}')
         result = run(['dotnet', 'build', str(project), '--nologo', '-v', 'q'], capture_output=True, text=True, check=False)
         if result.returncode != 0:
@@ -349,26 +367,30 @@ def main(argv=None):
         build()
         print(f'built {len(projects())} projects; nothing was copied.')
         return 0
+    steps = Steps()
     mods = all_mods() if args.all else args.mods
     if not mods:
         parser.error('name a mod, or pass --all')
     game = game_path(args.game)
     if args.apply and game_running():
         raise RuntimeError('RimWorld is running. Close it, then deploy again.')
+    steps.total = (len(projects()) if args.build else 0) + (len(mods) * (1 if args.no_dds else 2) if args.apply else 0)
     if args.build:
-        build()
+        build(steps=steps)
     if args.apply:
         check_movable(mods, game)
     for mod in mods:
+        if args.apply:
+            steps(f'Installing {mod}; its installed copy becomes a backup')
         deploy(mod, game, args.apply)
     if args.apply and not args.no_dds:
-        encode_installed(mods, game, args.todds)
+        encode_installed(mods, game, args.todds, steps=steps)
     if args.apply:
         print(f'deployed {len(mods)} mod{"s" if len(mods) != 1 else ""}.')
     return 0
 
 
-def encode_installed(mods, game, explicit=None, find=todds_path, encode=encode_textures, log=print):
+def encode_installed(mods, game, explicit=None, find=todds_path, encode=encode_textures, log=print, steps=None):
     """Encodes the textures of the mods just deployed, and only those. Without todds it says so once and carries on."""
     todds = find(explicit)
     if todds is None:
@@ -378,6 +400,8 @@ def encode_installed(mods, game, explicit=None, find=todds_path, encode=encode_t
     total = 0
     for mod in mods:
         folder = Path(game) / 'Mods' / mod
+        if steps is not None:
+            steps(f"Encoding {mod}'s textures")
         if texture_count(folder):
             log(f'{mod}: textures to DDS')
         total += encode(folder, todds, log=log)
