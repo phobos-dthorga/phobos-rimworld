@@ -3,6 +3,7 @@
 **Status:** the tools are built and tested offline; the pilot ran on 10 Nov 2026, and the owner's four picks shipped in Framework 0.71.0,
 Medical 0.12.0 and Vehicles 0.31.0 (see [Into the game](#into-the-game-built-10-nov-2026-not-yet-tested-in-game)). **Not yet tested in game.**
 Since then the catalogue's phases have shipped: 117 sounds in all on 17 Nov 2026 ([sound catalogue](sound-catalogue.md)).
+**Real recordings (19 Nov 2026):** a real, named machine may now sound like itself from public-domain or CC0 recordings ([below](#real-recordings-19-nov-2026)); the V-22 Osprey's 17 candidate cuts are on a listening page, none picked.
 
 ## Read this first (gotchas)
 
@@ -223,6 +224,35 @@ export applies it to that pick. A muffled hum has nothing worth keeping up there
 so it earned the clipped flag), which the review copy levels and a future export must level and limit; strong highs (the band above
 4 kHz only 11 dB under the whole), with broadband clicks in the chugging that reach the top of the picture.
 
+## Real recordings (19 Nov 2026)
+
+**The owner's rule** (19 Nov 2026, now in `assets/AGENTS.md`): a real, named machine may sound like itself from real recordings that are
+public domain (a US federal work, such as DVIDS's), CC0, or CC BY with credit; never a non-commercial, no-derivatives or subscription
+licence. Our own house designs stay generated. Asked because a sound model that has heard few V-22s or none will likely give a generic
+helicopter (the agent's expectation, not measured), while the US military publishes a great deal of Osprey footage with its natural sound.
+
+- **The tool:** `scripts/art/recordings.py fetch|cut MANIFEST` (tested offline in `tests/test_recordings.py`). A manifest in
+  `assets/<set>/recordings/` names each source (page, the file it links, title, credit, full SHA-256) and each cut (role, start, length,
+  loop). `fetch` refuses a DVIDS page that does not say PUBLIC DOMAIN and a file whose hash has changed, keeps the downloads and their
+  lossless FLAC under the art tools' working folder (`<artWorkPath>/recordings/<set>/`, K: on the owner's PC; about 590 MB for the
+  Osprey, kept for re-cutting), and `cut` writes candidates in the layout `sound_review.py` reads, each with a record carrying the
+  source, credit and licence. **A shipped sound's record and the mod's README carry the credit and DVIDS's line that the appearance of
+  US Department of Defense visual information does not imply or constitute DoD endorsement.**
+- **The Osprey's sources:** six DVIDS videos (`assets/phobos-sounds/recordings/osprey.json`), read by a frame every 10 seconds and
+  spectrograms: an air show's close hover pass, a CV-22 B-roll (outside on the ground, the cabin, and a wind-down), a taxi, a
+  demonstration filmed from the open ramp and over the crowd, an Iwo Jima deck landing and a night landing on USNS Mercy. **None has an
+  engine start**: generated stays the route for the start, and for the ramp, door, hoist and fast rope unless a recording turns up.
+- **What a correct Osprey sounds like, measured** [our measurement, 19 Nov 2026]: every outside recording shows a comb of evenly
+  spaced lines below 150 Hz, the proprotors' blade passes. Over steady stretches the comb's spacing is **20.55 Hz** (100 s of the
+  demonstration, harmonics 1 to 6; 50 s gave 20.535 and the air show 20.70), which is **411 rpm** for a three-bladed proprotor, in
+  line with the 412 rpm in helicopter mode a Bell Boeing patent gives (an unverified source; NASA's quarter-scale rotor at 1,588 rpm
+  scales to 397). A pass slides the comb by Doppler, from about 21.7 to 20.3 Hz. **A generated Osprey candidate can be judged against
+  this comb on its spectrogram**; one without it is a generic helicopter. The 22.15 Hz in the CV-22 B-roll's cabin stretch is not
+  explained (another machine, or a different rotor speed on the ground; unverified).
+- **What the flags say:** two cuts clip (the camera's microphone hit its ceiling): the last Mercy deck idle and the Iwo Jima landing.
+  The deck and taxi idles carry strong highs, some of them the turbines' own whine and some likely wind. **Nothing checks for voices**,
+  and the air-show cuts were filmed beside a crowd: listen for them. A speech detector (Silero VAD) and a voice remover (Demucs) are proposed to the owner, not installed.
+
 ## History: what did not work
 
 In Phobos Ostranauts (6 Oct 2026), 38 sounds synthesised by Python were rejected and deleted at the owner's request; the owner
@@ -286,3 +316,9 @@ sonar is built yet; the owner may move it to a sonar or listening upgrade when o
 - FFmpeg developers: [filter documentation](https://ffmpeg.org/ffmpeg-filters.html) (`ebur128`, `acrossover`, `rubberband`,
   `acrossfade`, `showspectrumpic`); gyan.dev's [Windows builds](https://www.gyan.dev/ffmpeg/builds/).
 - EBU: [R 128 loudness recommendation](https://tech.ebu.ch/publications/r128) (the LUFS and true peak measures).
+- DVIDS (Defense Visual Information Distribution Service): [copyright and use](https://www.dvidshub.net/about/copyright); the
+  US Department of Defense's [public use notice](https://dodcio.defense.gov/Home/PublicUseNotice/). The six Osprey sources and their
+  credits are in `assets/phobos-sounds/recordings/osprey.json`.
+- NASA: Young and colleagues, [the quarter-scale TRAM rotor (AHS 1999)](https://rotorcraft.arc.nasa.gov/Publications/files/Young_AHS99.pdf);
+  US patent 6,641,365, [Optimum speed tilt rotor](https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/6641365) (the 412 and
+  333 rpm figures; unverified).

@@ -1,0 +1,189 @@
+{
+ "set": "osprey",
+ "about": "Real recordings of the V-22 Osprey, for its sounds (owner, 19 Nov 2026: a real, named machine may sound like itself from real recordings; assets/AGENTS.md). Every source is a DVIDS video marked PUBLIC DOMAIN on its page, made by US service members in their official duties. Credit each by name, and say that the appearance of US Department of Defense visual information does not imply or constitute DoD endorsement. Cuts and roles are the agent's first reading (19 Nov 2026) from spectrograms and a frame every 10 seconds, for the owner to judge on the listening page; nothing here is picked.",
+ "licence": "Public domain (US federal government work), per each DVIDS page; DVIDS asks for credit and the no-endorsement line",
+ "sources": {
+  "978528": {
+   "page": "https://www.dvidshub.net/video/978528",
+   "title": "America's Air Show 2025 B-Roll Day 1: MV-22B Osprey Demo",
+   "credit": "Lance Cpl. Brooke Pedersen and Lance Cpl. Madison Luciano, US Marine Corps",
+   "file_url": "https://d34w7g4gy10iej.cloudfront.net/video/2509/DOD_111324987/DOD_111324987.mp4",
+   "sha256": "8fcdca052dcf6b620bcbd5dba89b047a69f8ac0f9be5811de250ed48ca626054",
+   "seen": "0 to 10 s a close hover pass; then the demonstration further off"
+  },
+  "875555": {
+   "page": "https://www.dvidshub.net/video/875555",
+   "title": "CV-22 Osprey Tiltrotor Aircraft B-Roll",
+   "credit": "Staff Sgt. Candin Muniz and Airman 1st Class Alexis Sandoval, US Air Force",
+   "file_url": "https://d34w7g4gy10iej.cloudfront.net/video/2303/DOD_109494675/DOD_109494675.mp4",
+   "sha256": "5ea1ccd399ce6159a2c96e4bbea972b5fdd23a8fdb8fe2d2dc27f924882aa22d",
+   "seen": "57 to 65 s on the ground with rotors turning, outside; 73 to 145 s inside the cabin, ending with the engines winding down on a runway"
+  },
+  "586454": {
+   "page": "https://www.dvidshub.net/video/586454",
+   "title": "CV-22 Osprey taxi 1",
+   "credit": "Senior Airman Timothy Kirchner, US Air Force",
+   "file_url": "https://d34w7g4gy10iej.cloudfront.net/video/1802/DOD_105344129/DOD_105344129-1024x576-1769k.mp4",
+   "sha256": "9c6fd43c71dc3033716753577b91eef81d89023e99f64cb50bf02785827b9748",
+   "seen": "15 s taxiing; a steady blade-pass comb near 19.7 Hz"
+  },
+  "1007376": {
+   "page": "https://www.dvidshub.net/video/1007376",
+   "title": "U.S. Air Force CV-22 Osprey demonstrates capabilities during Japanese-American Friendship Festival 2026",
+   "credit": "374th Airlift Wing Public Affairs, US Air Force",
+   "file_url": "https://d34w7g4gy10iej.cloudfront.net/video/2605/DOD_111712963/DOD_111712963.mp4",
+   "sha256": "155f822d65bba895623910cf60708543a0a88959e50857819711d28bcb48b588",
+   "seen": "0 to 60 s and 140 to 270 s inside the cabin with the ramp open; 120 to 135 s and the end hovering over a crowd"
+  },
+  "968286": {
+   "page": "https://www.dvidshub.net/video/968286",
+   "title": "USS Iwo Jima Flight Operations with MV-22B Osprey",
+   "credit": "Mass Communication Specialist 2nd Class Joseph T. Miller, US Navy",
+   "file_url": "https://d34w7g4gy10iej.cloudfront.net/video/2506/DOD_111100999/DOD_111100999.mp4",
+   "sha256": "e2304a6f4053b59c100da916910c7f0432f23cb4c72d5edd592075010bc21d34",
+   "seen": "a landing, then deck work; blades folded by 30 s; deck noise and another aircraft's tone"
+  },
+  "791592": {
+   "page": "https://www.dvidshub.net/video/791592",
+   "title": "MV-22B Osprey Flight Operations Aboard USNS Mercy",
+   "credit": "Mass Communication Specialist 3rd Class Luke Cunningham, US Navy",
+   "file_url": "https://d34w7g4gy10iej.cloudfront.net/video/2104/DOD_108294992/DOD_108294992-1024x576-1769k.mp4",
+   "sha256": "f46d3f1aa7d1a34117234cb1665543cf0efc327ba3c2b895655969a4bbf663e9",
+   "seen": "a night approach and landing on deck (touchdown near 58 s), then rotors turning on deck"
+  }
+ },
+ "cuts": [
+  {
+   "role": "osprey-idle",
+   "source": "791592",
+   "start": 68,
+   "seconds": 8,
+   "loop": true,
+   "note": "on deck at night, rotors turning"
+  },
+  {
+   "role": "osprey-idle",
+   "source": "791592",
+   "start": 80,
+   "seconds": 8,
+   "loop": true,
+   "note": "on deck at night, rotors turning"
+  },
+  {
+   "role": "osprey-idle",
+   "source": "791592",
+   "start": 92,
+   "seconds": 8,
+   "loop": true,
+   "note": "on deck at night, rotors turning"
+  },
+  {
+   "role": "osprey-idle",
+   "source": "586454",
+   "start": 2,
+   "seconds": 8,
+   "loop": true,
+   "note": "taxiing"
+  },
+  {
+   "role": "osprey-idle",
+   "source": "586454",
+   "start": 6,
+   "seconds": 8,
+   "loop": true,
+   "note": "taxiing"
+  },
+  {
+   "role": "osprey-idle",
+   "source": "875555",
+   "start": 57,
+   "seconds": 8,
+   "loop": true,
+   "note": "on the ground with rotors turning, outside"
+  },
+  {
+   "role": "osprey-labour",
+   "source": "978528",
+   "start": 0.5,
+   "seconds": 8,
+   "loop": true,
+   "note": "a close hover pass; its pitch slides a little (Doppler)"
+  },
+  {
+   "role": "osprey-labour",
+   "source": "1007376",
+   "start": 121,
+   "seconds": 8,
+   "loop": true,
+   "note": "hovering over a crowd: listen for voices"
+  },
+  {
+   "role": "osprey-labour",
+   "source": "1007376",
+   "start": 272,
+   "seconds": 8,
+   "loop": true,
+   "note": "hovering near a crowd: listen for voices"
+  },
+  {
+   "role": "osprey-cabin",
+   "source": "1007376",
+   "start": 150,
+   "seconds": 8,
+   "loop": true,
+   "note": "inside, ramp open, on the runway"
+  },
+  {
+   "role": "osprey-cabin",
+   "source": "1007376",
+   "start": 190,
+   "seconds": 8,
+   "loop": true,
+   "note": "inside, ramp open"
+  },
+  {
+   "role": "osprey-cabin",
+   "source": "1007376",
+   "start": 228,
+   "seconds": 8,
+   "loop": true,
+   "note": "inside, ramp open"
+  },
+  {
+   "role": "osprey-cabin",
+   "source": "1007376",
+   "start": 36,
+   "seconds": 8,
+   "loop": true,
+   "note": "inside, in flight"
+  },
+  {
+   "role": "osprey-landing",
+   "source": "791592",
+   "start": 40,
+   "seconds": 22,
+   "note": "night approach to touchdown and settling"
+  },
+  {
+   "role": "osprey-landing",
+   "source": "968286",
+   "start": 0,
+   "seconds": 12,
+   "note": "landing on a ship's deck"
+  },
+  {
+   "role": "osprey-flyby",
+   "source": "978528",
+   "start": 0,
+   "seconds": 11,
+   "note": "close hover pass at an air show"
+  },
+  {
+   "role": "osprey-shutdown",
+   "source": "875555",
+   "start": 126,
+   "seconds": 19.5,
+   "note": "engines winding down, heard from the cabin"
+  }
+ ]
+}

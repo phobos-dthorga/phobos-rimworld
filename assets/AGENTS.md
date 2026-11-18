@@ -54,6 +54,11 @@ standing rules for every picture and sound the mods ship or the tools generate. 
   Python audio libraries. A pick is made from the listening page `scripts/art/sound_review.py` writes, with its spectrograms, measured flags
   and lowered copy; masters stay byte for byte. `art-run.py --cpu` runs small sound models on the processor beside the game (owner's request).
   **A listening report from the owner is evidence**: their ears caught a loop seam every flag missed, so turn each such report into a check.
+- **A real, named machine may sound like itself from real recordings** (owner, 19 Nov 2026: the V-22 Osprey first): where a recording of
+  that machine is public domain (a US federal work, such as DVIDS's, with its credit and the no-endorsement line) or CC0, or CC BY with its
+  credit, it may be the master in place of a generated sound. Never a non-commercial, no-derivatives or subscription licence. Our own
+  house designs (the trucks, the Crawler) stay generated. A recording is judged on the same listening page as the generated candidates,
+  goes out through the same export, and its record names the source, its URL, its licence and the credit.
 - **Answer how loud or how made a game sound is with `python scripts/art/game_sounds.py`** (owner's request for toolkits, 10 Nov 2026): `find`,
   `measure` and `sounddef` read RimWorld's own sounds inside its `Assets.zip` archives and its SoundDefs, keeping no game file. A SoundDef
   plays at `volumeRange / 100`, so compare sounds by effective loudness, never by the file alone.
