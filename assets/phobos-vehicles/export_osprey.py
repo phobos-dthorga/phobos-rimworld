@@ -49,7 +49,10 @@ ROTOR_METRES = 11.61              # [S] Boeing / Wikipedia
 # Measured 19 Nov 2026: the airframe's grey at hue 220-256, saturation 0.02-0.07; windows the same hue at 0.27; the bands' orange at
 # hue 24, and their one-pixel blend into the grey at hue 0-7, so the accent starts at 0.
 PAINT = {'main_hue': (200, 280), 'accent_hue': (0, 34), 'min_saturation': 0.0, 'main_max_saturation': 0.15}
-HEADROOM = 1.03                   # The body is pre-shrunk to this much above its drawn size, so the exporter still only shrinks
+# Regions, then flecks repaired with Segment Anything's parts map of the shrunk body (owner's go, 19 Nov 2026: made by
+# paint_segments.py on osprey-body-at-scale.png, 2 min 42 s on the graphics card); 'regions' if no map has been made.
+BODY_PAINT = 'repaired'
+HEADROOM = 1.03                  # The body is pre-shrunk to this much above its drawn size, so the exporter still only shrinks
 OVERLAYS = {'Probe': SAM / 'probe.png', 'RadarNose': DERIVED / 'radar-nose.png', 'Hoist': SAM / 'hoist-b.png', 'Jammer': SAM / 'jammer.png'}
 DAMAGE = ('Cockpit', 'ForwardCabin', 'AftCabin', 'LeftWing', 'RightWing', 'Tail')   # The body's outer parts (vehicle-osprey.md)
 TURRETS = {'RampGun50': DERIVED / 'ramp-gun-50.png', 'RampGun762': DERIVED / 'ramp-gun-762.png'}
@@ -184,7 +187,7 @@ def main(argv=None):
 
     body_master, prescale = prepare_body(work)
     result = ev.export_body(body_master, out, NAME, CELLS_LONG, DRAW, PAINT['main_hue'], PAINT['accent_hue'], PAINT['min_saturation'],
-                            main_max_saturation=PAINT['main_max_saturation'], trim=1)
+                            main_max_saturation=PAINT['main_max_saturation'], trim=1, paint=BODY_PAINT)
     files += result['files']
     mapping = Mapping(prescale, result['transform'])
     print(f'body: {result["width_cells"]:.2f} cells wide; Def colours {result["colours"]}', flush=True)

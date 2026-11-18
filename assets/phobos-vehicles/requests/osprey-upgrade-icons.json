@@ -1,0 +1,427 @@
+[
+ {
+  "name": "osprey-upgrade-stretchers",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "Two folded canvas stretchers with dark aluminium poles, stacked and strapped together with one muted orange strap",
+  "prompt": "phobosvanilla, Two folded canvas stretchers with dark aluminium poles, stacked and strapped together with one muted orange strap. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   21,
+   22
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "Stretchers",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/Stretchers.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-ferrytanks",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A long pale grey cylindrical fuel tank lying on two small cradles, with a round filler cap and two steel straps",
+  "prompt": "phobosvanilla, A long pale grey cylindrical fuel tank lying on two small cradles, with a round filler cap and two steel straps. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   23,
+   24
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "FerryTanks",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/FerryTanks.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-tankerkit",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A coiled black refuelling hose ending in a wide funnel-shaped drogue basket of steel ribs",
+  "prompt": "phobosvanilla, A coiled black refuelling hose ending in a wide funnel-shaped drogue basket of steel ribs. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   25,
+   26
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "TankerKit",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/TankerKit.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-cargohook",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "One heavy steel cargo hook with a spring latch, hanging from a short shackle and a round swivel",
+  "prompt": "phobosvanilla, One heavy steel cargo hook with a spring latch, hanging from a short shackle and a round swivel. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   27,
+   28
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "CargoHook",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/CargoHook.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-secondhook",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "Two heavy steel cargo hooks side by side, each with a spring latch, hanging from one short steel bar",
+  "prompt": "phobosvanilla, Two heavy steel cargo hooks side by side, each with a spring latch, hanging from one short steel bar. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   29,
+   30
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "SecondHook",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/SecondHook.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-rampgun762",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A belt-fed 7.62 mm machine gun with a bipod folded under its barrel, on a short pintle post, with a small ammunition box",
+  "prompt": "phobosvanilla, A belt-fed 7.62 mm machine gun with a bipod folded under its barrel, on a short pintle post, with a small ammunition box. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   31,
+   32
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "RampGun762",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/RampGun762.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-rampgun50",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A heavy .50 calibre machine gun with two spade grips and a perforated barrel jacket, on a pintle post, with an olive ammunition can",
+  "prompt": "phobosvanilla, A heavy .50 calibre machine gun with two spade grips and a perforated barrel jacket, on a pintle post, with an olive ammunition can. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   33,
+   34
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "RampGun50",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/RampGun50.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-rescuehoist",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A compact rescue hoist: a cable drum on top of a boxy motor housing, with a short boom arm ending in a pulley and a hook",
+  "prompt": "phobosvanilla, A compact rescue hoist: a cable drum on top of a boxy motor housing, with a short boom arm ending in a pulley and a hook. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   35,
+   36
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "RescueHoist",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/RescueHoist.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-fastropes",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A thick coiled braided rope with a steel ring and a short sleeve at one end",
+  "prompt": "phobosvanilla, A thick coiled braided rope with a steel ring and a short sleeve at one end. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   37,
+   38
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "FastRopes",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/FastRopes.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-bellygun",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A six-barrelled rotary minigun on a small round turret base, its barrels clustered in a ring",
+  "prompt": "phobosvanilla, A six-barrelled rotary minigun on a small round turret base, its barrels clustered in a ring. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   39,
+   40
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "BellyGun",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/BellyGun.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-armourkit",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A stack of three dark grey ballistic armour plates with rounded corners, tied with two olive straps",
+  "prompt": "phobosvanilla, A stack of three dark grey ballistic armour plates with rounded corners, tied with two olive straps. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   41,
+   42
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "ArmourKit",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/ArmourKit.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-infraredjammer",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A small round turret dome with a dark glass window, on a square base plate",
+  "prompt": "phobosvanilla, A small round turret dome with a dark glass window, on a square base plate. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   43,
+   44
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "InfraredJammer",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-cabinoxygen",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "Two green oxygen cylinders side by side with a brass regulator, and a face mask on a curled hose",
+  "prompt": "phobosvanilla, Two green oxygen cylinders side by side with a brass regulator, and a face mask on a curled hose. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   45,
+   46
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "CabinOxygen",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/CabinOxygen.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-terrainradar",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A rounded pale grey radar nose cone, with a small flat radar antenna dish standing behind it",
+  "prompt": "phobosvanilla, A rounded pale grey radar nose cone, with a small flat radar antenna dish standing behind it. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   47,
+   48
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "TerrainRadar",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/TerrainRadar.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-inletbarrier",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A rectangular engine air filter panel: a fine steel mesh grille inside a thick raised grey frame",
+  "prompt": "phobosvanilla, A rectangular engine air filter panel: a fine steel mesh grille inside a thick raised grey frame. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   49,
+   50
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "InletBarrier",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InletBarrier.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-refuellingprobe",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A long slim grey refuelling probe: a straight tube ending in a bulbous nozzle tip, with a mounting collar",
+  "prompt": "phobosvanilla, A long slim grey refuelling probe: a straight tube ending in a bulbous nozzle tip, with a mounting collar. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   51,
+   52
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "RefuellingProbe",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/RefuellingProbe.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ },
+ {
+  "name": "osprey-upgrade-crewlessfit",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "subject": "A small grey electronics box with a short whip antenna, a round camera lens and a row of small status lights",
+  "prompt": "phobosvanilla, A small grey electronics box with a short whip antenna, a round camera lens and a row of small status lights. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no aircraft.",
+  "references": [
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+   "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   53,
+   54
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "vehicle": "Phobos_Osprey",
+   "upgrade_node": "CrewlessFit",
+   "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/CrewlessFit.png",
+   "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md",
+   "why": "the owner's choice of 19 Nov 2026: all 17 drawn on the local model, overnight"
+  }
+ }
+]

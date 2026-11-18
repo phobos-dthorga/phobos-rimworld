@@ -224,7 +224,15 @@ def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, par
     return result
 
 
-SEGMENTS = Path(__file__).resolve().parents[2] / '.local' / 'art' / 'segments'
+import art_paths  # noqa: E402  The art tools' working folder, where Segment Anything's parts maps are (K: on the owner's PC)
+
+
+def parts_map(master):
+    """Segment Anything's parts map of a master (scripts/art/paint_segments.py), or FileNotFoundError."""
+    found = art_paths.find('segments', f'{file_sha256(master)}.png')
+    if found is None:
+        raise FileNotFoundError(f'no parts map for {master}: run scripts/art/paint_segments.py on it first')
+    return Image.open(found)
 
 
 def part_kinds(image, labels, main_hue, accent_hue, min_saturation=MIN_SATURATION):
@@ -350,9 +358,10 @@ def record(out, name, master, written, details):
 
 
 def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=(),
-                main_max_saturation=1.0, trim=0):
+                main_max_saturation=1.0, trim=0, paint='regions'):
     """trim takes this many pixels off the silhouette's outer edge, for a master whose outline fades into the white through a ring
-    of grey that shows as a pale dotted rim on dark ground (the Osprey, 19 Nov 2026: its outline is about 7 px thick at game size)."""
+    of grey that shows as a pale dotted rim on dark ground (the Osprey, 19 Nov 2026: its outline is about 7 px thick at game size).
+    paint 'repaired' repairs the regions' flecks with Segment Anything's parts map of the master (paint_segments.py first)."""
     out.mkdir(parents=True, exist_ok=True)
     background = ai_background(master)
     cut = white_to_alpha(Image.open(master), holes=holes, background=background)
@@ -362,7 +371,9 @@ def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_s
     scale = cells_long * PIXELS_PER_CELL / (bottom - top)
     canvas = (draw[0] * PIXELS_PER_CELL, draw[1] * PIXELS_PER_CELL)
     offset = (round(canvas[0] / 2 - (left + right) / 2 * scale), round(canvas[1] / 2 - (top + bottom) / 2 * scale))
-    texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation, main_max_saturation=main_max_saturation)
+    labels = parts_map(master) if paint == 'repaired' else None
+    texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation, labels=labels, repair=labels is not None,
+                                            main_max_saturation=main_max_saturation)
     written = write_facings(place(texture, scale, offset, canvas), out, name)
     written += write_facings(place_mask(mask, scale, offset, canvas), out, name, 'm')
     natural = place(cut, scale, offset, canvas)
@@ -397,10 +408,7 @@ def repaint_body(master, like, out, name, main_hue, accent_hue, min_saturation=M
         raise ValueError(f'{master} is {cut.size}, but its transform was made from {transform["master_size"]}')
     labels = None
     if paint in ('parts', 'repaired'):
-        map_path = SEGMENTS / f'{file_sha256(master)}.png'
-        if not map_path.is_file():
-            raise FileNotFoundError(f'no parts map for {master}: run scripts/art/paint_segments.py on it first')
-        labels = Image.open(map_path)
+        labels = parts_map(master)
     texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation, per_pixel=paint == 'pixels', labels=labels, repair=paint == 'repaired')
     scale, offset, canvas = transform['scale'], tuple(transform['offset']), tuple(transform['canvas'])
     written = write_facings(place(texture, scale, offset, canvas), out, name)

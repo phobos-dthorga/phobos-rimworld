@@ -147,8 +147,17 @@ finds about 70 one- and two-pixel painted islands on the body, all inside panel 
 purple-tinted grey, so the region rule paints some of their pixels. They read as a faintly dashed seam at full zoom. The
 "repaired" paint, with a Segment Anything map of the body, is what removes them: a short graphics card job with the game closed.
 
+**Repaired paint (19 Nov 2026, the owner's go with the game closed):** Segment Anything's parts map of the shrunk body, 2 min 42 s
+on the graphics card (4,087 points, 3,239 parts; kept on K:), and the body exported with paint `repaired`. The seam-line islands
+went from 70 to 49. The rest are painted bits inside the seam lines themselves, which the repair does not reach (it repaints an
+island inside a part of another paint; here the line is the unpainted part). Treating the Osprey's lighter seam lines as outline
+would remove them, at the cost of the darkest panels (the sponsons' sides) staying dark grey under any livery: put to the owner.
+
+**Upgrade icons:** the owner's choice: all 17 drawn on the local model, overnight
+([osprey-upgrade-icons.json](osprey-upgrade-icons.json): 34 pictures, about 1.5 hours; two of our drill rig's upgrade icons as
+style references, with the private style model, as the last local batch).
+
 ## Next
 
-1. The parts map of the body and the repaired paint (graphics card, game closed, a few minutes).
-2. Upgrade icons: six can be made free from these parts (both guns, hoist, inlet barrier, jammer, probe); eleven need drawing.
-3. The Osprey's Def and renderer take these textures (the first batch in the design record).
+1. The owner's picks of the 17 icons; then their export into `Osprey/Upgrades/`.
+2. The Osprey's Def and renderer take these textures (the first batch in the design record).

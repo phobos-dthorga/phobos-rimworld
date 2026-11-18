@@ -21,6 +21,7 @@ from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import art_paths  # noqa: E402
 from export_sprite import file_sha256  # noqa: E402
 from export_vehicle import OUTLINE_VALUE  # noqa: E402
 import repaint_vehicles  # noqa: E402
@@ -123,7 +124,7 @@ def check(name, folder, master, base, colour=(255, 255, 255), accent=(255, 255, 
     texture = Image.open(base / f'{name}_north.png').convert('RGBA')
     mask = Image.open(base / f'{name}_northm.png').convert('RGB')
     transform = json.loads((repaint_vehicles.EXPORT / f'{name}.transform.json').read_text(encoding='utf-8'))
-    map_path = ROOT / '.local' / 'art' / 'segments' / f'{file_sha256(master)}.png'
+    map_path = art_paths.find('segments', f'{file_sha256(master)}.png') or art_paths.work('segments', f'{file_sha256(master)}.png')
     if not map_path.is_file():
         return None, f'no parts map: run scripts/art/paint_segments.py on {master.name}'
     labels = Image.open(map_path)
