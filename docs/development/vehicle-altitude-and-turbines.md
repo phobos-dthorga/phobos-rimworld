@@ -115,6 +115,7 @@ grants `Boost` (the turbocharger) gives any piston engine the same hold. The rea
   have; taking it as lost speed would slow every raider in high country whether or not power held them back.
 - **A flight between tiles has no cruising height.** It keeps the air of the tile it left, for its lift check at launch; where it
   lands, the air of that tile decides its landing ([the landing check](#the-landing-check-at-a-journeys-end-framework-01400)).
+  One is designed, not built, in [our own flight over the map](vehicle-flight-over-the-map.md#a-cruising-height-between-tiles).
 - **Fuel does not change with height.** Thin air leaves less power; the work done burns what it burned.
 - **Not built:** water boiling lower, brakes cooling less, steam locomotives, electric motors' cooling.
 

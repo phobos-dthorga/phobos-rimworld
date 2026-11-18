@@ -902,7 +902,8 @@ for both hovering and circling from the start, and the hover half is built first
 - **1, armour.** A read of how Combat Extended resolves a hit on a Vehicle Framework vehicle, then one armour
   declaration per Def that serves both.
 - **2, 3 and the fourteenth.** A design record for our own flight over the map, in D'thorga Framework's core because
-  every aircraft of ours will use it. It comes before the Osprey's own design record.
+  every aircraft of ours will use it. It comes before the Osprey's own design record. **Written 18 Nov 2026:**
+  [our own flight over the map](vehicle-flight-over-the-map.md); nothing in it is in code.
 - **5.** A read of how one vehicle can be held inside another; the owner hears the verdict plainly either way.
 - **7.** The anchor helicopter is the Hind (owner, 18 Nov 2026, [later choices](#the-owners-later-choices-18-nov-2026));
   the agent had first suggested the Louie, which would have put the Osprey above everything on the list.
@@ -1048,7 +1049,9 @@ Asked after the code reads, the same day:
 ## Still open
 
 1. **Row CR7**: the forty other uses of the game's footprint on a vehicle. The owner has not been asked.
-2. **The Hind's real cruising speed**, to be sourced before any figure is set from it.
+2. ~~The Hind's real cruising speed~~ **Sourced 18 Nov 2026:** "Cruise speed: 270 km/h" **[S, Wikipedia's Mi-24
+   specifications, citing the OE Data Integration Network]**, the figure the anchor was worked from
+   ([our own flight over the map](vehicle-flight-over-the-map.md#sources)).
 3. **Vehicle Framework's own armour figures** for players without Combat Extended: authored ratings, set when the
    first armoured Def is written.
 4. **Everything in the radio section**, until the radio framework is picked up again.
