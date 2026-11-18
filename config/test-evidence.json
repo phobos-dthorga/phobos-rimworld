@@ -148,6 +148,14 @@
       "the armour kit's weight and armour are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "ArmourKit", "detail": "fitted"}],
       "the inlet barrier's power loss is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "InletBarrier", "detail": "fitted"}],
       "the infrared jammer covers it from an air defence": ["aircraft.jammer-cover"]
+    }},
+    "221": {"parts": {
+      "the 7.62 mm ramp gun fires": [{"key": "vehicles.weapon-fired", "variant": "RampM240"}],
+      "the .50 ramp gun fires": [{"key": "vehicles.weapon-fired", "variant": "RampM2HB"}],
+      "the crew chief swings the ramp gun by hand": [{"key": "vehicles.systems-tab.hand-swung-weapon", "detail": "*RampM*"}],
+      "the belly gun's weight is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "BellyGun", "detail": "fitted"}],
+      "the belly gun fires by itself": [{"key": "vehicles.weapon-fired", "variant": "BellyGun"}],
+      "the belly gun stops without power": [{"key": "vehicles.autonomous-turret-no-power", "detail": "*BellyGun"}]
     }}
   },
   "order": [

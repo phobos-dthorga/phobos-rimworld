@@ -222,6 +222,10 @@ def interim_icons(out):
     grey = Image.composite(ImageChops.multiply(grey, steel), grey, grey.getchannel('A'))
     grey.putalpha(hull.getchannel('A'))
     made['ArmourKit'] = fit_icon(grey)
+    # The ramp guns' own lifted pictures (Vehicles 0.74.0); the belly gun is not drawn, so its node borrows the game's minigun until the
+    # drawn icon is picked (config/art-audit.json).
+    for key, source in TURRETS.items():
+        made[key] = fit_icon(Image.open(source).convert('RGBA'))
     for key, icon in made.items():
         icon.save(folder / f'{key}.png', optimize=True)
     return [folder / f'{key}.png' for key in made]

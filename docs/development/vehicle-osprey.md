@@ -2,8 +2,9 @@
 
 **Status (19 Nov 2026):** built and not yet passed in game: its Def (Vehicles 0.69.0), its rotors and tilting nacelles (0.70.0, Framework
 0.146.0 and 0.148.0), our own flight over the map (Framework 0.147.0 and 0.149.0, built by the flight work) and its upgrade tree (Vehicles
-0.72.0, Framework 0.150.0: second hook, armour kit, infrared jammer, terrain radar, inlet barrier). Not built: its guns, armour by class,
-the rolling take-off, the terrain radar's night-and-weather rule, sounds and drawn icons. The owner flew slice 1 in dev mode: "It does
+0.72.0, Framework 0.150.0: second hook, armour kit, infrared jammer, terrain radar, inlet barrier), the rolling take-off (Vehicles 0.73.0,
+Framework 0.151.0) and its guns (Vehicles 0.74.0, Framework 0.152.0: either ramp gun and the belly gun). Not built: armour by class, the
+terrain radar's night-and-weather rule, sounds and drawn icons. The owner flew slice 1 in dev mode: "It does
 work but is extremely bare bones" (19 Nov 2026).
 
 The owner asked for the Osprey on 18 November 2026: "the Osprey is definitely something I would like to implement!" This is its
@@ -293,16 +294,25 @@ tank, cargo hook, cabin oxygen), as for every aircraft, not nodes of their own: 
 is its own. **Built in D'thorga Vehicles 0.72.0 with Framework 0.150.0:** the second hook, the armour kit (Vehicle Framework's Rifle
 ratings for now, its 360 kg carried as cargo), the infrared jammer, the terrain-following radar (its draw and look now; what it lifts, a
 night-and-weather rule for every aircraft, later: owner, 19 Nov 2026) and the inlet barrier (3% of the power [A]; its sand-wear saving waits
-for the landing-ground rule). The guns follow in their own slice.
+for the landing-ground rule). **Built in D'thorga Vehicles 0.74.0 with Framework 0.152.0:** the two ramp guns, either/or, worked by the crew
+chief through a seat edit, and the belly gun, autonomous with its 360 kg carried as cargo. Each stops with the aft cabin [A]. Research: one
+ramp gun mount project for both, and a belly gun project after the game's multi-barrel weapons [A]. Their figures are in `Turrets_Osprey.xml`
+and the Combat Extended patch beside the mod's other Combat Extended files. Each gun weighs too little beside the cabin's load to count,
+except the belly gun's 360 kg [A].
 
 <!-- upgrade-tree: Phobos_Osprey_UpgradeTree -->
 ```mermaid
 flowchart TB
+  subgraph alt1 ["Only one of these"]
+    RampGun762["Ramp gun, 7.62 mm"]
+    RampGun50["Ramp gun, .50"]
+  end
   SecondHook["Second cargo hook"]
   ArmourKit["Armour kit"]
   InfraredJammer["Infrared jammer"]
   TerrainRadar["Terrain-following radar"]
   InletBarrier["Inlet barrier"]
+  BellyGun["Belly gun"]
 ```
 
 The hook's two published limits disagree: 15,000 lb on both hooks **[P, guide and fact sheet]** against Bell's page, 12,500 lb.

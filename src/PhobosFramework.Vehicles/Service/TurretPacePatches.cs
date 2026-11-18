@@ -102,6 +102,9 @@ public static class TurretAimSway
 
     public static void Prefix(VehicleTurret __instance)
     {
+        // Seen in play (Framework 0.152.0): a weapon fired, its key as the case, the first shot of each weapon on each vehicle a session.
+        // Combat Extended's shots only: this is its firing path, which the owner plays.
+        if (__instance.vehicle != null) Seen.Note("vehicles.weapon-fired", __instance.vehicle, variant: __instance.key);
         float factor = TurretPace.For(__instance).accuracy;
         if (factor >= 1f) return;
         firing = __instance;

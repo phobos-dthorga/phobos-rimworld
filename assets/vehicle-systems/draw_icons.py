@@ -116,8 +116,53 @@ def land():
     return image
 
 
+# A gun's three fire modes (Framework 0.152.0): Vehicle Framework names its own fire-mode pictures, but on RimWorld 1.7 it no longer
+# loads them, so a turret of ours showed the red cross. Brass cartridges: one, three, and a belt.
+BRASS = (222, 176, 82, 255)
+BRASS_SHADE = (178, 132, 50, 255)
+COPPER = (196, 112, 70, 255)
+
+
+def cartridge(draw, cx, bottom, width, height):
+    """One upright cartridge: a brass case under a copper bullet."""
+    case_top = bottom - height * 0.62
+    half = width / 2
+    outlined_polygon(draw, [(cx - half, case_top), (cx + half, case_top), (cx + half, bottom), (cx - half, bottom)], BRASS, BRASS_SHADE,
+                     [(cx + half * 0.35, case_top + LINE * 0.6), (cx + half - LINE * 0.6, case_top + LINE * 0.6),
+                      (cx + half - LINE * 0.6, bottom - LINE * 0.6), (cx + half * 0.35, bottom - LINE * 0.6)])
+    tip = bottom - height
+    bullet = [(cx - half * 0.86, case_top + LINE * 0.3), (cx - half * 0.86, case_top - height * 0.12), (cx - half * 0.45, tip + height * 0.08),
+              (cx, tip), (cx + half * 0.45, tip + height * 0.08), (cx + half * 0.86, case_top - height * 0.12), (cx + half * 0.86, case_top + LINE * 0.3)]
+    outlined_polygon(draw, bullet, COPPER)
+
+
+def fire_single():
+    image, draw = canvas()
+    cartridge(draw, 512, 900, 230, 780)
+    return image
+
+
+def fire_burst():
+    image, draw = canvas()
+    for cx in (232, 512, 792):
+        cartridge(draw, cx, 860, 190, 640)
+    return image
+
+
+def fire_auto():
+    image, draw = canvas()
+    for cx in (152, 332, 512, 692, 872):
+        cartridge(draw, cx, 720, 150, 560)
+    # The belt's links, joining the cartridges.
+    outlined_polygon(draw, [(70, 690), (954, 690), (954, 840), (70, 840)], STEEL_SHADE)
+    return image
+
+
 DRAWINGS = {
     'Switch': (switch, 'a rocker switch on a pale plate, the fallback icon for any switchable load'),
+    'FireMode/Single': (fire_single, 'one brass cartridge, for a gun\'s "single shot" fire mode'),
+    'FireMode/Burst': (fire_burst, 'three brass cartridges, for a gun\'s "burst" fire mode'),
+    'FireMode/Auto': (fire_auto, 'five brass cartridges on a steel belt, for a gun\'s "automatic" fire mode'),
     'Flight/TakeOff': (take_off, 'an amber arrow rising from a pale landing pad, for our own flight\'s "Take off" button'),
     'Flight/FlyTo': (fly_to, 'a steel arrow flying toward an amber target ring, for "Fly to"'),
     'Flight/Hold': (hold, 'two amber bars, the sign for a pause, in a pale ring, for "Hold here"'),

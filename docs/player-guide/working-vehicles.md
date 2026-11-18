@@ -446,8 +446,15 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   - **Infrared jammer:** two turrets that make air defences hit far less often; they draw power.
   - **Terrain-following radar:** a fuller nose; it draws power. What it lets it do, flying blind at night and in weather, comes later.
   - **Inlet barrier:** filters on the intakes, for a little engine power.
-- **Still to come, before it is tested:** the ramp gun and belly gun, and the short rolling take-off for heavy loads. Not yet tested
-  in game.
+- **Its guns** (not yet tested in game), each an upgrade with its own research:
+  - **Ramp gun, 7.62 mm or .50** (one or the other: there is one mount). The **crew chief** works it, so put someone in that seat. It
+    points behind the aircraft and swings 60 degrees to each side, by hand, so it works without power. The .50 swings more slowly and
+    hits harder and further.
+  - **Belly gun:** a minigun under the belly that **fires all round by itself**, at a low or a high rate. It needs power: with a dead
+    battery, engines off and nobody aboard, it stops until it has power again. It weighs 360 kg, carried as cargo.
+  - **Load them:** with Combat Extended, 7.62x51 mm NATO or .50 BMG rounds; without it, steel. A gun stops if the aft cabin is
+    wrecked, and works more slowly as it is damaged.
+- **Still to come, before it is tested:** armour by class. Not yet tested in game.
 
 ## Other mods' vehicles
 

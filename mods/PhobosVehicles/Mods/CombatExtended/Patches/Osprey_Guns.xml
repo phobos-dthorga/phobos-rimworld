@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The Osprey's guns with Combat Extended (D'thorga Vehicles 0.74.0; docs/development/vehicle-osprey.md, "Guns"): each is fed its real
+       cartridge, fires Combat Extended's ball round by default and reaches as far as Combat Extended's own guns of that calibre do (62 cells
+       for 7.62x51 mm, as its minigun; 75 for .50 [A]). Loaded only while Combat Extended is active (LoadFolders.xml). The turrets' own
+       Combat Extended figures (speed, sway, spread, recoil) are in their Defs. Not yet tested in game. -->
+
+  <!-- The two 7.62x51 mm guns. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_Osprey_RampM240" or defName="Phobos_Osprey_BellyGun"]/genericAmmo</xpath>
+    <value>
+      <genericAmmo>false</genericAmmo>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_Osprey_RampM240" or defName="Phobos_Osprey_BellyGun"]/ammunition</xpath>
+    <value>
+      <ammunition>
+        <thingDefs>
+          <li>Ammo_762x51mmNATO_FMJ</li>
+          <li>Ammo_762x51mmNATO_AP</li>
+          <li>Ammo_762x51mmNATO_HP</li>
+          <li>Ammo_762x51mmNATO_Incendiary</li>
+          <li>Ammo_762x51mmNATO_HE</li>
+          <li>Ammo_762x51mmNATO_Sabot</li>
+        </thingDefs>
+      </ammunition>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_Osprey_RampM240" or defName="Phobos_Osprey_BellyGun"]/projectile</xpath>
+    <value>
+      <projectile>Bullet_762x51mmNATO_FMJ</projectile>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_Osprey_RampM240" or defName="Phobos_Osprey_BellyGun"]/maxRange</xpath>
+    <value>
+      <maxRange>62</maxRange>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_Osprey_RampM240" or defName="Phobos_Osprey_BellyGun"]/shotSound</xpath>
+    <value>
+      <shotSound>MediumMG</shotSound>
+    </value>
+  </Operation>
+
+  <!-- The .50. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_Osprey_RampM2HB"]/genericAmmo</xpath>
+    <value>
+      <genericAmmo>false</genericAmmo>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_Osprey_RampM2HB"]/ammunition</xpath>
+    <value>
+      <ammunition>
+        <thingDefs>
+          <li>Ammo_50BMG_FMJ</li>
+          <li>Ammo_50BMG_AP</li>
+          <li>Ammo_50BMG_Incendiary</li>
+          <li>Ammo_50BMG_HE</li>
+          <li>Ammo_50BMG_Sabot</li>
+        </thingDefs>
+      </ammunition>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_Osprey_RampM2HB"]/projectile</xpath>
+    <value>
+      <projectile>Bullet_50BMG_FMJ</projectile>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_Osprey_RampM2HB"]/maxRange</xpath>
+    <value>
+      <maxRange>75</maxRange>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleTurretDef[defName="Phobos_Osprey_RampM2HB"]/shotSound</xpath>
+    <value>
+      <shotSound>HeavyMG</shotSound>
+    </value>
+  </Operation>
+</Patch>

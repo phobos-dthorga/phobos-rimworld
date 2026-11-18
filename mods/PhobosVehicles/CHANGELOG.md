@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.74.0] - 2026-11-19 - Draft
+
+The Osprey's guns: a ramp gun, 7.62 mm or .50, and a belly minigun
+
+### Added
+
+- **Ramp gun.** An M240 (7.62 mm) or a .50 machine gun on the Osprey's open ramp, one or the other, worked by the crew chief. It faces behind the aircraft and swings 60 degrees to each side, by hand, so it works without power. Its node needs the ramp gun mount research.
+- **Belly gun.** A minigun in a turret under the belly that fires all round by itself, at a low or a high rate. It needs power: with the engines and battery dead and nobody aboard, it stops until it has power again. It weighs 360 kg, taken from the cargo room and carried as cargo. Its node needs the belly gun research, after the game's multi-barrel weapons.
+- **With Combat Extended** the guns take their real cartridges, 7.62x51 mm NATO and .50 BMG, and reach as far as Combat Extended's own guns of those calibres. Without it they fire base-game bullets of a similar size and load steel.
+- **Each gun stops with the aft cabin** it is mounted in, and works more slowly as that part is damaged.
+
+### Changed
+
+- **The research tab** has two more small Osprey projects: ramp gun mount and belly gun.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.152.0 or later, which carries the guns' fire-mode pictures.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Ranges, magazine sizes, sway and the base-game bullets are authored. The belly gun is not drawn, being under the aircraft; its button shows the game's minigun until its own icon is drawn. The ramp guns' upgrade icons are interim, cut from their own pictures. The guns use the game's minigun sound, and Combat Extended's machine-gun sounds with it, until the Osprey's own sounds are made.
+
 ## [0.73.0] - 2026-11-19 - Draft
 
 The Osprey takes off and lands rolling when too heavy to hover

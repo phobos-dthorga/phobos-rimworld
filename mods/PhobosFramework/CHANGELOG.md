@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.152.0] - 2026-11-19 - Draft
+
+Pictures for a gun's fire modes, and a note when a gun fires
+
+### Added
+
+- **Fire-mode pictures.** A gun on one of our vehicles shows its single shot, burst and automatic buttons with brass cartridges: one, three, and a belt. Vehicle Framework's own pictures for them are no longer loaded on RimWorld 1.7, so these buttons showed a red cross. Stand-ins drawn in code.
+- **A seen-in-play note when a gun fires**, once for each gun on each vehicle a session, with Combat Extended. For the test list; off unless its setting is on.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The note covers Combat Extended's shots only.
+
 ## [0.151.0] - 2026-11-19 - Draft
 
 Aircraft too heavy to lift straight up take off and land rolling along a strip

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The V-22 Osprey's guns, slice 4 (D'thorga Vehicles 0.74.0, Framework 0.152.0; docs/development/vehicle-osprey.md, "Guns"). Fitted by
+       the upgrade tree, never standing on the Def. Figures [S] sourced, [A] authored. Without Combat Extended each fires a base-game bullet
+       of its calibre's size and is fed from steel, as Vehicle Framework's own generic ammunition is [A]; with it, Mods/CombatExtended/Patches
+       gives each its real cartridge. Every Def sets its Combat Extended recoil outright (vehicle-armour.md: it defaults to -1 and is always
+       added). The fire-mode pictures are ours: Vehicle Framework no longer loads its own on RimWorld 1.7. Not yet tested in game. -->
+
+  <!-- The M240 on the ramp [S]: 7.62x51 mm, 650 to 950 rounds a minute [S]. 5 ticks between shots is 720 a minute. A belt of 200 [A]. -->
+  <Vehicles.VehicleTurretDef ParentName="VehicleTurretBase">
+    <defName>Phobos_Osprey_RampM240</defName>
+    <label>M240 ramp gun</label>
+    <turretType>Rotatable</turretType>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Osprey/Osprey_RampGun762</texPath>
+      <graphicClass>Vehicles.Graphic_Turret</graphicClass>
+      <shaderType>Cutout</shaderType>
+      <drawSize>(3, 3)</drawSize>
+    </graphicData>
+    <matchParentColor>false</matchParentColor>
+    <gizmoIconTexPath>Phobos/Vehicles/Osprey/Upgrades/RampGun762</gizmoIconTexPath>
+    <magazineCapacity>200</magazineCapacity>
+    <chargePerAmmoCount>1</chargePerAmmoCount>
+    <genericAmmo>true</genericAmmo>
+    <ammunition>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </ammunition>
+    <reloadTimer>8</reloadTimer>
+    <warmUpTimer>1</warmUpTimer>
+    <rotationSpeed>2</rotationSpeed>
+    <minRange>1.5</minRange>
+    <maxRange>30</maxRange>
+    <projectile>Bullet_LMG</projectile>
+    <shotSound>Shot_Minigun</shotSound>
+    <fireModes>
+      <li>
+        <label>Automatic</label>
+        <shotsPerBurst>20</shotsPerBurst>
+        <ticksBetweenShots>5</ticksBetweenShots>
+        <ticksBetweenBursts>60</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Auto</texPath>
+      </li>
+      <li>
+        <label>Burst</label>
+        <shotsPerBurst>8</shotsPerBurst>
+        <ticksBetweenShots>5</ticksBetweenShots>
+        <ticksBetweenBursts>60</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Burst</texPath>
+      </li>
+      <li>
+        <label>Single shot</label>
+        <shotsPerBurst>1</shotsPerBurst>
+        <ticksBetweenShots>5</ticksBetweenShots>
+        <ticksBetweenBursts>30</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Single</texPath>
+      </li>
+    </fireModes>
+    <modExtensions>
+      <!-- Combat Extended's own 7.62x51 mm muzzle speed (156); a swung gun's sway and spread [A]. -->
+      <li Class="Vehicles.CETurretDataDefModExtension">
+        <ammoSet>AmmoSet_762x51mmNATO</ammoSet>
+        <speed>156</speed>
+        <sway>1.2</sway>
+        <spread>0.05</spread>
+        <recoil>0.9</recoil>
+        <shotHeight>1.5</shotHeight>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleTurretDef>
+
+  <!-- The .50 on the ramp [S]: the GAU-21 in the Marine Corps photograph, "1,100 rpm" [S]. 3 ticks between shots is 1,200 a minute, the
+       nearest whole tick. A belt of 200 [A]. -->
+  <Vehicles.VehicleTurretDef ParentName="VehicleTurretBase">
+    <defName>Phobos_Osprey_RampM2HB</defName>
+    <label>.50 ramp gun</label>
+    <turretType>Rotatable</turretType>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Osprey/Osprey_RampGun50</texPath>
+      <graphicClass>Vehicles.Graphic_Turret</graphicClass>
+      <shaderType>Cutout</shaderType>
+      <drawSize>(3, 3)</drawSize>
+    </graphicData>
+    <matchParentColor>false</matchParentColor>
+    <gizmoIconTexPath>Phobos/Vehicles/Osprey/Upgrades/RampGun50</gizmoIconTexPath>
+    <magazineCapacity>200</magazineCapacity>
+    <chargePerAmmoCount>1</chargePerAmmoCount>
+    <genericAmmo>true</genericAmmo>
+    <ammunition>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </ammunition>
+    <reloadTimer>10</reloadTimer>
+    <warmUpTimer>1.2</warmUpTimer>
+    <rotationSpeed>1.6</rotationSpeed>
+    <minRange>1.5</minRange>
+    <maxRange>36</maxRange>
+    <projectile>Bullet_SniperRifle</projectile>
+    <shotSound>Shot_Minigun</shotSound>
+    <fireModes>
+      <li>
+        <label>Automatic</label>
+        <shotsPerBurst>12</shotsPerBurst>
+        <ticksBetweenShots>3</ticksBetweenShots>
+        <ticksBetweenBursts>75</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Auto</texPath>
+      </li>
+      <li>
+        <label>Burst</label>
+        <shotsPerBurst>6</shotsPerBurst>
+        <ticksBetweenShots>3</ticksBetweenShots>
+        <ticksBetweenBursts>75</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Burst</texPath>
+      </li>
+      <li>
+        <label>Single shot</label>
+        <shotsPerBurst>1</shotsPerBurst>
+        <ticksBetweenShots>3</ticksBetweenShots>
+        <ticksBetweenBursts>40</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Single</texPath>
+      </li>
+    </fireModes>
+    <modExtensions>
+      <!-- Combat Extended's own .50 BMG muzzle speed (163); a swung heavy gun's sway, spread and kick [A]. -->
+      <li Class="Vehicles.CETurretDataDefModExtension">
+        <ammoSet>AmmoSet_50BMG</ammoSet>
+        <speed>163</speed>
+        <sway>1.3</sway>
+        <spread>0.04</spread>
+        <recoil>1.6</recoil>
+        <shotHeight>1.5</shotHeight>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleTurretDef>
+
+  <!-- The belly gun: a GAU-17 minigun, 7.62x51 mm, "belly-mounted, retractable, video remote control" [S], 2,000 or 4,000 rounds a minute
+       on other installations [S]: 2 ticks is 1,800 a minute, 1 tick 3,600. It is under the aircraft, so nothing of it is drawn; the
+       game's minigun stands for its button until the drawn icon is picked (config/art-audit.json). 1,500 rounds aboard [A]. -->
+  <Vehicles.VehicleTurretDef ParentName="VehicleTurretBase">
+    <defName>Phobos_Osprey_BellyGun</defName>
+    <label>belly minigun</label>
+    <turretType>Rotatable</turretType>
+    <gizmoIconTexPath>Things/Item/Equipment/WeaponRanged/Minigun</gizmoIconTexPath>
+    <magazineCapacity>1500</magazineCapacity>
+    <chargePerAmmoCount>1</chargePerAmmoCount>
+    <genericAmmo>true</genericAmmo>
+    <ammunition>
+      <thingDefs>
+        <li>Steel</li>
+      </thingDefs>
+    </ammunition>
+    <reloadTimer>15</reloadTimer>
+    <warmUpTimer>1.5</warmUpTimer>
+    <rotationSpeed>6</rotationSpeed>
+    <minRange>2</minRange>
+    <maxRange>30.9</maxRange>
+    <projectile>Bullet_Minigun</projectile>
+    <shotSound>Shot_Minigun</shotSound>
+    <fireModes>
+      <li>
+        <label>Low rate</label>
+        <shotsPerBurst>30</shotsPerBurst>
+        <ticksBetweenShots>2</ticksBetweenShots>
+        <ticksBetweenBursts>90</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Burst</texPath>
+      </li>
+      <li>
+        <label>High rate</label>
+        <shotsPerBurst>60</shotsPerBurst>
+        <ticksBetweenShots>1</ticksBetweenShots>
+        <ticksBetweenBursts>90</ticksBetweenBursts>
+        <texPath>Phobos/VehicleSystems/FireMode/Auto</texPath>
+      </li>
+    </fireModes>
+    <modExtensions>
+      <!-- Combat Extended's own 7.62x51 mm muzzle speed (156) and its minigun's recoil (0.97); a stabilised remote mount sways little [A]. -->
+      <li Class="Vehicles.CETurretDataDefModExtension">
+        <ammoSet>AmmoSet_762x51mmNATO</ammoSet>
+        <speed>156</speed>
+        <sway>0.6</sway>
+        <spread>0.06</spread>
+        <recoil>0.97</recoil>
+        <shotHeight>1</shotHeight>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleTurretDef>
+</Defs>

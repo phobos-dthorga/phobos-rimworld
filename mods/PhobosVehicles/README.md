@@ -8,12 +8,12 @@ top of the general systems D'thorga Framework gives every vehicle.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**:
 [working vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.73.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
+Version 0.74.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
 9 November 2026) and the Busbar's size and look (owner, 13 November 2026).
 
 ## Read this first (gotchas)
 
-- **Needs Vehicle Framework and D'thorga Framework 0.150.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About
+- **Needs Vehicle Framework and D'thorga Framework 0.152.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About
   file asks for that, so RimSort does it for you. Vanilla Expanded Framework is optional: it brings the garages.
 - **Safe to add to a running colony.** **Safe to remove only once none of our own vehicles is left**: scrap every tipper, tanker,
   drill rig, survey truck, generator set, seabed crawler, trailer and Osprey first, or they go with the mod. **Pack up a set-up generator set
@@ -35,8 +35,9 @@ Version 0.73.0, built 19 November 2026 for House D'thorga. **Not yet tested in g
 - **The V-22 Osprey** (tiltrotor aircraft research, after turbine engines; motor pool tab; 0.69.0) is our first aircraft: two pilots,
   a crew chief, 24 seats and 5,600 kg, taking off straight up and crossing the world at 17.5. Its rotors spin when drafted and its nacelles tip
   forward as it climbs away (0.70.0). **Its upgrades** (0.72.0): a second cargo hook, an armour kit, an infrared jammer, a terrain radar and
-  an inlet barrier, each with its own research; its stretchers, ferry tanks, cargo hook and cabin oxygen are the usual fittings. **Still
-  to come:** its guns and armour by class. Not yet tested in game.
+  an inlet barrier, each with its own research; its stretchers, ferry tanks, cargo hook and cabin oxygen are the usual fittings. **Its
+  guns** (0.74.0): a ramp gun, 7.62 mm or .50, worked by the crew chief, and a belly minigun that fires by itself while it has power,
+  each with real cartridges under Combat Extended. **Still to come:** armour by class. Not yet tested in game.
 - **The general systems come from D'thorga Framework**, not this mod: battery and alternator, coolant and oil, tyres or tracks,
   brakes, gearbox, wear and service ([looking after vehicles](../../docs/player-guide/vehicle-care.md)).
 - **Our vehicles are built from parts.** Where RimThunder or Vanilla Vehicles Expanded is installed, a build asks for their parts;
