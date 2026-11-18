@@ -1,0 +1,102 @@
+[
+  {
+    "name": "osprey-ramp-gun-50-piece",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 1366,
+    "height": 2048,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-crop-ramp.png",
+        "role": "a piece of our approved aircraft body (the owner's pick), the rear fuselage only: the picture to add to, changing nothing else"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of our aircraft's rear fuselage, seen from directly above, the front of the aircraft toward the TOP of the canvas: the rear cabin roof with a rectangular hatch panel in the middle, and the tailplane across the lower part. Add one .50 calibre heavy machine gun on a small pintle mount standing on the hatch panel, on the centre line, its barrel pointing straight back toward the BOTTOM of the canvas: a slim dark gunmetal receiver with two spade grips at its front end, a short perforated barrel jacket and a long thin barrel whose muzzle stops just short of the tailplane; a small rectangular olive ammunition can clipped to its left side. The whole gun is about as long as the hatch panel is tall, and much narrower than the fuselage. Change NOTHING else: keep every other line, panel, rivet, colour and the plain white background exactly as in Image 1, at the same scale and in the same position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the aircraft.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "this_request": "the .50 ramp gun added to a piece of the body only, so the model has no aircraft to redraw; lifted by scripts/art/sam_lift.py and laid back at the piece's place (references/osprey-crops.json)",
+      "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md"
+    }
+  },
+  {
+    "name": "osprey-hoist-piece",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 1366,
+    "height": 2048,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-crop-ramp.png",
+        "role": "a piece of our approved aircraft body (the owner's pick), the rear fuselage only: the picture to add to, changing nothing else"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of our aircraft's rear fuselage, seen from directly above, the front of the aircraft toward the TOP of the canvas: the rear cabin roof with a rectangular hatch panel in the middle, and the tailplane across the lower part. Add a compact rescue hoist on the RIGHT edge of the fuselage, beside the upper half of the hatch panel: a small boxy motor housing lying on the roof with a round cable drum at one end, and a short straight boom arm reaching out sideways to the right, just past the fuselage's right edge, ending in a small pulley. The hoist is about two thirds as long as the hatch panel is tall. Change NOTHING else: keep every other line, panel, rivet, colour and the plain white background exactly as in Image 1, at the same scale and in the same position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the aircraft.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "this_request": "the rescue hoist, at the ramp as the sourced figures place it, added to a piece of the body only; lifted by scripts/art/sam_lift.py and laid back at the piece's place",
+      "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md"
+    }
+  },
+  {
+    "name": "osprey-inlet-barrier-piece",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 1366,
+    "height": 2048,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-crop-nacelle.png",
+        "role": "a piece of our approved aircraft body (the owner's pick), the left engine nacelle and the wing root beside it: the picture to add to, changing nothing else"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up of our aircraft's left engine nacelle, seen from directly above, the front of the aircraft toward the TOP of the canvas, with a piece of the wing joining it on the right. Add an engine inlet barrier filter to this nacelle: one flat rectangular filter panel with a fine dark grille mesh inside a thin raised frame, set into the nacelle's top surface between its front end cap and its front orange band, spanning nearly the nacelle's width. It stays inside the nacelle outline. Change NOTHING else: keep the round hub, both orange bands, every other line, colour and the plain white background exactly as in Image 1, at the same scale and in the same position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the aircraft.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "this_request": "the inlet barrier, asked twice on the whole body and drawn on the wings both times; now on a piece holding only the nacelle, so it has nowhere else to go",
+      "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md"
+    }
+  },
+  {
+    "name": "osprey-rotor-clean",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 2048,
+    "height": 2048,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-rotor-white.png",
+        "role": "our proprotor rebuilt by script: its layout, blade angles and length are right, its outlines broken; the shape to redraw cleanly"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our aircraft's three-bladed proprotor, seen from directly above, alone on white. Its layout, blade angles and blade length are right, but its outlines are broken and its hub is too big. Redraw it cleanly at the same size and position, with the blades at the same angles: three long slender blades 120 degrees apart, each one smooth continuous shape with an unbroken thick near-black outline, slightly wider near the root and tapering gently to a squared tip, keeping the orange band near each tip and one faint seam across each blade at about half its length. At the centre, a SMALL round spinner hub, only about one fifth of a blade's length across, with each blade root tucked neatly under it. Nothing else on the canvas: a plain white background, no aircraft, no shadow.\n\nDraw it in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust or damage.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "this_request": "the still rotor redrawn from our script-made one, alone in its reference so the model has no aircraft to redraw; the owner found the script-made one mangled",
+      "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md"
+    }
+  },
+  {
+    "name": "osprey-rotor-clean-4k",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [1],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-rotor-clean/osprey-rotor-clean-2.png",
+        "role": "our clean proprotor (the second of the 2K redraws): the drawing to repeat, at this larger size"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our aircraft's three-bladed proprotor, seen from directly above, alone on white. Draw exactly this proprotor again, as large as the canvas allows with a small white margin, its small round hub at the centre of the canvas: the same three slender blades at the same angles, the same root shapes tucked under the hub, the same orange band near each tip and faint seam across each blade, and an unbroken thick near-black outline. Nothing else on the canvas: a plain white background, no aircraft, no shadow.\n\nDraw it in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust or damage.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "this_request": "the clean rotor again at 4K: at 2K it is about 1.1 times its drawn size in game (13.6 cells at 128 px), under the rule's 1.5",
+      "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md"
+    }
+  }
+]

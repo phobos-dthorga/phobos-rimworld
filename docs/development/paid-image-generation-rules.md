@@ -56,6 +56,13 @@ tanker's body and overlays, the survey truck's body, the inspection pit and a se
     the panel zones, an icon from the body. Pay only for what a script cannot produce.
 12. **A timed-out call is never retried blindly**: the provider may have made and billed the picture. The engine counts
     the estimate against the cap and moves on; the owner's usage page shows whether it was charged.
+13. **An overlay is drawn on a piece of the body, never the whole body** (the Osprey's overlays, 18 Nov 2026,
+    `assets/phobos-vehicles/requests/osprey-overlays-record.md`). With the whole vehicle in its references, an editing model
+    redraws the whole vehicle, and lifting a part back out of that redraw mangles it: anything the body's colour comes out
+    see-through, and a part drawn a little off doubles its outline. Given only a crop of the body around the part's place, it
+    adds the part to that piece, and `scripts/art/sam_lift.py` lifts it out (the difference finds *where*; Segment Anything
+    outlines it) and lays it back at the crop's place. A part that only changes the body's own shape (a nose cap) is made from
+    the body by script, so it lines up exactly. Inspect every lifted part laid on the body at native size before the owner sees it.
 
 ## Where the lessons come from
 

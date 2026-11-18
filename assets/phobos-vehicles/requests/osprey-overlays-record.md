@@ -1,7 +1,7 @@
 # The V-22 Osprey's overlays and parts, first round (18 Nov 2026)
 
-**Status (18 Nov 2026):** eleven asked for, eight made, three refused by the service; two kept as they came, two to be finished by
-script, the rest to be asked again in a different way. Nothing is exported or shipped. Requests: [osprey-overlays.json](osprey-overlays.json),
+**Status (19 Nov 2026):** three rounds; every overlay and part now clean at full size, waiting on the owner's picks of three
+pairs and the guns' size. Nothing is exported or shipped. This file started as the first round's record. Requests: [osprey-overlays.json](osprey-overlays.json),
 all edits of the owner's pick through fal (Nano Banana Pro), at a US$3.50 cap; spent about US$2.70 by the table's ceilings, the
 three refusals counted because fal may charge a refused request that has run.
 
@@ -74,8 +74,41 @@ agent's fault**: they were judged from thumbnails and shown without the full-siz
 **The lesson, for this engine:** lifting by difference finds *where* a part is, but must not decide its outline: anything the
 body's colour comes out see-through. And the model draws a part alone only when nothing else is in its references.
 
+## Third round (18 to 19 Nov 2026): pieces of the body, and Segment Anything
+
+The owner's go for the graphics card and a US$2 limit. [osprey-overlays-3.json](osprey-overlays-3.json): nine pictures, **US$1.50**
+by the ceilings (eight at 2K, one at 4K). Made into `generated/osprey-overlays-sam/` (lifted) and `generated/osprey-derived/`
+(by script); the review page is `generated/osprey-parts-review/index.html`, every piece inspected laid on the body at native size.
+
+**What changed:**
+
+- **Overlays are drawn on a piece of the body** ([cut_osprey_references.py](../cut_osprey_references.py): the ramp and one nacelle,
+  cropped from the pick), never the whole aircraft. With no aircraft to redraw, the model added only the part, and all six came out
+  clean. Now rule 13 of the paid rules.
+- **Parts are lifted with Segment Anything** (`scripts/art/sam_lift.py`): the difference only says where the part is. Run on the
+  processor (`--cpu`) once the game was open; about 30 to 90 seconds a batch.
+- **Two graphics card tools did not see the game running.** `name_parts.py` and `paint_segments.py` looked only for the 1.6 name,
+  `RimWorldWin64.exe`; 1.7 runs as `RimWorld.exe`. The owner started the game during the second Segment Anything run, which shared
+  the graphics card with it for about two minutes while it loaded. Both now ask `safeguards.py`, which knows both names, and
+  `tests/test_art_tools.py` refuses a tool that names the game by itself.
+
+| Piece | How now | State |
+| --- | --- | --- |
+| Refuelling probe, 7.62 mm gun | The first round's edits, lifted again with Segment Anything | Clean |
+| Infrared jammer | The same, clipped to each dome's measured circle (radius 114 px) | Clean, whole domes |
+| Radar nose | **Made from the pick's own nose tip** by script, a shade darker, with the edit's seam line | Lines up exactly; the model's nose was a slightly different shape and doubled the outline |
+| .50 gun | Redrawn on the ramp piece; two to pick from | Clean; about 3.5 m and 2.7 m long as drawn |
+| Rescue hoist | Redrawn on the ramp piece, at the ramp as the sourced figures place it; two to pick from | (a) clean; (b) its mounting plate ragged |
+| Inlet barrier | Redrawn on the nacelle piece; two to pick from | Both clean, on the nacelle at last |
+| Still rotor | Redrawn from the script-built one, alone; then again at 4K | Clean, small hub; 4K because at 2K it was 1.1 times its drawn size in game, under the 1.5 rule |
+| Spinning rotor | From the 4K rotor by script | Clean |
+| Nacelles 0 to 90 | The hub taken off whole rows at a time; the pointed cap now covers the rounded front to its seam | No ghost, no gap |
+
+**Open with the owner:** which of each pair; and the guns' size. The 7.62 mm gun is drawn about 4.2 m long, the .50s 3.5 m and
+2.7 m, against an M240's 1.25 m and an M2's 1.65 m [A: from general knowledge]. Shrinking them by script is free.
+
 ## Next
 
-1. The inlet barriers by script.
-2. All twelve paid pictures of both rounds are on `art-references` (`generated/vehicles/osprey/overlays/`), as generated.
-3. The owner's look at the review page; then the background AI and export at the body's scale.
+1. The owner's picks and the guns' size.
+2. The new paid pictures to `art-references`, as generated, with the earlier rounds' twelve.
+3. The background AI and export at the body's scale.

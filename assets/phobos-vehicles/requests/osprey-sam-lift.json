@@ -1,0 +1,13 @@
+{
+  "body": "assets/phobos-vehicles/generated/osprey-trial-nano-banana-pro/osprey-trial-nano-banana-pro-1.png",
+  "out": "assets/phobos-vehicles/generated/osprey-overlays-sam",
+  "parts": [
+    {"name": "probe", "edit": "assets/phobos-vehicles/generated/osprey-probe/osprey-probe-1.png", "box": [0.5, 0.0, 0.75, 0.287]},
+    {"name": "radar-nose", "edit": "assets/phobos-vehicles/generated/osprey-radar-nose-add/osprey-radar-nose-add-1.png", "box": [0.35, 0.0, 0.65, 0.2],
+     "pick": "smallest", "outline": true},
+    {"name": "ramp-gun-762", "edit": "assets/phobos-vehicles/generated/osprey-ramp-gun-762/osprey-ramp-gun-762-1.png", "box": [0.35, 0.5, 0.65, 1.0]},
+    {"name": "jammer", "edit": "assets/phobos-vehicles/generated/osprey-jammer-add/osprey-jammer-add-1.png", "box": [0.25, 0.4, 0.75, 0.8], "patches": 2, "pad": 1.0,
+     "discs": [[0.36011, 0.57568, 0.02808], [0.63989, 0.57568, 0.02808]],
+     "_discs_measured": "18 Nov 2026 at full size: both domes' outlines, x 1361-1589 and 2507-2735, y 2244-2472 of 4,096 px; radius 114 px, plus one"}
+  ]
+}

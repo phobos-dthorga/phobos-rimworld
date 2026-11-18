@@ -1,0 +1,76 @@
+{
+  "body": "assets/phobos-vehicles/generated/osprey-trial-nano-banana-pro/osprey-trial-nano-banana-pro-1.png",
+  "out": "assets/phobos-vehicles/generated/osprey-overlays-sam",
+  "parts": [
+    {
+      "name": "ramp-gun-50-a",
+      "edit": "assets/phobos-vehicles/generated/osprey-ramp-gun-50-piece/osprey-ramp-gun-50-piece-1.png",
+      "body": "assets/phobos-vehicles/references/osprey-crop-ramp.png",
+      "place": [
+        1800,
+        2900,
+        2400,
+        3800
+      ],
+      "darker_than": 170
+    },
+    {
+      "name": "ramp-gun-50-b",
+      "edit": "assets/phobos-vehicles/generated/osprey-ramp-gun-50-piece/osprey-ramp-gun-50-piece-2.png",
+      "body": "assets/phobos-vehicles/references/osprey-crop-ramp.png",
+      "place": [
+        1800,
+        2900,
+        2400,
+        3800
+      ],
+      "darker_than": 170
+    },
+    {
+      "name": "hoist-a",
+      "edit": "assets/phobos-vehicles/generated/osprey-hoist-piece/osprey-hoist-piece-1.png",
+      "body": "assets/phobos-vehicles/references/osprey-crop-ramp.png",
+      "place": [
+        1800,
+        2900,
+        2400,
+        3800
+      ],
+      "pale_is_ground": 225
+    },
+    {
+      "name": "hoist-b",
+      "edit": "assets/phobos-vehicles/generated/osprey-hoist-piece/osprey-hoist-piece-2.png",
+      "body": "assets/phobos-vehicles/references/osprey-crop-ramp.png",
+      "place": [
+        1800,
+        2900,
+        2400,
+        3800
+      ],
+      "pale_is_ground": 225
+    },
+    {
+      "name": "inlet-barrier-a",
+      "edit": "assets/phobos-vehicles/generated/osprey-inlet-barrier-piece/osprey-inlet-barrier-piece-1.png",
+      "body": "assets/phobos-vehicles/references/osprey-crop-nacelle.png",
+      "place": [
+        183,
+        1060,
+        983,
+        2260
+      ]
+    },
+    {
+      "name": "inlet-barrier-b",
+      "edit": "assets/phobos-vehicles/generated/osprey-inlet-barrier-piece/osprey-inlet-barrier-piece-2.png",
+      "body": "assets/phobos-vehicles/references/osprey-crop-nacelle.png",
+      "place": [
+        183,
+        1060,
+        983,
+        2260
+      ]
+    }
+  ]
+}
