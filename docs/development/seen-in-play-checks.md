@@ -1,8 +1,8 @@
 # Seen-in-play checks: figures, order, parts and staleness (18 Nov 2026)
 
 **Status (18 Nov 2026):** A design record, at the owner's request ("write up the design record, please, and then get it built").
-Built: N1 and E1 to E8 in phobos-modkit 1.19.0 and 1.19.1 and D'thorga Framework 0.138.0, with E7's buttons in D'thorga Companion next;
-not yet tested in game. Where the build differs from the design is under "As built".
+Built: N1 and E1 to E8 in phobos-modkit 1.19.0 and 1.19.1, D'thorga Framework 0.138.0 and D'thorga Companion 0.9.0 (two shelves, To
+look into and Notes with no row); not yet tested in game or on screen. Where the build differs from the design is under "As built".
 
 The seen-in-play notes (D'thorga Framework 0.118.0; owner, 17 Nov 2026) let the owner play however they like while the game records
 what it saw working, and phobos-modkit's test-pass and D'thorga Companion's Tests page turn that into a test list waiting for the
