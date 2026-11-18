@@ -26,7 +26,7 @@ import json
 from pathlib import Path
 import sys
 
-from PIL import Image
+from PIL import Image, ImageFilter
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from export_sprite import ai_background, file_sha256, white_to_alpha  # noqa: E402
@@ -39,20 +39,25 @@ MARK_COLOUR = (22, 19, 17)  # Damage marks keep only their darkness: soot and ho
 MARK_FLOOR = 14  # Paler than this much darkness is the white background, not a mark.
 OUTLINE_VALUE = 0.24  # Darker than this is outline or shadow, never paint.
 MIN_SATURATION = 0.16  # Greyer than this is bare metal, glass or rubber, never paint.
+GREY_ANY_HUE = 0.04  # For a grey paint: this colourless or less is the paint whatever its hue (authored, 19 Nov 2026).
 
 
 def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def classify(red, green, blue, main_hue, accent_hue, min_saturation=MIN_SATURATION):
+def classify(red, green, blue, main_hue, accent_hue, min_saturation=MIN_SATURATION, main_max_saturation=1.0):
     """'main', 'accent' or None for one opaque pixel; hues are in degrees. A greyish paint, such as a grey-blue hull, needs a lower
-    min_saturation than the default, which keeps bare metal unpainted."""
+    min_saturation than the default, which keeps bare metal unpainted. main_max_saturation keeps glass of the paint's own hue out of a
+    grey paint (the Osprey, 19 Nov 2026: its airframe at saturation 0.02 to 0.07, its windows of the same hue at 0.27)."""
     hue, saturation, value = colorsys.rgb_to_hsv(red / 255, green / 255, blue / 255)
     if value < OUTLINE_VALUE or saturation < min_saturation:
         return None
     degrees = hue * 360
-    if main_hue[0] <= degrees <= main_hue[1]:
+    # A grey paint (main_max_saturation set): a near-colourless pixel has no hue worth reading, so it is the paint whatever its hue;
+    # otherwise the slivers of neutral grey beside seam lines stay unpainted and show as pale flecks (the Osprey, 19 Nov 2026).
+    grey = main_max_saturation < 1.0 and saturation <= GREY_ANY_HUE
+    if (grey or main_hue[0] <= degrees <= main_hue[1]) and saturation <= main_max_saturation:
         return 'main'
     if accent_hue[0] <= degrees <= accent_hue[1]:
         return 'accent'
@@ -70,7 +75,7 @@ REPAIR_SURE = 0.8  # the share of a part that must have one paint before an isla
 DARK_SPECK_MAX = 40  # master pixels: a dark speck no larger, wholly inside a sure part, is weathering, not outline (authored)
 
 
-def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, parts=None):
+def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, parts=None, main_max_saturation=1.0):
     """The paint of every opaque pixel, decided a region at a time (owner, 16 Nov 2026: the Pintle bowser's per-pixel mask was speckled).
     Our art is cel shaded inside thick dark outlines, so a painted panel is a run of near-alike pixels the outline closes off. Regions
     grow between neighbours closer than REGION_STEP in every channel, never through outline; each region takes the paint most of its
@@ -90,7 +95,7 @@ def region_kinds(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, par
     for index, (red, green, blue, alpha) in enumerate(pixels):
         if alpha >= 128 and max(red, green, blue) / 255 >= OUTLINE_VALUE:
             candidate[index] = True
-            pixel_kind[index] = classify(red, green, blue, main_hue, accent_hue, min_saturation)
+            pixel_kind[index] = classify(red, green, blue, main_hue, accent_hue, min_saturation, main_max_saturation)
 
     def neighbours(here):
         x, y = here % width, here // width
@@ -242,7 +247,8 @@ def part_kinds(image, labels, main_hue, accent_hue, min_saturation=MIN_SATURATIO
             else fallback[index] for index in range(width * height)]
 
 
-def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, per_pixel=False, labels=None, repair=False):
+def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, per_pixel=False, labels=None, repair=False,
+                   main_max_saturation=1.0):
     """(grey-painted texture, mask, default colours). Each paint is scaled on its own, so its grey fills the shader's range and its
     default colour gives the master's tone back. Paint is decided by region (region_kinds) unless per_pixel asks for the old rule, kept
     for comparison only."""
@@ -254,14 +260,14 @@ def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, p
             for x in range(width):
                 red, green, blue, alpha = source[x, y]
                 if alpha >= 128:
-                    kinds[y * width + x] = classify(red, green, blue, main_hue, accent_hue, min_saturation)
+                    kinds[y * width + x] = classify(red, green, blue, main_hue, accent_hue, min_saturation, main_max_saturation)
     elif labels is not None and repair:
         flat = list(labels.get_flattened_data() if hasattr(labels, 'get_flattened_data') else labels.getdata())
-        kinds = region_kinds(image, main_hue, accent_hue, min_saturation, parts=flat)
+        kinds = region_kinds(image, main_hue, accent_hue, min_saturation, parts=flat, main_max_saturation=main_max_saturation)
     elif labels is not None:
         kinds = part_kinds(image, labels, main_hue, accent_hue, min_saturation)
     else:
-        kinds = region_kinds(image, main_hue, accent_hue, min_saturation)
+        kinds = region_kinds(image, main_hue, accent_hue, min_saturation, main_max_saturation=main_max_saturation)
     groups = {'main': [], 'accent': []}
     for y in range(height):
         for x in range(width):
@@ -343,15 +349,20 @@ def record(out, name, master, written, details):
     (out / f'{name}.export.json').write_text(json.dumps(data, indent=2), encoding='utf-8')
 
 
-def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=()):
+def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=(),
+                main_max_saturation=1.0, trim=0):
+    """trim takes this many pixels off the silhouette's outer edge, for a master whose outline fades into the white through a ring
+    of grey that shows as a pale dotted rim on dark ground (the Osprey, 19 Nov 2026: its outline is about 7 px thick at game size)."""
     out.mkdir(parents=True, exist_ok=True)
     background = ai_background(master)
     cut = white_to_alpha(Image.open(master), holes=holes, background=background)
+    if trim:
+        cut.putalpha(cut.getchannel('A').filter(ImageFilter.MinFilter(2 * trim + 1)))
     left, top, right, bottom = cut.getchannel('A').point(lambda alpha: 255 if alpha >= 128 else 0).getbbox()
     scale = cells_long * PIXELS_PER_CELL / (bottom - top)
     canvas = (draw[0] * PIXELS_PER_CELL, draw[1] * PIXELS_PER_CELL)
     offset = (round(canvas[0] / 2 - (left + right) / 2 * scale), round(canvas[1] / 2 - (top + bottom) / 2 * scale))
-    texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation)
+    texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation, main_max_saturation=main_max_saturation)
     written = write_facings(place(texture, scale, offset, canvas), out, name)
     written += write_facings(place_mask(mask, scale, offset, canvas), out, name, 'm')
     natural = place(cut, scale, offset, canvas)
@@ -367,9 +378,11 @@ def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_s
     (out / f'{name}.transform.json').write_text(json.dumps(transform, indent=2), encoding='utf-8')
     width_cells = (right - left) * scale / PIXELS_PER_CELL
     record(out, name, master, written, {'kind': 'body', 'cells_long': cells_long, 'draw_size': list(draw), 'width_cells': round(width_cells, 2), 'colours': colours,
-                                        'min_saturation': min_saturation, 'holes': [list(point) for point in holes],
+                                        'min_saturation': min_saturation, 'main_max_saturation': main_max_saturation, 'trim': trim,
+                                        'main_hue': list(main_hue), 'accent_hue': list(accent_hue),
+                                        'holes': [list(point) for point in holes],
                                         'ai_mask': file_sha256(master) if background is not None else None})
-    return {'width_cells': width_cells, 'colours': colours, 'files': written}
+    return {'width_cells': width_cells, 'colours': colours, 'files': written, 'transform': transform}
 
 
 def repaint_body(master, like, out, name, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=(), paint='regions'):

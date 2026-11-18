@@ -117,8 +117,27 @@ The owner, on seeing the page: "These are SO MUCH BETTER."
 
 The nine paid pictures are on `art-references` (`generated/vehicles/osprey/overlays/`), as generated, beside the earlier twelve.
 
+## Export at game size (19 Nov 2026)
+
+The owner's go. The background AI looked at the nine originals first (2.4 minutes on the processor beside the game; masks on K:,
+the owner's chosen drive). [export_osprey.py](../export_osprey.py) then made 39 textures in under a minute, staged on K: with a review
+page (`osprey-export/review/index.html` in the art working folder), each inspected at native size. **Not in the mod yet**: the
+textures ship with the Osprey's Def.
+
+- **Body:** 20.5 cells nose to tail, 18.3 wide, on a 19 x 21 canvas; east and south the north turned. Its 4K master is shrunk
+  once to just above that size first (with the AI's mask), so the paint step stays within memory beside the game.
+- **Paint:** the airframe's grey takes the main colour, the orange bands the second; glass is kept out by a saturation ceiling
+  (`export_vehicle.classify`, new), a colourless pixel counts as the grey paint whatever its hue (new), and the bands' range starts
+  at hue 0 for their one-pixel blend. One pixel is trimmed off the silhouette's outer edge (`export_body(trim=)`, new): the
+  outline faded into the white through a grey ring that showed as a dotted rim. Pale unpainted pixels went from 2,054 to 0; 11
+  painted pixels remain on the silhouette's edge, at one tail fin where the drawn outline is thinnest.
+- **Overlays on the body's canvas:** probe, radar nose (a grey radome against the paint), hoist (b), jammer: bare metal.
+- **Turrets:** both guns centred on their mount, barrel up; the mount on the centre line (the .50 was drawn 0.25 cells right).
+- **Our renderer's pieces:** rotor and spinning disc at 11.61 m across; the left nacelle at 0 to 90 degrees, plain and with the
+  inlet barrier, with paint masks; the barrier's grille kept out of the paint, in its drawn colours.
+- **`Osprey.layout.json`:** hubs, nacelle pivots and gun mount in cells from the body's centre, for the Def and the renderer.
+
 ## Next
 
-1. The background AI and export at the body's scale; the inlet barrier on the tilted nacelles goes through the same script as
-   the nacelle.
-2. A faint pale edge stays on parts that reach past the body (the hoist's pulley): the exporters take white out of soft edges.
+1. The Osprey's Def and renderer take these textures (the first batch in the design record).
+2. Damage looks on each part's mask, the vehicle's and upgrades' icons, and the fleck check with a parts map of the body.

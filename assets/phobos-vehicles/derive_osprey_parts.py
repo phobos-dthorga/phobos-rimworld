@@ -45,7 +45,9 @@ OUTLINE_COLOUR = (42, 33, 48)                      # The drawing's near-black li
 SAM = G / 'osprey-overlays-sam'
 METRE_PX = 208                                     # The pick's pixels a metre: 3,628 px nose to tail for 17.48 m (measured)
 GUN_762_LENGTH_M, GUN_50_LENGTH_M = 1.25, 1.65     # About right for an M240 and an M2 [A: from general knowledge, not sourced]
-MOUNT_SHARE = 0.3                                  # The pintle, this share of the gun's length back from its grips [A]
+BARRIER = 'inlet-barrier-a.png'                    # The owner's pick of 19 Nov 2026
+SEAM_LINE = 4                                      # Pixels: the nacelle's seam line, kept below its rounded end
+MOUNT_SHARE = 0.3                                 # The pintle, this share of the gun's length back from its grips [A]
 
 
 def sha(path):
@@ -218,41 +220,51 @@ def nacelles():
         for x in range(nacelle.width):
             nacelle.putpixel((x, y), nacelle.getpixel((x, source)))
     width, length = nacelle.size
+    # With the inlet barrier (the owner's pick (a), 19 Nov 2026): its overlay, lifted onto the pick's canvas, cropped to the nacelle's
+    # box so the two register. It is drawn into the nacelle, not laid over the body, so it tilts with it.
+    barrier = Image.open(SAM / BARRIER).convert('RGBA').crop(box)
+    with_barrier = nacelle.copy()
+    with_barrier.alpha_composite(barrier)
     caps = Image.open(LIFTED / 'nacelle-90-caps.png').convert('RGBA')
     cx0, cy0, cx1, cy1 = opaque_box(caps)
     left_cap = caps.crop((cx0, cy0, (cx0 + cx1) // 2, cy1))
     left_cap = left_cap.crop(opaque_box(left_cap))
-    nose = 0.18                                     # The front share of the nacelle drawn as its rounded end, kept unstretched.
-    front, rest = nacelle.crop((0, 0, width, int(length * nose))), nacelle.crop((0, int(length * nose), width, length))
     # The nacelle's front end is rounded down to its first seam line; a cap laid on top of it leaves a gap at the corners (seen at
     # full size, 18 Nov 2026). So the cap covers that rounded end and meets the nacelle at the seam: the first dark row down the
-    # middle after the light panel below the top outline.
+    # middle after the light panel below the top outline. Below the seam the nacelle stretches evenly as it tilts, so a grille
+    # drawn there (the inlet barrier) keeps its shape.
     middle_x = width // 2
-    shade = [sum(front.getpixel((middle_x, y))[:3]) / 3 if front.getpixel((middle_x, y))[3] > 128 else None for y in range(front.height)]
+    head = range(int(length * 0.3))
+    shade = [sum(nacelle.getpixel((middle_x, y))[:3]) / 3 if nacelle.getpixel((middle_x, y))[3] > 128 else None for y in head]
     top = next(y for y, v in enumerate(shade) if v is not None)
-    light = next(y for y in range(top, front.height) if shade[y] is not None and shade[y] > 100)
-    seam = next(y for y in range(light, front.height) if shade[y] is not None and shade[y] < 70)
-    front_whole = front
-    for angle in (0, 30, 60, 90):
-        grow = FORWARD_GROWTH * math.sin(math.radians(angle))
-        cap_height = round(left_cap.height * width / left_cap.width * math.sin(math.radians(angle)))
-        overlap = seam + 2 if cap_height else 0
-        if cap_height:   # Under the cap the nacelle's rounded end goes, or its corners peek out beside a short cap (30 degrees).
-            front = front_whole.copy()
-            ImageDraw.Draw(front).rectangle((0, 0, width, seam), fill=(0, 0, 0, 0))
-        else:
+    light = next(y for y in range(top, len(shade)) if shade[y] is not None and shade[y] > 100)
+    seam = next(y for y in range(light, len(shade)) if shade[y] is not None and shade[y] < 70)
+    end = seam + SEAM_LINE                          # The rounded end and the seam line below it
+    # The barrier alone, turned the same way, so the export can keep its grille out of the paint (a filter mesh is bare metal).
+    for suffix, picture in (('', nacelle), ('-barrier', with_barrier), ('-barrier-only', barrier)):
+        front_whole, rest = picture.crop((0, 0, width, end)), picture.crop((0, end, width, length))
+        for angle in (0, 30, 60, 90):
+            grow = FORWARD_GROWTH * math.sin(math.radians(angle))
+            cap_height = round(left_cap.height * width / left_cap.width * math.sin(math.radians(angle)))
+            overlap = min(seam, cap_height)
             front = front_whole
-        total = round(length * (1 + grow)) + cap_height - overlap
-        frame = Image.new('RGBA', (width, total), (0, 0, 0, 0))
-        body_rest = rest.resize((width, total - (cap_height - overlap) - front.height), Image.LANCZOS)
-        frame.alpha_composite(body_rest, (0, total - body_rest.height))
-        frame.alpha_composite(front, (0, cap_height - overlap))
-        if cap_height:   # Laid last, over the nacelle's rounded end.
-            frame.alpha_composite(left_cap.resize((width, cap_height), Image.LANCZOS), (0, 0))
-        save(frame, f'nacelle-{angle}.png', {'from': [PICK.relative_to(ROOT).as_posix(), 'its LeftNacelle and LeftHub part masks',
-                                                       (LIFTED / 'nacelle-90-caps.png').relative_to(ROOT).as_posix()],
-                                              'tilt_degrees_from_upright': angle, 'length_share': round(1 + grow, 3),
-                                              'pivot': 'the bottom edge, which stays where the upright nacelle\'s rear end is'})
+            if cap_height:   # Under the cap the nacelle's rounded end goes, or its corners peek out beside a short cap (30 degrees).
+                front = front_whole.copy()
+                ImageDraw.Draw(front).rectangle((0, 0, width, seam - 1), fill=(0, 0, 0, 0))
+            rest_height = round(length * (1 + grow)) - end
+            total = cap_height - overlap + end + rest_height
+            frame = Image.new('RGBA', (width, total), (0, 0, 0, 0))
+            frame.alpha_composite(rest.resize((width, rest_height), Image.LANCZOS), (0, total - rest_height))
+            frame.alpha_composite(front, (0, cap_height - overlap))
+            if cap_height and suffix != '-barrier-only':   # Laid last, over the nacelle's rounded end.
+                frame.alpha_composite(left_cap.resize((width, cap_height), Image.LANCZOS), (0, 0))
+            sources = [PICK.relative_to(ROOT).as_posix(), 'its LeftNacelle and LeftHub part masks',
+                       (LIFTED / 'nacelle-90-caps.png').relative_to(ROOT).as_posix()]
+            if suffix:
+                sources.append((SAM / BARRIER).relative_to(ROOT).as_posix())
+            save(frame, f'nacelle-{angle}{suffix}.png', {'from': sources, 'tilt_degrees_from_upright': angle,
+                                                          'length_share': round(1 + grow, 3), 'nacelle_box_in_pick': list(box),
+                                                          'pivot': 'the bottom edge, which stays where the upright nacelle\'s rear end is'})
 
 
 if __name__ == '__main__':

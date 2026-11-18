@@ -152,3 +152,24 @@ class OverlayTests(ExportCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class GreyPaintTests(unittest.TestCase):
+    """The Osprey's grey paint (19 Nov 2026): a saturation ceiling keeps glass of the paint's hue out, and a colourless pixel is the
+    grey paint whatever its hue, so seam slivers are not left as pale flecks. Other vehicles, with no ceiling, are unchanged."""
+    GREY = dict(main_hue=(200, 280), accent_hue=(0, 34), min_saturation=0.0, main_max_saturation=0.15)
+
+    def test_the_airframe_grey_is_the_main_paint(self):
+        self.assertEqual(ev.classify(204, 205, 209, **self.GREY), 'main')
+
+    def test_glass_of_the_same_hue_is_not_paint(self):
+        self.assertIsNone(ev.classify(80, 90, 110, **self.GREY))
+
+    def test_a_colourless_pixel_is_the_grey_paint_whatever_its_hue(self):
+        self.assertEqual(ev.classify(150, 150, 150, **self.GREY), 'main')
+
+    def test_the_orange_band_is_the_accent(self):
+        self.assertEqual(ev.classify(202, 126, 76, **self.GREY), 'accent')
+
+    def test_without_a_ceiling_a_colourless_pixel_stays_unpainted(self):
+        self.assertIsNone(ev.classify(150, 150, 150, (38, 95), (8, 34)))
