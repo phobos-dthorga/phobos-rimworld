@@ -1680,7 +1680,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                     // A stage worth a look marks the graphs; not the stages a load works out again (they are not saved).
                     if (entered.notable && state.staged) RecordEvent(VehicleEventKind.Stage, state.Def.defName, state.Def.quantities[q].name, index);
                     // Seen in play (Framework 0.123.0): the key is built from the quantity's name; config/test-evidence.json lists it as a prefix.
-                    if (entered.notable && state.staged) Seen.Note("vehicles.stage." + state.Def.quantities[q].name, Vehicle, entered.label);
+                    // Framework 0.138.0: the stage is the note's case, so a warning and the refusal after it are both noted, per vehicle.
+                    if (entered.notable && state.staged) Seen.Note("vehicles.stage." + state.Def.quantities[q].name, Vehicle, entered.label, entered.label);
                 }
             }
             StageSpec? current = state.CurrentStage(q);
@@ -2284,14 +2285,22 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         meter.PowerOutput = -GridWatts;
         // Framework 0.137.3: noted only for a real draw. A full battery on the grid settles where the charger's last trickle matches the
         // battery's self-discharge, a float charge of a few milliamps (a tenth of a watt), which noted every parked vehicle as "0 W".
-        if (GridWatts >= SeenGridWatts)
+        // Framework 0.138.0: its figures as numbers, and carrying loads or only charging as its case, so each is noted once a session.
+        if (Seen.On && GridWatts >= SeenGridWatts)
         {
-            Seen.Note("vehicles.grid-hook-up", Vehicle, GridWatts.ToString("0") + " W: loads " + carried.ToString("0.0") + " A, charging " + charging.ToString("0.0") + " A");
+            Seen.Note("vehicles.grid-hook-up", Vehicle, GridWatts.ToString("0") + " W: loads " + carried.ToString("0.0") + " A, charging " + charging.ToString("0.0") + " A",
+                carried >= SeenLoadsAmps ? "carrying loads" : "charging only",
+                new[] { Figure("W", GridWatts), Figure("loadsA", carried), Figure("chargingA", charging) });
         }
     }
 
     /// <summary>The least grid draw the seen-in-play note counts as the hook-up at work, in the game's watts (testing only, never play).</summary>
     const float SeenGridWatts = 1f;
+
+    /// <summary>The loads, in amps, from which the grid note's case is "carrying loads" rather than "charging only" (testing only).</summary>
+    const double SeenLoadsAmps = 1;
+
+    static KeyValuePair<string, double> Figure(string name, double value) => new(name, System.Math.Round(value, 3));
 
     /// <summary>Whether the meter's own net has power to give beyond what the meter itself draws: stored energy, or a surplus.</summary>
     static bool NetOffers(CompPowerTrader meter)

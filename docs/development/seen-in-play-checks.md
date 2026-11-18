@@ -1,7 +1,8 @@
 # Seen-in-play checks: figures, order, parts and staleness (18 Nov 2026)
 
 **Status (18 Nov 2026):** A design record, at the owner's request ("write up the design record, please, and then get it built").
-Nothing in it is built yet; this line is updated as each part is.
+Built: N1 and E1 to E8 in phobos-modkit 1.19.0 and 1.19.1 and D'thorga Framework 0.138.0, with E7's buttons in D'thorga Companion next;
+not yet tested in game. Where the build differs from the design is under "As built".
 
 The seen-in-play notes (D'thorga Framework 0.118.0; owner, 17 Nov 2026) let the owner play however they like while the game records
 what it saw working, and phobos-modkit's test-pass and D'thorga Companion's Tests page turn that into a test list waiting for the
@@ -142,6 +143,18 @@ the file the message is not shown. *Limit:* the map is as fresh as the last inst
 | E4 | | The gate's test | |
 | E7 | Reads `unrowed` and the decisions file | The evidence map | Two buttons; writes its decisions |
 | E8 | | Framework's message and setting; deploy writes the map | |
+
+## As built (18 Nov 2026)
+
+- **Stages and radar warnings are narrowed by their detail** ("*: low air", "*: LockedOn"), not by their case, so notes written
+  before 0.138.0, which have no case, still count. Notes still carry the case, which keeps a warning and a refusal apart in a session.
+- **Row 149 is judged by its figures alone**: its two parts are the turret on the grid (loads 20 A and 500 W or more) and charging
+  (1 A or more), agent defaults. Its older notes have no figures, so they show as "figures off", which is the honest reading of 0 W.
+- **apply takes back its own "seen working" sentence** when no note read stands for its row any more (modkit 1.19.1), never from a row
+  with a verdict and never when no notes were read. Its first run took back rows 69, 121, 124 and 149.
+- The test rows reach the game as a tab-separated file (`TestRows.tsv`), which the Framework reads without a JSON library.
+- **Agent's first map:** rows 69, 74, 140, 143, 149 and 160 in parts; rows 121 and 124 narrowed; three order rules (row 69's two
+  warnings, row 74's low air before the brakes lock); `vehicles.turret-hand-cranked` shared by rows 124 and 137.
 
 ## Limits
 

@@ -16,6 +16,10 @@ After copying, it encodes each installed mod's textures to DDS with RimSort's to
 RimSort's texture step is not needed for our mods (owner, 13 Nov 2026: a fresh install had wiped the DDS files RimSort made, and
 every update meant running todds over every mod again). todds comes from --todds, RIMSORT_TODDS, install-settings.json
 ("toddsPath") or RimSort's default install; without it the mods still work from their PNG files. --no-dds skips the step.
+
+Installing D'thorga Framework also writes TestRows.tsv into the installed copy, never the repository's mod folder (seen-in-play
+checks, E8, 18 Nov 2026): the test rows still waiting for the owner and the notes that stand for each, for the Framework's dev-mode
+test-moment message. A Workshop copy has none and shows no message.
 """
 import argparse
 import datetime as _dt
@@ -235,7 +239,52 @@ def deploy(mod, game, apply, root=ROOT, backups=BACKUPS, running=game_running, l
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
     log(f'  copied {len(files)} files')
+    if mod == TEST_ROWS_MOD:
+        write_test_rows(target, root, log)
     return len(files)
+
+
+# The test-moment message's rows (seen-in-play checks, E8): read by D'thorga Framework's Rules/TestRowsRule from its installed folder.
+TEST_ROWS_MOD = 'PhobosFramework'
+TEST_ROWS_FILE = 'TestRows.tsv'
+WAITING = ('open', 'partial', 'seen')
+
+
+def test_rows_text(root=ROOT):
+    """The test rows still waiting for the owner, one line per piece of evidence: row, title, key, case, detail wildcard (tab-separated)."""
+    here = str(Path(__file__).resolve().parent)
+    if here not in sys.path:
+        sys.path.insert(0, here)
+    import _modkit
+    _modkit.ensure()
+    from phobos_modkit import testpass
+    config = testpass.load_config(root)
+    rows = testpass.parse_rows((Path(root) / config['doc']).read_text(encoding='utf-8'))
+    mapping = testpass.parse_mapping(config)
+    tidy = lambda text: ' '.join(str(text).replace('\t', ' ').split())
+    lines = ['# The test rows still waiting for the owner, and the seen-in-play notes that stand for each; written by scripts/deploy.py',
+             '# at install, for the dev-mode test-moment message. Not part of the mod: a Workshop copy has none.']
+    for row in rows:
+        if row.status not in WAITING:
+            continue
+        for part in mapping.get(row.id, []):
+            for item in part.items:
+                lines.append('\t'.join([row.id, tidy(row.title), item.key, tidy(item.variant or ''), tidy(item.detail or '')]))
+    return '\n'.join(lines) + '\n'
+
+
+def write_test_rows(target, root=ROOT, log=print):
+    """Writes TestRows.tsv into an installed D'thorga Framework. A failure is reported, never raised: only the message goes without."""
+    try:
+        text = test_rows_text(root)
+        with open(Path(target) / TEST_ROWS_FILE, 'w', encoding='utf-8', newline='\n') as handle:
+            handle.write(text)
+    except Exception as error:  # noqa: BLE001 (the install itself has succeeded; this only feeds a dev-mode message)
+        log(f'  the test rows could not be written ({error}); the test-moment message will say nothing')
+        return 0
+    count = sum(1 for line in text.splitlines() if line and not line.startswith('#'))
+    log(f'  wrote {TEST_ROWS_FILE}: {count} pieces of evidence for the rows still waiting')
+    return count
 
 
 def all_mods(root=ROOT):

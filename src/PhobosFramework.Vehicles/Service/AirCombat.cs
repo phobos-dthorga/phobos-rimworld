@@ -136,7 +136,8 @@ public static class AirCombat
             Messages.Message("PhobosAirCombat_FiredByEye".Translate(vehicle.LabelShort.Named("VEHICLE")), new GlobalTargetInfo(flight), MessageTypeDefOf.NegativeEvent);
         }
         if (vehicle.Faction != Faction.OfPlayer || !receiver) return;
-        Seen.Note("aircraft.warning-receiver", vehicle, warning.ToString());
+        // Framework 0.138.0: the warning is the note's case, so tracking, lock-on and launch are each noted once a session.
+        Seen.Note("aircraft.warning-receiver", vehicle, warning.ToString(), warning.ToString());
         Dictionary<Warning, int> last = lastWarned.GetOrCreateValue(vehicle);
         int now = Find.TickManager.TicksGame;
         int cooldown = (int)(Rules.warningCooldownHours * GenDate.TicksPerHour);

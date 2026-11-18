@@ -4,15 +4,21 @@
   "game": "rimworld",
   "rows": {
     "8": ["vehicles.tune-done.PhobosTune_EnginePower", "vehicles.tune-done.PhobosTune_GearingShort"],
-    "69": ["vehicles.stage.startingPower", "vehicles.stage.turbineStart"],
-    "74": ["vehicles.stage.airPressure"],
+    "69": {"parts": {
+      "a piston engine's battery warning": [{"key": "vehicles.stage.startingPower", "detail": "*: barely enough to start"}],
+      "a turbine's battery warning": [{"key": "vehicles.stage.turbineStart", "detail": "*: barely enough to light"}]
+    }},
+    "74": {"parts": {
+      "the low-air lamp": [{"key": "vehicles.stage.airPressure", "detail": "*: low air"}],
+      "the brakes lock": [{"key": "vehicles.stage.airPressure", "detail": "*: brakes held on"}]
+    }},
     "76": ["vehicles.stage.darkDriving"],
     "103": ["vehicles.stage.turbineOverLimit"],
     "120":["vehicles.weapon-stopped-by-mount"],
-    "121": ["vehicles.stopped-by-damage", "vehicles.track-thrown"],
+    "121": ["vehicles.track-thrown", {"key": "vehicles.stopped-by-damage", "detail": "*track*"}],
     "122": ["vehicles.crew-bailed-out", "vehicles.crew-in-danger-alert"],
     "123": ["vehicles.weapon-slowed-by-damage", "vehicles.weapon-slowed-by-gunner"],
-    "124": ["vehicles.turret-hand-cranked", "vehicles.systems-tab.loads-card"],
+    "124": ["vehicles.turret-hand-cranked"],
     "125": ["vehicles.feed-refused.winch"],
     "126": ["vehicles.turret-popped"],
     "127": ["vehicles.field-refit"],
@@ -22,14 +28,24 @@
     "131": ["vehicles.systems-tab.weapons-card", "vehicles.systems-tab.running-gear-card", "vehicles.systems-tab.loads-card", "vehicles.systems-tab.crew-card"],
     "137": ["vehicles.systems-tab.hand-swung-weapon", "vehicles.systems-tab.weapon-with-turret", "vehicles.turret-hand-cranked"],
     "139": ["aircraft.hit-in-flight", "aircraft.shot-down", "aircraft.countermeasures-salvo"],
-    "140": ["aircraft.warning-receiver"],
+    "140": {"parts": {
+      "tracked": [{"key": "aircraft.warning-receiver", "detail": "*: Tracked"}],
+      "locked on": [{"key": "aircraft.warning-receiver", "detail": "*: LockedOn"}],
+      "a missile coming": [{"key": "aircraft.warning-receiver", "detail": "*: Launched"}]
+    }},
     "141": ["aircraft.launch-warning"],
     "142": ["aircraft.closed-sky"],
-    "143": ["aircraft.evasion-reduced", "aircraft.map-salvo"],
+    "143": {"parts": {
+      "a damaged Harrier dodges less": ["aircraft.evasion-reduced"],
+      "the salvo button": ["aircraft.map-salvo"]
+    }},
     "145": ["aircraft.altitude-hypoxia"],
     "146": ["vehicles.cranked-turret-aims-worse", "vehicles.cranked-sway-widened"],
     "147": ["aircraft.systems-run-in-flight"],
-    "149": ["vehicles.grid-hook-up"],
+    "149": {"parts": {
+      "the turret on the grid": [{"key": "vehicles.grid-hook-up", "expect": {"loadsA": ">= 20", "W": ">= 500"}}],
+      "charging": [{"key": "vehicles.grid-hook-up", "expect": {"chargingA": ">= 1"}}]
+    }},
     "150": ["vehicles.autonomous-turret-no-power"],
     "152": ["trailers.set-out", "trailers.pack-up"],
     "166": ["medical.dose-job-made", "medical.device-job-made"],
@@ -39,7 +55,10 @@
     "156": ["trailers.kettle-water-drawn"],
     "158": ["vehicles.condition.PhobosVehicleCondition_HoledTank", "vehicles.condition.PhobosVehicleCondition_ShortedWiring", "vehicles.wiring-shorted"],
     "159": ["vehicles.stage.clutchWear", "vehicles.fitting-done.PhobosFitting_HeavyBrakes"],
-    "160": ["vehicles.stage.brakesWet", "vehicles.stage.airFilter"],
+    "160": {"parts": {
+      "wet brakes": ["vehicles.stage.brakesWet"],
+      "a clogged air filter": ["vehicles.stage.airFilter"]
+    }},
     "161": ["vehicles.fitting-done.PhobosFitting_GearReductionStarter", "vehicles.fitting-done.PhobosFitting_FuelHeater", "vehicles.fitting-done.PhobosFitting_CabInsulation", "vehicles.fitting-done.PhobosFitting_BatteryWarmer"],
     "162": ["vehicles.stage.steeringAssist", "vehicles.stage.steeringFluid"],
     "163": ["vehicles.tune-done.PhobosTune_BoostHigh", "vehicles.fitting-done.PhobosFitting_TransmissionCooler"],
@@ -69,6 +88,26 @@
     "193": ["vehicles.cargo-refuel"],
     "194": ["factory.deep-hopper-output-stacks"],
     "195": ["vehicles.upgrade-needs-research"]
+  },
+  "order": [
+    {"name": "a piston engine warns before its battery cannot start it", "row": "69",
+     "first": {"key": "vehicles.stage.startingPower", "detail": "*: barely enough to start"},
+     "then": {"key": "vehicles.stage.startingPower", "detail": "*: too weak to start"}},
+    {"name": "a turbine warns before its battery cannot light it", "row": "69",
+     "first": {"key": "vehicles.stage.turbineStart", "detail": "*: barely enough to light"},
+     "then": {"key": "vehicles.stage.turbineStart", "detail": "*: too weak to light"}},
+    {"name": "the low-air lamp before the brakes lock", "row": "74",
+     "first": {"key": "vehicles.stage.airPressure", "detail": "*: low air"},
+     "then": {"key": "vehicles.stage.airPressure", "detail": "*: brakes held on"}}
+  ],
+  "shared": {
+    "vehicles.turret-hand-cranked": "rows 124 and 137 both test a gun cranked by hand: 124 the turret drive on a flat battery, 137 each gun on its own mount"
+  },
+  "unrowed": {},
+  "versionNames": {
+    "D'thorga Framework": "Framework",
+    "D'thorga Medical": "Medical",
+    "D'thorga Factory Additions": "Factory Additions"
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",

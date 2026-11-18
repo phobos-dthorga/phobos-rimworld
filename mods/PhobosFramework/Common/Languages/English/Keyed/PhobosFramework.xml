@@ -86,5 +86,9 @@
   <!-- Seen-in-play notes, for testing (0.118.0) -->
   <PhobosFramework_SettingNoteSeenInPlay>Note features as they are seen working (for testing)</PhobosFramework_SettingNoteSeenInPlay>
   <PhobosFramework_SettingNoteSeenInPlayDesc>For testing with D'thorga Companion's Tests page. The first time each feature is seen working in a session, one line goes to {PATH} and one to the game's log. A note says only that the feature ran without an error; whether it worked as it should is still for you to judge. Off for normal play.</PhobosFramework_SettingNoteSeenInPlayDesc>
+  <!-- The test-moment message (0.138.0); dev mode only, as it names a test row -->
+  <PhobosFramework_SettingSayWhenTestHappens>Say when a listed test happens (dev mode only)</PhobosFramework_SettingSayWhenTestHappens>
+  <PhobosFramework_SettingSayWhenTestHappensDesc>With the notes above and dev mode both on, a message in the corner says the first time in a session that something on the test list has just happened, so you can look at it while it is on screen. It needs the test rows the install script puts in this mod's folder; a copy from the Workshop has none and says nothing. Off for normal play.</PhobosFramework_SettingSayWhenTestHappensDesc>
+  <PhobosFramework_SeenTestRow>Test list row {ROW}: {TITLE} ({DETAIL})</PhobosFramework_SeenTestRow>
   <PhobosBurnWhenCold_Idle>Warm enough: burning nothing until it falls below {TEMPERATURE}.</PhobosBurnWhenCold_Idle>
 </LanguageData>

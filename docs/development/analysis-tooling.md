@@ -211,6 +211,11 @@ reached the test list. `python scripts/test-pass.py report` reads `docs/developm
 seen-in-play notes (with its setting on) and the owner's verdicts from D'thorga Companion's Tests page; `apply --apply` writes them in.
 `config/test-evidence.json` ties each note to its rows. A note says a feature ran without an error, never that it looked right.
 
+**Judged, 18 Nov 2026 (phobos-modkit 1.19.1, D'thorga Framework 0.138.0; [seen-in-play checks](seen-in-play-checks.md)):** notes carry
+what they were seen on, their case and their figures; the map splits rows into parts, narrows notes and sets expected figures and order
+rules; the report lists figures off, notes out of order, sightings older than their row, how widely a row was seen and notes no row names,
+and apply takes back a seen sentence no note stands for any more. The owner's "make a row" and "no row needed" come from Companion.
+
 ### 11. Art audit
 
 **Built, 17 Nov 2026 (phobos-modkit 1.12.0), at the owner's request after a one-off audit of stand-in art.** `python scripts/art-audit.py`

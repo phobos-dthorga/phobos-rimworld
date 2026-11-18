@@ -241,7 +241,7 @@ static class Seen
     {
         if (!Debug.SeenInPlay.On) return;
         string? detail = on == null ? what : what == null ? on.LabelShort : on.LabelShort + ": " + what;
-        Debug.SeenInPlay.Note("D'thorga Framework", FrameworkMod.ModVersion, key, detail);
+        Debug.SeenInPlay.Note("D'thorga Framework", FrameworkMod.ModVersion, key, detail, on);
     }
 }
 

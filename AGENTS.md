@@ -32,6 +32,12 @@ delivered, record the delivery in the changelog or design record, and add or ame
   with `python scripts/test-pass.py report`**, and write the owner's verdicts and new sightings into it with `apply --apply` (phobos-modkit's
   test-pass; a preview without the flag), never by hand-copying them. **A verdict the owner gives in conversation** goes in the same way:
   `apply --verdict "ROW:WORD:NOTE" --apply`, WORD `passed`, `partial` (part of the row, the note saying which) or `failed`.
+- **A note carries what makes it evidence** (owner, 18 Nov 2026: `docs/development/seen-in-play-checks.md`): pass the thing it was seen on,
+  the case (`variant`) where one feature has several (a stage, a warning level), and its figures (`values`, built only behind `Seen.On`) where
+  the row expects an amount. In `config/test-evidence.json` split a row of several claims into `parts`, narrow a generic note with a `detail`
+  wildcard or a case, give `expect` figures where a hollow note could pass for a real one, and add an `order` rule where the design promises
+  one thing before another (a warning before a refusal). A note with nothing narrowing it stands for one row unless `shared` says why. The
+  report's "figures off", "out of order" and "seen only before the row last changed" sections are faults to look into, never passes.
 - The owner runs gameplay tests. Do not control the owner's mouse or keyboard; give instructions for
   interactive steps. Never edit, replace or delete save files without explicit authorisation (read-only
   copies for diagnosis are fine; delete them afterwards). **Answer questions about a save with

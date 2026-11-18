@@ -34,6 +34,9 @@ public class FrameworkSettings : ModSettings
     public TopUpLevel topUpLevel = TopUpLevel.OwnLevel;
     /// <summary>"Seen in play" notes for testing (Framework 0.118.0; owner, 17 Nov 2026: off by default): Debug/SeenInPlay.cs.</summary>
     public bool noteSeenInPlay;
+    /// <summary>With dev mode on, a message when a note stands for a test row still waiting (Framework 0.138.0; owner, 18 Nov 2026; off by
+    /// default, agent default): Debug/SeenInPlay.cs.</summary>
+    public bool sayWhenTestHappens;
     /// <summary>Verbose logging (owner, 16 Nov 2026: a master switch and a tick per part; both off by default): every log of ours writes
     /// its detail lines.</summary>
     public bool verboseAll;
@@ -74,6 +77,7 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref writePatchedDefsOnce, "PhobosFramework_WritePatchedDefsOnce", false);
         Scribe_Values.Look(ref keepGameLogAlive, "PhobosFramework_KeepGameLogAlive", true);
         Scribe_Values.Look(ref noteSeenInPlay, "PhobosFramework_NoteSeenInPlay", false);
+        Scribe_Values.Look(ref sayWhenTestHappens, "PhobosFramework_SayWhenTestHappens", false);
         Scribe_Values.Look(ref topUpMachines, "PhobosFramework_TopUpMachines", true);
         Scribe_Values.Look(ref topUpLevel, "PhobosFramework_TopUpLevel", TopUpLevel.OwnLevel);
     }
@@ -89,14 +93,18 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.137.3";
+    public const string ModVersion = "0.138.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
     public static FrameworkSettings Settings { get; private set; } = new();
 
+    /// <summary>The mod itself, for its folder (Debug/SeenInPlay reads the installed TestRows.tsv there).</summary>
+    public static FrameworkMod? Instance { get; private set; }
+
     public FrameworkMod(ModContentPack content) : base(content)
     {
+        Instance = this;
         Settings = GetSettings<FrameworkSettings>();
         Logging.GameLogKeeper.Listen();
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
@@ -218,6 +226,11 @@ public class FrameworkMod : Mod
         listing.GapLine();
         listing.CheckboxLabeled("PhobosFramework_SettingNoteSeenInPlay".Translate(), ref Settings.noteSeenInPlay,
             "PhobosFramework_SettingNoteSeenInPlayDesc".Translate(Debug.SeenInPlay.OutputPath.Named("PATH")));
+        // Framework 0.138.0 (seen-in-play checks, E8): greyed while notes are off, as it says nothing without them.
+        if (!Settings.noteSeenInPlay) GUI.color = Color.gray;
+        listing.CheckboxLabeled("PhobosFramework_SettingSayWhenTestHappens".Translate(), ref Settings.sayWhenTestHappens,
+            "PhobosFramework_SettingSayWhenTestHappensDesc".Translate());
+        GUI.color = Color.white;
         scroll.End(listing);
     }
 }

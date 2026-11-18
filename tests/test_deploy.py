@@ -239,6 +239,36 @@ def installed_mod_with_textures(game, mod='Example', pngs=('Textures/A.png', 'Mo
     return folder
 
 
+class TestRowsTests(unittest.TestCase):
+    """The test-moment message's rows (seen-in-play checks, E8), from the real test list and evidence map."""
+
+    def setUp(self):
+        self.lines = [l for l in deploy.test_rows_text().splitlines() if l and not l.startswith('#')]
+
+    def test_every_line_is_five_fields_with_a_row_and_a_key(self):
+        self.assertTrue(self.lines)
+        for line in self.lines:
+            fields = line.split('\t')
+            self.assertEqual(len(fields), 5, line)
+            self.assertTrue(fields[0] and fields[2], line)
+
+    def test_only_rows_still_waiting_are_written(self):
+        rows = {l.split('\t')[0] for l in self.lines}
+        self.assertNotIn('24', rows)      # passed on 10 Nov 2026
+        self.assertIn('149', rows)
+
+    def test_a_detail_wildcard_reaches_the_game(self):
+        self.assertIn(('140', 'aircraft.warning-receiver', '*: LockedOn'),
+                      {(l.split('\t')[0], l.split('\t')[2], l.split('\t')[4]) for l in self.lines})
+
+    def test_installing_the_framework_writes_the_file_into_the_installed_copy_only(self):
+        with tempfile.TemporaryDirectory() as folder:
+            target = Path(folder)
+            self.assertGreater(deploy.write_test_rows(target, log=lambda *_: None), 0)
+            self.assertTrue((target / deploy.TEST_ROWS_FILE).is_file())
+        self.assertFalse((Path(ROOT) / 'mods' / deploy.TEST_ROWS_MOD / deploy.TEST_ROWS_FILE).exists())
+
+
 class ToddsTests(unittest.TestCase):
     """deploy encodes the installed mods' textures with RimSort's todds and RimSort's own preset (owner, 13 Nov 2026)."""
 

@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.138.0] - 2026-11-18 - Draft
+
+Testing notes that say what they were seen on, which case and their figures
+
+### Added
+
+- **A new setting, Say when a listed test happens (dev mode only), off by default.** With the testing notes and dev mode both on, a message in the corner says the first time in a session that something on the test list has just happened, naming the row, so it can be looked at while it is on screen. It reads the test rows our install script writes into the installed mod; a copy from the Workshop has none and says nothing.
+
+### Changed
+
+- The testing notes (the setting Note features as they are seen working, off by default) now say which vehicle or thing they were seen on, what kind of thing it is, which case of the feature (a warning stage, a radar warning) and their figures as numbers. A note is now new once a session for each feature, case and thing, not once for each feature, so a warning and the refusal after it are both noted, and every vehicle gets its own.
+- The grid hook-up's note gives its watts, the loads it carries and the charging current as figures, so a test can tell a turret on the grid from a battery being topped up.
+
+### Compatibility and limits
+
+- Safe with a running save; nothing here is saved with a game, and nothing changes in play with the settings off.
+- Not yet tested in game.
+
 ## [0.137.3] - 2026-11-18 - Draft
 
 A turbine's battery warns before it strands you
