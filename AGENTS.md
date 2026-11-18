@@ -74,8 +74,11 @@ delivered, record the delivery in the changelog or design record, and add or ame
   About.xml, the Workshop page, then a GitHub search, each repository checked against the mod's packageId). An unconfirmed
   candidate may still be its source (a rename, or source with no About.xml): judge it and say so. Where one exists, read it at the tag or
   commit matching the build in play, with its commit history for what changed and why; **clone it with `python scripts/source-repos.py
-  --clone-into .local/decompiled`** (lean clones: whole history, source files only; `--update-clones` to bring them up to date), where
-  `query-code.py` indexes it. **Watch what the clones cost** (owner, 18 Nov 2026): every `refresh-mod-list.py` run prints their size and
+  --clone`** (lean clones: whole history, source files only; `--update-clones` to bring them up to date) into `sourceClonesPath` from
+  `.local/install-settings.json` (the owner chose `K:\phobos-modkit\sources`, 18 Nov 2026, as drive D: was at 2% free), where
+  `query-code.py` indexes it; `git log -- <file>` there gives the author's own reason for a change. Some repositories hold built files
+  only (the report's "C# files" is 0: Dubs' three, Medical System Expansion 2): decompile for code, read the history for what changed.
+  **Watch what the clones cost** (owner, 18 Nov 2026): every `refresh-mod-list.py` run prints their size and
   the drive's free space, and the tool refuses new clones on a short drive. **Never delete a clone, or anything else to free space,
   without first telling the owner** what is short and what their choices are, and waiting for their decision. Decompile only when there is no public source, when it does not match the installed build, or
   for a quick check of the file the game actually loads, and say which you read.

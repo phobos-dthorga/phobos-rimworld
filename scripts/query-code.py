@@ -24,12 +24,17 @@ ROOT = Path(__file__).resolve().parents[1]
 ILSPYCMD = '.store/ilspycmd/*/ilspycmd.win-x64/*/tools/any/win-x64/ilspycmd.exe'
 
 
-def corpus_arguments(root=ROOT):
-    """--each-in for the decompiled folder when it exists, and our own source as "ours"."""
+def corpus_arguments(root=ROOT, clones=None):
+    """--each-in for the decompiled folder and the source clones' folder when they exist, and our own source as "ours".
+    clones defaults to sourceClonesPath from the local settings."""
     arguments = []
     decompiled = Path(root) / '.local' / 'decompiled'
     if decompiled.is_dir():
         arguments += ['--each-in', str(decompiled)]
+    # Public source clones (scripts/source-repos.py --clone), where the owner keeps them if not in .local/decompiled.
+    clones = deploy.local_path('sourceClonesPath', 'PHOBOS_SOURCE_CLONES', decompiled) if clones is None else Path(clones)
+    if clones.is_dir() and clones.resolve() != decompiled.resolve():
+        arguments += ['--each-in', str(clones)]
     arguments += ['--corpus', f'ours={Path(root) / "src"}']
     return arguments
 

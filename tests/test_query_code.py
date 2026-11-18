@@ -21,9 +21,20 @@ class Script(unittest.TestCase):
         module = load()
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            self.assertEqual(module.corpus_arguments(root), ['--corpus', f'ours={root / "src"}'])
+            elsewhere = root / 'clones'
+            self.assertEqual(module.corpus_arguments(root, elsewhere), ['--corpus', f'ours={root / "src"}'])
             (root / '.local' / 'decompiled').mkdir(parents=True)
-            self.assertEqual(module.corpus_arguments(root)[:2], ['--each-in', str(root / '.local' / 'decompiled')])
+            self.assertEqual(module.corpus_arguments(root, elsewhere)[:2], ['--each-in', str(root / '.local' / 'decompiled')])
+
+    def test_source_clones_kept_elsewhere_are_indexed_too(self):
+        module = load()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / '.local' / 'decompiled').mkdir(parents=True)
+            (root / 'clones').mkdir()
+            arguments = module.corpus_arguments(root, root / 'clones')
+            self.assertEqual(arguments[2:4], ['--each-in', str(root / 'clones')])
+            self.assertEqual(module.corpus_arguments(root, root / '.local' / 'decompiled').count('--each-in'), 1)
 
     def test_a_query_finds_our_own_code(self):
         module = load()
