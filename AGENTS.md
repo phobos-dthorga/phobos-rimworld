@@ -447,6 +447,16 @@ running a script does not load them.
   "its opening"` gives the commit that first wrote the entry and its diff, code first. Nothing new is asked of a changelog; it rests
   on the shared rule that a change and its entry go in one commit. **A commit that writes several entries is shown whole**, the
   others named; how commits are cut is in the shared rules (commit separate changes separately, one finished before the next).
+- **Answer what happened to our mods over time with `python scripts/history.py`** (owner, 19 Nov 2026: a timeline of "how updates
+  were applied, changed, removed", to read a changelog "from a particular update-in-moment"): every fact from git back to the first
+  commit, and installs, go-backs, backups, builds and encoded textures from the history log in D'thorga Companion's folder (kept from
+  19 Nov 2026 on); `at --changelog PATH --when TIME` gives a changelog as it stood. The Companion's Timeline page runs it. **A test
+  that installs, backs up or encodes points `PHOBOS_HISTORY` and `PHOBOS_SETTINGS` into its own folder** (`tests/test_deploy.py`
+  does), or it writes into the owner's real log.
+- **Every path a script reads goes through the shared order** (owner, 19 Nov 2026: "a central settings page where everything or at
+  least, most, of these sorts of things are managed"): argument, environment, `.local/install-settings.json`, the central settings
+  file, default, through `deploy.local_path` (phobos-modkit's `paths.resolve`). **A new setting of a script of ours is declared in
+  `config/settings.json`**, so `python scripts/settings.py` and the Companion's Settings page list it.
 - **A script the owner may wait on says how far along it is** (owner, 19 Nov 2026: progress bars with status updates): count its
   steps through phobos-modkit's `Progress` (`scripts/deploy.py`'s `Steps`), which writes only when a program asks, so a console
   sees no change. The Companion draws the bar.

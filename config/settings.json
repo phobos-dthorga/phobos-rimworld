@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "description": "The settings this repository's own scripts read, beside those phobos-modkit knows, so python scripts/settings.py and D'thorga Companion's Settings page can list them and set them centrally (kit docs/settings.md). Values live in .local/install-settings.json or the central settings file, never here.",
+  "settings": [
+    {
+      "key": "artWorkPath",
+      "env": "PHOBOS_ART_WORK",
+      "kind": "folder",
+      "game": "rimworld",
+      "description": "Where the art tools keep their masks, parts and staging (the owner chose K:, 19 Nov 2026)"
+    },
+    {
+      "key": "sourceClonesPath",
+      "env": "PHOBOS_SOURCE_CLONES",
+      "kind": "folder",
+      "game": "rimworld",
+      "description": "Where other authors' public source is cloned for reading (the owner chose K:, 18 Nov 2026)"
+    }
+  ]
+}

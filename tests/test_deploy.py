@@ -9,6 +9,32 @@ import re
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Nothing here reads the owner's own central settings file (D'thorga Companion's settings.json).
+NO_CENTRAL = {'PHOBOS_SETTINGS': os.path.join(tempfile.gettempdir(), 'phobos-no-central-settings.json')}
+
+
+# Nor does an install here reach the owner's history log: deploy writes "installed" there through the kit (19 Nov 2026, when two
+# test installs did). The log and the central file point into a folder of this module's own while its tests run.
+_SAVED = {}
+
+
+def setUpModule():
+    folder = tempfile.mkdtemp(prefix='phobos-deploy-tests-')
+    for name, value in (('PHOBOS_HISTORY', os.path.join(folder, 'history')), ('PHOBOS_SETTINGS', os.path.join(folder, 'settings.json'))):
+        _SAVED[name] = os.environ.get(name)
+        os.environ[name] = value
+    _SAVED['folder'] = folder
+
+
+def tearDownModule():
+    import shutil
+    shutil.rmtree(_SAVED.pop('folder'), ignore_errors=True)
+    for name, value in _SAVED.items():
+        if value is None:
+            os.environ.pop(name, None)
+        else:
+            os.environ[name] = value
+    _SAVED.clear()
 
 
 def load(relative, name):
@@ -123,8 +149,13 @@ class GamePathTests(unittest.TestCase):
             settings.write_text(json.dumps({'rimworldPath': 'C:/FromSettings'}), encoding='utf-8')
             self.assertEqual(Path('C:/Explicit'), deploy.game_path('C:/Explicit', {'RIMWORLD_PATH': 'C:/FromEnv'}, settings))
             self.assertEqual(Path('C:/FromEnv'), deploy.game_path(None, {'RIMWORLD_PATH': 'C:/FromEnv'}, settings))
-            self.assertEqual(Path('C:/FromSettings'), deploy.game_path(None, {}, settings))
-            self.assertEqual(deploy.DEFAULT_GAME_PATH, deploy.game_path(None, {}, Path(folder) / 'absent.json'))
+            self.assertEqual(Path('C:/FromSettings'), deploy.game_path(None, NO_CENTRAL, settings))
+            self.assertEqual(deploy.DEFAULT_GAME_PATH, deploy.game_path(None, NO_CENTRAL, Path(folder) / 'absent.json'))
+            central = Path(folder) / 'central.json'
+            central.write_text(json.dumps({'rimworldPath': 'C:/FromCentral'}), encoding='utf-8')
+            self.assertEqual(Path('C:/FromSettings'), deploy.game_path(None, {'PHOBOS_SETTINGS': str(central)}, settings))
+            self.assertEqual(Path('C:/FromCentral'), deploy.game_path(None, {'PHOBOS_SETTINGS': str(central)},
+                                                                       Path(folder) / 'absent.json'))
 
 
 class DeployTests(unittest.TestCase):
@@ -357,8 +388,8 @@ class ToddsTests(unittest.TestCase):
             settings.write_text(json.dumps({'toddsPath': str(configured)}), encoding='utf-8')
             self.assertEqual(explicit, deploy.todds_path(str(explicit), {'RIMSORT_TODDS': str(env)}, settings))
             self.assertEqual(env, deploy.todds_path(None, {'RIMSORT_TODDS': str(env)}, settings))
-            self.assertEqual(configured, deploy.todds_path(None, {}, settings))
-            self.assertIsNone(deploy.todds_path(str(Path(folder) / 'absent.exe'), {}, settings))
+            self.assertEqual(configured, deploy.todds_path(None, NO_CENTRAL, settings))
+            self.assertIsNone(deploy.todds_path(str(Path(folder) / 'absent.exe'), NO_CENTRAL, settings))
 
     def test_no_dds_skips_the_step(self):
         calls = []

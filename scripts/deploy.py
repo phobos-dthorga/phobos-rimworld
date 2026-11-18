@@ -20,7 +20,7 @@ every update meant running todds over every mod again). todds comes from --todds
 
 Every install writes InstallRecord.json into the installed copy (the commit, the time and any uncommitted files it came from), for
 D'thorga Companion's Mods page and phobos-modkit's installs tool: what updating or going back would gain or lose
-(docs/development/mod-installs.md).
+(docs/development/mod-installs.md). The same write adds "installed" to the history log, for the Companion's Timeline page.
 
 Installing D'thorga Framework also writes TestRows.tsv into the installed copy, never the repository's mod folder (seen-in-play
 checks, E8, 18 Nov 2026): the test rows still waiting for the owner and the notes that stand for each, for the Framework's dev-mode
@@ -61,19 +61,13 @@ SYNC_CONFLICT = re.compile('_(Download|Upload|Case)Conflict', re.IGNORECASE)
 
 
 def local_path(key, env_var, default, explicit=None, environ=None, settings_file=SETTINGS_FILE):
-    """A machine path, by precedence: argument, environment variable, install-settings.json key, default."""
-    environ = os.environ if environ is None else environ
-    if explicit:
-        return Path(explicit)
-    if environ.get(env_var):
-        return Path(environ[env_var])
-    settings_file = Path(settings_file)
-    if settings_file.is_file():
-        with open(settings_file, encoding='utf-8') as fh:
-            configured = json.load(fh).get(key)
-        if configured:
-            return Path(configured)
-    return Path(default)
+    """
+    A machine path, by precedence: argument, environment variable, install-settings.json key, the central settings file (D'thorga
+    Companion's settings.json, for every repository; kit 1.30.0), default. The kit's paths.resolve owns the order, so every script
+    and tool reads a setting the same way (python scripts/settings.py lists each one and where its value comes from).
+    """
+    from phobos_modkit.paths import resolve
+    return resolve(key, env_var, Path(default), explicit, environ, settings_file)
 
 
 def game_path(explicit=None, environ=None, settings_file=SETTINGS_FILE):
@@ -253,7 +247,7 @@ def deploy(mod, game, apply, root=ROOT, backups=BACKUPS, running=game_running, l
     return len(files)
 
 
-def write_install_record(target, mod, root=ROOT, log=print):
+def write_install_record(target, mod, root=ROOT, log=print, settings_file=SETTINGS_FILE):
     """
     Writes InstallRecord.json into the installed copy, never the repository's mod folder: the commit, the time and any uncommitted files
     it was installed from, for D'thorga Companion's Mods page and phobos-modkit's installs tool (docs/development/mod-installs.md).
@@ -263,7 +257,7 @@ def write_install_record(target, mod, root=ROOT, log=print):
         from phobos_modkit import installs
         from phobos_modkit.games.rimworld.installs import identity
         record = installs.record_for(root, installs.load_config(root), mod, identity(target)[1])
-        installs.write_record(target, record)
+        installs.write_record(target, record, settings_file)
     except Exception as error:  # noqa: BLE001 (the install itself has succeeded; the record only feeds the Companion)
         log(f'  the install record could not be written ({error})')
         return None

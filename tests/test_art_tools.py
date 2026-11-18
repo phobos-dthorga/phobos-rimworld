@@ -1,8 +1,10 @@
 """Offline checks of the unattended art safeguards and the sorting rules. No server, no GPU, no game, no Pillow."""
 import datetime as dt
 import importlib.util
+import json
 import os
 import sys
+import tempfile
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -79,8 +81,13 @@ class ArtWorkPathTests(unittest.TestCase):
     def test_the_environment_wins_then_the_settings_then_the_old_folder(self):
         ap = self.art_paths
         self.assertEqual(str(ap.work_root({'PHOBOS_ART_WORK': 'X:/art'}, self.settings)), str(ap.Path('X:/art')))
-        self.assertEqual(str(ap.work_root({}, self.settings)), self.work)
-        self.assertEqual(ap.work_root({}, os.path.join(self.folder, 'missing.json')), ap.OLD)
+        self.assertEqual(str(ap.work_root({'PHOBOS_SETTINGS': os.path.join(tempfile.gettempdir(), 'phobos-no-central-settings.json')}, self.settings)), self.work)
+        self.assertEqual(ap.work_root({'PHOBOS_SETTINGS': os.path.join(tempfile.gettempdir(), 'phobos-no-central-settings.json')}, os.path.join(self.folder, 'missing.json')), ap.OLD)
+        central = os.path.join(self.folder, 'central.json')
+        with open(central, 'w', encoding='utf-8') as handle:
+            json.dump({'artWorkPath': 'Y:/central'}, handle)
+        self.assertEqual(str(ap.work_root({'PHOBOS_SETTINGS': central}, os.path.join(self.folder, 'missing.json'))),
+                         str(ap.Path('Y:/central')))
 
     def test_a_file_is_read_from_the_new_folder_and_none_when_nowhere(self):
         ap = self.art_paths
