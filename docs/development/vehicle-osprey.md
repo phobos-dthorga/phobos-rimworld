@@ -1,10 +1,10 @@
 # The V-22 Osprey: design (18 Nov 2026)
 
-**Status (19 Nov 2026):** the first two slices are built: its Def in D'thorga Vehicles 0.69.0 (body and paint, crew, parts on the footprint,
-real weights and engines, fuel, Vehicle Framework's VTOL take-off and landing, damage looks, drivetrain, flight profile, loadout, bill,
-research) and its rotors and tilting nacelles in Vehicles 0.70.0 with Framework 0.146.0. Not built: its upgrades and guns, armour by class,
-our own flight over the map (being built in parallel), sounds and icons. The owner flew slice 1 in dev mode: "It does work but is
-extremely bare bones" (19 Nov 2026). Nothing here is passed in game.
+**Status (19 Nov 2026):** built and not yet passed in game: its Def (Vehicles 0.69.0), its rotors and tilting nacelles (0.70.0, Framework
+0.146.0 and 0.148.0), our own flight over the map (Framework 0.147.0 and 0.149.0, built by the flight work) and its upgrade tree (Vehicles
+0.72.0, Framework 0.150.0: second hook, armour kit, infrared jammer, terrain radar, inlet barrier). Not built: its guns, armour by class,
+the rolling take-off, the terrain radar's night-and-weather rule, sounds and drawn icons. The owner flew slice 1 in dev mode: "It does
+work but is extremely bare bones" (19 Nov 2026).
 
 The owner asked for the Osprey on 18 November 2026: "the Osprey is definitely something I would like to implement!" This is its
 design record, row MV3 in [outstanding work](outstanding-work.md). It is the first aircraft of ours, the first vehicle on
@@ -287,6 +287,23 @@ overlay. Node keys are fixed here, before the first picture.
 | | `InletBarrier` | Sand wear cut; a little power lost | | 1 |
 | | `RefuellingProbe` | Takes fuel in flight | | 2 |
 | Crew | `CrewlessFit` | The route level of working without a crew | | 2 |
+
+**Decided (owner, 19 Nov 2026): the stretchers, ferry tanks, cargo hook and cabin oxygen are our generic fittings** (litter kit, ferry
+tank, cargo hook, cabin oxygen), as for every aircraft, not nodes of their own: the Osprey never has two of one thing. The tree holds what
+is its own. **Built in D'thorga Vehicles 0.72.0 with Framework 0.150.0:** the second hook, the armour kit (Vehicle Framework's Rifle
+ratings for now, its 360 kg carried as cargo), the infrared jammer, the terrain-following radar (its draw and look now; what it lifts, a
+night-and-weather rule for every aircraft, later: owner, 19 Nov 2026) and the inlet barrier (3% of the power [A]; its sand-wear saving waits
+for the landing-ground rule). The guns follow in their own slice.
+
+<!-- upgrade-tree: Phobos_Osprey_UpgradeTree -->
+```mermaid
+flowchart TB
+  SecondHook["Second cargo hook"]
+  ArmourKit["Armour kit"]
+  InfraredJammer["Infrared jammer"]
+  TerrainRadar["Terrain-following radar"]
+  InletBarrier["Inlet barrier"]
+```
 
 The hook's two published limits disagree: 15,000 lb on both hooks **[P, guide and fact sheet]** against Bell's page, 12,500 lb.
 The guide's is used.

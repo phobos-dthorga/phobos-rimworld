@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The V-22 Osprey's upgrades, slice 3 (D'thorga Vehicles 0.72.0, Framework 0.150.0; docs/development/vehicle-osprey.md, "The upgrade
+       tree"). The owner's choices of 19 Nov 2026: the stretchers, ferry tanks, cargo hook and cabin oxygen are our generic fittings (litter
+       kit, ferry tank, cargo hook, cabin oxygen), as for every aircraft, so the tree holds what is the Osprey's own; the guns come in their
+       own slice. Figures [S] sourced, [P] published, [A] authored. Node keys are saved in the game: never rename or remove one. Not yet
+       tested in game. -->
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_Osprey_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <!-- Two hooks share a load: 15,000 lb (6,804 kg) on both [P, the guide and the fact sheet], against 10,000 lb (4,536 kg) on one, which
+           the loadout gives with the cargo hook fitting. -->
+      <key>SecondHook</key>
+      <label>Second cargo hook</label>
+      <displayLabel>true</displayLabel>
+      <description>A second hook beside the first, the two sharing one load: the sling lifts up to 6,804 kg instead of 4,536 kg. Works with the cargo hook fitted.</description>
+      <icon>Phobos/Vehicles/Osprey/Upgrades/SecondHook</icon>
+      <work>3000</work>
+      <gridCoordinate>(3, 2)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_OspreySecondHook</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_SlingKilograms</def>
+              <value>6804</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>80</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <!-- Ballistic plates for the cockpit and cabin floors and walls, 360 kg [S], to the Rifle class (vehicle-armour.md: 0.45 sharp, 0.35
+           blunt on Vehicle Framework's scale [A]); its weight is carried as cargo (owner's rule of 19 Nov 2026). Combat Extended's figures
+           come with armour by class. -->
+      <key>ArmourKit</key>
+      <label>Armour kit</label>
+      <displayLabel>true</displayLabel>
+      <description>Ballistic plates in the cockpit and cabin: rifle rounds no longer go through them. The plates weigh 360 kg, carried as cargo would be.</description>
+      <icon>Phobos/Vehicles/Osprey/Upgrades/ArmourKit</icon>
+      <work>4000</work>
+      <gridCoordinate>(3, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_OspreyArmourKit</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.VehicleUpgrade">
+          <armor>
+            <li>
+              <key>Cockpit</key>
+              <type>Set</type>
+              <statModifiers>
+                <ArmorRating_Sharp>0.45</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+              </statModifiers>
+            </li>
+            <li>
+              <key>ForwardCabin</key>
+              <type>Set</type>
+              <statModifiers>
+                <ArmorRating_Sharp>0.45</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+              </statModifiers>
+            </li>
+            <li>
+              <key>AftCabin</key>
+              <type>Set</type>
+              <statModifiers>
+                <ArmorRating_Sharp>0.45</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+              </statModifiers>
+            </li>
+          </armor>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>CargoCapacity</def>
+              <value>-360</value>
+            </li>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>360</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>120</Steel>
+        <Plasteel>60</Plasteel>
+        <Cloth>40</Cloth>
+      </ingredients>
+    </li>
+    <li>
+      <!-- "Directional Infrared Counter Measures" [S]: cued by its missile warning receiver, it needs no cartridges; its draw, 40 A, is
+           authored, in its loadout. Its two turrets on the sponsons are the owner's pick of 19 Nov 2026. -->
+      <key>InfraredJammer</key>
+      <label>Infrared jammer</label>
+      <displayLabel>true</displayLabel>
+      <description>Two small turrets that blind heat-seeking missiles, cued by the missile warning receiver. Air defences hit far less often, and it never runs out; it draws power while the engines run.</description>
+      <icon>Phobos/Vehicles/Osprey/Upgrades/InfraredJammer</icon>
+      <work>3500</work>
+      <gridCoordinate>(10, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_OspreyInfraredJammer</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_InfraredJammer</def>
+              <value>1</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>30</Steel>
+        <ComponentIndustrial>6</ComponentIndustrial>
+        <ComponentSpacer>2</ComponentSpacer>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/Osprey/Osprey_Jammer</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(19, 21)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    <li>
+      <!-- The Air Force version's terrain-following radar [S], in a fuller nose. Its draw is the avionics rule's radar figure (20 A); what it
+           lets the aircraft do, fly at full speed at night and in weather, waits for a night-and-weather rule for every aircraft (owner's
+           choice of 19 Nov 2026: the node now, its effect later). -->
+      <key>TerrainRadar</key>
+      <label>Terrain-following radar</label>
+      <displayLabel>true</displayLabel>
+      <description>A radar in a fuller nose that lets the pilots fly low and blind, at night and in weather. It draws power while the engines run.</description>
+      <icon>Phobos/Vehicles/Osprey/Upgrades/TerrainRadar</icon>
+      <work>3500</work>
+      <gridCoordinate>(3, 10)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_OspreyTerrainRadar</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_TerrainRadar</def>
+              <value>1</value>
+            </li>
+          </vehicleStats>
+        </li>
+      </upgrades>
+      <ingredients>
+        <Steel>25</Steel>
+        <ComponentIndustrial>6</ComponentIndustrial>
+        <ComponentSpacer>2</ComponentSpacer>
+      </ingredients>
+      <graphicOverlays>
+        <li>
+          <graphicData>
+            <texPath>Phobos/Vehicles/Osprey/Osprey_RadarNose</texPath>
+            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+            <drawSize>(19, 21)</drawSize>
+            <shaderType>Cutout</shaderType>
+            <layer>1</layer>
+          </graphicData>
+        </li>
+      </graphicOverlays>
+    </li>
+    <li>
+      <!-- "An inlet barrier system to reduce the power loss from the engine ingesting dust and sand particles" [S]; it costs 3% of the
+           power [A]. Its sand-wear saving waits for the landing-ground rule (the record's "What it lands on"). The nacelles show the filter,
+           drawn by the tiltrotor renderer. -->
+      <key>InletBarrier</key>
+      <label>Inlet barrier</label>
+      <displayLabel>true</displayLabel>
+      <description>Filters over the engine intakes that keep sand and dust out, for a little engine power.</description>
+      <icon>Phobos/Vehicles/Osprey/Upgrades/InletBarrier</icon>
+      <work>2500</work>
+      <gridCoordinate>(10, 10)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_OspreyInletBarrier</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_InletBarrierLoss</def>
+              <value>0.03</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>40</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

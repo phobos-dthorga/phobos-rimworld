@@ -565,6 +565,10 @@
           </landingProperties>
         </launchProtocol>
       </li>
+      <!-- Its upgrades (D'thorga Vehicles 0.72.0): UpgradeTree_Osprey.xml. -->
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_Osprey_UpgradeTree</def>
+      </li>
       <!-- Its rotors and tilting nacelles (D'thorga Vehicles 0.70.0, Framework 0.146.0): D'thorga Framework's tiltrotor renderer draws the
            nacelle at 0, 30, 60 or 90 degrees in its paint, with the inlet barrier's set once that upgrade is fitted and damage below 60%
            health; each rotor still or spinning, foreshortened as it tips and moved forward. Upright on the map; tipping forward through the
@@ -803,7 +807,47 @@
         <size>3</size>
       </airTrack>
     </avionics>
+    <!-- One cargo hook: 10,000 lb, 4,536 kg [P, the guide]; with the cargo hook fitting fitted, as on every helicopter. Its second hook, an
+         upgrade, raises it to 6,804 kg. -->
+    <sling>
+      <ratedKilograms>4536</ratedKilograms>
+    </sling>
+    <!-- Its upgrades' draws (D'thorga Vehicles 0.72.0): each only while its node is fitted and the engines run. The jammer's 40 A is
+         authored; the radar's is the avionics rule's radar figure. -->
+    <loads>
+      <li>
+        <name>infraredJammer</name>
+        <label>infrared jammer</label>
+        <description>The two jammer turrets, ready to blind a missile the warning receiver hears.</description>
+        <amps>40</amps>
+        <available Class="Phobos.VehicleSystems.When_StatAbove">
+          <stat>Phobos_InfraredJammer</stat>
+          <value>0</value>
+        </available>
+      </li>
+      <li>
+        <name>terrainRadar</name>
+        <label>terrain-following radar</label>
+        <description>The radar in the nose, sweeping the ground ahead.</description>
+        <amps>20</amps>
+        <available Class="Phobos.VehicleSystems.When_StatAbove">
+          <stat>Phobos_TerrainRadar</stat>
+          <value>0</value>
+        </available>
+      </li>
+    </loads>
     <partRoles>
+      <li>
+        <!-- The hook mount: 60 health, inner, under the forward cabin's floor (the record's parts table). -->
+        <role>HookMount</role>
+        <add>
+          <key>PhobosHookMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>hook mount</label>
+          <health>60</health>
+          <cellsOf>Cabin</cellsOf>
+        </add>
+      </li>
       <li>
         <role>Engine1</role>
         <find>

@@ -179,6 +179,54 @@ def on_dark(image):
     return ground.convert('RGB')
 
 
+ICON_SIZE = 128
+CARGO_HOOK_ICON = ROOT / 'mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CargoHook.png'
+
+
+def fit_icon(picture, margin=0.08):
+    """A picture fitted into the upgrade icon's square, kept whole, on transparency."""
+    picture = picture.crop(picture.getchannel('A').getbbox())
+    room = round(ICON_SIZE * (1 - 2 * margin))
+    factor = room / max(picture.size)
+    picture = shrink(picture, factor)
+    icon = Image.new('RGBA', (ICON_SIZE, ICON_SIZE), (0, 0, 0, 0))
+    icon.alpha_composite(picture, ((ICON_SIZE - picture.width) // 2, (ICON_SIZE - picture.height) // 2))
+    return icon
+
+
+def interim_icons(out):
+    """The upgrade nodes' icons until the owner picks the ones drawn for them (osprey-upgrade-icons.json, queued 19 Nov 2026): each made
+    free from the Osprey's own art, so a node never shows the game's red cross nor another mod's picture."""
+    folder = out / 'Upgrades'
+    folder.mkdir(parents=True, exist_ok=True)
+    made = {}
+    barrier = Image.open(SAM / 'inlet-barrier-a-piece.png').convert('RGBA')
+    made['InletBarrier'] = fit_icon(barrier)
+    jammer = Image.open(SAM / 'jammer.png').convert('RGBA')
+    made['InfraredJammer'] = fit_icon(jammer.crop((0, 0, jammer.width // 2, jammer.height)))
+    made['TerrainRadar'] = fit_icon(Image.open(DERIVED / 'radar-nose.png').convert('RGBA'))
+    hook = Image.open(CARGO_HOOK_ICON).convert('RGBA')
+    pair = Image.new('RGBA', (hook.width * 2, hook.height), (0, 0, 0, 0))
+    pair.alpha_composite(hook, (0, 0))
+    pair.alpha_composite(hook, (hook.width, 0))
+    made['SecondHook'] = fit_icon(pair)
+    # The cockpit and cabins in steel grey: the parts the kit armours.
+    pick = Image.open(PICK).convert('RGBA')
+    hull = pick.crop((1757, 243, 2342, 2139))
+    r, g, b, _ = hull.split()
+    hull.putalpha(ImageChops.invert(ImageChops.multiply(ImageChops.multiply(r.point(lambda v: 255 if v >= 235 else 0),
+                                                                           g.point(lambda v: 255 if v >= 235 else 0)),
+                                                        b.point(lambda v: 255 if v >= 235 else 0))))
+    grey = hull.convert('LA').convert('RGBA')
+    steel = Image.new('RGBA', grey.size, (96, 102, 110, 255))
+    grey = Image.composite(ImageChops.multiply(grey, steel), grey, grey.getchannel('A'))
+    grey.putalpha(hull.getchannel('A'))
+    made['ArmourKit'] = fit_icon(grey)
+    for key, icon in made.items():
+        icon.save(folder / f'{key}.png', optimize=True)
+    return [folder / f'{key}.png' for key in made]
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--out', type=Path, help='where to write the textures (default: the art working folder, staged)')
@@ -252,6 +300,7 @@ def main(argv=None):
             renderer_piece(DERIVED / f'nacelle-{angle}-damage-{side.lower()}.png', mapping.total).save(path, optimize=True)
             files.append(path)
     layout['nacelles']['draw_px_per_cell'] = ev.PIXELS_PER_CELL
+    files += interim_icons(out)
     (out / f'{NAME}.layout.json').write_text(json.dumps(layout, indent=2), encoding='utf-8')
     record = {'tool': 'assets/phobos-vehicles/export_osprey.py', 'pick': PICK.relative_to(ROOT).as_posix(), 'pick_sha256': sha(PICK),
               'prescale': prescale, 'paint': PAINT, 'files': {p.name: sha(p) for p in files}}

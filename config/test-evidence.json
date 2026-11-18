@@ -137,6 +137,11 @@
       "it arrives over a spot it lands on": [{"key": "aircraft.flight-arrived", "variant": "Land"}],
       "it arrives over a map it attacks or explores": [{"key": "aircraft.flight-arrived", "variant": "Centre"},
         {"key": "aircraft.flight-arrived", "variant": "Edge"}, {"key": "aircraft.flight-arrived", "variant": "Targeted"}]
+    }},
+    "220": {"parts": {
+      "the armour kit's weight and armour are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "ArmourKit", "detail": "fitted"}],
+      "the inlet barrier's power loss is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "InletBarrier", "detail": "fitted"}],
+      "the infrared jammer covers it from an air defence": ["aircraft.jammer-cover"]
     }}
   },
   "order": [

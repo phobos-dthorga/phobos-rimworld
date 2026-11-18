@@ -104,11 +104,23 @@ public static class AirCombat
         return true;
     }
 
-    /// <summary>The factor countermeasures put on an air defence's chance to hit this aircraft on the world map.</summary>
+    /// <summary>
+    /// Whether a fitted infrared jammer works now (Framework 0.150.0; the Osprey's upgrade): it is cued by the missile warning receiver, so it
+    /// works while that does, and it never runs out of anything. It acts on infrared missiles only, so it cuts the chance to hit, not a radar's
+    /// lock-on time.
+    /// </summary>
+    public static bool JammerWorks(VehiclePawn? vehicle) =>
+        vehicle != null && vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_InfraredJammer) > 0f && Works(vehicle, WarningQuantity);
+
+    /// <summary>The factor countermeasures put on an air defence's chance to hit this aircraft on the world map: dispensers with cartridges,
+    /// or a working infrared jammer, which needs none.</summary>
     public static float HitChanceFactor(VehiclePawn vehicle)
     {
         PhobosAirCombatRulesDef rules = Rules;
-        return (float)AirCombatRule.HitChanceFactor(Works(vehicle, CountermeasuresQuantity), Cartridges(vehicle) >= Math.Max(1, rules.cartridgesPerSalvo),
+        bool jammer = JammerWorks(vehicle);
+        if (jammer) Seen.Note("aircraft.jammer-cover", vehicle);
+        return (float)AirCombatRule.HitChanceFactor(Works(vehicle, CountermeasuresQuantity) || jammer,
+            Cartridges(vehicle) >= Math.Max(1, rules.cartridgesPerSalvo) || jammer,
             Works(vehicle, WarningQuantity), rules.hitChanceFactorCued, rules.hitChanceFactorLate);
     }
 

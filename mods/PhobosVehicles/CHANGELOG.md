@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.72.0] - 2026-11-19 - Draft
+
+The Osprey's upgrades: second hook, armour kit, infrared jammer, terrain radar, inlet barrier
+
+### Added
+
+- **The Osprey's upgrade tree.** Each has its own small research after tiltrotor aircraft. **Second cargo hook:** with the cargo hook fitting fitted, its sling lifts 6,804 kg instead of 4,536 kg. **Armour kit:** rifle-proof plates in the cockpit and cabins, 360 kg taken from its cargo room. **Infrared jammer:** two small turrets on the sponsons that make air defences hit far less often, drawing power. **Terrain-following radar:** a fuller nose, drawing power. **Inlet barrier:** filters on the nacelles, for 3% of the engines' power.
+- **The Osprey can sling a load** with the cargo hook fitting, as every helicopter can. Its stretchers, ferry tanks and cabin oxygen are the same fittings every aircraft takes.
+
+### Changed
+
+- **The research tab** has five small Osprey projects after tiltrotor aircraft.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.150.0 or later, which carries the upgrades' systems. With an older Framework the game reports unknown stats and an unknown upgrade class at start-up.
+
+### Save compatibility
+
+- Safe with a running save. An Osprey already built gets its tree, its sling and its hook mount at the next load.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The terrain radar does nothing yet beyond its draw and its look: what it lifts, slowing aircraft at night and in weather, comes later for every aircraft. The armour kit's Combat Extended figures come with armour by class. Its node icons are made from its own art until the drawn ones are picked. Its guns come next.
+
 ## [0.71.0] - 2026-11-19 - Draft
 
 The Osprey flies over the map

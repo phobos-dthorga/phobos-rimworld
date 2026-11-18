@@ -72,7 +72,9 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
 
     // ---- The rules ----
 
-    public float RatedKilograms => Systems?.Props.loadout?.sling?.ratedKilograms ?? 0f;
+    /// <summary>The hook's rated load: the loadout's, or more where an upgrade raises it (Framework 0.150.0: the Osprey's second hook).</summary>
+    public float RatedKilograms => System.Math.Max(Systems?.Props.loadout?.sling?.ratedKilograms ?? 0f,
+                                                   Vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_SlingKilograms));
 
     /// <summary>What the hook lifts now: the rated load, less on a hot day (SlingRule, with the player's setting).</summary>
     public double CapacityKilograms(Map? map)

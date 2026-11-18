@@ -21,3 +21,10 @@ Made on 18 and 19 Nov 2026: **AI-generated**, every master picked by the owner. 
 | Osprey_Nacelle*Barrier | `osprey-inlet-barrier-piece-1` | Drawn on a piece holding one nacelle; the owner's pick (a) | `684438c9736559e7b97e9926eb6f85a2a39d1a377bcf45860a3256dc12d553f4` |
 | Osprey_Rotor, Osprey_RotorSpin | `osprey-rotor-clean-4k-1` | Redrawn clean alone at 4K; the disc made from it by script | `941a55ad4ce052c91d5535fb4fcf44c501133fe3036bf64b0227594f9ff5997c` |
 | Osprey_Nacelle* (pointed cap) | `osprey-nacelle-90-1` | Only its pointed caps are used, on the script-made tilted nacelles | `d12c5edb76480044e2edc338c742fceae08eca9f6b2fbe7ab6244dca258d5e98` |
+
+## Upgrade icons, interim (19 Nov 2026)
+
+`Upgrades/SecondHook`, `ArmourKit`, `InfraredJammer`, `TerrainRadar` and `InletBarrier` are made free by `export_osprey.py` from the
+Osprey's own art until the owner picks the icons drawn for them (`assets/phobos-vehicles/requests/osprey-upgrade-icons.json`, queued for
+the local model on 19 Nov 2026): the inlet barrier's grille, one jammer dome, the radar nose cap, our cargo hook fitting's icon twice, and
+the cockpit and cabins in steel grey. Nothing new was generated for them.

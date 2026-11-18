@@ -100,7 +100,9 @@ public sealed class Powertrain
             IdleRpm = engine.idleRpm,
             LaunchRpm = engine.launchRpm,
             RatedRpm = engine.ratedRpm,
-            RatedPowerKw = fittings.PowerFactor * (vehicleDef.GetModExtension<PhobosVehicleFiguresExtension>() is { } own && PhobosVehicleFiguresExtension.Given(own.ratedKilowatts)
+            // An inlet barrier's filter costs a share of the power (Framework 0.150.0); fitted or not, read when the systems are built.
+            RatedPowerKw = fittings.PowerFactor * (1f - comp.Vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_InletBarrierLoss))
+                * (vehicleDef.GetModExtension<PhobosVehicleFiguresExtension>() is { } own && PhobosVehicleFiguresExtension.Given(own.ratedKilowatts)
                 ? own.ratedKilowatts
                 : Get("ratedKilowatts", engine.ratedKilowatts) is float rated && !float.IsNaN(rated) && rated > 0 ? rated
                 : Get("kilowattsPerTonne", engine.kilowattsPerTonne) * KerbKg / 1000),
@@ -198,7 +200,12 @@ public sealed class Powertrain
     /// <summary>Empty mass, a full cargo hold and full fuel: the weight a craft is designed to lift.</summary>
     /// <summary>The heaviest the aircraft is built to be, kilograms: empty, full cargo, full fuel (the hover rule's and the cruising
     /// height's reference weight).</summary>
-    public double MaxGrossKg() => KerbKg + comp.Vehicle.GetStatValue(VehicleStatDefOf.CargoCapacity) + fuelKgFull;
+    /// <summary>Its heaviest: empty, full cargo and full fuel. A fitted kit's weight is part of the payload (its node takes the same off the cargo
+    /// room), so it is added back here and the heaviest stays the same (Framework 0.150.0).</summary>
+    public double MaxGrossKg() => KerbKg + comp.Vehicle.GetStatValue(VehicleStatDefOf.CargoCapacity) + KitKg + fuelKgFull;
+
+    /// <summary>Fitted armour and weapon kits, carried as cargo (owner, 19 Nov 2026: "weight counts like cargo").</summary>
+    double KitKg => comp.Vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_KitKilograms);
 
     static TurbineSpec MakeTurbine(TurbineXml xml, bool includeWet)
     {
@@ -366,7 +373,7 @@ public sealed class Powertrain
         if (massTick >= 0 && now - massTick < 250) return massKg;
         massTick = now;
         VehiclePawn vehicle = comp.Vehicle;
-        double total = KerbKg + MassUtility.InventoryMass(vehicle) + (vehicle.GetComp<CompPhobosTank>()?.LoadKilograms ?? 0f);
+        double total = KerbKg + MassUtility.InventoryMass(vehicle) + (vehicle.GetComp<CompPhobosTank>()?.LoadKilograms ?? 0f) + KitKg;
         foreach (Pawn pawn in vehicle.AllPawnsAboard) total += pawn.GetStatValue(StatDefOf.Mass);
         if (vehicle.CompVehicleTurrets?.Turrets != null)
         {

@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.150.0] - 2026-11-19 - Draft
+
+Upgrades that switch on an aircraft's systems: hook rating, infrared jammer, terrain radar, inlet barrier, kit weight
+
+### Added
+
+- **Upgrade nodes can now reach our systems.** A vehicle's upgrade can raise its cargo hook's rating, fit an infrared jammer or a terrain-following radar, put an inlet barrier on its engines (a small share of their power lost) or add an armour or weapon kit whose weight is carried as cargo, and the vehicle's systems are built again with it at once, as when a fitting comes or goes. The V-22 Osprey's tree in D'thorga Vehicles 0.72.0 is the first to use them.
+- **An infrared jammer works against air defences.** Cued by the aircraft's missile warning receiver, it makes air defences hit less often, as cued flares do, and never runs out; it does not slow a radar's lock-on, which only chaff does.
+- **A kit's weight counts like cargo** (owner, 19 Nov 2026): it takes its kilograms off the cargo room and the engines lift it as they would that much cargo.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The terrain radar draws its power and shows, but the night-and-weather rule it would lift is not built yet (owner, 19 Nov 2026: the node now, its effect later). The inlet barrier's saving on sand wear waits for the landing-ground rule.
+
 ## [0.149.0] - 2026-11-19 - Draft
 
 Aircraft on our own flight leave and arrive flying

@@ -80,6 +80,11 @@
     "Osprey_Nacelle90Barrier.png": "1cf1b778b45b9904368082bb601ab2a04ffe181a4afd3bf6d35eb87d25680f90",
     "Osprey_Nacelle90Barrierm.png": "c5f83d549f08fe6eb2014d9058ce943e8da4b3168c039a3db0fc81f7772e2034",
     "Osprey_Nacelle90DamageLeft.png": "a6ccfd8c70114a71c0e0fa58e1ef93da361c5477763d4bdc7426b4ebe382a45b",
-    "Osprey_Nacelle90DamageRight.png": "5eb76f5bba65e2b58ba677362bd99dcf584412db06fb6f3b6c8e88b7f17e5433"
+    "Osprey_Nacelle90DamageRight.png": "5eb76f5bba65e2b58ba677362bd99dcf584412db06fb6f3b6c8e88b7f17e5433",
+    "InletBarrier.png": "4aeffbb784efef17ac040bed5c19aa9077888598d577fdc11c303a865ed68efe",
+    "InfraredJammer.png": "b5c3461b56c3d6e1b691d16256f6ee5bc308553d81d835060524332d2eaa80ba",
+    "TerrainRadar.png": "f4232430af22298b1fc29f86278ba24331ed0d24b9d34930c6bc493a849eb4ac",
+    "SecondHook.png": "15bed9af201795689b6d246bd63948b562d04de5a4ee09dda393a263d9b5908d",
+    "ArmourKit.png": "2cafb0e4b6beee15073a1293797d4be43415613969242b24bc72383c7d099b52"
   }
 }

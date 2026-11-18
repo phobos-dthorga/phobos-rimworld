@@ -179,4 +179,87 @@
       </li>
     </modExtensions>
   </ResearchProjectDef>
+
+  <!-- The V-22 Osprey's upgrades, each its own small project (the record's "Cost and research", decided as written by the owner on
+       18 Nov 2026; D'thorga Vehicles 0.72.0). Costs and places authored. -->
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_OspreySecondHook</defName>
+    <label>second cargo hook</label>
+    <description>Two hooks under one aircraft, sharing one load. The V-22 Osprey can sling up to 6,804 kg.</description>
+    <baseCost>1200</baseCost>
+    <researchViewX>5</researchViewX>
+    <researchViewY>0</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_Osprey</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_OspreyArmourKit</defName>
+    <label>Osprey armour kit</label>
+    <description>Ballistic plates fitted inside the V-22 Osprey's cockpit and cabin, against rifle fire.</description>
+    <baseCost>1500</baseCost>
+    <researchViewX>5</researchViewX>
+    <researchViewY>0.6</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_Osprey</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_OspreyInfraredJammer</defName>
+    <label>infrared jammer</label>
+    <description>Directional lamps that blind heat-seeking missiles, cued by the aircraft's missile warning receiver.</description>
+    <baseCost>2000</baseCost>
+    <researchViewX>5</researchViewX>
+    <researchViewY>1.2</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_Osprey</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_OspreyTerrainRadar</defName>
+    <label>terrain-following radar</label>
+    <description>A radar that lets a low-flying aircraft hug the ground blind, at night and in weather.</description>
+    <baseCost>2000</baseCost>
+    <researchViewX>5</researchViewX>
+    <researchViewY>2.0</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_Osprey</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_OspreyInletBarrier</defName>
+    <label>inlet barrier</label>
+    <description>Filters over an aircraft's engine intakes that keep sand and dust out of the turbines.</description>
+    <baseCost>800</baseCost>
+    <researchViewX>5</researchViewX>
+    <researchViewY>2.6</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_Osprey</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
 </Defs>
