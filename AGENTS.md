@@ -112,6 +112,10 @@ running a script does not load them.
   versions of `Assembly-CSharp.dll` and of every active mod our About.xml and LoadFolders.xml name (phobos-modkit's rimworld-archive,
   outside this repository); `list` shows what is kept, `--show Type.Member` one member's diff. For a game build no snapshot saw,
   the owner can fetch it with DepotDownloader (the kit's `docs/rimworld-archive.md`); agents never log in to Steam.
+  **Whether an update or an author's source touched what we patch: `python scripts/upstream.py`** (owner's go-ahead, 18 Nov 2026):
+  every member `src/` names on another author's type, against the archive's last update of each file (`updates`) and the source
+  clones' commits since (`pending`, a warning before the Workshop build carries them). Run it after `refresh-mod-list.py` and before
+  an install; it matches by name, so read each listed commit or diff before acting on it.
 - **Answer which mods patch a method with `python scripts/query-patches.py`** (owner, 8 Nov 2026): `who "Type.Method"` for
   every Harmony patch on it in load order (wildcards), `mod <name>` for what a mod patches, `hotspots` for methods several mods
   patch; "may skip the original" marks a bool prefix. It reads every active mod's assemblies through their metadata, never

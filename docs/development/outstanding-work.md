@@ -261,6 +261,7 @@ reasons are in [analysis tooling](analysis-tooling.md). Each tool's first change
 | T17 | **Smoke run on a lean profile**: the game started on its own small profile with only our mods, a dev routine spawning and ticking every thing of ours on the quick-test map, then a report of every error ([design](smoke-run-design.md)) | Python and C# | Open: design only (18 Nov 2026); waits for the owner's go-ahead |
 | T18 | A frozen game's stacks, the heap by mod, and methods named in full crash dumps | Python | Done, not yet run on the game: phobos-modkit 1.22.0, `scripts/perf.py stack` and `heap`, `scripts/crash-dump.py setup`, AGENTS.md rules (18 Nov 2026) |
 | T19 | Commit guard: a commit only of files a full passing gate run checked | Python | Done: phobos-modkit 1.22.0, `.githooks/pre-commit`, AGENTS.md rule (18 Nov 2026) |
+| T20 | Upstream watch: updates and authors' commits that change members we patch or name | Python | Done: phobos-modkit 1.23.0, `scripts/upstream.py`, AGENTS.md rule (18 Nov 2026). First run: 13 commits, VF-412 among them |
 
 ## Deferred
 

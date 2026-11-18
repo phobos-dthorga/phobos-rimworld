@@ -223,6 +223,17 @@ that mod; `heap-compare` shows who grew. Checked on a small test program of ours
 snapshots; a 21.7 MB heap was read in half a second). Limits: memory counts under the type that is it, so arrays a mod holds count as
 .NET's; dotnet-gcdump warns that on .NET 10 it can drop events on a large heap. **Not yet run on the game.**
 
+### 9c. The upstream watch
+
+**Built 18 Nov 2026 (phobos-modkit 1.23.0), owner's go-ahead.** `python scripts/upstream.py` takes every member our C# names on
+another author's type (184 that day, the scan check-targets uses) and looks for changes to them in two places: the archive's newest
+two versions of each file updated in the last 30 days, compared member by member, and the source clones' commits since. Its first run
+found 13 commits in Vanilla Expanded Framework and Vehicle Framework, among them VF-412, the upgrade research check found by hand on
+15 Nov; a spot check of another ("Progress bar tweaks") was a real change inside `CompAdvancedResourceProcessor.PostSpawnSetup`,
+which a patch of ours targets. About 35 s the first time, 4 s once the decompiles are cached. Limits: it matches by name, so read each
+commit before acting; its note on the "oldest" clone names the repository with the oldest newest commit, which for an abandoned
+mod (Vanilla Cooking Expanded, 2022) is its age, not a stale clone.
+
 ### 10. The test pass
 
 **Built, 17 Nov 2026 (phobos-modkit 1.9.0, D'thorga Framework 0.118.0), at the owner's request:** passes seen in play rarely
