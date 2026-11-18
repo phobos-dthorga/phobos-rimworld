@@ -1,4 +1,4 @@
-"""Generate artwork and sound candidates through a local ComfyUI server, or the paid OpenAI image API, and record how each was made.
+"""Generate artwork and sound candidates through a local ComfyUI server, or a paid image service, and record how each was made.
 
 Sound requests use a Stable Audio 3 engine ("sa3-sfx-base" and others in ENGINES), give "seconds" instead of a width and
 height, may say "loop": true, and save a FLAC file per seed; scripts/art/sound_review.py prepares them for listening.
@@ -33,6 +33,7 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
 import openai_images as paid  # noqa: E402
+import fal_images as fal  # noqa: E402
 
 DEFAULT_COMFY = Path(os.environ.get('COMFYUI_PATH', r'C:\AI\ComfyUI\ComfyUI_windows_portable'))
 SERVER = os.environ.get('COMFYUI_URL', 'http://127.0.0.1:8188')
@@ -105,7 +106,21 @@ ENGINES = {
     'openai': {
         'label': f'OpenAI {paid.MODEL} through the OpenAI image API (paid per image)', 'remote': True,
         'model': paid.MODEL, 'folder': None, 'steps': 0, 'cfg': 0.0, 'sampler': 'none', 'timeout': paid.TIMEOUT_SECONDS},
+    # Paid per image, through fal.ai: one prepaid key reaching several makers' models, for pictures larger than OpenAI's
+    # (owner's choice of 18 Nov 2026, for the Osprey). The request names the model; scripts/art/fal_images.py lists them.
+    'fal': {
+        'label': 'a model named by the request, through fal.ai (paid per image)', 'remote': True,
+        'model': None, 'folder': None, 'steps': 0, 'cfg': 0.0, 'sampler': 'none', 'timeout': fal.TIMEOUT_SECONDS},
 }
+
+# The module behind each paid engine. Both offer the same calls: request_problems, estimate_usd, make_image, record_fields,
+# describe, and the names SERVICE and KEY_VARIABLE. The cap (Budget) and the error type are shared.
+PROVIDERS = {'openai': paid, 'fal': fal}
+
+
+def provider(req):
+    """The paid engine's module for a request; None for a local engine."""
+    return PROVIDERS.get(req.get('engine', 'schnell'))
 
 
 # Art of our own, the only art a paid service may ever see: our asset folders, our mods' textures and the owner's picks. The
@@ -140,13 +155,27 @@ def describe_size(req):
 
 
 def paid_problems(requests):
-    """What the OpenAI API would refuse in a request file's paid requests, before any money is spent."""
-    return [problem for req in requests if is_paid(req) for problem in paid.request_problems(req, OWN_ART_ROOTS, ROOT)]
+    """What a paid service would refuse in a request file's paid requests, before any money is spent."""
+    return [problem for req in requests if is_paid(req) for problem in provider(req).request_problems(req, OWN_ART_ROOTS, ROOT)]
 
 
 def paid_estimate(images):
     """The most the paid images still to make should cost, from (request, seed, target) items."""
-    return sum(paid.estimate_usd(req) for req, _, target in images if is_paid(req) and not target.exists())
+    return sum(safe_estimate(req) for req, _, target in images if is_paid(req) and not target.exists())
+
+
+def safe_estimate(req):
+    """A paid request's estimate, or nothing for a request so wrong it cannot be priced (it is refused before any call)."""
+    try:
+        return provider(req).estimate_usd(req)
+    except (KeyError, TypeError):
+        return 0.0
+
+
+def missing_keys(requests):
+    """The environment variables the paid requests need and the PC does not have set."""
+    wanted = {provider(req).KEY_VARIABLE for req in requests if is_paid(req)}
+    return sorted(name for name in wanted if not os.environ.get(name))
 
 
 class Stopped(Exception):
@@ -613,27 +642,18 @@ def make_record(req, engine_name, target, data, version, model, model_hash, seed
 
 
 def make_paid_record(req, target, data, attempt, request_file, reference_sources, info, seconds=None):
-    """The record for an image from the paid OpenAI engine: what was asked, what it cost and the terms read that day."""
+    """The record for an image from a paid engine: what was asked, what it cost and the terms read that day."""
     record = {
         'file': target.name,
         'sha256': hashlib.sha256(data).hexdigest(),
         'date': _dt.datetime.now().isoformat(timespec='seconds'),
-        'generator': ENGINES['openai']['label'],
-        'engine': 'openai',
-        'model': paid.MODEL,
         'prompt': req.get('prompt', ''),
         'seed': attempt,
-        'seed_note': 'an attempt number naming the file; the API takes no seed, so a rerun gives a different image',
-        'quality': paid.settings(req)['quality'],
         'size': [req['width'], req['height']],
         'request_file': display_path(request_file),
-        'ai_disclosure': f'Made with generative AI: OpenAI {paid.MODEL}, prompted by the Phobos art scripts.',
-        'terms': paid.TERMS_NOTE,
+        **provider(req).record_fields(req),
         **info,
     }
-    for key in ('background', 'moderation'):
-        if paid.settings(req)[key] is not None:
-            record[key] = paid.settings(req)[key]
     if seconds is not None:
         record['seconds'] = seconds
     if reference_sources:
@@ -656,7 +676,8 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
     """Make every missing image. should_stop returns a reason to end the run, checked before and during each image.
     keep_going records a failed image and moves on, for unattended runs; several failures in a row still end the run.
     restart_server, if given, returns whether it brought up a fresh server, and the image that failed is then tried again.
-    budget (an openai_images.Budget) is required when any request is paid; api_key defaults to the OPENAI_API_KEY variable.
+    budget (an openai_images.Budget) is required when any request is paid; api_key, if given, is used for every paid
+    request, and otherwise each paid engine's own environment variable is read (OPENAI_API_KEY, FAL_KEY).
     ComfyUI is only needed, and only started, when a request uses a local engine.
     Returns made, failures, restarts, timings, the folders touched, what was spent and the stop reason, if any."""
     requests = [req for req in json.loads(Path(request_file).read_text(encoding='utf-8')) if not only or req['name'] == only]
@@ -670,9 +691,11 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
             raise ValueError('the paid requests would be refused, so nothing was sent:\n  ' + '\n  '.join(problems))
         if budget is None:
             raise ValueError('paid requests need a spending cap (--max-usd)')
-        api_key = api_key or os.environ.get(paid.KEY_VARIABLE)
-        if not api_key:
-            raise RuntimeError(f'the {paid.KEY_VARIABLE} environment variable is not set, so the OpenAI engine cannot run')
+        if not api_key and missing_keys(requests):
+            raise RuntimeError(f'the {" and ".join(missing_keys(requests))} environment variable is not set, so the paid '
+                               'engine cannot run')
+    keys = {name: api_key or os.environ.get(module.KEY_VARIABLE) for name, module in PROVIDERS.items()}
+    fal_before = fal.balance(keys['fal']) if any(req.get('engine') == 'fal' for req in requests) and keys['fal'] else None
     version = 'none (no local engine used)'
     if any_local:
         if not server_up():
@@ -691,6 +714,7 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
             engine_name = req.get('engine', 'schnell')
             engine = ENGINES[engine_name]
             remote = engine.get('remote', False)
+            service = provider(req)
             model, model_hash = engine['model'], None
             if not remote:
                 model = req.get('model', engine['model']) if engine_name == 'schnell' else engine['model']
@@ -725,15 +749,17 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
                         if reason:
                             raise Stopped(reason)
                     if remote:
-                        refusal = budget.refusal(paid.estimate_usd(req))
+                        refusal = budget.refusal(service.estimate_usd(req))
                         if refusal:
                             raise Stopped(refusal)
                     began = time.monotonic()
                     try:
                         if remote:
-                            print(f'  {req["name"]} attempt {seed}: asking OpenAI', flush=True)
-                            data, paid_info = paid.make_image(req, reference_files, api_key)
-                            budget.add(paid_info['cost_usd'] if paid_info['cost_usd'] is not None else paid.estimate_usd(req))
+                            print(f'  {req["name"]} attempt {seed}: asking {service.SERVICE}', flush=True)
+                            # fal's models may take the attempt number as their seed; OpenAI's API takes none.
+                            extra = {'attempt': seed} if getattr(service, 'SENDS_ATTEMPT', False) else {}
+                            data, paid_info = service.make_image(req, reference_files, keys[engine_name], **extra)
+                            budget.add(paid_info['cost_usd'] if paid_info['cost_usd'] is not None else service.estimate_usd(req))
                             result['spent_usd'] = round(budget.spent_usd, 4)
                             break
                         graph = build_graph(req, seed, reference_names, init_name, denoise)
@@ -747,9 +773,9 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
                     except (RuntimeError, TimeoutError, ValueError, urllib.error.URLError, OSError) as error:
                         if isinstance(error, paid.ApiError) and error.fatal:
                             result['failures'].append({'image': target.name, 'error': str(error)[:500]})
-                            raise Stopped(f'OpenAI refused in a way no later image can get past: {str(error)[:300]}') from error
-                        if remote and isinstance(error, paid.ApiError) and error.status is None:
-                            budget.spent_usd += paid.estimate_usd(req)  # No answer, but OpenAI may have made and billed it.
+                            raise Stopped(f'{service.SERVICE} refused in a way no later image can get past: {str(error)[:300]}') from error
+                        if remote and isinstance(error, paid.ApiError) and (error.status is None or error.maybe_billed):
+                            budget.spent_usd += service.estimate_usd(req)  # No answer, or it ran and failed: it may be billed.
                             result['spent_usd'] = round(budget.spent_usd, 4)
                         timed_out = isinstance(error, TimeoutError)
                         if timed_out and not remote:
@@ -789,6 +815,11 @@ def run(request_file, only=None, comfy_path=DEFAULT_COMFY, start=False, should_s
     print(f'{result["made"]} images made')
     if budget is not None:
         print(f'spent about US${budget.spent_usd:.3f} of the US${budget.max_usd:.2f} cap')
+    if fal_before is not None:
+        fal_after = fal.balance(keys['fal'])
+        if fal_after is not None:
+            result['fal_balance_fell_usd'] = round(fal_before - fal_after, 4)
+            print(f"fal's balance fell by US${fal_before - fal_after:.3f} (the true spend); US${fal_after:.2f} is left")
     return result
 
 

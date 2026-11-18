@@ -103,11 +103,17 @@ scale down than scale up". The agent had recommended the Hind's scale, a picture
 - **The footprint stays 5 x 9** (agent default): it is what must be clear to land, what a strip is as wide as, and what is hit.
   The picture overhangs it widely, as the Mi-38's does. Both sides are odd, so the fault in reading an even-length vehicle's
   cells (row CR7) cannot touch it.
-- **The art limit, to settle before the pilot picture.** Our trucks ship at 128 px a cell. The paid engine's largest picture is
-  1,536 px on its long side, which gives the airframe about 73 px a cell and a whole 30-cell picture about 51. So one paid
-  picture is not enough at this size. The choices, to be put to the owner with a dry run and its cost before anything is spent:
-  the airframe made in sections and joined by script; or made on the owner's local model at a larger size. The owner's rule that
-  art is only ever scaled down stands.
+- **How large a picture the services make.** Our trucks ship at 128 px a cell. The airframe without its rotors is about 18 x
+  20.5 cells, so it wants about 2,600 px on its long side to match them. Every paid route makes that in one picture: the
+  OpenAI engine takes up to 3,840 x 2,160 px in area (OpenAI's API reference as read on 8 Nov 2026; never tried by us above
+  768 x 1,536), and the models reached through fal go to 4K. **An earlier version of this record said the paid engine stopped
+  at 1,536 px and that one picture was not enough. That was the agent's error**, made without checking the engine, and
+  corrected the same day. No sections need joining.
+- **Which service draws it** (owner, 18 Nov 2026): "I don't think ChatGPT would be a good fit visually for this", and another
+  service is welcome "if the outlay is not much". So the body is tried on several services through fal, one picture each from
+  the same brief and the same two references of our own, and the owner picks the look
+  ([the fal engine](paid-image-generation-rules.md#running-the-fal-engine)). The owner's rule that art is only ever scaled
+  down stands.
 
 ### Weights, speed and crew
 
@@ -315,8 +321,8 @@ flies as an aeroplane, at 17.5.
   never needs redrawing.
 - **Paint mask** by region, then repaired by parts; judged tinted on dark ground, with the fleck count, before the owner sees it.
 - **Icons:** the vehicle's, and one for each of seventeen upgrades and each new button, on the owner's local model.
-- **Before any paid picture:** how a picture this large is made (the art limit under [size](#size)), a dry run with its cost,
-  and a spending limit from the owner. One pilot picture, inspected at full size, before anything else.
+- **Before any paid picture:** the trial across services (under [size](#size)), a dry run with its cost, and a spending
+  limit from the owner. One pilot picture from each, inspected at full size, before anything else.
 - **Only our own art is ever uploaded** as a reference.
 
 ## Sound
@@ -360,8 +366,8 @@ Asked as eight cards in two rounds after the record was written; the owner answe
   kit kept; a good portion built with proper art before a first test. **Later the same day:** the Mi-38's scale, as the hero
   vehicle (against the agent's recommendation of the Hind's scale); 5,600 kg; two pilots; 1,500 and 200; ground-level hit boxes
   in the air first; the twelve upgrades; what it lands on, with the inlet barrier; research at 6,000 after turbines.
-- **Agent recommendations, for the owner to accept or change:** the Mi-38 as the anchor for range; how a picture this large is
-  made, when it is put to them.
+- **Agent recommendations, for the owner to accept or change:** the Mi-38 as the anchor for range; the trial of the body
+  across services.
 - **Agent defaults, owner to revise:** the 5 x 9 footprint under the larger picture; the parts list and every health figure; no drive limit; three flight-control channels as
   parts; the guns' arcs; the batch split; the shell's cost; the on-map flight figures; the cabin fits' seat counts.
 - **Authored:** everything marked [A].

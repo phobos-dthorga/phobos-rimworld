@@ -8,7 +8,8 @@ PixelLab generations, all recorded request by request. That is our most recent e
 of its mistakes were made once and written down. This record carries them over so we do not make them again.
 
 **Scope.** Paid generation only: the `openai` engine of `scripts/generate-art.py` and `scripts/art-run.py`
-([how to run it](#running-the-openai-engine)). The local ComfyUI routes keep their own records
+([how to run it](#running-the-openai-engine)) and, from 18 Nov 2026, the `fal` engine beside it
+([how to run it](#running-the-fal-engine)); every rule here holds for both. The local ComfyUI routes keep their own records
 ([artwork direction](image-routes-research.md#artwork-direction), [art backlog](art-backlog.md)). Where a lesson is PixelLab-specific it is
 marked and left behind. When this record was written no paid picture had been made for this project; since then the bulk
 tanker's body and overlays, the survey truck's body, the inspection pit and a set of icons have been bought under these rules
@@ -311,6 +312,55 @@ python scripts/art-run.py generate <requests.json> --stop-at 23:00 --max-usd 0.5
 ```
 
 The dry run sends nothing and prints the most the missing images could cost and anything the API would refuse.
+
+## Running the fal engine
+
+**The owner's pick (18 Nov 2026): another service for the V-22 Osprey's body**, through an aggregator: "We could always use
+another service for image generation, if the outlay is not much. I don't think ChatGPT would be a good fit visually for this".
+The reason is the look, not the size: the OpenAI engine also makes a picture large enough
+([the Osprey's size](vehicle-osprey.md#size)). **fal.ai** sells several makers' models through one prepaid key, paid per
+picture, with no subscription, so the same brief can be tried on each and the owner can pick. Every rule above applies unchanged; "the provider" now means whichever service a request names.
+The engine is `scripts/art/fal_images.py`, with offline tests in `tests/test_fal_images.py`. **No picture has been made with it.**
+
+- **The key** is read from the `FAL_KEY` environment variable only (the owner's user variable). It is never written to a file,
+  record or report, and it is blanked out of any error.
+- **A request** uses `"engine": "fal"` and a `"model"` the engine knows, a prompt, a width and height, `"seeds"` and
+  `"references"` as for OpenAI. **A reference must be our own art**, checked before anything is sent.
+
+| Model | Largest picture | References | The most a picture should cost (the engine's table) |
+| --- | --- | --- | --- |
+| `fal-ai/nano-banana-pro/edit` (Google) | 4K, in the shapes it offers | 1 to 14 | US$0.15 at 1K and 2K, US$0.30 at 4K |
+| `fal-ai/nano-banana-pro` (Google, no references) | 4K | none | the same |
+| `fal-ai/nano-banana-2/edit` (Google) | 4K | 1 to 14 | US$0.08 at 1K; larger sizes are authored ceilings (US$0.16, US$0.24) |
+| `fal-ai/bytedance/seedream/v4.5/edit` (ByteDance) | 4,096 px a side, any size within its limits | 1 to 10 | US$0.04 |
+| `blackforestlabs/flux-3/edit-image` (Black Forest Labs) | 4K | 1 to 10 | US$0.048 a megapixel, counted on a square of the size and on every reference |
+
+- **Sizes.** Google's and Black Forest Labs' models take a size class and a shape, not pixels. The engine picks the smallest
+  class that holds the request and the model's nearest shape; **a shape the model does not offer is refused, never bent**. Ask
+  for an offered shape and crop by script. The record keeps the size that came back.
+- **Cost is an estimate.** fal's answers carry no price, so each picture is recorded at the table's figure, set at or above
+  the price as read, and marked as an estimate. Where the key may read the account's balance, the run prints how far it fell,
+  which is the true spend; otherwise fal's dashboard has it. **The prepaid balance is the hard ceiling**: automatic top-up
+  stays off.
+- **The cap** works as for OpenAI. A request that never answers, or that fal accepted and then failed, counts its estimate:
+  fal's FAQ says an input refused after a runner started "may still be charged". A request fal has not finished in 15 minutes
+  is asked to cancel and never retried.
+- **Stops at once** on a bad key (401) or on no credit, a locked account or a key not allowed the model (403). A refused
+  prompt fails that image only. A busy service is retried twice at submission, before anything has run.
+- **No graphics card**, as for OpenAI.
+- **Each record** adds the model, the size asked of it, the size that came back, fal's request ID, whether the attempt number
+  was sent as a seed, and the terms note.
+
+**Terms, as read on 18 Nov 2026 (the owner confirms the current text).** fal's Terms of Service (last updated 8 Sep 2026) say
+the customer keeps its inputs. **The part read has no sentence saying the customer owns outputs**; it says fal does not warrant
+that outputs are original, and that access is "for your own personal or internal business use". fal's FAQ says "Most models on
+fal are available for commercial use and are marked with a `Commercial use` badge on the model page"; the Nano Banana Pro page
+carries that badge. Its API Services Terms say fal "will not use Client Content to create, train, develop" its products.
+Inputs and outputs are kept on the platform for 90 days by default, and bought credit expires after 365 days. Each model also
+falls under its maker's own terms, which were not read.
+
+**Not confirmed:** fal's smallest credit purchase; whether automatic top-up exists and how it starts; what a cancelled request
+costs; Nano Banana Pro's price by size on fal's own pricing page (the 4K doubling is from a search summary of its model page).
 
 ## Sources
 

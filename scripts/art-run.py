@@ -345,8 +345,12 @@ def generate(args, stop_at, game_names):
             print(f'local engines would run on {ran_on}')
         for req in requests:
             engine = art.ENGINES[req.get('engine', 'schnell')]
-            how = (f'{art.paid.settings(req)["quality"]} quality, up to US${art.paid.estimate_usd(req):.3f} an image'
-                   if art.is_paid(req) else f'{req.get("steps", engine["steps"])} steps')
+            how = f'{req.get("steps", engine["steps"])} steps'
+            if art.is_paid(req):
+                try:
+                    how = f'{art.provider(req).describe(req)}, up to US${art.provider(req).estimate_usd(req):.3f} an image'
+                except (KeyError, TypeError):
+                    how = 'cannot be priced: see what is refused below'
             print(f'  {req["name"]}: {req.get("engine", "schnell")}, {how}, '
                   f'{len(req["seeds"])} seeds, {len(art.reference_paths(req))} references, {art.describe_size(req)}')
         if any_paid:
@@ -361,8 +365,8 @@ def generate(args, stop_at, game_names):
         if args.max_usd is None:
             print(f'not starting: paid requests need a spending cap; pass --max-usd (these should cost at most about US${estimate:.2f})')
             return NOT_STARTED, None
-        if not art.os.environ.get(art.paid.KEY_VARIABLE):
-            print(f'not starting: the {art.paid.KEY_VARIABLE} environment variable is not set')
+        if art.missing_keys(requests):
+            print(f'not starting: the {" and ".join(art.missing_keys(requests))} environment variable is not set')
             return NOT_STARTED, None
     budget = art.paid.Budget(args.max_usd) if any_paid else None
     if not any_local:
@@ -572,7 +576,7 @@ def main(argv=None):
     parser.add_argument('--min-free-gb', type=float, default=safeguards.DEFAULT_MIN_FREE_GB)
     parser.add_argument('--also-stop-on', action='append', default=[], metavar='NAME.exe', help='another process that ends the run, such as another game')
     parser.add_argument('--near-copy-against', action='append', default=[], metavar='FOLDER', help='check candidates against this folder too')
-    parser.add_argument('--max-usd', type=float, help='spending cap in US dollars for paid engines (openai); required when any request is paid')
+    parser.add_argument('--max-usd', type=float, help='spending cap in US dollars for paid engines (openai, fal); required when any request is paid')
     parser.add_argument('--dry-run', action='store_true', help='print the work, and what paid images could cost, without touching ComfyUI, the GPU or any paid service')
     parser.add_argument('--cpu', action='store_true', help='run local engines on the processor, beside the game: slow, for small sound models')
     parser.add_argument('--cpu-cores', metavar='LIST', help='with --cpu, the logical processors to use, such as 16-31 (default: those away from the game)')

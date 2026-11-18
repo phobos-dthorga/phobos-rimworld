@@ -33,6 +33,7 @@ import uuid
 API = 'https://api.openai.com/v1'
 MODEL = 'gpt-image-2'
 KEY_VARIABLE = 'OPENAI_API_KEY'
+SERVICE = 'OpenAI'
 TERMS_READ = '2026-11-08'
 TERMS_NOTE = ('OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and '
               'summarised again on ' + TERMS_READ + ': API customers own Output, OpenAI assigns any rights it has, and Output may '
@@ -75,6 +76,9 @@ class ApiError(RuntimeError):
     def __init__(self, message, status=None, code=None, fatal=False):
         super().__init__(message)
         self.status, self.code, self.fatal = status, code, fatal
+        # Set by an engine whose service may charge for a request that was accepted and then failed (fal). A call that was
+        # never answered (status None) is always counted against the cap, whatever this says.
+        self.maybe_billed = False
 
 
 def redact(text):
@@ -86,6 +90,11 @@ def settings(req):
     """The request's API settings with their defaults: quality medium (the plan's choice), background and moderation left
     to the API unless the request names them."""
     return {'quality': req.get('quality', 'medium'), 'background': req.get('background'), 'moderation': req.get('moderation')}
+
+
+def describe(req):
+    """The request's settings in a few words, for a dry run."""
+    return f'{settings(req)["quality"]} quality'
 
 
 def reference_paths(req):
@@ -265,9 +274,27 @@ def png_size(data):
     return list(struct.unpack('>II', data[16:24]))
 
 
-def make_image(req, references, api_key, opener=urllib.request.urlopen, sleep=time.sleep):
+def record_fields(req):
+    """What the record of an OpenAI image says about how it was made."""
+    fields = {
+        'generator': f'OpenAI {MODEL} through the OpenAI image API (paid per image)',
+        'engine': 'openai',
+        'model': MODEL,
+        'seed_note': 'an attempt number naming the file; the API takes no seed, so a rerun gives a different image',
+        'quality': settings(req)['quality'],
+        'ai_disclosure': f'Made with generative AI: OpenAI {MODEL}, prompted by the Phobos art scripts.',
+        'terms': TERMS_NOTE,
+    }
+    for key in ('background', 'moderation'):
+        if settings(req)[key] is not None:
+            fields[key] = settings(req)[key]
+    return fields
+
+
+def make_image(req, references, api_key, opener=urllib.request.urlopen, sleep=time.sleep, attempt=None):
     """One image. references: (file name, bytes) pairs, empty for a plain generation. Returns the PNG bytes and what the
-    record keeps: the endpoint, the settings the API reports it used, the token counts and the cost."""
+    record keeps: the endpoint, the settings the API reports it used, the token counts and the cost. attempt is unused:
+    the API takes no seed."""
     if references:
         data, content_type = edit_form(req, references)
         path = '/images/edits'

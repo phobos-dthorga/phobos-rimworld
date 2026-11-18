@@ -469,7 +469,8 @@ delivered, record the delivery in the changelog or design record, and add or ame
   with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and
   its dataset, and model files. `assets/*/references/` is ignored on `main`; the scripts that draw references draw them again.
 - **Paid generation follows `docs/development/paid-image-generation-rules.md`** (owner, 8 Nov 2026: the OpenAI image API
-  for vehicle bodies, with the rules learnt in Phobos Ostranauts). **Only our own art is ever uploaded** to a provider: the
+  for vehicle bodies, with the rules learnt in Phobos Ostranauts; 18 Nov 2026: other services through fal.ai where the owner
+  prefers their look, under the same rules). **Only our own art is ever uploaded** to a provider: the
   game's textures, other authors' art and screenshots stay on this PC, and the engine refuses them as references. Every
   paid run has `--dry-run` first and `--max-usd` on the real run; agents never buy credit, raise the owner's account limit
   or move to a dearer quality unasked. **Before the first picture of a vehicle, measure its planned size against the biggest comparable vehicle on the owner's list, and generate at 1.5 times its in-game drawn size or more** (owner, 9 Nov 2026), so a later change of size never scales art up. One pilot picture, inspected at native size, before a family or a facing set; the
