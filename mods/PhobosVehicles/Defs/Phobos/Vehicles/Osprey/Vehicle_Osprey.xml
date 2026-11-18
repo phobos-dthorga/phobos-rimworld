@@ -1,0 +1,816 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The V-22 Osprey, our first aircraft (docs/development/vehicle-osprey.md, row MV3; first slice, D'thorga Vehicles 0.69.0).
+    Its figures are the record's: real kilograms and kilowatts, marked there [S] sourced, [P] published, [I] inferred, [A] authored.
+    This slice flies on Vehicle Framework's own launcher (a VTOL take-off and landing, and travel between places); our own flight
+    over the map, its upgrades, guns, the nacelle and rotor renderer and armour by class come in later slices. Not yet tested in game.
+
+    Footprint 5 x 9 (owner's scale of 18 Nov 2026, the Mi-38's): cells x -2 to 2, z -4 (tail) to 4 (nose). The picture is 19 x 21
+    cells; the wings and nacelles reach far past the footprint, so their parts are laid on its outer columns, one outer part to a cell
+    (vehicle-armour.md): the cockpit across the nose rows, the cabin down the middle, wings and nacelles on the outer columns beside
+    the wing, the main gear in the sponsons, the tail across the last row. Agent placement, for the owner to revise.
+    Part keys are saved by position: append only, never reorder.
+  -->
+  <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
+    <defName>Phobos_Osprey</defName>
+    <label>V-22 Osprey</label>
+    <description>Bell Boeing V-22 Osprey: a tiltrotor that takes off and lands like a helicopter and flies between places like an aeroplane, twice as fast as any helicopter. Two pilots fly it; a crew chief works the ramp; 24 can ride in the cabin. It carries 5,600 kg, lifting the lighter loads straight up and the heavy ones from a short roll. Thirsty, unarmoured as built, and best used to deliver and leave.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Osprey/Osprey</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(19, 21)</drawSize>
+      <!-- The pick's own grey and orange, measured by the export (Osprey.transform.json). -->
+      <color>(225, 224, 235)</color>
+      <colorTwo>(226, 147, 92)</colorTwo>
+    </graphicData>
+    <fillPercent>1</fillPercent>
+    <buildDef>Phobos_Osprey_Blueprint</buildDef>
+    <size>(5, 9)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Air</vehicleType>
+    <statBases>
+      <!-- Unarmoured as the real one is (the record): the Skin class's Vehicle Framework rating of 0.10. The armour kit comes later. -->
+      <ArmorRating_Blunt>0.1</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.1</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.8</Flammability>
+      <MarketValue>18000</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <!-- 1,950: the Hind's 1,100 for 8,500 kg empty, scaled to the Osprey's 15,032 kg [I]. -->
+      <Mass>1950</Mass>
+      <!-- 17.5: the Hind's 10 for 270 km/h [S] scaled to the Osprey's 463 to 493 km/h [P]. -->
+      <FlightSpeed>17.5</FlightSpeed>
+      <!-- Taxiing on its wheels [A]. -->
+      <MoveSpeed>4</MoveSpeed>
+      <!-- Real kilograms: the short take-off maximum less empty weight and full fuel [I] (owner, 18 Nov 2026). -->
+      <CargoCapacity>5600</CargoCapacity>
+      <RepairRate>0.4</RepairRate>
+      <AccelerationRate>0.03</AccelerationRate>
+    </vehicleStats>
+    <race>
+      <baseBodySize>10</baseBodySize>
+    </race>
+    <properties>
+      <visibilityWeight>8</visibilityWeight>
+      <roles>
+        <li>
+          <key>pilot</key>
+          <label>pilot</label>
+          <!-- Two pilots, both needed, as the real crew (owner, 18 Nov 2026). -->
+          <slots>2</slots>
+          <slotsToOperate>2</slotsToOperate>
+          <handlingTypes>
+            <li>Movement</li>
+          </handlingTypes>
+          <hitbox>
+            <cells>
+              <li>(-1, 4)</li>
+              <li>(1, 4)</li>
+            </cells>
+          </hitbox>
+        </li>
+        <li>
+          <key>crewChief</key>
+          <label>crew chief</label>
+          <!-- Works the ramp and, from a later slice, the ramp gun [S]. -->
+          <slots>1</slots>
+          <hitbox>
+            <cells>
+              <li>(0, -3)</li>
+            </cells>
+          </hitbox>
+        </li>
+        <li>
+          <key>passenger</key>
+          <label>passenger</label>
+          <slots>24</slots>
+          <hitbox>
+            <cells>
+              <li>(-1, 1)</li>
+              <li>(0, 1)</li>
+              <li>(1, 1)</li>
+              <li>(-1, -1)</li>
+              <li>(0, -1)</li>
+              <li>(1, -1)</li>
+            </cells>
+          </hitbox>
+        </li>
+      </roles>
+    </properties>
+    <components>
+      <!-- Outer parts, one to a cell. Health authored, in the range of the transports on the list (the record's table). -->
+      <li>
+        <key>Cockpit</key>
+        <label>cockpit</label>
+        <health>180</health>
+        <depth>External</depth>
+        <hitWeight>2</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-2, 4)</li><li>(-1, 4)</li><li>(0, 4)</li><li>(1, 4)</li><li>(2, 4)</li>
+            <li>(-2, 3)</li><li>(-1, 3)</li><li>(0, 3)</li><li>(1, 3)</li><li>(2, 3)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>BodyIntegrity</li>
+        </categories>
+      </li>
+      <li>
+        <key>ForwardCabin</key>
+        <label>forward cabin</label>
+        <health>260</health>
+        <depth>External</depth>
+        <hitWeight>3</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-1, 2)</li><li>(0, 2)</li><li>(1, 2)</li>
+            <li>(-1, 1)</li><li>(0, 1)</li><li>(1, 1)</li>
+            <li>(-1, 0)</li><li>(0, 0)</li><li>(1, 0)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>BodyIntegrity</li>
+        </categories>
+      </li>
+      <li>
+        <key>AftCabin</key>
+        <label>aft cabin and ramp</label>
+        <health>260</health>
+        <depth>External</depth>
+        <hitWeight>3</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-1, -1)</li><li>(0, -1)</li><li>(1, -1)</li>
+            <li>(-1, -2)</li><li>(0, -2)</li><li>(1, -2)</li>
+            <li>(-1, -3)</li><li>(0, -3)</li><li>(1, -3)</li>
+            <li>(-2, -1)</li><li>(2, -1)</li><li>(-2, -3)</li><li>(2, -3)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>BodyIntegrity</li>
+        </categories>
+      </li>
+      <li>
+        <key>LeftWing</key>
+        <label>left wing</label>
+        <health>160</health>
+        <depth>External</depth>
+        <hitWeight>2</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-2, 2)</li><li>(-2, 0)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>RightWing</key>
+        <label>right wing</label>
+        <health>160</health>
+        <depth>External</depth>
+        <hitWeight>2</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(2, 2)</li><li>(2, 0)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>LeftNacelle</key>
+        <label>left nacelle</label>
+        <health>150</health>
+        <depth>External</depth>
+        <hitbox>
+          <cells>
+            <li>(-2, 1)</li>
+          </cells>
+        </hitbox>
+      </li>
+      <li>
+        <key>RightNacelle</key>
+        <label>right nacelle</label>
+        <health>150</health>
+        <depth>External</depth>
+        <hitbox>
+          <cells>
+            <li>(2, 1)</li>
+          </cells>
+        </hitbox>
+      </li>
+      <li>
+        <key>Tail</key>
+        <label>tail</label>
+        <health>140</health>
+        <depth>External</depth>
+        <hitWeight>2</hitWeight>
+        <hitbox>
+          <cells>
+            <li>(-2, -4)</li><li>(-1, -4)</li><li>(0, -4)</li><li>(1, -4)</li><li>(2, -4)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>LeftMainGear</key>
+        <label>left main gear</label>
+        <health>90</health>
+        <depth>External</depth>
+        <tags>
+          <li>Wheel</li>
+        </tags>
+        <hitbox>
+          <cells>
+            <li>(-2, -2)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>MoveSpeed</li>
+        </categories>
+      </li>
+      <li>
+        <key>RightMainGear</key>
+        <label>right main gear</label>
+        <health>90</health>
+        <depth>External</depth>
+        <tags>
+          <li>Wheel</li>
+        </tags>
+        <hitbox>
+          <cells>
+            <li>(2, -2)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>MoveSpeed</li>
+        </categories>
+      </li>
+      <!-- Inner parts. The engines and tanks may explode or leak, as the record says; the chances are authored. -->
+      <li>
+        <key>LeftEngine</key>
+        <label>left engine</label>
+        <health>130</health>
+        <depth>Internal</depth>
+        <priorityStatEfficiency>true</priorityStatEfficiency>
+        <hitbox>
+          <cells>
+            <li>(-2, 1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightSpeed</li>
+        </categories>
+        <reactors>
+          <li Class="Vehicles.Reactor_Explosive">
+            <chance>0.05</chance>
+            <healthPercent>0.25</healthPercent>
+            <radius>3</radius>
+            <damageDef>Flame</damageDef>
+          </li>
+        </reactors>
+      </li>
+      <li>
+        <key>RightEngine</key>
+        <label>right engine</label>
+        <health>130</health>
+        <depth>Internal</depth>
+        <priorityStatEfficiency>true</priorityStatEfficiency>
+        <hitbox>
+          <cells>
+            <li>(2, 1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightSpeed</li>
+        </categories>
+        <reactors>
+          <li Class="Vehicles.Reactor_Explosive">
+            <chance>0.05</chance>
+            <healthPercent>0.25</healthPercent>
+            <radius>3</radius>
+            <damageDef>Flame</damageDef>
+          </li>
+        </reactors>
+      </li>
+      <li>
+        <key>LeftProprotorGearbox</key>
+        <label>left proprotor gearbox</label>
+        <health>110</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(-2, 1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightSpeed</li>
+        </categories>
+      </li>
+      <li>
+        <key>RightProprotorGearbox</key>
+        <label>right proprotor gearbox</label>
+        <health>110</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(2, 1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightSpeed</li>
+        </categories>
+      </li>
+      <li>
+        <!-- The shaft that lets one engine turn both rotors [S]; it runs through the wing over the cabin. -->
+        <key>InterconnectShaft</key>
+        <label>interconnect shaft</label>
+        <health>70</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(-2, 2)</li><li>(-1, 2)</li><li>(0, 2)</li><li>(1, 2)</li><li>(2, 2)</li>
+          </cells>
+        </hitbox>
+      </li>
+      <li>
+        <key>ForwardTank</key>
+        <label>sponson fuel tanks</label>
+        <health>120</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(-2, -1)</li><li>(2, -1)</li>
+          </cells>
+        </hitbox>
+        <reactors>
+          <li Class="Vehicles.Reactor_FuelLeak" />
+          <li Class="Vehicles.Reactor_Explosive">
+            <chance>0.1</chance>
+            <healthPercent>0.25</healthPercent>
+            <radius>4</radius>
+            <damageDef>Flame</damageDef>
+          </li>
+        </reactors>
+      </li>
+      <li>
+        <key>LeftWingTank</key>
+        <label>left wing tank</label>
+        <health>100</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(-2, 2)</li><li>(-2, 0)</li>
+          </cells>
+        </hitbox>
+        <reactors>
+          <li Class="Vehicles.Reactor_FuelLeak" />
+        </reactors>
+      </li>
+      <li>
+        <key>RightWingTank</key>
+        <label>right wing tank</label>
+        <health>100</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(2, 2)</li><li>(2, 0)</li>
+          </cells>
+        </hitbox>
+        <reactors>
+          <li Class="Vehicles.Reactor_FuelLeak" />
+        </reactors>
+      </li>
+      <!-- Three flight-control channels, "triple-redundant" [S]. Vehicle Framework averages a stat's parts, so in this slice control
+           falls off as each goes; "lost only with all three" needs a rule of ours, in a later slice. -->
+      <li>
+        <key>FlightControlA</key>
+        <label>flight-control channel A</label>
+        <health>50</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(0, 3)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>FlightControlB</key>
+        <label>flight-control channel B</label>
+        <health>50</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(0, 0)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>FlightControlC</key>
+        <label>flight-control channel C</label>
+        <health>50</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(0, -4)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>Hydraulics</key>
+        <label>hydraulics</label>
+        <health>80</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(-1, 2)</li><li>(1, 2)</li><li>(0, -2)</li>
+          </cells>
+        </hitbox>
+        <reactors>
+          <li Class="Vehicles.Reactor_FuelLeak" />
+        </reactors>
+      </li>
+      <li>
+        <!-- Keyed as the aircraft loadout's Avionics role looks for it, so it is bound and no second bay is added. -->
+        <key>PhobosAvionics</key>
+        <label>avionics bay</label>
+        <health>60</health>
+        <depth>Internal</depth>
+        <hitbox>
+          <cells>
+            <li>(-1, 4)</li><li>(0, 4)</li><li>(1, 4)</li>
+          </cells>
+        </hitbox>
+      </li>
+      <li>
+        <key>NoseGear</key>
+        <label>nose gear</label>
+        <health>70</health>
+        <!-- Outer and beneath in the record; here inner, so the cockpit keeps its cells to itself (one outer part to a cell). -->
+        <depth>Internal</depth>
+        <tags>
+          <li>Wheel</li>
+        </tags>
+        <hitbox>
+          <cells>
+            <li>(0, 3)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>MoveSpeed</li>
+        </categories>
+      </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <!-- Real figures: empty weight from the fact sheet [P]; two Rolls-Royce T406 engines of 4,392 kW maximum continuous [S]. -->
+        <emptyKilograms>15032</emptyKilograms>
+        <ratedKilowatts>8784</ratedKilowatts>
+      </li>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleCabinExtension">
+        <climateControl>true</climateControl>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_FueledTravel">
+        <fuelType>Chemfuel</fuelType>
+        <leakDef>Filth_Fuel</leakDef>
+        <!-- A 1,500 tank burning 200 a day (owner, 18 Nov 2026): 4.3 L a unit of the real 6,513 L [A]; about 790 range by Vehicle
+             Framework's formula, 1.9 times the Mi-38's, as the real ranges are 1.85 times [I]. -->
+        <fuelConsumptionRate>200</fuelConsumptionRate>
+        <fuelCapacity>1500</fuelCapacity>
+      </li>
+      <li Class="Vehicles.CompProperties_VehicleLauncher">
+        <!-- Vehicle Framework's own VTOL take-off: straight up for 300 ticks (the record's take-off and landing time), then a climb
+             away; landing the reverse. The curves are ours, authored: the picture rises up the screen as it climbs, and its shadow
+             fades. Our own flight over the map replaces this on the map in a later slice. -->
+        <launchProtocol Class="Vehicles.VTOLTakeoff">
+          <launchProperties Class="Vehicles.VerticalProtocolProperties">
+            <maxTicksVertical>300</maxTicksVertical>
+            <maxTicks>180</maxTicks>
+            <zPositionVerticalCurve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.3, 0.6)</li>
+                <li>(1, 4)</li>
+              </points>
+            </zPositionVerticalCurve>
+            <shadowAlphaVerticalCurve>
+              <points>
+                <li>(0, 0.9)</li>
+                <li>(1, 0.6)</li>
+              </points>
+            </shadowAlphaVerticalCurve>
+            <zPositionCurve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.4, 8)</li>
+                <li>(1, 40)</li>
+              </points>
+            </zPositionCurve>
+            <shadowAlphaCurve>
+              <points>
+                <li>(0, 0.6)</li>
+                <li>(1, 0)</li>
+              </points>
+            </shadowAlphaCurve>
+          </launchProperties>
+          <landingProperties Class="Vehicles.VerticalProtocolProperties">
+            <maxTicks>180</maxTicks>
+            <maxTicksVertical>300</maxTicksVertical>
+            <zPositionCurve>
+              <points>
+                <li>(0, 36)</li>
+                <li>(0.6, 8)</li>
+                <li>(1, 0)</li>
+              </points>
+            </zPositionCurve>
+            <shadowAlphaCurve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(1, 0.6)</li>
+              </points>
+            </shadowAlphaCurve>
+            <zPositionVerticalCurve>
+              <points>
+                <li>(0, 4)</li>
+                <li>(0.7, 0.6)</li>
+                <li>(1, 0)</li>
+              </points>
+            </zPositionVerticalCurve>
+            <shadowAlphaVerticalCurve>
+              <points>
+                <li>(0, 0.6)</li>
+                <li>(1, 0.9)</li>
+              </points>
+            </shadowAlphaVerticalCurve>
+          </landingProperties>
+        </launchProtocol>
+      </li>
+      <!-- Damage pictures while a part is below 60% health: the bulk tanker's marks cut to each part's outline by
+           assets/phobos-vehicles/derive_osprey_parts.py (19 Nov 2026). The nacelles' come with the renderer. Agent placements. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosDamageLooks">
+        <looks>
+          <li>
+            <part>Cockpit</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/Osprey/Osprey_DamageCockpit</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(19, 21)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>ForwardCabin</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/Osprey/Osprey_DamageForwardCabin</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(19, 21)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>AftCabin</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/Osprey/Osprey_DamageAftCabin</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(19, 21)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>LeftWing</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/Osprey/Osprey_DamageLeftWing</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(19, 21)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>RightWing</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/Osprey/Osprey_DamageRightWing</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(19, 21)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+          <li>
+            <part>Tail</part>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/Osprey/Osprey_DamageTail</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(19, 21)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>2</layer>
+              </graphicData>
+            </overlay>
+          </li>
+        </looks>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
+    <defName>Phobos_Osprey_Blueprint</defName>
+    <label>V-22 Osprey</label>
+    <description>Bell Boeing V-22 Osprey: a tiltrotor transport for two pilots, a crew chief and 24 passengers.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Osprey/Osprey</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(19, 21)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>600</MaxHitPoints>
+      <!-- 60,000 [A]: the Cherokee's 52,000 and the Mi-38's 90,000. -->
+      <WorkToBuild>60000</WorkToBuild>
+      <Flammability>0.8</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_Osprey</li>
+    </researchPrerequisites>
+    <size>(5, 9)</size>
+    <!-- The shell only [A]: plasteel stands for its composite airframe, the advanced components for fly-by-wire. Its engines,
+         gearboxes, tanks, wheels and electrics are in Bill_Osprey.xml, filled at start-up (docs/development/parts-bills.md). -->
+    <costList>
+      <Steel>900</Steel>
+      <Plasteel>250</Plasteel>
+      <ComponentIndustrial>40</ComponentIndustrial>
+      <ComponentSpacer>6</ComponentSpacer>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <thingToSpawn>Phobos_Osprey</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <!-- Two Rolls-Royce T406 turboshafts: 4,392 kW each at maximum continuous [S], a take-off rating 1.044 times that [S] for 10 minutes
+       [A]; a turboshaft's idle fuel of 0.2, as built for the class. ratedKilowatts is the whole aircraft's; the count of working
+       engines is read from its Engine1 and Engine2 parts. Its rpm is authored. Full fuel 5,210 kg: 6,513 L [P] at 0.80 kg a litre [A]. -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_T406</defName>
+    <label>twin T406 turboshafts</label>
+    <engine>
+      <kind>Turboshaft</kind>
+      <ratedRpm>15000</ratedRpm>
+      <ratedKilowatts>8784</ratedKilowatts>
+      <idleFuelShare>0.2</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.044</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>10</minutes></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+    <mass>
+      <emptyKilograms>15032</emptyKilograms>
+      <fuelKilogramsFull>5210</fuelKilogramsFull>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!-- Hover power at its heaviest (25,855 kg, sea level, 15 C): 1.055 of maximum continuous, fitted so the engine model gives the guide's
+       hover ceiling of 1,646 m at 21,319 kg [P] (the record's one fitted figure). On Vehicle Framework's launcher, as the stock
+       helicopters are: rotors turning while drafted, cruising between places. Forward flight at 0.6 of maximum continuous [A]. -->
+  <Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+    <defName>PhobosFlightProfile_Osprey</defName>
+    <label>tiltrotor</label>
+    <cabinBleed>0.005</cabinBleed>
+    <hoverPowerAtMaxGross>1.055</hoverPowerAtMaxGross>
+    <liftCheckAtLaunch>true</liftCheckAtLaunch>
+    <reader Class="Phobos.VehicleSystems.PhaseReader_Members">
+      <rules>
+        <li><phase>WorldFlight</phase><comp>CompVehicleLauncher</comp><member>inFlight</member><equals>True</equals></li>
+        <li><phase>Taxi</phase><member>Drafted</member><equals>True</equals></li>
+      </rules>
+    </reader>
+    <phases>
+      <li><phase>Taxi</phase><label>rotors turning</label><demand>0.2</demand><moving>false</moving></li>
+      <li><phase>WorldFlight</phase><label>cruising as an aeroplane</label><demand>0.6</demand></li>
+    </phases>
+  </Phobos.VehicleSystems.PhobosVehicleFlightProfileDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_Osprey</defName>
+    <label>tiltrotor</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Phobos_Osprey</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_T406</def>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_Osprey</flightProfile>
+    <!-- Its design cruise height and ceiling [P, A]; an unpressurised cabin, with its own oxygen line of 3,050 m (10,000 ft, where its
+         crew wear masks [S]); lift as a propeller aircraft between places. -->
+    <cruise>
+      <designMetres>4600</designMetres>
+      <ceilingMetres>7620</ceilingMetres>
+      <lift>Propeller</lift>
+      <oxygenLineMetres>3050</oxygenLineMetres>
+      <pressurised>false</pressurised>
+    </cruise>
+    <!-- Its fit (the record's table): full instruments and navigation, the fly-by-wire autopilot, missile warning [S], crew oxygen [S].
+         Terrain-following radar and the infrared jammer are upgrades in a later slice. Air track authored on the Mi-38's scale. -->
+    <avionics>
+      <navigation>Full</navigation>
+      <autopilot>true</autopilot>
+      <warning>true</warning>
+      <oxygen>true</oxygen>
+      <cruisesHigh>true</cruisesHigh>
+      <airTrack>
+        <speed>17.5</speed>
+        <cruiseMetres>4600</cruiseMetres>
+        <lowCruiseMetres>3050</lowCruiseMetres>
+        <size>3</size>
+      </airTrack>
+    </avionics>
+    <partRoles>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li><key>LeftEngine</key></li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li><key>RightEngine</key></li>
+        </find>
+      </li>
+      <li>
+        <role>RotorDrive</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>ProprotorGearbox</li>
+              <li>InterconnectShaft</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicPump</role>
+        <find>
+          <li><key>Hydraulics</key></li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li><key>Hydraulics</key></li>
+        </find>
+      </li>
+      <li>
+        <role>Cabin</role>
+        <find>
+          <li><key>ForwardCabin</key></li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

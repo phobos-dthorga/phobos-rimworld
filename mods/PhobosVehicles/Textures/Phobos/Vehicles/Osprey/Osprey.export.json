@@ -1,0 +1,51 @@
+{
+  "master": "K:/phobos-rimworld/art/osprey-export/osprey-body-at-scale.png",
+  "master_sha256": "c83cd1b18ff63a7827654e47f09935043e4c96287141ce91adfc0a10e8ab3950",
+  "files": {
+    "Osprey_north.png": "3268022d34a0adacc9d0dfb8d8344b3641709fd62dc1881a07421bc09eba32bb",
+    "Osprey_east.png": "3ca600c15d49dee569c688f699289192ee3ca53522afa85a1dc3b3715e4fad0c",
+    "Osprey_south.png": "c99c9c2dab9c770911785d700b667ddaf067d6ca5a7d366b277bfd8a4782d629",
+    "Osprey_northm.png": "17907688bd3554bce686223aac15ece04ef0444ef67023ee3a86b5a933c60f58",
+    "Osprey_eastm.png": "66855c8eda5bf99a86a20630fae19c5244a79877b58c8595b95873732f9cf79f",
+    "Osprey_southm.png": "9ca9ef25d0231a29bb0d9954a179e86632f67bd3524384ef4726bf7927671d31",
+    "Osprey_icon.png": "d5f54616c911a71c09228e7d267ae8ebb7a632b50e48bed746a64bc80c205933"
+  },
+  "date": "2026-11-19",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "body",
+  "cells_long": 20.5,
+  "draw_size": [
+    19,
+    21
+  ],
+  "width_cells": 18.29,
+  "colours": {
+    "color": [
+      225,
+      224,
+      235
+    ],
+    "colorTwo": [
+      226,
+      147,
+      92
+    ]
+  },
+  "min_saturation": 0.0,
+  "main_max_saturation": 0.15,
+  "trim": 1,
+  "line": [
+    0.45,
+    9
+  ],
+  "main_hue": [
+    200,
+    280
+  ],
+  "accent_hue": [
+    0,
+    34
+  ],
+  "holes": [],
+  "ai_mask": "c83cd1b18ff63a7827654e47f09935043e4c96287141ce91adfc0a10e8ab3950"
+}

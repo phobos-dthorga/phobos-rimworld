@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.69.0] - 2026-11-19 - Draft
+
+The V-22 Osprey, our first aircraft: its first slice
+
+### Added
+
+- **The V-22 Osprey, a tiltrotor aircraft.** Research **tiltrotor aircraft** (6,000, after turbine engines) and build it at the motor pool. Two pilots fly it, a crew chief rides at the ramp and 24 can sit in the cabin; it carries 5,600 kg. It takes off and lands straight up and flies between places at 17.5, twice as fast as any helicopter, on a 1,500 chemfuel tank that burns 200 a day. Its weights, engine power and fuel are the real machine's, so the general systems judge its hover, cruise height and cabin oxygen as they do any aircraft. Its own art: the body in your colours (the grey takes the main paint, the orange bands the second), and damage pictures on the cockpit, cabins, wings and tail.
+
+### Changed
+
+- **The research tab** has a new project, tiltrotor aircraft, after turbine engines.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.144.0 or later, as before.
+
+### Save compatibility
+
+- Safe with a running save. Remove it only once no Osprey is left, as for our other vehicles.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** This is the Osprey's first slice: it flies on Vehicle Framework's own take-off and landing for now, and its rotors and tilting nacelles are not drawn yet (the renderer is the next slice). Its upgrades, ramp gun and belly gun, armour by class and our own flight over the map follow in later slices, before the first test.
+
 ## [0.68.0] - 2026-11-19 - Draft
 
 The Talus unloads its gathering at a bulk bunker by itself

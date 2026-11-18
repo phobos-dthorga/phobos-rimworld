@@ -1,7 +1,9 @@
 # The V-22 Osprey: design (18 Nov 2026)
 
-**Status (18 Nov 2026):** a design record. No part of it is in code yet, no picture is made, and nothing here is tested in game.
-The owner answered its eight questions the same day ([their answers](#the-owners-answers-18-nov-2026)).
+**Status (19 Nov 2026):** the first slice of the Osprey is built in D'thorga Vehicles 0.69.0: its Def (body and paint, crew, parts on the
+footprint, real weights and engines, fuel, Vehicle Framework's VTOL take-off and landing, damage looks), drivetrain, flight profile,
+loadout, parts bill and research; its art is exported. Not built: the renderer for its rotors and nacelles, its upgrades and guns, armour
+by class, our own flight over the map, sounds and icons. Nothing here is tested in game.
 
 The owner asked for the Osprey on 18 November 2026: "the Osprey is definitely something I would like to implement!" This is its
 design record, row MV3 in [outstanding work](outstanding-work.md). It is the first aircraft of ours, the first vehicle on
@@ -397,6 +399,23 @@ What is built before the owner's first test:
 | The Osprey | Its Def, engines, parts, bill, research, the batch-1 upgrades, both ramp guns and the belly gun, its avionics fit |
 | Art and sound | The body (the owner's pick of 18 Nov 2026: Nano Banana Pro through fal), every overlay, the nacelles at set angles and their renderer, the mask, the icons; its sounds |
 | Also | The stock-helicopters setting; a fault-read by a separate reader before the install; seen-in-play notes and verbose logging throughout |
+
+### Built so far (19 Nov 2026)
+
+**Slice 1, D'thorga Vehicles 0.69.0** (`mods/PhobosVehicles/Defs/Phobos/Vehicles/Osprey/`): the Def, its blueprint, a drivetrain of
+two T406s, a flight profile with the fitted hover figure, its loadout (cruise 4,600 m, ceiling 7,620 m, oxygen line 3,050 m, the avionics
+fit), the parts bill and the research project; the exported textures. Where it differs from this record, all agent choices for the
+owner to revise:
+
+- **Parts on the footprint.** The wings and nacelles reach far past the 5 x 9 footprint, so their parts lie on its outer columns beside
+  the wing; the cockpit takes the two nose rows, the cabins the middle three columns, the main gear the sponson cells, the tail the last
+  row. One outer part to a cell holds.
+- **The nose gear is inner**, not outer, so the cockpit keeps its cells to itself.
+- **The three flight-control channels** count towards control as Vehicle Framework averages a stat's parts: control falls off as each
+  goes. "Lost only with all three" needs a rule of ours, in a later slice.
+- **It flies on Vehicle Framework's own VTOL take-off** (`Vehicles.VTOLTakeoff`): 300 ticks straight up, then a climb away up the screen,
+  with curves written for it. Our own flight over the map replaces this on the map.
+- **The bill** counts the rotor drive as three parts (both proprotor gearboxes and the interconnect shaft) and the tanks as four.
 
 **Second batch:** circling; ropes and the hoist; the tanker kit and the probe; the crewless fit; a raider's flight AI.
 

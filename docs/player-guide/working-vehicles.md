@@ -48,6 +48,7 @@ the game opens with its designation: the name, its first letter and a mark numbe
 | **Pintle water bowser** | P2 | 3 x 8 | 2,500 litres of water to a camp (Dubs Bad Hygiene) | A bowser is a tank trailer, named after Sylvanus Bowser's fuel pump |
 | **Pintle fuel bowser** | P3 | 3 x 8 | 2,500 litres of chemfuel to vehicles and generators | As the water bowser |
 | **Billy field kitchen** | Billy | 3 x 8 | A kitchen tent at camp; cooks in a resting caravan | The camp billy, the pot every Australian camp boils |
+| **V-22 Osprey** | V-22 | 5 x 9 | A tiltrotor: lifts off like a helicopter, crosses the world like an aeroplane | Its real name (real machines keep theirs) |
 | **Pintle shower trailer** | P4 | 3 x 8 | Showers and toilets at camp (Dubs Bad Hygiene) | As the bowsers |
 
 How they work together:
@@ -410,6 +411,19 @@ The **service lead** charges another vehicle's battery in the field:
 - It comes out by itself if the set packs up or either vehicle moves away. Select the set to see the lead drawn to its vehicle.
 
 **Pack it up before removing the mod**, or a cable end is left behind that does nothing.
+
+## V-22 Osprey
+
+Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after turbine engines) and build it at the motor pool.
+
+- **Crew:** two pilots, both needed; a crew chief at the ramp; 24 seats in the cabin. **It carries 5,600 kg.**
+- **It takes off and lands straight up** and flies between places at 17.5, twice as fast as any helicopter.
+- **Fuel:** a 1,500 chemfuel tank that burns 200 a day. It is thirsty: plan its trips.
+- **Its weights and engines are the real machine's**, so it lifts less on a hot day or high up, and with a full cabin flies below the
+  height where its passengers would need oxygen.
+- **Paint it:** the grey takes your main colour, the orange bands your second.
+- **Still to come, before it is tested:** its rotors and tilting nacelles drawn, its upgrades (cargo hooks, ramp gun, belly gun,
+  armour kit, inlet barrier and more), and our own flight over the map. Not yet tested in game.
 
 ## Other mods' vehicles
 

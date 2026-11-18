@@ -160,4 +160,23 @@
       </li>
     </modExtensions>
   </ResearchProjectDef>
+  <!-- The V-22 Osprey (docs/development/vehicle-osprey.md, "Cost and research"; decided as written by the owner, 18 Nov 2026): 6,000 after
+       our turbines research [A]; the Cherokee's is 4,000. Each of its upgrades has its own small project from a later slice. -->
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_Osprey</defName>
+    <label>tiltrotor aircraft</label>
+    <description>Rotors on tilting nacelles: an aircraft that lifts off like a helicopter and crosses the world like an aeroplane. Unlocks the V-22 Osprey.</description>
+    <baseCost>6000</baseCost>
+    <researchViewX>4</researchViewX>
+    <researchViewY>0</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_Turbines</li>
+    </prerequisites>
+    <!-- Brand new: it replaces nothing an existing colony has already researched. -->
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
 </Defs>

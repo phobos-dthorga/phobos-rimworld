@@ -1,0 +1,92 @@
+{
+  "body": {
+    "cells_long": 20.5,
+    "draw_size": [
+      19,
+      21
+    ],
+    "colours": {
+      "color": [
+        225,
+        224,
+        235
+      ],
+      "colorTwo": [
+        226,
+        147,
+        92
+      ]
+    },
+    "pick_to_texture": 0.7239921270774634
+  },
+  "turrets": {
+    "RampGun50": {
+      "mount_cells": [
+        0.0,
+        -6.847
+      ],
+      "drawn_at_cells": [
+        0.242,
+        -6.847
+      ],
+      "draw_size": [
+        3,
+        3
+      ],
+      "drawn_facing": "north (barrel up); the Def turns it to face aft"
+    },
+    "RampGun762": {
+      "mount_cells": [
+        0.0,
+        -6.847
+      ],
+      "drawn_at_cells": [
+        0.242,
+        -6.847
+      ],
+      "draw_size": [
+        3,
+        3
+      ],
+      "drawn_facing": "north (barrel up); the Def turns it to face aft"
+    }
+  },
+  "hubs": {
+    "Left": [
+      -8.29,
+      2.212
+    ],
+    "Right": [
+      8.253,
+      2.158
+    ]
+  },
+  "nacelles": {
+    "Left": {
+      "rear_pivot_cells": [
+        -8.269,
+        -0.51
+      ],
+      "drawn": "the left nacelle"
+    },
+    "Right": {
+      "rear_pivot_cells": [
+        8.256,
+        -0.51
+      ],
+      "drawn": "the left nacelle mirrored"
+    },
+    "draw_px_per_cell": 128
+  },
+  "rotor": {
+    "diameter_cells": 13.64,
+    "draw_size": [
+      14,
+      14
+    ],
+    "hub_found_at_in_its_picture": [
+      2047.5,
+      2046.5
+    ]
+  }
+}
