@@ -1,6 +1,6 @@
 # Militarised service vehicles: research and design (19 Nov 2026)
 
-**Status (19 Nov 2026):** a design record. No part of it is in code, no picture is drawn, and nothing here is tested in game. Six of its questions were answered by the owner the same day (below); eight are open.
+**Status (19 Nov 2026):** a design record. No part of it is in code, no picture is drawn, and nothing here is tested in game. The owner answered fourteen of its questions the same day (below); one table awaits the owner's adjustment.
 
 The owner's request, 19 Nov 2026, with the answer that enemies end a [gathering run](vehicle-gathering-runs.md): "perhaps we could
 offer upgrades where we militarize some or all of our service vehicles? Either with advantages only or some disadvantages as a result
@@ -29,10 +29,15 @@ in game.**
 - **No hard dependency** (owner). The most useful things to borrow are already in Vehicle Framework and Combat Extended; three mods'
   guns are offered as optional extra mounts.
 - **An armoured truck may keep working while enemies are about** (owner), behind a switch that starts off.
-- **Four of the five trucks have almost no cargo room** (30 to 60 kg). "Weight takes cargo room" works on the Talus only; question 1.
+- **Four of the five trucks have almost no cargo room** (30 to 60 kg), so a kit's weight loads the engine on every truck and takes
+  cargo room on the Talus only (owner). Kit weights are **real kilograms** (owner).
+- **A remote station may fire with nobody aboard** (owner), EMP hardening is a kit of its own (owner), and **any faction's crew stays
+  aboard a stranded vehicle while a weapon still works** (owner). Each needs code that does not exist yet.
 - **Turbine engines are noted beside this** (owner's wish of the same day), with what they change here; not designed.
 
 ## The owner's answers (cards, 19 Nov 2026)
+
+The first six shaped the record; the last eight answered its questions.
 
 | Question | The owner's answer |
 | --- | --- |
@@ -42,6 +47,14 @@ in game.**
 | Under fire | **Yes, with a switch**: a truck with cab armour may keep working while enemies are on the map; the switch starts off |
 | Where the guns come from | **Ours, plus optional extras**: we draw our own machine gun, heavy machine gun and grenade launcher; an installed mod's gun is one more mount |
 | Hard dependencies | **None**: Vehicle Framework stays the one requirement; Combat Extended stays first choice but optional (as on 18 Nov 2026); every other mod is an extra |
+| Where a kit's weight counts | **The engine on every truck; cargo room on the Talus only.** The gun ring adds a small ammunition locker to the other four |
+| Real kilograms or cut like cargo | **Real kilograms** |
+| Other factions' trucks | **Later, behind a setting that starts off**, after the player's side is tested |
+| EMP | **Hardening is its own kit**, with its own cost and weight, whether or not the truck carries a gun |
+| A gun on a crewless truck | **Yes, a remote station**: a powered mount that fires with nobody aboard |
+| Which guns on which truck | **By role**; the agent's table below is for the owner to adjust |
+| A stranded vehicle whose gun works | **Its crew stays and fights, raiders' too** |
+| The order to build | **Protection first** |
 
 ## What each behaviour lets, stops and changes
 
@@ -52,6 +65,9 @@ in game.**
 | **Body plates** | Protect what the truck carries or is (the tanker's load) | Carrying as much, or going as fast uphill | A tanker of explosives is escorted or plated, not sent bare |
 | **Gun ring and a choice of guns** | Give a convoy or a work site a gun of its own | Firing it alone: it needs a second person as gunner, ammunition from the cargo, and research; one gun at a time | One truck in a group becomes the gun truck, as real convoys run one to every ten |
 | **The gunner's seat and shield** | Seat the gunner; the shield protects them where the game's own rules expose them | A free seat: without Combat Extended the gunner is the easiest person on the truck to hit | The shield is worth fitting without Combat Extended; with it, the cab's armour is what counts |
+| **Remote weapon station** (owner) | Arm a truck that drives itself, or keep a gun firing with the crew out | Having it cheaply: it draws real power, stops without it, and makes even an empty truck a target | A crewless convoy can defend itself; a parked gun truck is never "empty" to an enemy |
+| **EMP hardening kit** (owner) | Keep a truck running through an EMP burst | Getting it free with a gun: it is its own kit and weight | Trucks sent against mechanoids are hardened; others are not |
+| **A stranded crew stays and fights** (owner) | Hold a position from a truck that can no longer move; face raiders who do the same | Emptying a raiders' vehicle just by stopping it | A stopped gun truck is a strongpoint until its gun is silenced or its crew is hit |
 | **Smoke dischargers** | Break the enemy's aim for long enough to leave | Using them for ever: each firing uses up canisters | Smoke is saved for the moment a truck must get away |
 | **Ram bar** | Push through light obstacles and animals with less harm to the truck | Nothing but its weight | A truck that must drive through a fight is fitted with one |
 | **Weight as carried mass** | See honestly what protection costs | Armouring every truck with no thought | Kits are a decision, not a checklist |
@@ -240,6 +256,7 @@ Classes are those of [the armour design](vehicle-armour.md): Splinter 5 mm, Rifl
 | **Run-flat tyres** | The wheel parts | Splinter | 120 | All five |
 | **Body plates** | The outer body part: the tanker's shell, the tipper's body, the rig's deck | Rifle | 900 to 1,400 by truck | Ullage first; Talus; Kelly |
 | **Ram bar** | Vehicle Framework's four collision categories | — | 150 | All five |
+| **EMP hardening** (owner) | The truck's EMP class, to the hardened one armed vehicles have | — | 60 | All five |
 
 - **The weight sum** **[A]**: steel is about 7,850 kg a cubic metre, so a square metre of plate weighs 7.85 kg for each millimetre:
   62.8 kg at the Rifle class's 8 mm, 117.8 kg at 15 mm. A truck cab's doors, sides, back and roof come to about 14 square metres
@@ -248,8 +265,12 @@ Classes are those of [the armour design](vehicle-armour.md): Splinter 5 mm, Rifl
   they are finally holed. A guard makes that take a heavier round. The record does not call it self-sealing.
 - **Tyres**: armour on the wheel parts only. Our own tread and wear model is untouched.
 - **Body plates wait on art.** The Talus has three bodies, so plates on it are three overlay sets; the tanker's shell is one.
+- **EMP hardening needs a code change** **[I]**: today a vehicle's EMP class is rated once per Def at start-up, from the loadout's choice
+  or from whether the design has guns (`VehicleEmp.cs:27-33`, `EmpRule.ClassFor`). A kit must be read per vehicle, at the time of the
+  burst. Its 60 kg (shielded looms, filters, a spare control unit) is authored. A gun by upgrade still does not harden a truck: the
+  owner chose the kit instead.
 
-### The gun ring and its guns (owner: a choice of mounts; ours, plus optional extras)
+### The gun ring and its guns (owner: a choice of mounts, by role; ours, plus optional extras)
 
 | Node | What it adds | Needs | Costs beyond materials [A] |
 | --- | --- | --- | --- |
@@ -258,17 +279,33 @@ Classes are those of [the armour design](vehicle-armour.md): Splinter 5 mm, Rifl
 | **Heavy machine gun** (.50) | Our own gun, swung by hand | The ring; either/or with the others | 90 kg; heavier ammunition |
 | **Grenade launcher** (40 mm) | Our own launcher, swung by hand; with Combat Extended its ammo set includes a smoke round | The ring; either/or | 110 kg; the heaviest ammunition |
 | **Gun shield** | The gunner's seat stops being exposed | The ring | 180 kg |
+| **Remote weapon station** (owner) | Our own powered mount with a heavy machine gun, fired with nobody aboard | The ring; either/or with the guns above | 250 kg; the 40 A turret drive while it works |
+| **Ammunition locker** | Cargo room for rounds, on the four trucks with almost none | The ring; not on the Talus | Its own weight, 40 kg, for 150 kg of room **[A]** |
 | **Extra mounts** | An installed mod's gun, as one more either/or choice | The ring, and that mod | As that node says |
 
 - **The seat**: a `RoleUpgrade` adds `gunner` with Turret handling, naming the gun's key, on the cab's cells, exposed until the shield
   is fitted. The driver's role is untouched, so a truck still drives with one person and fires with two.
-- **Swung by hand**: no turret-drive load, as the knock-out rules already treat machine guns and grenade launchers. A powered remote
-  station would draw the 40 A turret drive; it is not in the first set.
+- **Swung by hand**: the three guns draw no turret-drive load, as the knock-out rules already treat machine guns and grenade launchers.
+- **The remote station** (owner: "yes, a remote station"): no Turret role names its gun, so Vehicle Framework fires it with nobody
+  aboard; it draws the 40 A turret drive, and our knock-out rules already stop such a station without power and crank nothing by hand.
+  **It makes an empty truck a target**, which the owner accepted with it. With the crewless fit (MV4) it gives a truck that drives and
+  fires alone; that record's "Armed: no" is noted as changed for our service trucks. The L-ATV's own station stays an optional extra
+  once that mod declares 1.7.
 - **Our gun Defs carry Combat Extended's data themselves**: `Vehicles.CETurretDataDefModExtension` is a Vehicle Framework class, so no
   Combat Extended folder is needed for the guns, only the usual patch for projectiles where the armour design asks for one.
 - **Rearming**: Vehicle Framework has haulers bring ammunition to a turret up to a quota (`autoRefuelProportion`). Our top-up Defs
   (`PhobosTopUpDef`) are the other route; which is better is for the build to read.
 - **The Kelly's mast and the Talus's grab** share the roof line with the ring; the art plan must place them before a picture is made.
+
+**Guns by role** (owner: by role; **this table is the agent's proposal, for the owner to adjust**):
+
+| Truck | Machine gun | Heavy machine gun | Grenade launcher | Remote station | Why [A] |
+| --- | --- | --- | --- | --- | --- |
+| Talus tipper | Yes | Yes | Yes | Yes | The gun truck of the five: the only one with room for ammunition, and the one that runs by itself |
+| Kelly drill rig | Yes | Yes | Yes | No | Twenty tonnes and parked for days at a site: a strongpoint that needs a crew |
+| Ullage tanker | Yes | No | No | No | Self-defence only: nobody wants a tanker of fuel in a firefight |
+| Busbar generator set | Yes | No | No | Yes | Self-defence, and a station it can power itself while it runs the camp |
+| Datum survey truck | No | No | No | No | 4.5 tonnes of delicate gear: cab armour and smoke only |
 
 ### Smoke dischargers
 
@@ -291,8 +328,11 @@ Classes are those of [the armour design](vehicle-armour.md): Splinter 5 mm, Rifl
 - **It is not armour-only, and a weight may be negative**: a lighter engine, a stripped body.
 - **An `Upgrade` subclass of ours** in XML would carry the weight on the node itself. The extension is the house pattern and is the lean.
 - **Still no drag**: only the mass changes. The no-drag rule stands.
-- **What a tonne does**: on a laden Talus (10,000 kg empty, 2,400 kg of cargo) the cab kit is 8 % more mass to move: a little slower on
-  grades and a little more fuel, through the model that already charges cargo that way. The bite is cargo room, where there is any.
+- **Where it counts** (owner): a kit's weight joins the engine's mass on every truck, and comes off cargo room **on the Talus only**. The
+  extension says per tree whether weights take cargo room, so the other four keep their 30 to 60 kg of stowage.
+- **Real kilograms** (owner): no cut to match the game's cargo figures. On a laden Talus (10,000 kg empty, 2,400 kg of cargo) the cab
+  kit is 8 % more mass to move, a little slower on grades and a little more fuel, and 42 % of a base load, less once the bulk body
+  (3,600 kg) and greedy boards (+600 kg) are fitted.
 
 ### Keep working when enemies are about (owner)
 
@@ -362,7 +402,11 @@ either/or with our own guns; hanging from our gun ring (a tie-in node may hang f
   would want category Combat where ours are Transport [code]. Where another mod brings one of our trucks, our enemy fit sets (a chance
   of 0.25, by tech level) are the one way it gets kit, and those are fittings. **No code of ours unlocks tree nodes for other
   factions' vehicles today.** It could, through the public `CompUpgradeTree.FinishUnlock`, as VTOL Raids does for hostile aircraft.
-  Question 3 asks whether it should, behind a setting that starts off, as the line-charge trailer's raider use is.
+  **The owner chose: later, behind a setting that starts off**, as the line-charge trailer's raider use is, after the player's side is tested.
+- **A stranded crew stays and fights** (owner, deciding the open choice KO4): any faction's crew stays aboard a vehicle that cannot move
+  while a weapon of its still works. Today Vehicle Framework's raid orders put everyone out of a vehicle that cannot move, guns working
+  or not ([the reading](vehicle-knocked-out-systems.md#m4-read-what-its-orders-do-with-a-vehicle-that-cannot-move-17-nov-2026)), and our
+  own bail-out rule (C2) must be read again against it. Changing the first needs a think-tree step or a patch; not designed here.
 - **A raiders' gun truck would work as built**: other factions' vehicles spawn with their engines on and guns set to fire by
   themselves; armour sits in the tree and the Def, so it needs none of our player-only systems; taking cargo room slows it through
   Vehicle Framework's own rule even on our lighter model.
@@ -390,7 +434,8 @@ either/or with our own guns; hanging from our gun ring (a tie-in node may hang f
 
 - **A `health` upgrade for protection**: it fully repairs the part at every load.
 - **Camouflage**: a vehicle's visibility is fixed on its Def ([vehicle accessories](vehicle-accessories.md)).
-- **An autonomous gun in the first set**: a gun that fires with nobody aboard makes an empty parked truck a target.
+- **An autonomous gun** was argued against here (it makes an empty parked truck a target). **The owner chose it** as the remote
+  station, knowing that; it stays its own node, so a truck without one is still "empty" when nobody is aboard.
 - **A turret added by our own comp outside the tree**: deleted on load.
 - **Substituting another mod's gun for ours by parts bill**: the mechanism fills costs only, and the kit would look different in every game.
 - **Advantages only**: the L-ATV's weightless armour is why every L-ATV ends up armoured. A kit with no cost is not a choice.
@@ -431,29 +476,36 @@ of realistic to do so, down the line. It'd be great for our generator vehicle." 
 
 ## Questions for the owner
 
-| # | Question | Agent lean |
-| --- | --- | --- |
-| 1 | Four of five trucks have 30 to 60 kg of cargo room. Should a kit's weight take cargo room on every truck (zeroing it there), or load the engine everywhere and take cargo room only on the Talus? | Engine everywhere, cargo room on the Talus only; the gun ring adds a small ammunition locker to the others |
-| 2 | The cab kit's tonne is a real figure against a cargo figure the game cut to a sixth of the real truck's. Real kilograms, or cut as cargo was? | Real kilograms: the engine model moves real mass, and the Talus loses 42 % of a base load only until its body upgrades |
-| 3 | May other factions' trucks carry these kits and guns, behind a setting that starts off? | Yes, later, after the player's side is tested |
-| 4 | A gun added by upgrade does not make a truck "military" for EMP today. Should it? | Yes: read the fitted guns, so a gun truck is hardened as armed vehicles are |
-| 5 | The crewless fit (MV4) is unarmed. May a crewless truck carry a gun? | No: the two are either/or, so no truck of ours fires with nobody aboard |
-| 6 | Which mounts on which truck? All three on all five, or lighter guns only on the Datum (4.5 t)? | All three on the heavy four; machine gun only on the Datum |
-| 7 | KO4: does a crew stay aboard a truck that cannot move while its gun still works? | Yes for the player's, as they choose; raiders bail out as now |
-| 8 | The order to build | Below |
+**All eight were answered by the owner on 19 Nov 2026 (cards).** One thing is left: the guns-by-role table above is the agent's
+proposal and waits for the owner's adjustment.
 
-**Proposed order** **[A]**: (0) the armour base work on the five trucks, MV2; (1) the per-node weight; (2) the armoured cab and the
-under-fire switch on the Talus; (3) the gun ring, our three guns and the shield, with their pictures; (4) smoke dischargers and the ram
-bar; (5) the MaxxPro's extra mounts; (6) the other four trucks; (7) other factions, if the owner says so.
+| # | Question | Answer |
+| --- | --- | --- |
+| 1 | Four of five trucks have 30 to 60 kg of cargo room. Should a kit's weight take cargo room on every truck (zeroing it there), or load the engine everywhere and take cargo room only on the Talus? | **Decided: the engine everywhere, cargo room on the Talus only**, with an ammunition locker on the others |
+| 2 | The cab kit's tonne is a real figure against a cargo figure the game cut to a sixth of the real truck's. Real kilograms, or cut as cargo was? | **Decided: real kilograms** |
+| 3 | May other factions' trucks carry these kits and guns, behind a setting that starts off? | **Decided: later, behind a setting that starts off** |
+| 4 | A gun added by upgrade does not make a truck "military" for EMP today. Should it? | **Decided: no; hardening is its own kit** (against the agent's lean) |
+| 5 | The crewless fit (MV4) is unarmed. May a crewless truck carry a gun? | **Decided: yes, a remote station** (against the agent's lean) |
+| 6 | Which mounts on which truck? All three on all five, or lighter guns only on the Datum (4.5 t)? | **Decided: by role**; the agent's table awaits adjustment |
+| 7 | KO4: does a crew stay aboard a truck that cannot move while its gun still works? | **Decided: any faction's crew stays and fights** (beyond the agent's lean) |
+| 8 | The order to build | **Decided: protection first**, as below |
+
+**The order** (owner: protection first): (0) the armour base work on the five trucks, MV2; (1) the per-node weight; (2) the armoured cab
+and the under-fire switch on the Talus; (3) the gun ring, our three guns, the shield and the ammunition locker, with their pictures;
+(4) smoke dischargers, the ram bar and the EMP hardening kit; (5) the remote station; (6) the MaxxPro's extra mounts; (7) the other
+four trucks, by role; (8) the stranded-crew rule; (9) other factions, behind their setting.
 
 ## Who chose what
 
 - **Owner (19 Nov 2026):** the idea; a choice of mounts; weight counting like cargo; all five trucks with the Talus first; the
-  under-fire switch; our own guns plus optional extras; no hard dependency; turbine engines noted beside it.
+  under-fire switch; our own guns plus optional extras; no hard dependency; turbine engines noted beside it. Then: weight on the
+  engine everywhere and cargo room on the Talus only; real kilograms; other factions later behind a setting; EMP hardening as its own
+  kit; a remote station that fires with nobody aboard; guns by role; any faction's stranded crew staying to fight; protection first.
 - **Owner (earlier, kept):** Combat Extended first with Vehicle Framework the fallback (18 Nov); armed as the real machine (18 Nov);
   no drag (13 Nov); passive gear costs materials and weight only (13 Nov); mods need active authors (22 Oct); no stand-in vehicle art.
 - **Agent:** every figure in the kit and gun tables; the classes each kit reaches; the weight sum and the cab's 14 square metres;
-  guns swung by hand; the static smoke launcher as the lead route; the mount verdicts by mod; the order to build; every lean above.
+  guns swung by hand; the static smoke launcher as the lead route; the mount verdicts by mod; the guns-by-role table; the remote
+  station's and the hardening kit's figures; the ammunition locker.
 
 ## Sources
 

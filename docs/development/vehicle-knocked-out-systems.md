@@ -308,6 +308,11 @@ observed in game.**
 - **What the crew does on foot was not read to the end.** The raid's duty for people is the game's `Follow` (`VF:6046`), given with
   nobody to follow; that tree then wanders near where they stand. Whether they fight from there is not checked.
 
+**Decided by the owner on 19 Nov 2026** (the open choice KO4, with [militarised service vehicles](vehicle-militarised-service-vehicles.md)):
+**any faction's crew stays aboard a vehicle that cannot move while a weapon of its still works.** Not built. It needs the raid's
+"put them all out" step to wait for the weapons, by a think-tree step of ours ahead of it or a patch, and our own bail-out rule (C2)
+read again against it.
+
 **What this changes for our rows:**
 
 - **M4's "a stuck tank is a pillbox" holds at bases and for the player, not in raids.**

@@ -596,7 +596,8 @@ above). It is theirs to make; if it appears, it would get our systems as the Har
 | Run a loop | Let the tipper go between the drill rig and the bunker by itself, along a marked route | Leaving the route; working where a person must load it | Hauling becomes something set up once |
 | Lose the leader | Nothing; it is the weakness | Carrying on: followers stop where they are | A convoy is protected by protecting one vehicle, and an enemy convoy is stopped by hitting one |
 
-**Armed:** no. **What it uses up:** components to fit, research, and electrical power while it is on, through the
+**Armed:** no. (**19 Nov 2026:** the owner chose that a crewless service truck of ours may carry a remote weapon station, a kit of its
+own in [militarised service vehicles](vehicle-militarised-service-vehicles.md); the fit itself stays unarmed.) **What it uses up:** components to fit, research, and electrical power while it is on, through the
 [power budget](vehicle-accessories.md) already built. **Reuses:** Vehicle Framework's crewless movement and caravans;
 our hitch's follow code as the start of following; the tipper, the loading chute and the bunker for a loop with no
 hands in it. **Feasibility [I]:** small to moderate. **Decided (owner, 18 Nov 2026): the vehicle stays optionally
