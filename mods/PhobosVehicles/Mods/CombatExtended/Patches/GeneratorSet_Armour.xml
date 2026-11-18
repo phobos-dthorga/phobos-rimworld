@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The Busbar generator set's armour with Combat Extended (D'thorga Vehicles 0.76.0; docs/development/vehicle-armour.md). Its Def gives
+       every part the Skin class's Vehicle Framework rating; with Combat Extended the same class is 2 mm of steel and 4 MPa
+       (Mods/CombatExtended loads only while Combat Extended is active). Every part is Skin (owner, 19 Nov 2026): no source states that a
+       civilian truck stops a bullet. scripts/check-vehicle-armour.py holds each part here to its class in the Def. Not yet tested in game. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_GeneratorSet"]/components/li/armor</xpath>
+    <value>
+      <armor>
+        <ArmorRating_Sharp>2</ArmorRating_Sharp>
+        <ArmorRating_Blunt>4</ArmorRating_Blunt>
+      </armor>
+    </value>
+  </Operation>
+</Patch>

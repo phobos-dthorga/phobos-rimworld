@@ -8,12 +8,12 @@ top of the general systems D'thorga Framework gives every vehicle.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**:
 [working vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.75.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
+Version 0.76.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
 9 November 2026) and the Busbar's size and look (owner, 13 November 2026).
 
 ## Read this first (gotchas)
 
-- **Needs Vehicle Framework and D'thorga Framework 0.152.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About
+- **Needs Vehicle Framework and D'thorga Framework 0.154.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About
   file asks for that, so RimSort does it for you. Vanilla Expanded Framework is optional: it brings the garages.
 - **Safe to add to a running colony.** **Safe to remove only once none of our own vehicles is left**: scrap every tipper, tanker,
   drill rig, survey truck, generator set, seabed crawler, trailer and Osprey first, or they go with the mod. **Pack up a set-up generator set
@@ -23,6 +23,10 @@ Version 0.75.0, built 19 November 2026 for House D'thorga. **Not yet tested in g
   lying about the map**, as any stockpile that takes chunks: lower its priority or untick chunks to keep room for a truck. Back a tipper
   up to its open end and tip; what does not fit stays aboard. Belts, paste dispensers and The Dead Man's Switch's automatic benches can
   draw from it.
+- **The five service trucks are armoured part by part** (0.76.0): every part is skin, thin sheet metal that stops nothing aimed at
+  it, as on a real civilian truck. **Rifle fire hurts them more than before without Combat Extended** (0.10 against the old 0.40);
+  with it each part is 2 mm of steel where the whole truck read as 0.4 mm, and shots strike them across their full width. The
+  Health tab names each part's armour. Not yet tested in game.
 - **The Talus gathers by itself once its loading grab is fitted** (0.67.0): **Gather what** chooses what, as for a stockpile (chunks
   and raw resources to start), and **Gather** sends it about the map with someone aboard to drive. **It never takes from storage, nor
   anything forbidden: forbid what you want left.** **Choose a bulk bunker or a stockpile under Unload at** and, each time it is full,

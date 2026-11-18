@@ -160,6 +160,10 @@
       "the belly gun's weight is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "BellyGun", "detail": "fitted"}],
       "the belly gun fires by itself": [{"key": "vehicles.weapon-fired", "variant": "BellyGun"}],
       "the belly gun stops without power": [{"key": "vehicles.autonomous-turret-no-power", "detail": "*BellyGun"}]
+    }},
+    "222": {"parts": {
+      "a part's armour class is shown": [{"key": "vehicles.armour-class-shown", "detail": "*PhobosArmour_Skin"}],
+      "Combat Extended shoots at the truck's full width": [{"key": "vehicles.armour-hit-width", "expect": {"width": ">= 3"}}]
     }}
   },
   "order": [

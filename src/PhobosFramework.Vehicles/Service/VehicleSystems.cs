@@ -225,7 +225,9 @@ public static class VehicleSystems
             key = add.key,
             label = add.label,
             health = add.health,
-            depth = add.depth,
+            // A design armoured by class keeps one outer part to a cell (Framework 0.154.0; vehicle-armour.md): what we append goes inside it,
+            // or Combat Extended would make a shot beat our bracket's armour on top of the design's own.
+            depth = def.GetModExtension<PhobosArmourExtension>() is { appendedPartsInside: true } ? VehicleComponent.VehiclePartDepth.Internal : add.depth,
             // Combat Extended sorts parts the other way round (a smaller weight is hit more): keep the intent under both.
             hitWeight = (float)CombatExtendedRules.HitWeight(add.hitWeight, add.hitWeightCE, OptionalMods.IsActive(OptionalMods.CombatExtended)),
             efficiencyWeight = add.efficiencyWeight,

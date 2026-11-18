@@ -615,6 +615,17 @@ to a bar and down to the node, and its buttons say what to fit or take off first
 tie-in patch) is never fitted and not drawn, so a link may name optional nodes. Vehicle Framework's random upgrades for other
 factions' vehicles respect it too. `UpgradeTree_BulkTanker.xml` is the worked example.
 
+## Armour by class
+
+Give each part of a vehicle one armour class's Vehicle Framework rating in its `armor` (both `ArmorRating_Sharp` and
+`ArmorRating_Blunt`), and in a folder that loads only with Combat Extended replace the same parts' `armor` with that class's
+millimetres and megapascals. The classes are `Phobos.VehicleSystems.PhobosArmourClassDef` (`ArmourClasses.xml`), named by the threat
+each stops; the Health tab shows a part's class when its figures are one. Put `Phobos.VehicleSystems.PhobosArmourExtension` in the
+VehicleDef's `modExtensions`: `hitWidthCells` is the width Combat Extended shoots at (it otherwise tests one cell), and
+`appendedPartsInside` (on by default) puts the parts our systems append inside, so each cell keeps one outer part.
+`python scripts/check-vehicle-armour.py` checks every vehicle carrying the extension. D'thorga Vehicles' service trucks and their
+`Mods/CombatExtended/Patches/*_Armour.xml` are the worked example ([the design](development/vehicle-armour.md)).
+
 ## Gathering runs
 
 A vehicle can fetch loose things about the map by itself (Framework 0.143.0; [the design](development/vehicle-gathering-runs.md)). Give it

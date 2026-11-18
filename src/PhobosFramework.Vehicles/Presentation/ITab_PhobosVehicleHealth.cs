@@ -764,6 +764,13 @@ public class ITab_PhobosVehicleHealth : ITab
                     if (armour > 0f) text.Append('\n').Append(category.armorRatingStat.LabelCap).Append(": ").Append(category.armorRatingStat.ValueToString(armour));
                 }
             }
+            // The part's armour class and what it stops, in every mode (Framework 0.154.0; vehicle-armour.md, "What the player sees"): the one
+            // armour line Plain mode shows. Only a part whose figures are a class's: another author's vehicle shows none.
+            if (ArmourClasses.For(part) is { } armourClass)
+            {
+                text.Append('\n').Append("PhobosVehicleSystems_HealthArmourClass".Translate(armourClass.LabelCap.Named("CLASS"), armourClass.stops.Named("STOPS")).Resolve());
+                if (Seen.Wants("vehicles.armour-class-shown", part.vehicle)) Seen.Note("vehicles.armour-class-shown", part.vehicle, armourClass.defName);
+            }
             if (HasReactor<Reactor_Explosive>(part)) text.Append('\n').Append("PhobosVehicleSystems_HealthReactorExplosive".Translate());
             return text.ToString();
         }

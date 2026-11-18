@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.76.0] - 2026-11-19 - Draft
+
+The five service trucks are armoured part by part
+
+### Changed
+
+- **Every part of the Talus, Ullage, Kelly, Datum and Busbar has armour of its own, of the skin class**: thin sheet metal that stops nothing aimed at it, since no source says a civilian truck stops a bullet. Your choice of 19 November 2026. **With Combat Extended** each part is now 2 mm of steel and 4 MPa, where before the whole truck read as 0.4 mm. **Without it** each part rates 0.10 sharp and 0.08 blunt, where the whole truck rated 0.40 and 0.26, so rifle fire hurts the trucks more than before.
+- **Each cell of a truck has one outer part**, your choice of 19 November 2026. The chassis is outer only where nothing else covers it; the cab, body, tank, wheels and tailgate keep their own cells; the lights, the survey truck's and generator set's radiators, the tanker's hose reel and the drill rig's rotary head and bit now sit inside. Shots at the cab now strike the cab rather than mostly the chassis, so the trucks are disabled sooner (wheels, cab) and destroyed later. A few parts lose cells another part now holds: the tipper body and tank shell over the rear wheels, the drill string and cuttings chute, the survey boom's tip, and the generator set's second front wheels under the cab.
+- **Combat Extended shoots at each truck's full three-cell width** (D'thorga Framework 0.154.0).
+
+### Dependencies
+
+- Needs D'thorga Framework 0.154.0 or later. With an older Framework the game reports the trucks' armour extension as an unknown class at start-up.
+
+### Save compatibility
+
+- Safe with a running save. No part is added or removed, so saved part health stays with its part; only where parts sit and how they are armoured change.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The trailers, the seabed Crawler and the Osprey keep their whole-vehicle armour for now.
+- The trucks' whole-vehicle armour figures stay in their Defs for collisions, which read them; every part's own armour overrides them for hits.
+
 ## [0.75.0] - 2026-11-19 - Draft
 
 The Osprey circles

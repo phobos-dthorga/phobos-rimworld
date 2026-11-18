@@ -23,6 +23,8 @@
     <techLevel>Industrial</techLevel>
     <vehicleType>Land</vehicleType>
     <statBases>
+      <!-- Read only for collisions since D'thorga Vehicles 0.76.0: every part carries its own armour by class, which overrides these
+           (vehicle-armour.md). Heat stays the whole truck's. -->
       <ArmorRating_Blunt>0.26</ArmorRating_Blunt>
       <ArmorRating_Sharp>0.4</ArmorRating_Sharp>
       <ArmorRating_Heat>1.0</ArmorRating_Heat>
@@ -77,15 +79,35 @@
       </roles>
     </properties>
     <components>
+      <!-- Armour by class (D'thorga Vehicles 0.76.0; owner, 19 Nov 2026; docs/development/vehicle-armour.md): every part is Skin, as no
+           source states that a civilian truck stops a bullet. Combat Extended's figures for the same class are in
+           Mods/CombatExtended/Patches. One outer part to a cell (owner): the chassis is outer only where nothing else covers it, and the
+           lights and the parts changed with them sit inside. Parts are saved by place: append only, never reorder. -->
     <li>
       <key>Chassis</key>
       <label>chassis</label>
       <health>190</health>
       <depth>External</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitWeight>3</hitWeight>
       <hitbox>
-        <from>(-1, -4)</from>
-        <to>(1, 5)</to>
+        <cells>
+          <li>(-1, 5)</li>
+          <li>(0, 5)</li>
+          <li>(1, 5)</li>
+          <li>(0, 4)</li>
+          <li>(0, 2)</li>
+          <li>(-1, 1)</li>
+          <li>(0, 1)</li>
+          <li>(1, 1)</li>
+          <li>(0, 0)</li>
+          <li>(1, 0)</li>
+          <li>(0, -1)</li>
+          <li>(-1, -3)</li>
+        </cells>
       </hitbox>
       <categories>
         <li>BodyIntegrity</li>
@@ -96,6 +118,10 @@
       <label>cab</label>
       <health>50</health>
       <depth>External</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(-1, 3)</li>
@@ -109,6 +135,10 @@
       <label>engine</label>
       <health>60</health>
       <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <priorityStatEfficiency>true</priorityStatEfficiency>
       <reactors>
         <li Class="Vehicles.Reactor_Explosive">
@@ -136,6 +166,10 @@
       <label>transmission</label>
       <health>40</health>
       <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(0, 2)</li>
@@ -150,6 +184,10 @@
       <label>front axle and wheels</label>
       <health>35</health>
       <depth>External</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <tags>
         <li>Wheel</li>
       </tags>
@@ -168,6 +206,10 @@
       <label>rear axles and wheels</label>
       <health>50</health>
       <depth>External</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <tags>
         <li>Wheel</li>
       </tags>
@@ -188,6 +230,10 @@
       <label>fuel tank</label>
       <health>40</health>
       <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <reactors>
         <li Class="Vehicles.Reactor_FuelLeak" />
       </reactors>
@@ -202,6 +248,10 @@
       <label>hydraulic power pack</label>
       <health>35</health>
       <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(1, 1)</li>
@@ -216,6 +266,10 @@
       <label>hydraulic lines</label>
       <health>25</health>
       <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(0, 1)</li>
@@ -232,6 +286,10 @@
       <label>outriggers</label>
       <health>50</health>
       <depth>External</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(-1, 2)</li>
@@ -249,6 +307,10 @@
       <label>mast</label>
       <health>70</health>
       <depth>External</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(0, -2)</li>
@@ -264,7 +326,11 @@
       <key>RotaryHead</key>
       <label>rotary head</label>
       <health>45</health>
-      <depth>External</depth>
+      <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(0, -3)</li>
@@ -279,10 +345,13 @@
       <label>drill string and rod rack</label>
       <health>40</health>
       <depth>External</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(-1, 0)</li>
-          <li>(-1, -1)</li>
         </cells>
       </hitbox>
       <categories>
@@ -293,7 +362,11 @@
       <key>DrillBit</key>
       <label>drill bit</label>
       <health>25</health>
-      <depth>External</depth>
+      <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(0, -4)</li>
@@ -308,6 +381,10 @@
       <label>draw-works and winch</label>
       <health>40</health>
       <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(0, -1)</li>
@@ -322,6 +399,10 @@
       <label>compressor</label>
       <health>40</health>
       <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(1, 0)</li>
@@ -337,6 +418,10 @@
       <label>flushing pump</label>
       <health>35</health>
       <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(-1, -2)</li>
@@ -351,6 +436,10 @@
       <label>control console</label>
       <health>35</health>
       <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(1, -2)</li>
@@ -365,6 +454,10 @@
       <label>wiring</label>
       <health>30</health>
       <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(1, 3)</li>
@@ -380,10 +473,13 @@
       <label>cuttings chute</label>
       <health>20</health>
       <depth>External</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(1, -3)</li>
-          <li>(1, -4)</li>
         </cells>
       </hitbox>
     </li>
@@ -391,7 +487,11 @@
       <key>Lights</key>
       <label>lights</label>
       <health>15</health>
-      <depth>External</depth>
+      <depth>Internal</depth>
+      <armor>
+        <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+        <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+      </armor>
       <hitbox>
         <cells>
           <li>(-1, 5)</li>
@@ -403,6 +503,11 @@
     </li>
     </components>
     <modExtensions>
+      <!-- Armour by class (D'thorga Framework 0.154.0; docs/development/vehicle-armour.md): Combat Extended shoots at the truck's full
+           width, and the parts our systems append go inside, so each cell keeps the one outer part above. -->
+      <li Class="Phobos.VehicleSystems.PhobosArmourExtension">
+        <hitWidthCells>3</hitWidthCells>
+      </li>
       <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
         <emptyKilograms>20000</emptyKilograms>
         <ratedKilowatts>300</ratedKilowatts>

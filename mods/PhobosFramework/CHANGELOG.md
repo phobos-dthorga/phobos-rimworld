@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.154.0] - 2026-11-19 - Draft
+
+Armour by class: the classes themselves, a wider target under Combat Extended, and the class on the Health tab
+
+### Added
+
+- **Armour classes**, named by the threat each stops: skin, splinter, rifle, armour-piercing rifle, heavy machine-gun, heaviest machine-gun, autocannon and heavy autocannon. Each has its millimetres and megapascals for Combat Extended and its rating for the game without it. A vehicle of ours gives each part one class.
+- **The Health tab names a part's armour class and what it stops**, in every display mode, Plain included: for example "skin armour: stops nothing aimed at it: thin sheet metal". Parts of other authors' vehicles, whose figures are no class of ours, show no such line.
+- **Combat Extended shoots at an armoured vehicle's full width.** Combat Extended tests a shot against a box one cell wide at a vehicle's centre, so most shots at a three-cell truck passed by it. A vehicle of ours that states its width is now hit across all of it. This uses Combat Extended's own published list for hit boxes, ahead of its default answer, and patches nothing; other vehicles keep Combat Extended's box.
+- **Parts our systems add to a vehicle (its radiator, lamp bracket and winch mount) go inside it on a vehicle armoured by class**, so each cell keeps one outer part. Under Combat Extended a shot must beat every outer part on a cell in turn, so a bracket over the nose would have stacked its armour on the truck's own. Other authors' vehicles are unchanged.
+
+### Save compatibility
+
+- Safe with a running save. Nothing new is saved: armour, classes and the hit box are read from the Defs.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The hit box needs Combat Extended; without it the class line still shows and nothing else changes.
+- Every blunt figure and every rating without Combat Extended is authored; the sharp millimetres sit just above the round each class stops, from Combat Extended's own figures.
+
 ## [0.153.0] - 2026-11-19 - Draft
 
 Aircraft on our own flight circle, and hold by circling where they cannot hover

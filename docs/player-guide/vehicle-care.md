@@ -46,6 +46,12 @@ or an aircraft in flight.
 
 **Rest the mouse on any reading or part** to learn what it means, what moves it, and what losing it costs.
 
+**Armour.** On our service trucks every part has an armour class, named by what it stops, and the part's line on the Health tab
+says it in every display mode: "skin armour: stops nothing aimed at it: thin sheet metal". All five trucks are skin today: they are
+civilian trucks, and rifle fire goes through them. Each cell of a truck has one outside part (the cab, the body, a wheel, the
+chassis), so a shot at the cab strikes the cab, and what sits inside is hurt once the outside part over it is holed. With Combat
+Extended, shots strike a truck across its whole width.
+
 The **inspect pane** at the bottom left names only the readings worth a look ("cab freezing"), with their figures in Operator and
 Engineer modes, and what the vehicle is waiting for. Every other reading is on the Dashboard and Systems tabs.
 

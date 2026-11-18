@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.153.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.154.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -48,6 +48,9 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   area would take goes in until it is full, and the rest of those things stay aboard rather than spilling beside it.
   **The drill rig and the tanker's item port fill storage beside them too** (0.127.0), and **a loading chute** (D'thorga Vehicles)
   drops what it holds into a vehicle parked across its spout.
+- **Armour by class** (0.154.0): a vehicle of ours gives each part a class named by what it stops, which the Health tab shows in
+  every mode, and with Combat Extended such a vehicle is shot at across its full width (D'thorga Vehicles' service trucks first).
+  Other authors' vehicles are unchanged. Not yet tested in game.
 - **A truck with a loading grab can gather by itself** (0.143.0; the Talus in D'thorga Vehicles): **Gather** sends it about the map,
   with someone aboard to drive, to lift loose things you chose with **Gather what**, a stockpile's filter. **It never takes from
   storage, nor anything forbidden: forbid what you want left.** **Since 0.144.0 it can unload by itself**: choose a bunker or stockpile

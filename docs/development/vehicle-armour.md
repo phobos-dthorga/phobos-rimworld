@@ -1,7 +1,31 @@
 # Armour for our armed vehicles: Combat Extended first, Vehicle Framework as the fallback (18 Nov 2026)
 
-**Status (18 Nov 2026):** a design record. No part of it is in code yet, and nothing here is tested in game. Its one question
-was answered by the owner the same day, with [the Osprey's](vehicle-osprey.md#the-owners-answers-18-nov-2026).
+**Status (19 Nov 2026):** built for the five service trucks in D'thorga Framework 0.154.0 and D'thorga Vehicles 0.76.0 (the classes, a
+wider target, the class on the Health tab, the gate check); the Osprey's parts, the trailers and the Crawler are not built yet. Not
+yet tested in game. Its one question was answered by the owner on 18 Nov 2026, with [the Osprey's](vehicle-osprey.md#the-owners-answers-18-nov-2026).
+
+**Built (19 Nov 2026, the owner's word: "build the armour base work for the trucks").** What differs from the design below:
+
+- **The owner's cards, 19 Nov 2026:** every truck part is **Skin** (no source states that a civilian truck stops a bullet); **each
+  cell keeps exactly one outer part**, the chassis outer only where nothing else covers it and the lights inside; the five trucks
+  only; and the wider target now, with the base work.
+- **The classes are Defs** (`PhobosArmourClassDef`, `ArmourClasses.xml`) rather than a table in this record only, so the Health tab
+  can name them and the gate check reads the same figures. `ArmourClassRule` (core, tested) matches a part's figures to a class.
+- **The wider target needs no Harmony.** Combat Extended asks a public list of callbacks for a pawn's hit box before working one
+  out (`CombatExtended.Compatibility.Patches.CollisionBodyFactorCallbacks`), and its own vehicle compatibility answers every
+  vehicle with a width of one. Ours goes first in that list and answers only a Def with a width (`CombatExtendedHitWidth`). The
+  extension is `PhobosArmourExtension` (with `hitWidthCells`), not `PhobosCollisionExtension`.
+- **Appended parts go inside.** Our loadouts append a radiator, a lamp bracket and a winch mount as outer parts on every land
+  vehicle's engine cells; on a Def with `PhobosArmourExtension` they go inside, or Combat Extended would stack their armour on the
+  nose. Other authors' vehicles are unchanged.
+- **Whole-vehicle armour stays in the trucks' Defs, at its old figures,** because collisions read it (`(2 - armour)`); every part's
+  own armour overrides it for hits, and the Combat Extended patches leave it alone.
+- **The gate check covers Skin parts too**: a Skin part with no Combat Extended figure reads 0.10 mm, the very fault this record is
+  for. It also refuses an armour upgrade of type `Set` on a node with no `upgradeExplanation` (Vehicle Framework applies it when the
+  Upgrades tab merely shows the node) and any stat of type `Set` (which does nothing). `scripts/check-vehicle-armour.py`, with
+  `show` for each vehicle's parts and classes.
+- **Not built:** `hitWeight` replaced under Combat Extended (with one outer part to a cell it matters only among inner parts), and
+  the readings and recording in "To read or prove before building".
 
 The owner decided on 18 November 2026 how armour works on the armed vehicles of [modern military vehicles](modern-military-vehicles.md):
 "Combat Extended is the priority, with Vehicle Framework a fallback for other users who go without CE for when we finally publish

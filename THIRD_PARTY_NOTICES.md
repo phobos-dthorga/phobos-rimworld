@@ -103,6 +103,10 @@ the ignored `.local/`.
 - **Vehicle Patches** sets Combat Extended values on the Harrier's bombs and on Spaceship Turret Hull's turrets, in XML.
 - **D'thorga Patches' missile part** reads Combat Extended's public `Controller.settings` and changes its wall-fragment fields
   (`fragmentsFromWalls`, `fragmentsFromWallsIntensity`) by name, in memory only, for the moments a strategic blast runs.
+- **D'thorga Framework** (0.154.0) adds one callback to Combat Extended's public list of hit boxes
+  (`CombatExtended.Compatibility.Patches.CollisionBodyFactorCallbacks`, through its `RegisterCollisionBodyFactorCallback`), by name,
+  answering only for a vehicle of ours that states its width; **D'thorga Vehicles** replaces its service trucks' part armour in a
+  folder that loads only with Combat Extended, in XML.
 
 D'thorga Patches' strike model reaches [Dubs Rimatomics](https://steamcommunity.com/sharedfiles/filedetails/?id=1127530465) by
 **Dubwise** by name only, while it is active: its `NuclearFallout` condition, `Fallout` world object, `FlashBlindness` hediff and

@@ -509,6 +509,7 @@
   <PhobosVehicleSystems_HealthCondition>{CONDITION}: {STAGE}</PhobosVehicleSystems_HealthCondition>
   <PhobosVehicleSystems_HealthConditionFigure>{CONDITION}: {STAGE} ({SEVERITY})</PhobosVehicleSystems_HealthConditionFigure>
   <PhobosVehicleSystems_HealthReactorExplosive>Can explode when badly damaged.</PhobosVehicleSystems_HealthReactorExplosive>
+  <PhobosVehicleSystems_HealthArmourClass>{CLASS} armour: stops {STOPS}</PhobosVehicleSystems_HealthArmourClass>
   <PhobosVehicleSystems_HealthCrew>Crew</PhobosVehicleSystems_HealthCrew>
   <PhobosVehicleSystems_HealthWear>Wear</PhobosVehicleSystems_HealthWear>
   <PhobosVehicleSystems_HealthWearDue>{READING}: {STAGE} in about {TIME}</PhobosVehicleSystems_HealthWearDue>

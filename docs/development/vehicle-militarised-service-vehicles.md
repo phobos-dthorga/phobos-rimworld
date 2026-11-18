@@ -1,6 +1,6 @@
 # Militarised service vehicles: research and design (19 Nov 2026)
 
-**Status (19 Nov 2026):** a design record. No part of it is in code, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
+**Status (19 Nov 2026):** a design record; its prerequisite, the trucks' armour by class (MV2), is built in Framework 0.154.0 and Vehicles 0.76.0. No kit is in code, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
 
 The owner's request, 19 Nov 2026, with the answer that enemies end a [gathering run](vehicle-gathering-runs.md): "perhaps we could
 offer upgrades where we militarize some or all of our service vehicles? Either with advantages only or some disadvantages as a result
@@ -19,9 +19,9 @@ in game.**
   in the truck's own upgrade tree.
 - **Every kit costs something real** (owner): its weight loads the engine as cargo would; a gun needs a gunner, ammunition and
   research; an armed truck is worth shooting.
-- **Nothing here can be built before the trucks have armour by part.** Today each truck has one armour figure for the whole vehicle
-  and no Combat Extended patch, so under Combat Extended the tanker's 0.4 reads as 0.4 mm of steel. That base work is
-  [armour for our armed vehicles](vehicle-armour.md) (row MV2), designed on 18 Nov and not built.
+- **The trucks now have armour by part** (Framework 0.154.0, Vehicles 0.76.0; [armour for our armed vehicles](vehicle-armour.md),
+  row MV2): every part Skin, one outer part to a cell, a Combat Extended patch per truck and a wider target. Kits raise named parts
+  from there.
 - **No patch is needed for any of it.** Vehicle Framework's own upgrade nodes add armour to named parts, add a gun and its gunner's
   seat, and change how exposed a seat is.
 - **No other mod on the owner's list militarises a cargo or service truck.** Only protected trucks and fighting vehicles have such

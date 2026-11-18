@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Armour classes (D'thorga Framework 0.154.0; docs/development/vehicle-armour.md, "Armour classes"), named by the threat each stops.
+    Sharp millimetres: Combat Extended's penetration of the stopped round, plus a little [authored, from Combat Extended's installed Defs].
+    Blunt megapascals and every Vehicle Framework rating: authored, rising in the same order; a rating is a chance, not a thickness.
+    A vehicle of ours gives each part one class's ratings in its Def, and the same class's millimetres in its Combat Extended patch;
+    scripts/check-vehicle-armour.py holds both to these figures. Labels and "stops" are what the Health tab shows. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosArmourClassDef>
+    <defName>PhobosArmour_Skin</defName>
+    <label>skin</label>
+    <stops>nothing aimed at it: thin sheet metal</stops>
+    <sharpMillimetres>2</sharpMillimetres>
+    <bluntMegapascals>4</bluntMegapascals>
+    <sharpRating>0.10</sharpRating>
+    <bluntRating>0.08</bluntRating>
+    <order>0</order>
+  </Phobos.VehicleSystems.PhobosArmourClassDef>
+  <Phobos.VehicleSystems.PhobosArmourClassDef>
+    <defName>PhobosArmour_Splinter</defName>
+    <label>splinter</label>
+    <stops>shell fragments and pistol bullets</stops>
+    <sharpMillimetres>5</sharpMillimetres>
+    <bluntMegapascals>20</bluntMegapascals>
+    <sharpRating>0.25</sharpRating>
+    <bluntRating>0.20</bluntRating>
+    <order>1</order>
+  </Phobos.VehicleSystems.PhobosArmourClassDef>
+  <Phobos.VehicleSystems.PhobosArmourClassDef>
+    <defName>PhobosArmour_Rifle</defName>
+    <label>rifle</label>
+    <stops>ordinary rifle bullets</stops>
+    <sharpMillimetres>8</sharpMillimetres>
+    <bluntMegapascals>40</bluntMegapascals>
+    <sharpRating>0.45</sharpRating>
+    <bluntRating>0.35</bluntRating>
+    <order>2</order>
+  </Phobos.VehicleSystems.PhobosArmourClassDef>
+  <Phobos.VehicleSystems.PhobosArmourClassDef>
+    <defName>PhobosArmour_ArmourPiercingRifle</defName>
+    <label>armour-piercing rifle</label>
+    <stops>armour-piercing rifle bullets and ordinary heavy machine-gun bullets</stops>
+    <sharpMillimetres>15</sharpMillimetres>
+    <bluntMegapascals>120</bluntMegapascals>
+    <sharpRating>0.65</sharpRating>
+    <bluntRating>0.50</bluntRating>
+    <order>3</order>
+  </Phobos.VehicleSystems.PhobosArmourClassDef>
+  <Phobos.VehicleSystems.PhobosArmourClassDef>
+    <defName>PhobosArmour_HeavyMachineGun</defName>
+    <label>heavy machine-gun</label>
+    <stops>armour-piercing heavy machine-gun bullets</stops>
+    <sharpMillimetres>30</sharpMillimetres>
+    <bluntMegapascals>250</bluntMegapascals>
+    <sharpRating>0.85</sharpRating>
+    <bluntRating>0.65</bluntRating>
+    <order>4</order>
+  </Phobos.VehicleSystems.PhobosArmourClassDef>
+  <Phobos.VehicleSystems.PhobosArmourClassDef>
+    <defName>PhobosArmour_HeavyMachineGunEastern</defName>
+    <label>heaviest machine-gun</label>
+    <stops>the heaviest armour-piercing machine-gun bullets</stops>
+    <sharpMillimetres>38</sharpMillimetres>
+    <bluntMegapascals>400</bluntMegapascals>
+    <sharpRating>0.95</sharpRating>
+    <bluntRating>0.75</bluntRating>
+    <order>5</order>
+  </Phobos.VehicleSystems.PhobosArmourClassDef>
+  <Phobos.VehicleSystems.PhobosArmourClassDef>
+    <defName>PhobosArmour_Autocannon</defName>
+    <label>autocannon</label>
+    <stops>light cannon shells</stops>
+    <sharpMillimetres>48</sharpMillimetres>
+    <bluntMegapascals>1000</bluntMegapascals>
+    <sharpRating>1.10</sharpRating>
+    <bluntRating>0.90</bluntRating>
+    <order>6</order>
+  </Phobos.VehicleSystems.PhobosArmourClassDef>
+  <Phobos.VehicleSystems.PhobosArmourClassDef>
+    <defName>PhobosArmour_HeavyAutocannon</defName>
+    <label>heavy autocannon</label>
+    <stops>heavy cannon shells</stops>
+    <sharpMillimetres>75</sharpMillimetres>
+    <bluntMegapascals>2200</bluntMegapascals>
+    <sharpRating>1.30</sharpRating>
+    <bluntRating>1.05</bluntRating>
+    <order>7</order>
+  </Phobos.VehicleSystems.PhobosArmourClassDef>
+</Defs>
