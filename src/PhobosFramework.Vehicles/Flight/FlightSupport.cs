@@ -84,6 +84,18 @@ public static class FlightRules
         return judged;
     }
 
+    /// <summary>Whether it could still hold a hover with this much more weight on it (Framework 0.165.0, shared by our flight and the sling for
+    /// any helicopter): the engine model's hover check at the heavier weight, under the player's hover-limit setting; true where its engines
+    /// are not judged.</summary>
+    public static bool WouldHoverWith(VehiclePawn vehicle, double extraKg)
+    {
+        if (CompPhobosVehicleSystems.Of(vehicle) is not { Powertrain: { JudgesHover: true } train } systems) return true;
+        if (train.Engines().working <= 0) return false;
+        (bool dry, bool wet, double m) = train.HoverCheck(train.MassKg() + System.Math.Max(0, extraKg), systems.Ambient, systems.AirPressure);
+        float share = train.Profile?.forwardFlightShare ?? 0.6f;
+        return Hold(vehicle, dry || wet ? Mathf.Max(1f, (float)m) : (float)m, share) == FlightHold.Hover;
+    }
+
     /// <summary>Whether a straight lift-off is refused for weight, heat or height under the player's setting; the margin it judged.</summary>
     public static bool HoverRefused(VehiclePawn vehicle, out float margin)
     {

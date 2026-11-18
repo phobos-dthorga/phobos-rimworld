@@ -712,6 +712,19 @@
       ],
       "checked": "2026-11-18"
     },
+    "rabiosus.vtolvehicle": {
+      "name": "VTOL Vehicle",
+      "package_id": "rabiosus.vtolvehicle",
+      "workshop_id": "3730919989",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-18"
+    },
     "rimarrow.srt": {
       "name": "Rimarrow: Search & Rescue",
       "package_id": "rimarrow.srt",

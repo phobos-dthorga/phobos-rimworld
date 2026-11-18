@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.165.0] - 2026-11-19 - Draft
+
+The Hind lifts and sets down a sling load from a hover
+
+### Added
+
+- **The Hind lifts a sling load from a hover too.** In the air, Lift a vehicle sends it to hover beside the load once it is hooked up, and the hook takes it; Set load down here lowers it at a chosen spot; Emergency release drops it where it hangs. It flies on its own flight as before; landed with a load still on, the load is set down beside it once it is down.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The Hind's height for a release's fall is authored (up to 30 m), as its flight gives none in metres.
+
 ## [0.164.0] - 2026-11-19 - Draft
 
 Our own flight: faults found by the Osprey's first read before testing, fixed

@@ -138,6 +138,10 @@
       "it arrives over a map it attacks or explores": [{"key": "aircraft.flight-arrived", "variant": "Centre"},
         {"key": "aircraft.flight-arrived", "variant": "Edge"}, {"key": "aircraft.flight-arrived", "variant": "Targeted"}]
     }},
+    "213": {"parts": {
+      "the Hind lifts from a hover": [{"key": "vehicles.sling-hover-vtol", "variant": "lifted"}],
+      "the Hind sets down from a hover": [{"key": "vehicles.sling-hover-vtol", "variant": "set-down"}]
+    }},
     "212": {"parts": {
       "it lifts from a hover": [{"key": "vehicles.sling-hover", "variant": "lifted"}],
       "it sets down from a hover": [{"key": "vehicles.sling-hover", "variant": "set-down"}],

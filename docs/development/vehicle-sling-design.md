@@ -4,8 +4,8 @@
 lift and carry), slice 2 (weather, the slower flight, choosing the set-down, emergency release and wrecks), the landing fix (0.101.1),
 helicopters that fly across the map (0.102.0, with the Louie's and the Hind's hooks), the pictures and the latch sound; and, for a helicopter
 on our own flight, the hover over the load, setting it down from the air and release over a map (Framework 0.161.0,
-[built](#built-19-nov-2026-lifting-and-setting-down-from-a-hover), not yet tested in game). Not built: the same for a helicopter on another
-flight mod (the Hind) or on Vehicle Framework's own launch. Take-off and the world-map line were
+[built](#built-19-nov-2026-lifting-and-setting-down-from-a-hover), not yet tested in game), and the same for the Hind on VTOL Vehicle's
+flight (Framework 0.165.0). Not built: the same for a helicopter on Vehicle Framework's own launch, which cannot hover on a map. Take-off and the world-map line were
 tested in game by the owner on 12 Nov 2026; everything else is not yet tested in game.
 
 Design record. The owner asked for a vehicle airlift of our own, "with our own flavour on
@@ -332,8 +332,24 @@ our own flight (the Osprey, and the Cherokee, the Louie and the Mosquito with th
 | **No landing on the load** | **Land here** is refused while a load hangs, saying to set it down first; an arrival told to land holds near the edge instead | Stops a helicopter landing on its own load |
 | **Slower with a load** | Over the map at the slung flight's own share of its speed (0.7, authored, as between places), with the setting on | |
 
-**Not built:** the same for the Hind (on VTOL Vehicle's flight) or a helicopter on Vehicle Framework's own launch; a load drawn swinging
-or lowered on a line (it hangs under the helicopter as before).
+**Not built:** the same for a helicopter on Vehicle Framework's own launch (it never hovers on a map); a load drawn swinging or lowered on a
+line (it hangs under the helicopter as before).
+
+**The Hind too (Framework 0.165.0, at the owner's word, "Proceed with the Hind lifting from a hover too", 19 Nov 2026; not yet tested in
+game, row 213).** The lift, the set-down and the release work through a small pilot layer (`HoverPilot`): our own flight, or VTOL Vehicle's,
+read and ordered by name through its public members (`IsFlying`, `RealPosition`, `FacingAngle`, `CurrentDrawProgress`,
+`HasArrivedAtMoveTarget`, `SetMoveTarget`; its source is not public, so read from the decompile), with no assembly of ours referencing it.
+Where they differ:
+
+| What | For the Hind |
+| --- | --- |
+| Getting beside the load | Its own move order: it hovers over its move target, as VTOL Vehicle's aircraft do |
+| Who watches | The sling's own tick, every half second, only while a lift or set-down from a hover waits (our flight calls it itself) |
+| Its height | A share of its climb times 30 m (authored: VTOL Vehicle sets no height in metres), for a release's fall |
+| Landing with a load | Its own landing, which we do not refuse: the load waits on the hook and is set down once it is down, as after an arrival |
+| Hover with the load | The engine model's hover check at the heavier weight, as for ours (`FlightRules.WouldHoverWith`) |
+| Coming down | VTOL Vehicle's own crash: the load goes with it as before (set down where there is room when it is destroyed) |
+
 
 ## Other factions' vehicles
 

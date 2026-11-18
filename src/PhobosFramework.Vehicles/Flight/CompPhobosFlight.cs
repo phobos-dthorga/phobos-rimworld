@@ -174,13 +174,7 @@ public partial class CompPhobosFlight : VehicleComp
 
     /// <summary>Whether it could still hold a hover with this much more weight on it (Framework 0.161.0: a load on the hook), under the player's
     /// hover-limit setting; true where its engines are not judged.</summary>
-    public bool WouldHoverWith(double extraKg)
-    {
-        if (CompPhobosVehicleSystems.Of(Vehicle) is not { Powertrain: { JudgesHover: true } train } systems) return true;
-        if (train.Engines().working <= 0) return false;
-        (bool dry, bool wet, double m) = train.HoverCheck(train.MassKg() + Math.Max(0, extraKg), systems.Ambient, systems.AirPressure);
-        return FlightRules.Hold(Vehicle, dry || wet ? Mathf.Max(1f, (float)m) : (float)m, ForwardShare) == FlightHold.Hover;
-    }
+    public bool WouldHoverWith(double extraKg) => FlightRules.WouldHoverWith(Vehicle, extraKg);
 
     /// <summary>Its height now, metres.</summary>
     public float HeightMetresNow => Climb * Props.flightHeightMetres;
