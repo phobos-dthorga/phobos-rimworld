@@ -215,7 +215,8 @@
       "dust wears the engines": [{"key": "aircraft.landing-dust", "variant": "bare", "expect": {"loose": "> 0", "wear": "> 0"}}],
       "the inlet barrier keeps most of it out": [{"key": "aircraft.landing-dust", "variant": "barrier", "expect": {"wear": "> 0"}}],
       "dry growth catches fire": [{"key": "aircraft.landing-fire"}]
-    }}
+    }},
+    "227": ["patches.turret-picture-after-loading"]
   },
   "order": [
     {"name": "a piston engine warns before its battery cannot start it", "row": "69",

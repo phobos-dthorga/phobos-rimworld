@@ -19,11 +19,12 @@ public class VehicleFrameworkPatchesMod : Mod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.23.0";
+    public const string ModVersion = "0.24.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Vehicle Framework");
     const string Feature = "fires a vehicle cannot put out are put out: a second fire on it, or one left behind when it leaves a map";
     const string BarFeature = "Vehicle Framework's own vehicle work (repairs, upgrades) shows the game's progress bar";
+    const string PictureFeature = "a turret's picture asked for while a save loads is resolved once it has loaded, not left blank (temporary)";
 
     public VehicleFrameworkPatchesMod(ModContentPack content) : base(content)
     {
@@ -36,6 +37,7 @@ public class VehicleFrameworkPatchesMod : Mod
         var report = new LoadReport(LogPrefix, ModVersion, "Vehicle Framework");
         report.On(Feature);
         report.On(BarFeature);
+        report.On(PictureFeature);
         report.Log();
     }
 }

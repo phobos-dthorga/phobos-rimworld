@@ -6,6 +6,18 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.24.0] - 2026-11-19 - Draft
+
+A VTOL's turret saved mid-fight is drawn again after loading
+
+### Fixed
+
+- **A VTOL aircraft saved while one of its turrets had a target loads with that turret drawn.** While a save loads, the turret's picture was asked for too early, could not be loaded at that moment, and was then never tried again: the turret had no picture and the game reported an error every frame, thousands a minute, until the log stopped recording anything. Its picture is now loaded once the game has finished loading. Seen with the Mongoose. Temporary: it does nothing once VTOL Vehicle or Vehicle Framework stops asking for pictures while a save loads.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Safe with a running save; nothing is saved. A save that already shows the fault loads cleanly with this version.
+
 ## [0.23.0] - 2026-11-18 - Draft
 
 Own pictures for the Mk. 84 fills; drone platforms say how much they hold
