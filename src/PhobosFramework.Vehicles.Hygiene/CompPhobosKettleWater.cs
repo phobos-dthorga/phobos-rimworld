@@ -34,6 +34,6 @@ public class CompPhobosKettleWater : ThingComp, IFieldStoveGate
     public void BatchStarted()
     {
         if (PlumbingFeed.LiteMode || Net is not { } net) return;
-        if (PlumbingFeed.TryPullFrom(net, Props.litresPerBatch, out _) == WaterDraw.Flowing) Seen.Note("trailers.kettle-water-drawn", parent, Props.litresPerBatch + " L");
+        if (PlumbingFeed.TryPullFrom(net, Props.litresPerBatch, out _) == WaterDraw.Flowing && Seen.Wants("trailers.kettle-water-drawn", parent)) Seen.Note("trailers.kettle-water-drawn", parent, Props.litresPerBatch + " L");
     }
 }

@@ -48,11 +48,12 @@ public class SeenLineRuleTests
     [Fact]
     public void ASightingIsNewPerKeyCaseAndThing()
     {
-        string warning = SeenLineRule.Identity("vehicles.stage.turbineStart", "barely enough to light", "Abrams1");
-        Assert.NotEqual(warning, SeenLineRule.Identity("vehicles.stage.turbineStart", "too weak to light", "Abrams1"));
-        Assert.NotEqual(warning, SeenLineRule.Identity("vehicles.stage.turbineStart", "barely enough to light", "Abrams2"));
-        Assert.Equal(warning, SeenLineRule.Identity("vehicles.stage.turbineStart", "barely enough to light", "Abrams1"));
-        Assert.Equal(SeenLineRule.Identity("k", null, null), SeenLineRule.Identity("k", "", ""));
+        var warning = SeenLineRule.Identity("vehicles.stage.turbineStart", "barely enough to light", 1);
+        Assert.NotEqual(warning, SeenLineRule.Identity("vehicles.stage.turbineStart", "too weak to light", 1));
+        Assert.NotEqual(warning, SeenLineRule.Identity("vehicles.stage.turbineStart", "barely enough to light", 2));
+        Assert.Equal(warning, SeenLineRule.Identity("vehicles.stage.turbineStart", "barely enough to light", 1));
+        Assert.Equal(SeenLineRule.Identity("k", null, null), SeenLineRule.Identity("k", "", null));
+        Assert.NotEqual(SeenLineRule.Identity("k", null, null), SeenLineRule.Identity("k", null, 0));
     }
 
     static KeyValuePair<string, double> Pair(string name, double value) => new(name, value);

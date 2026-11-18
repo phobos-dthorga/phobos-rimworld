@@ -33,8 +33,9 @@ delivered, record the delivery in the changelog or design record, and add or ame
   test-pass; a preview without the flag), never by hand-copying them. **A verdict the owner gives in conversation** goes in the same way:
   `apply --verdict "ROW:WORD:NOTE" --apply`, WORD `passed`, `partial` (part of the row, the note saying which) or `failed`.
 - **A note carries what makes it evidence** (owner, 18 Nov 2026: `docs/development/seen-in-play-checks.md`): pass the thing it was seen on,
-  the case (`variant`) where one feature has several (a stage, a warning level), and its figures (`values`, built only behind `Seen.On`) where
-  the row expects an amount. In `config/test-evidence.json` split a row of several claims into `parts`, narrow a generic note with a `detail`
+  the case (`variant`) where one feature has several (a stage, a warning level), and its figures (`values`) where the row expects an amount.
+  **A note that builds its text or key at the call sits behind `Seen.Wants("key", thing)`** (or `Seen.On` for a built key), so it costs
+  nothing with the setting off and only its first sighting with it on; `tests/test_seen_note_cost.py` refuses one that does not. In `config/test-evidence.json` split a row of several claims into `parts`, narrow a generic note with a `detail`
   wildcard or a case, give `expect` figures where a hollow note could pass for a real one, and add an `order` rule where the design promises
   one thing before another (a warning before a refusal). A note with nothing narrowing it stands for one row unless `shared` says why. The
   report's "figures off", "out of order" and "seen only before the row last changed" sections are faults to look into, never passes.

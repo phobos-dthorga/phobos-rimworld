@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.138.1] - 2026-11-18 - Draft
+
+Testing notes that cost nothing when they are off, and little when they are on
+
+### Fixed
+
+- **With the testing notes off (the default), no note puts any text together.** About two dozen notes built their text before checking the setting, so every player paid a little for them; the busiest were a cold box's, every few seconds while it held food, and a hand-cranked gun's. Each now checks the setting first.
+- **With the testing notes on, a note already written this session costs almost nothing.** Since 0.138.0 every note call put together a name for the vehicle and the case before looking it up, many times a second with the Systems tab open; now it looks it up as a plain value, and builds text only for a note that is new.
+
+### Compatibility and limits
+
+- Nothing a player sees changes, and nothing is saved with a game. Not yet tested in game, and not measured: the saving is too small for a recording to show.
+
 ## [0.138.0] - 2026-11-18 - Draft
 
 Testing notes that say what they were seen on, which case and their figures

@@ -60,7 +60,7 @@ public class Alert_PhobosCrewInDanger : Alert
                 if (danger == CrewDanger.None) continue;
                 inDanger.Add(vehicle);
                 why[vehicle] = danger;
-                Seen.Note("vehicles.crew-in-danger-alert", vehicle, danger.ToString());
+                if (Seen.Wants("vehicles.crew-in-danger-alert", vehicle)) Seen.Note("vehicles.crew-in-danger-alert", vehicle, danger.ToString());
             }
         }
     }

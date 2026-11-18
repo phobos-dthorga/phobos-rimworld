@@ -107,7 +107,7 @@ public static class TurretPace
             // Read from the vehicle now (Framework 0.120.5, fault-read A9): the systems' own flag is set on the rare tick, a few seconds behind.
             bool moving = vehicle.vehiclePather is { Moving: true } || comp.Moving;
             pace.accuracy = (float)TurretAimRule.Factor(true, moving, poor, rules.noStabiliserAccuracy, rules.noSightsAccuracy);
-            if (pace.accuracy < 1f) Seen.Note("vehicles.cranked-turret-aims-worse", vehicle, turret.key + (moving ? " moving" : "") + (poor ? " dark" : ""));
+            if (pace.accuracy < 1f && Seen.Wants("vehicles.cranked-turret-aims-worse", vehicle)) Seen.Note("vehicles.cranked-turret-aims-worse", vehicle, turret.key + (moving ? " moving" : "") + (poor ? " dark" : ""));
         }
 
         // Seen in play (Framework 0.118.0): what slowed or stopped this weapon, once a session each.

@@ -120,7 +120,7 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
         underlay.Fill(area, map, cell => DubsPipes.IsPiped(cell, map), DubsPipes.Make);
         if (underlay.Changes != before) DubsPipes.Redraw(map, area);
         TopUp();
-        Seen.Note("trailers.shower-plumbing-laid", Vehicle, area.Area + " cells piped");
+        if (Seen.Wants("trailers.shower-plumbing-laid", Vehicle)) Seen.Note("trailers.shower-plumbing-laid", Vehicle, area.Area + " cells piped");
     }
 
     CellRect SetOutArea()

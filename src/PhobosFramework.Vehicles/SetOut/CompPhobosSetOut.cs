@@ -248,7 +248,7 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
         SetOuts.Register(this);
         Props.pitchSound?.PlayOneShot(new TargetInfo(Vehicle.Position, map));
         Messages.Message("PhobosSetOut_Done".Translate(Props.setOutLabel.Named("WHAT"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
-        Seen.Note("trailers.set-out", Vehicle, placed.Count + " pieces, " + roofed.Count + " roofed cells");
+        if (Seen.Wants("trailers.set-out", Vehicle)) Seen.Note("trailers.set-out", Vehicle, placed.Count + " pieces, " + roofed.Count + " roofed cells");
     }
 
     Thing MakePiece(SetOutPiece piece)

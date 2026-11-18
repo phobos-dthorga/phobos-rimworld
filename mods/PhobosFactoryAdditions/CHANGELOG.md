@@ -5,6 +5,18 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.14.2] - 2026-11-18 - Draft
+
+The deep hopper's testing note costs nothing with testing notes off
+
+### Fixed
+
+- The deep hopper's testing note no longer puts its text together when D'thorga Framework's testing notes are off, as they are by default. Nothing a player sees changes.
+
+### Compatibility and limits
+
+- Safe with a running save. Not yet tested in game.
+
 ## [0.14.1] - 2026-11-18 - Draft
 
 A deep hopper holds four stacks of a machine's output

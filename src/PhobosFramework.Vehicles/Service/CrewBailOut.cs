@@ -50,7 +50,7 @@ public static class CrewBailOut
         {
             VehicleSystemsMod.Logger.Debug(vehicle.LabelShort + " (" + (vehicle.Faction?.Name ?? "no faction") + "): crew bails out, " + danger);
         }
-        Seen.Note("vehicles.crew-bailed-out", vehicle, danger.ToString());
+        if (Seen.Wants("vehicles.crew-bailed-out", vehicle)) Seen.Note("vehicles.crew-bailed-out", vehicle, danger.ToString());
         vehicle.DisembarkAll();
     }
 }

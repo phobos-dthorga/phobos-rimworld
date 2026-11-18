@@ -15,14 +15,19 @@ public static class Seen
 {
     const string Mod = "D'thorga Framework";
 
-    /// <summary>Whether notes are being taken: check it before building figures for a note.</summary>
+    /// <summary>Whether notes are being taken: check it before building a note's key at the call.</summary>
     public static bool On => SeenInPlay.On;
 
-    /// <summary>Notes a feature seen working, with what it was seen on, which case and its figures.</summary>
+    /// <summary>Whether this note would be written now (on, and not yet seen this session): check it before building a note's text or
+    /// figures at the call (Framework 0.138.1; tests/test_seen_note_cost.py).</summary>
+    public static bool Wants(string key, Thing? on = null, string? variant = null) => SeenInPlay.Wants(key, variant, on);
+
+    /// <summary>Notes a feature seen working, with what it was seen on, which case and its figures. Returns before building anything when
+    /// the note would not be written.</summary>
     public static void Note(string key, Thing? on = null, string? what = null, string? variant = null,
         IReadOnlyList<KeyValuePair<string, double>>? values = null)
     {
-        if (!SeenInPlay.On) return;
+        if (!SeenInPlay.Wants(key, variant, on)) return;
         string? detail = on == null ? what : what == null ? on.LabelShort : on.LabelShort + ": " + what;
         SeenInPlay.Note(Mod, FrameworkMod.ModVersion, key, detail, on, variant, values);
     }

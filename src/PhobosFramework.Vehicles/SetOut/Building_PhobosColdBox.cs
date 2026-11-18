@@ -101,7 +101,7 @@ public class Building_PhobosColdBox : Building, IHaulDestination, IStoreSettings
     public override void TickRare()
     {
         base.TickRare();
-        if (Cold && innerContainer.Count > 0) Seen.Note("trailers.cold-box-cold", this, innerContainer.Count + " stacks");
+        if (Cold && innerContainer.Count > 0 && Seen.Wants("trailers.cold-box-cold", this)) Seen.Note("trailers.cold-box-cold", this, innerContainer.Count + " stacks");
     }
 
     public override void ExposeData()

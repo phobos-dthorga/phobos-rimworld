@@ -47,9 +47,11 @@ public static class SeenLineRule
         return text.Append('}').ToString();
     }
 
-    /// <summary>What makes a sighting new in a session: its key, its case and what it was seen on (Framework 0.138.0; before, the key
-    /// alone, so a stage's warning and refusal shared one note a session and a second vehicle never had its own).</summary>
-    public static string Identity(string key, string? variant, string? on) => key + "\u001f" + (variant ?? "") + "\u001f" + (on ?? "");
+    /// <summary>What makes a sighting new in a session: its key, its case and the number of the thing it was seen on (Framework 0.138.0;
+    /// before, the key alone, so a stage's warning and refusal shared one note a session and a second vehicle never had its own). A plain
+    /// value, never text, so asking whether a sighting is new makes no garbage (Framework 0.138.1).</summary>
+    public static (string Key, string Variant, int Thing) Identity(string key, string? variant, int? thing) =>
+        (key, variant ?? "", thing ?? int.MinValue);
 
     static void Field(StringBuilder text, string name, string value)
     {

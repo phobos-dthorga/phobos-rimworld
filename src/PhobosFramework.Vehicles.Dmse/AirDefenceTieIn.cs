@@ -119,7 +119,7 @@ static class LaunchPrompt
     public static bool Confirm(PlanetTile from, PlanetTile to, Action relaunch)
     {
         bool go = InterceptRiskUtility.ConfirmOrDefer(from, to, Faction.OfPlayer, checkDestination: true, relaunch);
-        if (!go) Seen.Note("aircraft.launch-warning", null, from + " to " + to);
+        if (!go && Seen.Wants("aircraft.launch-warning")) Seen.Note("aircraft.launch-warning", null, from + " to " + to);
         return go;
     }
 }

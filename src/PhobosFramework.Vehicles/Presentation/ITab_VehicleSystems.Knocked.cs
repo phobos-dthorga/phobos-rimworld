@@ -34,7 +34,7 @@ public partial class ITab_VehicleSystems
         anything = true;
         float top = y;
         PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosVehicleSystems_SysCrew".Translate(), PhobosWidgets.Bad);
-        Seen.Note("vehicles.systems-tab.crew-card", comp.Vehicle, danger.ToString());
+        if (Seen.Wants("vehicles.systems-tab.crew-card", comp.Vehicle)) Seen.Note("vehicles.systems-tab.crew-card", comp.Vehicle, danger.ToString());
         string line = (danger == CrewDanger.Burning ? "PhobosVehicleSystems_SysCrewBurning" : "PhobosVehicleSystems_SysCrewKnockedOut").Translate().Resolve();
         y += PhobosWidgets.WrappedLine(6f, y + 3f, width - 12f, line.Colorize(PhobosWidgets.Bad)) + 6f;
         PhobosWidgets.CardEnd(top, ref y, 0f, width);

@@ -24,7 +24,7 @@ public static class SeenInPlay
     /// <summary>The file the notes go to, in the game's own data folder beside the colony mood file.</summary>
     public static string OutputPath => Path.Combine(GenFilePaths.SaveDataFolderPath, Mood.ColonyMoodFile.FolderName, FileName);
 
-    static readonly HashSet<string> seenThisSession = new();
+    static readonly HashSet<(string Key, string Variant, int Thing)> seenThisSession = new();
     static readonly HashSet<string> rowsSaidThisSession = new();
     static readonly object gate = new();
     static bool failureLogged;
@@ -32,6 +32,17 @@ public static class SeenInPlay
 
     /// <summary>Whether notes are being taken (the setting).</summary>
     public static bool On => FrameworkMod.Settings.noteSeenInPlay;
+
+    /// <summary>
+    /// Whether a note would be written now: the setting is on and this key, case and thing have not been seen this session (Framework
+    /// 0.138.1). Makes nothing, so a call site can ask it before putting a note's text together; tests/test_seen_note_cost.py holds every
+    /// note that builds text to it or to <see cref="On"/>.
+    /// </summary>
+    public static bool Wants(string key, string? variant = null, Thing? on = null)
+    {
+        if (!FrameworkMod.Settings.noteSeenInPlay) return false;
+        lock (gate) return !seenThisSession.Contains(SeenLineRule.Identity(key, variant, on?.thingIDNumber));
+    }
 
     /// <summary>
     /// Notes that a feature was seen working, once a session per key, case and thing. <paramref name="key"/> is stable and dotted
@@ -43,11 +54,12 @@ public static class SeenInPlay
         IReadOnlyList<KeyValuePair<string, double>>? values = null)
     {
         if (!FrameworkMod.Settings.noteSeenInPlay) return;
-        string? id = on?.ThingID;
         lock (gate)
         {
-            if (!seenThisSession.Add(SeenLineRule.Identity(key, variant, id))) return;
+            if (!seenThisSession.Add(SeenLineRule.Identity(key, variant, on?.thingIDNumber))) return;
         }
+        // Built only for a sighting that is new: a thing's ID is text the game puts together each time it is asked.
+        string? id = on?.ThingID;
         string line = SeenLineRule.Line(DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture), key, mod, version, detail,
             id, on?.def?.defName, variant, values);
         FrameworkMod.Logger.Info("seen in play: " + key + (string.IsNullOrEmpty(variant) ? "" : " [" + variant + "]")

@@ -219,8 +219,8 @@ public static class TopUps
         if (pawn.carryTracker.CarriedThing != null) pawn.carryTracker.TryDropCarriedThing(pawn.Position, ThingPlaceMode.Near, out _);
         if (moved > 0)
         {
-            if (target is Pawn) Seen.Note("framework.top-up-mechanoid", target, moved.ToString());
-            else Seen.Note("framework.top-up", target, moved.ToString());
+            if (target is Pawn) { if (Seen.Wants("framework.top-up-mechanoid", target)) Seen.Note("framework.top-up-mechanoid", target, moved.ToString()); }
+            else if (Seen.Wants("framework.top-up", target)) Seen.Note("framework.top-up", target, moved.ToString());
         }
         return moved;
     }
@@ -237,9 +237,12 @@ public static class TopUpDefOf
 /// <summary>"Seen in play" notes for this part (Debug/SeenInPlay; AGENTS.md: a feature with a test row notes itself).</summary>
 static class Seen
 {
+    /// <summary>Whether this note would be written now: check it before building a note's text (Framework 0.138.1).</summary>
+    public static bool Wants(string key, Thing? on = null) => Debug.SeenInPlay.Wants(key, null, on);
+
     public static void Note(string key, Thing? on = null, string? what = null)
     {
-        if (!Debug.SeenInPlay.On) return;
+        if (!Debug.SeenInPlay.Wants(key, null, on)) return;
         string? detail = on == null ? what : what == null ? on.LabelShort : on.LabelShort + ": " + what;
         Debug.SeenInPlay.Note("D'thorga Framework", FrameworkMod.ModVersion, key, detail, on);
     }

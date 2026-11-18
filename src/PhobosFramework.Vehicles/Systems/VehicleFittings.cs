@@ -809,7 +809,7 @@ public sealed class VehicleFittings
             if (!order.tune.isDefault) tunes.Add(order.tune);
             text = "PhobosVehicleSystems_TuneDone".Translate(who, vehicle, order.tune.label.Named("SETTING")).Resolve();
             // The key is built from the tune's name (Framework 0.123.0); config/test-evidence.json lists it as a prefix.
-            Seen.Note("vehicles.tune-done." + order.tune.defName, comp.Vehicle);
+            if (Seen.On) Seen.Note("vehicles.tune-done." + order.tune.defName, comp.Vehicle);
         }
         else if (order.remove)
         {
@@ -828,7 +828,7 @@ public sealed class VehicleFittings
             text = "PhobosVehicleSystems_FitDone".Translate(who, order.fitting!.label.Named("FITTING"), vehicle, PartLabel(order.partKey).Named("PART")).Resolve();
             // A fitting put on over another takes that one off: its kit comes back too (Framework 0.129.0).
             if (replaced != null && replaced != order.fitting && GiveBack(replaced) is { } back) text += " " + back;
-            Seen.Note("vehicles.fitting-done." + order.fitting.defName, comp.Vehicle, PartLabel(order.partKey));
+            if (Seen.On) Seen.Note("vehicles.fitting-done." + order.fitting.defName, comp.Vehicle, PartLabel(order.partKey));
         }
         orders.Remove(order);
         Changed();

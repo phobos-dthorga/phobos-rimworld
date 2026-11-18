@@ -137,7 +137,7 @@ public static class AirCombat
         }
         if (vehicle.Faction != Faction.OfPlayer || !receiver) return;
         // Framework 0.138.0: the warning is the note's case, so tracking, lock-on and launch are each noted once a session.
-        Seen.Note("aircraft.warning-receiver", vehicle, warning.ToString(), warning.ToString());
+        if (Seen.On) Seen.Note("aircraft.warning-receiver", vehicle, warning.ToString(), warning.ToString());
         Dictionary<Warning, int> last = lastWarned.GetOrCreateValue(vehicle);
         int now = Find.TickManager.TicksGame;
         int cooldown = (int)(Rules.warningCooldownHours * GenDate.TicksPerHour);
@@ -229,7 +229,7 @@ public static class AirCombat
             count++;
         }
         if (count == 0) return;
-        Seen.Note("aircraft.altitude-hypoxia", vehicle, count.ToString());
+        if (Seen.Wants("aircraft.altitude-hypoxia", vehicle)) Seen.Note("aircraft.altitude-hypoxia", vehicle, count.ToString());
         if (vehicle.Faction == Faction.OfPlayer)
         {
             Messages.Message("PhobosAirCombat_Hypoxia".Translate(vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.NegativeHealthEvent);
@@ -319,7 +319,7 @@ public static class AirCombat
         float control = vehicle.GetStatValue(VehicleStatDefOf.FlightControl);
         float bonus = SalvoActive(vehicle) ? rules.mapSalvoEvasionBonus : 0f;
         float chance = (float)AirCombatRule.Evasion(authorsChance, control, warning, rules.noWarningEvasionFactor, bonus, Math.Max(rules.evasionCap, authorsChance));
-        if (chance < authorsChance) Seen.Note("aircraft.evasion-reduced", vehicle, chance.ToString("0.00"));
+        if (chance < authorsChance && Seen.Wants("aircraft.evasion-reduced", vehicle)) Seen.Note("aircraft.evasion-reduced", vehicle, chance.ToString("0.00"));
         return chance;
     }
 }

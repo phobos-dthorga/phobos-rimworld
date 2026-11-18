@@ -128,7 +128,7 @@ public class PhobosCaravanCooking : WorldComponent
         Give(caravan, mealDef, meals - poisoned, null);
         Give(caravan, mealDef, poisoned, FoodPoisonCause.IncompetentCook);
         Tell("PhobosCaravanCooking_Cooked".Translate(caravanName, meals.Named("COUNT"), mealDef.label.Named("MEAL")).Resolve(), caravan, MessageTypeDefOf.PositiveEvent);
-        Seen.Note("trailers.caravan-cooking", kitchen, meals + " meals, " + poisoned + " spoilt");
+        if (Seen.Wants("trailers.caravan-cooking", kitchen)) Seen.Note("trailers.caravan-cooking", kitchen, meals + " meals, " + poisoned + " spoilt");
     }
 
     static bool Allowed(RecipeDef recipe, Thing thing) =>

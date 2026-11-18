@@ -806,7 +806,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         }
         if (!changed) return;
         RecacheStatFactors();
-        if (StatFactor(VehicleStatDefOf.MoveSpeed) < 1f) Seen.Note("vehicles.lite-tier-slowed", Vehicle, StatFactor(VehicleStatDefOf.MoveSpeed).ToString("0.##"));
+        if (StatFactor(VehicleStatDefOf.MoveSpeed) < 1f && Seen.Wants("vehicles.lite-tier-slowed", Vehicle)) Seen.Note("vehicles.lite-tier-slowed", Vehicle, StatFactor(VehicleStatDefOf.MoveSpeed).ToString("0.##"));
     }
 
     /// <summary>
@@ -1313,7 +1313,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     void NoticeBeltSlip(float grip, float beltCondition)
     {
         if (grip >= BeltSlipNoticed || beltCondition <= 0f || Vehicle?.Faction != Faction.OfPlayer) return;
-        Seen.Note("vehicles.belt-slipping", Vehicle, grip.ToStringPercent());
+        if (Seen.Wants("vehicles.belt-slipping", Vehicle)) Seen.Note("vehicles.belt-slipping", Vehicle, grip.ToStringPercent());
         if (!MayNotify("beltSlip", Rules.messageCooldownHours)) return;
         VehicleNotices.Send("PhobosVehicleSystems_MsgBeltSlipping".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle,
             MessageTypeDefOf.NegativeEvent);
@@ -1470,7 +1470,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         chilled.Clear();
         if (!running) return;
         CampFridge.Choose(Vehicle, Rules.fridgeKilograms, chilled);
-        if (chilled.Count > 0) Seen.Note("vehicles.fridge-chilling", Vehicle, chilled.Count + " stacks");
+        if (chilled.Count > 0 && Seen.Wants("vehicles.fridge-chilling", Vehicle)) Seen.Note("vehicles.fridge-chilling", Vehicle, chilled.Count + " stacks");
     }
 
     /// <summary>The labels of the switched loads running now (lights, heaters), from the last sum. Derived, never saved.</summary>
@@ -1681,7 +1681,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                     if (entered.notable && state.staged) RecordEvent(VehicleEventKind.Stage, state.Def.defName, state.Def.quantities[q].name, index);
                     // Seen in play (Framework 0.123.0): the key is built from the quantity's name; config/test-evidence.json lists it as a prefix.
                     // Framework 0.138.0: the stage is the note's case, so a warning and the refusal after it are both noted, per vehicle.
-                    if (entered.notable && state.staged) Seen.Note("vehicles.stage." + state.Def.quantities[q].name, Vehicle, entered.label, entered.label);
+                    if (entered.notable && state.staged && Seen.On) Seen.Note("vehicles.stage." + state.Def.quantities[q].name, Vehicle, entered.label, entered.label);
                 }
             }
             StageSpec? current = state.CurrentStage(q);
@@ -2260,7 +2260,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
             OutletWatts = (float)CampRule.OutletWatts(CampOutlet.CampAsks(meter), CampRule.OutletRating(Rules.outletWattsAt12Volts, ElectricalVolts()));
             meter.PowerOn = true;
             meter.PowerOutput = OutletWatts;
-            if (OutletWatts > 0f) Seen.Note("vehicles.outlet-giving", Vehicle, OutletWatts.ToString("0") + " W");
+            if (OutletWatts > 0f && Seen.Wants("vehicles.outlet-giving", Vehicle)) Seen.Note("vehicles.outlet-giving", Vehicle, OutletWatts.ToString("0") + " W");
             return;
         }
         double carried = 0, charging = 0;
@@ -2586,7 +2586,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         if (fresh.Count == 0) return;
         Messages.Message("PhobosVehicleSystems_MsgWiringShorted".Translate(Vehicle.LabelShort.Named("VEHICLE"), fresh.ToCommaList(useAnd: true).Named("LOADS")),
             Vehicle, MessageTypeDefOf.NegativeEvent);
-        Seen.Note("vehicles.wiring-shorted", Vehicle, string.Join(", ", fresh));
+        if (Seen.Wants("vehicles.wiring-shorted", Vehicle)) Seen.Note("vehicles.wiring-shorted", Vehicle, string.Join(", ", fresh));
     }
 
     public bool IsOn(ElectricalLoadSpec load) => loadSwitches.TryGetValue(load.name, out bool on) ? on : load.defaultOn;

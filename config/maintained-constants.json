@@ -9,7 +9,7 @@
     "PhobosFactoryAdditions.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.14.1",
+      "value": "0.14.2",
       "description": "D'thorga Factory Additions's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -41,7 +41,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.138.0",
+      "value": "0.138.1",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {

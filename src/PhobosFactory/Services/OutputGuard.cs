@@ -96,7 +96,7 @@ public static class OutputGuard
         {
             if (thing.def == output) stacks++;
         }
-        if (stacks > 1) Seen.Note("factory.deep-hopper-output-stacks", cell.GetEdifice(map), stacks + " stacks of " + output.label);
+        if (stacks > 1 && Seen.On) Seen.Note("factory.deep-hopper-output-stacks", cell.GetEdifice(map), stacks + " stacks of " + output.label);
     }
 
     private static bool WouldLoseBatch(Process process, ThingDef output, int batch, IntVec3 cell, Map map)
