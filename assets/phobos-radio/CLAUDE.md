@@ -1,0 +1,1 @@
+@../../src/PhobosRadio/AGENTS.md

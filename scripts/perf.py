@@ -10,7 +10,12 @@ owner before recording their running game**, and ask them to save first. Paths c
     python scripts/perf.py report                          the newest recording again
     python scripts/perf.py mod "D'thorga Medical"          one mod: its busiest methods and where its time went
     python scripts/perf.py compare                         the last two recordings, as shares
-    python scripts/perf.py list                            every recording kept
+    python scripts/perf.py list                            every recording and snapshot kept
+    python scripts/perf.py stack --label "frozen"          a frozen or stuck game: every thread's stack, 3 times, 2 s apart
+    python scripts/perf.py heap --label "day 40"           what holds the game's memory, by type and by mod (pauses the game)
+    python scripts/perf.py heap-compare                    the last two heaps: who grew
+
+Ask the owner before stack and heap too: heap forces a full garbage collection, so the game pauses until it is done.
 """
 from pathlib import Path
 import sys

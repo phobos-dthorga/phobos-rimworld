@@ -4,7 +4,7 @@
     python scripts/check-upgrade-trees.py show [TREE]  every tree (or those matching TREE) as text: links, exclusions, tie-ins
     python scripts/check-upgrade-trees.py --write      rewrite every diagram from its tree
 
-Owner, 17 Nov 2026 (AGENTS.md, "Upgrade trees"): two upgrades are linked only when one does nothing, or makes no physical sense,
+Owner, 17 Nov 2026 (src/PhobosFramework.Vehicles/AGENTS.md, "Upgrade trees"): two upgrades are linked only when one does nothing, or makes no physical sense,
 without the other. Reads every Vehicles.UpgradeTreeDef in mods/ and every PatchOperationAdd into one's nodes (a tie-in node, from a
 Mods/<Other>/ folder), with our "any one of" links (Phobos.VehicleSystems.PhobosUpgradeAnyOf). Fails on what the game would accept
 silently or find only in play: a key used twice, an exclusion written on one side only or naming no node, a prerequisite or any-of

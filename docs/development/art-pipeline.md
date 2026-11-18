@@ -3,7 +3,7 @@
 **Status (17 Nov 2026):** current. How a picture of ours is made today, end to end, with every route in use; the shipped art is in
 the mods, each texture with its record. Shipping a texture is not testing it: what a texture looks like in game is the owner's word.
 
-The rules for art are in [AGENTS.md, "Artwork and sound"](../../AGENTS.md#artwork-and-sound); this page links them rather than
+The rules for art are in [the art and sound rules](../../assets/AGENTS.md); this page links them rather than
 repeating them. Below the pipeline is the art half of the first design (4 to 5 Nov 2026), moved here as written: the runner and its
 safeguards, the models, the owner's first picks, style training, the vanilla sprites and the decision to ship style-model output.
 
@@ -40,7 +40,7 @@ The other routes weighed (Gemini, fal.ai, Midjourney and others, the view-angle 
 1. **Request.** The owner gives the brief, the go and, for a local run, a stop time. The agent writes a request file in
    `assets/<set>/requests/`: engine, prompt (the camera instruction first), size, seeds, and each reference with its role. Before a
    vehicle's first picture, its size is measured against the biggest comparable vehicle and generated at 1.5 times or more
-   ([AGENTS.md](../../AGENTS.md#artwork-and-sound)); one pilot picture comes before a family.
+   ([the art and sound rules](../../assets/AGENTS.md)); one pilot picture comes before a family.
 2. **Generate with `scripts/art-run.py`.** `python scripts/art-run.py generate <requests.json> --stop-at HH:MM`, or
    `night plan.json` for a queue under one stop time. It writes a record beside every image (`scripts/generate-art.py`), sorts the
    promising ones first, and makes contact sheets and a review page. Its safeguards are listed under

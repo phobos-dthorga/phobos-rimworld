@@ -1,0 +1,5 @@
+#!/bin/sh
+# The commit guard (owner's go-ahead, 18 November 2026): refuse a commit whose staged files no full passing gate run saw exactly
+# as staged (phobos-modkit's gate --verify-staged; AGENTS.md, "Builds, installation and checks").
+# Turn it on once per clone with: git config core.hooksPath .githooks
+exec python scripts/check-all.py --verify-staged

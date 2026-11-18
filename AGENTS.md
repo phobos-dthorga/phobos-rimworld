@@ -8,6 +8,20 @@ design (`docs/development/radio-framework-design.md`); its conventions follow Ph
 (`phobos-dthorga/phobos-ostranauts`), adapted to RimWorld. Keep this file to rules: when a direction is
 delivered, record the delivery in the changelog or design record, and add or amend only the rule here.
 
+## Rules kept beside their work
+
+Three sets of rules live in the folders they govern, so a session loads them only when it works there (owner's go-ahead,
+18 Nov 2026, to cut what every session reads). **Read the file before that work, even if no file in its folder is open yet**:
+running a script does not load them.
+
+- **Art and sound**: [`assets/AGENTS.md`](assets/AGENTS.md). Before generating, picking, cutting, exporting, recording or
+  shipping any picture or sound, and before touching a texture or a paint mask.
+- **Vehicles and submarines**: [`src/PhobosFramework.Vehicles/AGENTS.md`](src/PhobosFramework.Vehicles/AGENTS.md). Before
+  designing or changing any vehicle, upgrade tree, accessory, part or submarine mechanic, in XML or C#.
+- **Radio framework**: [`src/PhobosRadio/AGENTS.md`](src/PhobosRadio/AGENTS.md): its phases and its physics rules.
+- **The radio framework is on the back burner** (owner, 9 Nov 2026): no new radio features or phases, and no reviews of it, until the
+  owner picks it up again. The mod stays as it is, and a fix to something broken in it is still fine when the owner reports it.
+
 ## Working with the owner
 
 - Practical, small-team project: prefer a working slice over speculative frameworks or process. Aim for
@@ -52,6 +66,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   raw log only for what the summary cannot answer.
 - **When the game closes by itself with little in its log, run `python scripts/crash-dump.py`** (owner, 9 Nov 2026): it reads the newest RimWorld dump in Windows' CrashDumps folder without a debugger, and names
   the exception and any call loop that ran away. A small dump cannot name .NET methods; for a stack overflow the game's error output can (`docs/development/crash-2026-11-09-stack-overflow.md`).
+  **A full dump names them** (owner's go-ahead, 18 Nov 2026): crash-dump then asks Microsoft's dotnet-dump which method and assembly each
+  code address on the failing stack falls in. **`python scripts/crash-dump.py setup`** says whether Windows keeps full dumps of RimWorld and
+  gives the PowerShell lines that ask it to; the owner runs them (or `setup --apply`) in an administrator window. **Agents never run
+  `--apply` or `--off`.** A full dump is as large as the game's memory when it crashed.
 - **Answer which mod defines or patches a Def with `python scripts/query-defs.py`** (`who <defName>` for every
   definition, the one the game keeps and every patch naming it; `show` for its XML and parents, `--lines 0` for a long Def in
   full; `list`, `patches`,
@@ -103,6 +121,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   and `compare` (shares of ticking, so a faster game cannot hide a gain). It attaches Microsoft's dotnet-trace and dotnet-counters
   to RimWorld 1.7 from outside and changes nothing in it, but **ask the owner before recording their running game, and to save
   first**: attaching can hitch it. A performance fix is checked with a recording before and after; a recording measures, never tests.
+  **A frozen or stuck game: `python scripts/perf.py stack`** (owner's go-ahead, 18 Nov 2026), before guessing from code: snapshots of
+  every thread's stack a moment apart, whether the main thread moved, the frames that never did and the innermost mod on them.
+  **Memory: `heap`**, by type and by mod, and **`heap-compare`** for what grew (take three over minutes before calling it a leak).
+  **Ask the owner before each**, as for a recording; heap forces a full garbage collection, so the game pauses until it is done.
 - **Answer how long the game takes to start, and which mods cost it, with `python scripts/startup-impact.py`** (owner, 8 Nov 2026):
   every launch, the costliest mods, `compare` for what changed between two launches, `mod <name>` for one mod. Start-up time varies
   between identical launches, so trust only a difference that repeats. **Answer which active mods are ready for a game version
@@ -147,22 +169,6 @@ delivered, record the delivery in the changelog or design record, and add or ame
   never in C#, so other writers and players can add to it. Claude builds the logic, Def types, validators
   and the hooks between data and code, and may write creative content following the same rules as any
   writer: it is labelled agent-authored in the changelog and held for the owner's review.
-
-## Phases and the design
-
-- **Phase 1 of the radio framework is open** (owner, 19 October 2026): local VHF/UHF on one map, as the
-  design's roadmap lists it. Each later phase waits for its gate and an explicit owner go-ahead; the
-  design's "refined during play" still applies to everything beyond the open phase. Research,
-  verification and design records are welcome at any time.
-- **The radio framework is on the back burner** (owner, 9 Nov 2026): no new radio features or phases, and no reviews of it, until the
-  owner picks it up again. The mod stays as it is, and a fix to something broken in it is still fine when the owner reports it.
-- The living design doc on claude.ai is the master copy; `docs/development/radio-framework-design.md` is
-  a dated snapshot of it. Refresh the snapshot when the owner asks, keeping its text as written and its
-  diagrams as Mermaid. Notes from play go in the living doc's "Notes from play" table. Decisions that
-  answer the design's open questions are recorded in `docs/development/project-direction.md`.
-- Reference figures the design marks as unverified stay unverified until a record shows a source
-  (`docs/development/radio-reference-checks.md`); a Def may carry a figure with a secondary source if
-  its description says "approximate", and never one with no source at all.
 
 ## Git and publication boundaries
 
@@ -326,37 +332,6 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - **Anything that takes water or piping has its own pipes beneath it** (owner, 9 Nov 2026: "like how the vanilla game and pretty much most other mods do"). Every cell of its footprint joins the
   network, so a pipe touching any side connects and a run passes through: a building through `CompPhobosPipeUnderlay` or the piping mod's own comp; a vehicle, like a gravship, while it is parked, taking them
   with it when it moves (`VehiclePipes`). `PipeUnderlay` lays the piping mod's own hidden pipe only where none is, never touches another pipe, and is applied at the next look, so saves convert by themselves.
-- **Every vehicle of ours is upgradeable and extendable from its first Def** (owner, 8 Nov 2026): a Vehicle Framework upgrade
-  tree shaped by the vehicle, every node moving a figure that changes an outcome, node keys stable once a save can hold them; the
-  base body is drawn bare and every visible node is its own overlay set, planned before the first picture
-  (`docs/development/utility-vehicles-design.md`, principle 8).
-- **Upgrade trees branch only where one upgrade does nothing, or makes no physical sense, without another** (owner, 17 Nov 2026,
-  after the tanker's flat tree let compartments go on a bare deck). Research paces progress; a tree never adds gating of its own, and
-  "better with" is no link. Four links, each for its own reason: **either/or** for things that fill the same place (Vehicle Framework's
-  exclusion list, on both nodes); **needs all of** for building on one earlier upgrade (`prerequisiteNodes`); **needs any one of**
-  for alternatives (`PhobosUpgradeAnyOf`); and **holds it on** only for what sits inside or on its parent. Alternatives share a row,
-  dependants sit below, and free-standing upgrades take their own row. A tie-in node may hang from ours, never ours from a tie-in's;
-  other authors' trees are left alone. **`python scripts/check-upgrade-trees.py`** (part of the gate) checks every tree, `show` prints
-  them, and `--write` redraws the Mermaid diagram each tree's design record carries under its `<!-- upgrade-tree: DEFNAME -->` line.
-- **A vehicle accessory uses up something real** (owner, 13 Nov 2026): battery and alternator power, fuel, water or goods from the game
-  world. A store such as a water tank runs down as it is used and is refilled by the player's people, never by itself. Gear with nothing
-  to plug in (an awning, a roof rack) costs its materials and its weight, with no wear or upkeep (`docs/development/vehicle-accessories.md`).
-- **No drag or aerodynamics** (owner, 13 Nov 2026: "not something that can be accurately modelled in Rimworld without large assumptions"):
-  nothing of ours changes a vehicle's speed or fuel use through air resistance. **One exception** (owner, 18 Nov 2026): the drivetrain
-  model keeps its one fixed drag figure per vehicle class; no fitting, accessory, load or upgrade ever changes it.
-- **Design every vehicle mechanic with other factions' vehicles in mind** (owner, 11 Nov 2026): raiders who arrive in vehicles and, at the very
-  least, the vehicles standing at a base the player attacks. Each vehicle design record has a section saying what the mechanic does on a vehicle
-  in a raid on us, on one parked at a base we attack, and on one we capture; it works on any faction's vehicle unless the record says why not,
-  and costs little with several on a map. How other factions come to have vehicles is in `docs/development/vehicle-framework-mechanics.md`;
-  `docs/development/vehicle-other-factions-audit.md` stands in for the section in older records until each is next touched.
-- **Design every submarine mechanic for enemy submarines** (owner, 10 Nov 2026: coming "not later, but very soon"). Each mechanic works for any
-  faction's boat, costs little per hull with several hostile ones on a map, and never shows the player what their own crew could not know.
-  Submarines get no walkable gravship-style interior, because of its performance cost; our own interfaces and mechanics stand in for it.
-  `docs/development/submarine-framework.md` lists what already works for a hostile boat and what is missing.
-- **Vehicle parts are ours, and other mods' are substitutes** (owner, 9 Nov 2026, reversing "providers first"): our part items always
-  exist in D'thorga Framework and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's
-  are accepted only where they make sense, named per role in `PhobosVehiclePartSupplyDef` with `MayRequire`, never in C#. The framework
-  is meant to grow into tuning and upgrades (`docs/development/vehicle-health-design.md`).
 - **What a thing of ours is built from is a parts bill, by role** (owner, 11 Nov 2026; `docs/development/parts-bills.md`): a vehicle or
   a placed building lists its roles in a `PhobosBillDef`, keeps only its shell in its own `costList`, and each role is filled at start-up
   by an installed mod's part where it suits and ours otherwise, from the same table repairs use. Never swap a cost with patch folders per
@@ -421,22 +396,6 @@ delivered, record the delivery in the changelog or design record, and add or ame
 - Expose reasonable player preferences as documented mod settings; keep identities and physics rules
   stable rather than configurable. Multiplayer is out of scope until after the public beta.
 
-## Radio framework rules
-
-- **One link-budget service decides every contact.** Plain, Operator and Engineer modes change only what
-  the UI shows, never the outcome.
-- **Decibels everywhere.** Gains and losses add in dB; distance follows the inverse-square law (doubling
-  it costs 6 dB). Every figure in a Def names its source or says it is authored. The rules Def
-  (`RadioRulesDef`) holds the starting values the design says to tune in play; player preferences
-  (display mode, `metresPerCell`, the thought) are mod settings, never physics.
-- **A link is two-way.** The link budget evaluates both directions and the worse one decides; the sheet
-  names the limiting direction. Antenna height matters through ray clearance over walls
-  (`docs/development/project-direction.md`); a figure the UI shows must affect an outcome somewhere.
-- **Realism is a feel, not a hidden calculation.** Use the simplest model that produces the right
-  behaviour, and make every rule visible to a player who wants to see it.
-- **Physics sets the kit, the kit sets the play**: wavelength drives antenna size, which drives
-  portability, power draw and siting. Don't hand out kit that physics says is impossible.
-
 ## Materials, chemistry and balance
 
 - **Honest physics and chemistry**: outputs are what the inputs can realistically give; give the real
@@ -444,65 +403,6 @@ delivered, record the delivery in the changelog or design record, and add or ame
   simplifications as gameplay choices.
 - No loops that create value from nothing; building to sell must not beat the vanilla economy. Keep new
   items and research gates proportional to what they unlock.
-
-## Artwork and sound
-
-- Match RimWorld's look. Record how each texture or sound was made (tool, prompt, date, source hashes) in
-  an asset record beside it; disclose AI assistance; never ship the game's or another mod's art. Check
-  generator allowance and cost first; never silently buy credit or switch to a costlier generator.
-- **Every generated image is saved on an art branch unless it is truly fugly** (owner, 8 Nov 2026), exactly as it was generated: the original file byte for byte with its record, the pick on `art-masters` and the rest on `art-references`. Crops, cut-outs and resizes are new files and never replace an original. A truly fugly image is left out with a one-line reason in its batch record; when in doubt, keep it. An image the near-copy check flags against the game's or another author's art stays local, off these public branches.
-- **No white where background should be** (owner, 12 Nov 2026: white "on the borders, or inside the picture"): before exporting a new
-  original, let the background AI look at it (`python scripts/art/clean_backgrounds.py masks --cpu --stop-at HH:MM`); the exporters then
-  clear white the object encloses where the AI is sure it is background, and take the white out of soft edges. Re-exports go through
-  `stage`, a review page and `apply`. The AI runs on the graphics card only with the game closed (`docs/development/background-cleanup.md`).
-- **The AI looks at every picture we ship, at every export, not only new ones** (owner, 16 Nov 2026: "so cheap to run that we may as well use
-  it for everything"): run `masks` before any export, re-export, crop or overlay, and **never judge a texture from the raw file alone**: a
-  vehicle's painted parts are stored grey for the game to tint, so look at it tinted on dark ground before showing it to the owner. A paint
-  mask (the `m` files) is never shipped speckled: any pixel left unpainted inside a painted part, or painted outside it, is a fault to fix
-  before the owner sees it (the Pintle bowser's, 16 Nov 2026). **Paint is decided by region, then flecks repaired by Segment Anything's parts
-  map** (the owner's picks of 16 Nov 2026: regions over parts alone, then the repair): run `scripts/art/paint_segments.py` on a new master and
-  repaint with `repaired`; `python scripts/art/repaint_vehicles.py` stages, reviews and applies
-  every body's masks again, and **`python scripts/art/paint_check.py` counts the visible flecks** left before the owner sees them
-  (`docs/development/vehicle-paint-masks.md`).
-- **Cut every vehicle master into its named parts with Segment Anything wherever a part earns it** (owner, 18 Nov 2026: "if we
-  can extract some kind of benefit like that"): a damage look on the part its design's parts table names, the anchor of anything
-  that turns or sits on the body (a rotor hub, a turret ring, a hook), a paint region, or the part as its own overlay. Prompt each
-  part at the place the design or its plan drawing gives, show the owner the parts before anything is exported, and use the
-  graphics card only with the game closed and on the owner's go.
-- **Art the mods don't ship stays off `main`** (owner, 7 Nov 2026): full-size masters of shipped and picked art on the `art-masters`
-  branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
-  with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and
-  its dataset, and model files. `assets/*/references/` is ignored on `main`; the scripts that draw references draw them again.
-- **Paid generation follows `docs/development/paid-image-generation-rules.md`** (owner, 8 Nov 2026: the OpenAI image API
-  for vehicle bodies, with the rules learnt in Phobos Ostranauts; 18 Nov 2026: other services through fal.ai where the owner
-  prefers their look, under the same rules). **Only our own art is ever uploaded** to a provider: the
-  game's textures, other authors' art and screenshots stay on this PC, and the engine refuses them as references. Every
-  paid run has `--dry-run` first and `--max-usd` on the real run; agents never buy credit, raise the owner's account limit
-  or move to a dearer quality unasked. **Before the first picture of a vehicle, measure its planned size against the biggest comparable vehicle on the owner's list, and generate at 1.5 times its in-game drawn size or more** (owner, 9 Nov 2026), so a later change of size never scales art up. One pilot picture, inspected at native size, before a family or a facing set; the
-  camera instruction first in every prompt; each reference with a named role; bodies drawn empty (no cargo, crew, gear,
-  damage or text: those are overlays or nothing); one correction per defect, then a change of approach; rejects archived
-  with their reason; approved picks stay unless the owner reopens them.
-- Sounds are quiet, never alarming, and under the one volume setting. **Our vehicles get a full set** (owner, 10 Nov 2026: as rich as
-  GTek's Oshkosh L-ATV, doors and all), and **every vehicle and machine of ours sounds like itself**: a sample is shared only where the same
-  physical thing makes it (a switch, a fuel nozzle, a kit, a regulator, the dashboard). Engines, doors, brakes and working machinery are never
-  shared, and other mods' vehicles keep their authors' sounds. The plan and every sound's ID are in `docs/development/sound-catalogue.md`.
-- **Sounds are made locally and judged by more than the ear** (owner, 10 Nov 2026; `docs/development/sound-generation.md`): Stable Audio 3
-  through `scripts/art-run.py`, under the same safeguards as images, and **ffmpeg for every audio job** (owner: "a much finer tool"), never
-  Python audio libraries. A pick is made from the listening page `scripts/art/sound_review.py` writes, with its spectrograms, measured flags
-  and lowered copy; masters stay byte for byte. `art-run.py --cpu` runs small sound models on the processor beside the game (owner's request).
-  **A listening report from the owner is evidence**: their ears caught a loop seam every flag missed, so turn each such report into a check.
-- **Answer how loud or how made a game sound is with `python scripts/art/game_sounds.py`** (owner's request for toolkits, 10 Nov 2026): `find`,
-  `measure` and `sounddef` read RimWorld's own sounds inside its `Assets.zip` archives and its SoundDefs, keeping no game file. A SoundDef
-  plays at `volumeRange / 100`, so compare sounds by effective loudness, never by the file alone.
-- **Answer what art is still a stand-in, borrowed or unrecorded with `python scripts/art-audit.py`** (owner, 17 Nov 2026), before reading
-  texture records or Defs by hand: every shipped texture paired with its record and classed by the record's first statement of how it was
-  made, and every picture a Def uses that belongs to another thing or is not ours (`--all` adds the accepted ones, `--mod`, `--kind`;
-  `check`, part of the gate, fails on a texture with no record). **A record opens with how its picture was made**, and a borrowing the
-  owner keeps goes in `config/art-audit.json` with its reason.
-- **Ship a sound only through `python scripts/art/export_sound.py assets/phobos-sounds/exports.json`**: it levels the pick against a named game
-  sound, mixes to mono at 44.1 kHz as the game's are, refuses a clip, whine, seam dip or gap, and writes the record beside the file; `--check`
-  verifies them, and a test runs it. Never copy a sound into a mod by hand. Every SoundDef of ours carries
-  `Phobos.Framework.Sounds.PhobosSoundVolumeExtension`, so D'thorga Framework's one volume setting scales it.
 
 ## Builds, installation and checks
 
@@ -529,6 +429,10 @@ delivered, record the delivery in the changelog or design record, and add or ame
   (owner's go-ahead, 8 Nov 2026; the steps are in `config/gate.json`, found by glob, so a new project is never left out).
   `--only` and `--skip` narrow it while iterating; never hand-type a loop of builds and tests (one missed four of seven
   test projects). Read a failed step's full output, whose path the report gives, only when its summary is not enough.
+  **The commit guard enforces it** (owner's go-ahead, 18 Nov 2026): `.githooks/pre-commit` refuses a commit whose staged files no full,
+  un-narrowed passing gate run saw exactly as staged. **After cloning, run `git config core.hooksPath .githooks`**; never pass
+  `--no-verify`. It cannot pass a commit that stages only part of a file, since the gate checked the whole file: when another
+  session has uncommitted changes in a file you need, wait for its commit (or agree with it to commit the file together).
 - **`python scripts/check-targets.py` checks what the compiler cannot** (owner, 9 Nov 2026; part of the gate): every Harmony patch and reflected
   lookup named in a string, the overload it asks for, and the parameters Harmony fills at run time or matches by name, against the game's and the
   active mods' assemblies as metadata. It says the names still exist, never that the code still behaves. **Write a by-name tie-in so it can be

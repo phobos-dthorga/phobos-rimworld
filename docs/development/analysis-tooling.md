@@ -204,6 +204,25 @@ hand-written script over eight copies.
 
 **Built, 9 Nov 2026 (phobos-modkit 1.4.0), at the owner's suggestion after a stack overflow left nothing in the log.** `python scripts/crash-dump.py` reads the newest RimWorld minidump, with no debugger or symbols: the exception, the thread, a call loop that ran away (how big one level is, how many times it repeats, whether every level held the same objects) and which modules the stack points at. A small dump cannot name .NET methods, so the report says how to get them. The first case is [the crash of 9 Nov](crash-2026-11-09-stack-overflow.md).
 
+**Full dumps name the methods (phobos-modkit 1.22.0, 18 Nov 2026, owner's go-ahead).** When a dump holds the game's full memory,
+crash-dump asks Microsoft's dotnet-dump which method and assembly each code address on the failing stack falls in: the loop's
+return addresses, the calls beyond the loop that led into it, and those where the stack ran out. `python scripts/crash-dump.py setup`
+says whether Windows keeps full dumps of RimWorld (on the owner's PC on 18 Nov it kept small ones only, the newest 10, in
+`%LOCALAPPDATA%\CrashDumps`) and prints the administrator lines that ask it to; only the owner runs them. Checked on a stack overflow
+of a small test program of ours: it named the same method and caller as .NET's own error output, in about 3 s. On the way, a fault
+was found and fixed: in a dump .NET writes itself, the reader had taken the file's header for the stack. **Not yet run on a dump
+of the game.**
+
+### 9b. A frozen game, and memory
+
+**Built 18 Nov 2026 (phobos-modkit 1.22.0), owner's go-ahead.** `python scripts/perf.py stack` takes three snapshots of every
+thread's stack two seconds apart with Microsoft's dotnet-stack, finds the thread running the game's loop, and says whether it moved,
+which frames never did, the part of the loop and the innermost mod on its stack. `heap` writes the managed heap with dotnet-gcdump
+(a full garbage collection first, so the game pauses) and reports it by type and by mod; a .NET collection of a mod's type counts for
+that mod; `heap-compare` shows who grew. Checked on a small test program of ours (a spinning thread was found unmoved in three
+snapshots; a 21.7 MB heap was read in half a second). Limits: memory counts under the type that is it, so arrays a mod holds count as
+.NET's; dotnet-gcdump warns that on .NET 10 it can drop events on a large heap. **Not yet run on the game.**
+
 ### 10. The test pass
 
 **Built, 17 Nov 2026 (phobos-modkit 1.9.0, D'thorga Framework 0.118.0), at the owner's request:** passes seen in play rarely

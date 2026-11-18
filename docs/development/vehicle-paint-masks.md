@@ -2,7 +2,7 @@
 
 **Status (17 Nov 2026):** built: every vehicle body's paint mask is made by region and repaired with Segment Anything's parts map (`repaired`, Vehicles 0.56.1, 16 Nov 2026), and the fleck checker counts what is left; the overlay fit is an experiment, not built. Not yet tested in game.
 
-How our vehicles' paint masks (the `m` files, which tell the game where to tint) are made and checked. The rules are in [AGENTS.md, "Artwork and sound"](../../AGENTS.md#artwork-and-sound); the background AI, which looks at every picture before this step, is in [background clean-up](background-cleanup.md), and the whole pipeline in the [art pipeline](art-pipeline.md).
+How our vehicles' paint masks (the `m` files, which tell the game where to tint) are made and checked. The rules are in [the art and sound rules](../../assets/AGENTS.md); the background AI, which looks at every picture before this step, is in [background clean-up](background-cleanup.md), and the whole pipeline in the [art pipeline](art-pipeline.md).
 
 *Moved here on 17 Nov 2026 from `background-cleanup.md`; kept as written.*
 
