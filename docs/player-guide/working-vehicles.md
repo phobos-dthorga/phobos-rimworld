@@ -440,7 +440,7 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
 - **Its rotors spin when it is drafted**, and on take-off its nacelles tip forward as it climbs away.
 - **It flies over the map** (not yet tested in game): draft it with its two pilots aboard and press **Take off**. Then **Fly to** a
   spot, or right-click the ground; **Hold here** stops it; **Land here** shows its outline at the mouse, turns with the usual keys, and
-  needs open sky and firm ground with nothing built on it. It flies over walls, rivers and buildings, its guns fire from the air, and
+  needs open sky and firm ground with nothing built or growing on it. It flies over walls, rivers and buildings, its guns fire from the air, and
   nobody boards, unloads or steps out until it lands. **To go to another place**, press the launch button, on the ground or in the
   air: it flies to the map's edge on that side and leaves from there. **Arriving**, it comes in over the edge it flew from, already
   flying, and lands on the spot you chose, or holds over a map it attacks for your orders.

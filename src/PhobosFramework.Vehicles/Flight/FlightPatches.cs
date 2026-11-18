@@ -71,9 +71,12 @@ public static class Patch_TryAddPawn_Flight
 [HarmonyPatch(typeof(VehiclePawn), nameof(VehiclePawn.AddOrTransfer), typeof(Thing), typeof(int))]
 public static class Patch_AddOrTransfer_Flight
 {
-    public static bool Prefix(VehiclePawn __instance, ref int __result)
+    public static bool Prefix(VehiclePawn __instance, Thing thing, ref int __result)
     {
         if (!FlightRegistry.InAir(__instance) || VehicleAccess.Lines == __instance) return true;
+        // Fault-read F1 (Framework 0.163.0): Vehicle Framework moves someone dying aboard into the cargo; refused, the game could not leave
+        // a body and lost it with their gear. Nothing else is loaded in the air.
+        if (thing is Pawn or Corpse) return true;
         VehicleAccess.RefuseInAir(__instance, "PhobosFlight_RefuseLoad");
         __result = 0;
         return false;

@@ -61,6 +61,7 @@
   <PhobosFlight_RefuseNoGroundBelow>There is no open ground behind the {VEHICLE}'s ramp to set anyone down on: it is roofed, built on, hidden or impassable. Move it over open ground.</PhobosFlight_RefuseNoGroundBelow>
   <PhobosFlight_RefuseHoistNobodyWorks>Nobody else aboard the {VEHICLE} can work the hoist: it needs someone awake in a passenger's or crew chief's seat.</PhobosFlight_RefuseHoistNobodyWorks>
   <PhobosFlight_RefuseHoistTooHeavy>{PERSON} and their gear weigh {KILOGRAMS} kg, more than the hoist's {RATED} kg.</PhobosFlight_RefuseHoistTooHeavy>
+  <PhobosFlight_RefuseHoistNoHover>The {VEHICLE} could not hold its hover with {PERSON} aboard as well: lighten it, or wait for cooler air.</PhobosFlight_RefuseHoistNoHover>
   <PhobosFlight_RefuseHoistNoRoom>There is no free seat aboard the {VEHICLE}.</PhobosFlight_RefuseHoistNoRoom>
   <PhobosFlight_RefuseCirclingNoHover>The {VEHICLE}'s engines cannot hold it in a hover now, so it keeps circling. Send it somewhere, or land it on a clear strip.</PhobosFlight_RefuseCirclingNoHover>
   <PhobosFlight_RefuseLandWithLoad>The {VEHICLE} has {LOAD} hanging below: set it down first, or it would be landed on.</PhobosFlight_RefuseLandWithLoad>
@@ -73,6 +74,7 @@
   <PhobosFlight_SpotRoof>part of the spot is under a roof</PhobosFlight_SpotRoof>
   <PhobosFlight_SpotBuilding>something is built on part of the spot</PhobosFlight_SpotBuilding>
   <PhobosFlight_SpotVehicle>another vehicle stands on part of the spot</PhobosFlight_SpotVehicle>
+  <PhobosFlight_SpotObstructed>trees, bushes or rubble stand on part of the spot</PhobosFlight_SpotObstructed>
   <PhobosFlight_SpotGround>part of the ground there cannot take its weight</PhobosFlight_SpotGround>
   <PhobosFlight_SpotNoFloor>part of it is not a built floor</PhobosFlight_SpotNoFloor>
 
@@ -104,6 +106,7 @@
   <PhobosFlight_MsgLinesStopping>The {VEHICLE} will send nobody more down its lines, and climbs back once the last one is off.</PhobosFlight_MsgLinesStopping>
   <PhobosFlight_MsgLineFall>{PERSON} fell about {METRES} m from the {VEHICLE}'s line as it came down.</PhobosFlight_MsgLineFall>
   <PhobosFlight_MsgRaiderDown>The {VEHICLE} of {FACTION} came down and was wrecked.</PhobosFlight_MsgRaiderDown>
+  <PhobosFlight_MsgAllyAircraftWrecked>With nobody left to fly it, the {VEHICLE} of {FACTION} has been wrecked.</PhobosFlight_MsgAllyAircraftWrecked>
   <PhobosFlight_MsgRaiderScuttled>With nobody left to fly it, {FACTION}'s people wrecked their {VEHICLE} rather than let it be taken.</PhobosFlight_MsgRaiderScuttled>
   <PhobosFlight_MsgRollAborted>The {VEHICLE} stopped its take-off roll: {WHY}. It has braked to a stop and is no longer leaving.</PhobosFlight_MsgRollAborted>
   <PhobosFlight_MsgRolledIn>The {VEHICLE} has landed rolling and stopped at the end of its strip.</PhobosFlight_MsgRolledIn>

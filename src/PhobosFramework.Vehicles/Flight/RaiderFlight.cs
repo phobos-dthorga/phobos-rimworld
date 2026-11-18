@@ -101,7 +101,8 @@ public static class RaiderFlight
         var seated = new List<Pawn>();
         foreach (Pawn pawn in left)
         {
-            if (vehicle.TryAddPawn(pawn)) seated.Add(pawn);
+            // Fault-read R2 and R4 (Framework 0.163.0): people only, awake; animals would go to the hold and never come out.
+            if (pawn.RaceProps.Humanlike && !pawn.Downed && vehicle.TryAddPawn(pawn)) seated.Add(pawn);
         }
         if (seated.Count == 0 || !vehicle.HasEnoughOperators)
         {
@@ -130,6 +131,18 @@ public static class RaiderFlight
             vehicle.RemovePawn(pawn);
             if (!seated.Contains(pawn) && !pawn.Destroyed) pawn.Destroy();
         }
+    }
+
+    /// <summary>Open ground for ropes (fault-read H3): at least eight standable, unroofed cells within four of the hover point (authored), so
+    /// its people come down outside, not on a roof or into a room.</summary>
+    static bool OpenAround(Map map, IntVec3 c)
+    {
+        int open = 0;
+        foreach (IntVec3 cell in GenRadial.RadialCellsAround(c, 4f, useCenter: true))
+        {
+            if (cell.InBounds(map) && cell.Standable(map) && !cell.Roofed(map) && ++open >= 8) return true;
+        }
+        return false;
     }
 
     /// <summary>The middle of the colony: its buildings' mean position, else its people's, else the map's middle.</summary>
@@ -191,8 +204,8 @@ public static class RaiderFlight
             if (score >= best) continue;
             Rot4 facing = Rot4.FromAngleFlat((middle - c).AngleFlat);
             bool fits = mode == RaidLanding.RopeClose
-                ? c.Standable(map) && !c.Roofed(map)
-                : FlightRules.SpotRefusal(vehicle, c, facing, forced: true) == null;
+                ? OpenAround(map, c)
+                : FlightRules.SpotRefusal(vehicle, c, facing, forced: false, knowsGround: true) == null;
             if (!fits) continue;
             best = score;
             cell = c;

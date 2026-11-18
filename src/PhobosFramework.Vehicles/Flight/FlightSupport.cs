@@ -98,27 +98,51 @@ public static class FlightRules
     /// Every footprint cell on the map, unroofed, free of buildings and impassable ground, not deep water and not claimed by another vehicle;
     /// seen, unless it is falling and has no choice.
     /// </summary>
-    public static string? SpotRefusal(VehiclePawn vehicle, IntVec3 cell, Rot4 rot, bool forced)
+    public static string? SpotRefusal(VehiclePawn vehicle, IntVec3 cell, Rot4 rot, bool forced) => SpotRefusal(vehicle, cell, rot, forced, knowsGround: false);
+
+    /// <summary>The same, for an aircraft whose crew know the ground (a raid's, fault-read F8's split, Framework 0.163.0): unseen ground is no
+    /// bar, but everything else is asked as of a chosen landing.</summary>
+    public static string? SpotRefusal(VehiclePawn vehicle, IntVec3 cell, Rot4 rot, bool forced, bool knowsGround)
     {
         Map map = vehicle.Map;
         if (map == null || !cell.IsValid) return "PhobosFlight_SpotEdge".Translate().Resolve();
+        // Fault-read F4 (Framework 0.163.0): a chosen spot's centre must be where its flight can bring it, inside the edge band. Not asked of a
+        // forced landing, which comes down where its held-in centre already is (its cell's centre may round half a cell outward).
+        if (!forced && !InsideEdge(vehicle, map, cell, rot)) return "PhobosFlight_SpotEdge".Translate().Resolve();
         VehiclePositionManager claims = map.GetDetachedMapComponent<VehiclePositionManager>();
-        foreach (IntVec3 c in GenAdj.OccupiedRect(cell, rot, vehicle.VehicleDef.Size))
+        // Fault-read F10: Vehicle Framework's own rect (the game's is a row or column off for an even side facing south or west).
+        foreach (IntVec3 c in vehicle.VehicleRect(cell, rot))
         {
-            if (CellRefusal(vehicle, map, claims, c, forced, needsFloor: false) is { } why) return why;
+            if (CellRefusal(vehicle, map, claims, c, forced, needsFloor: false, knowsGround) is { } why) return why;
         }
         return null;
     }
 
+    /// <summary>Whether the vehicle's centre, standing at this cell facing this way, lies inside the band its flight holds it in: half its
+    /// longest side and a cell in from every edge (CompPhobosFlight's EdgeBounds).</summary>
+    public static bool InsideEdge(VehiclePawn vehicle, Map map, IntVec3 cell, Rot4 rot)
+    {
+        IntVec2 size = vehicle.VehicleDef.Size;
+        float edge = Mathf.Max(size.x, size.z) / 2f + 1f;
+        Vector3 c = Ext_Vehicles.TrueCenter(cell, new Rot8(rot), size, 0f);
+        return c.x >= edge - 0.01f && c.x <= map.Size.x - edge + 0.01f && c.z >= edge - 0.01f && c.z <= map.Size.z - edge + 0.01f;
+    }
+
     /// <summary>Why one cell will not take the vehicle on the ground, as words finishing "it cannot land there:", or null.</summary>
-    static string? CellRefusal(VehiclePawn vehicle, Map map, VehiclePositionManager claims, IntVec3 c, bool forced, bool needsFloor)
+    static string? CellRefusal(VehiclePawn vehicle, Map map, VehiclePositionManager claims, IntVec3 c, bool forced, bool needsFloor, bool knowsGround = false)
     {
         if (!c.InBounds(map)) return "PhobosFlight_SpotEdge".Translate().Resolve();
-        if (!forced && c.Fogged(map)) return "PhobosFlight_SpotUnseen".Translate().Resolve();
+        if (!forced && !knowsGround && c.Fogged(map)) return "PhobosFlight_SpotUnseen".Translate().Resolve();
         if (c.Roofed(map)) return "PhobosFlight_SpotRoof".Translate().Resolve();
         if (c.GetEdifice(map) != null) return "PhobosFlight_SpotBuilding".Translate().Resolve();
         if (claims.ClaimedBy(c) is { } other && other != vehicle) return "PhobosFlight_SpotVehicle".Translate().Resolve();
-        if (!c.Standable(vehicle, map)) return "PhobosFlight_SpotGround".Translate().Resolve();
+        if (!c.Standable(vehicle, map))
+        {
+            // Fault-read F8 (Framework 0.163.0): trees, bushes or rubble refuse an ordered landing, said as such; they do not wreck a forced
+            // one, which wrecks only on impassable or deep-water ground (and a building or another vehicle, above).
+            if (forced) return c.Walkable(map) ? null : "PhobosFlight_SpotGround".Translate().Resolve();
+            return c.Walkable(map) ? "PhobosFlight_SpotObstructed".Translate().Resolve() : "PhobosFlight_SpotGround".Translate().Resolve();
+        }
         if (needsFloor && !c.GetTerrain(map).layerable) return "PhobosFlight_SpotNoFloor".Translate().Resolve();
         return null;
     }
@@ -133,7 +157,7 @@ public static class FlightRules
         IntVec3 step = rot.FacingCell;
         for (int i = 0; i <= cells; i++)
         {
-            foreach (IntVec3 c in GenAdj.OccupiedRect(start + step * i, rot, vehicle.VehicleDef.Size))
+            foreach (IntVec3 c in vehicle.VehicleRect(start + step * i, rot))
             {
                 if (seen.Add(c)) yield return c;
             }
@@ -147,6 +171,12 @@ public static class FlightRules
         blockedAt = IntVec3.Invalid;
         Map map = vehicle.Map;
         if (map == null || !start.IsValid) return "PhobosFlight_SpotEdge".Translate().Resolve();
+        // Fault-read F4: both ends where its flight can bring its centre.
+        if (!InsideEdge(vehicle, map, start, rot) || !InsideEdge(vehicle, map, start + rot.FacingCell * cells, rot))
+        {
+            blockedAt = start + rot.FacingCell * cells;
+            return "PhobosFlight_SpotEdge".Translate().Resolve();
+        }
         VehiclePositionManager claims = map.GetDetachedMapComponent<VehiclePositionManager>();
         foreach (IntVec3 c in StripCells(vehicle, start, rot, cells))
         {
@@ -263,7 +293,7 @@ public static class FlightGizmos
             action = () => LandingTargeter.Instance.BeginTargeting(vehicle, vehicle.Map, (target, rot) => flight.Land(target.Cell, rot),
                 target => flight.LandRefusal(target.Cell, vehicle.Rotation) == null, allowRotating: vehicle.VehicleDef.rotatable),
         };
-        if (busy) land.Disable("PhobosFlight_RefuseNotFlying".Translate(who));
+        if (busy || flight.State == FlightState.Settling) land.Disable("PhobosFlight_RefuseNotFlying".Translate(who));
         yield return land;
     }
 

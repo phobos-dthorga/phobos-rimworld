@@ -97,8 +97,12 @@ public partial class CompPhobosFlight : IThingHolder
         return new Vector3(x - (float)Math.Sin(rad) * back, 0f, z - (float)Math.Cos(rad) * back);
     }
 
-    /// <summary>The ground beneath the ramp as it is drawn: where the shadow puts it (the shadow's slide shows the height).</summary>
-    public Vector3 FootPoint()
+    /// <summary>The ground beneath the ramp, where the lines meet it (fault-read H1, Framework 0.163.0: before, the shadow's slide was added, so
+    /// the foot moved by several cells with the height and the hoist never reached anyone in its reach).</summary>
+    public Vector3 FootPoint() => RampPoint();
+
+    /// <summary>Where the lines are drawn to: the foot slid as the shadow is, so they reach the ground as it is drawn.</summary>
+    Vector3 DrawnFoot()
     {
         Vector3 ramp = RampPoint();
         (double ox, double oz) = FlightPathRule.ShadowOffset(climb, HeightCells);
@@ -198,6 +202,8 @@ public partial class CompPhobosFlight : IThingHolder
         float kg = LoadKg(pawn);
         if (!LineRule.HoistTakes(kg, Props.hoistRatedKilograms))
             return "PhobosFlight_RefuseHoistTooHeavy".Translate(person, kg.ToString("0").Named("KILOGRAMS"), Props.hoistRatedKilograms.ToString("0").Named("RATED")).Resolve();
+        // Fault-read H5: it must still hold its hover with them aboard.
+        if (!WouldHoverWith(kg)) return "PhobosFlight_RefuseHoistNoHover".Translate(who, person).Resolve();
         bool litter = Vehicle.GetComp<CompPhobosLitter>() is { } l && l.TakesFromHoist(pawn);
         if (!pawn.Downed && !litter && !Vehicle.handlers.Any(h => h.AreSlotsAvailable)) return "PhobosFlight_RefuseHoistNoRoom".Translate(who).Resolve();
         return null;
@@ -481,7 +487,14 @@ public partial class CompPhobosFlight : IThingHolder
         Map map = v.MapHeld;
         lineHeld.Remove(pawn);
         IntVec3 cell = LandingCell();
-        if (!cell.IsValid) cell = FootPoint().ToIntVec3().ClampInsideMap(map);
+        IntVec3 foot = FootPoint().ToIntVec3().ClampInsideMap(map);
+        // Fault-read H3 (Framework 0.163.0): no open ground at the foot: the nearest open, unroofed cell within ten, else any standable one;
+        // never under a roof first, never in a wall.
+        if (!cell.IsValid && !CellFinder.TryFindRandomCellNear(foot, map, 10, c => c.Standable(map) && !c.Roofed(map), out cell)
+            && !CellFinder.TryFindRandomCellNear(foot, map, 20, c => c.Standable(map), out cell))
+        {
+            cell = foot;
+        }
         if (!GenPlace.TryPlaceThing(pawn, cell, map, ThingPlaceMode.Near)) GenSpawn.Spawn(pawn, cell, map);
         v.EventRegistry[VehicleEventDefOf.PawnExited].ExecuteEvents();
         double harm = LineRule.FallHarm(fallMetres);
@@ -522,6 +535,28 @@ public partial class CompPhobosFlight : IThingHolder
         hoistFor = null;
     }
 
+    /// <summary>Taken off the map while working its lines (fault-read F2): whoever is on one is put back aboard, a seat or the hold.</summary>
+    void ReturnLinesAboard()
+    {
+        VehiclePawn v = Vehicle;
+        VehicleAccess.Lines = v;
+        try
+        {
+            foreach (Pawn pawn in lineHeld.InnerListForReading.ToList())
+            {
+                lineHeld.Remove(pawn);
+                if (!v.TryAddPawn(pawn)) v.AddOrTransfer(pawn);
+            }
+        }
+        finally
+        {
+            VehicleAccess.Lines = null;
+        }
+        ropeLeft.Clear();
+        lineJob = LineJob.None;
+        hoistFor = null;
+    }
+
     /// <summary>For Vehicle Framework's destruction: whoever is on a line falls before the aircraft is gone.</summary>
     public static void OnDestroying(VehiclePawn vehicle)
     {
@@ -534,7 +569,7 @@ public partial class CompPhobosFlight : IThingHolder
     void DrawLines()
     {
         if (state != FlightState.LineWork || !lineWorking) return;
-        Vector3 ramp = RampPoint(), foot = FootPoint();
+        Vector3 ramp = RampPoint(), foot = DrawnFoot();
         float y = AltitudeLayer.MetaOverlays.AltitudeFor();
         var top = new Vector3(ramp.x, y, ramp.z);
         if (lineJob == LineJob.RopeDown)

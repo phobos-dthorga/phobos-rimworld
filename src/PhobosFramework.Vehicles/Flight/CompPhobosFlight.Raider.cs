@@ -106,6 +106,10 @@ public partial class CompPhobosFlight
                     PlanApproach();
                 }
                 break;
+            case RaiderStage.Inbound when state == FlightState.Orbit:
+                // Fault-read R1 (Framework 0.163.0): it cannot hover to put them down here; it goes back to the edge and they walk in from there.
+                Leave();
+                break;
             case RaiderStage.Unloading:
                 Unload();
                 break;
@@ -149,7 +153,16 @@ public partial class CompPhobosFlight
     void Vanish()
     {
         VehiclePawn v = Vehicle;
+        Map map = v.Map;
         Seen.Note("aircraft.raider", v, variant: "left");
+        // Fault-read R2 (Framework 0.163.0): raiders still aboard (it gave up) are put down at the edge and stay in their raid, walking in as
+        // the game's own walk-in does; only its crew goes home with it.
+        IntVec3 edge = new Vector3(raider!.exitX, 0f, raider.exitZ).ToIntVec3().ClampInsideMap(map);
+        foreach (Pawn pawn in Riders().ToList())
+        {
+            v.RemovePawn(pawn);
+            GenSpawn.Spawn(pawn, CellFinder.RandomClosewalkCellNear(edge, map, 8), map);
+        }
         foreach (Pawn pawn in v.AllPawnsAboard.ToList())
         {
             v.RemovePawn(pawn);
@@ -168,7 +181,9 @@ public partial class CompPhobosFlight
         VehiclePawn v = Vehicle;
         raider = null;
         Seen.Note("aircraft.raider", v, variant: "scuttled");
-        Messages.Message("PhobosFlight_MsgRaiderScuttled".Translate(v.LabelShort.Named("VEHICLE"), (v.Faction?.Name ?? "").Named("FACTION")).Resolve(), new TargetInfo(v.Position, v.Map), MessageTypeDefOf.PositiveEvent);
+        bool hostile = v.Faction != null && v.Faction.HostileTo(Faction.OfPlayer);
+        Messages.Message((hostile ? "PhobosFlight_MsgRaiderScuttled" : "PhobosFlight_MsgAllyAircraftWrecked").Translate(v.LabelShort.Named("VEHICLE"),
+            (v.Faction?.Name ?? "").Named("FACTION")).Resolve(), new TargetInfo(v.Position, v.Map), hostile ? MessageTypeDefOf.PositiveEvent : MessageTypeDefOf.NegativeEvent);
         StopTicking();
         v.Destroy(DestroyMode.KillFinalize);
     }

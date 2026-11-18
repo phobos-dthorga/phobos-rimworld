@@ -154,7 +154,7 @@ public static class FlightArrival
 
     static bool Clear(VehiclePawn vehicle, Map map, IntVec3 cell, Rot4 rot)
     {
-        foreach (IntVec3 c in GenAdj.OccupiedRect(cell, rot, vehicle.VehicleDef.Size))
+        foreach (IntVec3 c in vehicle.VehicleRect(cell, rot))
         {
             if (!c.InBounds(map)) return false;
             foreach (Thing thing in c.GetThingList(map))

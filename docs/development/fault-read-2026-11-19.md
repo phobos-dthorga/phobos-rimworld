@@ -2,7 +2,7 @@
 
 **Status (19 Nov 2026):** 30 faults and 33 smaller points found by reading, none observed in game. Fixed: A1, A3 and A4 (Framework
 0.162.0, the armour session); the Osprey's own, D1 to D5, D7, T1, T2, T4, T6, U1, L1, L2, W1 to W3, W5 and W7 (Framework 0.163.0 with
-Vehicles 0.82.0, [as fixed](#as-fixed-framework-01630-and-vehicles-0820)). In hand: the flight session's rows (F, R, H, S, D6, T3). Left
+Vehicles 0.82.0, [as fixed](#as-fixed-framework-01630-and-vehicles-0820)). The flight session's: F1 to F11, H1 to H3 and H5, R1 to R4, S1 (as F10), D6, T3 and the flight's smaller W1, W5, W6 and W8 (Framework 0.164.0 with Vehicles 0.83.0, [as fixed](#as-fixed-framework-01640-and-vehicles-0830)); of the flight's, left for later: W2 to W4, W7, W9 to W12, H4 and S2. Left
 open for the owner: A2 with W6, U2, W8. Not yet tested in game.
 
 The Osprey's design asks for "a fault-read by a separate reader before the install" as part of its first batch
@@ -162,3 +162,42 @@ The Osprey's own rows, by the session that commissioned the reads; not yet teste
 as zeros on other aircraft's info cards (U2); the Osprey's research line runs through the drill rig's box (W8). **Known limits, kept:**
 the paint and upgrade dialogs, the blueprint and the world map draw no rotors, and another faction's Osprey spins its rotors parked (T5);
 Vehicle Framework's installed build never draws a node's upgrade list, so the armour kit's written-out explanation is not shown (W4).
+
+## As fixed (Framework 0.164.0 and Vehicles 0.83.0)
+
+The flight session's rows, by the session that wrote the flight; not yet tested in game. "The flight's W" means the smaller points in the
+F section, not the Osprey's own W rows.
+
+- **F1:** the in-air loading guard lets a `Pawn` or a `Corpse` through: Vehicle Framework's death-move into the cargo now holds the body.
+- **F2:** `OnDeSpawn` of an aircraft not on the ground calls `Grounded()`: the ground state, nothing under way, anyone on its lines put
+  back aboard (a seat or the hold), ticking stopped. The hand-over and the raiders' vanish set the ground state first, so they are untouched.
+- **F3:** `LandRefusal` refuses while `Settling`, and the Land button is disabled then.
+- **F4:** `FlightRules.InsideEdge`: a chosen spot's centre, and both ends of a strip, must lie inside the band the flight holds the centre
+  in (not asked of a forced landing, whose centre is already held in). A take-off roll that makes no progress lifts off where it is; a
+  landing roll that makes none stops there.
+- **F5 with the flight's W1:** `Engines` brings it down once when nobody aboard can fly it, or when re-drafting is refused (a roll is
+  stopped instead; a landing roll carries on).
+- **F6:** `Step` returns after `Arrive` once the hand-over has taken it off the map.
+- **F7:** `SyncPosition` works out the path cost of the cells it has left, as Vehicle Framework's mover does; `PutDown` those it left and
+  stands on; `HoverPathCost` those under a hover or at its lines, once each time it settles. Passing over, it slows nobody, as designed.
+- **F8:** `CellRefusal` on a cell not standable for the vehicle but walkable for a person (trees, bushes, rubble): a chosen landing or strip
+  is refused with "trees, bushes or rubble stand on part of the spot"; a forced landing lands hard and crushes the plants. A raid's
+  landing search asks as a chosen landing whose crew know the ground (`knowsGround`, the fog check only), not as a forced one.
+- **F9:** the first tick after a spawn or load judges at once (`judged`, not saved).
+- **F10 (S1):** `vehicle.VehicleRect(cell, rot)` in the spot, strip, roof and arrival checks.
+- **F11:** `HoverLimits.Strain(comp, share)`; an over-limit hover second is a sixtieth of an over-limit lift-off (authored), only while
+  hovering, lifting off, settling or at its lines.
+- **H1:** the lines' foot is the ground beneath the ramp at any height; only their drawing slides as the shadow does.
+- **H2:** `HandOver` holds the litter's patients through the despawn.
+- **H3:** off a line with no open ground at the foot: the nearest standable, unroofed cell within ten, else any standable within twenty.
+  A raid's ropes need eight open, unroofed cells within four of the hover.
+- **H5:** the hoist refuses a person the aircraft could not hover with (`WouldHoverWith`).
+- **R1:** a raiders' aircraft circling on arrival (it cannot hover) goes back to the edge.
+- **R2 and R4:** only people, awake, are seated in a raid's aircraft; at the vanish, raiders still aboard are put down at the edge, staying
+  in their raid; only the crew goes home.
+- **R3:** the blocked-spot message is the player's own aircraft's only; an ally's aircraft lost is a negative event, with its own wording.
+- **The flight's W5, W6, W8:** on its way out over the edge (or a raider leaving) it does not brake; a forced landing clears a journey
+  under way; a hover below its height climbs.
+- **D6:** a `RampSection` role on the aft cabin lends both mounts its armour; their cells are the ramp's row.
+- **T3:** the nacelles tip fully forward on the way out over the edge, coming in from it, or a raider leaving; at most half way flying
+  about the map.

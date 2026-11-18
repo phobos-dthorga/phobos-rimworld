@@ -125,6 +125,8 @@ public partial class CompPhobosFlight : VehicleComp
     const float TicksPerSecond = 60f;
     const int JudgeEveryTicks = 60;
     const int IdleResetTicks = 250;
+    /// <summary>The share of one over-limit lift-off's strain each second of over-limit hover costs (authored: a minute of it as one).</summary>
+    const float HoverStrainShare = 1f / 60f;
 
     FlightState state = FlightState.Ground;
     float x, z, heading, climb;
@@ -148,6 +150,10 @@ public partial class CompPhobosFlight : VehicleComp
     float margin = float.NaN;
     FlightHold hold = FlightHold.Hover;
     bool redraftTold;
+    // Fault-read F9: whether it has been judged since it was spawned or loaded; until then its margin is unknown (not saved).
+    bool judged;
+    // Fault-read F7: whether the cells under its hover have had their path cost worked out (not saved: worked out again after a load).
+    bool hoverCosted;
 
     public CompProperties_PhobosFlight Props => (CompProperties_PhobosFlight)props;
 
@@ -256,6 +262,31 @@ public partial class CompPhobosFlight : VehicleComp
     {
         base.OnDeSpawn();
         FlightRegistry.Remove(this);
+        judged = false;
+        // Fault-read F2 (Framework 0.163.0): taken off the map in the air by anything but its own hand-over (a caravan formed with it, the map
+        // removed), it is put back in the ground state, its people off the lines and aboard, so it never comes back "airborne" at old points.
+        if (state != FlightState.Ground) Grounded();
+    }
+
+    /// <summary>Back to the ground state with nothing under way: no target, landing, circle, roll, journey or raid.</summary>
+    void Grounded()
+    {
+        ReturnLinesAboard();
+        state = FlightState.Ground;
+        climb = 0f;
+        speed = 0f;
+        ClearTarget();
+        landCell = IntVec3.Invalid;
+        landRolling = false;
+        orbitX = orbitZ = float.NaN;
+        rollFromX = rollFromZ = float.NaN;
+        departNodes = null;
+        departAction = null;
+        raider = null;
+        inTransit = false;
+        hoverCosted = false;
+        Vehicle.Transform.rotation = 0f;
+        StopTicking();
     }
 
     public override void OnDestroy()
@@ -474,6 +505,8 @@ public partial class CompPhobosFlight : VehicleComp
         FlightRegistry.Remove(this);
         StopTicking();
         Seen.Note("aircraft.flight-departed", v);
+        // Fault-read H2 (Framework 0.163.0): patients on its litters stay aboard; the litter would set them down as it despawns.
+        v.GetComp<CompPhobosLitter>()?.HoldThroughDespawn();
         v.DeSpawn(DestroyMode.Vanish);
         map.GetDetachedMapComponent<VehiclePositionManager>().ReleaseClaimed(v);
         AerialVehicleInFlight flight = AerialVehicleInFlight.Create(v, map.Tile);
@@ -501,6 +534,7 @@ public partial class CompPhobosFlight : VehicleComp
         departNodes = null;
         departAction = null;
         state = FlightState.Hover;
+        inTransit = true;
         if (v.CompVehicleLauncher is { } launcher)
         {
             launcher.inFlight = false;
@@ -586,7 +620,7 @@ public partial class CompPhobosFlight : VehicleComp
     {
         if (LinesOutRefusal() is { } lines) return lines;
         NamedArgument who = Vehicle.LabelShort.Named("VEHICLE");
-        if (!Airborne || state is FlightState.ComingDown or FlightState.TakeoffRoll or FlightState.RollingLanding)
+        if (!Airborne || state is FlightState.ComingDown or FlightState.TakeoffRoll or FlightState.RollingLanding or FlightState.Settling)
             return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
         // Framework 0.161.0: a load hanging below would be landed on; it is set down first.
         if (Vehicle.GetComp<CompPhobosSling>() is { Carried: { } load }) return "PhobosFlight_RefuseLandWithLoad".Translate(who, load.LabelShort.Named("LOAD")).Resolve();
@@ -762,6 +796,8 @@ public partial class CompPhobosFlight : VehicleComp
                 if (climb >= 1f) state = HasTarget ? FlightState.Moving : FlightState.Hover;
                 break;
             case FlightState.Hover:
+                // Fault-read W8: lifted into a hover low (a roll's end), it climbs on to its height.
+                if (climb < 1f) climb = Mathf.Min(1f, climb + dt / Props.climbSeconds);
                 if (HasTarget) state = FlightState.Moving;
                 break;
             case FlightState.Moving:
@@ -779,6 +815,7 @@ public partial class CompPhobosFlight : VehicleComp
                 if (climb <= 0f) ForcedLanding();
                 break;
         }
+        if (v.Spawned) HoverPathCost(v);
         if (raider != null && v.Spawned && Airborne && (now + v.thingIDNumber) % RaiderThinkTicks == 0) RaiderThink();
         // Framework 0.161.0: a load to lift or set down from a hover.
         if (v.Spawned && Airborne && (now + v.thingIDNumber) % RaiderThinkTicks == 15) v.GetComp<CompPhobosSling>()?.FlightThink(this);
@@ -800,10 +837,26 @@ public partial class CompPhobosFlight : VehicleComp
             else BeginFall("PhobosFlight_WhyNoFuel".Translate().Resolve());
             return false;
         }
+        if (!v.HasEnoughOperators)
+        {
+            // Fault-read F5 and W1 (Framework 0.163.0): nobody left aboard who can fly it.
+            string why = "PhobosFlight_WhyCrewLost".Translate().Resolve();
+            if (state == FlightState.TakeoffRoll) AbortRoll(why);
+            else if (state != FlightState.RollingLanding) BeginFall(why);
+            return state == FlightState.RollingLanding;
+        }
         if (!v.Drafted)
         {
-            // Stopping the engines in the air cannot be refused through Vehicle Framework: they are started again at once.
+            // Stopping the engines in the air cannot be refused through Vehicle Framework: they are started again at once. If the game
+            // refuses that too, it comes down (fault-read F5: before, the refusal repeated every tick).
             v.ignition.Drafted = true;
+            if (!v.Drafted)
+            {
+                string why = "PhobosFlight_WhyEngines".Translate().Resolve();
+                if (state == FlightState.TakeoffRoll) AbortRoll(why);
+                else if (state != FlightState.RollingLanding) BeginFall(why);
+                return state == FlightState.RollingLanding;
+            }
             if (!redraftTold && v.Faction == Faction.OfPlayer)
             {
                 redraftTold = true;
@@ -817,7 +870,8 @@ public partial class CompPhobosFlight : VehicleComp
     /// <summary>Judges what the engines leave it able to do, once a second: the engine model's hover margin read three ways.</summary>
     void Judge(VehiclePawn v, int now)
     {
-        if ((now + v.thingIDNumber) % JudgeEveryTicks != 0) return;
+        if (judged && (now + v.thingIDNumber) % JudgeEveryTicks != 0) return;
+        judged = true;
         margin = FlightRules.Margin(v);
         hold = FlightRules.Hold(v, margin, ForwardShare);
         if (state == FlightState.TakeoffRoll)
@@ -839,10 +893,11 @@ public partial class CompPhobosFlight : VehicleComp
             BeginFall("PhobosFlight_WhyCannotHover".Translate().Resolve());
         }
         if (margin < 1f && hold == FlightHold.Hover && VehicleSystemsMod.Settings.hoverLimit == VehicleSystemsSettings.HoverLimit.AllowWithDamage
-            && CompPhobosVehicleSystems.Of(v) is { } comp)
+            && (state is FlightState.Hover or FlightState.LiftingOff or FlightState.Settling or FlightState.LineWork) && CompPhobosVehicleSystems.Of(v) is { } comp)
         {
-            // Allowed at a cost: each second past the limit strains the engines as an over-limit lift does.
-            HoverLimits.Strain(comp);
+            // Allowed at a cost (fault-read F11, Framework 0.163.0): each second hovering past the limit strains the engines by a sixtieth of an
+            // over-limit lift-off (authored: a minute's over-limit hover as one lift-off), never in forward flight, which asks less.
+            HoverLimits.Strain(comp, HoverStrainShare);
         }
     }
 
@@ -867,7 +922,7 @@ public partial class CompPhobosFlight : VehicleComp
         double wanted = FlightPathRule.HeadingTo(dx, dz, heading);
         heading = (float)FlightPathRule.TurnToward(heading, wanted, Props.turnDegreesPerSecond * dt);
         double share = FlightPathRule.TurnSpeedShare(FlightPathRule.Turn(heading, wanted));
-        bool mustKeepMoving = hold == FlightHold.ForwardOnly && state == FlightState.Moving;
+        bool mustKeepMoving = (hold == FlightHold.ForwardOnly && state == FlightState.Moving) || Departing || raider is { stage: RaiderStage.Leaving };
         // An aircraft that cannot hover flies its leg through at speed; it does not brake to stop where it cannot hold.
         speed = (float)FlightPathRule.NextSpeed(speed, mustKeepMoving ? 1e6 : distance, Props.speedCellsPerSecond * share * LoadSpeedShare, Props.accelerationCellsPerSecond, dt);
         float move = speed * dt;
@@ -876,6 +931,8 @@ public partial class CompPhobosFlight : VehicleComp
             x = targetX;
             z = targetZ;
             Arrive();
+            // Fault-read F6 (Framework 0.163.0): the hand-over took it off the map; there is no map to hold it inside.
+            if (!Vehicle.Spawned) return;
         }
         else
         {
@@ -889,6 +946,7 @@ public partial class CompPhobosFlight : VehicleComp
     /// <summary>Over the target: hold there, or begin the landing; one that cannot hover comes down on the move.</summary>
     void Arrive()
     {
+        inTransit = false;
         if (state == FlightState.ComingDown) return;
         // Leaving for another place: at the edge it hands over, whether or not it could hover (Framework 0.149.0).
         if (Departing)
@@ -940,8 +998,11 @@ public partial class CompPhobosFlight : VehicleComp
         float liftOff = Mathf.Max(0.5f, Props.speedCellsPerSecond * Props.liftOffSpeedShare);
         float acceleration = liftOff * liftOff / (2f * rollCells);
         speed = Mathf.Min(liftOff, speed + acceleration * dt);
+        float before = Rolled();
         MoveAlongHeading(speed * dt);
         float rolled = Rolled();
+        // Fault-read F4: held at the map's edge it can roll no further, so it lifts off there.
+        if (rolled < rollCells && speed > 0.1f && rolled - before < 1e-5f) rolled = rollCells;
         if ((now + Vehicle.thingIDNumber) % 30 == 0)
         {
             int left = Mathf.CeilToInt(rollCells - rolled);
@@ -1010,7 +1071,14 @@ public partial class CompPhobosFlight : VehicleComp
         float braking = Mathf.Max(0.5f, speed * speed / (2f * Mathf.Max(0.5f, left)));
         speed = Mathf.Max(0.3f, speed - braking * dt);
         float move = Mathf.Min(left, speed * dt);
+        float wasX = x, wasZ = z;
         MoveAlongHeading(move);
+        // Fault-read F4: held at the map's edge it can roll no further: it stops there.
+        if (move > 0.01f && Mathf.Abs(x - wasX) + Mathf.Abs(z - wasZ) < 1e-5f)
+        {
+            RolledIn(v.Position, hard: false, null);
+            return;
+        }
         climb = Mathf.Clamp01(1f - Rolled() / (0.4f * rollCells));
         if (climb <= 0f && (now + v.thingIDNumber) % 30 == 0)
         {
@@ -1063,9 +1131,10 @@ public partial class CompPhobosFlight : VehicleComp
     void TouchDown()
     {
         VehiclePawn v = Vehicle;
-        if (FlightRules.SpotRefusal(v, landCell, landRot, forced: IsRaider) is { } blocked)
+        if (FlightRules.SpotRefusal(v, landCell, landRot, forced: false, knowsGround: IsRaider) is { } blocked)
         {
-            Messages.Message("PhobosFlight_MsgSpotBlocked".Translate(v.LabelShort.Named("VEHICLE"), blocked.Named("WHY")).Resolve(), v, MessageTypeDefOf.RejectInput);
+            if (v.Faction == Faction.OfPlayer)
+                Messages.Message("PhobosFlight_MsgSpotBlocked".Translate(v.LabelShort.Named("VEHICLE"), blocked.Named("WHY")).Resolve(), v, MessageTypeDefOf.RejectInput);
             landCell = IntVec3.Invalid;
             state = FlightState.LiftingOff;
             Seen.Note("aircraft.flight-landed", v, variant: "climbed-back");
@@ -1089,6 +1158,9 @@ public partial class CompPhobosFlight : VehicleComp
             (targetX, targetZ) = Clamped((float)(x + Math.Sin(rad) * stop), (float)(z + Math.Cos(rad) * stop));
         }
         orbitX = orbitZ = float.NaN;
+        // Fault-read W6: coming down ends a journey under way; it is not kept for after the landing.
+        departNodes = null;
+        departAction = null;
         // Framework 0.161.0: a load hanging below falls from where it hangs (with release and drops on).
         v.GetComp<CompPhobosSling>()?.OnFlightFalling(HeightMetresNow);
         // Framework 0.155.0: whoever is on a rope or the hoist falls from where they were (the owner's real consequences).
@@ -1122,7 +1194,8 @@ public partial class CompPhobosFlight : VehicleComp
                 // Framework 0.157.0: a raiders' aircraft that comes down is always a wreck, never a prize (the owner's choice).
                 raider = null;
                 Seen.Note("aircraft.raider", v, variant: "shot-down");
-                Messages.Message("PhobosFlight_MsgRaiderDown".Translate(who, (v.Faction?.Name ?? "").Named("FACTION")).Resolve(), new TargetInfo(cell, v.Map), MessageTypeDefOf.PositiveEvent);
+                Messages.Message("PhobosFlight_MsgRaiderDown".Translate(who, (v.Faction?.Name ?? "").Named("FACTION")).Resolve(), new TargetInfo(cell, v.Map),
+                    v.Faction != null && v.Faction.HostileTo(Faction.OfPlayer) ? MessageTypeDefOf.PositiveEvent : MessageTypeDefOf.NegativeEvent);
             }
             else
             {
@@ -1136,6 +1209,8 @@ public partial class CompPhobosFlight : VehicleComp
             return;
         }
         PutDown(cell, rot);
+        // Fault-read F8 (Framework 0.163.0): trees and bushes beneath are crushed.
+        CrushPlants(v);
         LandingSurface.OnTouchDown(v, rolling: false);    // Framework 0.158.0; a wreck is judged by nothing
         CompPhobosVehicleSystems? comp = CompPhobosVehicleSystems.Of(v);
         if (comp != null && !VehicleSystemsMod.Settings.showOnly)
@@ -1146,6 +1221,20 @@ public partial class CompPhobosFlight : VehicleComp
         }
         Seen.Note("aircraft.flight-forced", v, variant: "hard-landing");
         if (v.Faction == Faction.OfPlayer) Messages.Message("PhobosFlight_MsgHardLanding".Translate(who).Resolve(), v, MessageTypeDefOf.NegativeEvent);
+    }
+
+    static void CrushPlants(VehiclePawn v)
+    {
+        Map map = v.Map;
+        if (map == null) return;
+        foreach (IntVec3 c in v.OccupiedRect())
+        {
+            if (!c.InBounds(map)) continue;
+            foreach (Thing thing in c.GetThingList(map).ToList())
+            {
+                if (thing is Plant plant && !plant.Destroyed) plant.Destroy();
+            }
+        }
     }
 
     static void HurtAboard(VehiclePawn v, float harm)
@@ -1170,8 +1259,13 @@ public partial class CompPhobosFlight : VehicleComp
         landRolling = false;
         orbitX = orbitZ = float.NaN;
         v.Transform.rotation = 0f;
+        CellRect was = v.OccupiedRect();
         v.FullRotation = new Rot8(rot);
         if (v.Position != cell) v.Position = cell;
+        // Fault-read F7 (Framework 0.163.0): the ground it left and the ground it stands on now.
+        RecalculatePathCost(v, was);
+        RecalculatePathCost(v, v.OccupiedRect());
+        hoverCosted = false;
         Vector3 c = v.TrueCenter();
         x = c.x;
         z = c.z;
@@ -1211,6 +1305,7 @@ public partial class CompPhobosFlight : VehicleComp
     void SyncPosition()
     {
         VehiclePawn v = Vehicle;
+        CellRect was = v.OccupiedRect();
         Rot8 rot = FlightRules.RotFor(FlightPathRule.NearestOfEight(heading));
         if (v.FullRotation != rot) v.FullRotation = rot;
         IntVec3 cell = FlightRules.CellFor(v, x, z, v.FullRotation);
@@ -1219,7 +1314,43 @@ public partial class CompPhobosFlight : VehicleComp
             v.Position = cell;
             v.vehiclePather.ResetToCurrentPosition();
         }
+        // Fault-read F7: the cells it has left are worked out again, as Vehicle Framework's own mover does; those it has entered only once it
+        // settles into a hover (the design: a passing aircraft slows nobody).
+        CellRect now = v.OccupiedRect();
+        if (now != was)
+        {
+            foreach (IntVec3 c in was)
+            {
+                if (!now.Contains(c) && c.InBounds(v.Map)) v.Map.pathing.RecalculatePerceivedPathCostAt(c);
+            }
+            hoverCosted = false;
+        }
         ApplyTurn();
+    }
+
+    /// <summary>Works out the path cost of every cell of a rect again.</summary>
+    static void RecalculatePathCost(VehiclePawn v, CellRect rect)
+    {
+        Map map = v.Map;
+        if (map == null) return;
+        foreach (IntVec3 c in rect)
+        {
+            if (c.InBounds(map)) map.pathing.RecalculatePerceivedPathCostAt(c);
+        }
+    }
+
+    /// <summary>Settled into a hover (or at its lines), the cells beneath it slow people crossing, as any vehicle's do; worked out once.</summary>
+    void HoverPathCost(VehiclePawn v)
+    {
+        bool hovering = state is FlightState.Hover or FlightState.LineWork;
+        if (!hovering)
+        {
+            hoverCosted = false;
+            return;
+        }
+        if (hoverCosted) return;
+        hoverCosted = true;
+        RecalculatePathCost(v, v.OccupiedRect());
     }
 
     /// <summary>The picture's angle away from the heading Vehicle Framework draws (read back, so four headings work as eight do).</summary>
@@ -1228,7 +1359,7 @@ public partial class CompPhobosFlight : VehicleComp
     bool FootprintRoofed(IntVec3 cell, Rot4 rot)
     {
         Map map = Vehicle.Map;
-        foreach (IntVec3 c in GenAdj.OccupiedRect(cell, rot, Vehicle.VehicleDef.Size))
+        foreach (IntVec3 c in Vehicle.VehicleRect(cell, rot))
         {
             if (c.InBounds(map) && c.Roofed(map)) return true;
         }
@@ -1262,9 +1393,19 @@ public partial class CompPhobosFlight : VehicleComp
         else if (Vehicle.Spawned && Active && Find.Selector.IsSelected(Vehicle)) FlightDrawing.Strip(this);
     }
 
-    /// <summary>How far forward the nacelles of a tiltrotor should lean now, 0 upright to 1 fully forward, from its speed over the map
-    /// (for D'thorga Vehicles' tiltrotor renderer; 0 on the ground and in a hover).</summary>
-    public float ForwardTiltShare => state is FlightState.Moving or FlightState.Orbit ? Mathf.Clamp01(speed / Props.speedCellsPerSecond) * 0.5f : 0f;
+    /// <summary>
+    /// How far forward the nacelles of a tiltrotor should lean now, 0 upright to 1 fully forward, from its speed over the map (for D'thorga
+    /// Vehicles' tiltrotor renderer; 0 on the ground and in a hover). Flying about a map, at most half way (45 degrees); on the way out to the
+    /// edge or in from it, all the way, as the design says (Framework 0.162.0, fault-read T3: before, the cap kept it to 30 degrees drawn).
+    /// </summary>
+    public float ForwardTiltShare => state is FlightState.Moving or FlightState.Orbit
+        ? Mathf.Clamp01(speed / Props.speedCellsPerSecond) * (InTransit ? 1f : 0.5f) : 0f;
+
+    /// <summary>Whether it is on its way out over the map's edge, or in from it (derived, not saved: after a load it reads as flying about).</summary>
+    bool InTransit => Departing || inTransit || raider is { stage: RaiderStage.Leaving };
+
+    // Set as it comes in over the edge, cleared when it first reaches a point.
+    bool inTransit;
 
     /// <summary><see cref="ForwardTiltShare"/> for any vehicle; 0 for one without our flight.</summary>
     public static float ForwardTiltShareOf(VehiclePawn vehicle) => FlightRegistry.Get(vehicle)?.ForwardTiltShare ?? 0f;

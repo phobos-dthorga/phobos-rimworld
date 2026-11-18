@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.83.0] - 2026-11-19 - Draft
+
+The Osprey's rope and hoist mounts at its ramp
+
+### Fixed
+
+- **The fast-rope bar and the rescue hoist sit at the Osprey's ramp**, with the aft cabin's armour; before, both were placed at the middle of its forward cabin with no armour.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.164.0 or later.
+
+### Compatibility and limits
+
+- **Not yet tested in game.**
+
 ## [0.82.0] - 2026-11-19 - Draft
 
 The Osprey's faults found by reading, before its first test

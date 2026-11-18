@@ -61,11 +61,14 @@ public static class HoverLimits
 
     /// <summary>One lift-off or landing with the engines past their limits: hot-section life, or engine health without a turbine system.
     /// Nothing with figures only. Shared by the launch and, since Framework 0.140.0, the landing at a journey's end (LandingCheck).</summary>
-    public static void Strain(CompPhobosVehicleSystems comp)
+    public static void Strain(CompPhobosVehicleSystems comp) => Strain(comp, 1f);
+
+    /// <summary>A share of one over-limit lift-off's strain (Framework 0.163.0, fault-read F11: a second of over-limit hover is a sixtieth).</summary>
+    public static void Strain(CompPhobosVehicleSystems comp, float share)
     {
-        if (VehicleSystemsMod.Settings.showOnly) return;
-        if (comp.TryGetQuantity("hotSectionLife", out _)) comp.AddToQuantity("hotSectionLife", LaunchStrainLife);
-        else comp.WearRole("Engine", LaunchStrainWear);
+        if (VehicleSystemsMod.Settings.showOnly || share <= 0f) return;
+        if (comp.TryGetQuantity("hotSectionLife", out _)) comp.AddToQuantity("hotSectionLife", LaunchStrainLife * share);
+        else comp.WearRole("Engine", LaunchStrainWear * share);
     }
 
     /// <summary>Hot-section life one over-limit lift-off uses (authored: about five hours past the continuous limit's worst).</summary>

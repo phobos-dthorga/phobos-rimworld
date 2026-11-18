@@ -5,6 +5,36 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.164.0] - 2026-11-19 - Draft
+
+Our own flight: faults found by the Osprey's first read before testing, fixed
+
+### Fixed
+
+- **Someone killed aboard an aircraft in the air now leaves a body** with their gear; before, both were lost.
+- **An aircraft taken off a map while in the air** (a caravan formed with it, the map removed) no longer comes back "flying" at its old place; whoever was on its ropes or hoist goes back aboard.
+- **Land here can no longer be given while it is already settling onto a spot**: before, it came down where it was but stood on the new spot.
+- **Spots and strips too near the map's edge are refused**, saying so; before, an aircraft could fly at one for ever, or roll at walking pace without end. A take-off roll held at the edge lifts off there, and a landing roll stops there.
+- **With nobody left who can fly it, or its engines refused**, an aircraft in the air comes down once; before, the game's refusal repeated every moment while it hovered on.
+- **Every departure over the map's edge no longer throws an error** as the aircraft leaves.
+- **People are slowed under a hovering aircraft and its landing spot, and no longer under its old pad or its path**: the ground it leaves, lands on and hovers over is worked out again, as Vehicle Framework's own vehicles do.
+- **A forced landing over trees, bushes or rubble is a hard landing that crushes the plants**, not a wreck; a wreck is over a building, another vehicle, impassable ground or deep water, as designed. A chosen landing is refused over them, saying so.
+- **An aircraft is judged the moment it spawns or loads**, not up to a second later, so one that cannot hover no longer settles into a hover and falls.
+- **Even-sided aircraft facing south or west** (the Mosquito, the Cherokee) have their landing spots, strips and roofs checked on the right cells.
+- **Allowed at a cost, an over-limit hover now costs a sixtieth of an over-limit lift-off each second** and nothing in forward flight; before, it wore a turbine out in about ten seconds.
+- **The hoist reaches the people within its reach**, behind the ramp at any height; before, it looked several cells away and never reached them.
+- **Patients on an aircraft's litters stay aboard as it leaves over the edge**; before, they were set down there.
+- **Nobody is set down from a rope or the hoist under a roof, in a room or in a wall**; a raid's ropes go only to open ground.
+- **A raiders' aircraft that cannot hover on arrival goes back to the edge**, and its raiders walk in from there; raiders still aboard when it leaves are put down at the edge and stay in their raid; only people, awake, are flown in.
+- **The player is not told to pick a spot for another faction's aircraft**, and an ally's aircraft lost is no longer good news.
+- **On its way out over the edge it no longer brakes to a stop first**; a forced landing ends a journey under way; a hover low over the ground climbs to its height.
+- **The hoist refuses someone the aircraft could not hover with.**
+- **A tiltrotor's nacelles tip fully forward on its way out over the edge and in from it**; flying about a map, at most half way.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Found by a read of the code before testing, not in play. Left for later, as worth a look: ground fire catching an aircraft in the air, the drivetrain setting not read by the hover margin, a forced landing leaving no wreck, a stalled hoist having no way out, and the Cherokee and the Louie losing water-drop runs while the stock helicopters setting is on.
+
 ## [0.163.0] - 2026-11-19 - Draft
 
 A tiltrotor's rotors show when they spin; dust never puts an engine out
