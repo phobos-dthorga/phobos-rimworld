@@ -13,6 +13,10 @@ The Osprey circles
 
 - **The Osprey can circle a spot** at 5 cells a second, its tightest circle 12 cells out, and holds by circling when it is too heavy to hover. Both figures are authored, not published.
 
+### Fixed
+
+- **The Osprey's armour kit no longer armours it before it is fitted.** Looking at the kit in the Upgrades tab was enough to give the cockpit and cabins its armour until the game was reloaded; saves are unharmed. Its list of effects is now written out in the node. Not yet tested in game.
+
 ### Dependencies
 
 - Needs D'thorga Framework 0.153.0 or later, which carries circling. With an older Framework the game reports unknown fields in the Osprey's flight comp at start-up.

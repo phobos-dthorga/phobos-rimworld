@@ -48,6 +48,10 @@
       <label>Armour kit</label>
       <displayLabel>true</displayLabel>
       <description>Ballistic plates in the cockpit and cabin: rifle rounds no longer go through them. The plates weigh 360 kg, carried as cargo would be.</description>
+      <!-- Written out in full (Vehicles 0.74.1): without it, Vehicle Framework builds this list from the upgrades, and for armour of type Set
+           doing so fits the armour, so an Osprey was armoured as soon as anyone looked at this node in its Upgrades tab (found by reading the
+           code, 19 Nov 2026). The tab is that method's only caller and skips it when this is given. Keep these figures with the node's own. -->
+      <upgradeExplanation>Cockpit, forward cabin and aft cabin: sharp armour set to 45%, blunt armour to 35%.\nCargo room: 360 kg less.\nKit weight: 360 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Osprey/Upgrades/ArmourKit</icon>
       <work>4000</work>
       <gridCoordinate>(3, 6)</gridCoordinate>
