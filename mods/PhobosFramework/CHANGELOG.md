@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.166.0] - 2026-11-19 - Draft
+
+Our own flight: the last ten points found by the Osprey's read before testing, fixed at the owner's word
+
+### Fixed
+
+- **Ground fire no longer catches an aircraft in the air.**
+- **With the drivetrain model set to less than full, the flight no longer judges the engines**, as the rest of the engine model does not.
+- **Sent to land on a spot on the map it is on, an aircraft flies there and lands**; before, it went out over the edge and came back.
+- **A rolling landing looks at its whole strip as it arrives**; blocked, it lands straight down if it can hover, or circles and says why.
+- **A crash that wrecks an aircraft leaves its wreck**, as Vehicle Framework's own destruction does (a raiders' leaves none); shot down in the air, everyone aboard is hurt by the fall.
+- **Anyone working on, boarding, loading or refuelling an aircraft stops as it leaves the ground.**
+- **An aircraft in the air keeps flying when an upgrade is fitted or removed**; before, it could stop ticking, and so stop flying. The same for slings and litters.
+- **An aircraft coming in over the edge looks along the whole edge for a place that wipes nothing.**
+- **A hoist without power is wound by hand, slowly**, rather than stuck; whoever is on a line goes on living while there (needs, wounds).
+- **The Cherokee and the Louie fly water drop runs again with Stock helicopters fly over the map on**, starting from the ground.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Found by a read of the code before testing, not in play.
+
 ## [0.165.0] - 2026-11-19 - Draft
 
 The Hind lifts and sets down a sling load from a hover

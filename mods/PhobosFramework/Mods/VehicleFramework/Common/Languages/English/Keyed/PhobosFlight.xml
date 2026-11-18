@@ -103,6 +103,7 @@
   <PhobosFlight_MsgHoistedUp>{PERSON} is aboard the {VEHICLE}.</PhobosFlight_MsgHoistedUp>
   <PhobosFlight_MsgHoistedDown>{PERSON} is down from the {VEHICLE}.</PhobosFlight_MsgHoistedDown>
   <PhobosFlight_MsgHookMissed>{PERSON} was not at the {VEHICLE}'s hook, or could not be taken, so it came back up empty.</PhobosFlight_MsgHookMissed>
+  <PhobosFlight_MsgHoistByHand>{WHY} The crew of the {VEHICLE} are winding the hoist by hand, slowly.</PhobosFlight_MsgHoistByHand>
   <PhobosFlight_MsgLinesStopping>The {VEHICLE} will send nobody more down its lines, and climbs back once the last one is off.</PhobosFlight_MsgLinesStopping>
   <PhobosFlight_MsgLineFall>{PERSON} fell about {METRES} m from the {VEHICLE}'s line as it came down.</PhobosFlight_MsgLineFall>
   <PhobosFlight_MsgRaiderDown>The {VEHICLE} of {FACTION} came down and was wrecked.</PhobosFlight_MsgRaiderDown>

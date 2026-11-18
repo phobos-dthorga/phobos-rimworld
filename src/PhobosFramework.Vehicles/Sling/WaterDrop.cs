@@ -53,7 +53,13 @@ public static class WaterDrops
         if (!sling.HookFitted) return "PhobosSling_NoHook".Translate().Resolve();
         // A water drop run takes the helicopter off the map and flies it in a stand-in of ours. A helicopter that flies on the map by itself
         // (the Hind) keeps its own flight state while it is spawned, and is not taken through that run (Framework 0.102.0).
-        if (OnMapFlight.FliesItself(helicopter)) return "PhobosWaterDrop_FliesItself".Translate(helicopter.LabelShort.Named("HELICOPTER")).Resolve();
+        // Fault-read S2 (Framework 0.167.0): one on our own flight (the Cherokee and the Louie with their setting on) starts the run from the
+        // ground, where our flight stands aside, as it did before the setting; in the air it must land first.
+        if (CompPhobosFlight.FliesOnOurs(helicopter))
+        {
+            if (OnMapFlight.Airborne(helicopter)) return "PhobosWaterDrop_LandFirst".Translate(helicopter.LabelShort.Named("HELICOPTER")).Resolve();
+        }
+        else if (OnMapFlight.FliesItself(helicopter)) return "PhobosWaterDrop_FliesItself".Translate(helicopter.LabelShort.Named("HELICOPTER")).Resolve();
         if (!HasBucket(helicopter)) return "PhobosWaterDrop_NoBucket".Translate().Resolve();
         if ((sling.Carried ?? sling.Hooked) is { } load) return "PhobosWaterDrop_HasLoad".Translate(load.LabelShort.Named("LOAD")).Resolve();
         if (!helicopter.Spawned) return "PhobosWaterDrop_NotHere".Translate().Resolve();

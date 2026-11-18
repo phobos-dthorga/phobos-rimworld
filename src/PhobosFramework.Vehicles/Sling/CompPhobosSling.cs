@@ -30,7 +30,7 @@ public sealed class CompProperties_PhobosSling : CompProperties
 /// setting off); when the helicopter launches through Vehicle Framework's own flight, the load leaves the map with it, held in this comp;
 /// when it lands anywhere, the load is set down beside it. Added to a vehicle whose loadout names a hook rating.
 /// </summary>
-public sealed class CompPhobosSling : VehicleComp, IThingHolder
+public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
 {
     /// <summary>The ability a fitting grants for this to work.</summary>
     public const string HookAbility = "CargoHook";
@@ -96,6 +96,9 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
     }
 
     bool HasSlingSet => Vehicle.inventory?.innerContainer.Any(t => t.def == VehicleSystemsThingDefOf.PhobosVehicleSystems_SlingSet) == true;
+
+    /// <summary>Whether it still needs its tick (fault-read W11): a landing waits to be dealt with, or a lift or set-down from a hover.</summary>
+    public bool WantsTicks => landed || NeedsOwnThinking;
 
     /// <summary>Whether a cargo hook is fitted: what a sling load and a water bucket both hang from.</summary>
     public bool HookFitted => Systems?.Fittings.Grants(HookAbility) == true;

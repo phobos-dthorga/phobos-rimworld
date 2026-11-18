@@ -63,7 +63,8 @@ public static class FlightRules
     public static float Margin(VehiclePawn vehicle)
     {
         Powertrain? train = CompPhobosVehicleSystems.Of(vehicle)?.Powertrain;
-        if (train == null || !train.JudgesHover) return float.NaN;
+        // Fault-read W3 (Framework 0.167.0): only with the full drivetrain model, as the hover limits, landing check and cruise height.
+        if (train == null || !train.JudgesHover || VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Full) return float.NaN;
         if (train.Engines().working <= 0) return 0f;
         (bool dry, bool wet, double margin) = train.HoverCheck();
         return dry || wet ? Mathf.Max(1f, (float)margin) : (float)margin;
@@ -90,6 +91,7 @@ public static class FlightRules
     public static bool WouldHoverWith(VehiclePawn vehicle, double extraKg)
     {
         if (CompPhobosVehicleSystems.Of(vehicle) is not { Powertrain: { JudgesHover: true } train } systems) return true;
+        if (VehicleSystemsMod.Settings.drivetrainMode != DrivetrainMode.Full) return true;
         if (train.Engines().working <= 0) return false;
         (bool dry, bool wet, double m) = train.HoverCheck(train.MassKg() + System.Math.Max(0, extraKg), systems.Ambient, systems.AirPressure);
         float share = train.Profile?.forwardFlightShare ?? 0.6f;

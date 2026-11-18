@@ -57,6 +57,22 @@ public static class FlightArrival
 
     public static bool Flies(VehiclePawn? vehicle) => CompPhobosFlight.FliesOnOurs(vehicle);
 
+    static readonly AccessTools.FieldRef<ArrivalAction_LandToCell, IntVec3> LandingCell = AccessTools.FieldRefAccess<ArrivalAction_LandToCell, IntVec3>("landingCell");
+    static readonly AccessTools.FieldRef<ArrivalAction_LandToCell, Rot4> LandingRot = AccessTools.FieldRefAccess<ArrivalAction_LandToCell, Rot4>("landingRot");
+    static readonly AccessTools.FieldRef<ArrivalAction_LandToCell, MapParent> LandingMapParent = AccessTools.FieldRefAccess<ArrivalAction_LandToCell, MapParent>("mapParent");
+
+    /// <summary>Whether a journey is only to a landing spot on the map the vehicle is on now (fault-read W4), and that spot.</summary>
+    public static bool SameMapSpot(VehiclePawn vehicle, List<FlightNode> nodes, IArrivalAction action, out IntVec3 cell, out Rot4 rot)
+    {
+        cell = IntVec3.Invalid;
+        rot = Rot4.North;
+        if (action is not ArrivalAction_LandToCell land || action is ArrivalAction_CrashInMap || vehicle.Map is not { } map) return false;
+        if (nodes.Count == 0 || nodes[nodes.Count - 1].Tile != map.Tile || LandingMapParent(land)?.Map != map) return false;
+        cell = LandingCell(land);
+        rot = LandingRot(land);
+        return cell.IsValid;
+    }
+
     /// <summary>Spawns the vehicle on the map's edge, in the air, and gives it its first order. False when it could not, so Vehicle
     /// Framework's own landing goes ahead instead.</summary>
     public static bool Enter(VehiclePawn vehicle, Map map, ArrivalIntent intent, IntVec3 landCell, Rot4 landRot)
@@ -140,29 +156,41 @@ public static class FlightArrival
     static (float X, float Z) ClearPlace(VehiclePawn vehicle, Map map, float x, float z, Rot4 rot, float edge)
     {
         bool alongX = Mathf.Abs(z - edge) < 0.5f || Mathf.Abs(z - (map.Size.z - edge)) < 0.5f;
-        for (int step = 0; step <= SearchAlongEdge; step++)
+        // Fault-read W12 (Framework 0.167.0): the nearest place along the whole edge where nothing would be wiped, else the one wiping least.
+        int reach = Mathf.Max(SearchAlongEdge, Mathf.Max(map.Size.x, map.Size.z));
+        (float X, float Z) least = (x, z);
+        int leastWiped = int.MaxValue;
+        for (int step = 0; step <= reach; step++)
         {
             foreach (int sign in step == 0 ? new[] { 1 } : new[] { 1, -1 })
             {
                 float px = alongX ? Mathf.Clamp(x + sign * step, edge, map.Size.x - edge) : x;
                 float pz = alongX ? z : Mathf.Clamp(z + sign * step, edge, map.Size.z - edge);
-                if (Clear(vehicle, map, FlightRules.CellFor(vehicle, px, pz, new Rot8(rot)), rot)) return (px, pz);
+                int wiped = Wiped(vehicle, map, FlightRules.CellFor(vehicle, px, pz, new Rot8(rot)), rot);
+                if (wiped == 0) return (px, pz);
+                if (wiped < leastWiped)
+                {
+                    leastWiped = wiped;
+                    least = (px, pz);
+                }
             }
         }
-        return (x, z);
+        return least;
     }
 
-    static bool Clear(VehiclePawn vehicle, Map map, IntVec3 cell, Rot4 rot)
+    /// <summary>How many things spawning it here would wipe (filth aside); a cell off the map counts as a great many.</summary>
+    static int Wiped(VehiclePawn vehicle, Map map, IntVec3 cell, Rot4 rot)
     {
+        int wiped = 0;
         foreach (IntVec3 c in vehicle.VehicleRect(cell, rot))
         {
-            if (!c.InBounds(map)) return false;
+            if (!c.InBounds(map)) return 100000;
             foreach (Thing thing in c.GetThingList(map))
             {
-                if (thing.def.category != ThingCategory.Filth && GenSpawn.SpawningWipes(vehicle.def, thing.def)) return false;
+                if (thing.def.category != ThingCategory.Filth && GenSpawn.SpawningWipes(vehicle.def, thing.def)) wiped++;
             }
         }
-        return true;
+        return wiped;
     }
 }
 

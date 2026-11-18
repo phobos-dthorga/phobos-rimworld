@@ -27,8 +27,11 @@ public sealed class CompProperties_PhobosLitter : CompProperties
 /// do doctoring tends them as a caravan's doctor would (the game's own tend, every 1,250 ticks a doctor). In flight nothing ages, as for
 /// Vehicle Framework's passengers. Anything else that takes the vehicle off the map sets them down where it stood first.
 /// </summary>
-public sealed class CompPhobosLitter : VehicleComp, IThingHolder
+public sealed class CompPhobosLitter : VehicleComp, IThingHolder, IKeepsTicking
 {
+    /// <summary>Whether it still needs its tick (fault-read W11): someone lies on a litter.</summary>
+    public bool WantsTicks => held.Count > 0;
+
     /// <summary>The ability the litter kit grants.</summary>
     public const string LitterAbility = "Litter";
     /// <summary>The game's own interval between one caravan doctor's tends (CaravanTendUtility.TendIntervalTicks).</summary>

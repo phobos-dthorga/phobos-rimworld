@@ -67,6 +67,40 @@ public static class Patch_TryAddPawn_Flight
     }
 }
 
+/// <summary>
+/// Fire on the ground does not catch an aircraft of ours in the air (fault-read W2, Framework 0.167.0): its flammable body stands on the cell
+/// beneath, where a grass fire would otherwise attach to it. A prefix that skips the original for one of ours in the air only, as VTOL Vehicle's
+/// and the Harrier's frameworks do for theirs; burning in the air from hits is not modelled.
+/// </summary>
+[HarmonyPatch(typeof(FireUtility), nameof(FireUtility.TryAttachFire))]
+public static class Patch_TryAttachFire_Flight
+{
+    public static bool Prefix(Thing t) => !FlightRegistry.Any || t is not VehiclePawn vehicle || !FlightRegistry.InAir(vehicle);
+}
+
+/// <summary>
+/// Vehicle Framework rebuilds its list of comps to tick whenever a comp is added or removed (an upgrade), dropping every comp that ticks by
+/// request (fault-read W11, Framework 0.167.0): an aircraft in the air would stop flying. A postfix: each comp of ours that still needs its
+/// tick asks for it again.
+/// </summary>
+[HarmonyPatch(typeof(VehiclePawn), "RecacheCompTickers")]
+public static class Patch_RecacheCompTickers_Flight
+{
+    public static void Postfix(VehiclePawn __instance)
+    {
+        foreach (ThingComp comp in __instance.AllComps)
+        {
+            if (comp is IKeepsTicking { WantsTicks: true } && comp is VehicleComp vehicleComp) __instance.RequestTickStart(vehicleComp);
+        }
+    }
+}
+
+/// <summary>A comp of ours that ticks by request and can say whether it still needs to (fault-read W11): asked when Vehicle Framework drops it.</summary>
+public interface IKeepsTicking
+{
+    bool WantsTicks { get; }
+}
+
 /// <summary>Nothing is loaded into an aircraft in the air (finding 9). A prefix that skips the original for one of ours in the air.</summary>
 [HarmonyPatch(typeof(VehiclePawn), nameof(VehiclePawn.AddOrTransfer), typeof(Thing), typeof(int))]
 public static class Patch_AddOrTransfer_Flight

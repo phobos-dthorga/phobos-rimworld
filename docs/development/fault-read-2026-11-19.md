@@ -2,7 +2,7 @@
 
 **Status (19 Nov 2026):** 30 faults and 33 smaller points found by reading, none observed in game. Fixed: A1, A3 and A4 (Framework
 0.162.0, the armour session); the Osprey's own, D1 to D5, D7, T1, T2, T4, T6, U1, L1, L2, W1 to W3, W5 and W7 (Framework 0.163.0 with
-Vehicles 0.82.0, [as fixed](#as-fixed-framework-01630-and-vehicles-0820)). The flight session's: F1 to F11, H1 to H3 and H5, R1 to R4, S1 (as F10), D6, T3 and the flight's smaller W1, W5, W6 and W8 (Framework 0.164.0 with Vehicles 0.83.0, [as fixed](#as-fixed-framework-01640-and-vehicles-0830)); of the flight's, left for later: W2 to W4, W7, W9 to W12, H4 and S2. Left
+Vehicles 0.82.0, [as fixed](#as-fixed-framework-01630-and-vehicles-0820)). The flight session's: F1 to F11, H1 to H3 and H5, R1 to R4, S1 (as F10), D6, T3 and the flight's smaller W1, W5, W6 and W8 (Framework 0.164.0 with Vehicles 0.83.0, [as fixed](#as-fixed-framework-01640-and-vehicles-0830)); and, at the owner's word ("Fix all now"), the flight's W2 to W4, W7, W9 to W12, H4 and S2 (Framework 0.166.0, [as fixed](#as-fixed-framework-01660-the-flights-last-ten)). Left
 open for the owner: A2 with W6, U2, W8. Not yet tested in game.
 
 The Osprey's design asks for "a fault-read by a separate reader before the install" as part of its first batch
@@ -201,3 +201,24 @@ F section, not the Osprey's own W rows.
 - **D6:** a `RampSection` role on the aft cabin lends both mounts its armour; their cells are the ramp's row.
 - **T3:** the nacelles tip fully forward on the way out over the edge, coming in from it, or a raider leaving; at most half way flying
   about the map.
+
+## As fixed (Framework 0.166.0): the flight's last ten
+
+At the owner's word ("Fix all now", 19 Nov 2026, on the question card of the leftovers); not yet tested in game.
+
+- **W2:** a prefix on `FireUtility.TryAttachFire` that skips it for an aircraft of ours in the air, as VTOL Vehicle's and the Harrier's
+  frameworks do for theirs: ground fire does not catch it. Burning in the air from hits is not modelled.
+- **W3:** `FlightRules.Margin` and `WouldHoverWith` judge only with the full drivetrain model, as the hover limits, landing check and cruise
+  height do; otherwise it can always hover.
+- **W4:** a journey only to a landing spot on the map it is on (`FlightArrival.SameMapSpot`) is a flight to the spot and a landing, not out
+  over the edge and back.
+- **W7:** the whole strip is looked at as it arrives over it, a rolling landing chosen earlier too; blocked, a hovering aircraft lands
+  straight down, one that cannot hover circles and says why.
+- **W9:** a crash wrecks it through Vehicle Framework's own `Kill`, leaving its wreck, as the design says; a raiders' aircraft leaves none
+  (never a prize). Destroyed in the air (shot down), everyone aboard is hurt by a fall from its height before Vehicle Framework puts them out.
+- **W10:** the jobs of anyone working on, boarding, loading or refuelling it end as it leaves the ground (a straight lift-off or a roll).
+- **W11:** a postfix on Vehicle Framework's `RecacheCompTickers` lets each comp of ours that still needs its tick ask again (`IKeepsTicking`:
+  the flight, the sling, the litter).
+- **W12:** the place to come in over the edge is looked for along the whole edge; failing a clear one, the one that would wipe least.
+- **H4:** a hoist without power is wound by hand at 0.15 of its speed (authored), saying so; whoever is on a line is ticked while there.
+- **S2:** a stock helicopter on our flight flies water-drop runs from the ground, as before its setting; in the air it is told to land first.

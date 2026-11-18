@@ -120,8 +120,11 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
 /// its true position and heading, and decides what it may do from the engine model's one hover margin. It ticks only while airborne
 /// (Vehicle Framework's tick by request), so a parked aircraft costs nothing. Orders are services here; the gizmos only call them.
 /// </summary>
-public partial class CompPhobosFlight : VehicleComp
+public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
 {
+    /// <summary>Whether it still needs its tick (fault-read W11): in the air, or a raiders' aircraft unloading on the ground.</summary>
+    public bool WantsTicks => Vehicle.Spawned && (Airborne || raider != null);
+
     const float TicksPerSecond = 60f;
     const int JudgeEveryTicks = 60;
     const int IdleResetTicks = 250;
@@ -392,10 +395,24 @@ public partial class CompPhobosFlight : VehicleComp
         state = FlightState.LiftingOff;
         FlightRegistry.Add(this);
         StartTicking();
+        EndJobsOn(v);
         Seen.Note("aircraft.flight-takeoff", v);
         // Framework 0.160.0: a stock helicopter on our flight, by its Def.
         if (Props.onlyWithStockSetting && Seen.On && Seen.Wants("aircraft.flight-stock", v, v.def.defName)) Seen.Note("aircraft.flight-stock", v, variant: v.def.defName);
         LandingSurface.OnTakeOff(v);    // Framework 0.158.0: what the ground beneath does as it lifts off
+    }
+
+    /// <summary>Ends the jobs of anyone working on, boarding, loading or refuelling it (fault-read W10, Framework 0.167.0): it is leaving the
+    /// ground, and the guards would only refuse them on arrival.</summary>
+    static void EndJobsOn(VehiclePawn v)
+    {
+        Map map = v.Map;
+        if (map == null) return;
+        foreach (Pawn pawn in map.mapPawns.AllPawnsSpawned.ToList())
+        {
+            if (pawn == v || pawn.jobs?.curJob is not { } job) continue;
+            if (job.targetA.Thing == v || job.targetB.Thing == v || job.targetC.Thing == v) pawn.jobs.EndCurrentJob(Verse.AI.JobCondition.InterruptForced);
+        }
     }
 
     /// <summary>Starts a roll along the strip ahead, straight along its heading of four, to leave the ground at the end (Framework 0.151.0).</summary>
@@ -414,6 +431,7 @@ public partial class CompPhobosFlight : VehicleComp
         state = FlightState.TakeoffRoll;
         FlightRegistry.Add(this);
         StartTicking();
+        EndJobsOn(v);
         Seen.Note("aircraft.flight-roll", v, variant: "takeoff");
         LandingSurface.OnTakeOff(v, rolling: true);
     }
@@ -447,6 +465,27 @@ public partial class CompPhobosFlight : VehicleComp
         }
         if (nodes.NullOrEmpty())
         {
+            return;
+        }
+        // Fault-read W4 (Framework 0.167.0): sent to land on a spot on the map it is on, it flies there.
+        if (FlightArrival.SameMapSpot(v, nodes, arrivalAction, out IntVec3 spot, out Rot4 spotRot))
+        {
+            if (!Airborne)
+            {
+                (RollVerdict verdict, int cells, _) = RollNeed();
+                if (verdict == RollVerdict.Rolls) BeginRoll(cells);
+                else
+                {
+                    BeginTakeOff();
+                    HoverLimits.OnLaunch(v);
+                }
+            }
+            if (LandRefusal(spot, spotRot) is { } why)
+            {
+                Messages.Message(why, v, MessageTypeDefOf.RejectInput, historical: false);
+                return;
+            }
+            Land(spot, spotRot);
             return;
         }
         if (!Airborne)
@@ -950,11 +989,15 @@ public partial class CompPhobosFlight : VehicleComp
         }
         // Framework 0.151.0: one that cannot hover lands rolling on a clear strip ahead of its spot; chosen while it could hover, the strip
         // is looked at now.
-        if (landCell.IsValid && (landRolling || (hold == FlightHold.ForwardOnly && !float.IsNaN(RollingShare)
-            && FlightRules.StripRefusal(Vehicle, landCell, landRot, Props.fullRollCells, Props.needsBuiltFloor, out _) == null)))
+        if (landCell.IsValid && (landRolling || hold == FlightHold.ForwardOnly) && !float.IsNaN(RollingShare))
         {
-            BeginRollingLanding();
-            return;
+            // Fault-read W7 (Framework 0.167.0): the whole strip is looked at as it arrives, a rolling landing chosen earlier too.
+            if (FlightRules.StripRefusal(Vehicle, landCell, landRot, Props.fullRollCells, Props.needsBuiltFloor, out _) == null)
+            {
+                BeginRollingLanding();
+                return;
+            }
+            landRolling = false;
         }
         if (hold == FlightHold.ForwardOnly)
         {
@@ -1180,6 +1223,7 @@ public partial class CompPhobosFlight : VehicleComp
         float m = float.IsNaN(margin) ? 0f : margin;
         HurtAboard(v, (float)FlightPathRule.ForcedLandingHarm(m));
         string? wreck = FlightRules.SpotRefusal(v, cell, rot, forced: true);
+        bool wasRaider = IsRaider;
         NamedArgument who = v.LabelShort.Named("VEHICLE");
         if (wreck != null || IsRaider)
         {
@@ -1196,10 +1240,13 @@ public partial class CompPhobosFlight : VehicleComp
                 Seen.Note("aircraft.flight-forced", v, wreck, "wrecked");
                 if (v.Faction == Faction.OfPlayer) Messages.Message("PhobosFlight_MsgWrecked".Translate(who, wreck!.Named("WHY")).Resolve(), new TargetInfo(cell, v.Map), MessageTypeDefOf.NegativeEvent);
             }
+            bool prize = raider == null && !wasRaider;
             state = FlightState.Ground;
             FlightRegistry.Remove(this);
             StopTicking();
-            v.Destroy(DestroyMode.KillFinalize);
+            // Fault-read W9 (Framework 0.167.0): through Vehicle Framework's own destruction, its wreck left as the design says; a raiders'
+            // aircraft leaves none, so it is never a prize.
+            v.Kill(null, DestroyMode.KillFinalize, spawnWreckage: prize);
             return;
         }
         PutDown(cell, rot);

@@ -31,6 +31,8 @@ public partial class CompPhobosFlight : IThingHolder
     public const string RescueHoistAbility = "RescueHoist";
 
     const int LineCheckTicks = 30;
+    /// <summary>The share of its speed the crew wind the hoist at by hand when its power fails (authored, fault-read H4).</summary>
+    const float HandWindShare = 0.15f;
 
     // Saved.
     LineJob lineJob;
@@ -298,6 +300,8 @@ public partial class CompPhobosFlight : IThingHolder
 
     void LineStep(float dt, int now)
     {
+        // Fault-read H4: whoever is on a line is held here, out of the seats Vehicle Framework ticks: their needs and wounds go on.
+        if (lineHeld.Count > 0) lineHeld.DoTick();
         float workClimb = (float)LineRule.WorkClimb(Props.workHeightMetres, Props.flightHeightMetres);
         if (!lineWorking)
         {
@@ -367,7 +371,11 @@ public partial class CompPhobosFlight : IThingHolder
             hoistUnpoweredTold = false;
             return true;
         }
-        if (!hoistUnpoweredTold && Vehicle.Faction == Faction.OfPlayer) Messages.Message(unpowered, Vehicle, MessageTypeDefOf.CautionInput, historical: false);
+        if (!hoistUnpoweredTold && Vehicle.Faction == Faction.OfPlayer)
+        {
+            Messages.Message("PhobosFlight_MsgHoistByHand".Translate(Vehicle.LabelShort.Named("VEHICLE"), unpowered.Named("WHY")).Resolve(), Vehicle,
+                MessageTypeDefOf.CautionInput, historical: false);
+        }
         hoistUnpoweredTold = true;
         return false;
     }
@@ -385,14 +393,14 @@ public partial class CompPhobosFlight : IThingHolder
             hoistRaising = true;
             return false;
         }
-        if (!HoistPowered(now)) return false;
+        float power = HoistPowered(now) ? 1f : HandWindShare;
         if (!hoistRaising)
         {
-            cableOut = Mathf.Min(height, cableOut + Props.hoistEmptyMetresPerSecond * dt);
+            cableOut = Mathf.Min(height, cableOut + Props.hoistEmptyMetresPerSecond * power * dt);
             if (cableOut >= height) hookLeft = Props.hoistHookSeconds;
             return false;
         }
-        float rate = lineHeld.Count > 0 ? Props.hoistLoadedMetresPerSecond : Props.hoistEmptyMetresPerSecond;
+        float rate = (lineHeld.Count > 0 ? Props.hoistLoadedMetresPerSecond : Props.hoistEmptyMetresPerSecond) * power;
         cableOut = Mathf.Max(0f, cableOut - rate * dt);
         if (cableOut > 0f) return false;
         if (lineHeld.Count > 0) PutAboard(lineHeld.InnerListForReading[0]);
@@ -457,7 +465,7 @@ public partial class CompPhobosFlight : IThingHolder
     bool HoistDownStep(float dt, int now)
     {
         float height = HeightMetres;
-        if (!HoistPowered(now)) return false;
+        float power = HoistPowered(now) ? 1f : HandWindShare;
         if (!hoistRaising)
         {
             if (lineHeld.Count == 0)
@@ -465,7 +473,7 @@ public partial class CompPhobosFlight : IThingHolder
                 Pawn? pawn = hoistFor;
                 if (pawn == null || lineStopping || !Vehicle.AllPawnsAboard.Contains(pawn) || !Vehicle.RemovePawn(pawn) || !lineHeld.TryAdd(pawn)) return true;
             }
-            cableOut = Mathf.Min(height, cableOut + Props.hoistLoadedMetresPerSecond * dt);
+            cableOut = Mathf.Min(height, cableOut + Props.hoistLoadedMetresPerSecond * power * dt);
             if (cableOut < height) return false;
             Pawn down = lineHeld.InnerListForReading[0];
             SetDown(down, 0f, "PhobosFlight_MsgHoistedDown");
@@ -473,7 +481,7 @@ public partial class CompPhobosFlight : IThingHolder
             hoistRaising = true;
             return false;
         }
-        cableOut = Mathf.Max(0f, cableOut - Props.hoistEmptyMetresPerSecond * dt);
+        cableOut = Mathf.Max(0f, cableOut - Props.hoistEmptyMetresPerSecond * power * dt);
         return cableOut <= 0f;
     }
 
@@ -560,7 +568,16 @@ public partial class CompPhobosFlight : IThingHolder
     /// <summary>For Vehicle Framework's destruction: whoever is on a line falls before the aircraft is gone.</summary>
     public static void OnDestroying(VehiclePawn vehicle)
     {
-        if (vehicle.GetComp<CompPhobosFlight>() is { state: FlightState.LineWork } flight) flight.DropLines();
+        if (vehicle.GetComp<CompPhobosFlight>() is not { Airborne: true } flight) return;
+        if (flight.state == FlightState.LineWork) flight.DropLines();
+        // Fault-read W9 (Framework 0.167.0): destroyed in the air (shot down), everyone aboard falls with it, hurt by the height, before
+        // Vehicle Framework puts them out.
+        double harm = LineRule.FallHarm(flight.HeightMetresNow);
+        if (harm <= 0 || VehicleSystemsMod.Settings.showOnly) return;
+        foreach (Pawn pawn in vehicle.AllPawnsAboard.ToList())
+        {
+            for (int i = 0; i < LineRule.FallBlows && !pawn.Dead; i++) pawn.TakeDamage(new DamageInfo(DamageDefOf.Blunt, (float)(harm / LineRule.FallBlows)));
+        }
     }
 
     // ---- What it shows ----
