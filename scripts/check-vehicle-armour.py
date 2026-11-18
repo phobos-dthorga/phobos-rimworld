@@ -63,6 +63,17 @@ class Vehicle:
     source: str
     size: tuple
     parts: list = field(default_factory=list)
+    tree: str | None = None
+
+
+@dataclass
+class Kit:
+    """An upgrade node that adds armour to named parts: per part, (type, sharp, blunt) on the game's scale and on Combat Extended's."""
+    key: str
+    source: str
+    prereqs: list
+    armour: dict = field(default_factory=dict)
+    ce_armour: dict | None = None
 
 
 def same(figure, class_figure):
@@ -143,6 +154,10 @@ def load_vehicles(root):
             m = CELL.search(el.findtext('size', '') or '')
             size = (int(m.group(1)), int(m.group(2))) if m else (1, 1)
             vehicle = Vehicle(el.findtext('defName', ''), path.relative_to(root).as_posix(), size)
+            comps = el.find('comps')
+            for comp in comps if comps is not None else []:
+                if comp.get('Class') == 'Vehicles.CompProperties_UpgradeTree':
+                    vehicle.tree = comp.findtext('def')
             for component in el.find('components') if el.find('components') is not None else []:
                 sharp, blunt = armour(component)
                 vehicle.parts.append(Part(component.findtext('key', ''), (component.findtext('depth') or 'External') == 'External',
@@ -176,6 +191,90 @@ def apply_ce_patches(root, vehicles):
             for part in vehicle.parts:
                 if every or part.key == one.group(2):
                     part.ce_sharp, part.ce_blunt = sharp, blunt
+    return problems
+
+
+KIT_ARMOUR = re.compile(r'^Defs/Vehicles\.UpgradeTreeDef\[defName="([^"]+)"\]/nodes/li\[key="([^"]+)"\]/upgrades/'
+                        r'li\[@Class="Vehicles\.VehicleUpgrade"\]/armor$')
+
+
+def armour_entries(armor):
+    """Per part key: (type, sharp, blunt) from a VehicleUpgrade's armor list."""
+    found = {}
+    for entry in armor.findall('li') if armor is not None else []:
+        mods = entry.find('statModifiers')
+        found[entry.findtext('key', '')] = ((entry.findtext('type') or 'Add').strip(),
+                                            number(mods.findtext('ArmorRating_Sharp')) if mods is not None else None,
+                                            number(mods.findtext('ArmorRating_Blunt')) if mods is not None else None)
+    return found
+
+
+def load_kits(root, trees):
+    """Every node of these trees that adds armour, with its Combat Extended figures from the patches."""
+    kits = {tree: {} for tree in trees}
+    for path in xml_files(root):
+        if CE_PATCHES in path.as_posix():
+            continue
+        doc = parse(path)
+        if doc is None:
+            continue
+        for tree in doc.iter('Vehicles.UpgradeTreeDef'):
+            name = tree.findtext('defName')
+            if name not in kits:
+                continue
+            for node in tree.findall('nodes/li'):
+                armour = {}
+                for upgrade in node.findall('upgrades/li'):
+                    if (upgrade.get('Class') or '').endswith('VehicleUpgrade'):
+                        armour.update(armour_entries(upgrade.find('armor')))
+                if armour:
+                    key = node.findtext('key', '')
+                    prereqs = [li.text for li in node.findall('prerequisiteNodes/li')]
+                    kits[name][key] = Kit(key, path.relative_to(root).as_posix(), prereqs, armour)
+    for path in sorted((root / 'mods').glob(f'*/{CE_PATCHES}/*.xml')):
+        doc = parse(path)
+        for op in doc.iter('Operation') if doc is not None else []:
+            m = KIT_ARMOUR.match((op.findtext('xpath') or '').strip())
+            if m and m.group(1) in kits and m.group(2) in kits[m.group(1)]:
+                kits[m.group(1)][m.group(2)].ce_armour = armour_entries(op.find('value/armor'))
+    return kits
+
+
+def check_kits(vehicle, kits, classes):
+    """Each kit adds by class: the part's own figures, plus this kit's and every kit it builds on, are one class on each scale."""
+    problems = []
+    parts = {p.key: p for p in vehicle.parts}
+    for kit in kits.values():
+        where = f'{kit.source}: {vehicle.def_name} kit {kit.key}'
+        chain, todo = [], [kit.key]
+        while todo:
+            key = todo.pop()
+            if key in kits and key not in [k.key for k in chain]:
+                chain.append(kits[key])
+                todo.extend(kits[key].prereqs)
+        for part_key, (kind, _, _) in kit.armour.items():
+            part = parts.get(part_key)
+            if part is None:
+                problems.append(f'{where}: names part {part_key}, which {vehicle.def_name} does not have')
+                continue
+            if kind != 'Add':
+                problems.append(f'{where}: armour on {part_key} must be of type Add on a vehicle armoured by class')
+                continue
+            sharp = part.sharp + sum(k.armour[part_key][1] or 0 for k in chain if part_key in k.armour)
+            blunt = part.blunt + sum(k.armour[part_key][2] or 0 for k in chain if part_key in k.armour)
+            game = class_of(classes, sharp, blunt, 'rating')
+            if game is None:
+                problems.append(f'{where}: brings {part_key} to {sharp:g}/{blunt:g}, which is no class\'s rating')
+                continue
+            if any(k.ce_armour is None or part_key not in k.ce_armour for k in chain if part_key in k.armour):
+                problems.append(f'{where}: no Combat Extended figures for {part_key}, so it would add {kit.armour[part_key][1]} mm')
+                continue
+            ce_sharp = (part.ce_sharp or 0) + sum(k.ce_armour[part_key][1] or 0 for k in chain if part_key in k.armour)
+            ce_blunt = (part.ce_blunt or 0) + sum(k.ce_armour[part_key][2] or 0 for k in chain if part_key in k.armour)
+            ce = class_of(classes, ce_sharp, ce_blunt, 'ce')
+            if ce is None or ce.name != game.name:
+                problems.append(f'{where}: brings {part_key} to {game.name} in the Def but {ce_sharp:g} mm / {ce_blunt:g} MPa with Combat '
+                                f'Extended; {game.name} is {game.sharp_mm:g} / {game.blunt_mpa:g}')
     return problems
 
 
@@ -253,8 +352,11 @@ def run(root):
         return [f'{CLASSES_FILE.as_posix()}: no armour classes found'], {}
     vehicles = load_vehicles(root)
     problems = apply_ce_patches(root, vehicles)
+    kits = load_kits(root, {v.tree for v in vehicles.values() if v.tree})
     for vehicle in vehicles.values():
         problems += check_vehicle(vehicle, classes)
+        if vehicle.tree and all(p.sharp is not None and p.blunt is not None for p in vehicle.parts):
+            problems += check_kits(vehicle, kits.get(vehicle.tree, {}), classes)
     problems += check_trees(root)
     return problems, vehicles
 

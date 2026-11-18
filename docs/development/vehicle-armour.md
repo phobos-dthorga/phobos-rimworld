@@ -1,7 +1,8 @@
 # Armour for our armed vehicles: Combat Extended first, Vehicle Framework as the fallback (18 Nov 2026)
 
 **Status (19 Nov 2026):** built for the five service trucks in D'thorga Framework 0.154.0 and D'thorga Vehicles 0.76.0 (the classes, a
-wider target, the class on the Health tab, the gate check); the Osprey's parts, the trailers and the Crawler are not built yet. Not
+wider target, the class on the Health tab, the gate check), and for the Osprey in Vehicles 0.78.0, with its armour kit adding by class;
+the trailers and the Crawler are not built yet. Not
 yet tested in game. Its one question was answered by the owner on 18 Nov 2026, with [the Osprey's](vehicle-osprey.md#the-owners-answers-18-nov-2026).
 
 **Built (19 Nov 2026, the owner's word: "build the armour base work for the trucks").** What differs from the design below:

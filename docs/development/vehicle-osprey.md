@@ -226,6 +226,11 @@ ratings of 0.10 and 0.25. Its Combat Extended hit box is 5 cells wide and 1 high
 **The armour kit** (an upgrade): the cockpit and both cabin parts to the Rifle class, 360 kg **[S]** off the cargo. What the real
 plates stop is not stated in what was read; Rifle is **[A]**.
 
+**Built in D'thorga Vehicles 0.78.0 (19 Nov 2026, the owner's word), as the table says**: every part carries its class in the Def,
+`Mods/CombatExtended/Patches/Osprey_Armour.xml` gives each the same class in millimetres, the Def carries `PhobosArmourExtension` with
+a width of 5, and the armour kit adds Skin to Rifle by `Add` (0.35 and 0.27; 6 mm and 36 MPa) where it had set Rifle's figures.
+`scripts/check-vehicle-armour.py` holds every part and the kit to its class on both scales. Not yet tested in game (row 223).
+
 ### Guns
 
 | Gun | Real | In game |

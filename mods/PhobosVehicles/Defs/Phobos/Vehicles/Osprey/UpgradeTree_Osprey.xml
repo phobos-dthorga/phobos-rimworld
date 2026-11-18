@@ -41,17 +41,16 @@
       </ingredients>
     </li>
     <li>
-      <!-- Ballistic plates for the cockpit and cabin floors and walls, 360 kg [S], to the Rifle class (vehicle-armour.md: 0.45 sharp, 0.35
-           blunt on Vehicle Framework's scale [A]); its weight is carried as cargo (owner's rule of 19 Nov 2026). Combat Extended's figures
-           come with armour by class. -->
+      <!-- Ballistic plates for the cockpit and cabin floors and walls, 360 kg [S], from Skin to the Rifle class (vehicle-armour.md): Add
+           0.35 sharp and 0.27 blunt on Vehicle Framework's scale, 6 mm and 36 MPa with Combat Extended (Osprey_Armour.xml); its weight is
+           carried as cargo (owner's rule of 19 Nov 2026). scripts/check-vehicle-armour.py holds both to the Rifle class. -->
       <key>ArmourKit</key>
       <label>Armour kit</label>
       <displayLabel>true</displayLabel>
       <description>Ballistic plates in the cockpit and cabin: rifle rounds no longer go through them. The plates weigh 360 kg, carried as cargo would be.</description>
-      <!-- Written out in full (Vehicles 0.74.1): without it, Vehicle Framework builds this list from the upgrades, and for armour of type Set
-           doing so fits the armour, so an Osprey was armoured as soon as anyone looked at this node in its Upgrades tab (found by reading the
-           code, 19 Nov 2026). The tab is that method's only caller and skips it when this is given. Keep these figures with the node's own. -->
-      <upgradeExplanation>Cockpit, forward cabin and aft cabin: sharp armour set to 45%, blunt armour to 35%.\nCargo room: 360 kg less.\nKit weight: 360 kg more, carried as cargo.</upgradeExplanation>
+      <!-- Written out in full (Vehicles 0.74.1), first because armour of type Set was fitted as soon as the Upgrades tab showed the node;
+           the kit adds by class since 0.78.0, and the words stay because they say it plainly. Keep them with the node's own figures. -->
+      <upgradeExplanation>Cockpit, forward cabin and aft cabin: from skin to rifle armour, which stops ordinary rifle bullets.\nCargo room: 360 kg less.\nKit weight: 360 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Osprey/Upgrades/ArmourKit</icon>
       <work>4000</work>
       <gridCoordinate>(3, 6)</gridCoordinate>
@@ -64,26 +63,26 @@
           <armor>
             <li>
               <key>Cockpit</key>
-              <type>Set</type>
+              <type>Add</type>
               <statModifiers>
-                <ArmorRating_Sharp>0.45</ArmorRating_Sharp>
-                <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+                <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.27</ArmorRating_Blunt>
               </statModifiers>
             </li>
             <li>
               <key>ForwardCabin</key>
-              <type>Set</type>
+              <type>Add</type>
               <statModifiers>
-                <ArmorRating_Sharp>0.45</ArmorRating_Sharp>
-                <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+                <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.27</ArmorRating_Blunt>
               </statModifiers>
             </li>
             <li>
               <key>AftCabin</key>
-              <type>Set</type>
+              <type>Add</type>
               <statModifiers>
-                <ArmorRating_Sharp>0.45</ArmorRating_Sharp>
-                <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+                <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.27</ArmorRating_Blunt>
               </statModifiers>
             </li>
           </armor>

@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.156.0] - 2026-11-19 - Draft
+
+Armour kits for the service trucks
+
+### Changed
+
+- The seen-in-play note for Combat Extended's wider hit box names the vehicle, so each vehicle's test row reads its own note.
+
+### Save compatibility
+
+- Safe with a running save. Nothing new is saved.
+
+### Compatibility and limits
+
+- **Not yet tested in game.**
+
 ## [0.155.0] - 2026-11-19 - Draft
 
 Ropes and a hoist for aircraft on our own flight: people down without landing, and a rescue hoist

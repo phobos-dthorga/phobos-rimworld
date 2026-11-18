@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The Osprey's armour with Combat Extended (D'thorga Vehicles 0.78.0; docs/development/vehicle-osprey.md, "Parts and armour"). Its Def
+       gives every part its class's Vehicle Framework rating; with Combat Extended the same classes are millimetres and megapascals: Skin
+       2 mm and 4 MPa, Splinter (the engines and proprotor gearboxes) 5 mm and 20 MPa. The armour kit adds Skin to Rifle (8 mm, 40 MPa) to the
+       cockpit and cabins. Loaded only while Combat Extended is active. scripts/check-vehicle-armour.py holds each figure to its class.
+       Not yet tested in game. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Osprey"]/components/li/armor</xpath>
+    <value>
+      <armor>
+        <ArmorRating_Sharp>2</ArmorRating_Sharp>
+        <ArmorRating_Blunt>4</ArmorRating_Blunt>
+      </armor>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Osprey"]/components/li[key="LeftEngine"]/armor</xpath>
+    <value>
+      <armor>
+        <ArmorRating_Sharp>5</ArmorRating_Sharp>
+        <ArmorRating_Blunt>20</ArmorRating_Blunt>
+      </armor>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Osprey"]/components/li[key="RightEngine"]/armor</xpath>
+    <value>
+      <armor>
+        <ArmorRating_Sharp>5</ArmorRating_Sharp>
+        <ArmorRating_Blunt>20</ArmorRating_Blunt>
+      </armor>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Osprey"]/components/li[key="LeftProprotorGearbox"]/armor</xpath>
+    <value>
+      <armor>
+        <ArmorRating_Sharp>5</ArmorRating_Sharp>
+        <ArmorRating_Blunt>20</ArmorRating_Blunt>
+      </armor>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Osprey"]/components/li[key="RightProprotorGearbox"]/armor</xpath>
+    <value>
+      <armor>
+        <ArmorRating_Sharp>5</ArmorRating_Sharp>
+        <ArmorRating_Blunt>20</ArmorRating_Blunt>
+      </armor>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Osprey_UpgradeTree"]/nodes/li[key="ArmourKit"]/upgrades/li[@Class="Vehicles.VehicleUpgrade"]/armor</xpath>
+    <value>
+      <armor>
+          <li>
+            <key>Cockpit</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Sharp>6</ArmorRating_Sharp>
+              <ArmorRating_Blunt>36</ArmorRating_Blunt>
+            </statModifiers>
+          </li>
+          <li>
+            <key>ForwardCabin</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Sharp>6</ArmorRating_Sharp>
+              <ArmorRating_Blunt>36</ArmorRating_Blunt>
+            </statModifiers>
+          </li>
+          <li>
+            <key>AftCabin</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Sharp>6</ArmorRating_Sharp>
+              <ArmorRating_Blunt>36</ArmorRating_Blunt>
+            </statModifiers>
+          </li>
+      </armor>
+    </value>
+  </Operation>
+</Patch>

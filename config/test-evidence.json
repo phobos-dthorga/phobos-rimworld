@@ -169,7 +169,17 @@
     }},
     "222": {"parts": {
       "a part's armour class is shown": [{"key": "vehicles.armour-class-shown", "detail": "*PhobosArmour_Skin"}],
-      "Combat Extended shoots at the truck's full width": [{"key": "vehicles.armour-hit-width", "expect": {"width": ">= 3"}}]
+      "Combat Extended shoots at the truck's full width": [
+        {"key": "vehicles.armour-hit-width", "variant": "Phobos_Tipper", "expect": {"width": "3..3"}},
+        {"key": "vehicles.armour-hit-width", "variant": "Phobos_Tanker", "expect": {"width": "3..3"}},
+        {"key": "vehicles.armour-hit-width", "variant": "Phobos_DrillRig", "expect": {"width": "3..3"}},
+        {"key": "vehicles.armour-hit-width", "variant": "Phobos_SurveyTruck", "expect": {"width": "3..3"}},
+        {"key": "vehicles.armour-hit-width", "variant": "Phobos_GeneratorSet", "expect": {"width": "3..3"}}
+      ]
+    }},
+    "223": {"parts": {
+      "the Osprey's armour class is shown": [{"key": "vehicles.armour-class-shown", "detail": "*Osprey*"}],
+      "Combat Extended shoots at the Osprey's full width": [{"key": "vehicles.armour-hit-width", "variant": "Phobos_Osprey", "expect": {"width": "5..5"}}]
     }}
   },
   "order": [

@@ -66,9 +66,11 @@ public static class CombatExtendedHitWidth
             answer = width > 0f ? new Tuple<bool, Vector2>(true, new Vector2(width, def.fillPercent)) : NoAnswer;
             answers[def] = answer;
         }
-        if (answer.Item1 && noted.Add(def) && Seen.Wants("vehicles.armour-hit-width", pawn))
+        // The vehicle's Def is the case, so each vehicle's test row reads its own note.
+        if (answer.Item1 && noted.Add(def) && Seen.Wants("vehicles.armour-hit-width", pawn, def.defName))
         {
-            Seen.Note("vehicles.armour-hit-width", pawn, values: new List<KeyValuePair<string, double>> { new("width", answer.Item2.x) });
+            Seen.Note("vehicles.armour-hit-width", pawn, variant: def.defName,
+                values: new List<KeyValuePair<string, double>> { new("width", answer.Item2.x) });
         }
         return answer;
     }

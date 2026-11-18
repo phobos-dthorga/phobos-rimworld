@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.78.0] - 2026-11-19 - Draft
+
+The Osprey armoured part by part, and the trucks' armour kits
+
+### Changed
+
+- **The Osprey's parts each have an armour class**, as its record says: skin everywhere, as the real aircraft is unarmoured, but the two engines and the two proprotor gearboxes, which are splinter armour and stop shell fragments and pistol bullets. With Combat Extended they are 2 mm and 5 mm of steel, where the whole aircraft read as 0.1 mm, and it is shot at across its five-cell width. The Health tab names each part's armour.
+- **The Osprey's armour kit adds rifle armour to the cockpit and both cabins** rather than setting it, so it lands on the rifle class under Combat Extended too (8 mm, where it would have read 0.45 mm). Its explanation in the Upgrades tab says so in words.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.156.0 or later.
+
+### Save compatibility
+
+- Safe with a running save. Nothing new is saved, and no part is added or removed.
+
+### Compatibility and limits
+
+- **Not yet tested in game** (test rows 220 and 223).
+
 ## [0.77.0] - 2026-11-19 - Draft
 
 The Osprey takes a fast-rope bar and a rescue hoist

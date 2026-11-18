@@ -85,6 +85,10 @@ class VehicleArmourTests(unittest.TestCase):
         problems, vehicles = armour.run(Path(ROOT))
         self.assertEqual([], problems)
         self.assertGreaterEqual(len(vehicles), 5)
+        # The Osprey's armour kit is read, with its Combat Extended twin, so its check is real.
+        kits = armour.load_kits(Path(ROOT), {'Phobos_Osprey_UpgradeTree'})['Phobos_Osprey_UpgradeTree']
+        self.assertIn('ArmourKit', kits)
+        self.assertIsNotNone(kits['ArmourKit'].ce_armour)
 
     def test_a_good_truck_passes(self):
         self.assertEqual([], self.write(vehicle(GOOD_PARTS)))
@@ -154,6 +158,44 @@ class VehicleArmourTests(unittest.TestCase):
         stat = ('<li Class="Vehicles.StatUpgrade"><vehicleStats><li><def>CargoCapacity</def><value>3600</value><type>Set</type></li>'
                 '</vehicleStats></li>')
         self.assertTrue(any('a stat of type Set does nothing' in p for p in self.write(vehicle(GOOD_PARTS), tree=self.tree(stat))))
+
+    # Kits on an armoured vehicle: the truck carries a tree, and each kit must add by class on both scales.
+    KIT_TREE = """<?xml version="1.0" encoding="utf-8"?>
+<Defs><Vehicles.UpgradeTreeDef><defName>Test_TruckTree</defName><nodes>
+  <li><key>Cab</key><upgrades><li Class="Vehicles.VehicleUpgrade"><armor><li><key>Cab</key><type>{kind}</type>
+    <statModifiers><ArmorRating_Sharp>{sharp}</ArmorRating_Sharp><ArmorRating_Blunt>{blunt}</ArmorRating_Blunt></statModifiers></li></armor></li></upgrades></li>
+</nodes></Vehicles.UpgradeTreeDef></Defs>
+"""
+    KIT_PATCH = """
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Test_TruckTree"]/nodes/li[key="Cab"]/upgrades/li[@Class="Vehicles.VehicleUpgrade"]/armor</xpath>
+    <value><armor><li><key>Cab</key><type>Add</type><statModifiers><ArmorRating_Sharp>{sharp}</ArmorRating_Sharp>
+      <ArmorRating_Blunt>{blunt}</ArmorRating_Blunt></statModifiers></li></armor></value>
+  </Operation>
+</Patch>
+"""
+
+    def kit(self, kind='Add', sharp='0.35', blunt='0.27', ce=('6', '36')):
+        defs = vehicle(GOOD_PARTS).replace('<components>', '<comps><li Class="Vehicles.CompProperties_UpgradeTree"><def>Test_TruckTree</def></li>'
+                                            '</comps><components>')
+        patch = CE_PATCH if ce is None else CE_PATCH.replace('</Patch>\n', self.KIT_PATCH.format(sharp=ce[0], blunt=ce[1]))
+        return self.write(defs, patch=patch, tree=self.KIT_TREE.format(kind=kind, sharp=sharp, blunt=blunt))
+
+    def test_a_kit_from_skin_to_rifle_passes(self):
+        self.assertEqual([], self.kit())
+
+    def test_a_kit_that_lands_on_no_class_fails(self):
+        self.assertTrue(any("is no class's rating" in p for p in self.kit(sharp='0.30')))
+
+    def test_a_kit_with_no_combat_extended_twin_fails(self):
+        self.assertTrue(any('no Combat Extended figures for Cab' in p for p in self.kit(ce=None)))
+
+    def test_a_kit_whose_twin_is_another_class_fails(self):
+        self.assertTrue(any('rifle' not in p and 'Combat Extended; PhobosArmour_Rifle is 8 / 40' in p for p in self.kit(ce=('3', '36'))))
+
+    def test_a_kit_that_sets_on_an_armoured_vehicle_fails(self):
+        problems = self.kit(kind='Set')
+        self.assertTrue(any('must be of type Add' in p for p in problems))
 
     def test_an_add_passes(self):
         add = ('<li Class="Vehicles.VehicleUpgrade"><armor><li><key>Cab</key><type>Add</type>'

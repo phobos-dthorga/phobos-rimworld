@@ -32,7 +32,8 @@
     <techLevel>Industrial</techLevel>
     <vehicleType>Air</vehicleType>
     <statBases>
-      <!-- Unarmoured as the real one is (the record): the Skin class's Vehicle Framework rating of 0.10. The armour kit comes later. -->
+      <!-- Read only for collisions since D'thorga Vehicles 0.78.0: every part carries its own armour by class, which overrides these
+           (vehicle-armour.md). Heat stays the whole aircraft's. -->
       <ArmorRating_Blunt>0.1</ArmorRating_Blunt>
       <ArmorRating_Sharp>0.1</ArmorRating_Sharp>
       <ArmorRating_Heat>1.0</ArmorRating_Heat>
@@ -102,12 +103,19 @@
       </roles>
     </properties>
     <components>
+      <!-- Armour by class (D'thorga Vehicles 0.78.0; docs/development/vehicle-osprey.md, "Parts and armour"): unarmoured as the real
+           one is, so every part is Skin but the engines and proprotor gearboxes, Splinter. Combat Extended's figures are in
+           Mods/CombatExtended/Patches/Osprey_Armour.xml. One outer part to a cell. The armour kit raises the cockpit and cabins. -->
       <!-- Outer parts, one to a cell. Health authored, in the range of the transports on the list (the record's table). -->
       <li>
         <key>Cockpit</key>
         <label>cockpit</label>
         <health>180</health>
         <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitWeight>2</hitWeight>
         <hitbox>
           <cells>
@@ -124,6 +132,10 @@
         <label>forward cabin</label>
         <health>260</health>
         <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitWeight>3</hitWeight>
         <hitbox>
           <cells>
@@ -141,6 +153,10 @@
         <label>aft cabin and ramp</label>
         <health>260</health>
         <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitWeight>3</hitWeight>
         <hitbox>
           <cells>
@@ -159,6 +175,10 @@
         <label>left wing</label>
         <health>160</health>
         <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitWeight>2</hitWeight>
         <hitbox>
           <cells>
@@ -174,6 +194,10 @@
         <label>right wing</label>
         <health>160</health>
         <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitWeight>2</hitWeight>
         <hitbox>
           <cells>
@@ -189,6 +213,10 @@
         <label>left nacelle</label>
         <health>150</health>
         <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(-2, 1)</li>
@@ -200,6 +228,10 @@
         <label>right nacelle</label>
         <health>150</health>
         <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(2, 1)</li>
@@ -211,6 +243,10 @@
         <label>tail</label>
         <health>140</health>
         <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitWeight>2</hitWeight>
         <hitbox>
           <cells>
@@ -226,6 +262,10 @@
         <label>left main gear</label>
         <health>90</health>
         <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <tags>
           <li>Wheel</li>
         </tags>
@@ -243,6 +283,10 @@
         <label>right main gear</label>
         <health>90</health>
         <depth>External</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <tags>
           <li>Wheel</li>
         </tags>
@@ -261,6 +305,10 @@
         <label>left engine</label>
         <health>130</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+        </armor>
         <priorityStatEfficiency>true</priorityStatEfficiency>
         <hitbox>
           <cells>
@@ -284,6 +332,10 @@
         <label>right engine</label>
         <health>130</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+        </armor>
         <priorityStatEfficiency>true</priorityStatEfficiency>
         <hitbox>
           <cells>
@@ -307,6 +359,10 @@
         <label>left proprotor gearbox</label>
         <health>110</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(-2, 1)</li>
@@ -321,6 +377,10 @@
         <label>right proprotor gearbox</label>
         <health>110</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.25</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.20</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(2, 1)</li>
@@ -336,6 +396,10 @@
         <label>interconnect shaft</label>
         <health>70</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(-2, 2)</li><li>(-1, 2)</li><li>(0, 2)</li><li>(1, 2)</li><li>(2, 2)</li>
@@ -347,6 +411,10 @@
         <label>sponson fuel tanks</label>
         <health>120</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(-2, -1)</li><li>(2, -1)</li>
@@ -367,6 +435,10 @@
         <label>left wing tank</label>
         <health>100</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(-2, 2)</li><li>(-2, 0)</li>
@@ -381,6 +453,10 @@
         <label>right wing tank</label>
         <health>100</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(2, 2)</li><li>(2, 0)</li>
@@ -397,6 +473,10 @@
         <label>flight-control channel A</label>
         <health>50</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(0, 3)</li>
@@ -411,6 +491,10 @@
         <label>flight-control channel B</label>
         <health>50</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(0, 0)</li>
@@ -425,6 +509,10 @@
         <label>flight-control channel C</label>
         <health>50</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(0, -4)</li>
@@ -439,6 +527,10 @@
         <label>hydraulics</label>
         <health>80</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(-1, 2)</li><li>(1, 2)</li><li>(0, -2)</li>
@@ -454,6 +546,10 @@
         <label>avionics bay</label>
         <health>60</health>
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <hitbox>
           <cells>
             <li>(-1, 4)</li><li>(0, 4)</li><li>(1, 4)</li>
@@ -466,6 +562,10 @@
         <health>70</health>
         <!-- Outer and beneath in the record; here inner, so the cockpit keeps its cells to itself (one outer part to a cell). -->
         <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Sharp>0.10</ArmorRating_Sharp>
+          <ArmorRating_Blunt>0.08</ArmorRating_Blunt>
+        </armor>
         <tags>
           <li>Wheel</li>
         </tags>
@@ -480,6 +580,11 @@
       </li>
     </components>
     <modExtensions>
+      <!-- Armour by class (D'thorga Framework 0.154.0): Combat Extended shoots at its 5-cell width [A], as the Harrier's 5, and
+           the parts our systems append go inside, so each cell keeps one outer part. -->
+      <li Class="Phobos.VehicleSystems.PhobosArmourExtension">
+        <hitWidthCells>5</hitWidthCells>
+      </li>
       <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
         <!-- Real figures: empty weight from the fact sheet [P]; two Rolls-Royce T406 engines of 4,392 kW maximum continuous [S]. -->
         <emptyKilograms>15032</emptyKilograms>
