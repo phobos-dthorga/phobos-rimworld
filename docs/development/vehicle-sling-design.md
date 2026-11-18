@@ -147,6 +147,9 @@ the carried vehicle already catch up the hours they were away when it is spawned
   answers with the helicopter's own holder. **Unchecked:** whether colonists riding in a slung vehicle are counted while it flies (the
   colonist bar, the game's count of colonists away). Vehicle Framework counts the people aboard the aircraft itself, not ours. Until the
   owner has flown one, a lift with people aboard the load is the riskier test.
+- **Update (18 Nov 2026):** the correction above describes Vehicle Framework 1.6. On its 1.7 build the world object in flight passes
+  held things on again (`AerialVehicleInFlight.GetChildHolders`, the 1.7 decompile of 18 Nov 2026, `Vehicles.decompiled.cs:97247-97250`);
+  the stand-in on a map still passes nothing (`:27019-27021`).
 - **People and things in a slung vehicle do not tick in flight**: nothing ticks the sling's contents, and Vehicle Framework's world object
   does not tick its own either. They come back as they left.
 

@@ -33,7 +33,7 @@ Added 8 Nov 2026: the vehicle work of 8 November did not update this file as it 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
 | V4 | Vehicle body art through OpenAI's image API (the `openai` engine of `scripts/art-run.py`, built 8 Nov 2026 under [the paid rules](paid-image-generation-rules.md)); icons on the owner's local model | art | OpenAI for bodies, local for icons (8 Nov 2026); **the stand-in icons are good enough: replace them only when little else is left** (8 Nov 2026) | Open: the engine is built and the key accepted; the tanker's pilot is made (four north bodies, US$0.118, [record](../../assets/phobos-vehicles/README.md)); the owner picked attempt 2 and a 2 x 6 footprint (8 Nov 2026); the body's facings, masks and icon are exported by script; the owner accepted all twelve overlays as defaults and variants (8 Nov 2026); icons low priority. Round three (12 Nov 2026): the trailer's own body, its boards, the tipper's grab and the winch and long-range tank, US$0.62 ([round three](../../assets/phobos-vehicles/requests/round-three-record.md)) |
-| V6 | The M1A2's APU upgrade node; "drop the stores" for a jet too heavy to land vertically | Vehicles, Patches | Proposed | Deferred: the APU needs a patch to RimThunder's upgrade trees |
+| V6 | The M1A2's APU upgrade node; "drop the stores" for a jet too heavy to land vertically | Vehicles, Patches | Proposed | Deferred: the APU needs a patch to RimThunder's upgrade trees. The landing check at a journey's end is built (Framework 0.140.0, a rolling landing where it cannot hover); dropping stores waits for an aircraft with external stores |
 | V10 | The boats, the Warbird and the Smuggler keep one engine | Vehicles | Agreed to leave out | Deferred |
 | V15 | Every vehicle of ours upgradeable and extendable from its first Def, with the art planned around its upgrade tree (bare body, one overlay set per visible node); parts by role from Vehicle Framework's mechanics, RimThunder's and Vanilla Vehicles Expanded's items as soft dependencies, our own fallback parts only where neither is present; the tanker's contents Def and ports ([design](utility-vehicles-design.md), principles 8 and 9) | Vehicles, Framework | Directions given (8 Nov 2026); the trees, the role split and the fallback parts are agent proposals | Built in parts, not yet tested in game: every vehicle of ours has an upgrade tree (the submarine test hull stays bare, owner, 11 Nov 2026); fittings, tunes and part grades (Framework 0.40.0 onward); our own parts with other mods' as substitutes; parts bills by role (Framework 0.95.0, Vehicles 0.41.0, [record](parts-bills.md)); overlays per visible node for our bodies, picked 11 to 12 Nov 2026 |
 
@@ -120,12 +120,40 @@ decided**; the owner picks.
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
 | WE1 | The record: what a tile holds, slopes measured on the owner's world, real descents and engine brakes, altitude, radio line of sight | docs | Research and record first (owner, 18 Nov 2026) | Written |
-| WE2 | **Owner to decide: how big a world tile is.** Three anchors: 6.6 to 9 km (a walker), 29 km (our vehicles' own speed), 31.5 km (an Earth-sized planet, as Atmosphere Overhaul assumes). It sets radio's reach and the vehicles' net slope | Radio, Framework | — | Open, the owner's choice |
+| WE2 | **How big a world tile is: about 30 km** (owner, 18 Nov 2026, the agent's recommendation). Three anchors: 6.6 to 9 km (a walker), 29 km (our vehicles' own speed), 31.5 km (an Earth-sized planet, as Atmosphere Overhaul assumes). It sets radio's reach and the vehicles' net slope | Radio, Framework | — | Decided; nothing reads it in code yet |
 | WE3 | Descents (**held until after the ledger**, owner, 18 Nov 2026). Whether they are wanted; hills up and down, net slope from elevation, or both; brake wear only or a brake temperature with fade. Engine braking (cross-links T5 with F6) stays held until then | Framework | — | Open, the owner's choice |
 | WE4 | Altitude: thinner air taking engine power, rotor lift and cooling | Framework | Built with the turbine slice (owner, 18 Nov 2026) | Built as EL11 (Framework 0.132.0); not yet tested in game |
 | WE5 | Gaps D1 to D5, read from code: no wear per stop on the world map; the heavy-duty brakes' descent term never built; rails get the hill grade; Vehicle Framework counts no hills on a road and our grade does; a leg reads the tile being left | Framework | The safe four with the ledger (owner, 18 Nov 2026) | **D2 to D5 fixed: Framework 0.131.0**, not yet tested in game. **Open, the owner's choice:** D1, wear per leg on the world map, which would wear caravans' brakes and clutches faster than today |
 | WE6 | Radio: line of sight from elevation, hilltop sites and repeaters, the tile's size | Radio | On the back burner | Recorded for when the owner picks radio up again; nothing to do now |
 | WE7 | A tool for it: the slope measurement was a scratch script over the save index. Worth adding to phobos-modkit's save tool (elevation, hilliness and neighbour differences) if elevation is taken up | phobos-modkit | — | Built in phobos-modkit 1.14.0 (18 Nov 2026): `python scripts/query-save.py terrain`, with `--near` a place |
+
+## Modern military vehicles (18 Nov 2026)
+
+The owner asked for modern military aircraft and vehicles to build, the V-22 Osprey for certain, and answered the record's
+questions the same day ([record](modern-military-vehicles.md)). **Nothing built**; each row waits for the owner's word.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| MV1 | Our own flight over the map: one design for hovering and circling, the hover half built first; every aircraft of ours stands on it | Framework | Our own route, learning from VTOL Vehicle and the Harrier's code without building on either (owner, 18 Nov 2026) | Open: design record first |
+| MV2 | Armour for armed vehicles: game-scale figures in the Def, millimetres and megapascals in a patch that loads only with Combat Extended | Vehicles | Combat Extended first, Vehicle Framework the fallback (owner, 18 Nov 2026) | Open: read done, nothing designed |
+| MV3 | The V-22 Osprey, under its real name: two ways up, one engine out, hook, cabin fits with the tanker kit, its real guns | Vehicles | Wanted (owner, 18 Nov 2026) | Open: waits for MV1 and MV2, then its own design record |
+| MV4 | The crewless fit: follow a leader (four followers at most) or run a loop, the vehicle staying optionally crewed | Framework | All three ways of working without a crew; seat kept; four followers (owner, 18 Nov 2026) | Open |
+| MV5 | A vehicle in a hold: the sling's holder with a ramp and a size limit | Framework | Only if feasible (owner, 18 Nov 2026) | Read done: feasible with limits; waits for a host aircraft and passes on test rows 57 and 70 |
+| MV6 | Mechanitor control of a crewless vehicle through the game's bandwidth | Framework | Read first (owner, 18 Nov 2026) | Read done: feasible with limits; **the owner's choice:** charged to the used figure or taken off the total |
+| MV7 | The other candidates: cargo helicopter, line-charge trailer (raiders may use it behind a setting), crewless ground carrier, control van, transport aeroplane and its gun kit, mobile air defence, rocket truck (loaded maps only), scout drone, wingman, protected truck | Vehicles | Real names (owner, 18 Nov 2026) | Record only; the order is the agent's recommendation |
+
+### Faults found by the code reads of 18 Nov 2026
+
+Read in code while answering the owner's questions; none seen in game. **Not yet put to the owner as a decision.**
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| R1 | The sling checks room for a set-down, and draws the outline, with the game's footprint in place of Vehicle Framework's; the same fault in the hitch (H1) destroyed a vehicle at a map edge | Framework | — | Open |
+| R2 | The sling's set-down catches a thrown error but not a spawn that fails silently; the hitch checks both (H10) | Framework | — | Open |
+| R3 | The Health tab shows part armour as a percentage; under Combat Extended the figures are millimetres and megapascals | Framework | — | Open |
+| R4 | Nothing of ours reads Combat Extended's "Use New Vehicle Armor" setting: air-combat and effect damage pick their scale by whether Combat Extended is active | Framework | — | Open |
+| R5 | Cook-off always passes Combat Extended's blast scale; whether it can run without Combat Extended is unchecked | Framework | — | Open: check first |
+| R6 | The order of our submersible damage prefix and Combat Extended's prefix on the same method is unverified | Framework | — | Open: check first |
 
 ## Vehicle accessories (13 Nov 2026)
 

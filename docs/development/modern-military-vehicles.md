@@ -1,6 +1,7 @@
 # Modern military aircraft and vehicles: candidates (18 Nov 2026)
 
-**Status (18 Nov 2026):** research and record only. Nothing here is built, and nothing is a commitment to build.
+**Status (18 Nov 2026):** research and record only; the owner answered its thirteen open questions the same day
+([their decisions](#the-owners-decisions-on-the-open-questions-18-nov-2026)). Nothing here is built.
 
 Researched on 18 November 2026 by an agent at the owner's request: "I really, really enjoy the military aircraft in my
 Rimworld gaming and to a slightly lesser extent, just interesting military vehicles that can also serve autonomously
@@ -28,17 +29,18 @@ How to read this file:
   record of its own yet; vehicles are **armed as the real machine is**, with Combat Extended ammunition; working
   without a crew is designed **three ways** (a set route, a control station, a mechanitor), with radio tie-in ideas.
 - **An armed aircraft needs to fly on the map, and Vehicle Framework's aircraft do not.** Two other mods on the owner's
-  list do: VTOL Vehicle (the Hind and Mongoose fly on it) and the Harrier author's fixed-wing code. **Neither states a
-  licence.** Whether to ask their authors is [open question 2](#open-questions-for-the-owner).
+  list do: VTOL Vehicle (the Hind and Mongoose fly on it) and the Harrier author's fixed-wing code. Neither states a
+  licence. **The owner chose to build on neither: we learn from both and write our own flight over the map**
+  (decision 2 below). Nothing of theirs is copied or adapted; what they do is described here in our own words.
 - **Working without a crew is already in Vehicle Framework 1.7**: a vehicle with no driving seat moves, launches and
   travels with nobody aboard, and an upgrade can remove the seat. Following someone is the part we would have to write.
-- **Armour is now the first open question.** The 9 November record left armour to Combat Extended's rules or not at
-  all, and wrote every vehicle unarmoured. Armed vehicles make that decision matter.
+- **Armour is decided** (decision 1): Combat Extended's rules first, with Vehicle Framework's own armour as the
+  fallback for players without Combat Extended. This replaces the 9 November record's "unarmoured by default" for
+  the vehicles in this record.
 - **The radio framework stays on the back burner.** The owner asked for radio tie-in ideas; they are recorded as ideas
   and no radio feature is designed here.
-- **Names are agent defaults.** By the naming rule in [utility vehicles](utility-vehicles-design.md) (a trade word, then
-  the plain noun) the tiltrotor is written here as the **Nacelle tiltrotor**; each entry names the real machine it is
-  based on. None is checked against the Workshop beyond the searches below.
+- **These vehicles carry their real names** (decision 12): V-22 Osprey, K-MAX, C-27J Spartan. The names belong to
+  their makers, as the Harrier's and Hind's do. Our utility vehicles keep their house names.
 
 ## The owner's choices (18 Nov 2026)
 
@@ -163,20 +165,36 @@ the map. Read from our decompiles of the installed builds (VTOL Vehicle of 15 No
 | Licence | **None stated**: not in About.xml, the folder or the Workshop page | **None stated** |
 | Author | Active: updated 15 Nov 2026 | Very active: same-day fixes on 15 Nov 2026 |
 
-What that means for an aircraft of ours **[I]**:
+**Decided (owner, 18 Nov 2026): we build on neither.** "We simply learn where we can from said, named, mods because I
+wish to go our own, more improved, route." Our aircraft will fly over the map on flight code of our own, in D'thorga
+Framework, **designed for both hovering and circling from the start, with the hover half built first**. Because
+neither mod states a licence, we take what they show is possible and how players use it, never their code. What
+follows is what was read, kept as the starting point for that design.
 
-- **A tiltrotor that hovers and fires its ramp gun fits VTOL Vehicle today.** Combat directional hover would turn its
-  tail to the target, which is how a ramp gunner covers a landing.
+What the reading says about an aircraft **[I]**:
+
+- **A tiltrotor that hovers and fires its ramp gun is what VTOL Vehicle already shows is possible.** Its combat
+  directional hover turns the tail to the target, which is how a ramp gunner covers a landing.
 - **A gunship, a gun-pass jet and a circling drone all point at the fixed-wing framework.** It is under a month old,
   names its assembly after each build ("19o, 19p, ...", `FrameworkResolver.cs:8-13`), and reaches the game only
   inside the Harrier. It is an excellent source of ideas and a risky thing to build on yet.
-- **Joining either changes a vehicle's class.** A saved aircraft is stored under that class, so an aircraft of ours
-  that flies on one should be **a Def that exists only while that mod is active**, as our water bowser exists only with
-  Dubs Bad Hygiene, never a patch that swaps the class of a Def players may already own.
-- **On permission.** The VTOL Vehicle author answered a question about other aircraft with: "It's possible, but
-  you'd have to write the defs from scratch ... I didn't originally design this framework for other modders to use"
-  (Workshop comment, 25 Oct 2026). The Hind, Mongoose and VTOL Raids already depend on it. Referring to its types
-  from XML copies nothing, but that comment is not a licence.
+- **Joining either changes a vehicle's class**, and a saved aircraft is stored under that class. Flight code of our
+  own avoids that: one Osprey Def for every player, whichever other mods they run.
+- **On permission, for the record.** The VTOL Vehicle author answered a question about other aircraft with: "It's
+  possible, but you'd have to write the defs from scratch ... I didn't originally design this framework for other
+  modders to use" (Workshop comment, 25 Oct 2026). That is not a licence, and with our own flight code none is needed.
+
+**What our own flight should do better, from this reading [I]:**
+
+- **Cost.** VTOL Vehicle carries 67 Harmony patch classes and the fixed-wing framework 72 more, several on methods
+  every pawn calls. Ours should patch far fewer and none of those, inside the 0.05 ms a tick the vehicle model is
+  allowed ([vehicle health](vehicle-health-design.md)).
+- **People leaving and boarding in the air.** Neither lets anyone down a rope or up a hoist. The Osprey has both.
+- **A circle the player sets.** The fixed-wing framework fixes one orbit radius per Def; a gunship wants the player
+  to choose it.
+- **Other mods' air defence.** Aircraft that fly on the map are invisible to The Dead Man's Switch's and IRBM's air
+  defences today ([air-defence tie-ins](air-defence-tie-ins.md)); ours should be visible to them from the first design.
+- **No change of class**, so a save never holds a vehicle whose class has left the game.
 
 ### Sizes for comparison
 
@@ -200,7 +218,7 @@ so the picture would be 14 to 18 cells square. By the paid-generation rule it is
 
 ## The tiltrotor (V-22 Osprey)
 
-Written here as the **Nacelle tiltrotor** (agent default). Based on the Bell Boeing V-22 Osprey.
+**Named the V-22 Osprey in game** (owner, 18 Nov 2026: real names). Based on the Bell Boeing V-22 Osprey.
 
 ### The real machine
 
@@ -307,7 +325,7 @@ transport aeroplane.
 **Cabin fits.** Alternatives that fill the same place, so one "only one of these" row in the tree: troop seats (the
 bare cabin), stretchers (our litter kit, built), ferry tanks (the long-range family, built; the real ones are 1,628 L
 each, up to three), and the tanker kit. **The tanker kit is offered although its real programme stopped**, because the
-hardware flew; the record says so and the owner may strike it. In play it is an order between two flights close
+hardware flew; the owner chose to keep it (18 Nov 2026). In play it is an order between two flights close
 together on the world map, moving fuel from the kit's tank to the other aircraft, since nothing ticks in flight.
 
 **What it lands on.** Three cases from the three real events, each a condition in our health layer rather than a new
@@ -349,8 +367,9 @@ and Bell's V-247 Vigilant, a crewless tiltrotor concept with a 9,000 lb sling lo
 | Works without VTOL Vehicle | Yes | No |
 | Permission | Not needed | None stated; ask first |
 
-**Agent recommendation:** the second, if its author agrees, because the owner chose armed aircraft and already runs
-VTOL Vehicle; the first if not. It is [open question 3](#open-questions-for-the-owner).
+**Decided (owner, 18 Nov 2026): neither column.** The Osprey flies over the map on flight code of our own, so it
+keeps the second column's hovering and guns in the air and the first column's "works for every player". The table
+stays as the comparison that led there. The agent had recommended the second column if its author agreed.
 
 ### An upgrade tree, sketched
 
@@ -479,9 +498,9 @@ not the C-27J**: two wing pods passing up to 300 gallons a minute each
 description is the Hercules' MAFFS: 3,000 gallons released "in less than five seconds" over a strip a quarter of a
 mile long **[P, [US Forest Service](https://www.fs.usda.gov/managing-land/fire/planes/maffs)]**. **Reuses:** Vehicle
 Framework's runway check; the tiltrotor's rolling take-off; our water drop; the litter kit. **Feasibility [I]:**
-the aircraft and its runway are nearly free; the parachute drop is moderate; **a vehicle in the hold is the open
-question** the 9 November record also met, and RimThunder's carried-vehicle code is the place to read first
-([hitch design](vehicle-hitch-design.md)). **Size:** about 14 cells long and 17 across at the Harrier's scale, the
+the aircraft and its runway are nearly free; the parachute drop is moderate; **a vehicle in the hold was the open
+question** the 9 November record also met, and the read the owner asked for found it feasible with limits
+([the code reads](#a-vehicle-in-a-hold-decision-5-feasible-with-limits)). **Size:** about 14 cells long and 17 across at the Harrier's scale, the
 largest body we would have drawn.
 
 ### The crewless wingman (MQ-28 Ghost Bat)
@@ -579,10 +598,9 @@ above). It is theirs to make; if it appears, it would get our systems as the Har
 **Armed:** no. **What it uses up:** components to fit, research, and electrical power while it is on, through the
 [power budget](vehicle-accessories.md) already built. **Reuses:** Vehicle Framework's crewless movement and caravans;
 our hitch's follow code as the start of following; the tipper, the loading chute and the bunker for a loop with no
-hands in it. **Feasibility [I]:** small to moderate. The one design choice is how the seat is treated: removing the
-driver's seat is free but leaves a vehicle nobody can ever drive; keeping it "optionally crewed", as the M113s are,
-needs our own answer to the two checks that read the seat as written. It is
-[open question 8](#open-questions-for-the-owner). **Other factions:** a raid convoy with followers stops when its
+hands in it. **Feasibility [I]:** small to moderate. **Decided (owner, 18 Nov 2026): the vehicle stays optionally
+crewed**, as the M113s are, and **a leader has at most four followers**. Keeping the seat needs our own answer to the
+two Vehicle Framework checks that read the seat as the Def wrote it. **Other factions:** a raid convoy with followers stops when its
 leader is destroyed, by the same rule; a captured follower works for us.
 
 ### The crewless ground carrier (Milrem THeMIS)
@@ -697,8 +715,8 @@ shares, set up by hand, behind any hitched vehicle. **Feasibility [I]:** small: 
 line of explosions through the game's own explosion system. Every figure (lane size in cells, what survives, the
 misfire chance, what the charge costs) would be authored and kept modest; 794 kg of explosive is a real figure,
 not a recipe. **Other factions:** raiders with one would breach a trapped corridor the same way. That is fair and
-costs nothing to run, but it changes how defences are built, so it is
-[open question 13](#open-questions-for-the-owner).
+costs nothing to run, but it changes how defences are built. **Decided (owner, 18 Nov 2026): yes, behind a mod
+setting.** The setting starting off is an agent default.
 
 ### The protected truck (Thales Bushmaster)
 
@@ -765,10 +783,10 @@ building, so that a vehicle with only the first is useful and nothing depends on
 
 **What is built on what.** The route level is Vehicle Framework's own crewless movement plus rules of ours (who
 leads, what the route is, what happens when the leader is lost). The station level adds a building and a vehicle
-(the control van) and a check of reach. **The mechanitor level has not been read in code:** our vehicles are not
-mechanoids, so how bandwidth would count them is unknown, and it is
-[open question 10](#open-questions-for-the-owner). The nearest thing we have is `PhobosTopUpDef`, through which
-mechanitors already refill store-carrying mechanoids ([top-up design](top-up-design.md)).
+(the control van) and a check of reach. **The mechanitor level needed a code read**, because our vehicles are not
+mechanoids; the owner asked for it (decision 10) and its findings are under
+[the code reads](#code-reads-the-decisions-asked-for-18-nov-2026). The nearest thing we have is `PhobosTopUpDef`,
+through which mechanitors already refill store-carrying mechanoids ([top-up design](top-up-design.md)).
 
 **The weakness is the point.** Every level has one thing an enemy can hit to stop it: the leader, the operator, the
 mechanitor. That is true of the real machines, it gives the player something to protect, and it gives them a way to
@@ -838,7 +856,7 @@ Agent recommendation; the owner picks.
 
 | # | What | Why here |
 | --- | --- | --- |
-| 1 | **The tiltrotor** | The owner's wish; most of it stands on built systems. Wants open questions 1 to 3 answered first |
+| 1 | **The tiltrotor** | The owner's wish; most of it stands on built systems. It waits for the armour model and for our own flight over the map |
 | 2 | **The crewless fit, route level**, on our own trucks | The smallest piece, and the base every other crewless thing needs |
 | 3 | **The cargo helicopter** | Small art, built systems, and the best show of the crewless fit in the air |
 | 4 | **The line-charge trailer** | Small, and unlike anything in the owner's game |
@@ -849,45 +867,191 @@ Agent recommendation; the owner picks.
 | 9 | The scout drone, the wingman, the rocket truck, the protected truck | Each waits on something named in its entry |
 | - | The ground-attack jet | Not recommended: another author appears to have it in work |
 
-## Open questions for the owner
+**Since the owner's decisions**, three things come before the first Def: **the design of our own flight over the map**
+(hover and circling together, hover built first), which the Osprey, the cargo helicopter and every later aircraft
+stand on; **the armour model** (Combat Extended first); and the two code reads the owner asked for, on a vehicle in a
+hold and on mechanitor control. Each is its own design record when the owner gives the word.
 
-1. **Armour.** Armed vehicles get shot at. Does armour go through Combat Extended's rules now, and do the armed
-   vehicles wait for that?
-2. **The two flight frameworks.** Neither states a licence. Should their authors be asked whether we may build on
-   them, and whether the fixed-wing framework will be published by itself with stable names? The owner would post
-   the questions; a draft can be written on request.
-3. **The tiltrotor's shape.** A Def that exists only with VTOL Vehicle active, hovering and firing over the map
-   (agent recommendation, if its author agrees), or a plain Vehicle Framework aircraft that works for everyone and
-   fires only when landed?
-4. **Which mod.** By the consolidation rule these join D'thorga Vehicles as a part, with Combat Extended's
-   ammunition in an `IfModActive` folder so the weapons still work without it (agent default). Or are armed military
-   vehicles a different audience, and a mod of their own?
-5. **A vehicle in a hold.** Nothing fits the tiltrotor's cabin, but the transport aeroplane and the U-Hawk carry
-   vehicles in reality. Allow a code read of RimThunder's carried-vehicle mechanic before either is designed?
-6. **The tanker kit.** Keep it although the real programme stopped in 2025?
-7. **Real figures or game figures.** The owner chose real figures for military vehicles
-   ([project direction](project-direction.md)). Other authors' flight speeds are game figures (the Cherokee's is 4.5,
-   the Smuggler's 22), so a tiltrotor at real proportions would outrun everything. Real, or fitted to the others?
-8. **The crewless fit and the seat.** Remove the driver's seat (free, and nobody can ever drive it again), or keep
-   the vehicle optionally crewed (needs more code)?
-9. **Followers per leader.** Four, the fielded number?
-10. **The mechanitor level.** Allow a code read of how bandwidth is counted before it is designed?
-11. **Strikes on a map that is not loaded.** The rocket truck and the scout drone both meet the question
-    [striking another map](cross-map-strikes.md) left open.
-12. **Names.** House names with the real machine named in the description (agent default: Nacelle tiltrotor), or
-    the real names, as the Harrier and Hind mods use?
-13. **The line charge in enemy hands.** May raiders bring one against trapped corridors?
+## The owner's decisions on the open questions (18 Nov 2026)
+
+The record first closed with thirteen open questions. The owner answered all of them the same day, asked in four
+rounds. Quoted words are the owner's; the rest are the options they picked.
+
+| # | Question | The owner's decision |
+| --- | --- | --- |
+| 1 | How armour works on armed vehicles | "Combat Extended is the priority, with Vehicle Framework a fallback for other users who go without CE for when we finally publish our mods, which is something I still feel like doing eventually." |
+| 2 | Whether to ask the two flight frameworks' authors | Neither asked nor built on: "We simply learn where we can from said, named, mods because I wish to go our own, more improved, route." |
+| 3 | The Osprey's shape | Follows from 2: one Osprey for every player, flying over the map on our own code |
+| 4 | Which mod holds these | D'thorga Vehicles, as a part, with Combat Extended's ammunition in a folder that loads only with it |
+| 5 | A vehicle carried in a hold | "Yes, read it, and only implement if it becomes a feasible reality. Otherwise, we fallback to a sling and you clearly let me know this is the direction where we are heading / give me a choice." |
+| 6 | The Osprey's tanker kit | Kept, although the real programme stopped |
+| 7 | Real figures or game figures | Real proportions among our own aircraft, anchored to a helicopter on the owner's list; other authors' aircraft are left as their authors set them |
+| 8 | The crewless fit and the driver's seat | The seat stays: optionally crewed |
+| 9 | Followers per leader | Four |
+| 10 | The mechanitor way | Read the code first; say plainly if it is not feasible |
+| 11 | Strikes on a map that is not loaded | Loaded maps only: a strike elsewhere is refused, with its reason |
+| 12 | Names | Real names |
+| 13 | The line charge in enemy hands | Yes, behind a mod setting |
+
+A fourteenth question arose from decision 2, and the owner answered it too: **our own flight over the map is designed
+for both hovering and circling from the start, and the hover half is built first.**
+
+**What each decision sets in motion:**
+
+- **1, armour.** A read of how Combat Extended resolves a hit on a Vehicle Framework vehicle, then one armour
+  declaration per Def that serves both.
+- **2, 3 and the fourteenth.** A design record for our own flight over the map, in D'thorga Framework's core because
+  every aircraft of ours will use it. It comes before the Osprey's own design record.
+- **5.** A read of how one vehicle can be held inside another; the owner hears the verdict plainly either way.
+- **7.** The anchor helicopter is an agent suggestion, the Louie (after the UH-1), for the owner to change.
+- **10.** A read of how the game counts bandwidth.
+- **11.** Answers, for these two weapons, the question [striking another map](cross-map-strikes.md) left open.
+- **12.** Applies to machines based on one real machine. Our utility vehicles keep their house names, and the
+  mods keep theirs (agent's reading of the decision).
+- **13.** Whether the setting starts on or off is an agent default: off.
+
+## Code reads the decisions asked for (18 Nov 2026)
+
+Three reads, done the same day by agents with our query tools. **All three came back feasible.** Each is read from
+code and nothing was run; "not yet tested in game" applies to every line. Sources: Vehicle Framework's public source
+(commit `026420b5`) and its 1.7 decompile of 18 Nov 2026; Combat Extended's public source of 15 Nov 2026, checked
+against the installed build; RimWorld 1.7's decompile; our own `src/`. RimThunder - Core was read from a decompile,
+as it has no public repository on record and states no licence, and is described in our own words.
+
+### Armour (decision 1): one Def and a Combat Extended patch
+
+**Verdict: the owner's choice works as chosen, and under Combat Extended armour has a real unit.**
+
+| | With Combat Extended | With Vehicle Framework alone |
+| --- | --- | --- |
+| Who decides a hit | Combat Extended's own prefix on `VehicleStatHandler.ApplyDamage` replaces Vehicle Framework's step whenever its setting "Use New Vehicle Armor" is on, the default (`Source/VehiclesCompat/VehiclesCompat/VehicleArmorPatch.cs:17-34`) | `VehicleComponent.ReduceDamageFromArmor` (`Components/Vehicles/Health/VehicleComponent.cs:192-223`) |
+| What the figures mean | **Millimetres of rolled steel against sharp hits, megapascals against blunt** (Combat Extended's own stat description) | A rating on the game's scale, where 1.0 is 100% |
+| How armour acts | The round's penetration is subtracted, part by part along the shot's line; several outer parts on the same cells act as layers | Dice: the armour less the penetration is the chance to deflect or to halve |
+| What else counts | A part's health adds about one fiftieth of itself as millimetres; a damaged part protects less | Nothing |
+| Which part is hit first | The **smaller** `hitWeight` | The **larger** `hitWeight` |
+
+- **No single number serves both scales.** 30 means 30 mm under Combat Extended and "deflects everything" without it;
+  0.8 means 80% without it and 0.8 mm with it. So a Def of ours carries game-scale figures, and a patch that loads only
+  with Combat Extended replaces each part's armour, the vehicle-wide figures, the hit weights and every upgrade's
+  armour. Every author checked does this (RimThunder, GTek, the Hind, the Harrier; Combat Extended itself for the
+  Cherokee), and `mods/PhobosVehicles` already has the folder.
+- **Real figures, honestly.** Sharp armour can be sourced, but as an equivalent, not a plate thickness: source the
+  vehicle's published protection level, then set the millimetres just above the Combat Extended round of that threat
+  (its 7.62x51 ball penetrates 7 mm, its .50 armour-piercing 28 mm, its 30 mm armour-piercing 57 mm). The label is
+  "sourced threat level, authored millimetres". Blunt figures have no real-world source and are authored.
+- **Other authors' figures are ratings, not measurements [I]:** GTek gives the L-ATV and the much larger MaxxPro the
+  same numbers.
+- **An add-on armour kit is an upgrade node**: armour and health added per plate, weight added through the mass
+  stat, with the Combat Extended patch replacing the kit's figures too.
+- **Combat Extended treats every vehicle as one cell wide** and reads `fillPercent` as its height, which is why the
+  Hind's and Harrier's authors add collision code of their own. Flight code of ours meets the same need.
+
+### A vehicle in a hold (decision 5): feasible, with limits
+
+**Verdict: feasible, about the size of one hitch slice. The owner does not need the fall-back to the sling.**
+
+- **A hold is the sling's holder with a different way in.** The sling keeps its load despawned in a container on its
+  own comp, found through our postfix on `Pawn.GetChildHolders` and saved deep
+  (`src/PhobosFramework.Vehicles/Sling/CompPhobosSling.cs:38,53,531-544`). That holder carried a vehicle through
+  take-off, the world map and landing in the owner's test of 18 Nov 2026 (test row 49), and the hitch uses the same
+  kind for a towed vehicle on a caravan journey (`Hitch/TowTravel.cs:22-31`; not yet tested in game).
+- **A hold is simpler than the sling where the sling went wrong.** It is loaded on the ground before departure, so
+  nothing happens at the moment of launch; and it unloads only on an order, so nothing is spawned at landing. That
+  second point is where the landing fault of 12 November came from.
+- **RimThunder already carries vehicles in the owner's game** (Roaring Tiger's M1075 and M113 take one on deck). It
+  puts the carried vehicle in the carrier's ordinary inventory, and that choice is why its companion library needs
+  more than twenty patches on caravans, trade and weight rules. **We keep a holder of our own and do not use the
+  inventory.**
+
+The limits the read proposes (agent defaults):
+
+1. The carried vehicle travels with nobody aboard; its crew ride in the carrier's seats.
+2. "Drive on" ends at a ramp cell, where the vehicle is taken aboard. One vehicle cannot enter another's cells.
+3. Only the player's vehicles are loaded, and the game's own factions never load one.
+4. No nesting: nothing that is itself slinging, towing, holding or being towed; no aircraft as a load for now.
+5. A size limit in cells as well as a weight limit.
+
+**Before it is built:** a host aircraft with sourced hold sizes (the C-27J is still only a candidate), and owner
+passes on test rows 57 and 70, which prove setting down by choice and holding through a caravan.
+
+### Mechanitor control (decision 10): feasible, with limits
+
+**Verdict: feasible and small, by counting a vehicle's cost against a mechanitor's bandwidth without making the
+vehicle a mechanoid.**
+
+- **How the game counts.** Used bandwidth is the sum of a `BandwidthCost` stat over the pawns a mechanitor oversees
+  (`Pawn_MechanitorTracker.UsedBandwidthFromSubjects`); neither that nor the total is cached. No active mod patches
+  the used figure.
+- **A vehicle cannot become a mechanoid.** Vehicle Framework's vehicles have their own flesh type, and every part of
+  the game's mechanoid handling (the Mechs tab, the right-click Control option, the "no overseer" alert, going
+  feral) tests for a mechanoid. None of it will ever act on a vehicle, so the gizmo, the inspect line and the rule
+  for stopping are ours.
+- **The recommended shape:** one comp on the vehicle that remembers its mechanitor, and one small postfix that adds
+  assigned vehicles' cost to the used figure. Nothing in the game's own saved data changes.
+
+| Way | What the player sees | Who loses control first when bandwidth runs short |
+| --- | --- | --- |
+| **Add to the used figure** (agent recommendation) | The mechanitor's bandwidth fills up with the vehicle's cost | Vehicles, newest first; mechanoids keep priority |
+| Lower the total, as the game's own band node raises it | The total shrinks; the Health tab names the link | Mechanoids, newest first; vehicles keep priority |
+| Make the vehicle a truly overseen pawn | The vehicle sits in a control group whose work modes mean nothing to it | The game's own rule |
+| A small control mechanoid fitted in the vehicle | The full game behaviour, on a new mechanoid | The game's own rule |
+
+The last two work but are larger and more fragile, and are not recommended.
+
+**The limits, plainly:**
+
+- **Direct orders reach only as far as the mechanitor's own command range**: about 25 cells, on the mechanitor's map
+  (`Pawn_MechanitorTracker.CanCommandTo`), as for mechanoids. Other mods' range changes to that method are inherited;
+  the relay patches some mods put on a different method are not.
+- **Nothing reaches another map.** A vehicle elsewhere keeps its assignment and takes no orders.
+- **A downed mechanitor commands nothing; a dead one, or one who loses the mechlink, frees the vehicle, which
+  stops.** A vehicle never goes feral.
+- **Vehicle Framework's order for several selected vehicles skips the hook a range check would use**
+  (`VehicleComp.CanMove`), so that case needs its own answer.
+
+So the mechanitor way is the control station with no console and the game's own short reach. It suits a vehicle that
+works near its mechanitor, and the route level still does the travelling.
+
+### Faults the reads found in code we already ship
+
+Read in code, none seen in game, none fixed here. They are rows R1 to R6 in
+[outstanding work](outstanding-work.md#faults-found-by-the-code-reads-of-18-nov-2026).
+
+- **The sling checks room with the game's footprint, not Vehicle Framework's** (`CompPhobosSling.cs:658`, and the
+  outline at `:389`). The same mistake in the hitch destroyed a vehicle set down at a map edge, and was fixed there.
+- **The sling's set-down catches a thrown error but not a spawn that fails silently** (`CompPhobosSling.cs:346-362`);
+  the hitch checks both.
+- **Our Health tab shows part armour as a percentage** (`ITab_PhobosVehicleHealth.cs:762`), so 30 mm under Combat
+  Extended would read "3,000%".
+- **Nothing of ours reads Combat Extended's "Use New Vehicle Armor" setting.** Our air-combat and effect damage
+  choose their scale by "Combat Extended is active"; with it active and that setting off, they are on the wrong scale.
+- **Our cook-off always passes Combat Extended's scale** (`Service/CookOff.cs:77`).
+- **The order of our submersible prefix and Combat Extended's prefix on the same method is unverified.** If
+  Combat Extended's runs first, it applies damage our prefix meant to absorb.
+
+## Still open
+
+1. **Which way the mechanitor's bandwidth is charged**: added to the used figure, so mechanoids keep priority
+   (agent recommendation), or taken off the total, so vehicles do.
+2. **Whether to fix rows R1 to R6**, which is code and not research.
+3. **The anchor for real proportions** (decision 7): the Louie, or another helicopter.
+4. **Whether the line charge's setting starts on or off** (decision 13).
+5. **Vehicle Framework's own armour figures** for players without Combat Extended: authored ratings, set when the
+   first armoured Def is written.
+6. **Everything in the radio section**, until the radio framework is picked up again.
 
 ## Who chose what
 
 - **Owner (18 Nov 2026):** research and record only; modern machines, aircraft first; the Osprey for certain; the
   Osprey as the longest entry here, with no design record yet; armed as the real machine; all three ways of working
-  without a crew; radio tie-in ideas asked for.
+  without a crew; radio tie-in ideas asked for; and the fourteen decisions in
+  [the table above](#the-owners-decisions-on-the-open-questions-18-nov-2026), our own flight over the map among them.
 - **Agent recommendations:** every game idea in every table; the order; building the gunship as the transport's gun
-  kit; not building the ground-attack jet; the tiltrotor on VTOL Vehicle if its author agrees; route level first.
-- **Agent defaults, owner to revise:** the name Nacelle; D'thorga Vehicles as the home; helicopter flight on the map
-  and aeroplane flight between maps; no vehicle inside the tiltrotor; what it lands on as three conditions; the
-  table of which vehicle takes which crewless level.
+  kit; not building the ground-attack jet; route level first. The agent had recommended asking the flight
+  frameworks' authors and house names; the owner chose otherwise on both.
+- **Agent defaults, owner to revise:** helicopter flight on the map and aeroplane flight between maps; no vehicle
+  inside the Osprey; what it lands on as three conditions; the table of which vehicle takes which crewless level;
+  the Louie as the anchor for real proportions; the line charge's setting starting off.
 - **Authored, to be set if anything is built:** every game figure. No figure in this record is a Def value.
 
 ## Sources and what could not be confirmed

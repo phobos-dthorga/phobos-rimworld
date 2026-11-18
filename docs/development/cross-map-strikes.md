@@ -89,7 +89,8 @@ These are proposals for the owner to accept, change or drop. They follow AGENTS.
    and when the shell arrives; creating a map on arrival is one of the heaviest things the game does, and the map then stays. The
    options for us: require a loaded map (simple, needs eyes on the target); resolve the strike on the world map against the settlement
    itself, with no map (cheap, needs a model of what a strike does to a settlement); or create the map (avoid). **An open question for
-   the owner** (below).
+   the owner** (below). **Answered for two weapons (owner, 18 Nov 2026):** the rocket truck and the armed scout drone of
+   [the modern military record](modern-military-vehicles.md) strike loaded maps only, and refuse any other with the reason.
 4. **Use the game's own bearing.** `PlanetLayer.GetHeadingFromTo` gives the heading from one tile to another, 0 degrees north and
    clockwise, the convention the game's own map generator uses for roads and rivers. DMS Expedition's earlier hand-made maths had east
    and west swapped. Test all four quadrants.
