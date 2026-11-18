@@ -34,6 +34,36 @@ public class CargoFuelRuleTests
     }
 
     [Fact]
+    public void AJourneyTheTankCoversNeedsNoStop()
+    {
+        Assert.Equal(0, CargoFuelRule.StopsForJourney(70, 100, 100, 500, 0.25));
+        // Below a quarter near the end, with nothing carried: it flies on and arrives.
+        Assert.Equal(0, CargoFuelRule.StopsForJourney(95, 100, 100, 0, 0.25));
+    }
+
+    [Fact]
+    public void ALongJourneyStopsEachTimeTheTankFallsToAQuarter()
+    {
+        // A 100 tank, 250 needed: 75 a leg between stops, so three stops (the last with 25 still to go).
+        Assert.Equal(3, CargoFuelRule.StopsForJourney(250, 100, 100, 500, 0.25));
+        // With cans, it sets down at a quarter even when that quarter would have seen it home.
+        Assert.Equal(1, CargoFuelRule.StopsForJourney(80, 100, 100, 500, 0.25));
+    }
+
+    [Fact]
+    public void ATankAndCansThatFallShortSayNull()
+    {
+        Assert.Null(CargoFuelRule.StopsForJourney(120, 100, 100, 10, 0.25));
+        Assert.Equal(1, CargoFuelRule.StopsForJourney(110, 100, 100, 10, 0.25));
+    }
+
+    [Fact]
+    public void ATankAlreadyLowStopsAtOnce()
+    {
+        Assert.Equal(1, CargoFuelRule.StopsForJourney(60, 20, 100, 100, 0.25));
+    }
+
+    [Fact]
     public void WithoutCansTheEmptiestVehicleSetsTheReach()
     {
         var users = new List<FuelUser> { new(100, 1, -1), new(30, 0.5, -1) };

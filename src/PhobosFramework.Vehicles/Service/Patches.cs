@@ -396,6 +396,8 @@ public static class FlyingAircraftStayAwakePatch
 {
     public static void Postfix(ref bool __result, Pawn p)
     {
-        if (__result && p is VehiclePawn { CompVehicleLauncher.inFlight: true } vehicle && vehicle.Faction == Faction.OfPlayer) __result = false;
+        if (!__result || p is not VehiclePawn { CompVehicleLauncher: not null } vehicle || vehicle.Faction != Faction.OfPlayer) return;
+        // Framework 0.139.0: an aircraft down on its journey to refuel from its cargo is still on that journey.
+        if (vehicle.CompVehicleLauncher.inFlight || vehicle.GetComp<CompPhobosVehicleSystems>() is { LandedRefuelUntil: > 0 }) __result = false;
     }
 }

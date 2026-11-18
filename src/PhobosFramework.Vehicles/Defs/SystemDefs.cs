@@ -836,6 +836,9 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// hour is authored).</summary>
     public float refuelFromCargoBelow = 0.25f;
     public float refuelStopHoursPerTank = 0.25f;
+    /// <summary>An aircraft setting down on a journey to refuel from its cargo (Framework 0.139.0): the hours it spends coming down and
+    /// lifting off again, on top of the pouring (authored).</summary>
+    public float refuelLandingHours = 0.1f;
     /// <summary>Thin air (Framework 0.132.0; docs/development/vehicle-altitude-and-turbines.md): the height a turbocharged piston engine
     /// holds its rated power to, in metres, unless its Def says otherwise; and how closely a radiator's cooling follows the air's
     /// pressure (1: in step; below 1, a little less than in step). The record gives each figure's source or says it is authored.</summary>

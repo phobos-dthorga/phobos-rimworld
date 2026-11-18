@@ -120,13 +120,41 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
 /// </summary>
 public class WorldObjectComp_PhobosFlightSystems : WorldObjectComp
 {
+    /// <summary>The player's aircraft and its systems, found once (the flight holds one vehicle for its life). Derived, never saved.</summary>
+    CompPhobosVehicleSystems? Systems()
+    {
+        if (parent is not AerialVehicleInFlight { Vehicle: { } vehicle } || vehicle.Faction != Faction.OfPlayer) return null;
+        if (cachedFor != vehicle)
+        {
+            cachedFor = vehicle;
+            cached = vehicle.GetComp<CompPhobosVehicleSystems>();
+        }
+        return cached is { Usable: true } ? cached : null;
+    }
+
+    VehiclePawn? cachedFor;
+    CompPhobosVehicleSystems? cached;
+
     public override void CompTick()
     {
+        // Framework 0.139.0: an aircraft down on its journey to refuel is watched every tick, so it lifts off on time (one field read
+        // and a reference check for every other flight).
+        if (Systems() is { LandedRefuelUntil: > 0 } holding && parent is AerialVehicleInFlight held)
+            CargoRefuel.HoldTick(held, holding.Vehicle, holding);
         if ((Find.TickManager.TicksGame + parent.ID) % GenTicks.TickRareInterval != 0) return;
-        if (parent is not AerialVehicleInFlight { Flying: true } flight || flight.Vehicle is not { } vehicle || vehicle.Faction != Faction.OfPlayer) return;
-        CompPhobosVehicleSystems? comp = vehicle.GetComp<CompPhobosVehicleSystems>();
-        if (comp is not { Usable: true }) return;
+        if (parent is not AerialVehicleInFlight flight || Systems() is not { } comp) return;
+        // A stop for fuel: down on the ground, the systems run as for a vehicle standing still.
+        if (!flight.Flying && comp.LandedRefuelUntil <= 0) return;
         using (PhobosTiming.Measure("vehicle rare tick / in flight")) comp.UpdateNow();
-        Seen.Note("aircraft.systems-run-in-flight", vehicle);
+        if (flight.Flying) Seen.Note("aircraft.systems-run-in-flight", comp.Vehicle);
+        using (PhobosTiming.Measure("aircraft refuel from cargo")) CargoRefuel.FlightLook(flight, comp.Vehicle, comp);
+    }
+
+    /// <summary>Framework 0.139.0: the refuel-from-cargo switch on an aircraft in flight. Presentation only.</summary>
+    public override IEnumerable<Gizmo> GetGizmos()
+    {
+        if (Systems() is not { } comp) yield break;
+        Gizmo? refuel = CargoRefuel.AircraftToggle(comp.Vehicle, comp);
+        if (refuel != null) yield return refuel;
     }
 }

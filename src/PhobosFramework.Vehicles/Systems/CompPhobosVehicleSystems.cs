@@ -530,6 +530,18 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
     /// <summary>Whether the player has been told the cargo holds no more of this vehicle's fuel, so it is said once (derived, never saved).</summary>
     internal bool CargoFuelGoneTold;
 
+    /// <summary>An aircraft set down on a journey to refuel from its cargo (Framework 0.139.0): the tick it lifts off again, 0 when it is
+    /// not stopped. Saved, so a stop survives a save and load; CargoRefuel owns it.</summary>
+    public int LandedRefuelUntil;
+
+    /// <summary>Whether this session has already grounded the aircraft for its stop (Vehicle Framework's load puts it back in the air, so
+    /// the stop is put back once after a load). Derived, never saved.</summary>
+    internal bool LandedHoldApplied;
+
+    /// <summary>Whether the player has been told the aircraft cannot set down here (water, mountains, an enemy's ground), so it is said
+    /// once until it can. Derived, never saved.</summary>
+    internal bool LandingRefusedTold;
+
     // ---- Saving ----
 
     public override void PostExposeData()
@@ -570,6 +582,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         Scribe_Values.Look(ref lastUpdateTick, "PhobosVehicleSystems_LastUpdate", -1);
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
         Scribe_Values.Look(ref RefuelFromCargo, "PhobosVehicleSystems_RefuelFromCargo", false);
+        Scribe_Values.Look(ref LandedRefuelUntil, "PhobosVehicleSystems_LandedRefuelUntil", 0);
         Conditions.ExposeData();
         Repairs.ExposeData();
         Fittings.ExposeData();
@@ -2935,6 +2948,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                     toggleAction = () => SetSwitch(captured, !IsOn(captured)),
                 }.AsPhysicalSwitch();
             }
+        }
+        if (Vehicle.Spawned && CargoRefuel.AircraftToggle(Vehicle, this) is { } refuel)
+        {
+            // Framework 0.139.0: set before a journey, an aircraft sets down on the way to refuel from the fuel it carries aboard.
+            yield return refuel;
         }
         if (Vehicle.Spawned && AirCombat.HasMapSalvo(Vehicle))
         {

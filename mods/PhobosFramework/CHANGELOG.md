@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.139.0] - 2026-11-18 - Draft
+
+Aircraft set down on a journey to refuel from the fuel they carry
+
+### Added
+
+- **Refuel from cargo now works for aircraft, by setting down partway.** Load the fuel an aircraft burns into its cargo and press the aircraft's **Refuel from cargo** button, on the map before launching or in flight. On a journey, whenever its tank falls to a quarter, it sets down on the land below, pours from the fuel aboard (its cargo and its riders' pockets), waits while the crew work and flies on to the same destination. A quiet message says what it poured and when it lifts off, and its inspect pane says it is on the ground.
+- **A destination beyond the tank's reach can be picked** when the tank and the fuel aboard cover it: the line is white, or yellow where it would not get back, and the tooltip says how many times it will set down. In flight, the range line and the circle count the fuel aboard while the switch is on.
+- **It sets down only on open land**: never on water, in impassable mountains or on a hostile faction's site. Over the sea it flies on and sets down at the first land, and says so once. A long sea crossing still needs the fuel in the tank.
+
+### Balance
+
+- Each stop takes the caravans' pouring time (a quarter hour for a whole tank) plus a tenth of an hour to come down and lift off (authored). The engines are off while it is down, so a stop burns nothing.
+
+### Save compatibility
+
+- Safe to add mid-game. A stop in progress is saved with the aircraft and carries on after a load. The switch starts off on every aircraft.
+
+### Compatibility and limits
+
+- Only the player's own aircraft. It sets down where it is: no landing site or map is made, and nothing attacks it while it is down (a simplification). Any aircraft may set down, a jet included, as Vehicle Framework's own world-map landings allow. Recon circling is left alone.
+- Two Harmony postfixes on Vehicle Framework's destination picker; every refusal that is not about fuel stands.
+- Not yet tested in game (test row 197).
+
 ## [0.138.1] - 2026-11-18 - Draft
 
 Testing notes that cost nothing when they are off, and little when they are on

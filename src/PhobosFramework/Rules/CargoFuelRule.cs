@@ -41,6 +41,37 @@ public static class CargoFuelRule
         capacity <= 0 || poured <= 0 ? 0 : poured / capacity * Math.Max(0, hoursPerTank) * ticksPerHour;
 
     /// <summary>
+    /// How many times a journey that needs <paramref name="cost"/> of fuel stops to top up from what is carried (Framework 0.139.0: an
+    /// aircraft setting down on the way; docs/development/vehicle-cargo-refuel.md). It flies on its tank until the tank falls to
+    /// <paramref name="belowShare"/>, pours what fills it or what is left, and flies on. 0 when the tank alone covers it, even if it falls
+    /// below the share near the end with nothing carried; null when the tank and everything carried together fall short. The stops burn
+    /// nothing (the engines are off while the crew pour).
+    /// </summary>
+    public static int? StopsForJourney(double cost, double tank, double capacity, double carried, double belowShare)
+    {
+        double fuel = Math.Max(0, tank);
+        double left = Math.Max(0, carried);
+        double need = Math.Max(0, cost);
+        double threshold = Math.Max(0, capacity) * Math.Max(0, belowShare);
+        int stops = 0;
+        // Each pass is one stop, so a hundred passes is far beyond any tank; the bound only guards against a zero-sized pour.
+        for (int pass = 0; pass < 1000; pass++)
+        {
+            // It reaches the end before the tank falls to the share, or with nothing left to pour.
+            if (need <= fuel - threshold || (need <= fuel && TopUpAmount(Math.Min(fuel, threshold), capacity, left) <= 0)) return stops;
+            double burned = Math.Max(0, fuel - threshold);
+            need -= burned;
+            fuel -= burned;
+            int pour = TopUpAmount(fuel, capacity, left);
+            if (pour <= 0) return need <= fuel ? stops : null;
+            fuel += pour;
+            left -= pour;
+            stops++;
+        }
+        return null;
+    }
+
+    /// <summary>
     /// How many ticks a convoy can move before a vehicle runs dry. The convoy moves as one, so every vehicle burns for the same time. A
     /// vehicle on its tank alone lasts tank ÷ burn. Vehicles sharing a pool of carried fuel last, together, as long as their tanks and the
     /// pool feed all of them: (their tanks + the pool) ÷ their burns added. Topping up waits until a tank is low, but every can is

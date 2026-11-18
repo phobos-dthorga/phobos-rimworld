@@ -366,7 +366,12 @@ the kit back in the cargo.
 - **Refuel from cargo** (not yet tested in game): carry the fuel your vehicles burn in the caravan's cargo, then press **Refuel *vehicle* from
   cargo** on the caravan. Whenever its tank falls to a quarter, the crew top it up from the cans with a short stop, so the caravan no longer
   halts for fuel. **It starts off for every vehicle**, so fuel you carry to sell is safe until you switch it on. The fuel line and the reach on
-  the globe count the cans for every vehicle switched on. It works on the world map only; aircraft top up once landed, never in the air.
+  the globe count the cans for every vehicle switched on. It works on the world map only.
+- **Aircraft refuel by setting down on the way** (not yet tested in game): load the fuel it burns into the aircraft's cargo and press
+  **Refuel *aircraft* from cargo** on its buttons before launching (or in flight). You can then pick a destination beyond the tank's reach
+  when the fuel aboard covers it; the tooltip says how many stops it will make. Whenever the tank falls to a quarter it sets down on the land
+  below, pours, waits a little while and flies on. **It never sets down on water, in mountains or on an enemy's ground**: over the sea it
+  flies on until it reaches land, so a long sea crossing still needs the fuel in the tank. Nothing pours fuel into an aircraft in the air.
 - **The fleet button** on the bottom bar lists every vehicle you own, wherever it is, with its picture, fuel and worst part.
 - **A vehicle parked in the wild is lost after a while**; a letter warns you three days ahead.
 - **Garages** (needs Vanilla Expanded Framework): a stopped convoy can set one up. Vehicles left there stay with no time limit, and

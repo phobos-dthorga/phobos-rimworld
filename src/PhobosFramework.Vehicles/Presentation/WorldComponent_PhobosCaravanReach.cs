@@ -19,10 +19,14 @@ public readonly struct FlightRange
     /// <summary>The same as an angle at the planet's centre, in radians.</summary>
     public readonly double Angle;
 
-    public FlightRange(double tiles, double angle)
+    /// <summary>Whether the fuel aboard is counted, because the aircraft sets down on the way to pour it (Framework 0.139.0).</summary>
+    public readonly bool WithCargo;
+
+    public FlightRange(double tiles, double angle, bool withCargo = false)
     {
         Tiles = tiles;
         Angle = angle;
+        WithCargo = withCargo;
     }
 
     public bool Any => Tiles > 0;
@@ -35,8 +39,10 @@ public readonly struct FlightRange
         CompFueledTravel? fuel = vehicle?.CompFueledTravel;
         CompVehicleLauncher? launcher = vehicle?.CompVehicleLauncher;
         if (fuel == null || launcher == null) return default;
-        double tiles = ReachRule.FlightTiles(fuel.Fuel, launcher.FlightSpeed, fuel.ConsumptionRatePerTickRaw, launcher.FuelConsumptionWorldMultiplier);
-        return new FlightRange(tiles, ReachRule.FlightAngle(tiles, Find.WorldGrid.ApproxDistanceInTiles(1f)));
+        // Framework 0.139.0: with its refuel-from-cargo switch on, the fuel aboard goes into the tank on the way (the stops burn nothing).
+        int aboard = vehicle!.GetComp<CompPhobosVehicleSystems>() is { RefuelFromCargo: true } ? CargoRefuel.CarriedAboard(vehicle) : 0;
+        double tiles = ReachRule.FlightTiles(fuel.Fuel + aboard, launcher.FlightSpeed, fuel.ConsumptionRatePerTickRaw, launcher.FuelConsumptionWorldMultiplier);
+        return new FlightRange(tiles, ReachRule.FlightAngle(tiles, Find.WorldGrid.ApproxDistanceInTiles(1f)), aboard > 0);
     }
 }
 
@@ -59,7 +65,13 @@ public class WorldObjectComp_PhobosFlightRange : WorldObjectComp
             FlightRange range = FlightRange.Of(aircraft);
             if (!range.Any) return null;
             NamedArgument tiles = ((int)range.Tiles).ToString("N0").Named("TILES");
-            return (range.Anywhere ? "PhobosVehicleSystems_FlightRangeAnywhere" : "PhobosVehicleSystems_FlightRange").Translate(tiles).Resolve();
+            string line = (range.Anywhere ? "PhobosVehicleSystems_FlightRangeAnywhere" : "PhobosVehicleSystems_FlightRange").Translate(tiles).Resolve();
+            if (range.WithCargo) line += " " + "PhobosVehicleSystems_FlightRangeWithCargo".Translate().Resolve();
+            // Framework 0.139.0: down on its journey to refuel, it says so and when it lifts off.
+            if (aircraft.Vehicle?.GetComp<CompPhobosVehicleSystems>() is { LandedRefuelUntil: > 0 } held)
+                line += "\n" + "PhobosVehicleSystems_FlightRefuelDown".Translate(
+                    System.Math.Max(0, held.LandedRefuelUntil - Find.TickManager.TicksGame).ToStringTicksToPeriod().Named("TIME")).Resolve();
+            return line;
         }
         catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
     }

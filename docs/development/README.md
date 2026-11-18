@@ -70,7 +70,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Vehicle upgrades, round two](vehicle-upgrades-round-two.md) (11 Nov 2026): every vehicle's tree, signature features, shared families. Partly built.
 - [Vehicle cross-links](vehicle-crosslinks.md) (9 to 13 Nov 2026): three rounds of links between systems, crew, weather and damage. Built, bar engine braking.
 - [Engine loads](vehicle-engine-loads.md) (18 Nov 2026): a top-down review, and one ledger of what the engine drives. Built, untested.
-- [Refuelling from cargo](vehicle-cargo-refuel.md) (18 Nov 2026): a caravan's vehicles top up from the cans they carry. Built, untested.
+- [Refuelling from cargo](vehicle-cargo-refuel.md) (18 Nov 2026): caravans top up from their cans; aircraft set down on the way. Built, untested.
 - [Thin air, turbines, aircraft fuel](vehicle-altitude-and-turbines.md) (18 Nov 2026): altitude, turbine gaps, fuel by flight phase. Built, untested.
 
 ### Utility vehicles, stations and trailers
