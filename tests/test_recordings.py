@@ -39,6 +39,18 @@ class CutTests(unittest.TestCase):
         self.assertEqual(record['licence'], 'Public domain')
 
 
+class CombRecordTests(unittest.TestCase):
+    MANIFEST = dict(CutTests.MANIFEST, comb={'hz': 20.55})
+
+    def test_a_cut_carries_the_sets_comb(self):
+        record = recordings.cut_record(self.MANIFEST, {'role': 'idle', 'source': '1', 'start': 0, 'seconds': 8})
+        self.assertEqual(record['comb'], {'hz': 20.55})
+
+    def test_a_cut_can_leave_the_comb_out(self):
+        record = recordings.cut_record(self.MANIFEST, {'role': 'shutdown', 'source': '1', 'start': 0, 'seconds': 8, 'comb': False})
+        self.assertNotIn('comb', record)
+
+
 class ManifestTests(unittest.TestCase):
     def test_there_is_a_manifest(self):
         self.assertTrue(MANIFESTS)

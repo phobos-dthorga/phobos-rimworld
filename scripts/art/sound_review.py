@@ -9,6 +9,9 @@ For each candidate FLAC under a generated folder (left byte for byte), it writes
     <stem>.spectrogram.png   a picture of the master: time left to right, pitch upwards, brightness for loudness
     <stem>.seam.png          for a loop, the loop played twice, so a seam shows as a line in the middle
     <stem>.measure.json      the master's loudness, true peak, high-frequency level, the loop seam and the flags
+    <stem>.comb.png          for a record with a "comb" (a machine that turns at a known rate: a rotor, a propeller, a fan), the
+                             bottom of the spectrum with the expected comb of lines marked, and the comb's measured spacing in the
+                             measure; a sound without the comb, or with it in the wrong place, is flagged (19 Nov 2026)
 
 and sound-review.html and sound-review.json in the generated folder. The flags name what a listener with high-frequency
 hearing loss could miss (hiss, whine, clicks, clipping, a sharp attack, a bump at a loop's seam), so a pick never rests on
@@ -78,6 +81,18 @@ LOOP_SEARCH_S = 0.5         # The loop's end is chosen within this much before i
 COHERENT_MATCH = 0.5        # Ends at least this alike are crossfaded at equal gain (alike signals add); others at equal power.
 SEAM_FRAME_S = 0.02         # The join is checked in 20 ms slices...
 SEAM_SPAN_S = 0.15          # ...within this of it...
+COMB_RATE = 400              # The comb is measured on the sound below COMB_LOWPASS_HZ, decoded at this rate (enough for 6 harmonics
+COMB_LOWPASS_HZ = 180        # of a 30 Hz comb) so the measure stays cheap in plain Python.
+COMB_MAX_S = 20.0            # At most this much of a long recording is measured.
+COMB_SEARCH = 0.25           # The comb is searched for within this share either side of the expected spacing...
+COMB_COARSE_HZ = 0.05        # ...in steps of this, then within one step at COMB_FINE_HZ.
+COMB_FINE_HZ = 0.005
+COMB_HARMONICS = 6           # How many lines of the comb are weighed, unless a record says otherwise.
+COMB_MIN_DB = 9.0            # A comb weaker than this above its gaps is flagged as missing (authored, 19 Nov 2026: noise alone
+                             # scored 4.6 to 6.6 dB in 12 trials, a comb under heavy noise 7.8 to 10.8, the DVIDS Ospreys 16 to 38).
+COMB_LINE_DB = 6.0
+COMB_GAP_POINTS = (0.25, 0.5, 0.75)           # A harmonic counts as present when it stands this far above the gap beside it (authored).
+COMB_PICTURE_HZ = 150        # The marked picture shows the spectrum up to this.
 SEAM_DIP_DB = 3.0           # ...and flagged when its quietest slice falls this far under the loop's usual quiet slices.
 SPECTROGRAM_SIZE = '960x320'
 OGG_QUALITY = '6'           # Vorbis quality for the review copies; the masters stay lossless.
@@ -91,6 +106,10 @@ FLAG_WORDS = {
     'seam': 'Loop seam: the level changes by {jump} dB where it repeats.',
     'whine': 'Whine: a steady narrow tone near {khz} kHz, {prominence} dB above the sound around it. You may not hear it at all; '
              'other players will. Look for a thin bright line across the picture at that height.',
+    'nocomb': 'No {what}: the evenly spaced low lines a real one makes (every {hz:g} Hz) stand only {strength} dB above the gaps, '
+              'so it may sound like any machine of its kind. Look at the comb picture.',
+    'wrongcomb': 'The {what} is in the wrong place: lines every {found:g} Hz where the real machine makes them every {hz:g} Hz '
+                 '(within {tolerance:g}): it turns at the wrong speed, or was heard passing by, which shifts its pitch.',
     'seamdip': 'Seam dip: where the loop repeats, the sound drops {dip} dB for a moment, a soft gap or thud each time round.',
     'gap': 'Gap or dip: each time round, the loop falls more than {below} dB below its usual loudness for {gap} s, '
            'so it will not repeat smoothly.',
@@ -174,6 +193,14 @@ def flags_for(measure):
     whine = measure.get('whine')
     if whine and whine['prominence_db'] >= WHINE_PROMINENCE_DB:
         found.append(('whine', FLAG_WORDS['whine'].format(khz=f'{whine["hz"] / 1000:g}', prominence=f'{whine["prominence_db"]:.0f}')))
+    comb = measure.get('comb')
+    if comb:
+        what = comb.get('what') or 'comb'
+        if comb['strength_db'] < COMB_MIN_DB:
+            found.append(('nocomb', FLAG_WORDS['nocomb'].format(what=what, hz=comb['expected_hz'], strength=f'{comb["strength_db"]:.0f}')))
+        elif abs(comb['hz'] - comb['expected_hz']) > comb['tolerance_hz']:
+            found.append(('wrongcomb', FLAG_WORDS['wrongcomb'].format(what=what, found=round(comb['hz'], 2), hz=comb['expected_hz'],
+                                                                      tolerance=comb['tolerance_hz'])))
     gap = measure.get('loop_gap_s')
     if gap is not None and gap >= GAP_MIN_S:
         found.append(('gap', FLAG_WORDS['gap'].format(gap=f'{gap:.1f}', below=f'{DIP_BELOW_DB:g}')))
@@ -238,6 +265,124 @@ def decode_mono(exe, path, rate=ANALYSIS_RATE, twice=False):
     if sys.byteorder != 'little':
         samples.byteswap()
     return samples
+
+
+def decode_low(exe, path, rate=COMB_RATE, lowpass=COMB_LOWPASS_HZ, seconds=COMB_MAX_S):
+    """The bottom of the sound as mono floats at a low rate, for the comb: ffmpeg filters and decodes, Python only adds up."""
+    done = subprocess.run([exe, '-hide_banner', '-nostdin', '-loglevel', 'error', '-t', str(seconds), '-i', str(path), '-ac', '1',
+                           '-af', f'lowpass=f={lowpass},lowpass=f={lowpass}', '-ar', str(rate), '-f', 'f32le', '-'], capture_output=True)
+    if done.returncode:
+        raise RuntimeError(f'ffmpeg could not decode {path}: {done.stderr.decode(errors="replace")[-300:]}')
+    samples = array('f')
+    samples.frombytes(done.stdout[:len(done.stdout) // 4 * 4])
+    if sys.byteorder != 'little':
+        samples.byteswap()
+    return samples
+
+
+def windowed(samples):
+    """The samples less their mean, under a Hann window, so a comb's lines do not smear into the gaps between them."""
+    n = len(samples)
+    mean = sum(samples) / n if n else 0.0
+    return [(x - mean) * (0.5 - 0.5 * math.cos(2 * math.pi * i / (n - 1))) for i, x in enumerate(samples)] if n > 1 else []
+
+
+def magnitude(samples, rate, hz):
+    """How strong one frequency is in the samples (the Goertzel algorithm: one bin of a Fourier transform, at any frequency)."""
+    coefficient = 2 * math.cos(2 * math.pi * hz / rate)
+    s1 = s2 = 0.0
+    for x in samples:
+        s1, s2 = x + coefficient * s1 - s2, s1
+    return math.sqrt(max(s1 * s1 + s2 * s2 - coefficient * s1 * s2, 0.0))
+
+
+def comb_score(samples, rate, hz, harmonics):
+    """How far a comb of lines every hz stands above the gaps between them, in dB, and the lines that stand out. Each gap is the mean
+    of three points (a quarter, a half and three quarters of the way to the next line), which steadies it on noise."""
+    top = rate / 2
+    lines, gaps, present = [], [], 0
+    for h in range(1, harmonics + 1):
+        if (h + 0.75) * hz >= top:
+            break
+        line = magnitude(samples, rate, h * hz)
+        gap = sum(magnitude(samples, rate, (h + offset) * hz) for offset in COMB_GAP_POINTS) / len(COMB_GAP_POINTS)
+        lines.append(line)
+        gaps.append(gap)
+        if gap > 0 and 20 * math.log10(max(line, 1e-12) / gap) >= COMB_LINE_DB:
+            present += 1
+    if not lines or sum(gaps) <= 0:
+        return 0.0, 0
+    return 20 * math.log10(max(sum(lines), 1e-12) / sum(gaps)), present
+
+
+def measure_comb(samples, rate, expected_hz, harmonics=COMB_HARMONICS, search=COMB_SEARCH):
+    """The comb's spacing, its strength above the gaps and how many of its lines stand out: the best spacing within `search` of
+    the expected one, found coarsely, then finely around the best. A sound with no comb still returns its best, weak, spacing."""
+    data = windowed(samples)
+    low, high = expected_hz * (1 - search), expected_hz * (1 + search)
+    steps = max(1, int((high - low) / COMB_COARSE_HZ))
+    best = max((low + i * COMB_COARSE_HZ for i in range(steps + 1)), key=lambda hz: comb_score(data, rate, hz, harmonics)[0])
+    fine = int(COMB_COARSE_HZ / COMB_FINE_HZ)
+    best = max((best + i * COMB_FINE_HZ for i in range(-fine, fine + 1)), key=lambda hz: comb_score(data, rate, hz, harmonics)[0])
+    strength, present = comb_score(data, rate, best, harmonics)
+    return {'hz': round(best, 3), 'strength_db': round(strength, 1), 'lines_present': present, 'lines_weighed': harmonics}
+
+
+COMB_PICTURE_SIZE = (1200, 360)
+COMB_CALIBRATION_HZ = (25.0, 100.0)
+_comb_rows = {}
+
+
+def comb_spectrum(width=COMB_PICTURE_SIZE[0], height=COMB_PICTURE_SIZE[1], top=COMB_PICTURE_HZ):
+    return (f'lowpass=f={COMB_LOWPASS_HZ},aresample=1000,showspectrumpic=s={width}x{height}:legend=0:scale=log:fscale=lin:'
+            f'stop={top}:color=intensity')
+
+
+def peak_rows(column, threshold=150):
+    """The rows of a one-pixel-wide greyscale column that are bright local peaks, top first: one row for each peak, the middle of a
+    flat top."""
+    rows, y = [], 1
+    while y < len(column) - 1:
+        if column[y] > threshold and column[y] > column[y - 1]:
+            end = y
+            while end + 1 < len(column) and column[end + 1] == column[y]:
+                end += 1
+            if end + 1 >= len(column) or column[end + 1] < column[y]:
+                rows.append((y + end) // 2)
+            y = end + 1
+        else:
+            y += 1
+    return rows
+
+
+def row_mapping(rows, tones=COMB_CALIBRATION_HZ):
+    """(row at 0 Hz, rows per Hz) from where two known tones landed; the higher tone is the higher, smaller, row."""
+    low_row, high_row = max(rows), min(rows)
+    per_hz = (low_row - high_row) / (tones[1] - tones[0])
+    return low_row + tones[0] * per_hz, per_hz
+
+
+def comb_rows(exe):
+    """Where this ffmpeg puts each frequency in the comb picture, measured once a run by drawing two known tones the same way:
+    its picture keeps a band at the bottom and stretches the rest, so its geometry is read, not assumed (19 Nov 2026)."""
+    if exe not in _comb_rows:
+        tones = ''.join(f'sine=f={hz:g}:d=4:sample_rate=48000[t{i}];' for i, hz in enumerate(COMB_CALIBRATION_HZ))
+        graph = f'{tones}[t0][t1]amix=inputs=2,{comb_spectrum()},crop=1:ih:iw/2:0,format=gray'
+        done = subprocess.run([exe, '-hide_banner', '-nostdin', '-loglevel', 'error', '-f', 'lavfi', '-i', 'anullsrc=d=0.1',
+                               '-filter_complex', graph, '-frames:v', '1', '-f', 'rawvideo', '-'], capture_output=True)
+        rows = peak_rows(list(done.stdout))
+        if done.returncode or len(rows) != 2:
+            raise RuntimeError(f'could not calibrate the comb picture (rows found: {rows}): {done.stderr.decode(errors="replace")[-200:]}')
+        _comb_rows[exe] = row_mapping(rows)
+    return _comb_rows[exe]
+
+
+def comb_picture_filter(expected_hz, harmonics, mapping, top=COMB_PICTURE_HZ):
+    """The bottom of the spectrum with a thin cyan line where each of the comb's lines should be: the real ones sit on them."""
+    zero, per_hz = mapping
+    marks = ''.join(f',drawbox=x=0:y={round(zero - h * expected_hz * per_hz)}:w=iw:h=1:color=cyan@0.55:t=fill'
+                    for h in range(1, harmonics + 1) if h * expected_hz < top)
+    return comb_spectrum() + marks
 
 
 def _match(a, b):
@@ -397,21 +542,22 @@ def measure_octaves(master):
 def outputs_for(master):
     review = master.parent / REVIEW_FOLDER
     names = {'review': '.review.ogg', 'lowered': '.lowered.ogg', 'loop': '.loop.ogg', 'spectrogram': '.spectrogram.png',
-             'seam': '.seam.png', 'measure': '.measure.json', 'whine': '.whine.ogg'}
+             'seam': '.seam.png', 'measure': '.measure.json', 'whine': '.whine.ogg', 'comb': '.comb.png'}
     return {key: review / f'{master.stem}{suffix}' for key, suffix in names.items()}
 
 
-def is_current(master, paths, loop):
+def is_current(master, paths, loop, comb=False):
     """Whether this candidate's review files exist and are newer than its master, so a rerun can reuse them."""
-    needed = ['review', 'lowered', 'spectrogram', 'measure'] + (['loop', 'seam'] if loop else [])
+    needed = ['review', 'lowered', 'spectrogram', 'measure'] + (['loop', 'seam'] if loop else []) + (['comb'] if comb else [])
     return all(paths[key].is_file() and paths[key].stat().st_mtime >= master.stat().st_mtime for key in needed)
 
 
 def prepare(exe, master, record, force=False, octaves=LOWERED_OCTAVES):
     """Make one candidate's review files and return its measurement, flags included."""
     loop = bool(record.get('loop'))
+    comb = record.get('comb')
     paths = outputs_for(master)
-    if not force and is_current(master, paths, loop):
+    if not force and is_current(master, paths, loop, bool(comb)):
         return json.loads(paths['measure'].read_text(encoding='utf-8'))
     paths['review'].parent.mkdir(exist_ok=True)
     measure = measure_file(exe, master)
@@ -440,6 +586,13 @@ def prepare(exe, master, record, force=False, octaves=LOWERED_OCTAVES):
         measure['seam_dip_db'] = seam_dip_db(twice_samples, ANALYSIS_RATE, len(twice_samples) / 2 / ANALYSIS_RATE)
         twice, twice_integrated = loudness_frames(exe, [paths['loop'], paths['loop']])
         measure['loop_gap_s'] = longest_dip(twice, twice_integrated)
+    if comb:
+        expected = float(comb['hz'])
+        harmonics = int(comb.get('harmonics', COMB_HARMONICS))
+        measure['comb'] = {**measure_comb(decode_low(exe, master), COMB_RATE, expected, harmonics), 'expected_hz': expected,
+                           'tolerance_hz': float(comb.get('tolerance_hz', expected * 0.05)), 'what': comb.get('what', '')}
+        run_ffmpeg(exe, ['-i', str(master), '-lavfi', comb_picture_filter(expected, harmonics, comb_rows(exe)), '-update', '1',
+                         str(paths['comb'])])
     measure['review_gain_db'] = gain
     measure['lowered_octaves'] = octaves
     measure['flags'] = [{'code': code, 'words': words} for code, words in flags_for(measure)]
@@ -480,6 +633,11 @@ def card(generated, master, record, measure, error=None):
         if record.get('loop') and paths['loop'].is_file():
             parts.append(_player('Loop: repeats until stopped; listen for a bump each time round', rel(paths['loop']), loop=True))
         parts.append(f'<img loading="lazy" src="{html.escape(rel(paths["spectrogram"]))}" alt="spectrogram of {html.escape(master.stem)}">')
+        comb = measure.get('comb')
+        if comb and paths['comb'].is_file():
+            parts.append(f'<div class="meta">The bottom of the sound, to {COMB_PICTURE_HZ} Hz. The cyan lines are where the real '
+                         f'{html.escape(comb.get("what") or "comb")} sits, every {comb["expected_hz"]:g} Hz: bright lines on them are '
+                         f'right.</div><img loading="lazy" src="{html.escape(rel(paths["comb"]))}" alt="comb of {html.escape(master.stem)}">')
         if record.get('loop') and paths['seam'].is_file():
             parts.append('<div class="meta">The loop played twice: a line down the middle is its seam.</div>'
                          f'<img loading="lazy" src="{html.escape(rel(paths["seam"]))}" alt="the loop played twice">')
@@ -490,7 +648,10 @@ def card(generated, master, record, measure, error=None):
                      f'true peak {_fmt(measure.get("true_peak"), "dBTP")} · highs above {HIGH_HZ // 1000} kHz '
                      f'{_fmt(high_gap, "dB below the whole", 0)}'
                      + (f' · seam {_fmt(measure.get("seam_jump_db"), "dB")}' if 'seam_jump_db' in measure else '')
-                     + (f' · longest dip in the loop {_fmt(measure.get("loop_gap_s"), "s", 1)}' if 'loop_gap_s' in measure else '') + '</div>')
+                     + (f' · longest dip in the loop {_fmt(measure.get("loop_gap_s"), "s", 1)}' if 'loop_gap_s' in measure else '')
+                     + (f' · comb every {measure["comb"]["hz"]:g} Hz (real: {measure["comb"]["expected_hz"]:g}), '
+                        f'{measure["comb"]["strength_db"]:g} dB above the gaps, {measure["comb"]["lines_present"]} of '
+                        f'{measure["comb"]["lines_weighed"]} lines' if measure.get('comb') else '') + '</div>')
     parts.append(f'<details><summary>prompt</summary><div class="rec">{html.escape(record.get("prompt", ""))}</div></details></div>')
     return ''.join(parts)
 
@@ -500,7 +661,9 @@ file. <b>Review level</b> sets every candidate to the same loudness, so the loud
 <b>Lowered</b> moves everything above {SPLIT_HZ} Hz down (an octave unless the page says more), so hiss, whine and clicks land where they are easier to hear;
 it only shows that something is up there, not how it sounds to others, and it never ships. <b>Loop</b> repeats.<br>
 <b>The picture</b> (a spectrogram): time runs left to right, pitch rises upwards, brightness is loudness. A bright band near
-the top is hiss or whine; a thin upright line is a click. <b>Red lines</b> are measured flags: reasons to look again, not
+the top is hiss or whine; a thin upright line is a click. Where a machine turns at a known rate (a rotor, a propeller), a
+second picture shows only the bottom of the sound with <b>cyan lines where the real machine's comb of lines sits</b>: bright lines
+on them are right, lines between them are the wrong speed or a sound heard passing by, and no lines at all is a generic sound. <b>Red lines</b> are measured flags: reasons to look again, not
 verdicts. Nothing here is in a mod until it is picked.</div>"""
 
 

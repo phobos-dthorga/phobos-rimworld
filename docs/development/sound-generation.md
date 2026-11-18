@@ -249,6 +249,14 @@ helicopter (the agent's expectation, not measured), while the US military publis
   scales to 397). A pass slides the comb by Doppler, from about 21.7 to 20.3 Hz. **A generated Osprey candidate can be judged against
   this comb on its spectrogram**; one without it is a generic helicopter. The 22.15 Hz in the CV-22 B-roll's cabin stretch is not
   explained (another machine, or a different rotor speed on the ground; unverified).
+- **The comb check** (19 Nov 2026, the owner's go): `sound_review.py` measures the comb on any candidate whose record names one
+  (`"comb": {"hz": 20.55, "tolerance_hz": 1.2, ...}`, carried from a request by `generate-art.py` or from a recordings manifest),
+  in plain Python on the sound below 180 Hz, and flags **no comb** (weaker than 9 dB above its gaps) or **the wrong comb** (outside
+  the tolerance: the wrong speed, or a recording of the aircraft passing by). Its picture marks where the real comb sits, placed by
+  measuring where this ffmpeg draws two known tones, as its picture's geometry is not what its options suggest. The 9 dB is
+  **authored** from a calibration: noise alone scored 4.6 to 6.6 dB, a comb under heavy noise 7.8 to 10.8, the DVIDS Ospreys 14 to 36.
+  All 16 DVIDS cuts with turning rotors pass; the two passing-aircraft cuts are flagged, as they should be. Tonight's generated idle
+  and labour loops carry the same comb. It serves any machine with a known rate: a propeller, a fan, an engine's firing frequency.
 - **What the flags say:** two cuts clip (the camera's microphone hit its ceiling): the last Mercy deck idle and the Iwo Jima landing.
   The deck and taxi idles carry strong highs, some of them the turbines' own whine and some likely wind. **Nothing checks for voices**,
   and the air-show cuts were filmed beside a crowd: listen for them. A speech detector (Silero VAD) and a voice remover (Demucs) are proposed to the owner, not installed.

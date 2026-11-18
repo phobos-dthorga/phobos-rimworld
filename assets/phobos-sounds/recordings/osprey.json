@@ -183,7 +183,15 @@
    "source": "875555",
    "start": 126,
    "seconds": 19.5,
-   "note": "engines winding down, heard from the cabin"
+   "note": "engines winding down, heard from the cabin",
+   "comb": false
   }
- ]
+ ],
+ "comb": {
+  "hz": 20.55,
+  "tolerance_hz": 1.2,
+  "harmonics": 6,
+  "what": "rotor comb (the proprotors' blade passes)",
+  "source": "measured 19 Nov 2026 on DVIDS recordings (sound-generation.md, Real recordings): 411 rpm, three blades; the tolerance covers a passing aircraft (Doppler) and running on the ground"
+ }
 }

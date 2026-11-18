@@ -62,9 +62,13 @@ def cut_name(cut):
 def cut_record(manifest, cut):
     """The record written beside a cut: what sound_review.py reads (loop, seconds) and what an export's record must carry."""
     source = manifest['sources'][cut['source']]
-    return {'kind': 'recording', 'loop': bool(cut.get('loop')), 'seconds': cut['seconds'], 'start': cut['start'],
+    comb = cut.get('comb', manifest.get('comb'))
+    record = {'kind': 'recording', 'loop': bool(cut.get('loop')), 'seconds': cut['seconds'], 'start': cut['start'],
             'role': cut['role'], 'note': cut.get('note', ''), 'source_page': source['page'], 'source_title': source['title'],
             'credit': source['credit'], 'licence': manifest['licence'], 'source_sha256': source.get('sha256', '')}
+    if comb:
+        record['comb'] = comb  # The comb sound_review.py measures: the set's, unless the cut says false (a wind-down).
+    return record
 
 
 def fetch(manifest_path, record=False):

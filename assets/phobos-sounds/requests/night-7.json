@@ -1,15 +1,163 @@
 [
- {"name": "n7-osprey-idle", "engine": "sa3-sfx", "seconds": 8, "seeds": [71, 72, 73], "loop": true, "prompt": "A large tiltrotor aircraft on the ground with two turboshaft engines at idle: a steady high turbine whine over the slow, soft whoosh of two huge proprotors turning at low speed, even and unchanging, continuous. Outdoors, some distance away. Length: 8 seconds"},
- {"name": "n7-osprey-labour", "engine": "sa3-sfx", "seconds": 8, "seeds": [71, 72, 73], "loop": true, "prompt": "A large tiltrotor aircraft hovering: two turboshaft engines at full power, a deep rhythmic thudding blade slap from two huge proprotors and a strong turbine roar, powerful but steady and unchanging, continuous. Outdoors, some distance away. Length: 8 seconds"},
- {"name": "n7-osprey-start", "engine": "sa3-sfx", "seconds": 10, "seeds": [71, 72, 73], "prompt": "A turboshaft engine on a large aircraft starting: a starter whine winding up, a soft pop as it lights, then the turbine spooling up to a steady idle while large rotor blades begin to turn slowly. Outdoors. Length: 10 seconds"},
- {"name": "n7-osprey-shutdown", "engine": "sa3-sfx", "seconds": 10, "seeds": [71, 72, 73], "prompt": "A large aircraft's two turbine engines shutting down: the turbine whine falling away slowly while big rotor blades swish slower and slower to a stop, ending in silence. Outdoors. Length: 10 seconds"},
- {"name": "n7-osprey-ramp", "engine": "sa3-sfx", "seconds": 6, "seeds": [71, 72, 73], "prompt": "The rear cargo ramp of a military transport aircraft lowering on hydraulics: a steady hydraulic whine, metal creaks, and a heavy clunk as the ramp touches the ground. Length: 6 seconds"},
- {"name": "n7-osprey-door", "engine": "sa3-sfx", "seconds": 3, "seeds": [71, 72, 73], "prompt": "The side crew door of an aircraft opening: a lever latch clacking, a light aluminium door swinging and locking open with a click. Close. Length: 2 seconds"},
- {"name": "n7-rescue-hoist", "engine": "sa3-sfx", "seconds": 8, "seeds": [71, 72, 73], "loop": true, "prompt": "An electric rescue hoist on a helicopter reeling out steel cable: a steady electric motor whine and the soft tick of the cable drum turning, even and unchanging, continuous. Length: 8 seconds"},
- {"name": "n7-fast-rope", "engine": "sa3-sfx", "seconds": 4, "seeds": [71, 72, 73], "prompt": "A soldier sliding quickly down a thick rope from a hovering aircraft: a rough fibre rope zipping through gloved hands, ending with boots landing on dirt. Length: 3 seconds"},
- {"name": "n7-turbo-whistle", "engine": "sa3-sfx", "seconds": 8, "seeds": [71, 72, 73], "loop": true, "prompt": "The turbocharger of a heavy diesel truck engine under load: a high, clean, steady turbo whistle with a faint whoosh of air, no engine rumble, even and unchanging, continuous. Length: 8 seconds"},
- {"name": "n7-clutch-slip", "engine": "sa3-sfx", "seconds": 4, "seeds": [71, 72, 73], "prompt": "A worn truck clutch slipping: a diesel engine revving up while the truck barely moves, a rising flare in engine note, a faint grinding judder. Length: 3 seconds"},
- {"name": "n7-exhaust-brake", "engine": "sa3-sfx", "seconds": 4, "seeds": [71, 72, 73], "prompt": "A heavy truck slowing down with its exhaust brake on: a deep, throaty, rapid popping roar from the exhaust as the engine holds the truck back. Outdoors. Length: 3 seconds"},
- {"name": "n7-inspection-hoist", "engine": "sa3-sfx", "seconds": 6, "seeds": [71, 72, 73], "prompt": "A workshop vehicle hoist raising a truck: an electric motor and hydraulic pump humming, a steady rise, then a solid locking clunk as the safety catch engages. Indoors, in a garage. Length: 5 seconds"},
- {"name": "n7-armour-plate", "engine": "sa3-sfx", "seconds": 4, "seeds": [71, 72, 73], "prompt": "A heavy steel armour plate being bolted onto a truck: the plate clanging against the cab, then an impact wrench driving three bolts tight in quick bursts. Outdoors, in a workshop yard. Length: 3 seconds"}
+ {
+  "name": "n7-osprey-idle",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "loop": true,
+  "prompt": "A large tiltrotor aircraft on the ground with two turboshaft engines at idle: a steady high turbine whine over the slow, soft whoosh of two huge proprotors turning at low speed, even and unchanging, continuous. Outdoors, some distance away. Length: 8 seconds",
+  "comb": {
+   "hz": 20.55,
+   "tolerance_hz": 1.2,
+   "harmonics": 6,
+   "what": "rotor comb (the proprotors' blade passes)",
+   "source": "measured 19 Nov 2026 on DVIDS recordings (sound-generation.md, Real recordings): 411 rpm, three blades; the tolerance covers a passing aircraft (Doppler) and running on the ground"
+  }
+ },
+ {
+  "name": "n7-osprey-labour",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "loop": true,
+  "prompt": "A large tiltrotor aircraft hovering: two turboshaft engines at full power, a deep rhythmic thudding blade slap from two huge proprotors and a strong turbine roar, powerful but steady and unchanging, continuous. Outdoors, some distance away. Length: 8 seconds",
+  "comb": {
+   "hz": 20.55,
+   "tolerance_hz": 1.2,
+   "harmonics": 6,
+   "what": "rotor comb (the proprotors' blade passes)",
+   "source": "measured 19 Nov 2026 on DVIDS recordings (sound-generation.md, Real recordings): 411 rpm, three blades; the tolerance covers a passing aircraft (Doppler) and running on the ground"
+  }
+ },
+ {
+  "name": "n7-osprey-start",
+  "engine": "sa3-sfx",
+  "seconds": 10,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "prompt": "A turboshaft engine on a large aircraft starting: a starter whine winding up, a soft pop as it lights, then the turbine spooling up to a steady idle while large rotor blades begin to turn slowly. Outdoors. Length: 10 seconds"
+ },
+ {
+  "name": "n7-osprey-shutdown",
+  "engine": "sa3-sfx",
+  "seconds": 10,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "prompt": "A large aircraft's two turbine engines shutting down: the turbine whine falling away slowly while big rotor blades swish slower and slower to a stop, ending in silence. Outdoors. Length: 10 seconds"
+ },
+ {
+  "name": "n7-osprey-ramp",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "prompt": "The rear cargo ramp of a military transport aircraft lowering on hydraulics: a steady hydraulic whine, metal creaks, and a heavy clunk as the ramp touches the ground. Length: 6 seconds"
+ },
+ {
+  "name": "n7-osprey-door",
+  "engine": "sa3-sfx",
+  "seconds": 3,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "prompt": "The side crew door of an aircraft opening: a lever latch clacking, a light aluminium door swinging and locking open with a click. Close. Length: 2 seconds"
+ },
+ {
+  "name": "n7-rescue-hoist",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "loop": true,
+  "prompt": "An electric rescue hoist on a helicopter reeling out steel cable: a steady electric motor whine and the soft tick of the cable drum turning, even and unchanging, continuous. Length: 8 seconds"
+ },
+ {
+  "name": "n7-fast-rope",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "prompt": "A soldier sliding quickly down a thick rope from a hovering aircraft: a rough fibre rope zipping through gloved hands, ending with boots landing on dirt. Length: 3 seconds"
+ },
+ {
+  "name": "n7-turbo-whistle",
+  "engine": "sa3-sfx",
+  "seconds": 8,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "loop": true,
+  "prompt": "The turbocharger of a heavy diesel truck engine under load: a high, clean, steady turbo whistle with a faint whoosh of air, no engine rumble, even and unchanging, continuous. Length: 8 seconds"
+ },
+ {
+  "name": "n7-clutch-slip",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "prompt": "A worn truck clutch slipping: a diesel engine revving up while the truck barely moves, a rising flare in engine note, a faint grinding judder. Length: 3 seconds"
+ },
+ {
+  "name": "n7-exhaust-brake",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "prompt": "A heavy truck slowing down with its exhaust brake on: a deep, throaty, rapid popping roar from the exhaust as the engine holds the truck back. Outdoors. Length: 3 seconds"
+ },
+ {
+  "name": "n7-inspection-hoist",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "prompt": "A workshop vehicle hoist raising a truck: an electric motor and hydraulic pump humming, a steady rise, then a solid locking clunk as the safety catch engages. Indoors, in a garage. Length: 5 seconds"
+ },
+ {
+  "name": "n7-armour-plate",
+  "engine": "sa3-sfx",
+  "seconds": 4,
+  "seeds": [
+   71,
+   72,
+   73
+  ],
+  "prompt": "A heavy steel armour plate being bolted onto a truck: the plate clanging against the cab, then an impact wrench driving three bolts tight in quick bursts. Outdoors, in a workshop yard. Length: 3 seconds"
+ }
 ]

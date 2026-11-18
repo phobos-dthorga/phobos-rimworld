@@ -73,6 +73,12 @@ class AudioGraphTests(unittest.TestCase):
         self.assertIn('generative AI', record['ai_disclosure'])
         self.assertNotIn('size', record)
 
+    def test_a_requests_comb_reaches_its_record(self):
+        with tempfile.TemporaryDirectory() as folder:
+            record = art.make_record(dict(SOUND, comb={'hz': 20.55}), 'sa3-sfx-base', Path(folder) / 'rotor-11.flac', b'fLaC', '0.41.0',
+                                     SOUND['engine'], 'abc', 11, Path(ROOT) / 'assets' / 'x.json', None, 1.0, [])
+        self.assertEqual(record['comb'], {'hz': 20.55})
+
     def test_every_sound_engine_names_a_model_in_the_manifest(self):
         manifest = {item['file'] for item in json.loads(Path(ROOT, 'scripts', 'art', 'models.json').read_text(encoding='utf-8'))['models']}
         for name, engine in art.ENGINES.items():
@@ -104,6 +110,45 @@ EBUR128_TAIL = """[Parsed_ebur128_0 @ 0x1] Summary:
 [Parsed_volumedetect_1 @ 0x2] mean_volume: -30.3 dB
 [Parsed_volumedetect_1 @ 0x2] max_volume: -4.0 dB
 """
+
+
+def comb_signal(hz, harmonics=6, seconds=6.0, rate=sound_review.COMB_RATE, noise=0.3, seed=7):
+    """A made-up rotor: evenly spaced lines every hz over a little deterministic noise."""
+    import random
+    rng = random.Random(seed)
+    return [sum(math.sin(2 * math.pi * h * hz * i / rate) / h for h in range(1, harmonics + 1)) + noise * rng.uniform(-1, 1)
+            for i in range(int(seconds * rate))]
+
+
+class CombTests(unittest.TestCase):
+    """The rotor comb (19 Nov 2026): a turning machine's evenly spaced low lines, measured and flagged."""
+
+    def test_a_comb_is_found_at_its_spacing(self):
+        found = sound_review.measure_comb(comb_signal(20.55), sound_review.COMB_RATE, 20.55)
+        self.assertAlmostEqual(found['hz'], 20.55, delta=0.05)
+        self.assertGreater(found['strength_db'], sound_review.COMB_MIN_DB)
+        self.assertEqual(found['lines_present'], 6)
+
+    def test_noise_alone_has_no_comb(self):
+        found = sound_review.measure_comb(comb_signal(20.55, noise=1.0, harmonics=0), sound_review.COMB_RATE, 20.55)
+        self.assertLess(found['strength_db'], sound_review.COMB_MIN_DB)
+
+    def test_a_missing_comb_and_a_shifted_one_are_flagged(self):
+        missing = {'comb': {'hz': 20.5, 'strength_db': 2.0, 'expected_hz': 20.55, 'tolerance_hz': 1.2, 'what': 'rotor comb'}}
+        shifted = {'comb': {'hz': 22.4, 'strength_db': 30.0, 'expected_hz': 20.55, 'tolerance_hz': 1.2, 'what': 'rotor comb'}}
+        right = {'comb': {'hz': 20.5, 'strength_db': 30.0, 'expected_hz': 20.55, 'tolerance_hz': 1.2, 'what': 'rotor comb'}}
+        self.assertIn('nocomb', [code for code, _ in sound_review.flags_for(missing)])
+        self.assertIn('wrongcomb', [code for code, _ in sound_review.flags_for(shifted)])
+        self.assertEqual([], [code for code, _ in sound_review.flags_for(right) if 'comb' in code])
+
+    def test_the_picture_is_calibrated_from_two_tones(self):
+        zero, per_hz = sound_review.row_mapping([88, 267])
+        self.assertAlmostEqual(per_hz, 179 / 75)
+        self.assertAlmostEqual(zero - 25 * per_hz, 267)
+        self.assertAlmostEqual(zero - 100 * per_hz, 88)
+
+    def test_a_flat_topped_peak_is_one_row(self):
+        self.assertEqual(sound_review.peak_rows([0, 10, 200, 200, 10, 0, 180, 0]), [2, 6])
 
 
 class ReviewParserTests(unittest.TestCase):

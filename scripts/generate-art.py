@@ -624,6 +624,8 @@ def make_record(req, engine_name, target, data, version, model, model_hash, seed
         record['text_encoder'] = SA3_CLIP
         record['seconds_asked'] = float(req['seconds'])
         record['loop'] = bool(req.get('loop', False))
+        if req.get('comb'):
+            record['comb'] = req['comb']  # A machine that turns at a known rate: sound_review.py measures its comb (19 Nov 2026).
         record['ai_disclosure'] = f'Made with generative AI: {engine["label"]}, run locally, prompted by the Phobos art scripts.'
     else:
         record['size'] = [req['width'], req['height']]
