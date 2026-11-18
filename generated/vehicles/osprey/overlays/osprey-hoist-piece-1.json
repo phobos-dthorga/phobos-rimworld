@@ -1,0 +1,40 @@
+{
+  "file": "osprey-hoist-piece-1.png",
+  "sha256": "629e6293f50f45743ba377ef0d4288fe5f42c22b73ffd2ef6b612021612d0811",
+  "date": "2026-11-18T23:57:02",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of our aircraft's rear fuselage, seen from directly above, the front of the aircraft toward the TOP of the canvas: the rear cabin roof with a rectangular hatch panel in the middle, and the tailplane across the lower part. Add a compact rescue hoist on the RIGHT edge of the fuselage, beside the upper half of the hatch panel: a small boxy motor housing lying on the roof with a round cable drum at one end, and a short straight boom arm reaching out sideways to the right, just past the fuselage's right edge, ending in a small pulley. The hoist is about two thirds as long as the hatch panel is tall. Change NOTHING else: keep every other line, panel, rivet, colour and the plain white background exactly as in Image 1, at the same scale and in the same position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the aircraft.",
+  "seed": 1,
+  "size": [
+    1366,
+    2048
+  ],
+  "request_file": "assets/phobos-vehicles/requests/osprey-overlays-3.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a1eeba-f446-7fe2-b3f2-3c3acf43918e",
+  "usage": null,
+  "cost_usd": 0.15,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    1696,
+    2528
+  ],
+  "asked_resolution": "2K",
+  "asked_aspect_ratio": "2:3",
+  "sent_seed": 1,
+  "size_note": "asked for 1366x2048, received 1696x2528",
+  "seconds": 32.6,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/osprey-crop-ramp.png",
+      "sha256": "f19e9dc22ffeec82b50818c246ac762ec37f6b1f80fd277b761c5455dd51011a",
+      "role": "a piece of our approved aircraft body (the owner's pick), the rear fuselage only: the picture to add to, changing nothing else"
+    }
+  ]
+}

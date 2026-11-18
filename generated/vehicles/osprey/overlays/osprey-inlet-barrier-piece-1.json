@@ -1,0 +1,40 @@
+{
+  "file": "osprey-inlet-barrier-piece-1.png",
+  "sha256": "684438c9736559e7b97e9926eb6f85a2a39d1a377bcf45860a3256dc12d553f4",
+  "date": "2026-11-18T23:58:10",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up of our aircraft's left engine nacelle, seen from directly above, the front of the aircraft toward the TOP of the canvas, with a piece of the wing joining it on the right. Add an engine inlet barrier filter to this nacelle: one flat rectangular filter panel with a fine dark grille mesh inside a thin raised frame, set into the nacelle's top surface between its front end cap and its front orange band, spanning nearly the nacelle's width. It stays inside the nacelle outline. Change NOTHING else: keep the round hub, both orange bands, every other line, colour and the plain white background exactly as in Image 1, at the same scale and in the same position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the aircraft.",
+  "seed": 1,
+  "size": [
+    1366,
+    2048
+  ],
+  "request_file": "assets/phobos-vehicles/requests/osprey-overlays-3.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a1eebc-0403-7c13-aea7-8f20524d370f",
+  "usage": null,
+  "cost_usd": 0.15,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    1696,
+    2528
+  ],
+  "asked_resolution": "2K",
+  "asked_aspect_ratio": "2:3",
+  "sent_seed": 1,
+  "size_note": "asked for 1366x2048, received 1696x2528",
+  "seconds": 31.2,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/osprey-crop-nacelle.png",
+      "sha256": "c031b1b8879fedb027306ba256551dc3727b2c9a0d6691884d77284495c7711a",
+      "role": "a piece of our approved aircraft body (the owner's pick), the left engine nacelle and the wing root beside it: the picture to add to, changing nothing else"
+    }
+  ]
+}
