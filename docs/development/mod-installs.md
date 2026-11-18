@@ -88,10 +88,12 @@ viewer "that helps show off all the new and shiny code associated with any parti
 | Progress | phobos-modkit 1.24.0's progress lines (`docs/manifest.md` there): `deploy.py` counts a step for each project built, mod copied and mod's textures encoded; `installs` passes them on and adds its own for status, backup and going back; the texture check counts mods. Written only when a program asks, so a console is unchanged |
 | The code behind an entry | `python scripts/changes.py entry`: the commit that first wrote the entry into its changelog (`git log -S`), and its diff with code first. No new markup in a changelog |
 
-**What it means for how we write changes (for the owner to decide):** nothing has to change. The view is as sharp as the commit is
-small: 0.140.1's commit wrote eight entries and changed 21 files, so each of its entries shows all 21. Three choices, in order of
-cost: leave commits as they are (agent default); commit separate changes separately where they are separate anyway (the rule added to
-AGENTS.md, no extra cost); or one commit for every entry, which costs a full gate run each and would slow every release.
+**What it means for how we write changes:** nothing new is written in a changelog. The view is as sharp as the commit is small:
+0.140.1's commit wrote eight entries and changed 21 files, so each of its entries shows all 21. Of three choices (leave commits as
+they are; commit separate changes separately where they are separate anyway; one commit for every entry), **the owner chose the
+second (19 Nov 2026)**, and it is now a rule for every repository, in phobos-modkit's `rules/every-session.md`. An earlier line here
+called it free: it is free only when one change is finished and committed before the next is started, since each commit needs its
+own passing gate run and two changes already in one working tree cannot be split without staging part of a file.
 
 ## Changes to the process (agent defaults, for the owner to revise)
 

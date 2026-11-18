@@ -19,6 +19,8 @@
         {"name": "version copies", "run": ["{python}", "scripts/release.py", "constants", "--check"]},
         {"name": "changelog {dir}", "each": "mods/*/CHANGELOG.md", "lane": "changelogs",
          "run": ["{python}", "scripts/release.py", "changelog", "{path}"]},
+        {"name": "shared rules", "cwd": "external/phobos-modkit/python",
+         "run": ["{python}", "-m", "phobos_modkit", "rules", "check", "--root", "../../.."]},
         {"name": "python tests", "parser": "unittest", "run": ["{python}", "-m", "unittest", "discover", "-s", "tests"]}
       ]
     },

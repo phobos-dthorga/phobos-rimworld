@@ -8,6 +8,21 @@ design (`docs/development/radio-framework-design.md`); its conventions follow Ph
 (`phobos-dthorga/phobos-ostranauts`), adapted to RimWorld. Keep this file to rules: when a direction is
 delivered, record the delivery in the changelog or design record, and add or amend only the rule here.
 
+## Rules shared by every game
+
+**The owner's rules for every game, mod and tool repository live once, in phobos-modkit's `rules/` folder** (owner, 19 Nov 2026: "a
+central point from which global rules for all mods can be read and modified"). **Read
+`external/phobos-modkit/rules/every-session.md` at the start of every session**; `CLAUDE.md` imports it. (On GitHub the folder is a
+pointer to the other repository: [read the rules there](https://github.com/phobos-dthorga/phobos-modkit/blob/main/rules/every-session.md).)
+This file adds what is particular to RimWorld and this repository.
+
+- **A rule that would hold in another game's repository too does not go in this file**: it goes to phobos-modkit's `rules/`, on the
+  owner's word, under that repository's rules (`external/phobos-modkit/rules/README.md` says how), and the pin then moves here.
+  Where this repository must differ from a shared rule, say so beside the rule here, with the owner's reason.
+- **A rule here that the shared rules now state is dropped from this file** in the commit that moves the pin, so it is never
+  stated twice. `rules/README.md` lists the ones still waiting to move.
+- `python scripts/check-all.py` checks this repository still reads them (its "shared rules" step).
+
 ## Rules kept beside their work
 
 Three sets of rules live in the folders they govern, so a session loads them only when it works there (owner's go-ahead,
@@ -430,8 +445,8 @@ running a script does not load them.
 - **Answer what code is behind a changelog entry with `python scripts/changes.py`** (owner, 19 Nov 2026: a code viewer in D'thorga
   Companion "to show off all the new and shiny code associated with any particular CHANGELOG item"): `entry --changelog PATH --text
   "its opening"` gives the commit that first wrote the entry and its diff, code first. Nothing new is asked of a changelog; it rests
-  on the rule that a change and its entry go in one commit. **A commit that writes several entries is shown whole**, the others
-  named, so a smaller commit gives the owner a sharper view: where two changes are separate anyway, commit them separately.
+  on the shared rule that a change and its entry go in one commit. **A commit that writes several entries is shown whole**, the
+  others named; how commits are cut is in the shared rules (commit separate changes separately, one finished before the next).
 - **A script the owner may wait on says how far along it is** (owner, 19 Nov 2026: progress bars with status updates): count its
   steps through phobos-modkit's `Progress` (`scripts/deploy.py`'s `Steps`), which writes only when a program asks, so a console
   sees no change. The Companion draws the bar.
