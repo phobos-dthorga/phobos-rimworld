@@ -138,6 +138,12 @@
       "it arrives over a map it attacks or explores": [{"key": "aircraft.flight-arrived", "variant": "Centre"},
         {"key": "aircraft.flight-arrived", "variant": "Edge"}, {"key": "aircraft.flight-arrived", "variant": "Targeted"}]
     }},
+    "210": {"parts": {
+      "it comes in over the edge": [{"key": "aircraft.raider", "variant": "arrived"}],
+      "it puts its raiders down": [{"key": "aircraft.raider", "variant": "landed"}, {"key": "aircraft.raider", "variant": "roping"}],
+      "it leaves the way it came": [{"key": "aircraft.raider", "variant": "left"}],
+      "it is never a prize": [{"key": "aircraft.raider", "variant": "shot-down"}, {"key": "aircraft.raider", "variant": "scuttled"}]
+    }},
     "209": {"parts": {
       "people go down the ropes": [{"key": "aircraft.flight-rope", "variant": "down"}],
       "the hoist lifts a downed colonist": [{"key": "aircraft.flight-hoist", "variant": "up-downed"}],

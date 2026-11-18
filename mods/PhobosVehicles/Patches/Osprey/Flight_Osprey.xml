@@ -5,7 +5,8 @@
     the hover half). A patch file of its own, so its Def (Defs/Phobos/Vehicles/Osprey/Vehicle_Osprey.xml) is never edited by two pieces of work at once.
     It leaves and arrives in flight (Framework 0.149.0), and too heavy to lift straight up it rolls along a strip (Framework 0.151.0, Vehicles 0.73.0).
     It circles, and holds by circling where it cannot hover (Framework 0.153.0, Vehicles 0.75.0).
-    It takes a fast-rope bar and a rescue hoist at its ramp (Framework 0.155.0, Vehicles 0.77.0).
+    It takes a fast-rope bar and a rescue hoist at its ramp (Framework 0.155.0, Vehicles 0.77.0), and raiders may come in aboard it (Framework
+    0.157.0, Vehicles 0.79.0).
   -->
 
   <!-- The flight comp. Speeds over a map, climb and descent are authored, in proportion to its speed between places (17.5); its flight height
@@ -93,6 +94,18 @@
             </looks>
           </li>
         </slots>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Raiders may come in aboard it (Framework 0.157.0, Vehicles 0.79.0): factions of industrial technology or better, with the player's
+       setting on. It puts them down and leaves. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Osprey"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosRaiderAircraftExtension">
+        <minTechLevel>Industrial</minTechLevel>
+        <weight>1</weight>
       </li>
     </value>
   </Operation>

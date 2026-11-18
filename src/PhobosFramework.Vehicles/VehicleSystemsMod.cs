@@ -119,6 +119,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Ammunition in a burning vehicle's cargo can cook off (Framework 0.113.0, cross-links G13; owner, 13 Nov 2026: on by default,
     /// and only ever where Combat Extended's ammunition system is on). Live.</summary>
     public bool ammoCookOff = true;
+    /// <summary>Raiders of an industrial or better faction may arrive in one of our aircraft, which puts them down and leaves (Framework 0.157.0;
+    /// owner, 19 Nov 2026: on, with a setting). Off, raids never arrive that way. Live: read as each raid picks how it arrives.</summary>
+    public bool raidersArriveByAir = true;
     /// <summary>A resting caravan's cooks turn its raw food into simple meals at a field kitchen it carries, once a night (Framework 0.121.0;
     /// vehicle-field-kitchen.md; owner, 13 Nov 2026: a setting, on by default). Live.</summary>
     public bool caravanCooking = true;
@@ -171,6 +174,7 @@ public class VehicleSystemsSettings : ModSettings
         "aircraftFuel" => aircraftFuel,
         "cruiseHeight" => cruiseHeight,
         "ammoCookOff" => ammoCookOff,
+        "raidersArriveByAir" => raidersArriveByAir,
         "caravanCooking" => caravanCooking,
         "jumpStartNeedsKit" => jumpStartNeedsKit,
         "assumeBoosterPack" => assumeBoosterPack,
@@ -228,6 +232,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref aircraftFuel, "PhobosVehicleSystems_AircraftFuel", true);
         Scribe_Values.Look(ref cruiseHeight, "PhobosVehicleSystems_CruiseHeight", true);
         Scribe_Values.Look(ref ammoCookOff, "PhobosVehicleSystems_AmmoCookOff", true);
+        Scribe_Values.Look(ref raidersArriveByAir, "PhobosVehicleSystems_RaidersArriveByAir", true);
         Scribe_Values.Look(ref caravanCooking, "PhobosVehicleSystems_CaravanCooking", true);
         Scribe_Values.Look(ref jumpStartNeedsKit, "PhobosVehicleSystems_JumpStartNeedsKit", true);
         Scribe_Values.Look(ref assumeBoosterPack, "PhobosVehicleSystems_AssumeBoosterPack", false);
@@ -304,6 +309,7 @@ public class VehicleSystemsMod : Mod
         if (!Settings.ammoCookOff) report.Off("ammunition cook-off", "off (setting)");
         else if (!CookOff.AmmoSystemOn) report.Off("ammunition cook-off", "Combat Extended's ammunition is not in use");
         if (!Settings.caravanCooking) report.Off("caravan cooking", "off (setting)");
+        if (!Settings.raidersArriveByAir) report.Off("raiders arriving by aircraft", "off (setting)");
         if (Settings.jumpStartNeedsKit) report.On("jump-start leads must be crafted (setting)");
         else report.Off("jump-start leads", "free (setting)");
         if (Settings.assumeBoosterPack) report.On("booster pack assumed on every vehicle (setting)");
@@ -397,6 +403,7 @@ public class VehicleSystemsMod : Mod
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingAircraftFuel".Translate(), ref s.aircraftFuel, "PhobosVehicleSystems_SettingAircraftFuelDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingThinAir".Translate(), ref s.thinAir, "PhobosVehicleSystems_SettingThinAirDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingCruiseHeight".Translate(), ref s.cruiseHeight, "PhobosVehicleSystems_SettingCruiseHeightDesc".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingRaidersFly".Translate(), ref s.raidersArriveByAir, "PhobosVehicleSystems_SettingRaidersFlyDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingLowOilService".Translate(), ref s.lowOilCallsService, "PhobosVehicleSystems_SettingLowOilServiceDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingAccessoryLoad".Translate(), ref s.accessoriesLoadEngine, "PhobosVehicleSystems_SettingAccessoryLoadDesc".Translate());

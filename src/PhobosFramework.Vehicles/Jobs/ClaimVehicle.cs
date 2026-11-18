@@ -27,6 +27,8 @@ public static class VehicleClaims
         NamedArgument name = vehicle.LabelShort.Named("VEHICLE");
         if (vehicle.Faction != null && vehicle.Faction == Faction.OfMechanoids) return "PhobosVehicleClaim_Mechanoid".Translate(name).Resolve();
         if (vehicle.AllPawnsAboard.Count > 0) return "PhobosVehicleClaim_Aboard".Translate(name).Resolve();
+        // Framework 0.157.0: a raiders' aircraft is never a prize; its raiders wreck it first (the owner's choice).
+        if (vehicle.GetComp<CompPhobosFlight>() is { IsRaider: true }) return "PhobosVehicleClaim_RaiderAircraft".Translate(name).Resolve();
         if (Guarded(vehicle)) return "PhobosVehicleClaim_Guarded".Translate(name).Resolve();
         return null;
     }

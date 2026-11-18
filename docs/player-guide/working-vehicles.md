@@ -453,6 +453,11 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
     battery**: keep the engines running.
   - **Hold it steady.** If the Osprey has to come down while anyone is on a rope or the hoist, they fall from where they were, and a
     fall from 20 m can break bones or kill.
+- **Raiders may come in by Osprey** (not yet tested in game). A raid of an industrial or better faction may arrive aboard up to three
+  Ospreys. Each puts its raiders down by chance: on open ground beyond your turrets, roped in close to your buildings, or as close as it
+  can land, then flies back out the way it came. Shoot it down while it is here and it is wrecked; kill its pilots on the ground and its
+  raiders wreck it. **You cannot keep a raiders' Osprey.** Turn this off with **Raiders may arrive by aircraft** in D'thorga Framework's
+  settings.
 - **Its upgrades**, each with a small research after tiltrotor aircraft:
   - **Second cargo hook:** with the cargo hook fitted, it slings up to 6,804 kg.
   - **Armour kit:** rifle-proof plates in the cockpit and cabins; they weigh 360 kg, carried as cargo.

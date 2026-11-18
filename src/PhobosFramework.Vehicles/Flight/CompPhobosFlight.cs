@@ -196,6 +196,7 @@ public partial class CompPhobosFlight : VehicleComp
         Scribe_Values.Look(ref orbitSize, "PhobosFlight_OrbitSize", 1);
         Scribe_Values.Look(ref orbitClockwise, "PhobosFlight_OrbitClockwise", true);
         ExposeLines();
+        ExposeRaider();
         if (Scribe.mode == LoadSaveMode.PostLoadInit && departNodes is { Count: 0 }) departNodes = null;
     }
 
@@ -205,7 +206,12 @@ public partial class CompPhobosFlight : VehicleComp
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
-        if (!Airborne) return;
+        if (!Airborne)
+        {
+            // A raiders' aircraft loaded on the ground, its raiders stepping out: it goes on thinking (Framework 0.157.0).
+            if (raider != null) StartTicking();
+            return;
+        }
         // An aircraft spawned in the air: after a load (Transform's turn is not saved) or on the map it was on. Never from anywhere else.
         FlightRegistry.Add(this);
         ApplyTurn();
@@ -680,13 +686,19 @@ public partial class CompPhobosFlight : VehicleComp
     {
         base.CompTick();
         VehiclePawn v = Vehicle;
+        int now = Find.TickManager.TicksGame;
         if (!v.Spawned || !Airborne)
         {
+            // Framework 0.157.0: a raiders' aircraft keeps thinking on the ground while its raiders step out.
+            if (v.Spawned && raider != null)
+            {
+                if ((now + v.thingIDNumber) % RaiderThinkTicks == 0) RaiderThink();
+                return;
+            }
             StopTicking();
             FlightRegistry.Remove(this);
             return;
         }
-        int now = Find.TickManager.TicksGame;
         float dt = 1f / TicksPerSecond;
         if (v.vehiclePather.Moving) v.vehiclePather.StopDead();
         if ((now + v.thingIDNumber) % IdleResetTicks == 0) v.ResetIdleTicks();
@@ -727,6 +739,7 @@ public partial class CompPhobosFlight : VehicleComp
                 if (climb <= 0f) ForcedLanding();
                 break;
         }
+        if (raider != null && v.Spawned && Airborne && (now + v.thingIDNumber) % RaiderThinkTicks == 0) RaiderThink();
     }
 
     bool HasTarget => !float.IsNaN(targetX);
@@ -1007,7 +1020,7 @@ public partial class CompPhobosFlight : VehicleComp
     void TouchDown()
     {
         VehiclePawn v = Vehicle;
-        if (FlightRules.SpotRefusal(v, landCell, landRot, forced: false) is { } blocked)
+        if (FlightRules.SpotRefusal(v, landCell, landRot, forced: IsRaider) is { } blocked)
         {
             Messages.Message("PhobosFlight_MsgSpotBlocked".Translate(v.LabelShort.Named("VEHICLE"), blocked.Named("WHY")).Resolve(), v, MessageTypeDefOf.RejectInput);
             landCell = IntVec3.Invalid;
@@ -1056,10 +1069,20 @@ public partial class CompPhobosFlight : VehicleComp
         HurtAboard(v, (float)FlightPathRule.ForcedLandingHarm(m));
         string? wreck = FlightRules.SpotRefusal(v, cell, rot, forced: true);
         NamedArgument who = v.LabelShort.Named("VEHICLE");
-        if (wreck != null)
+        if (wreck != null || IsRaider)
         {
-            Seen.Note("aircraft.flight-forced", v, wreck, "wrecked");
-            if (v.Faction == Faction.OfPlayer) Messages.Message("PhobosFlight_MsgWrecked".Translate(who, wreck.Named("WHY")).Resolve(), new TargetInfo(cell, v.Map), MessageTypeDefOf.NegativeEvent);
+            if (IsRaider)
+            {
+                // Framework 0.157.0: a raiders' aircraft that comes down is always a wreck, never a prize (the owner's choice).
+                raider = null;
+                Seen.Note("aircraft.raider", v, variant: "shot-down");
+                Messages.Message("PhobosFlight_MsgRaiderDown".Translate(who, (v.Faction?.Name ?? "").Named("FACTION")).Resolve(), new TargetInfo(cell, v.Map), MessageTypeDefOf.PositiveEvent);
+            }
+            else
+            {
+                Seen.Note("aircraft.flight-forced", v, wreck, "wrecked");
+                if (v.Faction == Faction.OfPlayer) Messages.Message("PhobosFlight_MsgWrecked".Translate(who, wreck!.Named("WHY")).Resolve(), new TargetInfo(cell, v.Map), MessageTypeDefOf.NegativeEvent);
+            }
             state = FlightState.Ground;
             FlightRegistry.Remove(this);
             StopTicking();
@@ -1109,7 +1132,8 @@ public partial class CompPhobosFlight : VehicleComp
         v.vehiclePather.ResetToCurrentPosition();
         v.DrawTracker.tweener.ResetTweenedPosToRoot();
         FlightRegistry.Remove(this);
-        StopTicking();
+        // A raiders' aircraft goes on thinking on the ground (Framework 0.157.0).
+        if (raider == null) StopTicking();
     }
 
     // ---- Where it is ----

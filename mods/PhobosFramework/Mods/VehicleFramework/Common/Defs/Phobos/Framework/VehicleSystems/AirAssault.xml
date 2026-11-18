@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Raids that arrive by aircraft (D'thorga Framework 0.157.0; docs/development/vehicle-flight-over-the-map.md, slice 6's raider half; the owner's
+    answers of 19 Nov 2026). One of the game's own ways for a raid to arrive, as drop pods are, so the raid's points are unchanged: one of our
+    aircraft marked for raiders (PhobosRaiderAircraftExtension, the Osprey's in D'thorga Vehicles) brings the raiders in over the edge, puts
+    them down by one of three ways chosen by chance, and leaves. Off with "Raiders may arrive by aircraft" in D'thorga Framework's settings.
+    Weights authored: nothing below 1,000 points, rising to the game's own edge drop pods' 0.3 at 4,000 (theirs is 0.3 from 700).
+  -->
+  <PawnsArrivalModeDef>
+    <defName>PhobosAirAssault</defName>
+    <workerClass>Phobos.VehicleSystems.PawnsArrivalModeWorker_PhobosAirAssault</workerClass>
+    <minTechLevel>Industrial</minTechLevel>
+    <selectionWeightCurve>
+      <points>
+        <li>(1000, 0)</li>
+        <li>(1500, 0.1)</li>
+        <li>(4000, 0.3)</li>
+      </points>
+    </selectionWeightCurve>
+    <textEnemy>A group of {0} from {1} are coming in by aircraft.</textEnemy>
+    <textFriendly>A group of friendly {0} from {1} are coming in by aircraft.</textFriendly>
+    <textWillArrive>{0_pawnsPluralDef} will come in by aircraft.</textWillArrive>
+  </PawnsArrivalModeDef>
+</Defs>

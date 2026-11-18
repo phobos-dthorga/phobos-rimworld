@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.79.0] - 2026-11-19 - Draft
+
+Raiders may come in aboard the Osprey
+
+### Added
+
+- **The Osprey may bring raiders in**: a raid of an industrial or better faction may arrive aboard it, with D'thorga Framework's setting Raiders may arrive by aircraft on. It puts them down and leaves, and can never be kept.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.157.0 or later. With an older Framework the game reports an unknown class in the Osprey's Def at start-up.
+
+### Compatibility and limits
+
+- **Not yet tested in game.**
+
 ## [0.78.0] - 2026-11-19 - Draft
 
 The Osprey armoured part by part, and the trucks' armour kits

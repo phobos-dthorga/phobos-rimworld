@@ -114,7 +114,7 @@ public partial class CompPhobosFlight : IThingHolder
         CellRect footprint = Vehicle.OccupiedRect();
         foreach (IntVec3 c in GenRadial.RadialCellsAround(foot, Props.hoistReachCells, useCenter: true))
         {
-            if (c.InBounds(map) && !footprint.Contains(c) && c.Standable(map) && !c.Roofed(map) && !c.Fogged(map)) return c;
+            if (c.InBounds(map) && !footprint.Contains(c) && c.Standable(map) && !c.Roofed(map) && (IsRaider || !c.Fogged(map))) return c;
         }
         return IntVec3.Invalid;
     }

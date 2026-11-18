@@ -64,24 +64,36 @@ public static class FlightArrival
         if (vehicle.GetComp<CompPhobosFlight>() is not { } flight || map == null) return false;
         PlanetTile cameFrom = FlightLegs.From(vehicle);
         double bearing = cameFrom.Valid && cameFrom != map.Tile ? Find.WorldGrid.GetHeadingFromTo(map.Tile, cameFrom) : Rand.Range(0f, 360f);
-        double inward = FlightPathRule.Normalise(bearing + 180);
-        IntVec2 size = vehicle.VehicleDef.Size;
-        float edge = Mathf.Max(size.x, size.z) / 2f + 1f;
-        Vector3 centre = map.Center.ToVector3Shifted();
-        (double ex, double ez) = FlightPathRule.EdgePoint(centre.x, centre.z, bearing, edge, map.Size.x - edge, edge, map.Size.z - edge);
-        Rot4 rot = FlightRules.Rot4For(inward);
-        (float px, float pz) = ClearPlace(vehicle, map, (float)ex, (float)ez, rot, edge);
-        IntVec3 cell = FlightRules.CellFor(vehicle, px, pz, new Rot8(rot));
-        if (!cell.InBounds(map)) return false;
-        GenSpawn.Spawn(vehicle, cell, map, rot, WipeMode.Vanish);
-        if (!vehicle.Spawned) return false;
-        flight.EnterFlying(px, pz, (float)inward);
+        if (!EnterAt(vehicle, map, bearing, out float px, out float pz, out double inward)) return false;
         if (Seen.On)
         {
             string variant = intent.ToString();
             if (Seen.Wants("aircraft.flight-arrived", vehicle, variant)) Seen.Note("aircraft.flight-arrived", vehicle, variant: variant);
         }
         Order(vehicle, flight, map, intent, landCell, landRot, px, pz, inward);
+        return true;
+    }
+
+    /// <summary>Spawns the vehicle in the air on the edge on this bearing from the map's middle, heading inward, with no order yet
+    /// (Framework 0.157.0: shared by arrivals and raids). False when it could not.</summary>
+    public static bool EnterAt(VehiclePawn vehicle, Map map, double bearing) => EnterAt(vehicle, map, bearing, out _, out _, out _);
+
+    static bool EnterAt(VehiclePawn vehicle, Map map, double bearing, out float px, out float pz, out double inward)
+    {
+        px = pz = 0f;
+        inward = FlightPathRule.Normalise(bearing + 180);
+        if (vehicle.GetComp<CompPhobosFlight>() is not { } flight || map == null) return false;
+        IntVec2 size = vehicle.VehicleDef.Size;
+        float edge = Mathf.Max(size.x, size.z) / 2f + 1f;
+        Vector3 centre = map.Center.ToVector3Shifted();
+        (double ex, double ez) = FlightPathRule.EdgePoint(centre.x, centre.z, bearing, edge, map.Size.x - edge, edge, map.Size.z - edge);
+        Rot4 rot = FlightRules.Rot4For(inward);
+        (px, pz) = ClearPlace(vehicle, map, (float)ex, (float)ez, rot, edge);
+        IntVec3 cell = FlightRules.CellFor(vehicle, px, pz, new Rot8(rot));
+        if (!cell.InBounds(map)) return false;
+        GenSpawn.Spawn(vehicle, cell, map, rot, WipeMode.Vanish);
+        if (!vehicle.Spawned) return false;
+        flight.EnterFlying(px, pz, (float)inward);
         return true;
     }
 

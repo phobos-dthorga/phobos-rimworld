@@ -78,6 +78,7 @@
   <!-- Why it is coming down -->
   <PhobosFlight_WhyNoFuel>its fuel has run out</PhobosFlight_WhyNoFuel>
   <PhobosFlight_WhyEngines>its engines cannot keep it in the air</PhobosFlight_WhyEngines>
+  <PhobosFlight_WhyCrewLost>nobody aboard can fly it</PhobosFlight_WhyCrewLost>
   <PhobosFlight_WhyCannotHover>its engines cannot hold it in a hover</PhobosFlight_WhyCannotHover>
 
   <!-- Messages -->
@@ -101,6 +102,8 @@
   <PhobosFlight_MsgHookMissed>{PERSON} was not at the {VEHICLE}'s hook, or could not be taken, so it came back up empty.</PhobosFlight_MsgHookMissed>
   <PhobosFlight_MsgLinesStopping>The {VEHICLE} will send nobody more down its lines, and climbs back once the last one is off.</PhobosFlight_MsgLinesStopping>
   <PhobosFlight_MsgLineFall>{PERSON} fell about {METRES} m from the {VEHICLE}'s line as it came down.</PhobosFlight_MsgLineFall>
+  <PhobosFlight_MsgRaiderDown>The {VEHICLE} of {FACTION} came down and was wrecked.</PhobosFlight_MsgRaiderDown>
+  <PhobosFlight_MsgRaiderScuttled>With nobody left to fly it, {FACTION}'s people wrecked their {VEHICLE} rather than let it be taken.</PhobosFlight_MsgRaiderScuttled>
   <PhobosFlight_MsgRollAborted>The {VEHICLE} stopped its take-off roll: {WHY}. It has braked to a stop and is no longer leaving.</PhobosFlight_MsgRollAborted>
   <PhobosFlight_MsgRolledIn>The {VEHICLE} has landed rolling and stopped at the end of its strip.</PhobosFlight_MsgRolledIn>
   <PhobosFlight_MsgRolledShort>The {VEHICLE} had to stop short on its landing roll ({WHY}) and braked hard. Its undercarriage is damaged.</PhobosFlight_MsgRolledShort>

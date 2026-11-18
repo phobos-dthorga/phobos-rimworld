@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Raids by aircraft (Framework 0.157.0): offered to the game's two "attack at once" raid strategies, the plain and the smart one, beside
+       their drop pods and walking in. Not to staging, siege or sapper raids: those plan from the edge they arrive at, and these raiders are put
+       down near the colony. The friendly strategy inherits the plain one's list, so allies may come in this way too. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/RaidStrategyDef[defName="ImmediateAttack" or defName="ImmediateAttackSmart"]/arriveModes</xpath>
+    <value>
+      <li>PhobosAirAssault</li>
+    </value>
+  </Operation>
+</Patch>

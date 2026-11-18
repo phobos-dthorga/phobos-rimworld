@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.156.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.157.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -146,6 +146,7 @@ Under **Options > Mod settings**. RimWorld saves only what you change.
 | Engines and drivetrains | Aircraft fuel follows the engines | An aircraft burns its author's rate flying about or cruising in good order; a hover or a climb burns more, a worn engine and what is switched on a little more, and idling on the ground with a pilot aboard burns fuel too. Off: the authors' flat rates | On (new in 0.132.0) |
 | Engines and drivetrains | Thin air at height | The higher the country, the less power an engine without a turbocharger and a gas turbine have, the more a helicopter needs to hover, and the less a radiator cools. Your own vehicles with the full drivetrain model only. Off: everywhere is sea level | On (new in 0.132.0) |
 | Engines and drivetrains | Cruising height between places | Each stretch of a flight between places is flown at a height of its own: over the highest ground on the way, lower where the engines cannot climb at the aircraft's weight or someone aboard has no oxygen. A jet flown low is slower and thirstier; a stretch over ground too high to climb is refused before launch. Your own aircraft with cruising figures only. Off: every flight is flown as its author made it | On (new in 0.141.0) |
+| Engines and drivetrains | Raiders may arrive by aircraft | Raiders of an industrial or better faction may come in aboard one of our aircraft (the Osprey), which puts them down near the colony and leaves; shot down or with its crew lost on the ground it is wrecked, never yours. Off: raids never arrive that way | On (new in 0.157.0) |
 | Engines and drivetrains | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, for fuel | Off |
 | Engines and drivetrains | Low oil calls for a service | A service falls due once oil is below 60% | On |
 | Engines and drivetrains | Accessories load the engine | What the engine drives besides the wheels takes its power: the alternator, the radiator fan when hot, the air conditioner, the air brakes' compressor, a tanker's pump. Less power for driving, a little more heat, and more fuel with load-following fuel | On |

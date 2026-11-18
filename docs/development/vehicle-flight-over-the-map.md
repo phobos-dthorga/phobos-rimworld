@@ -5,10 +5,10 @@ D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); 
 ([built](#built-19-nov-2026-leaving-and-arriving-in-flight)); leaving the ground rolling (slice 4) in Framework 0.151.0 and Vehicles 0.73.0
 ([built](#built-19-nov-2026-leaving-the-ground-rolling)); circling (slice 5) in Framework 0.153.0 and Vehicles 0.75.0
 ([built](#built-19-nov-2026-circling)); ropes and a hoist (slice 6's first half) in Framework 0.155.0 and Vehicles 0.77.0
-([built](#built-19-nov-2026-ropes-and-a-hoist)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
-([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: a raider's flight (slice 6's second half),
-aeroplanes that never hover, side-firing gun arcs, runs, and stock helicopters on our flight. Nothing here is tested in game (rows 199,
-200, 204 to 209). The owner answered
+([built](#built-19-nov-2026-ropes-and-a-hoist)); a raider's flight (slice 6's other half) in Framework 0.157.0 and Vehicles 0.79.0
+([built](#built-19-nov-2026-a-raiders-flight)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
+([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: aeroplanes that never hover, side-firing
+gun arcs, runs, and stock helicopters on our flight. Nothing here is tested in game (rows 199, 200, 204 to 210). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -71,6 +71,7 @@ flight mod states a licence.
 | **Hovering costs the most** | Hold still over a spot for as long as the fuel lasts | Hovering heavy, hot or high: below a margin of 1 it sinks | Short hovers and quick work; a heavy aircraft keeps moving |
 | **Forward flight is cheaper** | Stay in the air, moving, at a weight it could not hover at | Stopping | A crippled or heavy aircraft is flown, never parked in the sky |
 | **Circling** (built in slice 5) | Fly round a spot until told otherwise, at a preset size and either way round; hold over a spot by circling when too heavy or crippled to hover | Circling tighter than it can turn; stopping still while it cannot hover | A heavy aircraft no longer has to leave at once: it can wait over the map while a strip is cleared or its load lightens |
+| **Raiders by aircraft** (built in slice 6) | Nothing new to do: a raid may come in by air, put down outside the turrets, roped in close or as close as it can get, and the aircraft leaves | Keeping the aircraft: shot down or with its crew lost on the ground it is wrecked | Turrets and open ground near the colony matter in a new way: a landing zone beyond the turrets is where the raid starts, and an aircraft hovering to rope people in is a target worth the shooting |
 | **Ropes and a hoist** (built in slice 6) | Put people down without landing, two at a time down fast ropes; lift one person aboard at a time, a downed one in a stretcher, or lower one, from a steady hover | Doing it while moving or circling, without the fitting, beyond the hoist's rated load, or onto roofed or built-on ground; whoever is on a line falls if the aircraft must come down | A rescue or a raid needs no landing spot, only open ground behind the ramp and a steady hover, which holds the aircraft low and still over the fight for as long as it takes |
 | **Leaving the ground rolling** | Take off with a load too heavy to lift straight up, along a clear strip | Doing it without a strip, or beyond the rolling share | A strip at home is worth clearing; the far end of the trip decides the load |
 | **A cruising height** | Climb over high ground; fly at the height the aircraft was built for and get its author's speed and range | Crossing a range higher than its ceiling at that weight; a high cruise with nobody on oxygen | Heavy loads and lost engines mean routes round the mountains; oxygen and a pressurised cabin earn their place |
@@ -577,6 +578,35 @@ usually cannot fly on; light, it often can.
 decides something only our own flight does (its state; whether it may stop, fly on or roll), so they come with the hover half
 (slice 2) rather than as fields nothing reads.
 
+## Built (19 Nov 2026): a raider's flight
+
+At the owner's word ("Proceed with slice 6's other half, a raider's flight", 19 Nov 2026), D'thorga Framework 0.157.0 and D'thorga Vehicles
+0.79.0; **not yet tested in game** (row 210). Prior art read first: VTOL Raids (potemkinvillager, on the owner's list) already adds its
+aircraft to raids of 2,500 points and more, but flies them on VTOL Vehicle's flight, so it cannot fly ours.
+
+**The owner's four answers (19 Nov 2026), asked before building:**
+
+| Question | Answer | Where it shows |
+| --- | --- | --- |
+| Its role in a raid | **It brings the raiders, then leaves**: free transport, as drop pods are, so raid points are unchanged | `PawnsArrivalModeWorker_PhobosAirAssault` |
+| Where it puts them | **"A mix of all three, pseudorandomly generated"**: outside the turrets, roped in close, or as close as it can | `RaidLandingRule.Choose` |
+| On from the start? | **On, with a setting** ("Raiders may arrive by aircraft") | `VehicleSystemsSettings.raidersArriveByAir` |
+| Keeping it | **A wreck, never yours**: shot down it is wrecked; with its crew lost on the ground its raiders wreck it | `ForcedLanding`, `Scuttle`, the claim order |
+
+| Part | As built | Where |
+| --- | --- | --- |
+| **How a raid gets it** | **One of the game's own arrival modes** (`PhobosAirAssault`), offered to the two "attack at once" raid strategies, plain and smart; not staging, siege or sapper raids, which plan from the edge. No Harmony. Industrial factions or better, humanlike, with an aircraft of ours marked for raiders (`PhobosRaiderAircraftExtension`, the Osprey's). Weight authored: none below 1,000 points, to the game's own drop pods' 0.3 at 4,000. Allies sent to help (the friendly strategy inherits the plain one's list) may come the same way | `AirAssault.xml`, `RaiderFlight.AircraftFor` |
+| The aircraft | Made for the raiding faction by Vehicle Framework's own generator, fuelled, flown by two of the faction's people who are not part of the raid. Raiders fill its seats; up to three aircraft a raid (authored, as VTOL Raids' limit); whoever does not fit walks in from the same edge. They come in side by side, 12 degrees apart (authored) | `RaiderFlight.Launch` |
+| The three ways | By chance, 0.5, 0.3 and 0.2 (authored): **outside the turrets** (each colony turret's weapon range plus 4 cells; a turret whose weapon cannot be read counts 25), **roped in close**, **as close as it can**. Each takes the spot nearest the colony's middle (its buildings' mean) it will take, between 6 and 60 cells out, from 400 random candidates; landings face the colony. Raiders know the ground, so unseen ground is no bar | `RaiderFlight.FindZone`, `RaidLandingRule.Score` |
+| Down | Landed, its raiders step out two each half second and it lifts off. Roping uses the ropes of slice 6's first half, with or without the fitting. A spot taken from under it is tried again, three times, then it ropes them down where it is | `RaiderThink`, `Unload` |
+| Gone | Back the way it came, off the edge it came over: its crew and anyone still aboard go home with it | `Leave`, `Vanish` |
+| Never a prize | Shot down it is always a wreck, even over open ground; its crew lost (killed, downed) in the air brings it down, on the ground makes its raiders wreck it; the claim order refuses it | `ForcedLanding`, `RaiderThink`, `VehicleClaims.Refusal` |
+| Saved | Its plan: the way, the stage, the tries, the edge point it leaves by | `PhobosFlight_Raider` |
+| Its raiders | Join the raid's own orders as they step out, as drop-pod raiders do from their pods: the game makes the raid's orders after they arrive, holding them aboard | The game's raid |
+
+**Not built:** a raiders' aircraft that stays to fight (the owner's answer: it leaves); aircraft at a base the player attacks still stand
+parked as Vehicle Framework places them.
+
 ## Built (19 Nov 2026): ropes and a hoist
 
 At the owner's word ("Proceed with slice 6, ropes and a hoist", 19 Nov 2026), D'thorga Framework 0.155.0 and D'thorga Vehicles 0.77.0;
@@ -763,6 +793,7 @@ None exists yet. Proposed, each in D'thorga Framework's settings under vehicle s
 | --- | --- | --- |
 | **Cruising height between tiles** | On | Off: every leg is flown as today, with no ceiling, no cost for flying low and the fixed oxygen figures |
 | **People are slowed beneath a hovering aircraft** | On | Off: path costs beneath a hover are never worked out, so people cross freely (they still cannot stand there) |
+| **Raiders may arrive by aircraft** (built 0.157.0) | **On** (owner, 19 Nov 2026) | Off: no raid arrives by aircraft |
 | **Stock helicopters fly over the map** | **Off** (owner, 18 Nov 2026) | On: Vehicle Framework's own helicopters hover and fly over the map on this flight ([below](#stock-helicopters-on-our-flight)) |
 
 The hover-limit setting that exists ("When an aircraft is too heavy or too hot to lift off or hover onto its pad") governs the

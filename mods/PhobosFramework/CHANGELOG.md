@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.157.0] - 2026-11-19 - Draft
+
+Raiders may come in by aircraft, put down near the colony, and the aircraft leaves
+
+### Added
+
+- **Raids by aircraft.** A raid of an industrial or better faction that attacks at once may now arrive aboard up to three of our aircraft (the Osprey, from D'thorga Vehicles), as other raids arrive in drop pods, at raids of 1,000 points and more. Each flies in over the edge and puts its raiders down by chance: on open ground beyond your turrets, down ropes close in, or landed as close as it can get. Then it flies back out the way it came. Whoever does not fit walks in from the same edge. Allies sent to help may come the same way.
+- **A raiders' aircraft is never a prize** (owner, 19 Nov 2026): shot down it is wrecked, with its pilots dead or downed on the ground its raiders wreck it, and it cannot be claimed.
+- **New setting: Raiders may arrive by aircraft** (vehicle systems, Engines and drivetrains), on by default. Off, no raid arrives that way.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Raid points are unchanged: the aircraft is transport, as drop pods are, and does not stay to fight. VTOL Raids' own aircraft still join raids as before; the two do not share aircraft.
+
 ## [0.156.0] - 2026-11-19 - Draft
 
 Armour kits for the service trucks
