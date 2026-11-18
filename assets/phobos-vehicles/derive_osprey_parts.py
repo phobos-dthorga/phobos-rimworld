@@ -46,6 +46,18 @@ SAM = G / 'osprey-overlays-sam'
 METRE_PX = 208                                     # The pick's pixels a metre: 3,628 px nose to tail for 17.48 m (measured)
 GUN_762_LENGTH_M, GUN_50_LENGTH_M = 1.25, 1.65     # About right for an M240 and an M2 [A: from general knowledge, not sourced]
 BARRIER = 'inlet-barrier-a.png'                    # The owner's pick of 19 Nov 2026
+MARKS = {'body': G / 'bulk-tanker-damage-body/bulk-tanker-damage-body-1.png',
+         'tank': G / 'bulk-tanker-damage-tank/bulk-tanker-damage-tank-1.png'}
+MARKS_GAME_PX = 10 * 128 / 1536                    # Game pixels per marks pixel: the master's height as the tanker's 10 cells [A]
+GAME_PX_PER_PICK_PX = 20.5 * 128 / 3628            # export_osprey.py's scale: 20.5 cells over the pick's 3,628 px nose to tail
+# (name, part masks, marks master, turned for a wide part, where in the marks to start): agent placements, 19 Nov 2026
+DAMAGE_PARTS = [('Cockpit', ['Cockpit'], 'body', False, (0, 0)),
+                ('ForwardCabin', ['ForwardCabin'], 'tank', False, (150, 300)),
+                ('AftCabin', ['AftCabinAndRamp'], 'body', False, (200, 60)),
+                ('LeftWing', ['LeftWing'], 'tank', True, (0, 200)),
+                ('RightWing', ['RightWing'], 'body', True, (500, 0)),
+                ('Tail', ['Tailplane', 'LeftFin', 'RightFin'], 'tank', True, (300, 380))]
+NACELLE_DAMAGE = {'-damage-left': ('body', (300, 900)), '-damage-right': ('tank', (500, 200))}
 SEAM_LINE = 4                                      # Pixels: the nacelle's seam line, kept below its rounded end
 MOUNT_SHARE = 0.3                                 # The pintle, this share of the gun's length back from its grips [A]
 
@@ -122,6 +134,45 @@ def radar_nose():
     save(part, 'radar-nose.png', {'from': PICK.relative_to(ROOT).as_posix(), 'box': list(NOSE_BOX), 'shade': NOSE_SHADE,
                                   'seam_rows': [y1, y1 + NOSE_SEAM_WIDTH],
                                   'why': 'the model drew a nose of a slightly different shape; made from the pick, it lines up'})
+
+
+def marks(name, rotate=False):
+    """A damage marks master (the bulk tanker's, our art of 8 Nov 2026) as near-black with alpha, at the pick's scale so a bullet
+    hole is the same size in game on every vehicle: the master's 1,536 px are taken as the tanker's 10 cells [A]."""
+    sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
+    from export_vehicle import marks_to_alpha
+    picture = marks_to_alpha(Image.open(MARKS[name]).convert('RGB'))
+    if rotate:
+        picture = picture.transpose(Image.ROTATE_90)
+    factor = MARKS_GAME_PX / GAME_PX_PER_PICK_PX
+    return picture.resize((round(picture.width * factor), round(picture.height * factor)), Image.LANCZOS)
+
+
+def damage_layer(part_mask, box, source, rotate, start):
+    """Marks over a part's box, from a starting point of their own in the master, clipped to the part's outline."""
+    picture = marks(source, rotate)
+    width, height = box[2] - box[0], box[3] - box[1]
+    x = min(max(0, start[0]), max(0, picture.width - width))
+    y = min(max(0, start[1]), max(0, picture.height - height))
+    crop = picture.crop((x, y, x + width, y + height))
+    crop.putalpha(ImageChops.multiply(crop.getchannel('A'), part_mask.crop(box)))
+    return crop
+
+
+def damage():
+    """Damage looks on the body's outer parts (vehicle-osprey.md, "Parts and armour"), each on the pick's canvas, clipped to the part's
+    mask from Segment Anything. The nacelles' are made in nacelles(), so they tilt with them. Agent placements, for the owner to revise."""
+    folder = art_paths.find('parts', sha(PICK))
+    size = Image.open(PICK).size
+    for name, parts, source, rotate, start in DAMAGE_PARTS:
+        mask = Image.new('L', size, 0)
+        for part in parts:
+            mask = ImageChops.lighter(mask, Image.open(folder / f'{part}.png').convert('L'))
+        box = mask.getbbox()
+        layer = Image.new('RGBA', size, (0, 0, 0, 0))
+        layer.alpha_composite(damage_layer(mask, box, source, rotate, start), (box[0], box[1]))
+        save(layer, f'damage-{name}.png', {'from': [MARKS[source].relative_to(ROOT).as_posix(), f'part masks {parts}'],
+                                            'start_in_marks': list(start), 'turned': rotate, 'game_px_per_marks_px': MARKS_GAME_PX})
 
 
 def spin(whole, cap, size):
@@ -240,8 +291,12 @@ def nacelles():
     light = next(y for y in range(top, len(shade)) if shade[y] is not None and shade[y] > 100)
     seam = next(y for y in range(light, len(shade)) if shade[y] is not None and shade[y] < 70)
     end = seam + SEAM_LINE                          # The rounded end and the seam line below it
+    # Damage marks clipped to the nacelle (with its hub), one look for each side; the right is drawn as the left and mirrored.
+    outline = ImageChops.lighter(mask, Image.open(folder / 'LeftHub.png').convert('L'))
+    damaged = {suffix: damage_layer(outline, box, source, False, start) for suffix, (source, start) in NACELLE_DAMAGE.items()}
     # The barrier alone, turned the same way, so the export can keep its grille out of the paint (a filter mesh is bare metal).
-    for suffix, picture in (('', nacelle), ('-barrier', with_barrier), ('-barrier-only', barrier)):
+    pictures = [('', nacelle), ('-barrier', with_barrier), ('-barrier-only', barrier)] + list(damaged.items())
+    for suffix, picture in pictures:
         front_whole, rest = picture.crop((0, 0, width, end)), picture.crop((0, end, width, length))
         for angle in (0, 30, 60, 90):
             grow = FORWARD_GROWTH * math.sin(math.radians(angle))
@@ -256,7 +311,7 @@ def nacelles():
             frame = Image.new('RGBA', (width, total), (0, 0, 0, 0))
             frame.alpha_composite(rest.resize((width, rest_height), Image.LANCZOS), (0, total - rest_height))
             frame.alpha_composite(front, (0, cap_height - overlap))
-            if cap_height and suffix != '-barrier-only':   # Laid last, over the nacelle's rounded end.
+            if cap_height and suffix in ('', '-barrier'):   # Laid last, over the nacelle's rounded end.
                 frame.alpha_composite(left_cap.resize((width, cap_height), Image.LANCZOS), (0, 0))
             sources = [PICK.relative_to(ROOT).as_posix(), 'its LeftNacelle and LeftHub part masks',
                        (LIFTED / 'nacelle-90-caps.png').relative_to(ROOT).as_posix()]
@@ -270,5 +325,6 @@ def nacelles():
 if __name__ == '__main__':
     guns_real_size()
     radar_nose()
+    damage()
     rotor()
     nacelles()

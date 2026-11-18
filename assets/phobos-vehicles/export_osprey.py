@@ -51,6 +51,7 @@ ROTOR_METRES = 11.61              # [S] Boeing / Wikipedia
 PAINT = {'main_hue': (200, 280), 'accent_hue': (0, 34), 'min_saturation': 0.0, 'main_max_saturation': 0.15}
 HEADROOM = 1.03                   # The body is pre-shrunk to this much above its drawn size, so the exporter still only shrinks
 OVERLAYS = {'Probe': SAM / 'probe.png', 'RadarNose': DERIVED / 'radar-nose.png', 'Hoist': SAM / 'hoist-b.png', 'Jammer': SAM / 'jammer.png'}
+DAMAGE = ('Cockpit', 'ForwardCabin', 'AftCabin', 'LeftWing', 'RightWing', 'Tail')   # The body's outer parts (vehicle-osprey.md)
 TURRETS = {'RampGun50': DERIVED / 'ramp-gun-50.png', 'RampGun762': DERIVED / 'ramp-gun-762.png'}
 TURRET_CELLS = 3                  # A turret's square canvas: the .50 reaches 1.4 cells aft of its mount
 PREVIEW_PAINT = ((150, 40, 40), (230, 190, 60))  # A red and yellow livery for the review page only
@@ -111,14 +112,15 @@ def prepare_body(work):
     return path, prescale
 
 
-def overlay_on_body(source, mapping):
+def overlay_on_body(source, mapping, trim=True):
     """An overlay lifted onto the pick's canvas, placed on the body's canvas. Its edge is taken in one pixel, so the soft edge is
-    the part's own dark outline and not the white it was lifted from."""
+    the part's own dark outline and not the white it was lifted from; damage marks keep their soft soot (trim=False)."""
     part = Image.open(source).convert('RGBA')
-    box = solid_box(part)
+    box = part.getchannel('A').getbbox() if not trim else solid_box(part)
     margin = 8
     crop = part.crop((box[0] - margin, box[1] - margin, box[2] + margin, box[3] + margin))
-    crop.putalpha(crop.getchannel('A').filter(ImageFilter.MinFilter(3)))
+    if trim:
+        crop.putalpha(crop.getchannel('A').filter(ImageFilter.MinFilter(3)))
     small = shrink(crop, mapping.total)
     canvas = Image.new('RGBA', tuple(mapping.canvas), (0, 0, 0, 0))
     x, y = mapping.texture(box[0] - margin, box[1] - margin)
@@ -189,6 +191,8 @@ def main(argv=None):
 
     for name, source in OVERLAYS.items():
         files += ev.write_facings(overlay_on_body(source, mapping), out, f'{NAME}_{name}')
+    for name in DAMAGE:   # Damage looks: near-black marks with alpha, shown by the Def's damageOverlays as a part wears
+        files += ev.write_facings(overlay_on_body(DERIVED / f'damage-{name}.png', mapping, trim=False), out, f'{NAME}_Damage{name}')
     layout = {'body': {'cells_long': CELLS_LONG, 'draw_size': list(DRAW), 'colours': result['colours'], 'pick_to_texture': mapping.total},
               'turrets': {}, 'hubs': {}, 'nacelles': {}}
     for name, source in TURRETS.items():
@@ -236,6 +240,10 @@ def main(argv=None):
             texture.save(out / f'{stem}.png', optimize=True)
             mask.save(out / f'{stem}m.png', optimize=True)
             files += [out / f'{stem}.png', out / f'{stem}m.png']
+        for side in ('Left', 'Right'):   # Damage over the nacelle, tilting with it; the right is drawn as the left, then mirrored
+            path = out / f'{NAME}_Nacelle{angle}Damage{side}.png'
+            renderer_piece(DERIVED / f'nacelle-{angle}-damage-{side.lower()}.png', mapping.total).save(path, optimize=True)
+            files.append(path)
     layout['nacelles']['draw_px_per_cell'] = ev.PIXELS_PER_CELL
     (out / f'{NAME}.layout.json').write_text(json.dumps(layout, indent=2), encoding='utf-8')
     record = {'tool': 'assets/phobos-vehicles/export_osprey.py', 'pick': PICK.relative_to(ROOT).as_posix(), 'pick_sha256': sha(PICK),
@@ -273,6 +281,11 @@ def review(out, work):
         stacked = north.copy()
         stacked.alpha_composite(Image.open(out / f'{NAME}_{name}_north.png'))
         card(f'{name} on the body', 'North facing, at game size', on_dark(stacked), f'overlay-{name}.png')
+    damaged = north.copy()
+    for name in DAMAGE:
+        damaged.alpha_composite(Image.open(out / f'{NAME}_Damage{name}_north.png'))
+    card('Damage looks, all at once', 'Cockpit, both cabins, both wings and the tail; in game each shows as its own part wears',
+         on_dark(damaged), 'damage-all.png')
     for name in TURRETS:
         card(f'Turret {name}', 'Centred on its mount, barrel up; the Def turns it aft', on_dark(Image.open(out / f'{NAME}_{name}.png')),
              f'turret-{name}.png')
@@ -283,12 +296,15 @@ def review(out, work):
         for suffix in ('', 'Barrier'):
             stem = f'{NAME}_Nacelle{angle}{suffix}'
             row.append(tinted(Image.open(out / f'{stem}.png'), Image.open(out / f'{stem}m.png')))
+        damaged_nacelle = row[-2].copy()
+        damaged_nacelle.alpha_composite(Image.open(out / f'{NAME}_Nacelle{angle}DamageLeft.png'))
+        row.append(damaged_nacelle)
     sheet = Image.new('RGBA', (sum(i.width for i in row) + 20 * (len(row) + 1), max(i.height for i in row) + 40), (38, 40, 34, 255))
     x = 20
     for image in row:
         sheet.alpha_composite(image, (x, 20))
         x += image.width + 20
-    card('Nacelles, tinted', '0, 30, 60 and 90 degrees, each plain and with the inlet barrier', sheet.convert('RGB'), 'nacelles.png')
+    card('Nacelles, tinted', '0, 30, 60 and 90 degrees: plain, with the inlet barrier, and damaged', sheet.convert('RGB'), 'nacelles.png')
     (page / 'index.html').write_text(f'''<!doctype html><html><head><meta charset="utf-8"><title>Osprey export</title><style>
 :root {{ --bg:#171814; --panel:#20221c; --line:#3a3d33; --fg:#e6e1d3; --muted:#a8a392; --accent:#d6b25e; }}
 body {{ background:var(--bg); color:var(--fg); font-family:"Atkinson Hyperlegible","Segoe UI",Verdana,sans-serif; margin:0; padding:24px; line-height:1.5; }}

@@ -137,7 +137,18 @@ textures ship with the Osprey's Def.
   inlet barrier, with paint masks; the barrier's grille kept out of the paint, in its drawn colours.
 - **`Osprey.layout.json`:** hubs, nacelle pivots and gun mount in cells from the body's centre, for the Def and the renderer.
 
+**Damage looks (19 Nov 2026):** for the design's outer parts, by script, free: the cockpit, both cabins, both wings and the tail
+on the body's canvas, and each nacelle at every tilt (so the damage tilts with it; left and right differ). Each is the bulk
+tanker's damage marks (our art) at the same size in game, a different stretch for each part, clipped to the part's mask from
+Segment Anything. Agent placements, for the owner to revise. The export now makes 65 textures.
+
+**Paint check:** pale unpainted pixels 0. A stand-in count from the mask alone (the parts-map checker needs the graphics card)
+finds about 70 one- and two-pixel painted islands on the body, all inside panel seam lines: the Osprey's seams are a lighter,
+purple-tinted grey, so the region rule paints some of their pixels. They read as a faintly dashed seam at full zoom. The
+"repaired" paint, with a Segment Anything map of the body, is what removes them: a short graphics card job with the game closed.
+
 ## Next
 
-1. The Osprey's Def and renderer take these textures (the first batch in the design record).
-2. Damage looks on each part's mask, the vehicle's and upgrades' icons, and the fleck check with a parts map of the body.
+1. The parts map of the body and the repaired paint (graphics card, game closed, a few minutes).
+2. Upgrade icons: six can be made free from these parts (both guns, hoist, inlet barrier, jammer, probe); eleven need drawing.
+3. The Osprey's Def and renderer take these textures (the first batch in the design record).
