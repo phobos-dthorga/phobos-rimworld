@@ -1,0 +1,90 @@
+[
+  {
+    "name": "osprey-hoist-add",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): the picture to add to, changing nothing else"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Add a small rescue hoist to this aircraft: ON the roof of the fuselage, on its right half, just in front of where the fuselage meets the tailplane: a short folded hoist arm lying flat along the roof, pointing back, with a small round cable drum at its front end. It sits on top of the aircraft, inside the fuselage outline, about the size of one roof hatch. Change NOTHING else: keep every other line, panel, colour and the plain white background exactly as in Image 1, at the same scale and in the same position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the aircraft.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "this_request": "an overlay asked as an addition to the body, then lifted out by scripts/art/edit_difference.py; the first round asked for parts alone, which the model would not draw",
+      "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md"
+    }
+  },
+  {
+    "name": "osprey-radar-nose-add",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): the picture to add to, changing nothing else"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Add a radar nose cap to this aircraft: replace only the very front tip of the nose, ahead of the cockpit windows, with a slightly fuller and rounder nose cap in a slightly darker grey, joined to the rest of the nose by one thin seam line. Change NOTHING else: keep every other line, panel, colour and the plain white background exactly as in Image 1, at the same scale and in the same position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the aircraft.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "this_request": "an overlay asked as an addition to the body, then lifted out by scripts/art/edit_difference.py; the first round asked for parts alone, which the model would not draw",
+      "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md"
+    }
+  },
+  {
+    "name": "osprey-inlet-barriers-add",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): the picture to add to, changing nothing else"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Add air intake filters on the two engine nacelles to this aircraft: on top of EACH of the two engine nacelles at the wing tips, a flat rectangular filter screen with a fine mesh pattern inside a dark frame, covering the nacelle between its two orange bands and leaving the round hub cap visible in its middle. Change NOTHING else: keep every other line, panel, colour and the plain white background exactly as in Image 1, at the same scale and in the same position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the aircraft.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "this_request": "an overlay asked as an addition to the body, then lifted out by scripts/art/edit_difference.py; the first round asked for parts alone, which the model would not draw",
+      "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md"
+    }
+  },
+  {
+    "name": "osprey-jammer-add",
+    "engine": "fal",
+    "model": "fal-ai/nano-banana-pro/edit",
+    "width": 4096,
+    "height": 4096,
+    "seeds": [
+      1
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/references/osprey-body-2048.png",
+        "role": "our approved aircraft body (the owner's pick): the picture to add to, changing nothing else"
+      }
+    ],
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is our approved tiltrotor aircraft, seen from directly above, nose at the TOP of the canvas. Add two small sensor turrets to this aircraft: one small round turret with a dark glass dome on the outer side of EACH of the two sponsons (the bulges low on each side of the fuselage behind the wing), near the sponson's rear end, each about the size of a hub cap. Change NOTHING else: keep every other line, panel, colour and the plain white background exactly as in Image 1, at the same scale and in the same position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the aircraft.",
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "this_request": "an overlay asked as an addition to the body, then lifted out by scripts/art/edit_difference.py; the first round asked for parts alone, which the model would not draw",
+      "record": "assets/phobos-vehicles/requests/osprey-overlays-record.md"
+    }
+  }
+]
