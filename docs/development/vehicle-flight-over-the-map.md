@@ -1,7 +1,9 @@
 # Our own flight over the map: hovering, circling, leaving the ground rolling, and a cruising height (18 Nov 2026)
 
 **Status (18 Nov 2026):** a design record. No part of it is in code yet, and nothing here is tested in game. The owner answered
-its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)).
+its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
+changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
+is the newer word.
 
 The owner chose on 18 November 2026 that our aircraft fly over the map on flight code of our own, built on neither existing flight
 mod: "We simply learn where we can from said, named, mods because I wish to go our own, more improved, route", designed for
@@ -21,8 +23,10 @@ flight mod states a licence.
 - **The aircraft stays an ordinary Vehicle Framework vehicle of the stock class**, spawned on the cell beneath it while it flies. A
   comp of ours moves it, draws it and keeps its state. No class of ours is ever the vehicle's, so a save never holds an aircraft
   whose class has left the game.
-- **It needs five new Harmony patches, all on rarely called methods**, and shares two we already ship for submarines. The
-  VTOL Vehicle framework applies 68; the Harrier with its bundled fixed-wing fork applies 129, several on methods every pawn calls.
+- **It needs about twelve new Harmony patches, none on a method every pawn calls**, and shares two we already ship for
+  submarines. The first count here was five; the reads before building found seven more that are needed
+  ([below](#what-the-reads-before-building-found-18-nov-2026)). The VTOL Vehicle framework applies 68; the Harrier with its
+  bundled fixed-wing fork applies 129, several on methods every pawn calls.
 - **The price of so few patches is four honest simplifications**, each said plainly below: eight headings (drawn turning smoothly);
   people beneath a hovering aircraft are slowed; line of sight is the ground's; a hovering aircraft shields the ground beneath it
   from blasts.
@@ -518,7 +522,8 @@ worth keeping.
 
 ## Patches
 
-New, each for aircraft carrying our comp only:
+**Revised by the reads before building: the list [further down](#the-patches-as-they-now-stand) replaces this one.** As first
+written, each for aircraft carrying our comp only:
 
 | Method | Kind | How often it runs | Why |
 | --- | --- | --- | --- |
@@ -626,6 +631,10 @@ their authors made them.
 
 ## To read or prove before building
 
+**Read on 18 Nov 2026**: items 1, 3, 4, 5 and 6 are answered in
+[what the reads found](#what-the-reads-before-building-found-18-nov-2026), and item 2 in the armour record. Item 7 can only be
+measured. As first written:
+
 1. **The drawing layer.** Vehicle Framework applies a `Transform` position offset unevenly, by reading, not seen in game. Prove in
    slice 0 which of these lifts the body over buildings cleanly: the aircraft Def's own altitude layer; a height-only offset; or,
    last, a postfix on its draw. If its offset is at fault, draft a report for the owner to post to its author.
@@ -637,6 +646,65 @@ their authors made them.
 5. **Right-click orders:** that a menu provider of ours with one choice acts at once, as the game's own orders do.
 6. **How Vehicle Framework lists arrival modes**, so ours appears where a map is attacked and nowhere it should not.
 7. **The cost of a cell crossed**, measured, before any second aircraft is given flight.
+
+## What the reads before building found (18 Nov 2026)
+
+The owner asked for a good portion to be built before any test, so the dev-only proof was dropped and its questions were
+answered from code instead, as firmly as code allows. Read by a research helper from Vehicle Framework's source (commit
+`026420b5`) and the game's decompile; nothing was run. Each finding gives the route chosen and a fallback. **[code]** throughout.
+
+| # | Question | What the code says | Route chosen | Fallback |
+| --- | --- | --- | --- | --- |
+| 1 | **The drawing layer** | No height-only offset works: Vehicle Framework adds the offset twice to the body, three times to turret sub-pictures and once to the people shown in seats, so no single figure puts them all between the Skyfaller and Weather layers. Vehicles stand on the laying-pawn layer | **One postfix on `VehicleDrawTracker.DrawPos`** for an aircraft in the air: the height becomes the Skyfaller layer and the position the true one. Everything that is drawn or aimed reads that one figure, so all agree, and `vehicle.Transform` carries the turn only | Widen our existing prefix on `VehiclePawn.DynamicDrawPhaseAt`; seat pawns then hide under the body |
+| 2 | **Over hidden ground** | The game does not draw a thing whose cell is fogged unless its Def says `seeThroughFog` | Our aircraft Defs set it | None needed |
+| 3 | **Smooth movement** | Vehicle Framework's drawn position springs toward the cell's centre and would trail a fast aircraft | The same postfix gives the true position, so nothing trails | |
+| 4 | **The cost of a cell crossed** | For a 5 x 9 footprint, about 450 to 500 small per-cell steps: the game's own grids, then Vehicle Framework's claim, which redoes itself on every position change. No dearer than a stock vehicle driving one cell. Safe from a comp's tick. **Any gas on the cells beneath is cleared**, as it is under any vehicle that moves | Set the position each cell; work out path costs only for the cells left; measure before a second aircraft flies | Step every two cells |
+| 5 | **Eight headings** | A diagonal heading exists only where the Def allows diagonals and Vehicle Framework's own diagonal setting is on. Otherwise an aircraft has four | Our aircraft Defs allow them; with the player's setting off, four headings, the picture still turning smoothly | |
+| 6 | **The launch button in the air** | It greys out with a roof over the cell beneath, and at any diagonal heading; our own lift check would also refuse an aircraft flying forward below a hover margin of 1 | A postfix that runs first on `CanLaunchWithCargoCapacity` and answers afresh for an aircraft our flight has in the air; the `Launch` prefix runs last, after our own air-defence prompt, and fires Vehicle Framework's launch event itself, since our sling and hover code listen for it | Our own "leave the map" button, with the stock one hidden in the air |
+| 7 | **Right-click orders** | Vehicle Framework blocks every menu provider not derived from its own base when a vehicle is selected. With several vehicles selected a ground order skips the comp's refusal, so an aircraft in the group would be sent a ground order | A provider derived from `FloatMenuOptionProvider_Vehicle`; one prefix on `PawnGotoAction` turning a ground order for an aircraft in the air into "fly here" | A "fly here" button with a targeter |
+| 8 | **Arriving** | The arrival choices are a fixed list in code: the Def database is never read, so a mode of ours never shows by itself. The edge an aircraft came from is forgotten by the time it arrives | A postfix on `GetArrivalOptions` adding ours (we already have one there); the bearing kept when the flight is ordered. The landing check at a journey's end stands down for an aircraft carrying our flight | Let Vehicle Framework land it, then lift off under our flight |
+| 9 | **One guard for crew and cargo** | Boarding ends in `TryAddPawn`; loading in `AddOrTransfer`; leaving in `DisembarkPawn`; unloading in two drop helpers; work on a vehicle in `VehicleWorkGiver.JobOnThing` and the list its other work scans read. A postfix on the right-click menu alone would miss the several-pawns menu, jobs already running and raiders. Both flight mods patch the same handful | One rule in the Framework, "may this vehicle be boarded, loaded or worked on now", asked from those places; jobs aimed at the aircraft end at lift-off | Guard the orders only, and accept that a job already running slips through |
+
+**Also confirmed:** `vehicle.Transform` is not saved, so the comp applies the turn again after a load, and resets it before any
+hand-over to Vehicle Framework's own drawing. Repair zeroes its turn, which only happens on the ground.
+
+### The patches as they now stand
+
+Each acts only for an aircraft carrying our comp. None is on a method every pawn calls each tick.
+
+| Method | Kind | How often it runs | Why |
+| --- | --- | --- | --- |
+| `VehicleDrawTracker.DrawPos` | Postfix | Once per vehicle per frame, and for each seat pawn drawn | Height and true position in the air (finding 1) |
+| `CompVehicleLauncher.CanLaunchWithCargoCapacity` | Postfix, first | While the launch button shows | The button works in the air (finding 6) |
+| `CompVehicleLauncher.Launch` | Prefix that skips, last | When the player launches | Our flight leaves the map |
+| `ArrivalAction_LandToCell.Arrived` | Prefix that skips | When a flight arrives | It arrives flying |
+| `LaunchProtocol.GetArrivalOptions` | Postfix | While a destination is picked | Our arrival mode is offered (finding 8) |
+| `PawnGotoAction` (Vehicle Framework's) | Prefix | A ground order to vehicles | A group order never drives an aircraft that is in the air (finding 7) |
+| `VehiclePawn.TryAddPawn`, `VehiclePawn.AddOrTransfer`, the two drop helpers | Prefixes | A person or thing going aboard or coming off | Nothing boards, loads or unloads in the air (finding 9) |
+| `VehicleWorkGiver.JobOnThing` | Prefix | A work scan, per candidate vehicle | No work on it in the air |
+| `VehicleReservationManager.VehicleListers` | Postfix | A work scan | The same, for loading, refuelling and upgrade work |
+
+Shared with what we already ship for submarines, as first written: `VehicleStatHandler.ApplyDamage` and
+`VehiclePawn.DisembarkPawn`. The right-click menu postfix of the first list is no longer needed.
+
+**About twelve new patches, where the first count was five.** That is still a fraction of either existing flight mod's, and the
+difference from them stands: nothing on what a pawn may walk or stand on, on reachability, on target finding or on every shot.
+
+### A fault the read found in code we already ship
+
+Read in code, not seen in game. **A submarine destroyed while it is under takes its crew with it** (inferred from the order of
+calls): Vehicle Framework puts everyone out before it removes a destroyed vehicle, and our rule that nobody steps out of a hull
+that is under refuses them while that flag is still set. It is row CR8 in [outstanding work](outstanding-work.md). The guard
+designed above allows a destruction through, which is the fix.
+
+### Still unknown from code alone
+
+- Whether the game's compiler folds the small `DrawPos` getter into its callers, so that a postfix is missed in places. If so,
+  the fallback of finding 1 applies.
+- The measured cost of a cell crossed, and the garbage Vehicle Framework's claim makes.
+- Whether clearing smoke and gas beneath an aircraft reads as rotor wash or as a fault.
+- Whether our `Launch` prefix really runs after both flight mods' and our own prompt in the owner's load order.
+- Combat Extended's part is in [the armour record](vehicle-armour.md#in-the-air).
 
 ## Argued against
 
