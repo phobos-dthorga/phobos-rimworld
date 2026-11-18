@@ -95,7 +95,8 @@ def fetch(manifest_path, record=False):
             subprocess.run([exe, '-v', 'error', '-y', '-i', str(target), '-vn', '-c:a', 'flac', str(audio)], check=True)
         print(f'{key}: {target.stat().st_size // 1_000_000} MB, audio at {audio}')
     if changed:
-        Path(manifest_path).write_text(json.dumps(manifest, indent=1, ensure_ascii=False) + '\n', encoding='utf-8')
+        with open(manifest_path, 'w', encoding='utf-8', newline='\n') as handle:  # The repository's line endings, not Windows'.
+            handle.write(json.dumps(manifest, indent=1, ensure_ascii=False) + '\n')
         print(f'wrote the new hashes into {manifest_path}')
     (folder / 'fetched.json').write_text(json.dumps({'when': time.strftime('%Y-%m-%d %H:%M'), 'manifest': str(manifest_path)}),
                                          encoding='utf-8')
