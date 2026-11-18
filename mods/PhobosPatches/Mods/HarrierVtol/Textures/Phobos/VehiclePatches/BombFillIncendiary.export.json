@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombFillIncendiary.png",
+  "source": "assets/vehicle-patches/generated/bomb-fill-incendiary/bomb-fill-incendiary-12.png",
+  "source_sha256": "af3131752e9df332b2250284c3b2cbd7e3e6bb1d0ac60bde7602e7e6a070c101",
+  "target_sha256": "620686c5ff7c1dc13ac642e7761cf1e8c3f23f0f7642a3adfd8a67e7b57e92ad",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "af3131752e9df332b2250284c3b2cbd7e3e6bb1d0ac60bde7602e7e6a070c101",
+  "date": "2026-11-18T12:59:43",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

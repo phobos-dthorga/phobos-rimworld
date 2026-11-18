@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/FerryTank.png",
+  "source": "assets/phobos-vehicles/generated/fitting-ferrytank/fitting-ferrytank-11.png",
+  "source_sha256": "4eeb49c2622ce9b9f59011d247294986829ec97c0431d5eb603ea9e74829bf38",
+  "target_sha256": "c1b15187180f82b1d540a82f64e951b10cd769e9f8c49505c834b12b0971b1b0",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "4eeb49c2622ce9b9f59011d247294986829ec97c0431d5eb603ea9e74829bf38",
+  "date": "2026-11-18T12:59:50",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Unhitch.png",
+  "source": "assets/phobos-vehicles/generated/hitch-unhitch/hitch-unhitch-12.png",
+  "source_sha256": "db23f1c9429e3dcb5c9c3af9d0c6442071a24c3ab92d7f9eca556e141136b4ff",
+  "target_sha256": "cb824010df095fc6a67318e0b7e7087a98a17af98555f33492f8b0222d3876dc",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "db23f1c9429e3dcb5c9c3af9d0c6442071a24c3ab92d7f9eca556e141136b4ff",
+  "date": "2026-11-18T12:59:54",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

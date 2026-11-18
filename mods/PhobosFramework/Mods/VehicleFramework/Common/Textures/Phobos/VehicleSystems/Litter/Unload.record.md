@@ -1,5 +1,6 @@
 # Unload
 
-**Drawn in code** by `assets/phobos-vehicles/draw_ambulance_icons.py` (Pillow): a canvas stretcher on dark poles below a blue arrow pointing down. No image generator, no reference images and no game or other author's art.
+**AI-generated, picked by the owner on 18 November 2026.** Made on 2026-11-18 with ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0): 50 steps, seed 11, with the owner's private style model (a LoRA trained on this PC, never published). References: our turbocharger fitting icon (OpenAI, picked 11 Nov 2026); our uprated radiator fitting icon (OpenAI, picked 11 Nov 2026) (our own art), used on this PC only and never uploaded. The near-copy check against the game's sprites found this picture clear. No game or other author's art is in this file. The arrow came out pointing up, so the picture was turned upside down with Pillow (the stretcher is the same either way up): `litter-unload-v2-11-flipped.png`, SHA-256 `5ba666cfcefe5cf0ffa20c8bfade90ef305a889efc98ae3e81b1360bde9e770e`, kept beside the original. Exported by `scripts/art/export_sprite.py` (white background to transparency, after the background AI looked at the original, 128 x 128 px). The prompt is in `assets/phobos-vehicles/requests/night-6-redraw.json`; the master and its record are on the `art-masters` branch (`vehicles/night-6/litter-unload-v2/`), the attempts not picked on `art-references`.
 
-- `Unload.png`: SHA-256 `c75a779f1a9b0e43938e3bc7ba4596d9928d0a55f557e6b6c4bb61d596f48594`
+- Master: `litter-unload-v2-11`, SHA-256 `ac339289119c750a8710e35569801529f2cecfb56cd76b923a1cb1ca1bc7ea5a`
+- `Unload.png`: SHA-256 `f45d058135b09a55ae910dc181170b5f77b82898d3dc79cf9d7da15b529a79c1`

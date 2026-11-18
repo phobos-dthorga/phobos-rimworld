@@ -1,7 +1,8 @@
 # Art backlog: what to make with the local image model (6 Nov 2026, updated 7 Nov 2026)
 
-**Status (18 Nov 2026):** night 6 ran on 18 Nov 2026 and made all 62 candidates for [the stand-in art audit](#stand-in-art-audit-17-nov-2026)'s
-list; **the owner's picks are pending**, so nothing from it ships yet. Night 3's picks ship (Medical 0.14.1, Patches 0.16.9, Radio 0.1.7); the
+**Status (18 Nov 2026):** night 6's picks ship (Framework 0.137.1, Vehicles 0.65.4, Patches 0.23.0, Medical 0.18.1): every picture on
+[the stand-in art audit](#stand-in-art-audit-17-nov-2026)'s drawn-in-code list, plus the battery warmer and Billy's tent lamp and heater;
+the service lead, sonar ping and hitch came from the paid API (about US$0.33) after the local tries were turned down. Night 3's picks ship (Medical 0.14.1, Patches 0.16.9, Radio 0.1.7); the
 store's frost is drawn in code (Medical 0.15.0); vehicle bodies and parts come from the paid API. Not done: style model v3 (its training was
 cut off by the stop time on 8 Nov, with no model saved), the radio whip (held), Billy's canvas wall atlas and door, and the loading chute.
 

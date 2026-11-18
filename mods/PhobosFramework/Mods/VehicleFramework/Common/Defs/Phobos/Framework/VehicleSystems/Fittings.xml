@@ -362,7 +362,7 @@
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- F10, with T8: a battery blanket on shore power (Input_BatteryTemperature). batteryWarmerAbsent to 0, the block heater's pattern. -->
     <defName>PhobosFitting_BatteryWarmer</defName>
-    <iconPath>Phobos/VehicleSystems/Fittings/DeepCycleBattery</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/BatteryWarmer</iconPath>
     <label>battery warmer</label>
     <description>An electric blanket round the battery. Parked beside a powered grid, the battery stays above freezing, so it does not freeze and gives the starter its full strength on a cold morning.</description>
     <roles><li>Battery</li></roles>

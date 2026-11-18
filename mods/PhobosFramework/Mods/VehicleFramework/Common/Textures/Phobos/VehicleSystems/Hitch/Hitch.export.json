@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Hitch.png",
+  "source": "assets/phobos-vehicles/generated/hitch-hitch-api/hitch-hitch-api-1.png",
+  "source_sha256": "af8bd5e93f2de7d48c0ffc930e6c216c06d99f86be2fc3e9d213169021dd68e3",
+  "target_sha256": "c221ed3553ef4d3e58d398e8bfb23d7f58c282d29dd8f0fe9f1b460fcfb8e15b",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "af8bd5e93f2de7d48c0ffc930e6c216c06d99f86be2fc3e9d213169021dd68e3",
+  "date": "2026-11-18T13:27:59",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

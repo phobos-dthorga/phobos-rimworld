@@ -164,7 +164,7 @@
     <label>tent lamp</label>
     <description>A lamp on a stand for a field tent. It lights only while the trailer that pitched the tent is plugged into power.</description>
     <graphicData>
-      <texPath>Things/Building/Furniture/LampStanding</texPath>
+      <texPath>Phobos/Vehicles/FieldKitchen/BillyTentLamp</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(1,1)</drawSize>
     </graphicData>
@@ -192,7 +192,7 @@
     <label>tent heater</label>
     <description>A small chemfuel heater for an insulated field tent. It keeps the tent at 15 °C or so in the cold, burning about two chemfuel a day, and burns nothing while the tent is warmer than that.</description>
     <graphicData>
-      <texPath>Things/Building/Misc/TempControl/Heater</texPath>
+      <texPath>Phobos/Vehicles/FieldKitchen/BillyTentHeater</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(1,1)</drawSize>
     </graphicData>

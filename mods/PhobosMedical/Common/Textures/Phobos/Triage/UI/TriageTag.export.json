@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Triage/UI/TriageTag.png",
+  "source": "assets/phobos-medical/generated/triage-tag-disc/triage-tag-disc-12.png",
+  "source_sha256": "e0b45a870ea569eb8f13b9c35d7d23cc31ce8923d73760911f5937eaf1ac0586",
+  "target_sha256": "02e503f6e851871b1caa6760e7803ef48f6141e148335b401121e1eff98574d6",
+  "size": [
+    64,
+    64
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": true,
+  "ai_mask": null,
+  "date": "2026-11-18T13:00:10",
+  "tool": "export_sprite.py: dark shape to a white silhouette, crop, pad, Lanczos downscale"
+}

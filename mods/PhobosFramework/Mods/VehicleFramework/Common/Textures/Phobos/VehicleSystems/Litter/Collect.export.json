@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Litter/Collect.png",
+  "source": "assets/phobos-vehicles/generated/litter-collect-v2/litter-collect-v2-11.png",
+  "source_sha256": "6071cbbe778ab4568d7947ea38667cc8ce06b7b36dee93735d04a093628b3c75",
+  "target_sha256": "7bf4ee5462ec8920b8a290215fa7f8ee3992d8658d7d803cc1dc535917ff7b02",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "6071cbbe778ab4568d7947ea38667cc8ce06b7b36dee93735d04a093628b3c75",
+  "date": "2026-11-18T13:28:02",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

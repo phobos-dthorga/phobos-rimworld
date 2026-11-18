@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/ServiceLead.png",
+  "source": "assets/phobos-vehicles/generated/service-lead-api/service-lead-api-1.png",
+  "source_sha256": "4076b7d5e683dbe3f93c928d265f30c05499259705665772fccd7ca5a24ecdc7",
+  "target_sha256": "2728e472fc8019b14456a69281967beab8dd410ceae751adc884599a3559de01",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "4076b7d5e683dbe3f93c928d265f30c05499259705665772fccd7ca5a24ecdc7",
+  "date": "2026-11-18T13:27:56",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

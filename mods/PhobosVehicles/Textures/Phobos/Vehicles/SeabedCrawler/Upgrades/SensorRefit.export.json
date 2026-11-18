@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/SensorRefit.png",
+  "source": "assets/phobos-vehicles/generated/crawler-sensor-refit/crawler-sensor-refit-11.png",
+  "source_sha256": "3bffe4f02219e3a88b78577c49088c98ab6e0710b1531912aa2e1e881a115030",
+  "target_sha256": "8ebf5c46fa0409fc1633c83ea9dc8df04691d3ad192056a66ebbbd73c669198f",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "3bffe4f02219e3a88b78577c49088c98ab6e0710b1531912aa2e1e881a115030",
+  "date": "2026-11-18T13:00:07",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

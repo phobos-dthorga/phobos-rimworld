@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/LitterKit.png",
+  "source": "assets/phobos-vehicles/generated/litter-kit-v2/litter-kit-v2-11.png",
+  "source_sha256": "3cd224079ccdb5e19e0ea284a07c3c1da587a69373079e9b198a3ae595cf7b4b",
+  "target_sha256": "b46542635bf540de263aa24e85cdb660032fcdb4501e64852d0e60aa7a2db2b7",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "3cd224079ccdb5e19e0ea284a07c3c1da587a69373079e9b198a3ae595cf7b4b",
+  "date": "2026-11-18T13:28:00",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

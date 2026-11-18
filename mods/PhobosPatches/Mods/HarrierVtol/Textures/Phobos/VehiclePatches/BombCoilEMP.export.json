@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombCoilEMP.png",
+  "source": "assets/vehicle-patches/generated/bomb-coil-emp/bomb-coil-emp-12.png",
+  "source_sha256": "26473f11bfbb0a749bdfa86542dbd3b27b9b558aa772dabca225bdc49af274f6",
+  "target_sha256": "226040a1d474e7eccca76da618a4d9b31b3486f5db3c23807cd7805d38c1692f",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "26473f11bfbb0a749bdfa86542dbd3b27b9b558aa772dabca225bdc49af274f6",
+  "date": "2026-11-18T12:59:47",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

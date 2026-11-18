@@ -1,0 +1,22 @@
+[
+ {
+  "name": "hitch-hitch-api",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [1, 2],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Unhitch.png",
+    "role": "our approved unhitch button (picked 18 Nov 2026), the pair this button belongs with: keep its tow ball, dark plate, orange arrow, outline weight, shading, palette and finish exactly, and change ONLY the arrow's direction"
+   }
+  ],
+  "art_plan": {
+   "icon": "button: hitch a trailer on",
+   "size": "drawn by the game at about 64 to 80 px as a command button; requested at 1024",
+   "this_request": "night 6 follow-up, the owner's pick of 18 Nov 2026: two local redraws drew the arrow up again; two attempts on the paid API"
+  },
+  "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a command button in a strategy game.\n\nImage 1 is our approved 'unhitch' button: a steel tow ball on a dark square hitch plate with a bold orange arrow pointing UP away from the ball. Create its partner, the 'hitch' button: the SAME tow ball, plate, colours and style, but the bold orange arrow comes down from the top of the canvas and points DOWN, its arrowhead just above the ball, as if lowering a trailer coupling onto it.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nStyle: exactly as image 1: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels.\n\nThe arrow MUST point downwards. No people, hands, vehicles, trailers, text, letters, numbers, logos, floor, ground or cast shadow."
+ }
+]

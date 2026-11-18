@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/WorkLamps.png",
+  "source": "assets/phobos-vehicles/generated/fitting-worklamps-floodbox/fitting-worklamps-floodbox-12.png",
+  "source_sha256": "37d518a1dcf5e729dc338abe30a153bd97eaaf060d3848850edfc91b3b1e65e7",
+  "target_sha256": "ca88debc531a017753f29f548000a600297375334db371f383d8925990e541be",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "37d518a1dcf5e729dc338abe30a153bd97eaaf060d3848850edfc91b3b1e65e7",
+  "date": "2026-11-18T12:59:51",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -47,7 +47,7 @@
       <label>Insulated tent</label>
       <displayLabel>true</displayLabel>
       <description>A lined tent and a small chemfuel heater, set out at the next set-up: the heater keeps the tent at 15 °C or so in the cold, burning about two chemfuel a day.</description>
-      <icon>Things/Building/Misc/TempControl/Heater</icon>
+      <icon>Phobos/Vehicles/FieldKitchen/BillyTentHeater</icon>
       <work>1800</work>
       <gridCoordinate>(12, 6)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>

@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombFillSmoke.png",
+  "source": "assets/vehicle-patches/generated/bomb-fill-smoke/bomb-fill-smoke-12.png",
+  "source_sha256": "0a28aba40af6492e9bf763522a9d8e89ce6b052e0a94450f6fa86a87f6641aa6",
+  "target_sha256": "e0c79d45d4850066cec381f9435ec8bb59bcc5c007820dfa3af6013a198dedbb",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "0a28aba40af6492e9bf763522a9d8e89ce6b052e0a94450f6fa86a87f6641aa6",
+  "date": "2026-11-18T12:59:45",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

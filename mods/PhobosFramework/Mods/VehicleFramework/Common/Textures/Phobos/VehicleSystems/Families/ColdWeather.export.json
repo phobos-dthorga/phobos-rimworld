@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Families/ColdWeather.png",
+  "source": "assets/phobos-vehicles/generated/family-coldweather/family-coldweather-12.png",
+  "source_sha256": "336588ba38dea950ebfed37c2646f2a6876facc1569ff8a701935271b62e6768",
+  "target_sha256": "e7b0a4f0f0281f64f9ce6298437b66c8fd8eca05d46fb9ceb3307cb7292cd23a",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "336588ba38dea950ebfed37c2646f2a6876facc1569ff8a701935271b62e6768",
+  "date": "2026-11-18T12:59:53",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

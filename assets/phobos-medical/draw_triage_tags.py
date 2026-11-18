@@ -61,5 +61,27 @@ def save(image, name, what):
     print(path.relative_to(ROOT), digest)
 
 
-save(disc_with_cross(), 'TriageTag', 'a white disc with the medical cross cut out, tinted in game by the triage tag\'s colour.')
-save(outline(), 'TriageTagOutline', 'the white outline of the disc and the cross, drawn over the tinted tag so a black tag reads on a dark map.')
+def outline_from_pick(icon_path):
+    """The outline of a picked tag (18 Nov 2026: the owner picked generated art for the tag): the band just inside the edge of the
+    shipped silhouette, around the disc and around the cross cut out of it, so the outline always matches the picture it sits on."""
+    from PIL import ImageChops, ImageFilter
+    alpha = Image.open(icon_path).convert('RGBA').split()[3].resize((WORK, WORK), Image.LANCZOS).point(lambda v: 255 if v >= 128 else 0)
+    eroded = alpha
+    for _ in range(RING // 2 // 2):  # MinFilter(5) eats two pixels a pass: about half the stand-in's ring, as the cross shares it.
+        eroded = eroded.filter(ImageFilter.MinFilter(5))
+    band = ImageChops.subtract(alpha, eroded)
+    image = Image.new('RGBA', (WORK, WORK), (255, 255, 255, 0))
+    image.putalpha(band)
+    return image
+
+
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) > 2 and sys.argv[1] == '--outline-from':
+        # python assets/phobos-medical/draw_triage_tags.py --outline-from <shipped TriageTag.png>: only the outline, from the pick.
+        path = OUT / 'TriageTagOutline.png'
+        outline_from_pick(sys.argv[2]).resize((SIZE, SIZE), Image.LANCZOS).save(path)
+        print(path.relative_to(ROOT), hashlib.sha256(path.read_bytes()).hexdigest())
+    else:
+        save(disc_with_cross(), 'TriageTag', 'a white disc with the medical cross cut out, tinted in game by the triage tag\'s colour.')
+        save(outline(), 'TriageTagOutline', 'the white outline of the disc and the cross, drawn over the tinted tag so a black tag reads on a dark map.')

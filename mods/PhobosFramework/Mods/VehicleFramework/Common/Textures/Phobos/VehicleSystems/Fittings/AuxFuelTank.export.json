@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/AuxFuelTank.png",
+  "source": "assets/phobos-vehicles/generated/fitting-auxfueltank/fitting-auxfueltank-12.png",
+  "source_sha256": "86787b5b585a7740a02082a1227da4f7b36b11d3d44eb0381d310450267ca4b6",
+  "target_sha256": "c19fa6ff2deb1334918ddee505a845d5652df6419c2d8dba33e5c214c29e56d4",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "86787b5b585a7740a02082a1227da4f7b36b11d3d44eb0381d310450267ca4b6",
+  "date": "2026-11-18T12:59:49",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

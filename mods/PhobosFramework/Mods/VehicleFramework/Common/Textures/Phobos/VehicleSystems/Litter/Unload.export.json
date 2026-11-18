@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Litter/Unload.png",
+  "source": "assets/phobos-vehicles/generated/derived-night-6/litter-unload-v2-11-flipped.png",
+  "source_sha256": "5ba666cfcefe5cf0ffa20c8bfade90ef305a889efc98ae3e81b1360bde9e770e",
+  "target_sha256": "f45d058135b09a55ae910dc181170b5f77b82898d3dc79cf9d7da15b529a79c1",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "5ba666cfcefe5cf0ffa20c8bfade90ef305a889efc98ae3e81b1360bde9e770e",
+  "date": "2026-11-18T13:28:03",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

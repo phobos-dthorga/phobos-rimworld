@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.65.4] - 2026-11-18 - Draft
+
+Own pictures for the Crawler's upgrades and Billy's tent lamp and heater
+
+### Changed
+
+- **The Seabed Crawler's laboratory, advanced laboratory, laboratory refit, scrubber and sensor refit have their own pictures** (the owner's picks of 18 November 2026), replacing ones drawn in code.
+- **Billy's tent lamp and tent heater have their own pictures** instead of the game's standing lamp and heater; the insulated tent upgrade shows the new heater.
+
+### Compatibility and limits
+
+- Pictures only; no change in play. A lamp or heater already set out shows its new picture at once. Safe with a running save.
+- Not yet tested in game.
+
 ## [0.65.3] - 2026-11-18 - Draft
 
 Billy's kettle takes its water again with Dubs Bad Hygiene

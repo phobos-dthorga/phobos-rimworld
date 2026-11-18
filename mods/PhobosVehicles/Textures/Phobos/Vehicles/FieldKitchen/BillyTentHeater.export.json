@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyTentHeater.png",
+  "source": "assets/phobos-vehicles/generated/billy-tent-heater/billy-tent-heater-12.png",
+  "source_sha256": "ccf63ae383a3565e8d78090a6bfc3385bf6afa33fe8e601f6c47f01e2a1bc081",
+  "target_sha256": "1fbff90c2ebe80d6f1f16c5f18d6fbb7928e733c7bb38b6fe8afa632158c41f9",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "ccf63ae383a3565e8d78090a6bfc3385bf6afa33fe8e601f6c47f01e2a1bc081",
+  "date": "2026-11-18T13:00:10",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

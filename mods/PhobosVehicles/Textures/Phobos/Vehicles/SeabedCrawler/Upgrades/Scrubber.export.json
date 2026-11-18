@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Scrubber.png",
+  "source": "assets/phobos-vehicles/generated/crawler-scrubber/crawler-scrubber-12.png",
+  "source_sha256": "f829949c4e082f1b7cb05723548a040eeeb4363dd160db9bb7faabebacd7be9a",
+  "target_sha256": "6ac6d0e8682a53b57a583882f0bb518e38bd1d5ef1c753bf677e0adc69339592",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "f829949c4e082f1b7cb05723548a040eeeb4363dd160db9bb7faabebacd7be9a",
+  "date": "2026-11-18T13:00:06",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

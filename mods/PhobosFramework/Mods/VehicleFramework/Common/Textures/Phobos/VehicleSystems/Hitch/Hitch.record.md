@@ -1,5 +1,6 @@
 # Hitch
 
-**Drawn in code** by `assets/phobos-vehicles/draw_hitch_icons.py` (Pillow): a steel tow ball on a dark bumper with an orange trailer coupling seated over it. No image generator, no reference images and no game or other author's art.
+Made on 2026-11-18 with OpenAI gpt-image-2 through the image API, at medium quality (US$0.054): **AI-generated, picked by the owner on 18 November 2026** from two attempts, after two local candidates were turned down. The only reference uploaded was our own approved art: `Unhitch.png` (our approved unhitch button (picked 18 Nov 2026), the pair this button belongs with). No game or other author's art was uploaded or used, and none is in this file. Provider's terms, as recorded: OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text. Exported by `scripts/art/export_sprite.py` (white background to transparency, after the background AI looked at the original, 128 x 128 px). The prompt is in `assets/phobos-vehicles/requests/night-6-hitch-paid.json`; the master and its record are on the `art-masters` branch (`vehicles/night-6/hitch-hitch-api/`), the attempts not picked on `art-references`.
 
-- `Hitch.png`: SHA-256 `7f05151d43003360d2119fbb42d3f8d43ae2547a23fb850ab1cf5c9d960c17e6`
+- Master: `hitch-hitch-api-1`, SHA-256 `af8bd5e93f2de7d48c0ffc930e6c216c06d99f86be2fc3e9d213169021dd68e3`
+- `Hitch.png`: SHA-256 `c221ed3553ef4d3e58d398e8bfb23d7f58c282d29dd8f0fe9f1b460fcfb8e15b`

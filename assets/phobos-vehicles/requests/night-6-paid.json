@@ -1,0 +1,42 @@
+[
+ {
+  "name": "service-lead-api",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [1, 2],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+    "role": "our approved icon from the same family (the turbocharger fitting, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "icon": "button: run a service lead (a power and air line) from a station to a parked vehicle",
+   "size": "drawn by the game at about 64 to 80 px as a command button; requested at 1024",
+   "this_request": "night 6 follow-up, the owner's pick of 18 Nov 2026: the local candidates were turned down and the owner asked for the paid API; two attempts"
+  },
+  "prompt": "SMALL GAME ICON. One single object seen from the front, centred, flat on the canvas, like a command button in a strategy game.\n\nCreate an ORIGINAL small game icon for a vehicle service lead. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA bright orange cable reel on a small dark steel stand, with a thick black heavy-duty lead unwound from it in one smooth curve, ending in a chunky industrial plug with a yellow collar.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, screens, dust, floor, ground or cast shadow."
+ },
+ {
+  "name": "sonar-ping-api",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [1, 2],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+    "role": "our approved icon from the same family (the turbocharger fitting, picked 11 Nov 2026): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "icon": "button: an active sonar ping from a submarine or seabed crawler",
+   "size": "drawn by the game at about 64 to 80 px as a command button; requested at 1024",
+   "this_request": "night 6 follow-up, the owner's pick of 18 Nov 2026: the local candidates were turned down and the owner asked for the paid API; two attempts"
+  },
+  "prompt": "SMALL GAME ICON. One single object seen from directly above, centred, flat on the canvas, like a command button in a strategy game.\n\nCreate an ORIGINAL small game icon for a submarine's active sonar ping. Image 1 is our approved icon from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA small dark grey submarine hull seen from directly above, a rounded cigar shape with a small orange hatch, at the centre of three bold pale teal sound-wave arcs spreading outwards on its front side, each arc with a dark outline.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: one big shape, very few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, screens, water texture, bubbles, fish, floor, ground or cast shadow."
+ }
+]

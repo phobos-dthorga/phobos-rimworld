@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Sling/WaterDrop.png",
+  "source": "assets/phobos-vehicles/generated/sling-waterdrop/sling-waterdrop-11.png",
+  "source_sha256": "c432ea6a736177c22064d8148c1c41ca04a61dd23b5abbfc01a8c4247a8130ee",
+  "target_sha256": "b63f54badbe1ddc65db9eedd99b1f91b62374be974db4320d2fe47e8933cdd9e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "c432ea6a736177c22064d8148c1c41ca04a61dd23b5abbfc01a8c4247a8130ee",
+  "date": "2026-11-18T12:59:57",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

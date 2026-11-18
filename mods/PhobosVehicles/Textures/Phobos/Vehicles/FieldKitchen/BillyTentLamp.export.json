@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/FieldKitchen/BillyTentLamp.png",
+  "source": "assets/phobos-vehicles/generated/billy-tent-lamp/billy-tent-lamp-12.png",
+  "source_sha256": "06d74db979256352d4605c1012babe644d861e948c8ab96e316a65312fad438c",
+  "target_sha256": "8663f2d102033d167d5110cb8f4192af3f1a24bed6d5a830bc5a54b3bb9224d8",
+  "size": [
+    256,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "06d74db979256352d4605c1012babe644d861e948c8ab96e316a65312fad438c",
+  "date": "2026-11-18T13:00:09",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

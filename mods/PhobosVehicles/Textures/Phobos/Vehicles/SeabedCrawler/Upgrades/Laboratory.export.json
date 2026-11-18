@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Laboratory.png",
+  "source": "assets/phobos-vehicles/generated/crawler-laboratory/crawler-laboratory-11.png",
+  "source_sha256": "02eaa64cccb793c6b1cb3cc66966397f0e744bbe4270b625ce5e7dd997be1328",
+  "target_sha256": "108656ee3b60a02020b21882e2706551d39bdc5cde243efa237b8dec2d33100c",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "02eaa64cccb793c6b1cb3cc66966397f0e744bbe4270b625ce5e7dd997be1328",
+  "date": "2026-11-18T13:00:02",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

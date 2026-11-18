@@ -6,19 +6,26 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.23.0] - 2026-11-18 - Draft
+
+Own pictures for the Mk. 84 fills; drone platforms say how much they hold
+
 ### Changed
 
+- **The Mk. 84's incendiary, smoke and tox gas canisters and its EMP coil pack have their own pictures** (the owner's picks of 18 November 2026), replacing ones drawn in code.
 - With D'thorga Framework 0.135.0, the Hermit Crab and the Cluster Weaver are topped up too: a mechanitor brings them steel, as
   they do to repair them. The drone platform Def is the same; only its notes changed.
 - The drone platform Def names the platform's capacity and holdings, so D'thorga Framework 0.136.0's setting How full to fill
   them can fill platforms past their starting store, up to full.
-
-### Changed
-
 - The README says which part is tested in game (the stuck vehicle fires, by the owner on 10 November 2026) and that Vehicle Framework now ships its own 1.7 build. No change in play.
 - The README is cut to today's gotchas, what each part does linking the player guide's Patches chapter, the settings and links for modders. How to play, with the cost, bomb, turret hull and blast tables, moved to the guide; research, the README's modder notes and its dated checks moved to the vehicle and missile patches design records; version notes live in this changelog. No change in play.
 - A code comment and the README name the design records they now live in, after the merges of 17 November 2026. No change in play.
 - The comment on the Harrier's fuller parts list no longer says the airframe's weight decides which part a hit lands on: since the Harrier's build of 16 November 2026 its own rule does, and that rule shares its hits evenly among every part, ours included. No change in play; what it means for the jet is in the avionics record (L6).
+
+### Compatibility and limits
+
+- The new pictures change nothing in play. Drone platforms fill past their starting store only with D'thorga Framework 0.136.0 or later, by its setting How full to fill them. Safe with a running save.
+- Not yet tested in game.
 
 ## [0.22.0] - 2026-11-18 - Draft
 

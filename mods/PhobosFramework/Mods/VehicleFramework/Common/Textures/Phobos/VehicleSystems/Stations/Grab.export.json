@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/Grab.png",
+  "source": "assets/phobos-vehicles/generated/stations-grab/stations-grab-11.png",
+  "source_sha256": "378fe1c04fb6ed355b95f7b09caea80ee0245db0dc55204369eeda830bf904c9",
+  "target_sha256": "10b38f503edde1acc73096de7c2bedc78b45a119932b0b994cc937f6bc89064e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "378fe1c04fb6ed355b95f7b09caea80ee0245db0dc55204369eeda830bf904c9",
+  "date": "2026-11-18T12:59:58",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

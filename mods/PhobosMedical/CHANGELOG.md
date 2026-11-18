@@ -6,12 +6,22 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.18.1] - 2026-11-18 - Draft
+
+The triage tag's own picture
+
 ### Changed
 
+- **The triage tag has its own picture** (the owner's pick of 18 November 2026): a disc with the medical cross, tinted by the tag's colour as before, with its outline drawn from the new picture so a black tag still reads on a dark map.
 - The README's dated checks note that RimWorld 1.6 was retired on 8 November 2026. No change in play.
 - The README is one guide again instead of five: today's gotchas, the parts linking the player guide, the settings and links for modders; version notes live in this changelog. No change in play.
 - A comment in the oxygen chain's Defs names the design record its electrolysis source now lives in. No change in play.
 - Comments in the second equipment set's Defs no longer call its art a placeholder: the owner's picks shipped in 0.14.1. No change in play.
+
+### Compatibility and limits
+
+- Pictures only; no change in play. Safe with a running save.
+- Not yet tested in game.
 
 ## [0.18.0] - 2026-11-17 - Draft
 

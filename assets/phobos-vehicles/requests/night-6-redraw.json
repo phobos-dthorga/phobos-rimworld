@@ -1,0 +1,77 @@
+[
+ {
+  "name": "litter-kit-v2",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A folded army stretcher seen from above at a slight angle: a long olive canvas bed stretched between two long wooden carrying poles, the pole handles sticking out at both ends, with a small white patch bearing a red cross on the canvas. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle, no stand, no legs, no sign, no board.",
+  "subject": "A folded army stretcher: olive canvas between two long wooden carrying poles, red cross patch",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [11, 12],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "litter-unload-v2",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A long olive canvas army stretcher lying flat, seen from above at a slight angle, stretched between two long wooden carrying poles with handles sticking out at both ends; beside its right end a bold blue arrow points straight down. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle, no stand, no legs, no sign, no board.",
+  "subject": "A canvas stretcher on two carrying poles with a blue arrow pointing down beside it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [11, 12],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "litter-collect-v2",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A long olive canvas army stretcher lying flat, seen from above at a slight angle, stretched between two long wooden carrying poles with handles sticking out at both ends; beside its right end a bold green arrow points straight up. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle, no stand, no legs, no sign, no board.",
+  "subject": "A canvas stretcher on two carrying poles with a green arrow pointing up beside it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [11, 12],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "hitch-hitch-v2",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The object in the first reference image, a steel tow ball on a dark hitch plate, but with the bold orange arrow coming down from above and pointing straight down onto the ball, as if coupling a trailer on. Keep its shape, colours and finish. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "subject": "The picked unhitch icon's tow ball, with the orange arrow pointing down onto it",
+  "references": [
+   "assets/phobos-vehicles/generated/hitch-unhitch/hitch-unhitch-12.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [11, 12],
+  "lora": "phobos-private-vanilla.safetensors"
+ },
+ {
+  "name": "hitch-stopwinch-v2",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, The object in the first reference image, an orange winch drum with its steel cable and hook, crossed from corner to corner by one bold red diagonal stop bar with a dark outline. Keep its shape, colours and finish. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle, no fan, no square frame.",
+  "subject": "The picked winch icon crossed by a bold red diagonal stop bar",
+  "references": [
+   "assets/phobos-vehicles/generated/hitch-winch/hitch-winch-12.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [11, 12],
+  "lora": "phobos-private-vanilla.safetensors"
+ }
+]

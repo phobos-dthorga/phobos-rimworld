@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Hitch/Winch.png",
+  "source": "assets/phobos-vehicles/generated/hitch-winch/hitch-winch-12.png",
+  "source_sha256": "799244e49687cc619eb52803f007a4a9e02a5432efac2524c00f7a2809db1d0b",
+  "target_sha256": "609684b5d360aaf42668606c24c383dfe1f882d7906aca1fc6072d284d5e270e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "799244e49687cc619eb52803f007a4a9e02a5432efac2524c00f7a2809db1d0b",
+  "date": "2026-11-18T12:59:55",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/FireBucket.png",
+  "source": "assets/phobos-vehicles/generated/item-firebucket/item-firebucket-11.png",
+  "source_sha256": "53feed92895015ae09923137cef4e6528a3c4bc0c596bd9c9be143f57ffd21fd",
+  "target_sha256": "55660741b2da87ba884e9b62d3f24f5da129892e179e02e58d7286dfd0462e1f",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "53feed92895015ae09923137cef4e6528a3c4bc0c596bd9c9be143f57ffd21fd",
+  "date": "2026-11-18T12:59:59",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.137.1] - 2026-11-18 - Draft
+
+Own pictures for the last vehicle buttons drawn in code
+
+### Changed
+
+- **Own pictures for the vehicle buttons and fittings that were still drawn in code** (the owner's picks of 18 November 2026): the auxiliary and ferry tanks, the work lamps (now site floodlights, not headlights), the litter kit, the cold-weather family, hitch, unhitch, winch, stop winch, litter collect and unload, the service lead, the water drop, the sonar ping, the station's grab and the fire bucket.
+- **The battery warmer has its own picture** instead of borrowing the deep-cycle battery's.
+- How each was made is in the record beside it: most from the local image model; the service lead, sonar ping and hitch from the paid image API (about 0.33 US dollars in all).
+
+### Compatibility and limits
+
+- Pictures and one icon path only; no change in play. Safe with a running save.
+- Not yet tested in game.
+
 ## [0.137.0] - 2026-11-18 - Draft
 
 Refuelling from cargo on the world map

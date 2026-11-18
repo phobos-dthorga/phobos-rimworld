@@ -1,5 +1,5 @@
 # TriageTagOutline
 
-**A stand-in, drawn in code on 2026-11-07** by `assets/phobos-medical/draw_triage_tags.py` (Pillow): the white outline of the disc and the cross, drawn over the tinted tag so a black tag reads on a dark map. No image generator, no reference images and no game art. Generated art can replace it on the owner's go.
+**Drawn in code from the owner's pick of 18 November 2026** by `assets/phobos-medical/draw_triage_tags.py --outline-from` (Pillow): the band just inside the edge of `TriageTag.png` (master `triage-tag-disc-12`), round the disc and round the cross cut out of it, white, drawn over the tinted tag so a black tag reads on a dark map. No image generator beyond the tag's own and no game or other author's art.
 
-- This file SHA-256: `e26244e86b0b8f9d8b1d00d071f07166fe424950b50e8fcc3cd9b314b31d4d5b`
+- `TriageTagOutline.png`: SHA-256 `95d1bad960fafb99e03d9a6b5f8c05a8fa2a3addbb78cd8b0dbf1ae4b1bb408b`
