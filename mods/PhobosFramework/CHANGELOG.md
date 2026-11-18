@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.140.1] - 2026-11-18 - Draft
+
+Four faults found by reading the code, before they were met in play
+
+### Fixed
+
+- **A slung vehicle could be set down where it did not fit.** The check for room, and the outline shown while choosing a spot, measured the vehicle the game's way, which is a cell out for a vehicle of even length facing south or west. A load set down at the north or east edge of the map could be destroyed as it landed. Both now measure it as Vehicle Framework does. The same fault was fixed for trailers in 0.120.5.
+- **A slung vehicle the game refused to set down could be left in neither place.** Where the game refused without an error, the load was off the hook and not on the ground. It now goes back on the hook and the player is told, as already happened after an error.
+- **A boat that was under could take the whole hit with Combat Extended active.** Combat Extended applies a hit to a vehicle itself, and whichever of the two was asked first decided the outcome. The dive's protection is now always asked first, so a hit that does not carry through water does nothing, and one that does is weakened before it lands.
+- **The Health tab showed a part's armour as a percentage whatever the armour was measured in.** With Combat Extended, where armour is in millimetres of steel and megapascals, 30 mm read as 3,000%. It now uses the armour stat's own format: a percentage in the game, mm RHA and MPa with Combat Extended.
+
+### Changed
+
+- Cook-off asks whether Combat Extended is active when it sizes its blast, as every other blast of ours does. It only ever runs with Combat Extended's ammunition system on, so nothing changes in play.
+
+### Save compatibility
+
+- Safe with a running save. Nothing new is saved.
+
+### Compatibility and limits
+
+- Found by reading code on 18 November 2026; none of the four was seen in play. Not yet tested in game.
+- Checked and left alone: our blasts pick their armour scale by whether Combat Extended is active, not by its Use New Vehicle Armor setting. That is right, because the armour figures themselves are on Combat Extended's scale whenever it is active.
+
 ## [0.140.0] - 2026-11-18 - Draft
 
 Aircraft are checked for a hover where their journey ends

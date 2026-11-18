@@ -136,24 +136,19 @@ questions the same day ([record](modern-military-vehicles.md)). **Nothing built*
 | --- | --- | --- | --- | --- |
 | MV1 | Our own flight over the map: one design for hovering and circling, the hover half built first; every aircraft of ours stands on it | Framework | Our own route, learning from VTOL Vehicle and the Harrier's code without building on either (owner, 18 Nov 2026) | Open: design record first |
 | MV2 | Armour for armed vehicles: game-scale figures in the Def, millimetres and megapascals in a patch that loads only with Combat Extended | Vehicles | Combat Extended first, Vehicle Framework the fallback (owner, 18 Nov 2026) | Open: read done, nothing designed |
-| MV3 | The V-22 Osprey, under its real name: two ways up, one engine out, hook, cabin fits with the tanker kit, its real guns | Vehicles | Wanted (owner, 18 Nov 2026) | Open: waits for MV1 and MV2, then its own design record |
+| MV3 | The V-22 Osprey, under its real name: two ways up, one engine out, hook, cabin fits with the tanker kit, its real guns | Vehicles | Wanted; real proportions anchored to the Hind's speed (owner, 18 Nov 2026) | Open: waits for MV1 and MV2, then its own design record |
 | MV4 | The crewless fit: follow a leader (four followers at most) or run a loop, the vehicle staying optionally crewed | Framework | All three ways of working without a crew; seat kept; four followers (owner, 18 Nov 2026) | Open |
 | MV5 | A vehicle in a hold: the sling's holder with a ramp and a size limit | Framework | Only if feasible (owner, 18 Nov 2026) | Read done: feasible with limits; waits for a host aircraft and passes on test rows 57 and 70 |
-| MV6 | Mechanitor control of a crewless vehicle through the game's bandwidth | Framework | Read first (owner, 18 Nov 2026) | Read done: feasible with limits; **the owner's choice:** charged to the used figure or taken off the total |
-| MV7 | The other candidates: cargo helicopter, line-charge trailer (raiders may use it behind a setting), crewless ground carrier, control van, transport aeroplane and its gun kit, mobile air defence, rocket truck (loaded maps only), scout drone, wingman, protected truck | Vehicles | Real names (owner, 18 Nov 2026) | Record only; the order is the agent's recommendation |
+| MV6 | Mechanitor control of a crewless vehicle through the game's bandwidth | Framework | Read first; then charged to the used figure, so mechanoids keep priority (owner, 18 Nov 2026) | Open: read done, feasible with limits; nothing designed |
+| MV7 | The other candidates: cargo helicopter, line-charge trailer (raiders may use it behind a setting that starts off), crewless ground carrier, control van, transport aeroplane and its gun kit, mobile air defence, rocket truck (loaded maps only), scout drone, wingman, protected truck | Vehicles | Real names (owner, 18 Nov 2026) | Record only; the order is the agent's recommendation |
 
 ### Faults found by the code reads of 18 Nov 2026
 
-Read in code while answering the owner's questions; none seen in game. **Not yet put to the owner as a decision.**
+Read in code while answering the owner's questions; none seen in game. The owner chose to fix all six (18 Nov 2026); five are in [Done](#done-modern-military-vehicles-18-nov-2026) below, a sixth needed no change, and the fixing found a seventh.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
-| R1 | The sling checks room for a set-down, and draws the outline, with the game's footprint in place of Vehicle Framework's; the same fault in the hitch (H1) destroyed a vehicle at a map edge | Framework | — | Open |
-| R2 | The sling's set-down catches a thrown error but not a spawn that fails silently; the hitch checks both (H10) | Framework | — | Open |
-| R3 | The Health tab shows part armour as a percentage; under Combat Extended the figures are millimetres and megapascals | Framework | — | Open |
-| R4 | Nothing of ours reads Combat Extended's "Use New Vehicle Armor" setting: air-combat and effect damage pick their scale by whether Combat Extended is active | Framework | — | Open |
-| R5 | Cook-off always passes Combat Extended's blast scale; whether it can run without Combat Extended is unchecked | Framework | — | Open: check first |
-| R6 | The order of our submersible damage prefix and Combat Extended's prefix on the same method is unverified | Framework | — | Open: check first |
+| CR7 | **About forty other places read a vehicle's cells the game's way** (`OccupiedRect()` on a vehicle), which is a cell out for a vehicle of even length facing south or west: the pipes and conduits laid beneath it, set-up, the tipper, the generator set's leads, the roofed-over checks. Found while fixing CR1; none read one by one | Framework | — | Open: read each before changing any; the owner has not been asked |
 
 ## Vehicle accessories (13 Nov 2026)
 
@@ -493,3 +488,14 @@ lists it. A row that is only partly done stays in its table above.
 | T13 | Mod settings snapshot | Python | Done: phobos-modkit 0.12.0, `scripts/mod-settings.py`, AGENTS.md rule (8 Nov 2026) |
 | T14 | Decompiled-code index | Python | Done: phobos-modkit 0.13.1, `scripts/query-code.py`, AGENTS.md rule (8 Nov 2026) |
 | T11 | Resolved-Defs dump: a D'thorga Framework dev action the kit indexes, so Defs show with patches applied | C# and Python | Done, not yet tested in game: Framework 0.27.0 and phobos-modkit 0.15.0, `scripts/query-defs.py patched` (8 Nov 2026) |
+
+### Done: Modern military vehicles (18 Nov 2026)
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| CR1 | The sling checked room for a set-down, and drew the outline, with the game's footprint in place of Vehicle Framework's; the same fault in the hitch (H1) destroyed a vehicle at a map edge | Framework | Fix all six now (owner, 18 Nov 2026) | **Fixed: Framework 0.140.1**, not yet tested in game |
+| CR2 | The sling's set-down caught a thrown error but not a spawn that fails silently; the hitch checks both (H10) | Framework | Fix all six now (owner, 18 Nov 2026) | **Fixed: Framework 0.140.1**, not yet tested in game |
+| CR3 | The Health tab showed part armour as a percentage; under Combat Extended the figures are millimetres and megapascals | Framework | Fix all six now (owner, 18 Nov 2026) | **Fixed: Framework 0.140.1**, not yet tested in game: it uses the armour stat's own format |
+| CR4 | Nothing of ours reads Combat Extended's "Use New Vehicle Armor" setting: air-combat and effect damage pick their scale by whether Combat Extended is active | Framework | Fix all six now (owner, 18 Nov 2026) | Done, no change needed: the armour figures are on Combat Extended's scale whenever it is active, whatever that setting, so our test is the right one |
+| CR5 | Cook-off always passed Combat Extended's blast scale | Framework | Fix all six now (owner, 18 Nov 2026) | Done: harmless, since cook-off runs only with Combat Extended's ammunition system on; it asks like our other blasts from Framework 0.140.1 |
+| CR6 | The order of our submersible damage prefix and Combat Extended's prefix on the same method was unverified; at equal priority the earlier-applied one ran first and could apply a hit the dive should refuse | Framework | Fix all six now (owner, 18 Nov 2026) | **Fixed: Framework 0.140.1**, not yet tested in game: ours now runs before every other prefix there |

@@ -74,7 +74,9 @@ public static class CookOff
             Messages.Message("PhobosVehicleSystems_MsgCookOff".Translate(vehicle.LabelShort.Named("VEHICLE")), vehicle, MessageTypeDefOf.ThreatSmall);
         }
         GenExplosion.DoExplosion(vehicle.Position, vehicle.Map, radius, DamageDefOf.Bomb, vehicle, damage,
-            CombatExtendedRules.BlastPenetrationForDamage(damage, true));
+            // The same test as every other blast of ours (Framework 0.140.1). Cook-off only runs with Combat Extended's ammunition system on,
+            // so this was always true here; it now says so by asking, not by assuming.
+            CombatExtendedRules.BlastPenetrationForDamage(damage, OptionalMods.IsActive(OptionalMods.CombatExtended)));
         // A tank's ammunition rack may go up with it, and the turret with that (Framework 0.116.0, T8).
         if (vehicle.Spawned) TurretPopping.AfterCookOff(comp);
     }

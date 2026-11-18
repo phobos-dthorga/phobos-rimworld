@@ -1,7 +1,8 @@
 # Modern military aircraft and vehicles: candidates (18 Nov 2026)
 
 **Status (18 Nov 2026):** research and record only; the owner answered its thirteen open questions the same day
-([their decisions](#the-owners-decisions-on-the-open-questions-18-nov-2026)). Nothing here is built.
+([their decisions](#the-owners-decisions-on-the-open-questions-18-nov-2026)). No vehicle or mechanic here is built; six
+faults its code reads found in shipped code were fixed in D'thorga Framework 0.140.1, not yet tested in game.
 
 Researched on 18 November 2026 by an agent at the owner's request: "I really, really enjoy the military aircraft in my
 Rimworld gaming and to a slightly lesser extent, just interesting military vehicles that can also serve autonomously
@@ -716,7 +717,7 @@ line of explosions through the game's own explosion system. Every figure (lane s
 misfire chance, what the charge costs) would be authored and kept modest; 794 kg of explosive is a real figure,
 not a recipe. **Other factions:** raiders with one would breach a trapped corridor the same way. That is fair and
 costs nothing to run, but it changes how defences are built. **Decided (owner, 18 Nov 2026): yes, behind a mod
-setting.** The setting starting off is an agent default.
+setting that starts off.**
 
 ### The protected truck (Thales Bushmaster)
 
@@ -903,12 +904,13 @@ for both hovering and circling from the start, and the hover half is built first
 - **2, 3 and the fourteenth.** A design record for our own flight over the map, in D'thorga Framework's core because
   every aircraft of ours will use it. It comes before the Osprey's own design record.
 - **5.** A read of how one vehicle can be held inside another; the owner hears the verdict plainly either way.
-- **7.** The anchor helicopter is an agent suggestion, the Louie (after the UH-1), for the owner to change.
+- **7.** The anchor helicopter is the Hind (owner, 18 Nov 2026, [later choices](#the-owners-later-choices-18-nov-2026));
+  the agent had first suggested the Louie, which would have put the Osprey above everything on the list.
 - **10.** A read of how the game counts bandwidth.
 - **11.** Answers, for these two weapons, the question [striking another map](cross-map-strikes.md) left open.
 - **12.** Applies to machines based on one real machine. Our utility vehicles keep their house names, and the
   mods keep theirs (agent's reading of the decision).
-- **13.** Whether the setting starts on or off is an agent default: off.
+- **13.** The setting starts off (owner, 18 Nov 2026).
 
 ## Code reads the decisions asked for (18 Nov 2026)
 
@@ -991,7 +993,7 @@ vehicle a mechanoid.**
 
 | Way | What the player sees | Who loses control first when bandwidth runs short |
 | --- | --- | --- |
-| **Add to the used figure** (agent recommendation) | The mechanitor's bandwidth fills up with the vehicle's cost | Vehicles, newest first; mechanoids keep priority |
+| **Add to the used figure** (the owner's choice, 18 Nov 2026) | The mechanitor's bandwidth fills up with the vehicle's cost | Vehicles, newest first; mechanoids keep priority |
 | Lower the total, as the game's own band node raises it | The total shrinks; the Health tab names the link | Mechanoids, newest first; vehicles keep priority |
 | Make the vehicle a truly overseen pawn | The vehicle sits in a control group whose work modes mean nothing to it | The game's own rule |
 | A small control mechanoid fitted in the vehicle | The full game behaviour, on a new mechanoid | The game's own rule |
@@ -1014,31 +1016,42 @@ works near its mechanitor, and the route level still does the travelling.
 
 ### Faults the reads found in code we already ship
 
-Read in code, none seen in game, none fixed here. They are rows R1 to R6 in
-[outstanding work](outstanding-work.md#faults-found-by-the-code-reads-of-18-nov-2026).
+Read in code, none seen in game. **The owner chose to fix all six (18 Nov 2026), and they went into D'thorga Framework
+0.140.1**, not yet tested in game. They are rows CR1 to CR6 in
+[outstanding work](outstanding-work.md#done-modern-military-vehicles-18-nov-2026).
 
-- **The sling checks room with the game's footprint, not Vehicle Framework's** (`CompPhobosSling.cs:658`, and the
-  outline at `:389`). The same mistake in the hitch destroyed a vehicle set down at a map edge, and was fixed there.
-- **The sling's set-down catches a thrown error but not a spawn that fails silently** (`CompPhobosSling.cs:346-362`);
-  the hitch checks both.
-- **Our Health tab shows part armour as a percentage** (`ITab_PhobosVehicleHealth.cs:762`), so 30 mm under Combat
-  Extended would read "3,000%".
-- **Nothing of ours reads Combat Extended's "Use New Vehicle Armor" setting.** Our air-combat and effect damage
-  choose their scale by "Combat Extended is active"; with it active and that setting off, they are on the wrong scale.
-- **Our cook-off always passes Combat Extended's scale** (`Service/CookOff.cs:77`).
-- **The order of our submersible prefix and Combat Extended's prefix on the same method is unverified.** If
-  Combat Extended's runs first, it applies damage our prefix meant to absorb.
+| Row | The fault as read | What was done |
+| --- | --- | --- |
+| CR1 | The sling checked room, and drew the outline, with the game's footprint in place of Vehicle Framework's. The same mistake in the hitch destroyed a vehicle set down at a map edge | Fixed: both use Vehicle Framework's footprint, with a test that refuses the game's one where vehicles are set down |
+| CR2 | The sling's set-down caught a thrown error but not a spawn that fails silently | Fixed: the load goes back on the hook and the player is told, as the hitch does |
+| CR3 | Our Health tab showed part armour as a percentage, so 30 mm under Combat Extended read "3,000%" | Fixed: it uses the armour stat's own format, which Combat Extended sets to "mm RHA" and "MPa" |
+| CR4 | Nothing of ours reads Combat Extended's "Use New Vehicle Armor" setting | **Not a fault.** The armour figures are on Combat Extended's scale whenever it is active, whatever that setting says, so choosing our blast scale by "Combat Extended is active" is right. No change |
+| CR5 | Cook-off always passed Combat Extended's scale | Harmless: it runs only with Combat Extended's ammunition system on. It now asks, like our other blasts |
+| CR6 | The order of our submersible prefix and Combat Extended's on the same method was unverified | Fixed: ours runs before every other prefix there, with a test. Which of the two ran first before is still not known, so "a dived boat took full damage" was possible, not proven |
+
+**The fixing found a seventh, not fixed (row CR7):** about forty other places in the vehicle code read a vehicle's
+cells the game's way (`OccupiedRect()`), which has the same one-cell error for a vehicle of even length facing south or
+west: the pipes and conduits laid beneath it, set-up, the tipper, the generator set's leads. Each needs reading before
+any is changed.
+
+## The owner's later choices (18 Nov 2026)
+
+Asked after the code reads, the same day:
+
+| Choice | The owner's decision |
+| --- | --- |
+| How a mechanitor's bandwidth is charged for a vehicle | Added to the used figure: vehicles stop first when it runs short, and mechanoids keep priority |
+| Whether to fix the six faults | Fix all six now (Framework 0.140.1, above) |
+| The anchor for real proportions | **The Hind**: 10 in game. At about 270 km/h in reality, the Osprey's sourced 463 to 493 km/h comes out near 17 to 18, above every helicopter and just above the Harrier's 16 **[I; the Hind's real speed is from memory and still to be sourced]** |
+| Whether the line charge's setting starts on or off | Off |
 
 ## Still open
 
-1. **Which way the mechanitor's bandwidth is charged**: added to the used figure, so mechanoids keep priority
-   (agent recommendation), or taken off the total, so vehicles do.
-2. **Whether to fix rows R1 to R6**, which is code and not research.
-3. **The anchor for real proportions** (decision 7): the Louie, or another helicopter.
-4. **Whether the line charge's setting starts on or off** (decision 13).
-5. **Vehicle Framework's own armour figures** for players without Combat Extended: authored ratings, set when the
+1. **Row CR7**: the forty other uses of the game's footprint on a vehicle. The owner has not been asked.
+2. **The Hind's real cruising speed**, to be sourced before any figure is set from it.
+3. **Vehicle Framework's own armour figures** for players without Combat Extended: authored ratings, set when the
    first armoured Def is written.
-6. **Everything in the radio section**, until the radio framework is picked up again.
+4. **Everything in the radio section**, until the radio framework is picked up again.
 
 ## Who chose what
 
@@ -1051,7 +1064,9 @@ Read in code, none seen in game, none fixed here. They are rows R1 to R6 in
   frameworks' authors and house names; the owner chose otherwise on both.
 - **Agent defaults, owner to revise:** helicopter flight on the map and aeroplane flight between maps; no vehicle
   inside the Osprey; what it lands on as three conditions; the table of which vehicle takes which crewless level;
-  the Louie as the anchor for real proportions; the line charge's setting starting off.
+  the five limits proposed for a hold.
+- **Owner, later the same day:** bandwidth added to the used figure; all six faults fixed now; the Hind as the anchor
+  for real proportions; the line charge's setting starting off.
 - **Authored, to be set if anything is built:** every game figure. No figure in this record is a Def value.
 
 ## Sources and what could not be confirmed

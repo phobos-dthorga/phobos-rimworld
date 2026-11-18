@@ -346,13 +346,21 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
     bool Place(VehiclePawn load, IntVec3 cell, Map map, Rot4 facing)
     {
         held.Remove(load);
+        string? failure = null;
         try
         {
             GenSpawn.Spawn(load, cell, map, facing);
+            // The game can also refuse without throwing (Framework 0.140.1, as the hitch learnt in fault-read H10): the load is down only
+            // if it really stands on the map. Without this a refused load was neither on the hook nor on the ground.
+            if (!load.Spawned) failure = "the game did not put it on the map";
         }
         catch (System.Exception e)
         {
-            VehicleSystemsMod.Logger.Error($"Setting {load.LabelShort} down from {Vehicle.LabelShort} at {cell} failed: {e}");
+            failure = e.ToString();
+        }
+        if (failure != null)
+        {
+            VehicleSystemsMod.Logger.Error($"Setting {load.LabelShort} down from {Vehicle.LabelShort} at {cell} failed: {failure}");
             if (!load.Spawned && !load.Destroyed && !held.Contains(load)) held.TryAdd(load, canMergeWithExistingStacks: false);
             Say("PhobosSling_SetDownFailed".Translate(load.LabelShort.Named("LOAD")).Resolve(), Vehicle, MessageTypeDefOf.NegativeEvent);
             return false;
@@ -386,7 +394,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
             target =>
             {
                 if (!target.Cell.IsValid) return;
-                GenDraw.DrawFieldEdges(GenAdj.OccupiedRect(target.Cell, facing, load.VehicleDef.Size).Cells.ToList(),
+                GenDraw.DrawFieldEdges(load.VehicleRect(target.Cell, facing).Cells.ToList(),
                     SpotRefusal(target.Cell, facing) == null ? Color.white : Color.red);
             },
             target => target.Cell.IsValid && SpotRefusal(target.Cell, facing) == null,
@@ -404,7 +412,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder
         Map map = Vehicle.Map;
         if (load == null || map == null) return "PhobosSling_NothingToSetDown".Translate().Resolve();
         if (cell.DistanceTo(Vehicle.Position) > Rules.slingReachCells) return "PhobosSling_SpotTooFar".Translate(Rules.slingReachCells.Named("CELLS")).Resolve();
-        return SlingPlacement.Fits(load.VehicleDef, facing, map, cell, Vehicle.OccupiedRect()) ? null : "PhobosSling_SpotBlocked".Translate().Resolve();
+        return SlingPlacement.Fits(load.VehicleDef, facing, map, cell, Vehicle.VehicleRect()) ? null : "PhobosSling_SpotBlocked".Translate().Resolve();
     }
 
     /// <summary>Sets the load down where the player chose, if it still fits there; otherwise on the nearest clear ground.</summary>
@@ -633,7 +641,7 @@ public static class SlingPlacement
 {
     public static bool TryFindSpot(VehiclePawn load, VehiclePawn helicopter, Map map, float radius, out IntVec3 found) =>
         TryFindClear(load.VehicleDef, helicopter.Spawned ? helicopter.Rotation : Rot4.North, map, helicopter.Spawned ? helicopter.Position : load.Position, radius,
-            helicopter.Spawned ? helicopter.OccupiedRect() : CellRect.Empty, out found);
+            helicopter.Spawned ? helicopter.VehicleRect() : CellRect.Empty, out found);
 
     /// <summary>The nearest cell to <paramref name="centre"/> where a vehicle of this design fits on open, unroofed, standable ground with
     /// nobody and nothing solid in the way, clear of <paramref name="avoid"/>.</summary>
@@ -655,7 +663,10 @@ public static class SlingPlacement
     /// the way, clear of <paramref name="avoid"/>.</summary>
     public static bool Fits(VehicleDef design, Rot4 rotation, Map map, IntVec3 cell, CellRect avoid)
     {
-        CellRect rect = GenAdj.OccupiedRect(cell, rotation, design.Size);
+        // Vehicle Framework's own footprint (Framework 0.140.1, as the hitch learnt in fault-read H1): it reads south as north and west as
+        // east, so the game's rect was a cell out for a vehicle of even length, and one set down at the north or east edge could be
+        // destroyed as it spawned.
+        CellRect rect = design.VehicleRect(cell, rotation);
         if (!rect.InBounds(map) || rect.Overlaps(avoid)) return false;
         foreach (IntVec3 c in rect)
         {

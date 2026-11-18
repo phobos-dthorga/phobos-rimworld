@@ -41,14 +41,25 @@ public static class SubmersibleDrawnAsShadow
 /// <summary>
 /// Keeps what cannot reach a hull that is under from hurting it, and shrinks what can. A prefix that skips the original, and needs to: every hit on a vehicle, from any weapon framework, ends in
 /// this one method, and a vehicle offers no way to refuse one. It skips only for a hull that is under, and only for a hit that does not carry through water.
+/// <para>
+/// It runs before every other prefix on this method (Framework 0.140.1). Another mod's prefix here may apply the damage itself and skip the original, as Combat
+/// Extended's does; at the usual priority that one ran first, being loaded earlier, and a hull that was under took the whole hit. Running first, this one shrinks
+/// or refuses the hit before anyone reads it. A refused hit is also set to nothing, in case a later prefix still looks at it.
+/// </para>
 /// </summary>
 [HarmonyPatch(typeof(VehicleStatHandler), nameof(VehicleStatHandler.ApplyDamage))]
 public static class SubmersibleDamageBelow
 {
+    /// <summary>Above Harmony's own highest named priority, which several mods' prefixes on this method already use.</summary>
+    public const int BeforeEveryOtherPrefix = Priority.First + 100;
+
+    [HarmonyPriority(BeforeEveryOtherPrefix)]
     public static bool Prefix(VehiclePawn ___vehicle, ref DamageInfo dinfo)
     {
         if (!Submersibles.AnyHidden || !Submersibles.IsHidden(___vehicle)) return true;
-        return !Submersibles.AbsorbHit(___vehicle, ref dinfo);
+        if (!Submersibles.AbsorbHit(___vehicle, ref dinfo)) return true;
+        dinfo.SetAmount(0f);
+        return false;
     }
 }
 

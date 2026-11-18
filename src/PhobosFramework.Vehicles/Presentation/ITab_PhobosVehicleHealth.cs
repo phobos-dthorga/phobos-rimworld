@@ -759,7 +759,9 @@ public class ITab_PhobosVehicleHealth : ITab
                 {
                     if (category.armorRatingStat == null) continue;
                     float armour = part.ArmorRating(category, out _);
-                    if (armour > 0f) text.Append('\n').Append(category.armorRatingStat.LabelCap).Append(": ").Append(armour.ToStringPercent());
+                    // The stat's own format (Framework 0.140.1): a percentage in the game, and millimetres of steel or megapascals where
+                    // another mod has redefined the stat so. A fixed percentage showed 30 mm of armour as 3,000%.
+                    if (armour > 0f) text.Append('\n').Append(category.armorRatingStat.LabelCap).Append(": ").Append(category.armorRatingStat.ValueToString(armour));
                 }
             }
             if (HasReactor<Reactor_Explosive>(part)) text.Append('\n').Append("PhobosVehicleSystems_HealthReactorExplosive".Translate());
