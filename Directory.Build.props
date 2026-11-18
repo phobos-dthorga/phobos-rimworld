@@ -7,6 +7,10 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <Deterministic>true</Deterministic>
+    <!-- The .NET SDK stamps the git commit into every assembly's informational version ("0.1.8+759b345d..."), so every commit
+         anywhere changed every rebuilt assembly by about 100 bytes, and the Companion's Mods page read unchanged mods as changed
+         (owner's report, 19 Nov 2026). Without it the same code builds to the same bytes; the install record keeps the commit. -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GenerateDependencyFile>false</GenerateDependencyFile>
   </PropertyGroup>

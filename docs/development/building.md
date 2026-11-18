@@ -174,6 +174,12 @@ Check each optional mod's real `packageId` in its `About.xml` before using it. C
 
 ## The C# toolchain
 
+**The same code builds to the same bytes** (19 Nov 2026). The .NET SDK stamps the git commit into an assembly's informational
+version unless told not to (`IncludeSourceRevisionInInformationalVersion`), so every commit anywhere changed every rebuilt
+assembly by about 100 bytes, and D'thorga Companion's Mods page read unchanged mods as changed (owner's report). It is off; the
+install record (`InstallRecord.json`) keeps the commit instead. Checked: Water Tap built at two commits came out byte for byte the
+same. An assembly still changes when its own code does, or when code it uses changes how it compiles.
+
 | | RimWorld 1.7 (the only version, owner, 8 Nov 2026) |
 | --- | --- |
 | Target | `net10.0` |
@@ -184,7 +190,7 @@ Check each optional mod's real `packageId` in its `About.xml` before using it. C
 
 The sources and dates are in the [RimWorld modding reference](rimworld-modding-reference.md#building-c-mods).
 `Directory.Build.props` sets the shared options (the latest C# language version, nullable references, deterministic builds,
-warnings as errors, no `.deps.json`), and `Directory.Build.targets` everything that
+no git commit in the assembly's version, warnings as errors, no `.deps.json`), and `Directory.Build.targets` everything that
 depends on the target: `GameVersion` (1.7), the output folder
 `mods/$(ModFolder)/$(TieInFolder)$(GameVersion)/Assemblies/` (set as `OutDir`, `TargetDir` and `TargetPath`, because the SDK
 has already derived those from `OutputPath` by the time the file is imported), the Krafs reference, Harmony
