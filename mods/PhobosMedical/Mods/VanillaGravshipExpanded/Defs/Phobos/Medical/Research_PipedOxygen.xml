@@ -8,8 +8,8 @@
     <tab>PhobosDthorga</tab>
     <techLevel>Industrial</techLevel>
     <baseCost>1500</baseCost>
-    <researchViewX>2</researchViewX>
-    <researchViewY>4.0</researchViewY>
+    <researchViewX>7</researchViewX>
+    <researchViewY>0</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Respiratory</li>
       <li>VGE_OxygenNetwork</li>

@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.167.0] - 2026-11-19 - Draft
+
+The research tab laid out so no line crosses a project
+
+### Added
+
+- **A vehicle's design may say where added parts sit.** The systems add a generator, battery, starter and cabin fittings to every aircraft beside its engine; a design whose engine is out on a wing can now place them in the body instead.
+
+### Fixed
+
+- **The D'thorga research tab is laid out so no line runs through another project.** Thirteen lines crossed other projects' boxes. Every project that needs vehicle parts now sits in the next column, the trailers' fittings and the Osprey after them, and the medical projects in their own columns at the top. Positions only: research done stays done.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The layout is an agent's, for the owner to revise.
+
 ## [0.166.0] - 2026-11-19 - Draft
 
 Our own flight: the last ten points found by the Osprey's read before testing, fixed at the owner's word

@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.84.0] - 2026-11-19 - Draft
+
+The Osprey's added parts are in its body, not on the left wingtip
+
+### Fixed
+
+- **The Osprey's generator, battery, starter, avionics bay, ferry tank tie-downs and cabin oxygen panel sit in the forward cabin.** They were all placed on the left nacelle, out on the wingtip, so fire there hit every one of them and the right nacelle carried none.
+- **Its research projects moved** with the rest of the tab, so no line crosses another project. Positions only.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.167.0 or later, which can place added parts by the design's word. With an older Framework the game reports an unknown field in the Osprey's loadout at start-up.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Where the real aircraft's generators and starter sit was not checked; one place in the body for all keeps both nacelles alike.
+
 ## [0.83.0] - 2026-11-19 - Draft
 
 The Osprey's rope and hoist mounts at its ramp

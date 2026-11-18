@@ -6,6 +6,18 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.18.2] - 2026-11-19 - Draft
+
+Its research projects moved on the D'thorga tab
+
+### Changed
+
+- **The medical research projects sit in their own columns at the top of the D'thorga tab**, so the vehicle projects below them can be laid out with no line crossing another project. Positions only: research done stays done, and nothing else changes.
+
+### Compatibility and limits
+
+- Safe with a running save. Not yet tested in game.
+
 ## [0.18.1] - 2026-11-18 - Draft
 
 The triage tag's own picture

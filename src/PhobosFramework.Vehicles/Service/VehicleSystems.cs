@@ -205,7 +205,16 @@ public static class VehicleSystems
     {
         var hitbox = new ComponentHitbox();
         VehicleComponentProperties? reference = null;
-        if (add.cellsOf != null && props.roleKeys.TryGetValue(add.cellsOf, out List<string>? keys) && keys.Count > 0)
+        // The design may move parts placed by one role's cells to another's (Framework 0.166.0, the loadout's cellsOfRemap).
+        string? cellsOf = add.cellsOf;
+        if (cellsOf != null && props.loadout?.cellsOfRemap is { Count: > 0 } remaps)
+        {
+            foreach (CellsOfRemap remap in remaps)
+            {
+                if (remap.from == cellsOf) { cellsOf = remap.to; break; }
+            }
+        }
+        if (cellsOf != null && props.roleKeys.TryGetValue(cellsOf, out List<string>? keys) && keys.Count > 0)
         {
             reference = def.components.FirstOrDefault(p => p.key == keys[0]);
         }

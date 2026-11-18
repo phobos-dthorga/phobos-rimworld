@@ -116,6 +116,14 @@ All are Industrial, named `PhobosResearch_<Name>`. Those names stay fixed once a
 
 - [Research gates audit, 17 Nov 2026](research-gates-audit-2026-11-17.md): the trailers and truck upgrades against this tree, with proposals. **Answer what gates a thing, or what a project unlocks, with `python scripts/research-gates.py`** (`--ungated`, `--weak`, `--project`).
 
+- **The tab's layout, 19 Nov 2026** (fault-read W8, [the record](fault-read-2026-11-19.md)): thirteen requirement lines ran through other
+  projects' boxes, the Osprey's through the drill rig's among them, because vehicle parts' projects sat two and three columns from it.
+  Re-laid so every line runs between neighbouring columns: the vehicle lane in columns 0 to 3 (vehicle parts and vehicle electrics in
+  column 0, everything that needs vehicle parts in column 1, then the trailers' fittings and the Osprey, then its upgrades), the medical
+  lane in columns 5 to 7 at the top, all within the game's 6.5 rows. Positions only: nothing a save holds. **`scripts/check-research.py`
+  now refuses a line through another box**, with the game's own geometry (MainTabWindow_Research: 140 x 50 pixel boxes at x * 190,
+  y * 100, straight lines from right middle to left middle). Agent's layout, for the owner to revise.
+
 ## Still unknown
 
 - Nothing has run in game. Vehicle Framework was read from its 1.6 decompile.

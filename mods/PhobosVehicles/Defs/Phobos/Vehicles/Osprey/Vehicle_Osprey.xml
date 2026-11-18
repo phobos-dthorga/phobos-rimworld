@@ -960,6 +960,17 @@
         <when Class="Phobos.VehicleSystems.When_PoweredWeaponManned" />
       </li>
     </loads>
+    <!-- The aircraft loadout puts its generator, battery, starter, avionics bay, ferry tank tie-downs and cabin oxygen panel on the engine's
+         cells. Here "Engine" is the left nacelle, so all of them sat out on the left wingtip, and fire there hit them while the right nacelle
+         carried none (fault-read A2, 19 Nov 2026; D'thorga Vehicles 0.84.0). They go in the forward cabin's cells instead [A]: the
+         batteries, avionics and cabin fittings are in the real fuselage [I]; where the real generators and starter sit was not checked, and
+         one place for all keeps both nacelles alike. -->
+    <cellsOfRemap>
+      <li>
+        <from>Engine</from>
+        <to>Cabin</to>
+      </li>
+    </cellsOfRemap>
     <partRoles>
       <li>
         <!-- The hook mount: 60 health, inner, under the forward cabin's floor (the record's parts table). -->

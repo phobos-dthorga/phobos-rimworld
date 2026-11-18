@@ -78,6 +78,17 @@ class CheckResearchTests(unittest.TestCase):
     def test_projects_too_close_are_refused(self):
         self.assert_caught(TAB + project('PhobosResearch_One', 0, 0) + project('PhobosResearch_Two', 0.2, 0.1), 'too close')
 
+    def test_a_line_through_another_box_is_refused(self):
+        # One at column 0 needed by one at column 2, with a third in the column between on the same row: the line runs through it.
+        defs = (TAB + project('PhobosResearch_One', 0, 1) + project('PhobosResearch_Between', 1, 1)
+                + project('PhobosResearch_Two', 2, 1, needs='<li>Machining</li><li>PhobosResearch_One</li>'))
+        self.assert_caught(defs, 'passes through PhobosResearch_Between')
+
+    def test_a_line_between_neighbouring_columns_passes(self):
+        defs = (TAB + project('PhobosResearch_One', 0, 1) + project('PhobosResearch_Below', 0, 2)
+                + project('PhobosResearch_Two', 1, 3, needs='<li>Machining</li><li>PhobosResearch_One</li>'))
+        self.assertFalse([e for e in self.errors(defs) if 'passes through' in e])
+
     def test_a_position_off_the_screen_is_refused(self):
         self.assert_caught(TAB + project(y=7), 'off the screen')
 

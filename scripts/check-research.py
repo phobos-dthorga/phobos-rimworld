@@ -9,6 +9,8 @@ For each project on one of our tabs:
 - its hard requirements reach research that is not ours, with no loops;
 - each requirement is ours, or the game's, or is conditional (MayRequire, or in a Mods/ folder loaded only with that mod);
 - it names a tab we define, sits within the screen, and is not so close to another project that the game moves it;
+- no line to it from a requirement on the same tab passes through another project's box (the game draws straight lines; fault-read W8 of
+  19 Nov 2026 found thirteen such crossings);
 - it lists what it replaces, for the one-time grant to existing colonies, or says it is brand new with an empty <replaces />.
 
 Across mods/: every PhobosResearch_ name used anywhere is a project we define, every upgrade's research is ours, the game's or
@@ -38,6 +40,9 @@ TREE_TAG = 'Vehicles.UpgradeTreeDef'
 REPLACES_CLASS = 'Phobos.Framework.Research.ResearchReplacesExtension'
 MARKER_CLASS = 'Phobos.VehicleSystems.PhobosEnforceUpgradeResearch'
 MIN_DX, MIN_DY, MAX_Y = 0.5, 0.25, 6.5  # the game nudges closer pairs and clamps Y (ResearchProjectDef)
+# MainTabWindow_Research: a project's box is 140 x 50 pixels at (x * 190, y * 100), and a requirement's line runs straight from the middle
+# of the requirement's right side to the middle of the project's left side.
+CELL_X, CELL_Y, BOX_W, BOX_H = 190.0, 100.0, 140.0, 50.0
 NAME_IN_TEXT = re.compile(PREFIX + r'\w+')
 CONDITIONS = ('MayRequire', 'MayRequireAnyOf')
 
@@ -186,6 +191,42 @@ def position_errors(projects):
     return errors
 
 
+def line_errors(projects):
+    """Lines between requirements and projects on one tab that pass through a third project's box."""
+    placed = {}
+    for project in projects:
+        try:
+            x, y = float(project.field('researchViewX')), float(project.field('researchViewY'))
+        except (TypeError, ValueError):
+            continue
+        placed[project.name] = (project, project.field('tab'), x * CELL_X, y * CELL_Y)
+    errors = []
+    for name, (project, tab, x, y) in placed.items():
+        start = (x, y + BOX_H / 2)
+        for li in project.requirements():
+            needed = placed.get(text_of(li))
+            if needed is None or needed[1] != tab:
+                continue  # a requirement on another tab draws no line
+            end = (needed[2] + BOX_W, needed[3] + BOX_H / 2)
+            for other, (_, other_tab, ox, oy) in placed.items():
+                if other in (name, text_of(li)) or other_tab != tab:
+                    continue
+                if _crosses(start, end, (ox, oy, ox + BOX_W, oy + BOX_H)):
+                    errors.append(f'{name}: its line from {text_of(li)} passes through {other}\'s box; move one so the line runs clear')
+    return errors
+
+
+def _crosses(a, b, box):
+    """Whether the straight line a-b passes through the inside of the box, sampled finely (the line is two pixels wide)."""
+    x0, y0, x1, y1 = box
+    for step in range(1, 400):
+        t = step / 400
+        px, py = a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t
+        if x0 + 1 < px < x1 - 1 and y0 + 1 < py < y1 - 1:
+            return True
+    return False
+
+
 def upgrade_errors(files, mods_dir, ours, known):
     """Every upgrade's research, and no tree of ours carrying the old marker."""
     errors = []
@@ -230,6 +271,7 @@ def check(mods_dir, known):
         if project.replaces() is None:
             errors.append(f'{name}: lists nothing it replaces, so an existing colony can never be granted it; a brand new project says so with an empty <replaces />')
     errors.extend(position_errors(ours.values()))
+    errors.extend(line_errors(ours.values()))
     errors.extend(upgrade_errors(files, mods_dir, defined, known))
     for path in sorted(mods_dir.glob('*/**/*.xml')):
         if 'Languages' in path.relative_to(mods_dir).parts:

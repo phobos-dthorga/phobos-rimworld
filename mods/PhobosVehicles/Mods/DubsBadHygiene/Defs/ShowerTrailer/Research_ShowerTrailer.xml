@@ -10,7 +10,7 @@
     <description>Showers, flushing toilets and a water heater on a trailer that pitches its own tent: washing and toilets for a camp far from any plumbing.</description>
     <baseCost>1500</baseCost>
     <researchViewX>2</researchViewX>
-    <researchViewY>3.2</researchViewY>
+    <researchViewY>0.6</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Trailers</li>
       <li>Plumbing</li>

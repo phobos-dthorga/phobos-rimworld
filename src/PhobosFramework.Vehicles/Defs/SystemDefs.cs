@@ -448,6 +448,13 @@ public class PartToAdd
     public bool countsTowardDestruction = true;
 }
 
+/// <summary>One entry of a loadout's cellsOfRemap: parts placed by the cells of <c>from</c> take the cells of <c>to</c> instead.</summary>
+public class CellsOfRemap
+{
+    public string from = "";
+    public string to = "";
+}
+
 public class PartRoleSpec
 {
     public string role = "";
@@ -742,6 +749,14 @@ public class PhobosVehicleLoadoutDef : Def
     public LoadoutSelector selector = new();
     public List<LoadoutSystem> systems = new();
     public List<PartRoleSpec> partRoles = new();
+    /// <summary>
+    /// Where an added part sits when the role its <c>cellsOf</c> names would put it in the wrong place on this design (Framework 0.166.0;
+    /// fault-read A2 of 19 Nov 2026): each entry sends parts placed by one role's cells to another's. The aircraft loadout puts its
+    /// generator, battery, starter and cabin fittings on the engine's cells, right for a helicopter whose engine is in the body and wrong
+    /// for a tiltrotor, whose "Engine" is its left nacelle. A child loadout adds entries; a role cannot be bound twice, so this is how it
+    /// moves an inherited part.
+    /// </summary>
+    public List<CellsOfRemap> cellsOfRemap = new();
     public List<ElectricalLoadSpec> loads = new();
     /// <summary>What the aircraft's avionics carry (Framework 0.110.0); null for a loadout with none.</summary>
     public AvionicsFit? avionics;

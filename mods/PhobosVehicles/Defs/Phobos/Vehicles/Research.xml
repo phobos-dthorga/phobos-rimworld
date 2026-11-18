@@ -12,8 +12,8 @@
     <label>tipper hauler</label>
     <description>A truck with a body that lifts, to carry stone, ore and bulk loads and drop them where they are wanted.</description>
     <baseCost>1500</baseCost>
-    <researchViewX>2</researchViewX>
-    <researchViewY>1.2</researchViewY>
+    <researchViewX>1</researchViewX>
+    <researchViewY>3</researchViewY>
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
       <li>Electricity</li>
@@ -31,8 +31,8 @@
     <label>bulk tanker</label>
     <description>A truck that carries liquids in bulk, with hoses and a pump to load and unload them.</description>
     <baseCost>2400</baseCost>
-    <researchViewX>3</researchViewX>
-    <researchViewY>1.2</researchViewY>
+    <researchViewX>1</researchViewX>
+    <researchViewY>4.8</researchViewY>
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
       <li>Electricity</li>
@@ -50,8 +50,8 @@
     <label>generator truck</label>
     <description>A diesel generator on a truck bed, to bring power to a camp or a job far from the grid.</description>
     <baseCost>2100</baseCost>
-    <researchViewX>3</researchViewX>
-    <researchViewY>2.0</researchViewY>
+    <researchViewX>1</researchViewX>
+    <researchViewY>5.4</researchViewY>
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
       <li>PhobosResearch_VehicleElectrics</li>
@@ -70,8 +70,8 @@
     <label>drill rig</label>
     <description>A mast and drill string on a truck. It goes to a deposit, sets up, and brings ore up far faster than a fixed deep drill.</description>
     <baseCost>3600</baseCost>
-    <researchViewX>3</researchViewX>
-    <researchViewY>0</researchViewY>
+    <researchViewX>1</researchViewX>
+    <researchViewY>3.6</researchViewY>
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
       <li>DeepDrilling</li>
@@ -89,8 +89,8 @@
     <label>survey truck</label>
     <description>Instruments on a truck bed that find what lies under the ground, far faster than a fixed scanner.</description>
     <baseCost>2800</baseCost>
-    <researchViewX>3</researchViewX>
-    <researchViewY>0.6</researchViewY>
+    <researchViewX>1</researchViewX>
+    <researchViewY>4.2</researchViewY>
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
       <li>GroundPenetratingScanner</li>
@@ -113,8 +113,8 @@
     <label>truck armour</label>
     <description>Steel guards, run-flat tyres and shielded wiring for the service trucks, so a stray bullet or a pulse does not leave them stranded.</description>
     <baseCost>1800</baseCost>
-    <researchViewX>4</researchViewX>
-    <researchViewY>1.6</researchViewY>
+    <researchViewX>1</researchViewX>
+    <researchViewY>6</researchViewY>
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
       <li>FlakArmor</li>
@@ -132,7 +132,7 @@
     <description>Drawbars, couplings and running gear for trailers any vehicle with a hitch can tow: the flatbed and the water and fuel bowsers.</description>
     <baseCost>1000</baseCost>
     <researchViewX>1</researchViewX>
-    <researchViewY>2.6</researchViewY>
+    <researchViewY>0</researchViewY>
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
       <li MayRequire="oskarpotocki.vanillavehiclesexpanded">VVE_BasicVehicles</li>
@@ -151,7 +151,7 @@
     <description>A kitchen on a trailer that pitches its own tent: cook anything a stove can far from home, meals ten at a time, and in a resting caravan.</description>
     <baseCost>2000</baseCost>
     <researchViewX>2</researchViewX>
-    <researchViewY>2.6</researchViewY>
+    <researchViewY>0</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Trailers</li>
       <li>Electricity</li>
@@ -170,7 +170,7 @@
     <description>A second range and the biggest kettle for the field kitchen, to feed a large camp: two cooks at once, and meals twenty at a time.</description>
     <baseCost>1500</baseCost>
     <researchViewX>3</researchViewX>
-    <researchViewY>2.6</researchViewY>
+    <researchViewY>0</researchViewY>
     <prerequisites>
       <li>PhobosResearch_FieldKitchen</li>
     </prerequisites>
@@ -188,8 +188,8 @@
     <label>tiltrotor aircraft</label>
     <description>Rotors on tilting nacelles: an aircraft that lifts off like a helicopter and crosses the world like an aeroplane. Unlocks the V-22 Osprey.</description>
     <baseCost>6000</baseCost>
-    <researchViewX>4</researchViewX>
-    <researchViewY>0</researchViewY>
+    <researchViewX>2</researchViewX>
+    <researchViewY>1.2</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Turbines</li>
     </prerequisites>
@@ -208,8 +208,8 @@
     <label>second cargo hook</label>
     <description>Two hooks under one aircraft, sharing one load. The V-22 Osprey can sling up to 6,804 kg.</description>
     <baseCost>1200</baseCost>
-    <researchViewX>5</researchViewX>
-    <researchViewY>0</researchViewY>
+    <researchViewX>3</researchViewX>
+    <researchViewY>0.6</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Osprey</li>
     </prerequisites>
@@ -224,8 +224,8 @@
     <label>Osprey armour kit</label>
     <description>Ballistic plates fitted inside the V-22 Osprey's cockpit and cabin, against rifle fire.</description>
     <baseCost>1500</baseCost>
-    <researchViewX>5</researchViewX>
-    <researchViewY>0.6</researchViewY>
+    <researchViewX>3</researchViewX>
+    <researchViewY>1.2</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Osprey</li>
     </prerequisites>
@@ -240,8 +240,8 @@
     <label>infrared jammer</label>
     <description>Directional lamps that blind heat-seeking missiles, cued by the aircraft's missile warning receiver.</description>
     <baseCost>2000</baseCost>
-    <researchViewX>5</researchViewX>
-    <researchViewY>1.2</researchViewY>
+    <researchViewX>3</researchViewX>
+    <researchViewY>1.8</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Osprey</li>
     </prerequisites>
@@ -256,8 +256,8 @@
     <label>terrain-following radar</label>
     <description>A radar in the nose that maps the ground ahead of a low-flying aircraft.</description>
     <baseCost>2000</baseCost>
-    <researchViewX>5</researchViewX>
-    <researchViewY>2.0</researchViewY>
+    <researchViewX>3</researchViewX>
+    <researchViewY>2.4</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Osprey</li>
     </prerequisites>
@@ -272,8 +272,8 @@
     <label>inlet barrier</label>
     <description>Filters over an aircraft's engine intakes that keep sand and dust out of the turbines.</description>
     <baseCost>800</baseCost>
-    <researchViewX>5</researchViewX>
-    <researchViewY>2.6</researchViewY>
+    <researchViewX>3</researchViewX>
+    <researchViewY>3</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Osprey</li>
     </prerequisites>
@@ -290,8 +290,8 @@
     <label>ramp gun mount</label>
     <description>A swinging mount on the V-22 Osprey's open ramp for a 7.62 mm or a .50 machine gun, worked by the crew chief to cover a landing.</description>
     <baseCost>1000</baseCost>
-    <researchViewX>5</researchViewX>
-    <researchViewY>3.2</researchViewY>
+    <researchViewX>3</researchViewX>
+    <researchViewY>3.6</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Osprey</li>
     </prerequisites>
@@ -306,8 +306,8 @@
     <label>belly gun</label>
     <description>A minigun in a turret that lowers from the V-22 Osprey's belly and fires all round by itself while it has power.</description>
     <baseCost>2000</baseCost>
-    <researchViewX>5</researchViewX>
-    <researchViewY>3.8</researchViewY>
+    <researchViewX>3</researchViewX>
+    <researchViewY>4.2</researchViewY>
     <prerequisites>
       <li>PhobosResearch_Osprey</li>
       <li>MultibarrelWeapons</li>

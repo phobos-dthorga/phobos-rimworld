@@ -3,7 +3,7 @@
 **Status (19 Nov 2026):** 30 faults and 33 smaller points found by reading, none observed in game. Fixed: A1, A3 and A4 (Framework
 0.162.0, the armour session); the Osprey's own, D1 to D5, D7, T1, T2, T4, T6, U1, L1, L2, W1 to W3, W5 and W7 (Framework 0.163.0 with
 Vehicles 0.82.0, [as fixed](#as-fixed-framework-01630-and-vehicles-0820)). The flight session's: F1 to F11, H1 to H3 and H5, R1 to R4, S1 (as F10), D6, T3 and the flight's smaller W1, W5, W6 and W8 (Framework 0.164.0 with Vehicles 0.83.0, [as fixed](#as-fixed-framework-01640-and-vehicles-0830)); and, at the owner's word ("Fix all now"), the flight's W2 to W4, W7, W9 to W12, H4 and S2 (Framework 0.166.0, [as fixed](#as-fixed-framework-01660-the-flights-last-ten)). Left
-open for the owner: A2 with W6, U2, W8. Not yet tested in game.
+once open for the owner, chosen on 19 Nov 2026: A2 with W6 and W8 fixed in Framework 0.167.0 with Vehicles 0.84.0; U2 was no fault. Not yet tested in game.
 
 The Osprey's design asks for "a fault-read by a separate reader before the install" as part of its first batch
 ([the V-22 Osprey](vehicle-osprey.md#the-first-batch)); the owner gave the go on 19 November 2026. Four independent reads, one per
@@ -222,3 +222,19 @@ At the owner's word ("Fix all now", 19 Nov 2026, on the question card of the lef
 - **W12:** the place to come in over the edge is looked for along the whole edge; failing a clear one, the one that would wipe least.
 - **H4:** a hoist without power is wound by hand at 0.15 of its speed (authored), saying so; whoever is on a line is ticked while there.
 - **S2:** a stock helicopter on our flight flies water-drop runs from the ground, as before its setting; in the air it is told to land first.
+
+
+## The owner's choices on what was left (19 Nov 2026)
+
+Asked by question card: the Osprey's three leftovers "now", the flight session's ten smaller points "fix all now", and the dust floor kept.
+
+- **A2 and W6, fixed (Framework 0.167.0, Vehicles 0.84.0):** a loadout may now move parts placed by one role's cells to another's
+  (`cellsOfRemap`); the Osprey's sends everything the aircraft loadout puts on "Engine" to the forward cabin's cells, so its generator,
+  battery, starter, avionics bay, ferry tank tie-downs and cabin oxygen panel no longer sit on the left wingtip.
+- **U2, no fault.** Checked on both sides before building a fix: Vehicle Framework shows a stat only where the vehicle's Def lists it,
+  unless the stat sets `showIfUndefined` (`VehicleStatWorker.ShouldShowFor`, the same in its source and the installed build), and none of
+  ours does. The reader read `showOnVehicleTypes` alone. So these stats never showed as zeros on other aircraft; they do not show on the
+  Osprey's own card either, which its upgrade panel covers.
+- **W8, fixed with more than it named:** the whole tab was re-laid ([the research tree](research-tree.md#later-audits)); thirteen lines
+  had crossed boxes, not one. `scripts/check-research.py` now refuses a crossing.
+- **The flight session's ten:** see its own section and changelog.
