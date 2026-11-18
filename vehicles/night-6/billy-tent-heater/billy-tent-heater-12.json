@@ -1,0 +1,29 @@
+{
+  "file": "billy-tent-heater-12.png",
+  "sha256": "ccf63ae383a3565e8d78090a6bfc3385bf6afa33fe8e601f6c47f01e2a1bc081",
+  "date": "2026-11-18T10:10:49",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A portable tent heater: a squat olive-drab steel box with a round dark grille on its top, a carry handle across it, a small orange fuel cap at one corner and a short black flexible duct leaving its east side. Draw it in exactly the art style of the reference image: a game sprite seen from directly above, south face hinted, with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded panel corners and a few small clean details. One object, centred, on a plain pure white background. No floor, no cast shadow, no flames, no smoke, no text, no labels, no people.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/night-6-extras.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 86.8,
+  "references": [
+    {
+      "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Electrolyser.png",
+      "sha256": "3093f4daf87c0953f718ff450f0828007cea52ba020f8c5f17f967343145c667"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

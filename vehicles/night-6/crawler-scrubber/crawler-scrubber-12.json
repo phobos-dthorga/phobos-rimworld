@@ -1,0 +1,33 @@
+{
+  "file": "crawler-scrubber-12.png",
+  "sha256": "f829949c4e082f1b7cb05723548a040eeeb4363dd160db9bb7faabebacd7be9a",
+  "date": "2026-11-18T09:47:48",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, Three pale air-scrubber canisters with blue bands standing upright in a grey steel rack. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no vehicle.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/crawler-upgrade-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 150.1,
+  "references": [
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Sonar.png",
+      "sha256": "dc768990d830f4bfed5dfed817cb0fbaf19afaee349ccd4094588f0c1970120d"
+    },
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/Upgrades/Hydrophones.png",
+      "sha256": "bba36d858e65c90b58a9c69f4782d401f0e7a16049c707f8c82459c4b757bfa4"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

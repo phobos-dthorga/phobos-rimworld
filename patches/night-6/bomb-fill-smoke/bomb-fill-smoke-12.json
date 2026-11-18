@@ -1,0 +1,33 @@
+{
+  "file": "bomb-fill-smoke-12.png",
+  "sha256": "0a28aba40af6492e9bf763522a9d8e89ce6b052e0a94450f6fa86a87f6641aa6",
+  "date": "2026-11-18T07:03:42",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, The item in the first reference image, a sealed olive-drab steel canister lying on its side with a light green band around its middle, a round filler cap at one end and a carry handle on top. Keep its shape, layout and colours. Draw it in exactly the art style of the second reference image: a small game item with a thick near-black outline around every shape, soft flat cel shading, a muted palette, rounded corners and a few small clean details, seen from slightly above. One object, centred, on a plain pure white background. No floor, no cast shadow, no text, no labels, no numbers, no people, no flames.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-patches/requests/bomb-fills.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 158.5,
+  "references": [
+    {
+      "image": "assets/vehicle-patches/references/BombFillSmoke-large.png",
+      "sha256": "f4775636b8340b9c8f8c846c29919b5708c5dda54739c50cabbc981136710280"
+    },
+    {
+      "image": ".local/references/vanilla-medical/MedicineIndustrial_a.png",
+      "sha256": "1257cf2d03aa58dea41ce09e7b2a4e96a9d8f5ed57d8f6744fd176bec7c72c00"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
