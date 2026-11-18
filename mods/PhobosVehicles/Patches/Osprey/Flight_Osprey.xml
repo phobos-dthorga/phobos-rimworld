@@ -5,6 +5,7 @@
     the hover half). A patch file of its own, so its Def (Defs/Phobos/Vehicles/Osprey/Vehicle_Osprey.xml) is never edited by two pieces of work at once.
     It leaves and arrives in flight (Framework 0.149.0), and too heavy to lift straight up it rolls along a strip (Framework 0.151.0, Vehicles 0.73.0).
     It circles, and holds by circling where it cannot hover (Framework 0.153.0, Vehicles 0.75.0).
+    It takes a fast-rope bar and a rescue hoist at its ramp (Framework 0.155.0, Vehicles 0.77.0).
   -->
 
   <!-- The flight comp. Speeds over a map, climb and descent are authored, in proportion to its speed between places (17.5); its flight height
@@ -28,6 +29,70 @@
              would allow at that speed (both authored, at the map's compressed scale). -->
         <orbitSpeedCellsPerSecond>5</orbitSpeedCellsPerSecond>
         <orbitRadiusCells>12</orbitRadiusCells>
+        <!-- Ropes and a hoist (Framework 0.155.0): its work height (authored, about the Army's 90 ft rope less a margin), its two fast-rope
+             points and its 600 lb hoist [P, the V-22 guide]; the hoist's speeds from the Army manual and Breeze-Eastern's 600 lb hoist. -->
+        <workHeightMetres>20</workHeightMetres>
+        <ropePoints>2</ropePoints>
+        <hoistRatedKilograms>272</hoistRatedKilograms>
+        <hoistLoadedMetresPerSecond>0.7</hoistLoadedMetresPerSecond>
+        <hoistEmptyMetresPerSecond>1.2</hoistEmptyMetresPerSecond>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- Its rope and hoist mounts (Framework 0.155.0, Vehicles 0.77.0): two inner parts at the ramp, for the fast-rope bar and the rescue hoist
+       (owner, 19 Nov 2026: two fittings, not upgrade nodes). Health authored, the hook mount's scale. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_Osprey"]/partRoles</xpath>
+    <value>
+      <li>
+        <role>RopeMount</role>
+        <add>
+          <key>PhobosRopeMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>fast-rope bar mount</label>
+          <health>40</health>
+          <cellsOf>AftCabin</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>HoistMount</role>
+        <add>
+          <key>PhobosHoistMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>hoist mount</label>
+          <health>50</health>
+          <cellsOf>AftCabin</cellsOf>
+        </add>
+      </li>
+    </value>
+  </Operation>
+
+  <!-- The hoist drawn on the ramp while the rescue hoist is fitted: the owner's pick (b), already shipped (Osprey.record.md), on the body's
+       canvas as the jammer is. The fast-rope bar has no picture. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Phobos_Osprey"]/comps</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>hoist</key>
+            <looks>
+              <li>
+                <fitting>PhobosFitting_RescueHoist</fitting>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/Osprey/Osprey_Hoist</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(19, 21)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
       </li>
     </value>
   </Operation>

@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.155.0] - 2026-11-19 - Draft
+
+Ropes and a hoist for aircraft on our own flight: people down without landing, and a rescue hoist
+
+### Added
+
+- **A fast-rope bar** (a new fitting). From a steady hover, **Rope down** brings the aircraft down to about 20 m and puts everyone in a passenger's or crew chief's seat down two ropes, two at a time, onto open ground behind the ramp; then it climbs back. **Stop** sends nobody more.
+- **A rescue hoist** (a new fitting). From a steady hover, **Hoist** lifts someone of yours from the ground behind the ramp, or lowers someone from aboard, one at a time and about a minute a lift. A downed person goes up in the stretcher, onto a litter if the litter kit is fitted and one is free, else into the hold. It takes a person and their gear up to its rated load (272 kg, 600 lb, on the Osprey), needs someone else awake aboard to work it, and draws 200 A while its cable moves: a flat battery stalls it, with its brake holding, and says so.
+- **Real consequences** (owner, 19 Nov 2026): if the aircraft has to come down or is destroyed while anyone is on a rope or the hoist, they fall from the height they were at and are hurt by it; a fall from 20 m can break bones or kill.
+- **While at its lines it takes no other order**, and says why, until the last person is off a line.
+- **Two new pictures** for the fittings and their buttons (stand-ins drawn in code, until generated icons are picked).
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Only an aircraft whose loadout offers the rope and hoist mounts can take them: the Osprey for now. The hoist's speeds come from an Army manual and a maker's page, unverified against the makers' sheets; the work height, slide speed, hook-up time and fall harm are authored. Nobody rides the hoist down to a casualty (the owner's choice). A raider's flight, the other half of this slice, is not built.
+
 ## [0.154.0] - 2026-11-19 - Draft
 
 Armour by class: the classes themselves, a wider target under Combat Extended, and the class on the Health tab

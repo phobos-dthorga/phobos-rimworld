@@ -21,6 +21,17 @@
   <PhobosFlight_CircleSizeOption>Circle {SIZE} ({CELLS} cells out)</PhobosFlight_CircleSizeOption>
   <PhobosFlight_CircleCurrent>{OPTION} (now)</PhobosFlight_CircleCurrent>
   <PhobosFlight_CircleOtherWay>Go round {WAY}</PhobosFlight_CircleOtherWay>
+  <PhobosFlight_RopeDown>Rope down</PhobosFlight_RopeDown>
+  <PhobosFlight_RopeDownDesc>From a steady hover, the {VEHICLE} comes down to about {METRES} m and everyone in a passenger's or crew chief's seat slides down the fast ropes, two at a time, onto the ground behind the ramp. Then it climbs back. It must hold still the whole time: if it has to come down, whoever is on a rope falls.</PhobosFlight_RopeDownDesc>
+  <PhobosFlight_Hoist>Hoist</PhobosFlight_Hoist>
+  <PhobosFlight_HoistDesc>Lift someone of yours from the ground behind the ramp, or lower someone from aboard, one at a time. From a steady hover the {VEHICLE} comes down low and lowers the hook; a downed person goes up in the stretcher onto a litter if one is fitted and free. It takes a person and their gear up to {RATED} kg, draws heavily on the battery and needs someone aboard to work it. About a minute a lift.</PhobosFlight_HoistDesc>
+  <PhobosFlight_HoistLift>Lift {PERSON} aboard</PhobosFlight_HoistLift>
+  <PhobosFlight_HoistLower>Lower {PERSON} to the ground</PhobosFlight_HoistLower>
+  <PhobosFlight_OptionRefused>{OPTION} ({WHY})</PhobosFlight_OptionRefused>
+  <PhobosFlight_HoistNobody>Nobody to lift within {CELLS} cells of the hoist, and nobody aboard to lower</PhobosFlight_HoistNobody>
+  <PhobosFlight_HoistName>The rescue hoist</PhobosFlight_HoistName>
+  <PhobosFlight_StopLines>Stop</PhobosFlight_StopLines>
+  <PhobosFlight_StopLinesDesc>Send nobody more down the ropes or on the hoist. Whoever is on a line now finishes, then the {VEHICLE} climbs back up.</PhobosFlight_StopLinesDesc>
   <PhobosFlight_Land>Land here</PhobosFlight_Land>
   <PhobosFlight_LandDesc>Pick a clear, open spot and which way to face. The {VEHICLE} flies over it, turns and comes straight down. It needs open sky and firm ground with nothing built on it. If it cannot hover, it lands rolling instead: it touches down at the spot and rolls on ahead, so the ground in front of the spot must be clear too.</PhobosFlight_LandDesc>
 
@@ -41,6 +52,16 @@
   <PhobosFlight_RefuseRolling>The {VEHICLE} is still moving on the ground: let it stop first.</PhobosFlight_RefuseRolling>
   <PhobosFlight_RefuseTooHeavyShed>The {VEHICLE} is too heavy to take off at all in this air, even rolling. Take about {KILOGRAMS} kg out of it, wait for cooler air, or repair its engines.</PhobosFlight_RefuseTooHeavyShed>
   <PhobosFlight_RefuseStrip>The {VEHICLE} is too heavy to lift straight up, so it must roll {CELLS} cells straight ahead to take off, and that strip will not do: {WHY}. Turn it or move it to clear, open ground.</PhobosFlight_RefuseStrip>
+  <PhobosFlight_RefuseLinesBusy>The {VEHICLE} is already working its ropes or hoist.</PhobosFlight_RefuseLinesBusy>
+  <PhobosFlight_RefuseLinesNotHovering>The {VEHICLE} must be hovering steadily for its ropes or hoist: stop it in a hover first.</PhobosFlight_RefuseLinesNotHovering>
+  <PhobosFlight_RefuseLinesOut>The {VEHICLE} has people on its ropes or hoist: wait for them, or press Stop and wait for the last one.</PhobosFlight_RefuseLinesOut>
+  <PhobosFlight_RefuseNoRopes>The {VEHICLE} has no fast-rope bar fitted.</PhobosFlight_RefuseNoRopes>
+  <PhobosFlight_RefuseNoHoist>The {VEHICLE} has no rescue hoist fitted.</PhobosFlight_RefuseNoHoist>
+  <PhobosFlight_RefuseNobodyToRope>Nobody aboard the {VEHICLE} can go down the ropes: only people in a passenger's or crew chief's seat, awake, go.</PhobosFlight_RefuseNobodyToRope>
+  <PhobosFlight_RefuseNoGroundBelow>There is no open ground behind the {VEHICLE}'s ramp to set anyone down on: it is roofed, built on, hidden or impassable. Move it over open ground.</PhobosFlight_RefuseNoGroundBelow>
+  <PhobosFlight_RefuseHoistNobodyWorks>Nobody else aboard the {VEHICLE} can work the hoist: it needs someone awake in a passenger's or crew chief's seat.</PhobosFlight_RefuseHoistNobodyWorks>
+  <PhobosFlight_RefuseHoistTooHeavy>{PERSON} and their gear weigh {KILOGRAMS} kg, more than the hoist's {RATED} kg.</PhobosFlight_RefuseHoistTooHeavy>
+  <PhobosFlight_RefuseHoistNoRoom>There is no free seat aboard the {VEHICLE}.</PhobosFlight_RefuseHoistNoRoom>
   <PhobosFlight_RefuseCirclingNoHover>The {VEHICLE}'s engines cannot hold it in a hover now, so it keeps circling. Send it somewhere, or land it on a clear strip.</PhobosFlight_RefuseCirclingNoHover>
   <PhobosFlight_RefuseCannotHoverNoStrip>The {VEHICLE}'s engines cannot hold it in a hover now, and it cannot land rolling: it has to keep flying, or circle, until it is lighter or the air cooler.</PhobosFlight_RefuseCannotHoverNoStrip>
   <PhobosFlight_RefuseStepOut>Nobody can step out of the {VEHICLE} while it is in the air: land it first.</PhobosFlight_RefuseStepOut>
@@ -71,6 +92,15 @@
   <PhobosFlight_MsgDepartureCancelled>The {VEHICLE} is no longer leaving: it takes the new order instead.</PhobosFlight_MsgDepartureCancelled>
   <PhobosFlight_MsgCannotLandCircling>The {VEHICLE} cannot hover now, and the ground ahead of its landing spot is not clear for it to land rolling. It is circling over the spot: clear the ground ahead of it, or pick another place to land.</PhobosFlight_MsgCannotLandCircling>
   <PhobosFlight_MsgCirclingInstead>The {VEHICLE}'s engines cannot hold it in a hover, so it circles here instead.</PhobosFlight_MsgCirclingInstead>
+  <PhobosFlight_MsgRoping>The {VEHICLE} is coming down to put {COUNT} people down the ropes.</PhobosFlight_MsgRoping>
+  <PhobosFlight_MsgRopingDone>Everyone is down the {VEHICLE}'s ropes. It is climbing back up.</PhobosFlight_MsgRopingDone>
+  <PhobosFlight_MsgHoistingUp>The {VEHICLE} is coming down to lift {PERSON} aboard on the hoist.</PhobosFlight_MsgHoistingUp>
+  <PhobosFlight_MsgHoistingDown>The {VEHICLE} is coming down to lower {PERSON} on the hoist.</PhobosFlight_MsgHoistingDown>
+  <PhobosFlight_MsgHoistedUp>{PERSON} is aboard the {VEHICLE}.</PhobosFlight_MsgHoistedUp>
+  <PhobosFlight_MsgHoistedDown>{PERSON} is down from the {VEHICLE}.</PhobosFlight_MsgHoistedDown>
+  <PhobosFlight_MsgHookMissed>{PERSON} was not at the {VEHICLE}'s hook, or could not be taken, so it came back up empty.</PhobosFlight_MsgHookMissed>
+  <PhobosFlight_MsgLinesStopping>The {VEHICLE} will send nobody more down its lines, and climbs back once the last one is off.</PhobosFlight_MsgLinesStopping>
+  <PhobosFlight_MsgLineFall>{PERSON} fell about {METRES} m from the {VEHICLE}'s line as it came down.</PhobosFlight_MsgLineFall>
   <PhobosFlight_MsgRollAborted>The {VEHICLE} stopped its take-off roll: {WHY}. It has braked to a stop and is no longer leaving.</PhobosFlight_MsgRollAborted>
   <PhobosFlight_MsgRolledIn>The {VEHICLE} has landed rolling and stopped at the end of its strip.</PhobosFlight_MsgRolledIn>
   <PhobosFlight_MsgRolledShort>The {VEHICLE} had to stop short on its landing roll ({WHY}) and braked hard. Its undercarriage is damaged.</PhobosFlight_MsgRolledShort>
@@ -83,6 +113,8 @@
   <PhobosFlight_StateSettling>coming in to land</PhobosFlight_StateSettling>
   <PhobosFlight_StateComingDown>coming down</PhobosFlight_StateComingDown>
   <PhobosFlight_StateOrbit>circling</PhobosFlight_StateOrbit>
+  <PhobosFlight_StateRoping>putting people down the ropes</PhobosFlight_StateRoping>
+  <PhobosFlight_StateHoisting>working the hoist</PhobosFlight_StateHoisting>
   <PhobosFlight_StateTakeoffRoll>rolling to take off</PhobosFlight_StateTakeoffRoll>
   <PhobosFlight_StateRollingLanding>landing on a strip</PhobosFlight_StateRollingLanding>
   <PhobosFlight_InspectPlain>Flight: {DOING}.</PhobosFlight_InspectPlain>

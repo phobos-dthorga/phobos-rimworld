@@ -33,6 +33,8 @@ public enum FlightState
     RollingLanding,
     /// <summary>Flying round a centre, ordered or because it cannot hover where it would hold (Framework 0.153.0).</summary>
     Orbit,
+    /// <summary>Hovering low at its ropes or hoist (Framework 0.155.0): coming down to its work height, at work, or climbing back.</summary>
+    LineWork,
 }
 
 /// <summary>
@@ -69,6 +71,24 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
     /// <summary>Its tightest circle's radius, cells: never tighter than its turn allows at its circling speed.</summary>
     public float orbitRadiusCells = 12f;
 
+    /// <summary>The height it comes down to for its ropes and hoist, metres (Framework 0.155.0; authored from the Army's 90 ft fast ropes less a
+    /// margin, about 21 m, a rule read on a study card and unverified).</summary>
+    public float workHeightMetres = 20f;
+    /// <summary>Its fast-rope points: people on the ropes at once (the V-22 guide's two).</summary>
+    public int ropePoints = 2;
+    /// <summary>How fast a person slides down a fast rope, metres a second (authored).</summary>
+    public float ropeSlideMetresPerSecond = 4f;
+    /// <summary>Its hoist's rated load, kilograms: the person and everything they carry (the V-22 guide's 600 lb).</summary>
+    public float hoistRatedKilograms = 272f;
+    /// <summary>The hoist's speed at its rated load, metres a second (125 to 150 ft a minute at 600 lb, the Army manual and Breeze-Eastern).</summary>
+    public float hoistLoadedMetresPerSecond = 0.7f;
+    /// <summary>The hoist's speed with the hook empty, metres a second (250 ft a minute at 300 lb, the Army manual).</summary>
+    public float hoistEmptyMetresPerSecond = 1.2f;
+    /// <summary>Seconds to strap a person in at the bottom (authored).</summary>
+    public float hoistHookSeconds = 10f;
+    /// <summary>How far from the foot of the hoist, on the ground, it can reach someone or set them down, cells (authored).</summary>
+    public float hoistReachCells = 3f;
+
     /// <summary>Its speed circling, cells a second.</summary>
     public float OrbitSpeed => float.IsNaN(orbitSpeedCellsPerSecond) ? speedCellsPerSecond * 0.7f : orbitSpeedCellsPerSecond;
 
@@ -82,6 +102,9 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
         if (shortestRollCells < 1 || fullRollCells < shortestRollCells) yield return "a roll needs shortestRollCells of at least 1 and fullRollCells no shorter";
         if (OrbitSpeed <= 0f || OrbitSpeed > speedCellsPerSecond) yield return "orbitSpeedCellsPerSecond must be above 0 and no more than speedCellsPerSecond";
         double tightest = OrbitRule.TightestRadius(OrbitSpeed, turnDegreesPerSecond);
+        if (workHeightMetres <= 0f || workHeightMetres > flightHeightMetres) yield return "workHeightMetres must be above 0 and no more than flightHeightMetres";
+        if (ropePoints < 1 || ropeSlideMetresPerSecond <= 0f || hoistLoadedMetresPerSecond <= 0f || hoistEmptyMetresPerSecond <= 0f || hoistRatedKilograms <= 0f)
+            yield return "ropePoints, rope and hoist speeds and the hoist's rated load must be positive";
         if (orbitRadiusCells < tightest) yield return $"orbitRadiusCells {orbitRadiusCells} is tighter than it can turn at its circling speed ({tightest:0.0} cells)";
     }
 }
@@ -91,7 +114,7 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
 /// its true position and heading, and decides what it may do from the engine model's one hover margin. It ticks only while airborne
 /// (Vehicle Framework's tick by request), so a parked aircraft costs nothing. Orders are services here; the gizmos only call them.
 /// </summary>
-public class CompPhobosFlight : VehicleComp
+public partial class CompPhobosFlight : VehicleComp
 {
     const float TicksPerSecond = 60f;
     const int JudgeEveryTicks = 60;
@@ -172,6 +195,7 @@ public class CompPhobosFlight : VehicleComp
         Scribe_Values.Look(ref orbitRadius, "PhobosFlight_OrbitRadius");
         Scribe_Values.Look(ref orbitSize, "PhobosFlight_OrbitSize", 1);
         Scribe_Values.Look(ref orbitClockwise, "PhobosFlight_OrbitClockwise", true);
+        ExposeLines();
         if (Scribe.mode == LoadSaveMode.PostLoadInit && departNodes is { Count: 0 }) departNodes = null;
     }
 
@@ -332,6 +356,7 @@ public class CompPhobosFlight : VehicleComp
         if (!Airborne) return TakeOffRefusal();
         VehiclePawn v = Vehicle;
         NamedArgument who = v.LabelShort.Named("VEHICLE");
+        if (LinesOutRefusal() is { } lines) return lines;
         if (state is FlightState.LiftingOff or FlightState.ComingDown or FlightState.Settling or FlightState.RollingLanding) return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
         if (!v.HasEnoughOperators) return "PhobosFlight_RefuseCrew".Translate(who).Resolve();
         if (v.CompFueledTravel is { } fuel && fuel.Fuel <= 0f) return "PhobosFlight_RefuseNoFuel".Translate(who).Resolve();
@@ -446,6 +471,7 @@ public class CompPhobosFlight : VehicleComp
     /// <summary>Why it may not be sent to this point now, or null.</summary>
     public string? FlyToRefusal(IntVec3 cell)
     {
+        if (LinesOutRefusal() is { } lines) return lines;
         NamedArgument who = Vehicle.LabelShort.Named("VEHICLE");
         if (!Airborne || state is FlightState.LiftingOff or FlightState.ComingDown or FlightState.TakeoffRoll or FlightState.RollingLanding)
             return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
@@ -476,6 +502,7 @@ public class CompPhobosFlight : VehicleComp
     /// <summary>Why it may not hold now, or null: not moving, or circling already and unable to hover.</summary>
     public string? HoldRefusal()
     {
+        if (LinesOutRefusal() is { } lines) return lines;
         NamedArgument who = Vehicle.LabelShort.Named("VEHICLE");
         if (!CanHold) return "PhobosFlight_RefuseNotMoving".Translate(who).Resolve();
         if (state == FlightState.Orbit && hold != FlightHold.Hover) return "PhobosFlight_RefuseCirclingNoHover".Translate(who).Resolve();
@@ -513,6 +540,7 @@ public class CompPhobosFlight : VehicleComp
     /// <summary>Why it may not land on this cell facing this way, or null.</summary>
     public string? LandRefusal(IntVec3 cell, Rot4 rot)
     {
+        if (LinesOutRefusal() is { } lines) return lines;
         NamedArgument who = Vehicle.LabelShort.Named("VEHICLE");
         if (!Airborne || state is FlightState.ComingDown or FlightState.TakeoffRoll or FlightState.RollingLanding)
             return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
@@ -557,6 +585,7 @@ public class CompPhobosFlight : VehicleComp
     /// <summary>Why it may not be told to circle this point now, or null.</summary>
     public string? CircleRefusal(IntVec3 cell)
     {
+        if (LinesOutRefusal() is { } lines) return lines;
         NamedArgument who = Vehicle.LabelShort.Named("VEHICLE");
         if (!Airborne || state is FlightState.LiftingOff or FlightState.ComingDown or FlightState.Settling or FlightState.TakeoffRoll or FlightState.RollingLanding)
             return "PhobosFlight_RefuseNotFlying".Translate(who).Resolve();
@@ -673,6 +702,9 @@ public class CompPhobosFlight : VehicleComp
             case FlightState.Orbit:
                 OrbitStep(dt);
                 break;
+            case FlightState.LineWork:
+                LineStep(dt, now);
+                break;
             case FlightState.LiftingOff:
                 climb = Mathf.Min(1f, climb + dt / Props.climbSeconds);
                 if (climb >= 1f) state = HasTarget ? FlightState.Moving : FlightState.Hover;
@@ -746,7 +778,7 @@ public class CompPhobosFlight : VehicleComp
             BeginFall("PhobosFlight_WhyEngines".Translate().Resolve());
             return;
         }
-        if (hold == FlightHold.ForwardOnly && state is FlightState.Hover or FlightState.LiftingOff or FlightState.Settling)
+        if (hold == FlightHold.ForwardOnly && state is FlightState.Hover or FlightState.LiftingOff or FlightState.Settling or FlightState.LineWork)
         {
             // It cannot hold a hover: it comes down where it is (the engine lost in a hover). Moving, it keeps flying (below).
             BeginFall("PhobosFlight_WhyCannotHover".Translate().Resolve());
@@ -1000,6 +1032,8 @@ public class CompPhobosFlight : VehicleComp
             (targetX, targetZ) = Clamped((float)(x + Math.Sin(rad) * stop), (float)(z + Math.Cos(rad) * stop));
         }
         orbitX = orbitZ = float.NaN;
+        // Framework 0.155.0: whoever is on a rope or the hoist falls from where they were (the owner's real consequences).
+        if (state == FlightState.LineWork) DropLines();
         state = FlightState.ComingDown;
         landCell = IntVec3.Invalid;
         if (v.Faction == Faction.OfPlayer)
@@ -1147,7 +1181,11 @@ public class CompPhobosFlight : VehicleComp
     public override void PostDraw()
     {
         base.PostDraw();
-        if (Airborne) FlightDrawing.Shadow(this);
+        if (Airborne)
+        {
+            FlightDrawing.Shadow(this);
+            DrawLines();
+        }
         else if (Vehicle.Spawned && Find.Selector.IsSelected(Vehicle)) FlightDrawing.Strip(this);
     }
 

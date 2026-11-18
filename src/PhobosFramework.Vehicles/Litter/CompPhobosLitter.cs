@@ -93,6 +93,19 @@ public sealed class CompPhobosLitter : VehicleComp, IThingHolder
         return true;
     }
 
+    /// <summary>Whether a downed person can be laid on a litter straight from the hoist's stretcher (Framework 0.155.0): kit fitted, a litter
+    /// free, not hostile. The hover and the map were the hoist's to judge.</summary>
+    public bool TakesFromHoist(Pawn patient) => KitFitted && Free > 0 && patient.Downed && !patient.HostileTo(Faction.OfPlayer);
+
+    /// <summary>Lays a downed person on a litter from the hoist, which holds them in <paramref name="from"/>. False when no litter takes them.</summary>
+    public bool LoadFromHoist(Pawn patient, ThingOwner from)
+    {
+        if (!TakesFromHoist(patient) || !from.TryTransferToContainer(patient, held, canMergeWithExistingStacks: false)) return false;
+        Vehicle.RequestTickStart(this);
+        LitterService.NotifyLoaded(this);
+        return true;
+    }
+
     /// <summary>Sets everyone on the litters down beside the vehicle, on its map. Says so unless <paramref name="quiet"/>.</summary>
     public void UnloadAll(bool quiet = false) => SetDown(Vehicle.Map, Vehicle.Position, quiet ? null : "PhobosLitter_Unloaded");
 

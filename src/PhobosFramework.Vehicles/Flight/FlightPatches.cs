@@ -60,7 +60,7 @@ public static class Patch_TryAddPawn_Flight
 {
     public static bool Prefix(VehiclePawn __instance, ref bool __result)
     {
-        if (!FlightRegistry.InAir(__instance)) return true;
+        if (!FlightRegistry.InAir(__instance) || VehicleAccess.Lines == __instance) return true;
         VehicleAccess.RefuseInAir(__instance, "PhobosFlight_RefuseBoard");
         __result = false;
         return false;
@@ -73,7 +73,7 @@ public static class Patch_AddOrTransfer_Flight
 {
     public static bool Prefix(VehiclePawn __instance, ref int __result)
     {
-        if (!FlightRegistry.InAir(__instance)) return true;
+        if (!FlightRegistry.InAir(__instance) || VehicleAccess.Lines == __instance) return true;
         VehicleAccess.RefuseInAir(__instance, "PhobosFlight_RefuseLoad");
         __result = 0;
         return false;
@@ -128,7 +128,12 @@ public static class Patch_VehicleListers_Flight
 [HarmonyPatch(typeof(VehiclePawn), nameof(VehiclePawn.Destroy))]
 public static class Patch_VehiclePawn_Destroy_Access
 {
-    public static void Prefix(VehiclePawn __instance) => VehicleAccess.Destroying.Add(__instance);
+    public static void Prefix(VehiclePawn __instance)
+    {
+        VehicleAccess.Destroying.Add(__instance);
+        // Framework 0.155.0: whoever is on its ropes or hoist falls before it is gone.
+        if (FlightRegistry.Any && FlightRegistry.InAir(__instance)) CompPhobosFlight.OnDestroying(__instance);
+    }
 
     public static Exception? Finalizer(VehiclePawn __instance, Exception? __exception)
     {
@@ -145,6 +150,9 @@ public static class VehicleAccess
 {
     /// <summary>Vehicles being destroyed now: their people are let out whatever else holds.</summary>
     public static readonly HashSet<VehiclePawn> Destroying = new();
+
+    /// <summary>The aircraft whose hoist is putting someone aboard now (Framework 0.155.0): its own boarding and loading guards let it.</summary>
+    public static VehiclePawn? Lines;
 
     /// <summary>Whether a hit of this kind reaches an aircraft in the air: shots and blasts do, blows, fire on the ground and the like do not.</summary>
     public static bool ReachesInAir(DamageInfo dinfo) => dinfo.Def != null && (dinfo.Def.isRanged || dinfo.Def.isExplosive);

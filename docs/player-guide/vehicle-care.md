@@ -215,7 +215,7 @@ Open **Fittings and tunes** from the vehicle's Dashboard, from a right-click wit
 shows while a dyno bay is in reach. It works on any vehicle, from any mod, that has a loadout.
 
 - **Fittings** go on one part each: uprated radiator, oil cooler, turbocharger, heavy-duty alternator, deep-cycle battery,
-  heavy-duty springs, road tyres, block heater, a snorkel for light vehicles that cross rivers, and a cargo hook for helicopters. **A fitting is lost if its part is destroyed.**
+  heavy-duty springs, road tyres, block heater, a snorkel for light vehicles that cross rivers, a cargo hook for helicopters, and a fast-rope bar and rescue hoist for the Osprey. **A fitting is lost if its part is destroyed.**
   Wheels are grouped into axles; a choice on an axle is ordered for each of its wheels.
 - **More fittings** (not yet tested in game): **heavy-duty brakes** (wear slower), a **transmission cooler** (a cooler gearbox when
   hauling heavy in the heat), a **gear-reduction starter** (a cold engine starts on a tired battery), **cab insulation** (on a vehicle

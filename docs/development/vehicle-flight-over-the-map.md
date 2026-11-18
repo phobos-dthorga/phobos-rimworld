@@ -4,10 +4,11 @@
 D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); leaving and arriving in flight (slice 3) in Framework 0.149.0
 ([built](#built-19-nov-2026-leaving-and-arriving-in-flight)); leaving the ground rolling (slice 4) in Framework 0.151.0 and Vehicles 0.73.0
 ([built](#built-19-nov-2026-leaving-the-ground-rolling)); circling (slice 5) in Framework 0.153.0 and Vehicles 0.75.0
-([built](#built-19-nov-2026-circling)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
-([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: ropes and a raider's flight (slice 6),
+([built](#built-19-nov-2026-circling)); ropes and a hoist (slice 6's first half) in Framework 0.155.0 and Vehicles 0.77.0
+([built](#built-19-nov-2026-ropes-and-a-hoist)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
+([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)). Not built: a raider's flight (slice 6's second half),
 aeroplanes that never hover, side-firing gun arcs, runs, and stock helicopters on our flight. Nothing here is tested in game (rows 199,
-200, 204 to 208). The owner answered
+200, 204 to 209). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -70,6 +71,7 @@ flight mod states a licence.
 | **Hovering costs the most** | Hold still over a spot for as long as the fuel lasts | Hovering heavy, hot or high: below a margin of 1 it sinks | Short hovers and quick work; a heavy aircraft keeps moving |
 | **Forward flight is cheaper** | Stay in the air, moving, at a weight it could not hover at | Stopping | A crippled or heavy aircraft is flown, never parked in the sky |
 | **Circling** (built in slice 5) | Fly round a spot until told otherwise, at a preset size and either way round; hold over a spot by circling when too heavy or crippled to hover | Circling tighter than it can turn; stopping still while it cannot hover | A heavy aircraft no longer has to leave at once: it can wait over the map while a strip is cleared or its load lightens |
+| **Ropes and a hoist** (built in slice 6) | Put people down without landing, two at a time down fast ropes; lift one person aboard at a time, a downed one in a stretcher, or lower one, from a steady hover | Doing it while moving or circling, without the fitting, beyond the hoist's rated load, or onto roofed or built-on ground; whoever is on a line falls if the aircraft must come down | A rescue or a raid needs no landing spot, only open ground behind the ramp and a steady hover, which holds the aircraft low and still over the fight for as long as it takes |
 | **Leaving the ground rolling** | Take off with a load too heavy to lift straight up, along a clear strip | Doing it without a strip, or beyond the rolling share | A strip at home is worth clearing; the far end of the trip decides the load |
 | **A cruising height** | Climb over high ground; fly at the height the aircraft was built for and get its author's speed and range | Crossing a range higher than its ceiling at that weight; a high cruise with nobody on oxygen | Heavy loads and lost engines mean routes round the mountains; oxygen and a pressurised cabin earn their place |
 | **Running the tank dry in the air** | Nothing: it is a consequence | Treating fuel as optional | The fuel line is watched; a forced landing costs the airframe and may cost the crew |
@@ -574,6 +576,36 @@ usually cannot fly on; light, it often can.
 **Not built, and why:** `PhaseReader_OwnFlight`, the forward-flight and rolling shares and the three thresholds. Each reads or
 decides something only our own flight does (its state; whether it may stop, fly on or roll), so they come with the hover half
 (slice 2) rather than as fields nothing reads.
+
+## Built (19 Nov 2026): ropes and a hoist
+
+At the owner's word ("Proceed with slice 6, ropes and a hoist", 19 Nov 2026), D'thorga Framework 0.155.0 and D'thorga Vehicles 0.77.0;
+**not yet tested in game** (row 209). A raider's flight, the slice's other half, is not built.
+
+**The owner's four answers (19 Nov 2026), asked before building:**
+
+| Question | Answer | Where it shows |
+| --- | --- | --- |
+| A downed person on the hoist | **The hoist lifts them alone**, in its stretcher; nobody rides down (the agent had recommended a rider, as real rescues do) | `TakeOnHook` |
+| The ropes' height (the aircraft flies at 60 m; ropes are about 27 m) | **It drops to a work height**, about 20 m, and climbs back after | `LineStep` |
+| How it gets them | **Two fittings**, a fast-rope bar and a rescue hoist, built and fitted as the cargo hook is | `Fittings.xml` |
+| Someone on a line when the aircraft must come down | **Real consequences**: they fall from the height they were at | `DropLines`, `LineRule.FallHarm` |
+
+| Part | As built | Where |
+| --- | --- | --- |
+| The figures | The hoist's 600 lb (272 kg) and 250 ft of cable, and two rope points **[P, the V-22 guide]**; the hoist at 0.7 m/s loaded and 1.2 m/s empty, from an Army technical manual's 125 ft a minute at 600 lb and 250 at 300 lb, and Breeze-Eastern's 600 lb hoist at up to 150 ft a minute **[S, unverified against the makers' sheets]**; a 20 m work height **[A]**, from the Army's 90 ft rope limit less a margin read on a study card (unverified); a 4 m/s slide and a 10 s hook-up **[A]**. A lift from the work height takes about a minute (`LineRule.LiftSeconds`, tested) | `CompProperties_PhobosFlight`, `LineRule` |
+| **The hoist works from the work height too** | Agent's choice: from 60 m a lift would take about two and a half minutes of hovering; the cable would reach (76 m) | `LineStep` |
+| Where people come and go | **The ground beneath the ramp as it is drawn** (where the shadow puts it): the nearest standable, unroofed, seen cell outside the footprint within 3 cells (authored). The ropes and the cable are drawn from the ramp to it | `FootPoint`, `LandingCell`, `DrawLines` |
+| Who goes down the ropes | Everyone awake in a seat that does nothing (passengers, the crew chief), two at a time, until none are left or the player presses **Stop**; never the pilots or a gunner | `Riders`, `RopeStep` |
+| The hoist | **One button, a menu**: lift each person of ours (or a downed, friendly one) within reach, or lower each person aboard, a refusal shown greyed with its reason. It needs someone else awake aboard to work it, power (200 A while the cable moves, never shed; a flat battery stalls it with its brake on and says so), and a seat or, for a downed person, a free litter or the cargo hold. Whoever was sent for must still be at the hook when it reaches the ground, or it comes up empty and says so | `HoistUpRefusal`, `HoistUpStep`, `PutAboard` |
+| While at the lines | **Every other order is refused** until the last person is off a line; **Stop** sends nobody more | `LinesOutRefusal`, `StopLines` |
+| A fall | Each person on a line falls from where they were: what they still had to slide, or their height on the cable. 2 harm points a metre above 1.5 m, in three blows (authored: a fall from 20 m does 37, enough to break bones and sometimes kill). Also when the aircraft is destroyed | `DropLines`, `OnDestroying` |
+| The guards | Our hoist's own boarding and loading pass the in-air guards for that one call; nothing else does | `VehicleAccess.Lines` |
+| The pictures | The drawn hoist (the Osprey's pick (b)) shows on the ramp while the hoist is fitted, through the node looks; the fast-rope bar has none. The two fittings' and buttons' icons are code-drawn stand-ins | `Flight_Osprey.xml`, `draw_icons.py` |
+| Saved | The job, the people on the lines (held by the flight comp), each rope's metres left, the cable out, the hook-up, whom it was sent for | `PhobosFlight_Line*`, `_RopeLeft`, `_CableOut`, `_HookLeft`, `_HoistFor` |
+
+**Other factions' aircraft:** none fly orders on our flight until a raider's flight is built; a captured one uses its lines as ours do.
+The Osprey's own record had the hoist and ropes as upgrade nodes; why they are fittings is said there.
 
 ## Built (19 Nov 2026): circling
 

@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.77.0] - 2026-11-19 - Draft
+
+The Osprey takes a fast-rope bar and a rescue hoist
+
+### Added
+
+- **Two mounts at the Osprey's ramp** for the new fast-rope bar and rescue hoist fittings: two ropes, as the real aircraft's two fast-rope points, and a 600 lb hoist. **The drawn hoist shows on the ramp while it is fitted.**
+
+### Changed
+
+- **The hoist and ropes are fittings, not upgrades in the Osprey's tree** (owner, 19 Nov 2026): built and fitted as the cargo hook is.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.155.0 or later, which carries the ropes and hoist. With an older Framework the game reports unknown fields in the Osprey's flight comp at start-up.
+
+### Compatibility and limits
+
+- **Not yet tested in game.**
+
 ## [0.76.0] - 2026-11-19 - Draft
 
 The five service trucks are armoured part by part

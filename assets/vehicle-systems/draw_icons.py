@@ -12,6 +12,8 @@ replace it on the owner's go, and then its entry here is removed so this can't o
 - Flight/TakeOff, Flight/FlyTo, Flight/Hold, Flight/Land: our own flight's four buttons (Framework 0.147.0, 19 Nov 2026), drawn while
   the game was running, so the graphics card was not free; generated pictures can replace them on the owner's go.
 - Flight/Circle, Flight/CircleSize: circling's two buttons (Framework 0.153.0, 19 Nov 2026), stand-ins likewise.
+- Fittings/FastRope, Fittings/RescueHoist: the two line fittings and their buttons (Framework 0.155.0, 19 Nov 2026); generated Osprey icons for
+  both are queued (assets/phobos-vehicles/requests/osprey-upgrade-icons.json) and replace these on the owner's pick.
 
 The other buttons this once drew have generated pictures the owner picked (9 and 10 Nov 2026).
 """
@@ -139,6 +141,28 @@ def circle_size():
     return image
 
 
+# Ropes and a hoist (Framework 0.155.0): the two fittings' pictures, also their buttons'. Stand-ins until the Osprey's queued icons are picked.
+def fast_rope():
+    image, draw = canvas()
+    # The bar across the top, and two ropes hanging from it.
+    outlined_polygon(draw, [(150, 150), (874, 150), (874, 270), (150, 270)], STEEL_SHADE)
+    for cx in (380, 644):
+        outlined_polygon(draw, [(cx - 48, 250), (cx + 48, 250), (cx + 48, 900), (cx - 48, 900)], AMBER, AMBER_SHADE,
+                         [(cx + 8, 270), (cx + 28, 270), (cx + 28, 880), (cx + 8, 880)])
+    return image
+
+
+def rescue_hoist():
+    image, draw = canvas()
+    # The drum, its cable and a hook.
+    outlined_ellipse(draw, (250, 110, 774, 390), STEEL_SHADE)
+    draw.ellipse((420, 190, 604, 310), fill=PALE_SHADE)
+    outlined_polygon(draw, [(480, 360), (544, 360), (544, 650), (480, 650)], PALE)
+    draw.arc((372, 600, 652, 900), start=-10, end=200, fill=OUTLINE, width=int(LINE * 2.4))
+    draw.arc((372 + LINE * 0.5, 600 + LINE * 0.5, 652 - LINE * 0.5, 900 - LINE * 0.5), start=-8, end=198, fill=AMBER, width=int(LINE * 1.2))
+    return image
+
+
 # A gun's three fire modes (Framework 0.152.0): Vehicle Framework names its own fire-mode pictures, but on RimWorld 1.7 it no longer
 # loads them, so a turret of ours showed the red cross. Brass cartridges: one, three, and a belt.
 BRASS = (222, 176, 82, 255)
@@ -192,6 +216,8 @@ DRAWINGS = {
     'Flight/Land': (land, 'an amber arrow coming down onto a pale landing pad, for "Land here"'),
     'Flight/Circle': (circle, 'a steel arrow sweeping round an amber centre, for "Circle here"'),
     'Flight/CircleSize': (circle_size, 'three amber rings, small to large, for the circle size and way round'),
+    'Fittings/FastRope': (fast_rope, 'two amber ropes hanging from a steel bar, for the fast-rope bar and its "Rope down" button'),
+    'Fittings/RescueHoist': (rescue_hoist, 'a steel drum with a pale cable and an amber hook, for the rescue hoist and its "Hoist" button'),
 }
 
 

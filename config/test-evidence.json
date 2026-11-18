@@ -138,6 +138,12 @@
       "it arrives over a map it attacks or explores": [{"key": "aircraft.flight-arrived", "variant": "Centre"},
         {"key": "aircraft.flight-arrived", "variant": "Edge"}, {"key": "aircraft.flight-arrived", "variant": "Targeted"}]
     }},
+    "209": {"parts": {
+      "people go down the ropes": [{"key": "aircraft.flight-rope", "variant": "down"}],
+      "the hoist lifts a downed colonist": [{"key": "aircraft.flight-hoist", "variant": "up-downed"}],
+      "the hoist lowers a passenger": [{"key": "aircraft.flight-hoist", "variant": "down"}],
+      "someone on a line falls": [{"key": "aircraft.flight-line-fall", "variant": "rope"}, {"key": "aircraft.flight-line-fall", "variant": "hoist"}]
+    }},
     "208": {"parts": {
       "it circles a spot it is sent to": [{"key": "aircraft.flight-orbit", "variant": "ordered"}],
       "unable to hover, it circles where it would hold": [{"key": "aircraft.flight-orbit", "variant": "holding"}]

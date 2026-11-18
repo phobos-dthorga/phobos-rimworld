@@ -443,6 +443,16 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   damaging its undercarriage and shaking its people about; wrecked over a building, a roof, another vehicle or deep water. Watch its fuel.
 - **Fittings, as on every aircraft:** a litter kit for stretchers, a ferry tank, cabin oxygen, and a **cargo hook** to sling up to
   4,536 kg.
+- **Ropes and a hoist** (not yet tested in game), two more fittings at its ramp. **It must be hovering steadily** for either: it comes down
+  to about 20 m, does the work, then climbs back, and takes no other order until the last person is off a line.
+  - **Fast-rope bar:** **Rope down** puts everyone in a passenger's or crew chief's seat down two ropes, two at a time, onto open ground
+    behind the ramp. **Stop** sends nobody more.
+  - **Rescue hoist:** **Hoist** opens a list: lift someone of yours within 3 cells of the ground behind the ramp, or lower someone from
+    aboard, one at a time, about a minute each. A downed person goes up in the stretcher, onto a litter if the litter kit is fitted and
+    one is free. It takes a person and their gear up to 272 kg, needs someone else awake aboard to work it, and **draws heavily on the
+    battery**: keep the engines running.
+  - **Hold it steady.** If the Osprey has to come down while anyone is on a rope or the hoist, they fall from where they were, and a
+    fall from 20 m can break bones or kill.
 - **Its upgrades**, each with a small research after tiltrotor aircraft:
   - **Second cargo hook:** with the cargo hook fitted, it slings up to 6,804 kg.
   - **Armour kit:** rifle-proof plates in the cockpit and cabins; they weigh 360 kg, carried as cargo.

@@ -3,7 +3,8 @@
 **Status (19 Nov 2026):** built and not yet passed in game: its Def (Vehicles 0.69.0), its rotors and tilting nacelles (0.70.0, Framework
 0.146.0 and 0.148.0), our own flight over the map (Framework 0.147.0 and 0.149.0, built by the flight work) and its upgrade tree (Vehicles
 0.72.0, Framework 0.150.0: second hook, armour kit, infrared jammer, terrain radar, inlet barrier), the rolling take-off (Vehicles 0.73.0,
-Framework 0.151.0) and its guns (Vehicles 0.74.0, Framework 0.152.0: either ramp gun and the belly gun). Not built: armour by class, the
+Framework 0.151.0) its guns (Vehicles 0.74.0, Framework 0.152.0: either ramp gun and the belly gun), circling (Vehicles 0.75.0, Framework 0.153.0) and a
+fast-rope bar and rescue hoist, as fittings (Vehicles 0.77.0, Framework 0.155.0). Not built: armour by class, the
 terrain radar's night-and-weather rule, sounds and drawn icons. The owner flew slice 1 in dev mode: "It does
 work but is extremely bare bones" (19 Nov 2026).
 
@@ -278,8 +279,8 @@ overlay. Node keys are fixed here, before the first picture.
 | Hooks | `CargoHook` | Sling loads to 4,536 kg | | 1 |
 | | `SecondHook` | To 6,804 kg | Needs `CargoHook` | 1 |
 | Ramp | `RampGun762`, `RampGun50` | The ramp gun | Either/or: one mount | 1 |
-| | `RescueHoist` | One person up or down in a hover | | 2 |
-| | `FastRopes` | People down ropes in a hover | | 2 |
+| | ~~`RescueHoist`~~ | One person up or down in a hover. **Built as a fitting instead** (Framework 0.155.0, see below) | | 2 |
+| | ~~`FastRopes`~~ | People down ropes in a hover. **Built as a fitting instead** | | 2 |
 | Belly | `BellyGun` | The remote minigun; 360 kg | | 1 |
 | Protection | `ArmourKit` | Cockpit and cabin to the Rifle class; 360 kg | | 1 |
 | | `InfraredJammer` | Countermeasures | | 1 |
@@ -452,6 +453,13 @@ map, tipping through Vehicle Framework's take-off and landing. The owner's look 
 cannot fly about the map (our own flight, being built) and looked bare launching (these rotors). Row 203 of the test list.
 
 **Second batch:** circling; ropes and the hoist; the tanker kit and the probe; the crewless fit; a raider's flight AI.
+
+**The hoist and ropes are fittings, not upgrade nodes** (owner, 19 Nov 2026, asked with the flight record's slice 6: "Two fittings"). The
+tree above had them as `RescueHoist` and `FastRopes`; the fast-rope bar and the rescue hoist are built instead as fittings on two mounts
+at the ramp (Framework 0.155.0, Vehicles 0.77.0), each built and fitted as the cargo hook is, so any aircraft on our own flight could take
+them. This follows the owner's choice of 19 Nov 2026 that generic fittings serve every aircraft and the tree holds what is the Osprey's
+own, though that choice named only stretchers, ferry tanks, the cargo hook and cabin oxygen: **the owner may overrule it**, and the two
+node keys stay unused. The drawn hoist (pick (b)) shows on the ramp while the hoist is fitted.
 
 ## The owner's answers (18 Nov 2026)
 

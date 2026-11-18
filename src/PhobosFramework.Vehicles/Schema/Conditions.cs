@@ -151,6 +151,12 @@ public class When_Winching : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosHitch>()?.Winching != null;
 }
 
+/// <summary>While the aircraft's rescue hoist is running (Framework 0.155.0): its electrical load.</summary>
+public class When_Hoisting : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosFlight>()?.Hoisting == true;
+}
+
 /// <summary>While the vehicle is set up to work.</summary>
 public class When_SetUp : VehicleSystemCondition
 {

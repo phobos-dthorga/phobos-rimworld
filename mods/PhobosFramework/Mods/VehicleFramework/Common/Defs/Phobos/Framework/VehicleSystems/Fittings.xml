@@ -130,6 +130,56 @@
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.155.0, ropes and a hoist (docs/development/vehicle-flight-over-the-map.md, slice 6; owner, 19 Nov 2026: two fittings). On
+         the rope mount an aircraft on our own flight offers (the Osprey's ramp). Two ropes, as the V-22 guide's two fast-rope points; 90 ft
+         ropes, the Army's longest without a general's leave. Materials, weight, work and skill authored; cloth stands in for the ropes'
+         nylon. No electrics: people slide down by themselves. -->
+    <defName>PhobosFitting_FastRope</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/FastRope</iconPath>
+    <label>fast-rope bar</label>
+    <description>A bar over the ramp with two thick braided ropes, each long enough to reach the ground from a low hover. From a steady hover the aircraft comes down low and its passengers slide down the ropes two at a time, without it having to land.</description>
+    <roles><li>RopeMount</li></roles>
+    <materials><Steel>25</Steel><Cloth>80</Cloth></materials>
+    <kilograms>30</kilograms>
+    <work>3000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <grants><li>FastRope</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.155.0, ropes and a hoist (as above). On the hoist mount at the ramp, where the V-22 guide puts its 600 lb hoist with 250 ft
+         of cable [P]. An electric hoist, drawing 200 A while its motor runs: lifting 272 kg at 0.7 m/s takes 1.9 kW at the drum, about 3.7 kW
+         at an authored half efficiency, 310 A at the 12 V the model's aircraft use; the empty hook takes far less, so 200 A is authored as
+         its running draw. Never shed: it stops only on a flat battery, with its brake holding the cable. Materials, weight, work and skill
+         authored. -->
+    <defName>PhobosFitting_RescueHoist</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/RescueHoist</iconPath>
+    <label>rescue hoist</label>
+    <description>An electric hoist over the ramp with a long steel cable and a stretcher. From a steady hover the aircraft comes down low and lowers the hook: it lifts one person aboard at a time, a downed one in the stretcher, onto a litter if one is fitted and free, or lowers someone from aboard. It lifts a person and everything they carry up to its rated load, draws heavily on the battery while it runs, and needs someone aboard to work it.</description>
+    <roles><li>HoistMount</li></roles>
+    <materials><Steel>70</Steel><ComponentIndustrial>6</ComponentIndustrial></materials>
+    <kilograms>90</kilograms>
+    <work>10000</work>
+    <minSkill>6</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <grants><li>RescueHoist</li></grants>
+    <feed>
+      <load>rescueHoist</load>
+    </feed>
+    <loads>
+      <li>
+        <name>rescueHoist</name>
+        <label>rescue hoist</label>
+        <description>The rescue hoist's motor, drawing while the cable moves. A flat battery stops it with someone on the cable: keep the engines running.</description>
+        <amps>200</amps>
+        <shedOrder>0</shedOrder>
+        <when Class="Phobos.VehicleSystems.When_Hoisting" />
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- Framework 0.92.0, sling loads (owner, 11 Nov 2026: any helicopter, by fitting; docs/development/vehicle-sling-design.md). It goes on the
          hook mount a helicopter's loadout appends, and lets it lift a vehicle on a sling; what it lifts is the loadout's rated load. Materials,
          work and skill authored, earned like the turbocharger. -->

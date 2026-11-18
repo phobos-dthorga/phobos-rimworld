@@ -211,7 +211,7 @@ public static class FlightGizmos
             yield return takeOff;
             yield break;
         }
-        bool busy = flight.State is FlightState.LiftingOff or FlightState.ComingDown or FlightState.TakeoffRoll or FlightState.RollingLanding;
+        bool busy = flight.State is FlightState.LiftingOff or FlightState.ComingDown or FlightState.TakeoffRoll or FlightState.RollingLanding or FlightState.LineWork;
         var flyTo = new Command_Action
         {
             defaultLabel = "PhobosFlight_FlyTo".Translate(),
@@ -243,6 +243,8 @@ public static class FlightGizmos
         if (busy || flight.State == FlightState.Settling) circle.Disable("PhobosFlight_RefuseNotFlying".Translate(who));
         yield return circle;
 
+        foreach (Gizmo gizmo in LineGizmos(flight)) yield return gizmo;
+
         string size = SizeName(flight.OrbitSize);
         string way = WayName(flight.OrbitClockwise);
         yield return new Command_Action
@@ -263,6 +265,73 @@ public static class FlightGizmos
         };
         if (busy) land.Disable("PhobosFlight_RefuseNotFlying".Translate(who));
         yield return land;
+    }
+
+    /// <summary>Ropes and the hoist (Framework 0.155.0): shown only with their fittings; a stop while at work.</summary>
+    static IEnumerable<Gizmo> LineGizmos(CompPhobosFlight flight)
+    {
+        VehiclePawn vehicle = flight.Vehicle;
+        NamedArgument who = vehicle.LabelShort.Named("VEHICLE");
+        if (flight.State == FlightState.LineWork)
+        {
+            yield return new Command_Action
+            {
+                defaultLabel = "PhobosFlight_StopLines".Translate(),
+                defaultDesc = "PhobosFlight_StopLinesDesc".Translate(who),
+                icon = Icon("Hold"),
+                action = flight.StopLines,
+            };
+        }
+        if (flight.CanRope)
+        {
+            var rope = new Command_Action
+            {
+                defaultLabel = "PhobosFlight_RopeDown".Translate(),
+                defaultDesc = "PhobosFlight_RopeDownDesc".Translate(who, flight.Props.workHeightMetres.ToString("0").Named("METRES")),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Fittings/FastRope"),
+                action = flight.RopeDown,
+            };
+            if (flight.RopeRefusal() is { } refused) rope.Disable(refused);
+            yield return rope;
+        }
+        if (flight.HasHoist)
+        {
+            var hoist = new Command_Action
+            {
+                defaultLabel = "PhobosFlight_Hoist".Translate(),
+                defaultDesc = "PhobosFlight_HoistDesc".Translate(who, flight.Props.hoistRatedKilograms.ToString("0").Named("RATED")),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Fittings/RescueHoist"),
+                action = () => Find.WindowStack.Add(new FloatMenu(HoistOptions(flight))),
+            };
+            if (flight.HoistRefusal() is { } refused) hoist.Disable(refused);
+            yield return hoist;
+        }
+    }
+
+    /// <summary>Everyone the hoist could lift, and everyone aboard it could lower: one button each, a refusal shown greyed with its reason.</summary>
+    static List<FloatMenuOption> HoistOptions(CompPhobosFlight flight)
+    {
+        var options = new List<FloatMenuOption>();
+        foreach (Pawn pawn in flight.HoistCandidates())
+        {
+            string label = "PhobosFlight_HoistLift".Translate(pawn.LabelShort.Named("PERSON")).Resolve();
+            options.Add(flight.HoistUpRefusal(pawn) is { } why
+                ? new FloatMenuOption("PhobosFlight_OptionRefused".Translate(label.Named("OPTION"), why.Named("WHY")).Resolve(), null)
+                : new FloatMenuOption(label, () => flight.HoistUp(pawn)));
+        }
+        foreach (Pawn pawn in flight.Vehicle.AllPawnsAboard.ToList())
+        {
+            if (pawn.Downed || flight.Vehicle.handlers.Any(h => h.role.HandlingTypes != 0 && h.thingOwner != null && h.thingOwner.Contains(pawn))) continue;
+            string label = "PhobosFlight_HoistLower".Translate(pawn.LabelShort.Named("PERSON")).Resolve();
+            options.Add(flight.HoistDownRefusal(pawn) is { } why
+                ? new FloatMenuOption("PhobosFlight_OptionRefused".Translate(label.Named("OPTION"), why.Named("WHY")).Resolve(), null)
+                : new FloatMenuOption(label, () => flight.HoistDown(pawn)));
+        }
+        if (options.Count == 0)
+        {
+            options.Add(new FloatMenuOption("PhobosFlight_HoistNobody".Translate(flight.Props.hoistReachCells.ToString("0").Named("CELLS")).Resolve(), null));
+        }
+        return options;
     }
 
     static string SizeName(int size) => size switch
@@ -313,6 +382,8 @@ public static class FlightText
             FlightState.RollingLanding => "PhobosFlight_StateRollingLanding".Translate().Resolve(),
             FlightState.Moving => "PhobosFlight_StateMoving".Translate().Resolve(),
             FlightState.Orbit => "PhobosFlight_StateOrbit".Translate().Resolve(),
+            FlightState.LineWork when flight.Lines == LineJob.RopeDown => "PhobosFlight_StateRoping".Translate().Resolve(),
+            FlightState.LineWork => "PhobosFlight_StateHoisting".Translate().Resolve(),
             FlightState.Settling => "PhobosFlight_StateSettling".Translate().Resolve(),
             FlightState.ComingDown => "PhobosFlight_StateComingDown".Translate().Resolve(),
             _ => "PhobosFlight_StateHover".Translate().Resolve(),
