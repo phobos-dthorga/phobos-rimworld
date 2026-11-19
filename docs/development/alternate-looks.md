@@ -1,6 +1,11 @@
 # Alternate looks: our good pictures as choices, not leftovers (19 Nov 2026)
 
-**Status (19 Nov 2026):** the owner's idea, recorded with what exists to build it on. Nothing is built; nothing is tested in game.
+**Status (19 Nov 2026):** the owner's idea, recorded with what exists to build it on, and **held for later** at the owner's word: pursued when they have the tokens to do it properly, and only for the pictures it suits best. Nothing is built; nothing is tested in game.
+
+The owner, later the same day: "when I have the tokens and such to pursue it properly, I guess we'll reserve it for the assets and the
+like it would work most appropriately for". So it is not a rule for every picture: when it is taken up, each candidate is judged on
+whether a choice of look fits it (agent's reading: buildings and items through a Customise option first, where nothing hangs off the
+picture; vehicles only where the default's overlays fit the alternate body).
 
 The owner's words, 19 Nov 2026, picking the combine harvester's first body from three good attempts: "#1 by default because I feel
 that we use all of these. There was a mod or something that I used a long time ago, but it allowed you to change the style of
