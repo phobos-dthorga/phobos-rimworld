@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.170.0] - 2026-11-19 - Draft
+
+The log says when D'thorga code was part of an error
+
+### Added
+
+- **After an error whose trace shows D'thorga code on its path, the log says so in one line**, quoting the error's first line, naming where our code was and which D'thorga mod it belongs to, so that a report of it reaches us and not only the other mod's author. It looks for a frame of our own code and, where Better Stacktraces or Harmony adds patch lines to a trace, for a D'thorga patch on a method on the path. It says D'thorga was on the path, never that D'thorga caused the error. Once for each kind of error, at most 50 lines a session; an error while a save loads is noted once the game is running. New setting **Say when D'thorga code was part of an error**, on by default.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Changes nothing in play; safe with a running save.
+- It cannot see our code in a trace another mod has cut short (a mod that catches an error and throws it again starts its trace afresh), and sees our patches only where the trace carries patch lines.
+- Errors only: warnings and informational lines are not read.
+
 ## [0.169.0] - 2026-11-19 - Draft
 
 Drawn icons for fire modes and the line fittings; an aircraft's landing and fast-rope sounds

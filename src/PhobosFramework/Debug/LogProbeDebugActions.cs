@@ -15,7 +15,7 @@ public static class LogProbeDebugActions
     const string Category = GameLogKeeper.Category;
 
     [DebugAction(DebugCategory.Name, "Framework: game log status", allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
-    public static void Status() => HostLog.Write(Category, HostLevel.Info, "Game log keeper: " + GameLogKeeper.Status());
+    public static void Status() => HostLog.Write(Category, HostLevel.Info, ErrorNotes.Status() + "\nGame log keeper: " + GameLogKeeper.Status());
 
     [DebugAction(DebugCategory.Name, "Framework: log probe T2, one line through our category", allowedGameStates = AllowedGameStates.Entry | AllowedGameStates.Playing)]
     public static void OneLine() => HostLog.Write(Category, HostLevel.Warning, "Log probe T2: this line was written under our own category. "

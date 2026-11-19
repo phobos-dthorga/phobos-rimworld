@@ -18,6 +18,8 @@ public class FrameworkSettings : ModSettings
     public bool writePatchedDefsOnce;
     /// <summary>Turn the game's log back on when it stops itself at 10,000 messages (Logging/GameLogKeeper; owner, 8 Nov 2026: on by default).</summary>
     public bool keepGameLogAlive = true;
+    /// <summary>After an error whose trace shows D'thorga code, say so in the log (Logging/ErrorNotes; owner, 19 Nov 2026; on by default).</summary>
+    public bool noteOurPartInErrors = true;
     /// <summary>Write every colonist's thoughts beside each save, for the mood report (Mood/ColonyMoodFile; owner, 10 Nov 2026; on by default, agent default).</summary>
     public bool writeColonyMoodFile = true;
     /// <summary>Every D'thorga sound's volume, from none to twice as loud (Sounds/PhobosSoundVolume; AGENTS.md's volume setting; agent default 1).</summary>
@@ -76,6 +78,7 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref showGasOverlay, "PhobosFramework_ShowGasOverlay", false);
         Scribe_Values.Look(ref writePatchedDefsOnce, "PhobosFramework_WritePatchedDefsOnce", false);
         Scribe_Values.Look(ref keepGameLogAlive, "PhobosFramework_KeepGameLogAlive", true);
+        Scribe_Values.Look(ref noteOurPartInErrors, "PhobosFramework_NoteOurPartInErrors", true);
         Scribe_Values.Look(ref noteSeenInPlay, "PhobosFramework_NoteSeenInPlay", false);
         Scribe_Values.Look(ref sayWhenTestHappens, "PhobosFramework_SayWhenTestHappens", false);
         Scribe_Values.Look(ref topUpMachines, "PhobosFramework_TopUpMachines", true);
@@ -93,7 +96,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.169.0";
+    public const string ModVersion = "0.170.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -127,6 +130,10 @@ public class FrameworkMod : Mod
         if (!Settings.keepGameLogAlive) report.Off(keeper, "setting");
         else if (Logging.GameLogKeeper.NotListening != null) report.On(keeper + ", without naming the loudest message: " + Logging.GameLogKeeper.NotListening);
         else report.On(keeper);
+        const string notes = "a note after an error whose trace shows D'thorga code";
+        if (!Settings.noteOurPartInErrors) report.Off(notes, "setting");
+        else if (Logging.GameLogKeeper.NotListening != null) report.Off(notes, Logging.GameLogKeeper.NotListening);
+        else report.On(notes);
         const string moodFile = "colony mood file at each save, for the mood report";
         if (Settings.writeColonyMoodFile) report.On(moodFile);
         else report.Off(moodFile, "setting");
@@ -202,6 +209,8 @@ public class FrameworkMod : Mod
             "PhobosFramework_SettingShowGasOverlayDesc".Translate());
         listing.CheckboxLabeled("PhobosFramework_SettingKeepGameLogAlive".Translate(), ref Settings.keepGameLogAlive,
             "PhobosFramework_SettingKeepGameLogAliveDesc".Translate(Rules.GameLogRule.MaxRevivals.Named("COUNT")));
+        listing.CheckboxLabeled("PhobosFramework_SettingNoteOurPartInErrors".Translate(), ref Settings.noteOurPartInErrors,
+            "PhobosFramework_SettingNoteOurPartInErrorsDesc".Translate(Rules.ErrorAttributionRule.MaxNotesPerSession.Named("COUNT")));
         listing.CheckboxLabeled("PhobosFramework_SettingWriteColonyMoodFile".Translate(), ref Settings.writeColonyMoodFile,
             "PhobosFramework_SettingWriteColonyMoodFileDesc".Translate(Mood.ColonyMoodFile.OutputPath.Named("PATH")));
         if (Prefs.DevMode)

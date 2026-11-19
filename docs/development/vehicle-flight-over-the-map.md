@@ -970,6 +970,15 @@ to their flight. Most of the cost is in patching the authors' own patch classes,
   is written into their `FacingAngle` from ours, and a guard keeps ours from starting while theirs has the aircraft in the air.
 - **Dropped the first time it costs more than a little to maintain** (owner), on the assumption that players move to our own
   aircraft for this.
+- **A turned-on takeover makes that aircraft's faults ours, and says so** (agent's pushback, accepted by the owner the same day). Each
+  per-aircraft setting's tooltip says that while it is on the aircraft flies on D'thorga's code and its problems go to D'thorga, not
+  its author; the load line names the aircraft on our flight; the README's gotchas say the same. In the log, D'thorga Framework 0.170.0's
+  note after an error with our code on its path is the base; the takeover adds a registration so that an error in a taken-over
+  aircraft's flight code names the setting and says "report it to D'thorga, not the author".
+- **Decided afresh before it is built, never by default** (agent's pushback, accepted by the owner the same day). The reads found the
+  upkeep is not low, which by the owner's own rule would drop it; it is deferred because building the combat features removes the
+  other half of the cost. When MV10 and the F-35B exist, ask again whether it is still wanted, given how many players then fly those
+  airframes rather than ours, before building any of it.
 - **Our own aircraft next, after the Osprey's first test:** a jump jet first, the F-35B (with attack runs, which any jet of ours
   needs), then a modern attack helicopter (owner: "both, jet first").
 - **D'thorga Patches keeps its parts for the Harrier, Hind and Mongoose until our own aircraft replace them**, each retired when ours

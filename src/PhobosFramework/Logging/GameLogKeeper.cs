@@ -65,6 +65,7 @@ public static class GameLogKeeper
     {
         if (category == Category) return;
         string signature = LogSignature.Of(message);
+        if (level >= LogLevel.Error) ErrorNotes.Consider(category, message, stackTrace, signature);
         lock (gate)
         {
             tally.Add(signature);
@@ -80,6 +81,7 @@ public static class GameLogKeeper
     public static void Update()
     {
         if (probeCounts != null && DateTime.UtcNow >= probeEnds) EndProbe();
+        ErrorNotes.Flush();
         if (gaveUp || !FrameworkMod.Settings.keepGameLogAlive) return;
         if (UnityEngine.Debug.unityLogger.logEnabled) return;
         Revive();

@@ -79,6 +79,8 @@ Two settings you may never touch, but should know about:
 - **D'thorga sounds volume** (D'thorga Framework, 100%): one slider for every D'thorga sound, from silent to twice as loud.
 - **Keep the game's log going after its message limit** (D'thorga Framework, on): RimWorld stops logging after 10,000
   messages; this restarts it, up to 25 times a session, so a report still has the end of the story.
+- **Say when D'thorga code was part of an error** (D'thorga Framework, on): after an error that passed through D'thorga's code,
+  the log says so in one line, so you know to tell D'thorga about it too, and not only the other mod's author.
 
 ## Research
 

@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.169.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.170.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -125,6 +125,7 @@ Under **Options > Mod settings**. RimWorld saves only what you change.
 | Keep machines and mechanoids topped up | Colonists doing hauling work refill machines that hold a store of material and only offer a right-click fill order, such as a drone platform's steel, and a mechanitor refills mechanoids that carry one, as they repair them (named by D'thorga Patches). Off: by hand only | On |
 | Show gases at the mouse (dev mode) | A label at the mouse names every gas in that cell's room | Off |
 | Keep the game's log going after its message limit | Turns the game's log back on when it stops at 10,000 messages, at most 25 times a session, with a line naming the message that filled it | On |
+| Say when D'thorga code was part of an error | After an error whose trace shows D'thorga code or a D'thorga patch on its path, writes one line saying so, so a report reaches D'thorga too. Never says D'thorga caused it. Once per kind of error, at most 50 a session | On |
 | Write a colony mood file at each save | Writes every colonist's, slave's and prisoner's thoughts to `PhobosSnapshots/ColonyMood.xml` in the RimWorld user folder, for the mood report in D'thorga Companion and phobos-modkit. Changes nothing in play | On |
 | Write every Def with all patches applied at the next start (dev mode) | For mod developers: one file, `PhobosPatchedDefs/PatchedDefs.xml`, then it turns itself off | Off |
 | Verbose logging: everything, and Verbose: one tick per log | Extra detail in the game's log for chasing a fault, for everything or one part at a time; capped so it cannot flood the log | Off |

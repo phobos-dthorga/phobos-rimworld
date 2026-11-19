@@ -2,7 +2,8 @@
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.28.0: the bounded revive (GameLogKeeper), the storm counter and the probe
 dev actions; phobos-log 1.0.0, pinned at `external/phobos-log` and adopted in Framework 0.33.0 and Patches 0.16.0; verbose logging in
-Framework 0.114.0 (below). Not built: the JSON-lines sink, the schema and the shared reader, and the Ostranauts sink (outstanding work,
+Framework 0.114.0 (below); a note after an error whose trace shows our code, Framework 0.170.0
+([below](#saying-when-our-code-was-on-an-errors-path-framework-01700-19-nov-2026)). Not built: the JSON-lines sink, the schema and the shared reader, and the Ostranauts sink (outstanding work,
 L4 and L5). Not yet tested in game. The record below keeps its 8 Nov reasoning.
 
 A design record. The owner's logs "keep exceeding some set limit" the game has in place; they proposed a logging framework of our
@@ -211,6 +212,33 @@ but only in dev mode, and no code of ours wrote one. Built at the owner's pick (
 - Debug lines keep the budget's 400 a mod every ten minutes. If that proves too few for a real chase, the budget is the place to
   change (phobos-log, under its own rules).
 - Not yet tested in game.
+
+## Saying when our code was on an error's path (Framework 0.170.0, 19 Nov 2026)
+
+**Asked by the owner (19 Nov 2026):** while designing the opt-in takeover of other authors' aircraft (outstanding work MV12), the owner
+asked whether the notice "report this to us, not the author" could also be applied "to stacktraces and the like, where it would work",
+remembering a log-reading mod that did something like it (Better Stacktraces, on their list, adds each patching mod's line under a
+patched frame). Built at once, for every mod of ours rather than only the takeover.
+
+- **What it lets the player do:** see, beside an error, that D'thorga was on its path, and so tell us about it. **What it stops:**
+  reports of a fault our code caused, or helped cause, going only to another author whose code also shows in the trace. **What it
+  changes:** an error with our code on its path gains one line after it, once per kind of error.
+- **How:** the engine's public log stream (the one `GameLogKeeper` already counts) hands each error, with its trace, to
+  `ErrorNotes.Consider`, on whichever thread logged it. The game-free `ErrorAttributionRule` reads the error's text (where the game puts
+  the exception's own trace) and the call-site trace for a frame of ours (`at Phobos.`, our logging frames left out) or a Harmony patch
+  line naming our Harmony ID (`- PREFIX PhobosDthorga.`). A note is queued once per signature and written on the main thread at the next
+  frame of play, under our own category so it never feeds itself; the mod is named from the assembly that holds the type.
+- **Bounds:** errors only (on 1.7 every informational line carries a trace too); our own messages and categories skipped; once per
+  signature; at most 50 notes a session (agent default), then one line saying so. Cost: one line scan per error, nothing per tick.
+- **Wording:** "D'thorga may have caused it, or may only have been on the way": it says where our code was, never that it was at fault.
+  No link in the line, to stay clear of the EULA's no-calls-to-action rule; the About page carries the repository.
+- **Limits:** a trace another mod has cut short (a finalizer that throws the error again, as Search and Rescue's does) hides us; patch
+  lines exist only where Better Stacktraces or Harmony writes them; an error while a save loads, or at the main menu, is noted only once
+  a game is running.
+- **For the takeover (MV12):** when it is built, the line for an error in a taken-over aircraft's flight code says "report it to
+  D'thorga, not the author", as the owner's responsibility rule asks; that needs a registration from the takeover, not built until it is.
+
+Setting **Say when D'thorga code was part of an error**, on by default (agent default; it changes nothing in play). Test row 230.
 
 ## Recorded alternatives (not chosen)
 

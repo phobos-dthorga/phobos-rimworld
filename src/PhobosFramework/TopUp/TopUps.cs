@@ -234,19 +234,6 @@ public static class TopUpDefOf
     static TopUpDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(TopUpDefOf));
 }
 
-/// <summary>"Seen in play" notes for this part (Debug/SeenInPlay; AGENTS.md: a feature with a test row notes itself).</summary>
-static class Seen
-{
-    /// <summary>Whether this note would be written now: check it before building a note's text (Framework 0.138.1).</summary>
-    public static bool Wants(string key, Thing? on = null) => Debug.SeenInPlay.Wants(key, null, on);
-
-    public static void Note(string key, Thing? on = null, string? what = null)
-    {
-        if (!Debug.SeenInPlay.Wants(key, null, on)) return;
-        string? detail = on == null ? what : what == null ? on.LabelShort : on.LabelShort + ": " + what;
-        Debug.SeenInPlay.Note("D'thorga Framework", FrameworkMod.ModVersion, key, detail, on);
-    }
-}
 
 /// <summary>
 /// Hauling work: tops up the buildings a <see cref="PhobosTopUpDef"/> names. Skipped at once on a map with nothing to top up, so it
