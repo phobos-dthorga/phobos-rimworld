@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.187.0] - 2026-11-20 - Draft
+
+Exhaust in closed rooms, a cold-start alert, short circuits that reach a plugged-in vehicle, strangers carried to safety, water from rivers and tanks
+
+### Added
+
+- **Exhaust in closed rooms**, a new setting, off by default. A running engine or generator indoors fills the closed room with carbon monoxide by its real weight: about 70 g an hour at idle and twice that working hard, from a petrol car with no catalytic converter. In a closed single garage that is dangerous within about an hour and a half; doors, vents and gaps in the roof let it out. With D'thorga Medical, breathing it poisons people.
+- **Vehicles won't start: an alert in a cold snap.** While one holds, or it is colder than -15 C, it names your parked vehicles that would not start now, and why.
+- **A short circuit reaches a plugged-in vehicle.** When the grid shorts out, a vehicle whose hook-up lead joins it has its wiring shorted, as a hit on its battery would, and the fault says the surge came from the grid.
+- **The air ambulance collects strangers.** A downed stranger who is no enemy (a refugee from a crashed pod, a hurt traveller) is carried aboard like your own people; set down, a colonist must still be told to rescue them.
+- **The winch pulls another faction's abandoned vehicle**, where nobody is aboard and none of theirs stands armed nearby. It stays theirs until you claim it.
+- **A helicopter's water bucket fills from a parked tank of water** (with Dubs Bad Hygiene, which brings water in tanks), as well as from open water.
+- **For other modders:** a room gas can be added by its real weight (Effect_PushGas, GasMassRule, a gas's molar mass and what its full concentration stands for), and a condition's cause can be told in its own words.
+
+### Compatibility and limits
+
+- New setting: **Exhaust in closed rooms** (off), in D'thorga Framework's vehicle settings, Display, sound and stories page, Stories section.
+- One exhaust figure serves every engine: diesels really idle cleaner and small generators far dirtier. A map cell is taken as holding 3 cubic metres of air, and the gas's full concentration as 1,600 ppm; both authored.
+- The water bucket takes its water from the tank when the run is ordered, not at the dip: a simplification.
+- The words are agent-authored, held for the owner's review.
+- Not yet tested in game: row 260 of the test pass.
+
 ## [0.186.0] - 2026-11-20 - Draft
 
 A setting to quieten vehicle messages nobody asked for

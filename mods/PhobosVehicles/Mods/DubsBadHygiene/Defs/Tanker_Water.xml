@@ -11,8 +11,12 @@
     <kilogramsPerUnit>1</kilogramsPerUnit>
     <spillFilth>Filth_Water</spillFilth>
     <freezesBelow>0</freezesBelow>
+    <!-- Vehicles 0.90.0 (with Framework 0.187.0; docs/development/vehicle-emergent-play.md, EM21): a helicopter's water bucket may fill
+         from a tank of it, and the pump draws it straight from a river, lake or the sea beside the vehicle, untreated. -->
+    <putsOutFires>true</putsOutFires>
     <ports>
       <li Class="Phobos.VehicleSystems.Hygiene.Port_DubsPlumbing" />
+      <li Class="Phobos.VehicleSystems.Hygiene.Port_OpenWater" />
     </ports>
   </Phobos.VehicleSystems.PhobosTankContentsDef>
 </Defs>

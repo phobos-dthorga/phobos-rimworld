@@ -84,12 +84,23 @@ public static class LitterService
     {
         foreach (Pawn pawn in map.mapPawns.AllHumanlikeSpawned)
         {
-            if (IsCasualty(pawn)) list.Add(pawn);
+            if (!IsCasualty(pawn)) continue;
+            list.Add(pawn);
+            if (IsStrangerInNeed(pawn)) Seen.Note("vehicles.litter-stranger", pawn);
         }
     }
 
     static bool IsCasualty(Pawn pawn) =>
-        Patients.IsPlayersPerson(pawn) && Patients.OnTheGround(pawn) && Patients.CareLevel(pawn) != MedicalCareCategory.NoCare;
+        Patients.OnTheGround(pawn) && ((Patients.IsPlayersPerson(pawn) && Patients.CareLevel(pawn) != MedicalCareCategory.NoCare) || IsStrangerInNeed(pawn));
+
+    /// <summary>
+    /// A downed stranger who is no enemy: a refugee from a crashed pod, a traveller hurt on the road (Framework 0.187.0;
+    /// docs/development/vehicle-emergent-play.md, EM27). The manual order already took them; collecting now does too. Set down with the
+    /// others, a colonist still has to be told to rescue them, as the game asks for any stranger.
+    /// </summary>
+    static bool IsStrangerInNeed(Pawn pawn) =>
+        pawn.Spawned && !pawn.Dead && pawn.RaceProps.Humanlike && !DevelopmentalStageExtensions.Baby(pawn.DevelopmentalStage)
+        && pawn.Faction != Faction.OfPlayer && pawn.HostFaction == null && !pawn.IsPrisoner && !pawn.HostileTo(Faction.OfPlayer);
 
     /// <summary>
     /// With field medics about, a casualty bleeding towards death (the game's own "tend now, urgently") is treated where they lie

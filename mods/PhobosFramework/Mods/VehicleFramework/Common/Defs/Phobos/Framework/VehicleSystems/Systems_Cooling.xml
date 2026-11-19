@@ -230,6 +230,19 @@
                 <heatPerSecond>12</heatPerSecond>
                 <scaleBy Class="Phobos.VehicleSystems.Input_EngineLoad" />
               </li>
+              <!-- Framework 0.187.0 (EM20, behind "Exhaust in closed rooms", off by default): carbon monoxide into a closed room. 140 g an
+                   hour at full load, 70 at idle, is authored from a petrol car with no working catalytic converter: the US EPA's fleet
+                   idle figure of 71 g/h (EPA420-F-08-025, 2008; seen only in a search summary, unverified) and Singer and colleagues'
+                   223 g a gallon of warm exhaust (J. Air and Waste Management Association 49(2), 1999). Diesels idle far lower (US EPA,
+                   EPA420-F-08-026: 25 to 37 g/h for buses) and a small generator far higher (NIST TN 1781, 2013: 500 g/h and up); one
+                   figure for every engine is a simplification. In a closed single-car garage of about 18 cells it reaches a
+                   dangerous level in about an hour and a half of idling. -->
+              <li Class="Phobos.VehicleSystems.Effect_PushGas">
+                <gas>PhobosGas_CarbonMonoxide</gas>
+                <gramsPerHour>140</gramsPerHour>
+                <scaleBy Class="Phobos.VehicleSystems.Input_EngineLoad" />
+                <setting>exhaustIndoors</setting>
+              </li>
             </effects>
           </li>
         </stages>

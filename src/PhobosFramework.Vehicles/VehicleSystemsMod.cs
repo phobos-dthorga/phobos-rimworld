@@ -159,6 +159,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A journey away from any map where something went wrong (a new fault, a halt, someone hurt) is also a letter (Framework
     /// 0.181.0, EM25; agent default, agreed by the owner on 20 Nov 2026: on). Every journey goes in the logbook either way. Live.</summary>
     public bool tripLetters = true;
+    /// <summary>A running engine fills the closed room it stands in with carbon monoxide (Framework 0.187.0, EM20; owner, 20 Nov 2026: off by
+    /// default). Harms only with D'thorga Medical, which turns breathing it into poisoning. Live.</summary>
+    public bool exhaustIndoors;
     /// <summary>How far the vehicle systems' messages nobody asked for are quietened (Framework 0.186.0, VehicleMessageLevel; owner's
     /// choice of 20 Nov 2026: a setting; agent default: every message, as before). Live.</summary>
     public MessageLevel messageLevel = MessageLevel.All;
@@ -198,6 +201,7 @@ public class VehicleSystemsSettings : ModSettings
         "climateControlAll" => climateControlAll,
         "keepVehicleFrameworkHealthTab" => keepVehicleFrameworkHealthTab,
         "batteryFires" => batteryFires,
+        "exhaustIndoors" => exhaustIndoors,
         "electricLightning" => electricLightning,
         _ => false,
     };
@@ -262,6 +266,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref batteryFires, "PhobosVehicleSystems_BatteryFires", false);
         Scribe_Values.Look(ref electricLightning, "PhobosVehicleSystems_ElectricLightning", false);
         Scribe_Values.Look(ref tripLetters, "PhobosVehicleSystems_TripLetters", true);
+        Scribe_Values.Look(ref exhaustIndoors, "PhobosVehicleSystems_ExhaustIndoors", false);
         Scribe_Values.Look(ref messageLevel, "PhobosVehicleSystems_MessageLevel", MessageLevel.All);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
@@ -565,6 +570,7 @@ public class VehicleSystemsMod : SettingsBookMod
         // Stories (Framework 0.181.0; docs/development/vehicle-emergent-play.md): what a vehicle's life leaves for the player to read.
         list.Section("PhobosVehicleSystems_SectionStories".Translate());
         list.Check("PhobosVehicleSystems_SettingTripLetters".Translate(), ref s.tripLetters, d.tripLetters, "PhobosVehicleSystems_SettingTripLettersDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingExhaustIndoors".Translate(), ref s.exhaustIndoors, d.exhaustIndoors, "PhobosVehicleSystems_SettingExhaustIndoorsDesc".Translate());
     }
 
     static void DrawRemoving(SettingsList list)

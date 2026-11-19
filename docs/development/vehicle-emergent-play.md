@@ -2,7 +2,7 @@
 
 **Status (20 Nov 2026):** batch 1 built in D'thorga Framework 0.181.0 (EM24, EM23, EM13, EM25 and EM1: faults that say why, the
 logbook, records and tales, the trip report, stranded convoys) and batch 2 in 0.185.0 (EM29(a): four unwise orders go ahead with a
-warning); not yet tested in game. Batches 3 and 4 are being built the same day
+warning) and batch 3 in 0.187.0 (EM20, EM21(a) and (c), EM27's small links); not yet tested in game. Batch 4 is being built the same day
 (the owner's word, 20 Nov 2026); every other row is an idea, not built. The owner answered four of the questions the same day
 ([the answers](#questions-for-the-owner)).
 
@@ -432,6 +432,22 @@ suggested). Not yet tested in game; row 259.
 take-offs beyond the existing warn-only setting have no consequence modelled yet (EM29(b)); lifting a load the helicopter could not
 hover with is impossible, not unwise. **Logbook and tale:** a hard landing the aircraft survives goes in its logbook, and everyone aboard
 who walks away from it may turn up in art (`PhobosTale_CrashSurvived`).
+
+## As built: batch 3, home and incidents (20 Nov 2026, Framework 0.187.0, Vehicles 0.90.0)
+
+Not yet tested in game; row 260.
+
+| Row | What was built | The figures, and where they come from |
+| --- | --- | --- |
+| EM20 | **Exhaust in closed rooms**, behind a new setting, off by default (owner, 20 Nov 2026). A running engine puts carbon monoxide into the closed room it stands in, by weight: grams an hour, scaled by the engine's load, turned into the framework's room gas through the gas's molar mass and what its full concentration stands for (`GasMassRule`; core `Effect_PushGas`, generic for any gas a source knows the grams of). D'thorga Medical turns breathing it into poisoning | 140 g an hour at full load, 70 at idle [A], from a petrol car with no working catalytic converter: the US EPA's fleet idle figure of 71 g/h (EPA420-F-08-025, 2008; **unverified**, a search summary only) and Singer and colleagues' 223 g a gallon of warm exhaust ([LBNL, J. Air and Waste Management Association 49(2), 1999](https://eta-publications.lbl.gov/publications/fuel-based-approach-estimating-motor)). Diesels idle far lower (25 to 37 g/h for buses: [US EPA EPA420-F-08-026](https://nepis.epa.gov/Exe/ZyPDF.cgi?Dockey=P100EVY1.PDF)) and a small generator far higher (about 500 g/h and up: Emmerich, Persily and Wang, [NIST TN 1781, 2013](https://nvlpubs.nist.gov/nistpubs/TechnicalNotes/NIST.TN.1781.pdf)); one figure for every engine is a simplification. A cell holds 3 m3 of air [A]; a full room stands for 1,600 ppm [A], matched to Medical's poisoning and the commonly cited table (an OSHA-hosted training handout, 2017: death within 2 hours at 1,600 ppm). The NIOSH limits for reference: 35 ppm over a shift, 1,200 ppm immediately dangerous ([NIOSH Pocket Guide](https://www.cdc.gov/niosh/npg/npgd0105.html)). In a closed single garage of 18 cells an idling truck adds about 1,100 ppm an hour |
+| EM27 | **Vehicles won't start**: an alert while a cold snap holds a map, or it is colder than -15 C [A], naming parked vehicles that would not start and why (their own systems' answer) | — |
+| EM27 | **A short circuit reaches a plugged-in vehicle**: a prefix on the game's `ShortCircuitUtility.DoShortCircuit` gives every player vehicle whose hook-up lead joins that power net shorted wiring at 0.4 severity [A], with the cause "a surge from the grid" (core `CauseNote.Words`, a cause told in its own words) | — |
+| EM27 | **The air ambulance collects strangers**: a downed, non-hostile stranger is a casualty for automatic collection, as the manual order already allowed. Set down, a colonist must still be told to rescue them, as the game asks | — |
+| EM21(a) | **The winch takes another faction's vehicle** where the claim order could: nobody aboard, nobody of theirs armed nearby. It stays theirs | — |
+| EM21(c) | **A tanker fills from a river, lake or sea** beside it (Dubs Bad Hygiene's tie-in: `Port_OpenWater`, untreated water), after plumbing. **The water bucket fills from a parked tank of water** (`putsOutFires` on a fluid; the water leaves the tank when the run is ordered, a simplification) | — |
+
+**Kept out:** the solar flare (the owner's choice, not taken), and the rest of EM21: the sling lifting items, a hull or a packed building
+(EM21(b)), and the litter carrying a downed enemy as a prisoner (EM21(d)).
 
 ## Who chose what
 

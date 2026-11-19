@@ -143,7 +143,9 @@ public sealed partial class CompPhobosHitch
     public string? WinchRefusalFor(VehiclePawn stuck)
     {
         if (stuck == Vehicle) return "PhobosRecovery_NotItself".Translate().Resolve();
-        if (stuck.Faction != Faction.OfPlayer) return "PhobosRecovery_NotOurs".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
+        // Framework 0.187.0 (EM21): another faction's vehicle may be winched where the claim order could take it (nobody aboard, nobody of
+        // theirs armed nearby): a wreck left on the field is pulled clear before anyone decides whether to claim it. It stays theirs.
+        if (stuck.Faction != Faction.OfPlayer && VehicleClaims.Refusal(stuck) != null) return "PhobosRecovery_NotOurs".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
         if (!stuck.Spawned || stuck.Map != Vehicle.Map) return "PhobosRecovery_NotHere".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
         if (stuck.GetComp<CompVehicleLauncher>() != null) return "PhobosRecovery_NoAircraft".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
         if (stuck.VehicleDef.type != VehicleType.Land) return "PhobosRecovery_LandOnly".Translate(stuck.LabelShort.Named("TOWED")).Resolve();
@@ -170,6 +172,7 @@ public sealed partial class CompPhobosHitch
             return;
         }
         winchTarget = stuck;
+        if (stuck.Faction != Faction.OfPlayer) Seen.Note("vehicles.winch-foreign", Vehicle, stuck.LabelShort);
         winchRequired = RequiredFor(stuck);
         winchAvailable = Available();
         winchWait = RecoveryRule.TicksPerCell(Rules.winchTicksPerCell, winchRequired, winchAvailable);

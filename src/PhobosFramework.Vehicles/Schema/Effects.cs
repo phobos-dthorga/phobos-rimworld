@@ -193,6 +193,37 @@ public class Effect_PushHeat : VehicleSystemEffect
     }
 }
 
+/// <summary>
+/// Puts a gas into the room the vehicle stands in, by its real weight (Framework 0.187.0; docs/development/vehicle-emergent-play.md, EM20:
+/// an engine's carbon monoxide in a closed garage). Grams an hour, scaled by the input, become the framework's room gas through the gas's
+/// molar mass and what its full concentration stands for (GasMassRule). Outdoors, in a doorway or under an open roof the framework loses
+/// it at once, so only a closed room fills. Behind its setting, when one is named; only where the framework carries the gas itself.
+/// D'thorga Medical is what turns breathing it into harm.
+/// </summary>
+public class Effect_PushGas : VehicleSystemEffect
+{
+    public Phobos.Framework.Gases.PhobosGasDef? gas;
+    public float gramsPerHour;
+    public VehicleSystemInput? scaleBy;
+    /// <summary>The settings flag that switches it on (VehicleSystemsSettings.FlagOn); none means always.</summary>
+    public string? setting;
+
+    public override void Apply(SystemContext context, float hours)
+    {
+        if (gas == null || (setting != null && !VehicleSystemsMod.Settings.FlagOn(setting))) return;
+        VehiclePawn vehicle = context.Vehicle;
+        if (!vehicle.Spawned || Phobos.Framework.Gases.PhobosGases.Source(gas) != Phobos.Framework.Rules.GasSource.Own) return;
+        Room? room = vehicle.Position.GetRoom(vehicle.Map);
+        if (room == null || room.UsesOutdoorTemperature) return;
+        float scale = scaleBy?.Evaluate(context) ?? 1f;
+        if (scale <= 0f) return;
+        double cells = Phobos.Framework.Rules.GasMassRule.CellsFromGrams(gramsPerHour * scale * hours, gas.molarMassGramsPerMole, gas.ppmAtFullConcentration);
+        if (cells <= 0) return;
+        Phobos.Framework.Gases.MapComponent_PhobosRoomGases.For(vehicle.Map)?.AddGas(vehicle.Position, gas, (float)cells);
+        Seen.Note("vehicles.exhaust-indoors", vehicle, gas.defName);
+    }
+}
+
 /// <summary>Throws flecks from the vehicle (steam, smoke), so its state shows on the map.</summary>
 public class Effect_Fleck : VehicleSystemEffect
 {

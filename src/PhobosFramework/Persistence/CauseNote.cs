@@ -32,6 +32,15 @@ public sealed class CauseNote : IExposable
 
     public static CauseNote Strain(string detail, PlanetTile tile) => new() { kind = CauseKind.Strain, detail = detail ?? "", tick = Now, tile = tile };
 
+    /// <summary>The prefix of a strain's key that is a translation key of its own words (Framework 0.187.0: a surge from the grid).</summary>
+    public const string WordsPrefix = "words:";
+
+    /// <summary>A strain told in its own words: the key is translated whenever the cause is shown.</summary>
+    public static CauseNote Words(string translationKey, PlanetTile tile) => Strain(WordsPrefix + translationKey, tile);
+
+    /// <summary>The words of a strain told in its own words; null for any other cause.</summary>
+    public string? OwnWords() => kind == CauseKind.Strain && detail.StartsWith(WordsPrefix) ? detail.Substring(WordsPrefix.Length).Translate().Resolve() : null;
+
     static int Now => Find.TickManager?.TicksGame ?? 0;
 
     /// <summary>A hit in words ("a bullet hit"); an unknown kind of damage reads as a plain hit.</summary>
@@ -47,7 +56,7 @@ public sealed class CauseNote : IExposable
 
     /// <summary>The whole line, given the owner's words for a strain: "Cause: a bullet hit, 3 days ago, near Amber Anchorage".</summary>
     public string Line(string? strainWords) =>
-        "PhobosCause_Line".Translate((kind == CauseKind.Hit ? HitText() : strainWords.NullOrEmpty() ? "PhobosCause_Unknown".Translate().Resolve() : strainWords!).Named("WHAT"),
+        "PhobosCause_Line".Translate((kind == CauseKind.Hit ? HitText() : OwnWords() ?? (strainWords.NullOrEmpty() ? "PhobosCause_Unknown".Translate().Resolve() : strainWords!)).Named("WHAT"),
             WhenAndWhere().Named("WHENWHERE"));
 
     public void ExposeData()

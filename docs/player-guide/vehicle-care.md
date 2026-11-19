@@ -384,6 +384,15 @@ the kit back in the cargo.
 - **Light vehicles and rivers.** A car, buggy or light utility vehicle (under 2 tonnes) with its engine running in a river can draw
   water into its engine and damage it; a message warns as it enters the water. **A short crossing is a small gamble; driving along
   a river is asking for it.** Fit a **snorkel** to cross safely. Heavier vehicles ford the shallow rivers unaided.
+- **A cold snap warns you** (not yet tested in game): while one holds, or it is colder than -15 C, the **Vehicles won't start** alert
+  names your parked vehicles that would not start now, and why, before a raid makes you find out.
+- **Exhaust in closed rooms** (not yet tested in game; a setting, **off** by default): an engine or a generator running indoors fills the
+  room with carbon monoxide, about 70 g an hour at idle and twice that working hard. In a closed single garage that is a dangerous level
+  within about an hour and a half; doors, vents and gaps in the roof let it out. With **D'thorga Medical**, breathing it poisons people.
+- **A short circuit reaches a plugged-in vehicle** (not yet tested in game): when the grid shorts out, a vehicle whose hook-up lead joins it
+  has its wiring shorted, as a hit on its battery would, and its fault says the surge came from the grid.
+- **A tanker can fill from a river** (not yet tested in game, needs Dubs Bad Hygiene): parked with a side against a river, lake or the
+  sea, its pump draws water straight in, untreated, when there is no plumbing to draw from.
 - **Ammunition in a burning vehicle can go off** (with Combat Extended's ammunition in use). Each blast uses part of what is aboard
   and grows with it. **Get the ammunition out or the fire out quickly, and keep people clear.** The setting **Ammunition aboard can
   cook off in a fire** turns it off.
@@ -497,7 +506,8 @@ the kit back in the cargo.
   and release and drops.
 - **Fighting a fire from the air** (not yet tested in game): a helicopter with a cargo hook and a **fire bucket** in its cargo (made at
   the vehicle parts bench) gets **Water drop**. Click a fire within 50 cells: it flies to the nearest open water, fills the bucket, empties
-  it over the fire and comes back to where it stood. **It needs open water within reach, open sky over the fire, its crew, fuel and
+  it over the fire and comes back to where it stood. **A parked tanker or water bowser of yours holding water also fills it** (not yet
+  tested in game, needs Dubs Bad Hygiene for water in tanks): the water comes out of the tank when you order the run. **It needs water within reach, open sky over the fire, its crew, fuel and
   flying weather**; the button says what is missing. **The Hind cannot fly water drop runs.** A full bucket puts out the fires on about 3 cells across. Click the helicopter while
   it flies to see what it is doing.
 - **An air ambulance** (not yet tested in game): fit the **litter kit** to the helicopter's cabin (Fittings and tunes; on the Cherokee and the Louie
@@ -508,7 +518,9 @@ the kit back in the cargo.
   **Take casualties aboard** (not yet tested in game) makes the parked helicopter the place casualties go: with it switched on, doctors
   (and Search and Rescue's field responders) carry downed people to its litters whenever it is nearer than their bed, or they have no
   bed, until every litter is taken; then it says so. Prisoners and guests are carried too; anyone set to no medical care is not. Someone
-  bleeding badly is treated where they lie first when a field medic is at hand. **Switch it off before you leave** if you do not want
+  bleeding badly is treated where they lie first when a field medic is at hand. **A downed stranger who is no enemy** (a refugee from a
+  crashed pod, a hurt traveller) is carried too (not yet tested in game); set down, a colonist must still be told to rescue them, as the
+  game asks for any stranger. **Switch it off before you leave** if you do not want
   it working at the next landing site. It cannot be switched on while the helicopter moves or flies.
 
 **Flight controls** (not yet tested in game): an aircraft whose control surfaces, actuators, hydraulics or wiring are wrecked below 35 %
@@ -573,7 +585,9 @@ Not yet tested in game. Any land vehicle can tow a trailer such as the [Pintle f
 
 Not yet tested in game. Fit the **recovery winch** (the **Recovery** family in the fittings window) to a land vehicle.
 
-- **Press Winch a vehicle** and pick a stuck, broken or empty vehicle within 12 cells. **Someone must be aboard to work the winch.** It
+- **Press Winch a vehicle** and pick a stuck, broken or empty vehicle within 12 cells. **Another faction's vehicle can be winched too**
+  where nobody is aboard and none of theirs stands armed nearby (not yet tested in game): pull a wreck clear before deciding whether
+  to claim it. It stays theirs until you do. **Someone must be aboard to work the winch.** It
   drags the vehicle in a cell at a time, slower the heavier the pull, and stops beside you. **Stop winching** ends it at any time.
 - **Whether the winch can manage** is worked out from both vehicles' weight and ground: a vehicle in deep mud is far harder to move than
   one on gravel, and one whose wheels are wrecked is dragged, which is harder still. The winch pulls up to 5,443 kg, but never more than

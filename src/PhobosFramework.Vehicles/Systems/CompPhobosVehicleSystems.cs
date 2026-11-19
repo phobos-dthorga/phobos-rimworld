@@ -1952,6 +1952,16 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         AfterConditionsChanged();
     }
 
+    /// <summary>Gives a part of the role the condition with a cause already written (Framework 0.187.0: a surge from the grid).</summary>
+    public void AddCondition(string role, PhobosVehicleConditionDef def, float amount, string system, Phobos.Framework.Persistence.CauseNote cause)
+    {
+        if (!Usable || amount <= 0f) return;
+        VehicleComponent? chosen = PartsOf(role).FirstOrDefault();
+        if (chosen == null) return;
+        Conditions.Add(def, chosen, role, system, amount, cause);
+        AfterConditionsChanged();
+    }
+
     /// <summary>Gives a part of the role the condition, or adds to it where a part already has it (Effect_AddCondition). The stage that
     /// gave it is kept as its cause (Framework 0.181.0, EM24).</summary>
     public void AddCondition(string role, PhobosVehicleConditionDef def, float amount, string system, string? causeKey = null)

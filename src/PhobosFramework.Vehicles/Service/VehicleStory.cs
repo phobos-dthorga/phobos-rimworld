@@ -75,7 +75,8 @@ public static class VehicleStory
     {
         if (!Keeps(comp) || condition.def == null) return;
         string what = "PhobosVehicleSystems_LogFaultWhat".Translate(condition.def.label.Named("CONDITION"), (part.props.label ?? part.props.key).Named("PART")).Resolve();
-        string cause = condition.cause == null ? "" : condition.cause.kind == CauseKind.Hit ? condition.cause.HitText() : StrainWords(condition.cause.detail) ?? "";
+        string cause = condition.cause == null ? "" : condition.cause.kind == CauseKind.Hit ? condition.cause.HitText()
+            : condition.cause.OwnWords() ?? StrainWords(condition.cause.detail) ?? "";
         Log(comp, VehicleStoryDefOf.PhobosLog_Fault, subject: what, detail: cause.NullOrEmpty() ? "PhobosCause_Unknown".Translate().Resolve() : cause);
         if (condition.cause != null) Seen.Note("vehicles.fault-cause", comp.Vehicle, condition.def.defName, condition.cause.kind == CauseKind.Hit ? "hit" : "strain");
     }

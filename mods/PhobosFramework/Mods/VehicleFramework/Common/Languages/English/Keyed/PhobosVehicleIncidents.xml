@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The game's incidents meet the vehicles, and verbs that act on more (Framework 0.187.0; docs/development/vehicle-emergent-play.md,
+     EM27 and EM21). Agent-authored, held for the owner's review. -->
+<LanguageData>
+
+  <!-- A cold snap: which parked vehicles would not start -->
+  <PhobosVehicleSystems_ColdStartAlert>Vehicles won't start</PhobosVehicleSystems_ColdStartAlert>
+  <PhobosVehicleSystems_ColdStartIntro>In this cold, these vehicles would not start if you needed them now. A block heater, a heated garage, a jump-start or a charged battery may get them going; better found out now than when a raid comes.</PhobosVehicleSystems_ColdStartIntro>
+  <PhobosVehicleSystems_ColdStartLine>{VEHICLE}: {REASON}</PhobosVehicleSystems_ColdStartLine>
+
+  <!-- A tank's pump at a river, lake or the sea -->
+  <PhobosVehicleSystems_WaterNoOpenWater>no river, lake or sea beside it to draw from</PhobosVehicleSystems_WaterNoOpenWater>
+
+  <!-- Exhaust in a closed room: the setting -->
+  <PhobosVehicleSystems_SettingExhaustIndoors>Exhaust in closed rooms</PhobosVehicleSystems_SettingExhaustIndoors>
+  <PhobosVehicleSystems_SettingExhaustIndoorsDesc>An engine or a generator running indoors fills the room with carbon monoxide: about 70 g an hour at idle, twice that working hard. In a closed single garage that is dangerous within about an hour and a half; doors, vents and gaps in the roof let it out. With D'thorga Medical, breathing it poisons people.</PhobosVehicleSystems_SettingExhaustIndoorsDesc>
+
+  <!-- The game's short circuit, through a vehicle's hook-up lead -->
+  <PhobosVehicleSystems_CauseShortCircuit>a surge from the grid when it shorted out</PhobosVehicleSystems_CauseShortCircuit>
+  <PhobosVehicleSystems_ShortCircuitReached>The short circuit surged down the {VEHICLE}'s hook-up lead and shorted its wiring. Some of its circuits are dead until a mechanic repairs or patches them.</PhobosVehicleSystems_ShortCircuitReached>
+
+</LanguageData>

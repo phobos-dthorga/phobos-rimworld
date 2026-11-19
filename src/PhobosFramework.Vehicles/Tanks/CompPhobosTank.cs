@@ -769,6 +769,21 @@ public class CompPhobosTank : CompPhobosSetUp
         return taken;
     }
 
+    /// <summary>How much this tank holds of fluids that put out fires, and the first such fluid; 0 with none (Framework 0.187.0, EM21).</summary>
+    public float FireWater(out PhobosTankContentsDef? fluid)
+    {
+        fluid = null;
+        float total = 0f;
+        foreach (TankCompartment compartment in Compartments)
+        {
+            if (compartment.contents is not { putsOutFires: true } contents || compartment.amount <= 0f) continue;
+            if (fluid != null && contents != fluid) continue;
+            fluid = contents;
+            total += compartment.amount;
+        }
+        return total;
+    }
+
     /// <summary>Puts up to this much of a fluid back into compartments holding it or set to it, as far as they have room. Returns what went in.</summary>
     public float PutIn(PhobosTankContentsDef fluid, float most, int quality)
     {

@@ -24,6 +24,10 @@ public class PhobosGasDef : Def
     public GasKind preferExisting = GasKind.None;
     /// <summary>The owner's pin: this gas is always the framework's, whatever the source mode.</summary>
     public bool alwaysOwn;
+    /// <summary>The gas's molar mass, grams a mole, for sources that know their grams (Framework 0.187.0: an engine's exhaust); 0 where none does.</summary>
+    public float molarMassGramsPerMole;
+    /// <summary>The concentration in ppm that the engine's full (1) stands for, for the same sources; 0 where none does. Authored per gas.</summary>
+    public float ppmAtFullConcentration;
     /// <summary>Colour in the dev overlay.</summary>
     public Color overlayColor = new(0.8f, 0.8f, 0.2f, 1f);
 

@@ -36,6 +36,8 @@ public class PhobosTankContentsDef : Def
     public float kilogramsPerUnit = 1f;
     /// <summary>Burns, and may explode when the tank is destroyed under it.</summary>
     public bool flammable;
+    /// <summary>Puts out fires: a helicopter's water bucket may fill from a tank holding it (Framework 0.187.0, EM21). Water.</summary>
+    public bool putsOutFires;
     /// <summary>What a leak leaves on the ground. None for a gas.</summary>
     public ThingDef? spillFilth;
     /// <summary>Below this the contents are frozen and cannot be pumped. NaN never freezes.</summary>

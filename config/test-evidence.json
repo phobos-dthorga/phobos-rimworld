@@ -263,6 +263,15 @@
         {"key": "vehicles.deliver.end", "variant": "NoBay", "expect": {"things": ">= 1"}}],
       "it drives back": [{"key": "vehicles.deliver.home"}]
     }},
+    "260": {"parts": {
+      "an engine indoors fills the room with carbon monoxide": [{"key": "vehicles.exhaust-indoors"}],
+      "the cold-start alert names a vehicle that would not start": [{"key": "vehicles.cold-start-alert"}],
+      "a short circuit reaches a plugged-in vehicle": [{"key": "vehicles.short-circuit-surge"}],
+      "the air ambulance collects a stranger": [{"key": "vehicles.litter-stranger"}],
+      "the winch pulls another faction's vehicle": [{"key": "vehicles.winch-foreign"}],
+      "a tanker fills from a river": [{"key": "vehicles.river-intake"}],
+      "the water bucket fills from a tank": [{"key": "vehicles.water-drop-from-tank"}]
+    }},
     "259": {"parts": {
       "cutting the engines in the air brings it down": [{"key": "aircraft.engines-cut"}],
       "everyone who walks away from a hard landing gets a tale": [{"key": "vehicles.tale", "variant": "PhobosTale_CrashSurvived"}],

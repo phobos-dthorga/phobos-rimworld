@@ -13,6 +13,12 @@
     <!-- Under a gap in the roof it is gone in minutes. -->
     <openRoofHalfLifeTicks>600</openRoofHalfLifeTicks>
     <maxConcentration>1</maxConcentration>
+    <!-- Framework 0.187.0 (an engine's exhaust in a closed room): carbon monoxide's molar mass, 28.01 g a mole, and what a full room
+         stands for. 1,600 ppm is authored to match D'thorga Medical's poisoning, which at full collapses a person in about 80 minutes
+         and reaches "dying" in under two hours: the commonly cited exposure table puts death within 2 hours at 1,600 ppm (an OSHA-hosted training handout credited to
+         grainsafety.org, 2017; a training aid, not a study). -->
+    <molarMassGramsPerMole>28.01</molarMassGramsPerMole>
+    <ppmAtFullConcentration>1600</ppmAtFullConcentration>
     <filteredByMask>false</filteredByMask>
     <preferExisting>None</preferExisting>
     <overlayColor>(0.9, 0.3, 0.3, 1)</overlayColor>

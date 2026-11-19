@@ -103,14 +103,27 @@ public static class WaterDrops
         return false;
     }
 
-    /// <summary>The open water within reach of the helicopter that makes the shortest circuit to this fire. Read once, when the order is
-    /// given.</summary>
-    static bool TryFindWater(VehiclePawn helicopter, IntVec3 fire, float reach, out IntVec3 found)
+    /// <summary>The open water within reach of the helicopter that makes the shortest circuit to this fire, or (Framework 0.187.0, EM21) a
+    /// parked tank of the colony's holding water enough to fill the bucket. Read once, when the order is given.</summary>
+    static bool TryFindWater(VehiclePawn helicopter, IntVec3 fire, float reach, out IntVec3 found) => TryFindWater(helicopter, fire, reach, 0, out found, out _);
+
+    static bool TryFindWater(VehiclePawn helicopter, IntVec3 fire, float reach, double litres, out IntVec3 found, out CompPhobosTank? tank)
     {
         Map map = helicopter.Map;
         IntVec3 pad = helicopter.Position;
         found = IntVec3.Invalid;
+        tank = null;
         float best = float.MaxValue;
+        foreach (Pawn pawn in map.mapPawns.SpawnedPawnsInFaction(Faction.OfPlayer))
+        {
+            if (pawn is not VehiclePawn vehicle || vehicle == helicopter || vehicle.GetComp<CompPhobosTank>() is not { } holder) continue;
+            if (holder.FireWater(out _) < Mathf.Max(1f, (float)litres) || vehicle.Position.Roofed(map) || vehicle.Position.DistanceTo(pad) > reach) continue;
+            float circuit = vehicle.Position.DistanceTo(pad) + vehicle.Position.DistanceTo(fire);
+            if (circuit >= best) continue;
+            best = circuit;
+            found = vehicle.Position;
+            tank = holder;
+        }
         int count = GenRadial.NumCellsInRadius(reach);
         for (int i = 0; i < count; i++)
         {
@@ -120,6 +133,7 @@ public static class WaterDrops
             if (circuit >= best) continue;
             best = circuit;
             found = cell;
+            tank = null;
         }
         return found.IsValid;
     }
@@ -152,9 +166,16 @@ public static class WaterDrops
             Messages.Message(refusal, helicopter, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
-        TargetRefusal(sling, target, out IntVec3 water);
-        WaterRunPlan plan = PlanFor(helicopter, water, target);
         double litres = Litres(sling);
+        TryFindWater(helicopter, target, Reach, litres, out IntVec3 water, out CompPhobosTank? tank);
+        WaterRunPlan plan = PlanFor(helicopter, water, target);
+        // Framework 0.187.0 (EM21): a bucket filled from a tank of water takes it from the tank when the run is ordered (a simplification:
+        // the dip itself draws nothing), and never more than the tank holds.
+        if (tank != null && tank.FireWater(out PhobosTankContentsDef? fluid) > 0f && fluid != null)
+        {
+            litres = tank.TakeOut(fluid, (float)litres, out _);
+            Seen.Note("vehicles.water-drop-from-tank", helicopter, tank.Vehicle.LabelShort);
+        }
         VehicleFuel.Burn(helicopter, FuelFor(helicopter, plan), Phobos.Framework.Vehicles.Rules.FuelUse.Flight);
         PhobosWaterRun.Start(helicopter, water, target, plan, litres, Radius(litres));
         Messages.Message("PhobosWaterDrop_Started".Translate(helicopter.LabelShort.Named("HELICOPTER"), ((float)litres).ToString("N0").Named("LITRES")).Resolve(),

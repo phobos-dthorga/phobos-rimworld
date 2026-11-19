@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.90.0] - 2026-11-20 - Draft
+
+A tanker or water bowser fills from a river, and a helicopter's bucket fills from it
+
+### Added
+
+- **A tanker or water bowser holding water fills from a river, lake or the sea** (with Dubs Bad Hygiene): parked with a side against open water, its pump draws water straight in, untreated, when there is no plumbing to draw from.
+- **Its water fights fires**: a helicopter's water bucket may fill from it (needs D'thorga Framework 0.187.0).
+
+### Compatibility and limits
+
+- River water comes in untreated, as Dubs Bad Hygiene counts water from the land: a tank filled at a river does not pass for treated water.
+- Not yet tested in game: row 260 of the test pass.
+
 ## [0.89.0] - 2026-11-20 - Draft
 
 The Harrier's and the Hind's dispensers hold their real number of cartridges
