@@ -1,0 +1,40 @@
+{
+  "file": "paid-kit-tanker-armoured-cab-1.png",
+  "sha256": "525e33426649c161269a9b4cef2164562aed227f955825610da3a551b155ab35",
+  "date": "2026-11-19T15:32:24",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is the cab of our Ullage bulk tanker seen from directly above, the front of the truck toward the TOP of the canvas: an olive bonnet at the top, a dark windscreen strip, a pale roof with three raised ribs and an orange stripe, a step box on its right side, and the front wheels either side. Fit the cab with a bolted-on armour kit: flat olive drab steel plates laid over the roof and the doors, following the cab's own outline, their edges lined with rows of small round bolt heads; the windscreen strip narrowed and framed by a thick steel surround. The plates sit ON the cab: it keeps its shape. Change NOTHING else: keep the cab's outline, size and position, the wheels, every other line, panel and colour, and the plain white background exactly as in Image 1, at the same scale.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, weapons, dust, damage or shadows outside the truck.",
+  "seed": 1,
+  "size": [
+    768,
+    576
+  ],
+  "request_file": "assets/phobos-vehicles/requests/truck-cab-kits-paid.json",
+  "generator": "Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai (paid per image)",
+  "engine": "fal",
+  "model": "fal-ai/nano-banana-pro/edit",
+  "seed_note": "an attempt number naming the file, also sent to the model as its seed",
+  "ai_disclosure": "Made with generative AI: Google Nano Banana Pro (Gemini 3 Pro Image), with references, through fal.ai, prompted by the Phobos art scripts.",
+  "terms": "fal Terms of Service (last updated 8 Sep 2026) and API Services Terms, read in part on 2026-11-18: the customer keeps its inputs; the part read has no sentence saying the customer owns outputs, and says fal does not warrant that outputs are original; access is \"for your own personal or internal business use\". fal's FAQ: \"Most models on fal are available for commercial use and are marked with a Commercial use badge on the model page\". API Services Terms 2(d): fal \"will not use Client Content to create, train, develop\" its products. Inputs and outputs are kept on the platform for 90 days by default. Each model also falls under its maker's own terms, not read. The owner confirms the current text.",
+  "endpoint": "fal-ai/nano-banana-pro/edit",
+  "request_id": "01a1f213-6e26-70a2-a7a0-cdfd81decb90",
+  "usage": null,
+  "cost_usd": 0.15,
+  "cost_is_estimate": true,
+  "cost_note": "the table's ceiling for this model and size; fal's answers carry no price",
+  "returned_size": [
+    1200,
+    896
+  ],
+  "asked_resolution": "1K",
+  "asked_aspect_ratio": "4:3",
+  "sent_seed": 1,
+  "size_note": "asked for 768x576, received 1200x896",
+  "seconds": 24.3,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/kit-crop-tanker-cab.png",
+      "sha256": "6c8d0a1298cdf7c7d3695ad913ccdfca7adba6a3e60a3908d19815c8c7e56439",
+      "role": "a piece of our approved Ullage bulk tanker body (the owner's pick), the cab only: the picture to add to, changing nothing else"
+    }
+  ]
+}

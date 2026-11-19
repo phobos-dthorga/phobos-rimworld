@@ -1,0 +1,33 @@
+{
+  "file": "truck-kit-engineguards-11.png",
+  "sha256": "11e12b4cf0747ddd9ca59429693aac9bfed660617ad636af147074e90993b69e",
+  "date": "2026-11-19T09:28:53",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A boxy truck engine block with a dark steel guard cage bolted round it and a squat fuel tank beside it wrapped in a riveted steel plate. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/truck-kit-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 166.3,
+  "references": [
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+      "sha256": "630b84ea6add8674669649be77801d0358f27d3454f28af46d7acebb0e8c2d29"
+    },
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DeepchemHead.png",
+      "sha256": "4830532ddcecd7884dd4a0d221f747a7aecaecb91b0136133981d1de26c37019"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
