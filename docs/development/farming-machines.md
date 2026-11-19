@@ -488,6 +488,30 @@ The standing rule asks every vehicle mechanic to be designed for other factions.
 - **To check with real figures before a first build** (AG6): that growing to sell does not beat the vanilla economy. Raw crops sell
   cheaply and traders carry limited silver, but a thousand-cell paddock is new territory.
 
+#### The check (AG6, 20 Nov 2026, agent's)
+
+Figures read from the owner's game as patched (`query-defs.py patched`); the arithmetic and judgement are the agent's [I].
+
+| Crop | Yield a plant | Growing days | Market value a unit |
+| --- | --- | --- | --- |
+| Rice | 6 | 3 | 1.1 |
+| Corn | 22 | 11.3 | 1.1 |
+| Wheat (Vanilla Cooking Expanded) | 27 | 15 | (as patched) |
+
+- **A machine adds cells, never yield**: the combine cuts by the game's own rules and the driver's skill, so a cell gives what a hand
+  harvest of it would. A thousand-cell rice paddock gives about 6,000 rice a crop (about 6,600 silver at market value) whether hands or a
+  combine cut it.
+- **What a combine saves is labour.** By hand that paddock is about 200 work ticks a plant for one skilled grower, roughly four days of
+  one colonist's working time; the combine does it in hours for some chemfuel (2.3 silver a unit) and wear.
+- **Selling is bounded as in the vanilla game**: by traders' silver and visits, by spoilage (40 days for rice, 60 for corn) and by
+  storage. Growing more than traders can buy earns nothing more. The vanilla game already lets a colony plant a field this size by hand
+  with several growers; machines do not open anything vanilla closes. **Agent's judgement: no change needed for crops**; watch it in
+  play. The Realistic soil rules, when built, add nutrient costs that make a big paddock dearer to keep.
+- **One fault found and fixed** (Farming 0.3.3): the combine's market value was 4,200, the drill rig's, though its parts bill is almost
+  the Talus tipper's (2,800): selling combines would have paid more than building them. It is now **3,000**, the tipper's plus a
+  little for its size. The chaser bin's 1,500 is now **1,300**, the 3 x 7 flatbed's 1,200 plus its auger. Both authored [A]. The field bin
+  and silo set no market value, so the game works it out from their cost.
+
 ### Saves
 
 - **Safe to add mid-game.** A paddock's mark and soil figures are saved in a map component with stable keys.

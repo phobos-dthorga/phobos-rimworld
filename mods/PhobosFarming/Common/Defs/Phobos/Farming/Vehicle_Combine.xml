@@ -32,7 +32,9 @@
       <ArmorRating_Sharp>0.4</ArmorRating_Sharp>
       <ArmorRating_Heat>1.0</ArmorRating_Heat>
       <Flammability>0.7</Flammability>
-      <MarketValue>4200</MarketValue>
+      <!-- Farming 0.3.3: 4,200 was the drill rig's; its parts bill is almost the tipper's (2,800), so selling would have paid more than
+           building (docs/development/farming-machines.md, AG6). Authored [A]. -->
+      <MarketValue>3000</MarketValue>
     </statBases>
     <vehicleStats>
       <Mass>420</Mass>

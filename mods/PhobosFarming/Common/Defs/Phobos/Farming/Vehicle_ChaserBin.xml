@@ -32,7 +32,8 @@
       <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
       <ArmorRating_Heat>1.0</ArmorRating_Heat>
       <Flammability>0.3</Flammability>
-      <MarketValue>1500</MarketValue>
+      <!-- Farming 0.3.3: the 3 x 7 flatbed's 1,200 plus its auger (AG6). Authored [A]. -->
+      <MarketValue>1300</MarketValue>
     </statBases>
     <vehicleStats>
       <Mass>130</Mass>

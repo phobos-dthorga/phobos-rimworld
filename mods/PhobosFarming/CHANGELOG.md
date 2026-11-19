@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.3] - 2026-11-20 - Draft
+
+The combine and the chaser bin no longer sell for more than they cost to build
+
+### Balance
+
+- **The combine's market value is 3,000, down from 4,200, and the chaser bin's 1,300, down from 1,500.** Their parts are close to the Talus tipper's and the flatbed's, so selling one had paid more than building it. Machines add cells, never yield: a harvest gives what hands would get from the same cells, and selling crops stays limited by traders, as in the plain game (the economy check, docs/development/farming-machines.md).
+
 ## [0.3.2] - 2026-11-20 - Draft
 
 The chaser bin renamed

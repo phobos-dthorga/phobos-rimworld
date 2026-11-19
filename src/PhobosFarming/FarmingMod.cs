@@ -32,7 +32,7 @@ public class FarmingMod : SettingsBookMod
     public const string PackageId = "PhobosDthorga.Farming";
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = PackageId;
-    public const string ModVersion = "0.3.2";
+    public const string ModVersion = "0.3.3";
     public const string LogPrefix = "[D'thorga Farming]";
 
     public static readonly Phobos.Logging.PhobosLog Logger = Framework.Logging.Logs.For("D'thorga Farming");
