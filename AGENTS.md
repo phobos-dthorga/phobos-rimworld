@@ -147,7 +147,10 @@ running a script does not load them.
   first**: attaching can hitch it. A performance fix is checked with a recording before and after; a recording measures, never tests.
   **A frozen or stuck game: `python scripts/perf.py stack`** (owner's go-ahead, 18 Nov 2026), before guessing from code: snapshots of
   every thread's stack a moment apart, whether the main thread moved, the frames that never did and the innermost mod on them.
-  **Memory: `heap`**, by type and by mod, and **`heap-compare`** for what grew (take three over minutes before calling it a leak).
+  **Memory: start with `watch`** (owner, 19 Nov 2026): the game's memory over minutes or hours without pausing it, whether it climbs
+  steadily or in jumps, .NET's heap against the rest, and the saves and errors around each jump; `--no-counters` attaches nothing.
+  Then `heap`, by type and by mod, and **`heap-compare`** for what grew (take three over minutes before calling it a leak); **on the
+  owner's game a heap snapshot holds only part of the heap** (it stops near ten million objects), and its report says so.
   **Ask the owner before each**, as for a recording; heap forces a full garbage collection, so the game pauses until it is done.
 - **Answer how long the game takes to start, and which mods cost it, with `python scripts/startup-impact.py`** (owner, 8 Nov 2026):
   every launch, the costliest mods, `compare` for what changed between two launches, `mod <name>` for one mod. Start-up time varies

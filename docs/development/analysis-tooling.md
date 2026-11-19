@@ -221,7 +221,22 @@ which frames never did, the part of the loop and the innermost mod on its stack.
 (a full garbage collection first, so the game pauses) and reports it by type and by mod; a .NET collection of a mod's type counts for
 that mod; `heap-compare` shows who grew. Checked on a small test program of ours (a spinning thread was found unmoved in three
 snapshots; a 21.7 MB heap was read in half a second). Limits: memory counts under the type that is it, so arrays a mod holds count as
-.NET's; dotnet-gcdump warns that on .NET 10 it can drop events on a large heap. **Not yet run on the game.**
+.NET's; dotnet-gcdump warns that on .NET 10 it can drop events on a large heap.
+
+**First run on the game, 19 Nov 2026: the heap snapshot sees only part of a large heap.** On the owner's PG15 (26 GB claimed)
+dotnet-gcdump listed exactly 10,000,003 objects and 667 MB, while the runtime's own counters in earlier recordings put the heap at
+6 to 11.5 GB: it stops near ten million objects. The game paused 20 to 30 s (the owner's watch). Since phobos-modkit 1.42.0 heap
+reads the runtime's own count straight after and says in bold when the snapshot is partial; shares are of what it listed.
+
+**Memory over time: `python scripts/perf.py watch` (phobos-modkit 1.42.0, 19 Nov 2026, the owner's request).** Follows the
+running game for minutes or hours **without pausing it**: what it claimed and what is in RAM (Windows' own figures, every few
+seconds), .NET's heap and collector (dotnet-counters, attached once; `--no-counters` attaches nothing), and every minute the memory
+map by kind, block size and file. Its report says whether memory held steady or climbed in jumps, splits .NET's heap from the rest
+(the engine, drivers, native code), and names the saves loaded and errors logged around each jump. First readings (owner's game,
+19 Nov, not tests): 26 GB claimed; one 135 GB reservation with 12.9 GB in use, most likely .NET's heap (unconfirmed without the
+counters), and about 12 GB in some 2,400 native blocks of 1 to 64 MB; reloading PG15 dropped the claim 1.6 GB, then raised it
+3.4 GB within a minute, mostly in 390 new 1 to 16 MB blocks. Still to build (owner agreed 19 Nov, TraceEvent as a dependency):
+a reader of the `.gcdump` file for what holds what, and allocation recording by mod and method.
 
 ### 9c. The upstream watch
 

@@ -14,6 +14,8 @@ owner before recording their running game**, and ask them to save first. Paths c
     python scripts/perf.py stack --label "frozen"          a frozen or stuck game: every thread's stack, 3 times, 2 s apart
     python scripts/perf.py heap --label "day 40"           what holds the game's memory, by type and by mod (pauses the game)
     python scripts/perf.py heap-compare                    the last two heaps: who grew
+    python scripts/perf.py watch --minutes 120             the game's memory over time, without pausing it; Ctrl+C ends it
+    python scripts/perf.py watch-report                    the newest watch again
 
 Ask the owner before stack and heap too: heap forces a full garbage collection, so the game pauses until it is done.
 """
