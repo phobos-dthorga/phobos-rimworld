@@ -1,7 +1,7 @@
 # The trucks' cab armour kits by paid editing (19 Nov 2026)
 
-**Status (19 Nov 2026):** requests written and dry-run (20 pictures, at most US$3.00 on fal's price table); **not run**: it waits
-for the owner's spending cap. Nothing is picked or shipped.
+**Status (19 Nov 2026):** run at 15:31, one try each under the owner's US$1.50 cap: 10 pictures, every one keeping its cab.
+Nothing is picked or shipped.
 
 ## The owner's direction
 
@@ -31,4 +31,11 @@ for the Osprey's pieces (18 Nov 2026, [Osprey overlays](osprey-overlays-record.m
 
 ## Costs and results
 
-Filled in after the run: each picture's recorded cost, what came back, rejects with their reason.
+**Run 19 Nov 2026, 15:31** (`generated/run-20261119-1531.md`), under the owner's cap of **US$1.50, one try each** (card, same day):
+10 pictures, US$1.50 recorded (the table's US$0.15 each; fal's answers carry no price). Nothing refused or failed.
+
+- **Every picture kept its cab** (agent's look, beside the cut cab): outline, wheels, stripe and layout unchanged, the armour added on
+  top. The armoured cabs are bolted plates with a framed windscreen; the heavy plates are thick slabs with a slit visor.
+- **Sizes came back larger than asked**, nearly the same shape: 1200 x 896 for 1024 x 768 (4:3), 1376 x 768 for 1024 x 576 (16:9),
+  1264 x 848 for 768 x 512 (3:2). Each is scaled back to its cut's size before the kit is lifted out.
+- On the owner's picking page (`<artWorkPath>/picks/night-7-picks.html`), beside each cab as it is. **Nothing picked yet.**
