@@ -1,6 +1,6 @@
 # Farm machines: research and design for D'thorga Farming (19 Nov 2026)
 
-**Status (19 Nov 2026):** research and record only. No mod, Def, code or picture exists for any of it, and nothing here is tested in game. The owner answered every question it raised the same day (below); only the machines' names are left for later.
+**Status (20 Nov 2026):** the build of batch one has started ([farming batch one](farming-batch-one.md)): the shared run base is built (D'thorga Framework 0.182.0), and the combine's and chaser bin's bodies are drawn and picked. D'thorga Farming itself, its Defs and every other machine are not built. Coupling types are decided (below), not built. Nothing here is tested in game. Only the machines' names are left for later.
 
 The owner's request, 19 Nov 2026: "one idea I've just had is that of properly working, fully simulated, agricultural vehicles. At
 that too, we will normalize working agricultural land on tiles of the map other than that of your main colony [...] I know
@@ -337,6 +337,53 @@ flowchart LR
 **How much faster than hands** [A, I]: a grower of Plants 10 sows a cell in about 140 work ticks before walking (`sowWork` 170 at
 plant work speed 1.23). A five-cell drill moving at 1.5 cells a second sows about 7.5 cells a second: roughly fifteen to twenty
 times a skilled hand. The figure is authored and will be set in play, not derived.
+
+### Coupling types (owner, 20 Nov 2026)
+
+The owner, 20 Nov 2026: "bear in mind that a differing array of towing-types (pintle, etc.) are used in farming and its
+implements." **Today our hitch has no coupling types**: any vehicle of ours with a hitch tows any trailer of ours
+(`CompPhobosHitch`, `CompPhobosTrailer`; read 20 Nov 2026 [code]). Farm machines meet several kinds, and which one a machine has
+decides what it can work with. **Nothing below is built.**
+
+**The owner's decisions (20 Nov 2026, by card):**
+
+- **Couplings are enforced, with adapters**: a machine refuses a trailer or implement whose coupling does not match, says why, and a
+  cheap adapter (an upgrade or accessory) fixes a mismatch.
+- **The three-point linkage comes in batch two**: the plough and cultivator are carried on it, the seed drill is trailed.
+- **Our existing trucks and trailers count as universal**: they match any coupling, so nothing built before is ever refused, and a
+  coupled pair in a save is never broken. Only the new farm machines are particular.
+- **A mounted implement stays its own vehicle, carried by the tractor** (owner, 20 Nov 2026; the agent had recommended making it part of
+  the tractor). It is held fast behind the tractor on the linkage, turns with it and is lifted at the headland. **Stated risk, accepted:**
+  Vehicle Framework has nothing carried on another vehicle, so this is new ground (two vehicles moving as one, pathing, drawing order,
+  what happens when the tractor is destroyed or leaves the map); the hitch's own handling of a towed trailer is the closest start.
+- **Farming reaches main as one big commit** (owner, 20 Nov 2026), the shared Framework pieces with it, once its build is whole.
+- **The tractors' art comes after batch one's art** (owner, 20 Nov 2026): the combine's fronts, the bins and the icons first.
+
+**The families farms use** (agent's summary from general knowledge, **not yet read against a primary source**; the standards are
+named so they can be checked, not cited):
+
+| Coupling | What it is | Where a farm meets it |
+| --- | --- | --- |
+| **Drawbar, clevis and pin** | A flat bar at the tractor's rear; the implement's hitch ring or clevis is pinned to it | Most trailed implements: chaser bins, trailed sprayers, air seeders, the field cultivator |
+| **Pintle hook and ring** | A hook with a latch; the trailer's drawbar ends in a round ring (our Pintle trailers' namesake) | Heavy carts and trucks; rough ground, as the ring may swivel in the hook |
+| **Pick-up hitch** (hitch hook) | A hook on the tractor's lower links that lifts into the trailer's ring; coupled from the seat | Grain and silage trailers, where a driver couples alone and often |
+| **Ball** (light) and **heavy ball** (a large ball for heavy trailers, used in Europe) | A ball on the tractor, a cup on the trailer | Light trailers; heavy farm trailers in parts of Europe |
+| **Three-point linkage** (ISO 730, categories 0 to 4 by tractor size) | Two lower arms and a top link that **carry and lift** the implement rather than tow it | Mounted ploughs, cultivators, mounted drills and sprayers, mowers: it is not towing at all |
+| **Power take-off** (ISO 500: 540 and 1,000 rpm shafts) | A spinning shaft from the tractor to drive the implement | Not a coupling for pulling but goes with one: augers, sprayer pumps, mowers. Our engine ledger already charges it as a shaft load |
+
+**What it means for the design** [I, agent's proposals for the owner]:
+
+- **A coupling is a property of both ends**, in XML: a hitch lists the couplings it has (a tractor often has a drawbar, a pick-up
+  hook and a three-point linkage at once), a trailer or implement the one it takes. A machine with no match is refused with the reason.
+- **It belongs in the Framework core**, game-free (`CouplingRule`) with a Def per coupling, so other authors' trailers can name one.
+- **Existing trailers and trucks keep working**: a hitch or trailer that names no coupling counts as universal (owner's choice above;
+  the agent had proposed a pintle hook and ring), so no coupled pair in a save is ever broken by the change.
+- **Adapters** (a ring-to-clevis adapter, a pintle plate on a drawbar) could be a cheap upgrade or accessory, so a mismatch costs a
+  little work, not a new machine.
+- **The three-point linkage is a different thing from towing**: the implement is carried behind (or in front of) the tractor, turns with
+  it and is lifted at the headland. It answers gap 5 above (no mounted implement). It is the natural home of the plough and cultivator
+  in batch two; trailed versions of both exist too.
+- **The chaser bin as drawn** (attempt 3, 20 Nov 2026) ends in a ring: it fits a drawbar with a clevis, a pintle hook or a pick-up hook.
 
 ### Tillage and seeding (AG1)
 

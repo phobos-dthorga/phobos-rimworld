@@ -1,6 +1,6 @@
 # D'thorga Farming, batch one: the build design (19 Nov 2026)
 
-**Status (20 Nov 2026):** the build started on the owner's word of 20 Nov 2026 ("I really want to start implementing the Agricultural code-base, even with some risk at present"). **Built so far:** the shared run base, `CompPhobosVehicleRun` with `VehicleRunRule`, and the gathering run moved onto it (D'thorga Framework 0.182.0). **Not built yet:** everything else here; D'thorga Farming itself does not exist yet. Nothing is tested in game. The build goes in three commits (the shared base; the generic rules, bulk hold, carried load and draught; then D'thorga Farming 0.1.0 with its art), with one install at the end. Agent's suggestion of 20 Nov 2026, for the owner to revise: go straight on to batch two (tractors, plough, seed drill) before a first test, so the first test is a whole loop of till, sow and harvest.
+**Status (20 Nov 2026):** the build started on the owner's word of 20 Nov 2026 ("I really want to start implementing the Agricultural code-base, even with some risk at present"). **Built so far:** the shared run base, `CompPhobosVehicleRun` with `VehicleRunRule`, and the gathering run moved onto it (D'thorga Framework 0.182.0). **Not built yet:** everything else here; D'thorga Farming itself does not exist yet. Nothing is tested in game. The build goes in three commits (the shared base; the generic rules, bulk hold, carried load and draught; then D'thorga Farming 0.1.0 with its art), with one install at the end. The owner chose on 20 Nov 2026 to go straight on to batch two (tractors, plough, seed drill) before a first test.
 
 The owner chose this batch on 19 Nov 2026 ("Base and harvest first"), and on the same day said to proceed with the groundwork before
 a build: read the real figures in full, write this design, and draw up the art list. The figures are in
@@ -172,8 +172,8 @@ still learns, slower than by hand.
 - **An XML extension overrides the reading for odd crops** (`PhobosCropFrontExtension`), patched onto crops by `PatchOperationFindMod`
   where a mod's crop is misread.
 - **A crop no front suits** is refused with the reason, not harvested slowly, in this batch [A].
-- **The front is an either/or upgrade** on the combine's tree: a standard grain front (strip 5 cells) and, after research, a wide
-  front (strip 7 cells) [A].
+- **The front is an either/or upgrade** on the combine's tree: a standard grain front (strip 6 cells) and, after research, a wide
+  front (strip 8 cells) (owner, 20 Nov 2026: even widths, so each front sits centred on the 4-cell body; the record had 5 and 7).
 
 ## The bulk grain hold (AG2.5)
 
@@ -216,8 +216,8 @@ Every node moves a figure that changes an outcome. Either/or nodes fill the same
 
 | Machine | Node | What it changes | Link |
 | --- | --- | --- | --- |
-| Combine | Standard grain front | Strip 5 cells | Either/or with the wide front |
-| Combine | Wide grain front | Strip 7 cells, more drum load | Either/or; needs research |
+| Combine | Standard grain front | Strip 6 cells | Either/or with the wide front |
+| Combine | Wide grain front | Strip 8 cells, more drum load | Either/or; needs research |
 | Combine | Tank extension | Tank capacity up a third | Free-standing |
 | Combine | Straw chopper | Straw left as mulch, for the soil rules later | Free-standing |
 | Combine | Cab air filter | Less dust wear in the engine's air filter | Free-standing |
@@ -271,8 +271,9 @@ active to measure against.
 | Picture | Footprint | Drawn size [A] | In game at 128 px | Requested | Route |
 | --- | --- | --- | --- | --- | --- |
 | **Combine body (pilot)** | 4 by 9 | 6 by 10, to hold the front's overhang | 768 by 1,280 px | **1,536 by 2,048** (1.6 times) | Paid, the OpenAI image API |
-| Combine overlays: standard front, wide front, auger out, tank extension, straw chopper | — | The body's canvas | — | Pieces of the body, per rule 13 | Paid, after the body is picked |
-| Chaser bin body | 3 by 7 | 4 by 8 | 512 by 1,024 px | 1,024 by 2,048 | Paid, after the combine pilot |
+| Combine fronts: standard (6 cells) and wide (8 cells) | — | Their own canvases, 6 by 2 and 8 by 2.75 | 768 by 256 and 1,024 by 352 px | 1,536 by 512 and 2,048 by 704, drawn alone | Paid: **done** 20 Nov 2026, standard attempts 2 and 1, wide attempt 2 ([record](../../assets/phobos-vehicles/requests/combine-fronts-record.md)) |
+| Combine overlays: auger out, tank extension, straw chopper | — | The body's canvas | — | Pieces of the body, per rule 13 | Paid, still to do |
+| Chaser bin body | 3 by 7 | 4 by 8 | 512 by 1,024 px | 1,024 by 2,048 | Paid: **done**, attempt 3 picked (20 Nov 2026) |
 | Chaser bin overlay: auger out | — | The body's canvas | — | A piece of the body | Paid |
 | Field bin | 3 by 3 | 3 by 3 | 384 by 384 px | 1,024 by 1,024 | Paid or local, the owner's choice |
 | Silo | 4 by 4 | 4 by 4 | 512 by 512 px | 1,024 by 1,024 | Paid or local, the owner's choice |
@@ -293,6 +294,11 @@ active to measure against.
 | What tows the chaser bin in batch one | **Any vehicle with our hitch** (the agent had leaned to moving the medium tractor forward) |
 | Share the gathering run's driving with the harvest run now, or copy and share later | **Share it in the build** |
 | Run the combine's pilot picture | **Yes, now** |
+| The fronts' widths (20 Nov 2026) | **6 and 8 cells**, centred on the body |
+| When the first test comes (20 Nov 2026) | **After batch two**, so the first test is a whole loop of till, sow and harvest |
+| How the rest of the art is paced (20 Nov 2026) | **A question card for each paid run**, with its dry-run ceiling, before anything is spent |
+| The combine's fronts (20 Nov 2026) | **Standard: keep both**, attempt 2 the default and 1 an alternate look; **wide: attempt 2** (US$0.128) |
+| The chaser bin's body (20 Nov 2026) | **Attempt 3** of three (US$0.151; [record](../../assets/phobos-vehicles/requests/chaser-bin-pilot-record.md)) |
 
 ## Still unknown
 

@@ -1,0 +1,36 @@
+[
+  {
+    "name": "farming-chaser-bin-body-north",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 2048,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-combine-body-north/farming-combine-body-north-1.png",
+        "role": "our approved combine harvester, the owner's pick of 19 Nov 2026, from the same family of farm machines: match its outline weight, shading, harvest-green and yellow palette, tyre treatment and finish only; do not copy its shape, cab, tank or engine deck"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "D'thorga Farming's chaser bin (no Def yet), a trailer on our hitch, footprint (3, 7), drawSize (4, 8), 128 px per unit so 512 x 1024 in game; requested at 1024 x 2048, 2 times the drawn size, above the owner's 1.5 times minimum (rule of 9 Nov 2026)",
+      "measured_against": "owner's list, 19 Nov 2026: no farm vehicle is active. Our trailers: the Pintle flatbed 2 x 5 drawn 3 x 6, the Pintle trailers 3 x 7 and 3 x 8. The chaser bin takes the 3 x 7 trailer floor (owner, 13 Nov 2026 and 19 Nov 2026) and stands beside a combine 4 x 9",
+      "this_request": "pilot: the north base body only, empty, its auger folded, three attempts; waits on the owner's go (design: docs/development/farming-batch-one.md)",
+      "layout": "the body occupies the middle 3 units of the 4-unit width and the lower 7 of the 8 units of height below the drawbar; the space either side stays empty, for the auger swung out",
+      "axle": "tyres only, as every trailer of ours; the follow rule puts the axle a little behind the picture's middle, so one pair of large flotation tyres sits just behind the middle",
+      "overlays_planned_on_this_canvas": [
+        "unloading auger swung out to the left (while pouring), a piece of the body per rule 13",
+        "fast auger (upgrade): a wider auger tube",
+        "flotation tyres (upgrade): wider tyres",
+        "damage: from the tanker's marks"
+      ],
+      "colour_masks": "CutoutComplexPattern: colour on the hopper's panels, colourTwo on one accent; masks by script",
+      "design": "docs/development/farming-batch-one.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga chaser bin: a big towed grain cart that runs beside a combine harvester in the field, takes its grain and carries it to the edge of the paddock, in a hard-scrabble frontier colony. It is a TRAILER: it has no cab, no engine and no steering wheel of its own. Draw the BARE EMPTY TRAILER only, with its unloading auger folded. Image 1 is our approved combine harvester from the same family of farm machines: match its outline weight, shading, palette, tyres and finish only. Do NOT copy its shape, cab, tank or engine deck.\n\nTall canvas, twice as tall as wide, plain pure white background. North facing: the drawbar points to the TOP of the canvas, the rear of the trailer is at the BOTTOM. The trailer is centred left to right and its body fills about three quarters of the canvas width; the space either side of it stays pure white, empty. It fills about seven eighths of the canvas height.\n\nIts plan, from top to bottom: at the top, a short A-frame drawbar of dark steel narrowing to a round towing eye at its tip; then one large open-topped grain hopper, a long rectangle with rounded corners, taking up most of the trailer: a thick rim all round, and inside it four smooth pale walls sloping down and inward to a narrow dark slot running lengthways along the middle of the floor, so the hopper reads as a deep empty funnel seen from above; a folded unloading auger tube of steel grey lying flat along the LEFT rim of the hopper, hinged at the front left corner and pointing back; at the rear, a small ladder and a flat rear panel. One pair of very large wide flotation tyres, one each side, a little behind the middle of the hopper, seen from above as dark rubber treads sticking out beyond the body.\n\nMaker palette as materials: weathered harvest-green hopper panels, pale grey-cream inner walls, dark rubber tyres, steel grey auger, drawbar and ladder, one muted yellow accent stripe across the front rim.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo grain, no crop, no straw, no cover or tarpaulin, no tractor, no truck, no cab, no engine, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials, screens or lamps. No floor, ground, field, road, shadow outside the trailer, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]
