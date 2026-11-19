@@ -307,7 +307,9 @@ flowchart LR
 ```
 
 - **One order** (AG0.2): "plough", "sow", "spray", "spread" or "harvest" on a paddock, given from the paddock or the machine. A
-  colonist takes it as a job, boards, and the machine drives itself row by row with the driver aboard. Built on
+  colonist takes it as a job, boards, and the machine drives itself row by row with the driver aboard. **The "takes it as a job,
+  boards" part exists since Framework 0.177.0** ([Vehicles at Work](vehicles-at-work-tie-ins.md), VW3): a machine's comp implements
+  `IVehicleWantsDriver` and calls `DriverCalls.Call`; a colonist with Drive work takes the wheel. Built on
   `VehicleAutoDrive` and the gathering run's pattern, with Vehicle Framework's lord job as the reference for crewed work.
 - **The row planner is a game-free rule** in the Framework core (`Rules/`, with tests): from a zone's cells, the implement's width
   and the machine's turning room it gives row ends in order, skipping obstacles. One drive order per row end.

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- D'thorga Framework 0.177.0 (docs/development/vehicles-at-work-tie-ins.md, VW3). Loaded only with Vehicle Framework and Vehicles at Work
+       (LoadFolders.xml). Fetching a driver for a waiting vehicle becomes part of that mod's own Drive work, beside its parking, and our own
+       Drive work type is removed, so the work tab has one Drive column and one set of priorities for both. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/WorkGiverDef[defName="PhobosVehicleSystems_FetchDriver"]/workType</xpath>
+    <value>
+      <workType>WOR_Driving</workType>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationRemove">
+    <xpath>Defs/WorkTypeDef[defName="PhobosVehicleSystems_Driving"]</xpath>
+  </Operation>
+</Patch>

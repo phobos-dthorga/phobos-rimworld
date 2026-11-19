@@ -263,6 +263,11 @@
         {"key": "vehicles.deliver.end", "variant": "NoBay", "expect": {"things": ">= 1"}}],
       "it drives back": [{"key": "vehicles.deliver.home"}]
     }},
+    "251": {"parts": {
+      "a delivery waits for a driver": [{"key": "vehicles.driver-call.waiting", "variant": "deliver"}],
+      "gathering waits for a driver": [{"key": "vehicles.driver-call.waiting", "variant": "gather"}],
+      "a colonist takes the wheel": [{"key": "vehicles.driver-call.aboard"}]
+    }},
     "250": ["vehicles.work-park-bay"],
     "248": ["vehicles.errand-refused"],
     "247": {"parts": {

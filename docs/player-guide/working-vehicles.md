@@ -195,6 +195,11 @@ lands in it into the cargo of a vehicle parked across its **spout**, the cell it
 by belt or by hand. **It starts set to take nothing: tick what it should load.** With no vehicle there, or a full one, it holds up to
 four stacks and the belt behind it waits; its inspect line says what it is waiting for. Its picture is a stand-in.
 
+**Nobody aboard? Press it anyway.** Deliver and Gather pressed with no driver aboard make the truck **wait for a driver**: a colonist
+with **Drive** work (tick it in the work tab: it starts off for everyone) walks over, takes the wheel, and the work starts. The button
+then reads **Stop waiting**, to call it off. With Vehicles at Work, Drive is that mod's own work, and its drivers list for the truck
+decides who may come.
+
 **Unloading by itself: Deliver.** Every storage building and every stockpile zone has a **Vehicles may unload here** button. **The
 bulk bunker starts with it on; everything else starts off.** With a load aboard (from the cargo window, the drill rig, a chute), put
 someone aboard who can drive and **press Deliver**:

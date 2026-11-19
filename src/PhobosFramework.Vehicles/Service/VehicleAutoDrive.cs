@@ -26,7 +26,13 @@ public static class VehicleAutoDrive
     /// of ours to move (MoveRefusals: worn-out brakes and other system stages, set-up work, a boat on the bottom). Before Framework 0.175.1 the
     /// system stages were left out, so an errand could drive a truck the player's own order would not (docs/development/vehicles-at-work-tie-ins.md, F1).
     /// </summary>
-    public static string? CannotDrive(VehiclePawn vehicle)
+    public static string? CannotDrive(VehiclePawn vehicle) => CannotDrive(vehicle, needsDriver: true);
+
+    /// <summary>
+    /// As <see cref="CannotDrive(VehiclePawn)"/>; with <paramref name="needsDriver"/> false, everything but the crew: whether the errand could
+    /// run once a driver is aboard, for an order that waits for one (Framework 0.177.0, DriverCalls).
+    /// </summary>
+    public static string? CannotDrive(VehiclePawn vehicle, bool needsDriver)
     {
         NamedArgument name = vehicle.LabelShort.Named("VEHICLE");
         if (!vehicle.Spawned) return "PhobosAutoDrive_NotOnMap".Translate().Resolve();
@@ -41,6 +47,7 @@ public static class VehicleAutoDrive
         }
         if (vehicle.CompFueledTravel is { EmptyTank: true }) return "PhobosAutoDrive_NoFuel".Translate(name).Resolve();
         if (!vehicle.CanMove) return "PhobosAutoDrive_CannotMove".Translate(name).Resolve();
+        if (!needsDriver && !vehicle.HasEnoughOperators) return null;
         if (!vehicle.Drafted)
         {
             AcceptanceReport draft = vehicle.CanDraft();

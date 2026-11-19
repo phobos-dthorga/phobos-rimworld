@@ -149,6 +149,23 @@ public static class VehiclesAtWorkParkedRightPatch
     }
 }
 
+/// <summary>
+/// Its test of which vehicles are free for a trip (Framework 0.177.0, VW3): one waiting for a driver to run an errand of ours is not. Its
+/// commuters would otherwise drive off in a truck a colonist is on the way to take for a delivery.
+/// </summary>
+[HarmonyPatch]
+public static class VehiclesAtWorkReadyPatch
+{
+    static bool Prepare() => TargetMethod() != null;
+
+    static MethodBase? TargetMethod() => VehiclesAtWork.Active ? AccessTools.Method("WOR.Wheels:Ready") : null;
+
+    public static void Postfix(Pawn v, ref bool __result)
+    {
+        if (__result && v is VehiclePawn vehicle && DriverCalls.Waits(vehicle)) __result = false;
+    }
+}
+
 /// <summary>Its Drive work looks for vehicles to park only on a map with a parking lot: a bay with a vehicle counts as one.</summary>
 [HarmonyPatch]
 public static class VehiclesAtWorkAnyLotPatch

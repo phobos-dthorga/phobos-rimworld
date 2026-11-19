@@ -85,4 +85,16 @@
   <PhobosDeliver_LineReturning>Delivering: taking its load to {PLACE}.</PhobosDeliver_LineReturning>
   <PhobosDeliver_LineUnloading>Delivering: tipping at {PLACE}.</PhobosDeliver_LineUnloading>
   <PhobosDeliver_LineHoming>Delivering: driving back to where it started.</PhobosDeliver_LineHoming>
+  <!-- Waiting for a driver (Framework 0.177.0; docs/development/vehicles-at-work-tie-ins.md, VW3). -->
+  <PhobosDriverCall_WorkFallback>Drive</PhobosDriverCall_WorkFallback>
+  <PhobosDriverCall_WaitsLine>With nobody aboard to drive, pressing it calls for a driver: a colonist with {WORK} work comes and takes the wheel, and the work starts.</PhobosDriverCall_WaitsLine>
+  <PhobosDriverCall_Waiting>{VEHICLE} waits for a driver. A colonist with {WORK} work will come and take the wheel, and then it will {WHAT}.</PhobosDriverCall_Waiting>
+  <PhobosDriverCall_WhatDeliver>deliver its load</PhobosDriverCall_WhatDeliver>
+  <PhobosDriverCall_WhatGather>start gathering</PhobosDriverCall_WhatGather>
+  <PhobosDriverCall_StopWaiting>Stop waiting</PhobosDriverCall_StopWaiting>
+  <PhobosDriverCall_Cancelled>{VEHICLE} no longer waits for a driver.</PhobosDriverCall_Cancelled>
+  <PhobosDriverCall_BusyWaiting>{VEHICLE} is waiting for a driver to {WHAT}. Stop waiting first.</PhobosDriverCall_BusyWaiting>
+  <PhobosDriverCall_Line>Waiting for a driver to {WHAT}.</PhobosDriverCall_Line>
+  <PhobosDriverCall_NotADriver>Not one of the colonists allowed to drive {VEHICLE}.</PhobosDriverCall_NotADriver>
+  <PhobosDriverCall_NoSeat>No driver's seat free in {VEHICLE} that this colonist can take.</PhobosDriverCall_NoSeat>
 </LanguageData>

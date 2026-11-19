@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Fetching a driver (D'thorga Framework 0.177.0; docs/development/vehicles-at-work-tie-ins.md, VW3). A truck told to Deliver or Gather with
+    nobody aboard waits for a driver, and a colonist with this work comes and takes the wheel; later, the farm machines' orders too.
+    With Vehicles at Work active, Mods/VehiclesAtWork/Common moves the work giver to that mod's own Drive work and removes this work type, so
+    there is one Drive column (owner, 19 Nov 2026: "with our own fallback"). Its order and its tags follow Vehicles at Work's Drive: dumb
+    manual work, off to start. Agent's choices, for the owner to revise.
+  -->
+  <WorkTypeDef>
+    <defName>PhobosVehicleSystems_Driving</defName>
+    <labelShort>Drive</labelShort>
+    <pawnLabel>Driver</pawnLabel>
+    <gerundLabel>Driving</gerundLabel>
+    <description>Take the wheel of a vehicle that waits for a driver to start its work.</description>
+    <verb>Drive</verb>
+    <naturalPriority>310</naturalPriority>
+    <alwaysStartActive>false</alwaysStartActive>
+    <workTags>
+      <li>ManualDumb</li>
+    </workTags>
+  </WorkTypeDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_FetchDriver</defName>
+    <label>take the wheel of a waiting vehicle</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosFetchDriver</giverClass>
+    <workType>PhobosVehicleSystems_Driving</workType>
+    <verb>drive</verb>
+    <gerund>taking the wheel of</gerund>
+    <priorityInType>60</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+      <li>Sight</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_TakeTheWheel</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosTakeTheWheel</driverClass>
+    <reportString>going to drive TargetA.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+</Defs>

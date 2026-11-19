@@ -2,7 +2,8 @@
 
 **Status (19 Nov 2026):** built in D'thorga Framework 0.108.4: VW1 (its trips obey our refusals to move; it was SD1); fixed in Framework
 0.175.1: the two faults of ours this read found (F1, F2), with the shorter stall wait; built in Framework 0.176.0: VW2 (a depot bay is its
-vehicle's parking place). Not yet tested in game. Not built: VW3 (next) and VW5; VW4 and VW7 work with no code of ours; VW6 set aside.
+vehicle's parking place); built in Framework 0.177.0: VW3 (a driver fetched for our errands, with our own Drive work when it is absent).
+Not yet tested in game. Not built: VW5; VW4 and VW7 work with no code of ours; VW6 set aside.
 
 **A research record.** The owner, 19 November 2026: "This is a research and record purview, strictly. But I wish to add 'Vehicles at
 Work' as a soft dependency. How might we benefit from that both as a soft-dep and perhaps learning from as well? With the latter, I think
@@ -79,6 +80,7 @@ loading outside the home area. Three prefixes skip the original, all for Atmosph
 | # | What | Where | Status |
 | --- | --- | --- | --- |
 | VW2 | When it parks a vehicle "home" (`WOR.Lots:Spot` with `home` set: its Drive work, and a commuter bringing one back), a vehicle with a depot bay of the player's goes to the bay's parking cell, if no other vehicle is on the pad and there is a way; a vehicle with a bay is parked properly only on its pad (`WOR.Lots:ParkedRight`); a bay with a vehicle counts as a lot, so its Drive work runs on a map with bays and no lots (`WOR.Lots:Any`). Its parking beside a job or by storage for a haul is left alone | `VehiclesAtWorkPatches.cs`, three more postfixes found by name, standing down as VW1's do | Framework 0.176.0. Not yet tested in game (test row 250). **Limit**: it drives in as that mod drives, so it may stop facing either way |
+| VW3 | Deliver or Gather pressed with nobody aboard waits for a driver; a colonist with Drive work comes and takes the wheel (Vehicle Framework's own seat choice and `TryAddPawn`, as its boarding ends), and the errand starts once the crew is aboard. The work type is its `WOR_Driving` when it is active (a patch in `Mods/VehiclesAtWork` moves our work giver there and removes our own Drive), ours otherwise; its drivers list (`WOR.VehicleUse:MayDrive`, read by name) is obeyed; its `WOR.Wheels:Ready` leaves a waiting truck alone. **The shared part** (`IVehicleWantsDriver`, `DriverCalls`, `WorkGiver_PhobosFetchDriver`, `JobDriver_PhobosTakeTheWheel`) is in Framework's vehicle systems for the farm machines' orders | `Service/DriverCalls.cs`, `Gather/CompPhobosGatherRun.Bays.cs`, `Drivers.xml` | Framework 0.177.0. Not yet tested in game (test row 251). **Limit**: a waiting truck starts as soon as anyone is aboard to drive |
 | VW1 (was SD1) | Its two vehicle tests (`WOR.VF:Healthy`, `WOR.VF:CanMove`) answer no while a system of ours refuses to move (worn-out brakes, a set-up job, a submarine on the bottom); its "why it is stuck" line gives our reason | `VehiclesAtWorkPatches.cs`, three postfixes found by name, switched on only while the mod is active, standing down if a name goes; `MoveRefusals.For` | Framework 0.108.4. Not yet tested in game (check 91) |
 
 ## Links worth having
@@ -209,7 +211,10 @@ The questions as they were asked:
 - **Owner (19 Nov 2026, cards):** F1 and F2 fixed first; the stall wait shortened to about 600 ticks; VW2 next; VW3 with our own fallback
   if farming needs the shared code (the agent judged it does); no report draft.
 - **Owner (13 Nov 2026), carried forward:** VW1 fixed at once (as SD1 and TI4); SD2 after it; SD3 set aside.
-- **Agent:** the VW prefix and numbers; every verdict and lean; VW2's shape (a bay as the parking place, where SD2 had a lot holding a
+- **Agent (VW3):** our Drive work's order and tags copied from Vehicles at Work's (dumb manual work, off to start); one Drive column by
+  removing ours when its is present; no reservation on the vehicle, one driver sent at a time; a waiting truck starting for anyone aboard;
+  sight and manipulation required.
+- **Agent (marked bays):** every verdict and lean; VW2's shape (a bay as the parking place, where SD2 had a lot holding a
   bay); VW3, VW5 and VW7 as new rows; the lessons chosen and where each applies; the reading of its code as described.
 
 ## Sources

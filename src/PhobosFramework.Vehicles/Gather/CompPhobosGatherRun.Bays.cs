@@ -7,6 +7,14 @@ using Verse;
 
 namespace Phobos.VehicleSystems;
 
+/// <summary>An errand a truck was told to run while nobody was aboard to drive it (Framework 0.177.0). Saved by name: append only.</summary>
+public enum ErrandWaiting
+{
+    None,
+    Deliver,
+    Gather,
+}
+
 /// <summary>
 /// Unloading at marked bays, and Deliver (Framework 0.175.0; docs/development/vehicle-gathering-runs.md, "Marked bays and Deliver"). The
 /// owner's request of 19 Nov 2026: something semi-automated like "Vehicles may load from here", for unloading. A gathering run set to
@@ -15,7 +23,7 @@ namespace Phobos.VehicleSystems;
 /// already aboard (from the cargo window, a drill rig, a chute) and leaves spare parts aboard; afterwards it drives back to where it
 /// started, or stays at the last bay, as the player chose for that truck. UnloadBayRule decides; VehicleUnloadBays says what is marked.
 /// </summary>
-public partial class CompPhobosGatherRun
+public partial class CompPhobosGatherRun : IVehicleWantsDriver
 {
     /// <summary>How many bays one look may try before it gives up finding a way to any. Authored.</summary>
     const int MaxBayTries = 8;
@@ -296,25 +304,31 @@ public partial class CompPhobosGatherRun
     }
 
     /// <summary>Why a delivery cannot start now, or null.</summary>
-    public string? CannotDeliver()
+    public string? CannotDeliver() => CannotDeliver(needsDriver: true);
+
+    /// <summary>Why a delivery cannot start now, or null; with <paramref name="needsDriver"/> false, as if a driver were aboard.</summary>
+    string? CannotDeliver(bool needsDriver)
     {
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
         if (!CanUnload) return "PhobosDeliver_NoTip".Translate(name).Resolve();
         if (!Vehicle.Spawned) return "PhobosAutoDrive_NotOnMap".Translate().Resolve();
         if (!AnythingForBays(true)) return "PhobosDeliver_NothingAboard".Translate(name).Resolve();
         if (StopsForEnemies && GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map)) return "PhobosGather_EnemiesNear".Translate().Resolve();
-        if (VehicleAutoDrive.CannotDrive(Vehicle) is { } cannot) return cannot;
+        if (VehicleAutoDrive.CannotDrive(Vehicle, needsDriver) is { } cannot) return cannot;
         if (PickBay(true, out BayShortfall why) == null) return ShortfallLine(why);
         return null;
     }
 
-    /// <summary><see cref="CannotDeliver"/> for the button, asked at most twice a second of real time: it tests every marked bay.</summary>
+    /// <summary>
+    /// <see cref="CannotDeliver(bool)"/> for the button, as if a driver were aboard (with none, pressing it calls one), asked at most twice
+    /// a second of real time: it tests every marked bay.
+    /// </summary>
     string? CannotDeliverForButton()
     {
         float now = UnityEngine.Time.realtimeSinceStartup;
         if (deliverCheckedAt < 0f || now - deliverCheckedAt > ButtonRecheckSeconds)
         {
-            deliverRefusal = CannotDeliver();
+            deliverRefusal = CannotDeliver(needsDriver: false);
             deliverCheckedAt = now;
         }
         return deliverRefusal;
@@ -335,6 +349,7 @@ public partial class CompPhobosGatherRun
     public void StartDelivery()
     {
         if (Running) return;
+        StopWaiting(false);
         if (CannotDeliver() is { } refused)
         {
             Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
@@ -368,20 +383,23 @@ public partial class CompPhobosGatherRun
     {
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
         bool on = Running && delivering;
+        bool waiting = waitingFor == ErrandWaiting.Deliver;
         string then = (deliverStays ? "PhobosDeliver_ThenStay" : "PhobosDeliver_ThenDriveBack").Translate().Resolve();
         var deliver = new Command_Action
         {
-            defaultLabel = (on ? "PhobosDeliver_GizmoStop" : "PhobosDeliver_Gizmo").Translate().Resolve(),
-            defaultDesc = "PhobosDeliver_GizmoDesc".Translate(name, then.Named("THEN")).Resolve(),
+            defaultLabel = (on ? "PhobosDeliver_GizmoStop" : waiting ? "PhobosDriverCall_StopWaiting" : "PhobosDeliver_Gizmo").Translate().Resolve(),
+            defaultDesc = "PhobosDeliver_GizmoDesc".Translate(name, then.Named("THEN")).Resolve() + "\n\n" + DriverCalls.WaitsLine,
             icon = SystemIcons.For(DeliverIconPath),
             action = () =>
             {
                 if (on) Stop();
-                else StartDelivery();
+                else if (waiting) StopWaiting(true);
+                else OrderDelivery();
             },
         };
         if (Running && !delivering) deliver.Disable("PhobosDeliver_BusyGathering".Translate(name).Resolve());
-        else if (!on && CannotDeliverForButton() is { } refused) deliver.Disable(refused);
+        else if (BusyWaiting(ErrandWaiting.Deliver) is { } busy) deliver.Disable(busy);
+        else if (!on && !waiting && CannotDeliverForButton() is { } refused) deliver.Disable(refused);
         yield return deliver;
         yield return new Command_Toggle
         {
@@ -393,10 +411,96 @@ public partial class CompPhobosGatherRun
         };
     }
 
+    // ---- Waiting for a driver (Framework 0.177.0; docs/development/vehicles-at-work-tie-ins.md, VW3) ----
+
+    /// <summary>The errand ordered while nobody was aboard to drive, or None. Saved by name: append only.</summary>
+    ErrandWaiting waitingFor;
+
+    /// <summary>Whether it waits for a driver now: an errand ordered, none running, and not enough crew aboard to drive.</summary>
+    public bool WantsDriver => waitingFor != ErrandWaiting.None && !Running && Vehicle.Spawned && Vehicle.Faction == Faction.OfPlayer
+        && !Vehicle.HasEnoughOperators;
+
+    string WaitingWhat(ErrandWaiting what) =>
+        (what == ErrandWaiting.Deliver ? "PhobosDriverCall_WhatDeliver" : "PhobosDriverCall_WhatGather").Translate().Resolve();
+
+    /// <summary>Calls for a driver: a colonist with Drive work comes, and the errand starts once the crew is aboard.</summary>
+    void WaitForDriver(ErrandWaiting what)
+    {
+        waitingFor = what;
+        DriverCalls.Call(Vehicle.Map, this, true);
+        Messages.Message("PhobosDriverCall_Waiting".Translate(Vehicle.LabelShort.Named("VEHICLE"), DriverCalls.WorkLabel.Named("WORK"),
+            WaitingWhat(what).Named("WHAT")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+        Seen.Note("vehicles.driver-call.waiting", Vehicle, variant: what == ErrandWaiting.Deliver ? "deliver" : "gather");
+    }
+
+    /// <summary>Stops waiting, saying so when the player asked.</summary>
+    void StopWaiting(bool say)
+    {
+        if (waitingFor == ErrandWaiting.None) return;
+        waitingFor = ErrandWaiting.None;
+        DriverCalls.Call(Vehicle.MapHeld, this, false);
+        if (say)
+        {
+            Messages.Message("PhobosDriverCall_Cancelled".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle,
+                MessageTypeDefOf.SilentInput, historical: false);
+        }
+    }
+
+    /// <summary>One look while waiting: once the crew is aboard, whoever brought them, the errand starts; it says why if it cannot.</summary>
+    void WaitTick()
+    {
+        if (waitingFor == ErrandWaiting.None || !Vehicle.HasEnoughOperators) return;
+        ErrandWaiting what = waitingFor;
+        StopWaiting(false);
+        if (what == ErrandWaiting.Deliver) StartDelivery();
+        else Start();
+    }
+
+    /// <summary>Deliver pressed: at once with a driver aboard; otherwise, if nothing else stands in the way, it waits for one.</summary>
+    void OrderDelivery()
+    {
+        if (Vehicle.HasEnoughOperators)
+        {
+            StartDelivery();
+            return;
+        }
+        if (CannotDeliver(needsDriver: false) is { } refused)
+        {
+            Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        WaitForDriver(ErrandWaiting.Deliver);
+    }
+
+    /// <summary>Gather pressed: as Deliver.</summary>
+    void OrderGather()
+    {
+        if (Vehicle.HasEnoughOperators)
+        {
+            Start();
+            return;
+        }
+        if (CannotStart(needsDriver: false) is { } refused)
+        {
+            Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        WaitForDriver(ErrandWaiting.Gather);
+    }
+
+    /// <summary>Why the other errand's button is greyed out while one waits, or null.</summary>
+    string? BusyWaiting(ErrandWaiting button) => waitingFor != ErrandWaiting.None && waitingFor != button
+        ? "PhobosDriverCall_BusyWaiting".Translate(Vehicle.LabelShort.Named("VEHICLE"), WaitingWhat(waitingFor).Named("WHAT")).Resolve()
+        : null;
+
+    string? WaitingLine => waitingFor == ErrandWaiting.None ? null
+        : "PhobosDriverCall_Line".Translate(WaitingWhat(waitingFor).Named("WHAT")).Resolve();
+
     // ---- The save ----
 
     void ExposeBays(bool saving)
     {
+        Scribe_Values.Look(ref waitingFor, "PhobosGatherWaitingFor", ErrandWaiting.None);
         if (saving) _ = Bay;
         Scribe_Values.Look(ref anyBay, "PhobosGatherUnloadAnyBay");
         Scribe_Values.Look(ref delivering, "PhobosGatherDelivering");

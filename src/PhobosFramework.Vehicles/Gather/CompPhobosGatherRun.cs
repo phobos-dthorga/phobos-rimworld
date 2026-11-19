@@ -276,14 +276,17 @@ public partial class CompPhobosGatherRun : VehicleComp
     // ---- Starting and stopping ----
 
     /// <summary>Why a run cannot start now, or null.</summary>
-    public string? CannotStart()
+    public string? CannotStart() => CannotStart(needsDriver: true);
+
+    /// <summary>Why a run cannot start now, or null; with <paramref name="needsDriver"/> false, as if a driver were aboard (Framework 0.177.0).</summary>
+    string? CannotStart(bool needsDriver)
     {
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
         IVehicleGatherWorker? w = Worker;
         if (w == null || !w.CanGatherAtAll) return "PhobosGather_NoWorker".Translate(name).Resolve();
         if (CurrentFilter.AllowedDefCount == 0) return "PhobosGather_NothingChosen".Translate().Resolve();
         if (StopsForEnemies && Vehicle.Spawned && GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map)) return "PhobosGather_EnemiesNear".Translate().Resolve();
-        if (VehicleAutoDrive.CannotDrive(Vehicle) is { } cannot) return cannot;
+        if (VehicleAutoDrive.CannotDrive(Vehicle, needsDriver) is { } cannot) return cannot;
         if (w.GatherRoomKilograms <= 0f && !HasUnloadPlace) return "PhobosGather_AlreadyFull".Translate(name).Resolve();
         return null;
     }
@@ -291,6 +294,7 @@ public partial class CompPhobosGatherRun : VehicleComp
     public void Start()
     {
         if (Running) return;
+        StopWaiting(false);
         if (CannotStart() is { } refused)
         {
             Messages.Message(refused, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
@@ -449,7 +453,13 @@ public partial class CompPhobosGatherRun : VehicleComp
     public override void CompTickRare()
     {
         base.CompTickRare();
-        if (phase == GatherPhase.Idle || !Vehicle.Spawned) return;
+        if (!Vehicle.Spawned) return;
+        if (phase == GatherPhase.Idle)
+        {
+            // An errand ordered with nobody aboard starts once a driver is (Framework 0.177.0).
+            WaitTick();
+            return;
+        }
         if (Vehicle.Faction != Faction.OfPlayer)
         {
             End(GatherRunEnd.Orders);
@@ -854,11 +864,15 @@ public partial class CompPhobosGatherRun : VehicleComp
         // The tests are not saved: a run working or unloading when the game was saved hands its test back.
         if (phase == GatherPhase.Working) Worker?.ResumeGathering(Wanted);
         if (phase == GatherPhase.Unloading) Unloader?.ResumeUnloading(Tips);
+        // The call for a driver is not saved with the map: one waiting when the game was saved calls again.
+        if (waitingFor != ErrandWaiting.None) DriverCalls.Call(Vehicle.Map, this, true);
     }
 
     public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
     {
-        // Leaving the map (a caravan, a launch) ends a run where it is: the player sent it.
+        // Leaving the map (a caravan, a launch) ends a run where it is, and a wait for a driver: the player sent it.
+        DriverCalls.Call(map, this, false);
+        waitingFor = ErrandWaiting.None;
         phase = GatherPhase.Idle;
         engineStarted = false;
         target = null;
@@ -930,7 +944,7 @@ public partial class CompPhobosGatherRun : VehicleComp
             case GatherPhase.Homing:
                 return "PhobosDeliver_LineHoming".Translate().Resolve();
             default:
-                return null;
+                return WaitingLine;
         }
     }
 
@@ -947,6 +961,7 @@ public partial class CompPhobosGatherRun : VehicleComp
         if (w == null || (!w.CanGatherAtAll && !(Running && !delivering))) yield break;
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
         bool on = Running && !delivering;
+        bool waiting = waitingFor == ErrandWaiting.Gather;
         string whenFull = !HasUnloadPlace
             ? "PhobosGather_WhenFullStop".Translate().Resolve()
             : anyBay
@@ -954,17 +969,20 @@ public partial class CompPhobosGatherRun : VehicleComp
                 : "PhobosGather_WhenFullUnload".Translate(UnloadWords.Named("PLACE")).Resolve();
         var run = new Command_Action
         {
-            defaultLabel = on ? "PhobosGather_GizmoStop".Translate().Resolve() : "PhobosGather_Gizmo".Translate().Resolve(),
-            defaultDesc = "PhobosGather_GizmoDesc".Translate(name, FilterWords.Named("WHAT"), w.GatherReachCells.Named("CELLS"), whenFull.Named("WHENFULL")).Resolve(),
+            defaultLabel = (on ? "PhobosGather_GizmoStop" : waiting ? "PhobosDriverCall_StopWaiting" : "PhobosGather_Gizmo").Translate().Resolve(),
+            defaultDesc = "PhobosGather_GizmoDesc".Translate(name, FilterWords.Named("WHAT"), w.GatherReachCells.Named("CELLS"), whenFull.Named("WHENFULL")).Resolve()
+                + "\n\n" + DriverCalls.WaitsLine,
             icon = SystemIcons.For(Props.runIconPath),
             action = () =>
             {
                 if (on) Stop();
-                else Start();
+                else if (waiting) StopWaiting(true);
+                else OrderGather();
             },
         };
         if (Running && delivering) run.Disable("PhobosGather_BusyDelivering".Translate(name).Resolve());
-        else if (!on && CannotStart() is { } refused) run.Disable(refused);
+        else if (BusyWaiting(ErrandWaiting.Gather) is { } busy) run.Disable(busy);
+        else if (!on && !waiting && CannotStart(needsDriver: false) is { } refused) run.Disable(refused);
         yield return run;
         yield return new Command_Action
         {

@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.177.0] - 2026-11-19 - Draft
+
+A truck with nobody aboard calls for a driver when told to Deliver or Gather
+
+### Added
+
+- **Deliver and Gather work with nobody aboard**: press either on a truck with no driver and it waits for one, saying so. A colonist with **Drive** work comes, takes the wheel, and the delivery or gathering starts. Press the button again (it now says **Stop waiting**) to call it off. With a driver already aboard it starts at once, as before.
+- **A new work type, Drive**, for taking the wheel of a waiting vehicle. **With Vehicles at Work, it is that mod's own Drive work instead**, so there is one Drive column, and its list of who may drive each vehicle is obeyed. **Drive starts switched off for everyone**: tick it in the work tab for the colonists you want driving.
+- With Vehicles at Work, its colonists no longer take a truck that is waiting for a driver on a trip of their own.
+- For modders and our own later machines: any vehicle part can call for a driver the same way (the shared driver call in the vehicle systems).
+
+### Save compatibility
+
+- Safe with a running save. A truck waiting for a driver is saved waiting, and calls again on loading.
+
+### Compatibility and limits
+
+- A truck still waiting starts its work as soon as anyone is aboard to drive it, even someone you put there for another reason: press **Stop waiting** first if you want it for something else.
+- If Vehicles at Work is added to or removed from a running save, the Drive column's priorities are set again by hand: the two are different work types.
+- **Not yet tested in game** (test row 251).
+
 ## [0.176.0] - 2026-11-19 - Draft
 
 With Vehicles at Work, a vehicle with a depot bay is parked in its bay
