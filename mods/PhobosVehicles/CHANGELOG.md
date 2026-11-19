@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.86.1] - 2026-11-19 - Draft
+
+The bulk bunker says trucks may unload into it
+
+### Changed
+
+- **The bulk bunker's description names its new switch**, "Vehicles may unload here", which starts on for it: a Talus delivering, or gathering set to unload at any marked bay, may tip into it. The switch, and Deliver, come with D'thorga Framework 0.175.0.
+
+### Dependencies
+
+- Deliver and the switch need D'thorga Framework 0.175.0 or later; with an older Framework only the description changes.
+
+### Compatibility and limits
+
+- **Not yet tested in game** (test rows 245 and 246).
+
 ## [0.86.0] - 2026-11-19 - Draft
 
 The service trucks' drawn armour kits, and gathering through a fight

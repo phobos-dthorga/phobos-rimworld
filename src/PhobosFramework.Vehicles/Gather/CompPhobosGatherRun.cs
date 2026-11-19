@@ -55,9 +55,11 @@ public class CompProperties_PhobosGatherRun : VehicleCompProperties
 /// Talus's loading grab), until its cargo is full or nothing it can reach is left (Framework 0.143.0; docs/development/vehicle-gathering-runs.md).
 /// With a place to unload at and a worker that unloads over its tail (the Talus's tip), it backs up there when full, puts down what it
 /// gathered and goes back out (Framework 0.144.0). It decides what is wanted and where to stand; the workers lift and tip; VehicleAutoDrive
-/// drives. Nothing ticks without a run.
+/// drives. Nothing ticks without a run. Since Framework 0.175.0 it may instead unload at any place marked "Vehicles may unload here",
+/// moving on when one fills, and the same machinery drives Deliver, which takes a load already aboard to the marked bays
+/// (CompPhobosGatherRun.Bays.cs).
 /// </summary>
-public class CompPhobosGatherRun : VehicleComp
+public partial class CompPhobosGatherRun : VehicleComp
 {
     ThingFilter? filter;
     Area? area;
@@ -97,8 +99,11 @@ public class CompPhobosGatherRun : VehicleComp
 
     Predicate<Thing> Wanted => wanted ??= Wants;
 
-    /// <summary>What a run's unloading puts down: what it gathers, so anything else aboard, such as spare parts, stays.</summary>
-    Predicate<Thing> Tips => tips ??= thing => Filter.Allows(thing);
+    /// <summary>
+    /// What a run's unloading puts down: what it gathers (or, delivering, everything but spare parts), so anything else aboard stays; at a
+    /// marked bay, only what that bay takes, so the rest can go to the next (Framework 0.175.0).
+    /// </summary>
+    Predicate<Thing> Tips => tips ??= thing => ForBays(thing, delivering) && (!UsesBays || BayAccepts(thing));
 
     ThingFilter ChoosableFilter => Props.choosableFilter!;
 
@@ -158,22 +163,34 @@ public class CompPhobosGatherRun : VehicleComp
         return unloadZone?.Cells;
     }
 
-    bool HasUnloadPlace => CanUnload && UnloadCells() != null;
+    /// <summary>Whether a gathering run has somewhere to unload: its chosen place, or any marked bay on the map.</summary>
+    bool HasUnloadPlace => CanUnload && (anyBay ? AnyBayMarkedCached() : UnloadCells() != null);
 
-    string UnloadWords => unloadBuilding?.LabelShort ?? unloadZone?.label ?? "PhobosGather_ThePlace".Translate().Resolve();
+    string UnloadWords => UsesBays
+        ? (Bay is { } bay ? bay.Label : "PhobosGather_MarkedBays".Translate().Resolve())
+        : unloadBuilding?.LabelShort ?? unloadZone?.label ?? "PhobosGather_ThePlace".Translate().Resolve();
+
+    /// <summary>The cells of the place this trip unloads at: the bay chosen for it, or the run's own place.</summary>
+    List<IntVec3>? PlaceCells() => UsesBays ? Bay?.Cells : UnloadCells();
+
+    /// <summary>The storage building this trip unloads at, if it is one.</summary>
+    Building_Storage? PlaceBuilding => UsesBays ? Bay?.Building : unloadBuilding;
 
     /// <summary>The one way to face when backing up to the place, for a building that says which side it opens on (the bulk bunker); else any.</summary>
-    Rot4? UnloadFacingRule()
-    {
-        if (unloadBuilding?.def.GetModExtension<PhobosBackUpSideExtension>() is not { } side) return null;
-        int? facing = GatherRule.BackUpFacing(side.side, unloadBuilding.Rotation.AsInt);
-        return facing is { } rot ? new Rot4(rot) : null;
-    }
+    Rot4? UnloadFacingRule() => new UnloadPlace(unloadBuilding, null).BackUpFacing();
 
     public void SetUnloadPlace(Building_Storage? building, Zone_Stockpile? zone)
     {
+        anyBay = false;
         unloadBuilding = building;
         unloadZone = building == null ? zone : null;
+    }
+
+    /// <summary>Unload at whichever marked bay is nearest with room, moving on when one fills (Framework 0.175.0).</summary>
+    public void SetAnyBay()
+    {
+        SetUnloadPlace(null, null);
+        anyBay = true;
     }
 
     /// <summary>Whether a storage would take at least one kind the run gathers: only those are offered as places to unload.</summary>
@@ -193,6 +210,7 @@ public class CompPhobosGatherRun : VehicleComp
         var options = new List<FloatMenuOption>
         {
             new("PhobosGather_UnloadNowhere".Translate().CapitalizeFirst(), () => SetUnloadPlace(null, null)),
+            new("PhobosGather_UnloadAnyBay".Translate().CapitalizeFirst(), SetAnyBay),
         };
         Map? map = Vehicle.MapHeld;
         if (map == null) return options;
@@ -218,9 +236,11 @@ public class CompPhobosGatherRun : VehicleComp
         return options;
     }
 
-    string UnloadChoiceWords => UnloadCells() == null
-        ? "PhobosGather_UnloadNowhere".Translate().Resolve()
-        : UnloadWords;
+    string UnloadChoiceWords => anyBay
+        ? "PhobosGather_UnloadAnyBay".Translate().Resolve()
+        : UnloadCells() == null
+            ? "PhobosGather_UnloadNowhere".Translate().Resolve()
+            : unloadBuilding?.LabelShort ?? unloadZone?.label ?? "PhobosGather_ThePlace".Translate().Resolve();
 
     /// <summary>
     /// What the run wants: a spawned item on its map that the filter allows, inside the area if one is set, not under fog, not forbidden, in no
@@ -277,7 +297,18 @@ public class CompPhobosGatherRun : VehicleComp
         if (!VehicleAutoDrive.StartEngine(Vehicle, out bool started)) return;
         engineStarted = started;
         VehicleAutoDrive.ClearOrders(Vehicle);
+        ResetRun();
+        delivering = false;
         phase = GatherPhase.Seeking;
+        Messages.Message("PhobosGather_Started".Translate(Vehicle.LabelShort.Named("VEHICLE"), FilterWords.Named("WHAT")).Resolve(), Vehicle,
+            MessageTypeDefOf.SilentInput, historical: false);
+        Seen.Note("vehicles.gather-run.start", Vehicle);
+        Seek();
+    }
+
+    /// <summary>Clears a run's counts and its place in the work, for a gathering run or a delivery starting.</summary>
+    void ResetRun()
+    {
         loads = 0;
         kilograms = 0f;
         places = 0;
@@ -290,10 +321,8 @@ public class CompPhobosGatherRun : VehicleComp
         unloadFacing = Rot4.Invalid;
         outOfReach.Clear();
         badSpots.Clear();
-        Messages.Message("PhobosGather_Started".Translate(Vehicle.LabelShort.Named("VEHICLE"), FilterWords.Named("WHAT")).Resolve(), Vehicle,
-            MessageTypeDefOf.SilentInput, historical: false);
-        Seen.Note("vehicles.gather-run.start", Vehicle);
-        Seek();
+        ClearBay();
+        passedBays.Clear();
     }
 
     public void Stop() => End(GatherRunEnd.Stopped);
@@ -314,7 +343,7 @@ public class CompPhobosGatherRun : VehicleComp
             if (u.Unloading) u.StopUnloading();
             CollectUnload(u);
         }
-        if (was is GatherPhase.Driving or GatherPhase.Returning && standCell.IsValid && Vehicle.Spawned) VehicleAutoDrive.Halt(Vehicle, standCell);
+        if (was is GatherPhase.Driving or GatherPhase.Returning or GatherPhase.Homing && standCell.IsValid && Vehicle.Spawned) VehicleAutoDrive.Halt(Vehicle, standCell);
         if (engineStarted && Vehicle.Spawned && GatherRule.SwitchesOffAtEnd(why)) VehicleAutoDrive.StopEngine(Vehicle);
         engineStarted = false;
         target = null;
@@ -325,7 +354,18 @@ public class CompPhobosGatherRun : VehicleComp
         outOfReach.Clear();
         badSpots.Clear();
         Report(why, reason);
-        if (Seen.Wants("vehicles.gather-run.end", Vehicle, why.ToString()))
+        if (delivering)
+        {
+            if (Seen.Wants("vehicles.deliver.end", Vehicle, why.ToString()))
+            {
+                Seen.Note("vehicles.deliver.end", Vehicle, variant: why.ToString(), values: new List<KeyValuePair<string, double>>
+                {
+                    new("things", unloaded),
+                    new("stops", trips),
+                });
+            }
+        }
+        else if (Seen.Wants("vehicles.gather-run.end", Vehicle, why.ToString()))
         {
             Seen.Note("vehicles.gather-run.end", Vehicle, variant: why.ToString(), values: new List<KeyValuePair<string, double>>
             {
@@ -335,17 +375,33 @@ public class CompPhobosGatherRun : VehicleComp
                 new("trips", trips),
             });
         }
+        delivering = false;
+        deliveryEnd = GatherRunEnd.None;
+        deliveryReason = null;
+        ClearBay();
+        passedBays.Clear();
     }
 
     void Report(GatherRunEnd why, string? reason)
     {
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
-        string head = loads > 0
-            ? "PhobosGather_Done".Translate(name, loads.Named("COUNT"), kilograms.ToString("N0").Named("MASS"), places.Named("PLACES")).Resolve()
-            : "PhobosGather_DoneNothing".Translate(name).Resolve();
-        if (trips > 0)
+        string head;
+        if (delivering)
         {
-            head += " " + "PhobosGather_DoneUnloaded".Translate(unloaded.Named("COUNT"), UnloadWords.Named("PLACE"), trips.Named("TRIPS")).Resolve();
+            head = unloaded > 0
+                ? "PhobosDeliver_Done".Translate(name, unloaded.Named("COUNT"), trips.Named("STOPS")).Resolve()
+                : "PhobosDeliver_DoneNothing".Translate(name).Resolve();
+        }
+        else
+        {
+            head = loads > 0
+                ? "PhobosGather_Done".Translate(name, loads.Named("COUNT"), kilograms.ToString("N0").Named("MASS"), places.Named("PLACES")).Resolve()
+                : "PhobosGather_DoneNothing".Translate(name).Resolve();
+            if (trips > 0)
+            {
+                string where = anyBay ? "PhobosGather_MarkedBays".Translate().Resolve() : UnloadWords;
+                head += " " + "PhobosGather_DoneUnloaded".Translate(unloaded.Named("COUNT"), where.Named("PLACE"), trips.Named("TRIPS")).Resolve();
+            }
         }
         string because = reason ?? WhyLine(why, name);
         MessageTypeDef type = GatherRule.EndedWell(why) || why == GatherRunEnd.Stopped ? MessageTypeDefOf.TaskCompletion : MessageTypeDefOf.CautionInput;
@@ -365,6 +421,8 @@ public class CompPhobosGatherRun : VehicleComp
         GatherRunEnd.UnloadFull => "PhobosGather_EndUnloadFull".Translate().Resolve(),
         GatherRunEnd.NoWayToUnload => "PhobosGather_EndNoWayToUnload".Translate().Resolve(),
         GatherRunEnd.UnloadPlaceGone => "PhobosGather_EndUnloadPlaceGone".Translate().Resolve(),
+        GatherRunEnd.Delivered => "PhobosDeliver_EndDelivered".Translate().Resolve(),
+        GatherRunEnd.NoBay => "PhobosBays_NoneWithRoom".Translate().Resolve(),
         _ => "",
     };
 
@@ -406,7 +464,9 @@ public class CompPhobosGatherRun : VehicleComp
         switch (phase)
         {
             case GatherPhase.Seeking:
-                Seek();
+                // A delivery gathers nothing: between bays it only chooses the next.
+                if (delivering) BeginReturn(true);
+                else Seek();
                 break;
             case GatherPhase.Driving:
                 DriveTick();
@@ -419,6 +479,9 @@ public class CompPhobosGatherRun : VehicleComp
                 break;
             case GatherPhase.Unloading:
                 UnloadTick();
+                break;
+            case GatherPhase.Homing:
+                HomeTick();
                 break;
         }
     }
@@ -624,33 +687,42 @@ public class CompPhobosGatherRun : VehicleComp
     {
         lastTrip = last;
         target = null;
+        if (UsesBays)
+        {
+            // A new trip from gathering: bays found full last time may have been emptied since.
+            passedBays.Clear();
+            GoToBay(null);
+            return;
+        }
         List<IntVec3>? cells = UnloadCells();
         if (cells == null)
         {
             End(GatherRunEnd.UnloadPlaceGone);
             return;
         }
-        if (!VehicleAutoDrive.TryFindBackUpSpot(Vehicle, cells, UnloadFacingRule(), badSpots, out IntVec3 stand, out Rot4 facing))
-        {
-            End(GatherRunEnd.NoWayToUnload);
-            return;
-        }
+        if (!HeadFor(cells, UnloadFacingRule())) End(GatherRunEnd.NoWayToUnload);
+    }
+
+    /// <summary>
+    /// Finds where to stand with its tail against these cells and sets off, or unloads at once if it is already there. False when there is no
+    /// such spot or the drive was refused.
+    /// </summary>
+    bool HeadFor(List<IntVec3> cells, Rot4? onlyFacing)
+    {
+        if (!VehicleAutoDrive.TryFindBackUpSpot(Vehicle, cells, onlyFacing, badSpots, out IntVec3 stand, out Rot4 facing)) return false;
         standCell = stand;
         unloadFacing = facing;
         if (stand == Vehicle.Position)
         {
             VehicleAutoDrive.Face(Vehicle, facing);
             BeginUnload();
-            return;
+            return true;
         }
-        if (!VehicleAutoDrive.DriveTo(Vehicle, stand, facing))
-        {
-            End(GatherRunEnd.NoWayToUnload);
-            return;
-        }
+        if (!VehicleAutoDrive.DriveTo(Vehicle, stand, facing)) return false;
         phase = GatherPhase.Returning;
         lastMovedTick = Find.TickManager.TicksGame;
         lastPosition = Vehicle.Position;
+        return true;
     }
 
     /// <summary>
@@ -669,9 +741,15 @@ public class CompPhobosGatherRun : VehicleComp
             End(GatherRunEnd.Orders);
             return;
         }
-        if (UnloadCells() == null)
+        if (PlaceCells() == null)
         {
-            End(GatherRunEnd.UnloadPlaceGone);
+            // A bay gone or unmarked on the way: make for the next one instead.
+            if (UsesBays)
+            {
+                VehicleAutoDrive.Halt(Vehicle, standCell);
+                GoToBay(null);
+            }
+            else End(GatherRunEnd.UnloadPlaceGone);
             return;
         }
         int now = Find.TickManager.TicksGame;
@@ -701,8 +779,20 @@ public class CompPhobosGatherRun : VehicleComp
     {
         badSpots.Add(standCell);
         failedDrives++;
-        if (GatherRule.GiveUp(failedDrives, Props.failedDrivesToGiveUp)) End(GatherRunEnd.NoWayToUnload);
-        else BeginReturn(lastTrip);
+        if (!GatherRule.GiveUp(failedDrives, Props.failedDrivesToGiveUp))
+        {
+            if (UsesBays && Bay is { } bay) GoToBay(bay);
+            else BeginReturn(lastTrip);
+            return;
+        }
+        // Out of reach: with marked bays, the next one; else the run ends.
+        if (UsesBays)
+        {
+            PassBay();
+            failedDrives = 0;
+            GoToBay(null);
+        }
+        else End(GatherRunEnd.NoWayToUnload);
     }
 
     void BeginUnload()
@@ -717,10 +807,8 @@ public class CompPhobosGatherRun : VehicleComp
         if (started == UnloadEnd.None)
         {
             phase = GatherPhase.Unloading;
-            if (Seen.Wants("vehicles.gather-run.unload", Vehicle, unloadBuilding != null ? "building" : "zone"))
-            {
-                Seen.Note("vehicles.gather-run.unload", Vehicle, UnloadWords, unloadBuilding != null ? "building" : "zone");
-            }
+            string kind = PlaceBuilding != null ? "building" : "zone";
+            if (!delivering && Seen.Wants("vehicles.gather-run.unload", Vehicle, kind)) Seen.Note("vehicles.gather-run.unload", Vehicle, UnloadWords, kind);
             return;
         }
         AfterUnload(started, refusal);
@@ -742,6 +830,11 @@ public class CompPhobosGatherRun : VehicleComp
 
     void AfterUnload(UnloadEnd end, string? reason)
     {
+        if (UsesBays)
+        {
+            AfterBayUnload(end, reason);
+            return;
+        }
         bool last = lastTrip;
         lastTrip = false;
         LookAgain();
@@ -771,6 +864,11 @@ public class CompPhobosGatherRun : VehicleComp
         lastTrip = false;
         outOfReach.Clear();
         badSpots.Clear();
+        delivering = false;
+        deliveryEnd = GatherRunEnd.None;
+        deliveryReason = null;
+        ClearBay();
+        passedBays.Clear();
         base.PostDeSpawn(map, mode);
     }
 
@@ -804,6 +902,7 @@ public class CompPhobosGatherRun : VehicleComp
         Scribe_Values.Look(ref unloaded, "PhobosGatherUnloaded");
         Scribe_Values.Look(ref engineStarted, "PhobosGatherEngineStarted");
         Scribe_Values.Look(ref keepWorking, "PhobosGatherKeepWorking");
+        ExposeBays(saving);
         if (Scribe.mode == LoadSaveMode.PostLoadInit && phase == GatherPhase.Driving && target == null) LookAgain();
     }
 
@@ -822,9 +921,11 @@ public class CompPhobosGatherRun : VehicleComp
                 float mass = kilograms + (w?.GatheredKilograms ?? 0f);
                 return "PhobosGather_LineWorking".Translate(count.Named("COUNT"), mass.ToString("N0").Named("MASS")).Resolve();
             case GatherPhase.Returning:
-                return "PhobosGather_LineReturning".Translate(UnloadWords.Named("PLACE")).Resolve();
+                return (delivering ? "PhobosDeliver_LineReturning" : "PhobosGather_LineReturning").Translate(UnloadWords.Named("PLACE")).Resolve();
             case GatherPhase.Unloading:
-                return "PhobosGather_LineUnloading".Translate(UnloadWords.Named("PLACE")).Resolve();
+                return (delivering ? "PhobosDeliver_LineUnloading" : "PhobosGather_LineUnloading").Translate(UnloadWords.Named("PLACE")).Resolve();
+            case GatherPhase.Homing:
+                return "PhobosDeliver_LineHoming".Translate().Resolve();
             default:
                 return null;
         }
@@ -834,13 +935,20 @@ public class CompPhobosGatherRun : VehicleComp
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer) yield break;
+        // Deliver needs only the tip, not the grab (Framework 0.175.0).
+        if (CanUnload || (Running && delivering))
+        {
+            foreach (Gizmo gizmo in DeliverGizmos()) yield return gizmo;
+        }
         IVehicleGatherWorker? w = Worker;
-        if (w == null || (!w.CanGatherAtAll && !Running)) yield break;
+        if (w == null || (!w.CanGatherAtAll && !(Running && !delivering))) yield break;
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
-        bool on = Running;
-        string whenFull = HasUnloadPlace
-            ? "PhobosGather_WhenFullUnload".Translate(UnloadWords.Named("PLACE")).Resolve()
-            : "PhobosGather_WhenFullStop".Translate().Resolve();
+        bool on = Running && !delivering;
+        string whenFull = !HasUnloadPlace
+            ? "PhobosGather_WhenFullStop".Translate().Resolve()
+            : anyBay
+                ? "PhobosGather_WhenFullAnyBay".Translate().Resolve()
+                : "PhobosGather_WhenFullUnload".Translate(UnloadWords.Named("PLACE")).Resolve();
         var run = new Command_Action
         {
             defaultLabel = on ? "PhobosGather_GizmoStop".Translate().Resolve() : "PhobosGather_Gizmo".Translate().Resolve(),
@@ -852,7 +960,8 @@ public class CompPhobosGatherRun : VehicleComp
                 else Start();
             },
         };
-        if (!on && CannotStart() is { } refused) run.Disable(refused);
+        if (Running && delivering) run.Disable("PhobosGather_BusyDelivering".Translate(name).Resolve());
+        else if (!on && CannotStart() is { } refused) run.Disable(refused);
         yield return run;
         yield return new Command_Action
         {

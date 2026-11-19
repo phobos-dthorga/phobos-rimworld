@@ -10,7 +10,8 @@
       on it reads that cell. D'thorga Factory Additions gives every storage its "Belts may take from here" switch; a flagged building
       starts with it on.
     - The Dead Man's Switch's automatic benches link to it through Mods/DeadManSwitch (the facility comp and material-source mark).
-    - D'thorga Framework gives every storage building "Vehicles may load from here", off to start (UH12).
+    - D'thorga Framework gives every storage building "Vehicles may load from here", off to start (UH12), and "Vehicles may unload here"
+      (Framework 0.175.0), on to start here because the bunker says which side trucks back up to (PhobosBackUpSideExtension, below).
     Not the nutrient paste grinder's mark: the grinder reads only a hopper's centre cell, which a wide bunker rarely fills.
     The tipper's own rule (Framework 0.125.0, UH1) puts a load into it first and keeps aboard what does not fit.
     Cost, work, hit points and priority are authored, agent defaults for the owner to revise. Its picture is a stand-in drawn in code.
@@ -18,7 +19,7 @@
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosVehicles_BulkBunker</defName>
     <label>bulk bunker</label>
-    <description>An open concrete bay with steel-capped walls on three sides. A truck backs up to its open end and tips straight into it. It holds a whole truckload of loose goods, eight to a cell, laid out where workers, belts and machines can reach them. It starts set to take chunks; change that in its storage settings.\n\nConveyor belts, where a colony has them, take from it as from a factory hopper, and a paste dispenser beside it draws from the cell it touches. With its "Vehicles may load from here" switch on, a truck's loading grab can lift goods back out of it.</description>
+    <description>An open concrete bay with steel-capped walls on three sides. A truck backs up to its open end and tips straight into it. It holds a whole truckload of loose goods, eight to a cell, laid out where workers, belts and machines can reach them. It starts set to take chunks; change that in its storage settings.\n\nConveyor belts, where a colony has them, take from it as from a factory hopper, and a paste dispenser beside it draws from the cell it touches. Its "Vehicles may unload here" switch starts on, so a truck delivering by itself may tip into it. With its "Vehicles may load from here" switch on, a truck's loading grab can lift goods back out of it.</description>
     <thingClass>Building_Storage</thingClass>
     <graphicData>
       <texPath>Phobos/Vehicles/BulkBunker/BulkBunker</texPath>

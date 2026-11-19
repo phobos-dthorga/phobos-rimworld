@@ -1,6 +1,6 @@
 # Gathering runs: a vehicle that fetches loose materials by itself (19 Nov 2026)
 
-**Status (19 Nov 2026):** built in D'thorga Framework 0.143.0 and D'thorga Vehicles 0.67.0, on the Talus with its loading grab; several chunks a lift and unloading at a chosen place in Framework 0.144.0 and Vehicles 0.68.0; not yet tested in game. Militarised service vehicles have their own record.
+**Status (19 Nov 2026):** built in D'thorga Framework 0.143.0 and D'thorga Vehicles 0.67.0, on the Talus with its loading grab; several chunks a lift and unloading at a chosen place in Framework 0.144.0 and Vehicles 0.68.0; "Vehicles may unload here", any marked bay and Deliver in Framework 0.175.0 and Vehicles 0.86.1; not yet tested in game. Militarised service vehicles have their own record.
 
 The owner's request, 19 Nov 2026: "a helper with the Talus Tipper Truck that is executed via a gizmo and is only available to activate
 when the Loading Grab implement upgrade is present. With suitable driver or similar ability for the vehicle to drive, it will source
@@ -125,13 +125,55 @@ place goes back; when a look finds nothing left to gather and something it gathe
 
 **Limits.** A stockpile has no open end, so the truck backs up to its nearest straight side, and the tip's fan may put a few things on
 cells just outside it. A place whose filter takes only some of what the run gathers gets those; the rest lands in the fan beside it, as
-any tip does. Only one place, not a list.
+any tip does. Only one place, not a list (the marked bays below are the list).
+
+## Marked bays and Deliver
+
+**Built in Framework 0.175.0 and Vehicles 0.86.1** (owner, 19 Nov 2026: "something (semi-)automated like the already 'Vehicles may load
+from here'", for unloading; then four answers: both uses below, the bunker marked to start, zones too, and a per-truck choice of what it
+does afterwards). Not yet tested in game.
+
+| Behaviour | What it lets them do | What it stops them doing | How it changes the way they play |
+| --- | --- | --- | --- |
+| **"Vehicles may unload here" on storage and zones** | Say once, on the storage itself, where trucks may tip, as they already say where a grab may lift | Have a truck tip into a shelf or stockpile they did not choose | Unloading points are part of laying out a base, like hoppers and belts, rather than a setting on each truck |
+| **Deliver** (Talus, no grab needed) | Send a truck loaded at the rig, the quarry or a chute to put its load away with one button | Tip spare parts, or anything no marked storage takes, with the load | A drill-rig-to-bunker shuttle needs one press per load instead of drive, back up, Tip |
+| **Moving on when a bay fills** (Deliver and gathering's "any marked bay") | Spread a load over several bunkers or a bunker and a stockpile | End a run with a full bunker while a marked one beside it is empty | Several small bays work as one big one; a mixed load sorts itself by each bay's filter |
+| **Drive back after delivering** (per truck, on to start) | Have the truck come back to where it was loaded, ready for the next load; or leave it at the bays | Nothing | The loading point and the bays become two ends of a route the truck runs on its own |
+
+**How it works.**
+
+- **The switch.** On a storage building it is a second switch on `CompPhobosVehicleLoadOut` (saved key `PhobosVehiclesMayUnload`), added
+  in code to every storage type as the load switch is. It starts on for a type whose Def carries `PhobosBackUpSideExtension`, the mark of
+  storage built for trucks to back up to (the bulk bunker) **[A]**, and is saved only where it differs from that, so bunkers built before
+  0.175.0 load marked. Zones carry no comps: `MapComponent_PhobosUnloadZones` keeps the marked zones by reference (key
+  `PhobosVehicleUnloadZones`), dropping deleted ones, and a Harmony postfix on `Zone_Stockpile.GetGizmos` adds the button after the game's
+  own (TD Enhancement Pack - Continued postfixes the same method; both only add; `scripts/query-patches.py`, 19 Nov 2026).
+- **Choosing a bay** (`UnloadBayRule`, game-free, tested). Every marked place of the player's on the map is a candidate: whether it takes
+  any kind aboard (one thing standing for each kind), whether one of its cells has room for one by the game's own `IsValidStorageFor`, and
+  its distance (a building from its centre, a zone from its nearest cell). The nearest that takes something and has room wins; a bay found
+  full, or with no spot to back up to after five tries, is passed over for the rest of the trip. With none, the reason says which: nothing
+  marked, nothing that takes the load, or all full or out of reach.
+- **Tipping at a bay.** The tip puts down only what that bay takes (and, for gathering, what the run gathers), so the rest stays aboard for
+  the next bay instead of landing in the fan. After each tip that emptied what the bay takes, or filled it, the truck makes for the next
+  bay while anything aboard is for one; then a delivery finishes, and a gathering run goes back out or ends by the usual rule.
+- **Deliver** is a run of the same comp with no gathering: it starts at `Returning`, takes everything aboard except the items the part
+  tables name (`PhobosVehiclePartSupplyDef`'s items and substitutes) **[A]**, and ends `Delivered` or `NoBay`. With the truck's switch on, it
+  then drives back to the cell and facing it started from (`Homing`, appended); a fault, an order, enemies or a stop leave it where it is.
+- **Buttons.** Deliver carries the game's own eject picture (`UI/Commands/PodEject`, the cryptosleep casket's) and the drive-back switch
+  our depot's "go to bay" picture, until ours are drawn **[A]**. Deliver is greyed out with its reason; the game opens no right-click menu
+  on a greyed-out button (`Command.GizmoOnGUIInt`, read 19 Nov 2026) **[code]**, which is why the drive-back choice is its own switch
+  rather than a right-click menu on Deliver. Deliver's check lists every marked bay, so the button asks at most twice a second.
+
+**Limits.** A marked zone's tip may land a few things just outside it, as for a chosen zone. Bays on another map are never used. A
+delivery's reason line is not saved, so one loaded during its drive back reports its end's own line. Hand tipping with **Tip** ignores
+the switch: it still fills whatever storage is in its fan.
 
 ## Other factions' vehicles
 
 The run is a player's order: its buttons show only on the player's vehicles, as the grab's do. A Talus in a raid, or parked at a base the
 player attacks, never runs one and costs nothing. A captured Talus has the buttons once it is the player's. Nothing is saved on a vehicle
-that has never run.
+that has never run. The same holds for Deliver, and a truck only ever chooses bays of the player's own: another faction's marked storage
+is never a candidate, and its switches show only to its owner.
 
 ## Cost to run and saves
 
@@ -184,6 +226,12 @@ is in code.
   materials around the map; stockpile-like filters; the code generic where reasonable; unloading later.
 - **Owner (19 Nov 2026, cards):** several chunks a lift; enemies end the run; unloading at a chosen place next; the buttons' own icons
   later; and the idea of militarised service vehicles, to research.
+- **Owner (19 Nov 2026, marked bays):** an unloading switch like the loading one; both a gathering choice and a Deliver button using it;
+  the bulk bunker marked to start and everything else unmarked; stockpile zones as well as buildings; and an option, per truck, to drive
+  back or stay afterwards.
+- **Agent (marked bays):** the bunker recognised by its back-up-side mark; spare parts read from the part tables; only what a bay takes
+  tipped there; a bay passed over after five failed tries; drive back on to start; the drive-back choice as its own switch; the two
+  borrowed pictures; the half-second recheck on the button.
 - **Agent:** the jaw's reach of 2 cells; for unloading, the middle of a side first, the bunker backed up to from behind, only what it
   gathers tipped (spare parts stay), a full place ending the run, one place rather than a list; loose things only; never forbidden, claimed or fogged things; the optional area; ending on enemies; engine started and
   stopped by the run; the stand-off ring; 16 things a look, 2,000 ticks' patience, five failed drives; the Talus's two filters; the game's

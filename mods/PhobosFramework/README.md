@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.174.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.175.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -59,6 +59,11 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   under **Unload at** and, when full, it backs up there tail first (a bulk bunker from its open end), tips what it gathered and goes back
   out. A lift takes the same kind lying together, about 20 granite chunks. It stops when nothing is left, when enemies come, when its
   unloading place is full, or at any other order. Not yet tested in game.
+- **Trucks unload by themselves at storage you mark** (0.175.0): every storage building and stockpile zone has a **"Vehicles may unload
+  here"** switch (**on to start for the bulk bunker only**). **Deliver** on the Talus takes whatever it carries, spare parts excepted, to
+  the nearest marked storage that takes it and has room, tips it there tail first and moves on to the next when one is full; then,
+  with **Drive back after delivering** on (the default), it drives back to where it started. Gathering's **Unload at** can now be **any
+  marked bay** too. Not yet tested in game.
 - **Vehicle accessories** (0.129.0): a **12-volt fridge**, a **house battery** and a **power outlet**, each made as a kit at the
   vehicle parts bench (vehicle electrics research) and fitted to its own new part on every land vehicle. **Without a house battery the
   fridge and outlet run the starting battery down with the engine off**; fit one to keep the engine's battery for starting. Taking an

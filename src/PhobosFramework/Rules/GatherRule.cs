@@ -15,6 +15,8 @@ public enum GatherPhase
     Returning,
     /// <summary>Putting its load down there.</summary>
     Unloading,
+    /// <summary>A delivery done, driving back to where it started (Framework 0.175.0).</summary>
+    Homing,
 }
 
 /// <summary>Why a vehicle's unloading worker (a tipper's tip) stopped, or <see cref="None"/> while it works or has just started (Framework 0.144.0).</summary>
@@ -71,6 +73,10 @@ public enum GatherRunEnd
     NoWayToUnload,
     /// <summary>The place it unloads at is gone.</summary>
     UnloadPlaceGone,
+    /// <summary>A delivery put down everything it carried for the bays (Framework 0.175.0).</summary>
+    Delivered,
+    /// <summary>No marked bay takes what is left aboard, or has room for it (Framework 0.175.0).</summary>
+    NoBay,
 }
 
 /// <summary>
@@ -114,7 +120,7 @@ public static class GatherRule
     public static bool StopsForEnemies(bool designStops, bool protectionFitted, bool keepWorking) => designStops && !(protectionFitted && keepWorking);
 
     /// <summary>Whether the run ended because its work was done (full, or nothing left), rather than cut short.</summary>
-    public static bool EndedWell(GatherRunEnd end) => end is GatherRunEnd.Full or GatherRunEnd.NothingLeft;
+    public static bool EndedWell(GatherRunEnd end) => end is GatherRunEnd.Full or GatherRunEnd.NothingLeft or GatherRunEnd.Delivered;
 
     /// <summary>
     /// Whether a run that started the engine switches it off at its end. Not after other orders (the player may be driving it away), when the

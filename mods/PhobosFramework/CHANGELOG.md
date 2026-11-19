@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.175.0] - 2026-11-19 - Draft
+
+Trucks unload by themselves at storage you mark: "Vehicles may unload here", and Deliver
+
+### Added
+
+- **"Vehicles may unload here", a new switch on every storage building and every stockpile zone**, beside "Vehicles may load from here". A truck unloading by itself makes only for storage with it on. **The bulk bunker starts with it on**; shelves, hoppers, other mods' storage and every stockpile zone start off.
+- **Deliver, a new button on the Talus** (no loading grab needed): load it any way you like, press Deliver, and the driver takes the load to the nearest marked storage that takes it and has room, backs up to it tail first and tips only what that storage takes. When one is full, or takes nothing more of what is aboard, it moves on to the next. Spare parts stay aboard.
+- **Drive back after delivering, a switch beside Deliver**, on to start: once a delivery is done the truck drives back to where it started, facing the way it faced, ready to be loaded again. Switched off, it stays at the last place it unloaded. Each truck keeps its own choice.
+- **Gathering can unload at any marked bay**: Gather what's Unload at has a new choice, "any marked bay, nearest with room". The truck tips at the nearest marked storage with room and moves on to the next when one fills, instead of ending the run.
+- One message at the end of a delivery says how many things it put down in how many stops, why it stopped, and whether it drove back.
+
+### Save compatibility
+
+- Safe with a running save. Bulk bunkers already built count as marked; everything else starts unmarked. The switches and the truck's choice are saved with them.
+
+### Compatibility and limits
+
+- A stockpile zone's switch adds one button to the zone's own buttons through a small patch (zones have no other way in). TD Enhancement Pack also adds buttons there; both only add.
+- On a stockpile zone the truck tips onto the cells behind it, so some may land just outside the zone; your haulers carry them in.
+- The Deliver button's picture is the game's own eject picture, and the drive-back switch reuses the depot's "go to bay" picture, until ours are drawn.
+- **Not yet tested in game** (test rows 245, 246 and 247).
+
 ## [0.174.0] - 2026-11-19 - Draft
 
 Weapons used up when fired are told apart from guns; switching an aircraft's engines off in the air lands it; take-offs wait for the rotors; helicopters sound their flight

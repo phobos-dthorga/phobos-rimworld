@@ -251,6 +251,23 @@
     "242": ["aircraft.group-spread"],
     "243": ["aircraft.space-refused"],
     "244": ["aircraft.no-disassembly-in-air"],
+    "245": {"parts": {
+      "it backs into a marked bunker": [{"key": "vehicles.unload-bay.pick", "variant": "gather building"}],
+      "it moves on when a bay fills": [{"key": "vehicles.unload-bay.next", "variant": "gather"}]
+    }},
+    "246": {"parts": {
+      "it sets off": [{"key": "vehicles.deliver.start"}],
+      "it backs into a marked bunker": [{"key": "vehicles.unload-bay.pick", "variant": "deliver building"}],
+      "it moves on when a bay fills": [{"key": "vehicles.unload-bay.next", "variant": "deliver"}],
+      "it finishes with something delivered": [{"key": "vehicles.deliver.end", "variant": "Delivered", "expect": {"things": ">= 1"}},
+        {"key": "vehicles.deliver.end", "variant": "NoBay", "expect": {"things": ">= 1"}}],
+      "it drives back": [{"key": "vehicles.deliver.home"}]
+    }},
+    "247": {"parts": {
+      "the zone's switch": [{"key": "vehicles.unload-zone-switch"}],
+      "a truck tips at the zone": [{"key": "vehicles.unload-bay.pick", "variant": "deliver zone"},
+        {"key": "vehicles.unload-bay.pick", "variant": "gather zone"}]
+    }},
     "241": {"parts": {
       "back to the gun dropped when downed": [{"key": "patches.keep-guns.recovered", "variant": "dropped"}],
       "a loaded gun out of the pack": [{"key": "patches.keep-guns.recovered", "variant": "pack"}],

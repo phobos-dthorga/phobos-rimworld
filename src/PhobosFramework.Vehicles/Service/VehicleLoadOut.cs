@@ -27,11 +27,11 @@ public static class VehicleLoadOut
             if (def.thingClass == null || !typeof(Building_Storage).IsAssignableFrom(def.thingClass)) continue;
             def.comps ??= new System.Collections.Generic.List<CompProperties>();
             if (def.comps.Any(props => props is CompProperties_PhobosVehicleLoadOut)) continue;
-            def.comps.Add(new CompProperties_PhobosVehicleLoadOut());
+            def.comps.Add(new CompProperties_PhobosVehicleLoadOut { unloadStartsOn = VehicleUnloadBays.StartsOn(def) });
             added++;
         }
         SwitchesAdded = added;
-        VehicleSystemsMod.Logger.Debug($"Added the \"Vehicles may load from here\" switch to {added} storage building types.");
+        VehicleSystemsMod.Logger.Debug($"Added the \"Vehicles may load from here\" and \"Vehicles may unload here\" switches to {added} storage building types.");
     }
 
     /// <summary>Turns the switch on or off and says so.</summary>

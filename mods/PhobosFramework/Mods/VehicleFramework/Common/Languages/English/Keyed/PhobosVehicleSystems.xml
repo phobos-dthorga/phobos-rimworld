@@ -820,6 +820,13 @@
   <PhobosVehicleSystems_MayLoadOn>A truck's loading grab may now lift goods out of the {STORAGE}.</PhobosVehicleSystems_MayLoadOn>
   <PhobosVehicleSystems_MayLoadOff>Trucks' loading grabs now leave the {STORAGE} alone.</PhobosVehicleSystems_MayLoadOff>
   <PhobosVehicleSystems_MayLoadInspect>Vehicles may load from here.</PhobosVehicleSystems_MayLoadInspect>
+  <PhobosVehicleSystems_MayUnload>Vehicles may unload here</PhobosVehicleSystems_MayUnload>
+  <PhobosVehicleSystems_MayUnloadDesc>When on, a truck unloading by itself (Deliver, or gathering set to unload at any marked bay) may back up to this storage and tip into it what its storage settings take.\n\nWhen off, those trucks pass it by. Tipping by hand with Tip, and colonists, are not affected either way.</PhobosVehicleSystems_MayUnloadDesc>
+  <PhobosVehicleSystems_MayUnloadZoneDesc>When on, a truck unloading by itself (Deliver, or gathering set to unload at any marked bay) may back up to this stockpile and tip onto it what the stockpile takes. Anything that lands beside it is carried in by your haulers.\n\nWhen off, those trucks pass it by. Tipping by hand with Tip, and colonists, are not affected either way.</PhobosVehicleSystems_MayUnloadZoneDesc>
+  <PhobosVehicleSystems_MayUnloadOn>Trucks unloading by themselves may now tip into the {STORAGE}.</PhobosVehicleSystems_MayUnloadOn>
+  <PhobosVehicleSystems_MayUnloadOff>Trucks unloading by themselves now pass the {STORAGE} by.</PhobosVehicleSystems_MayUnloadOff>
+  <PhobosVehicleSystems_MayUnloadInspect>Vehicles may unload here.</PhobosVehicleSystems_MayUnloadInspect>
+  <PhobosVehicleSystems_MayLoadAndUnloadInspect>Vehicles may load from and unload here.</PhobosVehicleSystems_MayLoadAndUnloadInspect>
   <PhobosVehicleSystems_ChuteNoVehicle>Waiting for a vehicle parked across its spout.</PhobosVehicleSystems_ChuteNoVehicle>
   <PhobosVehicleSystems_ChuteVehicleMoving>Waiting for {VEHICLE} to stop.</PhobosVehicleSystems_ChuteVehicleMoving>
   <PhobosVehicleSystems_ChuteVehicleFull>Waiting: {VEHICLE} has no room left for what it holds.</PhobosVehicleSystems_ChuteVehicleFull>

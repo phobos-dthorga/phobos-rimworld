@@ -330,7 +330,7 @@ public class VehicleSystemsMod : Mod
         if (Settings.climateControlAll) report.On("climate control in every closed cab (setting)");
         if (Settings.keepVehicleFrameworkHealthTab) report.Off("the Health tab", "Vehicle Framework's kept (setting)");
         report.On("other factions' vehicles on the lite tier");
-        report.On("\"Vehicles may load from here\" on " + VehicleLoadOut.SwitchesAdded + " storage types");
+        report.On("\"Vehicles may load from here\" and \"Vehicles may unload here\" on " + VehicleLoadOut.SwitchesAdded + " storage types");
         if (Settings.batteryFires) report.On("battery fires (setting)");
         if (Settings.electricLightning) report.On("the Lightning runs on batteries (setting)");
         foreach (IGrouping<string, DesignRecord> skipped in VehicleSystems.Designs.Where(d => d.skippedBecause != null && d.loadout != null).GroupBy(d => d.skippedBecause!))

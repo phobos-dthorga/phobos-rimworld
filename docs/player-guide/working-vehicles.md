@@ -195,6 +195,23 @@ lands in it into the cargo of a vehicle parked across its **spout**, the cell it
 by belt or by hand. **It starts set to take nothing: tick what it should load.** With no vehicle there, or a full one, it holds up to
 four stacks and the belt behind it waits; its inspect line says what it is waiting for. Its picture is a stand-in.
 
+**Unloading by itself: Deliver.** Every storage building and every stockpile zone has a **Vehicles may unload here** button. **The
+bulk bunker starts with it on; everything else starts off.** With a load aboard (from the cargo window, the drill rig, a chute), put
+someone aboard who can drive and **press Deliver**:
+
+1. The truck drives to the nearest marked storage that takes something aboard and has room, backs up with its tail against it (a
+   bunker from its open end) and tips **only what that storage takes**.
+2. When that storage is full, or takes nothing more of what is aboard, it moves on to the next marked one.
+3. **Spare parts stay aboard.** Anything no marked storage takes, or has room for, stays aboard too, and the message says so.
+4. **Afterwards**, with **Drive back after delivering** on (the default, a switch beside Deliver), it drives back to where it started
+   and faces the way it faced, ready to be loaded again. Switched off, it stays at the last place it unloaded. Each truck keeps its
+   own choice.
+
+- **It stops if enemies come**, or at any other order, as gathering does; one message says how much it put down in how many stops.
+- On a stockpile zone it tips onto the cells behind it, so some may land just outside; your haulers carry them in.
+- **Deliver is greyed out with the reason** when nothing aboard can go anywhere: nothing marked, nothing that takes the load, or
+  everything full.
+
 **Loading from storage.** Every storage building has a **Vehicles may load from here** button, off to start. Switched on, the
 loading grab may lift goods out of it, so belts or haulers can fill a bunker or a shelf while the truck is away and the grab takes the
 lot when it comes. The grab never lifts from another faction's storage, or a thing a colonist is already on the way to carry.
@@ -214,7 +231,8 @@ lot when it comes. The grab never lifts from another faction's storage, or a thi
 
 1. **Press Gather what** and choose what it fetches, exactly as for a stockpile. It starts with **chunks and raw resources**
    (steel, wood, silver and the like). The buttons at the top keep it inside one of your areas (or anywhere), and choose **where it
-   unloads**: nowhere, or one of your storage buildings or stockpiles that takes something it gathers.
+   unloads**: nowhere, **any marked bay** (every storage with **Vehicles may unload here** on, nearest with room first, moving on
+   when one fills), or one of your storage buildings or stockpiles that takes something it gathers.
 2. **Put someone aboard who can drive, and press Gather.** It starts its engine, drives to the nearest loose things you chose, stops
    about five cells from them, lifts everything you chose within reach, and moves on to the next pile.
 3. **When its cargo is full:**
@@ -227,7 +245,8 @@ lot when it comes. The grab never lifts from another faction's storage, or a thi
 
 - **It tips only what it gathers.** Anything else in its cargo, such as spare parts, stays aboard.
 - **If its unloading place fills up, the run ends** and says so; what would not fit stays aboard. Leave room in the bunker, or set
-  belts or haulers to empty it.
+  belts or haulers to empty it. **Set to any marked bay, it moves on to the next marked storage instead**, and ends only when none
+  is left with room.
 
 - **It only takes loose things.** It leaves stockpiles and shelves alone, and anything forbidden, anything a colonist is about to carry,
   and anything under the fog. **To keep something where it lies, forbid it.**

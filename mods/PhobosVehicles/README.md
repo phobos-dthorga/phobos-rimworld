@@ -8,7 +8,7 @@ top of the general systems D'thorga Framework gives every vehicle.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**:
 [working vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.86.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
+Version 0.86.1, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
 9 November 2026) and the Busbar's size and look (owner, 13 November 2026).
 
 ## Read this first (gotchas)
@@ -37,6 +37,10 @@ Version 0.86.0, built 19 November 2026 for House D'thorga. **Not yet tested in g
   it backs up there tail first (a bunker from its open end), tips what it gathered, spare parts excepted, and goes back out (0.68.0).
   Each lift takes the same kind lying together, about 20 granite chunks. It stops when nothing is left, when enemies come, when its
   unloading place is full or at any other order. Not yet tested in game.
+- **The Talus delivers by itself** (with D'thorga Framework 0.175.0): **Deliver** takes whatever it carries, spare parts excepted, to
+  the nearest storage marked **"Vehicles may unload here"** that takes it and has room, and moves on to the next when one is full;
+  **Drive back after delivering** (on to start) brings it back to where it started. **The bulk bunker starts marked**; mark any other
+  storage or stockpile with its own switch. Gathering can unload at **any marked bay** the same way. Not yet tested in game.
 - **The loading chute** (tipper research, motor pool tab; 0.64.0) drops what lands in it into a vehicle parked across its spout.
   **It starts set to take nothing: tick what it should load.** With no vehicle there it holds up to four stacks and the belt behind it
   waits. **Its picture is a stand-in** until generated art is picked.
