@@ -1,6 +1,6 @@
 # Farms on other tiles: research and design (19 Nov 2026)
 
-**Status (19 Nov 2026):** research and record only. No code, Def or world object exists for any of it, and nothing here is tested in game. The owner chose the direction the same day; the open questions are at the end.
+**Status (19 Nov 2026):** research and record only. No code, Def or world object exists for any of it, and nothing here is tested in game. The owner chose the direction and answered every question it raised the same day (below).
 
 The owner's request, 19 Nov 2026: "we will normalize working agricultural land on tiles of the map other than that of your main
 colony, like is the norm for most players right now. I'm not sure how that would work in practice at this point in time [...] I know
@@ -37,6 +37,13 @@ Workshop tool; **[S]** a secondary source; **[I]** our inference; **[A]** an aut
 | How a farm on another tile works when nobody is there | **A mix**: it runs in the background by simulation ledgers, as realistically as performance allows, and the player may observe it when they wish |
 | Soil and crop rules | Configurable, with a punishing realistic mode available; **the same rules run in the ledger** ([soil rules](farming-soil.md)) |
 | Other mods | **Learn from other mods** as we expand into this |
+| Our own site or an outpost (card) | **Our own** kind of world-map site |
+| Deliveries (card) | **Real convoys from the start**: a real vehicle carries the harvest across the world map |
+| Raids (card) | **Rarely, opening the map**, behind a setting that starts off |
+| Who may be left as crew (card) | **Anyone**: colonists, animals, mechs and prisoners, from the first build |
+| Wealth (card) | **Counts in full** toward colony wealth |
+| Farms open at once (card) | **One, as a setting** the player may raise |
+| The player's own colonists (card) | **May work at an open farm** beside its crew |
 
 ## What each behaviour lets, stops and changes
 
@@ -115,7 +122,7 @@ development package ID; they are the mods' own source (agent's judgement, from t
 
 ### The farmstead
 
-- **A world object of ours** (RF1), not a Vanilla Expanded outpost (agent lean): no new hard dependency, and none of the outposts'
+- **A world object of ours** (RF1), not a Vanilla Expanded outpost (owner): no new hard dependency, and none of the outposts'
   known hazards for vehicles (the garage, in [vehicle stations](vehicle-stations.md)). It implements the existing `IPhobosVehicleHolder`, so
   the fleet board lists its machines.
 - **It is founded from a real visit**: the player's convoy arrives, the map opens as any tile's does, paddocks are marked, sheds and
@@ -190,21 +197,31 @@ This is the heart of the risk, so it has its own rules (RF4).
 - **The crew are held by the farmstead**, not passed to the world: the game's cleaner can delete pawns it thinks nobody needs
   [code]. Their food, rest, age and health are kept up by us, as outposts do; they are off the colonist bar and out of colony
   alerts, so the farmstead raises its own (RF5).
+- **Anyone may be left there** (owner): colonists, animals, mechs and prisoners, from the first build. That is the most to build
+  and check, and the record says where: animals, mechs and prisoners are exactly the pawns the game's cleaner deletes [code], so
+  the holder must own them outright; a mech needs its mechanitor link and bandwidth kept; a bonded animal its bond; a prisoner a
+  guard and a way to escape that the ledger can work out [A].
+- **The player's own colonists may work at an open farm** beside its crew (owner): driving, hauling, building and repairing as
+  anywhere. The farm cannot close while they are still on its map.
 - **Machines keep working figures while held**: fuel falls and wear rises with the work done. This differs from the garage outpost,
   whose vehicles are frozen.
-- **Deliveries** (RF6; question 2 below): a truck of the farm's own carries grain to the colony and returns, costing fuel and days
-  by the existing world-map travel rules. Agent lean: a timed delivery from the ledger first, a real convoy on the world map later.
+- **Deliveries are real convoys from the start** (RF6; owner): a truck of the farm's own, with a driver from its crew, leaves the
+  farmstead as a real vehicle caravan, crosses the world map by the existing travel rules, unloads at the colony and returns. It
+  burns real fuel, can break down and can be attacked on the way. While it is away, the ledger has one truck and one person fewer.
 - **What it must beat, and not by much**: the farming outpost's yield above. A machine farm should out-produce it for the far
   greater investment, and never for nothing.
 
 ### Raids and incidents
 
-- **A closed farmstead is not an incident target**, as RimExodus and the pause mod arrange, with incidents blocked at the last step
-  before they fire.
-- **Whether a farmstead can be raided is open** (question 3): not at all; an abstract loss worked out in the ledger; or a raid that
-  forces the map open, as Empire Refactored opens a map for a battle.
-- **Goods at a farmstead do not count toward colony wealth** while it is closed [I], which lowers raid strength: the record names it
-  so it is a choice, not an accident.
+- **A closed farmstead is not a target for the game's ordinary incidents**, as RimExodus and the pause mod arrange, with incidents
+  blocked at the last step before they fire.
+- **A farmstead can be raided, rarely, and the raid opens its map** (owner), as Empire Refactored opens a map for a battle. It sits
+  behind a setting that starts off. The player defends with the crew there or whoever they send; a letter gives warning [A].
+- **Goods and machines at a farmstead count in full toward colony wealth** (owner), so a farm is no way to hide wealth from the
+  storyteller. The farmstead reports its wealth itself while closed, as the game's gravship does for raid points
+  (`Gravship.PlayerWealthForStoryteller`) [code].
+- **One farm may be open at a time by default** (owner), a setting the player may raise; the settings window says what each open
+  farm costs.
 
 ### Cost to run
 
@@ -231,7 +248,7 @@ Every hazard the research found, grouped. Each must have an answer before the bu
 | 2 | The load path runs once; restoring mid-game must replay it between frames with saving idle | Only the fallback (a full stored map) needs it; copy the RimExodus Framework's preconditions |
 | 3 | `AddMap` initialises nothing; Vehicle Framework's caches throw on a second add or go stale | Use the game's own generation and removal paths wherever possible; clear the caches where not |
 | 4 | Other mods' per-map setup and caches miss a map made mid-game | A generated map is an ordinary new map to them; a restored one is not: one more reason generation is first choice |
-| 5 | The 127-map limit is shared with every map-making mod | One farm open at a time by default (a setting) |
+| 5 | The 127-map limit is shared with every map-making mod | One farm open at a time by default, a setting (owner) |
 | 6 | The game's removal passes crew to the world with "lost" thoughts, signals quests, releases beds | Crew and machines leave the map into the holder before removal |
 | 7 | Things outside the map that point into it go null: beds, bills, lords, quests, queued incidents | Closing is refused while any exists, with the reason |
 | 8 | The same object must never be both stored and live | One owner at a time: the holder or the map |
@@ -244,30 +261,30 @@ Every hazard the research found, grouped. Each must have an answer before the bu
 | 15 | Time-stamped values jump on waking: lords, jobs, training decay | Nothing is frozen: pawns are held and kept up, not paused |
 | 16 | Slowing a map without handing on skipped time halves work and growth | The ledger works in elapsed time; our comps use `TickInterval(delta)` |
 | 17 | A map out of view still shows in alerts, pawn finders, wealth and counts | No map while closed |
-| 18 | Held crew need needs, age and health kept up; they vanish from the bar and alerts; the cleaner can delete animals, mechs and prisoners | Held by the farmstead with its own alerts; humans only at first (question 4) |
+| 18 | Held crew need needs, age and health kept up; they vanish from the bar and alerts; the cleaner can delete animals, mechs and prisoners | Held outright by the farmstead with its own alerts. **Anyone may be left there from the first build (owner)**, so this hazard is in full force: links, bonds and guards are part of that build |
 | 19 | A ledger that ignores frost and season kills crops when the map opens | Season and frost in the first build |
 | 20 | Ledger and map drifting apart makes opening an exploit or a loss | The rules above: shared code, learned growth ratio, harness, notes |
 | 21 | Anything the write-back leaves out is lost | The layout keeps full state for buildings and items; the list of what is kept is in the README |
-| 22 | The storyteller cannot target a farm with no map | Question 3 |
-| 23 | Goods at a closed farm do not count toward wealth | Named above; the owner's choice |
-| 24 | Delivery routes and the destination need designing | RF6, question 2 |
+| 22 | The storyteller cannot target a farm with no map | Our own rare raid, which opens the map (owner); behind a setting that starts off |
+| 23 | Goods at a closed farm do not count toward wealth | They count in full (owner): the farmstead reports its own wealth |
+| 24 | Delivery routes and the destination need designing | Real convoys from the start (owner), on the existing world-map travel rules (RF6) |
 | 25 | The farm's own sub-maps are lost on removal | A farm with a pocket map hanging from it refuses to close |
 | 26 | Uninstalling loses held pawns and vehicles | The README's first section |
 | 27 | A save made during an observation must stay consistent | The ledger is marked as waiting while a map is open |
 | 28 | Threats or the player's own pawns on the map must block closing | Refused, with the reason |
 | 29 | Reference code drifts fast: RimExodus changed twice in ten days | Read at the build's own date, from its public source |
 
-## Questions for the owner
+## What the owner's answers add to the first build
 
-| # | Question | Agent lean |
-| --- | --- | --- |
-| 1 | Our own world object, or one built on Vanilla Expanded's outposts as the garage is? | Our own |
-| 2 | Deliveries: timed from the ledger, or a real convoy on the world map? | Timed first, a real convoy later |
-| 3 | Can a farmstead be raided: never, an abstract loss, or a raid that forces the map open? | A raid that forces the map open, rare, behind a setting that starts off |
-| 4 | May animals, mechs and prisoners be left at a farmstead? | Humans only at first |
-| 5 | How many farms may be open at once? | One, as a setting |
-| 6 | Should goods at a closed farmstead count toward colony wealth? | Yes, so a farm is no way to hide wealth |
-| 7 | May the player's own colonists work at an open farm beside its crew? | Yes |
+Two of the seven answers chose more than the agent's lean, and the record says plainly what that costs:
+
+- **Real convoys from the start** means the first remote-farm build includes a vehicle caravan leaving a world object, travelling,
+  unloading and returning, with its breakdowns and attacks. The world-map travel, cargo and tow rules exist; a convoy that starts
+  and ends in a ledger does not.
+- **Anyone as crew from the start** means the holder handles animals, mechs and prisoners in the first build, each with its own
+  hazard (above).
+
+Neither is a reason to shrink the design; both make the first remote-farm build larger, and it follows the machines' batches.
 
 ## Still unknown
 

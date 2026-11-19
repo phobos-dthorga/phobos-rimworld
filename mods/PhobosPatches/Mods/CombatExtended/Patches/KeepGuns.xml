@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Soldiers keep their guns (D'thorga Patches 0.26.0; docs/development/soldiers-keep-their-guns.md). The job giver goes into the
+       colonists' branch of the game's Humanlike think tree just before "drop unused inventory": that puts it ahead of Simple Sidearms'
+       quick-switch (which Simple Sidearms inserts after that node), of the game's "pick up a weapon dropped while downed" and of Combat
+       Extended's loadouts, whichever order the mods load in. Conditional, so a mod that rebuilt the tree sees no error; the behaviour is
+       then simply absent. -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThinkTreeDef[defName="Humanlike"]//li[@Class="ThinkNode_ConditionalColonist"]/subNodes/li[@Class="JobGiver_DropUnusedInventory"]</xpath>
+    <match Class="PatchOperationInsert">
+      <xpath>Defs/ThinkTreeDef[defName="Humanlike"]//li[@Class="ThinkNode_ConditionalColonist"]/subNodes/li[@Class="JobGiver_DropUnusedInventory"]</xpath>
+      <order>Prepend</order>
+      <value>
+        <li Class="Phobos.CombatExtendedPatches.KeepGuns.JobGiver_PhobosKeepOwnGun" />
+      </value>
+    </match>
+  </Operation>
+</Patch>

@@ -1,6 +1,6 @@
 # Soil rules for D'thorga Farming: research and design (19 Nov 2026)
 
-**Status (19 Nov 2026):** research and record only. No code, Def or setting exists for any of it, and nothing here is tested in game. The owner set its direction the same day; the open questions are at the end.
+**Status (19 Nov 2026):** research and record only. No code, Def or setting exists for any of it, and nothing here is tested in game. The owner set its direction and answered every question it raised the same day (below).
 
 The owner's words, 19 Nov 2026, asked how deep the soil and crop rules should go: "We offer configurable settings for the player to
 choose from. I'm honest in saying that I tend to be weird one out in enjoying soil chemistry, realistic farming, etc." On moisture:
@@ -40,6 +40,12 @@ inference; **[A]** an authored figure or choice for the owner to revise. **None 
 | Moisture | **A bonus only**, in Dubs Bad Hygiene's manner: weather is outside the player's control |
 | Choices | **We shouldn't deny or negate the player's choices** ("shouldn't", not "never": a strong lean, to be weighed) |
 | Seed | **Machine sowing uses up seed** |
+| The default preset (card) | **Field care** |
+| Where the rules apply (card) | **Paddocks by default, with a separate option for every growing zone, disabled by default.** "We'll also have a wizard at first-run that helps get the player started." |
+| How far a yield may fall under Realistic (card) | **To about a third, "but ultimately, I want it to come down to systemic failures like what we have designed with our engine simulation code"** |
+| The soil test (card) | **A hand kit first, then a tractor-mounted sampler** |
+| Sowing by hand (card) | **A switch, free by default** |
+| Where seed comes from (card) | **Both**: kept back from each crop's harvest, and a generic seed from traders |
 
 ## What each behaviour lets, stops and changes
 
@@ -60,7 +66,7 @@ inference; **[A]** an authored figure or choice for the owner to revise. **None 
 | Preset | What it does | Can it hurt the player? |
 | --- | --- | --- |
 | **Off** | Machines only; the game's own fertility | No |
-| **Field care** (agent lean: the default) | Visible paddock states; ploughing, fertilising, liming and weeding each add yield; moisture | No: neglect only forgoes a bonus |
+| **Field care** (the default: owner) | Visible paddock states; ploughing, fertilising, liming and weeding each add yield; moisture | No: neglect only forgoes a bonus |
 | **Realistic** (off by default) | Nitrogen, phosphorus, potassium, acidity, weeds and crop history for each paddock, with real consequences; moisture | **Yes** |
 
 - **Presets are buttons**, not a slider (the owner's standing preference).
@@ -68,8 +74,11 @@ inference; **[A]** an authored figure or choice for the owner to revise. **None 
   use. Changing one shows the preset as "Custom".
 - **A switch that makes no sense without another is greyed out and says why**: acidity acts through nutrients, so it needs them on.
   This is where "shouldn't", not "never", applies.
-- **A second setting says where the rules apply**: paddocks only (agent lean: the default), or every growing zone. The second
-  makes hand farming harder too, and only by the player's choice.
+- **The rules apply to paddocks by default** (owner). **A separate option, disabled by default, extends them to every growing
+  zone** (owner); it makes hand farming harder too, and only by the player's choice.
+- **A wizard at first run helps the player get started** (owner, SL8): it offers the preset, where the rules apply and the
+  switches, in plain words, the first time a colony loads with the mod. It is the first use of the
+  [setup wizard](first-load-setup-wizard.md) the owner proposed on 9 Nov 2026.
 - **Every new setting is reported to the owner by name when built**, as the standing rule asks.
 
 ## Moisture: Dubs Bad Hygiene's way, studied
@@ -137,9 +146,40 @@ The model is Farming Simulator 25 (GIANTS Software): a field has states the play
   rotation and fallow break.
 - **Mistakes last**: a mined or soured paddock takes seasons to restore.
 - **The player is told, never left guessing**: a **soil test** gives the figures (Farming Simulator 25's Precision Farming add-on
-  works the same way: sample, then treat [S]); without one, the crop itself gives a plain hint ("pale leaves"); and a warning comes
-  before a paddock is badly run down.
+  works the same way: sample, then treat [S]). **A hand kit comes first; a tractor-mounted sampler that tests while driving follows
+  as an upgrade** (owner). Without a test, the crop itself gives a plain hint ("pale leaves"), and a warning comes before a paddock
+  is badly run down.
 - **The same rules run in the ledger**, so a neglected remote farm declines while nobody watches.
+
+### Failure by chains, not by a floor (owner's direction, SL9)
+
+The owner on how far a yield may fall: "To about a third but ultimately, I want it to come down to systemic failures like what we
+have designed with our engine simulation code."
+
+- **For a first build, a floor of about a third** of the plain game's yield stands in.
+- **The aim is that no floor is needed**: a paddock fails the way an engine does in our vehicle model, through linked causes, each
+  of which the player can see and break. The agent's reading of what that means, for the owner to revise [A]:
+
+```mermaid
+flowchart LR
+  A[Years of nitrogen fertiliser, no lime] --> B[Soil turns acid]
+  B --> C[Phosphorus locked up]
+  B --> D[Legumes stunted]
+  D --> E[No nitrogen fixed in the rotation]
+  C --> F[Thin crop]
+  E --> F
+  F --> G[Bare ground between plants]
+  G --> H[Weeds take hold]
+  H --> I[Weeds take water and nutrients]
+  I --> F
+```
+
+- **Each link is its own small rule with its own figure**, as each load in the engine ledger is its own Def, so other mods and the
+  owner can add or retune links in XML.
+- **A chain can end in a failed crop**, where a floor never could; and it can be stopped at any link, which is the decision the
+  player is given.
+- **This is a design still to write**, as the engine loads were: a step back first, then the ledger of links
+  ([engine loads](vehicle-engine-loads.md) is the model).
 
 **Real proportions, to scale the authored figures** [S, summary]: wheat grain carries off roughly 22 kg of nitrogen, 3 kg of
 phosphorus and 8 kg of potassium for each tonne, the last including an allowance for burnt stubble (Incitec Pivot Fertilisers'
@@ -156,15 +196,16 @@ full; no Def may carry one until its page is read** (SL7).
   because they call the same rule.
 - **Yield is changed through the game's own `Plant.YieldNow`**, by one postfix that looks up the paddock under the plant. Every
   harvest, by hand or machine, and every other mod's yield patch then sees the same figure [code].
-- **The factor's range is authored** [A]: about 0.3 at the worst to about 1.3 at the best under Realistic; 1.0 to the ceiling under
-  Field care.
+- **The factor's range is authored** [A]: about a third at the worst (owner, for a first build) to about 1.3 at the best under
+  Realistic; 1.0 to the ceiling under Field care.
 
-## Seed (SL5, owner's decision)
+## Seed (SL5, owner's decisions)
 
 - **A seed drill uses up seed as it sows.** Its amount for each cell is authored [A]; real sowing rates are a few per cent of a
   harvest [I, unverified], which is the proportion to aim at.
-- **Sowing by hand stays free** (agent's reading, to confirm), unless the player turns the "seed use" switch to cover hands too.
-- **Where seed comes from is open** (question 2).
+- **Sowing by hand stays free by default**; a switch, "hands use seed too", extends seed use to hands (owner).
+- **Seed comes two ways** (owner): kept back from each crop's own harvest, and a generic seed from traders that sows anything at a
+  higher price. The detail is in [farm machines](farming-machines.md).
 
 ## Fertiliser and the chemistry (SL6)
 
@@ -205,18 +246,9 @@ full; no Def may carry one until its page is read** (SL7).
 - **Changing preset mid-game is allowed**: figures the new preset does not use are kept, not thrown away, so changing back loses
   nothing.
 
-## Questions for the owner
-
-| # | Question | Agent lean |
-| --- | --- | --- |
-| 1 | The default preset | Field care |
-| 2 | Where seed comes from: one generic seed, seed kept back from each crop's harvest, or both | Kept back from the harvest, with traders selling seed for a first sowing |
-| 3 | Do the rules apply to paddocks only by default, or to every growing zone? | Paddocks only |
-| 4 | Under Realistic, how far may a yield fall? | To about a third of the plain game's, never to nothing |
-| 5 | Is a soil test a kit a colonist uses, a tractor-mounted sampler, or both? | Both: the kit first |
-| 6 | Should Realistic add a moisture penalty as a separate switch, off even there? | No: the owner agreed moisture never punishes |
-
 ## Still unknown
+
+- **What the chains of failure are, link by link** (SL9): the owner's direction is recorded above; the design is not written.
 
 - **Whether one postfix on `Plant.YieldNow` is cheap enough at a large harvest**: it should be, at one lookup a plant, but it is
   unmeasured.

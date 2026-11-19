@@ -211,27 +211,31 @@ The owner asked for a research and record round on working agricultural vehicles
 ([farm machines](farming-machines.md), [farms on other tiles](farming-remote-farms.md), [soil rules](farming-soil.md)). The owner's
 answers of the same day: a new mod, D'thorga Farming; remote farms run by ledger and may be observed; soil rules as settings with a
 punishing Realistic mode available; moisture as a bonus in Dubs Bad Hygiene's manner; machine sowing uses up seed; realism balanced
-with play, Farming Simulator 25 as the model. **Nothing is built.**
+with play, Farming Simulator 25 as the model. The owner then answered all eighteen of the records' questions by card. **Nothing is
+built.** The order to build, when the owner says so: the base and the harvest (AG0, AG2), then tillage and seeding (AG1), then
+spraying and fertiliser (AG3) with the soil rules, then remote farms.
 
 | # | Item | Mod | Owner's decision | Status |
 | --- | --- | --- | --- | --- |
 | AG0 | The base: paddocks (a machine-worked growing zone that hand scans skip), the "work this paddock" order and row planner, the implement acting on its strip at each new cell, the field-work engine state with draught | Framework, Farming | A new mod, D'thorga Farming (owner, 19 Nov 2026) | Record written; not built |
-| AG1 | Tillage and seeding: tractor, plough, cultivator, seed drill | Farming | In depth (owner, 19 Nov 2026) | Record written; not built |
-| AG2 | Harvest and grain handling: combine and fronts, grain tank and auger, chaser bin, field bin, silo; AG2.4 unloading on the move | Farming, Framework | In depth (owner, 19 Nov 2026) | Record written; not built |
+| AG1 | Tillage and seeding: tractor, plough, cultivator, seed drill | Farming | In depth; **three tractor sizes at once; implements may be smaller than the 3 by 7 trailer floor**; the second batch (owner, 19 Nov 2026) | Record written; not built |
+| AG2 | Harvest and grain handling: combine and fronts, grain tank and auger, chaser bin, field bin, silo; AG2.4 unloading on the move | Farming, Framework | In depth; **the first batch, with the base**; harvest fires a switch, on in Realistic (owner, 19 Nov 2026) | Record written; not built. Agent's note: the chaser bin needs a tow before the tractors arrive (our trucks can, or one tractor moves forward) |
 | AG3 | Spraying and fertiliser: boom sprayer, spreader, the crop-dusting aircraft (after our own flight is tested) | Farming | In depth (owner, 19 Nov 2026) | Record written; not built |
 | AG5 | Hay, irrigation and forestry | Farming | Short entries only: "largely offered by other mods already" (owner, 19 Nov 2026) | Record written |
 | AG6 | To do before any Def carries a figure: read the web sources in full (fuel by field pass, draught, field capacity), and check that growing to sell does not beat the vanilla economy | docs | — | Open: every such figure was read as a search summary only |
-| AG7 | The owner's seven questions on machines (hand sowing free, implement sizes, one tractor or three, where seed comes from, names, harvest fires, the first batch) | docs | — | Open: waiting on the owner |
+| AG7 | The machines' names (a technical word and a plain noun) | docs | **The owner will choose later** (19 Nov 2026); the other six questions on machines are answered in the record | Open: the agent's proposals stand until then |
 | RF1, RF2 | The farmstead world object holding the ledger, crew, machines and layout; the daily ledger step with the game's growth terms, season and frost | Framework, Farming | Remote farms run in the background by ledger (owner, 19 Nov 2026) | Record written; not built |
 | RF3, RF4 | Observing: a real map built from the ledger and written back on closing; keeping the two views the same (shared rules, a learned growth ratio, a test harness) | Framework | The player may observe when they wish (owner, 19 Nov 2026) | Record written; not built. **Stated risk: no mod found does this** |
-| RF5, RF6 | Crew kept at the farm with their own alerts; deliveries home | Farming | — | Record written; not built |
-| RF7 | The owner's seven questions on remote farms (our own world object or an outpost, deliveries, raids, who may be left there, farms open at once, wealth, colonists working beside the crew) | docs | — | Open: waiting on the owner |
+| RF5, RF6 | Crew kept at the farm with their own alerts; deliveries home | Farming | **Anyone may be left as crew (colonists, animals, mechs, prisoners); deliveries are real convoys from the start**; the player's colonists may work at an open farm (owner, 19 Nov 2026) | Record written; not built. Both answers make the first remote-farm build larger; the record says how |
+| RF7 | Raids, wealth, farms open at once, the kind of world-map site | Farming | **Our own site; raided rarely, opening the map, behind a setting that starts off; goods count in full toward wealth; one farm open at a time, as a setting** (owner, 19 Nov 2026) | Record written; not built |
 | SL1 | Three presets (Off, Field care, Realistic) as buttons, a switch for each rule, and where the rules apply | Farming | Configurable settings; a punishing realistic mode available, off by default; "shouldn't" deny choices, not "never" (owner, 19 Nov 2026) | Record written; not built |
 | SL2 | Moisture as a bonus that fades; with Dubs Bad Hygiene active our machines write into its wetness and fertiliser | Farming, Framework | Dubs Bad Hygiene's way, studied; moisture never punishes (owner, 19 Nov 2026) | Record written; not built |
 | SL3, SL4 | Field care (steps that add yield) and Realistic (nutrients run down, the scarcest sets the yield, acidity and lime, weeds, disease, soil test and warnings) | Farming | As above | Record written; not built |
-| SL5 | Seed: a drill uses it up as it sows | Farming | Machine sowing uses up seed (owner, 19 Nov 2026) | Record written; not built |
+| SL5 | Seed: a drill uses it up as it sows | Farming | Machine sowing uses up seed; **hand sowing free by default, with a switch; seed both kept back from each harvest and sold by traders as a generic seed** (owner, 19 Nov 2026) | Record written; not built |
 | SL6 | Fertiliser goods with simple recipes; the real chemistry as a tie-in for the planned chemical industry mod | Farming | — | Record written; not built |
-| SL7 | To do before any Def carries a figure: read the nutrient-removal sources in full; the owner to check the record's textbook chemistry; the owner's six questions on soil | docs | — | Open |
+| SL7 | To do before any Def carries a figure: read the nutrient-removal sources in full; the owner to check the record's textbook chemistry | docs | — | Open |
+| SL8 | A wizard at first run that helps the player choose the preset, where the rules apply and the switches | Farming, Framework | "We'll also have a wizard at first-run that helps get the player started"; Field care the default; rules on paddocks by default, with a separate option for every growing zone, off by default (owner, 19 Nov 2026) | Open; the first use of [the setup wizard](first-load-setup-wizard.md) |
+| SL9 | Failure by chains, not by a floor: under Realistic a paddock fails through linked causes, as an engine does in our vehicle model | Farming | A floor of about a third for a first build, "but ultimately, I want it to come down to systemic failures like what we have designed with our engine simulation code"; the soil test a hand kit first, then a tractor-mounted sampler (owner, 19 Nov 2026) | Open: the direction is recorded; the links are not designed |
 
 ## Garage and fleet tools (from 8 Nov 2026)
 

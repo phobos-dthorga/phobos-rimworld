@@ -1,6 +1,6 @@
 # Farm machines: research and design for D'thorga Farming (19 Nov 2026)
 
-**Status (19 Nov 2026):** research and record only. No mod, Def, code or picture exists for any of it, and nothing here is tested in game. The owner answered seven questions the same day (below); the rest wait as open questions at the end.
+**Status (19 Nov 2026):** research and record only. No mod, Def, code or picture exists for any of it, and nothing here is tested in game. The owner answered every question it raised the same day (below); only the machines' names are left for later.
 
 The owner's request, 19 Nov 2026: "one idea I've just had is that of properly working, fully simulated, agricultural vehicles. At
 that too, we will normalize working agricultural land on tiles of the map other than that of your main colony [...] I know
@@ -28,7 +28,9 @@ tool; **[S]** a secondary source, and **[S, summary]** one read only as a search
   while driving [code].
 - **A machine must repeat the game's own harvest steps.** The game has no single harvest call; VFE Factory's autofarmer skips the
   steps and so loses barley's hay and oats' second product today [code].
-- **Machine sowing uses up seed** (owner). Sowing by hand stays free, as in the game (agent's reading, to confirm).
+- **Machine sowing uses up seed** (owner). Sowing by hand stays free unless the player turns on a switch (owner). Seed is both
+  kept back from each crop's harvest and sold by traders as a generic seed (owner).
+- **The first batch to build is the base and the harvest** (owner): the combine and grain handling before tillage and seeding.
 - **Big fields are cheap for the game; hand-work scans of big fields are not** [code]. Paddocks are skipped by hand-work scans.
 - **The art and sound load is large**: about a dozen bodies with overlays, and real recordings for real machines.
 
@@ -43,6 +45,13 @@ tool; **[S]** a secondary source, and **[S, summary]** one read only as a search
 | Other mods | **Learn from other mods as we expand into this** |
 | Soil moisture | **Study Dubs Bad Hygiene's way**: its balance of game mechanics and realism is "quite good", "even refreshing" |
 | Seeds | **Machine sowing uses up seed**: "an excellent tradeoff for the ability to mass-plant and farm at an industrial scale" |
+| Sowing by hand (card) | **A switch, free by default**: hands use no seed unless the player turns on "hands use seed too" |
+| Implement sizes (card) | **Implements may be smaller than the 3 by 7 trailer floor** of 13 Nov 2026: about 3 by 3 to 3 by 5 |
+| Tractor sizes (card) | **Three sizes at once**: small, medium and large from the first tractor build |
+| Where seed comes from (card) | **Both**: seed kept back from each crop's own harvest, and a generic seed from traders that sows anything at a higher price. "That's how one mod for FS25 implemented it and I REALLY LOVED the idea from that point on. It gives the player great choices while negating nothing." |
+| The machines' names (card) | **The owner will choose later**; the proposals below stand until then |
+| Harvest fires (card) | **A switch, on in the Realistic preset**, off in the others |
+| The first batch (card) | **The base and the harvest first**: the combine and grain handling; tillage and seeding second |
 
 ## The guiding principle (owner, 19 Nov 2026)
 
@@ -264,11 +273,13 @@ times a skilled hand. The figure is authored and will be set in play, not derive
 
 | Machine | What it does | What it uses up | Notes |
 | --- | --- | --- | --- |
-| **Tractor**, in size classes | Pulls and drives the implements | Fuel, by the engine ledger | Our drivetrain, a hitch, a power take-off as shaft loads. Agent lean: one mid-size tractor first, a small and a large class as later Defs |
+| **Tractor**, in three sizes (owner) | Pulls and drives the implements | Fuel, by the engine ledger | Our drivetrain, a hitch, a power take-off as shaft loads. Small, medium and large come together, so "which tractor for which implement" is a real choice from the start; three bodies to draw |
 | **Plough** | Turns the soil: buries weeds and stubble, gives the ploughing step | Fuel: the heaviest pass by far | With Vanilla Plants Expanded active it lays that mod's tilled soil (fertility 1.4), which the mod's own patch uses up at harvest [Defs, code] |
 | **Cultivator** | A lighter, faster pass: seedbed and shallow weed control | Fuel | The cheaper choice when weeds are low |
 | **Seed drill** | Sows the paddock's crop in its strip | **Seed** (owner), from its hopper | Direct-drills into stubble, or sows a prepared seedbed for the full step |
 
+- **Implements may be smaller than a trailer** (owner): about 3 by 3 to 3 by 5 cells, sized to look right behind a tractor. The
+  3 by 7 floor of 13 Nov 2026 still holds for trailers of goods, the chaser bin among them.
 - **Plough or direct-drill is the family's decision.** Real passes differ widely in fuel: ploughing about 21 litres a hectare,
   heavy cultivation about 13, a seedbed pass 5 to 9, direct drilling about 12 against about 60 for ploughing, cultivating and
   sowing together [S, summary: an Irish farm survey in the Farmers Journal; a Scottish Farm Advisory Service guide]. We keep the
@@ -290,8 +301,12 @@ times a skilled hand. The figure is authored and will be set in play, not derive
   are the nearest other mods' haulers [Defs].
 - **Dual crops give their second product** (barley's hay, oats' raw oats, from Vanilla Expanded Framework's extension), made by us
   because the framework skips it for a vehicle.
-- **Harvest fires** [A]: a combine working a dry paddock on a hot day may start a fire, a real risk that Australian fire services
-  write harvest rules for (unverified here; no source read). It ties into the existing fire and smoke work, and is a switch.
+- **Harvest fires** (owner: a switch, on in the Realistic preset, off in the others): a combine working a dry paddock on a hot day
+  may start a fire, a real risk that Australian fire services write harvest rules for (unverified here; no source read). It ties
+  into the existing fire and smoke work. The odds are authored [A].
+- **This family is built first** (owner), with the base. **Agent's note for the owner:** the chaser bin needs something to tow it
+  before the tractors arrive with the second batch. Any vehicle with our drivetrain can tow, so our existing trucks can; or one
+  tractor could move forward into the first batch.
 
 ### Spraying and fertiliser (AG3)
 
@@ -322,13 +337,15 @@ The owner's view is that other mods largely offer these. What the research found
 - **Forestry**: a log forwarder is already listed in [the utility vehicles catalogue](utility-vehicles-design.md). No forestry
   vehicle was found in the active mods; the search was not wide.
 
-### Seed (owner's decision)
+### Seed (owner's decisions)
 
 - **A seed drill carries seed as a bulk amount and uses it up as it sows.** An empty drill stops and says why; haulers refill it
   through a top-up Def.
-- **Sowing by hand stays free**, as in the game: seed is the price of sowing at scale (agent's reading, to confirm).
-- **Where seed comes from is open** (question 4 below): one generic seed as Farming Simulator 25 has; seed kept back from each
-  crop's own harvest; or both.
+- **Sowing by hand stays free by default**; a switch, "hands use seed too", makes every sowing use seed (owner).
+- **Seed comes two ways** (owner, after a Farming Simulator 25 mod they loved): **kept back** from each crop's own harvest and
+  cleaned into seed for that crop, and **a generic seed** from traders that sows anything at a higher price. The player chooses
+  between planning ahead and paying. How a harvest is cleaned into seed (a bench, a machine, a share set on the paddock) is for the
+  build's own design [A].
 
 ### Other factions' machines
 
@@ -367,20 +384,18 @@ The standing rule asks every vehicle mechanic to be designed for other factions.
   spreader, field bin, silo, aircraft. Each body drawn bare with one overlay per visible upgrade, planned before the first picture,
   and no stand-in art ([the art rules](../../assets/AGENTS.md)).
 - **Real recordings for real machines**, as decided on 19 Nov 2026 for sounds.
-- **Names** follow the family's pattern, a technical word and a plain noun (agent proposals, the owner picks): Tilth tractor,
-  Furrow plough, Tine cultivator, Coulter seed drill, Awn harvester, Auger chaser bin, Headland sprayer, Broadcast spreader.
+- **Names** follow the family's pattern, a technical word and a plain noun. **The owner will choose them later.** The agent's
+  proposals, until then: Tilth tractor, Furrow plough, Tine cultivator, Coulter seed drill, Awn harvester, Auger chaser bin,
+  Headland sprayer, Broadcast spreader.
 
-## Questions for the owner
+## The order to build (owner, 19 Nov 2026)
 
-| # | Question | Agent lean |
-| --- | --- | --- |
-| 1 | Does sowing by hand stay free while machine sowing uses seed? | Yes: seed is the price of scale |
-| 2 | May an implement be smaller than the 3 by 7 trailer floor set on 13 Nov 2026? | Yes for implements: a plough is not a trailer of goods |
-| 3 | One tractor first, or three size classes at once? | One mid-size tractor first, with the classes as later Defs |
-| 4 | Where does seed come from: one generic seed, seed kept back from each crop's harvest, or both? | Kept back from the harvest, with traders selling seed for a first sowing |
-| 5 | The machines' names | The proposals above |
-| 6 | Harvest fires: in, as a switch? | In, on by default at the Realistic preset only |
-| 7 | The first batch to build | The base (AG0) with tillage and seeding (AG1), then harvest (AG2) |
+1. **The base and the harvest** (AG0, AG2): paddocks, the "work this paddock" order, the combine with its fronts, the grain tank,
+   chaser bin, field bin and silo. Hand-sown paddocks can then be machine-harvested.
+2. **Tillage and seeding** (AG1): the three tractors, plough, cultivator, seed drill and seed.
+3. **Spraying and fertiliser** (AG3), with the soil rules they serve.
+
+Each batch arrives with its own art before its first test, as the owner prefers. The one question left open is the names.
 
 ## Still unknown
 
