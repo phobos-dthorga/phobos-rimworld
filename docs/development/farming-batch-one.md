@@ -1,6 +1,6 @@
 # D'thorga Farming, batch one: the build design (19 Nov 2026)
 
-**Status (19 Nov 2026):** a build design only: no mod, code, Def or picture exists yet, and nothing here is tested in game. It turns the base and the harvest of [farm machines](farming-machines.md) into the code, Defs, settings, notes and art a build would make. One question waits on the owner (below); the build waits on the owner's word.
+**Status (19 Nov 2026):** a build design only: no mod, code or Def exists yet, and nothing here is tested in game. It turns the base and the harvest of [farm machines](farming-machines.md) into the code, Defs, settings, notes and art a build would make. The owner answered its questions the same day (below) and gave the go for the combine's pilot picture; the build waits on the owner's word.
 
 The owner chose this batch on 19 Nov 2026 ("Base and harvest first"), and on the same day said to proceed with the groundwork before
 a build: read the real figures in full, write this design, and draw up the art list. The figures are in
@@ -17,8 +17,11 @@ is tested in game.**
   harvested by machine.
 - **It stands on untested code**: the gathering run (rows 201 and 202), the hitch and trailers, and the engine-load ledger. A fault
   in any of them would show in batch one. Seeing a gathering run and a tow once in ordinary play first would separate the two.
-- **One question for the owner: what tows the chaser bin.** D'thorga Farming cannot assume D'thorga Vehicles' trucks are installed.
-  Agent lean: the medium tractor moves forward into this batch.
+- **Any vehicle with our hitch tows the chaser bin** (owner, 19 Nov 2026): D'thorga Vehicles' trucks, or another mod's vehicle on
+  our loadout. **So D'thorga Farming alone has a chaser bin with nothing to pull it until batch two's tractors**; its README says so
+  among the gotchas, and the bin's inspect text names what it waits for. The combine can still pour straight into a field bin or
+  silo.
+- **The harvest run and the gathering run share one base** (owner, 19 Nov 2026), built in this batch.
 - **Most of it reuses what exists.** The engine ledger already charges an implement's load while driving; the gathering run already
   starts, drives, unloads, stops with a reason and resumes after a load. New: the bulk grain hold, the strip hook, the row planner,
   the harvest steps, a draught term, and the paddock mark.
@@ -56,11 +59,11 @@ The rules require generic code in D'thorga Framework's core and only what is the
 | **The harvester comp** (`CompPhobosHarvester`) and its fronts | D'thorga Farming | Farming's own policy |
 | **Defs, text, art, sounds, research, settings** | D'thorga Farming | Content stays in the content mod |
 
-**Shared with the gathering run** (agent proposal, AG0.5): the field run and the gathering run share their stuck detection, their
-"stop and say why", their back-up-and-unload and their save-and-resume. Proposed: lift those into one base, `VehicleRun`, in the
-same change, so they are written once. The gathering run's behaviour stays exactly as it is, and its seen-in-play notes keep their
-keys. **The stated risk:** the gathering run is untested, and this touches it before its first test. The alternative is to copy
-the pieces now and lift them later, once both are tested; the rules prefer taking the extraction when it is met.
+**Shared with the gathering run** (owner's choice, 19 Nov 2026, AG0.5): the field run and the gathering run share their stuck
+detection, their "stop and say why", their back-up-and-unload and their save-and-resume, lifted into one base, `VehicleRun`, in
+this build. The gathering run's behaviour stays exactly as it is, its saved keys are kept, and its seen-in-play notes keep their
+keys. **The stated risk, accepted:** the gathering run is untested, and this touches it before its first test; its first test
+then checks the shared base too.
 
 ## The mod
 
@@ -193,7 +196,6 @@ still learns, slower than by hand.
 | --- | --- | --- | --- |
 | **Combine harvester** | 4 by 9 cells, front overhanging | Grain tank, about 9,000 kg [A] | Self-propelled; driver seat; the threshing drum and the front as shaft loads; a folding unloading auger |
 | **Chaser bin** | 3 by 7 cells (the trailer floor) | About 12,000 kg [A] | A trailer on our hitch, with its own auger; tyres only, as every trailer of ours |
-| **Medium tractor** (if the owner moves it forward) | 3 by 5 cells | None | Our drivetrain, a hitch, a power take-off as a shaft load |
 | **Field bin** | 3 by 3 cells, a building | About 25,000 kg [A] | No power; fills from an auger; empties through its own spout |
 | **Silo** | 4 by 4 cells, a building | About 60,000 kg [A] | Aeration by power slows spoiling; empties into a truck under its spout |
 
@@ -272,7 +274,6 @@ active to measure against.
 | Combine overlays: standard front, wide front, auger out, tank extension, straw chopper | — | The body's canvas | — | Pieces of the body, per rule 13 | Paid, after the body is picked |
 | Chaser bin body | 3 by 7 | 4 by 8 | 512 by 1,024 px | 1,024 by 2,048 | Paid, after the combine pilot |
 | Chaser bin overlay: auger out | — | The body's canvas | — | A piece of the body | Paid |
-| Medium tractor body (if moved forward) | 3 by 5 | 4 by 6 | 512 by 768 px | 1,024 by 1,536 | Paid |
 | Field bin | 3 by 3 | 3 by 3 | 384 by 384 px | 1,024 by 1,024 | Paid or local, the owner's choice |
 | Silo | 4 by 4 | 4 by 4 | 512 by 512 px | 1,024 by 1,024 | Paid or local, the owner's choice |
 | Button icons (harvest, paddock, hands may help, pour) | — | — | — | Local, a small batch | Local, on the owner's go |
@@ -285,11 +286,13 @@ active to measure against.
   public-domain or CC0 recording of a combine exists (owner's rule of 19 Nov 2026), otherwise generated. A search for recordings
   comes with the sound batch.
 
-## The question for the owner
+## The owner's answers (19 Nov 2026)
 
-| Question | Agent lean |
+| Question | The owner's answer |
 | --- | --- |
-| What tows the chaser bin in batch one: the medium tractor moved forward, or any vehicle of ours with a hitch (which needs D'thorga Vehicles' trucks or another mod's vehicle on our loadout)? | **The medium tractor moved forward**: D'thorga Farming should work without D'thorga Vehicles, and a chaser bin behind a tipper looks wrong |
+| What tows the chaser bin in batch one | **Any vehicle with our hitch** (the agent had leaned to moving the medium tractor forward) |
+| Share the gathering run's driving with the harvest run now, or copy and share later | **Share it in the build** |
+| Run the combine's pilot picture | **Yes, now** |
 
 ## Still unknown
 
