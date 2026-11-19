@@ -1,0 +1,52 @@
+[
+ {
+  "name": "deliver",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small olive-grey dump truck seen from above, backed up to an open concrete bay with its tipping body raised, grey rock chunks sliding out of the body into the bay, and a bold amber arrow pointing from the truck into the bay. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No vehicle other than the one described.",
+  "subject": "A small olive-grey dump truck seen from above, backed up to an open concrete bay with its tipping body raised, grey rock chunks sliding out of the body into the bay, and a bold amber arrow pointing from the truck into the bay",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Deliver (the Talus; Framework 0.175.0)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/Deliver.png",
+   "why": "replaces the game's borrowed eject picture (UI/Commands/PodEject) on the owner's pick; then DeliverIconPath in CompPhobosGatherRun.Bays.cs points here"
+  }
+ },
+ {
+  "name": "deliver-drive-back",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small olive-grey truck seen from above, with a bold amber U-turn arrow curving from its front back round to an amber cross marked on the ground behind it, where it started. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No vehicle other than the one described.",
+  "subject": "A small olive-grey truck seen from above, with a bold amber U-turn arrow curving from its front back round to an amber cross marked on the ground behind it, where it started",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12,
+   13,
+   14
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "button": "Drive back after delivering (the Talus; Framework 0.175.0)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DriveBack.png",
+   "why": "replaces the borrowed depot picture (Stations/BayGoTo), which shows twice on a truck with a bay beside Go to bay; on the owner's pick, DriveBackIconPath in CompPhobosGatherRun.Bays.cs points here"
+  }
+ }
+]

@@ -82,7 +82,9 @@ remaining cab edits. If the cab edits stay poor, the cab kits want the paid edit
 | Submarine test hull | The Crawler's body | Kept: dev-only, cannot be built |
 | Deep hopper and fabrication bay | Vanilla Expanded's art, through their parents | Optional, low priority (below) |
 | Liquid oxygen store's button, belt toggle, tap arrows | The game's or Vanilla Expanded's own icons, in place | Allowed reuse, not stand-ins |
-| The gathering run's **Gather** and **Gather what** buttons (Framework 0.143.0) | The game's haul designator and stone-chunks category icons, by path in `CompProperties_PhobosGatherRun` | Allowed reuse for now; **own pictures in a small daytime batch on the owner's go** (a truck with its grab out over a pile; a sieve or tick-list over chunks) |
+| The gathering run's **Gather** and **Gather what** buttons (Framework 0.143.0) | The game's haul designator and stone-chunks category icons, by path in `CompProperties_PhobosGatherRun` | Allowed reuse for now. **Two candidates each made on 19 Nov 2026** (run 20261119-1325, `stretch-icons.json`; `assets/vehicle-systems/generated/gather-run`, `gather-what`), **waiting for the owner's pick**. Agent's lean: gather-run-11 (the grab over a heap) and gather-what-11 (a clipboard with a stone and a log) |
+| **Deliver** (Framework 0.175.0) | The game's eject picture, `UI/Commands/PodEject` (the cryptosleep casket's) | Allowed reuse for now. **Queued for the owner's night run** (19 Nov 2026): `assets/vehicle-systems/requests/deliver-icons.json`, four seeds, a dump truck tipping into a bay |
+| **Drive back after delivering** (Framework 0.175.0) | Our depot's **Go to bay** picture, `Stations/BayGoTo` | **A clash, not only a borrowing**: a truck with a depot bay shows the same arrow twice. **Queued for the owner's night run** (19 Nov 2026), same request, four seeds: a truck with a U-turn arrow back to its start mark |
 
 
 **Kept as they are:** the load switch (owner, 10 Nov 2026), the store's frost (drawn in code by design) and the coax atlases (drawn by
