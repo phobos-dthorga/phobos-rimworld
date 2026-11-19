@@ -4,7 +4,7 @@ Machines that work your fields: mark a growing zone as a paddock, and a combine 
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.3.0, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.3.1, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 

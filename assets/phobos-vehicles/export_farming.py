@@ -23,10 +23,11 @@ from export_vehicle import PIXELS_PER_CELL, export_body, record, write_facings  
 GENERATED = ROOT / 'assets' / 'phobos-vehicles' / 'generated'
 COMBINE = GENERATED / 'farming-combine-body-north' / 'farming-combine-body-north-1.png'
 CHASER_BIN = GENERATED / 'farming-chaser-bin-body-north' / 'farming-chaser-bin-body-north-3.png'
-# (picture name, master, cells wide): the owner's picks of 20 Nov 2026. Standard attempt 1 is kept as an alternate look, exported later.
+# (picture name, master, cells wide): the owner's picks of 20 Nov 2026, from the sharper round (high quality at about 3072 px wide) that
+# replaced the first medium-quality picks once the corn header showed the first way lost the fine details.
 FRONTS = [
-    ('Combine_FrontStandard', GENERATED / 'farming-combine-front-standard' / 'farming-combine-front-standard-2.png', 6),
-    ('Combine_FrontWide', GENERATED / 'farming-combine-front-wide' / 'farming-combine-front-wide-2.png', 8),
+    ('Combine_FrontStandard', GENERATED / 'farming-combine-front-standard-sharp' / 'farming-combine-front-standard-sharp-2.png', 6),
+    ('Combine_FrontWide', GENERATED / 'farming-combine-front-wide-sharp' / 'farming-combine-front-wide-sharp-2.png', 8),
     # The corn header (owner, 20 Nov 2026): the sharper round's attempt 2, high quality at 3072 x 1024.
     ('Combine_FrontCorn', GENERATED / 'farming-combine-front-corn-sharp' / 'farming-combine-front-corn-sharp-2.png', 6),
 ]

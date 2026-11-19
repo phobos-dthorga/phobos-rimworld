@@ -1,10 +1,10 @@
 {
-  "master": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/farming-combine-front-wide/farming-combine-front-wide-2.png",
-  "master_sha256": "c80cb5f167e7339db8446e876d6b25910f97b0ba82d6c7ea41c4c97f94ad5956",
+  "master": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/farming-combine-front-wide-sharp/farming-combine-front-wide-sharp-2.png",
+  "master_sha256": "a7684b6ca36dcaf5eb8da0e049a4d7015c0a9d959d18900928d67e71080a5ffc",
   "files": {
-    "Combine_FrontWide_north.png": "b79bcf0a5adabae2dc8f94826f5e7a4e2bb44418c28594de8fa96482d347572e",
-    "Combine_FrontWide_east.png": "43214de034baa653bb3d0d2f44a10d5f6be008f76e728d2f0c6facdc57569144",
-    "Combine_FrontWide_south.png": "a912ca32bedf94e3620a6c547ba1dd68940bd842885857ca2ba8cd0f301a4f64"
+    "Combine_FrontWide_north.png": "0a074f72b114f28cfc1626eea45574fd8c0e9f7f8734c70b0bea9e10672ace30",
+    "Combine_FrontWide_east.png": "17514ba12c30064180fe2948cb8ab57bc665c0213a00da223041e423a995baf8",
+    "Combine_FrontWide_south.png": "abe9fa8ad7c5de11d06f8fd75b1bb62c535fee95570ec202f53f86a42180368e"
   },
   "date": "2026-11-20",
   "tool": "scripts/art/export_vehicle.py",

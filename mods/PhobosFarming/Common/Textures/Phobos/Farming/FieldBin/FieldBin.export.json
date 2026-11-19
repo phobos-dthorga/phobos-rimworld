@@ -12,6 +12,6 @@
   "all_white": false,
   "silhouette": false,
   "ai_mask": "106582a7f84de09e7a8e1af85695ef7241a740185de3e11aacb1ad5864a46be0",
-  "date": "2026-11-20T06:03:06",
+  "date": "2026-11-20T06:15:34",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

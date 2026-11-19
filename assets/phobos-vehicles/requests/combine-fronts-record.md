@@ -31,3 +31,16 @@ cross auger, a pale floor, and a throat at the middle of the back edge.
 **Decision (owner, 20 Nov 2026, by question card):** **standard front: keep both**, attempt 2 the default and attempt 1 an alternate
 look; **wide front: attempt 2.** Standard 1 and 2 and wide 2 went to `art-masters` (`vehicles/farming/combine-front-standard-1`, `-2`,
 `combine-front-wide-2`); wide 1 to `art-references`, not picked.
+
+## The sharper round (20 Nov 2026)
+
+The corn header's first round came out blurry in the finer details at medium quality and 1536 px wide, and its high-quality round at
+3072 px wide was crisp, so the owner chose to remake both grain fronts the same way: high quality, the standard front at 3072 x 1024 and
+the wide front at 3072 x 1056, two attempts each. Dry run at most US$1.91; cap US$2.00; spent about **US$0.542**. The near-copy check
+flagged none. Shown whole and close up at full size beside the first picks.
+
+**Decision (owner, 20 Nov 2026, by question card): attempt 2 of each** is the new default (standard
+`farming-combine-front-standard-sharp-2.png`, SHA-256 `52bf556b02fc7938204b90952c68b31d6607d863116dda6405c1456537921d66`;
+wide `farming-combine-front-wide-sharp-2.png`, SHA-256 `a7684b6ca36dcaf5eb8da0e049a4d7015c0a9d959d18900928d67e71080a5ffc`). The owner: "We were
+definitely correct to redo those." The first picks stay on `art-masters` as they were, now superseded; the sharper attempts 1 went to
+`art-references`.

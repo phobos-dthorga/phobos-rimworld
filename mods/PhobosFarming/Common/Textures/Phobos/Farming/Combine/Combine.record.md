@@ -12,19 +12,19 @@ exported by `assets/phobos-vehicles/export_farming.py` (export_vehicle.py's body
 green as the main paint, the yellow as the accent), after the background AI looked at it on the processor. East and south are the north
 turned, with paint masks (suffix m) and an icon. Checked tinted on dark ground on 20 Nov 2026.
 
-**Fronts:** `farming-combine-front-standard-2.png` (SHA-256 `413778d6f18e9cf3fede8660ab126c4a7173bf7371753137a9596dd9362f83ec`) and
+**Fronts (first picks, superseded 20 Nov 2026):** `farming-combine-front-standard-2.png` (SHA-256 `413778d6f18e9cf3fede8660ab126c4a7173bf7371753137a9596dd9362f83ec`) and
 `farming-combine-front-wide-2.png` (SHA-256 `c80cb5f167e7339db8446e876d6b25910f97b0ba82d6c7ea41c4c97f94ad5956`), cut from the white with
 the background AI's mask and placed by the same script: each exactly as many cells wide as it cuts (6 and 8), centred across the combine,
 its throat just over the body's front edge.
 
 - `Combine_east.png`: SHA-256 `62b5d0ae5a45ef5c33f8f48a140b5cdefa4c9fb7cc03becb6be909f4f4ddf674`
 - `Combine_eastm.png`: SHA-256 `9a938700a2861d6c513baa98451721fa75143285992c83cb6b7f02166075b08a`
-- `Combine_FrontStandard_east.png`: SHA-256 `4bb0d59f6513cdd466ecfc57277afbd709074890df6fa241bafeef8e1816ca80`
-- `Combine_FrontStandard_north.png`: SHA-256 `56ddfee1743428e478a2e158932af2b20875865a3b72ba9569873ed906898bea`
-- `Combine_FrontStandard_south.png`: SHA-256 `d7a67ec598ba661f857d23c9871562f7701fb7c1d80207d37d46ca609eaae8cd`
-- `Combine_FrontWide_east.png`: SHA-256 `43214de034baa653bb3d0d2f44a10d5f6be008f76e728d2f0c6facdc57569144`
-- `Combine_FrontWide_north.png`: SHA-256 `b79bcf0a5adabae2dc8f94826f5e7a4e2bb44418c28594de8fa96482d347572e`
-- `Combine_FrontWide_south.png`: SHA-256 `a912ca32bedf94e3620a6c547ba1dd68940bd842885857ca2ba8cd0f301a4f64`
+- `Combine_FrontStandard_east.png`: SHA-256 `3faaf016e63bf511dd0d49a8769cda4fbc94ceb4a6b6d4120705179927171f87`
+- `Combine_FrontStandard_north.png`: SHA-256 `b61a7e67e474a5d7d56d1c825defc2974eb82b9e9fbba2d9a3313115dba56120`
+- `Combine_FrontStandard_south.png`: SHA-256 `fb568394e3e69f9e9b30ed174ef35e3f1d26ce6d04f38656f9da77ee4048d219`
+- `Combine_FrontWide_east.png`: SHA-256 `17514ba12c30064180fe2948cb8ab57bc665c0213a00da223041e423a995baf8`
+- `Combine_FrontWide_north.png`: SHA-256 `0a074f72b114f28cfc1626eea45574fd8c0e9f7f8734c70b0bea9e10672ace30`
+- `Combine_FrontWide_south.png`: SHA-256 `abe9fa8ad7c5de11d06f8fd75b1bb62c535fee95570ec202f53f86a42180368e`
 - `Combine_icon.png`: SHA-256 `7d6c4e1b513560468a9704aeaf477659d3ea921d7acd480c22d9979ff92b1060`
 - `Combine_north.png`: SHA-256 `b1a21c720b992af6370bd8a676723fd15cb68ee3f59b5a417e7cb70e2ce2d67d`
 - `Combine_northm.png`: SHA-256 `d10b1d3973932f2aa8390a6cf599ccc30a24f534e85d1af9d000e5f36bc65866`
@@ -36,3 +36,8 @@ its throat just over the body's front edge.
 - `Combine_FrontCorn_east.png`: SHA-256 `7dc846a484fc1d3435364746150651b58bd8fd6e541222163053f88e6ce33c9d`
 - `Combine_FrontCorn_north.png`: SHA-256 `5898aafe57eaf3fcc35aa20b6153c8a0400bd3d5c54a4ed670a4537e4c1ca294`
 - `Combine_FrontCorn_south.png`: SHA-256 `2e0a71ed7806c9fc3468d5d4e53a3187cd77c8d15686378bd9091a16cbd6118c`
+
+**Fronts since 20 Nov 2026** (Farming 0.3.1): remade at high quality and about twice the size, attempt 2 of each the owner's pick
+([record](../../../../../../../assets/phobos-vehicles/requests/combine-fronts-record.md)): `farming-combine-front-standard-sharp-2.png` and
+`farming-combine-front-wide-sharp-2.png`, placed by the same script.
+

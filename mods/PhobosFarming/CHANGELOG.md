@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-11-20 - Draft
+
+The grain fronts redrawn sharper
+
+### Changed
+
+- **The standard and wide grain fronts have new, sharper pictures**: their knife guards, reels and augers were soft at the size the first ones were made. The same fronts, the same widths; nothing else changes in play.
+
 ## [0.3.0] - 2026-11-20 - Draft
 
 A corn header for the combine
