@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- D'thorga Farming's research, on the D'thorga tab, under vehicle parts (docs/development/farming-batch-one.md). Costs and places authored,
+       gameplay choices to tune in play. Names are stable once a save can hold them. -->
+  <ResearchProjectDef>
+    <defName>PhobosResearch_MechanisedHarvesting</defName>
+    <label>mechanised harvesting</label>
+    <description>A combine harvester that cuts and threshes a paddock row by row, a chaser bin to carry its grain, and a field bin to pour it into.</description>
+    <tab>PhobosDthorga</tab>
+    <techLevel>Industrial</techLevel>
+    <baseCost>1800</baseCost>
+    <researchViewX>0</researchViewX>
+    <researchViewY>4.2</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </prerequisites>
+    <modExtensions>
+      <!-- A brand new project: nothing an existing colony had stands in for it. -->
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef>
+    <defName>PhobosResearch_WideFronts</defName>
+    <label>wide grain fronts</label>
+    <description>A wider grain front for the combine: two more cells cut on every pass, for a little more load on its engine.</description>
+    <tab>PhobosDthorga</tab>
+    <techLevel>Industrial</techLevel>
+    <baseCost>1200</baseCost>
+    <researchViewX>0</researchViewX>
+    <researchViewY>4.8</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_MechanisedHarvesting</li>
+    </prerequisites>
+    <modExtensions>
+      <!-- A brand new project: nothing an existing colony had stands in for it. -->
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+</Defs>

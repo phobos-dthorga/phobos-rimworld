@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Farming's assembly (docs/development/farming-batch-one.md), RimWorld 1.7 only (net10.0, Harmony 3). It needs
+       Vehicle Framework and D'thorga Framework, both hard dependencies, so it references D'thorga Framework's vehicle part directly:
+       the first mod of ours to do so. That part ships in the Framework's Mods/VehicleFramework/1.7 folder, which loads whenever
+       Vehicle Framework does, as this mod requires; About.xml's loadAfter names both. Vehicle Framework's assemblies (MIT) are
+       referenced from the installed mod and never copied. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.Farming</RootNamespace>
+    <AssemblyName>PhobosFarming</AssemblyName>
+    <ModFolder>PhobosFarming</ModFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.1.0</Version>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+    <ProjectReference Include="../PhobosFramework.Vehicles/PhobosFramework.Vehicles.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SmashTools">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="CoreLib" Condition="Exists('$(VehicleFrameworkAssemblies)\CoreLib.dll')">
+      <HintPath>$(VehicleFrameworkAssemblies)\CoreLib.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,48 @@
+{
+  "master": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/farming-chaser-bin-body-north/farming-chaser-bin-body-north-3.png",
+  "master_sha256": "66e690e26cb40cc12b99d6fec07e72a4d6960acd18311575db92403fa35c6837",
+  "files": {
+    "ChaserBin_north.png": "4499365725d70ede08a96182b26e47efde2c0872f4f9ba357253b38bf2515e27",
+    "ChaserBin_east.png": "0600a5ad314c92089de257a7a99bfe5a0da2db50d67953de358ad72520768027",
+    "ChaserBin_south.png": "1e66a5f82434421a0ec6a3da304cc45185f399d5b8ad456a7632b19e42a2ce8c",
+    "ChaserBin_northm.png": "4375295d3594cd9879c100435f6b5ceefb3984d0de4fbf91e0f51ca129769302",
+    "ChaserBin_eastm.png": "52a518bcd3432cd99ca05da0ae18f58e4de544e4ea0fbb61f2baa27aef15d058",
+    "ChaserBin_southm.png": "001bca537205cc815228976ff781701400b3802a63f4eed7a3d31348407eea0d",
+    "ChaserBin_icon.png": "c2231c381d17bcb5e01385f11702e2ebdd4cf88798401ea4f41b0cc95c0b0680"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "body",
+  "cells_long": 7,
+  "draw_size": [
+    4,
+    8
+  ],
+  "width_cells": 3.13,
+  "colours": {
+    "color": [
+      159,
+      189,
+      119
+    ],
+    "colorTwo": [
+      176,
+      166,
+      143
+    ]
+  },
+  "min_saturation": 0.16,
+  "main_max_saturation": 1.0,
+  "trim": 0,
+  "line": null,
+  "main_hue": [
+    70,
+    150
+  ],
+  "accent_hue": [
+    35,
+    60
+  ],
+  "holes": [],
+  "ai_mask": "66e690e26cb40cc12b99d6fec07e72a4d6960acd18311575db92403fa35c6837"
+}

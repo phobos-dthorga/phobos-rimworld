@@ -102,6 +102,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         }
         if (!candidate.Spawned || candidate.Map != Vehicle.Map) return "PhobosHitch_NotHere".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
         if (candidate.GetComp<CompPhobosTrailer>()?.DrawbarBroken == true) return "PhobosHitch_DrawbarBroken".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
+        // Framework 0.182.0 (owner, 20 Nov 2026): couplings are enforced, an adapter fixes a mismatch, and what names none joins anything.
+        if (Couplings.Refusal(Vehicle, candidate) is { } coupling) return coupling;
         if (SetUpRefusal(candidate) is { } setUp) return setUp;
         if (candidate.Position.DistanceTo(Vehicle.Position) > Rules.hitchReachCells)
         {
@@ -559,7 +561,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
             {
                 return "PhobosHitch_InspectTowedBy".Translate(by.Vehicle.LabelShort.Named("TRACTOR")).Resolve();
             }
-            return null;
+            // Framework 0.182.0: the couplings it takes, when it names any.
+            return Couplings.HitchLine(Vehicle);
         }
         catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
     }

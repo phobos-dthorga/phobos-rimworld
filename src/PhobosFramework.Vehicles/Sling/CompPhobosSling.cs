@@ -91,7 +91,8 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         double kilograms = comp != null ? comp.Repairs.Kilograms : Powertrain.KerbFor(load.VehicleDef, null, null);
         kilograms += MassUtility.InventoryMass(load);
         foreach (Pawn pawn in load.AllPawnsAboard) kilograms += pawn.GetStatValue(StatDefOf.Mass);
-        kilograms += load.GetComp<CompPhobosTank>()?.LoadKilograms ?? 0f;
+        // Framework 0.182.0: every carried load, not only a tank's.
+        kilograms += CarriedLoads.Kilograms(load);
         return kilograms;
     }
 

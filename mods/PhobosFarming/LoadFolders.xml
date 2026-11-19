@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<loadFolders>
+  <!-- RimWorld 1.7 only (owner, 8 November 2026; docs/development/building.md). Vehicle Framework and D'thorga Framework are required; Combat Extended's armour figures load only with it. -->
+  <v1.7>
+    <li>/</li>
+    <li>Common</li>
+    <li>1.7</li>
+    <li IfModActive="ceteam.combatextended">Mods/CombatExtended</li>
+  </v1.7>
+</loadFolders>

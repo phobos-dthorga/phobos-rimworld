@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- D'thorga Farming's upgrades (docs/development/farming-batch-one.md, "Upgrade trees"). Figures and costs authored. Node keys are saved
+       in the game: never rename or remove one. A combine has no front until one is fitted (owner, 20 Nov 2026), and the two fronts fill
+       the same place, so each disables the other. Not yet tested in game. -->
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_Combine_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosCombineFrontStandard</key>
+      <label>Standard grain front</label>
+      <displayLabel>true</displayLabel>
+      <description>A grain front six cells wide, for cereals, pulses and oilseeds. A combine cannot harvest without a front.</description>
+      <icon>Phobos/Farming/Upgrades/FrontStandard</icon>
+      <work>3000</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <disableIfUpgradeNodesEnabled>
+        <li>PhobosCombineFrontWide</li>
+      </disableIfUpgradeNodesEnabled>
+      <ingredients>
+        <Steel>120</Steel>
+        <ComponentIndustrial>3</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosCombineFrontWide</key>
+      <label>Wide grain front</label>
+      <displayLabel>true</displayLabel>
+      <description>A grain front eight cells wide: two more cells cut on every pass, for a little more load on the engine.</description>
+      <icon>Phobos/Farming/Upgrades/FrontWide</icon>
+      <work>4000</work>
+      <gridCoordinate>(7, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_WideFronts</li>
+      </researchPrerequisites>
+      <disableIfUpgradeNodesEnabled>
+        <li>PhobosCombineFrontStandard</li>
+      </disableIfUpgradeNodesEnabled>
+      <ingredients>
+        <Steel>160</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosCombineTankExtension</key>
+      <label>Tank extension</label>
+      <displayLabel>true</displayLabel>
+      <description>Raised sides on the grain tank: it holds a third more before it must empty, and weighs that much more when full.</description>
+      <icon>Phobos/Farming/Upgrades/TankExtension</icon>
+      <work>1500</work>
+      <gridCoordinate>(2, 11)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>60</Steel>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosCombineStrawChopper</key>
+      <label>Straw chopper</label>
+      <displayLabel>true</displayLabel>
+      <description>Chops the straw and leaves it on the field, rather than dropping it in heaps for hauling. Nothing is left to carry away.</description>
+      <icon>Phobos/Farming/Upgrades/StrawChopper</icon>
+      <work>1500</work>
+      <gridCoordinate>(7, 11)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>40</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_ChaserBin_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosChaserBinFastAuger</key>
+      <label>Fast auger</label>
+      <displayLabel>true</displayLabel>
+      <description>A wider auger tube: it empties half as fast again.</description>
+      <icon>Phobos/Farming/Upgrades/FastAuger</icon>
+      <work>1500</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>50</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

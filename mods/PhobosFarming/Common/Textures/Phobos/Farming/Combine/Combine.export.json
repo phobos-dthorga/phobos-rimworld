@@ -1,0 +1,48 @@
+{
+  "master": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/farming-combine-body-north/farming-combine-body-north-1.png",
+  "master_sha256": "d5085ee3d88b943a030f848a3d9ddd40424d88cfd0012afbdbee0144663d509d",
+  "files": {
+    "Combine_north.png": "b1a21c720b992af6370bd8a676723fd15cb68ee3f59b5a417e7cb70e2ce2d67d",
+    "Combine_east.png": "62b5d0ae5a45ef5c33f8f48a140b5cdefa4c9fb7cc03becb6be909f4f4ddf674",
+    "Combine_south.png": "a262fed82b96967e618b0846955d4710ed55683e299e263c2bbaa5c96931ca5b",
+    "Combine_northm.png": "d10b1d3973932f2aa8390a6cf599ccc30a24f534e85d1af9d000e5f36bc65866",
+    "Combine_eastm.png": "9a938700a2861d6c513baa98451721fa75143285992c83cb6b7f02166075b08a",
+    "Combine_southm.png": "3bee72b67d52a61a35546562f556295c2169813f7bbaadda8c921fd93dbfa25a",
+    "Combine_icon.png": "7d6c4e1b513560468a9704aeaf477659d3ea921d7acd480c22d9979ff92b1060"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "body",
+  "cells_long": 9,
+  "draw_size": [
+    8,
+    14
+  ],
+  "width_cells": 4.23,
+  "colours": {
+    "color": [
+      171,
+      202,
+      135
+    ],
+    "colorTwo": [
+      252,
+      230,
+      157
+    ]
+  },
+  "min_saturation": 0.16,
+  "main_max_saturation": 1.0,
+  "trim": 0,
+  "line": null,
+  "main_hue": [
+    70,
+    150
+  ],
+  "accent_hue": [
+    35,
+    60
+  ],
+  "holes": [],
+  "ai_mask": "d5085ee3d88b943a030f848a3d9ddd40424d88cfd0012afbdbee0144663d509d"
+}

@@ -24,7 +24,7 @@ game by the owner. **Code → Download ZIP** gives you source, not a built mod.
 
 ## The mods
 
-Seven mods. This is the one full list: their versions are in [the version list](docs/README.md#mod-versions), and each has a
+Eight mods. This is the one full list: their versions are in [the version list](docs/README.md#mod-versions), and each has a
 chapter in the [player guide](docs/player-guide/README.md). Several older mods were merged into these on 7 November 2026
 ([why](docs/development/mod-consolidation.md)).
 
@@ -35,6 +35,7 @@ chapter in the [player guide](docs/player-guide/README.md). Several older mods w
 | [D'thorga Medical](mods/PhobosMedical/README.md) | Five mods in one since 7 November 2026: burns, burn shock, airway burns and smoke; doctors who dose and operate on their own (triage); oxygen, a burn unit bed and other hospital kit; radiation control with Rimatomics; and a safe way to add More Injuries to a running colony | Partly, as the five mods before the merge; not yet as one |
 | [D'thorga Factory Additions](mods/PhobosFactoryAdditions/README.md) | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, a deep hopper, other mods' drug labs as factory bills, and fixes | Partly: the human-meat bill |
 | [D'thorga Patches](mods/PhobosPatches/README.md) | Fixes and honest costs for other authors' mods: the Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, InterRim Ballistic Missile's strategic blast, Visit Settlements and Vehicle Framework | Partly: the stuck vehicle fires, and the missile fix once |
+| [D'thorga Farming](mods/PhobosFarming/README.md) | Machines that work your fields: machine-worked paddocks, a combine harvester that cuts them row by row, and a chaser bin for its grain | No |
 | [D'thorga Water Tap](mods/PhobosWaterTap/README.md) | A plumbing fixture for Dubs Bad Hygiene that keeps bottled water ready and refills from your water towers | No |
 | [D'thorga Radio Framework](mods/PhobosRadioFramework/README.md) | Phase 1 of the radio design: hand-held VHF and UHF radios, a base station, coax and antennas, a real link budget. **On the back burner since 9 November 2026**: no new features until the owner picks it up again | No |
 
@@ -48,6 +49,7 @@ flowchart LR
         Patches["D'thorga Patches"]
         Vehicles["D'thorga Vehicles"]
         Factory["Factory Additions"]
+        Farming["D'thorga Farming"]
         Tap["Water Tap"]
         Radio["Radio Framework"]
     end
@@ -61,6 +63,9 @@ flowchart LR
     Vehicles --> Framework
     Vehicles --> VF
     Framework -. "vehicle systems" .-> VF
+    Farming --> Framework
+    Farming --> VF
+    Farming --> Harmony
     Tap --> Framework
     Medical --> Framework
     Patches --> Framework

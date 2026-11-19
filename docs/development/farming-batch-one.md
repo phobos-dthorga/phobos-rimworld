@@ -1,6 +1,6 @@
 # D'thorga Farming, batch one: the build design (19 Nov 2026)
 
-**Status (20 Nov 2026):** the build started on the owner's word of 20 Nov 2026 ("I really want to start implementing the Agricultural code-base, even with some risk at present"). **Built so far:** the shared run base, `CompPhobosVehicleRun` with `VehicleRunRule`, and the gathering run moved onto it (D'thorga Framework 0.182.0). **Not built yet:** everything else here; D'thorga Farming itself does not exist yet. Nothing is tested in game. The build goes in three commits (the shared base; the generic rules, bulk hold, carried load and draught; then D'thorga Farming 0.1.0 with its art), with one install at the end. The owner chose on 20 Nov 2026 to go straight on to batch two (tractors, plough, seed drill) before a first test.
+**Status (20 Nov 2026):** batch one is mostly built, in D'thorga Framework 0.189.0 and D'thorga Farming 0.1.0: the shared run base, the field run, bulk holds, couplings, draught and carried weight in the Framework; paddocks with their two patches, the combine with both grain fronts, the chaser bin, crop classes, research, icons and test rows 272-274 in Farming. **Not built yet:** the field bin and silo (pictures being made), the corn header (owner, 20 Nov 2026: a third front in batch one), the remaining overlays and the sounds. Nothing is tested in game. The owner chose on 20 Nov 2026 to commit as it is built and go straight on to batch two before a first test.
 
 The owner chose this batch on 19 Nov 2026 ("Base and harvest first"), and on the same day said to proceed with the groundwork before
 a build: read the real figures in full, write this design, and draw up the art list. The figures are in
@@ -225,6 +225,26 @@ Every node moves a figure that changes an outcome. Either/or nodes fill the same
 | Chaser bin | Fast auger | Pours faster, more power take-off load | Free-standing |
 | Chaser bin | Flotation tyres | Less rolling resistance on soft ground | Free-standing |
 | Silo | Aeration fan | Slows spoiling; draws power | Free-standing |
+
+**As built (20 Nov 2026, Farming 0.1.0):** the two fronts, the tank extension and the straw chopper on the combine; the fast auger on the
+chaser bin. The cab air filter, the yield monitor and the flotation tyres are not built: each needs a hook into the vehicle systems first.
+
+<!-- upgrade-tree: Phobos_Combine_UpgradeTree -->
+```mermaid
+flowchart TB
+  subgraph alt1 ["Only one of these"]
+    PhobosCombineFrontStandard["Standard grain front"]
+    PhobosCombineFrontWide["Wide grain front"]
+  end
+  PhobosCombineTankExtension["Tank extension"]
+  PhobosCombineStrawChopper["Straw chopper"]
+```
+
+<!-- upgrade-tree: Phobos_ChaserBin_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosChaserBinFastAuger["Fast auger"]
+```
 
 ## Settings (batch one)
 

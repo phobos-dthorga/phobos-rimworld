@@ -26,7 +26,7 @@ BUILT_HEADING = re.compile(r"^#{2,4} (?![^\n]*\b(?:not|be) built\b)[^\n]*\b[Bb]u
 # "built in Framework 0.67.0", "**Built: Patches 0.19.1**", "**Shipped** (Framework 0.71.0)", "built (Framework 0.114.0)"
 BUILT_IN = re.compile(
     r"\b(?:[Bb]uilt|[Ss]hipped)\b\**:?\**\s*(?:in |\()?(?:D'thorga )?"
-    r"(?:Framework|Vehicles|Medical|Patches|Factory Additions|Water Tap|Radio Framework)(?: Framework)? \d+\.\d+")
+    r"(?:Framework|Vehicles|Medical|Patches|Factory Additions|Farming|Water Tap|Radio Framework)(?: Framework)? \d+\.\d+")
 SKIP = {"README.md"}
 
 

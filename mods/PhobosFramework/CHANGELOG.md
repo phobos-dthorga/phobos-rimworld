@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.189.0] - 2026-11-20 - Draft
+
+What farm machines need, for any mod to use: a vehicle that works a field row by row, grain held in bulk, couplings, and the pull of an implement in the ground
+
+### Added
+
+- **A vehicle can work a field row by row by itself.** Given an area and an implement, it lays the area out in rows, drives each one, and its implement works the cells it passes over. When its hold is full it drives to the nearest bin or cart with room, empties, and goes back to the rows; every stop says why. D'thorga Farming's combine is the first to use it. With nobody aboard, the order calls a driver, as Deliver and Gather do.
+- **Bins, carts and tanks can hold loose goods in bulk**, as one amount by weight rather than stacks. A Pour button empties one into another within reach of its auger, or onto the ground beside it as ordinary stacks. Goods keep as long as they would in the open and are lost when they spoil; a store with a fan blowing air through it keeps them longer while it has power.
+- **Couplings.** A hitch can say which couplings it has (a drawbar, a pintle hook, a pick-up hitch, a ball, a three-point linkage) and a trailer which one it takes; a mismatch is refused with the reason, and an adapter fitted by upgrade joins them. Every hitch and trailer built before, ours and other mods', names none and joins anything as before (owner, 20 Nov 2026). Inspect text names a coupling where one is set.
+
+### Changed
+
+- **What a vehicle carries outside its cargo now weighs on its engine and on whatever tows it, whatever holds it.** Before, only a tanker's fluid did; now a grain tank's grain does too, and any other mod's store can.
+- **An implement dragged through the ground loads the engine** (its draught), as rolling resistance does, and the tow forecast takes it into account. Nothing of ours drags yet; D'thorga Farming's plough will.
+
+### Compatibility and limits
+
+- For other modders: an implement is an IVehicleFieldWorker, a bulk store a CompPhobosBulkStore or CompPhobosBulkHold, a coupling a PhobosCouplingDef named in a PhobosCouplingsExtension, a draught an IVehicleDraught.
+- Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add to a save. Nothing saved before changes.
+
 ## [0.188.0] - 2026-11-20 - Draft
 
 No brakes means it cannot stop; a convoy is told when the snow comes; the gravship names a vehicle hanging over its edge; the fleet board redrawn

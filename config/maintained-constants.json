@@ -41,7 +41,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.188.0",
+      "value": "0.189.0",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -312,6 +312,38 @@
       "review": [
         "Write the version's entry in mods/PhobosWaterTap/CHANGELOG.md (an Unreleased section, then a dated Draft entry).",
         "Change the built date on the Version line of mods/PhobosWaterTap/README.md."
+      ]
+    },
+    "PhobosFarming.version": {
+      "type": "version",
+      "parts": 3,
+      "value": "0.1.0",
+      "description": "D'thorga Farming's version: About.xml, its project, its ModVersion constant and both READMEs",
+      "targets": [
+        {
+          "path": "mods/PhobosFarming/About/About.xml",
+          "pattern": "<modVersion>(?P<value>[0-9.]+)</modVersion>"
+        },
+        {
+          "path": "src/PhobosFarming/PhobosFarming.csproj",
+          "pattern": "<Version>(?P<value>[0-9.]+)</Version>"
+        },
+        {
+          "path": "src/PhobosFarming/FarmingMod.cs",
+          "pattern": "public const string ModVersion = \"(?P<value>[0-9.]+)\";"
+        },
+        {
+          "path": "docs/README.md",
+          "pattern": "\\| \\*\\*D'thorga\\ Farming\\*\\* \\| (?P<value>[0-9.]+) \\|"
+        },
+        {
+          "path": "mods/PhobosFarming/README.md",
+          "pattern": "^Version (?P<value>[0-9.]+), built"
+        }
+      ],
+      "review": [
+        "Write the version's entry in mods/PhobosFarming/CHANGELOG.md (an Unreleased section, then a dated Draft entry).",
+        "Change the built date on the Version line of mods/PhobosFarming/README.md."
       ]
     }
   }

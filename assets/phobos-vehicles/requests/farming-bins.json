@@ -1,0 +1,48 @@
+[
+  {
+    "name": "farming-field-bin",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-chaser-bin-body-north/farming-chaser-bin-body-north-3.png",
+        "role": "our approved chaser bin, the owner's pick of 20 Nov 2026, from the same farm: match its outline weight, shading, harvest-green and steel palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "building": "D'thorga Farming's field bin (no Def yet), footprint (3, 3), drawSize (3, 3), 128 px per unit so 384 x 384 in game; requested at 1024 x 1024, 2.7 times the drawn size",
+      "this_request": "pilot: the field bin from above, two attempts; waits on the owner's go",
+      "design": "docs/development/farming-batch-one.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game building sprite for the D'thorga field bin: a round steel grain bin that stands at the edge of a paddock and holds a harvest until it is carted away, in a hard-scrabble frontier colony. Image 1 is our approved chaser bin from the same farm: match its outline weight, shading, palette and finish only.\n\nSquare canvas, plain pure white background. The bin is a perfect circle seen from straight above, centred, filling about nine tenths of the canvas.\n\nIts roof plan: a shallow cone of corrugated galvanised steel, its ridges running from the rim to the centre like the spokes of a wheel; a small round filling hatch with a lid at the very centre; a narrow ladder and a short safety rail running from the rim up to the hatch on one side; four short steel legs just visible beyond the rim at the corners; one small harvest-green band round the rim and a muted yellow cap on the hatch.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo grain, no ground, no people, no animals, no vehicles, no dust, mud or damage, no text, letters, numbers, logos, dials, screens or lamps. No floor, field, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "farming-silo",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-chaser-bin-body-north/farming-chaser-bin-body-north-3.png",
+        "role": "our approved chaser bin, the owner's pick of 20 Nov 2026, from the same farm: match its outline weight, shading, harvest-green and steel palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "building": "D'thorga Farming's silo (no Def yet), footprint (4, 4), drawSize (4, 4), 128 px per unit so 512 x 512 in game; requested at 1024 x 1024, 2 times the drawn size",
+      "this_request": "pilot: the silo from above, two attempts; waits on the owner's go",
+      "design": "docs/development/farming-batch-one.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game building sprite for the D'thorga grain silo: a tall round steel silo with an aeration fan, that holds a whole harvest and keeps it fresh, in a hard-scrabble frontier colony. Image 1 is our approved chaser bin from the same farm: match its outline weight, shading, palette and finish only.\n\nSquare canvas, plain pure white background. The silo is a perfect circle seen from straight above, centred, filling about four fifths of the canvas.\n\nIts roof plan: a cone of corrugated galvanised steel, its ridges running from the rim to the centre; a round vent cap at the very centre; a ladder with a caged rail running from the rim up to a small platform beside the cap; at one side, just beyond the rim, a squat boxed aeration fan in harvest green with a round grille on top, and its duct running into the silo's side; one muted yellow band round the rim.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo grain, no ground, no people, no animals, no vehicles, no dust, mud or damage, no text, letters, numbers, logos, dials, screens or lamps. No floor, field, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

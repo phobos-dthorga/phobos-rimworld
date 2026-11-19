@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- D'thorga Farming (docs/development/farming-batch-one.md). Player text: plain, in the game's world, never naming a mod or a setting. -->
+
+  <!-- Settings -->
+  <PhobosFarming_SettingsCategory>D'thorga Farming</PhobosFarming_SettingsCategory>
+  <PhobosFarming_PageGeneral>General</PhobosFarming_PageGeneral>
+  <PhobosFarming_SectionPaddocks>Paddocks</PhobosFarming_SectionPaddocks>
+  <PhobosFarming_SettingHandsMayHelp>Hands may help on new paddocks</PhobosFarming_SettingHandsMayHelp>
+  <PhobosFarming_SettingHandsMayHelpDesc>When you mark a growing zone for machines, colonists may still sow and harvest it by hand. Off: machines alone work a new paddock until you turn "Hands may help" on for it.</PhobosFarming_SettingHandsMayHelpDesc>
+  <PhobosFarming_SectionHarvest>Harvest</PhobosFarming_SectionHarvest>
+  <PhobosFarming_SettingDriverCanFail>A machine's driver can fail a harvest, as by hand</PhobosFarming_SettingDriverCanFail>
+  <PhobosFarming_SettingDriverCanFailDesc>A combine's driver loses some plants to a failed harvest by the same chance a colonist harvesting by hand would: a skilled driver loses fewer.</PhobosFarming_SettingDriverCanFailDesc>
+
+  <!-- Paddocks -->
+  <PhobosFarming_GizmoMachineWorked>Machine-worked</PhobosFarming_GizmoMachineWorked>
+  <PhobosFarming_GizmoMachineWorkedDesc>Mark this growing zone as a paddock for machines. A combine can then harvest it row by row, and colonists keep off it unless "Hands may help" is on.\n\nThere is no seed drill yet: to sow a paddock, turn "Hands may help" on, and turn it off again once it is sown.</PhobosFarming_GizmoMachineWorkedDesc>
+  <PhobosFarming_GizmoHandsMayHelp>Hands may help</PhobosFarming_GizmoHandsMayHelp>
+  <PhobosFarming_GizmoHandsMayHelpDesc>Let colonists sow and harvest this paddock by hand as well as machines. Off: they keep off it.</PhobosFarming_GizmoHandsMayHelpDesc>
+  <PhobosFarming_PaddockMarked>{ZONE} is now a paddock for machines.</PhobosFarming_PaddockMarked>
+  <PhobosFarming_PaddockUnmarked>{ZONE} is an ordinary growing zone again.</PhobosFarming_PaddockUnmarked>
+  <PhobosFarming_HandsMayHelpOn>Colonists may sow and harvest {ZONE} by hand too.</PhobosFarming_HandsMayHelpOn>
+  <PhobosFarming_HandsMayHelpOff>Colonists keep off {ZONE}: machines alone work it.</PhobosFarming_HandsMayHelpOff>
+
+  <!-- The harvest -->
+  <PhobosFarming_GizmoHarvest>Harvest a paddock</PhobosFarming_GizmoHarvest>
+  <PhobosFarming_GizmoHarvestDesc>{VEHICLE} drives a paddock row by row, cutting every ripe plant its front takes into its grain tank. When the tank is full it drives to a chaser bin or bin with room, empties, and carries on. Unripe plants are left standing.\n\nFront: {FRONT}</PhobosFarming_GizmoHarvestDesc>
+  <PhobosFarming_NoFrontWords>none fitted</PhobosFarming_NoFrontWords>
+  <PhobosFarming_NoFront>{VEHICLE} has no front fitted: fit a grain front first.</PhobosFarming_NoFront>
+  <PhobosFarming_NoTank>{VEHICLE} has no grain tank.</PhobosFarming_NoTank>
+  <PhobosFarming_FrontDoesNotSuit>A {FRONT} cannot cut {CROP}.</PhobosFarming_FrontDoesNotSuit>
+  <PhobosFarming_NothingRipe>Nothing in {ZONE} is ready to harvest yet.</PhobosFarming_NothingRipe>
+  <PhobosFarming_Harvested>It cut {PLANTS} plants: {WHAT}.</PhobosFarming_Harvested>
+  <PhobosFarming_HarvestedNothing>It cut nothing.</PhobosFarming_HarvestedNothing>
+  <PhobosFarming_HarvestFailedSome>{COUNT} plants were lost to failed cuts.</PhobosFarming_HarvestFailedSome>
+  <PhobosFarming_LineFront>Front: {FRONT}, cuts {CELLS} cells wide</PhobosFarming_LineFront>
+  <PhobosFarming_LineNoFront>No front fitted: it cannot harvest</PhobosFarming_LineNoFront>
+</LanguageData>

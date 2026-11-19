@@ -40,6 +40,7 @@ What each mod does in a line, and how they depend on one another, is in [the pro
 | [Submarines](submarines.md) | D'thorga Vehicles and D'thorga Framework | Running a submarine: dive, hide, listen, ping, do research at sea |
 | [Medical](medical.md) | D'thorga Medical | Keeping burned, gassed or badly hurt colonists alive, triage and hospital equipment |
 | [Factory](factory.md) | D'thorga Factory Additions | Feeding factory machines from any storage and making bionics automatically |
+| [Farming](farming.md) | D'thorga Farming | A combine that harvests a paddock row by row, and a chaser bin for its grain |
 | [Water tap](water-tap.md) | D'thorga Water Tap | Bottled water kept ready, so nobody queues at the basin |
 | [Patches](patches.md) | D'thorga Patches | What we fixed in other authors' mods, and what it changes for you |
 | [Radio](radio.md) | D'thorga Radio Framework | Talking on the radio across the map |

@@ -130,7 +130,8 @@ public sealed class CompPhobosTrailer : VehicleComp, VehiclePipes.IHost
         {
             if (TowedBy is { } hitch) return "PhobosHitch_InspectTowedBy".Translate(hitch.Vehicle.LabelShort.Named("TRACTOR")).Resolve();
             if (DrawbarBroken) return "PhobosHitch_InspectDrawbarBroken".Translate().Resolve();
-            return null;
+            // Framework 0.182.0: the coupling it is towed by, when it names one.
+            return Couplings.TowedLine(Vehicle);
         }
         catch (System.Exception e) { UiGuard.Report(GuardKey, e); return null; }
     }

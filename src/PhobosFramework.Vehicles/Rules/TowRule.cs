@@ -65,7 +65,7 @@ public static class TowRule
     /// <param name="drivenWorking">The driven wheels' working share (a damaged axle grips less).</param>
     /// <param name="usableGears">Gears the gearbox can use now; 0 for all.</param>
     public static TowVerdict Modelled(DrivetrainSpec spec, double tractorKg, double towedKg, double rolling, double grip, double drivenWorking,
-        int usableGears)
+        int usableGears, double draughtN = 0)
     {
         var conditions = new DriveConditions
         {
@@ -73,6 +73,8 @@ public static class TowRule
             Speed = Math.Max(0.1, spec.DesignSpeed),
             MassKg = Math.Max(0, tractorKg),
             TowedMassKg = Math.Max(0, towedKg),
+            // Framework 0.182.0: an implement's draught, so "can this pull that?" also answers "can this work that?".
+            DraughtN = Math.Max(0, draughtN),
             RollingResistance = Math.Max(0, rolling),
             Grip = Math.Max(0, grip),
             UsableGears = usableGears,

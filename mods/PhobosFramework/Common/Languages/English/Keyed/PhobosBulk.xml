@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Bulk holds (Framework 0.182.0): grain tanks, chaser bins, field bins and silos that hold loose goods by amount and pour them.
+       docs/development/farming-batch-one.md, "The bulk grain hold". -->
+  <PhobosBulk_GizmoPour>Pour</PhobosBulk_GizmoPour>
+  <PhobosBulk_GizmoPourDesc>Pour what {HOLD} holds into another bin, tank or cart within {CELLS} cells, or onto the ground beside it.\n\nHolding: {WHAT}</PhobosBulk_GizmoPourDesc>
+  <PhobosBulk_GizmoStop>Stop pouring</PhobosBulk_GizmoStop>
+  <PhobosBulk_GizmoStopDesc>Stop {HOLD} pouring. What has been poured stays where it went.</PhobosBulk_GizmoStopDesc>
+  <PhobosBulk_PourInto>Pour into {OTHER}</PhobosBulk_PourInto>
+  <PhobosBulk_PourIntoRefused>Pour into {OTHER} ({WHY})</PhobosBulk_PourIntoRefused>
+  <PhobosBulk_PourOnGround>Pour onto the ground beside it</PhobosBulk_PourOnGround>
+  <PhobosBulk_TheGround>the ground</PhobosBulk_TheGround>
+  <PhobosBulk_Started>{HOLD} is pouring into {INTO}.</PhobosBulk_Started>
+  <PhobosBulk_Done>{HOLD} poured {COUNT} into {INTO}.</PhobosBulk_Done>
+  <PhobosBulk_EndStopped>Stopped by hand.</PhobosBulk_EndStopped>
+  <PhobosBulk_EndEmptied>It is empty.</PhobosBulk_EndEmptied>
+  <PhobosBulk_EndGone>What it poured into is gone.</PhobosBulk_EndGone>
+  <PhobosBulk_EndNoRoom>There is no more room for what it holds.</PhobosBulk_EndNoRoom>
+  <PhobosBulk_EndGroundFull>There is no free ground left beside it.</PhobosBulk_EndGroundFull>
+  <PhobosBulk_Empty>{HOLD} is empty.</PhobosBulk_Empty>
+  <PhobosBulk_OutOfReach>{OTHER} is out of reach: it must stand within {CELLS} cells of {HOLD}.</PhobosBulk_OutOfReach>
+  <PhobosBulk_NoRoom>{OTHER} has no room for anything {HOLD} holds.</PhobosBulk_NoRoom>
+  <PhobosBulk_StandStill>{VEHICLE} must stand still to pour or be poured into.</PhobosBulk_StandStill>
+  <PhobosBulk_NotOnMap>{VEHICLE} can only pour while it stands on a map.</PhobosBulk_NotOnMap>
+  <PhobosBulk_Spoiled>Some of what {HOLD} held has spoiled and is lost: {WHAT}.</PhobosBulk_Spoiled>
+  <PhobosBulk_LineEmpty>Empty, holds up to {CAPACITY} kg</PhobosBulk_LineEmpty>
+  <PhobosBulk_Line>{MASS} of {CAPACITY} kg: {WHAT}</PhobosBulk_Line>
+  <PhobosBulk_LinePouring>Pouring into {INTO}</PhobosBulk_LinePouring>
+  <PhobosBulk_LineAired>Air is blowing through it: it keeps longer.</PhobosBulk_LineAired>
+  <PhobosBulk_LineNotAired>No power for its fan: it keeps no longer than in the open.</PhobosBulk_LineNotAired>
+</LanguageData>

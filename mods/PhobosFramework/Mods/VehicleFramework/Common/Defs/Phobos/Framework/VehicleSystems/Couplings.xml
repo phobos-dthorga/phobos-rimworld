@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The kinds of coupling between a hitch and what it tows (Framework 0.182.0; docs/development/farming-machines.md, "Coupling types").
+     A vehicle names its own in a Phobos.VehicleSystems.PhobosCouplingsExtension; one that names none joins anything. The descriptions are
+     the agent's plain summary, not yet read against a primary source. -->
+<Defs>
+  <Phobos.VehicleSystems.PhobosCouplingDef>
+    <defName>PhobosCoupling_Drawbar</defName>
+    <label>drawbar and pin</label>
+    <description>A flat bar at the back of a tractor. The trailer's eye or clevis is pinned to it. Most towed farm implements couple this way.</description>
+  </Phobos.VehicleSystems.PhobosCouplingDef>
+  <Phobos.VehicleSystems.PhobosCouplingDef>
+    <defName>PhobosCoupling_Pintle</defName>
+    <label>pintle hook</label>
+    <description>A hook with a latch, taking a round ring on the trailer's drawbar. Heavy carts and trucks use it, as the ring swivels in the hook on rough ground.</description>
+  </Phobos.VehicleSystems.PhobosCouplingDef>
+  <Phobos.VehicleSystems.PhobosCouplingDef>
+    <defName>PhobosCoupling_PickUpHitch</defName>
+    <label>pick-up hitch</label>
+    <description>A hook that lifts into the trailer's ring, so the driver can couple from the seat. Common on grain and silage trailers.</description>
+  </Phobos.VehicleSystems.PhobosCouplingDef>
+  <Phobos.VehicleSystems.PhobosCouplingDef>
+    <defName>PhobosCoupling_Ball</defName>
+    <label>ball hitch</label>
+    <description>A ball on the towing vehicle and a cup on the trailer. For light trailers.</description>
+  </Phobos.VehicleSystems.PhobosCouplingDef>
+  <Phobos.VehicleSystems.PhobosCouplingDef>
+    <defName>PhobosCoupling_HeavyBall</defName>
+    <label>heavy ball hitch</label>
+    <description>A large ball for heavy farm trailers, held down by a clamp.</description>
+  </Phobos.VehicleSystems.PhobosCouplingDef>
+  <Phobos.VehicleSystems.PhobosCouplingDef>
+    <defName>PhobosCoupling_ThreePoint</defName>
+    <label>three-point linkage</label>
+    <description>Two lower arms and a top link that carry an implement and lift it, rather than tow it. Mounted ploughs, cultivators and sprayers hang from it.</description>
+  </Phobos.VehicleSystems.PhobosCouplingDef>
+</Defs>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The chaser bin (D'thorga Farming 0.1.0; docs/development/farming-batch-one.md): a towed grain cart that takes a combine's grain in the
+    field and carries it to the paddock's edge. Any vehicle with D'thorga Framework's hitch tows it (owner, 19 Nov 2026); it couples by a
+    drawbar and pin, which our trucks, counting as universal, all take (owner, 20 Nov 2026). No engine and no seats. The 3 x 7 trailer floor,
+    drawn 4 x 8; its picture is the owner's pick of 20 Nov 2026 (assets/phobos-vehicles/requests/chaser-bin-pilot-record.md). The 4,500 kg
+    empty and 12 tonnes of grain are authored [A], labelled approximate: real chaser bins hold about 15 to 40 tonnes (general knowledge, not
+    read from a source), so this is a small one, for the trucks that tow it. Part keys are saved by position: append only, never reorder.
+    Cells run x -1 to 1, z -3 to 3, the drawbar north. Not yet tested in game.
+  -->
+  <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
+    <defName>Phobos_ChaserBin</defName>
+    <label>Gleaner chaser bin</label>
+    <description>Gleaner G1: a towed grain cart. Park it beside a working combine and the combine empties its tank into it; tow it to a field bin or silo and pour it out through its own auger. It has no engine: whatever tows it pulls its weight and all the grain in it, so a full bin climbs slowly behind a light truck.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/ChaserBin/ChaserBin</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(4, 8)</drawSize>
+      <color>(159, 189, 119)</color>
+      <colorTwo>(176, 166, 143)</colorTwo>
+    </graphicData>
+    <fillPercent>0.6</fillPercent>
+    <buildDef>Phobos_ChaserBin_Blueprint</buildDef>
+    <size>(3, 7)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.3</Flammability>
+      <MarketValue>1500</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>130</Mass>
+      <MoveSpeed>11</MoveSpeed>
+      <CargoCapacity>0</CargoCapacity>
+      <RepairRate>0.6</RepairRate>
+    </vehicleStats>
+    <race>
+      <baseBodySize>4</baseBodySize>
+    </race>
+    <properties>
+      <diagonalRotation>false</diagonalRotation>
+      <worldSpeedMultiplier>1</worldSpeedMultiplier>
+      <visibilityWeight>4</visibilityWeight>
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles />
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>chassis</label>
+      <health>160</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <cells>
+          <li>(-1, -3)</li>
+          <li>(0, -3)</li>
+          <li>(1, -3)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Hopper</key>
+      <label>hopper</label>
+      <health>140</health>
+      <depth>External</depth>
+      <hitbox>
+        <from>(0, -2)</from>
+        <to>(1, 2)</to>
+      </hitbox>
+    </li>
+    <li>
+      <key>UnloadingAuger</key>
+      <label>unloading auger</label>
+      <health>45</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -2)</li>
+          <li>(-1, -1)</li>
+          <li>(-1, 0)</li>
+          <li>(-1, 1)</li>
+          <li>(-1, 2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Drawbar</key>
+      <label>drawbar and coupling</label>
+      <health>55</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, 3)</li>
+          <li>(0, 3)</li>
+          <li>(1, 3)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Axles</key>
+      <label>axle and wheels</label>
+      <health>70</health>
+      <depth>Internal</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, 0)</li>
+          <li>(1, 0)</li>
+          <li>(-1, -1)</li>
+          <li>(1, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>lights</label>
+      <health>10</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -3)</li>
+          <li>(1, -3)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>4500</emptyKilograms>
+      </li>
+      <!-- It couples by a drawbar and pin (D'thorga Framework's couplings, owner's decisions of 20 Nov 2026). Our trucks count as
+           universal and take it; the tractors to come will have a drawbar. -->
+      <li Class="Phobos.VehicleSystems.PhobosCouplingsExtension">
+        <towedBy>PhobosCoupling_Drawbar</towedBy>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_ChaserBin_UpgradeTree</def>
+      </li>
+      <!-- How it follows (authored, as the 3 x 7 flatbed's): its axle 4.3 cells behind the hitch, the middle of its picture 0.27 cells
+           ahead of the axle, turned at most 70 degrees from the vehicle towing it. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
+        <hitchToAxle>4.3</hitchToAxle>
+        <axleToCentre>0.27</axleToCentre>
+        <jackKnifeDegrees>70</jackKnifeDegrees>
+        <drawbarPart>Drawbar</drawbarPart>
+      </li>
+      <!-- 12 tonnes of grain, several products at once; its auger pours 120 kg a second, half as fast again with the fast auger, and
+           reaches two cells beyond the bin. Authored [A]. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosBulkHold">
+        <capacityKg>12000</capacityKg>
+        <mixesProducts>true</mixesProducts>
+        <pourKgPerSecond>120</pourKgPerSecond>
+        <reachCells>2</reachCells>
+        <pourUpgrades>
+          <li>
+            <node>PhobosChaserBinFastAuger</node>
+            <factor>1.5</factor>
+          </li>
+        </pourUpgrades>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
+    <defName>Phobos_ChaserBin_Blueprint</defName>
+    <label>Gleaner chaser bin</label>
+    <description>Gleaner G1: a towed grain cart that takes a combine's grain in the field and pours it out where it is wanted.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/ChaserBin/ChaserBin</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(4, 8)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>220</MaxHitPoints>
+      <WorkToBuild>9000</WorkToBuild>
+      <Flammability>0.3</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_MechanisedHarvesting</li>
+    </researchPrerequisites>
+    <size>(3, 7)</size>
+    <!-- The shell only: its parts are in Bill_ChaserBin.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
+    <costList>
+      <Steel>280</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <thingToSpawn>Phobos_ChaserBin</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+</Defs>

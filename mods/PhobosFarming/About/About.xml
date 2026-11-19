@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <packageId>PhobosDthorga.Farming</packageId>
+  <name>D'thorga Farming</name>
+  <author>Phobos A. D'thorga</author>
+  <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
+  <modVersion>0.1.0</modVersion>
+  <description>Machines that work your fields. Mark a growing zone as a paddock, and a combine harvester cuts it row by row: the driver's skill sets the yield as it does by hand, every ripe plant goes into its grain tank, and unripe plants are left standing.
+
+When the tank is full, the combine drives to a chaser bin with room, empties it through its auger, and carries on. A chaser bin is towed by any vehicle with a hitch. Grain is held by weight, not in stacks, and it weighs on the engine that carries it. A field bin and a steel silo come next.
+
+Each front takes only the crops it could really cut: the grain fronts take cereals, pulses and oilseeds. Corn, potatoes, hay and cotton need harvesters that come later. Other mods' crops are taken once they are placed in a class, with one short patch each: the README shows how.
+
+Not yet tested in game. Needs Vehicle Framework and D'thorga Framework.
+
+Community-created content by House D'thorga (also spelt dthorga). Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
+  <supportedVersions>
+    <li>1.7</li>
+  </supportedVersions>
+  <modDependencies>
+    <li>
+      <packageId>SmashPhil.VehicleFramework</packageId>
+      <displayName>Vehicle Framework</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3014915404</steamWorkshopUrl>
+      <downloadUrl>https://github.com/SmashPhil/Vehicle-Framework</downloadUrl>
+    </li>
+    <li>
+      <packageId>PhobosDthorga.Framework</packageId>
+      <displayName>D'thorga Framework</displayName>
+      <downloadUrl>https://github.com/phobos-dthorga/phobos-rimworld</downloadUrl>
+    </li>
+  </modDependencies>
+  <loadAfter>
+    <li>Ludeon.RimWorld</li>
+    <li>OskarPotocki.VanillaFactionsExpanded.Core</li>
+    <li>SmashPhil.VehicleFramework</li>
+    <li>PhobosDthorga.Framework</li>
+    <li>VanillaExpanded.VCookE</li>
+    <li>VanillaExpanded.VPlantsE</li>
+    <li>VanillaExpanded.VPlantsEMore</li>
+  </loadAfter>
+</ModMetaData>

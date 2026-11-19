@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- What D'thorga Farming's machines are made of, by role (docs/development/parts-bills.md). Each blueprint's cost list is its shell;
+       each role is filled at start-up by an installed mod's part where it suits the machine's weight, and by ours otherwise. Counts
+       authored, held for the owner's review. The threshing drum has no part of its own yet: a drive shaft and actuators stand for the
+       drives of the front and the drum (an intermediate part is a later round). -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_Combine</defName>
+    <label>combine harvester parts</label>
+    <target>Phobos_Combine_Blueprint</target>
+    <parts>
+      <Engine>1</Engine>
+      <Transmission>1</Transmission>
+      <FuelTank>1</FuelTank>
+      <Wheels>4</Wheels>
+      <Suspension>2</Suspension>
+      <Alternator>1</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <Radiator>1</Radiator>
+      <Exhaust>1</Exhaust>
+      <HydraulicPump>1</HydraulicPump>
+      <Frame>1</Frame>
+      <Hose>1</Hose>
+      <!-- The rams that lift the front at each row's end. -->
+      <Actuator>2</Actuator>
+      <!-- The drive to the threshing drum and the auger. -->
+      <DriveShaft>1</DriveShaft>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_ChaserBin</defName>
+    <label>chaser bin parts</label>
+    <target>Phobos_ChaserBin_Blueprint</target>
+    <parts>
+      <Wheels>2</Wheels>
+      <Suspension>1</Suspension>
+      <Frame>1</Frame>
+      <Lighting>1</Lighting>
+      <!-- The auger's drive, from the tractor's power take-off. -->
+      <DriveShaft>1</DriveShaft>
+      <!-- The ram that swings the auger out. -->
+      <Actuator>1</Actuator>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

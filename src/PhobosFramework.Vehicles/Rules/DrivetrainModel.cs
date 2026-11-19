@@ -95,6 +95,10 @@ public struct DriveConditions
     /// with the vehicle, but puts no weight on the driven wheels (a full trailer stands on its own axles). Air drag is unchanged, a
     /// simplification: the trailer runs in the vehicle's wake.</summary>
     public double TowedMassKg;
+    /// <summary>Draught: the pull an implement working the ground needs, newtons (Framework 0.182.0; docs/development/farming-machines.md,
+    /// "Draught and field capacity"): a plough or cultivator dragged through soil, a drill's coulters. It adds to the road load at every
+    /// speed, like rolling resistance, and is soil, not air: the rule against drag is untouched. 0 for none.</summary>
+    public double DraughtN;
     public double RollingResistance;
     /// <summary>Peak tyre-ground friction coefficient.</summary>
     public double Grip;
@@ -155,7 +159,8 @@ public static class DrivetrainModel
 
     /// <summary>The force the road takes at a speed, in newtons.</summary>
     public static double RoadLoad(DrivetrainSpec spec, in DriveConditions c, double speed) =>
-        c.RollingResistance * TrainKg(c) * Gravity + 0.5 * AirDensity * spec.DragArea * speed * speed + TrainKg(c) * (c.Acceleration + Gravity * c.Grade);
+        c.RollingResistance * TrainKg(c) * Gravity + Math.Max(0, c.DraughtN) + 0.5 * AirDensity * spec.DragArea * speed * speed
+        + TrainKg(c) * (c.Acceleration + Gravity * c.Grade);
 
     /// <summary>The whole train's mass: the vehicle and anything it tows.</summary>
     public static double TrainKg(in DriveConditions c) => c.MassKg + Math.Max(0, c.TowedMassKg);
@@ -218,7 +223,7 @@ public static class DrivetrainModel
         double tractionCap = 1;
         if (force > tractionLimit)
         {
-            double rolling = c.RollingResistance * TrainKg(c) * Gravity + TrainKg(c) * (c.Acceleration + Gravity * c.Grade);
+            double rolling = c.RollingResistance * TrainKg(c) * Gravity + Math.Max(0, c.DraughtN) + TrainKg(c) * (c.Acceleration + Gravity * c.Grade);
             double spare = tractionLimit - rolling;
             tractionCap = spare <= 0 ? 0 : Math.Sqrt(spare / (0.5 * AirDensity * Math.Max(0.01, spec.DragArea))) / speed;
         }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- What the combine's work takes from its engine, on D'thorga Framework's engine-load ledger (docs/development/vehicle-engine-loads.md):
+       the threshing drum and front while a row is driven, the unloading auger while it pours. Shares of the engine's rated power are
+       authored [A], labelled approximate: on a real combine threshing and separating take a large part of the engine's power (general
+       knowledge, not read from a source), so they are set high. To tune in play. -->
+  <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+    <defName>PhobosShaftLoad_Threshing</defName>
+    <label>threshing drum and front</label>
+    <description>The combine's front, feeder, threshing drum and sieves, all driven from the engine while it cuts a row.</description>
+    <order>70</order>
+    <shareOfRated>0.4</shareOfRated>
+    <speedExponent>0</speedExponent>
+    <available Class="Phobos.VehicleSystems.When_FieldWorkerFitted" />
+    <when Class="Phobos.VehicleSystems.When_FieldWorking" />
+  </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+    <defName>PhobosShaftLoad_UnloadingAuger</defName>
+    <label>unloading auger</label>
+    <description>The auger that pours grain out of a combine's tank or a chaser bin.</description>
+    <order>71</order>
+    <shareOfRated>0.05</shareOfRated>
+    <speedExponent>0</speedExponent>
+    <available Class="Phobos.VehicleSystems.When_BulkHoldFitted" />
+    <when Class="Phobos.VehicleSystems.When_BulkPouring" />
+  </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+</Defs>

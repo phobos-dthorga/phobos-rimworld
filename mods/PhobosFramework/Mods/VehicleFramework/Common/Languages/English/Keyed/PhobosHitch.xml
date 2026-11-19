@@ -15,6 +15,9 @@
   <PhobosHitch_NotOurs>{TRAILER} is not ours. Claim it first.</PhobosHitch_NotOurs>
   <PhobosHitch_TowedByOther>{TRAILER} is already hitched to {TRACTOR}.</PhobosHitch_TowedByOther>
   <PhobosHitch_NotHere>{TRAILER} is not here.</PhobosHitch_NotHere>
+  <PhobosHitch_CouplingMismatch>{TRAILER} couples by a {COUPLING}, and the hitch of {TRACTOR} has only: {HITCHES}. Fit an adapter to the hitch, or use a vehicle with that coupling.</PhobosHitch_CouplingMismatch>
+  <PhobosHitch_LineHitchCouplings>Hitch: {COUPLINGS}</PhobosHitch_LineHitchCouplings>
+  <PhobosHitch_LineTowedBy>Couples by: {COUPLING}</PhobosHitch_LineTowedBy>
   <PhobosHitch_DrawbarBroken>The drawbar of {TRAILER} is broken: there is nothing to couple to until it is repaired.</PhobosHitch_DrawbarBroken>
   <PhobosHitch_TooFar>{TRAILER} is too far away. Park within {CELLS} cells of it.</PhobosHitch_TooFar>
   <PhobosHitch_Moving>{TRACTOR} is moving. Stop it first.</PhobosHitch_Moving>

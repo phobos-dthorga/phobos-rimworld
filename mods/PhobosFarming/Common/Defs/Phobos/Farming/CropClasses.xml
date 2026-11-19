@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Crop classes by how a crop is harvested (owner, 20 Nov 2026: realism; docs/development/farming-batch-one.md, "Fronts"). The game's
+       crop Defs hold nothing that tells grain from potatoes or berries, so each crop is placed in a class by a patch
+       (Patches/Crops.xml), and each harvesting front lists the classes it takes. To add another mod's crop, see the README's
+       "For modders". A crop in no class is left for hands. Which crop goes in which class is the agent's reading of how each is
+       harvested in real farming, held for the owner's review. -->
+  <Phobos.Farming.PhobosCropClassDef>
+    <defName>PhobosCrop_Cereal</defName>
+    <label>cereal</label>
+    <description>Small grains cut whole and threshed: rice, wheat, barley, oats, rye, sorghum, buckwheat. A combine's grain front takes them.</description>
+  </Phobos.Farming.PhobosCropClassDef>
+  <Phobos.Farming.PhobosCropClassDef>
+    <defName>PhobosCrop_Pulse</defName>
+    <label>pulse</label>
+    <description>Dry peas and chickpeas, cut and threshed like a cereal. A combine's grain front takes them.</description>
+  </Phobos.Farming.PhobosCropClassDef>
+  <Phobos.Farming.PhobosCropClassDef>
+    <defName>PhobosCrop_Oilseed</defName>
+    <label>oilseed</label>
+    <description>Small-seeded oil crops such as canola, cut and threshed like a cereal. A combine's grain front takes them.</description>
+  </Phobos.Farming.PhobosCropClassDef>
+  <Phobos.Farming.PhobosCropClassDef>
+    <defName>PhobosCrop_RowCrop</defName>
+    <label>row crop</label>
+    <description>Tall crops grown in rows, such as corn and sunflowers, which need a row-crop header rather than a grain front.</description>
+  </Phobos.Farming.PhobosCropClassDef>
+  <Phobos.Farming.PhobosCropClassDef>
+    <defName>PhobosCrop_Forage</defName>
+    <label>forage</label>
+    <description>Grass grown for hay, mown and baled rather than threshed.</description>
+  </Phobos.Farming.PhobosCropClassDef>
+  <Phobos.Farming.PhobosCropClassDef>
+    <defName>PhobosCrop_Fibre</defName>
+    <label>fibre</label>
+    <description>Cotton and similar crops, picked by a picker rather than threshed.</description>
+  </Phobos.Farming.PhobosCropClassDef>
+  <Phobos.Farming.PhobosCropClassDef>
+    <defName>PhobosCrop_Root</defName>
+    <label>root crop</label>
+    <description>Potatoes and other crops lifted from the ground by a digger rather than cut.</description>
+  </Phobos.Farming.PhobosCropClassDef>
+</Defs>

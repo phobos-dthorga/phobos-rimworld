@@ -62,7 +62,7 @@ public class TankCompartment : IExposable
 /// temperature; the pump serves one compartment at a time, the selected one. Everything runs on the rare tick. Gizmos in TankGizmos read
 /// this and call its service methods; nothing else changes it.
 /// </summary>
-public class CompPhobosTank : CompPhobosSetUp
+public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
 {
     const string DamageOverlayKey = "PhobosTankDamage";
     const float HoursPerRareTick = GenTicks.TickRareInterval / (float)GenDate.TicksPerHour;
@@ -116,6 +116,9 @@ public class CompPhobosTank : CompPhobosSetUp
     public float Space => Mathf.Max(0f, CompartmentCapacity - Selected.amount);
     public bool HasLoad => Compartments.Any(c => c.HasLoad);
     public float LoadKilograms => Compartments.Sum(c => c.Kilograms);
+
+    /// <summary>The tank's load as a carried load (Framework 0.182.0, CarriedLoads).</summary>
+    public float CarriedKilograms => LoadKilograms;
     public bool NeedsPurge => Compartments.Any(NeedsPurging);
     public string ResidueLabels => Compartments.Where(NeedsPurging).Select(c => c.residue!.label).Distinct().ToCommaList();
 

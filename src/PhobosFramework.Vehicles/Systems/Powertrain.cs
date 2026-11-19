@@ -381,7 +381,8 @@ public sealed class Powertrain
         massTick = now;
         VehiclePawn vehicle = comp.Vehicle;
         // Framework 0.161.0: a load hanging from the hook is weight the rotors lift, for the hover and the cruise alike.
-        double total = KerbKg + MassUtility.InventoryMass(vehicle) + (vehicle.GetComp<CompPhobosTank>()?.LoadKilograms ?? 0f) + KitKg
+        // Framework 0.182.0: every carried load (a tank's fluid, a grain tank's grain) through CarriedLoads, where only tanks were weighed.
+        double total = KerbKg + MassUtility.InventoryMass(vehicle) + CarriedLoads.Kilograms(vehicle) + KitKg
             + (vehicle.GetComp<CompPhobosSling>()?.CarriedKilograms ?? 0f)
             // Framework 0.180.0: chaff and flare cartridges loaded in the dispensers, as a turret's loaded rounds below.
             + (vehicle.GetComp<CompPhobosDispensers>()?.Kilograms ?? 0f);
@@ -428,6 +429,8 @@ public sealed class Powertrain
             MassKg = MassKg(),
             // A trailer behind the hitch (Framework 0.101.0): rolled, speeded up and lifted with the vehicle, no grip.
             TowedMassKg = comp.Hitch?.TowedKilograms ?? 0,
+            // Framework 0.182.0: what implements working the ground drag (Draughts), its own and the trailer's behind it.
+            DraughtN = Draughts.Newtons(vehicle, comp.Hitch?.Trailer),
             CurrentGear = Result.Gear,
             UsableGears = UsableGears(),
             ClutchCapacity = ClutchCapacity(),
