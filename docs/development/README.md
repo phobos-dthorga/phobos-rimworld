@@ -100,7 +100,8 @@ research or design with nothing built; **living** means kept current by every ch
 - [Farm machines](farming-machines.md) (19 Nov 2026): D'thorga Farming: paddocks, tractors, drills, harvesters, sprayers. Record only.
 - [Farms on other tiles](farming-remote-farms.md) (19 Nov 2026): a ledger farm the player can open and watch; 29 hazards. Record only.
 - [Soil rules](farming-soil.md) (19 Nov 2026): three presets, moisture as a bonus, a punishing Realistic mode, seed. Record only.
-- [Farming batch one](farming-batch-one.md) (19 Nov 2026): build design for paddocks, combine, chaser bin, bins; art plan. Build started: the run base only.
+- [Farming batch one](farming-batch-one.md) (19 Nov 2026): build design for paddocks, combine, chaser bin, bins; art plan. Built: Farming 0.1.0 to 0.3.3.
+- [Farming batch two](farming-batch-two.md) (20 Nov 2026): build design for tractors, the linkage, plough, cultivator, drill and seed. Record only.
 
 ### Submarines and long range
 
