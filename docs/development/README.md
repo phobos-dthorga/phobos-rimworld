@@ -115,7 +115,7 @@ research or design with nothing built; **living** means kept current by every ch
 ### Tie-ins and contracts
 
 - [Soft-dependency cross-links](soft-dependency-crosslinks.md) (13 Nov 2026): new tie-ins with mods on the owner's list, SD1 to SD47. Partly built.
-- [Vehicles at Work](vehicles-at-work-tie-ins.md) (19 Nov 2026): what we gain from it and learn from it, VW1 to VW7. VW1 built; two faults of ours recorded.
+- [Vehicles at Work](vehicles-at-work-tie-ins.md) (19 Nov 2026): what we gain from it and learn from it, VW1 to VW7. VW1 to VW3 built; two faults fixed.
 - [The authors' override contract](vehicle-author-overrides.md) (13 Nov 2026): what another author can set for their vehicles. Record only.
 
 ### Research and figures
@@ -126,6 +126,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Vehicle simulation references](vehicle-references.md) (8 Nov 2026): the study library behind the vehicle designs. Research.
 - [World elevation and descents](world-elevation-and-descents.md) (18 Nov 2026): tile heights measured; descents, altitude, radio line of sight. Research.
 - [Animating our vehicles](vehicle-animation-research.md) (9 Nov 2026): what can move, and where motion helps. Partly built; the boom owner-tested.
+- [Emergent play around the vehicles](vehicle-emergent-play.md) (20 Nov 2026): where unplanned stories could come from; three audits, EM1 to EM29. Research.
 
 ## D'thorga Medical
 

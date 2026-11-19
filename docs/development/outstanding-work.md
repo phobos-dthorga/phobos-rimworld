@@ -240,6 +240,20 @@ spraying and fertiliser (AG3) with the soil rules, then remote farms.
 | SL8 | A wizard at first run that helps the player choose the preset, where the rules apply and the switches | Farming, Framework | "We'll also have a wizard at first-run that helps get the player started"; Field care the default; rules on paddocks by default, with a separate option for every growing zone, off by default (owner, 19 Nov 2026) | Open; the first use of [the setup wizard](first-load-setup-wizard.md) |
 | SL9 | Failure by chains, not by a floor: under Realistic a paddock fails through linked causes, as an engine does in our vehicle model | Farming | A floor of about a third for a first build, "but ultimately, I want it to come down to systemic failures like what we have designed with our engine simulation code"; the soil test a hand kit first, then a tractor-mounted sampler (owner, 19 Nov 2026) | Open: the direction is recorded; the links are not designed |
 
+## Emergent play around the vehicles (20 Nov 2026)
+
+The owner asked for ideas on getting more emergent play out of the vehicle mods, as research and record only
+([record](vehicle-emergent-play.md)): three audits of what is built (verbs and objects, the game's incidents, our refusals) and rows EM1
+to EM29. **Nothing built or decided**; the owner picks.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| EP1 | The record: what designers of such games say, what our vehicles link to today, three audits, rows EM1 to EM29, a short list | docs | Research and record only (owner, 20 Nov 2026) | Written |
+| EP2 | **Owner to choose:** the record's seven questions: random rolls, shelter aboard a vehicle (EM22), unwise orders (EM29), exhaust indoors (EM20), what is lost staying in the world (EM2), raiders' fuel by distance (EM5), and what to take first | Framework, Vehicles | — | Open, the owner's choice |
+| EP3 | **Owner to say whether it is meant:** a repair at a halt on the world map counts supplies in that one vehicle's cargo only, though a convoy refuels from every vehicle's cargo (the record's "Found on the way", 3) | Framework | — | Open |
+| EP4 | The patched-Defs file is out of date (8 Nov 2026, 335 mods; 364 active), so tools read Defs as written. The owner's step when convenient: Framework's dev action "write patched Defs at the next start", then a restart | tools | — | Open, the owner's step |
+| EP5 | Reads still to do before any build: Vehicle Framework's starting fuel for ground raid vehicles and what its sabotage order does to one out of fuel (EM5); a gravship landing that turns a vehicle of several cells (EM18); real carbon monoxide figures by engine kind (EM20) | docs | — | Open |
+
 ## Garage and fleet tools (from 8 Nov 2026)
 
 The design is [the vehicle garage and fleet tools](vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
