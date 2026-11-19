@@ -304,6 +304,7 @@
       "gathering waits for a driver": [{"key": "vehicles.driver-call.waiting", "variant": "gather"}],
       "a colonist takes the wheel": [{"key": "vehicles.driver-call.aboard"}]
     }},
+    "266": ["vehicles.work-trip-kept"],
     "250": ["vehicles.work-park-bay"],
     "248": ["vehicles.errand-refused"],
     "247": {"parts": {

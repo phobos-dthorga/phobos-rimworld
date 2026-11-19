@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.182.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.183.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -66,7 +66,8 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   marked bay** too. Not yet tested in game.
 - **With Vehicles at Work, a depot bay is its vehicle's parking place** (0.176.0): when that mod's colonists bring a vehicle home, one
   with a bay goes to its pad, not a parking lot, and refuels there. Only vehicles you switched on there for trips or hauling are moved.
-  Its trips also leave alone any vehicle our systems refuse to move (0.108.4). Not yet tested in game.
+  Its trips also leave alone any vehicle our systems refuse to move (0.108.4), and its colonists any vehicle that is **boiling over, under a
+  tenth of its coolant or without oil pressure** (0.183.0); your own orders still drive it. Not yet tested in game.
 - **A truck with nobody aboard calls for a driver** (0.177.0): **Deliver** and **Gather** pressed with no driver wait for one, and a
   colonist with **Drive** work comes and takes the wheel. **Drive starts switched off**: tick it in the work tab. With Vehicles at Work
   it is that mod's own Drive work, and its drivers list is obeyed. Not yet tested in game.

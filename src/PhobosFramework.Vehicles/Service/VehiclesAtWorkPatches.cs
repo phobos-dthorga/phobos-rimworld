@@ -24,8 +24,20 @@ static class VehiclesAtWork
     /// </summary>
     public static bool Active => OptionalMods.IsActive(PackageId);
 
-    /// <summary>Our refusal for a vehicle Vehicles at Work asks about, or null.</summary>
-    public static string? Refusal(Pawn pawn) => pawn is VehiclePawn vehicle ? MoveRefusals.For(vehicle) : null;
+    /// <summary>
+    /// Our refusal for a vehicle Vehicles at Work asks about, or null: a refusal to move, else a stage that driving would wreck
+    /// (Framework 0.183.0, VW8: boiling over, nearly out of coolant, no oil pressure). Its trips and hauls are its colonists' own initiative,
+    /// so they leave such a vehicle alone; the player's orders do not come through here.
+    /// </summary>
+    public static string? Refusal(Pawn pawn) => pawn is VehiclePawn vehicle ? MoveRefusals.For(vehicle) ?? KeptFromWork(vehicle) : null;
+
+    /// <summary>Why its colonists should leave this vehicle alone though it could move, or null (cached state only).</summary>
+    public static string? KeptFromWork(VehiclePawn vehicle)
+    {
+        if (vehicle.GetComp<CompPhobosVehicleSystems>() is not { Usable: true, WorkTripRefusal: { } kept }) return null;
+        if (Seen.Wants("vehicles.work-trip-kept", vehicle)) Seen.Note("vehicles.work-trip-kept", vehicle, kept);
+        return kept;
+    }
 }
 
 /// <summary>Its "healthy" test (Vehicle Framework's CanMove) decides which vehicles may be picked for a trip: ours say no while refusing.</summary>
@@ -58,7 +70,8 @@ public static class VehiclesAtWorkCanMovePatch
 
 /// <summary>
 /// Its message when a trip is called off ("{vehicle} {why}, so {driver} walks") would otherwise blame damage for our refusal. Where the
-/// vehicle has fuel and Vehicle Framework itself would let it move, the reason is ours, so ours is given.
+/// vehicle has fuel and Vehicle Framework itself would let it move, the reason is ours, so ours is given: a refusal to move, or a fault
+/// that keeps it from work trips (VW8).
 /// </summary>
 [HarmonyPatch]
 public static class VehiclesAtWorkWhyStuckPatch
@@ -71,8 +84,13 @@ public static class VehiclesAtWorkWhyStuckPatch
     {
         if (v is not VehiclePawn vehicle || !vehicle.CanMove || vehicle.CompFueledTravel is { EmptyTank: true }) return;
         string? refusal = MoveRefusals.For(vehicle);
-        if (refusal == null) return;
-        __result = "PhobosVehicleSystems_WorkTripRefused".Translate(refusal.TrimEnd('.').Named("REASON")).Resolve();
+        if (refusal != null)
+        {
+            __result = "PhobosVehicleSystems_WorkTripRefused".Translate(refusal.TrimEnd('.').Named("REASON")).Resolve();
+            return;
+        }
+        string? kept = VehiclesAtWork.KeptFromWork(vehicle);
+        if (kept != null) __result = "PhobosVehicleSystems_WorkTripKept".Translate(kept.TrimEnd('.').Named("REASON")).Resolve();
     }
 }
 

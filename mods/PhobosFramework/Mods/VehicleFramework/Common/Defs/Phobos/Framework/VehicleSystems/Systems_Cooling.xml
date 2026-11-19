@@ -171,6 +171,10 @@
                 <label>PhobosVehicleSystems_LetterBoilingLabel</label>
                 <text>PhobosVehicleSystems_LetterBoilingText</text>
               </li>
+              <li Class="Phobos.VehicleSystems.Effect_KeepFromWorkTrips">
+                <!-- Framework 0.183.0 (VW8): nobody takes it out for work on their own while it boils; orders still go through. -->
+                <reason>PhobosVehicleSystems_KeepBoilingOver</reason>
+              </li>
             </effects>
           </li>
         </stages>
@@ -193,6 +197,15 @@
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgCoolantLow</message>
                 <type>CautionInput</type>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_KeepFromWorkTrips">
+                <!-- Framework 0.183.0 (VW8): parked, an engine with an empty cooling system reads cool, so the boiling stage cannot keep
+                     it in; under a tenth of a fill it would boil over on the way (authored line). -->
+                <reason>PhobosVehicleSystems_KeepCoolantEmpty</reason>
+                <when Class="Phobos.VehicleSystems.When_QuantityBelow">
+                  <quantity>coolantLevel</quantity>
+                  <value>0.1</value>
+                </when>
               </li>
             </effects>
           </li>

@@ -143,6 +143,10 @@
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgOilPressureGone</message>
               </li>
+              <li Class="Phobos.VehicleSystems.Effect_KeepFromWorkTrips">
+                <!-- Framework 0.183.0 (VW8): an empty sump reads as no pressure even parked, so this keeps it in before it seizes. -->
+                <reason>PhobosVehicleSystems_KeepOilGone</reason>
+              </li>
             </effects>
           </li>
           <li>

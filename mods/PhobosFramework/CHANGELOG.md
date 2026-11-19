@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.183.0] - 2026-11-20 - Draft
+
+With Vehicles at Work, colonists leave alone a vehicle that driving would wreck
+
+### Added
+
+- **With Vehicles at Work, its colonists no longer take out a vehicle that is boiling over, has under a tenth of its coolant or has no oil pressure** for trips or hauls of their own, and that mod's "why it won't go" line says why. Your own orders still drive it, and so do Deliver and Gather. Once a mechanic has refilled it, or it has cooled, they use it again. Found after a burnt dirt bike went on being ridden with no coolant until its head warped (owner's go-ahead, 20 Nov 2026: "implement both").
+- **For other modders:** a stage that driving would wreck can say so in XML with the new effect Effect_KeepFromWorkTrips and a reason, as a refusal to move does; the vehicle's systems read it as WorkTripRefusal.
+
+### Save compatibility
+
+- Safe to add to a save. Nothing new is saved: the refusal is worked out from the vehicle's current readings.
+
+### Compatibility and limits
+
+- Without Vehicles at Work nothing changes, and with the show-only setting on it does nothing. Only the player's vehicles are held back.
+- A trip already under way may still finish: that mod asks its tests before driving off.
+- The three faults and the tenth of a fill are the agent's choice; overheating is left out, as it costs the engine only a little.
+- Not yet tested in game (test row 266).
+
 ## [0.182.0] - 2026-11-20 - Draft
 
 The driving a vehicle does on an errand of its own is one shared piece, ready for farm machines

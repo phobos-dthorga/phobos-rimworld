@@ -430,6 +430,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// world-map checks; null when it may.</summary>
     public string? MoveRefusal { get; private set; }
 
+    /// <summary>
+    /// Why colonists should not take this vehicle out on their own now, or null: a stage carrying <see cref="Effect_KeepFromWorkTrips"/>
+    /// (boiling over, nearly out of coolant, no oil pressure; Framework 0.183.0, VW8). The player's orders are never refused by it. Cached
+    /// beside <see cref="MoveRefusal"/> at every update; derived, never saved.
+    /// </summary>
+    public string? WorkTripRefusal { get; private set; }
+
     /// <summary>Whether a load of the loadout is on: switched on by the player when it has a switch, and its own condition holds.</summary>
     public bool SwitchOn(string name)
     {
@@ -941,6 +948,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             History.Sample(states, now);
             string? refusalBefore = MoveRefusal;
             MoveRefusal = FirstRefusal(draft: false);
+            WorkTripRefusal = FirstWorkTripRefusal();
             if (MoveRefusal != refusalBefore && VehicleSystemsMod.Logger.DebugEnabled)
             {
                 VehicleSystemsMod.Logger.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") " + (MoveRefusal == null ? "may move again (was: " + refusalBefore + ")" : "will not move: " + MoveRefusal));
@@ -2010,6 +2018,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Conditions.EvaluateAll();
         RecacheStatFactors();
         MoveRefusal = FirstRefusal(draft: false);
+        WorkTripRefusal = FirstWorkTripRefusal();
         HealthViewVersion++;
         // A hit that shorts the wiring (G12, Framework 0.123.0) puts its circuits out at once, not at the next update; a repair brings them back.
         if (Tier != DetailTier.Full || states.Count == 0) return;
@@ -2506,6 +2515,20 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         return null;
     }
 
+    string? FirstWorkTripRefusal()
+    {
+        // As FirstRefusal: only the player's vehicles, so another faction's are never held back.
+        if (states == null || Vehicle.Faction != Faction.OfPlayer) return null;
+        foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
+        {
+            foreach (VehicleSystemEffect effect in stage.effects)
+            {
+                if (effect is Effect_KeepFromWorkTrips keep && keep.Active(context)) return keep.WorkTripRefusal(context);
+            }
+        }
+        return null;
+    }
+
     /// <summary>The factor the current stages put on a stat; read by the stat part on every Vehicle Framework stat.</summary>
     public float StatFactor(VehicleStatDef stat) => (statFactors.TryGetValue(stat, out float factor) ? factor : 1f) * Fittings.StatFactor(stat);
 
@@ -2975,6 +2998,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         RecordEvent(VehicleEventKind.JumpStart, need.Def.defName);
         RecacheStatFactors();
         MoveRefusal = FirstRefusal(draft: false);
+        WorkTripRefusal = FirstWorkTripRefusal();
     }
 
     /// <summary>Whether this vehicle has a battery a service lead can charge: any system with a jump-start quantity.</summary>
