@@ -10,7 +10,7 @@ D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); 
 ([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)); stock helicopters on our flight, behind a setting that
 starts off, in Framework 0.160.0 and Vehicles 0.81.0 ([built](#built-19-nov-2026-stock-helicopters-on-our-flight)). Not built: aeroplanes
 that never hover, side-firing gun arcs and runs, and flying other authors' aircraft on ours (decided 19 Nov 2026: after our own
-combat features, and only where the player turns it on, aircraft by aircraft; [the read and the decision](#read-19-nov-2026-other-authors-aircraft-on-our-flight)). Nothing here is tested in game (rows 199, 200, 204 to 211). The owner answered
+combat features, and only where the player turns it on, aircraft by aircraft; [the read and the decision](#read-19-nov-2026-other-authors-aircraft-on-our-flight)). Rotors that turn on our flight and landings that end with the engines off, Framework 0.173.0 ([built](#built-19-nov-2026-rotors-and-the-end-of-a-landing)). Nothing here is tested in game (rows 199, 200, 204 to 211, 235, 236). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -579,6 +579,19 @@ usually cannot fly on; light, it often can.
 **Not built, and why:** `PhaseReader_OwnFlight`, the forward-flight and rolling shares and the three thresholds. Each reads or
 decides something only our own flight does (its state; whether it may stop, fly on or roll), so they come with the hover half
 (slice 2) rather than as fields nothing reads.
+
+## Built (19 Nov 2026): rotors and the end of a landing
+
+D'thorga Framework 0.173.0, from the owner's report the same evening (the Cherokee on our flight: blades still, engines never shut off
+after landing, "like it never actually went through the full landing routine"). **Not yet tested in game** (rows 235 and 236; row 205
+gained a part).
+
+| Part | As built | Where |
+| --- | --- | --- |
+| **Rotors** | [code] Vehicle Framework turns rotor overlays (`Graphic_Propeller`, `Graphic_ReversePropeller`) only from its propeller take-off and landing animation, which hands the overlay renderer a rate each tick (`GraphicOverlayRenderer.SetAcceleration`, from `PropellerTakeoff.TickTakeoff` and `TickLanding`). Our flight replaces that animation, so nothing turned them. Now our comp hands the rate: up to full over 6 s while the engines run (always in the air, where a dead engine's rotor windmills), down to rest over 10 s after [A]. Full is the aircraft's own take-off curve at its end (the Cherokee's 48 degrees a tick), or `rotorDegreesPerTick` in the Def. On the ground the comp ticks only while the engines run or the rotors still turn | `CompPhobosFlight.Rotors.cs`, `RotorRule` |
+| **The end of a landing** | [code] Vehicle Framework's own landings end with the engines off: the aircraft is spawned afresh, and its crash landing switches the engines off outright. Ours left it drafted. Now a touch-down, a roll-in and a hard landing end with the brakes on and the engines off, for the player's aircraft; a raiders' goes on thinking with its engines running | `CompPhobosFlight.EnginesOffAfterLanding` |
+| **Engines that would not stop** | Not reproduced: the owner's save of 18:27 had Cherokee #2 parked with its engines off, and no lord held it. Two causes fit the code [I]: our flight still counting it airborne (it then restarts the engines each tick, by design, in the air), or Vehicle Framework's engine button only braking while it thinks the vehicle is still moving. The landing now stops the pather too, and the verbose "Vehicle systems" log says, each time, when engines stopped in the air were started again and when a landing could not stop them, with our state, the pather, the lord and the job | `Engines`, `EnginesOffAfterLanding` |
+| **A wreck's cargo** | [code] The owner's log (17:55, Framework 0.170.1): a Cherokee wrecked where something was built, and Vehicle Framework's destruction dropped its cargo where it stood; the game's drop then threw (a chunk gone as soon as it was placed) and the aircraft stopped ticking. Now its cargo is set down first on standable ground beside the wreck, never under its footprint | `CompPhobosFlight.UnloadBeforeWreck` |
 
 ## Built (19 Nov 2026): stock helicopters on our flight
 

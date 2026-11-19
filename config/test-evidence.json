@@ -130,7 +130,8 @@
     }},
     "205": {"parts": {
       "a hard landing on open ground": [{"key": "aircraft.flight-forced", "variant": "hard-landing"}],
-      "wrecked where it cannot land": [{"key": "aircraft.flight-forced", "variant": "wrecked"}]
+      "wrecked where it cannot land": [{"key": "aircraft.flight-forced", "variant": "wrecked"}],
+      "its cargo set down beside the wreck": ["aircraft.wreck-cargo-dropped"]
     }},
     "206": {"parts": {
       "it flies off the edge": ["aircraft.flight-departed"],
@@ -226,6 +227,8 @@
       "the body plates are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosBodyPlates", "detail": "*: fitted"}]
     }},
     "234": ["vehicles.gather-keeps-working"],
+    "235": ["aircraft.rotors-turning"],
+    "236": ["aircraft.engines-off-after-landing"],
     "231": {"parts": {
       "headlights switch themselves": [{"key": "vehicles.lights-auto", "variant": "headlights"}],
       "work lamps switch themselves": [{"key": "vehicles.lights-auto", "variant": "workLamps"}, {"key": "vehicles.work-lamps-lit", "variant": "automatic"}]

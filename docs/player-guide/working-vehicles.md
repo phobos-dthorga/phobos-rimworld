@@ -451,6 +451,10 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   nobody boards, unloads or steps out until it lands. **To go to another place**, press the launch button, on the ground or in the
   air: it flies to the map's edge on that side and leaves from there. **Arriving**, it comes in over the edge it flew from, already
   flying, and lands on the spot you chose, or holds over a map it attacks for your orders.
+- **A landing ends with the engines off** (not yet tested in game): once it touches down, rolls in or comes down hard, it stands
+  parked and burns nothing. **Draft it again to start the engines before taking off.** The stock helicopters that fly on our flight
+  (the Cherokee, Louie and Mosquito, with the setting **Stock helicopters fly over the map**) do the same, and their rotors spin up
+  while their engines run and run down after.
 - **Too heavy to lift straight up, it rolls** (not yet tested in game). On a hot day, high up or fully loaded it may be a little too
   heavy to hover, yet still able to take off rolling along a strip: **select it and the strip it needs is outlined ahead of it, green
   when clear, red when blocked**. Take off or the launch button rolls it 5 to 20 cells straight ahead the way it faces, longer the

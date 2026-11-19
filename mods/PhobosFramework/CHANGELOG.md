@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.173.0] - 2026-11-19 - Draft
+
+A helicopter's rotors turn on our own flight; landings end with the engines off; a wreck sets its cargo down safely
+
+### Added
+
+- **A helicopter's rotors turn on our own flight**: they spin up over a few seconds once its engines start, turn all through the flight, and run down to rest over about ten seconds after its engines stop. They turn at the full speed the aircraft's own author drew for its take-off (the Cherokee's, the Louie's, the Mosquito's). Before, Vehicle Framework turned them only in its own take-off animation, which our flight replaces, so they stood still.
+
+### Fixed
+
+- **A landing on our own flight ends with the engines off**, as Vehicle Framework's own landings do: after touching down, rolling in or coming down hard, the aircraft stands parked, burns no fuel and its rotors run down. Start the engines again to take off. Before, the engines ran on after landing.
+- **An aircraft wrecked where it could not land no longer throws an error**: its cargo is set down on open ground beside the wreck before the wreck is made. Before, the game's own drop failed over the building or rough ground it came down on, and the aircraft stopped ticking.
+- **The verbose log for "Vehicle systems" now says why an aircraft's engines could not be stopped**, after landing or in the air, so a repeat of the owner's report can be traced.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The spin-up and run-down times are authored. The Osprey is unchanged: it has no rotor overlays of Vehicle Framework's kind.
+- The owner's report that the Cherokee's engines could not be stopped at all was not reproduced from the save or the log: the save of 18:27 had it parked with its engines off. If it happens again, the verbose log now names the cause.
+
 ## [0.172.0] - 2026-11-19 - Draft
 
 Gathering through a fight

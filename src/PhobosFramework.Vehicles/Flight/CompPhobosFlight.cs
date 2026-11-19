@@ -9,6 +9,7 @@ using RimWorld.Planet;
 using Vehicles;
 using Vehicles.World;
 using Verse;
+using Verse.AI.Group;
 
 namespace Phobos.VehicleSystems;
 
@@ -95,6 +96,17 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
     /// </summary>
     public bool onlyWithStockSetting;
 
+    /// <summary>
+    /// How fast its drawn rotors turn at full speed, degrees a tick (Framework 0.173.0): Vehicle Framework's rotor overlays (Graphic_Propeller)
+    /// are turned only inside its own take-off and landing animation, which our flight replaces. Left out, the full rate of the aircraft's own
+    /// take-off animation, as its author drew it (the Cherokee's 48); 0 for none.
+    /// </summary>
+    public float rotorDegreesPerTick = float.NaN;
+    /// <summary>Seconds for its rotors to spin up to full once the engines run (authored).</summary>
+    public float rotorSpinUpSeconds = 6f;
+    /// <summary>Seconds for its rotors to run down to rest once the engines stop (authored; a real rotor takes longer without a brake).</summary>
+    public float rotorRunDownSeconds = 10f;
+
     /// <summary>Its speed circling, cells a second.</summary>
     public float OrbitSpeed => float.IsNaN(orbitSpeedCellsPerSecond) ? speedCellsPerSecond * 0.7f : orbitSpeedCellsPerSecond;
 
@@ -123,7 +135,7 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
 public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
 {
     /// <summary>Whether it still needs its tick (fault-read W11): in the air, or a raiders' aircraft unloading on the ground.</summary>
-    public bool WantsTicks => Vehicle.Spawned && (Airborne || raider != null);
+    public bool WantsTicks => Vehicle.Spawned && (Airborne || raider != null || RotorsWantTicks);
 
     const float TicksPerSecond = 60f;
     const int JudgeEveryTicks = 60;
@@ -245,8 +257,9 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         base.PostSpawnSetup(respawningAfterLoad);
         if (!Airborne)
         {
-            // A raiders' aircraft loaded on the ground, its raiders stepping out: it goes on thinking (Framework 0.157.0).
-            if (raider != null) StartTicking();
+            // A raiders' aircraft loaded on the ground, its raiders stepping out: it goes on thinking (Framework 0.157.0); and one with its
+            // engines running turns its rotors (Framework 0.173.0).
+            if (raider != null || RotorsWantTicks) StartTicking();
             return;
         }
         // An aircraft spawned in the air: after a load (Transform's turn is not saved) or on the map it was on. Never from anywhere else.
@@ -254,6 +267,17 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         ApplyTurn();
         StartTicking();
     }
+
+    public override void EventRegistration()
+    {
+        base.EventRegistration();
+        // Framework 0.173.0: the engines started on the ground spin the rotors up. Once only, as Vehicle Framework may ask again.
+        if (eventsRegistered) return;
+        eventsRegistered = true;
+        Vehicle.AddEvent(VehicleEventDefOf.IgnitionOn, OnIgnitionOn);
+    }
+
+    bool eventsRegistered;
 
     public override void OnDeSpawn()
     {
@@ -799,7 +823,14 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             // Framework 0.157.0: a raiders' aircraft keeps thinking on the ground while its raiders step out.
             if (v.Spawned && raider != null)
             {
+                RotorStep();
                 if ((now + v.thingIDNumber) % RaiderThinkTicks == 0) RaiderThink();
+                return;
+            }
+            // Framework 0.173.0: on the ground, the rotors turn while the engines run and run down after.
+            if (v.Spawned && RotorsWantTicks)
+            {
+                RotorStep();
                 return;
             }
             StopTicking();
@@ -807,6 +838,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             return;
         }
         float dt = 1f / TicksPerSecond;
+        RotorStep();
         if (v.vehiclePather.Moving) v.vehiclePather.StopDead();
         if ((now + v.thingIDNumber) % IdleResetTicks == 0) v.ResetIdleTicks();
         if (state != FlightState.ComingDown && Engines(v)) Judge(v, now);
@@ -883,6 +915,11 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             // Stopping the engines in the air cannot be refused through Vehicle Framework: they are started again at once. If the game
             // refuses that too, it comes down (fault-read F5: before, the refusal repeated every tick).
             v.ignition.Drafted = true;
+            // Framework 0.173.0: said in the verbose log each time, with what our flight believes, so an aircraft that looks landed but is
+            // still flying by our state (its engines then cannot be stopped) can be told from a report.
+            if (VehicleSystemsMod.Logger.DebugEnabled)
+                VehicleSystemsMod.Logger.Debug(v.LabelShort + " (" + v.ThingID + ") engines stopped in the air and started again: state " + state + ", climb "
+                    + climb.ToString("0.00") + ", at " + v.Position);
             if (!v.Drafted)
             {
                 string why = "PhobosFlight_WhyEngines".Translate().Resolve();
@@ -1150,6 +1187,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             CompPhobosVehicleSystems.Of(v)?.WearLanding(hard ? (float)FlightPathRule.ForcedLandingShare(m) : LandingCheck.RunOnWearShare);
         }
         Seen.Note("aircraft.flight-landed", v, variant: hard ? "rolled-short" : "rolled");
+        EnginesOffAfterLanding(v);
         if (v.Faction != Faction.OfPlayer) return;
         string text = hard
             ? "PhobosFlight_MsgRolledShort".Translate(v.LabelShort.Named("VEHICLE"), (why ?? "").Named("WHY")).Resolve()
@@ -1182,6 +1220,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         PutDown(landCell, landRot);
         LandingSurface.OnTouchDown(v, rolling: false);    // Framework 0.158.0
         Seen.Note("aircraft.flight-landed", v, variant: "landed");
+        EnginesOffAfterLanding(v);
     }
 
     /// <summary>It cannot stay up: it comes down where it is, carrying on a little way if it was moving.</summary>
@@ -1246,6 +1285,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             state = FlightState.Ground;
             FlightRegistry.Remove(this);
             StopTicking();
+            UnloadBeforeWreck(v, cell);
             // Fault-read W9 (Framework 0.167.0): through Vehicle Framework's own destruction, its wreck left as the design says; a raiders'
             // aircraft leaves none, so it is never a prize.
             v.Kill(null, DestroyMode.KillFinalize, spawnWreckage: prize);
@@ -1264,7 +1304,33 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         }
         Seen.Note("aircraft.flight-forced", v, variant: "hard-landing");
         if (v.Faction == Faction.OfPlayer) Messages.Message("PhobosFlight_MsgHardLanding".Translate(who).Resolve(), v, MessageTypeDefOf.NegativeEvent);
+        EnginesOffAfterLanding(v);
     }
+
+    /// <summary>
+    /// Sets the cargo down on standable ground beside a wreck before Vehicle Framework destroys the aircraft (Framework 0.173.0; the owner's log
+    /// of 19 Nov 2026). Its destruction drops the cargo where the aircraft stands, which for a wreck is over a building or impassable ground: a
+    /// chunk set down there was gone at once, the game's own drop then threw, and the aircraft's tick failed. Here the game's own placement
+    /// finds the cells, from a standable one nearby, and nothing is done to a thing after it is placed. People aboard are left to Vehicle
+    /// Framework, as before.
+    /// </summary>
+    static void UnloadBeforeWreck(VehiclePawn v, IntVec3 cell)
+    {
+        Map? map = v.Map;
+        ThingOwner? cargo = v.inventory?.innerContainer;
+        if (map == null || cargo == null || cargo.Count == 0) return;
+        // Never under the aircraft: its wreck takes those cells.
+        CellRect footprint = v.OccupiedRect();
+        Predicate<IntVec3> clear = c => !footprint.Contains(c);
+        IntVec3 root = CellFinder.StandableCellNear(cell, map, CargoDropRadius, clear);
+        if (!root.IsValid) return;
+        int before = cargo.Count;
+        cargo.TryDropAll(root, map, ThingPlaceMode.Near, nearPlaceValidator: clear);
+        if (Seen.Wants("aircraft.wreck-cargo-dropped", v)) Seen.Note("aircraft.wreck-cargo-dropped", v, (before - cargo.Count) + " of " + before + " stacks");
+    }
+
+    /// <summary>How far from a wreck its cargo may be set down, cells (authored: a few aircraft lengths).</summary>
+    const float CargoDropRadius = 12f;
 
     static void CrushPlants(VehiclePawn v)
     {
@@ -1288,6 +1354,28 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             if (pawn.Dead || pawn.health == null) continue;
             pawn.TakeDamage(new DamageInfo(DamageDefOf.Blunt, harm));
         }
+    }
+
+    /// <summary>
+    /// A landing's last step, as Vehicle Framework's own landings end (Framework 0.173.0; the owner's report of 19 Nov 2026: the Cherokee
+    /// never shut its engines off after landing): the brakes on and the engines off, so it stands parked, burns nothing and its rotors run
+    /// down. Only the player's aircraft: a raiders' goes on thinking with its engines running. Start the engines again to take off.
+    /// </summary>
+    void EnginesOffAfterLanding(VehiclePawn v)
+    {
+        if (raider != null || v.Faction != Faction.OfPlayer || !v.Spawned) return;
+        if (v.vehiclePather.Moving) v.vehiclePather.StopDead();
+        if (!v.Drafted) return;
+        v.ignition.Drafted = false;
+        if (v.Drafted)
+        {
+            // Something refused or turned them on again at once; said in the verbose log, so a repeat names it.
+            if (VehicleSystemsMod.Logger.DebugEnabled)
+                VehicleSystemsMod.Logger.Debug(v.LabelShort + " (" + v.ThingID + ") landed but its engines stayed on: state " + state + ", pather moving "
+                    + v.vehiclePather.Moving + ", lord " + (v.GetLord()?.LordJob?.GetType().Name ?? "none") + ", job " + (v.CurJobDef?.defName ?? "none"));
+            return;
+        }
+        Seen.Note("aircraft.engines-off-after-landing", v);
     }
 
     /// <summary>On the ground at this cell and heading: back to Vehicle Framework's own driving and drawing.</summary>
@@ -1316,8 +1404,8 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         v.vehiclePather.ResetToCurrentPosition();
         v.DrawTracker.tweener.ResetTweenedPosToRoot();
         FlightRegistry.Remove(this);
-        // A raiders' aircraft goes on thinking on the ground (Framework 0.157.0).
-        if (raider == null) StopTicking();
+        // A raiders' aircraft goes on thinking on the ground (Framework 0.157.0); rotors still turning run down first (Framework 0.173.0).
+        if (raider == null && !RotorsWantTicks) StopTicking();
         // Framework 0.161.0: down with a load still on the hook (its release off when it came down): set down beside it.
         v.GetComp<CompPhobosSling>()?.OnFlightLanded();
     }
