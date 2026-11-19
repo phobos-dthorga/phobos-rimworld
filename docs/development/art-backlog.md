@@ -6,8 +6,11 @@ the service lead, sonar ping and hitch came from the paid API (about US$0.33) af
 store's frost is drawn in code (Medical 0.15.0); vehicle bodies and parts come from the paid API. Not done: style model v3 (its training was
 cut off by the stop time on 8 Nov, with no model saved), the radio whip (held), Billy's canvas wall atlas and door, and the loading chute.
 
-**Night 8 is running (20 Nov 2026, started 06:40, stop time 12:00; the owner's go: "queue any GPU-related work as I'm about to go to
-bed")**: `.local/art/night-8.json`, 61 images. In order: the rest of night 7's stretch icons (13 images: cab insulation's second seed, the
+**Night 8 ran on 20 Nov 2026 (06:33 to 09:14, stop time 12:00; the owner's go: "queue any GPU-related work as I'm about to go to
+bed")**: `.local/art/night-8.json`, all 61 images made, about 2.6 minutes each; graphics memory freed after. One near-copy flag
+(fuel heater 11 against a bed, a plain white picture, likely false). **Picks pending**: the picking page is
+`.local/art/night-8-review/index.html`, with the agent's leans; the agent suggests rewording the heavy-duty brakes (both read as a
+turbocharger) and the clutch kit (a blank disc and an odd ring). In order: the rest of night 7's stretch icons (13 images: cab insulation's second seed, the
 fuel heater, heavy-duty air filter, the three boost tunes and the clutch kit; the game opening ended that run), the queued **Deliver** and
 **Drive back** icons, then two new requests, each subject in **two wordings by two seeds** (seeds 11 and 12):
 `assets/vehicle-systems/requests/bulk-and-salvage-icons.json` (the **Pour** button, which borrows the game's eject picture as Deliver
