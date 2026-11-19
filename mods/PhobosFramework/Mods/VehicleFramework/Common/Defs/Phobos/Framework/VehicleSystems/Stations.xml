@@ -279,6 +279,7 @@
             <li>PhobosVehicles_ReductionGearbox</li>
             <li>PhobosVehicles_FlightComputer</li>
             <li>PhobosVehicles_HydraulicActuator</li>
+            <li>PhobosVehicles_ElectricMotor</li>
             <li>PhobosVehicles_HotSectionKit</li>
             <li>PhobosVehicles_TyreSet</li>
             <li>PhobosVehicles_BrakePadSet</li>

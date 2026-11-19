@@ -21,5 +21,20 @@
       <!-- Its hose reel and its manifold's couplings. -->
       <Hose>2</Hose>
     </parts>
+    <!-- Upgrade nodes that fit a real part (D'thorga Vehicles 0.88.0): the node's own ingredients in its tree are what is left beside the part. -->
+    <nodes>
+      <li>
+        <key>HoseReel</key>
+        <parts>
+          <Hose>1</Hose>
+        </parts>
+      </li>
+      <li>
+        <key>ElectricPump</key>
+        <parts>
+          <ElectricMotor>1</ElectricMotor>
+        </parts>
+      </li>
+    </nodes>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

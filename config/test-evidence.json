@@ -263,6 +263,10 @@
         {"key": "vehicles.deliver.end", "variant": "NoBay", "expect": {"things": ">= 1"}}],
       "it drives back": [{"key": "vehicles.deliver.home"}]
     }},
+    "253": {"parts": {
+      "a destroyed servos part or tipping rams take a hydraulic actuator": [{"key": "vehicles.part-replaced", "variant": "PhobosVehicles_HydraulicActuator"}],
+      "a destroyed traction motor or main generator takes an electric motor": [{"key": "vehicles.part-replaced", "variant": "PhobosVehicles_ElectricMotor"}]
+    }},
     "252": {"parts": {
       "a destroyed rotor gearbox takes a reduction gearbox": [{"key": "vehicles.part-replaced", "variant": "PhobosVehicles_ReductionGearbox"}],
       "a destroyed channel or avionics bay takes a flight computer": [{"key": "vehicles.part-replaced", "variant": "PhobosVehicles_FlightComputer"}],

@@ -171,6 +171,18 @@
     <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
     <partRoles>
       <li>
+        <!-- D'thorga Vehicles 0.88.0 (owner, 20 Nov 2026): the servos are actuators, so a destroyed one is replaced with a hydraulic actuator; listed first, so a repair reads it, while the hydraulic roles below still drive the systems. -->
+        <role>Actuator</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
         <!-- Framework 0.110.0, avionics A7: the flight controls' hydraulic boost, on the aircraft's own servos. -->
         <role>HydraulicPump</role>
         <all>true</all>
@@ -236,6 +248,15 @@
     </systems>
     <partRoles>
       <li>
+        <!-- D'thorga Vehicles 0.88.0 (owner, 20 Nov 2026): the servos are actuators, so a destroyed one is replaced with a hydraulic actuator; listed first, so a repair reads it, while the hydraulic roles below still drive the systems. -->
+        <role>Actuator</role>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
+      <li>
         <!-- Avionics A7: the flight controls' hydraulic boost, on the aircraft's own servos. -->
         <role>HydraulicPump</role>
         <find>
@@ -280,6 +301,15 @@
       </airTrack>
     </avionics>
     <partRoles>
+      <li>
+        <!-- D'thorga Vehicles 0.88.0 (owner, 20 Nov 2026): the servos are actuators, so a destroyed one is replaced with a hydraulic actuator; listed first, so a repair reads it, while the hydraulic roles below still drive the systems. -->
+        <role>Actuator</role>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
       <li>
         <!-- Avionics A7: the flight controls' hydraulic boost, on the aircraft's own servos. -->
         <role>HydraulicPump</role>

@@ -89,7 +89,7 @@ existing colony that had already researched what one of our projects replaced ge
 
 | Project | After | Opens |
 | --- | --- | --- |
-| Vehicle parts | Machining | The vehicle parts bench, its engine assembly, transmission, drivetrain and electrical kits, hydraulic actuator (and, after Fabrication, the flight computer), and the inspection pit |
+| Vehicle parts | Machining | The vehicle parts bench, its engine assembly, transmission, drivetrain and electrical kits, hydraulic actuator, electric motor (and, after Fabrication, the flight computer), and the inspection pit |
 | Vehicle electrics | Electricity | The generator truck's research |
 | Vehicle tuning | Vehicle parts | The dyno bay, for tunes and grades |
 | Heavy-duty parts | Vehicle parts | Heavy-duty grades of parts |

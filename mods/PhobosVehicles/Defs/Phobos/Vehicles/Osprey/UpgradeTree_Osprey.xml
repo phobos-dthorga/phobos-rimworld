@@ -131,10 +131,11 @@
           </vehicleStats>
         </li>
       </upgrades>
+      <!-- D'thorga Vehicles 0.88.0: its flight computer comes from its parts bill (Bill_Osprey.xml): the emitter is what is left. -->
       <ingredients>
-        <Steel>30</Steel>
-        <ComponentIndustrial>6</ComponentIndustrial>
-        <ComponentSpacer>2</ComponentSpacer>
+        <Steel>20</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+        <ComponentSpacer>1</ComponentSpacer>
       </ingredients>
       <graphicOverlays>
         <li>
@@ -173,10 +174,11 @@
           </vehicleStats>
         </li>
       </upgrades>
+      <!-- D'thorga Vehicles 0.88.0: its flight computer comes from its parts bill (Bill_Osprey.xml): the radar head is what is left. -->
       <ingredients>
-        <Steel>25</Steel>
-        <ComponentIndustrial>6</ComponentIndustrial>
-        <ComponentSpacer>2</ComponentSpacer>
+        <Steel>15</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+        <ComponentSpacer>1</ComponentSpacer>
       </ingredients>
       <graphicOverlays>
         <li>

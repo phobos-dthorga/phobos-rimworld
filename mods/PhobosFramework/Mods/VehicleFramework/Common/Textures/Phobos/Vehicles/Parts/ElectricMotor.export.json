@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricMotor.png",
+  "source": "assets/phobos-vehicles/generated/part-electric-motor/part-electric-motor-2.png",
+  "source_sha256": "06b6aff73a265973232241cdcfa3636ce305b6ed3caf9c450a9399078bf83431",
+  "target_sha256": "3684f0850797d156678f60faba3964e09d65205cab30e6ae1c446e62e0014f11",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "06b6aff73a265973232241cdcfa3636ce305b6ed3caf9c450a9399078bf83431",
+  "date": "2026-11-20T01:03:23",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

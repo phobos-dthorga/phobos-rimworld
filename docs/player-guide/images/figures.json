@@ -154,6 +154,7 @@
         {"label": "Reduction gearbox", "icon": "parts:ReductionGearbox.png"},
         {"label": "Flight computer", "icon": "parts:FlightComputer.png"},
         {"label": "Hydraulic actuator", "icon": "parts:HydraulicActuator.png"},
+        {"label": "Electric motor", "icon": "parts:ElectricMotor.png"},
         {"label": "Drivetrain kit", "icon": "parts:DrivetrainKit.png"},
         {"label": "Electrical kit", "icon": "parts:ElectricalKit.png"},
         {"label": "Tyre set", "icon": "parts:TyreSet.png"},

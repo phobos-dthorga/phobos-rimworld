@@ -147,9 +147,9 @@
           </vehicleStats>
         </li>
       </upgrades>
+      <!-- D'thorga Vehicles 0.88.0: its electric motor and hydraulic pump come from its parts bill (Bill_DrillRig.xml): the frame and tank are what is left. -->
       <ingredients>
-        <Steel>80</Steel>
-        <ComponentIndustrial>6</ComponentIndustrial>
+        <Steel>45</Steel>
       </ingredients>
       <graphicOverlays>
         <li>

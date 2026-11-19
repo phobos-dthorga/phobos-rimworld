@@ -158,6 +158,8 @@
     <label>rescue hoist</label>
     <description>An electric hoist over the ramp with a long steel cable and a stretcher. From a steady hover the aircraft comes down low and lowers the hook: it lifts one person aboard at a time, a downed one in the stretcher, onto a litter if one is fitted and free, or lowers someone from aboard. It lifts a person and everything they carry up to its rated load, draws heavily on the battery while it runs, and needs someone aboard to work it.</description>
     <roles><li>HoistMount</li></roles>
+    <!-- Framework 0.179.0: left as materials, though a hoist has an electric motor: its research (vehicle electrics) can come before the
+         vehicle parts research that makes one. -->
     <materials><Steel>70</Steel><ComponentIndustrial>6</ComponentIndustrial></materials>
     <kilograms>90</kilograms>
     <work>10000</work>
@@ -312,7 +314,8 @@
     <label>recovery winch</label>
     <description>A winch in the front bumper with a steel rope, recovery straps and a rigid tow bar. With someone aboard to work it, it drags a stuck, broken or empty vehicle towards this one, as far as this vehicle can hold it on its brakes; the tow bar then lets this vehicle tow an ordinary vehicle home, not only a trailer.</description>
     <roles><li>RecoveryMount</li></roles>
-    <materials><Steel>90</Steel><ComponentIndustrial>5</ComponentIndustrial></materials>
+    <!-- Framework 0.179.0: an electric winch, built round an electric motor; the drum, cable and frame are what is left (was 90 steel, 5 components). -->
+    <materials><PhobosVehicles_ElectricMotor>1</PhobosVehicles_ElectricMotor><Steel>65</Steel><ComponentIndustrial>1</ComponentIndustrial></materials>
     <work>7000</work>
     <minSkill>5</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>

@@ -93,6 +93,10 @@
     <!-- For a build, ours is the drivetrain kit for the whole vehicle (Framework 0.95.0); a repair still charges the materials below. -->
     <item>PhobosVehicles_DrivetrainKit</item>
     <coversWholeBuild>true</coversWholeBuild>
+    <!-- Framework 0.179.0 (owner, 20 Nov 2026): the heaviest take two kits, as they take more engines; today only the four-axle drill rig. -->
+    <itemCountBySize>
+      <li><minKilograms>15000</minKilograms><count>2</count></li>
+    </itemCountBySize>
     <materials>
       <Steel>10</Steel>
       <ComponentIndustrial>1</ComponentIndustrial>
@@ -263,17 +267,44 @@
     <work>1500</work>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
-  <!-- Framework 0.178.0: a hydraulic ram (a tipper's body, a drill rig's mast, a survey truck's boom, a tiltrotor's nacelle tilt and ramp). -->
+  <!-- Framework 0.178.0: a hydraulic ram (a tipper's body, a drill rig's mast, a survey truck's boom, a tiltrotor's nacelle tilt and ramp).
+       Framework 0.179.0 (owner, 20 Nov 2026): also other mods' aircraft's servos and our tipper's rams, as parts a repair reads; and, as with
+       a drive belt, a colony that still accepts raw materials pays what an actuator is made of in place of the actuator. -->
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_Actuator</defName>
     <label>hydraulic actuator</label>
-    <description>A hydraulic ram that lifts or tilts a heavy part of the machine.</description>
+    <description>A hydraulic ram that lifts, tilts or steers a heavy part of the machine.</description>
     <roles>
       <li>Actuator</li>
     </roles>
     <wholePart>true</wholePart>
     <item>PhobosVehicles_HydraulicActuator</item>
+    <kit>true</kit>
     <work>1200</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <!-- Framework 0.179.0 (owner, 20 Nov 2026: make it): an electric machine, replaced whole: a traction motor, a generator set's main
+       generator, or an electric motor an upgrade or fitting is built round. Before the electric drive below, so it fills the traction
+       motor; a heavier vehicle's motor is two of ours, as its engine is more of ours. -->
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_ElectricMotor</defName>
+    <label>electric motor</label>
+    <roleNotes>
+      <li><role>TractionMotor</role><text>The electric motors that turn its wheels.</text></li>
+      <li><role>Generator</role><text>The generator the engine turns to make its power.</text></li>
+      <li><role>ElectricMotor</role><text>The electric motor that drives it.</text></li>
+    </roleNotes>
+    <roles>
+      <li>TractionMotor</li>
+      <li>Generator</li>
+      <li>ElectricMotor</li>
+    </roles>
+    <wholePart>true</wholePart>
+    <item>PhobosVehicles_ElectricMotor</item>
+    <itemCountBySize>
+      <li><minKilograms>15000</minKilograms><count>2</count></li>
+    </itemCountBySize>
+    <work>2000</work>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
   <!-- Framework 0.178.0: an aircraft's undercarriage leg, its shock strut and wheel, where it had been costed as a truck's running gear. Chemfuel
@@ -295,11 +326,11 @@
 
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_ElectricDrive</defName>
-    <label>electric drive</label>
-    <description>The battery it drives on, and the motors that turn its wheels.</description>
+    <label>traction battery</label>
+    <!-- Framework 0.179.0: its traction motor is now the electric motor's, above; the battery stays materials (it was "electric drive"). -->
+    <description>The battery it drives on.</description>
     <roles>
       <li>TractionBattery</li>
-      <li>TractionMotor</li>
     </roles>
     <materials>
       <Steel>40</Steel>
@@ -349,6 +380,10 @@
     </roles>
     <item>PhobosVehicles_DrivetrainKit</item>
     <coversWholeBuild>true</coversWholeBuild>
+    <!-- As the running gear's (Framework 0.179.0): whichever role asks first, the kit count is the same. -->
+    <itemCountBySize>
+      <li><minKilograms>15000</minKilograms><count>2</count></li>
+    </itemCountBySize>
     <substitutes>
       <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarSuspension</thing><maxKilograms>15000</maxKilograms></li>
     </substitutes>
@@ -365,6 +400,20 @@
     <substitutes>
       <li MayRequire="oskarpotocki.vanillavehiclesexpanded"><thing>VVE_CarWiring</thing></li>
     </substitutes>
+  </Phobos.Framework.Bills.PhobosRoleSupplyDef>
+
+  <!-- Framework 0.179.0 (the second pass): a towed thing's lighting, its lamps' loom and plug, in place of the electrical kit (alternator,
+       batteries, wiring and radiator) a trailer had been charged for lights it powers from the truck. Figures authored. -->
+  <Phobos.Framework.Bills.PhobosRoleSupplyDef>
+    <defName>PhobosPartSupply_Lighting</defName>
+    <label>lighting harness</label>
+    <roles>
+      <li>Lighting</li>
+    </roles>
+    <materials>
+      <Steel>5</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </materials>
   </Phobos.Framework.Bills.PhobosRoleSupplyDef>
 
   <Phobos.Framework.Bills.PhobosRoleSupplyDef>

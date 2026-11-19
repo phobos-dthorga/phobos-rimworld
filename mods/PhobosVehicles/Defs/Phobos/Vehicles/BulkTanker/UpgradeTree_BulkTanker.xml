@@ -195,8 +195,9 @@
           </vehicleStats>
         </li>
       </upgrades>
+      <!-- D'thorga Vehicles 0.88.0: its hose comes from its parts bill (Bill_BulkTanker.xml): the reel is what is left. -->
       <ingredients>
-        <Steel>30</Steel>
+        <Steel>25</Steel>
         <ComponentIndustrial>1</ComponentIndustrial>
       </ingredients>
       <graphicOverlays>
@@ -232,9 +233,9 @@
           </vehicleStats>
         </li>
       </upgrades>
+      <!-- D'thorga Vehicles 0.88.0: its electric motor comes from its parts bill (Bill_BulkTanker.xml): the pump body is what is left. -->
       <ingredients>
-        <Steel>20</Steel>
-        <ComponentIndustrial>2</ComponentIndustrial>
+        <Steel>15</Steel>
       </ingredients>
     </li>
     <li>

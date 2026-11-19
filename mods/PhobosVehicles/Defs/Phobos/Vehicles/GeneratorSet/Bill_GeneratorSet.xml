@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- What it is made of, by role (docs/development/parts-bills.md; D'thorga Vehicles 0.41.0). A diesel-electric truck of 6 tonnes on two axles: no gearbox; its traction motors are one electric drive, and its generator is in the shell.
+  <!-- What it is made of, by role (docs/development/parts-bills.md; D'thorga Vehicles 0.41.0). A diesel-electric truck of 6 tonnes on two axles: no gearbox.
+       D'thorga Vehicles 0.88.0 (owner, 20 Nov 2026: the electric motor): two traction motors on its driven axle, and the main generator, a
+       bigger machine of the same kind, as two motors' worth; they had been one lot of materials and part of the shell.
        Its blueprint's cost list is its shell; each role is filled at start-up by an installed mod's part where it suits the
        vehicle's weight, and by ours otherwise. Counts authored, held for the owner's review. -->
   <Phobos.VehicleSystems.PhobosVehicleBillDef>
@@ -12,7 +14,8 @@
       <FuelTank>1</FuelTank>
       <Wheels>4</Wheels>
       <Suspension>2</Suspension>
-      <TractionMotor>1</TractionMotor>
+      <TractionMotor>2</TractionMotor>
+      <Generator>2</Generator>
       <Battery>1</Battery>
       <Wiring>1</Wiring>
       <Radiator>1</Radiator>

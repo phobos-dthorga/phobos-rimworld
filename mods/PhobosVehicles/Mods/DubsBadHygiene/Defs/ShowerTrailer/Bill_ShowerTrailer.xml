@@ -11,8 +11,18 @@
       <Wheels>4</Wheels>
       <Suspension>2</Suspension>
       <Frame>1</Frame>
-      <Wiring>1</Wiring>
+      <!-- D'thorga Vehicles 0.88.0: the lighting harness for the lights it runs from the truck, where it had been charged a whole electrical kit. -->
+      <Lighting>1</Lighting>
       <Hose>1</Hose>
     </parts>
+    <!-- D'thorga Vehicles 0.88.0: the second hose is a hose set; its node's own ingredients are the coupling and nozzle beside it. -->
+    <nodes>
+      <li>
+        <key>PhobosBowserSecondHose</key>
+        <parts>
+          <Hose>1</Hose>
+        </parts>
+      </li>
+    </nodes>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

@@ -32,5 +32,21 @@
       <HydraulicPump>1</HydraulicPump>
       <HydraulicLines>1</HydraulicLines>
     </parts>
+    <!-- Upgrade nodes that fit a real part (D'thorga Vehicles 0.88.0; agent's choice, for the owner's review): the terrain-following radar and
+         the infrared jammer are each run by a flight computer; their nodes' own ingredients are the radar head and the emitter beside it. -->
+    <nodes>
+      <li>
+        <key>TerrainRadar</key>
+        <parts>
+          <Avionics>1</Avionics>
+        </parts>
+      </li>
+      <li>
+        <key>InfraredJammer</key>
+        <parts>
+          <Avionics>1</Avionics>
+        </parts>
+      </li>
+    </nodes>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

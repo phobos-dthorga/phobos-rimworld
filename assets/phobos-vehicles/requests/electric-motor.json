@@ -1,0 +1,22 @@
+[
+  {
+    "name": "part-electric-motor",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/EngineAssembly.png",
+        "role": "our approved vehicle part icon from the same family (an engine assembly): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_ElectricMotor (Parts.xml): a heavy electric machine; a generator set's traction motors and main generator, a locomotive's traction motor, an electric pump or power pack, a winch or hoist",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "parts reassessment (docs/development/parts-bills.md, the electric motor and the second pass), two attempts on the owner's go of 20 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga electric motor: a heavy industrial electric motor for vehicles and machinery. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the motor, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA thick cylindrical motor lying on its side: a slate blue-grey painted body ringed with many shallow cooling ribs along its length, a short shiny steel output shaft with a keyway sticking out of one end, a vented end cap with a fan grille at the other, a square terminal box on top with a thick black cable gland, and two flat mounting feet underneath.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, wires trailing off, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  }
+]

@@ -67,6 +67,16 @@
     </sling>
     <partRoles>
       <li>
+        <!-- D'thorga Vehicles 0.88.0 (owner, 20 Nov 2026): the servos are actuators, so a destroyed one is replaced with a hydraulic actuator; listed first, so a repair reads it, while the hydraulic roles below still drive the systems. -->
+        <role>Actuator</role>
+        <all>true</all>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
+      <li>
         <!-- The flight controls' hydraulic boost, on the Servos part (Flight Controls), as on the Cherokee. -->
         <role>HydraulicPump</role>
         <all>true</all>
@@ -183,6 +193,16 @@
       <ratedKilograms>5000</ratedKilograms>
     </sling>
     <partRoles>
+      <li>
+        <!-- D'thorga Vehicles 0.88.0 (owner, 20 Nov 2026): the servos are actuators, so a destroyed one is replaced with a hydraulic actuator; listed first, so a repair reads it, while the hydraulic roles below still drive the systems. -->
+        <role>Actuator</role>
+        <all>true</all>
+        <find>
+          <li>
+            <key>Servos</key>
+          </li>
+        </find>
+      </li>
       <li>
         <role>HydraulicPump</role>
         <all>true</all>

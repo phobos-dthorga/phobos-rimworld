@@ -256,7 +256,7 @@ The owner chose an intermediate over a bigger pile of raw materials.
 | DriveShaft (new) | 30 steel, 4 components (the old rotor drive figure) | None | The Osprey's interconnect shaft |
 | FlightControl (new) | A flight computer, whole | None | The Osprey's three channels |
 | Avionics | A flight computer, whole (had no supply: the hull's figure, by health) | None | **Every aircraft's avionics bay**, ours appended where an aircraft has none |
-| Actuator (new) | A hydraulic actuator, whole | None | None yet: a build's role |
+| Actuator (new) | A hydraulic actuator, whole | None | Since Framework 0.179.0 ("The second pass"): the tipper's rams and other mods' aircraft's servos |
 | LandingGear | 30 steel, 2 components, 10 chemfuel a leg (had no supply) | None | The Osprey's three legs |
 | RotorBlades (new, a build's role only) | 40 plasteel a rotor | Rimefeller: 45 composite | None |
 
@@ -300,6 +300,98 @@ The owner chose to let it rise rather than thin the shell (19 Nov 2026).
 | The hot-section kit | Owner, 19 Nov 2026 (the agent's recommendation) |
 | Let the Osprey rise to about 14,400 | Owner, 19 Nov 2026 (the agent's recommendation) |
 | Which parts, their recipes, worth and research; the roles; the shaft's role; the grab's actuator | Agent |
+
+## The second pass (20 Nov 2026)
+
+**Status (20 Nov 2026):** built in D'thorga Framework 0.179.0 and D'thorga Vehicles 0.88.0; not yet tested in game.
+
+**Why.** The owner, after the Osprey: "reassess our other vehicles and the like now ... including ones where we've already modified
+the parts". The read, vehicle by vehicle, against what each real machine is made of:
+
+- **The tipper's rams were built from actuators but repaired as a small pump.** No part on any vehicle played the Actuator role, so the
+  0.178.0 bills built rams that a repair never asked for. Only the tipper's rams are their own part; the drill rig's mast rams, the
+  survey truck's boom ram and the Osprey's nacelle tilts and ramp sit inside bigger parts, so they stay a build's role.
+- **Other mods' aircraft's servos** (Vanilla Vehicles Expanded's aircraft, the Cherokee, RimArrow's helicopters) were repaired as a
+  small pump (12 steel, 2 components): they are actuators. The Hind and Mongoose have no servos part.
+- **Every trailer was charged a whole electrical kit** (alternator, batteries, wiring and radiator, 340) for the lights it runs from
+  the truck: the Osprey's fault again, a truck's part on something that is not a truck.
+- **The generator set's generator and traction motors were steel**: the main generator in the shell, the motors one lot of materials,
+  and the generator, the thing the vehicle exists for, repaired as plain hull.
+- **One drivetrain kit for any size**: a 2-tonne trailer and the 20-tonne, four-axle drill rig both took one, though the engine count
+  already rises with weight.
+- **Upgrades that are real parts were raw materials**: a second hose that held no hose, an electric pump and an electric power pack
+  with no motor, a terrain radar and an infrared jammer with no computer.
+- **The seabed crawler** costs about 2,250 to build against a worth of 6,500, with no propulsion motor, air plant or real pressure hull.
+  **Left alone**: the owner put submarine work on the back burner the same day.
+
+**What it lets the player do:** keep one stock of electric motors and actuators that serves trucks, trailers, upgrades, fittings and
+other mods' aircraft. **What it stops:** a trailer's lights costing an alternator and a radiator; a generator, a traction motor, a ram
+or a servo replaced with a handful of steel. **How it changes play:** electric motors join engines and actuators as the parts a motor
+pool keeps on the shelf.
+
+### The electric motor (authored, held for the owner's review)
+
+| Part | Recipe | Worth | Research | Takes it |
+| --- | --- | --- | --- | --- |
+| **Electric motor** | 25 steel, 4 components, 3,000 work, Crafting 6 | 210 | Vehicle parts | Traction motors (the generator set's, Trains of the Rim's locomotives'); the generator set's main generator; the tanker's electric pump; the drill rig's electric power pack; the recovery winch |
+
+Steel stands for its iron core and frame, components for its windings and controls: the game has no copper. A vehicle of 15 tonnes or
+more takes two of ours for one motor, as with engines. The rescue hoist keeps its materials: its research (vehicle electrics) can come
+before the vehicle parts research that makes a motor.
+
+### The roles
+
+| Role | Before | Now | Bound to a part, so repairs use it |
+| --- | --- | --- | --- |
+| TractionMotor | 40 steel, 8 components (the "electric drive", with the traction battery) | An electric motor, whole | The generator set's traction motors; Trains of the Rim's |
+| Generator (new) | None: the hull's figure | An electric motor, whole | The generator set's traction generator |
+| ElectricMotor (new, a build's role) | None | An electric motor | None |
+| TractionBattery | The electric drive | The same materials, now labelled "traction battery" | Other mods' electric vehicles |
+| Actuator | A hydraulic actuator | The same, or its 30 steel and 3 components while the colony accepts raw materials (the owner's choice) | The tipper's rams; other mods' aircraft's servos |
+| Lighting (new, a build's role) | None | 5 steel, 1 component | None |
+| Wheels and Suspension | One drivetrain kit | Two at 15 tonnes and up (the owner's choice) | Repairs unchanged |
+
+**The same trick as the Osprey's shaft:** a part's first role sets its replacement, so the Actuator binding is listed before the
+hydraulic roles on the tipper's rams and every servos part. The hydraulic roles stay, so a hit still bleeds hydraulic oil and the pump
+still drives them.
+
+### The changed bills and upgrades
+
+| Thing | Before | Now |
+| --- | --- | --- |
+| Five trailers (flatbed, fuel and water bowsers, shower trailer, field kitchen) | Wiring: an electrical kit | A lighting harness |
+| Generator set | Traction motor 1 (materials); shell 450 steel, 10 plasteel, 9 components | Traction motor 2, generator 2 (four electric motors); shell 350 steel, 10 plasteel, 2 components |
+| Drill rig | One drivetrain kit | Two |
+| Tanker's second hose reel | 30 steel, 1 component | A hose set, and 25 steel, 1 component |
+| Bowsers' and shower trailer's second hose | 20 steel, 1 component | A hose set, and 10 steel, 1 component |
+| Tanker's electric pump | 20 steel, 2 components | An electric motor, and 15 steel |
+| Drill rig's electric power pack | 80 steel, 6 components | An electric motor, a hydraulic pump's materials, and 45 steel |
+| Osprey's terrain-following radar | 25 steel, 6 components, 2 advanced components | A flight computer, and 15 steel, 2 components, 1 advanced component |
+| Osprey's infrared jammer | 30 steel, 6 components, 2 advanced components | A flight computer, and 20 steel, 2 components, 1 advanced component |
+| Recovery winch fitting | 90 steel, 5 components | An electric motor, 65 steel, 1 component |
+
+**What they come to** (worked out by hand from worth, not read in game; our own parts, no other mods): the flatbed about 1,180 (was
+1,470) against its worth of 1,200; the fuel bowser about 1,240 (was 1,540, worth 1,500); the water bowser and shower trailer the same
+(worth 1,400); the field kitchen about 1,410 (was 1,710, worth 1,400); the generator set about 3,480 (was 3,390, worth 2,900); the drill
+rig about 5,210 (was 4,730, worth 4,200). The trailers now sit at their worth.
+
+### Seen and left (for the owner's review)
+
+- **The survey truck's sensor head** stays in its shell (its uranium is the source). A sensor package could be a part of its own.
+- **The tanker's and bowsers' pumps** have no role, so a destroyed pump is repaired as hull by its health.
+- **The generator set and drill rig** now cost more to build than their worth says; the worth was not changed.
+- **The seabed crawler**, above: set aside with submarine work.
+
+### Who chose the second pass
+
+| Choice | Who |
+| --- | --- |
+| Reassess every vehicle, including those already changed | Owner, 20 Nov 2026 |
+| The electric motor, with a paid picture | Owner, 20 Nov 2026 (the agent's recommendation); the picture is the owner's pick |
+| Servos repaired with an actuator, or its materials in a raw-accepting colony | Owner, 20 Nov 2026 (the agent's recommendation, after the owner asked whether both have uses) |
+| Two drivetrain kits at 15 tonnes and up | Owner, 20 Nov 2026 (the agent's recommendation) |
+| The crawler left alone | Owner, 20 Nov 2026: submarines to the back burner |
+| The lighting harness; the generator's role and count; which nodes and fittings take parts; the hoist left as materials; the flight computer in the radar and jammer | Agent |
 
 ## Research
 

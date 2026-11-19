@@ -689,6 +689,14 @@
       <li><def>PhobosVehicleSystem_Hydraulics</def></li>
     </systems>
     <partRoles>
+      <!-- D'thorga Vehicles 0.88.0: the rams are hydraulic actuators, as its bill builds them, so a destroyed set is replaced with one.
+           Listed before the lines, so a repair reads it; the lines role below still lets a hit on a ram bleed the system. -->
+      <li>
+        <role>Actuator</role>
+        <find>
+          <li><keyContains>tippingrams</keyContains></li>
+        </find>
+      </li>
       <li>
         <role>HydraulicPump</role>
         <find>

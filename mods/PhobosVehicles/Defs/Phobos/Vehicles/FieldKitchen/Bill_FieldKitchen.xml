@@ -10,7 +10,8 @@
       <Wheels>4</Wheels>
       <Suspension>2</Suspension>
       <Frame>1</Frame>
-      <Wiring>1</Wiring>
+      <!-- D'thorga Vehicles 0.88.0: the lighting harness for the lights it runs from the truck, where it had been charged a whole electrical kit. -->
+      <Lighting>1</Lighting>
     </parts>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

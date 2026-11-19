@@ -42,8 +42,9 @@
           </vehicleStats>
         </li>
       </upgrades>
+      <!-- D'thorga Vehicles 0.88.0: its hose comes from its parts bill (Bill_ShowerTrailer.xml): the coupling and nozzle are what is left. -->
       <ingredients>
-        <Steel>20</Steel>
+        <Steel>10</Steel>
         <ComponentIndustrial>1</ComponentIndustrial>
       </ingredients>
     </li>

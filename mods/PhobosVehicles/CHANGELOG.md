@@ -5,6 +5,34 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.88.0] - 2026-11-20 - Draft
+
+Trailers wired for lights, a generator set built from electric motors, and upgrades built from real parts
+
+### Changed
+
+- **Trailers take a lighting harness for their lights** (5 steel and a component), in place of a whole electrical kit with an alternator, batteries and a radiator: the flatbed, both bowsers, the shower trailer and Billy the field kitchen. Each now costs about 300 less, near its worth.
+- **The generator set is built from four electric motors**: two traction motors and its main generator, which had been steel in its shell. A destroyed generator is now replaced with an electric motor, not patched as hull. Its own steel and components dropped by what the motors are made of.
+- **The drill rig takes two drivetrain kits**, for its four axles.
+- **The Talus's tipping rams are replaced with a hydraulic actuator** when destroyed, as its bill builds them (they cost 12 steel and 2 components, as a small pump).
+- **Upgrades that are real parts are built from them**: the tanker's second hose reel and the bowsers' and shower trailer's second hose take a hose set; the tanker's electric pump takes an electric motor; the drill rig's electric power pack an electric motor and a hydraulic pump; the Osprey's terrain-following radar and infrared jammer a flight computer each. Their own materials dropped to what is left beside the part.
+
+### Balance
+
+- Counts and what is left beside each part are authored, held for the owner's review (docs/development/parts-bills.md, the second pass). The generator set and drill rig now cost more to build than their worth; the worth is unchanged.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.179.0 or later for the electric motor and the new roles.
+
+### Save compatibility
+
+- Safe with a running save. **Finish or cancel any trailer, field kitchen, generator set or drill rig being built before installing**: a frame keeps what was delivered and then asks for the new list. Built vehicles and fitted upgrades keep what they are.
+
+### Compatibility and limits
+
+- **Not yet tested in game** (test row 253).
+
 ## [0.87.0] - 2026-11-19 - Draft
 
 The Osprey is built from aircraft parts, and the working trucks from their hydraulic rams

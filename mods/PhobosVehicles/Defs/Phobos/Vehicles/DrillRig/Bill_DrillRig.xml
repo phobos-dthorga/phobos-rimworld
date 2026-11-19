@@ -26,5 +26,16 @@
       <!-- D'thorga Vehicles 0.87.0 (owner, 19 Nov 2026): the two rams that raise its mast; the shell gave up what they are made of. -->
       <Actuator>2</Actuator>
     </parts>
+    <!-- Upgrade nodes that fit a real part (D'thorga Vehicles 0.88.0): the electric power pack is an electric motor driving a hydraulic pump;
+         its node's own ingredients in its tree are the frame and tank beside them. -->
+    <nodes>
+      <li>
+        <key>ElectricPowerPack</key>
+        <parts>
+          <ElectricMotor>1</ElectricMotor>
+          <HydraulicPump>1</HydraulicPump>
+        </parts>
+      </li>
+    </nodes>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

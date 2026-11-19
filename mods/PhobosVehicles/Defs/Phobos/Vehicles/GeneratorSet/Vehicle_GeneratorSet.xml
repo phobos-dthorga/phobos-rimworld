@@ -599,10 +599,11 @@
     </researchPrerequisites>
     <size>(3, 8)</size>
     <!-- The shell only: its parts are in Bill_GeneratorSet.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
+    <!-- D'thorga Vehicles 0.88.0: 100 steel and 7 components moved to its four electric motors (its generator and traction motors). -->
     <costList>
-      <Steel>450</Steel>
+      <Steel>350</Steel>
       <Plasteel>10</Plasteel>
-      <ComponentIndustrial>9</ComponentIndustrial>
+      <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
     <designationCategory>PhobosVehicles_MotorPool</designationCategory>
     <thingToSpawn>Phobos_GeneratorSet</thingToSpawn>
@@ -736,6 +737,16 @@
         <find>
           <li>
             <key>TractionMotors</key>
+          </li>
+        </find>
+      </li>
+      <!-- D'thorga Vehicles 0.88.0 (owner, 20 Nov 2026): the main generator is an electric machine turned by the engine, built from electric
+           motors in its bill, so a destroyed one is replaced with one. It had been costed as plain hull. -->
+      <li>
+        <role>Generator</role>
+        <find>
+          <li>
+            <key>TractionGenerator</key>
           </li>
         </find>
       </li>

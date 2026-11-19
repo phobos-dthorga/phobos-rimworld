@@ -405,4 +405,52 @@
       <Steel>15</Steel>
     </smeltProducts>
   </ThingDef>
+
+  <!-- Framework 0.179.0 (docs/development/parts-bills.md, "The second pass"; owner, 20 Nov 2026: make it): a heavy electric machine, a motor
+       or, turned by an engine, a generator. A generator set's traction motors and main generator, a locomotive's traction motor, an electric
+       pump or hydraulic power pack, a winch or a hoist. Steel stands for its iron core and frame, components for its windings and controls
+       (the game has no copper). Recipe, work, skill, mass and worth authored, worth near what it is made of. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_ElectricMotor</defName>
+    <label>electric motor</label>
+    <description>A heavy industrial electric motor with its terminal box and cooling fan. It drives a traction axle, a pump, a winch or a hoist; turned by an engine instead, the same machine is a generator.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/ElectricMotor</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>210</MarketValue>
+      <Mass>25</Mass>
+      <Flammability>0.3</Flammability>
+      <WorkToMake>3000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+    <costList>
+      <Steel>25</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>12</Steel>
+    </smeltProducts>
+  </ThingDef>
 </Defs>

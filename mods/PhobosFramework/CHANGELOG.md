@@ -5,6 +5,36 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.179.0] - 2026-11-20 - Draft
+
+The second parts pass: an electric motor, actuators for servos, and two drivetrain kits for the heaviest
+
+### Added
+
+- **An electric motor at the vehicle parts bench**, with its own picture (the owner's pick): 25 steel and 4 components, after vehicle parts. The depot bay stores it.
+- **New parts roles** for parts bills, any mod's to use: a generator and an electric motor (an electric motor, whole), and a lighting harness (5 steel and a component) for a towed thing's lights.
+
+### Changed
+
+- **A destroyed traction motor is replaced with an electric motor**, two on a vehicle of 15 tonnes or more (it cost 40 steel and 8 components). Trains of the Rim's locomotives included. An electric vehicle's traction battery still costs its materials.
+- **Other mods' aircraft's servos are replaced with a hydraulic actuator**: Vanilla Vehicles Expanded's aircraft, the Cherokee and RimArrow's helicopters (they cost 12 steel and 2 components, as a small pump). They still bleed hydraulic oil when hit.
+- **A colony that still accepts raw materials pays an actuator's own steel and components** for any destroyed ram or servos, in place of the actuator, as with drive belts.
+- **A built thing of 15 tonnes or more takes two drivetrain kits.**
+- **The recovery winch is built round an electric motor**: a motor, 65 steel and 1 component (it was 90 steel and 5 components).
+
+### Balance
+
+- The motor's recipe, work, skill and worth (210) are authored, near what it is made of, and held for the owner's review (docs/development/parts-bills.md, the second pass).
+
+### Save compatibility
+
+- Safe with a running save. **Finish or cancel any vehicle frame being built before installing**: a frame keeps what was delivered and then asks for the new list. A recovery winch already fitted stays fitted.
+
+### Compatibility and limits
+
+- Replacing another author's aircraft's destroyed servos, or a locomotive's traction motor, now asks for one of our parts: a hydraulic actuator, an electric motor.
+- **Not yet tested in game** (test row 253).
+
 ## [0.178.0] - 2026-11-19 - Draft
 
 Aircraft and turbine parts: five new parts at the vehicle parts bench, and a turbine worth what is in it
