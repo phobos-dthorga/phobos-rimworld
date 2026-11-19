@@ -209,8 +209,8 @@ running a script does not load them.
 - Commit and push directly to `main`; no pull requests unless the owner asks (external contributors use
   forks, see `CONTRIBUTING.md`). Never force-push or rewrite history. Edit in the base checkout, not
   `.claude/worktrees`, so the owner can follow the work.
-- Several agent sessions may share this tree. Claim a shared version number with the other sessions before
-  using it, commit explicit paths, and leave others' uncommitted work alone.
+- Several agent sessions may share this tree: commit explicit paths, and leave others' uncommitted work alone. (Taking a claim
+  before using a shared version number is a shared rule since the kit pin moved to v1.51.0.)
 - **Steam Workshop.** Publication tooling (page drafts, generated release notes, an owner-run uploader)
   is adopted from Phobos Ostranauts in the change that prepares the first mod for its public beta gate,
   not before. Agents prepare and test it but never run a real upload, handle credentials, subscribe,
