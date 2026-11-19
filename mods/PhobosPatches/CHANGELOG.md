@@ -6,6 +6,24 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.25.0] - 2026-11-19 - Draft
+
+A save made during a scorpion raid loads with the raid working
+
+### Fixed
+
+- **A save made during a Vanilla Factions Expanded - Classical scorpion raid loads with the raid still working.** The game could not rebuild that raid's orders from a save, so its raiders loaded with none: they could not act or leave, pathfinding on that map stopped for everyone, and the game reported thousands of errors a minute until the log stopped recording anything (the owner's game, 19 November 2026: 15,000 errors in two and a half minutes). The raid's orders are now rebuilt as the save loads, and the raid carries on from where it was. A save that already shows the fault loads cleanly with this version. Temporary: it does nothing once the game can load Classical's raid by itself.
+
+### Dependencies
+
+- This part needs D'thorga Framework 0.168.0 or later.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Safe with a running save; nothing is saved. A new part, loaded only while Vanilla Factions Expanded - Classical is active.
+- The game still reports one error for each such raid while loading, its own failed first try; a line from this mod after it says the raid was rebuilt.
+- A game saved again after it loaded with the fault, before this version, has lost that raid's orders for good and is not repaired: load the save made before that.
+
 ## [0.24.0] - 2026-11-19 - Draft
 
 A VTOL's turret saved mid-fight is drawn again after loading

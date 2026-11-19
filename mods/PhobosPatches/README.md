@@ -2,13 +2,14 @@
 
 Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It covers
 **Harrier VTOL Attack Aircraft** by potemkinvillager, **InterRim Ballistic Missile** by Psionic Zephyr, **RimPacts**, **Visit
-Settlements** by Nina.Goblin, **Vehicle Framework**, **Vanilla Expanded Framework**'s outposts, **Spaceship Turret Hull** by MK and
-**Combat Extended**, and RimThunder's heavy casting at The Dead Man's Switch's rotary forger.
+Settlements** by Nina.Goblin, **Vehicle Framework**, **Vanilla Expanded Framework**'s outposts, **Vanilla Factions Expanded -
+Classical**, **Spaceship Turret Hull** by MK and **Combat Extended**, and RimThunder's heavy casting at The Dead Man's Switch's rotary
+forger.
 
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.24.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.25.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -24,8 +25,8 @@ the [changelog](CHANGELOG.md).
   (its bomb changes also need Combat Extended, and the fabricator bills The Dead Man's Switch's fabricator); rearming with the Harrier,
   Hind or Mongoose; the forger bill with RimThunder and the forger from The Dead Man's Switch - Expedition; the turret hulls with
   Spaceship Turret Hull and Combat Extended together; the ammo guard with Combat Extended; the missile part with InterRim Ballistic
-  Missile; one part each for RimPacts, Visit Settlements and Vehicle Framework; the outposts part with Vanilla Expanded Framework and
-  Vehicle Framework together. A player running none of them sees nothing.
+  Missile; one part each for RimPacts, Visit Settlements, Vehicle Framework and Vanilla Factions Expanded - Classical (that one needs
+  D'thorga Framework 0.168.0 or later); the outposts part with Vanilla Expanded Framework and Vehicle Framework together. A player running none of them sees nothing.
 - **RimWorld 1.7 only.** It builds against Vehicle Framework's own 1.7 build (14 November 2026).
 - **Switching from D'thorga Vehicle Patches or D'thorga Missile Patches: switch both off and this one on, in the same change.** The
   About file lists them as incompatible, so RimSort warns you. Your save needs nothing; the missile settings carry over by themselves.
@@ -51,6 +52,8 @@ the [changelog](CHANGELOG.md).
 - **With RimPacts, a world war attack must win within 3 days of accepting it**, or control of about a dozen border towns passes to
   the enemy. That is RimPacts' rule; the quest shows the countdown. **Strike and attack early.**
 - **With Visit Settlements, pawns already lost to a closed map stay lost**: load a save from before.
+- **With Vanilla Factions Expanded - Classical, a save made during a scorpion raid now loads with the raid working** (temporary). **If
+  you saved again after such a save loaded broken, before 0.25.0, load the save made before that**: the raid's orders are gone from it.
 - **Keep Prison Labor up to date**: the guard for its first 1.7 build was removed in 0.19.2, as Prison Labor 1.7.1 fixed the crash.
 
 ## What it does
@@ -105,6 +108,11 @@ strike; a world war quest shows its deadline ([RimPacts](../../docs/player-guide
 
 A visited settlement's map stays open while your people can still act there or a battle is on, and its food drops no longer fail on
 every tick ([Visit Settlements](../../docs/player-guide/patches.md#visit-settlements)).
+
+### Vanilla Factions Expanded - Classical
+
+A save made during a scorpion raid loads with the raid still working (temporary)
+([Classical](../../docs/player-guide/patches.md#vanilla-factions-expanded---classical)).
 
 ### Vehicle Framework and outposts
 

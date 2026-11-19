@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.168.0] - 2026-11-19 - Draft
+
+A saved object whose class cannot be built empty can be loaded
+
+### Added
+
+- **For modders: a second try at loading a saved object whose class has no constructor without arguments** (DeepLoad.RetryWithEmptyArguments, with the game-free ConstructorDefaultsRule). The game cannot rebuild such an object from a save at all. Called where the game's own load has just left nothing, it builds the object through the constructor it does have, with empty values, and the object then reads its saved values as any other would. D'thorga Patches 0.25.0 uses it for a raid that could not be loaded. No change in play by itself.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Nothing changes without a mod that calls it. Safe with a running save.
+
 ## [0.167.0] - 2026-11-19 - Draft
 
 The research tab laid out so no line crosses a project

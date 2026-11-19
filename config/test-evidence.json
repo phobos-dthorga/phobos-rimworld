@@ -216,7 +216,8 @@
       "the inlet barrier keeps most of it out": [{"key": "aircraft.landing-dust", "variant": "barrier", "expect": {"wear": "> 0"}}],
       "dry growth catches fire": [{"key": "aircraft.landing-fire"}]
     }},
-    "227": ["patches.turret-picture-after-loading"]
+    "227": ["patches.turret-picture-after-loading"],
+    "228": ["patches.raid-orders-rebuilt-on-load"]
   },
   "order": [
     {"name": "a piston engine warns before its battery cannot start it", "row": "69",

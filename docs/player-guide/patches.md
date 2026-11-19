@@ -32,6 +32,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | **RimPacts** (temporary) | An ally's assault leaves vehicles with nobody aboard alone and goes for the defenders, instead of beating on an empty vehicle for hours | Claim the empty vehicles after the battle. Not yet tested in game |
 | IRBM with **RimPacts** | An ally's assault after your strike faces the garrison the town had before it. A world war attack shows its deadline | **Strike and attack early**: RimPacts gives a war attack 3 days |
 | **Visit Settlements** (Nina.Goblin) | A visited settlement's map stays open while any colonist of yours there is conscious, on foot or in a vehicle. Its food drops no longer fail every tick | Pawns already lost this way stay lost: load an earlier save |
+| **Vanilla Factions Expanded - Classical** (temporary) | A save made during a scorpion raid loads with the raid still working, instead of raiders who cannot act or leave and thousands of errors a minute | Nothing. **If you saved again after such a save loaded broken, load the save made before that.** Not yet tested in game |
 | **Vanilla Expanded Framework** outposts, with **Vehicle Framework** | A caravan with vehicles can't found an outpost through "create outpost", which could lose them | Leave the vehicles first and come on foot. The setting **Refuse to found an outpost from a caravan with vehicles** turns this off |
 | **Vehicle Framework** | Fires a vehicle could never put out are put out; a vehicle leaving a map takes no fire with it. Repairs and upgrades show the game's progress bar | Nothing |
 | **The Dead Man's Switch** drone platforms (Fortified Features Framework) | Colonists refill the engineering drone bay, the trashpan and hound stations and the FPV nest with steel by themselves; a mechanitor refills the Hermit Crab and the Cluster Weaver | Nothing: keep steel in reach. [Drone platforms](#drone-platforms) |
@@ -319,6 +320,18 @@ the log says "Kept the map of ... open", once an in-game hour.
 
 Its food drops for friendly settlements also no longer fail on every tick when a settlement holds a pawn that does not eat (a
 mechanoid, a robot, an android). That fault filled the game's log in minutes.
+
+## Vanilla Factions Expanded - Classical
+
+A save made while a **scorpion raid** was on your map could not be loaded properly: the game could not rebuild the raid's orders, so
+the raiders stood with none. They could not act or leave, pathfinding on that map stopped for everyone, and the game reported
+thousands of errors a minute. **Such a save now loads with the raid carrying on from where it was** (temporary, until the game can
+load that raid by itself).
+
+- **Nothing to do**: load the save as usual. The game's log still shows one error for the raid while loading, its own failed first
+  try, followed by a line saying the raid's orders were rebuilt.
+- **A game saved again after it loaded broken is not repaired**: the raid's orders were already gone when it was saved. Load the save
+  made before that.
 
 ## Outposts and caravans with vehicles
 

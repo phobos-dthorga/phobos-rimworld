@@ -21,6 +21,8 @@
     <li IfModActive="kazepsi.irbm">Mods/IRBM/1.7</li>
     <li IfModActive="wowgag.RimPacts">Mods/RimPacts/1.7</li>
     <li IfModActive="ninagoblin.visitsettlements">Mods/VisitSettlements/1.7</li>
+    <!-- Temporary: a save made during a scorpion raid loads with the raid's orders (docs/development/temporary-patches.md). -->
+    <li IfModActive="OskarPotocki.VFE.Classical">Mods/Classical/1.7</li>
     <li IfModActiveAll="OskarPotocki.VanillaFactionsExpanded.Core,SmashPhil.VehicleFramework">Mods/Outposts</li>
     <li IfModActiveAll="OskarPotocki.VanillaFactionsExpanded.Core,SmashPhil.VehicleFramework">Mods/Outposts/1.7</li>
   </v1.7>
