@@ -9,7 +9,8 @@ D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); 
 ([built](#built-19-nov-2026-a-raiders-flight)); the cruising height between tiles in Framework 0.141.0 and 0.142.0
 ([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)); stock helicopters on our flight, behind a setting that
 starts off, in Framework 0.160.0 and Vehicles 0.81.0 ([built](#built-19-nov-2026-stock-helicopters-on-our-flight)). Not built: aeroplanes
-that never hover, side-firing gun arcs and runs. Nothing here is tested in game (rows 199, 200, 204 to 211). The owner answered
+that never hover, side-firing gun arcs and runs, and flying other authors' aircraft on ours (decided 19 Nov 2026: after our own
+combat features, and only where the player turns it on, aircraft by aircraft; [the read and the decision](#read-19-nov-2026-other-authors-aircraft-on-our-flight)). Nothing here is tested in game (rows 199, 200, 204 to 211). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -841,7 +842,8 @@ their authors made them.
 
 - **Which:** the rotorcraft that lift through Vehicle Framework's own launch and nothing else: the Cherokee, the Louie and the
   Mosquito on the owner's list. The thrust pods (Frog, Toad, Goliath) are left out at first **[A]**. Aircraft on another flight
-  mod (the Hind, the Mongoose, the Harrier) are never touched: they already fly on their own.
+  mod (the Hind, the Mongoose, the Harrier) are not touched by this setting: they already fly on their own. Flying them on ours is a
+  later, separate choice ([19 Nov 2026](#read-19-nov-2026-other-authors-aircraft-on-our-flight)).
 - **How:** the comp is added to each in XML, in a folder that loads only with that helicopter's mod, and stands idle while the
   setting is off. It does not tick then, so it costs nothing.
 - **Their pictures are left as they are.** We add only the ground shadow. They were drawn for Vehicle Framework's own flight, so a
@@ -931,6 +933,48 @@ designed above allows a destruction through, which is the fix.
 - Whether our `Launch` prefix really runs after both flight mods' and our own prompt in the owner's load order.
 - Combat Extended's part is in [the armour record](vehicle-armour.md#in-the-air).
 
+## Read 19 Nov 2026: other authors' aircraft on our flight
+
+**Status (19 Nov 2026):** read and decided; nothing built. The owner asked whether the Harrier, the Hind and the Mongoose could fly
+on our flight, aircraft by aircraft, with their authors' flight as the fallback, "only if the cost to maintain such is low", and the
+moment it becomes more than a little, "we drop support and move entirely to our own VTOL code". Two read-only reads that day
+answered it; one claim (the Harrier's weapons) was checked again by hand.
+
+### What the reads found [code]
+
+| | The Harrier (its bundled Fixed-Wing Aircraft Framework fork) | The Hind and the Mongoose (rabiosus's VTOL Vehicle) |
+| --- | --- | --- |
+| Source read | `.local/decompiled/FixedWingAircraftFramework` (matches the installed fork, dated 2 Nov 2026), the source the author ships in the mod (16 Nov 2026) | `.local/decompiled/VTOLVehicle-1.7-2026-11-15`; the installed build is newer (19 Nov 2026) and was not decompiled; the helicopters' own code from 8 Nov |
+| One way into the air | `VtolWorldFlightUtility.CanStartLocalFlight` holds every take-off from the ground | `VtolFlightController.BeginTakeoff` holds every take-off from the ground |
+| What else needs a patch to hold theirs off | Their world-launch prefix and their three arrival prefixes (each takes an arriving aircraft over; with ours on the same methods, a double spawn), the buttons | The right-click, their world-launch prefix, their three arrival prefixes, the buttons |
+| Patches of ours, in all | 6 to 8, about four of them on the author's own patch classes | About 7, five of them on the author's own patch classes |
+| What fights ours while theirs stays grounded | Heading: their tick and draw put the body, turret positions and `FullRotation` back to their `FacingAngle` every tick and frame; ours would write theirs. The drawn height is not bypassed: their `DrawPos` returns Vehicle Framework's while grounded | The same heading fight; the Hind's body is drawn by their code at their angle |
+| What goes dead under ours | **Both weapons**: rocket pods and bombs carry `FixedWingAttackRunExtension`, and the fire button refuses "needs flight" unless their own state is flying (`FixedWingAircraftFramework.decompiled.cs:5541-5558`, `CanFlyAttackRun` at 17236, checked by hand). Hover landing, return to base, evasion, jet effects | About ten of each helicopter's own features: wobble, engine-damage slowing, crash hits and fire on a shoot-down, the emergency landing, combat facing; their ground rearm would rearm a hovering aircraft; rotor wash stays at the parked spot |
+| Raiders | Raids keep only the edge-drop arrival | VTOL Raids' raiders arrive through the same arrival path, so a takeover keyed to the Def would trap raider aircraft: it must cover the player's aircraft only |
+| How often the code changes | Source drops on 2, 9 and 16 Nov 2026 touched 14 of 33 files; the fork's assembly is renamed every build, so it must be reached by name | Builds on 15 and 19 Nov 2026; the Workshop page records launches broken by updates in October and November |
+
+**The upkeep is not low**, and hiding their buttons alone is not enough: right-click, world launch, arrivals and drawing all still go
+to their flight. Most of the cost is in patching the authors' own patch classes, which they reshuffle often.
+
+### What the owner decided (19 Nov 2026)
+
+- **Our own features come first.** The owner had planned all along to build crash damage, an emergency landing, wobble and bomb
+  runs for our flight. Built there, they serve our own aircraft and would serve any aircraft our flight flies, so the "features go
+  dead" half of the finding goes away. The upkeep half does not.
+- **The takeover comes after those features, off unless the player chooses it**: "with our code taking over enabled explicitly
+  only when the player chooses to do so, so as to ensure our responsibilities to the community accordingly". A setting per aircraft,
+  every one off by default; the player's own aircraft only, never raiders'. The agent recommended building it after the features.
+- **Fail-safe** (agent recommendation, accepted with the order above): at start-up the takeover for one framework checks that every
+  method it needs still exists, and applies none of its patches if any is missing, so an author's update leaves those aircraft on
+  their authors' flight as today; `scripts/check-targets.py` names a missing method before an install. A heading the takeover holds
+  is written into their `FacingAngle` from ours, and a guard keeps ours from starting while theirs has the aircraft in the air.
+- **Dropped the first time it costs more than a little to maintain** (owner), on the assumption that players move to our own
+  aircraft for this.
+- **Our own aircraft next, after the Osprey's first test:** a jump jet first, the F-35B (with attack runs, which any jet of ours
+  needs), then a modern attack helicopter (owner: "both, jet first").
+- **D'thorga Patches keeps its parts for the Harrier, Hind and Mongoose until our own aircraft replace them**, each retired when ours
+  covers what it gives, never in a sweep (owner, the agent's recommendation).
+
 ## Argued against
 
 | Idea | Why not |
@@ -963,7 +1007,10 @@ Slice 0's dev-only proof still comes first, on a stock helicopter, whatever the 
 - **Owner (18 Nov 2026):** our own flight, learning from both mods and building on neither; hovering and circling designed
   together, hover first; one aircraft for every player; the three engine gaps written into this record. **Later the same day:**
   stock helicopters on our flight behind a setting that starts off (against the agent's recommendation of a dev-only proof);
-  eight headings; people slowed beneath a hover, with a setting; real consequences for running dry.
+  eight headings; people slowed beneath a hover, with a setting; real consequences for running dry. **19 Nov 2026:** other authors'
+  aircraft on ours only after our own crash damage, emergency landing, wobble and attack runs exist, and only where the player turns
+  it on, aircraft by aircraft; our F-35B and then an attack helicopter after the Osprey's first test; D'thorga Patches keeps its parts
+  for the Harrier, Hind and Mongoose until ours replace them ([the read](#read-19-nov-2026-other-authors-aircraft-on-our-flight)).
 - **Agent recommendations, for the owner to accept or change:** the comp on a stock vehicle; the three thresholds; the roll rule's straight line; the cruise rule and its clearance; the build order; everything
   under "Argued against".
 - **Agent defaults, owner to revise:** blasts shielded beneath a hover and traps sprung by a passing aircraft, both accepted at
