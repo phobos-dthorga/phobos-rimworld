@@ -1,0 +1,51 @@
+{
+  "file": "farming-chaser-bin-body-north-1.png",
+  "sha256": "c7905c0449767be9f00b96c9ab8369b493e2f99ab2c0eb70de1c12a336ac512a",
+  "date": "2026-11-20T03:17:34",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga chaser bin: a big towed grain cart that runs beside a combine harvester in the field, takes its grain and carries it to the edge of the paddock, in a hard-scrabble frontier colony. It is a TRAILER: it has no cab, no engine and no steering wheel of its own. Draw the BARE EMPTY TRAILER only, with its unloading auger folded. Image 1 is our approved combine harvester from the same family of farm machines: match its outline weight, shading, palette, tyres and finish only. Do NOT copy its shape, cab, tank or engine deck.\n\nTall canvas, twice as tall as wide, plain pure white background. North facing: the drawbar points to the TOP of the canvas, the rear of the trailer is at the BOTTOM. The trailer is centred left to right and its body fills about three quarters of the canvas width; the space either side of it stays pure white, empty. It fills about seven eighths of the canvas height.\n\nIts plan, from top to bottom: at the top, a short A-frame drawbar of dark steel narrowing to a round towing eye at its tip; then one large open-topped grain hopper, a long rectangle with rounded corners, taking up most of the trailer: a thick rim all round, and inside it four smooth pale walls sloping down and inward to a narrow dark slot running lengthways along the middle of the floor, so the hopper reads as a deep empty funnel seen from above; a folded unloading auger tube of steel grey lying flat along the LEFT rim of the hopper, hinged at the front left corner and pointing back; at the rear, a small ladder and a flat rear panel. One pair of very large wide flotation tyres, one each side, a little behind the middle of the hopper, seen from above as dark rubber treads sticking out beyond the body.\n\nMaker palette as materials: weathered harvest-green hopper panels, pale grey-cream inner walls, dark rubber tyres, steel grey auger, drawbar and ladder, one muted yellow accent stripe across the front rim.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo grain, no crop, no straw, no cover or tarpaulin, no tractor, no truck, no cab, no engine, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials, screens or lamps. No floor, ground, field, road, shadow outside the trailer, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    1024,
+    2048
+  ],
+  "request_file": "assets/phobos-vehicles/requests/chaser-bin-pilot.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 2088,
+    "input_tokens_details": {
+      "image_tokens": 1452,
+      "text_tokens": 636
+    },
+    "output_tokens": 1180,
+    "output_tokens_details": {
+      "image_tokens": 1180,
+      "text_tokens": 0
+    },
+    "total_tokens": 3268
+  },
+  "cost_usd": 0.0502,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x2048",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    2048
+  ],
+  "seconds": 23.4,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-combine-body-north/farming-combine-body-north-1.png",
+      "sha256": "d5085ee3d88b943a030f848a3d9ddd40424d88cfd0012afbdbee0144663d509d",
+      "role": "our approved combine harvester, the owner's pick of 19 Nov 2026, from the same family of farm machines: match its outline weight, shading, harvest-green and yellow palette, tyre treatment and finish only; do not copy its shape, cab, tank or engine deck"
+    }
+  ]
+}
