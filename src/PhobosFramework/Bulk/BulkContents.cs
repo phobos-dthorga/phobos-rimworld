@@ -107,7 +107,8 @@ public class BulkContents : IExposable
     public List<string> Age(int now, float temperature, float storeFactor)
     {
         var spoiled = new List<string>();
-        if (agedTick < 0 || now <= agedTick)
+        // Nothing held: nothing to age, and the clock starts at now for whatever comes in next.
+        if (agedTick < 0 || now <= agedTick || entries.Count == 0)
         {
             agedTick = now;
             return spoiled;

@@ -1,10 +1,8 @@
 # D'thorga Farming, batch two: the build design (20 Nov 2026)
 
-**Status (20 Nov 2026):** a build design only: nothing of batch two is built, and nothing is tested in game. It turns
-[farm machines](farming-machines.md) "Tillage and seeding (AG1)" and the owner's decisions of 19 and 20 Nov 2026 into the code, Defs,
-settings and art a build would make. Written overnight on the owner's go ("proceed at your leisure and even agency", 20 Nov 2026):
-**every choice below marked [A] or "agent's" is the agent's default, held for the owner's review**; the owner's own decisions are marked
-with their date.
+**Status (20 Nov 2026):** partly built, in D'thorga Framework 0.191.0 and D'thorga Farming 0.4.0: the field run with an implement behind, the field-work rule (draught, seed, cleaning) with tests, the rigid linkage shown by tests of the hitch's own rule, and the plough, cultivator and seed drill workers in code. **Not built:** the tractors, the implements' Defs and pictures (paid, waiting for the owner's go), lifted and lowered drawings, the generic seed item and its traders, and the "Hands use seed too" switch. Nothing is usable in game yet, and nothing is tested in game. Written overnight on the owner's go ("proceed at your leisure and even agency", 20 Nov 2026): **every choice below marked [A] or "agent's" is the agent's default, held for the owner's review**; the owner's own decisions are marked with their date.
+This record turns [farm machines](farming-machines.md) "Tillage and seeding (AG1)" and the owner's decisions of 19 and 20 Nov 2026
+into the code, Defs, settings and art a build would make.
 
 **How to read the marks:** **[code]** read in the game's or Vehicle Framework's code on 20 Nov 2026; **[I]** our inference; **[A]** an
 authored figure or the agent's choice.

@@ -321,6 +321,29 @@ active to measure against.
 | The combine's fronts (20 Nov 2026) | **Standard: keep both**, attempt 2 the default and 1 an alternate look; **wide: attempt 2** (US$0.128) |
 | The chaser bin's body (20 Nov 2026) | **Attempt 3** of three (US$0.151; [record](../../assets/phobos-vehicles/requests/chaser-bin-pilot-record.md)) |
 
+## The fault-read (20 Nov 2026)
+
+A separate reviewer read the build's code on the owner's go for overnight agency, checking it against the game's and Vehicle
+Framework's code; nothing was run. **No crash, no load or save fault, no Def that would show red.** Ten findings, all fixed in
+Framework 0.191.0 and Farming 0.4.0 except the last, which only play can settle:
+
+| # | Finding | Fixed how |
+| --- | --- | --- |
+| 1 | Fresh grain poured into a long-idle bin was aged for the bin's idle weeks | The bin is aged to now before a pour; an empty bin starts its clock afresh |
+| 2 | A row's cut grain was lost on a save and load, on leaving the map, or dropped on a stop even with room in the tank | Saved; poured into the tank first; only the rest left beside the combine |
+| 3 | Every row start put the body beyond the paddock; against a wall the run gave up | A row starts further in where the body fits, and a sweep drives the unfinished rows from their other end |
+| 4 | A tank filling mid-row left the rest of that row for the whole run | The sweep finishes it |
+| 5 | A combine could unload into another combine | Field machines' tanks are never a destination |
+| 6 | Arriving end-on to a long cart left it out of auger reach | The combine stands side-on, only where its auger reaches |
+| 7 | Ground pours laid hundreds of stacks a moment; a destroyed silo and a crowded straw pile lost goods silently | A few heaps a step; the silo names what it lost; straw is kept for the next row |
+| 8 | A paddock deleted during a wait for a driver left a dead reference in the save | Dropped before saving |
+| 9 | Colonists' harvest scans looked up the paddock record for every zone | Cached for the map |
+| 10 | The patch keeping hands off a machine-only paddock changes a one-line method the runtime might fold into its caller | **Not fixable by reading; to watch in play** (row 272) |
+
+**A balance question the fault-read raised, for the owner** (not changed): the tank holds 9,000 kg, which is about 300,000 rice at the
+game's 0.03 kg a unit, while a thousand-cell rice paddock yields about 6,000 rice (180 kg). As built, a combine's tank never fills and
+the chaser bin is never needed. Real weights against the game's scale is the owner's call.
+
 ## Still unknown
 
 - **Whether Vehicle Framework's `PositionChanged` fires when our hitch moves a trailer.** Its patch on the position setter suggests

@@ -67,20 +67,37 @@ public class CompPhobosBulkStore : ThingComp, IBulkHold
         base.PostDeSpawn(map, mode);
     }
 
-    /// <summary>Destroyed or deconstructed, it spills what it held onto the ground, rather than losing it silently.</summary>
+    /// <summary>
+    /// The most heaps a destroyed store spills (the fault-read of 20 Nov 2026: a full silo is about two million units, which no map can lay
+    /// down in one tick). What does not fit in them is lost, and said so. Authored [A].
+    /// </summary>
+    const int MostSpilledStacks = 40;
+
+    /// <summary>Destroyed or deconstructed, it spills what it held onto the ground, as many heaps as will go, and says what was lost.</summary>
     public override void PostDestroy(DestroyMode mode, Map? previousMap)
     {
         base.PostDestroy(mode, previousMap);
         if (previousMap == null || contents.Empty) return;
+        int stacks = 0;
         foreach (BulkEntry entry in new List<BulkEntry>(contents.Entries))
         {
             ThingDef def = entry.def!;
-            while (contents.CountOf(def) > 0)
+            while (contents.CountOf(def) > 0 && stacks < MostSpilledStacks)
             {
                 Thing? stack = contents.MakeStack(def, contents.CountOf(def));
-                if (stack == null || !GenPlace.TryPlaceThing(stack, parent.Position, previousMap, ThingPlaceMode.Near)) break;
+                if (stack == null) break;
+                if (!GenPlace.TryPlaceThing(stack, parent.Position, previousMap, ThingPlaceMode.Near))
+                {
+                    stack.Destroy();
+                    stacks = MostSpilledStacks;
+                    break;
+                }
+                stacks++;
             }
         }
+        if (contents.Empty) return;
+        Messages.Message("PhobosBulk_SpillLost".Translate(parent.LabelShort.Named("HOLD"), contents.Summary.Named("WHAT")).Resolve(),
+            new TargetInfo(parent.Position, previousMap), MessageTypeDefOf.NegativeEvent);
     }
 
     public override void CompTickRare()

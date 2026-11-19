@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.191.0] - 2026-11-20 - Draft
+
+Fixes from a fault-read of the field run and the bulk holds, and the field run ready for an implement behind a tractor
+
+### Fixed
+
+- **Fresh grain poured into a bin that had stood empty for weeks no longer spoils at once.** The bin's clock was weeks old, and the new load was aged for all of it; a bin is now brought up to date before anything is poured in, and an empty one starts its clock afresh.
+- **A machine whose rows start against a wall, a river or the map's edge no longer gives up.** It starts each such row further in, where it fits, and once every row is done it drives the rows with work left from their other end, which also finishes a row a full tank had to leave.
+- **A combine no longer unloads into another combine's tank.** Only bins, carts and silos take its grain.
+- **A combine driving to a long cart stands side-on to it**, where its auger reaches, rather than ending up just out of reach and passing it by.
+- **Pouring onto the ground lays a few heaps a moment**, not hundreds at once.
+- **A destroyed bin or silo says what it lost.** It spills what fits on the ground and names the rest, which it could only lose silently before.
+- Deleting a paddock while a machine waits for a driver no longer leaves a broken reference in the save.
+
+### Added
+
+- **A field run can be worked by an implement behind its vehicle**, such as a plough on a tractor's linkage or a drill on its drawbar: the run finds the implement on the hitch, lays its rows so the implement's strip covers them, and works the cells under the implement. Nothing uses it yet: the tractors and implements come with their pictures.
+- For other modders: a field-work rule (an implement's draught by width, seed per cell, cleaned grain as seed), and Implements.Lowered, which says whether an implement on a hitch is working. A hitch's jack-knife limit of nought holds an implement straight behind, as the three-point linkage needs (shown by two new tests).
+
+### Compatibility and limits
+
+- Found by reading the code, not in play. Not yet tested in game.
+
 ## [0.190.0] - 2026-11-20 - Draft
 
 People in the machine: hours at the wheel make a practised driver, and a vehicle's regular driver feels its loss and its return

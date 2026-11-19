@@ -72,6 +72,11 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
     int rowIndex;
     IntVec3 planFrom = IntVec3.Invalid;
     bool alongX = true;
+    /// <summary>
+    /// Nought for the first pass; one for the sweep that drives every row with work left the other way round (the fault-read of 20 Nov
+    /// 2026): a row whose start was moved in from a wall, or whose rest a full tank left standing, is finished from its far end.
+    /// </summary>
+    int pass;
     bool waiting;
     Zone? waitingZone;
     ThingWithComps? holdTarget;
@@ -95,7 +100,40 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
 
     protected override int StuckTicks => Props.stuckTicks;
 
-    IVehicleFieldWorker? Worker => worker ??= Vehicle.AllComps.OfType<IVehicleFieldWorker>().FirstOrDefault();
+    VehiclePawn? workerVehicle;
+
+    /// <summary>
+    /// The implement that works the cells: on the vehicle itself (a combine), or on the implement its hitch holds (a plough, a drill:
+    /// docs/development/farming-batch-two.md). Found again whenever what the hitch holds changes.
+    /// </summary>
+    IVehicleFieldWorker? Worker
+    {
+        get
+        {
+            VehiclePawn? behind = Vehicle.GetComp<CompPhobosHitch>()?.Trailer;
+            if (worker != null && (workerVehicle == Vehicle || (workerVehicle != null && workerVehicle == behind))) return worker;
+            worker = Vehicle.AllComps.OfType<IVehicleFieldWorker>().FirstOrDefault();
+            workerVehicle = worker != null ? Vehicle : null;
+            if (worker == null && behind != null)
+            {
+                worker = behind.AllComps.OfType<IVehicleFieldWorker>().FirstOrDefault();
+                workerVehicle = worker != null ? behind : null;
+            }
+            return worker;
+        }
+    }
+
+    /// <summary>The vehicle whose strip is worked: the implement behind, or the vehicle itself.</summary>
+    VehiclePawn WorkerVehicle => Worker != null && workerVehicle != null ? workerVehicle : Vehicle;
+
+    /// <summary>How far the implement behind stands from the vehicle's centre, in cells, held straight by the linkage; nought for none.</summary>
+    int ImplementGap()
+    {
+        VehiclePawn implement = WorkerVehicle;
+        if (implement == Vehicle || !implement.Spawned || !Vehicle.Spawned) return 0;
+        IntVec3 d = implement.Position - Vehicle.Position;
+        return (int)System.Math.Round(System.Math.Sqrt(d.x * d.x + d.z * d.z));
+    }
 
     CompPhobosBulkHold? OwnHold => Vehicle.GetComp<CompPhobosBulkHold>();
 
@@ -121,7 +159,14 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
             if (Area == null || w == null) return rows = new List<FieldRow>();
             var cells = Area.Cells.Select(c => new FieldCell(c.x, c.z)).ToList();
             IntVec3 from = planFrom.IsValid ? planFrom : Vehicle.Position;
-            return rows = RowPlanRule.Plan(cells, System.Math.Max(1, w.StripWidth), alongX, new FieldCell(from.x, from.z));
+            rows = RowPlanRule.Plan(cells, System.Math.Max(1, w.StripWidth), alongX, new FieldCell(from.x, from.z));
+            if (pass == 1)
+            {
+                // The sweep: the rows in the other order, each driven from its far end.
+                rows.Reverse();
+                for (int i = 0; i < rows.Count; i++) rows[i] = new FieldRow(rows[i].AlongX, rows[i].CrossMin, rows[i].CrossMax, rows[i].To, rows[i].From);
+            }
+            return rows;
         }
     }
 
@@ -176,6 +221,7 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         planFrom = Vehicle.Position;
         alongX = RowPlanRule.LongerAlongX(area.Cells.Select(c => new FieldCell(c.x, c.z)).ToList());
         rowIndex = 0;
+        pass = 0;
         failedDrives = 0;
         holdTarget = null;
         holdsTried.Clear();
@@ -212,13 +258,47 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
     {
         IVehicleFieldWorker w = Worker!;
         Rot4 rot = Facing(row);
-        CellRect body = Vehicle.VehicleRect(IntVec3.Zero, rot);
+        CellRect body = WorkerVehicle.VehicleRect(IntVec3.Zero, rot);
         int frontOffset = row.AlongX ? (row.Step > 0 ? body.maxX : body.minX) : (row.Step > 0 ? body.maxZ : body.minZ);
         int lowOffset = row.AlongX ? body.minZ : body.minX;
         int bodyWidth = row.AlongX ? body.Height : body.Width;
-        int along = stripAlong - w.StripAhead * row.Step - frontOffset;
+        int along = stripAlong - w.StripAhead * row.Step - frontOffset + ImplementGap() * row.Step;
         int cross = StripRule.BodyCrossMin(row.CrossMin, bodyWidth, System.Math.Max(1, w.StripWidth), row.AlongX, row.Step) - lowOffset;
         return row.AlongX ? new IntVec3(along, 0, cross) : new IntVec3(cross, 0, along);
+    }
+
+    /// <summary>Whether the vehicle, and the implement behind it, fit on drivable ground with the vehicle's centre here, facing this way.</summary>
+    bool BodiesFit(IntVec3 centre, Rot4 rot)
+    {
+        Map map = Vehicle.Map;
+        foreach (IntVec3 cell in Vehicle.VehicleRect(centre, rot))
+        {
+            if (!cell.InBounds(map) || !Vehicle.Drivable(cell)) return false;
+        }
+        VehiclePawn implement = WorkerVehicle;
+        if (implement == Vehicle) return true;
+        IntVec3 behind = centre - rot.FacingCell * ImplementGap();
+        foreach (IntVec3 cell in implement.VehicleRect(behind, rot))
+        {
+            if (!cell.InBounds(map) || !implement.Drivable(cell)) return false;
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Where to start a row: with the strip on its first cell if the body fits there, else moved in along the row until it does (a wall,
+    /// a river or the map's edge at the row's start: the fault-read of 20 Nov 2026). The cells passed over are finished by the sweep, which
+    /// drives the row from its other end. Invalid if the body fits nowhere along it.
+    /// </summary>
+    IntVec3 StartFor(FieldRow row)
+    {
+        Rot4 rot = Facing(row);
+        for (int k = 0; k < row.Length; k++)
+        {
+            IntVec3 centre = CentreFor(row, row.From + k * row.Step);
+            if (centre.InBounds(Vehicle.Map) && BodiesFit(centre, rot)) return centre;
+        }
+        return IntVec3.Invalid;
     }
 
     List<IntVec3> RowCells(FieldRow row)
@@ -250,12 +330,22 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         while (rowIndex < plan.Count && !w.HasWork(RowCells(plan[rowIndex]))) rowIndex++;
         if (rowIndex >= plan.Count)
         {
+            if (pass == 0)
+            {
+                // The sweep: every row with work left, from its other end.
+                pass = 1;
+                rows = null;
+                rowIndex = 0;
+                failedDrives = 0;
+                NextRow();
+                return;
+            }
             End(FieldRunEnd.Done);
             return;
         }
         FieldRow row = plan[rowIndex];
-        IntVec3 start = CentreFor(row, row.From);
-        if (!start.InBounds(Vehicle.Map) || !BeginDrive(start, Facing(row)))
+        IntVec3 start = StartFor(row);
+        if (!start.IsValid || !BeginDrive(start, Facing(row)))
         {
             FailedRow();
             return;
@@ -323,9 +413,10 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
     void WorkLine()
     {
         IVehicleFieldWorker? w = Worker;
-        if (w == null || !Vehicle.Spawned) return;
-        CellRect rect = Vehicle.OccupiedRect();
-        IntVec3 facing = Vehicle.Rotation.FacingCell;
+        VehiclePawn body = WorkerVehicle;
+        if (w == null || !body.Spawned) return;
+        CellRect rect = body.OccupiedRect();
+        IntVec3 facing = body.Rotation.FacingCell;
         StripLine line = StripRule.Front(rect.minX, rect.minZ, rect.maxX, rect.maxZ, facing.x, facing.z, System.Math.Max(1, w.StripWidth), w.StripAhead);
         lineCells.Clear();
         HashSet<IntVec3> inZone = ZoneCells;
@@ -364,6 +455,8 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         foreach (IBulkHold hold in MapRegistry<IBulkHold>.On(Vehicle.MapHeld).OrderBy(h => h.HoldThing.Position.DistanceToSquared(at)))
         {
             if (hold == own || holdsTried.Contains(hold.HoldThing) || hold.HoldThing.Faction != Faction.OfPlayer) continue;
+            // Never into another field machine's own tank (the fault-read of 20 Nov 2026: one combine chased another).
+            if (hold.HoldThing.TryGetComp<CompPhobosFieldRun>() != null) continue;
             if (!own.Contents.Entries.Any(e => e.def != null && hold.Contents.Takes(e.def, hold.MixesProducts) && hold.Contents.RoomFor(e.def, hold.CapacityKg) > 0)) continue;
             yield return hold;
         }
@@ -389,7 +482,8 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
             }
             IntVec2 size = hold.HoldThing.def.Size;
             int ring = System.Math.Max(size.x, size.z) / 2 + System.Math.Min(Vehicle.def.Size.x, Vehicle.def.Size.z) / 2 + 1;
-            if (VehicleAutoDrive.TryFindStandCell(Vehicle, hold.HoldThing.Position, ring, out IntVec3 cell) && BeginDrive(cell))
+            if (VehicleAutoDrive.TryFindStandCell(Vehicle, hold.HoldThing.Position, ring, out IntVec3 cell) && Broadside(cell, hold, own) is { } facing
+                && BeginDrive(cell, facing))
             {
                 phase = FieldRunPhase.ToHold;
                 if (Seen.Wants("vehicles.field-run.to-hold", Vehicle)) Seen.Note("vehicles.field-run.to-hold", Vehicle, hold.HoldThing.LabelShort);
@@ -398,6 +492,19 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         }
         holdTarget = null;
         End(holdsTried.Count == 0 ? FieldRunEnd.Full : FieldRunEnd.NoHold);
+    }
+
+    /// <summary>
+    /// The facing that puts the vehicle's long side towards the hold from this cell, if its auger then reaches it; null if it would not (the
+    /// fault-read of 20 Nov 2026: arriving end-on to a long chaser bin left it out of reach).
+    /// </summary>
+    Rot4? Broadside(IntVec3 cell, IBulkHold hold, CompPhobosBulkHold own)
+    {
+        IntVec3 d = hold.HoldThing.Position - cell;
+        Rot4 facing = System.Math.Abs(d.x) >= System.Math.Abs(d.z) ? Rot4.North : Rot4.East;
+        CellRect body = Vehicle.VehicleRect(cell, facing), other = hold.HoldThing.OccupiedRect();
+        return BulkHoldRule.WithinReach(body.minX, body.minZ, body.maxX, body.maxZ, other.minX, other.minZ, other.maxX, other.maxZ, own.ReachCells)
+            ? facing : null;
     }
 
     void BeginPour(CompPhobosBulkHold own, IBulkHold hold)
@@ -594,6 +701,12 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         {
             _ = Area;
             if (holdTarget is { Destroyed: true }) holdTarget = null;
+            // A paddock deleted while the vehicle waited for a driver is dropped, not saved as a dead reference (the fault-read).
+            if (waitingZone != null && (waitingZone.Map == null || !waitingZone.Map.zoneManager.AllZones.Contains(waitingZone)))
+            {
+                waitingZone = null;
+                waiting = false;
+            }
         }
         ExposeRun(SavePrefix);
         Scribe_Values.Look(ref phase, SavePrefix + "Phase", FieldRunPhase.Idle);
@@ -601,6 +714,7 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         Scribe_Values.Look(ref rowIndex, SavePrefix + "Row");
         Scribe_Values.Look(ref planFrom, SavePrefix + "PlanFrom", IntVec3.Invalid);
         Scribe_Values.Look(ref alongX, SavePrefix + "AlongX", true);
+        Scribe_Values.Look(ref pass, SavePrefix + "Pass");
         Scribe_Values.Look(ref waiting, SavePrefix + "Waiting");
         if (!saving || waitingZone != null) Scribe_References.Look(ref waitingZone, SavePrefix + "WaitingZone");
         if (!saving || holdTarget != null) Scribe_References.Look(ref holdTarget, SavePrefix + "Hold");

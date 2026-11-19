@@ -112,4 +112,33 @@ public class HitchRuleTests
         Assert.Equal(0.6, HitchRule.PlainCap(3000, 2000, 0.15), 6);
         Assert.Equal(0.15, HitchRule.PlainCap(500, 20000, 0.15), 6);
     }
+
+    // The three-point linkage (farming batch two, docs/development/farming-batch-two.md): an implement held rigid behind the tractor is
+    // the hitch's own follow rule with a jack-knife limit of nought; no new rule is needed.
+    [Fact]
+    public void ALimitOfNoughtHoldsAnImplementStraightBehindHoweverTheTractorTurns()
+    {
+        var pose = HitchRule.AxleFor(0, 0, 0, 2);
+        foreach (double heading in new[] { 0.0, 37.0, 90.0, 181.0, 270.0, 359.0 })
+        {
+            // The tractor turns on the spot: the follow rule alone would leave the implement where it was, at another angle.
+            pose = HitchRule.Limit(0, 0, HitchRule.Follow(0, 0, pose, 2), heading, 0, 2);
+            Assert.Equal(HitchRule.Normalize(heading), pose.Heading, 6);
+            Assert.Equal(2, Distance(0, 0, pose), 6);
+        }
+    }
+
+    [Fact]
+    public void ARigidImplementFollowsAStraightDriveExactly()
+    {
+        var pose = HitchRule.AxleFor(0, 0, 90, 1.5);
+        for (int step = 1; step <= 20; step++)
+        {
+            double hx = step * 0.25;
+            pose = HitchRule.Limit(hx, 0, HitchRule.Follow(hx, 0, pose, 1.5), 90, 0, 1.5);
+            Assert.Equal(90, pose.Heading, 6);
+            Assert.Equal(hx - 1.5, pose.AxleX, 6);
+            Assert.Equal(0, pose.AxleZ, 6);
+        }
+    }
 }

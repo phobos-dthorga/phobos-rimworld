@@ -48,10 +48,11 @@ public class CompPhobosHarvester : VehicleComp, IVehicleFieldWorker
     /// <summary>The game's Plants experience a tick for a colonist harvesting by hand (JobDriver_PlantHarvest.Init, read 20 Nov 2026).</summary>
     const float HandExperiencePerTick = 0.085f;
 
-    // Derived during a run, never saved: a run that resumes after a load starts its tallies afresh.
-    readonly Dictionary<ThingDef, int> rowTally = new();
-    readonly Dictionary<ThingDef, int> secondTally = new();
-    readonly Dictionary<ThingDef, int> runTotals = new();
+    // Saved since the fault-read of 20 Nov 2026: plants are destroyed as they are cut, so what a row has cut and not yet poured into the
+    // tank must survive a save, a load and the combine leaving the map, or it is lost.
+    Dictionary<ThingDef, int> rowTally = new();
+    Dictionary<ThingDef, int> secondTally = new();
+    Dictionary<ThingDef, int> runTotals = new();
     Zone_Growing? area;
     int plants;
     int failed;
@@ -125,11 +126,28 @@ public class CompPhobosHarvester : VehicleComp, IVehicleFieldWorker
     public void BeginRun(Zone zone)
     {
         area = zone as Zone_Growing;
-        rowTally.Clear();
-        secondTally.Clear();
+        // What an earlier run cut and could not pour is kept: it goes into the tank at this run's first row end.
         runTotals.Clear();
         plants = 0;
         failed = 0;
+    }
+
+    /// <summary>
+    /// Pours what the row has cut into the tank, as far as it fits: at a row's end, and when a run ends or leaves the map partway along a
+    /// row, so nothing cut is left behind while the tank has room. What does not fit stays in the tally.
+    /// </summary>
+    public void Settle()
+    {
+        CompPhobosBulkHold? hold = Hold;
+        if (hold == null) return;
+        foreach (ThingDef product in rowTally.Keys.ToList())
+        {
+            int count = rowTally[product];
+            int added = hold.Receive(product, count);
+            if (added > 0) Add(runTotals, product, added);
+            if (added >= count) rowTally.Remove(product);
+            else rowTally[product] = count - added;
+        }
     }
 
     /// <summary>Whether the tank still has room for this product beyond what the row has already cut into it.</summary>
@@ -218,55 +236,68 @@ public class CompPhobosHarvester : VehicleComp, IVehicleFieldWorker
         reason = null;
         CompPhobosBulkHold? hold = Hold;
         if (hold == null) return FieldWorkStop.Fault;
-        foreach (ThingDef product in rowTally.Keys.ToList())
-        {
-            int count = rowTally[product];
-            int added = hold.Receive(product, count);
-            if (added > 0) Add(runTotals, product, added);
-            if (added >= count) rowTally.Remove(product);
-            else rowTally[product] = count - added;
-        }
+        Settle();
         LeaveSecondProducts();
         if (rowTally.Count > 0 || !hold.HasRoom) return FieldWorkStop.Full;
         return FieldWorkStop.None;
     }
 
-    /// <summary>Straw and other second products are left lying in the field where the row ended, or chopped into it with a straw chopper.</summary>
+    /// <summary>
+    /// Straw and other second products are left lying in the field where the row ended, or chopped into it with a straw chopper. What finds
+    /// no room on the ground stays in the tally for the next row's end, never lost.
+    /// </summary>
     void LeaveSecondProducts()
     {
         if (secondTally.Count == 0) return;
-        if (!ChopsStraw && Vehicle.Spawned)
+        if (ChopsStraw)
         {
-            foreach (KeyValuePair<ThingDef, int> second in secondTally)
-            {
-                if (Seen.Wants("farming.harvest.second-product", Vehicle)) Seen.Note("farming.harvest.second-product", Vehicle, second.Key.label,
-                    values: new List<KeyValuePair<string, double>> { new("count", second.Value) });
-                Drop(second.Key, second.Value);
-            }
+            secondTally.Clear();
+            return;
         }
-        secondTally.Clear();
+        if (!Vehicle.Spawned) return;
+        foreach (ThingDef def in secondTally.Keys.ToList())
+        {
+            int count = secondTally[def];
+            if (Seen.Wants("farming.harvest.second-product", Vehicle)) Seen.Note("farming.harvest.second-product", Vehicle, def.label,
+                values: new List<KeyValuePair<string, double>> { new("count", count) });
+            int left = Drop(def, count);
+            if (left > 0) secondTally[def] = left;
+            else secondTally.Remove(def);
+        }
     }
 
-    void Drop(ThingDef def, int count)
+    /// <summary>Lays stacks on the ground beside the combine. Returns how many units found no room (the fault-read: they had been lost).</summary>
+    int Drop(ThingDef def, int count)
     {
         while (count > 0)
         {
             Thing thing = ThingMaker.MakeThing(def);
             thing.stackCount = System.Math.Min(count, def.stackLimit);
+            if (!GenPlace.TryPlaceThing(thing, Vehicle.Position, Vehicle.Map, ThingPlaceMode.Near, null, c => !Vehicle.OccupiedRect().Contains(c)))
+            {
+                thing.Destroy();
+                return count;
+            }
             count -= thing.stackCount;
-            if (!GenPlace.TryPlaceThing(thing, Vehicle.Position, Vehicle.Map, ThingPlaceMode.Near, null, c => !Vehicle.OccupiedRect().Contains(c))) break;
         }
+        return 0;
     }
 
     public string EndRun(bool finished)
     {
-        // What was cut but did not fit is never lost: it is left beside the combine.
+        // What was cut goes into the tank first; only what does not fit is left beside the combine, and what finds no room even there stays
+        // in the tally for the next run (the fault-read of 20 Nov 2026: it had all been dropped, even with room in the tank).
+        Settle();
         if (Vehicle.Spawned)
         {
-            foreach (KeyValuePair<ThingDef, int> left in rowTally) Drop(left.Key, left.Value);
+            foreach (ThingDef left in rowTally.Keys.ToList())
+            {
+                int lost = Drop(left, rowTally[left]);
+                if (lost > 0) rowTally[left] = lost;
+                else rowTally.Remove(left);
+            }
             LeaveSecondProducts();
         }
-        rowTally.Clear();
         string words = runTotals.Count == 0
             ? "PhobosFarming_HarvestedNothing".Translate().Resolve()
             : "PhobosFarming_Harvested".Translate(plants.Named("PLANTS"), runTotals.Select(t => t.Value.ToString("N0") + " " + t.Key.label).ToCommaList().Named("WHAT")).Resolve();
@@ -278,6 +309,37 @@ public class CompPhobosHarvester : VehicleComp, IVehicleFieldWorker
         }
         area = null;
         return words;
+    }
+
+    public override void PostExposeData()
+    {
+        base.PostExposeData();
+        bool saving = Scribe.mode == LoadSaveMode.Saving;
+        if (saving && area != null && (area.Map == null || !area.Map.zoneManager.AllZones.Contains(area))) area = null;
+        if (!saving || rowTally.Count > 0) Scribe_Collections.Look(ref rowTally, "PhobosHarvestRow", LookMode.Def, LookMode.Value);
+        if (!saving || secondTally.Count > 0) Scribe_Collections.Look(ref secondTally, "PhobosHarvestSecond", LookMode.Def, LookMode.Value);
+        if (!saving || runTotals.Count > 0) Scribe_Collections.Look(ref runTotals, "PhobosHarvestTotals", LookMode.Def, LookMode.Value);
+        if (!saving || area != null) Scribe_References.Look(ref area, "PhobosHarvestArea");
+        Scribe_Values.Look(ref plants, "PhobosHarvestPlants");
+        Scribe_Values.Look(ref failed, "PhobosHarvestFailed");
+        if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        {
+            rowTally = Clean(rowTally);
+            secondTally = Clean(secondTally);
+            runTotals = Clean(runTotals);
+        }
+    }
+
+    /// <summary>A loaded tally without the products whose Def is gone (a mod removed) or with nothing counted.</summary>
+    static Dictionary<ThingDef, int> Clean(Dictionary<ThingDef, int>? tally)
+    {
+        var clean = new Dictionary<ThingDef, int>();
+        if (tally == null) return clean;
+        foreach (KeyValuePair<ThingDef, int> pair in tally)
+        {
+            if (pair.Key != null && pair.Value > 0) clean[pair.Key] = pair.Value;
+        }
+        return clean;
     }
 
     public override string? CompInspectStringExtra() => Front is { } front

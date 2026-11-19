@@ -163,6 +163,9 @@ public static class BulkPour
 
     static int PourInto(IBulkHold from, IBulkHold to, ThingDef def, int step)
     {
+        // The receiving hold is aged up to now first, so what it held is aged for its own time and the fresh load joins at now (the
+        // fault-read of 20 Nov 2026: a bin last read weeks ago aged the fresh grain for all those weeks).
+        Age(to);
         int room = to.Contents.RoomFor(def, to.CapacityKg);
         int count = BulkHoldRule.Pour(from.Contents.CountOf(def), room, step);
         int taken = from.Contents.Take(def, count, out float used);
@@ -171,11 +174,17 @@ public static class BulkPour
         return added;
     }
 
-    /// <summary>Pours stacks onto free ground beside the hold, as many as a step moves.</summary>
+    /// <summary>
+    /// The most stacks a step lays on the ground (the fault-read of 20 Nov 2026: a fast auger laid about 185 stacks a rare tick). An
+    /// auger pouring onto the ground is slowed to this many stacks a step, as a heap builds. Authored [A].
+    /// </summary>
+    const int MostStacksAStep = 6;
+
+    /// <summary>Pours stacks onto free ground beside the hold, as many as a step moves, up to a few stacks a step.</summary>
     static int PourOnGround(IBulkHold from, ThingDef def, int step)
     {
         Thing holder = from.HoldThing;
-        int left = System.Math.Min(step, from.Contents.CountOf(def));
+        int left = System.Math.Min(System.Math.Min(step, MostStacksAStep * System.Math.Max(1, def.stackLimit)), from.Contents.CountOf(def));
         int moved = 0;
         while (left > 0)
         {

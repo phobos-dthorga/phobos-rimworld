@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-20 - Draft
+
+Fixes from a fault-read: no harvested grain is lost; and the plough, cultivator and seed drill ready for their tractors
+
+### Fixed
+
+- **Grain a combine has cut is never lost.** Plants go as they are cut, and their grain waited until the row's end: a save and load partway along a row, the combine leaving the map, or a stopped run lost it or dropped it all on the ground even with room in the tank. It now goes into the tank first, keeps across a save, and only what does not fit is left beside the combine.
+- **Straw that finds no room on the ground is kept for the next row's end**, not lost.
+- Colonists looking for harvesting work find paddocks a little faster.
+
+### Added
+
+- **The plough, the cultivator and the seed drill are written**, waiting for their tractors and pictures (farming batch two): the plough and cultivator clear weeds, stubble and wild plants and never a sown crop or a tree; the drill sows the paddock's crop by the game's own sowing rules, with the crop's own grain or bought seed. Nothing of them is in the game yet.
+- A paddock remembers when it was last ploughed or cultivated, for the soil rules to come.
+
+### Compatibility and limits
+
+- One thing to watch in play, from the fault-read: whether colonists still harvest a paddock machines alone work. The patch that keeps them off it changes a very short method the game might fold into its caller; if they do, say so.
+- Not yet tested in game.
+
+### Save compatibility
+
+- Safe. A combine's cut-but-not-poured grain and a paddock's tilling are new saved fields; older saves load without them.
+
 ## [0.3.3] - 2026-11-20 - Draft
 
 The combine and the chaser bin no longer sell for more than they cost to build

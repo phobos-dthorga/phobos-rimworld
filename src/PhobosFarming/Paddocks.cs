@@ -13,6 +13,10 @@ public class PaddockState : IExposable
     public bool handsMayHelp;
     /// <summary>The zone's own "allow sowing" as it was when it was marked, given back when the mark is taken off.</summary>
     public bool sowWasAllowed = true;
+    /// <summary>"ploughed" or "cultivated" once a run has worked most of it (farming batch two), for the soil rules to come; empty for neither.</summary>
+    public string lastTilled = "";
+    /// <summary>When it was last tilled, in ticks; -1 for never.</summary>
+    public int lastTilledTick = -1;
 
     public bool MachineOnly => machineWorked && !handsMayHelp;
 
@@ -22,6 +26,8 @@ public class PaddockState : IExposable
         Scribe_Values.Look(ref machineWorked, "machineWorked");
         Scribe_Values.Look(ref handsMayHelp, "handsMayHelp");
         Scribe_Values.Look(ref sowWasAllowed, "sowWasAllowed", true);
+        Scribe_Values.Look(ref lastTilled, "lastTilled", "");
+        Scribe_Values.Look(ref lastTilledTick, "lastTilledTick", -1);
     }
 }
 
@@ -95,7 +101,21 @@ public class MapComponent_PhobosPaddocks : MapComponent
 /// <summary>The paddock service: marking a growing zone for machines and letting hands help (UI calls these; they decide).</summary>
 public static class Paddocks
 {
-    static MapComponent_PhobosPaddocks? Of(Map? map) => map?.GetComponent<MapComponent_PhobosPaddocks>();
+    // The last map asked about and its paddocks, so a colonist's harvest scan, which asks for every growing zone, does not search the map's
+    // components each time (the fault-read of 20 Nov 2026). A different map, or one the game has dropped, is looked up afresh.
+    static Map? cachedMap;
+    static MapComponent_PhobosPaddocks? cachedPaddocks;
+
+    static MapComponent_PhobosPaddocks? Of(Map? map)
+    {
+        if (map == null) return null;
+        if (map != cachedMap || cachedPaddocks == null)
+        {
+            cachedMap = map;
+            cachedPaddocks = map.GetComponent<MapComponent_PhobosPaddocks>();
+        }
+        return cachedPaddocks;
+    }
 
     public static PaddockState? Get(Zone_Growing zone) => Of(zone.Map)?.For(zone);
 

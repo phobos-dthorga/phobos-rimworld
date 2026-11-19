@@ -35,4 +35,22 @@
   <PhobosFarming_HarvestFailedSome>{COUNT} plants were lost to failed cuts.</PhobosFarming_HarvestFailedSome>
   <PhobosFarming_LineFront>Front: {FRONT}, cuts {CELLS} cells wide</PhobosFarming_LineFront>
   <PhobosFarming_LineNoFront>No front fitted: it cannot harvest</PhobosFarming_LineNoFront>
+
+  <!-- Implements (farming batch two): a plough, a cultivator and a seed drill behind a tractor. -->
+  <PhobosFarming_ImplementNotHeld>{IMPLEMENT} must be on a tractor's hitch to work.</PhobosFarming_ImplementNotHeld>
+  <PhobosFarming_GizmoPlough>Plough a paddock</PhobosFarming_GizmoPlough>
+  <PhobosFarming_GizmoPloughDesc>The tractor drives a paddock row by row with {IMPLEMENT} lowered behind it, turning the soil: weeds, stubble and wild plants are buried. A sown crop is never touched, and trees are left standing. The heaviest work a tractor does.</PhobosFarming_GizmoPloughDesc>
+  <PhobosFarming_GizmoCultivate>Cultivate a paddock</PhobosFarming_GizmoCultivate>
+  <PhobosFarming_GizmoCultivateDesc>The tractor drives a paddock row by row with {IMPLEMENT} lowered behind it, clearing weeds and wild plants: a lighter pass than ploughing. A sown crop is never touched, and trees are left standing.</PhobosFarming_GizmoCultivateDesc>
+  <PhobosFarming_MarkPloughed>ploughed</PhobosFarming_MarkPloughed>
+  <PhobosFarming_MarkCultivated>cultivated</PhobosFarming_MarkCultivated>
+  <PhobosFarming_Tilled>It worked {CELLS} cells.</PhobosFarming_Tilled>
+  <PhobosFarming_PaddockMarkedTilled>{ZONE} is {MARK}.</PhobosFarming_PaddockMarkedTilled>
+  <PhobosFarming_GizmoSow>Sow a paddock</PhobosFarming_GizmoSow>
+  <PhobosFarming_GizmoSowDesc>The tractor drives a paddock row by row with {IMPLEMENT} behind it, sowing the paddock's crop in every empty cell. It sows with the crop's own grain if it holds some, cleaned as it goes, or with bought seed for any crop. It never cuts anything: clear the paddock first.</PhobosFarming_GizmoSowDesc>
+  <PhobosFarming_SowNeedsResearch>{CROP} cannot be sown until its research is done.</PhobosFarming_SowNeedsResearch>
+  <PhobosFarming_SowOutOfSeason>It is not the season to sow {CROP} here.</PhobosFarming_SowOutOfSeason>
+  <PhobosFarming_SowDriverSkill>Sowing {CROP} needs a driver with growing skill {LEVEL} or more.</PhobosFarming_SowDriverSkill>
+  <PhobosFarming_NoSeed>{IMPLEMENT} has no seed for {CROP}: pour in some of its grain, or bought seed.</PhobosFarming_NoSeed>
+  <PhobosFarming_Sowed>It sowed {CELLS} cells of {CROP}.</PhobosFarming_Sowed>
 </LanguageData>

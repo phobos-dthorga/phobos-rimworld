@@ -22,6 +22,7 @@
   <PhobosBulk_NoRoom>{OTHER} has no room for anything {HOLD} holds.</PhobosBulk_NoRoom>
   <PhobosBulk_StandStill>{VEHICLE} must stand still to pour or be poured into.</PhobosBulk_StandStill>
   <PhobosBulk_NotOnMap>{VEHICLE} can only pour while it stands on a map.</PhobosBulk_NotOnMap>
+  <PhobosBulk_SpillLost>{HOLD} is gone. What it held spilled over the ground, and the rest was lost: {WHAT}.</PhobosBulk_SpillLost>
   <PhobosBulk_Spoiled>Some of what {HOLD} held has spoiled and is lost: {WHAT}.</PhobosBulk_Spoiled>
   <PhobosBulk_LineEmpty>Empty, holds up to {CAPACITY} kg</PhobosBulk_LineEmpty>
   <PhobosBulk_Line>{MASS} of {CAPACITY} kg: {WHAT}</PhobosBulk_Line>
