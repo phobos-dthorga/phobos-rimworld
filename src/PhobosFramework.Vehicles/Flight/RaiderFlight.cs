@@ -186,8 +186,9 @@ public static class RaiderFlight
     /// The best spot for this way of putting people down (RaidLandingRule): a landing spot the aircraft's footprint takes, facing the colony,
     /// or, for the ropes, a point over open ground. Raiders know the ground, so unseen ground is no bar. False when none was found.
     /// </summary>
-    public static bool FindZone(VehiclePawn vehicle, RaidLanding mode, out IntVec3 cell, out Rot4 rot)
+    public static bool FindZone(VehiclePawn vehicle, RaidLanding mode, out IntVec3 cell, out Rot4 rot, List<IntVec3>? taken = null)
     {
+        float spacing = SpotSpacing(vehicle);
         cell = IntVec3.Invalid;
         rot = Rot4.North;
         Map map = vehicle.Map;
@@ -199,6 +200,8 @@ public static class RaiderFlight
             Vector2 offset = Rand.InsideUnitCircle * (float)RaidLandingRule.FarthestCells;
             var c = new IntVec3(middle.x + Mathf.RoundToInt(offset.x), 0, middle.z + Mathf.RoundToInt(offset.y));
             if (!c.InBounds(map)) continue;
+            // Framework 0.174.0: never on top of a spot another aircraft of the raid holds.
+            if (taken != null && taken.Any(s => s.InHorDistOf(c, spacing))) continue;
             bool covered = turrets.Any(t => t.At.InHorDistOf(c, t.Reach + (float)RaidLandingRule.TurretMarginCells));
             double score = RaidLandingRule.Score(mode, (c - middle).LengthHorizontal, covered);
             if (score >= best) continue;
@@ -213,6 +216,34 @@ public static class RaiderFlight
         }
         return cell.IsValid;
     }
+
+    /// <summary>
+    /// The spots the other raiders' aircraft on this map hold (Framework 0.174.0; the audit of 19 Nov 2026, finding 6: every aircraft of a
+    /// raid made for the same best spot and fell back on retries). Read once as an aircraft plans its approach: a raid's few aircraft.
+    /// </summary>
+    public static List<IntVec3> SpotsTaken(VehiclePawn vehicle)
+    {
+        var spots = new List<IntVec3>();
+        Map? map = vehicle.Map;
+        if (map == null) return spots;
+        foreach (Pawn pawn in map.mapPawns.AllPawnsSpawned)
+        {
+            if (pawn == vehicle || pawn is not VehiclePawn other || other.GetComp<CompPhobosFlight>() is not { IsRaider: true } flight) continue;
+            IntVec3 spot = flight.RaidSpot;
+            if (spot.IsValid) spots.Add(spot);
+        }
+        return spots;
+    }
+
+    /// <summary>How far apart two raiders' spots stay, cells: two of this aircraft's longest sides and a margin (authored), so footprints and
+    /// their rotor wash never overlap.</summary>
+    static float SpotSpacing(VehiclePawn vehicle)
+    {
+        IntVec2 size = vehicle.VehicleDef.Size;
+        return 2f * Mathf.Max(size.x, size.z) + SpotMarginCells;
+    }
+
+    const float SpotMarginCells = 4f;
 }
 
 /// <summary>Where a raiders' aircraft is in its raid.</summary>

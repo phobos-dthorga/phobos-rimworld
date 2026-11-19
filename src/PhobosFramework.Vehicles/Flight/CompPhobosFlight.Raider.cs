@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Rules;
 using RimWorld;
@@ -26,6 +27,19 @@ public partial class CompPhobosFlight
     /// <summary>Whether this is a raiders' aircraft on a raid: never claimable, wrecked rather than set down hard.</summary>
     public bool IsRaider => raider != null;
 
+    /// <summary>The spot a raiders' aircraft is making for, or stands on (Framework 0.174.0): where it lands, the point it hovers over for its
+    /// ropes, or, on the ground, where it stands. Invalid for any other aircraft, or one with no spot yet.</summary>
+    public IntVec3 RaidSpot
+    {
+        get
+        {
+            if (raider == null || !Vehicle.Spawned) return IntVec3.Invalid;
+            if (!Airborne) return Vehicle.Position;
+            if (landCell.IsValid) return landCell;
+            return HasTarget ? new IntVec3(Mathf.FloorToInt(targetX), 0, Mathf.FloorToInt(targetZ)) : IntVec3.Invalid;
+        }
+    }
+
     void ExposeRaider() => Scribe_Deep.Look(ref raider, "PhobosFlight_Raider");
 
     /// <summary>Starts a raid: just come in over the edge (FlightArrival.EnterAt), it keeps that point to leave by and goes for its spot.</summary>
@@ -41,13 +55,16 @@ public partial class CompPhobosFlight
     void PlanApproach()
     {
         VehiclePawn v = Vehicle;
-        if (!RaiderFlight.FindZone(v, raider!.mode, out IntVec3 cell, out Rot4 rot)
-            && !RaiderFlight.FindZone(v, raider.mode = RaidLanding.Closest, out cell, out rot)
-            && !RaiderFlight.FindZone(v, raider.mode = RaidLanding.RopeClose, out cell, out rot))
+        // Framework 0.174.0 (the audit of 19 Nov 2026, finding 6): the spots the raid's other aircraft already hold are left to them.
+        List<IntVec3> taken = RaiderFlight.SpotsTaken(v);
+        if (!RaiderFlight.FindZone(v, raider!.mode, out IntVec3 cell, out Rot4 rot, taken)
+            && !RaiderFlight.FindZone(v, raider.mode = RaidLanding.Closest, out cell, out rot, taken)
+            && !RaiderFlight.FindZone(v, raider.mode = RaidLanding.RopeClose, out cell, out rot, taken))
         {
             raider.tries = RaiderTries;
             return;
         }
+        if (taken.Count > 0 && Seen.On) Seen.Note("aircraft.raid-spot-apart", v, taken.Count + " taken");
         orbitX = orbitZ = float.NaN;
         if (raider.mode == RaidLanding.RopeClose)
         {
