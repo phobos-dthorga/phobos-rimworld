@@ -249,6 +249,7 @@
     "239": ["aircraft.flight-sound"],
     "240": ["aircraft.raid-spot-apart"],
     "242": ["aircraft.group-spread"],
+    "243": ["aircraft.space-refused"],
     "241": {"parts": {
       "back to the gun dropped when downed": [{"key": "patches.keep-guns.recovered", "variant": "dropped"}],
       "a loaded gun out of the pack": [{"key": "patches.keep-guns.recovered", "variant": "pack"}],

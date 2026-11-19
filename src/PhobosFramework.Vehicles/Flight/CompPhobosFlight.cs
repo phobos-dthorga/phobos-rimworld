@@ -387,6 +387,13 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         if (!v.HasEnoughOperators) return "PhobosFlight_RefuseCrew".Translate(who).Resolve();
         if (v.CompFueledTravel is { } fuel && fuel.Fuel <= 0f) return "PhobosFlight_RefuseNoFuel".Translate(who).Resolve();
         if (FootprintRoofed(v.Position, v.Rotation)) return "PhobosFlight_RefuseRoof".Translate(who).Resolve();
+        // Framework 0.174.0 (the audit of 19 Nov 2026, finding 4, after VTOL Vehicle): no air to fly in over a map in space, unless Vehicle
+        // Framework's own launcher says this aircraft flies in space.
+        if (v.Map.Tile.LayerDef is { isSpace: true } && v.CompVehicleLauncher is not { SpaceFlight: true })
+        {
+            Seen.Note("aircraft.space-refused", v);
+            return "PhobosFlight_RefuseSpace".Translate(who).Resolve();
+        }
         if (CompPhobosVehicleSystems.Of(v)?.LaunchRefusal() is { } systems) return systems;
         if (LaunchChecks.Refusal(v) is { } other) return other;
         return null;
