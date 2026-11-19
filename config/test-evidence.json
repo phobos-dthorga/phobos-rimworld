@@ -228,7 +228,10 @@
     }},
     "234": ["vehicles.gather-keeps-working"],
     "235": ["aircraft.rotors-turning"],
-    "236": ["aircraft.engines-off-after-landing"],
+    "236": {"parts": {
+      "the engines off after landing": ["aircraft.engines-off-after-landing"],
+      "a cancelled journey's sound ends": ["aircraft.launch-sound-ended"]
+    }},
     "231": {"parts": {
       "headlights switch themselves": [{"key": "vehicles.lights-auto", "variant": "headlights"}],
       "work lamps switch themselves": [{"key": "vehicles.lights-auto", "variant": "workLamps"}, {"key": "vehicles.work-lamps-lit", "variant": "automatic"}]

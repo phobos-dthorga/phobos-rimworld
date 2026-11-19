@@ -541,7 +541,28 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         if (!Departing) return;
         departNodes = null;
         departAction = null;
+        EndLaunchSound(Vehicle);
         Messages.Message("PhobosFlight_MsgDepartureCancelled".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+    }
+
+    /// <summary>
+    /// Ends the sounds the aircraft's Def starts on Vehicle Framework's launch event (Framework 0.173.1; the audit of 19 Nov 2026). <see cref="Depart"/>
+    /// fires that event as a journey starts, and the Def stops them only when it leaves the map (the Cherokee's and Mosquito's rotor sound), so
+    /// a journey cancelled by a new order, or ended by coming down, left the sound playing after landing, where stopping the engines could not
+    /// stop it: the likeliest cause of the owner's "impossible to shut off the engines" (19 Nov 2026). Only those sounds are ended; the launch
+    /// event's other listeners are not told it left.
+    /// </summary>
+    static void EndLaunchSound(VehiclePawn v)
+    {
+        List<VehicleSustainerEventEntry<VehicleEventDef>>? entries = v.VehicleDef.soundSustainersOnEvent;
+        if (entries == null || v.sustainers == null) return;
+        for (int i = 0; i < entries.Count; i++)
+        {
+            VehicleSustainerEventEntry<VehicleEventDef> entry = entries[i];
+            if (entry.start != VehicleEventDefOf.AerialVehicleLaunch || entry.value == null) continue;
+            v.sustainers.EndAll(entry.value);
+            if (Seen.On) Seen.Note("aircraft.launch-sound-ended", v, entry.value.defName);
+        }
     }
 
     /// <summary>At the map's edge: off the map and into Vehicle Framework's world flight, as its own lift-off hands over.</summary>
@@ -1237,6 +1258,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         }
         orbitX = orbitZ = float.NaN;
         // Fault-read W6: coming down ends a journey under way; it is not kept for after the landing.
+        if (departNodes != null) EndLaunchSound(v);
         departNodes = null;
         departAction = null;
         // Framework 0.161.0: a load hanging below falls from where it hangs (with release and drops on).

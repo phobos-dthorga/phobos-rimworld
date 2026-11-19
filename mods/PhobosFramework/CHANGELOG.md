@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.173.1] - 2026-11-19 - Draft
+
+A cancelled journey no longer leaves a helicopter's sound playing
+
+### Fixed
+
+- **A journey cancelled by a new order, or ended by coming down, no longer leaves the aircraft's take-off sound playing.** The Cherokee's and Mosquito's helicopter sound started as a journey began and stopped only once the aircraft left the map, so after such a journey it went on after landing, and switching the engines off could not stop it (a reload did). This is the likeliest cause of the Cherokee's engines seeming impossible to shut off.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Our flight still plays no helicopter sound of its own while flying about a map; that is a separate piece of work.
+
 ## [0.173.0] - 2026-11-19 - Draft
 
 A helicopter's rotors turn on our own flight; landings end with the engines off; a wreck sets its cargo down safely
