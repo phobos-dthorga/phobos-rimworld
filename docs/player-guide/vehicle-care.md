@@ -431,7 +431,12 @@ the kit back in the cargo.
   when the fuel aboard covers it; the tooltip says how many stops it will make. Whenever the tank falls to a quarter it sets down on the land
   below, pours, waits a little while and flies on. **It never sets down on water, in mountains or on an enemy's ground**: over the sea it
   flies on until it reaches land, so a long sea crossing still needs the fuel in the tank. Nothing pours fuel into an aircraft in the air.
-- **The fleet button** on the bottom bar lists every vehicle you own, wherever it is, with its picture, fuel and worst part.
+- **The fleet button** on the bottom bar lists every vehicle you own, wherever it is, grouped by place, with its picture, what it is
+  doing, the one thing it most needs, its fuel and its worst part (the redrawn page is not yet tested in game). A trailer sits under what
+  pulls it. At the bottom are vehicles lying lost on the world map, hulls waiting to be taken apart, and other factions' vehicles standing
+  unguarded that you could claim. **Choose a row** (a click, or the up and down arrow keys) and the pane on the right shows where it is
+  hurt, its faults and what caused them, and its newest logbook lines; **Enter**, or a click on the chosen row, goes to it. Tick **Only
+  what needs attention** to hide the rest.
 - **A vehicle parked in the wild is lost after a while**; a letter warns you three days ahead.
 - **A lost convoy stays where it stopped** (not yet tested in game; the setting **Lost convoys stay where they stopped**, on by default):
   when the last colonist of a convoy dies on the road, its vehicles, cargo and anyone else aboard wait on the world map as a **lost

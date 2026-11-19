@@ -50,6 +50,13 @@ public sealed class PhobosLogEntry : IExposable
             detail.Named("DETAIL")).Resolve();
     }
 
+    /// <summary>The entry's date, short, as it was where the entry was written.</summary>
+    public string DateText()
+    {
+        UnityEngine.Vector2 longLat = tile.Valid && Find.WorldGrid != null ? Find.WorldGrid.LongLatOf(tile) : UnityEngine.Vector2.zero;
+        return GenDate.DateShortStringAt(GenDate.TickGameToAbs(tick), longLat);
+    }
+
     string ValueText() => def?.value switch
     {
         LogValueKind.Count => value.ToString("0"),

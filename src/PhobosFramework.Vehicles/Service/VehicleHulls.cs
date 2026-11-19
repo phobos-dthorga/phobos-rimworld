@@ -79,7 +79,7 @@ public class CompPhobosHull : ThingComp
     public override string CompInspectStringExtra() => "PhobosVehicleSystems_HullInspect".Translate(Parts().Named("COUNT")).Resolve();
 
     /// <summary>The salvaged parts it gives: a quarter of its vehicle's worth (SalvageRule).</summary>
-    int Parts()
+    public int Parts()
     {
         if (VehicleHulls.SalvagedParts is not { } salvaged || parent is not VehicleBuilding { VehicleDef: { } vehicle }) return 0;
         return Phobos.Framework.Rules.SalvageRule.HullParts(vehicle.BaseMarketValue, Phobos.Framework.Rules.SalvageRule.HullShare, salvaged.BaseMarketValue);

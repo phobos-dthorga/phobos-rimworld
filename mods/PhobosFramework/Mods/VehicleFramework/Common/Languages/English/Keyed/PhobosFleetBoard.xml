@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The fleet board as refreshed in Framework 0.188.0: what each vehicle is doing and needs, the places it groups them by, and the
+       pane beside the list. Text a player reads in play stays in the game world. Agent-authored, held for the owner's review. -->
+  <PhobosFleet_ColumnDoing>Doing</PhobosFleet_ColumnDoing>
+  <PhobosFleet_ColumnNeeds>Needs</PhobosFleet_ColumnNeeds>
+  <PhobosFleet_OnlyAttention>Only what needs attention</PhobosFleet_OnlyAttention>
+  <PhobosFleet_ShowFlat>Show as one list</PhobosFleet_ShowFlat>
+  <PhobosFleet_ShowGrouped>Group by place</PhobosFleet_ShowGrouped>
+  <PhobosFleet_GroupHeader>{GROUP} ({COUNT})</PhobosFleet_GroupHeader>
+  <PhobosFleet_GroupAttention>needing attention: {COUNT}</PhobosFleet_GroupAttention>
+  <PhobosFleet_GroupParked>Left parked in the wild</PhobosFleet_GroupParked>
+  <PhobosFleet_GroupLost>Lost or wrecked, waiting to be recovered</PhobosFleet_GroupLost>
+  <PhobosFleet_GroupHulls>Hulls waiting to be taken apart</PhobosFleet_GroupHulls>
+  <PhobosFleet_GroupClaimable>Not yours, but could be claimed</PhobosFleet_GroupClaimable>
+
+  <PhobosFleet_DoingParked>parked</PhobosFleet_DoingParked>
+  <PhobosFleet_DoingBay>parked in a depot bay</PhobosFleet_DoingBay>
+  <PhobosFleet_DoingEngine>engine running</PhobosFleet_DoingEngine>
+  <PhobosFleet_DoingDriving>driving</PhobosFleet_DoingDriving>
+  <PhobosFleet_DoingOverrun>rolling on, unable to stop</PhobosFleet_DoingOverrun>
+  <PhobosFleet_DoingAir>in the air</PhobosFleet_DoingAir>
+  <PhobosFleet_DoingErrand>out on a run by itself</PhobosFleet_DoingErrand>
+  <PhobosFleet_DoingSetUp>set up and working</PhobosFleet_DoingSetUp>
+  <PhobosFleet_DoingSetUpStalled>set up, but stopped</PhobosFleet_DoingSetUpStalled>
+  <PhobosFleet_DoingWinching>winching {TOWED}</PhobosFleet_DoingWinching>
+  <PhobosFleet_DoingTowing>{DOING}, towing {TRAILER}</PhobosFleet_DoingTowing>
+  <PhobosFleet_DoingTowed>towed by {TRACTOR}</PhobosFleet_DoingTowed>
+  <PhobosFleet_DoingSlung>slung under {CARRIER}</PhobosFleet_DoingSlung>
+  <PhobosFleet_DoingRoad>on the road</PhobosFleet_DoingRoad>
+  <PhobosFleet_DoingRoadFar>on the road, {DISTANCE} so far</PhobosFleet_DoingRoadFar>
+  <PhobosFleet_DoingHalted>stopped on the way</PhobosFleet_DoingHalted>
+  <PhobosFleet_DoingStranded>stranded</PhobosFleet_DoingStranded>
+  <PhobosFleet_DoingFlying>flying</PhobosFleet_DoingFlying>
+  <PhobosFleet_DoingFlyingFar>flying, {DISTANCE} so far</PhobosFleet_DoingFlyingFar>
+  <PhobosFleet_DoingGarage>kept here</PhobosFleet_DoingGarage>
+  <PhobosFleet_DoingStash>left parked</PhobosFleet_DoingStash>
+  <PhobosFleet_DoingLost>lying where it was lost</PhobosFleet_DoingLost>
+  <PhobosFleet_DoingHull>the hull of a destroyed vehicle</PhobosFleet_DoingHull>
+  <PhobosFleet_DoingClaimable>standing unguarded</PhobosFleet_DoingClaimable>
+
+  <PhobosFleet_NeedsFuel>fuel</PhobosFleet_NeedsFuel>
+  <PhobosFleet_NeedsFaults>faults to look at: {COUNT}</PhobosFleet_NeedsFaults>
+  <PhobosFleet_NeedsBrakes>new brake pads: it cannot stop</PhobosFleet_NeedsBrakes>
+  <PhobosFleet_NeedsRecovery>a caravan to reach it</PhobosFleet_NeedsRecovery>
+  <PhobosFleet_NeedsHull>salvaged parts when taken apart: {COUNT}</PhobosFleet_NeedsHull>
+  <PhobosFleet_NeedsClaim>yours if a colonist claims it</PhobosFleet_NeedsClaim>
+
+  <PhobosFleet_DetailNone>Choose a vehicle to see where it is hurt, its faults and what caused them, and the newest lines of its logbook.\n\nThe up and down arrow keys move through the list. Enter goes to the chosen vehicle.</PhobosFleet_DetailNone>
+  <PhobosFleet_DetailGoTo>Go to it</PhobosFleet_DetailGoTo>
+  <PhobosFleet_DetailGoToTip>Closes this page and shows the vehicle, or the place holding it. Enter does the same, and so does clicking the chosen row again.</PhobosFleet_DetailGoToTip>
+  <PhobosFleet_DetailWhere>Where: {WHERE}</PhobosFleet_DetailWhere>
+  <PhobosFleet_DetailDoing>Doing: {DOING}</PhobosFleet_DetailDoing>
+  <PhobosFleet_DetailNeeds>Needs: {NEEDS}</PhobosFleet_DetailNeeds>
+  <PhobosFleet_DetailCrew>Aboard: {CREW} of {SEATS} seats</PhobosFleet_DetailCrew>
+  <PhobosFleet_DetailJourney>This journey: {DISTANCE} so far, from {PLACE}.</PhobosFleet_DetailJourney>
+  <PhobosFleet_DetailFaults>Faults</PhobosFleet_DetailFaults>
+  <PhobosFleet_DetailNoFaults>None.</PhobosFleet_DetailNoFaults>
+  <PhobosFleet_DetailFault>{CONDITION}: {PART}</PhobosFleet_DetailFault>
+  <PhobosFleet_DetailFaultStage>{CONDITION}: {PART} ({STAGE})</PhobosFleet_DetailFaultStage>
+  <PhobosFleet_DetailLogbook>Logbook, newest first</PhobosFleet_DetailLogbook>
+  <PhobosFleet_DetailNoLog>Nothing written yet.</PhobosFleet_DetailNoLog>
+  <PhobosFleet_DetailLogMore>Older lines are in its Logbook tab.</PhobosFleet_DetailLogMore>
+  <PhobosFleet_DetailHull>What is left of a destroyed vehicle. Taking it apart gives salvaged parts: {COUNT}.</PhobosFleet_DetailHull>
+  <PhobosFleet_DetailClaimable>It is not yours, and nobody is near enough to stop you. Select it and order a colonist to claim it.</PhobosFleet_DetailClaimable>
+  <PhobosFleet_DetailLost>It lies where it was lost. Send a caravan to the place to recover it.</PhobosFleet_DetailLost>
+</LanguageData>

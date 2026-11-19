@@ -15,10 +15,13 @@ public class MainButtonWorker_PhobosFleet : MainButtonWorker_ToggleTab
 }
 
 /// <summary>
-/// The fleet board: every vehicle the player owns, wherever it is, in one sortable list (docs/development/vehicle-stations.md).
-/// Presentation only. The list is a snapshot from <see cref="FleetService"/>, rebuilt on opening, on a refresh and a few times a game hour.
-/// From 0.79.0 (docs/development/vehicle-presentation-design.md, P2) each row shows the vehicle's picture, its fuel and worst part as gauges,
-/// and its state as the dashboard's check-engine lamp, so the fleet can be read without reading.
+/// The fleet board: every vehicle the player owns, wherever it is (docs/development/vehicle-stations.md). Presentation only: the rows are a
+/// snapshot from <see cref="FleetService"/>, rebuilt on opening, on a refresh and a few times a game hour, and the detail pane's words come
+/// ready from it too. Refreshed in Framework 0.188.0 (the owner, 20 Nov 2026: "overdue for a refresh and update given all the new features
+/// as of late"; choices by card the same day): the list is grouped by place, each row says what the vehicle is doing and what it needs,
+/// trailers sit under what pulls them, lost vehicles, hulls and vehicles that could be claimed are listed, and a pane beside the list
+/// shows the chosen vehicle's damage, faults with their causes, journey and newest logbook lines. The arrow keys move the choice and
+/// Enter goes to it, so the page works from the keyboard.
 /// </summary>
 public class MainTabWindow_PhobosFleet : MainTabWindow
 {
@@ -26,6 +29,8 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
     {
         Name,
         Where,
+        Doing,
+        Needs,
         Fuel,
         Health,
         Status,
@@ -33,38 +38,98 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
     }
 
     const float Row = 40f;
+    const float GroupRow = 26f;
     const float Thumbnail = 52f;
     const float StatusLamp = 22f;
     const string StatusIcon = "Phobos/VehicleSystems/Dash/CheckEngine";
     const float HeaderHeight = 30f;
-    const float SearchHeight = 32f;
+    const float TopHeight = 32f;
+    const float DetailWidth = 370f;
+    const float Gap = 10f;
+    const float Indent = 22f;
+    const float PictureSize = 190f;
+    const float ButtonHeight = 32f;
     const int RefreshTicks = 250;
     const float LightSize = 12f;
-
-    /// <summary>Fuel below this share shows amber (authored: a quarter of a tank).</summary>
-    const float LowFuel = 0.25f;
 
     static string StatusWord(int status) => (status == FleetEntry.Stopped ? "PhobosFleet_StatusStopped"
         : status == FleetEntry.Notable ? "PhobosFleet_StatusNotable" : "PhobosFleet_StatusGood").Translate();
 
-    static readonly (Column column, string key, float share)[] Columns =
+    static readonly (Column column, string key, float share)[] GroupedColumns =
     {
-        (Column.Name, "PhobosFleet_ColumnName", 0.28f),
-        (Column.Where, "PhobosFleet_ColumnWhere", 0.30f),
-        (Column.Fuel, "PhobosFleet_ColumnFuel", 0.09f),
-        (Column.Health, "PhobosFleet_ColumnWorstPart", 0.13f),
-        (Column.Status, "PhobosFleet_ColumnStatus", 0.10f),
-        (Column.Crew, "PhobosFleet_ColumnCrew", 0.10f),
+        (Column.Name, "PhobosFleet_ColumnName", 0.25f),
+        (Column.Doing, "PhobosFleet_ColumnDoing", 0.23f),
+        (Column.Needs, "PhobosFleet_ColumnNeeds", 0.22f),
+        (Column.Fuel, "PhobosFleet_ColumnFuel", 0.08f),
+        (Column.Health, "PhobosFleet_ColumnWorstPart", 0.10f),
+        (Column.Status, "PhobosFleet_ColumnStatus", 0.06f),
+        (Column.Crew, "PhobosFleet_ColumnCrew", 0.06f),
     };
+
+    static readonly (Column column, string key, float share)[] FlatColumns =
+    {
+        (Column.Name, "PhobosFleet_ColumnName", 0.21f),
+        (Column.Where, "PhobosFleet_ColumnWhere", 0.14f),
+        (Column.Doing, "PhobosFleet_ColumnDoing", 0.18f),
+        (Column.Needs, "PhobosFleet_ColumnNeeds", 0.17f),
+        (Column.Fuel, "PhobosFleet_ColumnFuel", 0.08f),
+        (Column.Health, "PhobosFleet_ColumnWorstPart", 0.10f),
+        (Column.Status, "PhobosFleet_ColumnStatus", 0.06f),
+        (Column.Crew, "PhobosFleet_ColumnCrew", 0.06f),
+    };
+
+    /// <summary>One line of the list: a place's heading, or a row.</summary>
+    readonly struct Line
+    {
+        public readonly FleetEntry? Entry;
+        public readonly string GroupKey;
+        public readonly string GroupLabel;
+        public readonly int Count;
+        public readonly int Attention;
+        public readonly bool Indented;
+
+        public Line(FleetEntry entry, bool indented)
+        {
+            Entry = entry;
+            GroupKey = entry.GroupKey;
+            GroupLabel = "";
+            Count = Attention = 0;
+            Indented = indented;
+        }
+
+        public Line(string groupKey, string groupLabel, int count, int attention)
+        {
+            Entry = null;
+            GroupKey = groupKey;
+            GroupLabel = groupLabel;
+            Count = count;
+            Attention = attention;
+            Indented = false;
+        }
+
+        public float Height => Entry == null ? GroupRow : Row;
+    }
 
     List<FleetEntry> entries = new();
     int builtAtTick = -1;
     Column sortBy = Column.Name;
     bool descending;
     string filter = "";
-    Vector2 scroll;
+    Vector2 scroll, detailScroll;
+    bool grouped = true;
+    bool attentionOnly;
+    readonly HashSet<string> folded = new();
+    int selectedId = -1;
+    FleetDetail? detail;
+    bool showSelected;
+    float detailHeight = 400f;
 
-    public override Vector2 RequestedTabSize => new(900f, 640f);
+    (Column column, string key, float share)[] Columns => grouped ? GroupedColumns : FlatColumns;
+
+    public override Vector2 RequestedTabSize => new(Mathf.Min(1340f, UI.screenWidth - 40f), 680f);
+
+    /// <summary>The arrow keys move through the list here, so they do not also move the map behind the page.</summary>
+    public MainTabWindow_PhobosFleet() => preventCameraMotion = true;
 
     public override void PreOpen()
     {
@@ -76,26 +141,67 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
     {
         entries = FleetService.Build();
         builtAtTick = Find.TickManager.TicksGame;
+        detail = null;
     }
 
-    IEnumerable<FleetEntry> Shown()
+    FleetEntry? Selected => selectedId < 0 ? null : entries.FirstOrDefault(e => e.Id == selectedId && !e.Subject.Destroyed);
+
+    /// <summary>Enter goes to the chosen vehicle, where the game would only close the page.</summary>
+    public override void OnAcceptKeyPressed()
     {
-        IEnumerable<FleetEntry> shown = entries.Where(e => !e.Vehicle.Destroyed);
-        if (!filter.NullOrEmpty())
-        {
-            shown = shown.Where(e => e.Vehicle.LabelShort.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0
-                || e.Where.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0);
-        }
+        if (Selected is { } entry) FleetService.Jump(entry);
+        else base.OnAcceptKeyPressed();
+    }
+
+    bool Matches(FleetEntry e) =>
+        e.Label.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0 || e.Where.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0
+        || e.Doing.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0 || (e.Needs != null && e.Needs.IndexOf(filter, StringComparison.OrdinalIgnoreCase) >= 0);
+
+    List<Line> Lines()
+    {
+        IEnumerable<FleetEntry> shown = entries.Where(e => !e.Subject.Destroyed);
+        if (!filter.NullOrEmpty()) shown = shown.Where(Matches);
+        if (attentionOnly) shown = shown.Where(e => e.NeedsAttention);
         Func<FleetEntry, IComparable> key = sortBy switch
         {
             Column.Where => e => e.Where,
+            Column.Doing => e => e.Doing,
+            Column.Needs => e => e.Needs ?? "",
             Column.Fuel => e => e.Fuel,
             Column.Health => e => e.Health,
             Column.Status => e => e.Status,
             Column.Crew => e => e.Crew,
-            _ => e => e.Vehicle.LabelShort,
+            _ => e => e.Label,
         };
-        return descending ? shown.OrderByDescending(key) : shown.OrderBy(key);
+        List<FleetEntry> sorted = (descending ? shown.OrderByDescending(key) : shown.OrderBy(key)).ToList();
+        var inList = new HashSet<FleetEntry>(sorted);
+        var lines = new List<Line>();
+
+        void AddRows(IEnumerable<FleetEntry> rows)
+        {
+            foreach (FleetEntry entry in rows)
+            {
+                // A towed vehicle sits under what pulls it, when that is in the list too.
+                if (entry.TowedBy != null && inList.Contains(entry.TowedBy)) continue;
+                lines.Add(new Line(entry, indented: false));
+                foreach (FleetEntry towed in sorted)
+                {
+                    if (towed.TowedBy == entry) lines.Add(new Line(towed, indented: true));
+                }
+            }
+        }
+
+        if (!grouped)
+        {
+            AddRows(sorted);
+            return lines;
+        }
+        foreach (IGrouping<string, FleetEntry> group in sorted.GroupBy(e => e.GroupKey).OrderBy(g => g.First().GroupOrder).ThenBy(g => g.First().GroupLabel))
+        {
+            lines.Add(new Line(group.Key, group.First().GroupLabel, group.Count(), group.Count(e => e.NeedsAttention)));
+            if (!folded.Contains(group.Key)) AddRows(group);
+        }
+        return lines;
     }
 
     public override void DoWindowContents(Rect inRect)
@@ -103,7 +209,7 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
         // Guarded: a throw is logged once and the window rests, where the game would log it every frame (UiGuard).
         if (UiGuard.Resting(GuardKey)) { UiGuard.Fallback(inRect); return; }
         try { Contents(inRect); }
-        catch (System.Exception e) { UiGuard.Report(GuardKey, e); }
+        catch (Exception e) { UiGuard.Report(GuardKey, e); }
     }
 
     const string GuardKey = "The fleet board";
@@ -112,35 +218,118 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
     {
         using Phobos.Framework.Debug.PhobosTiming.Scope timing = Phobos.Framework.Debug.PhobosTiming.Measure("fleet board");
         if (Find.TickManager.TicksGame - builtAtTick >= RefreshTicks) Rebuild();
-        List<FleetEntry> shown = Shown().ToList();
+        List<Line> lines = Lines();
+        MoveByKeys(lines);
 
-        var top = new Rect(inRect.x, inRect.y, inRect.width, SearchHeight);
-        using (new TextBlock(TextAnchor.MiddleLeft))
-        {
-            Widgets.Label(new Rect(top.x, top.y, 240f, top.height), "PhobosFleet_Count".Translate(shown.Count.Named("COUNT")));
-        }
-        filter = Widgets.TextField(new Rect(top.x + 250f, top.y + 2f, 240f, top.height - 4f), filter);
+        var top = new Rect(inRect.x, inRect.y, inRect.width, TopHeight);
+        float x = top.x;
+        int count = lines.Count(l => l.Entry != null);
+        using (new TextBlock(TextAnchor.MiddleLeft)) Widgets.Label(new Rect(x, top.y, 150f, top.height), "PhobosFleet_Count".Translate(count.Named("COUNT")));
+        x += 156f;
+        var field = new Rect(x, top.y + 2f, 220f, top.height - 4f);
+        filter = Widgets.TextField(field, filter);
         if (filter.NullOrEmpty())
         {
-            using (new TextBlock(TextAnchor.MiddleLeft, new Color(1f, 1f, 1f, 0.4f)))
-            {
-                Widgets.Label(new Rect(top.x + 258f, top.y, 230f, top.height), "PhobosFleet_FilterHint".Translate());
-            }
+            using (new TextBlock(TextAnchor.MiddleLeft, new Color(1f, 1f, 1f, 0.4f))) Widgets.Label(new Rect(field.x + 8f, top.y, 210f, top.height), "PhobosFleet_FilterHint".Translate());
         }
-        if (Widgets.ButtonText(new Rect(top.xMax - 120f, top.y + 2f, 120f, top.height - 4f), "PhobosFleet_Refresh".Translate())) Rebuild();
+        x = field.xMax + 12f;
+        var attention = new Rect(x, top.y + 4f, 250f, top.height - 8f);
+        Widgets.CheckboxLabeled(attention, "PhobosFleet_OnlyAttention".Translate(), ref attentionOnly);
+        x = attention.xMax + 12f;
+        if (Widgets.ButtonText(new Rect(x, top.y + 2f, 160f, top.height - 4f), (grouped ? "PhobosFleet_ShowFlat" : "PhobosFleet_ShowGrouped").Translate()))
+        {
+            grouped = !grouped;
+            if (!grouped && sortBy == Column.Where) sortBy = Column.Name;
+        }
+        if (Widgets.ButtonText(new Rect(top.xMax - 110f, top.y + 2f, 110f, top.height - 4f), "PhobosFleet_Refresh".Translate())) Rebuild();
 
-        var header = new Rect(inRect.x, top.yMax + 4f, inRect.width - 16f, HeaderHeight);
+        float listWidth = inRect.width - DetailWidth - Gap;
+        var header = new Rect(inRect.x, top.yMax + 4f, listWidth - 16f, HeaderHeight);
         DrawHeader(header);
-        var outer = new Rect(inRect.x, header.yMax, inRect.width, inRect.yMax - header.yMax);
-        if (shown.Count == 0)
+        var outer = new Rect(inRect.x, header.yMax, listWidth, inRect.yMax - header.yMax);
+        if (lines.Count == 0)
         {
             using (new TextBlock(TextAnchor.MiddleCenter)) Widgets.Label(outer, "PhobosFleet_Empty".Translate());
-            return;
         }
-        var view = new Rect(0f, 0f, outer.width - 16f, shown.Count * Row);
+        else
+        {
+            DrawList(outer, lines);
+        }
+        DrawDetail(new Rect(outer.xMax + Gap, top.yMax + 4f, DetailWidth, inRect.yMax - top.yMax - 4f));
+    }
+
+    /// <summary>The up and down arrows move the choice through the rows, wherever the keyboard's focus is.</summary>
+    void MoveByKeys(List<Line> lines)
+    {
+        Event e = Event.current;
+        if (e.type != EventType.KeyDown || (e.keyCode != KeyCode.DownArrow && e.keyCode != KeyCode.UpArrow)) return;
+        List<FleetEntry> rows = lines.Where(l => l.Entry != null).Select(l => l.Entry!).ToList();
+        if (rows.Count == 0) return;
+        int at = rows.FindIndex(r => r.Id == selectedId);
+        int next = at < 0 ? 0 : Mathf.Clamp(at + (e.keyCode == KeyCode.DownArrow ? 1 : -1), 0, rows.Count - 1);
+        Select(rows[next]);
+        showSelected = true;
+        e.Use();
+    }
+
+    void Select(FleetEntry entry)
+    {
+        if (selectedId == entry.Id) return;
+        selectedId = entry.Id;
+        detail = null;
+        detailScroll = Vector2.zero;
+    }
+
+    void DrawList(Rect outer, List<Line> lines)
+    {
+        float height = 0f;
+        foreach (Line line in lines) height += line.Height;
+        var view = new Rect(0f, 0f, outer.width - 16f, height);
+        if (showSelected)
+        {
+            // Keep the row the keys moved to in sight.
+            float y0 = 0f;
+            foreach (Line line in lines)
+            {
+                if (line.Entry != null && line.Entry.Id == selectedId)
+                {
+                    if (y0 < scroll.y) scroll.y = y0;
+                    else if (y0 + Row > scroll.y + outer.height) scroll.y = y0 + Row - outer.height;
+                    break;
+                }
+                y0 += line.Height;
+            }
+            showSelected = false;
+        }
         Widgets.BeginScrollView(outer, ref scroll, view);
-        for (int i = 0; i < shown.Count; i++) DrawRow(new Rect(0f, i * Row, view.width, Row), shown[i], i);
+        float y = 0f;
+        int index = 0;
+        foreach (Line line in lines)
+        {
+            var rect = new Rect(0f, y, view.width, line.Height);
+            if (line.Entry == null) DrawGroup(rect, line);
+            else DrawRow(rect, line.Entry, index++, line.Indented);
+            y += line.Height;
+        }
         Widgets.EndScrollView();
+    }
+
+    void DrawGroup(Rect rect, Line line)
+    {
+        Widgets.DrawBoxSolid(rect, new Color(1f, 1f, 1f, 0.07f));
+        Widgets.DrawHighlightIfMouseover(rect);
+        string label = (folded.Contains(line.GroupKey) ? "+ " : "- ") + "PhobosFleet_GroupHeader".Translate(line.GroupLabel.Named("GROUP"), line.Count.Named("COUNT"));
+        using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft)) Widgets.Label(new Rect(rect.x + 6f, rect.y, rect.width * 0.6f, rect.height), label);
+        if (line.Attention > 0)
+        {
+            using (new TextBlock(GameFont.Small, TextAnchor.MiddleRight, PhobosWidgets.Caution))
+            {
+                Widgets.Label(new Rect(rect.x + rect.width * 0.6f, rect.y, rect.width * 0.4f - 8f, rect.height),
+                    "PhobosFleet_GroupAttention".Translate(line.Attention.Named("COUNT")));
+            }
+        }
+        if (!Widgets.ButtonInvisible(rect)) return;
+        if (!folded.Remove(line.GroupKey)) folded.Add(line.GroupKey);
     }
 
     void DrawHeader(Rect rect)
@@ -151,7 +340,8 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
             var cell = new Rect(x, rect.y, rect.width * share, rect.height);
             string label = key.Translate();
             if (column == sortBy) label += descending ? " v" : " ^";
-            using (new TextBlock(TextAnchor.MiddleLeft)) Widgets.Label(cell.ContractedBy(4f, 0f), label);
+            // One line, never wrapped: a narrow column's heading runs on rather than dropping out of sight.
+            using (new TextBlock(Color.white, TextAnchor.MiddleLeft, false)) Widgets.Label(cell.ContractedBy(4f, 0f), label);
             Widgets.DrawHighlightIfMouseover(cell);
             if (Widgets.ButtonInvisible(cell))
             {
@@ -168,29 +358,34 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
     }
 
     /// <summary>Whether this row's damage sheet is showing, so its text tooltip stays away rather than cover it.</summary>
-    static bool sheetShown;
+    bool sheetShown;
 
-    static void DrawRow(Rect row, FleetEntry entry, int index)
+    void DrawRow(Rect row, FleetEntry entry, int index, bool indented)
     {
         sheetShown = false;
-        if (index % 2 == 1) Widgets.DrawLightHighlight(row);
+        if (entry.Id == selectedId) Widgets.DrawHighlightSelected(row);
+        else if (index % 2 == 1) Widgets.DrawLightHighlight(row);
         Widgets.DrawHighlightIfMouseover(row);
         float x = row.x;
         foreach ((Column column, string _, float share) in Columns)
         {
             var cell = new Rect(x, row.y, row.width * share, row.height);
-            DrawCell(cell, column, entry);
+            DrawCell(cell, column, entry, indented);
             x = cell.xMax;
         }
-        string tip = entry.Vehicle.LabelCap;
+        string tip = entry.Label;
         if (entry.Status != FleetEntry.NoStatus) tip += "\n" + StatusWord(entry.Status);
         if (entry.WorstPart != null) tip += "\n" + "PhobosFleet_TipWorstPart".Translate(entry.WorstPart.Named("PART"), entry.Health.ToStringPercent().Named("HEALTH"));
-        if (entry.Waiting != null) tip += "\n" + entry.Waiting;
+        tip += "\n" + entry.Doing.CapitalizeFirst();
+        if (entry.Needs != null) tip += "\n" + entry.Needs.CapitalizeFirst();
         if (!sheetShown) TooltipHandler.TipRegion(row, tip);
-        if (Widgets.ButtonInvisible(row)) FleetService.Jump(entry);
+        if (!Widgets.ButtonInvisible(row)) return;
+        // One click chooses the row; a click on the chosen row goes to it.
+        if (entry.Id == selectedId) FleetService.Jump(entry);
+        else Select(entry);
     }
 
-    static void DrawCell(Rect cell, Column column, FleetEntry entry)
+    void DrawCell(Rect cell, Column column, FleetEntry entry, bool indented)
     {
         Rect text = cell.ContractedBy(4f, 0f);
         switch (column)
@@ -216,41 +411,148 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
             }
             case Column.Name:
             {
-                var picture = new Rect(text.x, cell.y + 2f, Thumbnail, cell.height - 4f);
-                if (entry.Vehicle.VehicleDef is { } def)
+                float left = text.x + (indented ? Indent : 0f);
+                var picture = new Rect(left, cell.y + 2f, Thumbnail, cell.height - 4f);
+                if (entry.Def is { } def)
                 {
                     VehiclePicture.Draw(picture, def, facingNorth: false);
                     // Where it is hurt, at a glance: the damage sheet beside the mouse while it rests on the picture.
-                    if (Mouse.IsOver(picture))
+                    if (entry.Vehicle is { Destroyed: false } vehicle && entry.Kind != FleetKind.Hull && Mouse.IsOver(picture))
                     {
-                        DamageSheet.Popup(def, DamageSheet.PartsOf(entry.Vehicle));
+                        DamageSheet.Popup(def, DamageSheet.PartsOf(vehicle));
                         sheetShown = true;
                     }
                 }
                 using (new TextBlock(TextAnchor.MiddleLeft))
                 {
                     var label = new Rect(picture.xMax + 6f, cell.y, text.xMax - picture.xMax - 6f, cell.height);
-                    Widgets.Label(label, entry.Vehicle.LabelShort.Truncate(label.width));
+                    Widgets.Label(label, entry.Label.Truncate(label.width));
                 }
                 return;
             }
             case Column.Fuel when entry.Fuel >= 0f:
                 PhobosWidgets.Gauge(new Rect(text.x, cell.y + 10f, text.width, cell.height - 20f), entry.Fuel,
-                    entry.Fuel < LowFuel ? PhobosWidgets.Caution : PhobosWidgets.Good, figure: entry.Fuel.ToStringPercent());
+                    entry.Fuel < FleetService.LowFuel ? PhobosWidgets.Caution : PhobosWidgets.Good, figure: entry.Fuel.ToStringPercent());
                 return;
             case Column.Health:
                 PhobosWidgets.Gauge(new Rect(text.x, cell.y + 10f, text.width, cell.height - 20f), entry.Health,
                     PhobosWidgets.HealthColour(entry.Health), figure: entry.Health.ToStringPercent());
                 return;
+            case Column.Needs when entry.Needs != null:
+                using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft, NeedsColour(entry))) Widgets.Label(text, entry.Needs.CapitalizeFirst());
+                return;
+            case Column.Doing:
+                using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft)) Widgets.Label(text, entry.Doing.CapitalizeFirst());
+                return;
         }
         string value = column switch
         {
-            Column.Name => entry.Vehicle.LabelShort,
             Column.Where => entry.Where,
             Column.Fuel => "-",
-            Column.Crew => entry.Crew + "/" + entry.Seats,
+            Column.Crew => entry.Seats > 0 ? entry.Crew + "/" + entry.Seats : "",
             _ => "",
         };
         using (new TextBlock(TextAnchor.MiddleLeft)) Widgets.Label(text, value.Truncate(text.width));
+    }
+
+    /// <summary>Red for what stops it, amber for what wants a look, grey for an offer (a hull's parts, a vehicle to claim).</summary>
+    static Color NeedsColour(FleetEntry entry) =>
+        !entry.NeedsAttention ? ColoredText.SubtleGrayColor : entry.Status == FleetEntry.Stopped ? PhobosWidgets.Bad : PhobosWidgets.Caution;
+
+    // ---- The pane beside the list ----
+
+    void DrawDetail(Rect rect)
+    {
+        Widgets.DrawMenuSection(rect);
+        Rect inner = rect.ContractedBy(8f);
+        FleetEntry? entry = Selected;
+        if (entry == null)
+        {
+            using (new TextBlock(GameFont.Small, TextAnchor.UpperLeft, new Color(1f, 1f, 1f, 0.6f))) Widgets.Label(inner, "PhobosFleet_DetailNone".Translate());
+            return;
+        }
+        if (detail == null || detail.ForId != entry.Id) detail = FleetService.Detail(entry);
+
+        var go = new Rect(inner.x, inner.yMax - ButtonHeight, inner.width, ButtonHeight);
+        if (Widgets.ButtonText(go, "PhobosFleet_DetailGoTo".Translate())) FleetService.Jump(entry);
+        TooltipHandler.TipRegion(go, "PhobosFleet_DetailGoToTip".Translate());
+
+        var outer = new Rect(inner.x, inner.y, inner.width, go.y - inner.y - 6f);
+        var view = new Rect(0f, 0f, outer.width - 16f, detailHeight);
+        Widgets.BeginScrollView(outer, ref detailScroll, view);
+        float width = view.width;
+        float y = 0f;
+        using (new TextBlock(GameFont.Medium, TextAnchor.UpperLeft))
+        {
+            float titleHeight = Text.CalcHeight(entry.Label, width);
+            Widgets.Label(new Rect(0f, y, width, titleHeight), entry.Label);
+            y += titleHeight + 2f;
+        }
+        if (entry.Def is { } def)
+        {
+            var picture = new Rect((width - PictureSize) / 2f, y, PictureSize, PictureSize);
+            if (detail.Parts != null) DamageSheet.Draw(picture, def, detail.Parts, null);
+            else VehiclePicture.Draw(picture, def, facingNorth: true);
+            y += PictureSize + 6f;
+        }
+        y += Words(0f, y, width, "PhobosFleet_DetailWhere".Translate(entry.Where.Named("WHERE")), Color.white);
+        y += Words(0f, y, width, "PhobosFleet_DetailDoing".Translate(entry.Doing.Named("DOING")), Color.white);
+        if (entry.Needs != null)
+        {
+            y += Words(0f, y, width, "PhobosFleet_DetailNeeds".Translate(entry.Needs.Named("NEEDS")), NeedsColour(entry));
+        }
+        if (entry.Seats > 0) y += Words(0f, y, width, "PhobosFleet_DetailCrew".Translate(entry.Crew.Named("CREW"), entry.Seats.Named("SEATS")), Color.white);
+        if (detail.Journey != null) y += Words(0f, y, width, detail.Journey, Color.white);
+        if (detail.Note != null) y += Words(0f, y, width, detail.Note, new Color(1f, 1f, 1f, 0.75f));
+        y += 6f;
+
+        if (entry.Systems != null)
+        {
+            float faultsTop = y;
+            Color? worst = detail.Faults.Count == 0 ? null : detail.Faults.Any(f => f.Severe) ? PhobosWidgets.Bad : PhobosWidgets.Caution;
+            PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosFleet_DetailFaults".Translate(), worst);
+            if (detail.Faults.Count == 0) y += Words(6f, y, width - 12f, "PhobosFleet_DetailNoFaults".Translate(), new Color(1f, 1f, 1f, 0.6f));
+            foreach (FleetFault fault in detail.Faults)
+            {
+                y += Words(6f, y, width - 12f, fault.Text, fault.Severe ? PhobosWidgets.Bad : PhobosWidgets.Caution);
+                if (fault.Cause != null) y += Small(14f, y, width - 20f, fault.Cause);
+            }
+            PhobosWidgets.CardEnd(faultsTop, ref y, 0f, width);
+
+            float logTop = y;
+            PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosFleet_DetailLogbook".Translate(), null);
+            if (detail.Log.Count == 0) y += Words(6f, y, width - 12f, "PhobosFleet_DetailNoLog".Translate(), new Color(1f, 1f, 1f, 0.6f));
+            foreach (FleetLogLine line in detail.Log)
+            {
+                y += Small(6f, y, width - 12f, line.Date);
+                y += Words(6f, y, width - 12f, line.Text, line.Bad ? ColorLibrary.RedReadable : Color.white);
+            }
+            if (detail.LogTotal > detail.Log.Count) y += Small(6f, y, width - 12f, "PhobosFleet_DetailLogMore".Translate());
+            PhobosWidgets.CardEnd(logTop, ref y, 0f, width);
+        }
+        Widgets.EndScrollView();
+        detailHeight = y + 4f;
+    }
+
+    /// <summary>A wrapped line in the small font; returns the height it took.</summary>
+    static float Words(float x, float y, float width, string text, Color colour)
+    {
+        using (new TextBlock(GameFont.Small, TextAnchor.UpperLeft, colour))
+        {
+            float height = Text.CalcHeight(text, width);
+            Widgets.Label(new Rect(x, y, width, height), text);
+            return height + 1f;
+        }
+    }
+
+    /// <summary>A wrapped line in the tiny font, greyed; returns the height it took.</summary>
+    static float Small(float x, float y, float width, string text)
+    {
+        using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft, ColoredText.SubtleGrayColor))
+        {
+            float height = Text.CalcHeight(text, width);
+            Widgets.Label(new Rect(x, y, width, height), text);
+            return height + 1f;
+        }
     }
 }

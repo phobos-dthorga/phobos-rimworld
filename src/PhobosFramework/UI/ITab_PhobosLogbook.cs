@@ -61,17 +61,11 @@ public class ITab_PhobosLogbook : ITab
             float rowHeight = Mathf.Max(Text.CalcHeight(text, textWidth), 24f);
             var row = new Rect(0f, y, view.width, rowHeight);
             if (i % 2 == 0) Widgets.DrawLightHighlight(row);
-            using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft, ColoredText.SubtleGrayColor)) Widgets.Label(new Rect(2f, y + 3f, dateWidth, rowHeight), DateOf(entry));
+            using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft, ColoredText.SubtleGrayColor)) Widgets.Label(new Rect(2f, y + 3f, dateWidth, rowHeight), entry.DateText());
             using (new TextBlock(GameFont.Small, TextAnchor.UpperLeft, entry.def?.bad == true ? ColorLibrary.RedReadable : Color.white))
                 Widgets.Label(new Rect(dateWidth + 6f, y, textWidth, rowHeight), text);
             y += rowHeight + 2f;
         }
         Widgets.EndScrollView();
-    }
-
-    static string DateOf(PhobosLogEntry entry)
-    {
-        Vector2 longLat = entry.tile.Valid && Find.WorldGrid != null ? Find.WorldGrid.LongLatOf(entry.tile) : Vector2.zero;
-        return GenDate.DateShortStringAt(GenDate.TickGameToAbs(entry.tick), longLat);
     }
 }

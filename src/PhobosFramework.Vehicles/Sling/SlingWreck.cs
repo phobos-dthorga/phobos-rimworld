@@ -56,7 +56,7 @@ public static class SlingDrops
 /// map goes: a vehicle still lying on it is taken back to wait for the next visit, and the place goes once every vehicle has been driven,
 /// towed or lifted away. Older saves held one vehicle and load as before.
 /// </summary>
-public class PhobosSlingWreck : MapParent, IThingHolder
+public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
 {
     ThingOwner<VehiclePawn> held;
     List<VehiclePawn> onMap = new();
@@ -71,6 +71,9 @@ public class PhobosSlingWreck : MapParent, IThingHolder
 
     /// <summary>Every vehicle waiting here, or lying on the map made for them.</summary>
     public IEnumerable<VehiclePawn> Vehicles => held.InnerListForReading.Concat(onMap.Where(v => v != null && !v.Destroyed));
+
+    /// <summary>For the fleet board (Framework 0.188.0): what lies here is still the player's to find.</summary>
+    public IEnumerable<VehiclePawn> HeldVehicles => Vehicles;
 
     /// <summary>A convoy left where its last colonist died (Framework 0.187.0), rather than one dropped load.</summary>
     bool LostConvoy => def == PhobosSlingWreckDefOf.PhobosLostConvoy;

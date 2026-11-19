@@ -476,6 +476,10 @@ rows 269 and 270.
 
 **Not built of EM18:** what a turned landing does to a vehicle of several cells is still not read (EP5).
 
+**With it, the fleet board was redrawn** (the owner's request in the same answer; `vehicle-presentation-design.md`, "P2, refreshed"): it
+is where the batches' stories are read in one place. Each row says what the vehicle is doing and needs; lost vehicles (EM2), hulls (EM3)
+and vehicles that could be claimed are listed; and the pane shows a fault's cause (EM24) and the newest logbook lines (EM23). Row 271.
+
 ## Who chose what
 
 - **Owner (20 Nov 2026):** the round, its focus on the vehicle mods, and record only; the plan for this record, with its three

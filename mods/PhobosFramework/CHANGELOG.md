@@ -7,25 +7,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.188.0] - 2026-11-20 - Draft
 
-No brakes means it cannot stop; a convoy is told when the snow comes; the gravship names a vehicle hanging over its edge
+No brakes means it cannot stop; a convoy is told when the snow comes; the gravship names a vehicle hanging over its edge; the fleet board redrawn
 
 ### Changed
 
 - **Worn-through or wrecked brakes no longer stop a vehicle from driving.** A message says so once: it will not stop where you tell it. When it arrives it rolls on a few cells straight ahead, further the faster and heavier it is. People and animals in its way are struck; a wall, a solid piece of cover or another vehicle stops it, with damage to both. It can injure or kill. Its logbook says it could not stop. Colonists working by themselves (with Vehicles at Work) leave such a vehicle alone; your own orders, and Gather and Deliver, still go.
 - **Colonists working by themselves also leave alone a vehicle with a worn-through clutch** (with Vehicles at Work).
+- **The fleet board is redrawn around what each vehicle is doing and what it needs.** The list is grouped by place: each of your maps, each convoy, in flight, each garage, left parked in the wild. A heading folds its group away and says how many in it need attention. Each row says what the vehicle is doing (parked, driving, on the road and how far it has come, towing, set up and working, stranded) and the one thing it most needs. A trailer sits under what pulls it. A tick box shows only what needs attention, and a button shows one sorted list as before. The search box also looks in what a vehicle is doing and needs.
+- **The fleet board has a pane beside the list for the chosen vehicle**: where it is hurt, its faults with what caused them, its journey so far, and the newest lines of its logbook. One click chooses a row; a click on the chosen row, the pane's button or Enter goes to it. The up and down arrow keys move through the list, so the page works from the keyboard.
 
 ### Added
 
 - **A convoy is told when the snow comes or goes.** Select a convoy of yours on the world map: its inspect pane says in how many days snow reaches the ground where it is, or lifts, and the same for where it is going. Nothing is said when no change comes within 30 days.
 - **The gravship's launch confirmation names vehicles standing partly off the ship's floor.** They come along, with part of each hanging over the edge; the game's own list already names those left behind.
+- **The fleet board also lists what your vehicles became, and what you could take**: vehicles lying lost or wrecked on the world map, hulls waiting to be taken apart with the salvaged parts each gives, and other factions' vehicles standing unguarded that a colonist could claim. These have groups of their own at the bottom of the list. Before, a vehicle dropped from a sling or lost with its convoy was on no list at all.
 - **For other modders:** the season ahead at any place on the world map, in words (WorldSeasons, WinterForecastRule), in the core.
 
 ### Compatibility and limits
 
 - How far a vehicle rolls on and how hard it strikes are authored figures, a believable ballpark. It rolls straight ahead by the four compass directions, and only on a map: a convoy on the world map with no brakes is not affected. Other factions' vehicles never overrun.
 - No new settings. The option to show figures only (no consequences) turns the overrun off, as it does every consequence.
+- The fleet board is wider than it was, to make room for the pane. While it is open the arrow keys move through its list and no longer move the map behind it. It still reads the fleet only when opened, on Refresh and a few times a game hour while open, and nothing of it runs while it is closed.
 - The words are agent-authored, held for the owner's review.
-- Not yet tested in game: rows 269 and 270 of the test pass.
+- Not yet tested in game: rows 269, 270 and 271 of the test pass.
 
 ## [0.187.0] - 2026-11-20 - Draft
 

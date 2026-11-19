@@ -2,7 +2,7 @@
 
 **Status (17 Nov 2026):** built in D'thorga Framework 0.78.0 to 0.96.0 (with Medical 0.13.1 and 0.14.1, and Vehicles 0.43.0 for the
 art): P1, P2, P3, P5, P7a, P7b, the graphs G1 to G4, and art batches A, B and C; not built: P4, P7c and P7e (waiting on the owner)
-and P7d (on the back burner). Not yet tested in game, apart from the plain diagnosis letter that came before this record (the owner,
+and P7d (on the back burner); the fleet board was redrawn in Framework 0.188.0 (20 Nov 2026: "P2, refreshed" below). Not yet tested in game, apart from the plain diagnosis letter that came before this record (the owner,
 11 Nov 2026).
 
 The owner, after their first Diagnose letter in game (a plain list of parts and readings): "a research and record purview where I want to
@@ -176,6 +176,33 @@ Each row gets the vehicle's thumbnail (the free picture call), fuel and worst-pa
 square becomes a telltale icon (the Dashboard's, which exist). Hovering a row shows the damage sheet (P7a) as its tooltip.
 
 Lets: scan a fleet without reading. Stops: nothing. Changes: the board is glanced at, not read. Cost: code only.
+
+## P2, refreshed (20 Nov 2026, Framework 0.188.0)
+
+The owner, 20 Nov 2026: "our Fleet feature/page is overdue for a refresh and update given all the new features as of late". Owner's
+choices by card the same day: **a list plus a detail pane**; **grouped by place**; and listing **trailers under their tractor, hulls
+waiting to be stripped, and vehicles you could claim**. Lost vehicles (a dropped sling load, a lost convoy) were on no list at all,
+a gap closed in the same change (agent's choice, for the owner to revise). Not yet tested in game: row 271.
+
+| What | As built |
+| --- | --- |
+| Groups | Each of the player's maps (home first), each convoy, in flight, each garage, left parked in the wild, lost or wrecked, hulls, could be claimed. A heading folds its group and gives its count and how many need attention. A button gives one sorted list, with a Where column, as before |
+| Doing | A few words from state already kept: parked, in a depot bay, engine running, driving, rolling on with no brakes, in the air, out on a run, set up (or set up but stopped), winching, towing, towed, slung, on the road or flying with the journey's distance so far, stopped on the way, stranded, kept in a garage, left parked, lying lost |
+| Needs | The one thing it most needs, first that applies: why it is stranded, why it will not move, what it waits for, no brakes, the count of its faults, low fuel (under a quarter [A]). A hull says the salvaged parts it gives and a claimable vehicle that it could be yours, both in grey: offers, not troubles, so "only what needs attention" leaves them out |
+| Trailers | A towed vehicle is indented under what pulls it, and one held off the map with its tractor is found through the tractor |
+| The pane | For the chosen row: the damage sheet, where, doing, needs, who is aboard, the journey so far, every fault with its stage and its cause (the words the Health tab uses), and the six newest logbook lines [A]. Built once when a row is chosen or the board refreshes, never each frame |
+| Keyboard | Up and down move the choice and the list follows; Enter goes to the chosen vehicle (the game would otherwise only close the page). A click chooses; a click on the chosen row goes to it. The page stops the map moving under the arrow keys while it is open |
+
+Lets: see what each vehicle is doing and what it wants without opening it, find a lost vehicle or a hull worth stripping, and read a
+vehicle's faults and logbook from one page, all from the keyboard. Stops: nothing. Changes: the board answers "what needs me?" where it
+answered "what do I own?". What outside the vehicle notices: nothing; the page only reads, and nothing of it runs while it is closed.
+
+**Other factions' vehicles:** one standing where it could be claimed now (nobody aboard, no armed owner near, not a raiders' aircraft)
+is listed, from the claim order's own rule. One in a raid on us or guarded at a base is not listed. A captured one is the player's and
+listed as any other.
+
+**Layers:** `FleetService` builds the rows and the pane's words; `MainTabWindow_PhobosFleet` draws them and changes nothing. Generic
+pieces went to the core with it: a logbook entry's own date (`PhobosLogEntry.DateText`).
 
 ## P3. The fittings window
 

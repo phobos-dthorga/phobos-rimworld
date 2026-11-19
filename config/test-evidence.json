@@ -3,6 +3,19 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "272": {"parts": {
+      "a growing zone marked for machines": ["farming.paddock.marked"]
+    }},
+    "273": {"parts": {
+      "it sets off on the paddock": ["vehicles.field-run.start"],
+      "a colonist is called to drive": [{"key": "vehicles.driver-call.waiting", "variant": "field"}],
+      "the front cuts ripe plants": ["farming.harvest.cell"],
+      "straw is left in the field": ["farming.harvest.second-product"],
+      "the run ends and says what it cut": ["farming.harvest-run.end", "vehicles.field-run.end"]
+    }},
+    "274": {"parts": {
+      "full, it drives to a bin to empty": ["vehicles.field-run.to-hold"]
+    }},
     "8": ["vehicles.tune-done.PhobosTune_EnginePower", "vehicles.tune-done.PhobosTune_GearingShort"],
     "69": {"parts": {
       "a piston engine's battery warning": [{"key": "vehicles.stage.startingPower", "detail": "*: barely enough to start"}],
@@ -263,6 +276,13 @@
         {"key": "vehicles.deliver.end", "variant": "NoBay", "expect": {"things": ">= 1"}}],
       "it drives back": [{"key": "vehicles.deliver.home"}]
     }},
+    "271": {"parts": {
+      "a trailer sits under what pulls it": [{"key": "vehicles.fleet-board", "variant": "trailer"}],
+      "a destroyed vehicle's hull is listed": [{"key": "vehicles.fleet-board", "variant": "hull"}],
+      "a vehicle that could be claimed is listed": [{"key": "vehicles.fleet-board", "variant": "claimable"}],
+      "a lost or wrecked vehicle is listed": [{"key": "vehicles.fleet-board", "variant": "lost"}],
+      "the pane shows a chosen vehicle's faults and logbook": [{"key": "vehicles.fleet-detail"}]
+    }},
     "270": {"parts": {
       "a convoy's pane says when the snow comes or goes": [{"key": "vehicles.snow-forecast"}],
       "the gravship's launch names a vehicle hanging over the edge": [{"key": "vehicles.gravship-overhang"}]
@@ -380,7 +400,8 @@
   "versionNames": {
     "D'thorga Framework": "Framework",
     "D'thorga Medical": "Medical",
-    "D'thorga Factory Additions": "Factory Additions"
+    "D'thorga Factory Additions": "Factory Additions",
+    "D'thorga Farming": "Farming"
   },
   "prefixes": {
     "vehicles.feed-refused.": "the feed's electrical load or supply, from FeedSpec.load (winch, fieldLab, sonar, listening, tankPump)",
