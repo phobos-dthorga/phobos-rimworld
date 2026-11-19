@@ -3,7 +3,9 @@
 **Status (19 Nov 2026):** the owner's idea, recorded with what exists to build it on, and **held for later** at the owner's word: pursued when they have the tokens to do it properly, and only for the pictures it suits best. Nothing is built; nothing is tested in game.
 
 The owner, later the same day: "when I have the tokens and such to pursue it properly, I guess we'll reserve it for the assets and the
-like it would work most appropriately for". So it is not a rule for every picture: when it is taken up, each candidate is judged on
+like it would work most appropriately for", and: "it's not really a design direction, per se, just a side effect of trying to make
+the most of everything, where it would be most appropriate and proper". So no art is planned or generated for the sake of an
+alternate look; it only uses good pictures that exist anyway. So it is not a rule for every picture: when it is taken up, each candidate is judged on
 whether a choice of look fits it (agent's reading: buildings and items through a Customise option first, where nothing hangs off the
 picture; vehicles only where the default's overlays fit the alternate body).
 
