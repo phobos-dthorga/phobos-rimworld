@@ -1,0 +1,29 @@
+{
+  "file": "kit-part-body-skirt-12.png",
+  "sha256": "c27cd9fe58732db81cfac9b8f2887cce224e18ac4346c5123564a94b82778a01",
+  "date": "2026-11-19T12:24:50",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW, camera directly above. One long armour skirt plate for the side of a truck's cargo bed, drawn alone, seen from directly above: a long narrow flat olive drab steel plate running from top to bottom of the canvas, with a row of small round bolt heads along it and two hanging brackets on its inner edge. Draw it in exactly the art style of the reference image: a top-down game sprite seen from directly above, a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners. Do not redraw the truck. One part only, on a plain pure white background. No truck, no cab, no wheels, no floor, no shadow, no text, no people.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/truck-kit-parts.json",
+  "size": [
+    384,
+    1024
+  ],
+  "seconds": 56.4,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/tipper-body-north/tipper-body-north-3.png",
+      "sha256": "2243b95387beb7ea5f418c2f240554dd65d352e41a9e0765457155d9663ad00e"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

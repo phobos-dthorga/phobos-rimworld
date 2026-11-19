@@ -1,0 +1,27 @@
+{
+  "file": "kit-tipper-ram-bar-12.png",
+  "sha256": "f3b6854b51f57cab96e89fc24c397460791746c96199ea8ac333fea7160db689",
+  "date": "2026-11-19T09:07:01",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is the cab of our service truck seen from directly above, the front of the truck toward the TOP of the canvas. Add a heavy steel ram bar across the very front of the truck, along the top edge of the cab: a thick dark steel beam a little wider than the cab, with two short square uprights and angled braces back to the chassis, plain dark gunmetal with a few bolt heads. Change nothing else on the cab. Keep everything else exactly as it is in image 1: the same canvas, the same cab size, shape, position and outline, the same wheels, the same outline weight, cel shading and muted palette. A very thick near-black outline around every new shape. No text, no letters, no numbers, no people, no weapons.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/truck-armour-kits.json",
+  "size": [
+    1024,
+    752
+  ],
+  "seconds": 71.2,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/kit-crop-tipper-cab.png",
+      "sha256": "3ecb41059109fa8e530acd617fc31809d983f558cc2d0bc49f5c27fbe32ba983"
+    }
+  ]
+}

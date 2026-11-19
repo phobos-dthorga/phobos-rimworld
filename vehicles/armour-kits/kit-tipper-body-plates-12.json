@@ -1,0 +1,27 @@
+{
+  "file": "kit-tipper-body-plates-12.png",
+  "sha256": "7b33490543ef590a583ce6efb8dad290ff4480d5fa45195fd9a956b5b698053f",
+  "date": "2026-11-19T12:32:19",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is the long rear part of our service truck seen from directly above, the front of the truck toward the TOP of the canvas: the dark chassis and cargo bed with the rear wheels near the bottom. Add armour skirt plates along both long sides of the bed: long flat olive drab steel plates hung from the chassis rails between the cab and the rear wheels, each edged with a row of small bolt heads, not covering the wheels. Change nothing else. Keep everything else exactly as it is in image 1: the same canvas, the same cab size, shape, position and outline, the same wheels, the same outline weight, cel shading and muted palette. A very thick near-black outline around every new shape. No text, no letters, no numbers, no people, no weapons.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/truck-armour-kits.json",
+  "size": [
+    1024,
+    1440
+  ],
+  "seconds": 112.1,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/kit-crop-tipper-bed.png",
+      "sha256": "a34626b1d7f55bf5576e65a8f6613737dc33dd5a183b7946054a510a61449bc2"
+    }
+  ]
+}

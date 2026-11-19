@@ -1,0 +1,27 @@
+{
+  "file": "kit-drill-rig-heavy-cab-plates-13.png",
+  "sha256": "3c5cd60234fe7dbc28f01cca35aa624b31c9566bcd81d2defa8ac81d48bdef8d",
+  "date": "2026-11-19T12:53:33",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is the cab of our service truck seen from directly above, the front of the truck toward the TOP of the canvas: a pale roof with three raised ribs, a dark windscreen strip near the top, olive doors and mudguards either side and the front wheels. Fit it with a heavy armour kit: thick olive drab steel slabs with chamfered edges over the roof, the doors and the front, standing a little proud of the cab with heavy bolt heads at their corners; the windscreen covered by a hinged steel visor with two narrow dark vision slits. Keep everything else exactly as it is in image 1: the same canvas, the same cab size, shape, position and outline, the same wheels, the same outline weight, cel shading and muted palette. A very thick near-black outline around every new shape. No text, no letters, no numbers, no people, no weapons.",
+  "negative_prompt": "",
+  "seed": 13,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/truck-armour-kits.json",
+  "size": [
+    1024,
+    608
+  ],
+  "seconds": 66.7,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/kit-crop-drill-rig-cab.png",
+      "sha256": "22cfaedde02976e9930053d023d3c0a6a00d00b3f3b745b6a96fd0de10688af0"
+    }
+  ]
+}
