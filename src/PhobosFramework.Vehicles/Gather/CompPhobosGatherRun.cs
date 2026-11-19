@@ -18,8 +18,11 @@ public class CompProperties_PhobosGatherRun : VehicleCompProperties
     public ThingFilter? choosableFilter;
     /// <summary>How many things, nearest first, one look tests for a place to stand. Authored.</summary>
     public int thingsPerLook = 16;
-    /// <summary>How long a drive may stand still before it gives that thing up, in ticks. Authored.</summary>
-    public int stuckTicks = 2000;
+    /// <summary>
+    /// How long a drive may stand still before it gives that thing up, in ticks. Authored: 600, about 10 seconds (owner, 19 Nov 2026, from
+    /// 2,000; Vehicles at Work gives up after 240, but our trucks back slowly into bays). Checked once a rare tick, so it acts within 250 more.
+    /// </summary>
+    public int stuckTicks = 600;
     /// <summary>How many drives in a row that reach nothing end the run. Authored.</summary>
     public int failedDrivesToGiveUp = 5;
     /// <summary>Whether enemies threatening the map end the run. Agent default; the owner's choice of 19 Nov 2026.</summary>

@@ -9,7 +9,7 @@ namespace Phobos.VehicleSystems;
 /// <summary>
 /// The "Vehicles may unload here" switch (Framework 0.175.0; docs/development/vehicle-gathering-runs.md, "Marked bays and Deliver"): on
 /// every storage building, through <see cref="CompPhobosVehicleLoadOut"/>, and on every stockpile zone, through
-/// <see cref="MapComponent_PhobosUnloadZones"/>. A truck unloading by itself (a gathering run set to unload at any marked bay, or Deliver)
+/// <see cref="GameComponent_PhobosUnloadZones"/>. A truck unloading by itself (a gathering run set to unload at any marked bay, or Deliver)
 /// makes for the nearest marked place of the player's that takes its load and has room. This decides what is marked and changes it.
 /// </summary>
 public static class VehicleUnloadBays
@@ -25,7 +25,7 @@ public static class VehicleUnloadBays
 
     public static bool IsMarked(Building_Storage building) => building.GetComp<CompPhobosVehicleLoadOut>()?.VehiclesMayUnload ?? false;
 
-    public static bool IsMarked(Zone_Stockpile zone) => zone.Map?.GetComponent<MapComponent_PhobosUnloadZones>()?.Marked(zone) ?? false;
+    public static bool IsMarked(Zone_Stockpile zone) => GameComponent_PhobosUnloadZones.Instance?.Marked(zone) ?? false;
 
     /// <summary>Turns a building's switch on or off and says so.</summary>
     public static void Set(CompPhobosVehicleLoadOut comp, bool on)
@@ -37,7 +37,7 @@ public static class VehicleUnloadBays
     /// <summary>Turns a stockpile zone's switch on or off and says so.</summary>
     public static void Set(Zone_Stockpile zone, bool on)
     {
-        if (zone.Map?.GetComponent<MapComponent_PhobosUnloadZones>() is not { } marks) return;
+        if (GameComponent_PhobosUnloadZones.Instance is not { } marks) return;
         marks.Set(zone, on);
         Said(on, zone.label, null);
         if (on && Seen.Wants("vehicles.unload-zone-switch")) Seen.Note("vehicles.unload-zone-switch", null, zone.label);
@@ -58,22 +58,30 @@ public static class VehicleUnloadBays
         {
             if (store.Faction == Faction.OfPlayer && IsMarked(store)) places.Add(new UnloadPlace(store, null));
         }
-        if (map.GetComponent<MapComponent_PhobosUnloadZones>() is { } marks)
-        {
-            foreach (Zone_Stockpile zone in marks.Live()) places.Add(new UnloadPlace(null, zone));
-        }
+        foreach (Zone_Stockpile zone in MarkedZones(map)) places.Add(new UnloadPlace(null, zone));
         return places;
     }
 
     /// <summary>Whether anything on this map is marked, without listing them.</summary>
     public static bool AnyMarked(Map map)
     {
-        if (map.GetComponent<MapComponent_PhobosUnloadZones>() is { } marks && marks.Live().Any()) return true;
+        if (MarkedZones(map).Any()) return true;
         foreach (Building_Storage store in map.listerBuildings.AllBuildingsColonistOfClass<Building_Storage>())
         {
             if (store.Faction == Faction.OfPlayer && IsMarked(store)) return true;
         }
         return false;
+    }
+
+    /// <summary>The marked stockpile zones on this map that have cells.</summary>
+    static IEnumerable<Zone_Stockpile> MarkedZones(Map map)
+    {
+        if (GameComponent_PhobosUnloadZones.Instance is not { HasAny: true } marks) yield break;
+        List<Zone> zones = map.zoneManager.AllZones;
+        for (int i = 0; i < zones.Count; i++)
+        {
+            if (zones[i] is Zone_Stockpile { Cells.Count: > 0 } zone && marks.Marked(zone)) yield return zone;
+        }
     }
 
     static HashSet<ThingDef>? spareParts;
@@ -163,40 +171,71 @@ public readonly struct UnloadPlace
 }
 
 /// <summary>
-/// Which stockpile zones on a map are marked "Vehicles may unload here" (Framework 0.175.0). Zones carry no comps, so the marks are kept
-/// here, saved by reference; a zone deleted since is dropped. Off for every zone to start.
+/// Which stockpile zones are marked "Vehicles may unload here", by zone ID, for the whole game (Framework 0.175.1). Zones carry no comps.
+/// Kept by ID because a gravship deletes each stockpile zone aboard at take-off and makes a new one on landing with the same ID
+/// (Gravship.TransferZones, MoveableStockpile.TryCreateStockpile, RimWorld 1.7), and the game gives every zone an ID no other zone in the
+/// game shares; so a mark crosses a flight, and any map, with no patch. An ID whose zone is gone is never reused, so it is left in place:
+/// a few numbers at most (docs/development/vehicles-at-work-tie-ins.md, F2). Off for every zone to start.
 /// </summary>
-public sealed class MapComponent_PhobosUnloadZones : MapComponent
+public sealed class GameComponent_PhobosUnloadZones : GameComponent
 {
-    List<Zone_Stockpile> zones = new();
+    /// <summary>Saved key; never rename once saves can hold it.</summary>
+    const string SaveKey = "PhobosVehicleUnloadZoneIds";
 
-    public MapComponent_PhobosUnloadZones(Map map) : base(map) { }
+    HashSet<int> zoneIds = new();
 
-    public bool Marked(Zone_Stockpile zone) => zones.Contains(zone);
+    public GameComponent_PhobosUnloadZones(Game game) { }
+
+    public static GameComponent_PhobosUnloadZones? Instance => Current.Game?.GetComponent<GameComponent_PhobosUnloadZones>();
+
+    public bool HasAny => zoneIds.Count > 0;
+
+    public bool Marked(Zone_Stockpile zone) => zoneIds.Contains(zone.ID);
 
     public void Set(Zone_Stockpile zone, bool on)
     {
-        if (on && !zones.Contains(zone)) zones.Add(zone);
-        else if (!on) zones.Remove(zone);
+        if (on) zoneIds.Add(zone.ID);
+        else zoneIds.Remove(zone.ID);
     }
 
-    /// <summary>The marked zones still on the map with cells, dropping any deleted since.</summary>
-    public IEnumerable<Zone_Stockpile> Live()
+    /// <summary>Takes over the marks a save from Framework 0.175.0 kept on each map. Idempotent: each map's are handed over once.</summary>
+    public override void LoadedGame()
     {
-        zones.RemoveAll(zone => zone == null || !map.zoneManager.AllZones.Contains(zone));
-        return zones.Where(zone => zone.Cells.Count > 0);
+        foreach (Map map in Find.Maps)
+        {
+            if (map.GetComponent<MapComponent_PhobosUnloadZones>() is { } old) zoneIds.UnionWith(old.HandOver());
+        }
     }
 
     public override void ExposeData()
     {
-        // A deleted zone is never saved: its reference would not load.
-        if (Scribe.mode == LoadSaveMode.Saving) zones.RemoveAll(zone => zone == null || !map.zoneManager.AllZones.Contains(zone));
+        Scribe_Collections.Look(ref zoneIds, SaveKey, LookMode.Value);
+        if (Scribe.mode == LoadSaveMode.PostLoadInit) zoneIds ??= new HashSet<int>();
+    }
+}
+
+/// <summary>
+/// Where Framework 0.175.0 kept a map's zone marks, by reference. Kept only so its saves load: it reads them and hands them to
+/// <see cref="GameComponent_PhobosUnloadZones"/>, and writes nothing. Never rename: the game names it in those saves.
+/// </summary>
+public sealed class MapComponent_PhobosUnloadZones : MapComponent
+{
+    List<Zone_Stockpile>? zones;
+
+    public MapComponent_PhobosUnloadZones(Map map) : base(map) { }
+
+    /// <summary>The IDs of the zones it read from a 0.175.0 save, once; nothing after.</summary>
+    internal List<int> HandOver()
+    {
+        List<int> ids = zones?.Where(zone => zone != null).Select(zone => zone.ID).ToList() ?? new List<int>();
+        zones = null;
+        return ids;
+    }
+
+    public override void ExposeData()
+    {
+        if (Scribe.mode == LoadSaveMode.Saving) return;
         Scribe_Collections.Look(ref zones, "PhobosVehicleUnloadZones", LookMode.Reference);
-        if (Scribe.mode == LoadSaveMode.PostLoadInit)
-        {
-            zones ??= new List<Zone_Stockpile>();
-            zones.RemoveAll(zone => zone == null);
-        }
     }
 }
 

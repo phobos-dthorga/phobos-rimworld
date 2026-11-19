@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.175.1] - 2026-11-19 - Draft
+
+A truck working by itself obeys worn-out brakes; a stockpile's unloading mark flies with the gravship
+
+### Fixed
+
+- **A truck gathering or delivering by itself now refuses to drive when its own faults forbid it**: worn-out brakes, or another fault that stops your own orders, now grey out Gather and Deliver with the same reason, and end a run under way at its next drive. Before, the errand drove it anyway, though a right-click order would not.
+- **A stockpile zone keeps its "Vehicles may unload here" mark through a gravship flight.** The game remakes every stockpile aboard on landing; the mark now goes with it. Storage buildings always kept theirs.
+
+### Balance
+
+- **A truck working by itself gives up a stuck drive sooner**: after about 10 seconds standing still (600 ticks), not about 33, and tries the next thing or the next spot. Authored, from Vehicles at Work's much shorter wait.
+
+### Save compatibility
+
+- Safe with a running save. Marks set on stockpile zones with 0.175.0 are carried over once on loading.
+
+### Compatibility and limits
+
+- **Not yet tested in game** (test rows 248 and 249).
+
 ## [0.175.0] - 2026-11-19 - Draft
 
 Trucks unload by themselves at storage you mark: "Vehicles may unload here", and Deliver

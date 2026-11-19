@@ -54,7 +54,7 @@ A run has four phases, saved by name (append only): **Idle**, **Seeking**, **Dri
 2. **Driving.** It orders the game's `Goto` job to the place through `Pawn_JobTracker.TryTakeOrderedJob`, as Vehicle Framework's own
    right-click does (`FloatMenuOptionProvider_OrderVehicle.PawnGotoAction` and `VehiclePathFollower.TryOrderMoveTo` **[code]**). Each rare
    tick it watches: still on its way, it waits; stopped with the thing within reach, it starts work; stopped short of it, it notes the thing
-   and seeks again; standing still for more than 2,000 ticks **[A]** on an order it has not finished, it gives that thing up. Five drives in
+   and seeks again; standing still for more than 600 ticks **[A]** (2,000 until Framework 0.175.1) on an order it has not finished, it gives that thing up. Five drives in
    a row that reach nothing end the run **[A]**: "no way through". Any other order the truck takes (a right-click, a draft change, another
    job) ends the run: "other orders".
 3. **Working.** It hands the grab what it wants, and the grab lifts as it always has, one lift at a time at its own pace. When nothing it
@@ -116,7 +116,7 @@ place goes back; when a look finds nothing left to gather and something it gathe
 - **Arriving tail first.** It orders the drive and then sets Vehicle Framework's end facing (`VehiclePathFollower.SetEndRotation`), which
   Vehicle Framework applies when the vehicle arrives (`PatherArrived` sets `FullRotation`) **[code]**: the same turn on arrival the
   player's own right-click with a facing gives. `TryOrderMoveTo` was not used: it reads the "queue order" key, which only means something
-  in a click. A spot it cannot reach, or where it stalls for 2,000 ticks, is passed over; five failures in a row end the run.
+  in a click. A spot it cannot reach, or where it stalls for 600 ticks (2,000 until Framework 0.175.1), is passed over; five failures in a row end the run.
 - **Tipping.** The Talus's tip is the unloading worker (`IVehicleUnloadWorker`). For a run it puts down only what the filter allows, so
   spare parts stay aboard, and fills storage in its fan before the ground, as it always has. A full place ends the run with the tip's own
   words ("14 chunks stay aboard"); emptied, the truck goes back out.
@@ -145,8 +145,9 @@ does afterwards). Not yet tested in game.
 - **The switch.** On a storage building it is a second switch on `CompPhobosVehicleLoadOut` (saved key `PhobosVehiclesMayUnload`), added
   in code to every storage type as the load switch is. It starts on for a type whose Def carries `PhobosBackUpSideExtension`, the mark of
   storage built for trucks to back up to (the bulk bunker) **[A]**, and is saved only where it differs from that, so bunkers built before
-  0.175.0 load marked. Zones carry no comps: `MapComponent_PhobosUnloadZones` keeps the marked zones by reference (key
-  `PhobosVehicleUnloadZones`), dropping deleted ones, and a Harmony postfix on `Zone_Stockpile.GetGizmos` adds the button after the game's
+  0.175.0 load marked. Zones carry no comps: since Framework 0.175.1 `GameComponent_PhobosUnloadZones` keeps the marked zones' IDs for
+  the whole game (key `PhobosVehicleUnloadZoneIds`), so a mark survives a gravship flight, which remakes each zone aboard with its ID
+  (0.175.0 kept them per map by reference, key `PhobosVehicleUnloadZones`, and lost them in flight; that class now only hands old marks over), and a Harmony postfix on `Zone_Stockpile.GetGizmos` adds the button after the game's
   own (TD Enhancement Pack - Continued postfixes the same method; both only add; `scripts/query-patches.py`, 19 Nov 2026).
 - **Choosing a bay** (`UnloadBayRule`, game-free, tested). Every marked place of the player's on the map is a candidate: whether it takes
   any kind aboard (one thing standing for each kind), whether one of its cells has room for one by the game's own `IsValidStorageFor`, and
@@ -234,7 +235,7 @@ is in code.
   borrowed pictures; the half-second recheck on the button.
 - **Agent:** the jaw's reach of 2 cells; for unloading, the middle of a side first, the bunker backed up to from behind, only what it
   gathers tipped (spare parts stay), a full place ending the run, one place rather than a list; loose things only; never forbidden, claimed or fogged things; the optional area; ending on enemies; engine started and
-  stopped by the run; the stand-off ring; 16 things a look, 2,000 ticks' patience, five failed drives; the Talus's two filters; the game's
+  stopped by the run; the stand-off ring; 16 things a look, 2,000 ticks' patience (600 since Framework 0.175.1, the owner's choice), five failed drives; the Talus's two filters; the game's
   haul and stone-chunk icons on the two buttons until our own are drawn; every leaned answer above.
 
 ## Sources

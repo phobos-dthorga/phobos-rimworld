@@ -1,7 +1,7 @@
 # Vehicles at Work: what we gain from it and what we learn from it (19 Nov 2026)
 
-**Status (19 Nov 2026):** built in D'thorga Framework 0.108.4: VW1 (its trips obey our refusals to move; it was SD1), not yet tested in
-game; not built: VW2 to VW7. Two faults of ours found by this read (F1, F2) are recorded, not fixed.
+**Status (19 Nov 2026):** built in D'thorga Framework 0.108.4: VW1 (its trips obey our refusals to move; it was SD1); fixed in Framework
+0.175.1: the two faults of ours this read found (F1, F2), with the shorter stall wait. Not yet tested in game. Not built: VW2 to VW7.
 
 **A research record.** The owner, 19 November 2026: "This is a research and record purview, strictly. But I wish to add 'Vehicles at
 Work' as a soft dependency. How might we benefit from that both as a soft-dep and perhaps learning from as well? With the latter, I think
@@ -121,7 +121,7 @@ loading outside the home area. Three prefixes skip the original, all for Atmosph
 | **Interrupt, keep a copy of the job, start it again; ask the work giver if the copy has gone stale** | `Wheels.Copy`, `Restart`, `Resume` (`Wheels.cs:941-999`, `:859-899`). No vanilla work giver is patched | **Farming**: a colonist drives a tractor to the field and then does ordinary sowing or harvest work. Any errand of ours that borrows a colonist |
 | **Decide by time, with margins** | Drive only under 85 % of the walk, driving costed at 1.1 times, at most 4 vehicles weighed | A farm machine fetched for a small field; whether Deliver is worth a trip for a few stacks |
 | **Ask "can it move" again after boarding** | Vehicle Framework's answer is stale just after a pawn is added; it recaches up to 4 times (`Wheels.cs:351-357`) | VW3, and farming's boarding: our errands today need the driver already aboard, so they have not met it |
-| **Notice a stall sooner** | 240 ticks without moving, 3 tries, then it ends the trip where it stands | Ours waits 2,000 ticks and 5 failed drives (`CompProperties_PhobosGatherRun`): about 33 seconds at normal speed before it notices. Worth shortening **[A]** |
+| **Notice a stall sooner** | 240 ticks without moving, 3 tries, then it ends the trip where it stands | Ours waited 2,000 ticks and 5 failed drives (`CompProperties_PhobosGatherRun`): about 33 seconds at normal speed. **600 ticks since Framework 0.175.1** (owner) |
 | **Opt-in per vehicle, a drivers list, and a "why it will not go" line** | `VehicleUse`, `Dialog_Drivers`, `VF.WhyStuck` | Farm machines; VW3 reads its list instead of making a second one |
 | **Parking rules** | Outdoors, away from doors, clear of other trips' targets, the body fitting (`Lots.Spot`, `VF.ParkingNear`) | Where a Deliver set to stay, or a finished Gather, leaves the truck; `VehicleAutoDrive.TryFindBackUpSpot` |
 | **Carry zone-bound state across a gravship flight** | It patches `Gravship.TransferZones` and `GravshipPlacementUtility.CopyZonesIntoMap` | **F2 below**: our zone marks are lost the same way |
@@ -143,18 +143,19 @@ loading outside the home area. Three prefixes skip the original, all for Atmosph
 
 ## Faults of ours this read turned up
 
-Recorded here and in [outstanding work](outstanding-work.md); not fixed by this record.
+**Both fixed in Framework 0.175.1** (owner, 19 Nov 2026: faults first), not yet tested in game (test rows 248 and 249).
 
 - **F1. Our own errands skip our own refusals.** `VehicleAutoDrive.CannotDrive` (`src/PhobosFramework.Vehicles/Service/VehicleAutoDrive.cs:27-48`)
   asks about the hitch, a set-up job, fuel and Vehicle Framework's own tests, but never `MoveRefusals.For`. So a Gather or a Deliver can drive
   a truck whose brakes are worn out: the gap VW1 closed for Vehicles at Work on 13 Nov 2026, still open in ours. `MoveRefusals` describes itself
   as the one place this is asked "for anything that sends a vehicle somewhere without the player's float menu". Read in code twice; not
-  reproduced in play. The fix is one line there **[I]**.
+  reproduced in play. **Fixed in 0.175.1**: `CannotDrive` now asks `MoveRefusals.For`, in place of its own set-up check.
 - **F2. A stockpile zone's "Vehicles may unload here" mark is lost on a gravship flight** (Framework 0.175.0, built on 19 Nov 2026). The game
   deletes each stockpile zone on the ship at take-off and makes a new one on landing (`Gravship.TransferZones` and
   `GravshipPlacementUtility.CopyZonesIntoMap`, RimWorld 1.7's decompile, read 19 Nov 2026) **[code]**; our marks are kept by zone, so they go
-  with the old one. **A storage building keeps its mark**: bulk bunkers on a gravship are unaffected. Not reproduced in play. The mod's own
-  two patches there show the way to carry them.
+  with the old one. **A storage building keeps its mark**: bulk bunkers on a gravship are unaffected. Not reproduced in play. **Fixed in
+  0.175.1 with no patch**: the game gives the new zone the old one's ID (`MoveableStockpile.TryCreateStockpile`, `ID = id`), and every zone
+  ID is unique in a game, so the marks are now kept by ID for the whole game (`GameComponent_PhobosUnloadZones`).
 - **F3. Stale lines**, corrected with this record: the index said "SD1 to SD44" (the last is SD47), and the cross-links record said
   "row 228" (the mod is at 232).
 

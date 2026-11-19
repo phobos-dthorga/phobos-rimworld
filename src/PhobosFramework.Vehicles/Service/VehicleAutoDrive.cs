@@ -22,7 +22,9 @@ public static class VehicleAutoDrive
 
     /// <summary>
     /// Why the vehicle cannot drive itself now, or null. Vehicle Framework decides whether it may move and whether it has the crew to drive (a
-    /// driver aboard, or a vehicle that needs none: VehiclePawn.CanMove, CanDraft and CanMoveFinal); ours add the hitch, set-up work and fuel.
+    /// driver aboard, or a vehicle that needs none: VehiclePawn.CanMove, CanDraft and CanMoveFinal); ours add the hitch, fuel, and every refusal
+    /// of ours to move (MoveRefusals: worn-out brakes and other system stages, set-up work, a boat on the bottom). Before Framework 0.175.1 the
+    /// system stages were left out, so an errand could drive a truck the player's own order would not (docs/development/vehicles-at-work-tie-ins.md, F1).
     /// </summary>
     public static string? CannotDrive(VehiclePawn vehicle)
     {
@@ -32,9 +34,10 @@ public static class VehicleAutoDrive
         {
             return "PhobosAutoDrive_Towed".Translate(name, towedBy.Vehicle.LabelShort.Named("TRACTOR")).Resolve();
         }
-        foreach (CompPhobosSetUp setUp in vehicle.AllComps.OfType<CompPhobosSetUp>())
+        if (MoveRefusals.For(vehicle) is { } refused)
         {
-            if (setUp.HoldRefusal is { } held) return held;
+            if (Seen.Wants("vehicles.errand-refused", vehicle)) Seen.Note("vehicles.errand-refused", vehicle, refused);
+            return refused;
         }
         if (vehicle.CompFueledTravel is { EmptyTank: true }) return "PhobosAutoDrive_NoFuel".Translate(name).Resolve();
         if (!vehicle.CanMove) return "PhobosAutoDrive_CannotMove".Translate(name).Resolve();
