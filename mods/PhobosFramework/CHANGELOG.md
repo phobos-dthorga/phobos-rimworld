@@ -5,6 +5,35 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.178.0] - 2026-11-19 - Draft
+
+Aircraft and turbine parts: five new parts at the vehicle parts bench, and a turbine worth what is in it
+
+### Added
+
+- **Five new parts at the vehicle parts bench**, each with its own picture: a **turbine blade set** (35 plasteel and an advanced component, after turbine engines), a **reduction gearbox** (60 steel, 20 plasteel, 8 components, after turbine engines), a **flight computer** (10 steel, 2 gold, 4 components and an advanced component, after vehicle parts and Fabrication), a **hydraulic actuator** (30 steel, 3 components, after vehicle parts) and a **hot-section kit** (10 plasteel, 3 components, after turbine engines). The depot bay stores them all.
+- **New parts roles** for parts bills, any mod's to use: rotor blades (40 plasteel a rotor, or 45 of Rimefeller's composite), a drive shaft, flight control, a hydraulic actuator and landing gear (30 steel, 2 components and 10 chemfuel a leg).
+
+### Changed
+
+- **The gas turbine assembly is built around a turbine blade set**: 100 steel, 15 plasteel, 14 components, an advanced component and a blade set, worth about 1,550 (it was about 600, beside RimThunder's turbine at 2,500).
+- **A turbine's hot-section overhaul uses a hot-section kit**, made from what it took before. A colony that still accepts raw materials for services pays plasteel and components as before.
+- **A destroyed rotor gearbox is replaced with a reduction gearbox**, on every helicopter whose gearbox, transmission or rotor mast drives its rotors (it cost 30 steel and 4 components). Where an aircraft names only its rotor mast, the mast stands for the whole drive.
+- **A destroyed avionics bay is replaced with a flight computer**, on every aircraft (it cost a little steel, by its size).
+
+### Balance
+
+- Recipes, work, skill and worth of the new parts are authored, each near what it is made of, and held for the owner's review (docs/development/parts-bills.md, aircraft and turbine parts).
+
+### Save compatibility
+
+- Safe with a running save. **Finish or cancel any vehicle frame being built before installing**: a frame keeps what was delivered and then asks for the new list. A hot-section overhaul already due waits for a kit, unless the colony still accepts raw materials.
+
+### Compatibility and limits
+
+- Replacing a destroyed turbine, gearbox or avionics bay on another author's aircraft now costs more: a turbine assembly worth 1,550 (or RimThunder's turbine), a reduction gearbox, a flight computer.
+- **Not yet tested in game** (test row 252).
+
 ## [0.177.0] - 2026-11-19 - Draft
 
 A truck with nobody aboard calls for a driver when told to Deliver or Gather

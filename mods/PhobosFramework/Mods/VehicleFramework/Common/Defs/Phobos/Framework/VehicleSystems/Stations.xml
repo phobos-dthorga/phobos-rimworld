@@ -275,6 +275,11 @@
             <li>PhobosVehicles_ElectricalKit</li>
             <li>PhobosVehicles_Transmission</li>
             <li>PhobosVehicles_TurbineAssembly</li>
+            <li>PhobosVehicles_TurbineBlades</li>
+            <li>PhobosVehicles_ReductionGearbox</li>
+            <li>PhobosVehicles_FlightComputer</li>
+            <li>PhobosVehicles_HydraulicActuator</li>
+            <li>PhobosVehicles_HotSectionKit</li>
             <li>PhobosVehicles_TyreSet</li>
             <li>PhobosVehicles_BrakePadSet</li>
             <li>PhobosVehicles_ClutchKit</li>

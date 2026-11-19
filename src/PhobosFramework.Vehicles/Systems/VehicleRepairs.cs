@@ -426,6 +426,8 @@ public sealed class VehicleRepairs
                 refitted.Remove(repair.Part!.props.key);             // nor the field fit's
                 // At a tuning rig, its hoist and instruments fit the part properly (S2, Framework 0.73.0); in the field it is a rough fit.
                 comp.RestorePart(repair.Part!, comp.Fittings.NearRig() ? Rules.replacedPartHealthAtRig : Rules.replacedPartHealth);
+                // Framework 0.178.0 (row 252): which part a destroyed one was replaced with, by the first thing paid (a reduction gearbox, a flight computer).
+                if (payment.Count > 0) Seen.Note("vehicles.part-replaced", comp.Vehicle, repair.Part!.props.label, payment[0].def.defName);
                 NotifyRepairable();
                 text = "PhobosVehicleSystems_RepairReplaced".Translate(who, vehicle, repair.Part!.props.label.Named("PART")).Resolve();
                 break;

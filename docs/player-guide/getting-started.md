@@ -89,13 +89,13 @@ existing colony that had already researched what one of our projects replaced ge
 
 | Project | After | Opens |
 | --- | --- | --- |
-| Vehicle parts | Machining | The vehicle parts bench, its engine assembly, transmission, drivetrain and electrical kits, and the inspection pit |
+| Vehicle parts | Machining | The vehicle parts bench, its engine assembly, transmission, drivetrain and electrical kits, hydraulic actuator (and, after Fabrication, the flight computer), and the inspection pit |
 | Vehicle electrics | Electricity | The generator truck's research |
 | Vehicle tuning | Vehicle parts | The dyno bay, for tunes and grades |
 | Heavy-duty parts | Vehicle parts | Heavy-duty grades of parts |
 | Vehicle depots | Vehicle parts, Electricity | The depot bay |
 | Booster packs | Batteries | The booster pack |
-| Turbine engines | Fabrication, Vehicle parts | The gas turbine assembly |
+| Turbine engines | Fabrication, Vehicle parts | The gas turbine assembly and the turbine blade set it is built around, the reduction gearbox and the hot-section kit |
 | Tipper hauler, bulk tanker, generator truck, drill rig, survey truck | Vehicle parts, and Electricity, vehicle electrics, Deep drilling or Ground-penetrating scanner | Each working vehicle ([working vehicles](working-vehicles.md)) |
 | Submersible hull and its branch | Vehicle parts, Batteries | The Fathom seabed crawler and its upgrades ([submarines](submarines.md)) |
 | Clinical equipment, respiratory care, burn care, anaesthesia, bronchodilators, piped oxygen | Medicine production, Hospital bed, Vitals monitor, Drug production, Oxygen Network | D'thorga Medical's equipment ([medical](medical.md#equipment)) |

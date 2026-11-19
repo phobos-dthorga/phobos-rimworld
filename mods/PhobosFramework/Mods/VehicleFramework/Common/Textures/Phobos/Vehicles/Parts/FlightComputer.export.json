@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/FlightComputer.png",
+  "source": "assets/phobos-vehicles/generated/part-flight-computer/part-flight-computer-1.png",
+  "source_sha256": "17a16aceaf5b466ed6e4de685a29994597175a38b19c22632c382b83c8b51cfb",
+  "target_sha256": "377849c4dd1ee328dafa074659e19a37e154d735b98439908cc91e9e4c46bb7e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "17a16aceaf5b466ed6e4de685a29994597175a38b19c22632c382b83c8b51cfb",
+  "date": "2026-11-19T23:23:15",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

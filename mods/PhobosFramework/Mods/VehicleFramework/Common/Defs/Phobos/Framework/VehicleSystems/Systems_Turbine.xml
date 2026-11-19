@@ -259,10 +259,14 @@
           <value>0</value>
         </li>
       </restores>
+      <!-- Framework 0.178.0: a hot-section kit; raw, what it is made of (owner, 19 Nov 2026). -->
       <supplies>
+        <PhobosVehicles_HotSectionKit>1</PhobosVehicles_HotSectionKit>
+      </supplies>
+      <rawSupplies>
         <Plasteel>10</Plasteel>
         <ComponentIndustrial>3</ComponentIndustrial>
-      </supplies>
+      </rawSupplies>
       <work>3000</work>
     </service>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>

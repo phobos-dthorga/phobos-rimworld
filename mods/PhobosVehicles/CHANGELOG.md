@@ -5,6 +5,32 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.87.0] - 2026-11-19 - Draft
+
+The Osprey is built from aircraft parts, and the working trucks from their hydraulic rams
+
+### Changed
+
+- **The Osprey is built from aircraft parts**: two turbines, two reduction gearboxes and its interconnect shaft, plasteel for two sets of rotor blades (Rimefeller's composite where installed), four flight computers (its three flight-control channels and its avionics bay), three hydraulic actuators (both nacelle tilts and the ramp), four fuel tanks, three landing gear legs, two alternators, two batteries, wiring and hydraulics, beside 900 steel, 170 plasteel and 24 components. It asked for a truck's running gear and its gearboxes cost a few steel. About 14,400 silver in all with RimThunder and Vanilla Vehicles Expanded, about 12,500 with neither.
+- **Its parts are replaced as aircraft parts**: a destroyed proprotor gearbox with a reduction gearbox, a flight-control channel or the avionics bay with a flight computer, a landing gear leg with its own materials, the interconnect shaft with steel and components. The shaft still limits the rotors when damaged.
+- **The tipper, drill rig and survey truck are built with hydraulic actuators**: the tipper's two body rams, the drill rig's two mast rams and the survey truck's boom ram. Their own steel and components dropped by what the actuators are made of. **The tipper's loading grab takes one actuator**, with 90 steel and 1 component beside it.
+
+### Balance
+
+- Counts follow each machine's real layout; what each part costs is authored, held for the owner's review (docs/development/parts-bills.md, aircraft and turbine parts).
+
+### Dependencies
+
+- Needs D'thorga Framework 0.178.0 or later for the new parts.
+
+### Save compatibility
+
+- Safe with a running save. **Finish or cancel any Osprey, tipper, drill rig or survey truck being built before installing**: a frame keeps what was delivered and then asks for the new list. Built vehicles keep what they are.
+
+### Compatibility and limits
+
+- **Not yet tested in game** (test row 252).
+
 ## [0.86.1] - 2026-11-19 - Draft
 
 The bulk bunker says trucks may unload into it

@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/HydraulicActuator.png",
+  "source": "assets/phobos-vehicles/generated/part-hydraulic-actuator/part-hydraulic-actuator-2.png",
+  "source_sha256": "bb585985e9285e9f05bc72f1d35932d832cf020195dfd59db704b3b7cc4bf84a",
+  "target_sha256": "245b594f091bc297622237de0ec973e70ae0e42528a739e346d8d9b45d23d37d",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "bb585985e9285e9f05bc72f1d35932d832cf020195dfd59db704b3b7cc4bf84a",
+  "date": "2026-11-19T23:23:17",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

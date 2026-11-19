@@ -855,13 +855,14 @@
       <li>PhobosResearch_Osprey</li>
     </researchPrerequisites>
     <size>(5, 9)</size>
-    <!-- The shell only [A]: plasteel stands for its composite airframe, the advanced components for fly-by-wire. Its engines,
-         gearboxes, tanks, wheels and electrics are in Bill_Osprey.xml, filled at start-up (docs/development/parts-bills.md). -->
+    <!-- The shell only [A]: plasteel stands for its composite airframe. Its engines, gearboxes, rotor blades, flight computers,
+         actuators, tanks, landing gear and electrics are in Bill_Osprey.xml, filled at start-up (docs/development/parts-bills.md). D'thorga
+         Vehicles 0.87.0: the fly-by-wire's 6 advanced components went to the flight computers, 80 plasteel to the rotor blades and 16
+         components to the gearboxes and actuators (owner, 19 Nov 2026). -->
     <costList>
       <Steel>900</Steel>
-      <Plasteel>250</Plasteel>
-      <ComponentIndustrial>40</ComponentIndustrial>
-      <ComponentSpacer>6</ComponentSpacer>
+      <Plasteel>170</Plasteel>
+      <ComponentIndustrial>24</ComponentIndustrial>
     </costList>
     <designationCategory>PhobosVehicles_MotorPool</designationCategory>
     <thingToSpawn>Phobos_Osprey</thingToSpawn>
@@ -1039,6 +1040,14 @@
         </find>
       </li>
       <li>
+        <!-- D'thorga Vehicles 0.87.0: the interconnect shaft is costed as a drive shaft, not a gearbox. A part's first role sets what it
+             costs to replace, so this comes before the rotor drive, which still holds the shaft: its condition still limits the rotors. -->
+        <role>DriveShaft</role>
+        <find>
+          <li><key>InterconnectShaft</key></li>
+        </find>
+      </li>
+      <li>
         <role>RotorDrive</role>
         <all>true</all>
         <find>
@@ -1046,6 +1055,18 @@
             <keyContainsAny>
               <li>ProprotorGearbox</li>
               <li>InterconnectShaft</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- D'thorga Vehicles 0.87.0: each of the three channels is a flight computer, replaced whole. -->
+        <role>FlightControl</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>FlightControl</li>
             </keyContainsAny>
           </li>
         </find>

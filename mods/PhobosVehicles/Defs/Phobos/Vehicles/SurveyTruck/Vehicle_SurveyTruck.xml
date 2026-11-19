@@ -714,11 +714,12 @@
     </researchPrerequisites>
     <size>(3, 7)</size>
     <!-- The shell only: its parts are in Bill_SurveyTruck.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
+    <!-- D'thorga Vehicles 0.87.0: 30 steel and 3 components moved to its boom's actuator. -->
     <costList>
-      <Steel>300</Steel>
+      <Steel>270</Steel>
       <Plasteel>10</Plasteel>
       <Uranium>10</Uranium>
-      <ComponentIndustrial>8</ComponentIndustrial>
+      <ComponentIndustrial>5</ComponentIndustrial>
     </costList>
     <designationCategory>PhobosVehicles_MotorPool</designationCategory>
     <thingToSpawn>Phobos_SurveyTruck</thingToSpawn>

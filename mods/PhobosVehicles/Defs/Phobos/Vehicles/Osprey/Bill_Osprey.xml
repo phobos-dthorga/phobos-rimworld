@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
-  <!-- What the Osprey is made of, by role (docs/development/parts-bills.md; the record's "Cost and research"). Its blueprint's cost list
-       is its shell; each role is filled at start-up by an installed mod's part where it suits the aircraft's weight, and by ours
-       otherwise. Two turbine engines; three parts of the rotor drive (both proprotor gearboxes and the shaft between them; the record
-       names three gearboxes); its fuel tanks (the sponson tanks and both wing tanks: the record's four counted the sponsons as two);
-       three wheels (nose and two main gear); two alternators and two batteries; wiring; hydraulics. Counts authored, held for the
-       owner's review. -->
+  <!-- What the Osprey is made of, by role (docs/development/parts-bills.md, "Aircraft and turbine parts"; the record's "Cost and research").
+       Its blueprint's cost list is its shell; each role is filled at start-up by an installed mod's part where it suits the aircraft's
+       weight, and by ours otherwise. D'thorga Vehicles 0.87.0 (owner, 19 Nov 2026: the part choices were a truck's): two turbine engines;
+       two proprotor gearboxes (reduction gearboxes) and the interconnect shaft between them; two three-bladed proprotors; three
+       flight-control channels and the avionics bay (flight computers); three hydraulic actuators, the two nacelle tilts and the ramp; its
+       fuel tanks (the sponson tanks and both wing tanks); three landing gear legs (nose and two main); two alternators and two batteries;
+       wiring; hydraulics. Counts follow the real layout; what each costs is authored, held for the owner's review. -->
   <Phobos.VehicleSystems.PhobosVehicleBillDef>
     <defName>PhobosBill_Osprey</defName>
     <label>V-22 Osprey parts</label>
@@ -17,9 +18,14 @@
     <parts>
       <Engine1>1</Engine1>
       <Engine2>1</Engine2>
-      <RotorDrive>3</RotorDrive>
+      <RotorDrive>2</RotorDrive>
+      <DriveShaft>1</DriveShaft>
+      <RotorBlades>2</RotorBlades>
+      <FlightControl>3</FlightControl>
+      <Avionics>1</Avionics>
+      <Actuator>3</Actuator>
       <FuelTank>4</FuelTank>
-      <Wheels>3</Wheels>
+      <LandingGear>3</LandingGear>
       <Alternator>2</Alternator>
       <Battery>2</Battery>
       <Wiring>1</Wiring>

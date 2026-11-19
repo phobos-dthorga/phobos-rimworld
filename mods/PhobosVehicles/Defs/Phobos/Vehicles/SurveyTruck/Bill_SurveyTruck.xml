@@ -19,6 +19,8 @@
       <Radiator>1</Radiator>
       <Exhaust>1</Exhaust>
       <HydraulicPump>1</HydraulicPump>
+      <!-- D'thorga Vehicles 0.87.0 (owner, 19 Nov 2026): the ram that raises its boom; the shell gave up what it is made of. -->
+      <Actuator>1</Actuator>
     </parts>
     <!-- Upgrade nodes that fit a real part (D'thorga Vehicles 0.41.0): the node's own ingredients in its tree are what is left beside
          the part. The other nodes are plate and fittings and stay as written. Node keys are only read here, never changed. -->

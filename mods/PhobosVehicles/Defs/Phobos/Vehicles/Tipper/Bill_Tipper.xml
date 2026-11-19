@@ -22,6 +22,17 @@
       <Frame>1</Frame>
       <!-- The lines to its tipping rams. -->
       <Hose>1</Hose>
+      <!-- D'thorga Vehicles 0.87.0 (owner, 19 Nov 2026): its two tipping rams; the shell gave up the steel and components they are made of. -->
+      <Actuator>2</Actuator>
     </parts>
+    <!-- The loading grab is a small hydraulic crane: one actuator, its node's own ingredients the rest (D'thorga Vehicles 0.87.0). -->
+    <nodes>
+      <li>
+        <key>PhobosLoadingGrab</key>
+        <parts>
+          <Actuator>1</Actuator>
+        </parts>
+      </li>
+    </nodes>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

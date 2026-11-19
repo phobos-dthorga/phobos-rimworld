@@ -344,10 +344,16 @@ The guide's is used.
 
 ### Cost and research
 
-- **Shell** (its own cost): steel 900, plasteel 250, components 40, advanced components 6 **[A]**. Plasteel stands for its
-  composite airframe; the advanced components for fly-by-wire.
-- **By role, through the parts bill:** two turbine engines, three gearboxes, four fuel tanks, three wheels, two alternators, two
-  batteries, wiring, hydraulics. Our own parts set the price; other mods' are accepted only where they suit, as for every vehicle.
+- **Shell** (its own cost): steel 900, plasteel 170, components 24 **[A]**. Plasteel stands for its composite airframe. Until D'thorga
+  Vehicles 0.87.0 it was 900, 250, 40 and 6 advanced components, which went to the flight computers, the rotor blades, the gearboxes and
+  the actuators.
+- **By role, through the parts bill** (rebuilt 19 Nov 2026 on the owner's word that the part choices were a truck's; the full
+  reasoning is in [parts-bills.md](parts-bills.md#aircraft-and-turbine-parts-19-nov-2026)): two turbine engines, two proprotor
+  gearboxes (reduction gearboxes) and the interconnect shaft, two sets of rotor blades, three flight-control channels and the avionics
+  bay (four flight computers), three hydraulic actuators (both nacelle tilts and the ramp), four fuel tanks, three landing gear legs,
+  two alternators, two batteries, wiring and hydraulics. Our own parts set the price; other mods' are accepted only where they suit.
+- **What it comes to:** about 14,400 silver with RimThunder and Vanilla Vehicles Expanded, about 12,500 with neither (was about 13,000
+  and 9,500). The Cherokee is about 11,700. Worked out by hand from the Defs, not read in game.
 - **Work:** 60,000 **[A]**; the Cherokee's is 52,000 and the Mi-38's 90,000.
 - **Research:** "Tiltrotor aircraft", 6,000, after our turbines research **[A]**; the Cherokee's is 4,000. Each upgrade has its
   own small project on our research tab, as the Crawler's do. **Decided as written** (owner, 18 Nov 2026).

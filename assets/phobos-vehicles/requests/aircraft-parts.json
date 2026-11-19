@@ -1,0 +1,102 @@
+[
+  {
+    "name": "part-reduction-gearbox",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/Transmission.png",
+        "role": "our approved vehicle part icon from the same family (a transmission): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_ReductionGearbox (Parts.xml): the rotor drive's part, a helicopter's main gearbox or one of the Osprey's two proprotor gearboxes",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "aircraft parts batch (docs/development/parts-bills.md, aircraft and turbine parts), two attempts on the owner's go of 19 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga reduction gearbox: the heavy gearbox that slows a turbine's fast shaft down to turn a helicopter's rotor. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the gearbox, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA squat, rounded grey cast-alloy gearbox housing with a short thick vertical output shaft and a splined flange standing up from its top, a smaller input shaft stub sticking out of one side, cooling ribs around the housing and a ring of bolt heads where its two halves join.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, rotor blades, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "part-flight-computer",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+        "role": "our approved vehicle part icon from the same family (an electrical kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_FlightComputer (Parts.xml): one flight-control channel or an aircraft's avionics bay",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "aircraft parts batch (docs/development/parts-bills.md, aircraft and turbine parts), two attempts on the owner's go of 19 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga flight computer: a rugged box of electronics that flies an aircraft by wire. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the flight computer, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA flat rectangular dark grey sealed avionics box with rows of fine cooling fins along its top, two chunky round cable connectors on its front face, a carry handle at each end and one small green status lamp.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, screens, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "part-hydraulic-actuator",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+        "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_HydraulicActuator (Parts.xml): a tipper's body ram, a drill rig's mast ram, a survey truck's boom ram, an Osprey's nacelle tilt or ramp",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "aircraft parts batch (docs/development/parts-bills.md, aircraft and turbine parts), two attempts on the owner's go of 19 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga hydraulic actuator: a hydraulic ram that lifts and tilts heavy machinery. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the actuator, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA long hydraulic cylinder lying level: a thick muted olive-painted barrel with a shiny pale steel piston rod sliding out of one end, a round mounting eye at each end, and two small hose fittings on top of the barrel with a short black hose looping between them.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "part-turbine-blades",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TurbineAssembly.png",
+        "role": "our approved vehicle part icon from the same family (a gas turbine assembly): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_TurbineBlades (Parts.xml): the blades and vanes of one turbine hot section, an ingredient of the gas turbine assembly",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "aircraft parts batch (docs/development/parts-bills.md, aircraft and turbine parts), two attempts on the owner's go of 19 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object or one tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga turbine blade set: the heat-resistant blades of one gas turbine. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the blade set, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA single turbine disc seen at an angle: a round bright steel hub ringed by many short curved blades with a faint bronze heat tint at their tips, and three loose spare blades lying neatly beside it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, engine casing, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  },
+  {
+    "name": "item-hot-section-kit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/EngineServiceKit.png",
+        "role": "our approved service kit icon from the same family (an engine service kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "item": "PhobosVehicles_HotSectionKit (ServiceKits.xml): what a turbine's hot-section overhaul uses",
+      "size": "drawn at the game's 64 px item size; requested at 16 times that",
+      "this_request": "aircraft parts batch (docs/development/parts-bills.md, aircraft and turbine parts), two attempts on the owner's go of 19 Nov 2026"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga hot-section kit: the parts for overhauling the hottest part of a gas turbine. Image 1 is our approved service kit from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the kit, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nAn open shallow steel case: inside it a ring-shaped combustion liner with a bronze heat tint, a short row of small curved turbine blades in a foam tray, and a coil of thin silver seal wire.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow."
+  }
+]

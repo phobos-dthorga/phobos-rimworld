@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/HotSectionKit.png",
+  "source": "assets/phobos-vehicles/generated/item-hot-section-kit/item-hot-section-kit-2.png",
+  "source_sha256": "23015db9babb333b760d5067d3764cfcf84a4a43c238d5a390f102b84786c47f",
+  "target_sha256": "d25896a1319a13b7db78362c21a64455b1e2fa876a0086fe575e4a0a5da8a165",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "23015db9babb333b760d5067d3764cfcf84a4a43c238d5a390f102b84786c47f",
+  "date": "2026-11-19T23:23:19",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

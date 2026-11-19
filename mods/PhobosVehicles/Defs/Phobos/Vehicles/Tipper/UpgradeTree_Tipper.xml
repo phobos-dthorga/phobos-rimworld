@@ -119,9 +119,11 @@
           </vehicleStats>
         </li>
       </upgrades>
+      <!-- D'thorga Vehicles 0.87.0: its ram is a hydraulic actuator, added by Bill_Tipper.xml; these are what is left beside it (was 120
+           steel and 4 components). -->
       <ingredients>
-        <Steel>120</Steel>
-        <ComponentIndustrial>4</ComponentIndustrial>
+        <Steel>90</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
       </ingredients>
     </li>
     <li>

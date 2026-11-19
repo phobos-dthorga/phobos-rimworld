@@ -219,6 +219,88 @@ The aim, from the owner's answers: neither route is the cheap one. Other mods' f
 **A repair follows the same counts**: replacing a destroyed engine on a vehicle of 4 to 15 tonnes now asks for two engine assemblies
 (or the materials of two, at the player's share), and three from 15 tonnes, as RimThunder's medium and heavy engines already did.
 
+## Aircraft and turbine parts (19 Nov 2026)
+
+**Status (19 Nov 2026):** built in D'thorga Framework 0.178.0 and D'thorga Vehicles 0.87.0; not yet tested in game.
+
+**Why.** The owner, on the Osprey: "not terrible well balanced, perhaps not in overall wealth ... but in terms of the part *choices*",
+and leaning towards new parts "especially if they are of benefit to our other vehicles, both present and near future, and even perhaps
+as upgrade/service use". The read behind it: the Osprey's bill was a truck's with a rotor drive added. The shell and the two turbines
+were about 88% of its cost; a proprotor gearbox cost about 185 silver, less than a car battery and alternator together; the
+fly-by-wire was six advanced components in the shell; and without RimThunder it asked for a truck's drivetrain kit for its wheels.
+
+**What it lets the player do:** build an aircraft from aircraft parts made at the parts bench, and keep spares of the ones that fail
+(gearboxes, flight computers, actuators, hot-section kits). **What it stops:** a gearbox, a flight-control channel or an avionics bay
+replaced with a handful of steel. **How it changes play:** an aircraft programme is a parts programme: gold and advanced components for
+flight computers, plasteel for blades and turbines, and a stock of hot-section kits for the hangar.
+
+### The new parts (authored, held for the owner's review)
+
+| Part | Recipe | Worth | Research | Takes it |
+| --- | --- | --- | --- | --- |
+| **Turbine blade set** (an intermediate, the owner's idea) | 35 plasteel, 1 advanced component, 6,000 work, Crafting 8 | 540 | Turbine engines | The gas turbine assembly |
+| **Reduction gearbox** | 60 steel, 20 plasteel, 8 components, 6,000 work, Crafting 7 | 570 | Turbine engines | The rotor drive role, on every helicopter |
+| **Flight computer** | 10 steel, 2 gold, 4 components, 1 advanced component, 5,000 work, Crafting 8 | 385 | Vehicle parts and Fabrication | Flight-control channels and avionics bays |
+| **Hydraulic actuator** | 30 steel, 3 components, 2,500 work, Crafting 5 | 160 | Vehicle parts | The Osprey's nacelle tilts and ramp; the tipper's body rams and its loading grab; the drill rig's mast rams; the survey truck's boom |
+| **Hot-section kit** (a service kit) | 10 plasteel, 3 components, 1,500 work, Crafting 6 | 190 | Turbine engines | A turbine's hot-section overhaul, which took the same materials raw |
+
+**The gas turbine assembly** is now 100 steel, 15 plasteel, 14 components, 1 advanced component and a turbine blade set, 10,000 work,
+worth about 1,550 (was 60 steel, 15 plasteel, 10 components, about 600). RimThunder's turbine is 2,500, much of it 500 steel of casting.
+The owner chose an intermediate over a bigger pile of raw materials.
+
+### The aircraft roles
+
+| Role | Ours | Another mod's | Bound to a part, so repairs use it |
+| --- | --- | --- | --- |
+| RotorDrive | A reduction gearbox, whole (was 30 steel and 4 components) | None | Every helicopter's gearbox, transmission or rotor mast that plays it: the Osprey's two proprotor gearboxes, the Hind's, Mongoose's, Cherokee's and the other tie-ins' |
+| DriveShaft (new) | 30 steel, 4 components (the old rotor drive figure) | None | The Osprey's interconnect shaft |
+| FlightControl (new) | A flight computer, whole | None | The Osprey's three channels |
+| Avionics | A flight computer, whole (had no supply: the hull's figure, by health) | None | **Every aircraft's avionics bay**, ours appended where an aircraft has none |
+| Actuator (new) | A hydraulic actuator, whole | None | None yet: a build's role |
+| LandingGear | 30 steel, 2 components, 10 chemfuel a leg (had no supply) | None | The Osprey's three legs |
+| RotorBlades (new, a build's role only) | 40 plasteel a rotor | Rimefeller: 45 composite | None |
+
+**One trick, said plainly:** the rotor drive's condition sets how much power reaches the rotors (`Powertrain`), so the Osprey's shaft
+stays in that role. A part's first role sets its replacement cost, so the shaft's DriveShaft role is listed before RotorDrive in its
+loadout, as the hydraulics part already plays two roles.
+
+### The changed bills
+
+| Thing | Before | Now |
+| --- | --- | --- |
+| Osprey shell | 900 steel, 250 plasteel, 40 components, 6 advanced components | 900 steel, 170 plasteel, 24 components |
+| Osprey parts | Engine 2, rotor drive 3, fuel tank 4, wheels 3, alternator 2, battery 2, wiring, hydraulic pump and lines | Engine 2, rotor drive 2, drive shaft 1, rotor blades 2, flight control 3, avionics 1, actuator 3, fuel tank 4, landing gear 3, alternator 2, battery 2, wiring, hydraulic pump and lines |
+| Tipper shell | 420 steel, 8 components | 360 steel, 2 components, and actuator 2 in its bill |
+| Tipper's loading grab | 120 steel, 4 components | 90 steel, 1 component, and 1 actuator |
+| Drill rig shell | 560 steel, 40 plasteel, 12 components | 500 steel, 40 plasteel, 6 components, and actuator 2 |
+| Survey truck shell | 300 steel, 10 plasteel, 10 uranium, 8 components | 270 steel, 10 plasteel, 10 uranium, 5 components, and actuator 1 |
+
+The trucks' shells gave up exactly what their actuators are made of, so their totals move only by the actuators' work.
+
+**What the Osprey comes to** (worked out by hand, not read in game): about **14,400 silver** with RimThunder and Vanilla Vehicles
+Expanded (was 13,000): the shell about 4,000, two RimThunder turbines 5,000, gearboxes 1,140, flight computers 1,540, blades 720,
+actuators 480, landing gear 430, the rest about 1,100. With neither mod about **12,500** (was 9,500), the turbines now 1,550 each.
+The owner chose to let it rise rather than thin the shell (19 Nov 2026).
+
+### What else changes
+
+- **A destroyed rotor drive part on any helicopter** our repair rules cover now asks for a reduction gearbox. Where a tie-in binds only
+  a rotor mast (Vanilla Vehicles Expanded's aircraft), the mast stands for the rotor drive's whole assembly: an approximation.
+- **A destroyed avionics bay on any aircraft** asks for a flight computer. The bay is 20 health on most: it was about 10 steel.
+- **A destroyed turbine** asks for a turbine assembly now worth 1,550, or RimThunder's turbine.
+- **A hot-section overhaul** asks for a hot-section kit, or its raw materials while the colony still accepts them.
+
+### Who chose the aircraft parts
+
+| Choice | Who |
+| --- | --- |
+| Rebalance the part choices, with new parts that serve other vehicles, upgrades and services | Owner, 19 Nov 2026 |
+| An intermediate inside the turbine, rather than a bigger raw cost | Owner, 19 Nov 2026 |
+| Actuators on the tipper, drill rig and survey truck too | Owner, 19 Nov 2026 (the agent's recommendation) |
+| The hot-section kit | Owner, 19 Nov 2026 (the agent's recommendation) |
+| Let the Osprey rise to about 14,400 | Owner, 19 Nov 2026 (the agent's recommendation) |
+| Which parts, their recipes, worth and research; the roles; the shaft's role; the grab's actuator | Agent |
+
 ## Research
 
 The owner asked for research gates decided the same way for every vehicle. **The agent's decision:** a vehicle's blueprint asks only for

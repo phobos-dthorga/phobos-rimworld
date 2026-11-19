@@ -463,6 +463,9 @@ The **service lead** charges another vehicle's battery in the field:
 Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after turbine engines) and build it at the motor pool.
 
 - **Crew:** two pilots, both needed; a crew chief at the ramp; 24 seats in the cabin. **It carries 5,600 kg.**
+- **Built from aircraft parts** (not yet tested in game): make them at the vehicle parts bench first. Two gas turbine assemblies, two
+  reduction gearboxes, four flight computers and three hydraulic actuators, besides steel, plasteel for its airframe and rotor blades,
+  and components. RimThunder's turbines stand in for ours where it is installed, and Rimefeller's composite for the blades' plasteel.
 - **It takes off and lands straight up** and flies between places at 17.5, twice as fast as any helicopter.
 - **Fuel:** a 1,500 chemfuel tank that burns 200 a day. It is thirsty: plan its trips.
 - **Its weights and engines are the real machine's**, so it lifts less on a hot day or high up, and with a full cabin flies below the

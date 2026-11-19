@@ -85,7 +85,7 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 
 **Services start by themselves when due.** The **Service when possible** button asks for one now. Haulers bring the supplies to the
 vehicle's cargo, then a constructor does the work. A service takes kits made at the parts bench: a **tyre set**, a **brake pad
-set**, a **clutch kit**, an **engine service kit**, a **drive belt**. A colony from before kits existed keeps paying in raw materials until you switch
+set**, a **clutch kit**, an **engine service kit**, a **drive belt**, and a **hot-section kit** for a turbine's overhaul by a tuning rig. A colony from before kits existed keeps paying in raw materials until you switch
 off **This colony: services take raw materials instead of kits** in the settings.
 
 **The coolant top-up** takes water from a plumbing pipe beside the parked vehicle with Dubs Bad Hygiene, or 3 chemfuel without it.
@@ -104,7 +104,7 @@ stays gone until the vehicle is parked again, and gives nothing back.
 chemfuel pipe beneath it joins the line and fills from the line's tanks, 30 chemfuel an hour; the inspect pane says how full it is, and a message says when it is
 full. A vehicle set up for work packs up first. **The depot bay** fills its own tank from a chemfuel pipe touching it, so haulers need not fill it.
 
-![Our parts and kits: engine assembly, transmission, turbine assembly, drivetrain kit, electrical kit, tyre set, brake pad set, engine service kit, drive belt, jump-start kit, booster pack, sling set and fire bucket](images/vehicle-parts-and-kits.png)
+![Our parts and kits: engine assembly, transmission, turbine assembly, turbine blade set, reduction gearbox, flight computer, hydraulic actuator, drivetrain kit, electrical kit, tyre set, brake pad set, engine service kit, hot-section kit, drive belt, jump-start kit, booster pack, sling set and fire bucket](images/vehicle-parts-and-kits.png)
 
 ### Jump-starting
 
@@ -143,7 +143,9 @@ left on still run the battery down.
 - **Field repairs**: away from a base, a mechanic can patch leaks and shorts with a component from the cargo. A patch slows the damage
   so the vehicle can limp home; it is not a repair.
 - **A destroyed part needs replacing.** At 0% it waits for supplies in the vehicle's cargo and a mechanic; then ordinary repair
-  carries on. **An engine or transmission costs the whole part** (made at the parts bench), anything else half its materials. A
+  carries on. **An engine or transmission costs the whole part** (made at the parts bench), and so does a helicopter's rotor
+  gearbox (a **reduction gearbox**), an aircraft's flight-control channel or avionics bay (a **flight computer**) and a hydraulic ram (a
+  **hydraulic actuator**); anything else half its materials. A
   vehicle whose engine is destroyed cannot move until it has a new one.
 - **In a caravan**, select it on the world map and press **Repair** for a vehicle that needs it; it must have stopped and have a
   mechanic.

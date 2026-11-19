@@ -215,18 +215,82 @@
     <work>300</work>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
+  <!-- Framework 0.178.0 (owner, 19 Nov 2026: the Osprey's part choices): a rotor drive part is a reduction gearbox, replaced whole, on
+       every helicopter whose gearbox, transmission or rotor mast plays the role (ours and the tie-ins'). It had cost 30 steel and 4
+       components, less than a car battery and alternator. -->
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
     <defName>PhobosPartSupply_RotorDrive</defName>
     <label>rotor drive</label>
-    <description>Carries the engines' power to the rotors.</description>
+    <description>The gearbox that carries the engines' power to a rotor. Damaged, it takes less power, and the aircraft lifts less.</description>
     <roles>
       <li>RotorDrive</li>
+    </roles>
+    <wholePart>true</wholePart>
+    <item>PhobosVehicles_ReductionGearbox</item>
+    <work>2500</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <!-- Framework 0.178.0: a shaft between gearboxes, such as a tiltrotor's interconnect shaft: what the rotor drive used to cost. -->
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_DriveShaft</defName>
+    <label>drive shaft</label>
+    <description>A shaft joining two gearboxes, so one engine can turn both rotors if the other stops.</description>
+    <roles>
+      <li>DriveShaft</li>
     </roles>
     <materials>
       <Steel>30</Steel>
       <ComponentIndustrial>4</ComponentIndustrial>
     </materials>
-    <work>2500</work>
+    <work>2000</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <!-- Framework 0.178.0: an aircraft's flight-control channels and its avionics bay are flight computers, replaced whole. The avionics bay
+       is every aircraft's, appended where it has none (Loadouts_Default.xml), so its replacement changes on every aircraft. -->
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_FlightComputer</defName>
+    <label>flight computer</label>
+    <roleNotes>
+      <li><role>FlightControl</role><text>One channel of the fly-by-wire controls. Control is lost only when every channel is.</text></li>
+      <li><role>Avionics</role><text>The instruments, navigation and autopilot. Damaged, they fail one by one.</text></li>
+    </roleNotes>
+    <roles>
+      <li>FlightControl</li>
+      <li>Avionics</li>
+    </roles>
+    <wholePart>true</wholePart>
+    <item>PhobosVehicles_FlightComputer</item>
+    <work>1500</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <!-- Framework 0.178.0: a hydraulic ram (a tipper's body, a drill rig's mast, a survey truck's boom, a tiltrotor's nacelle tilt and ramp). -->
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_Actuator</defName>
+    <label>hydraulic actuator</label>
+    <description>A hydraulic ram that lifts or tilts a heavy part of the machine.</description>
+    <roles>
+      <li>Actuator</li>
+    </roles>
+    <wholePart>true</wholePart>
+    <item>PhobosVehicles_HydraulicActuator</item>
+    <work>1200</work>
+  </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+
+  <!-- Framework 0.178.0: an aircraft's undercarriage leg, its shock strut and wheel, where it had been costed as a truck's running gear. Chemfuel
+       stands for the tyre's rubber, as in our tyre sets. Materials authored. -->
+  <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
+    <defName>PhobosPartSupply_LandingGear</defName>
+    <label>landing gear</label>
+    <description>An undercarriage leg: its shock strut, wheel and tyre. Hard and rolling landings wear it.</description>
+    <roles>
+      <li>LandingGear</li>
+    </roles>
+    <materials>
+      <Steel>30</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+      <Chemfuel>10</Chemfuel>
+    </materials>
+    <work>1500</work>
   </Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
 
   <Phobos.VehicleSystems.PhobosVehiclePartSupplyDef>
@@ -363,6 +427,22 @@
     <substitutes>
       <!-- Vanilla Gravship Expanded's oxygen comes in small canisters (150 to a stack): a first charge for the flasks. -->
       <li MayRequire="vanillaexpanded.gravship"><thing>VGE_OxygenCanister</thing><count>30</count></li>
+    </substitutes>
+  </Phobos.Framework.Bills.PhobosRoleSupplyDef>
+
+  <!-- Framework 0.178.0: rotor blades, a build's role only (no part of a vehicle is its blades alone). Plasteel stands for the composite
+       blades are made of; Rimefeller's composite is the honest thing where it exists, at the same worth (45 at 8 beside 40 plasteel at 9). -->
+  <Phobos.Framework.Bills.PhobosRoleSupplyDef>
+    <defName>PhobosPartSupply_RotorBlades</defName>
+    <label>rotor blades</label>
+    <roles>
+      <li>RotorBlades</li>
+    </roles>
+    <materials>
+      <Plasteel>40</Plasteel>
+    </materials>
+    <substitutes>
+      <li MayRequire="dubwise.rimefeller"><thing>FiberComposite</thing><count>45</count></li>
     </substitutes>
   </Phobos.Framework.Bills.PhobosRoleSupplyDef>
 

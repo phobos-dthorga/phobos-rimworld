@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ReductionGearbox.png",
+  "source": "assets/phobos-vehicles/generated/part-reduction-gearbox/part-reduction-gearbox-2.png",
+  "source_sha256": "3add219ffc98238e05f50a5b2a88cb5b925a3da4c4e6e3875d48a7a62874645e",
+  "target_sha256": "336a271f4496dbd65b970f7388eb4d643d5e80ce9294431da26f6dcaabece1f5",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "3add219ffc98238e05f50a5b2a88cb5b925a3da4c4e6e3875d48a7a62874645e",
+  "date": "2026-11-19T23:23:14",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -137,4 +137,34 @@
       <Chemfuel>4</Chemfuel>
     </costList>
   </ThingDef>
+
+  <!-- Framework 0.178.0 (owner, 19 Nov 2026): the hot-section overhaul's own kit, made from exactly what the overhaul took before, as the
+       other kits were. Worth near its materials; work, skill and mass authored. -->
+  <ThingDef ParentName="PhobosServiceKitBase">
+    <defName>PhobosVehicles_HotSectionKit</defName>
+    <label>hot-section kit</label>
+    <description>A combustion liner, a few spare turbine blades and seals for overhauling one gas turbine's hot section. A mechanic overhauls a worn hot section with one loaded aboard, by a tuning rig.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/HotSectionKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <MarketValue>190</MarketValue>
+      <Mass>5</Mass>
+      <Flammability>0</Flammability>
+      <WorkToMake>1500</WorkToMake>
+    </statBases>
+    <costList>
+      <Plasteel>10</Plasteel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
+      <skillRequirements>
+        <Crafting>6</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+  </ThingDef>
 </Defs>

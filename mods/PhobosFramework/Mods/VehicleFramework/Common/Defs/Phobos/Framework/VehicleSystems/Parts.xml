@@ -174,10 +174,13 @@
       <Steel>20</Steel>
     </smeltProducts>
   </ThingDef>
+  <!-- Framework 0.178.0 (docs/development/parts-bills.md, "Aircraft and turbine parts"; owner, 19 Nov 2026): the turbine is built around
+       a blade set of its own, an intermediate the owner asked for so its worth rests on what is in it. About 1,550 where it was about 600,
+       beside RimThunder's turbine at 2,500, much of whose worth is 500 steel of casting. Figures authored. -->
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosVehicles_TurbineAssembly</defName>
     <label>gas turbine assembly</label>
-    <description>A complete gas turbine for an aircraft or a heavy vehicle, its hot section built from plasteel.</description>
+    <description>A complete gas turbine for an aircraft or a heavy vehicle, built around a set of heat-resistant turbine blades.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/Parts/TurbineAssembly</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -187,17 +190,20 @@
     <stackLimit>5</stackLimit>
     <statBases>
       <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>1550</MarketValue>
       <Mass>35</Mass>
       <Flammability>0.2</Flammability>
-      <WorkToMake>8000</WorkToMake>
+      <WorkToMake>10000</WorkToMake>
     </statBases>
     <thingCategories>
       <li>PhobosCategory_VehicleParts</li>
     </thingCategories>
     <costList>
-      <Steel>60</Steel>
+      <Steel>100</Steel>
       <Plasteel>15</Plasteel>
-      <ComponentIndustrial>10</ComponentIndustrial>
+      <ComponentIndustrial>14</ComponentIndustrial>
+      <ComponentSpacer>1</ComponentSpacer>
+      <PhobosVehicles_TurbineBlades>1</PhobosVehicles_TurbineBlades>
     </costList>
     <recipeMaker>
       <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
@@ -215,6 +221,188 @@
     </recipeMaker>
     <smeltProducts>
       <Steel>30</Steel>
+    </smeltProducts>
+  </ThingDef>
+
+  <!-- Framework 0.178.0, aircraft and turbine parts (docs/development/parts-bills.md; owner, 19 Nov 2026: the Osprey's part choices, and
+       new parts that serve our other vehicles too). Each is a real part another of our machines also takes. Recipes, work, skill, mass and
+       worth are authored, worth near what the part is made of. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_TurbineBlades</defName>
+    <label>turbine blade set</label>
+    <description>The heat-resistant blades and vanes of one gas turbine's hot section, cast from plasteel and cooled through fine passages. The heart of a gas turbine assembly.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/TurbineBlades</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <MarketValue>540</MarketValue>
+      <Mass>6</Mass>
+      <Flammability>0</Flammability>
+      <WorkToMake>6000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+    <costList>
+      <Plasteel>35</Plasteel>
+      <ComponentSpacer>1</ComponentSpacer>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Plasteel>15</Plasteel>
+    </smeltProducts>
+  </ThingDef>
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_ReductionGearbox</defName>
+    <label>reduction gearbox</label>
+    <description>A heavy gearbox that slows a turbine's fast shaft down to turn a rotor: a helicopter's main gearbox, or one of a tiltrotor's two proprotor gearboxes.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/ReductionGearbox</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>570</MarketValue>
+      <Mass>45</Mass>
+      <Flammability>0.2</Flammability>
+      <WorkToMake>6000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+    <costList>
+      <Steel>60</Steel>
+      <Plasteel>20</Plasteel>
+      <ComponentIndustrial>8</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>7</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>30</Steel>
+    </smeltProducts>
+  </ThingDef>
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_FlightComputer</defName>
+    <label>flight computer</label>
+    <description>A sealed, ruggedised box of electronics: one channel of an aircraft's fly-by-wire controls, or the heart of its avionics bay.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/FlightComputer</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <MarketValue>385</MarketValue>
+      <Mass>4</Mass>
+      <Flammability>0.5</Flammability>
+      <WorkToMake>5000</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+    <costList>
+      <Steel>10</Steel>
+      <Gold>2</Gold>
+      <ComponentIndustrial>4</ComponentIndustrial>
+      <ComponentSpacer>1</ComponentSpacer>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisites>
+        <li>PhobosResearch_VehicleParts</li>
+        <li>Fabrication</li>
+      </researchPrerequisites>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>8</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>5</Steel>
+    </smeltProducts>
+  </ThingDef>
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicles_HydraulicActuator</defName>
+    <label>hydraulic actuator</label>
+    <description>A hydraulic ram with its fittings and hose: it raises a tipper's body, a drill rig's mast or a survey truck's boom, tilts a tiltrotor's nacelles and lowers its ramp.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/HydraulicActuator</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Standard_Drop</soundDrop>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>160</MarketValue>
+      <Mass>15</Mass>
+      <Flammability>0.4</Flammability>
+      <WorkToMake>2500</WorkToMake>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+    <costList>
+      <Steel>30</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <effectWorking>Smith</effectWorking>
+      <soundWorking>Recipe_Machining</soundWorking>
+      <workSkill>Crafting</workSkill>
+      <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+      <recipeUsers>
+        <li>PhobosVehicles_PartsBench</li>
+      </recipeUsers>
+      <skillRequirements>
+        <Crafting>5</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+    <smeltProducts>
+      <Steel>15</Steel>
     </smeltProducts>
   </ThingDef>
 </Defs>
