@@ -25,6 +25,12 @@
   <PhobosGather_NoWorker>{VEHICLE} needs a loading grab to gather.</PhobosGather_NoWorker>
   <PhobosGather_NothingChosen>Nothing is chosen to gather. Choose something with Gather what.</PhobosGather_NothingChosen>
   <PhobosGather_EnemiesNear>Not while enemies are about.</PhobosGather_EnemiesNear>
+  <PhobosGather_EnemiesChoice>When enemies come: {CHOICE}</PhobosGather_EnemiesChoice>
+  <PhobosGather_EnemiesChoiceDesc>Whether {VEHICLE} stops gathering when enemies come. With its armoured cab it can keep working through a fight, but whoever drives it is still in the fight, and so is the truck.</PhobosGather_EnemiesChoiceDesc>
+  <PhobosGather_EnemiesStop>stop</PhobosGather_EnemiesStop>
+  <PhobosGather_EnemiesKeepWorking>keep working</PhobosGather_EnemiesKeepWorking>
+  <PhobosGather_EnemiesStopSet>{VEHICLE} will stop gathering when enemies come.</PhobosGather_EnemiesStopSet>
+  <PhobosGather_EnemiesKeepWorkingSet>{VEHICLE} will keep gathering while enemies are about.</PhobosGather_EnemiesKeepWorkingSet>
   <PhobosGather_AlreadyFull>{VEHICLE}'s cargo is already full.</PhobosGather_AlreadyFull>
 
   <PhobosGather_Started>{VEHICLE} sets off to gather {WHAT}.</PhobosGather_Started>

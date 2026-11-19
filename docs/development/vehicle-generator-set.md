@@ -236,6 +236,10 @@ flowchart TB
   PhobosEngineGuards["Engine and tank guards"]
   PhobosRunFlatTyres["Run-flat tyres"]
   PhobosEmpHardening["EMP hardening"]
+  PhobosArmouredCab["Armoured cab"]
+  PhobosRamBar["Ram bar"]
+  PhobosHeavyCabPlates["Heavy cab plates"]
+  PhobosArmouredCab --> PhobosHeavyCabPlates
 ```
 
 Every node moves a figure; none changes the parts list (principle 8). Node keys are stable once a save can hold them.

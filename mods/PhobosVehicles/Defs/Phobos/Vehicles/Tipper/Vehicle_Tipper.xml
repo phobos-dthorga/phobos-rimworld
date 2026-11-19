@@ -401,6 +401,9 @@
            aboard to drive, it fetches loose things the player chose about the map. Chunks and raw resources to start (the owner's "raw
            materials"); anything but corpses may be chosen (agent default). Not yet tested in game. -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosGatherRun">
+        <!-- Owner, 19 Nov 2026: with the armoured cab fitted it may keep working while enemies are about, behind a switch in
+             Gather what that starts off. -->
+        <keepWorkingNode>PhobosArmouredCab</keepWorkingNode>
         <defaultFilter>
           <categories>
             <li>Chunks</li>
@@ -505,6 +508,71 @@
                 <look>
                   <graphicData>
                     <texPath>Phobos/Vehicles/Tipper/Tipper_AuxFuelTank</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        <!-- The drawn armour kits (D'thorga Vehicles 0.86.0, the owner's picks of 19 Nov 2026): the heavy plates show in
+             place of the armoured cab (they need it), the ram bar over the front bumper and the body plates along both sides. -->
+          <li>
+            <key>cabArmour</key>
+            <looks>
+              <li>
+                <node>PhobosHeavyCabPlates</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/Tipper/Tipper_HeavyCabPlates</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <node>PhobosArmouredCab</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/Tipper/Tipper_ArmouredCab</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <key>ramBar</key>
+            <looks>
+              <li>
+                <node>PhobosRamBar</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/Tipper/Tipper_RamBar</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>3</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <key>bodyPlates</key>
+            <looks>
+              <li>
+                <node>PhobosBodyPlates</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/Tipper/Tipper_BodyPlates</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
                     <drawSize>(4, 9)</drawSize>
                     <shaderType>Cutout</shaderType>

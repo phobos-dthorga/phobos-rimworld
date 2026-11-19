@@ -36,6 +36,17 @@ TRUCKS = {
     'generator-set': ('GeneratorSet', 'GeneratorSet.transform.json'),
 }
 PICK = 1  # One try each (the owner's cap of 19 Nov 2026); the pick is the only picture until the owner says otherwise.
+RAM_BAR = 11  # The owner's pick of 19 Nov 2026 (kit-part-ram-bar).
+SKIRT = 14  # The owner's pick (kit-part-body-skirt).
+# The ram bar across the front bumper, in each body's in-game pixels (128 a cell, north facing): every body's front is at y 64 (round
+# three). One box for all five, the bodies being as wide; agent placement, to revise once seen in game.
+RAM_BOX = (148, 38, 364, 82)
+# The body plates' left skirt, in game pixels: the whole stretch between the front and rear wheels, against the bed's own edge (the
+# Talus's tipping body x 144 to 370, the Ullage's tank x 157 to 354, the Kelly's deck from x 111; wheels and edges measured from the shipped
+# textures, 19 Nov 2026). The right skirt is its mirror about the canvas's middle. Agent placement, to revise once seen in game.
+SKIRT_BOXES = {'Tipper': (126, 430, 146, 900), 'BulkTanker': (139, 540, 159, 940), 'DrillRig': (106, 300, 126, 900)}
+# What rides on each bed by default, drawn under the kits in the preview so the skirts are seen in place (the game draws it too).
+BED_LOOKS = {'Tipper': 'Tipper_Body', 'BulkTanker': 'BulkTanker_LiquidTank'}
 
 
 CHANGED = 40      # A channel difference this large or more counts as changed (as edit_difference.py's default).
@@ -92,20 +103,25 @@ def master_and_box(truck, kit, work):
 
 
 def preview(out, work):
-    """Each truck tinted on dark ground, north facing: as it is, with the armoured cab, and with the heavy plates over it."""
+    """Each truck tinted on dark ground, north facing: as it is, armoured cab, heavy plates, and every kit (plates, skirts, ram bar)."""
     rows = []
     for truck, (folder, transform) in TRUCKS.items():
         colours = json.loads((base.EXPORT / transform).read_text(encoding='utf-8'))['colours']
         colour, accent = tuple(colours['color']), tuple(colours['colorTwo'])
         textures = base.TEXTURES / folder if hasattr(base, 'TEXTURES') else HERE.parents[1] / 'mods/PhobosVehicles/Textures/Phobos/Vehicles' / folder
         body = tinted(textures / f'{folder}_north.png', textures / f'{folder}_northm.png', colour, accent)
+        if folder in BED_LOOKS:  # What rides on the bed, as the game draws it.
+            bed = textures / f'{BED_LOOKS[folder]}_north.png'
+            mask = textures / f'{BED_LOOKS[folder]}_northm.png'
+            body.alpha_composite(tinted(bed, mask, colour, accent) if mask.is_file() else Image.open(bed).convert('RGBA'))
         cells = [body]
-        for kits in (['armoured-cab'], ['armoured-cab', 'heavy-cab-plates']):
+        for names in (['ArmouredCab'], ['HeavyCabPlates'], ['HeavyCabPlates', 'BodyPlates', 'RamBar']):
             picture = body.copy()
-            for kit in kits:
-                name = f'{folder}_{KITS[kit]}'
-                # Overlays are drawn in their own colours (Cutout, as the winch and grab are): laid on untinted.
-                picture.alpha_composite(Image.open(out / folder / f'{name}_north.png').convert('RGBA'))
+            for suffix in names:
+                path = out / folder / f'{folder}_{suffix}_north.png'
+                if path.is_file():  # Not every truck takes body plates.
+                    # Overlays are drawn in their own colours (Cutout, as the winch and grab are): laid on untinted.
+                    picture.alpha_composite(Image.open(path).convert('RGBA'))
             cells.append(picture)
         rows.append(cells)
     width = sum(c.width for c in rows[0]) + 8 * len(rows[0])
@@ -121,6 +137,58 @@ def preview(out, work):
     target = work / 'armour-kits-preview.png'
     sheet.save(target)
     print('preview', target)
+
+
+def master_box(transform, box):
+    """A box in the body's in-game pixels to its master's pixels: the inverse of the exporter's scale and offset (as round three)."""
+    data = json.loads((base.EXPORT / transform).read_text(encoding='utf-8'))
+    scale, (left, top) = data['scale'], data['offset']
+    return tuple(round((value - (left if index % 2 == 0 else top)) / scale) for index, value in enumerate(box))
+
+
+def tiled_skirt(skirt, size, box, name):
+    """The picked skirt repeated end to end down a box (in master pixels) on a white canvas the body master's size, as a new file: real
+    skirts come in sections, and stretching one plate the whole length would smear its bolts."""
+    work = art_paths.work('armour-kits')
+    target = work / f'{name}.png'
+    plate = Image.open(skirt).convert('RGB')
+    plate = plate.crop(plate.convert('L').point(lambda v: 255 if v < 235 else 0).getbbox())
+    width = box[2] - box[0]
+    plate = plate.resize((width, max(1, round(plate.height * width / plate.width))), Image.LANCZOS)
+    canvas = Image.new('RGB', size, (255, 255, 255))
+    y = box[1]
+    while y < box[3]:
+        piece = plate.crop((0, 0, width, min(plate.height, box[3] - y)))
+        canvas.paste(piece, (box[0], y))
+        y += plate.height
+    canvas.save(target)
+    return target
+
+
+def export_parts(out_root, report):
+    """The ram bar on all five trucks and the body plates (a skirt each side) on the three that take them."""
+    ram = base.pick('kit-part-ram-bar', RAM_BAR)
+    skirt = base.pick('kit-part-body-skirt', SKIRT)
+    for truck, (folder, transform) in TRUCKS.items():
+        out = out_root / folder
+        out.mkdir(parents=True, exist_ok=True)
+        like = base.EXPORT / transform
+        canvas_width = json.loads(like.read_text(encoding='utf-8'))['canvas'][0]
+        box = master_box(transform, RAM_BOX)
+        base.export_overlay(ram, like, out, f'{folder}_RamBar', box)
+        report[f'{folder}/{folder}_RamBar'] = {'master': ram.name, 'fit': list(box)}
+        if folder in SKIRT_BOXES:
+            x0, y0, x1, y1 = SKIRT_BOXES[folder]
+            left, right = master_box(transform, (x0, y0, x1, y1)), master_box(transform, (canvas_width - x1, y0, canvas_width - x0, y1))
+            size = tuple(json.loads(like.read_text(encoding='utf-8'))['master_size'])
+            base.export_overlay(tiled_skirt(skirt, size, left, f'skirt-{folder}-left'), like, out, f'{folder}_BodyPlatesLeft', left)
+            base.export_overlay(tiled_skirt(base.mirrored(skirt), size, right, f'skirt-{folder}-right'), like, out, f'{folder}_BodyPlatesRight', right)
+            base.layer(out, f'{folder}_BodyPlates', [f'{folder}_BodyPlatesLeft', f'{folder}_BodyPlatesRight'])
+            report[f'{folder}/{folder}_BodyPlates'] = {'master': skirt.name, 'fit': [list(left), list(right)]}
+        for record in out.glob('*.export.json'):
+            if record.name.startswith((f'{folder}_RamBar', f'{folder}_BodyPlates')):
+                record.replace(base.EXPORT / record.name)
+        print('wrote', folder, 'ram bar' + (' and body plates' if folder in SKIRT_BOXES else ''))
 
 
 def main():
@@ -139,9 +207,10 @@ def main():
             name = f'{folder}_{suffix}'
             base.export_overlay(master, base.EXPORT / transform, out, name, box)
             for record in out.glob(f'{name}.export.json'):
-                record.replace(work / record.name)
+                record.replace(base.EXPORT / record.name)  # beside the bodies' records, where the clean-up tools read them
             report[f'{folder}/{name}'] = {'edit': f'paid-kit-{truck}-{kit}-{PICK}', 'fit': list(box)}
             print('wrote', folder, name)
+    export_parts(Path(args.out), report)
     (work / 'armour-kits.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
     if args.preview:
         preview(Path(args.out), work)

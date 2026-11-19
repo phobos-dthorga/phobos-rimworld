@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/BodyPlates.png",
+  "source": "assets/phobos-vehicles/generated/truck-kit-bodyplates/truck-kit-bodyplates-11.png",
+  "source_sha256": "98ec3033690802ead7a4a3d0ff8e7c7857569d4082e3f325470625090ac18c32",
+  "target_sha256": "03ad496ee841b3e7dd49fea644ba8839a602aa297dc32b3325f944316cfa9a7e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "98ec3033690802ead7a4a3d0ff8e7c7857569d4082e3f325470625090ac18c32",
+  "date": "2026-11-19T18:12:18",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

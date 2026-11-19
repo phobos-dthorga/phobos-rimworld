@@ -226,7 +226,11 @@ flowchart TB
   PhobosEngineGuards["Engine and tank guards"]
   PhobosRunFlatTyres["Run-flat tyres"]
   PhobosEmpHardening["EMP hardening"]
+  PhobosArmouredCab["Armoured cab"]
+  PhobosRamBar["Ram bar"]
+  PhobosHeavyCabPlates["Heavy cab plates"]
   Hydrogeology["Groundwater sensor (tie-in: DubsBadHygiene)"]
+  PhobosArmouredCab --> PhobosHeavyCabPlates
   classDef tiein stroke-dasharray: 5 5
   class Hydrogeology tiein
 ```

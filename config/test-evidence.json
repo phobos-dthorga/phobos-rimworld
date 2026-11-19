@@ -219,6 +219,13 @@
     "227": ["patches.turret-picture-after-loading"],
     "228": ["patches.raid-orders-rebuilt-on-load"],
     "230": ["framework.error-attributed"],
+    "232": {"parts": {
+      "the armoured cab is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosArmouredCab", "detail": "*: fitted"}],
+      "the heavy cab plates are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosHeavyCabPlates", "detail": "*: fitted"}],
+      "the ram bar is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosRamBar", "detail": "*: fitted"}],
+      "the body plates are fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosBodyPlates", "detail": "*: fitted"}]
+    }},
+    "234": ["vehicles.gather-keeps-working"],
     "231": {"parts": {
       "headlights switch themselves": [{"key": "vehicles.lights-auto", "variant": "headlights"}],
       "work lamps switch themselves": [{"key": "vehicles.lights-auto", "variant": "workLamps"}, {"key": "vehicles.work-lamps-lit", "variant": "automatic"}]

@@ -8,7 +8,7 @@ top of the general systems D'thorga Framework gives every vehicle.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**:
 [working vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.85.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
+Version 0.86.0, built 19 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
 9 November 2026) and the Busbar's size and look (owner, 13 November 2026).
 
 ## Read this first (gotchas)
@@ -28,7 +28,9 @@ Version 0.85.0, built 19 November 2026 for House D'thorga. **Not yet tested in g
   with it each part is 2 mm of steel where the whole truck read as 0.4 mm, and shots strike them across their full width. The
   Health tab names each part's armour. **Armour kits** (0.80.0), after **truck armour** research: engine and tank guards (rifle-proof,
   300 kg), run-flat tyres (120 kg) and EMP hardening (60 kg). **A kit's weight is carried as cargo**: the engine works harder on every
-  truck, and on the Talus it also takes cargo room. Not yet tested in game.
+  truck, and on the Talus it also takes cargo room. **Drawn kits** (0.86.0): an armoured cab, heavy cab plates (after **heavy truck
+  armour**), a ram bar, and body plates on the Talus, Ullage and Kelly; all show on the truck. **With its armoured cab the Talus may keep
+  gathering while enemies are about** (Gather what, starts on stop). Not yet tested in game.
 - **The Talus gathers by itself once its loading grab is fitted** (0.67.0): **Gather what** chooses what, as for a stockpile (chunks
   and raw resources to start), and **Gather** sends it about the map with someone aboard to drive. **It never takes from storage, nor
   anything forbidden: forbid what you want left.** **Choose a bulk bunker or a stockpile under Unload at** and, each time it is full,

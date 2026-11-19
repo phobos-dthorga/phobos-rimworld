@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/HeavyCabPlates.png",
+  "source": "assets/phobos-vehicles/generated/truck-kit-heavycabplates/truck-kit-heavycabplates-11.png",
+  "source_sha256": "3afa4cfc104faaee18546140d9d3c9091d9db39faa9920013f8b8d2a463e7247",
+  "target_sha256": "ccc0b1932f3eb65fccdf7c8c2b50e6840516e77fc6750c0ee01750b3d5b9357e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "3afa4cfc104faaee18546140d9d3c9091d9db39faa9920013f8b8d2a463e7247",
+  "date": "2026-11-19T18:12:17",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

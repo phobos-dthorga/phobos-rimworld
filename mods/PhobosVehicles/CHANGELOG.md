@@ -5,6 +5,36 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.86.0] - 2026-11-19 - Draft
+
+The service trucks' drawn armour kits, and gathering through a fight
+
+### Added
+
+- **An armoured cab for all five service trucks**: bolted plates over the cab and a framed windscreen, rifle armour, 1,000 kg. It shows on the truck. After **truck armour** research.
+- **Heavy cab plates**, fitted over the armoured cab: thick slabs and a visored windscreen that stop armour-piercing rifle bullets and ordinary heavy machine-gun bullets, 850 kg more. After the new **heavy truck armour** research.
+- **A ram bar for all five**: a heavy beam across the front. Running into people, animals or buildings harms the truck half as much and what it hits more, 150 kg.
+- **Body plates** on the Talus, Ullage and Kelly: skirts along both sides that make the tipping body, the tank shell or the deck rifle-proof, 1,100, 1,400 and 900 kg.
+- **The Talus may keep gathering while enemies are about**, once its armoured cab is fitted: Gather what has a new choice, "When enemies come: stop / keep working". It starts on stop.
+- The step 2 kits (engine and tank guards, run-flat tyres, EMP hardening) have their own icons now, and every kit has its own.
+
+### Balance
+
+- Each kit's weight is carried as cargo: the engine works harder on every truck, and on the Talus the same comes off cargo room. Figures are authored.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.172.0 or later.
+
+### Save compatibility
+
+- Safe with a running save. The kits are new upgrades; the gathering switch is saved with the truck and starts off.
+
+### Compatibility and limits
+
+- The cab pictures were made by paid editing of the trucks' own picked bodies (US$1.50 in all); the ram bar and skirts are placed by script, to revise once seen in game.
+- **Not yet tested in game** (test rows 232 and 234).
+
 ## [0.85.0] - 2026-11-19 - Draft
 
 The Osprey sounds like itself, and its upgrades have drawn icons

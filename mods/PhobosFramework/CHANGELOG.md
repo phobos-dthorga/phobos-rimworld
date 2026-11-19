@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.172.0] - 2026-11-19 - Draft
+
+Gathering through a fight
+
+### Added
+
+- **A gathering run may keep working while enemies are about**, where its vehicle's design names the protection that allows it and that upgrade is fitted: a choice in Gather what, "When enemies come: stop / keep working", which starts on stop and is saved with the vehicle. D'thorga Vehicles' Talus is the first, with its armoured cab.
+
+### Save compatibility
+
+- Safe with a running save. The switch is saved with the vehicle; it starts off.
+
+### Compatibility and limits
+
+- **Not yet tested in game** (test row 234).
+
 ## [0.171.1] - 2026-11-19 - Draft
 
 Traps no longer go off under aircraft in the air

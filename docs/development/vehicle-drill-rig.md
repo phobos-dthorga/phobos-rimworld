@@ -204,8 +204,13 @@ flowchart TB
   PhobosEngineGuards["Engine and tank guards"]
   PhobosRunFlatTyres["Run-flat tyres"]
   PhobosEmpHardening["EMP hardening"]
+  PhobosArmouredCab["Armoured cab"]
+  PhobosRamBar["Ram bar"]
+  PhobosBodyPlates["Body plates"]
+  PhobosHeavyCabPlates["Heavy cab plates"]
   WellDrillingKit["Oil well kit (tie-in: Rimefeller)"]
   DeepchemHead["Deepchem head (tie-in: VanillaChemfuelExpanded)"]
+  PhobosArmouredCab --> PhobosHeavyCabPlates
   classDef tiein stroke-dasharray: 5 5
   class WellDrillingKit,DeepchemHead tiein
 ```

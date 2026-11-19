@@ -1,6 +1,6 @@
 # Militarised service vehicles: research and design (19 Nov 2026)
 
-**Status (19 Nov 2026):** a design record, partly built. Its prerequisite, the trucks' armour by class (MV2), is in Framework 0.154.0 and Vehicles 0.76.0; the kits with no picture (engine and tank guards, run-flat tyres, EMP hardening) and the truck armour research are in Vehicles 0.80.0 and Framework 0.158.0. The drawn kits, the guns and the under-fire switch are not built, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
+**Status (19 Nov 2026):** a design record, partly built: every armour kit is built (Vehicles 0.80.0 and 0.86.0); the guns, smoke and remote station are not. Its prerequisite, the trucks' armour by class (MV2), is in Framework 0.154.0 and Vehicles 0.76.0; the kits with no picture (engine and tank guards, run-flat tyres, EMP hardening) and the truck armour research are in Vehicles 0.80.0 and Framework 0.158.0. The drawn kits, the guns and the under-fire switch are not built, no picture is drawn, and nothing here is tested in game. The owner answered every question it raised the same day (below), the guns each truck may mount among them.
 
 The owner's request, 19 Nov 2026, with the answer that enemies end a [gathering run](vehicle-gathering-runs.md): "perhaps we could
 offer upgrades where we militarize some or all of our service vehicles? Either with advantages only or some disadvantages as a result
@@ -275,6 +275,14 @@ Classes are those of [the armour design](vehicle-armour.md): Splinter 5 mm, Rifl
   lowers a part's rating to the rules' military one for that one call of Vehicle Framework's `ApplyEMPDamage`, and puts it back in a
   finalizer (`EmpRule.HardenedSeverity`, tested). Kit weights go in `Phobos_KitKilograms`, which the engine model already weighs. The
   second research tier and the under-fire switch come with the cab, in step 3: neither has anything to unlock or switch before it.
+- **Built (Vehicles 0.86.0, Framework 0.172.0; not yet tested in game):** the armoured cab (Rifle, 1,000 kg) and heavy cab plates
+  (Armour-piercing rifle, +850 kg, needs the cab, second research tier **heavy truck armour**) on all five trucks; the ram bar (150 kg;
+  Vehicle Framework's collision categories: harm taken from people, animals and buildings halved, harm dealt 0.50 to 0.75 and 2.5 to
+  3.0, agent's figures); body plates on the Talus (tipping body, 1,100 kg), Ullage (tank shell, 1,400 kg) and Kelly (chassis, 900 kg).
+  Pictures: the cab kits by paid editing of each picked body's cab (fal, US$1.50, `assets/phobos-vehicles/requests/truck-cab-kits-paid-record.md`),
+  lifted out and fitted by `assets/phobos-vehicles/export_armour_kits.py`; the ram bar and skirts drawn alone on the local model and
+  fitted by the same script (agent placement). The under-fire switch is a choice in Gather what, shown once the armoured cab is
+  fitted (`CompProperties_PhobosGatherRun.keepWorkingNode`, `GatherRule.StopsForEnemies`, tested).
 - **Under Combat Extended an EMP did nothing to any vehicle** (found by the fault-read of 19 Nov 2026): its armour setting replaces
   Vehicle Framework's damage method with one that has no EMP step, so the kit cost 60 kg for nothing there. Framework 0.162.0 runs
   Vehicle Framework's own EMP step when Combat Extended skipped it (`EmpUnderCombatExtendedPatch`; temporary-patches.md row 18).

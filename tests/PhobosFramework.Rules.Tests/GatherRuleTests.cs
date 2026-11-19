@@ -9,6 +9,22 @@ public class GatherRuleTests
     public void TheTalusStandsFiveCellsAway() => Assert.Equal(5, GatherRule.StandOffRing(3, 8));
 
     [Fact]
+    public void EnemiesEndARunByDefault() => Assert.True(GatherRule.StopsForEnemies(designStops: true, protectionFitted: false, keepWorking: false));
+
+    [Fact]
+    public void AnArmouredTruckWithTheSwitchOnKeepsWorking() => Assert.False(GatherRule.StopsForEnemies(true, protectionFitted: true, keepWorking: true));
+
+    [Fact]
+    public void TheSwitchDoesNothingWithoutTheProtection()
+    {
+        Assert.True(GatherRule.StopsForEnemies(true, protectionFitted: false, keepWorking: true));
+        Assert.True(GatherRule.StopsForEnemies(true, protectionFitted: true, keepWorking: false));
+    }
+
+    [Fact]
+    public void ADesignThatNeverStopsNeverStops() => Assert.False(GatherRule.StopsForEnemies(designStops: false, false, false));
+
+    [Fact]
     public void TheRingIsTheSameWhicheverSideIsLong() => Assert.Equal(GatherRule.StandOffRing(8, 3), GatherRule.StandOffRing(3, 8));
 
     [Fact]

@@ -84,7 +84,6 @@ remaining cab edits. If the cab edits stay poor, the cab kits want the paid edit
 | Liquid oxygen store's button, belt toggle, tap arrows | The game's or Vanilla Expanded's own icons, in place | Allowed reuse, not stand-ins |
 | The gathering run's **Gather** and **Gather what** buttons (Framework 0.143.0) | The game's haul designator and stone-chunks category icons, by path in `CompProperties_PhobosGatherRun` | Allowed reuse for now; **own pictures in a small daytime batch on the owner's go** (a truck with its grab out over a pile; a sieve or tick-list over chunks) |
 
-| The trucks' engine and tank guards, run-flat tyres and EMP hardening upgrades (Vehicles 0.80.0) | The Osprey's armour kit, the all-terrain tyres fitting and the electrical kit, by path in each truck's upgrade tree | **Own pictures with the drawn kits' run** (step 3 of the armour kits, on the owner's go) |
 
 **Kept as they are:** the load switch (owner, 10 Nov 2026), the store's frost (drawn in code by design) and the coax atlases (drawn by
 script; records added 17 Nov 2026). **Held:** the whip antenna (until the radio resumes) and the drill rig's well-pipe rack (refused

@@ -618,6 +618,54 @@
               </li>
             </looks>
           </li>
+        <!-- The drawn armour kits (D'thorga Vehicles 0.86.0, the owner's picks of 19 Nov 2026): the heavy plates show in
+             place of the armoured cab (they need it), the ram bar over the front bumper and the body plates along both sides. -->
+          <li>
+            <key>cabArmour</key>
+            <looks>
+              <li>
+                <node>PhobosHeavyCabPlates</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_HeavyCabPlates</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 8)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <node>PhobosArmouredCab</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_ArmouredCab</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 8)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <key>ramBar</key>
+            <looks>
+              <li>
+                <node>PhobosRamBar</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/SurveyTruck/SurveyTruck_RamBar</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 8)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>3</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
         </slots>
       </li>
     </comps>

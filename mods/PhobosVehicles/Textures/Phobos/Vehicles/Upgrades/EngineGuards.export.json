@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/EngineGuards.png",
+  "source": "assets/phobos-vehicles/generated/truck-kit-engineguards/truck-kit-engineguards-11.png",
+  "source_sha256": "11e12b4cf0747ddd9ca59429693aac9bfed660617ad636af147074e90993b69e",
+  "target_sha256": "b6781b654d7080ddfc3d9168cca1f1a0b3b94804273ffe674c33979652440d88",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "11e12b4cf0747ddd9ca59429693aac9bfed660617ad636af147074e90993b69e",
+  "date": "2026-11-19T18:12:21",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

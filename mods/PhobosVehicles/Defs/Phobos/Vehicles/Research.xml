@@ -107,7 +107,7 @@
        Until then every trailer opened with Vehicle parts. -->
   <!-- The service trucks' armour kits, first tier (D'thorga Vehicles 0.80.0; owner, 19 Nov 2026: research in two tiers;
        docs/development/vehicle-militarised-service-vehicles.md, "The kits"). After flak armour, which teaches the same ballistic steel and
-       fabric. Its kits so far: engine and tank guards, run-flat tyres and EMP hardening. -->
+       fabric. Its kits: engine and tank guards, run-flat tyres, EMP hardening, the armoured cab, the ram bar and body plates. -->
   <ResearchProjectDef ParentName="PhobosResearchTruckBase">
     <defName>PhobosResearch_TruckArmour</defName>
     <label>truck armour</label>
@@ -118,6 +118,25 @@
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
       <li>FlakArmor</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <!-- The service trucks' armour kits, second tier (D'thorga Vehicles 0.86.0; owner, 19 Nov 2026: research in two tiers): the heavy cab
+       plates, armour-piercing rifle class. One column right of the first tier, as the tab's layout asks. -->
+  <ResearchProjectDef ParentName="PhobosResearchTruckBase">
+    <defName>PhobosResearch_HeavyTruckArmour</defName>
+    <label>heavy truck armour</label>
+    <description>Thick steel slabs and a visored windscreen for the service trucks' cabs, against armour-piercing rifle bullets and heavy machine-gun fire.</description>
+    <baseCost>2400</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>6</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_TruckArmour</li>
     </prerequisites>
     <modExtensions>
       <li Class="Phobos.Framework.Research.ResearchReplacesExtension">

@@ -101,7 +101,14 @@ Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehi
   - **EMP hardening:** an EMP harms the electrics less and stalls the engine less often, as on a military vehicle. 60 kg.
 - **A kit's weight is carried as cargo**: the engine works harder and burns more fuel, as with the same weight aboard. **On the Talus
   it also comes off cargo room**; the other trucks keep their small stowage.
-- **Still to come:** an armoured cab, heavier cab plates, body plates and a ram bar, which will show on the truck, and gun mounts.
+  - **Armoured cab:** bolted plates over the cab, rifle-proof. 1,000 kg. It shows on the truck.
+  - **Heavy cab plates** (over the armoured cab, after **heavy truck armour** research): slabs and a visored windscreen that stop
+    armour-piercing rifle bullets and heavy machine-gun fire. 850 kg more.
+  - **Ram bar:** running into people, animals or walls harms the truck half as much, and what it hits more. 150 kg.
+  - **Body plates** (Talus, Ullage and Kelly): skirts along both sides make the tipping body, tank or deck rifle-proof.
+- **With its armoured cab, the Talus may keep gathering while enemies are about**: in **Gather what**, set **When enemies come** to
+  **keep working**. It starts on stop. Whoever drives it is still in the fight.
+- **Still to come:** gun mounts, smoke dischargers and a remote weapon station.
 
 ## Datum survey truck
 

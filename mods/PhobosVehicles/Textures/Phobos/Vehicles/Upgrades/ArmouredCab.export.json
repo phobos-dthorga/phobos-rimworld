@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/ArmouredCab.png",
+  "source": "assets/phobos-vehicles/generated/truck-kit-armouredcab/truck-kit-armouredcab-12.png",
+  "source_sha256": "d3a787477b881ec5a97cc4ef6d2caa5c0a704e23276c6758b849ecb901a21e30",
+  "target_sha256": "d72407e1b5176204e1d6f2cfb64a5dc319e8ff1ae7258888e7da256e7ae9ba2d",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "d3a787477b881ec5a97cc4ef6d2caa5c0a704e23276c6758b849ecb901a21e30",
+  "date": "2026-11-19T18:12:16",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

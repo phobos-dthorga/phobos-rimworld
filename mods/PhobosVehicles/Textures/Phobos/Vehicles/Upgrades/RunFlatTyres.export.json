@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/RunFlatTyres.png",
+  "source": "assets/phobos-vehicles/generated/truck-kit-runflattyres/truck-kit-runflattyres-12.png",
+  "source_sha256": "2d053ee099120519ee64bf81227d7387de9a07d0dc089b4cdd6d2d0db9d939ee",
+  "target_sha256": "dfe2d2b1f930dd9065108f4b9ee7359eea10ebbfc465829bc7a1f464e8b8ace8",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "2d053ee099120519ee64bf81227d7387de9a07d0dc089b4cdd6d2d0db9d939ee",
+  "date": "2026-11-19T18:12:22",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

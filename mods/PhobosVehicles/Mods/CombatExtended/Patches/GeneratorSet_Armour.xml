@@ -61,4 +61,36 @@
       </armor>
     </value>
   </Operation>
+  <!-- The drawn armour kits with Combat Extended (D'thorga Vehicles 0.86.0): the armoured cab adds Skin to Rifle (6 mm, 36 MPa), the
+       heavy plates Rifle to Armour-piercing rifle (7 mm, 80 MPa more), body plates Skin to Rifle. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_GeneratorSet_UpgradeTree"]/nodes/li[key="PhobosArmouredCab"]/upgrades/li[@Class="Vehicles.VehicleUpgrade"]/armor</xpath>
+    <value>
+      <armor>
+          <li>
+            <key>Cab</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Sharp>6</ArmorRating_Sharp>
+              <ArmorRating_Blunt>36</ArmorRating_Blunt>
+            </statModifiers>
+          </li>
+      </armor>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_GeneratorSet_UpgradeTree"]/nodes/li[key="PhobosHeavyCabPlates"]/upgrades/li[@Class="Vehicles.VehicleUpgrade"]/armor</xpath>
+    <value>
+      <armor>
+          <li>
+            <key>Cab</key>
+            <type>Add</type>
+            <statModifiers>
+              <ArmorRating_Sharp>7</ArmorRating_Sharp>
+              <ArmorRating_Blunt>80</ArmorRating_Blunt>
+            </statModifiers>
+          </li>
+      </armor>
+    </value>
+  </Operation>
 </Patch>

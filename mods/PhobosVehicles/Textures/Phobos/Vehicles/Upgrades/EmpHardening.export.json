@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/EmpHardening.png",
+  "source": "assets/phobos-vehicles/generated/truck-kit-emphardening/truck-kit-emphardening-11.png",
+  "source_sha256": "47faee34ca42c2914a574750f0299ab984ce756478b86bd835f1e08f7dad7888",
+  "target_sha256": "397e8083df7075569a03e873807a1b53c2d5b13b1b5ecd103e4011c2ea4975ae",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "47faee34ca42c2914a574750f0299ab984ce756478b86bd835f1e08f7dad7888",
+  "date": "2026-11-19T18:12:23",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

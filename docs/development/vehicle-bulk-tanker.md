@@ -228,7 +228,12 @@ flowchart TB
   PhobosEngineGuards["Engine and tank guards"]
   PhobosRunFlatTyres["Run-flat tyres"]
   PhobosEmpHardening["EMP hardening"]
+  PhobosArmouredCab["Armoured cab"]
+  PhobosRamBar["Ram bar"]
+  PhobosBodyPlates["Body plates"]
+  PhobosHeavyCabPlates["Heavy cab plates"]
   TwoCompartments --> ThreeCompartments
+  PhobosArmouredCab --> PhobosHeavyCabPlates
   any1(("any one"))
   LiquidTank -.- any1
   InsulatedLiquidTank -.- any1

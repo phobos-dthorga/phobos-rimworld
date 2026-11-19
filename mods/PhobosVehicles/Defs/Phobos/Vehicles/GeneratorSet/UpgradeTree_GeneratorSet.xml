@@ -238,7 +238,7 @@
       <displayLabel>true</displayLabel>
       <description>Steel guards around the engine and the fuel tank, against rifle fire. A guarded tank still leaks and a guarded engine still burns once they are finally holed: it takes heavier fire to get there.</description>
       <upgradeExplanation>Engine and fuel tank: from skin to rifle armour, which stops ordinary rifle bullets.\nKit weight: 300 kg more, carried as cargo.</upgradeExplanation>
-      <icon>Phobos/Vehicles/Osprey/Upgrades/ArmourKit</icon>
+      <icon>Phobos/Vehicles/Upgrades/EngineGuards</icon>
       <work>2500</work>
       <gridCoordinate>(2, 16)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
@@ -287,7 +287,7 @@
       <displayLabel>true</displayLabel>
       <description>Steel-belted tyres with run-flat inserts, so the wheels shrug off shell fragments and pistol bullets.</description>
       <upgradeExplanation>Wheels: from skin to splinter armour, which stops shell fragments and pistol bullets.\nKit weight: 120 kg more, carried as cargo.</upgradeExplanation>
-      <icon>Phobos/VehicleSystems/Fittings/AllTerrainTyres</icon>
+      <icon>Phobos/Vehicles/Upgrades/RunFlatTyres</icon>
       <work>1500</work>
       <gridCoordinate>(7, 16)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
@@ -336,7 +336,7 @@
       <displayLabel>true</displayLabel>
       <description>Shielded wiring, filtered power and a spare engine control unit, so an electromagnetic pulse does the electrics less harm and stalls the engine less often, as it does on a military vehicle.</description>
       <upgradeExplanation>Electrics: an electromagnetic pulse harms them as it does a military vehicle's.\nKit weight: 60 kg more, carried as cargo.</upgradeExplanation>
-      <icon>Phobos/Vehicles/Parts/ElectricalKit</icon>
+      <icon>Phobos/Vehicles/Upgrades/EmpHardening</icon>
       <work>2000</work>
       <gridCoordinate>(12, 16)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
@@ -361,6 +361,145 @@
       <ingredients>
         <Steel>15</Steel>
         <ComponentIndustrial>4</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <!-- The drawn armour kits (D'thorga Vehicles 0.86.0; vehicle-militarised-service-vehicles.md, "The kits"), with their
+           pictures from paid edits of the picked body (owner's picks of 19 Nov 2026). Armour by class with Add, Combat Extended's
+           figures in Mods/CombatExtended; real kilograms [A] load the engine as cargo would, taking cargo room on the Talus only.
+           Figures and costs authored. Not yet tested in game. -->
+      <key>PhobosArmouredCab</key>
+      <label>Armoured cab</label>
+      <displayLabel>true</displayLabel>
+      <description>Bolted steel plates over the cab's roof and doors and a steel frame round a narrowed windscreen, so ordinary rifle bullets stop at the cab. It shows on the truck.</description>
+      <upgradeExplanation>Cab: from skin to rifle armour, which stops ordinary rifle bullets.\nKit weight: 1,000 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/ArmouredCab</icon>
+      <work>4000</work>
+      <gridCoordinate>(2, 21)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckArmour</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.VehicleUpgrade">
+          <armor>
+            <li>
+              <key>Cab</key>
+              <type>Add</type>
+              <statModifiers>
+                <ArmorRating_Sharp>0.35</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.27</ArmorRating_Blunt>
+              </statModifiers>
+            </li>
+          </armor>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>1000</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>250</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosRamBar</key>
+      <label>Ram bar</label>
+      <displayLabel>true</displayLabel>
+      <description>A heavy steel beam across the front, braced back to the chassis. Driving into an animal, a raider or a wall harms the truck half as much, and what it hits more.</description>
+      <upgradeExplanation>Damage the truck takes from running into people and animals: half (0.50 to 0.25).\nFrom running into buildings: half (0.10 to 0.05).\nDamage it does to people and animals it runs into: half as much again (0.50 to 0.75); to buildings, 2.5 to 3.0.\nKit weight: 150 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/RamBar</icon>
+      <work>1500</work>
+      <gridCoordinate>(7, 21)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_TruckArmour</li>
+      </researchPrerequisites>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <statCategories>
+            <li>
+              <def>PawnCollisionRecoilMultiplier</def>
+              <value>-0.25</value>
+              <type>Add</type>
+            </li>
+            <li>
+              <def>BuildingCollisionRecoilMultiplier</def>
+              <value>-0.05</value>
+              <type>Add</type>
+            </li>
+            <li>
+              <def>PawnCollisionMultiplier</def>
+              <value>0.25</value>
+              <type>Add</type>
+            </li>
+            <li>
+              <def>BuildingCollisionMultiplier</def>
+              <value>0.5</value>
+              <type>Add</type>
+            </li>
+          </statCategories>
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>150</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>60</Steel>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosHeavyCabPlates</key>
+      <label>Heavy cab plates</label>
+      <displayLabel>true</displayLabel>
+      <description>Thick steel slabs over the armoured cab and a steel visor over the windscreen with two vision slits, so armour-piercing rifle bullets and ordinary heavy machine-gun bullets stop at the cab. It shows on the truck.</description>
+      <upgradeExplanation>Cab: from rifle to armour-piercing rifle armour, which stops armour-piercing rifle bullets and ordinary heavy machine-gun bullets.\nKit weight: 850 kg more, carried as cargo.</upgradeExplanation>
+      <icon>Phobos/Vehicles/Upgrades/HeavyCabPlates</icon>
+      <work>5000</work>
+      <gridCoordinate>(2, 26)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <researchPrerequisites>
+        <li>PhobosResearch_HeavyTruckArmour</li>
+      </researchPrerequisites>
+      <prerequisiteNodes>
+        <li>PhobosArmouredCab</li>
+      </prerequisiteNodes>
+      <upgrades>
+        <li Class="Vehicles.VehicleUpgrade">
+          <armor>
+            <li>
+              <key>Cab</key>
+              <type>Add</type>
+              <statModifiers>
+                <ArmorRating_Sharp>0.20</ArmorRating_Sharp>
+                <ArmorRating_Blunt>0.15</ArmorRating_Blunt>
+              </statModifiers>
+            </li>
+          </armor>
+        </li>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>850</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+      <ingredients>
+        <Steel>200</Steel>
+        <Plasteel>40</Plasteel>
       </ingredients>
     </li>
     </nodes>

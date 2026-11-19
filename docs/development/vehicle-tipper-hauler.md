@@ -155,6 +155,11 @@ flowchart TB
   PhobosEngineGuards["Engine and tank guards"]
   PhobosRunFlatTyres["Run-flat tyres"]
   PhobosEmpHardening["EMP hardening"]
+  PhobosArmouredCab["Armoured cab"]
+  PhobosRamBar["Ram bar"]
+  PhobosBodyPlates["Body plates"]
+  PhobosHeavyCabPlates["Heavy cab plates"]
+  PhobosArmouredCab --> PhobosHeavyCabPlates
 ```
 
 | Node key | Figure it moves | Cost | Research | Prerequisite or exclusive with | Look |

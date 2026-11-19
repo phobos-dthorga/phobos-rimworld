@@ -24,6 +24,9 @@ public class CompProperties_PhobosGatherRun : VehicleCompProperties
     public int failedDrivesToGiveUp = 5;
     /// <summary>Whether enemies threatening the map end the run. Agent default; the owner's choice of 19 Nov 2026.</summary>
     public bool stopForEnemies = true;
+    /// <summary>The upgrade node whose protection lets the player keep it working while enemies are about, behind a switch that starts off
+    /// (owner, 19 Nov 2026: the armoured cab; vehicle-militarised-service-vehicles.md). Null: no switch.</summary>
+    public string? keepWorkingNode;
     /// <summary>The run's button picture: the game's haul designator until one of ours is drawn.</summary>
     public string runIconPath = "UI/Designators/Haul";
     /// <summary>The filter's button picture: the game's stone chunks category until one of ours is drawn.</summary>
@@ -256,7 +259,7 @@ public class CompPhobosGatherRun : VehicleComp
         IVehicleGatherWorker? w = Worker;
         if (w == null || !w.CanGatherAtAll) return "PhobosGather_NoWorker".Translate(name).Resolve();
         if (CurrentFilter.AllowedDefCount == 0) return "PhobosGather_NothingChosen".Translate().Resolve();
-        if (Props.stopForEnemies && Vehicle.Spawned && GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map)) return "PhobosGather_EnemiesNear".Translate().Resolve();
+        if (StopsForEnemies && Vehicle.Spawned && GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map)) return "PhobosGather_EnemiesNear".Translate().Resolve();
         if (VehicleAutoDrive.CannotDrive(Vehicle) is { } cannot) return cannot;
         if (w.GatherRoomKilograms <= 0f && !HasUnloadPlace) return "PhobosGather_AlreadyFull".Translate(name).Resolve();
         return null;
@@ -393,8 +396,12 @@ public class CompPhobosGatherRun : VehicleComp
         }
         if (Props.stopForEnemies && GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map))
         {
-            End(GatherRunEnd.Threat);
-            return;
+            if (StopsForEnemies)
+            {
+                End(GatherRunEnd.Threat);
+                return;
+            }
+            if (Seen.Wants("vehicles.gather-keeps-working", Vehicle)) Seen.Note("vehicles.gather-keeps-working", Vehicle, "enemies about");
         }
         switch (phase)
         {
@@ -796,6 +803,7 @@ public class CompPhobosGatherRun : VehicleComp
         Scribe_Values.Look(ref trips, "PhobosGatherTrips");
         Scribe_Values.Look(ref unloaded, "PhobosGatherUnloaded");
         Scribe_Values.Look(ref engineStarted, "PhobosGatherEngineStarted");
+        Scribe_Values.Look(ref keepWorking, "PhobosGatherKeepWorking");
         if (Scribe.mode == LoadSaveMode.PostLoadInit && phase == GatherPhase.Driving && target == null) LookAgain();
     }
 
@@ -856,6 +864,32 @@ public class CompPhobosGatherRun : VehicleComp
         };
     }
 
+    // ---- Keep working when enemies are about (owner, 19 Nov 2026) ----
+
+    /// <summary>The player's switch: keep working while enemies are about. Off to start; it counts only while the protection is fitted.</summary>
+    bool keepWorking;
+
+    /// <summary>Whether the protection that allows the switch is fitted (the armoured cab on the service trucks).</summary>
+    public bool KeepWorkingAllowed => Props.keepWorkingNode != null && VehicleUpgrades.Unlocked(Vehicle, Props.keepWorkingNode);
+
+    /// <summary>Whether enemies about end the run now (GatherRule.StopsForEnemies).</summary>
+    public bool StopsForEnemies => GatherRule.StopsForEnemies(Props.stopForEnemies, KeepWorkingAllowed, keepWorking);
+
+    string EnemiesChoiceWords => (keepWorking ? "PhobosGather_EnemiesKeepWorking" : "PhobosGather_EnemiesStop").Translate().Resolve();
+
+    List<FloatMenuOption> EnemiesOptions() => new()
+    {
+        new FloatMenuOption("PhobosGather_EnemiesStop".Translate().CapitalizeFirst(), () => SetKeepWorking(false)),
+        new FloatMenuOption("PhobosGather_EnemiesKeepWorking".Translate().CapitalizeFirst(), () => SetKeepWorking(true)),
+    };
+
+    void SetKeepWorking(bool on)
+    {
+        keepWorking = on;
+        Messages.Message((on ? "PhobosGather_EnemiesKeepWorkingSet" : "PhobosGather_EnemiesStopSet").Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+    }
+
     void OpenFilter()
     {
         Map? map = Vehicle.MapHeld;
@@ -867,6 +901,12 @@ public class CompPhobosGatherRun : VehicleComp
             {
                 dropdowns.Add(new FilterDropdown(() => "PhobosGather_UnloadAt".Translate(UnloadChoiceWords.Named("PLACE")).Resolve(), UnloadOptions,
                     "PhobosGather_UnloadAtDesc".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve()));
+            }
+            // Shown once the protection is fitted (the owner's choice: the switch lives in Gather what).
+            if (Props.stopForEnemies && KeepWorkingAllowed)
+            {
+                dropdowns.Add(new FilterDropdown(() => "PhobosGather_EnemiesChoice".Translate(EnemiesChoiceWords.Named("CHOICE")).Resolve(), EnemiesOptions,
+                    "PhobosGather_EnemiesChoiceDesc".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve()));
             }
         }
         Find.WindowStack.Add(new Dialog_PhobosThingFilter("PhobosGather_FilterTitle".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(),

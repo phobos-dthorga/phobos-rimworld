@@ -107,6 +107,12 @@ public static class GatherRule
     /// <summary>Whether to give the run up after this many drives in a row that reached nothing. No limit means never.</summary>
     public static bool GiveUp(int failedInARow, int limit) => limit > 0 && failedInARow >= limit;
 
+    /// <summary>
+    /// Whether enemies about end a run (owner, 19 Nov 2026: an armoured truck may keep working while enemies are about, behind a switch that
+    /// starts off): they do when the design stops for them, unless the protection that allows the switch is fitted and the switch is on.
+    /// </summary>
+    public static bool StopsForEnemies(bool designStops, bool protectionFitted, bool keepWorking) => designStops && !(protectionFitted && keepWorking);
+
     /// <summary>Whether the run ended because its work was done (full, or nothing left), rather than cut short.</summary>
     public static bool EndedWell(GatherRunEnd end) => end is GatherRunEnd.Full or GatherRunEnd.NothingLeft;
 
