@@ -100,7 +100,10 @@ def masks(args):
         return 3
     AI_MASKS.mkdir(parents=True, exist_ok=True)
     listing = AI_MASKS / 'todo.json'
-    listing.write_text(json.dumps([p.relative_to(ROOT).as_posix() for p in todo], indent=1), encoding='utf-8')
+    # A picture in the repository is listed by its path from there; one in the art tools' working folder (on another drive, by the owner's
+    # rule of 19 Nov 2026) by its full path. Masks are kept by the picture's hash, so where it lives does not matter.
+    listing.write_text(json.dumps([(p.relative_to(ROOT) if p.is_relative_to(ROOT) else p).as_posix() for p in todo], indent=1),
+                       encoding='utf-8')
     python = Path(args.comfy) / 'python_embeded' / 'python.exe'
     command = [str(python), '-I', str(ROOT / 'scripts' / 'art' / 'background_ai_worker.py'), '--comfy', args.comfy, '--list', str(listing),
                '--cache', str(AI_MASKS), '--device', device, '--stop-at', stop_at.isoformat(timespec='seconds')]
