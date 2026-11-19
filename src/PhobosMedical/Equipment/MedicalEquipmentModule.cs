@@ -56,8 +56,8 @@ public static class MedicalEquipmentMod
         return report;
     }
 
-    internal static void DrawSettings(Listing_Standard listing) =>
-        listing.Label(RecommendationService.GravshipActive ? "PhobosMedical_SettingGravshipOn".Translate() : "PhobosMedical_SettingGravshipOff".Translate());
+    internal static void DrawSettings(SettingsList list) =>
+        list.Note(RecommendationService.GravshipActive ? "PhobosMedical_SettingGravshipOn".Translate() : "PhobosMedical_SettingGravshipOff".Translate());
 
     [DebugAction(DebugCategory.Name, "Log a pawn's oxygen need", actionType = DebugActionType.ToolMapForPawns)]
     static void LogOxygenNeed(Pawn pawn)

@@ -24,7 +24,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | Harrier, with **Combat Extended** | Bombs cost what they weigh: each starts as a **bomb case** made from steel, then is filled. With The Dead Man's Switch, bombs and rockets are bills at its ammunition fabricator too | Make bomb cases at the machining table, rotary forger or automated machining bay. **Allow the cases in bay hoppers** that used to take heavy castings |
 | Harrier, in the air | Its dodge chance follows its flight controls and warning receiver; a **Chaff and flares** button makes it harder to hit for ten seconds | Keep **countermeasure cartridges** (D'thorga Framework's parts bench) in storage; haulers load them into its dispensers while it is parked. Repair shot-up controls and avionics |
 | Harrier, Hind, Mongoose | Rearming tops up the kind already loaded | A part-full magazine waits if that kind runs out |
-| Harrier, being taken apart | A temporary trace writes each step of a vehicle's disassembly to the game's log, to find why the Harrier can't be taken apart | **Try one disassembly, on a copy of your save, and don't retry.** The setting **Log each step when a vehicle is taken apart** turns it off |
+| Harrier, being taken apart | A temporary trace writes each step of a vehicle's disassembly to the game's log, to find why the Harrier can't be taken apart | **Try one disassembly, on a copy of your save, and don't retry.** First tick **D'thorga Patches: Harrier disassembly** on D'thorga Framework's **Detailed logs** settings page: the trace is off until you do |
 | **RimThunder** with The Dead Man's Switch - Expedition | The rotary forger makes heavy castings 12 at a time from 1,200 steel | Keep the floor around the forger clear: 24 items drop beside it |
 | **Spaceship Turret Hull** (MK), with **Combat Extended** | All seven hulls load ammo like CE's own turrets, and no longer explode when destroyed | **Rebuild hulls built before**, while the ship is landed |
 | **InterRim Ballistic Missile** (Psionic Zephyr) | A strategic warhead's blast is spread over moments instead of freezing the game; overhead mountain shelters what is under it; the extinction-class warhead strikes with a fireball, blast and heat zone; no flood of "Area revealed" letters | **Wait for the message that a blast has spent itself before saving.** Settings under D'thorga Patches |
@@ -134,9 +134,10 @@ explains refusals.
 
 ### Taking it apart (temporary)
 
-The Harrier cannot be disassembled yet: the work stops near the end and the jet stays. While the setting **Log each step when a
-vehicle is taken apart** is on (the default), each disassembly writes one log line per step, to find the cause. It changes nothing in
-play. **Try one disassembly, on a copy of your save, and stop there:** each attempt runs the first half of the removal again.
+The Harrier cannot be disassembled yet: the work stops near the end and the jet stays. **Before you try, tick D'thorga Patches:
+Harrier disassembly** on D'thorga Framework's **Detailed logs** settings page; each disassembly then writes one log line per step, to
+find the cause. It is off until you tick it (since Patches 0.27.0; it used to be a setting of its own, on by default). It changes
+nothing in play. **Try one disassembly, on a copy of your save, and stop there:** each attempt runs the first half of the removal again.
 
 ## Bombs under Combat Extended
 
@@ -364,7 +365,7 @@ Now:
 - **With Simple Sidearms**, the gun becomes the weapon it keeps handing back, in place of a grenade.
 - **Someone who already has no gun at all needs one handed to them once**: select them, right-click a gun, **Equip**. They keep it from
   then on.
-- **To switch it off**, untick **Colonists go back to their own guns** in **Mod settings, D'thorga Patches: Combat Extended**.
+- **To switch it off**, untick **Colonists go back to their own guns** on the **Combat Extended** page of **Mod settings, D'thorga Patches**.
 
 ## Drone platforms
 
@@ -387,8 +388,8 @@ and the **FPV nest**) hold steel that each drone they send out uses up. On their
 - Bombs and rockets: bills at the machining table, and at The Dead Man's Switch's ammunition fabricator.
 - Bomb cases (Combat Extended only): bills at the machining table, the rotary forger and the automated machining bay.
 - Heavy castings: the electric smelter and assembly platform (one at a time), and the rotary forger (12 at a time).
-- Settings: **Mod settings, D'thorga Patches** (the missile and air-defence options), **D'thorga Patches: Harrier**, **D'thorga
-  Patches: outposts** and **D'thorga Patches: Combat Extended**.
+- Settings: **Mod settings, D'thorga Patches**, one entry with a page per patched mod (Combat Extended, Harrier jump jet, IRBM:
+  strikes, IRBM: after-effects, Outposts); a page shows only while its mod is active. The search box finds a setting on any page.
 
 ## What has been tested in game
 

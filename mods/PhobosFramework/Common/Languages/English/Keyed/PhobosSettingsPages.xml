@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The settings window every D'thorga mod shares (Framework's SettingsBook; owner's choice of 20 Nov 2026,
+       docs/development/settings-pages.md): pages down the left, search, "changed only", a reset per page. -->
+  <PhobosFramework_SettingsChangedOnly>Changed only</PhobosFramework_SettingsChangedOnly>
+  <PhobosFramework_SettingsChangedOnlyDesc>Show only the settings you have changed from their defaults, from every page at once.</PhobosFramework_SettingsChangedOnlyDesc>
+  <PhobosFramework_SettingsChangedMarker>Changed from its default.</PhobosFramework_SettingsChangedMarker>
+  <PhobosFramework_SettingsNeedsRestart>(needs a restart)</PhobosFramework_SettingsNeedsRestart>
+  <PhobosFramework_SettingsRestartAtMenu>These changes take effect when the game next starts:\n\n{SETTINGS}\n\nRestart the game now?</PhobosFramework_SettingsRestartAtMenu>
+  <PhobosFramework_SettingsRestartInGame>These changes take effect when the game next starts:\n\n{SETTINGS}\n\nSave your game and restart it when it suits you. Until then, the game carries on as before.</PhobosFramework_SettingsRestartInGame>
+  <PhobosFramework_SettingsRestartNow>Restart now</PhobosFramework_SettingsRestartNow>
+  <PhobosFramework_SettingsRestartLater>Later</PhobosFramework_SettingsRestartLater>
+  <PhobosFramework_SettingsRestartPending>Settings changed that take effect after a restart: {COUNT}. Closing this window lists them.</PhobosFramework_SettingsRestartPending>
+  <PhobosFramework_SettingsPageAtDefaults>Every setting on this page is at its default.</PhobosFramework_SettingsPageAtDefaults>
+  <PhobosFramework_SettingsPageChanged>Settings on this page changed from their defaults: {COUNT} (marked with a dot).</PhobosFramework_SettingsPageChanged>
+  <PhobosFramework_SettingsResetPage>Reset this page to defaults</PhobosFramework_SettingsResetPage>
+  <PhobosFramework_SettingsResetConfirm>Put every setting on the page "{PAGE}" back to its default?</PhobosFramework_SettingsResetConfirm>
+  <PhobosFramework_SettingsResultsFor>Settings matching "{TEXT}"</PhobosFramework_SettingsResultsFor>
+  <PhobosFramework_SettingsResultsChanged>Settings you have changed</PhobosFramework_SettingsResultsChanged>
+  <PhobosFramework_SettingsNoneChanged>Every setting is at its default.</PhobosFramework_SettingsNoneChanged>
+  <PhobosFramework_SettingsNoMatch>No setting matches the search. It looks in each setting's name and its tooltip.</PhobosFramework_SettingsNoMatch>
+
+  <!-- D'thorga Framework's own pages. -->
+  <PhobosFramework_PageGeneral>General</PhobosFramework_PageGeneral>
+  <PhobosFramework_PageLogs>Log and reports</PhobosFramework_PageLogs>
+  <PhobosFramework_PageVerbose>Detailed logs</PhobosFramework_PageVerbose>
+  <PhobosFramework_PageTesting>Testing</PhobosFramework_PageTesting>
+  <PhobosFramework_SectionGases>Gases</PhobosFramework_SectionGases>
+  <PhobosFramework_SectionBuildCosts>What things are built from</PhobosFramework_SectionBuildCosts>
+  <PhobosFramework_SectionTopUp>Topping up</PhobosFramework_SectionTopUp>
+  <PhobosFramework_SectionSound>Sound</PhobosFramework_SectionSound>
+  <PhobosFramework_SectionDeveloper>Developer (shown in dev mode only)</PhobosFramework_SectionDeveloper>
+  <PhobosFramework_SoundVehiclesElsewhere>Whether vehicle sounds also play on other mods' vehicles is set in D'thorga Vehicle Systems, on its "Display, sound and stories" page.</PhobosFramework_SoundVehiclesElsewhere>
+</LanguageData>

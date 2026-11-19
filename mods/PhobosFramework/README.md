@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.183.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.184.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -19,7 +19,7 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   **RimWorld 1.7 only.** Its vehicle systems switch on only with **Vehicle Framework**; garages and pipe lines need **Vanilla Expanded
   Framework** as well.
 - **The vehicle systems change every Vehicle Framework vehicle you have, from any mod.** To narrow that, set **Which vehicles** in
-  **D'thorga Framework: vehicle systems** **before you load a colony**: it needs a restart. Switching vehicles off later is safe.
+  **D'thorga Vehicle Systems**' settings **before you load a colony**: it needs a restart. Switching vehicles off later is safe.
 - **Safe to add to a running colony.** It saves the carbon monoxide in rooms and the care choices you set; a save without it loads
   with no gas.
 - **Before removing it** (after the mods that depend on it): if vehicles used the systems, load the colony, press **Remove the added
@@ -126,80 +126,87 @@ Every vehicle gets systems that fit what it is, by what it runs on and whether i
 
 ## Settings
 
-Under **Options > Mod settings**. RimWorld saves only what you change.
+Under **Options > Mod settings**: **D'thorga Framework**, and with Vehicle Framework **D'thorga Vehicle Systems** (0.185.0; it was
+"D'thorga Framework: vehicle systems"). Each has its pages down the left, as the game's own Options window does. **Type in the
+search box to find a setting on any page**; tick **Changed only** to see just what you have changed (each marked with a dot); **Reset
+this page to defaults** puts one page back. A setting that needs a restart says so beside its name, and closing the window after
+changing one lists them (at the main menu it offers to restart). RimWorld saves only what you change.
 
 ### D'thorga Framework
 
-| Setting | What it does | Default |
-| --- | --- | --- |
-| Where gases come from | Automatic: the game's and other mods' gases where they exist, the framework's own where nothing else carries one. Or always the framework's own, or never (mods that need one fall back to a simpler estimate) | Automatic |
-| D'thorga sounds volume | Every D'thorga mod's sounds, from 0% (silent) to 200%; at 100% each matches a comparable game sound. Changes at once | 100% |
-| Vehicle system sounds on other mods' vehicles too | The vehicle systems' sounds (a tyre bursting, an engine knocking, the warning chime) play on any vehicle running them. Off: only D'thorga's own vehicles | On |
-| Parts for building | Whose parts a build of ours asks for: **Other mods' parts where installed**, or **Always our own parts**. **Needs a restart.** Repairs accept either | Other mods' parts where installed |
-| How full to fill them (under the one above) | Its own fill level (as the machine's own fill order), at least half, at least three-quarters, or full. Never less than its own level | Its own fill level |
-| Keep machines and mechanoids topped up | Colonists doing hauling work refill machines that hold a store of material and only offer a right-click fill order, such as a drone platform's steel, and a mechanitor refills mechanoids that carry one, as they repair them (named by D'thorga Patches). Off: by hand only | On |
-| Show gases at the mouse (dev mode) | A label at the mouse names every gas in that cell's room | Off |
-| Keep the game's log going after its message limit | Turns the game's log back on when it stops at 10,000 messages, at most 25 times a session, with a line naming the message that filled it | On |
-| Say when D'thorga code was part of an error | After an error whose trace shows D'thorga code or a D'thorga patch on its path, writes one line saying so, so a report reaches D'thorga too. Never says D'thorga caused it. Once per kind of error, at most 50 a session | On |
-| Write a colony mood file at each save | Writes every colonist's, slave's and prisoner's thoughts to `PhobosSnapshots/ColonyMood.xml` in the RimWorld user folder, for the mood report in D'thorga Companion and phobos-modkit. Changes nothing in play | On |
-| Write every Def with all patches applied at the next start (dev mode) | For mod developers: one file, `PhobosPatchedDefs/PatchedDefs.xml`, then it turns itself off | Off |
-| Verbose logging: everything, and Verbose: one tick per log | Extra detail in the game's log for chasing a fault, for everything or one part at a time; capped so it cannot flood the log | Off |
-| Note features as they are seen working (for testing) | The first time each feature is seen working in a session, writes one line to `PhobosSnapshots/SeenInPlay.jsonl` in the RimWorld user folder and one to the log, for the Tests page in D'thorga Companion. A line says the feature ran without an error, never that it looked right. Changes nothing in play | Off |
-| Say when a listed test happens (dev mode only) | With the notes above and dev mode on, a message in the corner the first time in a session that something on the test list happens. Needs the test rows our install script writes into the installed mod; a Workshop copy has none and says nothing | Off |
+| Page | Setting | What it does | Default |
+| --- | --- | --- | --- |
+| General | Where gases come from | Automatic: the game's and other mods' gases where they exist, the framework's own where nothing else carries one. Or always the framework's own, or never (mods that need one fall back to a simpler estimate) | Automatic |
+| General | Parts for building | Whose parts a build of ours asks for: **Other mods' parts where installed**, or **Always our own parts**. **Needs a restart.** Repairs accept either | Other mods' parts where installed |
+| General | Keep machines and mechanoids topped up | Colonists doing hauling work refill machines that hold a store of material and only offer a right-click fill order, such as a drone platform's steel, and a mechanitor refills mechanoids that carry one, as they repair them (named by D'thorga Patches). Off: by hand only | On |
+| General | How full to fill them (under the one above) | Its own fill level (as the machine's own fill order), at least half, at least three-quarters, or full. Never less than its own level | Its own fill level |
+| General | D'thorga sounds volume | Every D'thorga mod's sounds, from 0% (silent) to 200%; at 100% each matches a comparable game sound. Changes at once | 100% |
+| Log and reports | Keep the game's log going after its message limit | Turns the game's log back on when it stops at 10,000 messages, at most 25 times a session, with a line naming the message that filled it | On |
+| Log and reports | Say when D'thorga code was part of an error | After an error whose trace shows D'thorga code or a D'thorga patch on its path, writes one line saying so, so a report reaches D'thorga too. Never says D'thorga caused it. Once per kind of error, at most 50 a session | On |
+| Log and reports | Write a colony mood file at each save | Writes every colonist's, slave's and prisoner's thoughts to `PhobosSnapshots/ColonyMood.xml` in the RimWorld user folder, for the mood report in D'thorga Companion and phobos-modkit. Changes nothing in play | On |
+| Log and reports | Show gases at the mouse (dev mode; shown only there) | A label at the mouse names every gas in that cell's room | Off |
+| Log and reports | Write every Def with all patches applied at the next start (dev mode; shown only there) | For mod developers: one file, `PhobosPatchedDefs/PatchedDefs.xml`, then it turns itself off | Off |
+| Detailed logs | Verbose logging: everything, and Verbose: one tick per log | Extra detail in the game's log for chasing a fault, for everything or one part at a time; capped so it cannot flood the log | Off |
+| Testing | Note features as they are seen working (for testing) | The first time each feature is seen working in a session, writes one line to `PhobosSnapshots/SeenInPlay.jsonl` in the RimWorld user folder and one to the log, for the Tests page in D'thorga Companion. A line says the feature ran without an error, never that it looked right. Changes nothing in play | Off |
+| Testing | Say when a listed test happens (dev mode only) | With the notes above and dev mode on, a message in the corner the first time in a session that something on the test list happens. Needs the test rows our install script writes into the installed mod; a Workshop copy has none and says nothing | Off |
 
-### D'thorga Framework: vehicle systems (with Vehicle Framework)
+The vehicle sounds setting (on other mods' vehicles too) moved to D'thorga Vehicle Systems' **Display, sound and stories** page.
 
-| Section | Setting | What it does | Default |
+### D'thorga Vehicle Systems (with Vehicle Framework)
+
+| Page | Setting | What it does | Default |
 | --- | --- | --- | --- |
 | Which vehicles | Every vehicle with a fitting design / Only D'thorga vehicles; a tick per vehicle mod and per kind | Which vehicles get systems. **Needs a restart**; turning vehicles off is safe | Every vehicle, every mod and kind |
-| Systems | A tick per system (battery, cooling, oil, driver and the rest) | Switch one system off everywhere | All on |
 | Systems | Figures only, no consequences | Everything shows; nothing happens to the vehicle | Off |
-| Systems | Fuel thickens in deep cold | Below about -8 °C chemfuel gels and the engine will not start | Off |
-| Systems | Flammable tank loads explode | A destroyed tank of something flammable explodes, more violently the fuller; off, it only spills | On |
-| Systems | A tank needs upgrades for compartments | Off: every liquid tank has three compartments free | On |
-| Engines and drivetrains | Drivetrain off / Drivetrain shown, speeds unchanged / Full drivetrain | Whether engine power and grip slow a vehicle (down to a crawl, never below 15% of its speed) | Full |
-| Engines and drivetrains | Fuel use follows engine load | Laden climbs burn more, empty road runs less, idling about half, and whatever the engine drives costs fuel. At an ordinary cruise the author's rate. Off: the author's flat rate, and working vehicles' own fixed rates | On (since 0.131.0) |
-| Engines and drivetrains | Aircraft fuel follows the engines | An aircraft burns its author's rate flying about or cruising in good order; a hover or a climb burns more, a worn engine and what is switched on a little more, and idling on the ground with a pilot aboard burns fuel too. Off: the authors' flat rates | On (new in 0.132.0) |
-| Engines and drivetrains | Thin air at height | The higher the country, the less power an engine without a turbocharger and a gas turbine have, the more a helicopter needs to hover, and the less a radiator cools. Your own vehicles with the full drivetrain model only. Off: everywhere is sea level | On (new in 0.132.0) |
-| Engines and drivetrains | Cruising height between places | Each stretch of a flight between places is flown at a height of its own: over the highest ground on the way, lower where the engines cannot climb at the aircraft's weight or someone aboard has no oxygen. A jet flown low is slower and thirstier; a stretch over ground too high to climb is refused before launch. Your own aircraft with cruising figures only. Off: every flight is flown as its author made it | On (new in 0.141.0) |
-| Engines and drivetrains | Raiders may arrive by aircraft | Raiders of an industrial or better faction may come in aboard one of our aircraft (the Osprey), which puts them down near the colony and leaves; shot down or with its crew lost on the ground it is wrecked, never yours. Off: raids never arrive that way | On (new in 0.157.0) |
-| Engines and drivetrains | Stock helicopters fly over the map | The Cherokee, the Louie and the Mosquito take off, fly about, hover, circle and land on the map as the Osprey does, and leave and arrive flying; their pictures were drawn for flying straight off the map, so a hover may look a little odd. Off: they fly as their authors made them | Off (new in 0.160.0) |
-| Engines and drivetrains | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, for fuel | Off |
-| Engines and drivetrains | Low oil calls for a service | A service falls due once oil is below 60% | On |
-| Engines and drivetrains | Accessories load the engine | What the engine drives besides the wheels takes its power: the alternator, the radiator fan when hot, the air conditioner, the air brakes' compressor, a tanker's pump. Less power for driving, a little more heat, and more fuel with load-following fuel | On |
-| Engines and drivetrains | Rough ground wears tyres and suspension | Up to three times the tyre wear off the roads | On |
-| Engines and drivetrains | Headlights light the ground | Switched-on headlights light the ground at night; off if many vehicles slow the game | On |
-| Engines and drivetrains | Lights switch themselves | Headlights light while driven at night, work lamps while parked at night with people near (on battery only above half charge); off, the buttons switch them by hand | On |
-| Engines and drivetrains | Rain, snow and ice take grip | Wet and frozen ground takes grip on hills, in mud and when towing | On |
-| Engines and drivetrains | Ammunition aboard can cook off in a fire | With Combat Extended's ammunition: a burning vehicle's ammunition can explode, and a tank's turret can be blown off | On |
-| Engines and drivetrains | This colony: services take raw materials instead of kits | Saved with the colony. On: services take steel, components and chemfuel instead of kits | Off (on for a colony from before kits) |
-| Engines and drivetrains | Passengers feel the cab | Moods about a warm or cold cab | On |
-| Engines and drivetrains | Every closed cab has climate control | Gives climate control to every closed cab, not only modern ones | Off |
-| Engines and drivetrains | When an aircraft is too heavy or too hot to lift off or hover onto its pad | Refuse it (use the runway, or lighten it) / allow it, at a cost to the engine / allow it, with a warning only | Refuse it |
-| Engines and drivetrains | Blind take-offs: warn only | An aircraft with broken or unpowered instruments may take off at night or in fog, with a warning | Off |
-| Engines and drivetrains | Crews feel thin air when oxygen fails at height | Everyone aboard a high-flying aircraft whose oxygen is shot out is short of breath for a few hours | Off |
-| Engines and drivetrains | The Dead Man's Switch - Expedition's air defence sees aircraft (shown with that mod) | Its radars track aircraft in flight on the world map and may fire; a launch towards a defence asks first | On |
-| Steam locomotives | Realistic feed water | Off: a water stop draws a tenth of the real tender | Off |
-| Steam locomotives | Boiler explosions | A boiler without a fusible plug explodes when run dry | Off |
-| Electric vehicles | Battery fires | An overheated traction battery catches fire | Off |
-| Electric vehicles | The Lightning runs on batteries (needs a restart) | D'thorga Vehicles' Lightning becomes electric | Off |
-| Repairs | Destroyed parts need replacing | A part at 0% needs supplies and a mechanic before repair | On |
-| Repairs | Replacing an engine or transmission costs / Replacing any other part costs | The share of the part's materials a replacement takes | 100% / 50% |
-| Repairs | Field fixes | Patch leaks and shorts, and re-fit a thrown track or wrecked wheel, away from a base | On |
-| Repairs | Tunes, changes of grade and heavy overhauls need a dyno bay | Tunes, grade changes, head machining and turbine overhauls wait for a powered dyno bay in reach | On |
-| Repairs | Time to fit and tune / Materials to fit and tune | Quick, shorter, standard or long; light, standard or heavy | Standard / Standard |
-| Repairs | Bigger vehicles cost more to fit and tune | Scales fitting costs by weight | On |
-| Repairs | Power points have the larger socket | Looks only: which picture a working truck's power point uses | Off |
-| Repairs | Enemy vehicles may carry fittings | Other factions' vehicles may come with fittings and a tune, kept if captured | On |
-| Sling loads | Hot days lift less / A ground crew hooks the load up / Weather can ground a lift / Slung loads fly slower and burn more / Emergency release and drops | Each sling rule on its own | All on |
-| Towing | Vehicles without the drivetrain model can tow | Lets other vehicles tow on a plain rule | Off |
-| Jump-starts | Jump-start leads must be crafted | A jump-start needs a jump-start kit | On |
-| Jump-starts | Every vehicle carries a booster pack | No kit or pack needed | Off |
-| Your fleet | Show the fleet button on the bottom bar | The fleet board | On |
-| Your fleet | Warn before a parked vehicle is lost | Days of warning; 0 turns it off | 3 days |
-| What vehicles show | How much to show | Plain, Operator or Engineer | Plain |
-| What vehicles show | Keep Vehicle Framework's own Health tab (needs a restart) | Keeps their list instead of ours | Off |
-| Removing vehicle systems from a colony | Remove the added parts from this colony's vehicles | The button to press before removing the mod | |
+| Systems | A tick per system (battery, cooling, oil, driver and the rest) | Switch one system off everywhere | All on |
+| Engines and driving | Drivetrain off / Drivetrain shown, speeds unchanged / Full drivetrain | Whether engine power and grip slow a vehicle (down to a crawl, never below 15% of its speed) | Full |
+| Engines and driving | Fuel use follows engine load | Laden climbs burn more, empty road runs less, idling about half, and whatever the engine drives costs fuel. At an ordinary cruise the author's rate. Off: the author's flat rate, and working vehicles' own fixed rates | On (since 0.131.0) |
+| Engines and driving | Accessories load the engine | What the engine drives besides the wheels takes its power: the alternator, the radiator fan when hot, the air conditioner, the air brakes' compressor, a tanker's pump. Less power for driving, a little more heat, and more fuel with load-following fuel | On |
+| Engines and driving | Fuel thickens in deep cold | Below about -8 °C chemfuel gels and the engine will not start | Off |
+| Engines and driving | Thin air at height | The higher the country, the less power an engine without a turbocharger and a gas turbine have, the more a helicopter needs to hover, and the less a radiator cools. Your own vehicles with the full drivetrain model only. Off: everywhere is sea level | On (new in 0.132.0) |
+| Engines and driving | Rain, snow and ice take grip | Wet and frozen ground takes grip on hills, in mud and when towing | On |
+| Engines and driving | Rough ground wears tyres and suspension | Up to three times the tyre wear off the roads | On |
+| Engines and driving | Vehicles without the drivetrain model can tow | Lets other vehicles tow on a plain rule | Off |
+| Engines and driving | Headlights light the ground | Switched-on headlights light the ground at night; off if many vehicles slow the game | On |
+| Engines and driving | Lights switch themselves | Headlights light while driven at night, work lamps while parked at night with people near (on battery only above half charge); off, the buttons switch them by hand | On |
+| Engines and driving | Jump-start leads must be crafted | A jump-start needs a jump-start kit | On |
+| Engines and driving | Every vehicle carries a booster pack | No kit or pack needed | Off |
+| Aircraft and sling loads | Aircraft fuel follows the engines | An aircraft burns its author's rate flying about or cruising in good order; a hover or a climb burns more, a worn engine and what is switched on a little more, and idling on the ground with a pilot aboard burns fuel too. Off: the authors' flat rates | On (new in 0.132.0) |
+| Aircraft and sling loads | Cruising height between places | Each stretch of a flight between places is flown at a height of its own: over the highest ground on the way, lower where the engines cannot climb at the aircraft's weight or someone aboard has no oxygen. A jet flown low is slower and thirstier; a stretch over ground too high to climb is refused before launch. Your own aircraft with cruising figures only. Off: every flight is flown as its author made it | On (new in 0.141.0) |
+| Aircraft and sling loads | When an aircraft is too heavy or too hot to lift off or hover onto its pad | Refuse it (use the runway, or lighten it) / allow it, at a cost to the engine / allow it, with a warning only | Refuse it |
+| Aircraft and sling loads | Blind take-offs: warn only | An aircraft with broken or unpowered instruments may take off at night or in fog, with a warning | Off |
+| Aircraft and sling loads | Crews feel thin air when oxygen fails at height | Everyone aboard a high-flying aircraft whose oxygen is shot out is short of breath for a few hours | Off |
+| Aircraft and sling loads | Stock helicopters fly over the map | The Cherokee, the Louie and the Mosquito take off, fly about, hover, circle and land on the map as the Osprey does, and leave and arrive flying; their pictures were drawn for flying straight off the map, so a hover may look a little odd. Off: they fly as their authors made them | Off (new in 0.160.0) |
+| Aircraft and sling loads | The Dead Man's Switch - Expedition's air defence sees aircraft (shown with that mod) | Its radars track aircraft in flight on the world map and may fire; a launch towards a defence asks first | On |
+| Aircraft and sling loads | Hot days lift less / A ground crew hooks the load up / Weather can ground a lift / Slung loads fly slower and burn more / Emergency release and drops | Each sling rule on its own | All on |
+| Steam and electric | Realistic feed water | Off: a water stop draws a tenth of the real tender | Off |
+| Steam and electric | Boiler explosions | A boiler without a fusible plug explodes when run dry | Off |
+| Steam and electric | Battery fires | An overheated traction battery catches fire | Off |
+| Steam and electric | The Lightning runs on batteries | D'thorga Vehicles' Lightning becomes electric | Off |
+| Dangers and raids | Flammable tank loads explode | A destroyed tank of something flammable explodes, more violently the fuller; off, it only spills | On |
+| Dangers and raids | Ammunition aboard can cook off in a fire | With Combat Extended's ammunition: a burning vehicle's ammunition can explode, and a tank's turret can be blown off | On |
+| Dangers and raids | Raiders may arrive by aircraft | Raiders of an industrial or better faction may come in aboard one of our aircraft (the Osprey), which puts them down near the colony and leaves; shot down or with its crew lost on the ground it is wrecked, never yours. Off: raids never arrive that way | On (new in 0.157.0) |
+| Dangers and raids | Enemy vehicles may carry fittings | Other factions' vehicles may come with fittings and a tune, kept if captured | On |
+| Repairs, service and fittings | Destroyed parts need replacing | A part at 0% needs supplies and a mechanic before repair | On |
+| Repairs, service and fittings | Replacing an engine or transmission costs / Replacing any other part costs | The share of the part's materials a replacement takes | 100% / 50% |
+| Repairs, service and fittings | Field fixes | Patch leaks and shorts, and re-fit a thrown track or wrecked wheel, away from a base | On |
+| Repairs, service and fittings | Low oil calls for a service | A service falls due once oil is below 60% | On |
+| Repairs, service and fittings | This colony: services take raw materials instead of kits | Saved with the colony. On: services take steel, components and chemfuel instead of kits | Off (on for a colony from before kits) |
+| Repairs, service and fittings | Tunes, changes of grade and heavy overhauls need a dyno bay | Tunes, grade changes, head machining and turbine overhauls wait for a powered dyno bay in reach | On |
+| Repairs, service and fittings | A tank needs upgrades for compartments | Off: every liquid tank has three compartments free | On |
+| Repairs, service and fittings | Time to fit and tune / Materials to fit and tune | Quick, shorter, standard or long; light, standard or heavy | Standard / Standard |
+| Repairs, service and fittings | Bigger vehicles cost more to fit and tune | Scales fitting costs by weight | On |
+| Cabs, camps and caravans | Passengers feel the cab | Moods about a warm or cold cab | On |
+| Cabs, camps and caravans | Every closed cab has climate control | Gives climate control to every closed cab, not only modern ones | Off |
+| Cabs, camps and caravans | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, for fuel | Off |
+| Cabs, camps and caravans | Warn before a parked vehicle is lost | Days of warning; 0 turns it off | 3 days |
+| Display, sound and stories | How much to show | Plain, Operator or Engineer | Plain |
+| Display, sound and stories | Keep Vehicle Framework's own Health tab | Keeps their list instead of ours | Off |
+| Display, sound and stories | Show the fleet button on the bottom bar | The fleet board | On |
+| Display, sound and stories | Power points have the larger socket | Looks only: which picture a working truck's power point uses | Off |
+| Display, sound and stories | Vehicle system sounds on other mods' vehicles too | The vehicle systems' sounds (a tyre bursting, an engine knocking, the warning chime) play on any vehicle running them. Off: only D'thorga's own vehicles | On |
+| Display, sound and stories | Letters for troubled journeys | When a vehicle comes back to a map after a journey on which it broke down, was stranded or someone aboard was hurt, a letter says how it went. Every journey goes in the vehicle's logbook either way | On |
+| Removing | Remove the added parts from this colony's vehicles | The button to press before removing the mod | |
 
 Per-vehicle figures (battery, alternator, engine heat, empty mass and more) are in **Vehicle Framework's own settings**, each vehicle's page.
 

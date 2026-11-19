@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Xml;
 using HarmonyLib;
+using Phobos.Framework;
 using Phobos.Medical;
 using Phobos.MedicalSaveBridge.Patches;
 using Phobos.MedicalSaveBridge.Services;
@@ -92,12 +93,12 @@ public static class MedicalSaveBridgeMod
         report.Log();
     }
 
-    internal static void DrawSettings(Listing_Standard listing)
+    internal static void DrawSettings(SettingsList list)
     {
-        listing.Label("PhobosSaveBridge_SettingAbout".Translate());
+        list.Note("PhobosSaveBridge_SettingAbout".Translate());
         int never = Settings.neverConvert.Count;
-        listing.Label("PhobosSaveBridge_SettingNever".Translate(never.Named("COUNT")));
-        if (never > 0 && listing.ButtonText("PhobosSaveBridge_SettingForget".Translate()))
+        list.Note("PhobosSaveBridge_SettingNever".Translate(never.Named("COUNT")));
+        if (never > 0 && list.Button("PhobosSaveBridge_SettingForget".Translate()))
         {
             BridgeChoices.ForgetNever();
             Messages.Message("PhobosSaveBridge_Forgotten".Translate(never.Named("COUNT")), MessageTypeDefOf.TaskCompletion, false);

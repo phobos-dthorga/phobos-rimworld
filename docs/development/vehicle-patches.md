@@ -379,7 +379,8 @@ stays on the map with no picture, and every frame's worker-thread draw tries to 
 ending the job before the removal, or the same throw.
 
 **Built (agent's design):** `src/PhobosPatches.Harrier/DisassemblyTrace.cs`, temporary, under the setting **Log each step when a vehicle
-is taken apart** (on by default). For a vehicle being taken apart only, it logs each stage: the job's finishing step, the fixed-wing
+is taken apart** (on by default; since Patches 0.27.0, 20 Nov 2026, the detailed log **D'thorga Patches: Harrier disassembly** instead,
+off until ticked: [settings pages](settings-pages.md)). For a vehicle being taken apart only, it logs each stage: the job's finishing step, the fixed-wing
 framework's removal (patched by name), Vehicle Framework's removal, the crew out, the materials released (so the destroyed events are
 past), each comp's `OnDestroy` (every override found at run time, patched once per type), each turret's, the pawn's own `Destroy`,
 the despawn, and every end of a disassembly job with its condition, the work done and what its fail checks read. A failure logs its

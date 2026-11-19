@@ -56,22 +56,25 @@ Then start RimWorld, open **Mods**, switch on what you want with what it needs, 
 ## Settings to decide before a colony
 
 Most settings can change at any time. These are the ones that are awkward to change in the middle of a colony, or that you should
-know about before your colonists meet them. Find them under **Options > Mod settings**.
+know about before your colonists meet them. Find them under **Options > Mod settings**: one entry per mod, each with its pages down
+the left. **Type in the search box to find a setting on any page**, tick **Changed only** to see what you have changed (marked with a
+dot), and **Reset this page to defaults** puts a page back. A setting that needs a restart says so beside its name, and closing the
+window after changing one lists them.
 
-| Mod and section | Setting | Starts as | Why decide now |
+| Mod and page | Setting | Starts as | Why decide now |
 | --- | --- | --- | --- |
-| D'thorga Framework: vehicle systems | **Which vehicles** (all, Only D'thorga vehicles, per mod, per kind) | All | **Needs a restart.** Every Vehicle Framework vehicle, from any mod, gains a battery, coolant, oil, tyres, brakes and wear unless you narrow this. Switching vehicles off later is safe |
-| D'thorga Framework: vehicle systems | **Engines and drivetrains** | Full | A laden truck in sand, mud or snow slows, down to a crawl. **Drivetrain shown, speeds unchanged** keeps every vehicle at its author's speeds |
-| D'thorga Framework: vehicle systems | When an aircraft is too heavy or too hot to lift off, hover onto its pad or land at a journey's end | Use the runway | A heavy jet on a hot day lands on a runway instead of its pad, a laden helicopter may refuse to lift off, and one that cannot hover where it arrives comes in for a rolling landing. "Allow it, at a cost to the engine" and "warn only" are the others |
-| D'thorga Framework: vehicle systems | Jump-start leads must be crafted / Every vehicle carries a booster pack | On / Off | A flat battery needs a **jump-start kit** or a **booster pack** you made beforehand. Make one before you need it |
-| D'thorga Framework: vehicle systems | Destroyed parts need replacing | On | A destroyed engine stops a vehicle until a new one is made and fitted |
-| D'thorga Framework: vehicle systems | Boiler explosions / Realistic feed water | Off / Off | Steam locomotives (Trains of the Rim) only. On, a boiler run dry can explode, and a tender takes its real 68,000 litres |
-| D'thorga Framework | Parts for building | Other mods' parts where installed | **Needs a restart.** Where RimThunder or Vanilla Vehicles Expanded makes a part, our vehicles ask for theirs. "Always our own parts" asks only for ours |
-| Vehicle systems, D'thorga Medical, the radio, each on its own | How much to show | Plain | How much each screen shows: Plain, Operator or Engineer ([what they mean](README.md#words-this-guide-uses)). Change it whenever you like |
-| D'thorga Medical: emergency dosing | People in pain fetch their own painkillers | On | **Check your drug policies first.** A colonist on their feet in pain takes the best painkiller their policy allows, so addiction and overdose are real risks |
-| D'thorga Medical: burns and smoke | Tox gas acts fast | Off | Off (slow-acting), gas stings, seems to pass, and **the harm comes from about 4 hours later**, over two or three days. Keep gassed colonists in bed |
-| D'thorga Medical: burns and smoke | Fires heat the air around them in the open | On | Standing beside a blaze in the open now hurts; crops near it stop growing |
-| D'thorga Medical: triage | How far the doctors may go without orders, by default | To save life (guests: never) | Doctors queue only life-saving operations unless you raise it, per person or by group |
+| D'thorga Vehicle Systems: Which vehicles | **Which vehicles** (all, Only D'thorga vehicles, per mod, per kind) | All | **Needs a restart.** Every Vehicle Framework vehicle, from any mod, gains a battery, coolant, oil, tyres, brakes and wear unless you narrow this. Switching vehicles off later is safe |
+| D'thorga Vehicle Systems: Engines and driving | **How engines and drivetrains work** | Full | A laden truck in sand, mud or snow slows, down to a crawl. **Drivetrain shown, speeds unchanged** keeps every vehicle at its author's speeds |
+| D'thorga Vehicle Systems: Aircraft and sling loads | When an aircraft is too heavy or too hot to lift off, hover onto its pad or land at a journey's end | Use the runway | A heavy jet on a hot day lands on a runway instead of its pad, a laden helicopter may refuse to lift off, and one that cannot hover where it arrives comes in for a rolling landing. "Allow it, at a cost to the engine" and "warn only" are the others |
+| D'thorga Vehicle Systems: Engines and driving | Jump-start leads must be crafted / Every vehicle carries a booster pack | On / Off | A flat battery needs a **jump-start kit** or a **booster pack** you made beforehand. Make one before you need it |
+| D'thorga Vehicle Systems: Repairs, service and fittings | Destroyed parts need replacing | On | A destroyed engine stops a vehicle until a new one is made and fitted |
+| D'thorga Vehicle Systems: Steam and electric | Boiler explosions / Realistic feed water | Off / Off | Steam locomotives (Trains of the Rim) only. On, a boiler run dry can explode, and a tender takes its real 68,000 litres |
+| D'thorga Framework: General | Parts for building | Other mods' parts where installed | **Needs a restart.** Where RimThunder or Vanilla Vehicles Expanded makes a part, our vehicles ask for theirs. "Always our own parts" asks only for ours |
+| D'thorga Vehicle Systems (Display, sound and stories), D'thorga Medical (General), the radio, each on its own | How much to show | Plain | How much each screen shows: Plain, Operator or Engineer ([what they mean](README.md#words-this-guide-uses)). Change it whenever you like |
+| D'thorga Medical: Emergency dosing | People in pain fetch their own painkillers | On | **Check your drug policies first.** A colonist on their feet in pain takes the best painkiller their policy allows, so addiction and overdose are real risks |
+| D'thorga Medical: Caustic gas | Tox gas acts fast | Off | Off (slow-acting), gas stings, seems to pass, and **the harm comes from about 4 hours later**, over two or three days. Keep gassed colonists in bed |
+| D'thorga Medical: Burns and smoke | Fires heat the air around them in the open | On | Standing beside a blaze in the open now hurts; crops near it stop growing |
+| D'thorga Medical: Triage | How far the doctors may go without orders, by default | To save life (guests: never) | Doctors queue only life-saving operations unless you raise it, per person or by group |
 | D'thorga Radio Framework | Metres per map cell | 1 | **Changes which links work.** Changing it mid-colony changes every contact's range |
 
 Two settings you may never touch, but should know about:

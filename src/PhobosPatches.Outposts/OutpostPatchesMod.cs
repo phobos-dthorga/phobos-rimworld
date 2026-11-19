@@ -22,11 +22,11 @@ public class OutpostPatchesSettings : ModSettings
 /// D'thorga Patches' outposts part (from 0.15.0), switched on only while Vanilla Expanded Framework and Vehicle Framework are both active
 /// (this assembly lives in a load folder that needs both). The setting is read when the dialog opens, so changing it needs no restart.
 /// </summary>
-public class OutpostPatchesMod : Mod
+public class OutpostPatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.26.0";
+    public const string ModVersion = "0.27.0";
     public const string LogPrefix = "[D'thorga Patches]";
 
     public static OutpostPatchesSettings Settings { get; private set; } = new();
@@ -34,6 +34,7 @@ public class OutpostPatchesMod : Mod
     public OutpostPatchesMod(ModContentPack content) : base(content)
     {
         Settings = GetSettings<OutpostPatchesSettings>();
+        AddSettingsPages();
         HarmonyPatchApplier.ApplyEach(new Harmony(PackageId), typeof(OutpostPatchesMod).Assembly, LogPrefix);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
@@ -47,18 +48,20 @@ public class OutpostPatchesMod : Mod
         report.Log();
     }
 
-    public override string SettingsCategory() => "PhobosOutpostPatches_SettingsCategory".Translate();
 
-    public override void DoSettingsWindowContents(Rect inRect)
+    static readonly SettingsBook SettingsPages = SettingsBook.For("PhobosDthorga.Patches", () => "PhobosPatches_SettingsBook".Translate());
+    static readonly OutpostPatchesSettings Defaults = new();
+    protected override SettingsBook Book => SettingsPages;
+
+    void AddSettingsPages() =>
+        SettingsPages.Join(this).Add(new SettingsPage("outposts", 50f, () => "PhobosOutpostPatches_Page".Translate(), DrawSettings));
+
+    static void DrawSettings(SettingsList list)
     {
-        var listing = new Listing_Standard();
-        listing.Begin(inRect);
-        SettingsUi.Section(listing, "PhobosOutpostPatches_SectionConvoys".Translate());
-        listing.CheckboxLabeled("PhobosOutpostPatches_SettingRefuse".Translate(), ref Settings.refuseConvoyFounding,
-            "PhobosOutpostPatches_SettingRefuseDesc".Translate());
-        listing.Gap(6f);
-        listing.Label("PhobosOutpostPatches_WhyThisExists".Translate());
-        if (!Settings.refuseConvoyFounding) SettingsUi.Warning(listing, "PhobosOutpostPatches_OriginalBehaviourWarning".Translate());
-        listing.End();
+        OutpostPatchesSettings s = Settings, d = Defaults;
+        list.Section("PhobosOutpostPatches_SectionConvoys".Translate());
+        list.Note("PhobosOutpostPatches_WhyThisExists".Translate());
+        list.Check("PhobosOutpostPatches_SettingRefuse".Translate(), ref s.refuseConvoyFounding, d.refuseConvoyFounding, "PhobosOutpostPatches_SettingRefuseDesc".Translate());
+        list.Warning(s.refuseConvoyFounding ? null : "PhobosOutpostPatches_OriginalBehaviourWarning".Translate().ToString());
     }
 }

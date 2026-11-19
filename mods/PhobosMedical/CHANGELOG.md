@@ -6,6 +6,27 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.19.0] - 2026-11-20 - Draft
+
+A settings page for each part, with search
+
+### Changed
+
+- **The settings window has a page for each part** (owner's choice, 20 Nov 2026): General (how much to show, and the medical equipment's line), Burns and smoke, Caustic gas, Emergency dosing, Triage, Colonies saved before More Injuries, and Removing. Caustic gas, with its eleven settings, has a page of its own, its parts indented under its main tick. With D'thorga Framework 0.184.0's search box, Changed only tick and a reset for each page.
+- **Also apply this mod's smoke inhalation with Combat Extended** is shown only while Combat Extended is active, the only time it does anything.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.184.0 or later.
+
+### Save compatibility
+
+- Safe to add to a save. Every setting keeps its saved value.
+
+### Compatibility and limits
+
+- Not yet tested in game.
+
 ## [0.18.2] - 2026-11-19 - Draft
 
 Its research projects moved on the D'thorga tab

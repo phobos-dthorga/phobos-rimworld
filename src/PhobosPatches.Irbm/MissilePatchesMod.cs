@@ -69,23 +69,23 @@ public class MissilePatchesSettings : ModSettings
 /// marked as a blast gets D'thorga's own strike, with zones from ground zero and fallout (0.9.0); the caves and vaults a blast breaks
 /// open send no letters (0.10.0).
 /// </summary>
-public class MissilePatchesMod : Mod
+public class MissilePatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.26.0";
+    public const string ModVersion = "0.27.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "IRBM");
 
     public static MissilePatchesSettings Settings { get; private set; } = new();
 
-    readonly SettingsScroll scroll = new();
 
     public MissilePatchesMod(ModContentPack content) : base(content)
     {
         // The settings file is named after the mod's folder, which changed when the patch mods were merged (7 Nov 2026).
         bool fresh = !SettingsImport.HasOwnFile(this);
         Settings = GetSettings<MissilePatchesSettings>();
+        AddSettingsPages();
         if (fresh && SettingsImport.ImportInto(Settings, "PhobosMissilePatches", nameof(MissilePatchesMod)))
         {
             LongEventHandler.ExecuteWhenFinished(WriteSettings);
@@ -144,88 +144,97 @@ public class MissilePatchesMod : Mod
         report.Log();
     }
 
-    public override string SettingsCategory() => "PhobosMissilePatches_SettingsCategory".Translate();
 
-    public override void DoSettingsWindowContents(Rect inRect)
+    static readonly SettingsBook SettingsPages = SettingsBook.For("PhobosDthorga.Patches", () => "PhobosPatches_SettingsBook".Translate());
+    static readonly MissilePatchesSettings Defaults = new();
+    protected override SettingsBook Book => SettingsPages;
+
+    /// <summary>Two pages: the strike itself and the game's speed, then what a strike leaves behind.</summary>
+    void AddSettingsPages() =>
+        SettingsPages.Join(this)
+            .Add(new SettingsPage("irbm", 30f, () => "PhobosMissilePatches_PageStrikes".Translate(), DrawStrikes))
+            .Add(new SettingsPage("irbm-after", 31f, () => "PhobosMissilePatches_PageAfterEffects".Translate(), DrawAfterEffects));
+
+    static void DrawStrikes(SettingsList list)
     {
-        Listing_Standard listing = scroll.Begin(inRect);
-        SettingsUi.Section(listing, "PhobosMissilePatches_SectionIrbm".Translate());
-        listing.Label("PhobosMissilePatches_SectionBlast".Translate());
-        listing.CheckboxLabeled("PhobosMissilePatches_SettingSpread".Translate(), ref Settings.spreadBlast, "PhobosMissilePatches_SettingSpreadDesc".Translate());
-        SettingsUi.Warning(listing, Settings.spreadBlast ? null : "PhobosMissilePatches_WarnSpreadOff".Translate().ToString());
+        MissilePatchesSettings s = Settings, d = Defaults;
+        list.Section("PhobosMissilePatches_SectionBlast".Translate());
+        list.Check("PhobosMissilePatches_SettingSpread".Translate(), ref s.spreadBlast, d.spreadBlast, "PhobosMissilePatches_SettingSpreadDesc".Translate());
+        list.Warning(s.spreadBlast ? null : "PhobosMissilePatches_WarnSpreadOff".Translate().ToString());
+        float budget = SliceBudget(s.frameBudgetMs);
+        if (list.Slider("PhobosMissilePatches_SettingBudget".Translate(budget.ToString("0").Named("MS")), ref budget, d.frameBudgetMs,
+                IrbmBudgetRule.MinFrameBudgetMs, IrbmBudgetRule.MaxFrameBudgetMs, "PhobosMissilePatches_SettingBudgetDesc".Translate()))
+        {
+            s.frameBudgetMs = budget;
+        }
+        list.Warning(budget > IrbmBudgetRule.StutterWarningMs ? "PhobosMissilePatches_WarnBudget".Translate().ToString() : null);
+        list.Check("PhobosMissilePatches_SettingWhiteScreen".Translate(IrbmBudgetRule.WhiteScreenBudgetMs.ToString("0").Named("MS")), ref s.whiteScreenBudget,
+            d.whiteScreenBudget, "PhobosMissilePatches_SettingWhiteScreenDesc".Translate());
+        list.Check("PhobosMissilePatches_SettingHoldRooms".Translate(), ref s.holdRoomRebuilds, d.holdRoomRebuilds, "PhobosMissilePatches_SettingHoldRoomsDesc".Translate());
 
-        float budget = SliceBudget(Settings.frameBudgetMs);
-        listing.Label("PhobosMissilePatches_SettingBudget".Translate(budget.ToString("0").Named("MS")), tooltip: "PhobosMissilePatches_SettingBudgetDesc".Translate());
-        Settings.frameBudgetMs = listing.Slider(budget, IrbmBudgetRule.MinFrameBudgetMs, IrbmBudgetRule.MaxFrameBudgetMs);
-        SettingsUi.Warning(listing, budget > IrbmBudgetRule.StutterWarningMs ? "PhobosMissilePatches_WarnBudget".Translate().ToString() : null);
-        listing.CheckboxLabeled("PhobosMissilePatches_SettingWhiteScreen".Translate(IrbmBudgetRule.WhiteScreenBudgetMs.ToString("0").Named("MS")),
-            ref Settings.whiteScreenBudget, "PhobosMissilePatches_SettingWhiteScreenDesc".Translate());
-
-        SettingsUi.Choice(listing, "PhobosMissilePatches_SettingShelter".Translate(), Settings.shelter, (ShelterMode[])Enum.GetValues(typeof(ShelterMode)),
+        list.Section("PhobosMissilePatches_SectionWhoAndWhat".Translate());
+        list.Choice("PhobosMissilePatches_SettingShelter".Translate(), s.shelter, d.shelter, (ShelterMode[])Enum.GetValues(typeof(ShelterMode)),
             mode => ("PhobosMissilePatches_Shelter" + mode).Translate(), mode => Settings.shelter = mode, "PhobosMissilePatches_SettingShelterDesc".Translate());
-        SettingsUi.Warning(listing, Settings.shelter == ShelterMode.AnyRockRoof ? null : "PhobosMissilePatches_WarnShelter".Translate().ToString());
-
-        listing.CheckboxLabeled("PhobosMissilePatches_SettingRubble".Translate(), ref Settings.rubble, "PhobosMissilePatches_SettingRubbleDesc".Translate());
-        SettingsUi.Warning(listing, Settings.rubble ? "PhobosMissilePatches_WarnRubble".Translate().ToString() : null);
-
-        SettingsUi.Choice(listing, "PhobosMissilePatches_SettingCorpses".Translate(), Settings.corpses, (CorpseMode[])Enum.GetValues(typeof(CorpseMode)),
+        list.Warning(s.shelter == ShelterMode.AnyRockRoof ? null : "PhobosMissilePatches_WarnShelter".Translate().ToString());
+        list.Check("PhobosMissilePatches_SettingRubble".Translate(), ref s.rubble, d.rubble, "PhobosMissilePatches_SettingRubbleDesc".Translate());
+        list.Warning(s.rubble ? "PhobosMissilePatches_WarnRubble".Translate().ToString() : null);
+        list.Choice("PhobosMissilePatches_SettingCorpses".Translate(), s.corpses, d.corpses, (CorpseMode[])Enum.GetValues(typeof(CorpseMode)),
             mode => ("PhobosMissilePatches_Corpses" + mode).Translate(), mode => Settings.corpses = mode, "PhobosMissilePatches_SettingCorpsesDesc".Translate());
-        listing.CheckboxLabeled("PhobosMissilePatches_SettingHoldRooms".Translate(), ref Settings.holdRoomRebuilds, "PhobosMissilePatches_SettingHoldRoomsDesc".Translate());
-        listing.CheckboxLabeled("PhobosMissilePatches_SettingMessages".Translate(), ref Settings.messages, "PhobosMissilePatches_SettingMessagesDesc".Translate());
-        listing.CheckboxLabeled("PhobosMissilePatches_SettingQuietReveals".Translate(), ref Settings.quietReveals, "PhobosMissilePatches_SettingQuietRevealsDesc".Translate());
+        list.Check("PhobosMissilePatches_SettingMessages".Translate(), ref s.messages, d.messages, "PhobosMissilePatches_SettingMessagesDesc".Translate());
+        list.Check("PhobosMissilePatches_SettingQuietReveals".Translate(), ref s.quietReveals, d.quietReveals, "PhobosMissilePatches_SettingQuietRevealsDesc".Translate());
 
         if (CombatExtendedFragments.Present)
         {
-            SettingsUi.Section(listing, "PhobosMissilePatches_SectionCombatExtended".Translate());
-            SettingsUi.Choice(listing, "PhobosMissilePatches_SettingFragments".Translate(), Settings.fragments, (FragmentMode[])Enum.GetValues(typeof(FragmentMode)),
+            list.Section("PhobosMissilePatches_SectionCombatExtended".Translate());
+            list.Choice("PhobosMissilePatches_SettingFragments".Translate(), s.fragments, d.fragments, (FragmentMode[])Enum.GetValues(typeof(FragmentMode)),
                 mode => ("PhobosMissilePatches_Fragments" + mode).Translate(), mode => Settings.fragments = mode, "PhobosMissilePatches_SettingFragmentsDesc".Translate());
-            string? warning = Settings.fragments switch
+            list.Warning(s.fragments switch
             {
                 FragmentMode.Reduced => "PhobosMissilePatches_WarnFragmentsReduced".Translate().ToString(),
                 FragmentMode.AsCombatExtended => "PhobosMissilePatches_WarnFragmentsFull".Translate().ToString(),
                 _ => null,
-            };
-            SettingsUi.Warning(listing, warning);
-            if (!CombatExtendedFragments.OnInCombatExtended) listing.Label("PhobosMissilePatches_FragmentsOffInCombatExtended".Translate());
+            });
+            if (!CombatExtendedFragments.OnInCombatExtended) list.Note("PhobosMissilePatches_FragmentsOffInCombatExtended".Translate());
         }
-        DrawAfterEffects(listing);
-        scroll.End(listing);
     }
 
-    static void DrawAfterEffects(Listing_Standard listing)
+    static void DrawAfterEffects(SettingsList list)
     {
-        SettingsUi.Section(listing, "PhobosMissilePatches_SectionAfterEffects".Translate());
-        listing.CheckboxLabeled("PhobosMissilePatches_SettingBlastModel".Translate(), ref Settings.blastModel, "PhobosMissilePatches_SettingBlastModelDesc".Translate());
-        SettingsUi.Warning(listing, Settings.blastModel ? null : "PhobosMissilePatches_WarnBlastModelOff".Translate().ToString());
-        if (!Settings.blastModel) return;
-        listing.CheckboxLabeled("PhobosMissilePatches_SettingFullStrike".Translate(), ref Settings.fullStrikeEverywhere, "PhobosMissilePatches_SettingFullStrikeDesc".Translate());
-        SettingsUi.Warning(listing, Settings.fullStrikeEverywhere ? "PhobosMissilePatches_WarnFullStrike".Translate().ToString() : null);
-        SettingsUi.Choice(listing, "PhobosMissilePatches_SettingFires".Translate(), Settings.fires, (FireMode[])Enum.GetValues(typeof(FireMode)),
-            mode => ("PhobosMissilePatches_Fires" + mode).Translate(), mode => Settings.fires = mode, "PhobosMissilePatches_SettingFiresDesc".Translate());
-        SettingsUi.Warning(listing, Settings.fires >= FireMode.Moderate ? "PhobosMissilePatches_WarnFires".Translate().ToString() : null);
-        SettingsUi.Choice(listing, "PhobosMissilePatches_SettingFallout".Translate(), Settings.fallout, (FalloutMode[])Enum.GetValues(typeof(FalloutMode)),
-            mode => ("PhobosMissilePatches_Fallout" + mode).Translate(), mode => Settings.fallout = mode, "PhobosMissilePatches_SettingFalloutDesc".Translate());
-        if (Settings.fallout == FalloutMode.Automatic && RimatomicsTieIn.Active)
+        MissilePatchesSettings s = Settings, d = Defaults;
+        list.Check("PhobosMissilePatches_SettingBlastModel".Translate(), ref s.blastModel, d.blastModel, "PhobosMissilePatches_SettingBlastModelDesc".Translate());
+        list.Warning(s.blastModel ? null : "PhobosMissilePatches_WarnBlastModelOff".Translate().ToString());
+        if (s.blastModel)
         {
-            listing.Label("PhobosMissilePatches_SettingClouds".Translate(Settings.falloutClouds.Named("COUNT")), tooltip: "PhobosMissilePatches_SettingCloudsDesc".Translate());
-            Settings.falloutClouds = Mathf.RoundToInt(listing.Slider(Settings.falloutClouds, 0f, MissilePatchesSettings.MaxFalloutClouds));
-            listing.CheckboxLabeled("PhobosMissilePatches_SettingRadiation".Translate(), ref Settings.radiation, "PhobosMissilePatches_SettingRadiationDesc".Translate());
+            list.Check("PhobosMissilePatches_SettingFullStrike".Translate(), ref s.fullStrikeEverywhere, d.fullStrikeEverywhere, "PhobosMissilePatches_SettingFullStrikeDesc".Translate());
+            list.Warning(s.fullStrikeEverywhere ? "PhobosMissilePatches_WarnFullStrike".Translate().ToString() : null);
+            list.Choice("PhobosMissilePatches_SettingFires".Translate(), s.fires, d.fires, (FireMode[])Enum.GetValues(typeof(FireMode)),
+                mode => ("PhobosMissilePatches_Fires" + mode).Translate(), mode => Settings.fires = mode, "PhobosMissilePatches_SettingFiresDesc".Translate());
+            list.Warning(s.fires >= FireMode.Moderate ? "PhobosMissilePatches_WarnFires".Translate().ToString() : null);
+            list.Choice("PhobosMissilePatches_SettingFallout".Translate(), s.fallout, d.fallout, (FalloutMode[])Enum.GetValues(typeof(FalloutMode)),
+                mode => ("PhobosMissilePatches_Fallout" + mode).Translate(), mode => Settings.fallout = mode, "PhobosMissilePatches_SettingFalloutDesc".Translate());
+            if (s.fallout == FalloutMode.Automatic && RimatomicsTieIn.Active)
+            {
+                list.Indent();
+                list.SliderInt("PhobosMissilePatches_SettingClouds".Translate(s.falloutClouds.Named("COUNT")), ref s.falloutClouds, d.falloutClouds, 0,
+                    MissilePatchesSettings.MaxFalloutClouds, "PhobosMissilePatches_SettingCloudsDesc".Translate());
+                list.Check("PhobosMissilePatches_SettingRadiation".Translate(), ref s.radiation, d.radiation, "PhobosMissilePatches_SettingRadiationDesc".Translate());
+                list.Outdent();
+            }
+            else if (s.fallout == FalloutMode.Automatic)
+            {
+                list.Note("PhobosMissilePatches_RimatomicsAbsent".Translate());
+            }
+            if (ModsConfig.BiotechActive)
+                list.Check("PhobosMissilePatches_SettingPollution".Translate(), ref s.pollution, d.pollution, "PhobosMissilePatches_SettingPollutionDesc".Translate());
+            list.Check("PhobosMissilePatches_SettingEmp".Translate(), ref s.emp, d.emp, "PhobosMissilePatches_SettingEmpDesc".Translate());
         }
-        else if (Settings.fallout == FalloutMode.Automatic)
-        {
-            listing.Label("PhobosMissilePatches_RimatomicsAbsent".Translate());
-        }
-        if (ModsConfig.BiotechActive)
-        {
-            listing.CheckboxLabeled("PhobosMissilePatches_SettingPollution".Translate(), ref Settings.pollution, "PhobosMissilePatches_SettingPollutionDesc".Translate());
-        }
-        listing.CheckboxLabeled("PhobosMissilePatches_SettingEmp".Translate(), ref Settings.emp, "PhobosMissilePatches_SettingEmpDesc".Translate());
         if (ModsConfig.IsActive(Patches.CiwsShells.CombatExtended))
         {
-            listing.Label("PhobosMissilePatches_SectionDefence".Translate());
-            listing.CheckboxLabeled("PhobosMissilePatches_SettingCiwsShells".Translate(), ref Settings.ciwsShells, "PhobosMissilePatches_SettingCiwsShellsDesc".Translate());
+            list.Section("PhobosMissilePatches_SectionDefence".Translate());
+            list.Check("PhobosMissilePatches_SettingCiwsShells".Translate(), ref s.ciwsShells, d.ciwsShells, "PhobosMissilePatches_SettingCiwsShellsDesc".Translate());
         }
     }
+
 
     static float SliceBudget(float value) => value < IrbmBudgetRule.MinFrameBudgetMs ? IrbmBudgetRule.MinFrameBudgetMs
         : value > IrbmBudgetRule.MaxFrameBudgetMs ? IrbmBudgetRule.MaxFrameBudgetMs : value;

@@ -6,6 +6,27 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.27.0] - 2026-11-20 - Draft
+
+One settings entry for every patched mod, with search
+
+### Changed
+
+- **One settings entry, D'thorga Patches, with a page for each patched mod**, in place of four entries (owner's choice, 20 Nov 2026): Combat Extended, Harrier jump jet, IRBM: strikes, IRBM: after-effects, and Outposts. A page shows only while its mod is active. The missile settings, the longest list, are split into the strike itself and what it leaves behind. With D'thorga Framework 0.184.0's search box, Changed only tick and a reset for each page.
+- **The Harrier disassembly trace is off unless you ask for it** (owner's choice, 20 Nov 2026: detail for chasing a fault belongs behind Detailed logs). Its own tick, Log each step when a vehicle is taken apart, on by default, is gone: the trace is now D'thorga Patches: Harrier disassembly on D'thorga Framework's Detailed logs page. **Tick it before you next try to take a Harrier apart.**
+
+### Dependencies
+
+- Needs D'thorga Framework 0.184.0 or later.
+
+### Save compatibility
+
+- Safe to add to a save. Every remaining setting keeps its saved value; the retired trace tick's is ignored.
+
+### Compatibility and limits
+
+- Not yet tested in game.
+
 ### Changed
 
 - **The README now says haulers load the Harrier's chaff and flare cartridges into its dispensers**, as D'thorga Framework 0.180.0 does, not into its cargo. Text only; nothing in this mod changed.

@@ -37,6 +37,13 @@ public static class SettingsUi
         }
     }
 
+    /// <summary>The display mode as a settings-page row (<see cref="SettingsList"/>): the framework's own labels, or a mod's with
+    /// <paramref name="keyPrefix"/>. Plain by default.</summary>
+    public static bool DisplayModeRow(SettingsList list, ref DisplayMode mode, string keyPrefix = "PhobosFramework") =>
+        list.Radio((keyPrefix + "_SettingDisplayMode").Translate(), ref mode, DisplayMode.Plain,
+            (DisplayMode[])System.Enum.GetValues(typeof(DisplayMode)), m => (keyPrefix + "_DisplayMode" + m).Translate(),
+            m => (keyPrefix + "_DisplayMode" + m + "Desc").Translate());
+
     /// <summary>The colour of a setting's cost warning: amber, readable on the dark settings window (agent choice).</summary>
     public static readonly Color WarningColor = new(1f, 0.72f, 0.3f);
 
@@ -106,6 +113,9 @@ public sealed class SettingsScroll
         listing.Begin(view);
         return listing;
     }
+
+    /// <summary>Back to the top, for a new page or a new search.</summary>
+    public void ResetPosition() => position = Vector2.zero;
 
     public void End(Listing_Standard listing)
     {

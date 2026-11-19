@@ -34,7 +34,7 @@ public static class DisassemblyTrace
     static readonly HashSet<Type> patchedComps = new();
     static Harmony? harmony;
 
-    public static bool On => VehiclePatchesMod.Settings.traceDisassembly;
+    public static bool On => VehiclePatchesMod.TraceLog.DebugEnabled;
 
     /// <summary>Patches applied by reflection: the fixed-wing framework's own Destroy (read by name, so this assembly never references
     /// it). Runs once the game has loaded every assembly.</summary>

@@ -4,8 +4,6 @@
        schema or a setting (AGENTS.md); the settings window may name things plainly. -->
 
   <!-- Settings window -->
-  <PhobosVehicleSystems_SettingsCategory>D'thorga Framework: vehicle systems</PhobosVehicleSystems_SettingsCategory>
-  <PhobosVehicleSystems_SectionWhich>Which vehicles</PhobosVehicleSystems_SectionWhich>
   <PhobosVehicleSystems_RestartNote>Changes in this section take effect after a restart. Turning vehicles off is safe for a running colony: their added parts are dropped when the save loads.</PhobosVehicleSystems_RestartNote>
   <PhobosVehicleSystems_ScopeAllVehicles>Every vehicle with a fitting design</PhobosVehicleSystems_ScopeAllVehicles>
   <PhobosVehicleSystems_ScopeAllVehiclesDesc>Every vehicle from any mod gets batteries, coolant, oil, tyres, brakes and the rest, by what it runs on and whether it drives, floats or flies.</PhobosVehicleSystems_ScopeAllVehiclesDesc>
@@ -25,9 +23,6 @@
   <PhobosVehicleSystems_SettingShowOnlyDesc>The systems run and show their state, but nothing happens to the vehicles: no wear, failures, refusals or slowing. Messages still tell you what would have happened.</PhobosVehicleSystems_SettingShowOnlyDesc>
   <PhobosVehicleSystems_SettingFuelGelling>Fuel thickens in deep cold</PhobosVehicleSystems_SettingFuelGelling>
   <PhobosVehicleSystems_SettingFuelGellingDesc>Below about -8 °C chemfuel behaves like diesel and gels: a cold vehicle will not start until it is warmer, in a heated room or on a warmer day. Off by default, because nothing says chemfuel is diesel.</PhobosVehicleSystems_SettingFuelGellingDesc>
-  <PhobosVehicleSystems_SectionShow>What vehicles show</PhobosVehicleSystems_SectionShow>
-  <PhobosVehicleSystems_SectionRemove>Removing vehicle systems from a colony</PhobosVehicleSystems_SectionRemove>
-  <PhobosVehicleSystems_SectionEngines>Engines and drivetrains</PhobosVehicleSystems_SectionEngines>
   <PhobosVehicleSystems_DrivetrainOff>Drivetrain off</PhobosVehicleSystems_DrivetrainOff>
   <PhobosVehicleSystems_DrivetrainOffDesc>No gears, engine speed or traction. Engine load stays the simple moving-or-idling figure the other systems used before.</PhobosVehicleSystems_DrivetrainOffDesc>
   <PhobosVehicleSystems_DrivetrainDisplayOnly>Drivetrain shown, speeds unchanged</PhobosVehicleSystems_DrivetrainDisplayOnly>
@@ -87,7 +82,7 @@
   <PhobosVehicleSystems_SettingBatteryFires>Battery fires</PhobosVehicleSystems_SettingBatteryFires>
   <PhobosVehicleSystems_SettingBatteryFiresDesc>Off by default. On: an electric vehicle's traction battery that overheats past the point of no return (from damage, or from being driven hard while already overheating) catches fire and bursts, wrecking the battery and burning what stands nearby. Off: it still overheats, loses power and takes damage, but never burns.</PhobosVehicleSystems_SettingBatteryFiresDesc>
   <PhobosVehicleSystems_BatteryFiresWarning>Warning: a burning battery can set the vehicle, its crew and the buildings around it alight. Keep damaged electric vehicles away from your base until the battery has cooled.</PhobosVehicleSystems_BatteryFiresWarning>
-  <PhobosVehicleSystems_SettingElectricLightning>The Lightning runs on batteries (needs a restart)</PhobosVehicleSystems_SettingElectricLightning>
+  <PhobosVehicleSystems_SettingElectricLightning>The Lightning runs on batteries</PhobosVehicleSystems_SettingElectricLightning>
   <PhobosVehicleSystems_SettingElectricLightningDesc>Off by default. On, with D'thorga Vehicles and Vanilla Vehicles Expanded - Tier 3: the Lightning becomes an electric van, to try the electric vehicle systems. It charges from a powered network with stored energy (about five batteries' worth for a full charge) instead of taking chemfuel, and keeps its range. Takes effect when the game next starts. Lightnings already built keep the chemfuel in their tanks as charge.</PhobosVehicleSystems_SettingElectricLightningDesc>
   <PhobosVehicleSystems_SectionJumpStarts>Jump-starts</PhobosVehicleSystems_SectionJumpStarts>
   <PhobosVehicleSystems_SettingJumpStartNeedsKit>Jump-start leads must be crafted</PhobosVehicleSystems_SettingJumpStartNeedsKit>
@@ -542,7 +537,7 @@
   <PhobosVehicleSystems_HealthWordWorn>worn</PhobosVehicleSystems_HealthWordWorn>
   <PhobosVehicleSystems_HealthWordPoor>poor</PhobosVehicleSystems_HealthWordPoor>
   <PhobosVehicleSystems_HealthWordBad>failing</PhobosVehicleSystems_HealthWordBad>
-  <PhobosVehicleSystems_SettingKeepVfHealthTab>Keep Vehicle Framework's own Health tab (needs a restart)</PhobosVehicleSystems_SettingKeepVfHealthTab>
+  <PhobosVehicleSystems_SettingKeepVfHealthTab>Keep Vehicle Framework's own Health tab</PhobosVehicleSystems_SettingKeepVfHealthTab>
   <PhobosVehicleSystems_SettingKeepVfHealthTabDesc>Off by default: vehicles with systems get this mod's Health tab in Vehicle Framework's place, with the parts grouped outside and inside, what each part does to the vehicle's speed and strength, and the conditions under each part. On: Vehicle Framework's own list stays. Takes effect when the game next starts.</PhobosVehicleSystems_SettingKeepVfHealthTabDesc>
   <PhobosVehicleSystems_DashLiteModel>This vehicle is not yours: its systems are not followed closely.</PhobosVehicleSystems_DashLiteModel>
   <PhobosVehicleSystems_DashReady>Nothing needs you.</PhobosVehicleSystems_DashReady>

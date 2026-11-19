@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <PhobosOutpostPatches_SettingsCategory>D'thorga Patches: outposts</PhobosOutpostPatches_SettingsCategory>
+  <PhobosOutpostPatches_Page>Outposts</PhobosOutpostPatches_Page>
   <PhobosOutpostPatches_SectionConvoys>Caravans with vehicles</PhobosOutpostPatches_SectionConvoys>
   <PhobosOutpostPatches_SettingRefuse>Refuse to found an outpost from a caravan with vehicles (recommended)</PhobosOutpostPatches_SettingRefuse>
   <PhobosOutpostPatches_SettingRefuseDesc>On (the default): the "create outpost" window refuses a caravan that holds a vehicle, and says why. Leave the vehicles somewhere first and found the outpost from a caravan on foot. Off: the window works as Vanilla Expanded Framework wrote it. Takes effect the next time the window opens; no restart needed.</PhobosOutpostPatches_SettingRefuseDesc>

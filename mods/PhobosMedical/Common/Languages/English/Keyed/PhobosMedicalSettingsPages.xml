@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Page names and headings for the settings pages (20 Nov 2026). -->
+  <PhobosMedical_PageGeneral>General</PhobosMedical_PageGeneral>
+  <PhobosMedical_PageCaustic>Caustic gas</PhobosMedical_PageCaustic>
+  <PhobosBurns_SectionBurns>Burns</PhobosBurns_SectionBurns>
+  <PhobosBurns_SectionSmoke>Smoke</PhobosBurns_SectionSmoke>
+  <PhobosBurns_SectionFireHeat>Heat from fires</PhobosBurns_SectionFireHeat>
+  <PhobosBurns_SectionCausticBody>What it harms</PhobosBurns_SectionCausticBody>
+  <PhobosBurns_SectionCausticAround>Around the colony</PhobosBurns_SectionCausticAround>
+  <PhobosDosing_SectionSelf>Taking their own medicine</PhobosDosing_SectionSelf>
+  <PhobosTriage_SectionLimits>Limits and order</PhobosTriage_SectionLimits>
+</LanguageData>

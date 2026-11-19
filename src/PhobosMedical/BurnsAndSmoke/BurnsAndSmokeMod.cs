@@ -139,36 +139,55 @@ public static class BurnsAndSmokeMod
         return report;
     }
 
-    internal static void DrawSettings(Listing_Standard listing)
+    static readonly BurnsAndSmokeSettings Defaults = new();
+
+    /// <summary>The "Burns and smoke" page (settings pages, 20 Nov 2026).</summary>
+    internal static void DrawSettings(SettingsList list)
     {
-        listing.CheckboxLabeled("PhobosBurns_SettingBurnLoad".Translate(), ref Settings.burnLoad, "PhobosBurns_SettingBurnLoadDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingBurnShock".Translate(), ref Settings.burnShock, "PhobosBurns_SettingBurnShockDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingAirway".Translate(), ref Settings.airway, "PhobosBurns_SettingAirwayDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingEschar".Translate(), ref Settings.eschar, "PhobosBurns_SettingEscharDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingChemicalBurns".Translate(), ref Settings.chemicalBurns, "PhobosBurns_SettingChemicalBurnsDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingCausticGas".Translate(), ref Settings.causticGas, "PhobosBurns_SettingCausticGasDesc".Translate());
-        if (Settings.causticGas)
+        BurnsAndSmokeSettings s = Settings, d = Defaults;
+        list.Section("PhobosBurns_SectionBurns".Translate());
+        list.Check("PhobosBurns_SettingBurnLoad".Translate(), ref s.burnLoad, d.burnLoad, "PhobosBurns_SettingBurnLoadDesc".Translate());
+        list.Check("PhobosBurns_SettingBurnShock".Translate(), ref s.burnShock, d.burnShock, "PhobosBurns_SettingBurnShockDesc".Translate());
+        list.Check("PhobosBurns_SettingAirway".Translate(), ref s.airway, d.airway, "PhobosBurns_SettingAirwayDesc".Translate());
+        list.Check("PhobosBurns_SettingEschar".Translate(), ref s.eschar, d.eschar, "PhobosBurns_SettingEscharDesc".Translate());
+        list.Check("PhobosBurns_SettingChemicalBurns".Translate(), ref s.chemicalBurns, d.chemicalBurns, "PhobosBurns_SettingChemicalBurnsDesc".Translate());
+        list.Section("PhobosBurns_SectionSmoke".Translate());
+        list.Check("PhobosBurns_SettingSmoke".Translate(), ref s.smoke, d.smoke, "PhobosBurns_SettingSmokeDesc".Translate());
+        list.Check("PhobosBurns_SettingCarbonMonoxide".Translate(), ref s.carbonMonoxide, d.carbonMonoxide, "PhobosBurns_SettingCarbonMonoxideDesc".Translate());
+        // Only meaningful beside Combat Extended, so shown only there (settings audit, 20 Nov 2026).
+        if (OptionalMods.IsActive(OptionalMods.CombatExtended))
         {
-            listing.CheckboxLabeled("PhobosBurns_SettingCausticFast".Translate(), ref Settings.causticFastActing, "PhobosBurns_SettingCausticFastDesc".Translate());
-            listing.CheckboxLabeled("PhobosBurns_SettingCausticEyes".Translate(), ref Settings.causticEyes);
-            listing.CheckboxLabeled("PhobosBurns_SettingCausticThroat".Translate(), ref Settings.causticThroat);
-            listing.CheckboxLabeled("PhobosBurns_SettingCausticLungs".Translate(), ref Settings.causticLungs);
-            listing.CheckboxLabeled("PhobosBurns_SettingCausticSkin".Translate(), ref Settings.causticSkin);
-            listing.CheckboxLabeled("PhobosBurns_SettingCausticImmunity".Translate(), ref Settings.causticImmunity, "PhobosBurns_SettingCausticImmunityDesc".Translate());
-            listing.CheckboxLabeled("PhobosBurns_SettingCausticAftermath".Translate(), ref Settings.causticAftermath);
-            listing.CheckboxLabeled("PhobosBurns_SettingCausticScarring".Translate(), ref Settings.causticScarring, "PhobosBurns_SettingCausticScarringDesc".Translate());
-            listing.CheckboxLabeled("PhobosBurns_SettingCausticPlants".Translate(), ref Settings.causticPlants, "PhobosBurns_SettingCausticPlantsDesc".Translate());
-            listing.CheckboxLabeled("PhobosBurns_SettingCausticStrip".Translate(), ref Settings.causticStripAndRinse, "PhobosBurns_SettingCausticStripDesc".Translate());
+            list.Check("PhobosBurns_SettingAcuteSmokeWithCombatExtended".Translate(), ref s.acuteSmokeWithCombatExtended, d.acuteSmokeWithCombatExtended,
+                "PhobosBurns_SettingAcuteSmokeWithCombatExtendedDesc".Translate());
         }
-        listing.CheckboxLabeled("PhobosBurns_SettingSmoke".Translate(), ref Settings.smoke, "PhobosBurns_SettingSmokeDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingCarbonMonoxide".Translate(), ref Settings.carbonMonoxide, "PhobosBurns_SettingCarbonMonoxideDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingFireHeat".Translate(), ref Settings.fireHeatOutdoors, "PhobosBurns_SettingFireHeatDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingFireHeatIndoors".Translate(), ref Settings.fireHeatIndoors, "PhobosBurns_SettingFireHeatIndoorsDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingFleeHotCells".Translate(), ref Settings.fleeHotCells, "PhobosBurns_SettingFleeHotCellsDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingAcuteSmokeWithCombatExtended".Translate(), ref Settings.acuteSmokeWithCombatExtended, "PhobosBurns_SettingAcuteSmokeWithCombatExtendedDesc".Translate());
-        listing.CheckboxLabeled("PhobosBurns_SettingCoughSounds".Translate(), ref Settings.coughSounds, "PhobosBurns_SettingCoughSoundsDesc".Translate());
-        if (Comps.CoughSounds.StoodDownFor is { } coughs) listing.Label("PhobosBurns_CoughSoundsStoodDown".Translate(coughs.Named("MOD")));
         if (OptionalMods.IsActive(OptionalMods.MoreInjuries))
-            listing.Label((MoreInjuriesInhalation.On ? "PhobosBurns_MoreInjuriesInhalationOn" : "PhobosBurns_MoreInjuriesInhalationOff").Translate());
+            list.Note((MoreInjuriesInhalation.On ? "PhobosBurns_MoreInjuriesInhalationOn" : "PhobosBurns_MoreInjuriesInhalationOff").Translate());
+        list.Check("PhobosBurns_SettingCoughSounds".Translate(), ref s.coughSounds, d.coughSounds, "PhobosBurns_SettingCoughSoundsDesc".Translate());
+        if (Comps.CoughSounds.StoodDownFor is { } coughs) list.Note("PhobosBurns_CoughSoundsStoodDown".Translate(coughs.Named("MOD")));
+        list.Section("PhobosBurns_SectionFireHeat".Translate());
+        list.Check("PhobosBurns_SettingFireHeat".Translate(), ref s.fireHeatOutdoors, d.fireHeatOutdoors, "PhobosBurns_SettingFireHeatDesc".Translate());
+        list.Check("PhobosBurns_SettingFireHeatIndoors".Translate(), ref s.fireHeatIndoors, d.fireHeatIndoors, "PhobosBurns_SettingFireHeatIndoorsDesc".Translate());
+        list.Check("PhobosBurns_SettingFleeHotCells".Translate(), ref s.fleeHotCells, d.fleeHotCells, "PhobosBurns_SettingFleeHotCellsDesc".Translate());
+    }
+
+    /// <summary>The "Caustic gas" page: its parts shown, indented, only while caustic gas is on.</summary>
+    internal static void DrawCausticSettings(SettingsList list)
+    {
+        BurnsAndSmokeSettings s = Settings, d = Defaults;
+        list.Check("PhobosBurns_SettingCausticGas".Translate(), ref s.causticGas, d.causticGas, "PhobosBurns_SettingCausticGasDesc".Translate());
+        if (!s.causticGas) return;
+        list.Indent();
+        list.Check("PhobosBurns_SettingCausticFast".Translate(), ref s.causticFastActing, d.causticFastActing, "PhobosBurns_SettingCausticFastDesc".Translate());
+        list.Section("PhobosBurns_SectionCausticBody".Translate());
+        list.Check("PhobosBurns_SettingCausticEyes".Translate(), ref s.causticEyes, d.causticEyes);
+        list.Check("PhobosBurns_SettingCausticThroat".Translate(), ref s.causticThroat, d.causticThroat);
+        list.Check("PhobosBurns_SettingCausticLungs".Translate(), ref s.causticLungs, d.causticLungs);
+        list.Check("PhobosBurns_SettingCausticSkin".Translate(), ref s.causticSkin, d.causticSkin);
+        list.Check("PhobosBurns_SettingCausticImmunity".Translate(), ref s.causticImmunity, d.causticImmunity, "PhobosBurns_SettingCausticImmunityDesc".Translate());
+        list.Check("PhobosBurns_SettingCausticAftermath".Translate(), ref s.causticAftermath, d.causticAftermath);
+        list.Check("PhobosBurns_SettingCausticScarring".Translate(), ref s.causticScarring, d.causticScarring, "PhobosBurns_SettingCausticScarringDesc".Translate());
+        list.Section("PhobosBurns_SectionCausticAround".Translate());
+        list.Check("PhobosBurns_SettingCausticPlants".Translate(), ref s.causticPlants, d.causticPlants, "PhobosBurns_SettingCausticPlantsDesc".Translate());
+        list.Check("PhobosBurns_SettingCausticStrip".Translate(), ref s.causticStripAndRinse, d.causticStripAndRinse, "PhobosBurns_SettingCausticStripDesc".Translate());
     }
 }

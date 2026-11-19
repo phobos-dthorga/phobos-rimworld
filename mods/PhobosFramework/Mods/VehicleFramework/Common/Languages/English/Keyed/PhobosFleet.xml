@@ -23,7 +23,6 @@
   <PhobosFleet_ParkedWarningText>Vehicles left parked in the wild will be gone in {TIME} unless a caravan collects them: {VEHICLES}.</PhobosFleet_ParkedWarningText>
 
   <!-- Settings window -->
-  <PhobosVehicleSystems_SectionFleet>Your fleet</PhobosVehicleSystems_SectionFleet>
   <PhobosVehicleSystems_SettingFleetButton>Show the fleet button on the bottom bar</PhobosVehicleSystems_SettingFleetButton>
   <PhobosVehicleSystems_SettingFleetButtonDesc>The fleet board lists every vehicle you own, wherever it is. Takes effect at once.</PhobosVehicleSystems_SettingFleetButtonDesc>
   <PhobosVehicleSystems_SettingParkedWarning>Warn before a parked vehicle is lost: {DAYS} days ahead (0 turns the warning off)</PhobosVehicleSystems_SettingParkedWarning>

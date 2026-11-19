@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <PhobosCombatExtendedPatches_SettingsCategory>D'thorga Patches: Combat Extended</PhobosCombatExtendedPatches_SettingsCategory>
+  <PhobosCombatExtendedPatches_Page>Combat Extended</PhobosCombatExtendedPatches_Page>
   <PhobosCombatExtendedPatches_SectionKeepGuns>Soldiers keep their guns</PhobosCombatExtendedPatches_SectionKeepGuns>
   <PhobosCombatExtendedPatches_SettingKeepGuns>Colonists go back to their own guns (recommended)</PhobosCombatExtendedPatches_SettingKeepGuns>
   <PhobosCombatExtendedPatches_SettingKeepGunsDesc>On (the default): a colonist left holding a grenade or a satchel charge, or holding nothing after being downed, takes their own gun up again. First a gun in their pack that can fire, then the gun they dropped when they went down, wherever it lies, even if forbidden. Drafted colonists are left to your orders, and a colonist holding a melee weapon is left alone. Off: Combat Extended and the game work as their authors wrote them. Takes effect at once; no restart needed.</PhobosCombatExtendedPatches_SettingKeepGunsDesc>

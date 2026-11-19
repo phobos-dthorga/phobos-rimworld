@@ -93,10 +93,10 @@ public class FrameworkSettings : ModSettings
 /// mods used to repeat, and keeps the game's log going past its message limit. It references no other mod's assembly and needs no
 /// Harmony.
 /// </summary>
-public class FrameworkMod : Mod
+public class FrameworkMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.183.0";
+    public const string ModVersion = "0.184.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -108,6 +108,7 @@ public class FrameworkMod : Mod
     public FrameworkMod(ModContentPack content) : base(content)
     {
         Instance = this;
+        AddSettingsPages();
         Settings = GetSettings<FrameworkSettings>();
         Logging.GameLogKeeper.Listen();
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
@@ -151,95 +152,103 @@ public class FrameworkMod : Mod
         report.Log();
     }
 
-    public override string SettingsCategory() => "PhobosFramework_SettingsCategory".Translate();
+    static readonly SettingsBook SettingsPages = SettingsBook.For("PhobosDthorga.Framework", () => "PhobosFramework_SettingsCategory".Translate());
+    /// <summary>Every setting at its default, for the settings pages' changed marks and their reset.</summary>
+    static readonly FrameworkSettings Defaults = new();
 
-    readonly SettingsScroll scroll = new();
+    protected override SettingsBook Book => SettingsPages;
 
-    public override void DoSettingsWindowContents(Rect inRect)
+    /// <summary>The settings window's pages (owner's choice of 20 Nov 2026: pages with search, docs/development/settings-pages.md).</summary>
+    void AddSettingsPages()
     {
-        // Scrolled since 0.114.0: the list of logs made the page longer than the window.
-        Listing_Standard listing = scroll.Begin(inRect);
-        listing.Label("PhobosFramework_SettingGasSourceMode".Translate(), tooltip: "PhobosFramework_SettingGasSourceModeDesc".Translate());
-        foreach (GasSourceMode mode in System.Enum.GetValues(typeof(GasSourceMode)))
+        SettingsPages.Join(this)
+            .Add(new SettingsPage("general", 0f, () => "PhobosFramework_PageGeneral".Translate(), DrawGeneral))
+            .Add(new SettingsPage("logs", 10f, () => "PhobosFramework_PageLogs".Translate(), DrawLogs))
+            .Add(new SettingsPage("verbose", 20f, () => "PhobosFramework_PageVerbose".Translate(), DrawVerbose))
+            .Add(new SettingsPage("testing", 30f, () => "PhobosFramework_PageTesting".Translate(), DrawTesting));
+    }
+
+    static void DrawGeneral(SettingsList list)
+    {
+        FrameworkSettings s = Settings;
+        list.Section("PhobosFramework_SectionGases".Translate());
+        list.Radio("PhobosFramework_SettingGasSourceMode".Translate(), ref s.gasSourceMode, Defaults.gasSourceMode,
+            (GasSourceMode[])System.Enum.GetValues(typeof(GasSourceMode)), mode => ("PhobosFramework_GasSourceMode" + mode).Translate(),
+            mode => ("PhobosFramework_GasSourceMode" + mode + "Desc").Translate(), "PhobosFramework_SettingGasSourceModeDesc".Translate());
+
+        list.Section("PhobosFramework_SectionBuildCosts".Translate());
+        list.Radio("PhobosFramework_SettingBillParts".Translate(), ref s.billPartsSource, Defaults.billPartsSource,
+            new[] { Bills.BillPartsSource.OthersWhereInstalled, Bills.BillPartsSource.AlwaysOurs },
+            source => source == Bills.BillPartsSource.AlwaysOurs ? "PhobosFramework_BillPartsOurs".Translate() : "PhobosFramework_BillPartsOthers".Translate(),
+            source => source == Bills.BillPartsSource.AlwaysOurs ? "PhobosFramework_BillPartsOursDesc".Translate() : "PhobosFramework_BillPartsOthersDesc".Translate(),
+            "PhobosFramework_SettingBillPartsDesc".Translate(), restart: true);
+
+        list.Section("PhobosFramework_SectionTopUp".Translate());
+        list.Check("PhobosFramework_SettingTopUpMachines".Translate(), ref s.topUpMachines, Defaults.topUpMachines, "PhobosFramework_SettingTopUpMachinesDesc".Translate());
+        if (s.topUpMachines)
         {
-            if (listing.RadioButton(("PhobosFramework_GasSourceMode" + mode).Translate(), Settings.gasSourceMode == mode, 8f,
-                    ("PhobosFramework_GasSourceMode" + mode + "Desc").Translate()))
-            {
-                Settings.gasSourceMode = mode;
-            }
+            list.Indent();
+            list.Radio("PhobosFramework_SettingTopUpLevel".Translate(), ref s.topUpLevel, Defaults.topUpLevel,
+                (TopUpLevel[])System.Enum.GetValues(typeof(TopUpLevel)), level => ("PhobosFramework_TopUpLevel" + level).Translate(),
+                level => ("PhobosFramework_TopUpLevel" + level + "Desc").Translate(), "PhobosFramework_SettingTopUpLevelDesc".Translate());
+            list.Outdent();
         }
-        listing.Gap();
-        listing.Label("PhobosFramework_SettingSoundVolume".Translate(SoundVolumeRule.Percent(Settings.soundVolume).Named("PERCENT")),
-            tooltip: "PhobosFramework_SettingSoundVolumeDesc".Translate(SoundVolumeRule.Percent(SoundVolumeRule.MaxFactor).Named("MAX")));
-        float volume = SoundVolumeRule.Clamp(listing.Slider(Settings.soundVolume, 0f, SoundVolumeRule.MaxFactor));
-        if (volume != Settings.soundVolume)
+
+        list.Section("PhobosFramework_SectionSound".Translate());
+        if (list.Slider("PhobosFramework_SettingSoundVolume".Translate(SoundVolumeRule.Percent(s.soundVolume).Named("PERCENT")), ref s.soundVolume,
+                Defaults.soundVolume, 0f, SoundVolumeRule.MaxFactor,
+                "PhobosFramework_SettingSoundVolumeDesc".Translate(SoundVolumeRule.Percent(SoundVolumeRule.MaxFactor).Named("MAX")), SoundVolumeRule.Clamp))
         {
-            Settings.soundVolume = volume;
-            Sounds.PhobosSoundVolume.Apply(volume);
+            Sounds.PhobosSoundVolume.Apply(s.soundVolume);
         }
-        listing.CheckboxLabeled("PhobosFramework_SettingSystemSoundsOnOtherVehicles".Translate(), ref Settings.systemSoundsOnOtherVehicles,
-            "PhobosFramework_SettingSystemSoundsOnOtherVehiclesDesc".Translate());
-        listing.Gap();
-        listing.Label("PhobosFramework_SettingBillParts".Translate(), tooltip: "PhobosFramework_SettingBillPartsDesc".Translate());
-        if (listing.RadioButton("PhobosFramework_BillPartsOthers".Translate(), Settings.billPartsSource == Bills.BillPartsSource.OthersWhereInstalled, 8f,
-                "PhobosFramework_BillPartsOthersDesc".Translate()))
-        {
-            Settings.billPartsSource = Bills.BillPartsSource.OthersWhereInstalled;
-        }
-        if (listing.RadioButton("PhobosFramework_BillPartsOurs".Translate(), Settings.billPartsSource == Bills.BillPartsSource.AlwaysOurs, 8f,
-                "PhobosFramework_BillPartsOursDesc".Translate()))
-        {
-            Settings.billPartsSource = Bills.BillPartsSource.AlwaysOurs;
-        }
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosFramework_SettingTopUpMachines".Translate(), ref Settings.topUpMachines, "PhobosFramework_SettingTopUpMachinesDesc".Translate());
-        if (Settings.topUpMachines)
-        {
-            listing.Label("PhobosFramework_SettingTopUpLevel".Translate(), tooltip: "PhobosFramework_SettingTopUpLevelDesc".Translate());
-            foreach (TopUpLevel level in System.Enum.GetValues(typeof(TopUpLevel)))
-            {
-                if (listing.RadioButton(("PhobosFramework_TopUpLevel" + level).Translate(), Settings.topUpLevel == level, 8f,
-                        ("PhobosFramework_TopUpLevel" + level + "Desc").Translate()))
-                {
-                    Settings.topUpLevel = level;
-                }
-            }
-        }
-        listing.CheckboxLabeled("PhobosFramework_SettingShowGasOverlay".Translate(), ref Settings.showGasOverlay,
-            "PhobosFramework_SettingShowGasOverlayDesc".Translate());
-        listing.CheckboxLabeled("PhobosFramework_SettingKeepGameLogAlive".Translate(), ref Settings.keepGameLogAlive,
+        list.Note("PhobosFramework_SoundVehiclesElsewhere".Translate());
+    }
+
+    static void DrawLogs(SettingsList list)
+    {
+        FrameworkSettings s = Settings;
+        list.Check("PhobosFramework_SettingKeepGameLogAlive".Translate(), ref s.keepGameLogAlive, Defaults.keepGameLogAlive,
             "PhobosFramework_SettingKeepGameLogAliveDesc".Translate(Rules.GameLogRule.MaxRevivals.Named("COUNT")));
-        listing.CheckboxLabeled("PhobosFramework_SettingNoteOurPartInErrors".Translate(), ref Settings.noteOurPartInErrors,
+        list.Check("PhobosFramework_SettingNoteOurPartInErrors".Translate(), ref s.noteOurPartInErrors, Defaults.noteOurPartInErrors,
             "PhobosFramework_SettingNoteOurPartInErrorsDesc".Translate(Rules.ErrorAttributionRule.MaxNotesPerSession.Named("COUNT")));
-        listing.CheckboxLabeled("PhobosFramework_SettingWriteColonyMoodFile".Translate(), ref Settings.writeColonyMoodFile,
+        list.Check("PhobosFramework_SettingWriteColonyMoodFile".Translate(), ref s.writeColonyMoodFile, Defaults.writeColonyMoodFile,
             "PhobosFramework_SettingWriteColonyMoodFileDesc".Translate(Mood.ColonyMoodFile.OutputPath.Named("PATH")));
-        if (Prefs.DevMode)
-        {
-            listing.CheckboxLabeled("PhobosFramework_SettingWritePatchedDefs".Translate(), ref Settings.writePatchedDefsOnce,
-                "PhobosFramework_SettingWritePatchedDefsDesc".Translate(Debug.PatchedDefsDump.OutputPath.Named("PATH")));
-        }
-        // Verbose logging (owner, 16 Nov 2026): the master switch, then a tick for each log of ours, named as its lines are headed in the log.
-        listing.GapLine();
-        listing.Label("PhobosFramework_SectionVerbose".Translate(), tooltip: "PhobosFramework_SectionVerboseDesc".Translate());
-        listing.CheckboxLabeled("PhobosFramework_SettingVerboseAll".Translate(), ref Settings.verboseAll, "PhobosFramework_SettingVerboseAllDesc".Translate());
+        // Both work only in dev mode (FrameworkDebugActions, PatchedDefsDump), so they are shown only there (settings audit, 20 Nov 2026).
+        if (!Prefs.DevMode) return;
+        list.Section("PhobosFramework_SectionDeveloper".Translate());
+        list.Check("PhobosFramework_SettingShowGasOverlay".Translate(), ref s.showGasOverlay, Defaults.showGasOverlay,
+            "PhobosFramework_SettingShowGasOverlayDesc".Translate());
+        list.Check("PhobosFramework_SettingWritePatchedDefs".Translate(), ref s.writePatchedDefsOnce, Defaults.writePatchedDefsOnce,
+            "PhobosFramework_SettingWritePatchedDefsDesc".Translate(Debug.PatchedDefsDump.OutputPath.Named("PATH")), restart: true);
+    }
+
+    /// <summary>Verbose logging (owner, 16 Nov 2026): the master switch, then a tick for each log of ours, named as its lines are headed in the log.</summary>
+    static void DrawVerbose(SettingsList list)
+    {
+        FrameworkSettings s = Settings;
+        list.Note("PhobosFramework_SectionVerboseDesc".Translate());
+        list.Check("PhobosFramework_SettingVerboseAll".Translate(), ref s.verboseAll, Defaults.verboseAll, "PhobosFramework_SettingVerboseAllDesc".Translate());
+        list.Section("PhobosFramework_SectionVerbose".Translate());
         foreach (Logging.LogTopic topic in Logging.Logs.Topics)
         {
-            bool on = Settings.verboseAll || Settings.Verbose(topic.Key);
-            bool before = on;
-            if (Settings.verboseAll) GUI.color = Color.gray;
-            listing.CheckboxLabeled("PhobosFramework_SettingVerboseTopic".Translate(topic.Label.Named("LOG")), ref on, "PhobosFramework_SettingVerboseTopicDesc".Translate());
-            GUI.color = Color.white;
-            if (!Settings.verboseAll && on != before) Settings.SetVerbose(topic.Key, on);
+            // Under the master switch every tick shows on and greyed, and none is marked as changed.
+            bool on = s.verboseAll || s.Verbose(topic.Key);
+            if (list.Check("PhobosFramework_SettingVerboseTopic".Translate(topic.Label.Named("LOG")), ref on, s.verboseAll ? null : false,
+                    "PhobosFramework_SettingVerboseTopicDesc".Translate(), enabled: !s.verboseAll) && !s.verboseAll)
+            {
+                s.SetVerbose(topic.Key, on);
+            }
         }
-        // Seen-in-play notes (owner, 17 Nov 2026): for testing with D'thorga Companion's Tests page; off by default.
-        listing.GapLine();
-        listing.CheckboxLabeled("PhobosFramework_SettingNoteSeenInPlay".Translate(), ref Settings.noteSeenInPlay,
+    }
+
+    /// <summary>Seen-in-play notes (owner, 17 Nov 2026): for testing with D'thorga Companion's Tests page; off by default.</summary>
+    static void DrawTesting(SettingsList list)
+    {
+        FrameworkSettings s = Settings;
+        list.Check("PhobosFramework_SettingNoteSeenInPlay".Translate(), ref s.noteSeenInPlay, Defaults.noteSeenInPlay,
             "PhobosFramework_SettingNoteSeenInPlayDesc".Translate(Debug.SeenInPlay.OutputPath.Named("PATH")));
         // Framework 0.138.0 (seen-in-play checks, E8): greyed while notes are off, as it says nothing without them.
-        if (!Settings.noteSeenInPlay) GUI.color = Color.gray;
-        listing.CheckboxLabeled("PhobosFramework_SettingSayWhenTestHappens".Translate(), ref Settings.sayWhenTestHappens,
-            "PhobosFramework_SettingSayWhenTestHappensDesc".Translate());
-        GUI.color = Color.white;
-        scroll.End(listing);
+        list.Check("PhobosFramework_SettingSayWhenTestHappens".Translate(), ref s.sayWhenTestHappens, Defaults.sayWhenTestHappens,
+            "PhobosFramework_SettingSayWhenTestHappensDesc".Translate(), enabled: s.noteSeenInPlay);
     }
 }

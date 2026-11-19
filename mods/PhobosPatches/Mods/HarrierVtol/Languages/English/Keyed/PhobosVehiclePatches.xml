@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <PhobosVehiclePatches_SettingsCategory>D'thorga Patches: Harrier</PhobosVehiclePatches_SettingsCategory>
+  <PhobosVehiclePatches_Page>Harrier jump jet</PhobosVehiclePatches_Page>
+  <PhobosVehiclePatches_TraceMoved>The temporary trace of each step when a vehicle is taken apart (to find why the Harrier cannot be) is now a detailed log: tick "D'thorga Patches: Harrier disassembly" in D'thorga Framework's settings, on its "Detailed logs" page, before you try to take a Harrier apart.</PhobosVehiclePatches_TraceMoved>
   <PhobosVehiclePatches_SectionSorties>Sorties</PhobosVehiclePatches_SectionSorties>
   <PhobosVehiclePatches_SettingOverflight>Sorties may fly over a battle you have not joined</PhobosVehiclePatches_SettingOverflight>
   <PhobosVehiclePatches_SettingOverflightDesc>Off (the default): when an ally of yours is attacking or defending a town and you have not yet joined that battle from the town's own button, aircraft cannot fly a sortie there, and the targeter says so. On, aircraft may fly there anyway.</PhobosVehiclePatches_SettingOverflightDesc>
   <PhobosVehiclePatches_OverflightWarning>A crew flying over a battle you have not joined counts as your forces there: the battle may not end while they are over it, and its outcome is weighed with them in it.</PhobosVehiclePatches_OverflightWarning>
   <PhobosVehiclePatches_SectionDiagnostics>Finding faults (temporary)</PhobosVehiclePatches_SectionDiagnostics>
-  <PhobosVehiclePatches_SettingTraceDisassembly>Log each step when a vehicle is taken apart</PhobosVehiclePatches_SettingTraceDisassembly>
-  <PhobosVehiclePatches_SettingTraceDisassemblyDesc>On (the default, while the Harrier cannot be taken apart): when a colonist disassembles a vehicle, or god mode removes one, the game's log gets one line for each step of the removal and the full error where one fails, so the cause can be found. It does nothing at other times and changes nothing in play. Off, nothing is logged. This setting goes away with the fault.</PhobosVehiclePatches_SettingTraceDisassemblyDesc>
   <PhobosVehiclePatches_JoinBattleFirst>You have not joined the battle at {PLACE}. Select the town and join it first, then fly the sortie.</PhobosVehiclePatches_JoinBattleFirst>
 </LanguageData>

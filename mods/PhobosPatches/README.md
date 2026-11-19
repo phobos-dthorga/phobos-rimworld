@@ -9,7 +9,7 @@ casting at The Dead Man's Switch's rotary forger.
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.26.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.27.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -18,7 +18,7 @@ the [changelog](CHANGELOG.md).
 
 ## Read this first (gotchas)
 
-- **Needs Harmony and D'thorga Framework 0.97.0 or later** (0.106.0 or later for the Harrier's flight-control rule). **Load it after
+- **Needs Harmony and D'thorga Framework 0.184.0 or later.** **Load it after
   the mods it patches**: the About file asks for this, so RimSort does it for you. **Switch it on yourself**: nothing else requires
   it. It does nothing without the mods it patches.
 - **Each part loads only while its own mods are active** (an `IfModActive` folder per patched mod): the Harrier part with the Harrier
@@ -40,7 +40,8 @@ the [changelog](CHANGELOG.md).
 - **Decide before a missile strike:** the blast settings below. Choices that cost speed say so in amber. **After a strike, wait for the
   message that the blast has spent itself before saving**: a blast still running when you save is forgotten on load.
 - **Harrier disassembly (temporary trace):** the Harrier cannot be taken apart yet. **Try one disassembly, on a copy of your save, and
-  stop there**: each attempt runs the first half of the removal again. Its log trace is a setting, on by default.
+  stop there**: each attempt runs the first half of the removal again. **Its log trace is off unless you ask for it** (0.27.0): tick
+  **D'thorga Patches: Harrier disassembly** on D'thorga Framework's **Detailed logs** settings page first.
 - **Harrier flight controls:** with avionics, hydraulics or wiring below about 35% the jet cannot take off until repaired. On a hot
   day a heavy Harrier lands on a runway instead of hovering onto its pad, by **D'thorga Framework's** setting "When an aircraft is too
   heavy or too hot to hover onto its pad".
@@ -52,7 +53,7 @@ the [changelog](CHANGELOG.md).
   hulls built before**, while the ship is landed.
 - **With Combat Extended, soldiers go back to their own guns** (0.26.0, not yet tested in game) instead of fighting on with grenades and
   satchel charges after being downed. **A colonist who already has no gun anywhere needs one handed to them once** (select them,
-  right-click a gun, Equip): from then on they keep it. Three settings under **D'thorga Patches: Combat Extended**; safe to add to and
+  right-click a gun, Equip): from then on they keep it. Three settings on the **Combat Extended** page of **D'thorga Patches**' settings; safe to add to and
   remove from a running save (what it remembers is kept by D'thorga Framework).
 - **With RimPacts, a world war attack must win within 3 days of accepting it**, or control of about a dozen border towns passes to
   the enemy. That is RimPacts' rule; the quest shows the countdown. **Strike and attack early.**
@@ -134,11 +135,15 @@ says which part is off and why.
 
 ## Settings
 
-In **Options, Mod settings**. RimWorld saves only what you change; no restart is needed.
+In **Options, Mod settings, D'thorga Patches**: one entry since 0.27.0 (it was four), with a page for each patched mod down the left;
+a page shows only while its mod is active. **Type in the search box to find a setting on any page**, tick **Changed only** to see just
+what you have changed (each marked with a dot), and use **Reset this page to defaults** at the bottom of a page. RimWorld saves only
+what you change; no restart is needed. A choice that costs speed shows its cost in amber under it.
 
-### D'thorga Patches (with InterRim Ballistic Missile)
+### IRBM: strikes, and IRBM: after-effects (with InterRim Ballistic Missile)
 
-A choice that costs speed shows its cost in amber under it.
+The first page holds the strike itself and the game's speed, from the top of the table to the wall fragments; the second what a
+strike leaves behind, from the fireball onwards.
 
 | Setting | What it does | Default |
 | --- | --- | --- |
@@ -162,20 +167,22 @@ A choice that costs speed shows its cost in amber under it.
 | Electromagnetic pulse | Powered buildings and mechanoids in the open stop for a few hours | On |
 | Close-in weapon systems shoot down Combat Extended shells (only with Combat Extended) | Off: they leave CE's mortar and artillery shells alone | On |
 
-### D'thorga Patches: Harrier
+### Harrier jump jet
 
 | Setting | What it does | Default |
 | --- | --- | --- |
 | Sorties may fly over a battle you have not joined | On: aircraft may fly a sortie onto a RimPacts battle you have not joined, and RimPacts then counts the crew as your forces there | Off |
-| Log each step when a vehicle is taken apart (temporary) | One log line per step of a vehicle's disassembly, to find why the Harrier cannot be taken apart; changes nothing in play | On |
 
-### D'thorga Patches: outposts
+The temporary disassembly trace had a tick here, on by default, until 0.27.0. It is now **D'thorga Patches: Harrier disassembly** on
+D'thorga Framework's **Detailed logs** page, off until ticked.
+
+### Outposts
 
 | Setting | What it does | Default |
 | --- | --- | --- |
 | Refuse to found an outpost from a caravan with vehicles (recommended) | Off: the "create outpost" window works as Vanilla Expanded Framework wrote it, and may lose the vehicles and their crews | On |
 
-### D'thorga Patches: Combat Extended
+### Combat Extended
 
 | Setting | What it does | Default |
 | --- | --- | --- |

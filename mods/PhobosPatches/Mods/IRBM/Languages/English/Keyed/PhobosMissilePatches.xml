@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
-  <PhobosMissilePatches_SettingsCategory>D'thorga Patches</PhobosMissilePatches_SettingsCategory>
-  <PhobosMissilePatches_SectionIrbm>InterRim Ballistic Missile</PhobosMissilePatches_SectionIrbm>
+  <PhobosMissilePatches_PageStrikes>IRBM: strikes</PhobosMissilePatches_PageStrikes>
+  <PhobosMissilePatches_PageAfterEffects>IRBM: after-effects</PhobosMissilePatches_PageAfterEffects>
+  <PhobosMissilePatches_SectionWhoAndWhat>Who survives, and what is left</PhobosMissilePatches_SectionWhoAndWhat>
   <PhobosMissilePatches_SectionBlast>Strategic blasts</PhobosMissilePatches_SectionBlast>
   <PhobosMissilePatches_SectionCombatExtended>Strategic blasts with Combat Extended</PhobosMissilePatches_SectionCombatExtended>
 

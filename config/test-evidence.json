@@ -263,6 +263,14 @@
         {"key": "vehicles.deliver.end", "variant": "NoBay", "expect": {"things": ">= 1"}}],
       "it drives back": [{"key": "vehicles.deliver.home"}]
     }},
+    "259": {"parts": {
+      "cutting the engines in the air brings it down": [{"key": "aircraft.engines-cut"}],
+      "everyone who walks away from a hard landing gets a tale": [{"key": "vehicles.tale", "variant": "PhobosTale_CrashSurvived"}],
+      "an overloaded or storm lift strains the hook": [{"key": "vehicles.sling-strain", "variant": "held"}],
+      "a hook strained to nothing drops its load": [{"key": "vehicles.sling-strain", "variant": "gave-way"}],
+      "a tow heavier than the ratio goes ahead": [{"key": "vehicles.tow-over-ratio"}],
+      "a worn-through clutch still moves": [{"key": "vehicles.stage.clutchWear", "detail": "*: worn through"}]
+    }},
     "258": {"parts": {
       "a convoy held up by a vehicle is noted as stranded": [{"key": "vehicles.stranded"}],
       "a repair at the halt uses the whole convoy's cargo": [{"key": "vehicles.convoy-repair"}],
@@ -303,6 +311,12 @@
       "a delivery waits for a driver": [{"key": "vehicles.driver-call.waiting", "variant": "deliver"}],
       "gathering waits for a driver": [{"key": "vehicles.driver-call.waiting", "variant": "gather"}],
       "a colonist takes the wheel": [{"key": "vehicles.driver-call.aboard"}]
+    }},
+    "267": {"parts": {
+      "a search across the pages": [{"key": "framework.settings-pages", "variant": "search"}],
+      "changed only": [{"key": "framework.settings-pages", "variant": "changed only"}],
+      "a page reset to its defaults": [{"key": "framework.settings-pages", "variant": "reset"}],
+      "the restart reminder on closing": [{"key": "framework.settings-pages", "variant": "restart reminder"}]
     }},
     "266": ["vehicles.work-trip-kept"],
     "250": ["vehicles.work-park-bay"],

@@ -271,7 +271,7 @@ public class VehicleSystemsSettings : ModSettings
 /// D'thorga Framework's vehicle systems part, loaded only with Vehicle Framework (LoadFolders.xml). Runs in the Mod constructor so
 /// its patch on VehicleDef.ResolveReferences is in place before any Def is resolved.
 /// </summary>
-public class VehicleSystemsMod : Mod
+public class VehicleSystemsMod : SettingsBookMod
 {
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Vehicle systems");
     /// <summary>The finer logs for verbose logging (Framework 0.114.0; owner, 16 Nov 2026: a tick per part). Each writes only Debug lines
@@ -289,11 +289,10 @@ public class VehicleSystemsMod : Mod
 
     public static VehicleSystemsSettings Settings { get; private set; } = new();
 
-    readonly SettingsScroll scroll = new();
-
     public VehicleSystemsMod(ModContentPack content) : base(content)
     {
         Settings = GetSettings<VehicleSystemsSettings>();
+        AddSettingsPages();
         // XML patches (PatchOperationPhobosFlag) run after every mod's constructor, so the flags are ready for them.
         PatchFlags.Register("PhobosVehicleSystems.electricLightning", () => Settings.electricLightning);
         HarmonyPatchApplier.ApplyEach(new Harmony(HarmonyId), typeof(VehicleSystemsMod).Assembly, LogPrefix);
@@ -358,174 +357,211 @@ public class VehicleSystemsMod : Mod
         }
     }
 
-    public override string SettingsCategory() => "PhobosVehicleSystems_SettingsCategory".Translate();
+    static readonly SettingsBook SettingsPages = SettingsBook.For("PhobosDthorga.Framework.VehicleSystems", () => "PhobosVehicleSettings_Book".Translate());
+    /// <summary>Every setting at its default, for the pages' changed marks and their reset.</summary>
+    static readonly VehicleSystemsSettings Defaults = new();
+    static readonly FrameworkSettings FrameworkDefaults = new();
+    protected override SettingsBook Book => SettingsPages;
 
-    public override void DoSettingsWindowContents(Rect inRect)
+    /// <summary>
+    /// Its own entry in the mod settings list, "D'thorga Vehicle Systems", with a page per subject (owner's choices of 20 Nov 2026:
+    /// pages with search, and an entry of its own; docs/development/settings-pages.md). Until then it was one scroll of some sixty rows.
+    /// The display page also shows a Framework setting (vehicle sounds on other mods' vehicles), so the Framework's file is written too.
+    /// </summary>
+    void AddSettingsPages()
     {
-        Listing_Standard listing = scroll.Begin(inRect);
-        VehicleSystemsSettings s = Settings;
+        SettingsPages.Join(this).AlsoWrites(() => FrameworkMod.Instance)
+            .Add(new SettingsPage("which", 0f, () => "PhobosVehicleSettings_PageWhich".Translate(), DrawWhich))
+            .Add(new SettingsPage("systems", 10f, () => "PhobosVehicleSettings_PageSystems".Translate(), DrawSystems))
+            .Add(new SettingsPage("engines", 20f, () => "PhobosVehicleSettings_PageEngines".Translate(), DrawEngines))
+            .Add(new SettingsPage("aircraft", 30f, () => "PhobosVehicleSettings_PageAircraft".Translate(), DrawAircraft))
+            .Add(new SettingsPage("steam", 40f, () => "PhobosVehicleSettings_PageSteamElectric".Translate(), DrawSteamElectric))
+            .Add(new SettingsPage("dangers", 50f, () => "PhobosVehicleSettings_PageDangers".Translate(), DrawDangers))
+            .Add(new SettingsPage("repairs", 60f, () => "PhobosVehicleSettings_PageRepairs".Translate(), DrawRepairs))
+            .Add(new SettingsPage("crews", 70f, () => "PhobosVehicleSettings_PageCrews".Translate(), DrawCrews))
+            .Add(new SettingsPage("display", 80f, () => "PhobosVehicleSettings_PageDisplay".Translate(), DrawDisplay))
+            .Add(new SettingsPage("removing", 90f, () => "PhobosVehicleSettings_PageRemoving".Translate(), DrawRemoving));
+    }
 
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionWhich".Translate());
-        listing.Label("PhobosVehicleSystems_RestartNote".Translate());
-        foreach (VehicleSystemsSettings.Scope scope in System.Enum.GetValues(typeof(VehicleSystemsSettings.Scope)))
-        {
-            if (listing.RadioButton(("PhobosVehicleSystems_Scope" + scope).Translate(), s.scope == scope, 8f, ("PhobosVehicleSystems_Scope" + scope + "Desc").Translate()))
-            {
-                s.scope = scope;
-            }
-        }
-        listing.Gap(6f);
+    static void DrawWhich(SettingsList list)
+    {
+        VehicleSystemsSettings s = Settings;
+        list.Note("PhobosVehicleSystems_RestartNote".Translate());
+        list.Radio("PhobosVehicleSettings_Scope".Translate(), ref s.scope, Defaults.scope,
+            (VehicleSystemsSettings.Scope[])System.Enum.GetValues(typeof(VehicleSystemsSettings.Scope)), scope => ("PhobosVehicleSystems_Scope" + scope).Translate(),
+            scope => ("PhobosVehicleSystems_Scope" + scope + "Desc").Translate(), restart: true);
+        list.Section("PhobosVehicleSettings_SectionByMod".Translate());
         foreach (IGrouping<string, DesignRecord> mod in VehicleSystems.DesignsByMod().OrderBy(g => g.First().modName))
         {
             bool on = !s.disabledPackages.Contains(mod.Key);
-            bool before = on;
-            listing.CheckboxLabeled("PhobosVehicleSystems_ModVehicles".Translate(mod.First().modName.Named("MOD"), mod.Count().Named("COUNT")), ref on,
-                string.Join(", ", mod.Select(d => d.def.LabelCap.ToString())));
-            if (on != before) Toggle(s.disabledPackages, mod.Key, on);
+            if (list.Check("PhobosVehicleSystems_ModVehicles".Translate(mod.First().modName.Named("MOD"), mod.Count().Named("COUNT")), ref on, true,
+                    string.Join(", ", mod.Select(d => d.def.LabelCap.ToString())), restart: true))
+            {
+                Toggle(s.disabledPackages, mod.Key, on);
+            }
         }
-        listing.Gap(6f);
+        list.Section("PhobosVehicleSettings_SectionByKind".Translate());
         foreach (string kind in DefDatabase<PhobosVehicleLoadoutDef>.AllDefsListForReading.Where(l => l.systems.Count > 0).Select(l => l.kind).Distinct().OrderBy(k => k))
         {
             bool on = !s.disabledKinds.Contains(kind);
-            bool before = on;
             string label = ("PhobosVehicleSystems_Kind" + kind).TryTranslate(out TaggedString known) ? known.ToString() : kind;
-            listing.CheckboxLabeled(label, ref on);
-            if (on != before) Toggle(s.disabledKinds, kind, on);
+            if (list.Check(label, ref on, true, restart: true)) Toggle(s.disabledKinds, kind, on);
         }
+    }
 
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionSystems".Translate());
+    static void DrawSystems(SettingsList list)
+    {
+        VehicleSystemsSettings s = Settings;
+        list.Check("PhobosVehicleSystems_SettingShowOnly".Translate(), ref s.showOnly, Defaults.showOnly, "PhobosVehicleSystems_SettingShowOnlyDesc".Translate());
+        list.Section("PhobosVehicleSystems_SectionSystems".Translate());
         foreach (PhobosVehicleSystemDef system in DefDatabase<PhobosVehicleSystemDef>.AllDefsListForReading)
         {
             bool on = !s.disabledSystems.Contains(system.defName);
-            bool before = on;
-            listing.CheckboxLabeled(system.LabelCap, ref on, system.description);
-            if (on != before) Toggle(s.disabledSystems, system.defName, on);
+            if (list.Check(system.LabelCap, ref on, true, system.description)) Toggle(s.disabledSystems, system.defName, on);
         }
-        listing.Gap(6f);
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingShowOnly".Translate(), ref s.showOnly, "PhobosVehicleSystems_SettingShowOnlyDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingFuelGelling".Translate(), ref s.fuelGelling, "PhobosVehicleSystems_SettingFuelGellingDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingTankExplosions".Translate(), ref s.tankExplosions, "PhobosVehicleSystems_SettingTankExplosionsDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingTankCompartments".Translate(), ref s.tankCompartmentsNeedUpgrades, "PhobosVehicleSystems_SettingTankCompartmentsDesc".Translate());
+    }
 
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionEngines".Translate());
-        foreach (DrivetrainMode mode in System.Enum.GetValues(typeof(DrivetrainMode)))
-        {
-            if (listing.RadioButton(("PhobosVehicleSystems_Drivetrain" + mode).Translate(), s.drivetrainMode == mode, 8f, ("PhobosVehicleSystems_Drivetrain" + mode + "Desc").Translate()))
-            {
-                s.drivetrainMode = mode;
-            }
-        }
-        listing.Gap(6f);
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingLoadFuel".Translate(), ref s.loadDependentFuel, "PhobosVehicleSystems_SettingLoadFuelDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAircraftFuel".Translate(), ref s.aircraftFuel, "PhobosVehicleSystems_SettingAircraftFuelDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingThinAir".Translate(), ref s.thinAir, "PhobosVehicleSystems_SettingThinAirDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingCruiseHeight".Translate(), ref s.cruiseHeight, "PhobosVehicleSystems_SettingCruiseHeightDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingRaidersFly".Translate(), ref s.raidersArriveByAir, "PhobosVehicleSystems_SettingRaidersFlyDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingStockHelicopters".Translate(), ref s.stockHelicoptersFly, "PhobosVehicleSystems_SettingStockHelicoptersDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingLowOilService".Translate(), ref s.lowOilCallsService, "PhobosVehicleSystems_SettingLowOilServiceDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAccessoryLoad".Translate(), ref s.accessoriesLoadEngine, "PhobosVehicleSystems_SettingAccessoryLoadDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingRoughGround".Translate(), ref s.roughGroundWear, "PhobosVehicleSystems_SettingRoughGroundDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingHeadlightBeams".Translate(), ref s.headlightBeams, "PhobosVehicleSystems_SettingHeadlightBeamsDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAutoLights".Translate(), ref s.autoLights, "PhobosVehicleSystems_SettingAutoLightsDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingWeatherGrip".Translate(), ref s.weatherGrip, "PhobosVehicleSystems_SettingWeatherGripDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAmmoCookOff".Translate(), ref s.ammoCookOff, "PhobosVehicleSystems_SettingAmmoCookOffDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingCaravanCooking".Translate(), ref s.caravanCooking, "PhobosVehicleSystems_SettingCaravanCookingDesc".Translate());
-        if (GameComponent_PhobosServiceKits.InGame)
-        {
-            // This colony's own choice, saved with it (S4): shown here for convenience, changed only through its service.
-            bool raw = GameComponent_PhobosServiceKits.RawAccepted;
-            listing.CheckboxLabeled("PhobosVehicleSystems_SettingRawServices".Translate(), ref raw, "PhobosVehicleSystems_SettingRawServicesDesc".Translate());
-            if (raw != GameComponent_PhobosServiceKits.RawAccepted) GameComponent_PhobosServiceKits.SetRawAccepted(raw);
-        }
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingCabMoods".Translate(), ref s.cabMoods, "PhobosVehicleSystems_SettingCabMoodsDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingClimateAll".Translate(), ref s.climateControlAll, "PhobosVehicleSystems_SettingClimateAllDesc".Translate());
-        listing.Gap(6f);
-        listing.Label("PhobosVehicleSystems_SettingHoverLimit".Translate());
-        foreach (VehicleSystemsSettings.HoverLimit limit in System.Enum.GetValues(typeof(VehicleSystemsSettings.HoverLimit)))
-        {
-            if (listing.RadioButton(("PhobosVehicleSystems_Hover" + limit).Translate(), s.hoverLimit == limit, 8f, ("PhobosVehicleSystems_Hover" + limit + "Desc").Translate()))
-            {
-                s.hoverLimit = limit;
-            }
-        }
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingBlindFlightWarnOnly".Translate(), ref s.blindFlightWarnOnly, "PhobosVehicleSystems_SettingBlindFlightWarnOnlyDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAltitudeHypoxia".Translate(), ref s.altitudeHypoxia, "PhobosVehicleSystems_SettingAltitudeHypoxiaDesc".Translate());
+    static void DrawEngines(SettingsList list)
+    {
+        VehicleSystemsSettings s = Settings, d = Defaults;
+        list.Radio("PhobosVehicleSettings_Drivetrain".Translate(), ref s.drivetrainMode, d.drivetrainMode, (DrivetrainMode[])System.Enum.GetValues(typeof(DrivetrainMode)),
+            mode => ("PhobosVehicleSystems_Drivetrain" + mode).Translate(), mode => ("PhobosVehicleSystems_Drivetrain" + mode + "Desc").Translate());
+        list.Section("PhobosVehicleSettings_SectionFuel".Translate());
+        list.Check("PhobosVehicleSystems_SettingLoadFuel".Translate(), ref s.loadDependentFuel, d.loadDependentFuel, "PhobosVehicleSystems_SettingLoadFuelDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingAccessoryLoad".Translate(), ref s.accessoriesLoadEngine, d.accessoriesLoadEngine, "PhobosVehicleSystems_SettingAccessoryLoadDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingFuelGelling".Translate(), ref s.fuelGelling, d.fuelGelling, "PhobosVehicleSystems_SettingFuelGellingDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingThinAir".Translate(), ref s.thinAir, d.thinAir, "PhobosVehicleSystems_SettingThinAirDesc".Translate());
+        list.Section("PhobosVehicleSettings_SectionGround".Translate());
+        list.Check("PhobosVehicleSystems_SettingWeatherGrip".Translate(), ref s.weatherGrip, d.weatherGrip, "PhobosVehicleSystems_SettingWeatherGripDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingRoughGround".Translate(), ref s.roughGroundWear, d.roughGroundWear, "PhobosVehicleSystems_SettingRoughGroundDesc".Translate());
+        list.Check("PhobosHitch_SettingOthers".Translate(), ref s.hitchOthersPlainRule, d.hitchOthersPlainRule, "PhobosHitch_SettingOthersDesc".Translate());
+        list.Section("PhobosVehicleSettings_SectionLights".Translate());
+        list.Check("PhobosVehicleSystems_SettingHeadlightBeams".Translate(), ref s.headlightBeams, d.headlightBeams, "PhobosVehicleSystems_SettingHeadlightBeamsDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingAutoLights".Translate(), ref s.autoLights, d.autoLights, "PhobosVehicleSystems_SettingAutoLightsDesc".Translate());
+        list.Section("PhobosVehicleSystems_SectionJumpStarts".Translate());
+        list.Check("PhobosVehicleSystems_SettingJumpStartNeedsKit".Translate(), ref s.jumpStartNeedsKit, d.jumpStartNeedsKit, "PhobosVehicleSystems_SettingJumpStartNeedsKitDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingAssumeBoosterPack".Translate(), ref s.assumeBoosterPack, d.assumeBoosterPack, "PhobosVehicleSystems_SettingAssumeBoosterPackDesc".Translate());
+    }
+
+    static void DrawAircraft(SettingsList list)
+    {
+        VehicleSystemsSettings s = Settings, d = Defaults;
+        list.Section("PhobosVehicleSettings_SectionFlight".Translate());
+        list.Check("PhobosVehicleSystems_SettingAircraftFuel".Translate(), ref s.aircraftFuel, d.aircraftFuel, "PhobosVehicleSystems_SettingAircraftFuelDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingCruiseHeight".Translate(), ref s.cruiseHeight, d.cruiseHeight, "PhobosVehicleSystems_SettingCruiseHeightDesc".Translate());
+        list.Radio("PhobosVehicleSystems_SettingHoverLimit".Translate(), ref s.hoverLimit, d.hoverLimit,
+            (VehicleSystemsSettings.HoverLimit[])System.Enum.GetValues(typeof(VehicleSystemsSettings.HoverLimit)),
+            limit => ("PhobosVehicleSystems_Hover" + limit).Translate(), limit => ("PhobosVehicleSystems_Hover" + limit + "Desc").Translate());
+        list.Check("PhobosVehicleSystems_SettingBlindFlightWarnOnly".Translate(), ref s.blindFlightWarnOnly, d.blindFlightWarnOnly, "PhobosVehicleSystems_SettingBlindFlightWarnOnlyDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingAltitudeHypoxia".Translate(), ref s.altitudeHypoxia, d.altitudeHypoxia, "PhobosVehicleSystems_SettingAltitudeHypoxiaDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingStockHelicopters".Translate(), ref s.stockHelicoptersFly, d.stockHelicoptersFly, "PhobosVehicleSystems_SettingStockHelicoptersDesc".Translate());
         if (ModsConfig.IsActive(DmseTieIn.PackageId))
         {
-            listing.CheckboxLabeled("PhobosVehicleSystems_SettingAirDefenceSees".Translate(), ref s.airDefenceSeesAircraft, "PhobosVehicleSystems_SettingAirDefenceSeesDesc".Translate());
+            list.Check("PhobosVehicleSystems_SettingAirDefenceSees".Translate(), ref s.airDefenceSeesAircraft, d.airDefenceSeesAircraft, "PhobosVehicleSystems_SettingAirDefenceSeesDesc".Translate());
         }
+        list.Section("PhobosSling_Section".Translate());
+        list.Check("PhobosSling_SettingHeat".Translate(), ref s.slingHeatDerating, d.slingHeatDerating, "PhobosSling_SettingHeatDesc".Translate());
+        list.Check("PhobosSling_SettingCrew".Translate(), ref s.slingGroundCrew, d.slingGroundCrew, "PhobosSling_SettingCrewDesc".Translate());
+        list.Check("PhobosSling_SettingWeather".Translate(), ref s.slingWeather, d.slingWeather, "PhobosSling_SettingWeatherDesc".Translate());
+        list.Check("PhobosSling_SettingSlowFlight".Translate(), ref s.slingSlowFlight, d.slingSlowFlight, "PhobosSling_SettingSlowFlightDesc".Translate());
+        list.Check("PhobosSling_SettingRelease".Translate(), ref s.slingRelease, d.slingRelease, "PhobosSling_SettingReleaseDesc".Translate());
+    }
 
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionSteam".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingRealisticFeedWater".Translate(), ref s.realisticFeedWater, "PhobosVehicleSystems_SettingRealisticFeedWaterDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingBoilerExplosions".Translate(), ref s.boilerExplosions, "PhobosVehicleSystems_SettingBoilerExplosionsDesc".Translate());
-        if (s.boilerExplosions) SettingsUi.Warning(listing, "PhobosVehicleSystems_BoilerExplosionsWarning".Translate());
+    static void DrawSteamElectric(SettingsList list)
+    {
+        VehicleSystemsSettings s = Settings, d = Defaults;
+        list.Section("PhobosVehicleSystems_SectionSteam".Translate());
+        list.Check("PhobosVehicleSystems_SettingRealisticFeedWater".Translate(), ref s.realisticFeedWater, d.realisticFeedWater, "PhobosVehicleSystems_SettingRealisticFeedWaterDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingBoilerExplosions".Translate(), ref s.boilerExplosions, d.boilerExplosions, "PhobosVehicleSystems_SettingBoilerExplosionsDesc".Translate());
+        list.Warning(s.boilerExplosions ? "PhobosVehicleSystems_BoilerExplosionsWarning".Translate().ToString() : null);
+        list.Section("PhobosVehicleSystems_SectionElectric".Translate());
+        list.Check("PhobosVehicleSystems_SettingBatteryFires".Translate(), ref s.batteryFires, d.batteryFires, "PhobosVehicleSystems_SettingBatteryFiresDesc".Translate());
+        list.Warning(s.batteryFires ? "PhobosVehicleSystems_BatteryFiresWarning".Translate().ToString() : null);
+        list.Check("PhobosVehicleSystems_SettingElectricLightning".Translate(), ref s.electricLightning, d.electricLightning,
+            "PhobosVehicleSystems_SettingElectricLightningDesc".Translate(), restart: true);
+    }
 
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionElectric".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingBatteryFires".Translate(), ref s.batteryFires, "PhobosVehicleSystems_SettingBatteryFiresDesc".Translate());
-        if (s.batteryFires) SettingsUi.Warning(listing, "PhobosVehicleSystems_BatteryFiresWarning".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingElectricLightning".Translate(), ref s.electricLightning, "PhobosVehicleSystems_SettingElectricLightningDesc".Translate());
+    static void DrawDangers(SettingsList list)
+    {
+        VehicleSystemsSettings s = Settings, d = Defaults;
+        list.Check("PhobosVehicleSystems_SettingTankExplosions".Translate(), ref s.tankExplosions, d.tankExplosions, "PhobosVehicleSystems_SettingTankExplosionsDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingAmmoCookOff".Translate(), ref s.ammoCookOff, d.ammoCookOff, "PhobosVehicleSystems_SettingAmmoCookOffDesc".Translate());
+        list.Section("PhobosVehicleSettings_SectionOthers".Translate());
+        list.Check("PhobosVehicleSystems_SettingRaidersFly".Translate(), ref s.raidersArriveByAir, d.raidersArriveByAir, "PhobosVehicleSystems_SettingRaidersFlyDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingEnemyFitSets".Translate(), ref s.enemyFitSets, d.enemyFitSets, "PhobosVehicleSystems_SettingEnemyFitSetsDesc".Translate());
+    }
 
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionRepairs".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingDestroyedParts".Translate(), ref s.destroyedPartsNeedSupplies, "PhobosVehicleSystems_SettingDestroyedPartsDesc".Translate());
+    static void DrawRepairs(SettingsList list)
+    {
+        VehicleSystemsSettings s = Settings, d = Defaults;
+        list.Section("PhobosVehicleSystems_SectionRepairs".Translate());
+        list.Check("PhobosVehicleSystems_SettingDestroyedParts".Translate(), ref s.destroyedPartsNeedSupplies, d.destroyedPartsNeedSupplies, "PhobosVehicleSystems_SettingDestroyedPartsDesc".Translate());
         if (s.destroyedPartsNeedSupplies)
         {
-            listing.Label("PhobosVehicleSystems_SettingWholePartShare".Translate(s.wholePartShare.ToStringPercent().Named("SHARE")), tooltip: "PhobosVehicleSystems_SettingWholePartShareDesc".Translate());
-            s.wholePartShare = listing.Slider(s.wholePartShare, 0f, 1f);
-            listing.Label("PhobosVehicleSystems_SettingOtherPartShare".Translate(s.otherPartShare.ToStringPercent().Named("SHARE")), tooltip: "PhobosVehicleSystems_SettingOtherPartShareDesc".Translate());
-            s.otherPartShare = listing.Slider(s.otherPartShare, 0f, 1f);
+            list.Indent();
+            list.Slider("PhobosVehicleSystems_SettingWholePartShare".Translate(s.wholePartShare.ToStringPercent().Named("SHARE")), ref s.wholePartShare, d.wholePartShare, 0f, 1f,
+                "PhobosVehicleSystems_SettingWholePartShareDesc".Translate());
+            list.Slider("PhobosVehicleSystems_SettingOtherPartShare".Translate(s.otherPartShare.ToStringPercent().Named("SHARE")), ref s.otherPartShare, d.otherPartShare, 0f, 1f,
+                "PhobosVehicleSystems_SettingOtherPartShareDesc".Translate());
+            list.Outdent();
         }
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingFieldFixes".Translate(), ref s.fieldFixes, "PhobosVehicleSystems_SettingFieldFixesDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingTuningNeedsRig".Translate(), ref s.tuningNeedsRig, "PhobosVehicleSystems_SettingTuningNeedsRigDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingFieldFixes".Translate(), ref s.fieldFixes, d.fieldFixes, "PhobosVehicleSystems_SettingFieldFixesDesc".Translate());
+        list.Section("PhobosVehicleSettings_SectionService".Translate());
+        list.Check("PhobosVehicleSystems_SettingLowOilService".Translate(), ref s.lowOilCallsService, d.lowOilCallsService, "PhobosVehicleSystems_SettingLowOilServiceDesc".Translate());
+        if (GameComponent_PhobosServiceKits.InGame)
+        {
+            // This colony's own choice, saved with it (S4): shown here for convenience, changed only through its service, never reset here.
+            bool raw = GameComponent_PhobosServiceKits.RawAccepted;
+            if (list.Check("PhobosVehicleSystems_SettingRawServices".Translate(), ref raw, null, "PhobosVehicleSystems_SettingRawServicesDesc".Translate()))
+                GameComponent_PhobosServiceKits.SetRawAccepted(raw);
+        }
+        list.Section("PhobosVehicleSettings_SectionFittings".Translate());
+        list.Check("PhobosVehicleSystems_SettingTuningNeedsRig".Translate(), ref s.tuningNeedsRig, d.tuningNeedsRig, "PhobosVehicleSystems_SettingTuningNeedsRigDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingTankCompartments".Translate(), ref s.tankCompartmentsNeedUpgrades, d.tankCompartmentsNeedUpgrades, "PhobosVehicleSystems_SettingTankCompartmentsDesc".Translate());
         // What fitting and tuning cost (Framework 0.91.0): presets, not sliders (owner); a change re-prices work already waiting.
-        SettingsUi.Choice(listing, "PhobosVehicleSystems_SettingFitTime".Translate(), s.fitTimeFactor, new[] { 0.25f, 0.5f, 1f, 2f }, FitTimeLabel,
-            chosen => { s.fitTimeFactor = chosen; VehicleFittings.CostsChanged(); }, "PhobosVehicleSystems_SettingFitTimeDesc".Translate());
-        SettingsUi.Choice(listing, "PhobosVehicleSystems_SettingFitMaterials".Translate(), s.fitMaterialFactor, new[] { 0.4f, 1f, 1.5f }, FitMaterialLabel,
-            chosen => { s.fitMaterialFactor = chosen; VehicleFittings.CostsChanged(); }, "PhobosVehicleSystems_SettingFitMaterialsDesc".Translate());
-        bool byWeight = s.fitCostScalesWithWeight;
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingFitByWeight".Translate(), ref s.fitCostScalesWithWeight, "PhobosVehicleSystems_SettingFitByWeightDesc".Translate());
-        if (byWeight != s.fitCostScalesWithWeight) VehicleFittings.CostsChanged();
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingPowerPointLarge".Translate(), ref s.powerPointLargeSocket, "PhobosVehicleSystems_SettingPowerPointLargeDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingEnemyFitSets".Translate(), ref s.enemyFitSets, "PhobosVehicleSystems_SettingEnemyFitSetsDesc".Translate());
+        list.Choice("PhobosVehicleSystems_SettingFitTime".Translate(), s.fitTimeFactor, d.fitTimeFactor, new[] { 0.25f, 0.5f, 1f, 2f }, FitTimeLabel,
+            chosen => { Settings.fitTimeFactor = chosen; VehicleFittings.CostsChanged(); }, "PhobosVehicleSystems_SettingFitTimeDesc".Translate());
+        list.Choice("PhobosVehicleSystems_SettingFitMaterials".Translate(), s.fitMaterialFactor, d.fitMaterialFactor, new[] { 0.4f, 1f, 1.5f }, FitMaterialLabel,
+            chosen => { Settings.fitMaterialFactor = chosen; VehicleFittings.CostsChanged(); }, "PhobosVehicleSystems_SettingFitMaterialsDesc".Translate());
+        if (list.Check("PhobosVehicleSystems_SettingFitByWeight".Translate(), ref s.fitCostScalesWithWeight, d.fitCostScalesWithWeight, "PhobosVehicleSystems_SettingFitByWeightDesc".Translate()))
+            VehicleFittings.CostsChanged();
+    }
 
+    static void DrawCrews(SettingsList list)
+    {
+        VehicleSystemsSettings s = Settings, d = Defaults;
+        list.Section("PhobosVehicleSettings_SectionCabs".Translate());
+        list.Check("PhobosVehicleSystems_SettingCabMoods".Translate(), ref s.cabMoods, d.cabMoods, "PhobosVehicleSystems_SettingCabMoodsDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingClimateAll".Translate(), ref s.climateControlAll, d.climateControlAll, "PhobosVehicleSystems_SettingClimateAllDesc".Translate());
+        list.Section("PhobosVehicleSettings_SectionCamps".Translate());
+        list.Check("PhobosVehicleSystems_SettingNightHeater".Translate(), ref s.nightHeater, d.nightHeater, "PhobosVehicleSystems_SettingNightHeaterDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingCaravanCooking".Translate(), ref s.caravanCooking, d.caravanCooking, "PhobosVehicleSystems_SettingCaravanCookingDesc".Translate());
+        list.SliderInt("PhobosVehicleSystems_SettingParkedWarning".Translate(s.parkedWarningDays.Named("DAYS")), ref s.parkedWarningDays, d.parkedWarningDays, 0, 14,
+            "PhobosVehicleSettings_ParkedWarningDesc".Translate());
+    }
+
+    static void DrawDisplay(SettingsList list)
+    {
+        VehicleSystemsSettings s = Settings, d = Defaults;
+        SettingsUi.DisplayModeRow(list, ref s.displayMode);
+        list.Check("PhobosVehicleSystems_SettingKeepVfHealthTab".Translate(), ref s.keepVehicleFrameworkHealthTab, d.keepVehicleFrameworkHealthTab,
+            "PhobosVehicleSystems_SettingKeepVfHealthTabDesc".Translate(), restart: true);
+        list.Check("PhobosVehicleSystems_SettingFleetButton".Translate(), ref s.fleetBoardButton, d.fleetBoardButton, "PhobosVehicleSystems_SettingFleetButtonDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingPowerPointLarge".Translate(), ref s.powerPointLargeSocket, d.powerPointLargeSocket, "PhobosVehicleSystems_SettingPowerPointLargeDesc".Translate());
+        list.Section("PhobosFramework_SectionSound".Translate());
+        list.Check("PhobosFramework_SettingSystemSoundsOnOtherVehicles".Translate(), ref FrameworkMod.Settings.systemSoundsOnOtherVehicles,
+            FrameworkDefaults.systemSoundsOnOtherVehicles, "PhobosFramework_SettingSystemSoundsOnOtherVehiclesDesc".Translate());
         // Stories (Framework 0.181.0; docs/development/vehicle-emergent-play.md): what a vehicle's life leaves for the player to read.
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionStories".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingTripLetters".Translate(), ref s.tripLetters, "PhobosVehicleSystems_SettingTripLettersDesc".Translate());
+        list.Section("PhobosVehicleSystems_SectionStories".Translate());
+        list.Check("PhobosVehicleSystems_SettingTripLetters".Translate(), ref s.tripLetters, d.tripLetters, "PhobosVehicleSystems_SettingTripLettersDesc".Translate());
+    }
 
-        SettingsUi.Section(listing, "PhobosSling_Section".Translate());
-        listing.CheckboxLabeled("PhobosSling_SettingHeat".Translate(), ref s.slingHeatDerating, "PhobosSling_SettingHeatDesc".Translate());
-        listing.CheckboxLabeled("PhobosSling_SettingCrew".Translate(), ref s.slingGroundCrew, "PhobosSling_SettingCrewDesc".Translate());
-        listing.CheckboxLabeled("PhobosSling_SettingWeather".Translate(), ref s.slingWeather, "PhobosSling_SettingWeatherDesc".Translate());
-        listing.CheckboxLabeled("PhobosSling_SettingSlowFlight".Translate(), ref s.slingSlowFlight, "PhobosSling_SettingSlowFlightDesc".Translate());
-        listing.CheckboxLabeled("PhobosSling_SettingRelease".Translate(), ref s.slingRelease, "PhobosSling_SettingReleaseDesc".Translate());
-
-        SettingsUi.Section(listing, "PhobosHitch_Section".Translate());
-        listing.CheckboxLabeled("PhobosHitch_SettingOthers".Translate(), ref s.hitchOthersPlainRule, "PhobosHitch_SettingOthersDesc".Translate());
-
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionJumpStarts".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingJumpStartNeedsKit".Translate(), ref s.jumpStartNeedsKit, "PhobosVehicleSystems_SettingJumpStartNeedsKitDesc".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingAssumeBoosterPack".Translate(), ref s.assumeBoosterPack, "PhobosVehicleSystems_SettingAssumeBoosterPackDesc".Translate());
-
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionFleet".Translate());
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingFleetButton".Translate(), ref s.fleetBoardButton, "PhobosVehicleSystems_SettingFleetButtonDesc".Translate());
-        listing.Label("PhobosVehicleSystems_SettingParkedWarning".Translate(s.parkedWarningDays.Named("DAYS")));
-        s.parkedWarningDays = (int)listing.Slider(s.parkedWarningDays, 0f, 14f);
-
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionShow".Translate());
-        SettingsUi.DrawDisplayMode(listing, ref s.displayMode);
-        listing.CheckboxLabeled("PhobosVehicleSystems_SettingKeepVfHealthTab".Translate(), ref s.keepVehicleFrameworkHealthTab, "PhobosVehicleSystems_SettingKeepVfHealthTabDesc".Translate());
-
-        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionRemove".Translate());
-        listing.Label("PhobosVehicleSystems_RemoveExplain".Translate());
-        if (Current.Game != null && !VehicleSystems.Swept && listing.ButtonText("PhobosVehicleSystems_RemoveButton".Translate()))
-        {
+    static void DrawRemoving(SettingsList list)
+    {
+        list.Note("PhobosVehicleSystems_RemoveExplain".Translate());
+        if (VehicleSystems.Swept) list.Warning("PhobosVehicleSystems_RemoveDone".Translate().ToString());
+        else if (Current.Game != null && list.Button("PhobosVehicleSystems_RemoveButton".Translate()))
             Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("PhobosVehicleSystems_RemoveConfirm".Translate(), Sweep, destructive: true));
-        }
-        else if (VehicleSystems.Swept)
-        {
-            SettingsUi.Warning(listing, "PhobosVehicleSystems_RemoveDone".Translate());
-        }
-        scroll.End(listing);
     }
 
     static string FitTimeLabel(float factor) => factor switch

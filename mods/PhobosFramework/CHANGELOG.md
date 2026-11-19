@@ -5,6 +5,32 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.184.0] - 2026-11-20 - Draft
+
+Settings pages: search, changed only and a reset, in every D'thorga settings window
+
+### Added
+
+- **Every D'thorga settings window is now laid out like the game's own Options window** (owner's choice, 20 Nov 2026: the windows had become "quite the mess and rather difficult to find anything"): its pages down the left; a search box above them that searches every page, by each setting's name and tooltip; a **Changed only** tick that lists just the settings you have changed, each marked with an amber dot; and **Reset this page to defaults** at the bottom of each page, after asking. It opens on the page you used last, and you can type into the search box straight away.
+- **A setting that needs a restart says so beside its name**, and closing the window after changing one lists them. At the main menu it offers to restart the game at once; in a colony it asks you to save and restart when it suits you.
+- **The vehicle settings have an entry of their own, D'thorga Vehicle Systems** (owner's choice), in ten pages: Which vehicles; Systems; Engines and driving; Aircraft and sling loads; Steam and electric; Dangers and raids; Repairs, service and fittings; Cabs, camps and caravans; Display, sound and stories; and Removing. They were one scroll of some sixty rows under D'thorga Framework: vehicle systems, most of them under an Engines heading.
+- **D'thorga Framework's own window has four pages**: General (gases, what things are built from, topping up, sound), Log and reports, Detailed logs, and Testing.
+- **For other modders:** SettingsBook, SettingsPage, SettingsList and SettingsBookMod in the core, for a settings window of pages. Each row takes the setting's default, which gives it the changed mark, the Changed only list and the reset; several Mod classes may share one entry. The older SettingsUi helpers stay for windows not yet moved.
+
+### Changed
+
+- **Vehicle system sounds on other mods' vehicles too** moved from D'thorga Framework's window to D'thorga Vehicle Systems' Display, sound and stories page. Its saved value is kept.
+- **Show gases at the mouse** is shown only in dev mode, the only place it worked; outside it, the tick did nothing.
+
+### Save compatibility
+
+- Safe to add to a save. Every setting keeps its saved value; only where it is shown has changed. Nothing new is saved in a colony.
+
+### Compatibility and limits
+
+- Not yet tested in game. D'thorga Medical 0.19.0 and D'thorga Patches 0.27.0 move to the same pages; older versions of them keep their old windows and still work.
+- D'thorga Factory Additions (two settings, shown only with Dubs Bad Hygiene, and no need of this mod) and the radio framework (on the back burner) keep their windows as they were.
+
 ## [0.183.0] - 2026-11-20 - Draft
 
 With Vehicles at Work, colonists leave alone a vehicle that driving would wreck

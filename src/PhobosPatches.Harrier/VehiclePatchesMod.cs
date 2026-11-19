@@ -17,30 +17,31 @@ public class VehiclePatchesSettings : ModSettings
     /// <summary>Aircraft may fly a sortie over a RimPacts battle the player has not joined (RimPacts' own rule says no).</summary>
     public bool sortieOverUnjoinedBattle;
 
-    /// <summary>TEMPORARY (0.18.0): log each step when a vehicle is taken apart, to find why the Harrier cannot be (DisassemblyTrace).</summary>
-    public bool traceDisassembly = true;
 
     public override void ExposeData()
     {
         base.ExposeData();
         Scribe_Values.Look(ref sortieOverUnjoinedBattle, "PhobosVehiclePatches_SortieOverUnjoinedBattle", false);
-        Scribe_Values.Look(ref traceDisassembly, "PhobosVehiclePatches_TraceDisassembly", true);
     }
 }
 
-public class VehiclePatchesMod : Mod
+public class VehiclePatchesMod : SettingsBookMod
 {
     public static VehiclePatchesSettings Settings { get; private set; } = new();
 
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.26.0";
+    public const string ModVersion = "0.27.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Harrier");
+    /// <summary>The temporary disassembly trace (DisassemblyTrace): written while this log is ticked under D'thorga Framework's Detailed logs.
+    /// It had a tick of its own, on by default, until 20 Nov 2026 (owner's choice: fault-chasing detail belongs behind Detailed logs).</summary>
+    public static readonly Phobos.Logging.PhobosLog TraceLog = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Harrier disassembly");
 
     public VehiclePatchesMod(ModContentPack content) : base(content)
     {
         Settings = GetSettings<VehiclePatchesSettings>();
+        AddSettingsPages();
         var harmony = new Harmony(HarmonyId);
         RimPactsArrivalFilter.Watch(harmony);
         AirborneCrewKeepsMap.Apply(harmony);
@@ -63,22 +64,27 @@ public class VehiclePatchesMod : Mod
         else report.Off("RimPacts' landing rule through a plain postfix", "RimPacts is not active");
         report.On("the Harrier's fuller parts list (D'thorga Framework's flight controls rule grounds it when they are too damaged)");
         report.On("pad landings checked against the engine's hover limit (D'thorga Framework's setting: " + Phobos.VehicleSystems.VehicleSystemsMod.Settings.hoverLimit + ")");
-        if (Settings.traceDisassembly) report.On("a temporary trace of each step when a vehicle is taken apart, to find why the Harrier cannot be");
-        else report.Off("a temporary trace of vehicle disassembly", "switched off in the settings");
+        if (TraceLog.DebugEnabled) report.On("a temporary trace of each step when a vehicle is taken apart, to find why the Harrier cannot be");
+        else report.Off("a temporary trace of vehicle disassembly", "its detailed log is not ticked");
         report.Log();
     }
 
-    public override string SettingsCategory() => "PhobosVehiclePatches_SettingsCategory".Translate();
 
-    public override void DoSettingsWindowContents(Rect inRect)
+    static readonly SettingsBook SettingsPages = SettingsBook.For("PhobosDthorga.Patches", () => "PhobosPatches_SettingsBook".Translate());
+    static readonly VehiclePatchesSettings Defaults = new();
+    protected override SettingsBook Book => SettingsPages;
+
+    void AddSettingsPages() =>
+        SettingsPages.Join(this).Add(new SettingsPage("harrier", 20f, () => "PhobosVehiclePatches_Page".Translate(), DrawSettings));
+
+    static void DrawSettings(SettingsList list)
     {
-        var listing = new Listing_Standard();
-        listing.Begin(inRect);
-        SettingsUi.Section(listing, "PhobosVehiclePatches_SectionSorties".Translate());
-        listing.CheckboxLabeled("PhobosVehiclePatches_SettingOverflight".Translate(), ref Settings.sortieOverUnjoinedBattle, "PhobosVehiclePatches_SettingOverflightDesc".Translate());
-        if (Settings.sortieOverUnjoinedBattle) SettingsUi.Warning(listing, "PhobosVehiclePatches_OverflightWarning".Translate());
-        SettingsUi.Section(listing, "PhobosVehiclePatches_SectionDiagnostics".Translate());
-        listing.CheckboxLabeled("PhobosVehiclePatches_SettingTraceDisassembly".Translate(), ref Settings.traceDisassembly, "PhobosVehiclePatches_SettingTraceDisassemblyDesc".Translate());
-        listing.End();
+        VehiclePatchesSettings s = Settings, d = Defaults;
+        list.Section("PhobosVehiclePatches_SectionSorties".Translate());
+        list.Check("PhobosVehiclePatches_SettingOverflight".Translate(), ref s.sortieOverUnjoinedBattle, d.sortieOverUnjoinedBattle,
+            "PhobosVehiclePatches_SettingOverflightDesc".Translate());
+        list.Warning(s.sortieOverUnjoinedBattle ? "PhobosVehiclePatches_OverflightWarning".Translate().ToString() : null);
+        list.Section("PhobosVehiclePatches_SectionDiagnostics".Translate());
+        list.Note("PhobosVehiclePatches_TraceMoved".Translate());
     }
 }

@@ -42,12 +42,12 @@ public class MedicalSettings : ModSettings
 /// so saves made with the five mods load with this one. One settings window with a section per part, one load line per part, one
 /// Harmony ID.
 /// </summary>
-public class MedicalMod : Mod
+public class MedicalMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Medical";
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = PackageId;
-    public const string ModVersion = "0.18.2";
+    public const string ModVersion = "0.19.0";
     public const string LogPrefix = "[D'thorga Medical]";
 
     /// <summary>The five mods this one replaced: package ID, name, settings folder and Mod class (for the one-time import).</summary>
@@ -66,12 +66,12 @@ public class MedicalMod : Mod
     /// <summary>The one display mode every part follows (it was one setting per mod until 7 November 2026).</summary>
     public static DisplayMode DisplayMode => Settings.equipment.displayMode;
 
-    readonly SettingsScroll scroll = new();
     readonly List<string> imported = new();
 
     public MedicalMod(ModContentPack content) : base(content)
     {
         Pack = content;
+        AddSettingsPages();
         bool fresh = !SettingsImport.HasOwnFile(this);
         Settings = GetSettings<MedicalSettings>();
         if (fresh) ImportFormerSettings();
@@ -118,26 +118,33 @@ public class MedicalMod : Mod
 
     static LoadReport Part(string name) => new(LogPrefix, ModVersion, name);
 
-    public override string SettingsCategory() => "PhobosMedical_SettingsCategory".Translate();
+    static readonly SettingsBook SettingsPages = SettingsBook.For(PackageId, () => "PhobosMedical_SettingsCategory".Translate());
+    protected override SettingsBook Book => SettingsPages;
 
-    public override void DoSettingsWindowContents(Rect inRect)
+    /// <summary>A page per part (owner's choice of 20 Nov 2026: pages with search, docs/development/settings-pages.md).</summary>
+    void AddSettingsPages()
     {
-        Listing_Standard listing = scroll.Begin(inRect);
-        SettingsUi.DrawDisplayMode(listing, ref Settings.equipment.displayMode);
-        SettingsUi.Section(listing, "PhobosMedical_SectionBurns".Translate());
-        BurnsAndSmokeMod.DrawSettings(listing);
-        SettingsUi.Section(listing, "PhobosMedical_SectionDosing".Translate());
-        DosingMod.DrawSettings(listing);
-        SettingsUi.Section(listing, "PhobosMedical_SectionTriage".Translate());
-        TriageMod.DrawSettings(listing);
-        SettingsUi.Section(listing, "PhobosMedical_SectionEquipment".Translate());
-        MedicalEquipmentMod.DrawSettings(listing);
-        SettingsUi.Section(listing, "PhobosMedical_SectionSaveBridge".Translate());
-        MedicalSaveBridgeMod.DrawSettings(listing);
-        SettingsUi.Section(listing, "PhobosMedical_SectionRemoving".Translate());
-        if (listing.ButtonText("PhobosMedical_SettingRemoveAll".Translate(), "PhobosMedical_SettingRemoveAllDesc".Translate())) RemoveEveryCondition();
-        listing.Label("PhobosMedical_SettingRemoveAllDesc".Translate());
-        scroll.End(listing);
+        SettingsPages.Join(this)
+            .Add(new SettingsPage("general", 0f, () => "PhobosMedical_PageGeneral".Translate(), DrawGeneral))
+            .Add(new SettingsPage("burns", 10f, () => "PhobosMedical_SectionBurns".Translate(), BurnsAndSmokeMod.DrawSettings))
+            .Add(new SettingsPage("caustic", 20f, () => "PhobosMedical_PageCaustic".Translate(), BurnsAndSmokeMod.DrawCausticSettings))
+            .Add(new SettingsPage("dosing", 30f, () => "PhobosMedical_SectionDosing".Translate(), DosingMod.DrawSettings))
+            .Add(new SettingsPage("triage", 40f, () => "PhobosMedical_SectionTriage".Translate(), TriageMod.DrawSettings))
+            .Add(new SettingsPage("bridge", 50f, () => "PhobosMedical_SectionSaveBridge".Translate(), MedicalSaveBridgeMod.DrawSettings))
+            .Add(new SettingsPage("removing", 60f, () => "PhobosMedical_SectionRemoving".Translate(), DrawRemoving));
+    }
+
+    static void DrawGeneral(SettingsList list)
+    {
+        SettingsUi.DisplayModeRow(list, ref Settings.equipment.displayMode);
+        list.Section("PhobosMedical_SectionEquipment".Translate());
+        MedicalEquipmentMod.DrawSettings(list);
+    }
+
+    static void DrawRemoving(SettingsList list)
+    {
+        list.Note("PhobosMedical_SettingRemoveAllDesc".Translate());
+        if (list.Button("PhobosMedical_SettingRemoveAll".Translate(), "PhobosMedical_SettingRemoveAllDesc".Translate())) RemoveEveryCondition();
     }
 
     /// <summary>The one uninstall button: every condition whose Def belongs to this mod, from every pawn, alive or dead.</summary>

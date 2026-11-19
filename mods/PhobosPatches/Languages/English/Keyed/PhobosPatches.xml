@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The one settings entry every tie-in's page joins (settings pages, 20 Nov 2026). Loaded from the mod's root, so it is there whichever tie-ins load. -->
+  <PhobosPatches_SettingsBook>D'thorga Patches</PhobosPatches_SettingsBook>
+</LanguageData>

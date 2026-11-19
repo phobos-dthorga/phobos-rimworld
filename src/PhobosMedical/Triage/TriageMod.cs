@@ -80,38 +80,32 @@ public static class TriageMod
         _ => "any repair",
     };
 
-    internal static void DrawSettings(Listing_Standard listing)
+    static readonly TriageSettings Defaults = new();
+
+    /// <summary>The "Triage" page (settings pages, 20 Nov 2026).</summary>
+    internal static void DrawSettings(SettingsList list)
     {
-        listing.CheckboxLabeled("PhobosTriage_SettingEnabled".Translate(), ref Settings.enabled, "PhobosTriage_SettingEnabledDesc".Translate());
-        listing.Gap();
-        listing.Label("PhobosTriage_SettingDefaults".Translate(), tooltip: "PhobosTriage_SettingDefaultsDesc".Translate());
-        AuthorityRow(listing, "PhobosTriage_GroupColonists", Settings.defaultColonist);
-        AuthorityRow(listing, "PhobosTriage_GroupSlaves", Settings.defaultSlave);
-        AuthorityRow(listing, "PhobosTriage_GroupPrisoners", Settings.defaultPrisoner);
-        AuthorityRow(listing, "PhobosTriage_GroupGuests", Settings.defaultGuest);
-        listing.Gap();
-        listing.Label("PhobosTriage_SettingMaxDeath".Translate((Settings.maxDeathOnFailureChance * 100f).ToString("0").Named("PERCENT")),
-            tooltip: "PhobosTriage_SettingMaxDeathDesc".Translate());
-        Settings.maxDeathOnFailureChance = listing.Slider(Settings.maxDeathOnFailureChance, 0f, 0.5f);
-        listing.CheckboxLabeled("PhobosTriage_SettingRareTools".Translate(), ref Settings.allowRareTools, "PhobosTriage_SettingRareToolsDesc".Translate());
-        listing.CheckboxLabeled("PhobosTriage_SettingViolations".Translate(), ref Settings.allowViolations, "PhobosTriage_SettingViolationsDesc".Translate());
-        listing.CheckboxLabeled("PhobosTriage_SettingMessages".Translate(), ref Settings.messages, "PhobosTriage_SettingMessagesDesc".Translate());
-        listing.CheckboxLabeled("PhobosTriage_SettingOrdering".Translate(), ref Settings.triageOrdering, "PhobosTriage_SettingOrderingDesc".Translate());
+        TriageSettings s = Settings, d = Defaults;
+        list.Check("PhobosTriage_SettingEnabled".Translate(), ref s.enabled, d.enabled, "PhobosTriage_SettingEnabledDesc".Translate());
+        list.Section("PhobosTriage_SettingDefaults".Translate());
+        list.Note("PhobosTriage_SettingDefaultsDesc".Translate());
+        AuthorityRow(list, "PhobosTriage_GroupColonists", s.defaultColonist, d.defaultColonist);
+        AuthorityRow(list, "PhobosTriage_GroupSlaves", s.defaultSlave, d.defaultSlave);
+        AuthorityRow(list, "PhobosTriage_GroupPrisoners", s.defaultPrisoner, d.defaultPrisoner);
+        AuthorityRow(list, "PhobosTriage_GroupGuests", s.defaultGuest, d.defaultGuest);
+        list.Section("PhobosTriage_SectionLimits".Translate());
+        list.Slider("PhobosTriage_SettingMaxDeath".Translate((s.maxDeathOnFailureChance * 100f).ToString("0").Named("PERCENT")),
+            ref s.maxDeathOnFailureChance, d.maxDeathOnFailureChance, 0f, 0.5f, "PhobosTriage_SettingMaxDeathDesc".Translate());
+        list.Check("PhobosTriage_SettingRareTools".Translate(), ref s.allowRareTools, d.allowRareTools, "PhobosTriage_SettingRareToolsDesc".Translate());
+        list.Check("PhobosTriage_SettingViolations".Translate(), ref s.allowViolations, d.allowViolations, "PhobosTriage_SettingViolationsDesc".Translate());
+        list.Check("PhobosTriage_SettingOrdering".Translate(), ref s.triageOrdering, d.triageOrdering, "PhobosTriage_SettingOrderingDesc".Translate());
+        list.Check("PhobosTriage_SettingMessages".Translate(), ref s.messages, d.messages, "PhobosTriage_SettingMessagesDesc".Translate());
     }
 
-    static void AuthorityRow(Listing_Standard listing, string groupKey, TriageAuthority current)
-    {
-        if (listing.ButtonTextLabeled(groupKey.Translate(), ("PhobosTriage_Authority" + current).Translate()))
-        {
-            var options = new List<FloatMenuOption>();
-            foreach (TriageAuthority authority in System.Enum.GetValues(typeof(TriageAuthority)))
-            {
-                TriageAuthority chosen = authority;
-                options.Add(new FloatMenuOption(("PhobosTriage_Authority" + chosen).Translate(), () => SetDefault(groupKey, chosen)));
-            }
-            Find.WindowStack.Add(new FloatMenu(options));
-        }
-    }
+    static void AuthorityRow(SettingsList list, string groupKey, TriageAuthority current, TriageAuthority byDefault) =>
+        list.Choice(groupKey.Translate(), current, byDefault, (TriageAuthority[])System.Enum.GetValues(typeof(TriageAuthority)),
+            authority => ("PhobosTriage_Authority" + authority).Translate().Resolve(), chosen => SetDefault(groupKey, chosen));
+
 
     /// <summary>A float menu outlives the settings frame, so the choice lands by group name rather than by reference.</summary>
     static void SetDefault(string groupKey, TriageAuthority authority)

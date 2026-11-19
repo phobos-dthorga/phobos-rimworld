@@ -101,25 +101,21 @@ public static class DosingMod
         return names.Length == 0 ? "none" : names.ToString();
     }
 
-    internal static void DrawSettings(Listing_Standard listing)
+    static readonly DosingSettings Defaults = new();
+
+    /// <summary>The "Emergency dosing" page (settings pages, 20 Nov 2026).</summary>
+    internal static void DrawSettings(SettingsList list)
     {
-        listing.CheckboxLabeled("PhobosDosing_SettingEnabled".Translate(), ref Settings.enabled, "PhobosDosing_SettingEnabledDesc".Translate());
-        if (listing.ButtonTextLabeled("PhobosDosing_SettingMinimumCare".Translate(), Settings.minimumCare.GetLabel(), tooltip: "PhobosDosing_SettingMinimumCareDesc".Translate()))
-        {
-            var options = new List<FloatMenuOption>();
-            foreach (MedicalCareCategory care in CareChoices)
-            {
-                MedicalCareCategory chosen = care;
-                options.Add(new FloatMenuOption(care.GetLabel(), () => Settings.minimumCare = chosen));
-            }
-            Find.WindowStack.Add(new FloatMenu(options));
-        }
-        listing.CheckboxLabeled("PhobosDosing_SettingRecreational".Translate(), ref Settings.recreationalForPain, "PhobosDosing_SettingRecreationalDesc".Translate());
-        listing.CheckboxLabeled("PhobosDosing_SettingIgnoreAversion".Translate(), ref Settings.ignoreAversionForMedical, "PhobosDosing_SettingIgnoreAversionDesc".Translate());
-        listing.CheckboxLabeled("PhobosDosing_SettingImmunity".Translate(), ref Settings.immunityDosing, "PhobosDosing_SettingImmunityDesc".Translate());
-        listing.CheckboxLabeled("PhobosDosing_SettingFussing".Translate(), ref Settings.fussing, "PhobosDosing_SettingFussingDesc".Translate());
-        listing.Gap();
-        listing.CheckboxLabeled("PhobosDosing_SettingSelfMedication".Translate(), ref Settings.selfMedication, "PhobosDosing_SettingSelfMedicationDesc".Translate());
-        listing.CheckboxLabeled("PhobosDosing_SettingGuestsSelfMedicate".Translate(), ref Settings.guestsSelfMedicate, "PhobosDosing_SettingGuestsSelfMedicateDesc".Translate());
+        DosingSettings s = Settings, d = Defaults;
+        list.Check("PhobosDosing_SettingEnabled".Translate(), ref s.enabled, d.enabled, "PhobosDosing_SettingEnabledDesc".Translate());
+        list.Choice("PhobosDosing_SettingMinimumCare".Translate(), s.minimumCare, d.minimumCare, CareChoices, care => care.GetLabel(),
+            care => Settings.minimumCare = care, "PhobosDosing_SettingMinimumCareDesc".Translate());
+        list.Check("PhobosDosing_SettingRecreational".Translate(), ref s.recreationalForPain, d.recreationalForPain, "PhobosDosing_SettingRecreationalDesc".Translate());
+        list.Check("PhobosDosing_SettingIgnoreAversion".Translate(), ref s.ignoreAversionForMedical, d.ignoreAversionForMedical, "PhobosDosing_SettingIgnoreAversionDesc".Translate());
+        list.Check("PhobosDosing_SettingImmunity".Translate(), ref s.immunityDosing, d.immunityDosing, "PhobosDosing_SettingImmunityDesc".Translate());
+        list.Check("PhobosDosing_SettingFussing".Translate(), ref s.fussing, d.fussing, "PhobosDosing_SettingFussingDesc".Translate());
+        list.Section("PhobosDosing_SectionSelf".Translate());
+        list.Check("PhobosDosing_SettingSelfMedication".Translate(), ref s.selfMedication, d.selfMedication, "PhobosDosing_SettingSelfMedicationDesc".Translate());
+        list.Check("PhobosDosing_SettingGuestsSelfMedicate".Translate(), ref s.guestsSelfMedicate, d.guestsSelfMedicate, "PhobosDosing_SettingGuestsSelfMedicateDesc".Translate());
     }
 }

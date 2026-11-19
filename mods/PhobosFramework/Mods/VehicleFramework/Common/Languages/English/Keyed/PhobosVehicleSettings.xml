@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- D'thorga Vehicle Systems' settings entry and its pages (owner's choices of 20 Nov 2026, docs/development/settings-pages.md). -->
+  <PhobosVehicleSettings_Book>D'thorga Vehicle Systems</PhobosVehicleSettings_Book>
+  <PhobosVehicleSettings_PageWhich>Which vehicles</PhobosVehicleSettings_PageWhich>
+  <PhobosVehicleSettings_PageSystems>Systems</PhobosVehicleSettings_PageSystems>
+  <PhobosVehicleSettings_PageEngines>Engines and driving</PhobosVehicleSettings_PageEngines>
+  <PhobosVehicleSettings_PageAircraft>Aircraft and sling loads</PhobosVehicleSettings_PageAircraft>
+  <PhobosVehicleSettings_PageSteamElectric>Steam and electric</PhobosVehicleSettings_PageSteamElectric>
+  <PhobosVehicleSettings_PageDangers>Dangers and raids</PhobosVehicleSettings_PageDangers>
+  <PhobosVehicleSettings_PageRepairs>Repairs, service and fittings</PhobosVehicleSettings_PageRepairs>
+  <PhobosVehicleSettings_PageCrews>Cabs, camps and caravans</PhobosVehicleSettings_PageCrews>
+  <PhobosVehicleSettings_PageDisplay>Display, sound and stories</PhobosVehicleSettings_PageDisplay>
+  <PhobosVehicleSettings_PageRemoving>Removing</PhobosVehicleSettings_PageRemoving>
+  <PhobosVehicleSettings_Scope>Which vehicles get systems</PhobosVehicleSettings_Scope>
+  <PhobosVehicleSettings_SectionByMod>By the mod that adds them</PhobosVehicleSettings_SectionByMod>
+  <PhobosVehicleSettings_SectionByKind>By kind of vehicle</PhobosVehicleSettings_SectionByKind>
+  <PhobosVehicleSettings_Drivetrain>How engines and drivetrains work</PhobosVehicleSettings_Drivetrain>
+  <PhobosVehicleSettings_SectionFuel>Fuel and power</PhobosVehicleSettings_SectionFuel>
+  <PhobosVehicleSettings_SectionGround>Ground, weather and towing</PhobosVehicleSettings_SectionGround>
+  <PhobosVehicleSettings_SectionLights>Lights</PhobosVehicleSettings_SectionLights>
+  <PhobosVehicleSettings_SectionFlight>Flight</PhobosVehicleSettings_SectionFlight>
+  <PhobosVehicleSettings_SectionOthers>Other factions</PhobosVehicleSettings_SectionOthers>
+  <PhobosVehicleSettings_SectionService>Servicing</PhobosVehicleSettings_SectionService>
+  <PhobosVehicleSettings_SectionFittings>Fittings and tuning</PhobosVehicleSettings_SectionFittings>
+  <PhobosVehicleSettings_SectionCabs>Cabs</PhobosVehicleSettings_SectionCabs>
+  <PhobosVehicleSettings_SectionCamps>Camps and caravans</PhobosVehicleSettings_SectionCamps>
+  <PhobosVehicleSettings_ParkedWarningDesc>How many days before a vehicle left parked in the wild is lost a letter warns you. At 0, no warning.</PhobosVehicleSettings_ParkedWarningDesc>
+</LanguageData>

@@ -43,11 +43,11 @@ public class CombatExtendedPatchesSettings : ModSettings
 /// does nothing, so it stands down by itself when that is fixed. How to take it out: docs/development/temporary-patches.md.</item>
 /// </list>
 /// </summary>
-public class CombatExtendedPatchesMod : Mod
+public class CombatExtendedPatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.26.0";
+    public const string ModVersion = "0.27.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Combat Extended");
     const string AmmoFeature = "temporary guard: ammo set entries naming ammo that does not exist are dropped before Combat Extended's ammo setup";
@@ -59,6 +59,7 @@ public class CombatExtendedPatchesMod : Mod
     public CombatExtendedPatchesMod(ModContentPack content) : base(content)
     {
         Settings = GetSettings<CombatExtendedPatchesSettings>();
+        AddSettingsPages();
         var harmony = new Harmony(PackageId);
         EmptyAmmoLinksGuard.Apply(harmony);
         HarmonyPatchApplier.ApplyEach(harmony, typeof(CombatExtendedPatchesMod).Assembly, LogPrefix);
@@ -81,26 +82,31 @@ public class CombatExtendedPatchesMod : Mod
         report.Log();
     }
 
-    public override string SettingsCategory() => "PhobosCombatExtendedPatches_SettingsCategory".Translate();
 
-    public override void DoSettingsWindowContents(Rect inRect)
+    static readonly SettingsBook SettingsPages = SettingsBook.For("PhobosDthorga.Patches", () => "PhobosPatches_SettingsBook".Translate());
+    static readonly CombatExtendedPatchesSettings Defaults = new();
+    protected override SettingsBook Book => SettingsPages;
+
+    /// <summary>One D'thorga Patches entry with a page per patched mod (owner's choice of 20 Nov 2026, docs/development/settings-pages.md).</summary>
+    void AddSettingsPages() =>
+        SettingsPages.Join(this).Add(new SettingsPage("combat-extended", 10f, () => "PhobosCombatExtendedPatches_Page".Translate(), DrawSettings));
+
+    static void DrawSettings(SettingsList list)
     {
-        var listing = new Listing_Standard();
-        listing.Begin(inRect);
-        SettingsUi.Section(listing, "PhobosCombatExtendedPatches_SectionKeepGuns".Translate());
-        listing.CheckboxLabeled("PhobosCombatExtendedPatches_SettingKeepGuns".Translate(), ref Settings.keepGuns,
-            "PhobosCombatExtendedPatches_SettingKeepGunsDesc".Translate());
-        if (Settings.keepGuns)
+        CombatExtendedPatchesSettings s = Settings, d = Defaults;
+        list.Section("PhobosCombatExtendedPatches_SectionKeepGuns".Translate());
+        list.Note("PhobosCombatExtendedPatches_KeepGunsWhy".Translate());
+        list.Check("PhobosCombatExtendedPatches_SettingKeepGuns".Translate(), ref s.keepGuns, d.keepGuns, "PhobosCombatExtendedPatches_SettingKeepGunsDesc".Translate());
+        list.Warning(s.keepGuns ? null : "PhobosCombatExtendedPatches_KeepGunsOffWarning".Translate().ToString());
+        if (s.keepGuns)
         {
-            listing.CheckboxLabeled("PhobosCombatExtendedPatches_SettingFetchSameKind".Translate(), ref Settings.fetchSameKind,
+            list.Indent();
+            list.Check("PhobosCombatExtendedPatches_SettingFetchSameKind".Translate(), ref s.fetchSameKind, d.fetchSameKind,
                 "PhobosCombatExtendedPatches_SettingFetchSameKindDesc".Translate());
+            list.Outdent();
         }
-        listing.CheckboxLabeled("PhobosCombatExtendedPatches_SettingFixSidearms".Translate(), ref Settings.fixSidearms,
+        list.Check("PhobosCombatExtendedPatches_SettingFixSidearms".Translate(), ref s.fixSidearms, d.fixSidearms,
             "PhobosCombatExtendedPatches_SettingFixSidearmsDesc".Translate());
-        listing.Gap(6f);
-        listing.Label("PhobosCombatExtendedPatches_KeepGunsWhy".Translate());
-        if (!Settings.keepGuns) SettingsUi.Warning(listing, "PhobosCombatExtendedPatches_KeepGunsOffWarning".Translate());
-        listing.End();
     }
 }
 

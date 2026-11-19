@@ -7,13 +7,13 @@ required.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's
 [medical chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links for modders.
 
-Version 0.18.2, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
+Version 0.19.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
 D'thorga Medical (11 November 2026), and burns, dosing, the oxygen concentrator, the burn unit bed and the save bridge on the five
 mods it replaced (3 to 6 November 2026). Everything else is not yet tested in game, nor is the merged mod as a whole.
 
 ## Read this first (gotchas)
 
-- **Needs Harmony, D'thorga Framework 0.63.0 or later and Vanilla Expanded Framework, loaded before it.** The About file asks for
+- **Needs Harmony, D'thorga Framework 0.184.0 or later and Vanilla Expanded Framework, loaded before it.** The About file asks for
   that order, so RimSort and the game's sorter get it right. **RimWorld 1.7 only.**
 - **Vanilla Gravship Expanded is strongly recommended** (it needs the Odyssey expansion). The bedside oxygen stand, the oxygen
   trolley, the field oxygen kit, the hyperbaric chamber, the electrolyser and the liquid oxygen store use its oxygen canisters and
@@ -79,18 +79,29 @@ Each part has a section in the settings window and a section in the [player guid
 
 ## Settings
 
-One window, **D'thorga Medical**, in the game's mod settings, with a section per part. Read from the source and the English text
-files, 17 November 2026.
+One entry, **D'thorga Medical**, in the game's mod settings, with a page per part down the left (0.19.0; it was one long scroll).
+**Type in the search box to find a setting on any page**, tick **Changed only** to see just what you have changed (each marked with a
+dot), and use **Reset this page to defaults** at the bottom of a page. Read from the source and the English text files, 20 November 2026.
 
 | Setting, as the window shows it | What it does | Default |
 | --- | --- | --- |
+| ***General*** | | |
 | **How much to show** (Plain, Operator, Engineer) | How many figures this mod's text shows. Plain shows no percentages and no hours | Plain |
+| *Medical equipment* | No settings: a line says whether Vanilla Gravship Expanded is active and which pieces are off without it | |
 | ***Burns and smoke*** | | |
 | Burned body fraction | Adds every burn on the skin into one condition | On |
 | Burn shock | Large burns can kill within days unless treated | On |
 | Airway burns | Burns about the head and neck swell over hours | On |
 | Deeply burned limbs tighten | A deeply burned arm or leg grows a crust that cuts off its blood until an escharotomy | On |
 | Acid keeps burning until it is washed off | Acid on the skin deepens the burns until rinsed at a safety shower | On |
+| Smoke inhalation | Breathing smoke damages the lungs for days | On |
+| Carbon monoxide | Fires in closed rooms make carbon monoxide | On |
+| Also apply this mod's smoke inhalation with Combat Extended | Shown only with Combat Extended. Off: Combat Extended's own condition is the one that applies | Off |
+| Coughing | People with smoke, burned or stung airways cough now and then. Stays quiet by itself while another mod gives coughs, and names it | On |
+| Fires heat the air around them in the open | Each fire in the open heats the cells around it | On |
+| Fires heat the air around them in large rooms | The same in a room larger than 30 cells | On |
+| People and animals move away from heat that would burn them | Anyone not drafted sprints to cooler air; firefighters stay | On |
+| ***Caustic gas*** | | |
 | Tox gas does lasting harm | Tox gas is caustic; the settings below appear while it is on | On |
 | Tox gas acts fast | On: the harm comes at once, closer to the game's feel. Off: it comes hours later | Off |
 | Tox gas: injures the eyes / can swell the throat / injures the lungs / burns the skin | Each kind of harm on its own | On |
@@ -99,13 +110,6 @@ files, 17 November 2026.
 | Tox gas: a badly burned eye scars | A scarred cornea that dims the eye for good | On |
 | Tox gas: plants wilt | Plants and crops in dense gas die if it lingers | On |
 | Tox gas: strip and rinse | Gassed clothes keep burning until stripped at a shower | Off |
-| Smoke inhalation | Breathing smoke damages the lungs for days | On |
-| Carbon monoxide | Fires in closed rooms make carbon monoxide | On |
-| Fires heat the air around them in the open | Each fire in the open heats the cells around it | On |
-| Fires heat the air around them in large rooms | The same in a room larger than 30 cells | On |
-| People and animals move away from heat that would burn them | Anyone not drafted sprints to cooler air; firefighters stay | On |
-| Also apply this mod's smoke inhalation with Combat Extended | Off: Combat Extended's own condition is the one that applies | Off |
-| Coughing | People with smoke, burned or stung airways cough now and then. Stays quiet by itself while another mod gives coughs, and names it | On |
 | ***Emergency dosing*** | | |
 | Doctors give medication on their own | Painkillers, sedatives in extreme pain | On |
 | Dose patients whose medical care is at least | Patients set below this care level are not dosed; no medicine is never dosed | Herbal medicine or worse |
@@ -122,9 +126,8 @@ files, 17 November 2026.
 | Highest chance of death on the table the doctors may accept alone | Riskier operations wait for your order | 5% |
 | May use rare tools | Operations that use a costly instrument | On |
 | May operate where it would wrong another faction | Off: such operations wait for your order | Off |
-| Tell me when an operation is queued, or when no one can do one | Messages, naming what is missing | On |
 | Doctors take the worst case first | Off: the nearest patient, the game's order | On |
-| ***Medical equipment*** | No settings: a line says whether Vanilla Gravship Expanded is active and which pieces are off without it | |
+| Tell me when an operation is queued, or when no one can do one | Messages, naming what is missing | On |
 | ***Colonies saved before More Injuries*** | Counts the saves you chose never to convert; **Ask about them again** forgets that choice | |
 | ***Taking this mod out of a colony*** | **Remove every condition this mod adds, from every pawn**: a button, for use before removing the mod | |
 
