@@ -10,7 +10,7 @@ D'thorga Vehicles 0.71.0 ([what was built](#built-19-nov-2026-the-hover-half)); 
 ([built](#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover)); stock helicopters on our flight, behind a setting that
 starts off, in Framework 0.160.0 and Vehicles 0.81.0 ([built](#built-19-nov-2026-stock-helicopters-on-our-flight)). Not built: aeroplanes
 that never hover, side-firing gun arcs and runs, and flying other authors' aircraft on ours (decided 19 Nov 2026: after our own
-combat features, and only where the player turns it on, aircraft by aircraft; [the read and the decision](#read-19-nov-2026-other-authors-aircraft-on-our-flight)). Rotors that turn on our flight and landings that end with the engines off, Framework 0.173.0 ([built](#built-19-nov-2026-rotors-and-the-end-of-a-landing)). Nothing here is tested in game (rows 199, 200, 204 to 211, 235, 236). The owner answered
+combat features, and only where the player turns it on, aircraft by aircraft; [the read and the decision](#read-19-nov-2026-other-authors-aircraft-on-our-flight)). Rotors that turn on our flight and landings that end with the engines off, Framework 0.173.0 and 0.173.1; an audit of VTOL Vehicle and the Harrier for what we missed ([the read](#read-19-nov-2026-evening-vtol-vehicle-and-the-harrier-for-what-we-missed)) ([built](#built-19-nov-2026-rotors-and-the-end-of-a-landing)). Nothing here is tested in game (rows 199, 200, 204 to 211, 235, 236). The owner answered
 its four questions the same day ([their answers](#the-owners-answers-18-nov-2026)). **Two code reads made before building
 changed parts of the design**: where they differ, [what the reads found](#what-the-reads-before-building-found-18-nov-2026)
 is the newer word.
@@ -998,6 +998,71 @@ to their flight. Most of the cost is in patching the authors' own patch classes,
   needs), then a modern attack helicopter (owner: "both, jet first").
 - **D'thorga Patches keeps its parts for the Harrier, Hind and Mongoose until our own aircraft replace them**, each retired when ours
   covers what it gives, never in a sweep (owner, the agent's recommendation).
+
+## Read 19 Nov 2026 (evening): VTOL Vehicle and the Harrier, for what we missed
+
+At the owner's request ("audit the VTOL Vehicle's and Harrier's mods' code for anything useful we can learn and study from, both now and
+in the near future"), a research helper read VTOL Vehicle (rabiosus.vtolvehicle; the installed 1.7 build of 19 Nov 2026, against the
+15 Nov decompile, which differs in only 8 members), the Harrier's shipped source (16 Nov) and its fixed-wing fork, against our flight
+and the reads above. Neither mod states a licence: described in our own words, nothing copied. **[code]** marks what the helper read;
+**verified** marks what was then checked against our code before acting. Priorities are the agent's recommendation, for the owner to pick
+from. Neither mod has public source; the `VTOLVehicle-1.7-2026-11-19` decompile folder in `.local` is empty, so the helper decompiled the
+installed build into its own scratch space.
+
+### Acted on the same evening
+
+- **The take-off sound left playing** (verified; built in Framework 0.173.1, above): the likeliest cause of the owner's engines that would
+  not shut off.
+- **Rotors** (verified; built in Framework 0.173.0): Vehicle Framework's rotor overlays turn only from its propeller take-off and landing
+  animation. VTOL Vehicle draws rotors of its own instead: a still and a blurred picture crossfaded by a spin factor, 120 ticks up and 240
+  down, saved with the aircraft [code].
+
+### Decisions for the owner
+
+1. **How a landing ends.** VTOL Vehicle keeps the engines idling after a plain "land here" and shuts down only on an auto-land to a saved
+   pad, and it treats switching the engines off in the air as "land here and shut down" [code]. Ours (0.173.0) always shuts down, and in
+   the air restarts the engines and says so. Choices: keep "always off"; let each landing order say whether to shut down; or make
+   switching off in the air mean "land and shut down". **Agent's recommendation:** the third, plus keeping "always off", since it removes
+   the one refusal of the switch and costs one branch.
+2. **Wait for the rotors before lifting** (VTOL waits for 85 % of full spin) [code]. Ours lifts at once, rotors still spinning up.
+   Recommended, small.
+3. **Rotors at full when loaded in the air**: our spin is not saved, so an aircraft loaded in flight spins up from rest. Recommended, tiny.
+
+### Further findings
+
+| # | What they do | Ours | Size | Agent's priority |
+| --- | --- | --- | --- | --- |
+| 1 | Rotor and engine sound from the flight's state: a ground and a flight sound crossfaded by climb, pitch by speed [code] | No sound of our own over the map; only Vehicle Framework's event sounds | Small to medium | Now |
+| 2 | A group sent to one cell gets spread targets [code] | Each aircraft is sent to the clicked cell; Vehicle Framework's claims are first come [I] | Small | Now |
+| 3 | No work on an aircraft in the air, the game's own deconstruction included [code] | Vehicle Framework 1.7's disassembly is neither of the two kinds our guards catch, so an aircraft marked for disassembly may be taken apart in a hover [I, unverified] | Small | Now |
+| 4 | No flight over a map in space unless the launcher allows space [code] | No such check: a helicopter could hover in orbit [I] | Small | Now |
+| 5 | A raid's aircraft each claim a landing zone with a radius, scored for enclosure [code] | All of a raid's aircraft pick the same best spot and fall back on retries | Small | Now or soon |
+| 6 | Melee raiders stop choosing an aircraft in the air as a target (one prefix on the melee job giver) [code] | The hit is refused, but they may stand beneath swinging [I] | Small | Soon |
+| 7 | "Bingo fuel": once a second, the fuel needed to get home plus 10 % is compared, then it turns back with a message [code] | No warning; it falls when dry | Small (warning only) | Soon |
+| 8 | A saved landing pad per map, with an auto-land button [code] | None | Small to medium | Soon (fewer clicks) |
+| 9 | Board nearby with a drawn radius; disembark by role, never the pilots [code] | None | Small | Soon |
+| 10 | Ground blasts do a quarter of their damage to an aircraft in the air [code]; under Combat Extended an aircraft in the air counts as on its ground cell (the Harrier's notes) | Full damage | Small | Soon (owner's call) |
+| 11 | Hits spread over parts, and stray shots by the vehicle's fill [code] | Unchecked for the Osprey (fill 1: every miss crossing its footprint may hit it) [I] | Small (a check) | Soon |
+| 12 | No self-damage from its own fragments in the air [code] | None | Small | Later |
+| 13 | An emergency landing ploughs through what it can absorb, else wrecks [code] | We wreck over any building | Medium | Later |
+| 14 | An attack-run box kept inside the map, friendly cells shown, roofed cells refused [code] | Runs not built | Large | Later (F-35B) |
+| 15 | Raiders' routes avoiding turret coverage [code] | Straight in from the edge | Medium | Later |
+| 16 | Hover wobble, coloured rotor wash near the ground, a shadow that follows the sun [code] | None (wobble already planned) | Small to medium | Later |
+| 17 | Fire blocked by roofs between air and ground [code] | Ground line of sight | Medium | Only if cheap |
+| 18 | Patches applied class by class, and the roof check on the launch button in the air [code] | Already ours | | Done |
+
+### Pitfalls they show
+
+- **Releasing Vehicle Framework's position claim in the air** cost VTOL Vehicle three extra patches (game over, map removal, the colonist
+  bar) [code]: our choice to keep the claim stands.
+- **Patches on hot methods** (`Thing.TakeDamage`, `Projectile.Launch`, Combat Extended's collision check, the job tracker's next-job
+  method) and a high-priority draft prefix that blocks switching off [code].
+- **Rotor materials cached per alpha step** in the game's material pool, which never frees them, up to a thousand per texture [code].
+- **Silent refusals:** the 19 Nov VTOL build removed its crash messages and silenced refusals [code], against our "never silent" rule.
+- **Inlining under CoreCLR:** the Harrier's author twice designs around small methods inlined so that a prefix never ran (the author's
+  observation, not ours). It bears on our draw-position postfix, which only an in-game check settles.
+- **Vehicle Framework 1.7 signature changes** broke the Harrier's patches at run time [code]; our build and `check-targets.py` cover most
+  of that.
 
 ## Argued against
 
