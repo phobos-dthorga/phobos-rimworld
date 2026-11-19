@@ -334,8 +334,8 @@ the kit back in the cargo.
 
 ## Headlights
 
-- **Lights switch themselves, by default** (the setting **Lights switch themselves**, on): headlights light at night while a vehicle
-  is driven or its engine runs, and go out when it is parked with the engine off. **Work lamps** light at night while it stands still
+- **Lights switch themselves, by default** (the setting **Lights switch themselves**, on): headlights light in the dark (night, dusk
+  or an eclipse) while a vehicle is driven or its engine runs, and go out when it is parked with the engine off. **Work lamps** light at night while it stands still
   with your people near it, and go out an hour after the last one leaves; with the engine off and no power cable they light only while
   the battery is more than half full. **Switch a vehicle's headlights or work lamps button off to keep its lights dark.** The **Systems**
   tab says what a switched-on light is waiting for (dark, a stop, people near, a driver).

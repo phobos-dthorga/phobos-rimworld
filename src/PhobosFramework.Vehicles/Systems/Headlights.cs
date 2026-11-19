@@ -61,7 +61,7 @@ public sealed class Headlights
             return comp.Tier switch
             {
                 DetailTier.Full => comp.LoadActive(load.name),
-                DetailTier.Lite => vehicle != null && vehicle.Spawned && HeadlightRule.LiteBurns(When_Night.IsNight(vehicle), vehicle.vehiclePather is { Moving: true }),
+                DetailTier.Lite => vehicle != null && vehicle.Spawned && HeadlightRule.LiteBurns(When_Dark.IsDark(vehicle), vehicle.vehiclePather is { Moving: true }),
                 _ => false,
             };
         }
@@ -76,7 +76,7 @@ public sealed class Headlights
         return comp.Tier switch
         {
             DetailTier.Full => comp.LoadActive(load.name),
-            DetailTier.Lite => HeadlightRule.LiteBurns(When_Night.IsNight(vehicle), vehicle.vehiclePather is { Moving: true }),
+            DetailTier.Lite => HeadlightRule.LiteBurns(When_Dark.IsDark(vehicle), vehicle.vehiclePather is { Moving: true }),
             _ => false,
         };
     }

@@ -441,7 +441,7 @@
              hold and reserve are agent's choices for the owner to revise; the radius is the lamps' own pool (WorkLamps). -->
         <autoOn Class="Phobos.VehicleSystems.When_All">
           <conditions>
-            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_Dark" />
             <li Class="Phobos.VehicleSystems.When_Moving">
               <invert>true</invert>
             </li>
@@ -461,12 +461,12 @@
             </li>
           </conditions>
         </autoOn>
-        <autoDescription>they light by themselves at night while the vehicle stands still with your people near it, and go out an hour after the last one leaves. With the engine off and no power cable, they light only while the battery is more than half full, so it can still start the engine</autoDescription>
+        <autoDescription>they light by themselves in the dark while the vehicle stands still with your people near it, and go out an hour after the last one leaves. With the engine off and no power cable, they light only while the battery is more than half full, so it can still start the engine</autoDescription>
         <standbyLabel>waiting for dark and a stop</standbyLabel>
         <autoStandbyLabel>waiting for dark, a stop and people near</autoStandbyLabel>
         <when Class="Phobos.VehicleSystems.When_All">
           <conditions>
-            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_Dark" />
             <li Class="Phobos.VehicleSystems.When_Moving">
               <invert>true</invert>
             </li>
@@ -485,7 +485,7 @@
              runs, so with the engine off they run the battery down and can flatten it. Off by default, so a parked fleet is not flat by
              morning (agent's choice: a light vehicle's 45 Ah battery feeds 9 A of headlights for about five hours). -->
         <defaultOn>false</defaultOn>
-        <when Class="Phobos.VehicleSystems.When_Night" />
+        <when Class="Phobos.VehicleSystems.When_Dark" />
         <!-- Framework 0.171.0 (owner, 19 Nov 2026: lights that switch themselves, a setting on by default). With it on, the headlights light at
              night while the vehicle is driven or its engine runs, and go out once it is parked with the engine off, so a parked fleet is not flat
              by morning. Agent's choice for the owner to revise. -->
@@ -495,7 +495,7 @@
             <li Class="Phobos.VehicleSystems.When_Moving" />
           </conditions>
         </autoOn>
-        <autoDescription>they light by themselves at night while the vehicle is driven or its engine runs, and go out once it is parked with the engine off</autoDescription>
+        <autoDescription>they light by themselves in the dark while the vehicle is driven or its engine runs, and go out once it is parked with the engine off</autoDescription>
         <standbyLabel>waiting for dark</standbyLabel>
         <autoStandbyLabel>waiting for dark and a driver</autoStandbyLabel>
         <!-- Framework 0.104.0: the beam on the map, a warm halogen white (authored), its pool 5 cells past the nose with a 6-cell radius
@@ -718,7 +718,7 @@
              hold and reserve are agent's choices for the owner to revise; the radius is the lamps' own pool (WorkLamps). -->
         <autoOn Class="Phobos.VehicleSystems.When_All">
           <conditions>
-            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_Dark" />
             <li Class="Phobos.VehicleSystems.When_Moving">
               <invert>true</invert>
             </li>
@@ -738,12 +738,12 @@
             </li>
           </conditions>
         </autoOn>
-        <autoDescription>they light by themselves at night while the vehicle stands still with your people near it, and go out an hour after the last one leaves. With the engine off and no power cable, they light only while the battery is more than half full, so it can still start the engine</autoDescription>
+        <autoDescription>they light by themselves in the dark while the vehicle stands still with your people near it, and go out an hour after the last one leaves. With the engine off and no power cable, they light only while the battery is more than half full, so it can still start the engine</autoDescription>
         <standbyLabel>waiting for dark and a stop</standbyLabel>
         <autoStandbyLabel>waiting for dark, a stop and people near</autoStandbyLabel>
         <when Class="Phobos.VehicleSystems.When_All">
           <conditions>
-            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_Dark" />
             <li Class="Phobos.VehicleSystems.When_Moving">
               <invert>true</invert>
             </li>
@@ -762,7 +762,7 @@
              runs, so with the engine off they run the battery down and can flatten it. Off by default, so a parked fleet is not flat by
              morning (agent's choice: a light vehicle's 45 Ah battery feeds 9 A of headlights for about five hours). -->
         <defaultOn>false</defaultOn>
-        <when Class="Phobos.VehicleSystems.When_Night" />
+        <when Class="Phobos.VehicleSystems.When_Dark" />
         <!-- Framework 0.171.0 (owner, 19 Nov 2026: lights that switch themselves, a setting on by default). With it on, the headlights light at
              night while the vehicle is driven or its engine runs, and go out once it is parked with the engine off, so a parked fleet is not flat
              by morning. Agent's choice for the owner to revise. -->
@@ -772,7 +772,7 @@
             <li Class="Phobos.VehicleSystems.When_Moving" />
           </conditions>
         </autoOn>
-        <autoDescription>they light by themselves at night while the vehicle is driven or its engine runs, and go out once it is parked with the engine off</autoDescription>
+        <autoDescription>they light by themselves in the dark while the vehicle is driven or its engine runs, and go out once it is parked with the engine off</autoDescription>
         <standbyLabel>waiting for dark</standbyLabel>
         <autoStandbyLabel>waiting for dark and a driver</autoStandbyLabel>
         <!-- Framework 0.104.0: the beam on the map, a warm halogen white (authored), its pool 5 cells past the nose with a 6-cell radius

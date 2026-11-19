@@ -85,6 +85,29 @@ public class When_Night : VehicleSystemCondition
 }
 
 /// <summary>
+/// Dark where the vehicle is (Framework 0.173.2; the owner's screenshot of 19 Nov 2026: headlights "waiting for dark" at 17h during an eclipse).
+/// On a map, the sky's light there is below <c>darkBelow</c> (the game's own sense of dark for work, 0.3): night, dusk, an eclipse or a
+/// darkening storm all count, read from the sky alone, so the vehicle's own lights never switch themselves off. Off a map, where there is
+/// no sky to read, night by the clock (<see cref="When_Night"/>). A limit: under a thick roof at midday the sky still reads bright.
+/// </summary>
+public class When_Dark : VehicleSystemCondition
+{
+    public float darkBelow = DefaultDarkBelow;
+
+    /// <summary>The game's own threshold for dark (its work-speed and darkness rules use 0.3).</summary>
+    public const float DefaultDarkBelow = 0.3f;
+
+    protected override bool HoldsRaw(SystemContext context) => IsDark(context.Vehicle, darkBelow);
+
+    public static bool IsDark(Thing thing, float darkBelow = DefaultDarkBelow)
+    {
+        Map? map = thing.MapHeld;
+        if (map == null || !thing.SpawnedOrAnyParentSpawned) return When_Night.IsNight(thing);
+        return map.skyManager.CurSkyGlow < darkBelow;
+    }
+}
+
+/// <summary>
 /// Poor visibility for flying (Framework 0.110.0, avionics A1 and A2): night by the clock where the vehicle is, or, on a map, weather whose
 /// accuracy multiplier is below the rules' figure (fog and heavy rain in the base game), read from what the weather does, never its name.
 /// Off a map there is no weather, so only night counts there (a limit).

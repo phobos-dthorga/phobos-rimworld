@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.173.2] - 2026-11-19 - Draft
+
+Vehicle lights come on in the dark, not only at night by the clock
+
+### Fixed
+
+- **Headlights and work lamps come on whenever it is dark, an eclipse or dusk included**, not only between 19:00 and 06:00 by the clock. They now read the sky's light on the vehicle's map, as the game's own sense of dark does; off the map, in a caravan, the clock still decides. Before, during an eclipse they went on waiting for dark (the owner's screenshot, 19 Nov 2026, at 17h). The same goes for other factions' headlights and for a drill rig without work lights, which now slows in an eclipse as at night.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Under a thick roof at midday the sky still reads bright, so lights there wait for the evening. Navigation lights still follow the clock.
+
 ## [0.173.1] - 2026-11-19 - Draft
 
 A cancelled journey no longer leaves a helicopter's sound playing

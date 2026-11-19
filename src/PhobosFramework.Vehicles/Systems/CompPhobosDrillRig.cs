@@ -238,7 +238,8 @@ public sealed class CompPhobosDrillRig : CompPhobosRigWork
         }
         float factor = Vehicle.GetStatValue(RigDefOf.Phobos_DrillRate) * WorkPace;
         if (!orePresent) factor = DrillRule.StoneRate(factor, Vehicle.GetStatValue(RigDefOf.Phobos_BedrockFactor));
-        if (!WorkLamps.Fitted(Vehicle) && When_Night.IsNight(Vehicle)) factor *= Props.unlitFactor;
+        // Framework 0.173.2: dark by the sky, so an eclipse slows unlit drilling as night does.
+        if (!WorkLamps.Fitted(Vehicle) && When_Dark.IsDark(Vehicle)) factor *= Props.unlitFactor;
         float work = worker.GetStatValue(StatDefOf.DeepDrillingSpeed) * factor * delta;
         if (nextIsPiped)
         {
