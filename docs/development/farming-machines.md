@@ -197,6 +197,70 @@ may be learned from and adapted with attribution; code with no licence is read o
 | Vanilla Nutrient Paste Expanded's grinder (active) | 1.7 | Vanilla Expanded Framework's public source | Food held as a bulk amount in a network, not item stacks: the model for a silo |
 | [SeedsPlease: Lite](https://github.com/Owlchemist/RimWorld-SeedsPlease) (Owlchemist) | Stopped at 1.4 | Public, MIT | Seeds as items: the seed kept in the plant's `blueprintDef` field, dropped at harvest |
 
+## Real figures read in full (19 Nov 2026)
+
+The first round read these as search summaries; on 19 Nov 2026 a research helper opened each page and read it. **These set
+proportions; our figures are tuned for play and labelled [A].** Conversions are ours: 1 US gallon an acre is 9.354 litres a
+hectare; 1 lb per foot of width is 14.59 newtons per metre.
+
+### Fuel by field pass
+
+| Pass | Litres a hectare | Source |
+| --- | --- | --- |
+| Ploughing | 21 | Irish Farmers Journal, "Keep machine costs under control", 10 Dec 2014: a survey table of average diesel use |
+| Heavy or rotary cultivation | 13 | The same |
+| Combine harvesting | 11 | The same |
+| Fertiliser spreading | 3 | The same |
+| Spraying | 1 | The same |
+| Direct drilling, against ploughing, cultivating and sowing | 12, against 60 | Scotland's Farm Advisory Service, "Optimising tractor fuel use" (before 2015) |
+| Mouldboard plough / chisel plough / field cultivator | 15.9 / 10.3 / 6.1 to 6.5 | Iowa State University Extension PM 709, "Fuel required for field operations" (M. Hanna, rev. April 2001), on a central Iowa loam, plus or minus 35 % |
+| Grain drill / air drill / no-till planter | 2.8 / 6.5 / 4.2 | The same |
+| Combine, soybeans / corn | 9.4 / 13.6 | The same |
+| Sprayer / dry fertiliser spreading | 0.94 / 1.4 | The same |
+
+**Not confirmed:** a seedbed pass at 5 to 9 litres a hectare, which neither the Scottish guide nor Teagasc's page holds.
+
+### Draught and field capacity
+
+| Implement | Speed | Draught, average (range) | Field efficiency | Source |
+| --- | --- | --- | --- | --- |
+| Mouldboard plough, 7 inches deep, light / medium / heavy / clay soil | 5.5 / 5 / 5 / 4 mph | 4.7 / 7.3 / 11.7 / 17.5 kN a metre | 83 to 85 % | Iowa State University Extension PM 952, "Farm machinery selection" (W. Edwards, rev. Jan 2017), citing Hunt and Bowers; efficiency from A3-24 |
+| Chisel plough | 6 mph | 500 lb a shank (200 to 800) | 83 to 85 % | The same |
+| Tandem disc | 6 mph | 2.9 kN a metre (1.5 to 4.4) | 80 to 83 % | The same |
+| Field cultivator | 7 mph | 4.4 kN a metre (2.9 to 5.8) | 78 to 88 % | The same |
+| Grain drill / no-till drill | 6 mph | 1.0 / 2.9 kN a metre | 68 to 70 % | The same |
+| Combine (soybeans, corn) | 4.5 mph | — (driven, not drawn) | 75 to 82 % | Iowa State A3-24, "Estimating the field capacity of farm machines" (K. Rosentrater, rev. Feb 2026) |
+
+- **Field capacity** (A3-24, which cites ASABE EP496): acres an hour = width in feet x speed in mph x efficiency / 8.25. In metric,
+  hectares an hour = km/h x metres x efficiency / 10 (our unit conversion). Guidance by satellite raises efficiency 3 to 10 points.
+- **Power at the take-off** (PM 952): width x speed x draught x a soil factor / 375 horsepower; the soil factor runs from 1.52 (a
+  four-wheel-drive tractor on firm soil) to 2.13 (two-wheel drive on soft or sandy soil). That factor is the tractor's slip and
+  rolling loss, which our drivetrain already models from the ground; we take the draught and leave the factor to the model [I].
+- **Not confirmed:** the ASABE D497 coefficients themselves; a combine's engine power.
+
+### Harvest fires
+
+Victoria's Country Fire Authority and the Victorian Farmers Federation, "Voluntary grain harvesting guide", version 10, August
+2022, read in full [S]:
+
+- **Voluntary, not law.** Harvesting stops when the average wind speed passes a limit set by temperature and humidity, from a table
+  built on a fully cured 4.5 t/ha crop. Examples: at 40 °C and 15 % humidity, stop above 26 km/h; at 45 °C and 5 %, above 19 km/h;
+  at 30 °C and 20 %, above 33 km/h.
+- **A fire unit with 250 litres of water in the paddock**, a radio or phone, a 4 m break, and the header slowed by 1 to 2 km/h. The
+  CFA's own harvest page (updated 22 Sep 2026) recommends at least 1,000 litres on a vehicle, and both a dry powder extinguisher
+  (vehicle fires) and a water one (chaff fires).
+
+**For the game** [A, I]: the game knows the temperature and the wind; humidity is not modelled, so rain in the last day stands in for
+it. A harvest fire's odds rise past the table's line, and the water bowser in the paddock is the player's answer.
+
+### Seed against harvest
+
+- **Wheat sowing rate**: 45 to 75 kg/ha in a Victorian example, worked out from grain weight, plants wanted and germination (Birchip
+  Cropping Group, 14 Apr 2008); 140 to 200 kg/ha in Ireland (Teagasc). [S]
+- **As a share of the harvest**: about 3 % at 75 kg/ha and an Australian average near 2.4 t/ha (the yield was read only as a
+  summary; indicative). Farming Simulator 25's own wheat uses about 1.7 % (its community wiki's crop table) [S].
+- **For the game** [A]: seed at a few per cent of a harvest, so keeping seed back costs little grain but must be planned.
+
 ## The design
 
 ### The mod
@@ -258,12 +322,15 @@ flowchart LR
 - **Every stop says why**: tank full, seed out, fuel low, blocked row, crop not ripe, nobody able to drive.
 - **A new engine state, field work** (AG0.4): driving and working at once. The implement's drives are shaft-load Defs switched on
   in that state; **draught** joins the drivetrain's road load as a force from the implement's width, depth and the ground. The
-  form is the one ASABE standard D497 uses (draught from soil, speed, width and depth), as papers citing it give it [S, summary];
-  **the standard's own tables were not read** (it is copyrighted), and field studies report it under-predicting plough draught
-  [S, summary], so our coefficients are authored [A].
+  ASABE standard D497 could not be read (it is copyrighted, and the open pages that reproduced its tables are gone), so our
+  figures follow Iowa State University's draught per width by implement and soil, read in full
+  ([below](#real-figures-read-in-full-19-nov-2026)) [S], scaled for play [A].
 - **The player sees a plain statement**: "needs about 110 kW at this depth; this tractor has 75". Engineer mode may show the terms.
 - **Work rate is one rule**: speed times width times an efficiency for turns and overlap, the standard field-capacity relation
-  [S, summary: ASABE EP496, not read]. The same rule sets the rate of a farm running off the map.
+  [S: Iowa State's field capacity guide, which cites ASABE EP496]. The same rule sets the rate of a farm running off the map.
+
+**The build design for batch one** (paddocks, the combine, the chaser bin, the bins) is its own record:
+[farming batch one](farming-batch-one.md).
 
 **How much faster than hands** [A, I]: a grower of Plants 10 sows a cell in about 140 work ticks before walking (`sowWork` 170 at
 plant work speed 1.23). A five-cell drill moving at 1.5 cells a second sows about 7.5 cells a second: roughly fifteen to twenty
@@ -281,9 +348,8 @@ times a skilled hand. The figure is authored and will be set in play, not derive
 - **Implements may be smaller than a trailer** (owner): about 3 by 3 to 3 by 5 cells, sized to look right behind a tractor. The
   3 by 7 floor of 13 Nov 2026 still holds for trailers of goods, the chaser bin among them.
 - **Plough or direct-drill is the family's decision.** Real passes differ widely in fuel: ploughing about 21 litres a hectare,
-  heavy cultivation about 13, a seedbed pass 5 to 9, direct drilling about 12 against about 60 for ploughing, cultivating and
-  sowing together [S, summary: an Irish farm survey in the Farmers Journal; a Scottish Farm Advisory Service guide]. We keep the
-  proportions, not the numbers [A].
+  heavy cultivation about 13, direct drilling about 12 against about 60 for ploughing, cultivating and sowing together [S: read in
+  full, [below](#real-figures-read-in-full-19-nov-2026)]. We keep the proportions, not the numbers [A].
 - **Wet ground stops work** [A]: grip already falls in rain and on soft ground (`WeatherGripRule`, `TreadRules`), so a loaded tractor
   bogs on a wet paddock without a new rule.
 
@@ -302,8 +368,9 @@ times a skilled hand. The figure is authored and will be set in play, not derive
 - **Dual crops give their second product** (barley's hay, oats' raw oats, from Vanilla Expanded Framework's extension), made by us
   because the framework skips it for a vehicle.
 - **Harvest fires** (owner: a switch, on in the Realistic preset, off in the others): a combine working a dry paddock on a hot day
-  may start a fire, a real risk that Australian fire services write harvest rules for (unverified here; no source read). It ties
-  into the existing fire and smoke work. The odds are authored [A].
+  may start a fire. Victoria's Country Fire Authority and farmers' federation publish when harvesting should stop, by temperature,
+  humidity and wind, and the water a crew should carry ([below](#real-figures-read-in-full-19-nov-2026)) [S]. The game has the
+  temperature and the wind; the odds are authored [A].
 - **This family is built first** (owner), with the base. **Agent's note for the owner:** the chaser bin needs something to tow it
   before the tractors arrive with the second batch. Any vehicle with our drivetrain can tow, so our existing trucks can; or one
   tractor could move forward into the first batch.
@@ -402,7 +469,8 @@ Each batch arrives with its own art before its first test, as the owner prefers.
 - **Whether Vehicle Framework's lord job or our own driven job is the better base** for a field run: both were read, neither tried.
 - **How a vehicle as the harvester behaves in play**: reasoned from five patches' code, never run.
 - **Tractor: Industrial Age's code**: no public source; not installed.
-- **The real figures above were read as search summaries only**, and no Def may carry one until its page is read (AG6).
+- **A few figures could not be confirmed** from a page read in full: a seedbed pass's fuel, combine engine power, and draught by
+  the ASABE standard itself. No Def carries them ([below](#real-figures-read-in-full-19-nov-2026)).
 
 ## Sources
 
@@ -411,10 +479,14 @@ Each batch arrives with its own art before its first test, as the owner prefers.
   the ignored `.local/` and summarised here in our own words.
 - **Public mod source read**: Project RimFactory Revived (zymex, MIT); Farming Expansion (Mlie, MIT); SeedsPlease: Lite (Owlchemist,
   MIT).
-- **Fuel by field pass** [S, summary]: an Irish farm survey reported in the
-  [Irish Farmers Journal](https://www.farmersjournal.ie/amp/focus/blank/keep-machine-costs-under-control-170506); Scotland's Farm
-  Advisory Service, [a practical guide to optimising tractor fuel use](https://www.fas.scot/downloads/practical-guide-optimising-tractor-fuel-use);
-  Iowa State University Extension, [PM 709](https://store.extension.iastate.edu/Product/pm709-pdf). None read in full.
-- **Draught and field capacity**: the American Society of Agricultural and Biological Engineers' standards D497 and EP496, named
-  for the form of the relations only; neither was read.
+- **Fuel by field pass**, read in full on 19 Nov 2026: the
+  [Irish Farmers Journal](https://www.farmersjournal.ie/amp/focus/blank/keep-machine-costs-under-control-170506) (10 Dec 2014);
+  Scotland's Farm Advisory Service, [optimising tractor fuel use](https://www.fas.scot/downloads/practical-guide-optimising-tractor-fuel-use);
+  Iowa State University Extension, [PM 709](https://store.extension.iastate.edu/Product/pm709-pdf) (Mark Hanna, rev. 2001).
+- **Draught and field capacity**, read in full: Iowa State University Extension's PM 952 / Ag Decision Maker A3-28, "Farm machinery
+  selection" (William Edwards, rev. 2017), and A3-24, "Estimating the field capacity of farm machines" (Kurt Rosentrater, rev.
+  2026), which cites ASABE EP496 and D497. The ASABE standards themselves were not read.
+- **Harvest fires**, read in full: Country Fire Authority and Victorian Farmers Federation, "Voluntary grain harvesting guide",
+  version 10 (August 2022), and the CFA's harvest fire safety page (updated 22 Sep 2026).
+- **Sowing rates**: Birchip Cropping Group (14 Apr 2008); Teagasc's winter wheat guide.
 - **Farming Simulator 25** (GIANTS Software) as the design reference, with its sources in [soil rules](farming-soil.md).

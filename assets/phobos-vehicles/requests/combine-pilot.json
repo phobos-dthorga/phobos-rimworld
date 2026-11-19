@@ -1,0 +1,37 @@
+[
+  {
+    "name": "farming-combine-body-north",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 2048,
+    "seeds": [
+      1,
+      2,
+      3
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Tipper/Tipper_north.png",
+        "role": "our approved Talus tipper truck, the owner's pick, from the same family of working vehicles: match its outline weight, shading, palette and finish only; do not copy its shape, cab or body"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "D'thorga Farming's combine harvester (no Def yet), footprint (4, 9), drawSize (6, 10) so the grain front's overhang fits on the same canvas, 128 px per unit so 768 x 1280 in game; requested at 1536 x 2048, 1.6 times the drawn size, above the owner's 1.5 times minimum (rule of 9 Nov 2026)",
+      "measured_against": "owner's list, 19 Nov 2026: no farm vehicle is active. Our trucks are 3 x 8 to 3 x 10 (the Talus 3 x 8 drawn 4 x 9; tanker and drill rig 3 x 10); the Osprey 5 x 9. A combine without its front is wider than a truck and about as long",
+      "this_request": "pilot: the north base body only, without its front, three attempts; waits on the owner's go (design: docs/development/farming-batch-one.md)",
+      "layout": "the body occupies the middle 4 units of the 6-unit width and the lower 9 of the 10 units of height; the top unit and the overhang either side stay empty, for the front overlay",
+      "overlays_planned_on_this_canvas": [
+        "standard grain front (5 cells wide) across the top",
+        "wide grain front (7 cells wide) across the top, the either/or alternative",
+        "unloading auger swung out to the left (raised gear, while pouring)",
+        "grain tank extension (upgrade): raised tank sides",
+        "straw chopper (upgrade) at the rear",
+        "damage: from the tanker's marks"
+      ],
+      "colour_masks": "CutoutComplexPattern: colour on the body panels, colourTwo on one accent; masks by script",
+      "design": "docs/development/farming-batch-one.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga combine harvester: a big self-propelled grain harvester that drives across ripe fields cutting and threshing the crop, in a hard-scrabble frontier colony. Draw the BARE MACHINE only: the cab, the body and its grain tank, the engine deck and the wheels. The cutting front across the front of the machine is drawn separately as an overlay, so leave it off. Image 1 is our approved tipper truck from the same family of working vehicles: match its outline weight, shading, palette and finish only. Do NOT copy its shape, cab or body.\n\nTall canvas, plain pure white background. North facing: the front of the machine points to the TOP of the canvas. The machine is centred left to right and fills about two thirds of the canvas width. It sits in the lower nine tenths of the canvas height, from the bottom margin up; the top tenth of the canvas and the space either side of the machine stay pure white, empty, for the cutting front.\n\nIts roof plan, front to back: a squarish glazed cab roof at the front centre, with a short feeder throat below it reaching to the front edge where the cutting front will attach; behind the cab, a large open-topped grain tank, rectangular, with a pale interior floor and a low rim, taking up much of the middle; a folded unloading auger tube lying flat along the left side of the grain tank, pointing back; behind the tank, a long engine deck with a radiator grille and an air intake; at the rear, a narrow tapering straw outlet. Two very large front drive wheels either side of the cab, and two smaller steering wheels at the rear, all seen from above as dark rubber tyre treads beside the body.\n\nMaker palette as materials: weathered harvest-green body panels, a pale grey cab roof, dark rubber tyres, steel grey auger and grilles, one muted yellow accent stripe.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo cutting front, no reel, no grain, no crop, no straw, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials, screens or lamps. No floor, ground, field, road, shadow outside the machine, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

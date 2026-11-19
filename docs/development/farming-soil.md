@@ -119,9 +119,11 @@ moisture model, Terra Project (2019, abandoned), was found punishing by its play
 
 The model is Farming Simulator 25 (GIANTS Software): a field has states the player can see, and each care step adds to the yield.
 
-- **What players report of that game** [S, summary: community guides, not the developer's figures, and they disagree in places]:
-  fertilising twice adds about 45%; removing weeds early about 20%; lime about 15%, fading over three harvests; ploughing about
-  15%; rolling and mulching 2.5% each; together about double the bare yield.
+- **What the developer says of that game**, read in full on 19 Nov 2026 (GIANTS Software's "Ground working 101" and the community
+  wiki's copy of the Farming Simulator 25 manual) [S]: rolling adds 2.5 % and mulching 2.5 %; lime is spread after every three
+  harvests; fertiliser goes on up to twice a crop; weed killer costs a small yield penalty. **No official figure was found for
+  fertiliser, lime, ploughing or weeding.** The figures players quote (fertiliser about 45 %, lime 15 %, ploughing 15 %, weeding
+  20 %) are the wiki's for Farming Simulator 22 and blogs' for 25 [S, unverified for 25].
 - **Ours** [A]: a paddock shows its states (ploughed, limed, fertilised once or twice, weeds low or high), each step adds a share
   of yield for the coming crop, and the shares add up to a ceiling. The figures are authored for play and set at the first build.
 - **Nothing here runs down the soil**: skip every step and the paddock yields what the plain game gives.
@@ -142,6 +144,18 @@ The model is Farming Simulator 25 (GIANTS Software): a field has states the play
   nitrogen fertilisers sour a paddock over years, ammonium sulphate most. Acid soil locks up phosphorus and stunts legumes. Lime
   takes the acid up, slowly: CaCO3 + 2 H+ -> Ca2+ + H2O + CO2. Too much lime is its own problem: at high pH other nutrients are
   locked up instead.
+- **The figures behind it**, read in full on 19 Nov 2026 [S]:
+  - **Lime to undo nitrogen**, kg of lime per kg of N, with half the nitrate leached (Limestone Coast Landscape Board, South
+    Australia, "Soil acidity in the Limestone Coast", Feb 2021): urea and ammonium nitrate 1.8; ammonium sulphate, DAP and MAP 5.4.
+    Fully leached, double that. Continuous grain cropping acidifies at 180 to 320 kg of lime a hectare a year.
+  - **Where harm starts**: aluminium and manganese become toxic and phosphorus is bound by aluminium and iron below pH 5.0 (in
+    calcium chloride); the cropping target is 5.5 (Northern and Yorke NRM Board, South Australia, fact sheet 4.007, June 2011).
+    Western Australia's soil quality sheets set the topsoil above 5.5 and the subsoil above 4.8.
+  - **How slowly lime acts**: "very slowly down the soil profile" (Holbrook Landcare and GRDC, 2016); finer lime acts sooner. A
+    rate in centimetres a year was not confirmed.
+- **Farming Simulator 25's Precision Farming add-on** keeps an optimum pH by soil type (loamy sand 6.0, sandy loam 6.5, loam 6.75,
+  silty clay 7.0) that falls after every harvest (its community wiki) [S]. Its scale is not calcium chloride; we keep the real
+  scale and its thresholds [A].
 - **Weeds build up** when nothing checks them and take a share of the crop; **the same crop year after year builds disease**, which
   rotation and fallow break.
 - **Mistakes last**: a mined or soured paddock takes seasons to restore.
@@ -181,10 +195,26 @@ flowchart LR
 - **This is a design still to write**, as the engine loads were: a step back first, then the ledger of links
   ([engine loads](vehicle-engine-loads.md) is the model).
 
-**Real proportions, to scale the authored figures** [S, summary]: wheat grain carries off roughly 22 kg of nitrogen, 3 kg of
-phosphorus and 8 kg of potassium for each tonne, the last including an allowance for burnt stubble (Incitec Pivot Fertilisers'
-trials); other tests give 2.3 to 4 kg of phosphorus and 3.7 to 5 kg of potassium a tonne (Nutrient Advantage). **None was read in
-full; no Def may carry one until its page is read** (SL7).
+**Nutrients carried off in a tonne of grain**, to scale the authored figures, read in full on 19 Nov 2026 [S]:
+
+| Crop | N kg | P kg | K kg | S kg |
+| --- | --- | --- | --- | --- |
+| Wheat | 23 | 3 | 4 | 1.4 |
+| Barley | 20 | 2.9 | 4.4 | 1.1 |
+| Canola | 40 | 6.5 | 9.2 | 9.8 |
+| Field peas | 37 | 4.0 | 8.2 | 2.0 |
+| Chickpeas | 34 | 3.8 | 8.9 | 1.8 |
+| Cereal straw (per tonne of straw) | 7 | 0.7 | 10 | 0.7 |
+
+- **Source**: Summit Fertilizers, Western Australia, a fertiliser company's averages, which it says "can vary up to 50 % under
+  differing conditions". It agrees with Western Australia's soil quality sheet (wheat and barley 3 kg P a tonne, canola 7) and the
+  International Plant Nutrition Institute's manual (winter wheat grain 19 kg N) [S].
+- **Straw carries the potassium**: taking straw or hay off as well about doubles the potassium removed (Incitec Pivot Fertilisers,
+  reported in Country News, 9 Mar 2020) [S]. A baler is therefore a soil decision, not only a feed one.
+- **Corrections to the first round**: wheat's phosphorus is 2.3 to 3.6 kg a tonne (Norton 2009, as Incitec Pivot cites it, Dec
+  2025), not 2.3 to 4; the 22 N, 3 P and 8 K figures and the 3.7 to 5 K range could not be confirmed, their pages being gone.
+- **Legumes** carry off more nitrogen than cereals because they fix their own [C]; the record's rule that legumes put nitrogen back
+  applies to what they leave in the soil, not to their grain.
 
 ## The equations
 
@@ -253,24 +283,26 @@ full; no Def may carry one until its page is read** (SL7).
 - **Whether one postfix on `Plant.YieldNow` is cheap enough at a large harvest**: it should be, at one lookup a plant, but it is
   unmeasured.
 - **How Dubs Bad Hygiene's settings are best read from outside it**: its options were read in code, not through an interface.
-- **Every real figure above**, read as a search summary only.
+- **A rate for lime moving down the soil** in centimetres a year: only a qualitative "very slowly" was confirmed.
 - **The textbook chemistry marked [C]** is the agent's own and unsourced: the owner is asked to correct it.
 
 ## Sources
 
 - **Dubs Bad Hygiene** (Dubwise): its 1.7 build, decompiled into the ignored `.local/` and summarised in our own words.
 - **Public mod source**: Crop Rotation and Farming Expansion (Mlie, MIT).
-- **Farming Simulator 25** (GIANTS Software): the Precision Farming add-on's
-  [changelog](https://www.farming-simulator.com/changelogs/fs25-precisionFarming.php) and
-  [the developer's post](https://www.farming-simulator.com/newsArticle.php?news_id=194); the community
-  [wiki page on Precision Farming](https://farmingsimulator.wiki.gg/wiki/Precision_Farming/Farming_Simulator_25). The care-step
-  percentages are from community guides read as search summaries, among them
-  [itemlevel.net's yield guide](https://itemlevel.net/how-to-maximize-yield-in-farming-simulator-25/); they are not the
-  developer's figures.
+- **Farming Simulator 25** (GIANTS Software), read in full on 19 Nov 2026: the Precision Farming add-on's
+  [changelog](https://www.farming-simulator.com/changelogs/fs25-precisionFarming.php); GIANTS' "Ground working 101" news article;
+  the community [wiki page on Precision Farming](https://farmingsimulator.wiki.gg/wiki/Precision_Farming/Farming_Simulator_25) and
+  its copy of the manual. GIANTS' [2020 article](https://www.farming-simulator.com/newsArticle.php?news_id=194) cited in the first
+  round is about the earlier Precision Farming project, not Farming Simulator 25. Blog percentages, such as
+  [itemlevel.net's](https://itemlevel.net/how-to-maximize-yield-in-farming-simulator-25/), are not the developer's.
+- **Soil acidity**, read in full: Limestone Coast Landscape Board, "Soil acidity in the Limestone Coast" (Feb 2021); Northern and
+  Yorke NRM Board fact sheet 4.007 (June 2011); SoilQuality.org.au's Western Australian sheets.
+- **Nutrients in grain**, read in full: Summit Fertilizers' removal table (commercial, Western Australia); the International Plant
+  Nutrition Institute's 4R Plant Nutrition Manual, table 4.5; Incitec Pivot Fertilisers, "Grain and hay: understanding nutrient
+  removal and replacement" (L. Menhenett, Dec 2025). GRDC's pages refused automated reading.
 - **Other games** [S]: the [Captain of Industry wiki on fertility](https://wiki.coigame.com/Fertility); Farthest Frontier's
   [official farming guide](https://www.farthestfrontier.com/guide/gameplay/farming); Gamer Guides on
   [Manor Lords' fertility](https://gamerguides.com/manor-lords/guide/resources/farming/farming-fertility-explained).
-- **Nutrients carried off in grain** [S, summary]: Incitec Pivot Fertilisers,
-  [nutrient removal after hay or grain harvesting](https://incitecpivotfertilisers.com.au/news-and-insights/agronomic-insights/winter-crop/nutrient-removal-after-hay-or-grain-harvesting);
-  Nutrient Advantage's [winter crop insights](https://nutrientadvantage.com.au/latest-publications/agronomic-insights/winter-crop).
-  Which page carries which figure is unconfirmed.
+- **The first round's nutrient pages** (Incitec Pivot's "nutrient removal after hay or grain harvesting" and Nutrient Advantage's
+  winter crop page) now return "not found"; their figures are not used.
