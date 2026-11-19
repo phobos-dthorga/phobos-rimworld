@@ -40,6 +40,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Research gates audit](research-gates-audit-2026-11-17.md) (17 Nov 2026): what is gated and what is not; proposals R1 to R9. Built, bar R5 and R7.
 - [Radiation control line](radiation-control-line.md) (10 Nov 2026): where colonists suit up for Rimatomics' radiation. Built.
 - [A setup wizard on first load](first-load-setup-wizard.md) (9 Nov 2026): the owner's idea, kept for later. Record only.
+- [Alternate looks](alternate-looks.md) (19 Nov 2026): good unused pictures as choosable looks; skins and customisation. Record only.
 
 ## Vehicles
 

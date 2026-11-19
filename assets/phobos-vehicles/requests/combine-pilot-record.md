@@ -23,5 +23,6 @@ height; the request asked for a tenth).
 **Agent's lean: attempt 1.** Its width with the tyres is about 54 % of the canvas against the planned 67 % (4 of 6 units), so the
 export will set the drawn size to fit the 4-cell footprint rather than regenerate (rule 11: scripts do sizes for free).
 
-**Decision:** waiting on the owner's pick, from `assets/phobos-vehicles/generated/review.html`. The pick goes to `art-masters` and
-the other two to `art-references` with their reasons, through `scripts/art/archive_branch.py`.
+**Decision (owner, 19 Nov 2026):** attempt 1 is the combine's default body, and **all three are kept for use**: "I feel that we use
+all of these". Attempts 2 and 3 are the first candidates for [alternate looks](../../../docs/development/alternate-looks.md), so all
+three went to `art-masters` (`vehicles/farming/combine-body-north-1` to `-3`, commit 97380a7), none to `art-references`.
