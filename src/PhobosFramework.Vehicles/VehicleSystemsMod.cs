@@ -3,6 +3,7 @@ using System.Linq;
 using HarmonyLib;
 using Phobos.Framework;
 using Phobos.Framework.Patching;
+using Phobos.Framework.Rules;
 using Phobos.Shared;
 using RimWorld;
 using UnityEngine;
@@ -158,6 +159,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A journey away from any map where something went wrong (a new fault, a halt, someone hurt) is also a letter (Framework
     /// 0.181.0, EM25; agent default, agreed by the owner on 20 Nov 2026: on). Every journey goes in the logbook either way. Live.</summary>
     public bool tripLetters = true;
+    /// <summary>How far the vehicle systems' messages nobody asked for are quietened (Framework 0.186.0, VehicleMessageLevel; owner's
+    /// choice of 20 Nov 2026: a setting; agent default: every message, as before). Live.</summary>
+    public MessageLevel messageLevel = MessageLevel.All;
 
     public enum HoverLimit
     {
@@ -258,6 +262,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref batteryFires, "PhobosVehicleSystems_BatteryFires", false);
         Scribe_Values.Look(ref electricLightning, "PhobosVehicleSystems_ElectricLightning", false);
         Scribe_Values.Look(ref tripLetters, "PhobosVehicleSystems_TripLetters", true);
+        Scribe_Values.Look(ref messageLevel, "PhobosVehicleSystems_MessageLevel", MessageLevel.All);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             disabledPackages ??= new List<string>();
@@ -312,6 +317,7 @@ public class VehicleSystemsMod : SettingsBookMod
                   + VehicleSystems.Designs.Sum(d => d.partsAdded) + " parts appended, "
                   + VehicleSystems.Designs.Sum(d => d.def.GetCompProperties<CompProperties_PhobosVehicleSystems>()?.weaponsTied ?? 0) + " weapons tied to a mount");
         if (Settings.showOnly) report.On("figures only (setting)");
+        if (Settings.messageLevel != MessageLevel.All) report.On("vehicle messages nobody asked for: " + Settings.messageLevel + " (setting)");
         if (Settings.boilerExplosions) report.On("boiler explosions (setting)");
         if (Settings.realisticFeedWater) report.On("realistic feed water (setting)");
         if (Settings.nightHeater) report.On("night heater at camp (setting)");
@@ -551,6 +557,11 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Section("PhobosFramework_SectionSound".Translate());
         list.Check("PhobosFramework_SettingSystemSoundsOnOtherVehicles".Translate(), ref FrameworkMod.Settings.systemSoundsOnOtherVehicles,
             FrameworkDefaults.systemSoundsOnOtherVehicles, "PhobosFramework_SettingSystemSoundsOnOtherVehiclesDesc".Translate());
+        // The vehicle message level (Framework 0.186.0): only messages nobody asked for; replies and letters always show.
+        list.Section("PhobosVehicleSettings_SectionMessages".Translate());
+        list.Radio("PhobosVehicleSettings_MessageLevel".Translate(), ref s.messageLevel, d.messageLevel,
+            (MessageLevel[])System.Enum.GetValues(typeof(MessageLevel)), level => ("PhobosVehicleSettings_MessageLevel" + level).Translate(),
+            level => ("PhobosVehicleSettings_MessageLevel" + level + "Desc").Translate(), "PhobosVehicleSettings_MessageLevelDesc".Translate());
         // Stories (Framework 0.181.0; docs/development/vehicle-emergent-play.md): what a vehicle's life leaves for the player to read.
         list.Section("PhobosVehicleSystems_SectionStories".Translate());
         list.Check("PhobosVehicleSystems_SettingTripLetters".Translate(), ref s.tripLetters, d.tripLetters, "PhobosVehicleSystems_SettingTripLettersDesc".Translate());

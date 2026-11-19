@@ -312,6 +312,10 @@
       "gathering waits for a driver": [{"key": "vehicles.driver-call.waiting", "variant": "gather"}],
       "a colonist takes the wheel": [{"key": "vehicles.driver-call.aboard"}]
     }},
+    "268": {"parts": {
+      "routine news hidden at Only troubles": [{"key": "vehicles.message-level", "variant": "TroublesOnly"}],
+      "unasked messages hidden at None": [{"key": "vehicles.message-level", "variant": "LettersOnly"}]
+    }},
     "267": {"parts": {
       "a search across the pages": [{"key": "framework.settings-pages", "variant": "search"}],
       "changed only": [{"key": "framework.settings-pages", "variant": "changed only"}],

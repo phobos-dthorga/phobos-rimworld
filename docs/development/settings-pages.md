@@ -1,7 +1,7 @@
 # Settings pages: one layout for every D'thorga settings window
 
-**Status (20 Nov 2026):** built in D'thorga Framework 0.184.0, D'thorga Medical 0.19.0 and D'thorga Patches 0.27.0; not yet tested in
-game (test row 267). The vehicle message level (owner's choice, below) is the next step, not built yet (row 268 held for it).
+**Status (20 Nov 2026):** built in D'thorga Framework 0.184.0, D'thorga Medical 0.19.0 and D'thorga Patches 0.27.0 (test row 267), and
+the vehicle message level in Framework 0.186.0 (row 268); none of it tested in game yet.
 
 The owner, 20 Nov 2026: "We absolutely need to straighten/neaten out our settings pages throughout our Rimworld mods. Right now, it's
 quite the mess and rather difficult to find anything of what you might be after. Also, do an audit for any new settings that might make
@@ -50,7 +50,7 @@ Read from the source and the owner's saved settings (`python scripts/mod-setting
 | The four Patches entries were named inconsistently, and the missile one only "D'thorga Patches" | One entry |
 | Three display modes (vehicles, medical, radio) | **Kept apart**: the owner's own saved settings use Engineer for vehicles and Operator for medical, so merging would take away a real choice |
 | Figures only (every system) overlaps the drivetrain's "shown, speeds unchanged" | Kept: different reach (all systems against the drivetrain alone). Both now sit near the top of their pages. Worth a look if the owner finds them confusing |
-| Vehicle systems post messages from about 150 places, with no way to quiet them | **The vehicle message level**, next step (below) |
+| Vehicle systems post messages from about 150 places, with no way to quiet them | **The vehicle message level**, built in Framework 0.186.0 (below) |
 | Nothing said which changes waited for a restart once the window closed | **The restart reminder**, built |
 
 No other setting was found redundant or dead: every saved key is read by the code that it names.
@@ -68,11 +68,11 @@ No other setting was found redundant or dead: every saved key is read by the cod
 - Rows marked `restart` remember their first value; if any differ when the window closes, a message box lists them. At the main menu it
   offers the game's own restart.
 
-## Next: the vehicle message level (designed, not built)
+## The vehicle message level (built in Framework 0.186.0)
 
 The owner chose "All / Important only / Letters only". From the code: of the vehicle systems' messages, 73 are refusals, 59 silent
 confirmations and 24 cautions, answers to the player's own clicks, which must never be hidden (every refusal says why). The level
-applies only to messages nobody asked for. Plan: one Harmony prefix on the game's `Messages.Message(Message, bool)`, which with the
+applies only to messages nobody asked for. Built as designed: one Harmony prefix (`Service/VehicleMessageLevel.cs`, rule `Rules/MessageLevelRule.cs`) on the game's `Messages.Message(Message, bool)`, which with the
 level at All returns at once (no cost); otherwise, for a message posted by a vehicle systems assembly outside the GUI (the stack holds
 no `Root.OnGUI` frame, so no click caused it), it hides routine news (neutral, positive, task done) at Important only, and all of it at
 Letters only. Refusals, cautions, threats and letters always show. Six other mods in the owner's list already prefix that method

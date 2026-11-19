@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.186.0] - 2026-11-20 - Draft
+
+A setting to quieten vehicle messages nobody asked for
+
+### Added
+
+- **Vehicle messages nobody asked for** (owner's choice, 20 Nov 2026), on D'thorga Vehicle Systems' Display, sound and stories page: **Every message** (the default, as before), **Only troubles** (breakdowns, fires, damage, losses and threats still show; routine news such as a fitting finished or a tank topped up does not), or **None: letters only**. Answers to your own orders always show, whatever you choose (a refusal saying why, a caution, a confirmation), and so do letters. It works on every vehicle message, those added later included, by looking at what kind of message it is and whether a click of yours caused it.
+- **For other modders:** MessageLevelRule in the core's rules, game-free: which kinds of message a level hides.
+
+### Save compatibility
+
+- Safe to add to a save. The setting is saved with your mod settings, not in a colony.
+
+### Compatibility and limits
+
+- Not yet tested in game.
+- It hides only messages from D'thorga's vehicle systems. Six other mods in a large list (Block Unwanted Minutiae, the Hind and the Mongoose among them) also sit on the game's message method, each for its own messages; this leaves theirs alone.
+- At Every message it costs nothing. At the other two, each vehicle message nobody asked for costs one look at where it came from: messages are rare, so this is not felt.
+
 ## [0.185.0] - 2026-11-20 - Draft
 
 Unwise orders go ahead with a warning, and their consequences follow

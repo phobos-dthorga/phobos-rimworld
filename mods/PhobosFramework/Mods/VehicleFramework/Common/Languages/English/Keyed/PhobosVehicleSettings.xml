@@ -26,4 +26,14 @@
   <PhobosVehicleSettings_SectionCabs>Cabs</PhobosVehicleSettings_SectionCabs>
   <PhobosVehicleSettings_SectionCamps>Camps and caravans</PhobosVehicleSettings_SectionCamps>
   <PhobosVehicleSettings_ParkedWarningDesc>How many days before a vehicle left parked in the wild is lost a letter warns you. At 0, no warning.</PhobosVehicleSettings_ParkedWarningDesc>
+  <!-- The vehicle message level (Framework 0.186.0). -->
+  <PhobosVehicleSettings_SectionMessages>Messages</PhobosVehicleSettings_SectionMessages>
+  <PhobosVehicleSettings_MessageLevel>Vehicle messages nobody asked for</PhobosVehicleSettings_MessageLevel>
+  <PhobosVehicleSettings_MessageLevelDesc>The messages in the corner that vehicles post by themselves: a fitting finished, a tank topped up, a part worn, a breakdown. Answers to your own orders always show whatever you choose here (a refusal saying why, a confirmation), and so do letters.</PhobosVehicleSettings_MessageLevelDesc>
+  <PhobosVehicleSettings_MessageLevelAll>Every message</PhobosVehicleSettings_MessageLevelAll>
+  <PhobosVehicleSettings_MessageLevelAllDesc>As before: every message shows.</PhobosVehicleSettings_MessageLevelAllDesc>
+  <PhobosVehicleSettings_MessageLevelTroublesOnly>Only troubles</PhobosVehicleSettings_MessageLevelTroublesOnly>
+  <PhobosVehicleSettings_MessageLevelTroublesOnlyDesc>Breakdowns, fires, damage, losses and threats still show. Routine news does not: something finished, something neutral or good.</PhobosVehicleSettings_MessageLevelTroublesOnlyDesc>
+  <PhobosVehicleSettings_MessageLevelLettersOnly>None: letters only</PhobosVehicleSettings_MessageLevelLettersOnly>
+  <PhobosVehicleSettings_MessageLevelLettersOnlyDesc>No vehicle message comes by itself, troubles included: only letters, and answers to your own orders. You may not hear of a breakdown until you look at the vehicle.</PhobosVehicleSettings_MessageLevelLettersOnlyDesc>
 </LanguageData>

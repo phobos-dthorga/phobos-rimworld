@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.185.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.186.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -205,6 +205,7 @@ The vehicle sounds setting (on other mods' vehicles too) moved to D'thorga Vehic
 | Display, sound and stories | Show the fleet button on the bottom bar | The fleet board | On |
 | Display, sound and stories | Power points have the larger socket | Looks only: which picture a working truck's power point uses | Off |
 | Display, sound and stories | Vehicle system sounds on other mods' vehicles too | The vehicle systems' sounds (a tyre bursting, an engine knocking, the warning chime) play on any vehicle running them. Off: only D'thorga's own vehicles | On |
+| Display, sound and stories | Vehicle messages nobody asked for | Every message; Only troubles (breakdowns, fires, damage, losses and threats); None: letters only. Answers to your own orders and letters always show | Every message (new in 0.186.0) |
 | Display, sound and stories | Letters for troubled journeys | When a vehicle comes back to a map after a journey on which it broke down, was stranded or someone aboard was hurt, a letter says how it went. Every journey goes in the vehicle's logbook either way | On |
 | Removing | Remove the added parts from this colony's vehicles | The button to press before removing the mod | |
 
