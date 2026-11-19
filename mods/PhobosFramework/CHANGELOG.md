@@ -17,15 +17,24 @@ Exhaust in closed rooms, a cold-start alert, short circuits that reach a plugged
 - **The air ambulance collects strangers.** A downed stranger who is no enemy (a refugee from a crashed pod, a hurt traveller) is carried aboard like your own people; set down, a colonist must still be told to rescue them.
 - **The winch pulls another faction's abandoned vehicle**, where nobody is aboard and none of theirs stands armed nearby. It stays theirs until you claim it.
 - **A helicopter's water bucket fills from a parked tank of water** (with Dubs Bad Hygiene, which brings water in tanks), as well as from open water.
+- **A destroyed vehicle leaves its hull**, a new setting, on by default: yours or anyone's, where it fell, drawn as the vehicle. Taken apart, it gives **salvaged vehicle parts** worth a quarter of the vehicle, not its materials (Vehicle Framework already gives a quarter of those back where it is destroyed). A raiders' aircraft brought down still leaves nothing.
+- **Salvaged parts pay for a part fitted at the salvaged grade**, at the same worth as the new materials they stand in for.
+- **A lost convoy stays where it stopped**, a new setting, on by default. When the last colonist of a convoy dies on the road, its vehicles, their cargo and anyone else aboard wait on the world map as a lost convoy, and a caravan can come back for them. Each vehicle's logbook says it was left behind.
 - **For other modders:** a room gas can be added by its real weight (Effect_PushGas, GasMassRule, a gas's molar mass and what its full concentration stands for), and a condition's cause can be told in its own words.
+
+### Save compatibility
+
+- Safe to add to a save. A hull, a lost convoy and salvaged parts are ordinary things and places of the game; a sling wreck from an earlier version loads as before. Removing D'thorga Framework takes lost convoys and salvaged parts with it: recover the convoys first.
 
 ### Compatibility and limits
 
 - New setting: **Exhaust in closed rooms** (off), in D'thorga Framework's vehicle settings, Display, sound and stories page, Stories section.
+- New settings: **Destroyed vehicles leave a hull** (on) and **Lost convoys stay where they stopped** (on), in the same section.
+- A hull is the vehicle's own frame at a tenth of its health, as Vehicle Framework makes it; repairing one does not make it a vehicle again. The salvaged parts borrow the drivetrain kit's picture until they have their own.
 - One exhaust figure serves every engine: diesels really idle cleaner and small generators far dirtier. A map cell is taken as holding 3 cubic metres of air, and the gas's full concentration as 1,600 ppm; both authored.
 - The water bucket takes its water from the tank when the run is ordered, not at the dip: a simplification.
 - The words are agent-authored, held for the owner's review.
-- Not yet tested in game: row 260 of the test pass.
+- Not yet tested in game: rows 260 and 261 of the test pass.
 
 ## [0.186.0] - 2026-11-20 - Draft
 

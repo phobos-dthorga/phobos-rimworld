@@ -157,6 +157,12 @@ public sealed class VehicleRepairs
         List<(ThingDef def, int count)> own = OwnPayment(def, part, share, grade.costFactor, kilograms);
         if (own.Count == 0) return options;
         options.Add(own);
+        // Framework 0.187.0 (EM3): at the salvaged grade, salvaged parts from a hull pay instead, at the same worth.
+        if (grade.paidWithSalvage && VehicleHulls.SalvagedParts is { } salvaged)
+        {
+            int count = Phobos.Framework.Rules.SalvageRule.PartsToPay(own.Sum(line => line.def.BaseMarketValue * line.count), salvaged.BaseMarketValue);
+            if (count > 0) options.Add(new List<(ThingDef def, int count)> { (salvaged, count) });
+        }
         if (!grade.isDefault) return options;    // another mod's part is a standard part
         foreach (Phobos.Framework.Bills.RoleSubstitute substitute in def.substitutes)
         {
@@ -459,6 +465,7 @@ public sealed class VehicleRepairs
         // Framework 0.181.0 (EM23, EM13): the logbook, the mechanic's record, and a tale for one done at a convoy's halt.
         VehicleStory.Repaired(comp, mechanic, repair.Label, service: repair.Kind == RepairKind.ConditionService);
         if (!comp.Vehicle.Spawned && comp.Vehicle.GetCaravan() != null) Seen.Note("vehicles.convoy-repair", comp.Vehicle, repair.Label);
+        if (payment.Exists(line => line.def == VehicleHulls.SalvagedParts)) Seen.Note("vehicles.salvage-fitted", comp.Vehicle, repair.Label);
         Invalidate();
         if (fieldFixRequested && !AnyFieldWork()) fieldFixRequested = false;
         VehicleNotices.Send(text, comp.Vehicle.Spawned ? comp.Vehicle : LookTargets.Invalid, MessageTypeDefOf.TaskCompletion);

@@ -161,6 +161,8 @@ public class PhobosVehiclePartGradeDef : Def
     public float healthFactor = 1f;
     public float faultFactor = 1f;
     public bool holdsFitting = true;
+    /// <summary>A replacement at this grade may be paid with salvaged parts from a hull instead of new materials (Framework 0.187.0, EM3).</summary>
+    public bool paidWithSalvage;
     public int minSkill;
     public ResearchProjectDef? researchPrerequisite;
 

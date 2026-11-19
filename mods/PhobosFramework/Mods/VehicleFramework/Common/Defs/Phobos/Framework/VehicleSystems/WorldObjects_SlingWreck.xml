@@ -15,4 +15,19 @@
     <expandMore>true</expandMore>
     <canHaveFaction>false</canHaveFaction>
   </WorldObjectDef>
+
+  <!-- A convoy whose last colonist died (Framework 0.187.0; docs/development/vehicle-emergent-play.md, EM2): its vehicles, their cargo and
+       anyone else aboard wait where it stopped, as a dropped sling load does, until a caravan reaches them. Words agent-authored. -->
+  <WorldObjectDef>
+    <defName>PhobosLostConvoy</defName>
+    <label>lost convoy</label>
+    <description>A convoy whose last colonist died on the road. Its vehicles stand where they stopped, with their cargo and anyone else who was aboard. Send a caravan to reach them, then drive, tow or lift them home.</description>
+    <worldObjectClass>Phobos.VehicleSystems.PhobosSlingWreck</worldObjectClass>
+    <texture>World/WorldObjects/Ambush</texture>
+    <expandingIcon>true</expandingIcon>
+    <expandingIconTexture>UI/Icons/WorldObject_CrashSite</expandingIconTexture>
+    <expandingIconPriority>90</expandingIconPriority>
+    <expandMore>true</expandMore>
+    <canHaveFaction>false</canHaveFaction>
+  </WorldObjectDef>
 </Defs>

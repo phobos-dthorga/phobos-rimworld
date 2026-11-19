@@ -263,6 +263,13 @@
         {"key": "vehicles.deliver.end", "variant": "NoBay", "expect": {"things": ">= 1"}}],
       "it drives back": [{"key": "vehicles.deliver.home"}]
     }},
+    "261": {"parts": {
+      "a destroyed vehicle leaves a hull": [{"key": "vehicles.hull-left"}],
+      "taking a hull apart gives salvaged parts": [{"key": "vehicles.hull-salvaged"}],
+      "salvaged parts pay for a salvaged-grade part": [{"key": "vehicles.salvage-fitted"}],
+      "a convoy whose last colonist dies leaves its vehicles": [{"key": "vehicles.lost-convoy-left"}],
+      "a caravan reaches the lost convoy": [{"key": "vehicles.lost-convoy-reached"}]
+    }},
     "260": {"parts": {
       "an engine indoors fills the room with carbon monoxide": [{"key": "vehicles.exhaust-indoors"}],
       "the cold-start alert names a vehicle that would not start": [{"key": "vehicles.cold-start-alert"}],

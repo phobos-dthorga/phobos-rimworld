@@ -78,6 +78,13 @@
   </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
   <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_LeftBehind</defName>
+    <label>left behind</label>
+    <text>Left standing {PLACE} when the last of its crew died. It waits there for whoever comes back for it.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
     <defName>PhobosLog_HardLanding</defName>
     <label>came down hard</label>
     <text>Came down hard {PLACE}, and stayed whole.</text>

@@ -15,6 +15,8 @@
     <healthFactor>0.7</healthFactor>
     <faultFactor>1.5</faultFactor>
     <holdsFitting>false</holdsFitting>
+    <!-- Framework 0.187.0 (EM3): salvaged parts from a destroyed vehicle's hull pay for a part at this grade, as new materials would. -->
+    <paidWithSalvage>true</paidWithSalvage>
   </Phobos.VehicleSystems.PhobosVehiclePartGradeDef>
 
   <Phobos.VehicleSystems.PhobosVehiclePartGradeDef>

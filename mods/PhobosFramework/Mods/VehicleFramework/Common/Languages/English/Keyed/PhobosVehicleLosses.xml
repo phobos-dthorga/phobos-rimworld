@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What is lost stays in the world (Framework 0.187.0; docs/development/vehicle-emergent-play.md, EM2 and EM3): hulls, salvaged parts and
+     lost convoys. Agent-authored, held for the owner's review. -->
+<LanguageData>
+
+  <!-- A destroyed vehicle's hull -->
+  <PhobosVehicleSystems_HullInspect>The hull of a destroyed vehicle. Taken apart, it gives {COUNT} salvaged vehicle parts.</PhobosVehicleSystems_HullInspect>
+
+  <!-- A convoy whose last colonist died -->
+  <PhobosVehicleSystems_LostConvoyLabel>lost convoy: {VEHICLES}</PhobosVehicleSystems_LostConvoyLabel>
+  <PhobosVehicleSystems_LostConvoyInspect>{COUNT} vehicles stand here where the convoy stopped, with {PEOPLE} others aboard and all their cargo.</PhobosVehicleSystems_LostConvoyInspect>
+  <PhobosVehicleSystems_LostConvoyLeft>The convoy's {COUNT} vehicles stand where it stopped, with their cargo. Send a caravan to bring them home.</PhobosVehicleSystems_LostConvoyLeft>
+
+  <!-- The settings -->
+  <PhobosVehicleSystems_SettingHullsStay>Destroyed vehicles leave a hull</PhobosVehicleSystems_SettingHullsStay>
+  <PhobosVehicleSystems_SettingHullsStayDesc>A vehicle destroyed on a map, yours or anyone's, leaves its hull where it fell. Taken apart, a hull gives salvaged vehicle parts, worth a quarter of the vehicle, which pay for a part fitted at the salvaged grade. A raiders' aircraft brought down still leaves nothing.</PhobosVehicleSystems_SettingHullsStayDesc>
+  <PhobosVehicleSystems_SettingLostConvoysStay>Lost convoys stay where they stopped</PhobosVehicleSystems_SettingLostConvoysStay>
+  <PhobosVehicleSystems_SettingLostConvoysStayDesc>When the last colonist of a convoy dies on the road, its vehicles, their cargo and anyone else aboard stay on the world map where it stopped, for a caravan to come back for. Off, they are lost with the convoy, as before.</PhobosVehicleSystems_SettingLostConvoysStayDesc>
+
+</LanguageData>

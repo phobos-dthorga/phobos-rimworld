@@ -1369,7 +1369,8 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             UnloadBeforeWreck(v, cell);
             // Fault-read W9 (Framework 0.167.0): through Vehicle Framework's own destruction, its wreck left as the design says; a raiders'
             // aircraft leaves none, so it is never a prize.
-            v.Kill(null, DestroyMode.KillFinalize, spawnWreckage: prize);
+            // Framework 0.187.0: with hulls left on, a raiders' aircraft still leaves none (the owner's choice: never a prize).
+            using (prize ? null : VehicleHulls.Suppress()) v.Kill(null, DestroyMode.KillFinalize, spawnWreckage: prize);
             return;
         }
         PutDown(cell, rot);

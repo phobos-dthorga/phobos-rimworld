@@ -29,7 +29,7 @@ them running. It applies to **every Vehicle Framework vehicle from any mod**, no
   launch. **Cruising height between places** in the settings turns this off.
 - **Removing D'thorga Framework or Vehicle Framework from a colony that used the systems: press the removal button first.** Load
   the colony, press **Remove the added parts from this colony's vehicles** in the settings, save, then remove the mod. Without it,
-  saved vehicles may fail to load. Before that, also **take every vehicle out of every garage**, **recover every sling wreck** on the
+  saved vehicles may fail to load. Before that, also **take every vehicle out of every garage**, **recover every sling wreck and lost convoy** on the
   world map, **let a water drop run land and unload every litter**, and **take any extra fuel tank off**: whatever is left in them goes
   with the mod.
 
@@ -165,6 +165,11 @@ left on still run the battery down.
   mechanic. **The parts can be anywhere in the convoy's cargo**, not only in the broken vehicle (not yet tested in game).
 - **A fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats, and the radiator, the tyres and the battery burn. Put it out
   within an in-game hour or expect a hot engine and a radiator to repair; left two hours, the engine boils over.
+- **A destroyed vehicle leaves its hull** (not yet tested in game; the setting **Destroyed vehicles leave a hull**, on by default): yours or
+  anyone's, where it fell. Mark it to **Deconstruct**: it gives **salvaged vehicle parts**, worth a quarter of the vehicle, on top of the
+  quarter of its materials Vehicle Framework drops where it is destroyed. A raiders' aircraft brought down leaves nothing.
+- **Salvaged parts pay for a salvaged-grade part**: order the salvaged grade for a destroyed part in **Fittings and tunes**, and the
+  salvaged parts in the cargo pay for it as new materials would. It takes less punishment and faults more easily, as that grade does.
 - **Damage shows on our vehicles' pictures** once a part is below 60%: scorches, holes and tears.
 - **EMP** can stall a vehicle for a moment and drains its battery: a civilian truck loses about 40% of its charge, an armed vehicle,
   which is hardened, about 16%. Steam engines and RimThunder's vehicles are never stalled. Raiders' vehicles are hit the same way,
@@ -425,6 +430,9 @@ the kit back in the cargo.
   flies on until it reaches land, so a long sea crossing still needs the fuel in the tank. Nothing pours fuel into an aircraft in the air.
 - **The fleet button** on the bottom bar lists every vehicle you own, wherever it is, with its picture, fuel and worst part.
 - **A vehicle parked in the wild is lost after a while**; a letter warns you three days ahead.
+- **A lost convoy stays where it stopped** (not yet tested in game; the setting **Lost convoys stay where they stopped**, on by default):
+  when the last colonist of a convoy dies on the road, its vehicles, cargo and anyone else aboard wait on the world map as a **lost
+  convoy**. Right-click it with a caravan to **Recover** it, then drive, tow or lift the vehicles home.
 - **Garages** (needs Vanilla Expanded Framework): a stopped convoy can set one up. Vehicles left there stay with no time limit, and
   whoever is stationed there mends them from steel and components you bring.
 - **Services and coolant top-ups need a map.** Repairs and jump-starts do not.

@@ -162,6 +162,12 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A running engine fills the closed room it stands in with carbon monoxide (Framework 0.187.0, EM20; owner, 20 Nov 2026: off by
     /// default). Harms only with D'thorga Medical, which turns breathing it into poisoning. Live.</summary>
     public bool exhaustIndoors;
+    /// <summary>A destroyed vehicle leaves its hull, which is taken apart for salvaged parts (Framework 0.187.0, EM2 and EM3; owner, 20 Nov
+    /// 2026: both kinds of loss stay; agent default: on). Live.</summary>
+    public bool hullsStay = true;
+    /// <summary>A convoy whose last colonist dies leaves its vehicles at a place on the world map, to come back for (Framework 0.187.0, EM2;
+    /// owner, 20 Nov 2026; agent default: on). Live.</summary>
+    public bool lostConvoysStay = true;
     /// <summary>How far the vehicle systems' messages nobody asked for are quietened (Framework 0.186.0, VehicleMessageLevel; owner's
     /// choice of 20 Nov 2026: a setting; agent default: every message, as before). Live.</summary>
     public MessageLevel messageLevel = MessageLevel.All;
@@ -202,6 +208,8 @@ public class VehicleSystemsSettings : ModSettings
         "keepVehicleFrameworkHealthTab" => keepVehicleFrameworkHealthTab,
         "batteryFires" => batteryFires,
         "exhaustIndoors" => exhaustIndoors,
+        "hullsStay" => hullsStay,
+        "lostConvoysStay" => lostConvoysStay,
         "electricLightning" => electricLightning,
         _ => false,
     };
@@ -267,6 +275,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref electricLightning, "PhobosVehicleSystems_ElectricLightning", false);
         Scribe_Values.Look(ref tripLetters, "PhobosVehicleSystems_TripLetters", true);
         Scribe_Values.Look(ref exhaustIndoors, "PhobosVehicleSystems_ExhaustIndoors", false);
+        Scribe_Values.Look(ref hullsStay, "PhobosVehicleSystems_HullsStay", true);
+        Scribe_Values.Look(ref lostConvoysStay, "PhobosVehicleSystems_LostConvoysStay", true);
         Scribe_Values.Look(ref messageLevel, "PhobosVehicleSystems_MessageLevel", MessageLevel.All);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
@@ -571,6 +581,8 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Section("PhobosVehicleSystems_SectionStories".Translate());
         list.Check("PhobosVehicleSystems_SettingTripLetters".Translate(), ref s.tripLetters, d.tripLetters, "PhobosVehicleSystems_SettingTripLettersDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingExhaustIndoors".Translate(), ref s.exhaustIndoors, d.exhaustIndoors, "PhobosVehicleSystems_SettingExhaustIndoorsDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingHullsStay".Translate(), ref s.hullsStay, d.hullsStay, "PhobosVehicleSystems_SettingHullsStayDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingLostConvoysStay".Translate(), ref s.lostConvoysStay, d.lostConvoysStay, "PhobosVehicleSystems_SettingLostConvoysStayDesc".Translate());
     }
 
     static void DrawRemoving(SettingsList list)

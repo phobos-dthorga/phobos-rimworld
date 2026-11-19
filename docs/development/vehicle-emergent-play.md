@@ -2,7 +2,8 @@
 
 **Status (20 Nov 2026):** batch 1 built in D'thorga Framework 0.181.0 (EM24, EM23, EM13, EM25 and EM1: faults that say why, the
 logbook, records and tales, the trip report, stranded convoys) and batch 2 in 0.185.0 (EM29(a): four unwise orders go ahead with a
-warning) and batch 3 in 0.187.0 (EM20, EM21(a) and (c), EM27's small links); not yet tested in game. Batch 4 is being built the same day
+warning), batch 3 in 0.187.0 (EM20, EM21(a) and (c), EM27's small links) and batch 4 in the same version (EM2 and EM3: hulls,
+salvaged parts, lost convoys); not yet tested in game. The four batches the owner asked for are built
 (the owner's word, 20 Nov 2026); every other row is an idea, not built. The owner answered four of the questions the same day
 ([the answers](#questions-for-the-owner)).
 
@@ -448,6 +449,18 @@ Not yet tested in game; row 260.
 
 **Kept out:** the solar flare (the owner's choice, not taken), and the rest of EM21: the sling lifting items, a hull or a packed building
 (EM21(b)), and the litter carrying a downed enemy as a prisoner (EM21(d)).
+
+## As built: batch 4, what is lost stays (20 Nov 2026, Framework 0.187.0)
+
+The owner's answer to question 5: "both" (a lost convoy as a site, and a hull on the map). Not yet tested in game; row 261.
+
+| Row | What was built | Where |
+| --- | --- | --- |
+| EM2 | **A destroyed vehicle leaves its hull** (setting, on): a prefix on Vehicle Framework's `VehiclePawn.Kill` asks for the hull its own code already makes (`spawnWreckage`), for any faction's vehicle; a raiders' aircraft brought down is still never a prize (the owner's choice, kept by a suppress scope round that one call) | `Service/VehicleHulls.cs` |
+| EM3 | **Taking a hull apart gives salvaged parts**, not materials: a quarter of the vehicle's worth (`SalvageRule.HullShare` [A]) beside Vehicle Framework's own quarter of materials at destruction, so a wreck is never worth more than half of what it cost. Every vehicle frame gets the hull comp at start-up and gives no materials when deconstructed (a frame exists only as a hull once a vehicle is built). **Salvaged parts pay for a part at the salvaged grade** (`paidWithSalvage` on the grade), at the worth of the new materials | Core `Rules/SalvageRule.cs`; `Salvage.xml`; `VehicleRepairs.ReplacementOptions` |
+| EM2 | **A lost convoy stays** (setting, on): a prefix on Vehicle Framework's `VehicleCaravan.Notify_MemberDied` takes the vehicles out, with their cargo and anyone aboard, just before Vehicle Framework would clear the caravan, into the place a dropped sling load becomes, generalised to hold several vehicles (`PhobosLostConvoy`); older single-vehicle wrecks load as before | `Service/LostConvoys.cs`; `Sling/SlingWreck.cs` |
+
+**Other factions:** hulls are left by every faction's vehicles; a lost convoy is the player's only.
 
 ## Who chose what
 
