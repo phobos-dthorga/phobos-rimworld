@@ -1,6 +1,6 @@
 # D'thorga Farming, batch one: the build design (19 Nov 2026)
 
-**Status (20 Nov 2026):** batch one is mostly built, in D'thorga Framework 0.189.0 and D'thorga Farming 0.1.0: the shared run base, the field run, bulk holds, couplings, draught and carried weight in the Framework; paddocks with their two patches, the combine with both grain fronts, the chaser bin, crop classes, research, icons and test rows 272-274 in Farming. **Built since, in Farming 0.2.0:** the field bin and the silo. **Not built yet:** the corn header (owner, 20 Nov 2026: a third front in batch one), the remaining overlays and the sounds. Nothing is tested in game. The owner chose on 20 Nov 2026 to commit as it is built and go straight on to batch two before a first test.
+**Status (20 Nov 2026):** batch one is mostly built, in D'thorga Framework 0.189.0 and D'thorga Farming 0.1.0: the shared run base, the field run, bulk holds, couplings, draught and carried weight in the Framework; paddocks with their two patches, the combine with both grain fronts, the chaser bin, crop classes, research, icons and test rows 272-274 in Farming. **Built since:** the field bin and the silo (Farming 0.2.0), the corn header (Farming 0.3.0). **Not built yet:** the remaining overlays and the sounds. Nothing is tested in game. The owner chose on 20 Nov 2026 to commit as it is built and go straight on to batch two before a first test.
 
 The owner chose this batch on 19 Nov 2026 ("Base and harvest first"), and on the same day said to proceed with the groundwork before
 a build: read the real figures in full, write this design, and draw up the art list. The figures are in
@@ -235,6 +235,7 @@ flowchart TB
   subgraph alt1 ["Only one of these"]
     PhobosCombineFrontStandard["Standard grain front"]
     PhobosCombineFrontWide["Wide grain front"]
+    PhobosCombineFrontCorn["Corn header"]
   end
   PhobosCombineTankExtension["Tank extension"]
   PhobosCombineStrawChopper["Straw chopper"]

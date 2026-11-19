@@ -4,7 +4,7 @@ Machines that work your fields: mark a growing zone as a paddock, and a combine 
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.2.0, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.3.0, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -14,9 +14,10 @@ Version 0.2.0, built 20 November 2026 for House D'thorga. **Not yet tested in ga
   Motor pool), then fit the **standard grain front** from its upgrades. Without a front it refuses to harvest and says why.
 - **Mark the field first.** Select a growing zone and press **Machine-worked**. Colonists then keep off it. **There is no seed drill
   yet**: to sow a paddock, turn **Hands may help** on, and off again once it is sown.
-- **The grain front cuts only cereals, pulses and oilseeds**: rice, and with Vanilla Cooking Expanded or Vanilla Plants Expanded their
-  wheat, barley, oats, rye, sorghum, buckwheat, chickpeas, peas and canola. **Corn, potatoes, hay and cotton need harvesters that come
-  later**, and stay for hands. Another mod's crop is taken once it is placed in a class: see [For modders](#for-modders).
+- **Each front cuts only the crops it really could.** The grain fronts take cereals, pulses and oilseeds: rice, and with Vanilla Cooking
+  Expanded or Vanilla Plants Expanded their wheat, barley, oats, rye, sorghum, buckwheat, chickpeas, peas and canola. **The corn header
+  takes corn and sunflowers.** **Potatoes, hay and cotton need harvesters that come later**, and stay for hands. Another mod's crop is
+  taken once it is placed in a class: see [For modders](#for-modders).
 - **A full combine needs somewhere to empty**: a **Gleaner chaser bin** parked near the paddock (any vehicle with a hitch tows it), a
   **field bin**, or a **grain silo**. The silo keeps grain four times as long, **but only while its fan has power**.
 - **Settings to decide before you start:** Options > Mod settings > D'thorga Farming. **Hands may help on new paddocks** (off) and
@@ -42,7 +43,7 @@ Version 0.2.0, built 20 November 2026 for House D'thorga. **Not yet tested in ga
 
 | Machine | What it is | Holds |
 | --- | --- | --- |
-| Reaper combine harvester | Self-propelled; 4 by 9 cells; a 6- or 8-cell front | 9 tonnes of one crop at a time (12 with the tank extension) |
+| Reaper combine harvester | Self-propelled; 4 by 9 cells; a 6- or 8-cell grain front, or a 6-cell corn header | 9 tonnes of one crop at a time (12 with the tank extension) |
 | Gleaner chaser bin | Towed; 3 by 7 cells | 12 tonnes, any crops |
 | Field bin | A building, 3 by 3 cells | 25 tonnes, any crops |
 | Grain silo | A building, 4 by 4 cells, 300 W | 60 tonnes, any crops; keeps four times as long while powered |
@@ -67,8 +68,8 @@ A crop is taken by a front through its **crop class**, never its name. To let th
 </Operation>
 ```
 
-The classes are `PhobosCrop_Cereal`, `PhobosCrop_Pulse` and `PhobosCrop_Oilseed` (the grain fronts take these), and
-`PhobosCrop_RowCrop`, `PhobosCrop_Forage`, `PhobosCrop_Fibre` and `PhobosCrop_Root` for the harvesters to come. Our own patches are in
+The classes are `PhobosCrop_Cereal`, `PhobosCrop_Pulse` and `PhobosCrop_Oilseed` (the grain fronts take these), `PhobosCrop_RowCrop`
+(the corn header), and `PhobosCrop_Forage`, `PhobosCrop_Fibre` and `PhobosCrop_Root` for the harvesters to come. Our own patches are in
 `Common/Patches/Crops.xml`.
 
 ## Credits and licence

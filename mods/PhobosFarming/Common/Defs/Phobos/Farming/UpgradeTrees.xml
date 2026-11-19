@@ -20,6 +20,7 @@
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>PhobosCombineFrontWide</li>
+        <li>PhobosCombineFrontCorn</li>
       </disableIfUpgradeNodesEnabled>
       <ingredients>
         <Steel>120</Steel>
@@ -40,9 +41,28 @@
       </researchPrerequisites>
       <disableIfUpgradeNodesEnabled>
         <li>PhobosCombineFrontStandard</li>
+        <li>PhobosCombineFrontCorn</li>
       </disableIfUpgradeNodesEnabled>
       <ingredients>
         <Steel>160</Steel>
+        <ComponentIndustrial>4</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosCombineFrontCorn</key>
+      <label>Corn header</label>
+      <displayLabel>true</displayLabel>
+      <description>A row-crop header six cells wide, for corn and sunflowers: snouts part the rows and chains pick the cobs. It cannot cut cereals.</description>
+      <icon>Phobos/Farming/Upgrades/FrontCorn</icon>
+      <work>3500</work>
+      <gridCoordinate>(12, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <disableIfUpgradeNodesEnabled>
+        <li>PhobosCombineFrontStandard</li>
+        <li>PhobosCombineFrontWide</li>
+      </disableIfUpgradeNodesEnabled>
+      <ingredients>
+        <Steel>140</Steel>
         <ComponentIndustrial>4</ComponentIndustrial>
       </ingredients>
     </li>

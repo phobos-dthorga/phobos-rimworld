@@ -12,7 +12,8 @@ row by itself, emptying its grain into a chaser bin. [Back to the guide](README.
 - **A combine has no front until you fit one**, and refuses to harvest without it. Fit the **standard grain front** from its upgrades.
 - **There is no seed drill yet.** To sow a paddock, turn **Hands may help** on, and off again once it is sown.
 - **The grain fronts cut cereals, pulses and oilseeds only**: rice, and wheat, barley, oats, rye, sorghum, buckwheat, chickpeas, peas
-  and canola with Vanilla Cooking Expanded or Vanilla Plants Expanded. Corn, potatoes, hay and cotton stay for hands for now.
+  and canola with Vanilla Cooking Expanded or Vanilla Plants Expanded. **The corn header** takes corn and sunflowers. Potatoes, hay
+  and cotton stay for hands for now.
 - **A full combine needs somewhere to empty**: a chaser bin, a field bin or a grain silo near the paddock. **The silo keeps grain four times
   as long only while its fan has power.**
 
@@ -21,7 +22,7 @@ row by itself, emptying its grain into a chaser bin. [Back to the guide](README.
 1. **Research mechanised harvesting** (D'thorga tab). Build the **Reaper combine harvester** and a **Gleaner chaser bin** under
    **Architect > Motor pool**.
 2. **Fit a front.** Open the combine's upgrades and fit the **standard grain front** (6 cells wide). After **wide grain fronts**
-   research, the **wide grain front** (8 cells) can replace it.
+   research, the **wide grain front** (8 cells) can replace it. For corn, fit the **corn header** instead.
 3. **Mark a paddock.** Select a growing zone and press **Machine-worked**. Colonists keep off it. Turn **Hands may help** on to sow it
    by hand.
 4. **Harvest.** When the crop is ripe, select the combine and press **Harvest a paddock**, then pick the paddock. With nobody aboard, a

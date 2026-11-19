@@ -1,0 +1,16 @@
+{
+  "master": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/farming-combine-front-corn-sharp/farming-combine-front-corn-sharp-2.png",
+  "master_sha256": "5ab73bbad559a2acc09a33877af509973784d85d55166995193c0ae85f54f949",
+  "files": {
+    "Combine_FrontCorn_north.png": "5898aafe57eaf3fcc35aa20b6153c8a0400bd3d5c54a4ed670a4537e4c1ca294",
+    "Combine_FrontCorn_east.png": "7dc846a484fc1d3435364746150651b58bd8fd6e541222163053f88e6ce33c9d",
+    "Combine_FrontCorn_south.png": "2e0a71ed7806c9fc3468d5d4e53a3187cd77c8d15686378bd9091a16cbd6118c"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "front",
+  "cells_wide": 6,
+  "like": "Combine.transform.json",
+  "top": 320,
+  "throat_overlap": 6
+}

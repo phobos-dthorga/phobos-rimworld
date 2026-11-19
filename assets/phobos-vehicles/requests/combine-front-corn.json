@@ -1,0 +1,52 @@
+[
+  {
+    "name": "farming-combine-front-corn",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 512,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-combine-body-north/farming-combine-body-north-1.png",
+        "role": "our approved combine harvester body, the owner's pick of 19 Nov 2026, the machine this front fits: match its outline weight, shading, palette and finish only; do not draw the combine"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "D'thorga Farming's combine harvester (no Def yet), footprint (4, 9)",
+      "this_request": "the corn (row-crop) header, a third either/or front, north: a strip 6 cells wide (owner, 20 Nov 2026: a corn header in batch one)",
+      "drawn_size": "its own overlay graphic, 6 by 2 units, wider than the body's 6-unit canvas for the 8-cell front; at 128 px per unit 768 x 256 in game; requested at 1536 x 512, 2 times the drawn size",
+      "made_alone": "a separate part in front of the body, not on it, so drawn alone on white with the body as a style reference (as the tanker's vessel was), not as an edit of a body crop (rule 13 covers parts drawn on the body)",
+      "design": "docs/development/farming-batch-one.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga combine harvester: its corn header, the wide row-crop front that is mounted across the front of the combine and picks the cobs from standing corn. Image 1 is our approved combine body from the same machine: match its outline weight, shading, harvest-green and muted yellow palette, steel grey and finish only. Do NOT draw the combine itself.\n\nDraw ONLY the grain front, alone on a plain pure white background, nothing else on the canvas. Very wide, shallow canvas, three times as wide as it is tall. The front lies across the canvas from left to right and fills almost its whole width, centred; the cutting edge faces the TOP of the canvas, the side that joins the combine faces the BOTTOM.\n\nIts top plan, from top to bottom: along the top edge, a row of eight long pointed snouts side by side, each a tapered steel cone pointing to the top, harvest green with a muted yellow tip, with a narrow dark gap between each pair where a row of corn feeds in; behind the snouts, under each gap, a pair of short dark gathering chains; a long steel-grey cross auger tube lying across the header behind them; the header's low harvest-green back wall; at the middle of the bottom edge, a short square throat where the header joins the combine, about one sixth of its width. No reel.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo combine, no cab, no wheels, no crop, grain, straw or field, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials, screens or lamps. No floor, ground, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "farming-combine-front-corn-sharp",
+    "engine": "openai",
+    "quality": "high",
+    "width": 3072,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-combine-body-north/farming-combine-body-north-1.png",
+        "role": "our approved combine harvester body, the owner's pick of 19 Nov 2026, the machine this front fits: match its outline weight, shading, palette and finish only; do not draw the combine"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "D'thorga Farming's combine harvester (no Def yet), footprint (4, 9)",
+      "this_request": "the corn (row-crop) header, a third either/or front, north: a strip 6 cells wide (owner, 20 Nov 2026: a corn header in batch one); again at high quality and twice the size (owner, 20 Nov 2026: the first two were blurry in the fine details)",
+      "drawn_size": "its own overlay graphic, 6 by 2 units, wider than the body's 6-unit canvas for the 8-cell front; at 128 px per unit 768 x 256 in game; requested at 1536 x 512, 2 times the drawn size",
+      "made_alone": "a separate part in front of the body, not on it, so drawn alone on white with the body as a style reference (as the tanker's vessel was), not as an edit of a body crop (rule 13 covers parts drawn on the body)",
+      "design": "docs/development/farming-batch-one.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga combine harvester: its corn header, the wide row-crop front that is mounted across the front of the combine and picks the cobs from standing corn. Image 1 is our approved combine body from the same machine: match its outline weight, shading, harvest-green and muted yellow palette, steel grey and finish only. Do NOT draw the combine itself.\n\nDraw ONLY the grain front, alone on a plain pure white background, nothing else on the canvas. Very wide, shallow canvas, three times as wide as it is tall. The front lies across the canvas from left to right and fills almost its whole width, centred; the cutting edge faces the TOP of the canvas, the side that joins the combine faces the BOTTOM.\n\nIts top plan, from top to bottom: along the top edge, a row of eight long pointed snouts side by side, each a tapered steel cone pointing to the top, harvest green with a muted yellow tip, with a narrow dark gap between each pair where a row of corn feeds in; behind the snouts, under each gap, a pair of short dark gathering chains; a long steel-grey cross auger tube lying across the header behind them; the header's low harvest-green back wall; at the middle of the bottom edge, a short square throat where the header joins the combine, about one sixth of its width. No reel.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo combine, no cab, no wheels, no crop, grain, straw or field, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials, screens or lamps. No floor, ground, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

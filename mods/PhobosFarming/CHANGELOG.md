@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-20 - Draft
+
+A corn header for the combine
+
+### Added
+
+- **The corn header, a third front for the combine**, for corn and sunflowers: snouts part the rows and chains pick the cobs. It cuts 6 cells wide and takes row crops only; fitting it takes off a grain front, as fronts fill the same place.
+
+### Compatibility and limits
+
+- Its picture was made again at high quality and twice the size after the first round came out blurry in the finer details. Not yet tested in game.
+
 ## [0.2.0] - 2026-11-20 - Draft
 
 A field bin and a grain silo to pour a harvest into

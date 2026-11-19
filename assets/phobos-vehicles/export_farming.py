@@ -27,6 +27,8 @@ CHASER_BIN = GENERATED / 'farming-chaser-bin-body-north' / 'farming-chaser-bin-b
 FRONTS = [
     ('Combine_FrontStandard', GENERATED / 'farming-combine-front-standard' / 'farming-combine-front-standard-2.png', 6),
     ('Combine_FrontWide', GENERATED / 'farming-combine-front-wide' / 'farming-combine-front-wide-2.png', 8),
+    # The corn header (owner, 20 Nov 2026): the sharper round's attempt 2, high quality at 3072 x 1024.
+    ('Combine_FrontCorn', GENERATED / 'farming-combine-front-corn-sharp' / 'farming-combine-front-corn-sharp-2.png', 6),
 ]
 # (picture name, master, cells square): the field bin and the silo, attempt 2 of each the default (owner, 20 Nov 2026; attempt 1 of each is
 # kept as an alternate look, exported later). Single pictures, round from above, so one facing does for all four.

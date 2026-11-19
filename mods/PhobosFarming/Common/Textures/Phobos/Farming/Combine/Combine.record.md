@@ -30,3 +30,9 @@ its throat just over the body's front edge.
 - `Combine_northm.png`: SHA-256 `d10b1d3973932f2aa8390a6cf599ccc30a24f534e85d1af9d000e5f36bc65866`
 - `Combine_south.png`: SHA-256 `a262fed82b96967e618b0846955d4710ed55683e299e263c2bbaa5c96931ca5b`
 - `Combine_southm.png`: SHA-256 `3bee72b67d52a61a35546562f556295c2169813f7bbaadda8c921fd93dbfa25a`
+
+**Corn header** (20 Nov 2026): `farming-combine-front-corn-sharp-2.png` (SHA-256 `5ab73bbad559a2acc09a33877af509973784d85d55166995193c0ae85f54f949`), high quality at 3072 x 1024 after the owner found the first round blurry ([record](../../../../../../../assets/phobos-vehicles/requests/combine-front-corn-record.md)); placed by the same script, 6 cells wide.
+
+- `Combine_FrontCorn_east.png`: SHA-256 `7dc846a484fc1d3435364746150651b58bd8fd6e541222163053f88e6ce33c9d`
+- `Combine_FrontCorn_north.png`: SHA-256 `5898aafe57eaf3fcc35aa20b6153c8a0400bd3d5c54a4ed670a4537e4c1ca294`
+- `Combine_FrontCorn_south.png`: SHA-256 `2e0a71ed7806c9fc3468d5d4e53a3187cd77c8d15686378bd9091a16cbd6118c`
