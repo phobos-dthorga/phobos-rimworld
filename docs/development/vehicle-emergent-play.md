@@ -1,7 +1,8 @@
 # Emergent play around the vehicles: where unplanned stories could come from (20 Nov 2026)
 
 **Status (20 Nov 2026):** research and record only. No code, Def or setting exists for any row here (EM1 to EM29), and nothing here is
-tested in game. It reads what is built, audits it three ways and lists ideas for the owner to pick from.
+tested in game. It reads what is built, audits it three ways and lists ideas for the owner to pick from. The owner answered four of
+its questions the same day ([the answers](#questions-for-the-owner)); three stay open, and nothing is built until the owner says so.
 
 A research and record round the owner asked for on 20 Nov 2026: "suggestions/ideas/thoughts/brainstorming/etc on how we could perhaps
 obtain/encourage further, emergent gameplay which I so dearly crave like ambrosia, with a focus surrounding our vehicle mods", and
@@ -43,6 +44,9 @@ the installed Vehicle Framework 1.7 build's decompile (`.local/decompiled/Vehicl
   already raises raid strength.
 - **Submarines and radio are on the back burner** (owner, 20 Nov and 9 Nov 2026). The audits list the submarine's refusals for
   completeness; no row proposes work on either.
+- **The owner's answers (20 Nov 2026):** random rolls only as a last resort; shelter aboard a vehicle waits for the cab-air model;
+  the four unwise orders whose consequence is built are to warn and then be allowed; the groups of most interest are reading the
+  story (F), a failure opening play (A), and home and incidents (E, G).
 - **[The short list](#the-short-list)** and **[the questions for the owner](#questions-for-the-owner)** are at the end.
 
 ## The principle
@@ -76,6 +80,9 @@ tests a list of names or an owner is the named reaction. The repository's own "m
 
 **Agent default, for the owner to confirm (question 1) [A]:** *state decides what happens; the game's own storyteller decides when
 pressure arrives; we add no random rolls of our own.* Every row below is judged against it.
+
+**The owner's answer (20 Nov 2026, card): rolls only as a last resort.** The default stands, with one opening: a roll is allowed
+where a real cause exists and cannot reasonably be modelled, and each such roll is named in its design record.
 
 ### What other games do with vehicles and supply
 
@@ -289,7 +296,7 @@ they play. "Size" and every verdict are the agent's, for the owner to overrule *
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | EM20 | **Exhaust in closed rooms.** The stage that warms the room also adds carbon monoxide, in proportion to fuel burnt [A; the figures need a source first] | **Smaller than first thought.** Our `PhobosGas_CarbonMonoxide` exists (`Gases.xml:7-19`); fires emit it; D'thorga Medical turns breathing it into a condition (`src/PhobosMedical/BurnsAndSmoke/Services/SmokeExposureService.cs:66-70`). Engine heat goes into the room at 12 per second times load (`V/Schema/Effects.cs:179-193`; `Systems_Cooling.xml:212-219`). "Running" means fuelled and drafted, moving in a convoy or flying (`Comp:973`). No vehicle code calls the gas service | — | Free heat or power from an engine in a closed room | Garages get doors and vents; the generator set stands outside or takes its heat exchanger; a cold snap forces a choice | None unless it reads Vehicle Framework's engine state: the lite tier runs no stages | Small. **Take, on the owner's word** (question 4): a new hazard, on an existing gas |
 | EM21 | **Each verb acts on anything suitable.** (a) The winch pulls by pull needed: chunks, hulls, a carcass. (b) The sling lifts by weight: a net of items, a packed building, a hull. (c) Tanks fill from a river; the water drop fills from a tank. (d) The litter carries a downed enemy as a prisoner | Audit 1 | Use a tool on whatever it could physically handle | — | Fewer special cases; more improvised uses | A hull or chunk has no owner; (d) is about them | Each small to medium. **Take (a) and (c) first.** Each widening is new ground to test |
-| EM22 | **Shelter that costs something.** An open vehicle passes to its crew what acts on people outdoors; a closed cab still shelters | Audit 2's core fact. Every seat on our own vehicles is enclosed, so this row acts on other authors' open vehicles. Vehicles do not seal a wall: they are passable at a cost of 250 (VFxml `VehiclePawnBase.xml:12-13`) | Shelter a crew on purpose | Riding an open bike through toxic fallout unharmed | The kind of cab matters when the air turns bad | Works for every faction: it reads the seat, not our stages | Small to medium; needs a hook on the game's conditions. **The owner's choice** (question 2). A time limit on a closed cab waits for hotboxing's cab air |
+| EM22 | **Shelter that costs something.** An open vehicle passes to its crew what acts on people outdoors; a closed cab still shelters | Audit 2's core fact. Every seat on our own vehicles is enclosed, so this row acts on other authors' open vehicles. Vehicles do not seal a wall: they are passable at a cost of 250 (VFxml `VehiclePawnBase.xml:12-13`) | Shelter a crew on purpose | Riding an open bike through toxic fallout unharmed | The kind of cab matters when the air turns bad | Works for every faction: it reads the seat, not our stages | Small to medium; needs a hook on the game's conditions. **Wait for the cab-air model** (owner, 20 Nov 2026): open vehicles and a time limit on closed cabs are then done together, with hotboxing's cab air |
 
 ### F. Memory, and reading the story
 
@@ -306,7 +313,7 @@ they play. "Size" and every verdict are the agent's, for the owner to overrule *
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | EM27 | **The game's incidents meet the vehicles**: the small links in audit 2's last column | Audit 2 | — | — | An incident the player already knows gets a vehicle side | The flare and the shelter links work on any vehicle | Each small. **Take:** the cold snap alert, the short on a hooked-up vehicle, automatic collection of a stranger. **The owner's choice:** the solar flare |
 | EM28 | **Raids that know the motor pool**: raiders who burn empty vehicles and the fuel store | The storyteller already scales with the fleet's price (audit 2, wealth). Nothing targets an empty vehicle | — | — | — | The whole row | Large: a raid behaviour of our own. **Hold.** The wealth fact is worth the owner knowing now |
-| EM29 | **Unwise orders are allowed, with a warning.** (a) Lift the four whose consequence is built: engines cut in the air, an overloaded or storm lift, a worn-through clutch, an over-ratio tow. (b) Build a consequence before lifting: brakes, flight controls, blind flight | Audit 3. `showOnly` is the blunt version that exists | Take a risk knowingly | Nothing: that is the point | The player, not the game, decides how much risk; a harsher mode is a setting, off by default [A] | None: refusals are the player's only | (a) small. **Take (a), on the owner's word** (question 3). (b) each needs a design |
+| EM29 | **Unwise orders are allowed, with a warning.** (a) Lift the four whose consequence is built: engines cut in the air, an overloaded or storm lift, a worn-through clutch, an over-ratio tow. (b) Build a consequence before lifting: brakes, flight controls, blind flight | Audit 3. `showOnly` is the blunt version that exists | Take a risk knowingly | Nothing: that is the point | The player, not the game, decides how much risk; a harsher mode is a setting, off by default [A] | None: refusals are the player's only | (a) small. **(a) taken as a direction: warn, then allow** (owner, 20 Nov 2026); not built. (b) each needs a design |
 
 ## Other factions' vehicles
 
@@ -340,21 +347,20 @@ and thoughts (EM12, EM13) are the game's own. Every key would carry the `Phobos`
 
 ## The short list
 
-In the order the agent would take them, if the owner takes any **[A]**:
+In the order the agent would take them **[A]**, redrawn after the owner's answers of 20 Nov 2026 (interest in groups F, A, and E
+with G). **Nothing is built until the owner says so.**
 
 | Order | Rows | Why |
 | --- | --- | --- |
-| 1 | **EM24, EM23, EM13 with EM12** | Say why, the logbook, records and tales. Small, and they make every other system's stories readable (Sylvester's principle) |
+| 1 | **EM24, EM23, EM13, EM25** | Say why, the logbook, records and tales, the trip report. Small, and they make every other system's stories readable (Sylvester's principle) |
 | 2 | **EM1** | Stranded becomes a state: an alert, and supplies counted across the convoy |
-| 3 | **EM29(a)** | Four unwise orders whose consequence is already built |
-| 4 | **EM20** | Exhaust indoors, on a gas that exists |
-| 5 | **EM22 and EM27's small links** | Shelter that costs something; the game's incidents get a vehicle side |
-| 6 | **EM2, then EM3** | What is lost stays; salvage |
-| 7 | **EM5** | Raiders with the journey behind them, after its read |
-| 8 | **EM11** | Hours on type |
+| 3 | **EM29(a)** | Four unwise orders whose consequence is already built: warn, then allow (owner) |
+| 4 | **EM20, EM27's small links, EM21(a) and (c)** | Exhaust indoors on a gas that exists; the game's incidents get a vehicle side; the winch and the tanks work on more |
+| 5 | **EM2, then EM3** | What is lost stays; salvage |
 
-**Later:** EM4, EM9, EM16, EM18's warning, EM21. **Held:** EM6, EM7, EM15, EM28. **A direction:** EM8. **Ideas only:** EM10, EM14,
-EM26. **Argued against:** a price model of our own (EM17). **Already recorded:** EM19.
+**Not picked for now:** the groups "everyone drives" and "people in the machine" (EM5, EM11, EM12). **Waiting:** EM22, for the cab-air
+model (owner). **Later:** EM4, EM9, EM16, EM18's warning, the rest of EM21. **Held:** EM6, EM7, EM15, EM28. **A direction:** EM8.
+**Ideas only:** EM10, EM14, EM26. **Argued against:** a price model of our own (EM17). **Already recorded:** EM19.
 
 ## Questions for the owner
 
@@ -369,10 +375,25 @@ EM26. **Argued against:** a price model of our own (EM17). **Already recorded:**
 6. **Raiders' fuel by distance (EM5).** Wanted, once its read is done?
 7. **What to take first**, if anything: the short list in order, or another pick?
 
+**Answered by the owner, 20 Nov 2026 (cards):**
+
+- **Question 1: rolls only as a last resort.** State decides; a roll is allowed only where a real cause exists and cannot
+  reasonably be modelled, and each is named in its design record.
+- **Question 2: wait for the cab-air model.** Nothing changes for shelter now; open vehicles and a time limit on closed cabs come
+  together with hotboxing's cab air.
+- **Question 3: warn, then allow**, for the four unwise orders whose consequence is built. The button stays live and its text
+  says plainly what will happen. Engines cut in the air then fall, where today they are restarted and the aircraft landed.
+- **Question 7: most interest** in reading the story (group F), a failure opening play (group A), and home and incidents (groups
+  E and G). Not picked: everyone drives (B) and people in the machine (C). **This sets what is detailed first; it is not a word
+  to build.**
+
+**Still open:** 4 (exhaust indoors: on or off by default), 5 (a lost convoy as a site, a hull on the map, or both) and 6 (raiders'
+fuel by distance, in a group not picked for now).
+
 ## Who chose what
 
 - **Owner (20 Nov 2026):** the round, its focus on the vehicle mods, and record only; the plan for this record, with its three
-  audits.
+  audits; the four answers above.
 - **Agent choices, for the owner to revise:** every row, verdict, size and figure marked [A]; the default on random rolls; the six
   conditions and the chemist's reading of Nintendo's rules; the short list; the readings of other authors' code.
 
