@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/TakeOff.png",
+  "source": "assets/vehicle-systems/generated/flight-takeoff/flight-takeoff-11.png",
+  "source_sha256": "a347332622694b5ce8db5edf7e9b82ec0c4c3fc7b806a4d9b773a6a54c633379",
+  "target_sha256": "a5832e0f6de9697abce5b3fab962e4824e10b169151ee91a66a3c3a6c898e23a",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "a347332622694b5ce8db5edf7e9b82ec0c4c3fc7b806a4d9b773a6a54c633379",
+  "date": "2026-11-19T16:48:45",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

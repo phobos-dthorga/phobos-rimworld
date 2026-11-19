@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Circle.png",
+  "source": "assets/vehicle-systems/generated/flight-circle/flight-circle-12.png",
+  "source_sha256": "7c956f5188c5369ceb9e9ec564b0df629e6aff5491c0f9b917a105092c66e7fc",
+  "target_sha256": "57a2906472111861977965dd0ec53fffd12581ee7e0230853717840249b29a30",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "7c956f5188c5369ceb9e9ec564b0df629e6aff5491c0f9b917a105092c66e7fc",
+  "date": "2026-11-19T16:48:51",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

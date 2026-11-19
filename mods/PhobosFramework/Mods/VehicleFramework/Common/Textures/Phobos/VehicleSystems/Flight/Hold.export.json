@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Flight/Hold.png",
+  "source": "assets/vehicle-systems/generated/flight-hold/flight-hold-11.png",
+  "source_sha256": "834a7d171ffc5e242a6745cf24092ff6797129bf6dec4e5d1b66830208249a36",
+  "target_sha256": "7c30cebdaa5bd7d46bb1edf8a40f6568fe4a5d9a3032e09cfdab820f04290698",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "834a7d171ffc5e242a6745cf24092ff6797129bf6dec4e5d1b66830208249a36",
+  "date": "2026-11-19T16:48:49",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
