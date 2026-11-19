@@ -595,6 +595,7 @@ in game** (rows 237 to 239).
 | **A raid's aircraft apart** (finding 6) | Each raiders' aircraft, planning its approach, leaves out every candidate spot within two of its longest sides and 4 cells [A] of a spot the raid's other aircraft hold (where they land, hover for their ropes, or stand). Before, all picked the same best spot and fell back on retries. Not taken from VTOL Raids: its enclosure score | `RaiderFlight.SpotsTaken`, `CompPhobosFlight.RaidSpot` |
 | **A group sent to one spot** (finding 2) | Vehicle Framework hands each selected vehicle the same clicked cell in one frame. The first aircraft still goes there; the rest go to rings round it, six in the first, twelve in the second, each ring one longest side and 3 cells [A] further out. Right-click orders only: the Fly to button's targeter serves one aircraft at a time | `FlightGroupOrders`, `FormationRule` |
 | **No flight in space** (finding 4) | Take-off is refused over a map whose world layer is space, unless Vehicle Framework's launcher marks the aircraft for space flight (`SpaceFlight`), as VTOL Vehicle does | `GroundRefusal` |
+| **No disassembly in the air** (finding 3, confirmed) | [code] Vehicle Framework's `WorkGiver_DisassembleVehicle` derives from the game's `WorkGiver_RemoveBuilding`, so neither guard (vehicle work givers, the vehicle listers) saw it. A postfix on its `HasJobOnThing` gives no job while the aircraft is in the air | `Patch_DisassembleVehicle_Flight` |
 
 ## Built (19 Nov 2026): rotors and the end of a landing
 

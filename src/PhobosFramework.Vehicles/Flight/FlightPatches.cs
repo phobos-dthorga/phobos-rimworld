@@ -164,6 +164,22 @@ public static class Patch_VehicleWorkGiver_Flight
     }
 }
 
+/// <summary>
+/// Nobody takes apart an aircraft in the air (Framework 0.174.0; the audit of 19 Nov 2026, finding 3, confirmed in code): Vehicle Framework's
+/// disassembly is the game's building-removal work giver, not one of its vehicle work givers, so the guard above never saw it, and an aircraft
+/// marked for disassembly could be taken apart while it hovered. A postfix: no job while it is in the air on our flight.
+/// </summary>
+[HarmonyPatch(typeof(WorkGiver_DisassembleVehicle), nameof(WorkGiver_DisassembleVehicle.HasJobOnThing))]
+public static class Patch_DisassembleVehicle_Flight
+{
+    public static void Postfix(Thing thing, ref bool __result)
+    {
+        if (!__result || !FlightRegistry.Any || thing is not VehiclePawn vehicle || !FlightRegistry.InAir(vehicle)) return;
+        __result = false;
+        Seen.Note("aircraft.no-disassembly-in-air", vehicle);
+    }
+}
+
 /// <summary>The same for loading, refuelling and upgrade work, which look for vehicles through this list (finding 9). A postfix that only
 /// takes aircraft in the air out.</summary>
 [HarmonyPatch(typeof(VehicleReservationManager), nameof(VehicleReservationManager.VehicleListers))]

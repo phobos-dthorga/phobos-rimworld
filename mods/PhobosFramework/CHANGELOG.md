@@ -17,6 +17,7 @@ Weapons used up when fired are told apart from guns; switching an aircraft's eng
 - **A raid's aircraft each land at their own spot**: each makes for a spot round your colony away from the spots the raid's other aircraft hold, instead of all heading for the same best spot and circling for another.
 - **Aircraft sent to one spot together spread out**: select several on our flight and right-click a spot, and one flies to it while the others take places in a ring round it, spaced by their size, instead of all crowding onto one cell.
 - **No hovering over a map in space**: an aircraft on our flight refuses to take off there, saying why, unless Vehicle Framework says it flies in space.
+- **Nobody takes apart an aircraft in the air**: one marked for disassembly waits until it has landed. Before, Vehicle Framework's disassembly slipped past our in-air guards, so someone could take it apart while it hovered.
 - **For modders: a shared rule telling weapons used up when fired from guns** (SingleUseWeapons). A grenade, a satchel charge or a one-shot rocket launcher counts as single-use from what its attack does, the game's own one-use attack or Combat Extended's, never from its name. D'thorga Patches 0.26.0 uses it so soldiers go back to their guns.
 
 ### Compatibility and limits
