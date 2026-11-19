@@ -6,6 +6,19 @@ the service lead, sonar ping and hitch came from the paid API (about US$0.33) af
 store's frost is drawn in code (Medical 0.15.0); vehicle bodies and parts come from the paid API. Not done: style model v3 (its training was
 cut off by the stop time on 8 Nov, with no model saved), the radio whip (held), Billy's canvas wall atlas and door, and the loading chute.
 
+**Night 8 is running (20 Nov 2026, started 06:40, stop time 12:00; the owner's go: "queue any GPU-related work as I'm about to go to
+bed")**: `.local/art/night-8.json`, 61 images. In order: the rest of night 7's stretch icons (13 images: cab insulation's second seed, the
+fuel heater, heavy-duty air filter, the three boost tunes and the clutch kit; the game opening ended that run), the queued **Deliver** and
+**Drive back** icons, then two new requests, each subject in **two wordings by two seeds** (seeds 11 and 12):
+`assets/vehicle-systems/requests/bulk-and-salvage-icons.json` (the **Pour** button, which borrows the game's eject picture as Deliver
+does, and the **salvaged vehicle parts** item, which borrows the drivetrain kit's) and `assets/phobos-vehicles/requests/farming-icons.json`
+(D'thorga Farming's **Harvest** and **Paddock** buttons and its six upgrade icons, now cut from the machines' own pictures; the Paddock
+button has no picture of its own and shows the game's growing-zone one). **Agent's choices:** for the three fronts, the second wording
+also takes the cut picture as a third reference so the drawn icon keeps the shipped front's shape; the "ships as" paths for Pour and
+salvaged parts are proposals. **Left out, with reasons:** style model v3 (its caching stalled the last try; it needs its config looked at
+first, and a night of its own), the farming machines' sounds (real machines take real recordings, by the owner's rule), the loading chute
+(route not chosen) and Billy's canvas door (with its wall atlas, drawn by script).
+
 **Old mod names below.** On 7 Nov 2026 Medical Equipment, Burns and Smoke, Emergency Dosing and Triage became parts of D'thorga Medical,
 and D'thorga Vehicle Patches became part of D'thorga Patches ([mod consolidation](mod-consolidation.md)). The rows keep the names they
 were written with.

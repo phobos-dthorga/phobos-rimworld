@@ -1,0 +1,389 @@
+[
+ {
+  "name": "farming-harvest-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small combine harvester seen from above, cutting a clean strip through a field of golden wheat, with a band of short stubble behind it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people. No vehicle other than the one described.",
+  "subject": "A small combine harvester seen from above, cutting a clean strip through a field of golden wheat, with a band of short stubble behind it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Harvest (the combine's order)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Harvest.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-harvest-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A bound sheaf of golden wheat ears with a curved steel cutter blade across its stalks. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people. No vehicle other than the one described.",
+  "subject": "A bound sheaf of golden wheat ears with a curved steel cutter blade across its stalks",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Harvest (the combine's order)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Harvest.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-paddock-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A square field seen from directly above, with neat straight rows of green crop and a pair of dark tyre tracks running along the rows. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A square field seen from directly above, with neat straight rows of green crop and a pair of dark tyre tracks running along the rows",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Machine-worked paddock (a growing zone's toggle)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Paddock.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-paddock-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A square field of neat green crop rows seen from above, with one large chunky tractor tyre standing at its front corner. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A square field of neat green crop rows seen from above, with one large chunky tractor tyre standing at its front corner",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Machine-worked paddock (a growing zone's toggle)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Paddock.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-front-standard-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A combine's grain front seen from above: a long cutter bar with a row of small pointed knife guards, a reel of wooden slats above it and a steel auger running along its trough. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "subject": "A combine's grain front seen from above: a long cutter bar with a row of small pointed knife guards, a reel of wooden slats above it and a steel auger running along its trough",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Standard grain front (upgrade)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-front-standard-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A combine's grain front seen from above: a long cutter bar with pointed knife guards, a slatted reel and an auger, shaped like the third reference image. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "subject": "A combine's grain front seen from above: a long cutter bar with pointed knife guards, a slatted reel and an auger, shaped like the third reference image",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png",
+   "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Standard grain front (upgrade)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-front-wide-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, An extra-long combine grain front seen from above, with a slatted reel and pointed knife guards, and two bold amber arrows at its ends pointing outwards to show its width. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "subject": "An extra-long combine grain front seen from above, with a slatted reel and pointed knife guards, and two bold amber arrows at its ends pointing outwards to show its width",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Wide grain front (upgrade)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontWide.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-front-wide-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, An extra-long combine grain front seen from above: a long cutter bar with pointed knife guards, a slatted reel and an auger, shaped like the third reference image. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "subject": "An extra-long combine grain front seen from above: a long cutter bar with pointed knife guards, a slatted reel and an auger, shaped like the third reference image",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png",
+   "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontWide.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Wide grain front (upgrade)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontWide.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-front-corn-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A combine's corn header seen from above: a row of pointed cone-shaped snouts side by side, with gathering chains in the gaps between them and one yellow corn cob. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the header.",
+  "subject": "A combine's corn header seen from above: a row of pointed cone-shaped snouts side by side, with gathering chains in the gaps between them and one yellow corn cob",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Corn header (upgrade)",
+   "since": "Farming 0.3.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontCorn.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-front-corn-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A combine's corn header seen from above: a row of pointed cone-shaped snouts with gathering chains between them, shaped like the third reference image. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the header.",
+  "subject": "A combine's corn header seen from above: a row of pointed cone-shaped snouts with gathering chains between them, shaped like the third reference image",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png",
+   "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontCorn.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Corn header (upgrade)",
+   "since": "Farming 0.3.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontCorn.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-tank-extension-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, An open-topped steel grain tank heaped full of golden grain, with tall extension sides bolted around its rim, the extension painted amber. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people.",
+  "subject": "An open-topped steel grain tank heaped full of golden grain, with tall extension sides bolted around its rim, the extension painted amber",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Tank extension (upgrade)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/TankExtension.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-tank-extension-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A steel grain hopper heaped with golden grain, with a bold amber arrow pointing upwards beside raised sides fitted on top of it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people.",
+  "subject": "A steel grain hopper heaped with golden grain, with a bold amber arrow pointing upwards beside raised sides fitted on top of it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Tank extension (upgrade)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/TankExtension.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-straw-chopper-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A steel drum with rows of swinging chopper knives, throwing out a spray of short chopped golden straw. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people.",
+  "subject": "A steel drum with rows of swinging chopper knives, throwing out a spray of short chopped golden straw",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Straw chopper (upgrade)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/StrawChopper.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-straw-chopper-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A wide steel spreader hood with spinning knives inside, scattering fine chopped golden straw in a fan. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people.",
+  "subject": "A wide steel spreader hood with spinning knives inside, scattering fine chopped golden straw in a fan",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Straw chopper (upgrade)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/StrawChopper.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-fast-auger-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A wide steel auger tube with its open end showing the spiral flight inside, a thick stream of golden grain pouring out of it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people.",
+  "subject": "A wide steel auger tube with its open end showing the spiral flight inside, a thick stream of golden grain pouring out of it",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Fast auger (upgrade, the chaser bin)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FastAuger.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ },
+ {
+  "name": "farming-fast-auger-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A thick steel unloading auger pipe angled upwards, golden grain pouring from its spout, with a bold amber arrow along it showing speed. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people.",
+  "subject": "A thick steel unloading auger pipe angled upwards, golden grain pouring from its spout, with a bold amber arrow along it showing speed",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Fast auger (upgrade, the chaser bin)",
+   "since": "Farming 0.1.0",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FastAuger.png",
+   "why": "replaces a stand-in cut by draw_farming_icons.py from the machine's own picture (Farming 0.1.0 changelog: until their own are drawn); two wordings x two seeds"
+  }
+ }
+]

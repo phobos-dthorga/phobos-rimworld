@@ -1,0 +1,98 @@
+[
+ {
+  "name": "bulk-pour-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A tilted steel grain spout pouring a stream of golden grain down into an open steel bin. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people.",
+  "subject": "A tilted steel grain spout pouring a stream of golden grain down into an open steel bin",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Pour (bulk holds)",
+   "since": "Framework 0.189.0",
+   "ships_as": "mods/PhobosFramework/Textures/Phobos/Framework/Bulk/Pour.png (proposed)",
+   "why": "replaces the game's borrowed eject picture (UI/Commands/PodEject) in BulkPour.cs, the same picture Deliver borrows"
+  }
+ },
+ {
+  "name": "bulk-pour-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A steel hopper with its chute open, golden grain pouring down onto a small heap, and a bold amber arrow pointing down beside the stream. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people.",
+  "subject": "A steel hopper with its chute open, golden grain pouring down onto a small heap, and a bold amber arrow pointing down beside the stream",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Pour (bulk holds)",
+   "since": "Framework 0.189.0",
+   "ships_as": "mods/PhobosFramework/Textures/Phobos/Framework/Bulk/Pour.png (proposed)",
+   "why": "replaces the game's borrowed eject picture (UI/Commands/PodEject) in BulkPour.cs, the same picture Deliver borrows"
+  }
+ },
+ {
+  "name": "salvaged-parts-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A small heap of scuffed, oily used vehicle parts: a worn pump, a coil of wiring and a few greasy bearings, tied with a strap. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A small heap of scuffed, oily used vehicle parts: a worn pump, a coil of wiring and a few greasy bearings, tied with a strap",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Salvaged vehicle parts (item)",
+   "since": "Framework 0.187.0",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/SalvagedParts.png (proposed)",
+   "why": "replaces the drivetrain kit's borrowed picture (Salvage.xml: until one of its own is made, the owner's call); an item seen on the map"
+  }
+ },
+ {
+  "name": "salvaged-parts-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A dented open steel crate holding rusty used vehicle parts: a gear, a bearing, a short length of wiring and a bolt. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A dented open steel crate holding rusty used vehicle parts: a gear, a bearing, a short length of wiring and a bolt",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Salvaged vehicle parts (item)",
+   "since": "Framework 0.187.0",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/SalvagedParts.png (proposed)",
+   "why": "replaces the drivetrain kit's borrowed picture (Salvage.xml: until one of its own is made, the owner's call); an item seen on the map"
+  }
+ }
+]
