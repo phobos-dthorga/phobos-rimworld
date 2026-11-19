@@ -545,10 +545,12 @@ Vehicle Framework's of 18 Nov 2026.
 - **How Vehicle Framework draws a vehicle's footprint:** with the game's rule, but facing south counted as north and west as east
   (`AdjustForVehicleOccupiedRect`, its decompile line 71680, called by `VehicleRect`), so a vehicle's footprint never moves when
   it turns about.
-- **What follows (the agent's reading, not seen in game):** a vehicle whose length or width is an **even** number of cells, landing
-  turned to face **south or west**, covers a footprint one cell along from the deck cells it stood on at launch: one end one cell
-  further out, the other one cell short. A vehicle with odd sides lands exactly; so does one that ends up facing north or east. Parked
-  near the deck's edge, its end can hang a cell over the edge or overlap a wall; GenSpawn does not check.
+- **What follows (the agent's reading, not seen in game):** a vehicle whose length or width is an **even** number of cells can cover a
+  footprint one cell along from the deck cells it stood on at launch: one end one cell further out, the other one cell short. It
+  happens when the ship's turn carries the vehicle's footprint, as Vehicle Framework draws it (facing north or east), to face south or
+  west: **always on a half turn**, and on a quarter turn for some facings. A vehicle with odd sides always lands exactly, and so does
+  every vehicle when the ship lands unturned. Parked near the deck's edge, its end can hang a cell over the edge or overlap a wall;
+  GenSpawn does not check.
 - **Whose it is:** neither author's code is wrong alone; the two footprint rules disagree. Not extreme: a vehicle a cell out of place,
   no lost data. Under the owner's rule (another author's fault is theirs to fix unless it is extreme), **left to Vehicle Framework's
   author**; a bug report could be drafted for the owner if they want one.
