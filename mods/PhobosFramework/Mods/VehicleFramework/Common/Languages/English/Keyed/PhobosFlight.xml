@@ -85,7 +85,10 @@
   <PhobosFlight_WhyCannotHover>its engines cannot hold it in a hover</PhobosFlight_WhyCannotHover>
 
   <!-- Messages -->
-  <PhobosFlight_MsgEnginesKept>The {VEHICLE}'s engines cannot be stopped in the air: they are kept running. Land it first.</PhobosFlight_MsgEnginesKept>
+  <PhobosFlight_MsgLandingToShutDown>The {VEHICLE}'s engines were switched off: it is landing on the nearest clear spot and will shut down there.</PhobosFlight_MsgLandingToShutDown>
+  <PhobosFlight_MsgRotorsSpinningUp>The {VEHICLE} is spinning its rotors up: it lifts off once they are up to speed.</PhobosFlight_MsgRotorsSpinningUp>
+  <PhobosFlight_WhyEnginesSwitchedOff>its engines were switched off</PhobosFlight_WhyEnginesSwitchedOff>
+  <PhobosFlight_MsgEnginesKept>The {VEHICLE}'s engines cannot be stopped in the air, and there is nowhere clear to land nearby: they are kept running. Land it first.</PhobosFlight_MsgEnginesKept>
   <PhobosFlight_MsgSpotBlocked>The {VEHICLE} could not set down: {WHY}. It has climbed back up and is holding in a hover; pick another spot.</PhobosFlight_MsgSpotBlocked>
   <PhobosFlight_MsgComingDown>The {VEHICLE} is coming down: {WHY}.</PhobosFlight_MsgComingDown>
   <PhobosFlight_MsgHardLanding>The {VEHICLE} came down hard. Its undercarriage and airframe are damaged, and everyone aboard was shaken about.</PhobosFlight_MsgHardLanding>

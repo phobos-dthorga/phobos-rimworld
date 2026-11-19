@@ -96,6 +96,10 @@ public class CompProperties_PhobosFlight : VehicleCompProperties
     /// </summary>
     public bool onlyWithStockSetting;
 
+    /// <summary>The sound it makes in the air on our flight (Framework 0.174.0). Left out, the sound its Def starts on Vehicle Framework's launch
+    /// event, if any.</summary>
+    public SoundDef? flightSound;
+
     /// <summary>
     /// How fast its drawn rotors turn at full speed, degrees a tick (Framework 0.173.0): Vehicle Framework's rotor overlays (Graphic_Propeller)
     /// are turned only inside its own take-off and landing animation, which our flight replaces. Left out, the full rate of the aircraft's own
@@ -263,6 +267,8 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             return;
         }
         // An aircraft spawned in the air: after a load (Transform's turn is not saved) or on the map it was on. Never from anywhere else.
+        // Framework 0.174.0 (the owner's decision 3): its rotors are already turning at full.
+        rotorRate = RotorFull;
         FlightRegistry.Add(this);
         ApplyTurn();
         StartTicking();
@@ -292,6 +298,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
     /// <summary>Back to the ground state with nothing under way: no target, landing, circle, roll, journey or raid.</summary>
     void Grounded()
     {
+        EndFlightSound();
         ReturnLinesAboard();
         state = FlightState.Ground;
         climb = 0f;
@@ -421,6 +428,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         StartTicking();
         EndJobsOn(v);
         Seen.Note("aircraft.flight-takeoff", v);
+        SayRotorsSpinningUp(v);
         // Framework 0.160.0: a stock helicopter on our flight, by its Def.
         if (Props.onlyWithStockSetting && Seen.On && Seen.Wants("aircraft.flight-stock", v, v.def.defName)) Seen.Note("aircraft.flight-stock", v, variant: v.def.defName);
         LandingSurface.OnTakeOff(v);    // Framework 0.158.0: what the ground beneath does as it lifts off
@@ -456,6 +464,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         FlightRegistry.Add(this);
         StartTicking();
         EndJobsOn(v);
+        SayRotorsSpinningUp(v);
         Seen.Note("aircraft.flight-roll", v, variant: "takeoff");
         LandingSurface.OnTakeOff(v, rolling: true);
     }
@@ -528,6 +537,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         (double tx, double tz) = FlightPathRule.EdgePoint(x, z, bearing, ex, v.Map.Size.x - ex, ez, v.Map.Size.z - ez);
         (targetX, targetZ) = ((float)tx, (float)tz);
         LeaveOrbit();
+        EndFlightSound();    // Framework 0.174.0: Vehicle Framework's launch sound takes over for the journey
         v.EventRegistry[VehicleEventDefOf.AerialVehicleLaunch].ExecuteEvents();
         if (v.Faction == Faction.OfPlayer)
         {
@@ -583,6 +593,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         FlightRegistry.Remove(this);
         StopTicking();
         Seen.Note("aircraft.flight-departed", v);
+        EndFlightSound();
         // Fault-read H2 (Framework 0.163.0): patients on its litters stay aboard; the litter would set them down as it despawns.
         v.GetComp<CompPhobosLitter>()?.HoldThroughDespawn();
         v.DeSpawn(DestroyMode.Vanish);
@@ -613,6 +624,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         departAction = null;
         state = FlightState.Hover;
         inTransit = true;
+        rotorRate = RotorFull;    // Framework 0.174.0: it arrives flying, its rotors at full
         if (v.CompVehicleLauncher is { } launcher)
         {
             launcher.inFlight = false;
@@ -860,12 +872,16 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         }
         float dt = 1f / TicksPerSecond;
         RotorStep();
+        // Framework 0.174.0: the sound of its flight, except while Vehicle Framework's own launch sound plays for a journey.
+        if (!flightSoundOn && !Departing) StartFlightSound();
         if (v.vehiclePather.Moving) v.vehiclePather.StopDead();
         if ((now + v.thingIDNumber) % IdleResetTicks == 0) v.ResetIdleTicks();
         if (state != FlightState.ComingDown && Engines(v)) Judge(v, now);
         switch (state)
         {
             case FlightState.TakeoffRoll:
+                // Framework 0.174.0 (the owner's decision 2): it rolls only once its rotors are up to speed.
+                if (RotorsSpinningUp) break;
                 RollStep(dt, now);
                 break;
             case FlightState.RollingLanding:
@@ -878,6 +894,8 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
                 LineStep(dt, now);
                 break;
             case FlightState.LiftingOff:
+                // Framework 0.174.0 (the owner's decision 2): it leaves the ground only once its rotors are up to speed.
+                if (RotorsSpinningUp) break;
                 climb = Mathf.Min(1f, climb + dt / Props.climbSeconds);
                 if (climb >= 1f) state = HasTarget ? FlightState.Moving : FlightState.Hover;
                 break;
@@ -933,6 +951,12 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         }
         if (!v.Drafted)
         {
+            // Framework 0.174.0 (the owner's decision 1): on the take-off roll, switching the engines off stops the take-off where it is.
+            if (state == FlightState.TakeoffRoll && v.Faction == Faction.OfPlayer)
+            {
+                AbortRoll("PhobosFlight_WhyEnginesSwitchedOff".Translate().Resolve());
+                return false;
+            }
             // Stopping the engines in the air cannot be refused through Vehicle Framework: they are started again at once. If the game
             // refuses that too, it comes down (fault-read F5: before, the refusal repeated every tick).
             v.ignition.Drafted = true;
@@ -948,10 +972,13 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
                 else if (state != FlightState.RollingLanding) BeginFall(why);
                 return state == FlightState.RollingLanding;
             }
-            if (!redraftTold && v.Faction == Faction.OfPlayer)
+            // Framework 0.174.0 (the owner's decision 1): switched off in the air, it lands on the nearest clear spot and shuts down there,
+            // as VTOL Vehicle does. Only where it can find one; otherwise its engines are kept, and it says why.
+            if (v.Faction == Faction.OfPlayer && !redraftTold)
             {
                 redraftTold = true;
-                Messages.Message("PhobosFlight_MsgEnginesKept".Translate(v.LabelShort.Named("VEHICLE")).Resolve(), v, MessageTypeDefOf.RejectInput, historical: false);
+                if (!LandToShutDown(v))
+                    Messages.Message("PhobosFlight_MsgEnginesKept".Translate(v.LabelShort.Named("VEHICLE")).Resolve(), v, MessageTypeDefOf.RejectInput, historical: false);
             }
         }
         else redraftTold = false;
@@ -1379,6 +1406,40 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
     }
 
     /// <summary>
+    /// The engines were switched off in the air (Framework 0.174.0; the owner's decision 1, after VTOL Vehicle): it lands on the nearest spot it
+    /// may land on, within <see cref="ShutDownSearchCells"/> of where it is, and its landing then shuts the engines off. Says where it goes.
+    /// False, and nothing ordered, where it may not land now (its lines out, a load on the hook, already coming down) or no spot is in reach.
+    /// </summary>
+    bool LandToShutDown(VehiclePawn v)
+    {
+        if (state is FlightState.Settling or FlightState.RollingLanding or FlightState.ComingDown || landCell.IsValid) return true;
+        Rot4 rot = FlightRules.Rot4For(heading);
+        IntVec3 under = FlightRules.CellFor(v, x, z, new Rot8(rot));
+        IntVec3 spot = IntVec3.Invalid;
+        if (LandRefusal(under, rot) == null) spot = under;
+        else if (!landRolling && LinesOutRefusal() == null && v.GetComp<CompPhobosSling>() is not { Carried: not null } && !NeedsRollingLanding())
+        {
+            // The general refusals pass, so only the spot can be at fault: look outwards for the nearest clear one.
+            foreach (IntVec3 c in GenRadial.RadialCellsAround(under, ShutDownSearchCells, useCenter: false))
+            {
+                if (!c.InBounds(v.Map) || FlightRules.SpotRefusal(v, c, rot, forced: false) != null) continue;
+                spot = c;
+                break;
+            }
+        }
+        if (!spot.IsValid) return false;
+        Land(spot, rot);
+        if (!landCell.IsValid) return false;
+        Messages.Message("PhobosFlight_MsgLandingToShutDown".Translate(v.LabelShort.Named("VEHICLE")).Resolve(), new TargetInfo(spot, v.Map),
+            MessageTypeDefOf.TaskCompletion, historical: false);
+        Seen.Note("aircraft.shutdown-lands", v);
+        return true;
+    }
+
+    /// <summary>How far it looks for a spot to land on when its engines are switched off in the air, cells (authored).</summary>
+    const float ShutDownSearchCells = 15f;
+
+    /// <summary>
     /// A landing's last step, as Vehicle Framework's own landings end (Framework 0.173.0; the owner's report of 19 Nov 2026: the Cherokee
     /// never shut its engines off after landing): the brakes on and the engines off, so it stands parked, burns nothing and its rotors run
     /// down. Only the player's aircraft: a raiders' goes on thinking with its engines running. Start the engines again to take off.
@@ -1404,6 +1465,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
     void PutDown(IntVec3 cell, Rot4 rot)
     {
         VehiclePawn v = Vehicle;
+        EndFlightSound();    // Framework 0.174.0
         state = FlightState.Ground;
         climb = 0f;
         speed = 0f;

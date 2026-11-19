@@ -7,10 +7,13 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.174.0] - 2026-11-19 - Draft
 
-Weapons used up when fired are told apart from guns
+Weapons used up when fired are told apart from guns; switching an aircraft's engines off in the air lands it; take-offs wait for the rotors; helicopters sound their flight
 
 ### Added
 
+- **Switching an aircraft's engines off in the air lands it**: it sets down on the nearest clear spot within about 15 cells and shuts down there, as the owner chose. Where it cannot land just then, or nowhere is clear, its engines are kept and it says why. Switching them off on a take-off roll stops the take-off where it is.
+- **A take-off waits for the rotors**: once ordered, a helicopter holds on the ground until its rotors reach 85 % of their speed, saying so, then lifts or rolls. An aircraft loaded in the air, or arriving from another place, has its rotors at full.
+- **The stock helicopters sound their rotors all through a flight on our own flight** (the Cherokee, Louie and Mosquito, each with its own author's rotor sound), from take-off to touch-down. A journey's start hands the sound to Vehicle Framework's own, so two are never heard at once. The Osprey keeps its own engine voice.
 - **For modders: a shared rule telling weapons used up when fired from guns** (SingleUseWeapons). A grenade, a satchel charge or a one-shot rocket launcher counts as single-use from what its attack does, the game's own one-use attack or Combat Extended's, never from its name. D'thorga Patches 0.26.0 uses it so soldiers go back to their guns.
 
 ### Compatibility and limits

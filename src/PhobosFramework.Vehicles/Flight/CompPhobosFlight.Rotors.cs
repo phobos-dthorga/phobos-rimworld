@@ -1,4 +1,5 @@
 using Phobos.Framework.Vehicles.Rules;
+using RimWorld;
 using UnityEngine;
 using Vehicles;
 using Verse;
@@ -53,6 +54,78 @@ public partial class CompPhobosFlight
         if (rotorRate <= 0f) return;
         renderer.SetAcceleration(rotorRate);
         if (wasStill && Seen.On) Seen.Note("aircraft.rotors-turning", Vehicle);
+    }
+
+    /// <summary>The share of full speed its rotors must reach before it leaves the ground (Framework 0.174.0; the owner's decision 2, VTOL
+    /// Vehicle's figure).</summary>
+    const float RotorReadyShare = 0.85f;
+
+    /// <summary>Whether a take-off under way still waits for its rotors: it has rotors, they are below <see cref="RotorReadyShare"/>, and it
+    /// has not yet left the ground or begun to roll.</summary>
+    bool RotorsSpinningUp => RotorFull > 0f && rotorRate < RotorReadyShare * RotorFull && climb <= 0f && speed <= 0f;
+
+    /// <summary>Says a take-off waits for the rotors, once, as it is ordered.</summary>
+    void SayRotorsSpinningUp(VehiclePawn v)
+    {
+        if (!RotorsSpinningUp) return;
+        if (v.Faction == RimWorld.Faction.OfPlayer)
+            Messages.Message("PhobosFlight_MsgRotorsSpinningUp".Translate(v.LabelShort.Named("VEHICLE")).Resolve(), v, RimWorld.MessageTypeDefOf.SilentInput, historical: false);
+        Seen.Note("aircraft.rotors-waited", v);
+    }
+
+    // ---- The sound of its flight (Framework 0.174.0; the audit of 19 Nov 2026, finding 1) ----
+
+    SoundDef? flightSound;
+    bool flightSoundRead;
+
+    /// <summary>Whether our flight's sound is playing now. Derived, never saved: a loaded aircraft in the air starts it at its first tick.</summary>
+    bool flightSoundOn;
+
+    /// <summary>
+    /// The sound it makes in the air on our flight: the Def's <c>flightSound</c>, else the sound its own Def starts on Vehicle Framework's launch
+    /// event (the Cherokee's, Louie's and Mosquito's rotors), which Vehicle Framework plays only while it takes off for another place. None for
+    /// an aircraft with an engine voice of ours (the Osprey), which already sounds its flight.
+    /// </summary>
+    SoundDef? FlightSound
+    {
+        get
+        {
+            if (flightSoundRead) return flightSound;
+            flightSoundRead = true;
+            flightSound = Props.flightSound;
+            if (flightSound != null || Vehicle.def.GetModExtension<PhobosEngineSoundExtension>() != null) return flightSound;
+            if (Vehicle.VehicleDef.soundSustainersOnEvent is { } entries)
+            {
+                foreach (VehicleSustainerEventEntry<VehicleEventDef> entry in entries)
+                {
+                    if (entry.start == VehicleEventDefOf.AerialVehicleLaunch && entry.value != null)
+                    {
+                        flightSound = entry.value;
+                        break;
+                    }
+                }
+            }
+            return flightSound;
+        }
+    }
+
+    /// <summary>Starts the flight's sound, replacing any of the same sound already playing (the Mosquito starts it with its engines).</summary>
+    void StartFlightSound()
+    {
+        SoundDef? sound = FlightSound;
+        if (flightSoundOn || sound == null || !Vehicle.Spawned || Vehicle.sustainers == null) return;
+        Vehicle.sustainers.EndAll(sound);
+        Vehicle.sustainers.Spawn(Vehicle, sound);
+        flightSoundOn = true;
+        if (Seen.On) Seen.Note("aircraft.flight-sound", Vehicle, sound.defName);
+    }
+
+    /// <summary>Ends the flight's sound: landed, gone from the map, or handing the sound to Vehicle Framework's own launch.</summary>
+    void EndFlightSound()
+    {
+        if (!flightSoundOn) return;
+        flightSoundOn = false;
+        if (flightSound != null) Vehicle.sustainers?.EndAll(flightSound);
     }
 
     /// <summary>The engines started on the ground: the rotors spin up, so the comp takes its tick.</summary>
