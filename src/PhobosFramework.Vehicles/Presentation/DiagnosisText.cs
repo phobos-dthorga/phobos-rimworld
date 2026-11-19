@@ -69,6 +69,7 @@ public static class DiagnosisText
                 text.Append("\n").Append(Indent).Append(Colour(fault.label, fault.tone)).Append(" (").Append(fault.part).Append(")");
                 if (fault.stage != null) text.Append(": ").Append(fault.stage);
                 if (figures) text.Append(", ").Append(fault.severity.ToStringPercent());
+                if (fault.cause != null) text.Append("\n").Append(Indent).Append(Indent).Append(fault.cause);
             }
         }
         return text.ToString();

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What a vehicle's life leaves for the player to read (Framework 0.181.0; docs/development/vehicle-emergent-play.md, group F): its
+     logbook's kinds of entry (EM23), its drivers' and mechanics' records, and tales for art (EM13). Every word here is agent-authored,
+     held for the owner's review. A logbook entry's text takes {WHO}, {SUBJECT}, {PLACE}, {VALUE} and {DETAIL}; {PLACE} reads "at Amber
+     Anchorage", "near Amber Anchorage" or "in the temperate forest". -->
+<Defs>
+
+  <!-- ===== Logbook entries ===== -->
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_TripStart</defName>
+    <label>set out</label>
+    <text>Set out {PLACE}. Driving: {WHO}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_TripEnd</defName>
+    <label>journey's end</label>
+    <text>Journey's end {PLACE}, {VALUE} covered. {DETAIL} Driving: {WHO}.</text>
+    <value>Kilometres</value>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Stranded</defName>
+    <label>stranded</label>
+    <text>Stranded {PLACE}. {DETAIL}</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Fault</defName>
+    <label>fault</label>
+    <text>Fault: {SUBJECT}, from {DETAIL}, {PLACE}.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_UnderFire</defName>
+    <label>under fire</label>
+    <text>Came under fire {PLACE}.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Repaired</defName>
+    <label>repaired</label>
+    <text>Repaired by {WHO} {PLACE}: {DETAIL}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Serviced</defName>
+    <label>serviced</label>
+    <text>Serviced by {WHO} {PLACE}: {DETAIL}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Towing</defName>
+    <label>towing</label>
+    <text>Took {SUBJECT} in tow {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_TowedBy</defName>
+    <label>towed</label>
+    <text>Taken in tow by {SUBJECT} {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Winched</defName>
+    <label>winched a vehicle out</label>
+    <text>Winched {SUBJECT} out {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_WinchedOut</defName>
+    <label>winched out</label>
+    <text>Winched out by {SUBJECT} {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Claimed</defName>
+    <label>taken</label>
+    <text>Taken from {SUBJECT} by {WHO} {PLACE}. The logbook begins here.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <!-- ===== Colonists' records ===== -->
+
+  <RecordDef>
+    <defName>PhobosRecord_KilometresDriven</defName>
+    <label>kilometres driven</label>
+    <description>How far I have driven or flown our vehicles between places, about 30 km to a stretch of the world map.</description>
+    <type>Float</type>
+  </RecordDef>
+
+  <RecordDef>
+    <defName>PhobosRecord_VehicleRepairs</defName>
+    <label>vehicle repairs</label>
+    <description>The repairs and services I have done on vehicles.</description>
+    <type>Int</type>
+  </RecordDef>
+
+  <RecordDef>
+    <defName>PhobosRecord_VehiclesRecovered</defName>
+    <label>vehicles recovered</label>
+    <description>The stuck vehicles I have winched out.</description>
+    <type>Int</type>
+  </RecordDef>
+
+  <!-- ===== Tales, for art ===== -->
+
+  <TaleDef>
+    <defName>PhobosTale_VehicleRecovered</defName>
+    <label>vehicle recovered</label>
+    <taleClass>Tale_SinglePawnAndDef</taleClass>
+    <type>Volatile</type>
+    <defSymbol>VEHICLE</defSymbol>
+    <baseInterest>3</baseInterest>
+    <rulePack>
+      <rulesStrings>
+        <li>tale_noun->[PAWN_nameDef] winching a stranded [VEHICLE_label] free</li>
+        <li>image->[PAWN_nameFull] hauling on a winch cable as a [VEHICLE_label] rises from the mud [circumstance_group]</li>
+        <li>image->[PAWN_nameFull] bracing against a truck while a [VEHICLE_label] is dragged clear [circumstance_group]</li>
+        <li>image->[PAWN_nameFull] signalling to a driver beside a half-buried [VEHICLE_label] [circumstance_group]</li>
+        <li>circumstance_phrase->with mud up to [PAWN_possessive] knees</li>
+        <li>circumstance_phrase->while the cable sings with strain</li>
+        <li>circumstance_phrase->with a look of grim patience</li>
+        <li>circumstance_phrase->as rain beats down</li>
+        <li>desc_sentence->The cable is drawn as a single taut line across the scene.</li>
+        <li>desc_sentence->Deep ruts lead away from the [VEHICLE_label].</li>
+        <li>desc_sentence->[Quantity_adjphrase] [PersonJob]s watch from a safe distance.</li>
+      </rulesStrings>
+    </rulePack>
+  </TaleDef>
+
+  <TaleDef>
+    <defName>PhobosTale_RoadsideRepair</defName>
+    <label>roadside repair</label>
+    <taleClass>Tale_SinglePawnAndDef</taleClass>
+    <type>Volatile</type>
+    <defSymbol>VEHICLE</defSymbol>
+    <baseInterest>3</baseInterest>
+    <rulePack>
+      <rulesStrings>
+        <li>tale_noun->[PAWN_nameDef] mending a broken-down [VEHICLE_label] far from home</li>
+        <li>image->[PAWN_nameFull] lying beneath a [VEHICLE_label] with a lamp in [PAWN_possessive] teeth [circumstance_group]</li>
+        <li>image->[PAWN_nameFull] leaning into the engine bay of a [VEHICLE_label] [circumstance_group]</li>
+        <li>image->[PAWN_nameFull] laying out spare parts on a blanket beside a [VEHICLE_label] [circumstance_group]</li>
+        <li>circumstance_phrase->in the middle of nowhere</li>
+        <li>circumstance_phrase->with grease to the elbows</li>
+        <li>circumstance_phrase->while the others make camp</li>
+        <li>circumstance_phrase->as the light fails</li>
+        <li>desc_sentence->An empty road stretches away to the horizon.</li>
+        <li>desc_sentence->A [TerrainFeature] rises in the distance.</li>
+        <li>desc_sentence->A campfire burns a little way off.</li>
+      </rulesStrings>
+    </rulePack>
+  </TaleDef>
+
+  <TaleDef>
+    <defName>PhobosTale_LongJourney</defName>
+    <label>long journey</label>
+    <taleClass>Tale_SinglePawnAndDef</taleClass>
+    <type>Volatile</type>
+    <defSymbol>VEHICLE</defSymbol>
+    <baseInterest>3</baseInterest>
+    <rulePack>
+      <rulesStrings>
+        <li>tale_noun->[PAWN_nameDef] driving a [VEHICLE_label] on a long journey</li>
+        <li>image->[PAWN_nameFull] at the wheel of a dusty [VEHICLE_label] [circumstance_group]</li>
+        <li>image->[PAWN_nameFull] standing on the roof of a [VEHICLE_label], looking out over open country [circumstance_group]</li>
+        <li>image->[PAWN_nameFull] and a [VEHICLE_label] on a road that curves away into the hills [circumstance_group]</li>
+        <li>circumstance_phrase->with the sun low behind</li>
+        <li>circumstance_phrase->under a sky full of stars</li>
+        <li>circumstance_phrase->with a map spread across [PAWN_possessive] knees</li>
+        <li>circumstance_phrase->with a tired, contented smile</li>
+        <li>desc_sentence->The [VEHICLE_label] is caked in the dust of many places.</li>
+        <li>desc_sentence->A [TerrainFeature] can be seen far behind.</li>
+        <li>desc_sentence->[Quantity_adjphrase] [Animal]s scatter from the road ahead.</li>
+      </rulesStrings>
+    </rulePack>
+  </TaleDef>
+
+</Defs>

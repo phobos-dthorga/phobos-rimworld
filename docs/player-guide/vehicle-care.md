@@ -46,6 +46,11 @@ or an aircraft in flight.
 
 **Rest the mouse on any reading or part** to learn what it means, what moves it, and what losing it costs.
 
+**The Logbook tab** (not yet tested in game) is the vehicle's life story, newest first, kept for as long as you have it (up to 200
+entries): every journey it set out on and where it ended, with the distance, the fuel burnt and who drove; every repair and service
+with the mechanic's name; every fault with what caused it; tows, winch recoveries, the day it came under fire, the day you took it
+from another faction. It is on the world map too. Only your own vehicles keep one: a captured vehicle's begins the day you take it.
+
 **Armour.** On our service trucks every part has an armour class, named by what it stops, and the part's line on the Health tab
 says it in every display mode: "skin armour: stops nothing aimed at it: thin sheet metal". All five trucks are skin today: they are
 civilian trucks, and rifle fire goes through them. Each cell of a truck has one outside part (the cab, the body, a wheel, the
@@ -89,6 +94,11 @@ set**, a **clutch kit**, an **engine service kit**, a **drive belt**, and a **ho
 off **This colony: services take raw materials instead of kits** in the settings.
 
 **The coolant top-up** takes water from a plumbing pipe beside the parked vehicle with Dubs Bad Hygiene, or 3 chemfuel without it.
+
+**With Vehicles at Work, colonists leave a wrecking vehicle alone.** While a vehicle is boiling over, has under a tenth of its coolant
+or has no oil pressure, its colonists do not take it out for trips or hauls on their own, and that mod's "why it won't go" line
+says why. A trip already under way may still finish. **Your own orders still go through**, and so do Deliver and Gather. Once a mechanic
+has refilled it, or it has cooled, they use it again.
 **Pipes and conduits beneath a parked vehicle.** Whenever a vehicle of ours stands with its engine off, it lays hidden pieces of the
 networks it uses across its footprint: plumbing if it takes water, power conduit if it has a battery, and the pipe of any line it uses (a
 tanker's contents, a chemfuel line for its fuel). **You see them in the plumbing and power overlays**, not on the floor. Run a pipe or
@@ -137,6 +147,9 @@ left on still run the battery down.
 - **Parts can carry conditions** shown under the part on the Health tab: a holed radiator keeps leaking coolant, a shot battery
   drains itself, a boiled-over engine has a warped head and runs hotter (badly warped, it also loses power and labours on hills and
   under load). **Repair the part to full health to clear them.**
+- **Every fault says what caused it** (not yet tested in game): under the fault on the Health tab, and in a diagnosis report, a grey
+  line reads "Cause: a bullet hit, 2 hours ago, at Amber Anchorage", or names the reading that strained it ("coolant temperature
+  (boiling)"). A fault from before this was added has no line.
 - **A shot-through fuel tank leaks fuel**, even parked, where the vehicle's maker did not already make its tank leak. **A hit on the
   battery or alternator can short the wiring**: a message names what stopped working (the headlights, a heater...), and the Systems
   tab says it is dead. Repair the part, or patch it in the field.
@@ -149,7 +162,7 @@ left on still run the battery down.
   and a traction motor or a generator truck's generator (an **electric motor**); anything else half its materials. A
   vehicle whose engine is destroyed cannot move until it has a new one.
 - **In a caravan**, select it on the world map and press **Repair** for a vehicle that needs it; it must have stopped and have a
-  mechanic.
+  mechanic. **The parts can be anywhere in the convoy's cargo**, not only in the broken vehicle (not yet tested in game).
 - **A fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats, and the radiator, the tyres and the battery burn. Put it out
   within an in-game hour or expect a hot engine and a radiator to repair; left two hours, the engine boils over.
 - **Damage shows on our vehicles' pictures** once a part is below 60%: scorches, holes and tears.
@@ -379,6 +392,14 @@ the kit back in the cargo.
 
 - **A caravan moves as its slowest vehicle**, and its explanation names it. A vehicle that will not move stops the caravan; its
   inspect text says why.
+- **A stranded convoy raises an alert** (not yet tested in game): **Convoy stranded** names the vehicle, why it cannot go on, what
+  could fix it there with what the convoy carries, and how far home is. Your choices are yours: fix it where it stands, camp and wait,
+  send for parts or a tow, or leave it behind.
+- **Every journey goes in the vehicle's logbook** (not yet tested in game), and one that went wrong (a breakdown, a halt, someone hurt
+  aboard) also sends a letter when the vehicle reaches a map. **Letters for troubled journeys** in the settings turns the letters off.
+  Drivers' records count their **kilometres driven** (a stretch of the world map is about 30 km), mechanics' their **vehicle repairs**,
+  and winch drivers their **vehicles recovered**; long journeys, roadside repairs and winch recoveries can turn up in your colonists'
+  art.
 - **The ground matters**: deserts are sand, swamps mud, jungle undergrowth, and winter adds snow. A road is firm whatever the land.
 - **Select a vehicle caravan to see its reach** on the fuel aboard, outlined in amber on the globe, and how many hours of driving
   the fuel allows. **Select an aircraft in flight** and its inspect pane says how many more tiles its fuel flies; **zoom out** to see an

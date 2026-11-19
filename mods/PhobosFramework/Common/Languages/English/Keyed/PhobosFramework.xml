@@ -101,4 +101,21 @@
   <PhobosFramework_FilterEverything>everything</PhobosFramework_FilterEverything>
   <PhobosFramework_FilterNothing>nothing</PhobosFramework_FilterNothing>
   <PhobosFramework_FilterSomeAndMore>{NAMES} and {COUNT} more kinds</PhobosFramework_FilterSomeAndMore>
+
+  <!-- Places, causes and logbooks (Framework 0.181.0) -->
+  <PhobosPlace_At>at {PLACE}</PhobosPlace_At>
+  <PhobosPlace_Near>near {PLACE}</PhobosPlace_Near>
+  <PhobosPlace_In>in the {BIOME}</PhobosPlace_In>
+  <PhobosPlace_Unknown>somewhere far away</PhobosPlace_Unknown>
+  <PhobosPlace_Kilometres>{KM} km</PhobosPlace_Kilometres>
+  <PhobosCause_Line>Cause: {WHAT}, {WHENWHERE}.</PhobosCause_Line>
+  <PhobosCause_HitBy>a {DAMAGE} hit</PhobosCause_HitBy>
+  <PhobosCause_Hit>a hit</PhobosCause_Hit>
+  <PhobosCause_Unknown>not known</PhobosCause_Unknown>
+  <PhobosCause_Ago>{TIME} ago</PhobosCause_Ago>
+  <PhobosCause_JustNow>just now</PhobosCause_JustNow>
+  <PhobosCause_WhenWhere>{WHEN}, {PLACE}</PhobosCause_WhenWhere>
+  <PhobosLogbook_Tab>Logbook</PhobosLogbook_Tab>
+  <PhobosLogbook_Empty>Nothing written yet. Journeys, repairs, faults and close calls are noted here as they happen.</PhobosLogbook_Empty>
+  <PhobosLogbook_Hours>{HOURS} h</PhobosLogbook_Hours>
 </LanguageData>

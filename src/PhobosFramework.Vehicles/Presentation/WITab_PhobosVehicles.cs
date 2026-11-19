@@ -123,6 +123,20 @@ public abstract class WITab_PhobosVehicles : WITab
     }
 }
 
+/// <summary>The logbook on the world map (Framework 0.181.0, EM23): the map tab's own drawing, for a convoy's or an aircraft's vehicles.</summary>
+public class WITab_PhobosVehicleLogbook : WITab_PhobosVehicles
+{
+    Vector2 scroll;
+
+    public WITab_PhobosVehicleLogbook()
+    {
+        size = new Vector2(640f, 430f);
+        labelKey = "PhobosLogbook_Tab";
+    }
+
+    protected override void DrawVehicle(CompPhobosVehicleSystems comp, Rect rect) => ITab_PhobosLogbook.Draw(rect, comp.Book, ref scroll);
+}
+
 public class WITab_PhobosVehicleDashboard : WITab_PhobosVehicles
 {
     public WITab_PhobosVehicleDashboard()

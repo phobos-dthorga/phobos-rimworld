@@ -155,6 +155,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>D'thorga Vehicles turns Vanilla Vehicles Expanded's Lightning into an electric van, to try the electric systems (owner,
     /// 8 Nov 2026: a test vehicle; agent default: off). Needs a restart: it changes the vehicle's design while the game loads.</summary>
     public bool electricLightning;
+    /// <summary>A journey away from any map where something went wrong (a new fault, a halt, someone hurt) is also a letter (Framework
+    /// 0.181.0, EM25; agent default, agreed by the owner on 20 Nov 2026: on). Every journey goes in the logbook either way. Live.</summary>
+    public bool tripLetters = true;
 
     public enum HoverLimit
     {
@@ -254,6 +257,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref parkedWarningDays, "PhobosVehicleSystems_ParkedWarningDays", 3);
         Scribe_Values.Look(ref batteryFires, "PhobosVehicleSystems_BatteryFires", false);
         Scribe_Values.Look(ref electricLightning, "PhobosVehicleSystems_ElectricLightning", false);
+        Scribe_Values.Look(ref tripLetters, "PhobosVehicleSystems_TripLetters", true);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             disabledPackages ??= new List<string>();
@@ -483,6 +487,10 @@ public class VehicleSystemsMod : Mod
         if (byWeight != s.fitCostScalesWithWeight) VehicleFittings.CostsChanged();
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingPowerPointLarge".Translate(), ref s.powerPointLargeSocket, "PhobosVehicleSystems_SettingPowerPointLargeDesc".Translate());
         listing.CheckboxLabeled("PhobosVehicleSystems_SettingEnemyFitSets".Translate(), ref s.enemyFitSets, "PhobosVehicleSystems_SettingEnemyFitSetsDesc".Translate());
+
+        // Stories (Framework 0.181.0; docs/development/vehicle-emergent-play.md): what a vehicle's life leaves for the player to read.
+        SettingsUi.Section(listing, "PhobosVehicleSystems_SectionStories".Translate());
+        listing.CheckboxLabeled("PhobosVehicleSystems_SettingTripLetters".Translate(), ref s.tripLetters, "PhobosVehicleSystems_SettingTripLettersDesc".Translate());
 
         SettingsUi.Section(listing, "PhobosSling_Section".Translate());
         listing.CheckboxLabeled("PhobosSling_SettingHeat".Translate(), ref s.slingHeatDerating, "PhobosSling_SettingHeatDesc".Translate());

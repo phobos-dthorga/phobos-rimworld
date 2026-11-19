@@ -57,6 +57,7 @@
       <li>Phobos.VehicleSystems.WITab_PhobosVehicleHealth</li>
       <li>Phobos.VehicleSystems.WITab_PhobosVehicleDashboard</li>
       <li>Phobos.VehicleSystems.WITab_PhobosVehicleSystems</li>
+      <li>Phobos.VehicleSystems.WITab_PhobosVehicleLogbook</li>
     </value>
   </Operation>
 </Patch>

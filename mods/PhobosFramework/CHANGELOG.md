@@ -22,6 +22,33 @@ The driving a vehicle does on an errand of its own is one shared piece, ready fo
 - For other modders: an errand of your own can build on the shared base (CompPhobosVehicleRun) and its rule (VehicleRunRule).
 - Not yet tested in game. The gathering run has not been tested in game either (check 201), so its first test also checks this change.
 
+## [0.181.0] - 2026-11-20 - Draft
+
+Vehicles keep their story: every fault says what caused it, a logbook remembers each vehicle's life, and a stranded convoy says so
+
+### Added
+
+- **Every fault on a vehicle's part says what caused it.** Under the fault on the Health tab, and in a diagnosis report, a grey line names the hit that did it (a bullet, a blast, a fire) or the reading that strained it ("coolant temperature (boiling)"), how long ago and where: "Cause: a bullet hit, 2 hours ago, at Amber Anchorage". Causes are kept on every faction's vehicles, so a captured truck's faults say why too.
+- **A Logbook tab on every vehicle of yours**, on the map and on the world map: each journey with its distance in km, the fuel burnt and who drove; each repair and service with the mechanic's name; each fault with its cause; tows, winch recoveries, the day it came under fire, and the day you took it from another faction. It keeps up to 200 entries, the oldest going first. Only your own vehicles keep one; a captured vehicle's begins at its capture.
+- **Journeys are reported.** A journey begins when a vehicle leaves a map in a convoy or flies off, and ends when it stands on a map again; its end goes in the logbook. One that went wrong on the way (a new fault, the convoy stranded, someone aboard hurt) also sends a letter saying how it went.
+- **A Convoy stranded alert.** When a vehicle holds its convoy up on the world map (it will not move, or its tank is empty), the alert names it, says why, what the convoy carries that could fix it there, and how far home is. The choice of what to do stays yours: fix it where it stands, camp, send for parts or a tow, or leave it.
+- **Colonists remember their vehicles too.** Three new records: kilometres driven (about 30 km to a stretch of the world map), vehicle repairs, and vehicles recovered with a winch. Three new tales for art: a winch recovery, a roadside repair far from home, and a long journey of 10 stretches or more.
+- **For other modders:** a logbook any thing can keep, with its own tab and entry kinds written in XML; a note of what caused a condition; places on the world map in words with distances in km. All in the core, naming no vehicle.
+
+### Changed
+
+- **Repairs and services at a convoy's halt now use the whole convoy's cargo**, not only the broken vehicle's own: the spare parts can ride in any vehicle of the convoy, as the fuel already could.
+
+### Save compatibility
+
+- Safe to add to a save. Each vehicle of yours saves its logbook, the journey under way and the cause of each fault; faults from before this version have no cause line. Removing D'thorga Framework takes them with it, as it takes the rest of the vehicle systems.
+
+### Compatibility and limits
+
+- New setting: **Letters for troubled journeys** (on), in D'thorga Framework's vehicle systems settings, new section **Stories**. Every journey goes in the logbook either way.
+- The words of the logbook, records and tales are agent-authored, held for the owner's review.
+- Not yet tested in game: rows 256 to 258 of the test pass.
+
 ## [0.180.0] - 2026-11-20 - Draft
 
 Chaff and flares are loaded into an aircraft's dispensers by haulers, not carried as cargo

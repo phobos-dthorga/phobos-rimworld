@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Phobos.Framework.Persistence;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using Vehicles;
@@ -20,6 +21,8 @@ public sealed class VehicleCondition : IExposable
     public float severity;
     /// <summary>Patched in the field once; another patch adds nothing.</summary>
     public bool fieldFixed;
+    /// <summary>What gave the part this condition, when and where (Framework 0.181.0, EM24); null for one older than that, or given in dev mode.</summary>
+    public CauseNote? cause;
     [Unsaved] public int stage = -1;
 
     public StageSpec? CurrentStage => def != null && stage >= 0 && stage < def.stages.Count ? def.stages[stage] : null;
@@ -32,6 +35,7 @@ public sealed class VehicleCondition : IExposable
         Scribe_Values.Look(ref system, "system", "");
         Scribe_Values.Look(ref severity, "severity");
         Scribe_Values.Look(ref fieldFixed, "fieldFixed", false);
+        Scribe_Deep.Look(ref cause, "cause");
     }
 }
 
@@ -86,16 +90,18 @@ public sealed class VehicleConditions
         }
     }
 
-    /// <summary>Adds severity to the condition on the part, giving the part the condition if it has none. Stages follow on the next update.</summary>
-    public void Add(PhobosVehicleConditionDef def, VehicleComponent part, string role, string system, float amount)
+    /// <summary>Adds severity to the condition on the part, giving the part the condition if it has none, with its cause (Framework 0.181.0:
+    /// a condition already there keeps the cause it began with). Stages follow on the next update.</summary>
+    public void Add(PhobosVehicleConditionDef def, VehicleComponent part, string role, string system, float amount, CauseNote? cause = null)
     {
         if (amount <= 0f || part?.props?.key == null) return;
         VehicleCondition? condition = Find(def, part.props.key);
         if (condition == null)
         {
-            condition = new VehicleCondition { def = def, partKey = part.props.key, role = role, system = system };
+            condition = new VehicleCondition { def = def, partKey = part.props.key, role = role, system = system, cause = cause };
             list.Add(condition);
             comp.RecordEvent(VehicleEventKind.Fault, system, def.defName);
+            VehicleStory.Fault(comp, condition, part);
             // Seen in play (Framework 0.123.0): the key is built from the condition's name; config/test-evidence.json lists it as a prefix.
             if (Seen.On) Seen.Note("vehicles.condition." + def.defName, comp.Vehicle, part.props.label ?? part.props.key);
         }

@@ -700,6 +700,8 @@ public class ITab_PhobosVehicleHealth : ITab
                     Colour = ITab_VehicleDashboard.StageColour(stage),
                     SystemDefName = string.IsNullOrEmpty(condition.system) ? null : condition.system,
                 });
+                // Framework 0.181.0 (EM24): what gave it, when and where.
+                if (condition.cause != null) row.Conditions.Add(new ConditionRow { Label = VehicleStory.CauseLine(condition.cause), Colour = ColoredText.SubtleGrayColor });
                 if (condition.fieldFixed) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthFieldFixed".Translate(), Colour = PhobosWidgets.Caution });
                 string? clock = comp.Repairs.DangerClock(condition);
                 if (clock != null) row.Conditions.Add(new ConditionRow { Label = clock, Colour = PhobosWidgets.Bad });

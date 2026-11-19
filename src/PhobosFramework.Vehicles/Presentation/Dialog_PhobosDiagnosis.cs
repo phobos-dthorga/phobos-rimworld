@@ -270,6 +270,12 @@ public class Dialog_PhobosDiagnosis : Window
                     PhobosWidgets.Gauge(new Rect(labelWidth, y + 4f, view.width * 0.30f, Row - 8f), fault.severity, DiagnosisText.ToneColour(fault.tone), figure: fault.severity.ToStringPercent());
                 }
                 y += Row;
+                // Framework 0.181.0 (EM24): what caused it, under the fault.
+                if (fault.cause != null)
+                {
+                    using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft, ColoredText.SubtleGrayColor)) Widgets.Label(new Rect(16f, y, view.width - 16f, Row), fault.cause);
+                    y += Row;
+                }
             }
             PhobosWidgets.CardEnd(faultsTop, ref y, 0f, view.width);
         }

@@ -71,6 +71,7 @@ public static class VehicleClaims
         foreach (IntVec3 cell in vehicle.OccupiedRect()) FleckMaker.ThrowMetaPuffs(new TargetInfo(cell, vehicle.Map));
         Messages.Message("PhobosVehicleClaim_Done".Translate(claimer.LabelShort.Named("CLAIMER"), vehicle.LabelShort.Named("VEHICLE")),
             vehicle, MessageTypeDefOf.PositiveEvent);
+        VehicleStory.Claimed(vehicle, claimer, owner);
         if (angers && owner != null)
         {
             owner.TryAffectGoodwillWith(Faction.OfPlayer, -Rules.claimGoodwillLoss, canSendMessage: true, canSendHostilityLetter: true,

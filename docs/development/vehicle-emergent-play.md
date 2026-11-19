@@ -1,10 +1,11 @@
 # Emergent play around the vehicles: where unplanned stories could come from (20 Nov 2026)
 
-**Status (20 Nov 2026):** research and record only. No code, Def or setting exists for any row here (EM1 to EM29), and nothing here is
-tested in game. It reads what is built, audits it three ways and lists ideas for the owner to pick from. The owner answered four of
-its questions the same day ([the answers](#questions-for-the-owner)); three stay open, and nothing is built until the owner says so.
+**Status (20 Nov 2026):** batch 1 built in D'thorga Framework 0.181.0 (EM24, EM23, EM13, EM25 and EM1: faults that say why, the
+logbook, records and tales, the trip report, stranded convoys); not yet tested in game. Batches 2 to 4 are being built the same day
+(the owner's word, 20 Nov 2026); every other row is an idea, not built. The owner answered four of the questions the same day
+([the answers](#questions-for-the-owner)).
 
-A research and record round the owner asked for on 20 Nov 2026: "suggestions/ideas/thoughts/brainstorming/etc on how we could perhaps
+It began as a research round the owner asked for on 20 Nov 2026: "suggestions/ideas/thoughts/brainstorming/etc on how we could perhaps
 obtain/encourage further, emergent gameplay which I so dearly crave like ambrosia, with a focus surrounding our vehicle mods", and
 "strictly a research and record purview". **Emergent play** here means stories nobody scripted, arising when rules meet each other.
 
@@ -389,6 +390,29 @@ model (owner). **Later:** EM4, EM9, EM16, EM18's warning, the rest of EM21. **He
 
 **Still open:** 4 (exhaust indoors: on or off by default), 5 (a lost convoy as a site, a hull on the map, or both) and 6 (raiders'
 fuel by distance, in a group not picked for now).
+
+## As built: batch 1, reading the story (20 Nov 2026, Framework 0.181.0)
+
+The owner's word, 20 Nov 2026: "Proceed with Batches #1 through #4, step-wise if necessary", and "reuse/genericize code in the
+Framework where it would be appropriate", so other mods can use it. Not yet tested in game; rows 256 to 258 of the test pass.
+
+| Row | What was built | Where |
+| --- | --- | --- |
+| EM24 | A condition keeps its cause: the kind of damage of the hit that gave it, or the system stage that strained it, with when and where. The Health tab and the diagnosis report say it under the fault | Core: `Persistence/CauseNote.cs`. Vehicles: `VehicleConditions`, `Notify_PartHit`, `Effect_AddCondition`, `VehicleStory.CauseLine` |
+| EM23 | A logbook any thing can keep, with its own tab; entry kinds are Defs, so other mods add their own in XML. Vehicles log journeys, faults with causes, repairs and services with the mechanic, tows, winch recoveries, coming under fire (once a day of fighting), being taken. 200 entries, oldest dropped first [A] | Core: `Persistence/Logbook.cs`, `UI/ITab_PhobosLogbook.cs`, `Rules/StoryRules.cs` (`LogbookRule`). Vehicles: `Service/VehicleStory.cs`, `Stories.xml` |
+| EM13 | Three colonists' records (kilometres driven, vehicle repairs, vehicles recovered) and three tales for art (a winch recovery, a roadside repair, a long journey of 10 tiles or more [A]) | `Stories.xml` |
+| EM25 | A journey opens when a vehicle is found in a convoy or in flight, follows it at the rare look it already gets, and closes on a map: distance (30 km a tile, the owner's figure, now `WorldScaleRule`), fuel burnt, new faults, drivers. A letter only when something went wrong, behind the new setting **Letters for troubled journeys** (on) | Vehicles: `Service/VehicleTrips.cs`; core: `TripRule` |
+| EM1 | The **Convoy stranded** alert: the vehicle, why, what the convoy could fix it with, how far home is. Repairs and services at a halt now count supplies across the whole convoy's cargo (the record's "Found on the way", 3) | Vehicles: `Service/Stranding.cs`; core: `WorldMap/WorldPlaces.cs` |
+
+**Generic, for other mods:** `CauseNote`, `Logbook` with `ILogbookHolder` and `PhobosLogEntryDef`, `ITab_PhobosLogbook`,
+`WorldPlaces` (a place in words, the nearest home, distances in km) and `WorldScaleRule` live in the core and name no vehicle.
+
+**Other factions:** causes are kept on every faction's vehicle (hits are counted on the lite tier), so a captured vehicle's faults
+say why; logbooks, journeys and the alert are the player's only, and a captured vehicle's logbook begins at its capture.
+
+**Saves:** new saved fields, all on the vehicle's systems comp: the logbook (`PhobosVehicleSystems_Logbook`), the journey under way
+(`PhobosVehicleSystems_Trip`), the last hit's tick, and a cause on each condition. Older saves load with none of them. Removing the
+mod drops them with the rest of the comp.
 
 ## Who chose what
 

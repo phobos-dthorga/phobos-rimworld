@@ -220,6 +220,7 @@ public sealed partial class CompPhobosHitch
         }
         if (Beside(stuck))
         {
+            VehicleStory.Winched(Vehicle, stuck);
             StopWinch("PhobosRecovery_WinchDone".Translate(tractor.Named("TRACTOR"), towed.Named("TOWED")).Resolve(), MessageTypeDefOf.TaskCompletion);
             return;
         }
@@ -238,6 +239,7 @@ public sealed partial class CompPhobosHitch
         }
         if (Beside(stuck))
         {
+            VehicleStory.Winched(Vehicle, stuck);
             StopWinch("PhobosRecovery_WinchDone".Translate(tractor.Named("TRACTOR"), towed.Named("TOWED")).Resolve(), MessageTypeDefOf.TaskCompletion);
             return;
         }

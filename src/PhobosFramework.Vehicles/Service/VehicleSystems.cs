@@ -204,6 +204,8 @@ public static class VehicleSystems
         // A trailer has no driver, engine or gauges, so no Dashboard (Framework 0.133.0); its Systems tab lists its tyres' wear and service.
         if (!props.trailer && !def.inspectorTabs.Contains(typeof(ITab_VehicleDashboard))) def.inspectorTabs.Add(typeof(ITab_VehicleDashboard));
         if (!def.inspectorTabs.Contains(typeof(ITab_VehicleSystems))) def.inspectorTabs.Add(typeof(ITab_VehicleSystems));
+        // The logbook (Framework 0.181.0, EM23): the core's tab, shown for the player's vehicles.
+        if (!def.inspectorTabs.Contains(typeof(Phobos.Framework.Interface.ITab_PhobosLogbook))) def.inspectorTabs.Add(typeof(Phobos.Framework.Interface.ITab_PhobosLogbook));
         return added;
     }
 

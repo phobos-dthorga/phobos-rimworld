@@ -351,12 +351,12 @@ public class Effect_AddCondition : VehicleSystemEffect
 
     public override void OnEnter(SystemContext context)
     {
-        if (condition != null && severity > 0f) context.Comp.AddCondition(role, condition, severity, context.State.Def.defName);
+        if (condition != null && severity > 0f) context.Comp.AddCondition(role, condition, severity, context.State.Def.defName, context.StageKey);
     }
 
     public override void Apply(SystemContext context, float hours)
     {
-        if (condition != null && perHour > 0f) context.Comp.AddCondition(role, condition, perHour * hours, context.State.Def.defName);
+        if (condition != null && perHour > 0f) context.Comp.AddCondition(role, condition, perHour * hours, context.State.Def.defName, context.StageKey);
     }
 }
 

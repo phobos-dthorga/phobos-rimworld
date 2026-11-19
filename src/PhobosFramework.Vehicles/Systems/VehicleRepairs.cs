@@ -4,6 +4,7 @@ using Phobos.Framework.Defs;
 using Phobos.Framework.Rules;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
+using RimWorld.Planet;
 using SmashTools;
 using Vehicles;
 using Verse;
@@ -455,6 +456,9 @@ public sealed class VehicleRepairs
                 break;
         }
         comp.AfterRepair();
+        // Framework 0.181.0 (EM23, EM13): the logbook, the mechanic's record, and a tale for one done at a convoy's halt.
+        VehicleStory.Repaired(comp, mechanic, repair.Label, service: repair.Kind == RepairKind.ConditionService);
+        if (!comp.Vehicle.Spawned && comp.Vehicle.GetCaravan() != null) Seen.Note("vehicles.convoy-repair", comp.Vehicle, repair.Label);
         Invalidate();
         if (fieldFixRequested && !AnyFieldWork()) fieldFixRequested = false;
         VehicleNotices.Send(text, comp.Vehicle.Spawned ? comp.Vehicle : LookTargets.Invalid, MessageTypeDefOf.TaskCompletion);

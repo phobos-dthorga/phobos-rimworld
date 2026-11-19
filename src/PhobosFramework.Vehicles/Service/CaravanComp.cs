@@ -143,6 +143,8 @@ public class WorldObjectComp_PhobosFlightSystems : WorldObjectComp
             CargoRefuel.HoldTick(held, holding.Vehicle, holding);
         if ((Find.TickManager.TicksGame + parent.ID) % GenTicks.TickRareInterval != 0) return;
         if (parent is not AerialVehicleInFlight flight || Systems() is not { } comp) return;
+        // Framework 0.181.0 (EM25): a flight is a journey for the logbook, as a convoy's is.
+        VehicleTrips.Look(comp);
         // A stop for fuel: down on the ground, the systems run as for a vehicle standing still.
         if (!flight.Flying && comp.LandedRefuelUntil <= 0) return;
         using (PhobosTiming.Measure("vehicle rare tick / in flight")) comp.UpdateNow();

@@ -120,7 +120,7 @@ public class CompProperties_PhobosVehicleSystems : VehicleCompProperties
 /// ticks, which Vehicle Framework calls on every comp) and on the vehicle's own events, catching up on the hours since it last ran.
 /// Draft and move refusals, stat factors, inspect text and gizmos all read the state; the schema's effects change it.
 /// </summary>
-public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
+public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.Framework.Persistence.ILogbookHolder
 {
     List<SystemState>? states;
     Dictionary<string, float> savedValues = new();
@@ -199,6 +199,20 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 
     /// <summary>The conditions on this vehicle's parts (slice 2 of the vehicle health design).</summary>
     public VehicleConditions Conditions => conditions ??= new VehicleConditions(this);
+
+    Phobos.Framework.Persistence.Logbook? book;
+
+    /// <summary>The vehicle's lasting logbook (Framework 0.181.0, EM23): journeys, repairs, faults with their causes, close calls.</summary>
+    public Phobos.Framework.Persistence.Logbook Book => book ??= new Phobos.Framework.Persistence.Logbook();
+
+    /// <summary>The logbook tab shows the player's vehicles' logbooks only: another faction's is never written.</summary>
+    Phobos.Framework.Persistence.Logbook? Phobos.Framework.Persistence.ILogbookHolder.Logbook => Vehicle?.Faction == Faction.OfPlayer ? Book : null;
+
+    /// <summary>When a hit last came, so a fight is one "came under fire" entry, not one a bullet (Framework 0.181.0). Saved.</summary>
+    public int LastUnderFireTick = -1;
+
+    /// <summary>The journey under way away from any map, or null (Framework 0.181.0, EM25). Saved while it lasts.</summary>
+    public VehicleTrip? Trip;
 
     VehicleEventLog? events;
 
@@ -591,6 +605,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         Fittings.ExposeData();
         Diagnostics.ExposeData();
         Events.ExposeData();
+        Book.ExposeData("PhobosVehicleSystems_Logbook");
+        Scribe_Values.Look(ref LastUnderFireTick, "PhobosVehicleSystems_LastUnderFire", -1);
+        Scribe_Deep.Look(ref Trip, "PhobosVehicleSystems_Trip");
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             savedValues ??= new Dictionary<string, float>();
@@ -760,6 +777,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                     heldSystems.CatchUpTowedBy(this);
                 }
                 NoticeStopped();
+                // Journeys away from any map (Framework 0.181.0, EM25): one state read on a vehicle at home.
+                VehicleTrips.Look(this);
                 Lamps.Update();
                 Beams.Update();
                 CookOff.RareTick(this);
@@ -1865,12 +1884,14 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 if (!string.IsNullOrEmpty(rule.quantity)) AddToQuantity(rule.quantity, amount);
                 if (rule.condition != null)
                 {
-                    Conditions.Add(rule.condition, part, rule.role, state.Def.defName, (float)FittingRule.FaultSeverity(System.Math.Max(0f, amount), Fittings.FaultFactor(part.props.key)));
+                    Conditions.Add(rule.condition, part, rule.role, state.Def.defName, (float)FittingRule.FaultSeverity(System.Math.Max(0f, amount), Fittings.FaultFactor(part.props.key)),
+                        Phobos.Framework.Persistence.CauseNote.Hit(damage, Vehicle.Tile));
                     conditionGiven = true;
                 }
             }
         }
         if (conditionGiven) AfterConditionsChanged();
+        VehicleStory.Hit(this);
     }
 
     internal bool PartPlays(VehicleComponent part, string role) => Props.roleKeys.TryGetValue(role, out List<string>? keys) && keys.Contains(part.props.key);
@@ -1923,8 +1944,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         AfterConditionsChanged();
     }
 
-    /// <summary>Gives a part of the role the condition, or adds to it where a part already has it (Effect_AddCondition).</summary>
-    public void AddCondition(string role, PhobosVehicleConditionDef def, float amount, string system)
+    /// <summary>Gives a part of the role the condition, or adds to it where a part already has it (Effect_AddCondition). The stage that
+    /// gave it is kept as its cause (Framework 0.181.0, EM24).</summary>
+    public void AddCondition(string role, PhobosVehicleConditionDef def, float amount, string system, string? causeKey = null)
     {
         if (!Usable || amount <= 0f) return;
         VehicleComponent? chosen = null;
@@ -1937,13 +1959,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 break;
             }
         }
-        if (chosen != null) Conditions.Add(def, chosen, role, system, amount);
+        if (chosen != null) Conditions.Add(def, chosen, role, system, amount, causeKey == null ? null : Phobos.Framework.Persistence.CauseNote.Strain(causeKey, Vehicle.Tile));
     }
 
-    /// <summary>Uses up so many of a thing from the vehicle's cargo.</summary>
+    /// <summary>Uses up so many of a thing from the vehicle's cargo; in a convoy away from any map, from the whole convoy's (Framework 0.181.0, EM1).</summary>
     internal void TakeFromCargo(ThingDef def, int count)
     {
-        ThingOwner? cargo = Vehicle.inventory?.innerContainer;
+        IEnumerable<Thing>? cargo = CargoNow();
         if (cargo == null) return;
         int remaining = count;
         foreach (Thing thing in cargo.Where(t => t.def == def).ToList())
@@ -2736,9 +2758,16 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
 
     internal int CountInCargo(ThingDef def)
     {
+        if (ConvoyCaravan() is { } caravan) return Stranding.ConvoyCargo(caravan).Where(t => t.def == def).Sum(t => t.stackCount);
         ThingOwner? cargo = Vehicle.inventory?.innerContainer;
         return cargo == null ? 0 : cargo.TotalStackCountOfDef(def);
     }
+
+    /// <summary>The convoy this vehicle travels in away from any map, whose cargo its repairs and services may use; null on a map, where
+    /// haulers bring supplies to the vehicle itself.</summary>
+    Caravan? ConvoyCaravan() => Vehicle != null && !Vehicle.Spawned ? Vehicle.GetCaravan() : null;
+
+    IEnumerable<Thing>? CargoNow() => ConvoyCaravan() is { } caravan ? Stranding.ConvoyCargo(caravan) : Vehicle.inventory?.innerContainer;
 
     /// <summary>Everything every due service still lacks in the vehicle's cargo, added up by kind (the core's SupplyRules), so the
     /// haulers fetch it all and the vehicle says it all.</summary>
@@ -2828,6 +2857,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         Conditions.ClearBy(service);
         servicedThisRequest.Add(state.Def.defName);
         RecordEvent(VehicleEventKind.Service, state.Def.defName);
+        VehicleStory.Repaired(this, mechanic, service.label, service: true);
         if (service.needsRig) Seen.Note("vehicles.rig-service-done", Vehicle, service.label);
         if (serviceRequested && !Props.systems.Any(s => s.def.service != null && !servicedThisRequest.Contains(s.def.defName)
                                                          && !VehicleSystemsMod.Settings.disabledSystems.Contains(s.def.defName)))

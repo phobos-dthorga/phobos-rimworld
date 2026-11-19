@@ -740,6 +740,11 @@
   <PhobosVehicleSystems_BayCannotReach>{VEHICLE} cannot find a way to its bay.</PhobosVehicleSystems_BayCannotReach>
   <!-- Fills the gap in another mod's message about a trip called off: "{vehicle} {this}, so {driver} walks." -->
   <PhobosVehicleSystems_WorkTripRefused>won't move ({REASON})</PhobosVehicleSystems_WorkTripRefused>
+  <!-- The same gap, for a vehicle nobody should take out on their own: "{vehicle} {this}, so {driver} walks." -->
+  <PhobosVehicleSystems_WorkTripKept>is not fit to take out ({REASON})</PhobosVehicleSystems_WorkTripKept>
+  <PhobosVehicleSystems_KeepBoilingOver>the {VEHICLE}'s coolant is boiling over; nobody takes it out for work until it has cooled and been seen to</PhobosVehicleSystems_KeepBoilingOver>
+  <PhobosVehicleSystems_KeepCoolantEmpty>the {VEHICLE} has almost no coolant and would boil over on the way; a mechanic must refill it</PhobosVehicleSystems_KeepCoolantEmpty>
+  <PhobosVehicleSystems_KeepOilGone>the {VEHICLE}'s engine has no oil pressure and would seize; a mechanic must see to it</PhobosVehicleSystems_KeepOilGone>
   <PhobosVehicleSystems_BayEmpty>No vehicle assigned.</PhobosVehicleSystems_BayEmpty>
   <PhobosVehicleSystems_BayHomeOf>Home to {VEHICLE}.</PhobosVehicleSystems_BayHomeOf>
   <PhobosVehicleSystems_BayRefuelling>Refuelling {VEHICLE}.</PhobosVehicleSystems_BayRefuelling>
@@ -887,4 +892,30 @@
   <PhobosVehicleSystems_GrabStarted>{VEHICLE} has swung its grab out.</PhobosVehicleSystems_GrabStarted>
   <PhobosVehicleSystems_GrabDone>{VEHICLE} lifted {COUNT} loads aboard, {MASS} kg.</PhobosVehicleSystems_GrabDone>
   <PhobosVehicleSystems_GrabLine>Working the grab: {COUNT} loads aboard so far.</PhobosVehicleSystems_GrabLine>
+
+  <!-- Stories: causes, the logbook, journeys and stranded convoys (Framework 0.181.0); agent-authored, held for the owner's review -->
+  <PhobosVehicleSystems_CauseCondition>a {CONDITION} ({STAGE})</PhobosVehicleSystems_CauseCondition>
+  <PhobosVehicleSystems_CauseConditionPlain>a {CONDITION}</PhobosVehicleSystems_CauseConditionPlain>
+  <PhobosVehicleSystems_CauseStage>{QUANTITY} ({STAGE})</PhobosVehicleSystems_CauseStage>
+  <PhobosVehicleSystems_CauseSystem>strain on the {SYSTEM}</PhobosVehicleSystems_CauseSystem>
+  <PhobosVehicleSystems_LogFaultWhat>{CONDITION} on the {PART}</PhobosVehicleSystems_LogFaultWhat>
+  <PhobosVehicleSystems_LogNobody>nobody</PhobosVehicleSystems_LogNobody>
+  <PhobosVehicleSystems_TripFuel>{AMOUNT} {FUEL} burnt.</PhobosVehicleSystems_TripFuel>
+  <PhobosVehicleSystems_TripNoFaults>No new faults.</PhobosVehicleSystems_TripNoFaults>
+  <PhobosVehicleSystems_TripFaults>{COUNT} new faults on the way.</PhobosVehicleSystems_TripFaults>
+  <PhobosVehicleSystems_TripHalted>Stranded on the way.</PhobosVehicleSystems_TripHalted>
+  <PhobosVehicleSystems_TripHurt>Someone aboard was hurt.</PhobosVehicleSystems_TripHurt>
+  <PhobosVehicleSystems_TripLetterLabel>Journey's end: {VEHICLE}</PhobosVehicleSystems_TripLetterLabel>
+  <PhobosVehicleSystems_TripLetter>The {VEHICLE} has arrived {TO}, {DISTANCE} after setting out {FROM}, and not without trouble.\n\n{DETAIL}\n\nThe whole journey is in its logbook.</PhobosVehicleSystems_TripLetter>
+  <PhobosVehicleSystems_StrandedNoFuel>The {VEHICLE} has run out of fuel.</PhobosVehicleSystems_StrandedNoFuel>
+  <PhobosVehicleSystems_StrandedFixHere>It can be fixed here, with what the convoy carries: {WORK}.</PhobosVehicleSystems_StrandedFixHere>
+  <PhobosVehicleSystems_StrandedFixFuel>Fuel carried in the convoy's cargo can fill it, or someone can bring fuel to it.</PhobosVehicleSystems_StrandedFixFuel>
+  <PhobosVehicleSystems_StrandedFixAsk>Nothing aboard can fix it here: send for help, tow it home, or leave it.</PhobosVehicleSystems_StrandedFixAsk>
+  <PhobosVehicleSystems_StrandedHome>Home is {DISTANCE} away, at {HOME}.</PhobosVehicleSystems_StrandedHome>
+  <PhobosVehicleSystems_StrandedAlert>Convoy stranded</PhobosVehicleSystems_StrandedAlert>
+  <PhobosVehicleSystems_StrandedAlertIntro>A vehicle is holding its convoy up. Fix it where it stands, camp and wait, send for parts or a tow, or leave it behind.</PhobosVehicleSystems_StrandedAlertIntro>
+  <PhobosVehicleSystems_StrandedAlertLine>{CONVOY}: the {VEHICLE} cannot go on. {REASON} {FIX}</PhobosVehicleSystems_StrandedAlertLine>
+  <PhobosVehicleSystems_SectionStories>Stories</PhobosVehicleSystems_SectionStories>
+  <PhobosVehicleSystems_SettingTripLetters>Letters for troubled journeys</PhobosVehicleSystems_SettingTripLetters>
+  <PhobosVehicleSystems_SettingTripLettersDesc>When a vehicle comes back to a map after a journey on which it broke down, was stranded or someone aboard was hurt, a letter says how it went. Every journey goes in the vehicle's logbook either way.</PhobosVehicleSystems_SettingTripLettersDesc>
 </LanguageData>

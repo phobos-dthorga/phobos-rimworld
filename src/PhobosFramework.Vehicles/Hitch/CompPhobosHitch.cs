@@ -170,6 +170,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
         }
         Say("PhobosHitch_Hitched".Translate(crew.LabelShort.Named("CREW"), candidate.LabelShort.Named("TRAILER"), Vehicle.LabelShort.Named("TRACTOR")).Resolve(),
             new LookTargets(Vehicle, candidate), MessageTypeDefOf.TaskCompletion);
+        VehicleStory.Hitched(Vehicle, candidate);
     }
 
     /// <summary>Puts the trailer straight behind the vehicle and holds it there. False, with nothing changed, when its place is blocked.

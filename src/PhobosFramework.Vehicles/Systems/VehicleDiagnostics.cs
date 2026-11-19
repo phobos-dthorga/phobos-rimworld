@@ -123,6 +123,7 @@ public sealed class VehicleDiagnostics
                 stage = stage?.label,
                 tone = stage?.Severe == true ? ReportTone.Bad : ReportTone.Caution,
                 severity = condition.severity,
+                cause = condition.cause == null ? null : VehicleStory.CauseLine(condition.cause),
             });
         }
         return report;

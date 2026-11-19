@@ -74,6 +74,8 @@ public sealed class DiagnosisFault : IExposable
     public string? stage;
     public ReportTone tone;
     public float severity;
+    /// <summary>What caused it, as it read when the report was made (Framework 0.181.0, EM24); null for an older report or an unknown cause.</summary>
+    public string? cause;
 
     public void ExposeData()
     {
@@ -82,6 +84,7 @@ public sealed class DiagnosisFault : IExposable
         Scribe_Values.Look(ref stage, "stage");
         Scribe_Values.Look(ref tone, "tone");
         Scribe_Values.Look(ref severity, "severity");
+        Scribe_Values.Look(ref cause, "cause");
     }
 }
 
