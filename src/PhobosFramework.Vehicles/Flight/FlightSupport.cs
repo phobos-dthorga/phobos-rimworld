@@ -148,7 +148,9 @@ public static class FlightRules
         if (!c.InBounds(map)) return "PhobosFlight_SpotEdge".Translate().Resolve();
         if (!forced && !knowsGround && c.Fogged(map)) return "PhobosFlight_SpotUnseen".Translate().Resolve();
         if (c.Roofed(map)) return "PhobosFlight_SpotRoof".Translate().Resolve();
-        if (c.GetEdifice(map) != null) return "PhobosFlight_SpotBuilding".Translate().Resolve();
+        // Framework 0.171.1: a trap is a building a vehicle drives over, so it refuses an ordered landing but does not wreck a forced one,
+        // which lands hard on it (and may set it off, as on the ground).
+        if (c.GetEdifice(map) is { } edifice && !(forced && edifice is Building_Trap)) return "PhobosFlight_SpotBuilding".Translate().Resolve();
         if (claims.ClaimedBy(c) is { } other && other != vehicle) return "PhobosFlight_SpotVehicle".Translate().Resolve();
         if (!c.Standable(vehicle, map))
         {

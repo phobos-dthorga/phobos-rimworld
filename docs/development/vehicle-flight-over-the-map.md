@@ -910,6 +910,7 @@ Each acts only for an aircraft carrying our comp. None is on a method every pawn
 | `VehiclePawn.TryAddPawn`, `VehiclePawn.AddOrTransfer`, the two drop helpers | Prefixes | A person or thing going aboard or coming off | Nothing boards, loads or unloads in the air (finding 9) |
 | `VehicleWorkGiver.JobOnThing` | Prefix | A work scan, per candidate vehicle | No work on it in the air |
 | `VehicleReservationManager.VehicleListers` | Postfix | A work scan | The same, for loading, refuelling and upgrade work |
+| `Building_Trap.CheckSpring` | Prefix that skips | A trap's first touch of a pawn | No trap goes off under it in the air (Framework 0.171.1, the owner's Cherokee) |
 
 Shared with what we already ship for submarines, as first written: `VehicleStatHandler.ApplyDamage` and
 `VehiclePawn.DisembarkPawn`. The right-click menu postfix of the first list is no longer needed.

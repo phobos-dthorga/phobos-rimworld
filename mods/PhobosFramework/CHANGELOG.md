@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.171.1] - 2026-11-19 - Draft
+
+Traps no longer go off under aircraft in the air
+
+### Fixed
+
+- **A trap no longer goes off under an aircraft flying over it on our flight.** An aircraft in the air still stands on the cells beneath it, and traps took it for something walking over them: the owner's Cherokee was brought down by traps every time it flew home. Once it is down it is a vehicle on the ground, and a trap beneath it may go off as under any other.
+- **An aircraft brought down onto a trap lands hard instead of being wrecked.** A trap is something a vehicle drives over; a chosen landing spot with a trap on it is still refused.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** VTOL Vehicle and the Harrier already keep traps from going off under their own aircraft; this does the same for ours.
+
 ## [0.171.0] - 2026-11-19 - Draft
 
 Lights switch themselves; work lamps from a design's own upgrade; lights that wait say why
