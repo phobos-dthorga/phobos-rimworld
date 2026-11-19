@@ -176,6 +176,22 @@ a claimed thing is forbidden **[code]**; nothing of ours depends on that.
 
 ## Questions for the owner
 
+**Answered by the owner on 19 Nov 2026** (cards):
+
+- **Faults first: fix F1 and F2 before any new link.**
+- **Shorten the stall wait** to about 600 ticks (question 5, the agent's lean).
+- **VW2 next**, after the fixes.
+- **VW3 yes, with our own fallback, "but only if you think the shared code would be necessary, even in some reasonable part, for the
+  Agricultural mod".** The agent's judgement: **it is.** Farming's batch one starts the combine with a driver already aboard
+  ([farming batch one](farming-batch-one.md)), but the farm-machine design's one order is "a colonist takes it as a job, boards, and the
+  machine drives itself" ([farm machines](farming-machines.md#field-work)), and remote farms send convoys driven by the farm's crew
+  ([remote farms](farming-remote-farms.md), RF6). Both need a vehicle order that waits and a job that brings a colonist to board it:
+  VW3's shared part, built once in the Framework core. So VW3 goes ahead after VW2, with Vehicles at Work's Drive work when it is active
+  and a work type of our own when it is not.
+- **No report draft** for its engine left running (question 4 not taken).
+
+The questions as they were asked:
+
 1. **VW3, a driver fetched for our errands.** Should Deliver and Gather become orders that wait for a driver? And if so, only with Vehicles
    at Work's Drive work, or with a work type of our own when it is absent? Agent's lean: yes, and through its Drive work only at first.
 2. **VW2, bays as parking places.** Take it as the next link? Agent's lean: yes, first.
@@ -187,6 +203,8 @@ a claimed thing is forbidden **[code]**; nothing of ours depends on that.
 ## Who chose what
 
 - **Owner (19 Nov 2026):** the mod as a soft dependency; research and record only; lessons for the farming mod and for the rest.
+- **Owner (19 Nov 2026, cards):** F1 and F2 fixed first; the stall wait shortened to about 600 ticks; VW2 next; VW3 with our own fallback
+  if farming needs the shared code (the agent judged it does); no report draft.
 - **Owner (13 Nov 2026), carried forward:** VW1 fixed at once (as SD1 and TI4); SD2 after it; SD3 set aside.
 - **Agent:** the VW prefix and numbers; every verdict and lean; VW2's shape (a bay as the parking place, where SD2 had a lot holding a
   bay); VW3, VW5 and VW7 as new rows; the lessons chosen and where each applies; the reading of its code as described.
