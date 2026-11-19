@@ -455,6 +455,9 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   parked and burns nothing. **Draft it again to start the engines before taking off.** The stock helicopters that fly on our flight
   (the Cherokee, Louie and Mosquito, with the setting **Stock helicopters fly over the map**) do the same, and their rotors spin up
   while their engines run and run down after.
+- **Switching its engines off in the air lands it** (not yet tested in game): it sets down on the nearest clear spot within about 15
+  cells and shuts down there, or says why it cannot. **A take-off waits a few seconds for the rotors** to reach speed, and the stock
+  helicopters now sound their rotors all through a flight.
 - **Too heavy to lift straight up, it rolls** (not yet tested in game). On a hot day, high up or fully loaded it may be a little too
   heavy to hover, yet still able to take off rolling along a strip: **select it and the strip it needs is outlined ahead of it, green
   when clear, red when blocked**. Take off or the launch button rolls it 5 to 20 cells straight ahead the way it faces, longer the

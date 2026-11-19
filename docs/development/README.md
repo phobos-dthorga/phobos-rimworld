@@ -145,6 +145,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [RimPacts patches](rimpacts-patches.md) (2 Nov 2026): the Harrier's load fix, sorties over battles, struck towns' assaults, empty vehicles. Built.
 - [Visit Settlements patches](visit-settlements-patches.md) (8 Nov 2026): a battle map closed under the player, food drops every tick. Built.
 - [Fires on vehicles that never go out](vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix. Built; owner-tested.
+- [Soldiers keep their guns](soldiers-keep-their-guns.md) (19 Nov 2026): why soldiers fought with grenades under CE, and the fix. Built, untested.
 
 ## Factory Additions and Water Tap
 

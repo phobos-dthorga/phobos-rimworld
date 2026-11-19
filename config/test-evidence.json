@@ -243,6 +243,16 @@
     }},
     "233": {"parts": {
       "no trap goes off under it in the air": ["aircraft.trap-overflown"]
+    }},
+    "237": ["aircraft.shutdown-lands"],
+    "238": ["aircraft.rotors-waited"],
+    "239": ["aircraft.flight-sound"],
+    "240": ["aircraft.raid-spot-apart"],
+    "241": {"parts": {
+      "back to the gun dropped when downed": [{"key": "patches.keep-guns.recovered", "variant": "dropped"}],
+      "a loaded gun out of the pack": [{"key": "patches.keep-guns.recovered", "variant": "pack"}],
+      "another of the same kind when theirs is gone": [{"key": "patches.keep-guns.recovered", "variant": "same-kind"}],
+      "Simple Sidearms keeps the gun as its favourite": ["patches.keep-guns.sidearms-preference"]
     }}
   },
   "order": [

@@ -6,6 +6,32 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.26.0] - 2026-11-19 - Draft
+
+Soldiers go back to their own guns instead of fighting with grenades
+
+### Added
+
+- **With Combat Extended, colonists left holding a grenade, a satchel charge or nothing go back to their own gun.** A colonist downed in a fight drops their gun; when they got up, a grenade from their pack went into their empty hands first, the game forgot the gun it would have sent them back for, and from then on they fought with grenades and never looked for a gun again (the owner's colony, 19 November 2026: nine soldiers holding a frag grenade or a satchel charge, eight with no gun anywhere, since at least 6 November). Now they take up a gun from their pack that can fire, else the gun they dropped when they went down, wherever it lies, even if forbidden. Drafted colonists and melee weapons are left alone.
+- **When their own gun is gone, they take another of the same kind**: the nearest unforbidden one on the map with rounds in it, never a different kind. A setting.
+- **With Simple sidearms, the gun in a colonist's hands takes back its place as the weapon Simple Sidearms keeps handing them**, where Simple Sidearms had recorded a grenade, or nothing. A different gun you chose there, or a weapon you forced, is left alone. A setting.
+- Three settings, all on by default, under **D'thorga Patches: Combat Extended**: Colonists go back to their own guns; When their own gun is gone, take another of the same kind; Simple Sidearms keeps a colonist's gun, not a grenade, as the weapon it hands back.
+
+### Dependencies
+
+- This part needs D'thorga Framework 0.174.0 or later. Simple sidearms is optional.
+
+### Save compatibility
+
+- Safe to add to and remove from a running save. What it remembers about each colonist's gun is kept by D'thorga Framework, so removing it leaves no error.
+
+### Compatibility and limits
+
+- **Not yet tested in game.**
+- **A colonist who already has no gun anywhere needs one handed to them once**: nothing remembers which gun was theirs.
+- A colonist whose gun has no ammunition left keeps the grenade until ammunition for the gun comes back into their pack.
+- If something keeps taking the gun away again, they stop trying for a day, and the log says so.
+
 ## [0.25.0] - 2026-11-19 - Draft
 
 A save made during a scorpion raid loads with the raid working

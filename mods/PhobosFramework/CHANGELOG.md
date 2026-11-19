@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.174.0] - 2026-11-19 - Draft
+
+Weapons used up when fired are told apart from guns
+
+### Added
+
+- **For modders: a shared rule telling weapons used up when fired from guns** (SingleUseWeapons). A grenade, a satchel charge or a one-shot rocket launcher counts as single-use from what its attack does, the game's own one-use attack or Combat Extended's, never from its name. D'thorga Patches 0.26.0 uses it so soldiers go back to their guns.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Nothing changes in play by itself. Safe to add to and remove from a running save.
+
 ## [0.173.2] - 2026-11-19 - Draft
 
 Vehicle lights come on in the dark, not only at night by the clock

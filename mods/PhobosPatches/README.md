@@ -3,13 +3,13 @@
 Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It covers
 **Harrier VTOL Attack Aircraft** by potemkinvillager, **InterRim Ballistic Missile** by Psionic Zephyr, **RimPacts**, **Visit
 Settlements** by Nina.Goblin, **Vehicle Framework**, **Vanilla Expanded Framework**'s outposts, **Vanilla Factions Expanded -
-Classical**, **Spaceship Turret Hull** by MK and **Combat Extended**, and RimThunder's heavy casting at The Dead Man's Switch's rotary
-forger.
+Classical**, **Spaceship Turret Hull** by MK and **Combat Extended** (with **Simple sidearms** by PeteTimesSix), and RimThunder's heavy
+casting at The Dead Man's Switch's rotary forger.
 
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.25.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.26.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -24,7 +24,8 @@ the [changelog](CHANGELOG.md).
 - **Each part loads only while its own mods are active** (an `IfModActive` folder per patched mod): the Harrier part with the Harrier
   (its bomb changes also need Combat Extended, and the fabricator bills The Dead Man's Switch's fabricator); rearming with the Harrier,
   Hind or Mongoose; the forger bill with RimThunder and the forger from The Dead Man's Switch - Expedition; the turret hulls with
-  Spaceship Turret Hull and Combat Extended together; the ammo guard with Combat Extended; the missile part with InterRim Ballistic
+  Spaceship Turret Hull and Combat Extended together; the ammo guard and "soldiers keep their guns" with Combat Extended (that one needs
+  D'thorga Framework 0.174.0 or later); the missile part with InterRim Ballistic
   Missile; one part each for RimPacts, Visit Settlements, Vehicle Framework and Vanilla Factions Expanded - Classical (that one needs
   D'thorga Framework 0.168.0 or later); the outposts part with Vanilla Expanded Framework and Vehicle Framework together. A player running none of them sees nothing.
 - **RimWorld 1.7 only.** It builds against Vehicle Framework's own 1.7 build (14 November 2026).
@@ -49,6 +50,10 @@ the [changelog](CHANGELOG.md).
 - **Rearming keeps to one kind of ammunition** (Harrier, Hind, Mongoose). To change kind, choose it on the weapon.
 - **With Combat Extended, allow the two bomb cases in machining bay hoppers** that used to take heavy castings, and **rebuild turret
   hulls built before**, while the ship is landed.
+- **With Combat Extended, soldiers go back to their own guns** (0.26.0, not yet tested in game) instead of fighting on with grenades and
+  satchel charges after being downed. **A colonist who already has no gun anywhere needs one handed to them once** (select them,
+  right-click a gun, Equip): from then on they keep it. Three settings under **D'thorga Patches: Combat Extended**; safe to add to and
+  remove from a running save (what it remembers is kept by D'thorga Framework).
 - **With RimPacts, a world war attack must win within 3 days of accepting it**, or control of about a dozen border towns passes to
   the enemy. That is RimPacts' rule; the quest shows the countdown. **Strike and attack early.**
 - **With Visit Settlements, pawns already lost to a closed map stay lost**: load a save from before.
@@ -82,6 +87,9 @@ Each part in a line or three; the guide chapter has the figures, tables and how 
 - **Heavy castings 12 at a time at the rotary forger**
   ([forger](../../docs/player-guide/patches.md#heavy-castings-at-the-rotary-forger)).
 - **A temporary guard** drops ammo set entries that would stop Combat Extended's whole ammo setup.
+- **Soldiers keep their guns**: a colonist left holding a grenade, a satchel charge or nothing after being downed takes their own gun
+  up again, and Simple Sidearms keeps the gun, not a grenade, as the weapon it hands back
+  ([soldiers keep their guns](../../docs/player-guide/patches.md#soldiers-keep-their-guns)).
 - **Colonists refill The Dead Man's Switch's drone platforms with steel by themselves**
   ([drone platforms](../../docs/player-guide/patches.md#drone-platforms)).
 
@@ -166,6 +174,14 @@ A choice that costs speed shows its cost in amber under it.
 | Setting | What it does | Default |
 | --- | --- | --- |
 | Refuse to found an outpost from a caravan with vehicles (recommended) | Off: the "create outpost" window works as Vanilla Expanded Framework wrote it, and may lose the vehicles and their crews | On |
+
+### D'thorga Patches: Combat Extended
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| Colonists go back to their own guns (recommended) | A colonist holding a grenade or a satchel charge, or nothing after being downed, takes up a gun from their pack that can fire, else the gun they dropped when downed (even if forbidden). Drafted colonists and melee weapons are left alone. Off: Combat Extended and the game as written | On |
+| When their own gun is gone, take another of the same kind | Their dropped gun destroyed or left behind, or a grenade in hand and no gun at all: the nearest unforbidden gun of the kind they last held, with rounds in it. Never a different kind | On |
+| Simple Sidearms keeps a colonist's gun, not a grenade, as the weapon it hands back (recommended) | With Simple sidearms: the gun in hand replaces a grenade, or nothing, as the ranged weapon Simple Sidearms keeps putting back. A different gun you chose, or a weapon you forced, is left alone | On |
 
 ## For modders
 

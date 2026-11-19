@@ -580,6 +580,19 @@ usually cannot fly on; light, it often can.
 decides something only our own flight does (its state; whether it may stop, fly on or roll), so they come with the hover half
 (slice 2) rather than as fields nothing reads.
 
+## Built (19 Nov 2026): the owner's three decisions, and the sound of flight
+
+D'thorga Framework 0.174.0, from the owner's answers ("#1 Agreed, #2 Agreed, #3 Agreed") to the decisions the
+[evening's audit](#read-19-nov-2026-evening-vtol-vehicle-and-the-harrier-for-what-we-missed) raised, and its finding 1. **Not yet tested
+in game** (rows 237 to 239).
+
+| Part | As built | Where |
+| --- | --- | --- |
+| **Engines off in the air** (decision 1) | Switching the engines off in the air no longer only restarts them: the player's aircraft lands on the nearest spot it may land on, within 15 cells [A], and its landing shuts the engines off (0.173.0). Where no spot is in reach, or it may not land now (lines out, a load on the hook), the engines are kept and the message says so. On a take-off roll, switching off stops the take-off where it is | `CompPhobosFlight.LandToShutDown`, `Engines` |
+| **A take-off waits for the rotors** (decision 2) | Once ordered, a take-off or roll holds on the ground until the rotors reach 85 % of full (VTOL Vehicle's figure), saying so; every way of leaving the ground passes through it, the button, a journey and a roll alike. An aircraft with no rotor overlay does not wait | `RotorsSpinningUp` |
+| **Rotors at full after a load** (decision 3) | An aircraft spawned in the air, after a load or arriving from another place, starts with its rotors at full | `PostSpawnSetup`, `EnterFlying` |
+| **The sound of flight** (finding 1) | While in the air on our flight it plays its Def's `flightSound`, else the sound its own Def starts on Vehicle Framework's launch event (the Cherokee's, Louie's and Mosquito's rotors), from take-off to touch-down. A journey's start hands the sound to Vehicle Framework's own launch sound, so it is never doubled. An aircraft with an engine voice of ours (the Osprey) plays none of it. Not yet: a ground and a flight sound crossfaded by height, or pitch by speed, as VTOL Vehicle does | `CompPhobosFlight.Rotors.cs` |
+
 ## Built (19 Nov 2026): rotors and the end of a landing
 
 D'thorga Framework 0.173.0, from the owner's report the same evening (the Cherokee on our flight: blades still, engines never shut off

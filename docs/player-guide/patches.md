@@ -37,6 +37,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | **Vehicle Framework** | Fires a vehicle could never put out are put out; a vehicle leaving a map takes no fire with it. Repairs and upgrades show the game's progress bar | Nothing |
 | **The Dead Man's Switch** drone platforms (Fortified Features Framework) | Colonists refill the engineering drone bay, the trashpan and hound stations and the FPV nest with steel by themselves; a mechanitor refills the Hermit Crab and the Cluster Weaver | Nothing: keep steel in reach. [Drone platforms](#drone-platforms) |
 | **Combat Extended** ammo sets | A temporary guard drops ammo set entries that would stop CE's whole ammo setup (The Dead Man's Switch - Synthriada adds such entries) | Nothing |
+| **Combat Extended**, with or without **Simple sidearms** (PeteTimesSix) | Colonists left holding a grenade, a satchel charge or nothing after being downed go back to their own gun. Not yet tested in game | **Hand a gun once to anyone who has none at all.** [Soldiers keep their guns](#soldiers-keep-their-guns) |
 
 ![The Mk. 82 and Mk. 84 bomb cases](images/patches-items.png)
 
@@ -348,6 +349,23 @@ puts the original behaviour back, with no restart.
 - **With Combat Extended, one bad entry in an ammo set no longer stops the whole ammo setup** at startup (temporary). The Dead Man's
   Switch - Synthriada adds such entries; they are dropped and the log says how many.
 
+## Soldiers keep their guns
+
+Not yet tested in game. With Combat Extended, a colonist downed in a fight drops their gun. When they get up, a grenade from their pack
+can go into their empty hands first, and from then on they fight with grenades and satchel charges and never look for a gun again.
+Now:
+
+- **They take their own gun up again**: first a gun in their pack that can fire, then the gun they dropped when they went down,
+  wherever it lies, **even if forbidden**.
+- **If that gun is gone** (destroyed, or left on another map), they take the nearest gun **of the same kind** lying unforbidden on the
+  map with rounds in it. They never swap to a different kind of gun.
+- **Drafted colonists are left to your orders**, and a colonist holding a melee weapon is left alone. A grenade you forced in Simple
+  Sidearms stays.
+- **With Simple Sidearms**, the gun becomes the weapon it keeps handing back, in place of a grenade.
+- **Someone who already has no gun at all needs one handed to them once**: select them, right-click a gun, **Equip**. They keep it from
+  then on.
+- **To switch it off**, untick **Colonists go back to their own guns** in **Mod settings, D'thorga Patches: Combat Extended**.
+
 ## Drone platforms
 
 Not yet tested in game. The Dead Man's Switch's drone platforms (the **engineering drone bay**, the **trashpan** and **hound stations**
@@ -369,8 +387,8 @@ and the **FPV nest**) hold steel that each drone they send out uses up. On their
 - Bombs and rockets: bills at the machining table, and at The Dead Man's Switch's ammunition fabricator.
 - Bomb cases (Combat Extended only): bills at the machining table, the rotary forger and the automated machining bay.
 - Heavy castings: the electric smelter and assembly platform (one at a time), and the rotary forger (12 at a time).
-- Settings: **Mod settings, D'thorga Patches** (the missile and air-defence options), **D'thorga Patches: Harrier** and **D'thorga
-  Patches: outposts**.
+- Settings: **Mod settings, D'thorga Patches** (the missile and air-defence options), **D'thorga Patches: Harrier**, **D'thorga
+  Patches: outposts** and **D'thorga Patches: Combat Extended**.
 
 ## What has been tested in game
 
