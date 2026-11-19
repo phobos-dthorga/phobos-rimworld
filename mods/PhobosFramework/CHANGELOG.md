@@ -15,6 +15,7 @@ Weapons used up when fired are told apart from guns; switching an aircraft's eng
 - **A take-off waits for the rotors**: once ordered, a helicopter holds on the ground until its rotors reach 85 % of their speed, saying so, then lifts or rolls. An aircraft loaded in the air, or arriving from another place, has its rotors at full.
 - **The stock helicopters sound their rotors all through a flight on our own flight** (the Cherokee, Louie and Mosquito, each with its own author's rotor sound), from take-off to touch-down. A journey's start hands the sound to Vehicle Framework's own, so two are never heard at once. The Osprey keeps its own engine voice.
 - **A raid's aircraft each land at their own spot**: each makes for a spot round your colony away from the spots the raid's other aircraft hold, instead of all heading for the same best spot and circling for another.
+- **Aircraft sent to one spot together spread out**: select several on our flight and right-click a spot, and one flies to it while the others take places in a ring round it, spaced by their size, instead of all crowding onto one cell.
 - **For modders: a shared rule telling weapons used up when fired from guns** (SingleUseWeapons). A grenade, a satchel charge or a one-shot rocket launcher counts as single-use from what its attack does, the game's own one-use attack or Combat Extended's, never from its name. D'thorga Patches 0.26.0 uses it so soldiers go back to their guns.
 
 ### Compatibility and limits

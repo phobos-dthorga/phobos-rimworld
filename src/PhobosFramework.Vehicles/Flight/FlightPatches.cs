@@ -48,7 +48,8 @@ public static class Patch_PawnGotoAction_Flight
     public static bool Prefix(IntVec3 clickCell, VehiclePawn vehicle)
     {
         if (FlightRegistry.Get(vehicle) is not { } flight) return true;
-        flight.FlyTo(clickCell);
+        // Framework 0.174.0: several aircraft sent to one spot together spread round it.
+        flight.FlyTo(FlightGroupOrders.Spread(vehicle, clickCell));
         return false;
     }
 }
