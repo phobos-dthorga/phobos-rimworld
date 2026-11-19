@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using Vehicles;
 using Verse;
@@ -262,6 +263,43 @@ public class When_Granted : VehicleSystemCondition
 {
     public string ability = "";
     protected override bool HoldsRaw(SystemContext context) => context.Comp.Fittings.Grants(ability);
+}
+
+/// <summary>
+/// Someone of the vehicle's own faction stands within <c>radius</c> cells of it, or did within the last <c>holdHours</c> (Framework 0.171.0:
+/// the work lamps switching themselves). People and mechanoids count, animals do not; those inside a vehicle are not on the map and do not.
+/// Read once per look of the systems (the automatic switches' cache), never by a button or tab.
+/// </summary>
+public class When_PeopleNear : VehicleSystemCondition
+{
+    public float radius = 8f;
+    public float holdHours = 1f;
+
+    protected override bool HoldsRaw(SystemContext context)
+    {
+        CompPhobosVehicleSystems comp = context.Comp;
+        VehiclePawn vehicle = context.Vehicle;
+        if (!vehicle.Spawned || vehicle.Faction == null) return false;
+        int now = Find.TickManager.TicksGame;
+        IntVec3 at = vehicle.Position;
+        IReadOnlyList<Pawn> pawns = vehicle.Map.mapPawns.SpawnedPawnsInFaction(vehicle.Faction);
+        for (int i = 0; i < pawns.Count; i++)
+        {
+            Pawn pawn = pawns[i];
+            if (pawn == vehicle || pawn is VehiclePawn || !(pawn.RaceProps.Humanlike || pawn.RaceProps.IsMechanoid)) continue;
+            IntVec3 cell = pawn.Position;
+            if (!AutoLightRule.Within(cell.x - at.x, cell.z - at.z, radius)) continue;
+            comp.PeopleNearTick = now;
+            return true;
+        }
+        return AutoLightRule.Held(comp.PeopleNearTick, now, (int)(holdHours * GenDate.TicksPerHour));
+    }
+}
+
+/// <summary>A grid carries the parked vehicle's loads through its hook-up (Framework 0.171.0, for the work lamps' battery reserve).</summary>
+public class When_OnGrid : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Comp.GridCarriesLoads;
 }
 
 public class When_LoadActive : VehicleSystemCondition

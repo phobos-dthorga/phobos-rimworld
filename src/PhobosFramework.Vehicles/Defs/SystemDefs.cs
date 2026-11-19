@@ -500,6 +500,20 @@ public class ElectricalLoadSpec
     /// <summary>Multiplied together with <see cref="amps"/> to give what the load draws now (Framework 0.129.0): a fridge by the air's
     /// temperature, an outlet by what the camp asks of it. Empty: the amps written here.</summary>
     public List<VehicleSystemInput> ampsInputs = new();
+    /// <summary>
+    /// When the load switches itself on (Framework 0.171.0; owner, 19 Nov 2026: lights that turn on and off by themselves, a setting on by
+    /// default). With the player's "Lights switch themselves" setting on, a load that has this is switched by it, not by hand: its button
+    /// then says whether the load may switch itself on at all on this vehicle (on by default), and <see cref="when"/> still applies after it.
+    /// Null: switched by hand only.
+    /// </summary>
+    public VehicleSystemCondition? autoOn;
+    /// <summary>What <see cref="autoOn"/> waits for, in the player's words, for the button's description: "they light at night while...".</summary>
+    [MustTranslate] public string autoDescription = "";
+    /// <summary>What the Systems tab says while the load is switched on but waiting for its <see cref="when"/> ("waiting for dark"), so a
+    /// switched-on load that draws nothing is not taken for broken (the owner's report of the work lamps, 19 Nov 2026). Empty: "standing by".</summary>
+    [MustTranslate] public string standbyLabel = "";
+    /// <summary>The same while the load switches itself (<see cref="autoOn"/>), which waits for more. Empty: <see cref="standbyLabel"/>.</summary>
+    [MustTranslate] public string autoStandbyLabel = "";
 }
 
 public enum AvionicsAmps

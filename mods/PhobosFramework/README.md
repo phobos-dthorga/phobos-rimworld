@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.170.1, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.171.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -34,7 +34,9 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
 - **Build a vehicle parts bench early** (research **Vehicle parts**, Architect, **motor pool** tab): our parts, kits and booster packs
   are made only there. **Tick the Vehicle parts storage category in a stockpile**, or the bench overshoots "Do until you have X".
 - **Make a jump-start kit or a booster pack before you need one**, and carry one in every caravan.
-- **The headlights switch starts off.** Left on with the engine off, lights and heaters run the battery flat.
+- **Headlights and work lamps switch themselves** (setting **Lights switch themselves**, on): headlights while driven at night, work lamps
+  while parked at night with people near. Switch a vehicle's button off to keep it dark. Heaters left on with the engine off still run the
+  battery flat.
 - **Keep the engine running in a long fight or a long winch pull**: powered turrets and the recovery winch draw on the battery.
 - **Carbon monoxide ignores gas masks.** Only sealed headgear with its own air (Combat Extended's power and recon helmets) keeps it
   out. It lingers in a shut room for hours after a fire: open a door or a vent.
@@ -154,6 +156,7 @@ Under **Options > Mod settings**. RimWorld saves only what you change.
 | Engines and drivetrains | Accessories load the engine | What the engine drives besides the wheels takes its power: the alternator, the radiator fan when hot, the air conditioner, the air brakes' compressor, a tanker's pump. Less power for driving, a little more heat, and more fuel with load-following fuel | On |
 | Engines and drivetrains | Rough ground wears tyres and suspension | Up to three times the tyre wear off the roads | On |
 | Engines and drivetrains | Headlights light the ground | Switched-on headlights light the ground at night; off if many vehicles slow the game | On |
+| Engines and drivetrains | Lights switch themselves | Headlights light while driven at night, work lamps while parked at night with people near (on battery only above half charge); off, the buttons switch them by hand | On |
 | Engines and drivetrains | Rain, snow and ice take grip | Wet and frozen ground takes grip on hills, in mud and when towing | On |
 | Engines and drivetrains | Ammunition aboard can cook off in a fire | With Combat Extended's ammunition: a burning vehicle's ammunition can explode, and a tank's turret can be blown off | On |
 | Engines and drivetrains | This colony: services take raw materials instead of kits | Saved with the colony. On: services take steel, components and chemfuel instead of kits | Off (on for a colony from before kits) |

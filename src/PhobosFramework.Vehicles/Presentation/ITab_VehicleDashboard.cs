@@ -269,7 +269,11 @@ public class ITab_VehicleDashboard : ITab
                     comp.SetSwitch(load, !on);
                 }
                 Widgets.DrawBox(rect);
-                TooltipHandler.TipRegion(rect, load.label.CapitalizeFirst() + ": " + (on ? "PhobosVehicleSystems_DashSwitchOn" : "PhobosVehicleSystems_DashSwitchOff").Translate()
+                // A load that switches itself (Framework 0.171.0) says so: its button allows it, or keeps it off on this vehicle.
+                string position = comp.Automatic(load)
+                    ? (on ? "PhobosVehicleSystems_DashSwitchAuto".Translate() : "PhobosVehicleSystems_DashSwitchKeptOff".Translate())
+                    : (on ? "PhobosVehicleSystems_DashSwitchOn".Translate() : "PhobosVehicleSystems_DashSwitchOff".Translate());
+                TooltipHandler.TipRegion(rect, load.label.CapitalizeFirst() + ": " + position
                     + (load.description.NullOrEmpty() ? "" : "\n" + load.description));
             }
         }

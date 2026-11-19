@@ -173,6 +173,18 @@
              morning (agent's choice: a light vehicle's 45 Ah battery feeds 9 A of headlights for about five hours). -->
         <defaultOn>false</defaultOn>
         <when Class="Phobos.VehicleSystems.When_Night" />
+        <!-- Framework 0.171.0 (owner, 19 Nov 2026: lights that switch themselves, a setting on by default). With it on, the headlights light at
+             night while the vehicle is driven or its engine runs, and go out once it is parked with the engine off, so a parked fleet is not flat
+             by morning. Agent's choice for the owner to revise. -->
+        <autoOn Class="Phobos.VehicleSystems.When_Any">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+            <li Class="Phobos.VehicleSystems.When_Moving" />
+          </conditions>
+        </autoOn>
+        <autoDescription>they light by themselves at night while the vehicle is driven or its engine runs, and go out once it is parked with the engine off</autoDescription>
+        <standbyLabel>waiting for dark</standbyLabel>
+        <autoStandbyLabel>waiting for dark and a driver</autoStandbyLabel>
         <!-- Framework 0.104.0: an electric vehicle's beam, a cool LED white (authored); the same reach as the diesels'. -->
         <beam>
           <radius>6</radius>

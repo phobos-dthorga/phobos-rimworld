@@ -255,6 +255,13 @@ public partial class ITab_VehicleSystems
                 ElectricalLoadSpec? other = comp.LoadNamed(load.yieldsTo);
                 stateText = "PhobosVehicleSystems_SysLoadYields".Translate((other?.label ?? load.yieldsTo).Named("LOAD")).Resolve();
             }
+            // Switched on but waiting (Framework 0.171.0; the owner's report of 19 Nov 2026: switched-on work lamps that lit nothing by day read
+            // as broken): the load says what it waits for, the longer list when it switches itself.
+            else if (state == LoadState.Idle)
+            {
+                string waits = comp.Automatic(load) && !load.autoStandbyLabel.NullOrEmpty() ? load.autoStandbyLabel : load.standbyLabel;
+                if (!waits.NullOrEmpty()) stateText = waits;
+            }
             if (engineer && state is LoadState.Running or LoadState.NoPower)
                 stateText = "PhobosVehicleSystems_SysLoadAmps".Translate(stateText.Named("STATE"), comp.AmpsNow(load).ToString("0.#").Named("AMPS")).Resolve();
             using (new TextBlock(GameFont.Small, TextAnchor.MiddleLeft))

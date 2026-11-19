@@ -422,9 +422,48 @@
         <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
         <!-- Off once fitted (owner, 13 Nov 2026): the player switches them on where the work is. -->
         <defaultOn>false</defaultOn>
-        <available Class="Phobos.VehicleSystems.When_Granted">
-          <ability>WorkLights</ability>
+        <!-- Framework 0.171.0: fitted lamps, or a design's own work-light upgrade (the drill rig's, the survey truck's), which before counted
+             only for the drill's pace at night and gave no switch, no light and no draw. -->
+        <available Class="Phobos.VehicleSystems.When_Any">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Granted">
+              <ability>WorkLights</ability>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_StatAbove">
+              <stat>Phobos_WorkLights</stat>
+              <value>0</value>
+            </li>
+          </conditions>
         </available>
+        <!-- Framework 0.171.0 (owner, 19 Nov 2026: lights that switch themselves, a setting on by default). With it on, the lamps light at night
+             while the vehicle stands still with people of its own faction within their light, and stay lit an hour after the last leaves. With
+             the engine off and no grid, only while the battery is more than half full, so it can still start the engine in the morning. Radius,
+             hold and reserve are agent's choices for the owner to revise; the radius is the lamps' own pool (WorkLamps). -->
+        <autoOn Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_Moving">
+              <invert>true</invert>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_Any">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                <li Class="Phobos.VehicleSystems.When_OnGrid" />
+                <li Class="Phobos.VehicleSystems.When_QuantityAbove">
+                  <quantity>charge</quantity>
+                  <value>0.5</value>
+                </li>
+              </conditions>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_PeopleNear">
+              <radius>8</radius>
+              <holdHours>1</holdHours>
+            </li>
+          </conditions>
+        </autoOn>
+        <autoDescription>they light by themselves at night while the vehicle stands still with your people near it, and go out an hour after the last one leaves. With the engine off and no power cable, they light only while the battery is more than half full, so it can still start the engine</autoDescription>
+        <standbyLabel>waiting for dark and a stop</standbyLabel>
+        <autoStandbyLabel>waiting for dark, a stop and people near</autoStandbyLabel>
         <when Class="Phobos.VehicleSystems.When_All">
           <conditions>
             <li Class="Phobos.VehicleSystems.When_Night" />
@@ -447,6 +486,18 @@
              morning (agent's choice: a light vehicle's 45 Ah battery feeds 9 A of headlights for about five hours). -->
         <defaultOn>false</defaultOn>
         <when Class="Phobos.VehicleSystems.When_Night" />
+        <!-- Framework 0.171.0 (owner, 19 Nov 2026: lights that switch themselves, a setting on by default). With it on, the headlights light at
+             night while the vehicle is driven or its engine runs, and go out once it is parked with the engine off, so a parked fleet is not flat
+             by morning. Agent's choice for the owner to revise. -->
+        <autoOn Class="Phobos.VehicleSystems.When_Any">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+            <li Class="Phobos.VehicleSystems.When_Moving" />
+          </conditions>
+        </autoOn>
+        <autoDescription>they light by themselves at night while the vehicle is driven or its engine runs, and go out once it is parked with the engine off</autoDescription>
+        <standbyLabel>waiting for dark</standbyLabel>
+        <autoStandbyLabel>waiting for dark and a driver</autoStandbyLabel>
         <!-- Framework 0.104.0: the beam on the map, a warm halogen white (authored), its pool 5 cells past the nose with a 6-cell radius
              (authored: about a low beam's reach on the map's scale; a real beam is a cone, the game's light a round pool). -->
         <beam>
@@ -648,9 +699,48 @@
         <iconPath>Phobos/VehicleSystems/Fittings/WorkLamps</iconPath>
         <!-- Off once fitted (owner, 13 Nov 2026): the player switches them on where the work is. -->
         <defaultOn>false</defaultOn>
-        <available Class="Phobos.VehicleSystems.When_Granted">
-          <ability>WorkLights</ability>
+        <!-- Framework 0.171.0: fitted lamps, or a design's own work-light upgrade (the drill rig's, the survey truck's), which before counted
+             only for the drill's pace at night and gave no switch, no light and no draw. -->
+        <available Class="Phobos.VehicleSystems.When_Any">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Granted">
+              <ability>WorkLights</ability>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_StatAbove">
+              <stat>Phobos_WorkLights</stat>
+              <value>0</value>
+            </li>
+          </conditions>
         </available>
+        <!-- Framework 0.171.0 (owner, 19 Nov 2026: lights that switch themselves, a setting on by default). With it on, the lamps light at night
+             while the vehicle stands still with people of its own faction within their light, and stay lit an hour after the last leaves. With
+             the engine off and no grid, only while the battery is more than half full, so it can still start the engine in the morning. Radius,
+             hold and reserve are agent's choices for the owner to revise; the radius is the lamps' own pool (WorkLamps). -->
+        <autoOn Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Night" />
+            <li Class="Phobos.VehicleSystems.When_Moving">
+              <invert>true</invert>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_Any">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+                <li Class="Phobos.VehicleSystems.When_OnGrid" />
+                <li Class="Phobos.VehicleSystems.When_QuantityAbove">
+                  <quantity>charge</quantity>
+                  <value>0.5</value>
+                </li>
+              </conditions>
+            </li>
+            <li Class="Phobos.VehicleSystems.When_PeopleNear">
+              <radius>8</radius>
+              <holdHours>1</holdHours>
+            </li>
+          </conditions>
+        </autoOn>
+        <autoDescription>they light by themselves at night while the vehicle stands still with your people near it, and go out an hour after the last one leaves. With the engine off and no power cable, they light only while the battery is more than half full, so it can still start the engine</autoDescription>
+        <standbyLabel>waiting for dark and a stop</standbyLabel>
+        <autoStandbyLabel>waiting for dark, a stop and people near</autoStandbyLabel>
         <when Class="Phobos.VehicleSystems.When_All">
           <conditions>
             <li Class="Phobos.VehicleSystems.When_Night" />
@@ -673,6 +763,18 @@
              morning (agent's choice: a light vehicle's 45 Ah battery feeds 9 A of headlights for about five hours). -->
         <defaultOn>false</defaultOn>
         <when Class="Phobos.VehicleSystems.When_Night" />
+        <!-- Framework 0.171.0 (owner, 19 Nov 2026: lights that switch themselves, a setting on by default). With it on, the headlights light at
+             night while the vehicle is driven or its engine runs, and go out once it is parked with the engine off, so a parked fleet is not flat
+             by morning. Agent's choice for the owner to revise. -->
+        <autoOn Class="Phobos.VehicleSystems.When_Any">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_EngineRunning" />
+            <li Class="Phobos.VehicleSystems.When_Moving" />
+          </conditions>
+        </autoOn>
+        <autoDescription>they light by themselves at night while the vehicle is driven or its engine runs, and go out once it is parked with the engine off</autoDescription>
+        <standbyLabel>waiting for dark</standbyLabel>
+        <autoStandbyLabel>waiting for dark and a driver</autoStandbyLabel>
         <!-- Framework 0.104.0: the beam on the map, a warm halogen white (authored), its pool 5 cells past the nose with a 6-cell radius
              (authored: about a low beam's reach on the map's scale; a real beam is a cone, the game's light a round pool). -->
         <beam>

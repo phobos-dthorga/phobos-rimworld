@@ -390,7 +390,9 @@ The questions as they were put:
 whole family, the cold-weather pack, all-terrain tyres and work lights, then long range, then recovery with the hitch's recovery tow;
 not built: nothing of the five families is left. Tested in game by the owner (13 Nov 2026, on Framework 0.105.1): work lamps work, and
 families and tunes ordered several at once queue as they should; that test also led to two changes in 0.105.2 (new tyres renew the
-tread, and work lamps start switched off). Everything else is not yet tested in game.
+tread, and work lamps start switched off). Everything else is not yet tested in game. **19 Nov 2026 (Framework 0.171.0, not yet tested in
+game):** lights that switch themselves, and work lights from a design's own upgrade; see
+[Lights that switch themselves](#lights-that-switch-themselves-19-nov-2026).
 
 The sections "Built in part 1", "Built in part 2" and "Built in part 3" say what was built and where it departs from the proposal; the text before it is the proposal as the owner answered it. On 11 Nov 2026 the owner chose both a signature feature per
 vehicle and "shared families" for the rest ([round two](vehicle-upgrades-round-two.md)); on 12 Nov 2026 they asked for this record
@@ -702,3 +704,56 @@ Cost with several on a map: a winch ticks only while it works, and a tow only wh
 - Our own code and Defs, cited by path above. No figure is set here, so none needs a source yet.
 - The tanks' factors (1.5 and 1.75) and cargo costs are authored. That real ferry tanks can more than double an aircraft's fuel is general
   knowledge, not a cited figure, and no figure here rests on it.
+
+## Lights that switch themselves (19 Nov 2026)
+
+**Status (19 Nov 2026):** built in D'thorga Framework 0.171.0. Not yet tested in game.
+
+The owner's report (19 Nov 2026): work lamps on vehicles had not worked "for quite some time" and drew no power, and they asked for a
+setting, on by default, that switches lights on and off by itself.
+
+### What was found
+
+- **No fault in the fitted lamps' code was found.** Their switch, light and draw follow the same rules as when the owner passed them on
+  13 Nov 2026 (check 66), and the owner's log (PG15, 19 Nov 2026) has no error near them. In that save all five sets of fitted lamps (an
+  M2A3, a HEMTT and three JLTVs) had their switch off. A switched-on lamp lights only **at night** and only while the vehicle **stands
+  still**; by day or on the move it drew nothing and the Systems tab said only "standing by". That reads as broken, and is the likeliest
+  explanation (agent's inference, not confirmed by the owner).
+- **A real fault:** the drill rig's and the survey truck's own **Work lights** upgrade raised a figure only (the drill's pace at night).
+  It gave no switch, no light and no draw, because the lamps' switch showed only for the fitted lamps. Fixed in XML: the lamps' load is
+  now there for either.
+- **A small one:** the lamps followed their switch and a vehicle setting off only at the next slow update (up to about four seconds).
+  They now follow at once.
+
+### What it does
+
+| Lets the player | Stops the player | Changes how they play |
+| --- | --- | --- |
+| Never think about lights: headlights come on to drive at night, work lamps when people work round a parked vehicle at night | Flattening a parked vehicle's battery by forgetting a switch: headlights go out when it is parked with the engine off, and work lamps on the battery stop at half charge | Lights become a per-vehicle "may switch themselves on" choice, not a chore |
+
+- **Setting:** "Lights switch themselves", in the vehicle systems settings, **on by default** (owner's direction).
+- **Headlights** (agent's choice): lit at night while the vehicle is driven or its engine runs; out once parked with the engine off.
+- **Work lamps** (agent's choices, all in the loadout Defs, `autoOn`): lit at night while the vehicle stands still and someone of its own
+  faction (people or mechanoids, not animals) stands within 8 cells, the lamps' own pool; they stay lit for **1 in-game hour** after the
+  last one leaves, so a colonist walking past does not flick them. With the engine off and no grid, only while the battery is **more than
+  half full**, so it can still start the engine.
+- **The buttons stay.** With the setting on, each vehicle's headlights and work lamps buttons mean "may switch themselves on" (on by
+  default) and say so in their description; switch one off to keep that vehicle dark. This is saved under its own key, apart from the hand
+  switch, so lamps switched off by hand before the setting came are not kept dark by it. With the setting off, the buttons switch the
+  lights by hand, as before.
+- **The Systems tab says what a switched-on light waits for** ("waiting for dark and a stop", and with the setting on "waiting for dark, a
+  stop and people near"; headlights "waiting for dark", or "waiting for dark and a driver"), from each load's Def.
+- **Cost:** the decision is made once per look of each vehicle's systems (every rare tick, and at its events), cached, and read by the
+  buttons and tabs. The people check runs only at night on a parked vehicle, over the pawns of its own faction on the map.
+
+### Other factions
+
+- **Raiders and vehicles at a base we attack** have no electrics or switches (the light tier): nothing changes. Their headlights burn at
+  night while they drive, as before (`HeadlightRule.LiteBurns`); their work lamps never light.
+- **A captured vehicle** becomes the player's and follows the setting like any other.
+
+### Who chose what
+
+- Owner: the setting, on by default.
+- Agent (for the owner to revise): every rule and figure above; keeping the buttons as a per-vehicle "may switch themselves on"; the
+  standby wording.

@@ -45,7 +45,13 @@ public sealed class WorkLamps
             PutOut();
             return;
         }
+        bool wasLit = light.Lit;
         light.Place(vehicle, vehicle.Map, vehicle.Position, Radius, Colour);
+        // Framework 0.171.0: the lamps note themselves when they light (test row 66), switched by hand or by themselves.
+        if (!wasLit && light.Lit && Seen.On)
+        {
+            Seen.Note("vehicles.work-lamps-lit", vehicle, variant: comp.LoadNamed(LoadName) is { } load && comp.Automatic(load) ? "automatic" : "by hand");
+        }
     }
 
     /// <summary>Takes the light off the map it was on: the lamps went off, the vehicle moved, or it left the map.</summary>

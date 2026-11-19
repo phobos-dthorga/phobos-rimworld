@@ -238,8 +238,9 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
   piece can still be fitted on its own below. The **cold-weather pack** puts a block heater in every engine, a deep-cycle battery, a
   gear-reduction starter, a fuel heater and cab insulation in, and switches the night heater on. Ordering it again orders only what is
   missing; a battery warmer goes on a battery only when you choose it there yourself. **All-terrain tyres** go on every wheel: far more grip in mud, sand and snow, a little slower,
-  faster wear. New tyres renew the tread: each wheel fitted takes away its share of the wear. **Work lights** fit work lamps to the vehicle's **lamp bracket**; they start switched off, so switch them on where the work is: at night, while the vehicle stands
-  still, they light the ground round it so work there goes at daylight pace, drawing on the battery. **Long range** fits an
+  faster wear. New tyres renew the tread: each wheel fitted takes away its share of the wear. **Work lights** fit work lamps to the vehicle's **lamp bracket** (the drill rig's and survey truck's own work light upgrade gives them
+  too): at night, while the vehicle stands still, they light the ground round it so work there goes at daylight pace, drawing on the
+  battery. They light by themselves when your people are near (see [Headlights and work lamps](#headlights)), or by their button. **Long range** fits an
   **auxiliary fuel tank** to a land vehicle or boat (half as much fuel again) or a **ferry tank** to an aircraft (three quarters as
   much again); either costs cargo space, and the range on the world map grows with the fuel aboard. Taking one off drains the extra
   fuel into containers beside the vehicle. **Recovery** fits a **recovery winch** to the vehicle's winch mount: see
@@ -333,8 +334,13 @@ the kit back in the cargo.
 
 ## Headlights
 
-- **The headlights button is off until you press it.** Switched on, a vehicle lights the ground ahead of it at night, engine running
-  or not. People working or fighting there are no longer slowed by the dark. The light follows the vehicle as it drives and turns.
+- **Lights switch themselves, by default** (the setting **Lights switch themselves**, on): headlights light at night while a vehicle
+  is driven or its engine runs, and go out when it is parked with the engine off. **Work lamps** light at night while it stands still
+  with your people near it, and go out an hour after the last one leaves; with the engine off and no power cable they light only while
+  the battery is more than half full. **Switch a vehicle's headlights or work lamps button off to keep its lights dark.** The **Systems**
+  tab says what a switched-on light is waiting for (dark, a stop, people near, a driver).
+- **With the setting off, the headlights button is off until you press it.** Switched on, a vehicle lights the ground ahead of it at
+  night, engine running or not. People working or fighting there are no longer slowed by the dark. The light follows the vehicle as it drives and turns.
 - **With the engine off, the lights run the battery down**, and left on all night they can flatten it. A message warns when the
   battery may soon be too weak to start the engine: start it, or switch off the lights and heaters. **Once it is flat, everything
   electrical goes out**, the lights and the night heater included, and a message names what went out. It all comes back once the

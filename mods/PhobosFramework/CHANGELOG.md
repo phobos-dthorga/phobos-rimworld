@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.171.0] - 2026-11-19 - Draft
+
+Lights switch themselves; work lamps from a design's own upgrade; lights that wait say why
+
+### Added
+
+- **Headlights and work lamps switch themselves, by default.** Headlights light at night while a vehicle is driven or its engine runs, and go out once it is parked with the engine off. Work lamps light at night while it stands still with your people near it, and go out an hour after the last one leaves; with the engine off and no power cable they light only while the battery is more than half full, so it can still start. Each vehicle's headlights and work lamps buttons then mean "may switch themselves on" (on): switch one off to keep that vehicle dark. New setting **Lights switch themselves**, on by default; off, the buttons switch the lights by hand as before.
+
+### Fixed
+
+- **The drill rig's and survey truck's own Work lights upgrade now gives working lamps**: a work lamps button, light round the vehicle and a draw on its battery. Before, it only kept the drill at full pace at night.
+- **Switched-on lights that are waiting now say what for** in the Systems tab (waiting for dark, a stop, people near or a driver), instead of "standing by". Switched-on work lamps by day, or on a moving vehicle, light nothing and draw nothing by design, and read as broken.
+- **Work lamps follow their button, and go out as the vehicle sets off, at once**, not a few seconds later.
+
+### Save compatibility
+
+- Safe with a running save. Lamps switched off by hand before this version are not kept dark by it: with the new setting on, each vehicle's lights may switch themselves on until its button is switched off.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** The rules and figures (8 cells, an hour, half charge) are the agent's, for the owner to revise.
+- Other factions' vehicles are unchanged: their headlights burn while they drive at night, and their work lamps never light.
+
 ## [0.170.1] - 2026-11-19 - Draft
 
 Our own flight's six buttons have their drawn pictures

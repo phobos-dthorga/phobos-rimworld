@@ -446,6 +446,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         {
             if (load.name != name) continue;
             if (load.toggle && !IsOn(load)) return false;
+            if (!AutoHolds(load)) return false;
             if (IsShorted(load)) return false;
             if (OnHouseBattery(load))
             {
@@ -469,6 +470,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         if (load.available != null && !load.available.Holds(context)) return LoadState.NotFitted;
         if (load.toggle && !IsOn(load)) return LoadState.SwitchedOff;
         if (IsShorted(load)) return LoadState.Shorted;
+        // Switched on, but its automatic rule does not want it yet (Framework 0.171.0): standing by, as for its own "when".
+        if (!AutoHolds(load)) return LoadState.Idle;
         // A camp load on a house battery stops at its cut-off instead of being shed (Framework 0.129.0).
         if (OnHouseBattery(load))
         {
@@ -1015,6 +1018,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         shorePowered = null;
         gridCarries = null;
         loadsCache = null;
+        RefreshAutoSwitches();
         UpdateShedding();
         RefreshShortedLoads();
         UpdatePower();
@@ -1382,6 +1386,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         foreach (ElectricalLoadSpec load in Loads)
         {
             if (load.toggle && !IsOn(load)) continue;
+            if (!AutoHolds(load)) continue;
             if (load.available != null && !load.available.Holds(context)) continue;
             if (load.when != null && !load.when.Holds(context)) continue;
             if (IsShorted(load)) continue;
@@ -1736,6 +1741,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         }
         UpdateNow();
         Beams.Update();
+        // The work lamps go out as the vehicle sets off and light as it stops, not at the next rare tick (Framework 0.171.0).
+        if (eventDef == VehicleEventDefOf.MoveStart || eventDef == VehicleEventDefOf.MoveStop) Lamps.Update();
         if (states == null) return;
         foreach (SystemState state in states)
         {
@@ -2625,13 +2632,59 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
         if (Seen.Wants("vehicles.wiring-shorted", Vehicle)) Seen.Note("vehicles.wiring-shorted", Vehicle, string.Join(", ", fresh));
     }
 
-    public bool IsOn(ElectricalLoadSpec load) => loadSwitches.TryGetValue(load.name, out bool on) ? on : load.defaultOn;
+    /// <summary>
+    /// Where the load's switch stands, as its button shows it. For a load that switches itself (<see cref="Automatic"/>), whether it may
+    /// switch itself on at all on this vehicle (on unless the player switched it off); otherwise whether it is switched on.
+    /// </summary>
+    public bool IsOn(ElectricalLoadSpec load)
+    {
+        if (Automatic(load)) return !loadSwitches.TryGetValue(AutoKey(load), out bool allowed) || allowed;
+        return loadSwitches.TryGetValue(load.name, out bool on) ? on : load.defaultOn;
+    }
+
+    /// <summary>Whether this load switches itself now (Framework 0.171.0): it has an automatic rule and the player's setting is on.</summary>
+    public bool Automatic(ElectricalLoadSpec load) => load.autoOn != null && VehicleSystemsMod.Settings.autoLights;
+
+    /// <summary>The saved key of an automatic load's "may switch itself on" button: kept apart from the hand switch, so a lamp switched off by
+    /// hand before the setting came is not kept dark by it.</summary>
+    static string AutoKey(ElectricalLoadSpec load) => "auto:" + load.name;
+
+    /// <summary>Whether a switched-on load is also wanted by its automatic rule (always, for a load switched by hand). Read from the cache
+    /// <see cref="RefreshAutoSwitches"/> fills once per look, so buttons and tabs never compute it.</summary>
+    bool AutoHolds(ElectricalLoadSpec load) => !Automatic(load) || autoWanted.Contains(load.name);
+
+    /// <summary>The automatic loads whose rule holds at the last look. Derived, never saved.</summary>
+    readonly HashSet<string> autoWanted = new();
+
+    /// <summary>The tick the work lamps' rule last saw someone of the colony within their light (<see cref="When_PeopleNear"/>), so they
+    /// stay lit a while after the last leaves. Derived, never saved: after a load they wait for the next person.</summary>
+    internal int PeopleNearTick = int.MinValue / 2;
+
+    /// <summary>Works out which automatic loads their rules want on now (Framework 0.171.0). Once per look, from <see cref="RefreshCaches"/>.</summary>
+    void RefreshAutoSwitches()
+    {
+        autoWantedBefore.Clear();
+        autoWantedBefore.UnionWith(autoWanted);
+        autoWanted.Clear();
+        if (!VehicleSystemsMod.Settings.autoLights || states == null || states.Count == 0 || Tier != DetailTier.Full) return;
+        var context = new SystemContext(this, states[0]);
+        foreach (ElectricalLoadSpec load in Loads)
+        {
+            if (load.autoOn == null || !load.autoOn.Holds(context)) continue;
+            autoWanted.Add(load.name);
+            if (!autoWantedBefore.Contains(load.name) && IsOn(load) && SeenInPlay.On) Seen.Note("vehicles.lights-auto", Vehicle, load.name, variant: load.name);
+        }
+    }
+
+    readonly HashSet<string> autoWantedBefore = new();
 
     public void SetSwitch(ElectricalLoadSpec load, bool on)
     {
-        loadSwitches[load.name] = on;
+        loadSwitches[Automatic(load) ? AutoKey(load) : load.name] = on;
         if (states != null && states.Count > 0) loadAmps = SumLoads(new SystemContext(this, states[0]));
+        // The light follows the switch at once, not at the next rare tick (Framework 0.171.0).
         if (load.beam != null) Beams.Update();
+        if (load.name == WorkLamps.LoadName) Lamps.Update();
     }
 
     // ---- Service ----
@@ -2965,7 +3018,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost
                 yield return new Command_Toggle
                 {
                     defaultLabel = captured.label,
-                    defaultDesc = captured.description + "\n\n" + "PhobosVehicleSystems_LoadDraw".Translate(AmpsNow(captured).ToString("0.#").Named("AMPS")),
+                    defaultDesc = captured.description + "\n\n" + "PhobosVehicleSystems_LoadDraw".Translate(AmpsNow(captured).ToString("0.#").Named("AMPS"))
+                        + (Automatic(captured) ? "\n\n" + "PhobosVehicleSystems_LoadAuto".Translate(captured.autoDescription.Named("WHEN")).Resolve() : ""),
                     icon = SystemIcons.For(captured.iconPath),
                     isActive = () => IsOn(captured),
                     toggleAction = () => SetSwitch(captured, !IsOn(captured)),
