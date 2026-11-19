@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.188.0] - 2026-11-20 - Draft
+
+No brakes means it cannot stop; a convoy is told when the snow comes; the gravship names a vehicle hanging over its edge
+
+### Changed
+
+- **Worn-through or wrecked brakes no longer stop a vehicle from driving.** A message says so once: it will not stop where you tell it. When it arrives it rolls on a few cells straight ahead, further the faster and heavier it is. People and animals in its way are struck; a wall, a solid piece of cover or another vehicle stops it, with damage to both. It can injure or kill. Its logbook says it could not stop. Colonists working by themselves (with Vehicles at Work) leave such a vehicle alone; your own orders, and Gather and Deliver, still go.
+- **Colonists working by themselves also leave alone a vehicle with a worn-through clutch** (with Vehicles at Work).
+
+### Added
+
+- **A convoy is told when the snow comes or goes.** Select a convoy of yours on the world map: its inspect pane says in how many days snow reaches the ground where it is, or lifts, and the same for where it is going. Nothing is said when no change comes within 30 days.
+- **The gravship's launch confirmation names vehicles standing partly off the ship's floor.** They come along, with part of each hanging over the edge; the game's own list already names those left behind.
+- **For other modders:** the season ahead at any place on the world map, in words (WorldSeasons, WinterForecastRule), in the core.
+
+### Compatibility and limits
+
+- How far a vehicle rolls on and how hard it strikes are authored figures, a believable ballpark. It rolls straight ahead by the four compass directions, and only on a map: a convoy on the world map with no brakes is not affected. Other factions' vehicles never overrun.
+- No new settings. The option to show figures only (no consequences) turns the overrun off, as it does every consequence.
+- The words are agent-authored, held for the owner's review.
+- Not yet tested in game: rows 269 and 270 of the test pass.
+
 ## [0.187.0] - 2026-11-20 - Draft
 
 Exhaust in closed rooms, a cold-start alert, short circuits that reach a plugged-in vehicle, strangers carried to safety, water from rivers and tanks

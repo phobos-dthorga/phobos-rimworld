@@ -79,6 +79,7 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 | Slower, then failing tyres | Tread wears, up to three times as fast off the roads | A service with a **tyre set** |
 | Slower, then **won't drive** | Brakes wear with every stop, faster laden, towing or fast | A service with a **brake pad set**; **heavy-duty brakes** wear slower |
 | Loses its top gears, slips under load | A damaged gearbox or clutch | Repair the gearbox and clutch |
+| **Brakes worn**, then **no brakes**: it drives, but runs on past where it stops and strikes what is in its way | Brake pads wear as the vehicle moves, more when towing | New pads with a **brake pad set**. **Do not drive it near people or walls until then** |
 | **Clutch slipping**, then **worn through**: it crawls, with a quarter of its drive | The clutch wears a little at each take-off, more with a heavy load | A new clutch with a **clutch kit** |
 | A little slower after crossing water | **Wet brakes**: the driver takes it gently | Nothing: a short drive dries them |
 | Labours on hills, in mud and towing, and thirstier, in the desert | **A clogged air filter**: dust, far worse in a sandstorm. The engine loses power, so on a road it keeps its speed | An engine **service** fits a clean one; a **heavy-duty air filter** clogs slower |
@@ -406,6 +407,8 @@ the kit back in the cargo.
 
 - **A caravan moves as its slowest vehicle**, and its explanation names it. A vehicle that will not move stops the caravan; its
   inspect text says why.
+- **A convoy is told when the snow comes** (not yet tested in game): its inspect pane says in how many days snow reaches the ground
+  where it stands, or lifts, and the same for where it is going. Snow makes the going slower and thirstier, so leave before it or wait.
 - **A stranded convoy raises an alert** (not yet tested in game): **Convoy stranded** names the vehicle, why it cannot go on, what
   could fix it there with what the convoy carries, and how far home is. Your choices are yours: fix it where it stands, camp and wait,
   send for parts or a tow, or leave it behind.

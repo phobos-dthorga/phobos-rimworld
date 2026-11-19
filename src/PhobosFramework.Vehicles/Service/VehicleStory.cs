@@ -183,6 +183,8 @@ public static class VehicleStoryDefOf
     public static PhobosLogEntryDef PhobosLog_Stranded = null!;
     public static PhobosLogEntryDef PhobosLog_HardLanding = null!;
     public static PhobosLogEntryDef PhobosLog_LeftBehind = null!;
+    public static PhobosLogEntryDef PhobosLog_RanOn = null!;
+    public static PhobosLogEntryDef PhobosLog_Struck = null!;
     public static RecordDef PhobosRecord_KilometresDriven = null!;
     public static RecordDef PhobosRecord_VehicleRepairs = null!;
     public static RecordDef PhobosRecord_VehiclesRecovered = null!;

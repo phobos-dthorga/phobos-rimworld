@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- No brakes, the gravship's overhang warning and the rest of the small round (Framework 0.188.0; docs/development/vehicle-emergent-play.md,
+     EM29(b) and EM18). Agent-authored, held for the owner's review. -->
+<LanguageData>
+
+  <!-- No brakes: it drives, and cannot stop where it is told -->
+  <PhobosVehicleSystems_MsgNoBrakes>The {VEHICLE} has no brakes left. It will still drive, but it cannot stop where you tell it: it runs on, and strikes whatever is in its way. A mechanic should see to the brakes first.</PhobosVehicleSystems_MsgNoBrakes>
+  <PhobosVehicleSystems_OverrunStart>The {VEHICLE} cannot stop. It is running on.</PhobosVehicleSystems_OverrunStart>
+  <PhobosVehicleSystems_OverrunStruck>The {VEHICLE}, with no brakes, ran on and struck {THING}.</PhobosVehicleSystems_OverrunStruck>
+  <PhobosVehicleSystems_KeepNoBrakes>the {VEHICLE} has no brakes; nobody takes it out for work until a mechanic has seen to them</PhobosVehicleSystems_KeepNoBrakes>
+  <PhobosVehicleSystems_KeepClutchGone>the {VEHICLE}'s clutch is worn through; nobody takes it out for work until a mechanic has fitted a new one</PhobosVehicleSystems_KeepClutchGone>
+
+  <!-- The gravship's launch confirmation -->
+  <PhobosVehicleSystems_GravshipOverhang>Warning: these vehicles stand partly off the ship's floor. They will come along, with part of each hanging over the edge:</PhobosVehicleSystems_GravshipOverhang>
+
+</LanguageData>

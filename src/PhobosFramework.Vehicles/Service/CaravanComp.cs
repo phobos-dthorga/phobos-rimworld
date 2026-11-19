@@ -45,6 +45,17 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
             lines.Add((cargo ? "PhobosVehicleSystems_CaravanRangeWithCargo" : "PhobosVehicleSystems_CaravanRange")
                 .Translate(((int)budget).ToStringTicksToPeriod().Named("TIME")).Resolve());
         }
+        // Framework 0.188.0 (EM16): when the snow comes or goes where the convoy is, and where it is going.
+        if (caravan.Faction == Faction.OfPlayer)
+        {
+            if (Phobos.Framework.WorldMap.WorldSeasons.ForecastLine(caravan.Tile) is { } here)
+            {
+                lines.Add(here);
+                Seen.Note("vehicles.snow-forecast");
+            }
+            RimWorld.Planet.PlanetTile goal = caravan.vehiclePather?.Destination ?? RimWorld.Planet.PlanetTile.Invalid;
+            if (goal.Valid && goal != caravan.Tile && Phobos.Framework.WorldMap.WorldSeasons.ForecastLine(goal) is { } there) lines.Add(there);
+        }
         foreach (CompPhobosVehicleSystems comp in Comps(caravan))
         {
             if (comp.MoveRefusal != null)

@@ -276,21 +276,8 @@ public sealed partial class CompPhobosHitch
             // Vehicle Framework's own footprint, as the hitch reads it (Framework 0.120.5, fault-read H1).
             CellRect next = stuck.VehicleRect(cell, stuck.Rotation);
             if (!ClearFor(next, map, stuck)) continue;
-            CellRect before = stuck.OccupiedRect();
-            // As Vehicle Framework moves a vehicle a cell (its own patches on Position reclaim the cells and its regions), as the hitch does.
-            stuck.Position = cell;
-            // H2: the cell it was heading for goes with it, or it turns back to face it at the next load. H5: what it laid where it stood
-            // comes up; it lays again where it stops.
-            stuck.vehiclePather?.ResetToCurrentPosition();
-            Hitches.TakeUpPipes(stuck);
-            foreach (IntVec3 c in before.Cells)
-            {
-                if (c.InBounds(map)) map.pathing.RecalculatePerceivedPathCostAt(c);
-            }
-            foreach (IntVec3 c in next.Cells)
-            {
-                if (c.InBounds(map)) map.pathing.RecalculatePerceivedPathCostAt(c);
-            }
+            // As Vehicle Framework moves a vehicle a cell; shared with a brakeless overrun since Framework 0.188.0 (H2 and H5 live there).
+            VehicleShift.MoveOneCell(stuck, cell);
             return true;
         }
         return false;

@@ -263,6 +263,15 @@
         {"key": "vehicles.deliver.end", "variant": "NoBay", "expect": {"things": ">= 1"}}],
       "it drives back": [{"key": "vehicles.deliver.home"}]
     }},
+    "270": {"parts": {
+      "a convoy's pane says when the snow comes or goes": [{"key": "vehicles.snow-forecast"}],
+      "the gravship's launch names a vehicle hanging over the edge": [{"key": "vehicles.gravship-overhang"}]
+    }},
+    "269": {"parts": {
+      "a vehicle with no brakes rolls on past its stopping place": [{"key": "vehicles.brake-overrun", "variant": "rolled"}],
+      "it strikes what is in its way": [{"key": "vehicles.brake-overrun", "variant": "struck"}],
+      "the logbook says it could not stop": [{"key": "vehicles.logbook", "variant": "PhobosLog_RanOn"}]
+    }},
     "261": {"parts": {
       "a destroyed vehicle leaves a hull": [{"key": "vehicles.hull-left"}],
       "taking a hull apart gives salvaged parts": [{"key": "vehicles.hull-salvaged"}],

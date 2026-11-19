@@ -214,6 +214,23 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>The journey under way away from any map, or null (Framework 0.181.0, EM25). Saved while it lasts.</summary>
     public VehicleTrip? Trip;
 
+    /// <summary>Rolling on past where it meant to stop, with no brakes (Framework 0.188.0, EM29(b)); derived, never saved.</summary>
+    internal BrakeOverrun? Overrun;
+
+    /// <summary>Whether a stage in force says the brakes are gone (Framework 0.188.0): the player's vehicles on the full model only.</summary>
+    public bool NoBrakes()
+    {
+        if (states == null || Tier != DetailTier.Full || Vehicle.Faction != Faction.OfPlayer) return false;
+        foreach ((SystemContext context, StageSpec stage, string _) in StagesInForce())
+        {
+            foreach (VehicleSystemEffect effect in stage.effects)
+            {
+                if (effect is Effect_NoBrakes && effect.Active(context)) return true;
+            }
+        }
+        return false;
+    }
+
     VehicleEventLog? events;
 
     /// <summary>What happened to the vehicle, for the marks on its graphs (Framework 0.84.0). Kept for the player's vehicles only.</summary>
@@ -756,6 +773,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         base.CompTick();
         engineSound?.Tick(this);
         beams?.Tick();
+        Overrun?.Tick();
     }
 
     public override void CompTickRare()

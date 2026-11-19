@@ -3,7 +3,8 @@
 **Status (20 Nov 2026):** batch 1 built in D'thorga Framework 0.181.0 (EM24, EM23, EM13, EM25 and EM1: faults that say why, the
 logbook, records and tales, the trip report, stranded convoys) and batch 2 in 0.185.0 (EM29(a): four unwise orders go ahead with a
 warning), batch 3 in 0.187.0 (EM20, EM21(a) and (c), EM27's small links) and batch 4 in the same version (EM2 and EM3: hulls,
-salvaged parts, lost convoys); not yet tested in game. The four batches the owner asked for are built
+salvaged parts, lost convoys), and a small round in 0.188.0 (EM29(b) brakes, EM16 the snow forecast, EM18 the gravship's warning);
+not yet tested in game. The four batches the owner asked for are built
 (the owner's word, 20 Nov 2026); every other row is an idea, not built. The owner answered four of the questions the same day
 ([the answers](#questions-for-the-owner)).
 
@@ -461,6 +462,19 @@ The owner's answer to question 5: "both" (a lost convoy as a site, and a hull on
 | EM2 | **A lost convoy stays** (setting, on): a prefix on Vehicle Framework's `VehicleCaravan.Notify_MemberDied` takes the vehicles out, with their cargo and anyone aboard, just before Vehicle Framework would clear the caravan, into the place a dropped sling load becomes, generalised to hold several vehicles (`PhobosLostConvoy`); older single-vehicle wrecks load as before | `Service/LostConvoys.cs`; `Sling/SlingWreck.cs` |
 
 **Other factions:** hulls are left by every faction's vehicles; a lost convoy is the player's only.
+
+## As built: the small round (20 Nov 2026, Framework 0.188.0)
+
+The owner's pick of 20 Nov 2026, "stage the next small round", with "it overruns and hits things" for brakes. Not yet tested in game;
+rows 269 and 270.
+
+| Row | What was built | Lets | Stops | Changes | What outside the vehicle notices |
+| --- | --- | --- | --- | --- | --- |
+| EM29(b) brakes | Worn-through or wrecked brakes no longer refuse to move (`Effect_NoBrakes` in place of the refusal). On Vehicle Framework's arrival (a prefix and postfix on `VehiclePathFollower.PatherArrived`, neither skipping it) the vehicle rolls on straight ahead, a cell at a time: `OverrunRule` gives 0.6 s of travel for a 5-tonne vehicle, more by the square root of its weight, 8 cells at most [A]. People in the way are struck and it goes on; a wall, cover of 0.4 fill or more, or another vehicle stops it, each taking 4 damage a tonne a cell-a-second (5 to 400), the vehicle half of that on its leading end [A] | Drive a vehicle whose brakes are gone, knowingly | Stopping where it is told | Where it is driven, and who stands near | Whoever and whatever is in its way; its logbook; colonists working by themselves, who leave it alone |
+| EM16 | The season ahead at a tile: the game's own winter figure for a future date, crossing 1.0 of 2 as "snow on the ground", looked for 30 days ahead [A] (`WinterForecastRule`, `WorldSeasons`, both core). A convoy's inspect pane says it for where it is and where it is going | Leave before the snow, or wait it out | — | The season enters route choice | The world's seasons reach the convoy before it is slowed |
+| EM18 | A postfix on the game's `GravshipUtility.PreLaunchConfirmation` adds a paragraph to its window naming vehicles whose centre is on the floor with a cell off it. **Read on the way:** the game already lists vehicles whose centre is off the floor, among "animals" that will be left behind | Launch knowing | — | — | The gravship's launch |
+
+**Not built of EM18:** what a turned landing does to a vehicle of several cells is still not read (EP5).
 
 ## Who chose what
 

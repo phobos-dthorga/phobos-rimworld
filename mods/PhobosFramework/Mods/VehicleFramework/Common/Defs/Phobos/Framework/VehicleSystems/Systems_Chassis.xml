@@ -247,7 +247,7 @@
     <quantities>
       <li>
         <name>brakeWear</name>
-        <description>How much of the pads is gone. They wear as the vehicle moves. Worn through, it cannot be driven until they are renewed.</description>
+        <description>How much of the pads is gone. They wear as the vehicle moves. Worn through, it still drives but cannot stop where it is told: it runs on, and strikes what is in its way.</description>
         <wearTrend>true</wearTrend>
         <telltale>Phobos/VehicleSystems/Dash/Brake</telltale>
         <showOnDashboard>true</showOnDashboard>
@@ -279,8 +279,16 @@
             <label>worn through</label>
             <notable>true</notable>
             <effects>
-              <li Class="Phobos.VehicleSystems.Effect_RefuseMove">
-                <reason>PhobosVehicleSystems_RefuseBrakesWorn</reason>
+              <!-- Framework 0.188.0 (EM29(b); the owner's choice of 20 Nov 2026: warn, then allow, and it overruns and hits things): worn
+                   through, the brakes no longer refuse to move. The vehicle rolls on past where it meant to stop (BrakeOverrun); the
+                   player is told once; colonists working by themselves leave it alone. -->
+              <li Class="Phobos.VehicleSystems.Effect_NoBrakes" />
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgNoBrakes</message>
+                <type>NegativeEvent</type>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_KeepFromWorkTrips">
+                <reason>PhobosVehicleSystems_KeepNoBrakes</reason>
               </li>
             </effects>
           </li>
@@ -319,7 +327,7 @@
       </li>
       <li>
         <name>brakeParts</name>
-        <description>The state of the brakes themselves. Wrecked, the vehicle cannot be driven.</description>
+        <description>The state of the brakes themselves. Wrecked, the vehicle still drives but cannot stop where it is told.</description>
         <telltale>Phobos/VehicleSystems/Dash/Brake</telltale>
         <label>brakes</label>
         <unit>Fraction</unit>
@@ -335,8 +343,14 @@
             <label>wrecked</label>
             <notable>true</notable>
             <effects>
-              <li Class="Phobos.VehicleSystems.Effect_RefuseMove">
-                <reason>PhobosVehicleSystems_RefuseBrakesWrecked</reason>
+              <!-- Framework 0.188.0 (EM29(b)): as worn-through pads, above. -->
+              <li Class="Phobos.VehicleSystems.Effect_NoBrakes" />
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgNoBrakes</message>
+                <type>NegativeEvent</type>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_KeepFromWorkTrips">
+                <reason>PhobosVehicleSystems_KeepNoBrakes</reason>
               </li>
             </effects>
           </li>
@@ -515,6 +529,10 @@
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgClutchWornThrough</message>
                 <type>NegativeEvent</type>
+              </li>
+              <!-- Framework 0.188.0: colonists working by themselves leave a vehicle with a worn-through clutch alone (0.185.0 let it move). -->
+              <li Class="Phobos.VehicleSystems.Effect_KeepFromWorkTrips">
+                <reason>PhobosVehicleSystems_KeepClutchGone</reason>
               </li>
             </effects>
           </li>
