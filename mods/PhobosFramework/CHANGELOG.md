@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.176.0] - 2026-11-19 - Draft
+
+With Vehicles at Work, a vehicle with a depot bay is parked in its bay
+
+### Added
+
+- **With Vehicles at Work, a depot bay is the parking place of the vehicle assigned to it.** When that mod brings a vehicle home (its Drive work returning a vehicle left idle, or a colonist bringing one back), a vehicle with a bay goes to the bay's pad instead of a parking lot, so it refuels there and is serviced faster. Only vehicles you have switched on for its trips or hauling are ever moved, as before; your own Go to bay is unchanged.
+- **A bay with a vehicle counts as a parking lot**, so its Drive work also brings vehicles home on a map that has bays and no lots.
+- A vehicle with a bay counts as parked properly only on its bay's pad.
+
+### Compatibility and limits
+
+- Without Vehicles at Work nothing changes. It names that mod's parking helpers by name and stands down by itself if they change.
+- If another vehicle stands on the pad, or there is no way there, that mod parks it in a lot as before.
+- It drives in as that mod drives, so it may stop facing either way; it is in the bay as long as its middle is on the pad.
+- **Not yet tested in game** (test row 250).
+
 ## [0.175.1] - 2026-11-19 - Draft
 
 A truck working by itself obeys worn-out brakes; a stockpile's unloading mark flies with the gravship

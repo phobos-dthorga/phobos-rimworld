@@ -263,6 +263,7 @@
         {"key": "vehicles.deliver.end", "variant": "NoBay", "expect": {"things": ">= 1"}}],
       "it drives back": [{"key": "vehicles.deliver.home"}]
     }},
+    "250": ["vehicles.work-park-bay"],
     "248": ["vehicles.errand-refused"],
     "247": {"parts": {
       "the zone's switch": [{"key": "vehicles.unload-zone-switch"}],

@@ -1,7 +1,8 @@
 # Vehicles at Work: what we gain from it and what we learn from it (19 Nov 2026)
 
 **Status (19 Nov 2026):** built in D'thorga Framework 0.108.4: VW1 (its trips obey our refusals to move; it was SD1); fixed in Framework
-0.175.1: the two faults of ours this read found (F1, F2), with the shorter stall wait. Not yet tested in game. Not built: VW2 to VW7.
+0.175.1: the two faults of ours this read found (F1, F2), with the shorter stall wait; built in Framework 0.176.0: VW2 (a depot bay is its
+vehicle's parking place). Not yet tested in game. Not built: VW3 (next) and VW5; VW4 and VW7 work with no code of ours; VW6 set aside.
 
 **A research record.** The owner, 19 November 2026: "This is a research and record purview, strictly. But I wish to add 'Vehicles at
 Work' as a soft dependency. How might we benefit from that both as a soft-dep and perhaps learning from as well? With the latter, I think
@@ -77,6 +78,7 @@ loading outside the home area. Three prefixes skip the original, all for Atmosph
 
 | # | What | Where | Status |
 | --- | --- | --- | --- |
+| VW2 | When it parks a vehicle "home" (`WOR.Lots:Spot` with `home` set: its Drive work, and a commuter bringing one back), a vehicle with a depot bay of the player's goes to the bay's parking cell, if no other vehicle is on the pad and there is a way; a vehicle with a bay is parked properly only on its pad (`WOR.Lots:ParkedRight`); a bay with a vehicle counts as a lot, so its Drive work runs on a map with bays and no lots (`WOR.Lots:Any`). Its parking beside a job or by storage for a haul is left alone | `VehiclesAtWorkPatches.cs`, three more postfixes found by name, standing down as VW1's do | Framework 0.176.0. Not yet tested in game (test row 250). **Limit**: it drives in as that mod drives, so it may stop facing either way |
 | VW1 (was SD1) | Its two vehicle tests (`WOR.VF:Healthy`, `WOR.VF:CanMove`) answer no while a system of ours refuses to move (worn-out brakes, a set-up job, a submarine on the bottom); its "why it is stuck" line gives our reason | `VehiclesAtWorkPatches.cs`, three postfixes found by name, switched on only while the mod is active, standing down if a name goes; `MoveRefusals.For` | Framework 0.108.4. Not yet tested in game (check 91) |
 
 ## Links worth having

@@ -46,7 +46,7 @@ How to read it:
   (`src/PhobosFramework.Vehicles/Service/Patches.cs:316`) refuses `CanMoveFinal` off the map only. So a colonist commuting with Vehicles
   at Work can drive a vehicle with worn-out brakes, a set-up Busbar or a settled submarine. **Not reproduced in game.** Row SD1 is the
   fix; it is ours to make, since the refusal is ours. **The mod has its own record since 19 Nov 2026**:
-  [Vehicles at Work](vehicles-at-work-tie-ins.md) carries SD1 to SD3 forward as VW1, VW2 and VW6, with a full read of its code.
+  [Vehicles at Work](vehicles-at-work-tie-ins.md) carries SD1 to SD3 forward as VW1, VW2 and VW6, with a full read of its code. SD2, sharpened as VW2, is built in Framework 0.176.0.
 - **The strongest new links**, all on the owner's list: Vehicles at Work (SD1, SD2), the tanker on Rimefeller's own pipes (SD4), the
   tanker refuelling any fuelled building (SD5), EMP on vehicle electrics in XML only (SD9), bench-bill templates for the assembly
   benches (SD30), Search and Rescue's medics with our field devices (SD22), the VFE Medical IV drip as continuous fluids (SD23),

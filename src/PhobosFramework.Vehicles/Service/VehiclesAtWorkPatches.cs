@@ -75,3 +75,90 @@ public static class VehiclesAtWorkWhyStuckPatch
         __result = "PhobosVehicleSystems_WorkTripRefused".Translate(refusal.TrimEnd('.').Named("REASON")).Resolve();
     }
 }
+
+/// <summary>
+/// A depot bay is the parking place of the vehicle assigned to it (Framework 0.176.0; docs/development/vehicles-at-work-tie-ins.md, VW2;
+/// owner, 19 Nov 2026: "Yes, next"). Vehicles at Work parks a vehicle "home" in two places: its Drive work returning a vehicle left idle,
+/// and a commuter bringing one back (<c>WOR.Lots.Spot</c> with <c>home</c> set, from WorkGiver_ParkVehicle and Commute.BringBack). For a
+/// vehicle with a bay of ours on its map, home is the bay's parking cell; it decides only which cell, and its own trip drives there. Its
+/// other parking (beside a job, by storage for a haul) is left alone. A vehicle is only ever parked when the player has switched on its
+/// trips or hauling there, so this never sends a vehicle the player did not hand over; our own "Go to bay" stays an order (owner, 9 Nov 2026).
+/// </summary>
+static class VehiclesAtWorkBays
+{
+    /// <summary>The bay of a vehicle Vehicles at Work asks about, or null: a vehicle of ours with a bay of the player's on its map.</summary>
+    public static CompPhobosDepotBay? BayOf(Pawn pawn) => pawn is VehiclePawn vehicle ? DepotBays.Of(vehicle) : null;
+
+    /// <summary>
+    /// The bay's parking cell when the vehicle can drive there: no other vehicle stands on the pad, and Vehicle Framework finds a way (as the
+    /// bay's own Go to bay asks). Invalid otherwise, and its own lots then decide.
+    /// </summary>
+    public static IntVec3 ParkingCell(VehiclePawn vehicle, CompPhobosDepotBay bay)
+    {
+        IntVec3 cell = bay.ParkingCell(vehicle);
+        Map map = vehicle.Map;
+        if (!cell.InBounds(map)) return IntVec3.Invalid;
+        CellRect pad = bay.Pad;
+        foreach (Pawn other in map.mapPawns.AllPawnsSpawned)
+        {
+            if (other != vehicle && other is VehiclePawn && pad.Contains(other.Position)) return IntVec3.Invalid;
+        }
+        return vehicle.CanReachVehicle(cell, Verse.AI.PathEndMode.OnCell, Danger.Deadly) ? cell : IntVec3.Invalid;
+    }
+
+    /// <summary>Whether any vehicle on this map has a bay of the player's, for its Drive work to look for one to bring home.</summary>
+    public static bool AnyAssigned(Map map)
+    {
+        foreach (CompPhobosDepotBay bay in DepotBays.On(map))
+        {
+            if (bay.Assigned != null) return true;
+        }
+        return false;
+    }
+}
+
+/// <summary>Where it parks a vehicle "home": the vehicle's bay, when it has one and can get there.</summary>
+[HarmonyPatch]
+public static class VehiclesAtWorkHomeSpotPatch
+{
+    static bool Prepare() => TargetMethod() != null;
+
+    static MethodBase? TargetMethod() => VehiclesAtWork.Active ? AccessTools.Method("WOR.Lots:Spot") : null;
+
+    public static void Postfix(Pawn v, bool home, ref IntVec3 __result)
+    {
+        if (!home || v is not VehiclePawn vehicle || VehiclesAtWorkBays.BayOf(v) is not { } bay) return;
+        IntVec3 cell = VehiclesAtWorkBays.ParkingCell(vehicle, bay);
+        if (!cell.IsValid) return;
+        __result = cell;
+        if (Seen.Wants("vehicles.work-park-bay", vehicle)) Seen.Note("vehicles.work-park-bay", vehicle, bay.parent.LabelShort);
+    }
+}
+
+/// <summary>Whether a vehicle is parked where it belongs: for one with a bay, only on that bay's pad.</summary>
+[HarmonyPatch]
+public static class VehiclesAtWorkParkedRightPatch
+{
+    static bool Prepare() => TargetMethod() != null;
+
+    static MethodBase? TargetMethod() => VehiclesAtWork.Active ? AccessTools.Method("WOR.Lots:ParkedRight") : null;
+
+    public static void Postfix(Pawn v, ref bool __result)
+    {
+        if (v is VehiclePawn vehicle && VehiclesAtWorkBays.BayOf(v) is { } bay) __result = bay.Holds(vehicle);
+    }
+}
+
+/// <summary>Its Drive work looks for vehicles to park only on a map with a parking lot: a bay with a vehicle counts as one.</summary>
+[HarmonyPatch]
+public static class VehiclesAtWorkAnyLotPatch
+{
+    static bool Prepare() => TargetMethod() != null;
+
+    static MethodBase? TargetMethod() => VehiclesAtWork.Active ? AccessTools.Method("WOR.Lots:Any") : null;
+
+    public static void Postfix(Map map, ref bool __result)
+    {
+        if (!__result && map != null && VehiclesAtWorkBays.AnyAssigned(map)) __result = true;
+    }
+}

@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.175.1, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.176.0, built 19 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -64,6 +64,9 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   the nearest marked storage that takes it and has room, tips it there tail first and moves on to the next when one is full; then,
   with **Drive back after delivering** on (the default), it drives back to where it started. Gathering's **Unload at** can now be **any
   marked bay** too. Not yet tested in game.
+- **With Vehicles at Work, a depot bay is its vehicle's parking place** (0.176.0): when that mod's colonists bring a vehicle home, one
+  with a bay goes to its pad, not a parking lot, and refuels there. Only vehicles you switched on there for trips or hauling are moved.
+  Its trips also leave alone any vehicle our systems refuse to move (0.108.4). Not yet tested in game.
 - **Vehicle accessories** (0.129.0): a **12-volt fridge**, a **house battery** and a **power outlet**, each made as a kit at the
   vehicle parts bench (vehicle electrics research) and fitted to its own new part on every land vehicle. **Without a house battery the
   fridge and outlet run the starting battery down with the engine off**; fit one to keep the engine's battery for starting. Taking an
