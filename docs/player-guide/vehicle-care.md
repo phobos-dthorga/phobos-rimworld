@@ -384,6 +384,11 @@ the kit back in the cargo.
   Systems tab shows how fit its driver is. Someone with one eye still drives near full pace. A driver who breaks down mentally cannot
   drive at all until it passes or someone else takes the wheel. **Raiders' drivers count too**: a raid with a hurt or tired driver
   comes in slower, as does a raider with no headlights at night.
+- **Practice makes a gentler driver** (not yet tested in game). The hours a colonist spends at the wheel of one kind of vehicle make
+  them easier on its brakes and tyres, and a practised pilot lands more gently. **Never faster.** The Systems tab shows the driver's
+  practice; a colonist's Records show their hours at the wheel. **Keep the same people on the same vehicles** to get the most from it.
+- **A vehicle has a regular driver**: whoever has driven it most. The fleet board's pane names them. They are upset when it is destroyed
+  or lost out on the world map, and glad when a lost one is brought home.
 - **Rain, snow and ice take grip.** It only tells where grip is what holds a vehicle back: hills, mud and towing. A laden truck or
   a heavy tow may crawl or stall in a blizzard or on ice that it would pull through in the dry. All-terrain tyres help. The setting
   **Rain, snow and ice take grip** turns it off.

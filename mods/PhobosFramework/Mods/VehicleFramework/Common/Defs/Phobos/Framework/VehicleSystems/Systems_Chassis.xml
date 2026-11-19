@@ -185,6 +185,18 @@
               </points>
             </curve>
           </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <!-- EM11 (Framework 0.190.0): a driver practised at this kind of vehicle is easier on it, down to x0.85 (authored). Without the
+                 driver system, as a new hand. -->
+            <quantity>driverExperience</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>0</value></fallback>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(1, 0.85)</li>
+              </points>
+            </curve>
+          </li>
         </inputs>
       </li>
     </flows>
@@ -379,6 +391,18 @@
               <points>
                 <li>(0.6, 1.1)</li>
                 <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <!-- EM11 (Framework 0.190.0): a driver practised at this kind of vehicle is easier on it, down to x0.85 (authored). Without the
+                 driver system, as a new hand. -->
+            <quantity>driverExperience</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>0</value></fallback>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(1, 0.85)</li>
               </points>
             </curve>
           </li>

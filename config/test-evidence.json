@@ -3,6 +3,20 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "276": {"parts": {
+      "a paddock tilled to the end": ["farming.tillage.end"]
+    }},
+    "277": {"parts": {
+      "a cell sown": ["farming.sow.cell"],
+      "a sowing run ends": ["farming.sow.end"]
+    }},
+    "275": {"parts": {
+      "a driver gains hours at the wheel of a kind of vehicle": [{"key": "vehicles.practice", "variant": "hours"}],
+      "a practised pilot's landing wears less": [{"key": "vehicles.practice", "variant": "landing"}],
+      "the regular driver feels the vehicle destroyed": [{"key": "vehicles.own-vehicle", "variant": "destroyed"}],
+      "the regular driver feels the vehicle lost": [{"key": "vehicles.own-vehicle", "variant": "lost"}],
+      "the regular driver is glad it is brought home": [{"key": "vehicles.own-vehicle", "variant": "home"}]
+    }},
     "272": {"parts": {
       "a growing zone marked for machines": ["farming.paddock.marked"]
     }},

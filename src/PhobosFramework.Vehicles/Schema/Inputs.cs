@@ -252,6 +252,9 @@ public class Input_Driver : VehicleSystemInput
     {
         Fitness,
         Tired,
+        /// <summary>Hours on type (Framework 0.190.0, EM11): the best practice share at this kind of vehicle among the player's people in a
+        /// driving seat, 0 to just under 1 (VehiclePractice); 0 for anyone else's.</summary>
+        Experience,
     }
 
     public Reading reading = Reading.Fitness;
@@ -260,12 +263,15 @@ public class Input_Driver : VehicleSystemInput
     {
         double best = -1;
         bool tired = false;
+        float practised = 0f;
+        string? kind = reading == Reading.Experience && context.Vehicle.Faction == Faction.OfPlayer ? VehiclePractice.KindOf(context.Vehicle) : null;
         // Only while the engine runs (drafted, a caravan on the move, flying): a parked vehicle with a tired crew aboard says nothing.
         if (context.Comp.BeingDriven && context.Vehicle.PawnsByHandlingType.TryGetValue(HandlingType.Movement, out System.Collections.Generic.List<Pawn>? drivers) && drivers != null)
         {
             foreach (Pawn pawn in drivers)
             {
                 if (pawn?.health?.capacities == null || pawn.InMentalState) continue;
+                if (kind != null && pawn.Faction == Faction.OfPlayer) practised = UnityEngine.Mathf.Max(practised, Phobos.Framework.Persistence.Practice.Share(pawn, kind));
                 bool isTired = pawn.needs?.rest != null && pawn.needs.rest.CurCategory >= RestCategory.Tired;
                 PawnCapacitiesHandler capacities = pawn.health.capacities;
                 double fitness = DriverRule.Fitness(capacities.GetLevel(PawnCapacityDefOf.Consciousness), capacities.GetLevel(PawnCapacityDefOf.Sight),
@@ -275,6 +281,7 @@ public class Input_Driver : VehicleSystemInput
                 tired = isTired;
             }
         }
+        if (reading == Reading.Experience) return practised;
         if (best < 0) return reading == Reading.Fitness ? 1f : 0f;
         return reading == Reading.Fitness ? (float)best : tired ? 1f : 0f;
     }

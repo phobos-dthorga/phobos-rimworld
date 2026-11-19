@@ -9,6 +9,9 @@
     counts; a trailer, an autonomous vehicle or an empty one reads fit. Its own system, so a player can switch it off in the settings' list
     of systems. A worse driver also wears tyres and brakes up to x1.1 (the running gear's and brakes' wear flows read driverFitness).
     Every stage edge and factor is authored. Not yet tested in game.
+    Framework 0.190.0 (EM11, hours on type): driverExperience, the practice of whoever in a driving seat knows this kind of vehicle best.
+    It eases brake and tyre wear down to x0.85 (their wear flows read it) and, in C#, a landing's wear on an aircraft down to x0.6. Never
+    speed. Half of it after 40 hours at the wheel of this kind (PracticeRule, authored).
   -->
   <Phobos.VehicleSystems.PhobosVehicleSystemDef>
     <defName>PhobosVehicleSystem_Driver</defName>
@@ -68,6 +71,34 @@
                 <factor>0.9</factor>
               </li>
             </effects>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>driverExperience</name>
+        <description>How well the driver knows this kind of vehicle, from the hours they have spent at the wheel of one. A practised driver is easier on the brakes and tyres, and a practised pilot lands more gently. It never makes anyone faster.</description>
+        <label>driver's practice</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Driver">
+            <reading>Experience</reading>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.25</to>
+            <label>new to it</label>
+          </li>
+          <li>
+            <from>0.25</from>
+            <to>0.75</to>
+            <label>getting used to it</label>
+          </li>
+          <li>
+            <from>0.75</from>
+            <label>seasoned</label>
           </li>
         </stages>
       </li>

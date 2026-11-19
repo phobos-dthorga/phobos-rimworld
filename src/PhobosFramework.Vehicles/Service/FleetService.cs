@@ -106,6 +106,8 @@ public sealed class FleetDetail
     public List<FleetLogLine> Log = new();
     public int LogTotal;
     public List<DamageSheet.SheetPart>? Parts;
+    /// <summary>Its regular driver's name (Framework 0.190.0, EM12), or null.</summary>
+    public string? Regular;
 }
 
 /// <summary>
@@ -383,6 +385,7 @@ public static class FleetService
         if (entry.Vehicle is not { } vehicle) return detail;
         detail.Parts = DamageSheet.PartsOf(vehicle);
         if (entry.Systems is not { } systems) return detail;
+        if (entry.Kind == FleetKind.Own || entry.Kind == FleetKind.Lost) detail.Regular = VehiclePractice.RegularDriver(systems)?.LabelShort;
         if (systems.Trip is { } trip)
         {
             detail.Journey = "PhobosFleet_DetailJourney".Translate(WorldPlaces.DistanceText(trip.tiles).Named("DISTANCE"),

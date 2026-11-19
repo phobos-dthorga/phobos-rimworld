@@ -3,8 +3,8 @@
 **Status (20 Nov 2026):** batch 1 built in D'thorga Framework 0.181.0 (EM24, EM23, EM13, EM25 and EM1: faults that say why, the
 logbook, records and tales, the trip report, stranded convoys) and batch 2 in 0.185.0 (EM29(a): four unwise orders go ahead with a
 warning), batch 3 in 0.187.0 (EM20, EM21(a) and (c), EM27's small links) and batch 4 in the same version (EM2 and EM3: hulls,
-salvaged parts, lost convoys), and a small round in 0.188.0 (EM29(b) brakes, EM16 the snow forecast, EM18 the gravship's warning);
-not yet tested in game. The four batches the owner asked for are built
+salvaged parts, lost convoys), and a small round in 0.188.0 (EM29(b) brakes, EM16 the snow forecast, EM18 the gravship's warning),
+and EM11 with EM12 in 0.190.0 (hours on type, "their" vehicle); not yet tested in game. The four batches the owner asked for are built
 (the owner's word, 20 Nov 2026); every other row is an idea, not built. The owner answered four of the questions the same day
 ([the answers](#questions-for-the-owner)).
 
@@ -342,7 +342,8 @@ and thoughts (EM12, EM13) are the game's own. Every key would carry the `Phobos`
    behaviour, not a fault of ours. Row EM22.
 2. **A convoy whose last colonist dies is deleted with its vehicles and cargo** (VF:93569-93592). Vehicle Framework's. Row EM2.
 3. **A repair at a halt counts supplies in that vehicle's own cargo only** (`Comp:2737-2740`), though a ground convoy refuels from
-   every vehicle's cargo (`V/Service/CargoRefuel.cs:27-33`). Whether that is meant is the owner's to say. Row EM1.
+   every vehicle's cargo (`V/Service/CargoRefuel.cs:27-33`). Whether that is meant is the owner's to say. Row EM1. **Fixed in
+   Framework 0.181.0** with batch 1: supplies are counted across the whole convoy.
 4. **Three refusals have no consequence behind them**: brakes, flight controls, blind flight. Row EM29(b).
 5. **`Effect_ForceUndraft` has no user** in any Def.
 6. **The patched-Defs file is out of date** (8 Nov 2026, 335 mods; 364 active). The owner's step: Framework's dev action "write
@@ -479,6 +480,29 @@ rows 269 and 270.
 **With it, the fleet board was redrawn** (the owner's request in the same answer; `vehicle-presentation-design.md`, "P2, refreshed"): it
 is where the batches' stories are read in one place. Each row says what the vehicle is doing and needs; lost vehicles (EM2), hulls (EM3)
 and vehicles that could be claimed are listed; and the pane shows a fault's cause (EM24) and the newest logbook lines (EM23). Row 271.
+
+## As built: people in the machine (20 Nov 2026, Framework 0.190.0)
+
+The agent's pick, built under the owner's overnight go-ahead of 20 Nov 2026 ("proceed ... where risk remains low-to-medium ... and
+at the very minimum, has been researched and recorded"): EM11 with EM12, the one group of this record left untouched, and the first of
+the agent's three next picks. Not yet tested in game; row 275. Every figure is [A].
+
+| Row | What was built | Lets | Stops | Changes | What outside the vehicle notices |
+| --- | --- | --- | --- | --- | --- |
+| EM11 | While a player's vehicle moves, everyone of theirs in a driving seat gains practice at that kind of vehicle (by its defName), counted on the rare look it already gets, on a map or away. Practice gives a share of a gain: half at 40 hours, three quarters at 80 (`PracticeRule`, core). The driver system's `driverExperience` quantity eases brake and tyre wear to x0.85 at full share; a landing's wear (`WearLanding`: the rolling landing and the forced landing) to x0.6. Colonists' records gain **hours at the wheel** | Grow a driver or a pilot | Nothing: anyone may still drive | Who is sent with which vehicle; losing the one seasoned pilot costs | The colonist's records; nothing else |
+| EM12 | The colonist with the most hours at one vehicle, at least 12, is its **regular driver** (hours saved on the vehicle by load ID). Memories naming the vehicle: destroyed -6 for 10 days (a prefix on Vehicle Framework's `VehiclePawn.Kill` that never skips it), lost -4 for 8 days (where `PhobosSlingWreck.Make` takes it: a dropped sling load, a lost convoy), brought home +5 for 6 days (when a lost vehicle stands on a home map again, with a logbook line). The fleet board's pane names the regular driver | Read who a vehicle belongs to, in the game's own moods | — | A loss is felt by a person, not only the ledger | Its regular driver's mood |
+
+**Not built of EM12:** "taken": nothing in the game or Vehicle Framework takes a player's vehicle today (EM6). A mechanic's pride in a
+vehicle kept well was in the first sketch and was left out: it needs a measure of "kept well" first.
+
+**Generic in the core:** `Practice` and `GameComponent_PhobosPractice` keep any person's hours at any kind of thing, keyed by load ID, for
+any mod: hours at a surgery table or a combine's controls would use the same record. `PracticeRule` holds the curve and the regular's
+threshold, with tests.
+
+**Other factions' vehicles:** their drivers gain nothing and their vehicles have no regular driver; the light tier keeps no history, by
+the owner's decision of 11 Nov 2026. A captured vehicle starts with no hours.
+
+**Saves:** two new saved entries on each vehicle (its hours by person, when it was lost) and one game component; safe to add mid-game.
 
 ## Who chose what
 

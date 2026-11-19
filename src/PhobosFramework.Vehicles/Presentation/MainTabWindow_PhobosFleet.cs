@@ -502,6 +502,7 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
             y += Words(0f, y, width, "PhobosFleet_DetailNeeds".Translate(entry.Needs.Named("NEEDS")), NeedsColour(entry));
         }
         if (entry.Seats > 0) y += Words(0f, y, width, "PhobosFleet_DetailCrew".Translate(entry.Crew.Named("CREW"), entry.Seats.Named("SEATS")), Color.white);
+        if (detail.Regular != null) y += Words(0f, y, width, "PhobosFleet_DetailRegular".Translate(detail.Regular.Named("NAME")), Color.white);
         if (detail.Journey != null) y += Words(0f, y, width, detail.Journey, Color.white);
         if (detail.Note != null) y += Words(0f, y, width, detail.Note, new Color(1f, 1f, 1f, 0.75f));
         y += 6f;

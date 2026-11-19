@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.190.0] - 2026-11-20 - Draft
+
+People in the machine: hours at the wheel make a practised driver, and a vehicle's regular driver feels its loss and its return
+
+### Added
+
+- **Hours at the wheel make a practised driver.** Everyone who drives or flies one of your vehicles while it moves gains practice at that kind of vehicle. A practised driver is easier on the brakes and tyres (down to 85% of a new hand's wear), and a practised pilot puts an aircraft down more gently after a hard or rolling landing (down to 60% of the wear). Half the gain comes after about 40 hours at the wheel of that kind, three quarters after 80. It never makes anyone faster. The vehicle's Systems tab shows the driver's practice, from new to it to seasoned, and each colonist's Records show their hours at the wheel.
+- **A vehicle has a regular driver.** The colonist with the most hours at one vehicle, at least twelve, is its regular driver, named in the fleet board's pane. They feel it when it is destroyed (a memory of -6 for 10 days) or lost on the world map, dropped from a sling or left with a lost convoy (-4 for 8 days), and are glad when a lost vehicle is brought home again (+5 for 6 days). Each memory names the vehicle. Its logbook says when it is back home.
+- **For other modders:** each person's hours of practice at any kind of thing, and the rule for what they give (Practice, PracticeRule), in the core.
+
+### Compatibility and limits
+
+- Every figure is authored, a believable ballpark: the hours, the gains and the moods. Practice counts only while the vehicle moves, from its slow update, so a short drive may not count at all.
+- Only your own people gain practice. Other factions' drivers stay as before, and their vehicles have no regular driver.
+- Switching off the driver system in the settings' list of systems also switches off the gentler wear. The memories and the hours are kept either way.
+- Safe to add to a save in progress: hours start from nought.
+- No new settings. The words are agent-authored, held for the owner's review.
+- Not yet tested in game: row 275 of the test pass.
+
 ## [0.189.0] - 2026-11-20 - Draft
 
 What farm machines need, for any mod to use: a vehicle that works a field row by row, grain held in bulk, couplings, and the pull of an implement in the ground

@@ -217,6 +217,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>Rolling on past where it meant to stop, with no brakes (Framework 0.188.0, EM29(b)); derived, never saved.</summary>
     internal BrakeOverrun? Overrun;
 
+    /// <summary>Who has driven it, for how long, and whether it is lost (Framework 0.190.0, EM11 and EM12). Saved.</summary>
+    public readonly VehicleDriverHours Practised = new();
+
     /// <summary>Whether a stage in force says the brakes are gone (Framework 0.188.0): the player's vehicles on the full model only.</summary>
     public bool NoBrakes()
     {
@@ -632,6 +635,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Book.ExposeData("PhobosVehicleSystems_Logbook");
         Scribe_Values.Look(ref LastUnderFireTick, "PhobosVehicleSystems_LastUnderFire", -1);
         Scribe_Deep.Look(ref Trip, "PhobosVehicleSystems_Trip");
+        Practised.ExposeData();
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             savedValues ??= new Dictionary<string, float>();
@@ -804,6 +808,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 NoticeStopped();
                 // Journeys away from any map (Framework 0.181.0, EM25): one state read on a vehicle at home.
                 VehicleTrips.Look(this);
+                // Hours on type and "their" vehicle (Framework 0.190.0, EM11 and EM12): a few dictionary additions while it moves.
+                VehiclePractice.Look(this);
+                OwnVehicles.LookHome(this);
                 Lamps.Update();
                 Beams.Update();
                 CookOff.RareTick(this);
@@ -2256,6 +2263,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     public void WearLanding(float shareOfHealth)
     {
         if (shareOfHealth <= 0f || Vehicle?.statHandler == null) return;
+        // A practised pilot puts it down more gently (Framework 0.190.0, EM11).
+        shareOfHealth *= VehiclePractice.LandingFactor(Vehicle);
         VehicleComponent? part = PartsOf(LandingGearRole).Where(p => p.Health > 1f).RandomElementWithFallback()
             ?? Vehicle.statHandler.components.Where(p => p.props.depth == VehicleComponent.VehiclePartDepth.External && p.Health > 1f).RandomElementWithFallback();
         if (part == null) return;

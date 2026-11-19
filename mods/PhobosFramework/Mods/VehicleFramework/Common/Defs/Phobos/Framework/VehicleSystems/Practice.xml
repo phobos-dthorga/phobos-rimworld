@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    People in the machine (Framework 0.190.0; docs/development/vehicle-emergent-play.md, EM11 and EM12). Hours at the wheel are a
+    colonist's record; the regular driver of a vehicle (the one with the most hours at it, at least twelve) feels its loss and its return.
+    Mood figures and durations are authored, small beside the game's own (a good meal +5, sleeping on the ground -4). Agent-authored text,
+    held for the owner's review. Not yet tested in game.
+  -->
+
+  <RecordDef>
+    <defName>PhobosRecord_HoursDriving</defName>
+    <label>hours at the wheel</label>
+    <description>The hours I have spent driving or flying our vehicles while they moved.</description>
+    <type>Float</type>
+  </RecordDef>
+
+  <ThoughtDef>
+    <defName>PhobosVehicleSystems_OwnVehicleDestroyed</defName>
+    <thoughtClass>Phobos.VehicleSystems.Thought_PhobosOwnVehicle</thoughtClass>
+    <durationDays>10</durationDays>
+    <stackLimit>3</stackLimit>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>{VEHICLE} destroyed</label>
+        <description>Nobody drove {VEHICLE} more than I did. I knew every rattle in it, and now it's gone.</description>
+        <baseMoodEffect>-6</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>PhobosVehicleSystems_OwnVehicleLost</defName>
+    <thoughtClass>Phobos.VehicleSystems.Thought_PhobosOwnVehicle</thoughtClass>
+    <durationDays>8</durationDays>
+    <stackLimit>3</stackLimit>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>{VEHICLE} lost</label>
+        <description>{VEHICLE} is lying out there somewhere, and I'm not the one driving it. Someone should go and fetch it.</description>
+        <baseMoodEffect>-4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>PhobosVehicleSystems_OwnVehicleHome</defName>
+    <thoughtClass>Phobos.VehicleSystems.Thought_PhobosOwnVehicle</thoughtClass>
+    <durationDays>6</durationDays>
+    <stackLimit>3</stackLimit>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>{VEHICLE} brought home</label>
+        <description>{VEHICLE} is back where it belongs. I've missed driving it.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_BroughtHome</defName>
+    <label>brought home</label>
+    <text>Back home {PLACE}, after being lost.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+</Defs>

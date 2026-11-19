@@ -98,7 +98,12 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
         var wreck = (PhobosSlingWreck)WorldObjectMaker.MakeWorldObject(def);
         wreck.Tile = tile;
         wreck.fallMetres = metres;
-        foreach (VehiclePawn vehicle in vehicles) wreck.held.TryAdd(vehicle, canMergeWithExistingStacks: false);
+        foreach (VehiclePawn vehicle in vehicles)
+        {
+            wreck.held.TryAdd(vehicle, canMergeWithExistingStacks: false);
+            // Its regular driver feels the loss, and it is welcomed when brought home (Framework 0.190.0, EM12).
+            OwnVehicles.Lost(vehicle, destroyed: false);
+        }
         Find.WorldObjects.Add(wreck);
         return wreck;
     }

@@ -53,6 +53,7 @@
   <PhobosFleet_DetailDoing>Doing: {DOING}</PhobosFleet_DetailDoing>
   <PhobosFleet_DetailNeeds>Needs: {NEEDS}</PhobosFleet_DetailNeeds>
   <PhobosFleet_DetailCrew>Aboard: {CREW} of {SEATS} seats</PhobosFleet_DetailCrew>
+  <PhobosFleet_DetailRegular>Its regular driver: {NAME}</PhobosFleet_DetailRegular>
   <PhobosFleet_DetailJourney>This journey: {DISTANCE} so far, from {PLACE}.</PhobosFleet_DetailJourney>
   <PhobosFleet_DetailFaults>Faults</PhobosFleet_DetailFaults>
   <PhobosFleet_DetailNoFaults>None.</PhobosFleet_DetailNoFaults>
