@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.170.1] - 2026-11-19 - Draft
+
+Our own flight's six buttons have their drawn pictures
+
+### Changed
+
+- **Take off, Fly to, Hold here, Land here, Circle here and the circle size button have drawn pictures**, the owner's picks from a local run, in place of the plain stand-ins drawn in code.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Pictures only; nothing else changes.
+
 ## [0.170.0] - 2026-11-19 - Draft
 
 The log says when D'thorga code was part of an error

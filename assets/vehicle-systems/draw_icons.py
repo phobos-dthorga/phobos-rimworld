@@ -9,11 +9,9 @@ replace it on the owner's go, and then its entry here is removed so this can't o
 - Switch: a rocker switch, the fallback for any load a loadout gives no icon of its own. Kept by the owner on 10 Nov 2026, when every
   generated version came out as a medical cross or a blank plate.
 
-- Flight/TakeOff, Flight/FlyTo, Flight/Hold, Flight/Land: our own flight's four buttons (Framework 0.147.0, 19 Nov 2026), drawn while
-  the game was running, so the graphics card was not free; generated pictures can replace them on the owner's go.
-- Flight/Circle, Flight/CircleSize: circling's two buttons (Framework 0.153.0, 19 Nov 2026), stand-ins likewise.
 The other buttons this once drew have generated pictures the owner picked (9 and 10 Nov 2026); the two line fittings (FastRope, RescueHoist)
-and the three fire modes (FireMode/Single, Burst, Auto) theirs on 19 Nov 2026 (assets/phobos-vehicles/requests/osprey-night7-picks-record.md).
+and the three fire modes (FireMode/Single, Burst, Auto) theirs on 19 Nov 2026 (assets/phobos-vehicles/requests/osprey-night7-picks-record.md),
+and our own flight's six buttons (Flight/TakeOff, FlyTo, Hold, Land, Circle, CircleSize) theirs from night 7 the same day.
 """
 import datetime as dt
 import hashlib
@@ -78,75 +76,8 @@ def outlined_ellipse(draw, box, fill):
     draw.ellipse((x0 + inset, y0 + inset, x1 - inset, y1 - inset), fill=fill)
 
 
-def pad(draw, cy=820):
-    """A flat landing pad: a pale disc seen at a low angle."""
-    outlined_ellipse(draw, (190, cy - 90, 834, cy + 90), PALE)
-    draw.ellipse((330, cy - 40, 694, cy + 40), fill=PALE_SHADE)
-
-
-# Our own flight's four buttons (Framework 0.147.0): stand-ins until generated art is picked on the owner's go.
-def take_off():
-    image, draw = canvas()
-    pad(draw)
-    outlined_polygon(draw, [(512, 110), (780, 420), (620, 420), (620, 700), (404, 700), (404, 420), (244, 420)], AMBER, AMBER_SHADE,
-                     [(560, 420), (620, 420), (620, 680), (560, 680)])
-    return image
-
-
-def fly_to():
-    image, draw = canvas()
-    outlined_ellipse(draw, (560, 150, 900, 490), PALE)
-    outlined_ellipse(draw, (650, 240, 810, 400), AMBER)
-    outlined_polygon(draw, [(130, 880), (520, 470), (440, 400), (700, 330), (630, 590), (560, 520), (190, 930)], STEEL_SHADE)
-    return image
-
-
-def hold():
-    image, draw = canvas()
-    outlined_ellipse(draw, (150, 150, 874, 874), PALE)
-    outlined_polygon(draw, [(360, 320), (470, 320), (470, 704), (360, 704)], AMBER, AMBER_SHADE, [(430, 340), (450, 340), (450, 684), (430, 684)])
-    outlined_polygon(draw, [(554, 320), (664, 320), (664, 704), (554, 704)], AMBER, AMBER_SHADE, [(624, 340), (644, 340), (644, 684), (624, 684)])
-    return image
-
-
-def land():
-    image, draw = canvas()
-    pad(draw)
-    outlined_polygon(draw, [(512, 700), (780, 390), (620, 390), (620, 110), (404, 110), (404, 390), (244, 390)], AMBER, AMBER_SHADE,
-                     [(560, 130), (620, 130), (620, 390), (560, 390)])
-    return image
-
-
-# Circling (Framework 0.153.0): stand-ins too. A steel arrow sweeping round an amber centre; and three rings, small to large, for the
-# size and way round.
-def circle():
-    image, draw = canvas()
-    outlined_ellipse(draw, (402, 402, 622, 622), AMBER)
-    # The sweep: a thick ring open at the top right, ending in an arrowhead.
-    draw.arc((150, 150, 874, 874), start=-40, end=250, fill=OUTLINE, width=int(LINE * 3.2))
-    draw.arc((150 + LINE * 0.6, 150 + LINE * 0.6, 874 - LINE * 0.6, 874 - LINE * 0.6), start=-38, end=248, fill=STEEL_SHADE, width=int(LINE * 1.7))
-    outlined_polygon(draw, [(560, 60), (840, 200), (600, 330)], STEEL_SHADE)
-    return image
-
-
-def circle_size():
-    image, draw = canvas()
-    # Three rings standing on one point, small to large, so they read as sizes rather than a target.
-    for box in ((120, 120, 904, 904), (270, 390, 754, 874), (400, 620, 624, 844)):
-        draw.ellipse(box, outline=OUTLINE, width=int(LINE * 2.2))
-        inset = LINE * 0.45
-        draw.ellipse((box[0] + inset, box[1] + inset, box[2] - inset, box[3] - inset), outline=AMBER, width=int(LINE * 1.25))
-    return image
-
-
 DRAWINGS = {
     'Switch': (switch, 'a rocker switch on a pale plate, the fallback icon for any switchable load'),
-    'Flight/TakeOff': (take_off, 'an amber arrow rising from a pale landing pad, for our own flight\'s "Take off" button'),
-    'Flight/FlyTo': (fly_to, 'a steel arrow flying toward an amber target ring, for "Fly to"'),
-    'Flight/Hold': (hold, 'two amber bars, the sign for a pause, in a pale ring, for "Hold here"'),
-    'Flight/Land': (land, 'an amber arrow coming down onto a pale landing pad, for "Land here"'),
-    'Flight/Circle': (circle, 'a steel arrow sweeping round an amber centre, for "Circle here"'),
-    'Flight/CircleSize': (circle_size, 'three amber rings, small to large, for the circle size and way round'),
 }
 
 

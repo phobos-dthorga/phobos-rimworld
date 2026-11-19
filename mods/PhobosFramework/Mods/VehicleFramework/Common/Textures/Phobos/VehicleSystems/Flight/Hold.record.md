@@ -1,7 +1,6 @@
 # Hold
 
-**A stand-in, drawn in code** by `assets/vehicle-systems/draw_icons.py` (Pillow) on 19 November 2026: two amber bars, the sign for a pause, in a pale ring, for "Hold here". No image generator, no reference images and no game or other author's art was used. 128 x 128 px, transparent background.
+Made on 2026-11-19 with FLUX.2 Klein base 4B (`flux-2-klein-base-4b-fp8.safetensors`) in ComfyUI on this PC, seed 11, 50 steps, with the private house-style LoRA `phobos-private-vanilla.safetensors`: **AI-generated**, picked by the owner on 19 November 2026 from night 7's local run, for our own flight's "Hold here" button. Exported by `scripts/art/export_sprite.py` at 128 px, the background cleared with the background AI's mask. The prompt is in `assets/vehicle-systems/requests/flight-and-fire-buttons.json`. Only our own art was used as references; no game or other author's art. It replaces the code-drawn stand-in of 19 November 2026.
 
-**Outstanding:** generated art can replace it on the owner's go (docs/development/art-backlog.md).
-
-- `Hold.png`: SHA-256 `c037eaea5d35537b12de6be6cf8f6f451699ad609925f1c1a3048fe53bc118fc`
+- Master: `flight-hold-11.png`, SHA-256 `834a7d171ffc5e242a6745cf24092ff6797129bf6dec4e5d1b66830208249a36`
+- `Hold.png`: SHA-256 `7c30cebdaa5bd7d46bb1edf8a40f6568fe4a5d9a3032e09cfdab820f04290698`
