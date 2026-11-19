@@ -57,20 +57,20 @@ repaired, upgrade completed, and the aircraft events. **Every one of these is XM
 | --- | --- | --- | --- | --- |
 | S1 | Switch click, on and a lower off | Every physical switch on our vehicles | Code | **Shipped** (Framework 0.71.0; the dashboard's switches click too since 0.75.0) |
 | S2 | Sonar ping | A submerged hull spotted (Crawler, and the test hull since Vehicles 0.34.0); later the active sonar set (the listening-array session plans to reuse it) | Code | **Shipped** (Vehicles 0.31.0) |
-| S3 | Fuel nozzle and glug | Refuelled, on all seven vehicles; the depot bay filling a vehicle | XML (Refueled) | Proposed. One chemfuel nozzle, so one sound |
-| S4 | Jump-start kit: clamps on, a short crank | The jump-start job, wherever it is used | Code (job) | Proposed |
-| S5 | Booster pack: clamps on, a soft relay click, a crank | The booster pack | Code (job) | Proposed |
-| S6 | Dashboard warning chime, one soft tone | A red telltale lighting on a vehicle the player owns | Code | Proposed. **Never alarming**: one tone, no repeat |
-| S7 | Tyre bursting, then flapping | Tyre breakdown, any vehicle with our systems | Code (schema effect) | Proposed |
-| S8 | Coolant boiling over, steam hiss (loop) | Coolant boiling, any vehicle | Code | Proposed |
-| S9 | Failed start, flat battery: solenoid clicks | Start refused for a flat battery or a dead starter | Code | Proposed |
-| S10 | Failed start, slow crank that dies: diesel, petrol (two sounds) | Start refused cold or weak, by engine class | Code | Proposed. Shared because it covers other mods' vehicles too |
-| S11 | Engine knocking (loop): diesel, petrol (two sounds) | Oil pressure gone or a worn engine, over the vehicle's own engine | Code | Proposed |
-| S12 | Worn brakes squealing | Stopping with brakes worn | Code | Proposed |
-| S13 | Air compressor charging, governor purge | Vehicles with air brakes, after stops | Code | Proposed |
-| S14 | Oxygen flowing from a regulator (loop) | Bedside oxygen stand, cylinder trolley, field oxygen kit | Code | Proposed. The same regulator and mask in all three |
-| S15 | Steam safety valve lifting | Boiler blowing off (Trains of the Rim loadouts) | Code | Proposed |
-| S16 | Battery thermal runaway, venting hiss | Electric vehicles' traction packs | Code | Proposed |
+| S3 | Fuel nozzle and glug | Refuelled, on all seven vehicles; the depot bay filling a vehicle | XML (Refueled) | **Shipped** (Framework 0.75.0). One chemfuel nozzle, so one sound |
+| S4 | Jump-start kit: clamps on, a short crank | The jump-start job, wherever it is used | Code (job) | **Shipped** (Framework 0.75.0) |
+| S5 | Booster pack: clamps on, a soft relay click, a crank | The booster pack | Code (job) | **Shipped** (Framework 0.75.0) |
+| S6 | Dashboard warning chime, one soft tone | A red telltale lighting on a vehicle the player owns | Code | **Shipped** (Framework 0.75.0). **Never alarming**: one tone, no repeat |
+| S7 | Tyre bursting, then flapping | Tyre breakdown, any vehicle with our systems | Code (schema effect) | **Shipped** (Framework 0.75.0) |
+| S8 | Coolant boiling over, steam hiss (loop) | Coolant boiling, any vehicle | Code | **Shipped** (Framework 0.75.0) |
+| S9 | Failed start, flat battery: solenoid clicks | Start refused for a flat battery or a dead starter | Code | **Shipped** (Framework 0.75.0); heard only when a start is tried from our dashboard key, not when another mod (Vehicles at Work) starts the engine (found 20 Nov 2026) |
+| S10 | Failed start, slow crank that dies: diesel, petrol (two sounds) | Start refused cold or weak, by engine class | Code | **Shipped** (Framework 0.75.0); heard only when a start is tried from our dashboard key, not when another mod (Vehicles at Work) starts the engine (found 20 Nov 2026). Shared because it covers other mods' vehicles too |
+| S11 | Engine knocking (loop): diesel, petrol (two sounds) | Oil pressure gone or a worn engine, over the vehicle's own engine | Code | **Shipped** (Framework 0.75.0) |
+| S12 | Worn brakes squealing | Stopping with brakes worn | Code | **Shipped** (Framework 0.75.0) |
+| S13 | Air compressor charging, governor purge | Vehicles with air brakes, after stops | Code | **Shipped** (Framework 0.75.0) |
+| S14 | Oxygen flowing from a regulator (loop) | Bedside oxygen stand, cylinder trolley, field oxygen kit | Code | **Shipped** (Medical 0.13.0). The same regulator and mask in all three |
+| S15 | Steam safety valve lifting | Boiler blowing off (Trains of the Rim loadouts) | Code | **Shipped** (Framework 0.75.0) |
+| S16 | Battery thermal runaway, venting hiss | Electric vehicles' traction packs | Code | **Shipped** (Framework 0.75.0) |
 | S17 | Cargo set down and taken off (soft) | Cargo added or removed, all vehicles | XML | **Owner to decide**: it fires per stack, so it may chatter |
 
 ## Our vehicles (each set unique)
