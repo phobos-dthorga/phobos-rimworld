@@ -19,25 +19,26 @@ HERE = Path(__file__).resolve().parent
 GENERATED = HERE / 'generated'
 OUT = HERE / 'references'
 
-# truck: (picked body, its pieces as name: (x0, y0, x1, y1) in shares of the body). Boxes read off the bodies by the agent, 19 Nov 2026.
+# truck: (picked body, its pieces as name: (x0, y0, x1, y1) in shares of the body). Boxes read off the bodies by the agent, 19 Nov 2026;
+# each cab is an exact 4:3, 16:9 or 3:2 picture, the shapes the paid editing models take (1024x768, 768x576, 1024x576, 768x512).
 BODIES = {
     'tipper': ('tipper-body-north/tipper-body-north-3.png', {
-        'cab': (0.0, 0.0, 1.0, 0.36),
+        'cab': (0.0, 0.0, 1.0, 0.375),
         'bed': (0.0, 0.30, 1.0, 1.0),
     }),
     'tanker': ('bulk-tanker-body-north/bulk-tanker-body-north-2.png', {
-        'cab': (0.0, 0.0, 1.0, 0.37),
+        'cab': (0.0, 0.0, 1.0, 0.375),
         'bed': (0.0, 0.32, 1.0, 1.0),
     }),
     'drill-rig': ('drill-rig-body-north/drill-rig-body-north-2.png', {
-        'cab': (0.0, 0.0, 1.0, 0.26),
+        'cab': (0.0, 0.0, 1.0, 0.25),
         'bed': (0.0, 0.22, 1.0, 1.0),
     }),
     'survey-truck': ('survey-truck-body-north/survey-truck-body-north-1.png', {
-        'cab': (0.0, 0.0, 1.0, 0.36),
+        'cab': (0.0, 0.0, 1.0, 0.375),
     }),
     'generator-set': ('generator-set-body-north/generator-set-body-north-3.png', {
-        'cab': (0.0, 0.0, 1.0, 0.31),
+        'cab': (0.0, 0.0, 1.0, 1 / 3),
     }),
 }
 
