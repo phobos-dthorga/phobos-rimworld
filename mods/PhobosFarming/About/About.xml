@@ -4,10 +4,10 @@
   <name>D'thorga Farming</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.1.0</modVersion>
+  <modVersion>0.2.0</modVersion>
   <description>Machines that work your fields. Mark a growing zone as a paddock, and a combine harvester cuts it row by row: the driver's skill sets the yield as it does by hand, every ripe plant goes into its grain tank, and unripe plants are left standing.
 
-When the tank is full, the combine drives to a chaser bin with room, empties it through its auger, and carries on. A chaser bin is towed by any vehicle with a hitch. Grain is held by weight, not in stacks, and it weighs on the engine that carries it. A field bin and a steel silo come next.
+When the tank is full, the combine drives to a chaser bin, a field bin or a silo with room, empties it through its auger, and carries on. A chaser bin is towed by any vehicle with a hitch. A field bin holds a harvest at the paddock's edge, and a steel silo holds a whole one, keeping it fresh far longer while its fan has power. Grain is held by weight, not in stacks, and it weighs on the engine that carries it.
 
 Each front takes only the crops it could really cut: the grain fronts take cereals, pulses and oilseeds. Corn, potatoes, hay and cotton need harvesters that come later. Other mods' crops are taken once they are placed in a class, with one short patch each: the README shows how.
 

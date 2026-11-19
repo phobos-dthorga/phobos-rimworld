@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-20 - Draft
+
+A field bin and a grain silo to pour a harvest into
+
+### Added
+
+- **The field bin holds 25 tonnes of grain at the edge of a paddock.** A combine with a full tank drives to it and empties itself, as it does to a chaser bin; a chaser bin within reach pours into it with its Pour button. Press Pour on the bin to empty it into a cart or onto the ground. Grain keeps in it as long as in the open.
+- **The grain silo holds 60 tonnes, and keeps grain four times as long while its fan has power.** Without power it keeps no longer than a field bin. Its inspect text says which. After the new grain storage research.
+- Both are built from the motor pool tab of the Architect menu.
+
+### Balance
+
+- The field bin: 220 steel, 25 tonnes, pouring 60 kg a second. The silo: 420 steel, 2 components and an electric motor, 60 tonnes, 300 W, pouring 80 kg a second, grain at a quarter of its spoiling rate while powered. All authored, to tune in play.
+
+### Compatibility and limits
+
+- Destroyed or deconstructed, a bin or silo spills what it held onto the ground beside it. Not yet tested in game.
+
+### Save compatibility
+
+- Safe to add. Removing the mod: bins and silos vanish with the grain in them; empty them first.
+
 ## [0.1.0] - 2026-11-20 - Draft
 
 The first build: machine-worked paddocks, a combine harvester that cuts them row by row, a chaser bin to carry its grain
@@ -31,7 +53,6 @@ The first build: machine-worked paddocks, a combine harvester that cuts them row
 
 ### Compatibility and limits
 
-- The field bin and the silo are not in this build yet: their pictures are not drawn. Until then a combine empties into a chaser bin.
 - The combine and the chaser bin use the game's own vehicle sounds until their own are made.
 - Their upgrade icons are cut from the machines' own pictures until their own are drawn.
 - Not yet tested in game.

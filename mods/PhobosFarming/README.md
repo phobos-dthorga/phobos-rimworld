@@ -4,7 +4,7 @@ Machines that work your fields: mark a growing zone as a paddock, and a combine 
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.1.0, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.2.0, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -17,8 +17,8 @@ Version 0.1.0, built 20 November 2026 for House D'thorga. **Not yet tested in ga
 - **The grain front cuts only cereals, pulses and oilseeds**: rice, and with Vanilla Cooking Expanded or Vanilla Plants Expanded their
   wheat, barley, oats, rye, sorghum, buckwheat, chickpeas, peas and canola. **Corn, potatoes, hay and cotton need harvesters that come
   later**, and stay for hands. Another mod's crop is taken once it is placed in a class: see [For modders](#for-modders).
-- **A full combine needs somewhere to empty.** Park a **Gleaner chaser bin** near the paddock. Any vehicle with a hitch tows it.
-  **The field bin and the silo are not in this build yet.**
+- **A full combine needs somewhere to empty**: a **Gleaner chaser bin** parked near the paddock (any vehicle with a hitch tows it), a
+  **field bin**, or a **grain silo**. The silo keeps grain four times as long, **but only while its fan has power**.
 - **Settings to decide before you start:** Options > Mod settings > D'thorga Farming. **Hands may help on new paddocks** (off) and
   **A machine's driver can fail a harvest, as by hand** (on).
 - **Safe to add to a running colony.** **Removing it:** paddocks become plain growing zones; combines, chaser bins and the grain in
@@ -35,8 +35,8 @@ Version 0.1.0, built 20 November 2026 for House D'thorga. **Not yet tested in ga
 4. **It cuts as a colonist would.** The driver's harvesting skill sets the yield and the chance of a failed cut. Other mods that act when a
    plant is harvested still see the harvest. Straw and other second products are left lying where each row ends, unless a straw chopper
    is fitted.
-5. **When its tank is full** it drives to the nearest chaser bin with room, pours the grain in through its auger, and goes back to the
-   rows. With nowhere to empty, it stops and says so.
+5. **When its tank is full** it drives to the nearest chaser bin, field bin or silo with room, pours the grain in through its auger,
+   and goes back to the rows. With nowhere to empty, it stops and says so.
 6. **Grain is held by weight, as one amount**, not in stacks. Pour it from a chaser bin onto the ground, where colonists haul it as
    usual, or into another bin. It goes off as it would in the open.
 
@@ -44,6 +44,8 @@ Version 0.1.0, built 20 November 2026 for House D'thorga. **Not yet tested in ga
 | --- | --- | --- |
 | Reaper combine harvester | Self-propelled; 4 by 9 cells; a 6- or 8-cell front | 9 tonnes of one crop at a time (12 with the tank extension) |
 | Gleaner chaser bin | Towed; 3 by 7 cells | 12 tonnes, any crops |
+| Field bin | A building, 3 by 3 cells | 25 tonnes, any crops |
+| Grain silo | A building, 4 by 4 cells, 300 W | 60 tonnes, any crops; keeps four times as long while powered |
 
 Every figure is authored, to tune in play.
 

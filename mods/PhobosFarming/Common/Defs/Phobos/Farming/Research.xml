@@ -41,4 +41,25 @@
       </li>
     </modExtensions>
   </ResearchProjectDef>
+
+  <ResearchProjectDef>
+    <defName>PhobosResearch_GrainStorage</defName>
+    <label>grain storage</label>
+    <description>A tall steel silo that holds a whole harvest, with a fan that blows air through the grain while it has power, so it keeps far longer.</description>
+    <tab>PhobosDthorga</tab>
+    <techLevel>Industrial</techLevel>
+    <baseCost>1400</baseCost>
+    <!-- Only Electricity here, on another tab, so no line crosses the trucks' column; the silo itself also needs mechanised harvesting. -->
+    <researchViewX>0</researchViewX>
+    <researchViewY>1.8</researchViewY>
+    <prerequisites>
+      <li>Electricity</li>
+    </prerequisites>
+    <modExtensions>
+      <!-- A brand new project: nothing an existing colony had stands in for it. -->
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
 </Defs>

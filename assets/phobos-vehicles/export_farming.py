@@ -17,7 +17,7 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
-from export_sprite import ai_background, white_to_alpha  # noqa: E402
+from export_sprite import ai_background, export as export_sprite, white_to_alpha  # noqa: E402
 from export_vehicle import PIXELS_PER_CELL, export_body, record, write_facings  # noqa: E402
 
 GENERATED = ROOT / 'assets' / 'phobos-vehicles' / 'generated'
@@ -27,6 +27,12 @@ CHASER_BIN = GENERATED / 'farming-chaser-bin-body-north' / 'farming-chaser-bin-b
 FRONTS = [
     ('Combine_FrontStandard', GENERATED / 'farming-combine-front-standard' / 'farming-combine-front-standard-2.png', 6),
     ('Combine_FrontWide', GENERATED / 'farming-combine-front-wide' / 'farming-combine-front-wide-2.png', 8),
+]
+# (picture name, master, cells square): the field bin and the silo, attempt 2 of each the default (owner, 20 Nov 2026; attempt 1 of each is
+# kept as an alternate look, exported later). Single pictures, round from above, so one facing does for all four.
+BUILDINGS = [
+    ('FieldBin', GENERATED / 'farming-field-bin' / 'farming-field-bin-2.png', 3),
+    ('Silo', GENERATED / 'farming-silo' / 'farming-silo-2.png', 4),
 ]
 # The body 9 cells long on an 8 x 14 picture: wide enough for the 8-cell front, long enough for its depth ahead of the body.
 COMBINE_DRAW = (8, 14)
@@ -76,6 +82,11 @@ def main():
     print(f"Combine: {combine['width_cells']:.2f} cells wide; Def colours {combine['colours']}")
     chaser = export_body(CHASER_BIN, textures / 'ChaserBin', 'ChaserBin', 7, (4, 8), MAIN_HUE, ACCENT_HUE)
     print(f"ChaserBin: {chaser['width_cells']:.2f} cells wide; Def colours {chaser['colours']}")
+    for name, master, cells in BUILDINGS:
+        target = textures / name / f'{name}.png'
+        target.parent.mkdir(parents=True, exist_ok=True)
+        export_sprite(master, target, cells * PIXELS_PER_CELL, '1:1', 235, 30)
+        print(f'  {target}')
     top = body_top(COMBINE, combine['transform'])
     for name, master, cells in FRONTS:
         for path in export_front(name, master, cells, textures / 'Combine', combine['transform'], top):

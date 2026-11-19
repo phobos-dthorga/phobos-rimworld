@@ -13,7 +13,8 @@ row by itself, emptying its grain into a chaser bin. [Back to the guide](README.
 - **There is no seed drill yet.** To sow a paddock, turn **Hands may help** on, and off again once it is sown.
 - **The grain fronts cut cereals, pulses and oilseeds only**: rice, and wheat, barley, oats, rye, sorghum, buckwheat, chickpeas, peas
   and canola with Vanilla Cooking Expanded or Vanilla Plants Expanded. Corn, potatoes, hay and cotton stay for hands for now.
-- **A full combine needs somewhere to empty**: park a chaser bin near the paddock. The field bin and the silo are not built yet.
+- **A full combine needs somewhere to empty**: a chaser bin, a field bin or a grain silo near the paddock. **The silo keeps grain four times
+  as long only while its fan has power.**
 
 ## Using it
 
@@ -27,13 +28,15 @@ row by itself, emptying its grain into a chaser bin. [Back to the guide](README.
    colonist with Drive work comes to take the wheel.
 5. **Watch it work.** It drives the paddock row by row and cuts every ripe plant its front covers. Unripe plants are left standing.
    The driver's harvesting skill sets the yield, as by hand.
-6. **When its tank is full** it drives to the chaser bin, pours the grain in, and goes back. Tow the full bin wherever you like with any
+6. **When its tank is full** it drives to the nearest chaser bin, field bin or silo with room, pours the grain in, and goes back. Tow the full bin wherever you like with any
    truck, and press **Pour** to empty it onto the ground, where colonists haul it as usual.
 
 | Machine | What it is | Holds |
 | --- | --- | --- |
 | Reaper combine harvester | Self-propelled, 4 by 9 cells, a 6- or 8-cell front | 9 tonnes of one crop (12 with the tank extension) |
 | Gleaner chaser bin | Towed by any vehicle with a hitch, 3 by 7 cells | 12 tonnes, any crops |
+| Field bin | A building, 3 by 3 cells | 25 tonnes, any crops |
+| Grain silo | A building, 4 by 4 cells, needs 300 W | 60 tonnes; keeps grain four times as long while powered |
 
 **Straw** from barley and oats is left in heaps where each row ends, as a combine leaves it; fit the **straw chopper** to chop it into
 the field instead.

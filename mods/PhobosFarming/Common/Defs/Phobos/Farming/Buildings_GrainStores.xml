@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The field bin and the silo (D'thorga Farming 0.2.0; docs/development/farming-batch-one.md, "Field bin and silo"): grain stores that
+    hold loose goods by weight, poured in from a combine or a chaser bin within reach and poured out again. Their pictures are the owner's
+    picks of 20 Nov 2026 (assets/phobos-vehicles/requests/farming-bins-record.md). The 25 and 60 tonnes, pour rates, power and costs are
+    authored [A], labelled approximate: real farm bins hold anything from a few tonnes to thousands (general knowledge, not read from a
+    source); these are small, for a colony. The silo's fan keeps grain at a quarter of its spoiling rate while it has power [A]: aeration
+    keeps stored grain cool and dry (general knowledge). Not yet tested in game.
+  -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosFarming_FieldBin</defName>
+    <label>field bin</label>
+    <description>A round steel bin that stands at the edge of a paddock and holds 25 tonnes of grain until it is carted away. A combine or a chaser bin pours into it from a few cells away; press Pour to empty it into a cart or onto the ground. Grain keeps in it as long as it would in the open.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/FieldBin/FieldBin</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(3, 3)</drawSize>
+    </graphicData>
+    <size>(3, 3)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>0.9</fillPercent>
+    <castEdgeShadows>true</castEdgeShadows>
+    <tickerType>Rare</tickerType>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>350</MaxHitPoints>
+      <WorkToBuild>9000</WorkToBuild>
+      <Flammability>0.2</Flammability>
+    </statBases>
+    <costList>
+      <Steel>220</Steel>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <researchPrerequisites>
+      <li>PhobosResearch_MechanisedHarvesting</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+    <comps>
+      <li Class="Phobos.Framework.Bulk.CompProperties_PhobosBulkStore">
+        <capacityKg>25000</capacityKg>
+        <mixesProducts>true</mixesProducts>
+        <pourKgPerSecond>60</pourKgPerSecond>
+        <reachCells>2</reachCells>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosFarming_Silo</defName>
+    <label>grain silo</label>
+    <description>A tall steel silo that holds 60 tonnes of grain. While its fan has power it blows air through the grain, which keeps it cool and dry: it lasts four times as long as in the open. Without power it keeps no longer than a field bin. A combine or a chaser bin pours into it from a few cells away; press Pour to empty it.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/Silo/Silo</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(4, 4)</drawSize>
+    </graphicData>
+    <size>(4, 4)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <blockWind>true</blockWind>
+    <fillPercent>1</fillPercent>
+    <castEdgeShadows>true</castEdgeShadows>
+    <tickerType>Rare</tickerType>
+    <rotatable>false</rotatable>
+    <statBases>
+      <MaxHitPoints>600</MaxHitPoints>
+      <WorkToBuild>20000</WorkToBuild>
+      <Flammability>0.2</Flammability>
+    </statBases>
+    <costList>
+      <Steel>420</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <researchPrerequisites>
+      <li>PhobosResearch_MechanisedHarvesting</li>
+      <li>PhobosResearch_GrainStorage</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>300</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="Phobos.Framework.Bulk.CompProperties_PhobosBulkStore">
+        <capacityKg>60000</capacityKg>
+        <mixesProducts>true</mixesProducts>
+        <pourKgPerSecond>80</pourKgPerSecond>
+        <reachCells>2</reachCells>
+        <airedSpoilFactor>0.25</airedSpoilFactor>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- The silo's fan is an electric motor, by role (docs/development/parts-bills.md). Count authored. -->
+  <Phobos.Framework.Bills.PhobosBillDef>
+    <defName>PhobosBill_Silo</defName>
+    <label>silo parts</label>
+    <target>PhobosFarming_Silo</target>
+    <parts>
+      <ElectricMotor>1</ElectricMotor>
+    </parts>
+  </Phobos.Framework.Bills.PhobosBillDef>
+</Defs>
