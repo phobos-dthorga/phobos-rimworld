@@ -299,6 +299,33 @@ Proposed 6 Nov 2026 for the owner to confirm. Generation doesn't need them; expo
   "seen from directly above, south face hinted", so the view becomes a word the model can be asked for. Why, and the other ways to fix
   the angle, are in [the view-angle models record](image-routes-research.md#view-angle-models-research-record-7-nov-2026).
 
+### Training: what a run needs (agent's preparation, 20 Nov 2026, for the owner's decision)
+
+**In short: v3 is half-prepared and needs one night of about five hours. Before that, the owner decides whether to train on the game's
+art (v3 as planned) or on our own shipped picks.** Read from the files in `C:/AI/lora-experiments/` with no GPU work; nothing changed.
+
+- **What stalled on 8 Nov:** not the training. Before training, ai-toolkit stores what each caption means (its "text embeddings").
+  v1 did that at about 8.5 s a caption; v2 slowed from 10 s to 25 s or more; v3 started at 17 s and settled near 30 s, so the 57 minutes
+  covered 122 of 240 captions and training never began.
+- **What survived:** the 122 stored captions (244 files, 1.8 GB, in `vanilla-v3/dataset/_t_e_cache`) and all 240 stored pictures.
+  ai-toolkit reuses them, so a new run starts at caption 123.
+- **The likely cause (agent's reading, unconfirmed):** the settings run the text encoder squeezed for a small card (`low_vram`, with the
+  encoder in float8), and it slows as memory fills. The three configs have identical settings, so the size of the job is the difference.
+  **Proposed fix, to try first:** turn `low_vram` off (on a 12 GB card the 4B model and the encoder in float8 should both fit) and watch
+  the first five captions; if a caption still takes more than about 10 s, put it back and simply let the caching finish.
+- **Time, from v2's figures:** about 1 hour to store the remaining 118 captions (at the slow rate), about 2.3 hours for 3,000 steps at 768
+  and 1024, and about 1.5 hours for the comparison (36 images). **About 5 hours; one night with a stop time.** The runner already holds
+  the plan (`.local/art/night-3.json`, steps 7 to 10).
+- **The owner's decisions:**
+  1. **Train at all?** v1 with references is doing well (132 shipped pictures are local Klein picks). v3's aim is a sharper look and a
+     straight-down view; whether it delivers is untested.
+  2. **Which art to learn from:** v3 as planned (240 of the game's own sprites, private, never shipped), or **our own shipped picks**
+     (the "later" step in the suggested order above: there are now 132 local picks plus 143 paid pictures in the mods). Our own art
+     teaches the house style and has no question about learning from another studio's art; the game's art teaches the vanilla look more
+     directly. **Agent's lean: our own picks**, compared with v1 on the same prompts and seeds, but that needs a new dataset built and
+     captioned first (CPU work, done beforehand), and the 118 captions still to store for v3 would go unused.
+  3. **Which night**, and a stop time.
+
 ## Night 3 queue (owner's choices, 7 Nov 2026)
 
 **Ran on 8 Nov 2026 (04:57 to 09:20), on the owner's go; the owner judged it on 12 Nov** ([the night's record](../../assets/phobos-vehicles/requests/night-2026-11-12-record.md)). Steps 1 to 6 finished. Step 7, training v3, was cut off by the stop time after 57 minutes with no model saved, so steps 8 to 10 never started. As prepared on 7 Nov: plan `.local/art/night-3.json`; one command:
