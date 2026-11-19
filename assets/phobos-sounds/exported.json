@@ -5609,5 +5609,370 @@
       "cfg": 1.0,
       "prompt": "A trailer's steel stabiliser leg being wound down by hand: a crank ratcheting through several turns, then a firm metal foot thudding onto gravel. Outdoors, no engine, no voices. Length: 4 seconds"
     }
+  },
+  "OspreyEngineIdle": {
+    "name": "OspreyEngineIdle",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Osprey/EngineIdle.ogg",
+    "sha256": "780ed681e9d07728f24b8bb4588f1ef97797c976309f35a0e8d9369fd49e4ac0",
+    "master_sha256": "f0734c5ace9545dc20a33e377d98453efdcd40c145225d7392c01df6b3c17b22",
+    "fingerprint": "4994424fa17cf6ca5cf29a85605269d714ed3491fec715df46f8e072612174ef",
+    "date": "2026-11-19",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        7.7878
+      ],
+      "loop_match": 0.339,
+      "loop_crossfade_s": 0.5,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.02,
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": -3.14
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -17.1,
+      "true_peak": -7.8,
+      "seconds": 7.09,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://www.dvidshub.net/video/791592",
+      "source_title": "MV-22B Osprey Flight Operations Aboard USNS Mercy",
+      "credit": "Mass Communication Specialist 3rd Class Luke Cunningham, US Navy",
+      "licence": "Public domain (US federal government work), per each DVIDS page; DVIDS asks for credit and the no-endorsement line",
+      "source_sha256": "f46d3f1aa7d1a34117234cb1665543cf0efc327ba3c2b895655969a4bbf663e9",
+      "start": 80,
+      "seconds": 8
+    }
+  },
+  "OspreyEngineLoad": {
+    "name": "OspreyEngineLoad",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Osprey/EngineLoad.ogg",
+    "sha256": "b4373b37e4cbf29849f18ab0fcad35862d83138f57e5b40e5019e3fbadd71bf5",
+    "master_sha256": "ee9bd31fef9a1db07508863e981834aafccc5bc39393958c5509fbcaa458eb78",
+    "fingerprint": "2fb6046c2abd66d559123cf43c0982b4f834aa38c00297b12f7a4801b8a7abec",
+    "date": "2026-11-19",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        7.3697
+      ],
+      "loop_match": 0.327,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 2.15,
+      "levelled_by": "loudness, to -13.94 LUFS",
+      "gain_db": 10.4
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -15.5,
+      "true_peak": -1.0,
+      "seconds": 6.92,
+      "flags": [],
+      "seam_dip_db": 2.27,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://www.dvidshub.net/video/978528",
+      "source_title": "America's Air Show 2025 B-Roll Day 1: MV-22B Osprey Demo",
+      "credit": "Lance Cpl. Brooke Pedersen and Lance Cpl. Madison Luciano, US Marine Corps",
+      "licence": "Public domain (US federal government work), per each DVIDS page; DVIDS asks for credit and the no-endorsement line",
+      "source_sha256": "8fcdca052dcf6b620bcbd5dba89b047a69f8ac0f9be5811de250ed48ca626054",
+      "start": 0.5,
+      "seconds": 8
+    }
+  },
+  "OspreyLanding": {
+    "name": "OspreyLanding",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Osprey/Landing.ogg",
+    "sha256": "58ba749cbf9e9b881b4a2190b58476321d9165b214233b9db7d3b60f84173112",
+    "master_sha256": "76faec1d2f8375d9b6082b81e9e803f199da7ab5223454db45a36469d56fa861",
+    "fingerprint": "16dc566745bb055ab69c42555989ef90a8b989c3f3a5b9bd835f0d3b7250d8a8",
+    "date": "2026-11-19",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": -3.34
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -17.1,
+      "true_peak": -5.9,
+      "seconds": 22.0,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://www.dvidshub.net/video/791592",
+      "source_title": "MV-22B Osprey Flight Operations Aboard USNS Mercy",
+      "credit": "Mass Communication Specialist 3rd Class Luke Cunningham, US Navy",
+      "licence": "Public domain (US federal government work), per each DVIDS page; DVIDS asks for credit and the no-endorsement line",
+      "source_sha256": "f46d3f1aa7d1a34117234cb1665543cf0efc327ba3c2b895655969a4bbf663e9",
+      "start": 40,
+      "seconds": 22
+    }
+  },
+  "OspreyEngineStart": {
+    "name": "OspreyEngineStart",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Osprey/EngineStart.ogg",
+    "sha256": "c86a108f0d3ed943958de13dfe9994af46a80d487b612ab459c8100b83bb7363",
+    "master_sha256": "e335dc8c78fc5abbe638a29920edc79c64f4ba2dd229bc39c856a46b02960d1e",
+    "fingerprint": "f3aacdd2df38837163cfeeac36119c71d97187be10d25b7e4254a0885b2fa967",
+    "date": "2026-11-19",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": 6.1
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -20.3,
+      "true_peak": -0.9,
+      "seconds": 9.82,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 73,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A turboshaft engine on a large aircraft starting: a starter whine winding up, a soft pop as it lights, then the turbine spooling up to a steady idle while large rotor blades begin to turn slowly. Outdoors. Length: 10 seconds"
+    }
+  },
+  "OspreyEngineStop": {
+    "name": "OspreyEngineStop",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Osprey/EngineStop.ogg",
+    "sha256": "d7719406dd9de27e623154f5e446b472923ae3a7285f1696d4beafdf67a14796",
+    "master_sha256": "51acf5a10438b0e90b73242d40b30484f1fe0b913c7d91e6ec8d9f59f4d64e5b",
+    "fingerprint": "fac9b84a20818618ed12da550e840793d34d86b08d12cfacc33843041e4ac035",
+    "date": "2026-11-19",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -16.94 LUFS",
+      "gain_db": 1.3
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.8,
+      "true_peak": -1.3,
+      "seconds": 9.07,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 72,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A large aircraft's two turbine engines shutting down: the turbine whine falling away slowly while big rotor blades swish slower and slower to a stop, ending in silence. Outdoors. Length: 10 seconds"
+    }
+  },
+  "OspreyRamp": {
+    "name": "OspreyRamp",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Osprey/Ramp.ogg",
+    "sha256": "406707ab4a6ebd1134c4fa7f66e48fa0bd7b16c94fe0c3aad08c51d02d0f10fe",
+    "master_sha256": "ed2dd0305c24e7e347149888a19c136e1f941375fff4c756f7f8b52c88372568",
+    "fingerprint": "0784b3433b02287a53cbcea41d4f0f83f009508509a87707527fa6889229634d",
+    "date": "2026-11-19",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -12.24 dBTP",
+      "gain_db": -11.54
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -34.6,
+      "true_peak": -13.0,
+      "seconds": 6.01,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 73,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "The rear cargo ramp of a military transport aircraft lowering on hydraulics: a steady hydraulic whine, metal creaks, and a heavy clunk as the ramp touches the ground. Length: 6 seconds"
+    }
+  },
+  "OspreyDoor": {
+    "name": "OspreyDoor",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Osprey/Door.ogg",
+    "sha256": "1b9ef7a8d73d4c73bb2f8e45bf5d64c0beede28efd73b5d92367a97e63da576f",
+    "master_sha256": "d4a8ec6cbe6557eb32a5ef59a6a3b517fecb85b411c648a994dd96d07fbbc79b",
+    "fingerprint": "3f79519f60727f2d8a02071391257a399d0a1ff0a3e4c2bdb72263577f6f8f7a",
+    "date": "2026-11-19",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -10.58 dBTP",
+      "gain_db": -5.88
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -36.4,
+      "true_peak": -10.8,
+      "seconds": 1.04,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 72,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "The side crew door of an aircraft opening: a lever latch clacking, a light aluminium door swinging and locking open with a click. Close. Length: 2 seconds"
+    }
+  },
+  "OspreyFastRope": {
+    "name": "OspreyFastRope",
+    "target": "mods/PhobosVehicles/Sounds/Phobos/Vehicles/Osprey/FastRope.ogg",
+    "sha256": "54c6b96df81b72a80273b3e8bbafeb8d3456ba67d835fe8f9a8a0eb076145c0f",
+    "master_sha256": "7425f3cee51da008f5fee8d27bbdd825ea34d13ad5b61acba0e821359a9300e1",
+    "fingerprint": "aba3d4bae883e3cab8cd8897933b3cac131a4bfcbf5433b827f862e30b8e2906",
+    "date": "2026-11-19",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -4.86
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -37.9,
+      "true_peak": -13.8,
+      "seconds": 3.74,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 73,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A soldier sliding quickly down a thick rope from a hovering aircraft: a rough fibre rope zipping through gloved hands, ending with boots landing on dirt. Length: 3 seconds"
+    }
   }
 }

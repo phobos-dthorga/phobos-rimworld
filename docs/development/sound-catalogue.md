@@ -176,6 +176,26 @@ clip for getting in and out, with two or three takes so a crew boarding does not
 | --- | --- | --- | --- |
 | S80 | Power up, underway, power down, hatch, dive, surface | XML and Code | **Owner to decide:** agent recommends sharing the Crawler's set and the ping, as a test hull of the same technology. Otherwise six unique sounds |
 
+### V-22 Osprey (`Phobos_Osprey`; two turboshafts, proprotors)
+
+**Shipped in D'thorga Vehicles 0.85.0 with Framework 0.169.0** (19 Nov 2026; not yet tested in game): the owner's picks by question card
+(`assets/phobos-vehicles/requests/osprey-night7-picks-record.md`). The idle, working-hard loop and landing are **real recordings** of the
+Osprey from public-domain DVIDS videos, each crediting its maker (the owner's rule of 19 Nov 2026 for real machines); the rest are
+generated. The engine loops keep one pitch: the recordings carry the proprotors' real rotor beat (20.55 Hz, 411 rpm), which a real
+Osprey holds nearly steady.
+
+| ID | Sound | Hook | Note |
+| --- | --- | --- | --- |
+| S130 | Engines and proprotors idling (loop) | XML | Real recording (USNS Mercy, on deck at night) |
+| S131 | Working hard (loop) | XML | Real recording (an air show pass) |
+| S132 | Coming in to land (22 s) | Code | Real recording; played as a descent or rolling landing begins on our own flight |
+| S133 | Engine start | XML | Generated |
+| S134 | Engine shutdown | XML | Generated |
+| S135 | Cargo ramp | XML | Generated; as cargo goes in or out |
+| S136 | Crew door | XML | Generated; as people board or leave |
+| S137 | Fast rope | Code | Generated; at the foot of the lines as each person starts down |
+| — | Rescue hoist, forward flight | | None, by the owner's choice: "Not needed amongst all the other sounds" |
+
 ## Vehicle stations (D'thorga Framework)
 
 | ID | Sound | Hook | Note |

@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/FireMode/Single.png",
+  "source": "assets/vehicle-systems/generated/firemode-single/firemode-single-11.png",
+  "source_sha256": "a87dec75ae1d7cc07db91b56418c6ed554c0d9a511c08ea58d7dd751504e63b9",
+  "target_sha256": "cf78fdf45d56ac47c0f67b99feff9f223eed64f8fcf637bd430b19ec3465f9de",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "a87dec75ae1d7cc07db91b56418c6ed554c0d9a511c08ea58d7dd751504e63b9",
+  "date": "2026-11-19T15:52:36",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

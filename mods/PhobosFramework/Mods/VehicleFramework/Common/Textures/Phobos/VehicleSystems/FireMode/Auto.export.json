@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/FireMode/Auto.png",
+  "source": "assets/phobos-vehicles/generated/firemode-paid-auto/firemode-paid-auto-85.png",
+  "source_sha256": "c1a1c06f0f11d5a5f2e782349de8c3272413fb13accffc382313344bc14df808",
+  "target_sha256": "ce7e4c7694c29e0d400283f095ba695b63b757c398965b7b4bdbdef30af30099",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "c1a1c06f0f11d5a5f2e782349de8c3272413fb13accffc382313344bc14df808",
+  "date": "2026-11-19T15:52:39",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

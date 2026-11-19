@@ -1,7 +1,10 @@
 # Night 7 picks: the Osprey's icons and sounds (19 Nov 2026)
 
-**Status (19 Nov 2026):** the owner's picks, made by question card from the review pages, the paid redraw included; none is exported
-or wired into a mod yet. Every icon now has a pick.
+**Status (19 Nov 2026):** the owner's picks, made by question card from the review pages, the paid redraw included. **Shipped in
+D'thorga Vehicles 0.85.0 with Framework 0.169.0:** fourteen icons (the Osprey's eight upgrades, the fast-rope, hoist and cabin oxygen
+fittings, the three fire modes) and the eight sounds. **Held back:** the cargo hook, stretchers and ferry tank picks (those fittings keep
+the pictures the owner picked earlier, 11 and 18 Nov 2026) and the tanker kit, refuelling probe and crewless fit picks (their upgrades are
+not built yet). Not yet tested in game.
 
 Night 7 (`.local/art/night-7.json`, run by the armour session) made two local pictures of each Osprey upgrade icon
 (`osprey-upgrade-icons.json`) and of each fire-mode button (`assets/vehicle-systems/requests/flight-and-fire-buttons.json`), and

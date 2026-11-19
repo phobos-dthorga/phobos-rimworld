@@ -217,7 +217,11 @@
       "dry growth catches fire": [{"key": "aircraft.landing-fire"}]
     }},
     "227": ["patches.turret-picture-after-loading"],
-    "228": ["patches.raid-orders-rebuilt-on-load"]
+    "228": ["patches.raid-orders-rebuilt-on-load"],
+    "229": {"parts": {
+      "the landing plays as it starts down": [{"key": "vehicles.work-sound", "variant": "PhobosVehicles_OspreyLanding"}],
+      "a fast rope plays at its foot": [{"key": "vehicles.work-sound", "variant": "PhobosVehicles_OspreyFastRope"}]
+    }}
   },
   "order": [
     {"name": "a piston engine warns before its battery cannot start it", "row": "69",

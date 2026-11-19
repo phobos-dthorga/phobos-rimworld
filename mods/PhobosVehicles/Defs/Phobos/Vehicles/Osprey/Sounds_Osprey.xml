@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The V-22 Osprey's own voice (D'thorga Vehicles 0.85.0; assets/phobos-vehicles/requests/osprey-night7-picks-record.md). The owner's
+       picks of 19 Nov 2026: the idle, the working-hard loop and the landing are real recordings of the Osprey from public-domain DVIDS
+       videos (each sound file's record names its video and credits it); the start, shutdown, ramp, crew door and fast rope are generated.
+       Levelled by scripts/art/export_sound.py against the game sound each export names. The engine loops are played by D'thorga Framework
+       from PhobosEngineSoundExtension on the VehicleDef, which sets PhobosEngineLoad (0 to 1): these fade the idle out and the working-hard
+       loop in. Unlike our trucks' loops they carry no pitch mapping: the recordings' rotor beat is the real proprotors' 411 rpm (the comb
+       measured at 20.55 Hz), which a real Osprey holds nearly steady, so pitching it with engine speed would put it wrong. Not yet tested
+       in game. -->
+  <SoundDef>
+    <!-- Engines and proprotors idling: a real recording, on deck at night (USNS Mercy). -->
+    <defName>PhobosVehicles_OspreyEngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Osprey/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Working hard, a lift or climb: a real recording of a pass at an air show. -->
+    <defName>PhobosVehicles_OspreyEngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Osprey/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0.25)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Coming in to land: a real recording of a night landing, played as the descent begins. -->
+    <defName>PhobosVehicles_OspreyLanding</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Osprey/Landing</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Engine start: generated (no recording of a start was found). -->
+    <defName>PhobosVehicles_OspreyEngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Osprey/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Engine shutdown: generated. -->
+    <defName>PhobosVehicles_OspreyEngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Osprey/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- The cargo ramp, as cargo goes in or out: generated. -->
+    <defName>PhobosVehicles_OspreyRamp</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Osprey/Ramp</clipPath>
+          </li>
+        </grains>
+        <volumeRange>30</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- The crew door, as people board or leave: generated. -->
+    <defName>PhobosVehicles_OspreyDoor</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Osprey/Door</clipPath>
+          </li>
+        </grains>
+        <volumeRange>35</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+  <SoundDef>
+    <!-- Someone starting down a fast rope: generated. Two ropes may start together; each plays once. -->
+    <defName>PhobosVehicles_OspreyFastRope</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Vehicles/Osprey/FastRope</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>

@@ -16,6 +16,12 @@ For each it:
 
 Masters stay byte for byte. Uses no graphics card. --check verifies every exported file and master against its record.
 
+A real recording (assets/AGENTS.md, 19 Nov 2026: a real machine may sound like itself) is exported the same way: its spec names the
+recording set ("recording": "osprey"), and its master is the cut scripts/art/recordings.py made in the art tools' working folder
+(<artWorkPath>/recordings/<set>/candidates/), whose record carries the source, its credit and its licence. Its record here credits it
+by name, with DVIDS's line that the appearance of US Department of Defense visual information does not imply or constitute DoD
+endorsement, in place of the model and prompt a generated sound's record gives.
+
     python scripts/art/export_sound.py assets/phobos-sounds/exports.json
     python scripts/art/export_sound.py assets/phobos-sounds/exports.json --only ConcentratorHum
     python scripts/art/export_sound.py assets/phobos-sounds/exports.json --check
@@ -32,6 +38,7 @@ import tempfile
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 sys.path.insert(0, str(HERE))
+import art_paths  # noqa: E402
 import game_sounds  # noqa: E402
 import sound_review  # noqa: E402
 
@@ -47,6 +54,20 @@ EXPORT_FLAGS_TO_REFUSE = sound_review.SERIOUS_FLAGS  # One list, so the review p
 PARKED_GENERATOR = 'ChemfuelFiredGenerator_Ambience'
 ENGINE_LOOPS = ('EngineIdle', 'EngineLoad')
 GAME_DISTANCE = (25.0, 70.0)
+
+
+# What a recording's record says beside its credit (DVIDS asks for it on every public-domain video it hosts).
+NO_ENDORSEMENT = ('The appearance of U.S. Department of Defense (DoD) visual information does not imply or constitute DoD endorsement.')
+RECORDING_KEYS = ('kind', 'source_page', 'source_title', 'credit', 'licence', 'source_sha256', 'start', 'seconds')
+
+
+def master_of(spec, generated):
+    """The picked master: under the asset set's generated folder, or, for a real recording, among its set's cuts in the art tools'
+    working folder (scripts/art/recordings.py)."""
+    if spec.get('recording'):
+        parts = ('recordings', spec['recording'], 'candidates', *Path(spec['candidate']).parts)
+        return art_paths.find(*parts) or art_paths.work(*parts)
+    return generated / spec['candidate']
 
 
 def sha256(path):
@@ -184,6 +205,8 @@ def review(exe, path, loop):
 def record_text(spec, entry):
     """The Markdown record kept beside the exported file, as for the mods' textures."""
     source = entry['source']
+    if source.get('kind') == 'recording':
+        return recording_record_text(spec, entry)
     lines = [f'# {Path(spec["target"]).name}', '',
              f'**{spec.get("use", spec["name"])}.** Made with generative AI: {source.get("generator", "a Stable Audio 3 model")}, run locally, '
              'prompted by the Phobos art scripts, then prepared by scripts/art/export_sound.py. The model\'s outputs belong to their '
@@ -206,8 +229,31 @@ def record_text(spec, entry):
     return '\n'.join(lines) + '\n'
 
 
+def recording_record_text(spec, entry):
+    """A real recording's record: what it is cut from, whose it is, its licence and the credit, then how it was prepared."""
+    source = entry['source']
+    lines = [f'# {Path(spec["target"]).name}', '',
+             f'**{spec.get("use", spec["name"])}.** A real recording, not generated: cut from "{source.get("source_title", "")}" '
+             f'by {source.get("credit", "")}, {source.get("source_page", "")}, from {source.get("start", "")} s for '
+             f'{source.get("seconds", "")} s, then prepared by scripts/art/export_sound.py. {source.get("licence", "")}.', '',
+             NO_ENDORSEMENT, '',
+             '| | |', '| --- | --- |',
+             f'| Picked by | {spec.get("picked_by", "the owner")}, {spec.get("picked", "")} |',
+             f'| Master | the art tools\' working folder, recordings/{spec["recording"]}/candidates/{spec["candidate"]} '
+             f'(sha256 {entry["master_sha256"]}); the source video sha256 {source.get("source_sha256", "")} |',
+             f'| Made into | {spec["kind"]}, mono, {RATE} Hz, Ogg Vorbis quality {OGG_QUALITY}; '
+             + ', '.join(f'{key} {value}' for key, value in entry['processing'].items()) + ' |',
+             f'| Levelled against | the game\'s {spec["reference"]} (effective {entry["reference"]["effective"]}) {spec.get("offset_db", 0):+g} dB, '
+             f'through volume {spec["volume"]} |',
+             f'| Result | {entry["result"]["lufs"]} LUFS, true peak {entry["result"]["true_peak"]} dBTP, {entry["result"]["seconds"]} s; '
+             f'flags: {", ".join(entry["result"]["flags"]) or "none"} |',
+             f'| File | sha256 {entry["sha256"]}, made {entry["date"]} with {entry["ffmpeg"]} |', '',
+             'Not yet tested in game.']
+    return '\n'.join(lines) + '\n'
+
+
 def export_one(exe, spec, generated, game):
-    master = generated / spec['candidate']
+    master = master_of(spec, generated)
     target = ROOT / spec['target']
     source_record = master.with_suffix('.json')
     source = json.loads(source_record.read_text(encoding='utf-8')) if source_record.is_file() else {}
@@ -239,7 +285,8 @@ def export_one(exe, spec, generated, game):
              'date': _dt.date.today().isoformat(), 'ffmpeg': sound_review.ffmpeg_version(exe), 'processing': processing,
              'reference': {key: reference[key] for key in ('defName', 'effective', 'volume', 'distance', 'channels')},
              'result': {key: result.get(key) for key in ('lufs', 'true_peak', 'seconds', 'flags', 'seam_dip_db', 'loop_gap_s')},
-             'source': {key: source.get(key) for key in ('generator', 'model', 'model_sha256', 'seed', 'steps', 'cfg', 'prompt')}}
+             'source': ({key: source.get(key) for key in RECORDING_KEYS} if source.get('kind') == 'recording'
+                        else {key: source.get(key) for key in ('generator', 'model', 'model_sha256', 'seed', 'steps', 'cfg', 'prompt')})}
     target.with_name(target.name + '.record.md').write_text(record_text(spec, entry), encoding='utf-8')
     return entry
 
@@ -324,7 +371,7 @@ def main(argv=None):
     for spec in specs:
         if args.only and spec['name'] != args.only:
             continue
-        if not args.force and unchanged(spec, records.get(spec['name']), generated / spec['candidate']):
+        if not args.force and unchanged(spec, records.get(spec['name']), master_of(spec, generated)):
             print(f'{spec["name"]}: unchanged, left as it is')
             continue
         entry = export_one(exe, spec, generated, game)

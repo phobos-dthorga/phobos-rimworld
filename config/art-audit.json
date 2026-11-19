@@ -31,8 +31,6 @@
      "reason": "Vanilla Gravship Expanded's own canister button on the liquid oxygen store, used in place (allowed reuse)"},
     {"texture": "UI/Buttons/*", "reason": "the game's own buttons, used in place (allowed reuse)"},
     {"texture": "Phobos/VehicleSystems/FireMode/*", "reason": "a gun's fire-mode buttons, shared by every turret of ours (D'thorga Framework 0.152.0)"},
-    {"texture": "Things/Item/Equipment/WeaponRanged/Minigun", "owner": "Phobos_Osprey_*",
-     "reason": "the game's own minigun, used in place for the Osprey's belly gun, which is not drawn, until its own icon is picked (agent choice, 19 Nov 2026)"},
     {"texture": "Damage/*", "reason": "the game's own damage overlays, used in place"},
     {"texture": "DBH/Things/Building/*",
      "reason": "Dubs Bad Hygiene's own shower and basin pictures on the upgrades that set out those fixtures, used in place (agent choice, 17 Nov 2026)"},

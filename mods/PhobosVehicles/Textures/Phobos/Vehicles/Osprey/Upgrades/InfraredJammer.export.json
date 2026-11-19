@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png",
+  "source": "assets/phobos-vehicles/generated/osprey-paid-infraredjammer/osprey-paid-infraredjammer-67.png",
+  "source_sha256": "75c0750908d7c8eaf58db8b84f2c45526ed28848da67fd20cd239505c5f04c1f",
+  "target_sha256": "4f208c8f301653360d82df2b80969b95a748ddcb0bac60aab704ff17151a8bad",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "75c0750908d7c8eaf58db8b84f2c45526ed28848da67fd20cd239505c5f04c1f",
+  "date": "2026-11-19T15:52:25",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

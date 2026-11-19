@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/RescueHoist.png",
+  "source": "assets/phobos-vehicles/generated/osprey-paid-rescuehoist/osprey-paid-rescuehoist-74.png",
+  "source_sha256": "16638a7c844c33d5f0578d4f8362d97b4c627c399b7d29e54fa8d4839c39a6d3",
+  "target_sha256": "00f097999785c4053154f3ab4ca40bdf888aa48c1e874daf9104b733be22dad8",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "16638a7c844c33d5f0578d4f8362d97b4c627c399b7d29e54fa8d4839c39a6d3",
+  "date": "2026-11-19T15:52:34",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

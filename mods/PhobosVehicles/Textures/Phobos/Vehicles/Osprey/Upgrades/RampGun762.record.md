@@ -1,9 +1,6 @@
 # RampGun762
 
-An **interim** upgrade icon, made free on 19 Nov 2026 by `assets/phobos-vehicles/export_osprey.py` from the 7.62 mm ramp gun's own lifted picture
-(`assets/phobos-vehicles/generated/osprey-derived/ramp-gun-762.png`, SHA-256 `a050b6adc637f93a9f4687eaee519ad2eee990729e722877ccb8fe39a9c7fee8`), itself **AI-generated** art of ours: an edit of the owner's picked body by Google's Nano Banana Pro through fal.ai, lifted with Segment Anything and
-shrunk to its real length, as `assets/phobos-vehicles/requests/osprey-overlays-record.md` records.
-Fitted to 128 px; nothing new was generated for it. It stands until the owner picks the icon drawn for this node
-(`assets/phobos-vehicles/requests/osprey-upgrade-icons.json`, queued for the local model). No game or other author's art was used.
+Made on 19 Nov 2026 with Google's Nano Banana Pro through fal.ai (edit, 1K, US$0.15): **AI-generated**, picked by the owner on 19 November 2026 by question card, after OpenAI refused every firearm. Exported by `scripts/art/export_sprite.py` at 128 px, the background cleared with the background AI's mask. The prompt is in `assets/phobos-vehicles/requests/osprey-paid-guns.json`; the picks and the batch are recorded in `assets/phobos-vehicles/requests/osprey-night7-picks-record.md`. Only our own art was used as references; no game or other author's art.
 
-- `RampGun762.png`: SHA-256 `10df2c40e9336392f7681971705cb9d187b0593dfd11ecd64e5b7de83d1d57eb`
+- Master: `osprey-fal-rampgun762-101.png`, SHA-256 `139b60a907393a5d8374ac302b5c5319e50d1ad92656a27359d9087faf06899e`
+- `RampGun762.png`: SHA-256 `a05225320dd46f3bcb0fee837aa2a9be4ad99e3b43f765c69b1e2324cdc96d33`

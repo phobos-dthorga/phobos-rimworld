@@ -1021,6 +1021,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
             heading = landRot.AsAngle;
             state = FlightState.Settling;
             SyncPosition();
+            VehicleWorkSounds.Play(Vehicle, "Landing");    // Framework 0.169.0: the aircraft's own landing sound, if its Def names one
             return;
         }
         state = FlightState.Hover;
@@ -1094,6 +1095,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         speed = Mathf.Max(speed, Props.speedCellsPerSecond * Props.liftOffSpeedShare);
         state = FlightState.RollingLanding;
         SyncPosition();
+        VehicleWorkSounds.Play(v, "Landing");    // Framework 0.169.0
     }
 
     /// <summary>

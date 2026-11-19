@@ -345,7 +345,7 @@
       <label>Belly gun</label>
       <displayLabel>true</displayLabel>
       <description>A minigun in a turret that lowers from the belly and fires all round by itself while the aircraft has power. It weighs 360 kg, carried as cargo would be.</description>
-      <icon>Things/Item/Equipment/WeaponRanged/Minigun</icon>
+      <icon>Phobos/Vehicles/Osprey/Upgrades/BellyGun</icon>
       <work>4000</work>
       <gridCoordinate>(3, 18)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>

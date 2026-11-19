@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.169.0] - 2026-11-19 - Draft
+
+Drawn icons for fire modes and the line fittings; an aircraft's landing and fast-rope sounds
+
+### Added
+
+- **An aircraft on our own flight can have its own landing and fast-rope sounds,** named in its Def: the landing plays as a descent or rolling landing begins, a fast rope at the foot of the lines as each person starts down. The V-22 Osprey is the first.
+
+### Changed
+
+- **A gun's fire-mode buttons, the fast-rope bar, the rescue hoist and cabin oxygen have drawn icons,** the owner's picks of 19 November 2026, in place of the stand-ins drawn in code; cabin oxygen had no picture before.
+
+### Compatibility and limits
+
+- **Not yet tested in game.**
+
 ## [0.168.0] - 2026-11-19 - Draft
 
 A saved object whose class cannot be built empty can be loaded

@@ -593,7 +593,50 @@
       <li Class="Phobos.VehicleSystems.PhobosVehicleCabinExtension">
         <climateControl>true</climateControl>
       </li>
+      <!-- Its own voice (D'thorga Vehicles 0.85.0; Sounds_Osprey.xml). The engine loops follow the load, at one pitch: the real
+           recordings carry the proprotors' own rotor beat, which a real Osprey holds nearly steady. -->
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosVehicles_OspreyEngineIdle</idleSound>
+        <loadSound>PhobosVehicles_OspreyEngineLoad</loadSound>
+        <idlePitch>1</idlePitch>
+        <ratedPitch>1</ratedPitch>
+      </li>
+      <!-- Played by our own flight: the landing as a descent begins, a fast rope as each person starts down one. -->
+      <li Class="Phobos.VehicleSystems.PhobosVehicleSoundsExtension">
+        <sounds>
+          <li><key>Landing</key><sound>PhobosVehicles_OspreyLanding</sound></li>
+          <li><key>FastRope</key><sound>PhobosVehicles_OspreyFastRope</sound></li>
+        </sounds>
+      </li>
     </modExtensions>
+    <!-- Its own voice in place of the inherited draft blips (D'thorga Vehicles 0.85.0): people board and leave by the crew door, cargo
+         goes up the ramp. -->
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosVehicles_OspreyEngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosVehicles_OspreyEngineStop</value>
+      </li>
+      <li>
+        <key>PawnEntered</key>
+        <value>PhobosVehicles_OspreyDoor</value>
+      </li>
+      <li>
+        <key>PawnExited</key>
+        <value>PhobosVehicles_OspreyDoor</value>
+      </li>
+      <li>
+        <key>CargoAdded</key>
+        <value>PhobosVehicles_OspreyRamp</value>
+      </li>
+      <li>
+        <key>CargoRemoved</key>
+        <value>PhobosVehicles_OspreyRamp</value>
+      </li>
+    </soundOneShotsOnEvent>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
         <fuelType>Chemfuel</fuelType>

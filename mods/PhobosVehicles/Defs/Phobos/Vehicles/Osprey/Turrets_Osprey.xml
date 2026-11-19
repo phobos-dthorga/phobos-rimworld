@@ -139,13 +139,13 @@
   </Vehicles.VehicleTurretDef>
 
   <!-- The belly gun: a GAU-17 minigun, 7.62x51 mm, "belly-mounted, retractable, video remote control" [S], 2,000 or 4,000 rounds a minute
-       on other installations [S]: 2 ticks is 1,800 a minute, 1 tick 3,600. It is under the aircraft, so nothing of it is drawn; the
-       game's minigun stands for its button until the drawn icon is picked (config/art-audit.json). 1,500 rounds aboard [A]. -->
+       on other installations [S]: 2 ticks is 1,800 a minute, 1 tick 3,600. It is under the aircraft, so nothing of it is drawn; its
+       button is the owner's picked icon (Vehicles 0.85.0). 1,500 rounds aboard [A]. -->
   <Vehicles.VehicleTurretDef ParentName="VehicleTurretBase">
     <defName>Phobos_Osprey_BellyGun</defName>
     <label>belly minigun</label>
     <turretType>Rotatable</turretType>
-    <gizmoIconTexPath>Things/Item/Equipment/WeaponRanged/Minigun</gizmoIconTexPath>
+    <gizmoIconTexPath>Phobos/Vehicles/Osprey/Upgrades/BellyGun</gizmoIconTexPath>
     <magazineCapacity>1500</magazineCapacity>
     <chargePerAmmoCount>0.05</chargePerAmmoCount>
     <genericAmmo>true</genericAmmo>

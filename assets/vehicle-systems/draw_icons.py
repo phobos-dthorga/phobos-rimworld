@@ -12,10 +12,8 @@ replace it on the owner's go, and then its entry here is removed so this can't o
 - Flight/TakeOff, Flight/FlyTo, Flight/Hold, Flight/Land: our own flight's four buttons (Framework 0.147.0, 19 Nov 2026), drawn while
   the game was running, so the graphics card was not free; generated pictures can replace them on the owner's go.
 - Flight/Circle, Flight/CircleSize: circling's two buttons (Framework 0.153.0, 19 Nov 2026), stand-ins likewise.
-- Fittings/FastRope, Fittings/RescueHoist: the two line fittings and their buttons (Framework 0.155.0, 19 Nov 2026); generated Osprey icons for
-  both are queued (assets/phobos-vehicles/requests/osprey-upgrade-icons.json) and replace these on the owner's pick.
-
-The other buttons this once drew have generated pictures the owner picked (9 and 10 Nov 2026).
+The other buttons this once drew have generated pictures the owner picked (9 and 10 Nov 2026); the two line fittings (FastRope, RescueHoist)
+and the three fire modes (FireMode/Single, Burst, Auto) theirs on 19 Nov 2026 (assets/phobos-vehicles/requests/osprey-night7-picks-record.md).
 """
 import datetime as dt
 import hashlib
@@ -141,83 +139,14 @@ def circle_size():
     return image
 
 
-# Ropes and a hoist (Framework 0.155.0): the two fittings' pictures, also their buttons'. Stand-ins until the Osprey's queued icons are picked.
-def fast_rope():
-    image, draw = canvas()
-    # The bar across the top, and two ropes hanging from it.
-    outlined_polygon(draw, [(150, 150), (874, 150), (874, 270), (150, 270)], STEEL_SHADE)
-    for cx in (380, 644):
-        outlined_polygon(draw, [(cx - 48, 250), (cx + 48, 250), (cx + 48, 900), (cx - 48, 900)], AMBER, AMBER_SHADE,
-                         [(cx + 8, 270), (cx + 28, 270), (cx + 28, 880), (cx + 8, 880)])
-    return image
-
-
-def rescue_hoist():
-    image, draw = canvas()
-    # The drum, its cable and a hook.
-    outlined_ellipse(draw, (250, 110, 774, 390), STEEL_SHADE)
-    draw.ellipse((420, 190, 604, 310), fill=PALE_SHADE)
-    outlined_polygon(draw, [(480, 360), (544, 360), (544, 650), (480, 650)], PALE)
-    draw.arc((372, 600, 652, 900), start=-10, end=200, fill=OUTLINE, width=int(LINE * 2.4))
-    draw.arc((372 + LINE * 0.5, 600 + LINE * 0.5, 652 - LINE * 0.5, 900 - LINE * 0.5), start=-8, end=198, fill=AMBER, width=int(LINE * 1.2))
-    return image
-
-
-# A gun's three fire modes (Framework 0.152.0): Vehicle Framework names its own fire-mode pictures, but on RimWorld 1.7 it no longer
-# loads them, so a turret of ours showed the red cross. Brass cartridges: one, three, and a belt.
-BRASS = (222, 176, 82, 255)
-BRASS_SHADE = (178, 132, 50, 255)
-COPPER = (196, 112, 70, 255)
-
-
-def cartridge(draw, cx, bottom, width, height):
-    """One upright cartridge: a brass case under a copper bullet."""
-    case_top = bottom - height * 0.62
-    half = width / 2
-    outlined_polygon(draw, [(cx - half, case_top), (cx + half, case_top), (cx + half, bottom), (cx - half, bottom)], BRASS, BRASS_SHADE,
-                     [(cx + half * 0.35, case_top + LINE * 0.6), (cx + half - LINE * 0.6, case_top + LINE * 0.6),
-                      (cx + half - LINE * 0.6, bottom - LINE * 0.6), (cx + half * 0.35, bottom - LINE * 0.6)])
-    tip = bottom - height
-    bullet = [(cx - half * 0.86, case_top + LINE * 0.3), (cx - half * 0.86, case_top - height * 0.12), (cx - half * 0.45, tip + height * 0.08),
-              (cx, tip), (cx + half * 0.45, tip + height * 0.08), (cx + half * 0.86, case_top - height * 0.12), (cx + half * 0.86, case_top + LINE * 0.3)]
-    outlined_polygon(draw, bullet, COPPER)
-
-
-def fire_single():
-    image, draw = canvas()
-    cartridge(draw, 512, 900, 230, 780)
-    return image
-
-
-def fire_burst():
-    image, draw = canvas()
-    for cx in (232, 512, 792):
-        cartridge(draw, cx, 860, 190, 640)
-    return image
-
-
-def fire_auto():
-    image, draw = canvas()
-    for cx in (152, 332, 512, 692, 872):
-        cartridge(draw, cx, 720, 150, 560)
-    # The belt's links, joining the cartridges.
-    outlined_polygon(draw, [(70, 690), (954, 690), (954, 840), (70, 840)], STEEL_SHADE)
-    return image
-
-
 DRAWINGS = {
     'Switch': (switch, 'a rocker switch on a pale plate, the fallback icon for any switchable load'),
-    'FireMode/Single': (fire_single, 'one brass cartridge, for a gun\'s "single shot" fire mode'),
-    'FireMode/Burst': (fire_burst, 'three brass cartridges, for a gun\'s "burst" fire mode'),
-    'FireMode/Auto': (fire_auto, 'five brass cartridges on a steel belt, for a gun\'s "automatic" fire mode'),
     'Flight/TakeOff': (take_off, 'an amber arrow rising from a pale landing pad, for our own flight\'s "Take off" button'),
     'Flight/FlyTo': (fly_to, 'a steel arrow flying toward an amber target ring, for "Fly to"'),
     'Flight/Hold': (hold, 'two amber bars, the sign for a pause, in a pale ring, for "Hold here"'),
     'Flight/Land': (land, 'an amber arrow coming down onto a pale landing pad, for "Land here"'),
     'Flight/Circle': (circle, 'a steel arrow sweeping round an amber centre, for "Circle here"'),
     'Flight/CircleSize': (circle_size, 'three amber rings, small to large, for the circle size and way round'),
-    'Fittings/FastRope': (fast_rope, 'two amber ropes hanging from a steel bar, for the fast-rope bar and its "Rope down" button'),
-    'Fittings/RescueHoist': (rescue_hoist, 'a steel drum with a pale cable and an amber hook, for the rescue hoist and its "Hoist" button'),
 }
 
 

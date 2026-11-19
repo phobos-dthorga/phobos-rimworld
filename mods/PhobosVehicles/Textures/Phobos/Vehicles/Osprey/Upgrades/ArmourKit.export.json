@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/ArmourKit.png",
+  "source": "assets/phobos-vehicles/generated/osprey-upgrade-armourkit/osprey-upgrade-armourkit-42.png",
+  "source_sha256": "44d66b57b95f65d1920bf4610c0ab69e6b83192565dc45698a800e793a3089f7",
+  "target_sha256": "ab87d1f4b963285c14ee3ffad2766f363010d6ada7680366c3c473c7aec41b15",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "44d66b57b95f65d1920bf4610c0ab69e6b83192565dc45698a800e793a3089f7",
+  "date": "2026-11-19T15:52:23",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

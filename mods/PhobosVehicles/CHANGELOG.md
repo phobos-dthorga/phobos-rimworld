@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.85.0] - 2026-11-19 - Draft
+
+The Osprey sounds like itself, and its upgrades have drawn icons
+
+### Added
+
+- **The Osprey's own voice.** Its idle, working hard and landing are real recordings of the V-22 Osprey, from public-domain US military videos, so its proprotors beat at their real speed. Its engine start and shutdown, crew door, cargo ramp and fast rope are generated to match. The door plays as people board or leave, the ramp as cargo goes in or out, the landing as it starts down, a fast rope as each person starts down one.
+
+### Changed
+
+- **Every Osprey upgrade has its drawn icon,** the owner's picks of 19 November 2026: the ramp guns, belly gun, armour kit, second hook, infrared jammer, terrain radar and inlet barrier. The belly gun's button no longer borrows the game's minigun.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.169.0 or later, which plays the landing and fast-rope sounds.
+
+### Compatibility and limits
+
+- **Not yet tested in game.** Each recording's credit and DVIDS's notice that the appearance of US Department of Defense visual information does not imply or constitute DoD endorsement are in the record beside its sound file. No sound for the rescue hoist or for forward flight, by the owner's choice.
+
 ## [0.84.0] - 2026-11-19 - Draft
 
 The Osprey's added parts are in its body, not on the left wingtip

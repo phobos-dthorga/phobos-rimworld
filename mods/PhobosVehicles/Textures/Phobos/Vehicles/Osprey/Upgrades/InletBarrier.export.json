@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InletBarrier.png",
+  "source": "assets/phobos-vehicles/generated/osprey-paid-inletbarrier/osprey-paid-inletbarrier-71.png",
+  "source_sha256": "65dcf4cc0f1b143bfbe383452cd002ffe08304d8135be4ac0b2a648621098431",
+  "target_sha256": "9416c099695da115cc102cdfe61fb31d165b69dffd792abfefb1e4ce3ede5e71",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "65dcf4cc0f1b143bfbe383452cd002ffe08304d8135be4ac0b2a648621098431",
+  "date": "2026-11-19T15:52:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

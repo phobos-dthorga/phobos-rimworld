@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/FastRope.png",
+  "source": "assets/phobos-vehicles/generated/osprey-paid-fastropes/osprey-paid-fastropes-75.png",
+  "source_sha256": "ab3da88867dea4eb245e0cf7b58d672b211ac2e01a8fa431aef1dae3ee59de6d",
+  "target_sha256": "bfb9cc01a2d590b471f3bfd8ccda7044cf539aa8af5b54de72751d9bdf338241",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "ab3da88867dea4eb245e0cf7b58d672b211ac2e01a8fa431aef1dae3ee59de6d",
+  "date": "2026-11-19T15:52:32",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

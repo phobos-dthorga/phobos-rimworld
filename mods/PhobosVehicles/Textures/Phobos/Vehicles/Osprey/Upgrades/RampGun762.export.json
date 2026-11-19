@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/RampGun762.png",
+  "source": "assets/phobos-vehicles/generated/osprey-fal-rampgun762/osprey-fal-rampgun762-101.png",
+  "source_sha256": "139b60a907393a5d8374ac302b5c5319e50d1ad92656a27359d9087faf06899e",
+  "target_sha256": "a05225320dd46f3bcb0fee837aa2a9be4ad99e3b43f765c69b1e2324cdc96d33",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "139b60a907393a5d8374ac302b5c5319e50d1ad92656a27359d9087faf06899e",
+  "date": "2026-11-19T15:52:29",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

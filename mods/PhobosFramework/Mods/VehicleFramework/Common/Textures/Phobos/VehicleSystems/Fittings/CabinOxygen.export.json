@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabinOxygen.png",
+  "source": "assets/phobos-vehicles/generated/osprey-paid-cabinoxygen/osprey-paid-cabinoxygen-82.png",
+  "source_sha256": "d3608e90e12b49a187014092460f5ac08b4bf13d64af801fa1a7491c29040eff",
+  "target_sha256": "f4942d92c3e34cf4d79d9e55cd057103bc3cdd298dedfa453819e331ff2b9ec2",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "d3608e90e12b49a187014092460f5ac08b4bf13d64af801fa1a7491c29040eff",
+  "date": "2026-11-19T15:52:35",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

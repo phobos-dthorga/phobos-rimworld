@@ -432,6 +432,37 @@ class ExportLevelTests(unittest.TestCase):
         self.assertFalse(export_sound.unchanged({**spec, 'offset_db': spec.get('offset_db', 0) - 1}, records[spec['name']], master))
         self.assertFalse(export_sound.unchanged(spec, None, master))
 
+    def test_a_recording_is_found_among_its_sets_cuts(self):
+        # A real recording's master is its cut in the art tools' working folder, not under generated/.
+        with tempfile.TemporaryDirectory() as folder:
+            old = os.environ.get('PHOBOS_ART_WORK')
+            os.environ['PHOBOS_ART_WORK'] = folder
+            try:
+                spec = {'candidate': 'osprey-idle/osprey-idle-1-00001.flac', 'recording': 'osprey'}
+                master = export_sound.master_of(spec, Path('generated'))
+            finally:
+                if old is None:
+                    os.environ.pop('PHOBOS_ART_WORK', None)
+                else:
+                    os.environ['PHOBOS_ART_WORK'] = old
+            self.assertEqual(master, Path(folder, 'recordings', 'osprey', 'candidates', 'osprey-idle', 'osprey-idle-1-00001.flac'))
+        self.assertEqual(export_sound.master_of({'candidate': 'a/b.flac'}, Path('generated')), Path('generated', 'a', 'b.flac'))
+
+    def test_a_recordings_record_credits_it(self):
+        entry = {'source': {'kind': 'recording', 'source_title': 'A deck landing', 'credit': 'Sgt. A. Person, US Navy',
+                            'source_page': 'https://www.dvidshub.net/video/1', 'licence': 'Public domain', 'start': 10, 'seconds': 8,
+                            'source_sha256': 'abc'},
+                 'master_sha256': 'def', 'processing': {'gain_db': -2}, 'reference': {'effective': '-30 LUFS'},
+                 'result': {'lufs': -20, 'true_peak': -3, 'seconds': 8, 'flags': []}, 'sha256': '123', 'date': '2026-11-19',
+                 'ffmpeg': 'ffmpeg 9'}
+        spec = {'name': 'OspreyEngineIdle', 'target': 'mods/X/Sounds/Osprey/EngineIdle.ogg', 'recording': 'osprey',
+                'candidate': 'osprey-idle/x.flac', 'kind': 'loop', 'reference': 'Ref', 'volume': 20, 'picked': '2026-11-19'}
+        text = export_sound.record_text(spec, entry)
+        self.assertIn('A real recording, not generated', text)
+        self.assertIn('Sgt. A. Person, US Navy', text)
+        self.assertIn(export_sound.NO_ENDORSEMENT, text)
+        self.assertNotIn('generative AI', text)
+
     def test_the_shipped_sounds_match_their_records(self):
         exports = Path(ROOT, 'assets', 'phobos-sounds', 'exports.json')
         specs = json.loads(exports.read_text(encoding='utf-8'))['exports']

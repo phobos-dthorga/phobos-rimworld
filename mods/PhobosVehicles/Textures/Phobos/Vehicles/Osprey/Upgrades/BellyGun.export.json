@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/BellyGun.png",
+  "source": "assets/phobos-vehicles/generated/osprey-fal-bellygun/osprey-fal-bellygun-105.png",
+  "source_sha256": "e72e095ed2feab581ae742ccbd06c1e995236dbdc6c109680ea790974402640b",
+  "target_sha256": "8fb4b1c1e341f42f52e3246ba080f539054d245bf2117e328bc041d53015d5a3",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "e72e095ed2feab581ae742ccbd06c1e995236dbdc6c109680ea790974402640b",
+  "date": "2026-11-19T15:52:31",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

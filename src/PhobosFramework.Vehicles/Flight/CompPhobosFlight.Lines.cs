@@ -357,6 +357,8 @@ public partial class CompPhobosFlight : IThingHolder
         {
             if (!Vehicle.RemovePawn(next) || !lineHeld.TryAdd(next)) break;
             ropeLeft.Add(HeightMetres);
+            // Framework 0.169.0: the aircraft's own fast-rope sound at the foot of the lines; two ropes starting together play twice, as they would.
+            VehicleWorkSounds.PlayAt(Vehicle, FootPoint().ToIntVec3(), "FastRope");
         }
         return lineHeld.Count == 0 && (lineStopping || !Riders().Any());
     }

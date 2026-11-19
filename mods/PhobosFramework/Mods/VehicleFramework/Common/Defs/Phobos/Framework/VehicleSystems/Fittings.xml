@@ -217,9 +217,10 @@
     <!-- Framework 0.142.0, the cruising height between tiles (owner, 19 Nov 2026: passengers covered only with a cabin oxygen fitting). An
          oxygen concentrator with masks at every seat, as the V-22's cabin troops wear "on-board oxygen masks above 10,000 feet" (secondary,
          the modern military record). It runs only while the engine turns and draws 3 A (authored: half again the crew set's 2 A, for more
-         masks). Working, nobody aboard keeps the aircraft below the oxygen line. Materials, weight, work and skill authored. No picture yet:
-         the fittings window shows its name; it has no switch of its own. -->
+         masks). Working, nobody aboard keeps the aircraft below the oxygen line. Materials, weight, work and skill authored. Its picture
+         is the owner's pick of 19 Nov 2026 (Framework 0.169.0); it has no switch of its own. -->
     <defName>PhobosFitting_CabinOxygen</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/CabinOxygen</iconPath>
     <label>cabin oxygen</label>
     <description>An oxygen concentrator in the cabin with a mask at every seat, crew and passengers alike. While the engine runs it lets the aircraft cruise high with people aboard who would otherwise need it to fly low. It draws a little power, and stops with the engine or a flat battery.</description>
     <roles><li>OxygenPanel</li></roles>

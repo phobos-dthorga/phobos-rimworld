@@ -23,7 +23,7 @@ public class VehicleWorkSound
 /// diving. Named in XML by key on the VehicleDef; our comps ask for a key when the moment comes, and a vehicle whose Def names no sound for
 /// it stays silent. Keys the comps use: SetUp, PackUp (falls back to SetUp), Work, WorkElectric, Portion, Spent, Console, Array, Dish, Find,
 /// Hoses, Pump, Relief, Leak, Purge, Rams, Slide, Tailgate, Dive, Surface, Settle, LiftOff (falls back to Settle), Creak, Scrubber, Lab,
-/// Contact. For other modders too: any vehicle with these comps may carry it.
+/// Contact; and from our own flight (Framework 0.169.0) Landing, as a descent begins, and FastRope, as each person starts down a rope. For other modders too: any vehicle with these comps may carry it.
 /// </summary>
 public class PhobosVehicleSoundsExtension : DefModExtension
 {
@@ -72,8 +72,16 @@ public static class VehicleWorkSounds
     /// <summary>Plays the first of these keys this vehicle has a sound for, once, at the vehicle.</summary>
     public static void Play(VehiclePawn vehicle, params string[] keys)
     {
+        if (!vehicle.Spawned) return;
+        PlayAt(vehicle, vehicle.Position, keys);
+    }
+
+    /// <summary>Plays the first of these keys this vehicle has a sound for, once, at a cell of its map (the foot of an aircraft's ropes).</summary>
+    public static void PlayAt(VehiclePawn vehicle, IntVec3 cell, params string[] keys)
+    {
         if (!vehicle.Spawned || Find(vehicle, keys) is not { } sound) return;
-        sound.PlayOneShot(new TargetInfo(vehicle.Position, vehicle.Map));
+        sound.PlayOneShot(new TargetInfo(cell.ClampInsideMap(vehicle.Map), vehicle.Map));
+        Seen.Note("vehicles.work-sound", vehicle, variant: sound.defName);
     }
 
     /// <summary>Keeps one loop of the vehicle's playing while on holds, from the first of these keys it has a sound for (the slot's own
