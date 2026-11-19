@@ -282,7 +282,7 @@ already do it (IDs in the mechanics record); the lean is the agent's.
 | Construction | Bulldozer | Smooths and clears terrain, pushes rubble | The game's smoothing and clearing jobs | Phobos_BladeRate: blade, tracks, hydraulics | Rails and Roads of the Rim | none | High |
 | Construction | Road paver | Lays road tiles as it drives | Rails and Roads of the Rim | Phobos_PaveRate | RRotR | none | Medium |
 | Construction | Crane | Lifts and places heavy things, gravship parts | The hauling job; VGE parts | Phobos_LiftRate: boom, winch, outriggers | VGE | an R3 Capraia add-on mentions a crane | Medium |
-| Agriculture | Tractor with implements | Ploughs, sows, harvests into cargo | The growing jobs | Phobos_FieldRate: PTO, implement | | Tractor: Industrial Age (1.6) | Low unless that mod stays on 1.6 |
+| Agriculture | Tractor with implements | Ploughs, sows, harvests into cargo | The growing jobs | Phobos_FieldRate: PTO, implement | | Tractor: Industrial Age (1.6) | **Its own mod and records since 19 Nov 2026**: [farm machines](farming-machines.md) (owner's request; not built) |
 | Agriculture | Forwarder | Hauls logs from the felling site | The hauling job | CargoCapacity, crane | | none | Medium |
 | Power | Generator set | In the family | | | | RV with built-in PD | In the family |
 | Power | Battery bank | A trailer of batteries charged at base and drained at camp | The game's battery comp | Capacity: cells, bus bars | The systems service | none | Medium |

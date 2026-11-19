@@ -1,7 +1,7 @@
 {
   "format": 1,
   "description": "Where the public source of each mod this project ties into lives, from phobos-modkit's rimworld-sources. A repository counts as confirmed only when an About.xml in it names the mod's package ID. Read a mod's source here before decompiling it (AGENTS.md).",
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "mods": {
     "adaptive.storage.framework": {
       "name": "Adaptive Storage Framework",
@@ -649,6 +649,19 @@
       ],
       "checked": "2026-11-18"
     },
+    "petetimessix.simplesidearms": {
+      "name": "Simple sidearms",
+      "package_id": "petetimessix.simplesidearms",
+      "workshop_id": "927155256",
+      "repository": "https://github.com/PeteTimesSix/SimpleSidearms",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2025-08-13",
+      "licence": "",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-19"
+    },
     "potemkinvillager.av8bharrier": {
       "name": "Harrier VTOL Attack Aircraft",
       "package_id": "potemkinvillager.av8bharrier",
@@ -737,6 +750,49 @@
       "archived": false,
       "candidates": [],
       "checked": "2026-11-18"
+    },
+    "rimexodus.framework": {
+      "name": "RimExodus Framework",
+      "package_id": "rimexodus.framework",
+      "workshop_id": "3830299150",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "Laurence-042/RimExodusFramework",
+          "found": "Workshop page",
+          "note": "it is rimexodus.framework.dev's repository"
+        }
+      ],
+      "checked": "2026-11-19"
+    },
+    "rimexodus.seamlessworld": {
+      "name": "RimExodus — Seamless World",
+      "package_id": "rimexodus.seamlessworld",
+      "workshop_id": "3790423611",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "Laurence-042/RimExodus",
+          "found": "Workshop page",
+          "note": "it is rimexodus.seamlessworld.dev's repository"
+        }
+      ],
+      "checked": "2026-11-19"
     },
     "rimthunder.core": {
       "name": "RimThunder - Core",
@@ -848,6 +904,25 @@
       ],
       "checked": "2026-11-18"
     },
+    "spdskatr.projectrimfactory": {
+      "name": "Project RimFactory Revived",
+      "package_id": "spdskatr.projectrimfactory",
+      "workshop_id": "2033979700",
+      "repository": "https://github.com/zymex22/Project-RimFactory-Revived",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-10-25",
+      "licence": "MIT",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-19"
+    },
     "th3fr3d.extendedinjuries": {
       "name": "More Injuries (Continued)",
       "package_id": "th3fr3d.extendedinjuries",
@@ -908,6 +983,40 @@
         }
       ],
       "checked": "2026-11-18"
+    },
+    "vanillaexpanded.outposts": {
+      "name": "Vanilla Outposts Expanded",
+      "package_id": "vanillaexpanded.outposts",
+      "workshop_id": "2688941031",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "MrHydralisk/VOE-Additional-Outposts",
+          "found": "GitHub search",
+          "note": "it is mrhydralisk.voeadditionaloutposts's repository"
+        },
+        {
+          "repository": "MrHydralisk/VOE-Power-Grid",
+          "found": "GitHub search",
+          "note": "it is mrhydralisk.voepowergrid's repository"
+        },
+        {
+          "repository": "Daria40K/Alpha-Animals-Patch-for-Outposts-Mines",
+          "found": "GitHub search",
+          "note": "it is daria40k.alphaanimalspatchoutposts's repository"
+        }
+      ],
+      "checked": "2026-11-19"
     },
     "vanillaexpanded.vchemfuele": {
       "name": "Vanilla Chemfuel Expanded",

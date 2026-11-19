@@ -47,6 +47,19 @@ its code or art. It declares 1.6 and 1.7 and needs Vanilla Expanded Framework.
 Package IDs are case-insensitive. Check each one against the mod's own `About.xml` before using it in a
 load folder or patch.
 
+**Farming mods that matter since 19 Nov 2026**, when the owner asked for D'thorga Farming ([farm machines](farming-machines.md),
+[farms on other tiles](farming-remote-farms.md), [soil rules](farming-soil.md)); all active in the owner's game on that date:
+
+| Design tie-in | What it is to the design | `packageId` (as the list shows it) |
+| --- | --- | --- |
+| Dubs Bad Hygiene | Its soil wetness and fertiliser are the moisture model our machines write into | `dubwise.dubsbadhygiene` |
+| Vanilla Plants Expanded, with More Plants | The crops, and the tilled soil a plough lays | `vanillaexpanded.vplantse`, `vanillaexpanded.vplantsemore` |
+| Vanilla Cooking Expanded | Wheat and flour | `vanillaexpanded.vcooke` |
+| VFE - Tribals | Sowing research a machine must respect | `oskarpotocki.vfe.tribals` |
+| VFE - Factory | The autofarmer (the peer machine) and the hoppers grain goes into | `vanillaexpanded.vfefactory` |
+| Vanilla Outposts Expanded | Its farming outpost is the baseline for a farm on another tile | `vanillaexpanded.outposts` |
+| Smart Farming, Vehicles at Work | Growing-zone tools; colonists driving vehicles for work | `owlchemist.smartfarming`, `shengchipangxieyaotuke.vehiclesatwork` |
+
 ## Decisions
 
 | Date | Decision | By |
