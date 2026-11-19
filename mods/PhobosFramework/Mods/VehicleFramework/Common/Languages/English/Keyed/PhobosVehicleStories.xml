@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Unwise orders, allowed with a warning (Framework 0.185.0; docs/development/vehicle-emergent-play.md, EM29, the owner's "warn, then
+     allow" of 20 Nov 2026), and the rest of the emergent-play batches from 0.185.0 on. Agent-authored, held for the owner's review. -->
+<LanguageData>
+
+  <!-- The sling: an overloaded lift, or a lift in weather that grounds one -->
+  <PhobosSling_WarnWeather>{WEATHER} Lift anyway and the swinging load strains the hook's mount by a quarter of its health; a mount strained to nothing gives way and drops the load.</PhobosSling_WarnWeather>
+  <PhobosSling_WarnOverload>{LOAD} weighs {WEIGHT} kg, more than the {CAPACITY} kg the hook lifts today. Lift it anyway and the hook's mount loses health in step with the overload; if it gives way, the load drops.</PhobosSling_WarnOverload>
+  <PhobosSling_Strained>The {HELICOPTER}'s hook mount took the strain of that lift and lost {SHARE} of its health. It needs a repair before it gives way.</PhobosSling_Strained>
+  <PhobosSling_GaveWay>The {HELICOPTER}'s hook mount gave way under {LOAD}. It dropped back to the ground: {HARM}. The hook is gone until the mount is repaired.</PhobosSling_GaveWay>
+
+  <!-- Flight: cutting the engines in the air -->
+  <PhobosFlight_CutEngines>Cut the engines</PhobosFlight_CutEngines>
+  <PhobosFlight_CutEnginesDesc>Cut the {VEHICLE}'s engines here and now, in the air. It falls where it is: everyone aboard is hurt as in a fall with no power, a load on the hook drops, and over a building, rough ground or water it is wrecked.\n\nTo land and switch off safely, switch its engines off the ordinary way instead.</PhobosFlight_CutEnginesDesc>
+  <PhobosFlight_WhyEnginesCut>its engines were cut in the air</PhobosFlight_WhyEnginesCut>
+
+  <!-- The recovery tow: heavier than the tractor should take -->
+  <PhobosRecovery_WarnTooHeavy>{TOWED} weighs {WEIGHT} kg, more than the {LIMIT} kg {TRACTOR} should tow. It will go, slowly, and the weight wears {TRACTOR}'s brakes and clutch fast.</PhobosRecovery_WarnTooHeavy>
+
+  <!-- The clutch: worn through, it still takes up a little of the drive -->
+  <PhobosVehicleSystems_MsgClutchWornThrough>The {VEHICLE}'s clutch is worn through. It takes up only a quarter of the drive, so it crawls and labours on any slope; a mechanic should fit a new one.</PhobosVehicleSystems_MsgClutchWornThrough>
+
+</LanguageData>

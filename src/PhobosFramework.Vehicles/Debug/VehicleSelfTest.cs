@@ -556,8 +556,8 @@ public static class VehicleSelfTest
         string? weather = CompPhobosSling.WeatherRefusal(helicopter.Map);
         if (weather != null)
         {
-            // Sling slice 2: wind or a storm grounds a lift, so the rest waits for calmer weather.
-            test.Expect("The weather's refusal is the one it gives", sling.Refusal() == weather, sling.Refusal() ?? "");
+            // Framework 0.185.0 (EM29): weather that grounds a lift warns and allows; the rest waits for calmer weather.
+            test.Expect("The weather warns rather than refuses", sling.Refusal() == null && sling.Warning(null) != null, sling.Refusal() ?? "");
             test.Skip("Lifting the load", weather);
             return;
         }

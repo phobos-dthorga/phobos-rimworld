@@ -132,6 +132,18 @@ public static class VehicleStory
         Log(comp, VehicleStoryDefOf.PhobosLog_Claimed, who: claimer.LabelShort, subject: from?.Name ?? "PhobosVehicleSystems_LogNobody".Translate().Resolve());
     }
 
+    /// <summary>An aircraft of ours came down hard and stayed whole (Framework 0.185.0): the logbook, and a tale for each person aboard who
+    /// walked away from it.</summary>
+    public static void HardLanding(VehiclePawn aircraft)
+    {
+        if (aircraft.GetComp<CompPhobosVehicleSystems>() is { Usable: true } comp) Log(comp, VehicleStoryDefOf.PhobosLog_HardLanding);
+        if (aircraft.Faction != Faction.OfPlayer) return;
+        foreach (Pawn pawn in aircraft.AllPawnsAboard.ToList())
+        {
+            if (!pawn.Dead && pawn.RaceProps.Humanlike) Tale(VehicleStoryDefOf.PhobosTale_CrashSurvived, pawn, aircraft);
+        }
+    }
+
     /// <summary>A tale for a long journey's first driver.</summary>
     public static void LongJourney(Pawn driver, VehiclePawn vehicle) => Tale(VehicleStoryDefOf.PhobosTale_LongJourney, driver, vehicle);
 
@@ -168,12 +180,14 @@ public static class VehicleStoryDefOf
     public static PhobosLogEntryDef PhobosLog_TripStart = null!;
     public static PhobosLogEntryDef PhobosLog_TripEnd = null!;
     public static PhobosLogEntryDef PhobosLog_Stranded = null!;
+    public static PhobosLogEntryDef PhobosLog_HardLanding = null!;
     public static RecordDef PhobosRecord_KilometresDriven = null!;
     public static RecordDef PhobosRecord_VehicleRepairs = null!;
     public static RecordDef PhobosRecord_VehiclesRecovered = null!;
     public static TaleDef PhobosTale_VehicleRecovered = null!;
     public static TaleDef PhobosTale_RoadsideRepair = null!;
     public static TaleDef PhobosTale_LongJourney = null!;
+    public static TaleDef PhobosTale_CrashSurvived = null!;
 
     static VehicleStoryDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(VehicleStoryDefOf));
 }

@@ -8,6 +8,18 @@ public class SlingRuleTests
     const double Rated = 11800, From = 15, PerDegree = 0.01, MaxLoss = 0.3;
 
     [Fact]
+    public void AFairLiftWithinTheRatingStrainsNothing() => Assert.Equal(0, SlingRule.HookStrain(900, 1000, false, SlingRule.WeatherStrain), 6);
+
+    [Fact]
+    public void AnOverloadStrainsByItsExcess() => Assert.Equal(0.2, SlingRule.HookStrain(1200, 1000, false, SlingRule.WeatherStrain), 6);
+
+    [Fact]
+    public void BadWeatherAddsItsShare() => Assert.Equal(0.45, SlingRule.HookStrain(1200, 1000, true, SlingRule.WeatherStrain), 6);
+
+    [Fact]
+    public void NoCapacityIsAFullStrain() => Assert.Equal(1, SlingRule.HookStrain(500, 0, false, SlingRule.WeatherStrain), 6);
+
+    [Fact]
     public void ACoolDayLiftsTheRatedLoad() => Assert.Equal(Rated, SlingRule.Capacity(Rated, 10, true, From, PerDegree, MaxLoss), 6);
 
     [Fact]

@@ -232,6 +232,7 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         Scribe_Values.Look(ref x, "PhobosFlight_X");
         Scribe_Values.Look(ref z, "PhobosFlight_Z");
         Scribe_Values.Look(ref heading, "PhobosFlight_Heading");
+        Scribe_Values.Look(ref enginesCut, "PhobosFlight_EnginesCut", false);
         Scribe_Values.Look(ref climb, "PhobosFlight_Climb");
         Scribe_Values.Look(ref targetX, "PhobosFlight_TargetX", float.NaN);
         Scribe_Values.Look(ref targetZ, "PhobosFlight_TargetZ", float.NaN);
@@ -1278,6 +1279,28 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         EnginesOffAfterLanding(v);
     }
 
+    /// <summary>The crew cut the engines in the air (Framework 0.185.0, EM29): the fall that follows is judged as one with no power at all.</summary>
+    bool enginesCut;
+
+    /// <summary>Why the engines cannot be cut now, or null: only in the air, and not while it is already coming down or rolling.</summary>
+    public string? CutEnginesRefusal() =>
+        !Airborne || state is FlightState.ComingDown or FlightState.TakeoffRoll or FlightState.RollingLanding
+            ? "PhobosFlight_RefuseNotFlying".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : null;
+
+    /// <summary>
+    /// Cuts the engines in the air (Framework 0.185.0; docs/development/vehicle-emergent-play.md, EM29: the owner chose "warn, then allow" on
+    /// 20 Nov 2026). Switching them off the ordinary way still lands it first (the owner's decision of Framework 0.174.0); this is the order
+    /// the player gives knowingly, from its own button, whose text says what follows: it falls where it is, everyone aboard is hurt as in a
+    /// fall with no power, a load on the hook drops, and over bad ground it is wrecked.
+    /// </summary>
+    public void CutEngines()
+    {
+        if (CutEnginesRefusal() != null) return;
+        enginesCut = true;
+        Seen.Note("aircraft.engines-cut", Vehicle);
+        BeginFall("PhobosFlight_WhyEnginesCut".Translate().Resolve());
+    }
+
     /// <summary>It cannot stay up: it comes down where it is, carrying on a little way if it was moving.</summary>
     void BeginFall(string why)
     {
@@ -1317,7 +1340,9 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         VehiclePawn v = Vehicle;
         Rot4 rot = FlightRules.Rot4For(heading);
         IntVec3 cell = FlightRules.CellFor(v, x, z, new Rot8(rot));
-        float m = float.IsNaN(margin) ? 0f : margin;
+        // Framework 0.185.0 (EM29): with its engines cut there is no power left to soften the fall.
+        float m = enginesCut ? 0f : float.IsNaN(margin) ? 0f : margin;
+        enginesCut = false;
         HurtAboard(v, (float)FlightPathRule.ForcedLandingHarm(m));
         string? wreck = FlightRules.SpotRefusal(v, cell, rot, forced: true);
         bool wasRaider = IsRaider;
@@ -1360,6 +1385,8 @@ public partial class CompPhobosFlight : VehicleComp, IKeepsTicking
         }
         Seen.Note("aircraft.flight-forced", v, variant: "hard-landing");
         if (v.Faction == Faction.OfPlayer) Messages.Message("PhobosFlight_MsgHardLanding".Translate(who).Resolve(), v, MessageTypeDefOf.NegativeEvent);
+        // Framework 0.185.0 (EM23, EM13): the logbook, and a tale for everyone who walks away from it.
+        VehicleStory.HardLanding(v);
         EnginesOffAfterLanding(v);
     }
 

@@ -1,7 +1,8 @@
 # Emergent play around the vehicles: where unplanned stories could come from (20 Nov 2026)
 
 **Status (20 Nov 2026):** batch 1 built in D'thorga Framework 0.181.0 (EM24, EM23, EM13, EM25 and EM1: faults that say why, the
-logbook, records and tales, the trip report, stranded convoys); not yet tested in game. Batches 2 to 4 are being built the same day
+logbook, records and tales, the trip report, stranded convoys) and batch 2 in 0.185.0 (EM29(a): four unwise orders go ahead with a
+warning); not yet tested in game. Batches 3 and 4 are being built the same day
 (the owner's word, 20 Nov 2026); every other row is an idea, not built. The owner answered four of the questions the same day
 ([the answers](#questions-for-the-owner)).
 
@@ -413,6 +414,24 @@ say why; logbooks, journeys and the alert are the player's only, and a captured 
 **Saves:** new saved fields, all on the vehicle's systems comp: the logbook (`PhobosVehicleSystems_Logbook`), the journey under way
 (`PhobosVehicleSystems_Trip`), the last hit's tick, and a cause on each condition. Older saves load with none of them. Removing the
 mod drops them with the rest of the comp.
+
+## As built: batch 2, unwise orders (20 Nov 2026, Framework 0.185.0)
+
+The owner's answer to question 3: "warn, then allow", and "build all four now" (not after the Osprey's first flight, as the agent
+suggested). Not yet tested in game; row 259.
+
+| Order | Before | Now | The consequence, from what was already built |
+| --- | --- | --- | --- |
+| Cut the engines in the air | Switching off in the air was refused, the engines restarted and the aircraft landed on the nearest clear spot | A new button, **Cut the engines**, whose text says what follows. The ordinary switch-off still lands first (the owner's decision of Framework 0.174.0, kept) | The fall that existed for engines that cannot hold it up, judged as one with no power at all: the harshest landing and harm aboard, a slung load dropped, a wreck over bad ground |
+| Lift over the hook's rating | Refused | Warned when chosen; lifted | New: the hook's mount loses the overload's share of its health at lift-off (`SlingRule.HookStrain`, an authored model); a mount at nothing gives way and the load drops back 3 m [A], through the existing fall |
+| Lift in a storm or high wind | Refused | Warned on the button and when chosen; lifted | The same strain, plus a quarter of the mount's health [A] |
+| Tow over 1.5 times the tractor | Refused | Warned when chosen and hitched | Already built: towed weight wears brakes and clutch |
+| Drive on a worn-through clutch | Refused | A message, once | Already built: the clutch takes up a quarter of the drive (only with the full drivetrain model) |
+
+**Kept refused, and why** (agent's reading of the audit): driving on worn-through brakes, flying with wrecked controls and blind
+take-offs beyond the existing warn-only setting have no consequence modelled yet (EM29(b)); lifting a load the helicopter could not
+hover with is impossible, not unwise. **Logbook and tale:** a hard landing the aircraft survives goes in its logbook, and everyone aboard
+who walks away from it may turn up in art (`PhobosTale_CrashSurvived`).
 
 ## Who chose what
 

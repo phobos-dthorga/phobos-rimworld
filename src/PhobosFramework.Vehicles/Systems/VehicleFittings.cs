@@ -493,6 +493,17 @@ public sealed class VehicleFittings
     public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability)
         && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f });
 
+    /// <summary>The part whose fitting grants this ability (the cargo hook's mount), still standing; null with none (Framework 0.185.0).</summary>
+    public VehicleComponent? PartGranting(string ability)
+    {
+        foreach (FittedPart part in fitted)
+        {
+            if (part.def == null || !part.def.grants.Contains(ability)) continue;
+            if (comp.Vehicle.statHandler?.GetComponent(part.partKey) is { Health: > 0f } standing) return standing;
+        }
+        return null;
+    }
+
     /// <summary>The fittings on parts that are not destroyed, as <see cref="Grants"/> counts them.</summary>
     public IEnumerable<PhobosVehicleFittingDef> FittedDefs() => fitted
         .Where(f => f.def != null && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f })

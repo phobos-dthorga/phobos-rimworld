@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.185.0] - 2026-11-20 - Draft
+
+Unwise orders go ahead with a warning, and their consequences follow
+
+### Changed
+
+- **Cut the engines: a new button on an aircraft in the air.** Its text says plainly what follows, and then it happens: the aircraft falls where it is, everyone aboard is hurt as in a fall with no power, a load on the hook drops, and over a building, rough ground or water it is wrecked. Switching the engines off the ordinary way still lands it first, as before.
+- **An overloaded lift, or a lift in a storm or high wind, is no longer refused.** Choosing the load warns first; at lift-off the hook's mount loses health by the share the load is over today's limit, plus a quarter in weather that grounds a lift. A mount strained to nothing gives way: the load drops back a few metres and the hook is gone until the mount is repaired.
+- **A recovery tow heavier than the truck should take is no longer refused.** A warning says so, and the tow goes, slowly; the weight wears the truck's brakes and clutch faster, as every tow's weight already did.
+- **A worn-through clutch no longer stops a vehicle.** A message says so once; the clutch still takes up a quarter of the drive, so the vehicle crawls and labours until a mechanic fits a new one.
+
+### Added
+
+- **Coming down hard goes in the aircraft's logbook**, and everyone aboard who walks away from it may turn up in art (a new tale).
+
+### Compatibility and limits
+
+- These follow the owner's choice of 20 Nov 2026, "warn, then allow": an extreme order the player gives knowingly has its full consequence. How much a hook mount loses per lift is an authored figure, not a measured one.
+- The worn-through clutch slows a vehicle only with the full drivetrain model (the default); with "Drivetrain shown, speeds unchanged" it crawls at its author's speed.
+- No new settings. The words are agent-authored, held for the owner's review.
+- Not yet tested in game: row 259 of the test pass.
+
 ## [0.184.0] - 2026-11-20 - Draft
 
 Settings pages: search, changed only and a reset, in every D'thorga settings window

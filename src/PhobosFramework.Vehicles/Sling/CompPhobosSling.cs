@@ -112,7 +112,36 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         // Framework 0.161.0 (0.165.0: any helicopter flying the map itself, the Hind too): in the air it lifts from a hover, so it must be able
         // to hold one.
         if (HoverPilot.For(Vehicle) is { } pilot && !pilot.CanHover) return "PhobosSling_CannotHoverToLift".Translate(Vehicle.LabelShort.Named("HELICOPTER")).Resolve();
-        return WeatherRefusal(Vehicle.Map);
+        // Framework 0.185.0 (EM29, the owner's "warn, then allow"): weather that grounds a lift is a warning, and the lift strains the hook.
+        return null;
+    }
+
+    /// <summary>
+    /// What an unwise lift risks, or null (Framework 0.185.0; docs/development/vehicle-emergent-play.md, EM29: the owner chose "warn, then
+    /// allow" on 20 Nov 2026). A load over what the hook lifts today, or weather that grounds a lift, is no longer refused: the lift goes
+    /// ahead and strains the hook's mount by the overload and the weather (SlingRule.HookStrain); a mount strained to nothing gives way and
+    /// drops the load.
+    /// </summary>
+    public string? Warning(VehiclePawn? load)
+    {
+        var lines = new List<string>();
+        if (WeatherRefusal(Vehicle.Map) is { } weather) lines.Add("PhobosSling_WarnWeather".Translate(weather.Named("WEATHER")).Resolve());
+        if (load != null)
+        {
+            double weight = LoadKilograms(load), capacity = CapacityKilograms(Vehicle.Map);
+            if (!SlingRule.CanLift(weight, capacity))
+            {
+                lines.Add("PhobosSling_WarnOverload".Translate(load.LabelShort.Named("LOAD"), weight.ToString("N0").Named("WEIGHT"), capacity.ToString("N0").Named("CAPACITY")).Resolve());
+            }
+        }
+        return lines.Count == 0 ? null : string.Join(" ", lines);
+    }
+
+    /// <summary>How hard this lift strains the hook's mount, as a share of its health (Framework 0.185.0, EM29).</summary>
+    double StrainOf(VehiclePawn load)
+    {
+        bool grounded = WeatherRefusal(Vehicle.MapHeld) != null;
+        return SlingRule.HookStrain(LoadKilograms(load), CapacityKilograms(Vehicle.MapHeld), grounded, SlingRule.WeatherStrain);
     }
 
     /// <summary>Why the weather grounds a lift on this map now, or null (sling slice 2, with the player's setting): a storm with lightning, or
@@ -169,11 +198,8 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         if (load.GetLord() != null) return "PhobosSling_UnderOrders".Translate(load.LabelShort.Named("LOAD")).Resolve();
         // A vehicle towing or towed (the hitch) would leave its partner on the map, or take it along unseen: unhitch first.
         if (load.GetComp<CompPhobosHitch>() is { Trailer: not null } || Hitches.Towing(load) != null) return "PhobosSling_Hitched".Translate(load.LabelShort.Named("LOAD")).Resolve();
-        double weight = LoadKilograms(load), capacity = CapacityKilograms(Vehicle.Map);
-        if (!SlingRule.CanLift(weight, capacity))
-        {
-            return "PhobosSling_TooHeavy".Translate(load.LabelShort.Named("LOAD"), weight.ToString("N0").Named("WEIGHT"), capacity.ToString("N0").Named("CAPACITY")).Resolve();
-        }
+        // Framework 0.185.0 (EM29): a load over what the hook lifts today is a warning (Warning), not a refusal; the lift strains the hook.
+        double weight = LoadKilograms(load);
         // Framework 0.161.0: lifted from a hover, it must still hover with the load on, or it could never set it down again.
         if (HoverPilot.For(Vehicle) != null && !FlightRules.WouldHoverWith(Vehicle, weight))
         {
@@ -187,7 +213,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     {
         if (hooked == null) return null;
         if (awaitingCrew) return "PhobosSling_LaunchWaitsForCrew".Translate(hooked.LabelShort.Named("LOAD")).Resolve();
-        return WeatherRefusal(Vehicle.Map) ?? RefusalFor(hooked);
+        return RefusalFor(hooked);
     }
 
     // ---- What the player orders ----
@@ -199,6 +225,8 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
             Say(refusal, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
+        // Framework 0.185.0 (EM29): an unwise lift is allowed, and said plainly first.
+        if (Warning(load) is { } warning) Say(warning, new LookTargets(Vehicle, load), MessageTypeDefOf.CautionInput, historical: false);
         hooked = load;
         approaches = 0;
         awaitingCrew = Settings.slingGroundCrew;
@@ -307,6 +335,37 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         liftedFrom = stood;
         Say("PhobosSling_Lifted".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD"),
             LoadKilograms(load).ToString("N0").Named("WEIGHT")).Resolve(), MessageTypeDefOf.PositiveEvent);
+        StrainHook(load, cell, map, facing);
+    }
+
+    /// <summary>The height a load falls from when the hook gives way as it is lifted (authored: a few metres off the ground).</summary>
+    const float GaveWayMetres = 3f;
+
+    /// <summary>
+    /// An unwise lift strains the hook's mount (Framework 0.185.0, EM29): it loses the strain's share of its health. A mount strained to
+    /// nothing gives way: the load drops back where it stood from a few metres, and the hook is gone with its mount until it is repaired.
+    /// </summary>
+    void StrainHook(VehiclePawn load, IntVec3 cell, Map map, Rot4 facing)
+    {
+        if (Settings.showOnly || Systems?.Fittings.PartGranting(HookAbility) is not { } mount) return;
+        double strain = StrainOf(load);
+        if (strain <= 0) return;
+        float amount = (float)(strain * mount.MaxHealth);
+        mount.TakeDamage(Vehicle, new DamageInfo(DamageDefOf.Blunt, amount, 999f), ignoreArmor: true);
+        Seen.Note("vehicles.sling-strain", Vehicle, load.LabelShort, mount.Health > 0f ? "held" : "gave-way");
+        if (mount.Health > 0f)
+        {
+            Say("PhobosSling_Strained".Translate(Vehicle.LabelShort.Named("HELICOPTER"), ((float)strain).ToStringPercent().Named("SHARE")).Resolve(),
+                Vehicle, MessageTypeDefOf.CautionInput);
+            return;
+        }
+        if (!held.Remove(load)) return;
+        Systems?.Powertrain?.MarkMassDirty();
+        liftedFrom = null;
+        GenSpawn.Spawn(load, cell, map, facing);
+        string harm = SlingDrops.Fall(load, GaveWayMetres);
+        Say("PhobosSling_GaveWay".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD"), harm.Named("HARM")).Resolve(), load,
+            MessageTypeDefOf.NegativeEvent);
     }
 
     /// <summary>
@@ -824,7 +883,8 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         var lift = new Command_Action
         {
             defaultLabel = "PhobosSling_LiftGizmo".Translate(),
-            defaultDesc = "PhobosSling_LiftGizmoDesc".Translate(CapacityKilograms(Vehicle.Map).ToString("N0").Named("CAPACITY"), Rules.slingReachCells.Named("CELLS")),
+            defaultDesc = "PhobosSling_LiftGizmoDesc".Translate(CapacityKilograms(Vehicle.Map).ToString("N0").Named("CAPACITY"), Rules.slingReachCells.Named("CELLS"))
+                + (Warning(null) is { } warning ? "\n\n" + warning : ""),
             icon = SystemIcons.For("Phobos/VehicleSystems/Sling/Lift"),
             action = () => Find.Targeter.BeginTargeting(new TargetingParameters
             {

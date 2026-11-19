@@ -510,8 +510,11 @@
             <label>worn through</label>
             <notable>true</notable>
             <effects>
-              <li Class="Phobos.VehicleSystems.Effect_RefuseMove">
-                <reason>PhobosVehicleSystems_RefuseClutchWorn</reason>
+              <!-- Framework 0.185.0 (EM29, the owner's "warn, then allow"): a worn-through clutch no longer refuses to move. It still takes
+                   up a quarter of the drive (BrakeWearRule), so the vehicle crawls and labours; the player is told once. -->
+              <li Class="Phobos.VehicleSystems.Effect_Message">
+                <message>PhobosVehicleSystems_MsgClutchWornThrough</message>
+                <type>NegativeEvent</type>
               </li>
             </effects>
           </li>

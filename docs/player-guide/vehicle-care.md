@@ -79,7 +79,7 @@ The short version: **service when it is due, keep a kit in the cargo, and park s
 | Slower, then failing tyres | Tread wears, up to three times as fast off the roads | A service with a **tyre set** |
 | Slower, then **won't drive** | Brakes wear with every stop, faster laden, towing or fast | A service with a **brake pad set**; **heavy-duty brakes** wear slower |
 | Loses its top gears, slips under load | A damaged gearbox or clutch | Repair the gearbox and clutch |
-| **Clutch slipping**, then **won't drive** | The clutch wears a little at each take-off, more with a heavy load | A new clutch with a **clutch kit** |
+| **Clutch slipping**, then **worn through**: it crawls, with a quarter of its drive | The clutch wears a little at each take-off, more with a heavy load | A new clutch with a **clutch kit** |
 | A little slower after crossing water | **Wet brakes**: the driver takes it gently | Nothing: a short drive dries them |
 | Labours on hills, in mud and towing, and thirstier, in the desert | **A clogged air filter**: dust, far worse in a sandstorm. The engine loses power, so on a road it keeps its speed | An engine **service** fits a clean one; a **heavy-duty air filter** clogs slower |
 | A heavy truck **crawls** | **Power steering** failed: its pump is hit or its fluid low | Repair the pump; a **power steering top-up** (2 chemfuel) |
@@ -425,6 +425,9 @@ the kit back in the cargo.
 - **Helicopters, jets and pods are checked before they lift off.** Too heavy for the day's heat, or with engines or thrusters out,
   **the launch button refuses and says why**: unload, repair, or wait for cooler air. A heavy Harrier on a hot day lands on a runway
   instead of its pad (with D'thorga Patches). The setting can allow it at a cost to the engine, or only warn.
+- **Cut the engines** (not yet tested in game): a button on an aircraft in the air. **It falls where it is**: everyone aboard is hurt,
+  a load on the hook drops, and over a building, rough ground or water it is wrecked. To land and switch off safely, switch the engines
+  off the ordinary way instead: it lands on the nearest clear spot first. Coming down hard goes in the logbook.
 - **Avionics.** Every aircraft has flight instruments and navigation, on its own instrument panel or an added **avionics bay**.
   **Broken or flat, the aircraft will not take off at night or in fog**; repair it, charge the battery or wait for daylight (the
   setting **Blind take-offs: warn only** lets it go anyway). Without navigation, or with only basic navigation in the dark, a flight
@@ -482,8 +485,10 @@ the kit back in the cargo.
      hovers beside it and lowers it; **Emergency release** drops it where it hangs, and it lands hard. It cannot land with a load
      hanging: set it down first. **It must be able to hover with the load on**, so a heavy load on a hot day is refused.
 
-  The load, with its cargo and people, must weigh no more than the hook takes today: less on hot days. **No lift in a gale or a
-  thunderstorm**; the button says which. **A slung flight is slower and burns more fuel**, and the range shown is shorter.
+  The hook takes a set weight today, less on hot days: the load, its cargo and people. **A heavier load, or a lift in a gale or a
+  thunderstorm, is allowed with a warning** (not yet tested in game): at lift-off the hook's mount loses health by the share the load is
+  over, plus a quarter in bad weather, and a mount strained to nothing **gives way**, dropping the load back from a few metres. Repair
+  the mount before it goes. **A slung flight is slower and burns more fuel**, and the range shown is shorter.
 
 - **Emergency release** (world map, not yet tested in game): on a helicopter in flight, it lets the load fall. It lands hard, badly
   damaged, and anyone in it is hurt. It lies there as a **wreck**: right-click it with a caravan to **Recover** it, then repair it,
@@ -573,8 +578,9 @@ Not yet tested in game. Fit the **recovery winch** (the **Recovery** family in t
 - **Whether the winch can manage** is worked out from both vehicles' weight and ground: a vehicle in deep mud is far harder to move than
   one on gravel, and one whose wheels are wrecked is dragged, which is harder still. The winch pulls up to 5,443 kg, but never more than
   your vehicle holds on its brakes, so **park the winching vehicle on firm ground**. A refusal says both figures.
-- **Then tow it home**: with the winch fitted, **Hitch a trailer or vehicle** also takes an ordinary land vehicle up to 1.5 times your
-  vehicle's weight. It follows on a tow bar like a trailer; anyone aboard rides along. **Undraft it first** so it rolls free. It has its
+- **Then tow it home**: with the winch fitted, **Hitch a trailer or vehicle** also takes an ordinary land vehicle. Up to 1.5 times your
+  vehicle's weight is a fair tow; **a heavier one is allowed with a warning** (not yet tested in game), goes slowly, and wears your
+  brakes and clutch fast. It follows on a tow bar like a trailer; anyone aboard rides along. **Undraft it first** so it rolls free. It has its
   own **Unhitch** button.
 - **The tanker's electric pump** (an upgrade) pumps with the engine off, on the battery, until it is flat; without it the pump runs
   off the engine. **The Seabed Crawler's laboratories, sonar and listening array** also draw on the battery while they work.

@@ -278,6 +278,17 @@ public static class FlightGizmos
         if (flight.HoldRefusal() is { } holdRefused) hold.Disable(holdRefused);
         yield return hold;
 
+        // Framework 0.185.0 (EM29, the owner's "warn, then allow"): the engines cut in the air, and it falls. Its text says so plainly.
+        var cut = new Command_Action
+        {
+            defaultLabel = "PhobosFlight_CutEngines".Translate(),
+            defaultDesc = "PhobosFlight_CutEnginesDesc".Translate(who),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Dash/EngineKey"),
+            action = flight.CutEngines,
+        };
+        if (flight.CutEnginesRefusal() is { } cutRefused) cut.Disable(cutRefused);
+        yield return cut;
+
         // Circling (Framework 0.153.0): a centre to fly round, and the size and way round, chosen from preset buttons.
         var circle = new Command_Action
         {

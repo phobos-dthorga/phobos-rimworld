@@ -134,6 +134,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
             Say(refusal, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
+        // Framework 0.185.0 (EM29): an over-heavy tow is allowed, and said plainly first.
+        if (RecoveryTowWarning(candidate) is { } warning) Say(warning, new LookTargets(Vehicle, candidate), MessageTypeDefOf.CautionInput, historical: false);
         pending = candidate;
         Hitches.NoteWaiting(this, true);
         Say("PhobosHitch_Chosen".Translate(Vehicle.LabelShort.Named("TRACTOR"), candidate.LabelShort.Named("TRAILER")).Resolve()
@@ -171,6 +173,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
         Say("PhobosHitch_Hitched".Translate(crew.LabelShort.Named("CREW"), candidate.LabelShort.Named("TRAILER"), Vehicle.LabelShort.Named("TRACTOR")).Resolve(),
             new LookTargets(Vehicle, candidate), MessageTypeDefOf.TaskCompletion);
         VehicleStory.Hitched(Vehicle, candidate);
+        if (RecoveryTowWarning(candidate) != null) Seen.Note("vehicles.tow-over-ratio", Vehicle, candidate.LabelShort);
     }
 
     /// <summary>Puts the trailer straight behind the vehicle and holds it there. False, with nothing changed, when its place is blocked.

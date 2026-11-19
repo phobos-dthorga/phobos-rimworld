@@ -34,6 +34,21 @@ public static class SlingRule
     public static bool Grounded(double windSpeed, bool storm, double maxWind) => storm || windSpeed > Math.Max(0, maxWind);
 
     /// <summary>
+    /// The strain an unwise lift puts on the hook, as a share of the hook's part's health (Framework 0.185.0; docs/development/vehicle-emergent-play.md,
+    /// EM29: the owner's "warn, then allow"): the share by which the load is over what the hook lifts today, plus a fixed share for lifting
+    /// in weather that grounds a lift. Never negative; a lift within the rating in fair weather strains nothing. An authored model, not
+    /// the hook's real fatigue: no source gives a part's wear per overload.
+    /// </summary>
+    public static double HookStrain(double loadKilograms, double capacityKilograms, bool grounded, double weatherStrain)
+    {
+        double over = capacityKilograms <= 0 ? 1 : Math.Max(0, loadKilograms / capacityKilograms - 1);
+        return over + (grounded ? Math.Max(0, weatherStrain) : 0);
+    }
+
+    /// <summary>The authored strain of one lift in weather that grounds a lift: a quarter of the hook's health.</summary>
+    public const double WeatherStrain = 0.25;
+
+    /// <summary>
     /// A slung flight's cost (Framework 0.101.0, authored): the helicopter flies at <paramref name="speedFactor"/> of its speed and burns
     /// <paramref name="fuelPerTileFactor"/> times the fuel for each tile it crosses. Vehicle Framework spends fuel by the tick, so the fuel it
     /// burns each tick is the per-tile factor times the speed factor; the flight takes longer, and the two together give the per-tile cost.

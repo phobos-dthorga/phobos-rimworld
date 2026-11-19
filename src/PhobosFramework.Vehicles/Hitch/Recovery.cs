@@ -65,13 +65,22 @@ public sealed partial class CompPhobosHitch
         {
             return "PhobosRecovery_TowingSomething".Translate(candidate.LabelShort.Named("TOWED")).Resolve();
         }
-        double tractorKg = CompPhobosSling.LoadKilograms(Vehicle), towedKg = CompPhobosSling.LoadKilograms(candidate);
-        if (!RecoveryRule.CanTow(tractorKg, towedKg, Rules.recoveryMaxTowRatio))
-        {
-            return "PhobosRecovery_TooHeavyToTow".Translate(candidate.LabelShort.Named("TOWED"), towedKg.ToString("N0").Named("WEIGHT"),
-                (tractorKg * Rules.recoveryMaxTowRatio).ToString("N0").Named("LIMIT"), Vehicle.LabelShort.Named("TRACTOR")).Resolve();
-        }
+        // Framework 0.185.0 (EM29, the owner's "warn, then allow"): a tow heavier than the ratio is a warning (RecoveryTowWarning), not a refusal.
         return null;
+    }
+
+    /// <summary>
+    /// What an over-heavy recovery tow risks, or null (Framework 0.185.0; docs/development/vehicle-emergent-play.md, EM29): more than the
+    /// rules' share of the tractor's own weight is allowed, and its brakes and clutch wear by the towed weight, as every tow's do
+    /// (Inputs: towed kilograms), so the heavier the tow, the faster they go.
+    /// </summary>
+    public string? RecoveryTowWarning(VehiclePawn candidate)
+    {
+        if (TrailerProps(candidate) != null) return null;
+        double tractorKg = CompPhobosSling.LoadKilograms(Vehicle), towedKg = CompPhobosSling.LoadKilograms(candidate);
+        if (RecoveryRule.CanTow(tractorKg, towedKg, Rules.recoveryMaxTowRatio)) return null;
+        return "PhobosRecovery_WarnTooHeavy".Translate(candidate.LabelShort.Named("TOWED"), towedKg.ToString("N0").Named("WEIGHT"),
+            (tractorKg * Rules.recoveryMaxTowRatio).ToString("N0").Named("LIMIT"), Vehicle.LabelShort.Named("TRACTOR")).Resolve();
     }
 
     // ---- The winch's figures ----
