@@ -11,7 +11,7 @@ Aircraft and turbine parts: five new parts at the vehicle parts bench, and a tur
 
 ### Added
 
-- **Five new parts at the vehicle parts bench**, each with its own picture: a **turbine blade set** (35 plasteel and an advanced component, after turbine engines), a **reduction gearbox** (60 steel, 20 plasteel, 8 components, after turbine engines), a **flight computer** (10 steel, 2 gold, 4 components and an advanced component, after vehicle parts and Fabrication), a **hydraulic actuator** (30 steel, 3 components, after vehicle parts) and a **hot-section kit** (10 plasteel, 3 components, after turbine engines). The depot bay stores them all.
+- **Five new parts at the vehicle parts bench**, each with its own picture (the owner's picks): a **turbine blade set** (35 plasteel and an advanced component, after turbine engines), a **reduction gearbox** (60 steel, 20 plasteel, 8 components, after turbine engines), a **flight computer** (10 steel, 2 gold, 4 components and an advanced component, after vehicle parts and Fabrication), a **hydraulic actuator** (30 steel, 3 components, after vehicle parts) and a **hot-section kit** (10 plasteel, 3 components, after turbine engines). The depot bay stores them all.
 - **New parts roles** for parts bills, any mod's to use: rotor blades (40 plasteel a rotor, or 45 of Rimefeller's composite), a drive shaft, flight control, a hydraulic actuator and landing gear (30 steel, 2 components and 10 chemfuel a leg).
 
 ### Changed
