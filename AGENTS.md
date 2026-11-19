@@ -77,7 +77,8 @@ running a script does not load them.
   interactive steps. Never edit, replace or delete save files without explicit authorisation (read-only
   copies for diagnosis are fine; delete them afterwards). **Answer questions about a save with
   `python scripts/query-save.py`** (pawns, hediffs, things, what holds a thing, map grids such as gas, roofs and
-  terrain with `grid`, pollution on the world map with `planet` (`--near` a place, `--compare` a save, `--history` for when it arrived), settlements by faction with `world`, mods' saved state such as RimPacts' wars with `components`,
+  terrain with `grid`, **everything one thing saved with `thing <ID>`** (a vehicle's systems and fault history, a comp's values;
+  `--path "*Phobos*"` to narrow it), pollution on the world map with `planet` (`--near` a place, `--compare` a save, `--history` for when it arrived), settlements by faction with `world`, mods' saved state such as RimPacts' wars with `components`,
   how high places stand and how rough the land is with `terrain` (`--near` a place), where the colony's mood suffers, who may break and where to start with `mood` (`--pawn` for one; a save holds remembered
   thoughts only, and Framework's colony mood file from the same save adds every situational one), what changed since another save with `diff`, any read-only SQL; it indexes a frozen copy and
   deletes it) and read the raw save only for what the index does not hold. Read the owner's `Player.log` before assuming a

@@ -12,6 +12,7 @@ The indexer is a Rust program, built once:  python scripts/query-save.py --build
     python scripts/query-save.py pawns --faction player    the colony's pawns
     python scripts/query-save.py hediffs --pawn Abbeson    one pawn's hediffs
     python scripts/query-save.py find ChunkA8061017        a thing and what holds it
+    python scripts/query-save.py thing VVE_Dirtbike30494987 --path "*Phobos*"   everything one thing saved
     python scripts/query-save.py things --help             every option of one report
 """
 from pathlib import Path
