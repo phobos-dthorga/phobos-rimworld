@@ -4,3 +4,5 @@ Made on 19 Nov 2026 with ComfyUI, local, FLUX.2 Klein 4B base (Black Forest Labs
 
 - Master: `truck-kit-heavycabplates-11.png`, SHA-256 `3afa4cfc104faaee18546140d9d3c9091d9db39faa9920013f8b8d2a463e7247`
 - `HeavyCabPlates.png`: SHA-256 `ccc0b1932f3eb65fccdf7c8c2b50e6840516e77fc6750c0ee01750b3d5b9357e`
+
+**Near-copy flag, looked at (19 Nov 2026):** the night's check put this master close to the game's `GravlitePanels_a.png` (structure 0.382, hash distance 12). Side by side, the two share only a six-sided outline with a thick black edge; this is an olive three-layer stack with four bolt heads, the game's a single plain grey panel. The owner judged it a false positive and kept it (question card, 19 Nov 2026).
