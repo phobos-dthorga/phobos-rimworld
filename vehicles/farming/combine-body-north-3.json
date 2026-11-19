@@ -1,0 +1,51 @@
+{
+  "file": "farming-combine-body-north-3.png",
+  "sha256": "9575ebe86b2346ba55842839ac0e42fdc1fc07481c517366785b22482f899cc4",
+  "date": "2026-11-19T21:18:54",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the D'thorga combine harvester: a big self-propelled grain harvester that drives across ripe fields cutting and threshing the crop, in a hard-scrabble frontier colony. Draw the BARE MACHINE only: the cab, the body and its grain tank, the engine deck and the wheels. The cutting front across the front of the machine is drawn separately as an overlay, so leave it off. Image 1 is our approved tipper truck from the same family of working vehicles: match its outline weight, shading, palette and finish only. Do NOT copy its shape, cab or body.\n\nTall canvas, plain pure white background. North facing: the front of the machine points to the TOP of the canvas. The machine is centred left to right and fills about two thirds of the canvas width. It sits in the lower nine tenths of the canvas height, from the bottom margin up; the top tenth of the canvas and the space either side of the machine stay pure white, empty, for the cutting front.\n\nIts roof plan, front to back: a squarish glazed cab roof at the front centre, with a short feeder throat below it reaching to the front edge where the cutting front will attach; behind the cab, a large open-topped grain tank, rectangular, with a pale interior floor and a low rim, taking up much of the middle; a folded unloading auger tube lying flat along the left side of the grain tank, pointing back; behind the tank, a long engine deck with a radiator grille and an air intake; at the rear, a narrow tapering straw outlet. Two very large front drive wheels either side of the cab, and two smaller steering wheels at the rear, all seen from above as dark rubber tyre treads beside the body.\n\nMaker palette as materials: weathered harvest-green body panels, a pale grey cab roof, dark rubber tyres, steel grey auger and grilles, one muted yellow accent stripe.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo cutting front, no reel, no grain, no crop, no straw, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials, screens or lamps. No floor, ground, field, road, shadow outside the machine, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 3,
+  "size": [
+    1536,
+    2048
+  ],
+  "request_file": "assets/phobos-vehicles/requests/combine-pilot.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1165,
+    "input_tokens_details": {
+      "image_tokens": 576,
+      "text_tokens": 589
+    },
+    "output_tokens": 2223,
+    "output_tokens_details": {
+      "image_tokens": 2223,
+      "text_tokens": 0
+    },
+    "total_tokens": 3388
+  },
+  "cost_usd": 0.0742,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1536x2048",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1536,
+    2048
+  ],
+  "seconds": 29.4,
+  "references": [
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Tipper/Tipper_north.png",
+      "sha256": "c4878ab96296ec35df9f35611a4c1ed14f838320c6a576cc562423c5bc901139",
+      "role": "our approved Talus tipper truck, the owner's pick, from the same family of working vehicles: match its outline weight, shading, palette and finish only; do not copy its shape, cab or body"
+    }
+  ]
+}
