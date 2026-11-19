@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.3.2] - 2026-11-20 - Draft
+
+The chaser bin renamed
+
+### Changed
+
+- **The chaser bin is now the Auger chaser bin (Auger A1).** The name it was first given belongs to a real maker of combines, so it was changed before anything was installed or published; earlier entries here use the new name. A name only: nothing saved changes. The machines' names remain the owner's to choose.
+
 ## [0.3.1] - 2026-11-20 - Draft
 
 The grain fronts redrawn sharper
@@ -58,7 +66,7 @@ The first build: machine-worked paddocks, a combine harvester that cuts them row
 - **Grain fronts take only the crops they could really cut.** A combine has no front until one is fitted: the standard grain front cuts 6 cells wide, the wide grain front 8 (after research). Both take cereals, pulses and oilseeds; corn, potatoes, hay and cotton need harvesters that come later. Rice, and the cereals, pulses and canola of Vanilla Cooking Expanded and Vanilla Plants Expanded, are placed in their classes; other mods' crops can be with one patch each.
 - **A full combine empties itself.** When its tank is full it drives to the nearest chaser bin or bin with room, pours through its auger, and goes back to the rows. With nowhere to empty, it stops and says so.
 - **Straw is left in the field.** A crop's second product, such as barley's straw with Vanilla Expanded's cereals, is dropped where each row ends, as a combine leaves it; the straw chopper upgrade chops it into the field instead.
-- **The Gleaner chaser bin**, a towed grain cart that any vehicle with a hitch can pull. It takes a combine's grain and pours it out through its own auger.
+- **The Auger chaser bin**, a towed grain cart that any vehicle with a hitch can pull. It takes a combine's grain and pours it out through its own auger.
 - **Grain is held by weight, as one amount, not in stacks**, and it weighs on the engine that carries it. Pour it into another bin or onto the ground with the Pour button. It keeps as long as it would in the open, and goes off if left too long.
 - **Research:** mechanised harvesting and wide grain fronts, on the D'thorga research tab.
 - **Upgrades:** the two grain fronts, a tank extension (a third more grain) and a straw chopper for the combine; a fast auger for the chaser bin.

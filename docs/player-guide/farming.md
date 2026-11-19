@@ -19,7 +19,7 @@ row by itself, emptying its grain into a chaser bin. [Back to the guide](README.
 
 ## Using it
 
-1. **Research mechanised harvesting** (D'thorga tab). Build the **Reaper combine harvester** and a **Gleaner chaser bin** under
+1. **Research mechanised harvesting** (D'thorga tab). Build the **Reaper combine harvester** and a **Auger chaser bin** under
    **Architect > Motor pool**.
 2. **Fit a front.** Open the combine's upgrades and fit the **standard grain front** (6 cells wide). After **wide grain fronts**
    research, the **wide grain front** (8 cells) can replace it. For corn, fit the **corn header** instead.
@@ -35,7 +35,7 @@ row by itself, emptying its grain into a chaser bin. [Back to the guide](README.
 | Machine | What it is | Holds |
 | --- | --- | --- |
 | Reaper combine harvester | Self-propelled, 4 by 9 cells, a 6- or 8-cell front | 9 tonnes of one crop (12 with the tank extension) |
-| Gleaner chaser bin | Towed by any vehicle with a hitch, 3 by 7 cells | 12 tonnes, any crops |
+| Auger chaser bin | Towed by any vehicle with a hitch, 3 by 7 cells | 12 tonnes, any crops |
 | Field bin | A building, 3 by 3 cells | 25 tonnes, any crops |
 | Grain silo | A building, 4 by 4 cells, needs 300 W | 60 tonnes; keeps grain four times as long while powered |
 
