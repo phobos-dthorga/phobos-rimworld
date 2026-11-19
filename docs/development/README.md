@@ -114,7 +114,8 @@ research or design with nothing built; **living** means kept current by every ch
 
 ### Tie-ins and contracts
 
-- [Soft-dependency cross-links](soft-dependency-crosslinks.md) (13 Nov 2026): new tie-ins with mods on the owner's list, SD1 to SD44. Partly built.
+- [Soft-dependency cross-links](soft-dependency-crosslinks.md) (13 Nov 2026): new tie-ins with mods on the owner's list, SD1 to SD47. Partly built.
+- [Vehicles at Work](vehicles-at-work-tie-ins.md) (19 Nov 2026): what we gain from it and learn from it, VW1 to VW7. VW1 built; two faults of ours recorded.
 - [The authors' override contract](vehicle-author-overrides.md) (13 Nov 2026): what another author can set for their vehicles. Record only.
 
 ### Research and figures

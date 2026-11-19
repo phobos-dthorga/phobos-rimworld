@@ -39,13 +39,14 @@ How to read it:
 ## Read this first
 
 - **Found on the way, likely a live fault in the owner's game: Vehicles at Work drives vehicles our systems refuse to move.** It is on
-  the owner's list (row 228, updated 11 Nov 2026). From its code (`.local/decompiled/VehiclesAtWork-1.7/WOR/VF.cs`): it switches the
+  the owner's list (row 228 then, 232 on 19 Nov 2026; updated 11 Nov 2026). From its code (`.local/decompiled/VehiclesAtWork-1.7/WOR/VF.cs`): it switches the
   ignition through Vehicle Framework's setter, which asks `CanDraft` (`VF:10694`), so our refusals to start (a flat battery, a cold
   boiler) hold; then it gives the vehicle a plain `Goto` job and calls `StartPath` itself (`VF.cs:670-700`). Our refusals to *move* on a
   map live in `CompPhobosVehicleSystems.CanMove(FloatMenuContext)`, which only the player's float menu asks; `CaravanRefusalPatch`
   (`src/PhobosFramework.Vehicles/Service/Patches.cs:316`) refuses `CanMoveFinal` off the map only. So a colonist commuting with Vehicles
   at Work can drive a vehicle with worn-out brakes, a set-up Busbar or a settled submarine. **Not reproduced in game.** Row SD1 is the
-  fix; it is ours to make, since the refusal is ours.
+  fix; it is ours to make, since the refusal is ours. **The mod has its own record since 19 Nov 2026**:
+  [Vehicles at Work](vehicles-at-work-tie-ins.md) carries SD1 to SD3 forward as VW1, VW2 and VW6, with a full read of its code.
 - **The strongest new links**, all on the owner's list: Vehicles at Work (SD1, SD2), the tanker on Rimefeller's own pipes (SD4), the
   tanker refuelling any fuelled building (SD5), EMP on vehicle electrics in XML only (SD9), bench-bill templates for the assembly
   benches (SD30), Search and Rescue's medics with our field devices (SD22), the VFE Medical IV drip as continuous fluids (SD23),
