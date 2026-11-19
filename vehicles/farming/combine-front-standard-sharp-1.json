@@ -1,0 +1,51 @@
+{
+  "file": "farming-combine-front-standard-sharp-1.png",
+  "sha256": "ad5de11c439ae8dead58fd9f97d6e058c708e3ab42b57ad17c15957985312db0",
+  "date": "2026-11-20T06:09:49",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the D'thorga combine harvester: its standard grain front, the wide cutting platform that is mounted across the front of the combine and cuts the standing crop. Image 1 is our approved combine body from the same machine: match its outline weight, shading, harvest-green and muted yellow palette, steel grey and finish only. Do NOT draw the combine itself.\n\nDraw ONLY the grain front, alone on a plain pure white background, nothing else on the canvas. Very wide, shallow canvas, three times as wide as it is tall. The front lies across the canvas from left to right and fills almost its whole width, centred; the cutting edge faces the TOP of the canvas, the side that joins the combine faces the BOTTOM.\n\nIts top plan, from top to bottom: along the top edge, a long straight cutter bar of steel grey with a fine row of small pointed guards; at each end a pointed crop divider, a narrow steel-grey wedge pointing to the top; above the platform floor a long horizontal reel of thin yellow bats running the whole width between two end arms; behind the reel, a long steel-grey cross auger tube lying across the platform; the platform's pale floor and low harvest-green back wall; at the middle of the bottom edge, a short square throat where the front joins the combine, about one sixth of the front's width.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo combine, no cab, no wheels, no crop, grain, straw or field, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials, screens or lamps. No floor, ground, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    3072,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/combine-fronts.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "high",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1917,
+    "input_tokens_details": {
+      "image_tokens": 1452,
+      "text_tokens": 465
+    },
+    "output_tokens": 3952,
+    "output_tokens_details": {
+      "image_tokens": 3952,
+      "text_tokens": 0
+    },
+    "total_tokens": 5869
+  },
+  "cost_usd": 0.1325,
+  "cost_is_estimate": false,
+  "reported_quality": "high",
+  "reported_size": "3072x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    3072,
+    1024
+  ],
+  "seconds": 41.4,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-combine-body-north/farming-combine-body-north-1.png",
+      "sha256": "d5085ee3d88b943a030f848a3d9ddd40424d88cfd0012afbdbee0144663d509d",
+      "role": "our approved combine harvester body, the owner's pick of 19 Nov 2026, the machine this front fits: match its outline weight, shading, palette and finish only; do not draw the combine"
+    }
+  ]
+}
