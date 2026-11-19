@@ -5,6 +5,27 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.89.0] - 2026-11-20 - Draft
+
+The Harrier's and the Hind's dispensers hold their real number of cartridges
+
+### Changed
+
+- **The Harrier's chaff and flare dispensers hold 60 cartridges**, an AN/ALE-39 set's capacity, and **the Hind's 128**, four ASO-2V dispensers of 32. Haulers fill them through D'thorga Framework 0.180.0; nothing goes into the cargo any more.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.180.0 for the dispensers' magazine.
+
+### Save compatibility
+
+- Safe with a running save: cartridges in either aircraft's cargo move into its dispensers once, as many as fit.
+
+### Compatibility and limits
+
+- Both figures come from secondary sources (docs/development/vehicle-avionics.md, A16 revisited); the Harrier's is the dispenser set's capacity, not a confirmed Harrier load.
+- **Not yet tested in game** (test row 254).
+
 ## [0.88.0] - 2026-11-20 - Draft
 
 Trailers wired for lights, a generator set built from electric motors, and upgrades built from real parts

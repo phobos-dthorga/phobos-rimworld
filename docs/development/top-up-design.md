@@ -1,6 +1,6 @@
 # Topping up machines that hold a material (18 Nov 2026)
 
-**Status (18 Nov 2026):** built in D'thorga Framework 0.134.0 (the work, the Def type, the setting) 0.135.0 (mechanoids, by a mechanitor; our own job) and 0.136.0 (the fill-level setting), with D'thorga Patches 0.22.0 naming Fortified Features Framework's platform comp, which covers four buildings and two mechanoids; nothing else is named yet. Not yet tested in game.
+**Status (18 Nov 2026):** built in D'thorga Framework 0.134.0 (the work, the Def type, the setting) 0.135.0 (mechanoids, by a mechanitor; our own job) and 0.136.0 (the fill-level setting), with D'thorga Patches 0.22.0 naming Fortified Features Framework's platform comp, which covers four buildings and two mechanoids; 0.180.0 added vehicles, by haulers, naming our own aircraft dispensers' magazine ([avionics A16 revisited](vehicle-avionics.md#a16-revisited-the-dispensers-magazine-20-nov-2026)). Not yet tested in game.
 
 ## Read this first
 
@@ -81,6 +81,11 @@ The comp (or its parent thing) must be a container the game's haul-to-container 
   160 capacity) and `DMS_Mech_ClusterWeaver` (15, 450, 450), read from The Dead Man's Switch's `Races_Automatroid_*.xml`.
 - **Other factions.** The work is the player's haulers' only; another faction's platforms start full in Fortified's own code and are
   not touched.
+- **Vehicles** (Framework 0.180.0; owner, 20 Nov 2026: countermeasures handled as ammunition): `vehicles` on the Def, on by default,
+  covers any Vehicle Framework vehicle whose Def carries the comp, read by the class name `Vehicles.VehiclePawn` so the core references
+  no VF assembly. Haulers do it, as for buildings; the job does not reserve the vehicle, as VF's own loading job does not
+  (`JobDriverLoadVehicleBase.TryMakePreToilReservations` reserves only the item), so a hauler never keeps the crew from boarding. A
+  vehicle that leaves the map ends the job. First case: `PhobosTopUp_Dispensers`.
 - **The next cases** are the owner's to bring as they meet them; each is one Def if the machine reads like this one.
 
 ## Who chose what

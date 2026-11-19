@@ -42,6 +42,9 @@
       <sight>Full</sight>
       <warning>true</warning>
       <countermeasures>true</countermeasures>
+      <!-- The dispensers' magazine (Framework 0.180.0): 128 cartridges, four ASO-2V dispensers of 32 each. Secondary: weaponsystems.net's
+           Mi-24V page gives four to six ASO-2V-02 of 32 each; we take the low end. One of our cartridges stands for one real one. -->
+      <countermeasureCartridges>128</countermeasureCartridges>
           <!-- How it looks to another mod's air defence in flight (Framework 0.119.0, AD3): on DMS Expedition's scales, authored. -->
       <airTrack>
         <speed>10</speed>

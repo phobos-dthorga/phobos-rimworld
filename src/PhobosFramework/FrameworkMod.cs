@@ -96,7 +96,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : Mod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.179.0";
+    public const string ModVersion = "0.180.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -143,7 +143,7 @@ public class FrameworkMod : Mod
         report.On("parts bills: " + Bills.PartsBills.Applied + " applied" + (Bills.PartsBills.Failed > 0 ? ", " + Bills.PartsBills.Failed + " failed" : "")
                   + (Bills.PartsBills.OthersAllowed ? ", other mods' parts where installed" : ", always our own parts"));
         string topUps = "topping up: " + TopUp.TopUps.BuildingKindCount + " kind(s) of building by haulers, " + TopUp.TopUps.MechanoidKindCount
-            + " kind(s) of mechanoid by mechanitors";
+            + " kind(s) of mechanoid by mechanitors, " + TopUp.TopUps.VehicleKindCount + " kind(s) of vehicle by haulers";
         foreach (TopUp.PhobosTopUpDef broken in TopUp.TopUps.Problems) topUps += "; " + broken.defName + " stands down (" + broken.problem + ")";
         topUps += ", filling to " + Settings.topUpLevel;
         if (!Settings.topUpMachines) report.Off(topUps, "setting");

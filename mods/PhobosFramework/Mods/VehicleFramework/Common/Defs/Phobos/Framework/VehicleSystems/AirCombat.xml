@@ -33,6 +33,12 @@
          lock take half as long again. On a map, the Harrier's button adds 0.25 to its dodge chance for ten seconds (600 ticks). Authored. -->
     <cartridgeDef>PhobosVehicleSystems_CountermeasureCartridge</cartridgeDef>
     <cartridgesPerSalvo>2</cartridgesPerSalvo>
+    <!-- The dispensers' magazine (Framework 0.180.0; owner, 20 Nov 2026: handled as ammunition, not cargo). Each aircraft's size is in its
+         loadout's avionics block. Haulers top one up once it is ten short (one batch from the parts bench). Another faction's aircraft
+         arrives with a quarter to three-quarters of its magazine (owner: "partly full"; the share is authored), whole salvos only. -->
+    <magazineLeastLoad>10</magazineLeastLoad>
+    <otherFactionsFillMin>0.25</otherFactionsFillMin>
+    <otherFactionsFillMax>0.75</otherFactionsFillMax>
     <hitChanceFactorCued>0.6</hitChanceFactorCued>
     <hitChanceFactorLate>0.85</hitChanceFactorLate>
     <lockTimeFactorCued>1.5</lockTimeFactorCued>
@@ -55,12 +61,13 @@
     metal-coated glass fibre that blooms into a radar echo; a flare is a magnesium and fluoropolymer charge that burns hotter than an engine
     (real chemistry: magnesium reduces the fluoropolymer in a fierce exothermic reaction, and the glowing magnesium fluoride outshines an
     engine's exhaust). Steel stands in for the coated strips and casings and chemfuel for the pyrotechnic, a gameplay simplification. A batch of
-    ten takes ten steel and twenty chemfuel. The dispensers on an aircraft fire them from its cargo, two to a salvo. Not yet tested in game.
+    ten takes ten steel and twenty chemfuel. Since Framework 0.180.0 haulers load them into an aircraft's dispensers (their magazine, not the
+    cargo), which fire them two to a salvo. Not yet tested in game.
   -->
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosVehicleSystems_CountermeasureCartridge</defName>
     <label>countermeasure cartridge</label>
-    <description>A cartridge for an aircraft's chaff and flare dispensers: a puff of metal-coated strips to confuse a radar, or a flare that burns hotter than the engines to draw a heat seeker. Load them into an aircraft's cargo; its dispensers fire them, two at a time, when a missile comes for it.</description>
+    <description>A cartridge for an aircraft's chaff and flare dispensers: a puff of metal-coated strips to confuse a radar, or a flare that burns hotter than the engines to draw a heat seeker. Haulers load them into a parked aircraft's dispensers from storage; the dispensers fire them, two at a time, when a missile comes for it.</description>
     <graphicData>
       <texPath>Phobos/VehicleSystems/Things/CountermeasureCartridge</texPath>
       <graphicClass>Graphic_Single</graphicClass>

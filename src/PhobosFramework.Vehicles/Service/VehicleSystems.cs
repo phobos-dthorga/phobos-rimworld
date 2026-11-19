@@ -179,6 +179,12 @@ public static class VehicleSystems
         def.comps.Add(props);
         // Sling loads (Framework 0.92.0): a loadout that rates a cargo hook gives the helicopter its sling, used once a hook is fitted.
         if (loadout.sling != null && !slingStandsDown && !def.comps.Any(c => c is CompProperties_PhobosSling)) def.comps.Add(new CompProperties_PhobosSling());
+        // Countermeasures (Framework 0.180.0): an aircraft whose avionics carry chaff and flare dispensers gets their magazine, which haulers
+        // top up, instead of firing cartridges from its cargo.
+        if (loadout.avionics is { countermeasures: true } fit && !def.comps.Any(c => c is CompProperties_PhobosDispensers))
+        {
+            def.comps.Add(new CompProperties_PhobosDispensers { capacity = fit.countermeasureCartridges });
+        }
         // The litter kit (Framework 0.101.0): a loadout that names a cabin gives the vehicle its litters, used once the kit is fitted there.
         if (props.roleKeys.ContainsKey(LitterRoles.Cabin) && !def.comps.Any(c => c is CompProperties_PhobosLitter)) def.comps.Add(new CompProperties_PhobosLitter());
         // The hitch (Framework 0.101.0): every land vehicle with a loadout can tow a trailer, unless its loadout says not; whether it may tow

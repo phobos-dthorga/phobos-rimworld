@@ -87,6 +87,10 @@
       <nightSight>true</nightSight>
       <warning>true</warning>
       <countermeasures>true</countermeasures>
+      <!-- The dispensers' magazine (Framework 0.180.0): 60 cartridges, one AN/ALE-39 set's capacity. Secondary: Military Periscope and
+           cmano-db give the ALE-39's 60 cartridges and name the AV-8B among its aircraft; the AV-8B's own load was not found, so this is
+           the set's figure, not a confirmed Harrier load. One of our cartridges stands for one real one. -->
+      <countermeasureCartridges>60</countermeasureCartridges>
       <oxygen>true</oxygen>
       <!-- Avionics A14 (Framework 0.119.0): the AV-8B cruises where its crew needs oxygen, from its on-board generator. -->
       <cruisesHigh>true</cruisesHigh>

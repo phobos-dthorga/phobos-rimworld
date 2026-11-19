@@ -10,7 +10,7 @@ namespace Phobos.Framework.TopUp;
 /// a mechanitor the colony's mechanoids that carry one) (Framework 0.134.0;
 /// docs/development/top-up-design.md; owner, 18 Nov 2026: colonists never refilled the drone bays' steel, "genericize this where
 /// possible"). In XML only: the comp that holds the store, by its class's full name, and where on that comp to read how much more it
-/// wants and of what. Every building whose Def carries that comp is then topped up; nothing is patched and no other mod's assembly is
+/// wants and of what. Every building (and mechanoid, and vehicle) whose Def carries that comp is then topped up; nothing is patched and no other mod's assembly is
 /// referenced. A Def for another mod's comp belongs in that mod's IfModActive folder, so the names are read only while the mod is there.
 ///
 /// The member paths are read by name at start-up and checked then: a wrong name is reported once, with the Def's name, and that Def
@@ -38,6 +38,9 @@ public class PhobosTopUpDef : Def
     public bool buildings = true;
     /// <summary>Mechanoids with the comp are topped up by a mechanitor, as the game's mech repair is (Framework 0.135.0).</summary>
     public bool mechanoids = true;
+    /// <summary>Vehicle Framework's vehicles with the comp are topped up by haulers, as buildings are (Framework 0.180.0: an aircraft's
+    /// chaff and flare magazine). Read by the vehicle's class name, so the core references no Vehicle Framework assembly.</summary>
+    public bool vehicles = true;
 
     [Unsaved] Type? type;
     [Unsaved] MemberPath? wanted;

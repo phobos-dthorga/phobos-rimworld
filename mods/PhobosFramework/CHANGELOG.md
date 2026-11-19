@@ -5,6 +5,37 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.180.0] - 2026-11-20 - Draft
+
+Chaff and flares are loaded into an aircraft's dispensers by haulers, not carried as cargo
+
+### Added
+
+- **An aircraft with chaff and flare dispensers has a magazine for them, and colonists doing hauling work fill it.** Cartridges sit in the dispensers, not in the cargo, so no aircraft's cargo rules stand in the way any more. A hauler carries cartridges from storage to a parked aircraft once ten or more are missing, and fills it. The pilot can still board meanwhile; an aircraft that takes off ends the trip.
+- **The inspect text of your own aircraft says how many cartridges are loaded**, as Chaff and flares: X of Y cartridges loaded.
+- **Enemy aircraft with dispensers carry cartridges too**: each arrives with a quarter to three-quarters of its magazine, in whole salvos. One you capture keeps what is left.
+- **Topping up now covers vehicles as well as machines and mechanoids**, for any mod: a topping-up Def names a vehicle's store as it names a machine's.
+
+### Changed
+
+- **Salvos are fired from the dispensers' magazine.** Cartridges in an aircraft's cargo are never fired; the salvo button and the warning messages say so.
+- The setting Keep machines and mechanoids topped up now also covers aircraft dispensers; its description says so. Its label and default (on) are unchanged.
+
+### Balance
+
+- How full a magazine can be is set by each aircraft's loadout (a fit that names none holds 30). Ten missing before a hauler walks out, and the quarter to three-quarters for enemy aircraft, are authored and held for the owner's review.
+- A loaded magazine weighs on the engines as a gun's loaded rounds do, and takes no cargo room.
+
+### Save compatibility
+
+- Safe with a running save. **Cartridges already in an aircraft's cargo move into its dispensers once**, when it is first looked at, as many as fit; any more stay in the cargo for you to unload or keep.
+- Taking our systems off a design through the settings drops its magazine, and the cartridges in it, at the next load.
+
+### Compatibility and limits
+
+- The fill level setting cannot lower a magazine: a magazine always fills completely. Nothing unloads a magazine yet.
+- **Not yet tested in game** (test row 254; rows 139 and 143 now load cartridges this way).
+
 ## [0.179.0] - 2026-11-20 - Draft
 
 The second parts pass: an electric motor, actuators for servos, and two drivetrain kits for the heaviest

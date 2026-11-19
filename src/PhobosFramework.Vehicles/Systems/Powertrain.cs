@@ -382,7 +382,9 @@ public sealed class Powertrain
         VehiclePawn vehicle = comp.Vehicle;
         // Framework 0.161.0: a load hanging from the hook is weight the rotors lift, for the hover and the cruise alike.
         double total = KerbKg + MassUtility.InventoryMass(vehicle) + (vehicle.GetComp<CompPhobosTank>()?.LoadKilograms ?? 0f) + KitKg
-            + (vehicle.GetComp<CompPhobosSling>()?.CarriedKilograms ?? 0f);
+            + (vehicle.GetComp<CompPhobosSling>()?.CarriedKilograms ?? 0f)
+            // Framework 0.180.0: chaff and flare cartridges loaded in the dispensers, as a turret's loaded rounds below.
+            + (vehicle.GetComp<CompPhobosDispensers>()?.Kilograms ?? 0f);
         foreach (Pawn pawn in vehicle.AllPawnsAboard) total += pawn.GetStatValue(StatDefOf.Mass);
         if (vehicle.CompVehicleTurrets?.Turrets != null)
         {

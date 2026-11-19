@@ -262,7 +262,7 @@
       -->
       <li>
         <name>countermeasures</name>
-        <description>The chaff and flare dispensers. They fire the countermeasure cartridges the aircraft carries in its cargo.</description>
+        <description>The chaff and flare dispensers. They fire the countermeasure cartridges loaded into their magazine.</description>
         <label>chaff and flare dispensers</label>
         <unit>Fraction</unit>
         <min>0</min>

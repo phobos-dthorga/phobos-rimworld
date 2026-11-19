@@ -538,6 +538,9 @@ public class AvionicsFit
     public bool nightSight;
     public bool warning;
     public bool countermeasures;
+    /// <summary>How many cartridges the dispensers' magazine holds (Framework 0.180.0; owner, 20 Nov 2026: countermeasures handled as
+    /// ammunition, loaded into the dispensers, not carried as cargo). Read only where <see cref="countermeasures"/> is carried.</summary>
+    public int countermeasureCartridges = 30;
     public bool oxygen;
     /// <summary>The aircraft cruises where its crew needs oxygen (Framework 0.119.0, avionics A14): with its oxygen out it flies low.</summary>
     public bool cruisesHigh;

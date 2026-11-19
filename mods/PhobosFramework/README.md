@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.179.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.180.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -76,7 +76,8 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   accessory off gives its kit back.
 - **With The Dead Man's Switch - Expedition, aircraft can be shot at on the world map** (0.119.0): a defended settlement's radars track
   your aircraft and may fire. A hit damages it; it comes down at a crash site only if it can no longer fly. **Make countermeasure
-  cartridges at the parts bench and load them into an aircraft's cargo** before sending it near a defended place, and keep its avionics
+  cartridges at the parts bench and keep them in storage**: since 0.180.0 haulers load them into a parked aircraft's dispensers, never its
+  cargo. Do it before sending it near a defended place, and keep its avionics
   repaired: its warning receiver says when it is tracked, and its dispensers fire the cartridges. A launch towards a defence asks you to
   confirm. To keep the old behaviour, untick **The Dead Man's Switch - Expedition's air defence sees aircraft**.
 - **The game's log is turned back on when it stops itself** at 10,000 messages, at most 25 times a session. Switch off **Keep the

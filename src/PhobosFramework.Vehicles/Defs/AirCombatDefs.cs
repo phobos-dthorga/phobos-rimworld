@@ -34,10 +34,17 @@ public class PhobosAirCombatRulesDef : PhobosRulesDef
 
     // ---- Countermeasures (A16) ----
 
-    /// <summary>The cartridges the dispensers fire; carried in the aircraft's cargo.</summary>
+    /// <summary>The cartridges the dispensers fire; loaded into their magazine (Framework 0.180.0; cargo before).</summary>
     public ThingDef? cartridgeDef;
     /// <summary>The cartridges one salvo uses: a chaff and a flare.</summary>
     public int cartridgesPerSalvo = 2;
+    /// <summary>How many cartridges a magazine must be short before a hauler walks out to top it up (Framework 0.180.0). An order by hand
+    /// ignores it.</summary>
+    public int magazineLeastLoad = 10;
+    /// <summary>The share of its magazine another faction's aircraft arrives with, picked once per aircraft between these (Framework
+    /// 0.180.0; owner, 20 Nov 2026: "partly full"). Rounded down to whole salvos.</summary>
+    public float otherFactionsFillMin = 0.25f;
+    public float otherFactionsFillMax = 0.75f;
     /// <summary>On the world map: the factor on an air defence's chance to hit, fired on the receiver's cue and fired late, by eye, without it.</summary>
     public float hitChanceFactorCued = 0.6f;
     public float hitChanceFactorLate = 0.85f;

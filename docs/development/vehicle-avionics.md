@@ -1,7 +1,8 @@
 # Avionics for every aircraft (13 Nov 2026)
 
-**Status (17 Nov 2026):** built in D'thorga Framework 0.106.0 (A5, A6 with round three's G16, A8, A9), 0.110.0 with Vehicles
-0.53.0 (the avionics fit, A1, A2, A7 and L1; A5 also answers L2) and 0.119.0 with Vehicles 0.58.0 and Patches 0.21.0 (A12, A14 with L3, A16);
+**Status (20 Nov 2026):** built in D'thorga Framework 0.106.0 (A5, A6 with round three's G16, A8, A9), 0.110.0 with Vehicles
+0.53.0 (the avionics fit, A1, A2, A7 and L1; A5 also answers L2), 0.119.0 with Vehicles 0.58.0 and Patches 0.21.0 (A12, A14 with L3, A16)
+and 0.180.0 with Vehicles 0.89.0 (A16's cartridges in a magazine, topped up by haulers);
 not built: A3, A4, A10, A11, A13, A15, A17 and L4 (L5 set aside; L6's stale notes corrected, with a reading of 17 Nov 2026). Not yet tested in game.
 
 A research record. The owner, 13 November 2026: "One area I have seen that
@@ -375,6 +376,29 @@ evasion postfix scales by flight control and the receiver, as designed. A hit in
 it only if it cannot fly (owner, 17 Nov 2026). Limit: aircraft on the world map do not evolve their systems in flight (Vehicle Framework does
 not tick them), so oxygen and power change in flight only when a hit lands.
 
+## A16 revisited: the dispensers' magazine (20 Nov 2026)
+
+**Framework 0.180.0 and Vehicles 0.89.0, not yet tested in game.** The owner, 20 November 2026: loading cartridges had become "all but
+impossible" because cargo loading met "a number of differing restrictions across the board; some shared, but usually due to differing
+reasons for each piece of aircraft", and proposed handling countermeasures as ammunition.
+
+- **Why not Vehicle Framework's turret ammunition:** a VF turret reloads only from the vehicle's own cargo (`VehicleTurret.ReloadInternal`,
+  VehicleFramework 1.7, read through `query-code.py`), so a hidden turret would have kept the same blockage. The specific refusals were not
+  recorded; the magazine bypasses cargo altogether rather than answering each.
+- **What was built:** `CompPhobosDispensers`, a magazine of real cartridge Things given to every design whose avionics carry
+  countermeasures, sized by the fit's `countermeasureCartridges` (Harrier 60, an AN/ALE-39 set; Hind 128, four ASO-2V of 32; both
+  secondary sources, in the loadouts). D'thorga Framework's [topping up](top-up-design.md) gained vehicles, so haulers carry cartridges
+  from storage to a parked aircraft once ten are missing (`magazineLeastLoad`, authored); the job never reserves the aircraft, as VF's
+  own loading job does not. The magazine's weight loads the engine as a turret's rounds do and takes no cargo room.
+- **Lets** the player stock any aircraft with dispensers the same way. **Stops** a crate of cartridges in the cargo acting as a
+  bottomless reserve: cargo cartridges are never fired. **Changes** rearming into a ground step like fuel, done by haulers.
+- **Older saves:** once per aircraft, cargo cartridges move into the magazine while there is room (owner's choice); the rest stay cargo.
+- **Other factions' aircraft** (owner's choice: "partly full"): a quarter to three-quarters of the magazine (authored), whole salvos,
+  rolled once from the aircraft's ID; one captured keeps what is left. The player sees a count only on their own aircraft.
+- **Limits:** the player's top-up fill level cannot lower it, since a magazine's own level is full. Nothing unloads a magazine. A
+  setting that takes our systems off a design drops its comp, and the cartridges in it, at the next load. The Osprey has no dispensers
+  (its infrared jammer needs none), though the real V-22 carries them; not changed here.
+
 ## Questions for the owner
 
 **Answered by the owner, 13 Nov 2026:** (1) blind flying **refuses the launch, with a warn-only setting**; (2) aircraft with no
@@ -407,6 +431,10 @@ The questions as they were put:
   their code; record only, then the owner picks; the override contract this record's fit plugs into.
 - **Agent defaults, owner to revise:** the nine capabilities and two levels; every figure; the per-aircraft fits; what counts as
   poor visibility; "essential" loads; the appended avionics part; the order to build; leaving the hit spread alone.
+- **Owner (20 Nov 2026), A16 revisited:** countermeasures as ammunition; haulers top up; other factions' aircraft partly full; cargo
+  cartridges moved in once; capacities left to the agent for the owner's review at the end of the slice.
+- **Agent choices (20 Nov 2026), owner to revise:** the magazine sizes (60 and 128, from the real dispensers), ten missing before a
+  hauler walks, the quarter-to-three-quarters share, the default of 30 for a fit that names none, no cargo room taken.
 
 ## Sources
 
@@ -428,6 +456,10 @@ The questions as they were put:
   The Mi-24: [Aerospaceweb](https://aerospaceweb.org/aircraft/helicopter-m/mi24). Spatial disorientation:
   [AVweb](https://avweb.com/flight-safety/technique/surviving-vfr-into-imc/). Battery life in practice:
   [EAA](https://inspire.eaa.org/2025/10/22/all-amped-up/).
+- **Dispenser capacities (secondary, 20 Nov 2026, A16 revisited).** The AN/ALE-39's 60 cartridges: [Military Periscope](https://www.militaryperiscope.com/weapons/sensorselectronics/electronic-support-measureselectronic-warfare/anale-39/)
+  and [cmano-db](https://cmano-db.com/weapon/2012/), which names the AV-8B among the aircraft fitted with it; the AV-8B's own load was not
+  found. The Mi-24V's four to six ASO-2V-02 of 32 flares each: [Weapon Systems](https://weaponsystems.net/system/671-Mil%20Mi-24V), one
+  source only. Gathered from search summaries, as above.
 - **How the real-aircraft statements were gathered:** from search summaries of the pages listed, on 13 Nov 2026. Single sentences
   were not checked against each page, so each is marked secondary, and no figure in a proposal rests on one.
 - **Unverified, and not relied on:** the Harrier's stability augmentation by its name (sources mention one only in general

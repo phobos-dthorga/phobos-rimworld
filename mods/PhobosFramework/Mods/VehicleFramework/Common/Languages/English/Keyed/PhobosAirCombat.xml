@@ -20,12 +20,15 @@
 
   <!-- The Harrier's salvo button on a map. {COUNT}: cartridges a salvo uses; {LEFT}: cartridges aboard. -->
   <PhobosAirCombat_SalvoGizmo>Chaff and flares</PhobosAirCombat_SalvoGizmo>
-  <PhobosAirCombat_SalvoGizmoDesc>Fire a salvo of chaff and flares. For {SECONDS} seconds the aircraft is harder to hit.\n\nUses {COUNT} cartridges; {LEFT} aboard. Load more into the aircraft's cargo.</PhobosAirCombat_SalvoGizmoDesc>
+  <PhobosAirCombat_SalvoGizmoDesc>Fire a salvo of chaff and flares. For {SECONDS} seconds the aircraft is harder to hit.\n\nUses {COUNT} cartridges; {LEFT} in the dispensers. Haulers load more into them while the aircraft is parked.</PhobosAirCombat_SalvoGizmoDesc>
   <PhobosAirCombat_SalvoFired>The {VEHICLE} fires chaff and flares. {LEFT} cartridges left aboard.</PhobosAirCombat_SalvoFired>
   <PhobosAirCombat_SalvoNotAirborne>The {VEHICLE} must be in the air to fire chaff and flares.</PhobosAirCombat_SalvoNotAirborne>
   <PhobosAirCombat_SalvoDispensersOut>The {VEHICLE}'s chaff and flare dispensers are out: repair its avionics or restore its power.</PhobosAirCombat_SalvoDispensersOut>
-  <PhobosAirCombat_SalvoNoCartridges>The {VEHICLE} has no chaff or flare cartridges aboard. Load some into its cargo.</PhobosAirCombat_SalvoNoCartridges>
+  <PhobosAirCombat_SalvoNoCartridges>The {VEHICLE} has no chaff or flare cartridges in its dispensers. Land it near a store of cartridges, and haulers will load them.</PhobosAirCombat_SalvoNoCartridges>
   <PhobosAirCombat_SalvoAlready>The {VEHICLE}'s last salvo is still in the air.</PhobosAirCombat_SalvoAlready>
+
+  <!-- The dispensers' magazine, in the player's own aircraft's inspect text (Framework 0.180.0). -->
+  <PhobosAirCombat_MagazineInspect>Chaff and flares: {HELD} of {CAPACITY} cartridges loaded</PhobosAirCombat_MagazineInspect>
 
   <!-- A closed sky over a base whose alarm has gone off. -->
   <PhobosAirCombat_SkyClosed>The sky here is closed: the defenders' air defence is on alert, and the {VEHICLE} would be shot down on take-off. It opens again once their alert ends.</PhobosAirCombat_SkyClosed>

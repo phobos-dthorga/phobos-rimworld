@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Chaff and flare magazines (D'thorga Framework 0.180.0; owner, 20 Nov 2026: countermeasures "handled as ammunition", topped up by
+    haulers). Every aircraft whose loadout carries dispensers has their magazine (Phobos.VehicleSystems.CompPhobosDispensers); this names it,
+    so colonists doing hauling work carry cartridges from storage straight into a parked aircraft's dispensers, as they top up machines. The
+    magazine's own fill level is full, so every choice of the player's fill level fills it completely. A hauler walks once ten cartridges are
+    missing (the rules' magazineLeastLoad, authored: one batch from the parts bench). The names are our own comp's members. Not yet tested in
+    game.
+  -->
+  <Phobos.Framework.TopUp.PhobosTopUpDef>
+    <defName>PhobosTopUp_Dispensers</defName>
+    <label>chaff and flare magazine</label>
+    <compClass>Phobos.VehicleSystems.CompPhobosDispensers</compClass>
+    <wantedMember>Wanted</wantedMember>
+    <ingredientMember>Cartridge</ingredientMember>
+    <leastLoadMember>LeastLoad</leastLoadMember>
+    <capacityMember>Capacity</capacityMember>
+    <heldMember>Held</heldMember>
+    <buildings>false</buildings>
+    <mechanoids>false</mechanoids>
+  </Phobos.Framework.TopUp.PhobosTopUpDef>
+</Defs>

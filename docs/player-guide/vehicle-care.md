@@ -498,10 +498,13 @@ speed and a message says so. An aircraft's generator gives about half its output
 - **Warning receivers** (the Harrier, the Hind and the Mongoose) tell you when a radar tracks the aircraft, locks on, or launches at it.
   Shot out or without power, they are silent.
 - **Chaff and flares.** Make **countermeasure cartridges** at the vehicle parts bench (ten for 10 steel and 20 chemfuel, after the
-  turbines research) and **load them into the aircraft's cargo**. Aircraft with dispensers (the Harrier and the Hind) fire two at
-  every missile: with a working warning receiver a shot is much less likely to hit; without one, they fire late and help less.
+  turbines research) and keep them in storage: **colonists doing hauling work load them into a parked aircraft's dispensers** by
+  themselves, once ten or more are missing. Never into its cargo: cartridges in the cargo are not fired. The dispensers hold 60 in a
+  Harrier and 128 in a Hind, and the inspect text says how many are loaded. Aircraft with dispensers fire two at every missile: with a working warning receiver a shot is much less likely to hit; without one, they fire late and help less.
 - **The Harrier's Chaff and flares button**, on a map in the air (with D'thorga Patches), makes it harder to hit for ten seconds.
   Sound, it dodges as its author set; with shot-up controls or a dead warning receiver it is easier to hit.
+- **Enemy Harriers and Hinds carry chaff and flares too**: each arrives with its dispensers a quarter to three-quarters full, and
+  one you capture keeps what is left.
 - **A closed sky.** Attacking a base whose alarm closes its airspace, your aircraft there cannot take off until the alert ends.
 - **Oxygen.** The Harrier cruises high on its own oxygen. With the oxygen set out (damaged, without power, or with no engine to feed it)
   it flies its long legs low, slower and using more fuel. Tick **Crews feel thin air when oxygen fails at height** if you want a crew

@@ -6,6 +6,10 @@ says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- **The README now says haulers load the Harrier's chaff and flare cartridges into its dispensers**, as D'thorga Framework 0.180.0 does, not into its cargo. Text only; nothing in this mod changed.
+
 ## [0.26.0] - 2026-11-19 - Draft
 
 Soldiers go back to their own guns instead of fighting with grenades

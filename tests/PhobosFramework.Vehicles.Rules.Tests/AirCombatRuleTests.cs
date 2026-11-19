@@ -15,6 +15,30 @@ public class AirCombatRuleTests
     }
 
     [Fact]
+    public void AnotherFactionsMagazineIsPartlyFullInWholeSalvos()
+    {
+        // The Hind's 128 at the rules' 0.25 to 0.75: from 32 to 96, always an even number.
+        Assert.Equal(32, AirCombatRule.OtherFactionStock(128, 2, 0.25, 0.75, roll: 0));
+        Assert.Equal(96, AirCombatRule.OtherFactionStock(128, 2, 0.25, 0.75, roll: 1));
+        Assert.Equal(64, AirCombatRule.OtherFactionStock(128, 2, 0.25, 0.75, roll: 0.5));
+        Assert.Equal(0, AirCombatRule.OtherFactionStock(61, 2, 0.25, 0.75, roll: 0.5) % 2);
+        // Shares out of order or out of range are put right; a roll past 1 fills no further than the top share.
+        Assert.Equal(96, AirCombatRule.OtherFactionStock(128, 2, 0.75, 0.25, roll: 1));
+        Assert.Equal(128, AirCombatRule.OtherFactionStock(128, 2, 0, 3, roll: 5));
+        Assert.Equal(0, AirCombatRule.OtherFactionStock(0, 2, 0.25, 0.75, roll: 1));
+    }
+
+    [Fact]
+    public void CargoCartridgesMoveInOnlyWhileThereIsRoom()
+    {
+        Assert.Equal(40, AirCombatRule.CargoIntoMagazine(40, 0, 60));
+        Assert.Equal(60, AirCombatRule.CargoIntoMagazine(200, 0, 60));
+        Assert.Equal(10, AirCombatRule.CargoIntoMagazine(40, 50, 60));
+        Assert.Equal(0, AirCombatRule.CargoIntoMagazine(40, 60, 60));
+        Assert.Equal(0, AirCombatRule.CargoIntoMagazine(0, 0, 60));
+    }
+
+    [Fact]
     public void AngularSpeedIsTilesPerTickOverTilesPerRadian()
     {
         Assert.Equal(0.02 / 100, AirCombatRule.AngularSpeed(20, 100), 9);

@@ -45,8 +45,8 @@ the [changelog](CHANGELOG.md).
   day a heavy Harrier lands on a runway instead of hovering onto its pad, by **D'thorga Framework's** setting "When an aircraft is too
   heavy or too hot to hover onto its pad".
 - **Harrier dodge and chaff (0.21.0):** the jet dodges as its author set while sound; shot-up flight controls or a dead warning receiver
-  make it easier to hit. Load **countermeasure cartridges** (D'thorga Framework's parts bench) into its cargo for its **Chaff and flares**
-  button in the air.
+  make it easier to hit. Keep **countermeasure cartridges** (D'thorga Framework's parts bench) in storage; haulers load them into its dispensers while it is
+  parked, for its **Chaff and flares** button in the air.
 - **Rearming keeps to one kind of ammunition** (Harrier, Hind, Mongoose). To change kind, choose it on the weapon.
 - **With Combat Extended, allow the two bomb cases in machining bay hoppers** that used to take heavy castings, and **rebuild turret
   hulls built before**, while the ship is landed.

@@ -12,27 +12,41 @@ namespace Phobos.Framework.TopUp;
 /// The service behind topping up (Framework 0.134.0; docs/development/top-up-design.md): which Defs carry a comp a
 /// <see cref="PhobosTopUpDef"/> names, what each such thing wants now, and the job that brings it. Buildings are topped up by haulers;
 /// since Framework 0.135.0 mechanoids by a mechanitor, as the game's own mech repair is (owner, 18 Nov 2026: "have the mechanitor
-/// approach them, sort'a like when they do to repair them"). Found once after Defs load; nothing is saved and nothing ticks. The work
-/// givers and the job driver only call it.
+/// approach them, sort'a like when they do to repair them"). Since Framework 0.180.0 Vehicle Framework's vehicles by haulers, as buildings
+/// are (an aircraft's chaff and flare magazine; owner, 20 Nov 2026: countermeasures "handled as ammunition"). Found once after Defs load;
+/// nothing is saved and nothing ticks. The work givers and the job driver only call it.
 /// </summary>
 public static class TopUps
 {
+    /// <summary>What holds the store: who tops it up follows from it.</summary>
+    enum Holder
+    {
+        Building,
+        Mechanoid,
+        Vehicle,
+    }
+
     /// <summary>A Def that carries a named comp, with the Def that names it.</summary>
     readonly struct Kind
     {
         public readonly ThingDef Def;
         public readonly PhobosTopUpDef TopUp;
         public readonly Type CompType;
-        public readonly bool Mechanoid;
+        public readonly Holder Holder;
 
-        public Kind(ThingDef def, PhobosTopUpDef topUp, Type compType, bool mechanoid)
+        public Kind(ThingDef def, PhobosTopUpDef topUp, Type compType, Holder holder)
         {
             Def = def;
             TopUp = topUp;
             CompType = compType;
-            Mechanoid = mechanoid;
+            Holder = holder;
         }
+
+        public bool Mechanoid => Holder == Holder.Mechanoid;
     }
+
+    /// <summary>Vehicle Framework's vehicle class, by name: the core references none of its assemblies.</summary>
+    const string VehicleClassName = "Vehicles.VehiclePawn";
 
     static List<Kind>? kinds;
     static readonly HashSet<PhobosTopUpDef> reported = new();
@@ -43,6 +57,7 @@ public static class TopUps
         {
             if (kinds != null) return kinds;
             kinds = new List<Kind>();
+            Type? vehicleClass = OptionalMods.TypeNamed(VehicleClassName);
             foreach (PhobosTopUpDef topUp in DefDatabase<PhobosTopUpDef>.AllDefsListForReading)
             {
                 Type? type = topUp.CompType;
@@ -54,10 +69,14 @@ public static class TopUps
                 foreach (ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
                 {
                     if (def.comps == null) continue;
-                    bool building = def.category == ThingCategory.Building && topUp.buildings;
-                    bool mechanoid = def.race is { IsMechanoid: true } && topUp.mechanoids;
-                    if (!building && !mechanoid) continue;
-                    if (def.comps.Any(c => c.compClass != null && type.IsAssignableFrom(c.compClass))) kinds.Add(new Kind(def, topUp, type, mechanoid));
+                    // A vehicle first: it is a pawn with a race of its own, never a building, and is read by its class.
+                    Holder? holder = vehicleClass != null && def.thingClass != null && vehicleClass.IsAssignableFrom(def.thingClass)
+                        ? (topUp.vehicles ? Holder.Vehicle : (Holder?)null)
+                        : def.category == ThingCategory.Building && topUp.buildings ? Holder.Building
+                        : def.race is { IsMechanoid: true } && topUp.mechanoids ? Holder.Mechanoid
+                        : (Holder?)null;
+                    if (holder == null) continue;
+                    if (def.comps.Any(c => c.compClass != null && type.IsAssignableFrom(c.compClass))) kinds.Add(new Kind(def, topUp, type, holder.Value));
                 }
             }
             return kinds;
@@ -65,10 +84,17 @@ public static class TopUps
     }
 
     /// <summary>How many kinds of building are topped up, for the load line.</summary>
-    public static int BuildingKindCount => Kinds.Count(k => !k.Mechanoid);
+    public static int BuildingKindCount => Kinds.Count(k => k.Holder == Holder.Building);
 
     /// <summary>How many kinds of mechanoid are topped up, for the load line.</summary>
-    public static int MechanoidKindCount => Kinds.Count(k => k.Mechanoid);
+    public static int MechanoidKindCount => Kinds.Count(k => k.Holder == Holder.Mechanoid);
+
+    /// <summary>How many kinds of vehicle are topped up, for the load line (Framework 0.180.0).</summary>
+    public static int VehicleKindCount => Kinds.Count(k => k.Holder == Holder.Vehicle);
+
+    /// <summary>Whether a thing's store is a vehicle's (Framework 0.180.0): its job neither reserves it nor asks to, as Vehicle Framework's
+    /// own loading job does not, so a hauler never keeps a pilot from boarding.</summary>
+    public static bool IsVehicle(Thing? thing) => thing != null && KindOf(thing) is { Holder: Holder.Vehicle };
 
     /// <summary>The Defs that stand down, with why, for the load line.</summary>
     public static IEnumerable<PhobosTopUpDef> Problems => DefDatabase<PhobosTopUpDef>.AllDefsListForReading.Where(d => d.problem != null);
@@ -84,32 +110,42 @@ public static class TopUps
     /// <summary>Whether topping up runs at all for buildings or for mechanoids: the player's setting, and at least one such kind.</summary>
     public static bool Active(bool mechanoids) => FrameworkMod.Settings.topUpMachines && Kinds.Any(k => k.Mechanoid == mechanoids);
 
-    /// <summary>The player's buildings, or mechanoids, on a map that want more of their material now, enough to be worth a walk.</summary>
+    /// <summary>The player's buildings and vehicles (for haulers), or mechanoids (for a mechanitor), on a map that want more of their
+    /// material now, enough to be worth a walk.</summary>
     public static IEnumerable<Thing> Wanting(Map map, Faction faction, bool mechanoids)
     {
         if (mechanoids)
         {
-            // Spawned mechanoids of the faction, the same list the game's mech repair scans.
-            List<Pawn> pawns = map.mapPawns.SpawnedPawnsInFaction(faction);
-            for (int i = 0; i < pawns.Count; i++)
-            {
-                Pawn pawn = pawns[i];
-                if (KindOf(pawn) is { Mechanoid: true } kind && WantOf(pawn, kind) is { } want && TopUpRule.Worth(want.Amount, want.LeastLoad, forced: false))
-                {
-                    yield return pawn;
-                }
-            }
+            foreach (Pawn pawn in PawnsWanting(map, faction, Holder.Mechanoid)) yield return pawn;
             yield break;
         }
+        bool anyVehicles = false;
         foreach (Kind kind in Kinds)
         {
-            if (kind.Mechanoid) continue;
+            if (kind.Holder == Holder.Vehicle) anyVehicles = true;
+            if (kind.Holder != Holder.Building) continue;
             List<Thing> things = map.listerThings.ThingsOfDef(kind.Def);
             for (int i = 0; i < things.Count; i++)
             {
                 Thing thing = things[i];
                 if (thing.Faction != faction) continue;
                 if (WantOf(thing, kind) is { } want && TopUpRule.Worth(want.Amount, want.LeastLoad, forced: false)) yield return thing;
+            }
+        }
+        if (!anyVehicles) yield break;
+        foreach (Pawn vehicle in PawnsWanting(map, faction, Holder.Vehicle)) yield return vehicle;
+    }
+
+    /// <summary>The faction's spawned pawns of one holder kind that want enough to be worth a walk: the list the game's mech repair scans.</summary>
+    static IEnumerable<Pawn> PawnsWanting(Map map, Faction faction, Holder holder)
+    {
+        List<Pawn> pawns = map.mapPawns.SpawnedPawnsInFaction(faction);
+        for (int i = 0; i < pawns.Count; i++)
+        {
+            Pawn pawn = pawns[i];
+            if (KindOf(pawn) is { } kind && kind.Holder == holder && WantOf(pawn, kind) is { } want && TopUpRule.Worth(want.Amount, want.LeastLoad, forced: false))
+            {
+                yield return pawn;
             }
         }
     }
@@ -183,7 +219,8 @@ public static class TopUps
         if (StoreOf(target) == null) return null;
         if (!TopUpRule.Worth(want.Amount, want.LeastLoad, forced)) return null;
         if (!pawn.CanReach(target, PathEndMode.Touch, Danger.Deadly)) return null;
-        if (!pawn.CanReserve(target, 1, -1, null, forced)) return null;
+        // A vehicle is not reserved (Framework 0.180.0), as Vehicle Framework's own loading job leaves it free for its crew.
+        if (kind.Holder != Holder.Vehicle && !pawn.CanReserve(target, 1, -1, null, forced)) return null;
         int toBring = TopUpRule.ToBring(want.Amount, AlreadyComing(target, pawn));
         if (!TopUpRule.Worth(toBring, want.LeastLoad, forced)) return null;
         List<Thing> found = HaulAIUtility.FindFixedIngredientCount(pawn, want.Material, toBring);
@@ -219,7 +256,8 @@ public static class TopUps
         if (pawn.carryTracker.CarriedThing != null) pawn.carryTracker.TryDropCarriedThing(pawn.Position, ThingPlaceMode.Near, out _);
         if (moved > 0)
         {
-            if (target is Pawn) { if (Seen.Wants("framework.top-up-mechanoid", target)) Seen.Note("framework.top-up-mechanoid", target, moved.ToString()); }
+            if (IsVehicle(target)) { if (Seen.Wants("framework.top-up-vehicle", target)) Seen.Note("framework.top-up-vehicle", target, moved.ToString()); }
+            else if (target is Pawn) { if (Seen.Wants("framework.top-up-mechanoid", target)) Seen.Note("framework.top-up-mechanoid", target, moved.ToString()); }
             else if (Seen.Wants("framework.top-up", target)) Seen.Note("framework.top-up", target, moved.ToString());
         }
         return moved;
@@ -283,14 +321,16 @@ public class JobDriver_PhobosTopUp : JobDriver
     const TargetIndex Target = TargetIndex.B;
 
     public override bool TryMakePreToilReservations(bool errorOnFailed) =>
-        pawn.Reserve(job.GetTarget(Material), job, 1, -1, null, errorOnFailed) && pawn.Reserve(job.GetTarget(Target), job, 1, -1, null, errorOnFailed);
+        pawn.Reserve(job.GetTarget(Material), job, 1, -1, null, errorOnFailed)
+        && (TopUps.IsVehicle(job.GetTarget(Target).Thing) || pawn.Reserve(job.GetTarget(Target), job, 1, -1, null, errorOnFailed));
 
     protected override IEnumerable<Toil> MakeNewToils()
     {
         this.FailOnDestroyedOrNull(Target);
         this.FailOnDespawnedOrNull(Target);
         this.FailOnForbidden(Target);
-        this.FailOn(() => job.GetTarget(Target).Thing is Pawn mech && (mech.InAggroMentalState || mech.HostileTo(pawn)));
+        // A vehicle has no mind to turn hostile (Framework 0.180.0): only its faction can, and leaving the map ends the job above.
+        this.FailOn(() => job.GetTarget(Target).Thing is Pawn holder && (TopUps.IsVehicle(holder) ? holder.HostileTo(pawn) : holder.InAggroMentalState || holder.HostileTo(pawn)));
         yield return Toils_Goto.GotoThing(Material, PathEndMode.ClosestTouch).FailOnDespawnedNullOrForbidden(Material).FailOnSomeonePhysicallyInteracting(Material);
         yield return Toils_Haul.StartCarryThing(Material, putRemainderInQueue: false, subtractNumTakenFromJobCount: true);
         yield return Toils_Goto.GotoThing(Target, PathEndMode.Touch);

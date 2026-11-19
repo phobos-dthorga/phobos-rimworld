@@ -18,7 +18,7 @@ namespace Phobos.VehicleSystems;
 /// docs/development/vehicle-avionics.md, A12, A14 and A16). The one place that decides what another mod's air defence does to our aircraft
 /// and what their avionics do about it. It names no other mod's types: the tie-in that does (PhobosFramework.Vehicles.Dmse, loaded only with
 /// The Dead Man's Switch - Expedition) reads and calls these. Every faction's aircraft; nothing here is saved except through the vehicle
-/// itself (its parts' health and its cargo).
+/// itself (its parts' health and its dispensers' magazine, CompPhobosDispensers, since Framework 0.180.0).
 /// </summary>
 public static class AirCombat
 {
@@ -73,33 +73,28 @@ public static class AirCombat
 
     // ---- Countermeasures (A16) ----
 
-    /// <summary>Countermeasure cartridges in the aircraft's cargo.</summary>
-    public static int Cartridges(VehiclePawn? vehicle)
+    /// <summary>The dispensers' magazine (Framework 0.180.0), settled at its first look: a save's cargo cartridges moved in, another faction's
+    /// aircraft stocked. Null where the aircraft carries no dispensers.</summary>
+    public static CompPhobosDispensers? Magazine(VehiclePawn? vehicle)
     {
-        ThingDef? def = Rules.cartridgeDef;
-        ThingOwner? cargo = vehicle?.inventory?.innerContainer;
-        return def == null || cargo == null ? 0 : cargo.TotalStackCountOfDef(def);
+        CompPhobosDispensers? magazine = vehicle?.GetComp<CompPhobosDispensers>();
+        // An aircraft loaded in flight has not spawned yet: it settles here, so a save's cargo cartridges still answer this leg's shots.
+        magazine?.Settle();
+        return magazine;
     }
+
+    /// <summary>Countermeasure cartridges loaded in the dispensers' magazine (Framework 0.180.0; the aircraft's cargo before).</summary>
+    public static int Cartridges(VehiclePawn? vehicle) => Magazine(vehicle)?.Held ?? 0;
 
     /// <summary>Whether the dispensers would fire a salvo now: they work and a salvo's cartridges are aboard.</summary>
     public static bool CanDispense(VehiclePawn? vehicle) =>
         Works(vehicle, CountermeasuresQuantity) && Cartridges(vehicle) >= Math.Max(1, Rules.cartridgesPerSalvo);
 
-    /// <summary>Fires one salvo: takes its cartridges from the cargo. False, and nothing taken, when it cannot.</summary>
+    /// <summary>Fires one salvo: takes its cartridges from the magazine. False, and nothing taken, when it cannot.</summary>
     public static bool SpendSalvo(VehiclePawn vehicle)
     {
-        if (!CanDispense(vehicle)) return false;
-        ThingDef def = Rules.cartridgeDef!;
-        int left = Math.Max(1, Rules.cartridgesPerSalvo);
-        ThingOwner cargo = vehicle.inventory.innerContainer;
-        for (int i = cargo.Count - 1; i >= 0 && left > 0; i--)
-        {
-            Thing thing = cargo[i];
-            if (thing.def != def) continue;
-            int take = Math.Min(left, thing.stackCount);
-            thing.SplitOff(take).Destroy();
-            left -= take;
-        }
+        if (!CanDispense(vehicle) || Magazine(vehicle) is not { } magazine) return false;
+        if (!magazine.Spend(Math.Max(1, Rules.cartridgesPerSalvo))) return false;
         Seen.Note("aircraft.countermeasures-salvo", vehicle);
         return true;
     }

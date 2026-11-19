@@ -263,6 +263,15 @@
         {"key": "vehicles.deliver.end", "variant": "NoBay", "expect": {"things": ">= 1"}}],
       "it drives back": [{"key": "vehicles.deliver.home"}]
     }},
+    "255": {"parts": {
+      "the game's research window leaves the tab out": [{"key": "research.set-aside-hidden", "variant": "game window", "detail": "PhobosDthorgaSubmarines"}],
+      "Nice Research Tab leaves its projects out": [{"key": "research.set-aside-hidden", "variant": "nice research tab"}]
+    }},
+    "254": {"parts": {
+      "cargo cartridges move into the dispensers": [{"key": "aircraft.magazine-from-cargo", "expect": {"cartridges": ">= 1"}}],
+      "a hauler tops the dispensers up": [{"key": "framework.top-up-vehicle"}],
+      "another faction's aircraft arrives part full": [{"key": "aircraft.magazine-stocked", "expect": {"cartridges": ">= 2"}}]
+    }},
     "253": {"parts": {
       "a destroyed servos part or tipping rams take a hydraulic actuator": [{"key": "vehicles.part-replaced", "variant": "PhobosVehicles_HydraulicActuator"}],
       "a destroyed traction motor or main generator takes an electric motor": [{"key": "vehicles.part-replaced", "variant": "PhobosVehicles_ElectricMotor"}]

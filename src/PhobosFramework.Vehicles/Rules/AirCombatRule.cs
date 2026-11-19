@@ -91,6 +91,28 @@ public static class AirCombatRule
     public static bool StaysUp(double flightControl, int enginesWorking, int engines, bool airframeFailed) =>
         !airframeFailed && flightControl >= 0.35 && (engines <= 0 || enginesWorking > 0);
 
+    /// <summary>
+    /// The cartridges another faction's aircraft arrives with (Framework 0.180.0; owner, 20 Nov 2026: "partly full"): a share of its magazine
+    /// between <paramref name="minShare"/> and <paramref name="maxShare"/>, placed by <paramref name="roll"/> (0 to 1), rounded down to whole
+    /// salvos and never past the magazine.
+    /// </summary>
+    public static int OtherFactionStock(int capacity, int perSalvo, double minShare, double maxShare, double roll)
+    {
+        if (capacity <= 0) return 0;
+        int salvo = Math.Max(1, perSalvo);
+        double low = Clamp01(Math.Min(minShare, maxShare));
+        double high = Clamp01(Math.Max(minShare, maxShare));
+        double share = low + (high - low) * Clamp01(roll);
+        int salvos = (int)Math.Floor(capacity * share / salvo + 1e-9);
+        return Math.Min(capacity, salvos * salvo);
+    }
+
+    /// <summary>
+    /// How many cartridges move once from an aircraft's cargo into its new magazine (Framework 0.180.0, a save from before magazines): all of
+    /// them while there is room, the rest left as cargo.
+    /// </summary>
+    public static int CargoIntoMagazine(int inCargo, int held, int capacity) => Math.Max(0, Math.Min(inCargo, capacity - Math.Max(0, held)));
+
     static double Clamp01(double value) => value < 0 ? 0 : value > 1 ? 1 : value;
 }
 
