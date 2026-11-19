@@ -346,6 +346,23 @@ class ToddsTests(unittest.TestCase):
         self.assertEqual(2, count, 'only PNG files under a Textures path count, not About/Preview.png')
         self.assertEqual([[str(Path('C:/fake/todds.exe')), *deploy.RIMSORT_OPTIMIZED, str(folder)]], calls)
 
+    def test_after_todds_the_mip_chains_waylith_would_unpack_are_shortened(self):
+        class Result:
+            returncode = 0
+            stdout = stderr = ''
+
+        class Trimmed:
+            trimmed, left_whole, failed = ['Textures/Truck.dds'], ['Textures/Nacelle.dds'], []
+
+        trimmed, lines = [], []
+        with tempfile.TemporaryDirectory() as game:
+            folder = installed_mod_with_textures(game)
+            deploy.encode_textures(folder, Path('todds.exe'), run=lambda cmd, **kw: Result(), log=lines.append,
+                                   clock=iter([0.0, 1.0]).__next__, trim=lambda f: trimmed.append(f) or Trimmed())
+        self.assertEqual([folder], trimmed)
+        self.assertIn('shortened 1 mip chains', lines[-1])
+        self.assertIn('1 left whole', lines[-1])
+
     def test_a_mod_without_textures_never_calls_todds(self):
         with tempfile.TemporaryDirectory() as game:
             folder = Path(game) / 'Mods' / 'XmlOnly'

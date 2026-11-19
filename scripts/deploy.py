@@ -48,7 +48,9 @@ import _modkit  # noqa: E402  (the shared tools' import path)
 _modkit.ensure()
 # RimSort's todds and its "optimized" preset live once, in phobos-modkit's RimWorld texture tool (kit 1.21.0), which the Companion's
 # texture check also runs: BC1, BC7 where there is alpha, re-encode only what is newer than its DDS, flipped as the game reads DDS.
-from phobos_modkit.games.rimworld.textures import DEFAULT_TODDS, RIMSORT_OPTIMIZED  # noqa: E402
+# Then the kit shortens the mip chains Waylith would unpack to plain pixels at four times the memory (kit 1.54.0, owner's choice of
+# 20 Nov 2026, after D'thorga Vehicles showed 2.0 GiB of textures in Graphics Settings' profiler).
+from phobos_modkit.games.rimworld.textures import DEFAULT_TODDS, RIMSORT_OPTIMIZED, trim_folder  # noqa: E402
 from phobos_modkit.progress import Progress  # noqa: E402
 BACKUPS = ROOT / '.local' / 'deploy-backups'
 # RimWorld.exe is 1.7 on Windows (seen in tasklist, 30 Oct 2026); RimWorldWin64.exe is 1.6.
@@ -89,10 +91,11 @@ def texture_count(folder):
     return sum(1 for png in folder.rglob('*.png') if 'Textures' in str(png))
 
 
-def encode_textures(folder, todds, run=subprocess.run, log=print, clock=time.monotonic):
+def encode_textures(folder, todds, run=subprocess.run, log=print, clock=time.monotonic, trim=trim_folder):
     """
-    Encodes one installed mod's textures to DDS beside its PNG files, exactly as RimSort's "optimized" preset would. Returns the number
-    of PNG files it covered (0 when there were none or todds failed). A failure is reported, never raised: the PNG files still work.
+    Encodes one installed mod's textures to DDS beside its PNG files, exactly as RimSort's "optimized" preset would, then shortens the
+    mip chains Waylith would unpack. Returns the number of PNG files it covered (0 when there were none or todds failed). A failure is
+    reported, never raised: the PNG files still work.
     """
     count = texture_count(folder)
     if count == 0:
@@ -104,6 +107,11 @@ def encode_textures(folder, todds, run=subprocess.run, log=print, clock=time.mon
             f' {(result.stderr or result.stdout or "").strip()[:300]}')
         return 0
     log(f'  encoded {count} textures to DDS in {clock() - started:.1f} s')
+    shortened = trim(folder)
+    if shortened.trimmed or shortened.left_whole or shortened.failed:
+        log(f'  shortened {len(shortened.trimmed)} mip chains so Waylith keeps them compressed'
+            + (f'; {len(shortened.left_whole)} left whole (too few levels would remain)' if shortened.left_whole else '')
+            + (f'; could not write {len(shortened.failed)}: {", ".join(shortened.failed[:3])}' if shortened.failed else ''))
     return count
 
 

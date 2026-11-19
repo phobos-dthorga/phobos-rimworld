@@ -473,6 +473,10 @@ running a script does not load them.
   wild guess"): every active mod, ours and others', stale (the game would show the old picture: it loads a `.dds` instead of the
   `.png` beside it without comparing dates), never encoded, or left over. `encode --mod` writes `.dds` files with RimSort's own
   todds preset into the named mods' folders, **Workshop ones included, by the owner's choice**, and refuses while RimWorld runs.
+  **It and deploy then shorten the mip chains Waylith would unpack** (owner's choice, 20 Nov 2026: the owner's game runs on Waylith,
+  which unpacks a compressed texture at four times the memory when a mip height four or more pixels tall is not a multiple of four),
+  and status counts the textures it would unpack ("Unpacked by Waylith"; D'thorga Companion's Mods page offers encoding for them).
+  New art avoids it with power-of-two canvas heights, or heights with many factors of two (1408 = 11 × 128 keeps six levels).
 - Scale checks to the change; test rules and persistence, not static documentation. **Before committing, run
   `python scripts/check-all.py` and chain the commit on its exit code** (`python scripts/check-all.py && git commit ...`),
   never on reading output: phobos-modkit's gate builds every project, runs every rule-test project and the Python tests,
