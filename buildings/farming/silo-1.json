@@ -1,0 +1,51 @@
+{
+  "file": "farming-silo-1.png",
+  "sha256": "b9d3f0a09aa7332681f15a44920f410eba2d41f704682d81fa4d2772b177c8bf",
+  "date": "2026-11-20T05:40:33",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nCreate an ORIGINAL game building sprite for the D'thorga grain silo: a tall round steel silo with an aeration fan, that holds a whole harvest and keeps it fresh, in a hard-scrabble frontier colony. Image 1 is our approved chaser bin from the same farm: match its outline weight, shading, palette and finish only.\n\nSquare canvas, plain pure white background. The silo is a perfect circle seen from straight above, centred, filling about four fifths of the canvas.\n\nIts roof plan: a cone of corrugated galvanised steel, its ridges running from the rim to the centre; a round vent cap at the very centre; a ladder with a caged rail running from the rim up to a small platform beside the cap; at one side, just beyond the rim, a squat boxed aeration fan in harvest green with a round grille on top, and its duct running into the silo's side; one muted yellow band round the rim.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo grain, no ground, no people, no animals, no vehicles, no dust, mud or damage, no text, letters, numbers, logos, dials, screens or lamps. No floor, field, shadow outside the object, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/farming-bins.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1818,
+    "input_tokens_details": {
+      "image_tokens": 1458,
+      "text_tokens": 360
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 3574
+  },
+  "cost_usd": 0.0661,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 30.8,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-chaser-bin-body-north/farming-chaser-bin-body-north-3.png",
+      "sha256": "66e690e26cb40cc12b99d6fec07e72a4d6960acd18311575db92403fa35c6837",
+      "role": "our approved chaser bin, the owner's pick of 20 Nov 2026, from the same farm: match its outline weight, shading, harvest-green and steel palette and finish only; do not copy its shape"
+    }
+  ]
+}
