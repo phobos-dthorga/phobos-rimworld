@@ -1,0 +1,291 @@
+[
+  {
+    "name": "osprey-paid-infraredjammer",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      67,
+      68
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-upgrade-armourkit/osprey-upgrade-armourkit-42.png",
+        "role": "the owner's pick from this set (the Osprey armour kit, B): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "InfraredJammer",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InfraredJammer.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the infrared jammer redrawn through the paid service after both local pictures missed"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a small directional infrared jammer turret: a rounded dome head with one dark glass window, on a short rotating neck, on a square base plate with four bolts. It is a sensor turret, not a gun: no barrel.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "osprey-paid-terrainradar",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      69,
+      70
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-upgrade-armourkit/osprey-upgrade-armourkit-42.png",
+        "role": "the owner's pick from this set (the Osprey armour kit, B): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "TerrainRadar",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/TerrainRadar.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the terrain-following radar redrawn through the paid service after both local pictures missed"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of an aircraft terrain-following radar: a flat circular radar antenna dish on a small gimbal mount, standing in front of a pale grey rounded aircraft nose cone that is open at the back.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "osprey-paid-inletbarrier",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      71,
+      72
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-upgrade-armourkit/osprey-upgrade-armourkit-42.png",
+        "role": "the owner's pick from this set (the Osprey armour kit, B): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "InletBarrier",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/InletBarrier.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the inlet barrier redrawn through the paid service after both local pictures missed"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of an engine inlet barrier filter: a square panel of fine steel mesh held in a thick raised grey frame with a bolt at each corner and a small handle on one side.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "osprey-paid-rescuehoist",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      73,
+      74
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-upgrade-armourkit/osprey-upgrade-armourkit-42.png",
+        "role": "the owner's pick from this set (the Osprey armour kit, B): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "RescueHoist",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/RescueHoist.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the rescue hoist redrawn through the paid service after both local pictures missed"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a helicopter rescue hoist: a grey motor housing with a cable drum on top, a short boom arm sticking out to one side, and a steel cable hanging from the end of the boom down to a heavy rescue hook. No valve wheel.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "osprey-paid-fastropes",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      75,
+      76
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-upgrade-armourkit/osprey-upgrade-armourkit-42.png",
+        "role": "the owner's pick from this set (the Osprey armour kit, B): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "FastRopes",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/FastRopes.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the fast ropes redrawn through the paid service after both local pictures missed"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a fast rope: a thick braided rope coiled in loose loops on the ground, one end finished with a steel ring and a short protective sleeve.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "osprey-paid-stretchers",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      77,
+      78
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-upgrade-armourkit/osprey-upgrade-armourkit-42.png",
+        "role": "the owner's pick from this set (the Osprey armour kit, B): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "Stretchers",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/Stretchers.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the stretchers redrawn through the paid service after both local pictures missed"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of two folded military stretchers: olive canvas between two pale aluminium poles each, folded and lying one on the other, tied with one muted orange strap.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "osprey-paid-ferrytanks",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      79,
+      80
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-upgrade-armourkit/osprey-upgrade-armourkit-42.png",
+        "role": "the owner's pick from this set (the Osprey armour kit, B): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "FerryTanks",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/FerryTanks.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the ferry tanks redrawn through the paid service after both local pictures missed"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of an aircraft cabin ferry fuel tank: a long pale grey cylindrical tank lying on its side on two small cradles, with a round filler cap and two steel straps around it.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "osprey-paid-cabinoxygen",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      81,
+      82
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-upgrade-armourkit/osprey-upgrade-armourkit-42.png",
+        "role": "the owner's pick from this set (the Osprey armour kit, B): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "CabinOxygen",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/CabinOxygen.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the cabin oxygen redrawn through the paid service after both local pictures missed"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a cabin oxygen kit: two green oxygen cylinders standing side by side with a brass regulator on top, and a clear face mask on a curled hose hanging from the regulator.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "osprey-paid-refuellingprobe",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      83,
+      84
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-upgrade-armourkit/osprey-upgrade-armourkit-42.png",
+        "role": "the owner's pick from this set (the Osprey armour kit, B): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "RefuellingProbe",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/RefuellingProbe.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the refuelling probe redrawn through the paid service after both local pictures missed"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set: match its finish only, not its shape.\n\nCreate an ORIGINAL icon of an aircraft in-flight refuelling probe: a long straight grey tube lying diagonally, ending in a bulbous nozzle tip at one end and a thick mounting collar with bolts at the other. Not a spade, not a pin.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  },
+  {
+    "name": "firemode-paid-auto",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      85,
+      86
+    ],
+    "references": [
+      {
+        "image": "assets/vehicle-systems/generated/firemode-single/firemode-single-11.png",
+        "role": "the owner's pick for the single-shot button: match its cartridge drawing, colours, outline and finish exactly"
+      },
+      {
+        "image": "assets/vehicle-systems/generated/firemode-burst/firemode-burst-11.png",
+        "role": "the owner's pick for the burst button: match its cartridge drawing and finish; this icon shows more rounds than it"
+      }
+    ],
+    "art_plan": {
+      "button": "a gun's automatic fire mode (D'thorga Framework)",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/FireMode/Auto.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the automatic button redrawn through the paid service to match the picked single and burst"
+    },
+    "prompt": "GAME BUTTON ICON. Seen straight on, centred, as an icon on a button in a strategy game.\n\nImage 1 is our approved single-shot button and Image 2 our approved burst button: draw the cartridges exactly as they are drawn there, same colours, outline and shading.\n\nCreate the matching AUTOMATIC fire button: a belt of six of those same cartridges standing upright side by side, joined at their bases by small dark metal links, the belt curving gently, so it reads as continuous fire.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, the same palette as the references, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks."
+  }
+]

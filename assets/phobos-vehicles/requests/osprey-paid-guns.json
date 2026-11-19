@@ -1,0 +1,89 @@
+[
+  {
+    "name": "osprey-fal-rampgun762",
+    "engine": "fal",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      101,
+      102
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-paid-infraredjammer/osprey-paid-infraredjammer-67.png",
+        "role": "the owner's pick from this set's paid redraw (the infrared jammer, A): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "RampGun762",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/RampGun762.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the 7.62 mm ramp gun redrawn through the paid service after both local pictures missed; OpenAI refused all three as firearms (19 Nov 2026), so the owner chose fal and Nano Banana Pro"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set (a sensor turret): match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a belt-fed general-purpose machine gun of the M240 type, NOT a rifle: a long round barrel with a carrying handle and a flash hider, a boxy rectangular receiver with a hinged feed cover, a belt of brass cartridges joined by links feeding into its left side from a small square ammunition box, and the whole gun sitting on a short upright pintle post with a swivel. No magazine sticking out underneath.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks.",
+    "model": "fal-ai/nano-banana-pro/edit"
+  },
+  {
+    "name": "osprey-fal-rampgun50",
+    "engine": "fal",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      103,
+      104
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-paid-infraredjammer/osprey-paid-infraredjammer-67.png",
+        "role": "the owner's pick from this set's paid redraw (the infrared jammer, A): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "RampGun50",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/RampGun50.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the .50 ramp gun redrawn through the paid service after both local pictures missed; OpenAI refused all three as firearms (19 Nov 2026), so the owner chose fal and Nano Banana Pro"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set (a sensor turret): match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a heavy machine gun of the M2 Browning type: a heavy square box-shaped receiver, two spade grips with a butterfly trigger at the back, a long heavy barrel with a short perforated cooling jacket where it meets the receiver, a belt of large brass cartridges feeding from a green ammunition can, the gun on a short upright pintle post.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks.",
+    "model": "fal-ai/nano-banana-pro/edit"
+  },
+  {
+    "name": "osprey-fal-bellygun",
+    "engine": "fal",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      105,
+      106
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
+        "role": "our approved upgrade icon (the drill rig's work lights): match outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "assets/phobos-vehicles/generated/osprey-paid-infraredjammer/osprey-paid-infraredjammer-67.png",
+        "role": "the owner's pick from this set's paid redraw (the infrared jammer, A): match its finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "Phobos_Osprey",
+      "upgrade_node": "BellyGun",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Upgrades/BellyGun.png",
+      "record": "assets/phobos-vehicles/requests/osprey-night7-picks-record.md",
+      "why": "the owner's choice of 19 Nov 2026: the belly gun redrawn through the paid service after both local pictures missed; OpenAI refused all three as firearms (19 Nov 2026), so the owner chose fal and Nano Banana Pro"
+    },
+    "prompt": "GAME UPGRADE ICON. One single object seen from above at about sixty degrees, centred, as an icon on a button in a top-down strategy game.\n\nImage 1 is our approved upgrade icon from the same set: match its outline weight, shading, palette and finish only, not its shape. Image 2 is another approved icon of this set (a sensor turret): match its finish only, not its shape.\n\nCreate an ORIGINAL icon of a six-barrelled rotary minigun of the GAU-17 type mounted under a small round turret: six barrels clustered in a ring and seen from the side, a drum-shaped motor housing behind them, a feed chute, the gun hanging below a flat round turret base.\n\nStyle: an icon for the game RimWorld: a very thick near-black outline around every shape, bold simple shapes, flat cel shading with two or three tones per material, a muted palette of dusty olive, steel grey and a touch of muted orange, readable when shrunk to 64 pixels. Not a photograph, not a 3D render, not pixel art.\n\nDraw ONLY the object, alone on a plain pure white background, filling about three quarters of the canvas. Square canvas. No people, hands, aircraft, text, letters, numbers, logos or brand marks.",
+    "model": "fal-ai/nano-banana-pro/edit"
+  }
+]

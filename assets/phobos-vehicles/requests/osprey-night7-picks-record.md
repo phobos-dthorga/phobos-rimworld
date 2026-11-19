@@ -1,7 +1,7 @@
 # Night 7 picks: the Osprey's icons and sounds (19 Nov 2026)
 
-**Status (19 Nov 2026):** the owner's picks, made by question card from the review pages; none is exported or wired into a mod yet.
-The icons marked "paid" wait for a redraw through the paid service, with a dry run and a spending cap first.
+**Status (19 Nov 2026):** the owner's picks, made by question card from the review pages, the paid redraw included; none is exported
+or wired into a mod yet. Every icon now has a pick.
 
 Night 7 (`.local/art/night-7.json`, run by the armour session) made two local pictures of each Osprey upgrade icon
 (`osprey-upgrade-icons.json`) and of each fire-mode button (`assets/vehicle-systems/requests/flight-and-fire-buttons.json`), and
@@ -22,7 +22,34 @@ rescue hoists as a valve wheel on a box.
 | Crewless fit | A | `osprey-upgrade-crewlessfit-53.png` |
 | Fire mode: single | A | `firemode-single-11.png` |
 | Fire mode: burst | A | `firemode-burst-11.png` |
-| Ramp gun, 7.62 mm; ramp gun, .50; belly gun; infrared jammer; terrain radar; inlet barrier; rescue hoist; fast ropes; stretchers; ferry tanks; cabin oxygen; refuelling probe; fire mode: automatic | **Paid redraw** (owner, 19 Nov 2026) | Interim icons and stand-ins stay until then |
+| Ramp gun, 7.62 mm; ramp gun, .50; belly gun; infrared jammer; terrain radar; inlet barrier; rescue hoist; fast ropes; stretchers; ferry tanks; cabin oxygen; refuelling probe; fire mode: automatic | **Paid redraw** (owner, 19 Nov 2026) | Below |
+
+## The paid redraw (19 Nov 2026)
+
+Requests: `osprey-paid-icons.json` (OpenAI gpt-image, medium quality, 1024 px, two attempts each) and `osprey-paid-guns.json` (fal,
+Nano Banana Pro edit, 1K). Style references, both ours: the drill rig's approved Work Lights icon and the owner's armour kit pick (B);
+the guns used the infrared jammer pick in place of the armour kit, and the automatic button the single and burst picks. Dry runs first;
+the owner's go with a US$4 cap for the whole batch.
+
+- **OpenAI refused every firearm** (`moderation_blocked`, "violence" and "illicit"): both ramp guns' first attempts and one of the
+  automatic button's two. Nothing is billed for a refusal. The guns went to fal at the owner's choice, which drew them.
+- **Spend:** about US$1.20 at OpenAI (19 pictures) and US$0.90 at fal (6 pictures): **about US$2.10** of the US$4 approved.
+
+| Icon | Pick | File |
+| --- | --- | --- |
+| Ramp gun, 7.62 mm | A | `osprey-fal-rampgun762-101.png` |
+| Ramp gun, .50 | B | `osprey-fal-rampgun50-104.png` |
+| Belly gun | A | `osprey-fal-bellygun-105.png` |
+| Infrared jammer | A | `osprey-paid-infraredjammer-67.png` |
+| Terrain radar | B | `osprey-paid-terrainradar-70.png` |
+| Inlet barrier | A | `osprey-paid-inletbarrier-71.png` |
+| Rescue hoist | B | `osprey-paid-rescuehoist-74.png` |
+| Fast ropes | A | `osprey-paid-fastropes-75.png` |
+| Stretchers | A | `osprey-paid-stretchers-77.png` |
+| Ferry tanks | A | `osprey-paid-ferrytanks-79.png` |
+| Cabin oxygen | B | `osprey-paid-cabinoxygen-82.png` |
+| Refuelling probe | A | `osprey-paid-refuellingprobe-83.png` |
+| Fire mode: automatic | The one made | `firemode-paid-auto-85.png` |
 
 ## Sounds
 
