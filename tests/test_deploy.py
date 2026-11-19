@@ -312,8 +312,10 @@ class TestRowsTests(unittest.TestCase):
         self.assertIn('149', rows)
 
     def test_a_detail_wildcard_reaches_the_game(self):
-        self.assertIn(('140', 'aircraft.warning-receiver', '*: LockedOn'),
-                      {(l.split('\t')[0], l.split('\t')[2], l.split('\t')[4]) for l in self.lines})
+        # Any row still waiting whose evidence is narrowed by a detail wildcard: a named row (140 until 19 Nov 2026) drops out of the file
+        # once the owner passes it, which is the file working, not failing.
+        self.assertTrue(any(l.split('\t')[4].startswith('*') for l in self.lines),
+                        'no waiting row with a detail wildcard reached the file')
 
     def test_installing_the_framework_writes_the_file_into_the_installed_copy_only(self):
         with tempfile.TemporaryDirectory() as folder:
