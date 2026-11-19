@@ -476,7 +476,8 @@ rows 269 and 270.
 | EM16 | The season ahead at a tile: the game's own winter figure for a future date, crossing 1.0 of 2 as "snow on the ground", looked for 30 days ahead [A] (`WinterForecastRule`, `WorldSeasons`, both core). A convoy's inspect pane says it for where it is and where it is going | Leave before the snow, or wait it out | — | The season enters route choice | The world's seasons reach the convoy before it is slowed |
 | EM18 | A postfix on the game's `GravshipUtility.PreLaunchConfirmation` adds a paragraph to its window naming vehicles whose centre is on the floor with a cell off it. **Read on the way:** the game already lists vehicles whose centre is off the floor, among "animals" that will be left behind | Launch knowing | — | — | The gravship's launch |
 
-**Not built of EM18:** what a turned landing does to a vehicle of several cells is still not read (EP5).
+**Not built of EM18:** what a turned landing does to a vehicle of several cells: **read on 20 Nov 2026**
+([Read: EM18](#read-em18-a-turned-gravship-landing-20-nov-2026)); nothing built.
 
 **With it, the fleet board was redrawn** (the owner's request in the same answer; `vehicle-presentation-design.md`, "P2, refreshed"): it
 is where the batches' stories are read in one place. Each row says what the vehicle is doing and needs; lost vehicles (EM2), hulls (EM3)
@@ -530,6 +531,31 @@ all. Three shapes for the owner: (a) keep EM5's fuel by distance and accept the 
 burning: dramatic, and costly to anyone near); (b) fuel by distance with a floor that keeps them moving (about a fifth of a tank [A]),
 so distance shows only in how long they can press an attack before leaving; (c) set it aside. The agent leans to (b). Question 6 below
 is still the owner's.
+
+## Read: EM18, a turned gravship landing (20 Nov 2026)
+
+The second read EP5 listed, done the same night. **Nothing built.** The game's full decompile (`.local/decompiled/full/all.cs`) and
+Vehicle Framework's of 18 Nov 2026.
+
+- **How the game turns what it carries:** on landing, every pawn the ship carries (a vehicle is one) is spawned at its launch offset
+  turned with the ship (`PrefabUtility.GetAdjustedLocalPosition`), facing its old facing turned the same way
+  (`Gravship.GetPlacementValues`, line 771928; `GravshipPlacementUtility.SpawnPawns`, line 706858). A building lands on the same deck
+  cells because the game's footprint rule shifts an even-sized footprint by one cell when it faces east, south or west
+  (`GenAdj.AdjustForRotation`, line 14658), and the turn is made to match that rule.
+- **How Vehicle Framework draws a vehicle's footprint:** with the game's rule, but facing south counted as north and west as east
+  (`AdjustForVehicleOccupiedRect`, its decompile line 71680, called by `VehicleRect`), so a vehicle's footprint never moves when
+  it turns about.
+- **What follows (the agent's reading, not seen in game):** a vehicle whose length or width is an **even** number of cells, landing
+  turned to face **south or west**, covers a footprint one cell along from the deck cells it stood on at launch: one end one cell
+  further out, the other one cell short. A vehicle with odd sides lands exactly; so does one that ends up facing north or east. Parked
+  near the deck's edge, its end can hang a cell over the edge or overlap a wall; GenSpawn does not check.
+- **Whose it is:** neither author's code is wrong alone; the two footprint rules disagree. Not extreme: a vehicle a cell out of place,
+  no lost data. Under the owner's rule (another author's fault is theirs to fix unless it is extreme), **left to Vehicle Framework's
+  author**; a bug report could be drafted for the owner if they want one.
+- **Cheap ways round it, for the owner:** (a) the launch warning (EM18, built) could also name a vehicle with an even side parked within a
+  cell of the edge; (b) park such vehicles facing north or east, or away from walls, which a guide line could say. A fix of our own (a
+  postfix after the ship lands that moves each such vehicle one cell back) is possible but would be a patch on another author's fault,
+  with a row in the temporary-patches list.
 
 ## Who chose what
 
