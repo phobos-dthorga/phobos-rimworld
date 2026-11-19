@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.182.0] - 2026-11-20 - Draft
+
+The driving a vehicle does on an errand of its own is one shared piece, ready for farm machines
+
+### Changed
+
+- **The gathering run, Deliver and the call for a driver now drive through one shared base that other errands can use.** Starting the engine and handing it back, ordering a drive, noticing a drive that is stuck, stopped short or interrupted by another order, and calling for a driver were written three times inside the gathering run; they are now written once. Nothing a player sees or presses changes. It is the groundwork for D'thorga Farming's harvest run, which will drive the same way (owner's choice of 19 Nov 2026 to share it in the build, and the owner's word of 20 Nov 2026 to start building).
+
+### Save compatibility
+
+- Safe to add to a save. A gathering run or a delivery under way when the game was saved resumes as before: every saved key is unchanged.
+
+### Compatibility and limits
+
+- For other modders: an errand of your own can build on the shared base (CompPhobosVehicleRun) and its rule (VehicleRunRule).
+- Not yet tested in game. The gathering run has not been tested in game either (check 201), so its first test also checks this change.
+
 ## [0.180.0] - 2026-11-20 - Draft
 
 Chaff and flares are loaded into an aircraft's dispensers by haulers, not carried as cargo

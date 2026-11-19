@@ -1,6 +1,6 @@
 # Gathering runs: a vehicle that fetches loose materials by itself (19 Nov 2026)
 
-**Status (19 Nov 2026):** built in D'thorga Framework 0.143.0 and D'thorga Vehicles 0.67.0, on the Talus with its loading grab; several chunks a lift and unloading at a chosen place in Framework 0.144.0 and Vehicles 0.68.0; "Vehicles may unload here", any marked bay and Deliver in Framework 0.175.0 and Vehicles 0.86.1; not yet tested in game. Militarised service vehicles have their own record.
+**Status (19 Nov 2026):** built in D'thorga Framework 0.143.0 and D'thorga Vehicles 0.67.0, on the Talus with its loading grab; several chunks a lift and unloading at a chosen place in Framework 0.144.0 and Vehicles 0.68.0; "Vehicles may unload here", any marked bay and Deliver in Framework 0.175.0 and Vehicles 0.86.1; its driving shared with other errands as `CompPhobosVehicleRun` in Framework 0.182.0, with nothing a player sees changed; not yet tested in game. Militarised service vehicles have their own record.
 
 The owner's request, 19 Nov 2026: "a helper with the Talus Tipper Truck that is executed via a gizmo and is only available to activate
 when the Loading Grab implement upgrade is present. With suitable driver or similar ability for the vehicle to drive, it will source

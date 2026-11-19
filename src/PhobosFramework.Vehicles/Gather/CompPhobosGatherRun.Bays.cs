@@ -23,7 +23,7 @@ public enum ErrandWaiting
 /// already aboard (from the cargo window, a drill rig, a chute) and leaves spare parts aboard; afterwards it drives back to where it
 /// started, or stays at the last bay, as the player chose for that truck. UnloadBayRule decides; VehicleUnloadBays says what is marked.
 /// </summary>
-public partial class CompPhobosGatherRun : IVehicleWantsDriver
+public partial class CompPhobosGatherRun
 {
     /// <summary>How many bays one look may try before it gives up finding a way to any. Authored.</summary>
     const int MaxBayTries = 8;
@@ -248,15 +248,12 @@ public partial class CompPhobosGatherRun : IVehicleWantsDriver
         }
         deliveryEnd = how;
         deliveryReason = reason;
-        if (!VehicleAutoDrive.DriveTo(Vehicle, homeCell, homeFacing.IsValid ? homeFacing : null))
+        if (!BeginDrive(homeCell, homeFacing.IsValid ? homeFacing : null))
         {
             End(how, Then(how, reason, "PhobosDeliver_NoWayHome"));
             return;
         }
-        standCell = homeCell;
         phase = GatherPhase.Homing;
-        lastMovedTick = Find.TickManager.TicksGame;
-        lastPosition = Vehicle.Position;
     }
 
     /// <summary>A delivery's own line, or the reason it gave, then a line about the drive back.</summary>
@@ -270,29 +267,16 @@ public partial class CompPhobosGatherRun : IVehicleWantsDriver
     void HomeTick()
     {
         GatherRunEnd how = deliveryEnd == GatherRunEnd.None ? GatherRunEnd.Delivered : deliveryEnd;
-        if (!Vehicle.Drafted)
+        DriveWatch drive = WatchDrive();
+        if (DriveEndedRun(drive)) return;
+        if (drive == DriveWatch.OnWay) return;
+        if (drive == DriveWatch.Stuck)
         {
-            End(GatherRunEnd.EngineOff);
-            return;
-        }
-        if (VehicleAutoDrive.HeadingElsewhere(Vehicle, standCell))
-        {
-            End(GatherRunEnd.Orders);
-            return;
-        }
-        int now = Find.TickManager.TicksGame;
-        if (Vehicle.Position != lastPosition)
-        {
-            lastPosition = Vehicle.Position;
-            lastMovedTick = now;
-        }
-        if (VehicleAutoDrive.HeadingFor(Vehicle, standCell) || VehicleAutoDrive.Moving(Vehicle))
-        {
-            if (!GatherRule.Stuck(now - lastMovedTick, Props.stuckTicks)) return;
-            VehicleAutoDrive.Halt(Vehicle, standCell);
+            HaltDrive();
             End(how, Then(how, deliveryReason, "PhobosDeliver_NoWayHome"));
             return;
         }
+        // The drive back is to where it started, so stopping anywhere else is stopping short.
         if (Vehicle.Position != homeCell)
         {
             End(how, Then(how, deliveryReason, "PhobosDeliver_NoWayHome"));
@@ -356,9 +340,7 @@ public partial class CompPhobosGatherRun : IVehicleWantsDriver
             return;
         }
         // Vehicle Framework says why if it will not start.
-        if (!VehicleAutoDrive.StartEngine(Vehicle, out bool started)) return;
-        engineStarted = started;
-        VehicleAutoDrive.ClearOrders(Vehicle);
+        if (!TakeOver()) return;
         ResetRun();
         delivering = true;
         deliveryEnd = GatherRunEnd.None;
@@ -416,10 +398,6 @@ public partial class CompPhobosGatherRun : IVehicleWantsDriver
     /// <summary>The errand ordered while nobody was aboard to drive, or None. Saved by name: append only.</summary>
     ErrandWaiting waitingFor;
 
-    /// <summary>Whether it waits for a driver now: an errand ordered, none running, and not enough crew aboard to drive.</summary>
-    public bool WantsDriver => waitingFor != ErrandWaiting.None && !Running && Vehicle.Spawned && Vehicle.Faction == Faction.OfPlayer
-        && !Vehicle.HasEnoughOperators;
-
     string WaitingWhat(ErrandWaiting what) =>
         (what == ErrandWaiting.Deliver ? "PhobosDriverCall_WhatDeliver" : "PhobosDriverCall_WhatGather").Translate().Resolve();
 
@@ -427,10 +405,7 @@ public partial class CompPhobosGatherRun : IVehicleWantsDriver
     void WaitForDriver(ErrandWaiting what)
     {
         waitingFor = what;
-        DriverCalls.Call(Vehicle.Map, this, true);
-        Messages.Message("PhobosDriverCall_Waiting".Translate(Vehicle.LabelShort.Named("VEHICLE"), DriverCalls.WorkLabel.Named("WORK"),
-            WaitingWhat(what).Named("WHAT")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
-        Seen.Note("vehicles.driver-call.waiting", Vehicle, variant: what == ErrandWaiting.Deliver ? "deliver" : "gather");
+        CallForDriver(WaitingWhat(what), what == ErrandWaiting.Deliver ? "deliver" : "gather");
     }
 
     /// <summary>Stops waiting, saying so when the player asked.</summary>
@@ -438,12 +413,7 @@ public partial class CompPhobosGatherRun : IVehicleWantsDriver
     {
         if (waitingFor == ErrandWaiting.None) return;
         waitingFor = ErrandWaiting.None;
-        DriverCalls.Call(Vehicle.MapHeld, this, false);
-        if (say)
-        {
-            Messages.Message("PhobosDriverCall_Cancelled".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle,
-                MessageTypeDefOf.SilentInput, historical: false);
-        }
+        CallOffDriver(say);
     }
 
     /// <summary>One look while waiting: once the crew is aboard, whoever brought them, the errand starts; it says why if it cannot.</summary>

@@ -107,11 +107,11 @@ public static class GatherRule
         _ => null,
     };
 
-    /// <summary>Whether a drive has stalled: it has not moved for longer than its patience. No patience means never.</summary>
-    public static bool Stuck(int ticksSinceMoved, int patienceTicks) => patienceTicks > 0 && ticksSinceMoved > patienceTicks;
+    /// <summary>Whether a drive has stalled. Any errand's rule since Framework 0.182.0 (<see cref="VehicleRunRule.Stuck"/>).</summary>
+    public static bool Stuck(int ticksSinceMoved, int patienceTicks) => VehicleRunRule.Stuck(ticksSinceMoved, patienceTicks);
 
-    /// <summary>Whether to give the run up after this many drives in a row that reached nothing. No limit means never.</summary>
-    public static bool GiveUp(int failedInARow, int limit) => limit > 0 && failedInARow >= limit;
+    /// <summary>Whether to give the run up after this many drives in a row that reached nothing (<see cref="VehicleRunRule.GiveUp"/>).</summary>
+    public static bool GiveUp(int failedInARow, int limit) => VehicleRunRule.GiveUp(failedInARow, limit);
 
     /// <summary>
     /// Whether enemies about end a run (owner, 19 Nov 2026: an armoured truck may keep working while enemies are about, behind a switch that

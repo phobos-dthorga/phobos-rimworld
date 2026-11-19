@@ -1,6 +1,6 @@
 # D'thorga Farming, batch one: the build design (19 Nov 2026)
 
-**Status (19 Nov 2026):** a build design only: no mod, code or Def exists yet, and nothing here is tested in game. It turns the base and the harvest of [farm machines](farming-machines.md) into the code, Defs, settings, notes and art a build would make. The owner answered its questions the same day (below) and gave the go for the combine's pilot picture; the build waits on the owner's word.
+**Status (20 Nov 2026):** the build started on the owner's word of 20 Nov 2026 ("I really want to start implementing the Agricultural code-base, even with some risk at present"). **Built so far:** the shared run base, `CompPhobosVehicleRun` with `VehicleRunRule`, and the gathering run moved onto it (D'thorga Framework 0.182.0). **Not built yet:** everything else here; D'thorga Farming itself does not exist yet. Nothing is tested in game. The build goes in three commits (the shared base; the generic rules, bulk hold, carried load and draught; then D'thorga Farming 0.1.0 with its art), with one install at the end. Agent's suggestion of 20 Nov 2026, for the owner to revise: go straight on to batch two (tractors, plough, seed drill) before a first test, so the first test is a whole loop of till, sow and harvest.
 
 The owner chose this batch on 19 Nov 2026 ("Base and harvest first"), and on the same day said to proceed with the groundwork before
 a build: read the real figures in full, write this design, and draw up the art list. The figures are in

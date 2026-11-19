@@ -60,28 +60,27 @@ public class CompProperties_PhobosGatherRun : VehicleCompProperties
 /// gathered and goes back out (Framework 0.144.0). It decides what is wanted and where to stand; the workers lift and tip; VehicleAutoDrive
 /// drives. Nothing ticks without a run. Since Framework 0.175.0 it may instead unload at any place marked "Vehicles may unload here",
 /// moving on when one fills, and the same machinery drives Deliver, which takes a load already aboard to the marked bays
-/// (CompPhobosGatherRun.Bays.cs).
+/// (CompPhobosGatherRun.Bays.cs). Since Framework 0.182.0 its driving (the engine, a drive and the watch on it, the call for a driver, what
+/// a drive saves) is CompPhobosVehicleRun's, shared with the harvest run; what it does and every saved key are as they were.
 /// </summary>
-public partial class CompPhobosGatherRun : VehicleComp
+public partial class CompPhobosGatherRun : CompPhobosVehicleRun
 {
+    /// <summary>The prefix of every key the run's driving saves under: the keys saves have held since Framework 0.143.0.</summary>
+    const string RunSavePrefix = "PhobosGather";
+
     ThingFilter? filter;
     Area? area;
     Building_Storage? unloadBuilding;
     Zone_Stockpile? unloadZone;
     GatherPhase phase;
     Thing? target;
-    IntVec3 standCell = IntVec3.Invalid;
     Rot4 unloadFacing = Rot4.Invalid;
     bool lastTrip;
-    int lastMovedTick;
-    IntVec3 lastPosition = IntVec3.Invalid;
-    int failedDrives;
     int loads;
     float kilograms;
     int places;
     int trips;
     int unloaded;
-    bool engineStarted;
 
     // Derived, never saved: after a load a run may try a thing or a place it had given up on once more.
     readonly HashSet<int> outOfReach = new();
@@ -94,7 +93,11 @@ public partial class CompPhobosGatherRun : VehicleComp
 
     public CompProperties_PhobosGatherRun Props => (CompProperties_PhobosGatherRun)props;
 
-    public bool Running => phase != GatherPhase.Idle;
+    public override bool Running => phase != GatherPhase.Idle;
+
+    protected override bool WaitingForDriver => waitingFor != ErrandWaiting.None;
+
+    protected override int StuckTicks => Props.stuckTicks;
 
     IVehicleGatherWorker? Worker => worker ??= Vehicle.AllComps.OfType<IVehicleGatherWorker>().FirstOrDefault();
 
@@ -301,9 +304,7 @@ public partial class CompPhobosGatherRun : VehicleComp
             return;
         }
         // Vehicle Framework says why if it will not start.
-        if (!VehicleAutoDrive.StartEngine(Vehicle, out bool started)) return;
-        engineStarted = started;
-        VehicleAutoDrive.ClearOrders(Vehicle);
+        if (!TakeOver()) return;
         ResetRun();
         delivering = false;
         phase = GatherPhase.Seeking;
@@ -350,9 +351,8 @@ public partial class CompPhobosGatherRun : VehicleComp
             if (u.Unloading) u.StopUnloading();
             CollectUnload(u);
         }
-        if (was is GatherPhase.Driving or GatherPhase.Returning or GatherPhase.Homing && standCell.IsValid && Vehicle.Spawned) VehicleAutoDrive.Halt(Vehicle, standCell);
-        if (engineStarted && Vehicle.Spawned && GatherRule.SwitchesOffAtEnd(why)) VehicleAutoDrive.StopEngine(Vehicle);
-        engineStarted = false;
+        if (was is GatherPhase.Driving or GatherPhase.Returning or GatherPhase.Homing && standCell.IsValid && Vehicle.Spawned) HaltDrive();
+        HandBack(GatherRule.SwitchesOffAtEnd(why));
         target = null;
         standCell = IntVec3.Invalid;
         unloadFacing = Rot4.Invalid;
@@ -577,17 +577,30 @@ public partial class CompPhobosGatherRun : VehicleComp
 
     void Drive(Thing thing, IntVec3 cell)
     {
-        if (!VehicleAutoDrive.DriveTo(Vehicle, cell))
+        if (!BeginDrive(cell))
         {
             target = thing;
             FailedDrive();
             return;
         }
         target = thing;
-        standCell = cell;
         phase = GatherPhase.Driving;
-        lastMovedTick = Find.TickManager.TicksGame;
-        lastPosition = Vehicle.Position;
+    }
+
+    /// <summary>Ends the run if a look at its drive found the engine switched off or another order; says whether it did.</summary>
+    bool DriveEndedRun(DriveWatch drive)
+    {
+        if (drive == DriveWatch.EngineOff)
+        {
+            End(GatherRunEnd.EngineOff);
+            return true;
+        }
+        if (drive == DriveWatch.OtherOrders)
+        {
+            End(GatherRunEnd.Orders);
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -596,35 +609,21 @@ public partial class CompPhobosGatherRun : VehicleComp
     /// </summary>
     void DriveTick()
     {
-        if (!Vehicle.Drafted)
-        {
-            End(GatherRunEnd.EngineOff);
-            return;
-        }
-        if (VehicleAutoDrive.HeadingElsewhere(Vehicle, standCell))
-        {
-            End(GatherRunEnd.Orders);
-            return;
-        }
-        int now = Find.TickManager.TicksGame;
-        if (Vehicle.Position != lastPosition)
-        {
-            lastPosition = Vehicle.Position;
-            lastMovedTick = now;
-        }
+        DriveWatch drive = WatchDrive();
+        if (DriveEndedRun(drive)) return;
         bool gone = target == null || !Wants(target);
-        if (VehicleAutoDrive.HeadingFor(Vehicle, standCell) || VehicleAutoDrive.Moving(Vehicle))
+        if (drive is DriveWatch.OnWay or DriveWatch.Stuck)
         {
             if (gone)
             {
                 // Someone else took it, or it was forbidden: look again from here.
-                VehicleAutoDrive.Halt(Vehicle, standCell);
+                HaltDrive();
                 LookAgain();
                 return;
             }
-            if (GatherRule.Stuck(now - lastMovedTick, Props.stuckTicks))
+            if (drive == DriveWatch.Stuck)
             {
-                VehicleAutoDrive.Halt(Vehicle, standCell);
+                HaltDrive();
                 FailedDrive();
             }
             return;
@@ -731,10 +730,8 @@ public partial class CompPhobosGatherRun : VehicleComp
             BeginUnload();
             return true;
         }
-        if (!VehicleAutoDrive.DriveTo(Vehicle, stand, facing)) return false;
+        if (!BeginDrive(stand, facing)) return false;
         phase = GatherPhase.Returning;
-        lastMovedTick = Find.TickManager.TicksGame;
-        lastPosition = Vehicle.Position;
         return true;
     }
 
@@ -744,41 +741,27 @@ public partial class CompPhobosGatherRun : VehicleComp
     /// </summary>
     void ReturnTick()
     {
-        if (!Vehicle.Drafted)
-        {
-            End(GatherRunEnd.EngineOff);
-            return;
-        }
-        if (VehicleAutoDrive.HeadingElsewhere(Vehicle, standCell))
-        {
-            End(GatherRunEnd.Orders);
-            return;
-        }
+        DriveWatch drive = WatchDrive();
+        if (DriveEndedRun(drive)) return;
         if (PlaceCells() == null)
         {
             // A bay gone or unmarked on the way: make for the next one instead.
             if (UsesBays)
             {
-                VehicleAutoDrive.Halt(Vehicle, standCell);
+                HaltDrive();
                 GoToBay(null);
             }
             else End(GatherRunEnd.UnloadPlaceGone);
             return;
         }
-        int now = Find.TickManager.TicksGame;
-        if (Vehicle.Position != lastPosition)
+        if (drive == DriveWatch.OnWay) return;
+        if (drive == DriveWatch.Stuck)
         {
-            lastPosition = Vehicle.Position;
-            lastMovedTick = now;
-        }
-        if (VehicleAutoDrive.HeadingFor(Vehicle, standCell) || VehicleAutoDrive.Moving(Vehicle))
-        {
-            if (!GatherRule.Stuck(now - lastMovedTick, Props.stuckTicks)) return;
-            VehicleAutoDrive.Halt(Vehicle, standCell);
+            HaltDrive();
             FailedReturn();
             return;
         }
-        if (Vehicle.Position == standCell)
+        if (drive == DriveWatch.Arrived)
         {
             VehicleAutoDrive.Face(Vehicle, unloadFacing);
             failedDrives = 0;
@@ -906,18 +889,15 @@ public partial class CompPhobosGatherRun : VehicleComp
         if (!saving || unloadZone != null) Scribe_References.Look(ref unloadZone, "PhobosGatherUnloadZone");
         Scribe_Values.Look(ref phase, "PhobosGatherPhase", GatherPhase.Idle);
         if (!saving || target != null) Scribe_References.Look(ref target, "PhobosGatherTarget");
-        Scribe_Values.Look(ref standCell, "PhobosGatherStandCell", IntVec3.Invalid);
+        // The drive's own: PhobosGatherStandCell, LastMoved, LastPosition, FailedDrives and EngineStarted, as before.
+        ExposeRun(RunSavePrefix);
         Scribe_Values.Look(ref unloadFacing, "PhobosGatherUnloadFacing", Rot4.Invalid);
         Scribe_Values.Look(ref lastTrip, "PhobosGatherLastTrip");
-        Scribe_Values.Look(ref lastMovedTick, "PhobosGatherLastMoved");
-        Scribe_Values.Look(ref lastPosition, "PhobosGatherLastPosition", IntVec3.Invalid);
-        Scribe_Values.Look(ref failedDrives, "PhobosGatherFailedDrives");
         Scribe_Values.Look(ref loads, "PhobosGatherLoads");
         Scribe_Values.Look(ref kilograms, "PhobosGatherKilograms");
         Scribe_Values.Look(ref places, "PhobosGatherPlaces");
         Scribe_Values.Look(ref trips, "PhobosGatherTrips");
         Scribe_Values.Look(ref unloaded, "PhobosGatherUnloaded");
-        Scribe_Values.Look(ref engineStarted, "PhobosGatherEngineStarted");
         Scribe_Values.Look(ref keepWorking, "PhobosGatherKeepWorking");
         ExposeBays(saving);
         if (Scribe.mode == LoadSaveMode.PostLoadInit && phase == GatherPhase.Driving && target == null) LookAgain();
