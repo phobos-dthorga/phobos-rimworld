@@ -1,0 +1,51 @@
+{
+  "file": "part-turbine-blades-2.png",
+  "sha256": "ae3951ad37f6a8891ba28cba8e357277d92d78524c478da5bdad1ddafcb7d5be",
+  "date": "2026-11-19T23:19:23",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One single object or one tidy bundle, centred, with its long axis level.\n\nCreate an ORIGINAL game item sprite for the D'thorga turbine blade set: the heat-resistant blades of one gas turbine. Image 1 is our approved vehicle part from the same family: match its outline weight, shading, palette and finish only. Do NOT copy its shape.\n\nDraw ONLY the blade set, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA single turbine disc seen at an angle: a round bright steel hub ringed by many short curved blades with a faint bronze heat tint at their tips, and three loose spare blades lying neatly beside it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, engine casing, text, letters, numbers, logos, dials, dust, floor, ground or cast shadow.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/aircraft-parts.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 351,
+    "input_tokens_details": {
+      "image_tokens": 64,
+      "text_tokens": 287
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2107
+  },
+  "cost_usd": 0.0546,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 28.2,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TurbineAssembly.png",
+      "sha256": "99b5132db472085d44e6c36738a34f8abd4c23272462cb8e0fb2916d94583476",
+      "role": "our approved vehicle part icon from the same family (a gas turbine assembly): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
