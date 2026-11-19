@@ -15,6 +15,10 @@ come from the options, then the environment, then .local/install-settings.json, 
     python scripts/mod-settings.py changes --since REV --json
                                                          the same as JSON, each with its mod and, where one is found, the label
                                                          the settings window shows (phobos-modkit's installs reads it)
+    python scripts/mod-settings.py history --json        every setting of ours ever added, removed or given a new default, with
+                                                         the commit and time of each, oldest first, and what is not committed yet
+                                                         last (D'thorga Companion's Mods page and Timeline read it; each commit is
+                                                         read once and kept in the kit's cache)
 
 The owner asked on 10 Nov 2026 to be told whenever a setting of ours is added or changed, so they can look at it or set it;
 `changes` is how a session finds out, reading only the repository's history, never the game.
@@ -155,6 +159,98 @@ def report_changes(argv, out=None):
     return 0
 
 
+# Commits whose changes touch a settings class: a saved key, its default, or the class itself.
+SETTINGS_TOUCHED = r'Scribe_Values\.Look|:\s*ModSettings'
+HISTORY_CACHE = 'mod-settings-history'
+HISTORY_FORMAT = 1
+
+
+def history_commits(root=ROOT):
+    """[(commit, ISO time, subject)] of every commit whose diff touches a settings class under src/, oldest first."""
+    out = subprocess.run(['git', '-c', 'core.fsmonitor=false', 'log', '--reverse', '--format=%H%x1f%cI%x1f%s', '-G', SETTINGS_TOUCHED,
+                          '--', 'src'], cwd=root, capture_output=True, text=True, encoding='utf-8', check=True).stdout
+    return [tuple(line.split('\x1f', 2)) for line in out.splitlines() if line.count('\x1f') == 2]
+
+
+def _history_store(root=ROOT):
+    from phobos_modkit import cache as derived
+    return derived.folder(HISTORY_CACHE) / f'{Path(root).resolve().name}.json'
+
+
+def _changed_in(commit, root=ROOT):
+    """What one commit changed in our settings: [{mod, class, key, what, before, after}] against its first parent."""
+    try:
+        old_sources = sources_at(f'{commit}^', root)
+    except subprocess.CalledProcessError:
+        old_sources = {}    # the repository's first commit
+    new_sources = sources_at(commit, root)
+    mods = class_mods([new_sources, old_sources], root)
+    return [{'mod': mods.get(cls), 'class': cls, 'key': key, 'what': what, 'before': before, 'after': after}
+            for cls, key, what, before, after in changes(defaults_document(sources=old_sources),
+                                                         defaults_document(sources=new_sources))]
+
+
+def settings_history(root=ROOT, progress=None):
+    """Every setting of ours ever added, removed or given a new default, oldest first: [{time, commit, subject, mod, class, key,
+    label, what, before, after}], with the working tree's changes not yet committed last (commit None). A commit never changes, so
+    what each one changed is kept in the kit's cache and only new commits are read."""
+    store = _history_store(root)
+    try:
+        kept = json.loads(store.read_text(encoding='utf-8'))
+        if kept.get('format') != HISTORY_FORMAT:
+            kept = {}
+    except (OSError, ValueError, AttributeError):
+        kept = {}
+    commits = kept.setdefault('commits', {})
+    found, fresh = [], False
+    listed = history_commits(root)
+    for position, (commit, when, subject) in enumerate(listed, 1):
+        if commit not in commits:
+            if progress:
+                progress(f'Reading what {commit[:8]} changed in our settings', position, len(listed))
+            commits[commit] = _changed_in(commit, root)
+            fresh = True
+        found += [{'time': when, 'commit': commit, 'subject': subject, **change} for change in commits[commit]]
+    head = sources_at('HEAD', root)
+    now = sources_now(root)
+    mods = class_mods([now, head], root)
+    from datetime import datetime, timezone
+    when = datetime.now(timezone.utc).isoformat(timespec='seconds')
+    found += [{'time': when, 'commit': None, 'subject': None, 'mod': mods.get(cls), 'class': cls, 'key': key, 'what': what,
+               'before': before, 'after': after}
+              for cls, key, what, before, after in changes(defaults_document(sources=head), defaults_document(sources=now))]
+    if fresh:
+        kept['format'] = HISTORY_FORMAT
+        store.parent.mkdir(parents=True, exist_ok=True)
+        store.write_text(json.dumps(kept), encoding='utf-8')
+    texts = keyed_texts(root)
+    for change in found:
+        change['label'] = setting_label(change['key'], texts)
+    return found
+
+
+def report_history(argv, out=None):
+    out = out or sys.stdout
+    try:
+        _modkit.ensure()
+    except _modkit.MissingModKit as missing:
+        print(missing, file=sys.stderr)
+        return 2
+    try:
+        found = settings_history()
+    except subprocess.CalledProcessError as error:
+        print(f'git could not read the history: {(error.stderr or "").strip()}', file=sys.stderr)
+        return 2
+    if '--json' in argv:
+        json.dump(found, out)
+        out.write('\n')
+        return 0
+    print(f'{len(found)} setting change(s) in the history of our settings:', file=out)
+    for change in found:
+        print(f"  {change['time'][:10]} {(change['commit'] or 'not committed')[:8]} {change['key']} {change['what']}", file=out)
+    return 0
+
+
 def defaults_document(root=ROOT, sources=None):
     """{schemaVersion, classes: {settings class: {key: {default, initial, field}}}} from every ModSettings class in src/, or in the
     sources given."""
@@ -175,6 +271,8 @@ def main(argv=None, out=None):
     argv = list(sys.argv[1:] if argv is None else argv)
     if argv[:1] == ['changes']:
         return report_changes(argv[1:], out)
+    if argv[:1] == ['history']:
+        return report_history(argv[1:], out)
     try:
         _modkit.ensure()
     except _modkit.MissingModKit as missing:

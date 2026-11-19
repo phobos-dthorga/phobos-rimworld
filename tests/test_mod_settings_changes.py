@@ -71,3 +71,39 @@ class SettingLabelTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class SettingsHistoryTests(unittest.TestCase):
+    """The history of our settings is put together from each commit's changes, kept per commit; the commits are synthetic here."""
+
+    def setUp(self):
+        import tempfile
+        from unittest import mock
+        self.tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.tmp.cleanup)
+        self.read = []
+
+        def changed_in(commit, root=None):
+            self.read.append(commit)
+            return [{'mod': 'PhobosTest', 'class': 'Phobos.Test.TestSettings', 'key': f'PhobosTest_{commit}', 'what': 'added',
+                     'before': None, 'after': 'True'}]
+
+        store = os.path.join(self.tmp.name, 'history.json')
+        for name, value in (('history_commits', lambda root=None: [('aaa', '2026-11-01T10:00:00+11:00', 'first'),
+                                                                     ('bbb', '2026-11-02T10:00:00+11:00', 'second')]),
+                            ('_changed_in', changed_in),
+                            ('_history_store', lambda root=None: settings.Path(store)),
+                            ('sources_at', lambda revision, root=None: source(A)),
+                            ('sources_now', lambda root=None: source(A, B)),
+                            ('keyed_texts', lambda root=None: {'PhobosTest_SettingB': 'Bees'})):
+            patcher = mock.patch.object(settings, name, value)
+            patcher.start()
+            self.addCleanup(patcher.stop)
+
+    def test_each_commit_once_oldest_first_then_what_is_not_committed(self):
+        found = settings.settings_history()
+        self.assertEqual([c['key'] for c in found], ['PhobosTest_aaa', 'PhobosTest_bbb', 'PhobosTest_B'])
+        self.assertEqual([c['commit'] for c in found], ['aaa', 'bbb', None])
+        self.assertEqual(found[-1]['label'], 'Bees')
+        settings.settings_history()
+        self.assertEqual(self.read, ['aaa', 'bbb'], 'a commit already read comes from the cache')

@@ -14,5 +14,6 @@
     "shared": ["Directory.Build.props", "Directory.Build.targets"],
     "command": ["{python}", "scripts/deploy.py", "--build-only"]
   },
-  "settingsChanges": ["{python}", "scripts/mod-settings.py", "changes", "--since", "{commit}", "--json"]
+  "settingsChanges": ["{python}", "scripts/mod-settings.py", "changes", "--since", "{commit}", "--json"],
+  "settingsHistory": ["{python}", "scripts/mod-settings.py", "history", "--json"]
 }
