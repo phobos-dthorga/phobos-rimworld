@@ -1,6 +1,6 @@
 # The Seabed Crawler: design (10 Nov 2026)
 
-**Status (17 Nov 2026):** built in D'thorga Framework 0.62.0 to 0.81.0 and 0.116.0 (and Vehicles 0.28.0 to 0.43.0): the research tab,
+**Status (20 Nov 2026):** set aside by the owner (submarine work to the back burner): the Crawler is off the build menu, its parts off the bench, and its research tab out of view in a colony that never started it (Framework 0.179.0, Vehicles 0.88.0). Before that: built in D'thorga Framework 0.62.0 to 0.81.0 and 0.116.0 (and Vehicles 0.28.0 to 0.43.0): the research tab,
 the bare hull at 4 x 9 with its own picture and overlays, bottoming wheels, air scrubber, wet and advanced laboratories with aboard-only
 research, listening array, sonar set, both hull refits, and the laboratories, sonar and listening array drawing on the battery; not built:
 the manipulator arm, oxygen candles, radar mast, seabed drill, reactor and the soft tie-ins. Not yet tested in game.
@@ -258,6 +258,22 @@ Short list, highest consequence first. On a map with deep water and dev mode on.
 ## Open questions for the owner
 
 All are answered, under [Who chose what](#who-chose-what). **Building waits for the owner's word that the research tree work is finished** (10 Nov 2026), so that upgrade research is enforced from the first node. **The owner gave the go on 10 Nov 2026, and building began in Vehicles 0.28.0** (see the status line at the top).
+
+## Set aside (20 Nov 2026)
+
+The owner put submarine work on the back burner and asked to "partially retire it out of view": the build menu and the bench, and the
+research tab **"visible for colonies with pre-existing data but for those otherwise ... invisible and out-of-sight"**.
+
+- **What it lets the player do:** keep using a boat already built, and the research already done. **What it stops:** building a new
+  Crawler, making its upgrade parts, and seeing or starting submarine research in a colony that never started it. **How it changes
+  play:** submarines leave a new colony's view entirely; an old one loses nothing it has.
+- **How** (Framework 0.179.0, Vehicles 0.88.0): the blueprint has no build category (as the test hull), the eight upgrade parts no bench,
+  and the research tab carries `ResearchSetAsideExtension`, which the Framework's vehicles part carries into the game's research window
+  and Nice Research Tab (two postfixes, the second by name).
+- **Not unloaded** (agent's finding, 20 Nov 2026): the owner's colony had researched seven of the nine projects, and its storage filters
+  named the Crawler 110 times, so moving the Defs out of the load would have lost that research and filled the log with errors.
+- **To bring it back:** remove the extension from the tab, put `PhobosVehicles_MotorPool` back as the blueprint's build category and the
+  parts bench back in each part's `recipeUsers`.
 
 ## The Seabed Crawler's picture: research and art record (11 Nov 2026)
 

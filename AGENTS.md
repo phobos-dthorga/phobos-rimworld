@@ -36,6 +36,11 @@ running a script does not load them.
 - **Radio framework**: [`src/PhobosRadio/AGENTS.md`](src/PhobosRadio/AGENTS.md): its phases and its physics rules.
 - **The radio framework is on the back burner** (owner, 9 Nov 2026): no new radio features or phases, and no reviews of it, until the
   owner picks it up again. The mod stays as it is, and a fix to something broken in it is still fine when the owner reports it.
+- **Submarine work is on the back burner too, and out of view** (owner, 20 Nov 2026: "put our submarine development on the backbench
+  and even partially retire it out of view for now"): no new submarine features or reviews until the owner picks it up again. The
+  Seabed Crawler is off the build menu and its parts off the bench, and its research tab is out of view in a colony that never started
+  it ("visible for colonies with pre-existing data"). Nothing is removed: a boat already built keeps working, and a fix to something
+  broken is still fine when the owner reports it.
 
 ## Working with the owner
 

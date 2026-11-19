@@ -13,6 +13,8 @@ Version 0.89.0, built 20 November 2026 for House D'thorga. **Not yet tested in g
 
 ## Read this first (gotchas)
 
+- **The Fathom seabed crawler is set aside for now** (0.88.0): off the build menu, its upgrade parts made at no bench, and its
+  research tab shown only in a colony that has already researched some of it. A boat already built keeps working.
 - **Needs Vehicle Framework and D'thorga Framework 0.169.0 or later**, on **RimWorld 1.7 only**. Load it after both; the About
   file asks for that, so RimSort does it for you. Vanilla Expanded Framework is optional: it brings the garages.
 - **Safe to add to a running colony.** **Safe to remove only once none of our own vehicles is left**: scrap every tipper, tanker,

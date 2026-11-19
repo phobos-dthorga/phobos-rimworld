@@ -1,6 +1,6 @@
 # The submersibles framework: design (9 Nov 2026, updated 10 Nov 2026)
 
-**Status (17 Nov 2026):** built in D'thorga Framework 0.58.0 to 0.60.0 (and Vehicles 0.26.0): diving, spotting, staying down,
+**Status (20 Nov 2026):** set aside by the owner (submarine work to the back burner): the Crawler is off the build menu, its parts off the bench, and its research tab out of view in a colony that never started it (Framework 0.179.0, Vehicles 0.88.0). Before that: built in D'thorga Framework 0.58.0 to 0.60.0 (and Vehicles 0.26.0): diving, spotting, staying down,
 chest-deep water, a boat that can be lost, and the dev-only test hull; the first real boat, the Fathom seabed crawler, is built since
 Vehicles 0.28.0 ([its record](vehicle-seabed-crawler.md)); not built: enemy submarines and next slices 2 to 5 below. Not yet tested in
 game.

@@ -362,7 +362,9 @@
       <Plasteel>15</Plasteel>
       <ComponentIndustrial>10</ComponentIndustrial>
     </costList>
-    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <!-- Set aside (owner, 20 Nov 2026: submarine work to the back burner, out of view): off the build menu, as the test hull is; a boat
+         already built keeps working. Put PhobosVehicles_MotorPool back here to bring it back. -->
+    <designationCategory Inherit="False" />
     <thingToSpawn>Phobos_SeabedCrawler</thingToSpawn>
   </Vehicles.VehicleBuildDef>
 </Defs>

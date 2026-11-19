@@ -8,6 +8,9 @@ upgrades let it rest on the bottom, listen, ping, and carry a laboratory. The di
 
 ## Read this first (gotchas)
 
+- **Set aside for now** (20 November 2026): submarines are on the back burner. **The Fathom is not on the build menu**, and its upgrade parts are made at no bench. **The D'thorga: Submarines
+  research tab shows only in a colony that has already put research into it**; elsewhere it is out of sight. **A boat already built
+  keeps working**, with everything below. What follows is how it works when it is in play.
 - **Not yet tested in game.**
 - **Research submersible hull** on the **D'thorga: Submarines** tab (after **vehicle parts** and Batteries). Each upgrade has its own
   research and its own part from the vehicle parts bench.

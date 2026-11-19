@@ -54,7 +54,7 @@ What each mod does in a line, and how they depend on one another, is in [the pro
   bars and a reason in plain words, never a figure you must read. **Operator** adds the key figures. **Engineer** shows every figure
   and graph. The outcome is the same in every mode; only what you see changes.
 - **The D'thorga research tab**: our research projects have their own tab in the research window, and submarines have
-  **D'thorga: Submarines**. An existing colony that had already done the game's research a project replaced gets that project
+  **D'thorga: Submarines** (set aside for now: it shows only in a colony that has already researched some of it). An existing colony that had already done the game's research a project replaced gets that project
   free, once, so you lose nothing you could already build.
 - **Not yet tested in game**: built and checked offline (builds, unit tests, reading the game's code), but not yet seen working in
   a real colony.

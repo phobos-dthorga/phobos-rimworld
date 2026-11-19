@@ -33,9 +33,9 @@
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
       <researchPrerequisite>PhobosResearch_SeabedRunningGear</researchPrerequisite>
-      <recipeUsers>
-        <li>PhobosVehicles_PartsBench</li>
-      </recipeUsers>
+      <!-- Set aside (owner, 20 Nov 2026: submarine work to the back burner, out of view): made at no bench for now; put the parts bench
+           back here to bring it back. The item stays, so a save holding one or naming it in a storage filter still loads. -->
+      <recipeUsers />
       <skillRequirements>
         <Crafting>6</Crafting>
       </skillRequirements>
@@ -77,9 +77,9 @@
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
       <researchPrerequisite>PhobosResearch_AirPurification</researchPrerequisite>
-      <recipeUsers>
-        <li>PhobosVehicles_PartsBench</li>
-      </recipeUsers>
+      <!-- Set aside (owner, 20 Nov 2026: submarine work to the back burner, out of view): made at no bench for now; put the parts bench
+           back here to bring it back. The item stays, so a save holding one or naming it in a storage filter still loads. -->
+      <recipeUsers />
       <skillRequirements>
         <Crafting>6</Crafting>
       </skillRequirements>
@@ -121,9 +121,9 @@
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
       <researchPrerequisite>PhobosResearch_Hydrophones</researchPrerequisite>
-      <recipeUsers>
-        <li>PhobosVehicles_PartsBench</li>
-      </recipeUsers>
+      <!-- Set aside (owner, 20 Nov 2026: submarine work to the back burner, out of view): made at no bench for now; put the parts bench
+           back here to bring it back. The item stays, so a save holding one or naming it in a storage filter still loads. -->
+      <recipeUsers />
       <skillRequirements>
         <Crafting>6</Crafting>
       </skillRequirements>
@@ -165,9 +165,9 @@
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
       <researchPrerequisite>PhobosResearch_MarineScience</researchPrerequisite>
-      <recipeUsers>
-        <li>PhobosVehicles_PartsBench</li>
-      </recipeUsers>
+      <!-- Set aside (owner, 20 Nov 2026: submarine work to the back burner, out of view): made at no bench for now; put the parts bench
+           back here to bring it back. The item stays, so a save holding one or naming it in a storage filter still loads. -->
+      <recipeUsers />
       <skillRequirements>
         <Crafting>6</Crafting>
       </skillRequirements>
@@ -210,9 +210,9 @@
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
       <researchPrerequisite>PhobosResearch_AdvancedMarineScience</researchPrerequisite>
-      <recipeUsers>
-        <li>PhobosVehicles_PartsBench</li>
-      </recipeUsers>
+      <!-- Set aside (owner, 20 Nov 2026: submarine work to the back burner, out of view): made at no bench for now; put the parts bench
+           back here to bring it back. The item stays, so a save holding one or naming it in a storage filter still loads. -->
+      <recipeUsers />
       <skillRequirements>
         <Crafting>8</Crafting>
       </skillRequirements>
@@ -254,9 +254,9 @@
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
       <researchPrerequisite>PhobosResearch_ActiveSonar</researchPrerequisite>
-      <recipeUsers>
-        <li>PhobosVehicles_PartsBench</li>
-      </recipeUsers>
+      <!-- Set aside (owner, 20 Nov 2026: submarine work to the back burner, out of view): made at no bench for now; put the parts bench
+           back here to bring it back. The item stays, so a save holding one or naming it in a storage filter still loads. -->
+      <recipeUsers />
       <skillRequirements>
         <Crafting>7</Crafting>
       </skillRequirements>
@@ -298,9 +298,9 @@
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
       <researchPrerequisite>PhobosResearch_SensorRefit</researchPrerequisite>
-      <recipeUsers>
-        <li>PhobosVehicles_PartsBench</li>
-      </recipeUsers>
+      <!-- Set aside (owner, 20 Nov 2026: submarine work to the back burner, out of view): made at no bench for now; put the parts bench
+           back here to bring it back. The item stays, so a save holding one or naming it in a storage filter still loads. -->
+      <recipeUsers />
       <skillRequirements>
         <Crafting>8</Crafting>
       </skillRequirements>
@@ -343,9 +343,9 @@
       <workSkill>Crafting</workSkill>
       <unfinishedThingDef>UnfinishedComponent</unfinishedThingDef>
       <researchPrerequisite>PhobosResearch_LaboratoryRefit</researchPrerequisite>
-      <recipeUsers>
-        <li>PhobosVehicles_PartsBench</li>
-      </recipeUsers>
+      <!-- Set aside (owner, 20 Nov 2026: submarine work to the back burner, out of view): made at no bench for now; put the parts bench
+           back here to bring it back. The item stays, so a save holding one or naming it in a storage filter still loads. -->
+      <recipeUsers />
       <skillRequirements>
         <Crafting>8</Crafting>
       </skillRequirements>

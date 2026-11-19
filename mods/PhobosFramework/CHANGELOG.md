@@ -44,6 +44,7 @@ The second parts pass: an electric motor, actuators for servos, and two drivetra
 
 - **An electric motor at the vehicle parts bench**, with its own picture (the owner's pick): 25 steel and 4 components, after vehicle parts. The depot bay stores it.
 - **New parts roles** for parts bills, any mod's to use: a generator and an electric motor (an electric motor, whole), and a lighting harness (5 steel and a component) for a towed thing's lights.
+- **Research can be set aside**: a research tab marked so is out of view in a colony that has put no research into it, and shows as before in one that has, in the game's research window and in Nice Research Tab. Nothing is unloaded. Any mod may mark its own tab (needs Vehicle Framework, whose part carries it). D'thorga Vehicles' submarine tab is the first.
 
 ### Changed
 
@@ -64,7 +65,8 @@ The second parts pass: an electric motor, actuators for servos, and two drivetra
 ### Compatibility and limits
 
 - Replacing another author's aircraft's destroyed servos, or a locomotive's traction motor, now asks for one of our parts: a hydraulic actuator, an electric motor.
-- **Not yet tested in game** (test row 253).
+- Nice Research Tab is reached by name: if an update renames what it reaches, that part stands down and the tab shows again.
+- **Not yet tested in game** (test rows 253 and 255).
 
 ## [0.178.0] - 2026-11-19 - Draft
 

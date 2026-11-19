@@ -7,6 +7,11 @@
     <label>D'thorga: Submarines</label>
     <generalTitle>D'thorga submarine research</generalTitle>
     <generalDescription>Boats that go under the water, and the gear that lets their crews work and survive there.</generalDescription>
+    <!-- Set aside (owner, 20 Nov 2026: submarine work to the back burner): out of view in a colony that has put no research into it, in
+         view as before in one that has (D'thorga Framework 0.179.0). Remove this to bring it back for everyone. -->
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchSetAsideExtension" />
+    </modExtensions>
   </ResearchTabDef>
 
   <ResearchProjectDef Abstract="True" Name="PhobosResearchSubmarineBase">

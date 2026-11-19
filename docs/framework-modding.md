@@ -263,6 +263,7 @@ that lays them.
 | `PhobosRulesDef` | A rules Def whose first instance wins; read it with `Current<T>()` |
 | `PatchFlags.Register`, `PatchOperationPhobosFlag` | XML patches applied only while a setting of yours is on: register the flag in your Mod constructor, which runs before patches; the operation takes a `flag` and its `operations` |
 | `FrameWorkQueue`, `RoomRebuildHold` | A long job run a slice per frame; rooms rebuilt once per slice while many things are destroyed |
+| `ResearchSetAsideExtension` (0.179.0) | Put on your own `ResearchTabDef` to set its research aside: out of view in a colony that has put no research into it, in view as before in one that has. Nothing is unloaded. Needs Vehicle Framework active (its part carries the patches), in the game's research window and Nice Research Tab |
 | `DebugCategory.Name` | The shared dev-mode actions category |
 | `CleanupService.RemoveHediffsOf(pack)` | A clean uninstall of your conditions |
 | `Phobos.Framework.Sounds.PhobosSoundVolumeExtension` | Put it on a SoundDef so the one **D'thorga sounds volume** setting scales it |

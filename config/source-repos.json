@@ -41,6 +41,30 @@
       ],
       "checked": "2026-11-18"
     },
+    "andromeda.niceresearchtab": {
+      "name": "Nice Research Tab",
+      "package_id": "andromeda.niceresearchtab",
+      "workshop_id": "3773496046",
+      "repository": "",
+      "found": "",
+      "confirmed": "",
+      "pushed": "",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        },
+        {
+          "repository": "Keullaeseu/Multiplayer-Nice-Research-Tab-Patch",
+          "found": "GitHub search",
+          "note": "it is keullaeseu.mp.andromeda.niceresearchtab's repository"
+        }
+      ],
+      "checked": "2026-11-19"
+    },
     "andromeda.usefulmarks": {
       "name": "Useful Marks",
       "package_id": "andromeda.usefulmarks",

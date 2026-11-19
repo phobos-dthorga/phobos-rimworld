@@ -43,7 +43,7 @@ the game opens with its designation: the name, its first letter and a mark numbe
 | **Talus tipper truck** | T1 | 3 x 8 | Hauls 2,400 kg and tips it in one go | The heap of broken rock at the foot of a cliff |
 | **Ullage bulk tanker** | U1 | 3 x 10 | Carries and pumps fluids, buys them in bulk | The empty space a tank must keep above its load |
 | **Busbar generator set** | B1 | 3 x 8 | A power station you can drive away | The bar that carries power into a grid |
-| **Fathom seabed crawler** | F1, F1-S, F1-L | 4 x 9 | A small submarine ([its chapter](submarines.md)) | The sailor's six-foot depth unit; to get to the bottom of something |
+| **Fathom seabed crawler** | F1, F1-S, F1-L | 4 x 9 | A small submarine ([its chapter](submarines.md)); set aside for now, off the build menu | The sailor's six-foot depth unit; to get to the bottom of something |
 | **Pintle flatbed trailer** | P1 | 3 x 7 | A second load behind any land vehicle | The hook-and-ring coupling a drawbar trailer hangs from |
 | **Pintle water bowser** | P2 | 3 x 8 | 2,500 litres of water to a camp (Dubs Bad Hygiene) | A bowser is a tank trailer, named after Sylvanus Bowser's fuel pump |
 | **Pintle fuel bowser** | P3 | 3 x 8 | 2,500 litres of chemfuel to vehicles and generators | As the water bowser |

@@ -84,7 +84,8 @@ Two settings you may never touch, but should know about:
 
 ## Research
 
-Our research projects sit on their own **D'thorga** tab in the research window, and submarines on **D'thorga: Submarines**. An
+Our research projects sit on their own **D'thorga** tab in the research window, and submarines on **D'thorga: Submarines**, which is
+set aside for now and shows only in a colony that has already researched some of it ([submarines](submarines.md)). An
 existing colony that had already researched what one of our projects replaced gets that project free, once, when it loads.
 
 | Project | After | Opens |
