@@ -377,7 +377,8 @@ model (owner). **Later:** EM4, EM9, EM16, EM18's warning, the rest of EM21. **He
    setting? And should **engines cut in the air** fall, where today they are restarted and the aircraft landed?
 4. **Exhaust indoors (EM20).** Wanted? On or off by default?
 5. **What is lost (EM2).** A lost convoy becomes a site, a destroyed vehicle leaves a hull, both, or neither?
-6. **Raiders' fuel by distance (EM5).** Wanted, once its read is done?
+6. **Raiders' fuel by distance (EM5).** Wanted, once its read is done? **The read is done** ([Read: EM5](#read-em5-raiders-fuel-20-nov-2026)):
+   raiders blow up their own vehicle when it cannot move, so the question is now which of three shapes.
 7. **What to take first**, if anything: the short list in order, or another pick?
 
 **Answered by the owner, 20 Nov 2026 (cards):**
@@ -503,6 +504,32 @@ threshold, with tests.
 the owner's decision of 11 Nov 2026. A captured vehicle starts with no hours.
 
 **Saves:** two new saved entries on each vehicle (its hours by person, when it was lost) and one game component; safe to add mid-game.
+
+## Read: EM5, raiders' fuel (20 Nov 2026)
+
+The read EM5 waited on (EP5), done overnight under the same go-ahead. **Not built: what it found turns the row into the owner's
+decision.** Vehicle Framework 1.7 as installed, decompiled 18 Nov 2026 (`.local/decompiled/VehicleFramework-1.7-2026-11-18`).
+
+- **Starting fuel:** every vehicle not the player's is given a random 45% to 85% of its tank when it is made
+  (`CompFueledTravel.PostGeneration`, decompile line 22385-22393). Raids make their vehicles through that path (the pawn-group
+  postfix that puts raiders into vehicles, line 51333). A vehicle spawned by the debug and quest helper `SpawnVehicleRandomized` is
+  topped up to full instead (line 36207).
+- **The sabotage order:** a raider who is a tool user, able to do violence and construction, picks a vehicle of its own raid within
+  10 cells that **cannot move**, has no charge on it yet and has over 35% of its health, and straps a timed charge to it: 100 bomb
+  damage, armour penetration 2, a blast as wide as the vehicle's narrower side, after 1 second per cell of its footprint (10 seconds
+  at most) (`JobGiver_SabotageVehicle`, line 4032-4089; `JobDriver_SabotageVehicle`, line 2889-2915; the raider think tree,
+  Vehicle Framework's `1.7/Defs/ThinkTree/ThinkTree_Raider.xml`, line 57). Raiders deny the player a stranded vehicle; they do not
+  leave it as a prize.
+- **Whether an empty tank stops a raid vehicle at all is not settled.** "Cannot move" reads the vehicle's speed stat and its movement
+  status (line 16256-16266); no stat part of Vehicle Framework's reads fuel (line 10171-10215), and an empty tank refuses drafting
+  (line 21783-21800). Whether the raid's own orders still drive a dry vehicle needs a look in game, or a longer read of its AI.
+
+**What follows (the agent's reading):** EM5 as written ("a far faction's trucks arrive nearly dry and may be left behind, a prize with a
+cost") would most likely give raid trucks that run dry near the colony and are **blown up by their own side**, if a dry truck stops at
+all. Three shapes for the owner: (a) keep EM5's fuel by distance and accept the charges (a raid that came far ends with its trucks
+burning: dramatic, and costly to anyone near); (b) fuel by distance with a floor that keeps them moving (about a fifth of a tank [A]),
+so distance shows only in how long they can press an attack before leaving; (c) set it aside. The agent leans to (b). Question 6 below
+is still the owner's.
 
 ## Who chose what
 
