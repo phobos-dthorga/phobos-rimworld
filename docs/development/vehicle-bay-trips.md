@@ -1,7 +1,8 @@
 # Bay trips: vehicles taken to a dyno bay for repair, without being told (20 Nov 2026)
 
-**Status (20 Nov 2026):** batch 1 built in D'thorga Framework 0.201.0: a vehicle that can still drive is driven to a dyno bay, repaired
-there, and driven home. Not built yet: the vehicle park (batch 2), the recovery tow (batch 3), pushing by hand (batch 4). Not yet tested in game.
+**Status (20 Nov 2026):** batches 1 and 2 built in D'thorga Framework 0.201.0: a vehicle that can still drive is driven to a dyno bay,
+repaired there, and driven home, to its depot bay, a vehicle park or a spot nearby. Not built yet: the recovery tow (batch 3), pushing by
+hand (batch 4). Not yet tested in game.
 
 **The owner, 20 Nov 2026:** "Something we NEED to implement, and we need to either use or develop our own code for this so it works
 independently of what mods the player might have on their setup, is pawns automatically taking a worn or especially, busted, vehicle to a
@@ -96,9 +97,22 @@ flowchart TD
 | Batch | What | Version | Status |
 | --- | --- | --- | --- |
 | 1 | Trips for vehicles that can drive; the trigger setting; the Fleet board switch; the alert; home to a depot bay or nearby | Framework 0.201.0 | Built, not yet tested in game |
-| 2 | **The vehicle park** [O]: a zone of ours on the motor pool tab; a repaired vehicle with no depot bay parks there | | Not built |
+| 2 | **The vehicle park** [O]: a zone of ours on the motor pool tab; a repaired vehicle with no depot bay parks there | Framework 0.201.0 | Built, not yet tested in game |
 | 3 | **The recovery tow** [O]: a driver takes a vehicle fitted with the recovery winch, a colonist couples the wreck, it is towed into the bay's reach and let go, and the tow vehicle drives back | | Not built |
 | 4 | **Pushing by hand** [O]: with no recovery vehicle free, colonists push a light vehicle to the bay, limited by weight with the pull rule the winch uses | | Not built |
+
+## The vehicle park (batch 2)
+
+A zone (`Zone_PhobosVehiclePark`), marked with its own tool on the motor pool tab and grown with the same tool while one is selected. It
+keeps nothing: when a vehicle needs a place, each park is searched from its south-west corner, facing north then east **[A]**, for a place
+where the whole body lies on the park, with a cell clear all round of other vehicles and of places other trips keep, so a park fills in
+a row and nothing stands door to door. A vehicle standing in a park already, with no depot bay to go to, is home and is not moved.
+
+- **Its picture** is drawn in code (a parking sign: `assets/phobos-vehicles/draw_bay_trip_icons.py`), since a sign is flat shapes; the
+  local icon batch may replace it on the owner's word.
+- **A gravship flight does not carry it** **[code]**: the game carries stockpile and growing zones only (`Gravship.TransferZones`,
+  RimWorld 1.7's decompile, read 20 Nov 2026). A park marked on a deck is marked again after landing.
+- **Before removing the mod**, delete every vehicle park: a zone of a class the game cannot find fails to load.
 
 ## Risk and settings
 

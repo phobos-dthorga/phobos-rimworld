@@ -237,14 +237,24 @@ public static class BayTrips
     /// places other trips keep, and of a building's own cells and the cell a mechanic works it from.</summary>
     static bool BodyFits(VehiclePawn vehicle, CellRect body, Map map, List<CellRect> kept, Thing? clearOf)
     {
-        for (int i = 0; i < kept.Count; i++)
-        {
-            if (kept[i].Overlaps(body)) return false;
-        }
         if (clearOf != null && (body.Overlaps(clearOf.OccupiedRect()) || (clearOf.def.hasInteractionCell && body.Contains(clearOf.InteractionCell)))) return false;
         foreach (IntVec3 c in body)
         {
             if (!c.InBounds(map) || !vehicle.Drivable(c) || c.GetDoor(map) != null) return false;
+        }
+        return ClearOfVehicles(vehicle, body, map, kept);
+    }
+
+    /// <summary>Whether these cells hold no other vehicle and none of the places other trips keep.</summary>
+    static bool ClearOfVehicles(VehiclePawn vehicle, CellRect cells, Map map, List<CellRect> kept)
+    {
+        for (int i = 0; i < kept.Count; i++)
+        {
+            if (kept[i].Overlaps(cells)) return false;
+        }
+        foreach (IntVec3 c in cells)
+        {
+            if (!c.InBounds(map)) continue;
             List<Thing> things = c.GetThingList(map);
             for (int i = 0; i < things.Count; i++)
             {
@@ -258,15 +268,25 @@ public static class BayTrips
 
     /// <summary>
     /// Where a vehicle goes once its work at the bay is done, in the owner's order (20 Nov 2026): its depot bay if it has one and the pad
-    /// is free; else a spot nearby, clear of every bay's reach, of every depot pad, of doors and of zones (nobody parks on a crop).
-    /// False when nowhere can be found: it then stays where it is.
+    /// is free; else a place in a vehicle park; else a spot nearby, clear of every bay's reach, of every depot pad, of doors and of
+    /// zones (nobody parks on a crop). False when nowhere can be found, or it stands in a park already: it then stays where it is.
     /// </summary>
     public static bool TryFindHome(VehiclePawn vehicle, out IntVec3 cell, out Rot4 facing, out BayTripHome kind)
     {
         Map map = vehicle.Map;
         List<CellRect> kept = KeptBy(map, vehicle);
-        kind = BayTripRule.Home(TryFindDepotBay(vehicle, kept, out cell, out facing), parkHasRoom: false);
-        if (kind == BayTripHome.DepotBay) return true;
+        bool depotBay = TryFindDepotBay(vehicle, kept, out cell, out facing);
+        // With no depot bay to go to, a vehicle standing in a park is home already.
+        if (!depotBay && map.zoneManager.ZoneAt(vehicle.Position) is Zone_PhobosVehiclePark)
+        {
+            kind = BayTripHome.Park;
+            return false;
+        }
+        bool park = !depotBay && VehicleParks.TryFindPlace(vehicle, cells => ClearOfVehicles(vehicle, cells, map, kept),
+            body => BodyFits(vehicle, body, map, kept, null),
+            c => vehicle.CanReachVehicle(c, PathEndMode.OnCell, Danger.Deadly, TraverseMode.ByPawn), MaxWayTests, out cell, out facing);
+        kind = BayTripRule.Home(depotBay, park);
+        if (kind != BayTripHome.Nearby) return true;
         return TryFindNearby(vehicle, kept, out cell, out facing);
     }
 

@@ -26,4 +26,9 @@
   <PhobosBayTrip_AlertIntro>These vehicles need work at a dyno bay and cannot be taken there yet:</PhobosBayTrip_AlertIntro>
   <PhobosBayTrip_AlertLine>{VEHICLE}: {REASON}</PhobosBayTrip_AlertLine>
   <PhobosBayTrip_AlertMore>...and {COUNT} more.</PhobosBayTrip_AlertMore>
+  <!-- The vehicle park (batch 2). -->
+  <PhobosVehiclePark_Label>Vehicle park</PhobosVehiclePark_Label>
+  <PhobosVehiclePark_Expand>Expand vehicle park</PhobosVehiclePark_Expand>
+  <PhobosVehiclePark_Desc>Mark ground where vehicles are parked. A vehicle with no depot bay of its own is driven here once its work at a dyno bay is done. Keep it one vehicle deep beside a road, so nothing is boxed in.</PhobosVehiclePark_Desc>
+  <PhobosVehiclePark_Inspect>Vehicles parked here: {COUNT}.</PhobosVehiclePark_Inspect>
 </LanguageData>

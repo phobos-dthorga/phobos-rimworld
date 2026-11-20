@@ -3,11 +3,14 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "295": {"parts": {
+      "a repaired vehicle with no depot bay is sent to a vehicle park": [{"key": "vehicles.bay-trip.leaving", "variant": "Park"}]
+    }},
     "294": {"parts": {
       "a vehicle with work that sends it keeps a place and calls a driver": ["vehicles.bay-trip.called"],
       "a colonist drives it to the bay": [{"key": "vehicles.bay-trip.driving", "variant": "to the bay"}],
       "it stands at the bay, engine off, driver out": ["vehicles.bay-trip.at-bay"],
-      "it leaves once its work is done": ["vehicles.bay-trip.leaving"],
+      "it leaves once its work is done": [{"key": "vehicles.bay-trip.leaving", "variant": "DepotBay"}, {"key": "vehicles.bay-trip.leaving", "variant": "Nearby"}],
       "a colonist drives it home": [{"key": "vehicles.bay-trip.driving", "variant": "home"}, "vehicles.bay-trip.home"],
       "the alert names a vehicle that cannot go": ["vehicles.bay-trip.alert"],
       "enemies stop a trip where it is": ["vehicles.bay-trip.threat"],

@@ -24,7 +24,7 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   with no gas.
 - **Before removing it** (after the mods that depend on it): if vehicles used the systems, load the colony, press **Remove the added
   parts from this colony's vehicles** in the vehicle systems settings, save, then remove the mod, or saved vehicles may fail to load.
-  First also **empty every garage**, **recover every sling wreck and depot**, **let a water drop run land and unload every litter** (switch off
+  First also **delete every vehicle park zone**, **empty every garage**, **recover every sling wreck and depot**, **let a water drop run land and unload every litter** (switch off
   **Take casualties aboard** first, or carriers keep bringing more), and **take
   any extra fuel tank off**: whatever is in them goes with the mod. Jump-start kits and booster packs vanish with an error line each;
   sell or destroy them for a clean log. A line per missing map component on the next load is harmless.

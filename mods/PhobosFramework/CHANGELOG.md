@@ -27,11 +27,13 @@ Vehicles are taken to a dyno bay for repair, and home again, without being told
 - **What sends a vehicle is a setting of three levels**: bay-only work alone; broken, or bay-only work (where it starts); any repair or service due.
 - **Each vehicle has its own switch on the Fleet board**: select it and untick Taken to a dyno bay when it needs one. The board also says what each vehicle is doing on its trip, or what it waits for.
 - **An alert names the vehicles that should go and cannot**, each with its reason: no dyno bay, none with power or room, nobody doing Drive work, a part nobody has made, a vehicle that will not drive.
+- **A vehicle park**: a zone marked from the motor pool tab, with its own tool and picture. A repaired vehicle with no depot bay is driven into a park and stood wholly on it, the first in its south-west corner and the rest beside it with a gap between, so a park fills in a row. Select a park to grow it, rename it or delete it.
 - **Two new settings** under Dyno bay trips in the vehicle settings: Vehicles are taken to a dyno bay for repair by themselves (on), and What sends a vehicle to a dyno bay (broken, or bay-only work).
 
 ### Save compatibility
 
 - Safe to add to a running colony. A vehicle on no trip saves only its own switch; a trip under way is saved and carries on after a load.
+- **Delete every vehicle park before removing the mod**: a zone the game cannot find the kind of fails to load.
 
 ### Compatibility and limits
 
@@ -40,7 +42,8 @@ Vehicles are taken to a dyno bay for repair, and home again, without being told
 - Aircraft, boats and trailers never go. A vehicle with anyone aboard, its engine on, set up for work, towing or towed, forbidden, burning or on an errand is left alone; nothing sets off while enemies threaten the map, and a trip under way stops and lets its driver out.
 - A vehicle you parked at a dyno bay yourself is never moved; only one that was brought there leaves by itself. It gives up its place after a day in which nothing could be done, and waits a day before coming back.
 - Every figure is authored: a look about every 1,000 ticks, three failed drives before a trip is given up, a day's wait after.
-- Not yet tested in game: row 294 of the test pass.
+- A vehicle park marked on a gravship's deck is not carried by a flight, since the game carries stockpile and growing zones only: mark it again after landing. Its picture is drawn in code, a parking sign.
+- Not yet tested in game: rows 294 and 295 of the test pass.
 
 ## [0.200.0] - 2026-11-20 - Draft
 

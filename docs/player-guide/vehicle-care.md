@@ -225,7 +225,10 @@ All four are in the Architect's **motor pool** tab.
   a vehicle to a dyno bay** has three levels; routine servicing is done where the vehicle stands unless you choose "any repair".
 - **Only when its parts are in the colony.** A wreck nobody can repair stays where it is and says which part it waits for.
 - **The trip**: a colonist walks to it, drives it into the bay's reach and gets out. Mechanics and haulers do the rest. When the work is
-  done a colonist drives it to **its depot bay**, or, with none, a spot nearby that is clear of the bay.
+  done a colonist drives it to **its depot bay**; with none, to a **vehicle park**; with neither, to a spot nearby that is clear of the bay.
+- **A vehicle park** is a zone: in the **motor pool** tab press **Vehicle park** and mark open ground. Keep it one vehicle deep beside a
+  road, so nothing is boxed in. Vehicles fill it from its south-west corner with a gap between them. A park on a gravship's deck is not
+  carried by a flight: mark it again after landing.
 - **Left alone**: a vehicle with anyone aboard, its engine on, set up for work, towing or towed, or on an errand. Nothing sets off while
   enemies threaten the map, and a trip under way stops and lets its driver out.
 - **To keep one vehicle out**: open the **Fleet board**, select it and untick **Taken to a dyno bay when it needs one**.

@@ -11,6 +11,8 @@
     <specialDesignatorClasses>
       <li>Designator_Cancel</li>
       <li>Designator_Deconstruct</li>
+      <!-- The vehicle park (0.201.0; docs/development/vehicle-bay-trips.md): a zone a repaired vehicle with no depot bay is driven to. -->
+      <li>Phobos.VehicleSystems.Designator_ZoneAdd_PhobosVehiclePark</li>
     </specialDesignatorClasses>
   </DesignationCategoryDef>
 
