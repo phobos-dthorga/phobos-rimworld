@@ -1,0 +1,119 @@
+[
+  {
+    "name": "farming-tractor-t60-body-north",
+    "engine": "openai",
+    "quality": "high",
+    "width": 896,
+    "height": 1408,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-tractor-t130-body-north/farming-tractor-t130-body-north-1.png",
+        "role": "our approved Thane T130 tractor, the owner's pick of 20 Nov 2026, the bigger brother of this one: match its outline weight, shading, palette, cab roof, tyres and linkage drawing; draw a smaller, simpler tractor, not a copy"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "D'thorga Farming's Thane T60, the small tractor (no Def yet), footprint (3, 5), drawSize (3.5, 5.5), 128 px per unit so 448 x 704 in game; requested at 896 x 1408, 2 times the drawn size, at high quality (the owner's lesson of 20 Nov 2026 on fine detail)",
+      "measured_against": "the Thane T130 (3 x 6, drawn 4 x 7), the chaser bin 3 x 7, our trucks 3 x 8 to 3 x 10",
+      "this_request": "pilot: the north base body only, bare, two attempts (owner's go of 20 Nov 2026 for all batch-two pilots in one batch)",
+      "overlays_planned_on_this_canvas": ["linkage lowered (arms down, when working)", "damage: from the tanker's marks"],
+      "colour_masks": "CutoutComplexPattern: colour on the bonnet and mudguards, colourTwo on the accent; masks by script",
+      "names": "Thane, the owner's name of 20 Nov 2026",
+      "design": "docs/development/farming-batch-two.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the Thane T60 farm tractor: a small, older-style utility tractor that pulls light ploughs, cultivators and seed drills on a hard-scrabble frontier farm. Draw the BARE TRACTOR only: no plough, no implement, no trailer. Image 1 is our approved bigger Thane T130 tractor from the same maker: match its outline weight, shading, harvest-green and muted yellow palette, cab roof, tyre treatment and linkage drawing. This one is SMALLER and SIMPLER: a short narrow bonnet, a small cab roof, smaller rear wheels. Do NOT copy Image 1's shape.\n\nTall canvas, plain pure white background. North facing: the front of the tractor points to the TOP of the canvas. The tractor is centred left to right and fills about three quarters of the canvas width, and about four fifths of its height, centred.\n\nIts roof plan, front to back: at the top, a short narrow bonnet over the engine with a grille at its front edge and a single upright exhaust beside it; two small front wheels either side of the bonnet; behind the bonnet, a small square cab roof with a flat pale grey top; two large rear wheels with lugged treads either side of the cab, wider than the body; at the very rear, the three-point linkage: two lower arms and a top link folded close in a triangle, with a short drawbar plate between them, all steel grey.\n\nMaker palette as materials: harvest-green bonnet and mudguards, a pale grey cab roof, dark rubber tyres, steel grey linkage, grille and exhaust, one muted yellow accent stripe along the bonnet.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo implement, no plough, no trailer, no crop, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials or screens. No floor, ground, field, road, shadow outside the tractor, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "farming-tractor-t400-body-north",
+    "engine": "openai",
+    "quality": "high",
+    "width": 1152,
+    "height": 2048,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-tractor-t130-body-north/farming-tractor-t130-body-north-1.png",
+        "role": "our approved Thane T130 tractor, the owner's pick of 20 Nov 2026, from the same maker: match its outline weight, shading, palette, cab roof, tyres and linkage drawing only; this one is a far bigger articulated tractor, not a copy"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "D'thorga Farming's Thane T400, the large articulated tractor (no Def yet), footprint (4, 8) as two vehicles of (4, 4) joined on our hitch with a swing of about 40 degrees; drawn whole at (4.5, 8), 128 px per unit so 576 x 1024 in game; requested at 1152 x 2048, 2 times the drawn size, at high quality",
+      "measured_against": "the combine 4 x 9, the Thane T130 3 x 6, RimThunder's 3 x 10 Oshkosh PLS (the owner's preferred truck size)",
+      "this_request": "pilot: the north base body, drawn WHOLE and straight, two attempts, to be cut in two at the pivot into the front half (engine and cab) and the rear half (rear axle, linkage, drawbar), so the halves are sure to meet (agent's approach to the record's 'two pictures drawn to meet at the pivot')",
+      "overlays_planned_on_this_canvas": ["linkage lowered (rear half)", "damage: from the tanker's marks"],
+      "colour_masks": "CutoutComplexPattern: colour on the bonnet and mudguards, colourTwo on the accent; masks by script",
+      "names": "Thane, the owner's name of 20 Nov 2026",
+      "design": "docs/development/farming-batch-two.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the Thane T400: a very large four-wheel-drive ARTICULATED farm tractor, the kind that bends in the middle to steer, pulling wide ploughs across a hard-scrabble frontier colony's fields. Draw the BARE TRACTOR only, standing perfectly straight: no implement, no trailer. Image 1 is our approved smaller Thane T130 tractor from the same maker: match its outline weight, shading, harvest-green and muted yellow palette, cab roof, tyre treatment and linkage drawing only. Do NOT copy its shape.\n\nTall canvas, plain pure white background. North facing: the front of the tractor points to the TOP of the canvas. The tractor is centred left to right and fills about four fifths of the canvas width, and about nine tenths of its height, centred.\n\nIt is built in TWO HALVES joined by a clearly visible central pivot: a round steel hinge plate with a short steel coupling, exactly across the middle of the canvas, with a narrow gap of white between the two halves either side of it.\n\nThe FRONT HALF, top of the canvas: a long bonnet over a big engine with a grille at its front edge, a front weight block, a tall exhaust stack beside the bonnet, and at its rear a large square glazed cab roof with a flat pale grey top and two small rooftop beacons; two very large dual wheels on each side, four tyres side by side in pairs, with deep lugged treads, wider than the body.\n\nThe REAR HALF, bottom of the canvas: a short frame with a fuel tank deck, the same very large dual wheels on each side, and at its very rear the three-point linkage, two lower arms and a top link folded close in a triangle, with a heavy drawbar plate between them, all steel grey.\n\nMaker palette as materials: harvest-green bonnet, frame and mudguards, a pale grey cab roof, dark rubber tyres, steel grey pivot, linkage, grille and exhaust, one muted yellow accent stripe along the bonnet.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo implement, no plough, no trailer, no crop, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials or screens. No floor, ground, field, road, shadow outside the tractor, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "farming-plough-body-north",
+    "engine": "openai",
+    "quality": "high",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-tractor-t130-body-north/farming-tractor-t130-body-north-1.png",
+        "role": "our approved Thane T130 tractor, the owner's pick of 20 Nov 2026, which carries this plough: match its outline weight, shading, palette and steel grey linkage only; draw a plough, not a tractor"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "D'thorga Farming's Sillion plough (no Def yet), footprint (3, 3), drawSize (3.5, 3.5), 128 px per unit so 448 x 448 in game; requested at 1024 x 1024, about 2.3 times the drawn size, at high quality",
+      "this_request": "pilot: the north base body, lifted look, base width (three furrows), two attempts",
+      "overlays_planned_on_this_canvas": ["wing extension: two more furrow bodies (the owner's width-by-upgrade choice of 20 Nov 2026)", "lowered: soil at the mouldboards"],
+      "colour_masks": "CutoutComplexPattern: colour on the frame, colourTwo on the accent; masks by script",
+      "names": "Sillion, the owner's name of 20 Nov 2026",
+      "design": "docs/development/farming-batch-two.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for the Sillion plough: a three-furrow mounted mouldboard plough that a farm tractor carries on its three-point linkage, for a hard-scrabble frontier colony. Draw the PLOUGH ONLY, with no tractor. Image 1 is our approved tractor that carries it: match its outline weight, shading, harvest-green and muted yellow palette and steel grey linkage drawing only. Do NOT draw a tractor.\n\nSquare canvas, plain pure white background. North facing: the end that hitches to the tractor points to the TOP of the canvas. The plough is centred and fills about three quarters of the canvas width and height.\n\nIts plan, top to bottom: at the top centre, the headstock: a steel A-frame with two lower hitch pins and a top link point; from it, a strong straight beam running diagonally down and to the right; along the beam, three curved polished-steel mouldboards set one behind another in a diagonal line, each with a pointed share; a small depth wheel at the rear left. A plain flat frame, sturdy and simple.\n\nPalette as materials: harvest-green frame and beam, polished bright steel mouldboards and shares, steel grey headstock and pins, a dark rubber depth wheel, one small muted yellow accent on the beam.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no soil, no furrows, no crop, no people, no dust, mud or damage, no text, letters, numbers or logos. No floor, ground, field, shadow outside the plough, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "farming-cultivator-body-north",
+    "engine": "openai",
+    "quality": "high",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-tractor-t130-body-north/farming-tractor-t130-body-north-1.png",
+        "role": "our approved Thane T130 tractor, the owner's pick of 20 Nov 2026, which carries this cultivator: match its outline weight, shading, palette and steel grey linkage only; draw a cultivator, not a tractor"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "D'thorga Farming's Tillman cultivator (no Def yet), footprint (3, 3), drawSize (3.5, 3.5), 128 px per unit so 448 x 448 in game; requested at 1024 x 1024, about 2.3 times the drawn size, at high quality",
+      "this_request": "pilot: the north base body, base width (four cells), two attempts",
+      "overlays_planned_on_this_canvas": ["wing extension: folding side sections (the owner's width-by-upgrade choice of 20 Nov 2026)"],
+      "colour_masks": "CutoutComplexPattern: colour on the frame, colourTwo on the accent; masks by script",
+      "names": "Tillman, the owner's name of 20 Nov 2026",
+      "design": "docs/development/farming-batch-two.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for the Tillman cultivator: a mounted field cultivator that a farm tractor carries on its three-point linkage to break up soil and tear out weeds, for a hard-scrabble frontier colony. Draw the CULTIVATOR ONLY, with no tractor. Image 1 is our approved tractor that carries it: match its outline weight, shading, harvest-green and muted yellow palette and steel grey linkage drawing only. Do NOT draw a tractor.\n\nSquare canvas, plain pure white background. North facing: the end that hitches to the tractor points to the TOP of the canvas. The cultivator is centred and fills about four fifths of the canvas width and about two thirds of its height.\n\nIts plan, top to bottom: at the top centre, the headstock: a steel A-frame with two lower hitch pins and a top link point; below it, a wide rectangular frame of square steel bars running across the canvas; under the frame, three staggered rows of curved spring tines, each a small steel S-shape ending in a narrow point, evenly spaced across the whole width; at the bottom, across the full width, a cylindrical crumbler roller of steel bars on two side brackets.\n\nPalette as materials: harvest-green frame, bright steel tines and roller, steel grey headstock and pins, one small muted yellow accent on the frame.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no soil, no crop, no people, no dust, mud or damage, no text, letters, numbers or logos. No floor, ground, field, shadow outside the cultivator, perspective, tilt or visible side faces. Top surfaces only."
+  },
+  {
+    "name": "farming-seed-drill-body-north",
+    "engine": "openai",
+    "quality": "high",
+    "width": 896,
+    "height": 1152,
+    "seeds": [1, 2],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-tractor-t130-body-north/farming-tractor-t130-body-north-1.png",
+        "role": "our approved Thane T130 tractor, the owner's pick of 20 Nov 2026, which pulls this drill: match its outline weight, shading, palette, tyres and steel grey drawbar only; draw a seed drill, not a tractor"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "D'thorga Farming's Coulter seed drill (no Def yet), footprint (3, 4), drawSize (3.5, 4.5), 128 px per unit so 448 x 576 in game; requested at 896 x 1152, 2 times the drawn size, at high quality",
+      "this_request": "pilot: the north base body, base width (four cells), lid closed, two attempts",
+      "overlays_planned_on_this_canvas": ["wing extension: folding side sections (the owner's width-by-upgrade choice of 20 Nov 2026)", "hopper lid open with seed, by fill"],
+      "colour_masks": "CutoutComplexPattern: colour on the hopper, colourTwo on the accent; masks by script",
+      "names": "Coulter, the owner's name of 20 Nov 2026",
+      "design": "docs/development/farming-batch-two.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for the Coulter seed drill: a trailed grain seed drill that a farm tractor pulls by its drawbar to sow a field in neat rows, for a hard-scrabble frontier colony. Draw the DRILL ONLY, with no tractor. Image 1 is our approved tractor that pulls it: match its outline weight, shading, harvest-green and muted yellow palette, tyre treatment and steel grey drawbar drawing only. Do NOT draw a tractor.\n\nTall canvas, plain pure white background. North facing: the drawbar points to the TOP of the canvas. The drill is centred and fills about four fifths of the canvas width and about four fifths of its height.\n\nIts plan, top to bottom: at the top centre, a narrow steel A-shaped drawbar with a hitch eye at its tip; below it, a wide long seed hopper box running across the canvas with a closed hinged lid, the lid's top a flat green panel with a raised rim and a small walkway step at one end; one wheel on each side of the hopper; below the hopper, across the full width, a single row of evenly spaced small steel coulter discs set at a slight angle, each with a short seed tube above it; at the very bottom, a thin row of steel covering harrow tines.\n\nPalette as materials: harvest-green hopper and lid, a steel grey drawbar, frame, discs and tines, dark rubber tyres, one muted yellow accent stripe along the hopper.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no seed spilling, no soil, no crop, no people, no dust, mud or damage, no text, letters, numbers or logos. No floor, ground, field, shadow outside the drill, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

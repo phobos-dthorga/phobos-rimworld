@@ -137,10 +137,27 @@ Figures authored [A], labelled approximate, in the ranges of real farm tractors 
 | --- | --- |
 | Hands use seed too | Off (owner) |
 
-## Art (all paid, waiting for the owner's go)
+## Art
 
-Three tractor bodies, the plough, cultivator and drill, the seed sack; one pilot first (the medium tractor), at high quality for fine
-detail. Overlays: the implements lifted and lowered (a lifted one drawn shorter) [A].
+**Bodies picked (owner, 20 Nov 2026):** every north body, from two paid runs ([T130 record](../../assets/phobos-vehicles/requests/tractor-pilot-record.md),
+[batch record](../../assets/phobos-vehicles/requests/farming-batch2-pilots-record.md)); masters on `art-masters`. **Still to make:** the
+seed sack, overlays (the implements lifted and lowered, a lifted one drawn shorter [A]; the wing extensions; the T400's halves cut at the
+pivot), then export with the background AI and paint masks (a few minutes of the graphics card, with the game closed).
+
+**Two models under one Architect button** (the owner's idea of 20 Nov 2026, for the T130 first): the T60, the T130, the T400 and the
+cultivator each keep both pilot attempts, with slightly different figures. **The differences are the agent's proposals [A]**, read from
+what each picture shows, for the owner's review:
+
+| Machine | Attempt 1 | Attempt 2 |
+| --- | --- | --- |
+| Thane T130 | Standard: 8 t with front ballast, more grip under heavy draught | Row-crop (RC): 7 t, lighter and a little thriftier |
+| Thane T60 | Standard: 4 t | T60 F (wide tyres, as drawn): 4.3 t, a little more grip on soft ground, a little more fuel |
+| Thane T400 | T400 B (ballasted, front weight block as drawn): 24 t, more grip, a little more fuel | Standard: 22 t, a larger fuel deck (as drawn), about a fifth more fuel carried |
+| Tillman cultivator | Standard: three dense rows of tines, 4.4 kN a metre | Light: wider-spaced tines, about 3.6 kN a metre, the same width (a light cultivator pulls less and works the soil less deeply) |
+
+**The Sillion plough is reversible** (owner, 20 Nov 2026: "make it rotatable", confirmed by card): attempt 1 and attempt 2 are its two
+sides. A real turnover plough rolls over on its headstock at each headland so every furrow is thrown the same way and no dead furrow is
+left; the field run turns it between rows, and its picture swaps with the side [A: how, a small code piece].
 
 ## The order to build (agent's)
 
