@@ -16,6 +16,8 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
 - **Load it before any D'thorga mod that needs it**, and **after The Dead Man's Switch - Expedition, Rimefeller and Vanilla Expanded
   Framework** where you have them; the About file asks for both, so RimSort does it for you. Loaded before one of them, its tie-in with
   that mod is rejected with a red error. **It needs Harmony** (since 0.205.0), which nearly every mod list already has.
+- **A colonist who keeps fetching and putting away the same thing is named in a message** (setting **Notice when a colonist keeps
+  fetching and putting away the same thing**, on by default): usually two orders disagree, such as their sidearms and their loadout.
 - **Everything we build is in the Architect's D'thorga tab**, sorted into sub-tabs: Motor pool, Farming, Medical and Radio, as each
   mod you have adds them. With Vanilla Gravship Expanded they are listed down the tab's side, as its gravship tabs are.
   **RimWorld 1.7 only.** Its vehicle systems switch on only with **Vehicle Framework**; garages and pipe lines need **Vanilla Expanded

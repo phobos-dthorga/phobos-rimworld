@@ -24,6 +24,9 @@ public class FrameworkSettings : ModSettings
     public bool noteOurPartInErrors = true;
     /// <summary>Write every colonist's thoughts beside each save, for the mood report (Mood/ColonyMoodFile; owner, 10 Nov 2026; on by default, agent default).</summary>
     public bool writeColonyMoodFile = true;
+    /// <summary>Tell the player when a colonist keeps fetching and putting away the same thing (Work/LoopWatch; the owner's choice of 21 Nov
+    /// 2026, "notice and tell"; on by default, agent default).</summary>
+    public bool noticePickUpLoops = true;
     /// <summary>Every D'thorga sound's volume, from none to twice as loud (Sounds/PhobosSoundVolume; AGENTS.md's volume setting; agent default 1).</summary>
     public float soundVolume = 1f;
     /// <summary>Whether the vehicle systems' sounds (a tyre bursting, a knock, the warning chime) also play on other mods' vehicles running them
@@ -76,6 +79,7 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref systemSoundsOnOtherVehicles, "PhobosFramework_SystemSoundsOnOtherVehicles", true);
         Scribe_Values.Look(ref billPartsSource, "PhobosFramework_BillPartsSource", Bills.BillPartsSource.OthersWhereInstalled);
         Scribe_Values.Look(ref writeColonyMoodFile, "PhobosFramework_WriteColonyMoodFile", true);
+        Scribe_Values.Look(ref noticePickUpLoops, "PhobosFramework_NoticePickUpLoops", true);
         Scribe_Values.Look(ref gasSourceMode, "PhobosFramework_GasSourceMode", GasSourceMode.Automatic);
         Scribe_Values.Look(ref showGasOverlay, "PhobosFramework_ShowGasOverlay", false);
         Scribe_Values.Look(ref writePatchedDefsOnce, "PhobosFramework_WritePatchedDefsOnce", false);
@@ -93,7 +97,7 @@ public class FrameworkSettings : ModSettings
 /// breathes, the game's and other mods' gases reused first, and the framework's own additive room gases), the health layer the
 /// medical mods share (who the doctors look after, how dangerous a condition is, per-pawn care choices) and the small helpers the
 /// mods used to repeat, and keeps the game's log going past its message limit. It references no other mod's assembly; it uses
-/// Harmony (since 0.205.0) where the game has no other way in: the Architect's sub-tabs.
+/// Harmony (since 0.205.0) where the game has no other way in: the Architect's sub-tabs and the loop watch.
 /// </summary>
 public class FrameworkMod : SettingsBookMod
 {
@@ -113,7 +117,7 @@ public class FrameworkMod : SettingsBookMod
         AddSettingsPages();
         Settings = GetSettings<FrameworkSettings>();
         // Framework 0.205.0: the core's own patches, each standing down by itself where it is not wanted (the Architect's sub-tabs when
-        // another mod lists them).
+        // another mod lists them; the loop watch while its setting is off).
         HarmonyPatchApplier.ApplyEach(new Harmony(PackageId), typeof(FrameworkMod).Assembly, LogPrefix);
         Logging.GameLogKeeper.Listen();
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
@@ -141,6 +145,9 @@ public class FrameworkMod : SettingsBookMod
         if (!Settings.noteOurPartInErrors) report.Off(notes, "setting");
         else if (Logging.GameLogKeeper.NotListening != null) report.Off(notes, Logging.GameLogKeeper.NotListening);
         else report.On(notes);
+        const string loops = "a message when a colonist keeps fetching and putting away the same thing";
+        if (Settings.noticePickUpLoops) report.On(loops);
+        else report.Off(loops, "setting");
         const string moodFile = "colony mood file at each save, for the mood report";
         if (Settings.writeColonyMoodFile) report.On(moodFile);
         else report.Off(moodFile, "setting");
@@ -199,6 +206,10 @@ public class FrameworkMod : SettingsBookMod
                 level => ("PhobosFramework_TopUpLevel" + level + "Desc").Translate(), "PhobosFramework_SettingTopUpLevelDesc".Translate());
             list.Outdent();
         }
+
+        list.Section("PhobosFramework_SectionColonists".Translate());
+        list.Check("PhobosFramework_SettingNoticePickUpLoops".Translate(), ref s.noticePickUpLoops, Defaults.noticePickUpLoops,
+            "PhobosFramework_SettingNoticePickUpLoopsDesc".Translate(Rules.LoopWatchRule.TurnsForLoop.Named("TURNS")));
 
         list.Section("PhobosFramework_SectionSound".Translate());
         if (list.Slider("PhobosFramework_SettingSoundVolume".Translate(SoundVolumeRule.Percent(s.soundVolume).Named("PERCENT")), ref s.soundVolume,
