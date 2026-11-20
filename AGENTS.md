@@ -82,6 +82,9 @@ running a script does not load them.
   reported fault is the owner's error, and **start with `python scripts/triage-log.py`**: it summarises the log
   against `Player-prev.log` and names the mods involved, and `--show <ID>` prints one message in full. Open the
   raw log only for what the summary cannot answer.
+- **Ordinary causes before a bug hunt** (owner, 21 Nov 2026: the HEMTT nobody loaded "proceeded ahead, it was just there being too
+  much work"). When colonists or vehicles are reported not doing something, first rule out a busy colony, work priorities, allowed
+  areas, and forbidden or reserved things, and ask whether it got done later, before reading code for a fault.
 - **When the game closes by itself with little in its log, run `python scripts/crash-dump.py`** (owner, 9 Nov 2026): it reads the newest RimWorld dump in Windows' CrashDumps folder without a debugger, and names
   the exception and any call loop that ran away. A small dump cannot name .NET methods; for a stack overflow the game's error output can (`docs/development/crash-2026-11-09-stack-overflow.md`).
   **A full dump names them** (owner's go-ahead, 18 Nov 2026): crash-dump then asks Microsoft's dotnet-dump which method and assembly each
@@ -165,6 +168,9 @@ running a script does not load them.
   D'thorga Companion's Explorer; phobos-modkit's heap reader): a Windows snapshot, a pause of about half a second, then every
   object with no cap, any object's values, and paths from a root. It counts garbage not yet collected too, so **answer "is it a
   leak?" with `look-why`**, never from counts alone. Ask before each snapshot, as above.
+  **Look before guessing** (owner, 21 Nov 2026): when a fault is about what the running game holds (a value, a cache, a thing that
+  will not act) and no save or log shows it, ask the owner for a snapshot while it is happening, before reasoning from code alone.
+  A snapshot shows one instant: that a value is wrong, never how it came to be.
 - **Answer how long the game takes to start, and which mods cost it, with `python scripts/startup-impact.py`** (owner, 8 Nov 2026):
   every launch, the costliest mods, `compare` for what changed between two launches, `mod <name>` for one mod. Start-up time varies
   between identical launches, so trust only a difference that repeats. **Answer which active mods are ready for a game version
@@ -360,7 +366,8 @@ running a script does not load them.
   key, carries the player's settings over once (`SettingsImport`), and lists the replaced mods under `incompatibleWith`.
 - **Another author's bug is theirs to fix** (owner, 8 Nov 2026). Patch an active project only when its errors are rather extreme in
   nature (a storm that kills the log, lost colony data); otherwise leave it to the author and, where possible, draft a report for the
-  owner to post (agents never post). **If the project is abandoned, this reverses**: patch it. Judge that with
+  owner to post (agents never post), **carrying what the tools showed** (owner, 21 Nov 2026): the log lines, the chain that holds a
+  thing, the lines of their source. **If the project is abandoned, this reverses**: patch it. Judge that with
   `python scripts/workshop-research.py report <mod>` (update date, the uploader's last reply) and say what it showed.
 - **Every patch for another author's fault has a row in `docs/development/temporary-patches.md`** (owner, 10 Nov 2026), added in the same change: whose fault it is, what would make the patch unnecessary, how
   to check, whether the author has been told, and whether it is temporary or permanent. Temporary patches say so in their code comment and, where the fault can be detected, stand down by themselves.
