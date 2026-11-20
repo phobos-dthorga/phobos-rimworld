@@ -10,6 +10,9 @@
       "a cell sown": ["farming.sow.cell"],
       "a sowing run ends": ["farming.sow.end"]
     }},
+    "278": {"parts": {
+      "a raid vehicle's fuel is set by how far it came": [{"key": "vehicles.raid-fuel"}]
+    }},
     "275": {"parts": {
       "a driver gains hours at the wheel of a kind of vehicle": [{"key": "vehicles.practice", "variant": "hours"}],
       "a practised pilot's landing wears less": [{"key": "vehicles.practice", "variant": "landing"}],

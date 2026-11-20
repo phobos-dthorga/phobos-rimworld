@@ -384,6 +384,9 @@ the kit back in the cargo.
   Systems tab shows how fit its driver is. Someone with one eye still drives near full pace. A driver who breaks down mentally cannot
   drive at all until it passes or someone else takes the wheel. **Raiders' drivers count too**: a raid with a hurt or tired driver
   comes in slower, as does a raider with no headlights at night.
+- **Raiders arrive with the fuel their journey left them** (not yet tested in game): a raid from a faction far away comes in with
+  its tanks low, one from next door nearly full. **Hole a raid truck's fuel tank** and it leaks fuel onto the ground until it runs
+  dry, sooner the further it came; a stranded raid truck is soon blown up by its own crew, so keep clear of it.
 - **Practice makes a gentler driver** (not yet tested in game). The hours a colonist spends at the wheel of one kind of vehicle make
   them easier on its brakes and tyres, and a practised pilot lands more gently. **Never faster.** The Systems tab shows the driver's
   practice; a colonist's Records show their hours at the wheel. **Keep the same people on the same vehicles** to get the most from it.

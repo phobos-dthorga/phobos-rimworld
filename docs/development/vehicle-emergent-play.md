@@ -4,7 +4,8 @@
 logbook, records and tales, the trip report, stranded convoys) and batch 2 in 0.185.0 (EM29(a): four unwise orders go ahead with a
 warning), batch 3 in 0.187.0 (EM20, EM21(a) and (c), EM27's small links) and batch 4 in the same version (EM2 and EM3: hulls,
 salvaged parts, lost convoys), and a small round in 0.188.0 (EM29(b) brakes, EM16 the snow forecast, EM18 the gravship's warning),
-and EM11 with EM12 in 0.190.0 (hours on type, "their" vehicle); not yet tested in game. The four batches the owner asked for are built
+and EM11 with EM12 in 0.190.0 (hours on type, "their" vehicle), and EM5 in 0.192.0 (raiders' fuel by distance); not yet tested in
+game. The four batches the owner asked for are built
 (the owner's word, 20 Nov 2026); every other row is an idea, not built. The owner answered four of the questions the same day
 ([the answers](#questions-for-the-owner)).
 
@@ -531,6 +532,21 @@ all. Three shapes for the owner: (a) keep EM5's fuel by distance and accept the 
 burning: dramatic, and costly to anyone near); (b) fuel by distance with a floor that keeps them moving (about a fifth of a tank [A]),
 so distance shows only in how long they can press an attack before leaving; (c) set it aside. The agent leans to (b). Question 6 below
 is still the owner's.
+
+**The owner's answer (20 Nov 2026): the fuel floor (b).** Worked through with real figures, a raid burns only a few units on the map
+(the Bang Bus about 0.6 an hour, the M113 0.8, the MaxxPro 1.4), and a trip of 3 to 30 tiles leaves 70% to 97% of a tank, so the agent
+then advised setting it aside. The owner kept it, for the leak: "especially if the chemfuel tank gets a puncture and starts leaking".
+Read on: Vehicle Framework drains a tank whose fuel-tank part is under 80% health at 1 unit a second, rising to 10 as the part fails,
+with a puddle of the fuel's filth each unit (`Reactor_FuelLeak`, its decompile line 9981; `CompFueledTravel.TicksPerLeak`, line
+22209). A holed 80-unit tank is dry in 8 to 80 seconds, so arrival fuel decides how long a holed raid truck moves, how much fuel it
+spills, and how soon its crew blows it up. The owner was right; the agent's advice had left the leak out.
+
+**As built (Framework 0.192.0, row 278):** on another faction's ground vehicle's first spawn on a map not its faction's settlement, its
+tank is set once to a full tank less the trip from that faction's nearest settlement (Vehicle Framework's own ticks per tile and fuel
+rate, `ArrivalFuelRule`), never below a fifth [A], in place of the random 45-85%. Aircraft, vehicles at their own settlements, the
+player's and figures-only are left alone; a saved flag keeps it to once. Lets: hole a far raid's tank and watch it run dry. Stops:
+nothing. Changes: where an enemy comes from shows in a firefight. What outside notices: the raid's crew (the sabotage order), and the
+ground, which takes the spilt fuel.
 
 ## Read: EM18, a turned gravship landing (20 Nov 2026)
 

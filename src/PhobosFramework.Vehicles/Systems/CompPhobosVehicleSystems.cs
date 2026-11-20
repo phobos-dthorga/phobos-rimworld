@@ -220,6 +220,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>Who has driven it, for how long, and whether it is lost (Framework 0.190.0, EM11 and EM12). Saved.</summary>
     public readonly VehicleDriverHours Practised = new();
 
+    /// <summary>Whether another faction's vehicle has had its arrival fuel set (Framework 0.192.0, EM5). Saved, so it is set once.</summary>
+    public bool ArrivalFuelSet;
+
     /// <summary>Whether a stage in force says the brakes are gone (Framework 0.188.0): the player's vehicles on the full model only.</summary>
     public bool NoBrakes()
     {
@@ -636,6 +639,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Scribe_Values.Look(ref LastUnderFireTick, "PhobosVehicleSystems_LastUnderFire", -1);
         Scribe_Deep.Look(ref Trip, "PhobosVehicleSystems_Trip");
         Practised.ExposeData();
+        Scribe_Values.Look(ref ArrivalFuelSet, "PhobosVehicleSystems_ArrivalFuelSet", false);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             savedValues ??= new Dictionary<string, float>();
@@ -663,6 +667,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         fittings?.SyncFuelCapacity(FuelExcess.Keep);    // extra tanks, before the tank first burns and is trimmed to capacity
         RestorePartHealths();
         if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
+        // Raiders arrive with the journey behind them (Framework 0.192.0, EM5): set once, on another faction's first spawn.
+        if (!respawningAfterLoad) RaidFuel.SetOnArrival(this);
         powertrain?.ForgetGround();
         // After a load, once every thing stands: the old hidden pipes earlier versions laid are taken back once and made visible, and the pipes and conduits
         // are laid as the vehicle stands. Never from here directly (AGENTS.md: nothing is spawned from PostSpawnSetup).

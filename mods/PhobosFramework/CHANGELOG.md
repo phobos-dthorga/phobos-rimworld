@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.192.0] - 2026-11-20 - Draft
+
+Raiders arrive with the journey behind them: a raid vehicle's fuel says how far it came
+
+### Changed
+
+- **Another faction's vehicles arrive with the fuel their journey left them.** A raid's truck now arrives with a full tank less the fuel it burnt coming from its faction's nearest settlement, never below a fifth of a tank, in place of Vehicle Framework's random 45% to 85%. A raid from next door arrives nearly full; one from far away arrives low. It shows when you hole a tank: a leaking tank runs dry in seconds to a minute or so, sooner the emptier it came, leaving less fuel on the ground, and a raid vehicle that can no longer move is soon blown up by its own crew.
+
+### Compatibility and limits
+
+- Ground vehicles only. Aircraft, a faction's vehicles standing at its own settlements, and your own vehicles are left as before; so is everything with the figures-only option switched on.
+- The trip's fuel uses Vehicle Framework's own speed and fuel figures over the straight distance; roads, terrain and rests are left out, a simplification. The fifth of a tank is an authored floor, so no raid arrives unable to move.
+- Set once, when the vehicle first appears; a save already holding raid vehicles keeps theirs.
+- No new settings. Not yet tested in game: row 278 of the test pass.
+
 ## [0.191.1] - 2026-11-20 - Draft
 
 Drawn icons for delivering, gathering, pouring, salvage and the last borrowed fittings
