@@ -59,6 +59,13 @@
     <text>Took {SUBJECT} in tow {PLACE}.</text>
   </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
+  <!-- Bay trips (D'thorga Framework 0.201.0; docs/development/vehicle-bay-trips.md). -->
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_TakenToBay</defName>
+    <label>taken to a dyno bay</label>
+    <text>Driven to a dyno bay for repair {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
   <Phobos.Framework.Persistence.PhobosLogEntryDef>
     <defName>PhobosLog_TowedBy</defName>
     <label>towed</label>

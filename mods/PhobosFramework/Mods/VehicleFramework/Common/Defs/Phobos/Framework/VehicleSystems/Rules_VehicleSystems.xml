@@ -134,6 +134,14 @@
     <winchTicksPerCell>180</winchTicksPerCell>
     <winchMireAdd>0.3</winchMireAdd>
     <recoveryMaxTowRatio>1.5</recoveryMaxTowRatio>
+    <!-- Bay trips (0.201.0; docs/development/vehicle-bay-trips.md), authored: ticks between looks, a stalled drive, failed drives before
+         giving up, the wait after giving up, the idle time at a bay before the place is given up, and the wait before "nobody is free to drive". -->
+    <bayTripLookTicks>1000</bayTripLookTicks>
+    <bayTripStuckTicks>600</bayTripStuckTicks>
+    <bayTripFailedDrives>3</bayTripFailedDrives>
+    <bayTripBackOffTicks>60000</bayTripBackOffTicks>
+    <bayTripIdleTicks>60000</bayTripIdleTicks>
+    <bayTripDriverWaitTicks>15000</bayTripDriverWaitTicks>
     <recoveryTowBarCells>1.5</recoveryTowBarCells>
     <recoveryJackKnifeDegrees>55</recoveryJackKnifeDegrees>
     <!-- Batch 3 signatures (Framework 0.101.0, all authored): the generator set's service lead takes 300 W off the top (a heavy battery

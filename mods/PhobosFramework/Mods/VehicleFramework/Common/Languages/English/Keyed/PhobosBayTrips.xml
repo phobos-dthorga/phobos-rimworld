@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Bay trips (Framework 0.201.0; docs/development/vehicle-bay-trips.md). Text a player reads in play stays in the game world.
+       Agent-authored, held for the owner's review. -->
+  <PhobosBayTrip_LineCalling>Waiting for a driver to take it to a dyno bay ({WORK} work).</PhobosBayTrip_LineCalling>
+  <PhobosBayTrip_LineDriving>On its way to a dyno bay for repair.</PhobosBayTrip_LineDriving>
+  <PhobosBayTrip_LineAtBay>At a dyno bay for repair.</PhobosBayTrip_LineAtBay>
+  <PhobosBayTrip_LineCallingHome>Finished at the dyno bay: waiting for a driver to take it home ({WORK} work).</PhobosBayTrip_LineCallingHome>
+  <PhobosBayTrip_LineDrivingHome>On its way home from the dyno bay.</PhobosBayTrip_LineDrivingHome>
+  <PhobosBayTrip_LineKeptOut>Not taken to a dyno bay unless you take it there.</PhobosBayTrip_LineKeptOut>
+  <PhobosBayTrip_CannotDrive>Needs a dyno bay, but cannot be driven there. {REASON}</PhobosBayTrip_CannotDrive>
+  <PhobosBayTrip_CannotLeave>Finished at the dyno bay, but cannot be driven away. {REASON}</PhobosBayTrip_CannotLeave>
+  <PhobosBayTrip_NoDriver>Waiting for a driver to a dyno bay: nobody doing {WORK} work has come.</PhobosBayTrip_NoDriver>
+  <PhobosBayTrip_WouldNotStart>Would not start for its trip to a dyno bay. It will be tried again in a day.</PhobosBayTrip_WouldNotStart>
+  <PhobosBayTrip_NoWay>Found no way to a dyno bay. It will be tried again in a day.</PhobosBayTrip_NoWay>
+  <PhobosBayTrip_NoWayHome>Found no way home from the dyno bay, and stays where it stopped.</PhobosBayTrip_NoWayHome>
+  <PhobosBayTrip_WaitsForParts>Needs a dyno bay, but waits for parts first. {WORK} needs {SUPPLIES}.</PhobosBayTrip_WaitsForParts>
+  <PhobosBayTrip_NoBay>Needs a dyno bay, and the colony has none.</PhobosBayTrip_NoBay>
+  <PhobosBayTrip_BayOff>Needs a dyno bay, and none has power.</PhobosBayTrip_BayOff>
+  <PhobosBayTrip_NoRoom>Needs a dyno bay, and none has room beside it that this vehicle can drive to.</PhobosBayTrip_NoRoom>
+  <PhobosBayTrip_KeptOutSet>{VEHICLE} will no longer be taken to a dyno bay unless you take it there.</PhobosBayTrip_KeptOutSet>
+  <PhobosBayTrip_KeptOutCleared>{VEHICLE} will be taken to a dyno bay when it needs one.</PhobosBayTrip_KeptOutCleared>
+  <PhobosBayTrip_FleetSwitch>Taken to a dyno bay when it needs one</PhobosBayTrip_FleetSwitch>
+  <PhobosBayTrip_FleetSwitchTip>Ticked, a colonist drives this vehicle to a dyno bay when it has work that needs one, and home again when the work is done. Unticked, it stays where it is until you move it.</PhobosBayTrip_FleetSwitchTip>
+  <PhobosBayTrip_Alert>Vehicles waiting for a dyno bay</PhobosBayTrip_Alert>
+  <PhobosBayTrip_AlertIntro>These vehicles need work at a dyno bay and cannot be taken there yet:</PhobosBayTrip_AlertIntro>
+  <PhobosBayTrip_AlertLine>{VEHICLE}: {REASON}</PhobosBayTrip_AlertLine>
+  <PhobosBayTrip_AlertMore>...and {COUNT} more.</PhobosBayTrip_AlertMore>
+</LanguageData>

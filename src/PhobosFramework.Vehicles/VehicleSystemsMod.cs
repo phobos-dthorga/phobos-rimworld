@@ -150,6 +150,11 @@ public class VehicleSystemsSettings : ModSettings
     public bool fleetBoardButton = true;
     /// <summary>Days of warning before a vehicle left parked in the wild is lost; 0 is no warning.</summary>
     public int parkedWarningDays = 3;
+    /// <summary>Bay trips (Framework 0.201.0; docs/development/vehicle-bay-trips.md; owner, 20 Nov 2026): a vehicle with work that sends it is
+    /// driven to a dyno bay, repaired and driven home without being told. Risk moderate (agent's grade), so on. Live.</summary>
+    public bool bayTrips = true;
+    /// <summary>What sends a vehicle to a dyno bay (owner, 20 Nov 2026: a setting for each level, starting at broken or bay-only). Live.</summary>
+    public Phobos.Framework.Rules.BayTripTrigger bayTripTrigger = Phobos.Framework.Rules.BayTripTrigger.Broken;
     /// <summary>An electric vehicle's battery that overheats far enough catches fire and bursts (agent default, as boiler explosions:
     /// off, with a warning). Live.</summary>
     public bool batteryFires;
@@ -279,6 +284,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref keepVehicleFrameworkHealthTab, "PhobosVehicleSystems_KeepVfHealthTab", false);
         Scribe_Values.Look(ref fleetBoardButton, "PhobosVehicleSystems_FleetBoardButton", true);
         Scribe_Values.Look(ref parkedWarningDays, "PhobosVehicleSystems_ParkedWarningDays", 3);
+        Scribe_Values.Look(ref bayTrips, "PhobosVehicleSystems_BayTrips", true);
+        Scribe_Values.Look(ref bayTripTrigger, "PhobosVehicleSystems_BayTripTrigger", Phobos.Framework.Rules.BayTripTrigger.Broken);
         Scribe_Values.Look(ref batteryFires, "PhobosVehicleSystems_BatteryFires", false);
         Scribe_Values.Look(ref electricLightning, "PhobosVehicleSystems_ElectricLightning", false);
         Scribe_Values.Look(ref tripLetters, "PhobosVehicleSystems_TripLetters", true);
@@ -547,6 +554,13 @@ public class VehicleSystemsMod : SettingsBookMod
             if (list.Check("PhobosVehicleSystems_SettingRawServices".Translate(), ref raw, null, "PhobosVehicleSystems_SettingRawServicesDesc".Translate()))
                 GameComponent_PhobosServiceKits.SetRawAccepted(raw);
         }
+        // Bay trips (Framework 0.201.0): the behaviour's own switch, and what sends a vehicle, as three choices (owner, 20 Nov 2026).
+        list.Section("PhobosVehicleSettings_SectionBayTrips".Translate());
+        list.Check("PhobosVehicleSettings_BayTrips".Translate(), ref s.bayTrips, d.bayTrips, "PhobosVehicleSettings_BayTripsDesc".Translate());
+        list.Radio("PhobosVehicleSettings_BayTripTrigger".Translate(), ref s.bayTripTrigger, d.bayTripTrigger,
+            (Phobos.Framework.Rules.BayTripTrigger[])System.Enum.GetValues(typeof(Phobos.Framework.Rules.BayTripTrigger)),
+            level => ("PhobosVehicleSettings_BayTripTrigger" + level).Translate(), level => ("PhobosVehicleSettings_BayTripTrigger" + level + "Desc").Translate(),
+            "PhobosVehicleSettings_BayTripTriggerDesc".Translate());
         list.Section("PhobosVehicleSettings_SectionFittings".Translate());
         list.Check("PhobosVehicleSystems_SettingTuningNeedsRig".Translate(), ref s.tuningNeedsRig, d.tuningNeedsRig, "PhobosVehicleSystems_SettingTuningNeedsRigDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingTankCompartments".Translate(), ref s.tankCompartmentsNeedUpgrades, d.tankCompartmentsNeedUpgrades, "PhobosVehicleSystems_SettingTankCompartmentsDesc".Translate());

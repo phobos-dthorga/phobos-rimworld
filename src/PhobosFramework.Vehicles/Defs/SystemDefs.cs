@@ -1005,6 +1005,16 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float recoveryMaxTowRatio = 1.5f;
     public float recoveryTowBarCells = 1.5f;
     public float recoveryJackKnifeDegrees = 55f;
+    /// <summary>Bay trips (Framework 0.201.0; docs/development/vehicle-bay-trips.md, authored [A]): the ticks between an idle vehicle's looks,
+    /// how long a drive may stand still before it has stalled, how many drives may fail before a trip is given up, how long a vehicle then
+    /// waits before it looks again, how long it may stand at the bay with nothing ready to be done before it gives up its place, and how
+    /// long a call for a driver may stand before the vehicle says nobody is free to drive.</summary>
+    public int bayTripLookTicks = 1000;
+    public int bayTripStuckTicks = 600;
+    public int bayTripFailedDrives = 3;
+    public int bayTripBackOffTicks = 60000;
+    public int bayTripIdleTicks = 60000;
+    public int bayTripDriverWaitTicks = 15000;
     /// <summary>The generator set's service lead (Framework 0.101.0, authored): the watts it takes off the top of the set's output, a heavy
     /// battery charger and its losses.</summary>
     public float serviceLeadWatts = 300f;

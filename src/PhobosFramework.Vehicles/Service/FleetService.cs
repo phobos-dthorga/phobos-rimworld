@@ -348,6 +348,8 @@ public static class FleetService
         if (OnMapFlight.Airborne(vehicle)) return "PhobosFleet_DoingAir".Translate();
         if (systems?.Overrun != null) return "PhobosFleet_DoingOverrun".Translate();
         if (vehicle.GetComp<CompPhobosHitch>()?.Winching is { } winched) return "PhobosFleet_DoingWinching".Translate(winched.LabelShort.Named("TOWED"));
+        // A bay trip says where it stands (Framework 0.201.0), before the plain "on an errand".
+        if (vehicle.GetComp<CompPhobosBayTrip>()?.DoingLine is { } trip) return trip;
         foreach (ThingComp comp in vehicle.AllComps)
         {
             if (comp is CompPhobosVehicleRun { Running: true }) return "PhobosFleet_DoingErrand".Translate();
@@ -375,6 +377,8 @@ public static class FleetService
         {
             if (Stranding.Reason(systems) is { } stranded) return stranded;
             if (systems.MoveRefusal != null) return systems.MoveRefusal;
+            // Why it cannot be taken to a dyno bay (Framework 0.201.0): the part it waits for, no bay, nobody free to drive.
+            if (entry.Vehicle?.GetComp<CompPhobosBayTrip>()?.Blocked is { } blocked) return blocked;
             if (entry.Waiting != null) return entry.Waiting;
             if (systems.NoBrakes()) return "PhobosFleet_NeedsBrakes".Translate();
             if (systems.Conditions.Count > 0) return "PhobosFleet_NeedsFaults".Translate(systems.Conditions.Count.Named("COUNT")).Resolve();

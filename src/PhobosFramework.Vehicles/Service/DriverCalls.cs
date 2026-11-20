@@ -25,6 +25,16 @@ public interface IVehicleWantsDriver
 }
 
 /// <summary>
+/// A caller that wants to know which colonist answered its call (Framework 0.201.0, bay trips): the crew a trip called aboard gets out at
+/// its end, and crew the player boarded is left where it is.
+/// </summary>
+public interface IVehicleDriverArrives
+{
+    /// <summary>A colonist sent by the driver call has taken a seat in this caller's vehicle.</summary>
+    void DriverArrived(Pawn driver);
+}
+
+/// <summary>
 /// Vehicles waiting for a driver, by map, and who may drive them (Framework 0.177.0). Shared by every errand of ours that a colonist must
 /// come and drive, so farm machines use it too (owner, 19 Nov 2026: our own fallback, for the agricultural mod).
 /// </summary>
@@ -49,6 +59,16 @@ public static class DriverCalls
             if (callers[i].Vehicle == vehicle && callers[i].WantsDriver) return true;
         }
         return false;
+    }
+
+    /// <summary>Tells every caller on the vehicle that wants to know that a colonist sent by the call has taken a seat (Framework 0.201.0).</summary>
+    public static void Arrived(VehiclePawn vehicle, Pawn driver)
+    {
+        IReadOnlyList<IVehicleWantsDriver> callers = On(vehicle.MapHeld);
+        for (int i = 0; i < callers.Count; i++)
+        {
+            if (callers[i].Vehicle == vehicle && callers[i] is IVehicleDriverArrives wants) wants.DriverArrived(driver);
+        }
     }
 
     /// <summary>A free seat this colonist can drive from, or null: Vehicle Framework's own choice of seat, among the driving ones.</summary>
@@ -158,6 +178,7 @@ public class JobDriver_PhobosTakeTheWheel : JobDriver
                 EndJobWith(JobCondition.Incompletable);
                 return;
             }
+            DriverCalls.Arrived(vehicle, actor);
             Seen.Note("vehicles.driver-call.aboard", vehicle);
         };
         board.defaultCompleteMode = ToilCompleteMode.Instant;

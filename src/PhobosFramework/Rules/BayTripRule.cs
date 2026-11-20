@@ -1,0 +1,86 @@
+using System;
+using System.Collections.Generic;
+
+namespace Phobos.Framework.Rules;
+
+/// <summary>What sends a vehicle to a dyno bay by itself, the player's setting. Saved by name: append only.</summary>
+public enum BayTripTrigger
+{
+    /// <summary>Only work that waits for a bay: a heavy overhaul, a queued tune or change of grade, a diagnosis.</summary>
+    BayOnly,
+    /// <summary>The above, and a destroyed part to replace or a serious fault that needs a service. The default (owner, 20 Nov 2026).</summary>
+    Broken,
+    /// <summary>The above, and every due service, fitting and damaged part.</summary>
+    Any,
+}
+
+/// <summary>What a piece of work is, for the trigger.</summary>
+public enum BayTripWorkKind
+{
+    /// <summary>It can be done nowhere but at a bay.</summary>
+    BayOnly,
+    /// <summary>The vehicle is broken: a destroyed part, a serious fault.</summary>
+    Broken,
+    /// <summary>Routine: a service, a fitting, a damaged part.</summary>
+    Routine,
+}
+
+/// <summary>Where a vehicle goes once its work at the bay is done, in the owner's order (20 Nov 2026).</summary>
+public enum BayTripHome
+{
+    DepotBay,
+    Park,
+    Nearby,
+}
+
+/// <summary>
+/// Bay trips, game-free (Framework 0.201.0; docs/development/vehicle-bay-trips.md): what sends a vehicle to a dyno bay by itself, whether
+/// its work can be paid for, when it looks again, when it has waited at the bay long enough, and where it goes afterwards.
+/// </summary>
+public static class BayTripRule
+{
+    /// <summary>Whether a piece of work of this kind sends a vehicle at this level.</summary>
+    public static bool Sends(BayTripTrigger level, BayTripWorkKind kind) => kind switch
+    {
+        BayTripWorkKind.BayOnly => true,
+        BayTripWorkKind.Broken => level >= BayTripTrigger.Broken,
+        _ => level >= BayTripTrigger.Any,
+    };
+
+    /// <summary>
+    /// Whether work can be paid for: it asks for nothing, or one of its ways of paying has every line met. A vehicle goes to the bay only
+    /// for work that can be done there, so a wreck whose part nobody has made never takes a place.
+    /// </summary>
+    public static bool Payable<T>(IReadOnlyList<List<T>> options, Func<T, bool> met)
+    {
+        if (options.Count == 0) return true;
+        for (int i = 0; i < options.Count; i++)
+        {
+            bool all = true;
+            foreach (T line in options[i])
+            {
+                if (met(line)) continue;
+                all = false;
+                break;
+            }
+            if (all) return true;
+        }
+        return false;
+    }
+
+    /// <summary>Whether a vehicle's next look is due.</summary>
+    public static bool LookDue(int now, int nextLook) => now >= nextLook;
+
+    /// <summary>
+    /// When a vehicle looks next: an interval on, moved by its ID within <paramref name="spread"/> so a fleet does not all look on one tick.
+    /// </summary>
+    public static int NextLook(int now, int interval, int id, int spread) =>
+        now + Math.Max(1, interval) + (spread > 0 ? Math.Abs(id % spread) : 0);
+
+    /// <summary>Whether a wait has gone on past its limit. No limit means never.</summary>
+    public static bool Overstayed(int ticksWaited, int limit) => limit > 0 && ticksWaited > limit;
+
+    /// <summary>Where a vehicle goes afterwards: its depot bay, else the vehicle park, else a spot nearby.</summary>
+    public static BayTripHome Home(bool depotBayFree, bool parkHasRoom) =>
+        depotBayFree ? BayTripHome.DepotBay : parkHasRoom ? BayTripHome.Park : BayTripHome.Nearby;
+}

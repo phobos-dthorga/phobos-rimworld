@@ -26,6 +26,18 @@
   <PhobosVehicleSettings_SectionCabs>Cabs</PhobosVehicleSettings_SectionCabs>
   <PhobosVehicleSettings_SectionCamps>Camps and caravans</PhobosVehicleSettings_SectionCamps>
   <PhobosVehicleSettings_ParkedWarningDesc>How many days before a vehicle left parked in the wild is lost a letter warns you. At 0, no warning.</PhobosVehicleSettings_ParkedWarningDesc>
+  <!-- Bay trips (Framework 0.201.0; docs/development/vehicle-bay-trips.md). -->
+  <PhobosVehicleSettings_SectionBayTrips>Dyno bay trips</PhobosVehicleSettings_SectionBayTrips>
+  <PhobosVehicleSettings_BayTrips>Vehicles are taken to a dyno bay for repair by themselves</PhobosVehicleSettings_BayTrips>
+  <PhobosVehicleSettings_BayTripsDesc>A land vehicle of yours with work that sends it (below) is driven to a working dyno bay by a colonist doing Drive work, repaired there, and driven home: to its depot bay, or a spot nearby. It never sets off while enemies threaten the map, and a vehicle in use is left alone. Each vehicle has its own switch on the Fleet board. Off: vehicles stay where they are until you move them, as before.</PhobosVehicleSettings_BayTripsDesc>
+  <PhobosVehicleSettings_BayTripTrigger>What sends a vehicle to a dyno bay</PhobosVehicleSettings_BayTripTrigger>
+  <PhobosVehicleSettings_BayTripTriggerDesc>A vehicle goes only for work whose parts are in the colony, so a wreck nobody can repair never takes a place at the bay.</PhobosVehicleSettings_BayTripTriggerDesc>
+  <PhobosVehicleSettings_BayTripTriggerBayOnly>Bay-only work alone</PhobosVehicleSettings_BayTripTriggerBayOnly>
+  <PhobosVehicleSettings_BayTripTriggerBayOnlyDesc>Only work that can be done nowhere else: a heavy overhaul, a tune or change of grade you asked for, a diagnosis you asked for. Fewest trips.</PhobosVehicleSettings_BayTripTriggerBayOnlyDesc>
+  <PhobosVehicleSettings_BayTripTriggerBroken>Broken, or bay-only work</PhobosVehicleSettings_BayTripTriggerBroken>
+  <PhobosVehicleSettings_BayTripTriggerBrokenDesc>The above, and a destroyed part to replace (fitted at the bay it goes in in better condition) or a serious fault that needs a service. Routine servicing is still done where the vehicle stands.</PhobosVehicleSettings_BayTripTriggerBrokenDesc>
+  <PhobosVehicleSettings_BayTripTriggerAny>Any repair or service due</PhobosVehicleSettings_BayTripTriggerAny>
+  <PhobosVehicleSettings_BayTripTriggerAnyDesc>Everything: every due service, fitting and damaged part too. The tidiest colony and the most trips.</PhobosVehicleSettings_BayTripTriggerAnyDesc>
   <!-- The vehicle message level (Framework 0.186.0). -->
   <PhobosVehicleSettings_SectionMessages>Messages</PhobosVehicleSettings_SectionMessages>
   <PhobosVehicleSettings_MessageLevel>Vehicle messages nobody asked for</PhobosVehicleSettings_MessageLevel>

@@ -191,6 +191,9 @@ public static class VehicleSystems
         // now (our drivetrain, or the player's setting for others) is asked when the player orders it.
         // A trailer never gets one, whatever its loadout says: nothing tows a trailer behind a trailer.
         if (def.type == VehicleType.Land && !loadout.noHitch && !props.trailer && !def.comps.Any(c => c is CompProperties_PhobosHitch)) def.comps.Add(new CompProperties_PhobosHitch());
+        // Bay trips (Framework 0.201.0; docs/development/vehicle-bay-trips.md): every land vehicle with a loadout, trailers apart, can be taken
+        // to a dyno bay for repair without being told. Whether it goes is the player's setting and its own switch, asked at each look.
+        if (def.type == VehicleType.Land && !props.trailer && !def.comps.Any(c => c is CompProperties_PhobosBayTrip)) def.comps.Add(new CompProperties_PhobosBayTrip());
         // The Dashboard and Systems tabs, before ThingDef.ResolveReferences resolves the tab list (this runs in its prefix; re-check the
         // order when Vehicle Framework releases 1.7). Only fitted designs get them.
         def.inspectorTabs ??= new List<System.Type>();

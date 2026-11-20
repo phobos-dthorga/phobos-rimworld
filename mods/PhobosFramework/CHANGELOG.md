@@ -16,6 +16,32 @@ tested in game unless an entry says the owner tested it.
 - **A gathering run that gives up on what you chose now says so, and why.** A truck finding nowhere to stand beside a pile, no way to drive to it, or its grab unable to take it passes over it for the rest of the run; once it had passed over everything it ended saying nothing more lay within reach, with no word of the piles still lying there (the Talus, 19 Nov 2026, set off and ended with nothing gathered). Its end message now counts what it gave up on under each reason, as does its testing note, and with the Vehicle drive log at Debug each pile given up on is named with its place.
 - **Testing notes: a warning still standing when a vehicle's refusal comes is now noted first.** A warning in force when a save loaded (its message shows at the load, but stages worked out at a load write no note), or one already noted earlier in a session, left the next refusal looking as if it came without one, so the test list flagged the Abrams' turbine (row 69) when the game had behaved. Covers every warning before a refusal: a turbine's or piston engine's battery, the air brakes. Nothing a player sees changes.
 
+## [0.201.0] - 2026-11-20 - Draft
+
+Vehicles are taken to a dyno bay for repair, and home again, without being told
+
+### Added
+
+- **Vehicles are taken to a dyno bay for repair by themselves.** A land vehicle of yours with a destroyed part to replace, a serious fault, or work only a dyno bay can do is driven to a working dyno bay by a colonist doing Drive work, who then gets out. Mechanics repair it there, where a new part goes in at 60% health instead of 25%. When the work is done a colonist drives it home: to its depot bay if it has one, else a spot nearby, clear of the bay.
+- **A vehicle goes only for work whose parts are in the colony**, so a wreck nobody can repair never takes a place at the bay. It stays where it is and says which part it waits for.
+- **What sends a vehicle is a setting of three levels**: bay-only work alone; broken, or bay-only work (where it starts); any repair or service due.
+- **Each vehicle has its own switch on the Fleet board**: select it and untick Taken to a dyno bay when it needs one. The board also says what each vehicle is doing on its trip, or what it waits for.
+- **An alert names the vehicles that should go and cannot**, each with its reason: no dyno bay, none with power or room, nobody doing Drive work, a part nobody has made, a vehicle that will not drive.
+- **Two new settings** under Dyno bay trips in the vehicle settings: Vehicles are taken to a dyno bay for repair by themselves (on), and What sends a vehicle to a dyno bay (broken, or bay-only work).
+
+### Save compatibility
+
+- Safe to add to a running colony. A vehicle on no trip saves only its own switch; a trip under way is saved and carries on after a load.
+
+### Compatibility and limits
+
+- **Somebody must have Drive work**, which starts off for everyone. With Vehicles at Work on it is that mod's Drive column, as for Deliver and Gather.
+- **A vehicle that cannot be driven stays where it is and says why.** The recovery tow and pushing by hand are designed and not built yet.
+- Aircraft, boats and trailers never go. A vehicle with anyone aboard, its engine on, set up for work, towing or towed, forbidden, burning or on an errand is left alone; nothing sets off while enemies threaten the map, and a trip under way stops and lets its driver out.
+- A vehicle you parked at a dyno bay yourself is never moved; only one that was brought there leaves by itself. It gives up its place after a day in which nothing could be done, and waits a day before coming back.
+- Every figure is authored: a look about every 1,000 ticks, three failed drives before a trip is given up, a day's wait after.
+- Not yet tested in game: row 294 of the test pass.
+
 ## [0.200.0] - 2026-11-20 - Draft
 
 What time does to a depot: weather, stale fuel and hostile neighbours, each with its own setting

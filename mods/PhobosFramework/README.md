@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.200.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.201.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -109,6 +109,7 @@ Every vehicle gets systems that fit what it is, by what it runs on and whether i
   [jump-starting](../../docs/player-guide/vehicle-care.md#jump-starting).
 - **The Dashboard, Health and Systems tabs**: [the three tabs](../../docs/player-guide/vehicle-care.md#the-three-tabs).
 - **Damage, conditions and knocked-out weapons and tracks**: [damage and repairs](../../docs/player-guide/vehicle-care.md#damage-and-repairs).
+- **Vehicles are taken to a dyno bay for repair by themselves** (0.201.0, not yet tested in game; needs somebody on **Drive** work): [taken to the dyno bay](../../docs/player-guide/vehicle-care.md#taken-to-the-dyno-bay-by-themselves).
 - **The workshop** (parts bench, inspection pit, dyno bay, depot bay) and parts by role: [the workshop](../../docs/player-guide/vehicle-care.md#the-workshop).
 - **Fittings, tunes, grades and families**: [fittings, tunes and grades](../../docs/player-guide/vehicle-care.md#fittings-tunes-and-grades).
 - **Cabs, headlights, the driver, weather and rivers**: [cabs and comfort](../../docs/player-guide/vehicle-care.md#cabs-and-comfort),
@@ -192,6 +193,8 @@ The vehicle sounds setting (on other mods' vehicles too) moved to D'thorga Vehic
 | Repairs, service and fittings | Field fixes | Patch leaks and shorts, and re-fit a thrown track or wrecked wheel, away from a base | On |
 | Repairs, service and fittings | Low oil calls for a service | A service falls due once oil is below 60% | On |
 | Repairs, service and fittings | This colony: services take raw materials instead of kits | Saved with the colony. On: services take steel, components and chemfuel instead of kits | Off (on for a colony from before kits) |
+| Dyno bay trips | Vehicles are taken to a dyno bay for repair by themselves | A land vehicle with work that sends it is driven to a dyno bay, repaired and driven home | On |
+| Dyno bay trips | What sends a vehicle to a dyno bay | Bay-only work alone; broken, or bay-only work; any repair or service due | Broken, or bay-only work |
 | Repairs, service and fittings | Tunes, changes of grade and heavy overhauls need a dyno bay | Tunes, grade changes, head machining and turbine overhauls wait for a powered dyno bay in reach | On |
 | Repairs, service and fittings | A tank needs upgrades for compartments | Off: every liquid tank has three compartments free | On |
 | Repairs, service and fittings | Time to fit and tune / Materials to fit and tune | Quick, shorter, standard or long; light, standard or heavy | Standard / Standard |

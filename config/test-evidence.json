@@ -3,6 +3,16 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "294": {"parts": {
+      "a vehicle with work that sends it keeps a place and calls a driver": ["vehicles.bay-trip.called"],
+      "a colonist drives it to the bay": [{"key": "vehicles.bay-trip.driving", "variant": "to the bay"}],
+      "it stands at the bay, engine off, driver out": ["vehicles.bay-trip.at-bay"],
+      "it leaves once its work is done": ["vehicles.bay-trip.leaving"],
+      "a colonist drives it home": [{"key": "vehicles.bay-trip.driving", "variant": "home"}, "vehicles.bay-trip.home"],
+      "the alert names a vehicle that cannot go": ["vehicles.bay-trip.alert"],
+      "enemies stop a trip where it is": ["vehicles.bay-trip.threat"],
+      "a trip with no way through is given up for a day": ["vehicles.bay-trip.gave-up"]
+    }},
     "293": {"parts": {
       "a hold takes in loose goods from the ground": ["bulk.load-from-ground"]
     }},

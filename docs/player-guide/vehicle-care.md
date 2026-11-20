@@ -214,7 +214,25 @@ All four are in the Architect's **motor pool** tab.
 | **Vehicle parts bench** | Vehicle parts | Makes our engines, transmissions, kits, sets and booster packs; recharges booster packs |
 | **Inspection pit** | Vehicle parts | Speeds the parts bench |
 | **Dyno bay** | Vehicle tuning | **Diagnose** a vehicle (a report with its tinted picture and, in Operator and Engineer, a graph of the last day). Needed for **tunes and changes of grade** on a working part, and for the two **heavy overhauls** (machining a badly warped cylinder head, a turbine's hot-section overhaul), within 5 cells of the vehicle and powered. Replacement parts fitted here go in at 60% health instead of 25%. Select it for **Vehicles in reach** |
-| **Depot bay** | Vehicle depots | A home for one vehicle. Press **Assign vehicle** on the bay, then **Go to bay** on the vehicle (needs a driver aboard). On the pad it refuels by itself (chemfuel, while the bay has power) and mechanics need 70% of the usual work. It only moves when you tell it to, or, **with Vehicles at Work**, when a colonist parks it: a vehicle switched on there for trips or hauling is brought home to its bay instead of a parking lot |
+| **Depot bay** | Vehicle depots | A home for one vehicle. Press **Assign vehicle** on the bay, then **Go to bay** on the vehicle (needs a driver aboard). On the pad it refuels by itself (chemfuel, while the bay has power) and mechanics need 70% of the usual work. It moves when you tell it to, when it comes home from a dyno bay (below), or, **with Vehicles at Work**, when a colonist parks it: a vehicle switched on there for trips or hauling is brought home to its bay instead of a parking lot |
+
+### Taken to the dyno bay by themselves
+
+**Not yet tested in game.** A land vehicle of yours that needs the dyno bay is taken there without being told, repaired, and put away.
+
+- **Give somebody Drive work first.** It starts off for everyone (the Work tab's **Drive** column). With nobody on it, vehicles wait.
+- **What goes**: a vehicle with a destroyed part to replace, a serious fault, or work only the dyno bay can do. The setting **What sends
+  a vehicle to a dyno bay** has three levels; routine servicing is done where the vehicle stands unless you choose "any repair".
+- **Only when its parts are in the colony.** A wreck nobody can repair stays where it is and says which part it waits for.
+- **The trip**: a colonist walks to it, drives it into the bay's reach and gets out. Mechanics and haulers do the rest. When the work is
+  done a colonist drives it to **its depot bay**, or, with none, a spot nearby that is clear of the bay.
+- **Left alone**: a vehicle with anyone aboard, its engine on, set up for work, towing or towed, or on an errand. Nothing sets off while
+  enemies threaten the map, and a trip under way stops and lets its driver out.
+- **To keep one vehicle out**: open the **Fleet board**, select it and untick **Taken to a dyno bay when it needs one**.
+- **The alert "Vehicles waiting for a dyno bay"** names each vehicle that should go and cannot, with its reason.
+- **A vehicle that cannot be driven** (a dead starter, a thrown track) stays where it is for now and says why.
+- Aircraft, boats and trailers never go: build a dyno bay beside the pad for aircraft.
+- To switch it all off: **Vehicles are taken to a dyno bay for repair by themselves**, in the vehicle settings under **Dyno bay trips**.
 
 Our vehicles and the depot bay are **built from parts** by role (an engine, a fuel tank, tyres and so on). Where an installed mod makes
 a part that suits (RimThunder, Vanilla Vehicles Expanded), a build asks for theirs; otherwise ours. **Parts for building** in the

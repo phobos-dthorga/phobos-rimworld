@@ -1,0 +1,148 @@
+# Bay trips: vehicles taken to a dyno bay for repair, without being told (20 Nov 2026)
+
+**Status (20 Nov 2026):** batch 1 built in D'thorga Framework 0.201.0: a vehicle that can still drive is driven to a dyno bay, repaired
+there, and driven home. Not built yet: the vehicle park (batch 2), the recovery tow (batch 3), pushing by hand (batch 4). Not yet tested in game.
+
+**The owner, 20 Nov 2026:** "Something we NEED to implement, and we need to either use or develop our own code for this so it works
+independently of what mods the player might have on their setup, is pawns automatically taking a worn or especially, busted, vehicle to a
+nearby dyno for repair because with a large colony, and dozens of vehicles like mine, there are just broken vehicles littered everywhere."
+And: "Study and learn from other mods if necessary".
+
+How to read it: **[O]** is the owner's choice (cards, 20 Nov 2026); **[A]** is the agent's choice or figure, for the owner to revise; **[I]**
+is our inference. Nothing here is tested in game.
+
+## Read this first
+
+- **Nothing here needs another mod.** The driver call, the self-drive, the recovery tow and the hitch are ours
+  ([Vehicles at Work tie-ins](vehicles-at-work-tie-ins.md), VW3; `Service/VehicleAutoDrive.cs`; `Hitch/Recovery.cs`). With Vehicles at
+  Work on, the driver comes from its Drive column, as for Deliver and Gather; without it, from ours.
+- **Somebody must have Drive work.** It starts off for everyone. With nobody assigned, vehicles wait and the alert says so.
+- **Aircraft, boats and trailers never go**: none of them can be driven across a map to a bay. A dyno bay built beside the pad still
+  serves an aircraft where it stands, as now.
+- **A wreck goes only when its parts are in the colony.** A vehicle whose repair nobody can pay for stays where it is and says which
+  part it waits for, so wrecks without parts never fill the bay.
+
+## What the owner's save showed
+
+Read from Autosave-6 on 20 Nov 2026 with `scripts/query-save.py` (read only): 31 vehicles stand on the home map, of about 70 owned. A
+Highwayman sampled had its battery, starter, fuel pump and radiator at 0 health; a Tango had several parts under 1. **Such a vehicle
+cannot start**, so driving it to the bay is impossible: it must be towed or pushed. That is why batches 3 and 4 exist.
+
+## The four questions
+
+- **What it lets the player do.** Leave a motor pool to look after itself: a vehicle with a destroyed part, a serious fault, or work only
+  a dyno bay can do is fetched to the bay, repaired there (a part fitted at the bay goes in at 60% health, not 25%), and put away.
+- **What it stops.** Wrecks lying where they broke down. It also stops a repaired vehicle blocking the bay: it leaves when its work is done.
+- **How it changes play.** The dyno bay becomes the workshop the colony's vehicles pass through, so it wants room around it, a parts
+  shelf nearby, and somebody on Drive work. Fitting a recovery winch to one truck now pays for itself.
+- **What outside the vehicle notices.** Colonists (Drive work to fetch it, the hitch-up and hauling work for a tow or a push, mechanics
+  at the bay); the dyno bay's own line, which lists the vehicles in reach; the Fleet board (what each vehicle is doing and waiting
+  for); one alert naming the vehicles that cannot go and why; each vehicle's logbook.
+
+## What sends a vehicle [O]
+
+A setting with three levels, starting at the middle one. Routine work is still done where the vehicle stands, as now.
+
+| Level | What sends a vehicle |
+| --- | --- |
+| Bay-only work alone | Work that waits for a dyno bay: a heavy overhaul, a queued tune or change of grade, a diagnosis asked for |
+| **Broken or bay-only** (the default) | The above, and a destroyed part to replace, and a serious fault that needs a service |
+| Any repair or service due | The above, and every due service, fitting and damaged part |
+
+A piece of work sends the vehicle only if **it can be paid for**: its supplies are aboard or lie unforbidden on the map **[A]**.
+
+## Which vehicles [O]
+
+Every land vehicle of the player's on a home map, each with a switch on the Fleet board to keep it out. Left alone, always **[A]**: a
+vehicle with anyone aboard, with its engine on, moving, set up for work or held by a set-up job, towing or being towed, on another
+errand of ours, forbidden, or burning; and every vehicle while enemies threaten the map.
+
+## The trip
+
+```mermaid
+flowchart TD
+    look[A look, about every 1,000 ticks] --> need{Work that sends it,<br/>and payable?}
+    need -- no --> stay[Stays; says which part it waits for]
+    need -- yes --> place{A working bay<br/>with room in reach?}
+    place -- no --> wait[Stays; the alert says why]
+    place -- yes --> drive{Can it drive?}
+    drive -- yes --> call[Calls a driver]
+    drive -- no --> tow{Recovery vehicle free?}
+    tow -- yes --> fetch[Towed to the bay: batch 3]
+    tow -- no --> push{Light enough to push?}
+    push -- yes --> hands[Pushed by hand: batch 4]
+    push -- no --> wait
+    call --> bay[At the bay: driver gets out, mechanics work]
+    fetch --> bay
+    hands --> bay
+    bay --> done{Work done, or a day<br/>with nothing done?}
+    done -- yes --> home[Depot bay, else vehicle park, else nearby]
+```
+
+- **One saved place for a trip's state, short jobs, a time limit per stage** (the lesson from Vehicles at Work): the state lives in the
+  vehicle's own comp (`CompPhobosBayTrip`), on the shared base every errand of ours uses (`CompPhobosVehicleRun`).
+- **The driver is one we called.** The trip starts only when a colonist arrives through the driver call. Crew the player boards
+  themselves cancels it: the player has plans for the vehicle.
+- **At the bay** the driver gets out and the engine goes off. The vehicle stays while work that sent it remains, or any work is ready.
+  It gives up its place after a day in which nothing could be done **[A]**, and does not come back for a day.
+- **Afterwards [O]**: its depot bay if it has one and the pad is free; else the vehicle park (batch 2); else a spot nearby, clear of
+  every bay's reach. A vehicle the player parked at the bay themselves is never moved: only one we brought leaves by itself.
+- **A drive that stalls** is tried again from another spot, three times **[A]**, then the crew gets out where it stands and the
+  vehicle waits a day.
+- **Enemies**: no trip starts while enemies threaten the map; one under way stops, its crew gets out, and it tries again later.
+
+## Batches
+
+| Batch | What | Version | Status |
+| --- | --- | --- | --- |
+| 1 | Trips for vehicles that can drive; the trigger setting; the Fleet board switch; the alert; home to a depot bay or nearby | Framework 0.201.0 | Built, not yet tested in game |
+| 2 | **The vehicle park** [O]: a zone of ours on the motor pool tab; a repaired vehicle with no depot bay parks there | | Not built |
+| 3 | **The recovery tow** [O]: a driver takes a vehicle fitted with the recovery winch, a colonist couples the wreck, it is towed into the bay's reach and let go, and the tow vehicle drives back | | Not built |
+| 4 | **Pushing by hand** [O]: with no recovery vehicle free, colonists push a light vehicle to the bay, limited by weight with the pull rule the winch uses | | Not built |
+
+## Risk and settings
+
+The owner's rule (20 Nov 2026): a behaviour that puts things or people at risk has its own setting, on unless its risk is high.
+
+| Behaviour | Risk **[A]**, for the owner to confirm | Setting | Starts |
+| --- | --- | --- | --- |
+| Bay trips | **Moderate**: a colonist drives a faulty vehicle across the home map. Nothing is lost at once; it never starts with enemies about and stops when they come; every refusal of ours to move still holds (worn-out brakes); the player sees each trip on the vehicle's line and the Fleet board | Vehicles go to a dyno bay for repair by themselves | On |
+| What sends a vehicle | None of its own | What sends a vehicle to the bay (three levels) | Broken or bay-only |
+
+## Other factions' vehicles
+
+Only the player's vehicles on a player's home map take part. A raider's vehicle, and one parked at a base the player attacks, is never
+looked at: the comp does nothing for another faction, and its look is one cheap test. A captured vehicle joins as soon as it is the
+player's, with its switch on, like any other. A trip under way when a vehicle changes hands ends where it stands.
+
+## Cost to run
+
+Nothing runs each tick. Each land vehicle of the player's takes one look about every 1,000 ticks **[A]**, staggered by its ID; the look
+reads lists the systems already keep (the repair list is cached by the health view's version). A place at a bay is searched for only
+when a vehicle has work that sends it and nothing else stands in the way. The alert reads each vehicle's last answer and works nothing out.
+
+## Authored figures [A]
+
+| Figure | Value | Where |
+| --- | --- | --- |
+| Ticks between looks | 1,000 | `bayTripLookTicks` |
+| Drives that may fail before a trip is given up | 3 | `bayTripFailedDrives` |
+| Wait after a trip is given up, or a place given up | 60,000 ticks (a day) | `bayTripBackOffTicks` |
+| Time at the bay with nothing done before the place is given up | 60,000 ticks (a day) | `bayTripIdleTicks` |
+| Time a call for a driver may stand before the alert names it | 15,000 ticks (six hours) | `bayTripDriverWaitTicks` |
+| A drive standing still this long has stalled | 600 ticks, as the gathering run's | `bayTripStuckTicks` |
+
+## Who chose what
+
+- **Owner (20 Nov 2026):** the feature, and that it must not depend on another mod; a three-level trigger setting starting at "broken or
+  bay-only"; wrecks towed, or pushed by hand when light; afterwards the depot bay, then our own vehicle park zone, then nearby; every
+  vehicle takes part, with an off switch, on the Fleet board.
+- **Agent:** everything marked [A]; the payable test; the list of vehicles left alone; that only a called driver starts a trip; that a
+  vehicle the player parked at the bay is not moved; the batches and their order; the risk grades.
+
+## Sources
+
+- **生吃螃蟹要吐壳**, [Vehicles at Work](https://steamcommunity.com/sharedfiles/filedetails/?id=3835520732): the lessons taken (one saved
+  place for a trip, a time limit per stage, an early stall check, a "why it will not go" line), from our read of 19 Nov 2026
+  ([the record](vehicles-at-work-tie-ins.md)). No code of theirs is used, and no endorsement is implied.
+- **SmashPhil**, [Vehicle Framework](https://github.com/SmashPhil/Vehicle-Framework): boarding, drafting and pathing, which every trip uses.

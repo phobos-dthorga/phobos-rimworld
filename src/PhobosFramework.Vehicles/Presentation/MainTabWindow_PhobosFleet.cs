@@ -516,6 +516,18 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
         if (detail.Note != null) y += Words(0f, y, width, detail.Note, new Color(1f, 1f, 1f, 0.75f));
         y += 6f;
 
+        // Bay trips (Framework 0.201.0): this vehicle's own switch, for the player's land vehicles on a map.
+        if (entry.Kind == FleetKind.Own && BayTrips.On && entry.Vehicle is { Spawned: true } own && own.GetComp<CompPhobosBayTrip>() is { TakesPart: true } bayTrip)
+        {
+            var box = new Rect(0f, y, width, 24f);
+            bool goes = !bayTrip.KeptOut;
+            bool was = goes;
+            Widgets.CheckboxLabeled(box, "PhobosBayTrip_FleetSwitch".Translate(), ref goes);
+            TooltipHandler.TipRegion(box, "PhobosBayTrip_FleetSwitchTip".Translate());
+            if (goes != was) BayTrips.SetKeptOut(bayTrip, !goes);
+            y += 28f;
+        }
+
         if (entry.Systems != null)
         {
             float faultsTop = y;
