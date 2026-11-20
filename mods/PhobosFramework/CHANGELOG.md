@@ -7,6 +7,7 @@ tested in game unless an entry says the owner tested it.
 
 ### Fixed
 
+- **A field run now follows a paddock redrawn while it works.** A tractor or combine partway through a paddock kept working the cells the paddock had when it set off, so cells you took out of it (given to a neighbouring paddock, say) could still be sown, ploughed or harvested with the old paddock's crop. It now works only cells in the paddock as it stands. Found in an audit, not yet tested in game.
 - **Art records no longer hold a path from the developer's PC.** The export records beside some textures named the full folder they were made in; they now name the file within the project. Nothing a player sees changes.
 
 ## [0.194.0] - 2026-11-20 - Draft

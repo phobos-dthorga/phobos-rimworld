@@ -83,7 +83,6 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
 
     // Derived, never saved.
     List<FieldRow>? rows;
-    HashSet<IntVec3>? zoneCells;
     IVehicleFieldWorker? worker;
     bool registered;
     readonly List<IntVec3> lineCells = new();
@@ -155,7 +154,11 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         }
     }
 
-    HashSet<IntVec3> ZoneCells => zoneCells ??= Area != null ? new HashSet<IntVec3>(Area.Cells) : new HashSet<IntVec3>();
+    /// <summary>
+    /// Whether a cell lies in the area as it stands now, from the game's own zone grid: a paddock redrawn partway through a run is
+    /// followed at once, so a strip never works a cell taken out of it (given to a neighbouring paddock, say). One lookup a cell.
+    /// </summary>
+    static bool InArea(Zone? area, IntVec3 cell, Map map) => area != null && cell.InBounds(map) && map.zoneManager.ZoneAt(cell) == area;
 
     List<FieldRow> Rows
     {
@@ -223,7 +226,6 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         // Vehicle Framework says why if it will not start.
         if (!TakeOver()) return;
         zone = area;
-        zoneCells = null;
         rows = null;
         planFrom = Vehicle.Position;
         alongX = RowPlanRule.LongerAlongX(area.Cells.Select(c => new FieldCell(c.x, c.z)).ToList());
@@ -313,14 +315,15 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
     List<IntVec3> RowCells(FieldRow row)
     {
         var cells = new List<IntVec3>();
-        HashSet<IntVec3> inZone = ZoneCells;
+        Zone? area = Area;
+        Map map = Vehicle.Map;
         for (int along = row.From; along != row.To + row.Step; along += row.Step)
         {
             for (int cross = row.CrossMin; cross <= row.CrossMax; cross++)
             {
                 FieldCell cell = row.Cell(along, cross);
                 var c = new IntVec3(cell.X, 0, cell.Z);
-                if (inZone.Contains(c)) cells.Add(c);
+                if (InArea(area, c, map)) cells.Add(c);
             }
         }
         return cells;
@@ -428,12 +431,13 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         IntVec3 facing = body.Rotation.FacingCell;
         StripLine line = StripRule.Front(rect.minX, rect.minZ, rect.maxX, rect.maxZ, facing.x, facing.z, System.Math.Max(1, w.StripWidth), w.StripAhead);
         lineCells.Clear();
-        HashSet<IntVec3> inZone = ZoneCells;
+        Zone? area = Area;
+        Map map = body.Map;
         for (int cross = line.CrossMin; cross <= line.CrossMax; cross++)
         {
             FieldCell cell = line.Cell(cross);
             var c = new IntVec3(cell.X, 0, cell.Z);
-            if (inZone.Contains(c)) lineCells.Add(c);
+            if (InArea(area, c, map)) lineCells.Add(c);
         }
         if (lineCells.Count > 0) w.WorkCells(lineCells);
     }
@@ -654,7 +658,6 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
             Seen.Note("vehicles.field-run.end", Vehicle, variant: why.ToString(), values: new List<KeyValuePair<string, double>> { new("rows", rowIndex) });
         }
         zone = null;
-        zoneCells = null;
         rows = null;
         holdTarget = null;
         holdsTried.Clear();
@@ -689,7 +692,6 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         phase = FieldRunPhase.Idle;
         engineStarted = false;
         zone = null;
-        zoneCells = null;
         rows = null;
         holdTarget = null;
         base.PostDeSpawn(map, mode);
