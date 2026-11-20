@@ -1,7 +1,7 @@
 # Aircraft service-life upgrades (21 Nov 2026)
 
-**Status (21 Nov 2026):** the Framework part is built, not yet tested in game: D'thorga Framework 0.208.0 (engine and avionics fittings, the
-older-save fittings, and the avionics' effects A3, A4, A10, A11). The jets' early fits and own upgrades (D'thorga Vehicles) are not built yet.
+**Status (21 Nov 2026):** built, not yet tested in game: D'thorga Framework 0.208.0 (engine and avionics fittings, the older-save fittings,
+and the avionics' effects A3, A4, A10, A11) and D'thorga Vehicles 0.93.0 (the jets' early fits and their own upgrades). Test rows 306 and 307.
 
 ## Read this first
 

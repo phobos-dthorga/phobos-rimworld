@@ -51,15 +51,16 @@
   </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
 
   <!--
-    The Su-25's Soyuz R-195 (the later engine; the first Su-25s flew the R-95Sh at 40.2 kN). 44.2 kN each (secondary: English Wikipedia,
-    "Sukhoi Su-25", and Airforce Technology); Russian Wikipedia gives 42.2 kN (4,300 kgf). No maximum-continuous rating, temperature limit
+    The Su-25's first engine, the Tumansky R-95Sh: 40.2 kN, 4,100 kgf (secondary: Russian Wikipedia, "Su-25"). Aircraft service-life
+    upgrades (owner, 21 Nov 2026): the jet starts with it, and the later Soyuz R-195 (44.2 kN) is a fitting (Fittings_CloseAirSupport.xml).
+    No maximum-continuous rating, temperature limit
     or idle speed was found for either engine: the maximum continuous is authored at 0.9 of take-off, and the limits and idle are the
     Framework's generic turbofan's (authored). Empty mass 9,315 kg and internal fuel 3,000 kg, 3,660 litres (secondary: Russian Wikipedia,
     "Su-25"; English Wikipedia gives 9,800 kg empty). A turbojet, run on the Framework's turbofan model, which has no turbojet of its own:
     the two differ in figures this model does not use (a simplification).
   -->
   <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
-    <defName>PhobosDrivetrain_R195</defName>
+    <defName>PhobosDrivetrain_R95Sh</defName>
     <label>turbojets</label>
     <engine>
       <kind>Turbofan</kind>
@@ -69,8 +70,8 @@
       <turbine>
         <idleSpeedPercent>60</idleSpeedPercent>
         <ratings>
-          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>780</temperatureLimit><thrustKilonewtons>39.8</thrustKilonewtons></li>
-          <li><name>takeoff</name><label>take-off</label><share>1.11</share><speedPercent>104</speedPercent><temperatureLimit>830</temperatureLimit><minutes>5</minutes><thrustKilonewtons>44.2</thrustKilonewtons></li>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>780</temperatureLimit><thrustKilonewtons>36.2</thrustKilonewtons></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.11</share><speedPercent>104</speedPercent><temperatureLimit>830</temperatureLimit><minutes>5</minutes><thrustKilonewtons>40.2</thrustKilonewtons></li>
         </ratings>
       </turbine>
     </engine>
@@ -109,16 +110,17 @@
       <lift>Jet</lift>
     </cruise>
     <avionics>
-      <!-- An inertial set since 1980 and GPS since 1999 (secondary: Wikipedia). -->
-      <navigation>Full</navigation>
-      <!-- Pitch and yaw stability augmentation, which the avionics table counts as an autopilot (agent's call, not checked against the manual). -->
-      <autopilot>true</autopilot>
+      <!-- As the A-10A (aircraft service-life upgrades, owner, 21 Nov 2026: the jets start as their early versions). Its inertial set came in
+           1980 and GPS in 1999 (secondary: Wikipedia): basic navigation as built, full with D'thorga Framework's navigation set. -->
+      <navigation>Basic</navigation>
+      <!-- No autopilot as built: the LASTE autopilot came later (from memory, not checked against a source), D'thorga Framework's autopilot kit. -->
+      <autopilot>false</autopilot>
       <!-- No radar (secondary: Wikipedia lists none). -->
       <radar>false</radar>
-      <!-- A head-up display (primary: T.O. 1A-10A-1) and, on the A-10C, a LITENING or Sniper targeting pod (secondary: Wikipedia), whose
-           infrared camera, with a goggle-compatible cockpit (the USAF fact sheet, via search), is its night sight. -->
+      <!-- A head-up display (primary: T.O. 1A-10A-1). The A-10C's LITENING or Sniper targeting pod (secondary: Wikipedia), whose infrared
+           camera is its night sight, is D'thorga Framework's night sight kit: the A-10A has none. -->
       <sight>Full</sight>
-      <nightSight>true</nightSight>
+      <nightSight>false</nightSight>
       <!-- AN/ALR-69 radar warning receiver (primary: T.O. 1A-10A-1). -->
       <warning>true</warning>
       <countermeasures>true</countermeasures>
@@ -196,7 +198,7 @@
       <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
     </systems>
     <drivetrain>
-      <def>PhobosDrivetrain_R195</def>
+      <def>PhobosDrivetrain_R95Sh</def>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>
     <!-- Ceiling 7,000 m, 5,000 m at full load (secondary: Russian Wikipedia; Airforce Technology). The cruising height, 4,000 m, is authored. -->
@@ -218,9 +220,10 @@
       <!-- SPO-15 "Beryoza" radar warning receiver (secondary: Russian Wikipedia). -->
       <warning>true</warning>
       <countermeasures>true</countermeasures>
-      <!-- ASO-2V dispensers: "up to 250 flares and chaff" (secondary: Russian and English Wikipedia); 128 raised to 256 after the losses in
-           Afghanistan in one uncited account (Weapons and Warfare, "Sukhoi Su-25 Grach"). 256, plausible but unverified. -->
-      <countermeasureCartridges>256</countermeasureCartridges>
+      <!-- ASO-2V dispensers: 128 as first built, raised to 256 after the losses in Afghanistan in one uncited account (Weapons and Warfare,
+           "Sukhoi Su-25 Grach"); both Wikipedias give "up to 250". The jet starts with 128; the extra dispensers are a fitting
+           (Fittings_CloseAirSupport.xml), so the unverified figure is an upgrade, not the base. -->
+      <countermeasureCartridges>128</countermeasureCartridges>
       <!-- An oxygen system with a demand regulator from 2 km (secondary: Russian Wikipedia). -->
       <oxygen>true</oxygen>
       <cruisesHigh>true</cruisesHigh>
@@ -250,6 +253,20 @@
             <keyContains>EnginePort</keyContains>
           </li>
         </find>
+      </li>
+      <li>
+        <!-- The racks for the extra flare dispensers (aircraft service-life upgrades): a mount of their own, so the fitting is lost with it. Small
+             and outside; health and hit weights authored. -->
+        <role>DispenserMount</role>
+        <add>
+          <key>PhobosDispenserRacks</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>dispenser racks</label>
+          <health>15</health>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine1</cellsOf>
+        </add>
       </li>
       <li>
         <!-- Two independent hydraulic systems (secondary: Russian Wikipedia), one part standing for both. -->

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The A-10's and Su-25's own service-life upgrades (owner, 21 Nov 2026; docs/development/aircraft-service-life-upgrades.md). Fittings of ours,
+    beside Close Air Support's upgrade trees, never in them. Both jets now start as their early versions (Loadouts_CloseAirSupport.xml); what
+    any aircraft can take (navigation, autopilot, night sight, radar) is D'thorga Framework's kits. An engine fitting goes on each engine and
+    gives its share, so a re-engining is complete only with both engines done. Materials, work and skill are authored.
+  -->
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- The Su-25's later engine: the Soyuz R-195 in place of the first aircraft's Tumansky R-95Sh, 44.2 kN against 40.2 kN (secondary: English
+         Wikipedia, "Sukhoi Su-25", and Airforce Technology for the R-195; Russian Wikipedia, "Su-25", for the R-95Sh's 4,100 kgf), so 1.10;
+         Russian Wikipedia gives the R-195 42.2 kN (1.05). Russian Wikipedia also says the R-195 was built to survive a direct 23 mm hit, which
+         this does not model. -->
+    <defName>PhobosFitting_FrogfootR195</defName>
+    <label>R-195 engine</label>
+    <description>The Su-25's later engine, a little stronger than the R-95Sh it was first built with. Fit one to each engine: each gives half of the gain, so the aircraft climbs, carries and copes with heat and an engine out better only once both are done.</description>
+    <roles><li>Engine1</li><li>Engine2</li></roles>
+    <loadouts><li>PhobosVehicleLoadout_Frogfoot</li></loadouts>
+    <piston>No</piston>
+    <materials><PhobosVehicles_TurbineAssembly>1</PhobosVehicles_TurbineAssembly><Steel>20</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
+    <work>10000</work>
+    <minSkill>9</minSkill>
+    <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
+    <thrustFactor>1.10</thrustFactor>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- The Su-25's flares after Afghanistan: 128 raised to 256 (secondary, uncited: Weapons and Warfare, "Sukhoi Su-25 Grach"); both Wikipedias
+         give "up to 250". Plausible, unverified. The racks go on a mount the Su-25's loadout appends. -->
+    <defName>PhobosFitting_FrogfootDispensers</defName>
+    <label>extra flare dispensers</label>
+    <description>More chaff and flare dispensers, as the Su-25 gained after its losses in Afghanistan: twice the cartridges in its magazine, for twice as many salvos before the aircraft must land to reload.</description>
+    <roles><li>DispenserMount</li></roles>
+    <loadouts><li>PhobosVehicleLoadout_Frogfoot</li></loadouts>
+    <materials><Steel>40</Steel><ComponentIndustrial>4</ComponentIndustrial></materials>
+    <work>4000</work>
+    <minSkill>6</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <cartridgeFactor>2</cartridgeFactor>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- NEVER FIELDED (owner's choice, 21 Nov 2026: included and labelled). General Electric offered the US Air Force a re-engining of the A-10
+         with an uprated engine of the same family; its 2003 proposal claimed 15 % more thrust at sea level and about 30 % more at altitude, and
+         its sales figures 30 % better acceleration, twice the turn rate and three times the climb. The Air Force never paid for it: it was left
+         out of the A-10C upgrade, and later plans did not include it. Sources (secondary): Flight Global, "GE says re-engining A-10 will save US
+         Air Force $2.5bn"; GlobalSecurity, "TF34 Engine"; The War Zone (2019) on the A-10's upgrades. The 15 % at sea level is taken as the
+         factor; the claim at altitude is not modelled. A manufacturer's claim, never flight-tested in service. -->
+    <defName>PhobosFitting_WarthogUpratedTF34</defName>
+    <label>uprated engines (offered, never fielded)</label>
+    <description>A stronger engine of the same family, offered to re-engine the A-10 but never bought, built here to the maker's own figures. Fit one to each engine: each gives half of the gain. With both, the A-10 has the thrust its pilots always wanted, and an engine out leaves it far more to fly home on.</description>
+    <roles><li>Engine1</li><li>Engine2</li></roles>
+    <loadouts><li>PhobosVehicleLoadout_Warthog</li></loadouts>
+    <piston>No</piston>
+    <materials><PhobosVehicles_TurbineAssembly>1</PhobosVehicles_TurbineAssembly><Plasteel>30</Plasteel><ComponentSpacer>2</ComponentSpacer></materials>
+    <work>14000</work>
+    <minSkill>10</minSkill>
+    <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+    <thrustFactor>1.15</thrustFactor>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

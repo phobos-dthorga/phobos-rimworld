@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.93.0] - 2026-11-21 - Draft
+
+The Harrier, the A-10 and the Su-25 start as their early versions, and grow through their service lives
+
+### Added
+
+- **The jets' own service-life upgrades** (the owner's request of 21 November 2026), as fittings beside their authors' upgrade trees, never in them: the Harrier's **Pegasus 11-61** (the Harrier II Plus's engine: more thrust, and more of it kept in hot air, so a heavier Harrier hovers onto its pad on a hotter day); the Su-25's **R-195 engines** and **extra flare dispensers** (its magazine from 128 to 256, as after Afghanistan); and the A-10's **uprated engines, offered by General Electric and never fielded**, built to the maker's own figures and labelled as such. Each engine of a twin takes its own fitting. Not yet tested in game: row 307 of the test pass.
+
+### Changed
+
+- **The jets start as their early versions** (the owner's choice): the Harrier as the day-attack AV-8B, without its night sight and radar; the A-10 as the A-10A, with basic navigation and no autopilot or night sight; the Su-25 with its first engines, the R-95Sh, and 128 flare cartridges. What they gained in service is fitted with D'thorga Framework's navigation set, autopilot, night sight and radar, and the upgrades above. Needs D'thorga Framework 0.208.0.
+
+### Save compatibility
+
+- **A Harrier built before this version keeps its night sight and radar**, given once, free, when the save loads. An A-10 or Su-25 already built starts as the early version; Close Air Support's jets were taken in only on 21 November, the same day.
+
 ## [0.92.0] - 2026-11-21 - Draft
 
 A spall liner for the service trucks, with Combat Extended

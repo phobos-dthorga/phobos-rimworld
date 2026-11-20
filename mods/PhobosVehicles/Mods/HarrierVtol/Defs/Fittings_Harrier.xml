@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The Harrier's own service-life upgrade (owner, 21 Nov 2026; docs/development/aircraft-service-life-upgrades.md): the later Pegasus. Its
+    night sight and radar, which the Harrier now starts without, are D'thorga Framework's kits; a Harrier built before keeps both, fitted free
+    (Loadouts_Harrier.xml). Beside the Harrier's own upgrade tree, never in it.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- The Pegasus 11-61 (F402-RR-408) in place of the 11-21 (F402-RR-406): 23,400 lbf against 21,500 lbf (secondary: GlobalSecurity, "F402"),
+         so 1.088; Wikipedia, citing Rolls-Royce, gives up to 106 kN against our 95.9 (1.105). Rolls-Royce says the 11-61 gives "up to 15 per cent
+         more thrust at high ambient temperatures" (primary: Rolls-Royce's Pegasus page). With the thrust factor, a loss in hot air of 0.73 of
+         the 11-21's gives 15 % more at 40 degrees C (agent's derivation from that claim, authored). -->
+    <defName>PhobosFitting_HarrierPegasus1161</defName>
+    <label>Pegasus 11-61 engine</label>
+    <description>The later Pegasus, as fitted to the Harrier II Plus: more thrust, and more of it kept in hot air, so a heavier Harrier hovers onto its pad on a hotter day.</description>
+    <roles><li>Engine</li></roles>
+    <loadouts><li>PhobosVehicleLoadout_Harrier</li></loadouts>
+    <piston>No</piston>
+    <materials><PhobosVehicles_TurbineAssembly>1</PhobosVehicles_TurbineAssembly><Plasteel>40</Plasteel><ComponentSpacer>2</ComponentSpacer></materials>
+    <work>12000</work>
+    <minSkill>10</minSkill>
+    <researchPrerequisite>PhobosResearch_Turbines</researchPrerequisite>
+    <thrustFactor>1.088</thrustFactor>
+    <hotDerateFactor>0.73</hotDerateFactor>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

@@ -67,6 +67,11 @@
       <def>PhobosDrivetrain_Pegasus</def>
     </drivetrain>
     <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>
+    <!-- A Harrier saved before it started as the day-attack AV-8B keeps its night sight and radar, given once, free, when the save loads. -->
+    <fittedOnOlderSaves>
+      <li>PhobosFitting_NightSight</li>
+      <li>PhobosFitting_Radar</li>
+    </fittedOnOlderSaves>
     <!-- The cruising height between tiles (Framework 0.141.0; docs/development/vehicle-flight-over-the-map.md). Built to cruise at 7,000 m
          (authored: the height at which the rule gives back avionics A14's fixed low-flight figures, 0.85 and 1.2, at the 3,810 m oxygen line).
          Service ceiling 50,000 ft, 15,240 m (secondary: Pima Air and Space Museum's AV-8B Harrier II+ specifications, pimaair.org; the same
@@ -82,9 +87,12 @@
     <avionics>
       <navigation>Full</navigation>
       <autopilot>true</autopilot>
-      <radar>true</radar>
+      <!-- As the day-attack AV-8B (aircraft service-life upgrades; owner, 21 Nov 2026: the Harrier starts early too). Its night sight came
+           with the Night Attack Harrier (1989) and its radar with the Harrier II Plus (1993) (from memory, not checked against a source): D'thorga
+           Framework's night sight and radar kits. A Harrier saved before keeps both, fitted free (fittedOnOlderSaves). -->
+      <radar>false</radar>
       <sight>Full</sight>
-      <nightSight>true</nightSight>
+      <nightSight>false</nightSight>
       <warning>true</warning>
       <countermeasures>true</countermeasures>
       <!-- The dispensers' magazine (Framework 0.180.0): 60 cartridges, one AN/ALE-39 set's capacity. Secondary: Military Periscope and
