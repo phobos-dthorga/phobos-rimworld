@@ -2,8 +2,8 @@
 
 **Status (21 Nov 2026):** built, not yet tested in game: Framework 0.203.0 (the catch-all flight reading and our own dodge), Vehicles
 0.91.0 (each jet's engines, avionics, cruise and cabin), Patches 0.29.0 (parts lists, parts bills, fabricator recipes, the shared rearm
-fix and the realistic handling setting). Test row 299. Real bomb weights, a gentler loss of control for the jets' manual back-up, and the
-Harrier's own cost as a parts bill are not built (see "Not built"). **Since Vehicles 0.93.0 both jets start as their early versions**
+fix and the realistic handling setting). Test row 299. Since then, manual reversion (Framework 0.208.0, Vehicles 0.93.0) and the
+Harrier's cost as a parts bill (Patches 0.30.0) are built; real bomb weights are not (see "Not built"). **Since Vehicles 0.93.0 both jets start as their early versions**
 (the A-10A, the first Su-25), which changes some starting figures below: see "Starting fits since Vehicles 0.93.0".
 
 ## Read this first
@@ -145,11 +145,8 @@ per shot. Shots fired over the top and its own are never dodged. An aircraft who
   (unverified) and a CBU-87 about 430 kg (202 BLU-97/B bomblets **[S, [Wikipedia](https://en.wikipedia.org/wiki/CBU-87_Combined_Effects_Munition)]**).
   Real weights need recipes that cost that much, from a sourced split between casing and fill, as the Harrier's bomb cases have.
   Proposed for a later batch.
-- **A gentler loss of control for the manual back-up.** Both jets keep flying on cables with both hydraulic systems gone (the A-10's
-  "adequate for … safe return to base and landing" **[P]**); our flight hydraulics halve flight control whatever the aircraft. A
-  parameter on that system would let these jets lose less.
-- **The Harrier's own cost as a parts bill.** It still swaps in car parts (D'thorga Patches' older patch); it should move to a bill as
-  these jets have.
+- **Built since:** manual reversion, as a manualReversion figure on the flight hydraulics that leaves 0.7 of flight control rather than
+  0.5 (Framework 0.208.0, set on both jets in Vehicles 0.93.0); and the Harrier's cost as a parts bill (Patches 0.30.0).
 - **Tools for other players to bring a vehicle in** (owner, 21 Nov 2026: "Later, we can perhaps design tools or something to make it
   easier for other players"): a helper that drafts a loadout and a parts list from another author's VehicleDef, and flags what the
   generic set cannot read. A wish, not designed.
