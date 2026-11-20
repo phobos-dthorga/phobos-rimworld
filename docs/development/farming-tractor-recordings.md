@@ -1,9 +1,8 @@
 # Real recordings for the Thane tractors (20 Nov 2026)
 
-**Status (20 Nov 2026):** the owner downloaded ten recordings; 14 cuts and 6 built T400 candidates are on the listening page
-(`assets/phobos-sounds/recordings/tractors.json`, `recordings.py import` then `cut`), none picked; nothing shipped. The owner chose real recordings over generated ones for the
-tractors' sounds ([farming batch two](farming-batch-two.md), "Research, sounds, overlays and the install"). Licences allowed: public
-domain, CC0 and CC BY, with credit (assets/AGENTS.md); never non-commercial, no-derivatives or a custom licence.
+**Status (20 Nov 2026):** picked by the owner (the manifest's `picked`): the T60 from the Massey (start repaired), a close idle and the
+Valmet working; the T130 from the modern tractor's idle, the Renault working and the Case CX90's stop; the T400 built (`recordings.py
+build`). The T130's and T400's starts are to be generated, as no medium recording has one. Nothing exported or shipped yet.
 
 **How it was found.** An agent searched Freesound, Wikimedia Commons, the Internet Archive and US government media on 20 Nov 2026, and
 read each licence on the recording's own page unless marked unverified. Freesound hides most results in packs unless searched with

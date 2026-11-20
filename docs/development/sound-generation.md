@@ -241,6 +241,8 @@ helicopter (the agent's expectation, not measured), while the US military publis
 - **Downloaded by hand** (20 Nov 2026, the Thane tractors): `recordings.py import` takes a source the owner downloaded into the set's
   folder (`"local"`; Freesound serves originals only to a signed-in account, which agents never use), hash-checked and kept as FLAC as
   `fetch` does. A source may carry its own `licence` (CC0, CC BY), which its cuts' records carry.
+  A cut may carry an ffmpeg `filter` (a repair such as a declip), named in its file and record; `build` makes a candidate from
+  stretches of sources lowered and mixed (`builds`), for a machine with no open recording (the Thane T400).
 - **The Osprey's sources:** six DVIDS videos (`assets/phobos-sounds/recordings/osprey.json`), read by a frame every 10 seconds and
   spectrograms: an air show's close hover pass, a CV-22 B-roll (outside on the ground, the cabin, and a wind-down), a taxi, a
   demonstration filmed from the open ramp and over the crowd, an Iwo Jima deck landing and a night landing on USNS Mercy. **None has an

@@ -51,6 +51,44 @@ class LicenceTests(unittest.TestCase):
         self.assertEqual(record['licence'], 'Public domain')
 
 
+class RepairTests(unittest.TestCase):
+    def test_a_repaired_cut_says_so_in_its_name_and_record(self):
+        item = {'role': 'start', 'source': '1', 'start': 0, 'seconds': 7, 'filter': 'adeclip'}
+        self.assertEqual(recordings.cut_name(item), 'start-1-00000-repaired')
+        self.assertEqual(recordings.cut_record(CutTests.MANIFEST, item)['filter'], 'adeclip')
+
+    def test_an_untouched_cut_has_no_filter(self):
+        item = {'role': 'start', 'source': '1', 'start': 0, 'seconds': 7}
+        self.assertNotIn('filter', recordings.cut_record(CutTests.MANIFEST, item))
+
+
+class BuildTests(unittest.TestCase):
+    def test_one_layer_is_lowered_and_named_as_the_output(self):
+        graph = recordings.build_graph([{'source': 'a', 'start': 0, 'seconds': 9, 'lower': 0.72}], 12, [48000])
+        self.assertIn('asetrate=34560', graph)
+        self.assertTrue(graph.endswith('[o]'))
+        self.assertNotIn('amix', graph)
+
+    def test_two_layers_are_mixed_without_normalising(self):
+        layers = [{'source': 'a', 'start': 0, 'seconds': 12, 'lower': 0.7}, {'source': 'b', 'start': 5, 'seconds': 12, 'lower': 0.6, 'gain_db': -14}]
+        graph = recordings.build_graph(layers, 15, [44100, 96000])
+        self.assertIn('asetrate=30869', graph)  # 44100 x 0.7, truncated as the built files were
+        self.assertIn('asetrate=57600', graph)
+        self.assertIn('volume=-14.0dB', graph)
+        self.assertIn('amix=inputs=2:normalize=0', graph)
+
+    def test_a_build_credits_every_source_it_uses(self):
+        manifest = {'licence': 'per source', 'sources': {
+            'a': {'page': 'pa', 'title': 'A', 'credit': 'Ann', 'licence': 'CC0 1.0'},
+            'b': {'page': 'pb', 'title': 'B', 'credit': 'Bob', 'licence': 'CC BY 3.0'}}}
+        record = recordings.build_record(manifest, {'name': 'x', 'role': 'stop', 'seconds': 10, 'layers': [
+            {'source': 'a', 'start': 0, 'seconds': 9, 'lower': 0.7}, {'source': 'b', 'start': 0, 'seconds': 9, 'lower': 0.7}]})
+        self.assertEqual(record['kind'], 'recording-built')
+        self.assertIn('Ann', record['credit'])
+        self.assertIn('Bob', record['credit'])
+        self.assertEqual(record['licence'], 'CC BY 3.0, CC0 1.0')
+
+
 class CombRecordTests(unittest.TestCase):
     MANIFEST = dict(CutTests.MANIFEST, comb={'hz': 20.55})
 
@@ -81,6 +119,9 @@ class ManifestTests(unittest.TestCase):
     def test_every_cut_names_a_source_and_a_length(self):
         for path in MANIFESTS:
             manifest = json.loads(open(path, encoding='utf-8').read())
+            for item in manifest.get('builds', []):
+                for layer in item['layers']:
+                    self.assertIn(layer['source'], manifest['sources'], path)
             for item in manifest['cuts']:
                 self.assertIn(item['source'], manifest['sources'], path)
                 self.assertGreater(float(item['seconds']), 0, path)

@@ -2,6 +2,7 @@
 
     python scripts/art/recordings.py fetch assets/phobos-sounds/recordings/osprey.json [--record]
     python scripts/art/recordings.py import assets/phobos-sounds/recordings/tractors.json [--record]
+    python scripts/art/recordings.py build assets/phobos-sounds/recordings/tractors.json
     python scripts/art/recordings.py cut assets/phobos-sounds/recordings/osprey.json
     python scripts/art/sound_review.py <work folder>/recordings/osprey/candidates
 
@@ -17,6 +18,10 @@ them, and nothing in them is run. Uses no graphics card. ffmpeg as sound_review.
 import (20 Nov 2026, the Thane tractors): a source with "local" names a file the owner downloaded by hand into the set's folder (Freesound
 serves originals only to a signed-in account, which agents never use). It is hash-checked and kept as FLAC exactly as fetch does; fetch
 passes such a source over. A source may carry its own "licence" (CC0, CC BY 4.0), which its cuts' records carry in place of the set's.
+
+build (20 Nov 2026, the Thane T400): a manifest's "builds" make a candidate from stretches of its sources, each lowered by a factor
+(pitch and speed together, as a slower, bigger engine) and mixed at a gain, for a machine no open recording exists of. Its record
+credits every source it uses and says it was built, a simplification.
 """
 import argparse
 import hashlib
@@ -60,8 +65,8 @@ def set_folder(manifest):
 
 
 def cut_name(cut):
-    """A stable file name for a cut: role, source and start in tenths of a second."""
-    return f'{cut["role"]}-{cut["source"]}-{int(round(float(cut["start"]) * 10)):05d}'
+    """A stable file name for a cut: role, source and start in tenths of a second, and "repaired" when it carries a filter."""
+    return f'{cut["role"]}-{cut["source"]}-{int(round(float(cut["start"]) * 10)):05d}' + ('-repaired' if cut.get('filter') else '')
 
 
 def cut_record(manifest, cut):
@@ -73,6 +78,8 @@ def cut_record(manifest, cut):
             'credit': source['credit'], 'licence': source.get('licence', manifest['licence']), 'source_sha256': source.get('sha256', '')}
     if comb:
         record['comb'] = comb  # The comb sound_review.py measures: the set's, unless the cut says false (a wind-down).
+    if cut.get('filter'):
+        record['filter'] = cut['filter']  # A repair, such as a declip (20 Nov 2026): said in the record, as it changes the recording.
     return record
 
 
@@ -144,6 +151,55 @@ def import_local(manifest_path, record=False):
         print(f'wrote the new hashes into {manifest_path}')
 
 
+def build_graph(layers, seconds, rates):
+    """The ffmpeg filter graph for a build: each layer to mono, lowered by resampling (asetrate), set to 48 kHz, its gain, trimmed to
+    the build's length, then mixed without normalising. rates: each layer's source sample rate. Game-free, so it is tested."""
+    parts = []
+    for i, layer in enumerate(layers):
+        parts.append(f'[{i}:a]aformat=channel_layouts=mono,asetrate={int(rates[i] * float(layer["lower"]))},aresample=48000,'
+                     f'volume={float(layer.get("gain_db", 0))}dB,atrim=0:{seconds}[l{i}]')
+    if len(layers) == 1:
+        return parts[0].replace('[l0]', '[o]')
+    return (';'.join(parts) + ';' + ''.join(f'[l{i}]' for i in range(len(layers)))
+            + f'amix=inputs={len(layers)}:normalize=0:duration=shortest[o]')
+
+
+def build_record(manifest, item):
+    sources = sorted({layer['source'] for layer in item['layers']})
+    credits = '; '.join(f"{manifest['sources'][s]['credit']} ({manifest['sources'][s].get('licence', manifest['licence'])}, "
+                        f"{manifest['sources'][s]['page']})" for s in sources)
+    return {'kind': 'recording-built', 'loop': bool(item.get('loop')), 'seconds': item['seconds'], 'role': item['role'],
+            'note': item.get('note', ''), 'layers': item['layers'], 'credit': credits,
+            'licence': ', '.join(sorted({manifest['sources'][s].get('licence', manifest['licence']) for s in sources}))}
+
+
+def source_rate(exe, path):
+    probe = str(Path(exe).with_name(Path(exe).name.replace('ffmpeg', 'ffprobe')))
+    out = subprocess.run([probe, '-v', 'error', '-select_streams', 'a:0', '-show_entries', 'stream=sample_rate', '-of', 'csv=p=0',
+                          str(path)], capture_output=True, text=True, check=True).stdout.strip()
+    return int(out)
+
+
+def build(manifest_path):
+    manifest = json.loads(Path(manifest_path).read_text(encoding='utf-8'))
+    exe = find_ffmpeg()
+    folder = set_folder(manifest)
+    for item in manifest.get('builds', []):
+        audio = [folder / 'audio' / f'{layer["source"]}.flac' for layer in item['layers']]
+        if not all(a.is_file() for a in audio):
+            print(f'{item["name"]}: skipped, a source is missing (run fetch or import first)')
+            continue
+        out = folder / 'candidates' / item['role'] / f'{item["role"]}-{item["name"]}.flac'
+        out.parent.mkdir(parents=True, exist_ok=True)
+        args = [exe, '-v', 'error', '-y']
+        for layer, path in zip(item['layers'], audio):
+            args += ['-ss', str(layer['start']), '-t', str(layer['seconds']), '-i', str(path)]
+        graph = build_graph(item['layers'], item['seconds'], [source_rate(exe, a) for a in audio])
+        subprocess.run(args + ['-filter_complex', graph, '-map', '[o]', '-c:a', 'flac', str(out)], check=True)
+        out.with_suffix('.json').write_text(json.dumps(build_record(manifest, item), indent=1, ensure_ascii=False), encoding='utf-8')
+        print(f'built {out.name}')
+
+
 def cut(manifest_path):
     manifest = json.loads(Path(manifest_path).read_text(encoding='utf-8'))
     exe = find_ffmpeg()
@@ -156,8 +212,9 @@ def cut(manifest_path):
             continue
         out = folder / 'candidates' / item['role'] / f'{cut_name(item)}.flac'
         out.parent.mkdir(parents=True, exist_ok=True)
-        subprocess.run([exe, '-v', 'error', '-y', '-ss', str(item['start']), '-t', str(item['seconds']), '-i', str(audio),
-                        '-c:a', 'flac', str(out)], check=True)
+        repair = ['-af', item['filter']] if item.get('filter') else []
+        subprocess.run([exe, '-v', 'error', '-y', '-ss', str(item['start']), '-t', str(item['seconds']), '-i', str(audio)] + repair
+                       + ['-c:a', 'flac', str(out)], check=True)
         out.with_suffix('.json').write_text(json.dumps(cut_record(manifest, item), indent=1, ensure_ascii=False), encoding='utf-8')
         made += 1
     print(f'{made} cuts under {folder / "candidates"}; next: python scripts/art/sound_review.py "{folder / "candidates"}"')
@@ -165,7 +222,7 @@ def cut(manifest_path):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split('\n\n')[0])
-    parser.add_argument('command', choices=('fetch', 'import', 'cut'))
+    parser.add_argument('command', choices=('fetch', 'import', 'cut', 'build'))
     parser.add_argument('manifest')
     parser.add_argument('--record', action='store_true', help='fetch: write each file\'s SHA-256 into the manifest')
     args = parser.parse_args(argv)
@@ -173,6 +230,8 @@ def main(argv=None):
         fetch(args.manifest, args.record)
     elif args.command == 'import':
         import_local(args.manifest, args.record)
+    elif args.command == 'build':
+        build(args.manifest)
     else:
         cut(args.manifest)
 

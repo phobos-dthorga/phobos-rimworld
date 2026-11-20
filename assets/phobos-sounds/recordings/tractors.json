@@ -206,6 +206,162 @@
    "seconds": 9,
    "loop": false,
    "note": "T130: the CX90 shut-off"
+  },
+  {
+   "role": "start",
+   "source": "massey-start",
+   "start": 0,
+   "seconds": 7.5,
+   "loop": false,
+   "note": "T60: the whole start, repaired at the owner's pick (20 Nov 2026): ffmpeg's declipper, 6 dB down so the rebuilt peaks fit, then a cut above 5 kHz (12 dB an octave)",
+   "filter": "adeclip,volume=-6dB,lowpass=f=5000:p=2"
   }
- ]
+ ],
+ "builds": [
+  {
+   "name": "t400-idle-a",
+   "role": "idle",
+   "loop": true,
+   "seconds": 15,
+   "note": "T400, built from the medium tractor recordings, lowered and layered (the owner's choice, 20 Nov 2026): a simplification",
+   "layers": [
+    {
+     "source": "kyles-modern",
+     "start": 60,
+     "seconds": 12,
+     "lower": 0.75,
+     "gain_db": 0
+    },
+    {
+     "source": "kyles-modern",
+     "start": 80,
+     "seconds": 12,
+     "lower": 0.68,
+     "gain_db": -6
+    }
+   ]
+  },
+  {
+   "name": "t400-idle-b",
+   "role": "idle",
+   "loop": true,
+   "seconds": 15,
+   "note": "T400, built from the medium tractor recordings, lowered and layered (the owner's choice, 20 Nov 2026): a simplification",
+   "layers": [
+    {
+     "source": "kyles-modern",
+     "start": 60,
+     "seconds": 12,
+     "lower": 0.7,
+     "gain_db": 0
+    },
+    {
+     "source": "renault-working",
+     "start": 55,
+     "seconds": 12,
+     "lower": 0.6,
+     "gain_db": -14
+    }
+   ]
+  },
+  {
+   "name": "t400-labour-a",
+   "role": "labour",
+   "loop": true,
+   "seconds": 18,
+   "note": "T400, built from the medium tractor recordings, lowered and layered (the owner's choice, 20 Nov 2026): a simplification",
+   "layers": [
+    {
+     "source": "renault-working",
+     "start": 55,
+     "seconds": 15,
+     "lower": 0.75,
+     "gain_db": 0
+    },
+    {
+     "source": "renault-working",
+     "start": 70,
+     "seconds": 15,
+     "lower": 0.68,
+     "gain_db": -6
+    }
+   ]
+  },
+  {
+   "name": "t400-labour-b",
+   "role": "labour",
+   "loop": true,
+   "seconds": 14,
+   "note": "T400, built from the medium tractor recordings, lowered and layered (the owner's choice, 20 Nov 2026): a simplification",
+   "layers": [
+    {
+     "source": "kyles-rev",
+     "start": 42,
+     "seconds": 10,
+     "lower": 0.7,
+     "gain_db": 0
+    },
+    {
+     "source": "renault-working",
+     "start": 55,
+     "seconds": 12,
+     "lower": 0.65,
+     "gain_db": -4
+    }
+   ]
+  },
+  {
+   "name": "t400-stop-a",
+   "role": "stop",
+   "loop": false,
+   "seconds": 15,
+   "note": "T400, built from the medium tractor recordings, lowered and layered (the owner's choice, 20 Nov 2026): a simplification",
+   "layers": [
+    {
+     "source": "kyles-modern",
+     "start": 116,
+     "seconds": 12,
+     "lower": 0.75,
+     "gain_db": 0
+    }
+   ]
+  },
+  {
+   "name": "t400-stop-b",
+   "role": "stop",
+   "loop": false,
+   "seconds": 12,
+   "note": "T400, built from the medium tractor recordings, lowered and layered (the owner's choice, 20 Nov 2026): a simplification",
+   "layers": [
+    {
+     "source": "case-cx90",
+     "start": 78,
+     "seconds": 9,
+     "lower": 0.72,
+     "gain_db": 0
+    }
+   ]
+  }
+ ],
+ "picked": {
+  "about": "The owner's picks of 20 Nov 2026, on the listening page by card number. The T60's start is the Massey start, repaired (declipped, a gentle high cut); the T130's and T400's starts are to be generated, as no medium recording has one.",
+  "T60": {
+   "start": "start-massey-start-00000 (repaired)",
+   "idle": "idle-kyles-idle-00100",
+   "labour": "labour-valmet-harrow-00397",
+   "stop": "stop-massey-stop-00000"
+  },
+  "T130": {
+   "start": "generated",
+   "idle": "idle-kyles-modern-00800",
+   "labour": "labour-renault-working-00550",
+   "stop": "stop-case-cx90-00780"
+  },
+  "T400": {
+   "start": "generated",
+   "idle": "idle-t400-idle-b",
+   "labour": "labour-t400-labour-a",
+   "stop": "stop-t400-stop-b"
+  }
+ }
 }
