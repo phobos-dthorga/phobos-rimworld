@@ -1,8 +1,8 @@
 # Spall inside our vehicles: what comes through a beaten plate (21 Nov 2026)
 
-**Status (21 Nov 2026):** design only; nothing is built. The owner chose a design record first and answered its four questions the
+**Status (21 Nov 2026):** design only; nothing is built. The owner chose a design record first and answered its questions the
 same day ([the answers](#the-owners-answers-cards-21-nov-2026)): moderate risk, on by default; every vehicle; the liner as proposed;
-shock spall for heavy hits.
+shock spall for heavy hits; then the liner as its own part that wears and is re-lined with liner panels.
 
 **The owner, 21 Nov 2026**, after an analysis of the Workshop mod "CE Additional Expansion for Armed Damage Combat" (which the owner
 then passed on): "What if we implement armor that matters layer-by-layer? Would that be a difficult thing, especially if we were to
@@ -132,11 +132,47 @@ does not get through **[P]**.
 - **Other authors' vehicles count as unlined**, unless their Def carries a small extension saying they are lined. D'thorga Patches may
   add it to real vehicles a source shows carry liners, one source per vehicle [A].
 
+### The liner is a part that wears [O, figures A]
+
+The owner's choice (cards, 21 Nov 2026): the liner is **its own tracked part, with health, that wears as it catches spall**, and **a
+worn liner is put right only with liner panels**.
+
+- **The part.** An inner part, "spall liner", appended by the loadout on the cab's cells, as our radiators and mounts are appended.
+  **60 health** [A]. It does not count toward the vehicle's destruction: a spent liner neither keeps a wreck alive nor kills a truck.
+- **Not fitted and spent are one state: zero health.** A truck without the upgrade carries the part at zero, shown as "not fitted".
+  Combat Extended's walk skips a part at zero health **[code]**, so an unfitted liner is never hit and stops nothing. Fitting the
+  upgrade brings it to full.
+- **What it catches, by its health** [A]: at full health it cuts the spall to 30 %, as above. The share it stops falls in a straight
+  line to **nothing at a quarter of its health**, the same point where Combat Extended counts a part's armour as gone **[code]**.
+  The reach stays narrow above half health and is wide below it.
+- **How it wears** [A]: the liner loses health equal to **half of the spall it stopped**. In the worked hit above (the plate took
+  45.6, so a pool of 22.8), a full liner stops 16 and loses 8 of its 60.
+- **The round itself can hit it.** After a round beats the plate, Combat Extended makes it meet one inner part on that cell, and the
+  liner is one of them **[code]**. That is fair: the round does pass through it. At 60 health its bulk counts as 1.2 mm, so it is no
+  armour worth the name; a labelled side effect.
+- **Three states on the Health tab** [A]: sound; **worn** (under half: "catches less"); **spent** (a quarter or less: "catches
+  nothing").
+- **Re-lining** [O]: wear is repaired **only with liner panels**, in proportion to the health missing, never by ordinary free repair
+  at any health, and whatever the "destroyed parts need supplies" setting says. **Four panels line a cab** [A], so the upgrade costs
+  four and a re-line costs one for each quarter missing, rounded up. The job is the one that fits any replacement part
+  (`VehicleRepairs`); the supply is a `PhobosVehiclePartSupplyDef` for the liner's role, with a new flag for "wear needs supplies".
+- **Weight stays 200 kg** however worn: a labelled simplification.
+- **Other authors' vehicles marked as lined** get the same part from their loadout, born at full health, so their liners wear too.
+
+### Armour plates stay the parts they are [O]
+
+The owner's question covered plates too ("spall plates and the like"). **Plates are not split into parts of their own:** an armour kit
+raises the armour of a part the truck already has (the cab, the engine, the tank), and that part's health is already the plate's. Combat
+Extended scales a part's armour by its efficiency, which is nothing at a quarter of its health or less **[code]**, so a battered cab
+already protects less. A plate as a second outer part on the cab's cells would break "one outer part to a cell": Combat Extended makes
+a round beat every outer part on a cell, so the two would stack into armour nobody intended
+([the armour design](vehicle-armour.md#one-outer-part-to-a-cell)).
+
 ### What the player sees
 
 - **Wounded crew**, in their Health tabs as fragment wounds from the shooter.
 - **Holed inner parts**, in our vehicle Health tab as usual.
-- **The liner's line** in the Health tab's armour notes: "Spall liner fitted" or nothing [A].
+- **The liner's own row** in the Health tab, with its health and its state: not fitted, sound, worn or spent [O, labels A].
 - **No message per hit**: combat already says enough, and a message for every hit would flood.
 
 ## The four questions
@@ -146,6 +182,7 @@ does not get through **[P]**.
 | **Spall from a beaten plate** | See armour matter beyond "did it get through": a plate only just beaten still hurts the crew behind it | Keeping a crew unhurt behind a plate a round has just beaten | Heavier armour, or keeping out of range of weapons that beat it, is chosen for the crew's sake; wounded crew are rotated out |
 | **Shock spall** | See a heavy shell that bounced still hurt the crew | Sitting out shellfire unhurt behind a plate that stops it | A vehicle under heavy fire is pulled back even when nothing gets through |
 | **Spall liners** | Protect the crew of an armoured truck from its own plates | Fitting armour as if crews were safe behind any plate | A truck sent into fire gets a liner as well as a cab, and carries 200 kg more |
+| **A liner that wears** | See how much protection is left, and restore it | Fitting a liner once and forgetting it | Liner panels are stocked and carried; a truck is re-lined after a hard fight |
 
 **What outside the vehicle notices:**
 
@@ -183,8 +220,10 @@ does not get through **[P]**.
 
 ## Saves
 
-- **Nothing is saved.** The wounds are the game's own and Combat Extended's injuries; the liner is an upgrade node and a part item in
-  XML, keys stable once a save holds them.
+- **Nothing new is saved.** The wounds are the game's own and Combat Extended's injuries; the liner's health is a part's health,
+  which Vehicle Framework saves; the upgrade node and the part item are XML, keys stable once a save holds them.
+- **An existing truck gains the liner part at zero health** ("not fitted"). Vehicle Framework saves parts by position and appended
+  parts move, which our systems already put right by part key; that this holds for one more appended part is read before building.
 - **Safe to add**, and to switch off at any time. Removing D'thorga Vehicles drops the liner node as with every other node of ours.
 
 ## What we take from that mod: ideas only
@@ -212,7 +251,13 @@ What it did that we will not:
    recalculation at its end covers our damage.
 3. **Other authors' prefixes on `ApplyDamage`** (the Harrier's, Hind's, Mongoose's and A-10's hit spread, and Rimarrow: Search &
    Rescue's, which may skip the original): whether the reactors still fire under them.
-4. **Which upgrade-read pattern tells a vehicle has its liner**, as the litter kit is read once fitted.
+4. **The liner part's life** (it replaces "how a vehicle knows it has its liner": the part's health says so):
+   - a truck is born with every part at full health, so an unfitted liner must be set to zero when the vehicle is made;
+   - fitting the upgrade must bring it to full once, never through a Vehicle Framework health upgrade, which repairs the part at
+     every load;
+   - Vehicle Framework's free repair must leave it alone at any health, and the re-line job must charge panels by the share missing;
+   - a part at zero must not read as "destroyed" in alerts, the Fleet board or bay trips while the liner is simply not fitted;
+   - existing saves keep every other part's health when the liner part is appended.
 5. **A recording with `perf.py`** in a fight against an armoured vehicle, before and after.
 
 ## The owner's answers (cards, 21 Nov 2026)
@@ -223,14 +268,18 @@ What it did that we will not:
 | 2 | Which vehicles | **Every vehicle** with plates of the Rifle class or more, other mods' included, behind their own setting | The same |
 | 3 | The liner | **As proposed**: needs the armoured cab, 200 kg carried mass, liner panels from synthread (one item picture) | The same |
 | 4 | Spall without penetration | **Include it for heavy hits** | Leave it out of the first build |
+| 5 | The liner (and the plates) as tracked parts with health | **The liner: yes, a part that wears.** The plates stay the parts they already are | The same |
+| 6 | Putting a worn liner right | **Liner panels to re-line**, in proportion to the wear | The same |
 
 ## Who chose what
 
 - **Owner (21 Nov 2026):** a design record first (card); Combat Extended first, since a version without it would be harder to build;
   vehicles, not people (the card's option to cover people was not taken); then the four answers above: moderate risk and on, every
-  vehicle, the liner as proposed, shock spall for heavy hits.
+  vehicle, the liner as proposed, shock spall for heavy hits; then the liner as a tracked part that wears, re-lined with liner
+  panels, after asking whether "these spall plates and the like" should be "their own, individually, tracked parts in our vehicle
+  code with health, status, etc.".
 - **Agent:** everything marked [A]; the reactor route; the Rifle-class threshold; what counts as a heavy hit; the defaults of the
-  second and third settings.
+  second and third settings; the liner's health, wear and states; leaving the plates as the parts they are (recommended, and taken).
 
 ## Sources
 
