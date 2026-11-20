@@ -1,0 +1,51 @@
+{
+  "file": "farming-cultivator-body-north-2.png",
+  "sha256": "92c19ac663f3621c6126a2d2f15bc6d6662f046bbd344971b57dd56006aa37b1",
+  "date": "2026-11-20T18:30:49",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite for the Tillman cultivator: a mounted field cultivator that a farm tractor carries on its three-point linkage to break up soil and tear out weeds, for a hard-scrabble frontier colony. Draw the CULTIVATOR ONLY, with no tractor. Image 1 is our approved tractor that carries it: match its outline weight, shading, harvest-green and muted yellow palette and steel grey linkage drawing only. Do NOT draw a tractor.\n\nSquare canvas, plain pure white background. North facing: the end that hitches to the tractor points to the TOP of the canvas. The cultivator is centred and fills about four fifths of the canvas width and about two thirds of its height.\n\nIts plan, top to bottom: at the top centre, the headstock: a steel A-frame with two lower hitch pins and a top link point; below it, a wide rectangular frame of square steel bars running across the canvas; under the frame, three staggered rows of curved spring tines, each a small steel S-shape ending in a narrow point, evenly spaced across the whole width; at the bottom, across the full width, a cylindrical crumbler roller of steel bars on two side brackets.\n\nPalette as materials: harvest-green frame, bright steel tines and roller, steel grey headstock and pins, one small muted yellow accent on the frame.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no soil, no crop, no people, no dust, mud or damage, no text, letters, numbers or logos. No floor, ground, field, shadow outside the cultivator, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/farming-batch2-pilots.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "high",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1920,
+    "input_tokens_details": {
+      "image_tokens": 1479,
+      "text_tokens": 441
+    },
+    "output_tokens": 7024,
+    "output_tokens_details": {
+      "image_tokens": 7024,
+      "text_tokens": 0
+    },
+    "total_tokens": 8944
+  },
+  "cost_usd": 0.2248,
+  "cost_is_estimate": false,
+  "reported_quality": "high",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 89.2,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-tractor-t130-body-north/farming-tractor-t130-body-north-1.png",
+      "sha256": "47247bd6b1dfc01be1de52dd793b7a99c02f51c7a90b12779a7a1463571a7e2b",
+      "role": "our approved Thane T130 tractor, the owner's pick of 20 Nov 2026, which carries this cultivator: match its outline weight, shading, palette and steel grey linkage only; draw a cultivator, not a tractor"
+    }
+  ]
+}
