@@ -32,6 +32,8 @@ public static class VehicleSelfTest
         ReadEveryVehicle(test);
         test.Step("Parts bills", () => PartsBillsRead(test));
         ExerciseTestVehicle(test);
+        // Framework 0.209.0: the spall liner, on a design that carries one (Combat Extended only).
+        SpallSelfTest.Run(test);
         SlingLift(test);
         string report = "Vehicle self-test: " + test.Report()
             + "\n\nNot covered: anything drawn (tabs, windows and the range on the world map need to be looked at), and loading a report back from a save.";

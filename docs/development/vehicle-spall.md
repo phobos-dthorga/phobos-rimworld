@@ -49,6 +49,9 @@ Search & Rescue's. Every finding was read on both sides; none was seen in play.
 - **Then, the owner's chosen follow-ups (Framework 0.209.0):** an alert, "Spall liner spent", naming the player's vehicles whose
   fitted liner is spent; and two logbook entries, spall hurting someone aboard (at most once an hour per vehicle [A]) and the liner
   wearing through. These answer the record's fourth question better: the colony is told, not only the Health tab.
+- **The vehicle self-test runs the liner through** (Framework 0.209.0, `SpallSelfTest`): not fitted and healthy, fitted whole, worn by a
+  beaten cab plate, a re-line only after a quarter and done with panels, the refund by what is left, and removal. It takes back the
+  upgrade prices it recorded, so the thrown-away truck leaves nothing in the save.
 - **Not changed:** the plate's efficiency is read after Combat Extended took the hit's armour damage off, so what the plate took may be
   a little lower than Combat Extended's own figure.
 
