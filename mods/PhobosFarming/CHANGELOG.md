@@ -16,6 +16,7 @@ tested in game unless an entry says the owner tested it.
 
 ### Fixed
 
+- **The plough and cultivator now spare every sown crop, as their buttons say.** Before, they spared only the paddock's chosen crop: change a paddock from cabbage to wheat and plough it, and any cabbages still growing were destroyed with no harvest. Now any crop a colonist sowed is passed over, whatever its kind; weeds, stubble and wild plants are still cleared. Found in an audit, not yet tested in game.
 - **Art records no longer hold a path from the developer's PC.** The export records beside some textures named the full folder they were made in; they now name the file within the project. Nothing a player sees changes.
 
 ## [0.6.0] - 2026-11-20 - Draft

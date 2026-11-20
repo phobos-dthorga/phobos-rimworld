@@ -169,9 +169,9 @@ public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IV
         return drivers.FirstOrDefault(p => p != null && !p.Dead);
     }
 
-    /// <summary>Whether this plant is the paddock's own sown crop, which no implement ever destroys. Outside any growing zone (lowered by
-    /// hand), every sown plant counts as one.</summary>
-    protected bool IsTheCrop(Plant plant) => plant.sown && (area == null || plant.def == area.GetPlantDefToGrow());
+    /// <summary>Whether this plant is a sown crop, which no implement ever destroys: any sown plant, not only the paddock's chosen crop,
+    /// so a crop left growing after the paddock's crop is changed is spared too (owner, 20 Nov 2026; docs/development/farming-batch-two.md).</summary>
+    protected static bool IsSownCrop(Plant plant) => plant.sown;
 }
 
 /// <summary>A plough or a cultivator, configured in its Def.</summary>
@@ -205,8 +205,8 @@ public class CompPhobosTillage : CompPhobosImplement
 
     string MarkWords => (Ploughs ? "PhobosFarming_MarkPloughed" : "PhobosFarming_MarkCultivated").Translate().Resolve();
 
-    /// <summary>Whether a plant here would be cleared: anything but the paddock's own sown crop and trees.</summary>
-    bool Clears(Plant plant) => !IsTheCrop(plant) && !plant.def.plant.IsTree;
+    /// <summary>Whether a plant here would be cleared: anything but a sown crop (of any kind) and trees.</summary>
+    static bool Clears(Plant plant) => !IsSownCrop(plant) && !plant.def.plant.IsTree;
 
     public override bool HasWork(IReadOnlyList<IntVec3> rowCells)
     {
