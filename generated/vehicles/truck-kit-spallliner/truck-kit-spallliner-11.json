@@ -1,0 +1,33 @@
+{
+  "file": "truck-kit-spallliner-11.png",
+  "sha256": "67e37c5a35187d0ce0613605fc5da21c98406ec010ef108bca48967f074d015d",
+  "date": "2026-11-21T02:52:32",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A thick olive steel armour plate seen at an angle, with a pale khaki woven fibre lining bolted flat to its back face and a few small dark metal fragments caught in the lining. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, khaki, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/spall-liner-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 146.9,
+  "references": [
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/HeavyCabPlates.png",
+      "sha256": "ccc0b1932f3eb65fccdf7c8c2b50e6840516e77fc6750c0ee01750b3d5b9357e"
+    },
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/ArmouredCab.png",
+      "sha256": "d72407e1b5176204e1d6f2cfb64a5dc319e8ff1ae7258888e7da256e7ae9ba2d"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
