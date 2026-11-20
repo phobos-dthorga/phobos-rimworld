@@ -1,6 +1,6 @@
 # Real recordings for the Thane tractors (20 Nov 2026)
 
-**Status (20 Nov 2026):** research done, nothing downloaded or shipped. The owner chose real recordings over generated ones for the
+**Status (20 Nov 2026):** research done and the owner's choices made; nothing downloaded or shipped yet. The owner chose real recordings over generated ones for the
 tractors' sounds ([farming batch two](farming-batch-two.md), "Research, sounds, overlays and the install"). Licences allowed: public
 domain, CC0 and CC BY, with credit (assets/AGENTS.md); never non-commercial, no-derivatives or a custom licence.
 
@@ -8,6 +8,15 @@ domain, CC0 and CC BY, with credit (assets/AGENTS.md); never non-commercial, no-
 read each licence on the recording's own page unless marked unverified. Freesound hides most results in packs unless searched with
 `&g=0`. **Freesound's original files need a signed-in account to download**, which agents never use: the owner downloads those, or we
 work from what Commons and the Internet Archive serve openly.
+
+## The owner's decisions (20 Nov 2026)
+
+- **The T400's voice is built from the medium recordings**, pitched down and layered with ffmpeg and judged on the listening page,
+  labelled as a simplification: real recordings underneath, no generated sound.
+- **Licences: CC0 and plain CC BY only.** The two uploaders with a request on their pages (dibko, klankbeeld) and every share-alike
+  item are left out.
+- **The owner downloads a short list** of Freesound originals into the art tools' working folder (`recordings/tractors`); agents never
+  sign in.
 
 ## What exists, by size
 
