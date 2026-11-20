@@ -13,6 +13,7 @@ Spall inside vehicles: what its fault-read found, put right, and what came after
 
 - **An alert when a spall liner is spent**: Spall liner spent names each of your vehicles on a map whose fitted liner has worn through and catches nothing, until it is re-lined.
 - **Spall in the vehicle's logbook**: when spall from a hit hurts someone aboard, by name, at most once an hour for each vehicle however long the fight; and when the liner wears through.
+- **A liner counts its own panels**: a re-line takes one for each share its upgrade names, so a larger liner (D'thorga Vehicles' Osprey, six panels) is re-lined by sixths where a truck's cab is by quarters.
 
 ### Fixed
 

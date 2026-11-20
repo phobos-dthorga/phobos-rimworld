@@ -111,6 +111,14 @@ public class SpallRuleTests
         Assert.Equal(panels, SpallRule.PanelsToReline(healthShare, F));
 
     [Theory]
+    [InlineData(1.0, 0)]
+    [InlineData(0.9, 0)]
+    [InlineData(0.8, 2)]
+    [InlineData(0.0, 6)]
+    public void ALargerLinerCountsItsOwnPanels(double healthShare, int panels) =>
+        Assert.Equal(panels, SpallRule.PanelsToReline(healthShare, panelsPerLiner: 6));
+
+    [Theory]
     [InlineData(4, 1.0, 4)]
     [InlineData(4, 0.6, 2)]
     [InlineData(4, 0.2, 0)]

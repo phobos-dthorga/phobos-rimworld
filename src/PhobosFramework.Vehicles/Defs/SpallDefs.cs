@@ -72,6 +72,10 @@ public class PhobosSpallRulesDef : PhobosRulesDef
 /// </summary>
 public class PhobosSpallLinerUpgrade : Upgrade
 {
+    /// <summary>The liner panels that line this vehicle (Framework 0.209.0): a re-line takes one for each such share of the liner worn.
+    /// The node's own cost should be the same count. 0 takes the rules' figure (four, a truck's cab).</summary>
+    public int panels;
+
     public override bool UnlockOnLoad => false;
 
     public override void Unlock(VehiclePawn vehicle, bool unlockingPostLoad)

@@ -326,4 +326,78 @@ Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
         </li>
     </value>
   </Operation>
+  <!-- The V-22 Osprey (D'thorga Vehicles 0.94.0, Framework 0.209.0; the owner's chosen follow-up of 21 Nov 2026): a liner over the
+       cockpit and both cabins, the three plates its armour kit makes rifle-proof, so its cells are theirs together. Larger than a truck's
+       cab, so 90 health, six panels and 150 kg [A]: lighter than the kit's 360 kg of plate, as fibre is. Its weight is carried mass and takes
+       cargo room, as the kit's does. Its icon is the trucks' liner's: the same panels. Figures authored. Not yet tested in game. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_Osprey"]/partRoles</xpath>
+    <value>
+        <li>
+          <role>SpallLiner</role>
+          <add>
+            <key>PhobosSpallLiner</key>
+            <countsTowardDestruction>false</countsTowardDestruction>
+            <label>spall liner</label>
+            <health>90</health>
+            <depth>Internal</depth>
+            <hitWeight>0.3</hitWeight>
+            <hitWeightCE>4</hitWeightCE>
+            <cells>
+              <li>(-2, 4)</li><li>(-1, 4)</li><li>(0, 4)</li><li>(1, 4)</li><li>(2, 4)</li><li>(-2, 3)</li><li>(-1, 3)</li><li>(0, 3)</li><li>(1, 3)</li><li>(2, 3)</li><li>(-1, 2)</li><li>(0, 2)</li><li>(1, 2)</li><li>(-1, 1)</li><li>(0, 1)</li><li>(1, 1)</li><li>(-1, 0)</li><li>(0, 0)</li><li>(1, 0)</li><li>(-1, -1)</li><li>(0, -1)</li><li>(1, -1)</li><li>(-1, -2)</li><li>(0, -2)</li><li>(1, -2)</li><li>(-1, -3)</li><li>(0, -3)</li><li>(1, -3)</li><li>(-2, -1)</li><li>(2, -1)</li><li>(-2, -3)</li><li>(2, -3)</li>
+            </cells>
+            <armor>
+              <ArmorRating_Sharp>0</ArmorRating_Sharp>
+              <ArmorRating_Blunt>0</ArmorRating_Blunt>
+            </armor>
+          </add>
+        </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Osprey_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosSpallLiner</key>
+          <label>Spall liner</label>
+          <displayLabel>true</displayLabel>
+          <description>Panels of layered synthetic fibre over the inside of the armoured cockpit and cabins. When a round gets through the armour plates, their shattered inner face flies at the crew and passengers; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
+          <upgradeExplanation>Inside the cockpit and cabins: catches most of the spall a hit through the armour kit's plates throws at those aboard, and keeps the rest to one spot.
+Wears as it catches; re-lined with liner panels once a sixth is worn, one for each sixth.
+Cargo room: 150 kg less.
+Kit weight: 150 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
+          <work>3000</work>
+          <gridCoordinate>(24, 7)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_OspreyArmourKit</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>ArmourKit</li>
+          </prerequisiteNodes>
+          <upgrades>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+              <li>
+                <def>CargoCapacity</def>
+                <value>-150</value>
+              </li>
+              <li>
+                <def>Phobos_KitKilograms</def>
+                <value>150</value>
+              </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSpallLinerUpgrade">
+              <panels>6</panels>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <PhobosVehicles_SpallLinerPanel>6</PhobosVehicles_SpallLinerPanel>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
 </Patch>

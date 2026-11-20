@@ -54,7 +54,8 @@ Version 0.94.0, built 21 November 2026 for House D'thorga. **Not yet tested in g
   an inlet barrier, each with its own research; its stretchers, ferry tanks, cargo hook and cabin oxygen are the usual fittings. **Its
   guns** (0.74.0): a ramp gun, 7.62 mm or .50, worked by the crew chief, and a belly minigun that fires by itself while it has power,
   each with real cartridges under Combat Extended. **Armoured part by part** (0.78.0): skin, with splinter armour on the engines and gearboxes; the armour kit makes the cockpit and cabins
-  rifle-proof. Not yet tested in game.
+  rifle-proof. **With Combat Extended, a spall liner** (0.94.0) over it: six liner panels, 150 kg, catching the spall a round through
+  those plates throws at the crew and passengers. Not yet tested in game.
 - **The general systems come from D'thorga Framework**, not this mod: battery and alternator, coolant and oil, tyres or tracks,
   brakes, gearbox, wear and service ([looking after vehicles](../../docs/player-guide/vehicle-care.md)).
 - **Our vehicles are built from parts.** Where RimThunder or Vanilla Vehicles Expanded is installed, a build asks for their parts;

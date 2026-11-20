@@ -9,6 +9,10 @@ tested in game unless an entry says the owner tested it.
 
 The spall liner after its fault-read, and one for the Osprey
 
+### Added
+
+- **A spall liner for the V-22 Osprey** (the owner's choice of 21 November 2026; Combat Extended only). An upgrade after its armour kit, lining the cockpit and both cabins, the three plates the kit makes rifle-proof: it catches most of the spall a round through them throws at the crew and passengers. Six liner panels, 150 kg carried as cargo and taking cargo room, as the kit does; re-lined once a sixth is worn, a panel for each sixth. Its icon is the trucks' liner's.
+
 ### Fixed
 
 - **The Busbar's liner part is added the way the other trucks' are.** Its patch added a second list of parts that the game happened to merge with the first; it now adds to the one list. Nothing a player sees changes.

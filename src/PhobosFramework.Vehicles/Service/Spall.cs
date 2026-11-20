@@ -421,8 +421,10 @@ public static class Spall
     /// not loaded.</summary>
     internal static int PanelsToReline(VehiclePawn vehicle, VehicleComponent liner)
     {
-        if (Rules.Panel == null || !LinerFitted(vehicle) || liner.MaxHealth <= 0f) return 0;
-        return SpallRule.PanelsToReline(liner.Health / liner.MaxHealth, Rules.Figures);
+        if (Rules.Panel == null || liner.MaxHealth <= 0f || FittedLinerNode(vehicle) is not { } node) return 0;
+        // Each liner's own count, from its upgrade (Framework 0.209.0: the Osprey's lines more than a truck's cab).
+        int perLiner = node.upgrades.Find(u => u is PhobosSpallLinerUpgrade) is PhobosSpallLinerUpgrade { panels: > 0 } upgrade ? upgrade.panels : Rules.panelsPerLiner;
+        return SpallRule.PanelsToReline(liner.Health / liner.MaxHealth, perLiner);
     }
 
     internal static ThingDef? Panel => Rules.Panel;

@@ -17,7 +17,9 @@ fault-read's fixes in Framework 0.209.0 and Vehicles 0.94.0. Not yet tested in g
 - **A re-line's cost** comes from the spall rules (a panel for each quarter missing, once a whole quarter is gone), not from a part-supply Def with a new flag.
 - **The liner's upgrade needs the cab** as the heavy cab plates do (Vehicle Framework's own prerequisite), not through a "holds it on"
   link. Its grid place: under the armoured cab, beside the heavy plates.
-- **Only our five trucks carry a liner**, and only with Combat Extended. The extension marking another author's vehicle as lined is not
+- **Only our five trucks and, from Vehicles 0.94.0, the Osprey carry a liner**, and only with Combat Extended. The Osprey's lines its
+  cockpit and both cabins (90 health, six panels, 150 kg [A]); a liner's panel count is its upgrade's own (`panels`), so a re-line counts
+  each liner's sixths or quarters. The extension marking another author's vehicle as lined is not
   built: no vehicle needs it yet.
 - **Read in code since (fault-read of 21 Nov 2026):** Rimarrow: Search & Rescue's prefix stops Combat Extended's walk, and so spall,
   only on its own two helicopters and only for a hit on a gap it leaves open on purpose; the Harrier's, Hind's, Mongoose's and A-10's

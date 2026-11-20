@@ -542,6 +542,8 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
 - **Its upgrades**, each with a small research after tiltrotor aircraft:
   - **Second cargo hook:** with the cargo hook fitted, it slings up to 6,804 kg.
   - **Armour kit:** rifle-proof plates in the cockpit and cabins; they weigh 360 kg, carried as cargo.
+  - **Spall liner** (with Combat Extended; after the armour kit): six spall liner panels line the cockpit and both cabins, 150 kg. It
+    works as the trucks' liner does (see *Spall* under the trucks' armour), and is re-lined once a sixth of it is worn.
   - **Infrared jammer:** two turrets that make air defences hit far less often; they draw power.
   - **Terrain-following radar:** a fuller nose; it draws power. What it lets it do, flying blind at night and in weather, comes later.
   - **Inlet barrier:** filters on the intakes, for a little engine power. They keep most of the dust out (below).

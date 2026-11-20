@@ -146,10 +146,13 @@ public static class SpallRule
     /// Liner panels a re-line takes: one for each share of the liner's health missing, rounded up. None until a whole share is gone
     /// (Framework 0.209.0, an agent's default after the fault-read: a panel for a scratch sent trucks to be re-lined after every fight).
     /// </summary>
-    public static int PanelsToReline(double healthShare, in SpallFigures f)
+    public static int PanelsToReline(double healthShare, in SpallFigures f) => PanelsToReline(healthShare, f.panelsPerLiner);
+
+    /// <summary>The same for a liner of its own size (Framework 0.209.0: the Osprey's lines more than a truck's cab).</summary>
+    public static int PanelsToReline(double healthShare, int panelsPerLiner)
     {
         double missing = 1 - Math.Max(0, Math.Min(1, healthShare));
-        int perLiner = Math.Max(1, f.panelsPerLiner);
+        int perLiner = Math.Max(1, panelsPerLiner);
         if (missing * perLiner < 1 - 1e-9) return 0;
         return (int)Math.Ceiling(missing * perLiner - 1e-9);
     }

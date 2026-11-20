@@ -337,6 +337,10 @@ flowchart TB
   TerrainRadar["Terrain-following radar"]
   InletBarrier["Inlet barrier"]
   BellyGun["Belly gun"]
+  PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
+  ArmourKit --> PhobosSpallLiner
+  classDef tiein stroke-dasharray: 5 5
+  class PhobosSpallLiner tiein
 ```
 
 The hook's two published limits disagree: 15,000 lb on both hooks **[P, guide and fact sheet]** against Bell's page, 12,500 lb.
