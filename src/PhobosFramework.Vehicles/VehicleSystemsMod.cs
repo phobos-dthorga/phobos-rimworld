@@ -155,6 +155,11 @@ public class VehicleSystemsSettings : ModSettings
     public bool bayTrips = true;
     /// <summary>What sends a vehicle to a dyno bay (owner, 20 Nov 2026: a setting for each level, starting at broken or bay-only). Live.</summary>
     public Phobos.Framework.Rules.BayTripTrigger bayTripTrigger = Phobos.Framework.Rules.BayTripTrigger.Broken;
+    /// <summary>A vehicle that cannot drive is towed to the bay by one with a recovery winch (bay trips, batch 3; risk low, agent's grade: the
+    /// tow vehicle's brakes and clutch wear as on any tow, and it never takes one heavier than the tow ratio). Live.</summary>
+    public bool bayTripTowing = true;
+    /// <summary>With nothing to tow it, colonists push a light vehicle to the bay by hand (bay trips, batch 4; risk low, agent's grade). Live.</summary>
+    public bool bayTripPushing = true;
     /// <summary>An electric vehicle's battery that overheats far enough catches fire and bursts (agent default, as boiler explosions:
     /// off, with a warning). Live.</summary>
     public bool batteryFires;
@@ -286,6 +291,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref parkedWarningDays, "PhobosVehicleSystems_ParkedWarningDays", 3);
         Scribe_Values.Look(ref bayTrips, "PhobosVehicleSystems_BayTrips", true);
         Scribe_Values.Look(ref bayTripTrigger, "PhobosVehicleSystems_BayTripTrigger", Phobos.Framework.Rules.BayTripTrigger.Broken);
+        Scribe_Values.Look(ref bayTripTowing, "PhobosVehicleSystems_BayTripTowing", true);
+        Scribe_Values.Look(ref bayTripPushing, "PhobosVehicleSystems_BayTripPushing", true);
         Scribe_Values.Look(ref batteryFires, "PhobosVehicleSystems_BatteryFires", false);
         Scribe_Values.Look(ref electricLightning, "PhobosVehicleSystems_ElectricLightning", false);
         Scribe_Values.Look(ref tripLetters, "PhobosVehicleSystems_TripLetters", true);
@@ -561,6 +568,8 @@ public class VehicleSystemsMod : SettingsBookMod
             (Phobos.Framework.Rules.BayTripTrigger[])System.Enum.GetValues(typeof(Phobos.Framework.Rules.BayTripTrigger)),
             level => ("PhobosVehicleSettings_BayTripTrigger" + level).Translate(), level => ("PhobosVehicleSettings_BayTripTrigger" + level + "Desc").Translate(),
             "PhobosVehicleSettings_BayTripTriggerDesc".Translate());
+        list.Check("PhobosVehicleSettings_BayTripTowing".Translate(), ref s.bayTripTowing, d.bayTripTowing, "PhobosVehicleSettings_BayTripTowingDesc".Translate());
+        list.Check("PhobosVehicleSettings_BayTripPushing".Translate(), ref s.bayTripPushing, d.bayTripPushing, "PhobosVehicleSettings_BayTripPushingDesc".Translate());
         list.Section("PhobosVehicleSettings_SectionFittings".Translate());
         list.Check("PhobosVehicleSystems_SettingTuningNeedsRig".Translate(), ref s.tuningNeedsRig, d.tuningNeedsRig, "PhobosVehicleSystems_SettingTuningNeedsRigDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingTankCompartments".Translate(), ref s.tankCompartmentsNeedUpgrades, d.tankCompartmentsNeedUpgrades, "PhobosVehicleSystems_SettingTankCompartmentsDesc".Translate());

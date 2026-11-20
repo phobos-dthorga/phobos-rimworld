@@ -195,6 +195,8 @@ The vehicle sounds setting (on other mods' vehicles too) moved to D'thorga Vehic
 | Repairs, service and fittings | This colony: services take raw materials instead of kits | Saved with the colony. On: services take steel, components and chemfuel instead of kits | Off (on for a colony from before kits) |
 | Dyno bay trips | Vehicles are taken to a dyno bay for repair by themselves | A land vehicle with work that sends it is driven to a dyno bay, repaired and driven home | On |
 | Dyno bay trips | What sends a vehicle to a dyno bay | Bay-only work alone; broken, or bay-only work; any repair or service due | Broken, or bay-only work |
+| Dyno bay trips | A vehicle that cannot drive is towed to the dyno bay | A vehicle with the recovery winch fetches it and tows it into the bay's reach | On |
+| Dyno bay trips | Light vehicles that cannot drive are pushed to the dyno bay by hand | With no tow vehicle free, colonists who haul push it there, six at most | On |
 | Repairs, service and fittings | Tunes, changes of grade and heavy overhauls need a dyno bay | Tunes, grade changes, head machining and turbine overhauls wait for a powered dyno bay in reach | On |
 | Repairs, service and fittings | A tank needs upgrades for compartments | Off: every liquid tank has three compartments free | On |
 | Repairs, service and fittings | Time to fit and tune / Materials to fit and tune | Quick, shorter, standard or long; light, standard or heavy | Standard / Standard |

@@ -142,6 +142,14 @@
     <bayTripBackOffTicks>60000</bayTripBackOffTicks>
     <bayTripIdleTicks>60000</bayTripIdleTicks>
     <bayTripDriverWaitTicks>15000</bayTripDriverWaitTicks>
+    <!-- Carrying a vehicle that cannot drive (0.201.0), authored: the wait for a colonist to couple it, the wait for hands to push it, a
+         person's steady push in kgf (a ballpark), the most people on one vehicle, ticks to push a cell at a light load, the path search's limit. -->
+    <bayTripCoupleWaitTicks>10000</bayTripCoupleWaitTicks>
+    <bayTripPushWaitTicks>10000</bayTripPushWaitTicks>
+    <pushKgfPerPerson>25</pushKgfPerPerson>
+    <pushMostPeople>6</pushMostPeople>
+    <pushTicksPerCell>90</pushTicksPerCell>
+    <bayTripPathNodes>6000</bayTripPathNodes>
     <recoveryTowBarCells>1.5</recoveryTowBarCells>
     <recoveryJackKnifeDegrees>55</recoveryJackKnifeDegrees>
     <!-- Batch 3 signatures (Framework 0.101.0, all authored): the generator set's service lead takes 300 W off the top (a heavy battery
@@ -395,6 +403,27 @@
     <priorityInType>60</priorityInType>
     <requiredCapacities>
       <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+  <!-- Pushing a vehicle to a dyno bay by hand (0.201.0; docs/development/vehicle-bay-trips.md, batch 4): hauling work, as coupling a trailer is. -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_PushVehicle</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosPushVehicle</driverClass>
+    <reportString>pushing TargetA.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_PushVehicle</defName>
+    <label>push a vehicle to a dyno bay</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosPushVehicle</giverClass>
+    <workType>Hauling</workType>
+    <verb>push</verb>
+    <gerund>pushing</gerund>
+    <priorityInType>45</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+      <li>Moving</li>
     </requiredCapacities>
   </WorkGiverDef>
 </Defs>

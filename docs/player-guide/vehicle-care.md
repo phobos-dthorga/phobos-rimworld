@@ -233,7 +233,15 @@ All four are in the Architect's **motor pool** tab.
   enemies threaten the map, and a trip under way stops and lets its driver out.
 - **To keep one vehicle out**: open the **Fleet board**, select it and untick **Taken to a dyno bay when it needs one**.
 - **The alert "Vehicles waiting for a dyno bay"** names each vehicle that should go and cannot, with its reason.
-- **A vehicle that cannot be driven** (a dead starter, a thrown track) stays where it is for now and says why.
+- **A vehicle that cannot be driven** (a dead starter, a dead battery) is **towed**: a vehicle of yours fitted with the **recovery
+  winch** fetches it. A colonist on Drive work drives the tow vehicle over and gets out, someone who hauls couples the wreck, a driver
+  takes the wheel again, and the wreck is towed into the bay's reach and let go; the tow vehicle then drives back to where it stood.
+  It never takes a wreck heavier than one and a half times its own weight. **Fit a recovery winch to one sturdy truck** and leave it
+  parked with nobody aboard.
+- **With no tow vehicle free, a light one is pushed by hand** by colonists who haul: one or two for a car on firm ground, more on soft
+  ground, six at most. A heavy vehicle, or one whose wheels will not turn, cannot be pushed: it stays, and its line says how many
+  people it would take.
+- Each of the two has its own setting under **Dyno bay trips**.
 - Aircraft, boats and trailers never go: build a dyno bay beside the pad for aircraft.
 - To switch it all off: **Vehicles are taken to a dyno bay for repair by themselves**, in the vehicle settings under **Dyno bay trips**.
 

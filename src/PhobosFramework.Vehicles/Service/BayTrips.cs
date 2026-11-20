@@ -145,7 +145,7 @@ public static class BayTrips
     // ---- A place at a bay ----
 
     /// <summary>The cells other trips on this map keep for where their drives end.</summary>
-    static List<CellRect> KeptBy(Map map, VehiclePawn except)
+    internal static List<CellRect> KeptBy(Map map, VehiclePawn except)
     {
         var kept = new List<CellRect>();
         IReadOnlyList<CompPhobosBayTrip> trips = Of(map);
@@ -160,7 +160,8 @@ public static class BayTrips
     /// A place for this vehicle in reach of a working dyno bay of the player's, nearest bay first: where its centre stands and the way it
     /// faces. False with the reason in the player's words: no bay, none with power, or none with room and a way there.
     /// </summary>
-    public static bool TryFindPlace(VehiclePawn vehicle, ICollection<IntVec3>? avoid, out Thing? bay, out IntVec3 cell, out Rot4 facing, out string? why)
+    public static bool TryFindPlace(VehiclePawn vehicle, ICollection<IntVec3>? avoid, Rot4? onlyFacing, out Thing? bay, out IntVec3 cell, out Rot4 facing,
+        out string? why)
     {
         bay = null;
         cell = IntVec3.Invalid;
@@ -175,7 +176,7 @@ public static class BayTrips
             anyBay = true;
             if (!rig.Working) continue;
             anyWorking = true;
-            if (!TryFindSpotAt(vehicle, rig, kept, avoid, ref wayTests, out cell, out facing)) continue;
+            if (!TryFindSpotAt(vehicle, rig, kept, avoid, onlyFacing, ref wayTests, out cell, out facing)) continue;
             bay = rig.parent;
             return true;
         }
@@ -188,8 +189,8 @@ public static class BayTrips
     /// vehicle first, facing the bay if it can. The body must fit on ground it can drive, clear of the bay, of doors, of other vehicles and
     /// of the places other trips keep; and Vehicle Framework must find a way there.
     /// </summary>
-    static bool TryFindSpotAt(VehiclePawn vehicle, CompPhobosTuningRig rig, List<CellRect> kept, ICollection<IntVec3>? avoid, ref int wayTests,
-        out IntVec3 cell, out Rot4 facing)
+    static bool TryFindSpotAt(VehiclePawn vehicle, CompPhobosTuningRig rig, List<CellRect> kept, ICollection<IntVec3>? avoid, Rot4? onlyFacing,
+        ref int wayTests, out IntVec3 cell, out Rot4 facing)
     {
         cell = IntVec3.Invalid;
         facing = Rot4.Invalid;
@@ -207,9 +208,12 @@ public static class BayTrips
             if (!candidate.Standable(vehicle, map)) continue;
             foreach (Rot4 rot in FacingsTowards(candidate, rigRect.CenterCell))
             {
+                // A vehicle carried as it stands (towed, pushed) takes only a place it fits facing as it faces.
+                if (onlyFacing is { } only && only != rot) continue;
                 CellRect body = vehicle.VehicleRect(candidate, rot);
                 if (!body.ExpandedBy(reach).Overlaps(rigRect) || !BodyFits(vehicle, body, map, kept, rig.parent)) continue;
-                if (candidate != from)
+                // A carried vehicle is not asked for a way of its own: it will not drive, and what tows or pushes it finds the way.
+                if (candidate != from && onlyFacing == null)
                 {
                     if (wayTests++ >= MaxWayTests) return false;
                     if (!vehicle.CanReachVehicle(candidate, PathEndMode.OnCell, Danger.Deadly, TraverseMode.ByPawn)) break;
@@ -235,7 +239,7 @@ public static class BayTrips
 
     /// <summary>Whether the body can stand on these cells: on the map, on ground it can drive, clear of doors, of other vehicles, of the
     /// places other trips keep, and of a building's own cells and the cell a mechanic works it from.</summary>
-    static bool BodyFits(VehiclePawn vehicle, CellRect body, Map map, List<CellRect> kept, Thing? clearOf)
+    internal static bool BodyFits(VehiclePawn vehicle, CellRect body, Map map, List<CellRect> kept, Thing? clearOf)
     {
         if (clearOf != null && (body.Overlaps(clearOf.OccupiedRect()) || (clearOf.def.hasInteractionCell && body.Contains(clearOf.InteractionCell)))) return false;
         foreach (IntVec3 c in body)
@@ -262,6 +266,68 @@ public static class BayTrips
             }
         }
         return true;
+    }
+
+    // ---- Carrying a vehicle that cannot drive ----
+
+    /// <summary>
+    /// The nearest vehicle that could tow this wreck to the bay now, or null: the player's, on no trip and not kept out, fitted with the
+    /// recovery winch, free, able to drive once a driver is aboard, and heavy enough that the tow needs no warning (the tow ratio: an
+    /// over-heavy tow is the player's own choice, never made for them).
+    /// </summary>
+    public static CompPhobosBayTrip? FindTug(VehiclePawn wreck)
+    {
+        CompPhobosBayTrip? best = null;
+        int bestDistance = int.MaxValue;
+        IReadOnlyList<CompPhobosBayTrip> trips = Of(wreck.Map);
+        for (int i = 0; i < trips.Count; i++)
+        {
+            CompPhobosBayTrip trip = trips[i];
+            VehiclePawn tug = trip.Vehicle;
+            if (tug == wreck || trip.Stage != BayTripStage.None || trip.KeptOut || !trip.TakesPart || tug.Faction != Faction.OfPlayer) continue;
+            if (tug.GetComp<CompPhobosHitch>() is not { CanWinch: true } hitch || Busy(tug, trip)) continue;
+            if (hitch.Refusal() != null || hitch.RefusalFor(wreck, checkReach: false) != null || hitch.RecoveryTowWarning(wreck) != null) continue;
+            if (VehicleAutoDrive.CannotDrive(tug, needsDriver: false) != null) continue;
+            int distance = tug.Position.DistanceToSquared(wreck.Position);
+            if (distance >= bestDistance) continue;
+            best = trip;
+            bestDistance = distance;
+        }
+        return best;
+    }
+
+    /// <summary>Turns a standing vehicle where it stands, as Vehicle Framework does on arrival, and has the map take note of the cells it
+    /// left and took, as a move of ours does (VehicleShift).</summary>
+    internal static void Turn(VehiclePawn vehicle, Rot4 rot)
+    {
+        Map map = vehicle.Map;
+        CellRect before = vehicle.OccupiedRect();
+        Hitches.TakeUpPipes(vehicle);
+        VehicleAutoDrive.Face(vehicle, rot);
+        foreach (IntVec3 c in before.Cells)
+        {
+            if (c.InBounds(map)) map.pathing.RecalculatePerceivedPathCostAt(c);
+        }
+        foreach (IntVec3 c in vehicle.OccupiedRect().Cells)
+        {
+            if (c.InBounds(map)) map.pathing.RecalculatePerceivedPathCostAt(c);
+        }
+    }
+
+    /// <summary>Whether anyone stands on cells a moved vehicle is about to take: it waits for them, and never moves onto a person or an animal.</summary>
+    internal static bool SomeoneOn(VehiclePawn vehicle, CellRect cells, Map map)
+    {
+        CellRect own = vehicle.OccupiedRect();
+        foreach (IntVec3 c in cells)
+        {
+            if (own.Contains(c) || !c.InBounds(map)) continue;
+            List<Thing> things = c.GetThingList(map);
+            for (int i = 0; i < things.Count; i++)
+            {
+                if (things[i] is Pawn pawn && pawn != vehicle) return true;
+            }
+        }
+        return false;
     }
 
     // ---- Where it goes afterwards ----

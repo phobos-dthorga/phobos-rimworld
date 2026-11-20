@@ -46,6 +46,27 @@ public class BayTripRuleTests
     }
 
     [Fact]
+    public void AVehicleThatDrivesIsDrivenWhateverElseIsOnHand() =>
+        Assert.Equal(BayTripCarry.Drive, BayTripRule.Carry(canDrive: true, towingOn: true, tugFree: true, pushingOn: true, pushersNeeded: 1, mostPushers: 6));
+
+    [Fact]
+    public void AWreckIsTowedBeforeItIsPushed() =>
+        Assert.Equal(BayTripCarry.Tow, BayTripRule.Carry(false, towingOn: true, tugFree: true, pushingOn: true, pushersNeeded: 1, mostPushers: 6));
+
+    [Theory]
+    [InlineData(true, false)]
+    [InlineData(false, true)]
+    public void WithNothingToTowItALightWreckIsPushed(bool towingOn, bool tugFree) =>
+        Assert.Equal(BayTripCarry.Push, BayTripRule.Carry(false, towingOn, tugFree, pushingOn: true, pushersNeeded: 6, mostPushers: 6));
+
+    [Theory]
+    [InlineData(true, 7)]
+    [InlineData(true, int.MaxValue)]
+    [InlineData(false, 1)]
+    public void AHeavyWreckOrPushingOffLeavesItWhereItIs(bool pushingOn, int pushersNeeded) =>
+        Assert.Equal(BayTripCarry.None, BayTripRule.Carry(false, towingOn: true, tugFree: false, pushingOn, pushersNeeded, mostPushers: 6));
+
+    [Fact]
     public void ALookIsDueOnItsTickAndNotBefore()
     {
         Assert.False(BayTripRule.LookDue(999, 1000));

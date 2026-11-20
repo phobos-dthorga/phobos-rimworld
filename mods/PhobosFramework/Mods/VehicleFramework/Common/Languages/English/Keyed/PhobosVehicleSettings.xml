@@ -38,6 +38,10 @@
   <PhobosVehicleSettings_BayTripTriggerBrokenDesc>The above, and a destroyed part to replace (fitted at the bay it goes in in better condition) or a serious fault that needs a service. Routine servicing is still done where the vehicle stands.</PhobosVehicleSettings_BayTripTriggerBrokenDesc>
   <PhobosVehicleSettings_BayTripTriggerAny>Any repair or service due</PhobosVehicleSettings_BayTripTriggerAny>
   <PhobosVehicleSettings_BayTripTriggerAnyDesc>Everything: every due service, fitting and damaged part too. The tidiest colony and the most trips.</PhobosVehicleSettings_BayTripTriggerAnyDesc>
+  <PhobosVehicleSettings_BayTripTowing>A vehicle that cannot drive is towed to the dyno bay</PhobosVehicleSettings_BayTripTowing>
+  <PhobosVehicleSettings_BayTripTowingDesc>A vehicle of yours fitted with the recovery winch fetches it: a colonist doing Drive work drives it over, someone who hauls couples the wreck, and it is towed into the bay's reach and let go. The tow vehicle then drives back to where it stood. It never takes a wreck heavier than the tow ratio allows; its brakes and clutch wear as on any tow. Off: a vehicle that cannot drive is pushed by hand if it is light enough, or stays where it is.</PhobosVehicleSettings_BayTripTowingDesc>
+  <PhobosVehicleSettings_BayTripPushing>Light vehicles that cannot drive are pushed to the dyno bay by hand</PhobosVehicleSettings_BayTripPushing>
+  <PhobosVehicleSettings_BayTripPushingDesc>With no recovery vehicle free, colonists who haul push the vehicle there, as many as its weight and the ground under it take: one or two for a car on firm ground, more on soft ground, and no more than six. A vehicle whose wheels will not turn, or a heavy one, cannot be pushed. Off: such a vehicle stays where it is.</PhobosVehicleSettings_BayTripPushingDesc>
   <!-- The vehicle message level (Framework 0.186.0). -->
   <PhobosVehicleSettings_SectionMessages>Messages</PhobosVehicleSettings_SectionMessages>
   <PhobosVehicleSettings_MessageLevel>Vehicle messages nobody asked for</PhobosVehicleSettings_MessageLevel>

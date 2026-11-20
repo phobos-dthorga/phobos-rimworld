@@ -3,8 +3,22 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
-    "297": {"parts": {
+    "298": {"parts": {
       "a tree drawn past the tab is scrolled": ["vehicles.upgrade-tab-scrolled"]
+    }},
+    "297": {"parts": {
+      "a wreck nothing can tow waits for hands": [{"key": "vehicles.bay-trip.push", "variant": "called"}],
+      "enough people at it move it a cell": [{"key": "vehicles.bay-trip.push", "variant": "moving"}],
+      "it stands at the bay, pushed there": ["vehicles.bay-trip.pushed-in"]
+    }},
+    "296": {"parts": {
+      "a wreck keeps a place and a recovery vehicle is sent": [{"key": "vehicles.bay-trip.tow", "variant": "called"}],
+      "the recovery vehicle drives up to it": [{"key": "vehicles.bay-trip.tow", "variant": "fetching"}],
+      "the wreck is coupled and a driver called again": [{"key": "vehicles.bay-trip.tow", "variant": "coupled"}],
+      "it tows the wreck to the bay": [{"key": "vehicles.bay-trip.tow", "variant": "towing"}],
+      "the wreck stands at the bay, towed there": ["vehicles.bay-trip.towed-in"],
+      "let go short of the bay's reach, it is winched in": ["vehicles.bay-trip.shunted"],
+      "a tow or a push that fails says why": ["vehicles.bay-trip.carry-failed"]
     }},
     "295": {"parts": {
       "a repaired vehicle with no depot bay is sent to a vehicle park": [{"key": "vehicles.bay-trip.leaving", "variant": "Park"}]

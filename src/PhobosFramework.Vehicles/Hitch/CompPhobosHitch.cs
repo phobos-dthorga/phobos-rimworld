@@ -94,7 +94,13 @@ public sealed partial class CompPhobosHitch : VehicleComp
     }
 
     /// <summary>Why this trailer cannot be hitched to this vehicle now, or null.</summary>
-    public string? RefusalFor(VehiclePawn candidate)
+    public string? RefusalFor(VehiclePawn candidate) => RefusalFor(candidate, checkReach: true);
+
+    /// <summary>
+    /// As <see cref="RefusalFor(VehiclePawn)"/>; with <paramref name="checkReach"/> false, everything but how far apart they stand and
+    /// whether this vehicle is moving: whether it could tow the candidate once it has driven up to it (Framework 0.201.0, bay trips).
+    /// </summary>
+    public string? RefusalFor(VehiclePawn candidate, bool checkReach)
     {
         if (candidate == Vehicle) return "PhobosHitch_NotItself".Translate().Resolve();
         if (ChainRefusal(candidate) is { } chain) return chain;
@@ -109,6 +115,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
         // Framework 0.182.0 (owner, 20 Nov 2026): couplings are enforced, an adapter fixes a mismatch, and what names none joins anything.
         if (Couplings.Refusal(Vehicle, candidate) is { } coupling) return coupling;
         if (SetUpRefusal(candidate) is { } setUp) return setUp;
+        if (!checkReach) return null;
         if (candidate.Position.DistanceTo(Vehicle.Position) > Rules.hitchReachCells)
         {
             return "PhobosHitch_TooFar".Translate(candidate.LabelShort.Named("TRAILER"), Rules.hitchReachCells.Named("CELLS")).Resolve();

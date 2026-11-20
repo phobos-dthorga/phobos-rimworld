@@ -26,6 +26,33 @@
   <PhobosBayTrip_AlertIntro>These vehicles need work at a dyno bay and cannot be taken there yet:</PhobosBayTrip_AlertIntro>
   <PhobosBayTrip_AlertLine>{VEHICLE}: {REASON}</PhobosBayTrip_AlertLine>
   <PhobosBayTrip_AlertMore>...and {COUNT} more.</PhobosBayTrip_AlertMore>
+  <!-- A vehicle that cannot drive: the recovery tow and pushing by hand (batches 3 and 4). -->
+  <PhobosBayTrip_NoTug>No vehicle with a recovery winch is free to tow it.</PhobosBayTrip_NoTug>
+  <PhobosBayTrip_CannotPush>It cannot be pushed by hand as it stands.</PhobosBayTrip_CannotPush>
+  <PhobosBayTrip_TooHeavyToPush>It would take {COUNT} people to push it, and no more than {MOST} can get their hands on it.</PhobosBayTrip_TooHeavyToPush>
+  <PhobosBayTrip_NoWayToPush>Needs a dyno bay, but there is no way to push it there as it stands. It will be tried again in a day.</PhobosBayTrip_NoWayToPush>
+  <PhobosBayTrip_NotEnoughHands>Not enough people came to push it to a dyno bay. It will be tried again in a day.</PhobosBayTrip_NotEnoughHands>
+  <PhobosBayTrip_TooHeavyHere>It became too heavy to push where it stands. It will be tried again in a day.</PhobosBayTrip_TooHeavyHere>
+  <PhobosBayTrip_EnoughHands>Enough people are pushing {VEHICLE} already.</PhobosBayTrip_EnoughHands>
+  <PhobosBayTrip_LeftShort>{TUG} could not bring it into a dyno bay's reach. It will be tried again in a day.</PhobosBayTrip_LeftShort>
+  <PhobosBayTrip_TugWouldNotStart>{TUG} would not start to tow it to a dyno bay. It will be tried again in a day.</PhobosBayTrip_TugWouldNotStart>
+  <PhobosBayTrip_NoRoomBesideWreck>{TUG} found no room beside it to couple it up. It will be tried again in a day.</PhobosBayTrip_NoRoomBesideWreck>
+  <PhobosBayTrip_NoRoomToCouple>{TUG} had no room behind it to couple it up. It will be tried again in a day.</PhobosBayTrip_NoRoomToCouple>
+  <PhobosBayTrip_NobodyCoupled>Nobody came to couple it to {TUG}. It will be tried again in a day.</PhobosBayTrip_NobodyCoupled>
+  <PhobosBayTrip_NoRoomAtBay>{TUG} found nowhere to stop by the dyno bay with it in tow. It will be tried again in a day.</PhobosBayTrip_NoRoomAtBay>
+  <PhobosBayTrip_TowThreat>Its tow to a dyno bay was called off because of enemies. It will be tried again in a day.</PhobosBayTrip_TowThreat>
+  <PhobosBayTrip_TowTaken>{TUG} was given other orders while towing it. It will be tried again in a day.</PhobosBayTrip_TowTaken>
+  <PhobosBayTrip_TowCalledOff>Its tow to a dyno bay was called off. It will be tried again in a day.</PhobosBayTrip_TowCalledOff>
+  <PhobosBayTrip_LineAwaitingTow>Waiting for {TUG} to tow it to a dyno bay.</PhobosBayTrip_LineAwaitingTow>
+  <PhobosBayTrip_LineTowed>Being towed to a dyno bay by {TUG}.</PhobosBayTrip_LineTowed>
+  <PhobosBayTrip_LineShunted>Being winched into a dyno bay's reach by {TUG}.</PhobosBayTrip_LineShunted>
+  <PhobosBayTrip_LinePushed>Being pushed to a dyno bay by hand: {NOW} of {COUNT} people at it.</PhobosBayTrip_LinePushed>
+  <PhobosBayTrip_LineFetchCalling>Waiting for a driver to fetch {WRECK} ({WORK} work).</PhobosBayTrip_LineFetchCalling>
+  <PhobosBayTrip_LineFetchDriving>On its way to tow {WRECK} to a dyno bay.</PhobosBayTrip_LineFetchDriving>
+  <PhobosBayTrip_LineFetchCoupling>Waiting for someone to couple {WRECK} to it.</PhobosBayTrip_LineFetchCoupling>
+  <PhobosBayTrip_LineFetchCallingTow>Coupled to {WRECK}: waiting for a driver ({WORK} work).</PhobosBayTrip_LineFetchCallingTow>
+  <PhobosBayTrip_LineFetchTowing>Towing {WRECK} to a dyno bay.</PhobosBayTrip_LineFetchTowing>
+  <PhobosBayTrip_LineFetchStanding>Winching {WRECK} into a dyno bay's reach.</PhobosBayTrip_LineFetchStanding>
   <!-- The vehicle park (batch 2). -->
   <PhobosVehiclePark_Label>Vehicle park</PhobosVehiclePark_Label>
   <PhobosVehiclePark_Expand>Expand vehicle park</PhobosVehiclePark_Expand>

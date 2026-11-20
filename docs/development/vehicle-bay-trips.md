@@ -1,8 +1,8 @@
 # Bay trips: vehicles taken to a dyno bay for repair, without being told (20 Nov 2026)
 
-**Status (20 Nov 2026):** batches 1 and 2 built in D'thorga Framework 0.201.0: a vehicle that can still drive is driven to a dyno bay,
-repaired there, and driven home, to its depot bay, a vehicle park or a spot nearby. Not built yet: the recovery tow (batch 3), pushing by
-hand (batch 4). Not yet tested in game.
+**Status (20 Nov 2026):** all four batches built in D'thorga Framework 0.201.0: a vehicle that can still drive is driven to a dyno bay,
+repaired there, and driven home, to its depot bay, a vehicle park or a spot nearby; one that cannot drive is towed there by a recovery
+vehicle, or pushed by hand when it is light. Not yet tested in game.
 
 **The owner, 20 Nov 2026:** "Something we NEED to implement, and we need to either use or develop our own code for this so it works
 independently of what mods the player might have on their setup, is pawns automatically taking a worn or especially, busted, vehicle to a
@@ -98,8 +98,8 @@ flowchart TD
 | --- | --- | --- | --- |
 | 1 | Trips for vehicles that can drive; the trigger setting; the Fleet board switch; the alert; home to a depot bay or nearby | Framework 0.201.0 | Built, not yet tested in game |
 | 2 | **The vehicle park** [O]: a zone of ours on the motor pool tab; a repaired vehicle with no depot bay parks there | Framework 0.201.0 | Built, not yet tested in game |
-| 3 | **The recovery tow** [O]: a driver takes a vehicle fitted with the recovery winch, a colonist couples the wreck, it is towed into the bay's reach and let go, and the tow vehicle drives back | | Not built |
-| 4 | **Pushing by hand** [O]: with no recovery vehicle free, colonists push a light vehicle to the bay, limited by weight with the pull rule the winch uses | | Not built |
+| 3 | **The recovery tow** [O]: a driver takes a vehicle fitted with the recovery winch, a colonist couples the wreck, it is towed into the bay's reach and let go, and the tow vehicle drives back | Framework 0.201.0 | Built, not yet tested in game |
+| 4 | **Pushing by hand** [O]: with no recovery vehicle free, colonists push a light vehicle to the bay, limited by weight with the pull rule the winch uses | Framework 0.201.0 | Built, not yet tested in game |
 
 ## The vehicle park (batch 2)
 
@@ -114,6 +114,44 @@ a row and nothing stands door to door. A vehicle standing in a park already, wit
   RimWorld 1.7's decompile, read 20 Nov 2026). A park marked on a deck is marked again after landing.
 - **Before removing the mod**, delete every vehicle park: a zone of a class the game cannot find fails to load.
 
+## A vehicle that cannot drive (batches 3 and 4)
+
+The owner: "Tow, or push light ones by hand". A vehicle that will not drive keeps a place at the bay it fits **facing as it faces now**,
+since it is carried as it stands; then `BayTripRule.Carry` decides: towed if a recovery vehicle is free, else pushed if it is light
+enough, else it stays and its line says why (nothing free to tow it; how many people it would take).
+
+### The recovery tow
+
+- **Which vehicle tows** **[A]**: the nearest of the player's vehicles fitted with the recovery winch, on no trip, not kept out, free, able
+  to drive, and heavy enough that the tow needs no warning (the tow ratio, 1.5 times its own weight). An over-heavy tow stays the
+  player's own choice, never made for them.
+- **The steps**: it remembers where it stood and calls a driver; drives to a stop within the hitch's reach of the wreck; asks for the
+  wreck to be coupled, and its driver gets out (the hitch's own hauling job does the coupling, whoever takes it); calls a driver again;
+  tows; lets go; stands by; drives back to where it stood and its driver gets out.
+- **The tow is the hitch's real tow**: the towed weight reaches the drivetrain, and brakes and clutch wear as on any tow.
+- **Where it stops** **[A]**: about the tow's own length beyond the wreck's place, on the far side from where it came, so the wreck
+  trailing behind comes to rest at its place or near it. In the bay's reach, the wreck has arrived.
+- **Short of the bay's reach, it is winched in** **[A]**: the wreck is moved a cell at a time, at the winch's pace, along a way found once
+  (`GridPathRule`, A* over the cells its body fits), while the recovery vehicle stands by with its crew aboard. **A gameplay
+  simplification**: a real winch pulls in a straight line towards itself; ours follows the found way, as if the crew re-rigged the
+  line at each corner. The winch's own force rule is not asked again here, since the tow ratio already passed the pair.
+- **Each stage has a limit**: three stops beside the wreck that would not couple, 10,000 ticks for someone to couple it, and a day
+  standing by. A tow that fails lets the wreck go where it is, says why on the wreck's line, and is tried again a day later.
+
+### Pushing by hand
+
+- **How many people** is the winch's own sum (`RecoveryRule.Required`: the vehicle's weight times its ground's resistance, or its
+  ground's grip if its wheels will not turn) over one person's steady push, **25 kgf [A]** (a ballpark, unverified against any table),
+  counted up to the next whole person, **six at most [A]**. So a car on firm ground takes one or two, a truck on soft ground more than
+  six can give, and a vehicle whose wheels will not turn far more: it stays.
+- **The work** is hauling work (`WorkGiver_PhobosPushVehicle`), offered until as many are at the vehicle or on their way as it takes.
+  A pusher stands beside the body, never where it is about to move, and follows it. It moves a cell only while enough of them report,
+  at **90 ticks a cell [A]** with hands to spare and twice that at their limit; the count is taken again at every cell, so soft ground
+  on the way can stop it.
+- **It turns to roll along its length** where its body fits that way here and all the way on; otherwise it is moved as it stands.
+- **Hunger and sleep come first**: a pusher's job lets something more urgent take over every 2,000 ticks. With too few hands for
+  10,000 ticks the push is given up for a day.
+
 ## Risk and settings
 
 The owner's rule (20 Nov 2026): a behaviour that puts things or people at risk has its own setting, on unless its risk is high.
@@ -122,6 +160,8 @@ The owner's rule (20 Nov 2026): a behaviour that puts things or people at risk h
 | --- | --- | --- | --- |
 | Bay trips | **Moderate**: a colonist drives a faulty vehicle across the home map. Nothing is lost at once; it never starts with enemies about and stops when they come; every refusal of ours to move still holds (worn-out brakes); the player sees each trip on the vehicle's line and the Fleet board | Vehicles go to a dyno bay for repair by themselves | On |
 | What sends a vehicle | None of its own | What sends a vehicle to the bay (three levels) | Broken or bay-only |
+| The recovery tow | **Low**: the tow vehicle's brakes and clutch wear as on any tow, and it never takes a tow heavier than the ratio. It is away from where it stood for the length of the tow | A vehicle that cannot drive is towed to the dyno bay | On |
+| Pushing by hand | **Low**: colonists spend time outdoors pushing, never with enemies about, and stop for hunger and sleep | Light vehicles that cannot drive are pushed to the dyno bay by hand | On |
 
 ## Other factions' vehicles
 
@@ -145,12 +185,21 @@ when a vehicle has work that sends it and nothing else stands in the way. The al
 | Time at the bay with nothing done before the place is given up | 60,000 ticks (a day) | `bayTripIdleTicks` |
 | Time a call for a driver may stand before the alert names it | 15,000 ticks (six hours) | `bayTripDriverWaitTicks` |
 | A drive standing still this long has stalled | 600 ticks, as the gathering run's | `bayTripStuckTicks` |
+| Wait for someone to couple a wreck | 10,000 ticks | `bayTripCoupleWaitTicks` |
+| Wait for enough people to push | 10,000 ticks | `bayTripPushWaitTicks` |
+| One person's steady push | 25 kgf (a ballpark, unverified) | `pushKgfPerPerson` |
+| Most people on one vehicle | 6 | `pushMostPeople` |
+| Ticks to push one cell with hands to spare | 90 (twice that at their limit) | `pushTicksPerCell` |
+| Cells a search for a way may look at | 6,000 | `bayTripPathNodes` |
 
 ## Who chose what
 
 - **Owner (20 Nov 2026):** the feature, and that it must not depend on another mod; a three-level trigger setting starting at "broken or
   bay-only"; wrecks towed, or pushed by hand when light; afterwards the depot bay, then our own vehicle park zone, then nearby; every
   vehicle takes part, with an off switch, on the Fleet board.
+- **Agent (batches 3 and 4):** which vehicle tows and that it never takes an over-heavy tow; the driver getting out for the coupling;
+  the stop beyond the place; the winching-in along a found way and its simplification; a person's push and the most people; pushing as
+  hauling work; turning to roll.
 - **Agent:** everything marked [A]; the payable test; the list of vehicles left alone; that only a called driver starts a trip; that a
   vehicle the player parked at the bay is not moved; the batches and their order; the risk grades.
 

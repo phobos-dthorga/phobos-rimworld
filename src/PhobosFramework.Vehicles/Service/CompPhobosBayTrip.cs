@@ -24,6 +24,22 @@ public enum BayTripStage
     AtBay,
     CallingDriverHome,
     DrivingHome,
+    /// <summary>It cannot drive: a recovery vehicle is coming for it, or is towing it (batch 3).</summary>
+    Towed,
+    /// <summary>Let go near its place, it is moved its last cells into the bay's reach while the recovery vehicle stands by.</summary>
+    Shunted,
+    /// <summary>It cannot drive and nothing can tow it: colonists push it to its place by hand (batch 4).</summary>
+    Pushed,
+    /// <summary>A recovery vehicle: sent for a wreck, it waits for a driver.</summary>
+    FetchCalling,
+    FetchDriving,
+    /// <summary>A recovery vehicle beside the wreck, waiting for a colonist to couple it.</summary>
+    FetchCoupling,
+    /// <summary>A recovery vehicle with the wreck coupled, waiting for a driver again.</summary>
+    FetchCallingTow,
+    FetchTowing,
+    /// <summary>A recovery vehicle standing by while the wreck it let go is shunted into the bay's reach.</summary>
+    FetchStanding,
 }
 
 /// <summary>
@@ -35,7 +51,7 @@ public enum BayTripStage
 /// The trip's state lives here and nowhere else (the lesson from Vehicles at Work): short jobs, a limit on each stage. The driving, the
 /// stall watch and the driver call are the shared base's (<see cref="CompPhobosVehicleRun"/>); what is decided is <see cref="BayTripRule"/>'s.
 /// </summary>
-public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArrives
+public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArrives
 {
     const string RunSavePrefix = "PhobosBayTrip";
 
@@ -62,15 +78,17 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
     readonly HashSet<IntVec3> badCells = new();
 
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+    static VehicleSystemsSettings Settings => VehicleSystemsMod.Settings;
 
     public BayTripStage Stage => stage;
     public bool KeptOut => keptOut;
     public string? Blocked => blocked;
     public Thing? Bay => bay;
 
-    public override bool Running => stage is BayTripStage.Driving or BayTripStage.DrivingHome;
+    public override bool Running => stage is BayTripStage.Driving or BayTripStage.DrivingHome or BayTripStage.FetchDriving or BayTripStage.FetchTowing;
 
-    protected override bool WaitingForDriver => stage is BayTripStage.CallingDriver or BayTripStage.CallingDriverHome;
+    protected override bool WaitingForDriver => stage is BayTripStage.CallingDriver or BayTripStage.CallingDriverHome
+        or BayTripStage.FetchCalling or BayTripStage.FetchCallingTow;
 
     protected override int StuckTicks => Rules.bayTripStuckTicks;
 
@@ -89,7 +107,7 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
         BayTripStage.AtBay => "PhobosBayTrip_LineAtBay".Translate().Resolve(),
         BayTripStage.CallingDriverHome => "PhobosBayTrip_LineCallingHome".Translate(DriverCalls.WorkLabel.Named("WORK")).Resolve(),
         BayTripStage.DrivingHome => "PhobosBayTrip_LineDrivingHome".Translate().Resolve(),
-        _ => null,
+        _ => CarryLine(),
     };
 
     /// <summary>The player's switch. Only <see cref="BayTrips.SetKeptOut"/> calls this.</summary>
@@ -135,6 +153,29 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
             case BayTripStage.DrivingHome:
                 DrivingLook();
                 break;
+            case BayTripStage.Towed:
+                TowedLook();
+                break;
+            case BayTripStage.Shunted:
+            case BayTripStage.Pushed:
+                MovedLook(now);
+                break;
+            case BayTripStage.FetchCalling:
+            case BayTripStage.FetchCallingTow:
+                FetchCallingLook(now);
+                break;
+            case BayTripStage.FetchDriving:
+                FetchDrivingLook();
+                break;
+            case BayTripStage.FetchCoupling:
+                FetchCouplingLook(now);
+                break;
+            case BayTripStage.FetchTowing:
+                FetchTowingLook();
+                break;
+            case BayTripStage.FetchStanding:
+                FetchStandingLook(now);
+                break;
             case BayTripStage.AtBay:
                 if (!BayTripRule.LookDue(now, nextLookTick)) return;
                 nextLookTick = BayTripRule.NextLook(now, Rules.bayTripLookTicks, Vehicle.thingIDNumber, GenTicks.TickRareInterval);
@@ -159,14 +200,16 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
             blocked = need.Missing;
             return;
         }
-        if (!BayTrips.TryFindPlace(Vehicle, badCells, out Thing? found, out IntVec3 cell, out Rot4 facing, out string? why))
+        // A vehicle that will not drive is carried as it stands, so its place is one it fits facing as it faces now.
+        string? cannot = VehicleAutoDrive.CannotDrive(Vehicle, needsDriver: false);
+        if (!BayTrips.TryFindPlace(Vehicle, badCells, cannot != null ? Vehicle.Rotation : null, out Thing? found, out IntVec3 cell, out Rot4 facing, out string? why))
         {
             blocked = why;
             return;
         }
-        if (VehicleAutoDrive.CannotDrive(Vehicle, needsDriver: false) is { } cannot)
+        if (cannot != null)
         {
-            blocked = "PhobosBayTrip_CannotDrive".Translate(cannot.Named("REASON")).Resolve();
+            BeginCarried(found!, cell, cannot);
             return;
         }
         bay = found;
@@ -196,7 +239,8 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
         }
         if (GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map))
         {
-            End(crewOut: true, backOff: false);
+            // Nothing sets off with enemies about. A trip to the bay ends, to be looked at again; one home waits where it is.
+            if (!home) End(crewOut: true, backOff: false);
             return;
         }
         if (!home && (bay is not { Spawned: true } || Vehicle.GetComp<CompPhobosVehicleSystems>() is not { Usable: true } systems || !BayTrips.NeedOf(systems).Any))
@@ -241,9 +285,19 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
         bool home = stage == BayTripStage.DrivingHome;
         if (GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map))
         {
-            // Enemies: it stops where it is and its crew gets out; it looks again at its next look.
+            // Enemies: it stops where it is and its crew gets out. On the way to the bay the trip ends, to be looked at again; on the way
+            // home it keeps its place and calls a driver again once they have gone, or it would be left where it stopped for good.
             Seen.Note("vehicles.bay-trip.threat", Vehicle);
-            End(crewOut: true, backOff: false);
+            if (!home)
+            {
+                End(crewOut: true, backOff: false);
+                return;
+            }
+            HaltDrive();
+            HandBack(switchOff: true);
+            CrewOut();
+            SetStage(BayTripStage.CallingDriverHome);
+            DriverCalls.Call(Vehicle.Map, this, true);
             return;
         }
         switch (WatchDrive())
@@ -281,7 +335,7 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
         if (standCell.IsValid) badCells.Add(standCell);
         failedDrives++;
         if (!home && !VehicleRunRule.GiveUp(failedDrives, Rules.bayTripFailedDrives)
-            && BayTrips.TryFindPlace(Vehicle, badCells, out Thing? found, out IntVec3 cell, out Rot4 facing, out _)
+            && BayTrips.TryFindPlace(Vehicle, badCells, null, out Thing? found, out IntVec3 cell, out Rot4 facing, out _)
             && BeginDrive(cell, facing))
         {
             bay = found;
@@ -388,6 +442,8 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
     void End(bool crewOut, bool backOff)
     {
         if (Running && standCell.IsValid && Vehicle.Spawned) HaltDrive();
+        // A recovery vehicle lets its wreck go and tells it; what a carried vehicle kept is forgotten.
+        ReleaseCarry();
         DriverCalls.Call(Vehicle.MapHeld, this, false);
         if (crewOut)
         {
@@ -436,6 +492,8 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
         blocked = null;
         brought.Clear();
         badCells.Clear();
+        // The other vehicle of a tow notices at its next look, and lets go or tries again.
+        ClearCarry();
         base.PostDeSpawn(map, mode);
     }
 
@@ -460,6 +518,7 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
         Scribe_Values.Look(ref leftUnfinished, "PhobosBayTripLeftUnfinished");
         Scribe_Collections.Look(ref brought, "PhobosBayTripBrought", LookMode.Reference);
         ExposeRun(RunSavePrefix);
+        ExposeCarry();
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             brought ??= new List<Pawn>();
@@ -478,6 +537,9 @@ public sealed class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDriverArri
 public static class BayTripDefOf
 {
     public static Phobos.Framework.Persistence.PhobosLogEntryDef PhobosLog_TakenToBay = null!;
+    public static Phobos.Framework.Persistence.PhobosLogEntryDef PhobosLog_TowedToBay = null!;
+    public static Phobos.Framework.Persistence.PhobosLogEntryDef PhobosLog_PushedToBay = null!;
+    public static JobDef PhobosVehicleSystems_PushVehicle = null!;
 
     static BayTripDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(BayTripDefOf));
 }

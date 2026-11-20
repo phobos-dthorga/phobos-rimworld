@@ -67,6 +67,18 @@
   </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
   <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_TowedToBay</defName>
+    <label>towed to a dyno bay</label>
+    <text>Towed to a dyno bay for repair by {SUBJECT} {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_PushedToBay</defName>
+    <label>pushed to a dyno bay</label>
+    <text>Pushed to a dyno bay for repair by hand {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
     <defName>PhobosLog_TowedBy</defName>
     <label>towed</label>
     <text>Taken in tow by {SUBJECT} {PLACE}.</text>

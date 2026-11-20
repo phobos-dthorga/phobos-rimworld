@@ -33,6 +33,18 @@ public enum BayTripHome
     Nearby,
 }
 
+/// <summary>How a vehicle gets to the bay.</summary>
+public enum BayTripCarry
+{
+    /// <summary>It cannot go: it will not drive, nothing is free to tow it, and it is too heavy to push or pushing is off.</summary>
+    None,
+    Drive,
+    /// <summary>Towed by a vehicle with a recovery winch.</summary>
+    Tow,
+    /// <summary>Pushed by hand.</summary>
+    Push,
+}
+
 /// <summary>
 /// Bay trips, game-free (Framework 0.201.0; docs/development/vehicle-bay-trips.md): what sends a vehicle to a dyno bay by itself, whether
 /// its work can be paid for, when it looks again, when it has waited at the bay long enough, and where it goes afterwards.
@@ -66,6 +78,19 @@ public static class BayTripRule
             if (all) return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// How a vehicle gets to the bay, in the owner's order (20 Nov 2026: "Tow, or push light ones by hand"): driven if it drives; else
+    /// towed, if towing is on and a recovery vehicle is free; else pushed, if pushing is on and no more people are needed than can get
+    /// their hands on it; else it cannot go.
+    /// </summary>
+    public static BayTripCarry Carry(bool canDrive, bool towingOn, bool tugFree, bool pushingOn, int pushersNeeded, int mostPushers)
+    {
+        if (canDrive) return BayTripCarry.Drive;
+        if (towingOn && tugFree) return BayTripCarry.Tow;
+        if (pushingOn && pushersNeeded >= 1 && pushersNeeded <= mostPushers) return BayTripCarry.Push;
+        return BayTripCarry.None;
     }
 
     /// <summary>Whether a vehicle's next look is due.</summary>

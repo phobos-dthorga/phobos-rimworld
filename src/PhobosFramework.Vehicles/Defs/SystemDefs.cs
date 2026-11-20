@@ -1015,6 +1015,16 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public int bayTripBackOffTicks = 60000;
     public int bayTripIdleTicks = 60000;
     public int bayTripDriverWaitTicks = 15000;
+    /// <summary>Carrying a vehicle that cannot drive to the bay (Framework 0.201.0, bay trips batches 3 and 4, authored [A]): how long a
+    /// recovery vehicle waits for a colonist to couple the wreck, how long a wreck waits for enough people to push it, a person's steady
+    /// push in kilograms-force (a ballpark, unverified), the most people who can get their hands on one vehicle, the ticks to push it one
+    /// cell at a light load (twice that at their limit), and the most cells a search for its way may look at.</summary>
+    public int bayTripCoupleWaitTicks = 10000;
+    public int bayTripPushWaitTicks = 10000;
+    public float pushKgfPerPerson = 25f;
+    public int pushMostPeople = 6;
+    public int pushTicksPerCell = 90;
+    public int bayTripPathNodes = 6000;
     /// <summary>The generator set's service lead (Framework 0.101.0, authored): the watts it takes off the top of the set's output, a heavy
     /// battery charger and its losses.</summary>
     public float serviceLeadWatts = 300f;

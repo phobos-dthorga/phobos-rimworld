@@ -29,7 +29,9 @@ Vehicles are taken to a dyno bay for repair, and home again, without being told
 - **Each vehicle has its own switch on the Fleet board**: select it and untick Taken to a dyno bay when it needs one. The board also says what each vehicle is doing on its trip, or what it waits for.
 - **An alert names the vehicles that should go and cannot**, each with its reason: no dyno bay, none with power or room, nobody doing Drive work, a part nobody has made, a vehicle that will not drive.
 - **A vehicle park**: a zone marked from the motor pool tab, with its own tool and picture. A repaired vehicle with no depot bay is driven into a park and stood wholly on it, the first in its south-west corner and the rest beside it with a gap between, so a park fills in a row. Select a park to grow it, rename it or delete it.
-- **Two new settings** under Dyno bay trips in the vehicle settings: Vehicles are taken to a dyno bay for repair by themselves (on), and What sends a vehicle to a dyno bay (broken, or bay-only work).
+- **A vehicle that cannot drive is towed to the dyno bay.** A vehicle of yours fitted with the recovery winch fetches it: a colonist doing Drive work drives it over and gets out, someone who hauls couples the wreck, a driver takes the wheel again, and the wreck is towed into the bay's reach and let go, or winched the last few cells. The tow vehicle then drives back to where it stood. It never takes a wreck heavier than one and a half times its own weight.
+- **With nothing free to tow it, a light vehicle is pushed to the dyno bay by hand** by colonists who haul: as many as its weight and the ground under it take, one or two for a car on firm ground, six at most. They stand beside it, never in front, and it moves a cell at a time while enough of them push. A heavy vehicle, or one whose wheels will not turn, stays, and says how many people it would take.
+- **Four new settings** under Dyno bay trips in the vehicle settings: Vehicles are taken to a dyno bay for repair by themselves (on); What sends a vehicle to a dyno bay (broken, or bay-only work); A vehicle that cannot drive is towed to the dyno bay (on); Light vehicles that cannot drive are pushed to the dyno bay by hand (on).
 
 ### Save compatibility
 
@@ -39,12 +41,13 @@ Vehicles are taken to a dyno bay for repair, and home again, without being told
 ### Compatibility and limits
 
 - **Somebody must have Drive work**, which starts off for everyone. With Vehicles at Work on it is that mod's Drive column, as for Deliver and Gather.
-- **A vehicle that cannot be driven stays where it is and says why.** The recovery tow and pushing by hand are designed and not built yet.
+- **A vehicle that cannot be driven and can be neither towed nor pushed stays where it is and says why**: no vehicle with a recovery winch free, and how many people it would take. A vehicle towed or pushed in that still will not drive when its work is done stays at the bay and says so.
+- **The last cells of a tow are a simplification**: a wreck let go short of the bay's reach is winched in a cell at a time along a way found for it, corners and all, where a real winch pulls in a straight line. A pushed vehicle turns to roll along its length where it fits, and is otherwise moved as it stands. A person's steady push is 25 kgf, a ballpark.
 - Aircraft, boats and trailers never go. A vehicle with anyone aboard, its engine on, set up for work, towing or towed, forbidden, burning or on an errand is left alone; nothing sets off while enemies threaten the map, and a trip under way stops and lets its driver out.
 - A vehicle you parked at a dyno bay yourself is never moved; only one that was brought there leaves by itself. It gives up its place after a day in which nothing could be done, and waits a day before coming back.
 - Every figure is authored: a look about every 1,000 ticks, three failed drives before a trip is given up, a day's wait after.
 - A vehicle park marked on a gravship's deck is not carried by a flight, since the game carries stockpile and growing zones only: mark it again after landing. Its picture is drawn in code, a parking sign.
-- Not yet tested in game: rows 294 and 295 of the test pass.
+- Not yet tested in game: rows 294 to 297 of the test pass.
 
 ## [0.200.0] - 2026-11-20 - Draft
 

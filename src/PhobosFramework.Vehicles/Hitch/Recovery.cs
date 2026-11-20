@@ -96,9 +96,13 @@ public sealed partial class CompPhobosHitch
     }
 
     /// <summary>The pull it takes to move <paramref name="stuck"/> where it stands, in kilograms-force.</summary>
-    double RequiredFor(VehiclePawn stuck)
+    double RequiredFor(VehiclePawn stuck) => RequiredAt(stuck, stuck.Position);
+
+    /// <summary>The pull it takes to move a vehicle standing on this cell of its map, in kilograms-force: the winch's sum, also what
+    /// pushing it by hand must overcome (Framework 0.201.0, bay trips).</summary>
+    internal static double RequiredAt(VehiclePawn stuck, IntVec3 cell)
     {
-        (double rolling, double grip) = GroundAt(stuck.Map, stuck.Position);
+        (double rolling, double grip) = GroundAt(stuck.Map, cell);
         return RecoveryRule.Required(CompPhobosSling.LoadKilograms(stuck), RecoveryRule.Resistance(rolling, grip, Rolls(stuck), Rules.winchMireAdd));
     }
 

@@ -80,14 +80,21 @@ public static class VehicleAutoDrive
     /// The nearest place to the vehicle on the square ring <paramref name="ring"/> cells round <paramref name="target"/> where its body fits,
     /// no other vehicle stands and it can drive: Vehicle Framework's own tests, as its right-click runs them (PathingHelper.TryFindNearestStandableCell).
     /// </summary>
-    public static bool TryFindStandCell(VehiclePawn vehicle, IntVec3 target, int ring, out IntVec3 cell)
+    public static bool TryFindStandCell(VehiclePawn vehicle, IntVec3 target, int ring, out IntVec3 cell) =>
+        TryFindStandCell(vehicle, target, ring, farthestFirst: false, null, out cell);
+
+    /// <summary>
+    /// As <see cref="TryFindStandCell(VehiclePawn, IntVec3, int, out IntVec3)"/>, with the farthest place from the vehicle first when asked
+    /// (a tow stops beyond its target, so what it tows trails in behind), and only places <paramref name="allow"/> passes (Framework 0.201.0).
+    /// </summary>
+    public static bool TryFindStandCell(VehiclePawn vehicle, IntVec3 target, int ring, bool farthestFirst, System.Predicate<IntVec3>? allow, out IntVec3 cell)
     {
         cell = IntVec3.Invalid;
         Map map = vehicle.Map;
         IntVec3 from = vehicle.Position;
         List<IntVec3> places = CellRect.CenteredOn(target, ring).EdgeCells
-            .Where(c => c.InBounds(map))
-            .OrderBy(c => c.DistanceToSquared(from))
+            .Where(c => c.InBounds(map) && (allow == null || allow(c)))
+            .OrderBy(c => farthestFirst ? -c.DistanceToSquared(from) : c.DistanceToSquared(from))
             .ToList();
         int wayTests = 0;
         foreach (IntVec3 place in places)
