@@ -1,0 +1,51 @@
+{
+  "file": "farming-hopper-extension-1.png",
+  "sha256": "356937a48a8ddcaca31e754c397e81cfe7950db160460801a7b01ae82cc33e6f",
+  "date": "2026-11-20T21:43:27",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Coulter seed drill: a raised extension rim that sits on top of its seed hopper. Image 1 is our approved Coulter seed drill: match its hopper, outline weight, shading, palette and finish only. Do NOT redraw the whole drill.\n\nDraw ONLY this part, alone on a plain pure white background. A long low rectangular harvest-green rim frame, much wider than tall, open in the middle to show pale grain inside, with a steel grey hinged lid edge along its top and one thin muted yellow stripe; it fills about 90 percent of the canvas width and 45 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    1024,
+    768
+  ],
+  "request_file": "assets/phobos-vehicles/requests/farming-batch2-parts.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "high",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1313,
+    "input_tokens_details": {
+      "image_tokens": 1008,
+      "text_tokens": 305
+    },
+    "output_tokens": 4815,
+    "output_tokens_details": {
+      "image_tokens": 4815,
+      "text_tokens": 0
+    },
+    "total_tokens": 6128
+  },
+  "cost_usd": 0.154,
+  "cost_is_estimate": false,
+  "reported_quality": "high",
+  "reported_size": "1024x768",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    768
+  ],
+  "seconds": 62.5,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-seed-drill-body-north/farming-seed-drill-body-north-2.png",
+      "sha256": "08258ab26386d5c69f087372f1cc2b4aeb4c894d55b0d625233430a38fa12589",
+      "role": "Image 1 is our approved Coulter seed drill: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "file": "farming-cultivator-wing-1.png",
+  "sha256": "68bca759ebabdf949fe980e9c97413a6c6ef0e8604401f448ae62a0f7cf603f7",
+  "date": "2026-11-20T21:41:15",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Tillman cultivator: one folding side wing that bolts onto the end of its frame. Image 1 is our approved Tillman cultivator: match its frame, tines, roller, outline weight, shading, palette and finish only. Do NOT redraw the whole cultivator.\n\nDraw ONLY this part, alone on a plain pure white background. A narrow rectangular harvest-green frame section, taller than wide, with a steel grey hinge on its left edge, three staggered rows of curved spring tines under it, and a short crumbler roller across its bottom, like those in Image 1; it fills about 70 percent of the canvas width and 80 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    768,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/farming-batch2-parts.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "high",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1345,
+    "input_tokens_details": {
+      "image_tokens": 1024,
+      "text_tokens": 321
+    },
+    "output_tokens": 4815,
+    "output_tokens_details": {
+      "image_tokens": 4815,
+      "text_tokens": 0
+    },
+    "total_tokens": 6160
+  },
+  "cost_usd": 0.1542,
+  "cost_is_estimate": false,
+  "reported_quality": "high",
+  "reported_size": "768x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    768,
+    1024
+  ],
+  "seconds": 66.0,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-cultivator-body-north/farming-cultivator-body-north-1.png",
+      "sha256": "764c22025b8ea5247bea51119f9bf0e6aff73a39af8d292c5ecd7597c814a74d",
+      "role": "Image 1 is our approved Tillman cultivator: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+    }
+  ]
+}

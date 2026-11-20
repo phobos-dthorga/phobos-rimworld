@@ -1,0 +1,51 @@
+{
+  "file": "farming-plough-wings-1.png",
+  "sha256": "fe863ef8fcde507e395d4decba08284473732a692bd563a649c243fa6d0b89ea",
+  "date": "2026-11-20T21:40:09",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Sillion plough: an extension of its beam carrying two more mouldboard bodies, which bolts onto the end of the plough's diagonal beam. Image 1 is our approved Sillion plough: match its mouldboards, outline weight, shading, palette and finish only. Do NOT redraw the whole plough.\n\nDraw ONLY this part, alone on a plain pure white background. A short straight harvest-green beam running diagonally from the upper left to the lower right, carrying two curved polished-steel mouldboards with pointed shares on its right side, one behind the other, like those in Image 1; it fills about 60 percent of the canvas width and 80 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/farming-batch2-parts.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "high",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1348,
+    "input_tokens_details": {
+      "image_tokens": 1024,
+      "text_tokens": 324
+    },
+    "output_tokens": 7024,
+    "output_tokens_details": {
+      "image_tokens": 7024,
+      "text_tokens": 0
+    },
+    "total_tokens": 8372
+  },
+  "cost_usd": 0.2205,
+  "cost_is_estimate": false,
+  "reported_quality": "high",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 77.4,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-plough-body-north/farming-plough-body-north-1.png",
+      "sha256": "8a4ebb739814e3b811750a54b6c5796086f4e46fbdf797d61d65dc6e48a961b1",
+      "role": "Image 1 is our approved Sillion plough: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+    }
+  ]
+}

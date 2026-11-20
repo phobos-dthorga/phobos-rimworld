@@ -1,0 +1,51 @@
+{
+  "file": "farming-seed-sack-1.png",
+  "sha256": "6f28dc6acbd74600f2a38518249522a5601cbaa806908be13dee90bd8674d22b",
+  "date": "2026-11-20T21:45:05",
+  "prompt": "TOP-DOWN THREE-QUARTER ITEM ICON, as RimWorld draws items on the ground: seen from above and slightly in front.\n\nCreate an ORIGINAL game item sprite: a sturdy woven sack of certified seed grain, tied at its neck with twine, a little grain spilled at its foot, with a plain pale label patch (no writing on it). Image 1 is our approved seed drill from the same farm: match its outline weight, shading and harvest-green and muted yellow palette only.\n\nDraw ONLY the sack, alone on a plain pure white background, filling about 70 percent of the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, animals, machines, text, letters, numbers, logos, symbols. No floor, ground or shadow outside the sack.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/farming-batch2-parts.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "high",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1229,
+    "input_tokens_details": {
+      "image_tokens": 1008,
+      "text_tokens": 221
+    },
+    "output_tokens": 7024,
+    "output_tokens_details": {
+      "image_tokens": 7024,
+      "text_tokens": 0
+    },
+    "total_tokens": 8253
+  },
+  "cost_usd": 0.2199,
+  "cost_is_estimate": false,
+  "reported_quality": "high",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 97.8,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-seed-drill-body-north/farming-seed-drill-body-north-2.png",
+      "sha256": "08258ab26386d5c69f087372f1cc2b4aeb4c894d55b0d625233430a38fa12589",
+      "role": "Image 1 is our approved Coulter seed drill, from the same farm: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+    }
+  ]
+}

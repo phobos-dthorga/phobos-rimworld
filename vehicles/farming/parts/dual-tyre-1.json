@@ -1,0 +1,51 @@
+{
+  "file": "farming-dual-tyre-1.png",
+  "sha256": "8e2a4481205e23c103fb62e378c2158e0723f2ea28bb286027f16e5e80394342",
+  "date": "2026-11-20T21:37:48",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Thane farm tractors: one extra large rear tractor tyre with deep chevron lugs, the outer wheel of a dual pair, on a short steel spacer hub. Image 1 is our approved Thane T130 tractor: match its tyre treatment, outline weight, shading and palette only. Do NOT redraw the tractor.\n\nDraw ONLY this part, alone on a plain pure white background. Seen from above, one tall narrow dark rubber tyre with its chevron tread running top to bottom, a small steel grey hub plate on its left edge; it fills about 45 percent of the canvas width and 90 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    768,
+    1280
+  ],
+  "request_file": "assets/phobos-vehicles/requests/farming-batch2-parts.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "high",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1788,
+    "input_tokens_details": {
+      "image_tokens": 1479,
+      "text_tokens": 309
+    },
+    "output_tokens": 4153,
+    "output_tokens_details": {
+      "image_tokens": 4153,
+      "text_tokens": 0
+    },
+    "total_tokens": 5941
+  },
+  "cost_usd": 0.138,
+  "cost_is_estimate": false,
+  "reported_quality": "high",
+  "reported_size": "768x1280",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    768,
+    1280
+  ],
+  "seconds": 52.5,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-tractor-t130-body-north/farming-tractor-t130-body-north-1.png",
+      "sha256": "47247bd6b1dfc01be1de52dd793b7a99c02f51c7a90b12779a7a1463571a7e2b",
+      "role": "Image 1 is our approved Thane T130 tractor: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+    }
+  ]
+}
