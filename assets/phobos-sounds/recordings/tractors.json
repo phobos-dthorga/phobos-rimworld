@@ -1,0 +1,211 @@
+{
+ "set": "tractors",
+ "about": "Real recordings of farm tractors, for the Thane tractors' sounds (owner, 20 Nov 2026: real recordings over generated ones; docs/development/farming-tractor-recordings.md). Each is CC0 or plain CC BY, as its own page stated on 20 Nov 2026; the owner downloaded the Freesound originals by hand into the set's folder. Credit the CC BY ones by name and licence. The T400's voice is built from the medium ones, lowered and layered (the owner's choice), a simplification. Cuts and roles are the agent's first reading from measurements and spectrograms, for the owner to judge on the listening page; nothing here is picked.",
+ "licence": "CC0 1.0 or CC BY (3.0, 4.0), per source",
+ "sources": {
+  "massey-start": {
+   "page": "https://freesound.org/people/mickyman5000/sounds/340651/",
+   "title": "Massey_Engine_Start",
+   "credit": "mickyman5000",
+   "licence": "CC0 1.0",
+   "local": "340651__mickyman5000__massey_engine_start.wav",
+   "sha256": "2f810ac2be10681c950012fac1b56d30f179e6af270b3bce0af1a1aa85cd2b52",
+   "seen": "Massey Ferguson, model not stated (small)"
+  },
+  "massey-loop": {
+   "page": "https://freesound.org/people/mickyman5000/sounds/340640/",
+   "title": "Massey_Engine_Loop",
+   "credit": "mickyman5000",
+   "licence": "CC0 1.0",
+   "local": "340640__mickyman5000__massey_engine_loop.wav",
+   "sha256": "dc0eb965bcb55490e3f0a7bfd6338d4f88d4e98f5a349c9daaadcde0b17224d9",
+   "seen": "small; a ready-made loop"
+  },
+  "massey-stop": {
+   "page": "https://freesound.org/people/mickyman5000/sounds/340658/",
+   "title": "Massey_Engine_Stop",
+   "credit": "mickyman5000",
+   "licence": "CC0 1.0",
+   "local": "340658__mickyman5000__massey_engine_stop.wav",
+   "sha256": "3a4f311d13b559cdd210a03ff53db59eeba367e69e885a8ab5e3795814f92ff6",
+   "seen": "small"
+  },
+  "valmet-harrow": {
+   "page": "https://freesound.org/people/YleArkisto/sounds/329643/",
+   "title": "Tractor with a harrow at work on a field, approaching, stopping, engine shut down",
+   "credit": "YleArkisto (Yle, the Finnish Broadcasting Company archive)",
+   "licence": "CC BY 4.0",
+   "local": "329643__ylearkisto__traktori-ja-aes-pellolla-tractor-with-a-harrow-at-work-on-a-field-approaching-stopping-engine-shut-down.wav",
+   "sha256": "c017c07c595197b90db6b2c350412c35bbb1b8ac5d1930390a3f1c5ec8a47721",
+   "seen": "Valmet, 1985, on Nagra tape; small, working under load"
+  },
+  "kyles-idle": {
+   "page": "https://freesound.org/people/kyles/sounds/637883/",
+   "title": "tractor idle engine motor close1",
+   "credit": "kyles",
+   "licence": "CC0 1.0",
+   "local": "637883__kyles__tractor-idle-engine-motor-close1.flac",
+   "sha256": "7890c57c435086a98b01d3bb47a4f0c829228954dff3de2c330a9d27a16f0136",
+   "seen": "model not stated; close idle"
+  },
+  "kyles-modern": {
+   "page": "https://freesound.org/people/kyles/sounds/637886/",
+   "title": "tractor modern pull up and drive by, turn back away and stop, idle shut off hop down nearby",
+   "credit": "kyles",
+   "licence": "CC0 1.0",
+   "local": "637886__kyles__tractor-modern-pull-up-and-drive-by-turn-back-away-and-stop-idle-shut-off-hop-down-nearby.flac",
+   "sha256": "a10ac18cc19047e1ef8f0e5635ef12546f20d2086e47e0c79eb79969bd109d19",
+   "seen": "a modern tractor, model not stated; medium"
+  },
+  "kyles-rev": {
+   "page": "https://freesound.org/people/kyles/sounds/637882/",
+   "title": "tractor idle accelerate rev to fast speed, drive, speed up, slow down, decelerate and stop, shut off",
+   "credit": "kyles",
+   "licence": "CC0 1.0",
+   "local": "637882__kyles__tractor-idle-accelerate-rev-to-fast-speed-drive-speed-up-slow-down-decelerate-and-stop-shut-off.flac",
+   "sha256": "8cb4c7d620a7b918fdc4e000626bbf2a691fc2b1c3629db2482f014b767c873f",
+   "seen": "model not stated; medium"
+  },
+  "renault-working": {
+   "page": "https://freesound.org/people/bruno.auzet/sounds/718409/",
+   "title": "Tractor engine working",
+   "credit": "bruno.auzet",
+   "licence": "CC0 1.0",
+   "local": "718409__brunoauzet__tractor-engine-working.wav",
+   "sha256": "415014fb91310b8f5553b0996543eb6247df0651dc415bcaf1ec00b0a91b8cab",
+   "seen": "Renault, model not stated; Schoeps ORTF pair; medium, working"
+  },
+  "fendt-cab": {
+   "page": "https://freesound.org/people/lucasfuchs/sounds/518294/",
+   "title": "Tractor Engine",
+   "credit": "lucasfuchs",
+   "licence": "CC0 1.0",
+   "local": "518294__lucasfuchs__tractor-engine.wav",
+   "sha256": "2e2feb3deea58b06fde3c8051f46e2edd2eaf5ff723cca7ce1b4b370ad0b069f",
+   "seen": "Fendt, model not stated; from inside the cab"
+  },
+  "case-cx90": {
+   "page": "https://freesound.org/people/Soundholder/sounds/425859/",
+   "title": "tractor Case II CX90 engine rpm ramps engine off mono",
+   "credit": "Soundholder",
+   "licence": "CC BY 3.0",
+   "local": "425859__soundholder__tractor-case-ii-cx90-engine-rpm-ramps-engine-off-mono.wav",
+   "sha256": "099f2094e81acbf1f28d9fb9d99e65bc7b6e0d7b3b46676e357d641655d302f2",
+   "seen": "Case IH CX90, about 66 kW; rev ramps, shut-off"
+  }
+ },
+ "cuts": [
+  {
+   "role": "start",
+   "source": "massey-start",
+   "start": 0,
+   "seconds": 7.5,
+   "loop": false,
+   "note": "T60: the whole start, a cold crank and catch"
+  },
+  {
+   "role": "idle",
+   "source": "massey-loop",
+   "start": 0,
+   "seconds": 5.4,
+   "loop": true,
+   "note": "T60: the uploader's own idle loop"
+  },
+  {
+   "role": "idle",
+   "source": "kyles-idle",
+   "start": 10,
+   "seconds": 12,
+   "loop": true,
+   "note": "T60: a steady close idle, flat within 1 dB"
+  },
+  {
+   "role": "labour",
+   "source": "valmet-harrow",
+   "start": 39.7,
+   "seconds": 15.5,
+   "loop": true,
+   "note": "T60: working a harrow under load, the loudest steady stretch; ends matched in level (a seam search, 20 Nov 2026)"
+  },
+  {
+   "role": "labour",
+   "source": "valmet-harrow",
+   "start": 232.0,
+   "seconds": 11.6,
+   "loop": true,
+   "note": "T60: working a harrow, a second steady stretch; ends matched in level (a seam search, 20 Nov 2026)"
+  },
+  {
+   "role": "stop",
+   "source": "massey-stop",
+   "start": 0,
+   "seconds": 2.1,
+   "loop": false,
+   "note": "T60: the whole stop"
+  },
+  {
+   "role": "stop",
+   "source": "valmet-harrow",
+   "start": 258,
+   "seconds": 14,
+   "loop": false,
+   "note": "T60: slowing to a stop and the engine shut down"
+  },
+  {
+   "role": "idle",
+   "source": "kyles-modern",
+   "start": 60,
+   "seconds": 12,
+   "loop": true,
+   "note": "T130: the long steady idle after it stops, flat within 1 dB"
+  },
+  {
+   "role": "idle",
+   "source": "kyles-modern",
+   "start": 80,
+   "seconds": 12,
+   "loop": true,
+   "note": "T130: the same idle, a later stretch"
+  },
+  {
+   "role": "labour",
+   "source": "renault-working",
+   "start": 55,
+   "seconds": 15,
+   "loop": true,
+   "note": "T130: working in a field, steady"
+  },
+  {
+   "role": "labour",
+   "source": "renault-working",
+   "start": 70,
+   "seconds": 15,
+   "loop": true,
+   "note": "T130: working, a second stretch"
+  },
+  {
+   "role": "labour",
+   "source": "kyles-rev",
+   "start": 42,
+   "seconds": 10,
+   "loop": true,
+   "note": "T130: held at high revs, steady"
+  },
+  {
+   "role": "stop",
+   "source": "kyles-modern",
+   "start": 116,
+   "seconds": 12,
+   "loop": false,
+   "note": "T130: idle to shut-off"
+  },
+  {
+   "role": "stop",
+   "source": "case-cx90",
+   "start": 78,
+   "seconds": 9,
+   "loop": false,
+   "note": "T130: the CX90 shut-off"
+  }
+ ]
+}

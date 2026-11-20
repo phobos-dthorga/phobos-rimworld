@@ -238,6 +238,9 @@ helicopter (the agent's expectation, not measured), while the US military publis
   Osprey, kept for re-cutting), and `cut` writes candidates in the layout `sound_review.py` reads, each with a record carrying the
   source, credit and licence. **A shipped sound's record and the mod's README carry the credit and DVIDS's line that the appearance of
   US Department of Defense visual information does not imply or constitute DoD endorsement.**
+- **Downloaded by hand** (20 Nov 2026, the Thane tractors): `recordings.py import` takes a source the owner downloaded into the set's
+  folder (`"local"`; Freesound serves originals only to a signed-in account, which agents never use), hash-checked and kept as FLAC as
+  `fetch` does. A source may carry its own `licence` (CC0, CC BY), which its cuts' records carry.
 - **The Osprey's sources:** six DVIDS videos (`assets/phobos-sounds/recordings/osprey.json`), read by a frame every 10 seconds and
   spectrograms: an air show's close hover pass, a CV-22 B-roll (outside on the ground, the cabin, and a wind-down), a taxi, a
   demonstration filmed from the open ramp and over the crowd, an Iwo Jima deck landing and a night landing on USNS Mercy. **None has an

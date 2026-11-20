@@ -1,6 +1,7 @@
 """Real recordings of a real machine, from their public pages to candidates on the listening page.
 
     python scripts/art/recordings.py fetch assets/phobos-sounds/recordings/osprey.json [--record]
+    python scripts/art/recordings.py import assets/phobos-sounds/recordings/tractors.json [--record]
     python scripts/art/recordings.py cut assets/phobos-sounds/recordings/osprey.json
     python scripts/art/sound_review.py <work folder>/recordings/osprey/candidates
 
@@ -12,6 +13,10 @@ SHA-256 against the manifest (--record writes it there instead, for a new source
 each cut as a FLAC with a record beside it, in the folder layout sound_review.py reads (one folder per role), so recordings are
 judged on the same page, with the same spectrograms and flags, as generated sounds. Downloads are untrusted data: only ffmpeg reads
 them, and nothing in them is run. Uses no graphics card. ffmpeg as sound_review.py finds it.
+
+import (20 Nov 2026, the Thane tractors): a source with "local" names a file the owner downloaded by hand into the set's folder (Freesound
+serves originals only to a signed-in account, which agents never use). It is hash-checked and kept as FLAC exactly as fetch does; fetch
+passes such a source over. A source may carry its own "licence" (CC0, CC BY 4.0), which its cuts' records carry in place of the set's.
 """
 import argparse
 import hashlib
@@ -65,7 +70,7 @@ def cut_record(manifest, cut):
     comb = cut.get('comb', manifest.get('comb'))
     record = {'kind': 'recording', 'loop': bool(cut.get('loop')), 'seconds': cut['seconds'], 'start': cut['start'],
             'role': cut['role'], 'note': cut.get('note', ''), 'source_page': source['page'], 'source_title': source['title'],
-            'credit': source['credit'], 'licence': manifest['licence'], 'source_sha256': source.get('sha256', '')}
+            'credit': source['credit'], 'licence': source.get('licence', manifest['licence']), 'source_sha256': source.get('sha256', '')}
     if comb:
         record['comb'] = comb  # The comb sound_review.py measures: the set's, unless the cut says false (a wind-down).
     return record
@@ -77,6 +82,9 @@ def fetch(manifest_path, record=False):
     folder = set_folder(manifest)
     changed = False
     for key, source in manifest['sources'].items():
+        if source.get('local'):
+            print(f'{key}: downloaded by hand, passed over (run import)')
+            continue
         html = get(source['page'], 60).read().decode('utf-8', 'replace')
         if not page_is_public_domain(html):
             print(f'{key}: refused, its page does not say PUBLIC DOMAIN ({source["page"]})')
@@ -106,6 +114,36 @@ def fetch(manifest_path, record=False):
                                          encoding='utf-8')
 
 
+def import_local(manifest_path, record=False):
+    """The sources the owner downloaded by hand ("local", a file name in the set's folder): hash-checked and kept as FLAC."""
+    manifest = json.loads(Path(manifest_path).read_text(encoding='utf-8'))
+    exe = find_ffmpeg()
+    folder = set_folder(manifest)
+    changed = False
+    for key, source in manifest['sources'].items():
+        if not source.get('local'):
+            continue
+        target = folder / source['local']
+        if not target.is_file():
+            print(f'{key}: missing, download {source["page"]} into {folder}')
+            continue
+        digest = sha256_file(target)
+        if record and source.get('sha256') != digest:
+            source['sha256'], changed = digest, True
+        elif source.get('sha256') != digest:
+            print(f'{key}: refused, SHA-256 {digest} is not the manifest\'s {source.get("sha256")}; --record writes it if the new file is wanted')
+            continue
+        audio = folder / 'audio' / f'{key}.flac'
+        audio.parent.mkdir(parents=True, exist_ok=True)
+        if not audio.is_file():
+            subprocess.run([exe, '-v', 'error', '-y', '-i', str(target), '-vn', '-c:a', 'flac', str(audio)], check=True)
+        print(f'{key}: {target.stat().st_size // 1_000_000} MB, audio at {audio}')
+    if changed:
+        with open(manifest_path, 'w', encoding='utf-8', newline='\n') as handle:  # The repository's line endings, not Windows'.
+            handle.write(json.dumps(manifest, indent=1, ensure_ascii=False) + '\n')
+        print(f'wrote the new hashes into {manifest_path}')
+
+
 def cut(manifest_path):
     manifest = json.loads(Path(manifest_path).read_text(encoding='utf-8'))
     exe = find_ffmpeg()
@@ -127,12 +165,14 @@ def cut(manifest_path):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split('\n\n')[0])
-    parser.add_argument('command', choices=('fetch', 'cut'))
+    parser.add_argument('command', choices=('fetch', 'import', 'cut'))
     parser.add_argument('manifest')
     parser.add_argument('--record', action='store_true', help='fetch: write each file\'s SHA-256 into the manifest')
     args = parser.parse_args(argv)
     if args.command == 'fetch':
         fetch(args.manifest, args.record)
+    elif args.command == 'import':
+        import_local(args.manifest, args.record)
     else:
         cut(args.manifest)
 

@@ -1,6 +1,7 @@
 # Real recordings for the Thane tractors (20 Nov 2026)
 
-**Status (20 Nov 2026):** research done and the owner's choices made; nothing downloaded or shipped yet. The owner chose real recordings over generated ones for the
+**Status (20 Nov 2026):** the owner downloaded ten recordings; 14 cuts and 6 built T400 candidates are on the listening page
+(`assets/phobos-sounds/recordings/tractors.json`, `recordings.py import` then `cut`), none picked; nothing shipped. The owner chose real recordings over generated ones for the
 tractors' sounds ([farming batch two](farming-batch-two.md), "Research, sounds, overlays and the install"). Licences allowed: public
 domain, CC0 and CC BY, with credit (assets/AGENTS.md); never non-commercial, no-derivatives or a custom licence.
 

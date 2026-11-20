@@ -39,6 +39,18 @@ class CutTests(unittest.TestCase):
         self.assertEqual(record['licence'], 'Public domain')
 
 
+class LicenceTests(unittest.TestCase):
+    def test_a_source_may_carry_its_own_licence(self):
+        manifest = {'set': 'test', 'licence': 'CC0 or CC BY, per source',
+                    'sources': {'1': {'page': 'p', 'title': 't', 'credit': 'Someone', 'licence': 'CC BY 4.0'}}}
+        record = recordings.cut_record(manifest, {'role': 'idle', 'source': '1', 'start': 0, 'seconds': 4})
+        self.assertEqual(record['licence'], 'CC BY 4.0')
+
+    def test_without_one_the_sets_licence_holds(self):
+        record = recordings.cut_record(CutTests.MANIFEST, {'role': 'idle', 'source': '1', 'start': 0, 'seconds': 4})
+        self.assertEqual(record['licence'], 'Public domain')
+
+
 class CombRecordTests(unittest.TestCase):
     MANIFEST = dict(CutTests.MANIFEST, comb={'hz': 20.55})
 
@@ -60,8 +72,10 @@ class ManifestTests(unittest.TestCase):
             manifest = json.loads(open(path, encoding='utf-8').read())
             self.assertTrue(manifest.get('licence'), path)
             for key, source in manifest['sources'].items():
-                for field in ('page', 'title', 'credit', 'file_url'):
+                for field in ('page', 'title', 'credit'):
                     self.assertTrue(source.get(field), f'{path}: {key} has no {field}')
+                # A source is fetched from its file_url or was downloaded by hand into the set's folder (local).
+                self.assertTrue(source.get('file_url') or source.get('local'), f'{path}: {key} has neither file_url nor local')
                 self.assertRegex(source.get('sha256', ''), r'^[0-9a-f]{64}$', f'{path}: {key} needs its full SHA-256')
 
     def test_every_cut_names_a_source_and_a_length(self):
