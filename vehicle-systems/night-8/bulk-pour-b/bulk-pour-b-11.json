@@ -1,0 +1,33 @@
+{
+  "file": "bulk-pour-b-11.png",
+  "sha256": "9a1f9a578f380066799f075426fd1e1e765e9c6f061db6568c6a4ff176ad6d71",
+  "date": "2026-11-20T07:38:10",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A steel hopper with its chute open, golden grain pouring down onto a small heap, and a bold amber arrow pointing down beside the stream. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/bulk-and-salvage-icons.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 152.9,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+      "sha256": "916cd1de2e3f26a2d047d234f81f0fff9dd3be18fc0d18740360113113dd555a"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png",
+      "sha256": "503ac51f16d79fb775b0c7eb95c5ee519de5a20cfdec5cef1f9541dca97a121d"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
