@@ -20,8 +20,10 @@ How to read it: **[O]** is the owner's choice (cards, 20 Nov 2026); **[A]** is t
   simplification: a real chassis dyno holds the vehicle on its rollers.
 - **A new fuel pump building** [O] fills the yard's vehicles in turn. It is the only new picture this needs.
 - **The Fleet board is where a yard is run** [O]: its vehicles, its queues, its fuel and its room, with the orders that go with them.
-- **Bay trips aim at a yard first**, and a vehicle repaired there stays parked there. It is moved out only to make room for one that
-  needs the yard.
+- **Bay trips aim at a yard first.** A vehicle repaired there **stays parked there unless it has a depot bay of its own** [O], which it
+  goes home to. One that stays is moved out only to make room for one that needs the yard.
+- **Charging comes as an upgrade** [O]: a charging cable fitted to the fuel pump, through a new **building upgrade** system in the
+  Framework core, which other buildings of ours then use too (below).
 
 ## Why it beats a lone dyno bay
 
@@ -79,7 +81,7 @@ dyno bay, and depot bays would be pointless. Hence the size limit, and a bonus a
   vehicles asked, longest waiting first [A], and a vehicle gives up its turn as soon as nothing it waits for needs the dyno. A vehicle
   standing in a dyno bay's own reach outside the yard takes turns in the same line.
 - **Fuel** [O]: see the pump, below.
-- **Parking**: a vehicle repaired in the yard stays there.
+- **Parking**: a vehicle repaired in the yard stays there, unless it has a depot bay of its own [O].
 
 ## The fuel pump [O]
 
@@ -87,8 +89,10 @@ dyno bay, and depot bays would be pointless. Hence the size limit, and a bonus a
   haulers where there is no pipe. Needs power, as the depot bay does.
 - **It fills one vehicle at a time**, the emptiest first [A], at the depot bay pump's rate (30 an hour, authored), every vehicle standing
   in the yard it serves.
-- **One fuel**: a vehicle of another fuel is told so, as the depot bay tells it. Electric vehicles would want a charging point; a later
-  idea, not in this design.
+- **One fuel**: a vehicle of another fuel is told so, as the depot bay tells it.
+- **Charging, as an upgrade** [O]: the pump's **charging cable** (below) charges an electric vehicle in the yard from the colony's
+  power, one at a time, as the pump fuels one at a time. Today an electric vehicle charges only when it is parked against a power
+  conduit (our vehicle shore power); in a yard with the cable it needs no conduit of its own.
 - **Art**: one new picture, a fuel pump. Generated with the owner's go and the game closed, before the first test (the owner's rule:
   real art before a first test). The yard's tool icon is drawn in code, as the vehicle park's is.
 
@@ -96,11 +100,38 @@ dyno bay, and depot bays would be pointless. Hence the size limit, and a bonus a
 
 - **A yard comes first.** A vehicle with work that sends it looks for a yard with the equipment that work needs and room for it, then a
   dyno bay's reach as now. Driven, towed or pushed as now.
-- **It stays.** Its work done, it is not driven home.
+- **It stays, unless it has a depot bay** [O]. Its work done, a vehicle with a depot bay of its own is driven home to it, as bay trips
+  do now; one without stays parked in the yard.
 - **Room is made when it is needed** [A]: when a vehicle needs the yard and it is full, the vehicle that has stood there longest with
   nothing left to do is taken out (to its depot bay, the vehicle park or nearby, as now). Nothing is moved out for any other reason.
 - **The player's own parking is left alone**: a vehicle the player parked in the yard counts as parked there, and is moved out only
   under the same rule.
+
+## Building upgrades, in the Framework core [O]
+
+The owner (20 Nov 2026), on a charging point: "As an upgrade, if possible? I realize that might need more code, perhaps even a Framework
+of some kind." Our buildings have no upgrades today; only vehicles do (Vehicle Framework's trees, and our fittings). So this design
+adds a **building upgrade system** to D'thorga Framework's core, under the rule that generic functions go there, and the charging
+cable is its first use. The shape is the agent's proposal [A]:
+
+- **Data, not code** (XML first): a `PhobosBuildingUpgradeDef` names the buildings it fits, its materials, work, research and
+  Construction skill, any upgrade it needs first, and what it changes (a figure, or a named ability a comp asks for, such as
+  "charges vehicles"), so other modders can add upgrades in XML.
+- **One comp** on each building that takes upgrades holds which are fitted, saved by Def name, and answers "is this fitted" from a
+  kept list, so nothing is worked out each tick.
+- **Ordered from the building**: a button opens a window listing what can be fitted and why not, in the game's own style, like the
+  vehicle fittings window. A mechanic hauls the materials and does the work, as for a vehicle fitting.
+- **Taken off**: an upgrade can be removed, returning part of its materials, as a vehicle fitting's removal does.
+- **Pictures**: an upgrade may show on the building as an overlay where it earns one; otherwise it is listed in the inspect text.
+- **First upgrades** [A]:
+
+  | Building | Upgrade | What it does |
+  | --- | --- | --- |
+  | Fuel pump | **Charging cable** | Charges electric vehicles in the yard from the power net, one at a time |
+  | Dyno bay | **Second roller set** | Takes two vehicles at once in the yard's dyno queue, where it took one |
+  | Depot bay | **Faster pump** | Fills its vehicle faster than 30 an hour |
+
+- **Removing the mod**: fitted upgrades are saved on the buildings, which go with the mod; nothing else needs clearing [I].
 
 ## The Fleet board [O]
 
@@ -122,6 +153,7 @@ proposal [A]; all of it presentation, every button one call to the yard's servic
 | Behaviour | Risk [A], for the owner to confirm | Setting | Starts |
 | --- | --- | --- | --- |
 | The yard itself | None: the player builds it, and it only speeds work, fills tanks and holds vehicles | None | |
+| Building upgrades | None: built by the player, each taken off at will | None | |
 | Vehicles moved out to make room | **Low**: a vehicle with nothing left to do is driven a short way, under the bay trips switch | Bay trips' own | On |
 
 ## Other factions' vehicles
@@ -139,23 +171,28 @@ The pump fills on the rare tick, as the depot bay's does. The Fleet board's yard
 
 | Figure | Value |
 | --- | --- |
-| Cells a dyno bay, a fuel pump and an inspection pit add | 80, 40, 40 |
-| Share of the usual work in a yard | 80% (the depot bay's own pad: 70%) |
+| Cells a dyno bay, a fuel pump and an inspection pit add | 80, 40, 40 (owner: as proposed, tuned after play) |
+| Share of the usual work in a yard | 80% (the depot bay's own pad: 70%) (owner: as proposed, tuned after play) |
 | The pump's rate | 30 an hour, as the depot bay's |
 | Queue order | longest waiting first; the player's Move up first of all |
 
-## Open questions for the owner
+## The owner's answers (cards, 20 Nov 2026)
 
-1. The figures above, once seen in play.
-2. Whether a vehicle should stay in the yard after its work (as designed) or go home as bay trips do now.
-3. A charging point for electric vehicles: worth a later design?
-4. The yard's name in the game: "service yard" is the agent's pick.
+1. **The figures**: as proposed, tuned after play.
+2. **After its work**: it stays in the yard **only if it has no depot bay**; one with a bay goes home to it.
+3. **Charging**: as an upgrade, through building upgrades in the Framework core.
+4. **The name**: **Service yard**. Checked against every Def of the owner's 370 active mods (`scripts/query-defs.py`, 20 Nov 2026):
+   no clash. "Motor pool" is already our own Architect tab's name (and a base piece in Custom Base Framework); "workshop" is the game's
+   own room type, which a roofed yard would be taken for.
+
+Still open: the building upgrades' first list, and which of them earn an overlay picture.
 
 ## Who chose what
 
 - **Owner (20 Nov 2026):** the yard, servicing and parking in one; fuel too; a restrained size, held by a cap that grows with its
   equipment; one vehicle at a time per dyno bay, without moving; a new fuel pump building; the Fleet board as a practical part of it;
-  designed now and built after the bay trips test.
-- **Agent:** everything marked [A]; that the vehicle park stays unlimited parking and the yard is its own zone (from the owner's size
+  designed now and built after the bay trips test; the figures as proposed; staying in the yard only without a depot bay; charging
+  as an upgrade through building upgrades in the Framework core; the name Service yard.
+- **Agent:** everything marked [A]; the building upgrade system's shape and its first three upgrades; that the vehicle park stays unlimited parking and the yard is its own zone (from the owner's size
   limit); that a dyno bay is required; the work bonus a little under the depot bay's; making room only when needed; the Fleet board's
   parts; the risk grades.
