@@ -85,7 +85,7 @@ version and is brought up with fittings. Where the table above gives the later f
 | | A-10 (as the A-10A) | Su-25 (as first built) |
 | --- | --- | --- |
 | Navigation | Basic; full with the navigation set (GPS, 1999) | Basic, as before; full with the navigation set (the Su-25SM) |
-| Autopilot | None; the autopilot kit (LASTE, from memory) | None, as before |
+| Autopilot | None; the autopilot kit (BAE Systems' LASTE, in service by 2004 **[S]**) | None, as before |
 | Night sight | None; the night sight kit (the A-10C's targeting pod) | None, as before |
 | Engines | TF34s, as before; the uprated engines, offered but never fielded | The R-95Sh, 40.2 kN; the R-195 as a fitting |
 | Flare cartridges | 240, as before | 128; 256 with the extra dispensers |

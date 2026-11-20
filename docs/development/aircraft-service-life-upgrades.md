@@ -52,7 +52,9 @@ As the avionics record designed them, with risk settings by the shared rule. Det
 | A-10 | A-10A: basic navigation, no autopilot, no night sight | Navigation (GPS, 1999), autopilot (LASTE), night sight (the A-10C's targeting pod); **uprated engines, offered by General Electric and never fielded** |
 | Su-25 | First Su-25: basic navigation, R-95Sh engines, 128 flare cartridges | Extra dispensers to 256 (after Afghanistan, unverified), the R-195 engines, navigation (Su-25SM) |
 
-Figures and sources are written beside each value when built; years marked as memory are to be checked first.
+Figures and sources are written beside each value in the loadouts and fittings. Years (secondary sources): the Night Attack Harrier first
+delivered in September 1989 (others give 1990 to 1991 for its fielding), the Harrier II Plus with its APG-65 radar in 1993, the A-10's
+LASTE autopilot in service by 2004 (its first year not found).
 
 ## Risk
 

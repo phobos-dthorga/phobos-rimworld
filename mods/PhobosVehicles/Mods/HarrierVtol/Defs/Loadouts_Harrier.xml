@@ -88,7 +88,9 @@
       <navigation>Full</navigation>
       <autopilot>true</autopilot>
       <!-- As the day-attack AV-8B (aircraft service-life upgrades; owner, 21 Nov 2026: the Harrier starts early too). Its night sight came
-           with the Night Attack Harrier (1989) and its radar with the Harrier II Plus (1993) (from memory, not checked against a source): D'thorga
+           with the Night Attack Harrier, first delivered to VMA-214 in September 1989 (secondary: warhistory.org, "McDonnell Douglas AV-8B
+           Harrier II"; other sources give 1990 to 1991 for its fielding), and its APG-65 radar with the Harrier II Plus in 1993 (secondary: FAS,
+           "AV-8B Harrier"; The National Interest): D'thorga
            Framework's night sight and radar kits. A Harrier saved before keeps both, fitted free (fittedOnOlderSaves). -->
       <radar>false</radar>
       <sight>Full</sight>

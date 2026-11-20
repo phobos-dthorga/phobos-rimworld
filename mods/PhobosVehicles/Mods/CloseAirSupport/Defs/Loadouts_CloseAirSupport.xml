@@ -113,7 +113,9 @@
       <!-- As the A-10A (aircraft service-life upgrades, owner, 21 Nov 2026: the jets start as their early versions). Its inertial set came in
            1980 and GPS in 1999 (secondary: Wikipedia): basic navigation as built, full with D'thorga Framework's navigation set. -->
       <navigation>Basic</navigation>
-      <!-- No autopilot as built: the LASTE autopilot came later (from memory, not checked against a source), D'thorga Framework's autopilot kit. -->
+      <!-- No autopilot as built: BAE Systems' LASTE (Low Altitude Safety and Targeting Enhancement) later gave it a low-altitude autopilot and
+           ground-collision avoidance (secondary: GlobalSecurity, BAE Systems news of 12 Aug 2004; Air & Space Forces Magazine, June 2005). Its
+           year of introduction was not found; in service by 2004. D'thorga Framework's autopilot kit. -->
       <autopilot>false</autopilot>
       <!-- No radar (secondary: Wikipedia lists none). -->
       <radar>false</radar>
