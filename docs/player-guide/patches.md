@@ -392,6 +392,10 @@ Now:
 - **Drafted colonists are left to your orders**, and a colonist holding a melee weapon is left alone. A grenade you forced in Simple
   Sidearms stays.
 - **With Simple Sidearms**, the gun becomes the weapon it keeps handing back, in place of a grenade.
+- **With Simple Sidearms, a colonist never fetches a sidearm their loadout would only put down again.** If their sidearms list a
+  second copy of the gun in their hands, they used to fetch it and haul it away, over and over. Now you are told once who and which
+  weapon: **take the extra copy off their sidearms**, or allow it in their loadout. Setting: **A colonist never fetches a sidearm their
+  loadout would only put down again**, on the same page.
 - **Someone who already has no gun at all needs one handed to them once**: select them, right-click a gun, **Equip**. They keep it from
   then on.
 - **To switch it off**, untick **Colonists go back to their own guns** on the **Combat Extended** page of **Mod settings, D'thorga Patches**.

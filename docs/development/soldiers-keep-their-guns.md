@@ -1,7 +1,8 @@
 # Soldiers keep their guns (design record, 19 Nov 2026)
 
 **Status (19 Nov 2026):** built in D'thorga Patches 0.26.0 (its Combat Extended part) with D'thorga Framework 0.174.0's
-SingleUseWeapons rule. Not yet tested in game. Not built: a fallback to any gun when a colonist's own kind is unknown (an option below).
+SingleUseWeapons rule. **Sidearms that loop** ([below](#sidearms-that-loop)): built in Patches 0.29.1. Not yet tested in game. Not built: a
+fallback to any gun when a colonist's own kind is unknown (an option below).
 
 The owner reported that many soldiers had only grenades and satchel charges equipped as their firearms, and asked first for the reason,
 then for a possible fix with settings, before their decision (19 Nov 2026). Everything in "What we found" was read from the save and
@@ -87,6 +88,34 @@ Simple Sidearms' author has not updated it for 1.7 (last update 13 Aug 2025, no 
   - Three recoveries within an in-game hour: a one-day back-off and a log line (authored figures).
 - Settings under **D'thorga Patches: Combat Extended**: Colonists go back to their own guns; When their own gun is gone, take another
   of the same kind; Simple Sidearms keeps a colonist's gun, not a grenade, as the weapon it hands back. All on.
+
+## Sidearms that loop
+
+**The owner's report of 21 Nov 2026:** a repeated pick-up and drop sound, traced by the owner to Carlotta, then to Yunxing with another
+weapon in the same place. **What the save showed** (PG18, `scripts/query-save.py`): Carlotta hauling an M250 to a weapon rack, with an
+M250 in her hands and Simple Sidearms remembering the M250 twice; Yunxing on Simple Sidearms' fetch job for a charge LMG, remembered
+twice, with one in his hands. Both on the ad-hoc loadout "Soldier #1", which drops nothing it does not list. Two more colonists had a
+weapon remembered twice (Arcadius Nusto a knife, Gubia Manatee beer).
+
+**The cause, read in both mods' code (21 Nov 2026):** Simple Sidearms fetches every remembered weapon a colonist lacks
+(`JobGiver_RetrieveWeapon.TryGiveJobStatic`). Combat Extended's ad-hoc loadout counts the gun in hand as one slot of its own kind
+(`Loadout.GetSlotsFor`), so a second copy is in excess, and its loadout job, which runs before work, drops and hauls it
+(`Utility_HoldTracker.GetExcessThing`, `JobGiver_UpdateLoadout`). Each mod works as designed; together they loop. A sidearm the loadout
+does not name is never dropped (the loadout keeps what it does not list), which is why Carlotta's plasma sword stayed.
+
+**The owner's choice (question card): the loadout wins.**
+
+- **What it lets the player do:** keep a sidearm list and a loadout that disagree without a colonist walking back and forth for ever.
+- **What it stops them doing:** carrying a copy the loadout does not allow, until the player changes one of the two; nothing else.
+- **How it changes the way they play:** a duplicate sidearm becomes one message to act on, by name, not a noise to hunt down.
+- **What outside it notices:** the player, through the message. The colonist simply stays at work.
+- **Risk:** none to the player's things or people; a setting all the same, on by default (agent default).
+
+**How it works:** a postfix on Simple Sidearms' fetch choice (by name). When the weapon it picks would be one more than the loadout
+allows, by Combat Extended's own excess rule (`LoadoutExcessRule`, game-free and tested, fed through `LoadoutBridge`, also by name),
+the fetch is dropped and the player told once per colonist and weapon each session. **Limit:** Simple Sidearms picks one remembered
+weapon at a time, so one listed after the refused copy waits until the copy is taken off the list. The general
+[loop watch](pick-up-loops.md) in D'thorga Framework names any other such loop.
 
 ## Options not built (for the owner)
 

@@ -9,7 +9,7 @@ casting at The Dead Man's Switch's rotary forger.
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.29.0, built 21 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.29.1, built 21 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -60,8 +60,10 @@ the [changelog](CHANGELOG.md).
   hulls built before**, while the ship is landed.
 - **With Combat Extended, soldiers go back to their own guns** (0.26.0, not yet tested in game) instead of fighting on with grenades and
   satchel charges after being downed. **A colonist who already has no gun anywhere needs one handed to them once** (select them,
-  right-click a gun, Equip): from then on they keep it. Three settings on the **Combat Extended** page of **D'thorga Patches**' settings; safe to add to and
-  remove from a running save (what it remembers is kept by D'thorga Framework).
+  right-click a gun, Equip): from then on they keep it. **With Simple Sidearms too, a colonist never fetches a sidearm their loadout would
+  only put down again** (0.29.1): you are told who and which weapon, to take the extra copy off their sidearms. Four settings on the
+  **Combat Extended** page of **D'thorga Patches**' settings; safe to add to and remove from a running save (what it remembers is kept
+  by D'thorga Framework).
 - **With RimPacts, a world war attack must win within 3 days of accepting it**, or control of about a dozen border towns passes to
   the enemy. That is RimPacts' rule; the quest shows the countdown. **Strike and attack early.**
 - **With Visit Settlements, pawns already lost to a closed map stay lost**: load a save from before.

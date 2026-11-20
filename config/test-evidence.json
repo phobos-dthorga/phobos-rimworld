@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "302": [{"key": "patches.sidearms.loop-guard"}],
     "303": [{"key": "framework.loop-watch.noticed"}],
     "301": {"parts": {
       "our own sub-tab buttons, in a game without Vanilla Gravship Expanded": ["framework.architect.sub-tab"]

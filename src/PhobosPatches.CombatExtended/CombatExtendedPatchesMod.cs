@@ -23,12 +23,17 @@ public class CombatExtendedPatchesSettings : ModSettings
     /// <summary>Simple Sidearms keeps a colonist's gun, not a grenade, as the weapon it puts back in their hands.</summary>
     public bool fixSidearms = true;
 
+    /// <summary>A colonist never fetches a sidearm their Combat Extended loadout would only drop again (Patches 0.29.1; the owner's choice of
+    /// 21 Nov 2026, "the loadout wins"). On by default, agent default.</summary>
+    public bool sidearmLoopGuard = true;
+
     public override void ExposeData()
     {
         base.ExposeData();
         Scribe_Values.Look(ref keepGuns, "PhobosCombatExtendedPatches_KeepGuns", true);
         Scribe_Values.Look(ref fetchSameKind, "PhobosCombatExtendedPatches_FetchSameKind", true);
         Scribe_Values.Look(ref fixSidearms, "PhobosCombatExtendedPatches_FixSidearms", true);
+        Scribe_Values.Look(ref sidearmLoopGuard, "PhobosCombatExtendedPatches_SidearmLoopGuard", true);
     }
 }
 
@@ -47,12 +52,13 @@ public class CombatExtendedPatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.29.0";
+    public const string ModVersion = "0.29.1";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "Combat Extended");
     const string AmmoFeature = "temporary guard: ammo set entries naming ammo that does not exist are dropped before Combat Extended's ammo setup";
     const string KeepGunsFeature = "soldiers go back to their own guns instead of fighting with grenades";
     const string SidearmsFeature = "Simple Sidearms keeps a colonist's gun, not a grenade, as the weapon it hands back";
+    const string SidearmLoopFeature = "Simple Sidearms fetches no copy of a weapon that the loadout would only drop again";
 
     public static CombatExtendedPatchesSettings Settings { get; private set; } = new();
 
@@ -78,6 +84,9 @@ public class CombatExtendedPatchesMod : SettingsBookMod
             if (!Settings.fixSidearms) report.Off(SidearmsFeature, "its setting is off, as the player chose");
             else if (SidearmsMemory.Available) report.On(SidearmsFeature);
             else report.Off(SidearmsFeature, "Simple Sidearms' code has changed");
+            if (!Settings.sidearmLoopGuard) report.Off(SidearmLoopFeature, "its setting is off, as the player chose");
+            else if (KeepGuns.Patch_SimpleSidearms_RetrieveWeapon.Prepare()) report.On(SidearmLoopFeature);
+            else report.Off(SidearmLoopFeature, "Simple Sidearms' or Combat Extended's code has changed");
         }
         report.Log();
     }
@@ -107,6 +116,8 @@ public class CombatExtendedPatchesMod : SettingsBookMod
         }
         list.Check("PhobosCombatExtendedPatches_SettingFixSidearms".Translate(), ref s.fixSidearms, d.fixSidearms,
             "PhobosCombatExtendedPatches_SettingFixSidearmsDesc".Translate());
+        list.Check("PhobosCombatExtendedPatches_SettingSidearmLoopGuard".Translate(), ref s.sidearmLoopGuard, d.sidearmLoopGuard,
+            "PhobosCombatExtendedPatches_SettingSidearmLoopGuardDesc".Translate());
     }
 }
 

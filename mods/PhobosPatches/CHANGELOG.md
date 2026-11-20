@@ -6,6 +6,24 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.29.1] - 2026-11-21 - Draft
+
+Sidearms that loop: a colonist no longer fetches a weapon their loadout would only drop
+
+### Fixed
+
+- **A colonist no longer fetches, again and again, a sidearm their Combat Extended loadout would only put down** (the owner's report of 21 November 2026: Carlotta, then Yunxing, picked up and dropped a gun over and over; the owner's choice, "the loadout wins"). Simple Sidearms fetched a second copy of the gun in their hands that it remembered, and the loadout, which counts the gun in hand as one, dropped the copy and hauled it away. Now the copy is not fetched, and you are told once which colonist and weapon, to take it off their sidearms or allow it in their loadout. Every other sidearm is fetched as before.
+
+### Added
+
+- **A new setting, A colonist never fetches a sidearm their loadout would only put down again, on by default** (Mod settings, D'thorga Patches, Combat Extended page, Soldiers keep their guns). Needs Combat Extended and Simple Sidearms.
+
+### Compatibility and limits
+
+- Combat Extended's and Simple Sidearms' code is read by name, as before: if either changes these names, the guard stands down and the load line says so.
+- Simple Sidearms looks at a colonist's remembered weapons one at a time: while the guard turns down an extra copy, a remembered weapon listed after it waits until the extra copy is taken off the list.
+- Safe to add to and remove from a running save. Not yet tested in game: row 302 of the test pass.
+
 ## [0.29.0] - 2026-11-21 - Draft
 
 Close Air Support's A-10 and Su-25: real parts, real costs, and a realistic handling setting
