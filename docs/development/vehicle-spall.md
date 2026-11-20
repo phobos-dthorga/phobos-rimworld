@@ -1,7 +1,7 @@
 # Spall inside our vehicles: what comes through a beaten plate (21 Nov 2026)
 
 **Status (21 Nov 2026):** built in D'thorga Framework 0.207.0 and D'thorga Vehicles 0.92.0 at the owner's word ("Build, please"),
-with every answer below; its two pictures (the liner panel and the liner's upgrade icon) wait for a short run on the graphics card. Not
+with every answer below and its two pictures, picked by the owner the same day (the liner panel, and a quilted liner icon). Not
 yet tested in game: rows 304 and 305 of the test pass. [What differs from the design](#as-built-21-nov-2026).
 
 ## As built (21 Nov 2026)

@@ -1,0 +1,6 @@
+# SpallLiner
+
+Made on 21 Nov 2026 with ComfyUI, local, FLUX.2 Klein 4B base (Black Forest Labs, Apache 2.0) with our private style model: **AI-generated**, picked by the owner on 21 November 2026 by question card from a redraw (two wordings, two seeds each, after the first two were turned down). A quilted khaki liner with three dark shards caught in it, which happen to make a smiling face: the upgrade icon of the service trucks' spall liner (with Combat Extended), on all five trucks. Exported by `scripts/art/export_sprite.py` at 128 px with a soft edge of 60 (the default 30 left a pale rim on dark ground), the background cleared with the background AI's mask. The prompt is in `assets/phobos-vehicles/requests/spall-liner-icons.json` (`truck-kit-spallliner-mat`). The only references were our own approved art (`HeavyCabPlates.png` and `ArmouredCab.png`); no game or other author's art was used. Checked against the game's art with `scripts/art/near_copy.py` (21 Nov 2026): no flag on this master; the other seed of its wording was flagged against the game's double slab bed and stays local.
+
+- Master: `truck-kit-spallliner-mat-12.png`, SHA-256 `47bc5c0515cf65f0166871f8e1e3b465295de331d8cfe3f758a0eb5763afd396`
+- `SpallLiner.png`: SHA-256 `00998a222210d066ea177ef5de6e923b373e49384ec09fe8e42f9286a3bb18a1`

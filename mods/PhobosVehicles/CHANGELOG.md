@@ -41,7 +41,7 @@ A spall liner for the service trucks, with Combat Extended
 ### Compatibility and limits
 
 - Without Combat Extended neither the upgrade nor the panels exist.
-- **Its two pictures are not drawn yet**: the panel and the upgrade's icon show as missing until they are.
+- **Its two pictures are AI-generated** (a local model with our own style model), picked by the owner on 21 November 2026: the panel, and the upgrade's icon, a quilted liner with shards caught in it.
 - Figures, costs and weights authored. Not yet tested in game: row 305 of the test pass.
 
 ## [0.91.0] - 2026-11-21 - Draft

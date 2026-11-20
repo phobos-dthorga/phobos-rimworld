@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Parts/SpallLinerPanel.png",
+  "source": "assets/phobos-vehicles/generated/spall-liner-panel/spall-liner-panel-12.png",
+  "source_sha256": "cdbec69bae8deff3b4d299bc11e177940eee1e2f289c028c7a5f0d87c0b5af51",
+  "target_sha256": "431b2ff7183629f4e6470d91b70bb161ae0431239feb6aeed06f72ba200a592c",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "cdbec69bae8deff3b4d299bc11e177940eee1e2f289c028c7a5f0d87c0b5af51",
+  "date": "2026-11-21T02:58:30",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

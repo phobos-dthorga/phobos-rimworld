@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/SpallLiner.png",
+  "source": "assets/phobos-vehicles/generated/truck-kit-spallliner-mat/truck-kit-spallliner-mat-12.png",
+  "source_sha256": "47bc5c0515cf65f0166871f8e1e3b465295de331d8cfe3f758a0eb5763afd396",
+  "target_sha256": "00998a222210d066ea177ef5de6e923b373e49384ec09fe8e42f9286a3bb18a1",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 60,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "47bc5c0515cf65f0166871f8e1e3b465295de331d8cfe3f758a0eb5763afd396",
+  "date": "2026-11-21T03:19:07",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

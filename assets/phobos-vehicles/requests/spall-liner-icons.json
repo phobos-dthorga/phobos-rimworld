@@ -45,5 +45,53 @@
       "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/SpallLiner.png",
       "why": "the spall liner upgrade (docs/development/vehicle-spall.md; the owner's build order of 21 Nov 2026)"
     }
+  },
+  {
+    "name": "truck-kit-spallliner-cutaway",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A thick curved olive steel armour plate cut away to show its inside face, where a thick pale khaki layer of woven fibre lining is bolted flat, with three small dark jagged metal fragments stuck in the lining. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, khaki, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+    "subject": "A thick curved olive steel armour plate cut away to show its inside face, where a thick pale khaki layer of woven fibre lining is bolted flat, with three small dark jagged metal fragments stuck in the lining",
+    "references": [
+      "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/HeavyCabPlates.png",
+      "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/ArmouredCab.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "upgrade_node": "PhobosSpallLiner",
+      "trucks": "all five service trucks, with Combat Extended",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/SpallLiner.png",
+      "why": "the spall liner upgrade (docs/development/vehicle-spall.md; the owner's build order of 21 Nov 2026); a redraw after the owner turned down the first two (21 Nov 2026)"
+    }
+  },
+  {
+    "name": "truck-kit-spallliner-mat",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A thick pale khaki quilted lining mat of woven fibre with a dark bolt at each corner, three small dark jagged metal shards caught in its surface, and the edge of an olive steel plate showing behind it. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, khaki, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+    "subject": "A thick pale khaki quilted lining mat of woven fibre with a dark bolt at each corner, three small dark jagged metal shards caught in its surface, and the edge of an olive steel plate showing behind it",
+    "references": [
+      "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/HeavyCabPlates.png",
+      "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/ArmouredCab.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "upgrade_node": "PhobosSpallLiner",
+      "trucks": "all five service trucks, with Combat Extended",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/SpallLiner.png",
+      "why": "the spall liner upgrade (docs/development/vehicle-spall.md; the owner's build order of 21 Nov 2026); a redraw after the owner turned down the first two (21 Nov 2026)"
+    }
   }
 ]
