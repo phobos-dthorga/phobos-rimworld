@@ -301,6 +301,19 @@
       ],
       "checked": "2026-11-18"
     },
+    "ilyvion.loadingprogress": {
+      "name": "Loading Progress",
+      "package_id": "ilyvion.loadingprogress",
+      "workshop_id": "3535481557",
+      "repository": "https://github.com/ilyvion/loading-progress",
+      "found": "Workshop page",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-11-05",
+      "licence": "NOASSERTION",
+      "archived": false,
+      "candidates": [],
+      "checked": "2026-11-20"
+    },
     "jaxe.rimhud": {
       "name": "RimHUD",
       "package_id": "jaxe.rimhud",

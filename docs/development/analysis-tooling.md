@@ -228,6 +228,13 @@ dotnet-gcdump listed exactly 10,000,003 objects and 667 MB, while the runtime's 
 6 to 11.5 GB: it stops near ten million objects. The game paused 20 to 30 s (the owner's watch). Since phobos-modkit 1.42.0 heap
 reads the runtime's own count straight after and says in bold when the snapshot is partial; shares are of what it listed.
 
+**The whole heap, values and why: `python scripts/perf.py look`, `look-kind` and `look-why` (phobos-modkit 1.65.0, 21 Nov 2026,
+the owner's ask for debugging tools in D'thorga Companion).** The kit's heap reader takes a Windows snapshot (431 to 470 ms
+pause on the owner's colony) and reads it with Microsoft's ClrMD and the game's own memory-reading library: all 27 to 28 million
+objects in 12 to 18 s, no cap, any object's values, what holds it and paths from a root; no collection forced, so it counts garbage
+too, and `look-why` tells the two apart. Its first use found 453 MB of patch XML kept alive
+([patch-xml-kept-alive-2026-11-21.md](patch-xml-kept-alive-2026-11-21.md)).
+
 **Memory over time: `python scripts/perf.py watch` (phobos-modkit 1.42.0, 19 Nov 2026, the owner's request).** Follows the
 running game for minutes or hours **without pausing it**: what it claimed and what is in RAM (Windows' own figures, every few
 seconds), .NET's heap and collector (dotnet-counters, attached once; `--no-counters` attaches nothing), and every minute the memory

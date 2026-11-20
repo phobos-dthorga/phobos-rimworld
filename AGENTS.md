@@ -161,6 +161,10 @@ running a script does not load them.
   Then `heap`, by type and by mod, and **`heap-compare`** for what grew (take three over minutes before calling it a leak); **on the
   owner's game a heap snapshot holds only part of the heap** (it stops near ten million objects), and its report says so.
   **Ask the owner before each**, as for a recording; heap forces a full garbage collection, so the game pauses until it is done.
+  **What is in memory and why it is still there: `look`, `look-kind TYPE --open` and `look-why TYPE`** (owner, 20 Nov 2026, for
+  D'thorga Companion's Explorer; phobos-modkit's heap reader): a Windows snapshot, a pause of about half a second, then every
+  object with no cap, any object's values, and paths from a root. It counts garbage not yet collected too, so **answer "is it a
+  leak?" with `look-why`**, never from counts alone. Ask before each snapshot, as above.
 - **Answer how long the game takes to start, and which mods cost it, with `python scripts/startup-impact.py`** (owner, 8 Nov 2026):
   every launch, the costliest mods, `compare` for what changed between two launches, `mod <name>` for one mod. Start-up time varies
   between identical launches, so trust only a difference that repeats. **Answer which active mods are ready for a game version
