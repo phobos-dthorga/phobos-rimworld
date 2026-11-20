@@ -13,6 +13,8 @@ public static class AircraftUpgradeDefOf
     public static VehicleStatDef Phobos_TerrainRadar = null!;
     public static VehicleStatDef Phobos_InletBarrierLoss = null!;
     public static VehicleStatDef Phobos_KitKilograms = null!;
+    /// <summary>Grip on soft ground a node adds (Framework 0.197.0: a tractor's dual wheels), on top of the tyre fittings' factor.</summary>
+    public static VehicleStatDef Phobos_SoftGroundGripBonus = null!;
 
     static AircraftUpgradeDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(AircraftUpgradeDefOf));
 }

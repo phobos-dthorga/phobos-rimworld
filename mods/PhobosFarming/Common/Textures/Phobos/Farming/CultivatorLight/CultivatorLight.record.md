@@ -13,6 +13,11 @@ The background AI and Segment Anything looked at every master on the graphics ca
 fleck left in a paint mask was repainted with the paint that rings it (paint_check.fill_flecks), and each was checked tinted on dark
 ground with no flecks left. East and south are the north turned, with paint masks (suffix m).
 
+**Upgrade parts fitted onto it** (`CultivatorLight_Wings`): AI-generated parts drawn alone and picked by the owner on
+20 Nov 2026 ([parts record](../../../../../../../assets/phobos-vehicles/requests/farming-batch2-parts-record.md)), fitted by
+`export_farming.py` (`fit_part`) into boxes set by the agent from the pictures, painted by the same rules, and checked tinted on dark
+ground. Their export records name each box.
+
 - `CultivatorLight_east.png`: SHA-256 `0d241f18112dade055037431aaf9587f104a25eba7a67f40d8666dfadd94f360`
 - `CultivatorLight_eastm.png`: SHA-256 `e2889f8c8ca558e5aad07b80f408f49ba6e03abd9358a7f1b7abe321e15c467f`
 - `CultivatorLight_icon.png`: SHA-256 `a76e40711b2cf6a936db9ba0a2797b69748f7d826f8e0a963a1664f397669cbb`
@@ -20,3 +25,9 @@ ground with no flecks left. East and south are the north turned, with paint mask
 - `CultivatorLight_northm.png`: SHA-256 `2b676e63e4b3de53b7636ef5bfeff552a31b7d6c03ed59a3b4ee60eef2c8b157`
 - `CultivatorLight_south.png`: SHA-256 `74b37c60a04882ff3178c0289b543db3a61c45c1dddf6f81f330c49d2ce3c6c6`
 - `CultivatorLight_southm.png`: SHA-256 `3d346dced8c737e46e2bdf3536c8a9d03a2bc9f4399bb81df9aedfb8a9fc2f26`
+- `CultivatorLight_Wings_east.png`: SHA-256 `e9116097373f4a897442f5f8cf2bd1eda1ca31650a6547a9b540e939206cbacf`
+- `CultivatorLight_Wings_eastm.png`: SHA-256 `f5a663eb8d89dd4b9569dc0a2961698a62d65583039fed432a48a634628967ef`
+- `CultivatorLight_Wings_north.png`: SHA-256 `766f341e493418a7840d362654467d2dae4ed768550ded89eaf321512f108bdc`
+- `CultivatorLight_Wings_northm.png`: SHA-256 `86f5a3ea41fb487fde15efd262fa6a2b1213d2b38209fd1a85aa42acecfd2de6`
+- `CultivatorLight_Wings_south.png`: SHA-256 `9032f9d8749afb53a2967eb408b4ba582d351a2c75ff93987874938966b2d4e9`
+- `CultivatorLight_Wings_southm.png`: SHA-256 `775e8b1258e5aa401cbf2c005e2b2fe360e9bf1d04c41d419f431420da30e48c`

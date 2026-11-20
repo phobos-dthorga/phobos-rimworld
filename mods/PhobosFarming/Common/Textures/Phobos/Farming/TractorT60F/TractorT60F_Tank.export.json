@@ -1,0 +1,41 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-saddle-tank/farming-saddle-tank-1.png",
+  "master_sha256": "873a5ee4a892054d4e587281efeea38ba71ffb1a2cb6dfdbec35cfcb41644359",
+  "files": {
+    "TractorT60F_Tank_north.png": "93bbd123c23e960fcdd397d5f1be836dc4d1eb25e7a64281f25ac606ed83bdc3",
+    "TractorT60F_Tank_east.png": "426f0586b7a773ecb12fbb991489f522b33fdf5132ec7d40275c1bd2518e1c4a",
+    "TractorT60F_Tank_south.png": "fdda17cf2aa4fa0be3e384b27f27d44a192940b32c397d0e94e2caf6a39d8fbb",
+    "TractorT60F_Tank_northm.png": "115cf983b8135012421a2354a76eeb899d397bfbccd207c1c5a3da2f1dd47c68",
+    "TractorT60F_Tank_eastm.png": "c0cf3ce274fb0f4dc4742a17c80afc1f8d4a1adfae71244f5f5635e346ef53f1",
+    "TractorT60F_Tank_southm.png": "f80efd8a60d1ec4a2b11c62b3b00483d3144b0f4b08df0da4720712596f56134"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "fitted part",
+  "on": "TractorT60F",
+  "boxes": [
+    [
+      [
+        0.17,
+        0.28,
+        0.31,
+        0.5
+      ],
+      false
+    ]
+  ],
+  "canvas_cells": null,
+  "colours": {
+    "color": [
+      137,
+      158,
+      102
+    ],
+    "colorTwo": [
+      185,
+      162,
+      38
+    ]
+  },
+  "ai_mask": true
+}

@@ -1,0 +1,41 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-saddle-tank/farming-saddle-tank-1.png",
+  "master_sha256": "873a5ee4a892054d4e587281efeea38ba71ffb1a2cb6dfdbec35cfcb41644359",
+  "files": {
+    "TractorT400Front_Tank_north.png": "fb828e1afb172212d9de89723aac0f7ca1aae36736e36a1ceb096eae6c776370",
+    "TractorT400Front_Tank_east.png": "c118c602461431cc320590e7b8cadc25f3a71194efaf13c57c03da5e67600e13",
+    "TractorT400Front_Tank_south.png": "b0ab6ad4425345b88edbbafe9f16c11cf2e8c1fed5e109144dcb6cae4b921d46",
+    "TractorT400Front_Tank_northm.png": "b06b3bd1f9b3262f5995e9232df3df5c2adcf258745f4108057871215705ee92",
+    "TractorT400Front_Tank_eastm.png": "c34c37bd02240b2ed65d83a85dba82fb1e0107697646589b7d758981ae2449cc",
+    "TractorT400Front_Tank_southm.png": "900c25b0bf3434f24bd4470a781bb27f9b92355b4ee1a93b1c7ce70b1eed43bc"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "fitted part",
+  "on": "TractorT400Front",
+  "boxes": [
+    [
+      [
+        0.1,
+        0.62,
+        0.26,
+        0.93
+      ],
+      false
+    ]
+  ],
+  "canvas_cells": null,
+  "colours": {
+    "color": [
+      150,
+      173,
+      113
+    ],
+    "colorTwo": [
+      211,
+      189,
+      55
+    ]
+  },
+  "ai_mask": true
+}

@@ -1,8 +1,11 @@
 # D'thorga Farming, batch two: the build design (20 Nov 2026)
 
-**Status (20 Nov 2026):** partly built, in D'thorga Framework 0.191.0 to 0.193.0 and D'thorga Farming 0.4.0 to 0.5.0: the field run with an implement behind, the field-work rule (draught, seed, cleaning) with tests, the rigid linkage shown by tests of the hitch's own rule, the plough, cultivator and seed drill workers, lines of tows (the linkage and drawbar at once) the Lower and Lift buttons, and the "Hands use seed too" switch (Farming 0.6.0), in code. **Not built:** the tractors (the T400's two halves; the rule for its driven rear axle is in Framework 0.194.0), the implements' Defs and pictures (paid, waiting for the owner's go), the wing-extension upgrades, and the generic seed item and its traders. Nothing is tested in game.
-This record turns [farm machines](farming-machines.md) "Tillage and seeding (AG1)" and the owner's decisions of 19 and 20 Nov 2026
-into the code, Defs, settings and art a build would make.
+**Status (20 Nov 2026):** built, not yet installed or tested in game. In D'thorga Framework 0.191.0 to 0.196.0 (and its Unreleased
+soft ground grip) and D'thorga Farming 0.4.0 to 0.6.0 plus its Unreleased batch: the field run with an implement behind, lines of tows,
+articulated vehicles, the Thane T60, T130 and T400 in two models each, the turnover plough, both cultivators and the drill, their
+pictures, engine sounds from real recordings, upgrade trees with fitted parts, bought seed and its traders, and the "Hands use seed
+too" setting. **Not built:** the liquid ballast's own icon (it shows the dual wheels' until drawn), the lifted look, and the tractors'
+door, brake and fuel sounds.
 
 **How to read the marks:** **[code]** read in the game's or Vehicle Framework's code on 20 Nov 2026; **[I]** our inference; **[A]** an
 authored figure or the agent's choice.
@@ -211,6 +214,64 @@ Every node the agent offered, by question card. Figures are the agent's [A], set
 | Coulter drill | Wing extension | 4 to 7 cells | Overlay, one section mirrored each side |
 | Coulter drill | Hopper extension | Half as much seed again | Overlay |
 | Every implement | (not a node) the lifted look | Drawn a little shorter while lifted | By script from its own picture: no new art |
+
+**The trees as built** (one per model where the pictures differ: the T130 and T400 B carry front weights as drawn, so they have no
+weights node). Drawn by `scripts/check-upgrade-trees.py --write`:
+
+<!-- upgrade-tree: Phobos_TractorT60_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosTractorLiquidBallast["Liquid tyre ballast"]
+  PhobosTractorFrontWeights["Front weights"]
+  PhobosTractorDualWheels["Dual rear wheels"]
+```
+
+<!-- upgrade-tree: Phobos_TractorT130_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosTractorLiquidBallast["Liquid tyre ballast"]
+  PhobosTractorDualWheels["Dual rear wheels"]
+```
+
+<!-- upgrade-tree: Phobos_TractorT130RC_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosTractorLiquidBallast["Liquid tyre ballast"]
+  PhobosTractorFrontWeights["Front weights"]
+  PhobosTractorDualWheels["Dual rear wheels"]
+```
+
+<!-- upgrade-tree: Phobos_TractorT400_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosTractorLiquidBallast["Liquid tyre ballast"]
+  PhobosTractorFrontWeights["Front weights"]
+```
+
+<!-- upgrade-tree: Phobos_TractorT400B_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosTractorLiquidBallast["Liquid tyre ballast"]
+```
+
+<!-- upgrade-tree: Phobos_Plough_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosPloughWings["Wing extension"]
+```
+
+<!-- upgrade-tree: Phobos_Cultivator_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosCultivatorWings["Wing extension"]
+```
+
+<!-- upgrade-tree: Phobos_SeedDrill_UpgradeTree -->
+```mermaid
+flowchart TB
+  PhobosDrillWings["Wing extension"]
+  PhobosDrillHopperExtension["Hopper extension"]
+```
 
 **The art:** one paid run of eight parts drawn alone and fitted by script (`assets/phobos-vehicles/requests/farming-batch2-parts.json`),
 two tries each, at the owner's go; the dry run of 20 Nov 2026 gave at most US$4.14. The seed sack for bought seed is in the same run. The

@@ -1,0 +1,49 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-drill-wing/farming-drill-wing-1.png",
+  "master_sha256": "96769c5b53f693a3a0ed3795f23bb9cf27d5b73eca8497e10d6da010a131f682",
+  "files": {
+    "SeedDrill_Wings_north.png": "fb0633c07ed69eaeaf6371b6b16062ce04da287ef2654b994182f0299f953687",
+    "SeedDrill_Wings_east.png": "e880ccffcb3aef557aa937fdd9523e3a63d718616e563f1338c48f308ea224ac",
+    "SeedDrill_Wings_south.png": "3165a3ce27107648de6f1da7745987888a9d1754156a613975a32edb26884717",
+    "SeedDrill_Wings_northm.png": "f09b8b623f77dda47317a5daa475ba92f3186203b24550730a97d6500faed775",
+    "SeedDrill_Wings_eastm.png": "42a5200c21840d5cbfaacbcd45c23c0ee228c5289c2a246657fc9c1933c9054f",
+    "SeedDrill_Wings_southm.png": "1a1bf26a3d3cc609d58971fc183db62ddf57f3a68de75d0c26b62072bcd8d0ab"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "fitted part",
+  "on": "SeedDrill",
+  "boxes": [
+    [
+      [
+        -0.55,
+        0.63,
+        0.03,
+        0.93
+      ],
+      true
+    ],
+    [
+      [
+        0.97,
+        0.63,
+        1.55,
+        0.93
+      ],
+      false
+    ]
+  ],
+  "canvas_cells": [
+    8,
+    5
+  ],
+  "colours": {
+    "color": [
+      150,
+      172,
+      117
+    ],
+    "colorTwo": null
+  },
+  "ai_mask": true
+}

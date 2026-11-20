@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/DualWheels.png",
+  "source": "assets/phobos-vehicles/generated/farming-dual-tyre/farming-dual-tyre-1.png",
+  "source_sha256": "8e2a4481205e23c103fb62e378c2158e0723f2ea28bb286027f16e5e80394342",
+  "target_sha256": "dbca4164a48a80ac66988b6e81a699dc7ba7eb1f674be7c2527aab8304f4651d",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "8e2a4481205e23c103fb62e378c2158e0723f2ea28bb286027f16e5e80394342",
+  "date": "2026-11-20T22:16:10",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

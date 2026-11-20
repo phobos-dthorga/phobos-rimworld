@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontWeights.png",
+  "source": "assets/phobos-vehicles/generated/farming-front-weights/farming-front-weights-1.png",
+  "source_sha256": "bd8024d72629247f441be36d5d5f8089c2c9b470643be3d7563f6fe989099089",
+  "target_sha256": "7287266d4ed395c4781a3d1e66f21c14707cf926b5bb3a745bcef2f28bd0c7fb",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "bd8024d72629247f441be36d5d5f8089c2c9b470643be3d7563f6fe989099089",
+  "date": "2026-11-20T22:16:08",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Bought seed (owner, 19 and 20 Nov 2026; docs/development/farming-batch-two.md, "Seed"): one item that a seed drill sows any crop
+       with, at about three times grain's value by weight, sold by bulk goods traders and never crafted. A unit weighs what a unit of rice
+       does, 0.03 kg, and is worth three times as much (authored [A] from the game's rice, 1.1 silver a unit). Its picture is the owner's
+       pick of 20 Nov 2026 (assets/phobos-vehicles/requests/farming-batch2-parts-record.md). Not yet tested in game. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosFarming_Seed</defName>
+    <label>seed grain</label>
+    <description>Cleaned, certified seed grain in sacks, bred and treated for sowing. A seed drill sows any crop with it, where the crop's own kept-back grain would also do. It cannot be eaten.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/Things/Seed</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>75</stackLimit>
+    <statBases>
+      <MarketValue>3.3</MarketValue>
+      <Mass>0.03</Mass>
+      <Flammability>1</Flammability>
+      <DeteriorationRate>2</DeteriorationRate>
+    </statBases>
+    <thingCategories>
+      <li>ResourcesRaw</li>
+    </thingCategories>
+    <tradeability>All</tradeability>
+  </ThingDef>
+</Defs>

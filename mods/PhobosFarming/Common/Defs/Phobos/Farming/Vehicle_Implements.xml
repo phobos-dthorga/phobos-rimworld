@@ -157,6 +157,8 @@
         <orderIconPath>Phobos/Farming/Plough/Plough_icon</orderIconPath>
         <mark>ploughed</mark>
         <turns>true</turns>
+        <wingNode>PhobosPloughWings</wingNode>
+        <wingWidthCells>2</wingWidthCells>
       </li>
       <!-- Its two sides (the owner's two pictures): the turned side while it is rolled over, else the first. -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
@@ -189,7 +191,40 @@
               </li>
             </looks>
           </li>
+          <li>
+            <key>wings</key>
+            <looks>
+              <li>
+                <when>wings-turned</when>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/Plough/Plough_Turned_Wings</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(4, 7)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <when>wings</when>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/Plough/Plough_Wings</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(4, 7)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
         </slots>
+      </li>
+    
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_Plough_UpgradeTree</def>
       </li>
     </comps>
   </Vehicles.VehicleDef>
@@ -263,6 +298,34 @@
         <metresPerCell>1.5</metresPerCell>
         <orderIconPath>Phobos/Farming/Cultivator/Cultivator_icon</orderIconPath>
         <mark>cultivated</mark>
+        <wingNode>PhobosCultivatorWings</wingNode>
+        <wingWidthCells>7</wingWidthCells>
+      </li>
+    
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_Cultivator_UpgradeTree</def>
+      </li>
+      <!-- Its upgrades' pictures (D'thorga Framework's node looks): parts drawn alone and fitted onto the body (export_farming.py). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>wings</key>
+            <looks>
+              <li>
+                <node>PhobosCultivatorWings</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/Cultivator/Cultivator_Wings</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(8, 4)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
       </li>
     </comps>
   </Vehicles.VehicleDef>
@@ -295,6 +358,34 @@
         <metresPerCell>1.5</metresPerCell>
         <orderIconPath>Phobos/Farming/CultivatorLight/CultivatorLight_icon</orderIconPath>
         <mark>cultivated</mark>
+        <wingNode>PhobosCultivatorWings</wingNode>
+        <wingWidthCells>7</wingWidthCells>
+      </li>
+    
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_Cultivator_UpgradeTree</def>
+      </li>
+      <!-- Its upgrades' pictures (D'thorga Framework's node looks): parts drawn alone and fitted onto the body (export_farming.py). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>wings</key>
+            <looks>
+              <li>
+                <node>PhobosCultivatorWings</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/CultivatorLight/CultivatorLight_Wings</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(8, 4)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
       </li>
     </comps>
   </Vehicles.VehicleDef>
@@ -417,12 +508,64 @@
         <mixesProducts>false</mixesProducts>
         <pourKgPerSecond>40</pourKgPerSecond>
         <reachCells>2</reachCells>
+        <capacityUpgrades>
+          <li>
+            <node>PhobosDrillHopperExtension</node>
+            <factor>1.5</factor>
+          </li>
+        </capacityUpgrades>
       </li>
       <li Class="Phobos.Farming.CompProperties_PhobosSeedDrill">
         <widthCells>4</widthCells>
         <kilonewtonsPerMetre>1.0</kilonewtonsPerMetre>
         <metresPerCell>1.5</metresPerCell>
         <orderIconPath>Phobos/Farming/SeedDrill/SeedDrill_icon</orderIconPath>
+        <wingNode>PhobosDrillWings</wingNode>
+        <wingWidthCells>7</wingWidthCells>
+        <genericSeed>PhobosFarming_Seed</genericSeed>
+      </li>
+    
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_SeedDrill_UpgradeTree</def>
+      </li>
+      <!-- Its upgrades' pictures (D'thorga Framework's node looks): parts drawn alone and fitted onto the body (export_farming.py). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>wings</key>
+            <looks>
+              <li>
+                <node>PhobosDrillWings</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/SeedDrill/SeedDrill_Wings</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(8, 5)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <key>hopper</key>
+            <looks>
+              <li>
+                <node>PhobosDrillHopperExtension</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/SeedDrill/SeedDrill_Hopper</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(4, 5)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
       </li>
     </comps>
   </Vehicles.VehicleDef>

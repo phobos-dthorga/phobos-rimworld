@@ -18,7 +18,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
 from export_sprite import ai_background, export as export_sprite, white_to_alpha  # noqa: E402
-from export_vehicle import PIXELS_PER_CELL, export_body, record, sha, write_facings  # noqa: E402
+from export_vehicle import PIXELS_PER_CELL, export_body, record, separate_paint, sha, write_facings  # noqa: E402
 import art_paths  # noqa: E402
 import paint_check  # noqa: E402
 
@@ -189,6 +189,89 @@ def export_articulated(name, master, out):
     return figures
 
 
+# Batch two's upgrade parts (the owner's picks of 20 Nov 2026), each drawn alone and fitted here onto the bodies' exported pictures. A box is
+# (x0, y0, x1, y1) as shares of the body's outline in its north picture (0 to 1 across it; beyond for a part outside it), with whether the
+# part is mirrored; the part is scaled to fit the box, keeping its shape, and centred in it. Boxes are the agent's, set by eye from the
+# pictures and checked tinted. An overlay's canvas may be wider than its body's (wings), centred on it: canvas cells (width, height).
+PART = lambda key: GENERATED / f'farming-{key}' / f'farming-{key}-1.png'
+WEIGHTS = [((0.33, -0.10, 0.67, 0.02), False)]
+DUALS = [((-0.17, 0.49, 0.0, 0.87), False), ((1.0, 0.49, 1.17, 0.87), True)]
+TANK = [((0.17, 0.28, 0.31, 0.50), False)]
+TANK_T400 = [((0.10, 0.62, 0.26, 0.93), False)]
+FITS = [
+    # (overlay name, folder, body picture name, part, boxes, overlay canvas cells or None for the body's)
+    ('TractorT60_Weights', 'TractorT60', 'TractorT60', 'front-weights', WEIGHTS, None),
+    ('TractorT60F_Weights', 'TractorT60F', 'TractorT60F', 'front-weights', WEIGHTS, None),
+    ('TractorT130RC_Weights', 'TractorT130RC', 'TractorT130RC', 'front-weights', WEIGHTS, None),
+    ('TractorT400Front_Weights', 'TractorT400', 'TractorT400Front', 'front-weights', WEIGHTS, (5, 6)),
+    ('TractorT60_Duals', 'TractorT60', 'TractorT60', 'dual-tyre', DUALS, (5, 6)),
+    ('TractorT60F_Duals', 'TractorT60F', 'TractorT60F', 'dual-tyre', DUALS, (5, 6)),
+    ('TractorT130_Duals', 'TractorT130', 'TractorT130', 'dual-tyre', DUALS, (5, 7)),
+    ('TractorT130RC_Duals', 'TractorT130RC', 'TractorT130RC', 'dual-tyre', DUALS, (5, 7)),
+    ('TractorT60_Tank', 'TractorT60', 'TractorT60', 'saddle-tank', TANK, None),
+    ('TractorT60F_Tank', 'TractorT60F', 'TractorT60F', 'saddle-tank', TANK, None),
+    ('TractorT130_Tank', 'TractorT130', 'TractorT130', 'saddle-tank', TANK, None),
+    ('TractorT130RC_Tank', 'TractorT130RC', 'TractorT130RC', 'saddle-tank', TANK, None),
+    ('TractorT400Front_Tank', 'TractorT400', 'TractorT400Front', 'saddle-tank', TANK_T400, None),
+    ('TractorT400BFront_Tank', 'TractorT400B', 'TractorT400BFront', 'saddle-tank', TANK_T400, None),
+    ('Plough_Wings', 'Plough', 'Plough', 'plough-wings', [((0.30, 0.93, 0.86, 1.34), False)], (4, 7)),
+    ('Plough_Turned_Wings', 'Plough', 'Plough_Turned', 'plough-wings', [((0.30, 0.95, 0.86, 1.36), True)], (4, 7)),
+    ('Cultivator_Wings', 'Cultivator', 'Cultivator', 'cultivator-wing', [((-0.46, 0.22, 0.03, 1.0), True), ((0.97, 0.22, 1.46, 1.0), False)], (8, 4)),
+    ('CultivatorLight_Wings', 'CultivatorLight', 'CultivatorLight', 'cultivator-wing', [((-0.46, 0.27, 0.03, 1.0), True), ((0.97, 0.27, 1.46, 1.0), False)], (8, 4)),
+    ('SeedDrill_Wings', 'SeedDrill', 'SeedDrill', 'drill-wing', [((-0.55, 0.63, 0.03, 0.93), True), ((0.97, 0.63, 1.55, 0.93), False)], (8, 5)),
+    ('SeedDrill_Hopper', 'SeedDrill', 'SeedDrill', 'hopper-extension', [((0.13, 0.44, 0.87, 0.66), False)], None),
+]
+
+
+# A part whose drawn colours should not take the accent paint: the hopper extension's grain is beige, which the accent's hue range would
+# paint yellow (seen tinted, 20 Nov 2026); with no accent range its grain and thin stripe stay as drawn.
+NO_ACCENT = {'SeedDrill_Hopper'}
+
+
+def fit_part(name, folder, body, key, boxes, canvas_cells, textures):
+    """A part fitted onto a body's north picture by shares of the body's outline, painted by the body's rules, written as an overlay."""
+    out = textures / folder
+    master = PART(key)
+    background = ai_background(master)
+    if background is None:
+        raise SystemExit(f'{master.name}: the background AI has not looked at it yet (clean_backgrounds.py masks --also {master})')
+    cut = white_to_alpha(Image.open(master), background=background)
+    part = cut.crop(opaque_box(cut))
+    body_picture = Image.open(out / f'{body}_north.png').convert('RGBA')
+    left, top, right, bottom = opaque_box(body_picture)
+    width, height = right - left, bottom - top
+    canvas = tuple(c * PIXELS_PER_CELL for c in canvas_cells) if canvas_cells else body_picture.size
+    shift = ((canvas[0] - body_picture.width) // 2, (canvas[1] - body_picture.height) // 2)
+    layer = Image.new('RGBA', canvas, (0, 0, 0, 0))
+    for (x0, y0, x1, y1), mirrored in boxes:
+        bx0, by0 = left + x0 * width + shift[0], top + y0 * height + shift[1]
+        bw, bh = (x1 - x0) * width, (y1 - y0) * height
+        factor = min(bw / part.width, bh / part.height)
+        size = (max(1, round(part.width * factor)), max(1, round(part.height * factor)))
+        piece = part.transpose(Image.FLIP_LEFT_RIGHT) if mirrored else part
+        piece = piece.convert('RGBa').resize(size, Image.LANCZOS).convert('RGBA')
+        layer.alpha_composite(piece, (round(bx0 + (bw - size[0]) / 2), round(by0 + (bh - size[1]) / 2)))
+    texture, mask, colours = separate_paint(layer, MAIN_HUE, (0, 0) if name in NO_ACCENT else ACCENT_HUE)
+    written = write_facings(texture, out, name) + write_facings(mask, out, name, 'm')
+    record(out, name, master, written, {'kind': 'fitted part', 'on': body, 'boxes': [[list(b), m] for b, m in boxes],
+                                        'canvas_cells': list(canvas_cells) if canvas_cells else None, 'colours': colours,
+                                        'ai_mask': True})
+    return written
+
+
+# Node icons and the seed sack's item picture, from the parts' own colour masters (the owner's picks of 20 Nov 2026): (path under
+# Textures/Phobos/Farming, part, pixels). The liquid ballast's icon has no part (it is invisible) and is drawn by the local model.
+PART_PICTURES = [
+    ('Upgrades/FrontWeights', 'front-weights', 128),
+    ('Upgrades/DualWheels', 'dual-tyre', 128),
+    ('Upgrades/PloughWings', 'plough-wings', 128),
+    ('Upgrades/CultivatorWings', 'cultivator-wing', 128),
+    ('Upgrades/DrillWings', 'drill-wing', 128),
+    ('Upgrades/HopperExtension', 'hopper-extension', 128),
+    ('Things/Seed', 'seed-sack', 128),
+]
+
+
 def export_batch_two(textures):
     for name, master, cells, draw in BATCH_TWO:
         result = export_body(master, textures / name.split('_')[0], name, cells, draw, MAIN_HUE, ACCENT_HUE,
@@ -197,6 +280,14 @@ def export_batch_two(textures):
         print(f"{name}: {result['width_cells']:.2f} cells wide; {filled} flecks filled; Def colours {result['colours']}")
     for name, master in ARTICULATED:
         print(f'{name}: {export_articulated(name, master, textures / name)}')
+    for name, folder, body, key, boxes, canvas_cells in FITS:
+        fit_part(name, folder, body, key, boxes, canvas_cells, textures)
+        print(f'{name}: fitted on {body}')
+    for path, key, size in PART_PICTURES:
+        target = textures / f'{path}.png'
+        target.parent.mkdir(parents=True, exist_ok=True)
+        export_sprite(PART(key), target, size, '1:1', 235, 30)
+        print(f'  {target}')
 
 
 def main():

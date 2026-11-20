@@ -18,6 +18,11 @@ The background AI and Segment Anything looked at every master on the graphics ca
 fleck left in a paint mask was repainted with the paint that rings it (paint_check.fill_flecks), and each was checked tinted on dark
 ground with no flecks left. East and south are the north turned, with paint masks (suffix m).
 
+**Upgrade parts fitted onto it** (`Plough_Turned_Wings`, `Plough_Wings`): AI-generated parts drawn alone and picked by the owner on
+20 Nov 2026 ([parts record](../../../../../../../assets/phobos-vehicles/requests/farming-batch2-parts-record.md)), fitted by
+`export_farming.py` (`fit_part`) into boxes set by the agent from the pictures, painted by the same rules, and checked tinted on dark
+ground. Their export records name each box.
+
 - `Plough_east.png`: SHA-256 `335e0b586e1bf0c38a96d116c3212b677c9dade2a8e68dfb66a706d000be457b`
 - `Plough_eastm.png`: SHA-256 `c10cb18137a6179fdffff5c2f932d90458ade0749a0896a6e0d586dc8edc9352`
 - `Plough_icon.png`: SHA-256 `ce5c396a34b9e89614c8b3e1b2b162b149a5c481861a3becd833d81d5feb0d64`
@@ -32,3 +37,21 @@ ground with no flecks left. East and south are the north turned, with paint mask
 - `Plough_Turned_northm.png`: SHA-256 `eb2ccb062fd87489dd7c02e398253f9b9b5b75057c4182b7dc70057484813113`
 - `Plough_Turned_south.png`: SHA-256 `31d4dc0dc986a05faccc96e64fda2d19ed06b29cb2626a0f90703a04b56739fb`
 - `Plough_Turned_southm.png`: SHA-256 `6d2325df377b53dafde003bd1e4dc4642ac5e5ae1fe621ff0b0d8259083f7172`
+- `Plough_Turned_Wings_east.png`: SHA-256 `b79be227622eb418c3680ffea503cf346ced1af4e3873d6f026939232ffdad70`
+- `Plough_Turned_Wings_eastm.png`: SHA-256 `81968a4160ea212294edcdf256c7d34c69e6bf69a1dbbdfe73e2d9f80a47e199`
+- `Plough_Turned_Wings_north.png`: SHA-256 `fcada24286d8419081a08707d5df282c6964a9241dc111a4fd33bd3d3a67ff30`
+- `Plough_Turned_Wings_northm.png`: SHA-256 `a1aa221b0244eaf5f5f513ad3eb563550249821fc10e7ee1a8ba1b0779128545`
+- `Plough_Turned_Wings_south.png`: SHA-256 `a87640f1d437338e8357d3aa2bd091d0e84533f5d7a2e15cc41abff2485d081d`
+- `Plough_Turned_Wings_southm.png`: SHA-256 `7fadce8bddb9a1baf395838cfafebf7ff56182e2b3fcc9555baf58b4b1025be7`
+- `Plough_Wings_east.png`: SHA-256 `d0d66ddb784b91f1652857ab7bae700777c1686db6c296552ac223075dcec759`
+- `Plough_Wings_eastm.png`: SHA-256 `e1e5773efff9064cbda0446f624f0d8decf86bcb35092205dbd70d2a85bfbcfb`
+- `Plough_Wings_north.png`: SHA-256 `c19d38050ef4018b4beb52ca4fc3c82a610f1a5a70b3f75c10fb2bb1f4648c43`
+- `Plough_Wings_northm.png`: SHA-256 `f640a9c130c93c5531fe3c26692bf1c1a7295b33b4748abff5a2f8afecd39dee`
+- `Plough_Wings_south.png`: SHA-256 `9a61a2285513a5165c912c626f88c1afb55195878e8c62ed86966f32b4c68f05`
+- `Plough_Wings_southm.png`: SHA-256 `736c315cc7fea89ef20e20cc58cd48b2e3cf2b21e506662f206570ca2428c6f3`
+- `PloughBody_east.png`: SHA-256 `ee5f4ae0aae66a3d9ad8166933132bf2fad25da6220d8f02127f69546b5a4795`
+- `PloughBody_eastm.png`: SHA-256 `334a66740ff2739817852a78eb03e1cff35da608515457567c739af831d0379d`
+- `PloughBody_north.png`: SHA-256 `ee5f4ae0aae66a3d9ad8166933132bf2fad25da6220d8f02127f69546b5a4795`
+- `PloughBody_northm.png`: SHA-256 `334a66740ff2739817852a78eb03e1cff35da608515457567c739af831d0379d`
+- `PloughBody_south.png`: SHA-256 `ee5f4ae0aae66a3d9ad8166933132bf2fad25da6220d8f02127f69546b5a4795`
+- `PloughBody_southm.png`: SHA-256 `334a66740ff2739817852a78eb03e1cff35da608515457567c739af831d0379d`

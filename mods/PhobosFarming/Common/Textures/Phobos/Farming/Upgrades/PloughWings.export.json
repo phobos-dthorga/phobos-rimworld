@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/PloughWings.png",
+  "source": "assets/phobos-vehicles/generated/farming-plough-wings/farming-plough-wings-1.png",
+  "source_sha256": "fe863ef8fcde507e395d4decba08284473732a692bd563a649c243fa6d0b89ea",
+  "target_sha256": "ec81975738acc005bb792dd0cd57bd3245e54846590ba12ffe4855b54a2fdfe9",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "fe863ef8fcde507e395d4decba08284473732a692bd563a649c243fa6d0b89ea",
+  "date": "2026-11-20T22:16:12",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

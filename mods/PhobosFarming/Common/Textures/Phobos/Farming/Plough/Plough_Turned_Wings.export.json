@@ -1,0 +1,40 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-plough-wings/farming-plough-wings-1.png",
+  "master_sha256": "fe863ef8fcde507e395d4decba08284473732a692bd563a649c243fa6d0b89ea",
+  "files": {
+    "Plough_Turned_Wings_north.png": "fcada24286d8419081a08707d5df282c6964a9241dc111a4fd33bd3d3a67ff30",
+    "Plough_Turned_Wings_east.png": "b79be227622eb418c3680ffea503cf346ced1af4e3873d6f026939232ffdad70",
+    "Plough_Turned_Wings_south.png": "a87640f1d437338e8357d3aa2bd091d0e84533f5d7a2e15cc41abff2485d081d",
+    "Plough_Turned_Wings_northm.png": "a1aa221b0244eaf5f5f513ad3eb563550249821fc10e7ee1a8ba1b0779128545",
+    "Plough_Turned_Wings_eastm.png": "81968a4160ea212294edcdf256c7d34c69e6bf69a1dbbdfe73e2d9f80a47e199",
+    "Plough_Turned_Wings_southm.png": "7fadce8bddb9a1baf395838cfafebf7ff56182e2b3fcc9555baf58b4b1025be7"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "fitted part",
+  "on": "Plough_Turned",
+  "boxes": [
+    [
+      [
+        0.3,
+        0.95,
+        0.86,
+        1.36
+      ],
+      true
+    ]
+  ],
+  "canvas_cells": [
+    4,
+    7
+  ],
+  "colours": {
+    "color": [
+      147,
+      169,
+      114
+    ],
+    "colorTwo": null
+  },
+  "ai_mask": true
+}

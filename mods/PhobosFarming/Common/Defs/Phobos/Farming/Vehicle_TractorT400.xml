@@ -250,6 +250,49 @@
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosArticulated">
         <rearHalf>Phobos_TractorT400StandardRear</rearHalf>
       </li>
+    
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_TractorT400_UpgradeTree</def>
+      </li>
+      <!-- Its upgrades' pictures (D'thorga Framework's node looks): parts drawn alone and fitted onto the body (export_farming.py). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>weights</key>
+            <looks>
+              <li>
+                <node>PhobosTractorFrontWeights</node>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/TractorT400/TractorT400Front_Weights</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(5, 6)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+          <li>
+            <key>tank</key>
+            <looks>
+              <li>
+                <fitting>PhobosFitting_AuxFuelTank</fitting>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/TractorT400/TractorT400Front_Tank</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(5, 5)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
+      </li>
     </comps>
   </Vehicles.VehicleDef>
 
@@ -288,6 +331,32 @@
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosArticulated">
         <rearHalf>Phobos_TractorT400BRear</rearHalf>
+      </li>
+    
+      <li Class="Vehicles.CompProperties_UpgradeTree">
+        <def>Phobos_TractorT400B_UpgradeTree</def>
+      </li>
+      <!-- Its upgrades' pictures (D'thorga Framework's node looks): parts drawn alone and fitted onto the body (export_farming.py). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>tank</key>
+            <looks>
+              <li>
+                <fitting>PhobosFitting_AuxFuelTank</fitting>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/TractorT400B/TractorT400BFront_Tank</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(5, 5)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
       </li>
     </comps>
   </Vehicles.VehicleDef>

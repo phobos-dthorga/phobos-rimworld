@@ -12,12 +12,23 @@ The background AI and Segment Anything looked at every master on the graphics ca
 fleck left in a paint mask was repainted with the paint that rings it (paint_check.fill_flecks), and each was checked tinted on dark
 ground with no flecks left. East and south are the north turned, with paint masks (suffix m).
 
+**Upgrade parts fitted onto it** (`TractorT400BFront_Tank`): AI-generated parts drawn alone and picked by the owner on
+20 Nov 2026 ([parts record](../../../../../../../assets/phobos-vehicles/requests/farming-batch2-parts-record.md)), fitted by
+`export_farming.py` (`fit_part`) into boxes set by the agent from the pictures, painted by the same rules, and checked tinted on dark
+ground. Their export records name each box.
+
 - `TractorT400BFront_east.png`: SHA-256 `d287b1f502c80a640de835c4d9e5f70bfaa7d53d3c46c12074a2a9fdd9c6d099`
 - `TractorT400BFront_eastm.png`: SHA-256 `f243c23407753ff10a65cd0060c1a2b1841350bae2c9cfa8ceabc1e7d6e154f0`
 - `TractorT400BFront_north.png`: SHA-256 `400c47e098ad747baa8641e962c1b419899aa8a92e350a432ad5d4f9334f96c0`
 - `TractorT400BFront_northm.png`: SHA-256 `0d83a1a54fc87ee1bb88cd1501684da6fea1d9a6dc88729690333a075d51e230`
 - `TractorT400BFront_south.png`: SHA-256 `612331b48acc8fb97dcb0e8799bd26c5683a93ca9e7988b0afa1d7e68c18dbef`
 - `TractorT400BFront_southm.png`: SHA-256 `0a1ba359a939b57a138faeda3a37945a080918675d3d07407182f693e5e8b300`
+- `TractorT400BFront_Tank_east.png`: SHA-256 `e6f2c8d99ecbc52e91f65dae10a366fb8ada47ef05a1a77c4c44649fc1d1cc2c`
+- `TractorT400BFront_Tank_eastm.png`: SHA-256 `0faa65dc55d6bf5a10a3215e4dc249bcac4aed6f887dc1e388c8699a123ec421`
+- `TractorT400BFront_Tank_north.png`: SHA-256 `d6bd15e499da8b327dc080d7ccf99bee2af7fa8796c2839ae90a8094ca6b575b`
+- `TractorT400BFront_Tank_northm.png`: SHA-256 `a3de12da92ff306ded644b238ac9e9c6631f69c120b673097aa9d801c88972f7`
+- `TractorT400BFront_Tank_south.png`: SHA-256 `a011922c9d15344401028d893f7e27e9abab9b0454b1571f0d1db4733628f663`
+- `TractorT400BFront_Tank_southm.png`: SHA-256 `5ccdc87059f0c6d194334587428dea386d12baea78fcbe5ec0667d9962a544d5`
 - `TractorT400BRear_east.png`: SHA-256 `9adac6514583b2fc484cd715245c7260d32a9c50b568edff1f29df14abe3dbd9`
 - `TractorT400BRear_eastm.png`: SHA-256 `d1b9f6049ecf5d5cf49146c903ad2e9bd957dd402bf331a92945dfcd736534eb`
 - `TractorT400BRear_north.png`: SHA-256 `c1a0f26ab473c588be6b3a9f25a283bb6d8a2ff7e0c556d59cc0f101e4d4a060`

@@ -48,7 +48,9 @@ def resolve(path):
         if candidate.is_file():
             return candidate
     import art_paths
-    return art_paths.find(*Path(path).parts)
+    found = art_paths.find(*Path(path).parts) if path else None
+    # Only a file: an empty or odd path would otherwise find the working folder itself (20 Nov 2026).
+    return found if found is not None and found.is_file() else None
 
 
 def originals():

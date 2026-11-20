@@ -1,0 +1,37 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-front-weights/farming-front-weights-1.png",
+  "master_sha256": "bd8024d72629247f441be36d5d5f8089c2c9b470643be3d7563f6fe989099089",
+  "files": {
+    "TractorT60_Weights_north.png": "524734362085ce4d551b1cffecd81a4a8ee485efa0affea0b9ef3ef8641d33be",
+    "TractorT60_Weights_east.png": "0def6f0e78d633a4a3290180da338b72ec5e83e48bbbf4ea2680ed1326d068b2",
+    "TractorT60_Weights_south.png": "09b9fd1aa335a1c1684ee6dc30b8ce298addf751662d859cc346ebf263874aff",
+    "TractorT60_Weights_northm.png": "9d4abc7f91c5d12442d8632b674ff1f916d1d51b10d28c2666780bbd16ef60b1",
+    "TractorT60_Weights_eastm.png": "1a216c5fd5525e9397a8def86d9f1d2568176ca49842f11929468840ed25e8a7",
+    "TractorT60_Weights_southm.png": "1ed3c0c9508ae98aa2f30a3b083cc1700c4daaf469dba90bc53eb44f41d1f3d9"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "fitted part",
+  "on": "TractorT60",
+  "boxes": [
+    [
+      [
+        0.33,
+        -0.1,
+        0.67,
+        0.02
+      ],
+      false
+    ]
+  ],
+  "canvas_cells": null,
+  "colours": {
+    "color": [
+      128,
+      149,
+      96
+    ],
+    "colorTwo": null
+  },
+  "ai_mask": true
+}

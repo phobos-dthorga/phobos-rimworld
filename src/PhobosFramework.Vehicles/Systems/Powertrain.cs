@@ -673,7 +673,9 @@ public sealed class Powertrain
     double TreadGrip(double groundGrip)
     {
         if (OwnSurface || !comp.TryGetQuantity("treadWear", out float wear)) return 1;
-        return TreadRules.GripFactor(wear) * TreadRules.SoftGroundFactor(groundGrip, comp.Fittings.ParameterFactor(RunningGearSystem, SoftGroundGripParameter));
+        // Framework 0.197.0: a node's soft-ground grip (dual wheels) adds to the fittings' factor.
+        double bonus = comp.Vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_SoftGroundGripBonus);
+        return TreadRules.GripFactor(wear) * TreadRules.SoftGroundFactor(groundGrip, comp.Fittings.ParameterFactor(RunningGearSystem, SoftGroundGripParameter) + bonus);
     }
 
     /// <summary>What rain, falling snow and ice under the wheels do to grip on a map (cross-links G5, Framework 0.113.0; WeatherGripRule): the

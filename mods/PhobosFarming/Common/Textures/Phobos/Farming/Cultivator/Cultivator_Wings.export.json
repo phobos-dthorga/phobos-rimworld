@@ -1,0 +1,49 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-cultivator-wing/farming-cultivator-wing-1.png",
+  "master_sha256": "68bca759ebabdf949fe980e9c97413a6c6ef0e8604401f448ae62a0f7cf603f7",
+  "files": {
+    "Cultivator_Wings_north.png": "d9833ae9326e40d5a6af1a9e3847bf94b6e969213b6a438f99e0e19342a9e9c4",
+    "Cultivator_Wings_east.png": "0b641770c8912bd2407af2279448257b1043387b3d6fe6314869fe8c51c169a3",
+    "Cultivator_Wings_south.png": "4cf80b538c82a0be932c69fb72c9313fd9d7d02362528c4edf36145dec3cd517",
+    "Cultivator_Wings_northm.png": "f7f72e4dc34cfdce695307e434b0ab2272ff8e8293bf676db6441e349dec099f",
+    "Cultivator_Wings_eastm.png": "b31b9f0a475c98203f0f60279d55b0609d235f21c47b4fbecad4878b2cad3718",
+    "Cultivator_Wings_southm.png": "a9c5685bf2b48e185cf400b97c081738efd34a7f5a2f9296f6323f80ee5f6184"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "fitted part",
+  "on": "Cultivator",
+  "boxes": [
+    [
+      [
+        -0.46,
+        0.22,
+        0.03,
+        1.0
+      ],
+      true
+    ],
+    [
+      [
+        0.97,
+        0.22,
+        1.46,
+        1.0
+      ],
+      false
+    ]
+  ],
+  "canvas_cells": [
+    8,
+    4
+  ],
+  "colours": {
+    "color": [
+      130,
+      156,
+      106
+    ],
+    "colorTwo": null
+  },
+  "ai_mask": true
+}

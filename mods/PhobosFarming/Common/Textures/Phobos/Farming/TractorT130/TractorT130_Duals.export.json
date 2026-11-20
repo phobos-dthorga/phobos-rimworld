@@ -1,0 +1,45 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-dual-tyre/farming-dual-tyre-1.png",
+  "master_sha256": "8e2a4481205e23c103fb62e378c2158e0723f2ea28bb286027f16e5e80394342",
+  "files": {
+    "TractorT130_Duals_north.png": "2323fea601f1b5837907aad0f337a89ca2e8deb218a293aa269ea43025778dca",
+    "TractorT130_Duals_east.png": "752ed18920421dbb951b531ba0f1b74551101caca2a10a4368d227b52f7cb768",
+    "TractorT130_Duals_south.png": "e73b7f279267111e3a50cde0a0e48228bb27cee06b978b5a7f73bf50fff9f764",
+    "TractorT130_Duals_northm.png": "61d54554c14ae5b987cc7a9d1d07bae1fbdca7fddb87e5a52ff7480a0a55815d",
+    "TractorT130_Duals_eastm.png": "a8b7ea94a61518e8733495ac68ee13f09fe2a7d6e36127aa7e72cec7c06c41c4",
+    "TractorT130_Duals_southm.png": "61d54554c14ae5b987cc7a9d1d07bae1fbdca7fddb87e5a52ff7480a0a55815d"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "fitted part",
+  "on": "TractorT130",
+  "boxes": [
+    [
+      [
+        -0.17,
+        0.49,
+        0.0,
+        0.87
+      ],
+      false
+    ],
+    [
+      [
+        1.0,
+        0.49,
+        1.17,
+        0.87
+      ],
+      true
+    ]
+  ],
+  "canvas_cells": [
+    5,
+    7
+  ],
+  "colours": {
+    "color": null,
+    "colorTwo": null
+  },
+  "ai_mask": true
+}

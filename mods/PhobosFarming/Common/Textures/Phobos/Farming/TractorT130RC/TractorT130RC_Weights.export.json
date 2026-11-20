@@ -1,0 +1,37 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-front-weights/farming-front-weights-1.png",
+  "master_sha256": "bd8024d72629247f441be36d5d5f8089c2c9b470643be3d7563f6fe989099089",
+  "files": {
+    "TractorT130RC_Weights_north.png": "404492d13aa8da5f6ee1d0eb6741bbac3e04a5dd1275229e2d13d069d09619c5",
+    "TractorT130RC_Weights_east.png": "45516da1620106d522d01136b9539940c8983f752ff7c11f4c14538e2bd99e6d",
+    "TractorT130RC_Weights_south.png": "a6b546b21a6eac7462858dba1a0233ce8326c2c730ed93b1969f28360bb5c82b",
+    "TractorT130RC_Weights_northm.png": "9f282cb02c993fe136cd3f53f7ae3b32cc84748ad7fc510eb515fb0de240dcc1",
+    "TractorT130RC_Weights_eastm.png": "2eb5b475318255e7e8513e8a59fe8f5efe2a3854f2e27a4a1e661febdee45539",
+    "TractorT130RC_Weights_southm.png": "457cd0e214a609f05eafa37413a62175cc458189792518c3b41451448dfff1b1"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "fitted part",
+  "on": "TractorT130RC",
+  "boxes": [
+    [
+      [
+        0.33,
+        -0.1,
+        0.67,
+        0.02
+      ],
+      false
+    ]
+  ],
+  "canvas_cells": null,
+  "colours": {
+    "color": [
+      133,
+      154,
+      100
+    ],
+    "colorTwo": null
+  },
+  "ai_mask": true
+}

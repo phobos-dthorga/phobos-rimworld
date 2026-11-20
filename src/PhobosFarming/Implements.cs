@@ -20,6 +20,9 @@ public abstract class CompProperties_PhobosImplement : VehicleCompProperties
     public float metresPerCell = 1.5f;
     /// <summary>The order button's picture.</summary>
     public string orderIconPath = "Phobos/Farming/UI/Harvest";
+    /// <summary>The upgrade node that unfolds its wings (the owner's width by upgrade, 20 Nov 2026), and its width with them.</summary>
+    public string? wingNode;
+    public int wingWidthCells;
 }
 
 /// <summary>
@@ -116,7 +119,11 @@ public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IV
     public abstract string OrderDescription { get; }
     public string OrderIconPath => ImplementProps.orderIconPath;
 
-    public int StripWidth => System.Math.Max(1, ImplementProps.widthCells);
+    /// <summary>Its working width: wider once its wing node is fitted (draught grows with it).</summary>
+    public int StripWidth => System.Math.Max(1, WingsFitted && ImplementProps.wingWidthCells > 0 ? ImplementProps.wingWidthCells : ImplementProps.widthCells);
+
+    /// <summary>Whether its wing node is fitted.</summary>
+    protected bool WingsFitted => !ImplementProps.wingNode.NullOrEmpty() && VehicleUpgrades.Unlocked(Vehicle, ImplementProps.wingNode!);
 
     /// <summary>The line under the implement's own rear edge: its length back from its front line.</summary>
     public int StripAhead => -(System.Math.Max(Vehicle.def.Size.z, 1) - 1);
@@ -259,7 +266,14 @@ public class CompPhobosTillage : CompPhobosImplement, IVehicleLookSwitch
         return base.RowDone(out reason);
     }
 
-    public bool ShowsLook(string when) => when == TurnedLook && turned;
+    /// <summary>The plough's looks: its turned side, and its wings on whichever side is down.</summary>
+    public bool ShowsLook(string when) => when switch
+    {
+        TurnedLook => turned,
+        "wings" => WingsFitted && !turned,
+        "wings-turned" => WingsFitted && turned,
+        _ => false,
+    };
 
     public override void PostExposeData()
     {

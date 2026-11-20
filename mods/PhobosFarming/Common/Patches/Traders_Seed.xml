@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- Bought seed from bulk goods traders (owner, 20 Nov 2026: "bulk traders"): the outlander caravans' and the orbital ships'. Counts
+       authored [A]: a few hundred units, about 9 to 27 kg, enough to sow a few paddocks. The game's own Defs, so the paths always exist. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/TraderKindDef[defName="Caravan_Outlander_BulkGoods"]/stockGenerators</xpath>
+    <value>
+      <li Class="StockGenerator_SingleDef">
+        <thingDef>PhobosFarming_Seed</thingDef>
+        <countRange>300~900</countRange>
+      </li>
+    </value>
+  </Operation>
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/TraderKindDef[defName="Orbital_BulkGoods"]/stockGenerators</xpath>
+    <value>
+      <li Class="StockGenerator_SingleDef">
+        <thingDef>PhobosFarming_Seed</thingDef>
+        <countRange>300~900</countRange>
+      </li>
+    </value>
+  </Operation>
+</Patch>

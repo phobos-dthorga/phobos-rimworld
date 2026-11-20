@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/DrillWings.png",
+  "source": "assets/phobos-vehicles/generated/farming-drill-wing/farming-drill-wing-1.png",
+  "source_sha256": "96769c5b53f693a3a0ed3795f23bb9cf27d5b73eca8497e10d6da010a131f682",
+  "target_sha256": "0aa011708cd1c4d0273e0dfcf65bde782aebdb1d5660fd2853b8c924ea114eb7",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "96769c5b53f693a3a0ed3795f23bb9cf27d5b73eca8497e10d6da010a131f682",
+  "date": "2026-11-20T22:16:16",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

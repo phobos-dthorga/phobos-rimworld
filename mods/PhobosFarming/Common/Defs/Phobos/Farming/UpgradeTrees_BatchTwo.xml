@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Batch two's upgrades (the owner's picks of 20 Nov 2026; docs/development/farming-batch-two.md, "Upgrade trees"). Weights are kit
+       weight on the vehicle's own mass (D'thorga Framework's Phobos_KitKilograms), so they add grip and fuel as real ballast does; dual
+       wheels add soft-ground grip (Phobos_SoftGroundGripBonus, Framework 0.197.0). The bigger fuel tank is the Framework's auxiliary fuel
+       tank fitting (every fuelled land vehicle has its cradle), drawn as a saddle tank on the Thanes. Figures and costs authored [A]. Node
+       keys are saved in the game: never rename or remove one. The liquid ballast's own icon is still to be drawn (the local model; its
+       request is farming-ballast-icon.json): until then it shows our dual tyre's, ballast going in the tyres. Not yet tested in game. -->
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_TractorT60_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosTractorLiquidBallast</key>
+      <label>Liquid tyre ballast</label>
+      <displayLabel>true</displayLabel>
+      <description>Water and antifreeze pumped into the rear tyres: 500 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
+      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <work>800</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>10</Steel>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>500</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    <li>
+      <key>PhobosTractorFrontWeights</key>
+      <label>Front weights</label>
+      <displayLabel>true</displayLabel>
+      <description>A stack of cast-iron weights on the front: 400 kg more, keeping the front wheels down and the tractor gripping under heavy draught, at a little more fuel.</description>
+      <icon>Phobos/Farming/Upgrades/FrontWeights</icon>
+      <work>1500</work>
+      <gridCoordinate>(7, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>40</Steel>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>400</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    <li>
+      <key>PhobosTractorDualWheels</key>
+      <label>Dual rear wheels</label>
+      <displayLabel>true</displayLabel>
+      <description>A second wheel on each rear hub: a quarter more grip on the softest ground and less sinking in, for 600 kg more. Wider on the road.</description>
+      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <work>2500</work>
+      <gridCoordinate>(12, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>60</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>600</value>
+            </li>
+            <li>
+              <def>Phobos_SoftGroundGripBonus</def>
+              <value>0.25</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_TractorT130_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosTractorLiquidBallast</key>
+      <label>Liquid tyre ballast</label>
+      <displayLabel>true</displayLabel>
+      <description>Water and antifreeze pumped into the rear tyres: 900 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
+      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <work>800</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>10</Steel>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>900</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    <li>
+      <key>PhobosTractorDualWheels</key>
+      <label>Dual rear wheels</label>
+      <displayLabel>true</displayLabel>
+      <description>A second wheel on each rear hub: a quarter more grip on the softest ground and less sinking in, for 1000 kg more. Wider on the road.</description>
+      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <work>2500</work>
+      <gridCoordinate>(7, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>60</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>1000</value>
+            </li>
+            <li>
+              <def>Phobos_SoftGroundGripBonus</def>
+              <value>0.25</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_TractorT130RC_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosTractorLiquidBallast</key>
+      <label>Liquid tyre ballast</label>
+      <displayLabel>true</displayLabel>
+      <description>Water and antifreeze pumped into the rear tyres: 900 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
+      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <work>800</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>10</Steel>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>900</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    <li>
+      <key>PhobosTractorFrontWeights</key>
+      <label>Front weights</label>
+      <displayLabel>true</displayLabel>
+      <description>A stack of cast-iron weights on the front: 700 kg more, keeping the front wheels down and the tractor gripping under heavy draught, at a little more fuel.</description>
+      <icon>Phobos/Farming/Upgrades/FrontWeights</icon>
+      <work>1500</work>
+      <gridCoordinate>(7, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>70</Steel>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>700</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    <li>
+      <key>PhobosTractorDualWheels</key>
+      <label>Dual rear wheels</label>
+      <displayLabel>true</displayLabel>
+      <description>A second wheel on each rear hub: a quarter more grip on the softest ground and less sinking in, for 1000 kg more. Wider on the road.</description>
+      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <work>2500</work>
+      <gridCoordinate>(12, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>60</Steel>
+        <ComponentIndustrial>2</ComponentIndustrial>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>1000</value>
+            </li>
+            <li>
+              <def>Phobos_SoftGroundGripBonus</def>
+              <value>0.25</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_TractorT400_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosTractorLiquidBallast</key>
+      <label>Liquid tyre ballast</label>
+      <displayLabel>true</displayLabel>
+      <description>Water and antifreeze pumped into the rear tyres: 1600 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
+      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <work>800</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>10</Steel>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>1600</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    <li>
+      <key>PhobosTractorFrontWeights</key>
+      <label>Front weights</label>
+      <displayLabel>true</displayLabel>
+      <description>A stack of cast-iron weights on the front: 1200 kg more, keeping the front wheels down and the tractor gripping under heavy draught, at a little more fuel.</description>
+      <icon>Phobos/Farming/Upgrades/FrontWeights</icon>
+      <work>1500</work>
+      <gridCoordinate>(7, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>120</Steel>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>1200</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_TractorT400B_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosTractorLiquidBallast</key>
+      <label>Liquid tyre ballast</label>
+      <displayLabel>true</displayLabel>
+      <description>Water and antifreeze pumped into the rear tyres: 1600 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
+      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <work>800</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>10</Steel>
+      </ingredients>
+      <upgrades>
+        <li Class="Vehicles.StatUpgrade">
+          <vehicleStats>
+            <li>
+              <def>Phobos_KitKilograms</def>
+              <value>1600</value>
+            </li>
+          </vehicleStats>
+        </li>
+        <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+      </upgrades>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_Plough_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosPloughWings</key>
+      <label>Wing extension</label>
+      <displayLabel>true</displayLabel>
+      <description>Two more furrows bolted onto the end of the beam: it ploughs two cells wide instead of one, and pulls twice as hard.</description>
+      <icon>Phobos/Farming/Upgrades/PloughWings</icon>
+      <work>2000</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>70</Steel>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_Cultivator_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosCultivatorWings</key>
+      <label>Wing extension</label>
+      <displayLabel>true</displayLabel>
+      <description>A folding wing each side: it works seven cells wide instead of four, and pulls that much harder.</description>
+      <icon>Phobos/Farming/Upgrades/CultivatorWings</icon>
+      <work>2500</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>90</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+  <Vehicles.UpgradeTreeDef>
+    <defName>Phobos_SeedDrill_UpgradeTree</defName>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosUpgradeCostsLikeTunes" />
+    </modExtensions>
+    <nodes>
+    <li>
+      <key>PhobosDrillWings</key>
+      <label>Wing extension</label>
+      <displayLabel>true</displayLabel>
+      <description>A folding coulter section each side: it sows seven cells wide instead of four.</description>
+      <icon>Phobos/Farming/Upgrades/DrillWings</icon>
+      <work>2500</work>
+      <gridCoordinate>(2, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>80</Steel>
+        <ComponentIndustrial>1</ComponentIndustrial>
+      </ingredients>
+    </li>
+    <li>
+      <key>PhobosDrillHopperExtension</key>
+      <label>Hopper extension</label>
+      <displayLabel>true</displayLabel>
+      <description>Raised sides on the seed hopper: it holds half as much seed again before it must be filled.</description>
+      <icon>Phobos/Farming/Upgrades/HopperExtension</icon>
+      <work>1200</work>
+      <gridCoordinate>(7, 6)</gridCoordinate>
+      <drawSize>(80, 80)</drawSize>
+      <ingredients>
+        <Steel>40</Steel>
+      </ingredients>
+    </li>
+    </nodes>
+  </Vehicles.UpgradeTreeDef>
+</Defs>

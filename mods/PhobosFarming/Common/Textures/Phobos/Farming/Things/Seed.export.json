@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Things/Seed.png",
+  "source": "assets/phobos-vehicles/generated/farming-seed-sack/farming-seed-sack-1.png",
+  "source_sha256": "6f28dc6acbd74600f2a38518249522a5601cbaa806908be13dee90bd8674d22b",
+  "target_sha256": "0543dc2f58b78da166be71b900f42f36d0cd3924cd8b5cf89f63b4bfc8979d0e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "6f28dc6acbd74600f2a38518249522a5601cbaa806908be13dee90bd8674d22b",
+  "date": "2026-11-20T22:16:20",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

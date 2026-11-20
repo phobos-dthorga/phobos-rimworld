@@ -1,0 +1,26 @@
+[
+ {
+  "name": "farming-liquid-ballast",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A large tractor tyre with deep chevron lugs, seen from the side, with a blue water drop and a valve hose filling it with liquid ballast. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no tractor, only the tyre and the water.",
+  "subject": "A large tractor tyre with deep chevron lugs, seen from the side, with a blue water drop and a valve hose filling it with liquid ballast",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   21,
+   22
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Liquid tyre ballast (upgrade node on every Thane tractor)",
+   "since": "Farming batch two",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/LiquidBallast.png",
+   "why": "an invisible upgrade has no part picture to cut; made on the processor at the owner's say-so (20 Nov 2026)"
+  }
+ }
+]

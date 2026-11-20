@@ -1,0 +1,37 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-hopper-extension/farming-hopper-extension-1.png",
+  "master_sha256": "356937a48a8ddcaca31e754c397e81cfe7950db160460801a7b01ae82cc33e6f",
+  "files": {
+    "SeedDrill_Hopper_north.png": "3fa614d1987e5ff17e0f48764c3c7983473a3dd69cda3a4d5aca0decee712940",
+    "SeedDrill_Hopper_east.png": "5cc9abc203b4f04bddbfd8be0ca039ee803a8c448bd490857413e2eb8c1b9faf",
+    "SeedDrill_Hopper_south.png": "60a6888aa81b70bcee2f2b7c8dc96a6d4cc9b6c8cd389f76d4583d49278c3a84",
+    "SeedDrill_Hopper_northm.png": "3b8083472cae3bc295658b8512d83ca9b86854e5a91fef953e3697c01dfe7252",
+    "SeedDrill_Hopper_eastm.png": "bece47647508313aec34601382444bb8e51faca72bd52f4a0e631556f566eb16",
+    "SeedDrill_Hopper_southm.png": "c2fbe41f2e20dca18875433b6b8dcf75eedb94357f62c7ff4563617fa772fc66"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "fitted part",
+  "on": "SeedDrill",
+  "boxes": [
+    [
+      [
+        0.13,
+        0.44,
+        0.87,
+        0.66
+      ],
+      false
+    ]
+  ],
+  "canvas_cells": null,
+  "colours": {
+    "color": [
+      141,
+      161,
+      108
+    ],
+    "colorTwo": null
+  },
+  "ai_mask": true
+}

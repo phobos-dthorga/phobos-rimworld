@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/HopperExtension.png",
+  "source": "assets/phobos-vehicles/generated/farming-hopper-extension/farming-hopper-extension-1.png",
+  "source_sha256": "356937a48a8ddcaca31e754c397e81cfe7950db160460801a7b01ae82cc33e6f",
+  "target_sha256": "2890ab1dfb764d5883b58895b900ff03c445d34c86baaff58c21a6fef400a2f9",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "356937a48a8ddcaca31e754c397e81cfe7950db160460801a7b01ae82cc33e6f",
+  "date": "2026-11-20T22:16:18",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
