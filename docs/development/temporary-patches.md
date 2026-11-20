@@ -24,6 +24,12 @@ Every Phobos patch that exists because of a fault in someone else's mod: whose f
 
 More Injuries and Medical Surgery Expanded 2 were not re-checked for this register.
 
+- **Re-checked against the updates of 18-20 Nov 2026** (20 Nov 2026, from the assembly archive's kept builds): VFE Factory's new
+  build (19 Nov) rewrote `Building_Conveyor.Tick` but kept the early return for an empty, Waiting belt, so **row 12 stays**; RimPacts'
+  new build left `LaunchProtocol.GetArrivalOptions` patching and `RptAssaultTarget.IsLive` unchanged, so **rows 5 and 17 stay**; the
+  Harrier's, Hind's and Mongoose's new builds left their rearm code unchanged, so **row 6 stays**. Pipe System's `RegisterConnector` now
+  skips a destroyed pipe network, which none of rows 8-11 depends on.
+
 ## Temporary: comes out when the author fixes it
 
 | # | Patch (mod, class) | Whose fault, and what | It can go when | Stands down by itself? | Report |
