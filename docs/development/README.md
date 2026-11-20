@@ -31,7 +31,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 ## D'thorga Framework (core)
 
-- [Our Architect tab and its sub-tabs](architect-tabs.md) (21 Nov 2026): one D'thorga tab, sub-tabs listed by VGE or us. Built, untested.
+- [Our Architect tab and its sub-tabs](architect-tabs.md) (21 Nov 2026): one D'thorga tab with sub-tabs. Built; UI Rethemed keeps Motor pool apart.
 - [Pick-up and put-down loops](pick-up-loops.md) (21 Nov 2026): the loop watch names a colonist caught in one. Built, untested.
 - [D'thorga Framework: research and decisions](phobos-framework.md) (4 Nov 2026): room gases, supplied oxygen and the health layer, with their research. Built.
 - [Topping up machines](top-up-design.md) (18 Nov 2026): haulers refill machines that hold a material, named in data; drone platforms first. Built, untested.
@@ -137,7 +137,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [World elevation and descents](world-elevation-and-descents.md) (18 Nov 2026): tile heights measured; descents, altitude, radio line of sight. Research.
 - [Animating our vehicles](vehicle-animation-research.md) (9 Nov 2026): what can move, and where motion helps. Partly built; the boom owner-tested.
 - [Emergent play around the vehicles](vehicle-emergent-play.md) (20 Nov 2026): where unplanned stories could come from; three audits, EM1 to EM29. Partly built.
-- [Service yard](vehicle-service-yard.md) (20 Nov 2026): servicing, dyno, fuel, charging and parking in one capped zone; building upgrades. Design only.
+- [Service yard](vehicle-service-yard.md) (20 Nov 2026): servicing, dyno, fuel and parking in one capped zone; building upgrades. Built 0.210.0, untested.
 - [Bay trips](vehicle-bay-trips.md) (20 Nov 2026): vehicles driven, towed or pushed to a dyno bay for repair by themselves. Built, untested.
 - [Depots and forward fuel points](vehicle-depots.md) (20 Nov 2026): fuel left on the world map for later trips; DP1 to DP6. Design only.
 
