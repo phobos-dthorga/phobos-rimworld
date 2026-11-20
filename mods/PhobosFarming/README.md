@@ -5,14 +5,14 @@ cuts it, row by row by themselves.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.7.1, built 21 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.7.2, built 21 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
 - **Needs Vehicle Framework and D'thorga Framework** (0.202.0 or later). Load it after both; the About file asks for this, so RimSort
   does it for you.
 - **A combine has no front until you fit one.** Research **mechanised harvesting**, build the **Reaper combine harvester** (Architect >
-  Motor pool), then fit the **standard grain front** from its upgrades. Without a front it refuses to harvest and says why.
+  D'thorga > Farming), then fit the **standard grain front** from its upgrades. Without a front it refuses to harvest and says why.
 - **Mark the field first.** Select a growing zone and press **Machine-worked**. Colonists then keep off it, unless **Hands may help** is
   on.
 - **Tractors carry or pull an implement; they do nothing alone**, and an implement or a cart moves only on a hitch: it cannot be

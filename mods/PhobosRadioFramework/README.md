@@ -5,7 +5,7 @@ costs 6 dB. This is **Phase 1**: local VHF and UHF on one map.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.1.8, built 13 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.1.9, built 21 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
@@ -46,10 +46,10 @@ Research **Local radio** (after Microelectronics Basics). Then:
 | Thing | Where | What it is |
 | --- | --- | --- |
 | Hand-held radio (VHF) and (UHF) | Machining table, 20 steel + 1 component | 5 W, worn on the belt. VHF reaches further outdoors; UHF copes better with walls. |
-| Radio base station | Architect → Misc, 100 steel + 3 components | 2 × 2, needs power (60 W idle, more while in use), works both bands, built-in whip. |
-| Coax feedline | Architect → Misc, 2 steel per cell | Laid like power conduit, from the station to an antenna. Loses signal per metre; can run under walls. |
-| Whip antenna | Architect → Misc, 15 steel | 1 × 1, 3 m high, no gain. Cheap way to get the antenna outside. |
-| Mast antenna | Architect → Misc, 60 steel + 1 component | 1 × 1, 10 m high, 3 dBi. Sees over walls. |
+| Radio base station | Architect → D'thorga → Radio, 100 steel + 3 components | 2 × 2, needs power (60 W idle, more while in use), works both bands, built-in whip. |
+| Coax feedline | Architect → D'thorga → Radio, 2 steel per cell | Laid like power conduit, from the station to an antenna. Loses signal per metre; can run under walls. |
+| Whip antenna | Architect → D'thorga → Radio, 15 steel | 1 × 1, 3 m high, no gain. Cheap way to get the antenna outside. |
+| Mast antenna | Architect → D'thorga → Radio, 60 steel + 1 component | 1 × 1, 10 m high, 3 dBi. Sees over walls. |
 
 How to build, read the signal, and the play test are in the player guide's [Radio chapter](../../docs/player-guide/radio.md); the
 figures are here.

@@ -1,14 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!-- D'thorga Framework's assembly, built for RimWorld 1.7 only (net10.0); Directory.Build.targets at the
        repository root turns the target into the game version, the output folder and the game reference. It references
-       only the game: Combat Extended is reached by name at run time, and no Harmony is needed. Other Phobos mods reference
-       this project with Private=false; the DLL ships only in mods/PhobosFramework. -->
+       the game and Harmony (since 0.205.0, for the Architect's sub-tabs): Combat Extended is reached by name at run time. Other
+       Phobos mods reference this project with Private=false; the DLL ships only in mods/PhobosFramework. -->
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>Phobos.Framework</RootNamespace>
     <AssemblyName>PhobosFramework</AssemblyName>
     <ModFolder>PhobosFramework</ModFolder>
-    <Version>0.204.0</Version>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.205.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <!-- The shared logging core, pinned as a submodule and compiled in, so every Phobos mod shares one copy through this assembly. -->

@@ -39,7 +39,7 @@ It holds weak breathing up to a safe level, not to normal, and it cannot help so
     <building>
       <destroySound>BuildingDestroyed_Metal_Small</destroySound>
     </building>
-    <designationCategory>Misc</designationCategory>
+    <designationCategory>PhobosMedical_Architect</designationCategory>
     <minifiedDef>MinifiedThing</minifiedDef>
     <thingCategories>
       <li>PhobosCategory_MedicalEquipment</li>

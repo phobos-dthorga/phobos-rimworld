@@ -33,7 +33,7 @@ combine harvester cuts it, row by row by themselves, emptying its grain into a c
 **Ploughing and sowing**
 
 1. **Research tillage and sowing** (D'thorga tab), and **articulated tractors** for the T400. Build a **Thane** tractor and an
-   implement under **Architect > Motor pool**: every Thane and the cultivator come in two models, under one button.
+   implement under **Architect > D'thorga > Farming**: every Thane and the cultivator come in two models, under one button.
 2. **Hitch the implement**: select the tractor, press **Hitch a trailer** and pick the implement; a colonist couples it. To pull a cart
    too, press **Hitch behind** on the tractor and pick the cart.
 3. **Plough or cultivate**: press **Plough a paddock** or **Cultivate a paddock** and pick the paddock. Weeds, stubble and wild plants
@@ -45,7 +45,7 @@ combine harvester cuts it, row by row by themselves, emptying its grain into a c
 **Harvesting**
 
 1. **Research mechanised harvesting** (D'thorga tab), and **grain storage** for the silo. Build the **Reaper combine harvester** and a
-   **Garner chaser bin** under **Architect > Motor pool**.
+   **Garner chaser bin** under **Architect > D'thorga > Farming**.
 2. **Fit a front.** Open the combine's upgrades and fit the **standard grain front** (6 cells wide). After **wide grain fronts**
    research, the **wide grain front** (8 cells) can replace it. For corn, fit the **corn header** instead.
 3. **Mark a paddock.** Select a growing zone and press **Machine-worked**. Colonists keep off it. Turn **Hands may help** on to sow it

@@ -11,7 +11,7 @@
     <rotatable>false</rotatable>
     <size>(1,1)</size>
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
-    <designationCategory>Misc</designationCategory>
+    <designationCategory>PhobosRadio_Architect</designationCategory>
     <tickerType>Never</tickerType>
     <placeWorkers>
       <li>Phobos.Radio.UI.PlaceWorker_AntennaSiting</li>

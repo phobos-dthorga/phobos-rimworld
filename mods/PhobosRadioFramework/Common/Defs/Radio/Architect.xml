@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Radio's own Architect tab, inside the D'thorga tab (the owner's choice of 21 Nov 2026, though radio is on the back burner: a tab
+       only, nothing else changed; docs/development/architect-tabs.md). This mod does not need D'thorga Framework, so both markers say
+       MayRequire: without the Framework it is a tab of its own on the bar. -->
+  <DesignationCategoryDef>
+    <defName>PhobosRadio_Architect</defName>
+    <label>radio</label>
+    <description>radio base stations, antennas and coax feedline.</description>
+    <order>27</order>
+    <specialDesignatorClasses>
+      <li>Designator_Cancel</li>
+      <li>Designator_Deconstruct</li>
+    </specialDesignatorClasses>
+    <modExtensions>
+      <li Class="Phobos.Framework.Interface.PhobosNestedCategoryExtension" MayRequire="PhobosDthorga.Framework">
+        <parentCategory>PhobosDthorga</parentCategory>
+        <iconTexPath>Phobos/Radio/UI/Signal</iconTexPath>
+      </li>
+      <li Class="VanillaGravshipExpanded.NestedCategoryExtension" MayRequire="PhobosDthorga.Framework,vanillaexpanded.gravship">
+        <parentCategory>PhobosDthorga</parentCategory>
+        <iconTexPath>Phobos/Radio/UI/Signal</iconTexPath>
+      </li>
+    </modExtensions>
+  </DesignationCategoryDef>
+</Defs>

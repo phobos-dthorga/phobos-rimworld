@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Medical's own Architect tab, inside the D'thorga tab (the owner's choice of 21 Nov 2026; docs/development/architect-tabs.md), out of
+       the game's crowded Misc tab. The oxygen electrolyser and liquid oxygen store stay beside Vanilla Gravship Expanded's oxygen gear in
+       its vacuum tab (the owner's choice). Two markers: D'thorga Framework's, and Vanilla Gravship Expanded's, which lists it down the
+       D'thorga tab's side while that mod is active. -->
+  <DesignationCategoryDef>
+    <defName>PhobosMedical_Architect</defName>
+    <label>medical</label>
+    <description>medical equipment: oxygen, ventilators, nebulisers, anaesthesia, sterilising, alarms and safety showers.</description>
+    <order>28</order>
+    <specialDesignatorClasses>
+      <li>Designator_Cancel</li>
+      <li>Designator_Deconstruct</li>
+    </specialDesignatorClasses>
+    <modExtensions>
+      <li Class="Phobos.Framework.Interface.PhobosNestedCategoryExtension">
+        <parentCategory>PhobosDthorga</parentCategory>
+        <iconTexPath>Phobos/Medical/Categories/MedicalEquipment</iconTexPath>
+      </li>
+      <li Class="VanillaGravshipExpanded.NestedCategoryExtension" MayRequire="vanillaexpanded.gravship">
+        <parentCategory>PhobosDthorga</parentCategory>
+        <iconTexPath>Phobos/Medical/Categories/MedicalEquipment</iconTexPath>
+      </li>
+    </modExtensions>
+  </DesignationCategoryDef>
+</Defs>

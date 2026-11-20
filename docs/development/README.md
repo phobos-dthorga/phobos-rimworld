@@ -31,6 +31,7 @@ research or design with nothing built; **living** means kept current by every ch
 
 ## D'thorga Framework (core)
 
+- [Our Architect tab and its sub-tabs](architect-tabs.md) (21 Nov 2026): one D'thorga tab, sub-tabs listed by VGE or us. Built, untested.
 - [D'thorga Framework: research and decisions](phobos-framework.md) (4 Nov 2026): room gases, supplied oxygen and the health layer, with their research. Built.
 - [Topping up machines](top-up-design.md) (18 Nov 2026): haulers refill machines that hold a material, named in data; drone platforms first. Built, untested.
 - [Parts bills](parts-bills.md) (11 Nov 2026): what a built thing is made of, by role, filled by installed mods' parts or ours. Built.

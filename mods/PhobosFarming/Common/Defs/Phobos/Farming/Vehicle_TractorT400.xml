@@ -576,7 +576,7 @@
       <Steel>520</Steel>
       <ComponentIndustrial>5</ComponentIndustrial>
     </costList>
-    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designationCategory>PhobosFarming_Architect</designationCategory>
     <designatorDropdown>PhobosFarming_ThaneT400Models</designatorDropdown>
   </Vehicles.VehicleBuildDef>
 

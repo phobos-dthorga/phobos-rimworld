@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- One Architect tab for everything we build (the owner's choice of 21 Nov 2026; docs/development/architect-tabs.md): its sub-tabs
+       (Motor pool, Farming, Medical, Radio) are other tabs that name this one as their parent. With Vanilla Gravship Expanded active they
+       are listed down its side, as its gravship tabs are; otherwise D'thorga Framework shows a button for each. Its place on the bar is
+       Motor pool's old one, beside Vehicle Framework's tab. Label: the brand, as the D'thorga research tab's is. -->
+  <DesignationCategoryDef>
+    <defName>PhobosDthorga</defName>
+    <label>D'thorga</label>
+    <description>House D'thorga's machines and equipment: vehicles and their workshops, farm machines, medical equipment and radio, each in a tab of its own.</description>
+    <order>23</order>
+    <specialDesignatorClasses>
+      <li>Designator_Cancel</li>
+      <li>Designator_Deconstruct</li>
+    </specialDesignatorClasses>
+  </DesignationCategoryDef>
+</Defs>

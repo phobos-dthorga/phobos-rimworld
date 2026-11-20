@@ -251,7 +251,7 @@ to a parked helicopter instead of a far bed, switch on its **Take casualties abo
 
 Suits on inside, off at the door, as a real plant runs it. **Only with Rimatomics active.**
 
-1. Place a **radiation control point** (Misc tab, 10 steel) facing into a room or its doorway, or paint a **radiation controlled
+1. Place a **radiation control point** (D'thorga tab, Medical, 10 steel) facing into a room or its doorway, or paint a **radiation controlled
    area** (zone tab) over open ground or several rooms.
 2. **Keep suits and masks just outside the line**, on a shelf, not forbidden. Gear inside the area is never fetched.
 3. **Keep potassium iodide just outside too.** A colonist going in who is not on iodide takes a tablet first ("Taking potassium

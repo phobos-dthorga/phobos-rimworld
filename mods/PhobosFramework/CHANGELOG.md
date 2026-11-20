@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.205.0] - 2026-11-21 - Draft
+
+One D'thorga tab in the Architect, with sub-tabs
+
+### Added
+
+- **Everything we build is in one Architect tab, D'thorga, with a sub-tab for each kind of thing** (the owner's choice of 21 November 2026): Motor pool (vehicles and their workshops), and, as each mod you have adds them, Farming, Medical and Radio. The D'thorga tab takes Motor pool's old place on the bar, beside Vehicle Framework's. The water bottle tap stays in Dubs Bad Hygiene's tab and the oxygen electrolyser and liquid oxygen store in Vanilla Gravship Expanded's vacuum tab, beside the buildings they work with.
+- **With Vanilla Gravship Expanded the sub-tabs are listed down the D'thorga tab's side**, as its gravship tabs are. Without it, the D'thorga tab shows a button for each sub-tab and each sub-tab a button back, and a search from the Architect's search box still finds what the sub-tabs hold. Where another mod draws the whole Architect (Better Architect; Dubs Mint Menus without Vanilla Gravship Expanded), each sub-tab is a tab of its own there.
+
+### Dependencies
+
+- **Needs Harmony**, which nearly every mod list already has: the Architect's sub-tabs are its first use in the Framework's core. Loaded after Harmony.
+
+### Compatibility and limits
+
+- A layout change only: nothing saved, nothing built moves on the map. Safe with a running save.
+- A D'thorga tab with nothing in it shows on the bar for a player with no mod of ours that builds anything.
+- Not yet tested in game: row 301 of the test pass. The sub-tab buttons of our own show only in a game without Vanilla Gravship Expanded.
+
 ## [0.204.0] - 2026-11-21 - Draft
 
 Ground that stays wet after rain

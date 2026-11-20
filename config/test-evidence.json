@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "301": {"parts": {
+      "our own sub-tab buttons, in a game without Vanilla Gravship Expanded": ["framework.architect.sub-tab"]
+    }},
     "300": [{"key": "vehicles.wet-ground-grip", "variant": "after-rain", "expect": {"wetness": "> 0", "grip": "< 1"}}],
     "299": {"parts": {
       "an A-10 or Su-25 dodges shots in the air": ["aircraft.own-evasion"]

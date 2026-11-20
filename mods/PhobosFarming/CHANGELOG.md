@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.2] - 2026-11-21 - Draft
+
+Farming's own Architect tab
+
+### Changed
+
+- **The farm machines and grain stores are in their own Farming tab, inside the Architect's D'thorga tab** (the owner's choice of 21 November 2026): the Thane tractors, the implements, the Reaper combine, the Garner chaser bin, the field bin and the grain silo, all together. They were in the Motor pool tab.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.205.0, installed with it.
+
+### Compatibility and limits
+
+- A layout change only. Safe with a running save. Not yet tested in game: row 301 of the test pass.
+
 ## [0.7.1] - 2026-11-21 - Draft
 
 Fixes from a fault-read of batches one and two, before their first test

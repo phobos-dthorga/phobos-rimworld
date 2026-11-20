@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.204.0, built 21 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.205.0, built 21 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -15,7 +15,9 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
 
 - **Load it before any D'thorga mod that needs it**, and **after The Dead Man's Switch - Expedition, Rimefeller and Vanilla Expanded
   Framework** where you have them; the About file asks for both, so RimSort does it for you. Loaded before one of them, its tie-in with
-  that mod is rejected with a red error. It needs no other mod.
+  that mod is rejected with a red error. **It needs Harmony** (since 0.205.0), which nearly every mod list already has.
+- **Everything we build is in the Architect's D'thorga tab**, sorted into sub-tabs: Motor pool, Farming, Medical and Radio, as each
+  mod you have adds them. With Vanilla Gravship Expanded they are listed down the tab's side, as its gravship tabs are.
   **RimWorld 1.7 only.** Its vehicle systems switch on only with **Vehicle Framework**; garages and pipe lines need **Vanilla Expanded
   Framework** as well.
 - **The vehicle systems change every Vehicle Framework vehicle you have, from any mod.** To narrow that, set **Which vehicles** in
@@ -31,7 +33,7 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
 - **Settings to decide before a colony** (the table below has them all): **Which vehicles** and **Parts for building** need a restart;
   **Drivetrain shown, speeds unchanged** keeps every vehicle at its author's speed; the aircraft lift-off rule; and, for steam
   locomotives, **Boiler explosions** and **Realistic feed water**.
-- **Build a vehicle parts bench early** (research **Vehicle parts**, Architect, **motor pool** tab): our parts, kits and booster packs
+- **Build a vehicle parts bench early** (research **Vehicle parts**, Architect, **D'thorga** tab, **Motor pool**): our parts, kits and booster packs
   are made only there. **Tick the Vehicle parts storage category in a stockpile**, or the bench overshoots "Do until you have X".
 - **Make a jump-start kit or a booster pack before you need one**, and carry one in every caravan.
 - **Headlights and work lamps switch themselves** (setting **Lights switch themselves**, on): headlights while driven at night, work lamps

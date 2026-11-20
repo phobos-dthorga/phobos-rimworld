@@ -464,7 +464,7 @@
       <Steel>420</Steel>
       <ComponentIndustrial>3</ComponentIndustrial>
     </costList>
-    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designationCategory>PhobosFarming_Architect</designationCategory>
     <thingToSpawn>Phobos_Combine</thingToSpawn>
   </Vehicles.VehicleBuildDef>
 

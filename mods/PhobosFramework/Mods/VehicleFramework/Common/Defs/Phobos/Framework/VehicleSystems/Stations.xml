@@ -1,19 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Our own Architect tab (owner, 9 Nov 2026), beside Vehicle Framework's: a large mod list buries anything in the shared tabs. The order sits
-       just below its 24, so the two are neighbours. The label is an agent's choice. -->
+  <!-- Our own Architect tab (owner, 9 Nov 2026: a large mod list buries anything in the shared tabs), since Framework 0.205.0 a sub-tab of
+       the D'thorga tab (the owner's choice of 21 Nov 2026; docs/development/architect-tabs.md), which took its place on the bar. Two
+       markers: D'thorga Framework's, and Vanilla Gravship Expanded's, which lists it down the D'thorga tab's side while that mod is active.
+       The defName stays: other mods' vehicles may name it. The label is an agent's choice. -->
   <DesignationCategoryDef>
     <defName>PhobosVehicles_MotorPool</defName>
     <label>motor pool</label>
-    <description>Workshops for vehicle parts and tuning, and the vehicles themselves.</description>
-    <order>23</order>
+    <description>workshops for vehicle parts and tuning, and the vehicles themselves.</description>
+    <order>30</order>
     <specialDesignatorClasses>
       <li>Designator_Cancel</li>
       <li>Designator_Deconstruct</li>
       <!-- The vehicle park (0.201.0; docs/development/vehicle-bay-trips.md): a zone a repaired vehicle with no depot bay is driven to. -->
       <li>Phobos.VehicleSystems.Designator_ZoneAdd_PhobosVehiclePark</li>
     </specialDesignatorClasses>
+    <modExtensions>
+      <li Class="Phobos.Framework.Interface.PhobosNestedCategoryExtension">
+        <parentCategory>PhobosDthorga</parentCategory>
+        <iconTexPath>Phobos/Vehicles/Parts/EngineAssembly</iconTexPath>
+      </li>
+      <li Class="VanillaGravshipExpanded.NestedCategoryExtension" MayRequire="vanillaexpanded.gravship">
+        <parentCategory>PhobosDthorga</parentCategory>
+        <iconTexPath>Phobos/Vehicles/Parts/EngineAssembly</iconTexPath>
+      </li>
+    </modExtensions>
   </DesignationCategoryDef>
 
   <!-- Vehicle parts are made here and nowhere else (owner, 9 Nov 2026), so they stop adding to the machining table's list. Layout, cost and power are

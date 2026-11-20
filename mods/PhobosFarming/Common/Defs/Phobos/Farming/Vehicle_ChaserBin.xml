@@ -199,7 +199,7 @@
       <Steel>280</Steel>
       <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
-    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designationCategory>PhobosFarming_Architect</designationCategory>
     <thingToSpawn>Phobos_ChaserBin</thingToSpawn>
   </Vehicles.VehicleBuildDef>
 </Defs>

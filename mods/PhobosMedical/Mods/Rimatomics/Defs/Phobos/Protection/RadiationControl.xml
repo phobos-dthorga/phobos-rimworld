@@ -49,7 +49,7 @@
     <costList>
       <Steel>10</Steel>
     </costList>
-    <designationCategory>Misc</designationCategory>
+    <designationCategory>PhobosMedical_Architect</designationCategory>
     <placeWorkers>
       <li>Phobos.Framework.Protection.PlaceWorker_PhobosControlPoint</li>
     </placeWorkers>

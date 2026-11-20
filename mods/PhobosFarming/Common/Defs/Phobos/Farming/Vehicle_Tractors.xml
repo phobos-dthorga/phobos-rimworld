@@ -840,7 +840,7 @@
       <Steel>180</Steel>
       <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
-    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designationCategory>PhobosFarming_Architect</designationCategory>
     <designatorDropdown>PhobosFarming_ThaneT60Models</designatorDropdown>
   </Vehicles.VehicleBuildDef>
 
@@ -882,7 +882,7 @@
       <Steel>260</Steel>
       <ComponentIndustrial>3</ComponentIndustrial>
     </costList>
-    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designationCategory>PhobosFarming_Architect</designationCategory>
     <designatorDropdown>PhobosFarming_ThaneT130Models</designatorDropdown>
   </Vehicles.VehicleBuildDef>
 

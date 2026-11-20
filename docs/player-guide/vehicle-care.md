@@ -13,7 +13,7 @@ them running. It applies to **every Vehicle Framework vehicle from any mod**, no
 - **It changes every Vehicle Framework vehicle you have**, unless you narrow **Which vehicles** in the settings
   (**D'thorga Framework: vehicle systems**). That needs a restart, so **decide before you load a colony**. Switching vehicles off
   later is safe.
-- **Build a vehicle parts bench early** (research **vehicle parts**, then the Architect's **motor pool** tab). Our parts, kits and
+- **Build a vehicle parts bench early** (research **vehicle parts**, then the Architect's **D'thorga** tab, **Motor pool**). Our parts, kits and
   booster packs are made only there.
 - **Make a jump-start kit or a booster pack before you need one**, and carry one in every caravan. A flat battery is the commonest
   way to be stranded.

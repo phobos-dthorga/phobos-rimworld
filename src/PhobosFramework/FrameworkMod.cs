@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using HarmonyLib;
 using Phobos.Framework.Gases;
 using Phobos.Framework.Health;
 using Phobos.Framework.Rules;
+using Phobos.Shared;
 using UnityEngine;
 using Verse;
 
@@ -90,13 +92,13 @@ public class FrameworkSettings : ModSettings
 /// D'thorga Framework: the shared library every Phobos RimWorld mod with C# depends on. It holds the gas layer (what a pawn
 /// breathes, the game's and other mods' gases reused first, and the framework's own additive room gases), the health layer the
 /// medical mods share (who the doctors look after, how dangerous a condition is, per-pawn care choices) and the small helpers the
-/// mods used to repeat, and keeps the game's log going past its message limit. It references no other mod's assembly and needs no
-/// Harmony.
+/// mods used to repeat, and keeps the game's log going past its message limit. It references no other mod's assembly; it uses
+/// Harmony (since 0.205.0) where the game has no other way in: the Architect's sub-tabs.
 /// </summary>
 public class FrameworkMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.204.0";
+    public const string ModVersion = "0.205.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -110,6 +112,9 @@ public class FrameworkMod : SettingsBookMod
         Instance = this;
         AddSettingsPages();
         Settings = GetSettings<FrameworkSettings>();
+        // Framework 0.205.0: the core's own patches, each standing down by itself where it is not wanted (the Architect's sub-tabs when
+        // another mod lists them).
+        HarmonyPatchApplier.ApplyEach(new Harmony(PackageId), typeof(FrameworkMod).Assembly, LogPrefix);
         Logging.GameLogKeeper.Listen();
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
@@ -118,6 +123,7 @@ public class FrameworkMod : SettingsBookMod
     {
         var report = new LoadReport(LogPrefix, ModVersion);
         report.On("gas layer: " + GasCarriers.Describe());
+        report.On(Interface.ArchitectSubTabs.Describe());
         report.On(CombatExtendedSmoke.InUse
             ? "Combat Extended smoke inhalation: in use as the smoke signal"
             : CombatExtendedSmoke.Active

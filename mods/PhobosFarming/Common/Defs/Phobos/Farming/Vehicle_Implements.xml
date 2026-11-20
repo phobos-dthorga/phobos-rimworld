@@ -595,7 +595,7 @@
     <costList>
       <Steel>110</Steel>
     </costList>
-    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designationCategory>PhobosFarming_Architect</designationCategory>
   </Vehicles.VehicleBuildDef>
 
   <Vehicles.VehicleBuildDef ParentName="PhobosFarming_ImplementBuildBase">

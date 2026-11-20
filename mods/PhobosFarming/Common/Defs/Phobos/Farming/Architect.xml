@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Farming's own Architect tab, inside the D'thorga tab (the owner's choice of 21 Nov 2026; docs/development/architect-tabs.md): the farm
+       machines and grain stores together, with room for what is to come. Two markers: D'thorga Framework's, and Vanilla Gravship Expanded's,
+       which lists it down the D'thorga tab's side while that mod is active. -->
+  <DesignationCategoryDef>
+    <defName>PhobosFarming_Architect</defName>
+    <label>farming</label>
+    <description>tractors and their implements, the combine harvester, chaser bins, field bins and grain silos.</description>
+    <order>29</order>
+    <specialDesignatorClasses>
+      <li>Designator_Cancel</li>
+      <li>Designator_Deconstruct</li>
+    </specialDesignatorClasses>
+    <modExtensions>
+      <li Class="Phobos.Framework.Interface.PhobosNestedCategoryExtension">
+        <parentCategory>PhobosDthorga</parentCategory>
+        <iconTexPath>Phobos/Farming/Combine/Combine_icon</iconTexPath>
+      </li>
+      <li Class="VanillaGravshipExpanded.NestedCategoryExtension" MayRequire="vanillaexpanded.gravship">
+        <parentCategory>PhobosDthorga</parentCategory>
+        <iconTexPath>Phobos/Farming/Combine/Combine_icon</iconTexPath>
+      </li>
+    </modExtensions>
+  </DesignationCategoryDef>
+</Defs>

@@ -33,7 +33,7 @@
     <costList>
       <Steel>220</Steel>
     </costList>
-    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designationCategory>PhobosFarming_Architect</designationCategory>
     <researchPrerequisites>
       <li>PhobosResearch_MechanisedHarvesting</li>
     </researchPrerequisites>
@@ -74,7 +74,7 @@
       <Steel>420</Steel>
       <ComponentIndustrial>2</ComponentIndustrial>
     </costList>
-    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designationCategory>PhobosFarming_Architect</designationCategory>
     <researchPrerequisites>
       <li>PhobosResearch_MechanisedHarvesting</li>
       <li>PhobosResearch_GrainStorage</li>

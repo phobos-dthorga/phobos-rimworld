@@ -6,6 +6,22 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.19.1] - 2026-11-21 - Draft
+
+Medical's own Architect tab, and art records cleaned
+
+### Changed
+
+- **The medical equipment is in its own Medical tab, inside the Architect's D'thorga tab** (the owner's choice of 21 November 2026), out of the game's crowded Misc tab: the nebulisers, oxygen concentrator, bedside oxygen stand and trolley, ventilator, anaesthesia machine, steriliser, gas alarm, safety shower and the radiation control point. The oxygen electrolyser and liquid oxygen store stay in Vanilla Gravship Expanded's vacuum tab, beside its oxygen equipment.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.205.0, installed with it.
+
+### Compatibility and limits
+
+- A layout change only. Safe with a running save. Not yet tested in game: row 301 of the test pass.
+
 ### Fixed
 
 - **Art records no longer hold a path from the developer's PC.** The export records beside some textures named the full folder they were made in; they now name the file within the project. Nothing a player sees changes.

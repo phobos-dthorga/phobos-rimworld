@@ -88,7 +88,7 @@
     <neverMultiSelect>true</neverMultiSelect>
     <soundImpactDefault>BulletImpact_Metal</soundImpactDefault>
     <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
-    <designationCategory>Misc</designationCategory>
+    <designationCategory>PhobosRadio_Architect</designationCategory>
     <uiOrder>2111</uiOrder>
     <constructEffect>ConstructMetal</constructEffect>
     <clearBuildingArea>false</clearBuildingArea>

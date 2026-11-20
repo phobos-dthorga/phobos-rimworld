@@ -41,7 +41,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.204.0",
+      "value": "0.205.0",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -101,7 +101,7 @@
     "PhobosMedical.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.19.0",
+      "value": "0.19.1",
       "description": "D'thorga Medical's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -245,7 +245,7 @@
     "PhobosRadioFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.1.8",
+      "value": "0.1.9",
       "description": "D'thorga Radio Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -325,7 +325,7 @@
     "PhobosFarming.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.7.1",
+      "value": "0.7.2",
       "description": "D'thorga Farming's version: About.xml, its project, its ModVersion constant and both READMEs",
       "targets": [
         {

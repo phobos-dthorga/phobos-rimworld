@@ -5,6 +5,18 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.1.9] - 2026-11-21 - Draft
+
+Radio's own Architect tab, and art records cleaned
+
+### Changed
+
+- **The radio base station, antennas and coax feedline are in their own Radio tab, inside the Architect's D'thorga tab** (the owner's choice of 21 November 2026, though radio is on the back burner: a tab only, nothing else changed). Without D'thorga Framework the Radio tab sits on the bar by itself. They were in the game's Misc tab.
+
+### Compatibility and limits
+
+- A layout change only. Safe with a running save. Not yet tested in game: row 301 of the test pass.
+
 ### Fixed
 
 - **Art records no longer hold a path from the developer's PC.** The export records beside some textures named the full folder they were made in; they now name the file within the project. Nothing a player sees changes.

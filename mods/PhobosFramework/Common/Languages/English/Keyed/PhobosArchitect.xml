@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Architect sub-tabs (Framework 0.205.0; docs/development/architect-tabs.md): the buttons D'thorga Framework shows when no other mod lists
+       sub-tabs. -->
+  <PhobosArchitect_OpenDesc>Open the {TAB} tab: {WHAT}</PhobosArchitect_OpenDesc>
+  <PhobosArchitect_Back>Back to {TAB}</PhobosArchitect_Back>
+  <PhobosArchitect_BackDesc>Go back to the {TAB} tab.</PhobosArchitect_BackDesc>
+</LanguageData>
