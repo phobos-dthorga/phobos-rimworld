@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "297": {"parts": {
+      "a tree drawn past the tab is scrolled": ["vehicles.upgrade-tab-scrolled"]
+    }},
     "295": {"parts": {
       "a repaired vehicle with no depot bay is sent to a vehicle park": [{"key": "vehicles.bay-trip.leaving", "variant": "Park"}]
     }},

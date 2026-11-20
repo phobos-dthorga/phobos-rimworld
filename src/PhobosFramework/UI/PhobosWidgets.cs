@@ -38,6 +38,32 @@ public static class PhobosWidgets
         : HealthUtility.GoodConditionColor;
 
     /// <summary>
+    /// Opens a scroll view over <paramref name="outRect"/> for content drawn in the parent's own coordinates (Framework, the release after 0.201.0), so
+    /// drawing code that places things at fixed positions, such as Vehicle Framework's upgrade tree, needs no change: with nothing
+    /// scrolled, what is drawn at (x, y) shows at (x, y). <paramref name="contentEnd"/> is the far corner of what is drawn, in those same
+    /// coordinates. Returns the part of the content in view, in those coordinates, for code that keeps a panel on screen. Close it with
+    /// <see cref="EndScrollInPlace"/> in a finally, or the game's interface is left inside the view.
+    /// </summary>
+    public static Rect BeginScrollInPlace(Rect outRect, ref Vector2 scroll, Vector2 contentEnd)
+    {
+        float width = Mathf.Max(outRect.width - GenUI.ScrollBarWidth, contentEnd.x - outRect.x);
+        bool wide = width > outRect.width - GenUI.ScrollBarWidth;
+        float height = Mathf.Max(outRect.height - (wide ? GenUI.ScrollBarWidth : 0f), contentEnd.y - outRect.y);
+        Widgets.BeginScrollView(outRect, ref scroll, new Rect(0f, 0f, width, height));
+        // The view's own origin is the corner of outRect; this group moves it back to the parent's, so callers keep their coordinates.
+        Widgets.BeginGroup(new Rect(-outRect.x, -outRect.y, outRect.x + width, outRect.y + height));
+        return new Rect(outRect.x + scroll.x, outRect.y + scroll.y, outRect.width - GenUI.ScrollBarWidth,
+            outRect.height - (wide ? GenUI.ScrollBarWidth : 0f));
+    }
+
+    /// <summary>Closes a scroll view opened with <see cref="BeginScrollInPlace"/>.</summary>
+    public static void EndScrollInPlace()
+    {
+        Widgets.EndGroup();
+        Widgets.EndScrollView();
+    }
+
+    /// <summary>
     /// A share of health as a percentage that agrees with <see cref="HealthColour"/> (Framework 0.114.0; found by the owner, 16 Nov 2026: a
     /// part at 99.6 % was coloured as slightly worn and written "100%"). Rounded down, and "100%" only at the share the colour calls good.
     /// </summary>
