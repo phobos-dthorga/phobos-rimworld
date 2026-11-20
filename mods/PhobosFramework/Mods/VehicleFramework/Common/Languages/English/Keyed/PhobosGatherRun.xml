@@ -43,6 +43,7 @@
   <PhobosGather_EndFull>Its cargo is full.</PhobosGather_EndFull>
   <PhobosGather_EndNothingLeft>Nothing more of what you chose lies anywhere it can reach.</PhobosGather_EndNothingLeft>
   <PhobosGather_EndNoWay>It could not find a way to what is left.</PhobosGather_EndNoWay>
+  <PhobosGather_GaveUp>It gave up on {COUNT} of what you chose, still lying where they were: {STAND} with no room for it to stand alongside, {DRIVE} it could not drive to, {GRAB} its grab could not take.</PhobosGather_GaveUp>
   <PhobosGather_EndOrders>{VEHICLE} was given other orders.</PhobosGather_EndOrders>
   <PhobosGather_EndEngineOff>Its engine was switched off.</PhobosGather_EndEngineOff>
   <PhobosGather_EndThreat>Enemies are about. It has stopped where it is, with its engine running.</PhobosGather_EndThreat>

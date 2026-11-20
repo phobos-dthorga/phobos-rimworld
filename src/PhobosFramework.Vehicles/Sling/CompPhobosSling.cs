@@ -35,8 +35,8 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// <summary>The ability a fitting grants for this to work.</summary>
     public const string HookAbility = "CargoHook";
 
-    ThingOwner<VehiclePawn> held;
-    VehiclePawn? hooked;
+    ThingOwner<Thing> held;
+    Thing? hooked;
     bool awaitingCrew;
     bool registered;
     Vector3? liftedFrom;
@@ -50,7 +50,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     internal int pictureFlight = -1;
     internal Vector3 pictureGround;
 
-    public CompPhobosSling() => held = new ThingOwner<VehiclePawn>(this, oneStackOnly: true);
+    public CompPhobosSling() => held = new ThingOwner<Thing>(this, oneStackOnly: true);
 
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
     static VehicleSystemsSettings Settings => VehicleSystemsMod.Settings;
@@ -60,10 +60,17 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// <summary>Ticked only while a landing waits to be dealt with (CompTick), so a sling costs nothing each tick otherwise.</summary>
     public override bool TickByRequest => true;
 
-    /// <summary>The vehicle hanging from the hook in flight, or waiting to be set down.</summary>
-    public VehiclePawn? Carried => held.Count > 0 ? held[0] : null;
-    /// <summary>The vehicle chosen to lift, still on the ground.</summary>
-    public VehiclePawn? Hooked => hooked;
+    /// <summary>What hangs from the hook in flight, or waits to be set down: a vehicle, or since Framework 0.197.0 a destroyed vehicle's
+    /// hull (docs/development/vehicle-sling-design.md, "Hulls on the hook").</summary>
+    public Thing? Load => held.Count > 0 ? held[0] : null;
+    /// <summary>The vehicle hanging from the hook, or null when nothing hangs there or a hull does.</summary>
+    public VehiclePawn? Carried => Load as VehiclePawn;
+    /// <summary>The hull hanging from the hook, or null.</summary>
+    public VehicleBuilding? CarriedHull => Load as VehicleBuilding;
+    /// <summary>What was chosen to lift, still on the ground.</summary>
+    public Thing? HookedLoad => hooked;
+    /// <summary>The vehicle chosen to lift, still on the ground; null when a hull was chosen.</summary>
+    public VehiclePawn? Hooked => hooked as VehiclePawn;
     /// <summary>Whether the chosen load waits for a colonist to hook it up.</summary>
     public bool AwaitingCrew => hooked != null && awaitingCrew;
     /// <summary>Where the load stood when it was lifted, for the picture of the strops taking it up (SlingDrawing). Not saved: a game
@@ -96,6 +103,16 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         return kilograms;
     }
 
+    /// <summary>Whether this is a destroyed vehicle's hull, which the sling can lift (Framework 0.197.0, EM21(b)).</summary>
+    public static bool IsHull(Thing? thing) => thing is VehicleBuilding { VehicleDef: not null } hull && hull.GetComp<CompPhobosHull>() != null;
+
+    /// <summary>The design whose size a load has: the vehicle's, or that of the vehicle a hull was.</summary>
+    static VehicleDef? DesignOf(Thing load) => load is VehiclePawn vehicle ? vehicle.VehicleDef : (load as VehicleBuilding)?.VehicleDef;
+
+    /// <summary>Any load's weight: a vehicle's as above; a hull's is what its vehicle weighed empty (authored: a wreck keeps its steel).</summary>
+    public static double KilogramsOf(Thing load) => load is VehiclePawn vehicle ? LoadKilograms(vehicle)
+        : load is VehicleBuilding { VehicleDef: { } design } ? Powertrain.KerbFor(design, null, null) : load.GetStatValue(StatDefOf.Mass);
+
     bool HasSlingSet => Vehicle.inventory?.innerContainer.Any(t => t.def == VehicleSystemsThingDefOf.PhobosVehicleSystems_SlingSet) == true;
 
     /// <summary>Whether it still needs its tick (fault-read W11): a landing waits to be dealt with, or a lift or set-down from a hover.</summary>
@@ -109,7 +126,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     {
         if (!HookFitted) return "PhobosSling_NoHook".Translate().Resolve();
         if (!HasSlingSet) return "PhobosSling_NoSlingSet".Translate().Resolve();
-        if (Carried != null) return "PhobosSling_AlreadyCarrying".Translate(Carried.LabelShort.Named("LOAD")).Resolve();
+        if (Load is { } hanging) return "PhobosSling_AlreadyCarrying".Translate(hanging.LabelShort.Named("LOAD")).Resolve();
         // Framework 0.161.0 (0.165.0: any helicopter flying the map itself, the Hind too): in the air it lifts from a hover, so it must be able
         // to hold one.
         if (HoverPilot.For(Vehicle) is { } pilot && !pilot.CanHover) return "PhobosSling_CannotHoverToLift".Translate(Vehicle.LabelShort.Named("HELICOPTER")).Resolve();
@@ -123,13 +140,13 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// ahead and strains the hook's mount by the overload and the weather (SlingRule.HookStrain); a mount strained to nothing gives way and
     /// drops the load.
     /// </summary>
-    public string? Warning(VehiclePawn? load)
+    public string? Warning(Thing? load)
     {
         var lines = new List<string>();
         if (WeatherRefusal(Vehicle.Map) is { } weather) lines.Add("PhobosSling_WarnWeather".Translate(weather.Named("WEATHER")).Resolve());
         if (load != null)
         {
-            double weight = LoadKilograms(load), capacity = CapacityKilograms(Vehicle.Map);
+            double weight = KilogramsOf(load), capacity = CapacityKilograms(Vehicle.Map);
             if (!SlingRule.CanLift(weight, capacity))
             {
                 lines.Add("PhobosSling_WarnOverload".Translate(load.LabelShort.Named("LOAD"), weight.ToString("N0").Named("WEIGHT"), capacity.ToString("N0").Named("CAPACITY")).Resolve());
@@ -139,10 +156,10 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     }
 
     /// <summary>How hard this lift strains the hook's mount, as a share of its health (Framework 0.185.0, EM29).</summary>
-    double StrainOf(VehiclePawn load)
+    double StrainOf(Thing load)
     {
         bool grounded = WeatherRefusal(Vehicle.MapHeld) != null;
-        return SlingRule.HookStrain(LoadKilograms(load), CapacityKilograms(Vehicle.MapHeld), grounded, SlingRule.WeatherStrain);
+        return SlingRule.HookStrain(KilogramsOf(load), CapacityKilograms(Vehicle.MapHeld), grounded, SlingRule.WeatherStrain);
     }
 
     /// <summary>Why the weather grounds a lift on this map now, or null (sling slice 2, with the player's setting): a storm with lightning, or
@@ -171,15 +188,15 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     }
 
     /// <summary>What hangs from the hook now, kilograms (Framework 0.161.0: the engines lift it, so the hover and the cruise count it).</summary>
-    public float CarriedKilograms => Carried is { } load ? (float)LoadKilograms(load) : 0f;
+    public float CarriedKilograms => Load is { } load ? (float)KilogramsOf(load) : 0f;
 
     /// <summary>The share of its speed over a map it flies at with a load hanging (Framework 0.161.0): the slung flight's own figure, with
     /// the setting on.</summary>
-    public float MapSpeedShare => Carried != null && Settings.slingSlowFlight ? Rules.slingSpeedFactor : 1f;
+    public float MapSpeedShare => Load != null && Settings.slingSlowFlight ? Rules.slingSpeedFactor : 1f;
 
     /// <summary>Whether a slung flight's cost applies to this helicopter now: a load ready on the hook or hanging from it, with the setting on.
     /// Vehicle Framework's flight speed and fuel use ask (SlingPatches), so the range drawn when choosing a destination shows it too.</summary>
-    public bool SlungFlightNow => Settings.slingSlowFlight && (Carried != null || (hooked != null && !awaitingCrew));
+    public bool SlungFlightNow => Settings.slingSlowFlight && (Load != null || (hooked != null && !awaitingCrew));
 
     /// <summary>Why this vehicle cannot be lifted by this helicopter now, or null.</summary>
     public string? RefusalFor(VehiclePawn load)
@@ -209,19 +226,44 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         return null;
     }
 
+    /// <summary>Why this hull cannot be lifted by this helicopter now, or null (Framework 0.197.0, EM21(b)). Anyone's hull may be lifted: a
+    /// wreck is nobody's until it is carried off.</summary>
+    public string? RefusalForHull(VehicleBuilding hull)
+    {
+        NamedArgument name = hull.LabelShort.Named("LOAD");
+        if (!IsHull(hull)) return "PhobosSling_NotLiftable".Translate(name).Resolve();
+        if (!hull.Spawned || hull.Map != Vehicle.Map) return "PhobosSling_NotHere".Translate(name).Resolve();
+        if (hull.Position.DistanceTo(Vehicle.Position) > Rules.slingReachCells) return "PhobosSling_TooFar".Translate(name, Rules.slingReachCells.Named("CELLS")).Resolve();
+        if (hull.OccupiedRect().Any(cell => cell.Roofed(hull.Map))) return "PhobosSling_Roofed".Translate(name).Resolve();
+        double weight = KilogramsOf(hull);
+        if (HoverPilot.For(Vehicle) != null && !FlightRules.WouldHoverWith(Vehicle, weight))
+        {
+            return "PhobosSling_TooHeavyToHover".Translate(Vehicle.LabelShort.Named("HELICOPTER"), name, weight.ToString("N0").Named("WEIGHT")).Resolve();
+        }
+        return null;
+    }
+
+    /// <summary>Why this load cannot be lifted now, or null: a vehicle, or a hull.</summary>
+    public string? RefusalForLoad(Thing load) => load switch
+    {
+        VehiclePawn vehicle => RefusalFor(vehicle),
+        VehicleBuilding hull => RefusalForHull(hull),
+        _ => "PhobosSling_NotLiftable".Translate(load.LabelShort.Named("LOAD")).Resolve(),
+    };
+
     /// <summary>Why the helicopter cannot take off with its chosen load, or null (Vehicle Framework's launch check asks; SlingPatches).</summary>
     public string? LaunchRefusal()
     {
         if (hooked == null) return null;
         if (awaitingCrew) return "PhobosSling_LaunchWaitsForCrew".Translate(hooked.LabelShort.Named("LOAD")).Resolve();
-        return RefusalFor(hooked);
+        return RefusalForLoad(hooked);
     }
 
     // ---- What the player orders ----
 
-    public void Choose(VehiclePawn load)
+    public void Choose(Thing load)
     {
-        if ((Refusal() ?? RefusalFor(load)) is { } refusal)
+        if ((Refusal() ?? RefusalForLoad(load)) is { } refusal)
         {
             Say(refusal, MessageTypeDefOf.RejectInput, historical: false);
             return;
@@ -230,7 +272,8 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         if (Warning(load) is { } warning) Say(warning, new LookTargets(Vehicle, load), MessageTypeDefOf.CautionInput, historical: false);
         hooked = load;
         approaches = 0;
-        awaitingCrew = Settings.slingGroundCrew;
+        // A hull has nobody to make it ready, and the hook-up work is given on vehicles: the helicopter's own crew makes its strops fast.
+        awaitingCrew = Settings.slingGroundCrew && load is VehiclePawn;
         // Framework 0.165.0: a helicopter flying the map on another flight (the Hind) is watched by this comp's own tick.
         if (NeedsOwnThinking) Vehicle.RequestTickStart(this);
         SlingWaits.Note(this, awaitingCrew);
@@ -257,7 +300,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         if (VehicleSystemsMod.SlingLog.DebugEnabled)
         {
             VehicleSystemsMod.SlingLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") hooked up " + hooked.LabelShort + " (" + hooked.ThingID + "), "
-                + LoadKilograms(hooked).ToString("0") + " kg of " + CapacityKilograms(Vehicle.MapHeld).ToString("0") + " kg");
+                + KilogramsOf(hooked).ToString("0") + " kg of " + CapacityKilograms(Vehicle.MapHeld).ToString("0") + " kg");
         }
         awaitingCrew = false;
         SlingWaits.Note(this, false);
@@ -268,7 +311,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     }
 
     /// <summary>The hook's latch closing on the load (S128, sling slice 3), heard where the load stands. Not while the self-test runs.</summary>
-    static void Latch(VehiclePawn load)
+    static void Latch(Thing load)
     {
         if (!VehicleNotices.Quiet && load.Spawned) VehicleSystemsThingDefOf.PhobosVehicleSystems_HookLatch.PlayOneShot(new TargetInfo(load.Position, load.Map));
     }
@@ -301,7 +344,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// this; so does the self-test, without a launch.</summary>
     internal void TakeLoad()
     {
-        VehiclePawn? load = hooked;
+        Thing? load = hooked;
         hooked = null;
         SlingWaits.Note(this, false);
         if (load == null) return;
@@ -324,7 +367,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         IntVec3 cell = load.Position;
         Rot4 facing = load.Rotation;
         Vector3 stood = ((Thing)load).DrawPos;
-        load.vehiclePather?.StopDead();
+        (load as VehiclePawn)?.vehiclePather?.StopDead();
         load.DeSpawn();
         if (!held.TryAdd(load, canMergeWithExistingStacks: false))
         {
@@ -335,7 +378,8 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         }
         liftedFrom = stood;
         Say("PhobosSling_Lifted".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD"),
-            LoadKilograms(load).ToString("N0").Named("WEIGHT")).Resolve(), MessageTypeDefOf.PositiveEvent);
+            KilogramsOf(load).ToString("N0").Named("WEIGHT")).Resolve(), MessageTypeDefOf.PositiveEvent);
+        if (load is VehicleBuilding) Seen.Note("vehicles.sling-hull", Vehicle, variant: "lifted");
         StrainHook(load, cell, map, facing);
     }
 
@@ -346,7 +390,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// An unwise lift strains the hook's mount (Framework 0.185.0, EM29): it loses the strain's share of its health. A mount strained to
     /// nothing gives way: the load drops back where it stood from a few metres, and the hook is gone with its mount until it is repaired.
     /// </summary>
-    void StrainHook(VehiclePawn load, IntVec3 cell, Map map, Rot4 facing)
+    void StrainHook(Thing load, IntVec3 cell, Map map, Rot4 facing)
     {
         if (Settings.showOnly || Systems?.Fittings.PartGranting(HookAbility) is not { } mount) return;
         double strain = StrainOf(load);
@@ -364,7 +408,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         Systems?.Powertrain?.MarkMassDirty();
         liftedFrom = null;
         GenSpawn.Spawn(load, cell, map, facing);
-        string harm = SlingDrops.Fall(load, GaveWayMetres);
+        string harm = SlingDrops.FallOf(load, GaveWayMetres);
         Say("PhobosSling_GaveWay".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD"), harm.Named("HARM")).Resolve(), load,
             MessageTypeDefOf.NegativeEvent);
     }
@@ -379,7 +423,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     public override void PostSpawnSetup(bool respawningAfterLoad)
     {
         base.PostSpawnSetup(respawningAfterLoad);
-        if (Carried == null)
+        if (Load == null)
         {
             landed = false;
             return;
@@ -419,7 +463,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// set the load down (sling slice 2); anywhere else, or if the player declines, it is set down on the nearest clear ground.</summary>
     void AfterLanding()
     {
-        if (Carried == null) return;
+        if (Load == null) return;
         if (crashing)
         {
             crashing = false;
@@ -433,7 +477,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// Takes the load off the hook and puts it on the map. If the game refuses partway, a load that never reached the map goes back on the
     /// hook, so it is never left in neither place; the player is told either way.
     /// </summary>
-    bool Place(VehiclePawn load, IntVec3 cell, Map map, Rot4 facing)
+    bool Place(Thing load, IntVec3 cell, Map map, Rot4 facing)
     {
         held.Remove(load);
         string? failure = null;
@@ -456,6 +500,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
             return false;
         }
         liftedFrom = null;
+        if (load is VehicleBuilding) Seen.Note("vehicles.sling-hull", load, variant: "set-down");
         return true;
     }
 
@@ -466,14 +511,14 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// helicopter next reaches a map; off, it is set down as after any landing.</summary>
     internal void NoteCrash()
     {
-        if (Carried != null && Settings.slingRelease) crashing = true;
+        if (Load != null && Settings.slingRelease) crashing = true;
     }
 
     /// <summary>Pauses and lets the player place the load within reach of the helicopter, its outline drawn under the mouse. Declined, the
     /// load is set down on the nearest clear ground, as before slice 2.</summary>
     void AskWhereToSetDown()
     {
-        VehiclePawn? load = Carried;
+        Thing? load = Load;
         Map map = Vehicle.Map;
         if (load == null || map == null) return;
         Find.TickManager.Pause();
@@ -484,31 +529,31 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
             target =>
             {
                 if (!target.Cell.IsValid) return;
-                GenDraw.DrawFieldEdges(load.VehicleRect(target.Cell, facing).Cells.ToList(),
+                GenDraw.DrawFieldEdges(SlingPlacement.RectOf(load, target.Cell, facing).Cells.ToList(),
                     SpotRefusal(target.Cell, facing) == null ? Color.white : Color.red);
             },
             target => target.Cell.IsValid && SpotRefusal(target.Cell, facing) == null,
             actionWhenFinished: () =>
             {
                 // Declined (right-click or Escape): the load comes down where it would have before.
-                if (Carried != null && Vehicle.Spawned) SetDown();
+                if (Load != null && Vehicle.Spawned) SetDown();
             });
     }
 
     /// <summary>Why the load cannot be set down with its corner cell here, or null.</summary>
     string? SpotRefusal(IntVec3 cell, Rot4 facing)
     {
-        VehiclePawn? load = Carried;
+        Thing? load = Load;
         Map map = Vehicle.Map;
         if (load == null || map == null) return "PhobosSling_NothingToSetDown".Translate().Resolve();
         if (cell.DistanceTo(Vehicle.Position) > Rules.slingReachCells) return "PhobosSling_SpotTooFar".Translate(Rules.slingReachCells.Named("CELLS")).Resolve();
-        return SlingPlacement.Fits(load.VehicleDef, facing, map, cell, Vehicle.VehicleRect()) ? null : "PhobosSling_SpotBlocked".Translate().Resolve();
+        return SlingPlacement.Fits(load, facing, map, cell, Vehicle.VehicleRect()) ? null : "PhobosSling_SpotBlocked".Translate().Resolve();
     }
 
     /// <summary>Sets the load down where the player chose, if it still fits there; otherwise on the nearest clear ground.</summary>
     internal void SetDownAt(IntVec3 cell, Rot4 facing)
     {
-        VehiclePawn? load = Carried;
+        Thing? load = Load;
         Map map = Vehicle.Map;
         if (load == null || map == null) return;
         if (SpotRefusal(cell, facing) is { } refusal)
@@ -524,7 +569,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// <summary>The helicopter came down in a crash: the load falls on the nearest clear ground beside it and lands hard.</summary>
     void DropOnCrash()
     {
-        VehiclePawn? load = Carried;
+        Thing? load = Load;
         Map map = Vehicle.Map;
         if (load == null || map == null) return;
         if (!SlingPlacement.TryFindSpot(load, Vehicle, map, Rules.slingReachCells, out IntVec3 cell))
@@ -534,7 +579,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
             return;
         }
         if (!Place(load, cell, map, Vehicle.Rotation)) return;
-        string harm = SlingDrops.Fall(load, Rules.slingCrashDropMetres);
+        string harm = SlingDrops.FallOf(load, Rules.slingCrashDropMetres);
         Say("PhobosSling_FellInCrash".Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD"), harm.Named("HARM")).Resolve(), load, MessageTypeDefOf.NegativeEvent);
     }
 
@@ -542,7 +587,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     public string? ReleaseRefusal()
     {
         if (!Settings.slingRelease) return "PhobosSling_ReleaseOff".Translate().Resolve();
-        if (Carried == null) return "PhobosSling_NothingToRelease".Translate().Resolve();
+        if (Load == null) return "PhobosSling_NothingToRelease".Translate().Resolve();
         return null;
     }
 
@@ -557,7 +602,17 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
             Say(refusal, MessageTypeDefOf.RejectInput, historical: false);
             return;
         }
-        VehiclePawn load = Carried!;
+        if (Load is VehicleBuilding hull)
+        {
+            // A hull let go from cruising height breaks up where it falls: nothing is left for a caravan to find (Framework 0.197.0).
+            held.Remove(hull);
+            liftedFrom = null;
+            string name = hull.LabelShort;
+            hull.Destroy();
+            Say("PhobosSling_ReleasedHull".Translate(Vehicle.LabelShort.Named("HELICOPTER"), name.Named("LOAD")).Resolve(), MessageTypeDefOf.NegativeEvent);
+            return;
+        }
+        if (Carried is not { } load) return;
         PlanetTile tile = PhobosSlingWreck.FreeTileNear(below);
         VehicleSystemsMod.SlingLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") released " + load.LabelShort + " (" + load.ThingID + ") in flight over tile " + below + ", wreck at " + tile);
         if (!tile.Valid)
@@ -574,7 +629,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
 
     internal void SetDown()
     {
-        VehiclePawn? load = Carried;
+        Thing? load = Load;
         Map map = Vehicle.Map;
         if (load == null || map == null) return;
         if (!SlingPlacement.TryFindSpot(load, Vehicle, map, Rules.slingReachCells, out IntVec3 cell))
@@ -591,7 +646,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     public override void PostDraw()
     {
         base.PostDraw();
-        if (Carried is not { } load || !Vehicle.Spawned || !OnMapFlight.FliesItself(Vehicle) || !OnMapFlight.Airborne(Vehicle)) return;
+        if (Load is not { } load || !Vehicle.Spawned || !OnMapFlight.FliesItself(Vehicle) || !OnMapFlight.Airborne(Vehicle)) return;
         SlingDrawing.DrawUnderFlying(Vehicle, load, liftedFrom);
     }
 
@@ -607,7 +662,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     public override void PostDestroy(DestroyMode mode, Map previousMap)
     {
         base.PostDestroy(mode, previousMap);
-        VehiclePawn? load = Carried;
+        Thing? load = Load;
         if (load == null) return;
         held.Remove(load);
         if (previousMap != null && SlingPlacement.TryFindSpot(load, Vehicle, previousMap, Rules.slingReachCells, out IntVec3 cell))
@@ -640,7 +695,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// flight (the Hind, on VTOL Vehicle's), whose own flight does not call <see cref="Think"/> as ours does.
     /// </summary>
     bool NeedsOwnThinking => Vehicle.Spawned && !CompPhobosFlight.FliesOnOurs(Vehicle) && OnMapFlight.Airborne(Vehicle)
-                             && ((hooked != null && !awaitingCrew) || (Carried != null && dropCell.IsValid));
+                             && ((hooked != null && !awaitingCrew) || (Load != null && dropCell.IsValid));
 
     /// <summary>The load is going to be set down from the air at this spot, or nowhere (Invalid).</summary>
     public IntVec3 SetDownSpot => dropCell;
@@ -658,10 +713,13 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// <see cref="CompTick"/>).</summary>
     public void Think(HoverPilot pilot)
     {
-        if (hooked is { Spawned: true } load && !awaitingCrew) Approach(pilot, load.VehicleDef, load.TrueCenter(), lift: true);
-        else if (Carried is { } carried && dropCell.IsValid)
+        if (hooked is { Spawned: true } load && !awaitingCrew && DesignOf(load) is { } design)
         {
-            Approach(pilot, carried.VehicleDef, Ext_Vehicles.TrueCenter(dropCell, new Rot8(dropRot), carried.VehicleDef.Size, 0f), lift: false);
+            Approach(pilot, design, load is VehiclePawn vehicle ? vehicle.TrueCenter() : load.TrueCenter(), lift: true);
+        }
+        else if (Load is { } carried && dropCell.IsValid && DesignOf(carried) is { } carriedDesign)
+        {
+            Approach(pilot, carriedDesign, Ext_Vehicles.TrueCenter(dropCell, new Rot8(dropRot), carriedDesign.Size, 0f), lift: false);
         }
     }
 
@@ -695,7 +753,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     void LiftFromHover(HoverPilot pilot)
     {
         TakeLoad();
-        if (Carried == null) return;
+        if (Load == null) return;
         Systems?.Powertrain?.MarkMassDirty();
         if (pilot is VtolPilot)
         {
@@ -710,12 +768,12 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// <summary>Beside the chosen spot in a steady hover: the load goes down there if it still fits, else it stays on the hook and says why.</summary>
     void SetDownFromHover(HoverPilot pilot)
     {
-        VehiclePawn? load = Carried;
+        Thing? load = Load;
         Map map = Vehicle.Map;
         IntVec3 cell = dropCell;
         dropCell = IntVec3.Invalid;
         if (load == null || map == null) return;
-        if (!SlingPlacement.Fits(load.VehicleDef, dropRot, map, cell, Vehicle.VehicleRect()))
+        if (!SlingPlacement.Fits(load, dropRot, map, cell, Vehicle.VehicleRect()))
         {
             Say("PhobosSling_SpotBlockedNow".Translate(load.LabelShort.Named("LOAD")).Resolve(), Vehicle, MessageTypeDefOf.RejectInput, historical: false);
             return;
@@ -730,17 +788,17 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// <summary>Why the load cannot be set down from the air at this spot, or null: anywhere on the map it fits, not under this helicopter.</summary>
     string? AirSpotRefusal(IntVec3 cell, Rot4 facing)
     {
-        VehiclePawn? load = Carried;
+        Thing? load = Load;
         Map map = Vehicle.Map;
         if (load == null || map == null) return "PhobosSling_NothingToSetDown".Translate().Resolve();
-        return SlingPlacement.Fits(load.VehicleDef, facing, map, cell, Vehicle.VehicleRect()) ? null : "PhobosSling_SpotBlocked".Translate().Resolve();
+        return SlingPlacement.Fits(load, facing, map, cell, Vehicle.VehicleRect()) ? null : "PhobosSling_SpotBlocked".Translate().Resolve();
     }
 
     /// <summary>Lets the load go where it hangs (Framework 0.161.0): it falls from the helicopter's height on the nearest clear ground below and
     /// lands hard (SlingDrops). <paramref name="crash"/> when the helicopter is coming down, else the crew's own release.</summary>
     internal void DropOnMap(float metres, bool crash)
     {
-        VehiclePawn? load = Carried;
+        Thing? load = Load;
         Map map = Vehicle.Map;
         dropCell = IntVec3.Invalid;
         if (load == null || map == null) return;
@@ -751,7 +809,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         }
         if (!Place(load, cell, map, Vehicle.Rotation)) return;
         Systems?.Powertrain?.MarkMassDirty();
-        string harm = SlingDrops.Fall(load, metres);
+        string harm = SlingDrops.FallOf(load, metres);
         if (crash) Seen.Note("vehicles.sling-hover", Vehicle, variant: "fell");
         else Seen.Note("vehicles.sling-hover", Vehicle, variant: "released");
         Say((crash ? "PhobosSling_FellInCrash" : "PhobosSling_ReleasedOnMap").Translate(Vehicle.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD"),
@@ -762,20 +820,20 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     /// hook and is set down beside the helicopter once it is on the ground.</summary>
     public void OnFlightFalling(float metres)
     {
-        if (Carried != null && Settings.slingRelease) DropOnMap(metres, crash: true);
+        if (Load != null && Settings.slingRelease) DropOnMap(metres, crash: true);
     }
 
     /// <summary>Our flight has put the helicopter on the ground with a load still on the hook: it is set down, as after any landing.</summary>
     public void OnFlightLanded()
     {
-        if (Carried == null) return;
+        if (Load == null) return;
         dropCell = IntVec3.Invalid;
         if (ShouldAsk()) AskWhereToSetDown();
         else SetDown();
     }
 
     /// <summary>The buttons for a load hanging under a helicopter in the air on our own flight: where to set it down, and the release.</summary>
-    IEnumerable<Gizmo> AirGizmos(HoverPilot pilot, VehiclePawn carried)
+    IEnumerable<Gizmo> AirGizmos(HoverPilot pilot, Thing carried)
     {
         Rot4 facing = pilot.Facing;
         var setDown = new Command_Action
@@ -801,7 +859,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
                 target =>
                 {
                     if (!target.Cell.IsValid) return;
-                    GenDraw.DrawFieldEdges(carried.VehicleRect(target.Cell, facing).Cells.ToList(), AirSpotRefusal(target.Cell, facing) == null ? Color.white : Color.red);
+                    GenDraw.DrawFieldEdges(SlingPlacement.RectOf(carried, target.Cell, facing).Cells.ToList(), AirSpotRefusal(target.Cell, facing) == null ? Color.white : Color.red);
                 },
                 target => target.Cell.IsValid && AirSpotRefusal(target.Cell, facing) == null),
         };
@@ -810,10 +868,11 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         var release = new Command_Action
         {
             defaultLabel = "PhobosSling_ReleaseGizmo".Translate(),
-            defaultDesc = "PhobosSling_ReleaseOnMapDesc".Translate(carried.LabelShort.Named("LOAD")),
+            defaultDesc = (carried is VehicleBuilding ? "PhobosSling_ReleaseHullOnMapDesc" : "PhobosSling_ReleaseOnMapDesc").Translate(carried.LabelShort.Named("LOAD")),
             icon = SystemIcons.For("Phobos/VehicleSystems/Sling/Release"),
             action = () => Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
-                "PhobosSling_ReleaseOnMapConfirm".Translate(carried.LabelShort.Named("LOAD"), pilot.HeightMetres.ToString("0").Named("METRES")),
+                (carried is VehicleBuilding ? "PhobosSling_ReleaseHullOnMapConfirm" : "PhobosSling_ReleaseOnMapConfirm").Translate(
+                    carried.LabelShort.Named("LOAD"), pilot.HeightMetres.ToString("0").Named("METRES")),
                 () => DropOnMap(HoverPilot.For(Vehicle)?.HeightMetres ?? pilot.HeightMetres, crash: false), destructive: true)),
         };
         if (ReleaseRefusal() is { } refused) release.Disable(refused);
@@ -839,7 +898,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
         Scribe_Values.Look(ref approaches, "PhobosSling_Approaches");
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
-            held ??= new ThingOwner<VehiclePawn>(this, oneStackOnly: true);
+            held ??= new ThingOwner<Thing>(this, oneStackOnly: true);
             if (AwaitingCrew) SlingWaits.Note(this, true);
         }
     }
@@ -861,13 +920,13 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
             };
             yield break;
         }
-        if (Carried is { } hanging && HoverPilot.For(Vehicle) is { } flying)
+        if (Load is { } hanging && HoverPilot.For(Vehicle) is { } flying)
         {
             // Framework 0.161.0 (0.165.0: the Hind too): in the air flying the map itself, it sets its load down from a hover, or lets it go.
             foreach (Gizmo gizmo in AirGizmos(flying, hanging)) yield return gizmo;
             yield break;
         }
-        if (Carried is { } carried)
+        if (Load is { } carried)
         {
             // Landed with the load still on the hook (no clear ground at the time): the player sets it down when there is room.
             var setDown = new Command_Action
@@ -890,11 +949,12 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
             action = () => Find.Targeter.BeginTargeting(new TargetingParameters
             {
                 canTargetPawns = true,
-                canTargetBuildings = false,
-                validator = target => target.Thing is VehiclePawn,
+                // Framework 0.197.0: a destroyed vehicle's hull is a building, and can be lifted too.
+                canTargetBuildings = true,
+                validator = target => target.Thing is VehiclePawn || IsHull(target.Thing),
             }, target =>
             {
-                if (target.Thing is VehiclePawn load) Choose(load);
+                if (target.Thing is { } load) Choose(load);
             }),
         };
         if (Refusal() is { } refusal) lift.Disable(refusal);
@@ -915,14 +975,14 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
 
     string? InspectLine()
     {
-        if (Carried is { } carried)
+        if (Load is { } carried)
         {
             string carrying = "PhobosSling_InspectCarrying".Translate(carried.LabelShort.Named("LOAD")).Resolve();
             return dropCell.IsValid ? carrying + "\n" + "PhobosSling_InspectSettingDown".Translate().Resolve() : carrying;
         }
         if (hooked == null) return null;
         string? grounded = WeatherRefusal(Vehicle.Map);
-        double weight = LoadKilograms(hooked), capacity = CapacityKilograms(Vehicle.Map);
+        double weight = KilogramsOf(hooked), capacity = CapacityKilograms(Vehicle.Map);
         string line = "PhobosSling_InspectHooked".Translate(hooked.LabelShort.Named("LOAD"), weight.ToString("N0").Named("WEIGHT"),
             capacity.ToString("N0").Named("CAPACITY"), ((float)SlingRule.Share(weight, capacity)).ToStringPercent().Named("SHARE")).Resolve();
         if (awaitingCrew) line += "\n" + "PhobosSling_InspectAwaitingCrew".Translate().Resolve();
@@ -963,14 +1023,44 @@ public static class SlingPlacement
         return false;
     }
 
+    /// <summary>The same for any slung load (Framework 0.197.0): a vehicle as above, or a destroyed vehicle's hull.</summary>
+    public static bool TryFindSpot(Thing load, VehiclePawn helicopter, Map map, float radius, out IntVec3 found)
+    {
+        if (load is VehiclePawn vehicle) return TryFindSpot(vehicle, helicopter, map, radius, out found);
+        Rot4 rotation = helicopter.Spawned ? helicopter.Rotation : Rot4.North;
+        IntVec3 centre = helicopter.Spawned ? helicopter.Position : load.Position;
+        CellRect avoid = helicopter.Spawned ? helicopter.VehicleRect() : CellRect.Empty;
+        int count = GenRadial.NumCellsInRadius(System.Math.Min(radius, GenRadial.MaxRadialPatternRadius - 1f));
+        for (int i = 0; i < count; i++)
+        {
+            IntVec3 cell = centre + GenRadial.RadialPattern[i];
+            if (!Fits(load, rotation, map, cell, avoid)) continue;
+            found = cell;
+            return true;
+        }
+        found = IntVec3.Invalid;
+        return false;
+    }
+
+    /// <summary>The cells a load covers when set down here: a vehicle's by Vehicle Framework's footprint; a hull's, being a building, by
+    /// the game's own, which differs for an even side facing south or west.</summary>
+    public static CellRect RectOf(Thing load, IntVec3 cell, Rot4 rotation) =>
+        load is VehiclePawn vehicle ? vehicle.VehicleDef.VehicleRect(cell, rotation) : VehicleHulls.Footprint(load, cell, rotation);
+
+    /// <summary>Whether this load fits here, by the cells it will really cover.</summary>
+    public static bool Fits(Thing load, Rot4 rotation, Map map, IntVec3 cell, CellRect avoid) =>
+        load is VehiclePawn vehicle ? Fits(vehicle.VehicleDef, rotation, map, cell, avoid) : Clear(RectOf(load, cell, rotation), map, avoid);
+
     /// <summary>Whether a vehicle of this design fits with its corner here: open, unroofed, standable ground with nobody and nothing solid in
     /// the way, clear of <paramref name="avoid"/>.</summary>
-    public static bool Fits(VehicleDef design, Rot4 rotation, Map map, IntVec3 cell, CellRect avoid)
-    {
+    public static bool Fits(VehicleDef design, Rot4 rotation, Map map, IntVec3 cell, CellRect avoid) =>
         // Vehicle Framework's own footprint (Framework 0.140.1, as the hitch learnt in fault-read H1): it reads south as north and west as
         // east, so the game's rect was a cell out for a vehicle of even length, and one set down at the north or east edge could be
         // destroyed as it spawned.
-        CellRect rect = design.VehicleRect(cell, rotation);
+        Clear(design.VehicleRect(cell, rotation), map, avoid);
+
+    static bool Clear(CellRect rect, Map map, CellRect avoid)
+    {
         if (!rect.InBounds(map) || rect.Overlaps(avoid)) return false;
         foreach (IntVec3 c in rect)
         {

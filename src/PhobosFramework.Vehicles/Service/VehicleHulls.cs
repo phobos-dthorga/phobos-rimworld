@@ -32,6 +32,12 @@ public static class VehicleHulls
         public void Dispose() => suppressed--;
     }
 
+    /// <summary>The cells a hull covers standing here (Framework 0.197.0, for a hull set down from a sling). A hull is a building, so the
+    /// game's own footprint is the true one; a vehicle's is Vehicle Framework's (VehicleRect), which differs for an even side facing
+    /// south or west. Kept here, with hulls, and away from the code that sets vehicles down, where the game's footprint is a fault
+    /// (tests/test_vehicle_set_down_footprint.py).</summary>
+    public static CellRect Footprint(Thing hull, IntVec3 cell, Rot4 rotation) => GenAdj.OccupiedRect(cell, rotation, hull.def.size);
+
     /// <summary>Whether this vehicle, being destroyed, leaves a hull now.</summary>
     public static bool Leaves(VehiclePawn vehicle) =>
         suppressed == 0 && VehicleSystemsMod.Settings.FlagOn("hullsStay") && vehicle.Spawned && vehicle.VehicleDef.buildDef != null;

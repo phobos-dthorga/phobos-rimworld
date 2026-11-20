@@ -5,6 +5,32 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Fixed
+
+- **A gathering run that gives up on what you chose now says so, and why.** A truck finding nowhere to stand beside a pile, no way to drive to it, or its grab unable to take it passes over it for the rest of the run; once it had passed over everything it ended saying nothing more lay within reach, with no word of the piles still lying there (the Talus, 19 Nov 2026, set off and ended with nothing gathered). Its end message now counts what it gave up on under each reason, as does its testing note, and with the Vehicle drive log at Debug each pile given up on is named with its place.
+- **Testing notes: a warning still standing when a vehicle's refusal comes is now noted first.** A warning in force when a save loaded (its message shows at the load, but stages worked out at a load write no note), or one already noted earlier in a session, left the next refusal looking as if it came without one, so the test list flagged the Abrams' turbine (row 69) when the game had behaved. Covers every warning before a refusal: a turbine's or piston engine's battery, the air brakes. Nothing a player sees changes.
+
+## [0.197.0] - 2026-11-20 - Draft
+
+A helicopter can lift the hull of a destroyed vehicle and carry it home
+
+### Added
+
+- **A helicopter's sling lifts the hull of a destroyed vehicle.** The button now reads Lift a vehicle or a hull: click a hull standing outdoors within reach and the helicopter's own crew hooks it up at once. It leaves with the helicopter, hangs under it in flight, counts its weight against the hook and the engines, and is set down where the helicopter lands, to be taken apart there for its salvaged parts. Anyone's hull can be lifted. A hull weighs what its vehicle weighed empty. The fleet board lists a hull on a hook as slung under its helicopter.
+
+### Changed
+
+- **Emergency release with a hull on the hook breaks the hull up.** Let go over the world map it is gone, with nothing to recover; let go over a map it lands hard and one already badly damaged breaks up.
+
+### Compatibility and limits
+
+- The sling's code now carries either a vehicle or a hull. Lifting a vehicle is meant to work exactly as before; it was lifted in game before this change, not since.
+- A hull is hooked without a colonist, whatever the ground crew setting says: the hook-up work is given on vehicles. Only hulls are lifted, not other buildings or items.
+- A hull hanging from a hook when the game is saved and loaded is not drawn under the helicopter until it next stands on a map; it is carried and set down all the same.
+- Saves: a helicopter saved with a vehicle on its hook loads as before. Removing the mod with a hull on a hook loses that hull.
+- No new settings. The words are agent-authored, held for the owner's review.
+- Not yet tested in game: row 286 of the test pass.
+
 ## [0.196.0] - 2026-11-20 - Draft
 
 A picture that follows a vehicle's own state

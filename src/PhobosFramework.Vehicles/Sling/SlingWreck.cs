@@ -46,6 +46,18 @@ public static class SlingDrops
         load.GetComp<CompPhobosVehicleSystems>()?.UpdateNow();
         return "PhobosSling_HarmShare".Translate(((float)share).ToStringPercent().Named("SHARE")).Resolve();
     }
+
+    /// <summary>The same for any slung load (Framework 0.197.0): a vehicle as above; a hull, being a building, loses that share of its
+    /// full hit points, so one already near nothing breaks up.</summary>
+    public static string FallOf(Thing load, float metres)
+    {
+        if (load is VehiclePawn vehicle) return Fall(vehicle, metres);
+        PhobosVehicleRulesDef rules = Rules;
+        double share = SlingRule.DropShare(metres, rules.slingDropSafeMetres, rules.slingDropRuinMetres);
+        if (share <= 0) return "PhobosSling_HarmNone".Translate().Resolve();
+        load.TakeDamage(new DamageInfo(DamageDefOf.Blunt, (float)(share * load.MaxHitPoints)));
+        return "PhobosSling_HarmShare".Translate(((float)share).ToStringPercent().Named("SHARE")).Resolve();
+    }
 }
 
 /// <summary>

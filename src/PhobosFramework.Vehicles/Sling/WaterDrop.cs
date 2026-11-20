@@ -61,7 +61,7 @@ public static class WaterDrops
         }
         else if (OnMapFlight.FliesItself(helicopter)) return "PhobosWaterDrop_FliesItself".Translate(helicopter.LabelShort.Named("HELICOPTER")).Resolve();
         if (!HasBucket(helicopter)) return "PhobosWaterDrop_NoBucket".Translate().Resolve();
-        if ((sling.Carried ?? sling.Hooked) is { } load) return "PhobosWaterDrop_HasLoad".Translate(load.LabelShort.Named("LOAD")).Resolve();
+        if ((sling.Load ?? sling.HookedLoad) is { } load) return "PhobosWaterDrop_HasLoad".Translate(load.LabelShort.Named("LOAD")).Resolve();
         if (!helicopter.Spawned) return "PhobosWaterDrop_NotHere".Translate().Resolve();
         if (helicopter.vehiclePather is { Moving: true }) return "PhobosWaterDrop_Moving".Translate().Resolve();
         if (!helicopter.CanMoveFinal) return "PhobosWaterDrop_NoCrew".Translate().Resolve();

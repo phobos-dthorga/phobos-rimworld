@@ -85,7 +85,7 @@ public static class SlingDrawing
     {
         VehiclePawn? helicopter = flight.vehicle;
         CompPhobosSling? sling = helicopter?.GetComp<CompPhobosSling>();
-        VehiclePawn? load = sling?.Carried;
+        Thing? load = sling?.Load;
         if (helicopter == null || sling == null || load == null || UiGuard.Resting(GuardKey)) return;
         try
         {
@@ -108,7 +108,7 @@ public static class SlingDrawing
     /// the air. Such a helicopter is drawn where it is, its height shown by its climb (0 on the ground, 1 at cruise) rather than by distance
     /// up the screen, so the load is drawn hanging that share of the strops' length below it. Guarded: it runs every frame (UiGuard).
     /// </summary>
-    public static void DrawUnderFlying(VehiclePawn helicopter, VehiclePawn load, Vector3? stood)
+    public static void DrawUnderFlying(VehiclePawn helicopter, Thing load, Vector3? stood)
     {
         if (UiGuard.Resting(GuardKey)) return;
         try
@@ -122,18 +122,23 @@ public static class SlingDrawing
 
     /// <summary>The load and its strops under a hook drawn at <paramref name="hook"/>, the helicopter's spot on the ground being
     /// <paramref name="ground"/> (SlingRule.Hang places the load).</summary>
-    static void DrawBelow(VehiclePawn load, Vector3 hook, Vector3 ground, Vector3? stood)
+    static void DrawBelow(Thing load, Vector3 hook, Vector3 ground, Vector3? stood)
     {
+        // A hull (Framework 0.197.0) is drawn as Vehicle Framework draws it standing: by the picture of the vehicle it was. After a load
+        // that picture is gone until the hull next stands on a map; then nothing is drawn, and the hull is carried all the same.
+        VehiclePawn? picture = load as VehiclePawn ?? (load as VehicleBuilding)?.vehicle;
+        if (picture == null) return;
+        Rot8 facing = load is VehiclePawn ? picture.FullRotation : new Rot8(load.Rotation);
         (double x, double z, double paidOut) = SlingRule.Hang(hook.x - ground.x, hook.z - ground.z, StropCells,
             stood.HasValue ? stood.Value.x - ground.x : null, stood.HasValue ? stood.Value.z - ground.z : null);
 
         // One layer below the helicopter, so its body and rotors cover the load as they would from above.
         var at = new Vector3(ground.x + (float)x, hook.y - Altitudes.AltInc, ground.z + (float)z);
-        if (!DrawVehicle(load, at, load.FullRotation)) return;
+        if (!DrawVehicle(picture, at, facing)) return;
 
         if (paidOut <= 0 || (hook - at).MagnitudeHorizontal() < StropsFromCells) return;
         float between = hook.y - Altitudes.AltInc / 2f;
-        Vector3 along = load.Rotation.FacingCell.ToVector3() * (load.VehicleDef.Size.z * StropSpread);
+        Vector3 along = load.Rotation.FacingCell.ToVector3() * (picture.VehicleDef.Size.z * StropSpread);
         var from = new Vector3(hook.x, between, hook.z);
         var middle = new Vector3(at.x, between, at.z);
         DrawStrop(from, middle + along);
@@ -185,14 +190,16 @@ public class WorldObjectComp_PhobosSling : WorldObjectComp
     {
         foreach (Gizmo gizmo in base.GetGizmos()) yield return gizmo;
         if (parent is not AerialVehicleInFlight aircraft || aircraft.Vehicle is not { } helicopter || helicopter.Faction != Faction.OfPlayer) yield break;
-        if (helicopter.GetComp<CompPhobosSling>() is not { Carried: { } load } sling) yield break;
+        if (helicopter.GetComp<CompPhobosSling>() is not { Load: { } load } sling) yield break;
         var release = new Command_Action
         {
             defaultLabel = "PhobosSling_ReleaseGizmo".Translate(),
-            defaultDesc = "PhobosSling_ReleaseGizmoDesc".Translate(load.LabelShort.Named("LOAD")),
+            defaultDesc = (load is VehicleBuilding ? "PhobosSling_ReleaseHullGizmoDesc" : "PhobosSling_ReleaseGizmoDesc").Translate(load.LabelShort.Named("LOAD")),
             icon = SystemIcons.For("Phobos/VehicleSystems/Sling/Release"),
             action = () => Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
-                "PhobosSling_ReleaseConfirm".Translate(load.LabelShort.Named("LOAD"), load.AllPawnsAboard.Count().Named("PEOPLE")),
+                load is VehiclePawn riding
+                    ? "PhobosSling_ReleaseConfirm".Translate(load.LabelShort.Named("LOAD"), riding.AllPawnsAboard.Count().Named("PEOPLE"))
+                    : "PhobosSling_ReleaseHullConfirm".Translate(load.LabelShort.Named("LOAD")),
                 () => sling.ReleaseInFlight(PhobosSlingWreck.TileUnder(aircraft.Tile, ((WorldObject)aircraft).DrawPos)), destructive: true)),
         };
         if (sling.ReleaseRefusal() is { } refusal) release.Disable(refusal);
@@ -211,11 +218,11 @@ public class WorldObjectComp_PhobosSling : WorldObjectComp
                 lines.Append("PhobosHitch_WorldTowing".Translate(carrier.LabelShort.Named("TRACTOR"), towed.LabelShort.Named("TRAILER"),
                     carrier.GetComp<CompPhobosHitch>()!.TowedKilograms.ToString("N0").Named("WEIGHT")).Resolve());
             }
-            if (SlingLoads.Of(carrier) is not { } load) continue;
+            if (carrier.GetComp<CompPhobosSling>()?.Load is not { } load) continue;
             lines ??= new StringBuilder();
             if (lines.Length > 0) lines.AppendLine();
             lines.Append("PhobosSling_WorldCarrying".Translate(carrier.LabelShort.Named("HELICOPTER"), load.LabelShort.Named("LOAD"),
-                CompPhobosSling.LoadKilograms(load).ToString("N0").Named("WEIGHT")).Resolve());
+                CompPhobosSling.KilogramsOf(load).ToString("N0").Named("WEIGHT")).Resolve());
             if (parent is AerialVehicleInFlight && carrier.GetComp<CompPhobosSling>() is { SlungFlightNow: true })
             {
                 (double speed, double fuelPerTick) = SlungFlight.Factors;

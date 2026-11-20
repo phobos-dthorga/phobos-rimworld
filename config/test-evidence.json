@@ -3,6 +3,10 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "286": {"parts": {
+      "a hull is lifted on the sling": [{"key": "vehicles.sling-hull", "variant": "lifted"}],
+      "the hull is set down where the helicopter lands": [{"key": "vehicles.sling-hull", "variant": "set-down"}]
+    }},
     "285": {"parts": {
       "the front half puts its rear half together behind it": ["vehicles.articulated.assembled"]
     }},

@@ -85,6 +85,9 @@ public partial class CompPhobosGatherRun : CompPhobosVehicleRun
     // Derived, never saved: after a load a run may try a thing or a place it had given up on once more.
     readonly HashSet<int> outOfReach = new();
     readonly HashSet<IntVec3> badSpots = new();
+    // What a run gave up on, by why (Framework, after 0.196.0: the Talus ended a run "nothing left" with nothing gathered, 19 Nov 2026, and
+    // neither its message nor its note said why). Derived, never saved: counted again after a load, as outOfReach is.
+    int noRoomToStand, couldNotDrive, grabCouldNotTake;
     IVehicleGatherWorker? worker;
     IVehicleUnloadWorker? unloader;
     Predicate<Thing>? wanted;
@@ -329,8 +332,22 @@ public partial class CompPhobosGatherRun : CompPhobosVehicleRun
         unloadFacing = Rot4.Invalid;
         outOfReach.Clear();
         badSpots.Clear();
+        noRoomToStand = couldNotDrive = grabCouldNotTake = 0;
         ClearBay();
         passedBays.Clear();
+    }
+
+    int GivenUp => noRoomToStand + couldNotDrive + grabCouldNotTake;
+
+    /// <summary>A thing given up on for the rest of the run, counted under its reason.</summary>
+    void GiveUpOn(Thing thing, ref int count, string why)
+    {
+        if (!outOfReach.Add(thing.thingIDNumber)) return;
+        count++;
+        if (VehicleSystemsMod.DriveLog.DebugEnabled)
+        {
+            VehicleSystemsMod.DriveLog.Debug(Vehicle.LabelShort + " (" + Vehicle.ThingID + ") gave up on " + thing.ThingID + " at " + thing.Position + ": " + why);
+        }
     }
 
     public void Stop() => End(GatherRunEnd.Stopped);
@@ -360,6 +377,13 @@ public partial class CompPhobosGatherRun : CompPhobosVehicleRun
         lastTrip = false;
         outOfReach.Clear();
         badSpots.Clear();
+        // A run that ends finding nothing more, or no way on, says what it gave up on and why, so "nothing left" never hides piles still
+        // lying there that it could not get to.
+        if (reason == null && why is GatherRunEnd.NothingLeft or GatherRunEnd.NoWay && GivenUp > 0)
+        {
+            reason = WhyLine(why, Vehicle.LabelShort.Named("VEHICLE")) + " " + "PhobosGather_GaveUp".Translate(GivenUp.Named("COUNT"),
+                noRoomToStand.Named("STAND"), couldNotDrive.Named("DRIVE"), grabCouldNotTake.Named("GRAB")).Resolve();
+        }
         Report(why, reason);
         if (delivering)
         {
@@ -380,6 +404,9 @@ public partial class CompPhobosGatherRun : CompPhobosVehicleRun
                 new("kg", kilograms),
                 new("places", places),
                 new("trips", trips),
+                new("no room to stand", noRoomToStand),
+                new("could not drive", couldNotDrive),
+                new("grab could not take", grabCouldNotTake),
             });
         }
         delivering = false;
@@ -571,7 +598,7 @@ public partial class CompPhobosGatherRun : CompPhobosVehicleRun
                 Drive(thing, cell);
                 return;
             }
-            outOfReach.Add(thing.thingIDNumber);
+            GiveUpOn(thing, ref noRoomToStand, "no room to stand beside it");
         }
     }
 
@@ -649,7 +676,7 @@ public partial class CompPhobosGatherRun : CompPhobosVehicleRun
     /// <summary>A drive that reached nothing: the thing is given up for this run, and enough of them in a row end it.</summary>
     void FailedDrive()
     {
-        if (target != null) outOfReach.Add(target.thingIDNumber);
+        if (target != null) GiveUpOn(target, ref couldNotDrive, "the drive to it reached nothing");
         LookAgain();
         failedDrives++;
         if (GatherRule.GiveUp(failedDrives, Props.failedDrivesToGiveUp)) End(GatherRunEnd.NoWay);
@@ -665,7 +692,7 @@ public partial class CompPhobosGatherRun : CompPhobosVehicleRun
             if (Seen.Wants("vehicles.gather-run.lift", Vehicle)) Seen.Note("vehicles.gather-run.lift", Vehicle, target?.def.label);
             return;
         }
-        if (target != null) outOfReach.Add(target.thingIDNumber);
+        if (target != null) GiveUpOn(target, ref grabCouldNotTake, "the grab would not take it: " + (refusal ?? started.ToString()));
         LookAgain();
         if (GatherRule.AfterWork(started) is { } end) End(end, refusal);
     }

@@ -4,8 +4,8 @@
 logbook, records and tales, the trip report, stranded convoys) and batch 2 in 0.185.0 (EM29(a): four unwise orders go ahead with a
 warning), batch 3 in 0.187.0 (EM20, EM21(a) and (c), EM27's small links) and batch 4 in the same version (EM2 and EM3: hulls,
 salvaged parts, lost convoys), and a small round in 0.188.0 (EM29(b) brakes, EM16 the snow forecast, EM18 the gravship's warning),
-and EM11 with EM12 in 0.190.0 (hours on type, "their" vehicle), and EM5 in 0.192.0 (raiders' fuel by distance); not yet tested in
-game. The four batches the owner asked for are built
+and EM11 with EM12 in 0.190.0 (hours on type, "their" vehicle), and EM5 in 0.192.0 (raiders' fuel by distance), and EM21(b)'s hull lift in
+0.197.0; not yet tested in game. The four batches the owner asked for are built
 (the owner's word, 20 Nov 2026); every other row is an idea, not built. The owner answered four of the questions the same day
 ([the answers](#questions-for-the-owner)).
 
@@ -450,6 +450,10 @@ Not yet tested in game; row 260.
 | EM27 | **The air ambulance collects strangers**: a downed, non-hostile stranger is a casualty for automatic collection, as the manual order already allowed. Set down, a colonist must still be told to rescue them, as the game asks | — |
 | EM21(a) | **The winch takes another faction's vehicle** where the claim order could: nobody aboard, nobody of theirs armed nearby. It stays theirs | — |
 | EM21(c) | **A tanker fills from a river, lake or sea** beside it (Dubs Bad Hygiene's tie-in: `Port_OpenWater`, untreated water), after plumbing. **The water bucket fills from a parked tank of water** (`putsOutFires` on a fluid; the water leaves the tank when the run is ordered, a simplification) | — |
+
+**Since built (Framework 0.197.0, row 286; the owner, 20 Nov 2026):** the sling lifts a destroyed vehicle's hull
+(`vehicle-sling-design.md`, "Hulls on the hook"). The agent had called it small; the sling was written for vehicles throughout, so it
+became a rework that lets the sling carry either.
 
 **Kept out:** the solar flare (the owner's choice, not taken), and the rest of EM21: the sling lifting items, a hull or a packed building
 (EM21(b)), and the litter carrying a downed enemy as a prisoner (EM21(d)).

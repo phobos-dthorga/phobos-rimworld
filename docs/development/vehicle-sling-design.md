@@ -5,7 +5,8 @@ lift and carry), slice 2 (weather, the slower flight, choosing the set-down, eme
 helicopters that fly across the map (0.102.0, with the Louie's and the Hind's hooks), the pictures and the latch sound; and, for a helicopter
 on our own flight, the hover over the load, setting it down from the air and release over a map (Framework 0.161.0,
 [built](#built-19-nov-2026-lifting-and-setting-down-from-a-hover), not yet tested in game), and the same for the Hind on VTOL Vehicle's
-flight (Framework 0.165.0). Not built: the same for a helicopter on Vehicle Framework's own launch, which cannot hover on a map. Take-off and the world-map line were
+flight (Framework 0.165.0); and a destroyed vehicle's hull as a load (Framework 0.197.0,
+[Hulls on the hook](#hulls-on-the-hook-20-nov-2026), not yet tested in game). Not built: the same for a helicopter on Vehicle Framework's own launch, which cannot hover on a map. Take-off and the world-map line were
 tested in game by the owner on 12 Nov 2026; everything else is not yet tested in game.
 
 Design record. The owner asked for a vehicle airlift of our own, "with our own flavour on
@@ -350,6 +351,44 @@ Where they differ:
 | Hover with the load | The engine model's hover check at the heavier weight, as for ours (`FlightRules.WouldHoverWith`) |
 | Coming down | VTOL Vehicle's own crash: the load goes with it as before (set down where there is room when it is destroyed) |
 
+
+## Hulls on the hook (20 Nov 2026)
+
+The owner, 20 Nov 2026, from the emergent-play record's row EM21(b): "Sling lifts a hull". Built in Framework 0.197.0; not yet tested
+in game (row 286). It joins two things built earlier: a destroyed vehicle leaves a hull (Framework 0.187.0), and a helicopter carries a
+load.
+
+**The agent called this small before reading the code, and it was not.** The sling was written for vehicles throughout; a hull is a
+building (Vehicle Framework's `VehicleBuilding`). Rather than a second, parallel path for hulls, the sling now carries **a load** that
+is either: its holder is typed for any thing, `Load` is what hangs, `Carried` stays the vehicle (null when a hull hangs) so every
+outside reader that lists vehicles is unchanged, and `CarriedHull` is the hull. Each step asks the load for what differs.
+
+| What differs for a hull | As built |
+| --- | --- |
+| Whose it may be | Anyone's: a wreck is nobody's until carried off. A vehicle must still be ours |
+| Weight | What its vehicle weighed empty (`Powertrain.KerbFor`) [A]: a wreck keeps its steel |
+| Hooking up | At once, by the helicopter's own crew, whatever the ground crew setting: the hook-up work is Vehicle Framework's vehicle job and cannot be given on a building. A simplification |
+| Footprint when set down | The game's own rule for a building, not Vehicle Framework's for a vehicle (they differ for an even side facing south or west: the fault behind the gravship fix), so a hull is checked against the cells it will really cover |
+| Falling | It loses the fall's share of its full hit points; a hull stands at a tenth, so most falls break it up |
+| Release over the world map | It is destroyed: a wreck site holds vehicles, and a broken hull is nothing to come back for |
+| The picture | The vehicle it was, as Vehicle Framework draws a standing hull. After a save and load that picture is gone until the hull next stands on a map, so it is not drawn under the helicopter until then |
+| The fleet board | Listed among hulls, as slung under its helicopter |
+
+Everything else is the vehicle's path unchanged: the hook, the sling set, reach, roofs, the hover check, the overload warning and the
+strained mount, the slower flight, choosing the set-down, the lift and set-down from a hover, a crash.
+
+Lets: bring a wreck home to strip in safety, yours or an enemy's, without a constructor working on a battlefield. Stops: nothing.
+Changes: a lost vehicle's hull is worth a flight, and a strong hook is worth having for recovery. What outside the helicopter
+notices: the place the hull stood, which loses it, and the home it is set down at.
+
+**Other factions' vehicles:** their hulls are liftable like ours (a raid's wrecked truck, a hull at a base we attack). No raider
+orders a lift, so nothing of theirs carries one. A raiders' aircraft brought down still leaves no hull (the owner's choice).
+
+**Limits:** only hulls, not other buildings or items (the rest of EM21(b): a net of items, a packed building). A hull on a hook when
+the mod is removed is lost with the helicopter's saved data.
+
+**To watch in play:** a vehicle lift still behaving as before (the code under it was reworked); a hull set down across something; a
+warning on loading a save with a hull on a hook (Vehicle Framework saves a hull's picture as a reference to a vehicle that is gone).
 
 ## Other factions' vehicles
 

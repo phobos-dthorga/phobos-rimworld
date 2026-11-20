@@ -1757,7 +1757,16 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                     if (entered.notable && state.staged) RecordEvent(VehicleEventKind.Stage, state.Def.defName, state.Def.quantities[q].name, index);
                     // Seen in play (Framework 0.123.0): the key is built from the quantity's name; config/test-evidence.json lists it as a prefix.
                     // Framework 0.138.0: the stage is the note's case, so a warning and the refusal after it are both noted, per vehicle.
-                    if (entered.notable && state.staged && Seen.On) Seen.Note("vehicles.stage." + state.Def.quantities[q].name, Vehicle, entered.label, entered.label);
+                    if (entered.notable && state.staged && Seen.On)
+                    {
+                        string key = "vehicles.stage." + state.Def.quantities[q].name;
+                        // A refusal straight from a warning that stood unnoted (entered at load, which notes nothing, or in an earlier
+                        // session): the warning is noted first, as it really stood before the refusal and its message fired when it was
+                        // entered (message cooldowns are not saved, so a load shows it). Without this the test list's order check read a
+                        // session's first refusal as one with no warning (the Abrams, 19 Nov 2026, row 69).
+                        if (entered.Severe && old is { notable: true, Severe: false } && Seen.Wants(key, Vehicle, old.label)) Seen.Note(key, Vehicle, old.label, old.label);
+                        Seen.Note(key, Vehicle, entered.label, entered.label);
+                    }
                 }
             }
             StageSpec? current = state.CurrentStage(q);

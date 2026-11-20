@@ -525,6 +525,10 @@ the kit back in the cargo.
   over, plus a quarter in bad weather, and a mount strained to nothing **gives way**, dropping the load back from a few metres. Repair
   the mount before it goes. **A slung flight is slower and burns more fuel**, and the range shown is shorter.
 
+- **Lifting a hull** (not yet tested in game): what a destroyed vehicle leaves can be carried home the same way. Press **Lift a
+  vehicle or a hull** and click the hull; the helicopter's crew hooks it up at once, with no colonist needed. Set down at home, take it
+  apart for its **salvaged parts**. A hull weighs what the vehicle did empty, so a heavy wreck needs a strong hook. **Do not release a
+  hull in flight**: it breaks up and nothing is left.
 - **Emergency release** (world map, not yet tested in game): on a helicopter in flight, it lets the load fall. It lands hard, badly
   damaged, and anyone in it is hurt. It lies there as a **wreck**: right-click it with a caravan to **Recover** it, then repair it,
   drive it, tow it or lift it home. **A helicopter that crashes drops its load too**, beside the wreckage.

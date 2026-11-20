@@ -140,6 +140,20 @@ public static class FleetService
         }
 
         string hulls = "PhobosFleet_GroupHulls".Translate();
+
+        FleetEntry HullEntry(VehicleBuilding hull, CompPhobosHull comp, string where, GlobalTargetInfo target) => new()
+        {
+            Kind = FleetKind.Hull, Vehicle = hull.vehicle, Subject = hull, Def = hull.VehicleDef, Label = hull.LabelShortCap, Where = where,
+            Target = target, GroupKey = "hulls", GroupLabel = hulls, GroupOrder = OrderHulls, HullParts = comp.Parts(),
+            Health = hull.MaxHitPoints > 0 ? hull.HitPoints / (float)hull.MaxHitPoints : 0f,
+        };
+
+        // A hull hanging from a helicopter's sling (Framework 0.197.0) is on no map: it is found through the helicopter.
+        void AddSlungHull(VehiclePawn carrier, string where, GlobalTargetInfo target)
+        {
+            if (carrier.GetComp<CompPhobosSling>()?.CarriedHull is not { } hung || hung.GetComp<CompPhobosHull>() is not { } comp) return;
+            Add(HullEntry(hung, comp, where, target)).Carrier = carrier;
+        }
         string claimable = "PhobosFleet_GroupClaimable".Translate();
         foreach (Map map in Find.Maps)
         {
@@ -157,6 +171,7 @@ public static class FleetService
                     {
                         Add(Entry(slung, FleetKind.Own, where, new GlobalTargetInfo(vehicle), key, where, order)).Carrier = vehicle;
                     }
+                    AddSlungHull(vehicle, where, new GlobalTargetInfo(vehicle));
                 }
                 else if (VehicleClaims.Offered(vehicle) && VehicleClaims.Refusal(vehicle) == null)
                 {
@@ -166,12 +181,7 @@ public static class FleetService
             foreach (Thing thing in map.listerThings.ThingsInGroup(ThingRequestGroup.BuildingArtificial))
             {
                 if (thing is not VehicleBuilding hull || hull.GetComp<CompPhobosHull>() is not { } comp) continue;
-                Add(new FleetEntry
-                {
-                    Kind = FleetKind.Hull, Vehicle = hull.vehicle, Subject = hull, Def = hull.VehicleDef, Label = hull.LabelShortCap, Where = where,
-                    Target = new GlobalTargetInfo(hull), GroupKey = "hulls", GroupLabel = hulls, GroupOrder = OrderHulls, HullParts = comp.Parts(),
-                    Health = hull.MaxHitPoints > 0 ? hull.HitPoints / (float)hull.MaxHitPoints : 0f,
-                });
+                Add(HullEntry(hull, comp, where, new GlobalTargetInfo(hull)));
             }
         }
         foreach (WorldObject place in Find.WorldObjects.AllWorldObjects)
@@ -194,6 +204,7 @@ public static class FleetService
                 FleetEntry entry = Add(Entry(vehicle, kind, where, new GlobalTargetInfo(place), key, label, order));
                 entry.Place = place;
                 if (!vehicles.Contains(vehicle)) entry.Carrier = vehicles.FirstOrDefault(v => SlingLoads.Of(v) == vehicle);
+                AddSlungHull(vehicle, where, new GlobalTargetInfo(place));
             }
         }
         // Trailers and towed vehicles: under whatever pulls them, and found through it when it holds them off the map.
@@ -298,7 +309,10 @@ public static class FleetService
 
     static string Doing(FleetEntry entry)
     {
-        if (entry.Kind == FleetKind.Hull) return "PhobosFleet_DoingHull".Translate();
+        if (entry.Kind == FleetKind.Hull)
+        {
+            return entry.Carrier != null ? "PhobosFleet_DoingSlung".Translate(entry.Carrier.LabelShort.Named("CARRIER")) : "PhobosFleet_DoingHull".Translate();
+        }
         if (entry.Kind == FleetKind.Claimable) return "PhobosFleet_DoingClaimable".Translate();
         if (entry.Kind == FleetKind.Lost) return "PhobosFleet_DoingLost".Translate();
         VehiclePawn vehicle = entry.Vehicle!;
