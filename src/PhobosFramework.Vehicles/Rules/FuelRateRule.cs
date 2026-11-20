@@ -52,4 +52,24 @@ public static class FuelRateRule
 
     /// <summary>The share of its daily rate Vehicle Framework burns while a vehicle stands drafted on a map (a fact of its code).</summary>
     public const double FrameworkIdleShare = 0.5;
+
+    /// <summary>
+    /// How far Vehicle Framework's fuel rate for a vehicle stands from the rate its Def writes (owner, 20 Nov 2026: "defensively for other
+    /// cases like this, and with other vehicles"). An upgrade moves it (the Harrier's plasteel armour: 172.5 against 150, so 1.15), and so
+    /// does the player's own Vehicle Framework setting. Every rate Vehicle Framework burns by already carries it; a flight mod's own flat
+    /// rate on a map does not, so ours carries that rate by this factor, and whatever moves Vehicle Framework's rate moves the engines'
+    /// burn too, without reading any upgrade by name. 1 when either figure is unusable; kept between <see cref="MinRateFactor"/> and
+    /// <see cref="MaxRateFactor"/>, so a broken figure can never stop the burn or run away with it.
+    /// </summary>
+    public static double RateFactor(double current, double written)
+    {
+        if (!(written > 0) || !(current > 0) || double.IsInfinity(written) || double.IsInfinity(current)) return 1;
+        return Math.Clamp(current / written, MinRateFactor, MaxRateFactor);
+    }
+
+    /// <summary>The least <see cref="RateFactor"/> gives (authored: a tenth, far below any real fuel upgrade).</summary>
+    public const double MinRateFactor = 0.1;
+
+    /// <summary>The most <see cref="RateFactor"/> gives (authored: ten times, far above any real fuel upgrade).</summary>
+    public const double MaxRateFactor = 10;
 }

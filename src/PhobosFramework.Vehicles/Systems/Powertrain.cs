@@ -937,13 +937,23 @@ public sealed class Powertrain
         return TurbineModel.FuelShare(Spec.IdleFuelShare, demand, cruise.demand, MaxFuelDemand, WearFuel);
     }
 
+    /// <summary>The factor the last look carried a flight mod's own on-map rate by (derived, never saved; the seen-in-play note reads it).</summary>
+    double flatRateFactor = 1;
+
     /// <summary>The fuel the flight framework itself burns each tick while flying on a map (the author's on-map rate), or Vehicle
     /// Framework's own for an aircraft with none; NaN when the profile names a place for it that cannot be read.</summary>
     double MapFuelPerTick(VehiclePawn vehicle, CompFueledTravel fuel)
     {
+        // Vehicle Framework's own rate already carries its upgrades and the player's setting.
         if (Profile!.mapFuelRateMember.NullOrEmpty()) return fuel.ConsumptionRatePerTickRaw;
         float own = PhaseReader_Members.Number(vehicle, Profile.mapFuelRateMember!);
-        return float.IsNaN(own) || own <= 0f ? double.NaN : own;
+        if (float.IsNaN(own) || own <= 0f) return double.NaN;
+        // A flight mod's own rate is a flat figure that no upgrade moves, so an upgrade that burns more (the Harrier's plasteel armour,
+        // 20 Nov 2026) was handed back as someone else's burn. It is carried by however far Vehicle Framework's rate for this aircraft
+        // stands from its Def's, so any author's fuel upgrade, or the player's own setting, moves the engines' burn on a map as it
+        // already moves it between tiles; no upgrade is read by name (docs/development/vehicle-altitude-and-turbines.md).
+        flatRateFactor = FuelRateRule.RateFactor(fuel.FuelEfficiency, fuel.Props.fuelConsumptionRate);
+        return own * flatRateFactor;
     }
 
     /// <summary>Adds what the engines owe for the ticks this sample stands for, on a map: the author's on-map rate holds while flying
@@ -991,6 +1001,10 @@ public sealed class Powertrain
         if (extra > 0) VehicleFuel.Burn(vehicle, (float)extra, FuelUse.Engine, comp);
         else if (extra < 0) VehicleFuel.GiveBack(vehicle, (float)-extra, FuelUse.Engine, comp);
         MapFuelFollowed = true;
+        if (Math.Abs(flatRateFactor - 1) > 0.001 && Seen.Wants("vehicles.aircraft-fuel-upgrade", vehicle))
+            Seen.Note("vehicles.aircraft-fuel-upgrade", vehicle, "the flight mod's own rate carried by Vehicle Framework's "
+                + fuel.FuelEfficiency.ToString("0.#") + " against its Def's " + fuel.Props.fuelConsumptionRate.ToString("0.#"),
+                values: new List<KeyValuePair<string, double>> { new("factor", flatRateFactor) });
         if (SeenInPlay.On && Math.Abs(extra) > 0.0005) Seen.Note("vehicles.aircraft-fuel", vehicle, (Phase ?? "?")
             // Amounts, not a ratio (Framework 0.136.1): at lift-off nothing else had burned yet, and the ratio read "x48944".
             + ": engines owed " + owed.ToString("0.###") + ", others burned " + seen.ToString("0.###"));

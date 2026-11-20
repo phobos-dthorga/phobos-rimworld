@@ -570,6 +570,11 @@ Vehicle Framework's of 18 Nov 2026.
 - **Whose it is:** neither author's code is wrong alone; the two footprint rules disagree. Not extreme: a vehicle a cell out of place,
   no lost data. Under the owner's rule (another author's fault is theirs to fix unless it is extreme), **left to Vehicle Framework's
   author**; a bug report could be drafted for the owner if they want one.
+- **The owner's answer (20 Nov 2026): fix it.** Built as `GravshipLandingAlignment` (Framework, Unreleased; row 284; temporary
+  patch row 21): a postfix after the game places a landed ship's contents moves each carried vehicle back by the difference between
+  where its launch footprint lands and where Vehicle Framework now draws it, so nothing moves after an unturned landing or once the two
+  rules agree. Checked by a simulation of both rules over sizes 1x1 to 4x6, every facing, turn and position: the target is always the
+  turned launch footprint, and without the fix 2,352 of those cases were off.
 - **Cheap ways round it, for the owner:** (a) the launch warning (EM18, built) could also name a vehicle with an even side parked within a
   cell of the edge; (b) park such vehicles facing north or east, or away from walls, which a guide line could say. A fix of our own (a
   postfix after the ship lands that moves each such vehicle one cell back) is possible but would be a patch on another author's fault,

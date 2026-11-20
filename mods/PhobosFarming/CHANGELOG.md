@@ -9,6 +9,7 @@ tested in game unless an entry says the owner tested it.
 
 - **The Thane tractors, small and medium, in two models each** (the owner's picks of 20 November 2026), under one button each in the motor pool: the T60 and the T60 F on wide tyres, the ballasted T130 and the lighter T130 RC. Each carries an implement on its three-point linkage and pulls on its drawbar, and drives a paddock row by row with the implement working. Unlocked by the new research **Tillage and sowing**, which needs Mechanised harvesting and Machining; a second, **Articulated tractors**, follows it for the large tractor to come.
 - Their pictures, and those of the large tractor, the plough, the cultivators and the drill, ready for the next pieces.
+- **A new setting, Agricultural Frame: hay only from straw crops, on by default** (the owner's request; Mod settings, D'thorga Farming, General, under Other mods, shown only with The Dead Man's Switch - Legion). Its Agricultural Frame drops hay with every plant it harvests, cabbages and berries included. On, only crops that leave straw or forage behind give it: grains, peas, chickpeas, canola, corn, sunflowers and haygrass. Vegetables, fruit, root crops, cotton, flowers and herbs give none. The frame's own amounts are kept. Off, it is as its author made it. Takes effect at once. Each crop class now says whether it leaves straw, in its XML, so other mods' crops follow the class they are put in.
 
 ### Compatibility and limits
 

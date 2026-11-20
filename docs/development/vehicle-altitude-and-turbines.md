@@ -7,7 +7,8 @@ the light model, water boiling lower, brake cooling, and descents (held). The la
 journey's end is built in Framework 0.140.0 ([below](#the-landing-check-at-a-journeys-end-framework-01400)), **not yet tested in game**
 (row 198). A flight's own cruising height between tiles is built in Framework 0.141.0, in
 [our own flight over the map](vehicle-flight-over-the-map.md#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover), **not yet
-tested in game** (row 199).
+tested in game** (row 199). Upgrades that move Vehicle Framework's fuel rate now reach a flight mod's own on-map rate (20 Nov 2026,
+[below](#their-20-nov-2026-updates-the-harriers-armour-fuel-is-handed-back-on-a-map)), **not yet tested in game** (row 282).
 
 This record follows [engine loads](vehicle-engine-loads.md), which found that turbines had not come as far as piston engines (its
 gaps T-1 to T-4), and [world elevation](world-elevation-and-descents.md), which found that every world tile has a real height in
@@ -302,12 +303,26 @@ burns:
 - **Our hover sums do not see the plates either**: `Powertrain.HoverDemand` (`:596`) reads mass, and the node adds none. Our own armour
   kits do add their weight as carried mass ([vehicle armour](vehicle-armour.md)), so they reach the hover and fuel sums.
 
-**The fix I would make** (not built; the owner's call): scale the on-map reference by what Vehicle Framework's own rate says now
-against the Def's base, in `MapFuelPerTick`, so any upgrade that raises `FuelConsumptionRate` carries onto the map: 172.5 / 150 = 1.15
-for the Harrier, with no names read. It reads the effect, not the author's node, so it covers other authors' fuel upgrades too, and
-it leaves the author's own on-map burn as the reference it already is. **Check before building:** whether any of our own upgrades or
-fittings raise `FuelConsumptionRate` on an aircraft, which this would then also carry onto the map (the right answer, but a change
-to say).
+**Built 20 Nov 2026 (Framework, the release after 0.194.0), at the owner's word** ("Yup, I'd build it, and if you can do so
+defensively for other cases like this, and with other vehicles"). **Not yet tested in game** (row 282). `MapFuelPerTick` carries a
+flight mod's own on-map rate by `FuelRateRule.RateFactor`: Vehicle Framework's rate for the aircraft now (`FuelEfficiency`, which holds
+its upgrades and the player's Vehicle Framework setting) against the rate its Def writes. 172.5 / 150 = 1.15 for the armoured Harrier,
+so the engines owe the author's extra burn and nothing is handed back. No upgrade is read by name.
+
+How far it reaches, read from the code that day:
+
+| Case | Before | Now |
+| --- | --- | --- |
+| A flight mod with its own flat on-map rate (the fixed-wing jet and helicopter profiles: Harrier, Hind, Mongoose) | Upgrades and the player's setting ignored on a map | Carried by the factor |
+| An aircraft burning Vehicle Framework's rate on a map | Already followed it (`ConsumptionRatePerTickRaw` is built on `FuelEfficiency`) | Unchanged |
+| Any aircraft between tiles | Already followed it (our share multiplies Vehicle Framework's world rate) | Unchanged |
+| Ground vehicles, on a map and between tiles | Already followed it (our correction is a share of `FuelEfficiency` and of its world rate) | Unchanged |
+| Our own fittings and upgrades | None touches `FuelConsumptionRate` (searched 20 Nov 2026), so nothing is counted twice | Unchanged |
+
+**Limits, said plainly:** a mod that burns more on a map through its own code *without* moving Vehicle Framework's rate is still
+handed back up to the ceiling (`othersAtMost`), as before: the tank cannot say whose burn it was. The factor is kept between a tenth
+and ten times (authored bounds), and a figure that cannot be read leaves it at 1. A player's own Vehicle Framework fuel setting for a
+flight-mod aircraft now reaches its on-map burn too; the owner had none set that day.
 
 ## Other factions' vehicles
 

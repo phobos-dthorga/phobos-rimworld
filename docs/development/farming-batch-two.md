@@ -108,6 +108,30 @@ T400 (eight to twelve furrows) is for later, with its own picture.
   reading: grain, pulses, oilseeds and corn yes; hay, cotton and, for now, root crops no), and the drill follows the same rule. Generic
   bought seed is not in the game yet, so hands use only the crop's own grain.
 
+## The Agricultural Frame's hay (owner, 20 Nov 2026; built in Farming, the release after 0.6.0)
+
+The owner saw "hay planted with cabbages" in PG17. No hay was planted: The Dead Man's Switch - Legion's **Agricultural Frame** mech drops
+2 to 3 hay [its author's figures] with every plant it harvests or cuts, cabbages included (its own description says so; traced in the
+save by tick, every hay stack beside a cabbage harvest). The owner called it unrealistic and asked for a patch, with a setting to turn
+it off.
+
+- **How** [code, a decompile of `DMS_Legion.dll` for 1.7, 20 Nov 2026; no public source]: its comp's properties carry the author's own
+  list of plants it may drop hay for (`allowedPlantDefs`, empty meaning every plant). At start-up, and whenever the setting is saved,
+  Farming fills that list with the plants whose **crop class leaves straw** (`leavesStraw`, new on `PhobosCropClassDef`), read by the
+  type's full name. No Harmony patch and no reference to its assembly; the author's amounts are kept. With no straw crop at all the
+  amounts are set to nought, as an empty list would mean every plant.
+- **Which classes leave straw** (agent's reading, held for the owner's review): cereals, pulses, oilseeds, row crops (corn stover;
+  sunflower stalks much less so, but they share the class) and forage (haygrass) yes; root crops and cotton no. Crops in no class
+  (vegetables, fruit, flowers, herbs) give none. The game's hay stands for their baled straw: the owner's mods already use hay as straw
+  (a straw rug recipe takes it).
+- **Not done:** fresh greens from leafy crops (no such item exists, and the frame drops one item only, so it would need a patch of its
+  code); hay from cutting wild grass (grass is in no class).
+
+**What it lets the player do:** keep the frame's hay as baled straw from grain, pulse, corn and hay fields, and turn the rule off.
+**What it stops:** free hay from cabbages, potatoes, fruit, flowers and herbs. **How it changes play:** a colony that feeds its animals
+from the frame's hay now grows grain or haygrass for it. **What outside notices:** the colony's animals and their feed stocks, and
+nothing else (a choice, stated).
+
 ## Tractors (Farming)
 
 | Tractor (names: owner, 20 Nov 2026; figures [A]) | Footprint | Rated power | Empty mass | Couplings |

@@ -65,4 +65,8 @@
   <PhobosFarming_SettingHandsUseSeed>Hands use seed too</PhobosFarming_SettingHandsUseSeed>
   <PhobosFarming_SettingHandsUseSeedDesc>Off by default: colonists sow by hand for free, as the game does. On, for more realism: a colonist sowing a crop whose harvest is its own seed (grains, peas, oilseeds, corn) first takes a handful of that crop from a stockpile and uses it up as they sow, about three per cent of what each cell will yield. With none they can reach, they will not sow it, and say why. Cotton, hay, potatoes and crops of other mods with no crop class are still sown free.</PhobosFarming_SettingHandsUseSeedDesc>
   <PhobosFarming_HandsNoSeed>no {SEED} to sow {CROP} with</PhobosFarming_HandsNoSeed>
+  <!-- A setting for another mod's farm hand: shown only while The Dead Man's Switch - Legion is active. -->
+  <PhobosFarming_SectionOtherMods>Other mods</PhobosFarming_SectionOtherMods>
+  <PhobosFarming_SettingFrameHay>Agricultural Frame: hay only from straw crops</PhobosFarming_SettingFrameHay>
+  <PhobosFarming_SettingFrameHayDesc>The Dead Man's Switch - Legion's Agricultural Frame drops extra hay with every plant it harvests. On, for realism: only crops that leave straw or forage behind give it (grains, peas, chickpeas, canola, corn, sunflowers and haygrass), as the hay stands for their baled straw. Vegetables, fruit, root crops, cotton, flowers and herbs give none, nor do crops of other mods with no crop class. Off: hay from every plant, as its author made it. Takes effect at once.</PhobosFarming_SettingFrameHayDesc>
 </LanguageData>

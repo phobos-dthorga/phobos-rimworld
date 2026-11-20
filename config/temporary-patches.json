@@ -21,6 +21,7 @@
     {"row": 17, "patch": "UnmannedVehicleTargets", "mod": "RimPacts - Diplomacy Overhaul", "file": "RimPacts.dll", "members": ["RptAssaultTarget.IsLive"]},
     {"row": 18, "patch": "EmpUnderCombatExtendedPatch", "mod": "Combat Extended", "file": "VehiclesCompat.dll", "members": ["VehicleArmorPatch.ApplyDamageCE"]},
     {"row": 19, "patch": "TurretGraphicWhileLoadingPatch", "mod": "Vehicle Framework", "file": "Vehicles.dll", "members": ["VehicleTurret.PostPostLoadInit"]},
-    {"row": 20, "patch": "RaidOrdersOnLoadPatch", "mod": "Vanilla Factions Expanded - Classical", "file": "VFEC.dll", "members": ["LordJob_ScorpionRaid.*"]}
+    {"row": 20, "patch": "RaidOrdersOnLoadPatch", "mod": "Vanilla Factions Expanded - Classical", "file": "VFEC.dll", "members": ["LordJob_ScorpionRaid.*"]},
+    {"row": 21, "patch": "GravshipLandingAlignment", "mod": "Vehicle Framework", "file": "Vehicles.dll", "members": ["Ext_Vehicles.AdjustForVehicleOccupiedRect"]}
   ]
 }

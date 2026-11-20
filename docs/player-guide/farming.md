@@ -13,6 +13,9 @@ row by itself, emptying its grain into a chaser bin. [Back to the guide](README.
 - **There is no seed drill yet.** To sow a paddock, turn **Hands may help** on, and off again once it is sown.
 - **Hands use seed too** (a setting, off by default): with it on, a colonist sowing grain, peas, oilseeds or corn by hand first takes a
   handful from a stockpile, and will not sow that crop without it. Keep some of each harvest back.
+- **With The Dead Man's Switch - Legion, its Agricultural Frame's extra hay comes only from crops that leave straw** (a setting, on by
+  default): grains, peas, chickpeas, canola, corn, sunflowers and haygrass. Cabbages, fruit, potatoes and flowers give none. Turn it off
+  for hay from every plant, as its author made it.
 - **The grain fronts cut cereals, pulses and oilseeds only**: rice, and wheat, barley, oats, rye, sorghum, buckwheat, chickpeas, peas
   and canola with Vanilla Cooking Expanded or Vanilla Plants Expanded. **The corn header** takes corn and sunflowers. Potatoes, hay
   and cotton stay for hands for now.

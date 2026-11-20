@@ -48,4 +48,25 @@ public class FuelRateRuleTests
         Assert.Equal(14, FuelRateRule.FrameworkPerDay(28, true, false), 9);
         Assert.Equal(0, FuelRateRule.FrameworkPerDay(28, false, true), 9);
     }
+
+    [Fact]
+    public void AnUpgradeThatMovesVehicleFrameworksRateMovesTheFactor()
+    {
+        // The Harrier's plasteel armour: Vehicle Framework's 150 a day becomes 172.5.
+        Assert.Equal(1.15, FuelRateRule.RateFactor(172.5, 150), 9);
+        // A fuel-saving upgrade or setting lowers it; none leaves it at 1.
+        Assert.Equal(0.8, FuelRateRule.RateFactor(120, 150), 9);
+        Assert.Equal(1, FuelRateRule.RateFactor(150, 150), 9);
+    }
+
+    [Fact]
+    public void ABrokenFigureNeverStopsOrRunsAwayWithTheBurn()
+    {
+        Assert.Equal(1, FuelRateRule.RateFactor(172.5, 0));
+        Assert.Equal(1, FuelRateRule.RateFactor(0, 150));
+        Assert.Equal(1, FuelRateRule.RateFactor(double.NaN, 150));
+        Assert.Equal(1, FuelRateRule.RateFactor(172.5, double.PositiveInfinity));
+        Assert.Equal(FuelRateRule.MaxRateFactor, FuelRateRule.RateFactor(1e9, 1));
+        Assert.Equal(FuelRateRule.MinRateFactor, FuelRateRule.RateFactor(1e-9, 1));
+    }
 }

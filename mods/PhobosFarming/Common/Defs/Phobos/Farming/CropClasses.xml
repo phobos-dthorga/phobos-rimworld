@@ -6,46 +6,56 @@
        "For modders". A crop in no class is left for hands. Which crop goes in which class is the agent's reading of how each is
        harvested in real farming, held for the owner's review. harvestIsSeed (Farming 0.6.0): whether the harvest is also the crop's
        seed, kept back and sown again; the agent's reading too: grain, pulses, oilseeds and corn yes; hay and cotton lint no; root crops
-       no for now (seed potatoes are real, but take about a tenth of the crop, not the few per cent of grain), so they sow from bought seed. -->
+       no for now (seed potatoes are real, but take about a tenth of the crop, not the few per cent of grain), so they sow from bought seed.
+       leavesStraw (the release after 0.6.0): whether cutting the crop leaves straw or forage baled as feed, which the game's hay stands for;
+       the agent's reading: cereal and pulse straw, oilseed straw, corn stover (sunflower stalks, in the same class, much less so) and the
+       grass itself yes; root crops and cotton no. It decides which harvests give the Agricultural Frame's hay. -->
   <Phobos.Farming.PhobosCropClassDef>
     <defName>PhobosCrop_Cereal</defName>
     <harvestIsSeed>true</harvestIsSeed>
+    <leavesStraw>true</leavesStraw>
     <label>cereal</label>
     <description>Small grains cut whole and threshed: rice, wheat, barley, oats, rye, sorghum, buckwheat. A combine's grain front takes them.</description>
   </Phobos.Farming.PhobosCropClassDef>
   <Phobos.Farming.PhobosCropClassDef>
     <defName>PhobosCrop_Pulse</defName>
     <harvestIsSeed>true</harvestIsSeed>
+    <leavesStraw>true</leavesStraw>
     <label>pulse</label>
     <description>Dry peas and chickpeas, cut and threshed like a cereal. A combine's grain front takes them.</description>
   </Phobos.Farming.PhobosCropClassDef>
   <Phobos.Farming.PhobosCropClassDef>
     <defName>PhobosCrop_Oilseed</defName>
     <harvestIsSeed>true</harvestIsSeed>
+    <leavesStraw>true</leavesStraw>
     <label>oilseed</label>
     <description>Small-seeded oil crops such as canola, cut and threshed like a cereal. A combine's grain front takes them.</description>
   </Phobos.Farming.PhobosCropClassDef>
   <Phobos.Farming.PhobosCropClassDef>
     <defName>PhobosCrop_RowCrop</defName>
     <harvestIsSeed>true</harvestIsSeed>
+    <leavesStraw>true</leavesStraw>
     <label>row crop</label>
     <description>Tall crops grown in rows, such as corn and sunflowers, which need a row-crop header rather than a grain front.</description>
   </Phobos.Farming.PhobosCropClassDef>
   <Phobos.Farming.PhobosCropClassDef>
     <defName>PhobosCrop_Forage</defName>
     <harvestIsSeed>false</harvestIsSeed>
+    <leavesStraw>true</leavesStraw>
     <label>forage</label>
     <description>Grass grown for hay, mown and baled rather than threshed.</description>
   </Phobos.Farming.PhobosCropClassDef>
   <Phobos.Farming.PhobosCropClassDef>
     <defName>PhobosCrop_Fibre</defName>
     <harvestIsSeed>false</harvestIsSeed>
+    <leavesStraw>false</leavesStraw>
     <label>fibre</label>
     <description>Cotton and similar crops, picked by a picker rather than threshed.</description>
   </Phobos.Farming.PhobosCropClassDef>
   <Phobos.Farming.PhobosCropClassDef>
     <defName>PhobosCrop_Root</defName>
     <harvestIsSeed>false</harvestIsSeed>
+    <leavesStraw>false</leavesStraw>
     <label>root crop</label>
     <description>Potatoes and other crops lifted from the ground by a digger rather than cut.</description>
   </Phobos.Farming.PhobosCropClassDef>

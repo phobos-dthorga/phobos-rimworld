@@ -481,6 +481,8 @@ the kit back in the cargo.
     cabin air and heavy electrical loads add a few per cent, and the range shown before a flight already counts them.
   - **Over a map**, flying about burns what its author set. A lift-off, a climb and a hover burn more: a Harrier hovering down
     onto its pad burns about twice what it does flying about.
+  - **An upgrade that changes its fuel use counts everywhere** (not yet tested in game): the Harrier's plasteel armour burns about
+    15 % more over a map as well as between places.
   - **Idling on the ground with a pilot aboard burns fuel**, where it used to burn none: about a quarter to two-fifths of the flying
     rate. **Take the pilot out, or undraft it, when it is not needed.**
   - **A helicopter on station over a map works as hard as its load and the air ask** (not yet tested in game): the Hind and the

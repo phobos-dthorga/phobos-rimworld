@@ -3,6 +3,10 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "283": {"parts": {
+      "the frame's hay limited to straw crops": [{"key": "farming.frame-hay.limited", "expect": {"plants": ">= 1"}}]
+    }},
+    "282": [{"key": "vehicles.aircraft-fuel-upgrade", "expect": {"factor": ">= 1.1"}}],
     "281": {"parts": {
       "a colonist fetches seed before sowing": ["farming.hand-seed.fetch"],
       "seed is used up as they sow": ["farming.hand-seed.used"]
@@ -19,6 +23,9 @@
     "277": {"parts": {
       "a cell sown": ["farming.sow.cell"],
       "a sowing run ends": ["farming.sow.end"]
+    }},
+    "284": {"parts": {
+      "a vehicle with an even side lands on its own deck cells after a turned landing": [{"key": "vehicles.gravship-landing-aligned"}]
     }},
     "278": {"parts": {
       "a raid vehicle's fuel is set by how far it came": [{"key": "vehicles.raid-fuel"}]

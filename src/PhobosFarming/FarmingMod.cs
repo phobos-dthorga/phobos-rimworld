@@ -16,6 +16,9 @@ public class FarmingSettings : ModSettings
     /// <summary>Hands use seed too (owner, 19 and 20 Nov 2026: off by default, for players who want more realism): a colonist sowing by hand
     /// takes seed from a stockpile, as a machine does. Off: hands sow free, as the game does.</summary>
     public bool handsUseSeed;
+    /// <summary>The Dead Man's Switch - Legion's Agricultural Frame drops its hay only for crops that leave straw or forage (owner, 20 Nov
+    /// 2026: on by default, a setting to turn it off). Off: as its author made it. AgriculturalFrameHay.</summary>
+    public bool frameHayFromStrawCrops = true;
 
     public override void ExposeData()
     {
@@ -23,6 +26,7 @@ public class FarmingSettings : ModSettings
         Scribe_Values.Look(ref handsMayHelpOnNew, "handsMayHelpOnNew");
         Scribe_Values.Look(ref driverCanFail, "driverCanFail", true);
         Scribe_Values.Look(ref handsUseSeed, "handsUseSeed");
+        Scribe_Values.Look(ref frameHayFromStrawCrops, "frameHayFromStrawCrops", true);
     }
 }
 
@@ -34,6 +38,8 @@ public class FarmingSettings : ModSettings
 public class FarmingMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Farming";
+    /// <summary>The Dead Man's Switch - Legion, whose Agricultural Frame's hay a setting here limits.</summary>
+    const string DmsLegionPackageId = "srxf.deadmanswitch.legion";
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = PackageId;
     public const string ModVersion = "0.6.0";
@@ -53,6 +59,14 @@ public class FarmingMod : SettingsBookMod
         HarmonyPatchApplier.ApplyEach(new Harmony(HarmonyId), typeof(FarmingMod).Assembly, LogPrefix);
         LongEventHandler.ExecuteWhenFinished(() => new LoadReport(LogPrefix, ModVersion)
             .On("paddocks").On("combine harvester").On("bulk bins").Log());
+        LongEventHandler.ExecuteWhenFinished(AgriculturalFrameHay.Apply);
+    }
+
+    /// <summary>Saves the settings, then applies the one that changes other mods' Defs, so it takes effect without a restart.</summary>
+    public override void WriteSettings()
+    {
+        base.WriteSettings();
+        AgriculturalFrameHay.Apply();
     }
 
     static void DrawGeneral(SettingsList list)
@@ -64,5 +78,10 @@ public class FarmingMod : SettingsBookMod
         list.Check("PhobosFarming_SettingDriverCanFail".Translate(), ref s.driverCanFail, true, "PhobosFarming_SettingDriverCanFailDesc".Translate());
         list.Section("PhobosFarming_SectionSeed".Translate());
         list.Check("PhobosFarming_SettingHandsUseSeed".Translate(), ref s.handsUseSeed, false, "PhobosFarming_SettingHandsUseSeedDesc".Translate());
+        if (ModsConfig.IsActive(DmsLegionPackageId))
+        {
+            list.Section("PhobosFarming_SectionOtherMods".Translate());
+            list.Check("PhobosFarming_SettingFrameHay".Translate(), ref s.frameHayFromStrawCrops, true, "PhobosFarming_SettingFrameHayDesc".Translate());
+        }
     }
 }

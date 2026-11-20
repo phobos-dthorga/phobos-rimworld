@@ -14,6 +14,10 @@ public class PhobosCropClassDef : Def
     /// <summary>Whether the crop's harvest is its own seed (grain, pulses, oilseeds, corn kernels), so it can be kept back and sown again;
     /// false where it is not (hay, cotton lint), which then sows only from bought seed. Farming 0.6.0.</summary>
     public bool harvestIsSeed;
+    /// <summary>Whether cutting the crop leaves straw or forage worth baling as animal feed (cereal and pulse straw, corn stover, the grass
+    /// itself), which the game's hay stands for; false where it does not (root crops, cotton). Read by the Agricultural Frame's hay
+    /// (AgriculturalFrameHay). Farming, the release after 0.6.0; the agent's reading, held for the owner's review.</summary>
+    public bool leavesStraw;
 }
 
 /// <summary>
