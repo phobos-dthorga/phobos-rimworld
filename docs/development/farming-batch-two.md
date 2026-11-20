@@ -160,6 +160,18 @@ what each picture shows, for the owner's review:
 sides. A real turnover plough rolls over on its headstock at each headland so every furrow is thrown the same way and no dead furrow is
 left; the field run turns it between rows, and its picture swaps with the side [A: how, a small code piece].
 
+## Research, sounds, overlays and the install (owner's decisions, 20 Nov 2026)
+
+- **Research:** one new project, **Tillage and sowing**, after Mechanised harvesting, unlocks the Thane T60 and T130 (both models of
+  each), the plough, both cultivators and the drill; a second, **Articulated tractors**, needing Tillage and sowing, unlocks the T400.
+- **Sounds: real recordings** (the owner's choice over generated ones): public-domain, CC0 or CC BY recordings of real tractors, with
+  their credit, never a non-commercial, no-derivatives or subscription licence (assets/AGENTS.md); generated only where none is found.
+  Each size sounds like itself.
+- **Overlays:** every tree is planned now with its nodes and figures; the drawn overlays (front weights, wing extensions, the linkage
+  lowered, a lifted implement) and the seed sack come in the next paid run, dry run and cap first, one picking sheet.
+- **Install:** all batch-two Defs, the reversible plough's code and the trees now; one version and one install once the whole set is
+  real (pictures, overlays, sounds), with the test list.
+
 ## The order to build (agent's)
 
 1. The rigid linkage in the hitch rule, with tests; the field run finding a worker behind; lifted and lowered. (Framework, code only.)
