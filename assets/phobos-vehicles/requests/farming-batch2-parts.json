@@ -1,0 +1,185 @@
+[
+ {
+  "name": "farming-front-weights",
+  "engine": "openai",
+  "quality": "high",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/farming-tractor-t130-body-north/farming-tractor-t130-body-north-1.png",
+    "role": "Image 1 is our approved Thane T130 tractor: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "front weights, every Thane tractor without them drawn (T60, T60 F, T130 RC, T400)",
+   "this_request": "part drawn alone, fitted by script onto the picked bodies with export_vehicle.py overlay",
+   "design": "docs/development/farming-batch-two.md, \"Upgrade trees\""
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Thane farm tractors: a stack of cast-iron front ballast weights that bolts onto the very front of a tractor's bonnet. Image 1 is our approved Thane T130 tractor, which shows such weights at its front: match its outline weight, shading, palette and finish only. Do NOT redraw the tractor.\n\nDraw ONLY this part, alone on a plain pure white background. A neat row of eight thick slab weights side by side across the canvas, each a dark harvest-green rectangle with a rounded top and a lifting slot, held on a steel grey carrier bar, the whole a wide low block filling about 80 percent of the canvas width and 35 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "farming-dual-tyre",
+  "engine": "openai",
+  "quality": "high",
+  "width": 768,
+  "height": 1280,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/farming-tractor-t130-body-north/farming-tractor-t130-body-north-1.png",
+    "role": "Image 1 is our approved Thane T130 tractor: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "dual rear wheels, placed outside each rear wheel of the T60s and T130s (mirrored for the other side)",
+   "this_request": "part drawn alone, fitted by script onto the picked bodies with export_vehicle.py overlay",
+   "design": "docs/development/farming-batch-two.md, \"Upgrade trees\""
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Thane farm tractors: one extra large rear tractor tyre with deep chevron lugs, the outer wheel of a dual pair, on a short steel spacer hub. Image 1 is our approved Thane T130 tractor: match its tyre treatment, outline weight, shading and palette only. Do NOT redraw the tractor.\n\nDraw ONLY this part, alone on a plain pure white background. Seen from above, one tall narrow dark rubber tyre with its chevron tread running top to bottom, a small steel grey hub plate on its left edge; it fills about 45 percent of the canvas width and 90 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "farming-saddle-tank",
+  "engine": "openai",
+  "quality": "high",
+  "width": 768,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/farming-tractor-t130-body-north/farming-tractor-t130-body-north-1.png",
+    "role": "Image 1 is our approved Thane T130 tractor: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "bigger fuel tank, a saddle tank beside the cab on every Thane tractor",
+   "this_request": "part drawn alone, fitted by script onto the picked bodies with export_vehicle.py overlay",
+   "design": "docs/development/farming-batch-two.md, \"Upgrade trees\""
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Thane farm tractors: an extra saddle fuel tank that hangs beside the cab. Image 1 is our approved Thane T130 tractor: match its outline weight, shading, palette and finish only. Do NOT redraw the tractor.\n\nDraw ONLY this part, alone on a plain pure white background. A rounded rectangular harvest-green steel tank, longer from top to bottom, with a round filler cap near its top, two steel grey mounting straps across it and one thin muted yellow stripe; it fills about 55 percent of the canvas width and 85 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "farming-plough-wings",
+  "engine": "openai",
+  "quality": "high",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/farming-plough-body-north/farming-plough-body-north-1.png",
+    "role": "Image 1 is our approved Sillion plough: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "plough wing extension, two more furrows (1 to 2 cells); mirrored for the plough's turned side",
+   "this_request": "part drawn alone, fitted by script onto the picked bodies with export_vehicle.py overlay",
+   "design": "docs/development/farming-batch-two.md, \"Upgrade trees\""
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Sillion plough: an extension of its beam carrying two more mouldboard bodies, which bolts onto the end of the plough's diagonal beam. Image 1 is our approved Sillion plough: match its mouldboards, outline weight, shading, palette and finish only. Do NOT redraw the whole plough.\n\nDraw ONLY this part, alone on a plain pure white background. A short straight harvest-green beam running diagonally from the upper left to the lower right, carrying two curved polished-steel mouldboards with pointed shares on its right side, one behind the other, like those in Image 1; it fills about 60 percent of the canvas width and 80 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "farming-cultivator-wing",
+  "engine": "openai",
+  "quality": "high",
+  "width": 768,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/farming-cultivator-body-north/farming-cultivator-body-north-1.png",
+    "role": "Image 1 is our approved Tillman cultivator: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "cultivator wing extension (4 to 7 cells), one section each side (mirrored), on both models",
+   "this_request": "part drawn alone, fitted by script onto the picked bodies with export_vehicle.py overlay",
+   "design": "docs/development/farming-batch-two.md, \"Upgrade trees\""
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Tillman cultivator: one folding side wing that bolts onto the end of its frame. Image 1 is our approved Tillman cultivator: match its frame, tines, roller, outline weight, shading, palette and finish only. Do NOT redraw the whole cultivator.\n\nDraw ONLY this part, alone on a plain pure white background. A narrow rectangular harvest-green frame section, taller than wide, with a steel grey hinge on its left edge, three staggered rows of curved spring tines under it, and a short crumbler roller across its bottom, like those in Image 1; it fills about 70 percent of the canvas width and 80 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "farming-drill-wing",
+  "engine": "openai",
+  "quality": "high",
+  "width": 768,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/farming-seed-drill-body-north/farming-seed-drill-body-north-2.png",
+    "role": "Image 1 is our approved Coulter seed drill: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "drill wing extension (4 to 7 cells), one section each side (mirrored)",
+   "this_request": "part drawn alone, fitted by script onto the picked bodies with export_vehicle.py overlay",
+   "design": "docs/development/farming-batch-two.md, \"Upgrade trees\""
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Coulter seed drill: one folding side section that bolts onto the end of its coulter bar. Image 1 is our approved Coulter seed drill: match its coulter discs, frame, outline weight, shading, palette and finish only. Do NOT redraw the whole drill.\n\nDraw ONLY this part, alone on a plain pure white background. A narrow harvest-green frame bar with a steel grey hinge on its left edge, carrying one row of five small steel coulter discs with seed tubes, and a thin row of covering harrow tines behind them, like those in Image 1; it fills about 70 percent of the canvas width and 55 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "farming-hopper-extension",
+  "engine": "openai",
+  "quality": "high",
+  "width": 1024,
+  "height": 768,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/farming-seed-drill-body-north/farming-seed-drill-body-north-2.png",
+    "role": "Image 1 is our approved Coulter seed drill: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "node": "seed hopper extension: raised sides on the drill's hopper, half as much seed again",
+   "this_request": "part drawn alone, fitted by script onto the picked bodies with export_vehicle.py overlay",
+   "design": "docs/development/farming-batch-two.md, \"Upgrade trees\""
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game sprite part for the Coulter seed drill: a raised extension rim that sits on top of its seed hopper. Image 1 is our approved Coulter seed drill: match its hopper, outline weight, shading, palette and finish only. Do NOT redraw the whole drill.\n\nDraw ONLY this part, alone on a plain pure white background. A long low rectangular harvest-green rim frame, much wider than tall, open in the middle to show pale grain inside, with a steel grey hinged lid edge along its top and one thin muted yellow stripe; it fills about 90 percent of the canvas width and 45 percent of its height, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo tractor, no implement body, no people, animals, crop, soil, dust, mud, damage, text, letters, numbers, logos, symbols, dials or screens. No floor, ground, shadow outside the part, perspective, tilt or visible side faces. Top surfaces only."
+ },
+ {
+  "name": "farming-seed-sack",
+  "engine": "openai",
+  "quality": "high",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/farming-seed-drill-body-north/farming-seed-drill-body-north-2.png",
+    "role": "Image 1 is our approved Coulter seed drill, from the same farm: match its outline weight, shading, harvest-green and muted yellow palette and finish only, and use it to see where this part sits; do not redraw it"
+   }
+  ],
+  "art_plan": {
+   "item": "PhobosFarming_Seed, the generic seed traders sell (owner, 19 and 20 Nov 2026), drawn as RimWorld items are",
+   "design": "docs/development/farming-batch-two.md, \"Seed\""
+  },
+  "prompt": "TOP-DOWN THREE-QUARTER ITEM ICON, as RimWorld draws items on the ground: seen from above and slightly in front.\n\nCreate an ORIGINAL game item sprite: a sturdy woven sack of certified seed grain, tied at its neck with twine, a little grain spilled at its foot, with a plain pale label patch (no writing on it). Image 1 is our approved seed drill from the same farm: match its outline weight, shading and harvest-green and muted yellow palette only.\n\nDraw ONLY the sack, alone on a plain pure white background, filling about 70 percent of the canvas, centred.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, animals, machines, text, letters, numbers, logos, symbols. No floor, ground or shadow outside the sack."
+ }
+]

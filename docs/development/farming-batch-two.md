@@ -196,6 +196,26 @@ left; the field run turns it between rows, and its picture swaps with the side [
 - **Install:** all batch-two Defs, the reversible plough's code and the trees now; one version and one install once the whole set is
   real (pictures, overlays, sounds), with the test list.
 
+## Upgrade trees (owner's picks, 20 Nov 2026)
+
+Every node the agent offered, by question card. Figures are the agent's [A], set when the trees are written.
+
+| Machine | Node | What it does | Picture |
+| --- | --- | --- | --- |
+| Every Thane tractor | Liquid tyre ballast | Water and antifreeze in the rear tyres: more weight on the wheels, more grip, a little more fuel | Icon only (invisible) |
+| T60, T60 F, T130 RC, T400 | Front weights | Cast-iron weights on the front: more grip under heavy draught (the T130 and T400 B carry them as drawn) | Overlay |
+| T60s and T130s | Dual rear wheels | A second wheel on each rear hub: grips and floats better on soft ground, wider on the road (the T400 has duals) | Overlay, one tyre mirrored |
+| Every Thane tractor | Bigger fuel tank | A saddle tank: about a third more fuel | Overlay |
+| Sillion plough | Wing extension | Two more furrows, 1 to 2 cells, draught with it | Overlay, mirrored for the turned side |
+| Tillman cultivators | Wing extension | 4 to 7 cells, draught with it | Overlay, one section mirrored each side |
+| Coulter drill | Wing extension | 4 to 7 cells | Overlay, one section mirrored each side |
+| Coulter drill | Hopper extension | Half as much seed again | Overlay |
+| Every implement | (not a node) the lifted look | Drawn a little shorter while lifted | By script from its own picture: no new art |
+
+**The art:** one paid run of eight parts drawn alone and fitted by script (`assets/phobos-vehicles/requests/farming-batch2-parts.json`),
+two tries each, at the owner's go; the dry run of 20 Nov 2026 gave at most US$4.14. The seed sack for bought seed is in the same run. The
+node icons come from the local model (the owner's rule: a short graphics-card job on their go with the game closed, or the processor).
+
 ## The order to build (agent's)
 
 1. The rigid linkage in the hitch rule, with tests; the field run finding a worker behind; lifted and lowered. (Framework, code only.)
