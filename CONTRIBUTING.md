@@ -77,5 +77,6 @@ material in [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES.md). Original contribution
 Mods built on D'thorga Framework or the radio framework are welcome. They are published by their own authors under their own
 terms, and carry only their authors' files.
 
-Forks and community maintenance are welcome within the licence. Suggested credit: "Based on Phobos
-RimWorld by Phobos A. D'thorga." This is a courtesy request, not an extra licence condition.
+Forks and community maintenance are welcome within the licence, under a name and preview of their own: the names D'thorga and
+House D'thorga, the mods' names and their preview images are not part of it (see [LICENSE](LICENSE)). Our art and sound may be
+reused under CC BY 4.0, credited to House D'thorga. Suggested credit for a fork: "Based on Phobos RimWorld by Phobos A. D'thorga."

@@ -123,5 +123,6 @@ An independent community project by **Phobos A. D'thorga (phobosgekko)**.
 - Research behind the physics, chemistry and medicine is credited beside each claim in the design records. No institution
   endorses these mods.
 
-Original Phobos work is MIT-licensed, with the exclusions stated in [LICENSE](LICENSE). The game's files, saves and other authors'
-mods are not included.
+Original Phobos code, Defs and documents are MIT-licensed, and our own art and sound CC BY 4.0, with the exclusions stated in
+[LICENSE](LICENSE). The names D'thorga and House D'thorga, the mods' names and their preview images are not licensed: a fork or
+reupload uses its own name. The game's files, saves and other authors' mods are not included.
