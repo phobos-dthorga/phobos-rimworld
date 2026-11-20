@@ -319,8 +319,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>True from a "go to bay" order until it arrives. Not saved: at worst a load leaves the vehicle drafted on its pad.</summary>
     public bool GoingToBay;
 
-    /// <summary>What a job's work is multiplied by: less on a vehicle standing in its own bay.</summary>
-    public float BayWorkFactor => homeBay != null && homeBay.Holds(Vehicle) ? homeBay.Props.workFactor : 1f;
+    /// <summary>What a job's work is multiplied by: less on a vehicle standing in its own bay, or in a working service yard (Framework
+    /// 0.210.0), the better of the two where it stands in both.</summary>
+    public float BayWorkFactor => Phobos.Framework.Rules.ServiceYardRule.WorkFactor(ServiceYards.InWorkingYard(Vehicle), Rules.serviceYardWorkFactor,
+        homeBay != null && homeBay.Holds(Vehicle), homeBay?.Props.workFactor ?? 1f);
 
     void RefreshBay()
     {

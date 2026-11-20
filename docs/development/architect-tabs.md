@@ -1,7 +1,6 @@
 # Our Architect tab and its sub-tabs (21 Nov 2026)
 
-**Status (21 Nov 2026):** built in D'thorga Framework 0.205.0, with Farming 0.7.2, Medical 0.19.1 and Radio 0.1.9. Not yet tested in
-game.
+**Status (21 Nov 2026):** built in D'thorga Framework 0.205.0, with Farming 0.7.2, Medical 0.19.1 and Radio 0.1.9. Seen in the owner's game under UI Rethemed - Architect: Medical nested, Motor pool not (its saved layout; below). Otherwise not yet tested in game.
 
 The owner asked whether all our buildables should sit under an Architect tab of our own, and chose by question cards on 21 Nov 2026,
 after seeing Vanilla Gravship Expanded's sub-tabs in their game.
@@ -57,3 +56,16 @@ after seeing Vanilla Gravship Expanded's sub-tabs in their game.
   Tap alone).
 - **Our own listing has not been seen by the owner**, whose game runs Vanilla Gravship Expanded: it needs a game without it.
 - **Sub-tabs of a sub-tab** are not supported: a tab under a sub-tab stays on the bar.
+
+## Seen in the owner's game (21 Nov 2026)
+
+- **The owner's Architect is drawn by [LFS] UI Rethemed - Architect**, not Vanilla Gravship Expanded's list: it reads VGE's marker
+  (its `CategoryNestDef`s name the extension class) and shows D'thorga with Medical under it, but **Motor pool stayed a category of its
+  own** (the owner's screenshot; test row 301, passed in part).
+- **Why, read from its code** (`UIRethemed.Architect.MenuLayout.Reconcile`, decompiled 21 Nov 2026): it keeps the player's menu layout in
+  its settings, and once that layout has been nested it nests only tabs it has never seen. Motor pool was a tab of its own before
+  0.205.0, so it kept its old place; Medical and Farming were new and were nested. Not a fault of ours, nor really of theirs: their
+  layout respects where the player's tabs were.
+- **The player's fix**: UI Rethemed's **Menu layout** (its settings, or the gear on the Architect), Motor pool's **Group** button, then
+  the D'thorga group; or **Reset layout**, which nests everything again but loses the player's own names, icons, colours and groups.
+  Every player who had UI Rethemed before 0.205.0 meets this: worth a line in the README or Workshop page if it comes up again.

@@ -118,6 +118,8 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
     Vector2 scroll, detailScroll;
     bool grouped = true;
     bool attentionOnly;
+    /// <summary>The yard filter (Framework 0.210.0): every row, or only those standing so with the yards.</summary>
+    FleetYard? yardFilter;
     readonly HashSet<string> folded = new();
     int selectedId = -1;
     FleetDetail? detail;
@@ -162,6 +164,7 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
         IEnumerable<FleetEntry> shown = entries.Where(e => !e.Subject.Destroyed);
         if (!filter.NullOrEmpty()) shown = shown.Where(Matches);
         if (attentionOnly) shown = shown.Where(e => e.NeedsAttention);
+        if (yardFilter is { } yards) shown = shown.Where(e => e.YardKind == yards);
         Func<FleetEntry, IComparable> key = sortBy switch
         {
             Column.Where => e => e.Where,
@@ -250,6 +253,15 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
             grouped = !grouped;
             if (!grouped && sortBy == Column.Where) sortBy = Column.Name;
         }
+        x += 172f;
+        // The yard filter (Framework 0.210.0): a menu of the four choices, as the game's own filters are.
+        var yardButton = new Rect(x, top.y + 2f, 200f, top.height - 4f);
+        if (Widgets.ButtonText(yardButton, YardFilterLabel(yardFilter)))
+        {
+            Find.WindowStack.Add(new FloatMenu(new FleetYard?[] { null, FleetYard.In, FleetYard.Waiting, FleetYard.CannotGet }
+                .Select(choice => new FloatMenuOption(YardFilterLabel(choice), () => yardFilter = choice)).ToList()));
+        }
+        TooltipHandler.TipRegion(yardButton, "PhobosFleet_YardFilterTip".Translate());
         if (Widgets.ButtonText(new Rect(top.xMax - 110f, top.y + 2f, 110f, top.height - 4f), "PhobosFleet_Refresh".Translate())) Rebuild();
 
         float listWidth = inRect.width - DetailWidth - Gap;
@@ -528,6 +540,9 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
             y += 28f;
         }
 
+        // The service yard (Framework 0.210.0): the yard it stands in or waits for, its dyno line and pumps, and the orders that go with them.
+        if (entry.Kind == FleetKind.Own && entry.Vehicle is { Spawned: true } inMap) y = DrawYard(y, width, entry, inMap);
+
         if (entry.Systems != null)
         {
             float faultsTop = y;
@@ -554,6 +569,58 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
         }
         Widgets.EndScrollView();
         detailHeight = y + 4f;
+    }
+
+    static string YardFilterLabel(FleetYard? choice) => (choice switch
+    {
+        FleetYard.In => "PhobosFleet_YardFilterIn",
+        FleetYard.Waiting => "PhobosFleet_YardFilterWaiting",
+        FleetYard.CannotGet => "PhobosFleet_YardFilterCannot",
+        _ => "PhobosFleet_YardFilterAll",
+    }).Translate();
+
+    /// <summary>The yard card and its buttons; each button is one call to <see cref="ServiceYards"/>. Returns where the pane goes on.</summary>
+    float DrawYard(float y, float width, FleetEntry entry, Verse.Pawn vehicle)
+    {
+        if (vehicle is not Vehicles.VehiclePawn own) return y;
+        if (detail!.Yard is { } yard)
+        {
+            float top = y;
+            PhobosWidgets.CardHeader(ref y, 0f, width, "PhobosFleet_YardCard".Translate(yard.label.Named("YARD")), yard.Works ? null : PhobosWidgets.Caution);
+            foreach (string line in detail.YardLines) y += Words(6f, y, width - 12f, line, Color.white);
+            float half = (width - 18f) / 2f;
+            var left = new Rect(6f, y + 2f, half, 28f);
+            var right = new Rect(left.xMax + 6f, y + 2f, half, 28f);
+            if (Widgets.ButtonText(left, "PhobosFleet_YardGoTo".Translate())) ServiceYards.JumpTo(yard);
+            TooltipHandler.TipRegion(left, "PhobosFleet_YardGoToTip".Translate());
+            if (entry.Yard != null)
+            {
+                if (Widgets.ButtonText(right, "PhobosFleet_YardTakeOut".Translate())) ServiceYards.TakeOut(own);
+                TooltipHandler.TipRegion(right, "PhobosFleet_YardTakeOutTip".Translate());
+            }
+            y += 32f;
+            var moveUp = new Rect(6f, y, width - 12f, 28f);
+            if (Widgets.ButtonText(moveUp, "PhobosFleet_YardMoveUp".Translate(), active: detail.CanMoveUp) && detail.CanMoveUp)
+            {
+                ServiceYards.MoveUp(own);
+                Rebuild();
+            }
+            TooltipHandler.TipRegion(moveUp, detail.CanMoveUp ? "PhobosFleet_YardMoveUpTip".Translate() : "PhobosFleet_YardMoveUpNot".Translate());
+            y += 32f;
+            PhobosWidgets.CardEnd(top, ref y, 0f, width);
+            return y;
+        }
+        // Not in a yard: Send to yard, choosing the yard when there are several.
+        List<Zone_PhobosServiceYard> yards = ServiceYards.WorkingYards(own.Map);
+        if (yards.Count == 0 || own.GetComp<CompPhobosBayTrip>() is not { TakesPart: true }) return y;
+        var send = new Rect(0f, y, width, 28f);
+        if (Widgets.ButtonText(send, "PhobosFleet_YardSend".Translate()))
+        {
+            if (yards.Count == 1) ServiceYards.SendTo(own, yards[0]);
+            else Find.WindowStack.Add(new FloatMenu(yards.Select(choice => new FloatMenuOption(choice.label, () => ServiceYards.SendTo(own, choice))).ToList()));
+        }
+        TooltipHandler.TipRegion(send, "PhobosFleet_YardSendTip".Translate());
+        return y + 32f;
     }
 
     /// <summary>A wrapped line in the small font; returns the height it took.</summary>

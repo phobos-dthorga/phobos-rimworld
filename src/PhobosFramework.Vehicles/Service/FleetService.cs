@@ -21,6 +21,18 @@ public enum FleetKind
     Claimable,
 }
 
+/// <summary>Where a row stands with the service yards (Framework 0.210.0), for the board's yard filter.</summary>
+public enum FleetYard
+{
+    None,
+    /// <summary>It stands in a yard.</summary>
+    In,
+    /// <summary>It waits for one: on its way in, or in a yard's dyno line without a turn yet.</summary>
+    Waiting,
+    /// <summary>A trip of its cannot get to a yard or bay, and says why.</summary>
+    CannotGet,
+}
+
 /// <summary>One row of the fleet board: a snapshot, rebuilt rather than kept up to date.</summary>
 public sealed class FleetEntry
 {
@@ -61,6 +73,9 @@ public sealed class FleetEntry
     public VehiclePawn? Carrier;
     /// <summary>A hull's salvaged parts.</summary>
     public int HullParts;
+    /// <summary>The service yard it stands in, or null (Framework 0.210.0).</summary>
+    public Zone_PhobosServiceYard? Yard;
+    public FleetYard YardKind;
 
     public int Id => Subject.thingIDNumber;
 }
@@ -108,6 +123,11 @@ public sealed class FleetDetail
     public List<DamageSheet.SheetPart>? Parts;
     /// <summary>Its regular driver's name (Framework 0.190.0, EM12), or null.</summary>
     public string? Regular;
+    /// <summary>The yard card (Framework 0.210.0): the yard it stands in or waits for, its lines and pumps, in ready words.</summary>
+    public Zone_PhobosServiceYard? Yard;
+    public List<string> YardLines = new();
+    /// <summary>It waits in a yard's dyno line without a turn: Move up would put it first.</summary>
+    public bool CanMoveUp;
 }
 
 /// <summary>
@@ -157,6 +177,7 @@ public static class FleetService
         string claimable = "PhobosFleet_GroupClaimable".Translate();
         foreach (Map map in Find.Maps)
         {
+            ServiceYards.For(map)?.EnsureFresh();
             string where = map.Parent?.LabelCap ?? "";
             string key = "map/" + map.uniqueID;
             int order = map.IsPlayerHome ? OrderHome : OrderMap;
@@ -165,7 +186,10 @@ public static class FleetService
                 if (pawn is not VehiclePawn vehicle) continue;
                 if (vehicle.Faction == Faction.OfPlayer)
                 {
-                    Add(Entry(vehicle, FleetKind.Own, where, new GlobalTargetInfo(vehicle), key, where, order));
+                    // A vehicle in a service yard is listed under the yard (Framework 0.210.0), its group beside its map's.
+                    Zone_PhobosServiceYard? yard = ServiceYards.YardOf(vehicle);
+                    Add(Entry(vehicle, FleetKind.Own, where, new GlobalTargetInfo(vehicle), yard == null ? key : key + "/yard/" + yard.ID,
+                        yard == null ? where : YardGroupLabel(where, yard), order)).Yard = yard;
                     // A load still on a landed helicopter's sling is on no map of its own: it is found through the helicopter.
                     if (SlingLoads.Of(vehicle) is { } slung)
                     {
@@ -226,6 +250,28 @@ public static class FleetService
         foreach (FleetEntry entry in entries) Describe(entry);
         if (Seen.On) NoteSeen(entries);
         return entries;
+    }
+
+    /// <summary>A yard's heading: the map, the yard's name, its cells against its allowance, and a word when it gives nothing.</summary>
+    static string YardGroupLabel(string map, Zone_PhobosServiceYard yard)
+    {
+        YardState? state = yard.State;
+        string label = "PhobosFleet_GroupYard".Translate(map.Named("MAP"), yard.label.Named("YARD"), (state?.Cells ?? yard.Cells.Count).Named("CELLS"),
+            (state?.Allowance ?? 0).Named("ALLOWANCE")).Resolve();
+        return yard.Works ? label : "PhobosFleet_GroupYardIdle".Translate(label.Named("YARD")).Resolve();
+    }
+
+    /// <summary>Where the row stands with the yards, for the board's filter.</summary>
+    static FleetYard YardKindOf(FleetEntry entry)
+    {
+        if (entry.Kind != FleetKind.Own || entry.Vehicle is not { Spawned: true } vehicle) return FleetYard.None;
+        CompPhobosBayTrip? trip = vehicle.GetComp<CompPhobosBayTrip>();
+        if (trip?.Blocked != null) return FleetYard.CannotGet;
+        MapComponent_PhobosServiceYards? yards = ServiceYards.For(vehicle.Map);
+        if (yards?.LineOf(vehicle) != null && !yards.HasTurn(vehicle)) return FleetYard.Waiting;
+        if (entry.Yard != null) return FleetYard.In;
+        if (trip is { Stage: not BayTripStage.None } && trip.Bay != null && yards?.OwnerOf(trip.Bay) != null) return FleetYard.Waiting;
+        return FleetYard.None;
     }
 
     /// <summary>Notes the newer kinds of row the first time each is listed, for the test list (seen working, never "looked right").</summary>
@@ -310,6 +356,7 @@ public static class FleetService
     {
         entry.Doing = Doing(entry);
         entry.Needs = Needs(entry);
+        entry.YardKind = YardKindOf(entry);
         // A hull and a vehicle that could be claimed are offers, not troubles: they say what they give, and ask for nothing.
         entry.NeedsAttention = entry.Kind is not (FleetKind.Hull or FleetKind.Claimable) && (entry.Needs != null || entry.Status == FleetEntry.Stopped);
     }
@@ -356,6 +403,8 @@ public static class FleetService
         if (vehicle.GetComp<CompPhobosHitch>()?.Winching is { } winched) return "PhobosFleet_DoingWinching".Translate(winched.LabelShort.Named("TOWED"));
         // A bay trip says where it stands (Framework 0.201.0), before the plain "on an errand".
         if (vehicle.GetComp<CompPhobosBayTrip>()?.DoingLine is { } trip) return trip;
+        // In a service yard, or in its dyno line (Framework 0.210.0): on the dyno, waiting, being fuelled or charged, parked.
+        if (ServiceYards.DoingLine(vehicle) is { } yardLine) return yardLine;
         foreach (ThingComp comp in vehicle.AllComps)
         {
             if (comp is CompPhobosVehicleRun { Running: true }) return "PhobosFleet_DoingErrand".Translate();
@@ -393,6 +442,42 @@ public static class FleetService
         return null;
     }
 
+    /// <summary>The yard card's words: the yard the vehicle stands in or waits in line for, whose turn it is on its dyno bays and who waits,
+    /// and what each pump is doing and its fuel left (Framework 0.210.0).</summary>
+    static void DescribeYard(FleetEntry entry, FleetDetail detail)
+    {
+        if (entry.Vehicle is not { Spawned: true } vehicle || ServiceYards.For(vehicle.Map) is not { } yards) return;
+        YardState? state = entry.Yard?.State ?? yards.LineOf(vehicle);
+        if (state == null) return;
+        detail.Yard = state.Yard;
+        if (!state.Works)
+        {
+            detail.YardLines.Add(state.HasDyno
+                ? "PhobosFleet_YardTooBig".Translate(state.Overflow.Named("CELLS")).Resolve()
+                : "PhobosFleet_YardNoDyno".Translate().Resolve());
+            return;
+        }
+        List<VehiclePawn> on = state.Line.Take(state.Turns).ToList();
+        List<VehiclePawn> waiting = state.Line.Skip(state.Turns).ToList();
+        detail.YardLines.Add(on.Count == 0 ? "PhobosFleet_YardDynoFree".Translate(state.Turns.Named("TURNS")).Resolve()
+            : "PhobosFleet_YardOnDyno".Translate(on.Select(v => v.LabelShort).ToCommaList(useAnd: true).Named("VEHICLES")).Resolve());
+        if (waiting.Count > 0)
+        {
+            detail.YardLines.Add("PhobosFleet_YardWaiting".Translate(waiting.Select(v => v.LabelShort).ToCommaList().Named("VEHICLES")).Resolve());
+        }
+        foreach (CompPhobosFuelPump pump in state.Pumps)
+        {
+            CompRefuelable? tank = pump.parent.TryGetComp<CompRefuelable>();
+            string fuel = tank == null ? "-" : tank.Fuel.ToString("0") + " / " + tank.Props.fuelCapacity.ToString("0");
+            string doing = !pump.Working ? "PhobosFleet_YardPumpOff".Translate().Resolve()
+                : pump.FuelTarget != null ? "PhobosFleet_YardPumpFilling".Translate(pump.FuelTarget.LabelShort.Named("VEHICLE")).Resolve()
+                : "PhobosFleet_YardPumpIdle".Translate().Resolve();
+            detail.YardLines.Add("PhobosFleet_YardPump".Translate(doing.Named("DOING"), fuel.Named("FUEL")).Resolve());
+            if (pump.ChargeTarget != null) detail.YardLines.Add("PhobosFleet_YardCharging".Translate(pump.ChargeTarget.LabelShort.Named("VEHICLE")).Resolve());
+        }
+        detail.CanMoveUp = waiting.Contains(vehicle);
+    }
+
     /// <summary>The detail pane's words for a row: its faults with their causes, its newest logbook lines, its journey.</summary>
     public static FleetDetail Detail(FleetEntry entry)
     {
@@ -413,6 +498,7 @@ public static class FleetService
         detail.Parts = DamageSheet.PartsOf(vehicle);
         if (entry.Systems is not { } systems) return detail;
         if (entry.Kind == FleetKind.Own || entry.Kind == FleetKind.Lost) detail.Regular = VehiclePractice.RegularDriver(systems)?.LabelShort;
+        if (entry.Kind == FleetKind.Own) DescribeYard(entry, detail);
         if (systems.Trip is { } trip)
         {
             detail.Journey = "PhobosFleet_DetailJourney".Translate(WorldPlaces.DistanceText(trip.tiles).Named("DISTANCE"),

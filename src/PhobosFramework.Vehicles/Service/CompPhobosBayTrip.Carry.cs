@@ -163,7 +163,7 @@ public sealed partial class CompPhobosBayTrip
         Seen.Note("vehicles.bay-trip.shunted", Vehicle);
     }
 
-    bool InBayReach() => Vehicle.GetComp<CompPhobosVehicleSystems>() is { Usable: true } systems && systems.Fittings.NearRig();
+    bool InBayReach() => Vehicle.GetComp<CompPhobosVehicleSystems>() is { Usable: true } systems && BayTrips.AtBayOrYard(systems);
 
     /// <summary>It stands at the bay, brought by a tow or by hand: the mechanics take over, as after a drive.</summary>
     void ArriveCarried(bool towed)

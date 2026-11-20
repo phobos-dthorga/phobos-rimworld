@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Building upgrades (D'thorga Framework 0.210.0; docs/development/vehicle-service-yard.md, "Building upgrades"; owner, 20 Nov 2026: a
+    charging point "as an upgrade ... perhaps even a Framework of some kind"). A building that takes upgrades carries
+    Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades; each upgrade is a Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef in
+    the folder of the mod whose building it fits. Builders bring the materials and do the work, as for a frame, under Construction: just
+    after the game's own "deliver resources to frames" and "construct" (authored). With no upgrade ordered on a map, both are skipped at
+    once. Not yet tested in game.
+  -->
+  <JobDef>
+    <defName>PhobosFramework_DeliverUpgradeMaterials</defName>
+    <driverClass>Phobos.Framework.Upgrades.JobDriver_PhobosDeliverUpgradeMaterials</driverClass>
+    <reportString>bringing materials to TargetB.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosFramework_FitBuildingUpgrade</defName>
+    <driverClass>Phobos.Framework.Upgrades.JobDriver_PhobosFitBuildingUpgrade</driverClass>
+    <reportString>working on TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosFramework_DeliverUpgradeMaterials</defName>
+    <label>bring materials for building upgrades</label>
+    <giverClass>Phobos.Framework.Upgrades.WorkGiver_PhobosDeliverUpgradeMaterials</giverClass>
+    <workType>Construction</workType>
+    <verb>bring materials for</verb>
+    <gerund>bringing materials for</gerund>
+    <priorityInType>65</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+
+  <WorkGiverDef>
+    <defName>PhobosFramework_FitBuildingUpgrade</defName>
+    <label>fit building upgrades</label>
+    <giverClass>Phobos.Framework.Upgrades.WorkGiver_PhobosFitBuildingUpgrade</giverClass>
+    <workType>Construction</workType>
+    <verb>fit an upgrade to</verb>
+    <gerund>fitting an upgrade to</gerund>
+    <priorityInType>45</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>

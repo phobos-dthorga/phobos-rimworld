@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Building upgrades (Framework 0.210.0): docs/development/vehicle-service-yard.md, "Building upgrades". -->
+  <PhobosUpgrade_Button>Upgrades</PhobosUpgrade_Button>
+  <PhobosUpgrade_ButtonDesc>See the upgrades this building can take, order one fitted, or have one taken off.</PhobosUpgrade_ButtonDesc>
+  <PhobosUpgrade_WindowTitle>{BUILDING}: upgrades</PhobosUpgrade_WindowTitle>
+  <PhobosUpgrade_NameFitted>{UPGRADE} (fitted)</PhobosUpgrade_NameFitted>
+  <PhobosUpgrade_Cost>Costs {COST}.</PhobosUpgrade_Cost>
+  <PhobosUpgrade_CostNothing>nothing</PhobosUpgrade_CostNothing>
+  <PhobosUpgrade_BuildsOn>Builds on: {FIRST}.</PhobosUpgrade_BuildsOn>
+  <PhobosUpgrade_Research>Needs the research: {RESEARCH}.</PhobosUpgrade_Research>
+  <PhobosUpgrade_Skill>Needs a builder of Construction level {LEVEL} or more.</PhobosUpgrade_Skill>
+  <PhobosUpgrade_FitButton>Fit</PhobosUpgrade_FitButton>
+  <PhobosUpgrade_FitTip>Builders bring {COST} here, then fit it.</PhobosUpgrade_FitTip>
+  <PhobosUpgrade_RemoveButton>Take off</PhobosUpgrade_RemoveButton>
+  <PhobosUpgrade_RemoveTip>A builder takes it off. About {PERCENT}% of what it cost comes back.</PhobosUpgrade_RemoveTip>
+  <PhobosUpgrade_CancelButton>Cancel the work</PhobosUpgrade_CancelButton>
+  <PhobosUpgrade_CancelTip>Stops the work under way. Whatever was brought for it is put down beside the building.</PhobosUpgrade_CancelTip>
+
+  <PhobosUpgrade_RefuseFitted>The {UPGRADE} is fitted already.</PhobosUpgrade_RefuseFitted>
+  <PhobosUpgrade_RefuseNotFitted>The {UPGRADE} is not fitted.</PhobosUpgrade_RefuseNotFitted>
+  <PhobosUpgrade_RefuseBusy>Work on the {UPGRADE} is under way here. Let it finish, or cancel it, first.</PhobosUpgrade_RefuseBusy>
+  <PhobosUpgrade_RefuseNeedsFirst>It builds on the {FIRST}, which must be fitted first.</PhobosUpgrade_RefuseNeedsFirst>
+  <PhobosUpgrade_RefuseResearch>Needs the research {RESEARCH} first.</PhobosUpgrade_RefuseResearch>
+  <PhobosUpgrade_RefuseNeeded>The {OTHER} builds on it: take that off first.</PhobosUpgrade_RefuseNeeded>
+
+  <PhobosUpgrade_Ordered>The {UPGRADE} is to be fitted to the {BUILDING}. Builders will bring {COST}.</PhobosUpgrade_Ordered>
+  <PhobosUpgrade_RemovalOrdered>The {UPGRADE} is to be taken off the {BUILDING}.</PhobosUpgrade_RemovalOrdered>
+  <PhobosUpgrade_Cancelled>The work on the {UPGRADE} was cancelled.</PhobosUpgrade_Cancelled>
+  <PhobosUpgrade_Fitted>The {UPGRADE} is fitted to the {BUILDING}.</PhobosUpgrade_Fitted>
+  <PhobosUpgrade_Removed>The {UPGRADE} was taken off the {BUILDING}.</PhobosUpgrade_Removed>
+
+  <PhobosUpgrade_InspectFitted>Upgrades: {UPGRADES}.</PhobosUpgrade_InspectFitted>
+  <PhobosUpgrade_LineWaiting>Fitting the {UPGRADE}: waiting for {MATERIALS}.</PhobosUpgrade_LineWaiting>
+  <PhobosUpgrade_LineFitting>Fitting the {UPGRADE}: {DONE} done.</PhobosUpgrade_LineFitting>
+  <PhobosUpgrade_LineRemoving>Taking off the {UPGRADE}: {DONE} done.</PhobosUpgrade_LineRemoving>
+  <PhobosUpgrade_NoMaterial>No {MATERIAL} to be had</PhobosUpgrade_NoMaterial>
+  <PhobosUpgrade_SkillTooLow>Needs Construction level {LEVEL}</PhobosUpgrade_SkillTooLow>
+</LanguageData>

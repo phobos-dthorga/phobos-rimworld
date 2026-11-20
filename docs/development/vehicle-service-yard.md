@@ -1,7 +1,9 @@
 # The service yard: servicing, tuning, fuelling and parking in one place (20 Nov 2026)
 
-**Status (20 Nov 2026):** design only; nothing is built. To be built once the owner has tried bay trips in play (test rows 294 to 297),
-so it builds on what works (owner's choice).
+**Status (21 Nov 2026):** built in D'thorga Framework 0.210.0, all of it: the zone and its cap, the work share, the dyno line, the fuel
+pump, bay trips aiming at yards, building upgrades with their first three, and the Fleet board's part. Not yet tested in game (rows 309
+to 312). **The fuel pump's picture and the charging cable's overlay are not made yet**; they come before the first test. The owner chose
+on 21 Nov 2026 to build it now rather than after the bay trips test, with all three upgrades and an overlay picture for the cable.
 
 **The owner, 20 Nov 2026:** "Maybe we should develop a bay of sorts, with dyno functionality, but it's a larger zone on its own and meant
 for servicing and parking in one?" Then: "It could also have the role of refilling fuel too", "It should be something with a specific, or
@@ -186,6 +188,46 @@ The pump fills on the rare tick, as the depot bay's does. The Fleet board's yard
    own room type, which a roofed yard would be taken for.
 
 Still open: the building upgrades' first list, and which of them earn an overlay picture.
+
+## As built, where it differs (21 Nov 2026)
+
+What the build does that the design above did not say, or says otherwise. Each is the agent's choice [A] unless marked.
+
+- **The pump is filled by haulers only** [I corrected]: the design said "from the chemfuel pipe network as the depot bay is", but the
+  depot bay has no pipe (its tank is the game's refuelable tank). The pump copies it. A pipe for both is a later piece of work.
+- **The tool cuts a drag to the cells nearest the yard and its equipment**, then hands the rest to the game's own zone tool. A drag that
+  is not joined to the yard may still make a second, separate yard; each is held to the equipment it touches.
+- **A piece of equipment counts for one yard only**: the oldest yard it touches (`ServiceYardRule.Owner`), so one dyno bay never pays
+  for two yards. A new yard drawn against equipment another yard already counts is refused.
+- **"In the yard" is the vehicle's centre cell** on the yard's cells, as the vehicle park reads it.
+- **Who waits for the dyno**: a vehicle with a repair or service that needs the rig (tunes and changes of grade become such repairs), a
+  part to replace (fitted at 60% at the rig), or a diagnosis asked for. A vehicle with none of these is not in the line, so it does
+  not count as at the dyno even standing in its reach, where the yard runs that dyno bay. **A dyno bay no working yard runs behaves as
+  before.**
+- **The line is looked at every 250 ticks** (`serviceYardLookTicks`), and again when a yard's cells or its pumps change. A job asks
+  "at the dyno?" in between from the last look.
+- **When each vehicle asked, the player's Move up and when it fell idle are saved** (by vehicle ID, in the map component); all else is
+  worked out again.
+- **Making room waits an hour of idleness** (`serviceYardIdleBeforeMoveTicks`, 2,500 ticks), so a vehicle is not taken out the moment its
+  work ends; the evicted vehicle goes as a trip home does (depot bay, park, nearby), and a vehicle the player kept out of bay trips is
+  never evicted.
+- **A bay trip into a yard** takes the yard's first working dyno bay as its "bay"; arrival is "in a working yard or in reach of a dyno".
+  At the end of its work, a vehicle with no depot bay ends its trip where it stands in the yard.
+- **Send to yard parks the vehicle and ends the trip** on arrival, as if the player had parked it, whether or not it has work; a vehicle
+  that will not drive is refused (bay trips carry such vehicles in for work). **Take out of yard** may move a vehicle kept out of bay
+  trips: it is the player's own order.
+- **The charging cable** charges at the vehicle's own Vehicle Framework charge rate (its `chargeRate` every 120 ticks), and the pump's
+  power draw rises by 500 W per unit of that rate while it charges, the power Vehicle Framework's own charging takes from a net's
+  batteries (read from `CompFueledTravel.CompTick`, 21 Nov 2026). It needs the research Electricity.
+- **The upgrades' costs** [A]: charging cable 20 steel and 2 components, 800 work, Construction 4; second roller set 80 steel and 3
+  components, 1,500 work, Construction 6, research Vehicle tuning; faster pump 15 steel and 1 component, 600 work, Construction 4. Taking
+  one off takes half its work and gives back half its materials, rounded down.
+- **The fuel pump** [A]: 1 x 2 cells, a 200 chemfuel tank, 80 W, 50 steel and 2 components plus its parts bill (a fuel tank and a pump,
+  as the depot bay's), research Vehicle depots.
+- **The Fleet board**: a yard's vehicles are a group of their own beside their map's; its heading gives the yard's cells against its
+  allowance. The yard card shows when a vehicle stands in a yard or waits in its line. The filter is a menu of four choices.
+- **Open still**: whether a roofed, heated yard spares engines the cold-start problem (not checked); which other buildings of ours earn
+  upgrades.
 
 ## Who chose what
 

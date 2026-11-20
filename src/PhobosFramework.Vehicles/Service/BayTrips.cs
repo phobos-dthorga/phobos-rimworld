@@ -146,6 +146,12 @@ public static class BayTrips
 
     // ---- A place at a bay ----
 
+    /// <summary>
+    /// Whether the vehicle stands where the mechanics have it: in reach of a dyno bay, or in a working service yard, where it takes its turn on
+    /// the dyno where it stands (Framework 0.210.0).
+    /// </summary>
+    public static bool AtBayOrYard(CompPhobosVehicleSystems systems) => systems.Fittings.NearRig() || ServiceYards.InWorkingYard(systems.Vehicle);
+
     /// <summary>The cells other trips on this map keep for where their drives end.</summary>
     internal static List<CellRect> KeptBy(Map map, VehiclePawn except)
     {
@@ -173,6 +179,9 @@ public static class BayTrips
         bool anyBay = false, anyWorking = false;
         List<CellRect> kept = KeptBy(map, vehicle);
         int wayTests = 0;
+        // A service yard first (Framework 0.210.0; owner, 20 Nov 2026: "Bay trips aim at a yard first"): a place wholly in a working yard
+        // with a working dyno bay. A yard full of vehicles with nothing left to do sends the one idle longest out to make room, for a later look.
+        if (ServiceYards.TryFindYardPlace(vehicle, kept, avoid, onlyFacing, MaxWayTests, ref wayTests, out bay, out cell, out facing)) return true;
         foreach (CompPhobosTuningRig rig in CompPhobosTuningRig.PlayersOn(map).OrderBy(r => r.parent.Position.DistanceToSquared(vehicle.Position)))
         {
             anyBay = true;
@@ -252,7 +261,7 @@ public static class BayTrips
     }
 
     /// <summary>Whether these cells hold no other vehicle and none of the places other trips keep.</summary>
-    static bool ClearOfVehicles(VehiclePawn vehicle, CellRect cells, Map map, List<CellRect> kept)
+    internal static bool ClearOfVehicles(VehiclePawn vehicle, CellRect cells, Map map, List<CellRect> kept)
     {
         for (int i = 0; i < kept.Count; i++)
         {
@@ -339,11 +348,18 @@ public static class BayTrips
     /// is free; else a place in a vehicle park; else a spot nearby, clear of every bay's reach, of every depot pad, of doors and of
     /// zones (nobody parks on a crop). False when nowhere can be found, or it stands in a park already: it then stays where it is.
     /// </summary>
-    public static bool TryFindHome(VehiclePawn vehicle, out IntVec3 cell, out Rot4 facing, out BayTripHome kind)
+    public static bool TryFindHome(VehiclePawn vehicle, out IntVec3 cell, out Rot4 facing, out BayTripHome kind, bool leavingYard = false)
     {
         Map map = vehicle.Map;
         List<CellRect> kept = KeptBy(map, vehicle);
         bool depotBay = TryFindDepotBay(vehicle, kept, out cell, out facing);
+        // A vehicle worked in a service yard stays there unless it has a depot bay of its own (owner, 20 Nov 2026), and is moved out only to
+        // make room (leavingYard).
+        if (!depotBay && !leavingYard && ServiceYards.InWorkingYard(vehicle))
+        {
+            kind = BayTripHome.Yard;
+            return false;
+        }
         // With no depot bay to go to, a vehicle standing in a park is home already.
         if (!depotBay && map.zoneManager.ZoneAt(vehicle.Position) is Zone_PhobosVehiclePark)
         {

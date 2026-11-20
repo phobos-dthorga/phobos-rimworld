@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The service yard (D'thorga Framework 0.210.0; docs/development/vehicle-service-yard.md; owner, 20 Nov 2026): a zone marked from the
+    motor pool tab beside a dyno bay, where vehicles are worked faster, take turns on the dyno, are fuelled and wait. Its fuel pump, and the
+    first three building upgrades (Framework core: Phobos.Framework.Upgrades). Every figure is authored [A], the owner's "as proposed, tuned
+    after play". Not yet tested in game.
+  -->
+
+  <!-- The fuel pump (owner: "a new fuel pump building"): a tank of its own, filled by haulers as the depot bay's is, filling the yard's
+       vehicles one at a time, emptiest first, at the depot bay pump's 30 an hour. Its size, tank, cost, power and work are authored. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosVehicles_FuelPump</defName>
+    <label>fuel pump</label>
+    <description>A forecourt fuel pump with its own tank and a long hose. Built beside a service yard, it fills the vehicles standing in the yard one at a time, the emptiest first, with no one attending. Haulers keep its tank filled. Its charging cable, fitted as an upgrade, charges electric vehicles in the yard from the colony's power.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Stations/FuelPump</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,2)</drawSize>
+      <damageData>
+        <cornerTL>Damage/Corner</cornerTL>
+        <cornerTR>Damage/Corner</cornerTR>
+        <cornerBL>Damage/Corner</cornerBL>
+        <cornerBR>Damage/Corner</cornerBR>
+      </damageData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.4</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <tickerType>Rare</tickerType>
+    <size>(1,2)</size>
+    <rotatable>false</rotatable>
+    <costList>
+      <Steel>50</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <statBases>
+      <WorkToBuild>1500</WorkToBuild>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+    </statBases>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>125</uiOrder>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleDepot</li>
+    </researchPrerequisites>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>80</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>0</fuelConsumptionRate>
+        <fuelCapacity>200</fuelCapacity>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </fuelFilter>
+        <fuelLabel>chemfuel in the tank</fuelLabel>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFuelPump">
+        <pumpPerHour>30</pumpPerHour>
+      </li>
+      <li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
+    </comps>
+    <modExtensions>
+      <!-- Service yard equipment: beside a yard, it adds 40 cells to the yard's allowance, a forecourt's worth (authored). -->
+      <li Class="Phobos.VehicleSystems.PhobosYardEquipmentExtension">
+        <cells>40</cells>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <!-- The pump's parts bill (docs/development/parts-bills.md): its cost above is its shell; its tank and pump are parts, as the depot bay's. -->
+  <Phobos.Framework.Bills.PhobosBillDef>
+    <defName>PhobosBill_FuelPump</defName>
+    <label>fuel pump parts</label>
+    <target>PhobosVehicles_FuelPump</target>
+    <parts>
+      <FuelTank>1</FuelTank>
+      <FuelPump>1</FuelPump>
+    </parts>
+  </Phobos.Framework.Bills.PhobosBillDef>
+
+  <!-- The first building upgrades (owner, 20 Nov 2026: all three proposed; the charging cable shown on the pump as a picture). -->
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosUpgrade_ChargingCable</defName>
+    <label>charging cable</label>
+    <description>A heavy charging lead and its charger, mounted on the pump. It charges the electric vehicles standing in the yard from the colony's power, one at a time, the flattest first, as the pump fuels one at a time. The colony's grid pays for every watt it gives.</description>
+    <buildings>
+      <li>PhobosVehicles_FuelPump</li>
+    </buildings>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <work>800</work>
+    <constructionSkill>4</constructionSkill>
+    <researchPrerequisite>Electricity</researchPrerequisite>
+    <grants>
+      <li>PhobosChargesVehicles</li>
+    </grants>
+    <overlay>
+      <texPath>Phobos/VehicleSystems/Stations/FuelPumpCable</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,2)</drawSize>
+    </overlay>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosUpgrade_SecondRollerSet</defName>
+    <label>second roller set</label>
+    <description>A second set of dynamometer rollers and their instruments. In a service yard, the dyno bay then takes two vehicles at once from the yard's line, where it took one.</description>
+    <buildings>
+      <li>PhobosVehicles_TuningRig</li>
+    </buildings>
+    <costList>
+      <Steel>80</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <work>1500</work>
+    <constructionSkill>6</constructionSkill>
+    <researchPrerequisite>PhobosResearch_VehicleTuning</researchPrerequisite>
+    <figures>
+      <li>
+        <name>dynoTurns</name>
+        <value>2</value>
+      </li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+
+  <Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+    <defName>PhobosUpgrade_FasterPump</defName>
+    <label>faster pump</label>
+    <description>A larger pump and a wider hose. The depot bay fills its vehicle at 60 an hour, where it filled at 30.</description>
+    <buildings>
+      <li>PhobosVehicles_DepotBay</li>
+    </buildings>
+    <costList>
+      <Steel>15</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <work>600</work>
+    <constructionSkill>4</constructionSkill>
+    <figures>
+      <li>
+        <name>pumpPerHour</name>
+        <value>60</value>
+      </li>
+    </figures>
+  </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+</Defs>

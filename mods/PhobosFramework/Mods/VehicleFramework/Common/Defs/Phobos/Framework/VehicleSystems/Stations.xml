@@ -15,6 +15,8 @@
       <li>Designator_Deconstruct</li>
       <!-- The vehicle park (0.201.0; docs/development/vehicle-bay-trips.md): a zone a repaired vehicle with no depot bay is driven to. -->
       <li>Phobos.VehicleSystems.Designator_ZoneAdd_PhobosVehiclePark</li>
+      <!-- The service yard (0.210.0; docs/development/vehicle-service-yard.md): servicing, the dyno, fuel and parking in one zone of capped size. -->
+      <li>Phobos.VehicleSystems.Designator_ZoneAdd_PhobosServiceYard</li>
     </specialDesignatorClasses>
     <modExtensions>
       <li Class="Phobos.Framework.Interface.PhobosNestedCategoryExtension">
@@ -141,6 +143,12 @@
         <maxSimultaneous>1</maxSimultaneous>
       </li>
     </comps>
+    <modExtensions>
+      <!-- Service yard equipment (0.210.0): beside a yard, it adds 40 cells to the yard's allowance, a bay's worth (authored). -->
+      <li Class="Phobos.VehicleSystems.PhobosYardEquipmentExtension">
+        <cells>40</cells>
+      </li>
+    </modExtensions>
   </ThingDef>
 
   <!-- Sends colonists to the parts bench's bills. A bench without one of these is never worked, whatever its bills (fixed 10 Nov 2026: the bench
@@ -223,7 +231,17 @@
              vehicle's drawn size, wings and rotor included, not only the cells it stands on. It was 3, from the footprint. -->
         <reach>5</reach>
       </li>
+      <!-- Building upgrades (0.210.0): the second roller set. -->
+      <li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
     </comps>
+    <modExtensions>
+      <!-- Service yard equipment (0.210.0): a yard needs one, and each adds 80 cells, room for two big trucks or four cars round it
+           (authored; a HEMTT stands on 3 x 10 cells). -->
+      <li Class="Phobos.VehicleSystems.PhobosYardEquipmentExtension">
+        <cells>80</cells>
+        <required>true</required>
+      </li>
+    </modExtensions>
   </ThingDef>
 
   <!-- A vehicle's home (owner, 9 Nov 2026; docs/development/vehicle-stations.md). The bay itself is a fuel tank, a pump and a parts shelf; the pad in front of it is an outline, not a building, so it blocks nothing.
@@ -327,6 +345,8 @@
         <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosDepotBay" />
+      <!-- Building upgrades (0.210.0): the faster pump. -->
+      <li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
     </comps>
   </ThingDef>
 

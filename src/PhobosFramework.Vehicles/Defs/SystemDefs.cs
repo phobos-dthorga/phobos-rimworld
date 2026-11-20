@@ -1048,6 +1048,13 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public int pushMostPeople = 6;
     public int pushTicksPerCell = 90;
     public int bayTripPathNodes = 6000;
+    /// <summary>The service yard (Framework 0.210.0; docs/development/vehicle-service-yard.md, all authored [A], owner: "as proposed, tuned after
+    /// play"): the share of the usual work a job takes on a vehicle in a working yard (a depot bay's own pad gives 0.7, a little better), the
+    /// ticks between the yard's looks at its lines and pumps, and how long a vehicle must stand idle in a full yard before it is taken out to
+    /// make room.</summary>
+    public float serviceYardWorkFactor = 0.8f;
+    public int serviceYardLookTicks = 250;
+    public int serviceYardIdleBeforeMoveTicks = 2500;
     /// <summary>The generator set's service lead (Framework 0.101.0, authored): the watts it takes off the top of the set's output, a heavy
     /// battery charger and its losses.</summary>
     public float serviceLeadWatts = 300f;

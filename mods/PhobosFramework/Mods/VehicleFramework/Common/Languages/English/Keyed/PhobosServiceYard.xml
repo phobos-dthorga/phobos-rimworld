@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The service yard (Framework 0.210.0): docs/development/vehicle-service-yard.md. -->
+  <PhobosServiceYard_Label>Service yard</PhobosServiceYard_Label>
+  <PhobosServiceYard_Expand>Expand service yard</PhobosServiceYard_Expand>
+  <PhobosServiceYard_Desc>Mark ground beside a dyno bay where vehicles are serviced, tuned, fuelled and parked in one place. Mechanics work faster on vehicles in the yard, and its vehicles take turns on its dyno bays where they stand. Its size is held to what its equipment allows: each dyno bay, fuel pump and inspection pit beside it lets it grow.</PhobosServiceYard_Desc>
+  <PhobosServiceYard_RefuseNoDyno>A service yard is marked beside a dyno bay: draw it touching one that no other yard already counts.</PhobosServiceYard_RefuseNoDyno>
+  <PhobosServiceYard_RefuseCapped>The yard's equipment allows {ALLOWANCE} cells, and it now has {CELLS}; {LEFT} cells were left out. Build a dyno bay, fuel pump or inspection pit beside it to make room for more.</PhobosServiceYard_RefuseCapped>
+
+  <PhobosServiceYard_InspectCells>Cells: {CELLS} of {ALLOWANCE} its equipment allows.</PhobosServiceYard_InspectCells>
+  <PhobosServiceYard_InspectEquipment>Equipment: {EQUIPMENT}.</PhobosServiceYard_InspectEquipment>
+  <PhobosServiceYard_InspectNoEquipment>No equipment beside it.</PhobosServiceYard_InspectNoEquipment>
+  <PhobosServiceYard_InspectNoDyno>It needs a dyno bay beside it to be a service yard. Until then it gives nothing.</PhobosServiceYard_InspectNoDyno>
+  <PhobosServiceYard_InspectTooBig>Too big by {CELLS} cells for its equipment: it gives nothing until it is made smaller or more equipment is built beside it.</PhobosServiceYard_InspectTooBig>
+  <PhobosServiceYard_InspectVehicles>Vehicles here: {COUNT}. On the dyno: {DYNO}. Waiting for it: {WAITING}.</PhobosServiceYard_InspectVehicles>
+  <PhobosServiceYard_RigLine>Takes turns for the {YARD}, {TURNS} at a time: {ON} on the dyno now, {WAITING} waiting.</PhobosServiceYard_RigLine>
+
+  <PhobosServiceYard_DoingOnDyno>on the yard's dyno</PhobosServiceYard_DoingOnDyno>
+  <PhobosServiceYard_DoingWaitingDyno>waiting for the yard's dyno, {PLACE} in line</PhobosServiceYard_DoingWaitingDyno>
+  <PhobosServiceYard_DoingFuelled>being fuelled in the yard</PhobosServiceYard_DoingFuelled>
+  <PhobosServiceYard_DoingCharged>being charged in the yard</PhobosServiceYard_DoingCharged>
+  <PhobosServiceYard_DoingParked>parked in the yard</PhobosServiceYard_DoingParked>
+  <PhobosServiceYard_NotInLine>The {VEHICLE} is not waiting for a yard's dyno.</PhobosServiceYard_NotInLine>
+  <PhobosServiceYard_MovedUp>The {VEHICLE} goes first on the yard's dyno.</PhobosServiceYard_MovedUp>
+
+  <PhobosServiceYard_CannotLeaveBusy>The {VEHICLE} is in use or on another errand, and cannot be taken out now.</PhobosServiceYard_CannotLeaveBusy>
+  <PhobosServiceYard_CannotLeaveNowhere>There is nowhere outside the yard for the {VEHICLE} to go: no free depot bay of its own, no room in a vehicle park and no clear ground nearby.</PhobosServiceYard_CannotLeaveNowhere>
+  <PhobosServiceYard_CannotSendBusy>The {VEHICLE} is in use or on another errand, and cannot be sent now.</PhobosServiceYard_CannotSendBusy>
+  <PhobosServiceYard_CannotSendNotWorking>The {YARD} gives nothing now: it needs its dyno bay, and no more cells than its equipment allows.</PhobosServiceYard_CannotSendNotWorking>
+  <PhobosServiceYard_CannotSendNoRoom>There is no room in the {YARD} for it, or no way there.</PhobosServiceYard_CannotSendNoRoom>
+  <PhobosServiceYard_Sent>The {VEHICLE} will be driven into the {YARD} once someone is free to drive.</PhobosServiceYard_Sent>
+  <PhobosServiceYard_TakenOut>The {VEHICLE} will be driven out of the yard once someone is free to drive.</PhobosServiceYard_TakenOut>
+  <PhobosServiceYard_NoWayToYard>No way into the yard could be found.</PhobosServiceYard_NoWayToYard>
+
+  <!-- The Fleet board's yard group, card and filter. -->
+  <PhobosFleet_GroupYard>{MAP}: {YARD} ({CELLS} of {ALLOWANCE} cells)</PhobosFleet_GroupYard>
+  <PhobosFleet_GroupYardIdle>{YARD}, giving nothing</PhobosFleet_GroupYardIdle>
+  <PhobosFleet_YardCard>{YARD}</PhobosFleet_YardCard>
+  <PhobosFleet_YardTooBig>Too big by {CELLS} cells for its equipment: it gives nothing until it is made smaller or more equipment is built beside it.</PhobosFleet_YardTooBig>
+  <PhobosFleet_YardNoDyno>It has no dyno bay beside it, so it gives nothing.</PhobosFleet_YardNoDyno>
+  <PhobosFleet_YardDynoFree>The dyno is free ({TURNS} at a time).</PhobosFleet_YardDynoFree>
+  <PhobosFleet_YardOnDyno>On the dyno: {VEHICLES}.</PhobosFleet_YardOnDyno>
+  <PhobosFleet_YardWaiting>Waiting for it, in turn: {VEHICLES}.</PhobosFleet_YardWaiting>
+  <PhobosFleet_YardPump>Pump: {DOING} Tank: {FUEL}.</PhobosFleet_YardPump>
+  <PhobosFleet_YardPumpOff>off, without power or broken down.</PhobosFleet_YardPumpOff>
+  <PhobosFleet_YardPumpFilling>filling the {VEHICLE}.</PhobosFleet_YardPumpFilling>
+  <PhobosFleet_YardPumpIdle>nothing to fill.</PhobosFleet_YardPumpIdle>
+  <PhobosFleet_YardCharging>Charging cable: charging the {VEHICLE}.</PhobosFleet_YardCharging>
+  <PhobosFleet_YardGoTo>Go to the yard</PhobosFleet_YardGoTo>
+  <PhobosFleet_YardGoToTip>Closes the board and selects the yard on the map.</PhobosFleet_YardGoToTip>
+  <PhobosFleet_YardTakeOut>Take out of yard</PhobosFleet_YardTakeOut>
+  <PhobosFleet_YardTakeOutTip>A colonist drives it out now: to its own depot bay, else a vehicle park, else clear ground nearby.</PhobosFleet_YardTakeOutTip>
+  <PhobosFleet_YardMoveUp>Move up</PhobosFleet_YardMoveUp>
+  <PhobosFleet_YardMoveUpTip>Puts it first in line for the yard's dyno, before vehicles that asked earlier.</PhobosFleet_YardMoveUpTip>
+  <PhobosFleet_YardMoveUpNot>It is not waiting in line for the yard's dyno.</PhobosFleet_YardMoveUpNot>
+  <PhobosFleet_YardSend>Send to yard</PhobosFleet_YardSend>
+  <PhobosFleet_YardSendTip>A colonist drives it into a service yard and parks it there, where it is worked faster, takes its turn on the dyno and is fuelled.</PhobosFleet_YardSendTip>
+  <PhobosFleet_YardFilterAll>All vehicles</PhobosFleet_YardFilterAll>
+  <PhobosFleet_YardFilterIn>In a service yard</PhobosFleet_YardFilterIn>
+  <PhobosFleet_YardFilterWaiting>Waiting for a yard</PhobosFleet_YardFilterWaiting>
+  <PhobosFleet_YardFilterCannot>Cannot get to a yard or bay</PhobosFleet_YardFilterCannot>
+  <PhobosFleet_YardFilterTip>Shows only the vehicles that stand so with the service yards.</PhobosFleet_YardFilterTip>
+
+  <!-- The fuel pump. -->
+  <PhobosFuelPump_NoYard>Not part of a working service yard: build it beside one.</PhobosFuelPump_NoYard>
+  <PhobosFuelPump_Off>Switched off, without power or broken down.</PhobosFuelPump_Off>
+  <PhobosFuelPump_Idle>No vehicle in the yard needs its fuel.</PhobosFuelPump_Idle>
+  <PhobosFuelPump_TankEmpty>Its tank is empty.</PhobosFuelPump_TankEmpty>
+  <PhobosFuelPump_Filling>Filling the {VEHICLE}.</PhobosFuelPump_Filling>
+  <PhobosFuelPump_Charging>Charging the {VEHICLE}.</PhobosFuelPump_Charging>
+  <PhobosFuelPump_WrongFuel>The {VEHICLE} runs on {FUEL}, which no pump in the yard holds.</PhobosFuelPump_WrongFuel>
+</LanguageData>

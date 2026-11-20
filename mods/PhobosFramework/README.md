@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.209.0, built 21 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.210.0, built 21 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -28,7 +28,7 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   with no gas.
 - **Before removing it** (after the mods that depend on it): if vehicles used the systems, load the colony, press **Remove the added
   parts from this colony's vehicles** in the vehicle systems settings, save, then remove the mod, or saved vehicles may fail to load.
-  First also **delete every vehicle park zone**, **empty every garage**, **recover every sling wreck and depot**, **let a water drop run land and unload every litter** (switch off
+  First also **delete every vehicle park and service yard zone**, **empty every garage**, **recover every sling wreck and depot**, **let a water drop run land and unload every litter** (switch off
   **Take casualties aboard** first, or carriers keep bringing more), and **take
   any extra fuel tank off**: whatever is in them goes with the mod. Jump-start kits and booster packs vanish with an error line each;
   sell or destroy them for a clean log. A line per missing map component on the next load is harmless.
@@ -115,6 +115,10 @@ Every vehicle gets systems that fit what it is, by what it runs on and whether i
 - **Damage, conditions and knocked-out weapons and tracks**: [damage and repairs](../../docs/player-guide/vehicle-care.md#damage-and-repairs).
 - **Vehicles are taken to a dyno bay for repair by themselves** (0.201.0, not yet tested in game; needs somebody on **Drive** work): [taken to the dyno bay](../../docs/player-guide/vehicle-care.md#taken-to-the-dyno-bay-by-themselves).
 - **The workshop** (parts bench, inspection pit, dyno bay, depot bay) and parts by role: [the workshop](../../docs/player-guide/vehicle-care.md#the-workshop).
+- **The service yard** (0.210.0, not yet tested in game; the fuel pump's picture is still to come): servicing, the dyno, fuel and parking
+  in one zone whose size its equipment caps, run from the Fleet board: [the service yard](../../docs/player-guide/vehicle-care.md#the-service-yard).
+- **Building upgrades** (0.210.0, not yet tested in game): a charging cable for the fuel pump, a second roller set for the dyno bay, a
+  faster pump for the depot bay: [building upgrades](../../docs/player-guide/vehicle-care.md#building-upgrades).
 - **Fittings, tunes, grades and families**: [fittings, tunes and grades](../../docs/player-guide/vehicle-care.md#fittings-tunes-and-grades).
 - **Cabs, headlights, the driver, weather and rivers**: [cabs and comfort](../../docs/player-guide/vehicle-care.md#cabs-and-comfort),
   [headlights](../../docs/player-guide/vehicle-care.md#headlights),

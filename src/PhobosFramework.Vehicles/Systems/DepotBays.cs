@@ -34,6 +34,7 @@ public sealed class CompPhobosDepotBay : ThingComp
     VehiclePawn? assigned;
     CompRefuelable? tank;
     CompPowerTrader? power;
+    Phobos.Framework.Upgrades.CompPhobosBuildingUpgrades? upgrades;
 
     /// <summary>What the pump last did, for the inspect line. Derived, never saved.</summary>
     string? status;
@@ -77,6 +78,7 @@ public sealed class CompPhobosDepotBay : ThingComp
         base.PostSpawnSetup(respawningAfterLoad);
         tank = parent.GetComp<CompRefuelable>();
         power = parent.GetComp<CompPowerTrader>();
+        upgrades = parent.GetComp<Phobos.Framework.Upgrades.CompPhobosBuildingUpgrades>();
         MapRegistry<CompPhobosDepotBay>.Add(parent.Map, this);
     }
 
@@ -100,7 +102,9 @@ public sealed class CompPhobosDepotBay : ThingComp
             return;
         }
         if (power is { PowerOn: false } || !tank.HasFuel) return;
-        float amount = UnityEngine.Mathf.Min(fuel.FuelCapacity - fuel.Fuel, tank.Fuel, Props.pumpPerHour * HoursPerRareTick);
+        // A faster pump (a building upgrade, Framework 0.210.0) sets its own rate.
+        float perHour = upgrades?.Figure(ServiceYards.PumpPerHour, Props.pumpPerHour) ?? Props.pumpPerHour;
+        float amount = UnityEngine.Mathf.Min(fuel.FuelCapacity - fuel.Fuel, tank.Fuel, perHour * HoursPerRareTick);
         if (amount <= 0f) return;
         tank.ConsumeFuel(amount);
         fuel.Refuel(amount);

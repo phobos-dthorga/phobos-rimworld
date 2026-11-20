@@ -79,21 +79,36 @@ public static class VehicleParks
     public static bool TryFindPlace(VehiclePawn vehicle, System.Func<CellRect, bool> clear, System.Func<CellRect, bool> fits,
         System.Func<IntVec3, bool> reaches, int maxWayTests, out IntVec3 cell, out Rot4 facing)
     {
+        int wayTests = 0;
+        return TryFindPlaceIn(vehicle, On(vehicle.Map), clear, fits, reaches, maxWayTests, ref wayTests, null, out cell, out facing);
+    }
+
+    /// <summary>
+    /// The same search over any zones (Framework 0.210.0: the service yard's too), counting way tests in <paramref name="wayTests"/> so a
+    /// caller's other searches share the limit. With <paramref name="onlyFacing"/>, a vehicle carried as it stands (towed, pushed) takes only
+    /// a place it fits facing as it faces, and is asked for no way of its own: what carries it finds the way.
+    /// </summary>
+    public static bool TryFindPlaceIn(VehiclePawn vehicle, IEnumerable<Zone> zones, System.Func<CellRect, bool> clear, System.Func<CellRect, bool> fits,
+        System.Func<IntVec3, bool> reaches, int maxWayTests, ref int wayTests, Rot4? onlyFacing, out IntVec3 cell, out Rot4 facing)
+    {
         cell = IntVec3.Invalid;
         facing = Rot4.Invalid;
         Map map = vehicle.Map;
-        int wayTests = 0;
-        foreach (Zone_PhobosVehiclePark park in On(map).OrderBy(p => p.Cells.Count == 0 ? int.MaxValue : p.Cells[0].DistanceToSquared(vehicle.Position)))
+        Rot4[] facings = onlyFacing is { } only ? new[] { only } : new[] { Rot4.North, Rot4.East };
+        foreach (Zone zone in zones.OrderBy(p => p.Cells.Count == 0 ? int.MaxValue : p.Cells[0].DistanceToSquared(vehicle.Position)))
         {
-            foreach (IntVec3 candidate in park.Cells.OrderBy(c => c.z).ThenBy(c => c.x))
+            foreach (IntVec3 candidate in zone.Cells.OrderBy(c => c.z).ThenBy(c => c.x))
             {
                 if (!candidate.Standable(vehicle, map)) continue;
-                foreach (Rot4 rot in new[] { Rot4.North, Rot4.East })
+                foreach (Rot4 rot in facings)
                 {
                     CellRect body = vehicle.VehicleRect(candidate, rot);
-                    if (!Inside(body, park, map) || !fits(body) || !clear(body.ExpandedBy(1).ClipInsideMap(map))) continue;
-                    if (wayTests++ >= maxWayTests) return false;
-                    if (!reaches(candidate)) break;
+                    if (!Inside(body, zone, map) || !fits(body) || !clear(body.ExpandedBy(1).ClipInsideMap(map))) continue;
+                    if (onlyFacing == null && candidate != vehicle.Position)
+                    {
+                        if (wayTests++ >= maxWayTests) return false;
+                        if (!reaches(candidate)) break;
+                    }
                     cell = candidate;
                     facing = rot;
                     return true;

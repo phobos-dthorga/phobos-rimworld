@@ -216,6 +216,44 @@ supply may scale its item by size (`itemCountBySize`) or cover a whole build wit
 [the parts bills record](development/parts-bills.md) has the rules. The player's **Parts for building** setting chooses between other
 mods' parts where installed and always ours.
 
+## Building upgrades
+
+Since 0.210.0 a placed building can take upgrades a builder fits, in XML alone. Give the building the comp, then write each upgrade:
+
+```xml
+<!-- On the building's ThingDef, in its comps: -->
+<li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
+
+<Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+  <defName>MyMod_FasterPump</defName>
+  <label>faster pump</label>
+  <description>What the player reads in the Upgrades window.</description>
+  <buildings><li>MyMod_Pump</li></buildings>     <!-- each must carry the comp above -->
+  <costList><Steel>15</Steel></costList>         <!-- brought by builders before the work -->
+  <work>600</work>                               <!-- the game's work units, as WorkToBuild -->
+  <constructionSkill>4</constructionSkill>
+  <researchPrerequisite>Electricity</researchPrerequisite>  <!-- optional -->
+  <prerequisite>MyMod_OtherUpgrade</prerequisite>           <!-- optional: must be fitted first -->
+  <grants><li>MyMod_CanDoThing</li></grants>                <!-- abilities your comp asks for -->
+  <figures>                                                 <!-- figures your comp reads -->
+    <li><name>pumpPerHour</name><value>60</value></li>
+  </figures>
+  <refundShare>0.5</refundShare>                 <!-- share of materials back when taken off -->
+  <overlay>                                      <!-- optional picture drawn over the building -->
+    <texPath>MyMod/PumpCable</texPath>
+    <graphicClass>Graphic_Single</graphicClass>
+  </overlay>
+</Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
+```
+
+Your own comp reads it from `parent.GetComp<CompPhobosBuildingUpgrades>()`: `Grants("MyMod_CanDoThing")` and
+`Figure("pumpPerHour", yourDefault)`. Both read a kept list, so they cost nothing to ask each tick. Where two fitted upgrades set the
+same figure the larger is used, never the sum.
+
+**Service yard equipment** (with Vehicle Framework): a building with `Phobos.VehicleSystems.PhobosYardEquipmentExtension` in its
+`modExtensions` adds its `cells` to the allowance of a service yard it stands beside; `required` marks the kind a yard cannot be without
+(our dyno bay).
+
 ## Water and pipes beneath things (with Dubs Bad Hygiene)
 
 `PhobosFramework.Hygiene` is a separate assembly that loads only with Dubs Bad Hygiene; never reference it from a core assembly.

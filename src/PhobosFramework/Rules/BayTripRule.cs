@@ -31,6 +31,8 @@ public enum BayTripHome
     DepotBay,
     Park,
     Nearby,
+    /// <summary>It stays in the service yard it was worked in (Framework 0.210.0): it has no depot bay of its own.</summary>
+    Yard,
 }
 
 /// <summary>How a vehicle gets to the bay.</summary>

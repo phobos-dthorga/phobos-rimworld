@@ -210,7 +210,7 @@ Not yet tested in game. A vehicle loses its jobs before it is a wreck, and every
 
 ![The vehicle parts bench, the dyno bay, the inspection pit and the depot bay](images/vehicle-workshop.png)
 
-All four are in the Architect's **motor pool** tab.
+All of them, the fuel pump and the service yard's tool too, are in the Architect's **motor pool** tab.
 
 | Building | Research | What it is for |
 | --- | --- | --- |
@@ -218,6 +218,7 @@ All four are in the Architect's **motor pool** tab.
 | **Inspection pit** | Vehicle parts | Speeds the parts bench |
 | **Dyno bay** | Vehicle tuning | **Diagnose** a vehicle (a report with its tinted picture and, in Operator and Engineer, a graph of the last day). Needed for **tunes and changes of grade** on a working part, and for the two **heavy overhauls** (machining a badly warped cylinder head, a turbine's hot-section overhaul), within 5 cells of the vehicle and powered. Replacement parts fitted here go in at 60% health instead of 25%. Select it for **Vehicles in reach** |
 | **Depot bay** | Vehicle depots | A home for one vehicle. Press **Assign vehicle** on the bay, then **Go to bay** on the vehicle (needs a driver aboard). On the pad it refuels by itself (chemfuel, while the bay has power) and mechanics need 70% of the usual work. It moves when you tell it to, when it comes home from a dyno bay (below), or, **with Vehicles at Work**, when a colonist parks it: a vehicle switched on there for trips or hauling is brought home to its bay instead of a parking lot |
+| **Fuel pump** | Vehicle depots | Beside a **service yard** (below), fills the yard's vehicles with chemfuel one at a time, the emptiest first. Haulers fill its tank. Its **charging cable** upgrade charges electric vehicles too |
 
 ### Taken to the dyno bay by themselves
 
@@ -247,6 +248,43 @@ All four are in the Architect's **motor pool** tab.
 - Each of the two has its own setting under **Dyno bay trips**.
 - Aircraft, boats and trailers never go: build a dyno bay beside the pad for aircraft.
 - To switch it all off: **Vehicles are taken to a dyno bay for repair by themselves**, in the vehicle settings under **Dyno bay trips**.
+
+### The service yard
+
+**Not yet tested in game.** One place where vehicles are serviced, tuned, fuelled and parked, so a fleet stops shuttling between a
+park and the dyno bay.
+
+- **Mark it beside a dyno bay**: in the **motor pool** tab press **Service yard** and drag ground touching a dyno bay. **A yard needs a
+  dyno bay beside it** to be a yard at all.
+- **Its size is capped by its equipment.** Each dyno bay beside it allows 80 cells, each **fuel pump** and **inspection pit** 40 more.
+  A drag past that is cut to the cells nearest the yard, and a message says how many it has and may have. Grow it with **Expand
+  service yard** after building more equipment beside it. A piece of equipment counts for one yard only.
+- **Lose equipment and the yard keeps its cells**, but says it is too big by so many and gives nothing until you make it smaller or
+  build again.
+- **What it gives**: mechanics work its vehicles in **80%** of the usual time (a vehicle on its own depot bay's pad still gets 70%).
+  Vehicles waiting for **dyno work** (a tune, a change of grade, a heavy overhaul, a part to replace, a diagnosis) **take turns where
+  they stand**, one per dyno bay, the longest waiting first; the one whose turn it is counts as at the dyno. Its **fuel pumps** fill
+  the yard's vehicles one at a time, the emptiest first.
+- **Bay trips go to a yard first.** A vehicle sent for repair is driven into a yard with room, and **stays there afterwards unless it
+  has a depot bay of its own**, which it is driven home to. When every yard is full, the vehicle that has stood in one longest with
+  nothing left to do (an hour or more) is driven out to make room. Nothing else is ever moved out.
+- **Run it from the Fleet board.** Vehicles in a yard are listed under it. Choose one to see the yard card (who is on the dyno, who
+  waits, each pump's work and fuel) with **Move up**, **Take out of yard** and **Go to the yard**; on a vehicle outside, **Send to
+  yard** has it driven in and parked. The filter at the top shows only vehicles in a yard, waiting for one, or unable to get there.
+- **Before removing D'thorga Framework, delete every service yard**, as with a vehicle park. A yard on a gravship's deck is not carried
+  by a flight: mark it again after landing.
+
+### Building upgrades
+
+**Not yet tested in game.** Some of our buildings take upgrades: select one and press **Upgrades**. The window lists each upgrade with
+what it does, what it costs and needs, and a **Fit** button that says why when it cannot be pressed. Builders bring the materials and
+fit it under **Construction**. **Take off** gives back about half the materials; **Cancel the work** puts down whatever was brought.
+
+| Building | Upgrade | What it does |
+| --- | --- | --- |
+| Fuel pump | **Charging cable** (needs Electricity) | Charges electric vehicles in the yard from the colony's power, one at a time, the flattest first; the grid pays for it. Shown on the pump |
+| Dyno bay | **Second roller set** (needs Vehicle tuning) | Takes two vehicles at once from its yard's dyno line |
+| Depot bay | **Faster pump** | Fills its vehicle at 60 an hour, where it filled at 30 |
 
 Our vehicles and the depot bay are **built from parts** by role (an engine, a fuel tank, tyres and so on). Where an installed mod makes
 a part that suits (RimThunder, Vanilla Vehicles Expanded), a build asks for theirs; otherwise ours. **Parts for building** in the

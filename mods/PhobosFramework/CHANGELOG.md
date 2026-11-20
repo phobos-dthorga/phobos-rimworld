@@ -5,6 +5,34 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.210.0] - 2026-11-21 - Draft
+
+The service yard: servicing, the dyno, fuel and parking in one place; and building upgrades. Not yet tested in game. **The fuel pump and its charging cable have no picture yet: they are made before the first test, so hold this version back from your game until then.**
+
+### Added
+
+- **The service yard**: a zone marked from the motor pool tab, beside a dyno bay, with its own tool and spanner picture. Mechanics work its vehicles in 80% of the usual time (a depot bay's own pad, 70%, still wins where a vehicle stands on both). Its size is held to what its equipment allows: each dyno bay beside it allows 80 cells, each fuel pump or inspection pit 40, and a yard needs a dyno bay to be a yard at all. A drag past the allowance is cut to the cells nearest the yard and its equipment, and a message gives the yard's cells and its allowance. A piece of equipment counts for one yard only.
+- **A yard that loses equipment keeps its cells**: it says it is too big by so many cells, and gives nothing until it is made smaller or equipped again. Nothing is taken from you.
+- **Turns on the yard's dyno, where the vehicles stand**: the vehicles in a yard waiting for dyno work (a tune, a change of grade, a heavy overhaul, a part to replace, a diagnosis) take turns, one per dyno bay, the longest waiting first. The vehicle whose turn it is counts as at the dyno where it stands; the rest wait. A vehicle in a yard's dyno bay's reach outside the yard waits in the same line. The dyno bay's inspect pane says how its line stands.
+- **The fuel pump**: a new building with its own 200 chemfuel tank, filled by haulers as the depot bay's is. Beside a yard it fills the yard's vehicles one at a time, the emptiest first, at 30 an hour, and says which vehicle runs on a fuel it does not hold.
+- **Bay trips aim at a yard first**: a vehicle sent for repair looks for room in a working yard before the ground beside a dyno bay, and is driven, towed or pushed there as before. Once its work is done it stays in the yard, unless it has a depot bay of its own, which it is driven home to. When every yard is full, the vehicle that has stood in one longest with nothing left to do (an hour or more) is driven out to make room. Nothing is moved out for any other reason.
+- **Building upgrades**: a building that takes upgrades has an **Upgrades** button. Its window lists each upgrade with what it does, costs and needs, and a button that says why when it cannot be pressed. Builders bring the materials and fit it under Construction; it can be taken off again for about half its materials back, and work under way can be cancelled, putting down what was brought. Upgrades are Defs, so other mods can add their own.
+- **The first three upgrades**: the fuel pump's **charging cable** charges electric vehicles in the yard from the colony's power, one at a time, the flattest first, at Vehicle Framework's own charge rate, and the pump draws that power from the grid while it charges (shown on the pump as a picture once fitted); the dyno bay's **second roller set** takes two vehicles at once from its yard's line; the depot bay's **faster pump** fills at 60 an hour.
+- **The Fleet board runs the yard**: vehicles in a yard are listed under it, with its cells against its allowance. Choosing one shows the yard card: who is on the dyno, who waits in turn, and what each pump is doing with its fuel left, with **Move up** (first in the dyno line), **Take out of yard**, **Go to the yard** and, on a vehicle outside any yard, **Send to yard**, which has it driven in and parked. A new filter shows only vehicles in a yard, waiting for one, or unable to get to a yard or bay.
+
+### Compatibility and limits
+
+- **Delete every service yard before removing the mod**: a zone the game cannot find the kind of fails to load, as with the vehicle park.
+- **A yard marked on a gravship's deck is not carried by a flight**: mark it again after landing.
+- The pump is filled by haulers, not by a chemfuel pipe: the depot bay it copies has no pipe either.
+- A vehicle is in a yard when its centre stands on the yard's cells. A dyno turn is a labelled simplification: a real chassis dyno holds the vehicle on its rollers.
+- The order of the dyno line and a Move up are kept in the save; how long a vehicle has stood idle is kept too.
+- Every figure is authored and to be tuned after play: 80, 40 and 40 cells, 80% of the work, 30 and 60 an hour, an hour idle before making room, the upgrades' costs.
+
+### Save compatibility
+
+- Safe to add to a running colony. Fitted upgrades are saved on their buildings, which go with the mod.
+
 ## [0.209.0] - 2026-11-21 - Draft
 
 Spall inside vehicles: what its fault-read found, put right, and what came after

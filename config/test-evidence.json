@@ -3,6 +3,29 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "312": {"parts": {
+      "Move up puts a waiting vehicle first": ["vehicles.service-yard.move-up"],
+      "Send to yard has a vehicle driven in and parked": ["vehicles.service-yard.sent"],
+      "Take out of yard has a vehicle driven out": ["vehicles.service-yard.taken-out"]
+    }},
+    "311": {"parts": {
+      "a vehicle takes its turn on the yard's dyno": ["vehicles.service-yard.turn"],
+      "a second roller set takes two at once": [{"key": "vehicles.service-yard.turn", "variant": "second rollers"}],
+      "the pump fills a vehicle in the yard": ["vehicles.service-yard.fuel"],
+      "the charging cable charges an electric vehicle": ["vehicles.service-yard.charge"],
+      "a bay trip goes into a yard": ["vehicles.service-yard.trip"],
+      "the vehicle idle longest makes room": ["vehicles.service-yard.made-room"]
+    }},
+    "310": {"parts": {
+      "a yard is marked within its allowance": [{"key": "vehicles.service-yard.marked", "variant": "within"}],
+      "a drag past the allowance is cut": [{"key": "vehicles.service-yard.marked", "variant": "capped"}],
+      "a yard with its dyno bay works": ["vehicles.service-yard.works"]
+    }},
+    "309": {"parts": {
+      "builders bring an upgrade's materials": ["framework.building-upgrade.delivered"],
+      "an upgrade is fitted": ["framework.building-upgrade.fitted"],
+      "an upgrade is taken off": ["framework.building-upgrade.removed"]
+    }},
     "308": {"parts": {
       "the alert names a vehicle whose liner is spent": ["vehicles.spall-liner-alert"],
       "the logbook says spall hurt someone aboard": [{"key": "vehicles.logbook", "variant": "PhobosLog_SpallWounded"}],

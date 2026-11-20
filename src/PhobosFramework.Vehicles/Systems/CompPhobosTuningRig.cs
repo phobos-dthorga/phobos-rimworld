@@ -87,6 +87,12 @@ public sealed class CompPhobosTuningRig : ThingComp
         string state = (Working
             ? "PhobosVehicleSystems_RigInspectReady".Translate(Props.reach.Named("CELLS"))
             : "PhobosVehicleSystems_RigInspectOff".Translate()).Resolve();
+        // A yard's dyno bay says how its line stands (Framework 0.210.0): who is on it, how many wait.
+        if (ServiceYards.For(parent.Map)?.OwnerOf(parent) is { Works: true } yard)
+        {
+            state += "\n" + "PhobosServiceYard_RigLine".Translate(yard.Yard.label.Named("YARD"), yard.OnDyno.Named("ON"), yard.Waiting.Named("WAITING"),
+                ServiceYards.TurnsOf(this).Named("TURNS")).Resolve();
+        }
         List<CompPhobosVehicleSystems> inReach = VehiclesInReach();
         if (inReach.Count == 0) return state;
         string names = inReach.Select(c => c.Vehicle.LabelShort).ToCommaList(useAnd: true);

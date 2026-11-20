@@ -71,6 +71,8 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
     bool leftUnfinished;
     /// <summary>The colonists this trip called aboard: they get out at its end. Crew anyone else boarded is never put out.</summary>
     List<Pawn> brought = new();
+    /// <summary>The player sent it into a service yard from the Fleet board (Framework 0.210.0): it parks there and the trip ends.</summary>
+    bool toYardByOrder;
 
     /// <summary>Why it cannot go, or why it waits, in the player's words: for its own line, the Fleet board and the alert. Derived, never saved.</summary>
     string? blocked;
@@ -192,8 +194,8 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
         if (Vehicle.GetComp<CompPhobosVehicleSystems>() is not { Usable: true } systems) return;
         BayTripNeed need = BayTrips.NeedOf(systems);
         if (!need.Any) return;
-        // Standing at a bay already, the mechanics have it; and a vehicle the player parked there is never moved.
-        if (systems.Fittings.NearRig()) return;
+        // Standing at a bay or in a working service yard already, the mechanics have it; and a vehicle the player parked there is never moved.
+        if (BayTrips.AtBayOrYard(systems)) return;
         if (BayTrips.Busy(Vehicle, this) || GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map)) return;
         if (!need.Payable)
         {
@@ -243,7 +245,8 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
             if (!home) End(crewOut: true, backOff: false);
             return;
         }
-        if (!home && (bay is not { Spawned: true } || Vehicle.GetComp<CompPhobosVehicleSystems>() is not { Usable: true } systems || !BayTrips.NeedOf(systems).Any))
+        // A vehicle the player sent into a yard goes whether or not it has work (Framework 0.210.0).
+        if (!home && !toYardByOrder && (bay is not { Spawned: true } || Vehicle.GetComp<CompPhobosVehicleSystems>() is not { Usable: true } systems || !BayTrips.NeedOf(systems).Any))
         {
             // The bay has gone, or someone repaired it where it stands.
             End(crewOut: true, backOff: false);
@@ -325,7 +328,15 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
             ArriveHome();
             return;
         }
-        if (Vehicle.GetComp<CompPhobosVehicleSystems>() is { Usable: true } systems && systems.Fittings.NearRig()) ArriveAtBay();
+        if (toYardByOrder && ServiceYards.InWorkingYard(Vehicle))
+        {
+            // Sent in by the player: it is parked there as if the player had parked it, and the yard's lines and pumps take it from here.
+            if (standFacing.IsValid) VehicleAutoDrive.Face(Vehicle, standFacing);
+            Seen.Note("vehicles.service-yard.sent", Vehicle);
+            End(crewOut: true, backOff: false);
+            return;
+        }
+        if (Vehicle.GetComp<CompPhobosVehicleSystems>() is { Usable: true } systems && BayTrips.AtBayOrYard(systems)) ArriveAtBay();
         else FailedDrive(home);
     }
 
@@ -334,7 +345,7 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
     {
         if (standCell.IsValid) badCells.Add(standCell);
         failedDrives++;
-        if (!home && !VehicleRunRule.GiveUp(failedDrives, Rules.bayTripFailedDrives)
+        if (!home && !toYardByOrder && !VehicleRunRule.GiveUp(failedDrives, Rules.bayTripFailedDrives)
             && BayTrips.TryFindPlace(Vehicle, badCells, null, out Thing? found, out IntVec3 cell, out Rot4 facing, out _)
             && BeginDrive(cell, facing))
         {
@@ -342,7 +353,7 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
             standFacing = facing;
             return;
         }
-        GiveUp(home ? "PhobosBayTrip_NoWayHome" : "PhobosBayTrip_NoWay");
+        GiveUp(home ? "PhobosBayTrip_NoWayHome" : toYardByOrder ? "PhobosServiceYard_NoWayToYard" : "PhobosBayTrip_NoWay");
     }
 
     /// <summary>Ends a trip that could not go on: the crew gets out where it stands, and it says why until its next look, a day on.</summary>
@@ -418,6 +429,75 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
         if (Seen.Wants("vehicles.bay-trip.leaving", Vehicle)) Seen.Note("vehicles.bay-trip.leaving", Vehicle, variant: kind.ToString());
     }
 
+    /// <summary>
+    /// Takes this vehicle out of a full service yard to make room for one that needs it (Framework 0.210.0; [A]): only an idle vehicle on no
+    /// trip, free and able to drive, to its depot bay, the vehicle park or a spot nearby, as a trip home goes. False when it cannot go.
+    /// </summary>
+    internal bool LeaveYardForRoom() => TakeOutOfYard(byPlayer: false) == null;
+
+    /// <summary>
+    /// Drives this vehicle out of its yard, as a trip home goes; the reason it cannot, in the player's words, or null once it is on its way.
+    /// The player's own order (the Fleet board's Take out of yard) may move a vehicle kept out of bay trips; making room never does.
+    /// </summary>
+    internal string? TakeOutOfYard(bool byPlayer)
+    {
+        if (stage != BayTripStage.None || (keptOut && !byPlayer) || !TakesPart || BayTrips.Busy(Vehicle, this))
+        {
+            return "PhobosServiceYard_CannotLeaveBusy".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        }
+        if (VehicleAutoDrive.CannotDrive(Vehicle, needsDriver: false) is { } cannot) return cannot;
+        if (!BayTrips.TryFindHome(Vehicle, out IntVec3 cell, out Rot4 facing, out BayTripHome kind, leavingYard: true))
+        {
+            return "PhobosServiceYard_CannotLeaveNowhere".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        }
+        standCell = cell;
+        standFacing = facing;
+        failedDrives = 0;
+        leftUnfinished = false;
+        blocked = null;
+        brought.Clear();
+        SetStage(BayTripStage.CallingDriverHome);
+        DriverCalls.Call(Vehicle.Map, this, true);
+        if (byPlayer) { if (Seen.Wants("vehicles.service-yard.taken-out", Vehicle, kind.ToString())) Seen.Note("vehicles.service-yard.taken-out", Vehicle, variant: kind.ToString()); }
+        else if (Seen.Wants("vehicles.service-yard.made-room", Vehicle, kind.ToString())) Seen.Note("vehicles.service-yard.made-room", Vehicle, variant: kind.ToString());
+        return null;
+    }
+
+    /// <summary>
+    /// The player's order from the Fleet board (Framework 0.210.0): drive into this service yard and park there. Null once it is on its way,
+    /// else the reason in the player's words. A vehicle that will not drive is not carried in by this order: bay trips do that for work.
+    /// </summary>
+    internal string? SendToYard(Zone_PhobosServiceYard yard)
+    {
+        if (stage != BayTripStage.None || !TakesPart || BayTrips.Busy(Vehicle, this))
+        {
+            return "PhobosServiceYard_CannotSendBusy".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
+        }
+        if (VehicleAutoDrive.CannotDrive(Vehicle, needsDriver: false) is { } cannot) return cannot;
+        if (!yard.Works) return "PhobosServiceYard_CannotSendNotWorking".Translate(yard.label.Named("YARD")).Resolve();
+        Map map = Vehicle.Map;
+        List<CellRect> kept = BayTrips.KeptBy(map, Vehicle);
+        int wayTests = 0;
+        if (!VehicleParks.TryFindPlaceIn(Vehicle, new Zone[] { yard }, cells => BayTrips.ClearOfVehicles(Vehicle, cells, map, kept),
+                body => BayTrips.BodyFits(Vehicle, body, map, kept, null),
+                c => Vehicle.CanReachVehicle(c, Verse.AI.PathEndMode.OnCell, Danger.Deadly, TraverseMode.ByPawn), 16, ref wayTests, null,
+                out IntVec3 cell, out Rot4 facing))
+        {
+            return "PhobosServiceYard_CannotSendNoRoom".Translate(yard.label.Named("YARD")).Resolve();
+        }
+        bay = yard.State?.Dynos.FirstOrDefault()?.parent;
+        standCell = cell;
+        standFacing = facing;
+        failedDrives = 0;
+        leftUnfinished = false;
+        toYardByOrder = true;
+        blocked = null;
+        brought.Clear();
+        SetStage(BayTripStage.CallingDriver);
+        DriverCalls.Call(map, this, true);
+        return null;
+    }
+
     void ArriveHome()
     {
         if (standFacing.IsValid) VehicleAutoDrive.Face(Vehicle, standFacing);
@@ -461,6 +541,7 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
         standFacing = Rot4.Invalid;
         failedDrives = 0;
         leftUnfinished = false;
+        toYardByOrder = false;
         blocked = null;
         badCells.Clear();
         int now = Find.TickManager.TicksGame;
@@ -489,6 +570,7 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
         standFacing = Rot4.Invalid;
         engineStarted = false;
         leftUnfinished = false;
+        toYardByOrder = false;
         blocked = null;
         brought.Clear();
         badCells.Clear();
@@ -516,6 +598,7 @@ public sealed partial class CompPhobosBayTrip : CompPhobosVehicleRun, IVehicleDr
         Scribe_Values.Look(ref stageTick, "PhobosBayTripStageTick");
         Scribe_Values.Look(ref lastWorkTick, "PhobosBayTripLastWork");
         Scribe_Values.Look(ref leftUnfinished, "PhobosBayTripLeftUnfinished");
+        Scribe_Values.Look(ref toYardByOrder, "PhobosBayTripToYardByOrder");
         Scribe_Collections.Look(ref brought, "PhobosBayTripBrought", LookMode.Reference);
         ExposeRun(RunSavePrefix);
         ExposeCarry();

@@ -150,6 +150,12 @@
     <pushMostPeople>6</pushMostPeople>
     <pushTicksPerCell>90</pushTicksPerCell>
     <bayTripPathNodes>6000</bayTripPathNodes>
+    <!-- The service yard (0.210.0; docs/development/vehicle-service-yard.md), authored, the owner's "as proposed, tuned after play": a job
+         in a working yard takes 0.8 of the usual work (a depot bay's own pad, 0.7); the yard looks at its lines every 250 ticks; a vehicle
+         idle in a full yard for an hour may be taken out to make room. -->
+    <serviceYardWorkFactor>0.8</serviceYardWorkFactor>
+    <serviceYardLookTicks>250</serviceYardLookTicks>
+    <serviceYardIdleBeforeMoveTicks>2500</serviceYardIdleBeforeMoveTicks>
     <recoveryTowBarCells>1.5</recoveryTowBarCells>
     <recoveryJackKnifeDegrees>55</recoveryJackKnifeDegrees>
     <!-- Batch 3 signatures (Framework 0.101.0, all authored): the generator set's service lead takes 300 W off the top (a heavy battery

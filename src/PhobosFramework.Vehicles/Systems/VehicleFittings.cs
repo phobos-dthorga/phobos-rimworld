@@ -617,12 +617,15 @@ public sealed class VehicleFittings
         bool found = false;
         foreach (CompPhobosTuningRig station in CompPhobosTuningRig.PlayersOn(vehicle.Map))
         {
-            if (station.Working && station.Reaches(area))
+            // A dyno bay a working service yard runs takes its vehicles in turn (Framework 0.210.0): standing in its reach is not enough.
+            if (station.Working && station.Reaches(area) && !ServiceYards.RunsLine(station))
             {
                 found = true;
                 break;
             }
         }
+        // The vehicle whose turn it is on a yard's dyno counts as at the dyno where it stands ("with no moving", owner, 20 Nov 2026).
+        if (!found) found = ServiceYards.HasTurn(vehicle);
         nearRig = found;
         nearRigTick = now;
         nearRigCell = vehicle.Position;
