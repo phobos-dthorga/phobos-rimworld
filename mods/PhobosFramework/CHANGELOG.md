@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.196.0] - 2026-11-20 - Draft
+
+A picture that follows a vehicle's own state
+
+### Added
+
+- **A vehicle's picture can change with its own state**, not only with its upgrades and fittings: a part of a vehicle names a state, and its picture shows while the vehicle is in it. D'thorga Farming's turnover plough uses it to show the side that is down.
+
+### Compatibility and limits
+
+- Nothing changes for any vehicle that does not ask for it. No new settings. Not yet tested in game: part of row 276 of the test pass.
+
 ## [0.195.0] - 2026-11-20 - Draft
 
 Articulated vehicles: two halves joined at a pivot

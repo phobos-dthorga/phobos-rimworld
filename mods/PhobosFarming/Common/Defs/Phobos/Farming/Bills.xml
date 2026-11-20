@@ -196,4 +196,46 @@
       <DriveShaft>2</DriveShaft>
     </parts>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
+
+  <!-- Batch two's implements: a frame each; the plough's depth wheel and the cultivator's roller as a wheel; the plough's turnover ram;
+       the drill's wheels and its metering drive. Counts authored. -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_PloughSillion</defName>
+    <label>Sillion turnover plough parts</label>
+    <target>Phobos_PloughSillion_Blueprint</target>
+    <parts>
+      <Frame>1</Frame>
+      <Wheels>1</Wheels>
+      <Actuator>1</Actuator>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_CultivatorTillman</defName>
+    <label>Tillman cultivator parts</label>
+    <target>Phobos_CultivatorTillman_Blueprint</target>
+    <parts>
+      <Frame>1</Frame>
+      <Wheels>1</Wheels>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_CultivatorTillmanLight</defName>
+    <label>Tillman light cultivator parts</label>
+    <target>Phobos_CultivatorTillmanLight_Blueprint</target>
+    <parts>
+      <Frame>1</Frame>
+      <Wheels>1</Wheels>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_SeedDrillCoulter</defName>
+    <label>Coulter seed drill parts</label>
+    <target>Phobos_SeedDrillCoulter_Blueprint</target>
+    <parts>
+      <Frame>1</Frame>
+      <Wheels>2</Wheels>
+      <DriveShaft>1</DriveShaft>
+      <Hose>1</Hose>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

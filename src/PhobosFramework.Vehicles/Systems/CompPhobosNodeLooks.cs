@@ -8,7 +8,18 @@ using Verse;
 namespace Phobos.VehicleSystems;
 
 /// <summary>
-/// One picture of a slot: shown when <see cref="node"/> or <see cref="fitting"/> is fitted, or the stock look when neither is named.
+/// A comp that switches a node look on and off by its own state (Framework 0.196.0): a reversible plough's two sides. A look naming
+/// <see cref="NodeLook.when"/> is shown while any comp of the vehicle says yes; the comp calls <see cref="CompPhobosNodeLooks.Refresh"/>
+/// when its answer changes.
+/// </summary>
+public interface IVehicleLookSwitch
+{
+    bool ShowsLook(string when);
+}
+
+/// <summary>
+/// One picture of a slot: shown when <see cref="node"/> or <see cref="fitting"/> is fitted, or while a comp says <see cref="when"/>, or the
+/// stock look when none is named.
 /// </summary>
 public class NodeLook
 {
@@ -17,10 +28,12 @@ public class NodeLook
     /// <summary>A fitting whose picture this is, shown while it is fitted on any part (Framework 0.105.0: the recovery winch on a bumper,
     /// the auxiliary fuel tank in its cradle). Named instead of <see cref="node"/>.</summary>
     public PhobosVehicleFittingDef? fitting;
+    /// <summary>A state a comp of the vehicle reports (IVehicleLookSwitch), such as "turned" (Framework 0.196.0). Named instead of the others.</summary>
+    public string? when;
     public GraphicDataOverlay? look;
 
-    /// <summary>Whether this is the stock look: no node and no fitting.</summary>
-    public bool Stock => node == null && fitting == null;
+    /// <summary>Whether this is the stock look: no node, no fitting and no state.</summary>
+    public bool Stock => node == null && fitting == null && when == null;
 }
 
 /// <summary>A place on the vehicle whose picture depends on the upgrades fitted, such as a fan, a mast or a tipping body.</summary>
@@ -45,8 +58,8 @@ public class CompProperties_PhobosNodeLooks : VehicleCompProperties
             yield return $"CompProperties_PhobosNodeLooks: slot key \"{twin.Key}\" is used {twin.Count()} times; each slot needs its own key";
         foreach (NodeLookSlot slot in slots)
         {
-            if (slot.looks.Any(l => l.node != null && l.fitting != null))
-                yield return $"CompProperties_PhobosNodeLooks: a look in slot \"{slot.key}\" names both a node and a fitting; name one";
+            if (slot.looks.Any(l => (l.node != null ? 1 : 0) + (l.fitting != null ? 1 : 0) + (l.when != null ? 1 : 0) > 1))
+                yield return $"CompProperties_PhobosNodeLooks: a look in slot \"{slot.key}\" names more than one of a node, a fitting and a state; name one";
         }
     }
 
@@ -107,11 +120,24 @@ public class CompPhobosNodeLooks : VehicleComp
 
     CompPhobosVehicleSystems? Systems => Vehicle.GetComp<CompPhobosVehicleSystems>();
 
-    bool Met(NodeLook look, VehicleFittings? fittings) =>
-        look.fitting != null ? fittings?.Has(look.fitting) == true : VehicleUpgrades.Unlocked(Vehicle, look.node!);
+    bool Met(NodeLook look, VehicleFittings? fittings)
+    {
+        if (look.when != null) return StateShown(look.when);
+        return look.fitting != null ? fittings?.Has(look.fitting) == true : VehicleUpgrades.Unlocked(Vehicle, look.node!);
+    }
 
-    /// <summary>Shows each slot's chosen picture, and only that one.</summary>
-    void Refresh()
+    bool StateShown(string when)
+    {
+        List<ThingComp> comps = Vehicle.AllComps;
+        for (int i = 0; i < comps.Count; i++)
+        {
+            if (comps[i] is IVehicleLookSwitch lookSwitch && lookSwitch.ShowsLook(when)) return true;
+        }
+        return false;
+    }
+
+    /// <summary>Shows each slot's chosen picture, and only that one. Public since Framework 0.196.0, for a comp whose state a look follows.</summary>
+    public void Refresh()
     {
         GraphicOverlayRenderer? renderer = Vehicle.DrawTracker?.overlayRenderer;
         if (renderer == null) return;

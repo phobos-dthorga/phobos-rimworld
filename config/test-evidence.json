@@ -21,7 +21,8 @@
       "an implement lowered by hand": ["farming.implement.hand-lowered"]
     }},
     "276": {"parts": {
-      "a paddock tilled to the end": ["farming.tillage.end"]
+      "a paddock tilled to the end": ["farming.tillage.end"],
+      "the plough rolls over at a row's end": ["farming.plough.turned"]
     }},
     "277": {"parts": {
       "a cell sown": ["farming.sow.cell"],

@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The implements (D'thorga Farming, batch two; docs/development/farming-batch-two.md, "The implements"): the Sillion turnover plough
+    and the two Tillman cultivators on the three-point linkage, held rigid behind the tractor (a jack-knife of nought), and the Coulter
+    seed drill on the drawbar. Each is its own vehicle, held through D'thorga Framework's hitch, and each has a hitch of its own with a
+    drawbar, so a cart can follow behind it (a line of tows). A field run lowers the implement it works with on each row; the Lower and
+    Lift buttons do it by hand. The owner's decisions of 20 Nov 2026: the plough works 1 cell, as drawn (a three-furrow plough); the
+    cultivators two models under one button; the drill's attempt 2. Widths, draught (Iowa State's medium soil, a cell taken as 1.5 m),
+    weights and the hopper are authored [A], approximate. No upgrade tree yet: the wing extensions' overlays and icons come in the next
+    paid run. Part keys are saved by position: append only, never reorder. Each faces north, its hitch at the top. Not yet tested in game.
+  -->
+  <Vehicles.VehicleDef Name="PhobosFarming_ImplementBase" ParentName="BaseVehiclePawn" Abstract="True">
+    <fillPercent>0.3</fillPercent>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.1</Flammability>
+    </statBases>
+    <vehicleStats>
+      <MoveSpeed>11</MoveSpeed>
+      <CargoCapacity>0</CargoCapacity>
+      <RepairRate>0.8</RepairRate>
+    </vehicleStats>
+    <race>
+      <baseBodySize>2</baseBodySize>
+    </race>
+    <properties>
+      <diagonalRotation>false</diagonalRotation>
+      <worldSpeedMultiplier>1</worldSpeedMultiplier>
+      <visibilityWeight>2</visibilityWeight>
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles />
+    </properties>
+    <comps>
+      <!-- A hitch of its own, so a cart can be pulled behind it (D'thorga Framework 0.193.0's lines of tows). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosHitch" />
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <!-- ===== Three-point implements, 3 by 3: cells run x -1 to 1, z -1 to 1, the headstock north. ===== -->
+  <Vehicles.VehicleDef Name="PhobosFarming_MountedImplementBase" ParentName="PhobosFarming_ImplementBase" Abstract="True">
+    <size>(3, 3)</size>
+    <components>
+    <li>
+      <key>Frame</key>
+      <label>frame</label>
+      <health>90</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <cells>
+          <li>(0, 0)</li>
+          <li>(0, -1)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Headstock</key>
+      <label>headstock</label>
+      <health>50</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, 1)</li>
+          <li>(0, 1)</li>
+          <li>(1, 1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCouplingsExtension">
+        <towedBy>PhobosCoupling_ThreePoint</towedBy>
+        <hitch>
+          <li>PhobosCoupling_Drawbar</li>
+        </hitch>
+      </li>
+    </modExtensions>
+    <comps>
+      <!-- Carried, not towed: held rigid behind the tractor (a jack-knife of nought), its middle 1.5 cells behind the linkage. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
+        <hitchToAxle>1.5</hitchToAxle>
+        <axleToCentre>0</axleToCentre>
+        <jackKnifeDegrees>0</jackKnifeDegrees>
+        <drawbarPart>Headstock</drawbarPart>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <!-- The Sillion turnover plough: both its sides are overlays, one at a time; the body under them is empty on purpose. -->
+  <Vehicles.VehicleDef ParentName="PhobosFarming_MountedImplementBase">
+    <defName>Phobos_PloughSillion</defName>
+    <label>Sillion turnover plough</label>
+    <description>Sillion S3: a three-furrow reversible plough for a tractor's three-point linkage. It turns the soil over, burying weeds, stubble and wild plants, and never touches a sown crop. At each row's end it rolls over, so every furrow is thrown the same way across the field. It pulls hard while it is in the ground.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/Plough/PloughBody</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(4, 4)</drawSize>
+      <color>(157, 182, 118)</color>
+      <colorTwo>(255, 244, 65)</colorTwo>
+    </graphicData>
+    <buildDef>Phobos_PloughSillion_Blueprint</buildDef>
+    <statBases>
+      <MarketValue>420</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>100</Mass>
+    </vehicleStats>
+    <components>
+    <li>
+      <key>Mouldboards</key>
+      <label>mouldboards and shares</label>
+      <health>70</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(1, 0)</li>
+          <li>(1, -1)</li>
+          <li>(-1, 0)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>DepthWheel</key>
+      <label>depth wheel</label>
+      <health>30</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>1200</emptyKilograms>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Phobos.Farming.CompProperties_PhobosTillage">
+        <widthCells>1</widthCells>
+        <kilonewtonsPerMetre>7.3</kilonewtonsPerMetre>
+        <metresPerCell>1.5</metresPerCell>
+        <orderIconPath>Phobos/Farming/Plough/Plough_icon</orderIconPath>
+        <mark>ploughed</mark>
+        <turns>true</turns>
+      </li>
+      <!-- Its two sides (the owner's two pictures): the turned side while it is rolled over, else the first. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">
+        <slots>
+          <li>
+            <key>sides</key>
+            <looks>
+              <li>
+                <when>turned</when>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/Plough/Plough_Turned</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(4, 4)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Farming/Plough/Plough</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <shaderType>CutoutComplexPattern</shaderType>
+                    <drawSize>(4, 4)</drawSize>
+                    <layer>1</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
+        </slots>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <!-- The Tillman cultivators: the standard, three dense rows of tines, and the light, wider-spaced, pulling less. -->
+  <Vehicles.VehicleDef Name="PhobosFarming_CultivatorBase" ParentName="PhobosFarming_MountedImplementBase" Abstract="True">
+    <graphicData>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(4, 4)</drawSize>
+    </graphicData>
+    <components>
+    <li>
+      <key>Tines</key>
+      <label>tines</label>
+      <health>60</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, 0)</li>
+          <li>(1, 0)</li>
+          <li>(-1, -1)</li>
+          <li>(1, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Roller</key>
+      <label>crumbler roller</label>
+      <health>50</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, -1)</li>
+          <li>(0, -1)</li>
+          <li>(1, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleDef ParentName="PhobosFarming_CultivatorBase">
+    <defName>Phobos_CultivatorTillman</defName>
+    <label>Tillman cultivator</label>
+    <description>Tillman C4: a field cultivator for a tractor's three-point linkage, three dense rows of spring tines and a crumbler roller, four cells wide. It tears out weeds and wild plants and breaks up the soil, never touching a sown crop.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/Cultivator/Cultivator</texPath>
+      <color>(142, 170, 116)</color>
+      <colorTwo>(255, 249, 77)</colorTwo>
+    </graphicData>
+    <buildDef>Phobos_CultivatorTillman_Blueprint</buildDef>
+    <statBases>
+      <MarketValue>460</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>125</Mass>
+    </vehicleStats>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>1500</emptyKilograms>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Phobos.Farming.CompProperties_PhobosTillage">
+        <widthCells>4</widthCells>
+        <kilonewtonsPerMetre>4.4</kilonewtonsPerMetre>
+        <metresPerCell>1.5</metresPerCell>
+        <orderIconPath>Phobos/Farming/Cultivator/Cultivator_icon</orderIconPath>
+        <mark>cultivated</mark>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleDef ParentName="PhobosFarming_CultivatorBase">
+    <defName>Phobos_CultivatorTillmanLight</defName>
+    <label>Tillman light cultivator</label>
+    <description>Tillman C4 L: the light field cultivator, its spring tines spaced wider. It works the same four cells less deeply and pulls easier, so a small tractor handles it well; it never touches a sown crop.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/CultivatorLight/CultivatorLight</texPath>
+      <color>(141, 165, 112)</color>
+      <colorTwo>(255, 239, 78)</colorTwo>
+    </graphicData>
+    <buildDef>Phobos_CultivatorTillmanLight_Blueprint</buildDef>
+    <statBases>
+      <MarketValue>420</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>110</Mass>
+    </vehicleStats>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>1300</emptyKilograms>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Phobos.Farming.CompProperties_PhobosTillage">
+        <widthCells>4</widthCells>
+        <kilonewtonsPerMetre>3.6</kilonewtonsPerMetre>
+        <metresPerCell>1.5</metresPerCell>
+        <orderIconPath>Phobos/Farming/CultivatorLight/CultivatorLight_icon</orderIconPath>
+        <mark>cultivated</mark>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <!-- ===== The Coulter seed drill, on the drawbar, 3 by 4: cells run x -1 to 1, z -1 to 2, the drawbar north. ===== -->
+  <Vehicles.VehicleDef ParentName="PhobosFarming_ImplementBase">
+    <defName>Phobos_SeedDrillCoulter</defName>
+    <label>Coulter seed drill</label>
+    <description>Coulter D4: a trailed grain drill for a tractor's drawbar, four cells wide. It sows a paddock's crop in neat rows from its hopper: grain kept back from the crop's own harvest, cleaned as it goes, or bought seed. Pour seed into it from a bin, a cart or the ground.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/SeedDrill/SeedDrill</texPath>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(4, 5)</drawSize>
+      <color>(143, 168, 110)</color>
+      <colorTwo>(255, 215, 57)</colorTwo>
+    </graphicData>
+    <buildDef>Phobos_SeedDrillCoulter_Blueprint</buildDef>
+    <size>(3, 4)</size>
+    <statBases>
+      <MarketValue>650</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>210</Mass>
+    </vehicleStats>
+    <components>
+    <li>
+      <key>Frame</key>
+      <label>frame</label>
+      <health>110</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <cells>
+          <li>(0, 0)</li>
+          <li>(0, 1)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Hopper</key>
+      <label>seed hopper</label>
+      <health>80</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, 0)</li>
+          <li>(0, 0)</li>
+          <li>(1, 0)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Coulters</key>
+      <label>coulters and seed tubes</label>
+      <health>60</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -1)</li>
+          <li>(0, -1)</li>
+          <li>(1, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Wheels</key>
+      <label>wheels</label>
+      <health>45</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, 1)</li>
+          <li>(1, 1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Drawbar</key>
+      <label>drawbar</label>
+      <health>45</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>2500</emptyKilograms>
+      </li>
+      <li Class="Phobos.VehicleSystems.PhobosCouplingsExtension">
+        <towedBy>PhobosCoupling_Drawbar</towedBy>
+        <hitch>
+          <li>PhobosCoupling_Drawbar</li>
+        </hitch>
+      </li>
+    </modExtensions>
+    <comps>
+      <!-- Towed on its drawbar: its axle 2.2 cells behind the hitch, the middle of its picture 0.3 ahead of the axle; it swings as a
+           trailer does. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
+        <hitchToAxle>2.2</hitchToAxle>
+        <axleToCentre>0.3</axleToCentre>
+        <jackKnifeDegrees>70</jackKnifeDegrees>
+        <drawbarPart>Drawbar</drawbarPart>
+      </li>
+      <!-- Its hopper: 1.5 tonnes of seed, one kind at a time, poured in or out at 40 kg a second within two cells. Authored [A]: real
+           drills of this width hold about 1 to 3 tonnes (general knowledge). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosBulkHold">
+        <capacityKg>1500</capacityKg>
+        <mixesProducts>false</mixesProducts>
+        <pourKgPerSecond>40</pourKgPerSecond>
+        <reachCells>2</reachCells>
+      </li>
+      <li Class="Phobos.Farming.CompProperties_PhobosSeedDrill">
+        <widthCells>4</widthCells>
+        <kilonewtonsPerMetre>1.0</kilonewtonsPerMetre>
+        <metresPerCell>1.5</metresPerCell>
+        <orderIconPath>Phobos/Farming/SeedDrill/SeedDrill_icon</orderIconPath>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <!-- ===== Building them. ===== -->
+  <DesignatorDropdownGroupDef>
+    <defName>PhobosFarming_TillmanModels</defName>
+  </DesignatorDropdownGroupDef>
+
+  <Vehicles.VehicleBuildDef Name="PhobosFarming_ImplementBuildBase" ParentName="VehicleBaseBuildable" Abstract="True">
+    <graphicData>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(4, 4)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>140</MaxHitPoints>
+      <WorkToBuild>5000</WorkToBuild>
+      <Flammability>0.1</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_TillageAndSowing</li>
+    </researchPrerequisites>
+    <size>(3, 3)</size>
+    <!-- The shell only: their parts are in Bills.xml (docs/development/parts-bills.md). Steel stays first. -->
+    <costList>
+      <Steel>110</Steel>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_ImplementBuildBase">
+    <defName>Phobos_PloughSillion_Blueprint</defName>
+    <label>Sillion turnover plough</label>
+    <description>Sillion S3: a three-furrow reversible plough for a tractor's three-point linkage.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/Plough/Plough</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_PloughSillion</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_ImplementBuildBase">
+    <defName>Phobos_CultivatorTillman_Blueprint</defName>
+    <label>Tillman cultivator</label>
+    <description>Tillman C4: a four-cell field cultivator for a tractor's three-point linkage.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/Cultivator/Cultivator</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_CultivatorTillman</thingToSpawn>
+    <designatorDropdown>PhobosFarming_TillmanModels</designatorDropdown>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_ImplementBuildBase">
+    <defName>Phobos_CultivatorTillmanLight_Blueprint</defName>
+    <label>Tillman light cultivator</label>
+    <description>Tillman C4 L: the light four-cell field cultivator, easier for a small tractor.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/CultivatorLight/CultivatorLight</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_CultivatorTillmanLight</thingToSpawn>
+    <designatorDropdown>PhobosFarming_TillmanModels</designatorDropdown>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_ImplementBuildBase">
+    <defName>Phobos_SeedDrillCoulter_Blueprint</defName>
+    <label>Coulter seed drill</label>
+    <description>Coulter D4: a four-cell trailed grain drill for a tractor's drawbar.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/SeedDrill/SeedDrill</texPath>
+      <drawSize>(4, 5)</drawSize>
+    </graphicData>
+    <size>(3, 4)</size>
+    <costList>
+      <Steel>160</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <thingToSpawn>Phobos_SeedDrillCoulter</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+</Defs>

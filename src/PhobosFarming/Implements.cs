@@ -181,6 +181,9 @@ public class CompProperties_PhobosTillage : CompProperties_PhobosImplement
     public string mark = "ploughed";
     /// <summary>The share of a paddock's cells a run must work for the paddock to be marked. Authored [A].</summary>
     public float markShare = 0.9f;
+    /// <summary>A reversible (turnover) plough (owner, 20 Nov 2026): it rolls over at each row's end, so every furrow is thrown the same way,
+    /// and its picture shows the side that is down (the node look "turned").</summary>
+    public bool turns;
 
     public CompProperties_PhobosTillage() => compClass = typeof(CompPhobosTillage);
 }
@@ -190,9 +193,13 @@ public class CompProperties_PhobosTillage : CompProperties_PhobosImplement
 /// it passes over, never a sown crop and never a tree, and marks the paddock ploughed or cultivated once a run has worked most of it. The
 /// mark is for the soil rules to come; until then it shows in the end message and does nothing else.
 /// </summary>
-public class CompPhobosTillage : CompPhobosImplement
+public class CompPhobosTillage : CompPhobosImplement, IVehicleLookSwitch
 {
+    /// <summary>The node look a turnover plough shows while its other side is down.</summary>
+    public const string TurnedLook = "turned";
+
     readonly List<Thing> cleared = new();
+    bool turned;
 
     public CompProperties_PhobosTillage Props => (CompProperties_PhobosTillage)props;
 
@@ -238,6 +245,26 @@ public class CompPhobosTillage : CompPhobosImplement
         if (keptCrop) return false;
         foreach (Thing thing in cleared) thing.Destroy(DestroyMode.KillFinalize);
         return true;
+    }
+
+    /// <summary>A turnover plough rolls over at each row's end, as a real one does at the headland, and its picture follows.</summary>
+    public override FieldWorkStop RowDone(out string? reason)
+    {
+        if (Props.turns)
+        {
+            turned = !turned;
+            Vehicle.GetComp<CompPhobosNodeLooks>()?.Refresh();
+            if (Seen.Wants("farming.plough.turned", Vehicle)) Seen.Note("farming.plough.turned", Vehicle, Vehicle.def.defName);
+        }
+        return base.RowDone(out reason);
+    }
+
+    public bool ShowsLook(string when) => when == TurnedLook && turned;
+
+    public override void PostExposeData()
+    {
+        base.PostExposeData();
+        Scribe_Values.Look(ref turned, "PhobosFarming_PloughTurned");
     }
 
     public override string EndRun(bool finished)
