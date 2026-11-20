@@ -32,3 +32,8 @@ the back-burner rule. The design is `docs/development/radio-framework-design.md`
   behaviour, and make every rule visible to a player who wants to see it.
 - **Physics sets the kit, the kit sets the play**: wavelength drives antenna size, which drives
   portability, power draw and siting. Don't hand out kit that physics says is impossible.
+
+## Moved here from the root AGENTS.md (21 Nov 2026)
+
+- **Worn apparel is never spawned.** A hand-held worn by a pawn has `Spawned == false`; find radios by
+  enumerating `map.mapPawns` and `pawn.apparel.WornApparel` at recompute time, never through spawn hooks.

@@ -195,6 +195,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [The owner's mod list](owner-mod-list.md): every mod the owner has on, with suggestions; written by `refresh-mod-list.py`. Living.
 - [RimWorld modding reference](rimworld-modding-reference.md) (18 Oct 2026): versions, About.xml, load folders, Ludeon's EULA. Reference.
 - [Mod installs](mod-installs.md) (18 Nov 2026): updates, going back, backups, builds and textures; Companion's Mods page. Built, untested.
+- [The AGENTS.md split](agents-split-2026-11-21.md) (21 Nov 2026): where each of the 99 rules went; the root 56 to 14 KB. Built.
 - [Smoke run on a lean profile](smoke-run-design.md) (18 Nov 2026): our mods alone on the quick-test map, spawned and ticked before an install. Design.
 - [Finding: patch XML kept in memory](patch-xml-kept-alive-2026-11-21.md) (21 Nov 2026): 453 MB held via VEF's settings code. Found; nothing changed.
 - [Desktop front end for the Phobos tools](tools-desktop-research.md) (9 Nov 2026): the research behind D'thorga Companion. Research.

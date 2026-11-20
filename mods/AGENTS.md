@@ -1,0 +1,88 @@
+# A mod's shipped files
+
+What every mod ships: its versions, changelog and README, its player-facing words, names and branding, the EULA, the Workshop, and
+its balance. A session reads it before editing a mod's Defs, language files, About, changelog or README. (These rules sit here,
+not inside a mod's own folder, because everything in `mods/<Mod>/` is shipped.)
+
+Split from the root `AGENTS.md` on 21 Nov 2026 (the owner's yes: "keep a slimmed-down AGENTS at the root"), every rule moved word
+for word; the root's rules apply here too.
+
+## Working with the owner
+
+- **Who does what** (owner, carried over from Phobos Ostranauts): creative and world content (factions'
+  radio voices, contact stories, letters, flavour, QSL card art text) lives in XML Defs and language files,
+  never in C#, so other writers and players can add to it. Claude builds the logic, Def types, validators
+  and the hooks between data and code, and may write creative content following the same rules as any
+  writer: it is labelled agent-authored in the changelog and held for the owner's review.
+
+## Git and publication boundaries
+
+- **Steam Workshop.** Publication tooling (page drafts, generated release notes, an owner-run uploader)
+  is adopted from Phobos Ostranauts in the change that prepares the first mod for its public beta gate,
+  not before. Agents prepare and test it but never run a real upload, handle credentials, subscribe,
+  announce or change an item's visibility. The game writes `About/PublishedFileId.txt` at a mod's first
+  upload: commit that file then; never invent an item ID.
+- **Ludeon's EULA** governs every mod: free, with no ads or calls to action of any kind (no donation links
+  inside a mod), clearly presented as community-created, and never bundled with the game or its expansions. Every
+  mod's description carries the EULA's disclaimer word for word, which `scripts/check-mod-layout.py` enforces:
+  "Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon
+  Studios Inc." and "All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon."
+  (`docs/development/rimworld-modding-reference.md`).
+
+## Versions, changelogs and READMEs
+
+- Version numbers (owner rule from Phobos Ostranauts): a fix or patch raises the last number (0.3.0 to
+  0.3.1), new functionality the middle number, a total rework or API overhaul the first. A release mixing a
+  fix and a feature takes the middle bump. Classify before setting a version.
+- A mod's version lives in `About/About.xml` (`modVersion`), every project of the mod, its `ModVersion` constants, its
+  README and `docs/README.md`, all registered in `config/maintained-constants.json`. **Set it with
+  `python scripts/release.py constants --set <Mod>.version=X.Y.Z --apply`** (phobos-modkit's updater checks every copy
+  before writing any), never by hand; then write the changelog entry and the README's built date in the same commit,
+  **and stage `config/maintained-constants.json` with them**: the tool records the new value there too.
+  `scripts/check-mod-layout.py` refuses a copy the catalogue does not list, and `python scripts/release.py changelog
+  mods/*/CHANGELOG.md` checks every entry fits a Workshop page.
+- Every change to a mod updates its `CHANGELOG.md` in the same commit: an Unreleased section, then dated
+  entries marked **Draft** until publication is confirmed, then **Released** with the real date. Sections:
+  Added, Changed, Fixed, Balance, Dependencies, Save compatibility, Compatibility and limits. Record
+  player-visible features, fixes, balance, dependencies, save effects, known limits and whether it is
+  tested in game. No backticks or `>` in changelog lines (Ostranauts' release-note tooling rejects them).
+- Every mod has a README that opens with **Read this first (gotchas)**: requirements and load order,
+  whether it is safe to add to and remove from a save, settings to decide before starting a colony, and
+  whether it is tested in game. Follow `docs/development/player-language.md`.
+
+## Player language and localisation
+
+- All player-facing English follows `docs/development/player-language.md`: in-game text, settings,
+  READMEs, guides and Workshop drafts. Write for players with no radio, engineering or coding knowledge;
+  the Engineer display mode may show the full maths, the Plain mode never shows a decibel.
+- **Text a player reads in play stays in the game world** (owner, 5 November 2026): condition descriptions, tooltips, inspect text,
+  job reports, refusals and messages never name a mod, a signal or a setting, and describe the body and what to do about it. Mod
+  names and sources belong in READMEs, changelogs, the mod settings window, dev actions and the load line. **One exception**
+  (owner, 7 Nov 2026): a one-time letter, shown once per install when a colony first loads, may recommend an optional mod by name
+  where much of a mod depends on it (Vanilla Gravship Expanded for D'thorga Medical's equipment).
+
+## Identifiers and branding
+
+- `packageId` is `PhobosDthorga.<ModName>` (agent default, owner to confirm before the first public build;
+  `scripts/check-mod-layout.py` enforces it). The Harmony ID is the `packageId`. Never change either once
+  a mod is published.
+- **An item Def's `defName` never ends in a digit** (the game reads a thing's ID from the digits at the end of name + number, so its
+  IDs grow at every load and overflow; `scripts/check-mod-layout.py` enforces it): `PhobosBombMk82Case`, not `PhobosBombCaseMk82`.
+- **Names players see are plain and unassuming**, so people can look them up and remember them (owner, 9 Nov 2026: "It's all
+  about brand awareness"): `D'thorga <Plain Word>`, as in D'thorga Framework and D'thorga Medical, however lovely a fancier name
+  is. The word after D'thorga says what the thing does. Check a name is not already taken in that game's mods before using it.
+  The radio framework's public name is an open question in its design.
+- **D'thorga is the one brand for everything new, in every game** (owner, 9 Nov 2026). Older mods named Phobos take the new display
+  name when the owner next returns to that game, never in a sweep, and display names only: `packageId`, defNames, repository names
+  and anything a save can hold stay as they are.
+- **Every public page also carries the spelling "dthorga"** (owner, 9 Nov 2026), without the apostrophe, in the Workshop description
+  and the README's opening, so a search spelled either way finds us. Searching GitHub or the web for "dthorga" found none of our work.
+  `scripts/check-mod-layout.py` enforces it in every mod's About description and its README before the first section.
+
+## Materials, chemistry and balance
+
+- **Honest physics and chemistry**: outputs are what the inputs can realistically give; give the real
+  relationship, mass balance or source in the README or design record; label authored values and
+  simplifications as gameplay choices.
+- No loops that create value from nothing; building to sell must not beat the vanilla economy. Keep new
+  items and research gates proportional to what they unlock.

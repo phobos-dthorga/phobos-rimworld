@@ -46,3 +46,11 @@ the general engineering rules there (parts bills, pipes beneath, optional tie-in
   exist in D'thorga Framework and set what a repair costs, whichever mods are installed; RimThunder's and Vanilla Vehicles Expanded's
   are accepted only where they make sense, named per role in `PhobosVehiclePartSupplyDef` with `MayRequire`, never in C#. The framework
   is meant to grow into tuning and upgrades (`docs/development/vehicle-health-design.md`).
+
+## Moved here from the root AGENTS.md (21 Nov 2026)
+
+- **Submarine work is on the back burner too, and out of view** (owner, 20 Nov 2026: "put our submarine development on the backbench
+  and even partially retire it out of view for now"): no new submarine features or reviews until the owner picks it up again. The
+  Seabed Crawler is off the build menu and its parts off the bench, and its research tab is out of view in a colony that never started
+  it ("visible for colonies with pre-existing data"). Nothing is removed: a boat already built keeps working, and a fix to something
+  broken is still fine when the owner reports it.
