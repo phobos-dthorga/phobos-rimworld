@@ -36,7 +36,8 @@
       "a recharger draws by the mech on it": [{"key": "patches.mech-power.draw", "expect": {"watts": "> 0"}}],
       "charging slows near full": [{"key": "patches.mech-power.taper", "expect": {"rate": "< 1"}}],
       "the lost power warms the room": [{"key": "patches.mech-power.heat", "expect": {"heat": "> 0"}}],
-      "an empty recharger holds its standby draw": ["patches.mech-power.standby"]
+      "an empty recharger holds its standby draw": ["patches.mech-power.standby"],
+      "the mech's information card shows its draw": [{"key": "patches.mech-power.card", "expect": {"watts": "> 0"}}]
     }},
     "284": {"parts": {
       "a vehicle with an even side lands on its own deck cells after a turned landing": [{"key": "vehicles.gravship-landing-aligned"}]

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    A mech's information card shows what its recharger draws while it charges (D'thorga Patches 0.28.0; docs/development/mech-recharging-real-power.md).
+    Shown only while mech rechargers draw real power (the worker hides it otherwise). Laid out like the game's own power stat (its max power
+    output). Not yet tested in game.
+  -->
+  <StatDef ParentName="MechStatBase">
+    <defName>PhobosMechRechargerDraw</defName>
+    <workerClass>Phobos.BiotechPatches.StatWorker_PhobosRechargerDraw</workerClass>
+    <label>recharger draw</label>
+    <description>The power a mech recharger draws from the grid while this mechanoid charges at the full rate, whatever the recharger lists. Larger mechanoids hold larger batteries and draw more. The draw falls as the battery nears full, and part of it warms the recharger's room.</description>
+    <defaultBaseValue>0</defaultBaseValue>
+    <minValue>0</minValue>
+    <formatString>{0} W</formatString>
+    <toStringStyle>Integer</toStringStyle>
+    <showIfUndefined>true</showIfUndefined>
+    <displayPriorityInCategory>1990</displayPriorityInCategory>
+    <parts>
+      <li Class="StatPart_Hyperlinks">
+        <thingDefs>
+          <li>BasicRecharger</li>
+          <li>StandardRecharger</li>
+        </thingDefs>
+      </li>
+    </parts>
+  </StatDef>
+</Defs>

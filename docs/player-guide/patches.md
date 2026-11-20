@@ -344,6 +344,8 @@ the **Mechanoids** page) and a recharger draws for the mech on it instead.
   may want a vent or a cooler. It stops warming a room hotter than 80 C.
 - **An empty recharger draws a twentieth** of its listed power.
 - **The recharger's inspect text** names the mech, the watts and about how long is left, or says it is waiting for power and how much.
+- **A mech's information card shows its recharger draw**, beside wastepacks per recharge, so you know the cost before you make one.
+  Click the line for its battery size, the heat, the draw when nearly full and how long a full charge takes.
 - **Mech battery size**: Standard, Large (three times the draw) or Huge (ten times). Charging takes the same time at each.
 - **Watch your grid.** A large mech plugging in at night can ask more than your batteries give; the game then switches things off at
   random, as in any shortage. Compact gravship rechargers lose their low-power advantage while this is on.

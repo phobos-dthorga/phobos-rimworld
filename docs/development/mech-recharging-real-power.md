@@ -1,6 +1,6 @@
 # Mech rechargers that draw real power
 
-**Status (20 Nov 2026):** built in D'thorga Patches 0.28.0 as a setting, off by default, with its sums in D'thorga Framework 0.198.0. Not yet tested in game. Feeding power back to the grid and a figure on a mech's information card are not built.
+**Status (20 Nov 2026):** built in D'thorga Patches 0.28.0 as a setting, off by default, with its sums in D'thorga Framework 0.198.0. Not yet tested in game. A mech's information card shows its recharger draw (the owner's follow-up request, the same day). Feeding power back to the grid is not built.
 
 The owner's request (20 Nov 2026): "a patch I wish to introduce, that's disabled by default, and I wish to make mechanoids take *real* power when they are recharging."
 
@@ -33,7 +33,7 @@ Averaged over its working life, a Diabolus costs about 67 W: a little over two s
 - **What it lets the player do:** size a mech bay as a real load; run small mechs cheaply; choose where each control group stops charging (the game's own recharge range) knowing the last fifth is slow.
 - **What it stops:** heavy mechs living on a trickle; a war queen filled from one-seventh of a battery on a compact recharger.
 - **How it changes play:** staggered charging, battery banks sized for the bay, a heavy recharger on a circuit that can carry it, a vent or cooler for a busy bay.
-- **What outside notices:** the power grid (a large mech plugging in is a load the whole colony feels, and a shortage switches other things off); the room (waste heat); the recharger's inspect text. Wastepacks are unchanged per unit of energy.
+- **What outside notices:** the power grid (a large mech plugging in is a load the whole colony feels, and a shortage switches other things off); the room (waste heat); the recharger's inspect text; the mech's information card. Wastepacks are unchanged per unit of energy.
 
 ## The model
 
@@ -85,10 +85,18 @@ The owner asked that this "work alongside mods that allow for power-saving featu
 | Size presets x1, x3 and x10, x1 the default | Agent default |
 | In D'thorga Patches, as a Biotech part | Agent default (a patch of the game's own behaviour) |
 
+## The information card
+
+The owner asked for it on 20 Nov 2026, after the first build. A stat, **recharger draw** (`PhobosMechRechargerDraw`, in the game's
+Mechanoid category beside wastepacks per recharge, laid out like the game's own max power output), shows the full-rate draw for the
+mech. Its explanation gives the battery's size, the power into it, the heat, the draw when full and the days from empty to full. It
+reads a living mech's own body size and maximum energy (another mod may raise either), else its kind's, so it shows on a gestator
+recipe's card too, and links to the two Biotech rechargers. Its worker hides it while the setting is off. The figures come from
+`MechCharging`, the same place as the recharger's.
+
 ## Limits and what is not built
 
 - **A shortage switches things off at random.** That is the game's own rule for any shortage; we add no warning beyond the recharger's "Waiting for power" line.
 - **Not built: mechs feeding the grid back** (a dormant mech as an emergency battery; offered to the owner on 20 Nov 2026 and left for later).
-- **Not built: a mech's draw on its information card.** Today the figure shows only on the recharger, once the mech is on it; the settings text gives four examples.
 - The battery chemistry is not modelled. The taper is a straight line standing in for a real charger's constant-voltage stage; no real cell's curve was looked up.
 - Test row 287 in the [in-game test pass](in-game-test-pass.md).

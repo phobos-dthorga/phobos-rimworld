@@ -48,26 +48,38 @@ public static class MechCharging
     public static ChargeFigures FiguresFor(Pawn mech, Need_MechEnergy energy) => FiguresAt(mech, energy, Fraction(energy));
 
     /// <summary>What this mech takes at a charge level (0 to 1).</summary>
-    public static ChargeFigures FiguresAt(Pawn mech, Need_MechEnergy energy, float charge)
+    public static ChargeFigures FiguresAt(Pawn mech, Need_MechEnergy energy, float charge) =>
+        FiguresAt(mech.BodySize, energy.MaxLevel, charge, BiotechPatchesMod.Settings.batteryScale);
+
+    /// <summary>What a mech of a body size and maximum energy takes at a charge level (0 to 1), at a battery size preset. The one place
+    /// the figures are worked out: the recharger, its inspect text, the mech's information card and the settings text all come here.</summary>
+    public static ChargeFigures FiguresAt(float bodySize, float maxEnergy, float charge, float batteryScale)
     {
         PhobosMechChargingRulesDef rules = Rules;
-        float max = energy.MaxLevel;
-        double capacity = BatteryChargeRule.CapacityWattDays(mech.BodySize, rules.wattDaysPerBodySize * BiotechPatchesMod.Settings.batteryScale,
-            rules.standardMaxEnergy > 0f ? max / rules.standardMaxEnergy : 1f);
         double taper = BatteryChargeRule.Taper(charge, rules.easesFrom, rules.rateWhenFull);
-        double stored = BatteryChargeRule.StoredWatts(capacity, FractionPerDay(max), taper);
+        double stored = BatteryChargeRule.StoredWatts(CapacityWattDays(bodySize, maxEnergy, batteryScale), FractionPerDay(maxEnergy), taper);
         return new ChargeFigures((float)taper, (float)BatteryChargeRule.WallWatts(stored, rules.efficiency),
             (float)BatteryChargeRule.LostWatts(stored, rules.efficiency));
     }
 
-    /// <summary>What a mech of a body size draws at the full rate, with a standard battery at a size preset: for settings text, where
-    /// no mech is to hand.</summary>
-    public static float FullRateWatts(float bodySize, float batteryScale)
+    /// <summary>What a mech's battery holds, in watt-days.</summary>
+    public static float CapacityWattDays(float bodySize, float maxEnergy, float batteryScale)
     {
         PhobosMechChargingRulesDef rules = Rules;
-        double capacity = BatteryChargeRule.CapacityWattDays(bodySize, rules.wattDaysPerBodySize * batteryScale);
-        return (float)BatteryChargeRule.WallWatts(BatteryChargeRule.StoredWatts(capacity, FractionPerDay(rules.standardMaxEnergy)), rules.efficiency);
+        return (float)BatteryChargeRule.CapacityWattDays(bodySize, rules.wattDaysPerBodySize * batteryScale,
+            rules.standardMaxEnergy > 0f ? maxEnergy / rules.standardMaxEnergy : 1f);
     }
+
+    /// <summary>Days to charge a mech's battery from empty to full at the full rate, with the taper; endless when it never would.</summary>
+    public static double DaysEmptyToFull(float maxEnergy)
+    {
+        PhobosMechChargingRulesDef rules = Rules;
+        return BatteryChargeRule.DaysToReach(0, 1, FractionPerDay(maxEnergy), rules.easesFrom, rules.rateWhenFull);
+    }
+
+    /// <summary>What a mech of a body size draws at the full rate, with a standard battery at a size preset: for settings text, where
+    /// no mech is to hand.</summary>
+    public static float FullRateWatts(float bodySize, float batteryScale) => FiguresAt(bodySize, Rules.standardMaxEnergy, 0f, batteryScale).WallWatts;
 
     /// <summary>The share of a battery the game's recharger adds in a day at full rate: its own 50 units a day over the mech's maximum.</summary>
     public static float FractionPerDay(float maxEnergy) => maxEnergy > 0f ? Building_MechCharger.ChargePerDay / maxEnergy : 0f;

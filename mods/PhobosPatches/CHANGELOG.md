@@ -17,6 +17,7 @@ Mech rechargers can draw power by the size of the mech on them (off by default)
 - **A charging recharger warms its room.** About a sixth of the power it draws becomes heat: a tunneler's recharger gives about as much as one heater. It stops warming a room hotter than 80 C.
 - **A recharger with no mech on it draws a twentieth of its listed power**, where the game drew all of it.
 - **The recharger says what it is doing**: who is charging, the watts, and about how long is left; that charging is slowing as the battery fills; or that it waits for power and how much the mech needs.
+- **A mech's information card shows its recharger draw** (owner's request, 20 Nov 2026), under its mechanoid figures beside wastepacks per recharge, so you can see what a mech will cost to charge before you make one. Click it for the battery's size, the power into it, the heat, the draw when nearly full and the time from empty to full. It shows for a living mech and for a mech's kind (a gestator's recipe), and links to the two mech rechargers. Shown only while the setting is on.
 - **A Mechanoids page in the settings**, shown while Biotech is active, with two settings. Mech rechargers draw power by the size of the mech: off by default. Mech battery size: Standard (the default), Large (three times the draw) or Huge (ten times); charging takes the same time at each.
 
 ### Balance
@@ -35,7 +36,7 @@ Mech rechargers can draw power by the size of the mech on them (off by default)
 
 - **A large mech can ask more than a small grid has.** The game then switches things off at random, as it does in any power shortage: it may be the recharger, it may be a freezer. Compact gravship rechargers lose their low-power advantage while the setting is on.
 - Written to work under power-saving mods. LightsOut holds an unused recharger on standby and scales what a power user reports; read from its source, it works on top of our figures and neither undoes the other. Not yet seen in game.
-- Not built: mechs feeding power back to the grid, and a mech's draw on its information card.
+- Not built: mechs feeding power back to the grid.
 - Not yet tested in game.
 
 ## [0.27.0] - 2026-11-20 - Draft

@@ -124,7 +124,7 @@ every tick ([Visit Settlements](../../docs/player-guide/patches.md#visit-settlem
 ### Biotech
 
 A setting, off by default: mech rechargers draw power by the size of the mech on them, charging slows over the last fifth of the
-battery, and a charging recharger warms its room
+battery, a charging recharger warms its room, and a mech's information card shows its recharger draw
 ([mech rechargers](../../docs/player-guide/patches.md#mech-rechargers-with-real-power-biotech)).
 
 ### Vanilla Factions Expanded - Classical
