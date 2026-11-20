@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.0] - 2026-11-20 - Draft
+
+Batch two: tractors, implements, upgrades and bought seed
+
 ### Added
 
 - **The Thane tractors, small and medium, in two models each** (the owner's picks of 20 November 2026), under one button each in the motor pool: the T60 and the T60 F on wide tyres, the ballasted T130 and the lighter T130 RC. Each carries an implement on its three-point linkage and pulls on its drawbar, and drives a paddock row by row with the implement working. Unlocked by the new research **Tillage and sowing**, which needs Mechanised harvesting and Machining; a second, **Articulated tractors**, follows it for the large tractor to come.
@@ -13,12 +17,18 @@ tested in game unless an entry says the owner tested it.
 - **Upgrades for every machine** (the owner's picks of 20 November 2026), each drawn on the machine once fitted: liquid tyre ballast and front weights (more weight on the wheels, more grip, a little more fuel), dual rear wheels (more grip on soft ground), a bigger fuel tank (the framework's auxiliary fuel tank, drawn as a saddle tank), wing extensions that widen the plough to two cells and the cultivators and drill to seven (pulling harder as they widen), and a hopper extension that holds half as much seed again. Needs D'thorga Framework's soft ground grip (in its Unreleased changes).
 - **Bought seed**: seed grain, sold by bulk goods caravans and orbital bulk traders at about three times grain's value, which a seed drill sows any crop with.
 - **The tractors' engines sound like real tractors** (the owner's picks of 20 November 2026): recordings of real farm tractors for the small and medium sizes, starting, idling, working and stopping, rising in pitch with the engine and blending into the working sound under load; the large tractor's built from the medium ones, lowered and layered; generated starts where no recording had one. Credits are in the README.
-- Their pictures, and those of the large tractor, the plough, the cultivators and the drill, ready for the next pieces.
 - **A new setting, Agricultural Frame: hay only from straw crops, on by default** (the owner's request; Mod settings, D'thorga Farming, General, under Other mods, shown only with The Dead Man's Switch - Legion). Its Agricultural Frame drops hay with every plant it harvests, cabbages and berries included. On, only crops that leave straw or forage behind give it: grains, peas, chickpeas, canola, corn, sunflowers and haygrass. Vegetables, fruit, root crops, cotton, flowers and herbs give none. The frame's own amounts are kept. Off, it is as its author made it. Takes effect at once. Each crop class now says whether it leaves straw, in its XML, so other mods' crops follow the class they are put in.
 
 ### Compatibility and limits
 
-- **Part of batch two, not finished:** the tractors have no door, brake or fuel sounds yet; the liquid ballast node shows the dual wheels' icon until its own is drawn; an implement does not yet look different while lifted; and batch two is installed only once whole (the owner's choice). Their figures are the agent's, in the ranges of real tractors.
+- **Not yet in this batch:** the tractors' door, brake and fuel sounds; the liquid ballast node shows the dual wheels' icon until its own is drawn; an implement does not yet look different while lifted. Every figure is the agent's, in the ranges of real tractors.
+- **Grain and seed reach a drill two ways**: poured from a bin or cart, or taken in from stacks hauled next to it (D'thorga Framework's Load from the ground).
+- Safe to add to a running colony. Removing it removes every tractor and implement with the mod.
+- Not yet tested in game: rows 276, 277, 279 to 281, 285 and 291 to 293 of the test pass.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.200.0 with its changes since (soft ground grip, loading from the ground), installed with it.
 
 ### Fixed
 

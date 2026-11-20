@@ -7,6 +7,8 @@ tested in game unless an entry says the owner tested it.
 
 ### Added
 
+- **A bulk hold can load from the ground**: its **Load from the ground** button lists the loose grain and seed lying within its auger's reach, and takes in the one you choose, step by step at the auger's rate, as a farmer augers grain up from a heap. Before, a hold filled only by pouring from another hold, so grain kept in stacks and bought seed could never reach a seed drill. It never takes anything but raw plant food and raw resources in stacks, nor anything forbidden. Not yet tested in game: row 293 of the test pass.
+
 - **An upgrade can add grip on soft ground**: a new vehicle figure, soft ground grip, which a fitted upgrade raises on top of the tyre fittings' own (D'thorga Farming's dual rear wheels give a quarter more on the softest ground, tapering to none on firm going).
 
 ### Fixed

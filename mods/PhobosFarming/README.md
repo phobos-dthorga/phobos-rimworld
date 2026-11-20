@@ -1,19 +1,27 @@
 # D'thorga Farming
 
-Machines that work your fields: mark a growing zone as a paddock, and a combine harvester cuts it row by row by itself.
+Machines that work your fields: mark a growing zone as a paddock, and tractors plough, cultivate and sow it, and a combine harvester
+cuts it, row by row by themselves.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.6.0, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.7.0, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
-- **Needs Vehicle Framework and D'thorga Framework** (0.189.0 or later). Load it after both; the About file asks for this, so RimSort
+- **Needs Vehicle Framework and D'thorga Framework** (0.200.0 or later). Load it after both; the About file asks for this, so RimSort
   does it for you.
 - **A combine has no front until you fit one.** Research **mechanised harvesting**, build the **Reaper combine harvester** (Architect >
   Motor pool), then fit the **standard grain front** from its upgrades. Without a front it refuses to harvest and says why.
-- **Mark the field first.** Select a growing zone and press **Machine-worked**. Colonists then keep off it. **There is no seed drill
-  yet**: to sow a paddock, turn **Hands may help** on, and off again once it is sown.
+- **Mark the field first.** Select a growing zone and press **Machine-worked**. Colonists then keep off it, unless **Hands may help** is
+  on.
+- **Tractors carry or pull an implement; they do nothing alone.** Research **tillage and sowing**, build a **Thane** tractor and an
+  implement, and hitch the implement: the **Sillion plough** and the **Tillman cultivators** on the three-point linkage, the **Coulter
+  seed drill** on the drawbar. Then the tractor's **Plough**, **Cultivate** or **Sow a paddock** order appears.
+- **The Thane T400 is built in two halves.** Its blueprint is the front half: **leave room behind it**, where its rear half is set down
+  when it is finished. The halves never come apart.
+- **A drill needs seed in its hopper**: the crop's own grain kept back from a harvest, or **seed grain** bought from bulk goods traders.
+  Pour it in from a bin or cart, or haul the stacks next to the drill and press **Load from the ground**.
 - **Each front cuts only the crops it really could.** The grain fronts take cereals, pulses and oilseeds: rice, and with Vanilla Cooking
   Expanded or Vanilla Plants Expanded their wheat, barley, oats, rye, sorghum, buckwheat, chickpeas, peas and canola. **The corn header
   takes corn and sunflowers.** **Potatoes, hay and cotton need harvesters that come later**, and stay for hands. Another mod's crop is
@@ -32,16 +40,19 @@ Version 0.6.0, built 20 November 2026 for House D'thorga. **Not yet tested in ga
 ## What it does
 
 1. **Mark a paddock.** Machine-worked on any growing zone. Hands may help lets colonists sow and harvest it too.
-2. **Fit a front and give the combine a driver.** Press **Harvest a paddock** and pick the paddock. With nobody aboard, it calls a
+2. **Prepare and sow it with a tractor.** Hitch a plough or cultivator, press **Plough** or **Cultivate a paddock**: weeds and wild plants
+   go, a sown crop never does. The turnover plough rolls over at each row's end. Then hitch a seed drill with seed in it and press **Sow a
+   paddock**. A cart can follow behind any implement. **Lower** works an implement by hand anywhere the tractor drives.
+3. **Fit a front and give the combine a driver.** Press **Harvest a paddock** and pick the paddock. With nobody aboard, it calls a
    colonist with Drive work to take the wheel.
-3. **It works the rows by itself.** It lays the paddock out in rows along its longer side, starting from the corner nearest it, drives each
+4. **It works the rows by itself.** It lays the paddock out in rows along its longer side, starting from the corner nearest it, drives each
    row and cuts every ripe plant its front covers. Unripe plants are left standing.
-4. **It cuts as a colonist would.** The driver's harvesting skill sets the yield and the chance of a failed cut. Other mods that act when a
+5. **It cuts as a colonist would.** The driver's harvesting skill sets the yield and the chance of a failed cut. Other mods that act when a
    plant is harvested still see the harvest. Straw and other second products are left lying where each row ends, unless a straw chopper
    is fitted.
-5. **When its tank is full** it drives to the nearest chaser bin, field bin or silo with room, pours the grain in through its auger,
+6. **When its tank is full** it drives to the nearest chaser bin, field bin or silo with room, pours the grain in through its auger,
    and goes back to the rows. With nowhere to empty, it stops and says so.
-6. **Grain is held by weight, as one amount**, not in stacks. Pour it from a chaser bin onto the ground, where colonists haul it as
+7. **Grain is held by weight, as one amount**, not in stacks. Pour it from a chaser bin onto the ground, where colonists haul it as
    usual, or into another bin. It goes off as it would in the open.
 
 | Machine | What it is | Holds |
@@ -50,6 +61,16 @@ Version 0.6.0, built 20 November 2026 for House D'thorga. **Not yet tested in ga
 | Garner chaser bin | Towed; 3 by 7 cells | 12 tonnes, any crops |
 | Field bin | A building, 3 by 3 cells | 25 tonnes, any crops |
 | Grain silo | A building, 4 by 4 cells, 300 W | 60 tonnes, any crops; keeps four times as long while powered |
+| Thane T60 and T60 F | Small tractor, 60 kW, 3 by 5 cells; the F on wide tyres | Linkage and drawbar |
+| Thane T130 and T130 RC | Medium tractor, 130 kW, 3 by 6 cells; the standard ballasted, the RC lighter | Linkage, drawbar and pick-up hitch |
+| Thane T400 and T400 B | Large articulated tractor, 400 kW, two halves of 4 by 4 cells; the B ballasted | Linkage, drawbar and pick-up hitch on its rear half |
+| Sillion turnover plough | On the linkage, 1 cell wide (2 with the wing extension) | |
+| Tillman cultivator and light cultivator | On the linkage, 4 cells wide (7 with the wing extension); the light one pulls easier | |
+| Coulter seed drill | On the drawbar, 4 cells wide (7 with the wing extension) | 1.5 tonnes of seed (half as much again with the hopper extension) |
+
+**Upgrades:** liquid tyre ballast and front weights (more grip, a little more fuel), dual rear wheels (more grip on soft ground) and
+the framework's auxiliary fuel tank (drawn as a saddle tank) on the tractors; wing extensions on every implement and a hopper extension
+on the drill. Each is drawn on the machine once fitted.
 
 Every figure is authored, to tune in play.
 

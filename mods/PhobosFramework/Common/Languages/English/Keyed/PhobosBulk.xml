@@ -29,4 +29,15 @@
   <PhobosBulk_LinePouring>Pouring into {INTO}</PhobosBulk_LinePouring>
   <PhobosBulk_LineAired>Air is blowing through it: it keeps longer.</PhobosBulk_LineAired>
   <PhobosBulk_LineNotAired>No power for its fan: it keeps no longer than in the open.</PhobosBulk_LineNotAired>
+  <!-- Framework 0.201.0: loading from the ground. -->
+  <PhobosBulk_GizmoLoad>Load from the ground</PhobosBulk_GizmoLoad>
+  <PhobosBulk_GizmoLoadDesc>{HOLD} takes in loose grain or seed lying within {CELLS} cells of it through its auger, as a farmer augers grain up from a heap. Haul the stacks next to it first, then choose what to take in.</PhobosBulk_GizmoLoadDesc>
+  <PhobosBulk_NothingInReach>No loose grain or seed lies within {CELLS} cells of {HOLD}. Haul some next to it first.</PhobosBulk_NothingInReach>
+  <PhobosBulk_LoadOption>Take in {WHAT} ({COUNT} within reach)</PhobosBulk_LoadOption>
+  <PhobosBulk_LoadOptionRefused>{WHAT}: {WHY}</PhobosBulk_LoadOptionRefused>
+  <PhobosBulk_LoadNoRoom>{HOLD} has no room for {WHAT}.</PhobosBulk_LoadNoRoom>
+  <PhobosBulk_LoadStarted>{HOLD} is taking in {WHAT} from the ground.</PhobosBulk_LoadStarted>
+  <PhobosBulk_LoadDone>{HOLD} took in {COUNT} {WHAT}.</PhobosBulk_LoadDone>
+  <PhobosBulk_EndNothingLeft>Nothing more lies within reach.</PhobosBulk_EndNothingLeft>
+  <PhobosBulk_LineLoading>Taking in {WHAT} from the ground.</PhobosBulk_LineLoading>
 </LanguageData>

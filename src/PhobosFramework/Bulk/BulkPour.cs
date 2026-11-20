@@ -43,12 +43,15 @@ public class BulkPouring : IExposable
     public bool active;
     /// <summary>How much this pour has moved, in units, for the message at its end.</summary>
     public int moved;
+    /// <summary>Framework 0.201.0: the product its auger takes in from the ground, while loading instead of pouring; null otherwise.</summary>
+    public ThingDef? loading;
 
     public void ExposeData()
     {
         Scribe_References.Look(ref into, "into");
         Scribe_Values.Look(ref active, "active");
         Scribe_Values.Look(ref moved, "moved");
+        Scribe_Defs.Look(ref loading, "loading");
     }
 }
 
@@ -129,6 +132,11 @@ public static class BulkPour
     public static void Step(IBulkHold from, BulkPouring state)
     {
         if (!state.active) return;
+        if (state.loading != null)
+        {
+            LoadStep(from, state);
+            return;
+        }
         IBulkHold? to = state.into != null ? HoldOf(state.into) : null;
         if (state.into != null && (to == null || state.into.Destroyed))
         {
@@ -203,9 +211,125 @@ public static class BulkPour
         return moved;
     }
 
+    // ---- Loading from the ground (Framework 0.201.0) ----
+
+    /// <summary>
+    /// Whether a thing is loose goods an auger can take in from a heap: a stack of raw plant food (grain) or raw resources (seed grain),
+    /// not forbidden. Anything else (a weapon, a body, a building) never goes into a hold.
+    /// </summary>
+    public static bool Loose(Thing thing) =>
+        thing.def.category == ThingCategory.Item && thing.def.stackLimit > 1 && !thing.IsForbidden(Faction.OfPlayer)
+        && (thing.def.IsWithinCategory(ThingCategoryDefOf.PlantFoodRaw) || thing.def.IsWithinCategory(ThingCategoryDefOf.ResourcesRaw));
+
+    /// <summary>The loose goods within the auger's reach of this hold, by product, nearest stacks first.</summary>
+    public static Dictionary<ThingDef, List<Thing>> GroundInReach(IBulkHold hold)
+    {
+        var found = new Dictionary<ThingDef, List<Thing>>();
+        Thing holder = hold.HoldThing;
+        if (!holder.Spawned) return found;
+        Map map = holder.Map;
+        CellRect around = holder.OccupiedRect().ExpandedBy(hold.ReachCells).ClipInsideMap(map);
+        CellRect own = holder.OccupiedRect();
+        foreach (IntVec3 cell in around)
+        {
+            if (own.Contains(cell)) continue;
+            List<Thing> things = cell.GetThingList(map);
+            for (int i = 0; i < things.Count; i++)
+            {
+                if (!Loose(things[i])) continue;
+                if (!found.TryGetValue(things[i].def, out List<Thing>? list)) found[things[i].def] = list = new List<Thing>();
+                list.Add(things[i]);
+            }
+        }
+        return found;
+    }
+
+    /// <summary>Why this hold cannot take in this product from the ground now, or null.</summary>
+    public static string? LoadRefusal(IBulkHold hold, ThingDef def)
+    {
+        NamedArgument name = hold.HoldThing.LabelShort.Named("HOLD");
+        if (hold.CannotReceive() is { } refused) return refused;
+        if (!hold.Contents.Takes(def, hold.MixesProducts) || hold.Contents.RoomFor(def, hold.CapacityKg) <= 0)
+        {
+            return "PhobosBulk_LoadNoRoom".Translate(name, def.label.Named("WHAT")).Resolve();
+        }
+        return null;
+    }
+
+    /// <summary>Starts taking in a product from the ground, saying why not if it cannot.</summary>
+    public static void StartLoading(IBulkHold hold, BulkPouring state, ThingDef def)
+    {
+        if (LoadRefusal(hold, def) is { } why)
+        {
+            Messages.Message(why, hold.HoldThing, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        state.into = null;
+        state.loading = def;
+        state.active = true;
+        state.moved = 0;
+        Messages.Message("PhobosBulk_LoadStarted".Translate(hold.HoldThing.LabelShort.Named("HOLD"), def.label.Named("WHAT")).Resolve(),
+            hold.HoldThing, MessageTypeDefOf.SilentInput, historical: false);
+    }
+
+    /// <summary>One step of loading: as much as the auger moves in a step, from the nearest stacks in reach, as fresh as they are.</summary>
+    static void LoadStep(IBulkHold hold, BulkPouring state)
+    {
+        ThingDef def = state.loading!;
+        if (LoadRefusal(hold, def) is { } why)
+        {
+            End(hold, state, why);
+            return;
+        }
+        if (!GroundInReach(hold).TryGetValue(def, out List<Thing>? stacks) || stacks.Count == 0)
+        {
+            End(hold, state, "PhobosBulk_EndNothingLeft".Translate().Resolve());
+            return;
+        }
+        Age(hold);
+        int left = BulkHoldRule.UnitsPerStep(hold.PourKgPerSecond, SecondsPerRareTick, def.BaseMass);
+        int moved = 0;
+        foreach (Thing stack in stacks)
+        {
+            if (left <= 0) break;
+            int count = System.Math.Min(System.Math.Min(left, stack.stackCount), hold.Contents.RoomFor(def, hold.CapacityKg));
+            if (count <= 0) break;
+            int added = hold.Contents.Add(def, count, UsedShare(stack), hold.CapacityKg, hold.MixesProducts);
+            if (added <= 0) break;
+            stack.SplitOff(added).Destroy();
+            moved += added;
+            left -= added;
+        }
+        if (moved <= 0)
+        {
+            End(hold, state, "PhobosBulk_EndNoRoom".Translate().Resolve());
+            return;
+        }
+        state.moved += moved;
+        hold.ContentsChanged();
+        if (Seen.Wants("bulk.load-from-ground", hold.HoldThing)) Seen.Note("bulk.load-from-ground", hold.HoldThing, def.defName);
+    }
+
+    /// <summary>How much of its life a stack has used: its rot progress against when it starts to rot; nought for what never rots.</summary>
+    static float UsedShare(Thing stack)
+    {
+        CompRottable? rot = stack.TryGetComp<CompRottable>();
+        if (rot == null || rot.PropsRot.TicksToRotStart <= 0) return 0f;
+        return Mathf.Clamp01(rot.RotProgress / rot.PropsRot.TicksToRotStart);
+    }
+
     static void End(IBulkHold from, BulkPouring state, string why)
     {
         if (!state.active) return;
+        if (state.loading != null)
+        {
+            Messages.Message("PhobosBulk_LoadDone".Translate(from.HoldThing.LabelShort.Named("HOLD"), state.moved.Named("COUNT"),
+                state.loading.label.Named("WHAT")).Resolve() + " " + why, from.HoldThing, state.moved > 0 ? MessageTypeDefOf.TaskCompletion : MessageTypeDefOf.CautionInput);
+            state.active = false;
+            state.loading = null;
+            state.moved = 0;
+            return;
+        }
         state.active = false;
         string where = state.into?.LabelShort ?? "PhobosBulk_TheGround".Translate().Resolve();
         Messages.Message("PhobosBulk_Done".Translate(from.HoldThing.LabelShort.Named("HOLD"), state.moved.Named("COUNT"), where.Named("INTO")).Resolve()
@@ -266,6 +390,35 @@ public static class BulkPour
         if (hold.Contents.Empty) pour.Disable("PhobosBulk_Empty".Translate(name).Resolve());
         else if (hold.CannotPour() is { } cannot) pour.Disable(cannot);
         yield return pour;
+        // Framework 0.201.0: the auger takes in loose goods lying within its reach (grain kept back in stacks, bought seed).
+        var load = new Command_Action
+        {
+            defaultLabel = "PhobosBulk_GizmoLoad".Translate().Resolve(),
+            defaultDesc = "PhobosBulk_GizmoLoadDesc".Translate(name, hold.ReachCells.Named("CELLS")).Resolve(),
+            icon = Icon(LoadIcon),
+            action = () => Find.WindowStack.Add(new FloatMenu(LoadOptions(hold, state))),
+        };
+        if (hold.CannotReceive() is { } refused) load.Disable(refused);
+        else if (GroundInReach(hold).Count == 0) load.Disable("PhobosBulk_NothingInReach".Translate(name, hold.ReachCells.Named("CELLS")).Resolve());
+        yield return load;
+    }
+
+    /// <summary>The game's own load picture (the transport pod's), confirmed in the game's code.</summary>
+    const string LoadIcon = "UI/Commands/LoadTransporter";
+
+    static List<FloatMenuOption> LoadOptions(IBulkHold hold, BulkPouring state)
+    {
+        var options = new List<FloatMenuOption>();
+        foreach (KeyValuePair<ThingDef, List<Thing>> product in GroundInReach(hold).OrderBy(p => p.Key.label))
+        {
+            int count = product.Value.Sum(t => t.stackCount);
+            string? refused = LoadRefusal(hold, product.Key);
+            options.Add(new FloatMenuOption(refused == null
+                    ? "PhobosBulk_LoadOption".Translate(product.Key.label.Named("WHAT"), count.Named("COUNT")).Resolve()
+                    : "PhobosBulk_LoadOptionRefused".Translate(product.Key.label.Named("WHAT"), refused.Named("WHY")).Resolve(),
+                refused == null ? () => StartLoading(hold, state, product.Key) : null));
+        }
+        return options;
     }
 
     static List<FloatMenuOption> PourOptions(IBulkHold hold, BulkPouring state)
@@ -292,7 +445,11 @@ public static class BulkPour
             ? "PhobosBulk_LineEmpty".Translate(hold.CapacityKg.ToString("N0").Named("CAPACITY")).Resolve()
             : "PhobosBulk_Line".Translate(kg.ToString("N0").Named("MASS"), hold.CapacityKg.ToString("N0").Named("CAPACITY"),
                 hold.Contents.Summary.Named("WHAT")).Resolve();
-        if (state.active)
+        if (state.active && state.loading != null)
+        {
+            line += "\n" + "PhobosBulk_LineLoading".Translate(state.loading.label.Named("WHAT")).Resolve();
+        }
+        else if (state.active)
         {
             string where = state.into?.LabelShort ?? "PhobosBulk_TheGround".Translate().Resolve();
             line += "\n" + "PhobosBulk_LinePouring".Translate(where.Named("INTO")).Resolve();

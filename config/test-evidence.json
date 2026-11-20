@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "293": {"parts": {
+      "a hold takes in loose goods from the ground": ["bulk.load-from-ground"]
+    }},
     "290": {"parts": {
       "a depot in frost or a wet climate weathers": [{"key": "vehicles.depot-pressure", "variant": "weathered"}],
       "a depot's old fuel goes stale": [{"key": "vehicles.depot-pressure", "variant": "stale"}],

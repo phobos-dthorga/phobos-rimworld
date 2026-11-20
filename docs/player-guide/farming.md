@@ -1,7 +1,7 @@
 # Farming
 
-**D'thorga Farming** adds machines that work your fields: mark a growing zone as a paddock, and a combine harvester cuts it row by
-row by itself, emptying its grain into a chaser bin. [Back to the guide](README.md).
+**D'thorga Farming** adds machines that work your fields: mark a growing zone as a paddock, and tractors plough and sow it while a
+combine harvester cuts it, row by row by themselves, emptying its grain into a chaser bin. [Back to the guide](README.md).
 
 ![The Reaper combine harvester with its standard grain front](../../mods/PhobosFarming/Common/Textures/Phobos/Farming/Combine/Combine_icon.png)
 
@@ -10,7 +10,11 @@ row by itself, emptying its grain into a chaser bin. [Back to the guide](README.
 - **Not yet tested in game.**
 - **Needs Vehicle Framework and D'thorga Framework.**
 - **A combine has no front until you fit one**, and refuses to harvest without it. Fit the **standard grain front** from its upgrades.
-- **There is no seed drill yet.** To sow a paddock, turn **Hands may help** on, and off again once it is sown.
+- **Tractors carry or pull an implement; they do nothing alone.** Hitch a plough or cultivator to the linkage, or a seed drill to the
+  drawbar, and the tractor's order appears.
+- **The Thane T400 is built in two halves: leave room behind its blueprint** for the rear half.
+- **A drill needs seed in its hopper**: some of the crop's own grain, or **seed grain** bought from bulk goods traders. Haul the stacks
+  next to the drill and press **Load from the ground**, or pour it in from a bin or cart.
 - **Hands use seed too** (a setting, off by default): with it on, a colonist sowing grain, peas, oilseeds or corn by hand first takes a
   handful from a stockpile, and will not sow that crop without it. Keep some of each harvest back.
 - **With The Dead Man's Switch - Legion, its Agricultural Frame's extra hay comes only from crops that leave straw** (a setting, on by
@@ -23,6 +27,20 @@ row by itself, emptying its grain into a chaser bin. [Back to the guide](README.
   as long only while its fan has power.**
 
 ## Using it
+
+**Ploughing and sowing**
+
+1. **Research tillage and sowing** (D'thorga tab). Build a **Thane** tractor and an implement under **Architect > Motor pool**: the
+   T60 and T130 come in two models each, under one button.
+2. **Hitch the implement**: select the tractor, press **Hitch a trailer** and pick the implement; a colonist couples it. To pull a cart
+   too, press **Hitch behind** on the tractor and pick the cart.
+3. **Plough or cultivate**: press **Plough a paddock** or **Cultivate a paddock** and pick the paddock. Weeds, stubble and wild plants
+   go; a sown crop never does. The turnover plough rolls over at each row's end.
+4. **Sow**: get seed into the drill (haul stacks of the crop's own grain or bought seed grain next to it and press **Load from the
+   ground**, or pour from a bin), hitch it, and press **Sow a paddock**.
+5. **By hand**: press **Lower** on an implement and drive the tractor where you like; **Lift** stops it.
+
+**Harvesting**
 
 1. **Research mechanised harvesting** (D'thorga tab). Build the **Reaper combine harvester** and a **Garner chaser bin** under
    **Architect > Motor pool**.
@@ -43,6 +61,8 @@ row by itself, emptying its grain into a chaser bin. [Back to the guide](README.
 | Garner chaser bin | Towed by any vehicle with a hitch, 3 by 7 cells | 12 tonnes, any crops |
 | Field bin | A building, 3 by 3 cells | 25 tonnes, any crops |
 | Grain silo | A building, 4 by 4 cells, needs 300 W | 60 tonnes; keeps grain four times as long while powered |
+| Thane T60, T130, T400 | Tractors, small to large; the T400 bends in the middle | Implements on the linkage, carts on the drawbar |
+| Sillion plough, Tillman cultivators, Coulter drill | Implements, 1 to 4 cells wide, wider with wing extensions | The drill holds 1.5 tonnes of seed |
 
 **Straw** from barley and oats is left in heaps where each row ends, as a combine leaves it; fit the **straw chopper** to chop it into
 the field instead.
