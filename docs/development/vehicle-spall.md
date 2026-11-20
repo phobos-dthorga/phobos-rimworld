@@ -1,7 +1,8 @@
 # Spall inside our vehicles: what comes through a beaten plate (21 Nov 2026)
 
-**Status (21 Nov 2026):** design only; nothing is built. The owner chose a design record first (card, 21 Nov 2026); its questions
-are below.
+**Status (21 Nov 2026):** design only; nothing is built. The owner chose a design record first and answered its four questions the
+same day ([the answers](#the-owners-answers-cards-21-nov-2026)): moderate risk, on by default; every vehicle; the liner as proposed;
+shock spall for heavy hits.
 
 **The owner, 21 Nov 2026**, after an analysis of the Workshop mod "CE Additional Expansion for Armed Damage Combat" (which the owner
 then passed on): "What if we implement armor that matters layer-by-layer? Would that be a difficult thing, especially if we were to
@@ -26,8 +27,10 @@ inference; **[code]** was read in code on 21 Nov 2026 (Combat Extended's vehicle
   damages, and we already put reactors of our own on parts at start-up (`Reactor_PhobosVehicleSystems`, our turret popper). A spall
   reactor goes on outer parts the same way.
 - **People are left alone.** Combat Extended's layers and More Injuries' spalling already cover them; this record is for vehicles.
-- **Risky for crews, so it has its own setting.** Graded high by the shared rule's wording (a crew member can die in one hit), so it
-  starts off, unless the owner grades it otherwise (question 1).
+- **Risky for crews, so it has its own setting.** **Graded moderate by the owner, so it starts on** [O, 21 Nov 2026]; the agent had
+  proposed high.
+- **Every vehicle** with plates of the Rifle class or more, other mods' included [O], and **stopped heavy hits throw shock spall
+  too** [O].
 
 ## What Combat Extended already does to a vehicle [code]
 
@@ -86,11 +89,11 @@ what the plate took.
 
 ### Spall from a beaten plate [A]
 
-1. **Which parts.** Every outer part of a vehicle in scope (question 2) carries a spall reactor, added at start-up beside our systems
+1. **Which parts.** Every outer part of every vehicle (owner) carries a spall reactor, added at start-up beside our systems
    reactor. At a hit it acts only when Combat Extended is active, the hit is sharp, and the part's sharp armour is the **Rifle class
    (8 mm) or more**: thin skin tears rather than spalls **[I]**, and our trucks' Skin parts throw nothing until a kit is fitted.
-2. **When.** On the armour-step report (the first of the two), when the face is beaten (Penetrated). A hit stopped by the face throws
-   nothing in the first build; the "without penetrating" spall Rheinmetall describes is question 4.
+2. **When.** On the armour-step report (the first of the two), when the face is beaten (Penetrated). **A heavy hit the face stops
+   throws shock spall** [O], the spall "without penetrating" Rheinmetall describes (below).
 3. **How much.** We call Combat Extended's own `DamageArmor` on **copies** of the hit's figures (it changes nothing else), so our
    figures never drift from its rule: it gives what the plate took. **The spall pool is half of that** [A].
 4. **Where it goes.** Into the compartment behind the plate: the crew whose seats' hit areas share the plate's cells, and the inner
@@ -104,6 +107,20 @@ what the plate took.
      its reactors fire. A holed fuel tank leaks through Vehicle Framework's own fuel-leak reactor; a holed radiator loses coolant
      through our systems.
 6. **A guard against loops.** The spall reactor ignores hits made while it is applying its own fragments.
+
+### Shock spall from a stopped heavy hit [O, figures A]
+
+The owner's choice (21 Nov 2026), after Rheinmetall's description of spall thrown off the inner face by the shockwave of a hit that
+does not get through **[P]**.
+
+- **What counts as heavy** [A]: an explosive hit (a damage type the game marks explosive, such as a shell's blast) of **30 damage or
+  more**, or a sharp hit stopped with a penetration of **at least three quarters** of the plate's armour. Rifle fire bouncing off
+  thick plate throws nothing.
+- **How much** [A]: a **quarter** of what the plate took, against a half for a beaten plate. **One fragment**, lined or not, so it is
+  a wound rather than a spray; the liner cuts the pool to 30 % and narrows the reach as for ordinary spall.
+- **Read before building:** how Combat Extended reports a blast to the reactors. Blasts reach a vehicle as blunt hits, one per edge
+  cell of its footprint [code, the armour record], so a single shell may report several cells; shock spall is counted once per part
+  per hit.
 
 ### Spall liners [A]
 
@@ -127,6 +144,7 @@ what the plate took.
 | Behaviour | Lets the player | Stops them | Changes how they play |
 | --- | --- | --- | --- |
 | **Spall from a beaten plate** | See armour matter beyond "did it get through": a plate only just beaten still hurts the crew behind it | Keeping a crew unhurt behind a plate a round has just beaten | Heavier armour, or keeping out of range of weapons that beat it, is chosen for the crew's sake; wounded crew are rotated out |
+| **Shock spall** | See a heavy shell that bounced still hurt the crew | Sitting out shellfire unhurt behind a plate that stops it | A vehicle under heavy fire is pulled back even when nothing gets through |
 | **Spall liners** | Protect the crew of an armoured truck from its own plates | Fitting armour as if crews were safe behind any plate | A truck sent into fire gets a liner as well as a cab, and carries 200 kg more |
 
 **What outside the vehicle notices:**
@@ -138,14 +156,14 @@ what the plate took.
 
 ## Risk and settings
 
-- **Risk, graded high by the agent** (proposal): a crew member can be killed by one hit's spall, and the player cannot see a given hit
-  coming. The shared rule calls losing a person at once high, so **it starts off**.
-- **The case for moderate, which would start it on** (question 1): Combat Extended already wounds crew in these same hits; spall adds
-  to wounds the player already accepts by driving into fire; the armour class on the Health tab shows what a plate stops; and the
-  liner is the answer the game offers.
-- **Settings proposed** (D'thorga Framework, vehicles section; not built):
-  - **"Spall inside vehicles"**, default by the grade.
-  - **"Spall on other mods' vehicles"**, if question 2 is answered "every vehicle".
+- **Risk: moderate, graded by the owner (21 Nov 2026), so it starts on.** The agent had proposed high: a crew member can be killed by
+  one hit's spall, and the shared rule calls losing a person at once high. The case the owner's grade rests on: Combat Extended already
+  wounds crew in these same hits; spall adds to wounds the player already accepts by driving into fire; the armour class on the Health
+  tab shows what a plate stops; and the liner is the answer the game offers.
+- **Settings** (D'thorga Framework, vehicles section; not built), each on by default [O for the first; A for the others, following it]:
+  - **"Spall inside vehicles"**: the whole behaviour.
+  - **"Spall on other mods' vehicles"**: every vehicle not ours.
+  - **"Shock spall from heavy hits"**: spall from a stopped heavy hit.
 
 ## Other factions' vehicles
 
@@ -197,20 +215,22 @@ What it did that we will not:
 4. **Which upgrade-read pattern tells a vehicle has its liner**, as the litter kit is read once fitted.
 5. **A recording with `perf.py`** in a fight against an armoured vehicle, before and after.
 
-## The owner's questions
+## The owner's answers (cards, 21 Nov 2026)
 
-1. **The risk grade:** high, starting off (the agent's reading of the rule), or moderate, starting on?
-2. **Which vehicles:** every vehicle with plates of the Rifle class or more under Combat Extended, other mods' tanks included (the
-   agent's recommendation: that is where armour is thick, and raiders' tanks get it too), or ours only?
-3. **The liner:** as proposed (200 kg, liner panels from synthread, needs the armoured cab), or a different cost or weight?
-4. **Spall without penetration** (Rheinmetall's shockwave spall): leave it out of the first build (the agent's recommendation), or
-   include it for heavy and explosive hits?
+| # | Question | The owner's answer | The agent's recommendation |
+| --- | --- | --- | --- |
+| 1 | The risk grade | **Moderate, starts on** | High, starts off |
+| 2 | Which vehicles | **Every vehicle** with plates of the Rifle class or more, other mods' included, behind their own setting | The same |
+| 3 | The liner | **As proposed**: needs the armoured cab, 200 kg carried mass, liner panels from synthread (one item picture) | The same |
+| 4 | Spall without penetration | **Include it for heavy hits** | Leave it out of the first build |
 
 ## Who chose what
 
 - **Owner (21 Nov 2026):** a design record first (card); Combat Extended first, since a version without it would be harder to build;
-  vehicles, not people (the card's option to cover people was not taken).
-- **Agent:** everything marked [A]; the reactor route; the Rifle-class threshold; the high risk grade, as a proposal.
+  vehicles, not people (the card's option to cover people was not taken); then the four answers above: moderate risk and on, every
+  vehicle, the liner as proposed, shock spall for heavy hits.
+- **Agent:** everything marked [A]; the reactor route; the Rifle-class threshold; what counts as a heavy hit; the defaults of the
+  second and third settings.
 
 ## Sources
 
