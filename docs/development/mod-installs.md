@@ -13,8 +13,11 @@ from git history, and deleting old backups from the Companion, are not built.
 - **Going back past a change a save depends on can break that save.** Entries under "Save compatibility" are put first on every
   comparison. Read them before going back with a colony you care about, and keep a save copy.
 - **Going back and installing wait until RimWorld is closed.** A backup can be made while it runs.
-- **Nothing is deleted.** Going back keeps the backup, and the install it replaced becomes a new backup. Old backups are
-  `python scripts/cleanup.py`'s to list, and go only when the owner runs it with `--apply`.
+- **Nothing is lost, but repeats go.** Going back keeps the backup, and the install it replaced becomes a new backup. **Then
+  every install and go-back removes the mod's repeated backups** (owner, 20 Nov 2026: it "should be part of the normal process
+  of install/updating mods"; deploy.py and kit 1.64.0's `installs.tidy`): a backup the same as the one before it, or only
+  rebuilt from unchanged sources, keeping the oldest of each run, as the Companion's Remove repeated backups does. Other old
+  backups are `python scripts/cleanup.py`'s to list, and go only when the owner runs it with `--apply`.
 
 ## What it answers for (owner's request, 18 Nov 2026)
 

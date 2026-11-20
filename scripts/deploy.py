@@ -22,6 +22,10 @@ Every install writes InstallRecord.json into the installed copy (the commit, the
 D'thorga Companion's Mods page and phobos-modkit's installs tool: what updating or going back would gain or lose
 (docs/development/mod-installs.md). The same write adds "installed" to the history log, for the Companion's Timeline page.
 
+Then it removes the installed mods' repeated backups (owner, 20 Nov 2026: removing them "should be part of the normal process of
+install/updating mods"): a backup the same as the one before it, keeping the oldest of each run, as the Companion's Remove repeated
+backups does (phobos-modkit's installs.tidy). A failure there is reported and the install still stands.
+
 Installing D'thorga Framework also writes TestRows.tsv into the installed copy, never the repository's mod folder (seen-in-play
 checks, E8, 18 Nov 2026): the test rows still waiting for the owner and the notes that stand for each, for the Framework's dev-mode
 test-moment message. A Workshop copy has none and shows no message.
@@ -376,7 +380,7 @@ def main(argv=None):
     game = game_path(args.game)
     if args.apply and game_running():
         raise RuntimeError('RimWorld is running. Close it, then deploy again.')
-    steps.total = (len(projects()) if args.build else 0) + (len(mods) * (1 if args.no_dds else 2) if args.apply else 0)
+    steps.total = (len(projects()) if args.build else 0) + (len(mods) * (1 if args.no_dds else 2) + 1 if args.apply else 0)
     if args.build:
         build(steps=steps)
     if args.apply:
@@ -385,11 +389,32 @@ def main(argv=None):
         if args.apply:
             steps(f'Installing {mod}; its installed copy becomes a backup')
         deploy(mod, game, args.apply)
+    if args.apply:
+        steps('Removing repeated backups')
+        tidy_backups(mods)
     if args.apply and not args.no_dds:
         encode_installed(mods, game, args.todds, steps=steps)
     if args.apply:
         print(f'deployed {len(mods)} mod{"s" if len(mods) != 1 else ""}.')
     return 0
+
+
+def tidy_backups(mods, root=ROOT, log=print):
+    """
+    Removes the installed mods' repeated backups, keeping the oldest of each run: phobos-modkit's installs.tidy, which Companion's
+    go-back runs too, with the same kinds as its Remove repeated backups button. The install has already succeeded, so a failure is
+    reported, never raised. Returns what was removed.
+    """
+    from phobos_modkit import installs
+    try:
+        where = installs.place(Path(root))
+    except Exception as error:  # noqa: BLE001 (the install stands; only the tidying goes without)
+        removed, problem = [], str(error)
+    else:
+        removed, problem = installs.tidy(where, mods)
+    for line in installs.tidy_lines(removed, problem):
+        log(f'  {line}')
+    return removed
 
 
 def encode_installed(mods, game, explicit=None, find=todds_path, encode=encode_textures, log=print, steps=None):

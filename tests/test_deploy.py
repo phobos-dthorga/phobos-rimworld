@@ -269,17 +269,25 @@ class HeldFolderTests(unittest.TestCase):
         self.assertTrue(deploy.inside(Path('C:/Game/Mods/Example'), Path('C:/Game/Mods/Example')))
         self.assertFalse(deploy.inside(Path('C:/Game/Mods/ExampleTwo'), Path('C:/Game/Mods/Example')))
 
-    def test_apply_checks_every_mod_before_deploying_any(self):
+    def test_apply_checks_every_mod_before_deploying_any_and_tidies_after(self):
         calls = []
-        originals = deploy.deploy, deploy.check_movable, deploy.game_running
+        originals = deploy.deploy, deploy.check_movable, deploy.game_running, deploy.tidy_backups
         deploy.deploy = lambda mod, game, apply, **kw: calls.append(('deploy', mod)) or 0
         deploy.check_movable = lambda mods, game, **kw: calls.append(('check', tuple(mods)))
         deploy.game_running = lambda *a, **kw: False
+        deploy.tidy_backups = lambda mods, **kw: calls.append(('tidy', tuple(mods))) or []
         try:
             deploy.main(['--apply', '--game', 'nowhere', 'A', 'B'])
         finally:
-            deploy.deploy, deploy.check_movable, deploy.game_running = originals
-        self.assertEqual([('check', ('A', 'B')), ('deploy', 'A'), ('deploy', 'B')], calls)
+            deploy.deploy, deploy.check_movable, deploy.game_running, deploy.tidy_backups = originals
+        self.assertEqual([('check', ('A', 'B')), ('deploy', 'A'), ('deploy', 'B'), ('tidy', ('A', 'B'))], calls)
+
+    def test_tidy_backups_reports_a_failure_and_never_raises(self):
+        with tempfile.TemporaryDirectory() as folder:
+            lines = []
+            self.assertEqual([], deploy.tidy_backups(['A'], root=folder, log=lines.append))
+            self.assertEqual(1, len(lines))
+            self.assertIn('were not removed', lines[0])
 
 
 def installed_mod_with_textures(game, mod='Example', pngs=('Textures/A.png', 'Mods/Other/Common/Textures/B.png')):
@@ -412,16 +420,17 @@ class ToddsTests(unittest.TestCase):
 
     def test_no_dds_skips_the_step(self):
         calls = []
-        originals = deploy.deploy, deploy.check_movable, deploy.game_running, deploy.encode_installed
+        originals = deploy.deploy, deploy.check_movable, deploy.game_running, deploy.encode_installed, deploy.tidy_backups
         deploy.deploy = lambda mod, game, apply, **kw: 0
         deploy.check_movable = lambda mods, game, **kw: None
         deploy.game_running = lambda *a, **kw: False
         deploy.encode_installed = lambda mods, game, explicit=None, **kw: calls.append((tuple(mods), explicit)) or 0
+        deploy.tidy_backups = lambda mods, **kw: []
         try:
             deploy.main(['--apply', '--no-dds', '--game', 'nowhere', 'A'])
             deploy.main(['--apply', '--todds', 'X:/todds.exe', '--game', 'nowhere', 'A'])
         finally:
-            deploy.deploy, deploy.check_movable, deploy.game_running, deploy.encode_installed = originals
+            deploy.deploy, deploy.check_movable, deploy.game_running, deploy.encode_installed, deploy.tidy_backups = originals
         self.assertEqual([(('A',), 'X:/todds.exe')], calls)
 
 
