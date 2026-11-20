@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/Tip.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/gizmo-tip/gizmo-tip-14.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-tip/gizmo-tip-14.png",
   "source_sha256": "35d357cdbeff3aa12c757130570badf49399e336fe37bdf0537bd67148a5caa6",
   "target_sha256": "a8f82bf3cf9a411538eedc0a956256f5e7cf869f5b7ebadce39ac983b41c3826",
   "size": [

@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/Upgrades/GeophoneArray.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-survey-GeophoneArray/upgrade-survey-GeophoneArray-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-survey-GeophoneArray/upgrade-survey-GeophoneArray-1.png",
   "source_sha256": "97be74f70e98ddddc091a218ffeecd8a76bd63b09853a506665fcb23d1eff1e3",
   "target_sha256": "5d5572ecca2b150d7fa13f559a2ce9005d21be3a459cf5186fe1093af59cb472",
   "size": [

@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Tipper/Upgrades/HighSides.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-tipper-HighSides/upgrade-tipper-HighSides-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-tipper-HighSides/upgrade-tipper-HighSides-1.png",
   "source_sha256": "95655f082ff125fe498a9f37ba005db197875c8c9926d54a17fa181a7134cfef",
   "target_sha256": "fceeb8fd94d00c98d5ee7d1f44386ed6f471f7a453f7a942c46b87ae361a4d97",
   "size": [

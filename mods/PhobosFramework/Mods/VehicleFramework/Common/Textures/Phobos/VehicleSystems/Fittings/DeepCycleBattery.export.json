@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/DeepCycleBattery.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/fitting-deep-cycle-battery/fitting-deep-cycle-battery-2.png",
+  "source": "assets/phobos-vehicles/generated/fitting-deep-cycle-battery/fitting-deep-cycle-battery-2.png",
   "source_sha256": "728a96980ac0da30a0eaaa769f2e5573699c7b5ad1f426f2f9a638acdfd68a6c",
   "target_sha256": "1f0ce1c73c02a1eadb834663914f95f6addd5caa2711e03da64ccb4b9cdf2add",
   "size": [

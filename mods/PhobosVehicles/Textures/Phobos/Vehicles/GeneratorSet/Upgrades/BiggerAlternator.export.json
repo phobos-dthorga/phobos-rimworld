@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/GeneratorSet/Upgrades/BiggerAlternator.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-generator-BiggerAlternator/upgrade-generator-BiggerAlternator-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-generator-BiggerAlternator/upgrade-generator-BiggerAlternator-1.png",
   "source_sha256": "0ec7d787f4d93be95ca28630223432b0036a9ef817898802663b4ea3557403f6",
   "target_sha256": "7b634ce53131e8a7aec0733830fcfd32825d80f0d59f9fdafea7029260b597cd",
   "size": [

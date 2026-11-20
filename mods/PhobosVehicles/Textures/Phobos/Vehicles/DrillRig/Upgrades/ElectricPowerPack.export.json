@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/ElectricPowerPack.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-rig-ElectricPowerPack/upgrade-rig-ElectricPowerPack-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-rig-ElectricPowerPack/upgrade-rig-ElectricPowerPack-1.png",
   "source_sha256": "a57adaf1b424f70bbd6263d3f4c877b609090dcfa5cb6eda7270607811993224",
   "target_sha256": "8945d9f06df934920da3cb02bdcf4789df054bf91cba5bfb642134f673ef6cee",
   "size": [

@@ -42,11 +42,13 @@ def _art_run():
 
 
 def resolve(path):
-    """A path from a record, relative to the repository or (in older vehicle records) to assets/phobos-vehicles."""
+    """A path from a record, relative to the repository, (in older vehicle records) to assets/phobos-vehicles, or to the art tools'
+    working folder (export_sprite.repo_path, 20 Nov 2026)."""
     for candidate in (ROOT / path, ROOT / 'assets' / 'phobos-vehicles' / path):
         if candidate.is_file():
             return candidate
-    return None
+    import art_paths
+    return art_paths.find(*Path(path).parts)
 
 
 def originals():

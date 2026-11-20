@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WorkLights.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-rig-WorkLights/upgrade-rig-WorkLights-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-rig-WorkLights/upgrade-rig-WorkLights-1.png",
   "source_sha256": "8f59bb0a11f7521c2273e7423b8e15b75422f6687184739da5c0bd57dab5ecf7",
   "target_sha256": "630b84ea6add8674669649be77801d0358f27d3454f28af46d7acebb0e8c2d29",
   "size": [

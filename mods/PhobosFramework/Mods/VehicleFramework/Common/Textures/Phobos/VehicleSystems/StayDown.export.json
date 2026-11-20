@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/StayDown.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/gizmo-staydown/gizmo-staydown-13.png",
+  "source": "assets/phobos-vehicles/generated/gizmo-staydown/gizmo-staydown-13.png",
   "source_sha256": "55c513b58e6c3b6a742e7c3495e9014629da197dd51501bd42d00dc9160a40e4",
   "target_sha256": "9b5006505bc19ca67283c68e7a4a3a9cbe5d57e5337bbb34734973f1e1981cf1",
   "size": [

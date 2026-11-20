@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SlingSet.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/item-sling-set/item-sling-set-2.png",
+  "source": "assets/phobos-vehicles/generated/item-sling-set/item-sling-set-2.png",
   "source_sha256": "fa565557c4ccd36d94ae5aa62b43f8a1f7ea25aae2c91ca5ad24783b5dfd66a4",
   "target_sha256": "1466196f6e73bb63c1c0f094c4f4ddb44460353ad6a03c12fa0edc49720478d0",
   "size": [

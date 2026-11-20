@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/GeneratorSet/Upgrades/CableReel.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-generator-CableReel/upgrade-generator-CableReel-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-generator-CableReel/upgrade-generator-CableReel-1.png",
   "source_sha256": "ed76b708cb98c14274034a489b17de0965fe1c83e2b1e67a3d824cdaa2b217e8",
   "target_sha256": "6774b35c62ee1bd45c25b9182073a1ce9e63be1d0f24d332941e9cf8c63587db",
   "size": [

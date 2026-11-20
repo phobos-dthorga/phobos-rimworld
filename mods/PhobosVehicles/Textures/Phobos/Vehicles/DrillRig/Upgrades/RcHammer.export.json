@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/RcHammer.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-rig-RcHammer/upgrade-rig-RcHammer-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-rig-RcHammer/upgrade-rig-RcHammer-1.png",
   "source_sha256": "8ec6027dd12b4c51e5928fb00c07687459294d8a0e1660aad56358ee4880fce5",
   "target_sha256": "772b031f515237ed93e8cd3d21020f79e9d91bf9f68bca971dd24a212023c2fb",
   "size": [

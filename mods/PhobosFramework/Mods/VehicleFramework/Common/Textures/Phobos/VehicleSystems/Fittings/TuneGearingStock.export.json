@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/TuneGearingStock.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/tune-gearing-stock/tune-gearing-stock-2.png",
+  "source": "assets/phobos-vehicles/generated/tune-gearing-stock/tune-gearing-stock-2.png",
   "source_sha256": "d88e3fa7678875a1f6aa92b43db8ec9e8d690473e30c1bbacf5bb621ce4f5093",
   "target_sha256": "0a53219c8205c72e5db132d069c81ea53fbf21f69baba1eb135524c9eee5030d",
   "size": [

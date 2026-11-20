@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/Upgrades/WorkLights.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-survey-WorkLights/upgrade-survey-WorkLights-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-survey-WorkLights/upgrade-survey-WorkLights-1.png",
   "source_sha256": "5584e2f17ec0875de8dae62af95c0459f9b5a881b7dab6dd30b8e9edf078fe84",
   "target_sha256": "bb4895eca4d23cce9a3d9ea5b91ef5337225ea052c2b5b31b150e68156f1c9b2",
   "size": [

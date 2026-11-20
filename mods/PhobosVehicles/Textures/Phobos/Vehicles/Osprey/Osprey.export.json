@@ -1,5 +1,5 @@
 {
-  "master": "K:/phobos-rimworld/art/osprey-export/osprey-body-at-scale.png",
+  "master": "osprey-export/osprey-body-at-scale.png",
   "master_sha256": "c83cd1b18ff63a7827654e47f09935043e4c96287141ce91adfc0a10e8ab3950",
   "files": {
     "Osprey_north.png": "3268022d34a0adacc9d0dfb8d8344b3641709fd62dc1881a07421bc09eba32bb",

@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Fixed
+
+- **Art records no longer hold a path from the developer's PC.** The export records beside some textures named the full folder they were made in; they now name the file within the project. Nothing a player sees changes.
+
 ## [0.90.0] - 2026-11-20 - Draft
 
 A tanker or water bowser fills from a river, and a helicopter's bucket fills from it

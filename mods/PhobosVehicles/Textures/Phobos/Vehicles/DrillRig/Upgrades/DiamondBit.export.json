@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/DiamondBit.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-diamond-bit/upgrade-diamond-bit-3.png",
   "source_sha256": "6e4f1beb8b7a3506139d786e303410d926d353b681cc5497be2b2fb4d68cb45c",
   "target_sha256": "f1c450ae5c97724ab88bac4c2de1a353e5426fce85e4aac4ad22d912c41afd0f",
   "size": [

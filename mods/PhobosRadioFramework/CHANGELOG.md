@@ -5,6 +5,10 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Fixed
+
+- **Art records no longer hold a path from the developer's PC.** The export records beside some textures named the full folder they were made in; they now name the file within the project. Nothing a player sees changes.
+
 ### Changed
 
 - The README says the radio framework is on the back burner since 9 November 2026, and its dated checks note that RimWorld 1.6 was retired. No change in play.

@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/Signal.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-radio/generated/signal-icon/signal-icon-12.png",
+  "source": "assets/phobos-radio/generated/signal-icon/signal-icon-12.png",
   "source_sha256": "6a1d8cf62a622f40d0f32154a0f6e2d78346444964b34a78cbf6277b7b66b2fb",
   "target_sha256": "c94131eab7fe348fdee7dd8cdb20c35b352764b7535bca8d7278232ad3d23d90",
   "size": [

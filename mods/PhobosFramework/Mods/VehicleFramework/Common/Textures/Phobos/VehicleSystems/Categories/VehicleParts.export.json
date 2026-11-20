@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Categories/VehicleParts.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/category-vehicle-parts/category-vehicle-parts-1.png",
+  "source": "assets/phobos-vehicles/generated/category-vehicle-parts/category-vehicle-parts-1.png",
   "source_sha256": "b6937c0c19db7b6e328b08c06e547d593385ff54e61589d3fe22c1b0b2407e76",
   "target_sha256": "e7a79efcfd3af77f40e11c91b7637723884282b64d58202f5801eaefcfbb952f",
   "size": [

@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/Upgrades/RadiometricProbe.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-survey-RadiometricProbe/upgrade-survey-RadiometricProbe-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-survey-RadiometricProbe/upgrade-survey-RadiometricProbe-1.png",
   "source_sha256": "affa5e5ab964d66c27038be9013fab843dc86e66917bafbf6fec1d3100fd0ed0",
   "target_sha256": "52d3f14206daa3b96ce18bfaac71a8263f1299369395f83b73dc678326a156e2",
   "size": [

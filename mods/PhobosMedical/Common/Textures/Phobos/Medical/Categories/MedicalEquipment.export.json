@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Categories/MedicalEquipment.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/category-medical-equipment/category-medical-equipment-1.png",
+  "source": "assets/phobos-vehicles/generated/category-medical-equipment/category-medical-equipment-1.png",
   "source_sha256": "83481037099daf882d3358568f73bb76201c294f37b9441f3f43b019fb9c3e43",
   "target_sha256": "534479398323970f64d776238c643c055aa2ae53153b185a328c7ead4d2667b5",
   "size": [

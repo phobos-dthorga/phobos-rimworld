@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Tipper/Upgrades/RockBody.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-tipper-RockBody/upgrade-tipper-RockBody-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-tipper-RockBody/upgrade-tipper-RockBody-1.png",
   "source_sha256": "1e1fe6c096f1a8560b82c565009245e7a4dc774ff76730e729f95f87304cd2ab",
   "target_sha256": "31342628a70091ef5f66ab81b1208666dc31a094c3c09e89c2a4cfc7fcb2ddf4",
   "size": [

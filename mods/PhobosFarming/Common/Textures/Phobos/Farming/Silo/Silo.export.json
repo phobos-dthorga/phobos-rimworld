@@ -1,6 +1,6 @@
 {
-  "target": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/mods/PhobosFarming/Common/Textures/Phobos/Farming/Silo/Silo.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/farming-silo/farming-silo-2.png",
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Silo/Silo.png",
+  "source": "assets/phobos-vehicles/generated/farming-silo/farming-silo-2.png",
   "source_sha256": "1081b9347288684c6ca48564378499719bb59b624feaed17e598244e15e0e807",
   "target_sha256": "f2b25c20b3feb6a24ea36d750818ff3223cddd295f33d59bd55bc49fc0028b68",
   "size": [

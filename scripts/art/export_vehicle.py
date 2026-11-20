@@ -29,7 +29,7 @@ import sys
 from PIL import Image, ImageChops, ImageFilter
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from export_sprite import ai_background, file_sha256, white_to_alpha  # noqa: E402
+from export_sprite import ai_background, file_sha256, repo_path, white_to_alpha  # noqa: E402
 
 PIXELS_PER_CELL = 128
 ICON_SIZE = 64
@@ -374,7 +374,7 @@ def write_facings(image, out, name, suffix=''):
 
 def record(out, name, master, written, details):
     data = {
-        'master': str(master).replace('\\', '/'), 'master_sha256': sha(master),
+        'master': repo_path(master), 'master_sha256': sha(master),
         'files': {path.name: sha(path) for path in written},
         'date': _dt.date.today().isoformat(), 'tool': 'scripts/art/export_vehicle.py', **details,
     }

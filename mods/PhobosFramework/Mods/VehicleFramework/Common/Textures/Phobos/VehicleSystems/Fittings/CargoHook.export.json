@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CargoHook.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/fitting-cargo-hook/fitting-cargo-hook-2.png",
+  "source": "assets/phobos-vehicles/generated/fitting-cargo-hook/fitting-cargo-hook-2.png",
   "source_sha256": "9f25051759a430286e40fca401c528ffa515dca1bd76fb87e5e0a4d8787a8616",
   "target_sha256": "fe771b1ce38420c3cb34253f315c0ce7c10023a4d5859eff19b708cbe72b79f9",
   "size": [

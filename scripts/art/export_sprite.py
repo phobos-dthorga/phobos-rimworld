@@ -31,6 +31,25 @@ AI_OBJECT_FROM = 192  # The AI is sure this is the object: clearing never enters
 AI_WHOLE_PATCH = 0.9  # An enclosed white patch is cleared only if the AI would clear this share of it or more, else none (authored).
 
 
+REPO = Path(__file__).resolve().parents[2]
+
+
+def repo_path(path):
+    """A path for a record: relative to the repository when inside it, else its file name alone, so no machine path is ever
+    published (20 Nov 2026: 43 committed records held the owner's full paths)."""
+    resolved = Path(path).resolve()
+    try:
+        return resolved.relative_to(REPO).as_posix()
+    except ValueError:
+        pass
+    # The art tools' working folder (K: on the owner's PC): relative to it, which clean_backgrounds.resolve reads back through art_paths.
+    import art_paths
+    try:
+        return resolved.relative_to(art_paths.work_root().resolve()).as_posix()
+    except ValueError:
+        return resolved.name
+
+
 def file_sha256(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
@@ -189,8 +208,8 @@ def export(source, target, size, aspect, threshold, soft, all_white=False, as_si
     target.parent.mkdir(parents=True, exist_ok=True)
     sprite.save(target, optimize=True)
     record = {
-        'target': str(target).replace('\\', '/'),
-        'source': str(source).replace('\\', '/'),
+        'target': repo_path(target),
+        'source': repo_path(source),
         'source_sha256': file_sha256(source),
         'target_sha256': hashlib.sha256(target.read_bytes()).hexdigest(),
         'size': list(sprite.size),

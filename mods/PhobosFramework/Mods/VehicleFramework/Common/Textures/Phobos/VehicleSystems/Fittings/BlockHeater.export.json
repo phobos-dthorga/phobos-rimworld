@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/BlockHeater.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/fitting-block-heater/fitting-block-heater-1.png",
+  "source": "assets/phobos-vehicles/generated/fitting-block-heater/fitting-block-heater-1.png",
   "source_sha256": "5e484092dc0c7c61ac9400c22fcebe0853c54845c52e4b28006417733959b133",
   "target_sha256": "fe57e935cb60c6aa103608ad78bf1053ab7170bcae24d8010533108de2586618",
   "size": [

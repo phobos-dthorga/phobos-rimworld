@@ -6,6 +6,10 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+### Fixed
+
+- **Art records no longer hold a path from the developer's PC.** The export records beside some textures named the full folder they were made in; they now name the file within the project. Nothing a player sees changes.
+
 ## [0.19.0] - 2026-11-20 - Draft
 
 A settings page for each part, with search

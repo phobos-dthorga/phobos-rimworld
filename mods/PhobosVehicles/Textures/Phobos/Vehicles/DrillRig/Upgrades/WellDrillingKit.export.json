@@ -1,6 +1,6 @@
 {
   "target": "mods/PhobosVehicles/Textures/Phobos/Vehicles/DrillRig/Upgrades/WellDrillingKit.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/upgrade-rig-WellDrillingKit/upgrade-rig-WellDrillingKit-1.png",
+  "source": "assets/phobos-vehicles/generated/upgrade-rig-WellDrillingKit/upgrade-rig-WellDrillingKit-1.png",
   "source_sha256": "6928999b4700f459ceef67ec4f77bb29dd6fce1b1c00fa9ed9c63bb4fb481394",
   "target_sha256": "45ea105c8c59673da88222cca5da8e4d74ae8637fcd9ec1a84608093ee11994e",
   "size": [

@@ -1,6 +1,6 @@
 {
-  "target": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/mods/PhobosFarming/Common/Textures/Phobos/Farming/FieldBin/FieldBin.png",
-  "source": "D:/SynologyDrive/phobosdthorga/CloudStation Drive/Google Drive/Gekko-Data/Documents/GitHub/phobosdthorga/phobos-rimworld/assets/phobos-vehicles/generated/farming-field-bin/farming-field-bin-2.png",
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/FieldBin/FieldBin.png",
+  "source": "assets/phobos-vehicles/generated/farming-field-bin/farming-field-bin-2.png",
   "source_sha256": "106582a7f84de09e7a8e1af85695ef7241a740185de3e11aacb1ad5864a46be0",
   "target_sha256": "2344da8946b1cc9ca8b867926af265ebfc810d5efdf94644f228206dc094c0fe",
   "size": [
