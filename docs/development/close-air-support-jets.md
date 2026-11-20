@@ -3,7 +3,8 @@
 **Status (21 Nov 2026):** built, not yet tested in game: Framework 0.203.0 (the catch-all flight reading and our own dodge), Vehicles
 0.91.0 (each jet's engines, avionics, cruise and cabin), Patches 0.29.0 (parts lists, parts bills, fabricator recipes, the shared rearm
 fix and the realistic handling setting). Test row 299. Real bomb weights, a gentler loss of control for the jets' manual back-up, and the
-Harrier's own cost as a parts bill are not built (see "Not built").
+Harrier's own cost as a parts bill are not built (see "Not built"). **Since Vehicles 0.93.0 both jets start as their early versions**
+(the A-10A, the first Su-25), which changes some starting figures below: see "Starting fits since Vehicles 0.93.0".
 
 ## Read this first
 
@@ -75,6 +76,19 @@ reads, so figures from it came through search extracts and are marked so. No pri
 **Our dodge** (`mapEvasion`, Framework 0.203.0): the Harrier author's 40 % for the AV-8B scaled by top speed against its 1,083 km/h
 **[S]**: 0.26 for the A-10, 0.35 for the Su-25 **[A]**, then scaled by flight controls and the warning receiver as the Harrier's is.
 **Air defence track** (DMS Expedition's scales): speed 12 and 16 against the Harrier's 18, size 1.8 and 1.6 by span **[A]**.
+
+## Starting fits since Vehicles 0.93.0
+
+The owner's choice of 21 Nov 2026 ([aircraft service-life upgrades](aircraft-service-life-upgrades.md)): each jet starts as its early
+version and is brought up with fittings. Where the table above gives the later fit, the jet now starts with the earlier:
+
+| | A-10 (as the A-10A) | Su-25 (as first built) |
+| --- | --- | --- |
+| Navigation | Basic; full with the navigation set (GPS, 1999) | Basic, as before; full with the navigation set (the Su-25SM) |
+| Autopilot | None; the autopilot kit (LASTE, from memory) | None, as before |
+| Night sight | None; the night sight kit (the A-10C's targeting pod) | None, as before |
+| Engines | TF34s, as before; the uprated engines, offered but never fielded | The R-95Sh, 40.2 kN; the R-195 as a fitting |
+| Flare cartridges | 240, as before | 128; 256 with the extra dispensers |
 
 ## Realistic handling (the setting)
 
