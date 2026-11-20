@@ -1,5 +1,6 @@
-# StrawChopper: asset record
+# StrawChopper
 
-**Cut by script from our own picture**, not generated: the combine's straw outlet at its tail, cropped from `Combine/Combine_north.png` (SHA-256 `b1a21c720b992af6370bd8a676723fd15cb68ee3f59b5a417e7cb70e2ce2d67d`) by `assets/phobos-vehicles/draw_farming_icons.py` on 2026-11-20, tinted with its paint mask and the colours of its Def as the game shows it, and fitted into a 128 px square. That picture is AI-generated (OpenAI gpt-image-2), picked by the owner; its record is beside it. A stand-in cut from the machine itself until the local icon batch draws its own.
+Made with ComfyUI, local, FLUX.2 Klein 4B base (Black Forest Labs, Apache 2.0) with our private style model, night 8 (20 Nov 2026): **AI-generated**, picked by the owner on 20 November 2026. Exported by `scripts/art/export_sprite.py` at 128 px, the background cleared with the background AI's mask. The prompt is in `assets/phobos-vehicles/requests/farming-icons.json`; the picks and the batch are recorded in `assets/phobos-vehicles/requests/night-8-picks-record.md`. Only our own art was used as references; no game or other author's art.
 
-- `StrawChopper.png`: SHA-256 `c879d44c25ce94d3a2f7455274b11ee4717b5058920085f4fc3b9d4576703dfa`
+- Master: `farming-straw-chopper-b-11.png`, SHA-256 `61ca49f978ca94b76338d65ca52e3a2f64fd19a7beac4f0870fa885594fc908f`
+- `StrawChopper.png`: SHA-256 `a9ae95cdfa14ab4654777feb32fe4be479adf63798e50aaa03f47340246d49cb`

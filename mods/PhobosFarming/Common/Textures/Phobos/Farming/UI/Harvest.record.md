@@ -1,5 +1,6 @@
-# Harvest: asset record
+# Harvest
 
-**Cut by script from our own picture**, not generated: the standard grain front, for the harvest order, cropped from `Combine/Combine_FrontStandard_north.png` (SHA-256 `b61a7e67e474a5d7d56d1c825defc2974eb82b9e9fbba2d9a3313115dba56120`) by `assets/phobos-vehicles/draw_farming_icons.py` on 2026-11-20, tinted with its paint mask and the colours of its Def as the game shows it, and fitted into a 128 px square. That picture is AI-generated (OpenAI gpt-image-2), picked by the owner; its record is beside it. A stand-in cut from the machine itself until the local icon batch draws its own.
+Made with ComfyUI, local, FLUX.2 Klein 4B base (Black Forest Labs, Apache 2.0) with our private style model, night 8 (20 Nov 2026): **AI-generated**, picked by the owner on 20 November 2026. Exported by `scripts/art/export_sprite.py` at 128 px, the background cleared with the background AI's mask. The prompt is in `assets/phobos-vehicles/requests/farming-icons.json`; the picks and the batch are recorded in `assets/phobos-vehicles/requests/night-8-picks-record.md`. Only our own art was used as references; no game or other author's art.
 
-- `Harvest.png`: SHA-256 `c88c3ddaabdfe30a9e3032c41cd790d409b6197d937b098158d4f2b97101638a`
+- Master: `farming-harvest-a-12.png`, SHA-256 `79cc27c68b7cc15efd27f5a9f2e8cff844de924487a3a45bc595c3ae04aec8fa`
+- `Harvest.png`: SHA-256 `a0b2056d156f902e145129e3460e6f89ec38c3d28d7e4d9bfe2ed6f249c7c650`

@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.1] - 2026-11-20 - Draft
+
+Drawn icons for the harvest order and five upgrades
+
+### Changed
+
+- **The Harvest button and five upgrades have drawn icons** (the owner's picks of 20 November 2026), in place of pictures cut from the machines themselves: the wide grain front, the corn header, the tank extension, the straw chopper and the fast auger.
+- The standard grain front keeps its cut picture, and the paddock button the game's growing-zone picture, until their redraws are picked.
+
+### Compatibility and limits
+
+- Pictures only; no change in play. Safe with a running save.
+- Not yet tested in game.
+
 ## [0.4.0] - 2026-11-20 - Draft
 
 Fixes from a fault-read: no harvested grain is lost; and the plough, cultivator and seed drill ready for their tractors

@@ -1,5 +1,6 @@
-# FrontCorn: asset record
+# FrontCorn
 
-**Cut by script from our own picture**, not generated: the corn header, cropped from `Combine/Combine_FrontCorn_north.png` (SHA-256 `5898aafe57eaf3fcc35aa20b6153c8a0400bd3d5c54a4ed670a4537e4c1ca294`) by `assets/phobos-vehicles/draw_farming_icons.py` on 2026-11-20, tinted with its paint mask and the colours of its Def as the game shows it, and fitted into a 128 px square. That picture is AI-generated (OpenAI gpt-image-2), picked by the owner; its record is beside it. A stand-in cut from the machine itself until the local icon batch draws its own.
+Made with ComfyUI, local, FLUX.2 Klein 4B base (Black Forest Labs, Apache 2.0) with our private style model, night 8 (20 Nov 2026): **AI-generated**, picked by the owner on 20 November 2026. Exported by `scripts/art/export_sprite.py` at 128 px, the background cleared with the background AI's mask. The prompt is in `assets/phobos-vehicles/requests/farming-icons.json`; the picks and the batch are recorded in `assets/phobos-vehicles/requests/night-8-picks-record.md`. Only our own art was used as references; no game or other author's art.
 
-- `FrontCorn.png`: SHA-256 `8c749eb2c0f159f3a34f1d37042e6c19e2a483a0a18a7e601029b3e04cd2f8d7`
+- Master: `farming-front-corn-b-11.png`, SHA-256 `c8b17a030457b560b3dfe71c499ba7a8b0d24ca46c3959f1ecd6969c1bd8787e`
+- `FrontCorn.png`: SHA-256 `d3c09c5489563b5fc424ce128c216dd97725fd59e3afed3fe18392a3201e7222`

@@ -30,10 +30,10 @@ public class CompProperties_PhobosGatherRun : VehicleCompProperties
     /// <summary>The upgrade node whose protection lets the player keep it working while enemies are about, behind a switch that starts off
     /// (owner, 19 Nov 2026: the armoured cab; vehicle-militarised-service-vehicles.md). Null: no switch.</summary>
     public string? keepWorkingNode;
-    /// <summary>The run's button picture: the game's haul designator until one of ours is drawn.</summary>
-    public string runIconPath = "UI/Designators/Haul";
-    /// <summary>The filter's button picture: the game's stone chunks category until one of ours is drawn.</summary>
-    public string filterIconPath = "UI/Icons/ThingCategories/StoneChunks";
+    /// <summary>The run's button picture: a grab over a heap (the owner's pick of 20 Nov 2026).</summary>
+    public string runIconPath = "Phobos/VehicleSystems/Stations/Gather";
+    /// <summary>The filter's button picture: a clipboard with a stone and a log (the owner's pick of 20 Nov 2026).</summary>
+    public string filterIconPath = "Phobos/VehicleSystems/Stations/GatherWhat";
 
     public CompProperties_PhobosGatherRun() => compClass = typeof(CompPhobosGatherRun);
 

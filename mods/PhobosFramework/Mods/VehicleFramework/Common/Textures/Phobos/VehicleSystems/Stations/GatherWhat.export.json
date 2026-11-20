@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/GatherWhat.png",
+  "source": "assets/vehicle-systems/generated/gather-what/gather-what-11.png",
+  "source_sha256": "02d0a16591b9b54abcfdd4eb3b606f5d653788bd6dfdec386cd7f9c18626d2e4",
+  "target_sha256": "ee99ace415ec62712b74ebe15964f36fa0ee09040e728fe60a06d9797c3a944a",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "02d0a16591b9b54abcfdd4eb3b606f5d653788bd6dfdec386cd7f9c18626d2e4",
+  "date": "2026-11-20T17:27:34",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

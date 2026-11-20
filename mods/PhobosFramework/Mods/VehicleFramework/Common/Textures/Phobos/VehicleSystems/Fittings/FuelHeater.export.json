@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/FuelHeater.png",
+  "source": "assets/vehicle-systems/generated/fitting-fuelheater/fitting-fuelheater-12.png",
+  "source_sha256": "b2e3e6e1315ce00e6f3c4b76f1767fb1a49af327f2dd86f55e19cd58d51f2cd5",
+  "target_sha256": "b1b47b13435e2be9349878143073803668c7f8059a0fe8c67ba7f4a08b67c8b5",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "b2e3e6e1315ce00e6f3c4b76f1767fb1a49af327f2dd86f55e19cd58d51f2cd5",
+  "date": "2026-11-20T17:27:41",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

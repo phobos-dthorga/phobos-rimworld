@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabInsulation.png",
+  "source": "assets/vehicle-systems/generated/fitting-cabinsulation/fitting-cabinsulation-12.png",
+  "source_sha256": "bbca48a6509852be00b3d95dd8822310f8fc7a7919b2eb5070add49036fd842c",
+  "target_sha256": "8b59c7a89b8bd26732695a1795be3d873054417f62915a6db035d53a9a77a233",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "bbca48a6509852be00b3d95dd8822310f8fc7a7919b2eb5070add49036fd842c",
+  "date": "2026-11-20T17:27:39",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

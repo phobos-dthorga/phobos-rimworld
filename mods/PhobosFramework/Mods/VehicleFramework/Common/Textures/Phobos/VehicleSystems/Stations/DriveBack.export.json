@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DriveBack.png",
+  "source": "assets/vehicle-systems/generated/deliver-drive-back/deliver-drive-back-12.png",
+  "source_sha256": "aecc02ac390ed2433adafea8ba9dd84c898d9ba5cce3c98ce08be4b99959b2f4",
+  "target_sha256": "10176e8b82f5d7199047f58335b748ecd02473b198e6fe3679bff7092073010e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "aecc02ac390ed2433adafea8ba9dd84c898d9ba5cce3c98ce08be4b99959b2f4",
+  "date": "2026-11-20T17:27:31",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

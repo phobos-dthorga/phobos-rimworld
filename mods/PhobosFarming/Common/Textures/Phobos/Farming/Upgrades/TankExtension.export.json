@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/TankExtension.png",
+  "source": "assets/phobos-vehicles/generated/farming-tank-extension-a/farming-tank-extension-a-11.png",
+  "source_sha256": "c265493daa498573d6e177a841828dc26bf7267fbed330f0be5ad1097c3d84bb",
+  "target_sha256": "2acea02b2a0919813c763de12d6e47e88f42a6b5f0ce2d090fd09b95ea6f5f48",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "c265493daa498573d6e177a841828dc26bf7267fbed330f0be5ad1097c3d84bb",
+  "date": "2026-11-20T17:25:22",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

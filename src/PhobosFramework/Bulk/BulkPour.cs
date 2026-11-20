@@ -230,13 +230,16 @@ public static class BulkPour
 
     // ---- The buttons ----
 
-    /// <summary>The game's own eject picture (the cryptosleep casket's) until our pour icon is drawn; confirmed in the game's code.</summary>
-    const string PourIcon = "UI/Commands/PodEject";
+    /// <summary>Our pour picture (the owner's pick of 20 Nov 2026), in the Framework's Common textures.</summary>
+    const string PourIcon = "Phobos/Framework/Bulk/Pour";
+    /// <summary>The game's own eject picture (the cryptosleep casket's), should ours ever be missing; confirmed in the game's code.</summary>
+    const string PourFallbackIcon = "UI/Commands/PodEject";
     /// <summary>The game's own cancel picture; confirmed in the game's code.</summary>
     const string StopIcon = "UI/Designators/Cancel";
 
-    /// <summary>Both pictures are the game's and always present; a plain white square, never the red X, if a mod ever removed one.</summary>
-    static Texture2D Icon(string path) => ContentFinder<Texture2D>.Get(path, reportFailure: false) ?? BaseContent.WhiteTex;
+    /// <summary>A picture, else the game's eject picture, else a plain white square: never the red X.</summary>
+    static Texture2D Icon(string path) => ContentFinder<Texture2D>.Get(path, reportFailure: false)
+        ?? ContentFinder<Texture2D>.Get(PourFallbackIcon, reportFailure: false) ?? BaseContent.WhiteTex;
 
     /// <summary>The pour buttons: pour into a hold in reach, pour onto the ground, or stop the pour under way.</summary>
     public static IEnumerable<Gizmo> Gizmos(IBulkHold hold, BulkPouring state)

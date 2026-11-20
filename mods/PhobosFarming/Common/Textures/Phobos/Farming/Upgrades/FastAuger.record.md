@@ -1,5 +1,6 @@
-# FastAuger: asset record
+# FastAuger
 
-**Cut by script from our own picture**, not generated: the chaser bin's unloading auger, cropped from `ChaserBin/ChaserBin_north.png` (SHA-256 `4499365725d70ede08a96182b26e47efde2c0872f4f9ba357253b38bf2515e27`) by `assets/phobos-vehicles/draw_farming_icons.py` on 2026-11-20, tinted with its paint mask and the colours of its Def as the game shows it, and fitted into a 128 px square. That picture is AI-generated (OpenAI gpt-image-2), picked by the owner; its record is beside it. A stand-in cut from the machine itself until the local icon batch draws its own.
+Made with ComfyUI, local, FLUX.2 Klein 4B base (Black Forest Labs, Apache 2.0) with our private style model, night 8 (20 Nov 2026): **AI-generated**, picked by the owner on 20 November 2026. Exported by `scripts/art/export_sprite.py` at 128 px, the background cleared with the background AI's mask. The prompt is in `assets/phobos-vehicles/requests/farming-icons.json`; the picks and the batch are recorded in `assets/phobos-vehicles/requests/night-8-picks-record.md`. Only our own art was used as references; no game or other author's art.
 
-- `FastAuger.png`: SHA-256 `887e0cadd08ee3c3b9975c844116826e92441eeca4378924cc912cafb9909d0b`
+- Master: `farming-fast-auger-b-11.png`, SHA-256 `2c5751450e9461b9066508eb12edbffdaccafec13a451b1627ea4501b9193a93`
+- `FastAuger.png`: SHA-256 `f93f13fdfddce7522ee41a973b592264c5b09cab4914a72038fa96316454bd18`

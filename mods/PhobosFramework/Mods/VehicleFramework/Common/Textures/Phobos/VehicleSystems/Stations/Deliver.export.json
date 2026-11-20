@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/Deliver.png",
+  "source": "assets/vehicle-systems/generated/deliver/deliver-12.png",
+  "source_sha256": "a483ced6d470068675ee273c4bcf2d1cb2ab84c1881549d1370816a93731f19b",
+  "target_sha256": "6fe886595a47b0528f2065117d888b8d80e0658f4b8bd75e519dc9022c42dff2",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "a483ced6d470068675ee273c4bcf2d1cb2ab84c1881549d1370816a93731f19b",
+  "date": "2026-11-20T17:27:30",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

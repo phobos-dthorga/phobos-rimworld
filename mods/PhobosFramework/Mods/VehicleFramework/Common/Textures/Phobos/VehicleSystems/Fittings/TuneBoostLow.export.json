@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/TuneBoostLow.png",
+  "source": "assets/vehicle-systems/generated/tune-boostlow/tune-boostlow-11.png",
+  "source_sha256": "0569d93c0a1384f32c555b180b50f449a4609a5d729c8a1631d9ce115c9bd893",
+  "target_sha256": "1a895a0e1b9bbfa1b25fed7ec33c6ce3954bf9629b2ffc40f8c73e0847d45f77",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "0569d93c0a1384f32c555b180b50f449a4609a5d729c8a1631d9ce115c9bd893",
+  "date": "2026-11-20T17:27:43",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

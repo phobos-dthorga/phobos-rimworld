@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.191.1] - 2026-11-20 - Draft
+
+Drawn icons for delivering, gathering, pouring, salvage and the last borrowed fittings
+
+### Changed
+
+- **Deliver, Drive back, Gather, Gather what and Pour have drawn icons** (the owner's picks of 20 November 2026), in place of the game's eject, haul and stone chunks pictures. Drive back no longer shows the depot's Go to bay arrow, which appeared twice on a truck with a bay.
+- **Salvaged vehicle parts have their own picture**, a crate of used parts, instead of the drivetrain kit's.
+- **Seven fittings and tunes have their own icons** instead of borrowing our nearest ones: the transmission cooler, gear-reduction starter, cab insulation, fuel heater, heavy-duty air filter, and the low, standard and high boost tunes.
+- The heavy-duty brakes and the clutch kit keep their borrowed pictures until their redraws are picked.
+
+### Compatibility and limits
+
+- Pictures and icon paths only; no change in play. Safe with a running save.
+- Not yet tested in game.
+
 ## [0.191.0] - 2026-11-20 - Draft
 
 Fixes from a fault-read of the field run and the bulk holds, and the field run ready for an implement behind a tractor

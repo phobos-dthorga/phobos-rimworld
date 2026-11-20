@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontWide.png",
+  "source": "assets/phobos-vehicles/generated/farming-front-wide-b/farming-front-wide-b-11.png",
+  "source_sha256": "2db2a0110ee770c37835f04d41dc56d86878e438ee42532fc49984d8477df1aa",
+  "target_sha256": "20c895185e75efb3cb24f777de780aad16bc3374ab25ecd5a95075b2c75964f9",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "2db2a0110ee770c37835f04d41dc56d86878e438ee42532fc49984d8477df1aa",
+  "date": "2026-11-20T17:25:19",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

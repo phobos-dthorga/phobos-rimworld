@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontCorn.png",
+  "source": "assets/phobos-vehicles/generated/farming-front-corn-b/farming-front-corn-b-11.png",
+  "source_sha256": "c8b17a030457b560b3dfe71c499ba7a8b0d24ca46c3959f1ecd6969c1bd8787e",
+  "target_sha256": "d3c09c5489563b5fc424ce128c216dd97725fd59e3afed3fe18392a3201e7222",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "c8b17a030457b560b3dfe71c499ba7a8b0d24ca46c3959f1ecd6969c1bd8787e",
+  "date": "2026-11-20T17:25:21",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyAirFilter.png",
+  "source": "assets/vehicle-systems/generated/fitting-heavyairfilter/fitting-heavyairfilter-12.png",
+  "source_sha256": "2fb0ffcb6f193d8865a67c0108525c054f5ab89bfd6afc178c95196fafd1b76f",
+  "target_sha256": "b2be9987ea94a42a1b45af0966083fe9e6502fd28f59bb6fcde3a60fe416558e",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "2fb0ffcb6f193d8865a67c0108525c054f5ab89bfd6afc178c95196fafd1b76f",
+  "date": "2026-11-20T17:27:41",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

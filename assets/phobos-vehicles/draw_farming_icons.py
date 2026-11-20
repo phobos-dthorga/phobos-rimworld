@@ -5,6 +5,10 @@
 Each icon is a crop of the part it stands for, from the textures export_farming.py wrote: a front from its own picture, the tank, the tail
 and the auger from the bodies. Crops in cells of the north picture, 128 px a cell, from its top left. Each is fitted into a square with a
 little margin, at 128 px, and gets a record. Free and deterministic; run export_farming.py first. The local icon batch may replace them.
+
+Only the standard grain front is still drawn here: the harvest order, the wide front, the corn header, the tank extension, the straw
+chopper and the fast auger have their own pictures since Farming 0.4.1 (the owner's picks of night 8, 20 Nov 2026), and drawing them
+again would overwrite those.
 """
 import argparse
 import datetime as _dt
@@ -22,12 +26,6 @@ MARGIN = 8
 # what it shows)
 ICONS = [
     ('Upgrades/FrontStandard', 'Combine/Combine_FrontStandard_north.png', None, 'the standard grain front'),
-    ('Upgrades/FrontWide', 'Combine/Combine_FrontWide_north.png', None, 'the wide grain front'),
-    ('Upgrades/FrontCorn', 'Combine/Combine_FrontCorn_north.png', None, 'the corn header'),
-    ('Upgrades/TankExtension', 'Combine/Combine_north.png', (340, 560, 684, 1060), "the combine's grain tank"),
-    ('Upgrades/StrawChopper', 'Combine/Combine_north.png', (380, 1330, 644, 1520), "the combine's straw outlet at its tail"),
-    ('Upgrades/FastAuger', 'ChaserBin/ChaserBin_north.png', (20, 100, 260, 440), "the chaser bin's unloading auger"),
-    ('UI/Harvest', 'Combine/Combine_FrontStandard_north.png', None, 'the standard grain front, for the harvest order'),
 ]
 
 

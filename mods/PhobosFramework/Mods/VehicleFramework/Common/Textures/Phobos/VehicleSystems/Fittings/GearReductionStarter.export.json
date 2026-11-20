@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/GearReductionStarter.png",
+  "source": "assets/vehicle-systems/generated/fitting-gearreductionstarter/fitting-gearreductionstarter-12.png",
+  "source_sha256": "2bc8262d1c69249cbb3f67421f832abbfd7a0c74a1cf60af0e74ccca846da760",
+  "target_sha256": "0deb2175a7d1d4da497e2003b79a722ca32a7602fb447d514376e33e0104eddf",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "2bc8262d1c69249cbb3f67421f832abbfd7a0c74a1cf60af0e74ccca846da760",
+  "date": "2026-11-20T17:27:38",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

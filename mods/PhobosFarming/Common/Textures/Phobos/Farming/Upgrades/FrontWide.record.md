@@ -1,5 +1,6 @@
-# FrontWide: asset record
+# FrontWide
 
-**Cut by script from our own picture**, not generated: the wide grain front, cropped from `Combine/Combine_FrontWide_north.png` (SHA-256 `0a074f72b114f28cfc1626eea45574fd8c0e9f7f8734c70b0bea9e10672ace30`) by `assets/phobos-vehicles/draw_farming_icons.py` on 2026-11-20, tinted with its paint mask and the colours of its Def as the game shows it, and fitted into a 128 px square. That picture is AI-generated (OpenAI gpt-image-2), picked by the owner; its record is beside it. A stand-in cut from the machine itself until the local icon batch draws its own.
+Made with ComfyUI, local, FLUX.2 Klein 4B base (Black Forest Labs, Apache 2.0) with our private style model, night 8 (20 Nov 2026): **AI-generated**, picked by the owner on 20 November 2026. Exported by `scripts/art/export_sprite.py` at 128 px, the background cleared with the background AI's mask. The prompt is in `assets/phobos-vehicles/requests/farming-icons.json`; the picks and the batch are recorded in `assets/phobos-vehicles/requests/night-8-picks-record.md`. Only our own art was used as references; no game or other author's art.
 
-- `FrontWide.png`: SHA-256 `94d23f1187295bf58c8f2fda7eda4b873dc034658a78bd468773512bd8703c12`
+- Master: `farming-front-wide-b-11.png`, SHA-256 `2db2a0110ee770c37835f04d41dc56d86878e438ee42532fc49984d8477df1aa`
+- `FrontWide.png`: SHA-256 `20c895185e75efb3cb24f777de780aad16bc3374ab25ecd5a95075b2c75964f9`

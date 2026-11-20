@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FastAuger.png",
+  "source": "assets/phobos-vehicles/generated/farming-fast-auger-b/farming-fast-auger-b-11.png",
+  "source_sha256": "2c5751450e9461b9066508eb12edbffdaccafec13a451b1627ea4501b9193a93",
+  "target_sha256": "f93f13fdfddce7522ee41a973b592264c5b09cab4914a72038fa96316454bd18",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "2c5751450e9461b9066508eb12edbffdaccafec13a451b1627ea4501b9193a93",
+  "date": "2026-11-20T17:25:25",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

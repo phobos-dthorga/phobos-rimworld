@@ -2,14 +2,14 @@
 <Defs>
   <!-- Salvaged parts (Framework 0.187.0; docs/development/vehicle-emergent-play.md, EM2 and EM3): what taking a destroyed vehicle's hull
        apart gives, a quarter of the vehicle's worth (SalvageRule.HullShare). They pay for a part fitted at the salvaged grade, at the same
-       worth as the new materials they stand in for. The market value matches SalvageRule.PartValue (60). The picture is borrowed from the
-       drivetrain kit until one of its own is made (the owner's call). Words agent-authored. -->
+       worth as the new materials they stand in for. The market value matches SalvageRule.PartValue (60). Its picture is its own since
+       0.191.1 (the owner's pick of 20 Nov 2026). Words agent-authored. -->
   <ThingDef ParentName="ResourceBase">
     <defName>PhobosVehicleSystems_SalvagedParts</defName>
     <label>salvaged vehicle parts</label>
     <description>Usable pieces stripped from a wrecked vehicle's hull: a pump that still turns, a length of good wiring, bearings with some life in them. A mechanic can fit them as a salvaged-grade part, cheaper than new and not as good.</description>
     <graphicData>
-      <texPath>Phobos/Vehicles/Parts/DrivetrainKit</texPath>
+      <texPath>Phobos/Vehicles/Parts/SalvagedParts</texPath>
       <graphicClass>Graphic_Single</graphicClass>
     </graphicData>
     <soundInteract>Metal_Drop</soundInteract>

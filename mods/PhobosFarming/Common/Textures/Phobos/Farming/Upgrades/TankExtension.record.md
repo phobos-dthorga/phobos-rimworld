@@ -1,5 +1,6 @@
-# TankExtension: asset record
+# TankExtension
 
-**Cut by script from our own picture**, not generated: the combine's grain tank, cropped from `Combine/Combine_north.png` (SHA-256 `b1a21c720b992af6370bd8a676723fd15cb68ee3f59b5a417e7cb70e2ce2d67d`) by `assets/phobos-vehicles/draw_farming_icons.py` on 2026-11-20, tinted with its paint mask and the colours of its Def as the game shows it, and fitted into a 128 px square. That picture is AI-generated (OpenAI gpt-image-2), picked by the owner; its record is beside it. A stand-in cut from the machine itself until the local icon batch draws its own.
+Made with ComfyUI, local, FLUX.2 Klein 4B base (Black Forest Labs, Apache 2.0) with our private style model, night 8 (20 Nov 2026): **AI-generated**, picked by the owner on 20 November 2026. Exported by `scripts/art/export_sprite.py` at 128 px, the background cleared with the background AI's mask. The prompt is in `assets/phobos-vehicles/requests/farming-icons.json`; the picks and the batch are recorded in `assets/phobos-vehicles/requests/night-8-picks-record.md`. Only our own art was used as references; no game or other author's art.
 
-- `TankExtension.png`: SHA-256 `9de1b961654b02c58c9c59ffc394ec7ef8ef2fd795ca1ed9e7ea0580599f6f79`
+- Master: `farming-tank-extension-a-11.png`, SHA-256 `c265493daa498573d6e177a841828dc26bf7267fbed330f0be5ad1097c3d84bb`
+- `TankExtension.png`: SHA-256 `2acea02b2a0919813c763de12d6e47e88f42a6b5f0ce2d090fd09b95ea6f5f48`

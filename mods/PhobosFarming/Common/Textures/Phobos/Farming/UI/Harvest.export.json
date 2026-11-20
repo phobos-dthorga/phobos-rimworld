@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Harvest.png",
+  "source": "assets/phobos-vehicles/generated/farming-harvest-a/farming-harvest-a-12.png",
+  "source_sha256": "79cc27c68b7cc15efd27f5a9f2e8cff844de924487a3a45bc595c3ae04aec8fa",
+  "target_sha256": "a0b2056d156f902e145129e3460e6f89ec38c3d28d7e4d9bfe2ed6f249c7c650",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "79cc27c68b7cc15efd27f5a9f2e8cff844de924487a3a45bc595c3ae04aec8fa",
+  "date": "2026-11-20T17:25:11",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

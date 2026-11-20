@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/StrawChopper.png",
+  "source": "assets/phobos-vehicles/generated/farming-straw-chopper-b/farming-straw-chopper-b-11.png",
+  "source_sha256": "61ca49f978ca94b76338d65ca52e3a2f64fd19a7beac4f0870fa885594fc908f",
+  "target_sha256": "a9ae95cdfa14ab4654777feb32fe4be479adf63798e50aaa03f47340246d49cb",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "61ca49f978ca94b76338d65ca52e3a2f64fd19a7beac4f0870fa885594fc908f",
+  "date": "2026-11-20T17:25:23",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

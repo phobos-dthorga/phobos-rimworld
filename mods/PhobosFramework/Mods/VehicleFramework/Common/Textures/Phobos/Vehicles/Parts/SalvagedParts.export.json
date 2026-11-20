@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/SalvagedParts.png",
+  "source": "assets/vehicle-systems/generated/salvaged-parts-b/salvaged-parts-b-12.png",
+  "source_sha256": "a30a8a5c8dceb050e06d26d494d6676a5f8e40b9d64c2f493805c738d62918c4",
+  "target_sha256": "4cb736432bb9367082a32ac1f47706c8022df627e510323b73e9b501b200d3fd",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "a30a8a5c8dceb050e06d26d494d6676a5f8e40b9d64c2f493805c738d62918c4",
+  "date": "2026-11-20T17:27:35",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

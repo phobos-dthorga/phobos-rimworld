@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Bulk/Pour.png",
+  "source": "assets/vehicle-systems/generated/bulk-pour-a/bulk-pour-a-11.png",
+  "source_sha256": "491603fb17bd589ded99ee77cb176511091e877f19e07a1844bee1f32fc86c92",
+  "target_sha256": "4672022b131cacb73bc6a8301dfa0d7343c412b6d8196a7865d4c5950bb3bdeb",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "491603fb17bd589ded99ee77cb176511091e877f19e07a1844bee1f32fc86c92",
+  "date": "2026-11-20T17:27:46",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

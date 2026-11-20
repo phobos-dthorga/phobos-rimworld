@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/TransmissionCooler.png",
+  "source": "assets/vehicle-systems/generated/fitting-transmissioncooler/fitting-transmissioncooler-11.png",
+  "source_sha256": "d1db501e179246bc71fc4e3e4bbce1d220452ccb4ac42890ec2cd47316405e0d",
+  "target_sha256": "3ef6b7f14b01f6bfc9729291ce1425770f210e468a020f66619563cbc4c190ac",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "d1db501e179246bc71fc4e3e4bbce1d220452ccb4ac42890ec2cd47316405e0d",
+  "date": "2026-11-20T17:27:37",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

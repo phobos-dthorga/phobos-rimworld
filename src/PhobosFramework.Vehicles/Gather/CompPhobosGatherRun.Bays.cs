@@ -31,11 +31,12 @@ public partial class CompPhobosGatherRun
     /// <summary>How long the buttons keep an answer that lists every marked bay, in real seconds: they are drawn every frame. Authored.</summary>
     const float ButtonRecheckSeconds = 0.5f;
 
-    /// <summary>Picture of the Deliver button: the game's own eject picture (the cryptosleep casket's), until one of ours is drawn.</summary>
-    const string DeliverIconPath = "UI/Commands/PodEject";
+    /// <summary>Picture of the Deliver button: a truck tipping into a bay (the owner's pick of 20 Nov 2026).</summary>
+    const string DeliverIconPath = "Phobos/VehicleSystems/Stations/Deliver";
 
-    /// <summary>Picture of the drive-back switch: our depot's "go to bay" picture, an arrow into a bay.</summary>
-    const string DriveBackIconPath = "Phobos/VehicleSystems/Stations/BayGoTo";
+    /// <summary>Picture of the drive-back switch: a truck in a U-turn arrow back to its start (the owner's pick of 20 Nov 2026), no longer
+    /// the depot's "go to bay" arrow, which showed twice on a truck with a bay.</summary>
+    const string DriveBackIconPath = "Phobos/VehicleSystems/Stations/DriveBack";
 
     /// <summary>The player's choice for a gathering run: unload at any marked bay.</summary>
     bool anyBay;

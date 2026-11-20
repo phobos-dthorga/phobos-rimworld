@@ -360,8 +360,9 @@
 
   <!--
     Framework 0.123.0, cross-links rounds two and three (owner, 17 Nov 2026: the brakes, the cold-weather pack, dust, and the transmission
-    cooler). Materials, work and skill authored on the same scale as the fittings above; their pictures are stand-ins borrowed from our own
-    nearest icons until the next local art run draws their own (docs/development/art-backlog.md).
+    cooler). Materials, work and skill authored on the same scale as the fittings above. Their pictures are their own since 0.191.1 (the
+    owner's picks of 20 Nov 2026), but for the heavy-duty brakes, which borrow the brake pad set's until a redraw is picked
+    (docs/development/art-backlog.md).
   -->
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
@@ -384,7 +385,7 @@
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- F2: a small radiator for the gearbox oil. Its cooling 1.4 (authored). -->
     <defName>PhobosFitting_TransmissionCooler</defName>
-    <iconPath>Phobos/VehicleSystems/Fittings/OilCooler</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/TransmissionCooler</iconPath>
     <label>transmission cooler</label>
     <description>A small radiator for the gearbox oil. The gearbox sheds its heat faster, so it stays cool hauling heavy in hot weather.</description>
     <roles><li>Transmission</li></roles>
@@ -398,7 +399,7 @@
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- F4: a geared starter turns a cold engine on less current. Starting power from the battery x1.3, the charge a start takes x0.7 (authored). -->
     <defName>PhobosFitting_GearReductionStarter</defName>
-    <iconPath>Phobos/VehicleSystems/Dash/Starter</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/GearReductionStarter</iconPath>
     <label>gear-reduction starter</label>
     <description>A geared starter motor that turns the engine over on less current. A cold engine starts on a tired battery, and each start takes less from it.</description>
     <roles><li>Starter</li></roles>
@@ -416,7 +417,7 @@
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- F5: lining for the cab. It meets the outside air at 0.6 the rate and the night heater burns 0.7 as much (authored). -->
     <defName>PhobosFitting_CabInsulation</defName>
-    <iconPath>Phobos/VehicleSystems/Dash/Cab</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/CabInsulation</iconPath>
     <label>cab insulation</label>
     <description>Felt and foam lining behind the cab's panels. The cab holds its warmth or its cool far longer, and the night heater burns less fuel to keep it warm.</description>
     <roles><li>Cabin</li></roles>
@@ -434,7 +435,7 @@
     <!-- F7: an electric fuel heater in the line, so the fuel never gels (fuelGelExposure to 0, the block heater's pattern). It matters only with
          the fuel gelling setting on. -->
     <defName>PhobosFitting_FuelHeater</defName>
-    <iconPath>Phobos/VehicleSystems/Fittings/BlockHeater</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/FuelHeater</iconPath>
     <label>fuel heater</label>
     <description>An electric heater in the fuel line and filter. The fuel stays thin in the deepest cold, so the engine starts where the fuel would otherwise have gelled.</description>
     <roles><li>FuelPump</li></roles>
@@ -463,7 +464,7 @@
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- F8, with G8: a bigger, finer air cleaner. It clogs at 0.4 the rate (authored). -->
     <defName>PhobosFitting_HeavyAirFilter</defName>
-    <iconPath>Phobos/VehicleSystems/Fittings/Snorkel</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/HeavyAirFilter</iconPath>
     <label>heavy-duty air filter</label>
     <description>A large air cleaner with a pre-filter that spins the dust out first. In deserts and sandstorms the engine keeps its power far longer between services.</description>
     <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
@@ -564,7 +565,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_BoostLow</defName>
-    <iconPath>Phobos/VehicleSystems/Fittings/TuneEngineEconomy</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneBoostLow</iconPath>
     <label>low boost</label>
     <description>The wastegate opens early. A little less power, and a cooler, gentler engine.</description>
     <axis>Boost</axis>
@@ -579,7 +580,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_BoostStandard</defName>
-    <iconPath>Phobos/VehicleSystems/Fittings/TuneEngineStock</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneBoostStandard</iconPath>
     <label>standard boost</label>
     <description>The turbocharger as fitted.</description>
     <axis>Boost</axis>
@@ -591,7 +592,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleTuneDef>
     <defName>PhobosTune_BoostHigh</defName>
-    <iconPath>Phobos/VehicleSystems/Fittings/TuneEnginePower</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/TuneBoostHigh</iconPath>
     <label>high boost</label>
     <description>The wastegate held shut longer. More power, paid for in heat and fuel.</description>
     <axis>Boost</axis>
