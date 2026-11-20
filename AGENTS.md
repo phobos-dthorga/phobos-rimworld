@@ -139,6 +139,12 @@ running a script does not load them.
   every member `src/` names on another author's type, against the archive's last update of each file (`updates`) and the source
   clones' commits since (`pending`, a warning before the Workshop build carries them). Run it after `refresh-mod-list.py` and before
   an install; it matches by name, so read each listed commit or diff before acting on it.
+  **After an update, start with `python scripts/update-check.py`** (owner, 20 Nov 2026: the checks run by hand after that day's
+  updates, "implemented into Companion"; D'thorga Companion's Since you last played runs it): our patches' targets, whether an update
+  touched the method a temporary patch's fault lives in, each update's size and new types, and whether our XML patches still find
+  their Defs (as written, then in the patched-Defs file). What is ours is `config/update-check.json`, which check-targets.py reads
+  too. **A row added to `docs/development/temporary-patches.md` gets its line in `config/temporary-patches.json`** (the members its
+  fault lives in) or under its `notWatched` with the reason, in the same change; `tests/test_temporary_patches_list.py` holds them together.
 - **Answer which mods patch a method with `python scripts/query-patches.py`** (owner, 8 Nov 2026): `who "Type.Method"` for
   every Harmony patch on it in load order (wildcards), `mod <name>` for what a mod patches, `hotspots` for methods several mods
   patch; "may skip the original" marks a bool prefix. It reads every active mod's assemblies through their metadata, never

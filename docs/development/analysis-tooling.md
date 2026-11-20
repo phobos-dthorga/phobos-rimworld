@@ -249,6 +249,14 @@ which a patch of ours targets. About 35 s the first time, 4 s once the decompile
 commit before acting; its note on the "oldest" clone names the repository with the oldest newest commit, which for an abandoned
 mod (Vanilla Cooking Expanded, 2022) is its age, not a stale clone.
 
+**The check after an update (20 Nov 2026, phobos-modkit 1.61.0), owner's request.** `python scripts/update-check.py` runs four
+checks an agent had run by hand that day with five tools: check-targets' names, the temporary patches' faults (from
+`config/temporary-patches.json`), each kept update's size and new types, and our XML patches against the Defs as written and then
+the patched-Defs file. Its first run on the owner's game took 1 min 46 s: 622 of 622 targets found, VFE Factory's belt tick flagged
+for row 12, the Harrier's 246 new declarations listed, and all 371 Def names our patches use found (7 only once patched). Our own
+patches that add Defs whole, as the Harrier bombs do, are read too; before that fix they read as missing. D'thorga Companion's Since
+you last played shows its answers.
+
 ### 10. The test pass
 
 **Built, 17 Nov 2026 (phobos-modkit 1.9.0, D'thorga Framework 0.118.0), at the owner's request:** passes seen in play rarely

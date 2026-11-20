@@ -11,6 +11,7 @@ copied there.
     python scripts/check-targets.py          what no longer matches, notes, and what could not be checked
     python scripts/check-targets.py --all    what passed too
 """
+import json
 from pathlib import Path
 import sys
 
@@ -19,9 +20,12 @@ import _modkit  # noqa: E402  (the shared tools' import path)
 import deploy  # noqa: E402  (shared path settings)
 
 ROOT = Path(__file__).resolve().parents[1]
-OWN_ASSEMBLIES = ('mods/*/1.7/Assemblies/*.dll', 'mods/*/Mods/*/1.7/Assemblies/*.dll')
-# Our own by-name type lookups, read like AccessTools.TypeByName: D'thorga Framework's cached GenTypes lookup.
-TYPE_LOOKUPS = ('OptionalMods.TypeNamed',)
+# Our sources, our fresh build and our own by-name type lookups (read like AccessTools.TypeByName: D'thorga Framework's cached
+# GenTypes lookup) live in config/update-check.json, which update-check.py reads too, so the two checks agree.
+TARGETS = json.loads((ROOT / 'config' / 'update-check.json').read_text(encoding='utf-8'))['targets']
+OWN_ASSEMBLIES = tuple(TARGETS['assemblies'])
+TYPE_LOOKUPS = tuple(TARGETS['typeLookups'])
+SOURCES = tuple(TARGETS['sources'])
 
 
 def main(argv=None, out=None):
@@ -38,6 +42,8 @@ def main(argv=None, out=None):
         arguments += ['--assemblies', pattern]
     for lookup in TYPE_LOOKUPS:
         arguments += ['--type-lookup', lookup]
+    for pattern in SOURCES:
+        arguments += ['--source', pattern]
     return rimworld_targets(arguments + list(sys.argv[1:] if argv is None else argv), settings_file=deploy.SETTINGS_FILE, out=out)
 
 

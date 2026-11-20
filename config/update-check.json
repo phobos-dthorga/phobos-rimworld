@@ -1,0 +1,10 @@
+{
+  "description": "What phobos-modkit's rimworld-update-check treats as ours (python scripts/update-check.py; D'thorga Companion's Since you last played). check-targets.py reads the targets block too, so the two checks agree.",
+  "ourPackageIds": ["PhobosDthorga.*"],
+  "targets": {
+    "sources": ["src/**/*.cs"],
+    "assemblies": ["mods/*/1.7/Assemblies/*.dll", "mods/*/Mods/*/1.7/Assemblies/*.dll"],
+    "typeLookups": ["OptionalMods.TypeNamed"]
+  },
+  "temporaryPatches": "config/temporary-patches.json"
+}
