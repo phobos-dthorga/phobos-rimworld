@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Avionics kits for any aircraft (aircraft service-life upgrades; owner, 21 Nov 2026; docs/development/aircraft-service-life-upgrades.md).
+    Each raises one of the avionics system's figures while its part stands (parameterFloors), and is offered only on an aircraft that lacks
+    that capability, so an aircraft built with a night sight is never offered one. Each brings the power its capability draws, the avionics
+    rule's own figures (AvionicsRule: a full navigation set 6 A against basic's 2, an autopilot 4 A, a night sight 4 A, a radar 20 A), shed
+    with the other loads when the generator is lost. Materials, work, skill and research are authored. What each capability does in play
+    is the avionics record's (vehicle-avionics.md): navigation A2, the autopilot A3, the sights and radar A10 and A11.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_NavigationSet</defName>
+    <label>navigation set</label>
+    <description>An inertial navigator with a satellite receiver, wired into the instruments. The aircraft keeps its track between places in any weather and at night, where basic navigation wanders off course and burns more fuel for the same trip.</description>
+    <roles><li>Avionics</li></roles>
+    <kinds><li>Aircraft</li></kinds>
+    <materials><Steel>10</Steel><ComponentIndustrial>6</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></materials>
+    <work>2400</work>
+    <minSkill>6</minSkill>
+    <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+    <parameterFloors>
+      <li><system>PhobosVehicleSystem_Avionics</system><parameter>navigationFull</parameter><value>1</value></li>
+    </parameterFloors>
+    <loads>
+      <li>
+        <name>kitNavigationSet</name>
+        <label>navigation set</label>
+        <description>The inertial navigator and satellite receiver.</description>
+        <amps>4</amps>
+        <shedOrder>3</shedOrder>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_Autopilot</defName>
+    <label>autopilot</label>
+    <description>Servos on the flight controls and a small computer that holds height and heading. A tired or damaged aircraft lands more safely in bad weather, and with only basic navigation it wanders half as far off its track.</description>
+    <roles><li>AutopilotMount</li></roles>
+    <kinds><li>Aircraft</li></kinds>
+    <materials><Steel>15</Steel><ComponentIndustrial>5</ComponentIndustrial></materials>
+    <work>3000</work>
+    <minSkill>6</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <parameterFloors>
+      <li><system>PhobosVehicleSystem_Avionics</system><parameter>autopilot</parameter><value>1</value></li>
+    </parameterFloors>
+    <loads>
+      <li>
+        <name>kitAutopilot</name>
+        <label>autopilot</label>
+        <description>The autopilot's computer and servos.</description>
+        <amps>4</amps>
+        <shedOrder>3</shedOrder>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_NightSight</defName>
+    <label>night sight</label>
+    <description>An infrared camera in a pod or a nose turret, shown on the crew's sight. At night the aircraft aims its weapons as well as by day.</description>
+    <roles><li>SensorMount</li></roles>
+    <kinds><li>Aircraft</li></kinds>
+    <materials><Steel>20</Steel><ComponentIndustrial>4</ComponentIndustrial><ComponentSpacer>2</ComponentSpacer></materials>
+    <work>4000</work>
+    <minSkill>7</minSkill>
+    <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+    <parameterFloors>
+      <li><system>PhobosVehicleSystem_Avionics</system><parameter>nightSight</parameter><value>1</value></li>
+    </parameterFloors>
+    <loads>
+      <li>
+        <name>kitNightSight</name>
+        <label>night sight</label>
+        <description>The infrared camera and its cooler.</description>
+        <amps>4</amps>
+        <shedOrder>3</shedOrder>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_Radar</defName>
+    <label>radar</label>
+    <description>A small radar in the nose. Through rain, fog and snow the aircraft still finds its targets, losing half of what the weather takes from its aim.</description>
+    <roles><li>RadarMount</li></roles>
+    <kinds><li>Aircraft</li></kinds>
+    <materials><Steel>30</Steel><ComponentIndustrial>6</ComponentIndustrial><ComponentSpacer>3</ComponentSpacer></materials>
+    <work>6000</work>
+    <minSkill>8</minSkill>
+    <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+    <parameterFloors>
+      <li><system>PhobosVehicleSystem_Avionics</system><parameter>radar</parameter><value>1</value></li>
+    </parameterFloors>
+    <loads>
+      <li>
+        <name>kitRadar</name>
+        <label>radar</label>
+        <description>The radar's transmitter, receiver and display: the heaviest of the avionics.</description>
+        <amps>20</amps>
+        <shedOrder>3</shedOrder>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

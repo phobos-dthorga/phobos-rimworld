@@ -145,3 +145,61 @@ public static class TurretAimRule
 
     static double Clamp(double value) => value < 0.05 ? 0.05 : value > 1 ? 1 : value;
 }
+
+/// <summary>How well an aircraft's sight lets it aim (avionics A10, A11; aircraft service-life upgrades, 21 Nov 2026). Game-free; the figures
+/// are the rules Def's, authored.</summary>
+public enum SightState
+{
+    /// <summary>No sight, or one shot out.</summary>
+    Out,
+    /// <summary>A basic sight working.</summary>
+    Basic,
+    /// <summary>A full sight working: the weapon's own accuracy.</summary>
+    Full,
+}
+
+public static class AvionicsAimRule
+{
+    /// <summary>
+    /// The factor on an aircraft weapon's accuracy: the sight's (A10), times the dark's without a working night sight and the weather's (A11),
+    /// of which a working radar gives back a share. 1 is the weapon as its author made it.
+    /// </summary>
+    public static double Factor(SightState sight, bool dark, bool badWeather, bool nightSight, bool radar, double basicSight, double noSight,
+        double blind, double radarGivesBack)
+    {
+        double factor = sight switch
+        {
+            SightState.Full => 1,
+            SightState.Basic => Clamp(basicSight),
+            _ => Clamp(noSight),
+        };
+        if (dark && !nightSight) factor *= Clamp(blind);
+        if (badWeather)
+        {
+            double loss = 1 - Clamp(blind);
+            factor *= 1 - loss * (radar ? 1 - Math.Min(1, Math.Max(0, radarGivesBack)) : 1);
+        }
+        return factor;
+    }
+
+    /// <summary>A bomb's or rocket's scatter for the factor: the weapon's own miss radius, widened as its accuracy falls.</summary>
+    public static double MissRadius(double radius, double factor) => factor >= 1 || factor <= 0 ? radius : radius / factor;
+
+    static double Clamp(double value) => value < 0.05 ? 0.05 : value > 1 ? 1 : value;
+}
+
+/// <summary>Whether a landing goes hard (avionics A3, A4; aircraft service-life upgrades, 21 Nov 2026). Game-free; figures are the rules Def's.</summary>
+public static class RoughLandingRule
+{
+    /// <summary>The chance a landing goes hard: none while the crew can see to land with its controls answering; otherwise the rules'
+    /// chance, less with a working autopilot.</summary>
+    public static double Chance(bool poorVisibility, bool instruments, double flightControl, bool autopilot, double chance, double controlBelow,
+        double autopilotFactor)
+    {
+        bool blind = poorVisibility && !instruments;
+        bool loose = flightControl < controlBelow;
+        if (!blind && !loose) return 0;
+        double c = Math.Min(1, Math.Max(0, chance));
+        return autopilot ? c * Math.Min(1, Math.Max(0, autopilotFactor)) : c;
+    }
+}

@@ -3,6 +3,13 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "306": {"parts": {
+      "a hard landing, with and without an autopilot": [{"key": "aircraft.rough-landing", "variant": "manual"}, {"key": "aircraft.rough-landing", "variant": "autopilot"}],
+      "a landing judged smooth": [{"key": "aircraft.rough-landing", "variant": "smooth"}],
+      "aim by the sight, the dark and the weather": ["aircraft.avionics-aim"],
+      "bombs and rockets scatter wider": ["vehicles.scatter-widened"],
+      "a vehicle from an older save keeps its fittings": ["vehicles.older-save-fitted"]
+    }},
     "304": {"parts": {
       "a round that beats a plate throws spall": [{"key": "vehicles.spall", "variant": "beaten", "expect": {"pool": "> 0", "fragments": ">= 1"}}],
       "a heavy hit the plate stops shakes a little loose": [{"key": "vehicles.spall", "variant": "shock", "expect": {"pool": "> 0", "fragments": "= 1"}}],

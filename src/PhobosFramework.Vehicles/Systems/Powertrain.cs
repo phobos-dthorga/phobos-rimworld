@@ -155,6 +155,8 @@ public sealed class Powertrain
         {
             Turbine = MakeTurbine(t, includeWet: true);
             dryTurbine = MakeTurbine(t, includeWet: false);
+            // A re-engining or a hotter engine (aircraft service-life upgrades): a change of fittings builds the powertrain again.
+            foreach (TurbineSpec turbine in new[] { Turbine, dryTurbine }) ApplyFittings(turbine, fittings);
             waterTankKg = t.waterInjection?.tankKilograms ?? 0;
             waterKgPerSecond = t.waterInjection?.kilogramsPerSecond ?? 0;
             float limit = Get("transmissionLimit", t.transmissionLimit);
@@ -213,6 +215,16 @@ public sealed class Powertrain
 
     /// <summary>Fitted armour and weapon kits, carried as cargo (owner, 19 Nov 2026: "weight counts like cargo").</summary>
     double KitKg => comp.Vehicle.GetStatValue(AircraftUpgradeDefOf.Phobos_KitKilograms);
+
+    /// <summary>What fitted engine upgrades do to a turbine: more thrust and output, and less lost in hot air.</summary>
+    static void ApplyFittings(TurbineSpec turbine, VehicleFittings fittings)
+    {
+        double thrust = fittings.ThrustFactor;
+        turbine.OutputFactor = thrust;
+        turbine.DeratePerDegree *= fittings.HotDerateFactor;
+        if (thrust == 1) return;
+        foreach (TurbineRating rating in turbine.Ratings) rating.ThrustKn *= thrust;
+    }
 
     static TurbineSpec MakeTurbine(TurbineXml xml, bool includeWet)
     {

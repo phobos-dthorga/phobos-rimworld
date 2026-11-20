@@ -110,6 +110,26 @@ public static class TurretPace
             if (pace.accuracy < 1f && Seen.Wants("vehicles.cranked-turret-aims-worse", vehicle)) Seen.Note("vehicles.cranked-turret-aims-worse", vehicle, turret.key + (moving ? " moving" : "") + (poor ? " dark" : ""));
         }
 
+        // Avionics A10 and A11 (aircraft service-life upgrades, 21 Nov 2026): in the air, an aircraft's sight decides how well its weapons aim,
+        // and the dark and the weather blunt it unless a night sight or a radar works. A10 only where the aircraft carries a sight (one shot
+        // out, or a basic one, aims worse), so an aircraft no loadout gives a sight aims as its author made it.
+        if (VehicleSystemsMod.Settings.avionicsAim && comp.Props.loadout?.kind == "Aircraft" && vehicle.Spawned && OnMapFlight.Airborne(vehicle))
+        {
+            PhobosAirCombatRulesDef air = PhobosRulesDef.Current<PhobosAirCombatRulesDef>();
+            SightState aircraftSight = !AirCombat.CarriesFigure(vehicle, AirCombat.SightQuantity) ? SightState.Full
+                : AirCombat.Works(vehicle, AirCombat.SightFullQuantity) ? SightState.Full
+                : AirCombat.Works(vehicle, AirCombat.SightQuantity) ? SightState.Basic
+                : SightState.Out;
+            bool dark = vehicle.Map.skyManager.CurSkyGlow < air.aimDarkBelowGlow;
+            bool weather = When_PoorVisibility.Poor(vehicle);
+            double aim = AvionicsAimRule.Factor(aircraftSight, dark, weather, AirCombat.Works(vehicle, AirCombat.NightSightQuantity),
+                AirCombat.Works(vehicle, AirCombat.RadarQuantity), air.aimBasicSight, air.aimNoSight, air.aimBlind, air.radarGivesBack);
+            pace.accuracy *= (float)aim;
+            if (aim < 1 && Seen.Wants("aircraft.avionics-aim", vehicle, aircraftSight.ToString()))
+                Seen.Note("aircraft.avionics-aim", vehicle, turret.key + (dark ? " dark" : "") + (weather ? " weather" : ""), aircraftSight.ToString(),
+                    new[] { new KeyValuePair<string, double>("accuracy", aim) });
+        }
+
         // Seen in play (Framework 0.118.0): what slowed or stopped this weapon, once a session each.
         if (mount != null && mount.HealthPercent <= rules.stopsAtOrBelow) Seen.Note("vehicles.weapon-stopped-by-mount", vehicle, turret.key);
         else if (pace.damaged) Seen.Note("vehicles.weapon-slowed-by-damage", vehicle, turret.key);

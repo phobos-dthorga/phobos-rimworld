@@ -34,6 +34,9 @@ public sealed class TurbineSpec
     /// below their engines' total, so the gearbox, not the engines, sets the limit.
     /// </summary>
     public double DriveLimitShare = double.PositiveInfinity;
+    /// <summary>The engine's output against what its ratings' shares assume, 1 as designed: a re-engining gives more for the same demand, so
+    /// it runs cooler and has more in reserve (aircraft service-life upgrades). The ratings' thrust is scaled by the same factor.</summary>
+    public double OutputFactor = 1;
 
     public TurbineRating Continuous => Ratings[0];
     public TurbineRating Top => Ratings[Ratings.Count - 1];
@@ -88,7 +91,7 @@ public static class TurbineModel
             return state;
         }
         double share = (double)working / Math.Max(1, engines);
-        state.Available = Derate(spec, ambient, pressureRatio) * Math.Max(0.05, condition) * share;
+        state.Available = Derate(spec, ambient, pressureRatio) * Math.Max(0.05, condition) * share * Math.Max(0.01, spec.OutputFactor);
         double ratio = demand / Math.Max(0.01, state.Available);
         state.SpeedPercent = spec.IdleSpeedPercent + (100 - spec.IdleSpeedPercent) * Math.Sqrt(Math.Min(1.2, Math.Max(0, ratio)));
         double idleTemperature = ambient + spec.IdleTemperatureAboveAmbient;
@@ -126,7 +129,8 @@ public static class TurbineModel
 
     /// <summary>What can hold a helicopter up: the engines' output after the derate, condition and engines out, capped by the rotor drive.</summary>
     public static double LiftPowerAvailable(TurbineSpec spec, double ambient, double condition, double engineShare, double pressureRatio = 1) =>
-        Math.Min(Derate(spec, ambient, pressureRatio) * Math.Max(0, condition) * engineShare * spec.Top.Share, spec.DriveLimitShare);
+        Math.Min(Derate(spec, ambient, pressureRatio) * Math.Max(0, condition) * engineShare * spec.Top.Share * Math.Max(0.01, spec.OutputFactor),
+            spec.DriveLimitShare);
 
     /// <summary>
     /// The thrust each rating must give for a thrust-lifted craft built to lift <paramref name="liftToWeight"/> times its maximum gross

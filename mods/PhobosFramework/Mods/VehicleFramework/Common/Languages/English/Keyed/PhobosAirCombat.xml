@@ -19,6 +19,9 @@
   <PhobosAirCombat_Hypoxia>The {VEHICLE}'s oxygen failed at height. Everyone aboard is short of breath until well after it comes down.</PhobosAirCombat_Hypoxia>
 
   <!-- The Harrier's salvo button on a map. {COUNT}: cartridges a salvo uses; {LEFT}: cartridges aboard. -->
+  <!-- Rough landings (avionics A4). {VEHICLE}: the aircraft. -->
+  <PhobosAirCombat_RoughLandingBlind>The {VEHICLE} came down hard: its crew could not see to land without the instruments. Its landing gear needs repair.</PhobosAirCombat_RoughLandingBlind>
+  <PhobosAirCombat_RoughLandingControls>The {VEHICLE} came down hard: its flight controls barely answered. Its landing gear needs repair.</PhobosAirCombat_RoughLandingControls>
   <PhobosAirCombat_SalvoGizmo>Chaff and flares</PhobosAirCombat_SalvoGizmo>
   <PhobosAirCombat_SalvoGizmoDesc>Fire a salvo of chaff and flares. For {SECONDS} seconds the aircraft is harder to hit.\n\nUses {COUNT} cartridges; {LEFT} in the dispensers. Haulers load more into them while the aircraft is parked.</PhobosAirCombat_SalvoGizmoDesc>
   <PhobosAirCombat_SalvoFired>The {VEHICLE} fires chaff and flares. {LEFT} cartridges left aboard.</PhobosAirCombat_SalvoFired>

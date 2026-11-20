@@ -24,6 +24,16 @@ public class ParameterFactorSpec
     [MustTranslate] public string label = "";
 }
 
+/// <summary>The least a system's parameter may be while the fitting's part stands (Framework, aircraft service-life upgrades): a kit that
+/// adds a capability raises its figure from 0 to 1, where a factor could not. The highest floor among the fitted parts counts.</summary>
+public class ParameterFloorSpec
+{
+    /// <summary>The system's defName; empty for every system with this parameter.</summary>
+    public string system = "";
+    public string parameter = "";
+    public float value = 1f;
+}
+
 /// <summary>
 /// An improvement bolted onto one part of one vehicle (docs/development/vehicle-tuning-and-upgrades.md): which roles it goes on, what it
 /// costs, and which figures it moves. One to a part, lost with the part. Another mod adds its own in XML.
@@ -76,6 +86,27 @@ public class PhobosVehicleFittingDef : Def
     /// <summary>What taking the fitting off gives back into the cargo (owner, 13 Nov 2026: a removed accessory gives its kit back; brackets
     /// and wiring are not returned). Empty: nothing comes back, as before.</summary>
     public List<ThingDefCountClass> givesBack = new();
+    /// <summary>Only vehicles on one of these loadouts (aircraft service-life upgrades: the Harrier's engine fits only a Harrier). Empty: any.</summary>
+    public List<PhobosVehicleLoadoutDef> loadouts = new();
+    /// <summary>Only vehicles whose loadout is of one of these kinds ("Aircraft"). Empty: any.</summary>
+    public List<string> kinds = new();
+    /// <summary>Raised figures while the part stands: an avionics kit's capability (aircraft service-life upgrades).</summary>
+    public List<ParameterFloorSpec> parameterFloors = new();
+    /// <summary>A factor on a turbine's rated thrust and on its output against demand (aircraft service-life upgrades: a re-engining).
+    /// Shared across several engines by the share-per-part rule.</summary>
+    public float thrustFactor = 1f;
+    /// <summary>A factor on how much output a turbine loses for each degree above 15 °C: below 1, a hotter engine that keeps more in hot air.</summary>
+    public float hotDerateFactor = 1f;
+    /// <summary>A factor on the countermeasure dispensers' magazine: more dispensers.</summary>
+    public float cartridgeFactor = 1f;
+
+    /// <summary>Whether the fitting may go on a vehicle with this loadout, by its loadouts and kinds lists.</summary>
+    public bool SuitsLoadout(PhobosVehicleLoadoutDef? loadout) =>
+        (loadouts.Count == 0 || (loadout != null && loadouts.Contains(loadout)))
+        && (kinds.Count == 0 || (loadout != null && kinds.Contains(loadout.kind)));
+
+    /// <summary>Whether it moves a turbine's figures.</summary>
+    public bool MovesTurbine => thrustFactor != 1f || hotDerateFactor != 1f;
 
     public bool Suits(double kilograms, bool hasPiston, bool isTracked, bool powerReachesRoad) =>
         (piston == Match.Any || (piston == Match.Yes) == hasPiston)
@@ -90,7 +121,13 @@ public class PhobosVehicleFittingDef : Def
         if (roles.Count == 0) yield return "names no roles";
         if (work <= 0f) yield return "work must be above 0";
         if (statFactors.Count == 0 && parameterFactors.Count == 0 && powerFactor == 1f && fuelFactor == 1f && fuelCapacityFactor == 1f && grants.Count == 0
-            && loads.Count == 0 && kilograms == 0f) yield return "moves no figure and grants nothing";
+            && loads.Count == 0 && kilograms == 0f && parameterFloors.Count == 0 && !MovesTurbine && cartridgeFactor == 1f)
+            yield return "moves no figure and grants nothing";
+        if (thrustFactor <= 0f || hotDerateFactor < 0f || cartridgeFactor <= 0f) yield return "thrustFactor and cartridgeFactor must be above 0, hotDerateFactor not below 0";
+        foreach (ParameterFloorSpec spec in parameterFloors)
+        {
+            if (spec.parameter.NullOrEmpty()) yield return "a parameter floor names no parameter";
+        }
         if (kilograms < 0f) yield return "kilograms must not be below 0";
         if (fuelCapacityFactor <= 0f) yield return "fuelCapacityFactor must be above 0";
         foreach (StatFactorSpec spec in statFactors)

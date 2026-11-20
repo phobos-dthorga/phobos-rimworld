@@ -20,6 +20,10 @@ public sealed class FitFigures
     public double Power = 1, Fuel = 1, FlatFuel = 1, FinalDrive = 1;
     /// <summary>The factor on the fuel capacity (extra tanks; Framework 0.103.0).</summary>
     public double FuelCapacity = 1;
+    /// <summary>A turbine's thrust and output, its loss in hot air, and the dispensers' magazine (aircraft service-life upgrades).</summary>
+    public double Thrust = 1, HotDerate = 1, Cartridges = 1;
+    /// <summary>The least each system parameter may be, the highest floor of any fitting (a kit's capability; not shared across parts).</summary>
+    public readonly Dictionary<(string system, string name), float> Floors = new();
     public readonly Dictionary<VehicleStatDef, float> Stats = new();
     public readonly Dictionary<(string system, string name), float> Parameters = new();
     /// <summary>A parameter's player label, where a Def gives one (the first that does).</summary>
@@ -41,6 +45,14 @@ public sealed class FitFigures
             figures.Power *= FittingRule.PartShare(def.powerFactor, parts);
             figures.Fuel *= FittingRule.PartShare(def.fuelFactor, parts);
             figures.FuelCapacity *= FittingRule.PartShare(def.fuelCapacityFactor, parts);
+            figures.Thrust *= FittingRule.PartShare(def.thrustFactor, parts);
+            figures.HotDerate *= FittingRule.PartShare(def.hotDerateFactor, parts);
+            figures.Cartridges *= FittingRule.PartShare(def.cartridgeFactor, parts);
+            foreach (ParameterFloorSpec spec in def.parameterFloors)
+            {
+                var key = (spec.system, spec.parameter);
+                if (!figures.Floors.TryGetValue(key, out float before) || spec.value > before) figures.Floors[key] = spec.value;
+            }
         }
         foreach (PhobosVehicleTuneDef tune in tunes)
         {
@@ -120,6 +132,9 @@ public sealed class VehicleFittings
     List<FitOrder> orders = new();
     List<GradedPart> graded = new();
     bool setRolled;
+    /// <summary>Whether this vehicle has had its loadout's fittedOnOlderSaves, or never needed them: true for a vehicle made in this version,
+    /// false for one loaded from a save that has no entry for it.</summary>
+    bool olderSaveFitsSettled = true;
 
     Dictionary<VehicleStatDef, float>? statFactors;
     Dictionary<(string system, string name), float>? parameterFactors;
@@ -128,6 +143,8 @@ public sealed class VehicleFittings
     float flatFuel = 1f;
     float finalDrive = 1f;
     float fuelCapacity = 1f;
+    float thrust = 1f, hotDerate = 1f, cartridges = 1f;
+    Dictionary<(string system, string name), float>? floors;
     /// <summary>What this vehicle's tanks now add to Vehicle Framework's capacity offset. Not saved: Vehicle Framework does not save its
     /// offsets either, so both start from nothing after a load and SyncFuelCapacity puts ours back.</summary>
     float appliedFuelOffset;
@@ -184,6 +201,7 @@ public sealed class VehicleFittings
         Scribe_Collections.Look(ref orders, "PhobosVehicleSystems_FitOrders", LookMode.Deep);
         Scribe_Collections.Look(ref graded, "PhobosVehicleSystems_Grades", LookMode.Deep);
         Scribe_Values.Look(ref setRolled, "PhobosVehicleSystems_FitSetRolled", false);
+        Scribe_Values.Look(ref olderSaveFitsSettled, "PhobosVehicleSystems_OlderSaveFitsSettled", false);
         // A save from before fittings existed has no entry for them, and the loader then leaves the lists null, not empty. The
         // stats are read before loading ends (Vehicle Framework spawns the vehicle first), so they are made whole in every mode,
         // never only at the end (0.40.0 left every vehicle unspawnable on an older save; 0.40.2).
@@ -228,6 +246,10 @@ public sealed class VehicleFittings
         flatFuel = (float)figures.FlatFuel;
         finalDrive = (float)figures.FinalDrive;
         fuelCapacity = (float)figures.FuelCapacity;
+        thrust = (float)figures.Thrust;
+        hotDerate = (float)figures.HotDerate;
+        cartridges = (float)figures.Cartridges;
+        floors = figures.Floors;
     }
 
     /// <summary>The roles whose part rows carry a tune's changes in the fittings window: an engine tune on the engines, the gearing on the
@@ -269,6 +291,51 @@ public sealed class VehicleFittings
         Recache();
         float everywhere = parameterFactors!.TryGetValue(("", name), out float any) ? any : 1f;
         return parameterFactors.TryGetValue((system, name), out float own) ? everywhere * own : everywhere;
+    }
+
+    /// <summary>The least a system's parameter may be by what is fitted (a kit's capability), or NaN with no floor: what names that system,
+    /// and what names no system at all, the higher of the two.</summary>
+    public float ParameterFloor(string system, string name)
+    {
+        if (Nothing) return float.NaN;
+        Recache();
+        float floor = float.NaN;
+        if (floors!.TryGetValue(("", name), out float any)) floor = any;
+        if (floors.TryGetValue((system, name), out float own) && (float.IsNaN(floor) || own > floor)) floor = own;
+        return floor;
+    }
+
+    /// <summary>The factor on a turbine's thrust and output (a re-engining), across every engine fitted.</summary>
+    public float ThrustFactor
+    {
+        get
+        {
+            if (Nothing) return 1f;
+            Recache();
+            return thrust;
+        }
+    }
+
+    /// <summary>The factor on a turbine's loss of output in hot air.</summary>
+    public float HotDerateFactor
+    {
+        get
+        {
+            if (Nothing) return 1f;
+            Recache();
+            return hotDerate;
+        }
+    }
+
+    /// <summary>The factor on the countermeasure dispensers' magazine.</summary>
+    public float CartridgeFactor
+    {
+        get
+        {
+            if (Nothing) return 1f;
+            Recache();
+            return cartridges;
+        }
     }
 
     public float PowerFactor
@@ -356,11 +423,20 @@ public sealed class VehicleFittings
     bool MovesSomethingHere(PhobosVehicleFittingDef def)
     {
         if (def.statFactors.Count > 0 || def.powerFactor != 1f || def.fuelFactor != 1f || def.grants.Count > 0) return true;
+        // Aircraft service-life upgrades: an engine upgrade needs a turbine, more dispensers need dispensers, and a kit must raise a figure
+        // the vehicle lacks (an aircraft built with a night sight is offered no night-sight kit, nor a second one).
+        if (def.MovesTurbine && comp.Powertrain?.Turbine != null) return true;
+        if (def.cartridgeFactor != 1f && comp.Vehicle.GetComp<CompPhobosDispensers>() != null) return true;
+        if (def.parameterFloors.Any(spec => comp.Props.systems.Any(system =>
+                (spec.system.Length == 0 || system.def.defName == spec.system)
+                && system.parameters.TryGetValue(spec.parameter, out double built) && built < spec.value
+                && !(ParameterFloor(system.def.defName, spec.parameter) >= spec.value)))) return true;
         return def.parameterFactors.Any(spec => comp.Props.systems.Any(system =>
             (spec.system.Length == 0 || system.def.defName == spec.system) && system.parameters.ContainsKey(spec.parameter)));
     }
 
-    bool Suits(PhobosVehicleFittingDef def) => def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts) && MovesSomethingHere(def);
+    bool Suits(PhobosVehicleFittingDef def) => def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts) && def.SuitsLoadout(comp.Props.loadout)
+        && MovesSomethingHere(def);
 
     /// <summary>How long an answer a screen asks for every frame is kept, in seconds of real time (authored: too short to notice, long
     /// enough that a selected vehicle is not walked part by part sixty times a second; the performance pass, Framework 0.94.0).</summary>
@@ -1057,6 +1133,33 @@ public sealed class VehicleFittings
         fitted.RemoveAll(f => f.partKey == part.props.key);
         if (comp.Vehicle.Faction == Faction.OfPlayer) TellLost(lost, part);
         Changed(FuelExcess.Lose);
+    }
+
+    /// <summary>
+    /// A vehicle from a save made before its loadout began without some fittings is given them once, free, on the first part each suits, so
+    /// it keeps what it had (aircraft service-life upgrades). Says so to the player for their own vehicles. Runs at spawn and changes only
+    /// this vehicle's list of fittings: nothing is spawned.
+    /// </summary>
+    public void GiveOlderSaveFittings()
+    {
+        if (olderSaveFitsSettled) return;
+        olderSaveFitsSettled = true;
+        if (comp.Props.loadout?.fittedOnOlderSaves is not { Count: > 0 } list) return;
+        var given = new List<string>();
+        foreach (PhobosVehicleFittingDef def in list)
+        {
+            if (def == null || Has(def)) continue;
+            string? key = def.roles.Where(comp.Props.roleKeys.ContainsKey).SelectMany(role => comp.Props.roleKeys[role]).FirstOrDefault(k => FittedOn(k) == null);
+            if (key == null) continue;
+            fitted.Add(new FittedPart { partKey = key, def = def });
+            given.Add(def.label);
+        }
+        if (given.Count == 0) return;
+        Changed();
+        if (Seen.Wants("vehicles.older-save-fitted", comp.Vehicle)) Seen.Note("vehicles.older-save-fitted", comp.Vehicle, string.Join(", ", given));
+        if (comp.Vehicle.Faction == Faction.OfPlayer)
+            Messages.Message("PhobosVehicleSystems_OlderSaveFitted".Translate(comp.Vehicle.LabelShort.Named("VEHICLE"), given.ToCommaList(useAnd: true).Named("FITTINGS")),
+                comp.Vehicle, MessageTypeDefOf.NeutralEvent, historical: false);
     }
 
     /// <summary>The first time another faction's vehicle appears: by chance, a set suited to its faction's tech level (owner, 9 Nov 2026).</summary>

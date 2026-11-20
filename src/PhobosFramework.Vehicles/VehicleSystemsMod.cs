@@ -90,6 +90,13 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A crew whose oxygen fails at height is short of breath for a while (Framework 0.119.0, avionics A14; owner, 13 and 17 Nov 2026: a
     /// setting, off by default, giving a short-lived condition of our own). Live.</summary>
     public bool altitudeHypoxia;
+    /// <summary>An aircraft landing in poor visibility without its instruments, or with its flight controls shot about, may land hard and
+    /// damage its landing gear (avionics A4; aircraft service-life upgrades, 21 Nov 2026). Moderate risk (agent's grade: damage to a part,
+    /// never the crew, after the player's own choice to land), so on. Live.</summary>
+    public bool roughLandings = true;
+    /// <summary>An aircraft's sight, night sight and radar decide how well it aims (avionics A10, A11; aircraft service-life upgrades, 21 Nov
+    /// 2026). Low risk (agent's grade), so on. Live.</summary>
+    public bool avionicsAim = true;
     /// <summary>Another mod's air defence sees our aircraft in flight on the world map and may shoot at them (Framework 0.119.0, AD3; owner,
     /// 13 Nov 2026). Shown only while The Dead Man's Switch - Expedition is active. Live.</summary>
     public bool airDefenceSeesAircraft = true;
@@ -217,6 +224,8 @@ public class VehicleSystemsSettings : ModSettings
         "blindFlightWarnOnly" => blindFlightWarnOnly,
         "altitudeHypoxia" => altitudeHypoxia,
         "airDefenceSeesAircraft" => airDefenceSeesAircraft,
+        "roughLandings" => roughLandings,
+        "avionicsAim" => avionicsAim,
         "lowOilCallsService" => lowOilCallsService,
         "accessoriesLoadEngine" => accessoriesLoadEngine,
         "roughGroundWear" => roughGroundWear,
@@ -280,6 +289,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref nightHeater, "PhobosVehicleSystems_NightHeater", false);
         Scribe_Values.Look(ref blindFlightWarnOnly, "PhobosVehicleSystems_BlindFlightWarnOnly", false);
         Scribe_Values.Look(ref altitudeHypoxia, "PhobosVehicleSystems_AltitudeHypoxia", false);
+        Scribe_Values.Look(ref roughLandings, "PhobosVehicleSystems_RoughLandings", true);
+        Scribe_Values.Look(ref avionicsAim, "PhobosVehicleSystems_AvionicsAim", true);
         Scribe_Values.Look(ref airDefenceSeesAircraft, "PhobosVehicleSystems_AirDefenceSeesAircraft", true);
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
         Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
@@ -520,6 +531,8 @@ public class VehicleSystemsMod : SettingsBookMod
             limit => ("PhobosVehicleSystems_Hover" + limit).Translate(), limit => ("PhobosVehicleSystems_Hover" + limit + "Desc").Translate());
         list.Check("PhobosVehicleSystems_SettingBlindFlightWarnOnly".Translate(), ref s.blindFlightWarnOnly, d.blindFlightWarnOnly, "PhobosVehicleSystems_SettingBlindFlightWarnOnlyDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingAltitudeHypoxia".Translate(), ref s.altitudeHypoxia, d.altitudeHypoxia, "PhobosVehicleSystems_SettingAltitudeHypoxiaDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingRoughLandings".Translate(), ref s.roughLandings, d.roughLandings, "PhobosVehicleSystems_SettingRoughLandingsDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingAvionicsAim".Translate(), ref s.avionicsAim, d.avionicsAim, "PhobosVehicleSystems_SettingAvionicsAimDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingStockHelicopters".Translate(), ref s.stockHelicoptersFly, d.stockHelicoptersFly, "PhobosVehicleSystems_SettingStockHelicoptersDesc".Translate());
         if (ModsConfig.IsActive(DmseTieIn.PackageId))
         {

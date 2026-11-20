@@ -162,6 +162,8 @@ public class WorldObjectComp_PhobosFlightSystems : WorldObjectComp
         if (!flight.Flying && comp.LandedRefuelUntil <= 0) return;
         using (PhobosTiming.Measure("vehicle rare tick / in flight")) comp.UpdateNow();
         if (flight.Flying) Seen.Note("aircraft.systems-run-in-flight", comp.Vehicle);
+        // Avionics A4: judged once it is down on a map (RoughLandings).
+        if (flight.Flying) comp.ArrivingFromWorld = true;
         using (PhobosTiming.Measure("aircraft refuel from cargo")) CargoRefuel.FlightLook(flight, comp.Vehicle, comp);
         // Framework 0.142.0: an engine lost on the way is noticed, and the leg judged again where the aircraft is.
         if (flight.Flying)

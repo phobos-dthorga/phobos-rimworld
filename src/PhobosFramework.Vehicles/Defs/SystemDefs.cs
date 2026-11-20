@@ -796,6 +796,10 @@ public class PhobosVehicleLoadoutDef : Def
     public List<ElectricalLoadSpec> loads = new();
     /// <summary>What the aircraft's avionics carry (Framework 0.110.0); null for a loadout with none.</summary>
     public AvionicsFit? avionics;
+    /// <summary>Fittings a vehicle saved before this loadout began without them is given once, free, when the save loads (aircraft service-life
+    /// upgrades: a Harrier built with a night sight and radar keeps them when the Harrier starts as its day-attack version). A vehicle made
+    /// afterwards, the player's or another faction's, is given none.</summary>
+    public List<PhobosVehicleFittingDef> fittedOnOlderSaves = new();
     /// <summary>This aircraft's own cruising figures (Framework 0.141.0), in place of its flight profile's; null to use the profile's.</summary>
     public CruiseSpec? cruise;
 

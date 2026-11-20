@@ -26,6 +26,13 @@ public static class AirCombat
     public const string WarningQuantity = "warningReceiver";
     public const string CountermeasuresQuantity = "countermeasures";
     public const string OxygenQuantity = "crewOxygen";
+    // Aircraft service-life upgrades (avionics A3, A4, A10, A11): the capabilities a kit can add, and the instruments.
+    public const string AttitudeQuantity = "attitude";
+    public const string AutopilotQuantity = "autopilot";
+    public const string SightQuantity = "sight";
+    public const string SightFullQuantity = "sightFull";
+    public const string NightSightQuantity = "nightSight";
+    public const string RadarQuantity = "radar";
 
     static PhobosAirCombatRulesDef Rules => PhobosRulesDef.Current<PhobosAirCombatRulesDef>();
 
@@ -43,6 +50,17 @@ public static class AirCombat
         // receiver read as broken, and its dodge was cut, until it was hit or the player selected it.
         _ = comp.States;
         return comp.TryGetQuantity(quantity, out float value) && value >= WorkingFrom;
+    }
+
+    static PhobosVehicleSystemDef? avionicsDef;
+
+    /// <summary>Whether the aircraft carries a capability by its avionics figure, its loadout's fit or a fitted kit (aircraft service-life
+    /// upgrades), whatever its state.</summary>
+    public static bool CarriesFigure(VehiclePawn? vehicle, string parameter)
+    {
+        if (Systems(vehicle) is not { Usable: true } comp) return false;
+        avionicsDef ??= DefDatabase<PhobosVehicleSystemDef>.GetNamedSilentFail("PhobosVehicleSystem_Avionics");
+        return avionicsDef != null && comp.ContextOf(avionicsDef)?.Parameter(parameter) >= 0.5f;
     }
 
     /// <summary>Whether the aircraft carries the capability at all (whatever its state).</summary>

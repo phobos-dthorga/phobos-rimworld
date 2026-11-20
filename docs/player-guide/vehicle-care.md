@@ -513,6 +513,14 @@ the kit back in the cargo.
   their own switches read "left to the climate control".
 - **Heavy controls.** Helicopters and planes with servos, and the Harrier, fly on hydraulics: if the fluid leaks or the pump is hit,
   the controls go heavy and it flies slower. Top up the fluid in a service.
+- **Avionics kits** (not yet tested in game): any aircraft can be fitted with a **navigation set**, an **autopilot**, a **night sight** or
+  a **radar** it lacks, from its fittings window. Navigation keeps a flight on track in the dark and fog; an autopilot halves the
+  wandering and the risk of a rough landing; a night sight aims at night as by day; a radar gives back half of what rain, fog and snow
+  take from the aim. Shot out with its part, a kit stops working until repaired.
+- **Rough landings** (on by default, D'thorga Framework's settings): landing in poor visibility with the instruments out, or with the
+  flight controls shot about, may come down hard and damage the landing gear. Never the crew.
+- **Aim in the air** (on by default): a damaged or basic sight misses more, and every aircraft misses more at night without a night
+  sight and in bad weather without a radar; bombs and rockets scatter wider.
 - **Gas turbines** (aircraft, and the M1A2 tanks) wear their hot section when run past their limits, and twice as fast when held at
   take-off power longer than allowed; a **hot-section overhaul**
   (10 plasteel, 3 components) puts it right. With one of two engines out, the other runs hot. **What a turbine drives besides the

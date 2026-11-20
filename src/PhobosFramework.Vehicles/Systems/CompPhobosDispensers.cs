@@ -49,7 +49,9 @@ public sealed class CompPhobosDispensers : VehicleComp, IThingHolder
     public ThingDef? Cartridge => Rules.cartridgeDef;
 
     /// <summary>How many cartridges the magazine holds when full.</summary>
-    public int Capacity => Math.Max(0, Props.capacity);
+    /// <summary>The magazine: the loadout's, and more where dispensers have been fitted (aircraft service-life upgrades).</summary>
+    public int Capacity => Math.Max(0, (int)Math.Round(Props.capacity * ((parent as VehiclePawn) is { } vehicle && CompPhobosVehicleSystems.Of(vehicle) is { } systems
+        ? systems.Fittings.CartridgeFactor : 1f)));
 
     /// <summary>How many cartridges are loaded.</summary>
     public int Held => magazine.TotalStackCount;

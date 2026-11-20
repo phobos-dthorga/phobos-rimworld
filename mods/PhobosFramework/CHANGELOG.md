@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.208.0] - 2026-11-21 - Draft
+
+Aircraft upgrades through their service lives: engines, avionics kits, rough landings and aim by sight and weather
+
+### Added
+
+- **Avionics kits for any aircraft** (the owner's request of 21 November 2026, for upgrades "throughout all of their service lives"): a **navigation set**, an **autopilot**, a **night sight** and a **radar**, fitted by a mechanic like any other fitting. Each goes on a small part of its own that every aircraft now has (autopilot servos, a sensor station, a radar bay; the Harrier's own nose radar), draws its power, and is offered only to an aircraft that lacks it. Not yet tested in game: row 306 of the test pass.
+- **Engine upgrades as fittings**: a fitting can now raise a turbine's thrust and how much it keeps in hot air, offered only on the aircraft it was made for. A twin's engines each take their own, giving half the gain each. The Harrier's, the A-10's and the Su-25's are in D'thorga Vehicles.
+- **Rough landings** (a new setting, on by default): an aircraft landing where its crew cannot see to land, in poor visibility with its instruments out, or with its flight controls shot about, may come down hard, four times in ten, and its landing gear takes the wear. A working autopilot halves the chance. Never harms the crew. Every kind of aircraft and landing, any faction's.
+- **An aircraft's sight, night sight and radar decide how well it aims in the air** (a new setting, on by default): a basic sight misses by a quarter more, one shot out by half more; at night without a night sight, and in rain, fog or snow, every aircraft misses more, and a working radar gives back half of what the weather takes. Bombs and rockets scatter more for the same reasons. An aircraft no loadout gives a sight aims as its author made it, except at night and in bad weather.
+- **A working autopilot halves the wandering** of a flight with only basic navigation at night or in fog.
+- **A vehicle from an older save keeps what its loadout no longer starts with**, given once, free, when the save loads (the Harrier's night sight and radar).
+
+### Save compatibility
+
+- **Safe to add.** Every aircraft gains three small parts at full health when the save loads; nothing is lost.
+
+### Compatibility and limits
+
+- **For other modders:** fittings take loadouts, kinds, parameterFloors, thrustFactor, hotDerateFactor and cartridgeFactor; a loadout takes fittedOnOlderSaves.
+- The aim reaches Vehicle Framework's turrets and the two flight frameworks' (the fixed-wing one and VTOL Vehicle), under Combat Extended too. Vehicle Framework's own aircraft fire from the ground, where nothing changes.
+
 ## [0.207.0] - 2026-11-21 - Draft
 
 Spall inside vehicles, with Combat Extended

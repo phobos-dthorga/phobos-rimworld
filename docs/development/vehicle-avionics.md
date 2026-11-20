@@ -3,7 +3,7 @@
 **Status (20 Nov 2026):** built in D'thorga Framework 0.106.0 (A5, A6 with round three's G16, A8, A9), 0.110.0 with Vehicles
 0.53.0 (the avionics fit, A1, A2, A7 and L1; A5 also answers L2), 0.119.0 with Vehicles 0.58.0 and Patches 0.21.0 (A12, A14 with L3, A16)
 and 0.180.0 with Vehicles 0.89.0 (A16's cartridges in a magazine, topped up by haulers);
-not built: A3, A4, A10, A11, A13, A15, A17 and L4 (L5 set aside; L6's stale notes corrected, with a reading of 17 Nov 2026). Not yet tested in game.
+0.208.0 (A3, A4, A10, A11, with the avionics kits; docs/development/aircraft-service-life-upgrades.md); not built: A13, A15, A17 and L4 (L5 set aside; L6's stale notes corrected, with a reading of 17 Nov 2026). Not yet tested in game.
 
 A research record. The owner, 13 November 2026: "One area I have seen that
 is lacking is with the avionics of aircraft, particularly with the Harrier, but this does apply to all aircraft that are part of my

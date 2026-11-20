@@ -77,6 +77,9 @@ public sealed class SystemContext
     {
         if (!State.system.parameters.TryGetValue(name, out double value)) return 0f;
         float tuned = (float)Tuning.Value(Vehicle?.VehicleDef, State.Def.defName, name, value) * Comp.Fittings.ParameterFactor(State.Def.defName, name);
+        // A kit's capability (aircraft service-life upgrades): the figure is at least the fitting's while it is fitted.
+        float kit = Comp.Fittings.ParameterFloor(State.Def.defName, name);
+        if (kit > tuned) tuned = kit;
         return Comp.ParameterFloors != null && Comp.ParameterFloors.TryGetValue(name, out float floor) && floor > tuned ? floor : tuned;
     }
 }

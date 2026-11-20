@@ -1219,6 +1219,53 @@
         </add>
       </li>
       <li>
+        <!-- Aircraft service-life upgrades (21 Nov 2026): the parts the avionics kits go on, appended to every aircraft so each kit has a part of
+             its own (one fitting to a part) and is lost with it; an aircraft built with the capability reads it from the same part. Small and
+             inside, as the oxygen panel; health and hit weights authored. -->
+        <role>AutopilotMount</role>
+        <add>
+          <key>PhobosAutopilotServos</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>autopilot servos</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>SensorMount</role>
+        <add>
+          <key>PhobosSensorStation</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>sensor station</label>
+          <health>20</health>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <!-- The Harrier's nose radar part (D'thorga Patches) where the aircraft has one, else a bay of our own. -->
+        <role>RadarMount</role>
+        <find>
+          <li>
+            <key>PhobosRadar</key>
+          </li>
+        </find>
+        <add>
+          <key>PhobosRadarBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>radar bay</label>
+          <health>20</health>
+          <depth>Internal</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <!-- Framework 0.103.0, the long range family: tie-down points in the cabin for a ferry tank, appended to every fuelled aircraft so the
              tank has a part to go on and is lost with it. Health and hit weights authored. -->
         <role>FerryTankMount</role>

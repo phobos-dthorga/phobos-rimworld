@@ -582,6 +582,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>An aircraft set down on a journey to refuel from its cargo (Framework 0.139.0): the tick it lifts off again, 0 when it is
     /// not stopped. Saved, so a stop survives a save and load; CargoRefuel owns it.</summary>
     public int LandedRefuelUntil;
+    /// <summary>The aircraft flew on the world map and has not yet been judged on arrival (avionics A4, RoughLandings). Saved, in case the game
+    /// is saved in flight.</summary>
+    public bool ArrivingFromWorld;
+    /// <summary>Whether it was in the air over its map at the last rare tick (RoughLandings). Derived, never saved.</summary>
+    public bool WasAirborneOnMap;
 
     /// <summary>Whether this session has already grounded the aircraft for its stop (Vehicle Framework's load puts it back in the air, so
     /// the stop is put back once after a load). Derived, never saved.</summary>
@@ -632,6 +637,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
         Scribe_Values.Look(ref RefuelFromCargo, "PhobosVehicleSystems_RefuelFromCargo", false);
         Scribe_Values.Look(ref LandedRefuelUntil, "PhobosVehicleSystems_LandedRefuelUntil", 0);
+        Scribe_Values.Look(ref ArrivingFromWorld, "PhobosVehicleSystems_ArrivingFromWorld", false);
         Conditions.ExposeData();
         Repairs.ExposeData();
         Fittings.ExposeData();
@@ -669,6 +675,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         fittings?.SyncFuelCapacity(FuelExcess.Keep);    // extra tanks, before the tank first burns and is trimmed to capacity
         RestorePartHealths();
         if (Usable && !respawningAfterLoad) Fittings.RollEnemySet();
+        // Aircraft service-life upgrades: a vehicle from an older save keeps what its loadout no longer starts with.
+        if (Usable) Fittings.GiveOlderSaveFittings();
         // Raiders arrive with the journey behind them (Framework 0.192.0, EM5): set once, on another faction's first spawn.
         if (!respawningAfterLoad) RaidFuel.SetOnArrival(this);
         powertrain?.ForgetGround();
@@ -804,6 +812,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         // A vehicle that has just become the player's (captured) starts its clock now: the hours it spent as another faction's,
         // when nothing evolved, are not caught up at once. From here it runs on the player's own settings.
         if (Tier == DetailTier.Full && was != DetailTier.Full && Current.Game != null) lastUpdateTick = Find.TickManager.TicksGame;
+        // Avionics A4 (aircraft service-life upgrades): a landing since the last look, any faction's aircraft.
+        RoughLandings.Watch(this);
         switch (Tier)
         {
             case DetailTier.Full:

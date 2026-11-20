@@ -114,6 +114,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Striking another map](cross-map-strikes.md) (11 Nov 2026): DMS Expedition's lost shells and rules for our cross-map weapons. Record only.
 - [Air-defence tie-ins](air-defence-tie-ins.md) (13 Nov 2026): IRBM's and The Dead Man's Switch's radars against our aircraft. Partly built.
 - [Unique military vehicles and submarines](military-vehicles-research.md) (9 Nov 2026): real vehicles no mod covers yet. Record only.
+- [Aircraft service-life upgrades](aircraft-service-life-upgrades.md) (21 Nov 2026): engines, avionics kits, early fits. Being built.
 - [Close Air Support's A-10 and Su-25](close-air-support-jets.md) (21 Nov 2026): both jets in the fold, our own dodge. Built, untested.
 - [Modern military aircraft and vehicles](modern-military-vehicles.md) (18 Nov 2026): the Osprey, armed candidates, crewless fits. Record only.
 - [Armour for our armed vehicles](vehicle-armour.md) (18 Nov 2026): classes by the threat stopped; Combat Extended first. Record only.

@@ -12,6 +12,30 @@ namespace Phobos.VehicleSystems;
 /// </summary>
 public class PhobosAirCombatRulesDef : PhobosRulesDef
 {
+    // ---- Rough landings and the autopilot (avionics A3, A4; aircraft service-life upgrades) ----
+
+    /// <summary>The chance a landing goes hard when the crew cannot see to land (poor visibility, instruments out) or the controls are poor.</summary>
+    public float roughLandingChance = 0.4f;
+    /// <summary>Flight control below this makes a landing risky, whatever the weather (A8's "below half").</summary>
+    public float roughLandingControlBelow = 0.5f;
+    /// <summary>A working autopilot's factor on that chance (A3: halved).</summary>
+    public float autopilotRoughLandingFactor = 0.5f;
+    /// <summary>The share of the landing gear's full health a hard landing takes (through the hard-landing wear, never below one health).</summary>
+    public float roughLandingWear = 0.3f;
+
+    // ---- Aiming (avionics A10, A11; aircraft service-life upgrades) ----
+
+    /// <summary>Accuracy with only a basic sight (A10's "degraded": misses ×1.25).</summary>
+    public float aimBasicSight = 0.8f;
+    /// <summary>Accuracy with the sight out or none (A10: misses ×1.5).</summary>
+    public float aimNoSight = 0.667f;
+    /// <summary>Accuracy at night without a night sight, and in bad weather without a radar (A11: ×0.7).</summary>
+    public float aimBlind = 0.7f;
+    /// <summary>The share of the weather's loss a working radar gives back (A11: half).</summary>
+    public float radarGivesBack = 0.5f;
+    /// <summary>The sky's light below which it is night to an aimer (authored; the game's own darkness for a person's sight is about this).</summary>
+    public float aimDarkBelowGlow = 0.3f;
+
     // ---- A hit in flight (AD3) ----
 
     /// <summary>The damage one interceptor's hit does to an aircraft in flight, shared out over this many hits where its own hit areas put them.</summary>

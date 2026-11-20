@@ -9,6 +9,23 @@
   <Phobos.VehicleSystems.PhobosAirCombatRulesDef>
     <defName>PhobosAirCombatRules</defName>
 
+    <!-- Rough landings and the autopilot (avionics A3, A4; aircraft service-life upgrades, 21 Nov 2026). A landing where the crew cannot see to
+         land (poor visibility, instruments out) or with flight control below half goes hard four times in ten, twice with a working autopilot,
+         and takes three tenths of the landing gear's health through the hard-landing wear (never below one health; a practised pilot less).
+         All authored. -->
+    <roughLandingChance>0.4</roughLandingChance>
+    <roughLandingControlBelow>0.5</roughLandingControlBelow>
+    <autopilotRoughLandingFactor>0.5</autopilotRoughLandingFactor>
+    <roughLandingWear>0.3</roughLandingWear>
+    <!-- Aiming (avionics A10, A11): the record's factors. A basic sight misses by a quarter more, none at all by half more; night without a
+         night sight, and bad weather, take three tenths of the accuracy, of which a working radar gives back half. The sky's light below 0.3
+         is night to an aimer. Authored. -->
+    <aimBasicSight>0.8</aimBasicSight>
+    <aimNoSight>0.667</aimNoSight>
+    <aimBlind>0.7</aimBlind>
+    <radarGivesBack>0.5</radarGivesBack>
+    <aimDarkBelowGlow>0.3</aimDarkBelowGlow>
+
     <!-- A hit in flight (AD3; owner, 17 Nov 2026: damage, and down only if it can no longer fly). One interceptor's hit is 60 damage in four
          hits of 15, landing where the aircraft's own hit areas put them, so a hit near the cockpit can hurt the crew (Vehicle Framework's own
          seat hits). The aircraft comes down if its flight controls fall below the launch floor (0.35, the rule A8 already uses), every engine

@@ -71,6 +71,12 @@ public static class AvionicsRule
         ("countermeasures", fit.Countermeasures ? 1.0 : 0.0),
         ("oxygen", fit.Oxygen ? 1.0 : 0.0),
         ("cruisesHigh", fit.CruisesHigh ? 1.0 : 0.0),
+        // Aircraft service-life upgrades: the capabilities a kit can add, so a fitting's floor can raise them for one aircraft.
+        ("autopilot", fit.Autopilot ? 1.0 : 0.0),
+        ("sight", fit.Sight != AvionicsLevel.None ? 1.0 : 0.0),
+        ("sightFull", fit.Sight == AvionicsLevel.Full ? 1.0 : 0.0),
+        ("nightSight", fit.NightSight ? 1.0 : 0.0),
+        ("radar", fit.Radar ? 1.0 : 0.0),
     };
 }
 

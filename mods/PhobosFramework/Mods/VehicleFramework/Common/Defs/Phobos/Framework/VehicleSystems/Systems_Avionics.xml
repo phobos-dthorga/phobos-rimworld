@@ -19,6 +19,11 @@
     <takesAvionicsFit>true</takesAvionicsFit>
     <roles>
       <li>Avionics</li>
+      <!-- Aircraft service-life upgrades (21 Nov 2026): the parts the autopilot, the night sight and the radar sit on, appended to every
+           aircraft by its loadout (the Harrier's own nose radar part where it has one). -->
+      <li>AutopilotMount</li>
+      <li>SensorMount</li>
+      <li>RadarMount</li>
     </roles>
     <parameters>
       <!-- Set from the loadout's avionics fit: 1 carried, 0 not. -->
@@ -31,6 +36,13 @@
       <countermeasures>0</countermeasures>
       <oxygen>0</oxygen>
       <cruisesHigh>0</cruisesHigh>
+      <!-- Aircraft service-life upgrades (21 Nov 2026): the capabilities a kit can add (a fitting's parameterFloors raises them for one aircraft),
+           and what avionics A3, A10 and A11 read. -->
+      <autopilot>0</autopilot>
+      <sight>0</sight>
+      <sightFull>0</sightFull>
+      <nightSight>0</nightSight>
+      <radar>0</radar>
     </parameters>
     <quantities>
       <li>
@@ -142,7 +154,8 @@
             <from>0.6</from>
             <label>working</label>
             <effects>
-              <!-- Basic navigation alone, at night or in fog: the track still wanders. A working full set flies straight in anything. -->
+              <!-- Basic navigation alone, at night or in fog: the track still wanders. A working full set flies straight in anything. A
+                   working autopilot halves the wandering (avionics A3; aircraft service-life upgrades, 21 Nov 2026). -->
               <li Class="Phobos.VehicleSystems.Effect_StatFactor">
                 <stat>FlightSpeed</stat>
                 <factor>0.85</factor>
@@ -151,6 +164,10 @@
                     <li Class="Phobos.VehicleSystems.When_PoorVisibility" />
                     <li Class="Phobos.VehicleSystems.When_QuantityBelow">
                       <quantity>navigationFull</quantity>
+                      <value>0.6</value>
+                    </li>
+                    <li Class="Phobos.VehicleSystems.When_QuantityBelow">
+                      <quantity>autopilot</quantity>
                       <value>0.6</value>
                     </li>
                   </conditions>
@@ -164,6 +181,43 @@
                     <li Class="Phobos.VehicleSystems.When_QuantityBelow">
                       <quantity>navigationFull</quantity>
                       <value>0.6</value>
+                    </li>
+                    <li Class="Phobos.VehicleSystems.When_QuantityBelow">
+                      <quantity>autopilot</quantity>
+                      <value>0.6</value>
+                    </li>
+                  </conditions>
+                </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>FlightSpeed</stat>
+                <factor>0.925</factor>
+                <when Class="Phobos.VehicleSystems.When_All">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_PoorVisibility" />
+                    <li Class="Phobos.VehicleSystems.When_QuantityBelow">
+                      <quantity>navigationFull</quantity>
+                      <value>0.6</value>
+                    </li>
+                    <li Class="Phobos.VehicleSystems.When_QuantityAbove">
+                      <quantity>autopilot</quantity>
+                      <value>0.59</value>
+                    </li>
+                  </conditions>
+                </when>
+              </li>
+              <li Class="Phobos.VehicleSystems.Effect_FlightFuel">
+                <factor>1.075</factor>
+                <when Class="Phobos.VehicleSystems.When_All">
+                  <conditions>
+                    <li Class="Phobos.VehicleSystems.When_PoorVisibility" />
+                    <li Class="Phobos.VehicleSystems.When_QuantityBelow">
+                      <quantity>navigationFull</quantity>
+                      <value>0.6</value>
+                    </li>
+                    <li Class="Phobos.VehicleSystems.When_QuantityAbove">
+                      <quantity>autopilot</quantity>
+                      <value>0.59</value>
                     </li>
                   </conditions>
                 </when>
@@ -396,6 +450,208 @@
             <from>0.6</from>
             <label>working</label>
             <labelEngineOff>ready</labelEngineOff>
+          </li>
+        </stages>
+      </li>
+      <!-- Aircraft service-life upgrades (21 Nov 2026; avionics A3, A10, A11): the autopilot, the sight, the night sight and the radar, each
+           carried by the aircraft's fit or a kit, read from its part and its power as the warning receiver is. Shed with the other loads. -->
+      <li>
+        <name>autopilot</name>
+        <description>The autopilot: holds height and heading. It halves the risk of a rough landing and the wandering of a flight with only basic navigation.</description>
+        <label>autopilot</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>autopilot</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>AutopilotMount</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>out</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>working</label>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>sight</name>
+        <description>The weapon sight: how the crew aims. A basic sight aims a little worse than a full one, and none at all much worse.</description>
+        <label>weapon sight</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>sight</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Avionics</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>out</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>working</label>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>sightFull</name>
+        <description>A full sight: a head-up display or a laser rangefinder, aiming as well as the weapons allow.</description>
+        <label>full sight</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>sightFull</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>Avionics</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>out</label>
+            <notable>false</notable>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>working</label>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>nightSight</name>
+        <description>An infrared camera: lets the crew aim at night as well as by day.</description>
+        <label>night sight</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>nightSight</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>SensorMount</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>out</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>working</label>
+          </li>
+        </stages>
+      </li>
+      <li>
+        <name>radar</name>
+        <description>The radar: finds targets through rain, fog and snow, giving back half of what the weather takes from the aim.</description>
+        <label>radar</label>
+        <unit>Fraction</unit>
+        <min>0</min>
+        <max>1</max>
+        <derivedFrom>
+          <li Class="Phobos.VehicleSystems.Input_Parameter">
+            <parameter>radar</parameter>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_PartEfficiency">
+            <role>RadarMount</role>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>charge</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant">
+              <value>1</value>
+            </fallback>
+            <curve>
+              <points>
+                <li>(0, 0)</li>
+                <li>(0.05, 1)</li>
+                <li>(1, 1)</li>
+              </points>
+            </curve>
+          </li>
+        </derivedFrom>
+        <stages>
+          <li>
+            <to>0.6</to>
+            <label>out</label>
+            <notable>true</notable>
+          </li>
+          <li>
+            <from>0.6</from>
+            <label>working</label>
           </li>
         </stages>
       </li>
