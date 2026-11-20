@@ -197,7 +197,7 @@ public static class FleetService
             if (vehicles == null) continue;
             string where = WhereIs(place);
             (string key, string label, int order) = GroupOf(place);
-            FleetKind kind = place is PhobosSlingWreck ? FleetKind.Lost : FleetKind.Own;
+            FleetKind kind = place is PhobosSlingWreck { IsDepot: false } ? FleetKind.Lost : FleetKind.Own;
             foreach (VehiclePawn vehicle in SlingLoads.WithLoads(vehicles).ToList())
             {
                 if (vehicle.Faction != Faction.OfPlayer || byVehicle.ContainsKey(vehicle)) continue;
@@ -263,6 +263,7 @@ public static class FleetService
     {
         AerialVehicleInFlight => ("flight", "PhobosFleet_WhereInFlight".Translate(), OrderFlight),
         StashedVehicle => ("parked", "PhobosFleet_GroupParked".Translate(), OrderParked),
+        PhobosSlingWreck { IsDepot: true } => ("depot/" + place.ID, place.LabelCap, OrderGarage),
         PhobosSlingWreck => ("lost", "PhobosFleet_GroupLost".Translate(), OrderLost),
         VehicleCaravan => ("convoy/" + place.ID, place.LabelCap, OrderConvoy),
         _ => ("garage/" + place.ID, place.LabelCap, OrderGarage),
@@ -331,6 +332,8 @@ public static class FleetService
         float tiles = systems?.Trip?.tiles ?? 0f;
         switch (entry.Place)
         {
+            case PhobosSlingWreck:
+                return "PhobosFleet_DoingDepot".Translate();
             case StashedVehicle:
                 return "PhobosFleet_DoingStash".Translate();
             case AerialVehicleInFlight:

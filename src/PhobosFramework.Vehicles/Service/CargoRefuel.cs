@@ -153,7 +153,8 @@ public static class CargoRefuel
     {
         if (!Flies(vehicle) || !Burns(vehicle)) return null;
         int carried = CarriedAboard(vehicle);
-        if (carried <= 0 && !comp.RefuelFromCargo) return null;
+        // Framework 0.199.0: also while a depot of ours holds its fuel, since the switch lets it stop at one on the way.
+        if (carried <= 0 && !comp.RefuelFromCargo && !Depots.AnyHolding(vehicle.CompFueledTravel.Props.fuelType)) return null;
         PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
         return MakeToggle(vehicle, comp, "PhobosVehicleSystems_FlightRefuelDesc".Translate(
             vehicle.CompFueledTravel.Props.fuelType.label.Named("FUEL"), carried.Named("CARRIED"),
@@ -189,6 +190,12 @@ public static class CargoRefuel
         if (flight.flightPath is not { Empty: false, Circling: false } || flight.recon) return;
         CompFueledTravel fuel = vehicle.CompFueledTravel;
         PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
+        // Framework 0.199.0 (DP3(b)): passing a depot of ours that holds its fuel, below half a tank, it sets down there and fills up.
+        if (fuel.FuelPercent < Depots.AircraftStopBelow && Depots.StopFor(vehicle, (PlanetTile)WorldHelper.GetNearestTile(flight.DrawPos)) is { } depot
+            && StopAtDepot(flight, vehicle, comp, depot, rules))
+        {
+            return;
+        }
         if (!CargoFuelRule.ShouldTopUp(fuel.Fuel, fuel.FuelCapacity, rules.refuelFromCargoBelow)) return;
         string fuelName = fuel.Props.fuelType.label;
         int carried = CarriedAboard(vehicle);
@@ -233,6 +240,28 @@ public static class CargoRefuel
         if (Seen.Wants("aircraft.landed-refuel", vehicle)) Seen.Note("aircraft.landed-refuel", vehicle, pour + " " + fuel.Props.fuelType.defName);
         // Beyond the engines under allow at a cost or warn only: it set down all the same, and that comes at its price.
         LandingCheck.Apply(vehicle, landing, flight);
+    }
+
+    /// <summary>Sets down at a depot and fills the tank from it (Framework 0.199.0, DP3(b)), as a stop for the fuel aboard does. False when
+    /// it cannot hover down there, or the depot gave nothing: it flies on as before.</summary>
+    static bool StopAtDepot(AerialVehicleInFlight flight, VehiclePawn vehicle, CompPhobosVehicleSystems comp, PhobosSlingWreck depot, PhobosVehicleRulesDef rules)
+    {
+        CompFueledTravel fuel = vehicle.CompFueledTravel;
+        if (LandingCheck.StopRefusal(vehicle, depot.Tile, out LandingCheck.Outcome landing) != null) return false;
+        int got = Depots.Draw(depot, fuel.Props.fuelType, (int)(fuel.FuelCapacity - fuel.Fuel));
+        if (got <= 0) return false;
+        fuel.Refuel(got);
+        double stopTicks = CargoFuelRule.StopTicks(got, fuel.FuelCapacity, rules.refuelStopHoursPerTank, GenDate.TicksPerHour)
+            + System.Math.Max(0f, rules.refuelLandingHours) * GenDate.TicksPerHour;
+        comp.LandedRefuelUntil = Find.TickManager.TicksGame + System.Math.Max(1, (int)System.Math.Ceiling(stopTicks));
+        comp.LandedHoldApplied = true;
+        vehicle.CompVehicleLauncher.inFlight = false;
+        Messages.Message("PhobosDepot_AircraftStopped".Translate(vehicle.LabelShort.Named("VEHICLE"), depot.LabelCap.Named("DEPOT"), got.Named("AMOUNT"),
+            fuel.Props.fuelType.label.Named("FUEL"), ((int)stopTicks).ToStringTicksToPeriod().Named("TIME")).Resolve(), flight, MessageTypeDefOf.SilentInput, historical: false);
+        if (Seen.Wants("vehicles.depot", vehicle, "aircraft-stop")) Seen.Note("vehicles.depot", vehicle, got + " units", "aircraft-stop");
+        LandingCheck.Apply(vehicle, landing, flight);
+        depot.RemoveIfEmpty();
+        return true;
     }
 
     /// <summary>

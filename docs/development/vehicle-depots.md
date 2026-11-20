@@ -1,7 +1,8 @@
 # Depots and forward fuel points: design (20 Nov 2026)
 
-**Status (20 Nov 2026):** design only, nothing built. Rows DP1 to DP10; the owner answered the five questions the same day
-([the answers](#the-owners-answers-20-nov-2026)); one question left, on the setting rule's reach.
+**Status (20 Nov 2026):** batch 1 built in D'thorga Framework 0.199.0 (DP1, DP1(b), DP2, DP3(b), DP5, DP6; [as built](#batch-1-as-built-framework-01990));
+not yet tested in game (rows 288 and 289). Batch 2, the pressures DP7 to DP10, not built. The owner answered the five questions the same
+day ([the answers](#the-owners-answers-20-nov-2026)); the rule on settings by risk is now a shared rule (phobos-modkit 1.63.0).
 
 The owner, 20 Nov 2026, choosing what follows the emergent-play work: "Sling lifts a hull and design the depots, step-wise if
 necessary". This is the design for row EM4 of [the emergent-play record](vehicle-emergent-play.md): "Leave a bowser or fuel cans at a
@@ -116,6 +117,22 @@ to revise; **[P]** a primary source; **[S]** a secondary source or a search summ
 | --- | --- | --- |
 | 1 | DP1, DP1(b), DP6, DP2, DP3(b), DP5 | Depots complete in themselves, by road and by air (the owner: the aircraft's stop in the first batch): lay, draw, stop on the way, read, take back. DP3(b) starts with reading how Vehicle Framework lets a player order a flight of several legs (`FlightPath.AddNode` exists; the order's own window is unread) |
 | 2 | DP8, DP9, then DP7, then DP10 | The pressures, each behind its own setting: the slow ones first, the ones that take a depot after, RimPacts' last after its read [A] |
+
+## Batch 1 as built (Framework 0.199.0)
+
+The owner's go-ahead of 20 Nov 2026: "Proceed with the two batches". Not yet tested in game.
+
+| Row | As built |
+| --- | --- |
+| DP1, DP1(b) | **The depot is the lost-convoy place with its own Def** (`PhobosDepot`, class `PhobosSlingWreck`), whose holder now takes items as well as vehicles. A stopped convoy's **Leave a depot here** (the depot window) leaves ticked vehicles, towed trailers (let go of off the map: `CompPhobosHitch.LetGoHeld`) and chosen cargo, through the game's own count box and arrows (`TransferableUIUtility`). Riders step out with Vehicle Framework's own `DisembarkPawn` and walk with the convoy. Refused on a tile holding any other place, on an enemy's ground, while moving, or if the convoy would keep no vehicle (Vehicle Framework's convoy is made of vehicles; its own Stash leaves them all) [A] |
+| DP2 | The same window takes loose cargo back. **Refuel from the depot** fills each vehicle, the emptiest first, from fuel items in crates and in the depot's vehicles' cargo, then from tank compartments whose contents pour into that fuel through the hose (`Port_VehicleFuel`, one unit for one). A moving convoy pays the pouring time as for its own cargo; a standing one pays none [A] |
+| DP3(b) | In the aircraft's journey look (`CargoRefuel.FlightLook`), with its refuel switch on: below half a tank [A], a depot within 1.5 tiles [A] holding its fuel, landable (the hover check at the depot's tile), it sets down, fills to full from the depot and lifts off after the pouring time, as the stop for its own hold does. The switch is offered while any depot holds its fuel |
+| DP5 | The fleet board gives each depot a group of its own, its vehicles "left at a depot"; the depot's world-map line names its fuel by kind and counts its vehicles and crated items. Its label names its place, kept from when it was laid |
+| DP6 | Right-click with a caravan: **Visit**. On the small map the vehicles are set down as for a lost convoy and the crates near the middle; when the map goes, vehicles still there, the crates and any item left lying on the map (not stone chunks) wait for the next visit. A depot with nothing left goes |
+
+**Not done in batch 1:** the range shown when choosing an aircraft's destination does not count depots on the way (DP3(b)'s second
+half); a flight is not routed through a depot, it stops only when its track passes one. Vehicles cannot be taken back at the world map,
+only by a visit.
 
 ## The owner's answers (20 Nov 2026)
 

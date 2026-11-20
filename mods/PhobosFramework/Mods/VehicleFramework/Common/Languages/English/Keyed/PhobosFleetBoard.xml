@@ -34,6 +34,7 @@
   <PhobosFleet_DoingFlying>flying</PhobosFleet_DoingFlying>
   <PhobosFleet_DoingFlyingFar>flying, {DISTANCE} so far</PhobosFleet_DoingFlyingFar>
   <PhobosFleet_DoingGarage>kept here</PhobosFleet_DoingGarage>
+  <PhobosFleet_DoingDepot>left at a depot</PhobosFleet_DoingDepot>
   <PhobosFleet_DoingStash>left parked</PhobosFleet_DoingStash>
   <PhobosFleet_DoingLost>lying where it was lost</PhobosFleet_DoingLost>
   <PhobosFleet_DoingHull>the hull of a destroyed vehicle</PhobosFleet_DoingHull>

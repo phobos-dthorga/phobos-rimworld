@@ -110,6 +110,8 @@ public class WorldObjectComp_PhobosVehicleCaravan : WorldObjectComp
             Gizmo? refuel = CargoRefuel.Toggle(comp.Vehicle, comp);
             if (refuel != null) yield return refuel;
         }
+        // Framework 0.199.0: lay a depot here, swap with one, refuel from one (docs/development/vehicle-depots.md).
+        foreach (Gizmo depot in DepotGizmos.For(caravan)) yield return depot;
     }
 
     /// <summary>Framework 0.137.0: the player's caravans top their tanks up from their cargo, at the rare interval, staggered by caravan.</summary>

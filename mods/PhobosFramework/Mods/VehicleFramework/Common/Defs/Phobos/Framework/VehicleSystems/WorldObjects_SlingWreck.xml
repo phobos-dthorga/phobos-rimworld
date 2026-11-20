@@ -30,4 +30,26 @@
     <expandMore>true</expandMore>
     <canHaveFaction>false</canHaveFaction>
   </WorldObjectDef>
+
+  <!-- A depot (Framework 0.199.0; docs/development/vehicle-depots.md): vehicles, trailers and crates a convoy left on purpose, with the fuel
+       and gear in them, for a later trip. The same place as a lost convoy, chosen on purpose; it never expires by itself. Words
+       agent-authored. -->
+  <WorldObjectDef>
+    <defName>PhobosDepot</defName>
+    <label>depot</label>
+    <description>Fuel and gear left here on purpose for a later trip: vehicles, trailers and crates. A convoy standing here can refuel from it and swap cargo with it; a caravan can visit it to drive its vehicles away. An aircraft passing over it below half a tank, with its refuel switch on, sets down and fills up.</description>
+    <worldObjectClass>Phobos.VehicleSystems.PhobosSlingWreck</worldObjectClass>
+    <texture>World/WorldObjects/Ambush</texture>
+    <expandingIcon>true</expandingIcon>
+    <expandingIconTexture>Phobos/VehicleSystems/Dash/Fuel</expandingIconTexture>
+    <expandingIconPriority>80</expandingIconPriority>
+    <expandMore>true</expandMore>
+    <canHaveFaction>false</canHaveFaction>
+  </WorldObjectDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_LeftAtDepot</defName>
+    <label>left at a depot</label>
+    <text>Left at a depot {PLACE}, for a later trip.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
 </Defs>

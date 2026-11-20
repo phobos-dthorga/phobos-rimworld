@@ -70,19 +70,30 @@ public static class SlingDrops
 /// </summary>
 public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
 {
-    ThingOwner<VehiclePawn> held;
+    /// <summary>What waits here: vehicles, and since Framework 0.199.0 a depot's items too (docs/development/vehicle-depots.md).</summary>
+    ThingOwner<Thing> held;
     List<VehiclePawn> onMap = new();
+    /// <summary>Items put on the site's map, taken back when the map goes (Framework 0.199.0).</summary>
+    List<Thing> onMapItems = new();
     float fallMetres;
+    /// <summary>A depot's place in words, kept from when it was laid: the world map asks for its label every frame.</summary>
+    string placeWords = "";
 
-    public PhobosSlingWreck() => held = new ThingOwner<VehiclePawn>(this, oneStackOnly: false);
+    public PhobosSlingWreck() => held = new ThingOwner<Thing>(this, oneStackOnly: false);
 
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
 
     /// <summary>The first vehicle waiting here, or lying on the map made for it.</summary>
-    public VehiclePawn? Wreck => held.Count > 0 ? held[0] : onMap.FirstOrDefault(v => v != null && !v.Destroyed);
+    public VehiclePawn? Wreck => held.InnerListForReading.OfType<VehiclePawn>().FirstOrDefault() ?? onMap.FirstOrDefault(v => v != null && !v.Destroyed);
 
     /// <summary>Every vehicle waiting here, or lying on the map made for them.</summary>
-    public IEnumerable<VehiclePawn> Vehicles => held.InnerListForReading.Concat(onMap.Where(v => v != null && !v.Destroyed));
+    public IEnumerable<VehiclePawn> Vehicles => held.InnerListForReading.OfType<VehiclePawn>().Concat(onMap.Where(v => v != null && !v.Destroyed));
+
+    /// <summary>A depot's items waiting here, not in a vehicle (Framework 0.199.0, DP1(b)).</summary>
+    public IEnumerable<Thing> Items => held.InnerListForReading.Where(t => t is not VehiclePawn);
+
+    /// <summary>A depot laid on purpose (Framework 0.199.0), rather than a wreck or a lost convoy.</summary>
+    public bool IsDepot => def == PhobosSlingWreckDefOf.PhobosDepot;
 
     /// <summary>For the fleet board (Framework 0.188.0): what lies here is still the player's to find.</summary>
     public IEnumerable<VehiclePawn> HeldVehicles => Vehicles;
@@ -94,6 +105,7 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
     {
         get
         {
+            if (IsDepot) return "PhobosDepot_Label".Translate(placeWords.Named("PLACE")).Resolve();
             if (Wreck is not { } wreck) return base.Label;
             if (!LostConvoy) return "PhobosSling_WreckLabel".Translate(wreck.LabelShort.Named("LOAD")).Resolve();
             return "PhobosVehicleSystems_LostConvoyLabel".Translate(Vehicles.Select(v => v.LabelShort).ToCommaList(useAnd: true).Named("VEHICLES")).Resolve();
@@ -118,6 +130,29 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
         }
         Find.WorldObjects.Add(wreck);
         return wreck;
+    }
+
+    /// <summary>A new, empty depot on this tile (Framework 0.199.0, DP1). Depots.Exchange fills it.</summary>
+    public static PhobosSlingWreck MakeDepot(PlanetTile tile)
+    {
+        var depot = (PhobosSlingWreck)WorldObjectMaker.MakeWorldObject(PhobosSlingWreckDefOf.PhobosDepot);
+        depot.Tile = tile;
+        depot.placeWords = Phobos.Framework.WorldMap.WorldPlaces.Describe(tile);
+        Find.WorldObjects.Add(depot);
+        return depot;
+    }
+
+    /// <summary>Puts a vehicle or an item into the depot to wait (Framework 0.199.0).</summary>
+    public void Keep(Thing thing)
+    {
+        thing.holdingOwner?.Remove(thing);
+        if (!held.TryAdd(thing, canMergeWithExistingStacks: thing is not Pawn)) VehicleSystemsMod.Logger.Warn("The depot could not take " + thing.LabelShort + ".");
+    }
+
+    /// <summary>A depot with nothing left in it, and no map open, goes (Framework 0.199.0).</summary>
+    public void RemoveIfEmpty()
+    {
+        if (!HasMap && held.Count == 0 && !Destroyed) Destroy();
     }
 
     /// <summary>The nearest tile to this one, itself first, where a wreck can lie: open ground with no other place on it.</summary>
@@ -170,6 +205,11 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
     public override string GetInspectString()
     {
         string text = base.GetInspectString();
+        if (IsDepot)
+        {
+            string summary = Depots.Summary(this);
+            return text.NullOrEmpty() ? summary : text + "\n" + summary;
+        }
         if (Wreck is not { } wreck) return text;
         string line = LostConvoy
             ? "PhobosVehicleSystems_LostConvoyInspect".Translate(Vehicles.Count().Named("COUNT"), Vehicles.Sum(v => v.AllPawnsAboard.Count).Named("PEOPLE")).Resolve()
@@ -180,9 +220,11 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
     public override IEnumerable<FloatMenuOption> GetFloatMenuOptions(Caravan caravan)
     {
         foreach (FloatMenuOption option in base.GetFloatMenuOptions(caravan)) yield return option;
-        if (HasMap || Wreck == null) yield break;
+        if (HasMap || (Wreck == null && held.Count == 0)) yield break;
+        // Framework 0.199.0: a depot is visited, on its map, to drive its vehicles away and pick up what was left (DP6).
+        string approach = (IsDepot ? "PhobosDepot_Visit" : "PhobosSling_WreckApproach").Translate(Label.Named("PLACE")).Resolve();
         foreach (FloatMenuOption option in CaravanArrivalActionUtility.GetFloatMenuOptions(() => true,
-                     () => new CaravanArrivalAction_PhobosRecoverWreck(this), "PhobosSling_WreckApproach".Translate(Label.Named("PLACE")).Resolve(), caravan, Tile, this))
+                     () => new CaravanArrivalAction_PhobosRecoverWreck(this), approach, caravan, Tile, this))
         {
             yield return option;
         }
@@ -196,7 +238,12 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
         Map map = GetOrGenerateMapUtility.GetOrGenerateMap(Tile, new IntVec3(size, 1, size), def);
         if (made && held.Count > 0) PlaceOn(map);
         CaravanEnterMapUtility.Enter(caravan, map, CaravanEnterMode.Edge, CaravanDropInventoryMode.DoNotDrop, draftColonists: false);
-        if (onMap.FirstOrDefault(v => v != null && v.Spawned) is { } first)
+        if (IsDepot)
+        {
+            Messages.Message("PhobosDepot_Reached".Translate(caravan.Label.Named("CARAVAN")).Resolve(), MessageTypeDefOf.NeutralEvent);
+            if (onMap.FirstOrDefault(v => v != null && v.Spawned) is { } vehicle) Seen.Note("vehicles.depot", vehicle, variant: "visited");
+        }
+        else if (onMap.FirstOrDefault(v => v != null && v.Spawned) is { } first)
         {
             Messages.Message("PhobosSling_WreckReached".Translate(caravan.Label.Named("CARAVAN"), first.LabelShort.Named("LOAD")).Resolve(), first, MessageTypeDefOf.NeutralEvent);
             if (LostConvoy) Seen.Note("vehicles.lost-convoy-reached", first);
@@ -205,8 +252,16 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
 
     void PlaceOn(Map map)
     {
-        foreach (VehiclePawn load in held.InnerListForReading.ToList())
+        foreach (Thing thing in held.InnerListForReading.ToList())
         {
+            if (thing is not VehiclePawn load)
+            {
+                // A depot's items (Framework 0.199.0): put down near the middle, where the caravan comes in to pick them up.
+                held.Remove(thing);
+                if (GenPlace.TryPlaceThing(thing, map.Center, map, ThingPlaceMode.Near)) onMapItems.Add(thing);
+                else held.TryAdd(thing, canMergeWithExistingStacks: true);
+                continue;
+            }
             if (!SlingPlacement.TryFindClear(load.VehicleDef, Rot4.North, map, map.Center, map.Size.x / 3f, CellRect.Empty, out IntVec3 cell)
                 && !CellFinder.TryFindRandomCellNear(map.Center, map, map.Size.x / 2, c => SlingPlacement.Fits(load.VehicleDef, Rot4.North, map, c, CellRect.Empty), out cell))
             {
@@ -233,6 +288,23 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
             held.TryAdd(left, canMergeWithExistingStacks: false);
         }
         onMap.Clear();
+        // Framework 0.199.0: a depot's items still lying on its map wait for the next visit, and so does anything the caravan put down there.
+        foreach (Thing item in onMapItems)
+        {
+            if (item == null || item.Destroyed || !item.Spawned || item.Map != Map) continue;
+            item.DeSpawn();
+            held.TryAdd(item, canMergeWithExistingStacks: true);
+        }
+        onMapItems.Clear();
+        if (IsDepot)
+        {
+            foreach (Thing item in Map.listerThings.ThingsInGroup(ThingRequestGroup.HaulableEver).ToList())
+            {
+                if (item.Destroyed || !item.Spawned || item is Pawn || item.def.category != ThingCategory.Item || item.def.thingCategories?.Contains(ThingCategoryDefOf.StoneChunks) == true) continue;
+                item.DeSpawn();
+                held.TryAdd(item, canMergeWithExistingStacks: true);
+            }
+        }
         alsoRemoveWorldObject = held.Count == 0;
         return true;
     }
@@ -261,11 +333,16 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
             if (single != null && !onMap.Contains(single)) onMap.Add(single);
         }
         Scribe_Values.Look(ref fallMetres, "PhobosSlingWreck_FallMetres");
+        Scribe_Collections.Look(ref onMapItems, "PhobosSlingWreck_OnMapItems", LookMode.Reference);
+        Scribe_Values.Look(ref placeWords, "PhobosSlingWreck_PlaceWords", "");
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
-            held ??= new ThingOwner<VehiclePawn>(this, oneStackOnly: false);
+            held ??= new ThingOwner<Thing>(this, oneStackOnly: false);
             onMap ??= new List<VehiclePawn>();
             onMap.RemoveAll(v => v == null);
+            onMapItems ??= new List<Thing>();
+            onMapItems.RemoveAll(t => t == null);
+            placeWords ??= "";
         }
     }
 }
@@ -310,6 +387,7 @@ public static class PhobosSlingWreckDefOf
 {
     public static WorldObjectDef PhobosSlingWreck = null!;
     public static WorldObjectDef PhobosLostConvoy = null!;
+    public static WorldObjectDef PhobosDepot = null!;
 
     static PhobosSlingWreckDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(PhobosSlingWreckDefOf));
 }

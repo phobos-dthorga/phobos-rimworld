@@ -206,6 +206,16 @@ public sealed partial class CompPhobosHitch : IThingHolder
         if (held != null) ThingOwnerUtility.AppendThingHoldersFromThings(outChildren, held);
     }
 
+    /// <summary>Lets go of the trailer held off the map and hands it over (Framework 0.199.0: left at a depot by a convoy), or null.</summary>
+    internal VehiclePawn? LetGoHeld()
+    {
+        if (!HoldsTowed) return null;
+        VehiclePawn towed = trailer!;
+        Held.Remove(towed);
+        Unhitch(quiet: true);
+        return towed;
+    }
+
     /// <summary>The vehicle held off the map behind this one, if any: a caravan's world-map lists show it after its tractor.</summary>
     public static VehiclePawn? TowedAlong(VehiclePawn? vehicle) =>
         vehicle?.GetComp<CompPhobosHitch>() is { HoldsTowed: true } hitch ? hitch.trailer : null;

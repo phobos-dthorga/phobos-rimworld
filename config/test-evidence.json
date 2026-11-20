@@ -3,6 +3,14 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "289": {"parts": {
+      "an aircraft passing a depot below half a tank sets down and fills up": [{"key": "vehicles.depot", "variant": "aircraft-stop"}]
+    }},
+    "288": {"parts": {
+      "a convoy leaves and takes at a depot": [{"key": "vehicles.depot", "variant": "exchanged"}],
+      "a convoy refuels from a depot": [{"key": "vehicles.depot", "variant": "refuel-convoy"}],
+      "a caravan visits a depot and finds its vehicles": [{"key": "vehicles.depot", "variant": "visited"}]
+    }},
     "286": {"parts": {
       "a hull is lifted on the sling": [{"key": "vehicles.sling-hull", "variant": "lifted"}],
       "the hull is set down where the helicopter lands": [{"key": "vehicles.sling-hull", "variant": "set-down"}]

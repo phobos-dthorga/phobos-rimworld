@@ -10,6 +10,25 @@ tested in game unless an entry says the owner tested it.
 - **A gathering run that gives up on what you chose now says so, and why.** A truck finding nowhere to stand beside a pile, no way to drive to it, or its grab unable to take it passes over it for the rest of the run; once it had passed over everything it ended saying nothing more lay within reach, with no word of the piles still lying there (the Talus, 19 Nov 2026, set off and ended with nothing gathered). Its end message now counts what it gave up on under each reason, as does its testing note, and with the Vehicle drive log at Debug each pile given up on is named with its place.
 - **Testing notes: a warning still standing when a vehicle's refusal comes is now noted first.** A warning in force when a save loaded (its message shows at the load, but stages worked out at a load write no note), or one already noted earlier in a session, left the next refusal looking as if it came without one, so the test list flagged the Abrams' turbine (row 69) when the game had behaved. Covers every warning before a refusal: a turbine's or piston engine's battery, the air brakes. Nothing a player sees changes.
 
+## [0.199.0] - 2026-11-20 - Draft
+
+Depots: fuel and gear left on the world map for a later trip, by road and by air
+
+### Added
+
+- **A stopped convoy can leave a depot.** Press Leave a depot here: tick vehicles and trailers to leave, and choose cargo to leave with the trade window's arrows (fuel cans, parts, food). A vehicle left keeps its own cargo and the fuel in its tank; anyone riding in it walks on with the convoy. The depot waits on the world map, marked with a fuel icon, for as long as it takes. The convoy must keep one vehicle of its own.
+- **At a depot, a convoy can take cargo back and refuel.** Leave and take at the depot swaps cargo both ways. Refuel from the depot fills the convoy's tanks from the fuel in its crates, its vehicles' cargo and its tanks (a bowser or tanker pours into the convoy as its hose does).
+- **An aircraft stops at a depot on its way.** With its Refuel from cargo on the way switch on, an aircraft on a journey that passes over or beside a depot holding its fuel, below half a tank, sets down, fills up and flies on. The switch is offered while any depot holds its fuel.
+- **A caravan can visit a depot** to drive its vehicles away and pick up its crates, on a small map; anything left lying there waits for the next visit.
+- **The fleet board lists depots**, each a place of its own with its vehicles; the depot's line on the world map names the fuel it holds.
+
+### Compatibility and limits
+
+- A depot cannot be laid on a tile with a settlement or any other place on it, or on an enemy's ground. A refuel by a standing convoy takes no time; a moving one is held up as when it refuels from its own cargo. A depot's vehicles are not ticked while they wait: nothing in them changes until batch two's pressures come.
+- Removing D'thorga Framework loses every depot's contents: bring them home first.
+- No new settings. The words are agent-authored, held for the owner's review.
+- Not yet tested in game: rows 288 and 289 of the test pass.
+
 ## [0.198.0] - 2026-11-20 - Draft
 
 The sums for charging a battery from the grid, for D'thorga Patches' mech rechargers

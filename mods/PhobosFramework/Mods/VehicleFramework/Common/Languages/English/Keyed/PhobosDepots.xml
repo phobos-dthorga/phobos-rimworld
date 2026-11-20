@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Depots (Framework 0.199.0; docs/development/vehicle-depots.md). Text a player reads in play stays in the game world.
+       Agent-authored, held for the owner's review. -->
+  <PhobosDepot_Label>Depot {PLACE}</PhobosDepot_Label>
+  <PhobosDepot_Visit>Visit {PLACE}</PhobosDepot_Visit>
+  <PhobosDepot_Reached>{CARAVAN} has reached the depot. Its vehicles and crates are laid out here: drive the vehicles away and pick up what you need. Anything left lying here when you go waits for the next visit.</PhobosDepot_Reached>
+
+  <PhobosDepot_GizmoNew>Leave a depot here</PhobosDepot_GizmoNew>
+  <PhobosDepot_GizmoAt>Leave and take at the depot</PhobosDepot_GizmoAt>
+  <PhobosDepot_GizmoDesc>Leave vehicles, trailers and cargo here for a later trip: fuel cans, parts, food, a bowser with a full tank. Whatever is left waits here for as long as it takes. At a depot already here, you can also take cargo from it.</PhobosDepot_GizmoDesc>
+  <PhobosDepot_RefuelGizmo>Refuel from the depot</PhobosDepot_RefuelGizmo>
+  <PhobosDepot_RefuelGizmoDesc>Fill this convoy's tanks from what the depot holds, the emptiest first: fuel in crates, in its vehicles' cargo and in its tanks.\n\nThe depot holds:\n{HOLDS}</PhobosDepot_RefuelGizmoDesc>
+
+  <PhobosDepot_WindowTitleNew>Leave a depot: {CONVOY}</PhobosDepot_WindowTitleNew>
+  <PhobosDepot_WindowTitleAt>At the depot: {CONVOY}</PhobosDepot_WindowTitleAt>
+  <PhobosDepot_WindowHint>Tick the vehicles to leave here, and choose how much cargo to leave or take. A vehicle left keeps its own cargo and the fuel in its tank. Anyone riding in it gets out and walks with the convoy.</PhobosDepot_WindowHint>
+  <PhobosDepot_LeaveVehicles>Vehicles and trailers to leave</PhobosDepot_LeaveVehicles>
+  <PhobosDepot_LeaveItems>Cargo to leave</PhobosDepot_LeaveItems>
+  <PhobosDepot_TakeItems>Cargo to take from the depot</PhobosDepot_TakeItems>
+  <PhobosDepot_NothingToLeave>The convoy carries no cargo.</PhobosDepot_NothingToLeave>
+  <PhobosDepot_NothingToTake>No loose cargo waits here.</PhobosDepot_NothingToTake>
+  <PhobosDepot_TakeVehiclesNote>To take a vehicle back, or the cargo inside one, visit the depot: right-click it with a caravan.</PhobosDepot_TakeVehiclesNote>
+  <PhobosDepot_RidersWalk>({COUNT} aboard will walk)</PhobosDepot_RidersWalk>
+  <PhobosDepot_Confirm>Leave and take</PhobosDepot_Confirm>
+  <PhobosDepot_NothingChosen>Nothing is chosen yet.</PhobosDepot_NothingChosen>
+
+  <PhobosDepot_NotOurs>Only your own convoys can use a depot.</PhobosDepot_NotOurs>
+  <PhobosDepot_Moving>The convoy must stop first.</PhobosDepot_Moving>
+  <PhobosDepot_TileTaken>{PLACE} is here already: a depot needs open ground.</PhobosDepot_TileTaken>
+  <PhobosDepot_KeepOne>The convoy must keep at least one vehicle of its own. To leave every vehicle, use the convoy's own Stash command.</PhobosDepot_KeepOne>
+  <PhobosDepot_Exchanged>{CONVOY}: {LEFT} left at the depot, {TAKEN} taken.</PhobosDepot_Exchanged>
+
+  <PhobosDepot_NoDepotHere>There is no depot here.</PhobosDepot_NoDepotHere>
+  <PhobosDepot_NothingToPour>The depot holds none of the fuel these vehicles burn, or their tanks are full.</PhobosDepot_NothingToPour>
+  <PhobosDepot_Refuelled>{CONVOY} refuelled from the depot: {AMOUNT} units poured.</PhobosDepot_Refuelled>
+  <PhobosDepot_AircraftStopped>{VEHICLE} set down at {DEPOT} and took on {AMOUNT} {FUEL}. It lifts off again in {TIME}.</PhobosDepot_AircraftStopped>
+
+  <PhobosDepot_FuelLine>{FUEL}: {AMOUNT}</PhobosDepot_FuelLine>
+  <PhobosDepot_HeldLine>{VEHICLES} vehicles, {ITEMS} items in crates</PhobosDepot_HeldLine>
+  <PhobosDepot_NoFuel>No fuel left here.</PhobosDepot_NoFuel>
+</LanguageData>

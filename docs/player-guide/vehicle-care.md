@@ -29,8 +29,8 @@ them running. It applies to **every Vehicle Framework vehicle from any mod**, no
   launch. **Cruising height between places** in the settings turns this off.
 - **Removing D'thorga Framework or Vehicle Framework from a colony that used the systems: press the removal button first.** Load
   the colony, press **Remove the added parts from this colony's vehicles** in the settings, save, then remove the mod. Without it,
-  saved vehicles may fail to load. Before that, also **take every vehicle out of every garage**, **recover every sling wreck and lost convoy** on the
-  world map, **let a water drop run land and unload every litter**, and **take any extra fuel tank off**: whatever is left in them goes
+  saved vehicles may fail to load. Before that, also **take every vehicle out of every garage**, **recover every sling wreck, lost convoy
+  and depot** on the world map, **let a water drop run land and unload every litter**, and **take any extra fuel tank off**: whatever is left in them goes
   with the mod.
 
 ## The three tabs
@@ -449,6 +449,14 @@ the kit back in the cargo.
 - **A lost convoy stays where it stopped** (not yet tested in game; the setting **Lost convoys stay where they stopped**, on by default):
   when the last colonist of a convoy dies on the road, its vehicles, cargo and anyone else aboard wait on the world map as a **lost
   convoy**. Right-click it with a caravan to **Recover** it, then drive, tow or lift the vehicles home.
+- **Depots** (not yet tested in game): fuel and gear left out on the world map for a later trip.
+  1. Stop a convoy on open ground and press **Leave a depot here**. Tick the vehicles or trailers to leave (a bowser with a full tank
+     is ideal) and choose cargo to leave with the arrows. Riders of a vehicle left behind walk on. **Keep one vehicle** to drive on.
+  2. Later, a convoy stopped at the depot can **Leave and take** cargo, or **Refuel from the depot**.
+  3. **Aircraft refuel there by themselves**: switch on **Refuel from cargo on the way**, and an aircraft passing over a depot that holds
+     its fuel, below half a tank, sets down and fills up.
+  4. To take the vehicles back, **right-click the depot with a caravan and visit it**: drive them away from the small map.
+  A depot never expires, and it is listed on the fleet board.
 - **Garages** (needs Vanilla Expanded Framework): a stopped convoy can set one up. Vehicles left there stay with no time limit, and
   whoever is stationed there mends them from steel and components you bring.
 - **Services and coolant top-ups need a map.** Repairs and jump-starts do not.
