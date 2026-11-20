@@ -15,7 +15,7 @@
       <description>A bigger alternator behind the cab: 650 W more at full output, and fuel burned at the same watts per unit.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/BiggerAlternator</icon>
       <work>3000</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Electricity</li>
@@ -55,7 +55,7 @@
       <description>A long cable on a drum. You choose where the cable end goes, up to 12 cells from the truck, so the truck can stand somewhere safe.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/CableReel</icon>
       <work>1500</work>
-      <gridCoordinate>(7, 6)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Electricity</li>
@@ -93,7 +93,7 @@
       <description>A battery box under the deck. It fills from spare power and keeps the grid alive for a time when the tank runs dry or the engine is hurt.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/BatteryBuffer</icon>
       <work>2000</work>
-      <gridCoordinate>(12, 6)</gridCoordinate>
+      <gridCoordinate>(12, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Batteries</li>
@@ -134,7 +134,7 @@
       <description>A heat exchanger on the exhaust. While the set makes power, it warms the room the cable end stands in, more as more power is drawn, until the room reaches 21 C. Outdoors the heat goes to waste. The exchanger's back pressure costs 25 W of output.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/HeatExchanger</icon>
       <work>1500</work>
-      <gridCoordinate>(7, 11)</gridCoordinate>
+      <gridCoordinate>(7, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Electricity</li>
@@ -179,7 +179,7 @@
       <description>A bigger cooling fan with a heavier guard. A parked engine's radiator gets no air from driving; this fan moves as much air through it as the road would, so the set stays cool working hard in hot weather.</description>
       <icon>Phobos/Vehicles/GeneratorSet/Upgrades/HeavyFan</icon>
       <work>1200</work>
-      <gridCoordinate>(12, 11)</gridCoordinate>
+      <gridCoordinate>(12, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Electricity</li>
@@ -208,7 +208,7 @@
       <description>A heavy cable on a small reel, with clamps and a charger. While the set is set up and running, the lead reaches one of your vehicles within 6 cells, charges its battery, and gives it a start if it is too flat to start. It takes 300 W before the camp's grid does.</description>
       <icon>Phobos/VehicleSystems/ServiceLead</icon>
       <work>1200</work>
-      <gridCoordinate>(2, 11)</gridCoordinate>
+      <gridCoordinate>(2, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Electricity</li>
@@ -240,7 +240,7 @@
       <upgradeExplanation>Engine and fuel tank: from skin to rifle armour, which stops ordinary rifle bullets.\nKit weight: 300 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/EngineGuards</icon>
       <work>2500</work>
-      <gridCoordinate>(2, 16)</gridCoordinate>
+      <gridCoordinate>(29, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -289,7 +289,7 @@
       <upgradeExplanation>Wheels: from skin to splinter armour, which stops shell fragments and pistol bullets.\nKit weight: 120 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/RunFlatTyres</icon>
       <work>1500</work>
-      <gridCoordinate>(7, 16)</gridCoordinate>
+      <gridCoordinate>(34, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -338,7 +338,7 @@
       <upgradeExplanation>Electrics: an electromagnetic pulse harms them as it does a military vehicle's.\nKit weight: 60 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/EmpHardening</icon>
       <work>2000</work>
-      <gridCoordinate>(12, 16)</gridCoordinate>
+      <gridCoordinate>(39, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -375,7 +375,7 @@
       <upgradeExplanation>Cab: from skin to rifle armour, which stops ordinary rifle bullets.\nKit weight: 1,000 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/ArmouredCab</icon>
       <work>4000</work>
-      <gridCoordinate>(2, 21)</gridCoordinate>
+      <gridCoordinate>(39, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -416,7 +416,7 @@
       <upgradeExplanation>Damage the truck takes from running into people and animals: half (0.50 to 0.25).\nFrom running into buildings: half (0.10 to 0.05).\nDamage it does to people and animals it runs into: half as much again (0.50 to 0.75); to buildings, 2.5 to 3.0.\nKit weight: 150 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/RamBar</icon>
       <work>1500</work>
-      <gridCoordinate>(7, 21)</gridCoordinate>
+      <gridCoordinate>(29, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -466,7 +466,7 @@
       <upgradeExplanation>Cab: from rifle to armour-piercing rifle armour, which stops armour-piercing rifle bullets and ordinary heavy machine-gun bullets.\nKit weight: 850 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/HeavyCabPlates</icon>
       <work>5000</work>
-      <gridCoordinate>(2, 26)</gridCoordinate>
+      <gridCoordinate>(39, 12)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_HeavyTruckArmour</li>

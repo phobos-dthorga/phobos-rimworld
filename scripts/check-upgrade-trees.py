@@ -11,6 +11,10 @@ silently or find only in play: a key used twice, an exclusion written on one sid
 parent that does not exist, a node of ours that needs a tie-in node (it would be unfittable without that mod), a node that both needs
 and excludes another, a loop of prerequisites, two nodes on one grid cell, and a tree with no diagram, or a stale one, in
 docs/development. A diagram sits under a marker line, <!-- upgrade-tree: DEFNAME -->, followed by its ```mermaid block.
+
+Also fails a layout that has drifted (owner's go-ahead, 20 Nov 2026, after five trees ran below Vehicle Framework's tab as kits were
+added under them): a node drawn past the tab, a first row that does not start at the top, two nodes with no gap between them, and a
+band of empty rows inside a tree, such as a row holding only a tie-in upgrade, which is blank without that mod (tie-ins go last).
 Exit code 1 when anything is wrong.
 """
 import argparse
@@ -27,6 +31,22 @@ NODES_XPATH = re.compile(r'UpgradeTreeDef\[defName="([^"]+)"\]/nodes\s*$')
 TIE_IN_FOLDER = re.compile(r'[\\/]Mods[\\/]([^\\/]+)[\\/]')
 MARKER = re.compile(r'^<!-- upgrade-tree: (\S+) -->\s*$')
 
+# Vehicle Framework's Upgrades tab (ITab_Vehicle_Upgrades, read in its 1.7 build of 18 Nov 2026): a fixed 880 by 520 with no scroll view
+# of its own. A node's centre is drawn at GridOrigin + GridSpacing * cell - GridSpacing / 2 (30 + 20 * cell - 10), 20 lower for the
+# tab's title; the tree's area is the tab under that title, 5 in from each edge. A node's drawSize defaults to 40 by 40.
+GRID_SPACING = 20
+GRID_ORIGIN = 30
+TITLE_HEIGHT = 20
+TAB_AREA = (5, 25, 875, 515)  # left, top, right, bottom
+DEFAULT_SIZE = (40.0, 40.0)
+# Our layout (agent's choice, 20 Nov 2026): the first row at row 2, just under the title; one grid step clear between any two nodes;
+# rows no more than seven apart, the widest spacing a tree of ours uses (the seabed crawler's).
+TOP_ROW = 2
+MAX_ROW_STEP = 7
+# A tree of ours that cannot fit the tab, and why. D'thorga Framework's UpgradeTabScrollPatch scrolls one that does not fit, but a tree
+# that fits shows every upgrade at once: none needs to scroll today.
+MAY_SCROLL = {}
+
 
 @dataclass
 class Node:
@@ -37,6 +57,7 @@ class Node:
     excludes: list
     source: str
     tie_in: str | None  # the Mods/<Other> folder that adds it, or None for a node of the tree itself
+    size: tuple = DEFAULT_SIZE  # drawSize, in pixels
 
 
 @dataclass
@@ -66,7 +87,54 @@ def _node(element, source, tie_in):
         excludes.append(single)
     return Node(key=(element.findtext('key') or '').strip(), label=(element.findtext('label') or '').strip(),
                 coord=re.sub(r'\s', '', element.findtext('gridCoordinate') or ''), prereqs=_items(element, 'prerequisiteNodes'),
-                excludes=excludes, source=source, tie_in=tie_in)
+                excludes=excludes, source=source, tie_in=tie_in, size=_pair(element.findtext('drawSize')) or DEFAULT_SIZE)
+
+
+def _pair(text):
+    """A Def's "(x, y)" as a pair of numbers, or None."""
+    match = re.fullmatch(r'\(?\s*(-?[\d.]+)\s*,\s*(-?[\d.]+)\s*\)?', (text or '').strip())
+    return (float(match.group(1)), float(match.group(2))) if match else None
+
+
+def _rect(node):
+    """The node's (left, top, right, bottom) in the tab, as Vehicle Framework draws it, or None without a grid cell."""
+    cell = _pair(node.coord)
+    if cell is None:
+        return None
+    cx = GRID_ORIGIN + GRID_SPACING * cell[0] - GRID_SPACING / 2
+    cy = GRID_ORIGIN + GRID_SPACING * cell[1] - GRID_SPACING / 2 + TITLE_HEIGHT
+    w, h = node.size
+    return cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2
+
+
+def check_layout(tree):
+    """Where the tree's layout has drifted: drawn past the tab, not starting at the top, nodes touching, or an empty band of rows."""
+    problems = []
+    placed = [(node, _rect(node)) for node in tree.nodes.values()]
+    placed = [(node, rect) for node, rect in placed if rect]
+    if tree.name not in MAY_SCROLL:
+        left, top, right, bottom = TAB_AREA
+        for node, (x0, y0, x1, y1) in placed:
+            edges = [name for name, past in (('bottom', y1 > bottom), ('right', x1 > right), ('top', y0 < top), ('left', x0 < left)) if past]
+            if edges:
+                problems.append(f'{tree.name}: {node.key} at {node.coord} is drawn past the {" and ".join(edges)} of Vehicle Framework\'s '
+                                'Upgrades tab: lay the tree out to fit, or name it in MAY_SCROLL with the reason')
+    rows = sorted({int(_pair(node.coord)[1]) for node, _ in placed if node.tie_in is None})
+    if rows and rows[0] != TOP_ROW:
+        problems.append(f'{tree.name}: its first row is row {rows[0]}; start it at row {TOP_ROW}, just under the tab\'s title')
+    for upper, lower in zip(rows, rows[1:]):
+        if lower - upper > MAX_ROW_STEP:
+            problems.append(f'{tree.name}: rows {upper} and {lower} have empty rows between them (no more than {MAX_ROW_STEP} apart); '
+                            'a row of tie-in upgrades goes after every row of ours, or it is blank without that mod')
+    gap = GRID_SPACING / 2
+    for i, (a, ra) in enumerate(placed):
+        for b, rb in placed[i + 1:]:
+            if a.coord == b.coord:
+                continue  # reported as a shared cell
+            if ra[0] - gap < rb[2] + gap and rb[0] - gap < ra[2] + gap and ra[1] - gap < rb[3] + gap and rb[1] - gap < ra[3] + gap:
+                problems.append(f'{tree.name}: {a.key} at {a.coord} and {b.key} at {b.coord} touch or overlap: '
+                                f'leave {GRID_SPACING} pixels (one grid step) between them')
+    return problems
 
 
 def gather(mods):
@@ -352,7 +420,7 @@ def main(argv=None):
     if args.command == 'show':
         show(trees, args.pattern)
         return 0
-    problems = [p for tree in trees.values() for p in check_tree(tree)]
+    problems = [p for tree in trees.values() for p in check_tree(tree) + check_layout(tree)]
     problems += check_diagrams(trees, Path(args.docs), args.write)
     for problem in problems:
         print(problem)

@@ -59,7 +59,7 @@
       <description>A plain baffled tank for liquids: 3,000 units.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/LiquidTank</icon>
       <work>4000</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>InsulatedLiquidTank</li>
@@ -100,7 +100,7 @@
       <description>A lagged tank: 2,700 units. Its contents take about a day to reach the outside temperature, and food spoils half as fast.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/InsulatedLiquidTank</icon>
       <work>4000</work>
-      <gridCoordinate>(9, 6)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>LiquidTank</li>
@@ -142,7 +142,7 @@
       <description>A squarer tank that holds more: 3,300 units. A full load slows the truck more.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HighVolumeLiquidTank</icon>
       <work>4000</work>
-      <gridCoordinate>(16, 6)</gridCoordinate>
+      <gridCoordinate>(12, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>LiquidTank</li>
@@ -183,7 +183,7 @@
       <description>A second hose: the pump moves half as much again.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HoseReel</icon>
       <work>1500</work>
-      <gridCoordinate>(33, 15)</gridCoordinate>
+      <gridCoordinate>(22, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">
@@ -221,7 +221,7 @@
       <description>An electric motor on the pump: it can pump with the engine off, from the battery, until the battery is flat. Quieter, and no fuel burnt while it works.</description>
       <icon>Phobos/VehicleSystems/Fittings/DeepCycleBattery</icon>
       <work>2000</work>
-      <gridCoordinate>(26, 15)</gridCoordinate>
+      <gridCoordinate>(17, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">
@@ -245,7 +245,7 @@
       <description>A bulkhead divides a liquid tank in two, each half with its own fluid. Filled alike, they hold as much as the whole tank.</description>
       <icon>Phobos/VehicleSystems/Tank/TwoCompartments</icon>
       <work>2500</work>
-      <gridCoordinate>(9, 15)</gridCoordinate>
+      <gridCoordinate>(7, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <disableIfUpgradeNodesEnabled>
         <li>PressureVessel</li>
@@ -264,7 +264,7 @@
       <description>A second bulkhead: three fluids at once, one to each hatch.</description>
       <icon>Phobos/VehicleSystems/Tank/ThreeCompartments</icon>
       <work>2500</work>
-      <gridCoordinate>(16, 15)</gridCoordinate>
+      <gridCoordinate>(7, 12)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <prerequisiteNodes>
         <li>TwoCompartments</li>
@@ -291,7 +291,7 @@
       <upgradeExplanation>Engine and fuel tank: from skin to rifle armour, which stops ordinary rifle bullets.\nKit weight: 300 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/EngineGuards</icon>
       <work>2500</work>
-      <gridCoordinate>(2, 24)</gridCoordinate>
+      <gridCoordinate>(29, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -340,7 +340,7 @@
       <upgradeExplanation>Wheels: from skin to splinter armour, which stops shell fragments and pistol bullets.\nKit weight: 120 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/RunFlatTyres</icon>
       <work>1500</work>
-      <gridCoordinate>(9, 24)</gridCoordinate>
+      <gridCoordinate>(34, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -389,7 +389,7 @@
       <upgradeExplanation>Electrics: an electromagnetic pulse harms them as it does a military vehicle's.\nKit weight: 60 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/EmpHardening</icon>
       <work>2000</work>
-      <gridCoordinate>(16, 24)</gridCoordinate>
+      <gridCoordinate>(39, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -426,7 +426,7 @@
       <upgradeExplanation>Cab: from skin to rifle armour, which stops ordinary rifle bullets.\nKit weight: 1,000 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/ArmouredCab</icon>
       <work>4000</work>
-      <gridCoordinate>(2, 29)</gridCoordinate>
+      <gridCoordinate>(39, 12)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -467,7 +467,7 @@
       <upgradeExplanation>Damage the truck takes from running into people and animals: half (0.50 to 0.25).\nFrom running into buildings: half (0.10 to 0.05).\nDamage it does to people and animals it runs into: half as much again (0.50 to 0.75); to buildings, 2.5 to 3.0.\nKit weight: 150 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/RamBar</icon>
       <work>1500</work>
-      <gridCoordinate>(9, 29)</gridCoordinate>
+      <gridCoordinate>(29, 12)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -517,7 +517,7 @@
       <upgradeExplanation>Tank shell: from skin to rifle armour, which stops ordinary rifle bullets.\nKit weight: 1,400 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/BodyPlates</icon>
       <work>4000</work>
-      <gridCoordinate>(16, 29)</gridCoordinate>
+      <gridCoordinate>(34, 12)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -557,7 +557,7 @@
       <upgradeExplanation>Cab: from rifle to armour-piercing rifle armour, which stops armour-piercing rifle bullets and ordinary heavy machine-gun bullets.\nKit weight: 850 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/HeavyCabPlates</icon>
       <work>5000</work>
-      <gridCoordinate>(2, 34)</gridCoordinate>
+      <gridCoordinate>(39, 17)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_HeavyTruckArmour</li>

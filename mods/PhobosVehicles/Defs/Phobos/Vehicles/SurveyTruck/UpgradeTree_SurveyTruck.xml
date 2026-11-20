@@ -15,7 +15,7 @@
       <description>Spikes along the boom that listen to the ground. Heavy deposits, steel above all, are found more often, and the survey runs a little faster.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/GeophoneArray</icon>
       <work>2500</work>
-      <gridCoordinate>(3, 4)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>GroundPenetratingScanner</li>
@@ -49,7 +49,7 @@
       <description>A shielded gamma and neutron source on the boom. Uranium is found far more often, and the survey runs a little faster.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/RadiometricProbe</icon>
       <work>3000</work>
-      <gridCoordinate>(10, 4)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>GroundPenetratingScanner</li>
@@ -96,7 +96,7 @@
       <description>A dish on a mast. The survey can search nearby lands for one chosen ore, and a find becomes a place to travel to.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/LongRangeArray</icon>
       <work>4000</work>
-      <gridCoordinate>(17, 4)</gridCoordinate>
+      <gridCoordinate>(2, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>LongRangeMineralScanner</li>
@@ -135,7 +135,7 @@
       <description>A big transducer array. Switched on and supplied, the survey runs three times as fast. It needs a powered grid or the large battery.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/PoweredArray</icon>
       <work>6000</work>
-      <gridCoordinate>(3, 9)</gridCoordinate>
+      <gridCoordinate>(7, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Fabrication</li>
@@ -175,7 +175,7 @@
       <description>A 600 ampere-hour battery. It runs the survey with the engine off, and the engine starts itself to recharge it when it runs low, burning fuel with nobody at the wheel.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/SurveyBattery</icon>
       <work>3000</work>
-      <gridCoordinate>(10, 9)</gridCoordinate>
+      <gridCoordinate>(12, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Batteries</li>
@@ -214,7 +214,7 @@
       <description>Lamps on the cabin roof for working through the night.</description>
       <icon>Phobos/Vehicles/SurveyTruck/Upgrades/WorkLights</icon>
       <work>1000</work>
-      <gridCoordinate>(17, 9)</gridCoordinate>
+      <gridCoordinate>(2, 12)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">
@@ -254,7 +254,7 @@
       <upgradeExplanation>Engine and fuel tank: from skin to rifle armour, which stops ordinary rifle bullets.\nKit weight: 300 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/EngineGuards</icon>
       <work>2500</work>
-      <gridCoordinate>(3, 19)</gridCoordinate>
+      <gridCoordinate>(29, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -303,7 +303,7 @@
       <upgradeExplanation>Wheels: from skin to splinter armour, which stops shell fragments and pistol bullets.\nKit weight: 120 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/RunFlatTyres</icon>
       <work>1500</work>
-      <gridCoordinate>(10, 19)</gridCoordinate>
+      <gridCoordinate>(34, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -352,7 +352,7 @@
       <upgradeExplanation>Electrics: an electromagnetic pulse harms them as it does a military vehicle's.\nKit weight: 60 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/EmpHardening</icon>
       <work>2000</work>
-      <gridCoordinate>(17, 19)</gridCoordinate>
+      <gridCoordinate>(39, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -389,7 +389,7 @@
       <upgradeExplanation>Cab: from skin to rifle armour, which stops ordinary rifle bullets.\nKit weight: 1,000 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/ArmouredCab</icon>
       <work>4000</work>
-      <gridCoordinate>(3, 24)</gridCoordinate>
+      <gridCoordinate>(39, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -430,7 +430,7 @@
       <upgradeExplanation>Damage the truck takes from running into people and animals: half (0.50 to 0.25).\nFrom running into buildings: half (0.10 to 0.05).\nDamage it does to people and animals it runs into: half as much again (0.50 to 0.75); to buildings, 2.5 to 3.0.\nKit weight: 150 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/RamBar</icon>
       <work>1500</work>
-      <gridCoordinate>(10, 24)</gridCoordinate>
+      <gridCoordinate>(29, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -480,7 +480,7 @@
       <upgradeExplanation>Cab: from rifle to armour-piercing rifle armour, which stops armour-piercing rifle bullets and ordinary heavy machine-gun bullets.\nKit weight: 850 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/HeavyCabPlates</icon>
       <work>5000</work>
-      <gridCoordinate>(3, 29)</gridCoordinate>
+      <gridCoordinate>(39, 12)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_HeavyTruckArmour</li>

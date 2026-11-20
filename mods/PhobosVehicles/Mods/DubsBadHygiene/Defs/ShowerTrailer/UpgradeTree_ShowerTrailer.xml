@@ -16,7 +16,7 @@
       <description>Insulation round the tank: the water takes four times as long to reach the outside temperature, so it freezes later on a cold night.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/InsulatedLiquidTank</icon>
       <work>2000</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>30</Steel>
@@ -30,7 +30,7 @@
       <description>A second hose and a bigger pump outlet: the pump moves half as much again.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HoseReel</icon>
       <work>1200</work>
-      <gridCoordinate>(12, 6)</gridCoordinate>
+      <gridCoordinate>(12, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">
@@ -55,7 +55,7 @@
       <description>A third shower in the shower tent, set out at the next set-up, so a crew washes faster after a shift.</description>
       <icon>DBH/Things/Building/Showers/showerSimple_south</icon>
       <work>1500</work>
-      <gridCoordinate>(7, 6)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>40</Steel>

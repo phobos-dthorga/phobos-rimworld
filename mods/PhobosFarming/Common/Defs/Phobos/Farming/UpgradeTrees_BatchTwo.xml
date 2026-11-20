@@ -19,7 +19,7 @@
       <description>Water and antifreeze pumped into the rear tyres: 500 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
       <icon>Phobos/Farming/Upgrades/DualWheels</icon>
       <work>800</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>10</Steel>
@@ -43,7 +43,7 @@
       <description>A stack of cast-iron weights on the front: 400 kg more, keeping the front wheels down and the tractor gripping under heavy draught, at a little more fuel.</description>
       <icon>Phobos/Farming/Upgrades/FrontWeights</icon>
       <work>1500</work>
-      <gridCoordinate>(7, 6)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>40</Steel>
@@ -67,7 +67,7 @@
       <description>A second wheel on each rear hub: a quarter more grip on the softest ground and less sinking in, for 600 kg more. Wider on the road.</description>
       <icon>Phobos/Farming/Upgrades/DualWheels</icon>
       <work>2500</work>
-      <gridCoordinate>(12, 6)</gridCoordinate>
+      <gridCoordinate>(12, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>60</Steel>
@@ -104,7 +104,7 @@
       <description>Water and antifreeze pumped into the rear tyres: 900 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
       <icon>Phobos/Farming/Upgrades/DualWheels</icon>
       <work>800</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>10</Steel>
@@ -128,7 +128,7 @@
       <description>A second wheel on each rear hub: a quarter more grip on the softest ground and less sinking in, for 1000 kg more. Wider on the road.</description>
       <icon>Phobos/Farming/Upgrades/DualWheels</icon>
       <work>2500</work>
-      <gridCoordinate>(7, 6)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>60</Steel>
@@ -165,7 +165,7 @@
       <description>Water and antifreeze pumped into the rear tyres: 900 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
       <icon>Phobos/Farming/Upgrades/DualWheels</icon>
       <work>800</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>10</Steel>
@@ -189,7 +189,7 @@
       <description>A stack of cast-iron weights on the front: 700 kg more, keeping the front wheels down and the tractor gripping under heavy draught, at a little more fuel.</description>
       <icon>Phobos/Farming/Upgrades/FrontWeights</icon>
       <work>1500</work>
-      <gridCoordinate>(7, 6)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>70</Steel>
@@ -213,7 +213,7 @@
       <description>A second wheel on each rear hub: a quarter more grip on the softest ground and less sinking in, for 1000 kg more. Wider on the road.</description>
       <icon>Phobos/Farming/Upgrades/DualWheels</icon>
       <work>2500</work>
-      <gridCoordinate>(12, 6)</gridCoordinate>
+      <gridCoordinate>(12, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>60</Steel>
@@ -250,7 +250,7 @@
       <description>Water and antifreeze pumped into the rear tyres: 1600 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
       <icon>Phobos/Farming/Upgrades/DualWheels</icon>
       <work>800</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>10</Steel>
@@ -274,7 +274,7 @@
       <description>A stack of cast-iron weights on the front: 1200 kg more, keeping the front wheels down and the tractor gripping under heavy draught, at a little more fuel.</description>
       <icon>Phobos/Farming/Upgrades/FrontWeights</icon>
       <work>1500</work>
-      <gridCoordinate>(7, 6)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>120</Steel>
@@ -306,7 +306,7 @@
       <description>Water and antifreeze pumped into the rear tyres: 1600 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
       <icon>Phobos/Farming/Upgrades/DualWheels</icon>
       <work>800</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>10</Steel>
@@ -338,7 +338,7 @@
       <description>Two more furrows bolted onto the end of the beam: it ploughs two cells wide instead of one, and pulls twice as hard.</description>
       <icon>Phobos/Farming/Upgrades/PloughWings</icon>
       <work>2000</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>70</Steel>
@@ -359,7 +359,7 @@
       <description>A folding wing each side: it works seven cells wide instead of four, and pulls that much harder.</description>
       <icon>Phobos/Farming/Upgrades/CultivatorWings</icon>
       <work>2500</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>90</Steel>
@@ -381,7 +381,7 @@
       <description>A folding coulter section each side: it sows seven cells wide instead of four.</description>
       <icon>Phobos/Farming/Upgrades/DrillWings</icon>
       <work>2500</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>80</Steel>
@@ -395,7 +395,7 @@
       <description>Raised sides on the seed hopper: it holds half as much seed again before it must be filled.</description>
       <icon>Phobos/Farming/Upgrades/HopperExtension</icon>
       <work>1200</work>
-      <gridCoordinate>(7, 6)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>40</Steel>

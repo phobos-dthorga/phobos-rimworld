@@ -15,7 +15,7 @@
       <description>Taller side boards, which drivers call greedy boards: 600 kg more of anything.</description>
       <icon>Phobos/Vehicles/Tipper/Upgrades/HighSides</icon>
       <work>1500</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">
@@ -38,7 +38,7 @@
       <description>A short, steep body with a thick floor. It carries the same, but sheds its load half as fast again.</description>
       <icon>Phobos/Vehicles/Tipper/Upgrades/RockBody</icon>
       <work>3000</work>
-      <gridCoordinate>(7, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Machining</li>
@@ -68,7 +68,7 @@
       <description>A long, shallow body: 3,600 kg before any greedy boards, for ore and steel, but it tips slower.</description>
       <icon>Phobos/Vehicles/Tipper/Upgrades/BulkBody</icon>
       <work>3000</work>
-      <gridCoordinate>(12, 6)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Machining</li>
@@ -104,7 +104,7 @@
       <description>A small hydraulic crane behind the cab with a two-jawed grab. With a driver aboard and the truck stopped, it lifts loose chunks and stacks lying within 4 cells into the cargo, up to 500 kg a lift, with no one else to carry them. The truck cannot tip while the grab is out.</description>
       <icon>Phobos/VehicleSystems/Stations/Grab</icon>
       <work>3000</work>
-      <gridCoordinate>(7, 11)</gridCoordinate>
+      <gridCoordinate>(7, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>Machining</li>
@@ -138,7 +138,7 @@
       <upgradeExplanation>Engine and fuel tank: from skin to rifle armour, which stops ordinary rifle bullets.\nCargo room: 300 kg less.\nKit weight: 300 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/EngineGuards</icon>
       <work>2500</work>
-      <gridCoordinate>(2, 16)</gridCoordinate>
+      <gridCoordinate>(29, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -191,7 +191,7 @@
       <upgradeExplanation>Wheels: from skin to splinter armour, which stops shell fragments and pistol bullets.\nCargo room: 120 kg less.\nKit weight: 120 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/RunFlatTyres</icon>
       <work>1500</work>
-      <gridCoordinate>(7, 16)</gridCoordinate>
+      <gridCoordinate>(34, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -244,7 +244,7 @@
       <upgradeExplanation>Electrics: an electromagnetic pulse harms them as it does a military vehicle's.\nCargo room: 60 kg less.\nKit weight: 60 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/EmpHardening</icon>
       <work>2000</work>
-      <gridCoordinate>(12, 16)</gridCoordinate>
+      <gridCoordinate>(39, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -285,7 +285,7 @@
       <upgradeExplanation>Cab: from skin to rifle armour, which stops ordinary rifle bullets.\nCargo room: 1,000 kg less.\nKit weight: 1,000 kg more, carried as cargo.\nWith the gathering run: may keep working while enemies are about (Gather what).</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/ArmouredCab</icon>
       <work>4000</work>
-      <gridCoordinate>(2, 21)</gridCoordinate>
+      <gridCoordinate>(39, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -330,7 +330,7 @@
       <upgradeExplanation>Damage the truck takes from running into people and animals: half (0.50 to 0.25).\nFrom running into buildings: half (0.10 to 0.05).\nDamage it does to people and animals it runs into: half as much again (0.50 to 0.75); to buildings, 2.5 to 3.0.\nCargo room: 150 kg less.\nKit weight: 150 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/RamBar</icon>
       <work>1500</work>
-      <gridCoordinate>(7, 21)</gridCoordinate>
+      <gridCoordinate>(29, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -384,7 +384,7 @@
       <upgradeExplanation>Tipping body: from skin to rifle armour, which stops ordinary rifle bullets.\nCargo room: 1,100 kg less.\nKit weight: 1,100 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/BodyPlates</icon>
       <work>4000</work>
-      <gridCoordinate>(12, 21)</gridCoordinate>
+      <gridCoordinate>(34, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_TruckArmour</li>
@@ -428,7 +428,7 @@
       <upgradeExplanation>Cab: from rifle to armour-piercing rifle armour, which stops armour-piercing rifle bullets and ordinary heavy machine-gun bullets.\nCargo room: 850 kg less.\nKit weight: 850 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Upgrades/HeavyCabPlates</icon>
       <work>5000</work>
-      <gridCoordinate>(2, 26)</gridCoordinate>
+      <gridCoordinate>(39, 12)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_HeavyTruckArmour</li>

@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- **Upgrade trees start at the top of the tab.** Each machine's upgrades sat four rows down under an empty band; they now start just under the tab's title, laid out like the trucks'. Only positions changed: no upgrade, link or cost, and fitted upgrades stay fitted. Not yet tested in game.
+
 ## [0.7.0] - 2026-11-20 - Draft
 
 Batch two: tractors, implements, upgrades and bought seed

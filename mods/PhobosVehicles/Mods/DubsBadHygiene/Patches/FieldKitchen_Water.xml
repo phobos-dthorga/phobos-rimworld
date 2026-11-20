@@ -42,7 +42,7 @@
         <description>A plumbed wash basin in the kitchen tent, set out at the next set-up. It keeps the tent cleaner, so food cooked there spoils people less often. It draws on the kitchen's water.</description>
         <icon>DBH/Things/Building/Toilets/basin_south</icon>
         <work>1200</work>
-        <gridCoordinate>(7, 10)</gridCoordinate>
+        <gridCoordinate>(7, 7)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>Plumbing</li>
@@ -59,7 +59,7 @@
         <description>The kitchen's water tank goes from 200 to 600 litres, so it cooks for longer between fills. It takes effect at the next set-up.</description>
         <icon>Phobos/Vehicles/BulkTanker/Upgrades/HighVolumeLiquidTank</icon>
         <work>1500</work>
-        <gridCoordinate>(12, 10)</gridCoordinate>
+        <gridCoordinate>(12, 7)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>Plumbing</li>

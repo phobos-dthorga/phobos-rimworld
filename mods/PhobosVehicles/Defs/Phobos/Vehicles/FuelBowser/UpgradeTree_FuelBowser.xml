@@ -16,7 +16,7 @@
       <description>Insulation round the tank: the fuel takes four times as long to reach the outside temperature, so it stays thin longer in the cold where fuel thickens.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/InsulatedLiquidTank</icon>
       <work>2000</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <ingredients>
         <Steel>30</Steel>
@@ -30,7 +30,7 @@
       <description>A second hose and a bigger pump outlet: the pump moves half as much again.</description>
       <icon>Phobos/Vehicles/BulkTanker/Upgrades/HoseReel</icon>
       <work>1200</work>
-      <gridCoordinate>(12, 6)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">

@@ -15,7 +15,7 @@
         <description>Retractable wheels that let the boat rest on the bottom. Settled there, it uses half the air and charge and is a quarter as easy to find, but it cannot move until it lifts off.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/BottomingWheels</icon>
         <work>2500</work>
-        <gridCoordinate>(3, 3)</gridCoordinate>
+        <gridCoordinate>(3, 2)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>PhobosResearch_SeabedRunningGear</li>
@@ -52,7 +52,7 @@
         <description>Canisters that clean the air. The boat can stay under for six hours longer, and a crew that stays down past empty breathes stale air more slowly.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Scrubber</icon>
         <work>2000</work>
-        <gridCoordinate>(10, 3)</gridCoordinate>
+        <gridCoordinate>(10, 2)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>PhobosResearch_AirPurification</li>
@@ -83,7 +83,7 @@
         <description>A small laboratory with two scientist's seats. Seated scientists with an Intellectual skill of 7 or more carry on the colony's research: at three quarters of a simple research bench's speed while at rest, and half that under way. It takes on any project that needs no particular bench.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Laboratory</icon>
         <work>2500</work>
-        <gridCoordinate>(17, 3)</gridCoordinate>
+        <gridCoordinate>(17, 2)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>PhobosResearch_MarineScience</li>
@@ -128,7 +128,7 @@
         <description>An analyser bench for the wet laboratory. It can take on any project a hi-tech research bench can, and its scientists work at a hi-tech bench's speed.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/AdvancedLaboratory</icon>
         <work>3000</work>
-        <gridCoordinate>(24, 3)</gridCoordinate>
+        <gridCoordinate>(24, 2)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <prerequisiteNodes>
           <li>WetLab</li>
@@ -162,7 +162,7 @@
         <description>Hydrophones along the hull. Anyone aboard who is awake can listen for hostile movement within 40 cells: things in the water across all of it, things on land within half of it, and other boats under the water by their noise. It hears half as far on the move, and makes no sound itself.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Hydrophones</icon>
         <work>2000</work>
-        <gridCoordinate>(3, 10)</gridCoordinate>
+        <gridCoordinate>(3, 9)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <researchPrerequisites>
           <li>PhobosResearch_Hydrophones</li>
@@ -200,7 +200,7 @@
         <description>A sonar transducer under the bow, worked from a screen inside. A ping finds everything hostile in the water within 60 cells, moving or still, and every boat under the water, though one resting on the bottom only from half as far. The ping is heard twice as far away, and a boat under the water is followed for a minute after it pings.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/Sonar</icon>
         <work>2000</work>
-        <gridCoordinate>(10, 10)</gridCoordinate>
+        <gridCoordinate>(10, 9)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <prerequisiteNodes>
           <li>Hydrophones</li>
@@ -242,7 +242,7 @@
         <description>A smooth, faired sail rebuilt around the sensors. The listening array hears 20 cells further and a sonar ping reaches 30 cells further, but the narrower deck carries 200 less. Cannot be fitted with the laboratory refit.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/SensorRefit</icon>
         <work>4000</work>
-        <gridCoordinate>(17, 10)</gridCoordinate>
+        <gridCoordinate>(17, 9)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <prerequisiteNodes>
           <li>ActiveSonar</li>
@@ -285,7 +285,7 @@
         <description>A hull section let in amidships for a longer laboratory. It seats a third scientist and its scientists work 15 per cent of a research bench faster, but the longer hull is slower. Cannot be fitted with the sensor refit.</description>
         <icon>Phobos/Vehicles/SeabedCrawler/Upgrades/LaboratoryRefit</icon>
         <work>5000</work>
-        <gridCoordinate>(31, 3)</gridCoordinate>
+        <gridCoordinate>(31, 2)</gridCoordinate>
         <drawSize>(80, 80)</drawSize>
         <prerequisiteNodes>
           <li>DeepLab</li>

@@ -25,12 +25,12 @@ TREE = """<?xml version="1.0" encoding="utf-8"?>
       </li>
     </modExtensions>
     <nodes>
-      <li><key>TankA</key><label>Tank A</label><gridCoordinate>(2, 6)</gridCoordinate>
+      <li><key>TankA</key><label>Tank A</label><gridCoordinate>(2, 2)</gridCoordinate>
         <disableIfUpgradeNodesEnabled><li>TankB</li></disableIfUpgradeNodesEnabled></li>
-      <li><key>TankB</key><label>Tank B</label><gridCoordinate>(9, 6)</gridCoordinate>
+      <li><key>TankB</key><label>Tank B</label><gridCoordinate>(9, 2)</gridCoordinate>
         <disableIfUpgradeNodesEnabled><li>TankA</li></disableIfUpgradeNodesEnabled></li>
-      <li><key>Bulkhead</key><label>Bulkhead</label><gridCoordinate>(5, 15)</gridCoordinate></li>
-      <li><key>Second</key><label>Second bulkhead</label><gridCoordinate>(12, 15)</gridCoordinate>
+      <li><key>Bulkhead</key><label>Bulkhead</label><gridCoordinate>(5, 9)</gridCoordinate></li>
+      <li><key>Second</key><label>Second bulkhead</label><gridCoordinate>(12, 9)</gridCoordinate>
         <prerequisiteNodes><li>Bulkhead</li></prerequisiteNodes></li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
@@ -42,7 +42,7 @@ TIE_IN = """<?xml version="1.0" encoding="utf-8"?>
   <Operation Class="PatchOperationAdd">
     <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Test_Tree"]/nodes</xpath>
     <value>
-      <li><key>Extra</key><label>Extra</label><gridCoordinate>(20, 6)</gridCoordinate>
+      <li><key>Extra</key><label>Extra</label><gridCoordinate>(20, 2)</gridCoordinate>
         <prerequisiteNodes><li>TankA</li></prerequisiteNodes></li>
     </value>
   </Operation>
@@ -106,19 +106,64 @@ class CheckUpgradeTreesTests(unittest.TestCase):
 
     def test_a_loop_of_prerequisites_fails(self):
         self.write('TestMod/Defs/Tree.xml', TREE.replace(
-            '<li><key>Bulkhead</key><label>Bulkhead</label><gridCoordinate>(5, 15)</gridCoordinate></li>',
-            '<li><key>Bulkhead</key><label>Bulkhead</label><gridCoordinate>(5, 15)</gridCoordinate>'
+            '<li><key>Bulkhead</key><label>Bulkhead</label><gridCoordinate>(5, 9)</gridCoordinate></li>',
+            '<li><key>Bulkhead</key><label>Bulkhead</label><gridCoordinate>(5, 9)</gridCoordinate>'
             '<prerequisiteNodes><li>Second</li></prerequisiteNodes></li>'))
         self.assertTrue(any('loop' in p for p in self.problems()))
 
     def test_two_nodes_on_one_cell_fail(self):
-        self.write('TestMod/Defs/Tree.xml', TREE.replace('(12, 15)', '(5, 15)'))
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('(12, 9)', '(5, 9)'))
         self.assertTrue(any('share the grid cell' in p for p in self.problems()))
+
+    def layout(self):
+        return [p for tree in trees.gather(self.mods).values() for p in trees.check_layout(tree)]
+
+    def test_a_sound_layout_passes(self):
+        self.assertEqual([], self.layout())
+
+    def test_a_node_below_the_tab_fails(self):
+        # Row 24: centre 40 + 20 * 24 = 520, past the tab's 515 even for a 40-pixel node.
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('(12, 9)', '(12, 24)').replace('(5, 9)', '(5, 18)'))
+        self.assertTrue(any('Second at (12,24) is drawn past the bottom' in p for p in self.layout()))
+
+    def test_a_tree_named_in_may_scroll_may_run_past_the_tab(self):
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('(12, 9)', '(12, 24)').replace('(5, 9)', '(5, 18)'))
+        trees.MAY_SCROLL['Test_Tree'] = 'a test'
+        try:
+            self.assertFalse(any('drawn past' in p for p in self.layout()))
+        finally:
+            del trees.MAY_SCROLL['Test_Tree']
+
+    def test_a_first_row_below_the_top_fails(self):
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('(2, 2)', '(2, 6)').replace('(9, 2)', '(9, 6)'))
+        self.assertTrue(any('its first row is row 6' in p for p in self.layout()))
+
+    def test_a_tie_in_row_alone_is_not_the_first_row(self):
+        # The tie-in node sits at row 2 with ours; moved below, our own first row still counts.
+        self.write('TestMod/Mods/Other/Patches/Extra.xml', TIE_IN.replace('(20, 2)', '(20, 14)'))
+        self.assertEqual([], self.layout())
+
+    def test_nodes_with_no_gap_between_them_fail(self):
+        # 40-pixel nodes two cells apart are 40 pixels between centres: touching, with no clear grid step.
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('(9, 2)', '(4, 2)'))
+        self.assertTrue(any('TankA at (2,2) and TankB at (4,2) touch' in p for p in self.layout()))
+
+    def test_a_drawn_size_counts(self):
+        # Three cells apart, two 40-pixel nodes clear one grid step; with TankB drawn at 80 pixels they touch.
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('(9, 2)', '(5, 2)'))
+        self.assertEqual([], self.layout())
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('<label>Tank B</label>', '<label>Tank B</label><drawSize>(80, 80)</drawSize>')
+                   .replace('(9, 2)', '(5, 2)'))
+        self.assertTrue(any('TankA at (2,2) and TankB at (5,2) touch' in p for p in self.layout()))
+
+    def test_an_empty_band_of_rows_fails(self):
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('(5, 9)', '(5, 17)').replace('(12, 9)', '(12, 17)'))
+        self.assertTrue(any('rows 2 and 17 have empty rows between them' in p for p in self.layout()))
 
     def test_the_shipped_trees_pass(self):
         found = trees.gather(Path(ROOT) / 'mods')
         self.assertGreater(len(found), 0)
-        self.assertEqual([], [p for tree in found.values() for p in trees.check_tree(tree)])
+        self.assertEqual([], [p for tree in found.values() for p in trees.check_tree(tree) + trees.check_layout(tree)])
 
 
 if __name__ == '__main__':

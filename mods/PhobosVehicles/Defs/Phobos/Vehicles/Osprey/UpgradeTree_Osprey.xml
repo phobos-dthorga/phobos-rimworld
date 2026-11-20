@@ -20,7 +20,7 @@
       <description>A second hook beside the first, the two sharing one load: the sling lifts up to 6,804 kg instead of 4,536 kg. Works with the cargo hook fitted.</description>
       <icon>Phobos/Vehicles/Osprey/Upgrades/SecondHook</icon>
       <work>3000</work>
-      <gridCoordinate>(3, 2)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_OspreySecondHook</li>
@@ -53,7 +53,7 @@
       <upgradeExplanation>Cockpit, forward cabin and aft cabin: from skin to rifle armour, which stops ordinary rifle bullets.\nCargo room: 360 kg less.\nKit weight: 360 kg more, carried as cargo.</upgradeExplanation>
       <icon>Phobos/Vehicles/Osprey/Upgrades/ArmourKit</icon>
       <work>4000</work>
-      <gridCoordinate>(3, 6)</gridCoordinate>
+      <gridCoordinate>(29, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_OspreyArmourKit</li>
@@ -116,7 +116,7 @@
       <description>Two small turrets that blind heat-seeking missiles, cued by the missile warning receiver. Air defences hit far less often, and it never runs out; it draws power while the engines run.</description>
       <icon>Phobos/Vehicles/Osprey/Upgrades/InfraredJammer</icon>
       <work>3500</work>
-      <gridCoordinate>(10, 6)</gridCoordinate>
+      <gridCoordinate>(34, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_OspreyInfraredJammer</li>
@@ -159,7 +159,7 @@
       <description>A terrain-following radar in a fuller nose. It draws power while the engines run.</description>
       <icon>Phobos/Vehicles/Osprey/Upgrades/TerrainRadar</icon>
       <work>3500</work>
-      <gridCoordinate>(3, 10)</gridCoordinate>
+      <gridCoordinate>(7, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_OspreyTerrainRadar</li>
@@ -202,7 +202,7 @@
       <description>Filters over the engine intakes that keep most of the sand and dust out when it lands on loose ground, for a little engine power.</description>
       <icon>Phobos/Vehicles/Osprey/Upgrades/InletBarrier</icon>
       <work>2500</work>
-      <gridCoordinate>(10, 10)</gridCoordinate>
+      <gridCoordinate>(12, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_OspreyInletBarrier</li>
@@ -236,7 +236,7 @@
       <description>An M240 machine gun on the open ramp, worked by the crew chief, covering the ground behind the aircraft. Either this or the .50.</description>
       <icon>Phobos/Vehicles/Osprey/Upgrades/RampGun762</icon>
       <work>2000</work>
-      <gridCoordinate>(3, 14)</gridCoordinate>
+      <gridCoordinate>(29, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_OspreyRampGun</li>
@@ -291,7 +291,7 @@
       <description>A heavy .50 machine gun on the open ramp, worked by the crew chief: slower to swing, and it hits much harder and further. Either this or the 7.62 mm.</description>
       <icon>Phobos/Vehicles/Osprey/Upgrades/RampGun50</icon>
       <work>2500</work>
-      <gridCoordinate>(10, 14)</gridCoordinate>
+      <gridCoordinate>(34, 7)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_OspreyRampGun</li>
@@ -349,7 +349,7 @@
       <description>A minigun in a turret that lowers from the belly and fires all round by itself while the aircraft has power. It weighs 360 kg, carried as cargo would be.</description>
       <icon>Phobos/Vehicles/Osprey/Upgrades/BellyGun</icon>
       <work>4000</work>
-      <gridCoordinate>(3, 18)</gridCoordinate>
+      <gridCoordinate>(39, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <researchPrerequisites>
         <li>PhobosResearch_OspreyBellyGun</li>

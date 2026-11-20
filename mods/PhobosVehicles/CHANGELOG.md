@@ -5,6 +5,10 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- **Upgrade trees laid out afresh, so every upgrade shows at once.** The armour kits had been stacked under each truck's own upgrades, pushing the last rows of the bulk tanker, drill rig, survey truck, tipper and generator set below the Upgrades tab. Each truck's own upgrades now sit on the left and its kits in three columns on the right, the armoured cab always in the far column with heavy cab plates under it; the tanker's six tanks run across the top. Every tree starts at the top of the tab, no two upgrades sit edge to edge any more (the Osprey and the field kitchen had rows touching), and an upgrade that comes with another mod sits after ours, so no blank row is left without that mod. Only positions changed: no upgrade, link or cost, and fitted upgrades stay fitted. Not yet tested in game.
+
 ### Fixed
 
 - **Art records no longer hold a path from the developer's PC.** The export records beside some textures named the full folder they were made in; they now name the file within the project. Nothing a player sees changes.

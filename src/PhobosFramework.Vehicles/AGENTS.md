@@ -13,7 +13,10 @@ the general engineering rules there (parts bills, pipes beneath, optional tie-in
   "better with" is no link. Four links, each for its own reason: **either/or** for things that fill the same place (Vehicle Framework's
   exclusion list, on both nodes); **needs all of** for building on one earlier upgrade (`prerequisiteNodes`); **needs any one of**
   for alternatives (`PhobosUpgradeAnyOf`); and **holds it on** only for what sits inside or on its parent. Alternatives share a row,
-  dependants sit below, and free-standing upgrades take their own row. A tie-in node may hang from ours, never ours from a tie-in's;
+  dependants sit below, and free-standing upgrades take their own row. **Every tree fits Vehicle Framework's tab** (owner's choice,
+  20 Nov 2026, after the armour kits stacked under five trucks' trees ran off it): the first row at row 2, one grid step between nodes,
+  tie-in nodes after our rows; a truck's own upgrades on the left and its armour and weapon kits in three columns on the right (columns
+  29, 34 and 39), the armoured cab in the far one. A tie-in node may hang from ours, never ours from a tie-in's;
   other authors' trees are left alone. **`python scripts/check-upgrade-trees.py`** (part of the gate) checks every tree, `show` prints
   them, and `--write` redraws the Mermaid diagram each tree's design record carries under its `<!-- upgrade-tree: DEFNAME -->` line.
 - **A vehicle accessory uses up something real** (owner, 13 Nov 2026): battery and alternator power, fuel, water or goods from the game

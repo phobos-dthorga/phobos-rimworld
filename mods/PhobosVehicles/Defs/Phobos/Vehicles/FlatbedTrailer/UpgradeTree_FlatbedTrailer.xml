@@ -17,7 +17,7 @@
       <description>Taller side boards: 1,000 kg more of anything. The vehicle towing it pulls the extra weight too.</description>
       <icon>Phobos/Vehicles/Tipper/Upgrades/HighSides</icon>
       <work>1200</work>
-      <gridCoordinate>(2, 6)</gridCoordinate>
+      <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
       <upgrades>
         <li Class="Vehicles.StatUpgrade">
