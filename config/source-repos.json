@@ -1,7 +1,7 @@
 {
   "format": 1,
   "description": "Where the public source of each mod this project ties into lives, from phobos-modkit's rimworld-sources. A repository counts as confirmed only when an About.xml in it names the mod's package ID. Read a mod's source here before decompiling it (AGENTS.md).",
-  "updated": "2026-11-19",
+  "updated": "2026-11-20",
   "mods": {
     "adaptive.storage.framework": {
       "name": "Adaptive Storage Framework",
@@ -319,6 +319,25 @@
         }
       ],
       "checked": "2026-11-18"
+    },
+    "juanlopez2008.lightsout": {
+      "name": "LightsOut",
+      "package_id": "juanlopez2008.lightsout",
+      "workshop_id": "2584269293",
+      "repository": "https://github.com/NathanIkola/LightsOut",
+      "found": "GitHub search",
+      "confirmed": "About/About.xml",
+      "pushed": "2026-10-17",
+      "licence": "",
+      "archived": false,
+      "candidates": [
+        {
+          "repository": "pardeike/HarmonyRimWorld",
+          "found": "About.xml",
+          "note": "it is brrainz.harmony's repository"
+        }
+      ],
+      "checked": "2026-11-20"
     },
     "kazepsi.irbm": {
       "name": "InterRim Ballistic Missile",

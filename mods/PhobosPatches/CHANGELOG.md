@@ -6,6 +6,38 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.28.0] - 2026-11-20 - Draft
+
+Mech rechargers can draw power by the size of the mech on them (off by default)
+
+### Added
+
+- **With Biotech, mech rechargers can draw power by the size of the mech on them: a new setting, off by default** (owner's request, 20 Nov 2026). As the game comes, a recharger draws one figure whichever mech stands on it, so a war queen costs no more to charge than a mid-sized mech, and on a compact gravship recharger almost nothing. With the setting on, a recharger draws about 285 W for each point of the mech's body size while it charges: most light mechs 200 W as now, a cleansweeper about 85 W, a tunneler about 1,000 W, a war queen or diabolus about 1,150 W. This holds on every recharger, whatever power it lists, and for other mods' mechs and rechargers too. Charging to 80% takes as long as before.
+- **Charging slows over the last fifth of the battery, and the draw falls with it.** From 80% the rate falls steadily to a quarter at full, so a full charge takes about 2.3 days in place of 2, and topping up to 80% is the quick part. A mech group's recharge range, the game's own, decides where its mechs stop. Wastepacks follow the energy put in, so a full charge makes the same waste as before.
+- **A charging recharger warms its room.** About a sixth of the power it draws becomes heat: a tunneler's recharger gives about as much as one heater. It stops warming a room hotter than 80 C.
+- **A recharger with no mech on it draws a twentieth of its listed power**, where the game drew all of it.
+- **The recharger says what it is doing**: who is charging, the watts, and about how long is left; that charging is slowing as the battery fills; or that it waits for power and how much the mech needs.
+- **A Mechanoids page in the settings**, shown while Biotech is active, with two settings. Mech rechargers draw power by the size of the mech: off by default. Mech battery size: Standard (the default), Large (three times the draw) or Huge (ten times); charging takes the same time at each.
+
+### Balance
+
+- Every figure is authored, and chosen so the common light mechs draw the 200 W the game's own recharger lists. They sit in one rules Def (PhobosMechChargingRules) that another mod can patch.
+
+### Dependencies
+
+- This part needs Biotech and D'thorga Framework 0.198.0 or later.
+
+### Save compatibility
+
+- Safe to add to a save and to remove. It saves nothing; turning the setting off puts every recharger back to the game's figure at once.
+
+### Compatibility and limits
+
+- **A large mech can ask more than a small grid has.** The game then switches things off at random, as it does in any power shortage: it may be the recharger, it may be a freezer. Compact gravship rechargers lose their low-power advantage while the setting is on.
+- Written to work under power-saving mods. LightsOut holds an unused recharger on standby and scales what a power user reports; read from its source, it works on top of our figures and neither undoes the other. Not yet seen in game.
+- Not built: mechs feeding power back to the grid, and a mech's draw on its information card.
+- Not yet tested in game.
+
 ## [0.27.0] - 2026-11-20 - Draft
 
 One settings entry for every patched mod, with search

@@ -5,6 +5,9 @@
        mod on 7 November 2026. -->
   <v1.7>
     <li>/</li>
+    <!-- Mech rechargers that draw real power, off by default (docs/development/mech-recharging-real-power.md). -->
+    <li IfModActive="ludeon.rimworld.biotech">Mods/Biotech</li>
+    <li IfModActive="ludeon.rimworld.biotech">Mods/Biotech/1.7</li>
     <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol</li>
     <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol/1.7</li>
     <li IfModActive="potemkinvillager.av8bharrier,potemkinvillager.mi24hindhelicopter,potemkinvillager.mongooseattackhelicopter">Mods/AircraftRearm/1.7</li>

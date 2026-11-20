@@ -9,7 +9,7 @@ casting at The Dead Man's Switch's rotary forger.
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.27.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.28.0, built 20 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -27,7 +27,10 @@ the [changelog](CHANGELOG.md).
   Spaceship Turret Hull and Combat Extended together; the ammo guard and "soldiers keep their guns" with Combat Extended (that one needs
   D'thorga Framework 0.174.0 or later); the missile part with InterRim Ballistic
   Missile; one part each for RimPacts, Visit Settlements, Vehicle Framework and Vanilla Factions Expanded - Classical (that one needs
-  D'thorga Framework 0.168.0 or later); the outposts part with Vanilla Expanded Framework and Vehicle Framework together. A player running none of them sees nothing.
+  D'thorga Framework 0.168.0 or later); the outposts part with Vanilla Expanded Framework and Vehicle Framework together; the mech recharger part with Biotech (D'thorga
+  Framework 0.198.0 or later). A player running none of them sees nothing.
+- **With Biotech, mech rechargers drawing real power is off by default.** Before turning it on, check your grid: a tunneler or war
+  queen charging draws about 1,000 W or more, and a shortage switches things off at random.
 - **RimWorld 1.7 only.** It builds against Vehicle Framework's own 1.7 build (14 November 2026).
 - **Switching from D'thorga Vehicle Patches or D'thorga Missile Patches: switch both off and this one on, in the same change.** The
   About file lists them as incompatible, so RimSort warns you. Your save needs nothing; the missile settings carry over by themselves.
@@ -118,6 +121,12 @@ strike; a world war quest shows its deadline ([RimPacts](../../docs/player-guide
 A visited settlement's map stays open while your people can still act there or a battle is on, and its food drops no longer fail on
 every tick ([Visit Settlements](../../docs/player-guide/patches.md#visit-settlements)).
 
+### Biotech
+
+A setting, off by default: mech rechargers draw power by the size of the mech on them, charging slows over the last fifth of the
+battery, and a charging recharger warms its room
+([mech rechargers](../../docs/player-guide/patches.md#mech-rechargers-with-real-power-biotech)).
+
 ### Vanilla Factions Expanded - Classical
 
 A save made during a scorpion raid loads with the raid still working (temporary)
@@ -175,6 +184,13 @@ strike leaves behind, from the fireball onwards.
 
 The temporary disassembly trace had a tick here, on by default, until 0.27.0. It is now **D'thorga Patches: Harrier disassembly** on
 D'thorga Framework's **Detailed logs** page, off until ticked.
+
+### Mechanoids (with Biotech)
+
+| Setting | What it does | Default |
+| --- | --- | --- |
+| Mech rechargers draw power by the size of the mech | On: a recharger draws about 285 W per point of the mech's body size while it charges (a light mech 200 W, a tunneler about 1,000 W), charging slows over the last fifth, a sixth of the power warms the room, and an empty recharger draws a twentieth of its listed power. Off: the game's own flat figure | Off |
+| Mech battery size | Standard, Large (three times the draw) or Huge (ten times); charging takes the same time at each. Only matters with the setting above on | Standard |
 
 ### Outposts
 

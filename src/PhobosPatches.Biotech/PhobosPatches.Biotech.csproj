@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' Biotech assembly (from 0.28.0): mech rechargers that draw real power, off by default
+       (docs/development/mech-recharging-real-power.md). It lives in Mods/Biotech/<version>, which LoadFolders.xml loads only while
+       Biotech is active. It patches only the game's own recharger and references no other mod's assembly. RimWorld 1.7 only. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.BiotechPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.Biotech</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/Biotech/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.28.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+</Project>

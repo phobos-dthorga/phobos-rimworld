@@ -37,6 +37,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | **Vehicle Framework** | Fires a vehicle could never put out are put out; a vehicle leaving a map takes no fire with it. Repairs and upgrades show the game's progress bar | Nothing |
 | **The Dead Man's Switch** drone platforms (Fortified Features Framework) | Colonists refill the engineering drone bay, the trashpan and hound stations and the FPV nest with steel by themselves; a mechanitor refills the Hermit Crab and the Cluster Weaver | Nothing: keep steel in reach. [Drone platforms](#drone-platforms) |
 | **Combat Extended** ammo sets | A temporary guard drops ammo set entries that would stop CE's whole ammo setup (The Dead Man's Switch - Synthriada adds such entries) | Nothing |
+| **Biotech** (Ludeon), a setting off by default | Mech rechargers draw power by the size of the mech on them, charging slows over the last fifth, and a charging recharger warms its room | **Turn it on** in the settings' Mechanoids page; check your grid can carry your biggest mech |
 | **Combat Extended**, with or without **Simple sidearms** (PeteTimesSix) | Colonists left holding a grenade, a satchel charge or nothing after being downed go back to their own gun. Not yet tested in game | **Hand a gun once to anyone who has none at all.** [Soldiers keep their guns](#soldiers-keep-their-guns) |
 
 ![The Mk. 82 and Mk. 84 bomb cases](images/patches-items.png)
@@ -323,6 +324,31 @@ the log says "Kept the map of ... open", once an in-game hour.
 Its food drops for friendly settlements also no longer fail on every tick when a settlement holds a pawn that does not eat (a
 mechanoid, a robot, an android). That fault filled the game's log in minutes.
 
+## Mech rechargers with real power (Biotech)
+
+**Off by default.** As the game comes, a mech recharger draws the power it lists whichever mech stands on it: a war queen costs no
+more to charge than a mid-sized mech. Turn on **Mech rechargers draw power by the size of the mech** (Mod settings, D'thorga Patches,
+the **Mechanoids** page) and a recharger draws for the mech on it instead.
+
+| Mech | Body size | Draw while charging (Standard) |
+| --- | --- | --- |
+| Cleansweeper | 0.3 | about 85 W |
+| Most light mechs (lifter, militor, agrihand) | 0.7 | 200 W, as now |
+| Tunneler | 3.5 | about 1,000 W |
+| War queen, diabolus | 4 | about 1,150 W |
+
+- **Every recharger, whatever it lists**, and other mods' mechs and rechargers too: the figure comes from the mech's body size.
+- **Charging slows over the last fifth.** Up to 80% it fills as fast as before; from there the rate and the draw fall to a quarter at
+  full, so a full charge takes about 2.3 days in place of 2. Set a control group's recharge range to stop at 80% for quick turnarounds.
+- **About a sixth of the power becomes heat** in the recharger's room: a tunneler's recharger warms like one heater. A busy mech bay
+  may want a vent or a cooler. It stops warming a room hotter than 80 C.
+- **An empty recharger draws a twentieth** of its listed power.
+- **The recharger's inspect text** names the mech, the watts and about how long is left, or says it is waiting for power and how much.
+- **Mech battery size**: Standard, Large (three times the draw) or Huge (ten times). Charging takes the same time at each.
+- **Watch your grid.** A large mech plugging in at night can ask more than your batteries give; the game then switches things off at
+  random, as in any shortage. Compact gravship rechargers lose their low-power advantage while this is on.
+- Turning it off puts every recharger back to the game's figure at once. It saves nothing, so it is safe to add or remove.
+
 ## Vanilla Factions Expanded - Classical
 
 A save made while a **scorpion raid** was on your map could not be loaded properly: the game could not rebuild the raid's orders, so
@@ -388,8 +414,8 @@ and the **FPV nest**) hold steel that each drone they send out uses up. On their
 - Bombs and rockets: bills at the machining table, and at The Dead Man's Switch's ammunition fabricator.
 - Bomb cases (Combat Extended only): bills at the machining table, the rotary forger and the automated machining bay.
 - Heavy castings: the electric smelter and assembly platform (one at a time), and the rotary forger (12 at a time).
-- Settings: **Mod settings, D'thorga Patches**, one entry with a page per patched mod (Combat Extended, Harrier jump jet, IRBM:
-  strikes, IRBM: after-effects, Outposts); a page shows only while its mod is active. The search box finds a setting on any page.
+- Settings: **Mod settings, D'thorga Patches**, one entry with a page per patched mod (Mechanoids, Combat Extended, Harrier jump jet,
+  IRBM: strikes, IRBM: after-effects, Outposts); a page shows only while its mod is active. The search box finds a setting on any page.
 
 ## What has been tested in game
 

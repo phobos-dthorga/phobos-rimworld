@@ -130,6 +130,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [World elevation and descents](world-elevation-and-descents.md) (18 Nov 2026): tile heights measured; descents, altitude, radio line of sight. Research.
 - [Animating our vehicles](vehicle-animation-research.md) (9 Nov 2026): what can move, and where motion helps. Partly built; the boom owner-tested.
 - [Emergent play around the vehicles](vehicle-emergent-play.md) (20 Nov 2026): where unplanned stories could come from; three audits, EM1 to EM29. Partly built.
+- [Depots and forward fuel points](vehicle-depots.md) (20 Nov 2026): fuel left on the world map for later trips; DP1 to DP6. Design only.
 
 ## D'thorga Medical
 
@@ -153,6 +154,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Visit Settlements patches](visit-settlements-patches.md) (8 Nov 2026): a battle map closed under the player, food drops every tick. Built.
 - [Fires on vehicles that never go out](vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix. Built; owner-tested.
 - [Soldiers keep their guns](soldiers-keep-their-guns.md) (19 Nov 2026): why soldiers fought with grenades under CE, and the fix. Built, untested.
+- [Mech rechargers that draw real power](mech-recharging-real-power.md) (20 Nov 2026): rechargers draw by the mech's size; off by default. Built, untested.
 
 ## Factory Additions and Water Tap
 

@@ -10,6 +10,22 @@ tested in game unless an entry says the owner tested it.
 - **A gathering run that gives up on what you chose now says so, and why.** A truck finding nowhere to stand beside a pile, no way to drive to it, or its grab unable to take it passes over it for the rest of the run; once it had passed over everything it ended saying nothing more lay within reach, with no word of the piles still lying there (the Talus, 19 Nov 2026, set off and ended with nothing gathered). Its end message now counts what it gave up on under each reason, as does its testing note, and with the Vehicle drive log at Debug each pile given up on is named with its place.
 - **Testing notes: a warning still standing when a vehicle's refusal comes is now noted first.** A warning in force when a save loaded (its message shows at the load, but stages worked out at a load write no note), or one already noted earlier in a session, left the next refusal looking as if it came without one, so the test list flagged the Abrams' turbine (row 69) when the game had behaved. Covers every warning before a refusal: a turbine's or piston engine's battery, the air brakes. Nothing a player sees changes.
 
+## [0.198.0] - 2026-11-20 - Draft
+
+The sums for charging a battery from the grid, for D'thorga Patches' mech rechargers
+
+### Added
+
+- **A shared rule for charging a battery from the grid** (BatteryChargeRule, for modders and our other mods): how much a battery of a given size holds, how its charging eases off as it nears full, what the charger takes from the grid to put that charge in, what it loses as heat, and how long the charge takes. Energy is conserved: what the grid gives is what the battery gains plus the heat. D'thorga Patches 0.28.0's mech rechargers are its first user. By itself it changes nothing a player sees.
+
+### Save compatibility
+
+- No effect on saves.
+
+### Compatibility and limits
+
+- Checked by 14 rule tests, which are not a game test. Not yet tested in game.
+
 ## [0.197.0] - 2026-11-20 - Draft
 
 A helicopter can lift the hull of a destroyed vehicle and carry it home

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The figures behind mech rechargers that draw real power (D'thorga Patches 0.28.0, off by default; the owner's request of 20 Nov 2026,
+    docs/development/mech-recharging-real-power.md). The first loaded instance wins; another mod may patch it. Every figure is authored
+    for play. Not yet tested in game.
+  -->
+  <Phobos.BiotechPatches.PhobosMechChargingRulesDef>
+    <defName>PhobosMechChargingRules</defName>
+
+    <!-- Watt-days a mech's battery holds for each point of body size, at the game's standard 100 units of mech energy. Chosen with the
+         efficiency below so the common light mechs (body size 0.7) draw the 200 W the game's own recharger lists:
+         0.7 x 480 Wd = 336 Wd; half of it a day is 168 W into the battery; 168 W / 0.84 = 200 W from the grid. -->
+    <wattDaysPerBodySize>480</wattDaysPerBodySize>
+    <standardMaxEnergy>100</standardMaxEnergy>
+
+    <!-- The share of the grid's power that reaches the battery; the rest warms the room. Authored to give the round 200 W above; no real
+         charger's figure was looked up for it. -->
+    <efficiency>0.84</efficiency>
+
+    <!-- Charging is at full rate up to this charge level, then falls in a straight line to rateWhenFull at full: a simple stand-in for
+         a real charger's constant-voltage stage. From empty, a full charge takes about 2.3 days in place of the game's 2. -->
+    <easesFrom>0.8</easesFrom>
+    <rateWhenFull>0.25</rateWhenFull>
+
+    <!-- A recharger with no mech on it draws this share of its listed power, where its Def gives no idle figure of its own. -->
+    <idleShare>0.05</idleShare>
+
+    <!-- Heat into the room each second for each watt lost: the game's own heater's rate (21 heat a second for 175 W). -->
+    <heatPerSecondPerWatt>0.12</heatPerSecondPerWatt>
+    <!-- A gameplay limit: a recharger stops warming a room hotter than this, so a sealed bay cannot climb without end. -->
+    <heatUpToCelsius>80</heatUpToCelsius>
+  </Phobos.BiotechPatches.PhobosMechChargingRulesDef>
+</Defs>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <PhobosBiotechPatches_Page>Mechanoids</PhobosBiotechPatches_Page>
+  <PhobosBiotechPatches_SectionRechargers>Mech rechargers</PhobosBiotechPatches_SectionRechargers>
+  <PhobosBiotechPatches_WhatItDoes>In the game as it comes, a mech recharger draws the same power whichever mech stands on it, so the largest war machine costs no more to charge than a mid-sized one. With the setting below on, a recharger draws by the size of the mech on it: little for a small one, a great deal for a large one. Off by default.</PhobosBiotechPatches_WhatItDoes>
+  <PhobosBiotechPatches_SettingRealPower>Mech rechargers draw power by the size of the mech</PhobosBiotechPatches_SettingRealPower>
+  <PhobosBiotechPatches_SettingRealPowerDesc>Off (the default): rechargers work as the game made them.\n\nOn: while it charges, a recharger draws {PERSIZE} W for each point of the mech's body size, at the battery size chosen below. A {LIGHTMECH} draws {LIGHT} W, a {SMALLMECH} {SMALL} W, a {HEAVYMECH} {HEAVY} W and a {HUGEMECH} {HUGE} W. This holds on every recharger, whatever power it lists.\n\nCharging slows once the battery passes {EASES}, and the draw falls with it, so topping up to {EASES} is quick and the rest is slow. A mech group's recharge range decides where its mechs stop.\n\n{HEAT} of the power becomes heat in the recharger's room. A recharger with no mech on it draws {IDLE} of its listed power.\n\nA large mech can ask more than a small grid has. Then the game switches things off at random, as it does in any power shortage.\n\nTakes effect at once; no restart needed.</PhobosBiotechPatches_SettingRealPowerDesc>
+  <PhobosBiotechPatches_SettingBatteryScale>Mech battery size</PhobosBiotechPatches_SettingBatteryScale>
+  <PhobosBiotechPatches_SettingBatteryScaleDesc>How much a mech's battery holds, and so how much power its recharger draws. Charging takes the same time at every size. Only matters while the setting above is on.</PhobosBiotechPatches_SettingBatteryScaleDesc>
+  <PhobosBiotechPatches_ScaleStandard>Standard: a {LIGHTMECH} draws {LIGHT} W, a {HEAVYMECH} {HEAVY} W</PhobosBiotechPatches_ScaleStandard>
+  <PhobosBiotechPatches_ScaleLarge>Large, {TIMES} times standard: a {LIGHTMECH} draws {LIGHT} W, a {HEAVYMECH} {HEAVY} W</PhobosBiotechPatches_ScaleLarge>
+  <PhobosBiotechPatches_ScaleHuge>Huge, {TIMES} times standard: a {LIGHTMECH} draws {LIGHT} W, a {HEAVYMECH} {HEAVY} W</PhobosBiotechPatches_ScaleHuge>
+  <PhobosBiotechPatches_ChargingLine>Charging {MECH}: {WATTS} W, about {TIME} to go.</PhobosBiotechPatches_ChargingLine>
+  <PhobosBiotechPatches_ChargingEasingLine>Charging {MECH}: {WATTS} W, slowing as the battery fills. About {TIME} to go.</PhobosBiotechPatches_ChargingEasingLine>
+  <PhobosBiotechPatches_ChargingLineNoTime>Charging {MECH}: {WATTS} W.</PhobosBiotechPatches_ChargingLineNoTime>
+  <PhobosBiotechPatches_WaitingForPower>Waiting for power: {MECH} needs {WATTS} W to charge.</PhobosBiotechPatches_WaitingForPower>
+</LanguageData>
