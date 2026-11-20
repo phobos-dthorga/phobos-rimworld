@@ -524,9 +524,12 @@ Figures read from the owner's game as patched (`query-defs.py patched`); the ari
   spreader, field bin, silo, aircraft. Each body drawn bare with one overlay per visible upgrade, planned before the first picture,
   and no stand-in art ([the art rules](../../assets/AGENTS.md)).
 - **Real recordings for real machines**, as decided on 19 Nov 2026 for sounds.
-- **Names** follow the family's pattern, a technical word and a plain noun. **The owner will choose them later.** The agent's
-  proposals, until then: Tilth tractor, Furrow plough, Tine cultivator, Coulter seed drill, Awn harvester, Auger chaser bin,
-  Headland sprayer, Broadcast spreader.
+- **Names** follow the family's pattern, a brand word and a plain noun. **The owner's names (20 Nov 2026):** the **Reaper** combine
+  harvester, the **Garner** chaser bin, **Thane** tractors (model numbers by kilowatts: T60, T130, T300), the **Sillion** plough, the
+  **Tillman** cultivator and the **Coulter** seed drill. The owner found the agent's first proposals (Tilth, Furrow, Tine, Auger) too plain;
+  Awn was liked too and is free for a later machine. Checked 20 Nov 2026: none is a Def label in the owner's 364 mods, and a web search
+  found no farm-machinery brand of those names (near misses: Tilmor, a US maker of cultivating tractors; Brillion, a US tillage brand).
+  Still the agent's proposals: Headland sprayer, Broadcast spreader.
 
 ## The order to build (owner, 19 Nov 2026)
 

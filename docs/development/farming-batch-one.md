@@ -340,9 +340,10 @@ Framework 0.191.0 and Farming 0.4.0 except the last, which only play can settle:
 | 9 | Colonists' harvest scans looked up the paddock record for every zone | Cached for the map |
 | 10 | The patch keeping hands off a machine-only paddock changes a one-line method the runtime might fold into its caller | **Not fixable by reading; to watch in play** (row 272) |
 
-**A balance question the fault-read raised, for the owner** (not changed): the tank holds 9,000 kg, which is about 300,000 rice at the
-game's 0.03 kg a unit, while a thousand-cell rice paddock yields about 6,000 rice (180 kg). As built, a combine's tank never fills and
-the chaser bin is never needed. Real weights against the game's scale is the owner's call.
+**A balance question the fault-read raised:** the tank holds 9,000 kg, which is about 300,000 rice at the game's 0.03 kg a unit, while
+a thousand-cell rice paddock yields about 6,000 rice (180 kg), so with the game's own crops a combine's tank seldom fills. **The owner's
+answer (20 Nov 2026): keep real weights**, "because there are crops and the like I will wish to introduce where there are industrial
+scales that will matter". Holds stay sized in real kilograms.
 
 ## Still unknown
 

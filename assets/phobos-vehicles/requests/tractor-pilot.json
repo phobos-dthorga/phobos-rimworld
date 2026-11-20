@@ -1,0 +1,33 @@
+[
+  {
+    "name": "farming-tractor-t130-body-north",
+    "engine": "openai",
+    "quality": "high",
+    "width": 1024,
+    "height": 1792,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "assets/phobos-vehicles/generated/farming-combine-body-north/farming-combine-body-north-1.png",
+        "role": "our approved combine harvester, the owner's pick of 19 Nov 2026, from the same farm: match its outline weight, shading, palette, tyres and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "vehicle": "D'thorga Farming's Thane T130, the medium tractor (no Def yet), footprint (3, 6), drawSize (4, 7), 128 px per unit so 512 x 896 in game; requested at 1024 x 1792, 2 times the drawn size, at high quality (the owner's lesson of 20 Nov 2026 on fine detail)",
+      "measured_against": "our trucks 3 x 8 to 3 x 10, the combine 4 x 9, the chaser bin 3 x 7; no farm tractor on the owner's list",
+      "this_request": "pilot: the north base body only, bare, two attempts; its look then guides the T60 and T300 and the implements (docs/development/farming-batch-two.md)",
+      "overlays_planned_on_this_canvas": [
+        "linkage lowered (arms down, when working)",
+        "front weights (upgrade)",
+        "damage: from the tanker's marks"
+      ],
+      "colour_masks": "CutoutComplexPattern: colour on the bonnet and mudguards, colourTwo on the accent; masks by script",
+      "names": "Thane, the owner's name of 20 Nov 2026",
+      "design": "docs/development/farming-batch-two.md"
+    },
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the Thane T130 farm tractor: a medium farm tractor that pulls and carries ploughs, cultivators and seed drills across the fields of a hard-scrabble frontier colony. Draw the BARE TRACTOR only: no plough, no implement, no trailer. Image 1 is our approved combine harvester from the same farm: match its outline weight, shading, harvest-green and muted yellow palette, tyre treatment and finish only. Do NOT copy its shape, tank or engine deck.\n\nTall canvas, plain pure white background. North facing: the front of the tractor points to the TOP of the canvas. The tractor is centred left to right and fills about three quarters of the canvas width, and about four fifths of its height, centred.\n\nIts roof plan, front to back: at the top, a narrow front weight block and a long bonnet over the engine with a grille at its front edge and an exhaust stack beside it; two small front wheels either side of the bonnet's front half; behind the bonnet, a square glazed cab roof with a flat pale grey top and a small rooftop beacon; two very large rear wheels with deep lugged treads either side of the cab, wider than the body; at the very rear, behind the cab, the three-point linkage: two lower arms and a top link folded close in a triangle, with a short drawbar plate between them, all steel grey.\n\nMaker palette as materials: harvest-green bonnet and mudguards, a pale grey cab roof, dark rubber tyres, steel grey linkage, grille and exhaust, one muted yellow accent stripe along the bonnet.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo implement, no plough, no trailer, no crop, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials or screens. No floor, ground, field, road, shadow outside the tractor, perspective, tilt or visible side faces. Top surfaces only."
+  }
+]

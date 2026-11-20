@@ -4,7 +4,7 @@ Machines that work your fields: mark a growing zone as a paddock, and a combine 
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.4.1, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.4.2, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -18,7 +18,7 @@ Version 0.4.1, built 20 November 2026 for House D'thorga. **Not yet tested in ga
   Expanded or Vanilla Plants Expanded their wheat, barley, oats, rye, sorghum, buckwheat, chickpeas, peas and canola. **The corn header
   takes corn and sunflowers.** **Potatoes, hay and cotton need harvesters that come later**, and stay for hands. Another mod's crop is
   taken once it is placed in a class: see [For modders](#for-modders).
-- **A full combine needs somewhere to empty**: a **Auger chaser bin** parked near the paddock (any vehicle with a hitch tows it), a
+- **A full combine needs somewhere to empty**: a **Garner chaser bin** parked near the paddock (any vehicle with a hitch tows it), a
   **field bin**, or a **grain silo**. The silo keeps grain four times as long, **but only while its fan has power**.
 - **Settings to decide before you start:** Options > Mod settings > D'thorga Farming. **Hands may help on new paddocks** (off) and
   **A machine's driver can fail a harvest, as by hand** (on).
@@ -44,7 +44,7 @@ Version 0.4.1, built 20 November 2026 for House D'thorga. **Not yet tested in ga
 | Machine | What it is | Holds |
 | --- | --- | --- |
 | Reaper combine harvester | Self-propelled; 4 by 9 cells; a 6- or 8-cell grain front, or a 6-cell corn header | 9 tonnes of one crop at a time (12 with the tank extension) |
-| Auger chaser bin | Towed; 3 by 7 cells | 12 tonnes, any crops |
+| Garner chaser bin | Towed; 3 by 7 cells | 12 tonnes, any crops |
 | Field bin | A building, 3 by 3 cells | 25 tonnes, any crops |
 | Grain silo | A building, 4 by 4 cells, 300 W | 60 tonnes, any crops; keeps four times as long while powered |
 

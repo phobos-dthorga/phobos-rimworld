@@ -45,8 +45,11 @@ authored figure or the agent's choice.
   its draught and its worker; nothing saved beyond it.
 - **Turning room** [I]: a carried implement lengthens the tractor; the row planner already leaves turning to Vehicle Framework's own
   pathing, and a stuck turn ends a row as it does now.
-- **A tractor carries one implement and tows one trailer?** [A] **One at a time in batch two**: the linkage and the drawbar are the same
-  hitch, which holds one vehicle. Real tractors do both (a drill behind a power harrow); left for later.
+- **A tractor carries an implement and tows a trailer at once** (owner, 20 Nov 2026, choosing it over the agent's "one at a time"): every
+  tractor has two hitch points, the linkage at the back and the drawbar below it, each holding its own vehicle. Our hitch holds one, so
+  the build gives a tractor a second hitch (the linkage) beside the first (the drawbar) [A: how]. **Stated risk:** three vehicles moving
+  as one (tractor, plough, cart behind) is further from what Vehicle Framework does, and the cart must follow the plough's line, not
+  the tractor's.
 
 ## The field run with an implement behind (Framework)
 
@@ -65,9 +68,9 @@ authored figure or the agent's choice.
 
 | Implement | Coupling | Footprint [A] | Width [A] | Draught [A, from Iowa State's medium soil] | What it does to a cell |
 | --- | --- | --- | --- | --- | --- |
-| Plough | Three-point | 3 by 3 | 3 cells | 7.3 kN a metre, a cell taken as 1.5 m (agent's scale) | Clears weeds, stubble and wild plants; never a sown crop. Marks the cell ploughed; with Vanilla Plants Expanded, lays its tilled soil (`VCE_TilledSoil` [code]) on soil that can take it |
-| Cultivator | Three-point | 3 by 3 | 4 cells | 4.4 kN a metre | Clears weeds and wild plants; never a sown crop. Marks it cultivated |
-| Seed drill | Drawbar | 3 by 4 | 4 cells | 1.0 kN a metre | Sows the paddock's crop in empty cells, by the game's own checks |
+| Sillion plough | Three-point | 3 by 3 | 3 cells | 7.3 kN a metre, a cell taken as 1.5 m (agent's scale) | Clears weeds, stubble and wild plants; never a sown crop. Marks the cell ploughed; with Vanilla Plants Expanded, lays its tilled soil (`VCE_TilledSoil` [code]) on soil that can take it |
+| Tillman cultivator | Three-point | 3 by 3 | 4 cells | 4.4 kN a metre | Clears weeds and wild plants; never a sown crop. Marks it cultivated |
+| Coulter seed drill | Drawbar | 3 by 4 | 4 cells | 1.0 kN a metre | Sows the paddock's crop in empty cells, by the game's own checks |
 
 - **Sowing follows the game's own steps** [code, `JobDriver_PlantSow`, `WorkGiver_GrowerSow.JobOnCell`]: the crop is the zone's;
   `GrowthSeasonNow`; light, roof and blocker checks; the crop's research and `sowMinSkill` against the driver's Plants skill; then
@@ -76,7 +79,7 @@ authored figure or the agent's choice.
 - **The marks feed the soil rules later** (Field care: "ploughed", "cultivated"), saved per paddock in the paddock component. Until the
   soil rules exist, they show on the paddock's line and do nothing else [A].
 
-## Seed (owner's decisions of 19 Nov 2026; the agent's way)
+## Seed (owner's decisions of 19 Nov 2026; the agent's way, kept by the owner on 20 Nov 2026)
 
 - **The drill carries seed in a bulk hold** (already in Framework 0.189.0), by weight, refilled by pouring.
 - **Kept-back seed is the crop's own grain** [A]: pour a crop's grain into the drill and it sows that crop. The owner asked for seed
@@ -91,11 +94,24 @@ authored figure or the agent's choice.
 
 ## Tractors (Farming)
 
-| Tractor [A] | Footprint | Rated power | Empty mass | Couplings |
+| Tractor (names: owner, 20 Nov 2026; figures [A]) | Footprint | Rated power | Empty mass | Couplings |
 | --- | --- | --- | --- | --- |
-| Small | 3 by 5 | 60 kW | 4 t | Drawbar, three-point |
-| Medium | 3 by 6 | 130 kW | 7 t | Drawbar, pick-up hitch, three-point |
-| Large | 4 by 7 | 300 kW | 15 t | Drawbar, pick-up hitch, three-point |
+| Small (Thane T60) | 3 by 5 | 60 kW | 4 t | Drawbar, three-point |
+| Medium, standard (Thane T130) | 3 by 6 | 130 kW | 8 t with about a tonne of ballast: more grip under heavy draught, a little more fuel | Drawbar, pick-up hitch, three-point |
+| Medium, row-crop (Thane T130 RC) | 3 by 6 | 130 kW | 7 t: lighter and a little thriftier, better on soft ground, less grip under heavy draught | Drawbar, pick-up hitch, three-point |
+| Large (Thane T400) | 4 by 8 | 400 kW | 22 t | Drawbar, pick-up hitch, three-point |
+
+**The owner's decisions on the tractors (20 Nov 2026):** the large tractor is bigger than the agent's 300 kW: the **T400**, an articulated
+tractor as real ones of this size are. **It bends, on our own hitch** (the owner, 20 Nov 2026, asking "what about our own trailer
+code?" when the agent had said it would be drawn rigid): two vehicles, the front half with the engine and cab driving, the rear half
+with the big rear axle, the linkage and the drawbar following on our hitch with a swing limit of about 40 degrees [A], a real articulated
+tractor's steering angle (general knowledge, not read from a source). The rear axle's weight counts as driven grip, not towed mass, as
+real articulated tractors drive all four wheels [A]. **This needs chains of tows** (a towed vehicle towing in turn: today our hitch
+refuses it), with draught and the field run following the chain; the same chain carries a plough and a cart at once (above). Two
+pictures, front and rear halves, drawn to meet at the pivot. **The two T130s are two models under one Architect button** (the owner's idea: the game's drop-down group, `designatorDropdown`
+on their build Defs, which Vehicle Framework's build Defs inherit as buildables [code]; whether its Architect shows them grouped is to see
+in play): the standard model from pilot attempt 1, the row-crop model from attempt 2 (the owner kept both, 20 Nov 2026,
+[record](../../assets/phobos-vehicles/requests/tractor-pilot-record.md)). Their figures are the agent's [A].
 
 Figures authored [A], labelled approximate, in the ranges of real farm tractors (general knowledge, not read from a source). The
 "needs about 110 kW; this tractor has 75" line comes from the tow forecast with draught, already in Framework 0.189.0.

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.4.2] - 2026-11-20 - Draft
+
+The owner's names for the machines
+
+### Changed
+
+- **The chaser bin is now the Garner chaser bin (Garner G1)**, the owner's name. The combine stays the Reaper; the tractors to come are Thanes, the plough a Sillion, the cultivator a Tillman and the seed drill a Coulter. A name only: nothing saved changes.
+
 ## [0.4.1] - 2026-11-20 - Draft
 
 Drawn icons for the harvest order and five upgrades

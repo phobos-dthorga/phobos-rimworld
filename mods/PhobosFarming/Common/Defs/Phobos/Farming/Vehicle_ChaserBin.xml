@@ -11,8 +11,8 @@
   -->
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_ChaserBin</defName>
-    <label>Auger chaser bin</label>
-    <description>Auger A1: a towed grain cart. Park it beside a working combine and the combine empties its tank into it; tow it to a field bin or silo and pour it out through its own auger. It has no engine: whatever tows it pulls its weight and all the grain in it, so a full bin climbs slowly behind a light truck.</description>
+    <label>Garner chaser bin</label>
+    <description>Garner G1: a towed grain cart. Park it beside a working combine and the combine empties its tank into it; tow it to a field bin or silo and pour it out through its own auger. It has no engine: whatever tows it pulls its weight and all the grain in it, so a full bin climbs slowly behind a light truck.</description>
     <graphicData>
       <texPath>Phobos/Farming/ChaserBin/ChaserBin</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
@@ -178,8 +178,8 @@
 
   <Vehicles.VehicleBuildDef ParentName="VehicleBaseBuildable">
     <defName>Phobos_ChaserBin_Blueprint</defName>
-    <label>Auger chaser bin</label>
-    <description>Auger A1: a towed grain cart that takes a combine's grain in the field and pours it out where it is wanted.</description>
+    <label>Garner chaser bin</label>
+    <description>Garner G1: a towed grain cart that takes a combine's grain in the field and pours it out where it is wanted.</description>
     <graphicData>
       <texPath>Phobos/Farming/ChaserBin/ChaserBin</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
