@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Close Air Support: A-10 Warthog & Su-25 Frogfoot (potemkinvillager.CloseAirSupport): two twin-engined ground-attack jets on the
+    fixed-wing framework, taken into the fold as the Harrier was (owner, 21 Nov 2026; docs/development/close-air-support-jets.md, which
+    lists every figure with its source). Not yet tested in game.
+
+    Both jets carry two engines as two parts of their own (EnginePort, EngineStarboard), bound here as the Hind's are: with one engine out
+    the turbine model halves the thrust available, so the other runs at or past its limits, hot, wearing its hot section (the real
+    single-engine A-10 climbs about 200 ft a minute, gear down, at 40,000 lb: the A-10A flight manual, T.O. 1A-10A-1, appendix A2).
+    The hydraulics part is D'thorga Patches' (its parts list for these jets); without it, as for the Harrier, the flight hydraulics have no
+    pump to read. Neither jet carries a radar, so no radar part is added or found. Each gets our own dodge in the air (mapEvasion,
+    Framework 0.203.0): the Harrier author's 40 % for the AV-8B, scaled by each jet's top speed at sea level against the AV-8B's
+    (agent's derivation, authored), since their own mod gives them none.
+  -->
+
+  <!--
+    The A-10's General Electric TF34-GE-100. Take-off thrust 40.3 kN (9,065 lbf) sea-level static (primary: GE Aerospace's TF34 datasheet,
+    AE-44044D). No maximum-continuous rating was found: it is authored at 0.9 of take-off. The flight manual's fuel-flow override gives
+    "15-20 %" more thrust in an emergency, the turbine running to 980 degrees C, and "over 15 minutes not recommended" (primary: T.O. 1A-10A-1;
+    the percent sign read from a poor scan); we take the low end. Turbine temperature: the -100's normal band runs to 830 degrees C, its hot
+    light at 835 (primary: the same manual, fig. 5-1); the maximum-continuous limit of 800 is authored below it. Core speed normal from 56 %
+    to 100 % (primary: the same manual); the rated rpm is authored. Empty mass 11,321 kg (secondary: Wikipedia, A-10C); internal fuel
+    4,997 kg, 1,644 usable US gallons of JP-8 at the manual's 6.7 lb a gallon (primary: the manual, fig. 1-8).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_TF34</defName>
+    <label>high-bypass turbofans</label>
+    <engine>
+      <kind>Turbofan</kind>
+      <ratedRpm>10000</ratedRpm>
+      <!-- The Framework's jet figures (authored): power per tonne sizes the ledger's shares only, and the idle share of fuel. -->
+      <kilowattsPerTonne>1500</kilowattsPerTonne>
+      <idleFuelShare>0.05</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>56</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>97</speedPercent><temperatureLimit>800</temperatureLimit><thrustKilonewtons>36.3</thrustKilonewtons></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.11</share><speedPercent>100</speedPercent><temperatureLimit>830</temperatureLimit><minutes>5</minutes><thrustKilonewtons>40.3</thrustKilonewtons></li>
+          <li><name>override</name><label>emergency override</label><share>1.28</share><speedPercent>102</speedPercent><temperatureLimit>980</temperatureLimit><minutes>15</minutes><thrustKilonewtons>46.3</thrustKilonewtons></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+    <mass>
+      <emptyKilograms>11321</emptyKilograms>
+      <fuelKilogramsFull>4997</fuelKilogramsFull>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <!--
+    The Su-25's Soyuz R-195 (the later engine; the first Su-25s flew the R-95Sh at 40.2 kN). 44.2 kN each (secondary: English Wikipedia,
+    "Sukhoi Su-25", and Airforce Technology); Russian Wikipedia gives 42.2 kN (4,300 kgf). No maximum-continuous rating, temperature limit
+    or idle speed was found for either engine: the maximum continuous is authored at 0.9 of take-off, and the limits and idle are the
+    Framework's generic turbofan's (authored). Empty mass 9,315 kg and internal fuel 3,000 kg, 3,660 litres (secondary: Russian Wikipedia,
+    "Su-25"; English Wikipedia gives 9,800 kg empty). A turbojet, run on the Framework's turbofan model, which has no turbojet of its own:
+    the two differ in figures this model does not use (a simplification).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_R195</defName>
+    <label>turbojets</label>
+    <engine>
+      <kind>Turbofan</kind>
+      <ratedRpm>10000</ratedRpm>
+      <kilowattsPerTonne>1500</kilowattsPerTonne>
+      <idleFuelShare>0.05</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>780</temperatureLimit><thrustKilonewtons>39.8</thrustKilonewtons></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.11</share><speedPercent>104</speedPercent><temperatureLimit>830</temperatureLimit><minutes>5</minutes><thrustKilonewtons>44.2</thrustKilonewtons></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+    <mass>
+      <emptyKilograms>9315</emptyKilograms>
+      <fuelKilogramsFull>3000</fuelKilogramsFull>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_Warthog</defName>
+    <label>ground-attack jet (twin turbofan)</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Warthog_Jet</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_TF34</def>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>
+    <!-- Ceiling 45,000 ft, 13,716 m (primary: the USAF's A-10 fact sheet, read through search extracts; secondary: Wikipedia); the rule reads
+         anything above 11,000 m as 11,000. No typical cruising height was found: 5,000 m is authored, for a slow straight-winged jet built to
+         work low, and is above the 3,810 m oxygen line, so with its oxygen out it flies low. -->
+    <cruise>
+      <designMetres>5000</designMetres>
+      <ceilingMetres>13716</ceilingMetres>
+      <lift>Jet</lift>
+    </cruise>
+    <avionics>
+      <!-- An inertial set since 1980 and GPS since 1999 (secondary: Wikipedia). -->
+      <navigation>Full</navigation>
+      <!-- Pitch and yaw stability augmentation, which the avionics table counts as an autopilot (agent's call, not checked against the manual). -->
+      <autopilot>true</autopilot>
+      <!-- No radar (secondary: Wikipedia lists none). -->
+      <radar>false</radar>
+      <!-- A head-up display (primary: T.O. 1A-10A-1) and, on the A-10C, a LITENING or Sniper targeting pod (secondary: Wikipedia), whose
+           infrared camera, with a goggle-compatible cockpit (the USAF fact sheet, via search), is its night sight. -->
+      <sight>Full</sight>
+      <nightSight>true</nightSight>
+      <!-- AN/ALR-69 radar warning receiver (primary: T.O. 1A-10A-1). -->
+      <warning>true</warning>
+      <countermeasures>true</countermeasures>
+      <!-- Sixteen AN/ALE-40 dispensers, four in each main-gear pod and each wingtip (primary: T.O. 1A-10A-1, p. 1-168), each holding 30
+           chaff or 15 flare cartridges (secondary: Military Periscope): 240 with flares throughout. The often-repeated "480 flares and 480
+           chaff" is not supported. One of our cartridges stands for one real one. -->
+      <countermeasureCartridges>240</countermeasureCartridges>
+      <!-- A five-litre liquid oxygen converter (primary: T.O. 1A-10A-1). -->
+      <oxygen>true</oxygen>
+      <cruisesHigh>true</cruisesHigh>
+      <!-- To another mod's air defence (DMS Expedition's scales, authored as the Harrier's): slower than the Harrier's 18 by top speed,
+           706 km/h at sea level against the AV-8B's 1,083 (secondary: Wikipedia for both), and bigger, its 17.5 m span against 9.25 m. -->
+      <airTrack>
+        <speed>12</speed>
+        <cruiseMetres>5000</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>1.8</size>
+      </airTrack>
+      <!-- Our dodge (Framework 0.203.0): 0.40 x 706 / 1,083 = 0.26. -->
+      <mapEvasion>0.26</mapEvasion>
+    </avionics>
+    <partRoles>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li>
+            <keyContains>EngineStarboard</keyContains>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <keyContains>EnginePort</keyContains>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- Two fully independent hydraulic systems, left and right, each driven by its own engine (primary: T.O. 1A-10A-1); one part of
+             D'thorga Patches' stands for both, so a hit drains the pair together (a simplification). -->
+        <role>HydraulicPump</role>
+        <find>
+          <li>
+            <key>PhobosHydraulics</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li>
+            <key>PhobosHydraulics</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+    <!-- An environmental control system and cockpit pressurisation from 10,000 ft (primary: T.O. 1A-10A-1). -->
+    <cabin>
+      <climateControl>true</climateControl>
+    </cabin>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_Frogfoot</defName>
+    <label>ground-attack jet (twin turbojet)</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Frogfoot_Jet</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_R195</def>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>
+    <!-- Ceiling 7,000 m, 5,000 m at full load (secondary: Russian Wikipedia; Airforce Technology). The cruising height, 4,000 m, is authored. -->
+    <cruise>
+      <designMetres>4000</designMetres>
+      <ceilingMetres>7000</ceilingMetres>
+      <lift>Jet</lift>
+    </cruise>
+    <avionics>
+      <!-- A Doppler navigator (DISS-7) and radio beacons (RSBN), with satellite navigation only on the later Su-25SM (secondary: English
+           Wikipedia; Airforce Technology): Basic, the agent's call for the aircraft most flown. No autopilot was found. -->
+      <navigation>Basic</navigation>
+      <autopilot>false</autopilot>
+      <radar>false</radar>
+      <!-- A gunsight with the Klen-PS laser rangefinder and target seeker in the nose (secondary: Russian Wikipedia; Airforce Technology).
+           It flies at night on instruments, but no night sensor was found. -->
+      <sight>Full</sight>
+      <nightSight>false</nightSight>
+      <!-- SPO-15 "Beryoza" radar warning receiver (secondary: Russian Wikipedia). -->
+      <warning>true</warning>
+      <countermeasures>true</countermeasures>
+      <!-- ASO-2V dispensers: "up to 250 flares and chaff" (secondary: Russian and English Wikipedia); 128 raised to 256 after the losses in
+           Afghanistan in one uncited account (Weapons and Warfare, "Sukhoi Su-25 Grach"). 256, plausible but unverified. -->
+      <countermeasureCartridges>256</countermeasureCartridges>
+      <!-- An oxygen system with a demand regulator from 2 km (secondary: Russian Wikipedia). -->
+      <oxygen>true</oxygen>
+      <cruisesHigh>true</cruisesHigh>
+      <!-- Top speed 950 km/h at sea level (secondary: Russian Wikipedia; Airforce Technology) against the AV-8B's 1,083; span 14.4 m. -->
+      <airTrack>
+        <speed>16</speed>
+        <cruiseMetres>4000</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>1.6</size>
+      </airTrack>
+      <!-- Our dodge: 0.40 x 950 / 1,083 = 0.35. -->
+      <mapEvasion>0.35</mapEvasion>
+    </avionics>
+    <partRoles>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li>
+            <keyContains>EngineStarboard</keyContains>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <keyContains>EnginePort</keyContains>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- Two independent hydraulic systems (secondary: Russian Wikipedia), one part standing for both. -->
+        <role>HydraulicPump</role>
+        <find>
+          <li>
+            <key>PhobosHydraulics</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li>
+            <key>PhobosHydraulics</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+    <!-- Air conditioning holds the cockpit (secondary: Russian Wikipedia). -->
+    <cabin>
+      <climateControl>true</climateControl>
+    </cabin>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

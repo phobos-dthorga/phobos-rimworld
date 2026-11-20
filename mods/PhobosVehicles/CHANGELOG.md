@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.91.0] - 2026-11-21 - Draft
+
+Close Air Support's A-10 and Su-25 in the fold, and upgrade trees that fit
+
+### Added
+
+- **Close Air Support's A-10 Warthog and Su-25 Frogfoot run their real systems** (the owner's choice of 21 November 2026). Each gets its two real engines, the A-10's TF34s and the Su-25's R-195s, as two engines: lose one and the other carries the load, running at or past its limits and wearing its hot section, as a real A-10 barely climbs on one. The A-10's engines have the emergency override rating from its flight manual. Their avionics are as fitted in life: neither has a radar; the A-10 has full navigation, a targeting pod's night sight, a warning receiver and 240 flare cartridges; the Su-25 has basic navigation, a laser sight, a warning receiver and 256. Both fly their real ceilings, need oxygen to cruise high, have climate control and two hydraulic systems on their controls. In the air over a map they dodge some of the fire aimed at them, by their real top speed against the Harrier's: about a quarter of shots for the A-10, about a third for the faster Su-25, less with their controls or warning receiver shot up, and more for a few seconds with **Chaff and flares**. Needs D'thorga Framework 0.203.0. Not yet tested in game: row 299 of the test pass.
+
 ### Changed
 
 - **Upgrade trees laid out afresh, so every upgrade shows at once.** The armour kits had been stacked under each truck's own upgrades, pushing the last rows of the bulk tanker, drill rig, survey truck, tipper and generator set below the Upgrades tab. Each truck's own upgrades now sit on the left and its kits in three columns on the right, the armoured cab always in the far column with heavy cab plates under it; the tanker's six tanks run across the top. Every tree starts at the top of the tab, no two upgrades sit edge to edge any more (the Osprey and the field kitchen had rows touching), and an upgrade that comes with another mod sits after ours, so no blank row is left without that mod. Only positions changed: no upgrade, link or cost, and fitted upgrades stay fitted. Not yet tested in game.

@@ -17,6 +17,7 @@
     <li IfModActive="turbo.rimworld.bmp1ifv">Mods/BMP1</li>
     <li IfModActive="potemkinvillager.mi24hindhelicopter">Mods/HindHelicopter</li>
     <li IfModActive="potemkinvillager.mongooseattackhelicopter">Mods/MongooseHelicopter</li>
+    <li IfModActive="potemkinvillager.CloseAirSupport">Mods/CloseAirSupport</li>
     <li IfModActive="rimarrow.srt">Mods/RimArrowSearchRescue</li>
     <li IfModActive="OskarPotocki.VanillaFactionsExpanded.Core">Mods/VehicleOutposts</li>
     <li IfModActive="vanillaexpanded.vchemfuele">Mods/VanillaChemfuelExpanded</li>
