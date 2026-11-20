@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The spall liner's panels (D'thorga Vehicles 0.92.0, Framework 0.207.0; docs/development/vehicle-spall.md). Loaded only with Combat
+       Extended, the only game in which spall flies. Real liners are aramid, polyethylene or glass-fibre composite (Rheinmetall's
+       brochure); synthread stands in for aramid and chemfuel for the resin that binds it [agent's choice]. Four line a truck's cab; a worn
+       liner is re-lined with one for each quarter missing. Mass, value, cost and work authored. Not yet tested in game. -->
+  <ThingDef ParentName="PhobosServiceKitBase">
+    <defName>PhobosVehicles_SpallLinerPanel</defName>
+    <label>spall liner panel</label>
+    <description>A stiff panel of layered synthetic fibre set in resin, shaped to bolt inside an armoured cab. When a round gets through the armour, the shattered inside of the plate flies at the crew; a lining of these panels catches most of it. Four line a truck's cab, and a worn lining is renewed with fresh panels.</description>
+    <graphicData>
+      <texPath>Phobos/Vehicles/Parts/SpallLinerPanel</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>110</MarketValue>
+      <Mass>25</Mass>
+      <Flammability>0.6</Flammability>
+      <WorkToMake>1400</WorkToMake>
+    </statBases>
+    <costList>
+      <Synthread>20</Synthread>
+      <Chemfuel>8</Chemfuel>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_TruckArmour</researchPrerequisite>
+      <skillRequirements Inherit="False">
+        <Crafting>5</Crafting>
+      </skillRequirements>
+    </recipeMaker>
+  </ThingDef>
+</Defs>

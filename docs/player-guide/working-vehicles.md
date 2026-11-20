@@ -106,8 +106,26 @@ Upgrades are fitted in Vehicle Framework's **Upgrades** tab and show on the vehi
     armour-piercing rifle bullets and heavy machine-gun fire. 850 kg more.
   - **Ram bar:** running into people, animals or walls harms the truck half as much, and what it hits more. 150 kg.
   - **Body plates** (Talus, Ullage and Kelly): skirts along both sides make the tipping body, tank or deck rifle-proof.
+  - **Spall liner** (with Combat Extended; over the armoured cab, beside the heavy plates): panels inside the cab that catch the
+    spall described below. Four **spall liner panels**, made at the parts bench after **truck armour** research. 200 kg.
 - **With its armoured cab, the Talus may keep gathering while enemies are about**: in **Gather what**, set **When enemies come** to
   **keep working**. It starts on stop. Whoever drives it is still in the fight.
+
+### Spall: what comes through a beaten plate
+
+With Combat Extended only (not yet tested in game). **Any vehicle with rifle-proof plate or heavier**, ours and other mods' tanks alike:
+
+- **A round that gets through the plate breaks the inside of it loose.** The pieces fly at whoever sits behind that plate and at the
+  parts inside: a crew member can be wounded, a fuel tank holed. A round that only just gets through throws the most, because the plate
+  takes most of the blow. Thin sheet metal throws nothing: rifle fire through an unarmoured truck hurts only by itself.
+- **A heavy hit the plate stops can still shake a piece loose**: a shell bursting against it, or a round that very nearly got through.
+  One piece, never a spray.
+- **The spall liner catches most of it** and keeps the rest to one spot. It wears as it catches: its row on the **Health** tab reads
+  *catches spall*, then *worn* (it catches less, and lets the rest spread), then *spent*. **Only liner panels put it right**: load them
+  into the truck's cargo and a mechanic re-lines it, a panel for each quarter worn. Ordinary repairs never mend it. A truck without the
+  upgrade shows the liner as *not fitted*.
+- **Settings** (Mod settings, D'thorga Framework, Dangers, all on): *Beaten armour throws spall inside*, *Also on other mods'
+  vehicles* and *Heavy hits shake spall loose*. Raiders' crews take spall exactly as yours do.
 - **Still to come:** gun mounts, smoke dischargers and a remote weapon station.
 
 ## Datum survey truck

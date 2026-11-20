@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.92.0] - 2026-11-21 - Draft
+
+A spall liner for the service trucks, with Combat Extended
+
+### Added
+
+- **A spall liner for all five service trucks** (the owner's choice of 21 November 2026; Combat Extended only). An upgrade under the armoured cab, beside the heavy cab plates, after **truck armour** research: panels of layered synthetic fibre bolted inside the cab that catch most of the spall a round through the cab's plate throws at the crew (D'thorga Framework 0.207.0). 200 kg, carried as cargo, taking cargo room on the Talus only.
+- **Spall liner panels**, made at the parts bench after truck armour research from 20 synthread and 8 chemfuel each. Four line a cab; a worn liner is re-lined with one for each quarter worn.
+
+### Dependencies
+
+- **Needs D'thorga Framework 0.207.0 or later** for the liner to work: an older Framework leaves the upgrade fitted but catching nothing.
+
+### Save compatibility
+
+- Safe to add to a running save. Each truck gains its liner part at nothing, shown as not fitted, until the upgrade is fitted.
+
+### Compatibility and limits
+
+- Without Combat Extended neither the upgrade nor the panels exist.
+- **Its two pictures are not drawn yet**: the panel and the upgrade's icon show as missing until they are.
+- Figures, costs and weights authored. Not yet tested in game: row 305 of the test pass.
+
 ## [0.91.0] - 2026-11-21 - Draft
 
 Close Air Support's A-10 and Su-25 in the fold, and upgrade trees that fit

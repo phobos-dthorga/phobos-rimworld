@@ -124,6 +124,15 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Ammunition in a burning vehicle's cargo can cook off (Framework 0.113.0, cross-links G13; owner, 13 Nov 2026: on by default,
     /// and only ever where Combat Extended's ammunition system is on). Live.</summary>
     public bool ammoCookOff = true;
+    /// <summary>Spall inside vehicles (Framework 0.207.0; docs/development/vehicle-spall.md): a round that beats an outer plate of the rifle
+    /// class or heavier throws debris into the compartment behind it, wounding the crew and holing inner parts there. Combat Extended only.
+    /// The owner graded its risk moderate (21 Nov 2026), so it starts on. Live.</summary>
+    public bool spallInsideVehicles = true;
+    /// <summary>The same on vehicles from other mods (owner, 21 Nov 2026: every vehicle, behind its own setting). Live.</summary>
+    public bool spallOnOtherVehicles = true;
+    /// <summary>A heavy hit the plate stops (a near miss of its armour, or a large blast) still knocks a little spall off the inside (owner,
+    /// 21 Nov 2026, after Rheinmetall's brochure). Live.</summary>
+    public bool shockSpall = true;
     /// <summary>Raiders of an industrial or better faction may arrive in one of our aircraft, which puts them down and leaves (Framework 0.157.0;
     /// owner, 19 Nov 2026: on, with a setting). Off, raids never arrive that way. Live: read as each raid picks how it arrives.</summary>
     public bool raidersArriveByAir = true;
@@ -216,6 +225,9 @@ public class VehicleSystemsSettings : ModSettings
         "aircraftFuel" => aircraftFuel,
         "cruiseHeight" => cruiseHeight,
         "ammoCookOff" => ammoCookOff,
+        "spallInsideVehicles" => spallInsideVehicles,
+        "spallOnOtherVehicles" => spallOnOtherVehicles,
+        "shockSpall" => shockSpall,
         "raidersArriveByAir" => raidersArriveByAir,
         "stockHelicoptersFly" => stockHelicoptersFly,
         "caravanCooking" => caravanCooking,
@@ -279,6 +291,9 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref aircraftFuel, "PhobosVehicleSystems_AircraftFuel", true);
         Scribe_Values.Look(ref cruiseHeight, "PhobosVehicleSystems_CruiseHeight", true);
         Scribe_Values.Look(ref ammoCookOff, "PhobosVehicleSystems_AmmoCookOff", true);
+        Scribe_Values.Look(ref spallInsideVehicles, "PhobosVehicleSystems_SpallInsideVehicles", true);
+        Scribe_Values.Look(ref spallOnOtherVehicles, "PhobosVehicleSystems_SpallOnOtherVehicles", true);
+        Scribe_Values.Look(ref shockSpall, "PhobosVehicleSystems_ShockSpall", true);
         Scribe_Values.Look(ref raidersArriveByAir, "PhobosVehicleSystems_RaidersArriveByAir", true);
         Scribe_Values.Look(ref stockHelicoptersFly, "PhobosVehicleSystems_StockHelicoptersFly", false);
         Scribe_Values.Look(ref caravanCooking, "PhobosVehicleSystems_CaravanCooking", true);
@@ -327,6 +342,8 @@ public class VehicleSystemsMod : SettingsBookMod
     public static readonly Phobos.Logging.PhobosLog SlingLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Sling loads");
     /// <summary>The drive model (Framework 0.114.2; owner, 16 Nov 2026: the first gap to fill): what holds a vehicle back, its cap, the clutch.</summary>
     public static readonly Phobos.Logging.PhobosLog DriveLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Vehicle drive");
+    /// <summary>Spall inside vehicles (Framework 0.207.0): each spall's pool, what the liner stopped and how many fragments flew.</summary>
+    public static readonly Phobos.Logging.PhobosLog SpallLog = Phobos.Framework.Logging.Logs.For("D'thorga Framework", "Vehicle spall");
 
     /// <summary>The Harmony ID is the Framework's packageId with the part's name; never change it once published.</summary>
     public const string HarmonyId = "PhobosDthorga.Framework.VehicleSystems";
@@ -369,6 +386,9 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.weatherGrip) report.Off("weather on grip", "off (setting)");
         if (!Settings.ammoCookOff) report.Off("ammunition cook-off", "off (setting)");
         else if (!CookOff.AmmoSystemOn) report.Off("ammunition cook-off", "Combat Extended's ammunition is not in use");
+        if (!Settings.spallInsideVehicles) report.Off("spall inside vehicles", "off (setting)");
+        else if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) report.Off("spall inside vehicles", "needs Combat Extended");
+        else if (!Spall.Ready) report.Off("spall inside vehicles", "Combat Extended's vehicle armour functions not found");
         if (!Settings.caravanCooking) report.Off("caravan cooking", "off (setting)");
         if (!Settings.raidersArriveByAir) report.Off("raiders arriving by aircraft", "off (setting)");
         if (Settings.stockHelicoptersFly) report.On("stock helicopters flying over the map (setting)");
@@ -532,6 +552,15 @@ public class VehicleSystemsMod : SettingsBookMod
         VehicleSystemsSettings s = Settings, d = Defaults;
         list.Check("PhobosVehicleSystems_SettingTankExplosions".Translate(), ref s.tankExplosions, d.tankExplosions, "PhobosVehicleSystems_SettingTankExplosionsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingAmmoCookOff".Translate(), ref s.ammoCookOff, d.ammoCookOff, "PhobosVehicleSystems_SettingAmmoCookOffDesc".Translate());
+        list.Section("PhobosVehicleSystems_SectionSpall".Translate());
+        list.Check("PhobosVehicleSystems_SettingSpall".Translate(), ref s.spallInsideVehicles, d.spallInsideVehicles, "PhobosVehicleSystems_SettingSpallDesc".Translate());
+        if (s.spallInsideVehicles)
+        {
+            list.Indent();
+            list.Check("PhobosVehicleSystems_SettingSpallOthers".Translate(), ref s.spallOnOtherVehicles, d.spallOnOtherVehicles, "PhobosVehicleSystems_SettingSpallOthersDesc".Translate());
+            list.Check("PhobosVehicleSystems_SettingShockSpall".Translate(), ref s.shockSpall, d.shockSpall, "PhobosVehicleSystems_SettingShockSpallDesc".Translate());
+            list.Outdent();
+        }
         list.Section("PhobosVehicleSettings_SectionOthers".Translate());
         list.Check("PhobosVehicleSystems_SettingRaidersFly".Translate(), ref s.raidersArriveByAir, d.raidersArriveByAir, "PhobosVehicleSystems_SettingRaidersFlyDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingEnemyFitSets".Translate(), ref s.enemyFitSets, d.enemyFitSets, "PhobosVehicleSystems_SettingEnemyFitSetsDesc".Translate());

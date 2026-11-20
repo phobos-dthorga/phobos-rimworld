@@ -117,7 +117,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Close Air Support's A-10 and Su-25](close-air-support-jets.md) (21 Nov 2026): both jets in the fold, our own dodge. Built, untested.
 - [Modern military aircraft and vehicles](modern-military-vehicles.md) (18 Nov 2026): the Osprey, armed candidates, crewless fits. Record only.
 - [Armour for our armed vehicles](vehicle-armour.md) (18 Nov 2026): classes by the threat stopped; Combat Extended first. Record only.
-- [Spall inside our vehicles](vehicle-spall.md) (21 Nov 2026): debris from a beaten plate, and spall liners; Combat Extended only. Design only.
+- [Spall inside our vehicles](vehicle-spall.md) (21 Nov 2026): debris from a beaten plate, and spall liners; Combat Extended only. Built, untested.
 - [The V-22 Osprey](vehicle-osprey.md) (18 Nov 2026): our first aircraft: figures, parts, guns, upgrades, art plan. Record only.
 
 ### Tie-ins and contracts

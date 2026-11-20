@@ -229,10 +229,12 @@ flowchart TB
   PhobosArmouredCab["Armoured cab"]
   PhobosRamBar["Ram bar"]
   PhobosHeavyCabPlates["Heavy cab plates"]
+  PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   Hydrogeology["Groundwater sensor (tie-in: DubsBadHygiene)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
+  PhobosArmouredCab --> PhobosSpallLiner
   classDef tiein stroke-dasharray: 5 5
-  class Hydrogeology tiein
+  class PhobosSpallLiner,Hydrogeology tiein
 ```
 
 Vehicle Framework nodes (`UpgradeNode`: `work`, `ingredients`, `researchPrerequisites`, `prerequisiteNodes`, `disableIfUpgradeNodesEnabled`,

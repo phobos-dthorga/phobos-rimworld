@@ -3,6 +3,18 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "304": {"parts": {
+      "a round that beats a plate throws spall": [{"key": "vehicles.spall", "variant": "beaten", "expect": {"pool": "> 0", "fragments": ">= 1"}}],
+      "a heavy hit the plate stops shakes a little loose": [{"key": "vehicles.spall", "variant": "shock", "expect": {"pool": "> 0", "fragments": "= 1"}}],
+      "spall wounds someone inside": [{"key": "vehicles.spall-hit", "variant": "crew"}],
+      "spall holes a part inside": [{"key": "vehicles.spall-hit", "variant": "part"}]
+    }},
+    "305": {"parts": {
+      "fitting the liner puts a whole one in": [{"key": "vehicles.spall-liner-set", "variant": "fitted"}],
+      "the liner catches spall and wears": [{"key": "vehicles.spall-liner-caught", "expect": {"stopped": "> 0", "wear": "> 0"}}],
+      "a worn liner is re-lined with panels": [{"key": "vehicles.spall-relined", "expect": {"panels": ">= 1"}}],
+      "removing the liner takes it out": [{"key": "vehicles.spall-liner-set", "variant": "removed"}]
+    }},
     "302": [{"key": "patches.sidearms.loop-guard"}],
     "303": [{"key": "framework.loop-watch.noticed"}],
     "301": {"parts": {

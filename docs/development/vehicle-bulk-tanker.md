@@ -232,8 +232,10 @@ flowchart TB
   PhobosRamBar["Ram bar"]
   PhobosBodyPlates["Body plates"]
   PhobosHeavyCabPlates["Heavy cab plates"]
+  PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   TwoCompartments --> ThreeCompartments
   PhobosArmouredCab --> PhobosHeavyCabPlates
+  PhobosArmouredCab --> PhobosSpallLiner
   any1(("any one"))
   LiquidTank -.- any1
   InsulatedLiquidTank -.- any1
@@ -249,7 +251,7 @@ flowchart TB
   any2 --> ElectricPump
   any2 --> HoseReel
   classDef tiein stroke-dasharray: 5 5
-  class PressureVessel,LightPressureVessel,HeavyWallVessel tiein
+  class PhobosSpallLiner,PressureVessel,LightPressureVessel,HeavyWallVessel tiein
 ```
 
 ## Bulk trading and quests (owner's decisions, 9 Nov 2026; not built)

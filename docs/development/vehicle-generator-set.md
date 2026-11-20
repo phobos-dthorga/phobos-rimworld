@@ -239,7 +239,11 @@ flowchart TB
   PhobosArmouredCab["Armoured cab"]
   PhobosRamBar["Ram bar"]
   PhobosHeavyCabPlates["Heavy cab plates"]
+  PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
+  PhobosArmouredCab --> PhobosSpallLiner
+  classDef tiein stroke-dasharray: 5 5
+  class PhobosSpallLiner tiein
 ```
 
 Every node moves a figure; none changes the parts list (principle 8). Node keys are stable once a save can hold them.

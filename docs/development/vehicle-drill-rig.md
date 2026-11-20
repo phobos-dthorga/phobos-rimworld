@@ -208,11 +208,13 @@ flowchart TB
   PhobosRamBar["Ram bar"]
   PhobosBodyPlates["Body plates"]
   PhobosHeavyCabPlates["Heavy cab plates"]
+  PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   WellDrillingKit["Oil well kit (tie-in: Rimefeller)"]
   DeepchemHead["Deepchem head (tie-in: VanillaChemfuelExpanded)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
+  PhobosArmouredCab --> PhobosSpallLiner
   classDef tiein stroke-dasharray: 5 5
-  class WellDrillingKit,DeepchemHead tiein
+  class PhobosSpallLiner,WellDrillingKit,DeepchemHead tiein
 ```
 
 Vehicle Framework nodes (`UpgradeNode`: `work`, `ingredients`, `researchPrerequisites`, `prerequisiteNodes`, `disableIfUpgradeNodesEnabled`,

@@ -1,0 +1,49 @@
+[
+  {
+    "name": "spall-liner-panel",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A neat stack of three stiff slightly curved panels of layered woven khaki synthetic fibre set in dark resin, with a row of bolt holes along their edges. Draw it in exactly the art style of the reference images: a game item seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty khaki, olive and steel grey, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+    "subject": "A neat stack of three stiff slightly curved panels of layered woven khaki synthetic fibre set in dark resin, with bolt holes along their edges",
+    "references": [
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+      "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "thing": "PhobosVehicles_SpallLinerPanel",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Parts/SpallLinerPanel.png",
+      "why": "the spall liner's panels (docs/development/vehicle-spall.md; the owner's build order of 21 Nov 2026)"
+    }
+  },
+  {
+    "name": "truck-kit-spallliner",
+    "engine": "klein-base",
+    "lora_comparison": false,
+    "prompt": "phobosvanilla, A thick olive steel armour plate seen at an angle, with a pale khaki woven fibre lining bolted flat to its back face and a few small dark metal fragments caught in the lining. Draw it in exactly the art style of the reference images: a game upgrade icon seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette of dusty olive, khaki, steel grey and a touch of muted orange, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No text, no letters, no numbers, no hands, no people, no vehicle.",
+    "subject": "A thick olive steel armour plate with a pale khaki woven fibre lining bolted to its back face, a few small dark fragments caught in the lining",
+    "references": [
+      "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/HeavyCabPlates.png",
+      "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/ArmouredCab.png"
+    ],
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      11,
+      12
+    ],
+    "lora": "phobos-private-vanilla.safetensors",
+    "art_plan": {
+      "upgrade_node": "PhobosSpallLiner",
+      "trucks": "all five service trucks, with Combat Extended",
+      "ships_as": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/SpallLiner.png",
+      "why": "the spall liner upgrade (docs/development/vehicle-spall.md; the owner's build order of 21 Nov 2026)"
+    }
+  }
+]

@@ -159,7 +159,11 @@ flowchart TB
   PhobosRamBar["Ram bar"]
   PhobosBodyPlates["Body plates"]
   PhobosHeavyCabPlates["Heavy cab plates"]
+  PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
+  PhobosArmouredCab --> PhobosSpallLiner
+  classDef tiein stroke-dasharray: 5 5
+  class PhobosSpallLiner tiein
 ```
 
 | Node key | Figure it moves | Cost | Research | Prerequisite or exclusive with | Look |

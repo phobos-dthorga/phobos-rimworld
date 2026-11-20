@@ -42,6 +42,15 @@ public static class VehicleSystems
     {
         if (!processed.Add(def)) return;
         AddStatParts();
+        // Spall inside vehicles (Framework 0.207.0): every design's outer plates, loadout or not (owner, 21 Nov 2026: every vehicle).
+        try
+        {
+            Spall.AddReactors(def);
+        }
+        catch (System.Exception error)
+        {
+            Problems.Add(def.defName + ": spall: " + error.Message);
+        }
         var record = new DesignRecord
         {
             def = def,

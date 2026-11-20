@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Spall inside vehicles (Framework 0.207.0; owner, 21 Nov 2026; docs/development/vehicle-spall.md): what a beaten plate throws into the
+    compartment behind it, and what a spall liner catches. Combat Extended only. The first loaded instance wins; another mod may patch it in
+    XML. Every figure is authored, a gameplay choice: no source read gives how much debris a plate throws by the margin it was beaten by.
+    Rheinmetall's spall-liner brochure (B395e05.24) gives an 87 degree cone behind bare armour and 17 with a liner, which these draw as a
+    wide or a narrow reach, not as angles. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosSpallRulesDef>
+    <defName>PhobosSpallRules</defName>
+    <!-- Thinner plate tears rather than spalls (agent's inference): the rifle class, 8 mm under Combat Extended, is the lightest that spalls. -->
+    <minimumClass>PhobosArmour_Rifle</minimumClass>
+    <!-- A beaten face throws half of what the plate took; a stopped heavy hit a quarter (a blast: a quarter of its damage). -->
+    <beatenShare>0.5</beatenShare>
+    <shockShare>0.25</shockShare>
+    <!-- Heavy: a round stopped within three quarters of the plate's armour, or a blast of 30 damage or more. -->
+    <heavySharpShare>0.75</heavySharpShare>
+    <heavyBlastDamage>30</heavyBlastDamage>
+    <!-- Three fragments behind bare armour, one behind a liner that holds; each finds nothing three times in ten. -->
+    <fragmentsUnlined>3</fragmentsUnlined>
+    <fragmentsLined>1</fragmentsLined>
+    <missChance>0.3</missChance>
+    <!-- A fragment of plate penetrates a third of the plate's own armour, so a helmet and vest may stop it. -->
+    <penetrationShareOfPlate>0.3333</penetrationShareOfPlate>
+    <!-- The liner: stops seven tenths at full health, nothing at a quarter (Combat Extended's own point where a part's armour is gone),
+         keeps the spray to one cell above half health, and loses half of what it stops. -->
+    <linerStopsAtFull>0.7</linerStopsAtFull>
+    <linerSpentAt>0.25</linerSpentAt>
+    <linerNarrowAbove>0.5</linerNarrowAbove>
+    <linerWearPerStopped>0.5</linerWearPerStopped>
+    <!-- Four panels line a cab (the upgrade's own cost); a re-line takes one for each quarter missing. -->
+    <panelsPerLiner>4</panelsPerLiner>
+    <linerPanel>PhobosVehicles_SpallLinerPanel</linerPanel>
+    <relineWork>2400</relineWork>
+  </Phobos.VehicleSystems.PhobosSpallRulesDef>
+</Defs>

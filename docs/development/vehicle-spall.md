@@ -1,8 +1,26 @@
 # Spall inside our vehicles: what comes through a beaten plate (21 Nov 2026)
 
-**Status (21 Nov 2026):** design only; nothing is built. The owner chose a design record first and answered its questions the
-same day ([the answers](#the-owners-answers-cards-21-nov-2026)): moderate risk, on by default; every vehicle; the liner as proposed;
-shock spall for heavy hits; then the liner as its own part that wears and is re-lined with liner panels.
+**Status (21 Nov 2026):** built in D'thorga Framework 0.207.0 and D'thorga Vehicles 0.92.0 at the owner's word ("Build, please"),
+with every answer below; its two pictures (the liner panel and the liner's upgrade icon) wait for a short run on the graphics card. Not
+yet tested in game: rows 304 and 305 of the test pass. [What differs from the design](#as-built-21-nov-2026).
+
+## As built (21 Nov 2026)
+
+- **Where lined spall goes:** one cell of the plate, chosen at random, not the cell nearest the shooter. A reactor is not told which cell
+  was struck, and learning it needs a patch on every hit; the play is the same.
+- **Where unlined spall goes:** the plate's own cells, not the next cell inward as well.
+- **Shock spall from a blast** is a quarter of the blast's damage, not of what the plate took: Combat Extended counts a blast against a
+  plate as a blunt blow the plate shrugs off, so the plate takes almost nothing from it **[code]**.
+- **The liner panel** is made at the parts bench, with the other kits, after truck armour research: 20 synthread and 8 chemfuel each
+  [A], 25 kg. It lives in D'thorga Vehicles' Combat Extended folder; the Framework's rules name it, so nothing of the Framework needs it.
+- **A re-line's cost** comes from the spall rules (a panel for each quarter missing), not from a part-supply Def with a new flag.
+- **The liner's upgrade needs the cab** as the heavy cab plates do (Vehicle Framework's own prerequisite), not through a "holds it on"
+  link. Its grid place: under the armoured cab, beside the heavy plates.
+- **Only our five trucks carry a liner**, and only with Combat Extended. The extension marking another author's vehicle as lined is not
+  built: no vehicle needs it yet.
+- **Not checked in code, so watched in play:** that Rimarrow: Search & Rescue's prefix on vehicle damage, which may skip the original,
+  leaves Combat Extended's walk (and so the reactors) running; and that a crew member's body armour stops a fragment as it would a bullet.
+  Both are watched by row 304.
 
 **The owner, 21 Nov 2026**, after an analysis of the Workshop mod "CE Additional Expansion for Armed Damage Combat" (which the owner
 then passed on): "What if we implement armor that matters layer-by-layer? Would that be a difficult thing, especially if we were to

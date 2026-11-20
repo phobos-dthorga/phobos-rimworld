@@ -671,10 +671,12 @@ public class ITab_PhobosVehicleHealth : ITab
             bool capturedFigures = figures;
             CompPhobosVehicleSystems capturedComp = comp;
             row.Tip = () => PartTip(captured, capturedFigures, capturedComp.Repairs.NoteFor(captured));
-            if (part.Health <= 0f) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthDestroyed".Translate(), Colour = PhobosWidgets.Bad });
+            // A spall liner names its state, not "destroyed": one not fitted sits at nothing by design (Framework 0.207.0).
+            if (part.props.key == Spall.LinerKey) row.Conditions.Add(LinerRow(Spall.StateOf(comp.Vehicle, part)));
+            else if (part.Health <= 0f) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthDestroyed".Translate(), Colour = PhobosWidgets.Bad });
             foreach (RepairWork repair in comp.Repairs.Pending)
             {
-                if (repair.Kind == RepairKind.ReplacePart && repair.Part == part) row.Conditions.Add(new ConditionRow { Label = comp.Repairs.NeedsLine(repair), Colour = PhobosWidgets.Caution });
+                if (repair.Kind is RepairKind.ReplacePart or RepairKind.Reline && repair.Part == part) row.Conditions.Add(new ConditionRow { Label = comp.Repairs.NeedsLine(repair), Colour = PhobosWidgets.Caution });
             }
             if (!comp.Fittings.GradeOf(part.props.key).isDefault) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_GradeLine".Translate(comp.Fittings.GradeOf(part.props.key).label.Named("GRADE")), Colour = PhobosWidgets.Good });
             if (comp.Fittings.FittedOn(part.props.key) is { } fitting) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_FitFittedLine".Translate(fitting.label.Named("FITTING")), Colour = PhobosWidgets.Good });
@@ -685,6 +687,15 @@ public class ITab_PhobosVehicleHealth : ITab
         }
 
         /// <summary>The part's own conditions (a holed radiator), each with its stage, and its severity when figures are shown.</summary>
+        /// <summary>A spall liner's state, in the colour of what it means for the crew.</summary>
+        static ConditionRow LinerRow(LinerState state) => state switch
+        {
+            LinerState.Sound => new ConditionRow { Label = "PhobosVehicleSystems_HealthLinerSound".Translate(), Colour = PhobosWidgets.Good },
+            LinerState.Worn => new ConditionRow { Label = "PhobosVehicleSystems_HealthLinerWorn".Translate(), Colour = PhobosWidgets.Caution },
+            LinerState.Spent => new ConditionRow { Label = "PhobosVehicleSystems_HealthLinerSpent".Translate(), Colour = PhobosWidgets.Bad },
+            _ => new ConditionRow { Label = "PhobosVehicleSystems_HealthLinerNotFitted".Translate(), Colour = PhobosWidgets.Off },
+        };
+
         static void AddConditions(CompPhobosVehicleSystems comp, VehicleComponent part, bool figures, PartRow row)
         {
             foreach (VehicleCondition condition in comp.Conditions.On(part.props.key))

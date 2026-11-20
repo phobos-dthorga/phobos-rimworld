@@ -55,6 +55,13 @@
   <PhobosVehicleSystems_SettingWeatherGripDesc>On by default: in the open, rain, falling snow and ice under the wheels leave the driven wheels less grip. It tells on hills, in mud and when towing a heavy load, where a vehicle may crawl or stall that would pull through in the dry. Speed in bad weather is slowed by the game itself either way.</PhobosVehicleSystems_SettingWeatherGripDesc>
   <PhobosVehicleSystems_SettingAmmoCookOff>Ammunition aboard can cook off in a fire</PhobosVehicleSystems_SettingAmmoCookOff>
   <PhobosVehicleSystems_SettingAmmoCookOffDesc>On by default: ammunition carried in a burning vehicle's cargo can go off, a little at a time, in blasts that grow with how much is aboard. Only with Combat Extended's ammunition system in use, and only ammunition that Combat Extended itself lets cook off. Pull the ammunition out or put the fire out quickly.</PhobosVehicleSystems_SettingAmmoCookOffDesc>
+  <PhobosVehicleSystems_SectionSpall>Spall inside vehicles</PhobosVehicleSystems_SectionSpall>
+  <PhobosVehicleSystems_SettingSpall>Beaten armour throws spall inside</PhobosVehicleSystems_SettingSpall>
+  <PhobosVehicleSystems_SettingSpallDesc>On by default. Only with Combat Extended. When a round gets through a vehicle's armour plate (rifle-proof plate or heavier), the inside face of the plate breaks off and sprays the compartment behind it: the people sitting there can be wounded and the parts inside holed. A round that only just gets through throws the most, because the plate takes most of the blow. A spall liner, fitted inside an armoured cab, catches much of it and wears as it does. Thin sheet metal throws nothing.</PhobosVehicleSystems_SettingSpallDesc>
+  <PhobosVehicleSystems_SettingSpallOthers>Also on other mods' vehicles</PhobosVehicleSystems_SettingSpallOthers>
+  <PhobosVehicleSystems_SettingSpallOthersDesc>On by default: tanks and armoured cars from other mods throw spall too, whoever owns them. Their armour is the thickest, so this is where spall matters most; raiders' crews are hurt by it as yours are. Off, only D'thorga vehicles throw spall.</PhobosVehicleSystems_SettingSpallOthersDesc>
+  <PhobosVehicleSystems_SettingShockSpall>Heavy hits shake spall loose</PhobosVehicleSystems_SettingShockSpall>
+  <PhobosVehicleSystems_SettingShockSpallDesc>On by default: a hit the plate stops can still knock a little off its inside face when it is heavy, a shell's blast or a round that nearly got through. One small fragment, never a spray. Rifle fire bouncing off thick plate throws nothing.</PhobosVehicleSystems_SettingShockSpallDesc>
   <PhobosVehicleSystems_SettingRawServices>This colony: services take raw materials instead of kits</PhobosVehicleSystems_SettingRawServices>
   <PhobosVehicleSystems_SettingRawServicesDesc>Saved with this colony, not for every game. Off: a vehicle's tyres, brakes and engine service, and a new drive belt, need a kit made at the vehicle parts bench and loaded aboard, so caravans carry kits. On: they take the steel, components and chemfuel the kits are made of, as before. A colony started before kits existed begins with this on, so no service already due is held up; switch it off once you have kits. A new colony begins with it off.</PhobosVehicleSystems_SettingRawServicesDesc>
   <PhobosVehicleSystems_SettingLowOilService>Low oil calls for a service</PhobosVehicleSystems_SettingLowOilService>
@@ -363,6 +370,12 @@
   <PhobosVehicleSystems_RepairNeeds>{WORK}: needs {SUPPLIES} in its cargo.</PhobosVehicleSystems_RepairNeeds>
   <PhobosVehicleSystems_RepairNeedsOr>{WORK}: needs {SUPPLIES} in its cargo, or one of these instead: {OTHERS}.</PhobosVehicleSystems_RepairNeedsOr>
   <PhobosVehicleSystems_RepairReplaced>{MECHANIC} fitted a new {PART} to the {VEHICLE}.</PhobosVehicleSystems_RepairReplaced>
+  <PhobosVehicleSystems_RepairReline>re-lining the {PART}</PhobosVehicleSystems_RepairReline>
+  <PhobosVehicleSystems_RepairRelined>{MECHANIC} re-lined the {PART} of the {VEHICLE} with fresh panels. It catches spall as when new.</PhobosVehicleSystems_RepairRelined>
+  <PhobosVehicleSystems_HealthLinerNotFitted>not fitted</PhobosVehicleSystems_HealthLinerNotFitted>
+  <PhobosVehicleSystems_HealthLinerSound>catches spall</PhobosVehicleSystems_HealthLinerSound>
+  <PhobosVehicleSystems_HealthLinerWorn>worn: catches less, and lets it spread</PhobosVehicleSystems_HealthLinerWorn>
+  <PhobosVehicleSystems_HealthLinerSpent>spent: catches nothing until re-lined</PhobosVehicleSystems_HealthLinerSpent>
   <PhobosVehicleSystems_RepairFieldFixed>{MECHANIC} patched the {PART} on the {VEHICLE}. It will hold for now, until it is properly repaired.</PhobosVehicleSystems_RepairFieldFixed>
   <PhobosVehicleSystems_TankPumpName>the electric pump</PhobosVehicleSystems_TankPumpName>
   <PhobosVehicleSystems_ConduitUnderVehicle>{VEHICLE}'s own wiring is here. Run the conduit to the vehicle's edge to connect it.</PhobosVehicleSystems_ConduitUnderVehicle>

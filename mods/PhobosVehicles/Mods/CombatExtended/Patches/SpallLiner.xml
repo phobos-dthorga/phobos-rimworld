@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The spall liner on our five trucks (D'thorga Vehicles 0.92.0, Framework 0.207.0; docs/development/vehicle-spall.md; owner, 21 Nov
+       2026). Loaded only with Combat Extended, the only game in which spall flies. Each truck's loadout appends the liner as an inner part
+       of its own on the cab's cells, with no armour of its own (or it would copy the cab's), at 60 health [A]; D'thorga Framework starts
+       it at nothing, "not fitted", until the upgrade is fitted, and only liner panels mend it. The upgrade sits under the armoured cab,
+       beside the heavy cab plates, and needs the cab as they do; its weight is carried mass, taking cargo room on the Talus only (owner,
+       19 Nov 2026), and four panels pay for it. Figures authored. Not yet tested in game. -->
+  <!-- The Talus tipper truck: its liner part. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_Tipper"]/partRoles</xpath>
+    <value>
+        <li>
+          <role>SpallLiner</role>
+          <add>
+            <key>PhobosSpallLiner</key>
+            <countsTowardDestruction>false</countsTowardDestruction>
+            <label>spall liner</label>
+            <health>60</health>
+            <depth>Internal</depth>
+            <hitWeight>0.3</hitWeight>
+            <hitWeightCE>4</hitWeightCE>
+            <cellsOf>Cabin</cellsOf>
+            <armor>
+              <ArmorRating_Sharp>0</ArmorRating_Sharp>
+              <ArmorRating_Blunt>0</ArmorRating_Blunt>
+            </armor>
+          </add>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Talus tipper truck: the liner's upgrade. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tipper_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosSpallLiner</key>
+          <label>Spall liner</label>
+          <displayLabel>true</displayLabel>
+          <description>Panels of layered synthetic fibre bolted inside the armoured cab. When a round gets through the cab's plate, the shattered inside of the plate flies at the crew; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
+          <upgradeExplanation>Inside the cab: catches most of the spall a hit through the cab's plate throws at the crew, and keeps the rest to one spot.
+Wears as it catches; re-lined with liner panels, one for each quarter worn.
+Cargo room: 200 kg less.
+Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
+          <work>2000</work>
+          <gridCoordinate>(34, 12)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckArmour</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosArmouredCab</li>
+          </prerequisiteNodes>
+          <upgrades>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+              <li>
+                <def>CargoCapacity</def>
+                <value>-200</value>
+              </li>
+              <li>
+                <def>Phobos_KitKilograms</def>
+                <value>200</value>
+              </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSpallLinerUpgrade" />
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <PhobosVehicles_SpallLinerPanel>4</PhobosVehicles_SpallLinerPanel>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Ullage bulk tanker: its liner part. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_BulkTanker"]/partRoles</xpath>
+    <value>
+        <li>
+          <role>SpallLiner</role>
+          <add>
+            <key>PhobosSpallLiner</key>
+            <countsTowardDestruction>false</countsTowardDestruction>
+            <label>spall liner</label>
+            <health>60</health>
+            <depth>Internal</depth>
+            <hitWeight>0.3</hitWeight>
+            <hitWeightCE>4</hitWeightCE>
+            <cellsOf>Cabin</cellsOf>
+            <armor>
+              <ArmorRating_Sharp>0</ArmorRating_Sharp>
+              <ArmorRating_Blunt>0</ArmorRating_Blunt>
+            </armor>
+          </add>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Ullage bulk tanker: the liner's upgrade. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_Tanker_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosSpallLiner</key>
+          <label>Spall liner</label>
+          <displayLabel>true</displayLabel>
+          <description>Panels of layered synthetic fibre bolted inside the armoured cab. When a round gets through the cab's plate, the shattered inside of the plate flies at the crew; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
+          <upgradeExplanation>Inside the cab: catches most of the spall a hit through the cab's plate throws at the crew, and keeps the rest to one spot.
+Wears as it catches; re-lined with liner panels, one for each quarter worn.
+Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
+          <work>2000</work>
+          <gridCoordinate>(34, 17)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckArmour</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosArmouredCab</li>
+          </prerequisiteNodes>
+          <upgrades>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+              <li>
+                <def>Phobos_KitKilograms</def>
+                <value>200</value>
+              </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSpallLinerUpgrade" />
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <PhobosVehicles_SpallLinerPanel>4</PhobosVehicles_SpallLinerPanel>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Kelly drill rig: its liner part. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_DrillRig"]/partRoles</xpath>
+    <value>
+        <li>
+          <role>SpallLiner</role>
+          <add>
+            <key>PhobosSpallLiner</key>
+            <countsTowardDestruction>false</countsTowardDestruction>
+            <label>spall liner</label>
+            <health>60</health>
+            <depth>Internal</depth>
+            <hitWeight>0.3</hitWeight>
+            <hitWeightCE>4</hitWeightCE>
+            <cellsOf>Cabin</cellsOf>
+            <armor>
+              <ArmorRating_Sharp>0</ArmorRating_Sharp>
+              <ArmorRating_Blunt>0</ArmorRating_Blunt>
+            </armor>
+          </add>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Kelly drill rig: the liner's upgrade. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_DrillRig_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosSpallLiner</key>
+          <label>Spall liner</label>
+          <displayLabel>true</displayLabel>
+          <description>Panels of layered synthetic fibre bolted inside the armoured cab. When a round gets through the cab's plate, the shattered inside of the plate flies at the crew; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
+          <upgradeExplanation>Inside the cab: catches most of the spall a hit through the cab's plate throws at the crew, and keeps the rest to one spot.
+Wears as it catches; re-lined with liner panels, one for each quarter worn.
+Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
+          <work>2000</work>
+          <gridCoordinate>(34, 12)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckArmour</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosArmouredCab</li>
+          </prerequisiteNodes>
+          <upgrades>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+              <li>
+                <def>Phobos_KitKilograms</def>
+                <value>200</value>
+              </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSpallLinerUpgrade" />
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <PhobosVehicles_SpallLinerPanel>4</PhobosVehicles_SpallLinerPanel>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Busbar generator set: its liner part (its loadout lists no roles of its own, so the list is added; the game merges it with the parent's). -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_GeneratorSet"]</xpath>
+    <value>
+      <partRoles>
+        <li>
+          <role>SpallLiner</role>
+          <add>
+            <key>PhobosSpallLiner</key>
+            <countsTowardDestruction>false</countsTowardDestruction>
+            <label>spall liner</label>
+            <health>60</health>
+            <depth>Internal</depth>
+            <hitWeight>0.3</hitWeight>
+            <hitWeightCE>4</hitWeightCE>
+            <cellsOf>Cabin</cellsOf>
+            <armor>
+              <ArmorRating_Sharp>0</ArmorRating_Sharp>
+              <ArmorRating_Blunt>0</ArmorRating_Blunt>
+            </armor>
+          </add>
+        </li>
+      </partRoles>
+    </value>
+  </Operation>
+  <!-- The Busbar generator set: the liner's upgrade. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_GeneratorSet_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosSpallLiner</key>
+          <label>Spall liner</label>
+          <displayLabel>true</displayLabel>
+          <description>Panels of layered synthetic fibre bolted inside the armoured cab. When a round gets through the cab's plate, the shattered inside of the plate flies at the crew; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
+          <upgradeExplanation>Inside the cab: catches most of the spall a hit through the cab's plate throws at the crew, and keeps the rest to one spot.
+Wears as it catches; re-lined with liner panels, one for each quarter worn.
+Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
+          <work>2000</work>
+          <gridCoordinate>(34, 12)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckArmour</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosArmouredCab</li>
+          </prerequisiteNodes>
+          <upgrades>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+              <li>
+                <def>Phobos_KitKilograms</def>
+                <value>200</value>
+              </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSpallLinerUpgrade" />
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <PhobosVehicles_SpallLinerPanel>4</PhobosVehicles_SpallLinerPanel>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Datum survey truck: its liner part. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_SurveyTruck"]/partRoles</xpath>
+    <value>
+        <li>
+          <role>SpallLiner</role>
+          <add>
+            <key>PhobosSpallLiner</key>
+            <countsTowardDestruction>false</countsTowardDestruction>
+            <label>spall liner</label>
+            <health>60</health>
+            <depth>Internal</depth>
+            <hitWeight>0.3</hitWeight>
+            <hitWeightCE>4</hitWeightCE>
+            <cellsOf>Cabin</cellsOf>
+            <armor>
+              <ArmorRating_Sharp>0</ArmorRating_Sharp>
+              <ArmorRating_Blunt>0</ArmorRating_Blunt>
+            </armor>
+          </add>
+        </li>
+    </value>
+  </Operation>
+  <!-- The Datum survey truck: the liner's upgrade. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Phobos_SurveyTruck_UpgradeTree"]/nodes</xpath>
+    <value>
+        <li>
+          <key>PhobosSpallLiner</key>
+          <label>Spall liner</label>
+          <displayLabel>true</displayLabel>
+          <description>Panels of layered synthetic fibre bolted inside the armoured cab. When a round gets through the cab's plate, the shattered inside of the plate flies at the crew; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
+          <upgradeExplanation>Inside the cab: catches most of the spall a hit through the cab's plate throws at the crew, and keeps the rest to one spot.
+Wears as it catches; re-lined with liner panels, one for each quarter worn.
+Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
+          <work>2000</work>
+          <gridCoordinate>(34, 12)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>PhobosResearch_TruckArmour</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosArmouredCab</li>
+          </prerequisiteNodes>
+          <upgrades>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+              <li>
+                <def>Phobos_KitKilograms</def>
+                <value>200</value>
+              </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSpallLinerUpgrade" />
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <PhobosVehicles_SpallLinerPanel>4</PhobosVehicles_SpallLinerPanel>
+          </ingredients>
+        </li>
+    </value>
+  </Operation>
+</Patch>

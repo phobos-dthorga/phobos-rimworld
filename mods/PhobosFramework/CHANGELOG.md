@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.207.0] - 2026-11-21 - Draft
+
+Spall inside vehicles, with Combat Extended
+
+### Added
+
+- **Beaten armour throws spall inside a vehicle** (the owner's choice of 21 November 2026; Combat Extended only). When a round gets through a vehicle's outer plate of rifle-proof armour or heavier, the inside of the plate breaks loose and flies at whoever sits behind it and at the parts inside: a crew member can be wounded, a fuel tank holed. How much comes from what the plate took, by Combat Extended's own armour rule, so a round that only just gets through throws the most. Thin sheet metal throws nothing. It works on every vehicle, other mods' tanks included, whoever owns them.
+- **A heavy hit the plate stops can still shake a piece loose**: a shell of 30 damage or more bursting against it, or a round that came within three quarters of getting through. One piece, never a spray.
+- **A spall liner catches most of it.** Where a vehicle has one (D'thorga Vehicles' trucks, as an upgrade), it stops seven tenths of the spall at full health and keeps the rest to one spot. It is a part of its own on the Health tab and wears as it catches: sound, then worn (it catches less and lets the rest spread), then spent at a quarter of its health, when it catches nothing. A vehicle without the upgrade shows it as not fitted.
+- **A worn liner is re-lined with liner panels, never for free.** Load the panels into the vehicle's cargo and a mechanic re-lines it, a panel for each quarter worn; ordinary repairs, caravans and the garage leave it alone, whatever the destroyed-parts setting says.
+- **Three new settings, all on by default** (Mod settings, D'thorga Framework, Dangers, Spall inside vehicles): **Beaten armour throws spall inside**; under it, **Also on other mods' vehicles** and **Heavy hits shake spall loose**. They take effect at once.
+
+### Save compatibility
+
+- Safe to add to a running save. Nothing new is saved: the wounds are the game's own, and a liner's health is a part's health. A truck from before this version gains its liner part at nothing, not fitted.
+
+### Compatibility and limits
+
+- **Without Combat Extended nothing changes**: Vehicle Framework's armour alone is a chance, not a thickness, so there is no margin to read. The load line says when spall is off and why.
+- No Harmony patch: Combat Extended's armour step tells each part's reactors of every hit, and every outer plate gets a reactor of ours. A fragment on a part inside goes through Combat Extended's own part step, so that part's armour counts and its own reactors fire.
+- Lined spall lands on one of the plate's cells, chosen at random: a part is not told which cell a round struck. Unlined, it reaches every cell of the plate.
+- Every figure is authored, a gameplay choice: no source read gives how much a plate throws by the margin it was beaten by. Rheinmetall's spall-liner brochure gives the 87 and 17 degree cones the wide and narrow reach stand for.
+- Not yet tested in game: rows 304 and 305 of the test pass.
+
 ## [0.205.0] - 2026-11-21 - Draft
 
 One D'thorga tab in the Architect, with sub-tabs; colonists caught in a pick-up loop are named

@@ -17,6 +17,8 @@ public enum RepairKind
     ConditionService,
     FieldFix,
     Fitting,
+    /// <summary>A worn spall liner re-lined with liner panels (Framework 0.207.0; owner, 21 Nov 2026).</summary>
+    Reline,
 }
 
 /// <summary>A repair waiting to be done: what it is, the work it takes and the ways of paying for it, ours first.</summary>
@@ -197,6 +199,9 @@ public sealed class VehicleRepairs
     /// <summary>Whether a destroyed part waits for supplies, so Vehicle Framework's free repair must leave it alone.</summary>
     public bool PartBlocked(VehicleComponent part)
     {
+        // A spall liner is never mended for free, at any health and whatever the setting: only liner panels put it right, and one not
+        // fitted sits at nothing by design (Framework 0.207.0; owner, 21 Nov 2026).
+        if (part.props.key == Spall.LinerKey) return true;
         if ((part.Health > 0f && !Refitted(part)) || !Settings.destroyedPartsNeedSupplies || !PlayersVehicle) return false;
         return ReplacementOptions(part, out _).Count > 0;
     }
@@ -235,6 +240,8 @@ public sealed class VehicleRepairs
             {
                 // A part re-fitted in the field still waits for its proper replacement (M3).
                 if (part.Health > 0f && !Refitted(part)) continue;
+                if (part.props.key == Spall.LinerKey) continue;    // re-lined below, never replaced
+
                 List<List<(ThingDef def, int count)>> options = ReplacementOptions(part, out float work);
                 if (options.Count == 0) continue;
                 PhobosVehiclePartGradeDef grade = comp.Fittings.GradeForReplacement(part.props.key);
@@ -246,6 +253,21 @@ public sealed class VehicleRepairs
                         : "PhobosVehicleSystems_RepairReplaceGraded".Translate(part.props.label.Named("PART"), grade.label.Named("GRADE")).Resolve(),
                 };
                 repair.Options.AddRange(options);
+                pending.Add(repair);
+            }
+        }
+        // A worn spall liner (Framework 0.207.0): a panel for each quarter of it missing, only once fitted.
+        if (comp.Vehicle.statHandler.GetComponent(Spall.LinerKey) is { } liner && Spall.Panel is { } panel)
+        {
+            int panels = Spall.PanelsToReline(comp.Vehicle, liner);
+            if (panels > 0)
+            {
+                var repair = new RepairWork
+                {
+                    Key = "reline/" + Spall.LinerKey, Kind = RepairKind.Reline, Part = liner, Work = Spall.RelineWork,
+                    Label = "PhobosVehicleSystems_RepairReline".Translate(liner.props.label.Named("PART")).Resolve(),
+                };
+                repair.Options.Add(new List<(ThingDef def, int count)> { (panel, panels) });
                 pending.Add(repair);
             }
         }
@@ -445,6 +467,17 @@ public sealed class VehicleRepairs
                 break;
             case RepairKind.Fitting:
                 text = comp.Fittings.Complete(repair.Order!, mechanic);
+                break;
+            case RepairKind.Reline:
+                // Back to whole: the panels paid for every quarter missing (Framework 0.207.0).
+                repair.Part!.SetHealth(repair.Part.MaxHealth);
+                comp.Vehicle.EventRegistry[VehicleEventDefOf.HealthChanged].ExecuteEvents();
+                if (Seen.Wants("vehicles.spall-relined", comp.Vehicle))
+                {
+                    Seen.Note("vehicles.spall-relined", comp.Vehicle, repair.Part.props.label,
+                        values: new[] { new KeyValuePair<string, double>("panels", payment.Sum(line => line.count)) });
+                }
+                text = "PhobosVehicleSystems_RepairRelined".Translate(who, vehicle, repair.Part.props.label.Named("PART")).Resolve();
                 break;
             default:
                 if (repair.Condition == null && repair.Part != null)

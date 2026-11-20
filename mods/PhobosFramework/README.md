@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.205.0, built 21 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.207.0, built 21 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -190,6 +190,9 @@ The vehicle sounds setting (on other mods' vehicles too) moved to D'thorga Vehic
 | Steam and electric | The Lightning runs on batteries | D'thorga Vehicles' Lightning becomes electric | Off |
 | Dangers and raids | Flammable tank loads explode | A destroyed tank of something flammable explodes, more violently the fuller; off, it only spills | On |
 | Dangers and raids | Ammunition aboard can cook off in a fire | With Combat Extended's ammunition: a burning vehicle's ammunition can explode, and a tank's turret can be blown off | On |
+| Dangers and raids | Beaten armour throws spall inside | With Combat Extended: a round that gets through a vehicle's rifle-proof or heavier plate breaks the inside loose, which can wound the crew behind it and hole parts inside; a spall liner catches most of it | On (new in 0.207.0) |
+| Dangers and raids | Also on other mods' vehicles | Spall on other mods' tanks and armoured cars too, whoever owns them; off, only D'thorga vehicles | On (new in 0.207.0) |
+| Dangers and raids | Heavy hits shake spall loose | A shell bursting against the plate, or a round that nearly got through, knocks one piece loose | On (new in 0.207.0) |
 | Dangers and raids | Raiders may arrive by aircraft | Raiders of an industrial or better faction may come in aboard one of our aircraft (the Osprey), which puts them down near the colony and leaves; shot down or with its crew lost on the ground it is wrecked, never yours. Off: raids never arrive that way | On (new in 0.157.0) |
 | Dangers and raids | Enemy vehicles may carry fittings | Other factions' vehicles may come with fittings and a tune, kept if captured | On |
 | Repairs, service and fittings | Destroyed parts need replacing | A part at 0% needs supplies and a mechanic before repair | On |

@@ -903,7 +903,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             VehicleComponent? part = Vehicle.statHandler.GetComponent(key);
             if (part == null) continue;
             double? saved = savedPartHealth.TryGetValue(key, out float value) ? value : null;
-            float health = (float)PartHealthRule.Restored(saved, saveHeldParts, part.Health, part.MaxHealth);
+            // A spall liner starts at nothing, "not fitted", unless the save holds its health or its upgrade is fitted (Framework 0.207.0):
+            // Vehicle Framework makes every part whole, which would hand a new truck a liner nobody fitted.
+            float health = key == Spall.LinerKey
+                ? Spall.StartingHealth(Vehicle, part, saved.HasValue ? (float)saved.Value : null)
+                : (float)PartHealthRule.Restored(saved, saveHeldParts, part.Health, part.MaxHealth);
             if (Mathf.Abs(part.Health - health) > 0.01f) part.SetHealth(health);
             RememberPartHealth(part);
         }
