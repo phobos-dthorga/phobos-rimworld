@@ -6,6 +6,18 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.30.0] - 2026-11-21 - Draft
+
+The Harrier built from real parts, as Close Air Support's jets are
+
+### Changed
+
+- **The Harrier is built from real parts by role** (the owner's yes of 21 November 2026): a turbine (RimThunder's where installed, D'thorga Framework's own gas turbine assembly otherwise), four nozzles, landing gear, fuel tanks, a generator, battery and wiring, hydraulics and avionics, on a shell of 400 steel, 120 plasteel and 10 components. Before, its cost asked for car exhausts, wheels, suspension, a transmission and six wirings, and RimThunder's turbine only with RimThunder's research. The Drop Tanks upgrade takes two fuel tanks from the same table in place of car fuel tanks. Construction 10 as before. Not yet tested in game.
+
+### Save compatibility
+
+- **A Harrier already built keeps working**; only new builds pay the new cost. **Finish or cancel a Harrier frame before installing**: a frame keeps what was delivered and then asks for the new list.
+
 ## [0.29.1] - 2026-11-21 - Draft
 
 Sidearms that loop: a colonist no longer fetches a weapon their loadout would only drop

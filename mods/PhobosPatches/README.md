@@ -9,7 +9,7 @@ casting at The Dead Man's Switch's rotary forger.
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.29.1, built 21 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.30.0, built 21 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -77,8 +77,9 @@ Each part in a line or three; the guide chapter has the figures, tables and how 
 
 ### Harrier VTOL Attack Aircraft
 
-- **A realistic build cost**: RimThunder's turbine (or 3 engine blocks), four nozzles, landing gear, fuel tanks, wiring and more, and
-  Construction 10 ([building it](../../docs/player-guide/patches.md#building-it)). Drop Tanks take real fuel tanks.
+- **A realistic build cost**, from real parts by role (0.30.0): a turbine (RimThunder's where installed, ours otherwise), four nozzles,
+  landing gear, fuel tanks, electrics, hydraulics and avionics, and Construction 10 ([building it](../../docs/player-guide/patches.md#building-it)).
+  Drop Tanks take real fuel tanks. **Finish or cancel a Harrier frame before installing 0.30.0**: a frame keeps what was delivered.
 - **Fourteen parts** in place of four, with flight controls that ground the jet when damaged
   ([parts](../../docs/player-guide/patches.md#its-parts-and-flight-controls)).
 - **Loads fully beside RimPacts**: a RimPacts patch had stopped more than 50 of the jet's framework patches loading.

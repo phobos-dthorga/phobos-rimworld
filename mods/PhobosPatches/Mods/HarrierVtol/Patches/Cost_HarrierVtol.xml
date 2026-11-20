@@ -2,65 +2,22 @@
 <Patch>
 
   <!--
-    1. The jet's build cost. Stock: 450 steel, 150 plasteel, 25 components, 6 advanced components, 1 VVE engine block,
-    with no landing gear, tanks, wiring or nozzles. All counts are AUTHORED unless a source is named in
-    docs/development/vehicle-patches.md, which also gives the value and mass comparison with the Hind and Mongoose.
-
-    Steel stays FIRST in the list: Vehicle Framework reads the first cost item for the jet's destruction sound.
-    The engine is RimThunder's turbine when that Def exists, with the research that makes it, so the blueprint
-    doesn't appear before the colony can build its engine. Without RimThunder it is three VVE engine blocks, as on
-    the same author's Hind and Mongoose.
+    1. The jet's build cost: its shell (Patches 0.30.0). Its parts, the engine, nozzles, landing gear, tanks, electrics, hydraulics and avionics,
+    come from its parts bill (Defs/Bill_HarrierVtol.xml), filled by RimThunder's or our own parts, as Close Air Support's jets are. Stock: 450
+    steel, 150 plasteel, 25 components, 6 advanced components and a Vanilla Vehicles Expanded engine block. The shell keeps the airframe's
+    steel, plasteel standing for its composites (about a quarter of the real airframe's weight), and the components the bill's parts do not
+    carry. All AUTHORED. Steel stays FIRST: Vehicle Framework reads the first cost item for the jet's destruction sound. Before 0.30.0 this
+    asked for car exhausts, wheels and suspension, and RimThunder's turbine only with RimThunder's research.
   -->
-  <Operation Class="PatchOperationConditional">
-    <xpath>Defs/ThingDef[defName="EngineTurbine"]</xpath>
-    <match Class="PatchOperationSequence">
-      <operations>
-        <li Class="PatchOperationReplace">
-          <xpath>Defs/Vehicles.VehicleBuildDef[defName="Harrier_Jet_Blueprint"]/costList</xpath>
-          <value>
-            <costList>
-              <Steel>400</Steel>
-              <Plasteel>120</Plasteel>
-              <ComponentIndustrial>30</ComponentIndustrial>
-              <EngineTurbine>1</EngineTurbine>
-              <VVE_CarExhaust>4</VVE_CarExhaust>
-              <VVE_CarSuspension>4</VVE_CarSuspension>
-              <VVE_CarWheel>4</VVE_CarWheel>
-              <VVE_CarFuelTank>3</VVE_CarFuelTank>
-              <VVE_CarTransmission>1</VVE_CarTransmission>
-              <VVE_CarAlternator>2</VVE_CarAlternator>
-              <VVE_CarBattery>2</VVE_CarBattery>
-              <VVE_CarWiring>6</VVE_CarWiring>
-            </costList>
-          </value>
-        </li>
-        <li Class="PatchOperationAdd">
-          <xpath>Defs/Vehicles.VehicleBuildDef[defName="Harrier_Jet_Blueprint"]/researchPrerequisites</xpath>
-          <value>
-            <li>EngineAdvanced</li>
-          </value>
-        </li>
-      </operations>
-    </match>
-    <nomatch Class="PatchOperationReplace">
-      <xpath>Defs/Vehicles.VehicleBuildDef[defName="Harrier_Jet_Blueprint"]/costList</xpath>
-      <value>
-        <costList>
-          <Steel>400</Steel>
-          <Plasteel>120</Plasteel>
-          <ComponentIndustrial>30</ComponentIndustrial>
-          <VVE_EngineBlock>3</VVE_EngineBlock>
-          <VVE_CarExhaust>4</VVE_CarExhaust>
-          <VVE_CarSuspension>4</VVE_CarSuspension>
-          <VVE_CarWheel>4</VVE_CarWheel>
-          <VVE_CarFuelTank>3</VVE_CarFuelTank>
-          <VVE_CarTransmission>1</VVE_CarTransmission>
-          <VVE_CarAlternator>2</VVE_CarAlternator>
-          <VVE_CarBattery>2</VVE_CarBattery>
-          <VVE_CarWiring>6</VVE_CarWiring>
-        </costList>
-      </value>
-    </nomatch>
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleBuildDef[defName="Harrier_Jet_Blueprint"]/costList</xpath>
+    <value>
+      <costList>
+        <Steel>400</Steel>
+        <Plasteel>120</Plasteel>
+        <ComponentIndustrial>10</ComponentIndustrial>
+      </costList>
+    </value>
   </Operation>
 
   <!-- 2. The Hind and Mongoose both ask for construction skill 10; a jet shouldn't ask for less. -->
@@ -71,13 +28,13 @@
     </value>
   </Operation>
 
-  <!-- 3. Drop Tanks: real fuel tanks, plus steel for the pylon fittings (authored). Stock: 60 steel, 2 components. -->
+  <!-- 3. Drop Tanks: the shell, steel for the pylon fittings (authored); its two fuel tanks come from the parts bill (Patches 0.30.0; before,
+       two of Vanilla Vehicles Expanded's car fuel tanks). Stock: 60 steel, 2 components. -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/Vehicles.UpgradeTreeDef[defName="Harrier_UpgradeTree"]/nodes/li[key="Harrier_DropTanks"]/ingredients</xpath>
     <value>
       <ingredients>
         <Steel>20</Steel>
-        <VVE_CarFuelTank>2</VVE_CarFuelTank>
         <ComponentIndustrial>2</ComponentIndustrial>
       </ingredients>
     </value>

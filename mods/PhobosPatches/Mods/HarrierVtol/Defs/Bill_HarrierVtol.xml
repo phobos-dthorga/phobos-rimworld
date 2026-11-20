@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    What the Harrier is built from, by role (Patches 0.30.0; docs/development/parts-bills.md, docs/development/aircraft-service-life-upgrades.md),
+    in place of the car parts its cost asked for before: as Close Air Support's jets are. The blueprint's cost is cut to its shell
+    (Cost_HarrierVtol.xml); each role is filled at start-up by an installed mod's part where it suits the jet's weight, and by ours otherwise:
+    RimThunder's turbine or our gas turbine assembly for the Pegasus. Counts follow the AV-8B's layout: one engine with four swivelling nozzles,
+    a bicycle undercarriage of a nose leg, a main leg and two outriggers, fuel in the fuselage and both wings. The hydraulic pump count is
+    authored; what each part costs is the shared table's.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_Harrier</defName>
+    <label>Harrier parts</label>
+    <target>Harrier_Jet_Blueprint</target>
+    <tags>
+      <li>Turbine</li>
+    </tags>
+    <parts>
+      <Engine>1</Engine>
+      <Exhaust>4</Exhaust>
+      <FuelTank>3</FuelTank>
+      <LandingGear>4</LandingGear>
+      <Alternator>1</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <HydraulicPump>2</HydraulicPump>
+      <HydraulicLines>1</HydraulicLines>
+      <Avionics>1</Avionics>
+    </parts>
+    <!-- The Drop Tanks upgrade: two real fuel tanks on its shell of pylon fittings (Cost_HarrierVtol.xml). -->
+    <nodes>
+      <li>
+        <key>Harrier_DropTanks</key>
+        <parts>
+          <FuelTank>2</FuelTank>
+        </parts>
+      </li>
+    </nodes>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

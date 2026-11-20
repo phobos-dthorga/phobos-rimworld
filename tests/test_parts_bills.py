@@ -117,7 +117,10 @@ class PartsBillsTest(unittest.TestCase):
         for path, bill in self.shipped.bills:
             for node in bill.findall('nodes/li'):
                 key = (node.findtext('key') or '').strip()
-                self.assertIn(key, self.shipped.node_keys, '%s lists the node %s, which no upgrade tree of ours has' % (self.where(path, bill), key))
+                # Another author's tree's node (the Harrier's Drop Tanks, Patches 0.30.0): allowed only from a tie-in folder loaded with its mod.
+                if key in self.shipped.node_keys or _tie_in_folder(path):
+                    continue
+                self.fail('%s lists the node %s, which no upgrade tree of ours has, outside a tie-in folder' % (self.where(path, bill), key))
 
     def test_our_own_items_exist(self):
         for path, supply in self.shipped.supplies:

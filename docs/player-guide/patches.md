@@ -20,7 +20,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 
 | Mod (author) | What changes | What you do |
 | --- | --- | --- |
-| **Harrier VTOL Attack Aircraft** (potemkinvillager) | A realistic build cost (with RimThunder: its turbine, landing gear, tanks, wiring and nozzles; Construction 10). Fourteen parts in place of four. Loads fully beside RimPacts. A sortie's map stays open under the jet. Rearming keeps to one kind of ammunition | Research engine making, Otto Cycle and turbocharged for the turbine. **Avionics, hydraulics or wiring below about 35% ground the jet**: repair them. To change ammunition, choose it on the weapon |
+| **Harrier VTOL Attack Aircraft** (potemkinvillager) | A realistic build cost from real parts (a turbine, nozzles, landing gear, tanks, electrics, hydraulics, avionics; Construction 10). Fourteen parts in place of four. Loads fully beside RimPacts. A sortie's map stays open under the jet. Rearming keeps to one kind of ammunition | Make or buy a turbine (RimThunder's or ours) and the other parts. **Avionics, hydraulics or wiring below about 35% ground the jet**: repair them. To change ammunition, choose it on the weapon |
 | Harrier, with **Combat Extended** | Bombs cost what they weigh: each starts as a **bomb case** made from steel, then is filled. With The Dead Man's Switch, bombs and rockets are bills at its ammunition fabricator too | Make bomb cases at the machining table, rotary forger or automated machining bay. **Allow the cases in bay hoppers** that used to take heavy castings |
 | Harrier, in the air | Its dodge chance follows its flight controls and warning receiver; a **Chaff and flares** button makes it harder to hit for ten seconds | Keep **countermeasure cartridges** (D'thorga Framework's parts bench) in storage; haulers load them into its dispensers while it is parked. Repair shot-up controls and avionics |
 | **Close Air Support: A-10 Warthog & Su-25 Frogfoot** (potemkinvillager) | Fuller parts lists (avionics, hydraulics, wiring, landing gear, pylons, the gun); built from real parts by role (turbines, landing gear, tanks, generators, hydraulics; Construction 10); their bombs also at The Dead Man's Switch's ammunition fabricator. **Realistic handling** (off by default) flies them at speeds set by the real aircraft's | Turn on **Realistic handling** on the **Close Air Support** settings page if you want it, and restart |
@@ -47,32 +47,25 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 
 ### Building it
 
-The jet's blueprint is under **Architect, Vehicles**. It needs **Construction 10**, as the Hind and Mongoose do. Its cost is a
-gameplay choice, one part for each real system:
+The jet's blueprint is under **Architect, Vehicles**. It needs **Construction 10**, as the Hind and Mongoose do. Since Patches 0.30.0
+it is built from **real parts by role**, as Close Air Support's jets are: each part is filled by RimThunder's where installed and suited
+to the jet's weight, and by D'thorga Framework's own otherwise. The counts follow the real AV-8B; what each part costs is the shared
+table's ([parts bills](../development/parts-bills.md)).
 
-| Part | The Harrier mod's own | Now | Why |
-| --- | --- | --- | --- |
-| Steel | 450 | **400** | Airframe |
-| Plasteel | 150 | **120** | Stands in for the composites, about a quarter of the real airframe's weight |
-| Components | 25 | **30** | Avionics; the same as the Hind |
-| Advanced components | 6 | **0** | The turbine's own recipe still uses 1 |
-| Engine | 1 engine block | **1 RimThunder turbine** | One real engine. Without RimThunder: 3 engine blocks, as on the Hind |
-| Car exhausts | 0 | **4** | The real engine's four swivelling nozzles |
-| Suspension and wheels | 0 | **4 and 4** | Landing gear |
-| Fuel tanks | 0 | **3** | Fuselage and wings |
-| Transmission | 0 | **1** | Accessory gearbox |
-| Alternators and batteries | 0 | **2 and 2** | Electrics |
-| Wiring | 0 | **6** | The same as the Hind |
+| What | Count | Why |
+| --- | --- | --- |
+| Steel, plasteel, components | **400, 120, 10** | The airframe, its composites (about a quarter of the real weight) and what no part carries |
+| Engine | **1 turbine** | The Pegasus: RimThunder's turbine, or our gas turbine assembly |
+| Exhausts | **4** | The four swivelling nozzles |
+| Landing gear | **4** | A nose leg, a main leg and two outriggers |
+| Fuel tanks | **3** | Fuselage and wings |
+| Generator, battery, wiring | **1 each** | Electrics |
+| Hydraulic pumps and lines | **2 and 1** | The flight controls |
+| Avionics | **1** | The instruments and navigation |
 
-**With RimThunder, the turbine is a long job:**
-
-- **Research:** engine making, Otto Cycle and turbocharged. The jet's blueprint stays hidden until they're done.
-- **An assembly platform** to make it on (RimThunder, 200 steel, 15 components).
-- **Each turbine:** 3 heavy castings (made at a smelter, 100 steel each), 15 components, 1 advanced component and 180,000 ticks of
-  work.
-
-The **Drop Tanks** upgrade costs **2 car fuel tanks, 20 steel and 2 components**, in place of 60 steel and 2 components. A jet you
-already built keeps working; only new builds pay the new cost.
+The **Drop Tanks** upgrade costs **2 fuel tanks, 20 steel and 2 components**, in place of 60 steel and 2 components. A jet you
+already built keeps working; only new builds pay the new cost. **Finish or cancel a Harrier frame before installing a version that
+changes its cost**: a frame keeps what was delivered and then asks for the new list.
 
 ### Its parts and flight controls
 

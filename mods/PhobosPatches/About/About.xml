@@ -4,12 +4,12 @@
   <name>D'thorga Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.29.1</modVersion>
+  <modVersion>0.30.0</modVersion>
   <description>Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It replaces D'thorga Vehicle Patches and D'thorga Missile Patches: switch those off when you switch this on.
 
 Harrier VTOL Attack Aircraft:
 
-A realistic build cost: a jet engine, four nozzles, landing gear, fuel tanks, wiring and more, in place of six advanced components and a single engine block. It uses RimThunder's turbine engine when RimThunder is active, and Vanilla Vehicles Expanded parts for the rest.
+A realistic build cost: built from real parts by role, a turbine (RimThunder's when it is active), four nozzles, landing gear, fuel tanks, generator, hydraulics and avionics, in place of six advanced components and a single engine block. The Drop Tanks upgrade takes real fuel tanks.
 
 A fix for the jet failing to load fully when RimPacts is active. The Harrier's flight framework and RimPacts both patch the same Vehicle Framework method, and the way RimPacts does it stops the framework loading most of its patches, including boarding, refuelling and landing. This keeps RimPacts' landing rule working and lets both load.
 
