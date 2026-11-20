@@ -38,7 +38,7 @@
       <Suspension>1</Suspension>
       <Frame>1</Frame>
       <Lighting>1</Lighting>
-      <!-- The auger's drive, from the tractor's power take-off. -->
+      <!-- The auger's drive. A towed bin's auger takes no engine power from anyone yet: a simplification, held for the owner. -->
       <DriveShaft>1</DriveShaft>
       <!-- The ram that swings the auger out. -->
       <Actuator>1</Actuator>

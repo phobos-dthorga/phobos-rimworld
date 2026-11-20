@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Patch>
-  <!-- The combine's and chaser bin's armour with Combat Extended (D'thorga Farming 0.1.0; docs/development/vehicle-armour.md). Their Defs
-       give every part the Skin class's Vehicle Framework rating; with Combat Extended the same class is 2 mm of steel and 4 MPa
+  <!-- The combine's armour with Combat Extended (D'thorga Farming 0.1.0; docs/development/vehicle-armour.md). Only the combine's parts
+       name an armour class: the chaser bin, the tractors and the implements name none and have no Combat Extended figures yet, which is
+       held for the owner (the fault-read of 21 Nov 2026). Its Def
+       gives every part the Skin class's Vehicle Framework rating; with Combat Extended the same class is 2 mm of steel and 4 MPa
        (Mods/CombatExtended loads only while Combat Extended is active). Every part is Skin: farm machines stop no bullet.
        scripts/check-vehicle-armour.py holds each part here to its class in the Def. Not yet tested in game. -->
   <Operation Class="PatchOperationReplace">

@@ -338,7 +338,11 @@ public class Input_BrakeWork : VehicleSystemInput
         if (train == null || !train.Ground) return 1f;
         double speed = context.Vehicle.Spawned ? BrakeWearRule.SpeedFactor(train.LastMovingSpeed, train.Spec.DesignSpeed, least, mostSpeed) : 1;
         if (reading == Reading.Speed) return (float)speed;
-        double mass = BrakeWearRule.MassFactor(train.MassKg(), context.Comp.Hitch?.TowedKilograms ?? 0, train.KerbKg, most);
+        // An articulated vehicle's own driven rear half is the vehicle's weight, not a load behind it (the fault-read of 21 Nov 2026, H8:
+        // it had nearly doubled a bare tractor's brake and clutch wear).
+        double towed = System.Math.Max(0, (context.Comp.Hitch?.TowedKilograms ?? 0) - (context.Comp.Hitch?.DrivenKilograms ?? 0));
+        double kerb = train.KerbKg + (context.Comp.Hitch?.DrivenKilograms ?? 0);
+        double mass = BrakeWearRule.MassFactor(train.MassKg() + (context.Comp.Hitch?.DrivenKilograms ?? 0), towed, kerb, most);
         return (float)(reading == Reading.Work ? mass * speed : mass);
     }
 }

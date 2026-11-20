@@ -52,6 +52,37 @@ public sealed partial class CompPhobosHitch
         }
     }
 
+    /// <summary>
+    /// The cell a vehicle of this line stands on, counted from the cell of the vehicle that drives it, when the whole line stands straight
+    /// behind facing <paramref name="rot"/>: each one's axle its drawbar's length behind the hitch in front, as the follow rule leaves them
+    /// on a straight. Null when <paramref name="member"/> is not behind <paramref name="head"/>. For a field run to plan where its tractor
+    /// must stand for the implement to lie on a row (the fault-read of 21 Nov 2026, R9).
+    /// </summary>
+    public static IntVec3? StraightBehind(VehiclePawn head, VehiclePawn member, Rot4 rot)
+    {
+        int facing = rot.AsInt;
+        double heading = facing * 90.0;
+        double radians = heading * System.Math.PI / 180.0;
+        (double cx, double cz) = HitchRule.TrueCentre(0, 0, head.def.Size.x, head.def.Size.z, facing);
+        VehiclePawn front = head;
+        foreach (VehiclePawn next in Behind(head))
+        {
+            if (Geometry(next) is not { } props) return null;
+            float behind = front.def.GetModExtension<PhobosHitchPointExtension>() is { behindCentre: >= 0f } point
+                ? point.behindCentre
+                : front.def.Size.z / 2f + Rules.hitchGapCells;
+            TrailerPose pose = HitchRule.AxleFor(cx - System.Math.Sin(radians) * behind, cz - System.Math.Cos(radians) * behind, heading, props.HitchToAxle);
+            (cx, cz) = HitchRule.CentreOf(pose, props.AxleToCentre);
+            if (next == member)
+            {
+                (int x, int z) = HitchRule.CellFor(cx, cz, next.def.Size.x, next.def.Size.z, facing);
+                return new IntVec3(x, 0, z);
+            }
+            front = next;
+        }
+        return null;
+    }
+
     /// <summary>Whether <paramref name="ahead"/> tows <paramref name="vehicle"/>, directly or through vehicles between them.</summary>
     public static bool IsAheadOf(VehiclePawn ahead, VehiclePawn vehicle)
     {
@@ -125,6 +156,31 @@ public sealed partial class CompPhobosHitch
         HeadOf(Vehicle).GetComp<CompPhobosVehicleSystems>()?.Powertrain?.MarkMassDirty();
     }
 
+    /// <summary>
+    /// What a towed vehicle carries has changed (grain into a chaser bin): every hitch in front of it counts its weight again, and the
+    /// vehicle that drives the line works its mass out afresh.
+    /// </summary>
+    public static void WeightChanged(VehiclePawn towed)
+    {
+        CompPhobosHitch? at = Hitches.Towing(towed);
+        if (at == null) return;
+        for (int i = 0; at != null && i < ChainGuard; i++)
+        {
+            at.weightTick = -1;
+            at = at.Tower;
+        }
+        HeadOf(towed).GetComp<CompPhobosVehicleSystems>()?.Powertrain?.MarkMassDirty();
+    }
+
+    /// <summary>Whether a vehicle of this kind would stand clear on these cells behind this one: on the map, on ground it may stand on and
+    /// off every other thing in its way, by the same test a towed vehicle's every move passes.</summary>
+    public bool RoomFor(VehicleDef kind, IntVec3 cell, Rot4 rot)
+    {
+        Map map = Vehicle.Map;
+        CellRect rect = kind.VehicleRect(cell, rot);
+        return rect.InBounds(map) && Clear(rect, map, Vehicle);
+    }
+
     /// <summary>The hitch in front has moved this vehicle, or is settling it: what this one tows follows in turn.</summary>
     void FollowTower(bool moving)
     {
@@ -141,6 +197,8 @@ public sealed partial class CompPhobosHitch
         {
             if (comps[i] is IVehicleTowedMove mover) mover.TowedMoved();
         }
+        // A field run working a row with this vehicle works its strip now, where it has just been set down.
+        HeadOf(towed).GetComp<CompPhobosFieldRun>()?.WorkerMoved(towed);
     }
 
     /// <summary>The last hitch in this vehicle's chain that could take one more, for the "Hitch behind" button on the vehicle in front.</summary>

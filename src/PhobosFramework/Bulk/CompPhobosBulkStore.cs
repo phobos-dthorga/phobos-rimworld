@@ -27,8 +27,8 @@ public class CompProperties_PhobosBulkStore : CompProperties
 /// <summary>
 /// A building that holds loose goods in bulk (Framework 0.182.0; docs/development/farming-batch-one.md, "The bulk grain hold"): a field
 /// bin, a silo. It is filled by pouring from a hold in reach (a combine's tank, a chaser bin), and pours into another hold or onto the
-/// ground beside it. Its contents age only when read, so it costs nothing per tick while nothing happens; a pour under way steps once a
-/// rare tick.
+/// ground beside it. Its contents age at every rare tick, at the temperature and the airing then (Framework 0.202.0), and a pour under
+/// way steps then too; nothing runs between.
 /// </summary>
 public class CompPhobosBulkStore : ThingComp, IBulkHold
 {
@@ -67,45 +67,46 @@ public class CompPhobosBulkStore : ThingComp, IBulkHold
         base.PostDeSpawn(map, mode);
     }
 
-    /// <summary>
-    /// The most heaps a destroyed store spills (the fault-read of 20 Nov 2026: a full silo is about two million units, which no map can lay
-    /// down in one tick). What does not fit in them is lost, and said so. Authored [A].
-    /// </summary>
-    const int MostSpilledStacks = 40;
-
     /// <summary>Destroyed or deconstructed, it spills what it held onto the ground, as many heaps as will go, and says what was lost.</summary>
     public override void PostDestroy(DestroyMode mode, Map? previousMap)
     {
         base.PostDestroy(mode, previousMap);
-        if (previousMap == null || contents.Empty) return;
-        int stacks = 0;
-        foreach (BulkEntry entry in new List<BulkEntry>(contents.Entries))
-        {
-            ThingDef def = entry.def!;
-            while (contents.CountOf(def) > 0 && stacks < MostSpilledStacks)
-            {
-                Thing? stack = contents.MakeStack(def, contents.CountOf(def));
-                if (stack == null) break;
-                if (!GenPlace.TryPlaceThing(stack, parent.Position, previousMap, ThingPlaceMode.Near))
-                {
-                    stack.Destroy();
-                    stacks = MostSpilledStacks;
-                    break;
-                }
-                stacks++;
-            }
-        }
-        if (contents.Empty) return;
-        Messages.Message("PhobosBulk_SpillLost".Translate(parent.LabelShort.Named("HOLD"), contents.Summary.Named("WHAT")).Resolve(),
-            new TargetInfo(parent.Position, previousMap), MessageTypeDefOf.NegativeEvent);
+        if (previousMap != null) BulkPour.Spill(this, parent.Position, previousMap);
     }
+
+    // Whether the warning has been given for the deconstruction order now standing on it.
+    bool warnedOfDeconstruction;
 
     public override void CompTickRare()
     {
         base.CompTickRare();
-        if (!pouring.active) return;
+        if (contents.Empty)
+        {
+            warnedOfDeconstruction = false;
+            return;
+        }
+        // Aged at every rare tick, pouring or not (the fault-read of 21 Nov 2026, B1).
         BulkPour.Age(this);
-        BulkPour.Step(this, pouring);
+        WarnOfDeconstruction();
+        if (pouring.active) BulkPour.Step(this, pouring);
+    }
+
+    /// <summary>
+    /// A store marked for deconstruction while it holds goods says, once for each order, how little of them would be saved (the owner's
+    /// choice of 21 Nov 2026: a warning beforehand, where there had been only the loss named afterwards).
+    /// </summary>
+    void WarnOfDeconstruction()
+    {
+        bool marked = parent.Spawned && parent.Map.designationManager.DesignationOn(parent, DesignationDefOf.Deconstruct) != null;
+        if (!marked)
+        {
+            warnedOfDeconstruction = false;
+            return;
+        }
+        if (warnedOfDeconstruction || parent.Faction != Faction.OfPlayer) return;
+        warnedOfDeconstruction = true;
+        Messages.Message("PhobosBulk_DeconstructWarning".Translate(parent.LabelShort.Named("HOLD"), contents.Summary.Named("WHAT"),
+            BulkPour.MostSpilledStacks.Named("HEAPS")).Resolve(), parent, MessageTypeDefOf.CautionInput);
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()

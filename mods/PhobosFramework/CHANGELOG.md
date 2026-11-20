@@ -5,17 +5,62 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.202.0] - 2026-11-21 - Draft
+
+Fixes from the farming fault-read: rows driven straight and once, grain that keeps time, a pivot that joins only its own halves
+
 ### Added
 
 - **A bulk hold can load from the ground**: its **Load from the ground** button lists the loose grain and seed lying within its auger's reach, and takes in the one you choose, step by step at the auger's rate, as a farmer augers grain up from a heap. Before, a hold filled only by pouring from another hold, so grain kept in stacks and bought seed could never reach a seed drill. It never takes anything but raw plant food and raw resources in stacks, nor anything forbidden. Not yet tested in game: row 293 of the test pass.
 
 - **An upgrade can add grip on soft ground**: a new vehicle figure, soft ground grip, which a fitted upgrade raises on top of the tyre fittings' own (D'thorga Farming's dual rear wheels give a quarter more on the softest ground, tapering to none on firm going).
+- **A grain store warns before it is taken down full** (the owner's choice of 21 November 2026). A field bin or silo marked for deconstruction while it holds grain says at once how little would be saved, 40 heaps at most, and to pour it out first. Before, the loss was named only afterwards.
+- **The forecast before a tow also says what working in the ground would do.** Pointing a tractor's hitch at a plough, a cultivator or a seed drill adds a second sentence: whether it would keep its speed, be slowed or only crawl with the implement lowered, and for want of what. The entry for 0.182.0 said the forecast counted an implement's pull; it never did until now.
+
+### Changed
+
+- **Load from the ground takes crops and seed only** (the owner's choice of 21 November 2026): what a crop yields as its harvest, and goods their own Def marks as loose bulk, such as seed grain. As first written it took every raw resource, so a silo beside a stockpile offered to take in steel, silver and stone. Its reach now matches a pour between two holds, one cell further than before, and it no longer reaches through a wall or into fog.
+- **A field machine drives through standing plants at no path cost**, so it drives its rows straight. Vehicle Framework had found the cheapest way along a row of standing crop to lie beside it, over the ground already cut. Trees are as before. Whether this holds a machine to its row is still to be seen in play.
+- **A row is driven only as far as its work reaches**, so finishing a few cells at a row's end no longer drives its whole length. A run that could not reach every row now says how many still have work, where it had said every row was done.
 
 ### Fixed
 
 - **An upgrade tree too big for its tab now scrolls.** Vehicle Framework's Upgrades tab is a fixed size with no scroll bar, so the last rows of five of our trees were never shown: the bulk tanker's (seven upgrades), the drill rig's (four), the survey truck's (three), and one each on the tipper and the generator set (heavy cab plates). A tree that runs past the tab now gets scroll bars, and its upgrades, lines and the panel describing the chosen upgrade scroll together; the panel stays in view. A tree that fits, any author's, is drawn exactly as before. Not yet tested in game.
 - **A gathering run that gives up on what you chose now says so, and why.** A truck finding nowhere to stand beside a pile, no way to drive to it, or its grab unable to take it passes over it for the rest of the run; once it had passed over everything it ended saying nothing more lay within reach, with no word of the piles still lying there (the Talus, 19 Nov 2026, set off and ended with nothing gathered). Its end message now counts what it gave up on under each reason, as does its testing note, and with the Vehicle drive log at Debug each pile given up on is named with its place.
 - **Testing notes: a warning still standing when a vehicle's refusal comes is now noted first.** A warning in force when a save loaded (its message shows at the load, but stages worked out at a load write no note), or one already noted earlier in a session, left the next refusal looking as if it came without one, so the test list flagged the Abrams' turbine (row 69) when the game had behaved. Covers every warning before a refusal: a turbine's or piston engine's battery, the air brakes. Nothing a player sees changes.
+- **An implement behind a tractor works its strip as the hitch sets it down.** The strip was worked when the tractor moved, a moment before its implement followed, so it lay where the implement had been and each row's last line was never worked.
+- **Unhitching or losing an implement during a field run ends the run and says so.** Before, the run threw an error every few seconds and its Stop button was gone.
+- **A row with a wall or the map's edge at its far end is worked** as far as the machines fit, and finished from its other end. A tractor stands its implement's length beyond a row's end, and the whole row had been dropped when it could not.
+- **Where a tractor stands for its implement to lie on a row is worked out from the hitch itself**, for the way the row runs. It had been measured between the two where they stood before the turn, a cell out for some implements on every other row.
+- **A full combine tries every place beside a bin from which its auger reaches**, and turns side-on when it already stands on one. Only the nearest place was tried, and a bin with room was given up when that place lay out of reach.
+- **A full combine never empties into a seed drill's hopper.**
+- **Grain in a bin, a silo or a tank ages every few seconds, by the weather and the airing then.** It had aged only when someone looked at it, taking that one moment for all the time before: a powered silo looked at during a power cut lost weeks of keeping at once, and one nobody looked at never aged.
+- **A combine, chaser bin or seed drill destroyed with grain aboard spills it and names what was lost**, as a bin does. It had spilled nothing and said nothing.
+- **A towed bin or drill no longer pours, or takes a pour, while its tractor drives.**
+- **Grain poured from a silo lands on the silo's own side of a wall.**
+- **A pour whose target is gone by the next load ends where it stood**; it had turned into a pour onto the ground. A hold leaving the map partway through a pour says so.
+- **A stack partly taken up by a heap and then refused is counted right**: crowded ground had lost or doubled a little grain.
+- **The threshing drum's load is the combine's alone.** Every vehicle able to do a field run had paid it, so each tractor gave 40% of its engine to a threshing drum while it ploughed or sowed.
+- **An articulated vehicle's pivot joins only its own two halves.** A trailer hitched to a front half that was waiting for room stopped its rear half ever being made, and an older truck could take an orphaned rear half and never let it go.
+- **A trailer, an implement or a rear half can no longer be drafted and driven off by itself.** Each says it has no engine and must be hitched.
+- **An implement that is unhitched, or carried off the map, is lifted.** One lowered by hand had dragged its pull along the world map.
+- **A rear half is never left at a depot, or set down unhitched, without its front half.**
+- **Everything in a line of tows wears its tyres and is listed on the fleet board off the map**, not only the first vehicle behind the one that drives.
+- **Brake and clutch wear no longer count an articulated vehicle's own rear half as a load behind it**: a bare one had worn them nearly twice as fast.
+- **An articulated vehicle goes on bay trips**, and its winch refusal no longer asks for an unhitch that cannot be done.
+- **A rear half is set down only where its whole footprint is clear.** A whole vehicle had been made, spawned wherever there was room and destroyed again at every try, with a message each time; the message now comes once in a while.
+- **A rigid implement's Def no longer shows an error in dev mode**: a swing of nought, which is what holds it straight, had been refused.
+- **Lighter on the game while a hold is selected**, and for every plant a combine cuts.
+- **Smaller wording fixes**: a wait for a driver whose field has gone says so; an end message no longer loses the field's name; a hitch in the middle of a line reads the vehicle that drives it; a parked tractor's weight line follows what is poured into its bin.
+
+### Save compatibility
+
+- Safe with a running save. A pour onto the ground that was under way when the save was made ends at the next look and can be started again. New saved values start at nought in older saves.
+
+### Compatibility and limits
+
+- **Found by reading, not in play** (docs/development/fault-read-2026-11-21.md): none of these fixes is tested in game yet.
+- A towed bin's auger still takes no engine power from anyone. An articulated vehicle cannot winch or take a recovery tow: its hitch is its pivot. A full silo taken down still saves 40 heaps at most; the warning now comes first.
 
 ## [0.201.0] - 2026-11-20 - Draft
 

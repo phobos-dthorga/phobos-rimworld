@@ -271,8 +271,9 @@ build, not now.
 | `farming.harvest.cell` | First harvest by a front (once) | Variant: the front; values: the yield |
 | `farming.harvest.second-product` | A dual crop's second product is made | The product, the amount |
 | `farming.harvest-run.end` | A run ends | Variant: why; values: plants, kilograms, rows |
-| `farming.hold.pour` | Grain pours between holds or out | Variant: into a bin, a vehicle, the ground; values: kilograms |
-| `farming.silo.aerated` | An aerated silo's spoiling is slowed | The rate |
+
+**Not built** (the fault-read of 21 Nov 2026): the two notes first listed here for pouring between holds and for an aired silo. No test
+row asks for them; the Framework's own `bulk.load-from-ground` is the only note a hold writes.
 
 ## Cost to run
 
@@ -347,9 +348,9 @@ scales that will matter". Holds stay sized in real kilograms.
 
 ## Still unknown
 
-- **Whether Vehicle Framework's `PositionChanged` fires when our hitch moves a trailer.** Its patch on the position setter suggests
-  it does; our own code comment says our moves raise no move events. Read again at the build; if it does not fire, the hitch raises
-  our own.
+- **Whether Vehicle Framework's `PositionChanged` fires when our hitch moves a trailer.** **Answered by reading (21 Nov 2026): it
+  does**, through Vehicle Framework's postfix on `Thing.Position`'s setter for any spawned vehicle. The field run does not rely on it:
+  an implement's strip is worked on the hitch's own word that it has moved ([the fault-read](fault-read-2026-11-21.md)).
 - **How a combine 4 cells wide turns at a headland** in Vehicle Framework's pathing: a row planner can leave room, but a cramped
   paddock may still trap it.
 - **Whether reading a stat from a driver aboard works for every mod's stat parts**: one that reads the pawn's map would see none.

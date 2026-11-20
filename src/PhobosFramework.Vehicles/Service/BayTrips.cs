@@ -133,7 +133,9 @@ public static class BayTrips
         if (vehicle.Drafted || vehicle.vehiclePather is { Moving: true } || vehicle.AllPawnsAboard.Count > 0) return true;
         if (vehicle.IsForbidden(Faction.OfPlayer) || vehicle.IsBurning() || vehicle.GetLord() != null) return true;
         if (Hitches.Towing(vehicle) != null || Hitches.WaitingOn(vehicle) != null) return true;
-        if (vehicle.GetComp<CompPhobosHitch>() is { } hitch && (hitch.Trailer != null || hitch.Pending != null || hitch.Winching != null)) return true;
+        // Its own rear half is part of an articulated vehicle, not a tow (the fault-read of 21 Nov 2026, H12: such a vehicle never went).
+        if (vehicle.GetComp<CompPhobosHitch>() is { } hitch
+            && ((hitch.Trailer != null && !Couplings.Permanent(hitch.Trailer)) || hitch.Pending != null || hitch.Winching != null)) return true;
         if (CompPhobosHitch.SetUpRefusal(vehicle) != null) return true;
         foreach (ThingComp comp in vehicle.AllComps)
         {

@@ -48,7 +48,39 @@ public class MapComponent_PhobosPaddocks : MapComponent
     public PaddockState? For(Zone_Growing zone)
     {
         if (byZone.Count != states.Count) Reindex();
-        return byZone.TryGetValue(zone.ID, out PaddockState? state) ? state : null;
+        if (byZone.TryGetValue(zone.ID, out PaddockState? state)) return state;
+        // A zone that came here from another map (a gravship carries its growing zones, with their IDs: the fault-read of 21 Nov 2026, F10)
+        // brings its mark with it. Asked once per zone and map.
+        if (!lookedFor.Add(zone.ID)) return null;
+        state = Adopt(zone.ID);
+        if (state == null) return null;
+        states.Add(state);
+        byZone[zone.ID] = state;
+        return state;
+    }
+
+    readonly HashSet<int> lookedFor = new();
+
+    /// <summary>Takes a zone's mark from the map it left, or from the marks of maps that are gone.</summary>
+    PaddockState? Adopt(int zoneId)
+    {
+        foreach (Map other in Find.Maps)
+        {
+            if (other == map || other.GetComponent<MapComponent_PhobosPaddocks>() is not { } theirs) continue;
+            PaddockState? found = theirs.states.Find(s => s.zoneId == zoneId);
+            if (found == null || other.zoneManager.AllZones.Exists(z => z.ID == zoneId)) continue;
+            theirs.states.Remove(found);
+            theirs.byZone.Remove(zoneId);
+            return found;
+        }
+        return Current.Game?.GetComponent<GameComponent_PhobosPaddocksAdrift>()?.Take(zoneId);
+    }
+
+    /// <summary>The map is gone: its marks wait a while for their zones to turn up on another map.</summary>
+    public override void MapRemoved()
+    {
+        base.MapRemoved();
+        if (states.Count > 0) Current.Game?.GetComponent<GameComponent_PhobosPaddocksAdrift>()?.Keep(states);
     }
 
     public PaddockState Ensure(Zone_Growing zone)
@@ -84,6 +116,7 @@ public class MapComponent_PhobosPaddocks : MapComponent
             if (zone is Zone_Growing) alive.Add(zone.ID);
         }
         if (states.RemoveAll(s => !alive.Contains(s.zoneId)) > 0) Reindex();
+        lookedFor.Clear();
     }
 
     public override void ExposeData()
@@ -95,6 +128,53 @@ public class MapComponent_PhobosPaddocks : MapComponent
             states ??= new List<PaddockState>();
             Reindex();
         }
+    }
+}
+
+/// <summary>
+/// The marks of paddocks whose map is gone (a gravship has left its old map behind), kept until their zones are set down on another map or
+/// a quadrum has passed. Saved, so a flight that spans a save keeps its paddocks.
+/// </summary>
+public class GameComponent_PhobosPaddocksAdrift : GameComponent
+{
+    /// <summary>How long a mark waits for its zone. Authored [A]: longer than any flight.</summary>
+    const int KeepTicks = GenDate.TicksPerQuadrum;
+
+    List<PaddockState> adrift = new();
+    int keptTick = -1;
+
+    public GameComponent_PhobosPaddocksAdrift(Game game)
+    {
+    }
+
+    public void Keep(List<PaddockState> states)
+    {
+        adrift.AddRange(states);
+        keptTick = Find.TickManager.TicksGame;
+    }
+
+    public PaddockState? Take(int zoneId)
+    {
+        if (adrift.Count == 0) return null;
+        if (Find.TickManager.TicksGame - keptTick > KeepTicks)
+        {
+            adrift.Clear();
+            return null;
+        }
+        PaddockState? found = adrift.Find(s => s.zoneId == zoneId);
+        if (found != null) adrift.Remove(found);
+        return found;
+    }
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        if (Scribe.mode != LoadSaveMode.Saving || adrift.Count > 0)
+        {
+            Scribe_Collections.Look(ref adrift, "PhobosPaddocksAdrift", LookMode.Deep);
+            Scribe_Values.Look(ref keptTick, "PhobosPaddocksAdriftTick", -1);
+        }
+        if (Scribe.mode == LoadSaveMode.PostLoadInit) adrift ??= new List<PaddockState>();
     }
 }
 

@@ -5,36 +5,42 @@ cuts it, row by row by themselves.
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.7.0, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.7.1, built 21 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
-- **Needs Vehicle Framework and D'thorga Framework** (0.200.0 or later). Load it after both; the About file asks for this, so RimSort
+- **Needs Vehicle Framework and D'thorga Framework** (0.202.0 or later). Load it after both; the About file asks for this, so RimSort
   does it for you.
 - **A combine has no front until you fit one.** Research **mechanised harvesting**, build the **Reaper combine harvester** (Architect >
   Motor pool), then fit the **standard grain front** from its upgrades. Without a front it refuses to harvest and says why.
 - **Mark the field first.** Select a growing zone and press **Machine-worked**. Colonists then keep off it, unless **Hands may help** is
   on.
-- **Tractors carry or pull an implement; they do nothing alone.** Research **tillage and sowing**, build a **Thane** tractor and an
+- **Tractors carry or pull an implement; they do nothing alone**, and an implement or a cart moves only on a hitch: it cannot be
+  driven by itself. Research **tillage and sowing** (and **articulated tractors** for the T400), build a **Thane** tractor and an
   implement, and hitch the implement: the **Sillion plough** and the **Tillman cultivators** on the three-point linkage, the **Coulter
   seed drill** on the drawbar. Then the tractor's **Plough**, **Cultivate** or **Sow a paddock** order appears.
 - **The Thane T400 is built in two halves.** Its blueprint is the front half: **leave room behind it**, where its rear half is set down
   when it is finished. The halves never come apart.
 - **A drill needs seed in its hopper**: the crop's own grain kept back from a harvest, or **seed grain** bought from bulk goods traders.
-  Pour it in from a bin or cart, or haul the stacks next to the drill and press **Load from the ground**.
+  Pour it in from a bin or cart, or haul the stacks next to the drill and press **Load from the ground** (it takes crops and seed only).
 - **Each front cuts only the crops it really could.** The grain fronts take cereals, pulses and oilseeds: rice, and with Vanilla Cooking
-  Expanded or Vanilla Plants Expanded their wheat, barley, oats, rye, sorghum, buckwheat, chickpeas, peas and canola. **The corn header
-  takes corn and sunflowers.** **Potatoes, hay and cotton need harvesters that come later**, and stay for hands. Another mod's crop is
+  Expanded or Vanilla Plants Expanded their buckwheat, chickpeas, peas and canola. **The corn header takes corn and sunflowers.**
+  **Potatoes, hay and cotton need harvesters that come later**, and stay for hands.
+- **Wheat, barley, oats, rye and sorghum stay for hands too.** With Vanilla Cooking Expanded they give flour straight from the plant,
+  which no combine pours out and no drill sows from. A drill still sows them from bought seed grain.
+- **A combine's tank takes one kind of grain at a time.** With another crop's grain still in it, it refuses the paddock and says so:
+  pour it out first. Another mod's crop is
   taken once it is placed in a class: see [For modders](#for-modders).
 - **A full combine needs somewhere to empty**: a **Garner chaser bin** parked near the paddock (any vehicle with a hitch tows it), a
-  **field bin**, or a **grain silo**. The silo keeps grain four times as long, **but only while its fan has power**.
+  **field bin**, or a **grain silo** (after **grain storage** research). The silo keeps grain four times as long, **but only while its
+  fan has power**. **Empty a bin or silo before taking it down**: full, at most 40 heaps are saved, and it warns you first.
 - **Settings to decide before you start:** Options > Mod settings > D'thorga Farming. **Hands may help on new paddocks** (off),
   **A machine's driver can fail a harvest, as by hand** (on), and **Hands use seed too** (off: on, colonists sowing grain, peas,
   oilseeds or corn by hand take a handful of it from a stockpile first, and will not sow without it). With **The Dead Man's Switch -
   Legion**, also **Agricultural Frame: hay only from straw crops** (on: its mech's extra hay comes only from grains, pulses, canola, corn,
   sunflowers and haygrass, as baled straw; off: from every plant, as its author made it).
-- **Safe to add to a running colony.** **Removing it:** paddocks become plain growing zones; combines, chaser bins and the grain in
-  them vanish with the mod. Empty them first.
+- **Safe to add to a running colony.** **Removing it:** paddocks become plain growing zones; every combine, tractor, implement, chaser
+  bin, field bin and silo vanishes with the mod, with the grain and seed in them. Empty them first.
 - **Not yet tested in game.** Everything here is built and checked offline, and read from the game's and the mods' code.
 
 ## What it does
@@ -70,7 +76,9 @@ Version 0.7.0, built 20 November 2026 for House D'thorga. **Not yet tested in ga
 
 **Upgrades:** liquid tyre ballast and front weights (more grip, a little more fuel), dual rear wheels (more grip on soft ground) and
 the framework's auxiliary fuel tank (drawn as a saddle tank) on the tractors; wing extensions on every implement and a hopper extension
-on the drill. Each is drawn on the machine once fitted.
+on the drill; a tank extension and a straw chopper on the combine, and a fast auger on the chaser bin. The front weights, dual wheels,
+saddle tank, wings, hopper extension and the combine's fronts are drawn on the machine once fitted; liquid ballast, the tank extension,
+the straw chopper and the fast auger are not.
 
 Every figure is authored, to tune in play.
 
@@ -107,5 +115,7 @@ repository's licence.
 - A Case IH CX90's engine stopping, by **Soundholder on Freesound**, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/):
   [the recording](https://freesound.org/people/Soundholder/sounds/425859/); also the root of the large tractor's stop.
 - With thanks to **mickyman5000**, **kyles** and **bruno.auzet** on Freesound, whose recordings are CC0.
-- The large tractor's sounds are built from these, lowered and layered; the medium and large tractors' starts are generated. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon
-Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.
+- The large tractor's sounds are built from these, lowered and layered; the medium and large tractors' starts are generated.
+
+Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights
+reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.

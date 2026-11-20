@@ -31,7 +31,7 @@
       <key>PhobosCombineFrontWide</key>
       <label>Wide grain front</label>
       <displayLabel>true</displayLabel>
-      <description>A grain front eight cells wide: two more cells cut on every pass, for a little more load on the engine.</description>
+      <description>A grain front eight cells wide: two more cells cut on every pass.</description>
       <icon>Phobos/Farming/Upgrades/FrontWide</icon>
       <work>4000</work>
       <gridCoordinate>(7, 2)</gridCoordinate>

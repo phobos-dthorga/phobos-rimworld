@@ -7,8 +7,8 @@
     drawbar, so a cart can follow behind it (a line of tows). A field run lowers the implement it works with on each row; the Lower and
     Lift buttons do it by hand. The owner's decisions of 20 Nov 2026: the plough works 1 cell, as drawn (a three-furrow plough); the
     cultivators two models under one button; the drill's attempt 2. Widths, draught (Iowa State's medium soil, a cell taken as 1.5 m),
-    weights and the hopper are authored [A], approximate. No upgrade tree yet: the wing extensions' overlays and icons come in the next
-    paid run. Part keys are saved by position: append only, never reorder. Each faces north, its hitch at the top. Not yet tested in game.
+    weights and the hopper are authored [A], approximate. Their upgrade trees are in UpgradeTrees_BatchTwo.xml.
+    Part keys are saved by position: append only, never reorder. Each faces north, its hitch at the top. Not yet tested in game.
   -->
   <Vehicles.VehicleDef Name="PhobosFarming_ImplementBase" ParentName="BaseVehiclePawn" Abstract="True">
     <fillPercent>0.3</fillPercent>
@@ -95,7 +95,9 @@
     </comps>
   </Vehicles.VehicleDef>
 
-  <!-- The Sillion turnover plough: both its sides are overlays, one at a time; the body under them is empty on purpose. -->
+  <!-- The Sillion turnover plough: both its sides are overlays, one at a time. The body under them is never drawn: its picture is the
+       plough's shape at three tenths alpha, below what the game's cutout shaders draw and above what Combat Extended needs to measure a
+       body by (the fault-read of 21 Nov 2026: a picture with nothing in it threw in Combat Extended at every start-up). -->
   <Vehicles.VehicleDef ParentName="PhobosFarming_MountedImplementBase">
     <defName>Phobos_PloughSillion</defName>
     <label>Sillion turnover plough</label>

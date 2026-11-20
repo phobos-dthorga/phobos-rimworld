@@ -13,7 +13,7 @@ public class BulkEntry : IExposable
     public int count;
     public float used;
 
-    public float Kilograms => def == null ? 0f : count * def.BaseMass;
+    public float Kilograms => def == null ? 0f : count * BulkContents.MassOf(def);
 
     public void ExposeData()
     {
@@ -26,13 +26,25 @@ public class BulkEntry : IExposable
 /// <summary>
 /// What a bulk hold carries, as amounts by product, never stacks (Framework 0.182.0; docs/development/farming-batch-one.md, "The bulk
 /// grain hold"): a grain tank, a chaser bin, a field bin, a silo. Freshness is one figure a product, mixed by amount as loads join and aged
-/// lazily from the time passed when it is read, at the temperature then (a simplification: the hold does not remember the temperatures in
-/// between). BulkHoldRule decides; this keeps the amounts and saves them.
+/// from the time passed since it was last aged, at the temperature and the store's airing then. A hold ages its contents at every rare
+/// tick (the fault-read of 21 Nov 2026, B1: aged only when looked at, a whole store took the power and weather of that one moment for all
+/// the weeks before). BulkHoldRule decides; this keeps the amounts and saves them.
 /// </summary>
 public class BulkContents : IExposable
 {
     List<BulkEntry> entries = new();
     int agedTick = -1;
+
+    static readonly Dictionary<ThingDef, float> masses = new();
+    static readonly List<string> noneSpoiled = new();
+
+    /// <summary>A unit's mass, kilograms, read from the game once for each product: a hold asks it for every plant a combine cuts, and the
+    /// game works a Def's mass out afresh each time (the fault-read of 21 Nov 2026, B12).</summary>
+    public static float MassOf(ThingDef def)
+    {
+        if (!masses.TryGetValue(def, out float mass)) masses[def] = mass = def.BaseMass;
+        return mass;
+    }
 
     public IReadOnlyList<BulkEntry> Entries => entries;
 
@@ -68,7 +80,7 @@ public class BulkContents : IExposable
     public bool Takes(ThingDef def, bool mixesProducts) => BulkHoldRule.Takes(mixesProducts, Empty, Entry(def) != null);
 
     /// <summary>How many more units of this product fit by weight.</summary>
-    public int RoomFor(ThingDef def, float capacityKg) => BulkHoldRule.RoomFor(capacityKg, Kilograms, def.BaseMass);
+    public int RoomFor(ThingDef def, float capacityKg) => BulkHoldRule.RoomFor(capacityKg, Kilograms, MassOf(def));
 
     /// <summary>Adds units with their used share, mixing the share with what is there. Returns how many went in.</summary>
     public int Add(ThingDef def, int count, float used, float capacityKg, bool mixesProducts)
@@ -104,15 +116,15 @@ public class BulkContents : IExposable
     /// Ages every product by the time since it was last aged, at this temperature and the store's factor (an aired silo below one).
     /// Products that reach spoiled are thrown away; their labels are returned, for the hold to say so.
     /// </summary>
-    public List<string> Age(int now, float temperature, float storeFactor)
+    public IReadOnlyList<string> Age(int now, float temperature, float storeFactor)
     {
-        var spoiled = new List<string>();
         // Nothing held: nothing to age, and the clock starts at now for whatever comes in next.
         if (agedTick < 0 || now <= agedTick || entries.Count == 0)
         {
             agedTick = now;
-            return spoiled;
+            return noneSpoiled;
         }
+        List<string>? spoiled = null;
         int ticks = now - agedTick;
         agedTick = now;
         float rate = GenTemperature.RotRateAtTemperature(temperature);
@@ -123,11 +135,11 @@ public class BulkContents : IExposable
             entry.used = BulkHoldRule.Aged(entry.used, ticks, rate, keeping, storeFactor);
             if (keeping > 0 && entry.used >= 1f)
             {
-                spoiled.Add(entry.def?.label ?? "?");
+                (spoiled ??= new List<string>()).Add(entry.def?.label ?? "?");
                 entries.RemoveAt(i);
             }
         }
-        return spoiled;
+        return spoiled ?? (IReadOnlyList<string>)noneSpoiled;
     }
 
     /// <summary>How long a product keeps before it starts to rot, in ticks; nought for what never rots.</summary>

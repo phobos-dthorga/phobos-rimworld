@@ -80,12 +80,27 @@ public static class Couplings
     /// <summary>How this trailer joins this vehicle's hitch (CouplingRule.Match).</summary>
     public static CouplingMatch Match(VehiclePawn tractor, VehiclePawn trailer) =>
         CouplingRule.Match(Hitch(tractor).Select(c => c.defName).ToList(), TowedBy(trailer)?.defName,
-            Adapters(tractor).Select(c => c.defName).ToList());
+            Adapters(tractor).Select(c => c.defName).ToList(), PermanentNames);
+
+    static List<string>? permanentNames;
+
+    /// <summary>The couplings that join for good, by name: read from the Defs once.</summary>
+    static List<string> PermanentNames => permanentNames ??= DefDatabase<PhobosCouplingDef>.AllDefsListForReading.Where(c => c.permanent).Select(c => c.defName).ToList();
+
+    /// <summary>Whether this vehicle's hitch is a pivot and nothing else: it names couplings, and every one joins for good.</summary>
+    public static bool PivotOnly(VehiclePawn vehicle)
+    {
+        List<PhobosCouplingDef> hitch = Hitch(vehicle);
+        return hitch.Count > 0 && hitch.All(c => c.permanent);
+    }
 
     /// <summary>Why this trailer's coupling does not join this vehicle's hitch, or null when it does.</summary>
     public static string? Refusal(VehiclePawn tractor, VehiclePawn trailer)
     {
         if (CouplingRule.Joins(Match(tractor, trailer))) return null;
+        // A half of an articulated vehicle joins only its other half.
+        if (TowedBy(trailer) is { permanent: true }) return "PhobosHitch_OwnHalfOnly".Translate(trailer.LabelShort.Named("TRAILER")).Resolve();
+        if (TowedBy(trailer) == null || PivotOnly(tractor)) return "PhobosHitch_PivotOnly".Translate(tractor.LabelShort.Named("TRACTOR")).Resolve();
         string has = Hitch(tractor).Concat(Adapters(tractor)).Select(c => c.label).Distinct().ToCommaList();
         return "PhobosHitch_CouplingMismatch".Translate(trailer.LabelShort.Named("TRAILER"), TowedBy(trailer)!.label.Named("COUPLING"),
             tractor.LabelShort.Named("TRACTOR"), has.Named("HITCHES")).Resolve();

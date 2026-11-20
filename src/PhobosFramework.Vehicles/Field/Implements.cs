@@ -37,7 +37,9 @@ public static class Implements
     /// <summary>Whether this implement is lowered and working: held, and its run works a row with it or a player lowered it by hand.</summary>
     public static bool Lowered(VehiclePawn implement)
     {
-        if (HeldBy(implement) == null) return false;
+        // Never off a map: carried on a journey it is lifted, whatever was set by hand (the fault-read of 21 Nov 2026, H4: it had dragged
+        // its draught along the world map).
+        if (!implement.Spawned || HeldBy(implement) == null) return false;
         if (RunLowers(implement)) return true;
         List<ThingComp> comps = implement.AllComps;
         for (int i = 0; i < comps.Count; i++)
@@ -45,6 +47,16 @@ public static class Implements
             if (comps[i] is IVehicleHandLowered { HandLowered: true }) return true;
         }
         return false;
+    }
+
+    /// <summary>Lifts an implement lowered by hand: it has been unhitched.</summary>
+    public static void Lift(VehiclePawn implement)
+    {
+        List<ThingComp> comps = implement.AllComps;
+        for (int i = 0; i < comps.Count; i++)
+        {
+            if (comps[i] is IVehicleHandLowered { HandLowered: true } hand) hand.LiftByHand();
+        }
     }
 
     /// <summary>A field run has started: every implement in the chain lowered by hand is lifted, and the run lowers its own as it works.</summary>

@@ -23,5 +23,9 @@
       <li>ResourcesRaw</li>
     </thingCategories>
     <tradeability>All</tradeability>
+    <modExtensions>
+      <!-- Loose bulk an auger takes in from the ground, though no crop yields it as its harvest (D'thorga Framework 0.202.0). -->
+      <li Class="Phobos.Framework.Bulk.PhobosBulkGoodsExtension" />
+    </modExtensions>
   </ThingDef>
 </Defs>

@@ -120,7 +120,10 @@ public sealed partial class CompPhobosHitch : VehicleComp
         {
             return "PhobosHitch_TooFar".Translate(candidate.LabelShort.Named("TRAILER"), Rules.hitchReachCells.Named("CELLS")).Resolve();
         }
-        if (Vehicle.vehiclePather is { Moving: true }) return "PhobosHitch_Moving".Translate(Vehicle.LabelShort.Named("TRACTOR")).Resolve();
+        // The vehicle that drives the line, not this one: towed, its own wheels never "move" (the fault-read of 21 Nov 2026, H15: a cart
+        // could be coupled behind a plough while the tractor drove).
+        VehiclePawn head = HeadOf(Vehicle);
+        if (head.vehiclePather is { Moving: true }) return "PhobosHitch_Moving".Translate(head.LabelShort.Named("TRACTOR")).Resolve();
         return null;
     }
 
@@ -237,6 +240,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         Hitches.Forget(was);
         // Let go, a trailer is parked: it lays its pipes where it stands (Framework 0.111.0); a recovered vehicle too (0.120.5, H5).
         if (was.Spawned) Hitches.LookAtPipes(was);
+        // An implement let go is lifted: one unhitched while lowered by hand was lowered still when next hitched (the fault-read, H4).
+        Implements.Lift(was);
         // The facings show it square again: the extra turn is a picture of the tow only, and is not saved by Vehicle Framework.
         was.Transform.rotation = 0f;
         Systems?.Powertrain?.MarkMassDirty();
@@ -604,7 +609,12 @@ public sealed partial class CompPhobosHitch : VehicleComp
         if (UiGuard.Resting(GuardKey)) return UiGuard.FallbackText;
         try
         {
-            if (trailer != null) return TowText.Towing(this, VehicleSystemsMod.Settings.displayMode);
+            if (trailer != null)
+            {
+                // Parked, nothing else looks at the weight behind: a bin filled while its tractor stood showed the old figure (B13, H15).
+                RefreshWeight();
+                return TowText.Towing(this, VehicleSystemsMod.Settings.displayMode);
+            }
             if (pending != null) return "PhobosHitch_InspectWaiting".Translate(pending.LabelShort.Named("TRAILER")).Resolve();
             if (winchTarget != null) return WinchInspectLine();
             if (Hitches.Towing(Vehicle) is { } by && TrailerProps(Vehicle) == null)

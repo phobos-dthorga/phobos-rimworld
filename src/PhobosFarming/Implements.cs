@@ -33,6 +33,9 @@ public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IV
 {
     protected Zone_Growing? area;
     protected int cellsWorked;
+    /// <summary>Whether a tractor's run is working an area with it now. Saved with the area and the tallies (the fault-read of 21 Nov 2026,
+    /// F3: after a load the run went on and the implement had forgotten its paddock).</summary>
+    protected bool running;
     bool handLowered;
 
     // ---- Lowered by hand (the owner's button, 20 Nov 2026) ----
@@ -63,6 +66,8 @@ public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IV
     public void TowedMoved()
     {
         if (!handLowered || !Vehicle.Spawned || Implements.HeldBy(Vehicle) == null || Implements.RunLowers(Vehicle)) return;
+        // No run lowers it, so any run it remembers ended without a word (its tractor was lost or it was unhitched): forget it.
+        if (running) ForgetRun();
         CellRect rect = Vehicle.OccupiedRect();
         IntVec3 facing = Vehicle.Rotation.FacingCell;
         StripLine line = StripRule.Front(rect.minX, rect.minZ, rect.maxX, rect.maxZ, facing.x, facing.z, StripWidth, StripAhead);
@@ -111,6 +116,16 @@ public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IV
     {
         base.PostExposeData();
         Scribe_Values.Look(ref handLowered, "PhobosFarming_HandLowered");
+        bool saving = Scribe.mode == LoadSaveMode.Saving;
+        if (saving && (!running || area == null || area.Map == null || !area.Map.zoneManager.AllZones.Contains(area)))
+        {
+            area = null;
+            running = false;
+        }
+        if (!saving || area != null) Scribe_References.Look(ref area, "PhobosFarming_ImplementArea");
+        Scribe_Values.Look(ref running, "PhobosFarming_ImplementRunning");
+        Scribe_Values.Look(ref cellsWorked, "PhobosFarming_ImplementCells");
+        if (Scribe.mode == LoadSaveMode.PostLoadInit && area == null) running = false;
     }
 
     public CompProperties_PhobosImplement ImplementProps => (CompProperties_PhobosImplement)props;
@@ -125,11 +140,17 @@ public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IV
     /// <summary>Whether its wing node is fitted.</summary>
     protected bool WingsFitted => !ImplementProps.wingNode.NullOrEmpty() && VehicleUpgrades.Unlocked(Vehicle, ImplementProps.wingNode!);
 
-    /// <summary>The line under the implement's own rear edge: its length back from its front line.</summary>
-    public int StripAhead => -(System.Math.Max(Vehicle.def.Size.z, 1) - 1);
+    /// <summary>
+    /// The line just behind the implement: its whole length back from its front line. Never a line under its own body (the fault-read of
+    /// 21 Nov 2026, F1): the game plants nothing in a cell a vehicle stands on, so a drill working its own rear row sowed only its overhang.
+    /// </summary>
+    public int StripAhead => -System.Math.Max(Vehicle.def.Size.z, 1);
 
     public double DraughtNewtons =>
         FieldWorkRule.DraughtNewtons(Implements.Lowered(Vehicle), ImplementProps.kilonewtonsPerMetre, StripWidth, ImplementProps.metresPerCell);
+
+    /// <summary>Its pull while it works, lowered now or not: what the forecast before a tow asks.</summary>
+    public double WorkingDraughtNewtons => FieldWorkRule.DraughtNewtons(true, ImplementProps.kilonewtonsPerMetre, StripWidth, ImplementProps.metresPerCell);
 
     public bool Accepts(Zone zone) => zone is Zone_Growing && Paddocks.IsPaddock(zone);
 
@@ -145,6 +166,14 @@ public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IV
     {
         area = zone as Zone_Growing;
         cellsWorked = 0;
+        running = area != null;
+    }
+
+    /// <summary>Forgets a run: its area, and whatever a kind of implement keeps for one.</summary>
+    protected virtual void ForgetRun()
+    {
+        area = null;
+        running = false;
     }
 
     public void WorkCells(List<IntVec3> cells)
@@ -165,7 +194,15 @@ public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IV
         return FieldWorkStop.None;
     }
 
-    public abstract string EndRun(bool finished);
+    public string EndRun(bool finished)
+    {
+        string words = EndWords(finished);
+        ForgetRun();
+        return words;
+    }
+
+    /// <summary>What a run did, in words, with its notes; the area is still known here.</summary>
+    protected abstract string EndWords(bool finished);
 
     /// <summary>Whoever drives the vehicle holding this implement, or null.</summary>
     protected Pawn? Driver()
@@ -206,6 +243,9 @@ public class CompPhobosTillage : CompPhobosImplement, IVehicleLookSwitch
     public const string TurnedLook = "turned";
 
     readonly List<Thing> cleared = new();
+    // The cells this run has tilled (the fault-read of 21 Nov 2026, F2): a tilled cell is empty, and an empty cell had counted as work to
+    // do, so every row was driven twice. Kept only while a run is on, and saved with it.
+    HashSet<IntVec3> tilled = new();
     bool turned;
 
     public CompProperties_PhobosTillage Props => (CompProperties_PhobosTillage)props;
@@ -225,10 +265,10 @@ public class CompPhobosTillage : CompPhobosImplement, IVehicleLookSwitch
     public override bool HasWork(IReadOnlyList<IntVec3> rowCells)
     {
         Map map = Vehicle.Map;
-        // Tillage works every cell but those holding the sown crop, cleared or not.
+        // Tillage works every cell once, but those holding the sown crop, cleared or not.
         for (int i = 0; i < rowCells.Count; i++)
         {
-            if (!rowCells[i].InBounds(map)) continue;
+            if (!rowCells[i].InBounds(map) || tilled.Contains(rowCells[i])) continue;
             Plant? plant = rowCells[i].GetPlant(map);
             if (plant == null || Clears(plant)) return true;
         }
@@ -238,7 +278,7 @@ public class CompPhobosTillage : CompPhobosImplement, IVehicleLookSwitch
     protected override bool Work(IntVec3 cell)
     {
         Map map = Vehicle.Map;
-        if (!cell.InBounds(map)) return false;
+        if (!cell.InBounds(map) || (running && tilled.Contains(cell))) return false;
         cleared.Clear();
         List<Thing> things = cell.GetThingList(map);
         bool keptCrop = false;
@@ -251,7 +291,20 @@ public class CompPhobosTillage : CompPhobosImplement, IVehicleLookSwitch
         // A cell holding the sown crop is passed over whole: tillage there would tear the crop up.
         if (keptCrop) return false;
         foreach (Thing thing in cleared) thing.Destroy(DestroyMode.KillFinalize);
+        if (running) tilled.Add(cell);
         return true;
+    }
+
+    public override void BeginRun(Zone zone)
+    {
+        base.BeginRun(zone);
+        tilled.Clear();
+    }
+
+    protected override void ForgetRun()
+    {
+        base.ForgetRun();
+        tilled.Clear();
     }
 
     /// <summary>A turnover plough rolls over at each row's end, as a real one does at the headland, and its picture follows.</summary>
@@ -279,9 +332,11 @@ public class CompPhobosTillage : CompPhobosImplement, IVehicleLookSwitch
     {
         base.PostExposeData();
         Scribe_Values.Look(ref turned, "PhobosFarming_PloughTurned");
+        if (Scribe.mode != LoadSaveMode.Saving || (running && tilled.Count > 0)) Scribe_Collections.Look(ref tilled, "PhobosFarming_TilledCells", LookMode.Value);
+        if (Scribe.mode == LoadSaveMode.PostLoadInit) tilled ??= new HashSet<IntVec3>();
     }
 
-    public override string EndRun(bool finished)
+    protected override string EndWords(bool finished)
     {
         string words = "PhobosFarming_Tilled".Translate(cellsWorked.Named("CELLS"), MarkWords.Named("MARK")).Resolve();
         if (area != null && area.Cells.Count > 0 && cellsWorked >= Props.markShare * area.Cells.Count && Paddocks.Get(area) is { } state)
@@ -294,7 +349,6 @@ public class CompPhobosTillage : CompPhobosImplement, IVehicleLookSwitch
         {
             Seen.Note("farming.tillage.end", Vehicle, area?.label, variant: Props.mark, values: new List<KeyValuePair<string, double>> { new("cells", cellsWorked) });
         }
-        area = null;
         return words;
     }
 }
@@ -323,6 +377,10 @@ public class CompPhobosSeedDrill : CompPhobosImplement
     double owedKilograms;
     int sown;
     int blocked;
+    // Set when a cell could not be sown for want of enough seed: the row's end then stops the run (the fault-read of 21 Nov 2026, B9).
+    bool shortOfSeed;
+    // The crop the run was checked for; a paddock given another crop partway is checked again at the next row's end (F16).
+    ThingDef? runCrop;
 
     public CompProperties_PhobosSeedDrill Props => (CompProperties_PhobosSeedDrill)props;
 
@@ -376,7 +434,12 @@ public class CompPhobosSeedDrill : CompPhobosImplement
         {
             return "PhobosFarming_SowNeedsResearch".Translate(crop.label.Named("CROP")).Resolve();
         }
-        if (!PlantUtility.GrowthSeasonNow(growing.Map, crop)) return "PhobosFarming_SowOutOfSeason".Translate(crop.label.Named("CROP")).Resolve();
+        // The season where the paddock is, as a hand's sowing asks it cell by cell, never the weather outdoors: a heated greenhouse sows in
+        // winter (the fault-read of 21 Nov 2026, F13).
+        if (growing.Cells.Count > 0 && !PlantUtility.GrowthSeasonNow(growing.Cells[0], growing.Map, crop))
+        {
+            return "PhobosFarming_SowOutOfSeason".Translate(crop.label.Named("CROP")).Resolve();
+        }
         if (crop.plant.sowMinSkill > 0 && Driver() is { skills: { } skills } && skills.GetSkill(SkillDefOf.Plants).Level < crop.plant.sowMinSkill)
         {
             return "PhobosFarming_SowDriverSkill".Translate(crop.label.Named("CROP"), crop.plant.sowMinSkill.Named("LEVEL")).Resolve();
@@ -391,6 +454,17 @@ public class CompPhobosSeedDrill : CompPhobosImplement
         owedKilograms = 0;
         sown = 0;
         blocked = 0;
+        shortOfSeed = false;
+        runCrop = Crop;
+    }
+
+    public override void PostExposeData()
+    {
+        base.PostExposeData();
+        Scribe_Values.Look(ref owedKilograms, "PhobosFarming_DrillOwedKilograms");
+        Scribe_Values.Look(ref sown, "PhobosFarming_DrillSown");
+        Scribe_Values.Look(ref blocked, "PhobosFarming_DrillPassedOver");
+        if (Scribe.mode == LoadSaveMode.PostLoadInit) runCrop = Crop;
     }
 
     /// <summary>Whether this cell can be sown now, by the game's own checks for a hand, short of anything a hand would cut first.</summary>
@@ -401,12 +475,27 @@ public class CompPhobosSeedDrill : CompPhobosImplement
         for (int i = 0; i < things.Count; i++)
         {
             Thing thing = things[i];
+            // A vehicle passing over the line (the cart that follows the drill) is not in the way: it will have gone.
+            if (thing is VehiclePawn) continue;
             if (thing.def == crop || thing is Blueprint || thing is Frame || thing.def.BlocksPlanting()) return false;
         }
         if (crop.plant.diesToLight && (!cell.Roofed(map) || map.glowGrid.GroundGlowAt(cell, ignoreCavePlants: true) > 0f)) return false;
         if (crop.plant.interferesWithRoof && cell.Roofed(map)) return false;
         if (PlantUtility.AdjacentSowBlocker(crop, cell, map) != null) return false;
-        return crop.CanEverPlantAt(cell, map);
+        // The game's own check of the ground, without its outdoor-temperature test (a hand's sowing leaves that out too).
+        if (crop.CanEverPlantAt(cell, map, out Thing blocker, false, false, true).Accepted) return true;
+        // It names the first thing in the way and looks no further for a crop one can walk through; the things were checked above, so a
+        // passing vehicle is the one thing it may name here.
+        return blocker is VehiclePawn && crop.passability != Traversability.Impassable;
+    }
+
+    /// <summary>What this cell would draw of this seed, if the hopper holds enough of it for the cell; null if not.</summary>
+    (ThingDef Seed, int Units, double Owed)? Draw(ThingDef? seed, ThingDef crop, CompPhobosBulkHold hold, float cleaningLoss)
+    {
+        if (seed == null || hold.Contents.CountOf(seed) <= 0) return null;
+        double perCell = System.Math.Max(SeedRates.LeastKilogramsPerCell, SeedRates.OwnGrainKilogramsPerCell(crop, Props.seedShare, cleaningLoss));
+        (int units, double owed) = FieldWorkRule.DrawSeed(owedKilograms, perCell, seed.BaseMass);
+        return hold.Contents.CountOf(seed) >= units ? (seed, units, owed) : null;
     }
 
     public override bool HasWork(IReadOnlyList<IntVec3> rowCells)
@@ -429,16 +518,20 @@ public class CompPhobosSeedDrill : CompPhobosImplement
             blocked++;
             return false;
         }
-        if (SeedFor(crop) is not { } seed) return false;
-        // The crop's own grain loses its cleaning share, so a cell takes more of it than of bought seed.
-        // The crop's own grain loses its cleaning share (SeedRates, shared with hands); bought seed sows at the plain rate.
-        double perCell = seed != Props.genericSeed
-            ? SeedRates.OwnGrainKilogramsPerCell(crop, Props.seedShare, Props.cleaningLoss)
-            : SeedRates.OwnGrainKilogramsPerCell(crop, Props.seedShare, 0f);
-        (int units, double owed) = FieldWorkRule.DrawSeed(owedKilograms, perCell, seed.BaseMass);
-        if (units > 0 && hold.Contents.Take(seed, units, out _) < units) return false;
-        owedKilograms = owed;
-        if (units > 0) hold.ContentsChanged();
+        // The crop's own grain loses its cleaning share (SeedRates, shared with hands); bought seed sows at the plain rate. A hopper with
+        // too little for the cell keeps what it has (it had been thrown away) and the run stops at the row's end.
+        if ((Draw(Crops.OwnSeed(crop), crop, hold, Props.cleaningLoss) ?? Draw(Props.genericSeed, crop, hold, 0f)) is not { } draw)
+        {
+            shortOfSeed = true;
+            return false;
+        }
+        ThingDef seed = draw.Seed;
+        if (draw.Units > 0)
+        {
+            hold.Contents.Take(seed, draw.Units, out _);
+            hold.ContentsChanged();
+        }
+        owedKilograms = draw.Owed;
         if (GenSpawn.Spawn(crop, cell, map) is not Plant plant) return false;
         plant.Growth = 0.0001f;
         plant.sown = true;
@@ -447,6 +540,8 @@ public class CompPhobosSeedDrill : CompPhobosImplement
         {
             Find.HistoryEventsManager.RecordEvent(new HistoryEvent(HistoryEventDefOf.SowedPlant, driver.Named(HistoryEventArgsNames.Doer)));
             if (crop.plant.humanFoodPlant) Find.HistoryEventsManager.RecordEvent(new HistoryEvent(HistoryEventDefOf.SowedHumanFoodPlant, driver.Named(HistoryEventArgsNames.Doer)));
+            // The driver's own count, as a harvest counts "plants harvested".
+            driver.records?.Increment(RecordDefOf.PlantsSown);
         }
         sown++;
         if (Seen.Wants("farming.sow.cell", Vehicle)) Seen.Note("farming.sow.cell", Vehicle, crop.label, variant: seed == Props.genericSeed ? "bought seed" : "own grain");
@@ -456,15 +551,26 @@ public class CompPhobosSeedDrill : CompPhobosImplement
     public override FieldWorkStop RowDone(out string? reason)
     {
         reason = null;
-        if (Crop is { } crop && SeedFor(crop) == null)
+        if (Crop is not { } crop) return FieldWorkStop.None;
+        if (shortOfSeed || SeedFor(crop) == null)
         {
             reason = "PhobosFarming_NoSeed".Translate(Vehicle.LabelShort.Named("IMPLEMENT"), crop.label.Named("CROP")).Resolve();
             return FieldWorkStop.OutOfSupply;
         }
+        // The paddock was given another crop partway: the run is checked for it as it was at its start (research, season, the driver's skill).
+        if (crop != runCrop)
+        {
+            runCrop = crop;
+            if (area != null && CannotWork(area) is { } cannot)
+            {
+                reason = cannot;
+                return FieldWorkStop.OutOfSupply;
+            }
+        }
         return FieldWorkStop.None;
     }
 
-    public override string EndRun(bool finished)
+    protected override string EndWords(bool finished)
     {
         string words = "PhobosFarming_Sowed".Translate(sown.Named("CELLS"), (Crop?.label ?? "").Named("CROP")).Resolve();
         if (Seen.Wants("farming.sow.end", Vehicle, finished ? "finished" : "stopped"))
@@ -472,7 +578,6 @@ public class CompPhobosSeedDrill : CompPhobosImplement
             Seen.Note("farming.sow.end", Vehicle, area?.label, variant: finished ? "finished" : "stopped",
                 values: new List<KeyValuePair<string, double>> { new("sown", sown), new("passed over", blocked) });
         }
-        area = null;
         return words;
     }
 }

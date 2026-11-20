@@ -1,6 +1,6 @@
 # Fault-read of D'thorga Farming, batches one and two (21 Nov 2026)
 
-**Status (21 Nov 2026):** 66 faults and smaller points found by reading, three of them also seen in the owner's game log. None is fixed yet; what to fix first is the owner's choice. Not yet tested in game.
+**Status (21 Nov 2026):** 66 faults and smaller points found by reading, three of them also seen in the owner's game log, and one more found while fixing. At the owner's word ("Fix all now") all are fixed in D'thorga Framework 0.202.0 and D'thorga Farming 0.7.1 ([as fixed](#as-fixed-framework-02020-and-farming-071)) but five left open and one that was no fault. Not yet tested in game.
 
 The owner asked for "an extensive bug and issue audit given the monstrous amount of code over the past two days" (20 Nov 2026), after
 batches one and two of [D'thorga Farming](farming-batch-two.md) were built without a test between them. Five independent reads, one per
@@ -170,3 +170,63 @@ trees, the seed's price, the trader patches, the crop patches, the language keys
 - Other mods' patches on rot and on `GenPlace`.
 - Whether the installed Vehicle Framework build matches the source clone beyond the lines compared.
 - Our Defs with every patch applied: the patched-Defs file predates batch two.
+
+## As fixed (Framework 0.202.0 and Farming 0.7.1)
+
+The owner's answers of 21 Nov 2026, by question card: **fix all now**; **loading from the ground takes crops and seed only** (B3);
+**a store warns before it is taken down full** (the silo question); and for the cereals that harvest as flour (F5): "For things like
+that which turn straight into flour upon harvest, unless something else can be done reasonably so, we need to exclude them from our
+mod. I wish to implement my own crops anyway". The same day the owner added that they wish for "a bit of a side-industry for this
+Agricultural mod", in Farming Simulator 25's manner; nothing of that is designed here.
+
+**How each was fixed, where it differs from the fix its table gives:**
+
+| # | As fixed |
+| --- | --- |
+| F1 | Every implement works the line just behind its body. The drill also passes over vehicles standing on the line (the cart that follows it), and still asks the game's own check of the ground, without its outdoor-temperature test |
+| F5 | The five flour cereals are in no crop class: no front cuts them. **Agent's choice, for the owner:** a drill still sows them from bought seed grain, since the owner's seed grain sows any crop |
+| F10 | A paddock's mark follows its zone to another map: taken from the map it left, or from a game component that keeps the marks of maps that are gone for a quadrum |
+| F11 | Tilled soil stays unbuilt, and the batch-two record's status now says so; the tooltip is reworded |
+| R3 | Every vehicle with a field run counts plants it can drive through as costing nothing (`FieldMachinePaths`, through Vehicle Framework's `customThingCosts`, set once when Defs are loaded). **Still to see in play** |
+| R7 | A new end, "N rows still have work it could not reach", and a row is driven only between its first and last lines with work (`WorkSpan`), so the sweep is short |
+| R9 | `CompPhobosHitch.StraightBehind`: the implement's cell behind its tractor from the hitch's geometry for the row's facing, through the whole line |
+| B3 | What any non-tree plant yields as its harvest, plus goods carrying `PhobosBulkGoodsExtension` (seed grain) |
+| B7, B14 | Heaps are placed from a cell beside a store one can stand on; ground loading skips fog and other rooms, and reaches as far as a pour between holds |
+| B10 | A pour says outright whether it goes onto the ground (`toGround`, saved); a pour with no target and no such flag ends |
+| B15 | The two notes are struck from the batch-one record: no row asks for them |
+| H1, H2 | `CouplingRule.Match` takes the permanent couplings: one joins only a hitch that names it, and a hitch naming nothing else takes nothing else. Six new tests |
+| H7 | The forecast keeps its first sentence (the tow, lifted) and gains a second for the implement working (`WorkingOutlook`, `IVehicleDraught.WorkingDraughtNewtons`) |
+| H12 | Bay trips treat the rear half as part of the vehicle. **An articulated vehicle still cannot winch or take a recovery tow**: its hitch is its pivot, and its refusal now says so |
+| D1 | The body picture is the plough's own shape at three tenths alpha: above what Combat Extended measures by, below what the game's cutout shaders draw. **To look at in play:** that nothing faint shows |
+| D7 | Soft ground grip of 0.12 on the T60 F and 0.06 on the T130 RC (authored); the wide front's "more load" is taken out of its words |
+
+**One more fault, found while fixing (R16):** the field run worked an implement's strip when the tractor entered a cell, and the hitch
+moves the implement after that, so the strip lay where the implement had been and each row's last line was never worked. With F2 fixed
+that would have sent the sweep down every row again. The strip is now worked when the hitch sets the implement down
+(`CompPhobosFieldRun.WorkerMoved`, called from the hitch's own move).
+
+**No fault after all (B6):** reach measured from `OccupiedRect` is right for a vehicle. Vehicle Framework patches the game's
+`GenAdj.OccupiedRect(Thing)` itself (`Patch_VehiclePathing.cs:53`, `OccupiedRectVehicles`), which `query-patches.py` cannot see and the
+reader did not find. The fault-read of 19 Nov 2026 had already recorded this.
+
+**Left open, each for the owner:**
+
+- **D11**: two research lines drawn backwards. Hiding the requirement, as tillage does, fails the research tree's own check (every
+  project needs a requirement that shows); a move needs the whole tab looked at.
+- **D12**: the chaser bin, tractors and implements have no Combat Extended armour figures. The patch's comment now says so.
+- **D13**: a towed bin's or drill's auger takes no engine power from anyone. The words that said otherwise are corrected.
+- **The silo question**: a full store taken down still saves 40 heaps at most; the warning comes first.
+- **A tractor's run saved by Farming 0.7.0 in the middle of a paddock** still loads without its paddock: stop it and start it again.
+
+**Lessons for new work** (added to the earlier fault-reads' lists):
+
+- An implement behind a vehicle is moved by the hitch after the vehicle: act on the hitch's own move, never on the tractor's.
+- The game plants nothing in a cell holding anything with fillage, a vehicle included: work the line behind a body, never under it.
+- A run that asks "is there work left?" needs work that is used up: a cleared cell must not read as work again.
+- A worker found through the hitch can vanish mid-run: no `Worker!`, and keep the Stop button while a run is on.
+- Whatever a comp of ours gives every vehicle of a kind (a shaft load's `available`), ask whether a tractor should have it too.
+- Vehicle Framework treats a vehicle with no driver's seat as needing no driver: a towed thing must refuse draft and move itself.
+- A vehicle Def with no `buildDef` gets one made up, with a warning: give it one in no Architect tab.
+- Combat Extended measures every pawn kind's body picture: never ship an empty one.
+- A hold or store that ages "when read" is aged by whoever looks: age on a tick.
+- A reader's claim about the game's footprint is checked against Vehicle Framework's own patches before it counts (B6).

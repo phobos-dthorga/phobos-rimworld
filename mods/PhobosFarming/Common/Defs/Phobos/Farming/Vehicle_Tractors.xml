@@ -6,8 +6,8 @@
     the owner kept. A tractor carries an implement on its three-point linkage and pulls on its drawbar; with an implement that has a hitch
     of its own, a cart goes behind the implement (D'thorga Framework's lines of tows). It drives a paddock row by row with the implement
     working (the field run). Figures authored [A], labelled approximate, in the ranges of real farm tractors (general knowledge, not read
-    from a source); the differences between the two models are the agent's reading of each picture, kept by the owner. No upgrade tree
-    yet: its nodes wait for their drawn icons and overlays (the owner's next paid run, 20 Nov 2026). Part keys are saved by position:
+    from a source); the differences between the two models are the agent's reading of each picture, kept by the owner. Their upgrade trees are in
+    UpgradeTrees_BatchTwo.xml. Part keys are saved by position:
     append only, never reorder. Not yet tested in game.
   -->
 
@@ -348,6 +348,9 @@
     </statBases>
     <vehicleStats>
       <Mass>360</Mass>
+      <!-- Its wide tyres: the grip on soft ground its description names (the fault-read of 21 Nov 2026: no figure had given it). About
+           half what dual wheels add. Authored [A]. -->
+      <Phobos_SoftGroundGripBonus>0.12</Phobos_SoftGroundGripBonus>
     </vehicleStats>
     <modExtensions>
       <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
@@ -738,6 +741,8 @@
     </statBases>
     <vehicleStats>
       <Mass>590</Mass>
+      <!-- Lighter on its wheels: the ease on soft ground its description names. A quarter of what dual wheels add. Authored [A]. -->
+      <Phobos_SoftGroundGripBonus>0.06</Phobos_SoftGroundGripBonus>
     </vehicleStats>
     <modExtensions>
       <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">

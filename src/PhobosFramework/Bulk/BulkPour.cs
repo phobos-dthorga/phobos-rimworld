@@ -35,6 +35,14 @@ public interface IBulkHold
     void ContentsChanged();
 }
 
+/// <summary>
+/// Marks a kind of goods as loose bulk an auger takes in from the ground although no crop yields it as its harvest: seed grain. On the
+/// goods' own Def, in XML (Framework 0.202.0).
+/// </summary>
+public class PhobosBulkGoodsExtension : DefModExtension
+{
+}
+
 /// <summary>A pour under way from one hold: into another, or onto the ground beside it. Saved with the hold pouring.</summary>
 public class BulkPouring : IExposable
 {
@@ -45,6 +53,9 @@ public class BulkPouring : IExposable
     public int moved;
     /// <summary>Framework 0.201.0: the product its auger takes in from the ground, while loading instead of pouring; null otherwise.</summary>
     public ThingDef? loading;
+    /// <summary>Whether this pour goes onto the ground (Framework 0.202.0). Said outright, so a pour into a hold that is gone by the next
+    /// load, or a load whose product's mod was removed, ends where it stood and never turns into a pour onto the ground.</summary>
+    public bool toGround;
 
     public void ExposeData()
     {
@@ -52,6 +63,7 @@ public class BulkPouring : IExposable
         Scribe_Values.Look(ref active, "active");
         Scribe_Values.Look(ref moved, "moved");
         Scribe_Defs.Look(ref loading, "loading");
+        Scribe_Values.Look(ref toGround, "toGround");
     }
 }
 
@@ -118,6 +130,8 @@ public static class BulkPour
             return;
         }
         state.into = to?.HoldThing;
+        state.toGround = to == null;
+        state.loading = null;
         state.active = true;
         state.moved = 0;
         string where = to?.HoldThing.LabelShort ?? "PhobosBulk_TheGround".Translate().Resolve();
@@ -127,6 +141,9 @@ public static class BulkPour
 
     /// <summary>Stops a pour by hand.</summary>
     public static void Stop(IBulkHold from, BulkPouring state) => End(from, state, "PhobosBulk_EndStopped".Translate().Resolve());
+
+    /// <summary>Ends a pour because the hold has left the map, and says so.</summary>
+    public static void LeftMap(IBulkHold from, BulkPouring state) => End(from, state, "PhobosBulk_EndLeftMap".Translate().Resolve());
 
     /// <summary>One step of a pour under way; call from the pouring hold's rare tick.</summary>
     public static void Step(IBulkHold from, BulkPouring state)
@@ -138,7 +155,7 @@ public static class BulkPour
             return;
         }
         IBulkHold? to = state.into != null ? HoldOf(state.into) : null;
-        if (state.into != null && (to == null || state.into.Destroyed))
+        if (state.into == null ? !state.toGround : (to == null || state.into.Destroyed))
         {
             End(from, state, "PhobosBulk_EndGone".Translate().Resolve());
             return;
@@ -157,7 +174,7 @@ public static class BulkPour
             return;
         }
         ThingDef def = entry.def;
-        int step = BulkHoldRule.UnitsPerStep(from.PourKgPerSecond, SecondsPerRareTick, def.BaseMass);
+        int step = BulkHoldRule.UnitsPerStep(from.PourKgPerSecond, SecondsPerRareTick, BulkContents.MassOf(def));
         int moved = to == null ? PourOnGround(from, def, step) : PourInto(from, to, def, step);
         if (moved <= 0)
         {
@@ -194,15 +211,20 @@ public static class BulkPour
         Thing holder = from.HoldThing;
         int left = System.Math.Min(System.Math.Min(step, MostStacksAStep * System.Math.Max(1, def.stackLimit)), from.Contents.CountOf(def));
         int moved = 0;
+        IntVec3 spout = SpoutCell(holder);
         while (left > 0)
         {
             Thing? stack = from.Contents.MakeStack(def, left);
             if (stack == null) break;
             int count = stack.stackCount;
-            if (!GenPlace.TryPlaceThing(stack, holder.Position, holder.Map, ThingPlaceMode.Near, out Thing _, null,
+            if (!GenPlace.TryPlaceThing(stack, spout, holder.Map, ThingPlaceMode.Near, out Thing _, null,
                     c => !holder.OccupiedRect().Contains(c)))
             {
-                from.Contents.Return(stack);
+                // The game may have merged part of the stack into a heap before giving up (the fault-read of 21 Nov 2026, B8): that part
+                // was poured, and only what is still in hand goes back.
+                int inHand = stack.Destroyed ? 0 : stack.stackCount;
+                moved += count - inHand;
+                if (inHand > 0) from.Contents.Return(stack);
                 break;
             }
             moved += count;
@@ -211,15 +233,99 @@ public static class BulkPour
         return moved;
     }
 
-    // ---- Loading from the ground (Framework 0.201.0) ----
+    /// <summary>
+    /// Where a hold's spout lets go: the hold's own cell where one can stand there (a vehicle, a bin one can walk past), else the nearest
+    /// cell beside it one can stand on. A silo fills its cells whole, and the game's search for free ground from such a cell reaches
+    /// through walls (the fault-read of 21 Nov 2026, B7): from a cell beside it, heaps stay on the silo's own side of a wall.
+    /// </summary>
+    static IntVec3 SpoutCell(Thing holder)
+    {
+        Map map = holder.Map;
+        if (holder.Position.Standable(map)) return holder.Position;
+        IntVec3 best = holder.Position;
+        int bestDistance = int.MaxValue;
+        foreach (IntVec3 cell in GenAdj.CellsAdjacent8Way(holder))
+        {
+            if (!cell.InBounds(map) || !cell.Standable(map) || cell.Fogged(map)) continue;
+            int distance = cell.DistanceToSquared(holder.Position);
+            if (distance < bestDistance)
+            {
+                best = cell;
+                bestDistance = distance;
+            }
+        }
+        return best;
+    }
+
+    /// <summary>The most heaps a hold that is destroyed spills (the fault-read of 20 Nov 2026: a full silo is about two million units,
+    /// which no map can lay down at once). What does not fit in them is lost, and said so. Authored [A].</summary>
+    public const int MostSpilledStacks = 40;
 
     /// <summary>
-    /// Whether a thing is loose goods an auger can take in from a heap: a stack of raw plant food (grain) or raw resources (seed grain),
-    /// not forbidden. Anything else (a weapon, a body, a building) never goes into a hold.
+    /// A hold is gone: what it held spills onto the ground around where it stood, as many heaps as will go, and the rest is named as
+    /// lost. One place for buildings and vehicles (the fault-read of 21 Nov 2026, B2: a combine, a chaser bin or a drill destroyed with
+    /// grain aboard had spilled nothing and said nothing).
+    /// </summary>
+    public static void Spill(IBulkHold hold, IntVec3 at, Map map)
+    {
+        BulkContents contents = hold.Contents;
+        if (contents.Empty) return;
+        int stacks = 0;
+        foreach (BulkEntry entry in new List<BulkEntry>(contents.Entries))
+        {
+            if (entry.def is not { } def) continue;
+            while (contents.CountOf(def) > 0 && stacks < MostSpilledStacks)
+            {
+                Thing? stack = contents.MakeStack(def, contents.CountOf(def));
+                if (stack == null) break;
+                if (!GenPlace.TryPlaceThing(stack, at, map, ThingPlaceMode.Near))
+                {
+                    // What is still in hand goes back into the tally, so the loss is named in full.
+                    if (!stack.Destroyed && stack.stackCount > 0) contents.Return(stack);
+                    stacks = MostSpilledStacks;
+                    break;
+                }
+                stacks++;
+            }
+        }
+        if (contents.Empty) return;
+        Messages.Message("PhobosBulk_SpillLost".Translate(hold.HoldThing.LabelShort.Named("HOLD"), contents.Summary.Named("WHAT")).Resolve(),
+            new TargetInfo(at, map), MessageTypeDefOf.NegativeEvent);
+    }
+
+    // ---- Loading from the ground (Framework 0.201.0) ----
+
+    static HashSet<ThingDef>? looseGoods;
+
+    /// <summary>
+    /// The kinds of goods an auger takes in: what a crop yields as its harvest (grain, pulses, hay; never a tree's), and goods marked as
+    /// loose bulk in their own Def (seed grain). The owner's choice of 21 Nov 2026, after the fault-read found every raw resource counted:
+    /// a silo beside a stockpile offered to take in steel and silver. Worked out once.
+    /// </summary>
+    static HashSet<ThingDef> LooseGoods
+    {
+        get
+        {
+            if (looseGoods != null) return looseGoods;
+            looseGoods = new HashSet<ThingDef>();
+            foreach (ThingDef def in DefDatabase<ThingDef>.AllDefsListForReading)
+            {
+                if (def.plant is { IsTree: false, harvestedThingDef: { } harvest }) looseGoods.Add(harvest);
+                if (def.HasModExtension<PhobosBulkGoodsExtension>()) looseGoods.Add(def);
+            }
+            return looseGoods;
+        }
+    }
+
+    /// <summary>Counts a kind of goods as loose bulk, for a mod that knows of one no Def says (another mod's second harvest product).</summary>
+    public static void CountAsLoose(ThingDef def) => LooseGoods.Add(def);
+
+    /// <summary>
+    /// Whether a thing is loose goods an auger can take in from a heap: a stack of what a crop yields, or of seed, not forbidden. Anything
+    /// else (steel, a weapon, a body, a building) never goes into a hold.
     /// </summary>
     public static bool Loose(Thing thing) =>
-        thing.def.category == ThingCategory.Item && thing.def.stackLimit > 1 && !thing.IsForbidden(Faction.OfPlayer)
-        && (thing.def.IsWithinCategory(ThingCategoryDefOf.PlantFoodRaw) || thing.def.IsWithinCategory(ThingCategoryDefOf.ResourcesRaw));
+        thing.def.category == ThingCategory.Item && thing.def.stackLimit > 1 && LooseGoods.Contains(thing.def) && !thing.IsForbidden(Faction.OfPlayer);
 
     /// <summary>The loose goods within the auger's reach of this hold, by product, nearest stacks first.</summary>
     public static Dictionary<ThingDef, List<Thing>> GroundInReach(IBulkHold hold)
@@ -228,11 +334,15 @@ public static class BulkPour
         Thing holder = hold.HoldThing;
         if (!holder.Spawned) return found;
         Map map = holder.Map;
-        CellRect around = holder.OccupiedRect().ExpandedBy(hold.ReachCells).ClipInsideMap(map);
+        // The same reach as between two holds: up to that many cells may lie between (it had been one cell less here). Never a cell in
+        // fog, nor one in another room than the spout's: an auger does not reach through a wall (the fault-read of 21 Nov 2026, B7, B14).
+        CellRect around = holder.OccupiedRect().ExpandedBy(hold.ReachCells + 1).ClipInsideMap(map);
         CellRect own = holder.OccupiedRect();
+        Room? room = SpoutCell(holder).GetRoom(map);
         foreach (IntVec3 cell in around)
         {
-            if (own.Contains(cell)) continue;
+            if (own.Contains(cell) || cell.Fogged(map)) continue;
+            if (room != null && cell.GetRoom(map) is { } theirs && theirs != room) continue;
             List<Thing> things = cell.GetThingList(map);
             for (int i = 0; i < things.Count; i++)
             {
@@ -265,6 +375,7 @@ public static class BulkPour
             return;
         }
         state.into = null;
+        state.toGround = false;
         state.loading = def;
         state.active = true;
         state.moved = 0;
@@ -287,7 +398,7 @@ public static class BulkPour
             return;
         }
         Age(hold);
-        int left = BulkHoldRule.UnitsPerStep(hold.PourKgPerSecond, SecondsPerRareTick, def.BaseMass);
+        int left = BulkHoldRule.UnitsPerStep(hold.PourKgPerSecond, SecondsPerRareTick, BulkContents.MassOf(def));
         int moved = 0;
         foreach (Thing stack in stacks)
         {
@@ -331,7 +442,7 @@ public static class BulkPour
             return;
         }
         state.active = false;
-        string where = state.into?.LabelShort ?? "PhobosBulk_TheGround".Translate().Resolve();
+        string where = state.into?.LabelShort ?? (state.toGround ? "PhobosBulk_TheGround" : "PhobosBulk_WhatItPouredInto").Translate().Resolve();
         Messages.Message("PhobosBulk_Done".Translate(from.HoldThing.LabelShort.Named("HOLD"), state.moved.Named("COUNT"), where.Named("INTO")).Resolve()
             + " " + why, from.HoldThing, state.moved > 0 ? MessageTypeDefOf.TaskCompletion : MessageTypeDefOf.CautionInput);
         state.into = null;
@@ -345,7 +456,7 @@ public static class BulkPour
     {
         Thing thing = hold.HoldThing;
         if (!thing.SpawnedOrAnyParentSpawned) return;
-        List<string> spoiled = hold.Contents.Age(Find.TickManager.TicksGame, thing.AmbientTemperature, hold.StoreFactor);
+        IReadOnlyList<string> spoiled = hold.Contents.Age(Find.TickManager.TicksGame, thing.AmbientTemperature, hold.StoreFactor);
         if (spoiled.Count == 0) return;
         hold.ContentsChanged();
         Messages.Message("PhobosBulk_Spoiled".Translate(thing.LabelShort.Named("HOLD"), spoiled.ToCommaList().Named("WHAT")).Resolve(), thing,
@@ -361,9 +472,36 @@ public static class BulkPour
     /// <summary>The game's own cancel picture; confirmed in the game's code.</summary>
     const string StopIcon = "UI/Designators/Cancel";
 
-    /// <summary>A picture, else the game's eject picture, else a plain white square: never the red X.</summary>
-    static Texture2D Icon(string path) => ContentFinder<Texture2D>.Get(path, reportFailure: false)
-        ?? ContentFinder<Texture2D>.Get(PourFallbackIcon, reportFailure: false) ?? BaseContent.WhiteTex;
+    static readonly Dictionary<string, Texture2D> icons = new();
+
+    /// <summary>A picture, else the game's eject picture, else a plain white square: never the red X. Looked up once each: the buttons are
+    /// drawn every frame while a hold is selected, and a look-up walks every running mod (the fault-read of 21 Nov 2026, B12).</summary>
+    static Texture2D Icon(string path)
+    {
+        if (!icons.TryGetValue(path, out Texture2D? icon))
+        {
+            icons[path] = icon = ContentFinder<Texture2D>.Get(path, reportFailure: false)
+                ?? ContentFinder<Texture2D>.Get(PourFallbackIcon, reportFailure: false) ?? BaseContent.WhiteTex;
+        }
+        return icon;
+    }
+
+    // Whether anything loose lies in reach of the hold last asked about, kept for a second: the Load button asks every frame.
+    static IBulkHold? groundAskedFor;
+    static int groundAskedTick = -1;
+    static bool groundAny;
+
+    static bool AnyGroundInReach(IBulkHold hold)
+    {
+        int now = Find.TickManager.TicksGame;
+        if (hold != groundAskedFor || now < groundAskedTick || now - groundAskedTick >= 60)
+        {
+            groundAskedFor = hold;
+            groundAskedTick = now;
+            groundAny = GroundInReach(hold).Count > 0;
+        }
+        return groundAny;
+    }
 
     /// <summary>The pour buttons: pour into a hold in reach, pour onto the ground, or stop the pour under way.</summary>
     public static IEnumerable<Gizmo> Gizmos(IBulkHold hold, BulkPouring state)
@@ -399,7 +537,7 @@ public static class BulkPour
             action = () => Find.WindowStack.Add(new FloatMenu(LoadOptions(hold, state))),
         };
         if (hold.CannotReceive() is { } refused) load.Disable(refused);
-        else if (GroundInReach(hold).Count == 0) load.Disable("PhobosBulk_NothingInReach".Translate(name, hold.ReachCells.Named("CELLS")).Resolve());
+        else if (!AnyGroundInReach(hold)) load.Disable("PhobosBulk_NothingInReach".Translate(name, hold.ReachCells.Named("CELLS")).Resolve());
         yield return load;
     }
 
@@ -451,7 +589,7 @@ public static class BulkPour
         }
         else if (state.active)
         {
-            string where = state.into?.LabelShort ?? "PhobosBulk_TheGround".Translate().Resolve();
+            string where = state.into?.LabelShort ?? (state.toGround ? "PhobosBulk_TheGround" : "PhobosBulk_WhatItPouredInto").Translate().Resolve();
             line += "\n" + "PhobosBulk_LinePouring".Translate(where.Named("INTO")).Resolve();
         }
         return line;

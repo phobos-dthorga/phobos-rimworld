@@ -62,24 +62,34 @@ public sealed class CompPhobosArticulated : VehicleComp
     bool Assemble()
     {
         if (Props.rearHalf == null || Vehicle.GetComp<CompPhobosHitch>() is not { } hitch) return assembled = true;
-        if (hitch.Trailer != null)
+        if (hitch.Trailer is { } held)
         {
-            // A save from before this comp, or a pair put together by hand: nothing to make.
-            assembled = true;
-            return true;
+            // Its own half already on the pivot (a pair from before this comp, or put back together by hand): nothing to make.
+            if (Couplings.Permanent(held))
+            {
+                assembled = true;
+                return true;
+            }
+            // Anything else on the pivot is in its rear half's place (the fault-read of 21 Nov 2026, H1: it had counted as the rear half,
+            // which was then never made). The pivot takes nothing else now; one from an older save is asked off.
+            Say("PhobosArticulated_HitchTaken".Translate(Vehicle.LabelShort.Named("VEHICLE"), held.LabelShort.Named("TRAILER")).Resolve());
+            return false;
         }
         Map map = Vehicle.Map;
-        IntVec3 behind = Vehicle.Position - Vehicle.Rotation.FacingCell * ((Vehicle.def.Size.z + Props.rearHalf.Size.z) / 2);
-        if (!behind.InBounds(map) || !GenGrid.Standable(behind, map))
+        Rot4 rot = Vehicle.Rotation;
+        IntVec3 behind = Vehicle.Position - rot.FacingCell * ((Vehicle.def.Size.z + Props.rearHalf.Size.z) / 2);
+        // The whole footprint is asked for before anything is made (H9: a whole vehicle had been made, spawned wherever Vehicle Framework
+        // found room and destroyed again, at every try).
+        if (!hitch.RoomFor(Props.rearHalf, behind, rot))
         {
             NoRoom();
             return false;
         }
         VehiclePawn rear = VehicleSpawner.GenerateVehicle(Props.rearHalf, Vehicle.Faction);
-        GenSpawn.Spawn(rear, behind, map, Vehicle.Rotation);
-        if (!hitch.Couple(rear))
+        GenSpawn.Spawn(rear, behind, map, rot);
+        if (!rear.Spawned || !hitch.Couple(rear))
         {
-            rear.Destroy(DestroyMode.Vanish);
+            if (!rear.Destroyed) rear.Destroy(DestroyMode.Vanish);
             NoRoom();
             return false;
         }
@@ -89,11 +99,19 @@ public sealed class CompPhobosArticulated : VehicleComp
         return true;
     }
 
-    void NoRoom()
+    void NoRoom() => Say("PhobosArticulated_NoRoom".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve());
+
+    /// <summary>How long between two sayings of why it waits, in ticks: it tries far more often than that. Authored [A].</summary>
+    const int SayTicks = 2500;
+
+    int nextSay;
+
+    void Say(string text)
     {
-        if (Vehicle.Faction != Faction.OfPlayer) return;
-        Messages.Message("PhobosArticulated_NoRoom".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.RejectInput,
-            historical: false);
+        int now = Find.TickManager.TicksGame;
+        if (Vehicle.Faction != Faction.OfPlayer || now < nextSay) return;
+        nextSay = now + SayTicks;
+        Messages.Message(text, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
     }
 
     public override void PostExposeData()

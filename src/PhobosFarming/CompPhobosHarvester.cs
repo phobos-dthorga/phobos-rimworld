@@ -61,8 +61,23 @@ public class CompPhobosHarvester : VehicleComp, IVehicleFieldWorker
 
     CompPhobosBulkHold? Hold => Vehicle.GetComp<CompPhobosBulkHold>();
 
-    /// <summary>The front fitted now, or null.</summary>
-    public PhobosHarvestFront? Front => Props.fronts.FirstOrDefault(f => VehicleUpgrades.Unlocked(Vehicle, f.node));
+    PhobosHarvestFront? frontNow;
+    int frontTick = -1;
+
+    /// <summary>The front fitted now, or null. Asked of the upgrades once a tick: a row asks it for every plant.</summary>
+    public PhobosHarvestFront? Front
+    {
+        get
+        {
+            int now = Find.TickManager.TicksGame;
+            if (now != frontTick)
+            {
+                frontTick = now;
+                frontNow = Props.fronts.FirstOrDefault(f => VehicleUpgrades.Unlocked(Vehicle, f.node));
+            }
+            return frontNow;
+        }
+    }
 
     bool ChopsStraw => !Props.strawChopperNode.NullOrEmpty() && VehicleUpgrades.Unlocked(Vehicle, Props.strawChopperNode);
 
@@ -85,12 +100,18 @@ public class CompPhobosHarvester : VehicleComp, IVehicleFieldWorker
     {
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
         if (Front is not { } front) return "PhobosFarming_NoFront".Translate(name).Resolve();
-        if (Hold == null) return "PhobosFarming_NoTank".Translate(name).Resolve();
+        if (Hold is not { } hold) return "PhobosFarming_NoTank".Translate(name).Resolve();
         if (zone is not Zone_Growing growing) return null;
         ThingDef? crop = growing.GetPlantDefToGrow();
         if (crop != null && !Takes(front, crop))
         {
             return "PhobosFarming_FrontDoesNotSuit".Translate(front.label.Named("FRONT"), crop.label.Named("CROP")).Resolve();
+        }
+        // A tank that keeps one product and still holds another takes none of this crop (the fault-read of 21 Nov 2026, F4: it drove the
+        // whole paddock cutting nothing, and said nothing).
+        if (crop?.plant.harvestedThingDef is { } product && !hold.Contents.Takes(product, hold.MixesProducts))
+        {
+            return "PhobosFarming_TankHoldsOther".Translate(name, hold.Contents.Summary.Named("WHAT"), crop.label.Named("CROP")).Resolve();
         }
         if (!growing.Cells.Any(c => Ripe(c, growing) != null)) return "PhobosFarming_NothingRipe".Translate(growing.label.Named("ZONE")).Resolve();
         return null;
@@ -196,6 +217,7 @@ public class CompPhobosHarvester : VehicleComp, IVehicleFieldWorker
                         Thing harvested = ThingMaker.MakeThing(product);
                         harvested.stackCount = yield;
                         Find.QuestManager.Notify_PlantHarvested(driver, harvested);
+                        harvested.Destroy();
                         driver.records.Increment(RecordDefOf.PlantsHarvested);
                     }
                 }
@@ -249,10 +271,13 @@ public class CompPhobosHarvester : VehicleComp, IVehicleFieldWorker
     void LeaveSecondProducts()
     {
         if (secondTally.Count == 0) return;
-        if (ChopsStraw)
+        bool chops = ChopsStraw;
+        if (chops)
         {
-            secondTally.Clear();
-            return;
+            // Only straw goes through the chopper (the fault-read of 21 Nov 2026, F6): a second product a person can eat, such as oats'
+            // grain, is never destroyed.
+            foreach (ThingDef straw in secondTally.Keys.Where(IsStraw).ToList()) secondTally.Remove(straw);
+            if (secondTally.Count == 0) return;
         }
         if (!Vehicle.Spawned) return;
         foreach (ThingDef def in secondTally.Keys.ToList())
@@ -266,19 +291,27 @@ public class CompPhobosHarvester : VehicleComp, IVehicleFieldWorker
         }
     }
 
+    /// <summary>Whether a second product is straw, to a combine: what a person cannot eat (hay, stalks, fibre). The game's hay stands for
+    /// baled straw. Read from what the product is, never its name.</summary>
+    static bool IsStraw(ThingDef def) => def.ingestible == null || !def.ingestible.HumanEdible;
+
     /// <summary>Lays stacks on the ground beside the combine. Returns how many units found no room (the fault-read: they had been lost).</summary>
     int Drop(ThingDef def, int count)
     {
         while (count > 0)
         {
             Thing thing = ThingMaker.MakeThing(def);
-            thing.stackCount = System.Math.Min(count, def.stackLimit);
+            int made = System.Math.Min(count, def.stackLimit);
+            thing.stackCount = made;
             if (!GenPlace.TryPlaceThing(thing, Vehicle.Position, Vehicle.Map, ThingPlaceMode.Near, null, c => !Vehicle.OccupiedRect().Contains(c)))
             {
-                thing.Destroy();
-                return count;
+                // The game may have merged part of the stack into a heap before giving up (the fault-read of 21 Nov 2026, B8): only what is
+                // still in hand found no room.
+                int inHand = thing.Destroyed ? 0 : thing.stackCount;
+                if (!thing.Destroyed) thing.Destroy();
+                return count - (made - inHand);
             }
-            count -= thing.stackCount;
+            count -= made;
         }
         return 0;
     }
@@ -309,6 +342,17 @@ public class CompPhobosHarvester : VehicleComp, IVehicleFieldWorker
         }
         area = null;
         return words;
+    }
+
+    /// <summary>
+    /// Leaving the map partway along a row: what the row has cut goes into the tank, as far as it fits, and the paddock is let go (the
+    /// fault-read of 21 Nov 2026, F14: it had stayed in the tally, unseen and weightless, until the next run).
+    /// </summary>
+    public override void PostDeSpawn(Map map, DestroyMode mode = DestroyMode.Vanish)
+    {
+        Settle();
+        area = null;
+        base.PostDeSpawn(map, mode);
     }
 
     public override void PostExposeData()

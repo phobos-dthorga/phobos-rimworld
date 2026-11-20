@@ -27,8 +27,21 @@ public static class CouplingRule
     /// How this trailer's coupling joins this hitch: universal when either side names none, direct when the hitch has it, by an adapter
     /// when one fitted takes it, and none otherwise.
     /// </summary>
-    public static CouplingMatch Match(IReadOnlyCollection<string>? hitchCouplings, string? trailerCoupling, IReadOnlyCollection<string>? adaptersTake)
+    /// <param name="permanent">
+    /// The couplings that join for good (an articulated vehicle's pivot). Such a coupling joins only a hitch that names it: never a hitch
+    /// that names none, and never by an adapter. And a hitch that names nothing but such couplings takes nothing else, not even a trailer
+    /// that names none. The fault-read of 21 Nov 2026 (H1, H2): any older truck could take an orphaned rear half and never let it go, and
+    /// any older trailer on a front half's pivot stopped its own rear half ever being made.
+    /// </param>
+    public static CouplingMatch Match(IReadOnlyCollection<string>? hitchCouplings, string? trailerCoupling, IReadOnlyCollection<string>? adaptersTake,
+        IReadOnlyCollection<string>? permanent = null)
     {
+        bool trailerPermanent = !string.IsNullOrEmpty(trailerCoupling) && Has(permanent, trailerCoupling!);
+        if (trailerPermanent) return Has(hitchCouplings, trailerCoupling!) ? CouplingMatch.Direct : CouplingMatch.None;
+        if (hitchCouplings != null && hitchCouplings.Count > 0 && permanent != null && permanent.Count > 0 && All(hitchCouplings, permanent))
+        {
+            return CouplingMatch.None;
+        }
         if (string.IsNullOrEmpty(trailerCoupling) || hitchCouplings == null || hitchCouplings.Count == 0) return CouplingMatch.Universal;
         foreach (string coupling in hitchCouplings)
         {
@@ -42,6 +55,25 @@ public static class CouplingRule
             }
         }
         return CouplingMatch.None;
+    }
+
+    static bool Has(IReadOnlyCollection<string>? names, string name)
+    {
+        if (names == null) return false;
+        foreach (string each in names)
+        {
+            if (each == name) return true;
+        }
+        return false;
+    }
+
+    static bool All(IReadOnlyCollection<string> names, IReadOnlyCollection<string> within)
+    {
+        foreach (string each in names)
+        {
+            if (!Has(within, each)) return false;
+        }
+        return true;
     }
 
     /// <summary>Whether a match lets them couple.</summary>

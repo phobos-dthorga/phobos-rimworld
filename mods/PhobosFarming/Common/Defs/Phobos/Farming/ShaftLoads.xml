@@ -3,7 +3,8 @@
   <!-- What the combine's work takes from its engine, on D'thorga Framework's engine-load ledger (docs/development/vehicle-engine-loads.md):
        the threshing drum and front while a row is driven, the unloading auger while it pours. Shares of the engine's rated power are
        authored [A], labelled approximate: on a real combine threshing and separating take a large part of the engine's power (general
-       knowledge, not read from a source), so they are set high. To tune in play. -->
+       knowledge, not read from a source), so they are set high. To tune in play. Only a vehicle that carries the work itself pays them: a
+       tractor pays its implement's draught, never the threshing drum (the fault-read of 21 Nov 2026), and a towed bin's auger is free. -->
   <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
     <defName>PhobosShaftLoad_Threshing</defName>
     <label>threshing drum and front</label>
@@ -18,7 +19,7 @@
   <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
     <defName>PhobosShaftLoad_UnloadingAuger</defName>
     <label>unloading auger</label>
-    <description>The auger that pours grain out of a combine's tank or a chaser bin.</description>
+    <description>The auger that pours grain out of a combine's tank.</description>
     <order>71</order>
     <shareOfRated>0.05</shareOfRated>
     <speedExponent>0</speedExponent>

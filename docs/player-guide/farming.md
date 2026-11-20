@@ -10,8 +10,8 @@ combine harvester cuts it, row by row by themselves, emptying its grain into a c
 - **Not yet tested in game.**
 - **Needs Vehicle Framework and D'thorga Framework.**
 - **A combine has no front until you fit one**, and refuses to harvest without it. Fit the **standard grain front** from its upgrades.
-- **Tractors carry or pull an implement; they do nothing alone.** Hitch a plough or cultivator to the linkage, or a seed drill to the
-  drawbar, and the tractor's order appears.
+- **Tractors carry or pull an implement; they do nothing alone**, and an implement or a cart moves only on a hitch. Hitch a plough or
+  cultivator to the linkage, or a seed drill to the drawbar, and the tractor's order appears.
 - **The Thane T400 is built in two halves: leave room behind its blueprint** for the rear half.
 - **A drill needs seed in its hopper**: some of the crop's own grain, or **seed grain** bought from bulk goods traders. Haul the stacks
   next to the drill and press **Load from the ground**, or pour it in from a bin or cart.
@@ -20,18 +20,20 @@ combine harvester cuts it, row by row by themselves, emptying its grain into a c
 - **With The Dead Man's Switch - Legion, its Agricultural Frame's extra hay comes only from crops that leave straw** (a setting, on by
   default): grains, peas, chickpeas, canola, corn, sunflowers and haygrass. Cabbages, fruit, potatoes and flowers give none. Turn it off
   for hay from every plant, as its author made it.
-- **The grain fronts cut cereals, pulses and oilseeds only**: rice, and wheat, barley, oats, rye, sorghum, buckwheat, chickpeas, peas
-  and canola with Vanilla Cooking Expanded or Vanilla Plants Expanded. **The corn header** takes corn and sunflowers. Potatoes, hay
-  and cotton stay for hands for now.
+- **The grain fronts cut cereals, pulses and oilseeds only**: rice, and buckwheat, chickpeas, peas and canola with Vanilla Cooking
+  Expanded or Vanilla Plants Expanded. **The corn header** takes corn and sunflowers. Potatoes, hay and cotton stay for hands for now.
+- **Wheat, barley, oats, rye and sorghum stay for hands**: with Vanilla Cooking Expanded they give flour straight from the plant, which
+  no combine pours out. A drill still sows them from bought seed grain.
+- **A combine's tank takes one kind of grain at a time**: pour out what is left of another crop before a harvest.
 - **A full combine needs somewhere to empty**: a chaser bin, a field bin or a grain silo near the paddock. **The silo keeps grain four times
-  as long only while its fan has power.**
+  as long only while its fan has power.** **Empty a bin or silo before taking it down**: it warns you, and saves 40 heaps at most.
 
 ## Using it
 
 **Ploughing and sowing**
 
-1. **Research tillage and sowing** (D'thorga tab). Build a **Thane** tractor and an implement under **Architect > Motor pool**: the
-   T60 and T130 come in two models each, under one button.
+1. **Research tillage and sowing** (D'thorga tab), and **articulated tractors** for the T400. Build a **Thane** tractor and an
+   implement under **Architect > Motor pool**: every Thane and the cultivator come in two models, under one button.
 2. **Hitch the implement**: select the tractor, press **Hitch a trailer** and pick the implement; a colonist couples it. To pull a cart
    too, press **Hitch behind** on the tractor and pick the cart.
 3. **Plough or cultivate**: press **Plough a paddock** or **Cultivate a paddock** and pick the paddock. Weeds, stubble and wild plants
@@ -42,8 +44,8 @@ combine harvester cuts it, row by row by themselves, emptying its grain into a c
 
 **Harvesting**
 
-1. **Research mechanised harvesting** (D'thorga tab). Build the **Reaper combine harvester** and a **Garner chaser bin** under
-   **Architect > Motor pool**.
+1. **Research mechanised harvesting** (D'thorga tab), and **grain storage** for the silo. Build the **Reaper combine harvester** and a
+   **Garner chaser bin** under **Architect > Motor pool**.
 2. **Fit a front.** Open the combine's upgrades and fit the **standard grain front** (6 cells wide). After **wide grain fronts**
    research, the **wide grain front** (8 cells) can replace it. For corn, fit the **corn header** instead.
 3. **Mark a paddock.** Select a growing zone and press **Machine-worked**. Colonists keep off it. Turn **Hands may help** on to sow it
@@ -64,8 +66,8 @@ combine harvester cuts it, row by row by themselves, emptying its grain into a c
 | Thane T60, T130, T400 | Tractors, small to large; the T400 bends in the middle | Implements on the linkage, carts on the drawbar |
 | Sillion plough, Tillman cultivators, Coulter drill | Implements, 1 to 4 cells wide, wider with wing extensions | The drill holds 1.5 tonnes of seed |
 
-**Straw** from barley and oats is left in heaps where each row ends, as a combine leaves it; fit the **straw chopper** to chop it into
-the field instead.
+**Straw**, where a crop leaves any, lies in heaps where each row ends, as a combine leaves it; fit the **straw chopper** to chop it
+into the field instead. Only straw is chopped: a second product people can eat is always kept.
 
 ## What has been tested in game
 

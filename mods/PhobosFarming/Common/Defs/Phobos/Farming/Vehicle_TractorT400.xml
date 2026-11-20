@@ -9,8 +9,8 @@
     pivot is permanent, with no Unhitch. Two models under one Architect button, from the owner's two pictures: the standard T400 with a
     larger fuel deck, the ballasted T400 B. Its pictures are the whole drawing cut above the hinge (export_farming.py); the pivot sits
     2.31 cells behind the standard front half's middle and 2.39 behind the B's, measured at the cut. Figures authored [A], approximate, in
-    the ranges of real articulated tractors (general knowledge, not read from a source). No upgrade tree yet (its icons and overlays come
-    in the owner's next paid run). The fuel deck is drawn on the rear half; the fuel is carried by the front, which burns it (a
+    the ranges of real articulated tractors (general knowledge, not read from a source). Its upgrade trees are in
+    UpgradeTrees_BatchTwo.xml. The fuel deck is drawn on the rear half; the fuel is carried by the front, which burns it (a
     simplification). Part keys are saved by position: append only, never reorder. Cells run x -1 to 2, z -1 to 2, the front north.
     Not yet tested in game.
   -->
@@ -494,6 +494,7 @@
     <graphicData>
       <texPath>Phobos/Farming/TractorT400/TractorT400Rear</texPath>
     </graphicData>
+    <buildDef>Phobos_TractorT400StandardRear_Blueprint</buildDef>
     <statBases>
       <MarketValue>1400</MarketValue>
     </statBases>
@@ -506,11 +507,12 @@
       </li>
     </modExtensions>
     <comps>
-      <!-- The pivot 1.69 cells ahead of the picture's middle, measured at the cut; the axle 1.6 behind the pivot [A]. It swings at most
-           40 degrees, and its weight is driven grip. -->
+      <!-- The pivot 1.69 cells ahead of the picture's middle, measured at the cut; the axle 1.6 behind the pivot [A], so the picture's
+           middle lies 0.09 behind the axle: a negative figure (the fault-read of 21 Nov 2026: written positive, it drew the rear half 0.18
+           cells too far forward, over the front). It swings at most 40 degrees, and its weight is driven grip. -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
         <hitchToAxle>1.6</hitchToAxle>
-        <axleToCentre>0.09</axleToCentre>
+        <axleToCentre>-0.09</axleToCentre>
         <jackKnifeDegrees>40</jackKnifeDegrees>
         <drawbarPart>Pivot</drawbarPart>
         <drivenAxle>true</drivenAxle>
@@ -525,6 +527,7 @@
     <graphicData>
       <texPath>Phobos/Farming/TractorT400B/TractorT400BRear</texPath>
     </graphicData>
+    <buildDef>Phobos_TractorT400BRear_Blueprint</buildDef>
     <statBases>
       <MarketValue>1400</MarketValue>
     </statBases>
@@ -537,10 +540,11 @@
       </li>
     </modExtensions>
     <comps>
-      <!-- The pivot 1.61 cells ahead of the picture's middle, measured at the cut; the axle 1.5 behind the pivot [A]. -->
+      <!-- The pivot 1.61 cells ahead of the picture's middle, measured at the cut; the axle 1.5 behind the pivot [A], so the middle
+           lies 0.11 behind the axle: a negative figure, as on the standard model. -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
         <hitchToAxle>1.5</hitchToAxle>
-        <axleToCentre>0.11</axleToCentre>
+        <axleToCentre>-0.11</axleToCentre>
         <jackKnifeDegrees>40</jackKnifeDegrees>
         <drawbarPart>Pivot</drawbarPart>
         <drivenAxle>true</drivenAxle>
@@ -594,6 +598,43 @@
       <texPath>Phobos/Farming/TractorT400B/TractorT400BFront</texPath>
     </graphicData>
     <thingToSpawn>Phobos_TractorT400B</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <!-- The rear halves are never built by hand: each is set down by its front half when that is finished. They have build Defs of their
+       own, in no Architect tab and with no cost, only so that Vehicle Framework makes none up for them (the fault-read of 21 Nov 2026: it
+       warned at every start-up that "implied generation for vehicles is incomplete", and made one up in its Structure category). The
+       whole tractor's cost is on the front half's blueprint. -->
+  <Vehicles.VehicleBuildDef Name="PhobosFarming_TractorT400RearBuildBase" ParentName="VehicleBaseBuildable" Abstract="True">
+    <graphicData>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(5, 5)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>320</MaxHitPoints>
+      <WorkToBuild>1000</WorkToBuild>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <size>(4, 4)</size>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_TractorT400RearBuildBase">
+    <defName>Phobos_TractorT400StandardRear_Blueprint</defName>
+    <label>Thane T400 rear half</label>
+    <description>The rear half of a Thane T400. It is set down behind the front half when that is built, and is never built by itself.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT400/TractorT400Rear</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_TractorT400StandardRear</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_TractorT400RearBuildBase">
+    <defName>Phobos_TractorT400BRear_Blueprint</defName>
+    <label>Thane T400 B rear half</label>
+    <description>The rear half of a Thane T400 B. It is set down behind the front half when that is built, and is never built by itself.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT400B/TractorT400BRear</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_TractorT400BRear</thingToSpawn>
   </Vehicles.VehicleBuildDef>
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">

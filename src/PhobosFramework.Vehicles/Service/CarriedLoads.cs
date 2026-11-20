@@ -34,7 +34,12 @@ public static class CarriedLoads
     }
 
     /// <summary>Tells the vehicle's powertrain that a carried load changed, so its mass is worked out afresh.</summary>
-    public static void Changed(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosVehicleSystems>()?.Powertrain?.MarkMassDirty();
+    public static void Changed(VehiclePawn vehicle)
+    {
+        vehicle.GetComp<CompPhobosVehicleSystems>()?.Powertrain?.MarkMassDirty();
+        // Towed, its weight is the towing vehicle's to pull: every hitch in front counts again (the fault-read of 21 Nov 2026, B13).
+        CompPhobosHitch.WeightChanged(vehicle);
+    }
 }
 
 /// <summary>
@@ -45,6 +50,8 @@ public interface IVehicleDraught
 {
     /// <summary>The pull it needs now, in newtons: nothing while it is lifted or not working.</summary>
     double DraughtNewtons { get; }
+    /// <summary>The pull it needs while it works, in newtons, whether or not it works now: for the forecast before a tow.</summary>
+    double WorkingDraughtNewtons { get; }
 }
 
 /// <summary>
@@ -68,6 +75,25 @@ public static class Draughts
         for (int i = 0; i < comps.Count; i++)
         {
             if (comps[i] is IVehicleDraught draught) total += System.Math.Max(0, draught.DraughtNewtons);
+        }
+        return total;
+    }
+
+    /// <summary>The newtons this vehicle and everything behind it would drag while working, lowered or not now: what a forecast asks.</summary>
+    public static double Working(VehiclePawn vehicle)
+    {
+        double total = WorkingOf(vehicle);
+        foreach (VehiclePawn behind in CompPhobosHitch.Behind(vehicle)) total += WorkingOf(behind);
+        return total;
+    }
+
+    static double WorkingOf(VehiclePawn vehicle)
+    {
+        double total = 0;
+        List<ThingComp> comps = vehicle.AllComps;
+        for (int i = 0; i < comps.Count; i++)
+        {
+            if (comps[i] is IVehicleDraught draught) total += System.Math.Max(0, draught.WorkingDraughtNewtons);
         }
         return total;
     }

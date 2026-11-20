@@ -3,6 +3,7 @@
   <!-- The field run (Framework 0.182.0): a vehicle working an area row by row by itself, its implement working the cells it passes.
        docs/development/farming-batch-one.md, "Harvest this paddock". -->
   <PhobosFieldRun_GizmoStop>Stop field work</PhobosFieldRun_GizmoStop>
+  <PhobosFieldRun_GizmoStopDesc>Stop {VEHICLE}'s field work where it stands.</PhobosFieldRun_GizmoStopDesc>
   <PhobosFieldRun_AreaOption>{AREA} ({CELLS} cells)</PhobosFieldRun_AreaOption>
   <PhobosFieldRun_NoArea>There is nowhere marked that {VEHICLE} can work.</PhobosFieldRun_NoArea>
   <PhobosFieldRun_NoWorker>{VEHICLE} has nothing fitted to work a field with.</PhobosFieldRun_NoWorker>
@@ -10,13 +11,18 @@
   <PhobosFieldRun_FullNoBin>{VEHICLE} is full, and there is no bin or cart with room to empty it into.</PhobosFieldRun_FullNoBin>
   <PhobosFieldRun_Started>{VEHICLE} is working {AREA}: {ROWS} rows.</PhobosFieldRun_Started>
   <PhobosFieldRun_Ended>{VEHICLE} has stopped working {AREA}.</PhobosFieldRun_Ended>
+  <PhobosFieldRun_EndedNoArea>{VEHICLE} has stopped its field work.</PhobosFieldRun_EndedNoArea>
   <PhobosFieldRun_EndDone>Every row is done.</PhobosFieldRun_EndDone>
   <PhobosFieldRun_EndFull>{VEHICLE} is full, and there is no bin or cart with room nearby. Bring a chaser bin alongside, or build a field bin, and start it again.</PhobosFieldRun_EndFull>
   <PhobosFieldRun_EndNoHold>{VEHICLE} is full, and it could not reach any bin or cart with room.</PhobosFieldRun_EndNoHold>
   <PhobosFieldRun_EndNoWay>It could not reach several rows in a row: something stands in the way, or the field leaves no room to turn.</PhobosFieldRun_EndNoWay>
   <PhobosFieldRun_EndAreaGone>The field it was working is gone.</PhobosFieldRun_EndAreaGone>
   <PhobosFieldRun_EndOutOfSupply>{VEHICLE} has run out of what it works with.</PhobosFieldRun_EndOutOfSupply>
+  <PhobosFieldRun_EndWorkerGone>{VEHICLE} no longer has the implement it was working with.</PhobosFieldRun_EndWorkerGone>
+  <PhobosFieldRun_EndPartly>{ROWS} rows still have work it could not reach: something stands in the way, or there is no room to stand at their ends.</PhobosFieldRun_EndPartly>
+  <PhobosFieldRun_WaitAreaGone>A driver has come to {VEHICLE}, but the field it was to work is gone.</PhobosFieldRun_WaitAreaGone>
   <PhobosFieldRun_LineRow>Working {AREA}: row {ROW} of {ROWS}</PhobosFieldRun_LineRow>
+  <PhobosFieldRun_LineSweep>Working {AREA}: finishing what is left, row {ROW} of {ROWS}</PhobosFieldRun_LineSweep>
   <PhobosFieldRun_LineToHold>Full: driving to {HOLD} to empty</PhobosFieldRun_LineToHold>
   <PhobosFieldRun_LinePouring>Emptying into {HOLD}</PhobosFieldRun_LinePouring>
 </LanguageData>

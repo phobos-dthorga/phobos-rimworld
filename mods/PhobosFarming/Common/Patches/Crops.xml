@@ -2,66 +2,13 @@
 <Patch>
   <!-- Places crops in classes (Defs/Phobos/Farming/CropClasses.xml), so a harvesting front knows what it may take. Each patch applies only
        where its crop exists, whichever mod adds it, so none of these mods is needed. Other mods' crops: see the README's "For modders".
-       The agent's reading of how each crop is harvested, held for the owner's review. -->
+       The agent's reading of how each crop is harvested, held for the owner's review.
+       Left out on purpose (owner, 21 Nov 2026): crops whose harvest is already a milled product. Vanilla Cooking Expanded's wheat, barley,
+       oats, rye and sorghum give flour straight from the plant, which no combine pours out and no drill sows; they stay crops for hands. -->
   <Operation Class="PatchOperationConditional">
     <xpath>Defs/ThingDef[defName="Plant_Rice"]</xpath>
     <match Class="PatchOperationAddModExtension">
       <xpath>Defs/ThingDef[defName="Plant_Rice"]</xpath>
-      <value>
-        <li Class="Phobos.Farming.PhobosCropExtension">
-          <cropClass>PhobosCrop_Cereal</cropClass>
-        </li>
-      </value>
-    </match>
-  </Operation>
-  <Operation Class="PatchOperationConditional">
-    <xpath>Defs/ThingDef[defName="VCE_Wheat"]</xpath>
-    <match Class="PatchOperationAddModExtension">
-      <xpath>Defs/ThingDef[defName="VCE_Wheat"]</xpath>
-      <value>
-        <li Class="Phobos.Farming.PhobosCropExtension">
-          <cropClass>PhobosCrop_Cereal</cropClass>
-        </li>
-      </value>
-    </match>
-  </Operation>
-  <Operation Class="PatchOperationConditional">
-    <xpath>Defs/ThingDef[defName="VCE_Barley"]</xpath>
-    <match Class="PatchOperationAddModExtension">
-      <xpath>Defs/ThingDef[defName="VCE_Barley"]</xpath>
-      <value>
-        <li Class="Phobos.Farming.PhobosCropExtension">
-          <cropClass>PhobosCrop_Cereal</cropClass>
-        </li>
-      </value>
-    </match>
-  </Operation>
-  <Operation Class="PatchOperationConditional">
-    <xpath>Defs/ThingDef[defName="VCE_Oats"]</xpath>
-    <match Class="PatchOperationAddModExtension">
-      <xpath>Defs/ThingDef[defName="VCE_Oats"]</xpath>
-      <value>
-        <li Class="Phobos.Farming.PhobosCropExtension">
-          <cropClass>PhobosCrop_Cereal</cropClass>
-        </li>
-      </value>
-    </match>
-  </Operation>
-  <Operation Class="PatchOperationConditional">
-    <xpath>Defs/ThingDef[defName="VCE_Rye"]</xpath>
-    <match Class="PatchOperationAddModExtension">
-      <xpath>Defs/ThingDef[defName="VCE_Rye"]</xpath>
-      <value>
-        <li Class="Phobos.Farming.PhobosCropExtension">
-          <cropClass>PhobosCrop_Cereal</cropClass>
-        </li>
-      </value>
-    </match>
-  </Operation>
-  <Operation Class="PatchOperationConditional">
-    <xpath>Defs/ThingDef[defName="VCE_Sorghum"]</xpath>
-    <match Class="PatchOperationAddModExtension">
-      <xpath>Defs/ThingDef[defName="VCE_Sorghum"]</xpath>
       <value>
         <li Class="Phobos.Farming.PhobosCropExtension">
           <cropClass>PhobosCrop_Cereal</cropClass>

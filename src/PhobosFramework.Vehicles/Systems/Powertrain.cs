@@ -744,7 +744,7 @@ public sealed class Powertrain
     /// <paramref name="towedKg"/> behind it, on the ground it stands on, from the same model and the same ground, tread and gearbox reads the
     /// drive uses (TowRule.Modelled). A forecast: hills and softer going on the way change it. The vehicle must be on a map.
     /// </summary>
-    public TowVerdict ForecastTow(double towedKg)
+    public TowVerdict ForecastTow(double towedKg, double draughtN = 0)
     {
         VehiclePawn vehicle = comp.Vehicle;
         ReadGround(vehicle, out double rolling, out double grip);
@@ -752,7 +752,7 @@ public sealed class Powertrain
         grip *= TreadGrip(grip) * WeatherGrip(vehicle);
         // Framework 0.194.0: a driven rear half already on the hitch grips as the vehicle's own weight.
         (double ownKg, double behindKg) = TowRule.DrivenSplit(MassKg(), towedKg, comp.Hitch?.DrivenKilograms ?? 0);
-        TowVerdict verdict = TowRule.Modelled(Spec, ownKg, behindKg, rolling, grip, comp.PartEfficiency("Wheels", 1f), UsableGears());
+        TowVerdict verdict = TowRule.Modelled(Spec, ownKg, behindKg, rolling, grip, comp.PartEfficiency("Wheels", 1f), UsableGears(), draughtN);
         if (VehicleSystemsMod.HitchLog.DebugEnabled)
         {
             VehicleSystemsMod.HitchLog.Debug(vehicle.LabelShort + " (" + vehicle.ThingID + ") tow forecast for " + towedKg.ToString("0") + " kg behind "

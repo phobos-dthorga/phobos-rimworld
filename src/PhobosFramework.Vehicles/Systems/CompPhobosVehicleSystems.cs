@@ -375,7 +375,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     bool TowMoving()
     {
         if (catchingUpFor != null) return catchingUpFor.Moving;
-        return Hitches.Towing(Vehicle)?.Vehicle is { Spawned: true, vehiclePather.Moving: true };
+        // The vehicle that drives the line, not the one just in front: in a line that one is itself towed, and its own wheels never "move"
+        // (the fault-read of 21 Nov 2026, H6: nothing behind an articulated tractor's rear half, or behind a plough, wore its tyres).
+        return Hitches.Towing(Vehicle) != null && CompPhobosHitch.HeadOf(Vehicle) is { Spawned: true, vehiclePather.Moving: true };
     }
 
     /// <summary>
@@ -807,9 +809,14 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             case DetailTier.Full:
                 using (PhobosTiming.Measure("vehicle rare tick / full")) UpdateNow();
                 // A trailer riding with this vehicle off the map does not tick: this vehicle catches it up (Framework 0.133.0).
-                if (!Vehicle.Spawned && Hitch is { HoldsTowed: true, Trailer: { } held } && held.GetComp<CompPhobosVehicleSystems>() is { Usable: true } heldSystems)
+                if (!Vehicle.Spawned && Hitch is { HoldsTowed: true, Trailer: { } held })
                 {
-                    heldSystems.CatchUpTowedBy(this);
+                    // The vehicle held, and everything behind it in the line.
+                    if (held.GetComp<CompPhobosVehicleSystems>() is { Usable: true } heldSystems) heldSystems.CatchUpTowedBy(this);
+                    foreach (VehiclePawn further in CompPhobosHitch.Behind(held))
+                    {
+                        if (further.GetComp<CompPhobosVehicleSystems>() is { Usable: true } furtherSystems) furtherSystems.CatchUpTowedBy(this);
+                    }
                 }
                 NoticeStopped();
                 // Journeys away from any map (Framework 0.181.0, EM25): one state read on a vehicle at home.

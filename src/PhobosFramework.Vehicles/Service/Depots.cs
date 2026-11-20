@@ -74,7 +74,8 @@ public static class Depots
         foreach (VehiclePawn vehicle in caravan.VehiclesListForReading)
         {
             list.Add(vehicle);
-            if (CompPhobosHitch.TowedAlong(vehicle) is { } towed) list.Add(towed);
+            // Never one half of an articulated vehicle by itself: the two go, or stay, as one (the fault-read of 21 Nov 2026, H5).
+            if (CompPhobosHitch.LeavableTowedAlong(vehicle) is { } towed) list.Add(towed);
         }
         return list;
     }

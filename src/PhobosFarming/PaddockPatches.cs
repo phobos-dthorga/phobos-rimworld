@@ -44,3 +44,19 @@ public static class Patch_WorkGiverGrower_ExtraRequirements
         if (__result && settable is Zone_Growing zone && Paddocks.MachineOnly(zone)) __result = false;
     }
 }
+
+/// <summary>
+/// Patch three (the fault-read of 21 Nov 2026, F7): the harvest giver's own test of a cell. Patch two keeps a machine-only paddock out of
+/// the cells a colonist starts from, but the harvest job then gathers up to forty ripe cells around its first one by this test, which
+/// knows nothing of paddocks: a colonist harvesting beside a paddock took its plants too. Reason for the patch: no extension point. A
+/// postfix; the game's method always runs. It is a long method, so it also covers the risk the first fault-read named for patch two (a
+/// one-line method the runtime might fold into its caller).
+/// </summary>
+[HarmonyPatch(typeof(WorkGiver_GrowerHarvest), nameof(WorkGiver_GrowerHarvest.HasJobOnCell))]
+public static class Patch_WorkGiverGrowerHarvest_HasJobOnCell
+{
+    public static void Postfix(Pawn pawn, IntVec3 c, ref bool __result)
+    {
+        if (__result && pawn.Map is { } map && c.GetZone(map) is Zone_Growing zone && Paddocks.MachineOnly(zone)) __result = false;
+    }
+}

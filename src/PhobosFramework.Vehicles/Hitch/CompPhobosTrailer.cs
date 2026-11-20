@@ -36,7 +36,8 @@ public sealed class CompProperties_PhobosTrailer : CompProperties
     {
         foreach (string error in base.ConfigErrors(parentDef)) yield return error;
         if (hitchToAxle <= 0f) yield return "hitchToAxle must be above 0";
-        if (jackKnifeDegrees <= 0f || jackKnifeDegrees > 180f) yield return "jackKnifeDegrees must be between 0 and 180";
+        // Nought is the rigid linkage: an implement held straight behind (the fault-read of 21 Nov 2026: it had been refused).
+        if (jackKnifeDegrees < 0f || jackKnifeDegrees > 180f) yield return "jackKnifeDegrees must be between 0 and 180";
         if (setUpWork <= 0f || packUpWork <= 0f) yield return "setUpWork and packUpWork must be above 0";
     }
 }
@@ -116,6 +117,19 @@ public sealed class CompPhobosTrailer : VehicleComp, VehiclePipes.IHost
         base.PostExposeData();
         pipes.Expose("PhobosTrailer_PipeUnderlays");
     }
+
+    // ---- It never drives itself ----
+
+    /// <summary>
+    /// A trailer has no engine and no seat: it moves only on a hitch. Vehicle Framework takes a vehicle with no driver's seat for one that
+    /// needs no driver (VehiclePawn.RecacheMovementPermissions), so without this a parked plough, cart or rear half could be drafted and
+    /// driven off by itself (the fault-read of 21 Nov 2026, H3). The hitch moves it by setting its place, which asks neither of these.
+    /// </summary>
+    string NoEngine => "PhobosHitch_NoEngine".Translate(Vehicle.LabelShort.Named("TRAILER")).Resolve();
+
+    public override AcceptanceReport CanDraft() => new AcceptanceReport(NoEngine);
+
+    public override AcceptanceReport CanMove(FloatMenuContext context) => new AcceptanceReport(NoEngine);
 
     // ---- What the player sees ----
 

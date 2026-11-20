@@ -64,6 +64,24 @@ public static class TowText
         return text;
     }
 
+    /// <summary>The same forecast with the towed implement working in the ground, as a second sentence.</summary>
+    public static string Working(TowVerdict verdict, VehiclePawn tractor, DisplayMode mode)
+    {
+        NamedArgument tractorArg = tractor.LabelShort.Named("TRACTOR");
+        string reason = (verdict.Limit == DriveLimit.Traction ? "PhobosHitch_ReasonGrip" : "PhobosHitch_ReasonPower").Translate().Resolve();
+        string text = verdict.Outcome switch
+        {
+            TowOutcome.FullSpeed => "PhobosHitch_WorkingFull".Translate(tractorArg).Resolve(),
+            TowOutcome.Slowed => "PhobosHitch_WorkingSlowed".Translate(tractorArg, reason.Named("REASON")).Resolve(),
+            _ => "PhobosHitch_WorkingCrawls".Translate(tractorArg, reason.Named("REASON")).Resolve(),
+        };
+        if (mode != DisplayMode.Plain && verdict.Outcome is TowOutcome.Slowed or TowOutcome.Crawls)
+        {
+            text += " " + "PhobosHitch_SpeedKept".Translate(((float)verdict.SpeedShare).ToStringPercent().Named("SHARE")).Resolve();
+        }
+        return text;
+    }
+
     static int hoverHitch = -1, hoverCandidate = -1, hoverTick = -1;
     static string? hoverText;
 
@@ -79,7 +97,14 @@ public static class TowText
         hoverHitch = hitchId;
         hoverCandidate = candidateId;
         hoverTick = now;
-        hoverText = hitch.RefusalFor(candidate) ?? Verdict(hitch.Outlook(candidate), CompPhobosHitch.HeadOf(hitch.Vehicle), candidate, VehicleSystemsMod.Settings.displayMode);
+        hoverText = hitch.RefusalFor(candidate);
+        if (hoverText == null)
+        {
+            VehiclePawn tractor = CompPhobosHitch.HeadOf(hitch.Vehicle);
+            hoverText = Verdict(hitch.Outlook(candidate), tractor, candidate, VehicleSystemsMod.Settings.displayMode);
+            // An implement: what the same tow comes to once it is in the ground.
+            if (hitch.WorkingOutlook(candidate) is { } working) hoverText += " " + Working(working, tractor, VehicleSystemsMod.Settings.displayMode);
+        }
         return hoverText;
     }
 }

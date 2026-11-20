@@ -13,6 +13,9 @@
   <PhobosBulk_Started>{HOLD} is pouring into {INTO}.</PhobosBulk_Started>
   <PhobosBulk_Done>{HOLD} poured {COUNT} into {INTO}.</PhobosBulk_Done>
   <PhobosBulk_EndStopped>Stopped by hand.</PhobosBulk_EndStopped>
+  <PhobosBulk_EndLeftMap>It has left the map.</PhobosBulk_EndLeftMap>
+  <PhobosBulk_WhatItPouredInto>what it was pouring into</PhobosBulk_WhatItPouredInto>
+  <PhobosBulk_DeconstructWarning>{HOLD} still holds {WHAT}. Taken down as it is, at most {HEAPS} heaps would be saved and the rest lost: pour it out first.</PhobosBulk_DeconstructWarning>
   <PhobosBulk_EndEmptied>It is empty.</PhobosBulk_EndEmptied>
   <PhobosBulk_EndGone>What it poured into is gone.</PhobosBulk_EndGone>
   <PhobosBulk_EndNoRoom>There is no more room for what it holds.</PhobosBulk_EndNoRoom>

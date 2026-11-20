@@ -208,13 +208,18 @@ public static class FleetService
             }
         }
         // Trailers and towed vehicles: under whatever pulls them, and found through it when it holds them off the map.
-        foreach (FleetEntry entry in entries.ToList())
+        // Walked as a queue, so what a towed vehicle tows in turn is listed too (the fault-read of 21 Nov 2026, H11: off the map only the
+        // first vehicle of a line was shown).
+        var pulling = new Queue<FleetEntry>(entries);
+        while (pulling.Count > 0)
         {
+            FleetEntry entry = pulling.Dequeue();
             if (entry.Kind == FleetKind.Hull || entry.Vehicle?.GetComp<CompPhobosHitch>()?.Trailer is not { } trailer) continue;
             if (!byVehicle.TryGetValue(trailer, out FleetEntry? towed))
             {
                 towed = Add(Entry(trailer, entry.Kind, entry.Where, entry.Target, entry.GroupKey, entry.GroupLabel, entry.GroupOrder));
                 towed.Place = entry.Place;
+                pulling.Enqueue(towed);
             }
             if (towed != entry) towed.TowedBy = entry;
         }

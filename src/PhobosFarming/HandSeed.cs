@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using HarmonyLib;
 using Phobos.Framework.Rules;
 using RimWorld;
@@ -15,6 +16,9 @@ public static class SeedRates
     public const float SeedShare = 0.03f;
     /// <summary>What cleaning takes off a crop's own grain used as seed. Authored [A].</summary>
     public const float CleaningLoss = 0.1f;
+    /// <summary>The least a cell takes of any seed, kilograms: a crop that yields nothing to weigh (a flower) is still sown with something
+    /// (the fault-read of 21 Nov 2026, F16: one unit of bought seed had sown any number of such cells). About a rice cell's worth. Authored [A].</summary>
+    public const double LeastKilogramsPerCell = 0.005;
 
     /// <summary>The kilograms of a crop's own grain a cell takes, cleaning loss included.</summary>
     public static double OwnGrainKilogramsPerCell(ThingDef crop, float seedShare = SeedShare, float cleaningLoss = CleaningLoss)
@@ -40,6 +44,12 @@ public static class HandSeed
     static readonly Dictionary<Pawn, double> owed = new();
     static Game? game;
 
+    // The last "no seed this colonist can reach" answer (the fault-read of 21 Nov 2026, F9): a sowing scan asks for every cell of a zone,
+    // and the answer does not depend on the cell, so a zone of a thousand cells had cost a thousand searches. Good for one tick.
+    static Pawn? noSeedPawn;
+    static ThingDef? noSeedDef;
+    static int noSeedTick = -1;
+
     static void Check()
     {
         if (game == Current.Game) return;
@@ -54,16 +64,26 @@ public static class HandSeed
         ThingDef? crop = job.plantDefToSow;
         if (crop == null || Crops.OwnSeed(crop) is not { } seed || pawn.inventory == null || pawn.Map == null) return job;
         if (pawn.inventory.Count(seed) > 0) return job;
+        int now = Find.TickManager.TicksGame;
+        if (pawn == noSeedPawn && seed == noSeedDef && now == noSeedTick)
+        {
+            JobFailReason.Is("PhobosFarming_HandsNoSeed".Translate(seed.label.Named("SEED"), crop.label.Named("CROP")).Resolve());
+            return null;
+        }
         int units = System.Math.Max(1, (int)System.Math.Ceiling(CellsPerFetch * SeedRates.OwnGrainKilogramsPerCell(crop) / System.Math.Max(0.0001, seed.BaseMass)));
         Thing? stack = GenClosest.ClosestThingReachable(pawn.Position, pawn.Map, ThingRequest.ForDef(seed), PathEndMode.ClosestTouch,
             TraverseParms.For(pawn), 9999f, t => !t.IsForbidden(pawn) && pawn.CanReserve(t, 10, System.Math.Min(units, t.stackCount)));
         if (stack == null)
         {
+            noSeedPawn = pawn;
+            noSeedDef = seed;
+            noSeedTick = now;
             JobFailReason.Is("PhobosFarming_HandsNoSeed".Translate(seed.label.Named("SEED"), crop.label.Named("CROP")).Resolve());
             return null;
         }
         Job take = JobMaker.MakeJob(JobDefOf.TakeCountToInventory, stack);
         take.count = System.Math.Min(units, stack.stackCount);
+        CombatExtendedHold.Note(pawn, stack, take.count);
         if (Seen.Wants("farming.hand-seed.fetch", pawn)) Seen.Note("farming.hand-seed.fetch", pawn, seed.label);
         return take;
     }
@@ -96,6 +116,44 @@ public static class HandSeed
             return true;
         }
         return false;
+    }
+}
+
+/// <summary>
+/// Combat Extended's loadouts drop what a colonist carries that their loadout does not list, sooner than the colonist gets to sow (its
+/// loadout job outranks work), so the handful of seed was fetched and dropped over and over (the fault-read of 21 Nov 2026, F8). Combat
+/// Extended has its own answer for goods a job hands a colonist, the hold tracker, which it uses for animal feed the same way: this tells
+/// it about the seed. By name, and only when Combat Extended is there; no reference to its assembly.
+/// </summary>
+static class CombatExtendedHold
+{
+    const string TrackerTypeName = "CombatExtended.Utility_HoldTracker";
+
+    static bool looked;
+    static MethodInfo? notify;
+
+    public static void Note(Pawn pawn, Thing stack, int count)
+    {
+        if (!looked)
+        {
+            looked = true;
+            System.Type? tracker = AccessTools.TypeByName(TrackerTypeName);
+            if (tracker != null)
+            {
+                notify = AccessTools.Method(tracker, "Notify_HoldTrackerItem", new[] { typeof(Pawn), typeof(Thing), typeof(int) });
+                if (notify == null) FarmingMod.Logger.Warn("Combat Extended's hold tracker has changed shape; a loadout may drop hand-carried seed.");
+            }
+        }
+        if (notify == null) return;
+        try
+        {
+            notify.Invoke(null, new object[] { pawn, stack, count });
+        }
+        catch (System.Exception e)
+        {
+            notify = null;
+            FarmingMod.Logger.Warn("Combat Extended's hold tracker refused hand-carried seed, and is left alone from here: " + (e.InnerException ?? e).Message);
+        }
     }
 }
 

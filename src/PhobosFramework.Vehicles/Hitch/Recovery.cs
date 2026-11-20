@@ -131,6 +131,8 @@ public sealed partial class CompPhobosHitch
     public string? WinchRefusal()
     {
         if (!CanWinch) return "PhobosRecovery_NoWinch".Translate(Vehicle.LabelShort.Named("TRACTOR")).Resolve();
+        // An articulated vehicle's hitch is its pivot: there is nothing to unhitch, and nothing to winch by.
+        if (trailer != null && Couplings.Permanent(trailer)) return "PhobosRecovery_PivotOnly".Translate(Vehicle.LabelShort.Named("TRACTOR")).Resolve();
         if (trailer != null) return "PhobosRecovery_UnhitchFirst".Translate(Vehicle.LabelShort.Named("TRACTOR"), trailer.LabelShort.Named("TOWED")).Resolve();
         if (pending != null) return "PhobosRecovery_WaitingToHitch".Translate(Vehicle.LabelShort.Named("TRACTOR"), pending.LabelShort.Named("TOWED")).Resolve();
         if (Hitches.Towing(Vehicle) is { } by) return "PhobosRecovery_BeingTowed".Translate(Vehicle.LabelShort.Named("TRACTOR"), by.Vehicle.LabelShort.Named("TOW")).Resolve();

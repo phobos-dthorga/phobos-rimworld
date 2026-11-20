@@ -26,7 +26,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Dependency audit, VF 1.7.2537](dependency-audit-2026-11-18.md) (18 Nov 2026): VF now enforces upgrade research; nothing of ours breaks. One proposal open.
 - [Fault-read of the untested vehicle work](fault-read-2026-11-17.md) (17 Nov 2026): 36 faults in untested vehicle code. Fixed in Framework 0.120.5, untested.
 - [Fault-read of the Osprey's first batch](fault-read-2026-11-19.md) (19 Nov 2026): 30 faults in the Osprey, flight and armour work. Part fixed, untested.
-- [Fault-read of D'thorga Farming](fault-read-2026-11-21.md) (21 Nov 2026): 66 faults and smaller points in farming batches one and two. None fixed yet.
+- [Fault-read of D'thorga Farming](fault-read-2026-11-21.md) (21 Nov 2026): 66 faults in farming batches one and two. Fixed, untested; five left open.
 - [Mod consolidation](mod-consolidation.md) (7 Nov 2026): eleven mods into six, how identities and settings were kept. Done.
 
 ## D'thorga Framework (core)

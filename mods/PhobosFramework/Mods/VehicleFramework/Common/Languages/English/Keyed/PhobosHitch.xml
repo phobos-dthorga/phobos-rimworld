@@ -48,6 +48,12 @@
   <PhobosHitch_OutlookSlowed>On this ground {TRACTOR} would be slowed by {REASON} with {TRAILER} behind ({TRAIN} kg in all).</PhobosHitch_OutlookSlowed>
   <PhobosHitch_OutlookCrawls>On this ground {TRACTOR} could only crawl with {TRAILER} behind, for want of {REASON} ({TRAIN} kg in all).</PhobosHitch_OutlookCrawls>
   <PhobosHitch_OutlookTooHeavy>{TRAILER} is too heavy for {TRACTOR} to tow ({TRAIN} kg in all).</PhobosHitch_OutlookTooHeavy>
+  <PhobosHitch_WorkingFull>Working in the ground, {TRACTOR} would keep its speed.</PhobosHitch_WorkingFull>
+  <PhobosHitch_WorkingSlowed>Working in the ground, {TRACTOR} would be slowed by {REASON}.</PhobosHitch_WorkingSlowed>
+  <PhobosHitch_WorkingCrawls>Working in the ground, {TRACTOR} could only crawl, for want of {REASON}.</PhobosHitch_WorkingCrawls>
+  <PhobosHitch_OwnHalfOnly>{TRAILER} joins only its own front half.</PhobosHitch_OwnHalfOnly>
+  <PhobosHitch_PivotOnly>The hitch of {TRACTOR} is the pivot for its own rear half, and takes nothing else.</PhobosHitch_PivotOnly>
+  <PhobosHitch_NoEngine>{TRAILER} has no engine and no seat: hitch it to a vehicle to move it.</PhobosHitch_NoEngine>
   <PhobosHitch_WorldTowing>{TRACTOR} tows {TRAILER}: {WEIGHT} kg.</PhobosHitch_WorldTowing>
   <PhobosHitch_InspectPlainCap>Held to {CAP} of its speed by the weight behind it.</PhobosHitch_InspectPlainCap>
   <PhobosHitch_InspectWaiting>Waiting for someone to couple {TRAILER}.</PhobosHitch_InspectWaiting>
@@ -67,4 +73,5 @@
   <PhobosHitch_HitchBehindGizmo>Hitch behind {LAST}</PhobosHitch_HitchBehindGizmo>
   <!-- Framework 0.195.0: an articulated vehicle's halves. -->
   <PhobosArticulated_NoRoom>{VEHICLE} has no room behind it for its rear half. Clear the cells behind it; it will try again.</PhobosArticulated_NoRoom>
+  <PhobosArticulated_HitchTaken>{VEHICLE} cannot be joined to its rear half while {TRAILER} is on its pivot. Unhitch {TRAILER}; it will try again.</PhobosArticulated_HitchTaken>
 </LanguageData>

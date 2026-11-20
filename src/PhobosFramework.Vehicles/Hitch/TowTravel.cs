@@ -60,7 +60,22 @@ public sealed partial class CompPhobosHitch : IThingHolder
         {
             outlook = TowRule.Plain(tractorKg, towedKg, DrivetrainModel.CrawlFloor);
         }
+        // The same tow with the candidate working in the ground (the fault-read of 21 Nov 2026, H7: the forecast never counted an
+        // implement's draught, so a small tractor "pulled" a plough at full speed and then crawled once it was lowered).
+        double draught = Draughts.Working(candidate);
+        workingOutlook = draught > 0 && front.FullModel && front.Vehicle.Spawned && front.Systems?.Powertrain is { } working
+            ? working.ForecastTow(towedKg, draught)
+            : null;
         return outlook;
+    }
+
+    TowVerdict? workingOutlook;
+
+    /// <summary>The forecast for the candidate last asked about while it works in the ground, or null when it drags nothing.</summary>
+    public TowVerdict? WorkingOutlook(VehiclePawn candidate)
+    {
+        Outlook(candidate);
+        return workingOutlook;
     }
 
     // ---- Off the map ----
@@ -128,7 +143,9 @@ public sealed partial class CompPhobosHitch : IThingHolder
         settle = SettleTicks;
         needsLook = true;
         weightTick = -1;
-        if (!follows)
+        // A half of an articulated vehicle is never let go (the fault-read of 21 Nov 2026, H5): it stays joined, beside its front half
+        // for now, and is drawn into line as soon as there is room.
+        if (!follows && !Couplings.Permanent(towed))
         {
             Unhitch(quiet: true);
             if (Vehicle.Faction == Faction.OfPlayer)
@@ -150,7 +167,7 @@ public sealed partial class CompPhobosHitch : IThingHolder
             nextSetDownTry = now + SetDownRetryTicks;
             return;
         }
-        if (Place(towed, at, map, Vehicle.Rotation)) Unhitch(quiet: true);
+        if (Place(towed, at, map, Vehicle.Rotation) && !Couplings.Permanent(towed)) Unhitch(quiet: true);
     }
 
     /// <summary>Takes the towed vehicle out of the holder and onto the map. If the game refuses partway, one that never reached the map goes back
@@ -164,6 +181,9 @@ public sealed partial class CompPhobosHitch : IThingHolder
             GenSpawn.Spawn(towed, cell, map, rotation);
             // The game can also refuse without throwing (fault-read H10): it is set down only if it really stands on the map.
             if (!towed.Spawned) failure = "the game did not put it on the map";
+            // Vehicle Framework moves an even-sided vehicle facing south or west a cell as it spawns it (the fault-read of 21 Nov 2026,
+            // H10): it is put back on the cells that were found clear for it.
+            else if (towed.Position != cell && towed.VehicleRect(cell, rotation).InBounds(map)) towed.Position = cell;
         }
         catch (System.Exception e)
         {
@@ -219,6 +239,9 @@ public sealed partial class CompPhobosHitch : IThingHolder
     /// <summary>The vehicle held off the map behind this one, if any: a caravan's world-map lists show it after its tractor.</summary>
     public static VehiclePawn? TowedAlong(VehiclePawn? vehicle) =>
         vehicle?.GetComp<CompPhobosHitch>() is { HoldsTowed: true } hitch ? hitch.trailer : null;
+
+    /// <summary>As <see cref="TowedAlong"/>, but only what can be left behind by itself: never a half of an articulated vehicle.</summary>
+    public static VehiclePawn? LeavableTowedAlong(VehiclePawn? vehicle) => TowedAlong(vehicle) is { } towed && !Couplings.Permanent(towed) ? towed : null;
 
     void ExposeHeld()
     {

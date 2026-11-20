@@ -5,6 +5,50 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.1] - 2026-11-21 - Draft
+
+Fixes from a fault-read of batches one and two, before their first test
+
+### Changed
+
+- **Wheat, barley, oats, rye and sorghum are left to hands** (the owner's choice of 21 November 2026). With Vanilla Cooking Expanded they give flour straight from the plant, which no combine pours out and no drill sows from, so no front cuts them now. A drill still sows them from bought seed grain, as it sows any crop. Rice, buckwheat, chickpeas, peas, canola, corn and sunflowers are as before.
+
+### Fixed
+
+- **The seed drill sows its whole width.** Its working line was its own rear row, and the game plants nothing in a cell a vehicle stands on, so about one cell in four was sown. It now sows the line just behind it, and a cart following the drill is not in the way.
+- **The plough and cultivator drive each row once.** A tilled cell is empty, and an empty cell had counted as work still to do, so every row was driven a second time and a paddock was marked ploughed at half coverage.
+- **A save and load in the middle of a tractor's run no longer leaves it driving on and working nothing.** The implement now saves its paddock and its tallies.
+- **A combine with another crop's grain left in its tank says so and does not start.** It had driven the whole paddock twice and cut nothing, with no reason given.
+- **The straw chopper chops only straw.** A second product a person can eat was destroyed with it.
+- **Colonists harvesting beside a machine-only paddock no longer take its plants.**
+- **A hopper with too little seed for a cell keeps it, and the run stops at the row's end.** The last few units had been thrown away.
+- **A combine leaving the map partway along a row pours what it has cut into its tank.**
+- **A paddock carried on a gravship keeps its mark** on the map it lands on.
+- **The drill sows a heated greenhouse in winter, as hands do**, and its driver's count of plants sown goes up.
+- **With Combat Extended, a loadout no longer drops the seed a colonist carries to sow by hand** (the Hands use seed too setting).
+- **The Sillion plough no longer throws an error at every start-up with Combat Extended.** Its body picture had nothing in it for Combat Extended to measure.
+- **The T400's rear halves no longer draw two warnings at every start-up**, and each sits where the two pictures meet: it was drawn about a fifth of a cell too far forward.
+- **The T60 F and the T130 RC grip soft ground as their descriptions say.** No figure had given it.
+- **Smaller fixes**: the Machine-worked button's description knew of no seed drill; the wide grain front no longer claims more load on the engine; a crop with nothing to weigh still takes a little bought seed; sowing by hand with no seed in reach asks once, not for every cell.
+
+### Balance
+
+- Soft ground grip: 0.12 on the T60 F and 0.06 on the T130 RC, against the 0.25 dual rear wheels add. Authored, to tune in play.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.202.0, installed with it. The tractors no longer pay the combine's threshing load, which is fixed there.
+
+### Save compatibility
+
+- Safe with a running save. A tractor's run saved by 0.7.0 in the middle of a paddock should be stopped and started again.
+
+### Compatibility and limits
+
+- **Found by reading, not in play** (docs/development/fault-read-2026-11-21.md). Not yet tested in game: rows 272 to 274, 276, 277, 279 to 281, 285 and 291 to 293 of the test pass.
+- Left as they were: two research lines drawn backwards on the research tab; the chaser bin, tractors and implements have no Combat Extended armour figures; a towed bin's auger takes no engine power.
+- To look at in play: that a machine keeps to its row, and that nothing faint shows under the plough.
+
 ### Changed
 
 - **Upgrade trees start at the top of the tab.** Each machine's upgrades sat four rows down under an empty band; they now start just under the tab's title, laid out like the trucks'. Only positions changed: no upgrade, link or cost, and fitted upgrades stay fitted. Not yet tested in game.
@@ -179,7 +223,7 @@ A field bin and a grain silo to pour a harvest into
 
 ### Compatibility and limits
 
-- Destroyed or deconstructed, a bin or silo spills what it held onto the ground beside it. Not yet tested in game.
+- Destroyed or deconstructed, a bin or silo spills what it held onto the ground beside it, as many heaps as will go (40 at most), and names what was lost. Not yet tested in game.
 
 ### Save compatibility
 

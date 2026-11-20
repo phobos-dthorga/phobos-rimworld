@@ -11,6 +11,8 @@
     <baseCost>1800</baseCost>
     <researchViewX>0</researchViewX>
     <researchViewY>4.2</researchViewY>
+    <!-- Its line to vehicle parts, in this same column, is drawn backwards (the fault-read of 21 Nov 2026, D11): left as it is, since the
+         tree's own check asks every project for a requirement that shows, and a move needs the whole tab looked at. For the owner. -->
     <prerequisites>
       <li>PhobosResearch_VehicleParts</li>
     </prerequisites>
@@ -25,7 +27,7 @@
   <ResearchProjectDef>
     <defName>PhobosResearch_WideFronts</defName>
     <label>wide grain fronts</label>
-    <description>A wider grain front for the combine: two more cells cut on every pass, for a little more load on its engine.</description>
+    <description>A wider grain front for the combine: two more cells cut on every pass.</description>
     <tab>PhobosDthorga</tab>
     <techLevel>Industrial</techLevel>
     <baseCost>1200</baseCost>

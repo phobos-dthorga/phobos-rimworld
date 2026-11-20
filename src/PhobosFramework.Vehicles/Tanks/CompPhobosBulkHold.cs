@@ -93,6 +93,12 @@ public class CompPhobosBulkHold : VehicleComp, IBulkHold, IVehicleCarriedLoad
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
         if (!Vehicle.Spawned) return "PhobosBulk_NotOnMap".Translate(name).Resolve();
         if (Vehicle.vehiclePather is { Moving: true }) return "PhobosBulk_StandStill".Translate(name).Resolve();
+        // Towed, its own wheels never "move": the hitch sets it down cell by cell behind the vehicle that drives (the fault-read of 21
+        // Nov 2026, B4: a chaser bin poured, and laid a trail of heaps, while its tractor drove).
+        if (CompPhobosHitch.HeadOf(Vehicle) is { } head && head != Vehicle && head.vehiclePather is { Moving: true })
+        {
+            return "PhobosBulk_StandStill".Translate(name).Resolve();
+        }
         return null;
     }
 
@@ -122,16 +128,24 @@ public class CompPhobosBulkHold : VehicleComp, IBulkHold, IVehicleCarriedLoad
     {
         BulkPour.Unregister(this, map);
         // Leaving the map ends a pour where it stands.
-        if (pouring.active) BulkPour.Stop(this, pouring);
+        if (pouring.active) BulkPour.LeftMap(this, pouring);
         base.PostDeSpawn(map, mode);
+    }
+
+    /// <summary>Destroyed with goods aboard, it spills them where it stood and names what was lost, as a bin or a silo does.</summary>
+    public override void PostDestroy(DestroyMode mode, Map previousMap)
+    {
+        base.PostDestroy(mode, previousMap);
+        if (previousMap != null) BulkPour.Spill(this, Vehicle.Position, previousMap);
     }
 
     public override void CompTickRare()
     {
         base.CompTickRare();
-        if (!pouring.active || !Vehicle.Spawned) return;
+        if (!Vehicle.Spawned || contents.Empty) return;
+        // Aged at every rare tick, pouring or not (the fault-read of 21 Nov 2026, B1).
         BulkPour.Age(this);
-        BulkPour.Step(this, pouring);
+        if (pouring.active) BulkPour.Step(this, pouring);
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
