@@ -243,6 +243,10 @@ public sealed partial class CompPhobosHitch : VehicleComp
     /// <summary>The weight behind the hitch, in kilograms, for the drivetrain model: the trailer empty and all it carries.</summary>
     public double TowedKilograms => trailer == null ? 0 : towedKg;
 
+    /// <summary>The weight of the vehicle on this hitch when it is an articulated vehicle's driven rear half, which counts as grip (Framework
+    /// 0.194.0); nought otherwise. Its own weight only: what it tows is still towed.</summary>
+    public double DrivenKilograms => trailer?.GetComp<CompPhobosTrailer>()?.Props.drivenAxle == true ? CompPhobosSling.LoadKilograms(trailer) : 0;
+
     /// <summary>The share of its speed a vehicle keeps on the plain rule (no drivetrain model working out the tow); 1 otherwise.</summary>
     public float PlainSpeedCap => trailer == null || FullModel ? 1f : plainCap;
 

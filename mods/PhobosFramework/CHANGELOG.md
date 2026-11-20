@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.194.0] - 2026-11-20 - Draft
+
+An articulated vehicle's rear half grips
+
+### Added
+
+- **A trailer can be marked as an articulated vehicle's driven rear half**, for D'thorga Farming's large tractor, the Thane T400 (the owner's choice of 20 November 2026: it bends on our own hitch). Its weight then counts as the vehicle's own, on driven wheels, adding grip, instead of as weight towed; the whole train weighs the same. What the rear half tows behind it is still towed. The tow forecast counts it the same way.
+
+### Compatibility and limits
+
+- **Nothing uses it yet**: the T400 is not built. Every trailer and tow works as before.
+- No new settings. Not yet tested in game; tested only by the tow rule's own tests.
+
 ## [0.193.0] - 2026-11-20 - Draft
 
 A line of tows: a trailer behind a trailer

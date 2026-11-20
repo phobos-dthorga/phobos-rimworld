@@ -20,6 +20,9 @@ public sealed class CompProperties_PhobosTrailer : CompProperties
     public float axleToCentre = 0.2f;
     /// <summary>The most the trailer may stand turned from the vehicle towing it, in degrees (authored, not a force).</summary>
     public float jackKnifeDegrees = 70f;
+    /// <summary>An articulated vehicle's rear half (Framework 0.194.0, the Thane T400): its wheels are driven, so its own weight counts as the
+    /// vehicle's grip, not as weight towed (TowRule.DrivenSplit). What it tows behind it is still towed.</summary>
+    public bool drivenAxle;
     /// <summary>The trailer's part whose loss leaves nothing to hitch to; empty for none.</summary>
     public string drawbarPart = "Drawbar";
     /// <summary>A working trailer is set up by a colonist, not by a crew it does not have (Framework 0.111.0; docs/development/vehicle-trailers.md, B0.1):

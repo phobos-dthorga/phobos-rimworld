@@ -17,6 +17,36 @@ public class TowRuleTests
     };
 
     [Fact]
+    public void ADrivenRearHalfMovesItsWeightToTheTractorAndKeepsTheTrain()
+    {
+        (double own, double towed) = TowRule.DrivenSplit(12000, 15000, 10000);
+        Assert.Equal(22000, own, 6);
+        Assert.Equal(5000, towed, 6);
+        Assert.Equal(27000, own + towed, 6);
+    }
+
+    [Fact]
+    public void ADrivenSplitNeverMovesMoreThanIsTowed()
+    {
+        (double own, double towed) = TowRule.DrivenSplit(12000, 4000, 10000);
+        Assert.Equal(16000, own, 6);
+        Assert.Equal(0, towed, 6);
+        Assert.Equal((12000.0, 0.0), TowRule.DrivenSplit(12000, 0, 0));
+    }
+
+    [Fact]
+    public void ADrivenRearHalfPullsBetterOnSoftGroundThanTheSameWeightTowed()
+    {
+        // The same train on soft ground: with the rear half's weight on driven wheels, grip holds back less.
+        DrivetrainSpec spec = Truck();
+        spec.DrivenShare = 1;
+        double towedShare = TowRule.Modelled(spec, 3000, 20000, 0.3, 0.35, 1, 0).SpeedShare;
+        (double own, double rest) = TowRule.DrivenSplit(3000, 20000, 6000);
+        double drivenShare = TowRule.Modelled(spec, own, rest, 0.3, 0.35, 1, 0).SpeedShare;
+        Assert.True(drivenShare >= towedShare, $"driven {drivenShare} should not fall below towed {towedShare}");
+    }
+
+    [Fact]
     public void NothingBehindKeepsTheWholeSpeedOnARoad()
     {
         TowVerdict verdict = TowRule.Modelled(Truck(), 3000, 0, 0.015, 0.8, 1, 0);

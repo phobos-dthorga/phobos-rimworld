@@ -423,12 +423,14 @@ public sealed class Powertrain
     void SampleGround(VehiclePawn vehicle, double seconds)
     {
         bool running = comp.EngineRunningRaw;
+        // Framework 0.194.0: an articulated vehicle's driven rear half grips as the vehicle's own weight (TowRule.DrivenSplit).
+        (double ownKg, double towedKg) = TowRule.DrivenSplit(MassKg(), comp.Hitch?.TowedKilograms ?? 0, comp.Hitch?.DrivenKilograms ?? 0);
         var conditions = new DriveConditions
         {
             EngineRunning = running,
-            MassKg = MassKg(),
+            MassKg = ownKg,
             // A trailer behind the hitch (Framework 0.101.0): rolled, speeded up and lifted with the vehicle, no grip.
-            TowedMassKg = comp.Hitch?.TowedKilograms ?? 0,
+            TowedMassKg = towedKg,
             // Framework 0.182.0: what implements working the ground drag (Draughts), its own and the trailer's behind it.
             DraughtN = Draughts.Newtons(vehicle),
             CurrentGear = Result.Gear,
@@ -746,7 +748,9 @@ public sealed class Powertrain
         ReadGround(vehicle, out double rolling, out double grip);
         rolling *= 1 + 2 * comp.RoleShareBelow("Wheels", 0.2f);
         grip *= TreadGrip(grip) * WeatherGrip(vehicle);
-        TowVerdict verdict = TowRule.Modelled(Spec, MassKg(), towedKg, rolling, grip, comp.PartEfficiency("Wheels", 1f), UsableGears());
+        // Framework 0.194.0: a driven rear half already on the hitch grips as the vehicle's own weight.
+        (double ownKg, double behindKg) = TowRule.DrivenSplit(MassKg(), towedKg, comp.Hitch?.DrivenKilograms ?? 0);
+        TowVerdict verdict = TowRule.Modelled(Spec, ownKg, behindKg, rolling, grip, comp.PartEfficiency("Wheels", 1f), UsableGears());
         if (VehicleSystemsMod.HitchLog.DebugEnabled)
         {
             VehicleSystemsMod.HitchLog.Debug(vehicle.LabelShort + " (" + vehicle.ThingID + ") tow forecast for " + towedKg.ToString("0") + " kg behind "

@@ -54,6 +54,18 @@ public static class TowRule
     public static TowVerdict Plain(double tractorKg, double towedKg, double floor) =>
         FromShare(HitchRule.PlainCap(tractorKg, towedKg, floor), DriveLimit.Power, Math.Max(0, tractorKg) + Math.Max(0, towedKg), floor);
 
+    /// <summary>
+    /// How an articulated vehicle's driven rear half counts (Framework 0.194.0; docs/development/farming-batch-two.md, the Thane T400): its
+    /// weight, <paramref name="drivenKg"/>, stands on driven wheels, so it moves from the weight towed to the vehicle's own, where it adds
+    /// grip; the train's whole weight is unchanged. Never more than what is towed is moved, and nothing goes below nought.
+    /// </summary>
+    public static (double OwnKg, double TowedKg) DrivenSplit(double ownKg, double towedKg, double drivenKg)
+    {
+        double towed = Math.Max(0, towedKg);
+        double moved = Math.Max(0, Math.Min(drivenKg, towed));
+        return (Math.Max(0, ownKg) + moved, towed - moved);
+    }
+
     /// <summary>A recovery tow over the weight ratio: refused.</summary>
     public static TowVerdict TooHeavy(double tractorKg, double towedKg) =>
         new(TowOutcome.TooHeavy, 0, DriveLimit.None, Math.Max(0, tractorKg) + Math.Max(0, towedKg));
