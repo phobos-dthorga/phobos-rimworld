@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "299": {"parts": {
+      "an A-10 or Su-25 dodges shots in the air": ["aircraft.own-evasion"]
+    }},
     "298": {"parts": {
       "a tree drawn past the tab is scrolled": ["vehicles.upgrade-tab-scrolled"]
     }},

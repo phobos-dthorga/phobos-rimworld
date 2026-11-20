@@ -9,6 +9,10 @@ tested in game unless an entry says the owner tested it.
 
 Close air support: aircraft of the two flight frameworks read as flying, and a dodge for jets with flares
 
+### Added
+
+- **An aircraft whose own mod gives it no dodge can be given ours** (the owner's choice of 21 November 2026, for Close Air Support's A-10 and Su-25). While it is in the air over a map, a shot at it misses by a chance its loadout names, scaled by its flight controls and its warning receiver as the Harrier's dodge is, and raised for a few seconds by its **Chaff and flares** button, which it now gets. A missed shot flies on just past it. On the ground every shot hits as before, shells fired over the top are never dodged, and it works the same under Combat Extended. An aircraft whose own mod has a dodge (the Harrier, the Hind, the Mongoose) is left to it, so nothing dodges twice. Raiders' jets dodge your shots the same way. Not yet tested in game: row 299 of the test pass.
+
 ### Fixed
 
 - **A jet or helicopter built on another author's flight framework is now seen to fly while it flies over a map.** The fixed-wing framework (the Harrier's, and Close Air Support's A-10 and Su-25) and rabiosus's VTOL framework (the Hind's and Mongoose's) keep an aircraft on the map while it flies, and an aircraft with no loadout of its own was read from Vehicle Framework's flight flag, which is set only while leaving a map. So the A-10 and the Su-25 read as standing on the ground for the whole of a sortie, their engines' load and fuel worked out as for a parked aircraft. Two new catch-all loadouts recognise each framework by its aircraft's code class, and read its own flight state: a jet gets the fixed-wing jet's flight profile and a cruising height of 6,000 m, a helicopter the helicopter profile and a pair of turboshafts through a gearbox. A named loadout, such as the Harrier's or the Hind's, still comes first. Not yet tested in game.

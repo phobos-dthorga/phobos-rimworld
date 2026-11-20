@@ -546,6 +546,10 @@ public class AvionicsFit
     public bool cruisesHigh;
     /// <summary>How the aircraft looks to another mod's air defence in flight (Framework 0.119.0, AD3); null for the rules' defaults.</summary>
     public AirTrackSpec? airTrack;
+    /// <summary>The chance, 0 to 1, that a shot at the aircraft misses while it is in the air on a map, for an aircraft whose own mod gives it
+    /// no dodge (Framework 0.203.0; owner, 21 Nov 2026: Close Air Support's jets). Scaled by its flight controls and warning receiver, with a
+    /// salvo's bonus, as the Harrier's own figure is. 0, the default, leaves shots alone: never set it where the aircraft's mod has a dodge.</summary>
+    public float mapEvasion;
 
     public AvionicsFitValues Values => new()
     {

@@ -273,6 +273,8 @@ public static class AirCombat
     public static bool HasMapSalvo(VehiclePawn vehicle)
     {
         if (!Carries(vehicle, fit => fit.countermeasures)) return false;
+        // Framework 0.203.0: an aircraft given our own dodge (AirborneEvasion) has a chance for a salvo to add to.
+        if (Carries(vehicle, fit => fit.mapEvasion > 0f)) return true;
         foreach (Func<VehiclePawn, bool> check in mapSalvoVehicles)
         {
             if (check(vehicle)) return true;
