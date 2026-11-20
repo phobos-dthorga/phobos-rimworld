@@ -1,6 +1,7 @@
 # Depots and forward fuel points: design (20 Nov 2026)
 
-**Status (20 Nov 2026):** design only, nothing built. Rows DP1 to DP6, two batches proposed, five questions for the owner.
+**Status (20 Nov 2026):** design only, nothing built. Rows DP1 to DP10; the owner answered the five questions the same day
+([the answers](#the-owners-answers-20-nov-2026)); one question left, on the setting rule's reach.
 
 The owner, 20 Nov 2026, choosing what follows the emergent-play work: "Sling lifts a hull and design the depots, step-wise if
 necessary". This is the design for row EM4 of [the emergent-play record](vehicle-emergent-play.md): "Leave a bowser or fuel cans at a
@@ -16,12 +17,15 @@ to revise; **[P]** a primary source; **[S]** a secondary source or a search summ
 - **Most of the pieces exist.** A place on the world map that holds vehicles for as long as needed (the lost-convoy place), tanks
   and bowsers that hold fuel, a convoy that refuels from cargo, and an aircraft that sets down to pour fuel on the way. What is
   missing is leaving a vehicle on purpose, and drawing from it without taking it away.
-- **The agent's proposal is two batches**: depots by road and their use by convoys first (DP1, DP2, DP5); the aircraft's stop on
-  the way second (DP3), after one read of Vehicle Framework's flight orders.
-- **No random rolls** (the owner's rule of 20 Nov 2026). Nothing raids or spoils a depot by chance. What a depot costs is the trip
-  out, the fuel, and the bowser tied up there.
-- **Vehicle Framework already has "leave vehicles here"**, with a clock: its stash is deleted after 15 to 30 days. A depot must
-  not expire, which is the first question for the owner.
+- **Two batches** (the owner's answers): depots themselves first, by road and by air, in vehicles or as a bare cache of crates
+  (DP1 to DP6); then four pressures with a cause (DP7 to DP10), each behind its own setting.
+- **No random rolls** (the owner's rule of 20 Nov 2026). Every pressure on a depot has a cause the player can see coming: an enemy's
+  distance, the season, the age of the fuel, a war's front line.
+- **Settings by risk** (the owner, 20 Nov 2026): "Activities with a higher risk should get a proper setting to disable them as such
+  but otherwise, they are enabled by default UNLESS they are a HIGH or HIGHER risk." So every pressure has its own setting; the low
+  and moderate ones start on, the high ones start off.
+- **Vehicle Framework already has "leave vehicles here"**, with a clock: its stash is deleted after 15 to 30 days. A depot is our own
+  place instead, and never expires by itself (the owner's answer).
 
 ## What exists today
 
@@ -51,6 +55,11 @@ to revise; **[P]** a primary source; **[S]** a secondary source or a search summ
 | DP4 | **Laying a depot by air.** A helicopter slings a bowser to the tile, lands as a convoy and leaves it (DP1). Nothing new to build: the sling carries trailers already | The sling, DP1 | None |
 | DP5 | **Reading it.** The fleet board lists depots in a group of their own with their fuel; the depot's line on the world map says what it holds; the convoy's snow forecast already says when the road closes | Fleet board, `WorldObjectComp`, `WorldSeasons` | Small |
 | DP6 | **Taking a depot back.** A convoy on the tile takes a vehicle of the depot into the convoy, as it recovers a lost one today; the depot goes when its last vehicle does | The lost-convoy place's recovery | Small, with DP1 |
+| DP1(b) | **A bare cache** (the owner's answer to question 2). A convoy leaves items from its cargo on the tile with no vehicle: fuel cans, parts, food. A world object holding items, drawn from and taken back through the same transfer window; the aircraft's stop pours from it as from a bowser | DP1's place, holding items as well as vehicles | Medium, with DP1 |
+| DP7 | **Hostile neighbours.** A depot within a few tiles of a hostile faction's settlement is found and stripped after a time set by the distance (the closer, the sooner [A]), shown on the depot's line from the day it is laid: "found in about N days". Its fuel and cargo are taken; its vehicles are left, emptied [A]. **High risk: its setting starts off** | `WorldPlaces`, the factions' settlements | Small to medium |
+| DP8 | **Weather and season.** A depot left through a winter, or on ground that floods, slowly loses condition: its vehicles' outer parts wear a little a day, and a share of a cache's cans leaks [A]. Read from the season ahead (`WinterForecastRule`, built) and the tile; said on its line | The season forecast, part wear | Small. **Low risk: starts on** |
+| DP9 | **Fuel ageing.** Stored fuel slowly goes stale: after some months a growing share of a depot's fuel is unusable [A]. A real effect (petrol loses its light ends and oxidises; diesel gathers water and gums), with ballpark months, unverified; chemfuel is the game's own and follows the same rule as a gameplay choice. The line says how fresh it is | — | Small. **Moderate risk: starts on** |
+| DP10 | **Wars move the front.** With RimPacts active, a depot on a tile that passes to a faction at war with the player is seized, as its settlement's ground grows. **High risk: its setting starts off.** Read RimPacts' map of who holds what first | RimPacts' territory, read as its other tie-ins are | Medium, after a read |
 
 ### What each one lets, stops, changes, and what else notices
 
@@ -60,17 +69,20 @@ to revise; **[P]** a primary source; **[S]** a secondary source or a search summ
 | DP2 | Go further than one tank by road, and swap a tired load for a fresh one | Nothing | Where to stop becomes a choice made days earlier | The depot's stock goes down by exactly what was poured |
 | DP3 | Fly beyond one tank and the hold's cans | Nothing | An aircraft's reach is drawn by where depots stand | The depot; the aircraft is on the ground for the pour, as today |
 | DP5 | See what is out there without visiting | — | — | — |
+| DP1(b) | A depot with no vehicle tied up in it | Nothing | A light aircraft can lay one from its hold | The tile, which holds a cache |
+| DP7 | Weigh a depot's convenience against its enemies | A depot left near enemies for ever | Where a depot stands matters | The hostile faction, which strips it |
+| DP8 | — | A depot left untended through the bad season | Depots are laid for a season, then used | The weather, which wears it |
+| DP9 | — | Fuel left for years | A depot is a plan for months, not a stockpile | The fuel itself |
+| DP10 | — | A depot on a front that moves | Wars reach the logistics behind them | The faction at war, which takes the ground |
 
 ## Choices inside the design
 
-- **Our own place, or Vehicle Framework's stash with its clock stopped (question 1).** The game's `TimeoutComp` has `StopTimeout`,
-  so a stash could simply be told not to expire. **[A] The agent leans to our own place:** stopping another author's clock changes
-  their design under them, their stash gives everything back at once and cannot be drawn from, and ours already holds vehicles for
-  ever. The cost is one more kind of place on the map.
-- **A depot needs a vehicle or trailer to hold its fuel.** The game cannot leave loose items on a world tile. A bowser, a tanker or
-  a truck with cans is the container. A bare cache with no vehicle (crates on the ground) would be a second kind of thing: question 2.
-- **Parked vehicles are not ticked**, as in the garage: nothing leaks, drains or rusts while a depot waits. A simplification,
-  labelled so; it also means a depot costs nothing to run.
+- **Our own place** (the owner's answer to question 1), not Vehicle Framework's stash with its clock stopped: stopping another
+  author's clock changes their design under them, and their stash gives everything back at once and cannot be drawn from.
+- **A vehicle, a trailer or a bare cache holds the fuel** (the owner's answer to question 2). The game cannot leave loose items on a
+  world tile by itself, so the cache is our place holding the items.
+- **Parked vehicles are not ticked**, as in the garage. What happens to a depot over time (DP8, DP9) is worked out from the days
+  since it was last visited when someone looks or arrives, never each tick: a depot still costs nothing to run.
 - **Fuel is never made or lost in the transfer.** What is poured leaves the depot and enters the tank; honest quantities, the rule
   for every accessory.
 - **Hostile ground.** An aircraft will not set down on a tile an enemy holds; the same rule would keep a depot from being laid
@@ -92,8 +104,8 @@ to revise; **[P]** a primary source; **[S]** a secondary source or a search summ
 
 ## What is not proposed
 
-- **Raids on depots, theft, or fuel going off.** Each would be a roll, or a clock with no cause. If the owner wants pressure on
-  depots, a cause must be named first: question 4.
+- **Pressure with no cause.** Theft by nobody in particular, a fixed clock, a chance of loss: each would be a roll. DP7 to DP10 are
+  the pressures with a cause, the owner's picks.
 - **Depots other factions lay or use.** They stay on the light tier (the owner, 11 Nov 2026).
 - **Automatic resupply runs to a depot.** That is EM15, held until remote farms or the garage see play.
 - **A staffed depot.** That is the garage outpost, which exists.
@@ -102,23 +114,27 @@ to revise; **[P]** a primary source; **[S]** a secondary source or a search summ
 
 | Batch | Rows | Why this order |
 | --- | --- | --- |
-| 1 | DP1, DP6, DP2, DP5 | Depots by road, complete in themselves: lay, draw, read, take back. An aircraft can already use one by landing there (DP3(a)) and a helicopter can already lay one (DP4) |
-| 2 | DP3(b) | The stop on the way, after reading how Vehicle Framework lets a player order a flight of several legs (`FlightPath.AddNode` exists; the order's own window is unread) |
+| 1 | DP1, DP1(b), DP6, DP2, DP3(b), DP5 | Depots complete in themselves, by road and by air (the owner: the aircraft's stop in the first batch): lay, draw, stop on the way, read, take back. DP3(b) starts with reading how Vehicle Framework lets a player order a flight of several legs (`FlightPath.AddNode` exists; the order's own window is unread) |
+| 2 | DP8, DP9, then DP7, then DP10 | The pressures, each behind its own setting: the slow ones first, the ones that take a depot after, RimPacts' last after its read [A] |
 
-## Questions for the owner
+## The owner's answers (20 Nov 2026)
 
-1. **Our own depot place, or Vehicle Framework's stash with its clock stopped?** The agent leans to our own.
-2. **Must a depot be a vehicle or trailer, or also a bare cache of crates?** The agent leans to vehicles and trailers only, at first.
-3. **Aircraft: is landing at a depot enough, or should a journey stop there by itself (DP3(b))?** The agent leans to both, the
-   second in its own batch.
-4. **Any pressure on a depot, or none?** The agent leans to none: the trip and the tied-up bowser are the cost.
-5. **Anything beyond fuel?** Parts, kits and food left in a depot's cargo can be swapped through the transfer window in DP2. Say if
-   the depot should say more about them (a line for spare parts, for instance).
+1. **Our own depot place**, not Vehicle Framework's stash with its clock stopped (the agent's lean).
+2. **Also bare crates** (against the agent's lean of vehicles only): DP1(b).
+3. **The aircraft's own stop at a depot, in the first batch** (the agent had it second).
+4. **Pressure with a cause**, all four the agent offered: hostile neighbours, weather and season, fuel ageing, RimPacts wars. With
+   the rule on settings by risk quoted under "Read this first".
+5. **Swapping cargo is enough** (the agent's lean): a depot's line names its fuel only.
+
+**The risk grades are the agent's [A], for the owner to revise:** losing the whole depot's contents at once (DP7, DP10) is high; a
+slow, foreseen loss of part of it (DP8 low, DP9 moderate) is not.
+
+**Left open:** whether the rule on settings by risk holds for every mod, as a shared rule, or for the depots alone.
 
 ## Who chose what
 
 - **Owner (20 Nov 2026):** that depots be designed, after the emergent-play record's EM4; no random rolls (the same day, on that
-  record).
+  record); the five answers above, and the rule on settings by risk.
 - **Agent choices, for the owner to revise:** every row, size, lean and batch here.
 
 ## Sources
