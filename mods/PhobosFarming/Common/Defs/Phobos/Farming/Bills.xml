@@ -44,4 +44,102 @@
       <Actuator>1</Actuator>
     </parts>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
+
+  <!-- Batch two's tractors (docs/development/farming-batch-two.md): the same roles for both models of a size. Counts authored. -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_TractorT60</defName>
+    <label>Thane T60 tractor parts</label>
+    <target>Phobos_TractorT60_Blueprint</target>
+    <parts>
+      <Engine>1</Engine>
+      <Transmission>1</Transmission>
+      <FuelTank>1</FuelTank>
+      <Wheels>4</Wheels>
+      <Suspension>1</Suspension>
+      <Alternator>1</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <Radiator>1</Radiator>
+      <Exhaust>1</Exhaust>
+      <HydraulicPump>1</HydraulicPump>
+      <Frame>1</Frame>
+      <Hose>1</Hose>
+      <!-- The rams that lift the three-point linkage. -->
+      <Actuator>2</Actuator>
+      <!-- The power take-off shaft at the rear. -->
+      <DriveShaft>1</DriveShaft>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_TractorT60F</defName>
+    <label>Thane T60 F tractor parts</label>
+    <target>Phobos_TractorT60F_Blueprint</target>
+    <parts>
+      <Engine>1</Engine>
+      <Transmission>1</Transmission>
+      <FuelTank>1</FuelTank>
+      <Wheels>4</Wheels>
+      <Suspension>1</Suspension>
+      <Alternator>1</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <Radiator>1</Radiator>
+      <Exhaust>1</Exhaust>
+      <HydraulicPump>1</HydraulicPump>
+      <Frame>1</Frame>
+      <Hose>1</Hose>
+      <!-- The rams that lift the three-point linkage. -->
+      <Actuator>2</Actuator>
+      <!-- The power take-off shaft at the rear. -->
+      <DriveShaft>1</DriveShaft>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_TractorT130</defName>
+    <label>Thane T130 tractor parts</label>
+    <target>Phobos_TractorT130_Blueprint</target>
+    <parts>
+      <Engine>1</Engine>
+      <Transmission>1</Transmission>
+      <FuelTank>1</FuelTank>
+      <Wheels>4</Wheels>
+      <Suspension>2</Suspension>
+      <Alternator>1</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <Radiator>1</Radiator>
+      <Exhaust>1</Exhaust>
+      <HydraulicPump>1</HydraulicPump>
+      <Frame>1</Frame>
+      <Hose>1</Hose>
+      <!-- The rams that lift the three-point linkage. -->
+      <Actuator>2</Actuator>
+      <!-- The power take-off shaft at the rear. -->
+      <DriveShaft>1</DriveShaft>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_TractorT130RC</defName>
+    <label>Thane T130 RC tractor parts</label>
+    <target>Phobos_TractorT130RC_Blueprint</target>
+    <parts>
+      <Engine>1</Engine>
+      <Transmission>1</Transmission>
+      <FuelTank>1</FuelTank>
+      <Wheels>4</Wheels>
+      <Suspension>2</Suspension>
+      <Alternator>1</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <Radiator>1</Radiator>
+      <Exhaust>1</Exhaust>
+      <HydraulicPump>1</HydraulicPump>
+      <Frame>1</Frame>
+      <Hose>1</Hose>
+      <!-- The rams that lift the three-point linkage. -->
+      <Actuator>2</Actuator>
+      <!-- The power take-off shaft at the rear. -->
+      <DriveShaft>1</DriveShaft>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

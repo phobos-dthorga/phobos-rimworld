@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
 from export_sprite import ai_background, export as export_sprite, white_to_alpha  # noqa: E402
 from export_vehicle import PIXELS_PER_CELL, export_body, record, sha, write_facings  # noqa: E402
+import art_paths  # noqa: E402
 import paint_check  # noqa: E402
 
 GENERATED = ROOT / 'assets' / 'phobos-vehicles' / 'generated'
@@ -151,16 +152,19 @@ def clean_flecks(name, master, out, colours):
 
 def export_articulated(name, master, out):
     """The T400 cut at its pivot into a front half (engine and cab) and a rear half (rear axle, linkage, drawbar), each its own picture
-    centred on its own canvas, with the pivot's distance from each half's middle recorded for the hitch figures."""
-    whole = export_body(master, out / '_whole', name, ARTICULATED_LONG, ARTICULATED_DRAW, MAIN_HUE, ACCENT_HUE,
+    centred on its own canvas, with the pivot's distance from each half's middle recorded for the hitch figures. The uncut picture is
+    never shipped: it is made in the art tools' working folder (art_paths), where the halves are cut from."""
+    whole_dir = art_paths.work('farming-export', name)
+    whole = export_body(master, whole_dir, name, ARTICULATED_LONG, ARTICULATED_DRAW, MAIN_HUE, ACCENT_HUE,
                         min_saturation=SATURATION.get(name, 0.16), paint='repaired')
-    clean_flecks(name, master, out / '_whole', whole['colours'])
-    texture = Image.open(out / '_whole' / f'{name}_north.png').convert('RGBA')
-    mask = Image.open(out / '_whole' / f'{name}_northm.png').convert('RGBA')
+    clean_flecks(name, master, whole_dir, whole['colours'])
+    texture = Image.open(whole_dir / f'{name}_north.png').convert('RGBA')
+    mask = Image.open(whole_dir / f'{name}_northm.png').convert('RGBA')
     box = opaque_box(texture)
     top, bottom = box[1], box[3]
     pivot = pivot_cut(texture, round(top + PIVOT_SEARCH[0] * (bottom - top)), round(top + PIVOT_SEARCH[1] * (bottom - top)))
     canvas = (HALF_DRAW[0] * PIXELS_PER_CELL, HALF_DRAW[1] * PIXELS_PER_CELL)
+    out.mkdir(parents=True, exist_ok=True)
     figures = {}
     for half, cut in (('Front', (0, 0, texture.width, pivot)), ('Rear', (0, pivot, texture.width, texture.height))):
         piece, piece_mask = texture.crop(cut), mask.crop(cut)
@@ -179,7 +183,8 @@ def export_articulated(name, master, out):
         figures[half] = {'length_cells': round(piece.height / PIXELS_PER_CELL, 2),
                          'pivot_from_middle_cells': round(abs(edge - middle) / PIXELS_PER_CELL, 2)}
         record(out, half_name, master, written, {'kind': 'articulated half', 'half': half.lower(), 'cut_row_on_whole': pivot,
-                                                 'like': f'_whole/{name}.transform.json', 'draw_size': list(HALF_DRAW), **figures[half],
+                                                 'cut_from': f'{name}, {ARTICULATED_LONG} cells long on a {ARTICULATED_DRAW[0]} by {ARTICULATED_DRAW[1]} picture',
+                                                 'draw_size': list(HALF_DRAW), **figures[half],
                                                  'colours': whole['colours']})
     return figures
 

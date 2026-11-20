@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The Thane tractors' drivetrains (D'thorga Farming, batch two; docs/development/farming-batch-two.md, "Tractors"). Every figure is
+    authored [A], labelled approximate, in the ranges of real farm tractors (general knowledge, not read from a source):
+    - Rated power: 60, 130 and 400 kW, the owner's sizes of 20 Nov 2026. Rated speed 2,300, 2,200 and 2,100 rpm, a farm diesel's.
+    - Eight forward gears, a powershift's spread from a crawl to the road (authored ratios). Top speed 30 km/h for the T60 and 40 km/h
+      for the others, from which each final drive is worked out (our arithmetic: rated rpm in top gear at the top speed, on its rear
+      tyre's radius of 0.70, 0.85 and 1.0 m). The lowest gear then runs about 4 to 5 km/h, a ploughing pace.
+    - Driven share: the T60 drives its rear axle, which carries about 0.6 of its weight; the T130 and T400 drive all four wheels.
+    - The torque curve, efficiency (0.85: gears, a torque converter's losses at work) and drag areas are authored; drag is the one fixed
+      figure per class the rules allow, small at a tractor's speeds.
+    Empty masses are each vehicle's own (PhobosVehicleFiguresExtension), so the two models of a size share one drivetrain.
+    Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_ThaneT60</defName>
+    <label>small tractor drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>800</idleRpm>
+      <launchRpm>1100</launchRpm>
+      <ratedRpm>2300</ratedRpm>
+      <ratedKilowatts>60</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.65)</li><li>(0.5, 0.97)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.86)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>false</turbocharged>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>7.0</li><li>5.0</li><li>3.6</li><li>2.6</li><li>1.9</li><li>1.4</li><li>1.15</li><li>1.0</li></gears>
+      <finalDrive>20.2</finalDrive>
+      <upshiftRpm>2000</upshiftRpm>
+      <downshiftRpm>1200</downshiftRpm>
+      <efficiency>0.85</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.70</wheelRadius>
+      <drivenShare>0.6</drivenShare>
+      <dragArea>3.0</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_ThaneT130</defName>
+    <label>medium tractor drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>750</idleRpm>
+      <launchRpm>1050</launchRpm>
+      <ratedRpm>2200</ratedRpm>
+      <ratedKilowatts>130</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.65)</li><li>(0.5, 0.97)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.86)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.40</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>7.0</li><li>5.0</li><li>3.6</li><li>2.6</li><li>1.9</li><li>1.4</li><li>1.15</li><li>1.0</li></gears>
+      <finalDrive>17.6</finalDrive>
+      <upshiftRpm>1900</upshiftRpm>
+      <downshiftRpm>1150</downshiftRpm>
+      <efficiency>0.85</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>0.85</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>4.0</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_ThaneT400</defName>
+    <label>articulated tractor drivetrain</label>
+    <engine>
+      <kind>Piston</kind>
+      <idleRpm>700</idleRpm>
+      <launchRpm>1000</launchRpm>
+      <ratedRpm>2100</ratedRpm>
+      <ratedKilowatts>400</ratedKilowatts>
+      <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.65)</li><li>(0.5, 0.97)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.86)</li><li>(1.1, 0)</li></points></torqueCurve>
+      <indicatedEfficiency>0.41</indicatedEfficiency>
+      <turbocharged>true</turbocharged>
+    </engine>
+    <transmission>
+      <kind>Automatic</kind>
+      <gears><li>7.0</li><li>5.0</li><li>3.6</li><li>2.6</li><li>1.9</li><li>1.4</li><li>1.15</li><li>1.0</li></gears>
+      <finalDrive>19.8</finalDrive>
+      <upshiftRpm>1800</upshiftRpm>
+      <downshiftRpm>1100</downshiftRpm>
+      <efficiency>0.85</efficiency>
+    </transmission>
+    <running>
+      <wheelRadius>1.0</wheelRadius>
+      <drivenShare>1</drivenShare>
+      <dragArea>6.0</dragArea>
+    </running>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+</Defs>

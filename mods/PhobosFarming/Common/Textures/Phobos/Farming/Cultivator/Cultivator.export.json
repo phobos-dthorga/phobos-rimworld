@@ -1,0 +1,49 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-cultivator-body-north/farming-cultivator-body-north-1.png",
+  "master_sha256": "764c22025b8ea5247bea51119f9bf0e6aff73a39af8d292c5ecd7597c814a74d",
+  "files": {
+    "Cultivator_north.png": "a1aa31f17f80f899a4d585429e34838591ecf7a6a358a25e08c83228446d3535",
+    "Cultivator_east.png": "cd7f9edc602d1732d1088b876f0ff77c933b645f85d597c1361b12695f47a327",
+    "Cultivator_south.png": "4f46c0b7a24e0f6a6713d18cb5ef689f761acabef0e70eb006685a837d1326f6",
+    "Cultivator_northm.png": "e9338985cc83434d733b57dff4de267004ce9f0066d364f9ae2d52788aaf820c",
+    "Cultivator_eastm.png": "11cb45af8bdd87dd6ced997d07495aab1e856abc0cb72eb2904115c45625dc20",
+    "Cultivator_southm.png": "40cd23bebcc7b18ec39c812f6f1d830181fe4a301bb8e64353c3cbe88d02cf61",
+    "Cultivator_icon.png": "d399705e230ebb54da1129a79db9df75112186487922e25eae5a7c1d45a86695"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "body",
+  "cells_long": 3,
+  "draw_size": [
+    4,
+    4
+  ],
+  "width_cells": 3.07,
+  "colours": {
+    "color": [
+      142,
+      170,
+      116
+    ],
+    "colorTwo": [
+      255,
+      249,
+      77
+    ]
+  },
+  "min_saturation": 0.25,
+  "main_max_saturation": 1.0,
+  "trim": 0,
+  "line": null,
+  "main_hue": [
+    70,
+    150
+  ],
+  "accent_hue": [
+    35,
+    60
+  ],
+  "holes": [],
+  "ai_mask": "764c22025b8ea5247bea51119f9bf0e6aff73a39af8d292c5ecd7597c814a74d",
+  "flecks_filled": 1
+}

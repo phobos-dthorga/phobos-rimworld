@@ -1,0 +1,49 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-seed-drill-body-north/farming-seed-drill-body-north-2.png",
+  "master_sha256": "08258ab26386d5c69f087372f1cc2b4aeb4c894d55b0d625233430a38fa12589",
+  "files": {
+    "SeedDrill_north.png": "9a8533f811ddd917f5488da25e8e143729043b51d049ecd264326b544abd33c0",
+    "SeedDrill_east.png": "ce2f6cc9a1382893300e671ff4a6ff9f1e0f3cd7a0498b2072bea6d4fa4c644d",
+    "SeedDrill_south.png": "6e528335bea338a1d6b80ea59cbf0d721ed37083ba51e580e715e8e8a2cc78db",
+    "SeedDrill_northm.png": "a6fb2b3add2d5986255c70aeb4f4d640e62cf0eb8301bd2831c3b0c20f7665b1",
+    "SeedDrill_eastm.png": "2c9d5a90b4f5b9e2e9dc62f16d54ff3a27c966f6e4b51d072a91c8a06a69d18f",
+    "SeedDrill_southm.png": "436d96b457e1252e8d378ede1efe3447463e3590448c7da53f1e336ea707b8c9",
+    "SeedDrill_icon.png": "ffd6fe754ebbee382ce80e555ba6d0861afd478c79c843c8d4b882750e3c6d8b"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "body",
+  "cells_long": 4,
+  "draw_size": [
+    4,
+    5
+  ],
+  "width_cells": 3.38,
+  "colours": {
+    "color": [
+      143,
+      168,
+      110
+    ],
+    "colorTwo": [
+      255,
+      215,
+      57
+    ]
+  },
+  "min_saturation": 0.1,
+  "main_max_saturation": 1.0,
+  "trim": 0,
+  "line": null,
+  "main_hue": [
+    70,
+    150
+  ],
+  "accent_hue": [
+    35,
+    60
+  ],
+  "holes": [],
+  "ai_mask": "08258ab26386d5c69f087372f1cc2b4aeb4c894d55b0d625233430a38fa12589",
+  "flecks_filled": 2
+}

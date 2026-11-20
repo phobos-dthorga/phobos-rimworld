@@ -62,4 +62,52 @@
       </li>
     </modExtensions>
   </ResearchProjectDef>
+
+  <!-- Batch two (owner, 20 Nov 2026; docs/development/farming-batch-two.md, "Research"): one project for the tractors and implements, a
+       second for the articulated T400. -->
+  <ResearchProjectDef>
+    <defName>PhobosResearch_TillageAndSowing</defName>
+    <label>tillage and sowing</label>
+    <description>Farm tractors and the implements they carry: a reversible plough and a cultivator on the three-point linkage, and a seed drill on the drawbar. A tractor drives a paddock row by row with its implement working behind it, and the drill sows from kept-back grain or bought seed.</description>
+    <tab>PhobosDthorga</tab>
+    <techLevel>Industrial</techLevel>
+    <baseCost>1600</baseCost>
+    <researchViewX>2</researchViewX>
+    <researchViewY>4.8</researchViewY>
+    <!-- Hidden, so the game requires it but draws no line: every line from Mechanised harvesting to here would cross the trucks' column
+         (check-research.py, 20 Nov 2026). The project's details still name it. -->
+    <hiddenPrerequisites>
+      <li>PhobosResearch_MechanisedHarvesting</li>
+    </hiddenPrerequisites>
+    <!-- Machining, on the game's own tab, so no line is drawn here (as grain storage's Electricity). -->
+    <prerequisites>
+      <li>Machining</li>
+    </prerequisites>
+    <modExtensions>
+      <!-- A brand new project: nothing an existing colony had stands in for it. -->
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef>
+    <defName>PhobosResearch_ArticulatedTractors</defName>
+    <label>articulated tractors</label>
+    <description>A very large four-wheel-drive tractor that bends in the middle to steer, with all its weight on driven wheels: it pulls the widest implements through the heaviest ground.</description>
+    <tab>PhobosDthorga</tab>
+    <techLevel>Industrial</techLevel>
+    <baseCost>2400</baseCost>
+    <researchViewX>3</researchViewX>
+    <researchViewY>4.8</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_TillageAndSowing</li>
+    </prerequisites>
+    <modExtensions>
+      <!-- A brand new project: nothing an existing colony had stands in for it. -->
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
 </Defs>

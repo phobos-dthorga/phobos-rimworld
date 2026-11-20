@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Added
+
+- **The Thane tractors, small and medium, in two models each** (the owner's picks of 20 November 2026), under one button each in the motor pool: the T60 and the T60 F on wide tyres, the ballasted T130 and the lighter T130 RC. Each carries an implement on its three-point linkage and pulls on its drawbar, and drives a paddock row by row with the implement working. Unlocked by the new research **Tillage and sowing**, which needs Mechanised harvesting and Machining; a second, **Articulated tractors**, follows it for the large tractor to come.
+- Their pictures, and those of the large tractor, the plough, the cultivators and the drill, ready for the next pieces.
+
+### Compatibility and limits
+
+- **Part of batch two, not finished:** the tractors have no upgrade tree, no sounds of their own and no implements to carry yet; they wait for their drawn icons, overlays and real recordings, and batch two is installed only once whole (the owner's choice). Their figures are the agent's, in the ranges of real tractors.
+
 ### Fixed
 
 - **Art records no longer hold a path from the developer's PC.** The export records beside some textures named the full folder they were made in; they now name the file within the project. Nothing a player sees changes.

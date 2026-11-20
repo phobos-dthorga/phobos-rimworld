@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The Thane tractors, small and medium (D'thorga Farming, batch two; docs/development/farming-batch-two.md, "Tractors" and "Art"). Each
+    size has two models under one Architect button (the owner's idea, 20 Nov 2026: the game's drop-down group), from the two pilot pictures
+    the owner kept. A tractor carries an implement on its three-point linkage and pulls on its drawbar; with an implement that has a hitch
+    of its own, a cart goes behind the implement (D'thorga Framework's lines of tows). It drives a paddock row by row with the implement
+    working (the field run). Figures authored [A], labelled approximate, in the ranges of real farm tractors (general knowledge, not read
+    from a source); the differences between the two models are the agent's reading of each picture, kept by the owner. No upgrade tree
+    yet: its nodes wait for their drawn icons and overlays (the owner's next paid run, 20 Nov 2026). Part keys are saved by position:
+    append only, never reorder. Not yet tested in game.
+  -->
+
+  <!-- ===== The small tractor, 3 by 5: cells run x -1 to 1, z -2 to 2, the bonnet north. ===== -->
+  <Vehicles.VehicleDef Name="PhobosFarming_TractorT60Base" ParentName="BaseVehiclePawn" Abstract="True">
+    <graphicData>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(4, 6)</drawSize>
+    </graphicData>
+    <fillPercent>0.6</fillPercent>
+    <size>(3, 5)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.2</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.3</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <vehicleStats>
+      <MoveSpeed>8</MoveSpeed>
+      <CargoCapacity>40</CargoCapacity>
+      <RepairRate>0.7</RepairRate>
+      <AccelerationRate>0.02</AccelerationRate>
+    </vehicleStats>
+    <race>
+      <baseBodySize>3</baseBodySize>
+    </race>
+    <properties>
+      <worldSpeedMultiplier>0.6</worldSpeedMultiplier>
+      <winterSpeedMultiplier>1.4</winterSpeedMultiplier>
+      <visibilityWeight>3</visibilityWeight>
+      <customRoadCosts AssignDefaults="0.3" />
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles>
+        <li>
+          <key>driver</key>
+          <label>driver</label>
+          <slots>1</slots>
+          <slotsToOperate>1</slotsToOperate>
+          <handlingTypes>
+            <li>Movement</li>
+          </handlingTypes>
+          <hitbox>
+            <cells>
+              <li>(0, 0)</li>
+            </cells>
+          </hitbox>
+        </li>
+      </roles>
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>chassis</label>
+      <health>140</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <cells>
+          <li>(0, -1)</li>
+          <li>(0, 0)</li>
+          <li>(0, 1)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Cab</key>
+      <label>cab</label>
+      <health>45</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 0)</li>
+          <li>(0, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Engine</key>
+      <label>engine</label>
+      <health>60</health>
+      <depth>Internal</depth>
+      <priorityStatEfficiency>true</priorityStatEfficiency>
+      <hitbox>
+        <cells>
+          <li>(0, 1)</li>
+          <li>(0, 2)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>FrontWheels</key>
+      <label>front wheels</label>
+      <health>45</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, 1)</li>
+          <li>(1, 1)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>RearWheels</key>
+      <label>rear wheels</label>
+      <health>70</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, -1)</li>
+          <li>(1, -1)</li>
+          <li>(-1, 0)</li>
+          <li>(1, 0)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>Transmission</key>
+      <label>transmission</label>
+      <health>45</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 0)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>FuelTank</key>
+      <label>fuel tank</label>
+      <health>35</health>
+      <depth>External</depth>
+      <reactors>
+        <li Class="Vehicles.Reactor_FuelLeak" />
+      </reactors>
+      <hitbox>
+        <cells>
+          <li>(0, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Linkage</key>
+      <label>three-point linkage and drawbar</label>
+      <health>50</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -2)</li>
+          <li>(0, -2)</li>
+          <li>(1, -2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Wiring</key>
+      <label>wiring</label>
+      <health>25</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>lights</label>
+      <health>10</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <!-- Its hitch takes a drawbar and the three-point linkage (D'thorga Framework's couplings). -->
+      <li Class="Phobos.VehicleSystems.PhobosCouplingsExtension">
+        <hitch>
+          <li>PhobosCoupling_Drawbar</li>
+          <li>PhobosCoupling_ThreePoint</li>
+        </hitch>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_FueledTravel">
+        <fuelType>Chemfuel</fuelType>
+        <leakDef>Filth_Fuel</leakDef>
+        <fuelConsumptionRate>15</fuelConsumptionRate>
+        <fuelConsumptionWorldMultiplier>0.5</fuelConsumptionWorldMultiplier>
+        <fuelCapacity>80</fuelCapacity>
+      </li>
+      <!-- Drives a paddock row by row with the implement behind it working (D'thorga Framework's field run). -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFieldRun" />
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleDef ParentName="PhobosFarming_TractorT60Base">
+    <defName>Phobos_TractorT60Standard</defName>
+    <label>Thane T60 tractor</label>
+    <description>Thane T60: a small farm tractor. It carries a plough or a cultivator on its three-point linkage and pulls a seed drill or a cart on its drawbar, and drives a paddock row by row with its implement working. Light and cheap to run, but it has little to spare for heavy ground.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT60/TractorT60</texPath>
+      <color>(141, 165, 106)</color>
+      <colorTwo>(255, 227, 115)</colorTwo>
+    </graphicData>
+    <buildDef>Phobos_TractorT60_Blueprint</buildDef>
+    <statBases>
+      <!-- Authored [A]: below its parts bill, so building one to sell never pays (docs/development/farming-machines.md, AG6). -->
+      <MarketValue>1500</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>330</Mass>
+    </vehicleStats>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>4000</emptyKilograms>
+        <ratedKilowatts>60</ratedKilowatts>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleDef ParentName="PhobosFarming_TractorT60Base">
+    <defName>Phobos_TractorT60F</defName>
+    <label>Thane T60 F tractor</label>
+    <description>Thane T60 F: the small farm tractor on wide tyres. A little heavier than the standard T60, it grips better on soft ground and burns a little more fuel. It carries a plough or a cultivator on its three-point linkage and pulls a seed drill or a cart on its drawbar.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT60F/TractorT60F</texPath>
+      <color>(147, 174, 105)</color>
+      <colorTwo>(255, 221, 80)</colorTwo>
+    </graphicData>
+    <buildDef>Phobos_TractorT60F_Blueprint</buildDef>
+    <statBases>
+      <MarketValue>1600</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>360</Mass>
+    </vehicleStats>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>4300</emptyKilograms>
+        <ratedKilowatts>60</ratedKilowatts>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleDef>
+
+  <!-- ===== The medium tractor, 3 by 6: cells run x -1 to 1, z -2 to 3, the bonnet north. ===== -->
+  <Vehicles.VehicleDef Name="PhobosFarming_TractorT130Base" ParentName="BaseVehiclePawn" Abstract="True">
+    <graphicData>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(4, 7)</drawSize>
+    </graphicData>
+    <fillPercent>0.7</fillPercent>
+    <size>(3, 6)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.22</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.32</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <vehicleStats>
+      <MoveSpeed>8</MoveSpeed>
+      <CargoCapacity>60</CargoCapacity>
+      <RepairRate>0.6</RepairRate>
+      <AccelerationRate>0.018</AccelerationRate>
+    </vehicleStats>
+    <race>
+      <baseBodySize>5</baseBodySize>
+    </race>
+    <properties>
+      <worldSpeedMultiplier>0.7</worldSpeedMultiplier>
+      <winterSpeedMultiplier>1.4</winterSpeedMultiplier>
+      <visibilityWeight>4</visibilityWeight>
+      <customRoadCosts AssignDefaults="0.3" />
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles>
+        <li>
+          <key>driver</key>
+          <label>driver</label>
+          <slots>1</slots>
+          <slotsToOperate>1</slotsToOperate>
+          <handlingTypes>
+            <li>Movement</li>
+          </handlingTypes>
+          <hitbox>
+            <cells>
+              <li>(0, 1)</li>
+            </cells>
+          </hitbox>
+        </li>
+      </roles>
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>chassis</label>
+      <health>180</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <cells>
+          <li>(0, -1)</li>
+          <li>(0, 0)</li>
+          <li>(0, 1)</li>
+          <li>(0, 2)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Cab</key>
+      <label>cab</label>
+      <health>55</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 0)</li>
+          <li>(0, 1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Engine</key>
+      <label>engine</label>
+      <health>75</health>
+      <depth>Internal</depth>
+      <priorityStatEfficiency>true</priorityStatEfficiency>
+      <hitbox>
+        <cells>
+          <li>(0, 2)</li>
+          <li>(0, 3)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>FrontWheels</key>
+      <label>front wheels</label>
+      <health>55</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, 2)</li>
+          <li>(1, 2)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>RearWheels</key>
+      <label>rear wheels</label>
+      <health>85</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, -1)</li>
+          <li>(1, -1)</li>
+          <li>(-1, 0)</li>
+          <li>(1, 0)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>Transmission</key>
+      <label>transmission</label>
+      <health>55</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 0)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>FuelTank</key>
+      <label>fuel tank</label>
+      <health>40</health>
+      <depth>External</depth>
+      <reactors>
+        <li Class="Vehicles.Reactor_FuelLeak" />
+      </reactors>
+      <hitbox>
+        <cells>
+          <li>(0, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Linkage</key>
+      <label>three-point linkage and drawbar</label>
+      <health>60</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -2)</li>
+          <li>(0, -2)</li>
+          <li>(1, -2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Wiring</key>
+      <label>wiring</label>
+      <health>30</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>lights</label>
+      <health>10</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 3)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <!-- Its hitch takes a drawbar, a pick-up hitch and the three-point linkage (D'thorga Framework's couplings). -->
+      <li Class="Phobos.VehicleSystems.PhobosCouplingsExtension">
+        <hitch>
+          <li>PhobosCoupling_Drawbar</li>
+          <li>PhobosCoupling_PickUpHitch</li>
+          <li>PhobosCoupling_ThreePoint</li>
+        </hitch>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_FueledTravel">
+        <fuelType>Chemfuel</fuelType>
+        <leakDef>Filth_Fuel</leakDef>
+        <fuelConsumptionRate>28</fuelConsumptionRate>
+        <fuelConsumptionWorldMultiplier>0.5</fuelConsumptionWorldMultiplier>
+        <fuelCapacity>150</fuelCapacity>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFieldRun" />
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleDef ParentName="PhobosFarming_TractorT130Base">
+    <defName>Phobos_TractorT130Standard</defName>
+    <label>Thane T130 tractor</label>
+    <description>Thane T130: a medium farm tractor with front ballast. It carries a plough or a cultivator on its three-point linkage, pulls a seed drill or a cart on its drawbar, and drives all four wheels; the ballast gives it grip for heavy draught, at a little more fuel.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT130/TractorT130</texPath>
+      <color>(157, 184, 119)</color>
+      <colorTwo>(255, 245, 93)</colorTwo>
+    </graphicData>
+    <buildDef>Phobos_TractorT130_Blueprint</buildDef>
+    <statBases>
+      <MarketValue>2100</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>670</Mass>
+    </vehicleStats>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>8000</emptyKilograms>
+        <ratedKilowatts>130</ratedKilowatts>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleDef ParentName="PhobosFarming_TractorT130Base">
+    <defName>Phobos_TractorT130RC</defName>
+    <label>Thane T130 RC tractor</label>
+    <description>Thane T130 RC: the row-crop medium tractor. Lighter than the ballasted T130, it is a little thriftier and easier on soft ground, with less grip under heavy draught. It carries a plough or a cultivator on its three-point linkage and pulls a seed drill or a cart on its drawbar.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT130RC/TractorT130RC</texPath>
+      <color>(138, 162, 107)</color>
+      <colorTwo>(255, 237, 124)</colorTwo>
+    </graphicData>
+    <buildDef>Phobos_TractorT130RC_Blueprint</buildDef>
+    <statBases>
+      <MarketValue>2000</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>590</Mass>
+    </vehicleStats>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>7000</emptyKilograms>
+        <ratedKilowatts>130</ratedKilowatts>
+      </li>
+    </modExtensions>
+  </Vehicles.VehicleDef>
+
+  <!-- ===== Building them: two models of each size under one Architect button (the game's drop-down group). ===== -->
+  <DesignatorDropdownGroupDef>
+    <defName>PhobosFarming_ThaneT60Models</defName>
+  </DesignatorDropdownGroupDef>
+  <DesignatorDropdownGroupDef>
+    <defName>PhobosFarming_ThaneT130Models</defName>
+  </DesignatorDropdownGroupDef>
+
+  <Vehicles.VehicleBuildDef Name="PhobosFarming_TractorT60BuildBase" ParentName="VehicleBaseBuildable" Abstract="True">
+    <graphicData>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(4, 6)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToBuild>12000</WorkToBuild>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_TillageAndSowing</li>
+    </researchPrerequisites>
+    <size>(3, 5)</size>
+    <!-- The shell only: its parts are in Bills.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
+    <costList>
+      <Steel>180</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designatorDropdown>PhobosFarming_ThaneT60Models</designatorDropdown>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_TractorT60BuildBase">
+    <defName>Phobos_TractorT60_Blueprint</defName>
+    <label>Thane T60 tractor</label>
+    <description>Thane T60: a small farm tractor for a plough, a cultivator or a seed drill.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT60/TractorT60</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_TractorT60Standard</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_TractorT60BuildBase">
+    <defName>Phobos_TractorT60F_Blueprint</defName>
+    <label>Thane T60 F tractor</label>
+    <description>Thane T60 F: the small farm tractor on wide tyres, for softer ground.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT60F/TractorT60F</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_TractorT60F</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef Name="PhobosFarming_TractorT130BuildBase" ParentName="VehicleBaseBuildable" Abstract="True">
+    <graphicData>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(4, 7)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>260</MaxHitPoints>
+      <WorkToBuild>16000</WorkToBuild>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_TillageAndSowing</li>
+    </researchPrerequisites>
+    <size>(3, 6)</size>
+    <costList>
+      <Steel>260</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designatorDropdown>PhobosFarming_ThaneT130Models</designatorDropdown>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_TractorT130BuildBase">
+    <defName>Phobos_TractorT130_Blueprint</defName>
+    <label>Thane T130 tractor</label>
+    <description>Thane T130: a medium four-wheel-drive farm tractor with front ballast, for heavy draught.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT130/TractorT130</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_TractorT130Standard</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_TractorT130BuildBase">
+    <defName>Phobos_TractorT130RC_Blueprint</defName>
+    <label>Thane T130 RC tractor</label>
+    <description>Thane T130 RC: the lighter row-crop medium tractor, thriftier and easier on soft ground.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT130RC/TractorT130RC</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_TractorT130RC</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <!-- ===== Their drivetrains and systems (D'thorga Framework's loadouts). ===== -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_ThaneT60</defName>
+    <label>small tractor</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Phobos_TractorT60Standard</li>
+        <li>Phobos_TractorT60F</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_ThaneT60</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_ThaneT130</defName>
+    <label>medium tractor</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Phobos_TractorT130Standard</li>
+        <li>Phobos_TractorT130RC</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_ThaneT130</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

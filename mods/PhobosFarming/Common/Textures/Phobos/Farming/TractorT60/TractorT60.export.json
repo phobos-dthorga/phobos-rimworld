@@ -1,0 +1,49 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-tractor-t60-body-north/farming-tractor-t60-body-north-1.png",
+  "master_sha256": "945ac903a00ac53bfd8c2f337fafad2df19d9e5e851fce1dc96ae7147153a61e",
+  "files": {
+    "TractorT60_north.png": "d54f8c860e7c21ac2c504b41b49ac2661f9ffcf5a54d6686a4b1a1494a8a3ac6",
+    "TractorT60_east.png": "3ec25129704edb519392727c2a706c33f6864505f29a07202fc8c6050c8d960b",
+    "TractorT60_south.png": "f7ae37f7cd37e85b7c6c6c04a62b6bbfa562afbc84f872fff2ad52f80192ba6e",
+    "TractorT60_northm.png": "d038c488fa247543e56db70389a5ee4c7e66aec34f49b526dcc102f105e47bbb",
+    "TractorT60_eastm.png": "d292250aee67d23ab23753a32177367dd8b9f0bb5ef32a490159784aa426a8d5",
+    "TractorT60_southm.png": "ccbb5a507f1de75f1fbc99386d1082f736b28062f45fada779d41e7be3d56254",
+    "TractorT60_icon.png": "b4283dc1569618b835a1870c2d75b77e35157f0023cf038a5854defe38cefee5"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "body",
+  "cells_long": 5,
+  "draw_size": [
+    4,
+    6
+  ],
+  "width_cells": 2.71,
+  "colours": {
+    "color": [
+      141,
+      165,
+      106
+    ],
+    "colorTwo": [
+      255,
+      227,
+      115
+    ]
+  },
+  "min_saturation": 0.1,
+  "main_max_saturation": 1.0,
+  "trim": 0,
+  "line": null,
+  "main_hue": [
+    70,
+    150
+  ],
+  "accent_hue": [
+    35,
+    60
+  ],
+  "holes": [],
+  "ai_mask": "945ac903a00ac53bfd8c2f337fafad2df19d9e5e851fce1dc96ae7147153a61e",
+  "flecks_filled": 7
+}

@@ -1,0 +1,48 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-plough-body-north/farming-plough-body-north-1.png",
+  "master_sha256": "8a4ebb739814e3b811750a54b6c5796086f4e46fbdf797d61d65dc6e48a961b1",
+  "files": {
+    "Plough_north.png": "9c85de1cc5140a6394b1aab6d9f7e661cf000ed7ceb68b100240a4813332c1ff",
+    "Plough_east.png": "335e0b586e1bf0c38a96d116c3212b677c9dade2a8e68dfb66a706d000be457b",
+    "Plough_south.png": "25fd33d40c5d0fb7fedf5cdeb182807ac1e7e7f527431ea4bf5387eeaefe3240",
+    "Plough_northm.png": "74f96eb1667a665a80a159ac9e3d8a808f60924135b625f70826da15a70edb1c",
+    "Plough_eastm.png": "c10cb18137a6179fdffff5c2f932d90458ade0749a0896a6e0d586dc8edc9352",
+    "Plough_southm.png": "5440e90908c4f2f6ed5c03674aad2cd5308e6752e355a976139c29f6d302c625",
+    "Plough_icon.png": "ce5c396a34b9e89614c8b3e1b2b162b149a5c481861a3becd833d81d5feb0d64"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "body",
+  "cells_long": 3,
+  "draw_size": [
+    4,
+    4
+  ],
+  "width_cells": 1.24,
+  "colours": {
+    "color": [
+      157,
+      182,
+      118
+    ],
+    "colorTwo": [
+      255,
+      244,
+      65
+    ]
+  },
+  "min_saturation": 0.1,
+  "main_max_saturation": 1.0,
+  "trim": 0,
+  "line": null,
+  "main_hue": [
+    70,
+    150
+  ],
+  "accent_hue": [
+    35,
+    60
+  ],
+  "holes": [],
+  "ai_mask": "8a4ebb739814e3b811750a54b6c5796086f4e46fbdf797d61d65dc6e48a961b1"
+}

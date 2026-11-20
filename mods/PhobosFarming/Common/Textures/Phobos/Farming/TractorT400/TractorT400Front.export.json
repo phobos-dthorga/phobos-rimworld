@@ -1,0 +1,36 @@
+{
+  "master": "assets/phobos-vehicles/generated/farming-tractor-t400-body-north/farming-tractor-t400-body-north-2.png",
+  "master_sha256": "7a635e295fb80403ff7fb67c422f10dca688c3e378771acb952fac75973eaeab",
+  "files": {
+    "TractorT400Front_north.png": "f5e23d7c0463a1edb1ddd967f45c27b42f4d254d363ed2d9bf2c32098c5c9121",
+    "TractorT400Front_east.png": "a29d3ac8e6cb213607c605d1dfbed67e2c2e9193031321dff845d115e7da38b7",
+    "TractorT400Front_south.png": "800cefa41c6c57442089e1f071c7a6d6ef1af65bd2cfc7e88fa33c4a261d5354",
+    "TractorT400Front_northm.png": "c7a5da2e5afa4f9b65bd46b4875530b34875378dd33fe8c59ff27055534211ff",
+    "TractorT400Front_eastm.png": "19e015d65f426dd487ee1ebbb03e541462fe24349b350e2d4818ecd1f8333849",
+    "TractorT400Front_southm.png": "3b6b4f9151ee15480a74fdf8ec81142e6bb6afcec4c8fec01ed6046415e25073"
+  },
+  "date": "2026-11-20",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "articulated half",
+  "half": "front",
+  "cut_row_on_whole": 720,
+  "cut_from": "TractorT400, 8 cells long on a 5 by 10 picture",
+  "draw_size": [
+    5,
+    5
+  ],
+  "length_cells": 4.62,
+  "pivot_from_middle_cells": 2.31,
+  "colours": {
+    "color": [
+      147,
+      174,
+      107
+    ],
+    "colorTwo": [
+      255,
+      237,
+      90
+    ]
+  }
+}
