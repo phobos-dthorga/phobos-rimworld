@@ -532,7 +532,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         }
         if (trailer != null)
         {
-            yield return UnhitchGizmo();
+            // Framework 0.195.0: an articulated vehicle's halves are never let go by hand.
+            if (!Couplings.Permanent(trailer)) yield return UnhitchGizmo();
             // Framework 0.193.0: more behind the last vehicle of the chain, from the vehicle in front (a cart behind the plough).
             if (Tower == null && LastFree() is { } last)
             {

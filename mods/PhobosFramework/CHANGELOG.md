@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.195.0] - 2026-11-20 - Draft
+
+Articulated vehicles: two halves joined at a pivot
+
+### Added
+
+- **A vehicle can be built in two halves joined at a pivot**, for D'thorga Farming's large tractor (the owner's choice of 20 November 2026: it bends on our own hitch). Built from one blueprint, the front half sets its rear half down behind it and couples it; with no room behind, it says so and tries again once the cells are clear. The rear follows within its own swing limit, its weight counting as grip (since 0.194.0), and its own hitch carries an implement or pulls a cart.
+- **A coupling can be permanent**: the articulation pivot. Neither half offers an Unhitch button.
+
+### Compatibility and limits
+
+- Nothing uses it until D'thorga Farming's T400 is installed. A loaded save never makes a second rear half: whether the pair was put together is saved.
+- The blueprint covers the front half only; leave room behind it.
+- No new settings. Not yet tested in game: row 285 of the test pass.
+
 ### Fixed
 
 - **A vehicle carried on the gravship lands on its own spot when the ship lands turned.** A vehicle with an even length or width could come down one cell out of place, with an end over the floor's edge or in a wall, because Vehicle Framework and the game place a turned vehicle by slightly different rules. It is now put back on the cells it stood on. A patch for another author's fault; it does nothing once Vehicle Framework's rule matches the game's. Not yet tested in game: row 284.

@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The Thane T400, the large articulated tractor (D'thorga Farming, batch two; docs/development/farming-batch-two.md, "Tractors"). It
+    bends on our own hitch (the owner, 20 Nov 2026): two vehicles of 4 by 4, the front half with the engine and cab driving, the rear half
+    with the big rear axle, the linkage and the drawbar following on the articulation pivot with a swing of about 40 degrees [A, a real
+    articulated tractor's steering angle, general knowledge]. The rear half's weight is driven grip (drivenAxle), not weight towed. One
+    blueprint builds the front, which sets its rear half down behind it and couples it (D'thorga Framework's articulated vehicles); the
+    pivot is permanent, with no Unhitch. Two models under one Architect button, from the owner's two pictures: the standard T400 with a
+    larger fuel deck, the ballasted T400 B. Its pictures are the whole drawing cut above the hinge (export_farming.py); the pivot sits
+    2.31 cells behind the standard front half's middle and 2.39 behind the B's, measured at the cut. Figures authored [A], approximate, in
+    the ranges of real articulated tractors (general knowledge, not read from a source). No upgrade tree yet (its icons and overlays come
+    in the owner's next paid run). The fuel deck is drawn on the rear half; the fuel is carried by the front, which burns it (a
+    simplification). Part keys are saved by position: append only, never reorder. Cells run x -1 to 2, z -1 to 2, the front north.
+    Not yet tested in game.
+  -->
+
+  <!-- ===== The front half: engine, cab, front axle; it drives. ===== -->
+  <Vehicles.VehicleDef Name="PhobosFarming_TractorT400FrontBase" ParentName="BaseVehiclePawn" Abstract="True">
+    <graphicData>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(5, 5)</drawSize>
+    </graphicData>
+    <fillPercent>0.8</fillPercent>
+    <size>(4, 4)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.24</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.34</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <vehicleStats>
+      <MoveSpeed>7</MoveSpeed>
+      <CargoCapacity>80</CargoCapacity>
+      <RepairRate>0.5</RepairRate>
+      <AccelerationRate>0.015</AccelerationRate>
+    </vehicleStats>
+    <race>
+      <baseBodySize>6</baseBodySize>
+    </race>
+    <properties>
+      <worldSpeedMultiplier>0.6</worldSpeedMultiplier>
+      <winterSpeedMultiplier>1.3</winterSpeedMultiplier>
+      <visibilityWeight>6</visibilityWeight>
+      <customRoadCosts AssignDefaults="0.3" />
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles>
+        <li>
+          <key>driver</key>
+          <label>driver</label>
+          <slots>1</slots>
+          <slotsToOperate>1</slotsToOperate>
+          <handlingTypes>
+            <li>Movement</li>
+          </handlingTypes>
+          <hitbox>
+            <cells>
+              <li>(0, -1)</li>
+            </cells>
+          </hitbox>
+        </li>
+      </roles>
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>front frame</label>
+      <health>200</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <cells>
+          <li>(0, 0)</li>
+          <li>(1, 0)</li>
+          <li>(0, 1)</li>
+          <li>(1, 1)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Cab</key>
+      <label>cab</label>
+      <health>65</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, -1)</li>
+          <li>(1, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Engine</key>
+      <label>engine</label>
+      <health>100</health>
+      <depth>Internal</depth>
+      <priorityStatEfficiency>true</priorityStatEfficiency>
+      <hitbox>
+        <cells>
+          <li>(0, 1)</li>
+          <li>(1, 1)</li>
+          <li>(0, 2)</li>
+          <li>(1, 2)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>FrontWheels</key>
+      <label>front dual wheels</label>
+      <health>110</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, 0)</li>
+          <li>(-1, 1)</li>
+          <li>(2, 0)</li>
+          <li>(2, 1)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>Transmission</key>
+      <label>transmission</label>
+      <health>70</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 0)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>MoveSpeed</li>
+      </categories>
+    </li>
+    <li>
+      <key>FuelTank</key>
+      <label>fuel tank</label>
+      <health>50</health>
+      <depth>External</depth>
+      <reactors>
+        <li Class="Vehicles.Reactor_FuelLeak" />
+      </reactors>
+      <hitbox>
+        <cells>
+          <li>(1, 0)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Wiring</key>
+      <label>wiring</label>
+      <health>35</health>
+      <depth>Internal</depth>
+      <hitbox>
+        <cells>
+          <li>(1, 1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>lights</label>
+      <health>10</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 2)</li>
+          <li>(1, 2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <!-- Its hitch is the articulation pivot, and holds only its own rear half. -->
+      <li Class="Phobos.VehicleSystems.PhobosCouplingsExtension">
+        <hitch>
+          <li>PhobosCoupling_ArticulatedPivot</li>
+        </hitch>
+      </li>
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosFarming_TractorT400EngineIdle</idleSound>
+        <loadSound>PhobosFarming_TractorT400EngineLoad</loadSound>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosFieldRun" />
+    </comps>
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosFarming_TractorT400EngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosFarming_TractorT400EngineStop</value>
+      </li>
+    </soundOneShotsOnEvent>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleDef ParentName="PhobosFarming_TractorT400FrontBase">
+    <defName>Phobos_TractorT400Standard</defName>
+    <label>Thane T400 tractor</label>
+    <description>Thane T400: a very large articulated farm tractor that bends in the middle to steer. All its wheels drive and all its weight grips, so it pulls the widest implements through the heaviest ground; its rear half carries the three-point linkage and the drawbar. A large fuel deck lets it work long days.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT400/TractorT400Front</texPath>
+      <color>(141, 165, 106)</color>
+      <colorTwo>(255, 227, 115)</colorTwo>
+    </graphicData>
+    <buildDef>Phobos_TractorT400Standard_Blueprint</buildDef>
+    <statBases>
+      <!-- Authored [A]: the front and rear halves together sell for less than their parts bill (AG6). -->
+      <MarketValue>2200</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>1000</Mass>
+    </vehicleStats>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>12000</emptyKilograms>
+        <ratedKilowatts>400</ratedKilowatts>
+      </li>
+      <li Class="Phobos.VehicleSystems.PhobosHitchPointExtension">
+        <behindCentre>2.31</behindCentre>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_FueledTravel">
+        <fuelType>Chemfuel</fuelType>
+        <leakDef>Filth_Fuel</leakDef>
+        <fuelConsumptionRate>65</fuelConsumptionRate>
+        <fuelConsumptionWorldMultiplier>0.5</fuelConsumptionWorldMultiplier>
+        <fuelCapacity>480</fuelCapacity>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosArticulated">
+        <rearHalf>Phobos_TractorT400StandardRear</rearHalf>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleDef ParentName="PhobosFarming_TractorT400FrontBase">
+    <defName>Phobos_TractorT400B</defName>
+    <label>Thane T400 B tractor</label>
+    <description>Thane T400 B: the ballasted large articulated farm tractor. Heavier than the standard T400, it grips harder under the heaviest draught and burns a little more fuel, with a smaller fuel deck. It bends in the middle to steer; its rear half carries the three-point linkage and the drawbar.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT400B/TractorT400BFront</texPath>
+      <color>(141, 165, 106)</color>
+      <colorTwo>(255, 227, 115)</colorTwo>
+    </graphicData>
+    <buildDef>Phobos_TractorT400B_Blueprint</buildDef>
+    <statBases>
+      <MarketValue>2300</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>1080</Mass>
+    </vehicleStats>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>13000</emptyKilograms>
+        <ratedKilowatts>400</ratedKilowatts>
+      </li>
+      <li Class="Phobos.VehicleSystems.PhobosHitchPointExtension">
+        <behindCentre>2.39</behindCentre>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Vehicles.CompProperties_FueledTravel">
+        <fuelType>Chemfuel</fuelType>
+        <leakDef>Filth_Fuel</leakDef>
+        <fuelConsumptionRate>70</fuelConsumptionRate>
+        <fuelConsumptionWorldMultiplier>0.5</fuelConsumptionWorldMultiplier>
+        <fuelCapacity>400</fuelCapacity>
+      </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosArticulated">
+        <rearHalf>Phobos_TractorT400BRear</rearHalf>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <!-- ===== The rear half: the big rear axle, the linkage and the drawbar; it follows on the pivot. ===== -->
+  <Vehicles.VehicleDef Name="PhobosFarming_TractorT400RearBase" ParentName="BaseVehiclePawn" Abstract="True">
+    <graphicData>
+      <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+      <shaderType>CutoutComplexPattern</shaderType>
+      <drawSize>(5, 5)</drawSize>
+      <color>(141, 165, 106)</color>
+      <colorTwo>(255, 227, 115)</colorTwo>
+    </graphicData>
+    <fillPercent>0.8</fillPercent>
+    <size>(4, 4)</size>
+    <vehicleCategory>Transport</vehicleCategory>
+    <techLevel>Industrial</techLevel>
+    <vehicleType>Land</vehicleType>
+    <statBases>
+      <ArmorRating_Blunt>0.24</ArmorRating_Blunt>
+      <ArmorRating_Sharp>0.34</ArmorRating_Sharp>
+      <ArmorRating_Heat>1.0</ArmorRating_Heat>
+      <Flammability>0.4</Flammability>
+    </statBases>
+    <vehicleStats>
+      <MoveSpeed>7</MoveSpeed>
+      <CargoCapacity>0</CargoCapacity>
+      <RepairRate>0.5</RepairRate>
+    </vehicleStats>
+    <race>
+      <baseBodySize>6</baseBodySize>
+    </race>
+    <properties>
+      <diagonalRotation>false</diagonalRotation>
+      <worldSpeedMultiplier>1</worldSpeedMultiplier>
+      <visibilityWeight>5</visibilityWeight>
+      <customTerrainCosts DisallowTerrainWithTag="Water" />
+      <roles />
+    </properties>
+    <components>
+    <li>
+      <key>Chassis</key>
+      <label>rear frame</label>
+      <health>180</health>
+      <depth>External</depth>
+      <hitWeight>3</hitWeight>
+      <hitbox>
+        <cells>
+          <li>(0, 0)</li>
+          <li>(1, 0)</li>
+          <li>(0, 1)</li>
+          <li>(1, 1)</li>
+        </cells>
+      </hitbox>
+      <categories>
+        <li>BodyIntegrity</li>
+      </categories>
+    </li>
+    <li>
+      <key>Pivot</key>
+      <label>articulation pivot</label>
+      <health>90</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(0, 2)</li>
+          <li>(1, 2)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>RearWheels</key>
+      <label>rear dual wheels</label>
+      <health>120</health>
+      <depth>External</depth>
+      <tags>
+        <li>Wheel</li>
+      </tags>
+      <hitbox>
+        <cells>
+          <li>(-1, 0)</li>
+          <li>(-1, 1)</li>
+          <li>(2, 0)</li>
+          <li>(2, 1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Linkage</key>
+      <label>three-point linkage and drawbar</label>
+      <health>70</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -1)</li>
+          <li>(0, -1)</li>
+          <li>(1, -1)</li>
+          <li>(2, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    <li>
+      <key>Lights</key>
+      <label>rear lights</label>
+      <health>10</health>
+      <depth>External</depth>
+      <hitbox>
+        <cells>
+          <li>(-1, -1)</li>
+          <li>(2, -1)</li>
+        </cells>
+      </hitbox>
+    </li>
+    </components>
+    <modExtensions>
+      <!-- Towed only by its own front half's pivot; its own hitch carries the implements and pulls a cart (a line of tows). -->
+      <li Class="Phobos.VehicleSystems.PhobosCouplingsExtension">
+        <towedBy>PhobosCoupling_ArticulatedPivot</towedBy>
+        <hitch>
+          <li>PhobosCoupling_Drawbar</li>
+          <li>PhobosCoupling_PickUpHitch</li>
+          <li>PhobosCoupling_ThreePoint</li>
+        </hitch>
+      </li>
+    </modExtensions>
+    <comps>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosHitch" />
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleDef ParentName="PhobosFarming_TractorT400RearBase">
+    <defName>Phobos_TractorT400StandardRear</defName>
+    <label>Thane T400 rear half</label>
+    <description>The rear half of a Thane T400: its big rear axle, which drives, and its three-point linkage and drawbar. It is joined to the front half at the articulation pivot for good.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT400/TractorT400Rear</texPath>
+    </graphicData>
+    <statBases>
+      <MarketValue>1400</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>830</Mass>
+    </vehicleStats>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>10000</emptyKilograms>
+      </li>
+    </modExtensions>
+    <comps>
+      <!-- The pivot 1.69 cells ahead of the picture's middle, measured at the cut; the axle 1.6 behind the pivot [A]. It swings at most
+           40 degrees, and its weight is driven grip. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
+        <hitchToAxle>1.6</hitchToAxle>
+        <axleToCentre>0.09</axleToCentre>
+        <jackKnifeDegrees>40</jackKnifeDegrees>
+        <drawbarPart>Pivot</drawbarPart>
+        <drivenAxle>true</drivenAxle>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <Vehicles.VehicleDef ParentName="PhobosFarming_TractorT400RearBase">
+    <defName>Phobos_TractorT400BRear</defName>
+    <label>Thane T400 B rear half</label>
+    <description>The rear half of a Thane T400 B: its big rear axle, which drives, and its three-point linkage and drawbar. It is joined to the front half at the articulation pivot for good.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT400B/TractorT400BRear</texPath>
+    </graphicData>
+    <statBases>
+      <MarketValue>1400</MarketValue>
+    </statBases>
+    <vehicleStats>
+      <Mass>920</Mass>
+    </vehicleStats>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosVehicleFiguresExtension">
+        <emptyKilograms>11000</emptyKilograms>
+      </li>
+    </modExtensions>
+    <comps>
+      <!-- The pivot 1.61 cells ahead of the picture's middle, measured at the cut; the axle 1.5 behind the pivot [A]. -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosTrailer">
+        <hitchToAxle>1.5</hitchToAxle>
+        <axleToCentre>0.11</axleToCentre>
+        <jackKnifeDegrees>40</jackKnifeDegrees>
+        <drawbarPart>Pivot</drawbarPart>
+        <drivenAxle>true</drivenAxle>
+      </li>
+    </comps>
+  </Vehicles.VehicleDef>
+
+  <!-- ===== Building it: one button, two models; each blueprint builds the front, which makes its rear half. ===== -->
+  <DesignatorDropdownGroupDef>
+    <defName>PhobosFarming_ThaneT400Models</defName>
+  </DesignatorDropdownGroupDef>
+
+  <Vehicles.VehicleBuildDef Name="PhobosFarming_TractorT400BuildBase" ParentName="VehicleBaseBuildable" Abstract="True">
+    <graphicData>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(5, 5)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>320</MaxHitPoints>
+      <WorkToBuild>26000</WorkToBuild>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <researchPrerequisites>
+      <li>PhobosResearch_ArticulatedTractors</li>
+    </researchPrerequisites>
+    <size>(4, 4)</size>
+    <!-- The shell of both halves: their parts are in Bills.xml, filled at start-up (docs/development/parts-bills.md). Steel stays first. -->
+    <costList>
+      <Steel>520</Steel>
+      <ComponentIndustrial>5</ComponentIndustrial>
+    </costList>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <designatorDropdown>PhobosFarming_ThaneT400Models</designatorDropdown>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_TractorT400BuildBase">
+    <defName>Phobos_TractorT400Standard_Blueprint</defName>
+    <label>Thane T400 tractor</label>
+    <description>Thane T400: a very large articulated farm tractor with a large fuel deck. Leave room behind the front half: its rear half is set down there when it is finished.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT400/TractorT400Front</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_TractorT400Standard</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <Vehicles.VehicleBuildDef ParentName="PhobosFarming_TractorT400BuildBase">
+    <defName>Phobos_TractorT400B_Blueprint</defName>
+    <label>Thane T400 B tractor</label>
+    <description>Thane T400 B: the ballasted very large articulated farm tractor, for the heaviest draught. Leave room behind the front half: its rear half is set down there when it is finished.</description>
+    <graphicData>
+      <texPath>Phobos/Farming/TractorT400B/TractorT400BFront</texPath>
+    </graphicData>
+    <thingToSpawn>Phobos_TractorT400B</thingToSpawn>
+  </Vehicles.VehicleBuildDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
+    <defName>PhobosVehicleLoadout_ThaneT400</defName>
+    <label>articulated tractor</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Phobos_TractorT400Standard</li>
+        <li>Phobos_TractorT400B</li>
+      </vehicleDefs>
+      <massMin>-1</massMin>
+    </selector>
+    <drivetrain>
+      <def>PhobosDrivetrain_ThaneT400</def>
+    </drivetrain>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

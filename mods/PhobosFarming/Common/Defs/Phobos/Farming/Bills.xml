@@ -142,4 +142,58 @@
       <DriveShaft>1</DriveShaft>
     </parts>
   </Phobos.VehicleSystems.PhobosVehicleBillDef>
+
+  <!-- The T400: one blueprint builds both halves (the front makes its rear), so its bill is the whole tractor's. Counts authored. -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_TractorT400Standard</defName>
+    <label>Thane T400 tractor parts</label>
+    <target>Phobos_TractorT400Standard_Blueprint</target>
+    <parts>
+      <Engine>1</Engine>
+      <Transmission>1</Transmission>
+      <FuelTank>1</FuelTank>
+      <!-- Dual wheels on both axles. -->
+      <Wheels>8</Wheels>
+      <Suspension>2</Suspension>
+      <Alternator>1</Alternator>
+      <Battery>2</Battery>
+      <Wiring>1</Wiring>
+      <Radiator>1</Radiator>
+      <Exhaust>1</Exhaust>
+      <HydraulicPump>1</HydraulicPump>
+      <!-- The front and rear frames. -->
+      <Frame>2</Frame>
+      <Hose>2</Hose>
+      <!-- Two rams lift the linkage, two steer the pivot. -->
+      <Actuator>4</Actuator>
+      <!-- The shaft through the pivot to the rear axle, and the power take-off. -->
+      <DriveShaft>2</DriveShaft>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_TractorT400B</defName>
+    <label>Thane T400 B tractor parts</label>
+    <target>Phobos_TractorT400B_Blueprint</target>
+    <parts>
+      <Engine>1</Engine>
+      <Transmission>1</Transmission>
+      <FuelTank>1</FuelTank>
+      <!-- Dual wheels on both axles. -->
+      <Wheels>8</Wheels>
+      <Suspension>2</Suspension>
+      <Alternator>1</Alternator>
+      <Battery>2</Battery>
+      <Wiring>1</Wiring>
+      <Radiator>1</Radiator>
+      <Exhaust>1</Exhaust>
+      <HydraulicPump>1</HydraulicPump>
+      <!-- The front and rear frames. -->
+      <Frame>2</Frame>
+      <Hose>2</Hose>
+      <!-- Two rams lift the linkage, two steer the pivot. -->
+      <Actuator>4</Actuator>
+      <!-- The shaft through the pivot to the rear axle, and the power take-off. -->
+      <DriveShaft>2</DriveShaft>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
 </Defs>

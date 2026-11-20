@@ -13,6 +13,9 @@ namespace Phobos.VehicleSystems;
 /// </summary>
 public class PhobosCouplingDef : Def
 {
+    /// <summary>A coupling that is never let go by hand (Framework 0.195.0): an articulated vehicle's pivot. Neither side offers Unhitch;
+    /// only the loss of one half parts them.</summary>
+    public bool permanent;
 }
 
 /// <summary>An adapter fitted to a hitch by an upgrade: while the node is unlocked, the hitch also takes this coupling.</summary>
@@ -58,6 +61,9 @@ public static class Couplings
 
     /// <summary>The coupling this vehicle is towed by; null for universal.</summary>
     public static PhobosCouplingDef? TowedBy(VehiclePawn vehicle) => Of(vehicle)?.towedBy;
+
+    /// <summary>Whether this vehicle is held by a permanent coupling (an articulated vehicle's rear half), so no Unhitch is offered.</summary>
+    public static bool Permanent(VehiclePawn? vehicle) => vehicle != null && TowedBy(vehicle)?.permanent == true;
 
     /// <summary>The couplings the adapters fitted to this vehicle's hitch take now.</summary>
     public static List<PhobosCouplingDef> Adapters(VehiclePawn vehicle)

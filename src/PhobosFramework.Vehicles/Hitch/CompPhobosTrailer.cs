@@ -123,6 +123,8 @@ public sealed class CompPhobosTrailer : VehicleComp, VehiclePipes.IHost
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer || TowedBy is not { } hitch) yield break;
+        // Framework 0.195.0: an articulated vehicle's rear half offers no Unhitch.
+        if (Couplings.Permanent(Vehicle)) yield break;
         yield return hitch.UnhitchGizmo();
     }
 

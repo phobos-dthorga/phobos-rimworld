@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "285": {"parts": {
+      "the front half puts its rear half together behind it": ["vehicles.articulated.assembled"]
+    }},
     "283": {"parts": {
       "the frame's hay limited to straw crops": [{"key": "farming.frame-hay.limited", "expect": {"plants": ">= 1"}}]
     }},

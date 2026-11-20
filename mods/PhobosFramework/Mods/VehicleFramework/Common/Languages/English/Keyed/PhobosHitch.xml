@@ -65,4 +65,6 @@
   <PhobosHitch_ChainTooLong>{TRACTOR} already pulls as long a line as it can: at most {COUNT} behind it.</PhobosHitch_ChainTooLong>
   <PhobosHitch_LetGoBehindGizmo>Let go of {TRAILER}</PhobosHitch_LetGoBehindGizmo>
   <PhobosHitch_HitchBehindGizmo>Hitch behind {LAST}</PhobosHitch_HitchBehindGizmo>
+  <!-- Framework 0.195.0: an articulated vehicle's halves. -->
+  <PhobosArticulated_NoRoom>{VEHICLE} has no room behind it for its rear half. Clear the cells behind it; it will try again.</PhobosArticulated_NoRoom>
 </LanguageData>

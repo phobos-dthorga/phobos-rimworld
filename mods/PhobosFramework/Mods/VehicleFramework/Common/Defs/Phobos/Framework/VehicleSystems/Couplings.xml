@@ -33,4 +33,11 @@
     <label>three-point linkage</label>
     <description>Two lower arms and a top link that carry an implement and lift it, rather than tow it. Mounted ploughs, cultivators and sprayers hang from it.</description>
   </Phobos.VehicleSystems.PhobosCouplingDef>
+  <!-- Framework 0.195.0: the pivot of an articulated vehicle (a large farm tractor's two halves), never let go by hand. -->
+  <Phobos.VehicleSystems.PhobosCouplingDef>
+    <defName>PhobosCoupling_ArticulatedPivot</defName>
+    <label>articulation pivot</label>
+    <description>The heavy hinge between the two halves of an articulated vehicle, which bends it to steer. It is part of the vehicle and is never uncoupled.</description>
+    <permanent>true</permanent>
+  </Phobos.VehicleSystems.PhobosCouplingDef>
 </Defs>
