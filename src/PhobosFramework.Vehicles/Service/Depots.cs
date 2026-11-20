@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Phobos.Framework.Rules;
+using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using RimWorld.Planet;
 using Vehicles;
@@ -102,6 +103,7 @@ public static class Depots
             return null;
         }
         PhobosSlingWreck? depot = At(caravan.Tile);
+        int fuelBefore = depot != null ? TotalFuel(depot) : 0;
         int left = 0, taken = 0;
         bool leaving = leaveVehicles.Count > 0 || leaveItems.Any(t => t.CountToTransfer > 0);
         if (leaving && depot == null) depot = PhobosSlingWreck.MakeDepot(caravan.Tile);
@@ -128,6 +130,13 @@ public static class Depots
                 });
             }
             caravan.RecacheVehicles();
+            // Framework 0.200.0 (DP9): fuel added freshens the depot's fuel in proportion, as fresh fuel mixed with old does.
+            int fuelAfter = TotalFuel(depot);
+            if (fuelAfter > fuelBefore)
+            {
+                depot.fuelClock = DepotPressureRule.BlendClock(fuelBefore, depot.fuelClock < 0 ? Find.TickManager.TicksGame : depot.fuelClock,
+                    fuelAfter - fuelBefore, Find.TickManager.TicksGame);
+            }
             depot.RemoveIfEmpty();
         }
         if (left == 0 && taken == 0) return depot;
@@ -284,15 +293,14 @@ public static class Depots
 
     // ---- Reading it (DP5) ----
 
-    /// <summary>The depot's line on the world map: its fuel by kind, then how many vehicles and crates.</summary>
-    public static string Summary(PhobosSlingWreck depot)
+    /// <summary>The kinds of fuel a depot holds anything of: in crates, in its vehicles' cargo, in their tanks.</summary>
+    public static IEnumerable<ThingDef> FuelKinds(PhobosSlingWreck depot)
     {
-        var fuels = new List<string>();
         var kinds = new HashSet<ThingDef>();
-        foreach (Thing thing in depot.Items) if (thing.def.IsFuelLike()) kinds.Add(thing.def);
+        foreach (Thing thing in depot.Items) if (IsFuel(thing.def)) kinds.Add(thing.def);
         foreach (VehiclePawn vehicle in depot.Vehicles)
         {
-            if (vehicle.inventory?.innerContainer is { } hold) foreach (Thing thing in hold) if (thing.def.IsFuelLike()) kinds.Add(thing.def);
+            if (vehicle.inventory?.innerContainer is { } hold) foreach (Thing thing in hold) if (IsFuel(thing.def)) kinds.Add(thing.def);
             if (vehicle.GetComp<CompPhobosTank>() is { } tank)
             {
                 foreach (TankCompartment compartment in tank.Compartments)
@@ -302,17 +310,29 @@ public static class Depots
                 }
             }
         }
-        foreach (ThingDef fuel in kinds.OrderBy(d => d.label))
+        return kinds.OrderBy(d => d.label);
+    }
+
+    /// <summary>Every unit of fuel a depot holds, of every kind.</summary>
+    public static int TotalFuel(PhobosSlingWreck depot) => FuelKinds(depot).Sum(fuel => FuelUnits(depot, fuel));
+
+    /// <summary>The depot's line on the world map: its fuel by kind, how many vehicles and crates, and what time is doing to it.</summary>
+    public static string Summary(PhobosSlingWreck depot)
+    {
+        var lines = new List<string>();
+        foreach (ThingDef fuel in FuelKinds(depot))
         {
             int units = FuelUnits(depot, fuel);
-            if (units > 0) fuels.Add("PhobosDepot_FuelLine".Translate(units.Named("AMOUNT"), fuel.label.Named("FUEL")).Resolve());
+            if (units > 0) lines.Add("PhobosDepot_FuelLine".Translate(units.Named("AMOUNT"), fuel.label.Named("FUEL")).Resolve());
         }
-        string held = "PhobosDepot_HeldLine".Translate(depot.Vehicles.Count().Named("VEHICLES"), depot.Items.Sum(t => t.stackCount).Named("ITEMS")).Resolve();
-        return fuels.Count == 0 ? "PhobosDepot_NoFuel".Translate().Resolve() + "\n" + held : string.Join("\n", fuels) + "\n" + held;
+        if (lines.Count == 0) lines.Add("PhobosDepot_NoFuel".Translate().Resolve());
+        lines.Add("PhobosDepot_HeldLine".Translate(depot.Vehicles.Count().Named("VEHICLES"), depot.Items.Sum(t => t.stackCount).Named("ITEMS")).Resolve());
+        lines.AddRange(DepotPressures.Lines(depot));
+        return string.Join("\n", lines);
     }
 
     /// <summary>Whether this is a fuel a vehicle of the game burns, read from the vehicles' own Defs (never by name).</summary>
-    static bool IsFuelLike(this ThingDef def) => FuelDefs.Contains(def);
+    public static bool IsFuel(ThingDef def) => FuelDefs.Contains(def);
 
     static HashSet<ThingDef>? fuelDefs;
     static HashSet<ThingDef> FuelDefs => fuelDefs ??= new HashSet<ThingDef>(DefDatabase<VehicleDef>.AllDefsListForReading

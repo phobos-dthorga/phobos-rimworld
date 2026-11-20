@@ -1866,6 +1866,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     }
 
     /// <summary>Remembers a part's health after the systems changed it themselves, so the change is not counted as a hit.</summary>
+    /// <summary>Keeps every part's health as it is now for the next load (Framework 0.200.0: a depot's weather wears parts off any map).</summary>
+    public void RememberAllPartHealths()
+    {
+        if (Vehicle?.statHandler == null) return;
+        foreach (VehicleComponent part in Vehicle.statHandler.components) RememberPartHealth(part);
+    }
+
     void RememberPartHealth(VehicleComponent part)
     {
         if (part?.props?.key != null) lastPartHealth[part.props.key] = part.Health;

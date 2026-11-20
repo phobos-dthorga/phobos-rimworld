@@ -3,6 +3,11 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "290": {"parts": {
+      "a depot in frost or a wet climate weathers": [{"key": "vehicles.depot-pressure", "variant": "weathered"}],
+      "a depot's old fuel goes stale": [{"key": "vehicles.depot-pressure", "variant": "stale"}],
+      "a hostile neighbour strips a depot (its setting on)": [{"key": "vehicles.depot-pressure", "variant": "stripped"}]
+    }},
     "289": {"parts": {
       "an aircraft passing a depot below half a tank sets down and fills up": [{"key": "vehicles.depot", "variant": "aircraft-stop"}]
     }},

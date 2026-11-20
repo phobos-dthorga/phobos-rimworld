@@ -79,6 +79,23 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
     /// <summary>A depot's place in words, kept from when it was laid: the world map asks for its label every frame.</summary>
     string placeWords = "";
 
+    // A depot's clocks (Framework 0.200.0; docs/development/vehicle-depots.md, batch 2: DepotPressures). Saved.
+    /// <summary>When the depot's fuel was, on average, put there; -1 with none yet.</summary>
+    internal double fuelClock = -1;
+    /// <summary>When the hostile neighbour finds it, or -1; and who.</summary>
+    internal int foundAtTick = -1;
+    internal Faction? foundBy;
+    /// <summary>Fractions of a unit owed to the weather and to staleness, carried day to day instead of rolled for.</summary>
+    internal double leakCarry;
+    internal Dictionary<string, double> staleCarry = new();
+
+    /// <summary>Once a game day, staggered by depot: what time does to it (Framework 0.200.0). Nothing for a wreck or a lost convoy.</summary>
+    protected override void Tick()
+    {
+        base.Tick();
+        if (IsDepot && (Find.TickManager.TicksGame + ID) % GenDate.TicksPerDay == 0) DepotPressures.Daily(this);
+    }
+
     public PhobosSlingWreck() => held = new ThingOwner<Thing>(this, oneStackOnly: false);
 
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
@@ -335,6 +352,11 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
         Scribe_Values.Look(ref fallMetres, "PhobosSlingWreck_FallMetres");
         Scribe_Collections.Look(ref onMapItems, "PhobosSlingWreck_OnMapItems", LookMode.Reference);
         Scribe_Values.Look(ref placeWords, "PhobosSlingWreck_PlaceWords", "");
+        Scribe_Values.Look(ref fuelClock, "PhobosDepot_FuelClock", -1);
+        Scribe_Values.Look(ref foundAtTick, "PhobosDepot_FoundAt", -1);
+        Scribe_References.Look(ref foundBy, "PhobosDepot_FoundBy");
+        Scribe_Values.Look(ref leakCarry, "PhobosDepot_LeakCarry");
+        Scribe_Collections.Look(ref staleCarry, "PhobosDepot_StaleCarry", LookMode.Value, LookMode.Value);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             held ??= new ThingOwner<Thing>(this, oneStackOnly: false);
@@ -343,6 +365,7 @@ public class PhobosSlingWreck : MapParent, IThingHolder, IPhobosVehicleHolder
             onMapItems ??= new List<Thing>();
             onMapItems.RemoveAll(t => t == null);
             placeWords ??= "";
+            staleCarry ??= new Dictionary<string, double>();
         }
     }
 }

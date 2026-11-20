@@ -5,10 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Added
+
+- **An upgrade can add grip on soft ground**: a new vehicle figure, soft ground grip, which a fitted upgrade raises on top of the tyre fittings' own (D'thorga Farming's dual rear wheels give a quarter more on the softest ground, tapering to none on firm going).
+
 ### Fixed
 
 - **A gathering run that gives up on what you chose now says so, and why.** A truck finding nowhere to stand beside a pile, no way to drive to it, or its grab unable to take it passes over it for the rest of the run; once it had passed over everything it ended saying nothing more lay within reach, with no word of the piles still lying there (the Talus, 19 Nov 2026, set off and ended with nothing gathered). Its end message now counts what it gave up on under each reason, as does its testing note, and with the Vehicle drive log at Debug each pile given up on is named with its place.
 - **Testing notes: a warning still standing when a vehicle's refusal comes is now noted first.** A warning in force when a save loaded (its message shows at the load, but stages worked out at a load write no note), or one already noted earlier in a session, left the next refusal looking as if it came without one, so the test list flagged the Abrams' turbine (row 69) when the game had behaved. Covers every warning before a refusal: a turbine's or piston engine's battery, the air brakes. Nothing a player sees changes.
+
+## [0.200.0] - 2026-11-20 - Draft
+
+What time does to a depot: weather, stale fuel and hostile neighbours, each with its own setting
+
+### Added
+
+- **Depots weather** (setting on). In frost, or in a very wet climate, a depot's vehicles wear a little each day and its loose fuel cans slowly leak; fuel inside a vehicle is under cover.
+- **Stored fuel goes stale** (setting on). Fuel kept in a depot for more than about three months starts to go stale, a hundredth a day, as stored petrol and diesel do. Adding fresh fuel freshens it in proportion. The depot's line says how old its fuel is.
+- **Hostile neighbours find depots** (setting off). A depot within six tiles of a hostile settlement is found, sooner the closer it is (about four days a tile), and everything in it is taken; its vehicles are left empty. The depot's line says who will find it and when, from the first day. A war that hands a nearby settlement to an enemy, as RimPacts' wars do, counts too.
+- **Three new settings** under Depots in the vehicle settings: Depots weather (on), Stored fuel goes stale (on), Hostile neighbours find depots (off). The owner's rule: a riskier behaviour gets its own setting, on unless its risk is high; this one can take a whole depot at once.
+
+### Compatibility and limits
+
+- Every figure is authored, a ballpark: six tiles, four days a tile, 0.3% of a part and half a percent of cans a day, three months' keeping, a hundredth a day after. Nothing is rolled: a share too small to make a whole unit is carried to the next day.
+- Nothing happens to a depot while a caravan has its map open. RimPacts offers no way to ask who holds a tile, so its wars count only through the settlements they hand over.
+- Not yet tested in game: row 290 of the test pass.
 
 ## [0.199.0] - 2026-11-20 - Draft
 

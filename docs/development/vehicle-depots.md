@@ -1,7 +1,7 @@
 # Depots and forward fuel points: design (20 Nov 2026)
 
 **Status (20 Nov 2026):** batch 1 built in D'thorga Framework 0.199.0 (DP1, DP1(b), DP2, DP3(b), DP5, DP6; [as built](#batch-1-as-built-framework-01990));
-not yet tested in game (rows 288 and 289). Batch 2, the pressures DP7 to DP10, not built. The owner answered the five questions the same
+not yet tested in game (rows 288 and 289). Batch 2 built in 0.200.0 (DP7, DP8, DP9; DP10 through DP7; [as built](#batch-2-as-built-framework-02000)), row 290. The owner answered the five questions the same
 day ([the answers](#the-owners-answers-20-nov-2026)); the rule on settings by risk is now a shared rule (phobos-modkit 1.63.0).
 
 The owner, 20 Nov 2026, choosing what follows the emergent-play work: "Sling lifts a hull and design the depots, step-wise if
@@ -133,6 +133,20 @@ The owner's go-ahead of 20 Nov 2026: "Proceed with the two batches". Not yet tes
 **Not done in batch 1:** the range shown when choosing an aircraft's destination does not count depots on the way (DP3(b)'s second
 half); a flight is not routed through a depot, it stops only when its track passes one. Vehicles cannot be taken back at the world map,
 only by a visit.
+
+## Batch 2 as built (Framework 0.200.0)
+
+Not yet tested in game; row 290. Every figure is [A], in `DepotPressureRule` with its tests; the daily look is `DepotPressures`, from
+the depot's own tick, staggered by depot, skipped while a caravan has its map open.
+
+| Row | Risk [A] | Setting, default | As built |
+| --- | --- | --- | --- |
+| DP8 weather | Low | **Depots weather**, on | On a day when the season's temperature at the tile is below freezing, or the tile's rainfall is 2,000 mm a year or more: each vehicle's outer parts lose 0.3% of their full health (never below 1), and loose fuel cans lose half a percent. Fuel in a vehicle's cargo is under cover |
+| DP9 fuel ageing | Moderate | **Stored fuel goes stale**, on | The depot keeps a fuel clock: when its fuel was, on average, put there (fuel added freshens it in proportion: `BlendClock`). Past 90 days, a hundredth of each kind goes each day, items first then tanks. The line says the fuel's age |
+| DP7 hostile neighbours | **High** | **Hostile neighbours find depots**, **off** | The nearest settlement hostile to the player within 6 tiles finds the depot after 4 days a tile (2 at least), set the first day and said on the line; a new nearest faction starts the clock again. When found, loose cargo, the vehicles' cargo and their tanks' loads are taken, the vehicles left empty, with a letter |
+| DP10 wars | **High** | through DP7 | **Not built as its own row.** RimPacts has no call that says who holds a tile: its territory lives in its own simulation, or in Faction Territories 2's (read in its decompile of 16 Nov 2026, `RptFt2Bridge`, `RimPactsMod.OwnTerritorySimActive`). Reaching into those would break at its next update. A war that hands a settlement near a depot to an enemy makes it a hostile neighbour, so DP7 covers that case |
+
+No roll anywhere: a share too small to make a whole unit is carried to the next day (`WholeUnits`).
 
 ## The owner's answers (20 Nov 2026)
 

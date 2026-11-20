@@ -39,4 +39,19 @@
   <PhobosDepot_FuelLine>{FUEL}: {AMOUNT}</PhobosDepot_FuelLine>
   <PhobosDepot_HeldLine>{VEHICLES} vehicles, {ITEMS} items in crates</PhobosDepot_HeldLine>
   <PhobosDepot_NoFuel>No fuel left here.</PhobosDepot_NoFuel>
+
+  <!-- Batch 2 (Framework 0.200.0): what time does to a depot. -->
+  <PhobosDepot_FoundIn>{FACTION} will find it in about {TIME}.</PhobosDepot_FoundIn>
+  <PhobosDepot_FuelAge>Its fuel was put here about {DAYS} days ago. It keeps for about {FRESH} days.</PhobosDepot_FuelAge>
+  <PhobosDepot_FuelStale>Its fuel was put here about {DAYS} days ago and is going stale, a little each day.</PhobosDepot_FuelStale>
+  <PhobosDepot_StrippedLabel>Depot stripped</PhobosDepot_StrippedLabel>
+  <PhobosDepot_Stripped>{FACTION} found {DEPOT} and took everything in it: the fuel, the crates and what was inside the vehicles. The vehicles are still there, empty.</PhobosDepot_Stripped>
+
+  <PhobosDepot_SettingsSection>Depots</PhobosDepot_SettingsSection>
+  <PhobosDepot_SettingWeather>Depots weather</PhobosDepot_SettingWeather>
+  <PhobosDepot_SettingWeatherDesc>In frost, or in a very wet climate, a depot's vehicles wear a little each day and its loose fuel cans slowly leak. Fuel inside a vehicle is under cover. A slow loss you can see coming: on by default.</PhobosDepot_SettingWeatherDesc>
+  <PhobosDepot_SettingFuelAgeing>Stored fuel goes stale</PhobosDepot_SettingFuelAgeing>
+  <PhobosDepot_SettingFuelAgeingDesc>Fuel kept in a depot for more than about three months starts to go stale, a hundredth of it each day, as stored petrol and diesel do. Adding fresh fuel freshens it in proportion. The depot's line says how old its fuel is. On by default.</PhobosDepot_SettingFuelAgeingDesc>
+  <PhobosDepot_SettingHostile>Hostile neighbours find depots</PhobosDepot_SettingHostile>
+  <PhobosDepot_SettingHostileDesc>A depot within six tiles of a hostile settlement is found, sooner the closer it is, and everything in it is taken; its vehicles are left empty. The depot's line says when, from the first day. A war that hands a nearby settlement to an enemy counts too. It can take a whole depot at once, so it is off by default.</PhobosDepot_SettingHostileDesc>
 </LanguageData>

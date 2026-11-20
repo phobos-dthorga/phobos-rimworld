@@ -457,6 +457,9 @@ the kit back in the cargo.
      its fuel, below half a tank, sets down and fills up.
   4. To take the vehicles back, **right-click the depot with a caravan and visit it**: drive them away from the small map.
   A depot never expires, and it is listed on the fleet board.
+  5. **Time works on a depot** (not yet tested in game; each a setting under **Depots**): in frost or a wet climate it weathers;
+     fuel kept more than about three months goes stale, a little a day; and with **Hostile neighbours find depots** on (off by
+     default), a depot near enemies is found and emptied. **The depot's line says how old its fuel is and when it will be found.**
 - **Garages** (needs Vanilla Expanded Framework): a stopped convoy can set one up. Vehicles left there stay with no time limit, and
   whoever is stationed there mends them from steel and components you bring.
 - **Services and coolant top-ups need a map.** Repairs and jump-starts do not.

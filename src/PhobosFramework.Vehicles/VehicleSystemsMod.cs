@@ -168,6 +168,14 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A convoy whose last colonist dies leaves its vehicles at a place on the world map, to come back for (Framework 0.187.0, EM2;
     /// owner, 20 Nov 2026; agent default: on). Live.</summary>
     public bool lostConvoysStay = true;
+    /// <summary>Depots weather: frost or a wet climate wears their vehicles and leaks their loose fuel cans, a little a day (Framework
+    /// 0.200.0, DP8; owner, 20 Nov 2026: a pressure with a cause; low risk, so on by the owner's rule on settings by risk). Live.</summary>
+    public bool depotWeather = true;
+    /// <summary>Fuel kept in a depot past three months starts to go stale (Framework 0.200.0, DP9; moderate risk: on). Live.</summary>
+    public bool depotFuelAgeing = true;
+    /// <summary>A hostile settlement within six tiles finds a depot after days set by its distance and strips it (Framework 0.200.0, DP7,
+    /// with DP10's wars; high risk: off by the owner's rule). Live.</summary>
+    public bool depotHostileNeighbours;
     /// <summary>How far the vehicle systems' messages nobody asked for are quietened (Framework 0.186.0, VehicleMessageLevel; owner's
     /// choice of 20 Nov 2026: a setting; agent default: every message, as before). Live.</summary>
     public MessageLevel messageLevel = MessageLevel.All;
@@ -277,6 +285,9 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref exhaustIndoors, "PhobosVehicleSystems_ExhaustIndoors", false);
         Scribe_Values.Look(ref hullsStay, "PhobosVehicleSystems_HullsStay", true);
         Scribe_Values.Look(ref lostConvoysStay, "PhobosVehicleSystems_LostConvoysStay", true);
+        Scribe_Values.Look(ref depotWeather, "PhobosVehicleSystems_DepotWeather", true);
+        Scribe_Values.Look(ref depotFuelAgeing, "PhobosVehicleSystems_DepotFuelAgeing", true);
+        Scribe_Values.Look(ref depotHostileNeighbours, "PhobosVehicleSystems_DepotHostileNeighbours", false);
         Scribe_Values.Look(ref messageLevel, "PhobosVehicleSystems_MessageLevel", MessageLevel.All);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
@@ -583,6 +594,11 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingExhaustIndoors".Translate(), ref s.exhaustIndoors, d.exhaustIndoors, "PhobosVehicleSystems_SettingExhaustIndoorsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingHullsStay".Translate(), ref s.hullsStay, d.hullsStay, "PhobosVehicleSystems_SettingHullsStayDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingLostConvoysStay".Translate(), ref s.lostConvoysStay, d.lostConvoysStay, "PhobosVehicleSystems_SettingLostConvoysStayDesc".Translate());
+        // Depots (Framework 0.200.0; docs/development/vehicle-depots.md): what time does to fuel left out, each pressure its own setting.
+        list.Section("PhobosDepot_SettingsSection".Translate());
+        list.Check("PhobosDepot_SettingWeather".Translate(), ref s.depotWeather, d.depotWeather, "PhobosDepot_SettingWeatherDesc".Translate());
+        list.Check("PhobosDepot_SettingFuelAgeing".Translate(), ref s.depotFuelAgeing, d.depotFuelAgeing, "PhobosDepot_SettingFuelAgeingDesc".Translate());
+        list.Check("PhobosDepot_SettingHostile".Translate(), ref s.depotHostileNeighbours, d.depotHostileNeighbours, "PhobosDepot_SettingHostileDesc".Translate());
     }
 
     static void DrawRemoving(SettingsList list)
