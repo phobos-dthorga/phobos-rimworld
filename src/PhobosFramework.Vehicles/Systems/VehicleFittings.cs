@@ -1171,7 +1171,10 @@ public sealed class VehicleFittings
         if (faction == null || faction == Faction.OfPlayer || !Settings.enemyFitSets) return;
         if (!Rand.Chance(PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().enemyFitSetChance)) return;
         TechLevel tech = faction.def.techLevel;
-        if (!DefDatabase<PhobosVehicleFitSetDef>.AllDefsListForReading.Where(s => s.Suits(tech)).TryRandomElementByWeight(s => s.weight, out PhobosVehicleFitSetDef set)) return;
+        // Only a set with something for this vehicle (aircraft service-life upgrades, 21 Nov 2026): an aircraft's set rolled for a truck, or a
+        // truck's for an aircraft, would fit nothing and leave it bare, taking the chance from the sets that suit it.
+        if (!DefDatabase<PhobosVehicleFitSetDef>.AllDefsListForReading.Where(s => s.Suits(tech) && FitsSomething(s))
+                .TryRandomElementByWeight(s => s.weight, out PhobosVehicleFitSetDef set)) return;
         Apply(set);
     }
 
@@ -1184,6 +1187,11 @@ public sealed class VehicleFittings
         fitted.Add(new FittedPart { partKey = partKey, def = def });
         Changed();
     }
+
+    /// <summary>Whether a set has a fitting this vehicle would take, or a tune it can take.</summary>
+    bool FitsSomething(PhobosVehicleFitSetDef set) =>
+        set.fittings.Any(def => def != null && Suits(def) && def.roles.Any(comp.Props.roleKeys.ContainsKey))
+        || set.tunes.Any(tune => tune != null && !tune.isDefault && CanTune(tune.axis));
 
     public void Apply(PhobosVehicleFitSetDef set)
     {

@@ -103,4 +103,28 @@
       </li>
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <!-- Enemy sets for aircraft (aircraft service-life upgrades): another faction's aircraft arrives at a later generation by chance and tech
+       level, as its trucks do with theirs. A set is rolled only for a vehicle it has something for. Tech levels and weights authored. -->
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_AircraftNightRefit</defName>
+    <minTech>Industrial</minTech>
+    <maxTech>Archotech</maxTech>
+    <fittings>
+      <li>PhobosFitting_NavigationSet</li>
+      <li>PhobosFitting_NightSight</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_AircraftFullRefit</defName>
+    <minTech>Spacer</minTech>
+    <maxTech>Archotech</maxTech>
+    <fittings>
+      <li>PhobosFitting_NavigationSet</li>
+      <li>PhobosFitting_Autopilot</li>
+      <li>PhobosFitting_NightSight</li>
+      <li>PhobosFitting_Radar</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
 </Defs>

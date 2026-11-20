@@ -59,4 +59,28 @@
     <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
     <thrustFactor>1.15</thrustFactor>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <!-- Enemy sets (aircraft service-life upgrades): another faction's jet may arrive as a later version, as its real counterparts were refitted.
+       Rolled only for the jet each fits. The A-10's never-fielded engines are in no set. Tech levels authored. -->
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_WarthogA10C</defName>
+    <minTech>Industrial</minTech>
+    <maxTech>Archotech</maxTech>
+    <fittings>
+      <li>PhobosFitting_NavigationSet</li>
+      <li>PhobosFitting_Autopilot</li>
+      <li>PhobosFitting_NightSight</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_FrogfootLate</defName>
+    <minTech>Industrial</minTech>
+    <maxTech>Archotech</maxTech>
+    <fittings>
+      <li>PhobosFitting_FrogfootR195</li>
+      <li>PhobosFitting_FrogfootDispensers</li>
+      <li>PhobosFitting_NavigationSet</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
 </Defs>

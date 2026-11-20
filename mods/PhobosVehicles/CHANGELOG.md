@@ -16,6 +16,7 @@ The Harrier, the A-10 and the Su-25 start as their early versions, and grow thro
 ### Changed
 
 - **The jets start as their early versions** (the owner's choice): the Harrier as the day-attack AV-8B, without its night sight and radar; the A-10 as the A-10A, with basic navigation and no autopilot or night sight; the Su-25 with its first engines, the R-95Sh, and 128 flare cartridges. What they gained in service is fitted with D'thorga Framework's navigation set, autopilot, night sight and radar, and the upgrades above. Needs D'thorga Framework 0.208.0.
+- **Raiders' and enemy bases' jets may arrive as later versions**: an A-10C (navigation, autopilot, night sight), a late Su-25 (R-195 engines, extra dispensers, navigation) or a Harrier II Plus (Pegasus 11-61, night sight, radar), by chance and their faction's tech level. The A-10's never-fielded engines are never given to them.
 
 ### Save compatibility
 

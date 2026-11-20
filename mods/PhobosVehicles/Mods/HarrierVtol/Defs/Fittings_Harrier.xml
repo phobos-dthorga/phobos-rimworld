@@ -23,4 +23,17 @@
     <thrustFactor>1.088</thrustFactor>
     <hotDerateFactor>0.73</hotDerateFactor>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <!-- An enemy set (aircraft service-life upgrades): another faction's Harrier may arrive as a Harrier II Plus. Rolled only for a Harrier.
+       Tech levels authored. -->
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_HarrierPlus</defName>
+    <minTech>Industrial</minTech>
+    <maxTech>Archotech</maxTech>
+    <fittings>
+      <li>PhobosFitting_HarrierPegasus1161</li>
+      <li>PhobosFitting_NightSight</li>
+      <li>PhobosFitting_Radar</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
 </Defs>
