@@ -1363,4 +1363,54 @@
            which turn whenever its engines do; nobody cranks a helicopter's gun by hand. The 0.115.0 load is gone from here. -->
     </loads>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <!--
+    Aircraft of the two flight frameworks that keep an aircraft on the map while it flies (Framework 0.203.0; owner, 21 Nov 2026: "recognise
+    the framework"). The stock profile above reads Vehicle Framework's own flight flag, which is set on a map only while leaving it, so a jet
+    or a helicopter on these frameworks read as idling on the ground the whole time it flew over the map. These catch-alls recognise the
+    framework by the design's code class and read its own flight state instead, so a design no named loadout covers yet (the Close Air
+    Support jets, first) is read correctly from the start. A named loadout (the Harrier's, the Hind's) still wins, at Vehicle priority.
+    Their rank beats the plain aircraft loadout's within Effect priority.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_FixedWingFramework</defName>
+    <label>jet aircraft</label>
+    <rank>1</rank>
+    <selector>
+      <thingClasses>
+        <li>FixedWingAircraftFramework.VtolVehiclePawn</li>
+      </thingClasses>
+    </selector>
+    <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>
+    <!-- The cruising height between tiles, for a jet with no figures of its own: built to cruise at 6,000 m with a 12,000 m ceiling. Both
+         authored, below the AV-8B's published 15,240 m ceiling and the 7,000 m we give the Harrier. -->
+    <cruise>
+      <designMetres>6000</designMetres>
+      <ceilingMetres>12000</ceilingMetres>
+      <lift>Jet</lift>
+    </cruise>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <!-- rabiosus's VTOL Vehicle framework (the Hind and the Mongoose have their own loadouts): the helicopter profile, its cruise and a pair of
+       turboshafts through a main gearbox, as the Hind's, its drive limit 0.9 of both engines' maximum continuous (authored there). -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_VtolFramework</defName>
+    <label>helicopter</label>
+    <rank>1</rank>
+    <selector>
+      <thingClasses>
+        <li>VTOLVehicle.VtolVehiclePawn</li>
+      </thingClasses>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_AeroTurboshaft</def>
+      <set>
+        <transmissionLimit>0.9</transmissionLimit>
+      </set>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_Helicopter</flightProfile>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 </Defs>

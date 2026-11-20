@@ -614,6 +614,10 @@ public class LoadoutSelector
     /// <summary>Some part's key ends with one of these (Track: Vanilla Vehicles Expanded's tracked designs). A hint by name, because
     /// nothing else marks a tracked vehicle.</summary>
     public List<string>? partKeySuffixes;
+    /// <summary>The design's code class, or one it is built on, is one of these, by full name (Framework 0.203.0; owner, 21 Nov 2026:
+    /// "recognise the framework"). How the catch-all loadouts know an aircraft of the fixed-wing or VTOL flight frameworks, which keep it
+    /// on the map while it flies, without naming each design. By name: no Phobos assembly references those frameworks.</summary>
+    public List<string>? thingClasses;
 
     public bool Matches(VehicleDef def)
     {
@@ -629,6 +633,7 @@ public class LoadoutSelector
             if (!any) return false;
         }
         if (vehicleTypes != null && !vehicleTypes.Contains(def.type)) return false;
+        if (thingClasses != null && !BuiltOn(def.thingClass, thingClasses)) return false;
         CompProperties_FueledTravel? fuel = def.GetCompProperties<CompProperties_FueledTravel>();
         if (!Fits(fuelled, fuel != null)) return false;
         if (!Fits(electricPowered, fuel != null && fuel.electricPowered)) return false;
@@ -669,6 +674,16 @@ public class LoadoutSelector
     }
 
     static bool Fits(Match match, bool value) => match == Match.Any || (match == Match.Yes) == value;
+
+    /// <summary>Whether the class, or any class it is built on, has one of the full names.</summary>
+    static bool BuiltOn(System.Type? type, List<string> names)
+    {
+        for (; type != null; type = type.BaseType)
+        {
+            if (type.FullName != null && names.Contains(type.FullName)) return true;
+        }
+        return false;
+    }
 
     /// <summary>Whether a design is a trailer: towed, with no engine, crew or seats of its own.</summary>
     public static bool IsTrailer(VehicleDef def) => def.comps?.Any(c => c is CompProperties_PhobosTrailer) == true;

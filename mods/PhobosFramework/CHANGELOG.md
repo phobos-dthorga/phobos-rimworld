@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.203.0] - 2026-11-21 - Draft
+
+Close air support: aircraft of the two flight frameworks read as flying, and a dodge for jets with flares
+
+### Fixed
+
+- **A jet or helicopter built on another author's flight framework is now seen to fly while it flies over a map.** The fixed-wing framework (the Harrier's, and Close Air Support's A-10 and Su-25) and rabiosus's VTOL framework (the Hind's and Mongoose's) keep an aircraft on the map while it flies, and an aircraft with no loadout of its own was read from Vehicle Framework's flight flag, which is set only while leaving a map. So the A-10 and the Su-25 read as standing on the ground for the whole of a sortie, their engines' load and fuel worked out as for a parked aircraft. Two new catch-all loadouts recognise each framework by its aircraft's code class, and read its own flight state: a jet gets the fixed-wing jet's flight profile and a cruising height of 6,000 m, a helicopter the helicopter profile and a pair of turboshafts through a gearbox. A named loadout, such as the Harrier's or the Hind's, still comes first. Not yet tested in game.
+
+### Save compatibility
+
+- **Safe.** An A-10 or Su-25 already in a save is read the new way from the next load; its parts are as before.
+
+### Compatibility and limits
+
+- **For other modders:** a loadout's selector can now name code classes (thingClasses), by full name, matching the class a design uses or any class it is built on.
+
 ## [0.202.0] - 2026-11-21 - Draft
 
 Fixes from the farming fault-read: rows driven straight and once, grain that keeps time, a pivot that joins only its own halves

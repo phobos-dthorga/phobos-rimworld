@@ -94,7 +94,7 @@ changes.
 
 | Field | What it holds |
 | --- | --- |
-| `selector` | Any of: `vehicleDefs` (names), `packageIds` (every vehicle of a mod), or **effects**: `vehicleTypes` (Land, Sea, Air, Universal), `fuelled`, `electricPowered`, `fuelTypes`, `hasStat` (FlightSpeed marks an aircraft), `massRange`, `partTags`. All given conditions must hold. |
+| `selector` | Any of: `vehicleDefs` (names), `packageIds` (every vehicle of a mod), or **effects**: `vehicleTypes` (Land, Sea, Air, Universal), `fuelled`, `electricPowered`, `fuelTypes`, `hasStat` (FlightSpeed marks an aircraft), `massRange`, `partTags`, `thingClasses` (the design's code class or one it is built on, by full name: how the catch-alls know the fixed-wing and VTOL flight frameworks' aircraft; Framework 0.203.0). All given conditions must hold. |
 | `priority` | `Vehicle` (named) beats `Mod` beats `Effect` beats `Default`. Ties: the last loaded wins, with a load-line warning. |
 | `systems` | The `PhobosVehicleSystemDef`s to run, each with `set` overrides for that system's parameters. |
 | `partRoles` | For each role a system needs (Engine, Alternator, Battery, Radiator, CoolantPump, OilPump, Starter, Wiring): `find` rules tried in order (by `key`, by `categories` plus `depth` plus `priority`, by `tag`), then `add` (a `VehicleComponentProperties` to append if nothing matched, with `cellsNear` a found role or explicit `cells`, a low `hitWeight`, and depth). |
