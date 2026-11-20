@@ -18,6 +18,8 @@ Aircraft upgrades through their service lives: engines, avionics kits, rough lan
 - **A working autopilot halves the wandering** of a flight with only basic navigation at night or in fog.
 - **A vehicle from an older save keeps what its loadout no longer starts with**, given once, free, when the save loads (the Harrier's night sight and radar).
 
+- **Manual reversion**: an aircraft whose controls fall back to cables when its hydraulic boost is gone keeps seven tenths of its flight control rather than half, heavy but enough to fly home. A loadout says which aircraft have it; Close Air Support's A-10 and Su-25 do (D'thorga Vehicles 0.93.0).
+
 ### Changed
 
 - **Another faction's aircraft may arrive refitted**: two new enemy sets give a raider's or an enemy base's aircraft a navigation set and night sight, or, from a spacer faction, every avionics kit, by chance as their trucks get theirs. And **an enemy set is now picked only from the sets with something for that vehicle**: before, an aircraft's set could be rolled for a truck, or a truck's for an aircraft, fitting nothing and leaving it bare.

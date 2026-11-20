@@ -95,7 +95,15 @@
     </selector>
     <systems>
       <li><def>PhobosVehicleSystem_Hydraulics</def></li>
-      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+      <!-- Manual reversion (aircraft service-life upgrades): the A-10's pitch and yaw revert to cables and its roll to the aileron tabs (primary:
+           T.O. 1A-10A-1); the Su-25's elevator, stabiliser and rudder are worked by hand and only its ailerons boosted (secondary: Russian
+           Wikipedia). With the boost gone, each keeps more control than an aircraft that has nothing else. -->
+      <li>
+        <def>PhobosVehicleSystem_FlightHydraulics</def>
+        <set>
+          <manualReversion>1</manualReversion>
+        </set>
+      </li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_TF34</def>
@@ -197,7 +205,15 @@
     </selector>
     <systems>
       <li><def>PhobosVehicleSystem_Hydraulics</def></li>
-      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+      <!-- Manual reversion (aircraft service-life upgrades): the A-10's pitch and yaw revert to cables and its roll to the aileron tabs (primary:
+           T.O. 1A-10A-1); the Su-25's elevator, stabiliser and rudder are worked by hand and only its ailerons boosted (secondary: Russian
+           Wikipedia). With the boost gone, each keeps more control than an aircraft that has nothing else. -->
+      <li>
+        <def>PhobosVehicleSystem_FlightHydraulics</def>
+        <set>
+          <manualReversion>1</manualReversion>
+        </set>
+      </li>
     </systems>
     <drivetrain>
       <def>PhobosDrivetrain_R95Sh</def>

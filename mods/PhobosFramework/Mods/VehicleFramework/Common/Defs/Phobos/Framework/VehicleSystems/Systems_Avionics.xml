@@ -673,6 +673,11 @@
     <roles>
       <li>HydraulicPump</li>
     </roles>
+    <parameters>
+      <!-- Aircraft service-life upgrades (21 Nov 2026): 1 where the controls fall back to cables when the boost is gone (the A-10's manual
+           reversion, the Su-25's manual elevator and rudder), set by the aircraft's loadout. 0: the boost is all there is. -->
+      <manualReversion>0</manualReversion>
+    </parameters>
     <quantities>
       <li>
         <name>flightHydraulics</name>
@@ -709,6 +714,21 @@
               <li Class="Phobos.VehicleSystems.Effect_StatFactor">
                 <stat>FlightControl</stat>
                 <factor>0.5</factor>
+                <when Class="Phobos.VehicleSystems.When_ParameterBelow">
+                  <parameter>manualReversion</parameter>
+                  <value>0.5</value>
+                </when>
+              </li>
+              <!-- With manual reversion the aircraft flies on its cables, heavily but home (aircraft service-life upgrades, 21 Nov 2026; the A-10A
+                   flight manual, T.O. 1A-10A-1: "adequate for ... safe return to base and landing"). 0.7 is authored. -->
+              <li Class="Phobos.VehicleSystems.Effect_StatFactor">
+                <stat>FlightControl</stat>
+                <factor>0.7</factor>
+                <when Class="Phobos.VehicleSystems.When_ParameterBelow">
+                  <parameter>manualReversion</parameter>
+                  <value>0.5</value>
+                  <invert>true</invert>
+                </when>
               </li>
               <li Class="Phobos.VehicleSystems.Effect_Message">
                 <message>PhobosVehicleSystems_MsgControlsHeavy</message>
