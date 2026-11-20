@@ -83,10 +83,13 @@ public sealed partial class CompPhobosHitch : VehicleComp
     /// <summary>Why this vehicle cannot hitch anything now, or null.</summary>
     public string? Refusal()
     {
-        if (!HasDrivetrain && !VehicleSystemsMod.Settings.hitchOthersPlainRule) return "PhobosHitch_NotFitted".Translate(Vehicle.LabelShort.Named("TRACTOR")).Resolve();
+        // Framework 0.193.0: a vehicle in a chain needs no drivetrain of its own; the one in front drives.
+        CompPhobosHitch? by = Tower;
+        if (by == null && !HasDrivetrain && !VehicleSystemsMod.Settings.hitchOthersPlainRule) return "PhobosHitch_NotFitted".Translate(Vehicle.LabelShort.Named("TRACTOR")).Resolve();
         if (trailer != null) return "PhobosHitch_AlreadyTowing".Translate(Vehicle.LabelShort.Named("TRACTOR"), trailer.LabelShort.Named("TRAILER")).Resolve();
         if (winchTarget != null) return "PhobosRecovery_WinchBusy".Translate(Vehicle.LabelShort.Named("TRACTOR"), winchTarget.LabelShort.Named("TOWED")).Resolve();
-        if (Hitches.Towing(Vehicle) is { } by) return "PhobosRecovery_BeingTowed".Translate(Vehicle.LabelShort.Named("TRACTOR"), by.Vehicle.LabelShort.Named("TOW")).Resolve();
+        // A trailer on a hitch may tow in turn (chains of tows); a vehicle on the recovery tow may not.
+        if (by != null && TrailerProps(Vehicle) == null) return "PhobosRecovery_BeingTowed".Translate(Vehicle.LabelShort.Named("TRACTOR"), by.Vehicle.LabelShort.Named("TOW")).Resolve();
         return null;
     }
 
@@ -94,6 +97,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
     public string? RefusalFor(VehiclePawn candidate)
     {
         if (candidate == Vehicle) return "PhobosHitch_NotItself".Translate().Resolve();
+        if (ChainRefusal(candidate) is { } chain) return chain;
         if (TrailerProps(candidate) == null && RecoveryTowRefusal(candidate) is { } notATrailer) return notATrailer;
         if (candidate.Faction != Faction.OfPlayer) return "PhobosHitch_NotOurs".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
         if (Hitches.Towing(candidate) is { } other && other != this)
@@ -141,7 +145,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
         pending = candidate;
         Hitches.NoteWaiting(this, true);
         Say("PhobosHitch_Chosen".Translate(Vehicle.LabelShort.Named("TRACTOR"), candidate.LabelShort.Named("TRAILER")).Resolve()
-            + " " + TowText.Verdict(Outlook(candidate), Vehicle, candidate, VehicleSystemsMod.Settings.displayMode),
+            + " " + TowText.Verdict(Outlook(candidate), HeadOf(Vehicle), candidate, VehicleSystemsMod.Settings.displayMode),
             new LookTargets(Vehicle, candidate), MessageTypeDefOf.TaskCompletion, historical: false);
     }
 
@@ -176,6 +180,10 @@ public sealed partial class CompPhobosHitch : VehicleComp
             new LookTargets(Vehicle, candidate), MessageTypeDefOf.TaskCompletion);
         VehicleStory.Hitched(Vehicle, candidate);
         if (RecoveryTowWarning(candidate) != null) Seen.Note("vehicles.tow-over-ratio", Vehicle, candidate.LabelShort);
+        if (Tower != null && Seen.Wants("vehicles.hitch.chain", Vehicle))
+        {
+            Seen.Note("vehicles.hitch.chain", Vehicle, candidate.LabelShort, values: new List<KeyValuePair<string, double>> { new("behind", CountBehind(HeadOf(Vehicle))) });
+        }
     }
 
     /// <summary>Puts the trailer straight behind the vehicle and holds it there. False, with nothing changed, when its place is blocked.
@@ -184,7 +192,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
     {
         if (Geometry(candidate) is not { } props || !Vehicle.Spawned) return false;
         (double hx, double hz) = HitchPoint();
-        TrailerPose pose = HitchRule.AxleFor(hx, hz, VehicleHeading(Vehicle), props.HitchToAxle);
+        TrailerPose pose = HitchRule.AxleFor(hx, hz, Heading(), props.HitchToAxle);
         trailer = candidate;
         if (!TryPlace(pose, props))
         {
@@ -198,6 +206,9 @@ public sealed partial class CompPhobosHitch : VehicleComp
         weightTick = -1;
         RefreshWeight();
         Systems?.Powertrain?.MarkMassDirty();
+        ChainChanged();
+        // What the candidate tows comes into line behind it at once (a chain coupled as a whole).
+        candidate.GetComp<CompPhobosHitch>()?.FollowTower(false);
         Vehicle.RequestTickStart(this);
         if (VehicleSystemsMod.HitchLog.DebugEnabled)
         {
@@ -222,6 +233,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
         // The facings show it square again: the extra turn is a picture of the tow only, and is not saved by Vehicle Framework.
         was.Transform.rotation = 0f;
         Systems?.Powertrain?.MarkMassDirty();
+        ChainChanged();
         Vehicle.RequestTickStop(this);
         if (!quiet) Say("PhobosHitch_Unhitched".Translate(was.LabelShort.Named("TRAILER"), Vehicle.LabelShort.Named("TRACTOR")).Resolve(), was, MessageTypeDefOf.SilentInput, historical: false);
     }
@@ -240,7 +252,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         int now = Find.TickManager.TicksGame;
         if (weightTick >= 0 && now - weightTick < WeightTicks) return;
         weightTick = now;
-        towedKg = CompPhobosSling.LoadKilograms(trailer);
+        // Framework 0.193.0: the whole chain behind, not only the vehicle on this hitch.
+        towedKg = ChainKilograms(trailer);
         heldBySetUp = SetUpRefusal(trailer);
         plainCap = (float)HitchRule.PlainCap(CompPhobosSling.LoadKilograms(Vehicle), towedKg, DrivetrainModel.CrawlFloor);
     }
@@ -264,6 +277,12 @@ public sealed partial class CompPhobosHitch : VehicleComp
         }
         // A towed vehicle of its own (the recovery tow) stays on the tow bar: anyone aboard who sets off is stopped.
         if (trailer.vehiclePather is { Moving: true } own) own.StopDead();
+        // In a chain, the hitch in front moves this one and has it follow (FollowTower); its weight is still kept fresh here.
+        if (Tower != null)
+        {
+            RefreshWeight();
+            return;
+        }
         bool moving = Vehicle.vehiclePather is { Moving: true };
         if (moving) settle = SettleTicks;
         else if (settle > 0) settle--;
@@ -280,7 +299,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
         if (moving && heldBySetUp != null)
         {
             // It is set up where it stands: the vehicle stops, with the same words a hitch would give (B0.2).
-            Vehicle.vehiclePather!.StopDead();
+            StopTrain();
             int when = Find.TickManager.TicksGame;
             if (when - lastBlockedMessage >= BlockedMessageTicks && Vehicle.Faction == Faction.OfPlayer)
             {
@@ -290,16 +309,18 @@ public sealed partial class CompPhobosHitch : VehicleComp
             return;
         }
         (double hx, double hz) = HitchPoint();
-        double vehicleHeading = VehicleHeading(Vehicle);
+        double vehicleHeading = Heading();
         TrailerPose pose = HitchRule.Follow(hx, hz, new TrailerPose(axleX, axleZ, heading), props.HitchToAxle);
         pose = HitchRule.Limit(hx, hz, pose, vehicleHeading, props.JackKnife, props.HitchToAxle);
         if (TryPlace(pose, props))
         {
             Remember(pose);
+            // Framework 0.193.0: what the trailer tows follows in turn.
+            trailer!.GetComp<CompPhobosHitch>()?.FollowTower(moving);
             return;
         }
-        // Blocked: the vehicle stops where it is, and the player is told why (no path of ours plans for the trailer in this slice).
-        if (moving) Vehicle.vehiclePather!.StopDead();
+        // Blocked: the vehicle that drives stops where it is, and the player is told why (no path of ours plans for the trailer in this slice).
+        if (moving) StopTrain();
         int now = Find.TickManager.TicksGame;
         if (now - lastBlockedMessage >= BlockedMessageTicks && Vehicle.Faction == Faction.OfPlayer)
         {
@@ -352,6 +373,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
             {
                 if (c.InBounds(map)) map.pathing.RecalculatePerceivedPathCostAt(c);
             }
+            SayMoved(towed);
         }
         towed.Transform.rotation = (float)HitchRule.Remainder(pose.Heading);
         return true;
@@ -383,15 +405,15 @@ public sealed partial class CompPhobosHitch : VehicleComp
         return true;
     }
 
-    /// <summary>Where the hitch is now, in map units: behind the middle of the vehicle's picture along its heading.</summary>
+    /// <summary>Where the hitch is now, in map units: behind the middle of the vehicle along its heading (its true pose while it is itself towed).</summary>
     (double X, double Z) HitchPoint()
     {
-        Vector3 centre = ((Thing)Vehicle).DrawPos;
+        (double cx, double cz) = TrueCentre();
         float behind = Vehicle.def.GetModExtension<PhobosHitchPointExtension>() is { behindCentre: >= 0f } point
             ? point.behindCentre
             : Vehicle.def.Size.z / 2f + Rules.hitchGapCells;
-        double radians = VehicleHeading(Vehicle) * Mathf.Deg2Rad;
-        return (centre.x - System.Math.Sin(radians) * behind, centre.z - System.Math.Cos(radians) * behind);
+        double radians = Heading() * Mathf.Deg2Rad;
+        return (cx - System.Math.Sin(radians) * behind, cz - System.Math.Cos(radians) * behind);
     }
 
     /// <summary>The way a vehicle points, in degrees (0 north, 90 east), from the eight ways Vehicle Framework draws it.</summary>
@@ -485,7 +507,10 @@ public sealed partial class CompPhobosHitch : VehicleComp
 
     internal Command_Action UnhitchGizmo() => new Command_Action
     {
-        defaultLabel = "PhobosHitch_UnhitchGizmo".Translate(),
+        // In a chain, the vehicle in the middle has two: its own place on the hitch in front (its trailer button) and this one, named.
+        defaultLabel = Tower != null && trailer != null
+            ? "PhobosHitch_LetGoBehindGizmo".Translate(trailer.LabelShort.Named("TRAILER"))
+            : "PhobosHitch_UnhitchGizmo".Translate(),
         defaultDesc = "PhobosHitch_UnhitchGizmoDesc".Translate(trailer?.LabelShort.Named("TRAILER") ?? "".Named("TRAILER")),
         icon = SystemIcons.For("Phobos/VehicleSystems/Hitch/Unhitch"),
         action = () => Unhitch(),
@@ -504,6 +529,13 @@ public sealed partial class CompPhobosHitch : VehicleComp
         if (trailer != null)
         {
             yield return UnhitchGizmo();
+            // Framework 0.193.0: more behind the last vehicle of the chain, from the vehicle in front (a cart behind the plough).
+            if (Tower == null && LastFree() is { } last)
+            {
+                Command_Action behind = last.HitchCommand();
+                behind.defaultLabel = "PhobosHitch_HitchBehindGizmo".Translate(last.Vehicle.LabelShort.Named("LAST"));
+                yield return behind;
+            }
             yield break;
         }
         if (winchTarget != null)
@@ -522,7 +554,16 @@ public sealed partial class CompPhobosHitch : VehicleComp
             };
             yield break;
         }
-        var hitch = new Command_Action
+        Command_Action hitch = HitchCommand();
+        if (Refusal() is { } refusal) hitch.Disable(refusal);
+        yield return hitch;
+        if (CanWinch) yield return WinchGizmo();
+    }
+
+    /// <summary>The Hitch button: choose what to tow, with "can this pull that?" beside the mouse.</summary>
+    Command_Action HitchCommand()
+    {
+        return new Command_Action
         {
             defaultLabel = CanRecover ? "PhobosRecovery_HitchGizmo".Translate() : "PhobosHitch_HitchGizmo".Translate(),
             defaultDesc = CanRecover
@@ -544,9 +585,6 @@ public sealed partial class CompPhobosHitch : VehicleComp
                 if (target.Thing is VehiclePawn candidate && candidate != Vehicle && TowText.Hover(this, candidate) is { } label) Widgets.MouseAttachedLabel(label);
             }),
         };
-        if (Refusal() is { } refusal) hitch.Disable(refusal);
-        yield return hitch;
-        if (CanWinch) yield return WinchGizmo();
     }
 
     public override string? CompInspectStringExtra()

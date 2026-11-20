@@ -96,6 +96,10 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
     /// <summary>Whether it drives a row now, its implement working: the implement's work load on the engine (When_FieldWorking).</summary>
     public bool WorkingRow => phase == FieldRunPhase.Row;
 
+    /// <summary>Whether this run lowers that implement now: it drives a row, and the implement is the one working it (Framework 0.193.0: in a
+    /// chain, a cart or a second implement behind the worker stays lifted and drags nothing).</summary>
+    public bool Lowers(VehiclePawn implement) => phase == FieldRunPhase.Row && Worker != null && workerVehicle == implement;
+
     protected override bool WaitingForDriver => waiting;
 
     protected override int StuckTicks => Props.stuckTicks;
@@ -110,14 +114,17 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
     {
         get
         {
-            VehiclePawn? behind = Vehicle.GetComp<CompPhobosHitch>()?.Trailer;
-            if (worker != null && (workerVehicle == Vehicle || (workerVehicle != null && workerVehicle == behind))) return worker;
+            if (worker != null && (workerVehicle == Vehicle || (workerVehicle != null && CompPhobosHitch.IsAheadOf(Vehicle, workerVehicle)))) return worker;
             worker = Vehicle.AllComps.OfType<IVehicleFieldWorker>().FirstOrDefault();
             workerVehicle = worker != null ? Vehicle : null;
-            if (worker == null && behind != null)
+            if (worker != null) return worker;
+            // Framework 0.193.0: the nearest worker along the chain (a plough on the linkage, ahead of the cart it pulls).
+            foreach (VehiclePawn behind in CompPhobosHitch.Behind(Vehicle))
             {
                 worker = behind.AllComps.OfType<IVehicleFieldWorker>().FirstOrDefault();
-                workerVehicle = worker != null ? behind : null;
+                if (worker == null) continue;
+                workerVehicle = behind;
+                break;
             }
             return worker;
         }
@@ -225,6 +232,8 @@ public class CompPhobosFieldRun : CompPhobosVehicleRun
         failedDrives = 0;
         holdTarget = null;
         holdsTried.Clear();
+        // Framework 0.193.0: the run takes over from any implement lowered by hand.
+        Implements.RunStarted(Vehicle);
         Worker!.BeginRun(area);
         phase = FieldRunPhase.ToRowStart;
         Messages.Message("PhobosFieldRun_Started".Translate(Vehicle.LabelShort.Named("VEHICLE"), area.label.Named("AREA"), Rows.Count.Named("ROWS")).Resolve(),

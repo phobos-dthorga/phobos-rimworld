@@ -430,7 +430,7 @@ public sealed class Powertrain
             // A trailer behind the hitch (Framework 0.101.0): rolled, speeded up and lifted with the vehicle, no grip.
             TowedMassKg = comp.Hitch?.TowedKilograms ?? 0,
             // Framework 0.182.0: what implements working the ground drag (Draughts), its own and the trailer's behind it.
-            DraughtN = Draughts.Newtons(vehicle, comp.Hitch?.Trailer),
+            DraughtN = Draughts.Newtons(vehicle),
             CurrentGear = Result.Gear,
             UsableGears = UsableGears(),
             ClutchCapacity = ClutchCapacity(),

@@ -53,4 +53,11 @@
   <PhobosFarming_SowDriverSkill>Sowing {CROP} needs a driver with growing skill {LEVEL} or more.</PhobosFarming_SowDriverSkill>
   <PhobosFarming_NoSeed>{IMPLEMENT} has no seed for {CROP}: pour in some of its grain, or bought seed.</PhobosFarming_NoSeed>
   <PhobosFarming_Sowed>It sowed {CELLS} cells of {CROP}.</PhobosFarming_Sowed>
+  <!-- Farming 0.5.0: lowering an implement by hand (the owner's button, 20 Nov 2026). -->
+  <PhobosFarming_GizmoLower>Lower</PhobosFarming_GizmoLower>
+  <PhobosFarming_GizmoLowerDesc>Lower {IMPLEMENT} into the ground, so it works wherever the tractor drives it, not only on a paddock run: tillage clears weeds and wild plants and never a sown crop; a drill sows only a paddock it could sow on a run. It pulls hard while lowered. It stays lowered until you lift it or a paddock run starts.</PhobosFarming_GizmoLowerDesc>
+  <PhobosFarming_GizmoLift>Lift</PhobosFarming_GizmoLift>
+  <PhobosFarming_GizmoLiftDesc>Lift {IMPLEMENT} out of the ground. A paddock run still lowers it on each row.</PhobosFarming_GizmoLiftDesc>
+  <PhobosFarming_LoweredByHand>{IMPLEMENT} is lowered. It works wherever the tractor drives it.</PhobosFarming_LoweredByHand>
+  <PhobosFarming_LiftedByHand>{IMPLEMENT} is lifted.</PhobosFarming_LiftedByHand>
 </LanguageData>

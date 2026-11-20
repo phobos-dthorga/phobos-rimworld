@@ -184,10 +184,19 @@ public class MainTabWindow_PhobosFleet : MainTabWindow
                 // A towed vehicle sits under what pulls it, when that is in the list too.
                 if (entry.TowedBy != null && inList.Contains(entry.TowedBy)) continue;
                 lines.Add(new Line(entry, indented: false));
-                foreach (FleetEntry towed in sorted)
-                {
-                    if (towed.TowedBy == entry) lines.Add(new Line(towed, indented: true));
-                }
+                AddTowed(entry, 0);
+            }
+        }
+
+        // Framework 0.193.0: a chain (a plough and the cart behind it) lists every vehicle in it under the one that drives.
+        void AddTowed(FleetEntry front, int depth)
+        {
+            if (depth > 8) return;
+            foreach (FleetEntry towed in sorted)
+            {
+                if (towed.TowedBy != front || towed == front) continue;
+                lines.Add(new Line(towed, indented: true));
+                AddTowed(towed, depth + 1);
             }
         }
 

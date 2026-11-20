@@ -59,4 +59,10 @@
   <!-- Framework 0.111.0: the hitch asks whether a vehicle is set up for work before taking it (vehicle-trailers.md, B0.2). -->
   <PhobosHitch_PackUpFirst>{TRAILER} is set up where it stands. Pack it up first.</PhobosHitch_PackUpFirst>
   <PhobosHitch_SetUpOnTheWay>A colonist is on the way to set up {TRAILER}. Cancel that first.</PhobosHitch_SetUpOnTheWay>
+  <!-- Framework 0.193.0: chains of tows (farming-batch-two.md): a towed vehicle may tow in turn. -->
+  <PhobosHitch_ChainLoop>{TRAILER} is already pulling {TRACTOR}, so {TRACTOR} cannot pull it.</PhobosHitch_ChainLoop>
+  <PhobosHitch_ChainTrailersOnly>{TRACTOR} is being towed itself, so it can take only a trailer or an implement behind it, not {TRAILER}.</PhobosHitch_ChainTrailersOnly>
+  <PhobosHitch_ChainTooLong>{TRACTOR} already pulls as long a line as it can: at most {COUNT} behind it.</PhobosHitch_ChainTooLong>
+  <PhobosHitch_LetGoBehindGizmo>Let go of {TRAILER}</PhobosHitch_LetGoBehindGizmo>
+  <PhobosHitch_HitchBehindGizmo>Hitch behind {LAST}</PhobosHitch_HitchBehindGizmo>
 </LanguageData>

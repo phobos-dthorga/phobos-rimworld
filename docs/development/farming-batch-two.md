@@ -1,6 +1,6 @@
 # D'thorga Farming, batch two: the build design (20 Nov 2026)
 
-**Status (20 Nov 2026):** partly built, in D'thorga Framework 0.191.0 and D'thorga Farming 0.4.0: the field run with an implement behind, the field-work rule (draught, seed, cleaning) with tests, the rigid linkage shown by tests of the hitch's own rule, and the plough, cultivator and seed drill workers in code. **Not built:** the tractors, the implements' Defs and pictures (paid, waiting for the owner's go), lifted and lowered drawings, the generic seed item and its traders, and the "Hands use seed too" switch. Nothing is usable in game yet, and nothing is tested in game. Written overnight on the owner's go ("proceed at your leisure and even agency", 20 Nov 2026): **every choice below marked [A] or "agent's" is the agent's default, held for the owner's review**; the owner's own decisions are marked with their date.
+**Status (20 Nov 2026):** partly built, in D'thorga Framework 0.191.0 to 0.193.0 and D'thorga Farming 0.4.0 to 0.5.0: the field run with an implement behind, the field-work rule (draught, seed, cleaning) with tests, the rigid linkage shown by tests of the hitch's own rule, the plough, cultivator and seed drill workers, lines of tows (the linkage and drawbar at once) and the Lower and Lift buttons, in code. **Not built:** the tractors (the T400's two halves and its driven rear axle), the implements' Defs and pictures (paid, waiting for the owner's go), the wing-extension upgrades, the generic seed item and its traders, and the "Hands use seed too" switch. Nothing is tested in game.
 This record turns [farm machines](farming-machines.md) "Tillage and seeding (AG1)" and the owner's decisions of 19 and 20 Nov 2026
 into the code, Defs, settings and art a build would make.
 
@@ -40,16 +40,21 @@ authored figure or the agent's choice.
 - **Rigid following** [A]: while coupled by the linkage, the implement's heading is the tractor's and its centre sits a fixed distance
   behind, from the implement's Def (`CompProperties_PhobosTrailer.hitchToAxle` read as the gap, `jackKnifeDegrees` 0). The hitch's
   follow rule (`HitchRule.Follow`) gains a rigid case, game-free and tested: the axle pose is placed, not dragged.
-- **Lifted and lowered** [A]: an implement on the linkage is lowered only while its tractor drives a field run's row, and lifted
-  otherwise: at the headland, on a road, parked. Lifted, it draws no draught and works no cells. A plain flag on the implement, read by
-  its draught and its worker; nothing saved beyond it.
+- **Lifted and lowered** (the agent's way, the owner adding a button, 20 Nov 2026): an implement on the linkage is lowered while its
+  tractor drives a field run's row, and lifted otherwise: at the headland, on a road, parked. **A Lower/Lift button** lets a player drive
+  by hand with it working, such as a strip outside any paddock; the field run takes over again when it starts. Lifted, it draws no
+  draught and works no cells. A flag on the implement, read by its draught and its worker; the hand-set flag is saved.
 - **Turning room** [I]: a carried implement lengthens the tractor; the row planner already leaves turning to Vehicle Framework's own
   pathing, and a stuck turn ends a row as it does now.
 - **A tractor carries an implement and tows a trailer at once** (owner, 20 Nov 2026, choosing it over the agent's "one at a time"): every
-  tractor has two hitch points, the linkage at the back and the drawbar below it, each holding its own vehicle. Our hitch holds one, so
-  the build gives a tractor a second hitch (the linkage) beside the first (the drawbar) [A: how]. **Stated risk:** three vehicles moving
-  as one (tractor, plough, cart behind) is further from what Vehicle Framework does, and the cart must follow the plough's line, not
-  the tractor's.
+  tractor has two hitch points, the linkage at the back and the drawbar below it, each holding its own vehicle. **How it is built (agent,
+  Framework 0.193.0): as a chain of tows**, not a second hitch on the tractor. The tractor's hitch takes the implement; an implement with a
+  hitch of its own takes the cart, so the cart follows the plough's line, as the record asked. A rigid implement passes the drawbar's pull
+  straight through, so the tractor still pulls everything. The order follows: the implement goes on first, then **Hitch behind** on the
+  tractor adds the cart (with a cart alone on the drawbar, unhitch it, hitch the implement, then the cart again). A chain holds at most three
+  behind the vehicle that drives (`hitchMostBehind`, authored [A]), never loops, and only trailers join one; the weight, draught, the tow
+  forecast, the field run's worker and the fleet board follow the whole chain. **Stated risk:** three vehicles moving as one is further
+  from what Vehicle Framework does; each follows on the one in front's true pose, not its snapped cells.
 
 ## The field run with an implement behind (Framework)
 
@@ -65,6 +70,11 @@ authored figure or the agent's choice.
   [farm machines](farming-machines.md#draught-and-field-capacity), only while lowered.
 
 ## The implements (Farming)
+
+**The owner's decisions (20 Nov 2026):** keep the draught as below (a cell is 1.5 m, Iowa State's medium soil: the T60 is at its limit
+with the plough, as a real 60 kW tractor with a three-furrow plough is); **width by upgrade**, rather than a second model of each: each
+implement has a wing-extension node in its upgrade tree that widens its working width (and its draught with it), drawn as folded and
+unfolded wings. The wider figures are the agent's [A]: plough 3 to 5 cells, cultivator 4 to 7, drill 4 to 7.
 
 | Implement | Coupling | Footprint [A] | Width [A] | Draught [A, from Iowa State's medium soil] | What it does to a cell |
 | --- | --- | --- | --- | --- | --- |
@@ -86,6 +96,7 @@ authored figure or the agent's choice.
   "kept back from each harvest and cleaned"; the agent's way of cleaning is **a cleaning loss as grain goes in** (a tenth [A]), so no new
   item per crop is needed and any mod's crop works. A drill holding grain of another crop refuses that paddock and says so.
 - **Generic seed** from traders sows any crop, at a higher price (owner): one item, `PhobosFarming_Seed` [A], with a trader stock rule.
+  **The owner's choice (20 Nov 2026): about three times grain's value by weight, stocked by bulk goods traders**, never crafted.
 - **How much a cell takes** [A, from the Birchip Cropping Group and Teagasc figures in the record]: about 3 % of the cell's harvest by
   weight, accumulated as a fraction, so a rice cell (6 units at 0.03 kg) takes about 5 grams.
 - **Hand sowing stays free by default; a switch, "Hands use seed too", off** (owner). With it on, a colonist's sowing job takes the seed

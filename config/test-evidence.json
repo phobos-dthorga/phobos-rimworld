@@ -3,6 +3,12 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "279": {"parts": {
+      "a vehicle on a hitch takes another behind it": [{"key": "vehicles.hitch.chain", "expect": {"behind": ">= 2"}}]
+    }},
+    "280": {"parts": {
+      "an implement lowered by hand": ["farming.implement.hand-lowered"]
+    }},
     "276": {"parts": {
       "a paddock tilled to the end": ["farming.tillage.end"]
     }},

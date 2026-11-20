@@ -43,13 +43,16 @@ public sealed partial class CompPhobosHitch : IThingHolder
         if (candidate == outlookFor && outlookTick >= 0 && now - outlookTick < OutlookTicks) return outlook;
         outlookFor = candidate;
         outlookTick = now;
-        double towedKg = CompPhobosSling.LoadKilograms(candidate);
-        double tractorKg = CompPhobosSling.LoadKilograms(Vehicle);
+        // Framework 0.193.0: in a chain, the vehicle in front drives and pulls all of it, the candidate and what it tows besides.
+        CompPhobosHitch front = HeadOf(Vehicle).GetComp<CompPhobosHitch>() ?? this;
+        double towedKg = ChainKilograms(candidate);
+        if (front != this && front.trailer != null) towedKg += ChainKilograms(front.trailer);
+        double tractorKg = CompPhobosSling.LoadKilograms(front.Vehicle);
         if (TrailerProps(candidate) == null && !RecoveryRule.CanTow(tractorKg, towedKg, Rules.recoveryMaxTowRatio))
         {
             outlook = TowRule.TooHeavy(tractorKg, towedKg);
         }
-        else if (FullModel && Vehicle.Spawned && Systems?.Powertrain is { } train)
+        else if (front.FullModel && front.Vehicle.Spawned && front.Systems?.Powertrain is { } train)
         {
             outlook = train.ForecastTow(towedKg);
         }
@@ -97,7 +100,7 @@ public sealed partial class CompPhobosHitch : IThingHolder
         int now = Find.TickManager.TicksGame;
         if (now < nextSetDownTry) return;
         (double hx, double hz) = HitchPoint();
-        TrailerPose ideal = HitchRule.AxleFor(hx, hz, VehicleHeading(Vehicle), props.HitchToAxle);
+        TrailerPose ideal = HitchRule.AxleFor(hx, hz, Heading(), props.HitchToAxle);
         (double cx, double cz) = HitchRule.CentreOf(ideal, props.AxleToCentre);
         int facing = HitchRule.Cardinal(ideal.Heading);
         IntVec2 size = towed.def.Size;
@@ -118,7 +121,7 @@ public sealed partial class CompPhobosHitch : IThingHolder
         // Framework 0.120.5 (fault-read H3): set down beside the vehicle at a map edge, the follow rule's first step drew it into line off
         // the map, and the vehicle was stopped each time it moved. Where that first step has no room, it is set down let go, and the player
         // told why; hitched again later, it follows from where it stands.
-        TrailerPose first = HitchRule.Limit(hx, hz, HitchRule.Follow(hx, hz, stand, props.HitchToAxle), VehicleHeading(Vehicle), props.JackKnife, props.HitchToAxle);
+        TrailerPose first = HitchRule.Limit(hx, hz, HitchRule.Follow(hx, hz, stand, props.HitchToAxle), Heading(), props.JackKnife, props.HitchToAxle);
         bool follows = PoseFits(first, props, towed, map);
         if (!Place(towed, at, map, rotation)) return;
         Remember(stand);

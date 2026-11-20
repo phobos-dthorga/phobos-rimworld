@@ -79,7 +79,7 @@ public static class TowText
         hoverHitch = hitchId;
         hoverCandidate = candidateId;
         hoverTick = now;
-        hoverText = hitch.RefusalFor(candidate) ?? Verdict(hitch.Outlook(candidate), hitch.Vehicle, candidate, VehicleSystemsMod.Settings.displayMode);
+        hoverText = hitch.RefusalFor(candidate) ?? Verdict(hitch.Outlook(candidate), CompPhobosHitch.HeadOf(hitch.Vehicle), candidate, VehicleSystemsMod.Settings.displayMode);
         return hoverText;
     }
 }

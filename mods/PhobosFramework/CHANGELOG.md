@@ -5,6 +5,25 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.193.0] - 2026-11-20 - Draft
+
+A line of tows: a trailer behind a trailer
+
+### Added
+
+- **A vehicle on a hitch may tow in turn**, so a tractor can carry a plough and pull a cart behind it, as the owner chose for farming (both hitch points at once). Each vehicle in the line follows the one in front along its true path, and the vehicle at the front drives and pulls it all: its weight, its draught in the ground and its tow forecast count the whole line. Only a trailer or an implement joins a line; a vehicle on the recovery tow tows nothing; a line never loops; and at most three follow the vehicle that drives.
+- **Hitch behind** on the vehicle in front adds to the end of its line; **Let go of** on a vehicle in the middle drops what is behind it. Each refusal says why.
+- The fleet board lists every vehicle in a line under the one that drives; before, a third would have dropped off the list.
+- A field run looks along the whole line for the implement that works, and lowers only that one: a cart or a second implement behind it stays lifted and drags nothing.
+- For the content mods: a towed vehicle's comps are told when the hitch moves it to new cells, and an implement may be lowered by hand (D'thorga Farming's Lower button).
+
+### Compatibility and limits
+
+- **Nothing of ours uses a line yet**: it needs a towed vehicle with a hitch of its own, which D'thorga Farming's implements and the large tractor's rear half will have once they are built. Trailers and towing work as before.
+- A line leaving the map goes with the vehicle that drives, each vehicle held by the one in front, and is meant to be set down behind it in order on arrival: worked out from the code, not yet seen. The world map's caravan lists show only the first vehicle behind.
+- The most behind one vehicle (three) is an authored figure in the vehicle rules.
+- No new settings. Not yet tested in game: row 279 of the test pass.
+
 ## [0.192.0] - 2026-11-20 - Draft
 
 Raiders arrive with the journey behind them: a raid vehicle's fuel says how far it came

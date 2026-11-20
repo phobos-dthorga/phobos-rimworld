@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-20 - Draft
+
+An implement lowered by hand, and the owner's decisions for batch two
+
+### Added
+
+- **Lower and Lift buttons on an implement** (the owner's choice of 20 November 2026). Lowered, it works wherever the tractor drives it, not only on a paddock run, and pulls hard while it does: tillage clears weeds and wild plants and never a sown crop, and a drill sows only a paddock it could sow on a run. A paddock run lifts it, then lowers it on each row as before. The buttons use the framework's set-up and pack-up pictures until drawn ones are picked.
+
+### Changed
+
+- **An implement behind another one is driven by the tractor at the front**: whoever drives the tractor counts as the driver for skill and records.
+- The owner's decisions are in the batch-two record: draught kept at Iowa State's medium soil with a cell taken as 1.5 metres; a wider implement by a wing-extension upgrade rather than a second model; bought seed at about three times grain's value, from bulk goods traders.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.193.0 (lines of tows; implements lowered by hand).
+
+### Compatibility and limits
+
+- **Nothing to press yet**: the plough, cultivator and drill are not built (their pictures wait for the owner's go), so the buttons have nothing to sit on.
+- No new settings. Safe to add to and remove from a save as before. Not yet tested in game: row 280 of the test pass.
+
 ## [0.4.2] - 2026-11-20 - Draft
 
 The owner's names for the machines

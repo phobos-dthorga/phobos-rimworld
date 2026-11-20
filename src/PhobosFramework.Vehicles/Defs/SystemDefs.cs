@@ -991,6 +991,9 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float hitchReachCells = 8f;
     public float hitchUpWork = 900f;
     public float hitchGapCells = 0.3f;
+    /// <summary>Chains of tows (Framework 0.193.0, authored [A]): the most vehicles behind the one that drives, such as a tractor's plough and the
+    /// cart behind it, or an articulated tractor's rear half with both.</summary>
+    public int hitchMostBehind = 3;
     /// <summary>Recovery (Framework 0.103.0; docs/development/vehicle-upgrades-round-two.md, RecoveryRule). The winch: its rated pull in
     /// kilograms-force, the farthest it reaches in cells, the ticks it takes to pull a light load one cell (twice that at its limit), and the
     /// suction the softest ground adds as a share of the stuck vehicle's weight. The recovery tow: the heaviest vehicle towed as a multiple of

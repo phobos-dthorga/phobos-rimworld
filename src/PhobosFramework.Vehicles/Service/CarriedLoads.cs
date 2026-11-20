@@ -48,13 +48,18 @@ public interface IVehicleDraught
 }
 
 /// <summary>
-/// What a moving vehicle drags (Framework 0.182.0): its own working implements and those of the trailer behind its hitch. Read by the
-/// powertrain each sample, so a plough in the ground costs fuel and speed as real draught does.
+/// What a moving vehicle drags (Framework 0.182.0): its own working implements and those of every vehicle behind its hitch (a chain, since
+/// 0.193.0). Read by the powertrain each sample, so a plough in the ground costs fuel and speed as real draught does.
 /// </summary>
 public static class Draughts
 {
-    /// <summary>The newtons this vehicle and the trailer it tows drag through the ground now.</summary>
-    public static double Newtons(VehiclePawn vehicle, VehiclePawn? trailer) => Of(vehicle) + (trailer != null ? Of(trailer) : 0);
+    /// <summary>The newtons this vehicle and everything it tows drag through the ground now.</summary>
+    public static double Newtons(VehiclePawn vehicle)
+    {
+        double total = Of(vehicle);
+        foreach (VehiclePawn behind in CompPhobosHitch.Behind(vehicle)) total += Of(behind);
+        return total;
+    }
 
     static double Of(VehiclePawn vehicle)
     {

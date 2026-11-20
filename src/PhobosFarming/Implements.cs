@@ -26,10 +26,89 @@ public abstract class CompProperties_PhobosImplement : VehicleCompProperties
 /// What every implement behind a tractor shares (docs/development/farming-batch-two.md): its strip is the line under its rear edge, it
 /// drags its draught only while lowered (Implements.Lowered), and it works only paddocks. The tractor's field run drives; this works.
 /// </summary>
-public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IVehicleDraught
+public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IVehicleDraught, IVehicleHandLowered, IVehicleTowedMove
 {
     protected Zone_Growing? area;
     protected int cellsWorked;
+    bool handLowered;
+
+    // ---- Lowered by hand (the owner's button, 20 Nov 2026) ----
+
+    public bool HandLowered => handLowered;
+
+    public void LiftByHand() => handLowered = false;
+
+    /// <summary>Lowers or lifts it by hand, and says which. Refused, with the reason, while nothing holds it.</summary>
+    public void ToggleByHand()
+    {
+        if (!handLowered && Implements.HeldBy(Vehicle) == null)
+        {
+            Messages.Message("PhobosFarming_ImplementNotHeld".Translate(Vehicle.LabelShort.Named("IMPLEMENT")).Resolve(), Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        handLowered = !handLowered;
+        Messages.Message((handLowered ? "PhobosFarming_LoweredByHand" : "PhobosFarming_LiftedByHand").Translate(Vehicle.LabelShort.Named("IMPLEMENT")).Resolve(),
+            Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+        CarriedLoads.Changed(Implements.DrivenBy(Vehicle) ?? Vehicle);
+        if (handLowered && Seen.Wants("farming.implement.hand-lowered", Vehicle)) Seen.Note("farming.implement.hand-lowered", Vehicle, Vehicle.def.defName);
+    }
+
+    /// <summary>
+    /// The hitch has moved it a cell: lowered by hand and not working a run's row, it works the line under its rear edge (docs/development/
+    /// farming-batch-two.md). Cheap: one line of cells.
+    /// </summary>
+    public void TowedMoved()
+    {
+        if (!handLowered || !Vehicle.Spawned || Implements.HeldBy(Vehicle) == null || Implements.RunLowers(Vehicle)) return;
+        CellRect rect = Vehicle.OccupiedRect();
+        IntVec3 facing = Vehicle.Rotation.FacingCell;
+        StripLine line = StripRule.Front(rect.minX, rect.minZ, rect.maxX, rect.maxZ, facing.x, facing.z, StripWidth, StripAhead);
+        Map map = Vehicle.Map;
+        Zone_Growing? keep = area;
+        try
+        {
+            for (int cross = line.CrossMin; cross <= line.CrossMax; cross++)
+            {
+                FieldCell at = line.Cell(cross);
+                var cell = new IntVec3(at.X, 0, at.Z);
+                if (!cell.InBounds(map)) continue;
+                area = HandArea(cell, map);
+                if (WorksByHand(area)) Work(cell);
+            }
+        }
+        finally
+        {
+            area = keep;
+        }
+    }
+
+    /// <summary>The area a cell worked by hand counts as: its growing zone, if any. The crop it grows is kept, as in a run.</summary>
+    protected virtual Zone_Growing? HandArea(IntVec3 cell, Map map) => cell.GetZone(map) as Zone_Growing;
+
+    /// <summary>Whether it works a cell of this area by hand. Tillage works anywhere; a drill only a paddock it could sow.</summary>
+    protected virtual bool WorksByHand(Zone_Growing? zone) => true;
+
+    public override IEnumerable<Gizmo> CompGetGizmosExtra()
+    {
+        foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
+        if (Vehicle.Faction != Faction.OfPlayer || !Vehicle.Spawned) yield break;
+        var toggle = new Command_Action
+        {
+            defaultLabel = (handLowered ? "PhobosFarming_GizmoLift" : "PhobosFarming_GizmoLower").Translate(),
+            defaultDesc = (handLowered ? "PhobosFarming_GizmoLiftDesc" : "PhobosFarming_GizmoLowerDesc").Translate(Vehicle.LabelShort.Named("IMPLEMENT")),
+            // The Framework's own set-up and pack-up pictures (a required mod's icons, confirmed to exist): drawn ones of our own to come.
+            icon = SystemIcons.For(handLowered ? "Phobos/VehicleSystems/Tank/PackUp" : "Phobos/VehicleSystems/Tank/SetUp"),
+            action = ToggleByHand,
+        };
+        if (!handLowered && Implements.HeldBy(Vehicle) == null) toggle.Disable("PhobosFarming_ImplementNotHeld".Translate(Vehicle.LabelShort.Named("IMPLEMENT")).Resolve());
+        yield return toggle;
+    }
+
+    public override void PostExposeData()
+    {
+        base.PostExposeData();
+        Scribe_Values.Look(ref handLowered, "PhobosFarming_HandLowered");
+    }
 
     public CompProperties_PhobosImplement ImplementProps => (CompProperties_PhobosImplement)props;
 
@@ -84,13 +163,15 @@ public abstract class CompPhobosImplement : VehicleComp, IVehicleFieldWorker, IV
     /// <summary>Whoever drives the vehicle holding this implement, or null.</summary>
     protected Pawn? Driver()
     {
-        VehiclePawn? tractor = Implements.HeldBy(Vehicle);
+        // The vehicle that drives the chain (a drill behind a plough is driven by the tractor in front of both).
+        VehiclePawn? tractor = Implements.DrivenBy(Vehicle);
         if (tractor == null || !tractor.PawnsByHandlingType.TryGetValue(HandlingType.Movement, out List<Pawn>? drivers) || drivers == null) return null;
         return drivers.FirstOrDefault(p => p != null && !p.Dead);
     }
 
-    /// <summary>Whether this plant is the paddock's own sown crop, which no implement ever destroys.</summary>
-    protected bool IsTheCrop(Plant plant) => area != null && plant.def == area.GetPlantDefToGrow() && plant.sown;
+    /// <summary>Whether this plant is the paddock's own sown crop, which no implement ever destroys. Outside any growing zone (lowered by
+    /// hand), every sown plant counts as one.</summary>
+    protected bool IsTheCrop(Plant plant) => plant.sown && (area == null || plant.def == area.GetPlantDefToGrow());
 }
 
 /// <summary>A plough or a cultivator, configured in its Def.</summary>
@@ -211,6 +292,27 @@ public class CompPhobosSeedDrill : CompPhobosImplement
     public override string OrderDescription => "PhobosFarming_GizmoSowDesc".Translate(Vehicle.LabelShort.Named("IMPLEMENT")).Resolve();
 
     ThingDef? Crop => area?.GetPlantDefToGrow();
+
+    Zone? handZone;
+    int handZoneTick = -1;
+    bool handZoneSows;
+
+    /// <summary>Lowered by hand, a drill sows only a paddock, whose crop it knows.</summary>
+    protected override Zone_Growing? HandArea(IntVec3 cell, Map map) => cell.GetZone(map) is Zone_Growing zone && Paddocks.IsPaddock(zone) ? zone : null;
+
+    /// <summary>Lowered by hand, it sows a paddock only where a run could (season, research, the driver's skill, seed), asked once a tick per paddock.</summary>
+    protected override bool WorksByHand(Zone_Growing? zone)
+    {
+        if (zone == null) return false;
+        int now = Find.TickManager.TicksGame;
+        if (zone != handZone || now != handZoneTick)
+        {
+            handZone = zone;
+            handZoneTick = now;
+            handZoneSows = CannotWork(zone) == null;
+        }
+        return handZoneSows;
+    }
 
     /// <summary>The seed it sows this crop with: the crop's own grain if it holds some, else the generic seed. Null for none.</summary>
     ThingDef? SeedFor(ThingDef crop)
