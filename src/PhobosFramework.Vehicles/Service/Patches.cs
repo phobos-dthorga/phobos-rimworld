@@ -237,6 +237,33 @@ public static class FreeRepairWaits
     }
 }
 
+/// <summary>
+/// The spall liner is left out of a vehicle's overall health (Framework 0.209.0, fault-read of 21 Nov 2026). Vehicle Framework sums every
+/// part, so a truck whose liner is not fitted, and so held at nothing by design, read "injured" from new (92 % on the Talus); a worn liner
+/// has its own row and state on the Health tab instead. No extension point: Vehicle Framework's private sum, and its private setter. Acts
+/// only on a vehicle that has a liner, so the Hind's and Mongoose's postfixes here, on their own aircraft, never meet it.
+/// </summary>
+[HarmonyPatch(typeof(VehicleStatHandler), "RecalculateHealthPercent")]
+public static class SpallLinerLeftOutOfHealth
+{
+    static readonly Action<VehicleStatHandler, float> SetHealthPercent =
+        AccessTools.MethodDelegate<Action<VehicleStatHandler, float>>(AccessTools.PropertySetter(typeof(VehicleStatHandler), nameof(VehicleStatHandler.HealthPercent)));
+
+    public static void Postfix(VehicleStatHandler __instance)
+    {
+        VehicleComponent? liner = __instance.GetComponent(Spall.LinerKey);
+        if (liner == null) return;
+        float health = 0f, max = 0f;
+        foreach (VehicleComponent part in __instance.components)
+        {
+            if (part == liner) continue;
+            health += part.Health;
+            max += part.MaxHealth;
+        }
+        if (max > 0f) SetHealthPercent(__instance, health / max);
+    }
+}
+
 /// <summary>The same for the question "does it need repairs?", or mechanics would walk to a vehicle with nothing they could do.</summary>
 [HarmonyPatch(typeof(VehicleStatHandler), nameof(VehicleStatHandler.NeedsRepairs), MethodType.Getter)]
 public static class DestroyedPartsNeedNoFreeRepair

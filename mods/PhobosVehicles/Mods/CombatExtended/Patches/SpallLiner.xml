@@ -39,7 +39,7 @@
           <displayLabel>true</displayLabel>
           <description>Panels of layered synthetic fibre bolted inside the armoured cab. When a round gets through the cab's plate, the shattered inside of the plate flies at the crew; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
           <upgradeExplanation>Inside the cab: catches most of the spall a hit through the cab's plate throws at the crew, and keeps the rest to one spot.
-Wears as it catches; re-lined with liner panels, one for each quarter worn.
+Wears as it catches; re-lined with liner panels once a quarter is worn, one for each quarter.
 Cargo room: 200 kg less.
 Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
           <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
@@ -107,7 +107,7 @@ Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
           <displayLabel>true</displayLabel>
           <description>Panels of layered synthetic fibre bolted inside the armoured cab. When a round gets through the cab's plate, the shattered inside of the plate flies at the crew; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
           <upgradeExplanation>Inside the cab: catches most of the spall a hit through the cab's plate throws at the crew, and keeps the rest to one spot.
-Wears as it catches; re-lined with liner panels, one for each quarter worn.
+Wears as it catches; re-lined with liner panels once a quarter is worn, one for each quarter.
 Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
           <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
           <work>2000</work>
@@ -170,7 +170,7 @@ Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
           <displayLabel>true</displayLabel>
           <description>Panels of layered synthetic fibre bolted inside the armoured cab. When a round gets through the cab's plate, the shattered inside of the plate flies at the crew; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
           <upgradeExplanation>Inside the cab: catches most of the spall a hit through the cab's plate throws at the crew, and keeps the rest to one spot.
-Wears as it catches; re-lined with liner panels, one for each quarter worn.
+Wears as it catches; re-lined with liner panels once a quarter is worn, one for each quarter.
 Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
           <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
           <work>2000</work>
@@ -200,11 +200,10 @@ Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
         </li>
     </value>
   </Operation>
-  <!-- The Busbar generator set: its liner part (its loadout lists no roles of its own, so the list is added; the game merges it with the parent's). -->
+  <!-- The Busbar generator set: its liner part. -->
   <Operation Class="PatchOperationAdd">
-    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_GeneratorSet"]</xpath>
+    <xpath>Defs/Phobos.VehicleSystems.PhobosVehicleLoadoutDef[defName="PhobosVehicleLoadout_GeneratorSet"]/partRoles</xpath>
     <value>
-      <partRoles>
         <li>
           <role>SpallLiner</role>
           <add>
@@ -222,7 +221,6 @@ Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
             </armor>
           </add>
         </li>
-      </partRoles>
     </value>
   </Operation>
   <!-- The Busbar generator set: the liner's upgrade. -->
@@ -235,7 +233,7 @@ Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
           <displayLabel>true</displayLabel>
           <description>Panels of layered synthetic fibre bolted inside the armoured cab. When a round gets through the cab's plate, the shattered inside of the plate flies at the crew; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
           <upgradeExplanation>Inside the cab: catches most of the spall a hit through the cab's plate throws at the crew, and keeps the rest to one spot.
-Wears as it catches; re-lined with liner panels, one for each quarter worn.
+Wears as it catches; re-lined with liner panels once a quarter is worn, one for each quarter.
 Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
           <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
           <work>2000</work>
@@ -298,7 +296,7 @@ Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
           <displayLabel>true</displayLabel>
           <description>Panels of layered synthetic fibre bolted inside the armoured cab. When a round gets through the cab's plate, the shattered inside of the plate flies at the crew; the liner catches most of it. It wears as it does, and is re-lined with fresh panels.</description>
           <upgradeExplanation>Inside the cab: catches most of the spall a hit through the cab's plate throws at the crew, and keeps the rest to one spot.
-Wears as it catches; re-lined with liner panels, one for each quarter worn.
+Wears as it catches; re-lined with liner panels once a quarter is worn, one for each quarter.
 Kit weight: 200 kg more, carried as cargo.</upgradeExplanation>
           <icon>Phobos/Vehicles/Upgrades/SpallLiner</icon>
           <work>2000</work>

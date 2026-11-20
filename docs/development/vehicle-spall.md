@@ -1,8 +1,9 @@
 # Spall inside our vehicles: what comes through a beaten plate (21 Nov 2026)
 
 **Status (21 Nov 2026):** built in D'thorga Framework 0.207.0 and D'thorga Vehicles 0.92.0 at the owner's word ("Build, please"),
-with every answer below and its two pictures, picked by the owner the same day (the liner panel, and a quilted liner icon). Not
-yet tested in game: rows 304 and 305 of the test pass. [What differs from the design](#as-built-21-nov-2026).
+with every answer below and its two pictures, picked by the owner the same day (the liner panel, and a quilted liner icon); a
+fault-read's fixes in Framework 0.209.0 and Vehicles 0.94.0. Not yet tested in game: rows 304 and 305 of the test pass.
+[What differs from the design](#as-built-21-nov-2026).
 
 ## As built (21 Nov 2026)
 
@@ -13,14 +14,38 @@ yet tested in game: rows 304 and 305 of the test pass. [What differs from the de
   plate as a blunt blow the plate shrugs off, so the plate takes almost nothing from it **[code]**.
 - **The liner panel** is made at the parts bench, with the other kits, after truck armour research: 20 synthread and 8 chemfuel each
   [A], 25 kg. It lives in D'thorga Vehicles' Combat Extended folder; the Framework's rules name it, so nothing of the Framework needs it.
-- **A re-line's cost** comes from the spall rules (a panel for each quarter missing), not from a part-supply Def with a new flag.
+- **A re-line's cost** comes from the spall rules (a panel for each quarter missing, once a whole quarter is gone), not from a part-supply Def with a new flag.
 - **The liner's upgrade needs the cab** as the heavy cab plates do (Vehicle Framework's own prerequisite), not through a "holds it on"
   link. Its grid place: under the armoured cab, beside the heavy plates.
 - **Only our five trucks carry a liner**, and only with Combat Extended. The extension marking another author's vehicle as lined is not
   built: no vehicle needs it yet.
-- **Not checked in code, so watched in play:** that Rimarrow: Search & Rescue's prefix on vehicle damage, which may skip the original,
-  leaves Combat Extended's walk (and so the reactors) running; and that a crew member's body armour stops a fragment as it would a bullet.
-  Both are watched by row 304.
+- **Read in code since (fault-read of 21 Nov 2026):** Rimarrow: Search & Rescue's prefix stops Combat Extended's walk, and so spall,
+  only on its own two helicopters and only for a hit on a gap it leaves open on purpose; the Harrier's, Hind's, Mongoose's and A-10's
+  prefixes only move the hit cell. A crew member's armour stops a fragment by Combat Extended's own rule once the fragment carries a
+  source, which from Framework 0.209.0 is the game's own small fragment.
+
+### What the fault-read changed (Framework 0.209.0, Vehicles 0.94.0)
+
+Two readers went through the build on 21 Nov 2026, one through our code and one through Vehicle Framework's, Combat Extended's and
+Search & Rescue's. Every finding was read on both sides; none was seen in play.
+
+- **A liner not fitted is left out of the vehicle's health**, its worst part, its damage picture and its diagnosis, and shows "not
+  fitted" in grey on the Health tab: it had made a new Talus read injured (92 %). Vehicle Framework's health sum takes a small postfix.
+- **The liner cannot be given a grade**, which had mended it for steel.
+- **One hit throws spall once**: Combat Extended walks a round on to the far plate and meets it from inside, which reports like an entry.
+  A walk is told apart by its vehicle, tick, shooter and angle.
+- **The liner catches only the spall off a plate whose cells it lines.**
+- **Taking it off gives back its panels by what is left**, rounded down.
+- **A re-line waits until a quarter is gone** [A], and is listed after services and field fixes.
+- **Fragments carry Combat Extended's own small fragment as their source**, so armour stops them by its own rule without a warning.
+- **A holed fuel tank leaks**: Vehicle Framework looks for leaks only on a health-changed event, which Combat Extended's part step
+  never raises; it is raised once after the fragments land.
+- **A liner not fitted is always nothing**, whatever a save holds; removing it no longer reads as damage in the logbook.
+- **Spall stands down while Combat Extended's "Use New Vehicle Armor" is off**, since it reads that walk.
+- **Smaller:** the reactor colours nothing in Vehicle Framework's own Health tab, the outer parts our loadouts append get it too, a
+  plate at no armour no longer yields a NaN, and the seen-in-play note waits for a fragment to land.
+- **Not changed:** the plate's efficiency is read after Combat Extended took the hit's armour damage off, so what the plate took may be
+  a little lower than Combat Extended's own figure.
 
 **The owner, 21 Nov 2026**, after an analysis of the Workshop mod "CE Additional Expansion for Armed Damage Combat" (which the owner
 then passed on): "What if we implement armor that matters layer-by-layer? Would that be a difficult thing, especially if we were to
@@ -122,8 +147,8 @@ what the plate took.
    - **On crew:** Combat Extended's own `Fragment` damage, sharp, with penetration a third of the plate's sharp armour [A], so the
      crew's own body armour can stop it. The shooter is the instigator. The wounds are the game's own injuries.
    - **On an inner part:** through Combat Extended's own part step (`HitComponent`, called by name), so the part's armour counts and
-     its reactors fire. A holed fuel tank leaks through Vehicle Framework's own fuel-leak reactor; a holed radiator loses coolant
-     through our systems.
+     its reactors fire. A holed radiator loses coolant through our systems; a holed fuel tank leaks once Vehicle Framework is told the
+     part's health changed, which Framework 0.209.0 does after the fragments land (Vehicle Framework's own fuel-leak reactor does nothing).
 6. **A guard against loops.** The spall reactor ignores hits made while it is applying its own fragments.
 
 ### Shock spall from a stopped heavy hit [O, figures A]

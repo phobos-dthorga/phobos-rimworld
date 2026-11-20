@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.94.0] - 2026-11-21 - Draft
+
+The spall liner after its fault-read, and one for the Osprey
+
+### Fixed
+
+- **The Busbar's liner part is added the way the other trucks' are.** Its patch added a second list of parts that the game happened to merge with the first; it now adds to the one list. Nothing a player sees changes.
+- **The liner's fixes are D'thorga Framework 0.209.0's**: a truck without a liner no longer reads as injured, a worn liner is no longer mended for steel, and taking one off gives back what is left of it.
+
 ## [0.93.0] - 2026-11-21 - Draft
 
 The Harrier, the A-10 and the Su-25 start as their early versions, and grow through their service lives

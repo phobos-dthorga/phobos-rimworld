@@ -287,6 +287,7 @@ public static class FleetService
         float worst = 1f;
         foreach (VehicleComponent part in vehicle.statHandler.components)
         {
+            if (Spall.Unfitted(vehicle, part)) continue;    // a spall liner not fitted sits at nothing by design (Framework 0.209.0)
             float share = part.MaxHealth > 0f ? part.Health / part.MaxHealth : 1f;
             if (share >= worst) continue;
             worst = share;

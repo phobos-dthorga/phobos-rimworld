@@ -103,12 +103,28 @@ public class SpallRuleTests
 
     [Theory]
     [InlineData(1.0, 0)]
-    [InlineData(0.9, 1)]
+    [InlineData(0.9, 0)]
     [InlineData(0.75, 1)]
     [InlineData(0.7, 2)]
     [InlineData(0.0, 4)]
-    public void AReLineTakesAPanelForEachQuarterMissing(double healthShare, int panels) =>
+    public void AReLineTakesAPanelForEachQuarterMissingOnceAQuarterIsGone(double healthShare, int panels) =>
         Assert.Equal(panels, SpallRule.PanelsToReline(healthShare, F));
+
+    [Theory]
+    [InlineData(4, 1.0, 4)]
+    [InlineData(4, 0.6, 2)]
+    [InlineData(4, 0.2, 0)]
+    [InlineData(4, 0.0, 0)]
+    public void TakingALinerOffGivesBackWhatIsLeft(int paid, double healthShare, int back) =>
+        Assert.Equal(back, SpallRule.PanelsBack(paid, healthShare));
+
+    [Fact]
+    public void ASpentLinerTakenOffAndPutBackCostsAtLeastAReLine()
+    {
+        // The fault-read's case: a liner at a fifth of its health came off for four panels back and went on again for four, a net nothing.
+        int back = SpallRule.PanelsBack(4, 0.2);
+        Assert.True(4 - back >= SpallRule.PanelsToReline(0.2, F));
+    }
 
     // ---- A truck's first look ----
 
@@ -120,6 +136,9 @@ public class SpallRuleTests
 
     [Fact]
     public void ASavedLinerKeepsItsHealth() => Assert.Equal(34, SpallRule.StartingHealth(34, fitted: true, maxHealth: 60));
+
+    [Fact]
+    public void ASavedLinerNotFittedIsNothing() => Assert.Equal(0, SpallRule.StartingHealth(60, fitted: false, maxHealth: 60));
 
     [Fact]
     public void ASavedLinerNeverExceedsItsMaximum() => Assert.Equal(60, SpallRule.StartingHealth(90, fitted: true, maxHealth: 60));

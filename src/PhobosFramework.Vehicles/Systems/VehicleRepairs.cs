@@ -174,7 +174,9 @@ public sealed class VehicleRepairs
     }
 
     /// <summary>Whether this part has a replacement cost at all, and so can be made in another grade.</summary>
-    public bool CanBeGraded(VehicleComponent part) => SupplyFor(part) != null;
+    /// <summary>Never the spall liner (Framework 0.209.0, fault-read of 21 Nov 2026): a grade mended it for steel, and left a dead order on
+    /// one not fitted. It also keeps the liner off the fittings window's list.</summary>
+    public bool CanBeGraded(VehicleComponent part) => part.props.key != Spall.LinerKey && SupplyFor(part) != null;
 
     /// <summary>What a part of this grade costs, in words, for the menu.</summary>
     public string CostLine(VehicleComponent part, PhobosVehiclePartGradeDef grade)
@@ -256,21 +258,6 @@ public sealed class VehicleRepairs
                 pending.Add(repair);
             }
         }
-        // A worn spall liner (Framework 0.207.0): a panel for each quarter of it missing, only once fitted.
-        if (comp.Vehicle.statHandler.GetComponent(Spall.LinerKey) is { } liner && Spall.Panel is { } panel)
-        {
-            int panels = Spall.PanelsToReline(comp.Vehicle, liner);
-            if (panels > 0)
-            {
-                var repair = new RepairWork
-                {
-                    Key = "reline/" + Spall.LinerKey, Kind = RepairKind.Reline, Part = liner, Work = Spall.RelineWork,
-                    Label = "PhobosVehicleSystems_RepairReline".Translate(liner.props.label.Named("PART")).Resolve(),
-                };
-                repair.Options.Add(new List<(ThingDef def, int count)> { (panel, panels) });
-                pending.Add(repair);
-            }
-        }
         foreach (VehicleCondition condition in comp.Conditions.All)
         {
             PhobosVehicleConditionDef def = condition.def!;
@@ -306,6 +293,22 @@ public sealed class VehicleRepairs
                     Label = "PhobosVehicleSystems_RepairFieldRefit".Translate(part.props.label.Named("PART")).Resolve(),
                 };
                 repair.Options.Add(Rules.fieldFixSupplies.Select(s => (s.thingDef, s.count)).ToList());
+                pending.Add(repair);
+            }
+        }
+        // A worn spall liner (Framework 0.207.0): a panel for each quarter of it missing, only once fitted. Listed after the services and field
+        // re-fits, which stop a vehicle where a worn liner does not (Framework 0.209.0, fault-read of 21 Nov 2026).
+        if (comp.Vehicle.statHandler.GetComponent(Spall.LinerKey) is { } liner && Spall.Panel is { } panel)
+        {
+            int panels = Spall.PanelsToReline(comp.Vehicle, liner);
+            if (panels > 0)
+            {
+                var repair = new RepairWork
+                {
+                    Key = "reline/" + Spall.LinerKey, Kind = RepairKind.Reline, Part = liner, Work = Spall.RelineWork,
+                    Label = "PhobosVehicleSystems_RepairReline".Translate(liner.props.label.Named("PART")).Resolve(),
+                };
+                repair.Options.Add(new List<(ThingDef def, int count)> { (panel, panels) });
                 pending.Add(repair);
             }
         }
@@ -470,8 +473,8 @@ public sealed class VehicleRepairs
                 break;
             case RepairKind.Reline:
                 // Back to whole: the panels paid for every quarter missing (Framework 0.207.0).
-                repair.Part!.SetHealth(repair.Part.MaxHealth);
-                comp.Vehicle.EventRegistry[VehicleEventDefOf.HealthChanged].ExecuteEvents();
+                repair.Part!.SetHealth(repair.Part.MaxHealth);    // raises Vehicle Framework's HealthChanged itself
+                comp.RememberAllPartHealths();
                 if (Seen.Wants("vehicles.spall-relined", comp.Vehicle))
                 {
                     Seen.Note("vehicles.spall-relined", comp.Vehicle, repair.Part.props.label,

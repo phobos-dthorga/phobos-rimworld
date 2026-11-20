@@ -205,8 +205,16 @@ public static class UpgradeRefundPatch
     public static void Prefix(CompUpgradeTree __instance, UpgradeNode node, out List<ThingDefCountClass>? __state)
     {
         __state = null;
-        if (!UpgradePricing.Prices(node) || !__instance.NodeUnlocked(node)) return;
-        List<ThingDefCountClass> paid = GameComponent_PhobosUpgradePrices.Store?.Take(__instance.Vehicle, node) ?? UpgradePricing.BaseIngredients(node);
+        if (!__instance.NodeUnlocked(node)) return;
+        bool priced = UpgradePricing.Prices(node);
+        bool liner = Spall.IsLinerNode(node);
+        if (!priced && !liner) return;
+        List<ThingDefCountClass> paid = priced
+            ? GameComponent_PhobosUpgradePrices.Store?.Take(__instance.Vehicle, node) ?? UpgradePricing.BaseIngredients(node)
+            : node.ingredients;
+        // A spall liner gives back its panels by what is left of it (Framework 0.209.0, fault-read of 21 Nov 2026): this runs before the
+        // removal empties the liner, so a spent one taken off and put on again costs what a re-line would.
+        if (liner) paid = Spall.RefundFor(__instance.Vehicle, paid);
         __state = node.ingredients;
         node.ingredients = paid;
     }

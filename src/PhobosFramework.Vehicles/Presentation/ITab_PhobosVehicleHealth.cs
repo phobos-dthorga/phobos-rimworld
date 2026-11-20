@@ -671,8 +671,18 @@ public class ITab_PhobosVehicleHealth : ITab
             bool capturedFigures = figures;
             CompPhobosVehicleSystems capturedComp = comp;
             row.Tip = () => PartTip(captured, capturedFigures, capturedComp.Repairs.NoteFor(captured));
-            // A spall liner names its state, not "destroyed": one not fitted sits at nothing by design (Framework 0.207.0).
-            if (part.props.key == Spall.LinerKey) row.Conditions.Add(LinerRow(Spall.StateOf(comp.Vehicle, part)));
+            // A spall liner names its state, not "destroyed": one not fitted sits at nothing by design (Framework 0.207.0), and its health
+            // column says so too, in grey (Framework 0.209.0).
+            if (part.props.key == Spall.LinerKey)
+            {
+                LinerState state = Spall.StateOf(comp.Vehicle, part);
+                row.Conditions.Add(LinerRow(state));
+                if (state == LinerState.NotFitted)
+                {
+                    row.HealthText = Spall.StateWord(state);
+                    row.HealthColour = PhobosWidgets.Off;
+                }
+            }
             else if (part.Health <= 0f) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthDestroyed".Translate(), Colour = PhobosWidgets.Bad });
             foreach (RepairWork repair in comp.Repairs.Pending)
             {

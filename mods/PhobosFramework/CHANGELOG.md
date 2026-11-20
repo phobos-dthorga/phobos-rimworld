@@ -5,6 +5,30 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.209.0] - 2026-11-21 - Draft
+
+Spall inside vehicles: what its fault-read found, put right, and what came after
+
+### Fixed
+
+- **A truck without a spall liner no longer reads as injured or broken.** A liner not fitted sits at nothing by design, and it had shown as a destroyed part: the truck read injured from new, the Fleet board named it the worst part in red, the damage picture painted the cab red, and the diagnosis listed it first. It is now left out of all four, and its row on the Health tab reads not fitted, in grey. A worn liner is still shown on its own row.
+- **A worn liner can no longer be mended for steel.** The fittings window offered it a grade, which put it back to full for about 30 steel and no panels, and on a liner not fitted left an order nobody would ever work. The liner is no longer listed for grades.
+- **One hit throws spall once.** A round that crossed the cab threw spall again when it met the far side of the cab from inside.
+- **The cab's liner catches only the spall off the cab.** It had caught, and worn from, spall off any plate, the tipping body's included.
+- **Taking a liner off gives back what is left of it**: its panels by the share of the liner still good, rounded down. A spent liner had come off for all four panels back.
+- **Fragments that armour stops are stopped by armour's own rule.** They carried no source, so the game wrote a warning for each one a helmet or vest turned, and turned it into a fixed blow whatever its size. They now carry the small fragment the game itself throws.
+- **A fuel tank holed by spall now leaks.** The game looks for a leak only when it is told a part's health changed, which the armour walk never says; it is now told once the fragments have landed.
+- **Taking the liner off no longer writes "came under fire" in the vehicle's logbook.**
+- **A re-line waits until a quarter of the liner is gone** (agent's default), and is listed after the services and field fixes that stop a vehicle. A panel for a scratch had sent trucks to be re-lined after every fight.
+- **A liner left whole by a save from before the upgrade was fitted no longer works for free**: a liner not fitted is always nothing, whatever a save holds.
+- **Spall stands down while Combat Extended's Use New Vehicle Armor is off**: everything here reads that armour walk.
+- Every outer plate of every vehicle is no longer lit orange in Vehicle Framework's own Health tab, and the outer parts our loadouts add now throw spall too.
+
+### Compatibility and limits
+
+- One new Harmony patch: a postfix on Vehicle Framework's private health sum leaves the liner out, on vehicles that have one. The Hind's and Mongoose's postfixes on the same method act on their own aircraft only.
+- Not yet tested in game: rows 304 and 305 of the test pass.
+
 ## [0.208.0] - 2026-11-21 - Draft
 
 Aircraft upgrades through their service lives: engines, avionics kits, rough landings and aim by sight and weather

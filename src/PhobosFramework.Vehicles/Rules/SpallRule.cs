@@ -142,22 +142,30 @@ public static class SpallRule
         return Narrow(healthShare, f) ? LinerState.Sound : LinerState.Worn;
     }
 
-    /// <summary>Liner panels a re-line takes: one for each share of the liner's health missing, rounded up; none when it is whole.</summary>
+    /// <summary>
+    /// Liner panels a re-line takes: one for each share of the liner's health missing, rounded up. None until a whole share is gone
+    /// (Framework 0.209.0, an agent's default after the fault-read: a panel for a scratch sent trucks to be re-lined after every fight).
+    /// </summary>
     public static int PanelsToReline(double healthShare, in SpallFigures f)
     {
         double missing = 1 - Math.Max(0, Math.Min(1, healthShare));
-        if (missing <= 1e-6) return 0;
-        return Math.Max(1, (int)Math.Ceiling(missing * f.panelsPerLiner - 1e-9));
+        int perLiner = Math.Max(1, f.panelsPerLiner);
+        if (missing * perLiner < 1 - 1e-9) return 0;
+        return (int)Math.Ceiling(missing * perLiner - 1e-9);
     }
 
+    /// <summary>The panels that come back when a liner is taken off: those paid, by the share of the liner left, rounded down.</summary>
+    public static int PanelsBack(int paid, double healthShare) => Math.Max(0, (int)Math.Floor(paid * Math.Max(0, Math.Min(1, healthShare)) + 1e-9));
+
     /// <summary>
-    /// The liner's health when a vehicle is first looked at: the saved health where a save holds one; otherwise full when fitted (a vehicle
-    /// that came with one, or whose upgrade is fitted) and nothing when not. Vehicle Framework makes every part whole, so a new truck's
-    /// liner starts at zero, "not fitted", until the upgrade is fitted.
+    /// The liner's health when a vehicle is first looked at: nothing when it is not fitted, whatever a save holds (a save may hold a whole
+    /// liner that Vehicle Framework made for a vehicle off the map); otherwise the saved health, or full where a save holds none. Vehicle
+    /// Framework makes every part whole, so a new truck's liner starts at zero, "not fitted", until the upgrade is fitted.
     /// </summary>
     public static double StartingHealth(double? saved, bool fitted, double maxHealth)
     {
+        if (!fitted) return 0;
         if (saved.HasValue) return Math.Max(0, Math.Min(maxHealth, saved.Value));
-        return fitted ? maxHealth : 0;
+        return maxHealth;
     }
 }

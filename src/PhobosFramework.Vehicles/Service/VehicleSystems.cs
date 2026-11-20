@@ -42,15 +42,6 @@ public static class VehicleSystems
     {
         if (!processed.Add(def)) return;
         AddStatParts();
-        // Spall inside vehicles (Framework 0.207.0): every design's outer plates, loadout or not (owner, 21 Nov 2026: every vehicle).
-        try
-        {
-            Spall.AddReactors(def);
-        }
-        catch (System.Exception error)
-        {
-            Problems.Add(def.defName + ": spall: " + error.Message);
-        }
         var record = new DesignRecord
         {
             def = def,
@@ -82,6 +73,19 @@ public static class VehicleSystems
             record.skippedBecause = "error";
             Problems.Add(def.defName + ": " + error.Message);
             Log.Error(VehicleSystemsMod.LogPrefix + " Could not give " + def.defName + " its systems; it runs without them. " + error);
+        }
+        finally
+        {
+            // Spall inside vehicles (Framework 0.207.0): every design's outer plates, loadout or not (owner, 21 Nov 2026: every vehicle). Last,
+            // so the outer parts our loadout appended get it too (Framework 0.209.0, fault-read of 21 Nov 2026).
+            try
+            {
+                Spall.AddReactors(def);
+            }
+            catch (System.Exception error)
+            {
+                Problems.Add(def.defName + ": spall: " + error.Message);
+            }
         }
     }
 
