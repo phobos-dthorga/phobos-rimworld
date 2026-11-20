@@ -13,12 +13,16 @@ public class FarmingSettings : ModSettings
     public bool handsMayHelpOnNew;
     /// <summary>Whether a machine's driver can fail a harvest as a colonist by hand can, by the same roll on their harvesting skill.</summary>
     public bool driverCanFail = true;
+    /// <summary>Hands use seed too (owner, 19 and 20 Nov 2026: off by default, for players who want more realism): a colonist sowing by hand
+    /// takes seed from a stockpile, as a machine does. Off: hands sow free, as the game does.</summary>
+    public bool handsUseSeed;
 
     public override void ExposeData()
     {
         base.ExposeData();
         Scribe_Values.Look(ref handsMayHelpOnNew, "handsMayHelpOnNew");
         Scribe_Values.Look(ref driverCanFail, "driverCanFail", true);
+        Scribe_Values.Look(ref handsUseSeed, "handsUseSeed");
     }
 }
 
@@ -32,7 +36,7 @@ public class FarmingMod : SettingsBookMod
     public const string PackageId = "PhobosDthorga.Farming";
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = PackageId;
-    public const string ModVersion = "0.5.0";
+    public const string ModVersion = "0.6.0";
     public const string LogPrefix = "[D'thorga Farming]";
 
     public static readonly Phobos.Logging.PhobosLog Logger = Framework.Logging.Logs.For("D'thorga Farming");
@@ -58,5 +62,7 @@ public class FarmingMod : SettingsBookMod
         list.Check("PhobosFarming_SettingHandsMayHelp".Translate(), ref s.handsMayHelpOnNew, false, "PhobosFarming_SettingHandsMayHelpDesc".Translate());
         list.Section("PhobosFarming_SectionHarvest".Translate());
         list.Check("PhobosFarming_SettingDriverCanFail".Translate(), ref s.driverCanFail, true, "PhobosFarming_SettingDriverCanFailDesc".Translate());
+        list.Section("PhobosFarming_SectionSeed".Translate());
+        list.Check("PhobosFarming_SettingHandsUseSeed".Translate(), ref s.handsUseSeed, false, "PhobosFarming_SettingHandsUseSeedDesc".Translate());
     }
 }

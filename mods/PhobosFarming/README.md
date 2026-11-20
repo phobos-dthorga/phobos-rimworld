@@ -4,7 +4,7 @@ Machines that work your fields: mark a growing zone as a paddock, and a combine 
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.5.0, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
+Version 0.6.0, built 20 November 2026 for House D'thorga. **Not yet tested in game.**
 
 ## Read this first (gotchas)
 
@@ -20,8 +20,9 @@ Version 0.5.0, built 20 November 2026 for House D'thorga. **Not yet tested in ga
   taken once it is placed in a class: see [For modders](#for-modders).
 - **A full combine needs somewhere to empty**: a **Garner chaser bin** parked near the paddock (any vehicle with a hitch tows it), a
   **field bin**, or a **grain silo**. The silo keeps grain four times as long, **but only while its fan has power**.
-- **Settings to decide before you start:** Options > Mod settings > D'thorga Farming. **Hands may help on new paddocks** (off) and
-  **A machine's driver can fail a harvest, as by hand** (on).
+- **Settings to decide before you start:** Options > Mod settings > D'thorga Farming. **Hands may help on new paddocks** (off),
+  **A machine's driver can fail a harvest, as by hand** (on), and **Hands use seed too** (off: on, colonists sowing grain, peas,
+  oilseeds or corn by hand take a handful of it from a stockpile first, and will not sow without it).
 - **Safe to add to a running colony.** **Removing it:** paddocks become plain growing zones; combines, chaser bins and the grain in
   them vanish with the mod. Empty them first.
 - **Not yet tested in game.** Everything here is built and checked offline, and read from the game's and the mods' code.

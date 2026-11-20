@@ -60,4 +60,9 @@
   <PhobosFarming_GizmoLiftDesc>Lift {IMPLEMENT} out of the ground. A paddock run still lowers it on each row.</PhobosFarming_GizmoLiftDesc>
   <PhobosFarming_LoweredByHand>{IMPLEMENT} is lowered. It works wherever the tractor drives it.</PhobosFarming_LoweredByHand>
   <PhobosFarming_LiftedByHand>{IMPLEMENT} is lifted.</PhobosFarming_LiftedByHand>
+  <!-- Farming 0.6.0: hands use seed too (the owner's switch, off by default). -->
+  <PhobosFarming_SectionSeed>Seed</PhobosFarming_SectionSeed>
+  <PhobosFarming_SettingHandsUseSeed>Hands use seed too</PhobosFarming_SettingHandsUseSeed>
+  <PhobosFarming_SettingHandsUseSeedDesc>Off by default: colonists sow by hand for free, as the game does. On, for more realism: a colonist sowing a crop whose harvest is its own seed (grains, peas, oilseeds, corn) first takes a handful of that crop from a stockpile and uses it up as they sow, about three per cent of what each cell will yield. With none they can reach, they will not sow it, and say why. Cotton, hay, potatoes and crops of other mods with no crop class are still sown free.</PhobosFarming_SettingHandsUseSeedDesc>
+  <PhobosFarming_HandsNoSeed>no {SEED} to sow {CROP} with</PhobosFarming_HandsNoSeed>
 </LanguageData>

@@ -1,6 +1,6 @@
 # D'thorga Farming, batch two: the build design (20 Nov 2026)
 
-**Status (20 Nov 2026):** partly built, in D'thorga Framework 0.191.0 to 0.193.0 and D'thorga Farming 0.4.0 to 0.5.0: the field run with an implement behind, the field-work rule (draught, seed, cleaning) with tests, the rigid linkage shown by tests of the hitch's own rule, the plough, cultivator and seed drill workers, lines of tows (the linkage and drawbar at once) and the Lower and Lift buttons, in code. **Not built:** the tractors (the T400's two halves; the rule for its driven rear axle is in Framework 0.194.0), the implements' Defs and pictures (paid, waiting for the owner's go), the wing-extension upgrades, the generic seed item and its traders, and the "Hands use seed too" switch. Nothing is tested in game.
+**Status (20 Nov 2026):** partly built, in D'thorga Framework 0.191.0 to 0.193.0 and D'thorga Farming 0.4.0 to 0.5.0: the field run with an implement behind, the field-work rule (draught, seed, cleaning) with tests, the rigid linkage shown by tests of the hitch's own rule, the plough, cultivator and seed drill workers, lines of tows (the linkage and drawbar at once) the Lower and Lift buttons, and the "Hands use seed too" switch (Farming 0.6.0), in code. **Not built:** the tractors (the T400's two halves; the rule for its driven rear axle is in Framework 0.194.0), the implements' Defs and pictures (paid, waiting for the owner's go), the wing-extension upgrades, and the generic seed item and its traders. Nothing is tested in game.
 This record turns [farm machines](farming-machines.md) "Tillage and seeding (AG1)" and the owner's decisions of 19 and 20 Nov 2026
 into the code, Defs, settings and art a build would make.
 
@@ -99,9 +99,13 @@ unfolded wings. The wider figures are the agent's [A]: plough 3 to 5 cells, cult
   **The owner's choice (20 Nov 2026): about three times grain's value by weight, stocked by bulk goods traders**, never crafted.
 - **How much a cell takes** [A, from the Birchip Cropping Group and Teagasc figures in the record]: about 3 % of the cell's harvest by
   weight, accumulated as a fraction, so a rice cell (6 units at 0.03 kg) takes about 5 grams.
-- **Hand sowing stays free by default; a switch, "Hands use seed too", off** (owner). With it on, a colonist's sowing job takes the seed
-  from a stockpile; without seed, the job is refused with the reason. A Harmony postfix on the sowing work giver's check [A, reason in
-  code when built].
+- **Hand sowing stays free by default; a switch, "Hands use seed too", off** (owner; built in Farming 0.6.0). With it on, a colonist
+  sowing a crop whose harvest is its own seed fetches a handful (twenty cells' worth [A]) into their inventory and uses it up cell by
+  cell at the drill's rate; without seed they can reach, the job is refused with the reason. Two postfixes: the sowing work giver's job
+  for a cell (run last, after Smart Farming's and Vanilla Plants Expanded More Plants'), and the colonist's "plants sown" record, which
+  the game counts once per finished cell. **Whether a crop's harvest is its seed is its crop class's** (`harvestIsSeed`, agent's
+  reading: grain, pulses, oilseeds and corn yes; hay, cotton and, for now, root crops no), and the drill follows the same rule. Generic
+  bought seed is not in the game yet, so hands use only the crop's own grain.
 
 ## Tractors (Farming)
 

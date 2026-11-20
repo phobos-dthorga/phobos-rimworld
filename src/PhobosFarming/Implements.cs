@@ -262,9 +262,9 @@ public class CompPhobosTillage : CompPhobosImplement
 public class CompProperties_PhobosSeedDrill : CompProperties_PhobosImplement
 {
     /// <summary>The share of a cell's harvest, by weight, a cell takes as seed (about 3 %, from the record's sources). Authored [A].</summary>
-    public float seedShare = 0.03f;
+    public float seedShare = SeedRates.SeedShare;
     /// <summary>What cleaning takes off a crop's own grain used as seed: it sows at its weight divided by what is left. Authored [A].</summary>
-    public float cleaningLoss = 0.1f;
+    public float cleaningLoss = SeedRates.CleaningLoss;
     /// <summary>The generic seed traders sell, which sows any crop.</summary>
     public ThingDef? genericSeed;
 
@@ -319,7 +319,8 @@ public class CompPhobosSeedDrill : CompPhobosImplement
     {
         BulkContents? contents = Hold?.Contents;
         if (contents == null) return null;
-        ThingDef? grain = crop.plant?.harvestedThingDef;
+        // Farming 0.6.0: only a crop whose harvest is its own seed sows from it (cotton is not sown with cloth).
+        ThingDef? grain = Crops.OwnSeed(crop);
         if (grain != null && contents.CountOf(grain) > 0) return grain;
         if (Props.genericSeed != null && contents.CountOf(Props.genericSeed) > 0) return Props.genericSeed;
         return null;
@@ -389,9 +390,10 @@ public class CompPhobosSeedDrill : CompPhobosImplement
         }
         if (SeedFor(crop) is not { } seed) return false;
         // The crop's own grain loses its cleaning share, so a cell takes more of it than of bought seed.
-        double perCell = FieldWorkRule.SeedKilogramsPerCell(crop.plant.harvestYield > 0 ? (int)System.Math.Round(crop.plant.harvestYield) : 0,
-            crop.plant.harvestedThingDef?.BaseMass ?? 0, Props.seedShare);
-        if (seed != Props.genericSeed) perCell /= System.Math.Max(0.05, 1 - Props.cleaningLoss);
+        // The crop's own grain loses its cleaning share (SeedRates, shared with hands); bought seed sows at the plain rate.
+        double perCell = seed != Props.genericSeed
+            ? SeedRates.OwnGrainKilogramsPerCell(crop, Props.seedShare, Props.cleaningLoss)
+            : SeedRates.OwnGrainKilogramsPerCell(crop, Props.seedShare, 0f);
         (int units, double owed) = FieldWorkRule.DrawSeed(owedKilograms, perCell, seed.BaseMass);
         if (units > 0 && hold.Contents.Take(seed, units, out _) < units) return false;
         owedKilograms = owed;

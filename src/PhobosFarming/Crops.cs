@@ -11,6 +11,9 @@ namespace Phobos.Farming;
 /// </summary>
 public class PhobosCropClassDef : Def
 {
+    /// <summary>Whether the crop's harvest is its own seed (grain, pulses, oilseeds, corn kernels), so it can be kept back and sown again;
+    /// false where it is not (hay, cotton lint), which then sows only from bought seed. Farming 0.6.0.</summary>
+    public bool harvestIsSeed;
 }
 
 /// <summary>
@@ -33,4 +36,8 @@ public static class Crops
 {
     /// <summary>The crop class of this plant, or null for a crop no machine takes.</summary>
     public static PhobosCropClassDef? ClassOf(ThingDef? plant) => plant?.GetModExtension<PhobosCropExtension>()?.cropClass;
+
+    /// <summary>The crop's own harvest when it is also its seed (its class says so), or null: a crop in no class, or one whose harvest is
+    /// not seed (hay, cotton lint), sows only from bought seed by machine and free by hand.</summary>
+    public static ThingDef? OwnSeed(ThingDef? plant) => ClassOf(plant)?.harvestIsSeed == true ? plant!.plant?.harvestedThingDef : null;
 }

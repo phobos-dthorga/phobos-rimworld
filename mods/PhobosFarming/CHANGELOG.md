@@ -5,6 +5,26 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-11-20 - Draft
+
+Hands use seed too, a setting for more realism
+
+### Added
+
+- **A new setting, Hands use seed too, off by default** (the owner's choice, for players who want more realism; Mod settings, D'thorga Farming, General, under Seed). On, a colonist sowing by hand a crop whose harvest is its own seed (grains, peas, oilseeds, corn) first takes a handful of it from a stockpile into their inventory, about twenty cells' worth, and uses it up as they sow, at the same rate a seed drill uses: about three per cent of what each cell will yield, plus a tenth lost to cleaning. With none they can reach, they will not sow that crop, and the reason shows when you ask them to. Other crops are still sown free.
+- **Each crop class now says whether its harvest is its own seed**, in its XML, so other mods' crops follow the class they are put in.
+
+### Fixed
+
+- **The seed drill no longer sows a crop from a harvest that is not seed**: as built, it would have sown cotton from cloth or haygrass from hay. Such crops now sow only from bought seed (not yet in the game). Nothing had used the drill yet.
+
+### Compatibility and limits
+
+- Root crops (potatoes) count as sowing free for now: seed potatoes are real, but take about a tenth of the crop, not the few per cent of grain, and are not modelled. An agent's choice, for the owner to review.
+- What a colonist still owes below one unit of seed is not saved, so at most a unit's worth is forgotten at a load.
+- Another mod that empties colonists' inventories (Combat Extended's loadouts can) may drop the handful; the colonist then fetches another.
+- Not yet tested in game: row 281 of the test pass.
+
 ## [0.5.0] - 2026-11-20 - Draft
 
 An implement lowered by hand, and the owner's decisions for batch two

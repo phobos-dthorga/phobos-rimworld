@@ -3,6 +3,10 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "281": {"parts": {
+      "a colonist fetches seed before sowing": ["farming.hand-seed.fetch"],
+      "seed is used up as they sow": ["farming.hand-seed.used"]
+    }},
     "279": {"parts": {
       "a vehicle on a hitch takes another behind it": [{"key": "vehicles.hitch.chain", "expect": {"behind": ">= 2"}}]
     }},
