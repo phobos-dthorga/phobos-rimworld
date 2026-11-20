@@ -19,6 +19,21 @@ def _kind(tag, kinds):
     return tag.split('.')[-1] in kinds
 
 
+def _tie_in_folder(path):
+    """Whether the file sits in mods/<Mod>/Mods/<Folder>/, and that mod's LoadFolders.xml loads the folder only while another mod is active."""
+    parts = path.relative_to(MODS).parts
+    if len(parts) < 4 or parts[1] != 'Mods':
+        return False
+    folder = 'Mods/' + parts[2]
+    load_folders = MODS / parts[0] / 'LoadFolders.xml'
+    if not load_folders.exists():
+        return False
+    for entry in ET.parse(load_folders).getroot().iter('li'):
+        if (entry.text or '').strip() == folder and (entry.get('IfModActive') or entry.get('IfModActiveAll')):
+            return True
+    return False
+
+
 class Shipped:
     """Every Def name, role supply, bill and upgrade-node key in the mods' XML."""
 
@@ -83,7 +98,13 @@ class PartsBillsTest(unittest.TestCase):
         for path, bill in self.shipped.bills:
             target = (bill.findtext('target') or '').strip()
             self.assertTrue(target, '%s names no target' % self.where(path, bill))
-            self.assertIn(target, self.shipped.def_names, '%s: its target %s is not a Def of ours' % (self.where(path, bill), target))
+            if target in self.shipped.def_names:
+                continue
+            # Another author's blueprint (D'thorga Patches' bills for Close Air Support's jets, 0.29.0): allowed only from a tie-in folder
+            # that LoadFolders.xml loads while that mod is active, so a player without it never meets the bill.
+            self.assertTrue(_tie_in_folder(path),
+                            '%s: its target %s is not a Def of ours, and it is not in a tie-in folder loaded only with its mod'
+                            % (self.where(path, bill), target))
 
     def test_no_two_bills_share_a_target(self):
         seen = {}

@@ -26,6 +26,9 @@ public static class RearmOneKind
         new("potemkinvillager.av8bharrier", "the Harrier", "FixedWingAircraftFramework", "FWA_RearmVehicle"),
         new("potemkinvillager.mi24hindhelicopter", "the Hind", "Mi24HindHelicopter", "Hind_RearmVehicle"),
         new("potemkinvillager.mongooseattackhelicopter", "the Mongoose", "MongooseAttackHelicopter", "Mongoose_RearmVehicle"),
+        // Patches 0.29.0: Close Air Support's A-10 and Su-25 rearm through the same fixed-wing framework as the Harrier (the same file, read
+        // 21 Nov 2026), so with both mods active the one patch serves both.
+        new("potemkinvillager.CloseAirSupport", "the A-10 and Su-25", "FixedWingAircraftFramework", "FWA_RearmVehicle"),
     };
 
     static readonly Dictionary<Type, Func<Pawn, VehicleTurret, Predicate<ThingDef>, int, Thing?>> findAmmo = new();
@@ -45,6 +48,12 @@ public static class RearmOneKind
             if (giver == null || fallback == null || find == null || load == null)
             {
                 report.Off(feature, "its code has changed");
+                continue;
+            }
+            // Two aircraft mods on one framework share its rearm code: patch it once.
+            if (findAmmo.ContainsKey(giver))
+            {
+                report.On(feature);
                 continue;
             }
             findAmmo[giver] = AccessTools.MethodDelegate<Func<Pawn, VehicleTurret, Predicate<ThingDef>, int, Thing?>>(find);

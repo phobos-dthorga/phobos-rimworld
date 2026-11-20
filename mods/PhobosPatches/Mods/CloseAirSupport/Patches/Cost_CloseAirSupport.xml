@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Each jet's blueprint cost cut to its shell; its parts bill (Defs/Bills_CloseAirSupport.xml) adds the engines, tanks, gear, electrics,
+    hydraulics and avionics at start-up. Stock, the A-10 cost 700 steel, 220 plasteel, 35 components, 8 advanced components and Vanilla
+    Vehicles Expanded's engine blocks and car parts (wheels, suspension, exhaust); the Su-25 about 85 % of that. Without VVE the author's
+    NoVVE patch sets other figures first; this replaces whichever stands, as D'thorga Patches loads after Close Air Support.
+
+    The shell: the airframe's steel, plasteel for the armour (the titanium cockpit and the plating round the tanks and controls), and the
+    components the parts bill does not already carry (the gun's feed and the stores management); fewer advanced components, as the avionics
+    now come as a part. All authored. Steel stays first: Vehicle Framework reads a vehicle's first cost for its destruction sound.
+  -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleBuildDef[defName="Warthog_Jet_Blueprint"]/costList</xpath>
+    <value>
+      <costList>
+        <Steel>600</Steel>
+        <Plasteel>220</Plasteel>
+        <ComponentIndustrial>15</ComponentIndustrial>
+        <ComponentSpacer>4</ComponentSpacer>
+      </costList>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleBuildDef[defName="Frogfoot_Jet_Blueprint"]/costList</xpath>
+    <value>
+      <costList>
+        <Steel>520</Steel>
+        <Plasteel>185</Plasteel>
+        <ComponentIndustrial>12</ComponentIndustrial>
+        <ComponentSpacer>3</ComponentSpacer>
+      </costList>
+    </value>
+  </Operation>
+
+  <!-- The Harrier, the Hind and the Mongoose ask for construction skill 10 (the Harrier's through D'thorga Patches); a jet asks no less. Stock 8. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleBuildDef[defName="Warthog_Jet_Blueprint" or defName="Frogfoot_Jet_Blueprint"]/constructionSkillPrerequisite</xpath>
+    <value>
+      <constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+    </value>
+  </Operation>
+</Patch>

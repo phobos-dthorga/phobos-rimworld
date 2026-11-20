@@ -6,6 +6,34 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.29.0] - 2026-11-21 - Draft
+
+Close Air Support's A-10 and Su-25: real parts, real costs, and a realistic handling setting
+
+### Added
+
+- **Close Air Support's A-10 and Su-25 get fuller parts lists** (the owner's choice of 21 November 2026: the Harrier's treatment): avionics, hydraulics, wiring, landing gear, wing pylons and the gun, six each beside the jets' own five. Shot-up avionics, hydraulics or wiring slow the jet and, below about 35%, keep it on the ground until repaired, as on the Harrier. Fewer than the Harrier's ten on purpose: the jets' own rule spreads hits evenly over every part, so each part added takes hits from the cockpit and engines. Neither jet has a radar, so none is added.
+- **The jets are built from real parts by role**: two turbines (RimThunder's where installed, ours otherwise), fuel tanks, three legs of landing gear, two generators, a battery, wiring, two hydraulic pumps and avionics, on a shell of steel, plasteel and a few components. Before, they took Vanilla Vehicles Expanded's engine blocks, car wheels and suspension. Construction 10, as the Harrier.
+- **Their bombs can be made at The Dead Man's Switch's ammunition fabricator** as well as the machining table: the light and heavy cluster bombs and the 250 kg bomb.
+- **Realistic handling, a setting, off by default** (the owner's choice), on the new **Close Air Support** page: the A-10's and Su-25's top and cruising speeds set by the real aircraft's against the Harrier's, and the A-10 keeping less of its speed on one engine. Take-offs, landings, turns and attack runs are unchanged. It takes effect at the next start.
+
+### Fixed
+
+- **Rearming the A-10 and Su-25 keeps to one kind of ammunition**, as the Harrier's does: they rearm through the same fixed-wing framework code, which fetched any kind in stock and threw out the magazine when another arrived. With the Harrier active too, the one fix serves both.
+
+### Dependencies
+
+- **D'thorga Framework 0.203.0 and D'thorga Vehicles 0.91.0** for the jets' systems and dodge.
+
+### Save compatibility
+
+- **Safe to add.** A jet you already built gains its new parts at full health when the save loads; only new builds pay the new cost.
+
+### Compatibility and limits
+
+- The cluster bombs keep their author's weights under Combat Extended, lighter than real ones; real weights wait for bomb cases of their own.
+- Not yet tested in game: row 299 of the test pass.
+
 ## [0.28.0] - 2026-11-20 - Draft
 
 Mech rechargers can draw power by the size of the mech on them (off by default)

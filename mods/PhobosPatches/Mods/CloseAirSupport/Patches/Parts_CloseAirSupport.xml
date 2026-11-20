@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Fuller parts lists for Close Air Support's A-10 and Su-25 (owner, 21 Nov 2026: the Harrier's treatment;
+    docs/development/close-air-support-jets.md). Each jet keeps its own five parts (airframe, armoured cockpit, two engines, the
+    self-sealing tanks) with their keys, health and order: Vehicle Framework saves a vehicle's parts by position, so new ones are only
+    ever appended, and D'thorga Framework gives a saved jet the new parts at full health when it loads.
+
+    Six parts each, fewer than the Harrier's ten on purpose: the jets' own rule moves a share of hits onto a part other than the airframe,
+    chosen evenly among every part with cells of its own (their HitSpread, read 21 Nov 2026, the Harrier's rule), so every part added
+    takes hits away from the cockpit and the engines. Neither jet carries a radar, so none is added; their exhausts and intakes are part of
+    their engines. What each does: avionics, hydraulics and wiring carry flight control, which D'thorga Framework's rule turns into slower
+    flight and, below 35 %, a refused take-off; the landing gear carries move speed on the ground; the pylons and the gun take hits and
+    need repair. The hydraulics part stands for both of each jet's two independent systems (a simplification). Health, armour and cells
+    are authored, scaled to each jet's own parts (the Su-25's about 85 % of the A-10's, as its author scaled them). Cells are the jet's own,
+    facing north: x across, z along, the nose at the top.
+  -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Warthog_Jet"]/components</xpath>
+    <value>
+      <li>
+        <key>PhobosAvionics</key>
+        <label>avionics</label>
+        <health>50</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.50</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(0, 3)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>PhobosHydraulics</key>
+        <label>hydraulics</label>
+        <health>60</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.50</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(0, -1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>PhobosWiring</key>
+        <label>wiring and electrics</label>
+        <health>40</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.50</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(0, -2)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>PhobosLandingGear</key>
+        <label>landing gear</label>
+        <health>80</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.60</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(-2, 1)</li>
+            <li>(2, 1)</li>
+            <li>(0, 3)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>MoveSpeed</li>
+        </categories>
+      </li>
+      <li>
+        <key>PhobosPylons</key>
+        <label>wing pylons</label>
+        <health>60</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.60</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(-3, 0)</li>
+            <li>(3, 0)</li>
+            <li>(-4, 0)</li>
+            <li>(4, 0)</li>
+          </cells>
+        </hitbox>
+      </li>
+      <li>
+        <key>PhobosGun</key>
+        <label>rotary cannon and ammunition drum</label>
+        <health>90</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Blunt>0.40</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.70</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(0, 4)</li>
+          </cells>
+        </hitbox>
+      </li>
+    </value>
+  </Operation>
+
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/Vehicles.VehicleDef[defName="Frogfoot_Jet"]/components</xpath>
+    <value>
+      <li>
+        <key>PhobosAvionics</key>
+        <label>avionics and laser sight</label>
+        <health>40</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.50</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(0, 3)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>PhobosHydraulics</key>
+        <label>hydraulics</label>
+        <health>50</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.50</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(0, -1)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>PhobosWiring</key>
+        <label>wiring and electrics</label>
+        <health>35</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Blunt>0.25</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.50</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(0, -2)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>FlightControl</li>
+        </categories>
+      </li>
+      <li>
+        <key>PhobosLandingGear</key>
+        <label>landing gear</label>
+        <health>70</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.60</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(-1, 1)</li>
+            <li>(1, 1)</li>
+            <li>(0, 2)</li>
+          </cells>
+        </hitbox>
+        <categories>
+          <li>MoveSpeed</li>
+        </categories>
+      </li>
+      <li>
+        <key>PhobosPylons</key>
+        <label>wing pylons</label>
+        <health>50</health>
+        <depth>External</depth>
+        <armor>
+          <ArmorRating_Blunt>0.35</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.60</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(-3, 0)</li>
+            <li>(3, 0)</li>
+          </cells>
+        </hitbox>
+      </li>
+      <li>
+        <key>PhobosGun</key>
+        <label>twin cannon</label>
+        <health>75</health>
+        <depth>Internal</depth>
+        <armor>
+          <ArmorRating_Blunt>0.40</ArmorRating_Blunt>
+          <ArmorRating_Sharp>0.70</ArmorRating_Sharp>
+        </armor>
+        <hitbox>
+          <cells>
+            <li>(0, 3)</li>
+          </cells>
+        </hitbox>
+      </li>
+    </value>
+  </Operation>
+</Patch>

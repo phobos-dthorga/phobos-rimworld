@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- D'thorga Patches' settings page for Close Air Support: A-10 Warthog & Su-25 Frogfoot. -->
+  <PhobosCloseAirSupportPatches_Page>Close Air Support</PhobosCloseAirSupportPatches_Page>
+  <PhobosCloseAirSupportPatches_SectionHandling>Handling</PhobosCloseAirSupportPatches_SectionHandling>
+  <PhobosCloseAirSupportPatches_SettingRealisticHandling>Realistic handling</PhobosCloseAirSupportPatches_SettingRealisticHandling>
+  <PhobosCloseAirSupportPatches_SettingRealisticHandlingDesc>Off by default. On: the A-10 and the Su-25 fly at speeds set by the real aircraft's, against the Harrier's. The A-10 becomes much slower, as the real one is beside a Harrier, and loses more of its speed with an engine out; the Su-25 becomes a little slower. Their take-offs, landings, turns and attack runs are unchanged. Off: the speeds the Close Air Support author set.</PhobosCloseAirSupportPatches_SettingRealisticHandlingDesc>
+  <PhobosCloseAirSupportPatches_NeedsRestart>Changing this takes effect when the game next starts.</PhobosCloseAirSupportPatches_NeedsRestart>
+</LanguageData>

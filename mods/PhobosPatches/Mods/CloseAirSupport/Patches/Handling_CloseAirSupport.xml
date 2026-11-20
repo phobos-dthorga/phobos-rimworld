@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Realistic handling for Close Air Support's jets: the setting "Realistic handling" on D'thorga Patches' Close Air Support page, off by
+    default (owner's choice, 21 Nov 2026: "correct, as a setting"; docs/development/close-air-support-jets.md). It takes effect at the next
+    start, as every setting that changes Defs does. Off, the author's figures stand.
+
+    Speeds are put on the Harrier's scale, its author's top speed of 0.30 standing for the AV-8B's 1,083 km/h at sea level (secondary:
+    Wikipedia), each jet scaled by its own real figures (agent's derivation, authored):
+    - A-10: top speed 706 km/h (secondary: Wikipedia, A-10C) gives 0.196, so 0.20 (the author's 0.27). Cruise 560 km/h (secondary: the
+      same) gives 0.155; the fixed-wing framework flies attack runs at the jet's orbit speed, 0.16 here, and a cruise below that would make
+      it attack faster than it travels, so the cruise is raised to 0.16 (the author's 0.21).
+    - Su-25: top speed 950 km/h (secondary: Russian Wikipedia; Airforce Technology) gives 0.263, so 0.26 (the author's 0.30, the
+      Harrier's own). Cruise 750 km/h (secondary: Russian Wikipedia) gives 0.208, so 0.21 (the author's 0.24), still above its 0.18
+      orbit.
+    - A-10 on one engine: 0.80 of its speeds, the fixed-wing framework's own default and what the author gives the Su-25 (the author's
+      0.95 for the A-10). No published speed on one engine was found; the A-10A flight manual's worked example climbs only about 200 ft a
+      minute on one engine at 40,000 lb with the gear down (primary: T.O. 1A-10A-1, appendix A2), which 0.95 does not suggest.
+    Take-off and landing figures, orbit and attack-run speeds and turning are left as the author set them, since the bomb release and
+    strafe timing are worked out from them.
+  -->
+  <Operation Class="Phobos.Framework.Patching.PatchOperationPhobosFlag">
+    <flag>PhobosCloseAirSupportPatches.realisticHandling</flag>
+    <operations>
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/Vehicles.VehicleDef[defName="Warthog_Jet"]/modExtensions/li[@Class="FixedWingAircraftFramework.FixedWingProperties"]/maxSpeed</xpath>
+        <value>
+          <maxSpeed>0.20</maxSpeed>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/Vehicles.VehicleDef[defName="Warthog_Jet"]/modExtensions/li[@Class="FixedWingAircraftFramework.FixedWingProperties"]/cruiseSpeed</xpath>
+        <value>
+          <cruiseSpeed>0.16</cruiseSpeed>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/Vehicles.VehicleDef[defName="Warthog_Jet"]/modExtensions/li[@Class="A10Warthog.WarthogExtension"]/oneEngineSpeedFactor</xpath>
+        <value>
+          <oneEngineSpeedFactor>0.80</oneEngineSpeedFactor>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/Vehicles.VehicleDef[defName="Frogfoot_Jet"]/modExtensions/li[@Class="FixedWingAircraftFramework.FixedWingProperties"]/maxSpeed</xpath>
+        <value>
+          <maxSpeed>0.26</maxSpeed>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/Vehicles.VehicleDef[defName="Frogfoot_Jet"]/modExtensions/li[@Class="FixedWingAircraftFramework.FixedWingProperties"]/cruiseSpeed</xpath>
+        <value>
+          <cruiseSpeed>0.21</cruiseSpeed>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+</Patch>

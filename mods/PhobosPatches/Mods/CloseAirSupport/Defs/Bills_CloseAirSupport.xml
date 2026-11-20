@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    What Close Air Support's jets are built from, by role (owner, 21 Nov 2026: the Harrier's treatment; docs/development/parts-bills.md;
+    docs/development/close-air-support-jets.md). Each blueprint's own cost list is cut to its shell (Cost_CloseAirSupport.xml), and each
+    role is filled at start-up by an installed mod's part where it suits the jet's weight, and by ours otherwise: RimThunder's turbine or
+    our gas turbine assembly for each engine, never a car's engine block, wheels or suspension. Counts follow each jet's real layout where
+    it is known: two engines, two hydraulic systems each (primary: T.O. 1A-10A-1 for the A-10; secondary: Russian Wikipedia for the Su-25),
+    a nose leg and two main legs, a generator on each engine. The fuel tank and battery counts are authored. What each part costs is the
+    shared table's, held for the owner's review.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_Warthog</defName>
+    <label>A-10 parts</label>
+    <target>Warthog_Jet_Blueprint</target>
+    <tags>
+      <li>Turbine</li>
+    </tags>
+    <parts>
+      <Engine1>1</Engine1>
+      <Engine2>1</Engine2>
+      <FuelTank>4</FuelTank>
+      <LandingGear>3</LandingGear>
+      <Alternator>2</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <HydraulicPump>2</HydraulicPump>
+      <HydraulicLines>1</HydraulicLines>
+      <Avionics>1</Avionics>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_Frogfoot</defName>
+    <label>Su-25 parts</label>
+    <target>Frogfoot_Jet_Blueprint</target>
+    <tags>
+      <li>Turbine</li>
+    </tags>
+    <parts>
+      <Engine1>1</Engine1>
+      <Engine2>1</Engine2>
+      <FuelTank>3</FuelTank>
+      <LandingGear>3</LandingGear>
+      <Alternator>2</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <HydraulicPump>2</HydraulicPump>
+      <HydraulicLines>1</HydraulicLines>
+      <Avionics>1</Avionics>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' Close Air Support assembly (from 0.29.0): the realistic handling setting for the A-10 and Su-25, read by its XML
+       patch through D'thorga Framework's patch flags (docs/development/close-air-support-jets.md). It lives in Mods/CloseAirSupport/<version>,
+       which LoadFolders.xml loads only while Close Air Support is active, and references no other mod's assembly. RimWorld 1.7 only. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.CloseAirSupportPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.CloseAirSupport</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/CloseAirSupport/</TieInFolder>
+    <Version>0.29.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+</Project>
