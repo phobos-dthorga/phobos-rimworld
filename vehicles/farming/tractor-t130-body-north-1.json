@@ -1,0 +1,51 @@
+{
+  "file": "farming-tractor-t130-body-north-1.png",
+  "sha256": "47247bd6b1dfc01be1de52dd793b7a99c02f51c7a90b12779a7a1463571a7e2b",
+  "date": "2026-11-20T17:31:40",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical front or side faces.\n\nCreate an ORIGINAL game vehicle sprite for the Thane T130 farm tractor: a medium farm tractor that pulls and carries ploughs, cultivators and seed drills across the fields of a hard-scrabble frontier colony. Draw the BARE TRACTOR only: no plough, no implement, no trailer. Image 1 is our approved combine harvester from the same farm: match its outline weight, shading, harvest-green and muted yellow palette, tyre treatment and finish only. Do NOT copy its shape, tank or engine deck.\n\nTall canvas, plain pure white background. North facing: the front of the tractor points to the TOP of the canvas. The tractor is centred left to right and fills about three quarters of the canvas width, and about four fifths of its height, centred.\n\nIts roof plan, front to back: at the top, a narrow front weight block and a long bonnet over the engine with a grille at its front edge and an exhaust stack beside it; two small front wheels either side of the bonnet's front half; behind the bonnet, a square glazed cab roof with a flat pale grey top and a small rooftop beacon; two very large rear wheels with deep lugged treads either side of the cab, wider than the body; at the very rear, behind the cab, the three-point linkage: two lower arms and a top link folded close in a triangle, with a short drawbar plate between them, all steel grey.\n\nMaker palette as materials: harvest-green bonnet and mudguards, a pale grey cab roof, dark rubber tyres, steel grey linkage, grille and exhaust, one muted yellow accent stripe along the bonnet.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo implement, no plough, no trailer, no crop, no people, no animals, no dust, mud or damage, no text, letters, numbers, logos, dials or screens. No floor, ground, field, road, shadow outside the tractor, perspective, tilt or visible side faces. Top surfaces only.",
+  "seed": 1,
+  "size": [
+    1024,
+    1792
+  ],
+  "request_file": "assets/phobos-vehicles/requests/tractor-pilot.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "high",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1964,
+    "input_tokens_details": {
+      "image_tokens": 1452,
+      "text_tokens": 512
+    },
+    "output_tokens": 5063,
+    "output_tokens_details": {
+      "image_tokens": 5063,
+      "text_tokens": 0
+    },
+    "total_tokens": 7027
+  },
+  "cost_usd": 0.1661,
+  "cost_is_estimate": false,
+  "reported_quality": "high",
+  "reported_size": "1024x1792",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1792
+  ],
+  "seconds": 61.1,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-combine-body-north/farming-combine-body-north-1.png",
+      "sha256": "d5085ee3d88b943a030f848a3d9ddd40424d88cfd0012afbdbee0144663d509d",
+      "role": "our approved combine harvester, the owner's pick of 19 Nov 2026, from the same farm: match its outline weight, shading, palette, tyres and finish only; do not copy its shape"
+    }
+  ]
+}
