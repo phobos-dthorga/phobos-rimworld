@@ -130,6 +130,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [World elevation and descents](world-elevation-and-descents.md) (18 Nov 2026): tile heights measured; descents, altitude, radio line of sight. Research.
 - [Animating our vehicles](vehicle-animation-research.md) (9 Nov 2026): what can move, and where motion helps. Partly built; the boom owner-tested.
 - [Emergent play around the vehicles](vehicle-emergent-play.md) (20 Nov 2026): where unplanned stories could come from; three audits, EM1 to EM29. Partly built.
+- [Service yard](vehicle-service-yard.md) (20 Nov 2026): servicing, dyno, fuel and parking in one zone of capped size. Design only.
 - [Bay trips](vehicle-bay-trips.md) (20 Nov 2026): vehicles driven, towed or pushed to a dyno bay for repair by themselves. Built, untested.
 - [Depots and forward fuel points](vehicle-depots.md) (20 Nov 2026): fuel left on the world map for later trips; DP1 to DP6. Design only.
 

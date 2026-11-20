@@ -152,6 +152,11 @@ enough, else it stays and its line says why (nothing free to tow it; how many pe
 - **Hunger and sleep come first**: a pusher's job lets something more urgent take over every 2,000 ticks. With too few hands for
   10,000 ticks the push is given up for a day.
 
+## Next: the service yard
+
+Designed on 20 Nov 2026, to be built after this record's test rows: [the service yard](vehicle-service-yard.md), a zone of capped size
+where vehicles are serviced, tuned, fuelled and parked in one place, and bay trips' first destination.
+
 ## Risk and settings
 
 The owner's rule (20 Nov 2026): a behaviour that puts things or people at risk has its own setting, on unless its risk is high.
