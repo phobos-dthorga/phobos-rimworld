@@ -1,0 +1,274 @@
+[
+ {
+  "name": "redraw-heavybrakes-c-v1",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A thick slotted steel brake disc seen from the side at a slight angle, with a large orange brake calliper gripping its rim. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle, no turbocharger, no fan.",
+  "subject": "A thick slotted steel brake disc seen from the side at a slight angle, with a large orange brake calliper gripping its rim",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Heavy-duty brakes (fitting)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyBrakes.png",
+   "why": "night 8's two read as a turbocharger (owner, 20 Nov 2026); borrows the brake pad set's picture until then",
+   "route": "v1"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-heavybrakes-c-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A thick slotted steel brake disc seen from the side at a slight angle, with a large orange brake calliper gripping its rim. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle, no turbocharger, no fan.",
+  "subject": "A thick slotted steel brake disc seen from the side at a slight angle, with a large orange brake calliper gripping its rim",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Heavy-duty brakes (fitting)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyBrakes.png",
+   "why": "night 8's two read as a turbocharger (owner, 20 Nov 2026); borrows the brake pad set's picture until then",
+   "route": "house"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-heavybrakes-c-housealone",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A thick slotted steel brake disc seen from the side at a slight angle, with a large orange brake calliper gripping its rim. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle, no turbocharger, no fan.",
+  "subject": "A thick slotted steel brake disc seen from the side at a slight angle, with a large orange brake calliper gripping its rim",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Heavy-duty brakes (fitting)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyBrakes.png",
+   "why": "night 8's two read as a turbocharger (owner, 20 Nov 2026); borrows the brake pad set's picture until then",
+   "route": "housealone"
+  }
+ },
+ {
+  "name": "redraw-heavybrakes-d-v1",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A pair of thick brake pads with brown friction blocks, leaning against a large slotted steel brake disc. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle, no turbocharger, no fan.",
+  "subject": "A pair of thick brake pads with brown friction blocks, leaning against a large slotted steel brake disc",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Heavy-duty brakes (fitting)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyBrakes.png",
+   "why": "night 8's two read as a turbocharger (owner, 20 Nov 2026); borrows the brake pad set's picture until then",
+   "route": "v1"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-heavybrakes-d-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A pair of thick brake pads with brown friction blocks, leaning against a large slotted steel brake disc. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle, no turbocharger, no fan.",
+  "subject": "A pair of thick brake pads with brown friction blocks, leaning against a large slotted steel brake disc",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Heavy-duty brakes (fitting)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyBrakes.png",
+   "why": "night 8's two read as a turbocharger (owner, 20 Nov 2026); borrows the brake pad set's picture until then",
+   "route": "house"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-heavybrakes-d-housealone",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A pair of thick brake pads with brown friction blocks, leaning against a large slotted steel brake disc. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle, no turbocharger, no fan.",
+  "subject": "A pair of thick brake pads with brown friction blocks, leaning against a large slotted steel brake disc",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Heavy-duty brakes (fitting)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyBrakes.png",
+   "why": "night 8's two read as a turbocharger (owner, 20 Nov 2026); borrows the brake pad set's picture until then",
+   "route": "housealone"
+  }
+ },
+ {
+  "name": "redraw-clutchkit-c-v1",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A clutch plate seen face-on: a round steel disc with a brown friction ring around its edge, small coil springs around its centre and a splined hub. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A clutch plate seen face-on: a round steel disc with a brown friction ring around its edge, small coil springs around its centre and a splined hub",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Clutch kit (item)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ClutchKit.png",
+   "why": "night 8's two were a blank disc and an odd ring (owner, 20 Nov 2026); borrows the drivetrain kit's picture until then",
+   "route": "v1"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-clutchkit-c-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A clutch plate seen face-on: a round steel disc with a brown friction ring around its edge, small coil springs around its centre and a splined hub. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A clutch plate seen face-on: a round steel disc with a brown friction ring around its edge, small coil springs around its centre and a splined hub",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Clutch kit (item)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ClutchKit.png",
+   "why": "night 8's two were a blank disc and an odd ring (owner, 20 Nov 2026); borrows the drivetrain kit's picture until then",
+   "route": "house"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-clutchkit-c-housealone",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A clutch plate seen face-on: a round steel disc with a brown friction ring around its edge, small coil springs around its centre and a splined hub. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A clutch plate seen face-on: a round steel disc with a brown friction ring around its edge, small coil springs around its centre and a splined hub",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Clutch kit (item)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ClutchKit.png",
+   "why": "night 8's two were a blank disc and an odd ring (owner, 20 Nov 2026); borrows the drivetrain kit's picture until then",
+   "route": "housealone"
+  }
+ },
+ {
+  "name": "redraw-clutchkit-d-v1",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A clutch kit: a clutch plate with a brown friction ring and coil springs, leaning against a heavier pressure plate, with a small release bearing in front. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A clutch kit: a clutch plate with a brown friction ring and coil springs, leaning against a heavier pressure plate, with a small release bearing in front",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Clutch kit (item)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ClutchKit.png",
+   "why": "night 8's two were a blank disc and an odd ring (owner, 20 Nov 2026); borrows the drivetrain kit's picture until then",
+   "route": "v1"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-clutchkit-d-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A clutch kit: a clutch plate with a brown friction ring and coil springs, leaning against a heavier pressure plate, with a small release bearing in front. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A clutch kit: a clutch plate with a brown friction ring and coil springs, leaning against a heavier pressure plate, with a small release bearing in front",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Clutch kit (item)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ClutchKit.png",
+   "why": "night 8's two were a blank disc and an odd ring (owner, 20 Nov 2026); borrows the drivetrain kit's picture until then",
+   "route": "house"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-clutchkit-d-housealone",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A clutch kit: a clutch plate with a brown friction ring and coil springs, leaning against a heavier pressure plate, with a small release bearing in front. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A clutch kit: a clutch plate with a brown friction ring and coil springs, leaning against a heavier pressure plate, with a small release bearing in front",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Clutch kit (item)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ClutchKit.png",
+   "why": "night 8's two were a blank disc and an odd ring (owner, 20 Nov 2026); borrows the drivetrain kit's picture until then",
+   "route": "housealone"
+  }
+ }
+]

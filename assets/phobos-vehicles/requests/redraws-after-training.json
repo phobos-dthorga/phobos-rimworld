@@ -1,0 +1,278 @@
+[
+ {
+  "name": "redraw-paddock-c-v1",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A square field of neat green crop rows seen from directly above, with one chunky tractor tyre-tread track running straight along the rows, its tread pattern bold and clear. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A square field of neat green crop rows seen from directly above, with one chunky tractor tyre-tread track running straight along the rows, its tread pattern bold and clear",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Paddock (machine-worked toggle)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Paddock.png",
+   "why": "night 8 had none that suited (owner, 20 Nov 2026); the game's growing-zone picture until then",
+   "route": "v1"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-paddock-c-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A square field of neat green crop rows seen from directly above, with one chunky tractor tyre-tread track running straight along the rows, its tread pattern bold and clear. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A square field of neat green crop rows seen from directly above, with one chunky tractor tyre-tread track running straight along the rows, its tread pattern bold and clear",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Paddock (machine-worked toggle)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Paddock.png",
+   "why": "night 8 had none that suited (owner, 20 Nov 2026); the game's growing-zone picture until then",
+   "route": "house"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-paddock-c-housealone",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A square field of neat green crop rows seen from directly above, with one chunky tractor tyre-tread track running straight along the rows, its tread pattern bold and clear. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A square field of neat green crop rows seen from directly above, with one chunky tractor tyre-tread track running straight along the rows, its tread pattern bold and clear",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Paddock (machine-worked toggle)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Paddock.png",
+   "why": "night 8 had none that suited (owner, 20 Nov 2026); the game's growing-zone picture until then",
+   "route": "housealone"
+  }
+ },
+ {
+  "name": "redraw-paddock-d-v1",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A square patch of green crop rows seen from above, with two parallel dark tyre-tread tracks running along it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A square patch of green crop rows seen from above, with two parallel dark tyre-tread tracks running along it",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Paddock (machine-worked toggle)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Paddock.png",
+   "why": "night 8 had none that suited (owner, 20 Nov 2026); the game's growing-zone picture until then",
+   "route": "v1"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-paddock-d-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A square patch of green crop rows seen from above, with two parallel dark tyre-tread tracks running along it. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A square patch of green crop rows seen from above, with two parallel dark tyre-tread tracks running along it",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Paddock (machine-worked toggle)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Paddock.png",
+   "why": "night 8 had none that suited (owner, 20 Nov 2026); the game's growing-zone picture until then",
+   "route": "house"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png"
+  ]
+ },
+ {
+  "name": "redraw-paddock-d-housealone",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A square patch of green crop rows seen from above, with two parallel dark tyre-tread tracks running along it. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no vehicle.",
+  "subject": "A square patch of green crop rows seen from above, with two parallel dark tyre-tread tracks running along it",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Paddock (machine-worked toggle)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Paddock.png",
+   "why": "night 8 had none that suited (owner, 20 Nov 2026); the game's growing-zone picture until then",
+   "route": "housealone"
+  }
+ },
+ {
+  "name": "redraw-front-standard-c-v1",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A short combine grain front seen from above: a slim grey cutter bar with a row of small pointed knife guards along its front edge, the same as the third reference image but shorter. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "subject": "A short combine grain front seen from above: a slim grey cutter bar with a row of small pointed knife guards along its front edge, the same as the third reference image but shorter",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Standard grain front (upgrade)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png",
+   "why": "to match the wide front's pick (farming-front-wide-b-11), so the two read as one family (owner, 20 Nov 2026)",
+   "route": "v1"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png",
+   "assets/phobos-vehicles/generated/farming-front-wide-b/farming-front-wide-b-11.png"
+  ]
+ },
+ {
+  "name": "redraw-front-standard-c-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A short combine grain front seen from above: a slim grey cutter bar with a row of small pointed knife guards along its front edge, the same as the third reference image but shorter. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "subject": "A short combine grain front seen from above: a slim grey cutter bar with a row of small pointed knife guards along its front edge, the same as the third reference image but shorter",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Standard grain front (upgrade)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png",
+   "why": "to match the wide front's pick (farming-front-wide-b-11), so the two read as one family (owner, 20 Nov 2026)",
+   "route": "house"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png",
+   "assets/phobos-vehicles/generated/farming-front-wide-b/farming-front-wide-b-11.png"
+  ]
+ },
+ {
+  "name": "redraw-front-standard-c-housealone",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A short combine grain front seen from above: a slim grey cutter bar with a row of small pointed knife guards along its front edge, the same as the third reference image but shorter. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "subject": "A short combine grain front seen from above: a slim grey cutter bar with a row of small pointed knife guards along its front edge, the same as the third reference image but shorter",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Standard grain front (upgrade)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png",
+   "why": "to match the wide front's pick (farming-front-wide-b-11), so the two read as one family (owner, 20 Nov 2026)",
+   "route": "housealone"
+  }
+ },
+ {
+  "name": "redraw-front-standard-d-v1",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A short slim grey combine grain front seen from above, with tiny pointed knife guards along its front edge and a small bracket at the back. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "subject": "A short slim grey combine grain front seen from above, with tiny pointed knife guards along its front edge and a small bracket at the back",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Standard grain front (upgrade)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png",
+   "why": "to match the wide front's pick (farming-front-wide-b-11), so the two read as one family (owner, 20 Nov 2026)",
+   "route": "v1"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png",
+   "assets/phobos-vehicles/generated/farming-front-wide-b/farming-front-wide-b-11.png"
+  ]
+ },
+ {
+  "name": "redraw-front-standard-d-house",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A short slim grey combine grain front seen from above, with tiny pointed knife guards along its front edge and a small bracket at the back. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "subject": "A short slim grey combine grain front seen from above, with tiny pointed knife guards along its front edge and a small bracket at the back",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Standard grain front (upgrade)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png",
+   "why": "to match the wide front's pick (farming-front-wide-b-11), so the two read as one family (owner, 20 Nov 2026)",
+   "route": "house"
+  },
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png",
+   "assets/phobos-vehicles/generated/farming-front-wide-b/farming-front-wide-b-11.png"
+  ]
+ },
+ {
+  "name": "redraw-front-standard-d-housealone",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A short slim grey combine grain front seen from above, with tiny pointed knife guards along its front edge and a small bracket at the back. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "subject": "A short slim grey combine grain front seen from above, with tiny pointed knife guards along its front edge and a small bracket at the back",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Standard grain front (upgrade)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png",
+   "why": "to match the wide front's pick (farming-front-wide-b-11), so the two read as one family (owner, 20 Nov 2026)",
+   "route": "housealone"
+  }
+ }
+]

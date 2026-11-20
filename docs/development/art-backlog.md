@@ -304,6 +304,17 @@ Proposed 6 Nov 2026 for the owner to confirm. Generation doesn't need them; expo
 
 ### Training: what a run needs (agent's preparation, 20 Nov 2026, for the owner's decision)
 
+**Decided (owner, 20 Nov 2026): train on our own local picks, tonight, starting when the owner goes to bed** (a watcher starts it once
+RimWorld has been closed ten minutes). The set is **house-v1**: the 151 local Klein pictures on `art-masters`, byte for byte, each
+captioned with its request's subject and the trigger word `phobosdthorga`, built by `lora_experiment.py picks` (new, 20 Nov 2026). The
+fifteen dashboard glyphs carry "flat solid black silhouette, no shading" in their captions, so that look is tied to those words
+(agent's choice). Plan `.local/art/night-9.json`, dry run passed: 3,000 steps at 768 and 1024 with the text encoder unsqueezed
+(`low_vram` off), the same training squeezed as the fallback step, install as `phobos-private-house-v1`, then the four redraws (paddock,
+standard grain front matched to the wide front's pick, heavy-duty brakes, clutch kit), each wording drawn three ways: the old model
+with references, the new one with references, the new one alone. About five hours. **A caveat, said plainly:** these pictures were
+themselves made with v1 and references, so the new model learns the house style through v1's eyes and may also learn its habits; the
+"alone" route shows how much it took in. Night 8's picks stay final (owner: "pick now, keep them").
+
 **In short: v3 is half-prepared and needs one night of about five hours. Before that, the owner decides whether to train on the game's
 art (v3 as planned) or on our own shipped picks.** Read from the files in `C:/AI/lora-experiments/` with no GPU work; nothing changed.
 

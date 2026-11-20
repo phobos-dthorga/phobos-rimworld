@@ -21,17 +21,28 @@ model beside the earlier ones' images on the same subjects and seeds:
     python scripts/art/lora_experiment.py assemble .local/references/vanilla-training-v3 --name vanilla-v3 --trigger phobosvanilla --enlarge nearest --caption-suffix "seen from directly above, south face hinted" --steps 3000 --resolutions 768,1024
     python scripts/art/lora_experiment.py compare-models assets/phobos-medical/requests/first-batch.json --name vanilla-v3 --trigger phobosvanilla --loras phobos-private-vanilla-v3.safetensors
 
+A style model of our own art (owner's choice, 20 Nov 2026): every picture the owner picked from the local model, read from the
+art-masters branch with its generation record and captioned with its request's subject, never from game art:
+
+    python scripts/art/lora_experiment.py picks origin/art-masters --name house-v1 --trigger phobosdthorga --steps 3000 --resolutions 768,1024 --low-vram off --tag "vehicles/dashboard/*=flat solid black silhouette, no shading"
+
+With --low-vram off it also writes config-lowvram.yaml, the same training with the text encoder squeezed for a small card, as the
+fallback step of a night plan: ai-toolkit resumes from the first one's saves.
+
 The upscales have their own folder because they are copies on purpose: beside the candidates they would trip the near-copy check.
 """
 import argparse
+import fnmatch
 import json
 import os
 from pathlib import Path
 import re
 import shutil
 import struct
+import subprocess
 
 WORK_ROOT = Path(r'C:\AI\lora-experiments')
+REPO = Path(__file__).resolve().parents[2]
 COMFY = Path(os.environ.get('COMFYUI_PATH', r'C:\AI\ComfyUI\ComfyUI_windows_portable'))
 LONG_SIDE = 1024
 LATENT_STEP = 16  # Image sides must be whole multiples of this for these models.
@@ -88,7 +99,7 @@ def training_config(name, dataset, output, trigger, settings=None):
                     'cache_text_embeddings': True, 'unload_text_encoder': False, 'disable_sampling': True},
                 'model': {
                     'name_or_path': 'black-forest-labs/FLUX.2-klein-base-4B', 'arch': 'flux2_klein_4b',
-                    'quantize': True, 'quantize_te': True, 'low_vram': True,
+                    'quantize': True, 'quantize_te': True, 'low_vram': values.get('low_vram', True),
                     # float8, because moving the default qfloat8 text encoder to the card a second time crashes.
                     'qtype': 'float8', 'qtype_te': 'float8'},
                 'sample': {'sampler': 'flowmatch', 'sample_every': 100000, 'width': 1024, 'height': 1024, 'prompts': [f'{trigger}, a small machine'],
@@ -215,7 +226,75 @@ def settings_from(args):
         settings['lr'] = args.lr
     if args.resolutions:
         settings['resolutions'] = [int(size) for size in args.resolutions.split(',')]
+    if getattr(args, 'low_vram', None):
+        settings['low_vram'] = args.low_vram == 'on'
     return settings
+
+
+LOCAL_ENGINES = ('klein-base', 'klein')
+
+
+def git_lines(*args):
+    done = subprocess.run(['git', *args], capture_output=True, text=True, encoding='utf-8', cwd=REPO)
+    if done.returncode:
+        raise SystemExit(f'git {" ".join(args)}: {done.stderr.strip()}')
+    return done.stdout
+
+
+def subject_for(record, name):
+    """The subject in plain words: the request's own subject where the request file still names it, else the prompt's first sentence
+    without the trigger word and the style instructions."""
+    request = REPO / (record.get('request_file') or '-')
+    if request.is_file():
+        for entry in json.loads(request.read_text(encoding='utf-8')):
+            if entry.get('name') == name and entry.get('subject'):
+                return entry['subject']
+    prompt = re.sub(r'^\w+, ', '', record.get('prompt', '')).strip()
+    return re.split(r'(?<=[a-z0-9)])\. ', prompt, maxsplit=1)[0].rstrip('.')
+
+
+def branch_picks(branch, engines=LOCAL_ENGINES):
+    """Every picture on an art branch whose generation record names a local engine: (path, record, request name)."""
+    files = set(git_lines('ls-tree', '-r', '--name-only', branch).split())
+    found = []
+    for path in sorted(files):
+        if not path.endswith('.json') or path[:-5] + '.png' not in files:
+            continue
+        try:
+            record = json.loads(git_lines('show', f'{branch}:{path}'))
+        except (ValueError, SystemExit):
+            continue
+        if isinstance(record, dict) and record.get('engine') in engines:
+            found.append((path[:-5] + '.png', record, re.sub(r'-\d+$', '', Path(path).stem)))
+    return found
+
+
+def tag_words(path, tags):
+    """The words every tag whose pattern matches this branch path adds to its caption, such as a look the subject does not name
+    (the dashboard's flat glyphs), so the model ties that look to words instead of learning it as the style."""
+    return [words for pattern, words in tags if fnmatch.fnmatch(path, pattern)]
+
+
+def picks(branch, work, name, trigger, settings, tags=()):
+    """A dataset of the owner's own picks from an art branch, captioned with their subjects, and its training config. The pictures
+    are copied byte for byte (ai-toolkit buckets them by size), with a manifest of where each came from."""
+    dataset = work / 'dataset'
+    dataset.mkdir(parents=True, exist_ok=True)
+    manifest = []
+    for path, record, request_name in branch_picks(branch):
+        data = subprocess.run(['git', 'show', f'{branch}:{path}'], capture_output=True, cwd=REPO, check=True).stdout
+        stem = Path(path).stem
+        (dataset / f'{stem}.png').write_bytes(data)
+        caption = ', '.join([f'{trigger}, {subject_for(record, request_name)}', *tag_words(path, tags)])
+        (dataset / f'{stem}.txt').write_text(caption, encoding='utf-8')
+        manifest.append({'image': path, 'sha256': record.get('sha256'), 'caption': caption})
+    (work / 'manifest.json').write_text(json.dumps(manifest, indent=1), encoding='utf-8')
+    config = training_config(name, dataset, work / 'output', trigger, settings)
+    (work / 'config.yaml').write_text(json.dumps(config, indent=2), encoding='utf-8')
+    if settings.get('low_vram') is False:
+        fallback = training_config(name, dataset, work / 'output', trigger, {**settings, 'low_vram': True})
+        (work / 'config-lowvram.yaml').write_text(json.dumps(fallback, indent=2), encoding='utf-8')
+    print(f'{len(manifest)} pictures and captions from {branch} in {dataset}; config in {work / "config.yaml"}')
 
 
 def compare_models(request_file, work, loras, trigger, seeds=ROUTE_SEEDS):
@@ -248,9 +327,13 @@ def compare(request_file, work, name, trigger):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument('step', choices=('requests', 'assemble', 'compare', 'compare-models', 'retrain', 'install'))
+    parser.add_argument('step', choices=('requests', 'assemble', 'compare', 'compare-models', 'retrain', 'install', 'picks'))
     parser.add_argument('source', help='a folder of PNGs; for compare, a request file; for retrain, the earlier experiment name; '
-                        'for install, anything (-)')
+                        'for picks, an art branch such as origin/art-masters; for install, anything (-)')
+    parser.add_argument('--low-vram', choices=('on', 'off'), help='the text encoder squeezed for a small card (default on); '
+                        'picks with off also writes config-lowvram.yaml as a fallback')
+    parser.add_argument('--tag', action='append', default=[], help='picks: PATTERN=WORDS, words added to the caption of every '
+                        'branch path the glob pattern matches; repeatable')
     parser.add_argument('--name', required=True)
     parser.add_argument('--trigger', default='phobosstyle')
     parser.add_argument('--steps', type=int)
@@ -274,6 +357,11 @@ def main(argv=None):
         retrain(args.source, work, args.name, args.trigger, settings_from(args))
     elif args.step == 'install':
         install(work, args.name)
+    elif args.step == 'picks':
+        tags = [tuple(tag.split('=', 1)) for tag in args.tag]
+        if any(len(tag) != 2 for tag in tags):
+            raise SystemExit('--tag takes PATTERN=WORDS')
+        picks(args.source, work, args.name, args.trigger, settings_from(args), tags)
     else:
         compare(args.source, work, args.name, args.trigger)
     return 0

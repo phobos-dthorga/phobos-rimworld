@@ -219,6 +219,26 @@ class LoraExperimentTests(unittest.TestCase):
         requests = [{'name': 'tank', 'engine': 'klein-base', 'prompt': 'A tank.', 'references': ['r.png'], 'lora_comparison': False}]
         self.assertEqual(lora_experiment.route_requests(requests, 'x', 'l.safetensors'), [])
 
+    def test_the_text_encoder_can_run_unsqueezed(self):
+        process = lora_experiment.training_config('v', 'C:/d', 'C:/o', 'x', {'low_vram': False})['config']['process'][0]
+        self.assertFalse(process['model']['low_vram'])
+
+    def test_a_pick_is_captioned_with_its_requests_subject(self):
+        with tempfile.TemporaryDirectory() as folder:
+            request = os.path.join(folder, 'r.json')
+            with open(request, 'w', encoding='utf-8') as fh:
+                json.dump([{'name': 'deliver', 'subject': 'A dump truck tipping into a bay', 'prompt': 'x'}], fh)
+            self.assertEqual(lora_experiment.subject_for({'request_file': request}, 'deliver'), 'A dump truck tipping into a bay')
+
+    def test_a_tag_adds_its_words_only_where_its_pattern_matches(self):
+        tags = [('vehicles/dashboard/*', 'flat solid black silhouette')]
+        self.assertEqual(lora_experiment.tag_words('vehicles/dashboard/dash-fuel-14.png', tags), ['flat solid black silhouette'])
+        self.assertEqual(lora_experiment.tag_words('vehicles/icons/gizmo-hold-11.png', tags), [])
+
+    def test_without_its_request_a_pick_is_captioned_from_its_prompts_first_sentence(self):
+        record = {'request_file': 'gone.json', 'prompt': 'phobosvanilla, A steel crate of parts. Draw it in exactly the art style.'}
+        self.assertEqual(lora_experiment.subject_for(record, 'crate'), 'A steel crate of parts')
+
 
 class ExportBackgroundTests(unittest.TestCase):
     def setUp(self):
