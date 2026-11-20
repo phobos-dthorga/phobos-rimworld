@@ -1,6 +1,6 @@
 """Export D'thorga Farming's machines from their picked masters (docs/development/farming-batch-one.md, "Art and sound plan").
 
-    python assets/phobos-vehicles/export_farming.py [--mods mods]
+    python assets/phobos-vehicles/export_farming.py [--mods mods] [--batch one|two|all]
 
 The combine's body and the chaser bin's body go through export_vehicle.py's own body export. The combine's grain fronts were drawn alone
 (the 8-cell front is wider than the body's picture), so they are placed here: cut from the white with the background AI's mask, scaled so
@@ -18,7 +18,8 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
 from export_sprite import ai_background, export as export_sprite, white_to_alpha  # noqa: E402
-from export_vehicle import PIXELS_PER_CELL, export_body, record, write_facings  # noqa: E402
+from export_vehicle import PIXELS_PER_CELL, export_body, record, sha, write_facings  # noqa: E402
+import paint_check  # noqa: E402
 
 GENERATED = ROOT / 'assets' / 'phobos-vehicles' / 'generated'
 COMBINE = GENERATED / 'farming-combine-body-north' / 'farming-combine-body-north-1.png'
@@ -37,6 +38,35 @@ BUILDINGS = [
     ('FieldBin', GENERATED / 'farming-field-bin' / 'farming-field-bin-2.png', 3),
     ('Silo', GENERATED / 'farming-silo' / 'farming-silo-2.png', 4),
 ]
+# Batch two (docs/development/farming-batch-two.md, "Art"): (picture name, master, cells long, draw size in cells). The owner's picks of
+# 20 Nov 2026: both attempts of the T60, T130 and cultivator as two models each, both sides of the reversible plough, the drill's attempt 2.
+# Every body is painted 'repaired': regions, then flecks repaired by Segment Anything's parts map (paint_segments.py first).
+BATCH_TWO = [
+    ('TractorT60', GENERATED / 'farming-tractor-t60-body-north' / 'farming-tractor-t60-body-north-1.png', 5, (4, 6)),
+    ('TractorT60F', GENERATED / 'farming-tractor-t60-body-north' / 'farming-tractor-t60-body-north-2.png', 5, (4, 6)),
+    ('TractorT130', GENERATED / 'farming-tractor-t130-body-north' / 'farming-tractor-t130-body-north-1.png', 6, (4, 7)),
+    ('TractorT130RC', GENERATED / 'farming-tractor-t130-body-north' / 'farming-tractor-t130-body-north-2.png', 6, (4, 7)),
+    ('Plough', GENERATED / 'farming-plough-body-north' / 'farming-plough-body-north-1.png', 3, (4, 4)),
+    ('Plough_Turned', GENERATED / 'farming-plough-body-north' / 'farming-plough-body-north-2.png', 3, (4, 4)),
+    ('Cultivator', GENERATED / 'farming-cultivator-body-north' / 'farming-cultivator-body-north-1.png', 3, (4, 4)),
+    ('CultivatorLight', GENERATED / 'farming-cultivator-body-north' / 'farming-cultivator-body-north-2.png', 3, (4, 4)),
+    ('SeedDrill', GENERATED / 'farming-seed-drill-body-north' / 'farming-seed-drill-body-north-2.png', 4, (4, 5)),
+]
+# The articulated T400 (owner, 20 Nov 2026: two halves on our hitch): drawn whole, 8 cells long, then cut at its pivot into two vehicles
+# of 4 x 4, each on a 5 x 5 picture. Attempt 1 is the ballasted T400 B, attempt 2 the standard (the agent's proposal, kept by the owner).
+ARTICULATED = [
+    ('TractorT400B', GENERATED / 'farming-tractor-t400-body-north' / 'farming-tractor-t400-body-north-1.png'),
+    ('TractorT400', GENERATED / 'farming-tractor-t400-body-north' / 'farming-tractor-t400-body-north-2.png'),
+]
+ARTICULATED_LONG = 8
+# Each body's paint saturation floor: the one with the fewest flecks in a sweep of 0.10 to 0.28 (paint_check.py, 20 Nov 2026); 0.16 otherwise.
+SATURATION = {'TractorT60': 0.10, 'TractorT60F': 0.10, 'TractorT130': 0.13, 'TractorT130RC': 0.19, 'Plough': 0.10, 'Plough_Turned': 0.10,
+              'Cultivator': 0.25, 'CultivatorLight': 0.10, 'SeedDrill': 0.10, 'TractorT400B': 0.13, 'TractorT400': 0.13}
+ARTICULATED_DRAW = (5, 10)
+HALF_DRAW = (5, 5)
+# Where to look for the pivot: the narrowest row of the picture between these shares of the body's length.
+PIVOT_SEARCH = (0.40, 0.70)
+
 # The body 9 cells long on an 8 x 14 picture: wide enough for the 8-cell front, long enough for its depth ahead of the body.
 COMBINE_DRAW = (8, 14)
 # Harvest green as the main paint, the muted yellow as the accent, in degrees of hue (measured by eye from the masters).
@@ -76,11 +106,104 @@ def export_front(name, master, cells, out, transform, top):
     return written
 
 
+# A row narrower than this share of the widest row is the pivot (the hinge plate and its stub), not the body.
+PIVOT_WIDTH_SHARE = 0.3
+
+
+def row_widths(image):
+    alpha = image.getchannel('A')
+    return [sum(1 for x in range(image.width) if alpha.getpixel((x, y)) >= 128) for y in range(image.height)]
+
+
+def pivot_cut(image, start, stop):
+    """Where to cut an articulated body, drawn with a gap at its pivot: from the narrowest row between start and stop, up to the first
+    row of the front body, so the whole hinge goes with the rear half and no arc of it shows below the front half when it bends."""
+    widths = row_widths(image)
+    narrowest = min(range(start, stop), key=lambda y: widths[y])
+    limit = PIVOT_WIDTH_SHARE * max(widths)
+    cut = narrowest
+    while cut > start and widths[cut - 1] < limit:
+        cut -= 1
+    return cut
+
+
+def clean_flecks(name, master, out, colours):
+    """The flecks left in a body's paint mask after the export, repainted with the paint that rings each (paint_check.fill_flecks), and
+    its mask facings and record written again. The rule: no speckled mask reaches the owner (assets/AGENTS.md). colours: the Def's paint,
+    from the export, so a fleck is judged by whether it shows in those colours."""
+    flecks, problem = paint_check.check(name, name, master, out, tuple(colours['color']), tuple(colours['colorTwo']),
+                                        transform_path=out / f'{name}.transform.json')
+    if problem:
+        raise SystemExit(f'{name}: {problem}')
+    if not flecks:
+        return 0
+    mask = Image.open(out / f'{name}_northm.png').convert('RGBA')
+    changed = paint_check.fill_flecks(mask, flecks)
+    written = write_facings(mask, out, name, 'm')
+    record_path = out / f'{name}.export.json'
+    data = json.loads(record_path.read_text(encoding='utf-8'))
+    for path in written:
+        data['files'][path.name] = sha(path)
+    data['flecks_filled'] = len(flecks)
+    record_path.write_text(json.dumps(data, indent=2), encoding='utf-8')
+    return len(flecks)
+
+
+def export_articulated(name, master, out):
+    """The T400 cut at its pivot into a front half (engine and cab) and a rear half (rear axle, linkage, drawbar), each its own picture
+    centred on its own canvas, with the pivot's distance from each half's middle recorded for the hitch figures."""
+    whole = export_body(master, out / '_whole', name, ARTICULATED_LONG, ARTICULATED_DRAW, MAIN_HUE, ACCENT_HUE,
+                        min_saturation=SATURATION.get(name, 0.16), paint='repaired')
+    clean_flecks(name, master, out / '_whole', whole['colours'])
+    texture = Image.open(out / '_whole' / f'{name}_north.png').convert('RGBA')
+    mask = Image.open(out / '_whole' / f'{name}_northm.png').convert('RGBA')
+    box = opaque_box(texture)
+    top, bottom = box[1], box[3]
+    pivot = pivot_cut(texture, round(top + PIVOT_SEARCH[0] * (bottom - top)), round(top + PIVOT_SEARCH[1] * (bottom - top)))
+    canvas = (HALF_DRAW[0] * PIXELS_PER_CELL, HALF_DRAW[1] * PIXELS_PER_CELL)
+    figures = {}
+    for half, cut in (('Front', (0, 0, texture.width, pivot)), ('Rear', (0, pivot, texture.width, texture.height))):
+        piece, piece_mask = texture.crop(cut), mask.crop(cut)
+        content = opaque_box(piece)
+        piece, piece_mask = piece.crop(content), piece_mask.crop(content)
+        image = Image.new('RGBA', canvas, (0, 0, 0, 0))
+        image_mask = Image.new('RGBA', canvas, (0, 0, 0, 255))
+        at = ((canvas[0] - piece.width) // 2, (canvas[1] - piece.height) // 2)
+        image.alpha_composite(piece, at)
+        image_mask.paste(piece_mask, at)
+        half_name = f'{name}{half}'
+        written = write_facings(image, out, half_name) + write_facings(image_mask, out, half_name, 'm')
+        # The pivot from the half's middle, in cells: behind it for the front half, ahead of it for the rear.
+        middle = at[1] + piece.height / 2
+        edge = at[1] + piece.height if half == 'Front' else at[1]
+        figures[half] = {'length_cells': round(piece.height / PIXELS_PER_CELL, 2),
+                         'pivot_from_middle_cells': round(abs(edge - middle) / PIXELS_PER_CELL, 2)}
+        record(out, half_name, master, written, {'kind': 'articulated half', 'half': half.lower(), 'cut_row_on_whole': pivot,
+                                                 'like': f'_whole/{name}.transform.json', 'draw_size': list(HALF_DRAW), **figures[half],
+                                                 'colours': whole['colours']})
+    return figures
+
+
+def export_batch_two(textures):
+    for name, master, cells, draw in BATCH_TWO:
+        result = export_body(master, textures / name.split('_')[0], name, cells, draw, MAIN_HUE, ACCENT_HUE,
+                             min_saturation=SATURATION.get(name, 0.16), paint='repaired')
+        filled = clean_flecks(name, master, textures / name.split('_')[0], result['colours'])
+        print(f"{name}: {result['width_cells']:.2f} cells wide; {filled} flecks filled; Def colours {result['colours']}")
+    for name, master in ARTICULATED:
+        print(f'{name}: {export_articulated(name, master, textures / name)}')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--mods', default=str(ROOT / 'mods'), help='the mods folder to write into')
+    parser.add_argument('--batch', choices=('one', 'two', 'all'), default='all', help='which batch of machines to export')
     args = parser.parse_args()
     textures = Path(args.mods) / 'PhobosFarming' / 'Common' / 'Textures' / 'Phobos' / 'Farming'
+    if args.batch in ('two', 'all'):
+        export_batch_two(textures)
+    if args.batch == 'two':
+        return
     combine = export_body(COMBINE, textures / 'Combine', 'Combine', 9, COMBINE_DRAW, MAIN_HUE, ACCENT_HUE)
     print(f"Combine: {combine['width_cells']:.2f} cells wide; Def colours {combine['colours']}")
     chaser = export_body(CHASER_BIN, textures / 'ChaserBin', 'ChaserBin', 7, (4, 8), MAIN_HUE, ACCENT_HUE)

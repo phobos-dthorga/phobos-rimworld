@@ -53,6 +53,24 @@ class FleckTests(unittest.TestCase):
         kinds[at(10, 5)] = None
         self.assertEqual(paint_check.find_flecks(kinds, parts, considered, W, H), [])
 
+    def test_a_fleck_is_filled_with_the_paint_that_rings_it(self):
+        from PIL import Image
+        mask = Image.new('RGB', (W, H), (255, 0, 0))
+        mask.putpixel((5, 5), (0, 0, 0))
+        mask.putpixel((6, 5), (0, 0, 0))
+        changed = paint_check.fill_flecks(mask, [[at(5, 5), at(6, 5)]])
+        self.assertEqual(changed, 2)
+        self.assertEqual(mask.getpixel((5, 5)), (255, 0, 0))
+        self.assertEqual(mask.getpixel((6, 5)), (255, 0, 0))
+
+    def test_filling_leaves_the_rest_of_the_mask_alone(self):
+        from PIL import Image
+        mask = Image.new('RGB', (W, H), (255, 0, 0))
+        mask.putpixel((0, 0), (0, 255, 0))
+        mask.putpixel((5, 5), (0, 0, 0))
+        paint_check.fill_flecks(mask, [[at(5, 5)]])
+        self.assertEqual(mask.getpixel((0, 0)), (0, 255, 0))
+
     def test_a_part_without_a_clear_paint_has_no_flecks(self):
         kinds, parts, considered = picture()
         for index in range(0, W * H, 3):

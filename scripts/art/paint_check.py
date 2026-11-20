@@ -113,6 +113,32 @@ def find_flecks(kinds, parts, considered, width, height, fleck_max=FLECK_MAX, pa
     return flecks
 
 
+def fill_flecks(mask, flecks):
+    """Repaints each fleck in a paint mask (a PIL image, changed in place) with the paint that rings it: find_flecks keeps only islands
+    ringed on every side by their panel's own paint, so any neighbour outside the island has that paint (20 Nov 2026, D'thorga Farming's
+    batch two: the flecks a saturation sweep could not clear). Returns how many pixels it changed."""
+    pixels = mask.load()
+    width, height = mask.size
+    changed = 0
+    for island in flecks:
+        members = set(island)
+        ring = None
+        for member in island:
+            x, y = member % width, member // width
+            for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+                if 0 <= nx < width and 0 <= ny < height and ny * width + nx not in members:
+                    ring = pixels[nx, ny]
+                    break
+            if ring is not None:
+                break
+        if ring is None:
+            continue
+        for member in island:
+            pixels[member % width, member // width] = ring
+            changed += 1
+    return changed
+
+
 def drawn(texture_pixel, mask_pixel, colour, accent):
     """Roughly how the game's pattern shader draws one pixel: its texture times the main colour by the mask's red, the accent by its green."""
     red_weight, green_weight = mask_pixel[0] / 255, mask_pixel[1] / 255
@@ -120,10 +146,11 @@ def drawn(texture_pixel, mask_pixel, colour, accent):
     return tuple(texture_pixel[c] * (plain + red_weight * colour[c] / 255 + green_weight * accent[c] / 255) for c in range(3))
 
 
-def check(name, folder, master, base, colour=(255, 255, 255), accent=(255, 255, 255)):
+def check(name, folder, master, base, colour=(255, 255, 255), accent=(255, 255, 255), transform_path=None):
+    """transform_path: the body's saved transform, when it is not in repaint_vehicles.EXPORT (a body exported by its own script)."""
     texture = Image.open(base / f'{name}_north.png').convert('RGBA')
     mask = Image.open(base / f'{name}_northm.png').convert('RGB')
-    transform = json.loads((repaint_vehicles.EXPORT / f'{name}.transform.json').read_text(encoding='utf-8'))
+    transform = json.loads(Path(transform_path or repaint_vehicles.EXPORT / f'{name}.transform.json').read_text(encoding='utf-8'))
     map_path = art_paths.find('segments', f'{file_sha256(master)}.png') or art_paths.work('segments', f'{file_sha256(master)}.png')
     if not map_path.is_file():
         return None, f'no parts map: run scripts/art/paint_segments.py on {master.name}'
