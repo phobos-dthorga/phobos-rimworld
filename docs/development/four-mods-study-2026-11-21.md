@@ -1,7 +1,7 @@
 # What four new mods teach us: Farm and Ranch, Moving Parts, Realistic Rain (21 Nov 2026)
 
-**Status (21 Nov 2026):** study done. LM1 (a wider removal sweep) and LM2 (ground that stays wet after rain) are being built in
-D'thorga Framework 0.204.0; the other rows are ideas only. Nothing here is tested in game.
+**Status (21 Nov 2026):** study done. LM2 (ground that stays wet after rain) is built in D'thorga Framework 0.204.0; LM1 (a wider
+removal sweep) is being built for the same version; the other rows are ideas only. Nothing here is tested in game.
 
 The owner asked on 21 Nov 2026: "Is there anything we can learn from them and especially, apply to our own, Rimworld, mods? Or even
 use as a soft/hard dependency?" The owner subscribed to Farm and Ranch only so it could be studied, and does not mean to play with it.
@@ -113,6 +113,15 @@ and no figure here is drawn from it.
 
 **Risk grade (agent's proposal):** low. It slows a vehicle a little for some hours after rain, which the player can see coming. It
 sits under the existing setting **Rain, snow and ice take grip**; no new setting.
+
+**Other factions' vehicles:** a raider's vehicle on our map, one parked at a base we attack and one we capture all read the same map
+figure, so all lose grip alike. The cost is one map component lookup each time grip is worked out; the map's figure is updated every
+250 ticks whatever the number of vehicles.
+
+**Built (0.204.0):** `GroundWetnessRule` (game-free, with tests), `MapComponent_PhobosGroundWetness` (one saved number for each map,
+read through `At(map, cell)`), `PhobosFramework_GroundWetnessRules` (the figures above), grip and landing ground reading it, three dev
+actions, row 300 of the test pass. Terrain does not yet change how fast ground wets or dries: matching terrain by its effects (the
+game's fertility, `takeFootprints`, `extinguishesFire`) is the way to add it, never its defName.
 
 ## Mistakes we will not copy
 

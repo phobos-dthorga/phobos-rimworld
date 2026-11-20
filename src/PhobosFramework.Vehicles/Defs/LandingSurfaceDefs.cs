@@ -26,4 +26,7 @@ public class PhobosLandingSurfaceRulesDef : PhobosRulesDef
     public float fireSize = 0.3f;
     /// <summary>Ground or growth under more snow than this is neither dusty nor dry.</summary>
     public float snowAtMost = 0.2f;
+    /// <summary>Ground wetter than this (0 to 1, D'thorga Framework's ground wetness) is neither dusty nor dry, though the rain has stopped
+    /// (Framework 0.204.0, LM2).</summary>
+    public float wetAbove = 0.25f;
 }

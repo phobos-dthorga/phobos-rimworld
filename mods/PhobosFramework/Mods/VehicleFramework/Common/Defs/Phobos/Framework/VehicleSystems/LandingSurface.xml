@@ -28,5 +28,8 @@
 
     <!-- Under more snow than this, ground is neither dusty nor dry. Rain falling makes all ground wet. -->
     <snowAtMost>0.2</snowAtMost>
+    <!-- Open ground more than a quarter wet (the Framework's ground wetness, after the rain has stopped) is neither dusty nor dry:
+         about seven hours after a soaking on a mild day. -->
+    <wetAbove>0.25</wetAbove>
   </Phobos.VehicleSystems.PhobosLandingSurfaceRulesDef>
 </Defs>

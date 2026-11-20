@@ -20,6 +20,9 @@ them running. It applies to **every Vehicle Framework vehicle from any mod**, no
 - **Loaded vehicles slow on soft ground.** A heavy truck in sand, mud or snow labours, and **crawls with "Wheels spinning"** where it
   has no grip (never below 15% of its speed). **Drivetrain shown, speeds unchanged** in the settings keeps every vehicle at its
   author's speeds.
+- **Rain, snow and ice take grip, and the ground stays wet after the rain.** Wet open ground dries over about ten hours on a mild
+  sunny day, longer at night or in frost, faster in heat and wind, so a heavy tow or a hill climb goes better once it has dried.
+  Under a roof the ground is always dry. **Rain, snow and ice take grip** in the settings turns this off.
 - **An aircraft idling on the ground with its pilot aboard burns fuel**, and a hover burns more than flying about. Take the pilot
   out when it is not needed. **Aircraft fuel follows the engines** in the settings turns this off.
 - **High country takes engine power**: an engine without a turbocharger, a gas turbine and a helicopter's lift all lose some

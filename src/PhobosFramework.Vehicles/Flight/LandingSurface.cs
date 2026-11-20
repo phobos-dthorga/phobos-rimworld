@@ -42,7 +42,9 @@ public static class LandingSurface
             {
                 if (!cell.InBounds(map)) continue;
                 cells++;
-                bool dry = LandingSurfaceRule.Dry(raining ? 1 : 0, map.snowGrid.GetDepth(cell), rules.snowAtMost);
+                // Framework 0.204.0 (LM2): ground still wet after the rain counts as wet, neither dusty nor dry.
+                bool wet = raining || Phobos.Framework.Environment.MapComponent_PhobosGroundWetness.At(map, cell) > rules.wetAbove;
+                bool dry = LandingSurfaceRule.Dry(wet ? 1 : 0, map.snowGrid.GetDepth(cell), rules.snowAtMost);
                 if (!dry) continue;
                 TerrainDef terrain = cell.GetTerrain(map);
                 if (Loose(terrain)) loose++;

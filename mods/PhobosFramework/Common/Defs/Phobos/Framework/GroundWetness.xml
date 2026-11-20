@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- How fast rain wets open ground and how fast it dries (Framework 0.204.0; LM2 of docs/development/four-mods-study-2026-11-21.md).
+       One Def; the first loaded wins, so another mod may patch a figure. Every figure is authored, a gameplay choice, shaped to agree
+       with Realistic Rain's puddles: dark ground within the first hour of rain, dry in about a day. -->
+  <Phobos.Framework.Environment.PhobosGroundWetnessRulesDef>
+    <defName>PhobosFramework_GroundWetnessRules</defName>
+    <label>ground wetness rules</label>
+
+    <!-- An hour of ordinary rain soaks dry ground; gentle rain takes longer in proportion to its rate. -->
+    <soakHours>1</soakHours>
+    <!-- Soaked ground dries in 10 hours at 20 °C in full daylight and ordinary wind; across a night, about a day. -->
+    <dryHours>10</dryHours>
+    <!-- At or below freezing it dries at a tenth of that pace; in full darkness at four tenths. -->
+    <frozenFactor>0.1</frozenFactor>
+    <nightFactor>0.4</nightFactor>
+    <!-- Updated every 250 ticks (a tenth of an in-game hour). -->
+    <passTicks>250</passTicks>
+  </Phobos.Framework.Environment.PhobosGroundWetnessRulesDef>
+</Defs>

@@ -680,23 +680,30 @@ public sealed class Powertrain
 
     /// <summary>What rain, falling snow and ice under the wheels do to grip on a map (cross-links G5, Framework 0.113.0; WeatherGripRule): the
     /// game's own rain and snow rates, eased between weathers as the game eases them, none under a roof. Rails, and the player's "weather takes
-    /// grip" setting switched off, keep it all. On the world map the tile's winter already counts in its path cost.</summary>
+    /// grip" setting switched off, keep it all. On the world map the tile's winter already counts in its path cost. Since Framework 0.204.0
+    /// (LM2) the rain's share is the wetter of the rain falling and the ground's own wetness, so grip comes back only as the ground dries.</summary>
     double WeatherGrip(VehiclePawn vehicle)
     {
         if (OwnSurface || !VehicleSystemsMod.Settings.weatherGrip || !vehicle.Spawned || vehicle.Map == null) return 1;
         Map map = vehicle.Map;
         IntVec3 cell = vehicle.Position;
         bool open = !cell.Roofed(map);
+        float ground = Phobos.Framework.Environment.MapComponent_PhobosGroundWetness.At(map, cell);
+        double water = GroundWetnessRule.Underfoot(map.weatherManager.RainRate, ground, !open);
         PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
-        double factor = WeatherGripRule.Factor(open ? map.weatherManager.RainRate : 0, open ? map.weatherManager.SnowRate : 0,
+        double factor = WeatherGripRule.Factor(water, open ? map.weatherManager.SnowRate : 0,
             map.terrainGrid.TerrainAt(cell)?.IsIce == true, rules.weatherGripRain, rules.weatherGripSnow, rules.weatherGripIce);
         if (VehicleSystemsMod.StagesLog.DebugEnabled && System.Math.Abs(factor - loggedWeatherGrip) >= 0.05)
         {
             // Verbose only, and only when it moves by a twentieth: weather on grip had said nothing (the owner's verbose log, 16 Nov 2026).
             VehicleSystemsMod.StagesLog.Debug(vehicle.LabelShort + " (" + vehicle.ThingID + ") grip from the weather x" + factor.ToString("0.##") + " (rain "
-                + map.weatherManager.RainRate.ToString("0.##") + ", snow " + map.weatherManager.SnowRate.ToString("0.##") + (open ? "" : ", under a roof")
-                + (map.terrainGrid.TerrainAt(cell)?.IsIce == true ? ", on ice" : "") + ")");
+                + map.weatherManager.RainRate.ToString("0.##") + ", ground wet " + ground.ToString("0.##") + ", snow " + map.weatherManager.SnowRate.ToString("0.##")
+                + (open ? "" : ", under a roof") + (map.terrainGrid.TerrainAt(cell)?.IsIce == true ? ", on ice" : "") + ")");
         }
+        // Seen in play (row 300): grip still short after the rain has stopped, from the wet ground alone.
+        if (factor < 1 && map.weatherManager.RainRate <= 0f && ground > 0f && Seen.Wants("vehicles.wet-ground-grip", vehicle, "after-rain"))
+            Seen.Note("vehicles.wet-ground-grip", vehicle, "grip short after the rain", "after-rain",
+                new[] { new KeyValuePair<string, double>("wetness", ground), new KeyValuePair<string, double>("grip", factor) });
         loggedWeatherGrip = factor;
         return factor;
     }

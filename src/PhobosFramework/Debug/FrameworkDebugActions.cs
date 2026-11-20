@@ -65,6 +65,28 @@ public static class FrameworkDebugActions
     [DebugAction(DebugCategory.Name, "Framework: add smoke at cell", actionType = DebugActionType.ToolMap, allowedGameStates = AllowedGameStates.PlayingOnMap)]
     public static void AddSmokeAtCell() => PhobosGases.Add(UI.MouseCell(), Find.CurrentMap, GasKind.Smoke, 1f);
 
+    [DebugAction(DebugCategory.Name, "Framework: say how wet the ground is", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    public static void SayGroundWetness()
+    {
+        Map map = Find.CurrentMap;
+        Log.Message(FrameworkMod.LogPrefix + " Open ground on " + map + " is " + Environment.MapComponent_PhobosGroundWetness.OpenOn(map).ToString("P0")
+            + " wet (rain " + map.weatherManager.RainRate.ToString("0.##") + ", " + map.mapTemperature.OutdoorTemp.ToString("0") + " °C, daylight "
+            + map.skyManager.CurSkyGlow.ToString("0.##") + ", wind " + map.windManager.WindSpeed.ToString("0.##") + "). Under a roof it is always dry.");
+    }
+
+    [DebugAction(DebugCategory.Name, "Framework: soak the ground now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    public static void SoakGround() => SetGround(1f);
+
+    [DebugAction(DebugCategory.Name, "Framework: dry the ground now", actionType = DebugActionType.Action, allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    public static void DryGround() => SetGround(0f);
+
+    static void SetGround(float value)
+    {
+        Map map = Find.CurrentMap;
+        Environment.MapComponent_PhobosGroundWetness.For(map)?.Set(value);
+        Log.Message(FrameworkMod.LogPrefix + " Open ground on " + map + " set to " + value.ToString("P0") + " wet; rain and sun move it on from here.");
+    }
+
     /// <summary>Every gas the framework can see at a cell: existing kinds by carrier density, framework gases by room.</summary>
     public static string Describe(IntVec3 cell, Map map)
     {

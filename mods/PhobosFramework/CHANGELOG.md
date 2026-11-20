@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.204.0] - 2026-11-21 - Draft
+
+Ground that stays wet after rain
+
+### Added
+
+- **The ground stays wet after the rain stops.** Each map now keeps one figure for how wet its open ground is: an hour of ordinary rain soaks it, and once the rain stops it dries over about ten hours on a mild sunny day, more slowly at night and in frost, faster in heat and wind. Under a roof the ground is always dry. Vehicles' grip in the open now follows the wetter of the rain falling and the wet ground, so it still drops the moment rain starts but comes back only as the ground dries, where before it came back the moment the rain stopped. An aircraft landing on sand, soil or grass that is still more than a quarter wet raises no dust and starts no fire. Any faction's vehicles are affected alike. It sits under the existing setting Rain, snow and ice take grip; no new setting. The figures are authored, shaped to agree with what Realistic Rain draws (dark ground within the first hour of rain, dry in about a day), and patchable in XML. Three dev actions say how wet the ground is, soak it and dry it. Not yet tested in game: row 300 of the test pass.
+
+### Save compatibility
+
+- **Safe to add.** A map with no saved figure starts dry and catches up with the next rain. Each map saves one number.
+
+### Compatibility and limits
+
+- **For other modders:** MapComponent_PhobosGroundWetness.At(map, cell) gives the wetness at a cell (0 under a roof), and its rules Def, PhobosFramework_GroundWetnessRules, holds the figures. It is one figure for each map: terrain does not yet change how fast ground wets or dries.
+
 ## [0.203.0] - 2026-11-21 - Draft
 
 Close air support: aircraft of the two flight frameworks read as flying, and a dodge for jets with flares

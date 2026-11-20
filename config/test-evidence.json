@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "300": [{"key": "vehicles.wet-ground-grip", "variant": "after-rain", "expect": {"wetness": "> 0", "grip": "< 1"}}],
     "299": {"parts": {
       "an A-10 or Su-25 dodges shots in the air": ["aircraft.own-evasion"]
     }},
