@@ -78,5 +78,13 @@ The classes are `PhobosCrop_Cereal`, `PhobosCrop_Pulse` and `PhobosCrop_Oilseed`
 ## Credits and licence
 
 The machines' pictures are AI-generated (OpenAI gpt-image-2) and picked by the owner; each has a record beside it. Code under the
-repository's licence. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon
+repository's licence.
+
+**The tractors' engine sounds are real recordings** of farm tractors, cut and levelled, each with a record beside it naming its source:
+- A Valmet tractor working a harrow (1985), by **Yle, the Finnish Broadcasting Company's archive (YleArkisto on Freesound)**,
+  [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/): [the recording](https://freesound.org/people/YleArkisto/sounds/329643/).
+- A Case IH CX90's engine stopping, by **Soundholder on Freesound**, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/):
+  [the recording](https://freesound.org/people/Soundholder/sounds/425859/); also the root of the large tractor's stop.
+- With thanks to **mickyman5000**, **kyles** and **bruno.auzet** on Freesound, whose recordings are CC0.
+- The large tractor's sounds are built from these, lowered and layered; the medium and large tractors' starts are generated. Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon
 Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.

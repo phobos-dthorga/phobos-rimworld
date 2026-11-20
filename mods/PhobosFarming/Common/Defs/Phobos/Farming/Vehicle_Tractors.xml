@@ -217,6 +217,11 @@
           <li>PhobosCoupling_ThreePoint</li>
         </hitch>
       </li>
+      <!-- Its engine loops, played by D'thorga Framework (pitched by rpm, blended by load). -->
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosFarming_TractorT60EngineIdle</idleSound>
+        <loadSound>PhobosFarming_TractorT60EngineLoad</loadSound>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
@@ -229,6 +234,17 @@
       <!-- Drives a paddock row by row with the implement behind it working (D'thorga Framework's field run). -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosFieldRun" />
     </comps>
+    <!-- Its own voice in place of the inherited draft blips: the engine start and stop (no door, brake or fuel sounds yet). -->
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosFarming_TractorT60EngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosFarming_TractorT60EngineStop</value>
+      </li>
+    </soundOneShotsOnEvent>
   </Vehicles.VehicleDef>
 
   <Vehicles.VehicleDef ParentName="PhobosFarming_TractorT60Base">
@@ -488,6 +504,11 @@
           <li>PhobosCoupling_ThreePoint</li>
         </hitch>
       </li>
+      <!-- Its engine loops, played by D'thorga Framework (pitched by rpm, blended by load). -->
+      <li Class="Phobos.VehicleSystems.PhobosEngineSoundExtension">
+        <idleSound>PhobosFarming_TractorT130EngineIdle</idleSound>
+        <loadSound>PhobosFarming_TractorT130EngineLoad</loadSound>
+      </li>
     </modExtensions>
     <comps>
       <li Class="Vehicles.CompProperties_FueledTravel">
@@ -499,6 +520,17 @@
       </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosFieldRun" />
     </comps>
+    <!-- Its own voice in place of the inherited draft blips: the engine start and stop (no door, brake or fuel sounds yet). -->
+    <soundOneShotsOnEvent Inherit="False">
+      <li>
+        <key>IgnitionOn</key>
+        <value>PhobosFarming_TractorT130EngineStart</value>
+      </li>
+      <li>
+        <key>IgnitionOff</key>
+        <value>PhobosFarming_TractorT130EngineStop</value>
+      </li>
+    </soundOneShotsOnEvent>
   </Vehicles.VehicleDef>
 
   <Vehicles.VehicleDef ParentName="PhobosFarming_TractorT130Base">

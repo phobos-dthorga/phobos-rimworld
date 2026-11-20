@@ -8,12 +8,13 @@ tested in game unless an entry says the owner tested it.
 ### Added
 
 - **The Thane tractors, small and medium, in two models each** (the owner's picks of 20 November 2026), under one button each in the motor pool: the T60 and the T60 F on wide tyres, the ballasted T130 and the lighter T130 RC. Each carries an implement on its three-point linkage and pulls on its drawbar, and drives a paddock row by row with the implement working. Unlocked by the new research **Tillage and sowing**, which needs Mechanised harvesting and Machining; a second, **Articulated tractors**, follows it for the large tractor to come.
+- **The tractors' engines sound like real tractors** (the owner's picks of 20 November 2026): recordings of real farm tractors for the small and medium sizes, starting, idling, working and stopping, rising in pitch with the engine and blending into the working sound under load; the large tractor's built from the medium ones, lowered and layered; generated starts where no recording had one. Credits are in the README.
 - Their pictures, and those of the large tractor, the plough, the cultivators and the drill, ready for the next pieces.
 - **A new setting, Agricultural Frame: hay only from straw crops, on by default** (the owner's request; Mod settings, D'thorga Farming, General, under Other mods, shown only with The Dead Man's Switch - Legion). Its Agricultural Frame drops hay with every plant it harvests, cabbages and berries included. On, only crops that leave straw or forage behind give it: grains, peas, chickpeas, canola, corn, sunflowers and haygrass. Vegetables, fruit, root crops, cotton, flowers and herbs give none. The frame's own amounts are kept. Off, it is as its author made it. Takes effect at once. Each crop class now says whether it leaves straw, in its XML, so other mods' crops follow the class they are put in.
 
 ### Compatibility and limits
 
-- **Part of batch two, not finished:** the tractors have no upgrade tree, no sounds of their own and no implements to carry yet; they wait for their drawn icons, overlays and real recordings, and batch two is installed only once whole (the owner's choice). Their figures are the agent's, in the ranges of real tractors.
+- **Part of batch two, not finished:** the tractors have no upgrade tree, no door, brake or fuel sounds and no implements to carry yet; they wait for their drawn icons and overlays, and batch two is installed only once whole (the owner's choice). Their figures are the agent's, in the ranges of real tractors.
 
 ### Fixed
 

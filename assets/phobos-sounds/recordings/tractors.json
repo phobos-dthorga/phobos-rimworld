@@ -352,13 +352,13 @@
    "stop": "stop-massey-stop-00000"
   },
   "T130": {
-   "start": "generated",
+   "start": "generated: farming-t130-start-42 (assets/phobos-sounds/generated)",
    "idle": "idle-kyles-modern-00800",
    "labour": "labour-renault-working-00550",
    "stop": "stop-case-cx90-00780"
   },
   "T400": {
-   "start": "generated",
+   "start": "generated: farming-t400-start-45 (assets/phobos-sounds/generated)",
    "idle": "idle-t400-idle-b",
    "labour": "labour-t400-labour-a",
    "stop": "stop-t400-stop-b"

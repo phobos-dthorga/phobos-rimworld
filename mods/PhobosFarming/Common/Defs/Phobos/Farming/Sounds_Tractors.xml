@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- The Thane tractors' engines (D'thorga Farming, batch two; docs/development/sound-catalogue.md, "Thane tractors"): real recordings
+       for the T60 and T130, the T400's built from the medium ones lowered and layered, and generated starts for the T130 and T400, which
+       no recording had; the owner's picks of 20 Nov 2026 (assets/phobos-sounds/recordings/tractors.json, exports.json). Levelled against
+       the game's ChemfuelFiredGenerator_Ambience, as our trucks'. The idle and working loops are played by D'thorga Framework, pitched by
+       rpm and blended by load, as the tipper's are. -->
+
+  <!-- Thane T60 -->
+  <SoundDef>
+    <defName>PhobosFarming_TractorT60EngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT60/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosFarming_TractorT60EngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT60/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosFarming_TractorT60EngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT60/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(0.2,0.15)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosFarming_TractorT60EngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT60/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- Thane T130 -->
+  <SoundDef>
+    <defName>PhobosFarming_TractorT130EngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT130/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosFarming_TractorT130EngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT130/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosFarming_TractorT130EngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT130/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(0.2,0.15)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosFarming_TractorT130EngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT130/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- Thane T400 -->
+  <SoundDef>
+    <defName>PhobosFarming_TractorT400EngineStart</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT400/EngineStart</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosFarming_TractorT400EngineIdle</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT400/EngineIdle</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,1)</li>
+                  <li>(1,0.35)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosFarming_TractorT400EngineLoad</defName>
+    <sustain>True</sustain>
+    <context>MapOnly</context>
+    <priorityMode>PrioritizeNearest</priorityMode>
+    <maxSimultaneous>4</maxSimultaneous>
+    <subSounds>
+      <li>
+        <muteWhenPaused>True</muteWhenPaused>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT400/EngineLoad</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+        <paramMappings>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEnginePitch</inParamName>
+              <defaultValue>1</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Pitch" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(3,3)</li>
+              </points>
+            </curve>
+          </li>
+          <li>
+            <inParam Class="SoundParamSource_External">
+              <inParamName>PhobosEngineLoad</inParamName>
+              <defaultValue>0</defaultValue>
+            </inParam>
+            <outParam Class="SoundParamTarget_Volume" />
+            <paramUpdateMode>Constant</paramUpdateMode>
+            <curve>
+              <points>
+                  <li>(0,0)</li>
+                  <li>(0.2,0.15)</li>
+                  <li>(1,1)</li>
+              </points>
+            </curve>
+          </li>
+        </paramMappings>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <SoundDef>
+    <defName>PhobosFarming_TractorT400EngineStop</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/Farming/TractorT400/EngineStop</clipPath>
+          </li>
+        </grains>
+        <volumeRange>21</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+</Defs>

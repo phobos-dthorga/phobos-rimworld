@@ -1,0 +1,24 @@
+[
+ {
+  "name": "farming-t130-start",
+  "engine": "sa3-sfx",
+  "seconds": 6,
+  "seeds": [
+   41,
+   42,
+   43
+  ],
+  "prompt": "Starting a modern medium farm tractor with a turbocharged six-cylinder diesel engine, heard from outside close to the bonnet: a starter motor cranks briefly, the engine catches with a deep diesel clatter and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+ },
+ {
+  "name": "farming-t400-start",
+  "engine": "sa3-sfx",
+  "seconds": 7,
+  "seeds": [
+   44,
+   45,
+   46
+  ],
+  "prompt": "Starting a huge articulated four-wheel-drive farm tractor with a big turbocharged diesel engine of about 500 horsepower, heard from outside: a heavy starter motor cranks slowly, the big engine catches with a deep, booming diesel roar and a turbo whistle, then settles into a low, rumbling idle. Outdoors, close. Length: 6 seconds"
+ }
+]

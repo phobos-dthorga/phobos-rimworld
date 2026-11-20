@@ -5974,5 +5974,578 @@
       "cfg": 1.0,
       "prompt": "A soldier sliding quickly down a thick rope from a hovering aircraft: a rough fibre rope zipping through gloved hands, ending with boots landing on dirt. Length: 3 seconds"
     }
+  },
+  "TractorT60EngineStart": {
+    "name": "TractorT60EngineStart",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT60/EngineStart.ogg",
+    "sha256": "a517608cc0c21e40cdf622d8fdd3c1dd346d2fbd296aef25deee63881e6ab7a6",
+    "master_sha256": "c134faa0e8460db0cc77ef011a6601574fb08dc3dc31d7830e6b595b9884ed90",
+    "fingerprint": "315e8ec0a9098f6e32cf174755885b9f4c3e9166d979cbdd5018ee285008bb4a",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 4.16
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.1,
+      "true_peak": -2.5,
+      "seconds": 7.41,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://freesound.org/people/mickyman5000/sounds/340651/",
+      "source_title": "Massey_Engine_Start",
+      "credit": "mickyman5000",
+      "licence": "CC0 1.0",
+      "source_sha256": "2f810ac2be10681c950012fac1b56d30f179e6af270b3bce0af1a1aa85cd2b52",
+      "start": 0,
+      "seconds": 7.5
+    }
+  },
+  "TractorT60EngineIdle": {
+    "name": "TractorT60EngineIdle",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT60/EngineIdle.ogg",
+    "sha256": "3bc86f05ab525a83abec6d8361fb5d3ce1d8ae2b77ab221ae54d0899b6330788",
+    "master_sha256": "bf09c6bb2ee42b6540dce14bb67e5b90afe7469003c9a6c66504ab35face441e",
+    "fingerprint": "d48881734b89653f53b4c822ab9b72acfd45ed2d9a342d1a6eba096f9ad444b4",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        11.4286
+      ],
+      "loop_match": 0.341,
+      "loop_crossfade_s": 0.5,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.18,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -0.34
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.2,
+      "true_peak": -4.6,
+      "seconds": 10.73,
+      "flags": [],
+      "seam_dip_db": 0.23,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://freesound.org/people/kyles/sounds/637883/",
+      "source_title": "tractor idle engine motor close1",
+      "credit": "kyles",
+      "licence": "CC0 1.0",
+      "source_sha256": "7890c57c435086a98b01d3bb47a4f0c829228954dff3de2c330a9d27a16f0136",
+      "start": 10,
+      "seconds": 12
+    }
+  },
+  "TractorT60EngineLoad": {
+    "name": "TractorT60EngineLoad",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT60/EngineLoad.ogg",
+    "sha256": "a2f7e81edbe5a328f24ee4d1ceb0196a45786dad054c4b09be81ddd8fd44438a",
+    "master_sha256": "ed179e86b5c6fd4177c8002eb8b05a66d5a9b4a8217d1117561330df418519f2",
+    "fingerprint": "c5c0dababfb70ef5bea6a9a95c2b4825c0e4814be7e5d18f52a8acfbbe7dcee6",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        14.9011
+      ],
+      "loop_match": 0.645,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -6.04
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.1,
+      "true_peak": -7.0,
+      "seconds": 14.45,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://freesound.org/people/YleArkisto/sounds/329643/",
+      "source_title": "Tractor with a harrow at work on a field, approaching, stopping, engine shut down",
+      "credit": "YleArkisto (Yle, the Finnish Broadcasting Company archive)",
+      "licence": "CC BY 4.0",
+      "source_sha256": "c017c07c595197b90db6b2c350412c35bbb1b8ac5d1930390a3f1c5ec8a47721",
+      "start": 39.7,
+      "seconds": 15.5
+    }
+  },
+  "TractorT60EngineStop": {
+    "name": "TractorT60EngineStop",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT60/EngineStop.ogg",
+    "sha256": "6f00259bacbef8d720849af5e7a93a5c70935e0d315d8b0a7c0ccd49a12c96d7",
+    "master_sha256": "9a2ea75a1713f5595d21c6c441c777b04efb8b2dd9965d5471aa21a3910027db",
+    "fingerprint": "5a2aabb72c9578cb23460de76f610dba3c75b84515129fdcee7c3c3d073c2a13",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 3.56
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.0,
+      "true_peak": -2.5,
+      "seconds": 2.09,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://freesound.org/people/mickyman5000/sounds/340658/",
+      "source_title": "Massey_Engine_Stop",
+      "credit": "mickyman5000",
+      "licence": "CC0 1.0",
+      "source_sha256": "3a4f311d13b559cdd210a03ff53db59eeba367e69e885a8ab5e3795814f92ff6",
+      "start": 0,
+      "seconds": 2.1
+    }
+  },
+  "TractorT130EngineIdle": {
+    "name": "TractorT130EngineIdle",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT130/EngineIdle.ogg",
+    "sha256": "edf4c65ef6ab3e4c5cfeb04552adf321f0106d31f036d79426e3b5cb5ba9c9ab",
+    "master_sha256": "b63bd64bc1c069bd83645462a2c793ce1fe8e942ee348d6a6953babdb618ae77",
+    "fingerprint": "98cadedd6de0bcfe31090189853d0da3b9732940d7f5272c7447d151040a74da",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        11.7324
+      ],
+      "loop_match": 0.081,
+      "loop_crossfade_s": 0.75,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.21,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 16.16
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.1,
+      "true_peak": -4.9,
+      "seconds": 10.78,
+      "flags": [],
+      "seam_dip_db": 0.04,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://freesound.org/people/kyles/sounds/637886/",
+      "source_title": "tractor modern pull up and drive by, turn back away and stop, idle shut off hop down nearby",
+      "credit": "kyles",
+      "licence": "CC0 1.0",
+      "source_sha256": "a10ac18cc19047e1ef8f0e5635ef12546f20d2086e47e0c79eb79969bd109d19",
+      "start": 80,
+      "seconds": 12
+    }
+  },
+  "TractorT130EngineLoad": {
+    "name": "TractorT130EngineLoad",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT130/EngineLoad.ogg",
+    "sha256": "d2fb847fcaeb6b5360a6871c0e2bf731339ca22dfc4af6e36345cfa2b4a0ad81",
+    "master_sha256": "1a4df12723b29dbddca28762a239355d1d1c8355aef3a098011e3628e619b166",
+    "fingerprint": "da9dbd7021215741b0fe0956e872b540d94aaab73fcaa7f17f0e73b486f95850",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        14.5403
+      ],
+      "loop_match": 0.717,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -0.54
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.0,
+      "true_peak": -5.3,
+      "seconds": 14.09,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://freesound.org/people/bruno.auzet/sounds/718409/",
+      "source_title": "Tractor engine working",
+      "credit": "bruno.auzet",
+      "licence": "CC0 1.0",
+      "source_sha256": "415014fb91310b8f5553b0996543eb6247df0651dc415bcaf1ec00b0a91b8cab",
+      "start": 55,
+      "seconds": 15
+    }
+  },
+  "TractorT130EngineStop": {
+    "name": "TractorT130EngineStop",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT130/EngineStop.ogg",
+    "sha256": "a905f3e682270767b1d6fdb52158e81dc50f0d8e2281da591fa1bb54e53a7b0b",
+    "master_sha256": "2c22a3ad96c924ee5f1ba20cfc9d4aa45706d78c78d7b2a6083f0ba68ff594c2",
+    "fingerprint": "99f8f7e156d30ebcc2a96fb60256afb75b5afe813c1bb22af891f126a4b6c696",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 6.86
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.0,
+      "true_peak": -5.1,
+      "seconds": 7.69,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "kind": "recording",
+      "source_page": "https://freesound.org/people/Soundholder/sounds/425859/",
+      "source_title": "tractor Case II CX90 engine rpm ramps engine off mono",
+      "credit": "Soundholder",
+      "licence": "CC BY 3.0",
+      "source_sha256": "099f2094e81acbf1f28d9fb9d99e65bc7b6e0d7b3b46676e357d641655d302f2",
+      "start": 78,
+      "seconds": 9
+    }
+  },
+  "TractorT400EngineIdle": {
+    "name": "TractorT400EngineIdle",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT400/EngineIdle.ogg",
+    "sha256": "4e0278173a773a44c1e59cc3188653ef565bfe754ae9388b59bf86b14c060450",
+    "master_sha256": "338662a3c8b49409ec9c852383e62c93de48f1df0e999b6a0474822d677ed7cb",
+    "fingerprint": "ac662e6fa0afde95bc89b96524ef85c17824b272fa0b0043b0fd0fd94b771e0c",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        14.3332
+      ],
+      "loop_match": 0.539,
+      "loop_crossfade_s": 0.25,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 15.06
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.0,
+      "true_peak": -4.6,
+      "seconds": 13.88,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": null,
+      "model": null,
+      "model_sha256": null,
+      "seed": null,
+      "steps": null,
+      "cfg": null,
+      "prompt": null
+    }
+  },
+  "TractorT400EngineLoad": {
+    "name": "TractorT400EngineLoad",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT400/EngineLoad.ogg",
+    "sha256": "022fd19b0b92c54f9b26e0ee23c16de8e6432929e58201f9beffbbcb0da1ffa4",
+    "master_sha256": "b9750279c5f28af919cd207c4778272963eeaeae93462df2d2c46cdccb790b01",
+    "fingerprint": "5b3aa7cf6bba16419345c32cd25b1ac30f9b48904545f1b90fe19419c805a0fc",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "loop_span_s": [
+        0.2,
+        17.4314
+      ],
+      "loop_match": 0.549,
+      "loop_crossfade_s": 1.0,
+      "loop_curve": "equal power",
+      "loop_seam_dip_db": 0.0,
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 5.06
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.0,
+      "true_peak": -4.3,
+      "seconds": 16.23,
+      "flags": [],
+      "seam_dip_db": 0.0,
+      "loop_gap_s": 0.0
+    },
+    "source": {
+      "generator": null,
+      "model": null,
+      "model_sha256": null,
+      "seed": null,
+      "steps": null,
+      "cfg": null,
+      "prompt": null
+    }
+  },
+  "TractorT400EngineStop": {
+    "name": "TractorT400EngineStop",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT400/EngineStop.ogg",
+    "sha256": "3382a0f55b5ab30a496395419425e6cbfb0b2fd0e47e124e243b029e39ba7fa5",
+    "master_sha256": "54251c40db842c467995ae4ca69f8b1b806788ce29f53fdd95528d0cd5b2b7c9",
+    "fingerprint": "83ab2bfd5d22ba2218ddaf65b81288d509c9574b06ea54c8436a0c855cd716a7",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 7.96
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -18.9,
+      "true_peak": -3.8,
+      "seconds": 10.7,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": null,
+      "model": null,
+      "model_sha256": null,
+      "seed": null,
+      "steps": null,
+      "cfg": null,
+      "prompt": null
+    }
+  },
+  "TractorT130EngineStart": {
+    "name": "TractorT130EngineStart",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT130/EngineStart.ogg",
+    "sha256": "ea926bd8ad94f6c97abc387939cd060caca5db67ac0155bf205de21ed96e83bc",
+    "master_sha256": "072662defc00def6d7cf71045a7586db8ef9f9f4edeccfc8d12597bc4c1f4d25",
+    "fingerprint": "fe8012d0f205678d6f5d6928b68318b907104dff8f37a814abc4ed9d0759bba8",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": 1.06
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.2,
+      "true_peak": -4.6,
+      "seconds": 6.1,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 42,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Starting a modern medium farm tractor with a turbocharged six-cylinder diesel engine, heard from outside close to the bonnet: a starter motor cranks briefly, the engine catches with a deep diesel clatter and settles into a steady idle. Outdoors, close. Length: 5 seconds"
+    }
+  },
+  "TractorT400EngineStart": {
+    "name": "TractorT400EngineStart",
+    "target": "mods/PhobosFarming/Common/Sounds/Phobos/Farming/TractorT400/EngineStart.ogg",
+    "sha256": "14b20d21f99fc09b9f97f5db4888ebceb50729af55bdf01d6581cd71dec9b536",
+    "master_sha256": "064fc9f2e471717c2836e540c3d242be3f60a6b10612e3377e6a13ac511decfa",
+    "fingerprint": "2e6280b85ae681c6b22937084573b6cc04f67a07b907d509476d46753c083061",
+    "date": "2026-11-20",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -18.94 LUFS",
+      "gain_db": -1.04
+    },
+    "reference": {
+      "defName": "ChemfuelFiredGenerator_Ambience",
+      "effective": "-36.5 LUFS",
+      "volume": [
+        13.0,
+        13.0
+      ],
+      "distance": [
+        10.0,
+        20.0
+      ],
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.0,
+      "true_peak": -3.2,
+      "seconds": 7.03,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 45,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Starting a huge articulated four-wheel-drive farm tractor with a big turbocharged diesel engine of about 500 horsepower, heard from outside: a heavy starter motor cranks slowly, the big engine catches with a deep, booming diesel roar and a turbo whistle, then settles into a low, rumbling idle. Outdoors, close. Length: 6 seconds"
+    }
   }
 }

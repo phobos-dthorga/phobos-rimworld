@@ -196,6 +196,21 @@ Osprey holds nearly steady.
 | S137 | Fast rope | Code | Generated; at the foot of the lines as each person starts down |
 | — | Rescue hoist, forward flight | | None, by the owner's choice: "Not needed amongst all the other sounds" |
 
+### Thane tractors (`Phobos_TractorT60Standard` and `T60F`, `T130Standard` and `T130RC`, the T400 to come; D'thorga Farming)
+
+**In D'thorga Farming's batch two** (20 Nov 2026; not yet installed or tested in game): the owner's picks by question card from the
+listening page (`assets/phobos-sounds/recordings/tractors.json`, its `picked`). **Real recordings** of farm tractors (CC0 and plain CC BY,
+the owner's choice), the T400's **built** from the medium ones, lowered and layered (a simplification, the owner's choice), and
+**generated** starts for the T130 and T400, as no medium recording had one. Both models of a size share a set: the same engine.
+Records: `docs/development/farming-tractor-recordings.md`.
+
+| ID | Sound | Hook | Note |
+| --- | --- | --- | --- |
+| S138 | T60: engine start, idling, working, stop | XML (extension and ignition events) | Real: a Massey start (repaired: declipped), a close idle, a Valmet working a harrow (Yle archive, CC BY 4.0), the Massey stop |
+| S139 | T130: engine start, idling, working, stop | XML | Start generated; real: a modern tractor's idle, a Renault working, a Case IH CX90's stop (Soundholder, CC BY 3.0) |
+| S140 | T400: engine start, idling, working, stop | XML (when its Defs are built) | Start generated; the rest built from the medium recordings, lowered and layered |
+| S141 | Tractor doors, brakes, out of fuel; the linkage lifting; implements working the ground | Not yet | Two ploughing recordings and a hydraulic lift were found (CC BY 4.0, CC0) |
+
 ## Vehicle stations (D'thorga Framework)
 
 | ID | Sound | Hook | Note |
