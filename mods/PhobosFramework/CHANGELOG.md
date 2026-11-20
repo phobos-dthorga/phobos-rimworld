@@ -9,6 +9,11 @@ tested in game unless an entry says the owner tested it.
 
 Spall inside vehicles: what its fault-read found, put right, and what came after
 
+### Added
+
+- **An alert when a spall liner is spent**: Spall liner spent names each of your vehicles on a map whose fitted liner has worn through and catches nothing, until it is re-lined.
+- **Spall in the vehicle's logbook**: when spall from a hit hurts someone aboard, by name, at most once an hour for each vehicle however long the fight; and when the liner wears through.
+
 ### Fixed
 
 - **A truck without a spall liner no longer reads as injured or broken.** A liner not fitted sits at nothing by design, and it had shown as a destroyed part: the truck read injured from new, the Fleet board named it the worst part in red, the damage picture painted the cab red, and the diagnosis listed it first. It is now left out of all four, and its row on the Health tab reads not fitted, in grey. A worn liner is still shown on its own row.

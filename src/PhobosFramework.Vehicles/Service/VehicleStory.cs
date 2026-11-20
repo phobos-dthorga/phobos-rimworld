@@ -95,6 +95,31 @@ public static class VehicleStory
         Log(comp, VehicleStoryDefOf.PhobosLog_UnderFire);
     }
 
+    /// <summary>The authored gap before spall wounding someone in the same vehicle is logged again, so a long fight is a few entries, not one
+    /// per fragment.</summary>
+    public const int SpallLogGapTicks = GenDate.TicksPerHour;
+
+    static readonly System.Runtime.CompilerServices.ConditionalWeakTable<VehiclePawn, System.Runtime.CompilerServices.StrongBox<int>> lastSpallLog = new();
+
+    /// <summary>Spall from a hit wounded someone aboard (Framework 0.209.0): logged by name, at most once an hour per vehicle. Not saved: the gap
+    /// starts again after a load.</summary>
+    public static void SpallWounded(VehiclePawn vehicle, Pawn pawn)
+    {
+        if (vehicle == null || pawn == null || vehicle.GetComp<CompPhobosVehicleSystems>() is not { } comp || !Keeps(comp)) return;
+        int now = Find.TickManager.TicksGame;
+        var last = lastSpallLog.GetValue(vehicle, _ => new System.Runtime.CompilerServices.StrongBox<int>(int.MinValue / 2));
+        if (now - last.Value < SpallLogGapTicks) return;
+        last.Value = now;
+        Log(comp, VehicleStoryDefOf.PhobosLog_SpallWounded, who: pawn.LabelShort);
+    }
+
+    /// <summary>The spall liner wore through and catches nothing until re-lined (Framework 0.209.0).</summary>
+    public static void LinerSpent(VehiclePawn vehicle)
+    {
+        if (vehicle?.GetComp<CompPhobosVehicleSystems>() is not { } comp || !Keeps(comp)) return;
+        Log(comp, VehicleStoryDefOf.PhobosLog_LinerSpent);
+    }
+
     /// <summary>A repair or service done by a mechanic: logged with their name, counted in their records, and a tale when it was done far
     /// from any settlement (a convoy's halt).</summary>
     public static void Repaired(CompPhobosVehicleSystems comp, Pawn mechanic, string work, bool service)
@@ -185,6 +210,8 @@ public static class VehicleStoryDefOf
     public static PhobosLogEntryDef PhobosLog_LeftBehind = null!;
     public static PhobosLogEntryDef PhobosLog_RanOn = null!;
     public static PhobosLogEntryDef PhobosLog_Struck = null!;
+    public static PhobosLogEntryDef PhobosLog_SpallWounded = null!;
+    public static PhobosLogEntryDef PhobosLog_LinerSpent = null!;
     public static RecordDef PhobosRecord_KilometresDriven = null!;
     public static RecordDef PhobosRecord_VehicleRepairs = null!;
     public static RecordDef PhobosRecord_VehiclesRecovered = null!;

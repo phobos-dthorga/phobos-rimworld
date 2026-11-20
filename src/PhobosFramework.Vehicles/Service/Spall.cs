@@ -211,6 +211,8 @@ public static class Spall
             double wear = SpallRule.LinerWear(stopped, f);
             liner.SetHealth(Mathf.Max(0f, liner.Health - (float)wear));    // raises Vehicle Framework's HealthChanged itself
             CompPhobosVehicleSystems.Of(vehicle)?.RememberAllPartHealths();
+            // The logbook and the alert (Framework 0.209.0): the moment it wears through.
+            if (linerShare > f.linerSpentAt && liner.Health / liner.MaxHealth <= f.linerSpentAt) VehicleStory.LinerSpent(vehicle);
             if (Seen.Wants("vehicles.spall-liner-caught", vehicle))
             {
                 Seen.Note("vehicles.spall-liner-caught", vehicle, plate.props.label, values: new[]
@@ -252,6 +254,7 @@ public static class Spall
                     if (pawn.Dead || pawn.Destroyed) continue;
                     pawn.TakeDamage(hit);
                     landed++;
+                    VehicleStory.SpallWounded(vehicle, pawn);
                     if (Seen.Wants("vehicles.spall-hit", vehicle, "crew")) Seen.Note("vehicles.spall-hit", vehicle, pawn.LabelShort, "crew");
                 }
                 else

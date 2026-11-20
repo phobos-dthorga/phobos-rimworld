@@ -44,6 +44,9 @@ Search & Rescue's. Every finding was read on both sides; none was seen in play.
 - **Spall stands down while Combat Extended's "Use New Vehicle Armor" is off**, since it reads that walk.
 - **Smaller:** the reactor colours nothing in Vehicle Framework's own Health tab, the outer parts our loadouts append get it too, a
   plate at no armour no longer yields a NaN, and the seen-in-play note waits for a fragment to land.
+- **Then, the owner's chosen follow-ups (Framework 0.209.0):** an alert, "Spall liner spent", naming the player's vehicles whose
+  fitted liner is spent; and two logbook entries, spall hurting someone aboard (at most once an hour per vehicle [A]) and the liner
+  wearing through. These answer the record's fourth question better: the colony is told, not only the Health tab.
 - **Not changed:** the plate's efficiency is read after Combat Extended took the hit's armour damage off, so what the plate took may be
   a little lower than Combat Extended's own figure.
 

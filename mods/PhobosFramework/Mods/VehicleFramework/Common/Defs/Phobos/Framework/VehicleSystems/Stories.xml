@@ -110,6 +110,21 @@
     <bad>true</bad>
   </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
+  <!-- Spall inside vehicles (Framework 0.209.0): written at most once an hour per vehicle, and when a liner wears through. -->
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_SpallWounded</defName>
+    <label>hurt by spall</label>
+    <text>A hit broke the inside of the armour loose {PLACE}, and the pieces hurt {WHO}.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_LinerSpent</defName>
+    <label>spall liner spent</label>
+    <text>The spall liner wore through {PLACE}: it catches nothing until it is re-lined.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
   <Phobos.Framework.Persistence.PhobosLogEntryDef>
     <defName>PhobosLog_LeftBehind</defName>
     <label>left behind</label>

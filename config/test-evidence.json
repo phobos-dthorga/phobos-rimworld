@@ -3,6 +3,11 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "308": {"parts": {
+      "the alert names a vehicle whose liner is spent": ["vehicles.spall-liner-alert"],
+      "the logbook says spall hurt someone aboard": [{"key": "vehicles.logbook", "variant": "PhobosLog_SpallWounded"}],
+      "the logbook says the liner wore through": [{"key": "vehicles.logbook", "variant": "PhobosLog_LinerSpent"}]
+    }},
     "306": {"parts": {
       "a hard landing, with and without an autopilot": [{"key": "aircraft.rough-landing", "variant": "manual"}, {"key": "aircraft.rough-landing", "variant": "autopilot"}],
       "a landing judged smooth": [{"key": "aircraft.rough-landing", "variant": "smooth"}],

@@ -125,6 +125,8 @@ With Combat Extended only (not yet tested in game). **Any vehicle with rifle-pro
   into the truck's cargo and a mechanic re-lines it, a panel for each quarter worn, once a whole quarter is gone. Ordinary repairs never
   mend it, and taking the upgrade off gives back only the panels' worth that is left. The cab's liner catches only what comes off the
   cab. A truck without the upgrade shows the liner as *not fitted*, in grey, and is not counted as damaged.
+- **A spent liner is named in an alert**, *Spall liner spent*, until it is re-lined; the vehicle's **logbook** records when it wore
+  through, and who was hurt by spall (once an hour at most for each vehicle).
 - **Settings** (Mod settings, D'thorga Framework, Dangers, all on): *Beaten armour throws spall inside*, *Also on other mods'
   vehicles* and *Heavy hits shake spall loose*. Raiders' crews take spall exactly as yours do.
 - **Still to come:** gun mounts, smoke dischargers and a remote weapon station.
