@@ -71,14 +71,15 @@ authored figure or the agent's choice.
 
 ## The implements (Farming)
 
-**The owner's decisions (20 Nov 2026):** keep the draught as below (a cell is 1.5 m, Iowa State's medium soil: the T60 is at its limit
-with the plough, as a real 60 kW tractor with a three-furrow plough is); **width by upgrade**, rather than a second model of each: each
+**The owner's decisions (20 Nov 2026):** keep the draught as below (a cell is 1.5 m, Iowa State's medium soil; with the plough at
+1 cell since the same day, about 11 kN, well within the T60); **width by upgrade**, rather than a second model of each: each
 implement has a wing-extension node in its upgrade tree that widens its working width (and its draught with it), drawn as folded and
-unfolded wings. The wider figures are the agent's [A]: plough 3 to 5 cells, cultivator 4 to 7, drill 4 to 7.
+unfolded wings. The wider figures are the agent's [A]: plough 1 to 2 cells (five or six furrows), cultivator 4 to 7, drill 4 to 7. A plough sized for the
+T400 (eight to twelve furrows) is for later, with its own picture.
 
 | Implement | Coupling | Footprint [A] | Width [A] | Draught [A, from Iowa State's medium soil] | What it does to a cell |
 | --- | --- | --- | --- | --- | --- |
-| Sillion plough | Three-point | 3 by 3 | 3 cells | 7.3 kN a metre, a cell taken as 1.5 m (agent's scale) | Clears weeds, stubble and wild plants; never a sown crop. Marks the cell ploughed; with Vanilla Plants Expanded, lays its tilled soil (`VCE_TilledSoil` [code]) on soil that can take it |
+| Sillion plough (reversible) | Three-point | 3 by 3 | **1 cell** (owner, 20 Nov 2026: match the picture, a three-furrow plough about 1.2 m wide) | 7.3 kN a metre, a cell taken as 1.5 m (agent's scale) | Clears weeds, stubble and wild plants; never a sown crop. Marks the cell ploughed; with Vanilla Plants Expanded, lays its tilled soil (`VCE_TilledSoil` [code]) on soil that can take it |
 | Tillman cultivator | Three-point | 3 by 3 | 4 cells | 4.4 kN a metre | Clears weeds and wild plants; never a sown crop. Marks it cultivated |
 | Coulter seed drill | Drawbar | 3 by 4 | 4 cells | 1.0 kN a metre | Sows the paddock's crop in empty cells, by the game's own checks |
 
