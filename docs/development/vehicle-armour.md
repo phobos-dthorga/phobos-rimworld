@@ -248,6 +248,22 @@ Extended folder must replace that part's armour and that turret's projectile, ea
 3. **Vehicle Framework's own ratings on its stock vehicles**, to set the fallback column against something a player has met.
 4. **The blunt column in play**: a first sortie's log, with verbose logging on, says whether fragments and blasts behave.
 
+## Their 20 Nov 2026 updates: low-tech armour and the Harrier's plasteel plates
+
+Read on 20 Nov 2026 from the builds the assembly archive kept that day (`python scripts/assembly-archive.py compare <file> --show
+<Type.Member>`) and their Defs in the Workshop folder. Nothing of ours was changed.
+
+- **Low-tech armour** (all three: `LowTechArmourExtension` with `immuneUpTo` Medieval on the Hind's and Mongoose's Defs, the Harrier's
+  `lowTechImmuneUpTo`): a hit that is not explosive, from a weapon of Medieval tech or below or from a bare-handed person, is deflected
+  with a metal spark and does nothing, by prefixes that skip `Thing.TakeDamage` and the vehicle's own `TakeDamage`. **Off under Combat
+  Extended**, where CE's own armour decides (the Harrier's patches through `Prepare`, the helicopters' inside `LowTechArmour.Ignore`), so
+  it does nothing in the owner's game. **No overlap with ours**: our armour classes and kits cover the five service trucks and the Osprey
+  (the status line), not these three, and our damage to aircraft goes through `VehicleStatHandler.TakeDamage`, beneath the prefixes.
+- **The Harrier's Plasteel Armour node** (`Harrier_PlasteelArmour`): 25 % more armour on airframe, engine and tanks (its CE patch sets
+  CE-scale figures), no added mass, and 15 % more fuel. The fuel meets our on-map fuel correction, which hands it back; see [thin air,
+  turbines and aircraft fuel](vehicle-altitude-and-turbines.md#their-20-nov-2026-updates-the-harriers-armour-fuel-is-handed-back-on-a-map).
+  The ratings table under "What other authors give their aircraft" is the unfitted jet's and still holds.
+
 ## Who chose what
 
 - **Owner (18 Nov 2026):** Combat Extended first, Vehicle Framework the fallback; vehicles armed as the real machine; an

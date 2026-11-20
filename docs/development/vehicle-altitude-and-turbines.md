@@ -274,6 +274,41 @@ of them changes. Reading the tank needs to know only the rate their Defs give, a
 The engine's figure on "Burning about X a day" is what the frameworks burned and our correction together, so it is the true rate in
 every phase.
 
+### Their 20 Nov 2026 updates: the Harrier's armour fuel is handed back on a map
+
+Read on 20 Nov 2026 from the Harrier build the assembly archive kept that day (`python scripts/assembly-archive.py compare
+AV8BHarrier.dll --show AV8BHarrier.Patch_HarrierArmourFuel`) and its Defs in the Workshop folder. Nothing of ours was changed.
+
+**What the author added** (their code and XML): a Plasteel Armour upgrade node (`Harrier_PlasteelArmour` in `Harrier_UpgradeTree.xml`)
+that adds armour ratings and no mass, and says "15% more fuel used". It charges that 15% twice over, one way for each place the jet
+burns:
+
+- **Between tiles:** a `StatUpgrade` adds 22.5 to Vehicle Framework's `FuelConsumptionRate` (150 to 172.5 a day).
+- **On a map:** `Patch_HarrierArmourFuel`, a postfix on `VtolFlightController.ConsumeFuel`, burns another 0.15 of the flight
+  framework's `fuelConsumptionPerTick` whenever the framework burned and the node is fitted (`HarrierArmourUpgrade.FuelFactor`, 1.15).
+
+**How ours meets it** (our reading of our code, not seen in play):
+
+- **Between tiles it holds.** Our one patch multiplies Vehicle Framework's rate by `WorldFlightFuelShare`, so 172.5 a day stays the
+  base and our share moves it as for any Harrier.
+- **On a map our correction hands it back.** `Powertrain.OweFuel` (`src/PhobosFramework.Vehicles/Systems/Powertrain.cs:951`) owes the
+  flight framework's on-map rate times the phase's share; it does not know the armour is fitted. `ApplyAircraftFuel` (`:970`) reads
+  what the tank lost, counts up to `othersAtMost` (1.05 × (the on-map rate + Vehicle Framework's own rate), about 1.21 times the
+  Harrier's on-map rate) as burned by others, and gives back the difference. The armour's 1.15 is under that ceiling, so all of it
+  counts as burned by others, and on station `owed − seen` is −0.15 of the rate: **the 15% is handed back in full** while "Aircraft
+  fuel follows the engines" is on (its default). In other phases the share moves the base, and the armour's 0.15 of the author's flat
+  rate still comes back.
+- **Not a double charge but the opposite**, and only on a map: an armoured Harrier burns as an unarmoured one there.
+- **Our hover sums do not see the plates either**: `Powertrain.HoverDemand` (`:596`) reads mass, and the node adds none. Our own armour
+  kits do add their weight as carried mass ([vehicle armour](vehicle-armour.md)), so they reach the hover and fuel sums.
+
+**The fix I would make** (not built; the owner's call): scale the on-map reference by what Vehicle Framework's own rate says now
+against the Def's base, in `MapFuelPerTick`, so any upgrade that raises `FuelConsumptionRate` carries onto the map: 172.5 / 150 = 1.15
+for the Harrier, with no names read. It reads the effect, not the author's node, so it covers other authors' fuel upgrades too, and
+it leaves the author's own on-map burn as the reference it already is. **Check before building:** whether any of our own upgrades or
+fittings raise `FuelConsumptionRate` on an aircraft, which this would then also carry onto the map (the right answer, but a change
+to say).
+
 ## Other factions' vehicles
 
 - **In a raid on us:** none of this applies. Aircraft fuel follows the engines only for the player's own aircraft

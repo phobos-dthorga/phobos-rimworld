@@ -367,6 +367,44 @@ Frontline Workshop's towed 105 mm howitzer has no engine, so it gets none of our
 weapon standing alone on another author's vehicle with no matching word reads as powered. The Roaring Tiger M1A2's top M2HB has no crew
 role that works it (the author's Def), so it never fires; not ours to fix, and nothing dire, so no report drafted. Not yet tested in game.
 
+## Their 20 Nov 2026 updates: the Harrier, Hind and Mongoose now crash by themselves
+
+Read on 20 Nov 2026 from the builds the assembly archive kept that day (`python scripts/assembly-archive.py compare <file> --show
+<Type.Member>` on `AV8BHarrier.dll`, `Mi24HindHelicopter.dll` and `MongooseAttackHelicopter.dll`), their Defs in the Workshop folder,
+and `python scripts/query-patches.py who` on every method their new patches name. Nothing of ours was changed; nothing here is built.
+
+**What the author added** (their code; figures are their defaults, authored):
+
+- **The Harrier's engine or cockpit lost** (`EngineLoss.CheckGoingDown`, a postfix on `VtolFlightController.Tick`): with the part named
+  by `engineComponentKey` (`Engine` in `Harrier_Jet.xml`) at 0 health in flight, the jet makes an emergency landing where it can, or
+  crashes: a blast of radius 2.9, damage 30 and fire chance 0.8 (`crashRadius`, `crashDamage`, `crashFireChance`). A vertical landing
+  under way is cancelled. `cockpitComponentKey` is not set in the Def, so the cockpit check does nothing as shipped.
+- **Pilot loss** on all three (`PilotLoss` on the Harrier, `MapComponent_PilotLoss` on the helicopters): with no pilot alive and
+  conscious in the air, a message and a crash slide or impact.
+- **The helicopters' crash on a lost part** (`CrashOnComponentLossExtension`, critical parts Body and Cockpit) gains its own blast
+  (`explosionRadius` 2.9, `explosionDamage` 30, `explosionFireChance` 0.8).
+- **Cook-off of loose munitions**, patched in only under Combat Extended: the Harrier's 500 lb bomb item (`FWA_Bomb500lb`) and the
+  Mongoose's Hellfire item wick and blow when burnt or badly hurt while lying on the map.
+- **Low-tech armour** (all three; [vehicle armour](vehicle-armour.md) has it) and **airborne self-damage** filters: prefixes that skip
+  `Thing.TakeDamage` and the vehicles' own `TakeDamage`.
+
+**How ours meets it** (our reading of our code; not seen in play):
+
+| Theirs | Ours | Verdict |
+| --- | --- | --- |
+| The Harrier crashes when its engine part reaches 0 in flight | Our breakdowns take engine health with no floor: the turbine system's "hot section worn" stage (`Systems_Turbine.xml`, `Effect_Breakdown` on the Engine role, mean 150 hours, 30 % of full health a time while running) and the service stages (`Systems_Service.xml`, 25-30 %, mean 3,000, 800 or 250 hours), through `CompPhobosVehicleSystems.BreakRole` (`src/PhobosFramework.Vehicles/Systems/CompPhobosVehicleSystems.cs:2283`) | **A chain, not a double.** A fourth breakdown from full, on a Harrier in the air on a map, now ends in the author's forced landing or crash: our breakdown message, then theirs, and one blast, theirs. Engine failure forcing a landing is the real outcome. **To watch**; if the owner finds it harsh, a floor of 1 health while airborne in `BreakRole`, as `WearLanding` already has |
+| The same, from our other wear | Over-limit hovers use hot-section life on these aircraft, not engine health (`HoverLimits.Strain`); landing wear never goes below 1 health (`WearLanding`); dusty landings stop at `engineWearFloor` (`LandingSurface`) | Fine |
+| The helicopters crash when Body or Cockpit is lost | Nothing of ours takes Body or Cockpit to 0 (`WearLanding` floors at 1); our air-combat hits are real damage, meant to bring aircraft down | Fine |
+| Pilot loss | Nothing of ours downs crew in flight yet. C3 (smoke and heat in the cab, not built) would: then a downed pilot crashes these three, which is the right outcome. Say so in C3's design when it is built | Fine; a note for C3 |
+| Loose-munition cook-off | Our cook-off (`src/PhobosFramework.Vehicles/Service/CookOff.cs`) is for ammunition stowed in a burning vehicle's cargo; theirs is the item on the map. A stowed item takes no damage, so it never wicks there | Fine: they meet at no point |
+| Low-tech and self-damage filters | Both are off under Combat Extended, which the owner plays (the Harrier's through `Prepare`, the helicopters' inside `LowTechArmour.Ignore`); our air-combat damage goes through `VehicleStatHandler.TakeDamage` (`src/PhobosFramework.Vehicles/Service/AirCombat.cs:209`), beneath both, so our interceptors are never filtered | Fine |
+| T9, aircraft stores (not built) | The Harrier's new `Patch_HarrierAirborneTurretButton` and `Patch_HarrierAirborneTurretTargets` change its turret button and targets in the air | **Read them before building T9** |
+| Research: `HarrierNoVVEResearchPlacement`, `NodeResearchNote` | Placement acts on `Prowler_JetAircraft`, defined only in the Harrier's `NoVVE` folder; the owner plays with Vanilla Vehicles Expanded, so the project does not exist in their game (`query-defs.py` finds none) and nothing moves. The note adds research names to the Harrier's upgrade descriptions; we add no research to those nodes, and our `Cost_HarrierVtol.xml` still finds the blueprint's `researchPrerequisites` (`Harrier_Jet.xml:419`) | Fine |
+| Their new Harmony patches | `query-patches.py who` on every target (`VtolFlightController` `ConsumeFuel`, `Tick`, `ResolveEmergencyLanding`; `Thing.TakeDamage`; the VTOL vehicle's `TakeDamage`; `VtolWorldFlightUtility.CanStartLocalFlight`; `Pawn_MindState.StartFleeingBecauseOfPawnAction`; parking spots; take-off points; `JobDriver_IdleWhileDespawned.GetReport`; `VehiclePawn.SpawnSetup`; `JobDriver.GetReport`; `CompGlower.SetGlowColorInternal`): none is a method we patch. The three mods each add the same prefix on fleeing and on the idle report, harmless and theirs. None fixes a fault in [our register](temporary-patches.md) or the fault-reads | Fine |
+
+The one real mismatch found is fuel, not a crash: the Harrier's plasteel armour costs 15 % more fuel, and our on-map fuel correction
+hands that back ([thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md#their-20-nov-2026-updates-the-harriers-armour-fuel-is-handed-back-on-a-map)).
+
 ## Who chose what
 
 - **Owner (16 Nov 2026):** the idea, the round, record only, all four areas, and the six answers above.
