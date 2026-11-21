@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using HarmonyLib;
 using RimWorld;
 using RimWorld.Planet;
@@ -44,5 +47,85 @@ public static class TowedLarderFood
         owner = from;
         __result = true;
         if (Seen.Wants("trailers.caravan-ate-from-tow", from)) Seen.Note("trailers.caravan-ate-from-tow", from, forPawn.LabelShort + ": " + best.LabelShort);
+    }
+}
+
+/// <summary>What a player caravan's towed vehicles carry, for the game's food figures (Framework 0.228.0).</summary>
+public static class TowedLarder
+{
+    /// <summary>The food in the cargo of everything this caravan tows; false when it tows none.</summary>
+    public static bool Food(Caravan caravan, List<Thing> into)
+    {
+        into.Clear();
+        if (caravan is not VehicleCaravan || caravan.Faction != Faction.OfPlayer) return false;
+        foreach (VehiclePawn towed in Hitches.InTow(caravan))
+        {
+            if (towed.inventory?.innerContainer is not { } cargo) continue;
+            for (int index = 0; index < cargo.Count; index++)
+            {
+                if (cargo[index].def.IsNutritionGivingIngestible) into.Add(cargo[index]);
+            }
+        }
+        return into.Count > 0;
+    }
+}
+
+/// <summary>
+/// A caravan's "days of food" counts the food it tows (Framework 0.228.0; docs/development/vehicle-trailers.md, "Food in tow"). Its people
+/// already eat from a towed trailer's cargo, but the figure on the caravan's card and its low-food warning still read only the caravan's own
+/// packs, so a caravan with a full trailer was told it was starving. The game's own sum is run again with the towed food added, by the same
+/// rules for who eats what; a caravan that tows no food keeps the game's figure untouched.
+/// </summary>
+[HarmonyPatch(typeof(DaysWorthOfFoodCalculator), nameof(DaysWorthOfFoodCalculator.ApproxDaysWorthOfFood), new[] { typeof(Caravan) })]
+public static class TowedLarderDays
+{
+    static readonly MethodInfo? Sum = AccessTools.Method(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood", new[]
+    {
+        typeof(List<Pawn>), typeof(List<ThingDefCount>), typeof(PlanetTile), typeof(IgnorePawnsInventoryMode), typeof(Faction),
+        typeof(WorldPath), typeof(float), typeof(int), typeof(bool),
+    });
+
+    static readonly List<Thing> Towed = new();
+    static readonly List<ThingDefCount> Extra = new();
+
+    public static void Postfix(Caravan caravan, ref float __result)
+    {
+        if (Sum == null || caravan == null || !TowedLarder.Food(caravan, Towed)) return;
+        Extra.Clear();
+        for (int index = 0; index < Towed.Count; index++) Extra.Add(new ThingDefCount(Towed[index].def, Towed[index].stackCount));
+        Towed.Clear();
+        // The game's own call for a caravan, with the towed food as its "extra food".
+        object? days = Sum.Invoke(null, new object?[]
+        {
+            caravan.PawnsListForReading, Extra, caravan.Tile, IgnorePawnsInventoryMode.DontIgnore, caravan.Faction, caravan.pather.curPath,
+            caravan.pather.nextTileCostLeft, caravan.TicksPerMove, caravan.pather.Moving && !caravan.pather.Paused,
+        });
+        Extra.Clear();
+        if (days is not float counted) return;
+        VehiclePawn? lead = ((VehicleCaravan)caravan).VehiclesListForReading.FirstOrDefault();
+        if (Seen.Wants("trailers.days-of-food-in-tow", lead)) Seen.Note("trailers.days-of-food-in-tow", lead, __result.ToString("0.0") + " to " + counted.ToString("0.0") + " days");
+        __result = counted;
+    }
+}
+
+/// <summary>
+/// And its "days until rot" (Framework 0.228.0): the figure beside the days of food looks at the towed food too, at the same outdoor
+/// temperatures along the way as the caravan's own. Food in a towed trailer's cargo is kept at no other temperature, so that is fair.
+/// </summary>
+[HarmonyPatch(typeof(DaysUntilRotCalculator), nameof(DaysUntilRotCalculator.ApproxDaysUntilRot), new[] { typeof(Caravan) })]
+public static class TowedLarderRot
+{
+    static readonly List<Thing> Towed = new();
+    static readonly List<Thing> All = new();
+
+    public static void Postfix(Caravan caravan, ref float __result)
+    {
+        if (caravan == null || !TowedLarder.Food(caravan, Towed)) return;
+        All.Clear();
+        All.AddRange(CaravanInventoryUtility.AllInventoryItems(caravan));
+        All.AddRange(Towed);
+        Towed.Clear();
+        __result = DaysUntilRotCalculator.ApproxDaysUntilRot(All, caravan.Tile, caravan.pather.curPath, caravan.pather.nextTileCostLeft, caravan.TicksPerMove);
+        All.Clear();
     }
 }

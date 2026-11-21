@@ -562,8 +562,14 @@ by the agent on 21 Nov 2026 and listed as open; the owner said proceed on 22 Nov
 - **How:** a postfix on the game's `CaravanInventoryUtility.TryGetBestFood`, which only acts when the packs gave nothing: it searches
   every towed vehicle's cargo (`Hitches.InTow`) with the game's own `CanEatForNutritionNow` and `GetFoodScore`, and names the trailer
   as the food's owner, so the game takes an eaten stack out of that cargo itself. **Risk: low** (agent's grade); no setting.
-- **Limits:** the caravan's days-of-food figure (Vehicle Framework's and the game's) counts the packs only. Drugs, medicine and
-  Dubs Bad Hygiene's water bottles in a trailer are not reached; the tanks' water is (`CaravanWater`).
+- **Limits:** drugs, medicine and Dubs Bad Hygiene's water bottles in a trailer are not reached; the tanks' water is (`CaravanWater`).
+- **The days of food count it too (Framework 0.228.0, 22 Nov 2026; row 346, not yet tested in game).** The first build left the
+  caravan's days-of-food figure, its days until rot and so its low-food warning reading the packs only: a loose end the owner asked to
+  have tidied. Postfixes on the game's `DaysWorthOfFoodCalculator.ApproxDaysWorthOfFood(Caravan)` and
+  `DaysUntilRotCalculator.ApproxDaysUntilRot(Caravan)` run the game's own sums again with the towed cargo's food added
+  (`TowedLarderDays`, `TowedLarderRot`); a caravan that tows no food keeps the game's figures untouched. The caravan keeps its figure
+  for 3,000 ticks, as the game does, so it follows the cargo within an hour or so. **Still a limit:** the window for forming a caravan
+  counts what is loaded into the vehicles themselves, never a trailer's cargo (Vehicle Framework's own sum, left alone).
 
 ## Upgrade trees as they stand
 

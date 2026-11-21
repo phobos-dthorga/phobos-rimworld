@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.228.0] - 2026-11-22 - Draft
+
+Loose ends of the camps, trailers and caravans, tidied
+
+### Fixed
+
+- **A caravan's days of food count the food it tows.** Its people already ate from a towed trailer's cargo, but the days of food on the caravan's card, the days until it rots and the low-food warning still read only the caravan's own packs, so a caravan with a full trailer was told it was starving. They now count the towed cargo too, by the game's own sums. The window for forming a caravan still counts only what is loaded into the vehicles themselves. Not yet tested in game: row 346 of the test pass.
+
 ## [0.227.0] - 2026-11-22 - Draft
 
 The Busbar's ground jammer
