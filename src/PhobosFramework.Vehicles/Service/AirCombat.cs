@@ -46,6 +46,8 @@ public static class AirCombat
     public static bool Works(VehiclePawn? vehicle, string quantity)
     {
         if (Systems(vehicle) is not { Usable: true } comp) return false;
+        // Inside a hostile jamming field, a radar and a warning receiver are blinded (Framework 0.225.0, JamFields).
+        if (JamFields.Jams(vehicle!, quantity)) return false;
         // Built first if nothing has looked yet (Framework 0.120.5, fault-read A6): another faction's systems are made on first look, so its
         // receiver read as broken, and its dodge was cut, until it was hit or the player selected it.
         _ = comp.States;

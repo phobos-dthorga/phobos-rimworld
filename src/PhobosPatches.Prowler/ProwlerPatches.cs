@@ -33,7 +33,7 @@ public class ProwlerPatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId, shared by every part; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.33.0";
+    public const string ModVersion = "0.34.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public const string RealisticHandlingFlag = "PhobosProwlerPatches.realisticHandling";
 
@@ -46,6 +46,7 @@ public class ProwlerPatchesMod : SettingsBookMod
         AddSettingsPages();
         HarmonyPatchApplier.ApplyEach(new Harmony(PackageId), typeof(ProwlerPatchesMod).Assembly, LogPrefix);
         LongEventHandler.ExecuteWhenFinished(ProwlerSalvo.Register);
+        LongEventHandler.ExecuteWhenFinished(ProwlerJamFields.Register);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 
@@ -55,6 +56,8 @@ public class ProwlerPatchesMod : SettingsBookMod
         report.On("the Prowler's fuller parts list and its parts bill, its engines turbines");
         if (ProwlerEvasionPatch.Found) report.On("its dodge follows its flight controls and warning receiver, with a chaff and flares button");
         else report.Off("its dodge following its flight controls", "its code has changed");
+        if (ProwlerJamFields.Found) report.On("its jamming fields blind other factions' vehicles' radar and warning receivers");
+        else report.Off("its jamming fields blinding other vehicles' radar", "its code has changed");
         if (ProwlerJamReachPatch.Found) report.On("the ICAP upgrades widen its jamming field");
         else report.Off("the ICAP upgrades widening its jamming field", "its code has changed");
         const string handling = "realistic handling (the Prowler's speeds by the real EA-6B's)";

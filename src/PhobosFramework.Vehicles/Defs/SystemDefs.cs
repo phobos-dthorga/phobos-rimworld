@@ -1136,6 +1136,10 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float caravanShowerTo = 1f;
     public float nightDriverFitRest = 0.3f;
     public float nightReliefRest = 0.6f;
+    /// <summary>Jamming fields (Framework 0.225.0; docs/development/ea6b-prowler.md, step 2): the capabilities a hostile jamming field blinds,
+    /// by the air-combat service's quantity names. A radar jammer floods radar frequencies, so a radar and a warning receiver; an infrared
+    /// night sight and an autopilot's gyros are left alone (agent's realism default, owner to revise).</summary>
+    public List<string> jammedQuantities = new();
     /// <summary>Claiming another faction's vehicle (owner, 11 Nov 2026): hours to get in and make it answer to us, more for each cell it covers,
     /// and the most it can take. All authored.</summary>
     public float claimBaseHours = 0.5f;

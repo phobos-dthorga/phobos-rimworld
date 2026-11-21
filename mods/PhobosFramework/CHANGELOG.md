@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.225.0] - 2026-11-22 - Draft
+
+Jamming fields blind other factions' radar
+
+### Added
+
+- **Jamming fields blind other factions' radar and warning receivers** (the owner's choice of 22 November 2026): inside a jamming field of a faction hostile to it, a vehicle's radar shows only noise and its warning receiver is swamped, so its aim by radar in rain and at night, its warning of attack and its dodge's warning go with them until it leaves. Night sights and autopilots are left alone, as a radar jammer would leave them; the list is a figure in the rules file. Any faction both ways: your jamming jet blinds raiders' aircraft as theirs blinds yours. The player is told once when a vehicle of theirs is jammed. The EA-6B Prowler's fields count (with D'thorga Patches); other jammers can register theirs. Not yet tested in game: row 343 of the test pass.
+
 ## [0.224.0] - 2026-11-22 - Draft
 
 A fitting can widen a vehicle's jamming

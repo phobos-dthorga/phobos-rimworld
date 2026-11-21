@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "343": {"parts": {
+      "a vehicle inside a hostile field has its radar or warning receiver jammed": [{"key": "vehicles.jammed", "variant": "radar"}, {"key": "vehicles.jammed", "variant": "warningReceiver"}]
+    }},
     "341": {"parts": {
       "a light goes dark in an empty room and lights again": [{"key": "framework.standby.idle", "variant": "Light"}, {"key": "framework.standby.woke", "variant": "Light"}],
       "a workbench, research bench or television on standby and back": [{"key": "framework.standby.idle", "variant": "Machine"}, {"key": "framework.standby.woke", "variant": "Machine"}],

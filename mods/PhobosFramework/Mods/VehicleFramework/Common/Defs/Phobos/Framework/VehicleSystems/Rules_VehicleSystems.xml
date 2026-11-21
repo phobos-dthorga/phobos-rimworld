@@ -229,6 +229,12 @@
     </towLoads>
     <nightDriverFitRest>0.3</nightDriverFitRest>
     <nightReliefRest>0.6</nightReliefRest>
+    <!-- What a hostile jamming field blinds (Framework 0.225.0): a radar jammer floods radar frequencies. Add nightSight or autopilot here to
+         have those go dark too, as a gameplay choice. -->
+    <jammedQuantities>
+      <li>radar</li>
+      <li>warningReceiver</li>
+    </jammedQuantities>
     <diagnoseWork>1500</diagnoseWork>
     <hydraulicWorkFloor>0.2</hydraulicWorkFloor>
     <fieldFixWork>600</fieldFixWork>

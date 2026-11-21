@@ -2,8 +2,8 @@
 
 **Status (22 Nov 2026):** step 1 built: D'thorga Vehicles 0.99.0 (engines, systems, ICAP upgrades, enemy fits), D'thorga Patches 0.33.0
 (parts list, parts bill, rearming, dodge, salvo button, the ICAP hook, realistic handling) and D'thorga Framework 0.224.0 (the jamming
-reach figure on fittings). Not yet tested in game: row 342 of the [test pass](in-game-test-pass.md). Steps 2 to 4 (our own ideas on its
-jamming) are designs below.
+reach figure on fittings). Step 2 built: Framework 0.225.0 and Patches 0.34.0 (jamming fields blind other factions' radar and warning
+receivers). Not yet tested in game: rows 342 and 343 of the [test pass](in-game-test-pass.md). Steps 3 and 4 are designs below.
 
 ## Read this first
 
@@ -50,7 +50,12 @@ its fittings; one captured keeps them.
 
 ## Our own ideas on its jamming (owner's choices, 22 Nov 2026), steps 2 to 4
 
-- **Step 2, fields jam our systems:** any faction's jamming field (the Prowler's, read through its own public `Jammer.TryGetJamCenter` and
+- **Step 2, fields jam our systems (built, Framework 0.225.0, Patches 0.34.0):** `JamFields` in the Framework holds every registered jammer's
+  fields (read at most once a second per map); `AirCombat.Works` answers "not working" inside a hostile field for the capabilities the rules
+  Def lists, **radar and warning receiver** (agent's realism default: a radar jammer floods radar frequencies; an infrared night sight and an
+  autopilot's gyros are untouched; the owner can add them in `Rules_VehicleSystems.xml`). Differs from the card's wording, which named the
+  night sight and autopilot too; said to the owner in the reply. Fields never jam their own faction, nor an ally. The design as first
+  written: any faction's jamming field (the Prowler's, read through its own public `Jammer.TryGetJamCenter` and
   `Jammer.EffectiveRadius`, and later ours) answers "not working" for the radar, night sight, autopilot, warning receiver and the aim
   assist of every vehicle of another faction inside it. All our aircraft ask one place (`AirCombat.Works`), so one check covers them.
 - **Step 3, a self-protection pod:** a fitting of ours for other aircraft that makes enemy automated turrets slower to lock on and less

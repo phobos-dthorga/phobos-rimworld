@@ -6,6 +6,14 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.34.0] - 2026-11-22 - Draft
+
+The Prowler's jamming blinds other factions' radar
+
+### Added
+
+- **The EA-6B Prowler's jamming fields blind other factions' radar and warning receivers** (with D'thorga Framework 0.225.0; the owner's choice of 22 November 2026): wherever the Prowler says it is jamming, with the radius it works out (its ICAP suite included), other factions' vehicles inside lose their radar and warning receiver as well as the turrets the Prowler already shuts down. Read through the Prowler's own public calls, never by changing it. Not yet tested in game: row 343 of the test pass.
+
 ## [0.33.0] - 2026-11-22 - Draft
 
 The EA-6B Prowler in the fold

@@ -34,5 +34,7 @@
   <PhobosAirCombat_MagazineInspect>Chaff and flares: {HELD} of {CAPACITY} cartridges loaded</PhobosAirCombat_MagazineInspect>
 
   <!-- A closed sky over a base whose alarm has gone off. -->
+  <!-- Inside a hostile jamming field (Framework 0.225.0). -->
+  <PhobosJam_Jammed>The {VEHICLE} is being jammed: its radar shows only noise and its warning receiver is swamped. Both come back once it is out of the jamming.</PhobosJam_Jammed>
   <PhobosAirCombat_SkyClosed>The sky here is closed: the defenders' air defence is on alert, and the {VEHICLE} would be shot down on take-off. It opens again once their alert ends.</PhobosAirCombat_SkyClosed>
 </LanguageData>
