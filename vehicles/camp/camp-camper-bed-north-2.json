@@ -1,0 +1,56 @@
+{
+  "file": "camp-camper-bed-north-2.png",
+  "sha256": "77d79e39bc09a1157bc88519c8ff6093a50bba30221ca841311487133cf651d2",
+  "date": "2026-11-22T03:07:40",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a piece of camping gear in a frontier colony. Images 1 and 2 are our approved camp pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The bed fills about 90 percent of the canvas, two units wide and two units long, centred, on a plain pure white background.\n\nA double mattress on a low hinged plywood floor, seen from directly above: a sand-coloured canvas mattress cover, two plain pillows side by side along the TOP edge, a folded olive-green blanket across the lower half, and a thin steel hinge line across the floor near the bottom edge.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles, food or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/camp-tents-kitchen.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 674,
+    "input_tokens_details": {
+      "image_tokens": 384,
+      "text_tokens": 290
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2430
+  },
+  "cost_usd": 0.0572,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 28.0,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+      "sha256": "cf4e2f0139dc2ba8ce83b28e21367c6bbac136eb6d211d729e89d519d611608f",
+      "role": "our approved camp bed seen from directly above (the swag): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTent_north.png",
+      "sha256": "9b3886896a9ed32ad192388e8227ab8d72fff6f85e7c5e46c7835d8b2bb2697b",
+      "role": "our approved camp piece seen from directly above (the roof tent): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
