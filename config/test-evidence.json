@@ -3,6 +3,16 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "332": {"parts": {
+      "a vehicle in the fireball is gone": [{"key": "vehicles.large-blast", "variant": "gone"}],
+      "a light vehicle in the blast zone is wrecked": [{"key": "vehicles.large-blast", "variant": "wrecked", "expect": {"severity": ">= 1"}}],
+      "a heavy or distant vehicle is battered": [{"key": "vehicles.large-blast", "variant": "battered", "expect": {"severity": "< 1"}}],
+      "a running engine takes the pulse": [{"key": "vehicles.large-blast", "variant": "pulsed"}]
+    }},
+    "333": {"parts": {
+      "the people aboard are thrown about and hurt": [{"key": "vehicles.large-blast-crew", "variant": "hurt"}],
+      "the people aboard can be killed": [{"key": "vehicles.large-blast-crew", "variant": "killed"}]
+    }},
     "331": ["patches.turret-queue-saved"],
     "322": {"parts": {
       "the kettle simmers on the move": ["trailers.caravan-simmer"],

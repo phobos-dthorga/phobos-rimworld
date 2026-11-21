@@ -39,10 +39,15 @@ internal static class RimatomicsTieIn
         }
     }
 
-    public static void Irradiate(Pawn pawn, float strength)
+    /// <summary>Rimatomics' dose for this pawn: true when it was given (Patches 0.32.0: the strike counts doses given, not calls made).
+    /// A vehicle is never dosed: Vehicle Framework refuses every condition on one, so it is not counted either.</summary>
+    public static bool Irradiate(Pawn pawn, float strength)
     {
         Look();
-        applyRads?.Invoke(pawn, strength);
+        // Flesh, or a mechanoid (Rimatomics has a radiation condition for robots); a vehicle is neither.
+        if (applyRads == null || pawn.Dead || strength <= 0f || pawn.RaceProps is not { } race || !(race.IsFlesh || race.IsMechanoid)) return false;
+        applyRads(pawn, strength);
+        return true;
     }
 
     /// <summary>Rimatomics' fallout on a map, unless it already has it: true if registered.</summary>

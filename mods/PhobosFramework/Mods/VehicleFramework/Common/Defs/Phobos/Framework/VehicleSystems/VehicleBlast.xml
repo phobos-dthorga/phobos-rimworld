@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    A large blast on a vehicle (Framework 0.218.0; owner, 22 Nov 2026; docs/development/nuclear-strike-effects.md, NK2, NK3, NK8, NK9):
+    used by D'thorga Patches' nuclear strike, and open to any other blast that asks the Framework's large-blast hook. The first loaded
+    instance wins; another mod may patch it in XML. Every figure is authored, a gameplay choice shaped by ratios in the record's sources:
+    vehicles are thrown and rolled by the blast wind rather than crushed, so weight decides (Glasstone and Dolan, 1977, 5.86-5.91; the
+    Operation Teapot tank tests, WT-1123); rubber and canvas catch at two to four times the heat that burns bare skin (Glasstone and Dolan,
+    Tables 7.35 and 7.40); a medium tank passes about a third of the dose at detonation, light armour most of it (Davidson, 1979).
+    Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleBlastRulesDef>
+    <defName>PhobosVehicleBlastRules</defName>
+    <!-- A 20-tonne vehicle is wrecked at the fireball's edge; one four times heavier stands a blast twice as strong. Lighter than half a
+         tonne counts as half a tonne. Below a severity of 0.02 nothing shows. -->
+    <referenceTonnes>20</referenceTonnes>
+    <lightestTonnes>0.5</lightestTonnes>
+    <least>0.02</least>
+    <!-- Battered: each outer part loses up to 0.8 of its health at severity 1, each inner part 0.2, each varying by half either way. -->
+    <outerShare>0.8</outerShare>
+    <innerShare>0.2</innerShare>
+    <spread>0.5</spread>
+    <!-- Heat: soft parts start to burn at 0.3 of the fireball edge's heat (about 125 cells out with the strike's own figures) and are
+         gone at the edge. -->
+    <softFrom>0.3</softFrom>
+    <softShare>1</softShare>
+    <softRoles>
+      <li>Wheels</li>
+      <li>Belt</li>
+      <li>HydraulicLines</li>
+      <li>Radiator</li>
+      <li>Wiring</li>
+    </softRoles>
+    <!-- The people aboard: 25 blunt harm each at severity 1, counting severity up to 2, in blows of at most 10. -->
+    <crewHarm>25</crewHarm>
+    <crewMostSeverity>2</crewMostSeverity>
+    <crewBlowMost>10</crewBlowMost>
+    <!-- The share of the dose that reaches them: all of it in an open vehicle; in a closed one 0.9 under 15 tonnes, 0.7 to 40, 0.35 above. -->
+    <hullOpen>1</hullOpen>
+    <hullLight>0.9</hullLight>
+    <hullMedium>0.7</hullMedium>
+    <hullHeavy>0.35</hullHeavy>
+    <mediumTonnes>15</mediumTonnes>
+    <heavyTonnes>40</heavyTonnes>
+  </Phobos.VehicleSystems.PhobosVehicleBlastRulesDef>
+</Defs>

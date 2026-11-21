@@ -275,6 +275,23 @@ same figure the larger is used, never the sum.
 [Pipes and conduits beneath our things](development/network-underlays.md) has the design, the owner's rules and every thing of ours
 that lays them.
 
+## Large blasts (Framework 0.218.0)
+
+A blast that removes buildings, such as a nuclear strike, should not hit a vehicle as if it were a body: one blow at one cell, which
+armour shrugs off. `Phobos.Framework.Environment.LargeBlasts` lets any blast ask first. Nothing here needs Vehicle Framework.
+
+- **Asking:** before you hit a thing, call `LargeBlasts.TakerFor(thing)`. Where it returns a taker, describe the blast at that thing
+  in a `LargeBlastHit` (its band, fireball, blast or thermal; `Wind` and `Heat` from 0 to 1, 1 at the fireball's edge; a pulse amount,
+  the launcher and the weapon) and call `taker.Take(thing, hit)`. Where it returns null, hit the thing as before.
+- **What comes back:** a `LargeBlastOutcome` saying whether the thing is gone, wrecked, battered or pulsed, who inside was killed
+  (treat their bodies as yours) and who is still inside with the share of the radiation dose the hull lets through (give the dose
+  yourself; the Framework has no radiation model of its own yet).
+- **Shelter:** `taker.Sheltered(thing, cell => yourRule(cell))` judges a thing over every cell it stands on.
+- **Vehicles** register a taker by themselves when D'thorga Framework's vehicle part loads; its figures are in
+  `PhobosVehicleBlastRulesDef` (`PhobosVehicleBlastRules`), all authored and patchable in XML. D'thorga Patches' strike is the first
+  user. The design and its sources: [nuclear strikes, vehicles and people](development/nuclear-strike-effects.md).
+- **A taker of your own** implements `ILargeBlastTaker` and calls `LargeBlasts.Register` once at startup.
+
 ## Pictures, fades and progress bars
 
 | Helper | What it does |

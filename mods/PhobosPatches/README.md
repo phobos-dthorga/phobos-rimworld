@@ -9,7 +9,7 @@ casting at The Dead Man's Switch's rotary forger.
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.31.1, built 22 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.32.0, built 22 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -184,6 +184,7 @@ strike leaves behind, from the fireball onwards.
 | Radiation sickness and flash blindness for survivors (with Rimatomics) | For those who live through the strike in the open | On |
 | Ground pollution near the centre (with Biotech) | The scoured ground at the centre, and patches around it | On |
 | Electromagnetic pulse | Powered buildings and mechanoids in the open stop for a few hours | On |
+| Vehicles in the strike (with D'thorga Framework's vehicles) | Vehicles in the fireball are gone with everyone aboard; further out the blast wrecks or batters them by their weight, heat burns tyres and wiring, a running engine takes the pulse, and the people aboard are thrown about and take the dose the hull lets through. Off: a vehicle takes one blow to one spot, which armour usually shrugs off | On |
 | Close-in weapon systems shoot down Combat Extended shells (only with Combat Extended) | Off: they leave CE's mortar and artillery shells alone | On |
 
 ### Harrier jump jet

@@ -30,6 +30,8 @@ public class MissilePatchesSettings : ModSettings
     public bool radiation = true;
     public bool pollution = true;
     public bool emp = true;
+    /// <summary>Vehicles take their own route through the strike (Patches 0.32.0; owner, 22 Nov 2026: graded with the strike, on).</summary>
+    public bool vehiclesInStrike = true;
     public bool quietReveals = true;
     /// <summary>IRBM's CIWS also intercepts Combat Extended's shells (Patches 0.19.1, AD14; owner, 13 Nov 2026: patch it).</summary>
     public bool ciwsShells = true;
@@ -57,6 +59,7 @@ public class MissilePatchesSettings : ModSettings
         Scribe_Values.Look(ref radiation, "PhobosMissilePatches_Radiation", true);
         Scribe_Values.Look(ref pollution, "PhobosMissilePatches_Pollution", true);
         Scribe_Values.Look(ref emp, "PhobosMissilePatches_Emp", true);
+        Scribe_Values.Look(ref vehiclesInStrike, "PhobosMissilePatches_VehiclesInStrike", true);
         Scribe_Values.Look(ref quietReveals, "PhobosMissilePatches_QuietReveals", true);
         Scribe_Values.Look(ref ciwsShells, "PhobosMissilePatches_CiwsShells", true);
     }
@@ -73,7 +76,7 @@ public class MissilePatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.31.1";
+    public const string ModVersion = "0.32.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "IRBM");
 
@@ -132,6 +135,8 @@ public class MissilePatchesMod : SettingsBookMod
             report.On("D'thorga's blast model for marked warheads, " + (Settings.fullStrikeEverywhere ? "full strike on every map in reach" : "heat and fallout only beyond the target"));
             report.On("fires " + Settings.fires + ", fallout " + Settings.fallout + (RimatomicsTieIn.Active ? " (Rimatomics active)" : " (Rimatomics not active)"));
             if (!Settings.emp) report.Off("electromagnetic pulse", "setting");
+            if (Settings.vehiclesInStrike) report.On("vehicles and the people aboard take their own route through the strike (with D'thorga Framework's vehicles)");
+            else report.Off("vehicles' own route through the strike", "setting");
             if (!Settings.pollution) report.Off("ground pollution", "setting");
         }
         else report.Off("D'thorga's blast model", "setting");
@@ -227,6 +232,9 @@ public class MissilePatchesMod : SettingsBookMod
             if (ModsConfig.BiotechActive)
                 list.Check("PhobosMissilePatches_SettingPollution".Translate(), ref s.pollution, d.pollution, "PhobosMissilePatches_SettingPollutionDesc".Translate());
             list.Check("PhobosMissilePatches_SettingEmp".Translate(), ref s.emp, d.emp, "PhobosMissilePatches_SettingEmpDesc".Translate());
+            list.Check("PhobosMissilePatches_SettingVehicles".Translate(), ref s.vehiclesInStrike, d.vehiclesInStrike,
+                "PhobosMissilePatches_SettingVehiclesDesc".Translate());
+            list.Warning(s.vehiclesInStrike ? null : "PhobosMissilePatches_WarnVehiclesOff".Translate().ToString());
         }
         if (ModsConfig.IsActive(Patches.CiwsShells.CombatExtended))
         {

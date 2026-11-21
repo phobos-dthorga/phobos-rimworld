@@ -1,7 +1,8 @@
 # Nuclear strikes, vehicles and people: why vehicles come through, and what a strike should do (22 Nov 2026)
 
-**Status (22 Nov 2026):** a research record. It changes no code, Def or setting, and every numbered idea in it (NK1 to NK27) is
-unbuilt. The fault it explains was seen in the owner's game on 22 Nov 2026; nothing here has been tested.
+**Status (22 Nov 2026):** partly built. NK1 to NK6, NK8 and NK9 (as the existing dose cut by the hull) are built in D'thorga Patches
+0.32.0 and D'thorga Framework 0.218.0, at the owner's word; [as built](#as-built-22-nov-2026). Every other row is unbuilt; shadow and
+the graded dose wait for a radiation model of our own. Not yet tested in game: rows 332 and 333 of the test pass.
 
 The owner, 22 Nov 2026: "vehicles, and I think it's all of the ones under our purview, aren't affected by the nuclear weapons
 available to me in my Rimworld game. But this might be hiding a bigger problem." And: "it might be good to introduce some other,
@@ -19,6 +20,46 @@ source at commit d847807b (its vehicle armour function matches the installed bui
 `scripts/query-patches.py` and the public source clones. The agent writing this record re-read the lines the main findings rest on
 (listed under [Sources](#sources)) and read the log and saves itself; every other place is as the surveys reported it. **Re-read a
 line before building on it.**
+
+## As built (22 Nov 2026)
+
+The owner's answers of 22 Nov 2026 ([below](#the-owners-answers-cards-22-nov-2026)) chose NK1 to NK6, NK8 and NK9 as one piece,
+graded with the strike and on. Built in D'thorga Patches 0.32.0 and D'thorga Framework 0.218.0. What differs from, or settles, the
+design below:
+
+- **A hook in the Framework's core, not a reference.** D'thorga Patches' strike asks `Phobos.Framework.Environment.LargeBlasts` before
+  it hits a pawn; D'thorga Framework's vehicle part answers for every vehicle (`Service/VehicleBlasts.cs`). The strike's assembly still
+  needs nothing of Vehicle Framework, and any other blast can ask the same hook later (NK22).
+- **The blast's strength, as the vehicle sees it** [A]: wind is the strike's own falloff as a share of the fireball edge's, times
+  the blast factor people take (1 in the blast zone, 0.3 beyond); heat is the falloff share alone.
+- **Weight decides** (NK2) [A]: severity is the wind times the square root of 20 tonnes over the vehicle's kerb mass. At 1 or more
+  the vehicle is wrecked (Vehicle Framework's kill, so our hulls rule leaves its hull); from 0.02 it is battered, each outer part
+  losing up to 0.8 of its health at severity 1 and each inner part 0.2, each varying by half either way; below, nothing. Checked
+  against the owner's strike: the bus at 41 cells (about 0.78 wind) is wrecked; a 60-tonne tank there loses about a third of its
+  outer health. Our empty mounting points are left alone.
+- **Heat on soft parts** (NK3) [A]: from 0.3 of the edge's heat (about 125 cells out with the strike's figures) to the edge, the
+  parts our loadouts give the roles Wheels, Belt, HydraulicLines, Radiator and Wiring lose up to all of their health. A vehicle
+  without our loadout has no roles, so only its battering applies.
+- **Parts lose health directly**, then the vehicle hears it took damage and its health changed, as after Combat Extended's own part
+  step; it stops if it can no longer move and is destroyed under 1 %. **No reactor is called**: a blast is not a round, and shock
+  spall would otherwise throw at it.
+- **The pulse** (NK4) only on a running engine (our systems' engine state, else Vehicle Framework's ignition), as the game's EMP
+  damage, so the vehicle's own EMP rating decides the stall. It counts in the strike's "stunned".
+- **The people aboard** (NK8) [A]: 25 blunt harm each at severity 1, counting severity up to 2, in blows of at most 10, the same
+  kind of blow as our falls from aircraft. Hurt first, then the vehicle is wrecked or battered. In the fireball they are killed and
+  the vehicle vanishes with them.
+- **Their dose** (NK9, the owner's choice 3a): the dose people in the open take, times the hull's share: 1 open, 0.9 closed under
+  15 tonnes, 0.7 to 40, 0.35 above [A, after Davidson's tank figures]. Taken before the vehicle is wrecked, since the dose arrives
+  first. Only with Dubs Rimatomics, as for people on foot.
+- **The log line** (NK6) counts vehicles gone, wrecked, battered, untouched and pulsed, and the people aboard killed, hurt and dosed.
+  "Irradiated" now counts doses Rimatomics took, never a vehicle.
+- **Shelter** (NK5): a vehicle is sheltered only when every cell of Vehicle Framework's own footprint is.
+- **The setting:** "Vehicles in the strike", in D'thorga Patches' after-effects page, on by default.
+- **Left as it was:** the fast sweep for IRBM's other warheads (NK7, held), and the vehicle systems' "show figures only" mode, under
+  which vehicles are struck as before.
+- **Still to read** (from the list below): how Combat Extended's armour for people treats the crew's blunt blows, which carry no
+  penetration, as our falls from aircraft do; whether people killed aboard in the fireball are set down by Vehicle Framework before
+  the vehicle vanishes.
 
 ## Read this first
 

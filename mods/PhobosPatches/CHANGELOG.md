@@ -6,6 +6,27 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.32.0] - 2026-11-22 - Draft
+
+Vehicles and the people aboard them in a nuclear strike
+
+### Added
+
+- **Vehicles take their own route through D'thorga's strategic strike** (the owner's report and choices of 22 November 2026: vehicles came through a strike untouched; a bus 41 cells from ground zero kept every part). The strike treated a vehicle as a body: one blow to a single spot, which armour shrugs off when the blow carries no penetration, as the strike's blast did. Now, with D'thorga Framework's vehicles (0.218.0): in the fireball a vehicle is gone with everyone aboard; in the blast zone and beyond the blast throws and wrecks vehicles by their weight and distance, so a car or a bus is scrap where a tank is only battered; heat burns tyres, belts, hoses and wiring; a running engine takes the pulse. Any faction's vehicle. A new setting, **Vehicles in the strike**, on by default. Not yet tested in game: row 332 of the test pass.
+- **The people aboard share their vehicle's fate.** They are thrown about inside and bruised as their vehicle is hit, and killed in the fireball. With Dubs Rimatomics they take the radiation dose people in the open take, cut by what the hull lets through: all of it in an open vehicle, most of it in a car, about a third in a tank (the owner's choice until a radiation model of our own replaces it). Not yet tested in game: row 333 of the test pass.
+- **A vehicle counts as sheltered under rock only when all of it is**, not by the one cell it stands on.
+
+### Changed
+
+- **The strike's log line counts vehicles**: gone, wrecked, battered, untouched and pulsed, and the people aboard killed, hurt and dosed. **"Irradiated" now counts doses given**, not attempts: before, it counted a vehicle, which can take no dose.
+
+### Compatibility and limits
+
+- **Needs D'thorga Framework 0.218.0 for the vehicle route**; with an older Framework, or the setting off, vehicles are struck as before.
+- **Only D'thorga's own blast model** (the extinction-class warhead). IRBM's other warheads, Dubs Rimatomics' own nukes and The Dead Man's Switch's still treat vehicles their own way.
+- **Shadow and the graded dose for people on foot wait for a radiation model of our own** (the owner's choice), with settings for how harsh it is.
+- The figures are authored, shaped by the real tests and sources in docs/development/nuclear-strike-effects.md.
+
 ## [0.31.1] - 2026-11-22 - Draft
 
 A vehicle saved mid-burst no longer vanishes with its crew

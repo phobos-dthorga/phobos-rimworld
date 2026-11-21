@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using IRBM;
 using Phobos.Framework;
+using Phobos.Framework.Environment;
 using Phobos.Framework.Work;
 using Phobos.MissilePatches.Rules;
 using RimWorld;
@@ -40,6 +41,9 @@ public sealed class StrikeWork : FrameWork
     bool radiation;
     bool emp;
     bool pollution;
+    /// <summary>Vehicles take their own route through the strike (Patches 0.32.0; nuclear-strike-effects.md, NK1 to NK9), where a mod has
+    /// registered one with the Framework's large-blast hook and the setting is on.</summary>
+    bool vehicleRoute;
     ThingDef? ash;
     HediffDef? flashBlindness;
 
@@ -84,6 +88,15 @@ public sealed class StrikeWork : FrameWork
     public int Scoured { get; private set; }
     public int Polluted { get; private set; }
     public int RoofsStripped { get; private set; }
+    public int VehiclesGone { get; private set; }
+    public int VehiclesWrecked { get; private set; }
+    public int VehiclesBattered { get; private set; }
+    public int VehiclesUntouched { get; private set; }
+    public int VehiclesPulsed { get; private set; }
+    public int CrewKilled { get; private set; }
+    public int CrewHurt { get; private set; }
+    public int CrewDosed { get; private set; }
+    public int VehiclesStruck => VehiclesGone + VehiclesWrecked + VehiclesBattered + VehiclesUntouched;
     public int Errors { get; private set; }
     public string? FirstError { get; private set; }
     public int Next => nextThing + nextCell;
@@ -120,6 +133,7 @@ public sealed class StrikeWork : FrameWork
         flashBlindness = rimatomics ? RimatomicsTieIn.FlashBlindness : null;
         emp = settings.emp && zones.emp;
         pollution = settings.pollution && zones.pollution && ModsConfig.BiotechActive;
+        vehicleRoute = settings.vehiclesInStrike && LargeBlasts.Any;
         ash = OptionalMods.ThingDefNamed("Filth_Ash");
         // Before anything is harmed: the town's garrison, for an ally's assault that follows (RimPacts sizes it to who is standing).
         if (Full) StrikeMemory.RecordBeforeStrike(Map);
@@ -137,6 +151,14 @@ public sealed class StrikeWork : FrameWork
         if (zone == StrikeZone.Fireball) return false;
         RoofDef? roof = Map.roofGrid.RoofAt(cell);
         return ShelterRule.Sheltered(shelter, roof != null, roof?.isNatural ?? false, roof?.isThickRoof ?? false);
+    }
+
+    /// <summary>A thing's shelter is its own cell's, except where a large-blast taker judges it whole: a vehicle is sheltered only when
+    /// every cell it stands on is (NK5), so a long truck half under an overhang is not.</summary>
+    bool IsShelteredThing(Thing thing, StrikeZone zone)
+    {
+        if (vehicleRoute && thing is Pawn && LargeBlasts.TakerFor(thing) is { } taker) return taker.Sheltered(thing, cell => IsSheltered(cell, zone));
+        return IsSheltered(thing.Position, zone);
     }
 
     /// <summary>Built roofs everywhere, and every roof within the fireball, mountain or not: one pass before anything falls.</summary>
@@ -165,7 +187,7 @@ public sealed class StrikeWork : FrameWork
             if (!thing.Spawned || (category != ThingCategory.Pawn && category != ThingCategory.Building && category != ThingCategory.Item
                 && category != ThingCategory.Plant)) continue;
             float distance = DistanceTo(thing.Position);
-            if (IsSheltered(thing.Position, ZoneAt(distance)))
+            if (IsShelteredThing(thing, ZoneAt(distance)))
             {
                 Sheltered++;
                 continue;
@@ -248,9 +270,56 @@ public sealed class StrikeWork : FrameWork
             return;
         }
         StrikeZone zone = ZoneAt(distance);
-        if (thing is Pawn pawn) HitPawn(pawn, distance, zone);
+        if (thing is Pawn pawn)
+        {
+            if (vehicleRoute && LargeBlasts.TakerFor(pawn) is { } taker) HitVehicle(taker, pawn, distance, zone);
+            else HitPawn(pawn, distance, zone);
+        }
         else if (zone == StrikeZone.Thermal) HeatThing(thing, distance);
         else Vaporise(thing, zone);
+    }
+
+    /// <summary>
+    /// A vehicle, through its own route (Patches 0.32.0; nuclear-strike-effects.md, NK1 to NK9; owner, 22 Nov 2026): the blast described as
+    /// strengths from 0 to 1, 1 at the fireball's edge, by the same falloff and factors people take; the vehicle's taker does the rest. Those
+    /// killed aboard are treated as the strike treats any death; those left aboard take the radiation dose people in the open take, cut by
+    /// the share the hull lets through (the owner's choice until a radiation model of our own replaces it).
+    /// </summary>
+    void HitVehicle(ILargeBlastTaker taker, Pawn vehicle, float distance, StrikeZone zone)
+    {
+        float strength = StrikeRule.Strength(distance, zones.fireballRadius, zones.reach);
+        float factor = zone == StrikeZone.Blast ? rules.pawnBlastFactor : rules.pawnThermalBlastFactor;
+        var hit = new LargeBlastHit
+        {
+            Band = zone switch { StrikeZone.Fireball => LargeBlastBand.Fireball, StrikeZone.Blast => LargeBlastBand.Blast, _ => LargeBlastBand.Thermal },
+            Wind = strength * factor,
+            Heat = strength,
+            PulseAmount = emp ? rules.empAmount : 0f,
+            Launcher = Launcher,
+            Weapon = IRBM_DefOf.IRBM_MissileWeapon,
+        };
+        LargeBlastOutcome outcome = taker.Take(vehicle, hit);
+        if (outcome.Gone) VehiclesGone++;
+        else if (outcome.Wrecked) VehiclesWrecked++;
+        else if (outcome.Battered) VehiclesBattered++;
+        else VehiclesUntouched++;
+        if (outcome.Pulsed)
+        {
+            VehiclesPulsed++;
+            Stunned++;
+        }
+        CrewHurt += outcome.Hurt;
+        bool vaporise = corpses == CorpseMode.Vaporised && zone != StrikeZone.Thermal;
+        foreach (Pawn dead in outcome.Killed)
+        {
+            CrewKilled++;
+            AfterDeath(dead, vaporise);
+        }
+        if (!radiation || zone == StrikeZone.Fireball) return;
+        foreach ((Pawn pawn, float share) in outcome.Inside)
+        {
+            if (!pawn.Dead && RimatomicsTieIn.Irradiate(pawn, rules.radiationStrength * strength * share)) CrewDosed++;
+        }
     }
 
     void Vaporise(Thing thing, StrikeZone zone)
@@ -330,11 +399,8 @@ public sealed class StrikeWork : FrameWork
         }
         float strength = StrikeRule.Strength(distance, zones.fireballRadius, zones.reach);
         Blind(pawn, strength);
-        if (radiation)
-        {
-            RimatomicsTieIn.Irradiate(pawn, rules.radiationStrength * strength);
-            Irradiated++;
-        }
+        // Counted only when Rimatomics took the dose (Patches 0.32.0, NK6): the count once meant calls made, a vehicle's included.
+        if (radiation && RimatomicsTieIn.Irradiate(pawn, rules.radiationStrength * strength)) Irradiated++;
         Pulse(pawn);
     }
 
@@ -426,6 +492,9 @@ public sealed class StrikeWork : FrameWork
             + ", blinded " + Blinded + ", irradiated " + Irradiated + ", stunned " + Stunned + ", plants wilted " + Wilted
             + ", sheltered " + Sheltered + " (" + shelter + "), already gone " + Gone + ", roofs stripped " + RoofsStripped
             + ", ground scoured " + Scoured + ", cells polluted " + Polluted + ", fires " + Fires
+            + (VehiclesStruck > 0 ? "; vehicles: gone " + VehiclesGone + ", wrecked " + VehiclesWrecked + ", battered " + VehiclesBattered
+                + ", untouched " + VehiclesUntouched + ", pulsed " + VehiclesPulsed + "; people aboard: killed " + CrewKilled + ", hurt " + CrewHurt
+                + ", dosed " + CrewDosed : "")
             + (Errors > 0 ? ", " + Errors + " error" + (Errors == 1 ? "" : "s") + " swallowed; the first: " + FirstError : "") + ".";
         if (Errors > 0) MissilePatchesMod.Logger.Warn(line); else MissilePatchesMod.Logger.Info(line);
         if (longMessageShown)
