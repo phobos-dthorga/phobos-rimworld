@@ -26,6 +26,11 @@ public class PhobosCaravanCookingExtension : DefModExtension
     public float onTheMoveShare = 0.5f;
     /// <summary>How long a meal halt holds a caravan that drives through the night, in ticks (authored: an hour).</summary>
     public int mealHaltTicks = GenDate.TicksPerHour;
+    /// <summary>
+    /// The water a meal takes from the caravan's tanks, in litres (authored: the kettle's 10 L for a batch of ten). Asked only where
+    /// something gives water a meaning (CaravanWater has a source: Dubs Bad Hygiene).
+    /// </summary>
+    public float waterPerMeal = 1f;
 }
 
 /// <summary>
@@ -194,11 +199,22 @@ public class PhobosCaravanCooking : WorldComponent
 
         // On the move the kettle alone works, for a share of each cook's meals; at camp or a halt, the whole kitchen.
         int perCook = CaravanCookRule.PerCook(rules.mealsPerCook, simmer ? rules.onTheMoveShare : 1.0);
-        int meals = CaravanCookRule.Meals(cooks.Count, perCook, nutrition, perMeal, fuel, rules.fuelPerMeal);
+        // The kettle's water, where water means anything (Framework 0.216.0): on a map each batch of ten takes 10 L, so on the road each meal takes one.
+        float waterPerMeal = CaravanWater.HasSource ? rules.waterPerMeal : 0f;
+        float water = waterPerMeal > 0f ? CaravanWater.Litres(caravan) : 0f;
+        int meals = CaravanCookRule.Meals(cooks.Count, perCook, nutrition, perMeal, fuel, rules.fuelPerMeal, water, waterPerMeal);
         if (meals <= 0)
         {
-            Tell((nutrition < perMeal ? "PhobosCaravanCooking_NoFood" : "PhobosCaravanCooking_NoFuel").Translate(caravanName).Resolve(), caravan, MessageTypeDefOf.NeutralEvent);
+            string why = nutrition < perMeal ? "PhobosCaravanCooking_NoFood".Translate(caravanName).Resolve()
+                : waterPerMeal > 0f && water < waterPerMeal ? "PhobosCaravanCooking_NoWater".Translate(caravanName).Resolve()
+                : "PhobosCaravanCooking_NoFuel".Translate(caravanName).Resolve();
+            Tell(why, caravan, MessageTypeDefOf.NeutralEvent);
             return 0;
+        }
+        if (waterPerMeal > 0f)
+        {
+            float drawn = CaravanWater.Take(caravan, meals * waterPerMeal, kitchenFirst: true);
+            if (Seen.Wants("trailers.caravan-kettle-water", kitchen)) Seen.Note("trailers.caravan-kettle-water", kitchen, drawn.ToString("0.#") + " L");
         }
 
         TakeNutrition(raw, meals * perMeal);

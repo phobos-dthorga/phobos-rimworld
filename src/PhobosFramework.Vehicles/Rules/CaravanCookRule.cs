@@ -37,15 +37,16 @@ public static class CaravanCookRule
         Math.Max(0, (int)Math.Floor(mealsPerCook * Math.Clamp(share, 0.0, 1.0) + 1e-6));
 
     /// <summary>
-    /// The meals made: the least of what the cooks can make, what the raw food gives and what the fuel allows. Fuel is not counted where a meal
-    /// burns none.
+    /// The meals made: the least of what the cooks can make, what the raw food gives, what the fuel allows and what the water allows. Fuel
+    /// or water is not counted where a meal takes none (a kitchen asks for water only where something gives water a meaning).
     /// </summary>
-    public static int Meals(int cooks, int perCook, double nutrition, double nutritionPerMeal, double fuel, double fuelPerMeal)
+    public static int Meals(int cooks, int perCook, double nutrition, double nutritionPerMeal, double fuel, double fuelPerMeal, double water = 0, double waterPerMeal = 0)
     {
         if (cooks <= 0 || perCook <= 0 || nutritionPerMeal <= 0) return 0;
         int byCooks = cooks * perCook;
         int byFood = (int)Math.Floor(nutrition / nutritionPerMeal + 0.0001);
         int byFuel = fuelPerMeal > 0 ? (int)Math.Floor(fuel / fuelPerMeal + 1e-6) : int.MaxValue;
-        return Math.Max(0, Math.Min(byCooks, Math.Min(byFood, byFuel)));
+        int byWater = waterPerMeal > 0 ? (int)Math.Floor(water / waterPerMeal + 1e-6) : int.MaxValue;
+        return Math.Max(0, Math.Min(Math.Min(byCooks, byFood), Math.Min(byFuel, byWater)));
     }
 }

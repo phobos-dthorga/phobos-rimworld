@@ -28,6 +28,8 @@
   <PhobosCaravanCooking_NoCook>{CARAVAN} has a field kitchen, but nobody fit to cook tonight.</PhobosCaravanCooking_NoCook>
   <PhobosCaravanCooking_NoFood>{CARAVAN} has a field kitchen, but no raw food to cook tonight.</PhobosCaravanCooking_NoFood>
   <PhobosCaravanCooking_NoFuel>{CARAVAN} has a field kitchen, but nothing to burn: carry chemfuel or wood, or fill its burners before you leave.</PhobosCaravanCooking_NoFuel>
+  <PhobosCaravanCooking_NoWater>{CARAVAN} has a field kitchen, but no water for its kettle: fill the kitchen's tank, or bring a water bowser.</PhobosCaravanCooking_NoWater>
+  <PhobosCaravanWater_Empty>{CARAVAN}'s water tanks are empty: its people drink from their bottles and whatever the land offers.</PhobosCaravanWater_Empty>
   <PhobosCaravanCooking_Simmered>{CARAVAN}'s kettle simmered {COUNT} {MEAL}s on the move tonight.</PhobosCaravanCooking_Simmered>
   <PhobosCaravanCooking_Halted>{CARAVAN} halts for a meal: its cooks made {COUNT} {MEAL}s at the field kitchen. It drives on in {TIME}.</PhobosCaravanCooking_Halted>
   <PhobosCaravanCooking_NoRider>{CARAVAN}'s kettle stayed cold tonight: everyone fit to cook is driving or crewing a vehicle. Carry a passenger who cooks, or choose meal halts.</PhobosCaravanCooking_NoRider>

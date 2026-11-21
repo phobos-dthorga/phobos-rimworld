@@ -7,6 +7,12 @@
       "the kettle simmers on the move": ["trailers.caravan-simmer"],
       "a meal halt cooks and holds the caravan": ["trailers.caravan-meal-halt"]
     }},
+    "325": {"parts": {
+      "a thirsty member drinks from the tanks": ["trailers.caravan-drink"],
+      "a member washes from a basin's worth": [{"key": "trailers.caravan-wash", "variant": "basin"}],
+      "a member showers with the shower trailer along": [{"key": "trailers.caravan-wash", "variant": "shower"}],
+      "the kettle's water comes off the tanks": ["trailers.caravan-kettle-water"]
+    }},
     "324": {"parts": {
       "food packed in a trailer ages": ["trailers.held-goods-age"],
       "the cold box stays cold in tow": ["trailers.cold-box-in-tow"]

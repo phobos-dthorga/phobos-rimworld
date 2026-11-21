@@ -38,6 +38,12 @@ public class CaravanCookRuleTests
     public void TheFuelSetsTheMostMeals() => Assert.Equal(6, CaravanCookRule.Meals(2, 10, 100, 0.5, 3, 0.5));
 
     [Fact]
+    public void TheWaterSetsTheMostMeals() => Assert.Equal(4, CaravanCookRule.Meals(2, 10, 100, 0.5, 100, 0.5, 4.5, 1));
+
+    [Fact]
+    public void AKitchenThatAsksForNoWaterNeedsNone() => Assert.Equal(20, CaravanCookRule.Meals(2, 10, 100, 0.5, 100, 0.5, 0, 0));
+
+    [Fact]
     public void AMealThatBurnsNothingNeedsNoFuel() => Assert.Equal(20, CaravanCookRule.Meals(2, 10, 100, 0.5, 0, 0));
 
     [Theory]

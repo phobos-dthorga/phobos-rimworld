@@ -17,8 +17,11 @@ Camps, berths and working trailers meet
 
 - **A field kitchen's cold box stays cold in tow** (the owner's choice of 22 November 2026). Packed for the road, the cold box runs through the trailer's lead from the vehicle that tows it: that vehicle's Systems tab gains a trailer cold box line with its own switch (on by default), drawing the box's 100 watts, about 8 amps on a 12-volt vehicle and 4 on a 24-volt one, only while the box holds food. While it runs the food stays at 4 degrees C; switched off, shed by a failing alternator, on a flat battery or unhitched, it is only a box. The line borrows our switch icon until its own is made. For modders: towLoads in the vehicle rules Def, the condition When_TowedColdBox and the input Input_TowedColdBoxAmps. Not yet tested in game: row 324 of the test pass.
 
+- **Water in tow is used on the road** (with Dubs Bad Hygiene, not in its lite mode; the owner's choice of 22 November 2026). A towed water bowser, the shower trailer and a field kitchen's own tank gave a caravan nothing: Dubs gives a caravan water only from a packed water butt, bottles, rivers and rain. Now a thirsty member drinks from the caravan's tanks first, 1.5 litres a drink, with Dubs' own dirty-water check at the quality the tank remembers. While the caravan stands still, anyone below 0.3 hygiene washes: 5 litres from a basin's worth, or a 20 litre shower with the shower trailer along. Any tank holding water counts, on a vehicle driven or in tow. A message says when the tanks run empty. Not yet tested in game: row 325 of the test pass.
+
 ### Changed
 
+- **With Dubs Bad Hygiene, a caravan's field kitchen now needs water: 1 litre a meal**, as its kettle takes 10 litres a batch on a map. It comes from the kitchen's own tank first, then any other tank the caravan carries. **With no water aboard the caravan's cooks make nothing**, and a message says so: fill the Billy's tank or bring a bowser before a trip.
 - **The setting Field kitchens cook in a resting caravan is now called Field kitchens cook in a caravan**, since it also covers a caravan that drives through the night. Its saved value and its default (on) are unchanged.
 
 ### Fixed

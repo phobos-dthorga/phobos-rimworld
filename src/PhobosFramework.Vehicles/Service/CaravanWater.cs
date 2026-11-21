@@ -1,0 +1,31 @@
+using RimWorld.Planet;
+
+namespace Phobos.VehicleSystems;
+
+/// <summary>
+/// The water a caravan carries in tanks (Framework 0.216.0; docs/development/vehicle-trailers.md, "Water on the road"): a bowser or a shower
+/// trailer in tow, a field kitchen's own tank, a tanker in the line. Water only means something with a mod that gives it meaning, so the
+/// source is registered by that mod's tie-in (Dubs Bad Hygiene's); without one nothing here holds or takes any, and nothing asks for water.
+/// </summary>
+public static class CaravanWater
+{
+    /// <summary>What a tie-in provides: how much water a caravan's tanks hold, and taking some.</summary>
+    public interface ISource
+    {
+        float Litres(Caravan caravan);
+
+        /// <summary>Takes up to this much, from the kitchen's own tank first or last. Returns what came.</summary>
+        float Take(Caravan caravan, float litres, bool kitchenFirst);
+    }
+
+    static ISource? source;
+
+    /// <summary>Whether anything gives water a meaning: without a source, a field kitchen's cooks ask for none.</summary>
+    public static bool HasSource => source != null;
+
+    public static void Register(ISource waterSource) => source = waterSource;
+
+    public static float Litres(Caravan caravan) => source?.Litres(caravan) ?? 0f;
+
+    public static float Take(Caravan caravan, float litres, bool kitchenFirst) => litres > 0f ? source?.Take(caravan, litres, kitchenFirst) ?? 0f : 0f;
+}

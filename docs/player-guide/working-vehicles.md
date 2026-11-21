@@ -354,6 +354,13 @@ and wood in the packs. **The cooks also reach whatever the caravan tows** (not y
 Billy itself, into its packed cold box, or into another trailer on the hitch. Raw food goes nearly twice as far that way. Turn it off with **Field kitchens cook in a caravan** in
 D'thorga Framework's settings.
 
+**Water on the road** (with Dubs Bad Hygiene; not yet tested in game): the water a caravan carries in tanks is used. A thirsty
+person **drinks from the tanks first** (1.5 L a drink), before their bottles. While the caravan stands still, anyone grubby **washes**:
+5 L from a basin's worth, or a proper **20 L shower** when the shower trailer is along. **The kettle now needs its water on the road
+too: 1 L a meal**, from the Billy's own tank first, then any bowser. **Fill the Billy's tank or bring a bowser, or the caravan's cooks
+make nothing** and a message says why. Any tank holding water counts: a water bowser, the shower trailer, the Billy's own, a tanker
+in the line. Tanks never fill themselves.
+
 **The cold box on the road** (not yet tested in game): packed for the road, the cold box runs through the trailer's lead from the
 vehicle that tows it. That vehicle's Systems tab gains a **trailer cold box** line (100 W: about 8 amps on a 12-volt vehicle, 4 on a
 24-volt one) with its own switch, drawing only while the box holds food. While it runs, the food stays at 4 °C; switched off, shed

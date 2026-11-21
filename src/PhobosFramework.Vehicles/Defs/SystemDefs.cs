@@ -1100,6 +1100,17 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// <c>available</c> says whether this tow brings it, and its <c>when</c> whether it draws now.
     /// </summary>
     public List<ElectricalLoadSpec> towLoads = new();
+    /// <summary>
+    /// Water on the road (Framework 0.216.0; docs/development/vehicle-trailers.md), all authored: what one drink and one wash take from a
+    /// caravan's tanks, in litres; the hygiene below which a member washes; and what a wash from a basin's worth and a shower leave it at.
+    /// Used only with a mod that gives water a meaning (Dubs Bad Hygiene).
+    /// </summary>
+    public float caravanDrinkLitres = 1.5f;
+    public float caravanWashLitres = 5f;
+    public float caravanShowerLitres = 20f;
+    public float caravanWashBelow = 0.3f;
+    public float caravanWashTo = 0.7f;
+    public float caravanShowerTo = 1f;
     public float nightDriverFitRest = 0.3f;
     public float nightReliefRest = 0.6f;
     /// <summary>Claiming another faction's vehicle (owner, 11 Nov 2026): hours to get in and make it answer to us, more for each cell it covers,

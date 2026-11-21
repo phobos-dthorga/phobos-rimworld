@@ -75,6 +75,27 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     /// <summary>The trailer's own water now, in litres, in the tower while set up or kept while packed.</summary>
     public float OwnWater => Tower is { } water && tower is { Spawned: true } ? water.WaterStorage : ownWater;
 
+    /// <summary>Whether this is a trailer's own water (a field kitchen's tank), not plumbing fed from a tank of the bowsers' kind.</summary>
+    public bool OwnsWater => Props.ownWater;
+
+    /// <summary>
+    /// Takes up to this much of the trailer's own water, from the tower while set up or from what it keeps while packed (Framework 0.216.0:
+    /// a caravan's kettle and its people on the road). Returns what came.
+    /// </summary>
+    public float TakeOwnWater(float most)
+    {
+        if (!Props.ownWater || most <= 0f) return 0f;
+        if (Tower is { } water && tower is { Spawned: true })
+        {
+            float fromTower = Mathf.Min(most, water.WaterStorage);
+            water.WaterStorage -= fromTower;
+            return fromTower;
+        }
+        float got = Mathf.Min(most, ownWater);
+        ownWater -= got;
+        return got;
+    }
+
     IntVec3 Cell(IntVec2 local) => Vehicle.Position + new IntVec3(local.x, 0, local.z).RotatedBy(Vehicle.Rotation);
 
     public string? SetUpPartRefusal() => null;

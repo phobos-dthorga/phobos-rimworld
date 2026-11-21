@@ -190,6 +190,16 @@
     <campAtBaseChance>0.6</campAtBaseChance>
     <campAtBaseSwags>1~3</campAtBaseSwags>
     <bunkWantsBelowRest>0.95</bunkWantsBelowRest>
+    <!-- Water on the road (Framework 0.216.0; docs/development/vehicle-trailers.md), all authored. A drink of 1.5 L refills a thirsty
+         person: about two drinks a day in mild weather, near the 2 to 4 L a day of real planning figures. A wash takes 5 L and leaves a
+         person as clean as Dubs' own caravan washing does (0.7); with a shower trailer along, a shower takes 20 L (five minutes at 4 L a
+         minute) and leaves them fully clean. People wash once their hygiene is below 0.3, and only while the caravan stands still. -->
+    <caravanDrinkLitres>1.5</caravanDrinkLitres>
+    <caravanWashLitres>5</caravanWashLitres>
+    <caravanShowerLitres>20</caravanShowerLitres>
+    <caravanWashBelow>0.3</caravanWashBelow>
+    <caravanWashTo>0.7</caravanWashTo>
+    <caravanShowerTo>1</caravanShowerTo>
     <!-- Loads a vehicle gains from what it tows (Framework 0.216.0; docs/development/vehicle-field-kitchen.md). A field kitchen's packed cold
          box runs through the trailer's lead: its own working watts (100 W in its Def) at this vehicle's voltage, while it holds food. Shed
          with the fridge, late among the comforts, so the food outlives the air conditioning. -->

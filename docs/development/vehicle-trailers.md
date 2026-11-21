@@ -483,6 +483,43 @@ cost is a burst tyre damaging the axles. **Nothing yet stops a trailer with wrec
 axles, though the systems' "cannot move" message now names them (`Mobility.StoppedByDamage`). Whether a tow should refuse is the
 owner's call. The settings window gains a **Trailers** checkbox among the loadout kinds (agent default: on).
 
+## Water on the road (22 Nov 2026)
+
+**Built in D'thorga Framework 0.216.0, with Dubs Bad Hygiene only. Not yet tested in game** (row 325 of
+[the in-game test pass](in-game-test-pass.md)). The agent found the gap on 22 Nov 2026, checking how the camps, berths and trailers
+meet: a towed water bowser (2,500 L), the shower trailer (2,000 L) and the Billy's own tank gave a caravan nothing. Dubs Bad Hygiene
+gives a caravan water only from a packed water butt, bottles, rivers and rain (`DBH-1.7:DubsBadHygiene.Patches/HarmonyPatches.cs:138-213`),
+and caravan cooking took no water for its kettle, though on a map each batch takes 10 L. **The owner said build it** (22 Nov 2026:
+"Water in tow is used").
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Cross dry country on the water they carry; wash, and shower, at the night's stop |
+| What it stops them doing | Cooking at the kettle on the road with no water aboard (with Dubs Bad Hygiene) |
+| How it changes play | Water is planned by the litre for a trip: people, days, meals, and where the next fill is. The bowser earns its tow on a long run |
+| What outside the trailers notices | The colonists (thirst, hygiene, Dubs' own dirty-water check), the kitchen's cooks (water as a third limit beside food and fuel), the message log (tanks empty, no water for the kettle) |
+
+**Risk: low** (agent's grade, for the owner to confirm): water is used up, never lost at once, and a caravan without tanks behaves as it
+did before. **One thing does get harder, by the owner's choice:** with Dubs Bad Hygiene a caravan's kitchen now needs water. No setting
+of its own (agent's choice, for the owner to revise).
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| The caravan's water | `CaravanWater` (core), filled by `WaterAboard` in the Dubs tie-in | Every tank compartment holding a fluid that plumbs to Dubs' pipes, on any vehicle driven or in tow, and a kitchen's own tank (`CompPhobosTrailerPlumbing.TakeOwnWater`). Without Dubs, or in its lite mode, there is no source and nothing asks for water |
+| Drinking | `CaravanDrinking`, a prefix ahead of Dubs' own on the caravan's needs look (it never skips) | A thirsty member takes **1.5 L** [A] and is refilled, with Dubs' own dirty-water check at the tank's remembered quality. Dubs' look then finds nobody thirsty and leaves bottles alone. Tanks before the kitchen's own water |
+| Washing | The same look, only while the caravan stands still | Below 0.3 hygiene [A]: **5 L** to 0.7, the level Dubs' own caravan washing gives; with the shower trailer along, a **20 L** shower to full [A: five minutes at 4 L a minute] |
+| The kettle | `CaravanCookRule.Meals`, a fourth limit | **1 L a meal** [A: the kettle's 10 L for a batch of ten], the kitchen's own tank first. No water, no meals, and a message says so |
+
+**Simplifications, labelled:** people drink on the move (the water is aboard) but wash only at a stop. A shower on the road burns no
+chemfuel for hot water and fills no waste tank; Dubs keeps a caravan's bladders full itself. A kitchen's own water does not keep its
+quality while packed, so it is drunk as clean. Animals with thirst drink the same 1.5 L. The figures are in the vehicle rules Def.
+
+**Other factions:** their caravans are not simulated person by person; nothing applies. **Cost to run:** per caravan member per needs
+look, two need reads; a caravan with no water aboard adds one dictionary read, and its tanks are counted at most every 250 ticks.
+
+**Who chose what:** the owner chose that water in tow is used and that the kettle's water is charged; the agent chose every figure,
+washing only at a stop, tanks before the kitchen's own water for drinking and the reverse for the kettle.
+
 ## Upgrade trees as they stand
 
 **The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.
