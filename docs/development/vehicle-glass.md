@@ -251,9 +251,28 @@ To be asked as cards once this record has been read; the agent's recommendation 
    recipe with its own raw goods; or bought only.
 4. **The driver's view** (VG6) and **the canopy** (VG13): with the base; or after it has been played.
 
+## The owner's answers (cards, 22 Nov 2026)
+
+| # | Question | The owner's answer | The agent's recommendation |
+| --- | --- | --- | --- |
+| 1 | The base (VG1, VG2, VG3, VG7, VG10, VG11) | **Yes, with real art first** | The same |
+| 2 | Splinters (VG5) | **With the glass base**, behind its own setting | The same |
+| 3 | What a pane is made from (VG8) | **A real glass chain**: our own raw goods and a melt step, with the owner steering the stand-ins | Glass+Lights' glass where active, a simple recipe of ours otherwise |
+| 4 | The driver's view (VG6) and the canopy (VG13) | **With the glass base** | The same |
+
+**What follows from the answers:**
+
+- **To build, as one piece with its art made first:** VG1, VG2, VG3, VG5, VG6, VG7, VG10, VG11 and VG13, with a real glass chain
+  (VG8) behind the pane. VG4's open cab acts on temperature now and on air once the cab-air model exists. VG9, VG12 and VG14 stay
+  ideas.
+- **The glass chain needs its own short design before it is built**: which raw goods, which stand-ins the game allows, which bench,
+  and how Glass+Lights' glass fits beside it. The owner, an applied chemist, steers the stand-ins.
+- **Art to plan before the first test** (the owner's rule: the whole built, with real art, before a first test): the pane item, the
+  glass chain's goods and any bench, and a cracked-glass overlay for each of our own vehicles.
+
 ## Who chose what
 
-- **Owner (22 Nov 2026):** glass as a vehicle part with knock-on effects; research and record only.
+- **Owner (22 Nov 2026):** glass as a vehicle part with knock-on effects; research and record only; then the answers above.
 - **Agent:** a record of its own; one part per vehicle; an inner part broken by rule; the three kinds; every verdict and grade;
   everything marked [A].
 

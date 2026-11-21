@@ -579,10 +579,32 @@ To be asked as cards once this record has been read; the agent's recommendation 
 5. **Fire on vehicles** (NK20): write its record next; or leave it.
 6. **Reports to other authors**: draft the two notes; or leave them.
 
+## The owner's answers (cards, 22 Nov 2026)
+
+| # | Question | The owner's answer | The agent's recommendation |
+| --- | --- | --- | --- |
+| 1 | The vehicle's own route (NK1 to NK6) | **Yes, as one piece** | The same |
+| 2 | Its risk grade | **Part of the strike, starts on** | The same |
+| 3 | People aboard (NK8, NK9) | **With the vehicle route** | The same |
+| 3a | The crew's dose until our own model exists (asked after 3 and 4 pulled two ways) | **The existing dose**: the same Rimatomics dose people in the open get today, cut by the hull; our own model takes it over later | The same |
+| 4 | Shadow and the dose (NK12, NK13, NK17, NK18) | **Wait for our own model** (NK14). "When it does exist, we'll provide settings for players to configure it and the difficulty how they wish" | Build it on Rimatomics' conditions |
+| 5 | Fire on vehicles (NK20) | **Write its record next** | The same |
+| 6 | Reports to other authors | **Leave them** | The same |
+
+**What follows from the answers:**
+
+- **To build:** NK1 to NK6 and NK8, with NK9 as the existing dose cut by the hull, all behind one setting graded with the strike and
+  starting on.
+- **Waiting for a radiation model of our own (NK14)**, which will carry settings for how harsh it is: NK12, NK13, NK17, NK18, and the
+  crew's dose in its final form. NK14 becomes a record of its own under D'thorga Medical when the owner calls for it.
+- **Next record:** fire on vehicles (NK20).
+- **No reports** are drafted.
+
 ## Who chose what
 
 - **Owner (22 Nov 2026):** the report; the suspicion of a bigger problem; realism-based health effects, with an instantaneous dose
-  as the example; research and record only; glass as a vehicle part (in [its own record](vehicle-glass.md)).
+  as the example; research and record only; glass as a vehicle part (in [its own record](vehicle-glass.md)); then the answers
+  above.
 - **Agent:** two records, not one; everything marked [A]; every verdict; the risk grades; the short list; which lines were
   re-read; offering reports to other authors once.
 
