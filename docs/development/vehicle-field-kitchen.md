@@ -321,8 +321,9 @@ packed cold box, was a freezer that cost nothing. Keeping a box cold means nothi
 | What outside the trailer notices | The food (it ages, or does not), the towing vehicle's electrics (a load that can be shed), the Systems tab (a line and a switch) and the cooks (what is still worth cooking) |
 
 **Risk: low** (agent's grade, for the owner to confirm): food in a trailer now spoils at the pace of any other cargo, slowly and in
-plain view on each stack. **No setting** (agent's choice, for the owner to revise): it is the game's own rule for cargo reaching a place
-it was skipped by accident, not a new hazard; the cold box, a fridge and cold weather are the answers the game already gives.
+plain view on each stack. **No setting, and the owner confirmed it** (22 Nov 2026: "I would rather food age if it were to do so in vanilla
+anyway, as that's how the game is by default"): it is the game's own rule for cargo reaching a place it was skipped by accident, not a
+new hazard; the cold box, a fridge and cold weather are the answers the game already gives.
 
 | Piece | Where | Notes |
 | --- | --- | --- |
