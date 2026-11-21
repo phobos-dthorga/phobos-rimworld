@@ -28,6 +28,9 @@
     "338": {"parts": {
       "a caravan cooks at a packed kitchen box": [{"key": "camp.kitchen-box-caravan", "detail": "*"}]
     }},
+    "347": {"parts": {
+      "a caravan driving through the night shows the road's time only": ["vehicles.night-drive-arrival"]
+    }},
     "346": {"parts": {
       "the caravan's days of food are counted again with the towed food": ["trailers.days-of-food-in-tow"]
     }},

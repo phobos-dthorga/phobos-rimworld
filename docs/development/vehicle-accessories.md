@@ -535,8 +535,17 @@ The owner had already chosen it as a setting, off by default (13 Nov 2026): **Dr
 | Bunk on the move | Postfixes on the game's caravan bed list and after Vehicle Framework's bed pass (`Berths`): the bunk goes to the most tired passenger of its own vehicle below 0.95 rest | Passengers only: drivers and gunners never take it |
 | Night driving (B3) | A world component checks each player vehicle caravan every 250 ticks at night on the road (`NightDriving`); a postfix after Vehicle Framework's night-rest answer reads its result | Each caravan has its own **Drive through the night** button, on by default once the setting is on (agent default). The relief rides in the same vehicle; the change of places goes through Vehicle Framework's own seat calls and is undone if a seat refuses |
 
-**Known limits:** the arrival time shown while planning a route still counts the nights at rest, so trips arrive sooner than shown. A
-driver who never tires (a mechanoid) always counts as fit.
+**Known limits:** a driver who never tires (a mechanoid) always counts as fit. The arrival time is settled below.
+
+**The arrival time (Framework 0.228.0, 22 Nov 2026; row 347, not yet tested in game).** Vehicle Framework's estimate
+(`VehicleCaravanPathingHelper.EstimatedTicksToArrive`) adds a fixed night's rest for every night on the way and never asks the caravan
+whether it rests, so a caravan driving through the night arrived well before the time it showed: a loose end the owner asked to have
+tidied. A postfix on its caravan overload (the caravan's inspect line, and the dialogs that work on a caravan already on the road)
+replaces the answer with the time left on the current tile plus each later tile's cost by Vehicle Framework's own `CostToMove`, with no
+rest, when the setting is on, the caravan's switch is on and every vehicle carries a relief driver (`NightDriveRule.ExpectsToDriveThrough`,
+tested). **Agent's choice:** a vehicle with no relief keeps the nights in the estimate, as the caravan stops once that driver tires; a meal
+halt is not counted. **Still a limit:** planning a route and forming a caravan use Vehicle Framework's overload for vehicle kinds, with no
+caravan and so no switch to read; they still count the nights.
 
 ## Built: sleeping in a parked vehicle (21 Nov 2026)
 

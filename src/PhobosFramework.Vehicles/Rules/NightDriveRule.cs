@@ -50,6 +50,22 @@ public static class NightDriveRule
         return best;
     }
 
+    /// <summary>
+    /// Whether a caravan is expected to drive through the night, for its arrival time (Framework 0.228.0): every vehicle has its driving
+    /// seats filled and at least one rider beside them who can take the wheel. A vehicle with no relief stops the caravan once its driver
+    /// tires, so the estimate then keeps the nights at rest. An estimate only: a relief too tired to take over still stops it.
+    /// </summary>
+    public static bool ExpectsToDriveThrough(IReadOnlyList<(bool driversAboard, int reliefs)> vehicles)
+    {
+        if (vehicles.Count == 0) return false;
+        for (int index = 0; index < vehicles.Count; index++)
+        {
+            (bool driversAboard, int reliefs) = vehicles[index];
+            if (!driversAboard || reliefs < 1) return false;
+        }
+        return true;
+    }
+
     /// <summary>Whether a bunk takes a passenger seat's place: only in a cab of more than two seats (the record's B2).</summary>
     public static bool BunkTakesSeat(int allSeats) => allSeats > 2;
 }

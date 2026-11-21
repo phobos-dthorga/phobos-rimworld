@@ -6,6 +6,7 @@ using RimWorld;
 using RimWorld.Planet;
 using Vehicles;
 using Vehicles.World;
+using UnityEngine;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -171,5 +172,88 @@ public static class NightDrivingRest
             return;
         }
         if (__result && driving.DrivesOn(__instance)) __result = false;
+    }
+}
+
+/// <summary>
+/// The arrival time of a caravan that drives through the night (Framework 0.228.0; docs/development/vehicle-accessories.md, B3). Vehicle
+/// Framework's estimate always adds the hours of each night at rest, so with driving through the night on, trips arrived well before the
+/// time the caravan showed. When the setting is on, the caravan's own switch is on and every vehicle carries a relief driver
+/// (<c>NightDriveRule.ExpectsToDriveThrough</c>), the estimate becomes the time left on the current tile plus each tile's own cost along the
+/// rest of the path, by Vehicle Framework's own cost of moving, with no nights taken out. Otherwise its answer stands. A meal halt is not
+/// counted: it is short and chosen by the player. Kept for 100 ticks, as Vehicle Framework keeps its own.
+/// </summary>
+[HarmonyPatch(typeof(VehicleCaravanPathingHelper), nameof(VehicleCaravanPathingHelper.EstimatedTicksToArrive), new[] { typeof(VehicleCaravan), typeof(bool) })]
+public static class NightDrivingArrival
+{
+    const int KeepTicks = 100;
+    static VehicleCaravan? keptFor;
+    static int keptAt = -1;
+    static int keptTicks;
+
+    static readonly List<(bool, int)> Crews = new();
+
+    public static void Postfix(VehicleCaravan caravan, ref int __result)
+    {
+        if (__result <= 0 || !NightDriving.Enabled || caravan.Faction != Faction.OfPlayer || NightDriving.Current is not { } driving || !driving.SwitchedOn(caravan)) return;
+        int now = Find.TickManager.TicksGame;
+        if (caravan == keptFor && now - keptAt < KeepTicks)
+        {
+            if (keptTicks > 0) __result = keptTicks;
+            return;
+        }
+        keptFor = caravan;
+        keptAt = now;
+        keptTicks = Expects(caravan) ? Straight(caravan) : 0;
+        if (keptTicks <= 0) return;
+        if (keptTicks < __result && Seen.Wants("vehicles.night-drive-arrival", caravan.VehiclesListForReading.FirstOrDefault()))
+        {
+            Seen.Note("vehicles.night-drive-arrival", caravan.VehiclesListForReading.FirstOrDefault(),
+                (__result / (float)GenDate.TicksPerDay).ToString("0.0") + " to " + (keptTicks / (float)GenDate.TicksPerDay).ToString("0.0") + " days");
+        }
+        __result = keptTicks;
+    }
+
+    /// <summary>Every vehicle with its driving seats filled and a rider beside them who can take the wheel.</summary>
+    static bool Expects(VehicleCaravan caravan)
+    {
+        Crews.Clear();
+        foreach (VehiclePawn vehicle in caravan.VehiclesListForReading)
+        {
+            bool drivers = true;
+            int reliefs = 0;
+            foreach (VehicleRoleHandler driving in vehicle.handlers)
+            {
+                if (driving.role == null || (driving.role.HandlingTypes & HandlingType.Movement) == 0) continue;
+                if (driving.thingOwner.Count < driving.role.SlotsToOperate) drivers = false;
+                foreach (VehicleRoleHandler seat in vehicle.handlers)
+                {
+                    if (seat.role == null || seat.role.handlingTypes != HandlingType.None) continue;
+                    foreach (Pawn rider in seat.thingOwner)
+                    {
+                        if (driving.CanOperateRole(rider)) reliefs++;
+                    }
+                }
+            }
+            Crews.Add((drivers, reliefs));
+        }
+        bool expects = NightDriveRule.ExpectsToDriveThrough(Crews);
+        Crews.Clear();
+        return expects;
+    }
+
+    /// <summary>The ticks left on this tile and then each tile's cost to the end of the path, with no rest; 0 with no path to walk.</summary>
+    static int Straight(VehicleCaravan caravan)
+    {
+        if (caravan.vehiclePather is not { Moving: true, curPath: { Found: true } path } pather) return 0;
+        List<VehiclePawn> vehicles = caravan.VehiclesListForReading;
+        int ticks = Mathf.CeilToInt(pather.nextTileCostLeft);
+        int nowAbs = Find.TickManager.TicksAbs;
+        for (int step = 1; step < path.NodesLeftCount; step++)
+        {
+            var move = new TicksPerMoveData { tile = path.Peek(step - 1), nextTile = path.Peek(step), ticksPerMove = caravan.TicksPerMove, ticksAbs = nowAbs + ticks };
+            ticks += VehicleCaravan_PathFollower.CostToMove(vehicles, in move);
+        }
+        return ticks;
     }
 }

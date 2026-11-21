@@ -12,6 +12,7 @@ Loose ends of the camps, trailers and caravans, tidied
 ### Fixed
 
 - **A caravan's days of food count the food it tows.** Its people already ate from a towed trailer's cargo, but the days of food on the caravan's card, the days until it rots and the low-food warning still read only the caravan's own packs, so a caravan with a full trailer was told it was starving. They now count the towed cargo too, by the game's own sums. The window for forming a caravan still counts only what is loaded into the vehicles themselves. Not yet tested in game: row 346 of the test pass.
+- **A caravan that drives through the night shows when it really arrives.** With Drive through the night on, its time to the destination still added every night at rest, so it arrived well before the time it showed. While its own switch is on and every vehicle carries someone who can take the wheel from the driver, the time now counts the road only. Without a relief in any one vehicle, it keeps the nights, as the caravan will stop when that driver tires. Planning a route, and the window for forming a caravan, still count the nights. Not yet tested in game: row 347.
 
 ## [0.227.0] - 2026-11-22 - Draft
 

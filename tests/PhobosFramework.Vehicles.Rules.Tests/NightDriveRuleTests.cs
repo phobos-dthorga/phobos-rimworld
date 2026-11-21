@@ -23,6 +23,21 @@ public class NightDriveRuleTests
     }
 
     [Fact]
+    public void EveryVehicleWithADriverAndAReliefDrivesThrough() =>
+        Assert.True(NightDriveRule.ExpectsToDriveThrough(new List<(bool, int)> { (true, 1), (true, 2) }));
+
+    [Fact]
+    public void OneVehicleWithNoReliefKeepsTheNights() =>
+        Assert.False(NightDriveRule.ExpectsToDriveThrough(new List<(bool, int)> { (true, 1), (true, 0) }));
+
+    [Fact]
+    public void AVehicleShortOfADriverKeepsTheNights() =>
+        Assert.False(NightDriveRule.ExpectsToDriveThrough(new List<(bool, int)> { (false, 3) }));
+
+    [Fact]
+    public void NoVehiclesKeepTheNights() => Assert.False(NightDriveRule.ExpectsToDriveThrough(new List<(bool, int)>()));
+
+    [Fact]
     public void NobodyRestedEnoughMeansNoRelief()
     {
         var riders = new List<(double?, bool)> { (0.6, true), (0.4, true), (0.99, false) };
