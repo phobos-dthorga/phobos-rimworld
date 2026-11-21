@@ -708,6 +708,14 @@ tested in game.
 - **The Land Cruiser's own bed upgrades** (a mortar or howitzer platform) and a deck tent can both be fitted; nothing stops it. Left to
   the player (agent's choice).
 
+## Camp gear drawn on our vehicles: the pilot (22 Nov 2026)
+
+The owner's choice (22 Nov 2026, card): fitted camp gear is drawn on **our own** vehicles only, paid, **one pilot first**: the deck tent on
+the Pintle flatbed (D'thorga Vehicles 0.101.0, a node look keyed by the fitting; row 357; not yet tested in game). Made as an edit of a crop
+of the body and lifted out with Segment Anything, about US$0.06 ([the record](../../assets/phobos-vehicles/requests/deck-tent-pilot-record.md)).
+**Waiting for the owner:** the pick, and whether to buy the rest (the Tipper's deck tent and the fold-out camper, about three overlays; roof
+tents and awning rolls on our trucks, about ten more, roughly US$0.10 to 0.40 each by this pilot's cost).
+
 ## Built: life aboard (22 Nov 2026)
 
 Y4, Y13 and Y14 of the owner's camp batch of 13 Nov 2026, with hotboxing ([its record](vehicle-hotboxing.md#as-built-22-nov-2026)), "as one

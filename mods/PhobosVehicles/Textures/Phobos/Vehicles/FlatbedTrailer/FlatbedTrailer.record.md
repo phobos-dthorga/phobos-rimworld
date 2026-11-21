@@ -17,3 +17,16 @@
 ## The greedy boards
 
 `FlatbedTrailer_GreedyBoards`, shown while the greedy boards upgrade is fitted: `flatbed-trailer-greedy-boards-2-shaped-324x1244.png` (pick 2 of 2, SHA-256 of the original `b1e178eb6cc04e4a7152c61156bd7d312e78fe77373e73eaa081406d550df08d`), stretched by script to the deck's rails as a new file and fitted over the deck; its empty middle is cleared as background. North SHA-256 `201216855b15171999b6f4340d5b28f0cd56d36237a7f7292c006a23a424020f`, east `0df38abbcbbe986e2ec7cc5eb423174938eebd9c21487e21509aaedbc63e5f38`, south `2fef799330d8abca1122c134b95e8021cdc4dbc6c832466bcc254f41a9ce6999` (refitted 13 Nov 2026, Vehicles 0.54.1).
+
+## The deck tent (pilot, 22 Nov 2026)
+
+`FlatbedTrailer_DeckTent`, shown while the deck tent fitting is fitted (D'thorga Vehicles 0.101.0): the owner's "one pilot first" of camp gear
+drawn on our vehicles. **AI-generated**: OpenAI gpt-image-2 through the image API, medium quality, an edit of a crop of the picked body's deck
+(`assets/phobos-vehicles/references/deck-tent-crops.json`, box 64,256 to 704,1536, our own art the only reference; paid rule 13), two attempts,
+about US$0.06. The tent was lifted out by `scripts/art/sam_lift.py --cpu` (Segment Anything 2.1, Meta, Apache 2.0) and laid back at the crop's
+place, then exported by `scripts/art/export_vehicle.py overlay` at the body's own transform. Attempt 2 is the agent's suggested pick (its guy
+lines and rolled door flap came out whole), **waiting for the owner's pick**. Request and review: `assets/phobos-vehicles/requests/deck-tent-pilot.json`,
+`deck-tent-pilot-record.md`.
+
+- Edit `deck-tent-flatbed-2`, SHA-256 `a4963fa05d8756151c0350cbee1c34111903dc4af98692caa98b5c520b8efbde`
+- North `b6e88eedae58518789fcab24a07bf6f66ca45f581627351dd8e09864c9a8d3ac`, east `e7554cfe30b94ca5e47c6b3e33915451fc9aa0162bb201402a86ba9efd7e9c0d`, south `ab03a27624f4c8bf53b0847ba823f46519a37b5e60c6cba2fc155f90a5bfa14b`

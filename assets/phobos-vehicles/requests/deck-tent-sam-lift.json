@@ -1,0 +1,30 @@
+{
+ "body": "assets/phobos-vehicles/generated/flatbed-trailer-body-north/flatbed-trailer-body-north-2.png",
+ "out": "assets/phobos-vehicles/generated/deck-tent-sam",
+ "parts": [
+  {
+   "name": "deck-tent-1",
+   "edit": "assets/phobos-vehicles/generated/deck-tent-flatbed/deck-tent-flatbed-1.png",
+   "body": "assets/phobos-vehicles/references/deck-tent-crop-flatbed.png",
+   "place": [
+    64,
+    256,
+    704,
+    1536
+   ],
+   "outline": true
+  },
+  {
+   "name": "deck-tent-2",
+   "edit": "assets/phobos-vehicles/generated/deck-tent-flatbed/deck-tent-flatbed-2.png",
+   "body": "assets/phobos-vehicles/references/deck-tent-crop-flatbed.png",
+   "place": [
+    64,
+    256,
+    704,
+    1536
+   ],
+   "outline": true
+  }
+ ]
+}

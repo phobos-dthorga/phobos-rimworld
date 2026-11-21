@@ -1,0 +1,26 @@
+[
+ {
+  "name": "deck-tent-flatbed",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 640,
+  "height": 1280,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/deck-tent-crop-flatbed.png",
+    "role": "a piece of our approved Pintle flatbed trailer body (the owner's pick): the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is the long deck of our flatbed trailer seen from directly above, the front of the trailer toward the TOP of the canvas: dark plank decking between pale side rails, with the wheels beside it. Add a canvas deck tent pitched on the deck: one long rectangular tent seen from above, its roof a sand-coloured canvas fly with a single straight ridge line running the length of the tent down its centre, each half of the roof shaded a little differently, a few guy lines and tie-down straps running to the deck's rails, a rolled-up door flap at its rear end. The tent covers the deck from just behind the first cross-member to the rear of the deck, and fills the deck's width between the rails, never past them. Change NOTHING else: keep every other line, plank, rail, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, beds, gear, text, letters, numbers, logos, dust, damage or shadows outside the trailer.",
+  "art_plan": {
+   "vehicle": "Phobos_FlatbedTrailer",
+   "fitting": "PhobosFitting_DeckTent (the deck tent, Framework 0.217.0)",
+   "this_request": "the deck tent added to a piece of the body only (references/deck-tent-crops.json), lifted by scripts/art/sam_lift.py --cpu and laid back at the piece's place; the owner's pilot before a family (22 Nov 2026: one pilot first)",
+   "record": "assets/phobos-vehicles/requests/deck-tent-pilot-record.md"
+  }
+ }
+]

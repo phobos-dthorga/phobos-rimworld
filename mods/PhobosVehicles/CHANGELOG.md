@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.101.0] - 2026-11-22 - Draft
+
+The deck tent drawn on the Pintle flatbed
+
+### Added
+
+- **The deck tent shows on the Pintle flatbed trailer while it is fitted** (needs D'thorga Framework 0.217.0 or later; the owner's pilot of camp gear drawn on our vehicles, 22 November 2026): a sand-coloured ridge tent over the deck, with its guy lines and rolled door flap. A bought picture; the owner's pick, and whether the rest of the camp gear is drawn the same way, are still to come. Not yet tested in game: row 357 of the test pass.
+
 ## [0.100.0] - 2026-11-22 - Draft
 
 The Busbar's jammer mast
