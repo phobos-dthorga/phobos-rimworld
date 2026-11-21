@@ -253,6 +253,11 @@ Visit Settlements part is working.
 
 *Merged into this record on 17 Nov 2026 from `strategic-strike.md`; kept as written.*
 
+**Added 22 Nov 2026:** this design never considered vehicles, and in the owner's game they came through a strike untouched. Why,
+what else it shows, and what a strike could do to vehicles and people is in
+[nuclear strikes, vehicles and people](nuclear-strike-effects.md), which also corrects two statements below: how far a strike
+reaches on the world map, and what the pulse finds left to stun.
+
 
 The record behind D'thorga Patches' own strike model for InterRim Ballistic Missile's extinction-class warhead (0.9.0), Stage 2 of the
 owner-approved plan. The player guide is the [D'thorga Patches README](../../mods/PhobosPatches/README.md#interrim-ballistic-missile);

@@ -144,6 +144,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Bay trips](vehicle-bay-trips.md) (20 Nov 2026): vehicles driven, towed or pushed to a dyno bay for repair by themselves. Built, untested.
 - [Traps and vehicles](vehicle-traps.md) (21 Nov 2026): your vehicles pass over your traps when you did not send them; a setting. Built 0.213.0, untested.
 - [Depots and forward fuel points](vehicle-depots.md) (20 Nov 2026): fuel left on the world map for later trips; DP1 to DP6. Design only.
+- [Glass on our vehicles](vehicle-glass.md) (22 Nov 2026): glass as a tracked part, and what follows when it breaks; VG1 to VG14. Record only.
 
 ## D'thorga Medical
 
@@ -163,6 +164,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
 - [Vehicle patches](vehicle-patches.md) (2 Nov 2026): the Harrier's costs, rearming and disassembly; bombs, castings, Spaceship Turret Hull. Built.
 - [Missile patches](missile-patches.md) (7 Nov 2026): IRBM's strategic warhead hang and our strike model. Built.
+- [Nuclear strikes, vehicles and people](nuclear-strike-effects.md) (22 Nov 2026): why vehicles survive a strike; the real effects; NK1 to NK27. Record only.
 - [RimPacts patches](rimpacts-patches.md) (2 Nov 2026): the Harrier's load fix, sorties over battles, struck towns' assaults, empty vehicles. Built.
 - [Visit Settlements patches](visit-settlements-patches.md) (8 Nov 2026): a battle map closed under the player, food drops every tick. Built.
 - [Fires on vehicles that never go out](vehicle-framework-fires.md) (10 Nov 2026): Vehicle Framework's stuck fires and the fix. Built; owner-tested.

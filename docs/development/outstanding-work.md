@@ -257,6 +257,21 @@ to EM29. **Nothing built or decided**; the owner picks.
 | EP7 | **Depots** ([record](vehicle-depots.md)): the owner's five answers given 20 Nov 2026 (own place; crates too; the aircraft's stop in batch 1; four pressures with a cause; cargo swap only). Open: whether the rule on settings by risk is for every mod | Framework | Settings by risk: high-risk pressures start off, the rest on, each with its own setting (owner, 20 Nov 2026) | **Batch 1 built: Framework 0.199.0** (rows 288, 289); **batch 2: Framework 0.200.0** (DP7-DP9, DP10 through DP7; row 290); not yet tested in game |
 | EP5 | Reads still to do before any build: Vehicle Framework's starting fuel for ground raid vehicles and what its sabotage order does to one out of fuel (EM5); a gravship landing that turns a vehicle of several cells (EM18); real carbon monoxide figures by engine kind (EM20) | docs | — | Open; the exhaust figures were settled as ballparks in Framework 0.187.0 (owner, 20 Nov 2026: approximations are fine) **EM5 read 20 Nov 2026**: raid vehicles start at 45-85% of a tank; raiders bomb their own vehicle when it cannot move; whether a dry one stops is open; the owner to choose a shape (record, "Read: EM5") **EM18 read 20 Nov 2026**: a vehicle with an even side may land a cell out of place when the ship lands turned (always on a half turn, on some quarter turns) (the game and Vehicle Framework draw footprints differently); left to its author; two cheap ways round it for the owner (record, "Read: EM18") |
 
+## Nuclear strikes and vehicle glass (22 Nov 2026)
+
+The owner reported that vehicles come through a nuclear strike untouched, suspected a bigger problem, and asked for realistic health
+effects, as research and record only ([nuclear strikes, vehicles and people](nuclear-strike-effects.md)); in the same conversation
+the owner proposed glass as a vehicle part ([vehicle glass](vehicle-glass.md)). **Nothing built or decided**; the owner picks.
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| NS1 | The strike record: what the owner's log and saves show, the route of a hit, the wider fault (fire and low-penetration blasts do nothing to vehicles under Combat Extended; people aboard are out of reach), the real physics with sources, rows NK1 to NK27 | docs | Research and record only (owner, 22 Nov 2026) | Written |
+| NS2 | **Owner to choose:** the strike record's six questions: the vehicle's own route through a strike (NK1 to NK6) and its risk grade, the people aboard (NK8, NK9), shadow and the dose (NK12, NK13, NK17, NK18), a record for fire on vehicles (NK20), and notes to two other authors | Patches, Framework | — | Open, the owner's choice |
+| NS3 | The glass record: no vehicle has glass today, the three designs waiting on a sealable cab, the real thing with sources, rows VG1 to VG14 | docs | Research and record only (owner, 22 Nov 2026) | Written |
+| NS4 | **Owner to choose:** the glass record's four questions: the base (VG1, VG2, VG3, VG7, VG10, VG11), splinters (VG5), what a pane is made from (VG8), the driver's view and the canopy (VG6, VG13) | Framework, Vehicles | — | Open, the owner's choice |
+| NS5 | Reads still to do before any build: how Combat Extended's armour for people treats a blunt hit at no penetration; setting a part's health from outside a hit; killing a crew through the seats; whether Rimatomics' dose can ignore a gas mask; Rimatomics' fallout sign in game; IRBM's removal of caravans in its current build; what a blast reports to a cab plate without Combat Extended | docs | — | Open |
+| NS6 | What harmed the Highwayman at Gukpoi (ammunition cooking off is the guess): a dev-mode strike with Vehicle Framework's damage logging on would show it and confirm the route | — | — | Open, the owner's step if wanted |
+
 ## Garage and fleet tools (from 8 Nov 2026)
 
 The design is [the vehicle garage and fleet tools](vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
