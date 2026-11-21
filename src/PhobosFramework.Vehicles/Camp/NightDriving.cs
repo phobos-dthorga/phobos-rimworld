@@ -26,6 +26,11 @@ public class NightDriving : WorldComponent
     HashSet<int> stopping = new();
     /// <summary>Whether each caravan may drive on now, by ID, from the last check. Derived, never saved: until the first check, caravans rest.</summary>
     readonly Dictionary<int, bool> drivesOn = new();
+    /// <summary>
+    /// Caravans held for a meal halt, by ID, and the tick each drives on again (Framework 0.216.0). Derived, never saved: a game loaded during a
+    /// halt simply drives on, its meal already cooked.
+    /// </summary>
+    readonly Dictionary<int, int> haltUntil = new();
 
     public NightDriving(World world) : base(world)
     {
@@ -41,6 +46,23 @@ public class NightDriving : WorldComponent
     {
         if (!stopping.Remove(caravan.ID)) stopping.Add(caravan.ID);
         drivesOn.Remove(caravan.ID);
+    }
+
+    /// <summary>Holds a caravan that drives through the night for this long: a meal halt, begun by its field kitchen's cooks.</summary>
+    public void Halt(Caravan caravan, int ticks)
+    {
+        if (ticks > 0) haltUntil[caravan.ID] = Find.TickManager.TicksGame + ticks;
+    }
+
+    /// <summary>Whether this caravan is held for a meal halt now. A halt ends by the clock, so none can hold a caravan for good.</summary>
+    public bool Halted(Caravan caravan)
+    {
+        if (haltUntil.Count == 0 || !haltUntil.TryGetValue(caravan.ID, out int until)) return false;
+        int now = Find.TickManager.TicksGame;
+        // An end further off than a day is no halt of ours (the clock was set back): it ends too.
+        if (now < until && until - now <= GenDate.TicksPerDay) return true;
+        haltUntil.Remove(caravan.ID);
+        return false;
     }
 
     /// <summary>Whether this caravan may drive on through the night, as last checked.</summary>
@@ -133,15 +155,21 @@ public class NightDriving : WorldComponent
 
 /// <summary>
 /// The night-rest answer for a vehicle caravan: Vehicle Framework replaces the game's with its own (a prefix); this postfix, after it, turns
-/// "rest" into "drive on" only when the setting is on and the last check found every vehicle with a fit driver. It never turns "drive on" into
-/// "rest", and reads only what the check stored.
+/// "rest" into "drive on" only when the setting is on and the last check found every vehicle with a fit driver. It reads only what the check
+/// stored. One thing turns "drive on" into "rest": a meal halt (Framework 0.216.0), begun only by a caravan's cooks while it drives through
+/// the night, and ended by the clock.
 /// </summary>
 [HarmonyPatch(typeof(Caravan), nameof(Caravan.NightResting), MethodType.Getter)]
 public static class NightDrivingRest
 {
     public static void Postfix(Caravan __instance, ref bool __result)
     {
-        if (!__result || !NightDriving.Enabled || __instance is not VehicleCaravan) return;
-        if (NightDriving.Current?.DrivesOn(__instance) == true) __result = false;
+        if (!NightDriving.Enabled || __instance is not VehicleCaravan || NightDriving.Current is not { } driving) return;
+        if (driving.Halted(__instance))
+        {
+            __result = true;
+            return;
+        }
+        if (__result && driving.DrivesOn(__instance)) __result = false;
     }
 }

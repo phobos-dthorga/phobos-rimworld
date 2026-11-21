@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
+using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
 using RimWorld.Planet;
 using UnityEngine;
 using Vehicles;
+using Vehicles.World;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -20,6 +22,10 @@ public class PhobosCaravanCookingExtension : DefModExtension
     public float outdoorPoisonChance = 0.02f;
     /// <summary>Cooking experience a meal gives its cook (authored).</summary>
     public float experiencePerMeal = 20f;
+    /// <summary>The share of a cook's meals the kettle alone gives while the caravan drives through the night (authored: half).</summary>
+    public float onTheMoveShare = 0.5f;
+    /// <summary>How long a meal halt holds a caravan that drives through the night, in ticks (authored: an hour).</summary>
+    public int mealHaltTicks = GenDate.TicksPerHour;
 }
 
 /// <summary>
@@ -27,6 +33,9 @@ public class PhobosCaravanCookingExtension : DefModExtension
 /// night, while a caravan rests, its cooks turn raw food from its packs into simple meals at a field kitchen it carries, on its own wheels or
 /// behind a hitch. Each meal takes what the game's simple meal takes and burns the kitchen's fuel, or chemfuel and wood from the packs.
 /// Nothing patches the game's caravan food: meals simply join the packs, and the game feeds people as it always does.
+/// A caravan that drives through the night (Framework 0.214.0) has no night's rest, so since Framework 0.216.0 (the owner, 22 Nov 2026) its
+/// kettle simmers on the move, tended by riders who are not driving, for a share of the meals; or, where the player chose meal halts for that
+/// caravan, it stops about an hour to cook as at camp and drives on (CaravanCookRule says which).
 /// </summary>
 public class PhobosCaravanCooking : WorldComponent
 {
@@ -34,7 +43,34 @@ public class PhobosCaravanCooking : WorldComponent
     /// <summary>A caravan cooks once a rest: not again until this long after it last did.</summary>
     const int TicksBetweenNights = GenDate.TicksPerDay / 2;
 
+    /// <summary>How long a look for a caravan's kitchen is kept for its buttons (buttons read caches, never compute).</summary>
+    const int KitchenLookTicks = 250;
+
     Dictionary<int, int> lastCooked = new();
+    /// <summary>Caravans the player chose meal halts for, by ID. Saved.</summary>
+    HashSet<int> mealHalts = new();
+    /// <summary>The kitchen each caravan carries, as last looked. Derived, never saved.</summary>
+    readonly Dictionary<int, (int tick, VehiclePawn? kitchen)> kitchens = new();
+
+    public static PhobosCaravanCooking? Current => Find.World?.GetComponent<PhobosCaravanCooking>();
+
+    /// <summary>Whether this caravan stops for a meal while it drives through the night, instead of simmering on the move.</summary>
+    public bool WantsHalts(Caravan caravan) => mealHalts.Contains(caravan.ID);
+
+    public void ToggleHalts(Caravan caravan)
+    {
+        if (!mealHalts.Remove(caravan.ID)) mealHalts.Add(caravan.ID);
+    }
+
+    /// <summary>The field kitchen this caravan carries, or null, looked for at most every few seconds: for its buttons.</summary>
+    public VehiclePawn? KitchenOf(Caravan caravan)
+    {
+        int now = Find.TickManager.TicksGame;
+        if (kitchens.TryGetValue(caravan.ID, out (int tick, VehiclePawn? kitchen) seen) && now - seen.tick < KitchenLookTicks && now >= seen.tick) return seen.kitchen;
+        VehiclePawn? kitchen = Kitchen(caravan);
+        kitchens[caravan.ID] = (now, kitchen);
+        return kitchen;
+    }
 
     public PhobosCaravanCooking(World world) : base(world)
     {
@@ -45,13 +81,19 @@ public class PhobosCaravanCooking : WorldComponent
         base.WorldComponentTick();
         int now = Find.TickManager.TicksGame;
         if (now % CheckEveryTicks != 0 || !VehicleSystemsMod.Settings.caravanCooking) return;
+        NightDriving? driving = NightDriving.Enabled ? NightDriving.Current : null;
         foreach (Caravan caravan in Find.WorldObjects.Caravans)
         {
-            if (caravan.Faction != Faction.OfPlayer || !caravan.NightResting) continue;
+            if (caravan.Faction != Faction.OfPlayer) continue;
+            bool resting = caravan.NightResting;
+            CaravanCookRule.Way way = CaravanCookRule.WayFor(resting, !resting && driving?.DrivesOn(caravan) == true, WantsHalts(caravan));
+            if (way == CaravanCookRule.Way.None) continue;
             if (lastCooked.TryGetValue(caravan.ID, out int last) && now - last < TicksBetweenNights) continue;
             if (Kitchen(caravan) is not { } kitchen) continue;
             lastCooked[caravan.ID] = now;
-            Cook(caravan, kitchen);
+            int meals = Cook(caravan, kitchen, way);
+            // A meal halt holds the caravan only when there was a meal to stop for.
+            if (way == CaravanCookRule.Way.Halt && meals > 0) driving?.Halt(caravan, kitchen.def.GetModExtension<PhobosCaravanCookingExtension>().mealHaltTicks);
         }
     }
 
@@ -73,24 +115,44 @@ public class PhobosCaravanCooking : WorldComponent
         return null;
     }
 
-    static void Cook(Caravan caravan, VehiclePawn kitchen)
+    /// <summary>The people who drive or crew a vehicle of this caravan now: they tend no kettle on the move.</summary>
+    static HashSet<Pawn> Crews(Caravan caravan)
+    {
+        var crews = new HashSet<Pawn>();
+        if (caravan is not VehicleCaravan vehicles) return crews;
+        foreach (VehiclePawn vehicle in vehicles.VehiclesListForReading)
+        {
+            foreach (Pawn pawn in vehicle.AllPawnsAboard)
+            {
+                if (Berths.IsCrew(vehicle, pawn)) crews.Add(pawn);
+            }
+        }
+        return crews;
+    }
+
+    /// <summary>Cooks the night's meals the given way, and says what happened. Returns the meals made.</summary>
+    static int Cook(Caravan caravan, VehiclePawn kitchen, CaravanCookRule.Way way)
     {
         PhobosCaravanCookingExtension rules = kitchen.def.GetModExtension<PhobosCaravanCookingExtension>();
         RecipeDef? recipe = rules.recipe;
         ThingDef? mealDef = rules.meal;
-        if (recipe == null || mealDef == null || recipe.ingredients.Count == 0) return;
+        if (recipe == null || mealDef == null || recipe.ingredients.Count == 0) return 0;
         NamedArgument caravanName = caravan.Label.Named("CARAVAN");
+        bool simmer = way == CaravanCookRule.Way.Simmer;
+        HashSet<Pawn>? crews = simmer ? Crews(caravan) : null;
 
         // Whoever the recipe's own work type and speed allow: the game's simple meal names cooking and cooking speed.
         List<Pawn> cooks = caravan.PawnsListForReading
             .Where(p => p.RaceProps.Humanlike && !p.Downed && !p.Dead && p.skills != null
                 && (recipe.requiredGiverWorkType == null || !p.WorkTypeIsDisabled(recipe.requiredGiverWorkType))
-                && (recipe.workSpeedStat == null || p.GetStatValue(recipe.workSpeedStat) > 0f))
+                && (recipe.workSpeedStat == null || p.GetStatValue(recipe.workSpeedStat) > 0f)
+                && (crews == null || !crews.Contains(p)))
             .OrderByDescending(p => p.skills.GetSkill(SkillDefOf.Cooking).Level).ToList();
         if (cooks.Count == 0)
         {
-            Tell("PhobosCaravanCooking_NoCook".Translate(caravanName).Resolve(), caravan, MessageTypeDefOf.NeutralEvent);
-            return;
+            string nobody = simmer ? "PhobosCaravanCooking_NoRider".Translate(caravanName).Resolve() : "PhobosCaravanCooking_NoCook".Translate(caravanName).Resolve();
+            Tell(nobody, caravan, MessageTypeDefOf.NeutralEvent);
+            return 0;
         }
 
         float perMeal = recipe.ingredients[0].GetBaseCount();
@@ -101,11 +163,13 @@ public class PhobosCaravanCooking : WorldComponent
             .Where(t => burners.Count > 0 ? burners[0].Props.fuelFilter.Allows(t) : t.def == ThingDefOf.Chemfuel || t.def == ThingDefOf.WoodLog).ToList();
         float fuel = burners.Sum(b => b.Fuel) + carriedFuel.Sum(t => t.stackCount);
 
-        int meals = Mathf.Min(cooks.Count * rules.mealsPerCook, Mathf.FloorToInt(nutrition / perMeal + 0.0001f), rules.fuelPerMeal > 0f ? Mathf.FloorToInt(fuel / rules.fuelPerMeal) : int.MaxValue);
+        // On the move the kettle alone works, for a share of each cook's meals; at camp or a halt, the whole kitchen.
+        int perCook = CaravanCookRule.PerCook(rules.mealsPerCook, simmer ? rules.onTheMoveShare : 1.0);
+        int meals = CaravanCookRule.Meals(cooks.Count, perCook, nutrition, perMeal, fuel, rules.fuelPerMeal);
         if (meals <= 0)
         {
             Tell((nutrition < perMeal ? "PhobosCaravanCooking_NoFood" : "PhobosCaravanCooking_NoFuel").Translate(caravanName).Resolve(), caravan, MessageTypeDefOf.NeutralEvent);
-            return;
+            return 0;
         }
 
         TakeNutrition(raw, meals * perMeal);
@@ -114,7 +178,7 @@ public class PhobosCaravanCooking : WorldComponent
         int poisoned = 0, left = meals;
         foreach (Pawn cook in cooks)
         {
-            int byThisCook = Mathf.Min(left, rules.mealsPerCook);
+            int byThisCook = Mathf.Min(left, perCook);
             if (byThisCook <= 0) break;
             left -= byThisCook;
             float chance = Mathf.Clamp01(cook.GetStatValue(StatDefOf.FoodPoisonChance) + rules.outdoorPoisonChance);
@@ -127,8 +191,27 @@ public class PhobosCaravanCooking : WorldComponent
 
         Give(caravan, mealDef, meals - poisoned, null);
         Give(caravan, mealDef, poisoned, FoodPoisonCause.IncompetentCook);
-        Tell("PhobosCaravanCooking_Cooked".Translate(caravanName, meals.Named("COUNT"), mealDef.label.Named("MEAL")).Resolve(), caravan, MessageTypeDefOf.PositiveEvent);
-        if (Seen.Wants("trailers.caravan-cooking", kitchen)) Seen.Note("trailers.caravan-cooking", kitchen, meals + " meals, " + poisoned + " spoilt");
+        NamedArgument count = meals.Named("COUNT"), meal = mealDef.label.Named("MEAL");
+        string said = way switch
+        {
+            CaravanCookRule.Way.Simmer => "PhobosCaravanCooking_Simmered".Translate(caravanName, count, meal).Resolve(),
+            CaravanCookRule.Way.Halt => "PhobosCaravanCooking_Halted".Translate(caravanName, count, meal, rules.mealHaltTicks.ToStringTicksToPeriod().Named("TIME")).Resolve(),
+            _ => "PhobosCaravanCooking_Cooked".Translate(caravanName, count, meal).Resolve(),
+        };
+        Tell(said, caravan, MessageTypeDefOf.PositiveEvent);
+        switch (way)
+        {
+            case CaravanCookRule.Way.Simmer:
+                if (Seen.Wants("trailers.caravan-simmer", kitchen)) Seen.Note("trailers.caravan-simmer", kitchen, meals + " meals, " + poisoned + " spoilt");
+                break;
+            case CaravanCookRule.Way.Halt:
+                if (Seen.Wants("trailers.caravan-meal-halt", kitchen)) Seen.Note("trailers.caravan-meal-halt", kitchen, meals + " meals, " + poisoned + " spoilt");
+                break;
+            default:
+                if (Seen.Wants("trailers.caravan-cooking", kitchen)) Seen.Note("trailers.caravan-cooking", kitchen, meals + " meals, " + poisoned + " spoilt");
+                break;
+        }
+        return meals;
     }
 
     static bool Allowed(RecipeDef recipe, Thing thing) =>
@@ -186,6 +269,11 @@ public class PhobosCaravanCooking : WorldComponent
     {
         base.ExposeData();
         Scribe_Collections.Look(ref lastCooked, "PhobosCaravanCooking_LastCooked", LookMode.Value, LookMode.Value);
-        if (Scribe.mode == LoadSaveMode.PostLoadInit) lastCooked ??= new Dictionary<int, int>();
+        Scribe_Collections.Look(ref mealHalts, "PhobosCaravanCooking_MealHalts", LookMode.Value);
+        if (Scribe.mode == LoadSaveMode.PostLoadInit)
+        {
+            lastCooked ??= new Dictionary<int, int>();
+            mealHalts ??= new HashSet<int>();
+        }
     }
 }

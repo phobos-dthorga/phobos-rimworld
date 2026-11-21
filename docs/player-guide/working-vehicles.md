@@ -350,8 +350,14 @@ cooks, bills, ingredients and food poisoning work exactly as at home.
 
 **On the road:** while a caravan rests for the night, its cooks turn **raw food from its packs into simple meals** at a Billy it carries,
 on its own or hitched behind a vehicle: **up to 20 a cook**, burning half a unit of fuel a meal from the kitchen's burners, or chemfuel
-and wood in the packs. Raw food goes nearly twice as far that way. Turn it off with **Field kitchens cook in a resting caravan** in
+and wood in the packs. Raw food goes nearly twice as far that way. Turn it off with **Field kitchens cook in a caravan** in
 D'thorga Framework's settings.
+
+**Driving through the night** (not yet tested in game): a caravan that never stops has no night's rest to cook in, so **its kettle
+simmers on the move**: riders who are not driving or crewing make **half as many meals each** (up to 10), for the same fuel a meal.
+Prefer a proper stop? Select the caravan and switch on **Meal halts**: it then stops **for an hour** each night, every cook works at
+the whole kitchen as at camp (up to 20 each), and it drives on. With nobody but drivers and gunners aboard, the kettle stays cold and
+a message says so.
 
 **With Dubs Bad Hygiene, the kettle needs water:** 10 L a batch, from **Billy's own 200 L tank**. Fill it from a water bowser parked beside
 it (bowser on **Unload**) or from plumbing; its inspect pane shows how much is left, and without water the kettle's bills wait and say why.

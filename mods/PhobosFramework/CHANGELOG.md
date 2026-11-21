@@ -9,6 +9,14 @@ tested in game unless an entry says the owner tested it.
 
 Camps, berths and working trailers meet
 
+### Added
+
+- **A caravan that drives through the night cooks at its field kitchen** (the owner's choice of 22 November 2026). Caravan cooking ran only while a caravan rested for the night, so one driving in shifts with a Billy in tow never cooked and ate its food raw. Now its kettle simmers on the move: riders who are not driving or crewing a vehicle make half as many meals each (up to 10), for the same fuel a meal. Or select the caravan and switch on Meal halts, beside Drive through the night: it then stops for an hour each night, every cook works at the whole kitchen as at camp (up to 20 each), and it drives on by itself. A message says what was cooked, or that the kettle stayed cold because everyone aboard was driving. The Meal halts button borrows our switch icon until its own is made. For modders: onTheMoveShare and mealHaltTicks on the kitchen's caravan cooking extension. Not yet tested in game: row 322 of the test pass.
+
+### Changed
+
+- **The setting Field kitchens cook in a resting caravan is now called Field kitchens cook in a caravan**, since it also covers a caravan that drives through the night. Its saved value and its default (on) are unchanged.
+
 ### Fixed
 
 - **The night heater burns for someone asleep in a parked truck's cab bunk.** It ran only at a caravan's night camp on the world map, so a colonist sleeping in the bunk of a truck parked on a map, engine off, had no heat at all: the cab met the outside air in about an hour and a half, where the bunk's own entry promised the cab's warmth. Now the heater burns for a bunk sleeper exactly as at camp: 0.4 chemfuel an hour and 2 amps on a combustion vehicle, the drive battery on an electric one. It still needs the Night heater at camp setting and the vehicle's night heater switch on; with either off the cab is as cold as before, unless the engine idles. For modders: the condition When_BunkSleeper. Not yet tested in game: row 321 of the test pass.

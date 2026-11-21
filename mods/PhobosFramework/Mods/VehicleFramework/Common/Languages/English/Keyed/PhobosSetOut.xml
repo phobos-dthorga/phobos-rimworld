@@ -28,9 +28,15 @@
   <PhobosCaravanCooking_NoCook>{CARAVAN} has a field kitchen, but nobody fit to cook tonight.</PhobosCaravanCooking_NoCook>
   <PhobosCaravanCooking_NoFood>{CARAVAN} has a field kitchen, but no raw food to cook tonight.</PhobosCaravanCooking_NoFood>
   <PhobosCaravanCooking_NoFuel>{CARAVAN} has a field kitchen, but nothing to burn: carry chemfuel or wood, or fill its burners before you leave.</PhobosCaravanCooking_NoFuel>
+  <PhobosCaravanCooking_Simmered>{CARAVAN}'s kettle simmered {COUNT} {MEAL}s on the move tonight.</PhobosCaravanCooking_Simmered>
+  <PhobosCaravanCooking_Halted>{CARAVAN} halts for a meal: its cooks made {COUNT} {MEAL}s at the field kitchen. It drives on in {TIME}.</PhobosCaravanCooking_Halted>
+  <PhobosCaravanCooking_NoRider>{CARAVAN}'s kettle stayed cold tonight: everyone fit to cook is driving or crewing a vehicle. Carry a passenger who cooks, or choose meal halts.</PhobosCaravanCooking_NoRider>
+  <PhobosCaravanCooking_HaltGizmo>Meal halts</PhobosCaravanCooking_HaltGizmo>
+  <PhobosCaravanCooking_HaltGizmoDesc>While this caravan drives through the night, stop for {TIME} each night so every cook can work at the whole field kitchen, as at camp. Off: the kettle simmers on the move instead, tended by riders who are not driving or crewing, for {SHARE} of the meals a cook makes at camp.</PhobosCaravanCooking_HaltGizmoDesc>
+  <PhobosCaravanCooking_HaltGizmoStops>This caravan stops for the night, and its cooks work at the field kitchen then.</PhobosCaravanCooking_HaltGizmoStops>
 
-  <PhobosVehicleSystems_SettingCaravanCooking>Field kitchens cook in a resting caravan</PhobosVehicleSystems_SettingCaravanCooking>
-  <PhobosVehicleSystems_SettingCaravanCookingDesc>On by default: once a night, while a caravan rests, its cooks turn raw food from its packs into simple meals at a field kitchen it carries, on its own wheels or behind a hitch, up to twenty a cook. Each meal burns half a unit of the kitchen's fuel, or chemfuel and wood from the packs. It nearly doubles how far carried raw food goes. Off: field kitchens cook only when set up on a map.</PhobosVehicleSystems_SettingCaravanCookingDesc>
+  <PhobosVehicleSystems_SettingCaravanCooking>Field kitchens cook in a caravan</PhobosVehicleSystems_SettingCaravanCooking>
+  <PhobosVehicleSystems_SettingCaravanCookingDesc>On by default: once a night, while a caravan rests, its cooks turn raw food from its packs into simple meals at a field kitchen it carries, on its own wheels or behind a hitch, up to twenty a cook. Each meal burns half a unit of the kitchen's fuel, or chemfuel and wood from the packs. It nearly doubles how far carried raw food goes. A caravan that drives through the night has no night's rest: its kettle simmers on the move for half the meals, or it halts an hour for a meal where you choose that on the caravan. Off: field kitchens cook only when set up on a map.</PhobosVehicleSystems_SettingCaravanCookingDesc>
 
   <PhobosKettleWater_NoPlumbing>No water: each batch needs {LITRES} L. Fill the kitchen's own tank from a water bowser, or set it up beside plumbing with water.</PhobosKettleWater_NoPlumbing>
   <PhobosKettleWater_NotEnough>Not enough water: each batch needs {LITRES} L. Fill the kitchen's tank from a water bowser or plumbing.</PhobosKettleWater_NotEnough>

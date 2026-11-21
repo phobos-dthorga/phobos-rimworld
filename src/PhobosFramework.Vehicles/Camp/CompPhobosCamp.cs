@@ -105,6 +105,20 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             isActive = () => driving.SwitchedOn(caravan),
             toggleAction = () => driving.Toggle(caravan),
         };
+        // A caravan with a field kitchen chooses how it cooks while it drives through the night (Framework 0.216.0; the owner, 22 Nov 2026):
+        // the kettle simmers on the move unless meal halts are chosen here.
+        if (!VehicleSystemsMod.Settings.caravanCooking || PhobosCaravanCooking.Current is not { } cooking || cooking.KitchenOf(caravan) is not { } kitchen
+            || kitchen.def.GetModExtension<PhobosCaravanCookingExtension>() is not { } cook) yield break;
+        var halts = new Command_Toggle
+        {
+            defaultLabel = "PhobosCaravanCooking_HaltGizmo".Translate().Resolve(),
+            defaultDesc = "PhobosCaravanCooking_HaltGizmoDesc".Translate(cook.mealHaltTicks.ToStringTicksToPeriod().Named("TIME"), cook.onTheMoveShare.ToStringPercent().Named("SHARE")).Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/MealHalt"),
+            isActive = () => cooking.WantsHalts(caravan),
+            toggleAction = () => cooking.ToggleHalts(caravan),
+        };
+        if (!driving.SwitchedOn(caravan)) halts.Disable("PhobosCaravanCooking_HaltGizmoStops".Translate().Resolve());
+        yield return halts;
     }
 
     // ---- Sleeping in the bunk while parked (Framework 0.215.0; the record's B4) ----

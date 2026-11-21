@@ -90,5 +90,51 @@
    "why": "cab bunks and driving through the night (Framework 0.214.0; docs/development/vehicle-accessories.md, built 21 Nov 2026)",
    "route": "house"
   }
+ },
+ {
+  "name": "button-meal-halt-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game button icon: a round steel camp kettle pot with a lid and a curl of steam standing on a small burner flame, beside a red octagonal road halt sign on a short post. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Meal halts button: a steaming camp kettle on a burner beside a road halt sign",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Headlights.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightHeater.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Meal halts button",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/MealHalt.png",
+   "why": "cooking while driving through the night (Framework 0.216.0; docs/development/vehicle-field-kitchen.md, built 22 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "button-meal-halt-c",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game button icon: an enamel camp plate with a spoon and a steaming tin mug in front of a pale crescent moon, a short stretch of dark road ending at the plate. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Meal halts button: a camp plate, spoon and steaming mug under a crescent moon at the end of a road",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Headlights.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightHeater.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Meal halts button",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/MealHalt.png",
+   "why": "cooking while driving through the night (Framework 0.216.0; docs/development/vehicle-field-kitchen.md, built 22 Nov 2026)",
+   "route": "house"
+  }
  }
 ]

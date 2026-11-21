@@ -1,6 +1,6 @@
 # The field kitchen trailer (13 Nov 2026)
 
-**Status (17 Nov 2026):** built in D'thorga Framework 0.121.0 to 0.122.0 and Vehicles 0.59.0 to 0.60.0 ("What was built" below): the tent and its pieces, power, batches of ten and twenty, caravan cooking, its own picture and sounds, the kettle's water with its own tank, and six upgrades; not built: enemy bases and the dry-goods locker. Not yet tested in game.
+**Status (17 Nov 2026):** built in D'thorga Framework 0.121.0 to 0.122.0 and Vehicles 0.59.0 to 0.60.0 ("What was built" below): the tent and its pieces, power, batches of ten and twenty, caravan cooking, its own picture and sounds, the kettle's water with its own tank, and six upgrades; and, in Framework 0.216.0 (22 Nov 2026), cooking while a caravan drives through the night; not built: enemy bases and the dry-goods locker. Not yet tested in game.
 
 **A research and design record.** The owner, 13 November 2026: "A
 military-style portable kitchen on wheels, powered by the Busbar as required." The owner chose the same day that it **always
@@ -249,6 +249,42 @@ Vehicles 0.59.0, with the trailer base's power lead and set-out pieces ([vehicle
 - **The dining annex** is pitched against the kitchen's front, 6 cells long, so the kitchen's flap is the door between them; inside, a 2 x 2
   table and four chairs. Billy's power point moved outside the kitchen's far wall to make room.
 - **The tent heater** marks its fuel used each tick below 15 °C; the game's heat pusher stops warming at the same 15 °C.
+
+## Built: cooking while driving through the night (22 Nov 2026)
+
+**The fault this answers.** Caravan cooking ran only while a caravan rested for the night; driving through the night (Framework 0.214.0)
+means it never rests, so a caravan driving in shifts with a Billy in tow ate its food raw, and nothing said so. The agent found it on
+22 Nov 2026 while checking how the berths and the trailers meet. **The owner chose** (22 Nov 2026): "Kettle simmers on the move by
+default, but perhaps provide a gizmo for those who wish for meal halts?" Built in D'thorga Framework 0.216.0. Row 322 of
+[the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Eat cooked meals on a run that never stops; or stop an hour for a full kitchen's worth, caravan by caravan |
+| What it stops them doing | Cooking a full night's meals without stopping; cooking on the move with nobody aboard but drivers and gunners |
+| How it changes play | A long night run wants a passenger who cooks, as well as its pairs of drivers; a big crew may prefer the hour's halt |
+| What outside the kitchen notices | The caravan (an hour's halt on the world map), the colonists (meals instead of raw food, cooking experience) and the message log (what was cooked, or why not) |
+
+**Risk: low** (agent's grade, for the owner to confirm): nothing is lost or harmed; the worst case is the raw food the caravan ate before.
+So it has no setting of its own: it follows **Field kitchens cook in a caravan** (the old "in a resting caravan", renamed for this).
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| Which way a caravan cooks | `CaravanCookRule.WayFor` (game-free, tested) | Resting for the night: as before. Driving on at night: **simmer**, or **halt** where the player chose halts for that caravan. By day it does not cook |
+| Simmering on the move | `PhobosCaravanCooking.Cook` | The kettle alone works: **half a cook's meals** [A: `onTheMoveShare` 0.5 on the kitchen's Def, so 10 a cook], the same fuel a meal, the same 2 % outdoor spoiling. **Riders only**: whoever drives or crews a vehicle tends no kettle (`Berths.IsCrew`) |
+| A meal halt | `NightDriving.Halt`, and the night-rest postfix | The cooks work as at camp, then the caravan is held for **an hour** [A: `mealHaltTicks` 2,500] by answering "resting" for it, and drives on by the clock. No meal, no halt. The halt is not saved: a game loaded during one drives on, its meal already cooked |
+| The choice | **Meal halts**, a switch on the caravan beside **Drive through the night**, shown while it carries a kitchen | Off by default (the owner's choice). Greyed out with its reason while that caravan stops for the night anyway. Its own icon is asked for in `assets/vehicle-systems/requests/berths-house.json`; until it is made, the button shows our switch icon |
+
+**A gameplay simplification, labelled:** the kettle is on the trailer and its cook rides in the tractor. Read it as the stew put on before
+setting out and seen to at the driver changes. Horse-drawn field kitchens were built to cook on the march; that is the agent's
+recollection of the German "Gulaschkanone", **unverified here**, and no figure of ours rests on it.
+
+**Other factions:** their caravans on the world map are not simulated person by person, so nothing here applies to them.
+**Cost to run:** nothing new per tick; the hourly look that already ran now also asks the night-driving check's stored answer, and a
+halt is one dictionary look-up in the night-rest answer while any caravan is halted.
+
+**Who chose what:** the owner chose simmering by default and the halt as a per-caravan switch; the agent chose the half share, the
+hour, riders only, and that a halt happens only when there was a meal to stop for.
 
 ## Sources
 
