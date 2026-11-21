@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Flat decks on Frontline Workshop's vehicles (D'thorga Vehicles 0.98.0, D'thorga Framework 0.217.0; docs/development/vehicle-accessories.md, "Built: tents
+    for every vehicle"; the owner's picks of 22 Nov 2026, from a list the agent drew up by looking at each vehicle's own picture). Each
+    vehicle named here has an open load bed, so it may be fitted with a deck tent: a tent that stands on the bed, with a small room inside
+    to walk into. Only the vehicle's Def is marked; nothing of its author's code, art or figures is changed. The rows give the tent's
+    inside, sized to the bed (authored): B over b a bed, E the flap, a dot the floor. Not yet tested in game.
+  -->
+  <!-- The Land Cruiser J70: a small pickup. Its bed is short, so one bed. Its own upgrades may mount a mortar or a howitzer on the same bed; nothing here stops both being fitted, which is the player's to judge. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="FW_JSeventy"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosFlatDeckExtension">
+        <rows>
+          <li>B.</li>
+          <li>bE</li>
+        </rows>
+      </li>
+    </value>
+  </Operation>
+</Patch>

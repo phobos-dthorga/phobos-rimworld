@@ -462,11 +462,13 @@ the kit back in the cargo.
 - **Taking down any one wall brings that tent's canvas roof down**, as an awning's pole does.
 
 **The deck tent** (not yet tested in game; needs the **Walk-in cabins** setting, which is on by default): for a vehicle with a **flat
-deck**, today the **Talus tipper** and the **Pintle flatbed**. Fit it to the roof mount (30 kg). It stands **on the deck**, so it
+deck**: our **Talus tipper** and **Pintle flatbed**, and, where their mods are active, Vanilla Vehicles Expanded's **Mule** and
+**Roadrunner**, Frontline Workshop's **Land Cruiser J70** and RimThunder's **M1075 HEMTT**. Fit it to the roof mount (30 kg). It stands **on the deck**, so it
 needs no ground and no camp set up.
 
-- **Go in:** right-click the vehicle with a colonist. Inside is a small room with **two beds** and a flap that leads back out.
-- **Sleepers:** press **Deck tent: nobody** on the vehicle and choose up to two colonists. **At bedtime they walk in by themselves**,
+- **Go in:** right-click the vehicle with a colonist. Inside is a small room with **two beds** and a flap that leads back out
+  (one bed on the Land Cruiser, four on the HEMTT).
+- **Sleepers:** press **Deck tent: nobody** on the vehicle and choose as many colonists as it has beds. **At bedtime they walk in by themselves**,
   and walk out when rested.
 - **Warmth:** canvas only. The air inside is that around the vehicle, about 4 °C warmer in the cold, never warmed past 15 °C.
 - **Danger wakes them:** a raid, or the vehicle on fire, wakes everyone inside and sends them out, with a message.

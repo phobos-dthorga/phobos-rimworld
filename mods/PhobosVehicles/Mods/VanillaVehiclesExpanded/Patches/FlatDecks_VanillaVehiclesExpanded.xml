@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Flat decks on Vanilla Vehicles Expanded's vehicles (D'thorga Vehicles 0.98.0, D'thorga Framework 0.217.0; docs/development/vehicle-accessories.md, "Built: tents
+    for every vehicle"; the owner's picks of 22 Nov 2026, from a list the agent drew up by looking at each vehicle's own picture). Each
+    vehicle named here has an open load bed, so it may be fitted with a deck tent: a tent that stands on the bed, with a small room inside
+    to walk into. Only the vehicle's Def is marked; nothing of its author's code, art or figures is changed. The rows give the tent's
+    inside, sized to the bed (authored): B over b a bed, E the flap, a dot the floor. Not yet tested in game.
+  -->
+  <!-- The Mule: a cargo truck with an open wooden bed behind its cab. Two beds. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Mule"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosFlatDeckExtension">
+        <rows>
+          <li>B.B</li>
+          <li>b.b</li>
+          <li>.E.</li>
+        </rows>
+      </li>
+    </value>
+  </Operation>
+  <!-- The Roadrunner: a cargo pickup with an open bed. Two beds. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="VVE_Roadrunner"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosFlatDeckExtension">
+        <rows>
+          <li>B.B</li>
+          <li>b.b</li>
+          <li>.E.</li>
+        </rows>
+      </li>
+    </value>
+  </Operation>
+</Patch>

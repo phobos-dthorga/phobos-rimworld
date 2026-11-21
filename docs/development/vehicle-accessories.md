@@ -1,6 +1,6 @@
 # Vehicle accessories: camp gear and comforts (13 Nov 2026)
 
-**Status (22 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), the camp in 0.212.0 with its art in 0.213.1 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)), cab bunks and driving through the night in 0.214.0 (B2, B3; [what was built](#built-cab-bunks-and-driving-through-the-night-21-nov-2026)), sleeping in a parked vehicle's bunk in 0.215.0 (B4; [what was built](#built-sleeping-in-a-parked-vehicle-21-nov-2026)), and in 0.216.0 the night heater for a bunk sleeper and the camper trailer ([what was built](#built-the-camper-trailer-22-nov-2026)). Not yet tested in game. Still a design: the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4) and the rest.
+**Status (22 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), the camp in 0.212.0 with its art in 0.213.1 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)), cab bunks and driving through the night in 0.214.0 (B2, B3; [what was built](#built-cab-bunks-and-driving-through-the-night-21-nov-2026)), sleeping in a parked vehicle's bunk in 0.215.0 (B4; [what was built](#built-sleeping-in-a-parked-vehicle-21-nov-2026)), in 0.216.0 the night heater for a bunk sleeper and the camper trailer ([what was built](#built-the-camper-trailer-22-nov-2026)), and in 0.217.0 tents for every vehicle: a side rail on the other trailers, the side fly, three closed tents, the camp heater and the deck tent ([what was built](#built-tents-for-every-vehicle-22-nov-2026)). Not yet tested in game. Still a design: the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4) and the rest.
 
 **A research and design record.** The owner, 13 November 2026: "I wish to
 explore vehicle accessories the player can install whether it's for entertainment, to help with camping, or something different
@@ -678,6 +678,25 @@ a cabin can strand someone already puts them back on a map. It shares the **Walk
 **Agent's choices, for the owner to revise:** two beds; the warmth figures; that the tent needs no camp order; that it shares the
 Walk-in cabins setting. **Other factions:** a cabin is for the player's people only; nothing is offered on another faction's vehicle.
 **Cost to run:** one small map's ticking while anyone is inside; one integer test on each outdoor-temperature read while none is open.
+
+**Step 4, D'thorga Vehicles 0.98.0: other mods' open-bed trucks.** Row 330 of [the in-game test pass](in-game-test-pass.md). Not yet
+tested in game.
+
+- **How they were found:** every vehicle Def in the owner's active mods was listed with `scripts/query-defs.py` (101 Defs), and the
+  likely ones were judged **by looking at each vehicle's own picture**, read-only, since a Def's text says what a vehicle is for and
+  not what its body is. Nothing of theirs was copied into the repository.
+- **The owner picked** (22 Nov 2026, from the agent's list): Vanilla Vehicles Expanded's **Mule** and **Roadrunner**, Frontline
+  Workshop's **Land Cruiser J70** and RimThunder - Roaring Tiger's **M1075 HEMTT**; and Trains of the Rim's **Flatbed**, **Flatbed
+  with Stakes** and **Gondola**. Judged to have no deck: the Big Rig (a tractor unit's short frame) and the Highwayman (a gun tub).
+- **Built:** one patch file per mod in that mod's own folder of D'thorga Vehicles, loaded only while it is active, adding
+  `PhobosFlatDeckExtension` to each Def with a tent sized to the bed [A]: two beds on the Mule and the Roadrunner, one on the Land
+  Cruiser, four on the HEMTT. Only the Def is marked; no code, art or figure of the author's is changed.
+- **Not built, and why: the three railcars.** Our vehicle systems do not fit a vehicle with no engine
+  ([vehicle-real-figures-design.md](vehicle-real-figures-design.md) says so of railcars), so a railcar has no roof mount and no fittings
+  window, and a deck tent has no part to go on. **Reaching them needs a railcar loadout of its own** (what a railcar's systems are:
+  bogies, couplers, brakes), which is a design to put to the owner, not a patch. The owner was told this might happen when asked.
+- **The Land Cruiser's own bed upgrades** (a mortar or howitzer platform) and a deck tent can both be fitted; nothing stops it. Left to
+  the player (agent's choice).
 
 ## Questions for the owner
 

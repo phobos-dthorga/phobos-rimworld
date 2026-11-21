@@ -13,6 +13,7 @@ Camp gear on the tank trailers, the Billy and the shower trailer. Needs D'thorga
 
 - **The water and fuel bowsers, the Billy field kitchen and the shower trailer take camp gear on their side** (the owner's choice of 22 November 2026). Each has a side rail in its fittings window for an awning; unhitched, its own Set up camp button pitches the camp beside it from the awning and the swags in its cargo. Nothing goes on top of a tank or a kitchen. The Billy's kitchen tent and the camp take a side each. Not yet tested in game: row 327 of the test pass.
 - **The Talus tipper and the Pintle flatbed take a deck tent**: a tent that stands on the deck itself, with a small room inside to walk into and two beds. Fit it to the roof mount from the fittings window; choose its sleepers on the vehicle. Not yet tested in game: row 329 of the test pass.
+- **Four other mods' open-bed trucks take a deck tent** (the owner's picks of 22 November 2026), each only while its mod is active: Vanilla Vehicles Expanded's Mule and Roadrunner (two beds each), Frontline Workshop's Land Cruiser J70 (one bed) and RimThunder - Roaring Tiger's M1075 HEMTT (four beds). Only each vehicle's Def is marked; nothing of its author's code or art changes. Not yet tested in game: row 330 of the test pass.
 
 ### Dependencies
 
@@ -21,6 +22,10 @@ Camp gear on the tank trailers, the Billy and the shower trailer. Needs D'thorga
 ### Save compatibility
 
 - A trailer already built gains its side rail at the next load; its cargo, tyres, tank and upgrades are kept.
+
+### Compatibility and limits
+
+- Trains of the Rim's flat railcars and gondola were picked too, but are not done: our vehicle systems do not fit a vehicle with no engine, so a railcar has no part for a fitting to go on. Reaching them needs a railcar loadout of its own.
 
 ## [0.97.0] - 2026-11-22 - Draft
 
