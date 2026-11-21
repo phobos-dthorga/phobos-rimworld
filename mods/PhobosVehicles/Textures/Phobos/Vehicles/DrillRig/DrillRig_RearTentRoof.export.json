@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/DrillRig/drill-rear-tent-roof-1.png",
+  "master_sha256": "f840352bd1f2e901e3eaff63e9d5aa46c99067d2ce6ca01349b342147c839842",
+  "files": {
+    "DrillRig_RearTentRoof_north.png": "a918f2d2667e2f192d94d0a121028dc52ff82755bfa2c88dd0bf5caa1041adda",
+    "DrillRig_RearTentRoof_east.png": "80271080e1e24f96f2dc8e83488c1ac2e844390e04c47b589465de8da4f6d5a6",
+    "DrillRig_RearTentRoof_south.png": "f40527fb28e79d0f0f87e92425bb263d4f7ea1902fd337a2c724c060031ae93b"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "DrillRig-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

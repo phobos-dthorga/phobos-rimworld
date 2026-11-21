@@ -49,6 +49,13 @@
       "a rider has a treat": ["vehicles.life-aboard-treat"],
       "a rider drinks from the crew tank": ["vehicles.life-aboard-drink"]
     }},
+    "365": {"parts": {
+      "the forming window counts the trailers' food": ["trailers.forming-days-of-food"],
+      "planning shows the road's time with night driving": ["vehicles.night-drive-planned"]
+    }},
+    "364": {"parts": {
+      "a book's lessons aboard": ["vehicles.life-aboard-lessons"]
+    }},
     "354": {"parts": {
       "a parked crew tank stands in its hidden tower": ["vehicles.crew-water-laid"],
       "the crew drink from it on the road": ["vehicles.crew-water-road"],

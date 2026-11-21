@@ -1,10 +1,10 @@
 {
   "master": "assets/phobos-vehicles/generated/camp-gear-sam/BulkTanker/tanker-side-roll-1.png",
-  "master_sha256": "17e7c1382706390478a3ed7b63cbafc130ee7ebca0d7fb33da3a859c67d0e99f",
+  "master_sha256": "21daca641a43c540b7a7495a43b6174bf30ee11fb96c5826d13d696d0de268e5",
   "files": {
-    "BulkTanker_SideRoll_north.png": "0450b292953998342930592592dc3877bd35bb190c852d08a5a9fa905d09d450",
-    "BulkTanker_SideRoll_east.png": "7d9390bdff34204b6700f82990c8bd2495b2506a5c24f69fbc3ff6d03f539d8e",
-    "BulkTanker_SideRoll_south.png": "817e2687349419a8cad8a3665974fdd8bea18510e45a1831e7c9e27d3b146380"
+    "BulkTanker_SideRoll_north.png": "faa0f17f4c0ccc78e48379e7fdc7128d86faec1a7bd02de455bb993416ec20ec",
+    "BulkTanker_SideRoll_east.png": "a728665d3b2d67f2b23c58802958ce6acb4d0637d13dc7b49d06e06287eccd5a",
+    "BulkTanker_SideRoll_south.png": "329aae99437af95d4b0c76fe472f8afc2a82f1b1c7ba800bcf66cdce11822ab4"
   },
   "date": "2026-11-22",
   "tool": "scripts/art/export_vehicle.py",

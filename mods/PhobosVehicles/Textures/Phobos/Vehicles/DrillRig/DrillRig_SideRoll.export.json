@@ -1,10 +1,10 @@
 {
   "master": "assets/phobos-vehicles/generated/camp-gear-sam/DrillRig/drill-side-roll-1.png",
-  "master_sha256": "3202a770bbcd43f07b9b000c7b386be09eec60e1b567f567344d40abe8f342a8",
+  "master_sha256": "0315a39cda83b871f35d4f867042b521e8d8e2e22ed3cdf9ce427b98c591bcb6",
   "files": {
-    "DrillRig_SideRoll_north.png": "fb13636cf7454b67f8f29a395a7b8f5c0a01ec1495e178780a666c02c12b0fcd",
-    "DrillRig_SideRoll_east.png": "f56d28dc38bcb55c9971bfb42e69259faf79ce0e51c156467cf95b5891338300",
-    "DrillRig_SideRoll_south.png": "9c9b472c76114344865bb7fa70548256614c556a2f5a96335e8b1a3b1bf98bf7"
+    "DrillRig_SideRoll_north.png": "0d7d6031392ac5d5fd6286f09e9a8d2b45375515ec0e5cfa175a034f9486e33f",
+    "DrillRig_SideRoll_east.png": "94f1ed8a408868143ef4569a926c86adc0d711fdc1303c0573526b72466518ac",
+    "DrillRig_SideRoll_south.png": "f231e5662c7e9cdc40d5d0a559ff3b9eff20ea4f26b42a2ab98ec4bcd154f821"
   },
   "date": "2026-11-22",
   "tool": "scripts/art/export_vehicle.py",

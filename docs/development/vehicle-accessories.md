@@ -537,6 +537,10 @@ The owner had already chosen it as a setting, off by default (13 Nov 2026): **Dr
 
 **Known limits:** a driver who never tires (a mechanoid) always counts as fit. The arrival time is settled below.
 
+**Planning and forming (Framework 0.236.0; row 365):** with the setting on, Vehicle Framework's sum for vehicle kinds (route planner,
+forming window) shows the road's time too, as for a caravan with a relief driver in every vehicle (agent's choice: there is no crew to read
+yet); a caravan's own time keeps its own answer (a guard skips the inner sum while it is worked out).
+
 **The arrival time (Framework 0.228.0, 22 Nov 2026; row 347, not yet tested in game).** Vehicle Framework's estimate
 (`VehicleCaravanPathingHelper.EstimatedTicksToArrive`) adds a fixed night's rest for every night on the way and never asks the caravan
 whether it rests, so a caravan driving through the night arrived well before the time it showed: a loose end the owner asked to have
@@ -721,8 +725,11 @@ rest of the family is built in D'thorga Vehicles 0.103.0 (row 359; [the record](
 roof tents, side rolls, the tipper's deck tents and the flatbed's fold-out camper, about US$1.30. The roof tents were redrawn whole in Vehicles
 0.104.0 after the owner's review (a shell drawn alone and laid on each cab; two shells, by roof size), and the camper kit, like the deck tent,
 now fits **roomy** (`PhobosFitting_FoldOutCamperRoomy`, Framework 0.235.0: 110 kg against 90, work 5,000 against 4,000, `PhobosCamp_CamperBedRoomy`
-at comfort 0.9 against 0.8; authored) or **compact** (as built). Row 360. **Limits:** the side roll is drawn on the
-left rail whichever side the camp is pitched; a rear tent is not drawn.
+at comfort 0.9 against 0.8; authored) or **compact** (as built). Row 360. **The owner's follow-up of the limits (22 Nov
+2026; Framework 0.236.0, Vehicles 0.105.0; row 366):** the rolled bag is drawn on the side the camp is pitched (or chosen), from
+`CompPhobosCamp` as a look switch (`campSideRollLeft`, `campSideRollRight`), and a rear tent on the roof or tent mount as the bag across it
+(`campRearTentRoof`); every bag was redrawn from one drawn alone on white (`awning-roll-bag-2`, about US$0.11) after the lifted one showed a
+fringe of the Billy along one edge.
 
 ## Built: life aboard (22 Nov 2026)
 
@@ -746,8 +753,10 @@ piece" (owner, 13 Nov 2026); the owner's go on 22 Nov 2026. D'thorga Framework 0
 | Reading | A rider below 0.9 recreation, a book in reach (their packs, the cargo, the caravan's packs); after dark only by a fitted, lit reading light | 0.12 recreation an hour ("reading"); 0.3 A while dark with a passenger aboard |
 | A treat | A rider below 0.9 recreation, at most every 4 hours: the most enjoyable thing in reach eaten for pleasure that is no drug (tea, coffee, sweets) | The game's own eating, nutrition and recreation |
 
-**Limits:** reading gives recreation only, not a book's own lessons or the game's reading outcomes (a simplification). A treat is eaten
-whole as the game eats it.
+**Limits, followed up (Framework 0.236.0; row 364):** reading now gives the book's own outcomes as the game's reading does
+(`BookOutcomeDoer.OnReadingTick` at the reader's reading speed for the look's ticks; a cab is no room, so no room bonus), except a book's
+quest, which looks for a map; and life aboard runs in flight too (Vehicle Framework keeps an aircraft in flight among the world's pawns and
+ticks it there). A treat is eaten whole as the game eats it.
 
 **Pictures:** the stereo and reading light kits, paid, two attempts each, about US$0.22 ([the record](../../assets/phobos-vehicles/requests/camp-lights-record.md));
 the agent's suggested picks ship until the owner picks.

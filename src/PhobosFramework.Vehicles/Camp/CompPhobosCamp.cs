@@ -21,8 +21,46 @@ namespace Phobos.VehicleSystems;
 /// (in a caravan), what can be packed goes with it and what cannot is left standing. A vehicle of another faction at its own base may be found
 /// with its camp out, pitched once when the map is made (owner, 13 Nov 2026: other factions' camps with the camp batch).
 /// </summary>
-public sealed class CompPhobosCamp : VehicleComp, IThingHolder
+public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwitch
 {
+    /// <summary>
+    /// The camp gear's pictures on our vehicles (Framework 0.236.0; the owner's follow-up of 22 Nov 2026): the rolled bag of an awning, side
+    /// fly, walled awning or rear tent on the side rail, on the side the camp is pitched (or will be: the side chosen), and a rear tent on the
+    /// roof or tent mount, rolled across it. Looks keyed by these states (CompPhobosNodeLooks' "when").
+    /// </summary>
+    public const string LookSideRollLeft = "campSideRollLeft", LookSideRollRight = "campSideRollRight", LookRearTentRoof = "campRearTentRoof";
+    static readonly string[] SideRailGear = { "PhobosFitting_Awning", "PhobosFitting_SideFly", "PhobosFitting_AwningRoom", "PhobosFitting_RearTent" };
+
+    public bool ShowsLook(string when)
+    {
+        switch (when)
+        {
+            case LookSideRollLeft:
+            case LookSideRollRight:
+                if (!FittedIn("SideRail", SideRailGear)) return false;
+                int side = IsPitched ? pitchedSide : preferredSide;
+                return (when == LookSideRollLeft) == (side == CampLayoutRule.Left);
+            case LookRearTentRoof:
+                return FittedIn("RoofMount", "PhobosFitting_RearTent");
+            default:
+                return false;
+        }
+    }
+
+    /// <summary>Whether a part of this role holds one of these fittings, by defName.</summary>
+    bool FittedIn(string role, params string[] defNames)
+    {
+        if (Systems is not { Usable: true } systems || !systems.Props.roleKeys.TryGetValue(role, out List<string>? keys)) return false;
+        foreach (string key in keys)
+        {
+            if (systems.Fittings.FittedOn(key) is { } def && defNames.Contains(def.defName)) return true;
+        }
+        return false;
+    }
+
+    /// <summary>The vehicle's pictures follow the camp's side at once.</summary>
+    void LooksChanged() => Vehicle.GetComp<CompPhobosNodeLooks>()?.Refresh();
+
     internal const string RoofTentAbility = "RoofTent";
     internal const string AwningAbility = "Awning";
     const string TentSlot = "Tent";
@@ -895,6 +933,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         Map map = Vehicle.Map;
         Faction? faction = Vehicle.Faction;
         pitchedSide = plan.side;
+        LooksChanged();
         // The tent first: its own canvas roof over its bed.
         if (plan.tent is { } tent)
         {
@@ -1241,6 +1280,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             {
                 preferredSide = -preferredSide;
                 Forget();
+                LooksChanged();
             },
         };
         if (spotSlots.Count > 0)

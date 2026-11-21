@@ -51,8 +51,9 @@ for the Osprey.
   Deeper with a prefix, Vanilla Gravship Expanded with a postfix); ours answers only for our cabins' maps.
 - **Food (Framework 0.230.0; row 350):** nobody inside could reach the vehicle's cargo. On the vehicle's rare look, anyone hungry in the
   cabin eats the best food in the cargo they can eat now, by the game's own caravan rules (`CaravanPawnsNeedsUtility`), eaten whole as a
-  caravan's people eat. **Agent's choice:** no ration locker or galley; the cargo is the larder. **Unknown:** whether Vehicle Framework
-  ticks an aircraft's comps while it flies between tiles off any map; if not, people eat once it lands.
+  caravan's people eat. **Agent's choice:** no ration locker or galley; the cargo is the larder. **Settled (22 Nov 2026):** Vehicle Framework
+  keeps an aircraft in flight among the world's pawns and ticks it there (its source: `AerialVehicleInFlight` does not tick its
+  contents, the world's pawns do), so the cabin's people eat in flight; life aboard runs there too since Framework 0.236.0.
 - **If the vehicle is lost:** everyone inside, and what was left there, is set down beside the wreck, or, if it was lost away from any
   map, on the map the cabin was last pointed at.
 

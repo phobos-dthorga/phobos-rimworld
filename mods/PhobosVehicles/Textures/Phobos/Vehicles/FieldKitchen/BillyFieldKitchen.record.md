@@ -28,3 +28,12 @@ made by script instead (paid rules 7 and 11). Request and review: `assets/phobos
 `camp-gear-overlays-record.md`.
 
 - `BillyFieldKitchen_SideRoll` (billy-side-roll): made by script from the Billy's lifted roll (attempt 2), laid along this vehicle's left rail. Edit `camp-gear-billy-side-roll-1`, SHA-256 `d7a3d8a20ede7594ee18b613f8f1fb9801ff69553b4687fd3335cc2cc64d2a28`; north `10d6989bbe81634a5dd09cbf2d00896ca0b5dac25267b91fc1b08b1d3abb899b`
+
+**The owner's follow-up, 22 Nov 2026** (D'thorga Vehicles 0.105.0): the rolled bag on whichever side the camp is pitched, and the rear tent drawn.
+
+- `BillyFieldKitchen_SideRollRight`: the left roll mirrored across the vehicle's centre line by script, for a camp on the right; north `a1bb36bb9ed4c266090f7ff4df97765760349e329509b5b5aff0a4b880d5af7b`
+
+**Every rolled bag redrawn (22 Nov 2026, Vehicles 0.105.0):** the roll lifted from the Billy carried a fringe of the Billy's body along one edge, so the bag is now drawn alone on white (`awning-roll-bag-2`, OpenAI gpt-image-2, medium; references our awning roll and camp heater; exported by `export_sprite.py` after the background AI) and laid by script on the left rail, mirrored on the right, and across the roof for a packed rear tent. North pictures' SHA-256:
+
+- `BillyFieldKitchen_SideRoll`: 7210bbd64a84811b652a5bd59b16ef4ff781f4dabd945d3219cd535d6ad88927
+- `BillyFieldKitchen_SideRollRight` (mirrored): d2ae623b9ff2216f3b68303f0560911c4ecd2be721fe4ed2113e7709ba9ced3c

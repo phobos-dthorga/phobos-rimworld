@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Flatbed/flatbed-side-roll-right-1.png",
+  "master_sha256": "aa90e2355c29fb5187c56e6def785d4271f796fa43b77d498fc6e8bcd6d58d76",
+  "files": {
+    "FlatbedTrailer_SideRollRight_north.png": "69508595fcb8da91bebd67913bd6227dfd24c92b81e6e2c7459ed787081074f9",
+    "FlatbedTrailer_SideRollRight_east.png": "d958fb3f6413f9b45b25008451b0ca331daa68094399f39eb29feefb936ecf3e",
+    "FlatbedTrailer_SideRollRight_south.png": "d2998c53c7f55b183318e68999e3211c46c0c2e5fde06a98671f28653d22a188"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "Flatbed-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

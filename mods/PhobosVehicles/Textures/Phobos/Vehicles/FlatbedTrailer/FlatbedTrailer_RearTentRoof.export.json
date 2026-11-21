@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Flatbed/flatbed-rear-tent-roof-1.png",
+  "master_sha256": "568e1620066afbf6502b7a363ed7b0e88a32579186b6d94cc57389d560ef4a29",
+  "files": {
+    "FlatbedTrailer_RearTentRoof_north.png": "60d2a8e8242c05f5a7540df50e0cf8fcc86a93ee324d8b9e304f045215df28e2",
+    "FlatbedTrailer_RearTentRoof_east.png": "27e6fa244fdfc3cc020caf11917f73edda75d298945b16f1d8b8db9af9a2e6d3",
+    "FlatbedTrailer_RearTentRoof_south.png": "01fa7cda34d35a4a8825b5979ae1cf791176139433b7a614a48963f31ab4d0e3"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "Flatbed-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

@@ -208,8 +208,18 @@ public static class NightDrivingArrival
 
     static readonly List<(bool, int)> Crews = new();
 
+    /// <summary>While Vehicle Framework works out a caravan's own time: its inner sum for vehicle kinds is left to this postfix (Framework 0.236.0).</summary>
+    [System.ThreadStatic]
+    internal static bool InsideCaravan;
+
+    public static void Prefix() => InsideCaravan = true;
+
+    /// <summary>Cleared even if Vehicle Framework's sum throws, so the planner's postfix is never left switched off.</summary>
+    public static void Finalizer() => InsideCaravan = false;
+
     public static void Postfix(VehicleCaravan caravan, ref int __result)
     {
+        InsideCaravan = false;
         if (__result <= 0 || !NightDriving.Enabled || caravan.Faction != Faction.OfPlayer || NightDriving.Current is not { } driving || !driving.SwitchedOn(caravan)) return;
         int now = Find.TickManager.TicksGame;
         if (caravan == keptFor && now - keptAt < KeepTicks)
@@ -261,14 +271,44 @@ public static class NightDrivingArrival
     static int Straight(VehicleCaravan caravan)
     {
         if (caravan.vehiclePather is not { Moving: true, curPath: { Found: true } path } pather) return 0;
-        List<VehiclePawn> vehicles = caravan.VehiclesListForReading;
-        int ticks = Mathf.CeilToInt(pather.nextTileCostLeft);
-        int nowAbs = Find.TickManager.TicksAbs;
+        return Straight(caravan.VehiclesListForReading.Select(v => v.VehicleDef).Distinct().ToList(), path, pather.nextTileCostLeft, caravan.TicksPerMove,
+            Find.TickManager.TicksAbs);
+    }
+
+    /// <summary>The same for vehicle kinds and a path, as Vehicle Framework walks it, with no rest.</summary>
+    internal static int Straight(List<VehicleDef> defs, WorldPath path, float nextTileCostLeft, int ticksPerMove, int nowAbs)
+    {
+        if (path is not { Found: true } || defs.Count == 0) return 0;
+        int ticks = Mathf.CeilToInt(nextTileCostLeft);
         for (int step = 1; step < path.NodesLeftCount; step++)
         {
-            var move = new TicksPerMoveData { tile = path.Peek(step - 1), nextTile = path.Peek(step), ticksPerMove = caravan.TicksPerMove, ticksAbs = nowAbs + ticks };
-            ticks += VehicleCaravan_PathFollower.CostToMove(vehicles, in move);
+            var move = new TicksPerMoveData { tile = path.Peek(step - 1), nextTile = path.Peek(step), ticksPerMove = ticksPerMove, ticksAbs = nowAbs + ticks };
+            ticks += VehicleCaravan_PathFollower.CostToMove(defs, in move);
         }
         return ticks;
+    }
+}
+
+/// <summary>
+/// The time shown while planning a route and forming a caravan (Framework 0.236.0; a limit the owner asked to have followed up, 22 Nov 2026).
+/// Vehicle Framework's planner and forming window use its sum for vehicle kinds, with no caravan yet and so no switch or crew to read. With
+/// driving through the night on, they now show the road's time with no nights taken out (agent's choice: as a caravan whose switch is on,
+/// its default, and that carries a relief driver in every vehicle). A caravan already on the road keeps its own answer, above.
+/// </summary>
+[HarmonyPatch]
+public static class NightDrivingPlannedArrival
+{
+    static System.Reflection.MethodBase TargetMethod() => AccessTools.Method(typeof(VehicleCaravanPathingHelper), "EstimatedTicksToArrive", new[]
+    {
+        typeof(List<VehicleDef>), typeof(PlanetTile).MakeByRefType(), typeof(PlanetTile).MakeByRefType(), typeof(WorldPath), typeof(float), typeof(int), typeof(int),
+    });
+
+    public static void Postfix(List<VehicleDef> vehicleDefs, WorldPath path, float nextTileCostLeft, int caravanTicksPerMove, int curTicksAbs, ref int __result)
+    {
+        if (NightDrivingArrival.InsideCaravan || !NightDriving.Enabled || __result <= 0 || vehicleDefs == null) return;
+        int straight = NightDrivingArrival.Straight(vehicleDefs, path, nextTileCostLeft, caravanTicksPerMove, curTicksAbs);
+        if (straight <= 0 || straight >= __result) return;
+        if (Seen.Wants("vehicles.night-drive-planned")) Seen.Note("vehicles.night-drive-planned", null, (__result / 60000f).ToString("0.0") + " to " + (straight / 60000f).ToString("0.0") + " days");
+        __result = straight;
     }
 }

@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.236.0] - 2026-11-22 - Draft
+
+The limits of the camp and caravan work, followed up
+
+### Added
+
+- **Reading aboard teaches what the book teaches.** A rider reading a book in a vehicle now gains its skill or research, at their reading speed, as reading at home does, as well as the recreation. A book that would give a quest is read for pleasure only aboard. Not yet tested in game: row 364 of the test pass.
+- **Life aboard goes on in flight too**: people in an aircraft between places drink, read and have their treats, and hear its stereo, as on the ground. Food for a walk-in cabin's people in flight already worked. Row 364.
+- **The camp tells the vehicle which side its gear is on**, so D'thorga Vehicles can draw a rolled awning on the side the camp is pitched, and a rear tent packed on the roof (D'thorga Vehicles 0.105.0). Row 366.
+
+### Fixed
+
+- **The window for forming a caravan counts the food in the trailers it takes.** A trailer hitched behind a chosen vehicle goes too, and its cargo's food now adds to the days of food shown. Row 365.
+- **Planning a route and forming a caravan show the road's time when driving through the night is on**, as a caravan already on the road does. They have no crew to look at yet, so they show the time for a caravan with someone to take over in every vehicle. Row 365.
+
 ## [0.235.0] - 2026-11-22 - Draft
 
 The fold-out camper, roomy or compact

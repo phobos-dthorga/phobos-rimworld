@@ -841,7 +841,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         // Walk-in cabins (Framework, vehicle cabins): close an empty one on the ground, and walk idle colonists out.
         if (Vehicle.GetComp<CompPhobosVehicleCabin>() is { } cabin) VehicleCabins.RareLook(cabin);
         // Life aboard (Framework 0.233.0): on a map here; on the road, the world component's look.
-        if (Usable && Vehicle.Spawned) LifeAboard.Look(this, null);
+        // In flight between tiles too (Framework 0.236.0): Vehicle Framework keeps the aircraft among the world's pawns and ticks it there.
+        if (Usable && (Vehicle.Spawned || Vehicle.GetAerialVehicle() != null)) LifeAboard.Look(this, null);
         switch (Tier)
         {
             case DetailTier.Full:

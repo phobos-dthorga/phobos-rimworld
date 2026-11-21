@@ -6,6 +6,7 @@ using RimWorld;
 using RimWorld.Planet;
 using Vehicles;
 using Vehicles.World;
+using UnityEngine;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -79,7 +80,7 @@ public static class TowedLarder
 [HarmonyPatch(typeof(DaysWorthOfFoodCalculator), nameof(DaysWorthOfFoodCalculator.ApproxDaysWorthOfFood), new[] { typeof(Caravan) })]
 public static class TowedLarderDays
 {
-    static readonly MethodInfo? Sum = AccessTools.Method(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood", new[]
+    internal static readonly MethodInfo? Sum = AccessTools.Method(typeof(DaysWorthOfFoodCalculator), "ApproxDaysWorthOfFood", new[]
     {
         typeof(List<Pawn>), typeof(List<ThingDefCount>), typeof(PlanetTile), typeof(IgnorePawnsInventoryMode), typeof(Faction),
         typeof(WorldPath), typeof(float), typeof(int), typeof(bool),
@@ -128,4 +129,85 @@ public static class TowedLarderRot
         __result = DaysUntilRotCalculator.ApproxDaysUntilRot(All, caravan.Tile, caravan.pather.curPath, caravan.pather.nextTileCostLeft, caravan.TicksPerMove);
         All.Clear();
     }
+}
+
+/// <summary>
+/// The window for forming a caravan counts the food in the trailers it takes (Framework 0.236.0; a limit the owner asked to have followed up,
+/// 22 Nov 2026). Vehicle Framework works the window's days of food out from what is chosen to go; a trailer hitched behind a chosen vehicle
+/// goes too, but its cargo was never in that sum. When the figure is worked out again, the game's own sum is run with and without the trailers'
+/// food, and the difference is added to Vehicle Framework's figure, so its own route and speed stay in it. A trailer chosen to go by itself is
+/// counted already and is left alone. Days until rot change only where there was no food before.
+/// </summary>
+[HarmonyPatch(typeof(Dialog_FormCaravan), "DaysWorthOfFood", MethodType.Getter)]
+public static class TowedLarderForming
+{
+    static readonly List<Pawn> Pawns = new();
+    static readonly List<ThingDefCount> Food = new();
+    static readonly List<ThingDefCount> Towed = new();
+    static readonly List<ThingCount> TowedThings = new();
+
+    [HarmonyPriority(Priority.First)]
+    public static void Prefix(bool ___daysWorthOfFoodDirty, out bool __state) => __state = ___daysWorthOfFoodDirty;
+
+    public static void Postfix(Dialog_FormCaravan __instance, bool __state, List<TransferableOneWay> ___transferables, ref (float days, float tillRot) __result,
+        ref (float days, float tillRot) ___cachedDaysWorthOfFood)
+    {
+        if (!__state || TowedLarderDays.Sum == null || ___transferables == null) return;
+        Pawns.Clear();
+        Food.Clear();
+        Towed.Clear();
+        TowedThings.Clear();
+        var chosen = new HashSet<Thing>();
+        foreach (TransferableOneWay row in ___transferables)
+        {
+            if (!row.HasAnyThing || row.CountToTransfer <= 0) continue;
+            for (int i = 0; i < row.CountToTransfer && i < row.things.Count; i++) chosen.Add(row.things[i]);
+            if (row.AnyThing is Pawn)
+            {
+                for (int i = 0; i < row.CountToTransfer && i < row.things.Count; i++)
+                {
+                    if (row.things[i] is Pawn { needs.food: not null } pawn && pawn.RaceProps.EatsFood) Pawns.Add(pawn);
+                }
+            }
+            else if (row.AnyThing is not Corpse corpse || corpse.GetRotStage() == RotStage.Fresh)
+            {
+                Food.Add(new ThingDefCount(row.ThingDef, row.CountToTransfer));
+            }
+        }
+        foreach (Thing thing in chosen)
+        {
+            if (thing is not VehiclePawn vehicle) continue;
+            foreach (VehiclePawn trailer in CompPhobosHitch.Behind(vehicle))
+            {
+                if (chosen.Contains(trailer) || trailer.inventory?.innerContainer is not { } cargo) continue;
+                foreach (Thing held in cargo)
+                {
+                    if (!held.def.IsNutritionGivingIngestible) continue;
+                    Towed.Add(new ThingDefCount(held.def, held.stackCount));
+                    TowedThings.Add(new ThingCount(held, held.stackCount));
+                }
+            }
+        }
+        if (Towed.Count == 0 || Pawns.Count == 0) return;
+        Map? map = Traverse.Create(__instance).Field("map").GetValue<Map>();
+        if (map == null) return;
+        var mode = Traverse.Create(__instance).Property("IgnoreInventoryMode").GetValue<IgnorePawnsInventoryMode>();
+        float without = Days(Food, map.Tile, mode);
+        Food.AddRange(Towed);
+        float with = Days(Food, map.Tile, mode);
+        float added = Mathf.Max(0f, with - without);
+        bool hadNone = __result.days <= 0.01f;
+        float days = Mathf.Min(DaysWorthOfFoodCalculator.InfiniteDaysWorthOfFood, __result.days + added);
+        float tillRot = hadNone ? DaysUntilRotCalculator.ApproxDaysUntilRot(TowedThings, map.Tile) : __result.tillRot;
+        if (Seen.Wants("trailers.forming-days-of-food")) Seen.Note("trailers.forming-days-of-food", null, __result.days.ToString("0.0") + " to " + days.ToString("0.0") + " days");
+        __result = (days, tillRot);
+        ___cachedDaysWorthOfFood = __result;
+        Pawns.Clear();
+        Food.Clear();
+        Towed.Clear();
+        TowedThings.Clear();
+    }
+
+    static float Days(List<ThingDefCount> food, PlanetTile tile, IgnorePawnsInventoryMode mode) =>
+        TowedLarderDays.Sum!.Invoke(null, new object?[] { Pawns, food, tile, mode, Faction.OfPlayer, null, 0f, 3300, false }) is float days ? days : 0f;
 }

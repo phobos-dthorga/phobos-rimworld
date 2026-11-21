@@ -602,12 +602,12 @@
               </li>
             </looks>
           </li>
-          <!-- Vehicles 0.102.0, camp gear drawn on our vehicles (the owner's "everything on ours", 22 Nov 2026): a rolled awning, side fly or awning walls on the left side rail. -->
+          <!-- Vehicles 0.102.0, camp gear drawn on our vehicles (the owner's "everything on ours", 22 Nov 2026): a rolled awning, side fly, awning walls or rear tent on the side rail, on the side the camp is pitched (0.105.0). -->
           <li>
             <key>campSideRoll</key>
             <looks>
               <li>
-                <fitting>PhobosFitting_Awning</fitting>
+                <when>campSideRollLeft</when>
                 <look>
                   <graphicData>
                     <texPath>Phobos/Vehicles/Tipper/Tipper_SideRoll</texPath>
@@ -619,10 +619,10 @@
                 </look>
               </li>
               <li>
-                <fitting>PhobosFitting_SideFly</fitting>
+                <when>campSideRollRight</when>
                 <look>
                   <graphicData>
-                    <texPath>Phobos/Vehicles/Tipper/Tipper_SideRoll</texPath>
+                    <texPath>Phobos/Vehicles/Tipper/Tipper_SideRollRight</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
                     <drawSize>(4, 9)</drawSize>
                     <shaderType>Cutout</shaderType>
@@ -630,15 +630,21 @@
                   </graphicData>
                 </look>
               </li>
+            </looks>
+          </li>
+          <!-- Vehicles 0.105.0: a rear tent packed on the roof or tent mount, its bag across it. -->
+          <li>
+            <key>campRearTentRoof</key>
+            <looks>
               <li>
-                <fitting>PhobosFitting_AwningRoom</fitting>
+                <when>campRearTentRoof</when>
                 <look>
                   <graphicData>
-                    <texPath>Phobos/Vehicles/Tipper/Tipper_SideRoll</texPath>
+                    <texPath>Phobos/Vehicles/Tipper/Tipper_RearTentRoof</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
                     <drawSize>(4, 9)</drawSize>
                     <shaderType>Cutout</shaderType>
-                    <layer>2</layer>
+                    <layer>3</layer>
                   </graphicData>
                 </look>
               </li>

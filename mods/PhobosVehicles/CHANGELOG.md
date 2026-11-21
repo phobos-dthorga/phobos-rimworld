@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.105.0] - 2026-11-22 - Draft
+
+Rolled bags on either side, the rear tent drawn
+
+### Added
+
+- **The rolled bag on the side rail is drawn on the side the camp is pitched** (needs D'thorga Framework 0.236.0): left or right, following the camp's side button; before a camp is pitched, the side chosen. Row 366 of the test pass.
+- **A rear tent is drawn too**: on the side rail as the rolled bag; on the roof or the flatbed's tent mount, as the same bag lying across it. Row 366.
+
+### Fixed
+
+- **Every rolled bag redrawn clean.** The one shipped in 0.103.0 carried a dashed fringe along one edge, picked up from the vehicle it was cut from; the bag is now drawn on its own and laid on each vehicle. Row 366.
+
 ## [0.104.0] - 2026-11-22 - Draft
 
 Clean roof tents, the owner's picks, and the roomy camper drawn

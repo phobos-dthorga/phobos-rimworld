@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/GeneratorSet/genset-rear-tent-roof-1.png",
+  "master_sha256": "177ec1aa0fafb82baa087b8500d790a13f907cbe23447582df3b4369dbacdd37",
+  "files": {
+    "GeneratorSet_RearTentRoof_north.png": "46cc457be01a7beaf7263df4c03194fe6720c4924400337514fe34a69e86f99d",
+    "GeneratorSet_RearTentRoof_east.png": "47ffad965d223a94e7d5822535bec5419a7d908f0f996a6b62e9b8df3f3dd575",
+    "GeneratorSet_RearTentRoof_south.png": "32c70750beea9d1c8925c8a43a331ba6bce4be5cdd998ce843c8dff4a641f846"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "GeneratorSet-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

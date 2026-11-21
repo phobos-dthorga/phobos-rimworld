@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Tipper/tipper-rear-tent-roof-1.png",
+  "master_sha256": "dc00a64d80d5afd6115ed94f2d024e831662a606133738fd6e76ac16575c5a3c",
+  "files": {
+    "Tipper_RearTentRoof_north.png": "352212afb08cdf3f0c7b76b87fe96bc1fbebfc0eb28e25c439f67880df7e61f1",
+    "Tipper_RearTentRoof_east.png": "d6e1a9baeffd47b4a68f48da62cd350629d3540f6dc8fc862e5bc3b72ab5d904",
+    "Tipper_RearTentRoof_south.png": "06cf571bcefc9133267e16db7117d51c3353558176845f82cb28fd7e6f9ee740"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "Tipper-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/GeneratorSet/genset-side-roll-right-1.png",
+  "master_sha256": "e73dc10ae398bce9d75b23ff131de79672a04789de01c739df57471497b989ef",
+  "files": {
+    "GeneratorSet_SideRollRight_north.png": "d20f9ba3e5254efadcd6d87e303fcc66ada324b91a2301eadb691a7415227e78",
+    "GeneratorSet_SideRollRight_east.png": "a8a092f4074b14f5f9c12255d7ac717e09ae05348c517b999a8b5bd07f57e093",
+    "GeneratorSet_SideRollRight_south.png": "d294087ce2e925eda7460e2dc581c037370fbf45f40bf9bc3e19be6e0e82d92d"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "GeneratorSet-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

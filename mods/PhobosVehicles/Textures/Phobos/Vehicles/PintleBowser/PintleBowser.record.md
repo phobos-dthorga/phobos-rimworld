@@ -36,3 +36,12 @@ made by script instead (paid rules 7 and 11). Request and review: `assets/phobos
 `camp-gear-overlays-record.md`.
 
 - `PintleBowser_SideRoll` (bowser-side-roll): made by script from the Billy's lifted roll (attempt 2), laid along this vehicle's left rail. Edit `camp-gear-bowser-side-roll-1`, SHA-256 `e3ae8b05fbeafc6c514b57527ef91f0d37277e3e922bd62a65766c53a9c400a4`; north `aa1b0a39ab5b0bd1412d9eb1536a5bceda90ef957c4c56c816acfa24fcfa7169`
+
+**The owner's follow-up, 22 Nov 2026** (D'thorga Vehicles 0.105.0): the rolled bag on whichever side the camp is pitched, and the rear tent drawn.
+
+- `PintleBowser_SideRollRight`: the left roll mirrored across the vehicle's centre line by script, for a camp on the right; north `50597ca07eb533f4b30f892678e66a85eca38741e3d3838c42097391e18e702d`
+
+**Every rolled bag redrawn (22 Nov 2026, Vehicles 0.105.0):** the roll lifted from the Billy carried a fringe of the Billy's body along one edge, so the bag is now drawn alone on white (`awning-roll-bag-2`, OpenAI gpt-image-2, medium; references our awning roll and camp heater; exported by `export_sprite.py` after the background AI) and laid by script on the left rail, mirrored on the right, and across the roof for a packed rear tent. North pictures' SHA-256:
+
+- `PintleBowser_SideRoll`: a16fcdcb1cb5b14723e9ebf45f60691d1bc1bd29ea75cdc84ad2a83f9f01ea7f
+- `PintleBowser_SideRollRight` (mirrored): f1ca1e0e1c326c60acfe8b089599d07e0ce9bc8decd0b67cdf395fe97dea326c

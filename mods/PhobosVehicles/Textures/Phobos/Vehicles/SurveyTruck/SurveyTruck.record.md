@@ -86,3 +86,14 @@ made by script instead (paid rules 7 and 11). Request and review: `assets/phobos
 roof tent is now drawn alone on white and laid by script, so the sprite exporter gives clean edges; both shells kept, by roof size.
 
 - `SurveyTruck_RoofTent`, again: the closed roof tent drawn alone (`roof-tent-closed-1`) and laid on the cab by script, the bolder shell for a wider roof; north `1b2af9e4ce5a70e610bd40131d50f203783fc87448e10d059414085bf0b2d915`
+
+**The owner's follow-up, 22 Nov 2026** (D'thorga Vehicles 0.105.0): the rolled bag on whichever side the camp is pitched, and the rear tent drawn.
+
+- `SurveyTruck_SideRollRight`: the left roll mirrored across the vehicle's centre line by script, for a camp on the right; north `e4b200cf748013bd4d7924b9ecdac23ca470edfdb26dd2a393ceb8589328604e`
+- `SurveyTruck_RearTentRoof`: a rear tent packed on the roof or tent mount: the same roll turned across it by script; north `4c155a0aebd0f1848767f870c6cedfa4dca1610383306ceb87a3f81e2ba30e27`
+
+**Every rolled bag redrawn (22 Nov 2026, Vehicles 0.105.0):** the roll lifted from the Billy carried a fringe of the Billy's body along one edge, so the bag is now drawn alone on white (`awning-roll-bag-2`, OpenAI gpt-image-2, medium; references our awning roll and camp heater; exported by `export_sprite.py` after the background AI) and laid by script on the left rail, mirrored on the right, and across the roof for a packed rear tent. North pictures' SHA-256:
+
+- `SurveyTruck_SideRoll`: 51ee89ac72478b7054c80880b3350ad22d3ec29a65a49d934232a91858350280
+- `SurveyTruck_SideRollRight` (mirrored): aa1529aa19f922961c9da67fe7565835c9c7d70612a8212a9405c7abf23653fe
+- `SurveyTruck_RearTentRoof` (across the roof): 00cf8ffef585a6c502c945ed1793ff68c4e8291d84a8651fa5b87e88adf85be0

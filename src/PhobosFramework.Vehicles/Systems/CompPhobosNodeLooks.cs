@@ -64,7 +64,7 @@ public class CompProperties_PhobosNodeLooks : VehicleCompProperties
     }
 
     /// <summary>Whether any look is shown by a fitting, so the comp watches the fittings.</summary>
-    public bool WatchesFittings => slots.Any(s => s.looks.Any(l => l.fitting != null));
+    public bool WatchesFittings => slots.Any(s => s.looks.Any(l => l.fitting != null || l.when != null));
 }
 
 /// <summary>

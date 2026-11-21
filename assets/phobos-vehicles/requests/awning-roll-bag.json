@@ -1,0 +1,29 @@
+[
+ {
+  "name": "awning-roll-bag",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1536,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
+    "role": "our approved awning roll kit (the same roll): match its colours, outline weight, shading and finish"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampHeater.png",
+    "role": "our approved camp piece seen from above: match its outline weight, shading and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "part": "a rolled awning in its bag, strapped to a vehicle's side rail, seen from directly above, alone",
+   "ships_as": "laid by script along each of our vehicles' side rails, and across a roof for a packed rear tent (Vehicles 0.105.0)",
+   "why": "the lifted roll carried a fringe of the vehicle it was lifted from; drawn alone on white so the sprite exporter gives clean edges (the owner's review of 22 Nov 2026)"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical outside faces.\n\nCreate an ORIGINAL game sprite part: a rolled canvas awning in its zipped bag, seen from directly above, lying horizontally. Image 1 is our approved awning roll: match its colours, outline weight, shading and finish. Image 2 is our camp gear seen from above, for style only.\n\nDraw ONLY the bag, alone and centred on a plain pure white background: one long slim rounded tube running from the left edge to the right edge of the canvas, about one eighth as tall as it is long, in mid-grey canvas with a zip seam along its length, three narrow black straps around it spaced evenly, and plain rounded end caps.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo vehicle, rail, brackets, people, text, letters, numbers, logos, shadow outside the object, perspective or tilt."
+ }
+]

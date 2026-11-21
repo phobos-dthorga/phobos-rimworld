@@ -1,10 +1,10 @@
 {
   "master": "assets/phobos-vehicles/generated/camp-gear-sam/Flatbed/flatbed-side-roll-1.png",
-  "master_sha256": "d129c56d848f61b7f2e1c412f0d469e424dd8a8378bffb1e16e0443b4af9462e",
+  "master_sha256": "9b9d15b0f76c77f52a849d82c07bb6b2cd55fa3340b0ec469762db00fb801248",
   "files": {
-    "FlatbedTrailer_SideRoll_north.png": "b9a1efbcdec75df36cc62b245995ecf6f77fdb06fd9a79693a09f2c4cd6b2086",
-    "FlatbedTrailer_SideRoll_east.png": "8172610212525923742d94562da920eba3241d12571ee509c79b73a1cd413f7e",
-    "FlatbedTrailer_SideRoll_south.png": "85bc2cc01ee54bd7314970dbb2adeb067ff27df08edc1353f69976f923a945d4"
+    "FlatbedTrailer_SideRoll_north.png": "0942344662b4efcf5d7ff1f8ecfe50c80556e4df886f5f1054286f84a546f6cd",
+    "FlatbedTrailer_SideRoll_east.png": "a0943b50a20d0ba0c899a38969a9fd92f4a9115d34b520d70df0150b87cae06f",
+    "FlatbedTrailer_SideRoll_south.png": "27259149d8610f3500901b8524a183e16bfcd7969fa7f3e5ac52894157dbc4f1"
   },
   "date": "2026-11-22",
   "tool": "scripts/art/export_vehicle.py",

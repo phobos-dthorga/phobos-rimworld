@@ -1,10 +1,10 @@
 {
   "master": "assets/phobos-vehicles/generated/camp-gear-sam/Billy/billy-side-roll-1.png",
-  "master_sha256": "0466301deb057fec0f6c02efe001b9bdf0b2f07a29b2282db28236f33c5d83f5",
+  "master_sha256": "24118f2232f2db01990c6fe55f1ea53503dd4c40afb8f6f365a86c88e01a31f7",
   "files": {
-    "BillyFieldKitchen_SideRoll_north.png": "10d6989bbe81634a5dd09cbf2d00896ca0b5dac25267b91fc1b08b1d3abb899b",
-    "BillyFieldKitchen_SideRoll_east.png": "0aa9bf13d01ad07f86bcec46c7caa19aab1cd31f7fade1a031847270abc47f62",
-    "BillyFieldKitchen_SideRoll_south.png": "31777dd86bdb6252da3410c51f3859a6d13c746915b4e77b108ea3005cf6dd38"
+    "BillyFieldKitchen_SideRoll_north.png": "7210bbd64a84811b652a5bd59b16ef4ff781f4dabd945d3219cd535d6ad88927",
+    "BillyFieldKitchen_SideRoll_east.png": "f40eba5162ef8784946ce91feb2eff385b991de7d17ce1c6b3657337b784f436",
+    "BillyFieldKitchen_SideRoll_south.png": "29524e9af7509fe69bf3da82f7f1b01f56faac816b7213d1e9f738b33b279ceb"
   },
   "date": "2026-11-22",
   "tool": "scripts/art/export_vehicle.py",

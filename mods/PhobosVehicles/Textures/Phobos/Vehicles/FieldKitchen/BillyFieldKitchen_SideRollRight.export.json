@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Billy/billy-side-roll-right-1.png",
+  "master_sha256": "ab2dafa1c75417b6014be107fc07262c4cfda84e14e277fd52c4108bb80afb97",
+  "files": {
+    "BillyFieldKitchen_SideRollRight_north.png": "d2ae623b9ff2216f3b68303f0560911c4ecd2be721fe4ed2113e7709ba9ced3c",
+    "BillyFieldKitchen_SideRollRight_east.png": "d61269f54dde87d40ed6d5bf2e754790b7861039a0f5c0d008a28bdb4f730ab8",
+    "BillyFieldKitchen_SideRollRight_south.png": "850eb4d4e0c6d4f7cc0cff7a7f16e0032c11d49741aa892e509305ae76fe6252"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "Billy-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

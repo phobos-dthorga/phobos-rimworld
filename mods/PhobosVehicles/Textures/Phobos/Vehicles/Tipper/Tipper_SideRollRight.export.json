@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Tipper/tipper-side-roll-right-1.png",
+  "master_sha256": "c712c1ef8cde679fa25392ec081e8b9829448b83edbabc1c58466e7b8bb4aeaa",
+  "files": {
+    "Tipper_SideRollRight_north.png": "7d244c8292f939daa77b773c8497781421a955ac1c297767066c42a4993f6313",
+    "Tipper_SideRollRight_east.png": "355359b5810d1fba7aca238c18c2cb4a98a0271128026e45aaa7daf9f1c981c9",
+    "Tipper_SideRollRight_south.png": "41713a3fc8d491cc2f276c46aa698ab21d29b049785a029889bdd16cb0cd813f"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "Tipper-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

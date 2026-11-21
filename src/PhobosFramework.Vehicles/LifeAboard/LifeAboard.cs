@@ -98,6 +98,7 @@ public static class LifeAboard
             if (light && Book(vehicle, caravan, pawn) is { } book)
             {
                 joy.GainJoy((float)LifeAboardRule.JoyGained(Rules.readingJoyPerHour, HoursPerLook), JoyKindDefOf.Reading);
+                Lessons(book, pawn);
                 if (Seen.Wants("vehicles.life-aboard-read", vehicle, dark ? "light" : "day")) Seen.Note("vehicles.life-aboard-read", vehicle, pawn.LabelShort + ": " + book.LabelShort, dark ? "light" : "day");
                 continue;
             }
@@ -126,6 +127,23 @@ public static class LifeAboard
     }
 
     static Thing? Book(VehiclePawn vehicle, Caravan? caravan, Pawn pawn) => Within(vehicle, caravan, pawn).FirstOrDefault(t => t is Book);
+
+    /// <summary>
+    /// A book's own lessons for the reading done since the last look (Framework 0.236.0): each of its outcomes as the game's reading gives
+    /// them (skill, research), at the reader's reading speed. Not a quest from a book, which looks for a map, nor the room's reading bonus:
+    /// a cab is no room (the game gives 1 without one).
+    /// </summary>
+    static void Lessons(Thing thing, Pawn pawn)
+    {
+        if (thing is not Book book || book.BookComp == null) return;
+        float factor = pawn.GetStatValue(StatDefOf.ReadingSpeed) * LookTicks;
+        foreach (BookOutcomeDoer doer in book.BookComp.Doers)
+        {
+            if (doer is BookOutcomeDoer_GiveQuest) continue;
+            doer.OnReadingTick(pawn, factor);
+        }
+        if (Seen.Wants("vehicles.life-aboard-lessons", pawn)) Seen.Note("vehicles.life-aboard-lessons", pawn, book.LabelShort);
+    }
 
     /// <summary>A treat: something eaten or drunk for pleasure that is no drug (a tea, a coffee, a sweet), the most enjoyable first.</summary>
     static bool Treat(VehiclePawn vehicle, Caravan? caravan, Pawn pawn)

@@ -1,10 +1,10 @@
 {
   "master": "assets/phobos-vehicles/generated/camp-gear-sam/GeneratorSet/genset-side-roll-1.png",
-  "master_sha256": "ff6d0540146678401a1c053d4a1a0193b7185122089ad8d1505c5b6de1d05de1",
+  "master_sha256": "7e4be437ee8ae542e1fe9d81b854663b265c68ab9bc279e03d0b10e1839117b8",
   "files": {
-    "GeneratorSet_SideRoll_north.png": "0ac1c04c01b10241966bffb73f8891a49b31fae5a1252a4a6f6a4146265a946e",
-    "GeneratorSet_SideRoll_east.png": "aa87f9c0812c322771672cfdbe7d98b1183ee01de2e1c6462b1add19adb5ce73",
-    "GeneratorSet_SideRoll_south.png": "40e615140f6a2cca0f958d05163e1794da51f87421a6eafc68bc1452e6aeb9be"
+    "GeneratorSet_SideRoll_north.png": "dfd71127911a59ba16a997bf59ddca6911462de653befff6563c2ec396f5fe52",
+    "GeneratorSet_SideRoll_east.png": "e437303f107a71a6c1dcf16a5ea22d3c64eabe04ead11b2b0d30c1b69a882ad8",
+    "GeneratorSet_SideRoll_south.png": "ed915ac6146eb94d4d9a23abe158f3e6967d4c4887a819917757b9e875b7562d"
   },
   "date": "2026-11-22",
   "tool": "scripts/art/export_vehicle.py",

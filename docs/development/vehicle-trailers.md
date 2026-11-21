@@ -569,8 +569,9 @@ by the agent on 21 Nov 2026 and listed as open; the owner said proceed on 22 Nov
   have tidied. Postfixes on the game's `DaysWorthOfFoodCalculator.ApproxDaysWorthOfFood(Caravan)` and
   `DaysUntilRotCalculator.ApproxDaysUntilRot(Caravan)` run the game's own sums again with the towed cargo's food added
   (`TowedLarderDays`, `TowedLarderRot`); a caravan that tows no food keeps the game's figures untouched. The caravan keeps its figure
-  for 3,000 ticks, as the game does, so it follows the cargo within an hour or so. **Still a limit:** the window for forming a caravan
-  counts what is loaded into the vehicles themselves, never a trailer's cargo (Vehicle Framework's own sum, left alone).
+  for 3,000 ticks, as the game does, so it follows the cargo within an hour or so. **The forming window too (Framework 0.236.0; row 365):** when its figure
+  is worked out again, the game's sum is run with and without the food in the chosen vehicles' trailers and the difference added to Vehicle
+  Framework's figure, so its route and speed stay in it (`TowedLarderForming`); a trailer chosen to go by itself is counted already.
 
 ## Upgrade trees as they stand
 

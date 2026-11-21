@@ -63,3 +63,14 @@ roof tent is now drawn alone on white and laid by script, so the sprite exporter
 
 - `Tipper_RoofTent`, again: the closed roof tent drawn alone (`roof-tent-closed-2`) and laid on the cab by script, the compact shell for a smaller roof; north `c1304708ef83e23758d0d1776689ef64441ba681fe4acbd12a039136e5f9892d`
 - `Tipper_DeckTent`: the owner's pick, attempt 2; north `05ee075dac73dabfb94fc278b95604c40e34f483315b924781f8e84bba8d6293`
+
+**The owner's follow-up, 22 Nov 2026** (D'thorga Vehicles 0.105.0): the rolled bag on whichever side the camp is pitched, and the rear tent drawn.
+
+- `Tipper_SideRollRight`: the left roll mirrored across the vehicle's centre line by script, for a camp on the right; north `900c6d6b14b3e47a960450285692e4845043ba6d8688d2d8f36d54321e6ea25b`
+- `Tipper_RearTentRoof`: a rear tent packed on the roof or tent mount: the same roll turned across it by script; north `8ff8e7a9af7451f7a7671c6f1499cf7b573465a8435e498ee54089b61bc96aa2`
+
+**Every rolled bag redrawn (22 Nov 2026, Vehicles 0.105.0):** the roll lifted from the Billy carried a fringe of the Billy's body along one edge, so the bag is now drawn alone on white (`awning-roll-bag-2`, OpenAI gpt-image-2, medium; references our awning roll and camp heater; exported by `export_sprite.py` after the background AI) and laid by script on the left rail, mirrored on the right, and across the roof for a packed rear tent. North pictures' SHA-256:
+
+- `Tipper_SideRoll`: 667bd8c31487b1c1d8cb28bc6c6ce801d458cd76d896c0c390798c7fd162e014
+- `Tipper_SideRollRight` (mirrored): 7d244c8292f939daa77b773c8497781421a955ac1c297767066c42a4993f6313
+- `Tipper_RearTentRoof` (across the roof): 352212afb08cdf3f0c7b76b87fe96bc1fbebfc0eb28e25c439f67880df7e61f1
