@@ -3,6 +3,10 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "336": {"parts": {
+      "a parked, packed Billy keeps its water tank beneath it": ["trailers.own-water-parked"],
+      "a chemfuel line is laid beneath what a trailer or camp sets out": [{"key": "trailers.set-out-line", "detail": "*"}]
+    }},
     "335": {"parts": {
       "a towed bowser tops up its caravan's vehicle": ["vehicles.cargo-refuel-towed"]
     }},

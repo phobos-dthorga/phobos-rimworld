@@ -378,6 +378,11 @@ Prefer a proper stop? Select the caravan and switch on **Meal halts**: it then s
 the whole kitchen as at camp (up to 20 each), and it drives on. With nobody but drivers and gunners aboard, the kettle stays cold and
 a message says so.
 
+**Lines and plumbing** (not yet tested in game): a Billy parked unhitched keeps Dubs Bad Hygiene's plumbing and its own water tank
+beneath it **even while packed**, so you can fill it from a water bowser or plumbing before you set off. Set up, its tent's floor and
+walls carry the hidden pipe of **every line its pieces use**: run a **chemfuel line** to any side of the tent and the range, kettle and
+heater refill themselves. The same goes for the shower trailer's boiler and a camp's heater.
+
 **With Dubs Bad Hygiene, the kettle needs water:** 10 L a batch, from **Billy's own 200 L tank**. Fill it from a water bowser parked beside
 it (bowser on **Unload**) or from plumbing; its inspect pane shows how much is left, and without water the kettle's bills wait and say why.
 

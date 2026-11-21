@@ -98,6 +98,23 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
 
     IntVec3 Cell(IntVec2 local) => Vehicle.Position + new IntVec3(local.x, 0, local.z).RotatedBy(Vehicle.Rotation);
 
+    /// <summary>
+    /// A trailer with its own water keeps its hidden tank beneath it whenever it is parked, set up or not (Framework 0.219.0; the owner,
+    /// 22 Nov 2026: the Billy was "exempt from the Dub's Hygiene plumbing placement"), so plumbing or a water bowser beside it fills it while it is
+    /// packed. Hitched or gone, the tank's water goes back aboard. Called with each look at its pipes.
+    /// </summary>
+    public void SettleOwnWater(bool parked)
+    {
+        if (!Props.ownWater || PlumbingFeed.LiteMode || !Vehicle.Spawned) return;
+        bool setOut = Vehicle.GetComp<CompPhobosSetOut>() is { IsSetOut: true };
+        if (parked && tower is not { Spawned: true })
+        {
+            LayTower(Vehicle.Map);
+            if (Seen.Wants("trailers.own-water-parked", Vehicle)) Seen.Note("trailers.own-water-parked", Vehicle, OwnWater.ToString("0") + " L");
+        }
+        else if (!parked && !setOut && tower is { Spawned: true }) TakeUpTower();
+    }
+
     public string? SetUpPartRefusal() => null;
 
     public string? PackUpPartRefusal() => null;
@@ -112,6 +129,19 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     void Lay()
     {
         Map map = Vehicle.Map;
+        LayTower(map);
+        // Hidden plumbing under all the trailer set out and under itself, so the pieces' pipes join the trailer's.
+        CellRect area = SetOutArea();
+        int before = underlay.Changes;
+        underlay.Fill(area, map, cell => DubsPipes.IsPiped(cell, map), DubsPipes.Make);
+        if (underlay.Changes != before) DubsPipes.Redraw(map, area);
+        TopUp();
+        if (Seen.Wants("trailers.shower-plumbing-laid", Vehicle)) Seen.Note("trailers.shower-plumbing-laid", Vehicle, area.Area + " cells piped");
+    }
+
+    /// <summary>The hidden water tower and waste tank beneath it, with what it carries in them.</summary>
+    void LayTower(Map map)
+    {
         if (tower is not { Spawned: true } && TowerDef != null)
         {
             tower = GenSpawn.Spawn(ThingMaker.MakeThing(TowerDef), Cell(Props.towerCell), map, WipeMode.Vanish);
@@ -135,13 +165,6 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
                 waste = 0f;
             }
         }
-        // Hidden plumbing under all the trailer set out and under itself, so the pieces' pipes join the trailer's.
-        CellRect area = SetOutArea();
-        int before = underlay.Changes;
-        underlay.Fill(area, map, cell => DubsPipes.IsPiped(cell, map), DubsPipes.Make);
-        if (underlay.Changes != before) DubsPipes.Redraw(map, area);
-        TopUp();
-        if (Seen.Wants("trailers.shower-plumbing-laid", Vehicle)) Seen.Note("trailers.shower-plumbing-laid", Vehicle, area.Area + " cells piped");
     }
 
     CellRect SetOutArea()
@@ -157,6 +180,18 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
     void TakeUp()
     {
         Map map = Vehicle.Map;
+        // A trailer with its own water keeps its tank while it stays parked (Framework 0.219.0): only what was laid under the set-out pieces goes.
+        bool keepTower = Props.ownWater && Vehicle.GetComp<CompPhobosTrailer>() is { ParkedForPipes: true };
+        if (!keepTower) TakeUpTower();
+        CellRect area = SetOutArea();
+        int before = underlay.Changes;
+        underlay.Clear();
+        if (underlay.Changes != before) DubsPipes.Redraw(map, area.ExpandedBy(8));
+    }
+
+    /// <summary>Takes the hidden tower and waste tank up, their water and waste back aboard.</summary>
+    void TakeUpTower()
+    {
         if (Tower is { } water && tower is { Spawned: true })
         {
             // The tower's working water goes back into the tank, unless Dubs' unlimited pumping filled it from nothing; own water stays aboard, and
@@ -175,10 +210,6 @@ public sealed class CompPhobosTrailerPlumbing : VehicleComp, ISetUpPart
             septic.Destroy(DestroyMode.Vanish);
         }
         septic = null;
-        CellRect area = SetOutArea();
-        int before = underlay.Changes;
-        underlay.Clear();
-        if (underlay.Changes != before) DubsPipes.Redraw(map, area.ExpandedBy(8));
     }
 
     /// <summary>Keeps the stand-in tower at its working amount from the trailer's tank.</summary>

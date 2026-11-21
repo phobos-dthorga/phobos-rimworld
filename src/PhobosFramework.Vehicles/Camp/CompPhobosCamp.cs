@@ -350,6 +350,19 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         };
     }
 
+    /// <summary>The pieces of its camp standing now: its gear, beds and tents' walls (Framework 0.219.0, for the lines a piece draws on).</summary>
+    public IEnumerable<Thing> StandingPieces => placed.Concat(tentWalls).Concat(poles).Where(t => t != null && t.Spawned);
+
+    /// <summary>Every cell of its camp now: each piece's, and the whole of each closed tent, floor and walls.</summary>
+    public IEnumerable<IntVec3> CampCells()
+    {
+        foreach (Thing thing in StandingPieces)
+        {
+            foreach (IntVec3 cell in thing.OccupiedRect()) yield return cell;
+            if (thing is Building_PhobosCanvasWall { roof: { } roof }) foreach (IntVec3 cell in roof) yield return cell;
+        }
+    }
+
     /// <summary>Whether its camp stands beside it now.</summary>
     public bool IsPitched => placed.Count > 0 || poles.Count > 0 || tentWalls.Count > 0;
 
@@ -891,6 +904,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             placedSlots.Add(slot);
         }
         Forget();
+        // The lines its pieces draw on are laid beneath the camp now (Framework 0.219.0), not at the vehicle's next look.
+        Hitches.LookAtPipes(Vehicle);
         if (!fromCargo) return;
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
         string message = "PhobosCamp_SetUp".Translate(name).Resolve();

@@ -33,10 +33,14 @@ public sealed class PlumbingLink : VehiclePipes.ILink
 
     static bool TakesWater(VehiclePipes.IHost comp) =>
         VehiclePipes.SystemsTakeWater(comp)
-        || (VehiclePipes.Tank(comp) is { } tank && tank.Compartments.Any(c => c.contents != null && c.contents.ports.Any(port => port is Port_DubsPlumbing or Port_DubsSeptic)));
+        || (VehiclePipes.Tank(comp) is { } tank && tank.Compartments.Any(c => c.contents != null && c.contents.ports.Any(port => port is Port_DubsPlumbing or Port_DubsSeptic)))
+        // Framework 0.219.0 (the owner, 22 Nov 2026: the Billy was "exempt"): a trailer with its own water, such as the field kitchen.
+        || comp.Vehicle.GetComp<CompPhobosTrailerPlumbing>() is { OwnsWater: true };
 
     public void Update(VehiclePipes.IHost comp)
     {
+        // A trailer's own water stands in its hidden tank whenever it is parked, so a bowser or plumbing beside it fills it (Framework 0.219.0).
+        comp.Vehicle.GetComp<CompPhobosTrailerPlumbing>()?.SettleOwnWater(comp.ParkedForPipes);
         var underlay = comp.Underlay(Key);
         int before = underlay.Changes;
         if (!comp.ParkedForPipes || !TakesWater(comp))

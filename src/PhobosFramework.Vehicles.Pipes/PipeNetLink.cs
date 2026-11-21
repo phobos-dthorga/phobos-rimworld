@@ -21,6 +21,8 @@ namespace Phobos.VehicleSystems.Pipes;
 public sealed class PipeNetLink : VehiclePipes.ILink
 {
     const string Prefix = "PipeNet:";
+    /// <summary>The keys of what is laid beneath set-out pieces, after <see cref="Prefix"/>: a net's own key is the vehicle's own footprint.</summary>
+    const string OutPrefix = "out:";
 
     static PipeNetLink() => VehiclePipes.Register(new PipeNetLink());
 
@@ -44,6 +46,45 @@ public sealed class PipeNetLink : VehiclePipes.ILink
                 if (outlet.net != null) yield return outlet.net;
             }
         }
+    }
+
+    /// <summary>
+    /// The nets what it has set out draws on (Framework 0.219.0; the owner, 22 Nov 2026: the Billy's burners and the chemfuel line): a trailer's
+    /// tent and pieces, a camp. A piece that burns a fuel a net refills (Vanilla Expanded Framework gives every such refuelable a pipe link of its
+    /// own, by the net's <c>linkToRefuelables</c>), or that holds a resource of a net (a nutrient paste tap), wants that net. Every cell of what
+    /// is set out comes back with each net, so the net's hidden pipe is laid beneath all of it, as the trailer's plumbing is.
+    /// </summary>
+    static List<(PipeNetDef net, List<IntVec3> cells)> SetOutNets(VehiclePawn vehicle)
+    {
+        var result = new List<(PipeNetDef, List<IntVec3>)>();
+        CompPhobosSetOut? setOut = vehicle.GetComp<CompPhobosSetOut>();
+        CompPhobosCamp? camp = vehicle.GetComp<CompPhobosCamp>();
+        var pieces = new List<Thing>();
+        if (setOut != null) pieces.AddRange(setOut.Placed.Concat(setOut.Structure).Where(t => t.Spawned));
+        if (camp != null) pieces.AddRange(camp.StandingPieces);
+        if (pieces.Count == 0) return result;
+        var nets = new HashSet<PipeNetDef>();
+        foreach (Thing piece in pieces)
+        {
+            if (piece is not ThingWithComps withComps) continue;
+            if (withComps.GetComp<CompRefuelable>() is { } refuelable)
+            {
+                foreach (PipeNetDef net in DefDatabase<PipeNetDef>.AllDefsListForReading)
+                {
+                    if (net.linkToRefuelables != null && net.linkToRefuelables.Any(option => option.thing != null && refuelable.Props.fuelFilter.Allows(option.thing))) nets.Add(net);
+                }
+            }
+            foreach (ThingComp comp in withComps.AllComps)
+            {
+                if (comp is CompResource { Props.pipeNet: { } net }) nets.Add(net);
+            }
+        }
+        if (nets.Count == 0) return result;
+        var cells = new HashSet<IntVec3>(vehicle.OccupiedRect().Cells);
+        if (setOut != null) cells.UnionWith(setOut.SetOutCells());
+        if (camp != null) cells.UnionWith(camp.CampCells());
+        foreach (PipeNetDef net in nets) result.Add((net, cells.ToList()));
+        return result;
     }
 
     /// <summary>The net that refuels this vehicle's own fuel, and its units to one fuel item: the vehicle's, fuelled, not electric.</summary>
@@ -115,6 +156,23 @@ public sealed class PipeNetLink : VehiclePipes.ILink
                 if (net != fuelLine || !touches) continue;
                 onFuelLine = true;
                 Refuel(comp, manager, net, unitsPerFuel);
+            }
+            // What it has set out: the nets its pieces draw on, beneath all of it (Framework 0.219.0).
+            if (manager != null)
+            {
+                foreach ((PipeNetDef net, List<IntVec3> cells) in SetOutNets(comp.Vehicle))
+                {
+                    string key = Prefix + OutPrefix + net.defName;
+                    var underlay = comp.Underlay(key);
+                    bool Piped(IntVec3 cell) => manager.GetPipeNetAt(cell, net) != null;
+                    underlay.Renew(PipeOf(net), () => Make(net));
+                    wanted.Add(key);
+                    foreach (IntVec3 cell in cells)
+                    {
+                        if (cell.InBounds(map)) underlay.Fill(CellRect.SingleCell(cell), map, Piped, () => Make(net), at => !at.GetTerrain(map).IsWater);
+                    }
+                    if (Seen.Wants("trailers.set-out-line", comp.Vehicle, net.defName)) Seen.Note("trailers.set-out-line", comp.Vehicle, cells.Count + " cells", net.defName);
+                }
             }
         }
         if (!onFuelLine) ForgetFuelLine(comp);
@@ -195,7 +253,9 @@ public sealed class PipeNetLink : VehiclePipes.ILink
         CellRect footprint = comp.Vehicle.OccupiedRect();
         foreach (KeyValuePair<string, Phobos.Framework.Persistence.PipeUnderlay> pair in comp.UnderlaysStartingWith(Prefix))
         {
-            PipeNetDef? net = DefDatabase<PipeNetDef>.GetNamedSilentFail(pair.Key.Substring(Prefix.Length));
+            string name = pair.Key.Substring(Prefix.Length);
+            if (name.StartsWith(OutPrefix)) continue;
+            PipeNetDef? net = DefDatabase<PipeNetDef>.GetNamedSilentFail(name);
             if (net == null) continue;
             pair.Value.AdoptOnce(footprint, map, thing => IsOldHidden(net, thing));
             pair.Value.Renew(PipeOf(net), () => Make(net));

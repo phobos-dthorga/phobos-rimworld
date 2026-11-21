@@ -56,6 +56,20 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
     /// <summary>The walls, doors and power point standing now.</summary>
     public IReadOnlyList<Thing> Structure => structure;
 
+    /// <summary>
+    /// Every cell of what it has set out now: each piece's and wall's, and the floor inside its rooms (Framework 0.219.0: the lines its pieces
+    /// draw on are laid beneath all of it, so a line touching any side of the tent reaches them).
+    /// </summary>
+    public IEnumerable<IntVec3> SetOutCells()
+    {
+        foreach (Thing thing in placed.Concat(structure))
+        {
+            if (!thing.Spawned) continue;
+            foreach (IntVec3 cell in thing.OccupiedRect()) yield return cell;
+        }
+        foreach (IntVec3 cell in roofed) yield return cell;
+    }
+
     // ---- Where everything goes ----
 
     /// <summary>A cell in the trailer's own frame on one side, on the map (the geometry is SetOutRule's, game-free and tested).</summary>
@@ -203,6 +217,8 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
         if (!Vehicle.Spawned) return;
         if (on) SetOut();
         else PackUp();
+        // The lines its pieces draw on follow at once (Framework 0.219.0).
+        Hitches.LookAtPipes(Vehicle);
     }
 
     void SetOut()

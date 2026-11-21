@@ -520,6 +520,37 @@ look, two need reads; a caravan with no water aboard adds one dictionary read, a
 **Who chose what:** the owner chose that water in tow is used and that the kettle's water is charged; the agent chose every figure,
 washing only at a stop, tanks before the kitchen's own water for drinking and the reverse for the kettle.
 
+## Pipes and lines beneath trailers and camps: an audit (22 Nov 2026)
+
+**The owner's report** (22 Nov 2026): "the Billy Field Kitchen is exempt from the Dub's Hygiene plumbing placement and perhaps the
+chemfuel lines too ... I'm not sure how many other vehicles/trailers might be affected", and then "nutrient paste lines!". The rule
+being checked is the root's: **anything that takes water or piping has its own pipes beneath it**. The agent read every place a
+vehicle of ours lays a pipe (`VehiclePipes` and its four links: Dubs' plumbing, Vanilla Expanded Framework's nets, Rimefeller's pipes,
+power conduits) against what each vehicle and set-out piece uses.
+
+| Vehicle or piece | Uses | Before 0.219.0 | Since |
+| --- | --- | --- | --- |
+| Driven vehicles | Water for their own systems' services; their own fuel; shore power | Laid while parked, engine off | Unchanged |
+| Bulk tanker | Whatever its compartments hold: chemfuel, **nutrient paste**, water, oil | The contents' own line, while parked | Unchanged: **a tanker of paste already lays the paste line** |
+| Drill rig | Its outlets' nets | Laid while parked | Unchanged |
+| Water and fuel bowsers | Their tank's water or chemfuel | Laid while unhitched | Unchanged |
+| Shower trailer | Its tank's water; its boiler's chemfuel | Plumbing while unhitched; **no chemfuel pipe** under the boiler | The boiler's chemfuel line is laid beneath the set-out area |
+| **Billy field kitchen** | Its own water; its range's, kettle's and heater's chemfuel or wood | Plumbing and water tank **only while set up**; **no chemfuel pipe** | Plumbing and water tank whenever parked; chemfuel line beneath the whole set-out area |
+| Pintle flatbed | Nothing piped | Nothing | Unchanged |
+| A camp (any vehicle) | The camp heater's chemfuel; the kitchen box's, once built | **No chemfuel pipe** | The line is laid beneath the whole camp, tents' floors and walls included |
+| Nutrient paste | Nothing of ours but the tanker uses it | The tanker lays it | A paste tap or feeder set out by a trailer or camp would get its line by the same rule; none is set out today |
+
+**How the fix works** (Framework 0.219.0, row 336, not yet tested in game):
+
+- **The Billy's water:** `PlumbingLink` counts a trailer with its own water as taking water, and tells it at each look whether it is
+  parked; `CompPhobosTrailerPlumbing.SettleOwnWater` keeps its hidden tower beneath it while parked, and takes it up when hitched,
+  the water going back aboard. Packing up keeps the tower while the trailer stays parked.
+- **Lines beneath what is set out:** `PipeNetLink.SetOutNets` reads every piece a trailer or camp has standing. A piece whose fuel a
+  net refills (Vanilla Expanded Framework already gives every such refuelable its own refill link, `AutoLinkRefuelables`) or that holds
+  a resource of a net wants that net; its hidden pipe is then laid under every cell of the vehicle, its set-out pieces and walls, and
+  its rooms' floors. Nothing is matched by name.
+- **Risk: low** (agent's grade): hidden pipes only where none is, never touching another pipe, and taken up with the pieces. No setting.
+
 ## Food in tow (Framework 0.219.0, 22 Nov 2026)
 
 **The gap:** a towed trailer rides in its hitch, outside the caravan, so the game's caravan feeding never looked in its cargo. Found
