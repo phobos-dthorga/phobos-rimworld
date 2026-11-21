@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.220.0] - 2026-11-22 - Draft
+
+A burning vehicle is seen to be burning
+
+### Fixed
+
+- **A fire on a vehicle is seen as a fire** (the owner's choice of 22 November 2026, fire on vehicles FR1). The game's own check counts a fire burning on a thing only when the thing is one cell, so for every vehicle it looked only at the ground underneath. A fire on the vehicle itself went unseen: a tanker's relief valve stayed shut in a fire on the tanker, sleepers in a cab bunk or a deck tent were not woken, and service jobs and bay trips went to a burning vehicle. All six now see a fire on the vehicle as well as under it. For modders: Phobos.Framework.Environment.AttachedFires.OnFire. Not yet tested in game: row 339 of the test pass.
+
 ## [0.219.0] - 2026-11-22 - Draft
 
 Camps and trailers on the road, and the kitchen box

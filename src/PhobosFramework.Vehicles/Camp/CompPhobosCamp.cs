@@ -247,7 +247,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         if (bunkSleeper != pawn || !BunkFitted) return "PhobosBunk_NotTheirs".Translate(name).Resolve();
         if (!Vehicle.Spawned || Vehicle.Map != pawn.MapHeld) return "PhobosCamp_NotHere".Translate(name).Resolve();
         if (Vehicle.vehiclePather is { Moving: true } || Vehicle.Drafted) return "PhobosBunk_Running".Translate(name).Resolve();
-        if (Vehicle.IsBurning()) return "PhobosBunk_Burning".Translate(name).Resolve();
+        if (Phobos.Framework.Environment.AttachedFires.OnFire(Vehicle)) return "PhobosBunk_Burning".Translate(name).Resolve();
         if (GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map, countDormantPawnsAsHostile: false)) return "PhobosBunk_Danger".Translate().Resolve();
         if (PassengerSeat() == null) return "PhobosBunk_NoSeat".Translate(name).Resolve();
         if (!pawn.CanReach(Vehicle, Verse.AI.PathEndMode.Touch, Danger.Some)) return "PhobosCabin_NoPath".Translate().Resolve();
@@ -294,7 +294,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         if (!Vehicle.Spawned) return;
         if (Seen.Wants("vehicles.bunk-heater", Vehicle) && Systems?.LoadActive(NightHeaterLoad) == true) Seen.Note("vehicles.bunk-heater", Vehicle, sleeper.LabelShort);
         if (GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map, countDormantPawnsAsHostile: false)) Wake("PhobosBunk_WokenDanger");
-        else if (Vehicle.IsBurning()) Wake("PhobosBunk_WokenFire");
+        else if (Phobos.Framework.Environment.AttachedFires.OnFire(Vehicle)) Wake("PhobosBunk_WokenFire");
         else if (sleeper.needs?.rest is not { } rest || rest.CurLevel >= RestedLevel) Wake(null);
         else if (rest.CurLevel >= Need_Rest.DefaultFallAsleepMaxLevel && sleeper.timetable?.CurrentAssignment is { allowRest: false }) Wake(null);
         else if (HealthAIUtility.ShouldSeekMedicalRest(sleeper)) Wake("PhobosBunk_WokenUnwell");

@@ -131,7 +131,7 @@ public static class BayTrips
     public static bool Busy(VehiclePawn vehicle, CompPhobosBayTrip self)
     {
         if (vehicle.Drafted || vehicle.vehiclePather is { Moving: true } || vehicle.AllPawnsAboard.Count > 0) return true;
-        if (vehicle.IsForbidden(Faction.OfPlayer) || vehicle.IsBurning() || vehicle.GetLord() != null) return true;
+        if (vehicle.IsForbidden(Faction.OfPlayer) || AttachedFires.OnFire(vehicle) || vehicle.GetLord() != null) return true;
         if (Hitches.Towing(vehicle) != null || Hitches.WaitingOn(vehicle) != null) return true;
         // Its own rear half is part of an articulated vehicle, not a tow (the fault-read of 21 Nov 2026, H12: such a vehicle never went).
         if (vehicle.GetComp<CompPhobosHitch>() is { } hitch

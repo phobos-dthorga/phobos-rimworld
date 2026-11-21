@@ -72,7 +72,7 @@ public static class DeckTents
 
     /// <summary>Whether danger has come to the vehicle's map: a hostile threat, or the vehicle on fire.</summary>
     public static bool InDanger(VehiclePawn vehicle) =>
-        vehicle.Spawned && (vehicle.IsBurning() || GenHostility.AnyHostileActiveThreatToPlayer(vehicle.Map, countDormantPawnsAsHostile: false));
+        vehicle.Spawned && (Phobos.Framework.Environment.AttachedFires.OnFire(vehicle) || GenHostility.AnyHostileActiveThreatToPlayer(vehicle.Map, countDormantPawnsAsHostile: false));
 
     /// <summary>The rare look of an open deck tent: with danger outside, everyone in it is woken and sent out, and told once why.</summary>
     internal static void RareLook(CompPhobosVehicleCabin comp, Map cabin, Building_PhobosCabinWayOut wayOut, List<Pawn> inside)

@@ -145,7 +145,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Traps and vehicles](vehicle-traps.md) (21 Nov 2026): your vehicles pass over your traps when you did not send them; a setting. Built 0.213.0, untested.
 - [Depots and forward fuel points](vehicle-depots.md) (20 Nov 2026): fuel left on the world map for later trips; DP1 to DP6. Design only.
 - [Glass on our vehicles](vehicle-glass.md) (22 Nov 2026): glass as a tracked part, and what follows when it breaks; VG1 to VG14. Record only.
-- [Fire on vehicles](vehicle-fire.md) (22 Nov 2026): what burns a vehicle today, a fault in our fire checks; FR1 to FR14. Record only.
+- [Fire on vehicles](vehicle-fire.md) (22 Nov 2026): what burns a vehicle today, a fault in our fire checks; FR1 to FR14. Partly built, untested.
 
 ## D'thorga Medical
 

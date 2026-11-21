@@ -1,11 +1,11 @@
 # Fire on vehicles: what burns today, what does not, and what a vehicle fire should do (22 Nov 2026)
 
-**Status (22 Nov 2026):** a research record. It changes no code, Def or setting, and every numbered idea in it (FR1 to FR14) is
-unbuilt. Nothing here has been tested in game.
+**Status (22 Nov 2026):** partly built. FR1 (seeing a fire on a vehicle) is built in D'thorga Framework 0.220.0, at the owner's
+word; every other row is unbuilt. Not yet tested in game: row 339 of the test pass.
 
 The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md)'s row NK20 (fire that harms a vehicle): "Write its
-record next", the strike research having found that Combat Extended discards the game's fire damage against every vehicle. Research
-and record only, as the strike record was.
+record next", the strike research having found that Combat Extended discards the game's fire damage against every vehicle. It began
+as research, as the strike record did; the owner's answers below chose what to build.
 
 **How to read the marks.** **[code]** read in code or Defs on 22 Nov 2026, never run. **[P]** a primary source; **[S]** a secondary
 one. **[I]** our inference. **[A]** an agent's choice or authored figure, for the owner to revise. **[not read]** says so plainly.

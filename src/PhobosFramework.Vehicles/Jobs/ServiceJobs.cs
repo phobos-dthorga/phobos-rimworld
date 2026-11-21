@@ -44,7 +44,7 @@ static class ServiceTargets
     }
 
     public static bool Workable(Pawn pawn, VehiclePawn vehicle, bool forced) =>
-        vehicle.Spawned && !vehicle.Drafted && !vehicle.vehiclePather.Moving && !vehicle.IsForbidden(pawn) && (forced || !vehicle.IsBurning());
+        vehicle.Spawned && !vehicle.Drafted && !vehicle.vehiclePather.Moving && !vehicle.IsForbidden(pawn) && (forced || !Phobos.Framework.Environment.AttachedFires.OnFire(vehicle));
 }
 
 /// <summary>Hauls the first supply a due service lacks into the vehicle's cargo (oil, coolant, parts). Hauling work.</summary>

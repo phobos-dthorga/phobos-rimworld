@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "339": ["framework.fire-on-vehicle"],
     "338": {"parts": {
       "a caravan cooks at a packed kitchen box": [{"key": "camp.kitchen-box-caravan", "detail": "*"}]
     }},

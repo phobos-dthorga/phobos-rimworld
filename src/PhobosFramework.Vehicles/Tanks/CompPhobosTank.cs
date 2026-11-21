@@ -439,7 +439,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         {
             PhobosTankContentsDef? fluid = compartment.contents;
             if (!compartment.HasLoad || fluid is not { Vents: true }) continue;
-            if (outside < fluid.ventsAbove && !Vehicle.IsBurning())
+            if (outside < fluid.ventsAbove && !Phobos.Framework.Environment.AttachedFires.OnFire(Vehicle))
             {
                 ventWarned = false;
                 continue;
