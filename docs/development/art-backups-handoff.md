@@ -1,10 +1,11 @@
 # Hand-off: backing up the art training sets and style models (21 Nov 2026)
 
-**Status (21 Nov 2026):** built, except the Companion card. phobos-modkit 1.66.0's `safe-copies` (its `docs/safe-copies.md`),
+**Status (21 Nov 2026):** built, the Companion card too (Companion 0.42.0, Home; not yet tested on screen). phobos-modkit 1.66.0's
+`safe-copies` (its `docs/safe-copies.md`),
 `scripts/safe-copies.py` with `config/safe-copies.json`, the art folders as settings, and a step after every night plan. The first run
 copied 1,587 files (1.07 GB) to K: and 382 of our own (145.7 MB) to the private repository dthorga-safe-copies; every copy verified,
-and a restore from the repository came back byte for byte. **Still to build: the Safe copies card in D'thorga Companion**, and the
-later steps (saves, Claude's notes, game settings). **The owner answered its main questions the same day: [the owner's
+and a restore from the repository came back byte for byte. **Still to build: the later steps** (saves, Claude's notes, game
+settings). **The owner answered its main questions the same day: [the owner's
 answers](#the-owners-answers-21-nov-2026) overrule the proposal below wherever they differ.** Every other choice marked *proposal* is the
 agent's, for the owner to judge.
 
