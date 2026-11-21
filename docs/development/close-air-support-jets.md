@@ -118,6 +118,16 @@ scaled; a vanilla shot is re-aimed at a cell two beyond its footprint on the far
 per shot. Shots fired over the top and its own are never dodged. An aircraft whose mod has a dodge (Harrier, Hind, Mongoose) carries no
 `mapEvasion`, so nothing dodges twice. The salvo button appears on any aircraft with dispensers and `mapEvasion`.
 
+## The aircraft authors' updates of 20 and 21 Nov 2026, checked against ours (21 Nov 2026)
+
+Read with `scripts/update-check.py` and `scripts/assembly-archive.py compare` (the builds kept by the archive), at the owner's request.
+**Nothing of ours needed changing.** All 709 of our patch targets are still found; none of our temporary patches' faults was touched.
+
+| Update | What changed | What it means for ours |
+| --- | --- | --- |
+| Harrier (AV8BHarrier.dll, 164 added) | The 25 mm gun is standard, no longer an upgrade (old saves converted by the author's own patch); an air-to-air gun pass; aimed strafing; Combat Extended ammunition descriptions; pad clearing | None of our files names the old gun upgrade. The air-to-air shell is launched as an ordinary projectile, so our dodge (the A-10's and Su-25's) still applies to it, and a dodged shell passes too far from the jet to hit (its hit needs the shell within the target's own reach). It finds targets only among the VTOL framework's aircraft and those with an `IsAirborne` property, so our own on-map flight (the Osprey) is not one of its targets: a gap, not a fault |
+| Hind (Mi24HindHelicopter.dll, 105 added) and Mongoose (86 added, 18 to 20 Nov) | Missile rails, and missiles that cook off | Their cook-off is on the missile **items** and starts only when an item takes damage on a map. Ours (G13) counts only Combat Extended ammunition in a burning vehicle's cargo, which never takes damage. **No double cook-off.** Their spare missiles carried in a burning vehicle's cargo cook off neither way: a small gap, left |
+
 ## Other factions' vehicles
 
 - **In a raid on us:** an enemy A-10 or Su-25 gets the same systems and dodge, so the colony's guns miss it in the air as often as the
