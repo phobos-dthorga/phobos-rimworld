@@ -134,17 +134,21 @@ public static class AirCombat
         PhobosAirCombatRulesDef rules = Rules;
         bool jammer = JammerWorks(vehicle);
         if (jammer) Seen.Note("aircraft.jammer-cover", vehicle);
-        return (float)AirCombatRule.HitChanceFactor(Works(vehicle, CountermeasuresQuantity) || jammer,
+        float factor = (float)AirCombatRule.HitChanceFactor(Works(vehicle, CountermeasuresQuantity) || jammer,
             Cartridges(vehicle) >= Math.Max(1, rules.cartridgesPerSalvo) || jammer,
             Works(vehicle, WarningQuantity), rules.hitChanceFactorCued, rules.hitChanceFactorLate);
+        // A self-protection jamming pod deceives the defence's radar as well (Framework 0.226.0).
+        return EcmPod.Works(vehicle) ? factor * rules.ecmPodHitChanceFactor : factor;
     }
 
     /// <summary>The factor chaff puts on the time a fire-control radar needs to lock on to this aircraft.</summary>
     public static float LockTimeFactor(VehiclePawn vehicle)
     {
         PhobosAirCombatRulesDef rules = Rules;
-        return (float)AirCombatRule.LockTimeFactor(Works(vehicle, CountermeasuresQuantity), Cartridges(vehicle) >= Math.Max(1, rules.cartridgesPerSalvo),
+        float factor = (float)AirCombatRule.LockTimeFactor(Works(vehicle, CountermeasuresQuantity), Cartridges(vehicle) >= Math.Max(1, rules.cartridgesPerSalvo),
             Works(vehicle, WarningQuantity), rules.lockTimeFactorCued);
+        // A self-protection jamming pod makes the lock take longer (Framework 0.226.0).
+        return EcmPod.Works(vehicle) ? factor * rules.ecmPodLockTimeFactor : factor;
     }
 
     // ---- The warning receiver (AD2) ----

@@ -74,6 +74,12 @@ public class PhobosAirCombatRulesDef : PhobosRulesDef
     public float hitChanceFactorLate = 0.85f;
     /// <summary>On the world map: the factor on the time a fire-control radar needs to lock on, with chaff fired on the receiver's cue.</summary>
     public float lockTimeFactorCued = 1.5f;
+    /// <summary>The self-protection jamming pod (Framework 0.226.0; docs/development/ea6b-prowler.md, step 3; all authored): on a map, the
+    /// chance an automated turret's shot at the aircraft misses; on the world map, the factors on an air defence's chance to hit and on its
+    /// radar's lock-on time.</summary>
+    public float ecmPodMissChance = 0.3f;
+    public float ecmPodHitChanceFactor = 0.8f;
+    public float ecmPodLockTimeFactor = 1.4f;
     /// <summary>On a map (the Harrier's button): the dodge chance a salvo adds, for this many ticks.</summary>
     public float mapSalvoEvasionBonus = 0.25f;
     public int mapSalvoTicks = 600;

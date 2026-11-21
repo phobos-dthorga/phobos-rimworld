@@ -1329,6 +1329,21 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.226.0, the self-protection jamming pod (docs/development/ea6b-prowler.md, step 3): a pylon for the pod, appended to every
+             aircraft so the pod has a part to go on and is lost with it. Outside the airframe; health and hit weights authored, a pylon's. -->
+        <role>EcmPodMount</role>
+        <add>
+          <key>PhobosEcmPodMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>pod pylon</label>
+          <health>30</health>
+          <depth>External</depth>
+          <hitWeight>0.08</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <!-- Framework 0.103.0, the long range family: tie-down points in the cabin for a ferry tank, appended to every fuelled aircraft so the
              tank has a part to go on and is lost with it. Health and hit weights authored. -->
         <role>FerryTankMount</role>

@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.226.0] - 2026-11-22 - Draft
+
+A self-protection jamming pod for any aircraft
+
+### Added
+
+- **A self-protection jamming pod for any aircraft** (the owner's choice of 22 November 2026, built on the EA-6B Prowler's jamming): a fitting on a new pod pylon on every aircraft, from steel, components and an advanced component (150 kg). It answers the radars that aim guns at the aircraft with false echoes: automated turrets miss 30 % of their shots at it on a map, on top of any dodge it already has, and air defences on the way to a place hit it 0.8 as often and take 1.4 times as long to lock on. Guns aimed by eye are not fooled. It draws 15 A while fitted. All figures authored. Not yet tested in game: row 344 of the test pass.
+
+### Compatibility and limits
+
+- Its icon is still to be drawn.
+
 ## [0.225.0] - 2026-11-22 - Draft
 
 Jamming fields blind other factions' radar

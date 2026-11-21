@@ -3,7 +3,8 @@
 **Status (22 Nov 2026):** step 1 built: D'thorga Vehicles 0.99.0 (engines, systems, ICAP upgrades, enemy fits), D'thorga Patches 0.33.0
 (parts list, parts bill, rearming, dodge, salvo button, the ICAP hook, realistic handling) and D'thorga Framework 0.224.0 (the jamming
 reach figure on fittings). Step 2 built: Framework 0.225.0 and Patches 0.34.0 (jamming fields blind other factions' radar and warning
-receivers). Not yet tested in game: rows 342 and 343 of the [test pass](in-game-test-pass.md). Steps 3 and 4 are designs below.
+receivers). Step 3 built: Framework 0.226.0 (the self-protection jamming pod). Not yet tested in game: rows 342 to 344 of the
+[test pass](in-game-test-pass.md). Step 4 is a design below.
 
 ## Read this first
 
@@ -58,7 +59,11 @@ its fittings; one captured keeps them.
   written: any faction's jamming field (the Prowler's, read through its own public `Jammer.TryGetJamCenter` and
   `Jammer.EffectiveRadius`, and later ours) answers "not working" for the radar, night sight, autopilot, warning receiver and the aim
   assist of every vehicle of another faction inside it. All our aircraft ask one place (`AirCombat.Works`), so one check covers them.
-- **Step 3, a self-protection pod:** a fitting of ours for other aircraft that makes enemy automated turrets slower to lock on and less
+- **Step 3, a self-protection pod (built, Framework 0.226.0):** `PhobosFitting_EcmPod` on a new pod pylon on every aircraft (`EcmPodMount`),
+  `EcmPod.cs`. On a map an automated turret (a turret nobody mans) misses 30 % of its shots at the aircraft, combined with any dodge it has
+  (`AirborneEvasion.ChanceFor`, so under Combat Extended too); on the world map an air defence hits 0.8 as often and locks on 1.4 times as
+  slowly (`AirCombat.HitChanceFactor`, `LockTimeFactor`). All figures authored. Its power is a load, shed with the others; it does not
+  stop working when shed (a simplification). The design as first written: a fitting of ours for other aircraft that makes enemy automated turrets slower to lock on and less
   accurate against the aircraft carrying it. We already have an infrared jammer upgrade for helicopters (`Phobos_InfraredJammer`); the pod
   is its radar-band partner.
 - **Step 4, a jamming truck:** an upgrade for one of our trucks: a smaller field of our own while parked and running, feeding step 2's

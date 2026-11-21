@@ -59,6 +59,12 @@
     <hitChanceFactorCued>0.6</hitChanceFactorCued>
     <hitChanceFactorLate>0.85</hitChanceFactorLate>
     <lockTimeFactorCued>1.5</lockTimeFactorCued>
+    <!-- The self-protection jamming pod (Framework 0.226.0), all authored: it deceives fire-control radars, so automated turrets miss 30 % of
+         shots at the aircraft on a map; on the world map an air defence hits 0.8 as often and takes 1.4 times as long to lock on. Manned guns,
+         aimed by eye, are not fooled. -->
+    <ecmPodMissChance>0.3</ecmPodMissChance>
+    <ecmPodHitChanceFactor>0.8</ecmPodHitChanceFactor>
+    <ecmPodLockTimeFactor>1.4</ecmPodLockTimeFactor>
     <mapSalvoEvasionBonus>0.25</mapSalvoEvasionBonus>
     <mapSalvoTicks>600</mapSalvoTicks>
 

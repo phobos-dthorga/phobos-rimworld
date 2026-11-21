@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The self-protection jamming pod for any aircraft (Framework 0.226.0; owner, 22 Nov 2026, the second of three ideas built on the EA-6B
+    Prowler's jamming; docs/development/ea6b-prowler.md, step 3). In the manner of the real self-protection pods hung under strike aircraft
+    (the AN/ALQ-131 and its kind), it listens for fire-control radars and answers them with false returns: a personal bubble, not a field. What
+    it does is EcmPod.cs and the air-combat rules (AirCombat.xml): automated turrets miss more, air defences on the world map lock on slower
+    and hit less often. Weight, draw, materials, work and skill are authored; a real pod of this kind weighs a few hundred kilograms
+    (unverified, not taken). Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_EcmPod</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/EcmPod</iconPath>
+    <label>self-protection jamming pod</label>
+    <description>A jamming pod on a pylon that listens for the radars that aim guns at the aircraft and answers them with false echoes. Automated turrets miss it more often, and air defences on the way to a place take longer to lock on and hit it less. Guns aimed by eye are not fooled. It draws power while it works.</description>
+    <roles><li>EcmPodMount</li></roles>
+    <kinds><li>Aircraft</li></kinds>
+    <materials><Steel>25</Steel><ComponentIndustrial>8</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></materials>
+    <kilograms>150</kilograms>
+    <work>6000</work>
+    <minSkill>8</minSkill>
+    <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+    <grants><li>EcmPod</li></grants>
+    <loads>
+      <li>
+        <name>ecmPod</name>
+        <label>jamming pod</label>
+        <description>The self-protection jamming pod's receiver and transmitters.</description>
+        <amps>15</amps>
+        <shedOrder>3</shedOrder>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>
