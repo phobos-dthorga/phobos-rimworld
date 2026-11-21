@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.210.2] - 2026-11-21 - Draft
+
+The charging cable's picture and two parts pictures of their own. Not yet tested in game. **With this version every picture of the service yard is made, so it no longer needs holding back from your game.**
+
+### Added
+
+- **A fitted charging cable shows on the fuel pump**: a black lead coiled beside the pump, its plug in the housing with a small green light. It hangs a little past the pump's right edge, into the next cell.
+
+### Changed
+
+- **The heavy-duty brakes fitting has its own picture**: a slotted disc under a big orange four-piston caliper. It borrowed the brake pad set's before.
+- **The clutch kit has its own picture**: a pressure plate, a clutch disc and a release bearing. It borrowed the drivetrain kit's before.
+
 ## [0.210.1] - 2026-11-21 - Draft
 
 The fuel pump's picture. Not yet tested in game. **The charging cable still has no picture: hold this version back from your game until it has one.**

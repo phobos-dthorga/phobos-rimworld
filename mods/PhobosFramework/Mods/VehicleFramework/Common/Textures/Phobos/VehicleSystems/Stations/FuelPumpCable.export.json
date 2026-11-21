@@ -1,0 +1,24 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/FuelPumpCable.png",
+  "base_master": "assets/vehicle-systems/generated/station-fuel-pump-b-house/station-fuel-pump-b-house-11.png",
+  "base_master_sha256": "e31dffa67f6f5b6ea3fa04e593048c1483cba007f50436288072c17298df1999",
+  "edit_master": "assets/vehicle-systems/generated/station-fuel-pump-cable-paid/station-fuel-pump-cable-paid-1.png",
+  "edit_master_sha256": "63c100d02dd980eb4903b6edbf1c269bd73b8049b743352c25e14a9df58ac245",
+  "target_sha256": "cc36aae31880caedbe930b7bc29962269e0c2595b1a8a7a3b5ba715793116e25",
+  "size": [
+    152,
+    256
+  ],
+  "draw_size_for_base_aspect": [
+    1.188,
+    2.0
+  ],
+  "shift": [
+    1,
+    1
+  ],
+  "difference": 90,
+  "min_area": 40,
+  "date": "2026-11-21T20:12:09",
+  "tool": "export_overlay.py: the edit's added pixels, framed and scaled as export_sprite framed the base"
+}

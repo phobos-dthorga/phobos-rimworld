@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ClutchKit.png",
+  "source": "assets/vehicle-systems/generated/part-clutch-kit-paid/part-clutch-kit-paid-1.png",
+  "source_sha256": "7355d3f751d8bd93b252193683461d84cf923bfdf2140b21cf335a1e7c17b616",
+  "target_sha256": "dcc076e08ad5e5f668ee40afefbd80aa829335d5ca1380ff5d6ccc26d3c5d007",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": true,
+  "silhouette": false,
+  "ai_mask": null,
+  "date": "2026-11-21T20:10:51",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

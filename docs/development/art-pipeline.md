@@ -56,7 +56,10 @@ The other routes weighed (Gemini, fal.ai, Midjourney and others, the view-angle 
    overlay (BiRefNet; the graphics card only with the game closed). The exporters then clear enclosed white where the AI is sure
    ([background clean-up](background-cleanup.md)).
 7. **Export.** `scripts/art/export_sprite.py` for buildings, items and icons; `scripts/art/export_vehicle.py body` and `overlay` for
-   vehicles (north, east, south, masks, icon and a transform the overlays reuse). Each writes an `.export.json` beside its output.
+   vehicles (north, east, south, masks, icon and a transform the overlays reuse); `scripts/art/export_overlay.py` for a building
+   upgrade's overlay, cut from an edit of the building's picked master that adds only the upgrade (the paid edit route keeps the
+   building in place; measure the edit's offset and pass `--shift`), framed as the building was so the two line up (21 Nov 2026,
+   the fuel pump's charging cable). Each writes an `.export.json` beside its output.
    Re-exporting existing textures goes through `clean_backgrounds.py stage`, its review page and `apply`.
 8. **Paint (vehicles).** Run `scripts/art/paint_segments.py` on the new master, then
    `python scripts/art/repaint_vehicles.py stage --paint repaired`, `review` and `apply --paint repaired`; then

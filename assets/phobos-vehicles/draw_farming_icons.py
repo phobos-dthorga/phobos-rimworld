@@ -6,9 +6,10 @@ Each icon is a crop of the part it stands for, from the textures export_farming.
 and the auger from the bodies. Crops in cells of the north picture, 128 px a cell, from its top left. Each is fitted into a square with a
 little margin, at 128 px, and gets a record. Free and deterministic; run export_farming.py first. The local icon batch may replace them.
 
-Only the standard grain front is still drawn here: the harvest order, the wide front, the corn header, the tank extension, the straw
-chopper and the fast auger have their own pictures since Farming 0.4.1 (the owner's picks of night 8, 20 Nov 2026), and drawing them
-again would overwrite those.
+Nothing is drawn here now: the harvest order, the wide front, the corn header, the tank extension, the straw chopper and the fast auger
+have their own pictures since Farming 0.4.1 (the owner's picks of night 8, 20 Nov 2026), and the standard grain front since Farming 0.7.4
+(a paid redraw, the owner's pick of 21 Nov 2026). Drawing any of them again would overwrite those; the script stays for a new
+machine's stand-ins.
 """
 import argparse
 import datetime as _dt
@@ -24,9 +25,7 @@ MARGIN = 8
 
 # (icon path under Textures/Phobos/Farming, source picture, crop box in pixels of the north picture or None for its whole content,
 # what it shows)
-ICONS = [
-    ('Upgrades/FrontStandard', 'Combine/Combine_FrontStandard_north.png', None, 'the standard grain front'),
-]
+ICONS = []
 
 
 def sha(path):

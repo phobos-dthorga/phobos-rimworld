@@ -361,14 +361,13 @@
   <!--
     Framework 0.123.0, cross-links rounds two and three (owner, 17 Nov 2026: the brakes, the cold-weather pack, dust, and the transmission
     cooler). Materials, work and skill authored on the same scale as the fittings above. Their pictures are their own since 0.191.1 (the
-    owner's picks of 20 Nov 2026), but for the heavy-duty brakes, which borrow the brake pad set's until a redraw is picked
-    (docs/development/art-backlog.md).
+    owner's picks of 20 Nov 2026); the heavy-duty brakes' own since Framework 0.210.2 (paid redraw, the owner's pick of 21 Nov 2026).
   -->
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <!-- F3, with T4: heavier pads and bigger discs or drums. Wear at stops and on the move both 0.6 (authored). -->
     <defName>PhobosFitting_HeavyBrakes</defName>
-    <iconPath>Phobos/Vehicles/Parts/BrakePadSet</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/HeavyBrakes</iconPath>
     <label>heavy-duty brakes</label>
     <description>Bigger discs and thicker pads, made for a laden truck. They take a load's stopping in their stride and wear more slowly.</description>
     <roles><li>Brakes</li></roles>

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.4] - 2026-11-21 - Draft
+
+The standard grain front's own picture. Not yet tested in game.
+
+### Changed
+
+- **The standard grain front's upgrade icon is drawn to match the wide front**: the same header, about half as long, so the two read as one family and can be told apart. It was cut from the combine's own picture before.
+
 ## [0.7.3] - 2026-11-21 - Draft
 
 The paddock button's own picture. Not yet tested in game.

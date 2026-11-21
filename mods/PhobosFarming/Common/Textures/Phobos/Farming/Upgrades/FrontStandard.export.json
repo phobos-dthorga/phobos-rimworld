@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png",
+  "source": "assets/vehicle-systems/generated/farming-front-standard-paid/farming-front-standard-paid-2.png",
+  "source_sha256": "9cb83c4b2668ccd0be3bdb360e64824c4a9907fff67e9aa38e1d1740dd8ca57d",
+  "target_sha256": "5c13b333f8748d8c9275f84547dca45876e385bfea5d5b604f923ddfffbf9d1c",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "9cb83c4b2668ccd0be3bdb360e64824c4a9907fff67e9aa38e1d1740dd8ca57d",
+  "date": "2026-11-21T20:09:15",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

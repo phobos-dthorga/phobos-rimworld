@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyBrakes.png",
+  "source": "assets/vehicle-systems/generated/fitting-heavy-brakes-paid/fitting-heavy-brakes-paid-1.png",
+  "source_sha256": "d662f87c27239cfd8ac18c0d53fa1e4b1d118f660d15d8b2ddd42fe85ec510b8",
+  "target_sha256": "2e3396c74d6fffaf4a24a4415c93f67aa724d88c8ec64695863600d1c8fe1fc6",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "d662f87c27239cfd8ac18c0d53fa1e4b1d118f660d15d8b2ddd42fe85ec510b8",
+  "date": "2026-11-21T20:09:17",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

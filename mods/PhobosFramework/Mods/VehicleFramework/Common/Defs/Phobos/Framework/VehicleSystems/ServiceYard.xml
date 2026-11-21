@@ -110,9 +110,11 @@
       <li>PhobosChargesVehicles</li>
     </grants>
     <overlay>
+      <!-- Cut by scripts/art/export_overlay.py from a paid edit of the pump's master (21 Nov 2026), framed as the pump was: the coil hangs
+           past the pump's right edge, so its canvas is wider, evenly about the same centre (152 x 256 px against the pump's 128 x 256). -->
       <texPath>Phobos/VehicleSystems/Stations/FuelPumpCable</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <drawSize>(1,2)</drawSize>
+      <drawSize>(1.188,2)</drawSize>
     </overlay>
   </Phobos.Framework.Upgrades.PhobosBuildingUpgradeDef>
 

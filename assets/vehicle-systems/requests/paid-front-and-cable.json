@@ -1,0 +1,44 @@
+[
+ {
+  "name": "farming-front-standard-paid",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [1, 2],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/generated/farming-front-wide-b/farming-front-wide-b-11.png",
+    "role": "our approved wide grain front: the same machine family. Keep its parts, colours, outline weight, shading and finish exactly; only its length changes"
+   }
+  ],
+  "art_plan": {
+   "for": "Standard grain front (upgrade)",
+   "ships_as": "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/FrontStandard.png",
+   "why": "night 9's local tries were the wide front again (near-copy 0.97); the owner chose the paid service on 21 Nov 2026, so the two read as one family yet can be told apart",
+   "size": "an upgrade icon shown at 128 px; requested at 8 times that"
+  },
+  "prompt": "GAME ICON EDIT. Image 1 is our approved wide grain front for a combine harvester, seen from above.\n\nDraw the STANDARD grain front from the same family: exactly the same parts, colours, outline weight, shading and finish as image 1, but clearly SHORTER: about half as long, with about half as many knife guards and reel sections, so the whole header is roughly twice as long as it is deep rather than five times. Keep the two pointed crop dividers at the ends and the square feeder mount in the middle of the back edge.\n\nOne object, centred, filling about 75 percent of the canvas width, on a plain pure white background. Square canvas.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, hands, vehicles, crops, text, letters, numbers, logos, floor, ground or cast shadow."
+ },
+ {
+  "name": "station-fuel-pump-cable-paid",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 768,
+  "height": 1536,
+  "seeds": [1, 2],
+  "references": [
+   {
+    "image": "assets/vehicle-systems/generated/station-fuel-pump-b-house/station-fuel-pump-b-house-11.png",
+    "role": "our approved fuel pump, picked by the owner: redraw it unchanged, adding only the charging cable, so the cable can be cut out as an overlay that lines up with the shipped picture"
+   }
+  ],
+  "art_plan": {
+   "for": "Fuel pump charging cable (building upgrade overlay)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/FuelPumpCable.png",
+   "why": "the overlay shown once the charging cable upgrade is fitted (Framework 0.210.0); the owner chose a paid edit of the picked pump on 21 Nov 2026. The overlay is the difference between this edit and the pick, registered to the shipped FuelPump.png",
+   "size": "the pump's own canvas, 1 x 2 cells, cut to 128 x 256"
+  },
+  "prompt": "IMAGE EDIT. Image 1 is our approved fuel pump building, seen from directly above.\n\nReturn image 1 UNCHANGED: the same pump, the same position, size, angle, colours, outline and white background, pixel for pixel wherever possible.\n\nAdd ONLY one thing: a thick black electric charging cable with a chunky dark grey plug, coiled in two loose loops on the concrete base beside the pump's right edge, its end running into the side of the pump housing, with one small muted green light on the plug. Draw the cable in the same style: a thick near-black outline, flat cel shading.\n\nDo not move, redraw, recolour or resize anything else. No text, letters, numbers, people, vehicles, floor or cast shadow."
+ }
+]

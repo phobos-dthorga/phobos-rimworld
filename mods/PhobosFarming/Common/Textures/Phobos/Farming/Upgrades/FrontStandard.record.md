@@ -1,5 +1,6 @@
-# FrontStandard: asset record
+# FrontStandard
 
-**Cut by script from our own picture**, not generated: the standard grain front, cropped from `Combine/Combine_FrontStandard_north.png` (SHA-256 `b61a7e67e474a5d7d56d1c825defc2974eb82b9e9fbba2d9a3313115dba56120`) by `assets/phobos-vehicles/draw_farming_icons.py` on 2026-11-20, tinted with its paint mask and the colours of its Def as the game shows it, and fitted into a 128 px square. That picture is AI-generated (OpenAI gpt-image-2), picked by the owner; its record is beside it. A stand-in cut from the machine itself until the local icon batch draws its own.
+Made on 21 Nov 2026 with OpenAI gpt-image-2 through the image API, at medium quality (US$0.062): **AI-generated, picked by the owner on 21 November 2026** from two attempts. Exported by `scripts/art/export_sprite.py` at 128 px, the background cleared with the background AI's mask. The prompt is in `assets/vehicle-systems/requests/paid-front-and-cable.json`; the picks are recorded in `assets/phobos-vehicles/requests/night-9-picks-record.md`, the master and its record on the `art-masters` branch, the attempt not picked on `art-references`. The only reference uploaded was our own approved art: the wide front's pick, `farming-front-wide-b-11.png`, as the family to match. No game or other author's art was uploaded or used, and none is in this file.
 
-- `FrontStandard.png`: SHA-256 `c88c3ddaabdfe30a9e3032c41cd790d409b6197d937b098158d4f2b97101638a`
+- Master: `farming-front-standard-paid-2`, SHA-256 `9cb83c4b2668ccd0be3bdb360e64824c4a9907fff67e9aa38e1d1740dd8ca57d`
+- `FrontStandard.png`: SHA-256 `5c13b333f8748d8c9275f84547dca45876e385bfea5d5b604f923ddfffbf9d1c`
