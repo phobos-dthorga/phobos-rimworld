@@ -34,16 +34,19 @@ The upscales have their own folder because they are copies on purpose: beside th
 import argparse
 import fnmatch
 import json
-import os
 from pathlib import Path
 import re
 import shutil
 import struct
 import subprocess
+import sys
 
-WORK_ROOT = Path(r'C:\AI\lora-experiments')
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import art_paths  # noqa: E402
+
+WORK_ROOT = art_paths.lora_work_root()   # PHOBOS_LORA_WORK, then the loraWorkPath setting, then C:\AI\lora-experiments
 REPO = Path(__file__).resolve().parents[2]
-COMFY = Path(os.environ.get('COMFYUI_PATH', r'C:\AI\ComfyUI\ComfyUI_windows_portable'))
+COMFY = art_paths.comfy_root()   # COMFYUI_PATH, then the comfyUiPath setting, then C:\AI\ComfyUI\ComfyUI_windows_portable
 LONG_SIDE = 1024
 LATENT_STEP = 16  # Image sides must be whole multiples of this for these models.
 # Starting values for a 12 GB card. Black Forest Labs' training guide gives 8e-5 to 1e-4 for the learning rate; the rest are

@@ -40,12 +40,13 @@ import urllib.error
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
 import safeguards  # noqa: E402
+import art_paths  # noqa: E402
 
 _spec = importlib.util.spec_from_file_location('generate_art', ROOT / 'scripts' / 'generate-art.py')
 art = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(art)
 
-AI_TOOLKIT = Path(r'C:\AI\ai-toolkit')
+AI_TOOLKIT = art_paths.ai_toolkit_root()   # PHOBOS_AI_TOOLKIT, then the aiToolkitPath setting, then C:\AI\ai-toolkit
 POLL_SECONDS = 5
 ES_CONTINUOUS, ES_SYSTEM_REQUIRED = 0x80000000, 0x00000001
 NOT_STARTED = 3  # The exit code for a run that a safeguard refused to start.

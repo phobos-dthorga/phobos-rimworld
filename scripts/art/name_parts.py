@@ -39,7 +39,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import art_paths  # noqa: E402
 
 OUT = art_paths.work('parts')   # The art tools' working folder (art_paths.py): K: on the owner's PC since 19 Nov 2026
-MODEL = Path('C:/AI/ComfyUI/ComfyUI_windows_portable/ComfyUI/models/segmentation/sam2.1-hiera-large')
+MODEL = art_paths.comfy_root() / 'ComfyUI' / 'models' / 'segmentation' / 'sam2.1-hiera-large'
 WHITE = 235           # Paler than this in every channel is the background around the vehicle (as paint_segments.py).
 BOX_MARGIN = 0.12     # The plan's box is widened by this share each way: a picture follows its plan closely, not exactly.
 SMOOTH = 17           # Pixels at 4,096 px: closing then opening a mask by about this much fills rivet-dot holes and drops edge speckle.

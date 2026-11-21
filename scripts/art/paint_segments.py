@@ -27,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import art_paths  # noqa: E402
 
 OUT = art_paths.work('segments')   # The art tools' working folder (art_paths.py): K: on the owner's PC since 19 Nov 2026
-MODEL = Path('C:/AI/ComfyUI/ComfyUI_windows_portable/ComfyUI/models/segmentation/sam2.1-hiera-large')
+MODEL = art_paths.comfy_root() / 'ComfyUI' / 'models' / 'segmentation' / 'sam2.1-hiera-large'
 GRID_STEP = 24        # master pixels between prompt points (authored: a panel is wider than this in every master we have)
 POINTS_PER_BATCH = 48
 MIN_SCORE = 0.80      # a mask the model scores lower is not kept

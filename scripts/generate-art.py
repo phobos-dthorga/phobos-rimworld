@@ -34,8 +34,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts' / 'art'))
 import openai_images as paid  # noqa: E402
 import fal_images as fal  # noqa: E402
+import art_paths  # noqa: E402
 
-DEFAULT_COMFY = Path(os.environ.get('COMFYUI_PATH', r'C:\AI\ComfyUI\ComfyUI_windows_portable'))
+DEFAULT_COMFY = art_paths.comfy_root()   # COMFYUI_PATH, then the comfyUiPath setting, then C:\AI\ComfyUI\ComfyUI_windows_portable
 SERVER = os.environ.get('COMFYUI_URL', 'http://127.0.0.1:8188')
 DEFAULT_MODEL = 'flux1-schnell-fp8.safetensors'
 NEGATIVE = ''  # Flux schnell ignores the negative prompt; it is kept empty on purpose.

@@ -13,7 +13,6 @@ or one under other terms) is fetched only when --optional or --only asks for it.
 import argparse
 import hashlib
 import json
-import os
 from pathlib import Path
 import sys
 import urllib.error
@@ -22,7 +21,10 @@ import urllib.request
 
 HERE = Path(__file__).resolve().parent
 MANIFEST = HERE / 'models.json'
-COMFY = Path(os.environ.get('COMFYUI_PATH', r'C:\AI\ComfyUI\ComfyUI_windows_portable'))
+sys.path.insert(0, str(HERE))
+import art_paths  # noqa: E402
+
+COMFY = art_paths.comfy_root()   # COMFYUI_PATH, then the comfyUiPath setting, then C:\AI\ComfyUI\ComfyUI_windows_portable
 USER_AGENT = 'phobos-art-fetch'
 BLOCK = 1 << 20
 

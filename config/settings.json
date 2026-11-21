@@ -10,6 +10,27 @@
       "description": "Where the art tools keep their masks, parts and staging (the owner chose K:, 19 Nov 2026)"
     },
     {
+      "key": "loraWorkPath",
+      "env": "PHOBOS_LORA_WORK",
+      "kind": "folder",
+      "game": "rimworld",
+      "description": "Where the style-model trainings live, outside the repository and the synced drive (default C:\\AI\\lora-experiments)"
+    },
+    {
+      "key": "comfyUiPath",
+      "env": "COMFYUI_PATH",
+      "kind": "folder",
+      "game": "rimworld",
+      "description": "ComfyUI's portable folder, where the art tools find their models (default C:\\AI\\ComfyUI\\ComfyUI_windows_portable)"
+    },
+    {
+      "key": "aiToolkitPath",
+      "env": "PHOBOS_AI_TOOLKIT",
+      "kind": "folder",
+      "game": "rimworld",
+      "description": "The ai-toolkit trainer's folder (default C:\\AI\\ai-toolkit)"
+    },
+    {
       "key": "sourceClonesPath",
       "env": "PHOBOS_SOURCE_CLONES",
       "kind": "folder",
