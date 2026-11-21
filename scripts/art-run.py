@@ -17,8 +17,9 @@ stop for the game, but it does stop before free memory falls under --min-free-ra
     python scripts/art-run.py train C:/AI/lora-experiments/vanilla/config.yaml --stop-at 07:00
     python scripts/art-run.py night .local/art/night.json --stop-at 07:00
 
-After a night's last step, scripts/safe-copies.py run copies what cannot be made again (trainings, style models, plans) to the
-folders and private repository the owner chose, and the summary says how it went (owner, 21 Nov 2026); --no-safe-copies skips it.
+After a night's last step, scripts/safe-copies.py run-all copies what cannot be made again (trainings, style models, plans, and
+every other list on the owner's games list) to the folders and private repository the owner chose, then checks every copy, and the
+summary says how it went (owner, 21 Nov 2026); --no-safe-copies skips it.
 
 A night plan is a JSON list run in order under one stop time. A failed step does not end the night; a later step that needs its
 work fails in turn and says so. Each step is one of:
@@ -54,12 +55,9 @@ POLL_SECONDS = 5
 ES_CONTINUOUS, ES_SYSTEM_REQUIRED = 0x80000000, 0x00000001
 NOT_STARTED = 3  # The exit code for a run that a safeguard refused to start.
 NIGHT_STEPS = ('generate', 'train', 'run')
-SAFE_COPIES = [sys.executable, str(ROOT / 'scripts' / 'safe-copies.py'), 'run']
-# The shared tools' own list (kit 1.67.0): Claude Code's notes about the owner, kept on K: only.
-SAFE_COPIES_NOTES = [*SAFE_COPIES, '--root', str(ROOT / 'external' / 'phobos-modkit')]
-# 22 Nov 2026: every copy hashed again against its record, every night (a few seconds of disk reads), so a damaged copy is found
-# before it is needed rather than when it is.
-SAFE_COPIES_CHECK = [sys.executable, str(ROOT / 'scripts' / 'safe-copies.py'), 'verify']
+# Kit 1.71.0: every list on the owner's games list (this repository's art, every game's saves and settings, the notes about the
+# owner), then every copy hashed again against its record (22 Nov 2026), so a damaged copy is found before it is needed.
+SAFE_COPIES = [sys.executable, str(ROOT / 'scripts' / 'safe-copies.py'), 'run-all', '--verify']
 
 
 def stay_awake(on):
@@ -548,12 +546,11 @@ def describe_step(step):
 
 
 def safe_copies_rows():
-    """Copies what the night made that cannot be made again (owner, 21 Nov 2026: automatically, every night), then the notes kept
-    about the owner (22 Nov 2026: the shared tools' own list): disk work only, so they run after the last step whatever the stop
-    time, and a failure is a line in the summary, never the night's."""
+    """Copies what the night made that cannot be made again (owner, 21 Nov 2026: automatically, every night), with every other
+    list (kit 1.71.0's run-all), then checks every copy: disk work only, so it runs after the last step whatever the stop time,
+    and a failure is a line in the summary, never the night's."""
     rows = []
-    for label, command in (('safe copies', SAFE_COPIES), ('safe copies of the notes', SAFE_COPIES_NOTES),
-                           ('check of every safe copy', SAFE_COPIES_CHECK)):
+    for label, command in (('safe copies of everything', SAFE_COPIES),):
         began = _dt.datetime.now()
         print(f'--- {label}', flush=True)
         code, report = run_step(command)

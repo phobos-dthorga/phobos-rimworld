@@ -31,13 +31,6 @@
       "description": "The ai-toolkit trainer's folder (default C:\\AI\\ai-toolkit)"
     },
     {
-      "key": "rimsortPath",
-      "env": "PHOBOS_RIMSORT",
-      "kind": "folder",
-      "game": "rimworld",
-      "description": "RimSort's own data folder (its settings, your sorting rules and mod notes), which the safe copies keep on K: only"
-    },
-    {
       "key": "sourceClonesPath",
       "env": "PHOBOS_SOURCE_CLONES",
       "kind": "folder",

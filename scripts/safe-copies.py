@@ -11,6 +11,11 @@ art-run.py runs it after every night; D'thorga Companion's Copy now runs it at a
     python scripts/safe-copies.py run                copy what changed; commit and push the repository's copy
     python scripts/safe-copies.py verify             hash every copy again against its record
     python scripts/safe-copies.py restore --set lora-trainings --unit house-v1 --to D:/restored/house-v1
+    python scripts/safe-copies.py run-all --verify    every list on the owner's games list, then every copy checked (kit 1.71.0)
+    python scripts/safe-copies.py schedule           the daily run: how it stands (--at HH:MM sets it, --off removes it)
+
+RimWorld's own files (the saves, the Config folder, RimSort's lists) are in the shared tools' list for the game since kit 1.71.0:
+add --root external/phobos-modkit --game rimworld to read it.
 """
 from pathlib import Path
 import sys

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "description": "What scripts/safe-copies.py copies, and of which kind (phobos-modkit docs/safe-copies.md). The owner's choices of 21 Nov 2026: own files to K: and the private repository dthorga-safe-copies; anything made from the game's art to K: only. 22 Nov 2026: RimWorld's Config folder and RimSort's own settings, rules and mod notes, personal, so K: only; and the saves, the newest pair of the owner's rotation (autosaves left out), five earlier copies of each kept on K:, older ones let go. A training is own only when its manifest's hashes prove every picture in it is one of our picks (lora_experiment.py picks writes the manifest and the marker).",
+  "description": "What scripts/safe-copies.py copies of this repository's own work, and of which kind (phobos-modkit docs/safe-copies.md). The owner's choices of 21 Nov 2026: own files to K: and the private repository dthorga-safe-copies; anything made from the game's art to K: only. A training is own only when its manifest's hashes prove every picture in it is one of our picks (lora_experiment.py picks writes the manifest and the marker). RimWorld's own files (the saves, its Config folder and RimSort's lists) are the game's, not this repository's: since kit 1.71.0 they are in phobos-modkit's config/safe-copies/rimworld.json, with the same set names, so their copies stayed as they were.",
   "game": "rimworld",
   "sets": [
     {
@@ -36,27 +36,6 @@
       "folder": ".local/art",
       "include": ["*.json", "*.md", "*.html"],
       "kind": "own"
-    },
-    {
-      "name": "game-settings",
-      "root": "rimworldConfigPath",
-      "include": ["**"],
-      "kind": "personal"
-    },
-    {
-      "name": "saves",
-      "root": "rimworldSavesPath",
-      "include": ["*.rws"],
-      "exclude": ["Autosave-*"],
-      "newest": 2,
-      "keepEarlier": 5,
-      "kind": "personal"
-    },
-    {
-      "name": "rimsort",
-      "root": "rimsortPath",
-      "include": ["settings.json", "dbs/userRules.json", "dbs/ignore.json", "instances/*/aux_metadata.db"],
-      "kind": "personal"
     }
   ],
   "provenance": [
