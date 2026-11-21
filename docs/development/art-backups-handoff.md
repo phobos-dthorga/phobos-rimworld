@@ -1,7 +1,8 @@
 # Hand-off: backing up the art training sets and style models (21 Nov 2026)
 
-**Status (21 Nov 2026):** a hand-off for the session that builds it; nothing is built. Every choice below marked *proposal* is the agent's,
-for the owner to judge. The owner's open questions are at the end.
+**Status (21 Nov 2026):** a hand-off for the session that builds it; nothing is built. **The owner answered its main questions the same
+day: [the owner's answers](#the-owners-answers-21-nov-2026) overrule the proposal below wherever they differ.** Every other choice marked
+*proposal* is the agent's, for the owner to judge.
 
 From the phobos-rimworld session that built the camp (Framework 0.212.0). **The owner's question (21 Nov 2026):** "Should we add backup
 functionality for our training sets, models, etc. and the like within Companion, do you think?", then "Can you create a hand-off for what
@@ -29,6 +30,49 @@ that draws the game's look by itself (158 minutes of training on the owner's gra
   disk a little; keep the copies small by leaving the caches out.
 - **The art pictures themselves are already safe.** Every generated image is on the `art-masters` or `art-references` branch, pushed to
   GitHub (assets/AGENTS.md). Request files are committed. This tool is for what those branches refuse: the private models and datasets.
+
+## The owner's answers (21 Nov 2026)
+
+Given on question cards after a second session checked this hand-off against the machine. They overrule the proposal below.
+
+| Question | The owner's answer |
+| --- | --- |
+| The tool's name | **Safe copies**: command `safe-copies`, a Companion card "Safe copies", buttons "Copy now" and "Check the copies". This keeps it apart from the Mods page's install backups (`installs backup`) |
+| Where our own material goes | **K:** (a separate physical SSD in this PC, not synced) **and a private GitHub repository**. Not the Synology folder, and no USB stick |
+| The game-derived sets and models | **Copy models and sets to K: only**, never anywhere else. Without their caches the three sets are 634 MB (vanilla 336, vanilla-v2 291, vanilla-v3 7), plus the two models at 46 MB each |
+| Later scope, each its own step after the art | **RimWorld saves** (14.8 GB in 46 files, not synced by Synology), **Claude's notes about the owner** (the memory folder and the global instructions), and **game settings** (RimWorld's Config folder and RimSort's lists) |
+
+What follows from the answers (agent's reading, for the owner to correct):
+
+- **The private repository is created by the owner**, or by an agent only on the owner's word at the time: creating a repository is
+  outward-facing. Its name and visibility are the owner's choice. It takes our own material only. The tool refuses to push anything
+  game-derived there, as it refuses any other destination not marked private and local.
+- **Each model is 46 MB, under GitHub's 100 MB limit for a single file**, but every new training adds 46 MB or more to the repository's
+  history for good. Only final models go there; checkpoints and `optimizer.pt` stay on K: alone.
+- **Claude's notes are personal.** They go to K: only, until the owner says otherwise.
+- **Questions 3 to 5 below were not asked.** Their agent defaults stand: checkpoints kept for the newest training only; a card on
+  Companion's Home; `.local/references` left where it is (`.local/` already holds game-derived research by standing rule).
+
+## Found by the second session (21 Nov 2026)
+
+- **The training folders are hard-coded**: `WORK_ROOT` in `scripts/art/lora_experiment.py` (`C:\AI\lora-experiments`), and `AI_TOOLKIT`
+  in `scripts/art-run.py`, alongside `COMFYUI_PATH`, which can be changed only through an environment variable. A backup list naming a
+  settings key for each root needs those keys first: declare them in `config/settings.json`, with today's folders as their defaults,
+  so nothing moves. This is the first step, a commit of its own.
+- **Prove a set is ours; do not trust its label.** house-v1's `manifest.json` holds a hash for each picture, and all 151 match the
+  dataset (checked 21 Nov 2026). The tool hashes each picture of an `own` set against its manifest, and anything it cannot prove is
+  treated as game-derived. The `own-art.json` marker alone is not proof.
+- **Detect a synced or shared destination as well as reading the owner's mark.** A `.SynologyWorkingDirectory` folder sits at
+  `D:\SynologyDrive`; the tool looks for it, and for a `.git` folder, above any destination. Game-derived material needs both: the
+  owner's "private and local" mark, and nothing detected.
+- **The kit's safety rules list every tool that writes.** `safe-copies run` (to the destinations chosen) and `restore` (to a folder the
+  owner names) are one more writer, so the kit's AGENTS.md needs a line for it, on the owner's word, in the commit that adds the tool.
+- **The recipe records what really rebuilds a model**: this repository's commit, ai-toolkit's commit (`e9c72b7` on 21 Nov 2026), the
+  base models' hashes from `models.json`, the game's version, and the training config.
+- **Copy only what changed, at the end of every night plan**, not only after a training, so a caption edited by hand is caught too.
+  A changed file's earlier version is kept beside it, never overwritten. No pruning in the first version.
+- **The copies are plain folders** you can open: a mirror of the files, plus one JSON record for each run. Neither needs the tool to
+  read it.
 
 ## What exists today (measured 21 Nov 2026)
 
@@ -85,6 +129,9 @@ that draws the game's look by itself (158 minutes of training on the owner's gra
   above. The owner may still choose one for the `own` kind.
 
 ## Questions for the owner
+
+Questions 1 and 2 are answered ([the owner's answers](#the-owners-answers-21-nov-2026)); 3 to 5 keep their agent defaults until the
+owner says otherwise.
 
 1. **Where should the main copy go?** The Synology (off this PC, synced), another drive in the PC, an external drive, or more than
    one. A copy in the same house shares the house's risks; that is the owner's judgement, not the tool's.
