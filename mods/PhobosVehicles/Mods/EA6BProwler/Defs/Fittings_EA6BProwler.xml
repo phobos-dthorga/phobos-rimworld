@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The EA-6B Prowler's service-life upgrades (owner, 22 Nov 2026: "full, with ICAP upgrades"; docs/development/ea6b-prowler.md). Fittings
+    of ours, beside the Prowler's own upgrade tree, never in it. The jet starts as the ICAP of 1976; both go on its fin-top receivers (D'thorga
+    Patches' part) or, without them, its jammer pods, so one replaces the other. Each widens its jamming field through D'thorga Patches' hook on
+    the Prowler's own radius. The factors are authored: no source gives the real gain in a form a radius can follow. Materials, work and skill
+    are authored too. Not yet tested in game.
+  -->
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- ICAP II, first delivered 1982 (secondary: the Congressional Research Service's report RL30639, 2001; Wikipedia gives 1980 for its first
+         flight): upgraded receivers, displays and software, jamming in two frequency bands at once, with its Block 82 to 89A updates, the last
+         of which (initial operating capability about 2000, secondary: FAS) brought satellite navigation with an inertial set (Litton ASN-172,
+         secondary: FAS). Here: the field 10 % wider (authored) and full navigation. -->
+    <defName>PhobosFitting_ProwlerIcapII</defName>
+    <iconPath>Phobos/Vehicles/Fittings/ProwlerIcapII</iconPath>
+    <label>ICAP II suite</label>
+    <description>The Prowler's second improved suite, in service from 1982 and updated through the 1990s: better receivers and software that jam two bands at once, and in its last form satellite navigation. Its jamming field reaches about a tenth further, and it keeps its track between places in any weather.</description>
+    <roles><li>EwReceivers</li></roles>
+    <loadouts><li>PhobosVehicleLoadout_Prowler</li></loadouts>
+    <materials><Steel>10</Steel><ComponentIndustrial>8</ComponentIndustrial><ComponentSpacer>1</ComponentSpacer></materials>
+    <work>8000</work>
+    <minSkill>8</minSkill>
+    <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+    <grants><li>ProwlerIcapII</li></grants>
+    <jamRadiusFactor>1.10</jamRadiusFactor>
+    <parameterFloors>
+      <li><system>PhobosVehicleSystem_Avionics</system><parameter>navigationFull</parameter><value>1</value></li>
+    </parameterFloors>
+    <loads>
+      <li>
+        <name>prowlerIcapII</name>
+        <label>ICAP II suite</label>
+        <description>The ICAP II receivers and computer.</description>
+        <amps>6</amps>
+        <shedOrder>4</shedOrder>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- ICAP III: contract March 1998, first flight 16 Nov 2001 (secondary: CRS RL30639; the US Navy's fact file), first deployed 2005 with VAQ-139
+         and first in combat in February 2006 (primary: VAQ-139's history, airpac.navy.mil). The ALQ-218 receiver for selective-reactive
+         jamming, which jams only the emitters it hears, and the USQ-113 communications jammer. Here: the field 25 % wider (authored), full
+         navigation and a warning receiver. The communications jammer is not modelled (our radio work is set aside). -->
+    <defName>PhobosFitting_ProwlerIcapIII</defName>
+    <iconPath>Phobos/Vehicles/Fittings/ProwlerIcapIII</iconPath>
+    <label>ICAP III suite</label>
+    <description>The Prowler's last suite, first deployed in 2005: a receiver that hears each enemy emitter and jams only those it hears, with a radio jammer beside it. Its jamming field reaches about a quarter further, it navigates by satellite, and it always knows when a radar has it.</description>
+    <roles><li>EwReceivers</li></roles>
+    <loadouts><li>PhobosVehicleLoadout_Prowler</li></loadouts>
+    <materials><Steel>10</Steel><ComponentIndustrial>6</ComponentIndustrial><ComponentSpacer>3</ComponentSpacer></materials>
+    <work>12000</work>
+    <minSkill>10</minSkill>
+    <researchPrerequisite>AdvancedFabrication</researchPrerequisite>
+    <grants><li>ProwlerIcapIII</li></grants>
+    <jamRadiusFactor>1.25</jamRadiusFactor>
+    <parameterFloors>
+      <li><system>PhobosVehicleSystem_Avionics</system><parameter>navigationFull</parameter><value>1</value></li>
+      <li><system>PhobosVehicleSystem_Avionics</system><parameter>warning</parameter><value>1</value></li>
+    </parameterFloors>
+    <loads>
+      <li>
+        <name>prowlerIcapIII</name>
+        <label>ICAP III suite</label>
+        <description>The ICAP III receiver, jammer controls and computers.</description>
+        <amps>8</amps>
+        <shedOrder>4</shedOrder>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <!-- Enemy sets: another faction's Prowler may arrive as a later version, as the real ones were refitted. Tech levels authored. -->
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_ProwlerIcapII</defName>
+    <minTech>Industrial</minTech>
+    <maxTech>Spacer</maxTech>
+    <fittings>
+      <li>PhobosFitting_ProwlerIcapII</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_ProwlerIcapIII</defName>
+    <minTech>Spacer</minTech>
+    <maxTech>Archotech</maxTech>
+    <fittings>
+      <li>PhobosFitting_ProwlerIcapIII</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+</Defs>

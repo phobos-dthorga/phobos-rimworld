@@ -18,6 +18,7 @@
     <li IfModActive="potemkinvillager.mi24hindhelicopter">Mods/HindHelicopter</li>
     <li IfModActive="potemkinvillager.mongooseattackhelicopter">Mods/MongooseHelicopter</li>
     <li IfModActive="potemkinvillager.CloseAirSupport">Mods/CloseAirSupport</li>
+    <li IfModActive="potemkinvillager.ea6bprowler">Mods/EA6BProwler</li>
     <li IfModActive="z3nt3.uh60blackhawk">Mods/UH60Blackhawk</li>
     <li IfModActive="rimarrow.srt">Mods/RimArrowSearchRescue</li>
     <li IfModActive="OskarPotocki.VanillaFactionsExpanded.Core">Mods/VehicleOutposts</li>

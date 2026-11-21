@@ -570,6 +570,21 @@ public sealed class VehicleFittings
     public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability)
         && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f });
 
+    /// <summary>The factor on the vehicle's jamming reach from every fitting whose part still stands (Framework 0.224.0): 1 with none.</summary>
+    public float JamRadiusFactor
+    {
+        get
+        {
+            float factor = 1f;
+            foreach (FittedPart part in fitted)
+            {
+                if (part.def == null || part.def.jamRadiusFactor == 1f) continue;
+                if (comp.Vehicle.statHandler?.GetComponent(part.partKey) is { Health: > 0f }) factor *= part.def.jamRadiusFactor;
+            }
+            return factor;
+        }
+    }
+
     /// <summary>The part whose fitting grants this ability (the cargo hook's mount), still standing; null with none (Framework 0.185.0).</summary>
     public VehicleComponent? PartGranting(string ability)
     {

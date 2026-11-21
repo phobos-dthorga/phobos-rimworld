@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    What the EA-6B Prowler is built from, by role (owner, 22 Nov 2026: the A-10's treatment; docs/development/parts-bills.md;
+    docs/development/ea6b-prowler.md). Its blueprint's own cost list is cut to its shell (Cost_EA6BProwler.xml), and each role is filled at
+    start-up by an installed mod's part where it suits the jet's weight, and by ours otherwise: RimThunder's turbine or our gas turbine
+    assembly for each engine, never a car's engine block, wheels or suspension. Counts follow the real jet's layout where it is known (see
+    the record): two engines, a nose leg and two main legs, a generator on each engine. The fuel tank, battery and hydraulic counts are
+    authored. What each part costs is the shared table's, held for the owner's review. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_Prowler</defName>
+    <label>EA-6B parts</label>
+    <target>Prowler_Jet_Blueprint</target>
+    <tags>
+      <li>Turbine</li>
+    </tags>
+    <parts>
+      <Engine1>1</Engine1>
+      <Engine2>1</Engine2>
+      <FuelTank>4</FuelTank>
+      <LandingGear>3</LandingGear>
+      <Alternator>2</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <HydraulicPump>2</HydraulicPump>
+      <HydraulicLines>1</HydraulicLines>
+      <Avionics>1</Avionics>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

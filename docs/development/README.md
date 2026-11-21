@@ -120,6 +120,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Railcars](vehicle-railcars.md) (22 Nov 2026): a loadout for Trains of the Rim's wagons, so they can take fittings. Set aside by the owner; nothing built.
 - [UH-60M Black Hawk](uh60-blackhawk.md) (22 Nov 2026): z3nt3's Black Hawk in the fold; a judgement of the mod. Built, untested.
 - [Close Air Support's A-10 and Su-25](close-air-support-jets.md) (21 Nov 2026): both jets in the fold, our own dodge. Built, untested.
+- [EA-6B Prowler](ea6b-prowler.md) (22 Nov 2026): the jamming jet in the fold, ICAP upgrades; ECM ideas, steps 2 to 4. Step 1 built, untested.
 - [Modern military aircraft and vehicles](modern-military-vehicles.md) (18 Nov 2026): the Osprey, armed candidates, crewless fits. Record only.
 - [Armour for our armed vehicles](vehicle-armour.md) (18 Nov 2026): classes by the threat stopped; Combat Extended first. Record only.
 - [Spall inside our vehicles](vehicle-spall.md) (21 Nov 2026): debris from a beaten plate, and spall liners; Combat Extended only. Built, untested.

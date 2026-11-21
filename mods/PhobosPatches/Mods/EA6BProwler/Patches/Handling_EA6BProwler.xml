@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Realistic handling for the EA-6B Prowler: the setting "Realistic handling" on D'thorga Patches' EA-6B Prowler page, off by default
+    (owner's choice, 22 Nov 2026, kept so nothing looks missing beside the A-10's and for later use; docs/development/ea6b-prowler.md). It
+    takes effect at the next start. Off, the author's figures stand.
+
+    Speeds on the Harrier's scale, its author's top speed of 0.30 standing for the AV-8B's 1,083 km/h at sea level (secondary: Wikipedia),
+    as for the A-10 (agent's derivation, authored):
+    - Top speed 980 km/h at sea level with five jammer pods (secondary: aerospaceweb.org, "EA-6B Prowler") gives 0.271, so 0.27. Clean it
+      is 1,045 km/h (the same source), but the jet in play always carries pods or missiles.
+    - Cruise 774 km/h, 418 knots (secondary: Wikipedia) gives 0.214, so 0.21, still above its 0.16 orbit.
+    On 22 Nov 2026 both equal the author's own figures, so the setting changes nothing yet: it holds the real figures if a later update
+    changes his. Take-off and landing figures, orbit speed and turning are left as the author set them, since the jamming orbit is worked out
+    from them.
+  -->
+  <Operation Class="Phobos.Framework.Patching.PatchOperationPhobosFlag">
+    <flag>PhobosProwlerPatches.realisticHandling</flag>
+    <operations>
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/Vehicles.VehicleDef[defName="Prowler_Jet"]/modExtensions/li[@Class="FixedWingAircraftFramework.FixedWingProperties"]/maxSpeed</xpath>
+        <value>
+          <maxSpeed>0.27</maxSpeed>
+        </value>
+      </li>
+      <li Class="PatchOperationReplace">
+        <xpath>Defs/Vehicles.VehicleDef[defName="Prowler_Jet"]/modExtensions/li[@Class="FixedWingAircraftFramework.FixedWingProperties"]/cruiseSpeed</xpath>
+        <value>
+          <cruiseSpeed>0.21</cruiseSpeed>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+</Patch>

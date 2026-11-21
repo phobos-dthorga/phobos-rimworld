@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.99.0] - 2026-11-22 - Draft
+
+The EA-6B Prowler in the fold
+
+### Added
+
+- **The EA-6B Prowler's engines and systems** (needs EA-6B Prowler Electronic Attack Aircraft; the owner's choice of 22 November 2026, the A-10's treatment): two J52 turbojets of 49.8 kN each, each a part that can be lost, so it flies home on one; electrics, hydraulics and its avionics as the ICAP version of 1976 (basic navigation, a navigation radar, a warning receiver, chaff and flares). Every figure and its source is in the record. Not yet tested in game: row 342 of the test pass.
+- **ICAP II and ICAP III suites**, the Prowler's real upgrades, as fittings on its fin-top receivers: ICAP II (in service from 1982) widens its jamming field by about a tenth and gives it satellite navigation; ICAP III (first deployed 2005) widens it by about a quarter and adds a warning receiver. One replaces the other. Other factions' Prowlers may arrive with either, by their tech level.
+
+### Compatibility and limits
+
+- The ICAP suites widen the field only with D'thorga Patches active, which holds the hook on the Prowler's own jamming. Without its parts list they go on the jammer pods instead of the fin-top receivers.
+- How much wider each suite makes the field is authored: no source gives the real gain in a form a radius can follow. Their icons are still to be drawn.
+
 ## [0.98.0] - 2026-11-22 - Draft
 
 Camp gear on the tank trailers, the Billy and the shower trailer. Needs D'thorga Framework 0.217.0. Not yet tested in game.

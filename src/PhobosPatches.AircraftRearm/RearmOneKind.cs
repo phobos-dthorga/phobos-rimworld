@@ -29,6 +29,9 @@ public static class RearmOneKind
         // Patches 0.29.0: Close Air Support's A-10 and Su-25 rearm through the same fixed-wing framework as the Harrier (the same file, read
         // 21 Nov 2026), so with both mods active the one patch serves both.
         new("potemkinvillager.CloseAirSupport", "the A-10 and Su-25", "FixedWingAircraftFramework", "FWA_RearmVehicle"),
+        // Patches 0.33.0: the EA-6B Prowler's jammer pods and missiles rearm through the same fixed-wing framework (its own copy loads only
+        // when none of the others is active; read 22 Nov 2026), so the one patch serves it too.
+        new("potemkinvillager.ea6bprowler", "the Prowler", "FixedWingAircraftFramework", "FWA_RearmVehicle"),
     };
 
     static readonly Dictionary<Type, Func<Pawn, VehicleTurret, Predicate<ThingDef>, int, Thing?>> findAmmo = new();

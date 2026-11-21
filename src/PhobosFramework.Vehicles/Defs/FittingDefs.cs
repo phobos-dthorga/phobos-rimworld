@@ -99,6 +99,9 @@ public class PhobosVehicleFittingDef : Def
     public float thrustFactor = 1f;
     /// <summary>A factor on how much output a turbine loses for each degree above 15 °C: below 1, a hotter engine that keeps more in hot air.</summary>
     public float hotDerateFactor = 1f;
+    /// <summary>A factor on the reach of the vehicle's electronic jamming (Framework 0.224.0; the EA-6B Prowler's ICAP upgrades): its own mod's
+    /// jamming field, and ours, are this much wider while the part stands. Several such fittings multiply.</summary>
+    public float jamRadiusFactor = 1f;
     /// <summary>A factor on the countermeasure dispensers' magazine: more dispensers.</summary>
     public float cartridgeFactor = 1f;
 

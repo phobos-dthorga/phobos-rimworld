@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.224.0] - 2026-11-22 - Draft
+
+A fitting can widen a vehicle's jamming
+
+### Added
+
+- **A fitting can widen a vehicle's electronic jamming** (for the EA-6B Prowler's ICAP upgrades, the owner's choice of 22 November 2026): a figure on a fitting, read while its part stands, that a jamming field multiplies by. Several such fittings multiply. Nothing uses it on its own; D'thorga Vehicles' ICAP suites and D'thorga Patches' hook on the Prowler do. Not yet tested in game.
+
 ## [0.223.0] - 2026-11-22 - Draft
 
 The camp's kitchen box, table and stools, and the tents' own pictures

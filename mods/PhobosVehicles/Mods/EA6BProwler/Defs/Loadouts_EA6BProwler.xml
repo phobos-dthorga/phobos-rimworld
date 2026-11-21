@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The EA-6B Prowler Electronic Attack Aircraft (potemkinvillager.ea6bprowler), a twin-engined jamming jet on the fixed-wing framework,
+    taken into the fold as the A-10 was (owner, 22 Nov 2026: "full, with ICAP upgrades"; docs/development/ea6b-prowler.md, which lists every
+    figure with its source). Not yet tested in game.
+
+    Its two engines are two parts of their own (EnginePort, EngineStarboard), bound as the A-10's are: with one out the turbine model halves
+    the thrust available. The hydraulics and the fin-top receivers are D'thorga Patches' parts (its parts list for the Prowler); without it
+    the flight hydraulics have no pump to read, and the ICAP upgrades go on the jammer pods instead. The Prowler's own mod gives it a dodge
+    (40 % of hits miss in the air), so ours is not added; D'thorga Patches makes that dodge follow its flight controls and warning receiver.
+  -->
+
+  <!--
+    The Pratt & Whitney J52-P-408, a turbojet. Take-off thrust 49.8 kN, 11,200 lbf (secondary: Wikipedia, "Pratt & Whitney J52", citing
+    Flight International of 4 Jan 1973; FAS reproduces it); the US Navy's own fact file gives 10,400 lbf, 46.3 kN (primary, archived 2004),
+    which Wikipedia's EA-6B page gives for the -408A. The higher figure is taken. No maximum-continuous rating, temperature limit, rpm or
+    idle speed is published outside the flight manual (NATOPS NAVAIR 01-85ADC-1, not freely available): the maximum continuous is authored
+    at 0.9 of take-off and the limits and idle are those used for the Su-25's turbojet (authored). Empty mass 14,134 kg, 31,160 lb
+    (secondary: Wikipedia; FAS gives 33,600 lb); internal fuel 6,995 kg, 15,422 lb (secondary: FAS). A turbojet run on the Framework's
+    turbofan model, which has no turbojet of its own (a simplification).
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_J52</defName>
+    <label>turbojets</label>
+    <engine>
+      <kind>Turbofan</kind>
+      <ratedRpm>10000</ratedRpm>
+      <kilowattsPerTonne>1500</kilowattsPerTonne>
+      <idleFuelShare>0.05</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>780</temperatureLimit><thrustKilonewtons>44.8</thrustKilonewtons></li>
+          <li><name>takeoff</name><label>take-off</label><share>1.11</share><speedPercent>104</speedPercent><temperatureLimit>830</temperatureLimit><minutes>5</minutes><thrustKilonewtons>49.8</thrustKilonewtons></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+    <mass>
+      <emptyKilograms>14134</emptyKilograms>
+      <fuelKilogramsFull>6995</fuelKilogramsFull>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_Prowler</defName>
+    <label>electronic attack jet (twin turbojet)</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>Prowler_Jet</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <!-- No manual reversion was found for the EA-6B: like any aircraft with nothing else, it keeps little control with the hydraulics gone. -->
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_J52</def>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_FixedWingJet</flightProfile>
+    <!-- Service ceiling 37,600 ft, 11,460 m (primary: the US Navy's fact file, archived 2004). No typical cruising height was found: 7,500 m
+         is authored, above the 3,810 m oxygen line, so with its oxygen out it flies low. -->
+    <cruise>
+      <designMetres>7500</designMetres>
+      <ceilingMetres>11460</ceilingMetres>
+      <lift>Jet</lift>
+    </cruise>
+    <avionics>
+      <!-- As the ICAP of 1976 (aircraft service-life upgrades: the jet starts as its early version, owner's choice of 22 Nov 2026 with the
+           ICAP upgrades as fittings). Its ASN-130 inertial navigator (secondary: FAS) without satellite navigation, which came with Block 89
+           (secondary: the Congressional Research Service's report RL30639, 2001): basic navigation, full with the ICAP II fitting. -->
+      <navigation>Basic</navigation>
+      <!-- Only the cancelled ADVCAP's digital flight control system is documented (secondary: Wikipedia): no autopilot as built. D'thorga
+           Framework's autopilot kit. -->
+      <autopilot>false</autopilot>
+      <!-- An AN/APS-130 navigation radar (secondary, read only in a search extract). -->
+      <radar>true</radar>
+      <!-- No head-up display: one was planned only for the cancelled ADVCAP (secondary: CRS RL30639; Wikipedia). It carries no guns or
+           bombs; its anti-radiation missiles home by themselves. -->
+      <sight>Basic</sight>
+      <nightSight>false</nightSight>
+      <!-- Its whole purpose is hearing enemy radars: the ALQ-99's receivers warn it (agent's inference; no separate warning receiver in
+           service was found). -->
+      <warning>true</warning>
+      <!-- ALE-39 chaff and flare dispensers (secondary, read only in a search extract). No cartridge count was found: 60 is authored, a
+           quarter of the A-10's 240. -->
+      <countermeasures>true</countermeasures>
+      <countermeasureCartridges>60</countermeasureCartridges>
+      <!-- No oxygen system was found in the sources read: a jet with a 37,600 ft ceiling carries one (agent's inference). -->
+      <oxygen>true</oxygen>
+      <cruisesHigh>true</cruisesHigh>
+      <!-- To another mod's air defence, scaled as the A-10's: top speed with pods 980 km/h (secondary: aerospaceweb.org) against the AV-8B's
+           1,083 (the Harrier's 18), and a 16.15 m span (primary: the Navy's fact file) against the AV-8B's 9.25 m. -->
+      <airTrack>
+        <speed>16</speed>
+        <cruiseMetres>7500</cruiseMetres>
+        <lowCruiseMetres>1500</lowCruiseMetres>
+        <size>1.7</size>
+      </airTrack>
+    </avionics>
+    <partRoles>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li>
+            <keyContains>EngineStarboard</keyContains>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <keyContains>EnginePort</keyContains>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- One part of D'thorga Patches' stands for all of the jet's hydraulic systems (a simplification). -->
+        <role>HydraulicPump</role>
+        <find>
+          <li>
+            <key>PhobosHydraulics</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <find>
+          <li>
+            <key>PhobosHydraulics</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- Where the ICAP upgrades are fitted: the fin-top receivers of D'thorga Patches' parts list, or the jammer pods without it. -->
+        <role>EwReceivers</role>
+        <find>
+          <li>
+            <key>PhobosEwReceivers</key>
+          </li>
+          <li>
+            <key>JammerPods</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+    <!-- Cockpit pressurisation and air conditioning for its four crew (agent's inference for a jet of its ceiling; not read in a source). -->
+    <cabin>
+      <climateControl>true</climateControl>
+    </cabin>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

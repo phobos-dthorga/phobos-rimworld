@@ -57,6 +57,7 @@ All XML; the code is in the Framework.
 | HUMVEE (`hmv.lunartika`) | Loadout | `Mods/HUMVEE` |
 | RimThunder Roaring Tiger (`aoba.rimthunder.roca`), Desert Sabre (`rimthunderteams.rimthunder.desertsabre`) | Loadouts | `Mods/RimThunderRoaringTiger`, `Mods/RimThunderDesertSabre` |
 | Harrier VTOL (`potemkinvillager.av8bharrier`), Hind (`potemkinvillager.mi24hindhelicopter`), Mongoose (`potemkinvillager.mongooseattackhelicopter`) | Aircraft loadouts | `Mods/HarrierVtol`, `Mods/HindHelicopter`, `Mods/MongooseHelicopter` |
+| EA-6B Prowler (`potemkinvillager.ea6bprowler`) | Aircraft loadout and its ICAP upgrades (0.99.0) | `Mods/EA6BProwler` |
 | GTek L-ATV (`killerbot.jltv`), MaxxPro (`killerbot.navistarmaxxpro`) | Loadouts | `Mods/GTekLATV`, `Mods/GTekMaxxPro` |
 | Frontline Workshop (`serinairo.frontlineworkshop`), BMP-1 (`turbo.rimworld.bmp1ifv`) | Loadouts | `Mods/FrontlineWorkshop`, `Mods/BMP1` |
 | RimArrow: Search and Rescue (`rimarrow.srt`) | Helicopter loadouts for the Ka-27PS and the Mi-38: turboshafts, rotor drive, hydraulics, sling, hook mount, litter cabin (0.65.0) | `Mods/RimArrowSearchRescue` |
@@ -126,6 +127,7 @@ C# lives in `src/PhobosPatches.*`. Rows marked **fault** are in [patches for oth
 | --- | --- | --- |
 | Harrier VTOL | Build cost (RimThunder's turbine where present), part list, Combat Extended bomb weights and cases, bombs and rockets at The Dead Man's Switch's ammunition printer and lathe; hover gate, sortie and flight-control rules, crew keeps a map open; its dodge chance follows its controls and warning receiver, with a chaff and flares button (0.21.0, A12, A16) | XML + C# |
 | Harrier, Hind, Mongoose | Rearm one ammunition kind at a time (**fault**) | C# |
+| EA-6B Prowler | Parts list, parts bill and shell cost; rearm one kind at a time; its dodge follows its controls and warning receiver, with a chaff and flares button; the ICAP upgrades widen its jamming field; realistic handling, off (0.33.0) | XML + C# |
 | RimThunder (`RimThunder.Core`) | Heavy castings in batches at DMS Expedition's lathe | XML |
 | Vehicle Framework | Fires a vehicle can never lose (**fault**, temporary); the game's progress bar on its work (**fault**) | C# |
 | Spaceship Turret Hull + Combat Extended (`MK.SpaceshipTurretHull`) | Combat Extended support for its turret hulls | XML |

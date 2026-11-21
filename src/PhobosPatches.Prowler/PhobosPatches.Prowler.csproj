@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' Prowler assembly (from 0.33.0): the EA-6B Prowler's dodge following its flight controls and warning receiver, its
+       chaff-and-flares salvo button, the ICAP upgrades' wider jamming field and the realistic handling setting
+       (docs/development/ea6b-prowler.md). It lives in Mods/EA6BProwler/<version>, which LoadFolders.xml loads only while the Prowler is
+       active, and reaches the Prowler's code by name: it references no other mod's assembly but Vehicle Framework's. RimWorld 1.7 only. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.ProwlerPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.Prowler</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/EA6BProwler/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.33.0</Version>
+    <!-- Vehicle Framework targets .NET Framework 4.8, and the game loads it whatever it declares, so the mismatch only matters to the
+         compiler's reference check. -->
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+    <ProjectReference Include="../PhobosFramework.Vehicles/PhobosFramework.Vehicles.csproj" Private="false" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Vehicle Framework's assemblies (MIT), referenced from the installed mod and never copied. -->
+    <Reference Include="Vehicles">
+      <HintPath>$(VehicleFrameworkAssemblies)\Vehicles.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="SmashTools">
+      <HintPath>$(VehicleFrameworkAssemblies)\SmashTools.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+</Project>

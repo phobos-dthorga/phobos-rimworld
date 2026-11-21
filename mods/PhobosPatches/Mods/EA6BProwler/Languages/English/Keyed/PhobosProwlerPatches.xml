@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- D'thorga Patches' settings page for the EA-6B Prowler. -->
+  <PhobosProwlerPatches_Page>EA-6B Prowler</PhobosProwlerPatches_Page>
+  <PhobosProwlerPatches_SectionHandling>Handling</PhobosProwlerPatches_SectionHandling>
+  <PhobosProwlerPatches_SettingRealisticHandling>Realistic handling</PhobosProwlerPatches_SettingRealisticHandling>
+  <PhobosProwlerPatches_SettingRealisticHandlingDesc>Off by default. On: the Prowler flies at speeds set by the real EA-6B's, against the Harrier's. Today the Prowler's author already gives it the real jet's top speed with its jammer pods and its real cruising speed, so this changes nothing yet; it holds those figures if a later update of his changes them. Its take-offs, landings, turns and jamming orbit are never changed.</PhobosProwlerPatches_SettingRealisticHandlingDesc>
+  <PhobosProwlerPatches_NeedsRestart>Changing this takes effect when the game next starts.</PhobosProwlerPatches_NeedsRestart>
+</LanguageData>

@@ -6,6 +6,18 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.33.0] - 2026-11-22 - Draft
+
+The EA-6B Prowler in the fold
+
+### Added
+
+- **The EA-6B Prowler's fuller parts list and parts bill** (needs EA-6B Prowler Electronic Attack Aircraft; the owner's choice of 22 November 2026, the A-10's treatment): avionics, hydraulics, wiring, landing gear and fin-top receivers join its own six parts, and it is built from two turbines, four tanks, three gear legs and two generators on a shell of 600 steel, 180 plasteel, 15 components and 10 advanced components, at construction skill 10. Not yet tested in game: row 342 of the test pass.
+- **Its dodge follows its flight controls and warning receiver**, and a chaff and flares button adds to it for a few seconds, as the Harrier's does.
+- **The ICAP upgrades widen its jamming field** (D'thorga Vehicles' fittings): its own field, worked out by its own mod, is multiplied by the suite's figure; a jet with no suite is untouched.
+- **Rearming the Prowler keeps to one kind of ammunition**, as for the Harrier and the A-10, through the same fixed fault in the fixed-wing framework.
+- **Realistic handling**, a new setting on the EA-6B Prowler page, off by default (the owner's choice): the Prowler's speeds set by the real EA-6B's. Today its author already gives it the real jet's top speed with its pods and its real cruise, so it changes nothing yet; it holds those figures if a later update changes his.
+
 ## [0.32.0] - 2026-11-22 - Draft
 
 Vehicles and the people aboard them in a nuclear strike

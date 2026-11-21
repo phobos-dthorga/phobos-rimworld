@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    The Prowler's blueprint cost cut to its shell; its parts bill (Defs/Bills_EA6BProwler.xml) adds the engines, tanks, gear, electrics,
+    hydraulics and avionics at start-up. Stock it costs 650 steel, 180 plasteel, 35 components, 10 advanced components and 22 of Vanilla
+    Vehicles Expanded's car parts (engine blocks, wheels, suspension, exhaust); without VVE the author's own patch sets 800 steel, 175
+    plasteel, 50 components and 10 advanced components first. This replaces whichever stands, as D'thorga Patches loads after the Prowler.
+
+    The shell (authored): the airframe's steel and plasteel as the author set them, and the advanced components for the jamming suite the
+    parts bill does not carry (the pods stay the author's own items, loaded from storage); fewer plain components, as the avionics now come
+    as a part. Steel stays first: Vehicle Framework reads a vehicle's first cost for its destruction sound. Not yet tested in game.
+  -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleBuildDef[defName="Prowler_Jet_Blueprint"]/costList</xpath>
+    <value>
+      <costList>
+        <Steel>600</Steel>
+        <Plasteel>180</Plasteel>
+        <ComponentIndustrial>15</ComponentIndustrial>
+        <ComponentSpacer>10</ComponentSpacer>
+      </costList>
+    </value>
+  </Operation>
+
+  <!-- The Harrier, the Hind, the Mongoose and the A-10 ask for construction skill 10; a jet asks no less. Stock 8. -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleBuildDef[defName="Prowler_Jet_Blueprint"]/constructionSkillPrerequisite</xpath>
+    <value>
+      <constructionSkillPrerequisite>10</constructionSkillPrerequisite>
+    </value>
+  </Operation>
+</Patch>
