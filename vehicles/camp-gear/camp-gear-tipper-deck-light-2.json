@@ -1,0 +1,51 @@
+{
+  "file": "camp-gear-tipper-deck-light-2.png",
+  "sha256": "ff1d593ffb9519c8dc6e802f547ee094704f4a8b0f5826028fa2100e83b82e24",
+  "date": "2026-11-22T06:15:03",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the cargo bed of our service truck, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a canvas deck tent pitched on the deck: one long rectangular ridge tent seen from above, its roof a sand-coloured canvas fly with a single straight ridge line down its centre, each half of the roof shaded a little differently, a few guy lines to the deck's rails, a rolled-up door flap at its rear end. It is narrow and neat, leaving a strip of deck along each side. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "seed": 2,
+  "size": [
+    640,
+    1536
+  ],
+  "request_file": "assets/phobos-vehicles/requests/camp-gear-overlays.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1204,
+    "input_tokens_details": {
+      "image_tokens": 960,
+      "text_tokens": 244
+    },
+    "output_tokens": 716,
+    "output_tokens_details": {
+      "image_tokens": 716,
+      "text_tokens": 0
+    },
+    "total_tokens": 1920
+  },
+  "cost_usd": 0.0304,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "640x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    640,
+    1536
+  ],
+  "seconds": 19.1,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/camp-gear-crop-tipper-deck-light.png",
+      "sha256": "6bd61071a79e01de6404c542e4b819c4c6a65456e7edf1987d451a67c62d2e19",
+      "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+    }
+  ]
+}
