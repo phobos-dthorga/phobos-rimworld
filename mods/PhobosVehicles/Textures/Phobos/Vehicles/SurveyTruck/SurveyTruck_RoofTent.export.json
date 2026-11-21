@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/SurveyTruck/survey-roof-tent-2.png",
+  "master_sha256": "200532600d53c91ab93dc0ae1e2c0794d043d4d84e108199cf60a95fb56cd918",
+  "files": {
+    "SurveyTruck_RoofTent_north.png": "29729a6ef3b88f358eb7274662303174a7dda21d31117a798e4ec11e059bdb4d",
+    "SurveyTruck_RoofTent_east.png": "b680e47b0ff061307d041c25ea036e47b542bf21d8244be9d1b8391272b5350e",
+    "SurveyTruck_RoofTent_south.png": "f1feac5b267031eb39580d5bdfb417d34f36cc0d54df7084b8971193fc390276"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "SurveyTruck-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

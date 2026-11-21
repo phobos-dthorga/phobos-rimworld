@@ -24,3 +24,15 @@
 - `PintleBowser_northm.png`: SHA-256 `02bc27592b33780ab1dc077a0d554734bcc8b09362aa846717586897cb12c1e9`
 - `PintleBowser_south.png`: SHA-256 `8ae50304f7b276d7e1ff2dfb6cc55178ee241c0c8dc02fcb11e2bd32d9661803`
 - `PintleBowser_southm.png`: SHA-256 `c6e2a1db699e9450fee9725e844f430645a2374eea1f7eace12baed19898f76c`
+
+## Camp gear drawn on the vehicle (22 Nov 2026)
+
+Shown while the gear is fitted (D'thorga Vehicles 0.103.0; the owner's "everything on ours", 22 Nov 2026). **AI-generated**: OpenAI gpt-image-2
+through the image API, medium quality, each an edit of a crop of this vehicle's own tinted game picture at twice its size (paid rule 13; our
+own art the only reference), two attempts each; lifted out with `scripts/art/sam_lift.py --cpu` (Segment Anything 2.1, Meta, Apache 2.0; the
+roof tents with only what is darker than the cab kept, so no patch of the cab's paint comes with them), exported by
+`scripts/art/export_vehicle.py overlay` at the picture's own scale. Where the lift failed twice on dark gear over dark metal, the picture was
+made by script instead (paid rules 7 and 11). Request and review: `assets/phobos-vehicles/requests/camp-gear-overlays.json`,
+`camp-gear-overlays-record.md`.
+
+- `PintleBowser_SideRoll` (bowser-side-roll): made by script from the Billy's lifted roll (attempt 2), laid along this vehicle's left rail. Edit `camp-gear-bowser-side-roll-1`, SHA-256 `e3ae8b05fbeafc6c514b57527ef91f0d37277e3e922bd62a65766c53a9c400a4`; north `aa1b0a39ab5b0bd1412d9eb1536a5bceda90ef957c4c56c816acfa24fcfa7169`

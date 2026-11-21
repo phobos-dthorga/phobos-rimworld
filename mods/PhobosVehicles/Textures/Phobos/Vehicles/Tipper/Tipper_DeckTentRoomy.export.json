@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Tipper/tipper-deck-roomy-1.png",
+  "master_sha256": "c9bab7481ec6d5e1b0fc840dbf202753ce5ace6bca9d161fca36c7a8bea0f846",
+  "files": {
+    "Tipper_DeckTentRoomy_north.png": "3bb77feb746af47eb7449febb76f9b978c16bf67b120ec64e18f3a73c534d393",
+    "Tipper_DeckTentRoomy_east.png": "b7bf9f98d1bbd01dea2d566595f525d13f8d2a983674569d77ab490e5b112ea4",
+    "Tipper_DeckTentRoomy_south.png": "c82acf77b6b1a60607337de1df6ec8ecd604997e8a6478baf57b6ab738ce4203"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "Tipper-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

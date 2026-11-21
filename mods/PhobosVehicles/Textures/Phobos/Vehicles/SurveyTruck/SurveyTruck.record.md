@@ -68,3 +68,16 @@ The owner's picks of 19 Nov 2026, fitted by `assets/phobos-vehicles/export_armou
 - `SurveyTruck_RamBar_north.png`: SHA-256 `6e4565c18598e07b6891538a3bad91dd169ca318c128ba3b5bcc506a0ef9e76a`
 - `SurveyTruck_RamBar_east.png`: SHA-256 `82eda56268f70866a362d83b8cb7a59ca0c9a73c7dc4f89a968a35ee4761d995`
 - `SurveyTruck_RamBar_south.png`: SHA-256 `47ca82420aa4a6ef744356587d67bc6d4c7b26e25200165a30065b96e9b6fa61`
+
+## Camp gear drawn on the vehicle (22 Nov 2026)
+
+Shown while the gear is fitted (D'thorga Vehicles 0.103.0; the owner's "everything on ours", 22 Nov 2026). **AI-generated**: OpenAI gpt-image-2
+through the image API, medium quality, each an edit of a crop of this vehicle's own tinted game picture at twice its size (paid rule 13; our
+own art the only reference), two attempts each; lifted out with `scripts/art/sam_lift.py --cpu` (Segment Anything 2.1, Meta, Apache 2.0; the
+roof tents with only what is darker than the cab kept, so no patch of the cab's paint comes with them), exported by
+`scripts/art/export_vehicle.py overlay` at the picture's own scale. Where the lift failed twice on dark gear over dark metal, the picture was
+made by script instead (paid rules 7 and 11). Request and review: `assets/phobos-vehicles/requests/camp-gear-overlays.json`,
+`camp-gear-overlays-record.md`.
+
+- `SurveyTruck_RoofTent` (survey-roof-tent): attempt 2 of 2, the agent's suggested pick, waiting for the owner's pick. Edit `camp-gear-survey-roof-tent-2`, SHA-256 `49304c7579f705cfb03045c6c03a624434ed5ff10570df395a5c9fbaacf4a29e`; north `29729a6ef3b88f358eb7274662303174a7dda21d31117a798e4ec11e059bdb4d`
+- `SurveyTruck_SideRoll` (survey-side-roll): made by script from the Billy's lifted roll (attempt 2), laid along this vehicle's left rail. Edit `camp-gear-survey-side-roll-1`, SHA-256 `fa698843041ab0d89fc29edcf54e792e2c1d725d573c7b716f33528bbc336d17`; north `6729499a0c31162dba6d988964ff165ffd356f7072024c21c0cd463543187eda`

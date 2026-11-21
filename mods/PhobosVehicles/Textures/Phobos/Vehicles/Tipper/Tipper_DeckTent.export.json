@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Tipper/tipper-deck-light-1.png",
+  "master_sha256": "449f634e6b28e7f69514d1c234926d763af16dd4d1d791a4129b466a82ea9e56",
+  "files": {
+    "Tipper_DeckTent_north.png": "8c6285298def3cd48ec9e3a8af3a4803799c4692a7ee9407df997bea75395071",
+    "Tipper_DeckTent_east.png": "6701d4c668f85314d21deadf215dffca8426edf3784d36e39614aacc1cbab0e4",
+    "Tipper_DeckTent_south.png": "41a8c831d40dfd8da5002004314c021bf23ceb9b35440f3beebefc22f9f523c1"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "Tipper-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

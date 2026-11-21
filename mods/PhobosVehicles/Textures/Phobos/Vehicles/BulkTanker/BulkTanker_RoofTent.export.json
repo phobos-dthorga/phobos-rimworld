@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/BulkTanker/tanker-roof-tent-2.png",
+  "master_sha256": "bb19e14bcc3e07a2d59d075938dd0afb9e1b1619a7f9ff63902635e00d1dfbc1",
+  "files": {
+    "BulkTanker_RoofTent_north.png": "dacdcd328da36fba0f3b4350c5a0ffcdbd835c19451e2ced65df77bd863d887c",
+    "BulkTanker_RoofTent_east.png": "e34cdeca675d1b0769fd6d1cfcfb471baf926c9e9dca55125e1f77d3bbe4d156",
+    "BulkTanker_RoofTent_south.png": "6754150c0eb58c41027e8b54d4abe9bec9d53092328f242e2bd0c11c5bd7119f"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "BulkTanker-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

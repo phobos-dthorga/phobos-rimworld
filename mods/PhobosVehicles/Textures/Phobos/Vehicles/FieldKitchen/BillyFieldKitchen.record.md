@@ -16,3 +16,15 @@
 - `BillyFieldKitchen_northm.png`: SHA-256 `854531814bb44714a5cfef582a1f4dc69c595dc210b2b77602782a5618847e32`
 - `BillyFieldKitchen_south.png`: SHA-256 `56f805ddeafcd4facabb7fc1fcb5fa0b6fcfcfd380f07206e9e14865479b0cb8`
 - `BillyFieldKitchen_southm.png`: SHA-256 `c647b48bfe4203cd7c7448f565596314121d1ae0ad5d6a9e43aee563a4d1e71e`
+
+## Camp gear drawn on the vehicle (22 Nov 2026)
+
+Shown while the gear is fitted (D'thorga Vehicles 0.103.0; the owner's "everything on ours", 22 Nov 2026). **AI-generated**: OpenAI gpt-image-2
+through the image API, medium quality, each an edit of a crop of this vehicle's own tinted game picture at twice its size (paid rule 13; our
+own art the only reference), two attempts each; lifted out with `scripts/art/sam_lift.py --cpu` (Segment Anything 2.1, Meta, Apache 2.0; the
+roof tents with only what is darker than the cab kept, so no patch of the cab's paint comes with them), exported by
+`scripts/art/export_vehicle.py overlay` at the picture's own scale. Where the lift failed twice on dark gear over dark metal, the picture was
+made by script instead (paid rules 7 and 11). Request and review: `assets/phobos-vehicles/requests/camp-gear-overlays.json`,
+`camp-gear-overlays-record.md`.
+
+- `BillyFieldKitchen_SideRoll` (billy-side-roll): made by script from the Billy's lifted roll (attempt 2), laid along this vehicle's left rail. Edit `camp-gear-billy-side-roll-1`, SHA-256 `d7a3d8a20ede7594ee18b613f8f1fb9801ff69553b4687fd3335cc2cc64d2a28`; north `10d6989bbe81634a5dd09cbf2d00896ca0b5dac25267b91fc1b08b1d3abb899b`

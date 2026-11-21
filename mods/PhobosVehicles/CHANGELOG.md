@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.103.0] - 2026-11-22 - Draft
+
+Camp gear drawn on our vehicles
+
+### Added
+
+- **Fitted camp gear now shows on our own vehicles** (needs D'thorga Framework 0.234.0; the owner's "everything on ours", 22 November 2026): a closed roof tent on the cab of the Talus tipper, the bulk tanker, the survey truck, the drill rig and the Busbar generator set, and on the deck of the Pintle flatbed; a rolled canvas bag on the left side rail for an awning, a side fly or awning walls, on those five trucks, the Pintle fuel and water bowsers, the shower trailer, the Billy and the flatbed; the light and roomy deck tents on the tipper's tray; and the closed fold-out camper on the flatbed. Bought pictures; the owner's picks for the eight with two attempts are still to come. Other authors' vehicles are never drawn on. Not yet tested in game: row 359 of the test pass.
+
+### Compatibility and limits
+
+- The rolled bag is drawn on the left side rail only, whichever side the camp is pitched on; a rear tent is not drawn.
+
 ## [0.102.0] - 2026-11-22 - Draft
 
 The roomy deck tent drawn on the Pintle flatbed

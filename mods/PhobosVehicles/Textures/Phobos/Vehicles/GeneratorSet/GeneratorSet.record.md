@@ -74,3 +74,16 @@ The owner's picks of 19 Nov 2026, fitted by `assets/phobos-vehicles/export_armou
 - `GeneratorSet_RamBar_north.png`: SHA-256 `e3ac15ad0e62906049cb22670ea16463c506b9571432fe21afeb7b10d8e8e40e`
 - `GeneratorSet_RamBar_east.png`: SHA-256 `7beeb8eb37b4052fa4e9fff31655b81f64afd24f1d3f2ccffc91ebb23fe2ae2d`
 - `GeneratorSet_RamBar_south.png`: SHA-256 `428d0c5f5b3ef2d3db8e94edae8e0d5145437daf39f3f24cbf70f1df0a7daa6e`
+
+## Camp gear drawn on the vehicle (22 Nov 2026)
+
+Shown while the gear is fitted (D'thorga Vehicles 0.103.0; the owner's "everything on ours", 22 Nov 2026). **AI-generated**: OpenAI gpt-image-2
+through the image API, medium quality, each an edit of a crop of this vehicle's own tinted game picture at twice its size (paid rule 13; our
+own art the only reference), two attempts each; lifted out with `scripts/art/sam_lift.py --cpu` (Segment Anything 2.1, Meta, Apache 2.0; the
+roof tents with only what is darker than the cab kept, so no patch of the cab's paint comes with them), exported by
+`scripts/art/export_vehicle.py overlay` at the picture's own scale. Where the lift failed twice on dark gear over dark metal, the picture was
+made by script instead (paid rules 7 and 11). Request and review: `assets/phobos-vehicles/requests/camp-gear-overlays.json`,
+`camp-gear-overlays-record.md`.
+
+- `GeneratorSet_RoofTent` (genset-roof-tent): attempt 2 of 2, the agent's suggested pick, waiting for the owner's pick. Edit `camp-gear-genset-roof-tent-2`, SHA-256 `9fc0ab216012e549a43047889b48e8b2e55ebcc99de1ce3c8f666b6494df7cb4`; north `0b8d43f36e1612a7073bdae92572dc2eaf884f9d10f846bb78bfc83f6ef07425`
+- `GeneratorSet_SideRoll` (genset-side-roll): made by script from the Billy's lifted roll (attempt 2), laid along this vehicle's left rail. Edit `camp-gear-genset-side-roll-1`, SHA-256 `7c77917a05779d89ac073bca37f7f3c6f5e43fba912a96ad09e34ef5bfd3a91e`; north `0ac1c04c01b10241966bffb73f8891a49b31fae5a1252a4a6f6a4146265a946e`

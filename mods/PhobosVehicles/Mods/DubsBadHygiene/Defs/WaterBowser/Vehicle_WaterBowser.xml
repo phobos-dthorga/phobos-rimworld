@@ -277,6 +277,48 @@
               </li>
             </looks>
           </li>
+          <!-- Vehicles 0.102.0, camp gear drawn on our vehicles (the owner's "everything on ours", 22 Nov 2026): a rolled awning, side fly or awning walls on the left side rail. -->
+          <li>
+            <key>campSideRoll</key>
+            <looks>
+              <li>
+                <fitting>PhobosFitting_Awning</fitting>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_SideRoll</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <fitting>PhobosFitting_SideFly</fitting>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_SideRoll</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
+                <fitting>PhobosFitting_AwningRoom</fitting>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/PintleBowser/PintleBowser_SideRoll</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(5, 9)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+            </looks>
+          </li>
         </slots>
       </li>
     </comps>

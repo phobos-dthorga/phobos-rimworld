@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/GeneratorSet/genset-roof-tent-2.png",
+  "master_sha256": "75a3a3fc031fdb7542b9030c3c2fdbe961aad005e78369a31659acdd189107ba",
+  "files": {
+    "GeneratorSet_RoofTent_north.png": "0b8d43f36e1612a7073bdae92572dc2eaf884f9d10f846bb78bfc83f6ef07425",
+    "GeneratorSet_RoofTent_east.png": "f6e92f8face2ae3fdb7cf2ede0bc60676dddde174ce896ad5050bb4f6df4b690",
+    "GeneratorSet_RoofTent_south.png": "049aa72adceb236d32b67e53d2bff7f2c91fb3a16c96fe9ca81613a5c77ae5b0"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "GeneratorSet-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

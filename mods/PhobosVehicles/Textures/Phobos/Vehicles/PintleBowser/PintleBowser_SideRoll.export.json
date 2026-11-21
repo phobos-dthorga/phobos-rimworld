@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/PintleBowser/bowser-side-roll-1.png",
+  "master_sha256": "bea6f27d733bbd7504e7cf602a65e40989ad99b1a6a98342117dfbd9b313a485",
+  "files": {
+    "PintleBowser_SideRoll_north.png": "aa1b0a39ab5b0bd1412d9eb1536a5bceda90ef957c4c56c816acfa24fcfa7169",
+    "PintleBowser_SideRoll_east.png": "928a08e0388b44c092b5672515faf46b9b37478f7958137553f34de6229442d5",
+    "PintleBowser_SideRoll_south.png": "423d7c87a5fcc798eca62c4cba806755b1748147364595729684c33134fbfcb1"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "PintleBowser-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

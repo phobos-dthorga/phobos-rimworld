@@ -42,3 +42,18 @@ The owner's picks of 19 Nov 2026, fitted by `assets/phobos-vehicles/export_armou
 - `Tipper_BodyPlates_north.png`: SHA-256 `1e04e33cf8e9c7b82ab16a979c6de2b2c88001860bd51ce740be0eec1dffde25`
 - `Tipper_BodyPlates_east.png`: SHA-256 `466ee51db230abb6f18b4cb975223c1bb16a721df557875f6ca7848d1d3f858c`
 - `Tipper_BodyPlates_south.png`: SHA-256 `8941cc2a015d6d8c673f73e745118b096a7750da285b52691f2e46cf66d521d2`
+
+## Camp gear drawn on the vehicle (22 Nov 2026)
+
+Shown while the gear is fitted (D'thorga Vehicles 0.103.0; the owner's "everything on ours", 22 Nov 2026). **AI-generated**: OpenAI gpt-image-2
+through the image API, medium quality, each an edit of a crop of this vehicle's own tinted game picture at twice its size (paid rule 13; our
+own art the only reference), two attempts each; lifted out with `scripts/art/sam_lift.py --cpu` (Segment Anything 2.1, Meta, Apache 2.0; the
+roof tents with only what is darker than the cab kept, so no patch of the cab's paint comes with them), exported by
+`scripts/art/export_vehicle.py overlay` at the picture's own scale. Where the lift failed twice on dark gear over dark metal, the picture was
+made by script instead (paid rules 7 and 11). Request and review: `assets/phobos-vehicles/requests/camp-gear-overlays.json`,
+`camp-gear-overlays-record.md`.
+
+- `Tipper_RoofTent` (tipper-roof-tent): attempt 2 of 2, the agent's suggested pick, waiting for the owner's pick. Edit `camp-gear-tipper-roof-tent-2`, SHA-256 `8d92bf622e9d8b4ca3b407be281cc512c1a719ab6f7ca75e0ec9b72fc65e115b`; north `1503837389cc271024ee05d37ad4c9b15cd53ab50d739dfa32892c30bb99ef43`
+- `Tipper_SideRoll` (tipper-side-roll): made by script from the Billy's lifted roll (attempt 2), laid along this vehicle's left rail. Edit `camp-gear-tipper-side-roll-1`, SHA-256 `bbf9c3fece783fa88c0a0516d590b56b569b6a8a4c70b3c960c751d5ab3a2e6a`; north `c2fc240f8a33db493f7d50d7b47abf3807a58d73ce603b4ff20851ee5544dc06`
+- `Tipper_DeckTent` (tipper-deck-light): attempt 1 of 2, the agent's suggested pick, waiting for the owner's pick. Edit `camp-gear-tipper-deck-light-1`, SHA-256 `49976a042f80daa7b7b3718ad24dd35fe3bf72af096015f633f373b00e9340f0`; north `8c6285298def3cd48ec9e3a8af3a4803799c4692a7ee9407df997bea75395071`
+- `Tipper_DeckTentRoomy` (tipper-deck-roomy): attempt 1 of 2, the agent's suggested pick, waiting for the owner's pick. Edit `camp-gear-tipper-deck-roomy-1`, SHA-256 `c574bcd97c04b1b5ba8e4bc9c5dbf3cb8286378ae59aa085a17c09fb7a895e27`; north `3bb77feb746af47eb7449febb76f9b978c16bf67b120ec64e18f3a73c534d393`

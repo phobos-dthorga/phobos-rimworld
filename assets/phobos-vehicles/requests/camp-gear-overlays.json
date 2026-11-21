@@ -1,0 +1,427 @@
+[
+ {
+  "name": "camp-gear-tipper-roof-tent",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 960,
+  "height": 1152,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-tipper-roof-tent.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the cab of our service truck, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a closed hard-shell roof tent lying on the cab roof: a low rounded rectangular dark charcoal shell as wide as most of the roof, with sand-coloured canvas showing in a thin band round its edge, two small latches on its rear edge and a folded aluminium ladder lying along one side of it. It sits entirely on the cab roof, never past its edges. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "tipper-roof-tent",
+   "vehicle": "Tipper",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-tipper-side-roll",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 512,
+  "height": 1280,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-tipper-side-roll.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the left side of our service truck's cargo bed, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a long rolled canvas awning in a grey zipped bag, strapped along the LEFT side of the bed by three small black straps: a slim rounded tube running front to back, about one fifth as wide as the bed, from just behind the cab toward the rear wheels, never over the wheels. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "tipper-side-roll",
+   "vehicle": "Tipper",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-tipper-deck-light",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 640,
+  "height": 1536,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-tipper-deck-light.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the cargo bed of our service truck, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a canvas deck tent pitched on the deck: one long rectangular ridge tent seen from above, its roof a sand-coloured canvas fly with a single straight ridge line down its centre, each half of the roof shaded a little differently, a few guy lines to the deck's rails, a rolled-up door flap at its rear end. It is narrow and neat, leaving a strip of deck along each side. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "tipper-deck-light",
+   "vehicle": "Tipper",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-tipper-deck-roomy",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 640,
+  "height": 1536,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-tipper-deck-roomy.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the cargo bed of our service truck, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a roomy canvas deck tent pitched on the deck: one long, full rectangular ridge tent seen from above, its roof a sand-coloured canvas fly with a single straight ridge line down its centre, each half shaded a little differently, filling the deck's width between the rails, never past them, with its door flap rolled at its rear end. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "tipper-deck-roomy",
+   "vehicle": "Tipper",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-tanker-roof-tent",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 960,
+  "height": 960,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-tanker-roof-tent.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the cab of our tanker truck, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a closed hard-shell roof tent lying on the cab roof: a low rounded rectangular dark charcoal shell as wide as most of the roof, with sand-coloured canvas showing in a thin band round its edge, two small latches on its rear edge and a folded aluminium ladder lying along one side of it. It sits entirely on the cab roof, never past its edges. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "tanker-roof-tent",
+   "vehicle": "BulkTanker",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-tanker-side-roll",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 768,
+  "height": 1728,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-tanker-side-roll.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the left side of our tanker truck's chassis, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a long rolled canvas awning in a grey zipped bag, strapped along the LEFT side of the chassis by three small black straps: a slim rounded tube running front to back, about one fifth as wide as the chassis, from just behind the cab toward the rear wheels, never over the wheels. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "tanker-side-roll",
+   "vehicle": "BulkTanker",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-survey-roof-tent",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 960,
+  "height": 960,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-survey-roof-tent.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the cab of our survey truck, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a closed hard-shell roof tent lying on the cab roof: a low rounded rectangular dark charcoal shell as wide as most of the roof, with sand-coloured canvas showing in a thin band round its edge, two small latches on its rear edge and a folded aluminium ladder lying along one side of it. It sits entirely on the cab roof, never past its edges. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "survey-roof-tent",
+   "vehicle": "SurveyTruck",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-survey-side-roll",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 768,
+  "height": 1728,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-survey-side-roll.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the left side of our survey truck's body and bed, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a long rolled canvas awning in a grey zipped bag, strapped along the LEFT side of the bed by three small black straps: a slim rounded tube running front to back, about one fifth as wide as the bed, from just behind the cab toward the rear wheels, never over the wheels. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "survey-side-roll",
+   "vehicle": "SurveyTruck",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-drill-roof-tent",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 960,
+  "height": 960,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-drill-roof-tent.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the cab of our drill rig truck, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a closed hard-shell roof tent lying on the cab roof: a low rounded rectangular dark charcoal shell as wide as most of the roof, with sand-coloured canvas showing in a thin band round its edge, two small latches on its rear edge and a folded aluminium ladder lying along one side of it. It sits entirely on the cab roof, never past its edges. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "drill-roof-tent",
+   "vehicle": "DrillRig",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-drill-side-roll",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 512,
+  "height": 1280,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-drill-side-roll.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the left side of our drill rig truck's deck, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a long rolled canvas awning in a grey zipped bag, strapped along the LEFT side of the deck by three small black straps: a slim rounded tube running front to back, about one fifth as wide as the deck, from just behind the cab toward the rear wheels, never over the wheels. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "drill-side-roll",
+   "vehicle": "DrillRig",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-genset-roof-tent",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 960,
+  "height": 960,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-genset-roof-tent.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the cab of our generator truck, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a closed hard-shell roof tent lying on the cab roof: a low rounded rectangular dark charcoal shell as wide as most of the roof, with sand-coloured canvas showing in a thin band round its edge, two small latches on its rear edge and a folded aluminium ladder lying along one side of it. It sits entirely on the cab roof, never past its edges. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "genset-roof-tent",
+   "vehicle": "GeneratorSet",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-genset-side-roll",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 512,
+  "height": 1280,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-genset-side-roll.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the left side of our generator truck's bed, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a long rolled canvas awning in a grey zipped bag, strapped along the LEFT side of the bed by three small black straps: a slim rounded tube running front to back, about one fifth as wide as the bed, from just behind the cab toward the rear wheels, never over the wheels. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "genset-side-roll",
+   "vehicle": "GeneratorSet",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-bowser-side-roll",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 640,
+  "height": 1792,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-bowser-side-roll.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the left side of our tank trailer, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a long rolled canvas awning in a grey zipped bag, strapped along the LEFT side of the trailer frame by three small black straps: a slim rounded tube running front to back, about one fifth as wide as the trailer frame, from the front of the frame toward the rear wheels, never over the wheels. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "bowser-side-roll",
+   "vehicle": "PintleBowser",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-billy-side-roll",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 640,
+  "height": 1792,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-billy-side-roll.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the left side of our field kitchen trailer, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a long rolled canvas awning in a grey zipped bag, strapped along the LEFT side of the trailer body by three small black straps: a slim rounded tube running front to back, about one fifth as wide as the trailer body, from the front of the body toward the rear wheels, never over the wheels. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "billy-side-roll",
+   "vehicle": "Billy",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-flatbed-side-roll",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 640,
+  "height": 1536,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-flatbed-side-roll.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the left side of our flatbed trailer, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a long rolled canvas awning in a grey zipped bag, strapped along the LEFT side of the deck by three small black straps: a slim rounded tube running front to back, about one fifth as wide as the deck, from the front of the deck toward the rear wheels, never over the wheels. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "flatbed-side-roll",
+   "vehicle": "Flatbed",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-flatbed-roof-tent",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 640,
+  "height": 1536,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-flatbed-roof-tent.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the deck of our flatbed trailer, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a closed hard-shell roof tent lying on the deck near its front: a low rounded rectangular dark charcoal shell, with sand-coloured canvas showing in a thin band round its edge, two small latches on its rear edge and a folded aluminium ladder lying along one side of it. It sits on the deck, between its rails. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "flatbed-roof-tent",
+   "vehicle": "Flatbed",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ },
+ {
+  "name": "camp-gear-flatbed-camper",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 640,
+  "height": 1536,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "assets/phobos-vehicles/references/camp-gear-crop-flatbed-camper.png",
+    "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+   }
+  ],
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the deck of our flatbed trailer, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a closed fold-out camper box resting on the deck: a long low rectangular box with a pale aluminium lid in ribbed panels, sand-coloured canvas showing in a thin band along its sides where the tent folds inside, two latches on its rear end and a small step folded against it. It fills most of the deck between the rails, never past them. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "art_plan": {
+   "overlay": "flatbed-camper",
+   "vehicle": "Flatbed",
+   "route": "an edit of a crop of the vehicle's own tinted game picture at twice its size (paid rule 13), lifted by scripts/art/sam_lift.py --cpu and exported at the picture's own scale",
+   "record": "assets/phobos-vehicles/requests/camp-gear-overlays-record.md",
+   "why": "the owner's choice of 22 Nov 2026: fitted camp gear drawn on our own vehicles, everything"
+  }
+ }
+]

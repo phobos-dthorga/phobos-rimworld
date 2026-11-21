@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/SurveyTruck/survey-side-roll-1.png",
+  "master_sha256": "4a05c69f11d84421c934b9c5f2e2add5da4b796623e5b31b1a8dc6cdb57cfcc6",
+  "files": {
+    "SurveyTruck_SideRoll_north.png": "6729499a0c31162dba6d988964ff165ffd356f7072024c21c0cd463543187eda",
+    "SurveyTruck_SideRoll_east.png": "c6459d321f004457685847d40af3293a519ad5f27feb718805eb48388fb03b3f",
+    "SurveyTruck_SideRoll_south.png": "0251546228288be6976386a03788208e93960f2cd0472b20fe1731f177ee53f3"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "SurveyTruck-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}
