@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.98.0] - 2026-11-22 - Draft
+
+Camp gear on the tank trailers, the Billy and the shower trailer. Needs D'thorga Framework 0.217.0. Not yet tested in game.
+
+### Added
+
+- **The water and fuel bowsers, the Billy field kitchen and the shower trailer take camp gear on their side** (the owner's choice of 22 November 2026). Each has a side rail in its fittings window for an awning; unhitched, its own Set up camp button pitches the camp beside it from the awning and the swags in its cargo. Nothing goes on top of a tank or a kitchen. The Billy's kitchen tent and the camp take a side each. Not yet tested in game: row 327 of the test pass.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.217.0.
+
+### Save compatibility
+
+- A trailer already built gains its side rail at the next load; its cargo, tyres, tank and upgrades are kept.
+
 ## [0.97.0] - 2026-11-22 - Draft
 
 The Pintle flatbed as a camper trailer. Needs D'thorga Framework 0.216.0. Not yet tested in game.

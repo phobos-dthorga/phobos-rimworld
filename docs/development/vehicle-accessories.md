@@ -586,6 +586,39 @@ Vehicles 0.97.0. Row 326 of [the in-game test pass](in-game-test-pass.md). Not y
 boards do, being an upgrade). No cab bunk: a trailer has no sleeper berth. Other factions bring no trailers, so none stands camped at
 a base. **Cost to run:** none beyond the camp's own; the comp ticks only while an order waits.
 
+## Built: tents for every vehicle (22 Nov 2026)
+
+**The owner asked** (22 Nov 2026): "Can we provide some sort of vehicle-mounted tent for the other vehicle/trailer possibilities?"
+The agent listed the real kinds it knew, **from memory, unverified** (a side fly as crews sling from a hull, a tent against the back,
+the fold-out camper trailer, zip-on awning walls, a tent on a flat deck, a wing fly, a boat's boom tent), and the owner chose by
+question cards:
+
+- **Kinds:** the side fly, the rear tent, the fold-out camper and awning walls, all four. Not the wing fly or the boom tent.
+- **Vehicles:** tank trailers, the Billy and the shower trailer; and flat decks, with a deck tent. Not aircraft or boats.
+- **Pocket rooms** (the owner's own idea: "Maybe we could use pocket rooms that we have already coded for some of these?"): for the
+  **deck tent only**. Ground tents stay ordinary canvas on the map, where the game's bed choice, weather, fire and raids already work.
+- **Flat decks:** ours, plus other mods' open-bed trucks the agent can identify, their list shown to the owner before any changes.
+- **A camp heater** for the closed tents: yes.
+- **Art:** made in one local run with the icons already waiting, on the owner's go; until then pieces use our own existing pictures.
+
+Built in steps, each its own change. **Step 1, D'thorga Framework 0.217.0 and Vehicles 0.98.0: a side rail on the trailers that had
+none.** Row 327 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Camp beside a bowser, the kitchen or the shower trailer: an awning and swags where the water, the food and the showers are |
+| What it stops them doing | Hitching such a trailer with its camp out; nothing goes on top of a tank or a kitchen |
+| How it changes play | A field site becomes one camp: kitchen, showers and beds around the trailers, with the trucks free to leave |
+| What outside the trailer notices | The colonists (beds, shelter from rain), the hitch (it refuses a pitched camp) |
+
+**Risk: low** (agent's grade): as the camp itself. No setting.
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| Which trailers | `campSide` on the trailer comp; set on the water and fuel bowsers, the Billy and the shower trailer | Beside `campDeck` (the flatbed). Other authors' trailers can set either in XML |
+| The mount | A third trailer loadout, `PhobosVehicleLoadout_TrailerCampSide`: the trailer loadout plus a side rail | A camp deck's loadout (both mounts) outranks it where a trailer has both flags |
+| With the trailer's own set-out | Unchanged code | The camp and the kitchen's or shower's tent each refuse cells the other holds, and each tries the other side |
+
 ## Questions for the owner
 
 **Answered by the owner, 13 Nov 2026:** (1) **the power budget first**: loads and weight on fittings, the house battery, the

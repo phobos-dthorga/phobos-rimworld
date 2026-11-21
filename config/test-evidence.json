@@ -7,6 +7,9 @@
       "the kettle simmers on the move": ["trailers.caravan-simmer"],
       "a meal halt cooks and holds the caravan": ["trailers.caravan-meal-halt"]
     }},
+    "327": {"parts": {
+      "a side-rail trailer pitches its own camp": ["trailers.side-rail-camp"]
+    }},
     "326": {"parts": {
       "the camper trailer pitches its own camp": ["trailers.camper-camp"]
     }},

@@ -676,6 +676,11 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         {
             Seen.Note("trailers.camper-camp", Vehicle, (plan.tent.HasValue ? "tent, " : "") + plan.poles.Count + " poles, " + plan.gear.Count + " gear");
         }
+        // A tank trailer's, the kitchen's or the shower trailer's camp, from its side rail (Framework 0.217.0).
+        else if (LoadoutSelector.IsCampSide(Vehicle.VehicleDef) && Seen.Wants("trailers.side-rail-camp", Vehicle))
+        {
+            Seen.Note("trailers.side-rail-camp", Vehicle, plan.poles.Count + " poles, " + plan.gear.Count + " gear");
+        }
     }
 
     /// <summary>Takes a packed piece out of the cargo and out of its crate, ready to stand.</summary>

@@ -152,6 +152,8 @@
         <axleToCentre>0.31</axleToCentre>
         <jackKnifeDegrees>70</jackKnifeDegrees>
         <drawbarPart>Drawbar</drawbarPart>
+        <!-- Its side takes camp gear (Framework 0.217.0, Vehicles 0.98.0; the owner, 22 Nov 2026): a side rail, and the camp order. -->
+        <campSide>true</campSide>
         <!-- About an hour to pitch the tent and set out the kitchen (the field kitchen record: "may take up to an hour"), less to strike it. -->
         <setUpWork>3000</setUpWork>
         <packUpWork>2000</packUpWork>

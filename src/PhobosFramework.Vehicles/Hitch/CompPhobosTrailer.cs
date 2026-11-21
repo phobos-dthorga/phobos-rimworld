@@ -35,6 +35,11 @@ public sealed class CompProperties_PhobosTrailer : CompProperties
     /// deck; a tank or a kitchen has no room for a tent on top.
     /// </summary>
     public bool campDeck;
+    /// <summary>
+    /// Its side takes camp gear (Framework 0.217.0; the owner, 22 Nov 2026: tank trailers, the field kitchen and the shower trailer): it gets a
+    /// side rail for an awning or a tent, and the camp order. Nothing goes on top: a tank or a kitchen's body has no room for a tent there.
+    /// </summary>
+    public bool campSide;
 
     public CompProperties_PhobosTrailer() => compClass = typeof(CompPhobosTrailer);
 

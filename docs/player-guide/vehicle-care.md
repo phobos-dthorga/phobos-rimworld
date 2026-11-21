@@ -452,7 +452,8 @@ the kit back in the cargo.
 - **The camper trailer** (not yet tested in game): the **Pintle flatbed** takes camp gear too. Fit a roof tent and an awning from its
   fittings window (it has a **tent mount** and a **side rail**), load swags into its cargo, tow it out and **unhitch it**: its own
   **Set up camp** then pitches the camp beside the trailer, and the truck is free to drive off. **Pack up before hitching it again.**
-  Tank trailers and the field kitchen have no room for a tent on top.
+  **Tank trailers, the Billy and the shower trailer camp too**, from a **side rail** only: an awning and swags beside them, nothing
+  on top.
 
 ## Sleeping on the road: cab bunks and driving through the night
 

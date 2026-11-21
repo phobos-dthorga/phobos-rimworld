@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.217.0] - 2026-11-22 - Draft
+
+Tents for every vehicle
+
+### Added
+
+- **Tank trailers, the field kitchen and the shower trailer can camp** (the owner's choice of 22 November 2026). A trailer whose Def says its side takes camp gear gets a side rail and the camp order: fit an awning from its fittings window, load swags, unhitch it and press Set up camp, as on the camper trailer. Nothing goes on top of a tank or a kitchen. D'thorga Vehicles 0.98.0 marks the water and fuel bowsers, the Billy and the shower trailer. The camp goes on whichever side the trailer's own tent or hoses leave clear. For modders: campSide on the trailer comp and in a loadout's selector. Not yet tested in game: row 327 of the test pass.
+
 ## [0.216.0] - 2026-11-22 - Draft
 
 Camps, berths and working trailers meet

@@ -612,6 +612,8 @@ public class LoadoutSelector
     public Match trailer = Match.No;
     /// <summary>Whether the design is a trailer whose deck takes camp gear (CompProperties_PhobosTrailer.campDeck; Framework 0.216.0).</summary>
     public Match campDeck = Match.Any;
+    /// <summary>Whether the design is a trailer whose side takes camp gear (CompProperties_PhobosTrailer.campSide; Framework 0.217.0).</summary>
+    public Match campSide = Match.Any;
     public List<ThingDef>? fuelTypes;
     public List<ThingDef>? excludeFuelTypes;
     public float massMin = float.NaN;
@@ -647,6 +649,7 @@ public class LoadoutSelector
         if (!Fits(flies, flying)) return false;
         if (!Fits(trailer, IsTrailer(def))) return false;
         if (!Fits(campDeck, IsCampDeck(def))) return false;
+        if (!Fits(campSide, IsCampSide(def))) return false;
         if (fuelTypes != null && (fuel?.fuelType == null || !fuelTypes.Contains(fuel.fuelType))) return false;
         if (excludeFuelTypes != null && fuel?.fuelType != null && excludeFuelTypes.Contains(fuel.fuelType)) return false;
         if (!float.IsNaN(massMin) || !float.IsNaN(massMax))
@@ -697,6 +700,12 @@ public class LoadoutSelector
 
     /// <summary>A trailer whose deck takes camp gear.</summary>
     public static bool IsCampDeck(VehicleDef def) => def.comps?.Any(c => c is CompProperties_PhobosTrailer { campDeck: true }) == true;
+
+    /// <summary>A trailer whose side takes camp gear.</summary>
+    public static bool IsCampSide(VehicleDef def) => def.comps?.Any(c => c is CompProperties_PhobosTrailer { campSide: true }) == true;
+
+    /// <summary>A trailer that can pitch a camp at all: by its deck or by its side.</summary>
+    public static bool TrailerCamps(VehicleDef def) => IsCampDeck(def) || IsCampSide(def);
 
     public static float BaseStat(VehicleDef def, VehicleStatDef? stat)
     {
