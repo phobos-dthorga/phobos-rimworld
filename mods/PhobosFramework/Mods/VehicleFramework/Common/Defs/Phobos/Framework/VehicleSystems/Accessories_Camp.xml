@@ -78,8 +78,7 @@
     <label>side fly</label>
     <description>A canvas tarp in a bag, with two short poles, pegs and guy lines. Fitted to a vehicle's side rail, it is slung from the vehicle's side down to the ground at the rear when its camp is set up: a dry place for two swags. It is no room, and the wind blows through.</description>
     <graphicData>
-      <!-- Our own picture of the nearest kit until this one's is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
-      <texPath>Phobos/VehicleSystems/Camp/AwningRoll</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/SideFlyKit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>1</drawSize>
     </graphicData>
@@ -112,8 +111,7 @@
     <label>awning walls</label>
     <description>Canvas walls and a door flap that zip onto an awning, with poles and pegs. With an awning, they make the walled awning: fitted to a vehicle's side rail, it stands beside the vehicle as a closed canvas room when its camp is set up, keeping out the wind and rain and holding a heater's warmth.</description>
     <graphicData>
-      <!-- Our own picture of the nearest kit until this one's is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
-      <texPath>Phobos/VehicleSystems/Camp/AwningRoll</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/AwningWallKit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>1</drawSize>
     </graphicData>
@@ -146,8 +144,7 @@
     <label>rear tent</label>
     <description>A canvas frame tent in a long bag, made to be pitched against the back of a vehicle. Fitted to a vehicle's roof mount or side rail, it stands behind the vehicle as a closed canvas room with a door flap when its camp is set up: room for three swags, or two and a heater.</description>
     <graphicData>
-      <!-- Our own picture of the nearest kit until this one's is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
-      <texPath>Phobos/VehicleSystems/Camp/RoofTentKit</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/RearTentKit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>1</drawSize>
     </graphicData>
@@ -180,8 +177,7 @@
     <label>fold-out camper</label>
     <description>A camper trailer's tent, folded flat on a hinged floor with two double mattresses. Fitted to a camper trailer's tent mount, it folds out beside the trailer as a closed canvas room with two double beds when its camp is set up. It takes the mount a roof tent would.</description>
     <graphicData>
-      <!-- Our own picture of the nearest kit until this one's is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
-      <texPath>Phobos/VehicleSystems/Camp/RoofTentKit</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/CamperKit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>1</drawSize>
     </graphicData>
@@ -215,8 +211,7 @@
     <label>deck tent</label>
     <description>A low canvas frame tent with clamps for a flat deck's rails, and two mattresses. Fitted to the roof mount of a vehicle with a flat deck, it stands on the deck itself: a small room to walk into, with two beds, up off the ground. It takes no ground beside the vehicle.</description>
     <graphicData>
-      <!-- Our own picture of the nearest kit until this one's is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
-      <texPath>Phobos/VehicleSystems/Camp/RoofTentKit</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/DeckTentKit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>1</drawSize>
     </graphicData>
@@ -277,7 +272,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_SideFly</defName>
-    <iconPath>Phobos/VehicleSystems/Camp/AwningRoll</iconPath>
+    <iconPath>Phobos/VehicleSystems/Camp/SideFlyKit</iconPath>
     <label>side fly</label>
     <description>A canvas tarp on the side rail. When the vehicle's camp is set up it is slung from the vehicle's side over three rows of ground at the rear of the camp's side: rain and snow do not fall beneath it. Lighter and cheaper than an awning, and shorter. It is no room.</description>
     <roles><li>SideRail</li></roles>
@@ -292,7 +287,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_AwningRoom</defName>
-    <iconPath>Phobos/VehicleSystems/Camp/AwningRoll</iconPath>
+    <iconPath>Phobos/VehicleSystems/Camp/AwningWallKit</iconPath>
     <label>walled awning</label>
     <description>An awning with zip-on walls, on the side rail. When the vehicle's camp is set up it stands along the camp's side as a closed canvas room, four cells out and as long as the vehicle, with a door flap: beds inside are indoors, and a camp heater keeps it warm. It takes the side rail, so not a plain awning or a side fly as well.</description>
     <roles><li>SideRail</li></roles>
@@ -307,7 +302,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_RearTent</defName>
-    <iconPath>Phobos/VehicleSystems/Camp/RoofTentKit</iconPath>
+    <iconPath>Phobos/VehicleSystems/Camp/RearTentKit</iconPath>
     <label>rear tent</label>
     <description>A frame tent carried on the roof mount or the side rail. When the vehicle's camp is set up it stands behind the vehicle as a closed canvas room, a cell wider than the vehicle on each side and five deep, with a door flap at its far end. Nothing may stand behind the vehicle: unhitch a trailer first.</description>
     <roles><li>RoofMount</li><li>SideRail</li></roles>
@@ -322,7 +317,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_FoldOutCamper</defName>
-    <iconPath>Phobos/VehicleSystems/Camp/RoofTentKit</iconPath>
+    <iconPath>Phobos/VehicleSystems/Camp/CamperKit</iconPath>
     <label>fold-out camper</label>
     <description>A camper trailer's own tent, on its tent mount. When the trailer's camp is set up it folds out beside the trailer as a closed canvas room, five cells out and six along, with two double beds and a walkway. It takes the tent mount, so not a roof tent or a rear tent there as well.</description>
     <roles><li>RoofMount</li></roles>
@@ -339,7 +334,7 @@
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_DeckTent</defName>
-    <iconPath>Phobos/VehicleSystems/Camp/RoofTentKit</iconPath>
+    <iconPath>Phobos/VehicleSystems/Camp/DeckTentKit</iconPath>
     <label>deck tent</label>
     <description>A tent that stands on the vehicle's own flat deck, on the roof mount. Right-click the vehicle with a colonist to go in: inside is a small room with two beds. Choose who sleeps there on the vehicle, and they walk in at bedtime by themselves. It takes no ground and needs no camp set up; its canvas keeps the wind and rain out and the air a little warmer than outside. The vehicle does not drive off while anyone is inside. It takes the roof mount, so not a roof tent or a rear tent there as well.</description>
     <roles><li>RoofMount</li></roles>
@@ -518,8 +513,7 @@
     <description>A double mattress on the hinged floor of a camper trailer's fold-out tent. The trailer's camp folds it away again.</description>
     <thingClass>Building_Bed</thingClass>
     <graphicData>
-      <!-- Our roof tent's picture until the camper bed's own is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
-      <texPath>Phobos/VehicleSystems/Camp/RoofTent</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/CamperBed</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(2,2)</drawSize>
@@ -565,16 +559,14 @@
   <ThingDef ParentName="BuildingBase">
     <!-- Framework 0.217.0 (the owner's yes, 22 Nov 2026): a small chemfuel heater for a camp's closed tent. Camp gear: built like a swag, carried
          packed in the cargo and set out by the camp order, inside a closed tent where one stands. The Billy's tent heater's own rule and
-         figures (authored): it warms to 15 degrees C at most, about 2 chemfuel a day, and burns nothing while it is warmer than that. The
-         game's own heater picture, by path, until its own is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
+         figures (authored): it warms to 15 degrees C at most, about 2 chemfuel a day, and burns nothing while it is warmer than that. -->
     <defName>PhobosCamp_Heater</defName>
     <label>camp heater</label>
     <description>A small chemfuel heater for a tent. Carried packed in a vehicle's cargo, it is set out with the camp, inside a closed tent where one stands. It keeps a tent at 15 °C or so in the cold, burning about two chemfuel a day, and burns nothing while the tent is warmer than that. Under an open awning it warms nothing.</description>
     <graphicData>
-      <texPath>Things/Building/Misc/TempControl/Heater</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/CampHeater</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(1,1)</drawSize>
-      <color>(176, 164, 128)</color>
     </graphicData>
     <size>(1,1)</size>
     <altitudeLayer>Building</altitudeLayer>
@@ -628,6 +620,201 @@
     <modExtensions>
       <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
         <work>100</work>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <!-- Framework 0.223.0 (the owner's choices of 22 Nov 2026; docs/development/vehicle-accessories.md, Y10): the kitchen box, a camp stove carried
+         packed in a vehicle's cargo and set out with the camp. It cooks what a stove cooks (every recipe of the game's cooking tables, as the Billy's
+         range does) and, with Vanilla Brewing Expanded - Coffees and Teas, that mod's teas and coffees, which its espresso machine alone made before.
+         It burns chemfuel or wood through the game's own refuelling, only while cooking, at the game's fuelled stove's rate (80 a day of use, 30 held,
+         authored); it works a little slower than a kitchen's stove (x0.85, authored). Packed in a caravan's cargo, its cooks make up to 8 meals each
+         a night on the road (the Billy makes 20), by the Billy's own simmer and meal-halt rules; a Billy, where there is one, is used instead. -->
+    <defName>PhobosCamp_KitchenBox</defName>
+    <label>kitchen box</label>
+    <description>A camp kitchen in a box: a two-burner stove, a chopping board and a billy, on folding legs. Carried packed in a vehicle's cargo, it is set out with the camp. It cooks what a stove at home cooks, and a brew for the morning where there are tea leaves and coffee beans, burning chemfuel or wood while it cooks. Packed in a caravan's cargo, its cooks make meals from the raw food carried, at night on the road.</description>
+    <thingClass>Phobos.VehicleSystems.Building_PhobosFieldStove</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/KitchenBox</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(2,1)</drawSize>
+    </graphicData>
+    <size>(2,1)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <fillPercent>0.5</fillPercent>
+    <castEdgeShadows>true</castEdgeShadows>
+    <rotatable>true</rotatable>
+    <tickerType>Rare</tickerType>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <surfaceType>Item</surfaceType>
+    <hasInteractionCell>true</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <inspectorTabs>
+      <li>ITab_Bills</li>
+    </inspectorTabs>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsProduction</li>
+    </thingCategories>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>2028</uiOrder>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <placeWorkers>
+      <li>PlaceWorker_PreventInteractionSpotOverlap</li>
+    </placeWorkers>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+      <Mass>18</Mass>
+      <MarketValue>180</MarketValue>
+      <WorkToBuild>1800</WorkToBuild>
+      <WorkTableWorkSpeedFactor>0.85</WorkTableWorkSpeedFactor>
+    </statBases>
+    <costList>
+      <Steel>60</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <building>
+      <isMealSource>true</isMealSource>
+      <heatPerTickWhileWorking>0.10</heatPerTickWhileWorking>
+      <workTableRoomRole>Kitchen</workTableRoomRole>
+      <workTableNotInRoomRoleFactor>0.8</workTableNotInRoomRoleFactor>
+    </building>
+    <comps>
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>80.0</fuelConsumptionRate>
+        <fuelCapacity>30.0</fuelCapacity>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+            <li>WoodLog</li>
+          </thingDefs>
+        </fuelFilter>
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+        <canEjectFuel>true</canEjectFuel>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>2</heatPerSecond>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+        <work>150</work>
+      </li>
+      <li Class="Phobos.VehicleSystems.PhobosCopyStoveRecipesExtension">
+        <alsoRecipesOf>
+          <li MayRequire="vanillaexpanded.vbrewecandt">VBE_EspressoMachineBuilding</li>
+        </alsoRecipesOf>
+      </li>
+      <li Class="Phobos.VehicleSystems.PhobosCaravanCookingExtension">
+        <mealsPerCook>8</mealsPerCook>
+        <fuelPerMeal>0.5</fuelPerMeal>
+        <waterPerMeal>0</waterPerMeal>
+        <meal>MealSimple</meal>
+        <recipe>CookMealSimple</recipe>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="FurnitureWithQualityBase">
+    <!-- Framework 0.223.0 (Y11): a folding aluminium camp table, 1 x 2, carried packed and set out with the camp. People eat at it, sitting on the
+         camp stools the camp sets beside it (up to four). Figures authored: light, plain, no beauty. -->
+    <defName>PhobosCamp_Table</defName>
+    <label>camp table</label>
+    <description>A folding camp table with an aluminium slatted top. Carried packed in a vehicle's cargo, it is set out with the camp, and the camp's stools are set beside it, so people sit down to eat rather than eat standing.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/CampTable</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1,2)</drawSize>
+    </graphicData>
+    <size>(1,2)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>42</pathCost>
+    <fillPercent>0.4</fillPercent>
+    <castEdgeShadows>true</castEdgeShadows>
+    <rotatable>true</rotatable>
+    <surfaceType>Eat</surfaceType>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsFurniture</li>
+    </thingCategories>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>2029</uiOrder>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Flammability>0.2</Flammability>
+      <Mass>5</Mass>
+      <Beauty>0</Beauty>
+      <WorkToBuild>600</WorkToBuild>
+    </statBases>
+    <costList>
+      <Steel>20</Steel>
+    </costList>
+    <building>
+      <isSittable>false</isSittable>
+    </building>
+    <comps>
+      <li Class="CompProperties_GatherSpot" />
+    </comps>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+        <work>60</work>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="FurnitureWithQualityBase">
+    <!-- Framework 0.223.0 (Y11): a folding camp stool. The camp sets it beside its table, facing it, up to four to a table. Comfort a little under the
+         game's stool (0.45 against 0.5, authored): canvas, not a cushion. -->
+    <defName>PhobosCamp_Stool</defName>
+    <label>camp stool</label>
+    <description>A folding camp stool: olive canvas between steel rails. Carried packed in a vehicle's cargo, it is set out with the camp, beside the camp table where there is one.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/CampStool</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>30</pathCost>
+    <fillPercent>0.3</fillPercent>
+    <rotatable>true</rotatable>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsFurniture</li>
+    </thingCategories>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>2030</uiOrder>
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <Flammability>0.8</Flammability>
+      <Mass>2</Mass>
+      <Beauty>0</Beauty>
+      <Comfort>0.45</Comfort>
+      <WorkToBuild>300</WorkToBuild>
+    </statBases>
+    <costList>
+      <Steel>5</Steel>
+      <Cloth>5</Cloth>
+    </costList>
+    <building>
+      <isSittable>true</isSittable>
+    </building>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+        <work>30</work>
+        <besideTable>true</besideTable>
       </li>
     </modExtensions>
   </ThingDef>

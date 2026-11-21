@@ -468,6 +468,16 @@ the kit back in the cargo.
   the tent is warmer. Under an open awning or fly it warms nothing.
 - **Taking down any one wall brings that tent's canvas roof down**, as an awning's pole does.
 
+**Kitchen box, table and stools** (not yet tested in game): build them in the Architect (D'thorga, Motor pool; research
+**vehicle parts**), uninstall them and load them into the cargo with the rest of the camp gear.
+
+- **Kitchen box** (18 kg): a camp stove. Set out with the camp, it takes the same bills as a stove at home, and with Vanilla Brewing
+  Expanded's Coffees and Teas it also brews **tea and coffee**. It burns **chemfuel or wood**, only while cooking; fill it before you go.
+- **Camp table** (5 kg) and **camp stools** (2 kg each): the stools are set down **beside the table, facing it**, up to four, so people
+  sit down to eat.
+- **On the road:** a kitchen box packed in a caravan's cargo cooks at night like the Billy, **up to 8 meals a cook** (the Billy makes
+  20, and is used first if you have both).
+
 **The deck tent** (not yet tested in game; needs the **Walk-in cabins** setting, which is on by default): for a vehicle with a **flat
 deck**: our **Talus tipper** and **Pintle flatbed**, and, where their mods are active, Vanilla Vehicles Expanded's **Mule** and
 **Roadrunner**, Frontline Workshop's **Land Cruiser J70** and RimThunder's **M1075 HEMTT**. Fit it to the roof mount (30 kg). It stands **on the deck**, so it

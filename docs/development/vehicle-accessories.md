@@ -1,6 +1,6 @@
 # Vehicle accessories: camp gear and comforts (13 Nov 2026)
 
-**Status (22 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), the camp in 0.212.0 with its art in 0.213.1 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)), cab bunks and driving through the night in 0.214.0 (B2, B3; [what was built](#built-cab-bunks-and-driving-through-the-night-21-nov-2026)), sleeping in a parked vehicle's bunk in 0.215.0 (B4; [what was built](#built-sleeping-in-a-parked-vehicle-21-nov-2026)), in 0.216.0 the night heater for a bunk sleeper and the camper trailer ([what was built](#built-the-camper-trailer-22-nov-2026)), and in 0.217.0 tents for every vehicle: a side rail on the other trailers, the side fly, three closed tents, the camp heater and the deck tent ([what was built](#built-tents-for-every-vehicle-22-nov-2026)). Not yet tested in game. Still a design: the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4) and the rest.
+**Status (22 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), the camp in 0.212.0 with its art in 0.213.1 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)), cab bunks and driving through the night in 0.214.0 (B2, B3; [what was built](#built-cab-bunks-and-driving-through-the-night-21-nov-2026)), sleeping in a parked vehicle's bunk in 0.215.0 (B4; [what was built](#built-sleeping-in-a-parked-vehicle-21-nov-2026)), in 0.216.0 the night heater for a bunk sleeper and the camper trailer ([what was built](#built-the-camper-trailer-22-nov-2026)), in 0.223.0 the kitchen box, table and stools ([what was built](#built-the-kitchen-box-table-and-stools-22-nov-2026)), and in 0.217.0 tents for every vehicle: a side rail on the other trailers, the side fly, three closed tents, the camp heater and the deck tent ([what was built](#built-tents-for-every-vehicle-22-nov-2026)). Not yet tested in game. Still a design: the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4) and the rest.
 
 **A research and design record.** The owner, 13 November 2026: "I wish to
 explore vehicle accessories the player can install whether it's for entertainment, to help with camping, or something different
@@ -698,6 +698,29 @@ tested in game.
   first: [vehicle-railcars.md](vehicle-railcars.md).
 - **The Land Cruiser's own bed upgrades** (a mortar or howitzer platform) and a deck tent can both be fitted; nothing stops it. Left to
   the player (agent's choice).
+
+## Built: the kitchen box, table and stools (22 Nov 2026)
+
+Y10 and Y11 of the owner's camp batch of 13 Nov 2026, deferred until after the berths. **The owner's choices** (22 Nov 2026, cards): the
+kitchen box cooks **like a stove, plus tea** (the agent put a "no tea" option on the card; the owner: "Are you mad?"); it cooks **on the road,
+smaller than the Billy**; the table comes with **separate stools** the camp sets beside it. The machinery went in with Framework 0.219.0, the
+pieces with 0.223.0 and their pictures (paid, picked by the owner). Row 338 of [the in-game test pass](in-game-test-pass.md). Not yet tested
+in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Cook full meals and brew tea at any camp; sit people at a table to eat; cook on the road without a Billy |
+| What it stops them doing | Nothing new: it needs fuel, a cook and raw food |
+| How it changes play | A truck with a kitchen box, a table and two stools is a small mess on its own; the Billy stays the big field kitchen |
+| What outside notices | The colonists (meals, a table to eat at, tea), the game's cooking bills and its room rules (cooking outdoors is a little slower) |
+
+**Risk: low** (agent's grade). No setting: road cooking follows **Field kitchens cook in a caravan**.
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| Kitchen box | `PhobosCamp_KitchenBox`, our field stove class; `Patches/CampKitchen.xml` adds it to the game's cooking work giver | Copies every cooking table's recipes (`PhobosCopyStoveRecipesExtension`), and Vanilla Brewing's espresso machine's (`alsoRecipesOf`, with MayRequire). Fuel: chemfuel or wood, 80 a day of use, 30 held, x0.85 speed [A] |
+| Road cooking | `PhobosCaravanCookingExtension` on the box's Def; `PhobosCaravanCooking.Kitchen` finds a packed box in the cargo, in tow or in packs | 8 a cook [A], half on the move, the same halts; no water asked (the box has no kettle). Its burner's own fuel first |
+| Table and stools | `PhobosCamp_Table` (surface to eat at, gathering spot), `PhobosCamp_Stool` (`besideTable`) | Tables placed first, stools beside them facing in, at most four a table; a piece's work spot is kept clear (`WorkSpotFree`) |
 
 ## Questions for the owner
 

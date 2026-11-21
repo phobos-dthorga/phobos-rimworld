@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampHeater.png",
+  "source": "assets/phobos-vehicles/generated/camp-heater/camp-heater-2.png",
+  "source_sha256": "6bd64b5dbf409114f7e0c4c677f65684a79b8d6bded9f2ceaf297fd28cd26532",
+  "target_sha256": "d4b9e4585d438b79cf510f352f439a5c76124da6ff622a709394260c84daacf2",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "6bd64b5dbf409114f7e0c4c677f65684a79b8d6bded9f2ceaf297fd28cd26532",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-22T04:14:07",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

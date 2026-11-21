@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CamperKit.png",
+  "source": "assets/phobos-vehicles/generated/item-camper-kit/item-camper-kit-1.png",
+  "source_sha256": "3b60373baf69caec8951be4cfb9b637315f73ed176b50aae2919d216528165c1",
+  "target_sha256": "acd600b80f36bb2800f98db401f6d7c7372bfeadb6dbdfd653aaf0cd7fd5cda1",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "3b60373baf69caec8951be4cfb9b637315f73ed176b50aae2919d216528165c1",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-22T04:14:03",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

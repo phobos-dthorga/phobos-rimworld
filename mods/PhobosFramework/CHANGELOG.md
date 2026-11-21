@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.223.0] - 2026-11-22 - Draft
+
+The camp's kitchen box, table and stools, and the tents' own pictures
+
+### Added
+
+- **The kitchen box, the camp table and the camp stool** (the owner's choices of 22 November 2026), built in the Architect (D'thorga, Motor pool) after vehicle parts research and carried packed in a vehicle's cargo; the camp sets them out with the rest of its gear. The kitchen box cooks what a stove cooks and, with Vanilla Brewing Expanded - Coffees and Teas, that mod's teas and coffees, burning chemfuel or wood while it cooks; its cook's spot is kept clear. The stools are set beside the table, facing it, up to four, so people sit down to eat. Packed in a caravan's cargo, the kitchen box lets its cooks make meals on the road, up to 8 each a night (the Billy makes 20, and is used first where there is one). Not yet tested in game: row 338 of the test pass.
+
+### Changed
+
+- **The five tent kits, the camper bed and the camp heater have pictures of their own**, bought at the owner's word and picked by the owner, in place of our nearest pictures and the game's heater. The kits' fittings show them too.
+
 ## [0.222.0] - 2026-11-22 - Draft
 
 Idle buildings use less power, and lights in empty rooms go dark

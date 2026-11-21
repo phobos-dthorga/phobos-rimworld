@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampTable_north.png",
+  "source": "assets/phobos-vehicles/generated/camp-table-north/camp-table-north-2.png",
+  "source_sha256": "1ce5d8c77b6356ce0abcf5e0dc082f3c535c3ed65712205522c432cdc9dcd693",
+  "target_sha256": "30f9d78c264cbc42df037f74a33da769da3104692ebba880acd78cdb58756f7a",
+  "size": [
+    128,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "1ce5d8c77b6356ce0abcf5e0dc082f3c535c3ed65712205522c432cdc9dcd693",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-22T04:14:11",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

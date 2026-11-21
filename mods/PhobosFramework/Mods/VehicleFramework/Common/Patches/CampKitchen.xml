@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- D'thorga Framework 0.223.0, the camp's kitchen box (docs/development/vehicle-accessories.md, Y10): the game's cooks go to it as to any stove.
+       The cooking work giver keeps a list of the tables it looks at; this adds ours to it. Not yet tested in game. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/WorkGiverDef[defName="DoBillsCook"]/fixedBillGiverDefs</xpath>
+    <value>
+      <li>PhobosCamp_KitchenBox</li>
+    </value>
+  </Operation>
+</Patch>

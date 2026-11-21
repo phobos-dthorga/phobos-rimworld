@@ -1,0 +1,282 @@
+[
+ {
+  "name": "item-side-fly-kit",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+    "role": "our approved camp kit item (the roof tent kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
+    "role": "our approved camp kit item (the awning roll): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "item": "PhobosVehicleSystems_SideFlyKit, the side fly kit",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/SideFlyKit.png",
+   "size": "drawn by the game on one cell; requested at 1024",
+   "why": "tents for every vehicle and the kitchen box (Framework 0.217.0 and 0.219.0; docs/development/vehicle-accessories.md); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga side fly: a camping tarp slung from a vehicle's side. Images 1 and 2 are our approved camp kits from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA neatly folded sand-coloured canvas tarp tied with a cord, with two short grey tent poles and a small bundle of steel pegs lying across it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground. No shadow outside the object."
+ },
+ {
+  "name": "item-awning-wall-kit",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+    "role": "our approved camp kit item (the roof tent kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
+    "role": "our approved camp kit item (the awning roll): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "item": "PhobosVehicleSystems_AwningWallKit, the awning walls kit",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningWallKit.png",
+   "size": "drawn by the game on one cell; requested at 1024",
+   "why": "tents for every vehicle and the kitchen box (Framework 0.217.0 and 0.219.0; docs/development/vehicle-accessories.md); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga awning walls: zip-on canvas walls that close in a vehicle's awning. Images 1 and 2 are our approved camp kits from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA flat stack of folded sand-coloured canvas wall panels, a long dark zip running along one edge, a rolled door flap with two ties on top.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground. No shadow outside the object."
+ },
+ {
+  "name": "item-rear-tent-kit",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+    "role": "our approved camp kit item (the roof tent kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
+    "role": "our approved camp kit item (the awning roll): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "item": "PhobosVehicleSystems_RearTentKit, the rear tent kit",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RearTentKit.png",
+   "size": "drawn by the game on one cell; requested at 1024",
+   "why": "tents for every vehicle and the kitchen box (Framework 0.217.0 and 0.219.0; docs/development/vehicle-accessories.md); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga rear tent: a canvas frame tent that pitches against the back of a vehicle. Images 1 and 2 are our approved camp kits from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA long olive-green canvas tent bag with two buckled straps, the ends of grey frame poles poking out of its open end.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground. No shadow outside the object."
+ },
+ {
+  "name": "item-camper-kit",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+    "role": "our approved camp kit item (the roof tent kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
+    "role": "our approved camp kit item (the awning roll): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "item": "PhobosVehicleSystems_CamperKit, the fold-out camper kit",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CamperKit.png",
+   "size": "drawn by the game on one cell; requested at 1024",
+   "why": "tents for every vehicle and the kitchen box (Framework 0.217.0 and 0.219.0; docs/development/vehicle-accessories.md); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga fold-out camper: a camper trailer's tent folded flat on its hinged floor. Images 1 and 2 are our approved camp kits from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA flat rectangular package: thick folded grey canvas on a hinged wooden floor board, two steel latches on its side and the edge of a striped mattress showing.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground. No shadow outside the object."
+ },
+ {
+  "name": "item-deck-tent-kit",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+    "role": "our approved camp kit item (the roof tent kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
+    "role": "our approved camp kit item (the awning roll): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "item": "PhobosVehicleSystems_DeckTentKit, the deck tent kit",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+   "size": "drawn by the game on one cell; requested at 1024",
+   "why": "tents for every vehicle and the kitchen box (Framework 0.217.0 and 0.219.0; docs/development/vehicle-accessories.md); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for the D'thorga deck tent: a low tent that clamps to a truck's flat deck. Images 1 and 2 are our approved camp kits from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA rolled olive-green canvas tent with four short steel rail clamps tied to it and a folded foam mattress strapped underneath.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground. No shadow outside the object."
+ },
+ {
+  "name": "camp-camper-bed-north",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+    "role": "our approved camp bed seen from directly above (the swag): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTent_north.png",
+    "role": "our approved camp piece seen from directly above (the roof tent): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "building": "PhobosCamp_CamperBed, the fold-out camper's double bed, facing north",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CamperBed_north.png",
+   "size": "drawn by the game at its footprint; requested at 1024 x 1024",
+   "why": "tents for every vehicle and the kitchen box (Framework 0.217.0 and 0.219.0; docs/development/vehicle-accessories.md); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a piece of camping gear in a frontier colony. Images 1 and 2 are our approved camp pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The bed fills about 90 percent of the canvas, two units wide and two units long, centred, on a plain pure white background.\n\nA double mattress on a low hinged plywood floor, seen from directly above: a sand-coloured canvas mattress cover, two plain pillows side by side along the TOP edge, a folded olive-green blanket across the lower half, and a thin steel hinge line across the floor near the bottom edge.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles, food or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+ },
+ {
+  "name": "camp-heater",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+    "role": "our approved camp bed seen from directly above (the swag): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTent_north.png",
+    "role": "our approved camp piece seen from directly above (the roof tent): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "building": "PhobosCamp_Heater, the camp heater (not rotated)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampHeater.png",
+   "size": "drawn by the game at its footprint; requested at 1024 x 1024",
+   "why": "tents for every vehicle and the kitchen box (Framework 0.217.0 and 0.219.0; docs/development/vehicle-accessories.md); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a piece of camping gear in a frontier colony. Images 1 and 2 are our approved camp pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The heater fills about 70 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA small squat steel tent heater seen from directly above: a round burner top with a grey wire guard over a warm orange glow, a short dark flue stub to one side, and a small red fuel can clipped to its base.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles, food or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+ },
+ {
+  "name": "camp-kitchen-box-north",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1536,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+    "role": "our approved camp bed seen from directly above (the swag): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTent_north.png",
+    "role": "our approved camp piece seen from directly above (the roof tent): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "building": "PhobosCamp_KitchenBox, the kitchen box, facing north (the cook stands below it)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/KitchenBox_north.png",
+   "size": "drawn by the game at its footprint; requested at 1536 x 1024",
+   "why": "tents for every vehicle and the kitchen box (Framework 0.217.0 and 0.219.0; docs/development/vehicle-accessories.md); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a piece of camping gear in a frontier colony. Images 1 and 2 are our approved camp pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nWide canvas. The kitchen box fills about 92 percent of the canvas width, two units wide and one unit deep, centred, on a plain pure white background.\n\nAn open camp kitchen box on folding legs, seen from directly above: a steel two-burner stove on the left half with two round black burner grates, a small chopping board and a dented steel billy can on the right half, the box's open plywood lid folded flat along the TOP edge, and two small knobs along the BOTTOM edge where the cook stands.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles, food or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+ },
+ {
+  "name": "camp-table-north",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1536,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+    "role": "our approved camp bed seen from directly above (the swag): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTent_north.png",
+    "role": "our approved camp piece seen from directly above (the roof tent): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "building": "PhobosCamp_Table, the folding camp table, facing north",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampTable_north.png",
+   "size": "drawn by the game at its footprint; requested at 1024 x 1536",
+   "why": "tents for every vehicle and the kitchen box (Framework 0.217.0 and 0.219.0; docs/development/vehicle-accessories.md); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a piece of camping gear in a frontier colony. Images 1 and 2 are our approved camp pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nTall canvas. The table fills about 90 percent of the canvas height, one unit wide and two units long, centred, on a plain pure white background.\n\nA folding camp table seen from directly above: a pale aluminium slatted top in a thin dark frame, one fold line across its middle, and the tips of its folding legs just showing at the four corners. The table is bare.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles, food or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+ },
+ {
+  "name": "camp-stool-north",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/Swag_north.png",
+    "role": "our approved camp bed seen from directly above (the swag): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTent_north.png",
+    "role": "our approved camp piece seen from directly above (the roof tent): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "building": "PhobosCamp_Stool, the folding camp stool, facing north",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampStool_north.png",
+   "size": "drawn by the game at its footprint; requested at 1024 x 1024",
+   "why": "tents for every vehicle and the kitchen box (Framework 0.217.0 and 0.219.0; docs/development/vehicle-accessories.md); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a piece of camping gear in a frontier colony. Images 1 and 2 are our approved camp pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The stool fills about 60 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA folding camp stool seen from directly above: a square seat of olive-green canvas stretched between two dark steel rails, with the crossed legs showing at its corners.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles, food or loose goods. No ground beyond the object, no shadow outside it, no perspective, no tilt."
+ }
+]
