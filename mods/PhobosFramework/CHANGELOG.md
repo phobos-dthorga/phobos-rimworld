@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.216.0] - 2026-11-22 - Draft
+
+Camps, berths and working trailers meet
+
+### Fixed
+
+- **The night heater burns for someone asleep in a parked truck's cab bunk.** It ran only at a caravan's night camp on the world map, so a colonist sleeping in the bunk of a truck parked on a map, engine off, had no heat at all: the cab met the outside air in about an hour and a half, where the bunk's own entry promised the cab's warmth. Now the heater burns for a bunk sleeper exactly as at camp: 0.4 chemfuel an hour and 2 amps on a combustion vehicle, the drive battery on an electric one. It still needs the Night heater at camp setting and the vehicle's night heater switch on; with either off the cab is as cold as before, unless the engine idles. For modders: the condition When_BunkSleeper. Not yet tested in game: row 321 of the test pass.
+
 ## [0.215.0] - 2026-11-21 - Draft
 
 Sleeping in a parked truck's cab bunk

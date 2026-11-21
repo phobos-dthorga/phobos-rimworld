@@ -279,6 +279,15 @@ public class When_CaravanResting : VehicleSystemCondition
     protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetVehicleCaravan()?.NightResting == true;
 }
 
+/// <summary>
+/// Someone is asleep in the vehicle's cab bunk while it stands on a map (Framework 0.216.0): the night heater burns for them as it does at
+/// a caravan's night camp, so a parked truck is the warm bed its record promised. One comp read on the systems' own update.
+/// </summary>
+public class When_BunkSleeper : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Vehicle.GetComp<CompPhobosCamp>() is { SleeperAsleep: true };
+}
+
 /// <summary>One of the loadout's electrical loads is on: switched on by the player (if it has a switch) and its own condition holds.</summary>
 /// <summary>While a fitting on the vehicle grants this ability, its part standing (Framework 0.103.0): the work lamps' switch shows once the
 /// lamps are fitted.</summary>

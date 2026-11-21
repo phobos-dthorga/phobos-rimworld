@@ -559,6 +559,7 @@ at once, and nobody is sent there unwell. No setting: it happens only for a colo
 | Bedtime | A postfix on the game's go-to-bed job giver (`JobGiver_GetRest.TryGiveJob`): where the game chose a bed for an assigned colonist, the bunk's job takes its place | The record proposed a job giver at a think-tree point; the postfix keeps the game's own timing, needs, timetable, duties and emergencies exactly, and leaves patients alone |
 | Asleep aboard | The sleeper boards a passenger seat; the vehicle rests them at the bunk's figure each tick while it stands still, through the game's own rest call | No "life aboard" check (Y4) exists yet, so the bunk does it for its sleeper only |
 | Waking | Rested, the timetable turning to work, a hostile threat, fire, illness, or another sleeper chosen: they climb out beside the vehicle | Starting the vehicle only warns, as the record said; a sleeper aboard when it leaves rides on as a passenger |
+| Warmth | The night heater burns for a bunk sleeper as at a caravan's camp (`When_BunkSleeper` beside `When_CaravanResting` in every loadout's night heater), with the same setting and switch | **Fixed in 0.216.0** (the owner's yes, 22 Nov 2026): as built in 0.215.0 the heater ran only at a caravan's night camp, so the sleeper had no heat with the engine off |
 
 ## Questions for the owner
 

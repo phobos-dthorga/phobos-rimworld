@@ -133,7 +133,7 @@ pack. **Every vehicle carries a booster pack** in the settings (off) does away w
 
 **Cold weather:** cold oil makes a start harder on the battery. A **block heater** fitting keeps a vehicle parked beside power warm,
 and the **night heater** keeps a caravan's engine warm at camp (needs the **Night heater at camp** setting and the vehicle's night
-heater switch on before it leaves). **Electric vehicles have their own night heater** (not yet tested in game): the same switch and
+heater switch on before it leaves); it burns the same way for someone asleep in a parked truck's cab bunk. **Electric vehicles have their own night heater** (not yet tested in game): the same switch and
 setting, keeping the cab and the drive battery warm through the night, paid for from the drive battery, about a fifth of its range on a
 ten-hour night.
 
@@ -465,8 +465,11 @@ Not yet tested in game.
 - **What it costs:** fuel for the extra hours, headlights at night, and tired people at the far end if bunks are short. The arrival
   time shown when planning still counts the nights, so you will arrive sooner than it says.
 - **Sleeping in a parked truck:** on a truck with a cab bunk, press **Bunk: nobody** and choose a colonist. At bedtime they climb
-  into the cab and sleep there while it stands still, warm if the cab is, and climb out rested or when their workday starts
+  into the cab and sleep there while it stands still, and climb out rested or when their workday starts
   (**slept in the cab**, +2). Danger, fire or illness wakes them at once. Sick colonists keep their real beds.
+  **For a warm cab on a cold night, turn on the Night heater at camp setting and the truck's night heater switch**: it then burns a
+  little fuel (0.4 chemfuel an hour) while someone sleeps aboard. Without it, a parked cab is as cold as the night within about an
+  hour and a half.
 
 ## Headlights
 

@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.215.0, built 21 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.216.0, built 22 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -215,7 +215,7 @@ The vehicle sounds setting (on other mods' vehicles too) moved to D'thorga Vehic
 | Repairs, service and fittings | Bigger vehicles cost more to fit and tune | Scales fitting costs by weight | On |
 | Cabs, camps and caravans | Passengers feel the cab | Moods about a warm or cold cab | On |
 | Cabs, camps and caravans | Every closed cab has climate control | Gives climate control to every closed cab, not only modern ones | Off |
-| Cabs, camps and caravans | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, for fuel | Off |
+| Cabs, camps and caravans | Night heater at camp | A vehicle whose night heater switch is on keeps its cab and engine warm at a caravan's camp, and for someone asleep in its cab bunk on a map, for fuel | Off |
 | Cabs, camps and caravans | Warn before a parked vehicle is lost | Days of warning; 0 turns it off | 3 days |
 | Display, sound and stories | How much to show | Plain, Operator or Engineer | Plain |
 | Display, sound and stories | Keep Vehicle Framework's own Health tab | Keeps their list instead of ours | Off |

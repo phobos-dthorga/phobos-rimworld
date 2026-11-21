@@ -119,6 +119,12 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
 
     public Pawn? BunkSleeper => bunkSleeper;
 
+    /// <summary>Whether the bunk's sleeper is aboard asleep now: the night heater burns for them (When_BunkSleeper).</summary>
+    public bool SleeperAsleep => asleep;
+
+    /// <summary>The night heater's name in every loadout that has one.</summary>
+    const string NightHeaterLoad = "nightHeater";
+
     void AssignSleeper(Pawn? pawn)
     {
         Pawn? before = bunkSleeper;
@@ -183,6 +189,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             Messages.Message("PhobosBunk_StartedWithSleeper".Translate(sleeper.LabelShort.Named("PAWN"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.CautionInput);
         }
         if (!Vehicle.Spawned) return;
+        if (Seen.Wants("vehicles.bunk-heater", Vehicle) && Systems?.LoadActive(NightHeaterLoad) == true) Seen.Note("vehicles.bunk-heater", Vehicle, sleeper.LabelShort);
         if (GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map, countDormantPawnsAsHostile: false)) Wake("PhobosBunk_WokenDanger");
         else if (Vehicle.IsBurning()) Wake("PhobosBunk_WokenFire");
         else if (sleeper.needs?.rest is not { } rest || rest.CurLevel >= RestedLevel) Wake(null);

@@ -5,6 +5,7 @@
   "rows": {
     "321": {"parts": {
       "the sleeper climbs into the bunk at bedtime": ["vehicles.bunk-sleep"],
+      "the night heater burns for the sleeper": ["vehicles.bunk-heater"],
       "wakes rested": [{"key": "vehicles.bunk-wake", "variant": "rested"}],
       "danger wakes them": [{"key": "vehicles.bunk-wake", "variant": "PhobosBunk_WokenDanger"}]
     }},

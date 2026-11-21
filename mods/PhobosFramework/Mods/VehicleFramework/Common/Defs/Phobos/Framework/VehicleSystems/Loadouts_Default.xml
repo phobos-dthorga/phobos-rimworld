@@ -602,7 +602,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <shedOrder>4</shedOrder>
         <toggle>true</toggle>
@@ -610,7 +610,13 @@
         <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
           <conditions>
-            <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+            <!-- At a caravan's night camp, or for someone asleep in the cab bunk on a map (Framework 0.216.0). -->
+            <li Class="Phobos.VehicleSystems.When_Any">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+                <li Class="Phobos.VehicleSystems.When_BunkSleeper" />
+              </conditions>
+            </li>
             <li Class="Phobos.VehicleSystems.When_Setting">
               <setting>nightHeater</setting>
             </li>
@@ -895,7 +901,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <shedOrder>4</shedOrder>
         <toggle>true</toggle>
@@ -903,7 +909,13 @@
         <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
           <conditions>
-            <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+            <!-- At a caravan's night camp, or for someone asleep in the cab bunk on a map (Framework 0.216.0). -->
+            <li Class="Phobos.VehicleSystems.When_Any">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+                <li Class="Phobos.VehicleSystems.When_BunkSleeper" />
+              </conditions>
+            </li>
             <li Class="Phobos.VehicleSystems.When_Setting">
               <setting>nightHeater</setting>
             </li>
@@ -1070,7 +1082,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <shedOrder>4</shedOrder>
         <toggle>true</toggle>
@@ -1078,7 +1090,13 @@
         <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
           <conditions>
-            <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+            <!-- At a caravan's night camp, or for someone asleep in the cab bunk on a map (Framework 0.216.0). -->
+            <li Class="Phobos.VehicleSystems.When_Any">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+                <li Class="Phobos.VehicleSystems.When_BunkSleeper" />
+              </conditions>
+            </li>
             <li Class="Phobos.VehicleSystems.When_Setting">
               <setting>nightHeater</setting>
             </li>
@@ -1435,7 +1453,7 @@
       <li>
         <name>nightHeater</name>
         <label>night heater</label>
-        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning. Switch it on before you leave; it needs the night heater setting.</description>
+        <description>A fuel-burning heater that keeps the cab and the engine warm while the caravan camps for the night with the engine off, so it starts easily in the morning, and while someone sleeps in the cab bunk of a parked vehicle. Switch it on before you leave; it needs the night heater setting.</description>
         <amps>2</amps>
         <shedOrder>4</shedOrder>
         <toggle>true</toggle>
@@ -1443,7 +1461,13 @@
         <iconPath>Phobos/VehicleSystems/NightHeater</iconPath>
         <when Class="Phobos.VehicleSystems.When_All">
           <conditions>
-            <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+            <!-- At a caravan's night camp, or for someone asleep in the cab bunk on a map (Framework 0.216.0). -->
+            <li Class="Phobos.VehicleSystems.When_Any">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_CaravanResting" />
+                <li Class="Phobos.VehicleSystems.When_BunkSleeper" />
+              </conditions>
+            </li>
             <li Class="Phobos.VehicleSystems.When_Setting">
               <setting>nightHeater</setting>
             </li>
