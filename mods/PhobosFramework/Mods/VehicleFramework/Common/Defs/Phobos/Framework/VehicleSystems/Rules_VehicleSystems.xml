@@ -184,6 +184,11 @@
     <waterDropDipSeconds>6</waterDropDipSeconds>
     <waterDropPourSeconds>2</waterDropPourSeconds>
     <litterSlots>4</litterSlots>
+    <campTentWork>600</campTentWork>
+    <campAwningWork>450</campAwningWork>
+    <campReachCells>6</campReachCells>
+    <campAtBaseChance>0.6</campAtBaseChance>
+    <campAtBaseSwags>1~3</campAtBaseSwags>
     <diagnoseWork>1500</diagnoseWork>
     <hydraulicWorkFloor>0.2</hydraulicWorkFloor>
     <fieldFixWork>600</fieldFixWork>

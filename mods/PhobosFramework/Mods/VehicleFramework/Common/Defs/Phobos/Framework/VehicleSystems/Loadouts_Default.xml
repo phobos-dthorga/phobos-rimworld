@@ -396,6 +396,35 @@
           <cellsOf>Engine</cellsOf>
         </add>
       </li>
+      <li>
+        <!-- Framework 0.212.0, the camp (docs/development/vehicle-accessories.md, Y9 and B1): a mount on the roof for the roof tent, and a rail along
+             the side for the awning, appended to every land vehicle so each has a part to go on and is lost with it. Outside the body; health
+             and hit weight authored, a rack's and a rail's. -->
+        <role>RoofMount</role>
+        <add>
+          <key>PhobosRoofMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>roof mount</label>
+          <health>30</health>
+          <depth>External</depth>
+          <hitWeight>0.12</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>SideRail</role>
+        <add>
+          <key>PhobosSideRail</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>side rail</label>
+          <health>25</health>
+          <depth>External</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
     </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 

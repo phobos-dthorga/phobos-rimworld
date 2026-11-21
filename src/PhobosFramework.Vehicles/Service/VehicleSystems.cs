@@ -207,6 +207,9 @@ public static class VehicleSystems
         // Bay trips (Framework 0.201.0; docs/development/vehicle-bay-trips.md): every land vehicle with a loadout, trailers apart, can be taken
         // to a dyno bay for repair without being told. Whether it goes is the player's setting and its own switch, asked at each look.
         if (def.type == VehicleType.Land && !props.trailer && !def.comps.Any(c => c is CompProperties_PhobosBayTrip)) def.comps.Add(new CompProperties_PhobosBayTrip());
+        // The camp order (Framework 0.212.0; docs/development/vehicle-accessories.md, Y3): every land vehicle with a loadout, trailers apart, can set
+        // out a camp of its fitted awning and roof tent and the swags and bedrolls in its cargo. It offers its buttons only when it has any.
+        if (def.type == VehicleType.Land && !props.trailer && !def.comps.Any(c => c is CompProperties_PhobosCamp)) def.comps.Add(new CompProperties_PhobosCamp());
         // The Dashboard and Systems tabs, before ThingDef.ResolveReferences resolves the tab list (this runs in its prefix; re-check the
         // order when Vehicle Framework releases 1.7). Only fitted designs get them.
         def.inspectorTabs ??= new List<System.Type>();

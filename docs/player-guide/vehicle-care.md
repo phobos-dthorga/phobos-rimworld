@@ -424,6 +424,32 @@ the kit back in the cargo.
   that grid.
 - Each accessory takes its weight off the cargo capacity.
 
+## Camping: awning, roof tent and swags
+
+**The vehicle cannot drive off while its camp is set up.** Pack up first. Not yet tested in game.
+
+- **Make the gear.** An **awning** at a tailoring bench and a **roof tent** at the vehicle parts bench (research **vehicle parts**
+  for both); fit them from the fittings window. Every land vehicle has a **side rail** for the awning and a **roof mount** for the
+  roof tent. A **swag** is built like a bedroll (Architect, D'thorga, Motor pool); uninstall it and load it into the cargo. The
+  game's own bedrolls in the cargo count too.
+- **Set up camp.** Select the parked vehicle and press **Set up camp**. Hover over the button first: the ground shows where
+  everything will go. A colonist does the work (construction). **Camp on the left/right** picks the side, as the driver sees it; if
+  that side is blocked, the camp goes on the other.
+- **What you get:**
+
+| Piece | What it does |
+| --- | --- |
+| **Awning** (15 kg) | A canvas roof over two rows along the camp's side, on poles. Rain and snow stay off; it is no room and keeps no cold out |
+| **Roof tent** (55 kg) | A bed for two under its own canvas, at the rear of the camp's side. As restful as a real bed, dry in rain. Waking in it gives **slept in a roof tent** (+4) |
+| **Swag** (6 kg) | A better bedroll: rest 1.0, comfort 0.75. Caravans sleep on it. Waking from a fair, mild night in one with open sky overhead gives **slept under the stars** (+5); not under the awning, not in rain or cold |
+
+- **Moved a swag by hand?** It goes back to that spot next time. **Forget the camp's layout** starts afresh.
+- **Pack up camp** rolls everything back into the vehicle. It waits for sleepers to get up. Anything you moved away from the camp,
+  and anything lying under the awning, stays where it is.
+- **Leaving with the camp out** (forming a caravan): it is packed as the vehicle leaves; a bed still in use stays behind.
+- **If the vehicle is destroyed**, its camp stays as ordinary beds and poles. Taking a pole down brings the awning's canvas down.
+- **Other factions' vehicles** at their own bases may be found with their camp out. Capture one and its camp is yours to pack.
+
 ## Headlights
 
 - **Lights switch themselves, by default** (the setting **Lights switch themselves**, on): headlights light in the dark (night, dusk

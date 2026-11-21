@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- D'thorga Framework 0.212.0, the camp order (docs/development/vehicle-accessories.md, Y3): the game's bedrolls carried in a vehicle's cargo are
+       laid out with its camp and rolled up with it, as our swags are. Marks the two Defs only; nothing else about them changes. Not yet tested in game. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/ThingDef[defName="Bedroll" or defName="BedrollDouble"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+        <work>100</work>
+      </li>
+    </value>
+  </Operation>
+</Patch>

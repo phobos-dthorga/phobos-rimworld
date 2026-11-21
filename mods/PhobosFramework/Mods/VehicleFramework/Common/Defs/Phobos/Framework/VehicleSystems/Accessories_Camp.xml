@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Vehicle accessories, the camp (Framework 0.212.0; docs/development/vehicle-accessories.md, Y3, Y8, Y9 and B1; the owner's go of 22 Nov 2026):
+    a roof tent on a vehicle's roof mount, an awning on its side rail, and swags carried in its cargo, set out beside it by the camp order and
+    packed away again (CompPhobosCamp). The roof tent and the awning are fittings, made from kits as the power budget's are; the swag is a bed
+    that packs, built like the game's own bedroll. Each weighs what its kit weighs, taken from the cargo capacity; none changes speed or fuel
+    through drag (owner). Every cost, work, weight and figure is authored, agent defaults for the owner to revise, except where the record names
+    the owner's choice: the swag's "slept under the stars" at +5 and the roof tent's memory at +4 (owner, 13 Nov 2026). Not yet tested in game.
+    Interim pictures: until our own art is made (the record's art list), the swag, roof tent, pole and kits use the game's own pictures by path
+    (never copied), and the awning's canvas is a plain see-through fill.
+  -->
+
+  <!-- ===== The kits ===== -->
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- A hard-shell roof tent of the usual two-person size: about 55 kg (the record's figure, authored). -->
+    <defName>PhobosVehicleSystems_RoofTentKit</defName>
+    <label>roof tent</label>
+    <description>A two-person tent folded into a hard shell, with its ladder and mattress. Fitted to a vehicle's roof mount, it opens beside the parked vehicle when its camp is set up: a good bed for two, dry in rain.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/Cloth</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>55</Mass>
+      <WorkToMake>5000</WorkToMake>
+      <MarketValue>260</MarketValue>
+    </statBases>
+    <costList>
+      <Cloth>60</Cloth>
+      <Steel>30</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- A roll-out awning of about 2.5 m by 2 m on its own arms: 15 kg (the record's figure, authored). Canvas work, so the tailor makes it. -->
+    <defName>PhobosVehicleSystems_AwningRoll</defName>
+    <label>awning</label>
+    <description>A canvas awning rolled in a bag, with folding arms and poles. Fitted to a vehicle's side rail, it rolls out over the ground along that side when its camp is set up, keeping rain and snow off whoever sits or sleeps beneath. It makes no room: the wind still blows through.</description>
+    <graphicData>
+      <texPath>Things/Item/Resource/Cloth</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>15</Mass>
+      <WorkToMake>2500</WorkToMake>
+      <MarketValue>90</MarketValue>
+    </statBases>
+    <costList>
+      <Cloth>40</Cloth>
+      <Steel>10</Steel>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers Inherit="False">
+        <li>HandTailoringBench</li>
+        <li>ElectricTailoringBench</li>
+      </recipeUsers>
+      <skillRequirements Inherit="False">
+        <Crafting>3</Crafting>
+      </skillRequirements>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
+  <!-- ===== The fittings ===== -->
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_RoofTent</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/RoofTentKit</iconPath>
+    <label>roof tent</label>
+    <description>A two-person tent on the roof mount. When the vehicle's camp is set up it opens at the rear of the camp's side as a bed for two under its own canvas: rested as well as in a real bed, dry in rain. Waking in it lifts the spirits about as much as sleeping out of doors weighs on them. It takes the roof mount, so nothing else can ride there.</description>
+    <roles><li>RoofMount</li></roles>
+    <materials><PhobosVehicleSystems_RoofTentKit>1</PhobosVehicleSystems_RoofTentKit><Steel>5</Steel></materials>
+    <givesBack><PhobosVehicleSystems_RoofTentKit>1</PhobosVehicleSystems_RoofTentKit></givesBack>
+    <kilograms>55</kilograms>
+    <work>2500</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>RoofTent</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_Awning</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/AwningRoll</iconPath>
+    <label>awning</label>
+    <description>A canvas awning on the side rail. When the vehicle's camp is set up it rolls out over the two rows of ground along the camp's side, on poles: rain and snow do not fall beneath it, so people and things there stay dry. It is no room, and does not keep out the cold.</description>
+    <roles><li>SideRail</li></roles>
+    <materials><PhobosVehicleSystems_AwningRoll>1</PhobosVehicleSystems_AwningRoll><Steel>3</Steel></materials>
+    <givesBack><PhobosVehicleSystems_AwningRoll>1</PhobosVehicleSystems_AwningRoll></givesBack>
+    <kilograms>15</kilograms>
+    <work>1500</work>
+    <minSkill>2</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>Awning</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <!-- Another faction's vehicles may carry the camp; at their own base, by the rules Def's chance, they stand with it out (CompPhobosCamp). -->
+  <Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+    <defName>PhobosFitSet_Tourer</defName>
+    <minTech>Medieval</minTech>
+    <maxTech>Spacer</maxTech>
+    <weight>1.5</weight>
+    <fittings>
+      <li>PhobosFitting_RoofTent</li>
+      <li>PhobosFitting_Awning</li>
+    </fittings>
+  </Phobos.VehicleSystems.PhobosVehicleFitSetDef>
+
+  <!-- ===== What the camp sets out ===== -->
+
+  <ThingDef ParentName="BedWithQualityBase">
+    <!-- Y8: the Australian canvas swag, a bedroll with its own mattress. Rest 1.0, comfort 0.75, 6 kg against the game's bedroll's 0.95, 0.68
+         and 2.5 kg (the record's figures, authored). Built in the Architect as the game's bedroll is, so it packs and caravans use it. -->
+    <defName>PhobosCamp_Swag</defName>
+    <label>swag</label>
+    <description>A canvas bedroll with its own foam mattress, a hood and short poles, rolled up tight for the road. It sleeps better than a plain bedroll and keeps the dew off, and caravans use it while travelling. Waking from a fair, mild night in one with nothing but sky overhead does wonders for the mood. Carried in a vehicle's cargo, it is laid out with the vehicle's camp and rolled up with it.</description>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Bed/Bedroll</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(1,2)</drawSize>
+    </graphicData>
+    <castEdgeShadows>true</castEdgeShadows>
+    <statBases>
+      <MaxHitPoints>90</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Mass>6</Mass>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <ImmunityGainSpeedFactor>1.05</ImmunityGainSpeedFactor>
+      <Comfort>0.75</Comfort>
+      <WorkToBuild>1200</WorkToBuild>
+    </statBases>
+    <size>(1,2)</size>
+    <stuffCategories>
+      <li>Fabric</li>
+      <li>Leathery</li>
+    </stuffCategories>
+    <costStuffCount>70</costStuffCount>
+    <building>
+      <bed_showSleeperBody>false</bed_showSleeperBody>
+      <bed_healPerDay>4</bed_healPerDay>
+      <bed_caravansCanUse>true</bed_caravansCanUse>
+      <destroySound>BuildingDestroyed_Soft_Medium</destroySound>
+      <destroyShakeAmount>0</destroyShakeAmount>
+    </building>
+    <pathCost>14</pathCost>
+    <passability>Standable</passability>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>2026</uiOrder>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+        <work>150</work>
+      </li>
+      <li Class="Phobos.VehicleSystems.PhobosBedMemoryExtension">
+        <memory>PhobosSleptUnderTheStars</memory>
+        <openSkyOnly>true</openSkyOnly>
+        <fairWeatherOnly>true</fairWeatherOnly>
+        <comfortableOnly>true</comfortableOnly>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <!-- B1, pitched: a two-person bed under its own canvas roof. Rest 1.0, comfort 0.8 (the record's figures, authored). Never built by hand: the
+         vehicle's camp pitches and strikes it. It can be taken down by hand, for nothing back, so one left by a lost vehicle can be cleared. -->
+    <defName>PhobosCamp_RoofTent</defName>
+    <label>roof tent</label>
+    <description>A vehicle's roof tent, unfolded beside it on its ladder: a mattress for two under canvas, up off the ground and out of the rain. The vehicle's camp folds it away again.</description>
+    <thingClass>Phobos.VehicleSystems.Building_PhobosRoofTent</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Bed/BedrollDouble</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <size>(2,2)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>30</pathCost>
+    <fillPercent>0.4</fillPercent>
+    <castEdgeShadows>true</castEdgeShadows>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <canOverlapZones>false</canOverlapZones>
+    <rotatable>true</rotatable>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Mass>55</Mass>
+      <MarketValue>260</MarketValue>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <ImmunityGainSpeedFactor>1.05</ImmunityGainSpeedFactor>
+      <Comfort>0.8</Comfort>
+      <Beauty>0</Beauty>
+      <WorkToBuild>600</WorkToBuild>
+    </statBases>
+    <building>
+      <bed_showSleeperBody>false</bed_showSleeperBody>
+      <bed_healPerDay>4</bed_healPerDay>
+      <buildingTags>
+        <li>Bed</li>
+      </buildingTags>
+      <claimable>true</claimable>
+      <paintable>false</paintable>
+    </building>
+    <comps>
+      <li Class="CompProperties_AssignableToPawn">
+        <drawAssignmentOverlay>false</drawAssignmentOverlay>
+        <compClass>CompAssignableToPawn_Bed</compClass>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosBedMemoryExtension">
+        <memory>PhobosSleptInRoofTent</memory>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <!-- Y9: one of the awning's outer poles; the first draws the canvas (Building_PhobosAwningPole). Struck with the camp. -->
+    <defName>PhobosCamp_AwningPole</defName>
+    <label>awning pole</label>
+    <description>A pole holding up the outer edge of a vehicle's awning, guyed to a peg. Taking one down brings the canvas down with it. The vehicle's camp strikes it.</description>
+    <thingClass>Phobos.VehicleSystems.Building_PhobosAwningPole</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/LampStanding</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <pathCost>8</pathCost>
+    <fillPercent>0.05</fillPercent>
+    <rotatable>false</rotatable>
+    <tickerType>Never</tickerType>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <filthLeaving IsNull="True" />
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <Flammability>0.8</Flammability>
+      <Beauty>0</Beauty>
+      <WorkToBuild>100</WorkToBuild>
+    </statBases>
+    <building>
+      <isInert>true</isInert>
+      <allowAutoroof>false</allowAutoroof>
+      <ai_chillDestination>false</ai_chillDestination>
+      <paintable>false</paintable>
+    </building>
+  </ThingDef>
+
+  <!-- ===== Waking ===== -->
+
+  <ThoughtDef>
+    <defName>PhobosSleptUnderTheStars</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>slept under the stars</label>
+        <description>I slept in my swag with nothing between me and the sky. Fresh air, the stars overhead, and a proper night's rest.</description>
+        <baseMoodEffect>5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>PhobosSleptInRoofTent</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>slept in a roof tent</label>
+        <description>Up off the ground, out of the weather, in a snug tent. Not a bedroom, but not bad at all.</description>
+        <baseMoodEffect>4</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <!-- ===== The work ===== -->
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_CampWork</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosCamp</driverClass>
+    <reportString>setting up camp beside TargetA.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosVehicleSystems_CampWork</defName>
+    <label>set up and pack up vehicles' camps</label>
+    <giverClass>Phobos.VehicleSystems.WorkGiver_PhobosCamp</giverClass>
+    <workType>Construction</workType>
+    <verb>set up camp at</verb>
+    <gerund>setting up camp at</gerund>
+    <priorityInType>44</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>

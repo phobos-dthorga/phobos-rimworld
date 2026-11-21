@@ -1,6 +1,6 @@
 # Vehicle accessories: camp gear and comforts (13 Nov 2026)
 
-**Status (17 Nov 2026):** the power budget batch is built in D'thorga Framework 0.129.0: loads, weight and kits on fittings, the house battery (Y5), the power outlet (Y1) and the 12-volt fridge (Y7); [what was built](#built-the-power-budget-17-nov-2026). Not yet tested in game. Everything else here is a design.
+**Status (22 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), and the camp's first part in 0.212.0 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)). Not yet tested in game. Still a design: the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4), the rest, and berths B2 to B4.
 
 **A research and design record.** The owner, 13 November 2026: "I wish to
 explore vehicle accessories the player can install whether it's for entertainment, to help with camping, or something different
@@ -479,6 +479,40 @@ button 1, about US$0.545). Rows 178 to 180 of [the in-game test pass](in-game-te
 
 The shed order is approximate: the outlet shares rank 1 with the air conditioning and the fridge rank 2 with the next load, rather than
 new ranks ahead of them.
+
+## Built: the camp (22 Nov 2026)
+
+The owner said "let's proceed with all of these, step-wise" (22 Nov 2026) to Y21's berths with the swags and awning. Step 1, built in
+D'thorga Framework 0.212.0: the camp order (Y3), swags (Y8), the awning (Y9), the roof tent (B1) and other factions' camps at their bases.
+Rows 315 to 317 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game. Steps 2 and 3 are B2 with B3, then B4. The kitchen
+box and table (Y10, Y11) were in the owner's camp batch of 13 Nov 2026 and are **not** in this step.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Make and strike a camp beside any parked land vehicle in two orders; sleep well in the open; keep a camp dry in rain |
+| What it stops them doing | Driving off (or being towed away) with the camp out |
+| How it changes play | The forecast picks the camp: swags under the stars on a fair night, the awning or roof tent in rain. Which side faces the camp matters when parking |
+| What outside the vehicle notices | Colonists (two memories, the game's rest and comfort), the weather (rain kept off), caravans (swags are caravan beds), other factions (their bases' vehicles may stand with a camp out, loot once captured) |
+
+**Risk: low** (agent's grade, for the owner to confirm): nothing is harmed or lost. Packing never deletes a thing, and every way a camp
+can be left (a lost vehicle, a caravan, a moved piece) leaves ordinary beds and poles the player can take down. So it has no setting:
+a camp only happens when the player orders it.
+
+| Piece | Where | Differs from the design |
+| --- | --- | --- |
+| The camp order | `CompPhobosCamp`, added in code to every land vehicle with a loadout, trailers apart; `CampLayoutRule` holds the geometry (game-free, tested) | A colonist does the work (construction), as for a trailer. The layout shows while the pointer is over the button. A **Camp on the left/right** button picks the side (agent default), and **Forget the camp's layout** clears the remembered spots |
+| The layout | Awning two rows deep along the whole side; the roof tent at the rear two rows of that side; gear head towards the vehicle, in bands of its own depth out to 6 cells, rear first | A moved piece is remembered by its kind and number ("the second swag"), in the vehicle's own frame, so it follows the vehicle wherever it parks |
+| Swags (Y8) | `PhobosCamp_Swag`, built in the Architect (D'thorga, Motor pool) like the game's bedroll | Built, not made at the tailoring bench as the record proposed, since the game makes its bedrolls that way. The game's bedrolls in the cargo are camp gear too (agent default) |
+| Awning (Y9) | A fitting on a new **side rail**; set out, a canvas roof (the trailers' own, which never falls in) and poles along its outer row. The first pole draws the canvas, see-through so people beneath still show | Kit made at a tailoring bench. Land vehicles only for now: boats' and aircraft's rails are not added (agent default) |
+| Roof tent (B1) | A fitting on a new **roof mount**; pitched, a two-person bed with its own canvas roof | The roof mount takes only the roof tent so far: the roof rack and roof solar panel are not built |
+| Memories | A postfix after the game's own bed memories (`Toils_LayDown.ApplyBedThoughts`, which has no extension point); data on the bed Def (`PhobosBedMemoryExtension`) | Under the stars needs no roof over the bed, no rain or snow on waking, and neither "slept in the cold" nor "in the heat" |
+| Other factions | A fit set, **Tourer**, puts both on some factions' vehicles; at their own base, 60 % of those stand with the camp out and one to three swags, pitched once at the first tick | Raiders never camp |
+| Leaving | A caravan or flight packs the camp as it goes; a bed in use is left behind | The record said the vehicle refuses to leave. Forming a caravan has no hook of ours, so it packs instead (agent default) |
+
+**Known limits:** shooting one awning pole takes the whole awning's roof down, while the other poles and the canvas picture stay
+until packed. The canvas is drawn per row, so an awning that crosses a map section's edge may not draw while that section is off screen.
+**Art:** the swag, roof tent, awning pole and canvas, the two kits and the two buttons need pictures before the first test (the owner's
+rule); planned in the art backlog.
 
 ## Questions for the owner
 

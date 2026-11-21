@@ -1084,6 +1084,14 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float waterDropPourSeconds = 2f;
     /// <summary>The litter kit (Framework 0.101.0, authored): the litters one kit brings. Tending aboard follows the game's caravan interval.</summary>
     public int litterSlots = 4;
+    /// <summary>The camp order (Framework 0.212.0; vehicle-accessories.md, Y3, all authored): the work of pitching or striking a roof tent and an
+    /// awning, at construction speed (each piece of gear carries its own); how many cells out from the vehicle gear may be laid; and, at another
+    /// faction's base, the chance a vehicle carrying an awning or roof tent stands with its camp out, and how many swags lie there.</summary>
+    public float campTentWork = 600f;
+    public float campAwningWork = 450f;
+    public int campReachCells = 6;
+    public float campAtBaseChance = 0.6f;
+    public IntRange campAtBaseSwags = new(1, 3);
     /// <summary>Claiming another faction's vehicle (owner, 11 Nov 2026): hours to get in and make it answer to us, more for each cell it covers,
     /// and the most it can take. All authored.</summary>
     public float claimBaseHours = 0.5f;

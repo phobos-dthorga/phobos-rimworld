@@ -3,6 +3,18 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "317": {"parts": {
+      "a base's vehicle stands with its camp out": ["vehicles.camp-at-base"]
+    }},
+    "316": {"parts": {
+      "a swag under the stars": [{"key": "vehicles.camp-bed-memory", "variant": "PhobosSleptUnderTheStars"}],
+      "the roof tent": [{"key": "vehicles.camp-bed-memory", "variant": "PhobosSleptInRoofTent"}]
+    }},
+    "315": {"parts": {
+      "the camp is set up": ["vehicles.camp-set-up"],
+      "packed up by hand": [{"key": "vehicles.camp-packed", "variant": "by hand"}],
+      "packed as the vehicle leaves": [{"key": "vehicles.camp-packed", "variant": "leaving"}]
+    }},
     "314": {"parts": {
       "the cabin opens": ["vehicles.cabin-opened"],
       "going in, walking and carrying someone": [{"key": "vehicles.cabin-entered", "variant": "walking"}, {"key": "vehicles.cabin-entered", "variant": "carrying"}],

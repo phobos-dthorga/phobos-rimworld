@@ -5,6 +5,28 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.212.0] - 2026-11-22 - Draft
+
+A vehicle's camp: an awning, a roof tent and swags, set up beside it and packed away again
+
+### Added
+
+- **Set up camp beside a parked vehicle** (the owner's go of 22 November 2026): select a land vehicle and press **Set up camp**. Hover over the button first and the ground shows where everything will go. A colonist does the work, as construction. The awning rolls out over two rows along one side, the roof tent opens at the rear of that side, and the swags and bedrolls in the cargo are laid out under the awning or beside it, head to the vehicle. **Camp on the left/right** picks the side, as the driver sees it; a blocked side sends the camp to the other, and if both are blocked the button says why. A swag moved by hand goes back to that spot next time (**Forget the camp's layout** starts afresh). **Pack up camp** rolls everything back into the vehicle and waits for sleepers to get up. The vehicle will not drive off, or be towed, with its camp out. Not yet tested in game: rows 315 to 317 of the test pass.
+- **The awning**, a fitting on a new side rail on every land vehicle (15 kg; kit made at a tailoring bench, after vehicle parts research): a canvas roof over the camp's two rows, on poles, drawn see-through so people beneath still show. Rain and snow stay off; it makes no room and keeps out no cold.
+- **The roof tent**, a fitting on a new roof mount on every land vehicle (55 kg; kit made at the vehicle parts bench): a bed for two under its own canvas, as restful as a real bed, comfort 0.8, dry in rain. Waking in it gives **slept in a roof tent** (+4), which answers the game's "slept outside" (the owner's figure).
+- **The swag**, built like a bedroll (Architect, D'thorga, Motor pool): rest 1.0, comfort 0.75, 6 kg, and a caravan bed. Waking from a fair, mild night in one with open sky overhead gives **slept under the stars** (+5, the owner's figure); not under the awning, in rain or in the cold. The game's own bedrolls in the cargo are laid out with the camp too.
+- **Other factions' camps**: some of their vehicles carry an awning and a roof tent, and at their own bases some stand with their camp out and a few swags. Capture one and its camp is yours to pack.
+
+### Save compatibility
+
+- Safe to add to a save: every land vehicle gains a roof mount and a side rail, as the fridge bay and its fellows were added. A camp left set up when the mod is removed leaves its beds and poles as they stand.
+
+### Compatibility and limits
+
+- A vehicle leaving the map with its camp out, in a caravan or a flight, packs it as it goes; a bed still in use stays behind. If the vehicle is destroyed its camp stays as ordinary beds and poles, which can be taken down.
+- Shooting one awning pole takes the awning's roof down while its other poles and canvas stay until packed. The camp is for land vehicles only for now, and the roof mount takes only the roof tent.
+- Until their own pictures are made, the swag, roof tent, poles and kits use the game's pictures and the canvas is a plain see-through fill.
+
 ## [0.211.2] - 2026-11-21 - Draft
 
 Two icons that showed white through a hole. Not yet tested in game.

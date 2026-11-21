@@ -138,6 +138,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
             if (setUp.HandOrder == HandSetUpOrder.SetUp) return "PhobosHitch_SetUpOnTheWay".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
             if (setUp.HoldRefusal != null || setUp.Deployed) return "PhobosHitch_PackUpFirst".Translate(candidate.LabelShort.Named("TRAILER")).Resolve();
         }
+        // A vehicle with its camp out (Framework 0.212.0) is not towed away from it.
+        if (candidate.GetComp<CompPhobosCamp>() is { HoldRefusal: { } camp }) return camp;
         return null;
     }
 

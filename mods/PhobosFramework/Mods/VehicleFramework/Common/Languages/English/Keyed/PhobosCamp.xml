@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- A vehicle's camp: the awning, the roof tent and the swags (D'thorga Framework 0.212.0). {VEHICLE}: the vehicle; {REASON}: why not, a
+       phrase; {PIECE}: a piece of the camp; {COUNT}: how many. -->
+  <PhobosCamp_GizmoSetUp>Set up camp</PhobosCamp_GizmoSetUp>
+  <PhobosCamp_GizmoSetUpDesc>Have a colonist set up camp beside the {VEHICLE}: its awning rolled out along one side, its roof tent opened at the rear, and the swags and bedrolls in its cargo laid out under the awning or beside it. The layout shows on the ground while the pointer is over this button. A swag moved by hand goes back to the same spot next time. The {VEHICLE} cannot drive off until the camp is packed up again.</PhobosCamp_GizmoSetUpDesc>
+  <PhobosCamp_GizmoPackUp>Pack up camp</PhobosCamp_GizmoPackUp>
+  <PhobosCamp_GizmoPackUpDesc>Have a colonist pack up the {VEHICLE}'s camp: the roof tent folded back onto the roof, the awning rolled up, and the swags and bedrolls rolled into the cargo. Nobody is turned out of bed: the work waits until the beds are empty. Anything left lying under the awning stays where it is.</PhobosCamp_GizmoPackUpDesc>
+  <PhobosCamp_GizmoCancelSetUp>Cancel setting up camp</PhobosCamp_GizmoCancelSetUp>
+  <PhobosCamp_GizmoCancelPackUp>Cancel packing up camp</PhobosCamp_GizmoCancelPackUp>
+  <PhobosCamp_GizmoCancelDesc>Call off the work waiting at the {VEHICLE}'s camp. Nothing at the camp changes.</PhobosCamp_GizmoCancelDesc>
+  <PhobosCamp_GizmoSideLeft>Camp on the left</PhobosCamp_GizmoSideLeft>
+  <PhobosCamp_GizmoSideRight>Camp on the right</PhobosCamp_GizmoSideRight>
+  <PhobosCamp_GizmoSideDesc>Choose which side of the {VEHICLE} the camp goes, as its driver sees it. If that side is blocked, the camp goes on the other.</PhobosCamp_GizmoSideDesc>
+  <PhobosCamp_GizmoForget>Forget the camp's layout</PhobosCamp_GizmoForget>
+  <PhobosCamp_GizmoForgetDesc>Forget where swags and bedrolls were moved by hand, so the next camp is laid out afresh.</PhobosCamp_GizmoForgetDesc>
+  <PhobosCamp_SpotsForgotten>The {VEHICLE}'s camp will be laid out afresh next time.</PhobosCamp_SpotsForgotten>
+
+  <PhobosCamp_SetUpOrdered>A colonist will set up camp beside the {VEHICLE}.</PhobosCamp_SetUpOrdered>
+  <PhobosCamp_PackUpOrdered>A colonist will pack up the {VEHICLE}'s camp.</PhobosCamp_PackUpOrdered>
+  <PhobosCamp_OrderCancelled>The work at the {VEHICLE}'s camp is called off.</PhobosCamp_OrderCancelled>
+  <PhobosCamp_SetUp>Camp is set up beside the {VEHICLE}.</PhobosCamp_SetUp>
+  <PhobosCamp_GearLeftPacked>{COUNT} swags or bedrolls stayed packed: there was no clear ground left for them.</PhobosCamp_GearLeftPacked>
+  <PhobosCamp_PackedUp>The {VEHICLE}'s camp is packed up.</PhobosCamp_PackedUp>
+  <PhobosCamp_PackedLeaving>The {VEHICLE}'s camp was packed up as it left.</PhobosCamp_PackedLeaving>
+  <PhobosCamp_PiecesLeft>{COUNT} pieces were left where they stand: moved away from the camp, or still in use.</PhobosCamp_PiecesLeft>
+
+  <PhobosCamp_NotHere>The {VEHICLE} is not here.</PhobosCamp_NotHere>
+  <PhobosCamp_AlreadyUp>The {VEHICLE}'s camp is already set up.</PhobosCamp_AlreadyUp>
+  <PhobosCamp_NotUp>The {VEHICLE} has no camp set up.</PhobosCamp_NotUp>
+  <PhobosCamp_Moving>The {VEHICLE} must be standing still to set up camp.</PhobosCamp_Moving>
+  <PhobosCamp_NothingToSetOut>The {VEHICLE} has nothing to set up camp with: no awning or roof tent fitted, and no swags or bedrolls in its cargo.</PhobosCamp_NothingToSetOut>
+  <PhobosCamp_TentNoRoom>There is no room to open the {VEHICLE}'s roof tent on either side: {REASON}. Clear the ground at the rear of one side, or move the {VEHICLE}.</PhobosCamp_TentNoRoom>
+  <PhobosCamp_AwningNoRoom>There is no room to roll out the {VEHICLE}'s awning on either side: {REASON}. Clear the two rows along one side, or move the {VEHICLE}.</PhobosCamp_AwningNoRoom>
+  <PhobosCamp_PieceInUse>Someone is using the {PIECE} at the {VEHICLE}'s camp. Wait until they are up, or call them away, before packing up.</PhobosCamp_PieceInUse>
+  <PhobosCamp_HoldsVehicle>The {VEHICLE}'s camp is still set up beside it. Pack up camp first.</PhobosCamp_HoldsVehicle>
+  <PhobosCamp_NoOrder>nothing is waiting to be done</PhobosCamp_NoOrder>
+
+  <PhobosCamp_InspectSetUpWaiting>Waiting for a colonist to set up camp.</PhobosCamp_InspectSetUpWaiting>
+  <PhobosCamp_InspectPackUpWaiting>Waiting for a colonist to pack up camp.</PhobosCamp_InspectPackUpWaiting>
+  <PhobosCamp_InspectPitched>Camp set up beside it: it stays parked until the camp is packed up.</PhobosCamp_InspectPitched>
+  <PhobosCamp_ReportPackingUp>packing up the {VEHICLE}'s camp.</PhobosCamp_ReportPackingUp>
+</LanguageData>

@@ -18,6 +18,7 @@ public static class MoveRefusals
         foreach (ThingComp comp in vehicle.AllComps)
         {
             if (comp is CompPhobosSetUp { HoldRefusal: { } held }) return held;
+            if (comp is CompPhobosCamp { HoldRefusal: { } camp }) return camp;
             if (comp is CompPhobosSubmersible { SettledRefusal: { } settled }) return settled;
         }
         return null;

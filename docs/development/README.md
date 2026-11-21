@@ -95,7 +95,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [The hitch and the generic trailer](vehicle-hitch-design.md) (11 Nov 2026): our own hitch, a trailer any vehicle tows, RimThunder's way. Partly built.
 - [The field kitchen trailer](vehicle-field-kitchen.md) (13 Nov 2026): Billy, the owner's kitchen on wheels. Built; enemy bases and locker not.
 - [The prisoner transport trailer](vehicle-prisoner-transport.md) (13 Nov 2026): Stockade, the owner's cage trailer. Record only.
-- [Vehicle accessories](vehicle-accessories.md) (13 Nov 2026): a parked vehicle as the heart of a camp, Y1 to Y23, berths. Power budget built.
+- [Vehicle accessories](vehicle-accessories.md) (13 Nov 2026): a parked vehicle as the heart of a camp, Y1 to Y23, berths. Power budget, camp built.
 - [Hotboxing](vehicle-hotboxing.md) (12 Nov 2026): smoking in a vehicle's cab. Record only.
 
 ### Farming
