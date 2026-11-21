@@ -1,0 +1,33 @@
+{
+  "file": "station-fuel-pump-a-house-12.png",
+  "sha256": "92808ec5007ee132d247f63c51b574b621e4796aaab430f5fdfb2738d7f985fb",
+  "date": "2026-11-21T10:55:23",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosdthorga, seen from directly above, floor plan, no legs: a small rugged frontier fuel pump building, a tall narrow steel cabinet twice as long as it is wide, with a round fuel gauge dial and a red fuel hose coiled on a hook at one end, a nozzle holstered on the side, and a squat cylindrical chemfuel tank cap at the other end. Draw it in exactly the art style of the reference images: a game building sprite with a very thick near-black outline, soft flat cel shading, pale panels, rounded corners and a muted palette. One building, centred, filling most of a tall narrow canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/fuel-pump-house.json",
+  "size": [
+    768,
+    1536
+  ],
+  "seconds": 160.6,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DepotBay.png",
+      "sha256": "bf99066b4739829d79352ec35b692141cdb037c8285dd6fb5db40b1508b56f9a"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+      "sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785"
+    }
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "lora_strength": 1.0
+}

@@ -1,0 +1,33 @@
+{
+  "file": "station-fuel-pump-b-12.png",
+  "sha256": "406b9346ab48c9f4467912c29b2a06d9e593592392bfc72c14878cbfd5528d63",
+  "date": "2026-11-21T06:15:56",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, seen from directly above, floor plan, no legs: an old forecourt petrol bowser on a small concrete plinth with yellow and black hazard paint at its corners, a steel pump housing with a pale display panel, a thick black fuel hose looped down one side to a holstered nozzle, and a small orange warning light on top. Draw it in exactly the art style of the reference images: a game building sprite with a very thick near-black outline, soft flat cel shading, pale panels, rounded corners and a muted palette. One building, centred, filling most of a tall narrow canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/fuel-pump.json",
+  "size": [
+    768,
+    1536
+  ],
+  "seconds": 152.1,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DepotBay.png",
+      "sha256": "bf99066b4739829d79352ec35b692141cdb037c8285dd6fb5db40b1508b56f9a"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+      "sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}

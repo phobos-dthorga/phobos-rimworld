@@ -1,0 +1,23 @@
+{
+  "file": "redraw-front-standard-d-housealone-11.png",
+  "sha256": "ac6c0ccf3d2954ecedc267dde8d0b8c3d4a4abb63a1f784ad85ed27a65657f65",
+  "date": "2026-11-21T09:55:24",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosdthorga, A short slim grey combine grain front seen from above, with tiny pointed knife guards along its front edge and a small bracket at the back. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/redraws-after-training.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 41.9,
+  "lora": "phobos-private-house-v1.safetensors",
+  "lora_strength": 1.0
+}
