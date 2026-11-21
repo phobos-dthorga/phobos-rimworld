@@ -1,0 +1,19 @@
+{
+ "description": "scripts/art/edge_check.py: shipped pictures with loose specks that are drawn on purpose (accepted), and real faults found and waiting to be fixed (known: shown at every check, never failing it). Paths from the repository root; * and ? match.",
+ "accepted": {
+  "mods/PhobosVehicles/Textures/Phobos/Vehicles/*/*_Damage*.png": "damage marks: scattered scratches, chips and dents, drawn as many small pieces on purpose",
+  "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Osprey_Nacelle*Damage*.png": "damage marks on the nacelles, as above",
+  "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Osprey_RotorSpin.png": "the spinning rotor: a faint disc with blade ghosts, faint and broken on purpose",
+  "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/LiquidOxygenStore_Frost.png": "frost: a scatter of crystals drawn in code, on purpose",
+  "mods/PhobosFarming/Common/Textures/Phobos/Farming/Things/Seed.png": "loose seeds spilled beside the bag, on purpose (looked at 22 Nov 2026)",
+  "mods/PhobosFarming/Common/Textures/Phobos/Farming/Cultivator/Cultivator_icon.png": "the tines' small tips, separate at icon size (looked at 22 Nov 2026)",
+  "mods/PhobosFarming/Common/Textures/Phobos/Farming/CultivatorLight/CultivatorLight_*.png": "the tines' small tips (looked at 22 Nov 2026)",
+  "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/CultivatorWings.png": "the tines' small tips (looked at 22 Nov 2026)",
+  "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Linked/Coax*_Atlas.png": "a linked-graphic atlas: small corner pieces by design",
+  "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/SurveyTruck_Geophones_*.png": "the geophones' small cable tabs (looked at 22 Nov 2026)"
+ },
+ "known": {
+  "mods/PhobosVehicles/Textures/Phobos/Vehicles/*/*_ArmouredCab_*.png": "ghost fragments of outline floating beside the cab, left from cutting the plates out (found 22 Nov 2026); to fix",
+  "mods/PhobosVehicles/Textures/Phobos/Vehicles/*/*_HeavyCabPlates_*.png": "ghost fragments of outline floating beside the cab, left from cutting the plates out (found 22 Nov 2026); to fix"
+ }
+}
