@@ -335,7 +335,7 @@
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_DeckTent</defName>
     <iconPath>Phobos/VehicleSystems/Camp/DeckTentKit</iconPath>
-    <label>deck tent</label>
+    <label>deck tent, light</label>
     <description>A tent that stands on the vehicle's own flat deck, on the roof mount. Right-click the vehicle with a colonist to go in: inside is a small room with two beds. Choose who sleeps there on the vehicle, and they walk in at bedtime by themselves. It takes no ground and needs no camp set up; its canvas keeps the wind and rain out and the air a little warmer than outside. The vehicle does not drive off while anyone is inside. It takes the roof mount, so not a roof tent or a rear tent there as well.</description>
     <roles><li>RoofMount</li></roles>
     <materials><PhobosVehicleSystems_DeckTentKit>1</PhobosVehicleSystems_DeckTentKit><Steel>5</Steel></materials>
@@ -346,6 +346,24 @@
     <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
     <grants><li>DeckTent</li></grants>
     <!-- Only a vehicle whose Def says it has a flat deck (PhobosFlatDeckExtension). -->
+    <flatDeckOnly>true</flatDeckOnly>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.234.0 (the owner's choice of 22 Nov 2026: one kit, two ways to fit it). The same kit pitched roomy: a fuller fly over more of
+         the deck, so 2 degrees warmer and comfier beds (comfort 0.85 against 0.75), but 10 kg heavier and slower to fit (authored). -->
+    <defName>PhobosFitting_DeckTentRoomy</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/DeckTentKit</iconPath>
+    <label>deck tent, roomy</label>
+    <description>The deck tent kit pitched roomy, over more of the vehicle's flat deck, on the roof mount. Right-click the vehicle with a colonist to go in: inside is a small room with two beds, comfier than the light tent's, and its fuller canvas keeps the air a couple of degrees warmer. It weighs more and takes longer to fit. Choose who sleeps there on the vehicle, and they walk in at bedtime by themselves. The vehicle does not drive off while anyone is inside. It takes the roof mount, so not a roof tent or a rear tent there as well.</description>
+    <roles><li>RoofMount</li></roles>
+    <materials><PhobosVehicleSystems_DeckTentKit>1</PhobosVehicleSystems_DeckTentKit><Steel>10</Steel><Cloth>20</Cloth></materials>
+    <givesBack><PhobosVehicleSystems_DeckTentKit>1</PhobosVehicleSystems_DeckTentKit></givesBack>
+    <kilograms>40</kilograms>
+    <work>3500</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>DeckTent</li><li>DeckTentRoomy</li></grants>
     <flatDeckOnly>true</flatDeckOnly>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 

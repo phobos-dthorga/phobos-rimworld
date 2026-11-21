@@ -23,4 +23,5 @@ waited for.
 about **US$0.22** (cap US$0.60). References: the roof tent kit and the crew water tank kit. All four clean; the agent suggested stereo
 **1** and reading light **1** (both read more clearly at actual size) and shipped them while the owner's pick is waited for.
 
-**Decision (owner):** waiting, for all five.
+**Decision (owner, 22 Nov 2026, one card each):** camp lantern **1** (not the agent's 2), 12-volt camp light **1**, crew water tank kit
+**1**, cab stereo kit **1**, cab reading light kit **1**. The lantern was re-exported from attempt 1 (Framework 0.234.0).

@@ -175,6 +175,19 @@
             <key>deckTent</key>
             <looks>
               <li>
+                <!-- Vehicles 0.102.0: the roomy deck tent (the owner kept both pictures, 22 Nov 2026), the fuller one. -->
+                <fitting>PhobosFitting_DeckTentRoomy</fitting>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer_DeckTentRoomy</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 8)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
                 <fitting>PhobosFitting_DeckTent</fitting>
                 <look>
                   <graphicData>

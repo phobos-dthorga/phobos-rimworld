@@ -24,9 +24,10 @@
 drawn on our vehicles. **AI-generated**: OpenAI gpt-image-2 through the image API, medium quality, an edit of a crop of the picked body's deck
 (`assets/phobos-vehicles/references/deck-tent-crops.json`, box 64,256 to 704,1536, our own art the only reference; paid rule 13), two attempts,
 about US$0.06. The tent was lifted out by `scripts/art/sam_lift.py --cpu` (Segment Anything 2.1, Meta, Apache 2.0) and laid back at the crop's
-place, then exported by `scripts/art/export_vehicle.py overlay` at the body's own transform. Attempt 2 is the agent's suggested pick (its guy
-lines and rolled door flap came out whole), **waiting for the owner's pick**. Request and review: `assets/phobos-vehicles/requests/deck-tent-pilot.json`,
+place, then exported by `scripts/art/export_vehicle.py overlay` at the body's own transform. **The owner kept both** (22 Nov 2026: "Keep both ... with slightly different qualities to each"): attempt 2 is the light deck tent,
+attempt 1 (`FlatbedTrailer_DeckTentRoomy`, D'thorga Vehicles 0.102.0) the roomy one. Request and review: `assets/phobos-vehicles/requests/deck-tent-pilot.json`,
 `deck-tent-pilot-record.md`.
 
 - Edit `deck-tent-flatbed-2`, SHA-256 `a4963fa05d8756151c0350cbee1c34111903dc4af98692caa98b5c520b8efbde`
 - North `b6e88eedae58518789fcab24a07bf6f66ca45f581627351dd8e09864c9a8d3ac`, east `e7554cfe30b94ca5e47c6b3e33915451fc9aa0162bb201402a86ba9efd7e9c0d`, south `ab03a27624f4c8bf53b0847ba823f46519a37b5e60c6cba2fc155f90a5bfa14b`
+- Roomy, edit `deck-tent-flatbed-1`, SHA-256 `487b94765d29b721eb12e38eb1d531533ca2c4355617662c5f6afc512fccff3d`: north `8bf8c51d54b185397c81f9c6f03ebdc5607ecdd5dc776d670c3963eb1ecb7ae3`, east `72719f13a8d0a3ef4014fe405c2846e4a2303a9a25b15397bdf1100bd4a4fa7c`, south `3ddd4eb4ed2de83bee8b2bffc7fdbb2896d26d75e3d27b0af15b55902fde4ab9`

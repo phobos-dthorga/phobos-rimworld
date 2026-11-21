@@ -127,6 +127,7 @@ public static class VehicleCabinDefOf
     public static ThingDef PhobosCabinSeat = null!;
     public static ThingDef PhobosCabinLitter = null!;
     public static ThingDef PhobosCabinBed = null!;
+    public static ThingDef PhobosCabinBedRoomy = null!;
     public static ThingDef PhobosCabinTank = null!;
     public static ThingDef PhobosCabinWayOut = null!;
 

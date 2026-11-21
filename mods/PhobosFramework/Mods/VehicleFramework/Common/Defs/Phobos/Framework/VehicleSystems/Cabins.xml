@@ -128,7 +128,19 @@
     </comps>
   </ThingDef>
 
-  <ThingDef ParentName="PhobosCabinFixtureBase">
+  <ThingDef ParentName="PhobosCabinBedBase">
+    <!-- Framework 0.234.0: a bed in the roomy deck tent: the same mattress with more room round it, comfort 0.85 (authored). -->
+    <defName>PhobosCabinBedRoomy</defName>
+    <label>roomy tent bed</label>
+    <description>A thick mattress on the deck inside a roomy deck tent, with room to sit up and a lamp hung above it.</description>
+    <statBases>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.85</Comfort>
+      <ImmunityGainSpeedFactor>1.05</ImmunityGainSpeedFactor>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCabinFixtureBase" Name="PhobosCabinBedBase">
     <!-- Framework 0.217.0: a bed in a deck tent (the layout's B over b). An ordinary bed, as restful and comfortable as a swag (rest 1.0,
          comfort 0.75, authored), with a small lamp. Part of the tent: never built, moved or sold. Our swag's picture: it is a swag's mattress. -->
     <defName>PhobosCabinBed</defName>

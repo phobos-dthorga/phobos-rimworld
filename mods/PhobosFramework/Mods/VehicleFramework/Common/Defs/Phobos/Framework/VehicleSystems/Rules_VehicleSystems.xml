@@ -215,6 +215,9 @@
     <!-- The crew water tank (Framework 0.232.0; with Dubs Bad Hygiene only). 120 L, authored: the design's 60 L (three jerry cans) was raised
          because one of Dubs' showers takes 65 L, so a 60 L tank could never run one; 100 to 150 L is a usual under-tray tank. "Low" below a
          quarter, the design's figure. Real planning figures: about 2 L a person a day to drink in cool weather, 4 L in heat. -->
+    <!-- The roomy deck tent (Framework 0.234.0; the owner's choice of 22 Nov 2026): 2 degrees warmer than the light one, and may warm 2 degrees
+         further (authored: a bigger, double-skinned fly). -->
+    <deckTentRoomyWarmerBy>2</deckTentRoomyWarmerBy>
     <crewTankLitres>120</crewTankLitres>
     <crewTankLowShare>0.25</crewTankLowShare>
     <!-- Life aboard and hotboxing (Framework 0.233.0), all authored. The stereo gives 0.08 recreation an hour and a book 0.12 (a long day's

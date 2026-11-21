@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.102.0] - 2026-11-22 - Draft
+
+The roomy deck tent drawn on the Pintle flatbed
+
+### Added
+
+- **The roomy deck tent shows on the Pintle flatbed too** (needs D'thorga Framework 0.234.0): the fuller of the two bought pictures, while the deck tent is fitted roomy; the light one shows the picture added in 0.101.0. The owner kept both. Not yet tested in game: row 358.
+
 ## [0.101.0] - 2026-11-22 - Draft
 
 The deck tent drawn on the Pintle flatbed

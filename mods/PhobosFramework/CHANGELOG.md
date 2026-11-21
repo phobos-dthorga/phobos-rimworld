@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.234.0] - 2026-11-22 - Draft
+
+The deck tent, roomy or light; the owner's picks for the camp pictures
+
+### Added
+
+- **The deck tent kit fits two ways: roomy or light** (the owner's choice of 22 November 2026, "keep both ... with slightly different qualities"). One kit, made as before; the fittings window now offers **deck tent, light** (the tent as it was, 30 kg) and **deck tent, roomy** (40 kg, slower to fit, a little more cloth and steel): its fuller canvas keeps the air 2 degrees warmer and its beds are comfier. Taking either off gives the kit back. Not yet tested in game: row 358 of the test pass.
+
+### Changed
+
+- **The camp lantern's picture is the owner's pick** (the other of the two bought). The camp light's, the crew water tank kit's, the stereo kit's and the reading light kit's were picked as shipped.
+
 ## [0.233.0] - 2026-11-22 - Draft
 
 Life aboard, and hotboxing

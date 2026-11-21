@@ -713,8 +713,11 @@ tested in game.
 The owner's choice (22 Nov 2026, card): fitted camp gear is drawn on **our own** vehicles only, paid, **one pilot first**: the deck tent on
 the Pintle flatbed (D'thorga Vehicles 0.101.0, a node look keyed by the fitting; row 357; not yet tested in game). Made as an edit of a crop
 of the body and lifted out with Segment Anything, about US$0.06 ([the record](../../assets/phobos-vehicles/requests/deck-tent-pilot-record.md)).
-**Waiting for the owner:** the pick, and whether to buy the rest (the Tipper's deck tent and the fold-out camper, about three overlays; roof
-tents and awning rolls on our trucks, about ten more, roughly US$0.10 to 0.40 each by this pilot's cost).
+**The owner's answers (22 Nov 2026):** keep **both** tents, with slightly different qualities: one kit, two fittings, **deck tent, light**
+(`PhobosFitting_DeckTent`, as built) and **deck tent, roomy** (`PhobosFitting_DeckTentRoomy`, Framework 0.234.0: 40 kg against 30, work
+3,500 against 2,500, 20 cloth and 5 steel more, 2 degrees warmer and may warm 2 degrees further, `PhobosCabinBedRoomy` beds at comfort 0.85
+against 0.75; all authored). Its picture on the flatbed is the fuller attempt (Vehicles 0.102.0; row 358). And **everything on ours**: the
+rest of the family is bought next (`assets/phobos-vehicles/requests/camp-gear-overlays-record.md`).
 
 ## Built: life aboard (22 Nov 2026)
 

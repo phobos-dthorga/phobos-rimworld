@@ -1116,6 +1116,8 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// </summary>
     public float deckTentWarmerBy = 4f;
     public float deckTentWarmTo = 15f;
+    /// <summary>The roomy deck tent's extra warmth, and how much further it may warm (Framework 0.234.0, authored: 2 degrees more).</summary>
+    public float deckTentRoomyWarmerBy = 2f;
     public int campReachCells = 6;
     public float campAtBaseChance = 0.6f;
     public IntRange campAtBaseSwags = new(1, 3);

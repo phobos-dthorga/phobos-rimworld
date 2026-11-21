@@ -13,5 +13,6 @@ at the crop's place, then exported at the flatbed's own transform.
 fringe, inside the rails. Attempt 1 is fuller but lost its guy lines and part of its rear roll; attempt 2 is a little narrower with its guy
 lines and rolled door flap whole. The agent suggested **2** and shipped it while the owner's pick is waited for.
 
-**Decision (owner):** waiting: the pick, and whether the rest of the family is worth buying (the Tipper's deck tent and the fold-out camper
-on the flatbed, about three overlays; the roof tents and awning rolls on our trucks, about ten more).
+**Decision (owner, 22 Nov 2026):** **keep both**, "all under the one Architect button, perhaps with slightly different qualities to each";
+then by card: one kit fitted two ways, **roomy** (attempt 1: warmer, comfier beds, heavier, slower to fit) and **light** (attempt 2, as
+built). And **everything on ours**: the rest of the family is to be bought (`camp-gear-overlays-record.md`).

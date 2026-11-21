@@ -48,7 +48,8 @@ public class GenStep_PhobosVehicleCabin : GenStep
                         Place(VehicleCabinDefOf.PhobosCabinLitter, cell, map, Rot4.North);
                         break;
                     case CabinCell.BedFoot:
-                        Place(VehicleCabinDefOf.PhobosCabinBed, cell, map, Rot4.North);
+                        // The roomy deck tent's beds are its own, comfier ones (Framework 0.234.0; the owner's choice of 22 Nov 2026).
+                        Place(DeckTents.Roomy(comp.Vehicle) ? VehicleCabinDefOf.PhobosCabinBedRoomy : VehicleCabinDefOf.PhobosCabinBed, cell, map, Rot4.North);
                         break;
                     case CabinCell.Tank:
                         Place(VehicleCabinDefOf.PhobosCabinTank, cell, map, Rot4.North);

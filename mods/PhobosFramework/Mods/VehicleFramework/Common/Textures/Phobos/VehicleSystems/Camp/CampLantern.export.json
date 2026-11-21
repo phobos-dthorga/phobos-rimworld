@@ -1,8 +1,8 @@
 {
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampLantern.png",
-  "source": "assets/phobos-vehicles/generated/camp-lantern/camp-lantern-2.png",
-  "source_sha256": "0f8207b605aac06e57e0ee8a8cce7a80db643e51541eecb1401026a48a1097a8",
-  "target_sha256": "fa7f9d66f5740706208b8a76437938db7d837a22ca0b3c6c57d6eb95e8317c05",
+  "source": "assets/phobos-vehicles/generated/camp-lantern/camp-lantern-1.png",
+  "source_sha256": "3a7ec08707c6b43c779be6b690bb4e7f3f52f4f36a453f5c8d7845470802f67c",
+  "target_sha256": "9aa756714c3b191f8157cc4b16f6bca0c0ad24b5411877d4c65bf308c2907197",
   "size": [
     128,
     128
@@ -11,9 +11,9 @@
   "soft_edge": 30,
   "all_white": false,
   "silhouette": false,
-  "ai_mask": "0f8207b605aac06e57e0ee8a8cce7a80db643e51541eecb1401026a48a1097a8",
+  "ai_mask": "3a7ec08707c6b43c779be6b690bb4e7f3f52f4f36a453f5c8d7845470802f67c",
   "holes": [],
   "white_left": [],
-  "date": "2026-11-22T05:23:16",
+  "date": "2026-11-22T06:08:16",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

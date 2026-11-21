@@ -506,8 +506,9 @@ in the cargo with the camp gear. Both light themselves at dusk.
 
 **The deck tent** (not yet tested in game; needs the **Walk-in cabins** setting, which is on by default): for a vehicle with a **flat
 deck**: our **Talus tipper** and **Pintle flatbed**, and, where their mods are active, Vanilla Vehicles Expanded's **Mule** and
-**Roadrunner**, Frontline Workshop's **Land Cruiser J70** and RimThunder's **M1075 HEMTT**. Fit it to the roof mount (30 kg). It stands **on the deck**, so it
-needs no ground and no camp set up.
+**Roadrunner**, Frontline Workshop's **Land Cruiser J70** and RimThunder's **M1075 HEMTT**. Fit it to the roof mount. It stands **on the deck**, so it
+needs no ground and no camp set up. **One kit, two ways to fit it:** **light** (30 kg) or **roomy** (40 kg, slower to fit, 2 degrees
+warmer inside and comfier beds).
 
 - **Go in:** right-click the vehicle with a colonist. Inside is a small room with **two beds** and a flap that leads back out
   (one bed on the Land Cruiser, four on the HEMTT).

@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/deck-tent-sam/deck-tent-1.png",
+  "master_sha256": "ef8d802357af40e55246f008761e84fe332d2890b243b506d1c14c18dbeae8a8",
+  "files": {
+    "FlatbedTrailer_DeckTentRoomy_north.png": "8bf8c51d54b185397c81f9c6f03ebdc5607ecdd5dc776d670c3963eb1ecb7ae3",
+    "FlatbedTrailer_DeckTentRoomy_east.png": "72719f13a8d0a3ef4014fe405c2846e4a2303a9a25b15397bdf1100bd4a4fa7c",
+    "FlatbedTrailer_DeckTentRoomy_south.png": "3ddd4eb4ed2de83bee8b2bffc7fdbb2896d26d75e3d27b0af15b55902fde4ab9"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "FlatbedTrailer.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

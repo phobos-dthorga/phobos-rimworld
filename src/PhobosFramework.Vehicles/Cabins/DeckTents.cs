@@ -32,6 +32,15 @@ public static class DeckTents
     public const string Ability = "DeckTent";
 
     /// <summary>
+    /// The roomy deck tent's own ability (Framework 0.234.0; the owner's choice of 22 Nov 2026: one kit, two ways to fit it, roomy or light).
+    /// Roomy: a little warmer and comfier beds, heavier and slower to fit; light: the tent as it was.
+    /// </summary>
+    public const string RoomyAbility = "DeckTentRoomy";
+
+    /// <summary>Whether the vehicle's deck tent is the roomy one.</summary>
+    public static bool Roomy(VehiclePawn vehicle) => vehicle.GetComp<CompPhobosVehicleSystems>() is { Usable: true } systems && systems.Fittings.Grants(RoomyAbility);
+
+    /// <summary>
     /// The open cabins and deck tents, by their map: read by the temperature answer, which every map asks often. Derived, never saved. Every
     /// cabin since Framework 0.230.0, so a walk-in cabin can take its vehicle's cab temperature.
     /// </summary>
@@ -70,7 +79,8 @@ public static class DeckTents
     public static float Temperature(CompPhobosVehicleCabin comp)
     {
         PhobosVehicleRulesDef rules = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
-        return Phobos.Framework.Vehicles.Rules.CampLayoutRule.TentTemperature(comp.Vehicle.AmbientTemperature, rules.deckTentWarmerBy, rules.deckTentWarmTo);
+        float warmer = rules.deckTentWarmerBy + (Roomy(comp.Vehicle) ? rules.deckTentRoomyWarmerBy : 0f);
+        return Phobos.Framework.Vehicles.Rules.CampLayoutRule.TentTemperature(comp.Vehicle.AmbientTemperature, warmer, rules.deckTentWarmTo + (Roomy(comp.Vehicle) ? rules.deckTentRoomyWarmerBy : 0f));
     }
 
     /// <summary>Whether danger has come to the vehicle's map: a hostile threat, or the vehicle on fire.</summary>
