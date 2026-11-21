@@ -38,6 +38,15 @@ class ReviewCardTests(unittest.TestCase):
         self.assertGreaterEqual(card.width, 2 * (64 * 3 * 2 + 30))
         self.assertGreaterEqual(card.height, 64 * 3 + 64)
 
+    def test_attempts_are_found_by_seed_value(self):
+        requests, generated = self.folder / 'requests', self.folder / 'generated' / 'pane'
+        requests.mkdir()
+        generated.mkdir(parents=True)
+        for seed in (1, 2, 3, 4):
+            sprite(generated / f'pane-{seed}.png')
+        found = review_cards.attempts(requests / 'retry.json', {'name': 'pane', 'seeds': [3, 4]})
+        self.assertEqual([p.name for p in found], ['pane-3.png', 'pane-4.png'])
+
     def test_tinting_paints_the_masked_part_and_leaves_the_rest(self):
         vehicles = self.folder / 'Vehicles'
         (vehicles / 'Van').mkdir(parents=True)

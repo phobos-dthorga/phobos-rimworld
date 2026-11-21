@@ -54,8 +54,9 @@ def on(ground, picture: Image.Image) -> Image.Image:
 # ---- Sprites ----
 
 def attempts(request_file: Path, entry: dict) -> list[Path]:
+    """The request's own tries, named by seed value: a correction request's seeds [3, 4] are tries 3 and 4, never 1 and 2."""
     folder = request_file.parent.parent / 'generated' / entry['name']
-    return [p for i in range(1, len(entry.get('seeds', [1])) + 1) if (p := folder / f"{entry['name']}-{i}.png").is_file()]
+    return [p for seed in entry.get('seeds', [1]) if (p := folder / f"{entry['name']}-{seed}.png").is_file()]
 
 
 def export(original: Path, out: Path, size: int, aspect: str) -> Path:
@@ -112,7 +113,7 @@ def sprites(args) -> int:
         made = attempts(request_file, entry)
         if not made:
             continue
-        exports = [(f'{i}', export(p, folder / 'export' / p.name, args.size, args.aspect)) for i, p in enumerate(made, 1)]
+        exports = [(p.stem.rsplit('-', 1)[-1], export(p, folder / 'export' / p.name, args.size, args.aspect)) for p in made]
         out = folder / f"{n:02d}-{entry['name']}.png"
         sprite_card(f"{entry['name']}: {' or '.join(l for l, _ in exports)} (x3 above, actual size below; soil and stone)", exports, out)
         print(out)
