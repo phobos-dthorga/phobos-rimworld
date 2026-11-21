@@ -1,0 +1,56 @@
+{
+  "file": "awning-roll-bag-1.png",
+  "sha256": "30aa7aa73037d9f5c4d544f7db2d070a687978f3bf4331476eed969fd944b63a",
+  "date": "2026-11-22T08:01:09",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical outside faces.\n\nCreate an ORIGINAL game sprite part: a rolled canvas awning in its zipped bag, seen from directly above, lying horizontally. Image 1 is our approved awning roll: match its colours, outline weight, shading and finish. Image 2 is our camp gear seen from above, for style only.\n\nDraw ONLY the bag, alone and centred on a plain pure white background: one long slim rounded tube running from the left edge to the right edge of the canvas, about one eighth as tall as it is long, in mid-grey canvas with a zip seam along its length, three narrow black straps around it spaced evenly, and plain rounded end caps.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo vehicle, rail, brackets, people, text, letters, numbers, logos, shadow outside the object, perspective or tilt.",
+  "seed": 1,
+  "size": [
+    1536,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/awning-roll-bag.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 378,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 250
+    },
+    "output_tokens": 1372,
+    "output_tokens_details": {
+      "image_tokens": 1372,
+      "text_tokens": 0
+    },
+    "total_tokens": 1750
+  },
+  "cost_usd": 0.0434,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1536x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1536,
+    1024
+  ],
+  "seconds": 18.8,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
+      "sha256": "e57a2d7be84e8d905b33d650114e3a8689c61b10473e09382b56f64461828966",
+      "role": "our approved awning roll kit (the same roll): match its colours, outline weight, shading and finish"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampHeater.png",
+      "sha256": "d4b9e4585d438b79cf510f352f439a5c76124da6ff622a709394260c84daacf2",
+      "role": "our approved camp piece seen from above: match its outline weight, shading and finish only; do not copy its shape"
+    }
+  ]
+}
