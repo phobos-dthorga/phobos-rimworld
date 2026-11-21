@@ -1,0 +1,33 @@
+{
+  "file": "camp-button-pack-up-11.png",
+  "sha256": "2b0e378abb426995d41ce162caddc60fd5d5813c765bf1bbc143f348e7aa9a27",
+  "date": "2026-11-21T22:02:59",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosdthorga, A small game button icon: a rolled-up canvas awning bag and a tightly rolled swag tied with straps, with a curved arrow sweeping them together. A game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/camp-gear-house.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 153.7,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/SetUp.png",
+      "sha256": "c9d53b951484d030864dca2b1efadca6d7b86b190d1892c92a78e07505ddd120"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/PackUp.png",
+      "sha256": "1c4f94cff05e6a1799c9eaeaf86523e04550cf1fa8510b04fc369701917b032b"
+    }
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "lora_strength": 1.0
+}

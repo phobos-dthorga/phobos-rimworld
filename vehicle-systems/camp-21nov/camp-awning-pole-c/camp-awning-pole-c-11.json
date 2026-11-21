@@ -1,0 +1,33 @@
+{
+  "file": "camp-awning-pole-c-11.png",
+  "sha256": "1fa4a742c29110dd4f775de4c9e4a83ab1a47b94025788623c299ee693cd911b",
+  "date": "2026-11-21T22:17:28",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosdthorga, seen from directly above, floor plan, no legs: a tent pole seen straight down from above, just a small grey round cap ringed by a black outline, with three thin ropes radiating out to three small pegs pushed into the ground. Draw it in exactly the art style of the reference images: a game building sprite with a very thick near-black outline, soft flat cel shading and a muted palette. Small and centred, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/camp-gear-house.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 167.7,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DepotBay.png",
+      "sha256": "bf99066b4739829d79352ec35b692141cdb037c8285dd6fb5db40b1508b56f9a"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+      "sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785"
+    }
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "lora_strength": 1.0
+}
