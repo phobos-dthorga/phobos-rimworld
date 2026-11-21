@@ -27,7 +27,7 @@ public readonly struct VehicleBlastFigures
     public readonly double innerShare;
     /// <summary>Each part's loss varies by up to this share either way, so a battered vehicle is not dented evenly.</summary>
     public readonly double spread;
-    /// <summary>Soft parts (tyres, wiring, hoses) start to burn at this heat (1 at the fireball's edge), and lose up to this share.</summary>
+    /// <summary>Soft parts (tyres, belts, hoses) start to burn at this heat (1 at the fireball's edge), and lose up to this share.</summary>
     public readonly double softFrom;
     public readonly double softShare;
     /// <summary>Blunt harm to each person aboard at severity 1, the most severity it counts, and the largest single blow.</summary>

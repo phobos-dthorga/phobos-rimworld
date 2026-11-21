@@ -72,7 +72,7 @@
   <PhobosMissilePatches_SettingEmp>Electromagnetic pulse</PhobosMissilePatches_SettingEmp>
   <PhobosMissilePatches_SettingEmpDesc>Powered buildings and mechanoids still standing in the open stop for a few hours.</PhobosMissilePatches_SettingEmpDesc>
   <PhobosMissilePatches_SettingVehicles>Vehicles in the strike</PhobosMissilePatches_SettingVehicles>
-  <PhobosMissilePatches_SettingVehiclesDesc>Vehicles in the fireball are gone with everyone aboard. Further out the blast throws and wrecks them by their weight: a car or a bus is scrap where a tank is only battered. Heat burns tyres, belts, hoses and wiring; a running engine takes the pulse. The people aboard are thrown about inside and take the radiation dose the hull lets through. Needs D'thorga Framework's vehicles.</PhobosMissilePatches_SettingVehiclesDesc>
+  <PhobosMissilePatches_SettingVehiclesDesc>Vehicles in the fireball are gone with everyone aboard. Further out the blast throws and wrecks them by their weight: a car or a bus is scrap where a tank is only battered. Heat burns tyres, belts, hoses and hydraulic lines; a running engine takes the pulse. The people aboard are thrown about inside and take the radiation dose the hull lets through. Needs D'thorga Framework's vehicles.</PhobosMissilePatches_SettingVehiclesDesc>
   <PhobosMissilePatches_WarnVehiclesOff>Off: vehicles take a strike as one blow to a single spot, which armour usually shrugs off, and nobody aboard is touched.</PhobosMissilePatches_WarnVehiclesOff>
 
   <PhobosMissilePatches_BlastStillRunning>The blast is still tearing through {PLACE}.</PhobosMissilePatches_BlastStillRunning>

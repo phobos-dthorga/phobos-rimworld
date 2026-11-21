@@ -166,7 +166,7 @@ public sealed class VehicleBlasts : ILargeBlastTaker
         return any;
     }
 
-    /// <summary>Heat takes the soft parts: tyres, belts, hoses and wiring, by the roles our loadouts give them (NK3).</summary>
+    /// <summary>Heat takes the soft parts: tyres, belts, hoses and hydraulic lines, by the roles our loadouts give them (NK3).</summary>
     static bool Scorch(VehiclePawn vehicle, CompPhobosVehicleSystems? comp, PhobosVehicleBlastRulesDef rules, float heat, VehicleBlastFigures f)
     {
         double share = VehicleBlastRule.SoftShare(heat, f);

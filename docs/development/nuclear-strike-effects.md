@@ -38,7 +38,7 @@ design below:
   against the owner's strike: the bus at 41 cells (about 0.78 wind) is wrecked; a 60-tonne tank there loses about a third of its
   outer health. Our empty mounting points are left alone.
 - **Heat on soft parts** (NK3) [A]: from 0.3 of the edge's heat (about 125 cells out with the strike's figures) to the edge, the
-  parts our loadouts give the roles Wheels, Belt, HydraulicLines, Radiator and Wiring lose up to all of their health. A vehicle
+  parts our loadouts give the roles Wheels, Belt, HydraulicLines and Radiator (with its hoses) lose up to all of their health. A vehicle
   without our loadout has no roles, so only its battering applies.
 - **Parts lose health directly**, then the vehicle hears it took damage and its health changed, as after Combat Extended's own part
   step; it stops if it can no longer move and is destroyed under 1 %. **No reactor is called**: a blast is not a round, and shock
@@ -68,9 +68,10 @@ design below:
   that dies only when nearly all of it is gone.
 - **It is every vehicle, not only ours.** The two vehicles seen to survive were another author's, standing at the struck town.
   Nothing of ours makes our vehicles tougher; ours are thin-skinned and would suffer more than a tank if anything reached them.
-- **The bigger problem is real, and it is not about nuclear weapons.** In the owner's game, **fire and any blast of low penetration
-  do nothing to any vehicle, from any mod**, and **people aboard a vehicle are out of reach of every area effect**: a strike, fallout,
-  gas, another mod's radiation.
+- **The bigger problem is real, and it is not about nuclear weapons.** In the owner's game, **the game's fire damage and any blast of
+  low penetration do nothing to any vehicle part, from any mod**, and **people aboard a vehicle are out of reach of every area
+  effect**: a strike, fallout, gas, another mod's radiation. (Corrected 22 Nov 2026: our own vehicle systems do wear the radiator,
+  tyres and battery of the player's burning vehicles, outside any armour step; [fire on vehicles](vehicle-fire.md) has the detail.)
 - **Reality runs the other way.** A vehicle often survives a nuclear burst that kills or disables its crew. Our strike spares the
   crew completely and cannot hurt the vehicle either.
 - **The strike already gives an instantaneous radiation dose**, but only with Dubs Rimatomics active, only to people standing in the
@@ -228,10 +229,14 @@ The owner's suspicion was right. Five things lie behind the report; the first tw
 | **B5** | **Our strike gives a vehicle a person's treatment**: never removed, burned "over the skin", pulsed only if a mechanoid | Our strike model and fast sweep | **Ours** | **A gap in our design.** The strike's record has columns for people, buildings, plants and ground, and none for vehicles |
 
 **B1 has already been seen once without being named.** The jet that burned without harm in
-[the Vehicle Framework fires record](vehicle-framework-fires.md) fits it exactly.
+[the Vehicle Framework fires record](vehicle-framework-fires.md) fits it: the game's fire damage did nothing, and its fires were on
+another map, where our systems' fire wear does not look.
 
-**What follows from B1 and B2 together:** in the owner's game a vehicle is fireproof, largely blast-proof, and a sealed shelter from
-everything in the air, for anyone, whatever the vehicle is. That is the opposite of what a design about vehicles as fragile,
+**What follows from B1 and B2 together:** in the owner's game a vehicle is largely fireproof (only our systems' wear reaches the
+player's own, below), largely blast-proof, and a sealed shelter from everything in the air, for anyone, whatever the vehicle is.
+**Correction, 22 Nov 2026:** the fire research ([fire on vehicles](vehicle-fire.md)) found our vehicle systems already wear the
+radiator, tyres and battery of the player's burning vehicles directly, at full detail only, so "fireproof" holds for other factions'
+vehicles and for every vehicle that cannot catch fire at all. That is the opposite of what a design about vehicles as fragile,
 maintained machines wants, and it holds for raiders' vehicles as much as the colony's.
 
 **Smaller things found on the way** [code, surveyed, unless marked]:

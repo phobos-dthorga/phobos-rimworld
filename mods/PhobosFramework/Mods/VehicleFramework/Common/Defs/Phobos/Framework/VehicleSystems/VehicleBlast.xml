@@ -21,7 +21,9 @@
     <innerShare>0.2</innerShare>
     <spread>0.5</spread>
     <!-- Heat: soft parts start to burn at 0.3 of the fireball edge's heat (about 125 cells out with the strike's own figures) and are
-         gone at the edge. -->
+         gone at the edge. Tyres, belts, hydraulic lines, and the radiator with its hoses: the loadouts' roles. They have no wiring role,
+         so wiring is not among them. -->
+
     <softFrom>0.3</softFrom>
     <softShare>1</softShare>
     <softRoles>
@@ -29,7 +31,6 @@
       <li>Belt</li>
       <li>HydraulicLines</li>
       <li>Radiator</li>
-      <li>Wiring</li>
     </softRoles>
     <!-- The people aboard: 25 blunt harm each at severity 1, counting severity up to 2, in blows of at most 10. -->
     <crewHarm>25</crewHarm>

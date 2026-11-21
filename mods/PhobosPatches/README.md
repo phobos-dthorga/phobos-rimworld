@@ -184,7 +184,7 @@ strike leaves behind, from the fireball onwards.
 | Radiation sickness and flash blindness for survivors (with Rimatomics) | For those who live through the strike in the open | On |
 | Ground pollution near the centre (with Biotech) | The scoured ground at the centre, and patches around it | On |
 | Electromagnetic pulse | Powered buildings and mechanoids in the open stop for a few hours | On |
-| Vehicles in the strike (with D'thorga Framework's vehicles) | Vehicles in the fireball are gone with everyone aboard; further out the blast wrecks or batters them by their weight, heat burns tyres and wiring, a running engine takes the pulse, and the people aboard are thrown about and take the dose the hull lets through. Off: a vehicle takes one blow to one spot, which armour usually shrugs off | On |
+| Vehicles in the strike (with D'thorga Framework's vehicles) | Vehicles in the fireball are gone with everyone aboard; further out the blast wrecks or batters them by their weight, heat burns tyres and hoses, a running engine takes the pulse, and the people aboard are thrown about and take the dose the hull lets through. Off: a vehicle takes one blow to one spot, which armour usually shrugs off | On |
 | Close-in weapon systems shoot down Combat Extended shells (only with Combat Extended) | Off: they leave CE's mortar and artillery shells alone | On |
 
 ### Harrier jump jet

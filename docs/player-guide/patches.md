@@ -275,7 +275,7 @@ struck map**:
 - **The pulse** stops powered buildings and mechanoids standing in the open for a few hours.
 - **Vehicles, with D'thorga Framework's vehicles:** in the fireball a vehicle is gone with everyone aboard. Further out the blast
   throws it about: **weight decides**, so a car or a bus is wrecked (leaving its hull where that setting is on) where a tank is only
-  battered. Heat burns tyres, belts, hoses and wiring nearer the centre, and a vehicle with its engine running takes the pulse; a
+  battered. Heat burns tyres, belts, hoses and hydraulic lines nearer the centre, and a vehicle with its engine running takes the pulse; a
   parked one shrugs it off. **The people aboard** are bruised as their vehicle is thrown about, and with Rimatomics take the radiation
   that gets through the hull: nearly all of it in a car, about a third in a tank. **A vehicle is no shelter from a strike**: move
   vehicles under overhead mountain, all of them, or out of range. A setting, **Vehicles in the strike**, on by default.
