@@ -1,0 +1,33 @@
+{
+  "file": "camp-awning-canvas-11.png",
+  "sha256": "19864df93518fc5f6fc4fa72446029a0e63dd8bec9bdb2bcee23a8456195ce3d",
+  "date": "2026-11-21T21:52:58",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosdthorga, seen from directly above, floor plan: a strip of plain sand-coloured canvas awning stretched flat, twice as long as it is wide, with faint seams running across it, a rolled canvas bar along the bottom edge and a scalloped hanging fringe along the top edge; the left and right edges are cut straight so strips can be laid side by side without a gap. Draw it in exactly the art style of the reference images: a game building sprite with a very thick near-black outline, soft flat cel shading, pale panels, rounded corners and a muted palette. The strip fills the whole tall narrow canvas edge to edge, no background showing. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/camp-gear-house.json",
+  "size": [
+    768,
+    1536
+  ],
+  "seconds": 154.2,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DepotBay.png",
+      "sha256": "bf99066b4739829d79352ec35b692141cdb037c8285dd6fb5db40b1508b56f9a"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+      "sha256": "67ac7e90566d266295400f8684a770a990aed414645bf3c1335efe2251f28785"
+    }
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "lora_strength": 1.0
+}
