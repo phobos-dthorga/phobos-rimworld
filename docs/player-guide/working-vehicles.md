@@ -285,7 +285,8 @@ lot when it comes. The grab never lifts from another faction's storage, or a thi
 ## Pintle flatbed trailer
 
 A two-axle flatbed as wide as the trucks that tow it: 2,800 kg empty, 5,000 kg of cargo, with low sides and a drawbar. Its one upgrade, the greedy boards (+1,000 kg), shows as
-taller side boards.
+taller side boards. **It is also a camper trailer** (not yet tested in game): its deck takes a roof tent and an awning, and unhitched it
+pitches a camp of its own ([camping](vehicle-care.md#camping-awning-roof-tent-and-swags)).
 
 1. **Build it** from the **motor pool** tab, after **towing and trailers** research.
 2. **Load it** through its cargo tab while it stands unhitched.

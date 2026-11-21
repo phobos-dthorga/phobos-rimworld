@@ -13,7 +13,7 @@
   <Vehicles.VehicleDef ParentName="BaseVehiclePawn">
     <defName>Phobos_FlatbedTrailer</defName>
     <label>Pintle flatbed trailer</label>
-    <description>Pintle P1: a two-axle flatbed with low sides and a drawbar, for anything a truck can carry. Hitch it behind a vehicle to take a second load on the same trip, or leave it loaded at a camp or a site and drive away. It has no engine: whatever tows it pulls its weight and all it carries, so a small vehicle with a full trailer climbs slowly and runs hot.</description>
+    <description>Pintle P1: a two-axle flatbed with low sides and a drawbar, for anything a truck can carry. Hitch it behind a vehicle to take a second load on the same trip, or leave it loaded at a camp or a site and drive away. Its deck takes a roof tent and an awning, so unhitched it makes a camp of its own. It has no engine: whatever tows it pulls its weight and all it carries, so a small vehicle with a full trailer climbs slowly and runs hot.</description>
     <graphicData>
       <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
@@ -142,6 +142,9 @@
         <axleToCentre>0.27</axleToCentre>
         <jackKnifeDegrees>70</jackKnifeDegrees>
         <drawbarPart>Drawbar</drawbarPart>
+        <!-- A camper trailer (Framework 0.216.0, Vehicles 0.97.0; the owner, 22 Nov 2026): its deck takes a roof tent and an awning,
+             and it pitches its own camp once it stands unhitched. -->
+        <campDeck>true</campDeck>
       </li>
       <!-- D'thorga Framework's node looks: pictures shown by what is fitted (Framework 0.105.0, Vehicles 0.49.0, 12 Nov 2026). -->
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosNodeLooks">

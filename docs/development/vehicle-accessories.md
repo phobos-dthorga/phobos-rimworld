@@ -1,6 +1,6 @@
 # Vehicle accessories: camp gear and comforts (13 Nov 2026)
 
-**Status (21 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), the camp in 0.212.0 with its art in 0.213.1 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)), cab bunks and driving through the night in 0.214.0 (B2, B3; [what was built](#built-cab-bunks-and-driving-through-the-night-21-nov-2026)), and sleeping in a parked vehicle's bunk in 0.215.0 (B4; [what was built](#built-sleeping-in-a-parked-vehicle-21-nov-2026)). Not yet tested in game. Still a design: the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4) and the rest.
+**Status (22 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), the camp in 0.212.0 with its art in 0.213.1 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)), cab bunks and driving through the night in 0.214.0 (B2, B3; [what was built](#built-cab-bunks-and-driving-through-the-night-21-nov-2026)), sleeping in a parked vehicle's bunk in 0.215.0 (B4; [what was built](#built-sleeping-in-a-parked-vehicle-21-nov-2026)), and in 0.216.0 the night heater for a bunk sleeper and the camper trailer ([what was built](#built-the-camper-trailer-22-nov-2026)). Not yet tested in game. Still a design: the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4) and the rest.
 
 **A research and design record.** The owner, 13 November 2026: "I wish to
 explore vehicle accessories the player can install whether it's for entertainment, to help with camping, or something different
@@ -560,6 +560,31 @@ at once, and nobody is sent there unwell. No setting: it happens only for a colo
 | Asleep aboard | The sleeper boards a passenger seat; the vehicle rests them at the bunk's figure each tick while it stands still, through the game's own rest call | No "life aboard" check (Y4) exists yet, so the bunk does it for its sleeper only |
 | Waking | Rested, the timetable turning to work, a hostile threat, fire, illness, or another sleeper chosen: they climb out beside the vehicle | Starting the vehicle only warns, as the record said; a sleeper aboard when it leaves rides on as a passenger |
 | Warmth | The night heater burns for a bunk sleeper as at a caravan's camp (`When_BunkSleeper` beside `When_CaravanResting` in every loadout's night heater), with the same setting and switch | **Fixed in 0.216.0** (the owner's yes, 22 Nov 2026): as built in 0.215.0 the heater ran only at a caravan's night camp, so the sleeper had no heat with the engine off |
+
+## Built: the camper trailer (22 Nov 2026)
+
+The agent raised it on 22 Nov 2026, checking how the camps, berths and trailers meet: the camp was on driven vehicles only, so no
+trailer could carry a tent. **The owner said "Yes, in this batch"** (22 Nov 2026). Built in D'thorga Framework 0.216.0 and D'thorga
+Vehicles 0.97.0. Row 326 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Leave a camp standing on a trailer and drive the truck away: to hunt, to fetch, to fight |
+| What it stops them doing | Towing the trailer off with its camp out; pitching its camp while it is still on the hitch |
+| How it changes play | The camp and the transport come apart. A base camp can stay put on its trailer while the vehicles work from it |
+| What outside the trailer notices | The colonists (beds, the same waking memories), the weather (the awning's roof), the hitch (it refuses a pitched camp) |
+
+**Risk: low** (agent's grade, for the owner to confirm): as the camp itself; nothing is harmed or lost. No setting.
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| Which trailers | `campDeck` on a trailer's comp (`CompProperties_PhobosTrailer`), set on the Pintle flatbed | A plain deck only (agent's choice): a tank or the kitchen's body has no room for a tent on top, so bowsers, the shower trailer and the Billy are left as they were. Other authors' trailers can set the flag in XML |
+| Its mounts | A second trailer loadout, `PhobosVehicleLoadout_TrailerCampDeck`, matched by the flag and ranked above the plain one | The trailer loadout plus a **tent mount** (the roof mount's role) and a **side rail**. The same one system, so a flatbed already in a save keeps its tyres' state |
+| The camp order | `CompPhobosCamp`, now added to camp-deck trailers too | Nothing new: a colonist does the work, the layout stands beside the trailer, swags come from the trailer's own cargo. It refuses while towed, as every trailer's set-up does, and the hitch already refuses a vehicle with its camp out |
+
+**Limits:** the trailer's picture does not show the tent or awning folded on its deck (a fitting has no look of its own; the greedy
+boards do, being an upgrade). No cab bunk: a trailer has no sleeper berth. Other factions bring no trailers, so none stands camped at
+a base. **Cost to run:** none beyond the camp's own; the comp ticks only while an order waits.
 
 ## Questions for the owner
 

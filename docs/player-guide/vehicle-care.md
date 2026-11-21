@@ -449,6 +449,10 @@ the kit back in the cargo.
 - **Leaving with the camp out** (forming a caravan): it is packed as the vehicle leaves; a bed still in use stays behind.
 - **If the vehicle is destroyed**, its camp stays as ordinary beds and poles. Taking a pole down brings the awning's canvas down.
 - **Other factions' vehicles** at their own bases may be found with their camp out. Capture one and its camp is yours to pack.
+- **The camper trailer** (not yet tested in game): the **Pintle flatbed** takes camp gear too. Fit a roof tent and an awning from its
+  fittings window (it has a **tent mount** and a **side rail**), load swags into its cargo, tow it out and **unhitch it**: its own
+  **Set up camp** then pitches the camp beside the trailer, and the truck is free to drive off. **Pack up before hitching it again.**
+  Tank trailers and the field kitchen have no room for a tent on top.
 
 ## Sleeping on the road: cab bunks and driving through the night
 

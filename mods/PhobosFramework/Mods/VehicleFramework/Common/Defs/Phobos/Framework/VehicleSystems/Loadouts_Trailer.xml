@@ -10,7 +10,7 @@
     vehicle's rate (authored, the same figures as the land loadouts). With the systems come our Health tab, its wear lines, our repairs and
     the tyre service. No hitch (a trailer never tows a trailer) and no Dashboard tab. Not yet tested in game.
   -->
-  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutTrailer">
     <defName>PhobosVehicleLoadout_Trailer</defName>
     <label>trailer</label>
     <kind>Trailer</kind>
@@ -45,6 +45,49 @@
             <depth>External</depth>
           </li>
         </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+
+  <!--
+    A trailer whose deck takes camp gear (Framework 0.216.0; docs/development/vehicle-accessories.md, "Built: the camper trailer"; the owner,
+    22 Nov 2026): the trailer loadout, plus the two camp mounts every land vehicle has, so a roof tent and an awning have a part to go on.
+    Matched by the trailer comp's campDeck, never by name; it outranks the plain trailer loadout for those trailers alone. The same one
+    system, so a trailer already in a save keeps its tyres' state. Health and hit weight authored, as on the land loadouts.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutTrailer">
+    <defName>PhobosVehicleLoadout_TrailerCampDeck</defName>
+    <label>camper trailer</label>
+    <rank>1</rank>
+    <selector>
+      <campDeck>Yes</campDeck>
+    </selector>
+    <partRoles>
+      <li>
+        <role>RoofMount</role>
+        <add>
+          <key>PhobosRoofMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>tent mount</label>
+          <health>30</health>
+          <depth>External</depth>
+          <hitWeight>0.12</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Wheels</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>SideRail</role>
+        <add>
+          <key>PhobosSideRail</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>side rail</label>
+          <health>25</health>
+          <depth>External</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>5</hitWeightCE>
+          <cellsOf>Wheels</cellsOf>
+        </add>
       </li>
     </partRoles>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>

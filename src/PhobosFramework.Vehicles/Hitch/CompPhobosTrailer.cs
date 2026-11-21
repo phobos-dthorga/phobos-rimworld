@@ -29,6 +29,12 @@ public sealed class CompProperties_PhobosTrailer : CompProperties
     /// the work to set it up and to pack it up, at a colonist's construction speed (authored).</summary>
     public float setUpWork = 1500f;
     public float packUpWork = 1000f;
+    /// <summary>
+    /// Its deck takes camp gear (Framework 0.216.0; the owner, 22 Nov 2026: a camper trailer): it gets a roof mount and a side rail for the roof
+    /// tent and the awning, and the camp order, which sets out those and the swags in its cargo beside it once it stands unhitched. For a plain
+    /// deck; a tank or a kitchen has no room for a tent on top.
+    /// </summary>
+    public bool campDeck;
 
     public CompProperties_PhobosTrailer() => compClass = typeof(CompPhobosTrailer);
 

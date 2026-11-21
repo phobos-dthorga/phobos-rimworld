@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.97.0] - 2026-11-22 - Draft
+
+The Pintle flatbed as a camper trailer. Needs D'thorga Framework 0.216.0. Not yet tested in game.
+
+### Added
+
+- **The Pintle flatbed is a camper trailer** (the owner's yes of 22 November 2026). Its fittings window now offers a roof tent and an awning, on a tent mount and a side rail of its own. Load swags into its cargo, tow it out and unhitch it, and its own Set up camp button pitches the camp beside the trailer, so the truck can drive off and leave the camp standing. Pack up before hitching it again. The bowsers, the shower trailer and the Billy are unchanged: a tank or a kitchen has no room for a tent on top. Not yet tested in game: row 326 of the test pass.
+
+### Dependencies
+
+- Needs D'thorga Framework 0.216.0 for the camper trailer.
+
+### Save compatibility
+
+- A flatbed already built gains the two mounts at the next load; its cargo, tyres and upgrade are kept.
+
 ## [0.96.1] - 2026-11-21 - Draft
 
 The run-flat tyres' icon. Not yet tested in game.

@@ -1,6 +1,6 @@
 # Working trailers: the shared base and a catalogue (13 Nov 2026)
 
-**Status (18 Nov 2026):** built in D'thorga Framework 0.111.0, 0.121.0 and 0.133.0 (and Vehicles 0.54.0 to 0.56.0 and 0.59.0): set up and pack up by hand (B0.1), the hitch that respects it (B0.2), the power lead (B0.3), set-out pieces and canvas rooms (B0.4), the Pintle flatbed at 3 x 7, the water and fuel bowsers (Q3, Q4), the Billy field kitchen (Q1), the shower trailer (Q7) and a trailer's own systems (tyres, our Health tab); not built: the dry-goods locker and every other trailer in the catalogue. Not yet tested in game.
+**Status (22 Nov 2026):** built in D'thorga Framework 0.111.0, 0.121.0, 0.133.0 and 0.216.0 (and Vehicles 0.54.0 to 0.56.0, 0.59.0 and 0.97.0): set up and pack up by hand (B0.1), the hitch that respects it (B0.2), the power lead (B0.3), set-out pieces and canvas rooms (B0.4), the Pintle flatbed at 3 x 7, the water and fuel bowsers (Q3, Q4), the Billy field kitchen (Q1), the shower trailer (Q7) a trailer's own systems (tyres, our Health tab), water on the road ([what was built](#water-on-the-road-22-nov-2026)) and the flatbed as a camper trailer; not built: the dry-goods locker and every other trailer in the catalogue. Not yet tested in game.
 
 **Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026 (`dependency-audit-2026-11-16.md`); the VF line
 references below were read from its 1.6 build, as written at the time.
@@ -525,6 +525,9 @@ washing only at a stop, tanks before the kitchen's own water for drinking and th
 **The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.
 
 ### The Pintle flatbed
+
+Since Framework 0.216.0 and Vehicles 0.97.0 it is also a **camper trailer**: its deck takes a roof tent and an awning, and it pitches its
+own camp ([vehicle-accessories.md](vehicle-accessories.md#built-the-camper-trailer-22-nov-2026)). Fittings, not upgrades, so the tree is unchanged.
 
 <!-- upgrade-tree: Phobos_FlatbedTrailer_UpgradeTree -->
 ```mermaid

@@ -29,7 +29,8 @@ public class PhobosBedMemoryExtension : DefModExtension
     public bool comfortableOnly;
 }
 
-/// <summary>Gives a land vehicle its camp order (Framework 0.212.0). Added in code to every land vehicle with a loadout, trailers apart.</summary>
+/// <summary>Gives a land vehicle its camp order (Framework 0.212.0). Added in code to every land vehicle with a loadout, trailers apart, and to a trailer
+/// whose deck takes camp gear (Framework 0.216.0).</summary>
 public class CompProperties_PhobosCamp : VehicleCompProperties
 {
     public CompProperties_PhobosCamp() => compClass = typeof(CompPhobosCamp);

@@ -671,6 +671,11 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             Seen.Note("vehicles.camp-set-up", Vehicle, (plan.tent.HasValue ? "tent, " : "") + plan.poles.Count + " poles, " + plan.awning.Count + " roofed, " + plan.gear.Count + " gear, "
                 + plan.gearLeft + " left packed");
         }
+        // A camper trailer's own camp (Framework 0.216.0): noted apart, so its row is not passed by a truck's camp.
+        if (LoadoutSelector.IsCampDeck(Vehicle.VehicleDef) && Seen.Wants("trailers.camper-camp", Vehicle))
+        {
+            Seen.Note("trailers.camper-camp", Vehicle, (plan.tent.HasValue ? "tent, " : "") + plan.poles.Count + " poles, " + plan.gear.Count + " gear");
+        }
     }
 
     /// <summary>Takes a packed piece out of the cargo and out of its crate, ready to stand.</summary>

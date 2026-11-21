@@ -7,6 +7,9 @@
       "the kettle simmers on the move": ["trailers.caravan-simmer"],
       "a meal halt cooks and holds the caravan": ["trailers.caravan-meal-halt"]
     }},
+    "326": {"parts": {
+      "the camper trailer pitches its own camp": ["trailers.camper-camp"]
+    }},
     "325": {"parts": {
       "a thirsty member drinks from the tanks": ["trailers.caravan-drink"],
       "a member washes from a basin's worth": [{"key": "trailers.caravan-wash", "variant": "basin"}],

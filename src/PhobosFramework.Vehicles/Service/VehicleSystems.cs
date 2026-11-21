@@ -209,7 +209,8 @@ public static class VehicleSystems
         if (def.type == VehicleType.Land && !props.trailer && !def.comps.Any(c => c is CompProperties_PhobosBayTrip)) def.comps.Add(new CompProperties_PhobosBayTrip());
         // The camp order (Framework 0.212.0; docs/development/vehicle-accessories.md, Y3): every land vehicle with a loadout, trailers apart, can set
         // out a camp of its fitted awning and roof tent and the swags and bedrolls in its cargo. It offers its buttons only when it has any.
-        if (def.type == VehicleType.Land && !props.trailer && !def.comps.Any(c => c is CompProperties_PhobosCamp)) def.comps.Add(new CompProperties_PhobosCamp());
+        // A trailer whose deck takes camp gear has it too (Framework 0.216.0, the camper trailer): its camp is pitched once it stands unhitched.
+        if (def.type == VehicleType.Land && (!props.trailer || LoadoutSelector.IsCampDeck(def)) && !def.comps.Any(c => c is CompProperties_PhobosCamp)) def.comps.Add(new CompProperties_PhobosCamp());
         // The Dashboard and Systems tabs, before ThingDef.ResolveReferences resolves the tab list (this runs in its prefix; re-check the
         // order when Vehicle Framework releases 1.7). Only fitted designs get them.
         def.inspectorTabs ??= new List<System.Type>();
