@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "334": {"parts": {
+      "a caravan member eats from a towed trailer": ["trailers.caravan-ate-from-tow"]
+    }},
     "332": {"parts": {
       "a vehicle in the fireball is gone": [{"key": "vehicles.large-blast", "variant": "gone"}],
       "a light vehicle in the blast zone is wrecked": [{"key": "vehicles.large-blast", "variant": "wrecked", "expect": {"severity": ">= 1"}}],

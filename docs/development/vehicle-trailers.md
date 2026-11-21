@@ -520,6 +520,20 @@ look, two need reads; a caravan with no water aboard adds one dictionary read, a
 **Who chose what:** the owner chose that water in tow is used and that the kettle's water is charged; the agent chose every figure,
 washing only at a stop, tanks before the kitchen's own water for drinking and the reverse for the kettle.
 
+## Food in tow (Framework 0.219.0, 22 Nov 2026)
+
+**The gap:** a towed trailer rides in its hitch, outside the caravan, so the game's caravan feeding never looked in its cargo. Found
+by the agent on 21 Nov 2026 and listed as open; the owner said proceed on 22 Nov 2026. Row 334 of
+[the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+- **What it lets the player do:** carry a caravan's food in a trailer. **What it stops:** nothing. **How it changes play:** a flatbed
+  of food is a larder for a long trip. **What outside notices:** the colonists (fed), the trailer's cargo (it empties).
+- **How:** a postfix on the game's `CaravanInventoryUtility.TryGetBestFood`, which only acts when the packs gave nothing: it searches
+  every towed vehicle's cargo (`Hitches.InTow`) with the game's own `CanEatForNutritionNow` and `GetFoodScore`, and names the trailer
+  as the food's owner, so the game takes an eaten stack out of that cargo itself. **Risk: low** (agent's grade); no setting.
+- **Limits:** the caravan's days-of-food figure (Vehicle Framework's and the game's) counts the packs only. Drugs, medicine and
+  Dubs Bad Hygiene's water bottles in a trailer are not reached; the tanks' water is (`CaravanWater`).
+
 ## Upgrade trees as they stand
 
 **The tree as it stands**, drawn from its Defs by `python scripts/check-upgrade-trees.py --write` and kept current by the gate (never edit it by hand): a box holds alternatives, an arrow is what an upgrade needs, an "any one" joint is one of our any-of links, a crossed line joins two that cannot both be fitted, and a dashed node comes only with a tie-in.

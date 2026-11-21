@@ -368,6 +368,10 @@ vehicle that tows it. That vehicle's Systems tab gains a **trailer cold box** li
 by a failing alternator, on a flat battery or unhitched, it is only a box. **Food in a trailer ages on the road like any cargo**: a
 towed trailer is no freezer.
 
+**Food in a towed trailer is eaten on the road** (not yet tested in game): once the caravan's own packs run out of anything a person
+can eat, they eat from the cargo of whatever it tows. The caravan's days-of-food figure counts the packs only, so a trailer full of food
+shows as fewer days than you really have.
+
 **Driving through the night** (not yet tested in game): a caravan that never stops has no night's rest to cook in, so **its kettle
 simmers on the move**: riders who are not driving or crewing make **half as many meals each** (up to 10), for the same fuel a meal.
 Prefer a proper stop? Select the caravan and switch on **Meal halts**: it then stops **for an hour** each night, every cook works at

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.219.0] - 2026-11-22 - Draft
+
+Camps and trailers on the road, and the kitchen box
+
+### Fixed
+
+- **A caravan's people eat the food in its towed trailers.** A trailer on the hitch rides outside the caravan, so the game's caravan feeding never saw food in its cargo, and people went hungry beside a full one. When the caravan's own packs hold nothing a person can eat, the cargo of whatever it tows is searched, by the game's own rules for what they may eat and like best; while the packs hold food, nothing changes. The caravan's days-of-food figure still counts the packs only. Not yet tested in game: row 334 of the test pass.
+
 ## [0.218.0] - 2026-11-22 - Draft
 
 What a large blast does to a vehicle
