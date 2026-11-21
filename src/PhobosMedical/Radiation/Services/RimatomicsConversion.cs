@@ -28,6 +28,13 @@ public static class RimatomicsConversion
         buildup = DefDatabase<HediffDef>.GetNamedSilentFail("RadiationIncurable");
     }
 
+    /// <summary>Whether this condition is one of Rimatomics' radiation conditions.</summary>
+    public static bool IsRimatomics(HediffDef def)
+    {
+        Look();
+        return def != null && (def == sickness || def == fatal || def == buildup);
+    }
+
     /// <summary>Whether this person carries one of Rimatomics' radiation conditions, so the giver looks at them.</summary>
     public static bool HasAny(Pawn pawn)
     {

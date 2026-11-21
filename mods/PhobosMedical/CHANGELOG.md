@@ -6,6 +6,14 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.22.0] - 2026-11-22 - Draft
+
+Dev actions to give and remove radiation
+
+### Added
+
+- **Dev actions to give and take away radiation** (the owner's request of 22 November 2026), in the D'thorga section of the dev menu, for the selected people: Radiation: give a dose to selected pawns, with buttons from 0.25 to 50 Gy, so each stage of the course can be reached; Radiation: remove all radiation from selected pawns, which also clears Dubs Rimatomics' radiation conditions so none convert back; and Radiation: log the dose of selected pawns, with the course, the care counted and the dose that would kill that person. Not yet tested in game.
+
 ## [0.21.0] - 2026-11-22 - Draft
 
 Radiation sickness that runs its real course
