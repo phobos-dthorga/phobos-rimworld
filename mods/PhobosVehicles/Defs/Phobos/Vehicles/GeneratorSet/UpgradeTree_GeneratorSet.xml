@@ -128,12 +128,14 @@
       <!-- Vehicles 0.100.0 (owner, 22 Nov 2026: the jamming truck on the Busbar; docs/development/ea6b-prowler.md, step 4). A mast of antennas
            that jams within 18 cells while the set is set up and running, taking 800 W off the top of its output (the rules Def's figures,
            authored; D'thorga Framework's CompPhobosGeneratorSet and JamFields). Inside the field, other factions' vehicles lose their radar and
-           warning receiver. Its icon and overlay are still to be drawn (the art backlog); the node works without them showing. -->
+           warning receiver. Its own icon and overlay are still to be drawn (the art backlog). Until then it borrows the Osprey's infrared
+           jammer icon and has no overlay (Vehicles 0.105.1): an icon path to a missing picture stops Vehicle Framework's Upgrades tab
+           drawing at this node, and scripts/check-upgrade-trees.py now refuses one. Add graphicOverlays back with the mast's art. -->
       <key>GroundJammer</key>
       <label>Jammer mast</label>
       <displayLabel>true</displayLabel>
       <description>A folding mast of jamming antennas, powered from the generator. While the set is set up and running, it floods the air with noise for 18 cells around: enemy aircraft and vehicles inside lose their radar and their warning of attack. It takes 800 W of the set's output, so less reaches the grid.</description>
-      <icon>Phobos/Vehicles/GeneratorSet/Upgrades/GroundJammer</icon>
+      <icon>Phobos/Vehicles/Osprey/Upgrades/InfraredJammer</icon>
       <work>4000</work>
       <gridCoordinate>(17, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
@@ -145,17 +147,6 @@
         <ComponentIndustrial>6</ComponentIndustrial>
         <ComponentSpacer>2</ComponentSpacer>
       </ingredients>
-      <graphicOverlays>
-        <li>
-          <graphicData>
-            <texPath>Phobos/Vehicles/GeneratorSet/GeneratorSet_JammerMast</texPath>
-            <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-            <drawSize>(4, 9)</drawSize>
-            <shaderType>Cutout</shaderType>
-            <layer>1</layer>
-          </graphicData>
-        </li>
-      </graphicOverlays>
     </li>
     <li>
       <!-- Owner, 11 Nov 2026 (docs/development/vehicle-upgrades-round-two.md, the generator set's signature). The share and the output

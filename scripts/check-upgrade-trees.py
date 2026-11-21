@@ -15,6 +15,10 @@ docs/development. A diagram sits under a marker line, <!-- upgrade-tree: DEFNAME
 Also fails a layout that has drifted (owner's go-ahead, 20 Nov 2026, after five trees ran below Vehicle Framework's tab as kits were
 added under them): a node drawn past the tab, a first row that does not start at the top, two nodes with no gap between them, and a
 band of empty rows inside a tree, such as a row holding only a tie-in upgrade, which is blank without that mod (tie-ins go last).
+Also fails a node whose icon or overlay names a picture of ours (a path under Phobos/) that no mod of ours ships (22 Nov 2026, after the
+Busbar's jammer mast was given an icon still to be drawn): Vehicle Framework draws a missing icon as nothing and throws, so the Upgrades
+tab stops drawing at that node and every node after it vanishes. Leave graphicOverlays out until the overlay's art exists, and give the
+node a borrowed icon until its own is drawn.
 Exit code 1 when anything is wrong.
 """
 import argparse
@@ -30,6 +34,12 @@ ANY_OF_CLASS = 'Phobos.VehicleSystems.PhobosUpgradeAnyOf'
 NODES_XPATH = re.compile(r'UpgradeTreeDef\[defName="([^"]+)"\]/nodes\s*$')
 TIE_IN_FOLDER = re.compile(r'[\\/]Mods[\\/]([^\\/]+)[\\/]')
 MARKER = re.compile(r'^<!-- upgrade-tree: (\S+) -->\s*$')
+# Pictures of ours: a path under this is checked against every mod's Textures folder. Other paths (the game's, another author's) are
+# not ours to check.
+OUR_PICTURES = 'Phobos/'
+PICTURE_SUFFIXES = ('.png', '.dds', '.jpg', '.jpeg', '.psd')
+# A Graphic_Vehicle or Graphic_Multi path names <path>_north and so on (and <path>_northm for a paint mask).
+FACINGS = ('_north', '_south', '_east', '_west')
 
 # Vehicle Framework's Upgrades tab (ITab_Vehicle_Upgrades, read in its 1.7 build of 18 Nov 2026): a fixed 880 by 520 with no scroll view
 # of its own. A node's centre is drawn at GridOrigin + GridSpacing * cell - GridSpacing / 2 (30 + 20 * cell - 10), 20 lower for the
@@ -58,6 +68,7 @@ class Node:
     source: str
     tie_in: str | None  # the Mods/<Other> folder that adds it, or None for a node of the tree itself
     size: tuple = DEFAULT_SIZE  # drawSize, in pixels
+    pictures: list = field(default_factory=list)  # (what, path): its icon and each overlay's texPath
 
 
 @dataclass
@@ -87,7 +98,55 @@ def _node(element, source, tie_in):
         excludes.append(single)
     return Node(key=(element.findtext('key') or '').strip(), label=(element.findtext('label') or '').strip(),
                 coord=re.sub(r'\s', '', element.findtext('gridCoordinate') or ''), prereqs=_items(element, 'prerequisiteNodes'),
-                excludes=excludes, source=source, tie_in=tie_in, size=_pair(element.findtext('drawSize')) or DEFAULT_SIZE)
+                excludes=excludes, source=source, tie_in=tie_in, size=_pair(element.findtext('drawSize')) or DEFAULT_SIZE,
+                pictures=_pictures(element))
+
+
+def _pictures(element):
+    found = []
+    icon = (element.findtext('icon') or '').strip()
+    if icon:
+        found.append(('icon', icon))
+    for overlay in element.findall('graphicOverlays/li'):
+        path = (overlay.findtext('graphicData/texPath') or '').strip()
+        if path:
+            found.append(('overlay', path))
+    return found
+
+
+def textures(mods):
+    """Every picture name our mods ship, as a Def would name it: each file's path under its Textures folder without the extension,
+    the same without a facing (and paint-mask) suffix, and each folder holding pictures (a Graphic_Random's path)."""
+    known = set()
+    for path in mods.rglob('*'):
+        if path.suffix.lower() not in PICTURE_SUFFIXES or 'Textures' not in path.parts:
+            continue
+        parts = path.parts
+        rel = '/'.join(parts[len(parts) - parts[::-1].index('Textures'):])
+        name = rel.rsplit('.', 1)[0]
+        known.add(name)
+        known.add(name.rsplit('/', 1)[0])
+        for facing in FACINGS:
+            for suffix in (facing, facing + 'm'):
+                if name.endswith(suffix):
+                    known.add(name[:-len(suffix)])
+    return known
+
+
+def check_pictures(tree, known):
+    """Each node's icon and overlay that names a picture of ours no mod of ours ships."""
+    problems = []
+    for node in tree.nodes.values():
+        for what, path in node.pictures:
+            if not path.startswith(OUR_PICTURES) or path in known:
+                continue
+            if what == 'icon':
+                problems.append(f'{tree.name}: {node.key}\'s icon {path} is not a picture any mod of ours ships: Vehicle Framework stops '
+                                'drawing the Upgrades tab at this node; borrow an existing icon until its own is drawn')
+            else:
+                problems.append(f'{tree.name}: {node.key}\'s overlay {path} is not a picture any mod of ours ships: leave its '
+                                'graphicOverlays out until the art exists')
+    return problems
 
 
 def _pair(text):
@@ -420,7 +479,8 @@ def main(argv=None):
     if args.command == 'show':
         show(trees, args.pattern)
         return 0
-    problems = [p for tree in trees.values() for p in check_tree(tree) + check_layout(tree)]
+    known = textures(Path(args.mods))
+    problems = [p for tree in trees.values() for p in check_tree(tree) + check_layout(tree) + check_pictures(tree, known)]
     problems += check_diagrams(trees, Path(args.docs), args.write)
     for problem in problems:
         print(problem)

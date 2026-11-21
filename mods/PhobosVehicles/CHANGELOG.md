@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.105.1] - 2026-11-22 - Draft
+
+The Busbar's upgrades shown again
+
+### Fixed
+
+- **The Busbar generator set's Customize tab shows every upgrade again.** The Jammer mast (0.100.0) named an icon not yet drawn, so the tab stopped at it: an empty square, and every upgrade after it missing, with a red error each frame while the tab was open. It borrows the Osprey's infrared jammer icon until its own is drawn. Not yet tested in game: row 367.
+
+### Changed
+
+- **The Jammer mast no longer names a picture on the truck** until its art is made; it worked the same without one, as no mast showed anyway.
+
 ## [0.105.0] - 2026-11-22 - Draft
 
 Rolled bags on either side, the rear tent drawn

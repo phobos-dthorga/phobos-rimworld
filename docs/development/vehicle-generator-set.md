@@ -15,7 +15,8 @@ generator-set sketch in [utility vehicles](utility-vehicles-design.md) and follo
 
 **Jammer mast (Vehicles 0.100.0, Framework 0.227.0; owner, 22 Nov 2026):** a new node, `GroundJammer`, jams within 18 cells while the set
 is set up and running, taking 800 W off the top of its output; designed in [the EA-6B Prowler's record](ea6b-prowler.md), step 4. Not yet
-tested in game.
+tested in game. Until its own icon is drawn it borrows the Osprey's infrared jammer icon, and it has no overlay on the truck until the
+mast's art exists (Vehicles 0.105.1: the icon it first named was not drawn, which stopped the Customize tab drawing at it).
 
 ## Read this first
 

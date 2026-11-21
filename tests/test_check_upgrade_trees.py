@@ -160,10 +160,42 @@ class CheckUpgradeTreesTests(unittest.TestCase):
         self.write('TestMod/Defs/Tree.xml', TREE.replace('(5, 9)', '(5, 17)').replace('(12, 9)', '(12, 17)'))
         self.assertTrue(any('rows 2 and 17 have empty rows between them' in p for p in self.layout()))
 
+    def pictures(self):
+        known = trees.textures(self.mods)
+        return [p for tree in trees.gather(self.mods).values() for p in trees.check_pictures(tree, known)]
+
+    def picture(self, rel):
+        path = self.mods / 'TestMod/Textures' / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b'')
+
+    def test_an_icon_no_mod_ships_fails(self):
+        # Vehicle Framework draws a missing icon as nothing and throws, so every node after it vanishes from the tab.
+        icon = '<label>Tank A</label><icon>Phobos/Test/TankA</icon>'
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('<label>Tank A</label>', icon))
+        self.assertTrue(any("TankA's icon Phobos/Test/TankA is not a picture" in p for p in self.pictures()))
+        self.picture('Phobos/Test/TankA.png')
+        self.assertEqual([], self.pictures())
+
+    def test_an_overlay_needs_its_facings_or_a_plain_picture(self):
+        overlay = ('<label>Tank B</label><graphicOverlays><li><graphicData><texPath>Phobos/Test/Body_Tank</texPath>'
+                   '</graphicData></li></graphicOverlays>')
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('<label>Tank B</label>', overlay))
+        self.assertTrue(any("TankB's overlay Phobos/Test/Body_Tank is not a picture" in p for p in self.pictures()))
+        self.picture('Phobos/Test/Body_Tank_north.png')
+        self.assertEqual([], self.pictures())
+
+    def test_pictures_not_ours_are_not_checked(self):
+        self.write('TestMod/Defs/Tree.xml', TREE.replace('<label>Tank A</label>', '<label>Tank A</label><icon>UI/Icons/Other</icon>'))
+        self.assertEqual([], self.pictures())
+
     def test_the_shipped_trees_pass(self):
-        found = trees.gather(Path(ROOT) / 'mods')
+        mods = Path(ROOT) / 'mods'
+        found = trees.gather(mods)
+        known = trees.textures(mods)
         self.assertGreater(len(found), 0)
-        self.assertEqual([], [p for tree in found.values() for p in trees.check_tree(tree) + trees.check_layout(tree)])
+        self.assertEqual([], [p for tree in found.values()
+                              for p in trees.check_tree(tree) + trees.check_layout(tree) + trees.check_pictures(tree, known)])
 
 
 if __name__ == '__main__':
