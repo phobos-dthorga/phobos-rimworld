@@ -1,0 +1,56 @@
+{
+  "file": "fitting-heavy-brakes-paid-2.png",
+  "sha256": "14eea2d5602789050009680738d19bd9c9019b6c43494c3a1934fd7a4a7556d5",
+  "date": "2026-11-21T19:48:44",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One tidy assembly, centred.\n\nCreate an ORIGINAL game icon for the D'thorga heavy-duty brakes: an uprated brake upgrade for a big truck. Image 1 is our approved brake pad set and image 2 our approved drivetrain kit, from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their layout: this must look clearly bigger and tougher than the plain brake pad set.\n\nDraw ONLY the brake assembly, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA large thick ventilated steel brake disc standing on its edge, with straight cooling slots cut across its face, gripped at the top by a big chunky muted orange four-piston brake caliper with two visible bolts.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, fan blades, turbine, dust, floor, ground or cast shadow.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/paid-brakes-clutch.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 434,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 306
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2190
+  },
+  "cost_usd": 0.0552,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 29.9,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/BrakePadSet.png",
+      "sha256": "87d5ef34a7353500c148711b5122a856c0ad4c6d6c07486300bfdf491462ccc1",
+      "role": "our approved brake pad set icon from the same family: match its outline weight, shading, palette and finish only; this new icon must look clearly heavier and different, so do not copy its layout"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+      "sha256": "608ed6b47c62096ea191cf0d26d9f2c09c06379146b6e38173571234405ec7ba",
+      "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}

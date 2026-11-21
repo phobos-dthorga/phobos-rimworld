@@ -1,0 +1,51 @@
+{
+  "file": "farming-front-standard-paid-1.png",
+  "sha256": "a127dfcac31e1fd7f6782f3bc051deb9d71ae1509f3dba85b7e703ea0d2ec119",
+  "date": "2026-11-21T19:50:09",
+  "prompt": "GAME ICON EDIT. Image 1 is our approved wide grain front for a combine harvester, seen from above.\n\nDraw the STANDARD grain front from the same family: exactly the same parts, colours, outline weight, shading and finish as image 1, but clearly SHORTER: about half as long, with about half as many knife guards and reel sections, so the whole header is roughly twice as long as it is deep rather than five times. Keep the two pointed crop dividers at the ends and the square feeder mount in the middle of the back edge.\n\nOne object, centred, filling about 75 percent of the canvas width, on a plain pure white background. Square canvas.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, hands, vehicles, crops, text, letters, numbers, logos, floor, ground or cast shadow.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/paid-front-and-cable.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1251,
+    "input_tokens_details": {
+      "image_tokens": 1024,
+      "text_tokens": 227
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 3007
+  },
+  "cost_usd": 0.062,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 23.3,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/generated/farming-front-wide-b/farming-front-wide-b-11.png",
+      "sha256": "2db2a0110ee770c37835f04d41dc56d86878e438ee42532fc49984d8477df1aa",
+      "role": "our approved wide grain front: the same machine family. Keep its parts, colours, outline weight, shading and finish exactly; only its length changes"
+    }
+  ]
+}
