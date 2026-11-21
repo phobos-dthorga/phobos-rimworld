@@ -1092,6 +1092,11 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public int campReachCells = 6;
     public float campAtBaseChance = 0.6f;
     public IntRange campAtBaseSwags = new(1, 3);
+    /// <summary>Cab bunks and driving through the night (Framework 0.214.0; vehicle-accessories.md, B2 and B3, authored): a rider takes the bunk
+    /// on the move below this rest; a driver may drive on above the first line, and a passenger takes over above the second.</summary>
+    public float bunkWantsBelowRest = 0.95f;
+    public float nightDriverFitRest = 0.3f;
+    public float nightReliefRest = 0.6f;
     /// <summary>Claiming another faction's vehicle (owner, 11 Nov 2026): hours to get in and make it answer to us, more for each cell it covers,
     /// and the most it can take. All authored.</summary>
     public float claimBaseHours = 0.5f;

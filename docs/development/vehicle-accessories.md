@@ -1,6 +1,6 @@
 # Vehicle accessories: camp gear and comforts (13 Nov 2026)
 
-**Status (22 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), and the camp's first part in 0.212.0 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)). Not yet tested in game. Still a design: the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4), the rest, and berths B2 to B4.
+**Status (21 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), the camp in 0.212.0 with its art in 0.213.1 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)), and cab bunks and driving through the night in 0.214.0 (B2, B3; [what was built](#built-cab-bunks-and-driving-through-the-night-21-nov-2026)). Not yet tested in game. Still a design: sleeping inside a parked vehicle (B4), the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4) and the rest.
 
 **A research and design record.** The owner, 13 November 2026: "I wish to
 explore vehicle accessories the player can install whether it's for entertainment, to help with camping, or something different
@@ -513,6 +513,30 @@ a camp only happens when the player orders it.
 until packed. The canvas is drawn per row, so an awning that crosses a map section's edge may not draw while that section is off screen.
 **Art (Framework 0.213.1):** the swag, roof tent, awning pole and canvas, the two kits and the two buttons are our own, made on the house
 style model and picked by the owner on 21 Nov 2026 (three on a second round). Each texture's record says how.
+
+## Built: cab bunks and driving through the night (21 Nov 2026)
+
+Step 2 of the owner's "proceed with all of these" (21 Nov 2026), built in D'thorga Framework 0.214.0: B2 and B3 together. Rows 319 and
+320 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game. Step 3 is B4, sleeping inside a parked vehicle.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Rest riders on the road in a heavy truck's bunk; with the setting on, cover about twice the ground a day by driving in shifts |
+| What it stops them doing | Seating as many in a cab of three or more seats once a bunk is fitted |
+| How it changes play | Crews are built in pairs of drivers; who rides and who sleeps matters before a long run |
+| What outside the vehicle notices | The colonists (rest gained on the move, tired drivers), the world map (caravans arrive sooner, fuel burns longer) and the message log (who took the wheel) |
+
+**Risk: moderate** (agent's grade, for the owner to confirm): nothing is harmed, but caravans burn more fuel and crews can arrive tired.
+The owner had already chosen it as a setting, off by default (13 Nov 2026): **Drive through the night**, vehicle systems settings.
+
+| Piece | Where | Differs from the design |
+| --- | --- | --- |
+| Cab bunk (B2) | A fitting on a new **sleeper berth** part of every heavy land vehicle, wheeled and 3,500 kg or more; its bed is held by the vehicle (`CompPhobosCamp.Bunk`) | Built from steel and cloth with no kit of its own (agent default). It takes a passenger seat's place in a cab of more than two seats, through the walk-in cabins' shared-seat check |
+| Bunk on the move | Postfixes on the game's caravan bed list and after Vehicle Framework's bed pass (`Berths`): the bunk goes to the most tired passenger of its own vehicle below 0.95 rest | Passengers only: drivers and gunners never take it |
+| Night driving (B3) | A world component checks each player vehicle caravan every 250 ticks at night on the road (`NightDriving`); a postfix after Vehicle Framework's night-rest answer reads its result | Each caravan has its own **Drive through the night** button, on by default once the setting is on (agent default). The relief rides in the same vehicle; the change of places goes through Vehicle Framework's own seat calls and is undone if a seat refuses |
+
+**Known limits:** the arrival time shown while planning a route still counts the nights at rest, so trips arrive sooner than shown. A
+driver who never tires (a mechanoid) always counts as fit.
 
 ## Questions for the owner
 

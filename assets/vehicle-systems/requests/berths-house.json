@@ -1,0 +1,94 @@
+[
+ {
+  "name": "berth-cab-bunk-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a narrow padded bunk mattress with a pillow and a folded grey blanket on a thin steel frame, a short pulled-back curtain hanging at one end. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Cab bunk fitting: a narrow padded bunk with pillow, blanket and a pulled-back curtain",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/BatteryWarmer.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Cab bunk fitting",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabBunk.png",
+   "why": "cab bunks and driving through the night (Framework 0.214.0; docs/development/vehicle-accessories.md, built 21 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "berth-cab-bunk-c",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a slim sleeper bunk seen at an angle, a khaki mattress with a white pillow on a dark metal shelf frame with two small fold-down legs. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Cab bunk fitting: a slim khaki mattress and pillow on a dark metal shelf frame",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/BatteryWarmer.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Cab bunk fitting",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/CabBunk.png",
+   "why": "cab bunks and driving through the night (Framework 0.214.0; docs/development/vehicle-accessories.md, built 21 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "button-night-drive-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game button icon: a pale crescent moon and two small stars above a dark road curving away into the distance, two bright headlight beams shining along the road. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Drive through the night button: a crescent moon and stars over a road lit by headlight beams",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Headlights.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightHeater.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Drive through the night button",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightDrive.png",
+   "why": "cab bunks and driving through the night (Framework 0.214.0; docs/development/vehicle-accessories.md, built 21 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "button-night-drive-c",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game button icon: a steering wheel with a pale crescent moon resting on its top rim and a few small stars around it. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Drive through the night button: a steering wheel with a crescent moon and stars",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Headlights.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightHeater.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Drive through the night button",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightDrive.png",
+   "why": "cab bunks and driving through the night (Framework 0.214.0; docs/development/vehicle-accessories.md, built 21 Nov 2026)",
+   "route": "house"
+  }
+ }
+]

@@ -41,6 +41,7 @@ public static class VehicleCampDefOf
     public static ThingDef PhobosCamp_RoofTent = null!;
     public static ThingDef PhobosCamp_AwningPole = null!;
     public static ThingDef PhobosCamp_Swag = null!;
+    public static ThingDef PhobosCamp_CabBunk = null!;
     public static RoofDef Phobos_CanvasRoof = null!;
     public static JobDef PhobosVehicleSystems_CampWork = null!;
 

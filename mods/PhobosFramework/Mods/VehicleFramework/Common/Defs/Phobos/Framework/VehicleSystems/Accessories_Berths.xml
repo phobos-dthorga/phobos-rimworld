@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Cab bunks (Framework 0.214.0; docs/development/vehicle-accessories.md, B2; the owner's go of 21 Nov 2026): a sleeper berth behind a heavy
+    vehicle's seats, on wheeled vehicles of 3,500 kg and up (the owner's choice of 13 Nov 2026). While the caravan moves, the most tired
+    passenger of that vehicle sleeps in it (Berths); stopped, it is one more caravan bed. In a cab of more than two seats it takes one
+    passenger seat's place. Rest 0.9, comfort 0.7, 40 kg: the record's figures, authored. Built from steel and cloth like the battery warmer,
+    with no kit of its own. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_CabBunk</defName>
+    <iconPath>Phobos/VehicleSystems/Fittings/CabBunk</iconPath>
+    <label>cab bunk</label>
+    <description>A narrow bunk with a mattress and a curtain behind the seats. While the vehicle travels, the most tired passenger aboard sleeps in it and arrives rested; parked, it is a bed like any other the caravan carries. In a cab of more than two seats it takes one seat's place. Only heavy wheeled vehicles have room for one.</description>
+    <roles><li>SleeperBerth</li></roles>
+    <materials><Steel>20</Steel><Cloth>30</Cloth></materials>
+    <kilograms>40</kilograms>
+    <minKilograms>3500</minKilograms>
+    <tracked>No</tracked>
+    <work>3000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>CabBunk</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <!-- The bunk itself: held by the vehicle, never placed on a map, so its picture (our swag's) is only ever an icon. -->
+    <defName>PhobosCamp_CabBunk</defName>
+    <label>cab bunk</label>
+    <description>A narrow bunk behind a vehicle's seats.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/Swag</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1,2)</drawSize>
+    </graphicData>
+    <size>(1,2)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>60</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Mass>40</Mass>
+      <BedRestEffectiveness>0.9</BedRestEffectiveness>
+      <ImmunityGainSpeedFactor>1</ImmunityGainSpeedFactor>
+      <Comfort>0.7</Comfort>
+      <WorkToBuild>0</WorkToBuild>
+    </statBases>
+    <building>
+      <bed_showSleeperBody>false</bed_showSleeperBody>
+      <bed_healPerDay>2</bed_healPerDay>
+      <bed_caravansCanUse>true</bed_caravansCanUse>
+      <deconstructible>false</deconstructible>
+      <buildingTags>
+        <li>Bed</li>
+      </buildingTags>
+    </building>
+    <comps>
+      <li Class="CompProperties_AssignableToPawn">
+        <drawAssignmentOverlay>false</drawAssignmentOverlay>
+        <compClass>CompAssignableToPawn_Bed</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

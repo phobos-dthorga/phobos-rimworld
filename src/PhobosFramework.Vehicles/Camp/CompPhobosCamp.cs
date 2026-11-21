@@ -58,6 +58,55 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     public bool TentFitted => Systems is { Usable: true } systems && systems.Fittings.Grants(RoofTentAbility);
     public bool AwningFitted => Systems is { Usable: true } systems && systems.Fittings.Grants(AwningAbility);
 
+    // ---- The cab bunk (Framework 0.214.0; the record's B2): a bed the vehicle holds, given out by the caravan's bed pass (Berths) ----
+
+    internal const string CabBunkAbility = "CabBunk";
+
+    public bool BunkFitted => Systems is { Usable: true } systems && systems.Fittings.Grants(CabBunkAbility);
+
+    /// <summary>
+    /// The cab bunk's bed while one is fitted: held with the packed roof tent, made the first time it is asked for. A bunk whose fitting has come
+    /// off is discarded here (its materials came back when it was taken off). Never spawned.
+    /// </summary>
+    public Building_Bed? Bunk
+    {
+        get
+        {
+            Thing? bunk = Held.FirstOrDefault(t => t.def == VehicleCampDefOf.PhobosCamp_CabBunk);
+            if (!BunkFitted)
+            {
+                if (bunk != null)
+                {
+                    Held.Remove(bunk);
+                    bunk.Destroy();
+                }
+                return null;
+            }
+            if (bunk == null)
+            {
+                bunk = ThingMaker.MakeThing(VehicleCampDefOf.PhobosCamp_CabBunk);
+                Held.TryAdd(bunk);
+            }
+            return bunk as Building_Bed;
+        }
+    }
+
+    /// <summary>A caravan's switch for driving through the night, on its first vehicle only, while the setting is on.</summary>
+    public override IEnumerable<Gizmo> CompCaravanGizmos()
+    {
+        foreach (Gizmo gizmo in base.CompCaravanGizmos()) yield return gizmo;
+        if (!NightDriving.Enabled || Vehicle.Faction != Faction.OfPlayer || Vehicle.GetVehicleCaravan() is not { } caravan
+            || caravan.VehiclesListForReading.FirstOrDefault() != Vehicle || NightDriving.Current is not { } driving) yield break;
+        yield return new Command_Toggle
+        {
+            defaultLabel = "PhobosNightDrive_Gizmo".Translate().Resolve(),
+            defaultDesc = "PhobosNightDrive_GizmoDesc".Translate().Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/NightDrive"),
+            isActive = () => driving.SwitchedOn(caravan),
+            toggleAction = () => driving.Toggle(caravan),
+        };
+    }
+
     /// <summary>Whether its camp stands beside it now.</summary>
     public bool IsPitched => placed.Count > 0 || poles.Count > 0;
 

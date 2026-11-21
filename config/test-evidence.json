@@ -3,6 +3,13 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "320": {"parts": {
+      "the caravan drives on at night": ["vehicles.night-drive"],
+      "a rested passenger takes the wheel": ["vehicles.night-drive-hand-over"]
+    }},
+    "319": {"parts": {
+      "a tired passenger sleeps in the bunk on the move": ["vehicles.bunk-on-the-move"]
+    }},
     "318": {"parts": {
       "an errand passes over a trap": ["vehicles.trap-passed-over"]
     }},

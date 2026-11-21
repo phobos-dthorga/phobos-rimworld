@@ -450,6 +450,21 @@ the kit back in the cargo.
 - **If the vehicle is destroyed**, its camp stays as ordinary beds and poles. Taking a pole down brings the awning's canvas down.
 - **Other factions' vehicles** at their own bases may be found with their camp out. Capture one and its camp is yours to pack.
 
+## Sleeping on the road: cab bunks and driving through the night
+
+Not yet tested in game.
+
+- **Cab bunk** (40 kg; steel and cloth; research **vehicle parts**): fit it to a heavy truck's **sleeper berth** (wheeled, 3,500 kg
+  or more). While the caravan travels, the most tired passenger sleeps in it and arrives rested; stopped, it is one more bed. Drivers
+  never take it. In a cab of three or more seats it takes one seat's place.
+- **Drive through the night** (a setting, **off by default**; D'thorga Framework's settings, under vehicle systems): vehicle caravans
+  keep going at night while every vehicle has a rested driver. When a driver tires, a rested passenger of the same vehicle who can
+  drive takes the wheel, and a message says who. **Put two drivers in every vehicle**: if any one vehicle has nobody to take over,
+  the whole caravan stops for the night as usual.
+- Each caravan has its own **Drive through the night** button, on once the setting is on; switch it off to rest that caravan at night.
+- **What it costs:** fuel for the extra hours, headlights at night, and tired people at the far end if bunks are short. The arrival
+  time shown when planning still counts the nights, so you will arrive sooner than it says.
+
 ## Headlights
 
 - **Lights switch themselves, by default** (the setting **Lights switch themselves**, on): headlights light in the dark (night, dusk

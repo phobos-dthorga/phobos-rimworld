@@ -5,6 +5,24 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.214.0] - 2026-11-21 - Draft
+
+Cab bunks, and driving through the night
+
+### Added
+
+- **Cab bunks** (the owner's go of 21 November 2026): a heavy wheeled vehicle (3,500 kg or more) has a new sleeper berth, where a bunk can be fitted from steel and cloth (40 kg). While the caravan travels, the most tired passenger of that vehicle sleeps in it and rests as in a bed; stopped, it is one more caravan bed. Drivers and gunners never take it. In a cab of more than two seats it takes one passenger seat's place. Not yet tested in game: row 319 of the test pass.
+- **Drive through the night**, a new setting, off by default (the owner's choice): vehicle caravans keep going at night while every vehicle has a driver rested enough to drive. When a driver tires, a rested passenger of the same vehicle who can drive takes the wheel, a message says who, and the tired one rests in a seat or the bunk. If any one vehicle has nobody to take over, the whole caravan stops for the night as before. Each caravan has its own button to stop at night as usual. Journeys take about half the time, paid for in fuel and tired crews. Not yet tested in game: row 320.
+
+### Save compatibility
+
+- Safe to add to a save: heavy land vehicles gain a sleeper berth part, as earlier fittings' mounts were added. Each caravan's night-driving button is saved; nothing else.
+
+### Compatibility and limits
+
+- The arrival time shown while planning a route still counts the nights at rest, so a caravan driving through the night arrives sooner than shown.
+- The bunk fitting's icon and the caravan button's picture are still to be drawn.
+
 ## [0.213.1] - 2026-11-21 - Draft
 
 The camp's own pictures. Not yet tested in game.

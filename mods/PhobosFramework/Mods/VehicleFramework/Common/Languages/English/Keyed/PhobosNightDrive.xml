@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Cab bunks and driving through the night (D'thorga Framework 0.214.0). {RELIEF}: who takes over; {DRIVER}: the tired driver; {VEHICLE}: the vehicle. -->
+  <PhobosVehicleSystems_SettingDriveThroughNight>Drive through the night</PhobosVehicleSystems_SettingDriveThroughNight>
+  <PhobosVehicleSystems_SettingDriveThroughNightDesc>Off by default. Vehicle caravans keep going at night while every vehicle has a driver rested enough to drive. When a driver tires, a rested passenger of the same vehicle who can drive takes over, and the tired one sleeps in a passenger seat or the cab bunk. If any vehicle has nobody to take over, the caravan stops for the night as usual. Journeys take about half the time, at the cost of fuel and tired crews. Each caravan also has its own switch.</PhobosVehicleSystems_SettingDriveThroughNightDesc>
+  <PhobosNightDrive_Gizmo>Drive through the night</PhobosNightDrive_Gizmo>
+  <PhobosNightDrive_GizmoDesc>Keep going at night while every vehicle has a rested driver, passengers taking turns at the wheel. Off: the caravan stops for the night as usual.</PhobosNightDrive_GizmoDesc>
+  <PhobosNightDrive_HandOver>{RELIEF} takes the wheel of the {VEHICLE}, and {DRIVER} gets some sleep.</PhobosNightDrive_HandOver>
+</LanguageData>

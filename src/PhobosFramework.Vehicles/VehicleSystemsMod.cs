@@ -100,6 +100,10 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A vehicle with a walk-in cabin (the Osprey) can be walked into, on the ground or in flight (Framework, vehicle cabins; owner, 22 Nov
     /// 2026: on, "a setting people can turn off"). Low risk (agent's grade): it moves the player's people, never harms them. Live.</summary>
     public bool vehicleCabins = true;
+    /// <summary>A vehicle caravan keeps going at night while every vehicle has a rested driver, a passenger taking over from a tired one
+    /// (Framework 0.214.0, B3; owner, 13 Nov 2026: "a setting, off by default", about twice the ground in a day). Moderate (agent's grade):
+    /// people arrive tired and fuel burns faster; nobody is harmed by it. Off by the owner's choice. Live.</summary>
+    public bool driveThroughNight;
     /// <summary>Another mod's air defence sees our aircraft in flight on the world map and may shoot at them (Framework 0.119.0, AD3; owner,
     /// 13 Nov 2026). Shown only while The Dead Man's Switch - Expedition is active. Live.</summary>
     public bool airDefenceSeesAircraft = true;
@@ -234,6 +238,7 @@ public class VehicleSystemsSettings : ModSettings
         "roughLandings" => roughLandings,
         "avionicsAim" => avionicsAim,
         "vehicleCabins" => vehicleCabins,
+        "driveThroughNight" => driveThroughNight,
         "lowOilCallsService" => lowOilCallsService,
         "accessoriesLoadEngine" => accessoriesLoadEngine,
         "roughGroundWear" => roughGroundWear,
@@ -300,6 +305,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref roughLandings, "PhobosVehicleSystems_RoughLandings", true);
         Scribe_Values.Look(ref avionicsAim, "PhobosVehicleSystems_AvionicsAim", true);
         Scribe_Values.Look(ref vehicleCabins, "PhobosVehicleSystems_VehicleCabins", true);
+        Scribe_Values.Look(ref driveThroughNight, "PhobosVehicleSystems_DriveThroughNight", false);
         Scribe_Values.Look(ref airDefenceSeesAircraft, "PhobosVehicleSystems_AirDefenceSeesAircraft", true);
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
         Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
@@ -546,6 +552,7 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingRoughLandings".Translate(), ref s.roughLandings, d.roughLandings, "PhobosVehicleSystems_SettingRoughLandingsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingAvionicsAim".Translate(), ref s.avionicsAim, d.avionicsAim, "PhobosVehicleSystems_SettingAvionicsAimDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingVehicleCabins".Translate(), ref s.vehicleCabins, d.vehicleCabins, "PhobosVehicleSystems_SettingVehicleCabinsDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingDriveThroughNight".Translate(), ref s.driveThroughNight, d.driveThroughNight, "PhobosVehicleSystems_SettingDriveThroughNightDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingStockHelicopters".Translate(), ref s.stockHelicoptersFly, d.stockHelicoptersFly, "PhobosVehicleSystems_SettingStockHelicoptersDesc".Translate());
         if (ModsConfig.IsActive(DmseTieIn.PackageId))
         {

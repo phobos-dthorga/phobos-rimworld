@@ -714,6 +714,22 @@
           <cellsOf>Engine</cellsOf>
         </add>
       </li>
+      <li>
+        <!-- Framework 0.214.0, cab bunks (docs/development/vehicle-accessories.md, B2): the space behind a heavy vehicle's seats where a sleeper
+             berth goes, appended to every heavy land vehicle so a bunk has a part to go on and is lost with it. Inside the cab; health and hit
+             weight authored, a bunk frame's. The bunk itself asks 3,500 kg and a wheeled vehicle (the owner's choice of 13 Nov 2026). -->
+        <role>SleeperBerth</role>
+        <add>
+          <key>PhobosSleeperBerth</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>sleeper berth</label>
+          <health>25</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
     </partRoles>
     <loads>
       <li>
