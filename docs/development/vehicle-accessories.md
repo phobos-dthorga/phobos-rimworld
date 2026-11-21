@@ -694,7 +694,8 @@ tested in game.
 - **Not built, and why: the three railcars.** Our vehicle systems do not fit a vehicle with no engine
   ([vehicle-real-figures-design.md](vehicle-real-figures-design.md) says so of railcars), so a railcar has no roof mount and no fittings
   window, and a deck tent has no part to go on. **Reaching them needs a railcar loadout of its own** (what a railcar's systems are:
-  bogies, couplers, brakes), which is a design to put to the owner, not a patch. The owner was told this might happen when asked.
+  bogies, couplers, brakes), which is a design to put to the owner, not a patch. The owner was told this might happen when asked, and chose a design record
+  first: [vehicle-railcars.md](vehicle-railcars.md).
 - **The Land Cruiser's own bed upgrades** (a mortar or howitzer platform) and a deck tent can both be fitted; nothing stops it. Left to
   the player (agent's choice).
 
