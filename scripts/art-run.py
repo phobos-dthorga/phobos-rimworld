@@ -55,6 +55,8 @@ ES_CONTINUOUS, ES_SYSTEM_REQUIRED = 0x80000000, 0x00000001
 NOT_STARTED = 3  # The exit code for a run that a safeguard refused to start.
 NIGHT_STEPS = ('generate', 'train', 'run')
 SAFE_COPIES = [sys.executable, str(ROOT / 'scripts' / 'safe-copies.py'), 'run']
+# The shared tools' own list (kit 1.67.0): Claude Code's notes about the owner, kept on K: only.
+SAFE_COPIES_NOTES = [*SAFE_COPIES, '--root', str(ROOT / 'external' / 'phobos-modkit')]
 
 
 def stay_awake(on):
@@ -542,14 +544,18 @@ def describe_step(step):
     return f'{kind}: {" ".join(step[kind]) if kind == "run" else step[kind]}'
 
 
-def safe_copies_row():
-    """Copies what the night made that cannot be made again (owner, 21 Nov 2026: automatically, every night): disk work only, so it
-    runs after the last step whatever the stop time, and a failure is a line in the summary, never the night's."""
-    began = _dt.datetime.now()
-    print('--- safe copies', flush=True)
-    code, report = run_step(SAFE_COPIES)
-    ended = 'copied; its report says what' if code == 0 else f'problems, exit code {code}; its report or the output above says which'
-    return f'| safe copies | {began:%H:%M} | {(_dt.datetime.now() - began).total_seconds() / 60:.0f} | {ended} | {report or ""} |'
+def safe_copies_rows():
+    """Copies what the night made that cannot be made again (owner, 21 Nov 2026: automatically, every night), then the notes kept
+    about the owner (22 Nov 2026: the shared tools' own list): disk work only, so they run after the last step whatever the stop
+    time, and a failure is a line in the summary, never the night's."""
+    rows = []
+    for label, command in (('safe copies', SAFE_COPIES), ('safe copies of the notes', SAFE_COPIES_NOTES)):
+        began = _dt.datetime.now()
+        print(f'--- {label}', flush=True)
+        code, report = run_step(command)
+        ended = 'copied; its report says what' if code == 0 else f'problems, exit code {code}; its report or the output above says which'
+        rows.append(f'| {label} | {began:%H:%M} | {(_dt.datetime.now() - began).total_seconds() / 60:.0f} | {ended} | {report or ""} |')
+    return rows
 
 
 def night(args, stop_at, _game_names):
@@ -585,7 +591,7 @@ def night(args, stop_at, _game_names):
             ended = {0: 'finished or stopped safely; its report says which', NOT_STARTED: 'a safeguard refused to start it'}.get(code, f'failed, exit code {code}')
             lines.append(f'| {describe_step(step)} | {began:%H:%M} | {(_dt.datetime.now() - began).total_seconds() / 60:.0f} | {ended} | {report or ""} |')
         if not getattr(args, 'no_safe_copies', False):
-            lines.append(safe_copies_row())
+            lines.extend(safe_copies_rows())
     finally:
         stay_awake(False)
         path = plan_file.parent / f'night-{started:%Y%m%d-%H%M}.md'

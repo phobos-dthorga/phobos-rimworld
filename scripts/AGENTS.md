@@ -164,8 +164,10 @@ for word; the root's rules apply here too.
   copies is `config/safe-copies.json`; **a new set of art work that cannot be made again gets an entry there in the same change**.
   The owner's choices: copies go to K: (`safeCopiesPath`, marked private and local) and the private repository dthorga-safe-copies
   (`safeCopiesRepositoryPath`), pushed after each run. **Anything made from the game's art goes to K: only**; a training counts as
-  ours only when its manifest's hashes prove every picture. `art-run.py night` runs it after the last step; it uses no graphics card,
-  so it may run while the owner plays. It never deletes; never delete or prune a copy without the owner's word.
+  ours only when its manifest's hashes prove every picture. **RimWorld's Config folder, RimSort's own files and Claude's notes about
+  the owner are personal: K: only too** (owner, 22 Nov 2026); the notes are the shared tools' own list (`--root
+  external/phobos-modkit`). `art-run.py night` runs both after the last step; it uses no graphics card, so it may run while the
+  owner plays. It never deletes; never delete or prune a copy without the owner's word.
 - **Every path a script reads goes through the shared order** (owner, 19 Nov 2026: "a central settings page where everything or at
   least, most, of these sorts of things are managed"): argument, environment, `.local/install-settings.json`, the central settings
   file, default, through `deploy.local_path` (phobos-modkit's `paths.resolve`). **A new setting of a script of ours is declared in
