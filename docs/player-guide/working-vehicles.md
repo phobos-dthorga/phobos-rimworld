@@ -524,6 +524,12 @@ Our first aircraft, the Bell Boeing V-22: research **tiltrotor aircraft** (after
   damaging its undercarriage and shaking its people about; wrecked over a building, a roof, another vehicle or deep water. Watch its fuel.
 - **Fittings, as on every aircraft:** a litter kit for stretchers, a ferry tank, cabin oxygen, and a **cargo hook** to sling up to
   4,536 kg.
+- **A walk-in cabin** (not yet tested in game; D'thorga Framework's setting **Walk-in cabins**, on by default): right-click the Osprey
+  with colonists selected and choose **Go into the cabin**, or right-click a downed colonist to **carry them in**. Inside are 24 seats
+  in two rows with the way out at the ramp; with the litter kit, 6 seats and 8 litters, where doctors aboard tend the wounded in flight;
+  with a ferry tank, the tanks fill the front and 8 seats are left. **Nobody can leave while it is in the air**; after it lands, right-click
+  the way out to step out beside it on the new map. On the ground, colonists with nothing to do walk out by themselves, and the cabin is
+  gone once it is empty, with anything left inside set down beside the Osprey.
 - **Ropes and a hoist** (not yet tested in game), two more fittings at its ramp. **It must be hovering steadily** for either: it comes down
   to about 20 m, does the work, then climbs back, and takes no other order until the last person is off a line.
   - **Fast-rope bar:** **Rope down** puts everyone in a passenger's or crew chief's seat down two ropes, two at a time, onto open ground

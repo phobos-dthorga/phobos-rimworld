@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.96.0] - 2026-11-22 - Draft
+
+The Osprey's walk-in cabin
+
+### Added
+
+- **The Osprey has a walk-in cabin** (the owner's request of 22 November 2026): 24 seats in two rows along its walls with the way out at the ramp, as the real V-22's cabin seats 24. With the litter kit fitted, 6 seats and 8 litters, where doctors aboard tend the wounded in flight; the real stretcher fit holds 9, stacked three high, which a flat cabin cannot show. With a ferry tank fitted, the tanks fill the front and 8 seats are left, as in the real ferry fit; with both, 6 litters behind the tanks. Needs D'thorga Framework 0.211.0, whose setting Walk-in cabins it follows. Not yet tested in game: row 314 of the test pass.
+
 ## [0.95.0] - 2026-11-22 - Draft
 
 The UH-60M Black Hawk in the fold

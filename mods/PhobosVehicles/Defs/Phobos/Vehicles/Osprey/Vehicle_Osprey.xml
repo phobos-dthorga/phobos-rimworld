@@ -833,6 +833,95 @@
           </li>
         </looks>
       </li>
+      <!--
+        The walk-in cabin (D'thorga Framework's vehicle cabins; owner, 22 Nov 2026; docs/development/vehicle-cabins.md): the V-22's cabin, nose
+        first, the ramp at the back. Three cells across (a seat each side and the aisle) and thirteen long, a gameplay size for the real
+        cabin's 24 troop seats along both walls [P]. It follows the cabin's fittings: the litter kit gives 6 seats and 8 litters (the real
+        stretcher fit is 9 litters and 6 seats [P], its litters stacked three high, which a flat map cannot show); a ferry tank fills the front
+        with tanks and leaves 8 seats [S], as the real ferry fit does; both together leave 6 litters behind the tanks (authored).
+      -->
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosVehicleCabin">
+        <layouts>
+          <li>
+            <whenFitted>
+              <li>PhobosFitting_LitterKit</li>
+              <li>PhobosFitting_FerryTank</li>
+            </whenFitted>
+            <rows>
+              <li>TTT</li>
+              <li>TTT</li>
+              <li>TTT</li>
+              <li>TTT</li>
+              <li>TTT</li>
+              <li>TTT</li>
+              <li>L.L</li>
+              <li>l.l</li>
+              <li>L.L</li>
+              <li>l.l</li>
+              <li>L.L</li>
+              <li>l.l</li>
+              <li>.E.</li>
+            </rows>
+          </li>
+          <li>
+            <whenFitted>
+              <li>PhobosFitting_LitterKit</li>
+            </whenFitted>
+            <rows>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>L.L</li>
+              <li>l.l</li>
+              <li>L.L</li>
+              <li>l.l</li>
+              <li>L.L</li>
+              <li>l.l</li>
+              <li>L.L</li>
+              <li>l.l</li>
+              <li>...</li>
+              <li>.E.</li>
+            </rows>
+          </li>
+          <li>
+            <whenFitted>
+              <li>PhobosFitting_FerryTank</li>
+            </whenFitted>
+            <rows>
+              <li>TTT</li>
+              <li>TTT</li>
+              <li>TTT</li>
+              <li>TTT</li>
+              <li>TTT</li>
+              <li>TTT</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>...</li>
+              <li>...</li>
+              <li>.E.</li>
+            </rows>
+          </li>
+          <li>
+            <rows>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>S.S</li>
+              <li>.E.</li>
+            </rows>
+          </li>
+        </layouts>
+      </li>
     </comps>
   </Vehicles.VehicleDef>
 
