@@ -399,6 +399,8 @@ public sealed class Powertrain
             // Framework 0.180.0: chaff and flare cartridges loaded in the dispensers, as a turret's loaded rounds below.
             + (vehicle.GetComp<CompPhobosDispensers>()?.Kilograms ?? 0f);
         foreach (Pawn pawn in vehicle.AllPawnsAboard) total += pawn.GetStatValue(StatDefOf.Mass);
+        // Framework 0.211.1: people in its walk-in cabin are aboard as much as those seated.
+        foreach (Pawn pawn in VehicleCabins.Occupants(vehicle)) total += pawn.GetStatValue(StatDefOf.Mass);
         if (vehicle.CompVehicleTurrets?.Turrets != null)
         {
             foreach (VehicleTurret turret in vehicle.CompVehicleTurrets.Turrets)

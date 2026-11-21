@@ -66,6 +66,11 @@ public static class CruiseHeight
             if (pawn.Dead || pawn.RaceProps == null || !pawn.RaceProps.IsFlesh) continue;
             if (!crewOxygen || (passengers != null && passengers.Contains(pawn))) return spec.OxygenLine;
         }
+        // Framework 0.211.1: anyone in its walk-in cabin is a passenger, with no oxygen but the cabin fitting's.
+        foreach (Pawn pawn in VehicleCabins.Occupants(vehicle))
+        {
+            if (!pawn.Dead && pawn.RaceProps is { IsFlesh: true }) return spec.OxygenLine;
+        }
         return double.NaN;
     }
 

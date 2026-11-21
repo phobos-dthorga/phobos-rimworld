@@ -50,3 +50,40 @@ public class CabinLayoutRuleTests
         Assert.False(CabinLayoutRule.Parse(new string[0]).Valid);
     }
 }
+
+/// <summary>Framework 0.211.1: seats and cabin share one limit.</summary>
+public class CabinRoomRuleTests
+{
+    [Fact]
+    public void AnEmptyOspreyTakesTwentyFourIntoItsCabin() => Assert.Equal(24, CabinRoomRule.CabinRoom(24, 0, 24, 0));
+
+    [Fact]
+    public void ThoseSeatedLeaveLessRoomInTheCabin()
+    {
+        Assert.Equal(14, CabinRoomRule.CabinRoom(24, 10, 24, 0));
+        Assert.Equal(4, CabinRoomRule.CabinRoom(24, 10, 24, 10));
+        Assert.Equal(0, CabinRoomRule.CabinRoom(24, 24, 24, 0));
+    }
+
+    [Fact]
+    public void TheCabinHoldsNoMoreThanItsPlaces()
+    {
+        // The litter kit's cabin: 14 places, whatever the seats.
+        Assert.Equal(14, CabinRoomRule.CabinRoom(24, 0, 14, 0));
+        Assert.Equal(0, CabinRoomRule.CabinRoom(24, 0, 14, 14));
+    }
+
+    [Fact]
+    public void WithNoPassengerSeatsTheCabinsPlacesAreTheLimit() => Assert.Equal(6, CabinRoomRule.CabinRoom(0, 0, 8, 2));
+
+    [Fact]
+    public void RoomIsNeverBelowNothing() => Assert.Equal(0, CabinRoomRule.CabinRoom(24, 20, 24, 10));
+
+    [Fact]
+    public void ASeatIsFreeOnlyWhileSeatedAndCabinTogetherLeaveOne()
+    {
+        Assert.True(CabinRoomRule.SeatFree(24, 10, 13));
+        Assert.False(CabinRoomRule.SeatFree(24, 10, 14));
+        Assert.False(CabinRoomRule.SeatFree(24, 0, 24));
+    }
+}

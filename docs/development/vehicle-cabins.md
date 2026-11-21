@@ -1,6 +1,7 @@
 # Walk-in cabins for our vehicles (22 Nov 2026)
 
-**Status (22 Nov 2026):** built, not yet tested in game: D'thorga Framework 0.211.0 (the cabin) and D'thorga Vehicles 0.96.0 (the Osprey's layouts).
+**Status (22 Nov 2026):** built, not yet tested in game: D'thorga Framework 0.211.0 (the cabin), 0.211.1 (people in it count as aboard and
+share the seats' limit) and D'thorga Vehicles 0.96.0 (the Osprey's layouts).
 Test row 314.
 
 ## Read this first
@@ -33,6 +34,10 @@ Test row 314.
   reason, while it is in the air.
 - **When it exists:** made when the first person goes in; removed on the vehicle's rare tick once nobody is inside and the vehicle stands on
   a map, anything left inside set down beside it.
+- **One limit with the seats (Framework 0.211.1; owner, 22 Nov 2026):** those in the cabin and those in the passenger seats are counted
+  together against the passenger seats (24 on the Osprey), and the cabin holds no more than its own seats and litters. Going in when full
+  is refused; a passenger seat cannot be taken once both are full between them (a postfix on Vehicle Framework's seat check, which only
+  ever answers "full"). People in the cabin weigh on the aircraft and need oxygen at height as seated passengers do.
 - **In flight:** the cabin map stays where it is. The game will not close the map the vehicle left while people are in the cabin; when the
   vehicle lands, the cabin is pointed at its new map and the old one may close.
 - **If the vehicle is lost:** everyone inside, and what was left there, is set down beside the wreck, or, if it was lost away from any

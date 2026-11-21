@@ -114,3 +114,23 @@ public static class CabinLayoutRule
         return count;
     }
 }
+
+/// <summary>
+/// How many more people a vehicle with a walk-in cabin takes (Framework 0.211.1; owner, 22 Nov 2026: seats and cabin share one limit). Its
+/// passenger seats and its cabin hold the same people, so those seated and those in the cabin are counted together against the passenger
+/// seats; the cabin also holds no more than its own places (seats and litters). A vehicle with no passenger seats is limited by the cabin's
+/// places alone. Game-free.
+/// </summary>
+public static class CabinRoomRule
+{
+    /// <summary>How many more may go into the cabin.</summary>
+    public static int CabinRoom(int passengerSeats, int seated, int cabinPlaces, int inCabin)
+    {
+        int byPlaces = cabinPlaces - inCabin;
+        int room = passengerSeats > 0 ? System.Math.Min(byPlaces, passengerSeats - seated - inCabin) : byPlaces;
+        return room < 0 ? 0 : room;
+    }
+
+    /// <summary>Whether a passenger seat may still be taken: those seated and those in the cabin leave one free.</summary>
+    public static bool SeatFree(int passengerSeats, int seated, int inCabin) => seated + inCabin < passengerSeats;
+}

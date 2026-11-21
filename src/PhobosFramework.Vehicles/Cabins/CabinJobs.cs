@@ -22,7 +22,7 @@ public class JobDriver_PhobosEnterCabin : JobDriver
     protected override IEnumerable<Toil> MakeNewToils()
     {
         this.FailOnDespawnedOrNull(TargetIndex.A);
-        this.FailOn(() => !VehicleCabins.Offered(Vehicle) || VehicleCabins.EnterRefusal(Vehicle) != null);
+        this.FailOn(() => !VehicleCabins.Offered(Vehicle) || VehicleCabins.EnterRefusal(Vehicle, 0) != null);
         if (Carried != null)
         {
             this.FailOnDespawnedNullOrForbidden(TargetIndex.B);
@@ -43,6 +43,13 @@ public class JobDriver_PhobosEnterCabin : JobDriver
                     return;
                 }
                 bool carrying = pawn.carryTracker?.CarriedThing is Pawn;
+                // Several may walk up together: the last ones find it full at the door (Framework 0.211.1).
+                if (VehicleCabins.EnterRefusal(Vehicle, carrying ? 2 : 1) is string full)
+                {
+                    Messages.Message("PhobosCabin_CannotEnter".Translate(Vehicle.LabelShort.Named("VEHICLE"), full.Named("REASON")), Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+                    Seen.Note("vehicles.cabin-full", Vehicle);
+                    return;
+                }
                 if (!VehicleCabins.Move(pawn, cabin, wayOut.Position, Vehicle)) return;
                 Seen.Note("vehicles.cabin-entered", Vehicle, variant: carrying ? "carrying" : "walking");
                 if (carrying) VehicleCabins.SettleCarried(pawn);
@@ -134,7 +141,7 @@ public class FloatMenuOptionProvider_PhobosCarryCabin : FloatMenuOptionProvider
 
     public override IEnumerable<FloatMenuOption> GetOptionsFor(Pawn clickedPawn, FloatMenuContext context)
     {
-        if (!VehicleCabins.Enabled || clickedPawn is VehiclePawn || !clickedPawn.Downed || clickedPawn == context.FirstSelectedPawn) yield break;
+        if (clickedPawn is VehiclePawn || !clickedPawn.Downed || clickedPawn == context.FirstSelectedPawn) yield break;
         Pawn carrier = context.FirstSelectedPawn;
         NamedArgument patient = clickedPawn.LabelShort.Named("PAWN");
         if (!carrier.CanReach(clickedPawn, PathEndMode.ClosestTouch, Danger.Deadly)) yield break;
@@ -155,12 +162,14 @@ public class FloatMenuOptionProvider_PhobosCarryCabin : FloatMenuOptionProvider
             });
             yield break;
         }
-        // Into each of the player's vehicles with a cabin on this map.
+        // Into each of the player's vehicles with a cabin on this map: with the setting off, nobody is carried in (carrying out, above, still
+        // works, so nobody is left inside; Framework 0.211.1).
+        if (!VehicleCabins.Enabled) yield break;
         foreach (Pawn other in clickedPawn.Map.mapPawns.SpawnedPawnsInFaction(Faction.OfPlayer))
         {
             if (other is not VehiclePawn vehicle || !VehicleCabins.Offered(vehicle)) continue;
             NamedArgument name = vehicle.LabelShort.Named("VEHICLE");
-            if (VehicleCabins.EnterRefusal(vehicle) is string why)
+            if (VehicleCabins.EnterRefusal(vehicle, 2) is string why)
             {
                 yield return new FloatMenuOption("PhobosCabin_CannotCarryIn".Translate(patient, name, why.Named("REASON")), null);
                 continue;

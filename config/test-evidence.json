@@ -8,7 +8,8 @@
       "going in, walking and carrying someone": [{"key": "vehicles.cabin-entered", "variant": "walking"}, {"key": "vehicles.cabin-entered", "variant": "carrying"}],
       "leaving, walking and carrying someone": [{"key": "vehicles.cabin-left", "variant": "walking"}, {"key": "vehicles.cabin-left", "variant": "carrying"}],
       "an idle colonist walks out on the ground": ["vehicles.cabin-left-idle"],
-      "the empty cabin goes": ["vehicles.cabin-closed"]
+      "the empty cabin goes": ["vehicles.cabin-closed"],
+      "a full cabin refuses": ["vehicles.cabin-full"]
     }},
     "312": {"parts": {
       "Move up puts a waiting vehicle first": ["vehicles.service-yard.move-up"],

@@ -28,13 +28,45 @@ public static class VehicleCabins
     /// <summary>Whether to offer the cabin at all on this vehicle: it has one, the setting is on, and it is the player's.</summary>
     public static bool Offered(VehiclePawn vehicle) => Enabled && Of(vehicle) != null && vehicle.Faction == Faction.OfPlayer && !vehicle.Dead;
 
-    /// <summary>Why nobody can go in now, or null.</summary>
-    public static string? EnterRefusal(VehiclePawn vehicle)
+    /// <summary>Why nobody can go in now, or null. <paramref name="people"/>: how many would go in together (two when one carries another).</summary>
+    public static string? EnterRefusal(VehiclePawn vehicle, int people = 1)
     {
         NamedArgument name = vehicle.LabelShort.Named("VEHICLE");
         if (!vehicle.Spawned) return "PhobosCabin_NotHere".Translate(name).Resolve();
         if (OnMapFlight.Airborne(vehicle)) return "PhobosCabin_InTheAir".Translate(name).Resolve();
+        if (Room(vehicle) < people) return "PhobosCabin_Full".Translate(name).Resolve();
         return null;
+    }
+
+    // ---- Who is in the cabin, and how many more it takes (Framework 0.211.1; owner, 22 Nov 2026: seats and cabin share one limit) ----
+
+    static readonly List<Pawn> none = new();
+
+    /// <summary>Everyone in the vehicle's cabin now: aboard as much as anyone seated, for its weight and its oxygen.</summary>
+    public static IReadOnlyList<Pawn> Occupants(VehiclePawn? vehicle) => Of(vehicle)?.Cabin is { } cabin ? cabin.mapPawns.AllPawnsSpawned : none;
+
+    /// <summary>The vehicle's passenger seats (seats that neither drive nor man a weapon) and how many are taken.</summary>
+    public static void PassengerSeats(VehiclePawn vehicle, out int seats, out int seated)
+    {
+        seats = seated = 0;
+        if (vehicle.handlers == null) return;
+        foreach (VehicleRoleHandler handler in vehicle.handlers)
+        {
+            if (handler.role == null || handler.role.handlingTypes != HandlingType.None) continue;
+            seats += handler.role.Slots;
+            seated += handler.thingOwner.Count;
+        }
+    }
+
+    /// <summary>How many more people may go into the cabin: its own places, and the passenger seats it shares with those seated.</summary>
+    public static int Room(VehiclePawn vehicle)
+    {
+        if (Of(vehicle) is not { } comp) return 0;
+        PassengerSeats(vehicle, out int seats, out int seated);
+        Phobos.Framework.Vehicles.Rules.CabinPlan plan = comp.Layout.Plan;
+        int places = Phobos.Framework.Vehicles.Rules.CabinLayoutRule.Count(plan, Phobos.Framework.Vehicles.Rules.CabinCell.Seat)
+            + Phobos.Framework.Vehicles.Rules.CabinLayoutRule.Count(plan, Phobos.Framework.Vehicles.Rules.CabinCell.LitterFoot);
+        return Phobos.Framework.Vehicles.Rules.CabinRoomRule.CabinRoom(seats, seated, places, Occupants(vehicle).Count);
     }
 
     /// <summary>Why nobody can leave now, or null: the vehicle must stand on a map, on the ground.</summary>

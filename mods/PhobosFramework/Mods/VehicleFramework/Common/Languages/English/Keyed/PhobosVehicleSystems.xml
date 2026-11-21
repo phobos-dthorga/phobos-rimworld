@@ -88,6 +88,7 @@
   <PhobosCabin_CannotCarryOut>Cannot carry {PAWN} out: {REASON}</PhobosCabin_CannotCarryOut>
   <PhobosCabin_NoPath>there is no way to reach it.</PhobosCabin_NoPath>
   <PhobosCabin_NotHere>the {VEHICLE} is not here.</PhobosCabin_NotHere>
+  <PhobosCabin_Full>the {VEHICLE} is full: its seats and its cabin hold the same people.</PhobosCabin_Full>
   <PhobosCabin_InTheAir>the {VEHICLE} is in the air.</PhobosCabin_InTheAir>
   <PhobosCabin_NoVehicle>the vehicle it belonged to is gone.</PhobosCabin_NoVehicle>
   <PhobosCabin_LeaveInFlight>the {VEHICLE} is flying between places; nobody can leave until it lands.</PhobosCabin_LeaveInFlight>

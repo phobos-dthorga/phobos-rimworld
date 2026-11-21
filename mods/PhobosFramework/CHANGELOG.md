@@ -5,6 +5,20 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.211.1] - 2026-11-22 - Draft
+
+Walk-in cabins: people in the cabin count as aboard, and share the seats' limit
+
+### Fixed
+
+- **People in a walk-in cabin now count as aboard.** They weighed nothing and needed no oxygen: the lift check and the cruising height counted only those in seats, so a cabin was a free second deck. Their weight now loads the engines and the lift check, and without the cabin oxygen fitting a flight with anyone in the cabin stays below the oxygen line, as with seated passengers.
+- **A vehicle's passenger seats and its cabin share one limit** (the owner's yes of 22 November 2026): those seated and those in the cabin are counted together against the passenger seats, 24 on the Osprey, and the cabin holds no more than its own seats and litters. Going in when it is full is refused with the reason, and a passenger seat cannot be taken once seats and cabin are full between them. Before, an Osprey could carry 24 seated and any number in the cabin.
+- **A downed colonist can be carried out of a cabin with the setting off.** The order had gone with the setting, though the setting promises that anyone inside can still leave.
+
+### Compatibility and limits
+
+- Things left on the cabin floor still weigh nothing to the aircraft. A crash's injuries and the short-of-breath condition at height reach those in seats, not yet those in the cabin.
+
 ## [0.211.0] - 2026-11-22 - Draft
 
 Walk-in cabins: colonists can walk into a vehicle's cabin, on the ground or in flight
