@@ -39,6 +39,21 @@ public class FrameworkSettings : ModSettings
     public bool topUpMachines = true;
     /// <summary>How full topping up fills a store (Framework 0.136.0; owner, 18 Nov 2026: a setting; agent default: the machine's own level).</summary>
     public TopUpLevel topUpLevel = TopUpLevel.OwnLevel;
+    /// <summary>Standby power (Power/; the owner's choices of 22 Nov 2026, docs/development/standby-power.md): idle buildings draw a share
+    /// of their power and lights in empty rooms go dark. On by default: it puts nothing at risk (graded low).</summary>
+    public bool standbyPower = true;
+    /// <summary>Indoor lights dark while no one awake is in the room (on by default).</summary>
+    public bool standbyLights = true;
+    /// <summary>Workbenches, research benches and televisions on standby while no one uses them (on by default).</summary>
+    public bool standbyMachines = true;
+    /// <summary>Turrets with no target, empty hydroponics and facilities serving nothing, on standby (on by default).</summary>
+    public bool standbyOthers = true;
+    /// <summary>Powered doors on standby while closed (on by default).</summary>
+    public bool standbyDoors = true;
+    /// <summary>The standby draw, percent of the listed power (the owner's choice: 10%).</summary>
+    public int standbyPercent = Rules.StandbyPowerRule.DefaultStandbyPercent;
+    /// <summary>Animals light the rooms they walk into (agent default: off, as LightsOut's own default).</summary>
+    public bool standbyAnimalsLight;
     /// <summary>"Seen in play" notes for testing (Framework 0.118.0; owner, 17 Nov 2026: off by default): Debug/SeenInPlay.cs.</summary>
     public bool noteSeenInPlay;
     /// <summary>With dev mode on, a message when a note stands for a test row still waiting (Framework 0.138.0; owner, 18 Nov 2026; off by
@@ -89,6 +104,14 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref sayWhenTestHappens, "PhobosFramework_SayWhenTestHappens", false);
         Scribe_Values.Look(ref topUpMachines, "PhobosFramework_TopUpMachines", true);
         Scribe_Values.Look(ref topUpLevel, "PhobosFramework_TopUpLevel", TopUpLevel.OwnLevel);
+        Scribe_Values.Look(ref standbyPower, "PhobosFramework_StandbyPower", true);
+        Scribe_Values.Look(ref standbyLights, "PhobosFramework_StandbyLights", true);
+        Scribe_Values.Look(ref standbyMachines, "PhobosFramework_StandbyMachines", true);
+        Scribe_Values.Look(ref standbyOthers, "PhobosFramework_StandbyOthers", true);
+        Scribe_Values.Look(ref standbyDoors, "PhobosFramework_StandbyDoors", true);
+        Scribe_Values.Look(ref standbyPercent, "PhobosFramework_StandbyPercent", Rules.StandbyPowerRule.DefaultStandbyPercent);
+        Scribe_Values.Look(ref standbyAnimalsLight, "PhobosFramework_StandbyAnimalsLight", false);
+        if (Scribe.mode == LoadSaveMode.PostLoadInit) standbyPercent = Rules.StandbyPowerRule.ClampPercent(standbyPercent);
     }
 }
 
@@ -102,7 +125,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.221.0";
+    public const string ModVersion = "0.222.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -162,6 +185,10 @@ public class FrameworkMod : SettingsBookMod
         topUps += ", filling to " + Settings.topUpLevel;
         if (!Settings.topUpMachines) report.Off(topUps, "setting");
         else report.On(topUps);
+        string standby = Power.StandbyKinds.Describe() + ", standby draw " + Settings.standbyPercent + "%";
+        if (Power.StandbyKinds.OtherModActive != null) report.Off(standby, Power.StandbyKinds.OtherModActive + " does the same job");
+        else if (!Settings.standbyPower) report.Off(standby, "setting");
+        else report.On(standby);
         report.Log();
     }
 
@@ -204,6 +231,29 @@ public class FrameworkMod : SettingsBookMod
             list.Radio("PhobosFramework_SettingTopUpLevel".Translate(), ref s.topUpLevel, Defaults.topUpLevel,
                 (TopUpLevel[])System.Enum.GetValues(typeof(TopUpLevel)), level => ("PhobosFramework_TopUpLevel" + level).Translate(),
                 level => ("PhobosFramework_TopUpLevel" + level + "Desc").Translate(), "PhobosFramework_SettingTopUpLevelDesc".Translate());
+            list.Outdent();
+        }
+
+        list.Section("PhobosFramework_SectionStandby".Translate());
+        if (Power.StandbyKinds.OtherModActive != null) list.Note("PhobosFramework_StandbyOtherMod".Translate(Power.StandbyKinds.OtherModActive.Named("MOD")));
+        list.Check("PhobosFramework_SettingStandbyPower".Translate(), ref s.standbyPower, Defaults.standbyPower,
+            "PhobosFramework_SettingStandbyPowerDesc".Translate(Rules.StandbyPowerRule.DefaultStandbyPercent.Named("PERCENT")));
+        if (s.standbyPower)
+        {
+            list.Indent();
+            list.Check("PhobosFramework_SettingStandbyLights".Translate(), ref s.standbyLights, Defaults.standbyLights,
+                "PhobosFramework_SettingStandbyLightsDesc".Translate());
+            list.Check("PhobosFramework_SettingStandbyAnimalsLight".Translate(), ref s.standbyAnimalsLight, Defaults.standbyAnimalsLight,
+                "PhobosFramework_SettingStandbyAnimalsLightDesc".Translate(), enabled: s.standbyLights);
+            list.Check("PhobosFramework_SettingStandbyMachines".Translate(), ref s.standbyMachines, Defaults.standbyMachines,
+                "PhobosFramework_SettingStandbyMachinesDesc".Translate());
+            list.Check("PhobosFramework_SettingStandbyOthers".Translate(), ref s.standbyOthers, Defaults.standbyOthers,
+                "PhobosFramework_SettingStandbyOthersDesc".Translate());
+            list.Check("PhobosFramework_SettingStandbyDoors".Translate(), ref s.standbyDoors, Defaults.standbyDoors,
+                "PhobosFramework_SettingStandbyDoorsDesc".Translate());
+            list.Radio("PhobosFramework_SettingStandbyPercent".Translate(), ref s.standbyPercent, Defaults.standbyPercent,
+                Rules.StandbyPowerRule.StandbyPercents, percent => "PhobosFramework_StandbyPercentOption".Translate(percent.Named("PERCENT")),
+                null, "PhobosFramework_SettingStandbyPercentDesc".Translate());
             list.Outdent();
         }
 

@@ -85,6 +85,24 @@ Two settings you may never touch, but should know about:
 - **Say when D'thorga code was part of an error** (D'thorga Framework, on): after an error that passed through D'thorga's code,
   the log says so in one line, so you know to tell D'thorga about it too, and not only the other mod's author.
 
+## Standby power
+
+D'thorga Framework makes idle buildings use less power, and puts indoor lights out when no one is in the room. It is on by default.
+
+- **Lights:** an indoor light goes dark when no one awake is in its room, and comes on within about a second when someone walks in.
+  A sleeping colonist doesn't need it. Outdoor lights and sun lamps stay as they are.
+- **Machines:** a workbench, research bench or television draws its full power only while someone works at it or watches it; a
+  turret only while it has a target; a hydroponics basin only while something grows in it; a vitals monitor only while a bed beside
+  it is occupied; a powered door only while it stands open. Idle, each draws **10%** of its power. Its power line shows the lower
+  figure, and its description says it is on standby.
+- **Nothing stops working.** A turret on standby still fires, a door still opens at once, and a bench starts at full power the
+  moment someone starts work.
+- **Find it under Options > Mod settings > D'thorga Framework > General, Standby power**: a switch for each kind, and how much an
+  idle building draws (0% to 30%).
+- **It switches itself off while LightsOut or Turn It On and Off - RePowered is active**, as they do the same job. Switch those off
+  to use it.
+- Safe to add to a colony and to remove from one.
+
 ## Research
 
 Our research projects sit on their own **D'thorga** tab in the research window, and submarines on **D'thorga: Submarines**, which is

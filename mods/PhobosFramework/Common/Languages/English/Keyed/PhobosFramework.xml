@@ -12,6 +12,29 @@
   <PhobosFramework_GasSourceModeExistingOnlyDesc>The framework carries no gas of its own. Mods that depend on one fall back to a simpler estimate, or do nothing.</PhobosFramework_GasSourceModeExistingOnlyDesc>
 
   <PhobosFramework_SettingSoundVolume>D'thorga sounds volume: {PERCENT}%</PhobosFramework_SettingSoundVolume>
+  <PhobosFramework_SectionStandby>Standby power</PhobosFramework_SectionStandby>
+  <PhobosFramework_StandbyOtherMod>{MOD} is active and does the same job, so standby power is standing down. Switch {MOD} off to use these settings.</PhobosFramework_StandbyOtherMod>
+  <PhobosFramework_SettingStandbyPower>Idle buildings use less power</PhobosFramework_SettingStandbyPower>
+  <PhobosFramework_SettingStandbyPowerDesc>On (the default): a workbench, research bench, television, turret, hydroponics basin, monitor or powered door draws its full power only while it is in use, and a share of it (normally {PERCENT}%) while idle. Lights in empty rooms go dark and draw nothing. It checks about once a second of game time, so a light or a machine may take a moment to come on. Off: every building draws its full power all the time, as in the base game.</PhobosFramework_SettingStandbyPowerDesc>
+  <PhobosFramework_SettingStandbyLights>Lights go dark in empty rooms</PhobosFramework_SettingStandbyLights>
+  <PhobosFramework_SettingStandbyLightsDesc>On (the default): an indoor light goes dark when no one awake is in its room, and comes on when someone walks in. Sleepers do not need it. Outdoor lights and sun lamps stay as they are.</PhobosFramework_SettingStandbyLightsDesc>
+  <PhobosFramework_SettingStandbyAnimalsLight>Animals turn the lights on</PhobosFramework_SettingStandbyAnimalsLight>
+  <PhobosFramework_SettingStandbyAnimalsLightDesc>Off (the default): only people light a room. On: an animal walking into a room lights it too.</PhobosFramework_SettingStandbyAnimalsLightDesc>
+  <PhobosFramework_SettingStandbyMachines>Workbenches, research benches and televisions</PhobosFramework_SettingStandbyMachines>
+  <PhobosFramework_SettingStandbyMachinesDesc>On (the default): full power only while someone is working at it or watching it.</PhobosFramework_SettingStandbyMachinesDesc>
+  <PhobosFramework_SettingStandbyOthers>Turrets, hydroponics and monitors</PhobosFramework_SettingStandbyOthers>
+  <PhobosFramework_SettingStandbyOthersDesc>On (the default): a turret draws full power only while it has a target, a hydroponics basin only while something grows in it, and a monitor or other facility only while a bed it serves is occupied or a bench it serves is in use. A turret on standby still fires.</PhobosFramework_SettingStandbyOthersDesc>
+  <PhobosFramework_SettingStandbyDoors>Powered doors</PhobosFramework_SettingStandbyDoors>
+  <PhobosFramework_SettingStandbyDoorsDesc>On (the default): a powered door draws full power only while it stands open. It still opens at once.</PhobosFramework_SettingStandbyDoorsDesc>
+  <PhobosFramework_SettingStandbyPercent>Power on standby</PhobosFramework_SettingStandbyPercent>
+  <PhobosFramework_SettingStandbyPercentDesc>How much of its full power an idle building draws. Real machines draw a little on standby. Lights that are off draw nothing whatever this is.</PhobosFramework_SettingStandbyPercentDesc>
+  <PhobosFramework_StandbyPercentOption>{PERCENT}%</PhobosFramework_StandbyPercentOption>
+  <PhobosFramework_StandbyIdle>On standby: no one is using it.</PhobosFramework_StandbyIdle>
+  <PhobosFramework_StandbyDark>Off: no one is in the room.</PhobosFramework_StandbyDark>
+  <PhobosFramework_StandbyNoTarget>On standby: no target.</PhobosFramework_StandbyNoTarget>
+  <PhobosFramework_StandbyNothingGrowing>On standby: nothing is growing.</PhobosFramework_StandbyNothingGrowing>
+  <PhobosFramework_StandbyNothingServed>On standby: nothing it serves is in use.</PhobosFramework_StandbyNothingServed>
+  <PhobosFramework_StandbyClosed>On standby: closed.</PhobosFramework_StandbyClosed>
   <PhobosFramework_SectionColonists>Colonists</PhobosFramework_SectionColonists>
   <PhobosFramework_SettingNoticePickUpLoops>Notice when a colonist keeps fetching and putting away the same thing</PhobosFramework_SettingNoticePickUpLoops>
   <PhobosFramework_SettingNoticePickUpLoopsDesc>On (the default): when a colonist fetches the same thing and hauls it away again {TURNS} times within a couple of hours, you are told once, by name, then not again for a day. It is usually two orders that disagree, such as a colonist's sidearms and what their loadout lets them carry. It only tells: it never stops a job.</PhobosFramework_SettingNoticePickUpLoopsDesc>

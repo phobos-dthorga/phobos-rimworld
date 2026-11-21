@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.221.0, built 22 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.222.0, built 22 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -18,6 +18,10 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   that mod is rejected with a red error. **It needs Harmony** (since 0.205.0), which nearly every mod list already has.
 - **A colonist who keeps fetching and putting away the same thing is named in a message** (setting **Notice when a colonist keeps
   fetching and putting away the same thing**, on by default): usually two orders disagree, such as their sidearms and their loadout.
+- **Idle buildings use less power, and lights in empty rooms go dark** (setting **Idle buildings use less power**, on by default,
+  with a switch for each kind under **General, Standby power**). A workbench, research bench, television, turret, hydroponics basin,
+  monitor or powered door draws its full power only while in use and 10% while idle. **It stands down by itself while LightsOut or
+  Turn It On and Off - RePowered is active**: switch them off to use it. Safe to add or remove mid-colony.
 - **Everything we build is in the Architect's D'thorga tab**, sorted into sub-tabs: Motor pool, Farming, Medical and Radio, as each
   mod you have adds them. With Vanilla Gravship Expanded they are listed down the tab's side, as its gravship tabs are.
   **RimWorld 1.7 only.** Its vehicle systems switch on only with **Vehicle Framework**; garages and pipe lines need **Vanilla Expanded
@@ -99,6 +103,8 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   [the medical mods together](../../docs/medical-mods.md).
 - **A D'thorga research tab** for vehicle parts and workshops; an existing colony gets a project free once if it had already done what
   it replaces ([research](../../docs/player-guide/getting-started.md#research)).
+- **Standby power**: idle buildings draw a tenth of their power and lights in empty rooms go dark, with no work every tick
+  ([standby power](../../docs/player-guide/getting-started.md#standby-power)).
 - **Sounds**: one **D'thorga sounds volume** for every D'thorga mod, engines that follow the drive, and the vehicle systems' own
   sounds. All were made with generative AI on the owner's PC and picked by the owner
   ([how](../../docs/development/sound-generation.md)).
@@ -149,6 +155,10 @@ changing one lists them (at the main menu it offers to restart). RimWorld saves 
 | General | Parts for building | Whose parts a build of ours asks for: **Other mods' parts where installed**, or **Always our own parts**. **Needs a restart.** Repairs accept either | Other mods' parts where installed |
 | General | Keep machines and mechanoids topped up | Colonists doing hauling work refill machines that hold a store of material and only offer a right-click fill order, such as a drone platform's steel, and a mechanitor refills mechanoids that carry one, as they repair them (named by D'thorga Patches). Off: by hand only | On |
 | General | How full to fill them (under the one above) | Its own fill level (as the machine's own fill order), at least half, at least three-quarters, or full. Never less than its own level | Its own fill level |
+| General | Idle buildings use less power | Standby power: a workbench, research bench, television, turret, hydroponics basin, monitor or powered door draws its full power only while in use, and the share below while idle; indoor lights in empty rooms go dark and draw nothing. Checked about once a second of game time. Stands down while LightsOut or Turn It On and Off - RePowered is active | On |
+| General | Lights go dark in empty rooms; Animals turn the lights on (under the one above) | An indoor light is lit only while someone awake is in its room; outdoor lights and sun lamps are left alone. With the second, animals count too | On; Off |
+| General | Workbenches, research benches and televisions; Turrets, hydroponics and monitors; Powered doors (under the one above) | One switch for each kind. A turret on standby still fires and a door still opens at once | On |
+| General | Power on standby (under the one above) | How much of its full power an idle building draws: 0%, 5%, 10%, 20% or 30% | 10% |
 | General | D'thorga sounds volume | Every D'thorga mod's sounds, from 0% (silent) to 200%; at 100% each matches a comparable game sound. Changes at once | 100% |
 | Log and reports | Keep the game's log going after its message limit | Turns the game's log back on when it stops at 10,000 messages, at most 25 times a session, with a line naming the message that filled it | On |
 | Log and reports | Say when D'thorga code was part of an error | After an error whose trace shows D'thorga code or a D'thorga patch on its path, writes one line saying so, so a report reaches D'thorga too. Never says D'thorga caused it. Once per kind of error, at most 50 a session | On |

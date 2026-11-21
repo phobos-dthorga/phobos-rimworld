@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.222.0] - 2026-11-22 - Draft
+
+Idle buildings use less power, and lights in empty rooms go dark
+
+### Added
+
+- **Idle buildings use less power, and lights in empty rooms go dark** (the owner's choices of 22 November 2026, in place of LightsOut and Turn It On and Off - RePowered, which took about a tenth of every tick each on the owner's colony). A workbench, research bench, television, turret, hydroponics basin, monitor or powered door draws its full power only while it is in use, and 10% of it while idle; an indoor light goes dark when no one awake is in its room and comes on when someone walks in, drawing nothing while dark. Outdoor lights and sun lamps are left alone. Buildings from other mods join in by what they are, not their names. Each map checks once a second of game time, with no work in between and no patch on the game. New settings under General, Standby power: **Idle buildings use less power** (on by default), a switch for each kind (on), **Animals turn the lights on** (off), and **Power on standby** (10%). For modders: PhobosStandbyExtension. Not yet tested in game: row 341 of the test pass.
+
+### Compatibility and limits
+
+- **Standby power stands down by itself while LightsOut or Turn It On and Off - RePowered is active**, as all three would set the same buildings' power; the settings page and the load line say so. A building whose power another mod sets by its own rule is left alone.
+- A workbench worked by a machine with no colonist at it would stay on standby while it works.
+
+### Save compatibility
+
+- Safe to add to and remove from a colony: nothing is saved, and the game sets every building's power from its Def again when a map loads.
+
 ## [0.221.0] - 2026-11-22 - Draft
 
 Fire burns a vehicle by its size, burns more of it, and burns everyone's

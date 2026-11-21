@@ -3,6 +3,12 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "341": {"parts": {
+      "a light goes dark in an empty room and lights again": [{"key": "framework.standby.idle", "variant": "Light"}, {"key": "framework.standby.woke", "variant": "Light"}],
+      "a workbench, research bench or television on standby and back": [{"key": "framework.standby.idle", "variant": "Machine"}, {"key": "framework.standby.woke", "variant": "Machine"}],
+      "a turret, hydroponics basin or monitor on standby": [{"key": "framework.standby.idle", "variant": "Turret"}],
+      "a powered door on standby while closed": [{"key": "framework.standby.idle", "variant": "Door"}, {"key": "framework.standby.woke", "variant": "Door"}]
+    }},
     "340": {"parts": {
       "your burning vehicle wears by the fire's size": [{"key": "vehicles.fire-wear", "variant": "own", "expect": {"fire": "> 0"}}],
       "another faction's burning vehicle wears": [{"key": "vehicles.fire-wear", "variant": "other-faction"}],
