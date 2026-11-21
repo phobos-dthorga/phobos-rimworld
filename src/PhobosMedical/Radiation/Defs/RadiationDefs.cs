@@ -17,6 +17,7 @@ public static class RadiationDefOf
     public static HediffDef Carcinoma = null!;
     public static HediffDef Cataract = null!;
     public static HediffDef Sterilized = null!;
+    [MayRequire("Dubwise.Rimatomics")] public static HediffDef? PotassiumIodide;
 
     static RadiationDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(RadiationDefOf));
 }
@@ -48,6 +49,23 @@ public class PhobosRadiationRulesDef : PhobosRulesDef
     public System.Collections.Generic.List<BodyPartDef> solidCancerParts = new();
     /// <summary>A leukaemia or carcinoma from radiation begins at this severity.</summary>
     public float cancerStartSeverity = 0.05f;
+
+    // ---- Contamination (Medical 0.24.0, RM6), all authored ----
+
+    /// <summary>Dust gathered per gray of fallout's dose taken outdoors, spread over the clothes and bare skin.</summary>
+    public float dustPerGray = 1f;
+    /// <summary>The dose a day, in grays, from each unit of dust carried on the skin or in worn clothes.</summary>
+    public float dustDosePerDay = 0.02f;
+    /// <summary>Dust at or above this on a garment or the skin wants washing off.</summary>
+    public float dustToWash = 0.1f;
+    /// <summary>The dose from inside, in grays, taken in per gray of fallout's dose while breathing unmasked.</summary>
+    public float breathedPerGray = 0.03f;
+    /// <summary>The dose from inside taken in per unit of dust on the skin per day, swallowed from the hands (a mask does not stop it).</summary>
+    public float swallowedPerDustDay = 0.01f;
+    /// <summary>The dose to the thyroid per gray of fallout's dose while breathing unmasked, without potassium iodide.</summary>
+    public float thyroidPerGray = 2f;
+    /// <summary>How long caesium stays in the body, a half-life in days (Radiogardase label: about 110).</summary>
+    public float insideHalfLifeDays = 110f;
 
     public static PhobosRadiationRulesDef Current => Current<PhobosRadiationRulesDef>();
 }

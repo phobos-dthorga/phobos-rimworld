@@ -52,6 +52,17 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
     public int pregnancyId = -1;
     public List<float> prenatal = new();
 
+    // ---- Contamination (Medical 0.24.0, RM6) ----
+
+    /// <summary>Fallout dust on the skin, as last set, and the tick it was set: it fades by the 7:10 rule.</summary>
+    public float skinDust;
+    public int skinDustTick;
+    /// <summary>The dose still to come from inside, in grays: delivered over weeks as the body clears it.</summary>
+    public float inside;
+    /// <summary>The thyroid's dose from fallout's iodine, in grays, and when a thyroid cancer is due.</summary>
+    public float thyroid;
+    public int thyroidCancerDay = LateNone;
+
     public const int LateNone = -1;
     public const int LateGiven = -2;
 
@@ -112,6 +123,11 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
         Scribe_Values.Look(ref sterilePermanent, "PhobosRadiation_SterilePermanent");
         Scribe_Values.Look(ref pregnancyId, "PhobosRadiation_PregnancyId", -1);
         Scribe_Collections.Look(ref prenatal, "PhobosRadiation_Prenatal", LookMode.Value);
+        Scribe_Values.Look(ref skinDust, "PhobosRadiation_SkinDust");
+        Scribe_Values.Look(ref skinDustTick, "PhobosRadiation_SkinDustTick");
+        Scribe_Values.Look(ref inside, "PhobosRadiation_Inside");
+        Scribe_Values.Look(ref thyroid, "PhobosRadiation_Thyroid");
+        Scribe_Values.Look(ref thyroidCancerDay, "PhobosRadiation_ThyroidCancerDay", LateNone);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             prenatal ??= new List<float>();
@@ -131,7 +147,7 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
         get
         {
             string text = base.TipStringExtra;
-            string line = RadiationService.Describe(this);
+            string line = RadiationService.Describe(this) + Contamination.Tip(pawn, this);
             return string.IsNullOrEmpty(text) ? line : text + "\n" + line;
         }
     }

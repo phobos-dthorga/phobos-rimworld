@@ -51,6 +51,7 @@ public static class RadiationService
         if (DoseOf(pawn, create: false) is not { } dose) return;
         Refresh(pawn, dose);
         if (dose.InCourse) RunCourse(pawn, dose);
+        Contamination.Step(pawn, dose, Rules.intervalTicks / (double)GenDate.TicksPerDay);
         LateEffects.GiveDue(pawn, dose);
         LateEffects.ForgetEndedPregnancy(pawn, dose);
     }

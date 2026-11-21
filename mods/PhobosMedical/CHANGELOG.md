@@ -13,6 +13,13 @@ Radiation, slice 3: what is worn, contamination and three medicines
 ### Added
 
 - **What is worn shields a little against radiation from outside** (the owner's choice of 22 November 2026, docs/development/radiation-model.md, RM17): by its weight, as real mass does, most over the chest and belly where most of the blood-forming marrow lies. About 650 kg a square metre cuts gamma rays to a tenth (Glasstone and Dolan), so heavy plate armour cuts about a sixth and a parka almost nothing; Combat Extended's heavier, truer masses count by themselves. It applies to the strike's flash and to Dubs Rimatomics' leaks and fallout, never to dust breathed in. A setting, What is worn shields a little, on by default. Not yet tested in game: row 372 of the test pass.
+- **Fallout dust on skin and clothes** (the owner's choice: on clothes and skin, RM6). Outdoors in Dubs Rimatomics' fallout, dust settles on clothes and bare skin and keeps giving a small dose until washed off, fading as fallout does; dusty clothes say so. Breathed without a mask, it gives a dose from inside the body over weeks (caesium's half-life in the body, about 110 days) and its iodine goes to the thyroid, bringing a chance of thyroid cancer years later, far greater in children, unless potassium iodide was taken first, its real role. A suit keeps the dust off the skin and a mask keeps it out of the lungs; neither stops the radiation from the ground. Any wash clears the skin (a safety shower, Dubs Bad Hygiene's shower or bath); its washing machine cleans clothes. A setting, Fallout dust on skin and clothes, on by default. Not yet tested in game: row 373.
+- **Dusty colonists strip and wash**, a setting, off by default (the owner's choice, as caustic strip and rinse): a dusty colonist goes to a safety shower, leaves dusty clothes there, forbidden, and washes.
+- Dev action: Radiation: dust selected pawns as 1 Gy of fresh fallout would. The dose log now shows dust, the dose from inside and the thyroid's.
+
+### Changed
+
+- **Potassium iodide now guards the thyroid** while the radiation model is on, and no longer takes radiation sickness down: it never could (US FDA, 2001). The radiation control line now guards against contamination, not the dose; its rule is unchanged.
 
 ## [0.23.0] - 2026-11-22 - Draft
 

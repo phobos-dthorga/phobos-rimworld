@@ -34,6 +34,10 @@ public class RadiationSettings : ModSettings
     public bool pregnancyCancer = true;
     /// <summary>What a person wears shields them a little from radiation from outside, by its mass (RM17; owner, 22 Nov 2026).</summary>
     public bool wornShielding = true;
+    /// <summary>Fallout dust on skin and clothes, breathed and swallowed (RM6; owner, 22 Nov 2026: "on clothes and skin").</summary>
+    public bool contamination = true;
+    /// <summary>A dusty colonist strips off dusty clothes at a safety shower and washes (owner, 22 Nov 2026: off by default, as caustic's).</summary>
+    public bool stripAndWash;
 
     public override void ExposeData()
     {
@@ -48,6 +52,8 @@ public class RadiationSettings : ModSettings
         Scribe_Values.Look(ref pregnancyChild, "PhobosRadiation_PregnancyChild", true);
         Scribe_Values.Look(ref pregnancyCancer, "PhobosRadiation_PregnancyCancer", true);
         Scribe_Values.Look(ref wornShielding, "PhobosRadiation_WornShielding", true);
+        Scribe_Values.Look(ref contamination, "PhobosRadiation_Contamination", true);
+        Scribe_Values.Look(ref stripAndWash, "PhobosRadiation_StripAndWash", false);
     }
 }
 
@@ -78,6 +84,7 @@ public static class RadiationPart
         // Every dose through the Framework (the strike) comes from outside, so what is worn shields it.
         Phobos.Framework.Health.RadiationDoses.Register((pawn, grays, source) => RadiationService.Receive(pawn, grays * WornShielding.Pass(pawn), source), () => On);
         RimatomicsDose.Apply(harmony);
+        Contamination.Start();
     }
 
     internal static LoadReport Report(LoadReport report)
@@ -105,6 +112,9 @@ public static class RadiationPart
             "PhobosRadiation_SettingHarshnessDesc".Translate());
         list.Check("PhobosRadiation_SettingEstimate".Translate(), ref s.estimate, d.estimate, "PhobosRadiation_SettingEstimateDesc".Translate());
         list.Check("PhobosRadiation_SettingWornShielding".Translate(), ref s.wornShielding, d.wornShielding, "PhobosRadiation_SettingWornShieldingDesc".Translate());
+        list.Check("PhobosRadiation_SettingContamination".Translate(), ref s.contamination, d.contamination, "PhobosRadiation_SettingContaminationDesc".Translate());
+        list.Check("PhobosRadiation_SettingStripAndWash".Translate(), ref s.stripAndWash, d.stripAndWash, "PhobosRadiation_SettingStripAndWashDesc".Translate(),
+            enabled: s.contamination);
         list.Section("PhobosRadiation_SettingLateHeading".Translate());
         list.Check("PhobosRadiation_SettingCancer".Translate(), ref s.cancer, d.cancer, "PhobosRadiation_SettingCancerDesc".Translate());
         list.Check("PhobosRadiation_SettingCataract".Translate(), ref s.cataract, d.cataract, "PhobosRadiation_SettingCataractDesc".Translate());

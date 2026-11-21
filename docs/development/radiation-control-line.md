@@ -6,6 +6,11 @@ this point", using D'thorga Framework wherever possible. **Built the same day; n
 
 ## Read this first
 
+- **Since D'thorga Medical 0.24.0 the line guards against contamination, not the dose** (docs/development/radiation-model.md, RM6;
+  the owner's choice of 22 Nov 2026 that suits stop dust, not radiation). With the radiation model on, toxic environment resistance no
+  longer cuts Rimatomics' dose; the suit and mask keep fallout dust off the skin and out of the lungs, and the gear left at the line
+  carries the dust away with it. The rule itself (0.75 resistance) is unchanged.
+
 - **Two ways to mark it** (owner's choice: both): a **radiation control point**, a sign built from the Misc tab that closes off the room it
   faces; and a **radiation controlled area**, painted from the zone tab like the home area, for open ground or several rooms.
 - **Colonists suit up, then go** (owner's choice): one about to step in without enough protection stops at the line, fetches and puts on

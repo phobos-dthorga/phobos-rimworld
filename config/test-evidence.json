@@ -20,6 +20,13 @@
       "sterile for good": [{"key": "radiation.late", "variant": "sterile-permanent"}]
     }},
     "372": ["radiation.shielded"],
+    "373": {"parts": {
+      "dust gathered and breathed": ["radiation.dust"],
+      "a dose from inside": ["radiation.inside"],
+      "a wash clears the skin": [{"key": "radiation.washed", "variant": "washed"}],
+      "stripped at the shower": [{"key": "radiation.washed", "variant": "stripped"}],
+      "a thyroid cancer": [{"key": "radiation.late", "variant": "thyroid"}]
+    }},
     "370": {"parts": {
       "a pregnancy lost": [{"key": "radiation.prenatal", "variant": "loss"}],
       "a child born with weaker movement": [{"key": "radiation.prenatal", "variant": "malformation"}],

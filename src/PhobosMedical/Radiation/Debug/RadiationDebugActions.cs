@@ -62,8 +62,21 @@ public static class RadiationDebugActions
             if (dose.leukaemiaDay >= 0) dose.leukaemiaDay = today;
             if (dose.cancerDay >= 0) dose.cancerDay = today;
             if (dose.cataractDay >= 0) dose.cataractDay = today;
+            if (dose.thyroidCancerDay >= 0) dose.thyroidCancerDay = today;
             LateEffects.GiveDue(pawn, dose);
             Log.Message(MedicalMod.LogPrefix + " " + pawn.LabelShort + ": late effects that were coming are given; " + Late(dose));
+        }
+    }
+
+    [DebugAction(DebugCategory.Name, "Radiation: dust selected pawns as 1 Gy of fresh fallout would", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void Dust()
+    {
+        foreach (Pawn pawn in DebugSelection.SelectedThings<Pawn>().Where(p => !p.Dead).ToList())
+        {
+            RadiationService.Receive(pawn, 1f, "debug");
+            Contamination.FromFallout(pawn, 1f);
+            Log.Message(MedicalMod.LogPrefix + " " + pawn.LabelShort + ": dusted as 1 Gy of fresh fallout would; " + Line(pawn)
+                + (RadiationPart.Settings.contamination ? "" : " Fallout dust is off in the settings, so none was left."));
         }
     }
 
@@ -100,7 +113,8 @@ public static class RadiationDebugActions
             : "pregnancy dosed " + string.Join("/", dose.prenatal.Select(g => g.ToString("0.00"))) + " Gy by window";
         return "highest " + dose.highest.ToString("0.00") + " Gy; leukaemia " + When(dose.leukaemiaDay) + ", cancer " + When(dose.cancerDay)
             + ", cataract " + When(dose.cataractDay) + ", sterile " + (dose.sterilePermanent ? "for good" : dose.sterileTemporaryFor > 0 ? "for a while" : "no")
-            + "; " + pregnancy;
+            + "; " + pregnancy + "; dust on skin " + Contamination.SkinDust(dose).ToString("0.00") + ", " + dose.inside.ToString("0.000")
+            + " Gy inside to come, thyroid " + dose.thyroid.ToString("0.00") + " Gy, thyroid cancer " + When(dose.thyroidCancerDay);
     }
 
     /// <summary>The dose, the course and what decides it, in one line.</summary>

@@ -45,6 +45,8 @@ public static class LateEffects
             {
                 dose.cancerDay = today + Days(RadiationLateRule.SolidCancerYears(RadiationService.Sensitivity(pawn, CancerWhen)));
             }
+            Contamination.JudgeThyroid(pawn, dose, strength, today,
+                Days(ContaminationRule.ThyroidCancerYears(RadiationService.Sensitivity(pawn, Contamination.ThyroidWhen))));
         }
         if (Settings.cataract && dose.cataractDay == Hediff_PhobosRadiationDose.LateNone
             && RadiationService.Sensitivity(pawn, CataractChance) < RadiationLateRule.CataractChance(dose.lifetime) * strength)
@@ -113,6 +115,19 @@ public static class LateEffects
                 pawn.health.AddHediff(carcinoma, part);
                 Tell(pawn, RadiationDefOf.Carcinoma);
                 if (Seen.Wants("radiation.late", pawn, "cancer")) Seen.Note("radiation.late", pawn, part.def.defName, "cancer");
+            }
+        }
+        if (Settings.cancer && Due(dose.thyroidCancerDay, today))
+        {
+            dose.thyroidCancerDay = Hediff_PhobosRadiationDose.LateGiven;
+            BodyPartRecord? neck = pawn.health.hediffSet.GetNotMissingParts().FirstOrDefault(p => p.def == BodyPartDefOf.Neck);
+            if (neck != null)
+            {
+                Hediff carcinoma = HediffMaker.MakeHediff(RadiationDefOf.Carcinoma, pawn, neck);
+                carcinoma.Severity = PhobosRadiationRulesDef.Current.cancerStartSeverity;
+                pawn.health.AddHediff(carcinoma, neck);
+                Tell(pawn, RadiationDefOf.Carcinoma);
+                if (Seen.Wants("radiation.late", pawn, "thyroid")) Seen.Note("radiation.late", pawn, dose.thyroid.ToString("0.0") + " Gy to the thyroid", "thyroid");
             }
         }
         if (Settings.cataract && Due(dose.cataractDay, today))

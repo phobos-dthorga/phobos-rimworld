@@ -135,6 +135,8 @@ dot), and use **Reset this page to defaults** at the bottom of a page. Read from
 | How harsh radiation is | Gentle, Moderate, Realistic, Harsh: the dose that kills half without care, and how far care moves it | Moderate |
 | A doctor estimates a dose until it can be measured | Off: every dose shows exactly | On |
 | What is worn shields a little | Heavy clothing and armour cut radiation from outside by their weight: plate armour about a sixth | On |
+| Fallout dust on skin and clothes | Dust from fallout keeps dosing until washed off; breathed unmasked, a dose from inside and iodine to the thyroid | On |
+| Dusty colonists strip and wash | A dusty colonist leaves dusty clothes at a safety shower and washes | Off |
 | Cancer | Each gray taken over a life adds a chance of leukaemia (from about a month) or a carcinoma (from about two and a half game years) | On |
 | Cataracts | From half a gray, a chance of cataracts in both eyes later, certain at 5 Gy | On |
 | Sterility | A man sterile for a while from 0.15 Gy; for good from 3.5 to 6 Gy (a woman 2.5 to 6) | On |

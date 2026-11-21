@@ -35,5 +35,17 @@
     </solidCancerParts>
     <!-- A leukaemia or carcinoma begins at this severity. -->
     <cancerStartSeverity>0.05</cancerStartSeverity>
+    <!-- Contamination (Medical 0.24.0). Fallout's dose outdoors leaves a unit of dust per gray on the clothes and bare skin; each unit
+         carried gives 0.02 Gy a day, fading as fallout does, until washed off; 0.1 or more wants washing. Breathing unmasked takes in
+         0.03 Gy from inside per gray outside, and 2 Gy to the thyroid unless potassium iodide is in it first (fallout's iodine: a
+         thyroid's dose runs well above the body's, as on Rongelap). Dust on the skin is swallowed from the hands, 0.01 Gy inside a unit
+         a day. Caesium leaves the body with a half-life of about 110 days (Radiogardase label). All authored except that half-life. -->
+    <dustPerGray>1</dustPerGray>
+    <dustDosePerDay>0.02</dustDosePerDay>
+    <dustToWash>0.1</dustToWash>
+    <breathedPerGray>0.03</breathedPerGray>
+    <swallowedPerDustDay>0.01</swallowedPerDustDay>
+    <thyroidPerGray>2</thyroidPerGray>
+    <insideHalfLifeDays>110</insideHalfLifeDays>
   </Phobos.Radiation.Defs.PhobosRadiationRulesDef>
 </Defs>

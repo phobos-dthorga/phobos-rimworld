@@ -28,7 +28,20 @@ public static class RinseService
 
     public static IPhobosWaterSource? WaterSource(Thing station) => (station as ThingWithComps)?.AllComps.OfType<IPhobosWaterSource>().FirstOrDefault();
 
-    public static bool NeedsRinse(Pawn pawn) => ChemicalService.NeedsRinse(pawn);
+    public static bool NeedsRinse(Pawn pawn)
+    {
+        if (ChemicalService.NeedsRinse(pawn)) return true;
+        for (int i = 0; i < OtherNeeds.Count; i++)
+        {
+            if (OtherNeeds[i](pawn)) return true;
+        }
+        return false;
+    }
+
+    /// <summary>Other reasons a person needs the shower, registered at start-up by other parts (radiation's fallout dust, Medical 0.24.0).</summary>
+    public static readonly List<System.Func<Pawn, bool>> OtherNeeds = new();
+    /// <summary>What other parts do when a rinse finishes (radiation's: the dust washed off, dusty clothes left behind).</summary>
+    public static readonly List<System.Action<Pawn>> OtherFinishes = new();
 
     /// <summary>Patients lying down with acid on their skin, whose care setting lets doctors act; rebuilt at most every few seconds.</summary>
     public static IReadOnlyList<Pawn> PatientsNeedingRinse(Map map) => patients.Get(map, CacheIntervalTicks);
@@ -95,6 +108,7 @@ public static class RinseService
     {
         if (BurnsAndSmokeMod.Settings.causticStripAndRinse) CausticService.StripContaminated(rinsed);
         ChemicalService.Rinse(rinsed);
+        for (int i = 0; i < OtherFinishes.Count; i++) OtherFinishes[i](rinsed);
     }
 
     static void Rebuild(Map map, List<Pawn> list)

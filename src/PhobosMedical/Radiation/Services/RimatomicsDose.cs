@@ -98,8 +98,11 @@ public static class RimatomicsDose
         if (isRobot?.Invoke(pawn) ?? !pawn.RaceProps.IsFlesh) return true;
         float scaled = strength * (strengthSetting?.Invoke() ?? 1f);
         // Every Rimatomics dose is from outside (a leak, waste carried, fallout lying around), so what is worn shields it a little.
-        double grays = RadiationRule.GraysFromRimatomics(scaled) * (inFallout ? RadiationRule.FalloutDecay(falloutDays) : 1) * WornShielding.Pass(pawn);
+        double unshielded = RadiationRule.GraysFromRimatomics(scaled) * (inFallout ? RadiationRule.FalloutDecay(falloutDays) : 1);
+        double grays = unshielded * WornShielding.Pass(pawn);
         RadiationService.Receive(pawn, (float)grays, inFallout ? "fallout" : "rimatomics");
+        // Fallout also leaves its dust on them and in their lungs (RM6).
+        if (inFallout) Contamination.FromFallout(pawn, (float)unshielded);
         if (pawn.IsColonist && scaled > 0.1f && GeigerKnown && pawn.Spawned)
         {
             geigerTick?.PlayOneShot(new TargetInfo(pawn.Position, pawn.Map));

@@ -3,8 +3,8 @@
 **Status (22 Nov 2026):** partly built, at the owner's word, in D'thorga Medical 0.21.0 (with Framework 0.229.0 and Patches 0.35.0):
 the dose and its repair, the course, care, the doctor's estimate and the exact dose, Rimatomics' doses taken and its conditions
 converted, the strike's dose in grays ([as built](#as-built-22-nov-2026)); dev actions to give and remove a dose in 0.22.0; late
-effects (RM8) in 0.23.0; worn armour's shielding (RM17) in 0.24.0. Not built: contamination and the three medicines. The owner's answers are
-[below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363 and 369 to 372.
+effects (RM8) in 0.23.0; worn armour's shielding (RM17) and contamination (RM6) in 0.24.0. Not built: the three medicines. The owner's answers are
+[below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363 and 369 to 373.
 
 ## As built (22 Nov 2026)
 
@@ -45,7 +45,17 @@ effects (RM8) in 0.23.0; worn armour's shielding (RM17) in 0.24.0. Not built: co
 - **Worn armour's shielding (RM17), Medical 0.24.0**, as designed [below](#rm17-worn-mass-shields-a-little), behind its own setting
   (on): each garment's mass as the game has it over the authored areas of the groups it covers, layers adding, weighted by the marrow
   shares; applied to the Framework's doses (the strike) and every Rimatomics dose, all from outside.
-- **Not built yet:** contamination (RM6) with iodide's role, the three medicines (RM5), the shadow and
+- **Contamination (RM6), Medical 0.24.0** (the owner's choices: on clothes and skin; strip and wash a setting, off). From Rimatomics'
+  fallout only (the one source that is dust), each dose outdoors leaves 1 unit of dust a gray [A] on the clothes (the caustic gas's
+  clothing component, by the area each covers) and on bare skin; carried dust gives 0.02 Gy a day a unit [A], fading by the 7:10 rule,
+  until a wash (any rinse, Dubs Bad Hygiene's shower or bath) clears the skin or the washing machine the clothes. Breathed through the
+  Framework's mask rule: 0.03 Gy from inside per gray outside [A], delivered at caesium's 110-day half-life in the body [P]; skin dust
+  swallowed from the hands, 0.01 a unit a day [A]; 2 Gy to the thyroid per gray outside [A, after Rongelap's high thyroid doses], none
+  while Rimatomics' potassium iodide is in the body [P: its real role], bringing thyroid cancer at 1 % a gray for adults and 5 % for
+  children [A, unverified] in 4 to 10 real years (a quarter, as the other late effects), on the neck, under the Cancer switch. With
+  strip and wash on, a dusty colonist counts as needing the safety shower and leaves dusty clothes there, forbidden, through two hooks
+  added to the shower's service. Not modelled: beta burns from dust on the skin (Rongelap), dust spreading to beds and floors.
+- **Not built yet:** the three medicines (RM5), the shadow and
   graded shelter of the strike (NK12, NK17, NK18), the strike's letter (NK13).
 
 The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md): shadow and a graded dose should "wait for our own
@@ -488,6 +498,8 @@ To be asked as cards; the agent's recommendation first.
 | 8 | RM17, worn armour (asked by the owner, 22 Nov 2026) | **By mass, weighted by marrow, built with slice 3**; not Combat Extended's armour ratings | The same |
 | 9 | RM8, when late effects arrive | **Sooner, a quarter of the real time, with no setting** | A setting, real by default |
 | 10 | RM8, what a dose in pregnancy does | **All three: loss of the pregnancy, a lasting condition in the child, the child's own cancer risk**, each with its own switch | All three |
+| 11 | RM6, how detailed contamination is | **On clothes and skin**, reusing the caustic system | The same |
+| 12 | RM6, what colonists do by themselves | **Strip and wash, a setting, off by default** | The same, on by default |
 
 **What follows from the answers:**
 

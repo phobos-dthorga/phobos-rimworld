@@ -21,6 +21,15 @@
   <PhobosRadiation_TipUnknown>Exposed to radiation; how much is not known without a radiation counter. Exposure category {CATEGORY}.</PhobosRadiation_TipUnknown>
   <PhobosRadiation_SettingWornShielding>What is worn shields a little</PhobosRadiation_SettingWornShielding>
   <PhobosRadiation_SettingWornShieldingDesc>On by default: heavy clothing and armour cut radiation from outside a little, by their weight, as real mass does; most over the chest and belly, where most of the blood-forming marrow is. Heavy plate armour cuts about a sixth, a parka almost nothing. Walls, earth and distance do far more.</PhobosRadiation_SettingWornShieldingDesc>
+  <PhobosRadiation_SettingContamination>Fallout dust on skin and clothes</PhobosRadiation_SettingContamination>
+  <PhobosRadiation_SettingContaminationDesc>On by default: outdoors in fallout, dust settles on clothes and bare skin and keeps giving a small dose until washed off; breathed in without a mask, it gives a dose from inside the body over weeks, and its iodine goes to the thyroid unless potassium iodide is taken first. A suit keeps dust off the skin and a mask out of the lungs, though neither stops the radiation from the ground. Any wash clears the skin; a washing machine (Dubs Bad Hygiene) cleans clothes.</PhobosRadiation_SettingContaminationDesc>
+  <PhobosRadiation_SettingStripAndWash>Dusty colonists strip and wash</PhobosRadiation_SettingStripAndWash>
+  <PhobosRadiation_SettingStripAndWashDesc>Off by default: a colonist carrying fallout dust goes to a safety shower, leaves dusty clothes there (forbidden) and washes. Taking off the outer layer removes most of the dust.</PhobosRadiation_SettingStripAndWashDesc>
+  <PhobosRadiation_DustyLabel>{LABEL} (fallout dust)</PhobosRadiation_DustyLabel>
+  <PhobosRadiation_DustyInspect>Covered in radioactive fallout dust: it keeps giving whoever wears it a small dose until it fades or is washed.</PhobosRadiation_DustyInspect>
+  <PhobosRadiation_Stripped>{PAWN_labelShort} left {COUNT} dusty garments at the shower.</PhobosRadiation_Stripped>
+  <PhobosRadiation_TipDust>Fallout dust on the skin or clothes: wash it off.</PhobosRadiation_TipDust>
+  <PhobosRadiation_TipInside>Radioactive dust inside the body: it gives its dose over weeks as the body clears it.</PhobosRadiation_TipInside>
   <!-- Late effects (D'thorga Medical 0.23.0). -->
   <PhobosRadiation_SettingLateHeading>Late effects, months or years after a dose (strength set by the harshness above)</PhobosRadiation_SettingLateHeading>
   <PhobosRadiation_SettingCancer>Cancer</PhobosRadiation_SettingCancer>

@@ -46,19 +46,47 @@ public class CompPhobosContamination : ThingComp
     {
         level = 0f;
         setTick = 0;
+        dust = 0f;
+        dustTick = 0;
     }
 
-    public override string TransformLabel(string label) =>
-        BurnsAndSmokeMod.Settings.causticStripAndRinse && Contaminated ? "PhobosBurns_ContaminatedLabel".Translate(label.Named("LABEL")).Resolve() : label;
+    // ---- Radioactive fallout dust (D'thorga Medical 0.24.0; docs/development/radiation-model.md, RM6) ----
 
-    public override string? CompInspectStringExtra() =>
-        BurnsAndSmokeMod.Settings.causticStripAndRinse && Contaminated ? "PhobosBurns_ContaminatedInspect".Translate() : null;
+    float dust;
+    int dustTick;
+
+    /// <summary>Fallout dust in the garment now, faded by the 7:10 rule from when it last gathered (Glasstone and Dolan, 9.16).</summary>
+    public float Dust => dust <= 0f || Find.TickManager == null ? 0f
+        : dust * (float)Phobos.Radiation.Rules.ContaminationRule.DustLeft((Find.TickManager.TicksGame - dustTick) / 60000.0);
+
+    public bool Dusty => Phobos.Radiation.RadiationPart.Settings.contamination && Dust >= Phobos.Radiation.Defs.PhobosRadiationRulesDef.Current.dustToWash;
+
+    public void AddDust(float amount)
+    {
+        if (amount <= 0f) return;
+        dust = Dust + amount;
+        dustTick = Find.TickManager.TicksGame;
+    }
+
+    public override string TransformLabel(string label)
+    {
+        if (BurnsAndSmokeMod.Settings.causticStripAndRinse && Contaminated) return "PhobosBurns_ContaminatedLabel".Translate(label.Named("LABEL")).Resolve();
+        return Dusty ? "PhobosRadiation_DustyLabel".Translate(label.Named("LABEL")).Resolve() : label;
+    }
+
+    public override string? CompInspectStringExtra()
+    {
+        if (BurnsAndSmokeMod.Settings.causticStripAndRinse && Contaminated) return "PhobosBurns_ContaminatedInspect".Translate();
+        return Dusty ? "PhobosRadiation_DustyInspect".Translate() : null;
+    }
 
     public override void PostExposeData()
     {
         base.PostExposeData();
         Scribe_Values.Look(ref level, "PhobosBurns_ContaminationLevel", 0f);
         Scribe_Values.Look(ref setTick, "PhobosBurns_ContaminationTick", 0);
+        Scribe_Values.Look(ref dust, "PhobosRadiation_Dust", 0f);
+        Scribe_Values.Look(ref dustTick, "PhobosRadiation_DustTick", 0);
     }
 }
 
@@ -80,7 +108,7 @@ public static class ContaminationInjector
 /// <summary>Matches contaminated garments, for apparel policies and stockpiles (disallowed in new ones by default).</summary>
 public class SpecialThingFilterWorker_PhobosContaminated : SpecialThingFilterWorker
 {
-    public override bool Matches(Thing t) => t.TryGetComp<CompPhobosContamination>() is { } comp && comp.Contaminated;
+    public override bool Matches(Thing t) => t.TryGetComp<CompPhobosContamination>() is { } comp && (comp.Contaminated || comp.Dusty);
 
     public override bool CanEverMatch(ThingDef def) => def.IsApparel;
 }

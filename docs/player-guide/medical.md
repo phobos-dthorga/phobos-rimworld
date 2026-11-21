@@ -271,6 +271,12 @@ Not yet tested in game. On by default (**Radiation sickness runs its real course
   later, a pregnancy may be lost. A child dosed while its body forms may be born with weaker movement and hands; dosed while its
   brain develops (most of all a third of the way through), it may learn more slowly. It carries its dose, and the cancer risk with it.
 - **Each late effect has its own switch** on the Radiation settings page.
+- **Fallout dust.** Outdoors in fallout, dust settles on clothes and bare skin and keeps giving a small dose until washed off; breathed
+  without a mask, it gives a dose from inside over weeks, and its iodine goes to the thyroid (a thyroid cancer years later, most of
+  all in children) unless **potassium iodide** was taken first. **A suit keeps dust off the skin and a mask keeps it out of the lungs**;
+  neither stops the radiation from the ground. Dusty clothes say "(fallout dust)". **Any wash clears the skin** (a safety shower, Dubs
+  Bad Hygiene's shower or bath); a washing machine cleans clothes. With **Dusty colonists strip and wash** on (off by default), a dusty
+  colonist goes to a safety shower, leaves dusty clothes there, forbidden, and washes.
 - **With Rimatomics,** our model takes its radiation for people (robots keep Rimatomics' own), and anyone already carrying Rimatomics'
   radiation sickness has it converted once.
 
@@ -284,8 +290,9 @@ Suits on inside, off at the door, as a real plant runs it. **Only with Rimatomic
    area** (zone tab) over open ground or several rooms.
 2. **Keep suits and masks just outside the line**, on a shelf, not forbidden. Gear inside the area is never fetched.
 3. **Keep potassium iodide just outside too.** A colonist going in who is not on iodide takes a tablet first ("Taking potassium
-   iodide first"); it takes radiation sickness down for about five days. For fallout over the whole map, schedule iodide in a drug
-   policy instead.
+   iodide first"). With the radiation model on, iodide fills the thyroid so fallout's radioactive iodine cannot lodge there; it does
+   nothing against the dose itself (without the model, it takes Rimatomics' radiation sickness down). For fallout over the whole map,
+   schedule iodide in a drug policy instead.
 4. A colonist without **75% toxic environment resistance** stops at the line, puts on the fewest, nearest items that get them there
    ("Suiting up"), and takes them off on the way out. Rimatomics' suit and mask give 40% each, so it takes both. Gear they were
    already wearing stays on.
