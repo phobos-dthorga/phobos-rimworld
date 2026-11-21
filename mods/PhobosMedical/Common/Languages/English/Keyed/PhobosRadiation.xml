@@ -7,16 +7,33 @@
   <PhobosRadiation_SettingHarshness>How harsh radiation is</PhobosRadiation_SettingHarshness>
   <PhobosRadiation_SettingHarshnessDesc>How large a dose kills, and how much care helps. Realistic follows the medical sources.</PhobosRadiation_SettingHarshnessDesc>
   <PhobosRadiation_HarshnessGentle>Gentle</PhobosRadiation_HarshnessGentle>
-  <PhobosRadiation_HarshnessGentleDesc>Half of those dosed die at 6 Gy without care, 9 Gy with full care.</PhobosRadiation_HarshnessGentleDesc>
+  <PhobosRadiation_HarshnessGentleDesc>Half of those dosed die at 6 Gy without care, 9 Gy with full care. No late effects.</PhobosRadiation_HarshnessGentleDesc>
   <PhobosRadiation_HarshnessModerate>Moderate</PhobosRadiation_HarshnessModerate>
-  <PhobosRadiation_HarshnessModerateDesc>Half die at 5 Gy without care, 7.5 Gy with full care.</PhobosRadiation_HarshnessModerateDesc>
+  <PhobosRadiation_HarshnessModerateDesc>Half die at 5 Gy without care, 7.5 Gy with full care. Late effects at half their real chance.</PhobosRadiation_HarshnessModerateDesc>
   <PhobosRadiation_HarshnessRealistic>Realistic</PhobosRadiation_HarshnessRealistic>
-  <PhobosRadiation_HarshnessRealisticDesc>Half die at 4 Gy without care, 6 Gy with full care, as the medical sources say.</PhobosRadiation_HarshnessRealisticDesc>
+  <PhobosRadiation_HarshnessRealisticDesc>Half die at 4 Gy without care, 6 Gy with full care, as the medical sources say. Late effects at their real chance.</PhobosRadiation_HarshnessRealisticDesc>
   <PhobosRadiation_HarshnessHarsh>Harsh</PhobosRadiation_HarshnessHarsh>
-  <PhobosRadiation_HarshnessHarshDesc>Half die at 3.5 Gy without care, 5 Gy with full care.</PhobosRadiation_HarshnessHarshDesc>
+  <PhobosRadiation_HarshnessHarshDesc>Half die at 3.5 Gy without care, 5 Gy with full care. Late effects at their real chance.</PhobosRadiation_HarshnessHarshDesc>
   <PhobosRadiation_SettingEstimate>A doctor estimates a dose until it can be measured</PhobosRadiation_SettingEstimate>
   <PhobosRadiation_SettingEstimateDesc>On by default: until Dubs Rimatomics' portable radiation detectors are researched (or without Rimatomics), a dose shows only as a doctor's estimate, from how soon the person vomited, and closer after two days in a hospital bed. Off: every dose shows exactly.</PhobosRadiation_SettingEstimateDesc>
   <PhobosRadiation_TipExact>Dose now: {EFFECTIVE} Gy after repair; {LIFETIME} Gy over a lifetime. Exposure category {CATEGORY}.</PhobosRadiation_TipExact>
   <PhobosRadiation_TipEstimate>A doctor's estimate: about {LOW} to {HIGH} Gy. Exposure category {CATEGORY}, if the estimate is right.</PhobosRadiation_TipEstimate>
   <PhobosRadiation_TipUnknown>Exposed to radiation; how much is not known without a radiation counter. Exposure category {CATEGORY}.</PhobosRadiation_TipUnknown>
+  <!-- Late effects (D'thorga Medical 0.23.0). -->
+  <PhobosRadiation_SettingLateHeading>Late effects, months or years after a dose (strength set by the harshness above)</PhobosRadiation_SettingLateHeading>
+  <PhobosRadiation_SettingCancer>Cancer</PhobosRadiation_SettingCancer>
+  <PhobosRadiation_SettingCancerDesc>On by default: each gray a person takes over their life adds a chance of cancer later: leukaemia from about a month after the dose, other cancers from about two and a half game years. The chance is 5.5% a gray at full strength.</PhobosRadiation_SettingCancerDesc>
+  <PhobosRadiation_SettingCataract>Cataracts</PhobosRadiation_SettingCataract>
+  <PhobosRadiation_SettingCataractDesc>On by default: from half a gray, a chance of cataracts in both eyes later, certain at 5 Gy; the larger the dose, the sooner.</PhobosRadiation_SettingCataractDesc>
+  <PhobosRadiation_SettingSterility>Sterility</PhobosRadiation_SettingSterility>
+  <PhobosRadiation_SettingSterilityDesc>On by default: a man becomes sterile for a while from 0.15 Gy, longer the larger the dose, and for good from about 3.5 to 6 Gy; a woman for good from about 2.5 to 6 Gy, less the older she is.</PhobosRadiation_SettingSterilityDesc>
+  <PhobosRadiation_SettingPregnancyLoss>Loss of a pregnancy</PhobosRadiation_SettingPregnancyLoss>
+  <PhobosRadiation_SettingPregnancyLossDesc>On by default: from 0.1 Gy in the first two weeks, or from half a gray later, a pregnancy may be lost.</PhobosRadiation_SettingPregnancyLossDesc>
+  <PhobosRadiation_SettingPregnancyChild>Harm to a child before birth</PhobosRadiation_SettingPregnancyChild>
+  <PhobosRadiation_SettingPregnancyChildDesc>On by default: a dose in pregnancy may leave the child with weaker movement and hands (weeks 3 to 7) or slower learning and thinking (weeks 8 to 25, most of all 8 to 15).</PhobosRadiation_SettingPregnancyChildDesc>
+  <PhobosRadiation_SettingPregnancyCancer>A child's own cancer risk</PhobosRadiation_SettingPregnancyCancer>
+  <PhobosRadiation_SettingPregnancyCancerDesc>On by default: a child is born carrying the dose it took before birth, which adds to its own chance of cancer later.</PhobosRadiation_SettingPregnancyCancerDesc>
+  <PhobosRadiation_LetterLossLabel>Pregnancy lost: {PAWN_labelShort}</PhobosRadiation_LetterLossLabel>
+  <PhobosRadiation_LetterLossText>{PAWN_labelShort} has lost {PAWN_possessive} pregnancy. The radiation {PAWN_pronoun} took reached the child.</PhobosRadiation_LetterLossText>
+  <PhobosRadiation_MessageLate>{PAWN_labelShort} has developed {CONDITION}, long after taking radiation.</PhobosRadiation_MessageLate>
 </LanguageData>

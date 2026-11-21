@@ -2,8 +2,9 @@
 
 **Status (22 Nov 2026):** partly built, at the owner's word, in D'thorga Medical 0.21.0 (with Framework 0.229.0 and Patches 0.35.0):
 the dose and its repair, the course, care, the doctor's estimate and the exact dose, Rimatomics' doses taken and its conditions
-converted, the strike's dose in grays ([as built](#as-built-22-nov-2026)); dev actions to give and remove a dose in 0.22.0. Not
-built: late effects, contamination, worn armour's shielding (RM17) and the three medicines. The owner's answers are [below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363.
+converted, the strike's dose in grays ([as built](#as-built-22-nov-2026)); dev actions to give and remove a dose in 0.22.0; late
+effects (RM8) in 0.23.0. Not built: contamination, worn armour's shielding (RM17) and the three medicines. The owner's answers are
+[below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363 and 369 to 371.
 
 ## As built (22 Nov 2026)
 
@@ -24,8 +25,25 @@ built: late effects, contamination, worn armour's shielding (RM17) and the three
 - **Old Rimatomics conditions convert** the first time the step meets them, with the course started two days back.
 - **The strike** gives 10 Gy at the fireball's edge [A], falling with its curve, through the Framework's `RadiationDoses`; without
   the model, Rimatomics as before.
-- **Not built yet:** late effects (RM8), contamination (RM6) with iodide's role, the three medicines (RM5), the shadow and graded
-  shelter of the strike (NK12, NK17, NK18), the strike's letter (NK13).
+- **Late effects (RM8), Medical 0.23.0**, each behind its own setting, their strength the preset's (Gentle none, Moderate half the
+  chance, Realistic and Harsh full), arriving at **a quarter of the real time** (the owner's choice, no setting), real years counted as
+  60-day game years. Who is affected is fixed by the person's draws, so a save and reload changes nothing. The rule is
+  `RadiationLateRule`, game-free, with tests.
+  - **Cancer**: 5.5 % a gray of the lifetime dose (ICRP 103's whole-population figure, which errs gentle at high doses [A]), a sixth of
+    it leukaemia [A, unverified]. Leukaemia, a condition of ours that grows like the game's carcinoma at twice its pace [A], in 2 to 8
+    real years; a solid cancer, the game's carcinoma, in 10 to 30, on a lung, the stomach, liver, torso, neck or a kidney [A].
+  - **Cataract**: the game's cataract in both eyes, a chance rising in a straight line from 0.5 Gy to certain at 5 [A, between ICRP's
+    two thresholds], in 8 real years at the threshold down to 1 at 5 Gy [A].
+  - **Sterility**, from the highest effective dose: a man sterile for a while from 0.15 Gy, a quarter-year to five years [A]; for good
+    past his own limit of 3.5 to 6 Gy, a woman's 2.5 to 6, lower with age [A for the age slope], as the game's own sterilized.
+  - **Pregnancy (Biotech)**, the fetus taking the mother's dose [simplification: the CDC says it tends to be lower], in the CDC's
+    windows (after NCRP Report 174) on a 38-week pregnancy: **loss** through Biotech's own miscarriage, from 0.1 Gy in the first two
+    weeks and from 0.5 Gy later [A for the chances between the CDC's words]; **at birth** (a postfix on Biotech's birth) weaker movement
+    from a dose in weeks 3 to 7 above 0.5 Gy [A], slower learning at the CDC's 40 % a gray in weeks 8 to 15 (from ICRP's 0.3 Gy) and 15 %
+    in weeks 16 to 25 (from 0.5 Gy), and **the child carries its dose**, so its own cancer chance follows. Growth restriction is left
+    out: the game has no fitting condition.
+- **Not built yet:** contamination (RM6) with iodide's role, worn armour's shielding (RM17), the three medicines (RM5), the shadow and
+  graded shelter of the strike (NK12, NK17, NK18), the strike's letter (NK13).
 
 The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md): shadow and a graded dose should "wait for our own
 model and when it does exist, we'll provide settings for players to configure it and the difficulty how they wish". Then: "Let's
@@ -465,6 +483,8 @@ To be asked as cards; the agent's recommendation first.
 | 6 | What a player sees before the Geiger research, or without Rimatomics | **A doctor's estimate**, exact once researched | The same |
 | 7 | Existing saves | **Convert once at load** | Let them run their course |
 | 8 | RM17, worn armour (asked by the owner, 22 Nov 2026) | **By mass, weighted by marrow, built with slice 3**; not Combat Extended's armour ratings | The same |
+| 9 | RM8, when late effects arrive | **Sooner, a quarter of the real time, with no setting** | A setting, real by default |
+| 10 | RM8, what a dose in pregnancy does | **All three: loss of the pregnancy, a lasting condition in the child, the child's own cancer risk**, each with its own switch | All three |
 
 **What follows from the answers:**
 
@@ -524,7 +544,11 @@ Gathered by a research agent on 22 Nov 2026, which opened and read each, unless 
   [stem cell transplant](https://remm.hhs.gov/stemcelltransplant.htm), [external contamination](https://remm.hhs.gov/ext_contamination.htm),
   [the Andrews lymphocyte curves](https://remm.hhs.gov/andrewslymphocytes.htm) (their severity bands are a picture, not read).
 - **US CDC**, [self-decontamination](https://cdc.gov/radiation-emergencies/prevention/self-decontaminate.html) and
-  [radiation and pregnancy for clinicians](https://www.cdc.gov/radiation-emergencies/hcp/clinical-guidance/pregnancy.html).
+  [radiation and pregnancy for clinicians](https://www.cdc.gov/radiation-emergencies/hcp/clinical-guidance/pregnancy.html). The
+  pregnancy page, dated 31 January 2025 and read again on 22 Nov 2026 for the late effects, gives its Table 1 "adapted from NCRP
+  Report No. 174, Table 1.1": nothing but cancer detectable below 0.1 Gy; failure to implant in the first two weeks; miscarriage and
+  major malformations above 0.5 Gy later; and intellectual disability (IQ under 70) in 40 % after 1 Gy in weeks 8 to 15 and 15 % in
+  weeks 16 to 25. Its windows split a little differently in the extracted text, so the record uses its words, not every cell.
 - **US FDA**: [*Potassium Iodide as a Thyroid Blocking Agent in Radiation Emergencies*](https://www.fda.gov/media/72510/download)
   (2001); the labels, on DailyMed, of [Neupogen (filgrastim)](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=97cc73cc-b5b7-458a-a933-77b00523e193),
   [Radiogardase (Prussian blue)](https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=baa68c79-5f3d-468a-a510-58b9e978cd50) and

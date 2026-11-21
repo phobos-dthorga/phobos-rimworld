@@ -7,7 +7,7 @@ required.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's
 [medical chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links for modders.
 
-Version 0.22.0, built 22 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
+Version 0.23.0, built 22 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
 D'thorga Medical (11 November 2026), and burns, dosing, the oxygen concentrator, the burn unit bed and the save bridge on the five
 mods it replaced (3 to 6 November 2026). Everything else is not yet tested in game, nor is the merged mod as a whole.
 
@@ -36,7 +36,7 @@ mods it replaced (3 to 6 November 2026). Everything else is not yet tested in ga
   Buildings and items left behind are dropped by the game with an error line. Operations triage queued stay as ordinary bills.
   The next load prints a harmless line for each missing map or game component, and one per research project; the save after that is
   clean.
-- **Radiation, with Rimatomics:** our model takes Rimatomics' radiation for people, and **converts anyone's existing Rimatomics radiation once**. Switching the model off, or removing this mod, does not bring Rimatomics' conditions back.
+- **Radiation, with Rimatomics:** our model takes Rimatomics' radiation for people, and **converts anyone's existing Rimatomics radiation once**. Switching the model off, or removing this mod, does not bring Rimatomics' conditions back. **Late effects** (cancer, cataracts, sterility, harm in pregnancy) use the game's own carcinoma, cataract and sterilized where it has them; those stay when the mod is removed, as the game's own conditions.
 - **Taking Vanilla Gravship Expanded out later** removes those six oxygen pieces the same way; patients on them lose the treatment
   within the hour, cleanly.
 - **Adding More Injuries (or another mod that adds body parts) to a running colony asks first**: **Convert now**, **Not now** or
@@ -75,7 +75,7 @@ Each part has a section in the settings window and a section in the [player guid
 | Emergency dosing | Doctors give painkillers, sedatives and disease-fighting drugs on their own, chosen by what each drug does; people in pain fetch their own by drug policy | [Doctors who dose](../../docs/player-guide/medical.md#doctors-who-dose) |
 | Triage | A tag on every patient, the operation a killing condition needs queued by itself, and the worst case first | [Triage](../../docs/player-guide/medical.md#triage) |
 | Equipment | Oxygen at the bedside, in the field and in a pressure chamber; ventilator, nebuliser, anaesthesia machine, steriliser, burn unit bed, safety shower, gas alarm, field kits; making and keeping oxygen | [Equipment](../../docs/player-guide/medical.md#equipment) |
-| Radiation | A dose the body repairs, and radiation sickness in its real course: early sickness, a well spell, the illness; care decides who lives; a doctor's estimate or, after Rimatomics' detectors, the exact dose. Takes Rimatomics' radiation for people (a setting) | [Radiation](../../docs/player-guide/medical.md#radiation) |
+| Radiation | A dose the body repairs, and radiation sickness in its real course: early sickness, a well spell, the illness; care decides who lives; a doctor's estimate or, after Rimatomics' detectors, the exact dose; late effects (cancer, cataracts, sterility, harm in pregnancy), each a setting. Takes Rimatomics' radiation for people (a setting) | [Radiation](../../docs/player-guide/medical.md#radiation) |
 | Radiation control | With Rimatomics: a line colonists suit up at, and potassium iodide before going in | [Radiation control](../../docs/player-guide/medical.md#radiation-control-with-rimatomics) |
 | Save bridge | Converts a colony's wounds, lost limbs and bionics when More Injuries is added to it, so nothing lands on the wrong part | [Adding More Injuries](../../docs/player-guide/medical.md#adding-more-injuries-to-an-old-colony) |
 
@@ -134,6 +134,12 @@ dot), and use **Reset this page to defaults** at the bottom of a page. Read from
 | Radiation sickness runs its real course | Off: Dubs Rimatomics' own radiation sickness, as before | On |
 | How harsh radiation is | Gentle, Moderate, Realistic, Harsh: the dose that kills half without care, and how far care moves it | Moderate |
 | A doctor estimates a dose until it can be measured | Off: every dose shows exactly | On |
+| Cancer | Each gray taken over a life adds a chance of leukaemia (from about a month) or a carcinoma (from about two and a half game years) | On |
+| Cataracts | From half a gray, a chance of cataracts in both eyes later, certain at 5 Gy | On |
+| Sterility | A man sterile for a while from 0.15 Gy; for good from 3.5 to 6 Gy (a woman 2.5 to 6) | On |
+| Loss of a pregnancy | Needs Biotech: a dose early in a pregnancy, or a large one later, may end it | On |
+| Harm to a child before birth | Needs Biotech: weaker movement, or slower learning and thinking, by when in the pregnancy | On |
+| A child's own cancer risk | Needs Biotech: a child is born carrying the dose it took before birth | On |
 | ***Colonies saved before More Injuries*** | Counts the saves you chose never to convert; **Ask about them again** forgets that choice | |
 | ***Taking this mod out of a colony*** | **Remove every condition this mod adds, from every pawn**: a button, for use before removing the mod | |
 

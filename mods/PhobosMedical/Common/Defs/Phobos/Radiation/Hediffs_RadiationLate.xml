@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Radiation's late effects (D'thorga Medical 0.23.0; docs/development/radiation-model.md, RM8; the owner's choices of 22 Nov 2026).
+    Cancer elsewhere in the body is the game's own carcinoma, cataracts its own cataract and permanent sterility its own sterilized; these
+    are the ones the game has no condition for. Every figure here is authored, a gameplay simplification of the record's sources. Not yet
+    tested in game.
+  -->
+  <HediffDef ParentName="ChronicDiseaseBase">
+    <defName>PhobosRadiation_Leukaemia</defName>
+    <label>leukaemia</label>
+    <labelNoun>leukaemia</labelNoun>
+    <description>A cancer of the blood-forming marrow, here brought on by radiation taken months or years before. The marrow fills with faulty cells, so the person grows pale and tired, catches infections easily and bruises and bleeds. Without treatment it worsens and kills; a doctor's tending slows it.</description>
+    <defaultLabelColor>(0.9, 1.0, 0.35)</defaultLabelColor>
+    <initialSeverity>0.05</initialSeverity>
+    <lethalSeverity>1</lethalSeverity>
+    <tendable>true</tendable>
+    <everCurableByItem>true</everCurableByItem>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_TendDuration">
+        <baseTendDurationHours>96</baseTendDurationHours>
+        <severityPerDayTended>-0.004</severityPerDayTended>
+      </li>
+      <li Class="HediffCompProperties_GrowthMode">
+        <severityPerDayGrowing>0.006</severityPerDayGrowing>
+        <severityPerDayRemission>-0.002</severityPerDayRemission>
+        <severityPerDayGrowingRandomFactor>0.45~1.65</severityPerDayGrowingRandomFactor>
+        <severityPerDayRemissionRandomFactor>0.7~1.5</severityPerDayRemissionRandomFactor>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>early</label>
+        <restFallFactor>1.1</restFallFactor>
+        <statOffsets>
+          <ImmunityGainSpeed>-0.1</ImmunityGainSpeed>
+        </statOffsets>
+      </li>
+      <li>
+        <minSeverity>0.3</minSeverity>
+        <label>advancing</label>
+        <restFallFactor>1.25</restFallFactor>
+        <painOffset>0.1</painOffset>
+        <statOffsets>
+          <ImmunityGainSpeed>-0.2</ImmunityGainSpeed>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.1</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.1</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.6</minSeverity>
+        <label>severe</label>
+        <restFallFactor>1.4</restFallFactor>
+        <painOffset>0.2</painOffset>
+        <statOffsets>
+          <ImmunityGainSpeed>-0.35</ImmunityGainSpeed>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.2</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.2</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.8</minSeverity>
+        <label>terminal</label>
+        <lifeThreatening>true</lifeThreatening>
+        <restFallFactor>1.6</restFallFactor>
+        <painOffset>0.3</painOffset>
+        <statOffsets>
+          <ImmunityGainSpeed>-0.5</ImmunityGainSpeed>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.3</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.3</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>PhobosRadiation_TemporarySterility</defName>
+    <label>sterile after radiation</label>
+    <description>Radiation has stopped this man's testes making sperm for a while. They recover in time, longer after a larger dose.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.9, 1.0, 0.35)</defaultLabelColor>
+    <isBad>true</isBad>
+    <preventsPregnancy>true</preventsPregnancy>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>900000~900000</disappearsAfterTicks>
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <statFactors MayRequire="Ludeon.RimWorld.Biotech">
+          <Fertility MayRequire="Ludeon.RimWorld.Biotech">0</Fertility>
+        </statFactors>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>PhobosRadiation_PrenatalMalformation</defName>
+    <label>radiation harm before birth, movement</label>
+    <description>Radiation reached this person in the womb while their body was forming, leaving weaker movement and less steady hands for life.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.9, 1.0, 0.35)</defaultLabelColor>
+    <isBad>true</isBad>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <everCurableByItem>false</everCurableByItem>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.15</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.15</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>PhobosRadiation_PrenatalBrainInjury</defName>
+    <label>radiation harm before birth, learning</label>
+    <description>Radiation reached this person's brain in the womb while it was developing. They learn more slowly than others and think a little less sharply, for life.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.9, 1.0, 0.35)</defaultLabelColor>
+    <isBad>true</isBad>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <everCurableByItem>false</everCurableByItem>
+    <stages>
+      <li>
+        <statFactors>
+          <GlobalLearningFactor>0.5</GlobalLearningFactor>
+        </statFactors>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>-0.1</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>

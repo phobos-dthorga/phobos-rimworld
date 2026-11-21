@@ -28,6 +28,7 @@ public static class RadiationService
         Hediff_PhobosRadiationDose dose = DoseOf(pawn, create: true)!;
         dose.AddDose(Today, grays);
         dose.lastSource = source;
+        LateEffects.OnDose(pawn, dose, grays);
         Refresh(pawn, dose);
         if (Seen.Wants("radiation.dose-taken", pawn)) Seen.Note("radiation.dose-taken", pawn, (grays * 1000f).ToString("0") + " mGy from " + (source ?? "unknown"));
     }
@@ -50,6 +51,8 @@ public static class RadiationService
         if (DoseOf(pawn, create: false) is not { } dose) return;
         Refresh(pawn, dose);
         if (dose.InCourse) RunCourse(pawn, dose);
+        LateEffects.GiveDue(pawn, dose);
+        LateEffects.ForgetEndedPregnancy(pawn, dose);
     }
 
     /// <summary>The effective dose after repair, old doses folded into the part beyond repair, and the course started at the threshold.</summary>
@@ -80,6 +83,7 @@ public static class RadiationService
             dose.StartCourse(Find.TickManager.TicksGame, Sensitivity(pawn, 1) < RadiationRule.VomitShare(effective));
             if (Seen.Wants("radiation.course", pawn, "started")) Seen.Note("radiation.course", pawn, effective.ToString("0.0") + " Gy", "started");
         }
+        LateEffects.Judge(pawn, dose);
     }
 
     static void RunCourse(Pawn pawn, Hediff_PhobosRadiationDose dose)

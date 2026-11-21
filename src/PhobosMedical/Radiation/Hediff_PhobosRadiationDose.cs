@@ -37,6 +37,24 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
     /// <summary>Where the last dose came from, told in the tooltip.</summary>
     public string? lastSource;
 
+    // ---- Late effects (Medical 0.23.0, RM8) ----
+
+    /// <summary>The highest effective dose ever reached, after repair: what sterility follows.</summary>
+    public float highest;
+    /// <summary>The game day a late effect is due, <see cref="LateNone"/> while none is coming, <see cref="LateGiven"/> once given.</summary>
+    public int leukaemiaDay = LateNone;
+    public int cancerDay = LateNone;
+    public int cataractDay = LateNone;
+    /// <summary>The highest dose a temporary sterility was given for, so a larger dose gives a longer one.</summary>
+    public float sterileTemporaryFor;
+    public bool sterilePermanent;
+    /// <summary>The pregnancy the prenatal doses belong to (its load ID), and the dose taken in each <see cref="Rules.PrenatalWindow"/>.</summary>
+    public int pregnancyId = -1;
+    public List<float> prenatal = new();
+
+    public const int LateNone = -1;
+    public const int LateGiven = -2;
+
     public float Effective => Severity;
 
     public bool InCourse => courseStart >= 0;
@@ -86,8 +104,18 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
         Scribe_Values.Look(ref bloodCount, "PhobosRadiation_BloodCount", -1);
         Scribe_Values.Look(ref illnessHeight, "PhobosRadiation_IllnessHeight");
         Scribe_Values.Look(ref lastSource, "PhobosRadiation_LastSource");
+        Scribe_Values.Look(ref highest, "PhobosRadiation_Highest");
+        Scribe_Values.Look(ref leukaemiaDay, "PhobosRadiation_LeukaemiaDay", LateNone);
+        Scribe_Values.Look(ref cancerDay, "PhobosRadiation_CancerDay", LateNone);
+        Scribe_Values.Look(ref cataractDay, "PhobosRadiation_CataractDay", LateNone);
+        Scribe_Values.Look(ref sterileTemporaryFor, "PhobosRadiation_SterileTemporaryFor");
+        Scribe_Values.Look(ref sterilePermanent, "PhobosRadiation_SterilePermanent");
+        Scribe_Values.Look(ref pregnancyId, "PhobosRadiation_PregnancyId", -1);
+        Scribe_Collections.Look(ref prenatal, "PhobosRadiation_Prenatal", LookMode.Value);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
+            prenatal ??= new List<float>();
+            if (highest < Severity) highest = Severity;
             doseDays ??= new List<int>();
             doseGrays ??= new List<float>();
             if (doseDays.Count != doseGrays.Count)

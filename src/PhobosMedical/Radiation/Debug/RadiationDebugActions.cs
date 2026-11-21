@@ -52,6 +52,21 @@ public static class RadiationDebugActions
         }
     }
 
+    [DebugAction(DebugCategory.Name, "Radiation: bring late effects due now for selected pawns", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static void LateEffectsNow()
+    {
+        int today = Find.TickManager.TicksGame / GenDate.TicksPerDay;
+        foreach (Pawn pawn in DebugSelection.SelectedThings<Pawn>().ToList())
+        {
+            if (RadiationService.DoseOf(pawn, create: false) is not { } dose) continue;
+            if (dose.leukaemiaDay >= 0) dose.leukaemiaDay = today;
+            if (dose.cancerDay >= 0) dose.cancerDay = today;
+            if (dose.cataractDay >= 0) dose.cataractDay = today;
+            LateEffects.GiveDue(pawn, dose);
+            Log.Message(MedicalMod.LogPrefix + " " + pawn.LabelShort + ": late effects that were coming are given; " + Late(dose));
+        }
+    }
+
     [DebugAction(DebugCategory.Name, "Radiation: log the dose of selected pawns", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static void LogDose()
     {
@@ -77,6 +92,17 @@ public static class RadiationDebugActions
         return gone.Count;
     }
 
+    /// <summary>What is coming, and when, in game days.</summary>
+    static string Late(Hediff_PhobosRadiationDose dose)
+    {
+        static string When(int day) => day == Hediff_PhobosRadiationDose.LateGiven ? "given" : day < 0 ? "none" : "day " + day;
+        string pregnancy = dose.pregnancyId < 0 || dose.prenatal.Count != 5 ? "no pregnancy dosed"
+            : "pregnancy dosed " + string.Join("/", dose.prenatal.Select(g => g.ToString("0.00"))) + " Gy by window";
+        return "highest " + dose.highest.ToString("0.00") + " Gy; leukaemia " + When(dose.leukaemiaDay) + ", cancer " + When(dose.cancerDay)
+            + ", cataract " + When(dose.cataractDay) + ", sterile " + (dose.sterilePermanent ? "for good" : dose.sterileTemporaryFor > 0 ? "for a while" : "no")
+            + "; " + pregnancy;
+    }
+
     /// <summary>The dose, the course and what decides it, in one line.</summary>
     static string Line(Pawn pawn)
     {
@@ -85,6 +111,7 @@ public static class RadiationDebugActions
             .Append("effective ").Append(dose.Effective.ToString("0.00")).Append(" Gy, lifetime ").Append(dose.lifetime.ToString("0.00"))
             .Append(" Gy (category ").Append(RadiationRule.ExposureCategory(dose.lifetime)).Append("), beyond repair ").Append(dose.beyondRepair.ToString("0.00"))
             .Append(" Gy, last from ").Append(dose.lastSource ?? "unknown");
+        line.Append("; ").Append(Late(dose));
         if (!dose.InCourse) return line.Append("; no course.").ToString();
         double days = (Find.TickManager.TicksGame - dose.courseStart) / (double)GenDate.TicksPerDay;
         double care = RadiationService.Care(pawn, PhobosRadiationRulesDef.Current);

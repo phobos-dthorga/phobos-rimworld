@@ -22,5 +22,18 @@
     <!-- A room is clean at cleanliness 0.6 or better: a hospital with sterile floors. -->
     <cleanRoomFrom>0.6</cleanRoomFrom>
     <smallestShown>0.05</smallestShown>
+    <!-- Late effects (Medical 0.23.0). Where a solid cancer forms: the first of these the person has, from a place fixed by who they
+         are. Lung, stomach, liver and the bowel (the torso) and the thyroid (the neck): among the commoner cancers after radiation
+         (agent's list, after RERF's survivors; a gameplay simplification). -->
+    <solidCancerParts>
+      <li>Lung</li>
+      <li>Stomach</li>
+      <li>Liver</li>
+      <li>Torso</li>
+      <li>Neck</li>
+      <li>Kidney</li>
+    </solidCancerParts>
+    <!-- A leukaemia or carcinoma begins at this severity. -->
+    <cancerStartSeverity>0.05</cancerStartSeverity>
   </Phobos.Radiation.Defs.PhobosRadiationRulesDef>
 </Defs>

@@ -10,6 +10,13 @@ public static class RadiationDefOf
     public static HediffDef PhobosRadiation_Dose = null!;
     public static HediffDef PhobosRadiation_EarlySickness = null!;
     public static HediffDef PhobosRadiation_Illness = null!;
+    public static HediffDef PhobosRadiation_Leukaemia = null!;
+    public static HediffDef PhobosRadiation_TemporarySterility = null!;
+    public static HediffDef PhobosRadiation_PrenatalMalformation = null!;
+    public static HediffDef PhobosRadiation_PrenatalBrainInjury = null!;
+    public static HediffDef Carcinoma = null!;
+    public static HediffDef Cataract = null!;
+    public static HediffDef Sterilized = null!;
 
     static RadiationDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(RadiationDefOf));
 }
@@ -37,6 +44,10 @@ public class PhobosRadiationRulesDef : PhobosRulesDef
     public float cleanRoomFrom = 0.6f;
     /// <summary>Doses below this are added to the record but start nothing, and are not shown.</summary>
     public float smallestShown = 0.05f;
+    /// <summary>Where a solid cancer from radiation forms: the first of these the person has, from a place fixed by who they are.</summary>
+    public System.Collections.Generic.List<BodyPartDef> solidCancerParts = new();
+    /// <summary>A leukaemia or carcinoma from radiation begins at this severity.</summary>
+    public float cancerStartSeverity = 0.05f;
 
     public static PhobosRadiationRulesDef Current => Current<PhobosRadiationRulesDef>();
 }

@@ -12,6 +12,19 @@
     }},
     "362": [{"key": "radiation.dose-taken", "detail": "*strike*"}],
     "363": ["radiation.converted"],
+    "369": {"parts": {
+      "a leukaemia given": [{"key": "radiation.late", "variant": "leukaemia"}],
+      "a solid cancer given": [{"key": "radiation.late", "variant": "cancer"}],
+      "cataracts given": [{"key": "radiation.late", "variant": "cataract"}],
+      "sterile for a while": [{"key": "radiation.late", "variant": "sterile-temporary"}],
+      "sterile for good": [{"key": "radiation.late", "variant": "sterile-permanent"}]
+    }},
+    "370": {"parts": {
+      "a pregnancy lost": [{"key": "radiation.prenatal", "variant": "loss"}],
+      "a child born with weaker movement": [{"key": "radiation.prenatal", "variant": "malformation"}],
+      "a child born learning more slowly": [{"key": "radiation.prenatal", "variant": "brain"}],
+      "a child carrying its dose": [{"key": "radiation.prenatal", "variant": "carried"}]
+    }},
     "345": {"parts": {
       "the Busbar's mast jams while set up and running": ["vehicles.ground-jammer"]
     }},

@@ -262,6 +262,14 @@ Not yet tested in game. On by default (**Radiation sickness runs its real course
 - **Suits and masks do not stop radiation.** Walls, a roof, earth and distance do: stay indoors in fallout. Rimatomics' fallout now fades
   as real fallout does, to a tenth after a week.
 - **How harsh it is** is a setting: Gentle, **Moderate** (the default), Realistic or Harsh.
+- **Radiation can return long after.** Every gray someone takes over their life adds a chance of **leukaemia** (from about a month)
+  or a **carcinoma** (from about two and a half game years); from half a gray, **cataracts** in both eyes some time later; and a man
+  is **sterile for a while** from 0.15 Gy, longer the larger the dose, and either sex **for good** after a few grays. Moderate gives
+  these half their real chance, Gentle none. A doctor's tending slows a leukaemia; a carcinoma can be cut out, as the game's own.
+- **With Biotech, a dose in pregnancy reaches the child.** From 0.1 Gy in its first day (its first two weeks), or from half a gray
+  later, a pregnancy may be lost. A child dosed while its body forms may be born with weaker movement and hands; dosed while its
+  brain develops (most of all a third of the way through), it may learn more slowly. It carries its dose, and the cancer risk with it.
+- **Each late effect has its own switch** on the Radiation settings page.
 - **With Rimatomics,** our model takes its radiation for people (robots keep Rimatomics' own), and anyone already carrying Rimatomics'
   radiation sickness has it converted once.
 

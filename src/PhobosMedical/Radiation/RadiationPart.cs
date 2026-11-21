@@ -24,6 +24,14 @@ public class RadiationSettings : ModSettings
     public RadiationHarshness harshness = RadiationHarshness.Moderate;
     /// <summary>A doctor's estimate before Rimatomics' Geiger research, or without Rimatomics; off shows the dose exactly always.</summary>
     public bool estimate = true;
+    /// <summary>Late effects, each with its own switch (owner, 22 Nov 2026: "configurable settings for those who want to disable various
+    /// things"); their strength follows the harshness preset.</summary>
+    public bool cancer = true;
+    public bool cataract = true;
+    public bool sterility = true;
+    public bool pregnancyLoss = true;
+    public bool pregnancyChild = true;
+    public bool pregnancyCancer = true;
 
     public override void ExposeData()
     {
@@ -31,6 +39,12 @@ public class RadiationSettings : ModSettings
         Scribe_Values.Look(ref model, "PhobosRadiation_Model", true);
         Scribe_Values.Look(ref harshness, "PhobosRadiation_Harshness", RadiationHarshness.Moderate);
         Scribe_Values.Look(ref estimate, "PhobosRadiation_Estimate", true);
+        Scribe_Values.Look(ref cancer, "PhobosRadiation_Cancer", true);
+        Scribe_Values.Look(ref cataract, "PhobosRadiation_Cataract", true);
+        Scribe_Values.Look(ref sterility, "PhobosRadiation_Sterility", true);
+        Scribe_Values.Look(ref pregnancyLoss, "PhobosRadiation_PregnancyLoss", true);
+        Scribe_Values.Look(ref pregnancyChild, "PhobosRadiation_PregnancyChild", true);
+        Scribe_Values.Look(ref pregnancyCancer, "PhobosRadiation_PregnancyCancer", true);
     }
 }
 
@@ -86,5 +100,12 @@ public static class RadiationPart
             h => ("PhobosRadiation_Harshness" + h).Translate(), h => ("PhobosRadiation_Harshness" + h + "Desc").Translate(),
             "PhobosRadiation_SettingHarshnessDesc".Translate());
         list.Check("PhobosRadiation_SettingEstimate".Translate(), ref s.estimate, d.estimate, "PhobosRadiation_SettingEstimateDesc".Translate());
+        list.Section("PhobosRadiation_SettingLateHeading".Translate());
+        list.Check("PhobosRadiation_SettingCancer".Translate(), ref s.cancer, d.cancer, "PhobosRadiation_SettingCancerDesc".Translate());
+        list.Check("PhobosRadiation_SettingCataract".Translate(), ref s.cataract, d.cataract, "PhobosRadiation_SettingCataractDesc".Translate());
+        list.Check("PhobosRadiation_SettingSterility".Translate(), ref s.sterility, d.sterility, "PhobosRadiation_SettingSterilityDesc".Translate());
+        list.Check("PhobosRadiation_SettingPregnancyLoss".Translate(), ref s.pregnancyLoss, d.pregnancyLoss, "PhobosRadiation_SettingPregnancyLossDesc".Translate());
+        list.Check("PhobosRadiation_SettingPregnancyChild".Translate(), ref s.pregnancyChild, d.pregnancyChild, "PhobosRadiation_SettingPregnancyChildDesc".Translate());
+        list.Check("PhobosRadiation_SettingPregnancyCancer".Translate(), ref s.pregnancyCancer, d.pregnancyCancer, "PhobosRadiation_SettingPregnancyCancerDesc".Translate());
     }
 }

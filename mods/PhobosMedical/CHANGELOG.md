@@ -6,6 +6,26 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.23.0] - 2026-11-22 - Draft
+
+Radiation's late effects
+
+### Added
+
+- **Radiation can return long after: cancer, cataracts, sterility** (the owner's choices of 22 November 2026, docs/development/radiation-model.md, RM8). Every gray taken over a life adds a chance of leukaemia (a new condition, from about a month after) or the game's carcinoma (from about two and a half game years), 5.5 % a gray at full strength. From half a gray, a chance of the game's cataracts in both eyes, certain at 5 Gy, sooner the larger the dose. A man is sterile for a while from 0.15 Gy, longer the larger the dose; past a limit of his own (3.5 to 6 Gy), or hers (2.5 to 6, lower with age), sterility is the game's own and for good. They come at a quarter of the real time, by the owner's choice. Who is affected is fixed by who they are, never rolled at the time. Not yet tested in game: row 369 of the test pass.
+- **With Biotech, a dose in pregnancy reaches the child** (the owner's choice: all three). From 0.1 Gy in the first two weeks (under a day of a Biotech pregnancy), or half a gray later, a pregnancy may be lost, through the game's own miscarriage, with a letter. A child dosed while its body forms may be born with weaker movement and hands; dosed while its brain develops, with slower learning and thinking (40 % a gray in weeks 8 to 15, 15 % in weeks 16 to 25, the CDC's figures). It is born carrying its dose, and so its own chance of cancer. Not yet tested in game: row 370.
+- **Six new settings on the Radiation page**, all on by default: Cancer, Cataracts, Sterility, Loss of a pregnancy, Harm to a child before birth, A child's own cancer risk. How strong they are follows How harsh radiation is: Gentle none, Moderate half their real chance, Realistic and Harsh the real chance.
+- Dev actions: Radiation: bring late effects due now for selected pawns; the dose log now names each late effect coming and when. Row 371 covers the radiation dev actions of 0.22.0.
+
+### Save compatibility
+
+- **Safe on a running colony.** People already dosed have their late effects worked out at the next look, from their lifetime dose. Carcinoma, cataracts and sterilized are the game's own conditions and stay if the mod is removed; leukaemia, temporary sterility and the two conditions of a child harmed before birth are ours and are cleared by the mod's remove button.
+
+### Compatibility and limits
+
+- The fetus takes the mother's dose, a simplification: the CDC says it tends to be lower. Growth restriction, which the sources also name, has no fitting game condition and is left out.
+- Contamination, potassium iodide's real role, worn armour's shielding and the three new medicines come next.
+
 ## [0.22.0] - 2026-11-22 - Draft
 
 Dev actions to give and remove radiation
