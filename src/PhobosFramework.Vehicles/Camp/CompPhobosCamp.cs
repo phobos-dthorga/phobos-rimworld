@@ -58,6 +58,37 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     public bool TentFitted => Systems is { Usable: true } systems && systems.Fittings.Grants(RoofTentAbility);
     public bool AwningFitted => Systems is { Usable: true } systems && systems.Fittings.Grants(AwningAbility);
 
+    // ---- More tents (Framework 0.217.0; docs/development/vehicle-accessories.md, "Built: tents for every vehicle") ----
+
+    internal const string SideFlyAbility = "SideFly", AwningRoomAbility = "AwningRoom", RearTentAbility = "RearTent", CamperAbility = "FoldOutCamper";
+    const string CamperBedSlot = "CamperBed";
+
+    bool Granted(string ability) => Systems is { Usable: true } systems && systems.Fittings.Grants(ability);
+
+    /// <summary>What a camp is made from: the tents and shelters fitted to the vehicle.</summary>
+    internal readonly struct CampFit
+    {
+        public readonly bool tent, awning, fly, awningRoom, rearTent, camper;
+
+        public CampFit(bool tent, bool awning, bool fly, bool awningRoom, bool rearTent, bool camper)
+        {
+            this.tent = tent;
+            this.awning = awning;
+            this.fly = fly;
+            this.awningRoom = awningRoom;
+            this.rearTent = rearTent;
+            this.camper = camper;
+        }
+
+        public bool Any => tent || awning || fly || awningRoom || rearTent || camper;
+        public int Rooms => (awningRoom ? 1 : 0) + (rearTent ? 1 : 0) + (camper ? 1 : 0);
+    }
+
+    internal CampFit Fit => new(TentFitted, AwningFitted, Granted(SideFlyAbility), Granted(AwningRoomAbility), Granted(RearTentAbility), Granted(CamperAbility));
+
+    /// <summary>The walls and flaps of the closed tents standing now. Saved.</summary>
+    List<Thing> tentWalls = new();
+
     // ---- The cab bunk (Framework 0.214.0; the record's B2): a bed the vehicle holds, given out by the caravan's bed pass (Berths) ----
 
     internal const string CabBunkAbility = "CabBunk";
@@ -261,7 +292,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     }
 
     /// <summary>Whether its camp stands beside it now.</summary>
-    public bool IsPitched => placed.Count > 0 || poles.Count > 0;
+    public bool IsPitched => placed.Count > 0 || poles.Count > 0 || tentWalls.Count > 0;
 
     public CampOrder Order => order;
 
@@ -298,7 +329,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             if (now - gearTick >= PlanTicks || now < gearTick)
             {
                 gearTick = now;
-                hasGear = TentFitted || AwningFitted || CargoGear().Count > 0;
+                hasGear = Fit.Any || CargoGear().Count > 0;
             }
             return hasGear;
         }
@@ -319,11 +350,24 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         public readonly List<IntVec3> poles = new();
         public (IntVec3 centre, Rot4 rot, CellRect rect)? tent;
         public readonly List<(MinifiedThing gear, string slot, IntVec3 centre, Rot4 rot, CellRect rect)> gear = new();
+        public readonly List<TentRoom> rooms = new();
         public int gearLeft;
         public string? refusal;
 
         public IEnumerable<IntVec3> PieceCells() =>
-            (tent.HasValue ? tent.Value.rect.Cells : Enumerable.Empty<IntVec3>()).Concat(gear.SelectMany(g => g.rect.Cells)).Concat(poles);
+            (tent.HasValue ? tent.Value.rect.Cells : Enumerable.Empty<IntVec3>()).Concat(gear.SelectMany(g => g.rect.Cells)).Concat(poles)
+                .Concat(rooms.SelectMany(r => r.rect.EdgeCells)).Concat(rooms.SelectMany(r => r.beds.SelectMany(b => b.rect.Cells)));
+    }
+
+    /// <summary>A closed tent of the plan, on the map: its rectangle with its walls, its flap, the cells inside left for gear, and its built-in beds.</summary>
+    internal sealed class TentRoom
+    {
+        public string kind = "";
+        public CellRect rect;
+        public IntVec3 door;
+        public IntVec3 doorInside = IntVec3.Invalid;
+        public readonly HashSet<IntVec3> inside = new();
+        public readonly List<(IntVec3 centre, Rot4 rot, CellRect rect)> beds = new();
     }
 
     CampLayoutRule.Frame FrameFor(int side)
@@ -383,8 +427,57 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         return true;
     }
 
-    Plan PlanFor(int side, Map map, bool tent, bool awning, List<MinifiedThing> gear)
+    /// <summary>How wide the vehicle stands, across its facing, in cells.</summary>
+    int WidthAcross()
     {
+        CellRect rect = Vehicle.OccupiedRect();
+        return Vehicle.Rotation.IsHorizontal ? rect.Height : rect.Width;
+    }
+
+    /// <summary>
+    /// Places one closed tent of the plan: every cell of it must be free. Its walls and beds are marked used, the cells inside left for gear.
+    /// Returns why not, or null.
+    /// </summary>
+    string? PlaceRoom(Plan plan, Map map, HashSet<IntVec3> used, string kind, CampLayoutRule.Room shape, (int x0, int z0, int x1, int z1)[]? beds)
+    {
+        var room = new TentRoom { kind = kind, rect = ToMap(plan.frame, shape.x0, shape.z0, shape.x1, shape.z1), door = ToMap(plan.frame, shape.doorX, shape.doorZ) };
+        if (!RectFree(room.rect, map, used, out string? refusal)) return refusal;
+        room.inside.UnionWith(room.rect.ContractedBy(1).Cells);
+        foreach (IntVec3 beside in GenAdj.CardinalDirections)
+        {
+            if (room.inside.Contains(room.door + beside)) room.doorInside = room.door + beside;
+        }
+        used.UnionWith(room.rect.EdgeCells);
+        if (beds != null)
+        {
+            Rot4 rot = new(plan.frame.ToMapRotation(CampLayoutRule.In));
+            foreach ((int x0, int z0, int x1, int z1) in beds)
+            {
+                CellRect rect = ToMap(plan.frame, x0, z0, x1, z1);
+                IntVec3 centre = CentreFor(rect, rot, VehicleCampDefOf.PhobosCamp_CamperBed.Size);
+                if (!centre.IsValid) continue;
+                room.beds.Add((centre, rot, rect));
+                used.UnionWith(rect.Cells);
+                room.inside.ExceptWith(rect.Cells);
+            }
+        }
+        plan.rooms.Add(room);
+        return null;
+    }
+
+    string RoomRefusal(string kind, string reason) =>
+        "PhobosCamp_RoomNoRoom".Translate(Vehicle.LabelShort.Named("VEHICLE"), TentLabel(kind).Named("TENT"), reason.Named("REASON")).Resolve();
+
+    static string TentLabel(string kind) => kind switch
+    {
+        AwningRoomAbility => "PhobosCamp_TentAwningRoom".Translate().Resolve(),
+        RearTentAbility => "PhobosCamp_TentRear".Translate().Resolve(),
+        _ => "PhobosCamp_TentCamper".Translate().Resolve(),
+    };
+
+    Plan PlanFor(int side, Map map, CampFit fit, List<MinifiedThing> gear)
+    {
+        bool tent = fit.tent, awning = fit.awning;
         var plan = new Plan { side = side, frame = FrameFor(side) };
         int length = plan.frame.length;
         var used = new HashSet<IntVec3>();
@@ -405,9 +498,44 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             plan.tent = (centre, rot, rect);
             used.UnionWith(rect.Cells);
         }
-        if (awning)
+        // Closed tents (Framework 0.217.0): the fold-out camper or the walled awning beside the vehicle, the rear tent behind it.
+        int sideRoomEnd = -1;
+        if (fit.camper)
         {
-            for (int z = 0; z < length; z++)
+            CampLayoutRule.Room shape = CampLayoutRule.Camper();
+            if (PlaceRoom(plan, map, used, CamperAbility, shape, CampLayoutRule.CamperBeds()) is { } refused)
+            {
+                plan.refusal = RoomRefusal(CamperAbility, refused);
+                return plan;
+            }
+            sideRoomEnd = shape.z1;
+        }
+        else if (fit.awningRoom)
+        {
+            CampLayoutRule.Room shape = CampLayoutRule.AwningRoom(length, tentHere);
+            if (PlaceRoom(plan, map, used, AwningRoomAbility, shape, null) is { } refused)
+            {
+                plan.refusal = RoomRefusal(AwningRoomAbility, refused);
+                return plan;
+            }
+            sideRoomEnd = shape.z1;
+        }
+        if (fit.rearTent && PlaceRoom(plan, map, used, RearTentAbility, CampLayoutRule.RearTent(WidthAcross()), null) is { } rearRefused)
+        {
+            plan.refusal = RoomRefusal(RearTentAbility, rearRefused);
+            return plan;
+        }
+        // The awning runs the whole side, or what a closed tent beside the vehicle leaves of it; the side fly is a short awning at the rear.
+        int coverFirst = System.Math.Max(0, sideRoomEnd + 1), coverLast = length - 1;
+        bool cover = awning;
+        if (!awning && fit.fly && sideRoomEnd < 0 && CampLayoutRule.FlyRows(length, tentHere) is { } flyRows)
+        {
+            (coverFirst, coverLast) = flyRows;
+            cover = true;
+        }
+        if (cover && coverFirst <= coverLast)
+        {
+            for (int z = coverFirst; z <= coverLast; z++)
             {
                 // The canvas is not drawn over the tent, whose own roof is there.
                 if (!tentHere || z >= CampLayoutRule.TentAlong) plan.awningRows.Add(ToMap(plan.frame, 0, z));
@@ -422,7 +550,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
                     plan.awning.Add(cell);
                 }
             }
-            foreach (int z in CampLayoutRule.PoleRows(length, tentHere))
+            foreach (int z in CampLayoutRule.PoleRowsBetween(System.Math.Max(coverFirst, tentHere ? CampLayoutRule.TentAlong : 0), coverLast))
             {
                 IntVec3 cell = ToMap(plan.frame, CampLayoutRule.AwningDepth - 1, z);
                 if (CellRefusal(cell, map, used) is { } refusal)
@@ -463,6 +591,17 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             }
         }
         Rot4 inward = new(plan.frame.ToMapRotation(CampLayoutRule.In));
+        // Inside a closed tent first (Framework 0.217.0): out of the weather, and where a heater's warmth is. The cell inside the flap is kept clear.
+        foreach (TentRoom room in plan.rooms)
+        {
+            foreach (IntVec3 cell in room.inside)
+            {
+                CellRect rect = GenAdj.OccupiedRect(cell, inward, def.Size);
+                if (rect.Contains(room.doorInside) || !rect.Cells.All(room.inside.Contains) || !RectFree(rect, map, used, out _)) continue;
+                used.UnionWith(rect.Cells);
+                return (cell, inward, rect);
+            }
+        }
         foreach ((int x, int z) in CampLayoutRule.Slots(plan.frame.length, def.Size.x, def.Size.z, Rules.campReachCells))
         {
             CellRect rect = ToMap(plan.frame, x, z, x + def.Size.z - 1, z + def.Size.x - 1);
@@ -478,11 +617,11 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     Plan MakePlan()
     {
         Map map = Vehicle.Map;
-        bool tent = TentFitted, awning = AwningFitted;
+        CampFit fit = Fit;
         List<MinifiedThing> gear = CargoGear();
-        Plan first = PlanFor(preferredSide, map, tent, awning, gear);
+        Plan first = PlanFor(preferredSide, map, fit, gear);
         if (first.refusal == null) return first;
-        Plan second = PlanFor(-preferredSide, map, tent, awning, gear);
+        Plan second = PlanFor(-preferredSide, map, fit, gear);
         return second.refusal == null ? second : first;
     }
 
@@ -552,15 +691,18 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             float work = 0f;
             if (order == CampOrder.SetUp)
             {
-                if (TentFitted) work += rules.campTentWork;
-                if (AwningFitted) work += rules.campAwningWork;
+                CampFit fit = Fit;
+                if (fit.tent) work += rules.campTentWork;
+                if (fit.awning || fit.fly) work += rules.campAwningWork;
+                work += fit.Rooms * rules.campRoomWork;
                 work += CargoGear().Sum(g => GearWork(g.InnerThing.def));
             }
             else
             {
                 if (placed.Any(p => p.def == VehicleCampDefOf.PhobosCamp_RoofTent)) work += rules.campTentWork;
                 if (poles.Count > 0) work += rules.campAwningWork;
-                work += placed.Where(p => p.def != VehicleCampDefOf.PhobosCamp_RoofTent).Sum(p => GearWork(p.def));
+                if (tentWalls.Count > 0) work += rules.campRoomWork;
+                work += placed.Where(p => p.def != VehicleCampDefOf.PhobosCamp_RoofTent && p.def != VehicleCampDefOf.PhobosCamp_CamperBed).Sum(p => GearWork(p.def));
             }
             return Mathf.Max(work, 1f);
         }
@@ -651,6 +793,31 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
                 poles.Add(GenSpawn.Spawn(pole, cell, map, WipeMode.VanishOrMoveAside));
             }
         }
+        // The closed tents: canvas walls and a flap round each, a canvas roof over it, and the camper's own beds inside.
+        foreach (TentRoom room in plan.rooms)
+        {
+            var roof = new List<IntVec3>();
+            CanvasRoofs.Lay(map, room.rect.Cells, roof);
+            foreach (IntVec3 cell in room.rect.EdgeCells)
+            {
+                Thing wall = ThingMaker.MakeThing(cell == room.door ? VehicleCampDefOf.Phobos_CanvasDoor : VehicleCampDefOf.Phobos_CanvasWall);
+                wall.SetFaction(faction);
+                if (wall is Building_PhobosCanvasWall canvas) canvas.roof = roof;
+                else if (wall is Building_PhobosCanvasDoor flap) flap.roof = roof;
+                tentWalls.Add(GenSpawn.Spawn(wall, cell, map, WipeMode.VanishOrMoveAside));
+            }
+            foreach ((IntVec3 centre, Rot4 rot, _) in room.beds)
+            {
+                Thing? bed = Held.FirstOrDefault(t => t.def == VehicleCampDefOf.PhobosCamp_CamperBed);
+                if (bed != null) Held.Remove(bed);
+                else bed = ThingMaker.MakeThing(VehicleCampDefOf.PhobosCamp_CamperBed);
+                if (bed.Faction != faction) bed.SetFaction(faction);
+                placed.Add(GenSpawn.Spawn(bed, centre, map, rot, WipeMode.VanishOrMoveAside));
+                placedSlots.Add(CamperBedSlot);
+            }
+            if (Seen.Wants("vehicles.camp-tent", Vehicle, room.kind)) Seen.Note("vehicles.camp-tent", Vehicle, room.inside.Count + " cells inside, " + room.beds.Count + " beds", room.kind);
+        }
+        if (plan.poles.Count > 0 && !AwningFitted && Seen.Wants("vehicles.camp-fly", Vehicle)) Seen.Note("vehicles.camp-fly", Vehicle, plan.awning.Count + " roofed");
         // The gear: out of the cargo, or new for a camp pitched at another faction's base.
         foreach ((MinifiedThing minified, string slot, IntVec3 centre, Rot4 rot, _) in plan.gear)
         {
@@ -717,11 +884,17 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
                 left++;
                 continue;
             }
-            if (piece.def == VehicleCampDefOf.PhobosCamp_RoofTent)
+            if (piece.def == VehicleCampDefOf.PhobosCamp_RoofTent || piece.def == VehicleCampDefOf.PhobosCamp_CamperBed)
             {
+                // A camper's bed in use stays where it is, if the vehicle must go without it.
+                if (leaving && piece is Building_Bed { CurOccupants: var sleeping } && sleeping.Any())
+                {
+                    left++;
+                    continue;
+                }
                 piece.DeSpawn();
                 // Its kit came back when the tent was taken off its mount: a tent struck with none fitted goes nowhere.
-                if (TentFitted) Held.TryAdd(piece);
+                if (piece.def == VehicleCampDefOf.PhobosCamp_RoofTent ? TentFitted : Granted(CamperAbility)) Held.TryAdd(piece);
                 else piece.Destroy();
                 packed++;
                 continue;
@@ -749,6 +922,12 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             if (!pole.Destroyed) pole.Destroy();
         }
         poles.Clear();
+        // The closed tents' walls and flaps: the first to go takes the canvas roof off.
+        foreach (Thing wall in tentWalls)
+        {
+            if (!wall.Destroyed) wall.Destroy();
+        }
+        tentWalls.Clear();
         Forget();
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
         string message = (leaving ? "PhobosCamp_PackedLeaving" : "PhobosCamp_PackedUp").Translate(name).Resolve();
@@ -760,7 +939,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
 
     void Remember(CampLayoutRule.Frame frame, string slot, Thing piece)
     {
-        if (slot.NullOrEmpty() || slot == TentSlot) return;
+        if (slot.NullOrEmpty() || slot == TentSlot || slot == CamperBedSlot) return;
         (int x, int z) = frame.FromMap(piece.Position.x, piece.Position.z);
         int direction = frame.FromMapRotation(piece.Rotation.AsInt);
         int index = spotSlots.IndexOf(slot);
@@ -819,7 +998,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     /// </summary>
     void PitchAtBase()
     {
-        if (!Vehicle.Spawned || IsPitched || !(TentFitted || AwningFitted) || !Rand.Chance(Rules.campAtBaseChance)) return;
+        CampFit fit = Fit;
+        if (!Vehicle.Spawned || IsPitched || !fit.Any || !Rand.Chance(Rules.campAtBaseChance)) return;
         Map map = Vehicle.Map;
         var gear = new List<MinifiedThing>();
         int swags = Rules.campAtBaseSwags.RandomInRange;
@@ -829,8 +1009,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             gear.Add(swag.MakeMinified());
         }
         preferredSide = Rand.Bool ? CampLayoutRule.Left : CampLayoutRule.Right;
-        Plan plan = PlanFor(preferredSide, map, TentFitted, AwningFitted, gear);
-        if (plan.refusal != null) plan = PlanFor(-preferredSide, map, TentFitted, AwningFitted, gear);
+        Plan plan = PlanFor(preferredSide, map, fit, gear);
+        if (plan.refusal != null) plan = PlanFor(-preferredSide, map, fit, gear);
         if (plan.refusal != null)
         {
             foreach (MinifiedThing unused in gear) unused.Destroy();
@@ -858,6 +1038,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
                 placed.Clear();
                 placedSlots.Clear();
                 poles.Clear();
+                tentWalls.Clear();
             }
             else
             {
@@ -971,6 +1152,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         Scribe_Collections.Look(ref placed, "PhobosCamp_Placed", LookMode.Reference);
         Scribe_Collections.Look(ref placedSlots, "PhobosCamp_PlacedSlots", LookMode.Value);
         Scribe_Collections.Look(ref poles, "PhobosCamp_Poles", LookMode.Reference);
+        Scribe_Collections.Look(ref tentWalls, "PhobosCamp_TentWalls", LookMode.Reference);
         Scribe_Values.Look(ref preferredSide, "PhobosCamp_Side", CampLayoutRule.Left);
         Scribe_Values.Look(ref pitchedSide, "PhobosCamp_PitchedSide", CampLayoutRule.Left);
         Scribe_Values.Look(ref order, "PhobosCamp_Order", CampOrder.None);
@@ -996,6 +1178,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
                 if (index < placedSlots.Count) placedSlots.RemoveAt(index);
             }
             poles.RemoveAll(t => t == null);
+            tentWalls ??= new List<Thing>();
+            tentWalls.RemoveAll(t => t == null);
             if (spotCells.Count != spotSlots.Count || spotDirections.Count != spotSlots.Count) ForgetSpots();
         }
     }

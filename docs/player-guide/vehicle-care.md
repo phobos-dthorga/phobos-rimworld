@@ -443,6 +443,24 @@ the kit back in the cargo.
 | **Roof tent** (55 kg) | A bed for two under its own canvas, at the rear of the camp's side. As restful as a real bed, dry in rain. Waking in it gives **slept in a roof tent** (+4) |
 | **Swag** (6 kg) | A better bedroll: rest 1.0, comfort 0.75. Caravans sleep on it. Waking from a fair, mild night in one with open sky overhead gives **slept under the stars** (+5); not under the awning, not in rain or cold |
 
+**More tents** (not yet tested in game). Each is a fitting made from a kit at a tailoring bench, after **vehicle parts** research:
+
+| Tent | Goes on | What stands at camp |
+| --- | --- | --- |
+| **Side fly** (6 kg) | Side rail | A tarp over three rows at the rear of the camp's side, on two poles. Cheaper and lighter than the awning, and shorter. No room |
+| **Walled awning** (33 kg; an awning plus **awning walls**) | Side rail | A **closed canvas room** along the camp's side, four cells out and as long as the vehicle, with a door flap |
+| **Rear tent** (25 kg) | Roof mount or side rail | A **closed canvas room** behind the vehicle, a cell wider than it on each side and five deep. **Unhitch any trailer first** |
+| **Fold-out camper** (90 kg) | The Pintle flatbed's tent mount | A **closed canvas room** beside the trailer, five cells out and six along, with **two double beds** and a walkway |
+
+- **The side rail takes one of** the awning, the side fly, the walled awning or the rear tent; **the roof mount one of** the roof tent,
+  the rear tent or (on the flatbed) the fold-out camper.
+- **A closed tent is a real room**: beds inside are indoors, and the wind and rain stay out. **Swags and gear are set out inside it
+  first**, leaving the cell inside the flap clear. Want a swag under the stars instead? Move it out once, and it goes back there.
+- **Camp heater** (8 kg; Architect, D'thorga, Motor pool; 40 steel and a component): uninstall it, fill it with chemfuel and load it.
+  The camp sets it out inside a closed tent, where it keeps the tent near **15 °C**, burning about 2 chemfuel a day and nothing while
+  the tent is warmer. Under an open awning or fly it warms nothing.
+- **Taking down any one wall brings that tent's canvas roof down**, as an awning's pole does.
+
 - **Moved a swag by hand?** It goes back to that spot next time. **Forget the camp's layout** starts afresh.
 - **Pack up camp** rolls everything back into the vehicle. It waits for sleepers to get up. Anything you moved away from the camp,
   and anything lying under the awning, stays where it is.

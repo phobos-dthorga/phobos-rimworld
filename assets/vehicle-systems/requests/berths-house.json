@@ -182,5 +182,143 @@
    "why": "the cold box in tow (Framework 0.216.0; docs/development/vehicle-field-kitchen.md, built 22 Nov 2026)",
    "route": "house"
   }
+ },
+ {
+  "name": "kit-side-fly-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a folded sand-coloured canvas tarp tied with a cord, two short wooden poles and a bundle of pegs lying across it. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Side fly kit: a folded canvas tarp with two short poles and pegs",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Side fly kit",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/SideFlyKit.png",
+   "why": "tents for every vehicle (Framework 0.217.0; docs/development/vehicle-accessories.md, built 22 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "kit-awning-walls-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a flat bundle of sand-coloured canvas wall panels with a long zip along one edge and a rolled door flap on top. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Awning walls kit: zip-on canvas wall panels and a rolled door flap",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Awning walls kit",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningWallKit.png",
+   "why": "tents for every vehicle (Framework 0.217.0; docs/development/vehicle-accessories.md, built 22 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "kit-rear-tent-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a long olive canvas tent bag with two straps and the ends of grey frame poles poking out of one end. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Rear tent kit: a long tent bag with frame poles",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Rear tent kit",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RearTentKit.png",
+   "why": "tents for every vehicle (Framework 0.217.0; docs/development/vehicle-accessories.md, built 22 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "kit-fold-out-camper-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a flat folded camper tent on a hinged wooden floor, grey canvas folded in thick layers with two latches on the side. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Fold-out camper kit: a tent folded flat on a hinged floor",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Fold-out camper kit",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CamperKit.png",
+   "why": "tents for every vehicle (Framework 0.217.0; docs/development/vehicle-accessories.md, built 22 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "camp-heater-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a small squat steel tent heater with a round burner top, a short flue pipe and a red fuel can at its side, seen from above. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Camp heater: a small steel tent heater with a flue and a fuel can, seen from above",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Camp heater",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampHeater.png",
+   "why": "tents for every vehicle (Framework 0.217.0; docs/development/vehicle-accessories.md, built 22 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "camper-bed-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a double mattress with a striped blanket and two pillows on a low hinged wooden floor, seen from directly above. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Camper bed: a double mattress on a hinged floor, seen from above",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Camper bed",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CamperBed.png",
+   "why": "tents for every vehicle (Framework 0.217.0; docs/development/vehicle-accessories.md, built 22 Nov 2026)",
+   "route": "house"
+  }
  }
 ]

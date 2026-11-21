@@ -29,9 +29,13 @@
   <PhobosCamp_AlreadyUp>The {VEHICLE}'s camp is already set up.</PhobosCamp_AlreadyUp>
   <PhobosCamp_NotUp>The {VEHICLE} has no camp set up.</PhobosCamp_NotUp>
   <PhobosCamp_Moving>The {VEHICLE} must be standing still to set up camp.</PhobosCamp_Moving>
-  <PhobosCamp_NothingToSetOut>The {VEHICLE} has nothing to set up camp with: no awning or roof tent fitted, and no swags or bedrolls in its cargo.</PhobosCamp_NothingToSetOut>
+  <PhobosCamp_NothingToSetOut>The {VEHICLE} has nothing to set up camp with: no awning, fly or tent fitted, and no swags or bedrolls in its cargo.</PhobosCamp_NothingToSetOut>
   <PhobosCamp_TentNoRoom>There is no room to open the {VEHICLE}'s roof tent on either side: {REASON}. Clear the ground at the rear of one side, or move the {VEHICLE}.</PhobosCamp_TentNoRoom>
   <PhobosCamp_AwningNoRoom>There is no room to roll out the {VEHICLE}'s awning on either side: {REASON}. Clear the two rows along one side, or move the {VEHICLE}.</PhobosCamp_AwningNoRoom>
+  <PhobosCamp_RoomNoRoom>There is no room to pitch the {VEHICLE}'s {TENT}: {REASON}. Clear the ground there, or move the {VEHICLE}.</PhobosCamp_RoomNoRoom>
+  <PhobosCamp_TentAwningRoom>walled awning</PhobosCamp_TentAwningRoom>
+  <PhobosCamp_TentRear>rear tent</PhobosCamp_TentRear>
+  <PhobosCamp_TentCamper>fold-out tent</PhobosCamp_TentCamper>
   <PhobosCamp_PieceInUse>Someone is using the {PIECE} at the {VEHICLE}'s camp. Wait until they are up, or call them away, before packing up.</PhobosCamp_PieceInUse>
   <PhobosCamp_HoldsVehicle>The {VEHICLE}'s camp is still set up beside it. Pack up camp first.</PhobosCamp_HoldsVehicle>
   <PhobosCamp_NoOrder>nothing is waiting to be done</PhobosCamp_NoOrder>

@@ -619,6 +619,37 @@ none.** Row 327 of [the in-game test pass](in-game-test-pass.md). Not yet tested
 | The mount | A third trailer loadout, `PhobosVehicleLoadout_TrailerCampSide`: the trailer loadout plus a side rail | A camp deck's loadout (both mounts) outranks it where a trailer has both flags |
 | With the trailer's own set-out | Unchanged code | The camp and the kitchen's or shower's tent each refuse cells the other holds, and each tries the other side |
 
+**Step 2, D'thorga Framework 0.217.0: the side fly, the walled awning, the rear tent, the fold-out camper and the camp heater.** Row 328 of
+[the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Sleep indoors at a camp: a closed canvas room beside or behind the vehicle, warmed by a heater; or the cheapest dry spot there is, under a fly |
+| What it stops them doing | Fitting more than one shelter to the side rail or the roof mount; pitching a rear tent with anything behind the vehicle |
+| How it changes play | The camp is chosen for the weather and the stay: a fly for a fair night, a walled awning or rear tent for a cold one, the camper for a base camp of four |
+| What outside the vehicle notices | The game's rooms and temperature (a tent is a room, a heater warms it), the colonists (indoor beds, no "slept outside"), the weather, and anyone shooting at the canvas |
+
+**Risk: low** (agent's grade): canvas burns and is shot through like the trailers' tents, and nothing is lost that the camp did not
+already risk. No setting.
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| Shapes | `CampLayoutRule` (game-free, tested): `FlyRows`, `AwningRoom`, `RearTent`, `Camper`, `CamperBeds` | In the camp's frame. A closed tent is a rectangle with a ring of canvas walls and one flap: the vehicle itself is no wall to the game, so the ring is whole. All sizes authored |
+| Side fly | A fitting on the side rail; planned as a short awning | Three rows from the rear (past a roof tent), two deep, a pole at each end. Uses the awning's poles and canvas |
+| Walled awning | A fitting on the side rail, made from an awning roll and a wall kit | Four out and the vehicle's length (at least four); 2 cells deep inside. Replaces the open awning, since the rail takes one fitting |
+| Rear tent | A fitting on the roof mount **or** the side rail (a fitting may name several roles) | One cell past each side, five deep, the flap at the far end; so a 3-wide vehicle gets 3 x 3 inside. The side rail lets the tank trailers and the kitchen carry one |
+| Fold-out camper | A fitting on the tent mount, only on the camp-deck trailer loadout | Five out, six along: two double beds (held by the trailer while packed, as the roof tent is, so they keep their sleepers) and a walkway. An awning on the same trailer covers only the rows the camper leaves |
+| Walls and roof | The trailers' own canvas wall and flap Defs; each now keeps an optional list of the roof it holds (`Building_PhobosCanvasWall.roof`) | As an awning's poles do: the first wall to go lifts the canvas, even where the vehicle is lost and the camp stands on. The trailers' own rooms are unchanged |
+| Gear goes inside | `PlaceGear` | Remembered spots first, then the cells inside a closed tent (never the cell inside the flap), then beside the vehicle as before |
+| Camp heater | `PhobosCamp_Heater`, camp gear | The Billy's tent heater's rule and figures: to 15 °C at most, about 2 chemfuel a day, nothing while warmer (`CompPhobosBurnWhenCold`) |
+
+**Agent's choices, for the owner to revise:** every size, weight and cost; that the walled awning is one fitting (awning plus walls)
+and not an add-on to a fitted awning, because a part takes one fitting; that all gear goes inside a closed tent first.
+**Other factions:** the Tourer fit set is unchanged (roof tent and awning); a captured vehicle's tents follow these rules. **Cost to
+run:** none while packed; a pitched tent is ordinary walls, a door and beds.
+**Art:** the four kits, the camper bed and the heater use our own nearest pictures (and the game's heater, by path) until theirs are
+made in the waiting run (`assets/vehicle-systems/requests/berths-house.json`).
+
 ## Questions for the owner
 
 **Answered by the owner, 13 Nov 2026:** (1) **the power budget first**: loads and weight on fittings, the house battery, the

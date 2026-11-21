@@ -7,6 +7,12 @@
       "the kettle simmers on the move": ["trailers.caravan-simmer"],
       "a meal halt cooks and holds the caravan": ["trailers.caravan-meal-halt"]
     }},
+    "328": {"parts": {
+      "the side fly goes up": ["vehicles.camp-fly"],
+      "the walled awning stands as a room": [{"key": "vehicles.camp-tent", "variant": "AwningRoom"}],
+      "the rear tent stands behind the vehicle": [{"key": "vehicles.camp-tent", "variant": "RearTent"}],
+      "the fold-out camper stands with its beds": [{"key": "vehicles.camp-tent", "variant": "FoldOutCamper"}]
+    }},
     "327": {"parts": {
       "a side-rail trailer pitches its own camp": ["trailers.side-rail-camp"]
     }},

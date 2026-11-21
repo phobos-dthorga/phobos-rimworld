@@ -1104,6 +1104,8 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// faction's base, the chance a vehicle carrying an awning or roof tent stands with its camp out, and how many swags lie there.</summary>
     public float campTentWork = 600f;
     public float campAwningWork = 450f;
+    /// <summary>The work of pitching or striking one closed tent of a camp, at construction speed (Framework 0.217.0, authored).</summary>
+    public float campRoomWork = 900f;
     public int campReachCells = 6;
     public float campAtBaseChance = 0.6f;
     public IntRange campAtBaseSwags = new(1, 3);

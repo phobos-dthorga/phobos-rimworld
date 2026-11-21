@@ -70,6 +70,145 @@
     </recipeMaker>
   </ThingDef>
 
+  <!-- ===== More tents (Framework 0.217.0; the owner, 22 Nov 2026): their kits ===== -->
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- Framework 0.217.0: a plain tarp with two short poles, pegs and guys, about 3 m by 2 m: 6 kg (authored). Canvas work, so the tailor makes it. -->
+    <defName>PhobosVehicleSystems_SideFlyKit</defName>
+    <label>side fly</label>
+    <description>A canvas tarp in a bag, with two short poles, pegs and guy lines. Fitted to a vehicle's side rail, it is slung from the vehicle's side down to the ground at the rear when its camp is set up: a dry place for two swags. It is no room, and the wind blows through.</description>
+    <graphicData>
+      <!-- Our own picture of the nearest kit until this one's is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
+      <texPath>Phobos/VehicleSystems/Camp/AwningRoll</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>6</Mass>
+      <WorkToMake>1200</WorkToMake>
+      <MarketValue>40</MarketValue>
+    </statBases>
+    <costList>
+      <Cloth>20</Cloth>
+      <Steel>4</Steel>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers Inherit="False">
+        <li>HandTailoringBench</li>
+        <li>ElectricTailoringBench</li>
+      </recipeUsers>
+      <skillRequirements Inherit="False">
+        <Crafting>2</Crafting>
+      </skillRequirements>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- Framework 0.217.0: zip-on walls and a flap for an awning, with their own poles: 18 kg (authored). -->
+    <defName>PhobosVehicleSystems_AwningWallKit</defName>
+    <label>awning walls</label>
+    <description>Canvas walls and a door flap that zip onto an awning, with poles and pegs. With an awning, they make the walled awning: fitted to a vehicle's side rail, it stands beside the vehicle as a closed canvas room when its camp is set up, keeping out the wind and rain and holding a heater's warmth.</description>
+    <graphicData>
+      <!-- Our own picture of the nearest kit until this one's is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
+      <texPath>Phobos/VehicleSystems/Camp/AwningRoll</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>18</Mass>
+      <WorkToMake>3000</WorkToMake>
+      <MarketValue>110</MarketValue>
+    </statBases>
+    <costList>
+      <Cloth>60</Cloth>
+      <Steel>10</Steel>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers Inherit="False">
+        <li>HandTailoringBench</li>
+        <li>ElectricTailoringBench</li>
+      </recipeUsers>
+      <skillRequirements Inherit="False">
+        <Crafting>3</Crafting>
+      </skillRequirements>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- Framework 0.217.0: a frame tent that fastens to a vehicle's back end, about 3 m square inside: 25 kg (authored). -->
+    <defName>PhobosVehicleSystems_RearTentKit</defName>
+    <label>rear tent</label>
+    <description>A canvas frame tent in a long bag, made to be pitched against the back of a vehicle. Fitted to a vehicle's roof mount or side rail, it stands behind the vehicle as a closed canvas room with a door flap when its camp is set up: room for three swags, or two and a heater.</description>
+    <graphicData>
+      <!-- Our own picture of the nearest kit until this one's is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
+      <texPath>Phobos/VehicleSystems/Camp/RoofTentKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>25</Mass>
+      <WorkToMake>3500</WorkToMake>
+      <MarketValue>140</MarketValue>
+    </statBases>
+    <costList>
+      <Cloth>70</Cloth>
+      <Steel>15</Steel>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers Inherit="False">
+        <li>HandTailoringBench</li>
+        <li>ElectricTailoringBench</li>
+      </recipeUsers>
+      <skillRequirements Inherit="False">
+        <Crafting>3</Crafting>
+      </skillRequirements>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- Framework 0.217.0: a camper trailer's fold-out tent with its two mattresses and floor: 90 kg (authored). -->
+    <defName>PhobosVehicleSystems_CamperKit</defName>
+    <label>fold-out camper</label>
+    <description>A camper trailer's tent, folded flat on a hinged floor with two double mattresses. Fitted to a camper trailer's tent mount, it folds out beside the trailer as a closed canvas room with two double beds when its camp is set up. It takes the mount a roof tent would.</description>
+    <graphicData>
+      <!-- Our own picture of the nearest kit until this one's is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
+      <texPath>Phobos/VehicleSystems/Camp/RoofTentKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>90</Mass>
+      <WorkToMake>8000</WorkToMake>
+      <MarketValue>420</MarketValue>
+    </statBases>
+    <costList>
+      <Cloth>120</Cloth>
+      <Steel>40</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers Inherit="False">
+        <li>HandTailoringBench</li>
+        <li>ElectricTailoringBench</li>
+      </recipeUsers>
+      <skillRequirements Inherit="False">
+        <Crafting>5</Crafting>
+      </skillRequirements>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- ===== The fittings ===== -->
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
@@ -100,6 +239,68 @@
     <minSkill>2</minSkill>
     <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
     <grants><li>Awning</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_SideFly</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/AwningRoll</iconPath>
+    <label>side fly</label>
+    <description>A canvas tarp on the side rail. When the vehicle's camp is set up it is slung from the vehicle's side over three rows of ground at the rear of the camp's side: rain and snow do not fall beneath it. Lighter and cheaper than an awning, and shorter. It is no room.</description>
+    <roles><li>SideRail</li></roles>
+    <materials><PhobosVehicleSystems_SideFlyKit>1</PhobosVehicleSystems_SideFlyKit></materials>
+    <givesBack><PhobosVehicleSystems_SideFlyKit>1</PhobosVehicleSystems_SideFlyKit></givesBack>
+    <kilograms>6</kilograms>
+    <work>800</work>
+    <minSkill>1</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>SideFly</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_AwningRoom</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/AwningRoll</iconPath>
+    <label>walled awning</label>
+    <description>An awning with zip-on walls, on the side rail. When the vehicle's camp is set up it stands along the camp's side as a closed canvas room, four cells out and as long as the vehicle, with a door flap: beds inside are indoors, and a camp heater keeps it warm. It takes the side rail, so not a plain awning or a side fly as well.</description>
+    <roles><li>SideRail</li></roles>
+    <materials><PhobosVehicleSystems_AwningRoll>1</PhobosVehicleSystems_AwningRoll><PhobosVehicleSystems_AwningWallKit>1</PhobosVehicleSystems_AwningWallKit><Steel>3</Steel></materials>
+    <givesBack><PhobosVehicleSystems_AwningRoll>1</PhobosVehicleSystems_AwningRoll><PhobosVehicleSystems_AwningWallKit>1</PhobosVehicleSystems_AwningWallKit></givesBack>
+    <kilograms>33</kilograms>
+    <work>2500</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>AwningRoom</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_RearTent</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/RoofTentKit</iconPath>
+    <label>rear tent</label>
+    <description>A frame tent carried on the roof mount or the side rail. When the vehicle's camp is set up it stands behind the vehicle as a closed canvas room, a cell wider than the vehicle on each side and five deep, with a door flap at its far end. Nothing may stand behind the vehicle: unhitch a trailer first.</description>
+    <roles><li>RoofMount</li><li>SideRail</li></roles>
+    <materials><PhobosVehicleSystems_RearTentKit>1</PhobosVehicleSystems_RearTentKit><Steel>3</Steel></materials>
+    <givesBack><PhobosVehicleSystems_RearTentKit>1</PhobosVehicleSystems_RearTentKit></givesBack>
+    <kilograms>25</kilograms>
+    <work>2000</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>RearTent</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_FoldOutCamper</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/RoofTentKit</iconPath>
+    <label>fold-out camper</label>
+    <description>A camper trailer's own tent, on its tent mount. When the trailer's camp is set up it folds out beside the trailer as a closed canvas room, five cells out and six along, with two double beds and a walkway. It takes the tent mount, so not a roof tent or a rear tent there as well.</description>
+    <roles><li>RoofMount</li></roles>
+    <materials><PhobosVehicleSystems_CamperKit>1</PhobosVehicleSystems_CamperKit><Steel>10</Steel></materials>
+    <givesBack><PhobosVehicleSystems_CamperKit>1</PhobosVehicleSystems_CamperKit></givesBack>
+    <kilograms>90</kilograms>
+    <work>4000</work>
+    <minSkill>5</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>FoldOutCamper</li></grants>
+    <!-- Only a trailer with a camp deck: the tent folds out from a flat deck. -->
+    <loadouts><li>PhobosVehicleLoadout_TrailerCampDeck</li></loadouts>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <!-- Another faction's vehicles may carry the camp; at their own base, by the rules Def's chance, they stand with it out (CompPhobosCamp). -->
@@ -255,6 +456,129 @@
       <ai_chillDestination>false</ai_chillDestination>
       <paintable>false</paintable>
     </building>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <!-- Framework 0.217.0: one of a fold-out camper's two double beds. Rest 1.0, comfort 0.8, the roof tent's figures (authored). Never built by
+         hand: the trailer's camp folds it out and away. It stands inside the camper's canvas room, so it is a bed indoors and gives no
+         memory of its own. It can be taken down by hand, for nothing back, so one left by a lost trailer can be cleared. -->
+    <defName>PhobosCamp_CamperBed</defName>
+    <label>camper bed</label>
+    <description>A double mattress on the hinged floor of a camper trailer's fold-out tent. The trailer's camp folds it away again.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <!-- Our roof tent's picture until the camper bed's own is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
+      <texPath>Phobos/VehicleSystems/Camp/RoofTent</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <size>(2,2)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>30</pathCost>
+    <fillPercent>0.4</fillPercent>
+    <castEdgeShadows>true</castEdgeShadows>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <canOverlapZones>false</canOverlapZones>
+    <rotatable>true</rotatable>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Mass>30</Mass>
+      <MarketValue>150</MarketValue>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <ImmunityGainSpeedFactor>1.05</ImmunityGainSpeedFactor>
+      <Comfort>0.8</Comfort>
+      <Beauty>0</Beauty>
+      <WorkToBuild>600</WorkToBuild>
+    </statBases>
+    <building>
+      <bed_showSleeperBody>false</bed_showSleeperBody>
+      <bed_healPerDay>4</bed_healPerDay>
+      <buildingTags>
+        <li>Bed</li>
+      </buildingTags>
+      <claimable>true</claimable>
+      <paintable>false</paintable>
+    </building>
+    <comps>
+      <li Class="CompProperties_AssignableToPawn">
+        <drawAssignmentOverlay>false</drawAssignmentOverlay>
+        <compClass>CompAssignableToPawn_Bed</compClass>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <!-- Framework 0.217.0 (the owner's yes, 22 Nov 2026): a small chemfuel heater for a camp's closed tent. Camp gear: built like a swag, carried
+         packed in the cargo and set out by the camp order, inside a closed tent where one stands. The Billy's tent heater's own rule and
+         figures (authored): it warms to 15 degrees C at most, about 2 chemfuel a day, and burns nothing while it is warmer than that. The
+         game's own heater picture, by path, until its own is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
+    <defName>PhobosCamp_Heater</defName>
+    <label>camp heater</label>
+    <description>A small chemfuel heater for a tent. Carried packed in a vehicle's cargo, it is set out with the camp, inside a closed tent where one stands. It keeps a tent at 15 °C or so in the cold, burning about two chemfuel a day, and burns nothing while the tent is warmer than that. Under an open awning it warms nothing.</description>
+    <graphicData>
+      <texPath>Things/Building/Misc/TempControl/Heater</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+      <color>(176, 164, 128)</color>
+    </graphicData>
+    <size>(1,1)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>30</pathCost>
+    <fillPercent>0.3</fillPercent>
+    <rotatable>false</rotatable>
+    <tickerType>Normal</tickerType>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsTemperature</li>
+    </thingCategories>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>2027</uiOrder>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+      <Mass>8</Mass>
+      <WorkToBuild>1200</WorkToBuild>
+    </statBases>
+    <costList>
+      <Steel>40</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>2.0</fuelConsumptionRate>
+        <fuelCapacity>10.0</fuelCapacity>
+        <!-- Burnt only while the tent is cold: the comp below marks it used each tick below 15 degrees C. -->
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </fuelFilter>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+      </li>
+      <li Class="CompProperties_HeatPusher">
+        <compClass>CompHeatPusherPowered</compClass>
+        <heatPerSecond>21</heatPerSecond>
+        <heatPushMaxTemperature>15</heatPushMaxTemperature>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="Phobos.Framework.Environment.CompProperties_PhobosBurnWhenCold">
+        <belowCelsius>15</belowCelsius>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+        <work>100</work>
+      </li>
+    </modExtensions>
   </ThingDef>
 
   <!-- ===== Waking ===== -->
