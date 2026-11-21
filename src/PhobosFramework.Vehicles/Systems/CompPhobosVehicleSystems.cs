@@ -179,6 +179,15 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                     if (!list.Exists(l => l.name == load.name)) list.Add(load);
                 }
             }
+            // What it tows may bring loads through the trailer's lead (Framework 0.216.0: a packed cold box). The rules Def lists them; each
+            // one's own "available" says whether this tow has it.
+            if (Hitch is { Trailer: not null })
+            {
+                foreach (ElectricalLoadSpec load in Rules.towLoads)
+                {
+                    if (!list.Exists(l => l.name == load.name)) list.Add(load);
+                }
+            }
             loadsCache = list;
             return list;
         }
@@ -827,9 +836,12 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 {
                     // The vehicle held, and everything behind it in the line.
                     if (held.GetComp<CompPhobosVehicleSystems>() is { Usable: true } heldSystems) heldSystems.CatchUpTowedBy(this);
+                    // Its cargo has no ticks either: without this, food in a towed trailer never aged on the road (Framework 0.216.0).
+                    HeldGoods.AgeTowed(held);
                     foreach (VehiclePawn further in CompPhobosHitch.Behind(held))
                     {
                         if (further.GetComp<CompPhobosVehicleSystems>() is { Usable: true } furtherSystems) furtherSystems.CatchUpTowedBy(this);
+                        HeldGoods.AgeTowed(further);
                     }
                 }
                 NoticeStopped();
@@ -1111,6 +1123,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         NotifyShedding();
         NotifyPower();
         UpdateFridge();
+        // A cold box packed on a trailer in tow stays cold while its load on this vehicle runs (Framework 0.216.0).
+        if (Hitch is { Trailer: not null } && LoadRuns(ColdInTow.LoadName)) ColdInTow.Chill(Vehicle);
         // Crosslink 5: the alternator takes shaft power for what the loads draw, so the engine works a little harder for them.
         float driveLoad = EngineLoad;
         bool wanted = drafted || caravanMoving || flying || (train?.IsAircraft == true && train.AircraftRunning) || workWanted;
@@ -1538,6 +1552,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     /// <summary>Whether a load runs now: fitted, switched on, not shed, and its battery above flat (the Systems tab's "running").</summary>
     bool LoadRuns(string name) => LoadNamed(name) is { } load && StateOf(load) == LoadState.Running;
+
+    /// <summary>Whether a load of this name runs now, for what depends on it beyond this vehicle (a cold box in tow).</summary>
+    public bool LoadRunning(string name) => LoadRuns(name);
 
     /// <summary>Whether a power outlet is fitted and switched on: its conduit stays down while the engine idles.</summary>
     public bool OutletWanted

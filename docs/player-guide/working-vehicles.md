@@ -354,6 +354,12 @@ and wood in the packs. **The cooks also reach whatever the caravan tows** (not y
 Billy itself, into its packed cold box, or into another trailer on the hitch. Raw food goes nearly twice as far that way. Turn it off with **Field kitchens cook in a caravan** in
 D'thorga Framework's settings.
 
+**The cold box on the road** (not yet tested in game): packed for the road, the cold box runs through the trailer's lead from the
+vehicle that tows it. That vehicle's Systems tab gains a **trailer cold box** line (100 W: about 8 amps on a 12-volt vehicle, 4 on a
+24-volt one) with its own switch, drawing only while the box holds food. While it runs, the food stays at 4 °C; switched off, shed
+by a failing alternator, on a flat battery or unhitched, it is only a box. **Food in a trailer ages on the road like any cargo**: a
+towed trailer is no freezer.
+
 **Driving through the night** (not yet tested in game): a caravan that never stops has no night's rest to cook in, so **its kettle
 simmers on the move**: riders who are not driving or crewing make **half as many meals each** (up to 10), for the same fuel a meal.
 Prefer a proper stop? Select the caravan and switch on **Meal halts**: it then stops **for an hour** each night, every cook works at

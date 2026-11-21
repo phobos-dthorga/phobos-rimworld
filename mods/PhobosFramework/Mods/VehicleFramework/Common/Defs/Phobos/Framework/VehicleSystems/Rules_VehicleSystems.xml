@@ -190,6 +190,28 @@
     <campAtBaseChance>0.6</campAtBaseChance>
     <campAtBaseSwags>1~3</campAtBaseSwags>
     <bunkWantsBelowRest>0.95</bunkWantsBelowRest>
+    <!-- Loads a vehicle gains from what it tows (Framework 0.216.0; docs/development/vehicle-field-kitchen.md). A field kitchen's packed cold
+         box runs through the trailer's lead: its own working watts (100 W in its Def) at this vehicle's voltage, while it holds food. Shed
+         with the fridge, late among the comforts, so the food outlives the air conditioning. -->
+    <towLoads>
+      <li>
+        <name>trailerColdBox</name>
+        <label>trailer cold box</label>
+        <description>The cold box of a field kitchen in tow, run through the trailer's lead while it is packed for the road. Switched on and with power, it keeps the food packed in it cold.</description>
+        <amps>1</amps>
+        <toggle>true</toggle>
+        <defaultOn>true</defaultOn>
+        <shedOrder>2</shedOrder>
+        <iconPath>Phobos/VehicleSystems/TrailerColdBox</iconPath>
+        <available Class="Phobos.VehicleSystems.When_TowedColdBox" />
+        <when Class="Phobos.VehicleSystems.When_TowedColdBox">
+          <inUse>true</inUse>
+        </when>
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TowedColdBoxAmps" />
+        </ampsInputs>
+      </li>
+    </towLoads>
     <nightDriverFitRest>0.3</nightDriverFitRest>
     <nightReliefRest>0.6</nightReliefRest>
     <diagnoseWork>1500</diagnoseWork>

@@ -223,7 +223,7 @@ Every input takes an optional `curve` (points `(x, y)` mapping the raw reading) 
 `When_Always`, `When_EngineRunning`, `When_Moving`, `When_Night` (hours in the rules Def), `When_AmbientBelow` and
 `When_AmbientAbove` (`celsius`), `When_QuantityBelow` and `When_QuantityAbove` (`quantity`, `value`), `When_HasQuantity` (`quantity`: some running system has it; inverted, an engine with no coolant), `When_ParameterBelow` (`parameter`, `value`), `When_Setting`
 (`setting`: `fuelGelling`, `boilerExplosions`, `realisticFeedWater`, `nightHeater`, `lowOilCallsService`, `accessoriesLoadEngine`, `roughGroundWear`, `jumpStartNeedsKit`, `assumeBoosterPack`),
-`When_CaravanResting` (the vehicle's caravan rests for the night), `When_BunkSleeper` (someone is asleep in its cab bunk on a map; Framework 0.216.0), `When_LoadActive` (`load`: one of the loadout's loads is switched
+`When_CaravanResting` (the vehicle's caravan rests for the night), `When_BunkSleeper` (someone is asleep in its cab bunk on a map; Framework 0.216.0), `When_TowedColdBox` (a packed cold box rides behind it; with `inUse`, one holding food; Framework 0.216.0), `When_LoadActive` (`load`: one of the loadout's loads is switched
 on and its condition holds),
 `When_Airborne` (in flight on the world map, or on a map in one of the rules Def's `airbornePhases`; Framework 0.119.0), `When_FlightPhase`
 (`phases`: the flight profiles' phase names, `WorldFlight` on the world map; Framework 0.119.0),

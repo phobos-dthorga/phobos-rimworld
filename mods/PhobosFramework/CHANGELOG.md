@@ -15,13 +15,20 @@ Camps, berths and working trailers meet
 
 - **A caravan's cooks reach the food in its trailers.** A towed trailer rides in its hitch and is no member of the caravan, so caravan cooking never saw raw food or fuel loaded into the Billy itself, into its packed cold box, or into another trailer in tow. The cooks now take from all of them as well as the packs, and the kitchen is found anywhere along a line of tows. Meals still join the caravan's packs. Not yet tested in game: row 323 of the test pass.
 
+- **A field kitchen's cold box stays cold in tow** (the owner's choice of 22 November 2026). Packed for the road, the cold box runs through the trailer's lead from the vehicle that tows it: that vehicle's Systems tab gains a trailer cold box line with its own switch (on by default), drawing the box's 100 watts, about 8 amps on a 12-volt vehicle and 4 on a 24-volt one, only while the box holds food. While it runs the food stays at 4 degrees C; switched off, shed by a failing alternator, on a flat battery or unhitched, it is only a box. The line borrows our switch icon until its own is made. For modders: towLoads in the vehicle rules Def, the condition When_TowedColdBox and the input Input_TowedColdBoxAmps. Not yet tested in game: row 324 of the test pass.
+
 ### Changed
 
 - **The setting Field kitchens cook in a resting caravan is now called Field kitchens cook in a caravan**, since it also covers a caravan that drives through the night. Its saved value and its default (on) are unchanged.
 
 ### Fixed
 
+- **Food in a towed trailer, and in a packed cold box, now ages.** Nothing gave it time: a trailer riding behind a vehicle in a caravan has no ticks of its own, and the pieces a trailer packs away were never ticked on a map or off it, so food there never spoiled, for nothing. Each now ages as the game ages any cargo, at the temperature where it is: the cold box in tow, a fridge and cold weather are what keep it. Not yet tested in game: row 324 of the test pass.
 - **The night heater burns for someone asleep in a parked truck's cab bunk.** It ran only at a caravan's night camp on the world map, so a colonist sleeping in the bunk of a truck parked on a map, engine off, had no heat at all: the cab met the outside air in about an hour and a half, where the bunk's own entry promised the cab's warmth. Now the heater burns for a bunk sleeper exactly as at camp: 0.4 chemfuel an hour and 2 amps on a combustion vehicle, the drive battery on an electric one. It still needs the Night heater at camp setting and the vehicle's night heater switch on; with either off the cab is as cold as before, unless the engine idles. For modders: the condition When_BunkSleeper. Not yet tested in game: row 321 of the test pass.
+
+### Save compatibility
+
+- Food already riding in a towed trailer or a packed cold box starts ageing from where it stood when this version is installed; nothing is lost at once.
 
 ## [0.215.0] - 2026-11-21 - Draft
 

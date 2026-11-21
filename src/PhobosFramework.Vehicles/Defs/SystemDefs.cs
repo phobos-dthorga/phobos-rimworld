@@ -1095,6 +1095,11 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// <summary>Cab bunks and driving through the night (Framework 0.214.0; vehicle-accessories.md, B2 and B3, authored): a rider takes the bunk
     /// on the move below this rest; a driver may drive on above the first line, and a passenger takes over above the second.</summary>
     public float bunkWantsBelowRest = 0.95f;
+    /// <summary>
+    /// Loads a vehicle gains from what it tows, through the trailer's lead (Framework 0.216.0: a packed cold box). Each load's
+    /// <c>available</c> says whether this tow brings it, and its <c>when</c> whether it draws now.
+    /// </summary>
+    public List<ElectricalLoadSpec> towLoads = new();
     public float nightDriverFitRest = 0.3f;
     public float nightReliefRest = 0.6f;
     /// <summary>Claiming another faction's vehicle (owner, 11 Nov 2026): hours to get in and make it answer to us, more for each cell it covers,

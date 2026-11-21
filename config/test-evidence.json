@@ -7,6 +7,10 @@
       "the kettle simmers on the move": ["trailers.caravan-simmer"],
       "a meal halt cooks and holds the caravan": ["trailers.caravan-meal-halt"]
     }},
+    "324": {"parts": {
+      "food packed in a trailer ages": ["trailers.held-goods-age"],
+      "the cold box stays cold in tow": ["trailers.cold-box-in-tow"]
+    }},
     "323": {"parts": {
       "the cooks reach food in the trailer and its cold box": ["trailers.caravan-larder"]
     }},

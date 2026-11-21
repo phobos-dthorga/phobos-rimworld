@@ -306,6 +306,8 @@ public sealed class CompPhobosSetOut : VehicleComp, ISetUpPart, IThingHolder
     public override void CompTickRare()
     {
         base.CompTickRare();
+        // What its packed pieces hold has no other clock (Framework 0.216.0): a packed cold box's food ages here, on a map or in a caravan.
+        if (packed is { Count: > 0 }) HeldGoods.AgePacked(Vehicle);
         if (powerPoint is not { Spawned: true } || powerPoint.GetComp<CompPowerTrader>() is not { } trader) return;
         float watts = Props.idleWatts;
         foreach (Thing piece in placed)

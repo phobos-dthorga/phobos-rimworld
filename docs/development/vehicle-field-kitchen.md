@@ -1,6 +1,6 @@
 # The field kitchen trailer (13 Nov 2026)
 
-**Status (17 Nov 2026):** built in D'thorga Framework 0.121.0 to 0.122.0 and Vehicles 0.59.0 to 0.60.0 ("What was built" below): the tent and its pieces, power, batches of ten and twenty, caravan cooking, its own picture and sounds, the kettle's water with its own tank, and six upgrades; and, in Framework 0.216.0 (22 Nov 2026), cooking while a caravan drives through the night; not built: enemy bases and the dry-goods locker. Not yet tested in game.
+**Status (17 Nov 2026):** built in D'thorga Framework 0.121.0 to 0.122.0 and Vehicles 0.59.0 to 0.60.0 ("What was built" below): the tent and its pieces, power, batches of ten and twenty, caravan cooking, its own picture and sounds, the kettle's water with its own tank, and six upgrades; and, in Framework 0.216.0 (22 Nov 2026), cooking while a caravan drives through the night, the cooks' reach into trailers and the cold box in tow; not built: enemy bases and the dry-goods locker. Not yet tested in game.
 
 **A research and design record.** The owner, 13 November 2026: "A
 military-style portable kitchen on wheels, powered by the Busbar as required." The owner chose the same day that it **always
@@ -301,6 +301,43 @@ Not yet tested in game.
 - **Still open, said plainly:** people in a caravan **eat** only from the caravan's packs. Food in a towed trailer that is not cooked
   (meals, pemmican) is not eaten on the road; load ready food into a driven vehicle. That is the game's own caravan feeding, which this
   does not patch.
+
+## Built: the cold box in tow, and time for food in a trailer (22 Nov 2026)
+
+**The owner chose** "cold box stays cold in tow" (22 Nov 2026). Built in D'thorga Framework 0.216.0; row 324 of
+[the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+**What reading the code found first, and it corrects the agent's own earlier word.** The agent had told the owner the packed cold box
+was "warm on the road". It was neither warm nor cold: **its food did not age at all.** The game ages a held thing only when its holder
+ticks it, and two holders of ours never did: a trailer riding in its hitch off the map has no ticks (its tractor catches its tyres up,
+nothing else), and the pieces a trailer packs away were never ticked, on a map or off it. So every towed trailer's cargo, and every
+packed cold box, was a freezer that cost nothing. Keeping a box cold means nothing until time passes in it, so both are built together.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Carry fresh food for days in a kitchen's cold box, for a few amps of the towing vehicle's electrics |
+| What it stops them doing | Keeping food fresh for ever, for nothing, by loading it into any towed trailer or a packed cold box |
+| How it changes play | Food for a long run goes in the cold box, a fridge or the cold; what rides in a plain trailer is planned like any cargo. The tractor's battery and alternator carry one more load |
+| What outside the trailer notices | The food (it ages, or does not), the towing vehicle's electrics (a load that can be shed), the Systems tab (a line and a switch) and the cooks (what is still worth cooking) |
+
+**Risk: low** (agent's grade, for the owner to confirm): food in a trailer now spoils at the pace of any other cargo, slowly and in
+plain view on each stack. **No setting** (agent's choice, for the owner to revise): it is the game's own rule for cargo reaching a place
+it was skipped by accident, not a new hazard; the cold box, a fridge and cold weather are the answers the game already gives.
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| Time for held food | `HeldGoods` | One of the game's own rare ticks for each rarely-ticked thing (what rots or spoils): a held trailer's cargo and packed pieces at its tractor's rare tick (`AgeTowed`), a trailer's packed pieces at its own (`AgePacked`). The game's own temperature rule then applies: the cell on a map, the tile off it |
+| The load | `towLoads` in the vehicle rules Def; `Loads` adds them while the vehicle tows | **trailer cold box**: the box's own working watts from its Def (100 W [A]) over the vehicle's volts, drawn only while a packed box holds food; a switch, on by default; shed with the fridge (rank 2). Other trailers can bring loads the same way, in XML |
+| Cold | `ColdInTow.Chill`, told from the tractor's look; `Building_PhobosColdBox.Cold` | While the load runs, each packed box behind is told so and stays at 4 °C until two looks pass without word. Told from the tractor's side because no list of tows names a trailer riding in a hitch after a game is loaded |
+
+**Limits, said plainly:** a packed box cannot be looked into (set the kitchen up to read its stacks). On a map, a packed kitchen hitched
+to a parked vehicle also runs its box from that vehicle's battery; unhitched and packed, the box is warm. Its own icon is asked for in
+`assets/vehicle-systems/requests/berths-house.json`; until then the load shows our switch icon.
+
+**Other factions:** raiders bring no kitchens; a base's kitchen stands set out. A captured kitchen follows these rules. A raider's
+vehicle on the light tier ages nothing in tow (the catch-up runs on the full tier only), which costs the player nothing.
+**Cost to run:** per towing vehicle, one walk along its tow at its rare tick; per stack of food in a held trailer, the game's own rare
+tick, as it would have in any cargo.
 
 ## Sources
 

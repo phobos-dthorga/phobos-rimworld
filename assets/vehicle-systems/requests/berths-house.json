@@ -136,5 +136,51 @@
    "why": "cooking while driving through the night (Framework 0.216.0; docs/development/vehicle-field-kitchen.md, built 22 Nov 2026)",
    "route": "house"
   }
+ },
+ {
+  "name": "load-trailer-cold-box-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a squat insulated steel chest with a hinged lid, a pale blue snowflake on its front, and a short black power cable with a round plug trailing from its side. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Trailer cold box load: an insulated chest with a snowflake and a trailing power cable",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/CampFridge.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/CampOutlet.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Trailer cold box load",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/TrailerColdBox.png",
+   "why": "the cold box in tow (Framework 0.216.0; docs/development/vehicle-field-kitchen.md, built 22 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "load-trailer-cold-box-c",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: an open insulated chest showing blocks of ice and wrapped food inside, a coiled black cable with a round trailer plug lying in front of it. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Trailer cold box load: an open ice chest with a coiled trailer cable and plug",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/CampFridge.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/CampOutlet.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Trailer cold box load",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/TrailerColdBox.png",
+   "why": "the cold box in tow (Framework 0.216.0; docs/development/vehicle-field-kitchen.md, built 22 Nov 2026)",
+   "route": "house"
+  }
  }
 ]

@@ -11,6 +11,7 @@ namespace Phobos.VehicleSystems;
 /// Billy's cold box (Framework 0.121.0; docs/development/vehicle-field-kitchen.md): an insulated box that holds raw food. It is the game's own
 /// kind of holder, as a bookcase is, so haulers fill it by its storage settings and cooks take ingredients straight from it. While its trailer
 /// is plugged in, what it holds is kept at <see cref="ColdTemperature"/> (or colder, if the weather is); without power it is only a box.
+/// Packed for the road it stays cold while the vehicle towing its trailer carries it as a load (ColdInTow, Framework 0.216.0).
 /// Set down where it stands if it is destroyed, so nothing in it is ever lost.
 /// </summary>
 public class Building_PhobosColdBox : Building, IHaulDestination, IStoreSettingsParent, IHaulSource, IThingHolder, ISearchableContents, ISetOutLoad
@@ -26,7 +27,25 @@ public class Building_PhobosColdBox : Building, IHaulDestination, IStoreSettings
     /// <summary>How many stacks it holds: the Def's items per cell over its cells (authored in the Def).</summary>
     public int MaximumStacks => Mathf.Max(1, def.building.maxItemsInCell * def.size.Area);
 
-    public bool Cold => Spawned && SetOuts.Powered(this);
+    /// <summary>Cold while set out and plugged in; packed for the road, while the vehicle towing its trailer runs it through the lead.</summary>
+    public bool Cold => Spawned ? SetOuts.Powered(this) : ColdInTowNow;
+
+    /// <summary>How long word from the towing vehicle keeps a packed box cold, in ticks: two of its rare looks.</summary>
+    const int TowWordLastsTicks = 2 * GenTicks.TickRareInterval;
+    /// <summary>When the vehicle towing its trailer last said its cold box load runs. Derived, never saved: the next look says so again.</summary>
+    int chilledInTowTick = -TowWordLastsTicks - 1;
+
+    /// <summary>The vehicle towing its trailer runs it through the lead now (ColdInTow.Chill).</summary>
+    internal void ChilledInTow(int tick) => chilledInTowTick = tick;
+
+    bool ColdInTowNow
+    {
+        get
+        {
+            int since = Find.TickManager.TicksGame - chilledInTowTick;
+            return since >= 0 && since <= TowWordLastsTicks;
+        }
+    }
 
     public float WattsNow => def.GetModExtension<PhobosSetOutPowerExtension>()?.wattsWorking ?? 0f;
 
