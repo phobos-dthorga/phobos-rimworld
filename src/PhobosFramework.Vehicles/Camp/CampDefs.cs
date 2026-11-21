@@ -12,6 +12,8 @@ public class PhobosCampGearExtension : DefModExtension
 {
     /// <summary>The work of laying one out or rolling it up, at construction speed (authored).</summary>
     public float work = 150f;
+    /// <summary>A seat (Framework 0.219.0, the camp stool): set down beside a camp table where one stands, facing it, so people eat there.</summary>
+    public bool besideTable;
 }
 
 /// <summary>

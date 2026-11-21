@@ -34,6 +34,27 @@ public class PhobosCaravanCookingExtension : DefModExtension
 }
 
 /// <summary>
+/// A kitchen a caravan carries (Framework 0.219.0): a field kitchen on wheels, driven or towed, or a kitchen box packed in the cargo. What its
+/// cooks may make is its own Def's (PhobosCaravanCookingExtension, on the vehicle's Def or the box's), and its burners are what it holds.
+/// </summary>
+public sealed class CaravanKitchen
+{
+    public readonly Thing Source;
+    public readonly PhobosCaravanCookingExtension Rules;
+    public readonly List<CompRefuelable> Burners;
+    /// <summary>A kitchen box rather than a field kitchen: the field kitchen's own seen-in-play notes are not written for it.</summary>
+    public readonly bool IsBox;
+
+    public CaravanKitchen(Thing source, PhobosCaravanCookingExtension rules, List<CompRefuelable> burners, bool isBox)
+    {
+        Source = source;
+        Rules = rules;
+        Burners = burners;
+        IsBox = isBox;
+    }
+}
+
+/// <summary>
 /// Caravan cooking (Framework 0.121.0; docs/development/vehicle-field-kitchen.md, owner's choice of 13 Nov 2026, a setting on by default): once a
 /// night, while a caravan rests, its cooks turn raw food from its packs into simple meals at a field kitchen it carries, on its own wheels or
 /// behind a hitch. Each meal takes what the game's simple meal takes and burns the kitchen's fuel, or chemfuel and wood from the packs.
@@ -56,7 +77,7 @@ public class PhobosCaravanCooking : WorldComponent
     /// <summary>Caravans the player chose meal halts for, by ID. Saved.</summary>
     HashSet<int> mealHalts = new();
     /// <summary>The kitchen each caravan carries, as last looked. Derived, never saved.</summary>
-    readonly Dictionary<int, (int tick, VehiclePawn? kitchen)> kitchens = new();
+    readonly Dictionary<int, (int tick, PhobosCaravanCookingExtension? kitchen)> kitchens = new();
 
     public static PhobosCaravanCooking? Current => Find.World?.GetComponent<PhobosCaravanCooking>();
 
@@ -68,12 +89,12 @@ public class PhobosCaravanCooking : WorldComponent
         if (!mealHalts.Remove(caravan.ID)) mealHalts.Add(caravan.ID);
     }
 
-    /// <summary>The field kitchen this caravan carries, or null, looked for at most every few seconds: for its buttons.</summary>
-    public VehiclePawn? KitchenOf(Caravan caravan)
+    /// <summary>The rules of the kitchen this caravan carries, or null, looked for at most every few seconds: for its buttons.</summary>
+    public PhobosCaravanCookingExtension? KitchenOf(Caravan caravan)
     {
         int now = Find.TickManager.TicksGame;
-        if (kitchens.TryGetValue(caravan.ID, out (int tick, VehiclePawn? kitchen) seen) && now - seen.tick < KitchenLookTicks && now >= seen.tick) return seen.kitchen;
-        VehiclePawn? kitchen = Kitchen(caravan);
+        if (kitchens.TryGetValue(caravan.ID, out (int tick, PhobosCaravanCookingExtension? kitchen) seen) && now - seen.tick < KitchenLookTicks && now >= seen.tick) return seen.kitchen;
+        PhobosCaravanCookingExtension? kitchen = Kitchen(caravan)?.Rules;
         kitchens[caravan.ID] = (now, kitchen);
         return kitchen;
     }
@@ -99,24 +120,38 @@ public class PhobosCaravanCooking : WorldComponent
             lastCooked[caravan.ID] = now;
             int meals = Cook(caravan, kitchen, way);
             // A meal halt holds the caravan only when there was a meal to stop for.
-            if (way == CaravanCookRule.Way.Halt && meals > 0) driving?.Halt(caravan, kitchen.def.GetModExtension<PhobosCaravanCookingExtension>().mealHaltTicks);
+            if (way == CaravanCookRule.Way.Halt && meals > 0) driving?.Halt(caravan, kitchen.Rules.mealHaltTicks);
         }
     }
 
-    /// <summary>The first field kitchen the caravan carries: a vehicle in it, or one riding a hitch.</summary>
-    static VehiclePawn? Kitchen(Caravan caravan)
+    /// <summary>
+    /// The kitchen the caravan cooks at: a field kitchen it carries first, a vehicle in it or one anywhere along a line of tows; else a kitchen
+    /// box packed in its cargo, in tow or in anyone's packs (Framework 0.219.0; the owner, 22 Nov 2026: with a Billy there too, the Billy cooks).
+    /// </summary>
+    static CaravanKitchen? Kitchen(Caravan caravan)
     {
         foreach (Pawn pawn in caravan.PawnsListForReading)
         {
-            if (pawn is VehiclePawn vehicle && vehicle.def.HasModExtension<PhobosCaravanCookingExtension>()) return vehicle;
+            if (pawn is VehiclePawn vehicle && vehicle.def.GetModExtension<PhobosCaravanCookingExtension>() is { } rules) return OnWheels(vehicle, rules);
         }
-        // Anywhere along a line of tows, not only first behind the tractor.
         foreach (VehiclePawn towed in Hitches.InTow(caravan))
         {
-            if (towed.def.HasModExtension<PhobosCaravanCookingExtension>()) return towed;
+            if (towed.def.GetModExtension<PhobosCaravanCookingExtension>() is { } rules) return OnWheels(towed, rules);
+        }
+        foreach (Thing thing in Larder(caravan).things)
+        {
+            if (thing is MinifiedThing { InnerThing: { } inner } && inner.def.GetModExtension<PhobosCaravanCookingExtension>() is { } rules)
+            {
+                var burners = new List<CompRefuelable>();
+                if (inner.TryGetComp<CompRefuelable>() is { } burner) burners.Add(burner);
+                return new CaravanKitchen(inner, rules, burners, isBox: true);
+            }
         }
         return null;
     }
+
+    static CaravanKitchen OnWheels(VehiclePawn vehicle, PhobosCaravanCookingExtension rules) =>
+        new(vehicle, rules, vehicle.GetComp<CompPhobosSetOut>()?.PackedPieces.Select(p => p.TryGetComp<CompRefuelable>()).OfType<CompRefuelable>().ToList() ?? new List<CompRefuelable>(), isBox: false);
 
     /// <summary>
     /// Everything the cooks can reach (Framework 0.216.0; the owner, 22 Nov 2026): the caravan's packs, the cargo of every vehicle it tows, and
@@ -164,9 +199,10 @@ public class PhobosCaravanCooking : WorldComponent
     }
 
     /// <summary>Cooks the night's meals the given way, and says what happened. Returns the meals made.</summary>
-    static int Cook(Caravan caravan, VehiclePawn kitchen, CaravanCookRule.Way way)
+    static int Cook(Caravan caravan, CaravanKitchen at, CaravanCookRule.Way way)
     {
-        PhobosCaravanCookingExtension rules = kitchen.def.GetModExtension<PhobosCaravanCookingExtension>();
+        PhobosCaravanCookingExtension rules = at.Rules;
+        Thing kitchen = at.Source;
         RecipeDef? recipe = rules.recipe;
         ThingDef? mealDef = rules.meal;
         if (recipe == null || mealDef == null || recipe.ingredients.Count == 0) return 0;
@@ -192,7 +228,7 @@ public class PhobosCaravanCooking : WorldComponent
         (List<Thing> larder, int inTow) = Larder(caravan);
         List<Thing> raw = larder.Where(t => Allowed(recipe, t)).ToList();
         float nutrition = raw.Sum(t => t.GetStatValue(StatDefOf.Nutrition) * t.stackCount);
-        List<CompRefuelable> burners = kitchen.GetComp<CompPhobosSetOut>()?.PackedPieces.Select(p => p.TryGetComp<CompRefuelable>()).OfType<CompRefuelable>().ToList() ?? new List<CompRefuelable>();
+        List<CompRefuelable> burners = at.Burners;
         List<Thing> carriedFuel = larder
             .Where(t => burners.Count > 0 ? burners[0].Props.fuelFilter.Allows(t) : t.def == ThingDefOf.Chemfuel || t.def == ThingDefOf.WoodLog).ToList();
         float fuel = burners.Sum(b => b.Fuel) + carriedFuel.Sum(t => t.stackCount);
@@ -244,6 +280,11 @@ public class PhobosCaravanCooking : WorldComponent
             _ => "PhobosCaravanCooking_Cooked".Translate(caravanName, count, meal).Resolve(),
         };
         Tell(said, caravan, MessageTypeDefOf.PositiveEvent);
+        if (at.IsBox)
+        {
+            if (Seen.Wants("camp.kitchen-box-caravan", kitchen, way.ToString())) Seen.Note("camp.kitchen-box-caravan", kitchen, meals + " meals, " + poisoned + " spoilt", way.ToString());
+            return meals;
+        }
         if (inTow > 0 && Seen.Wants("trailers.caravan-larder", kitchen)) Seen.Note("trailers.caravan-larder", kitchen, inTow + " stacks in tow within the cooks' reach");
         switch (way)
         {

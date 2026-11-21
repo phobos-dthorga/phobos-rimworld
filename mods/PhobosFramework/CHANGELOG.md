@@ -9,6 +9,10 @@ tested in game unless an entry says the owner tested it.
 
 Camps and trailers on the road, and the kitchen box
 
+### Added
+
+- **The groundwork for the camp's kitchen box, table and stools** (the owner's choices of 22 November 2026; the three pieces themselves follow with their pictures). A camp now sets seats down beside a table, facing it, up to four to a table; keeps clear the spot a piece's user works from, such as a cook's; and a caravan can cook on the road at a kitchen box packed in its cargo, by the same simmer and meal-halt rules as the Billy (a Billy, where there is one, is used first). For modders: besideTable on PhobosCampGearExtension, alsoRecipesOf on PhobosCopyStoveRecipesExtension (a stove taking another bench's recipes), and PhobosCaravanCookingExtension on a packable building. Not yet tested in game: row 338 of the test pass.
+
 ### Fixed
 
 - **A caravan's people eat the food in its towed trailers.** A trailer on the hitch rides outside the caravan, so the game's caravan feeding never saw food in its cargo, and people went hungry beside a full one. When the caravan's own packs hold nothing a person can eat, the cargo of whatever it tows is searched, by the game's own rules for what they may eat and like best; while the packs hold food, nothing changes. The caravan's days-of-food figure still counts the packs only. Not yet tested in game: row 334 of the test pass.

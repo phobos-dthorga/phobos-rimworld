@@ -138,6 +138,11 @@ public class RecipeWorker_PhobosNeedsNode : RecipeWorker
 /// <summary>On a field range's Def: at start-up it takes every recipe of the game's cooking tables, so other mods' stove recipes work on it.</summary>
 public class PhobosCopyStoveRecipesExtension : DefModExtension
 {
+    /// <summary>
+    /// Benches whose recipes it takes as well (Framework 0.219.0, the kitchen box: Vanilla Brewing Expanded's espresso machine, for its teas and
+    /// coffees; the owner, 22 Nov 2026). Named in XML with MayRequire, so a bench that is not loaded is simply left out.
+    /// </summary>
+    public List<ThingDef> alsoRecipesOf = new();
 }
 
 /// <summary>
@@ -157,7 +162,12 @@ public static class FieldStoveRecipes
         foreach (ThingDef range in ranges)
         {
             int added = 0;
-            foreach (RecipeDef recipe in recipes)
+            var its = new HashSet<RecipeDef>(recipes);
+            foreach (ThingDef bench in range.GetModExtension<PhobosCopyStoveRecipesExtension>().alsoRecipesOf)
+            {
+                if (bench != null) its.UnionWith(bench.AllRecipes);
+            }
+            foreach (RecipeDef recipe in its)
             {
                 recipe.recipeUsers ??= new List<ThingDef>();
                 if (recipe.recipeUsers.Contains(range) || range.recipes?.Contains(recipe) == true) continue;

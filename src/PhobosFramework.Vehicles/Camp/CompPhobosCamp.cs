@@ -197,8 +197,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         };
         // A caravan with a field kitchen chooses how it cooks while it drives through the night (Framework 0.216.0; the owner, 22 Nov 2026):
         // the kettle simmers on the move unless meal halts are chosen here.
-        if (!VehicleSystemsMod.Settings.caravanCooking || PhobosCaravanCooking.Current is not { } cooking || cooking.KitchenOf(caravan) is not { } kitchen
-            || kitchen.def.GetModExtension<PhobosCaravanCookingExtension>() is not { } cook) yield break;
+        if (!VehicleSystemsMod.Settings.caravanCooking || PhobosCaravanCooking.Current is not { } cooking || cooking.KitchenOf(caravan) is not { } cook) yield break;
         var halts = new Command_Toggle
         {
             defaultLabel = "PhobosCaravanCooking_HaltGizmo".Translate().Resolve(),
@@ -635,7 +634,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             }
         }
         var counts = new Dictionary<ThingDef, int>();
-        foreach (MinifiedThing minified in gear)
+        // Tables first and seats last (Framework 0.219.0), so a stool finds its table placed; the rest keep their order between.
+        foreach (MinifiedThing minified in gear.OrderBy(g => GearOrder(g.InnerThing.def)).ToList())
         {
             ThingDef def = minified.InnerThing.def;
             counts.TryGetValue(def, out int index);
@@ -647,6 +647,48 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         return plan;
     }
 
+    /// <summary>Where a piece comes in the camp's order: a table, then other gear, then seats.</summary>
+    static int GearOrder(ThingDef def) => def.surfaceType == SurfaceType.Eat ? 0 : def.GetModExtension<PhobosCampGearExtension>() is { besideTable: true } ? 2 : 1;
+
+    /// <summary>The most seats a camp sets beside one table (the owner's choice, 22 Nov 2026: up to four).</summary>
+    const int SeatsPerTable = 4;
+
+    /// <summary>
+    /// Whether a piece standing here leaves the cell its user works from free (Framework 0.219.0: the kitchen box's cook), and marks it taken.
+    /// A piece with no such cell always may.
+    /// </summary>
+    bool WorkSpotFree(Plan plan, Map map, HashSet<IntVec3> used, ThingDef def, IntVec3 centre, Rot4 rot)
+    {
+        if (!def.hasInteractionCell) return true;
+        IntVec3 spot = ThingUtility.InteractionCellWhenAt(def, centre, rot, map);
+        if (!spot.InBounds(map) || used.Contains(spot) || CellRefusal(spot, map, used) != null) return false;
+        if (plan.rooms.Any(room => room.rect.EdgeCells.Contains(spot))) return false;
+        used.Add(spot);
+        return true;
+    }
+
+    /// <summary>A place for a seat beside a table of the plan, facing it: no more than <see cref="SeatsPerTable"/> to a table.</summary>
+    (IntVec3 centre, Rot4 rot, CellRect rect)? BesideTable(Plan plan, Map map, HashSet<IntVec3> used, ThingDef def)
+    {
+        if (def.Size.x != 1 || def.Size.z != 1) return null;
+        foreach ((MinifiedThing table, _, _, _, CellRect tableRect) in plan.gear.Where(g => g.gear.InnerThing.def.surfaceType == SurfaceType.Eat).ToList())
+        {
+            int seated = plan.gear.Count(g => g.gear.InnerThing.def.GetModExtension<PhobosCampGearExtension>() is { besideTable: true }
+                && g.rect.Cells.Any(cell => GenAdj.CardinalDirections.Any(step => tableRect.Contains(cell + step))));
+            if (seated >= SeatsPerTable) continue;
+            foreach (IntVec3 cell in tableRect.AdjacentCellsCardinal)
+            {
+                if (plan.rooms.Any(room => room.doorInside == cell)) continue;
+                CellRect rect = CellRect.SingleCell(cell);
+                if (!RectFree(rect, map, used, out _)) continue;
+                IntVec3 towards = GenAdj.CardinalDirections.First(step => tableRect.Contains(cell + step));
+                used.Add(cell);
+                return (cell, Rot4.FromIntVec3(towards), rect);
+            }
+        }
+        return null;
+    }
+
     /// <summary>A place for one piece of gear: where it stood last time if that is free, else the first free slot, head towards the vehicle.</summary>
     (IntVec3 centre, Rot4 rot, CellRect rect)? PlaceGear(Plan plan, Map map, HashSet<IntVec3> used, ThingDef def, string slot)
     {
@@ -656,12 +698,14 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             IntVec3 centre = ToMap(plan.frame, spotCells[remembered].x, spotCells[remembered].z);
             Rot4 rot = new(plan.frame.ToMapRotation(spotDirections[remembered]));
             CellRect rect = GenAdj.OccupiedRect(centre, rot, def.Size);
-            if (RectFree(rect, map, used, out _))
+            if (RectFree(rect, map, used, out _) && WorkSpotFree(plan, map, used, def, centre, rot))
             {
                 used.UnionWith(rect.Cells);
                 return (centre, rot, rect);
             }
         }
+        // A seat goes beside a table (Framework 0.219.0).
+        if (def.GetModExtension<PhobosCampGearExtension>() is { besideTable: true } && BesideTable(plan, map, used, def) is { } seat) return seat;
         Rot4 inward = new(plan.frame.ToMapRotation(CampLayoutRule.In));
         // Inside a closed tent first (Framework 0.217.0): out of the weather, and where a heater's warmth is. The cell inside the flap is kept clear.
         foreach (TentRoom room in plan.rooms)
@@ -670,6 +714,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
             {
                 CellRect rect = GenAdj.OccupiedRect(cell, inward, def.Size);
                 if (rect.Contains(room.doorInside) || !rect.Cells.All(room.inside.Contains) || !RectFree(rect, map, used, out _)) continue;
+                if (!WorkSpotFree(plan, map, used, def, cell, inward)) continue;
                 used.UnionWith(rect.Cells);
                 return (cell, inward, rect);
             }
@@ -678,7 +723,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         {
             CellRect rect = ToMap(plan.frame, x, z, x + def.Size.z - 1, z + def.Size.x - 1);
             IntVec3 centre = CentreFor(rect, inward, def.Size);
-            if (!centre.IsValid || !RectFree(rect, map, used, out _)) continue;
+            if (!centre.IsValid || !RectFree(rect, map, used, out _) || !WorkSpotFree(plan, map, used, def, centre, inward)) continue;
             used.UnionWith(rect.Cells);
             return (centre, inward, rect);
         }
