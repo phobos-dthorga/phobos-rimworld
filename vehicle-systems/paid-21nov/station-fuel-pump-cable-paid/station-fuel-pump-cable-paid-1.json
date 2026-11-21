@@ -1,0 +1,51 @@
+{
+  "file": "station-fuel-pump-cable-paid-1.png",
+  "sha256": "63c100d02dd980eb4903b6edbf1c269bd73b8049b743352c25e14a9df58ac245",
+  "date": "2026-11-21T19:50:50",
+  "prompt": "IMAGE EDIT. Image 1 is our approved fuel pump building, seen from directly above.\n\nReturn image 1 UNCHANGED: the same pump, the same position, size, angle, colours, outline and white background, pixel for pixel wherever possible.\n\nAdd ONLY one thing: a thick black electric charging cable with a chunky dark grey plug, coiled in two loose loops on the concrete base beside the pump's right edge, its end running into the side of the pump housing, with one small muted green light on the plug. Draw the cable in the same style: a thick near-black outline, flat cel shading.\n\nDo not move, redraw, recolour or resize anything else. No text, letters, numbers, people, vehicles, floor or cast shadow.",
+  "seed": 1,
+  "size": [
+    768,
+    1536
+  ],
+  "request_file": "assets/vehicle-systems/requests/paid-front-and-cable.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1312,
+    "input_tokens_details": {
+      "image_tokens": 1152,
+      "text_tokens": 160
+    },
+    "output_tokens": 916,
+    "output_tokens_details": {
+      "image_tokens": 916,
+      "text_tokens": 0
+    },
+    "total_tokens": 2228
+  },
+  "cost_usd": 0.0375,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "768x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    768,
+    1536
+  ],
+  "seconds": 16.4,
+  "references": [
+    {
+      "image": "assets/vehicle-systems/generated/station-fuel-pump-b-house/station-fuel-pump-b-house-11.png",
+      "sha256": "e31dffa67f6f5b6ea3fa04e593048c1483cba007f50436288072c17298df1999",
+      "role": "our approved fuel pump, picked by the owner: redraw it unchanged, adding only the charging cable, so the cable can be cut out as an overlay that lines up with the shipped picture"
+    }
+  ]
+}
