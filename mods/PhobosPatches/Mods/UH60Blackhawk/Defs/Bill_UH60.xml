@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    What the UH-60M Black Hawk is built from, by role (Patches 0.31.0; docs/development/uh60-blackhawk.md; docs/development/parts-bills.md), as
+    the Harrier and Close Air Support's jets are. Its blueprint's cost is cut to its shell (Cost_UH60.xml); each role is filled at start-up
+    by an installed mod's part where it suits the helicopter's weight, and by ours otherwise. Counts follow the real UH-60's layout: two
+    turboshafts; the main transmission and the tail drive; the main and tail rotors; three primary servos; two hydraulic systems; a nose
+    pair and a tail wheel; two fuel cells; a generator on each engine. The battery and wiring counts are authored; what each part costs is
+    the shared table's, held for the owner's review.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleBillDef>
+    <defName>PhobosBill_UH60</defName>
+    <label>Black Hawk parts</label>
+    <target>UH60_Blackhawk_Blueprint</target>
+    <tags>
+      <li>Turbine</li>
+    </tags>
+    <parts>
+      <Engine1>1</Engine1>
+      <Engine2>1</Engine2>
+      <RotorDrive>2</RotorDrive>
+      <RotorBlades>2</RotorBlades>
+      <Actuator>3</Actuator>
+      <HydraulicPump>2</HydraulicPump>
+      <HydraulicLines>1</HydraulicLines>
+      <LandingGear>3</LandingGear>
+      <FuelTank>2</FuelTank>
+      <Alternator>2</Alternator>
+      <Battery>1</Battery>
+      <Wiring>1</Wiring>
+      <Avionics>1</Avionics>
+    </parts>
+  </Phobos.VehicleSystems.PhobosVehicleBillDef>
+</Defs>

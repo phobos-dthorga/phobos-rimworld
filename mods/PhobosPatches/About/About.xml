@@ -4,7 +4,7 @@
   <name>D'thorga Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.30.0</modVersion>
+  <modVersion>0.31.0</modVersion>
   <description>Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It replaces D'thorga Vehicle Patches and D'thorga Missile Patches: switch those off when you switch this on.
 
 Harrier VTOL Attack Aircraft:
@@ -18,6 +18,10 @@ With Combat Extended, bombs whose ingredients are closer to what they weigh, eac
 With The Dead Man's Switch and Combat Extended, the bombs and 57 mm rockets can also be made at its ammunition fabricator.
 
 A sortie's map stays open while the jet is flying over it with its pilot aboard, whichever mod made that map. Before, a map from Real Ruins, RimMarket and some others could close under the jet.
+
+UH-60M Black Hawk:
+
+Built from real parts by role: two turbines, its rotor drive and rotors, servos, hydraulics, landing gear, tanks, electrics and avionics, where it asked for steel and components alone.
 
 Close Air Support: A-10 Warthog &amp; Su-25 Frogfoot:
 
@@ -82,6 +86,7 @@ Community-created content by House D'thorga (also spelt dthorga). Portions of th
     <li>potemkinvillager.mi24hindhelicopter</li>
     <li>potemkinvillager.mongooseattackhelicopter</li>
     <li>potemkinvillager.CloseAirSupport</li>
+    <li>z3nt3.uh60blackhawk</li>
     <li>ninagoblin.visitsettlements</li>
     <li>OskarPotocki.VFE.Classical</li>
   </loadAfter>

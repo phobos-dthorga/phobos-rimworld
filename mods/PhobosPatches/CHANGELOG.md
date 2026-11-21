@@ -6,6 +6,18 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.31.0] - 2026-11-22 - Draft
+
+The UH-60M Black Hawk built from real parts
+
+### Changed
+
+- **The UH-60M Black Hawk is built from real parts by role** (the owner's request of 22 November 2026, with z3nt3's UH-60M Black Hawk): two turbines (RimThunder's where installed, D'thorga Framework's own otherwise), its transmission and tail drive, main and tail rotors, three servos, two hydraulic pumps, three landing wheels, two fuel cells, two generators, a battery, wiring and avionics, on a shell of 350 steel, 120 plasteel and 10 components. Before, it asked for 400 steel, 150 plasteel and 40 components, with no engine or other part. Not yet tested in game: row 313 of the test pass.
+
+### Save compatibility
+
+- **A Black Hawk already built keeps working**; only new builds pay the new cost. **Finish or cancel a Black Hawk frame before installing**: a frame keeps what was delivered and then asks for the new list.
+
 ## [0.30.0] - 2026-11-21 - Draft
 
 The Harrier built from real parts, as Close Air Support's jets are

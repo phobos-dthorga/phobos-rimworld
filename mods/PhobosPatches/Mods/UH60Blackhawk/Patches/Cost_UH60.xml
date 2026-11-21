@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    The Black Hawk's blueprint cost cut to its shell (Patches 0.31.0); its parts bill (Defs/Bill_UH60.xml) adds the engines, rotor drive,
+    rotors, servos, hydraulics, landing gear, tanks, electrics and avionics at start-up. Stock: 400 steel, 150 plasteel and 40 components, with
+    no engine or other part. The shell keeps the airframe's steel, plasteel for its composite skin and armoured seats, and the components no
+    part carries. All authored. Steel stays first: Vehicle Framework reads a vehicle's first cost for its destruction sound.
+  -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/Vehicles.VehicleBuildDef[defName="UH60_Blackhawk_Blueprint"]/costList</xpath>
+    <value>
+      <costList>
+        <Steel>350</Steel>
+        <Plasteel>120</Plasteel>
+        <ComponentIndustrial>10</ComponentIndustrial>
+      </costList>
+    </value>
+  </Operation>
+</Patch>
