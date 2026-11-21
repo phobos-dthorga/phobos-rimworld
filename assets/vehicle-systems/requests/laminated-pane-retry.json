@@ -1,0 +1,30 @@
+[
+  {
+    "name": "laminated-pane",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      3,
+      4
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosLaminatedPane",
+      "ships_as": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/LaminatedPane.png",
+      "why": "a laminated windscreen for ordinary cabs (docs/development/vehicle-glass.md)",
+      "this_request": "one correction (owner's card, 22 Nov 2026): tries 1 and 2 showed a star crack, asked for by the agent's prompt, which could read as a damaged item; redrawn whole"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a curved laminated windscreen, new and whole, two glass layers with an amber film between. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nOne curved car windscreen of pale green glass lying flat, its edge showing two glass layers with a thin amber plastic layer between them. The glass is new, whole and unbroken: no cracks, chips, scratches or damage anywhere.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo cracks, damage, people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  }
+]

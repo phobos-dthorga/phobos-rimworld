@@ -1,0 +1,86 @@
+[
+  {
+    "name": "antiemetic",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/BronchodilatorVial.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/BurnDressing.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosMedical_Antiemetic",
+      "ships_as": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Antiemetic.png",
+      "why": "an anti-sickness drug for radiation sickness (docs/development/radiation-model.md, RM5; the owner's answer of 22 Nov 2026)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a blister strip of pale yellow tablets beside a small amber medicine bottle. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nA small white blister strip of round pale yellow tablets beside a short amber glass medicine bottle with a white cap and a plain pale label stripe.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  },
+  {
+    "name": "marrow-stimulant",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/BronchodilatorVial.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/BurnDressing.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosMedical_MarrowStimulant",
+      "ships_as": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/MarrowStimulant.png",
+      "why": "a marrow stimulant after filgrastim, for radiation sickness (docs/development/radiation-model.md, RM5)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a small injection vial with a crimson stopper beside a capped syringe on white gauze. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nA small glass injection vial with a crimson-red rubber stopper and aluminium crimp, filled with clear liquid, lying beside a capped syringe, both on a folded white gauze pad.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  },
+  {
+    "name": "prussian-blue",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/BronchodilatorVial.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/BurnDressing.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosMedical_PrussianBlue",
+      "ships_as": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/PrussianBlue.png",
+      "why": "Prussian blue, to speed caesium from fallout out of the body (docs/development/radiation-model.md, RM6)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a tipped white pill bottle with deep Prussian-blue capsules spilled in front. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nA small open white pill bottle tipped on its side with a few deep dark-blue capsules spilled in front of it, the capsules a rich Prussian blue.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  }
+]

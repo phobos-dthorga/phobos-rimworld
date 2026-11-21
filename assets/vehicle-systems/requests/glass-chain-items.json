@@ -1,0 +1,226 @@
+[
+  {
+    "name": "glass-sand",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosGlassSand",
+      "ships_as": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/GlassSand.png",
+      "why": "crushed sandstone for the glass chain (docs/development/vehicle-glass.md; the owner's answers of 22 Nov 2026)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a small heap of fine pale cream quartz sand beside a torn hessian sack. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nA small heap of fine pale cream and white quartz sand poured beside a torn hessian sack, a few grains glinting.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  },
+  {
+    "name": "potash",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosPotash",
+      "ships_as": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/Potash.png",
+      "why": "potash from wood ash, the glass chain's alkali (docs/development/vehicle-glass.md; the owner's answers of 22 Nov 2026)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a squat dark clay pot filled with lumpy off-white crystalline potash. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nA squat dark clay pot filled to the brim with lumpy off-white and pale grey crystalline salt, a few crumbs spilled beside it.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  },
+  {
+    "name": "soda-ash",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosSodaAsh",
+      "ships_as": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/SodaAsh.png",
+      "why": "soda ash, the glass chain's optional alkali with Vanilla Cooking Expanded's salt (docs/development/vehicle-glass.md)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a folded-open paper sack of fine white soda ash powder. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nA sturdy paper sack folded open at the top, full of fine bright white powder, with a small white spill in front of it.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  },
+  {
+    "name": "glass-pane",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosGlassPane",
+      "ships_as": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/GlassPane.png",
+      "why": "plain glass from the electric smelter, side windows and the base of every other kind (docs/development/vehicle-glass.md)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a small offset stack of three flat sheets of clear pale green window glass with highlight streaks. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nA small stack of three flat rectangular sheets of clear pale blue-green window glass, slightly offset, with bright white highlight streaks across them.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  },
+  {
+    "name": "laminated-pane",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosLaminatedPane",
+      "ships_as": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/LaminatedPane.png",
+      "why": "a laminated windscreen for ordinary cabs (docs/development/vehicle-glass.md)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a curved laminated windscreen, two glass layers with an amber film between, a star crack that holds together. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nOne curved car windscreen of pale green glass lying flat, its edge showing two glass layers with a thin amber plastic layer between them, and a star-shaped crack near one corner that has not fallen apart.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  },
+  {
+    "name": "armoured-pane",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/ArmouredCab.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosArmouredPane",
+      "ships_as": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/ArmouredPane.png",
+      "why": "armoured glass for armoured cabs (docs/development/vehicle-glass.md)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a very thick block of layered armoured glass in a dark olive steel frame, with a clear plastic backing. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nOne very thick rectangular block of armoured glass in a dark olive steel frame, its edge showing many stacked green-tinted glass layers and a clear plastic backing, heavy and solid.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  },
+  {
+    "name": "vision-block",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/ArmouredCab.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosVisionBlock",
+      "ships_as": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/VisionBlock.png",
+      "why": "a tank's or armoured vehicle's view (docs/development/vehicle-glass.md)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a tank periscope vision block, a wedge of clear acrylic in a short dark steel housing. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nOne tank periscope vision block: a chunky wedge-shaped block of clear blue-green acrylic with angled faces, set in a short dark steel housing with a mounting flange.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  },
+  {
+    "name": "plastic-film",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/TyreSet.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+        "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosPlasticFilm",
+      "ships_as": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/PlasticFilm.png",
+      "why": "a clear film from chemfuel for laminating, armoured glass and vision blocks (docs/development/vehicle-glass.md)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a fat roll of clear amber plastic film on a cardboard core, partly unrolled. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nA fat roll of clear slightly amber plastic film on a cardboard core, a short length unrolled flat in front of it showing its shine.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow."
+  }
+]

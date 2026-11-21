@@ -327,7 +327,9 @@ flowchart LR
   blocks; by the share missing, as a liner takes panels.
 - **The pictures for the overnight run** (about 12): glass sand, potash, soda ash, a glass pane, a laminated pane, an armoured pane,
   a vision block and a plastic film; and a cracked-glass overlay for each of our own closed-cab vehicles. No building: the melt is
-  the game's electric smelter.
+  the game's electric smelter. **The eight items were made on the paid route instead and picked on 22 Nov 2026** (the owner's rule
+  of that day: what lies in the game world is made paid; [the batch record](../../assets/vehicle-systems/requests/glass-and-radiation-medicines-record.md)).
+  The cracked-glass overlays are still to make.
 
 ## Who chose what
 
