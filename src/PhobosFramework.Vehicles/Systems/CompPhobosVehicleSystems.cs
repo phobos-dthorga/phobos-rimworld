@@ -816,6 +816,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         if (Tier == DetailTier.Full && was != DetailTier.Full && Current.Game != null) lastUpdateTick = Find.TickManager.TicksGame;
         // Avionics A4 (aircraft service-life upgrades): a landing since the last look, any faction's aircraft.
         RoughLandings.Watch(this);
+        // Walk-in cabins (Framework, vehicle cabins): close an empty one on the ground, and walk idle colonists out.
+        if (Vehicle.GetComp<CompPhobosVehicleCabin>() is { } cabin) VehicleCabins.RareLook(cabin);
         switch (Tier)
         {
             case DetailTier.Full:

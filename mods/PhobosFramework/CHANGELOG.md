@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.211.0] - 2026-11-22 - Draft
+
+Walk-in cabins: colonists can walk into a vehicle's cabin, on the ground or in flight
+
+### Added
+
+- **Walk-in cabins** (the owner's request of 22 November 2026, after the UH-60M Black Hawk's): a vehicle can have a cabin colonists walk into, to wait, eat, rest or tend the wounded, on the ground or in flight. Right-click the vehicle with colonists selected and choose **Go into the cabin**; right-click a downed colonist to **carry them in**, where they are laid on a free litter, or **out** again. Leave by right-clicking the cabin's way out, beside the vehicle wherever it has landed; refused, with the reason, while it is in the air. Built on the game's own pocket maps: the cabin is a small map made when the first person goes in and removed once nobody is inside and the vehicle is on the ground, anything left there set down beside it. Its layout follows the vehicle's fittings. On the ground, colonists with nothing to do inside walk out by themselves; patients and those at work stay. Nobody is ever stranded: the map the vehicle left stays open while anyone is in the cabin, and a lost vehicle sets everyone inside down beside its wreck. The Osprey has one (D'thorga Vehicles 0.96.0). A new setting, **Walk-in cabins**, on by default. Not yet tested in game: row 314 of the test pass.
+
+### Compatibility and limits
+
+- The cabin is held at 21 degrees C; its vehicle's heater and air conditioning are not read there. Colonists in the cabin on a long flight eat only what they carry.
+- **For other modders:** give a VehicleDef the comp CompProperties_PhobosVehicleCabin with its layouts, rows of characters, the first whose fittings are all fitted being used.
+
 ## [0.210.2] - 2026-11-21 - Draft
 
 The charging cable's picture and two parts pictures of their own. Not yet tested in game. **With this version every picture of the service yard is made, so it no longer needs holding back from your game.**

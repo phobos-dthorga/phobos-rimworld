@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Walk-in cabins (Framework, vehicle cabins; owner, 22 Nov 2026; docs/development/vehicle-cabins.md): a vehicle's cabin is a small pocket map,
+    the game's own (in every copy, DLC or not), made when the first person goes in and removed once nobody is inside and the vehicle stands
+    on a map. Its edge is the cabin's wall, so no wall is built. The pictures are the base game's (a dining chair, a hospital bed, a simple
+    door) and our ferry tank fitting's. The temperature inside is held at 21 degrees C, a simplification: the cabin's own heater and air
+    conditioning are not read here. Not yet tested in game.
+  -->
+  <BiomeDef>
+    <defName>PhobosVehicleCabinBiome</defName>
+    <label>vehicle cabin</label>
+    <description>The inside of a vehicle's cabin.</description>
+    <generatesNaturally>false</generatesNaturally>
+    <animalDensity>0</animalDensity>
+    <plantDensity>0</plantDensity>
+    <wildAnimalsCanWanderInto>false</wildAnimalsCanWanderInto>
+    <baseWeatherCommonalities>
+      <Clear>1</Clear>
+    </baseWeatherCommonalities>
+    <diseaseMtbDays>0</diseaseMtbDays>
+  </BiomeDef>
+
+  <MapGeneratorDef>
+    <defName>PhobosVehicleCabinMap</defName>
+    <label>cabin</label>
+    <isUnderground>true</isUnderground>
+    <disableCallAid>true</disableCallAid>
+    <ignoreAreaRevealedLetter>true</ignoreAreaRevealedLetter>
+    <pocketMapProperties>
+      <biome>PhobosVehicleCabinBiome</biome>
+      <temperature>21</temperature>
+      <!-- Never destroyed with the map the vehicle left: it follows the vehicle, and is removed by the vehicle once empty. -->
+      <destroyOnParentMapAbandoned>false</destroyOnParentMapAbandoned>
+    </pocketMapProperties>
+    <genSteps>
+      <li>PhobosVehicleCabinLayout</li>
+    </genSteps>
+  </MapGeneratorDef>
+
+  <GenStepDef>
+    <defName>PhobosVehicleCabinLayout</defName>
+    <order>10</order>
+    <genStep Class="Phobos.VehicleSystems.GenStep_PhobosVehicleCabin" />
+  </GenStepDef>
+
+  <!-- The cabin's fixtures: part of the vehicle, never built, moved, sold or damaged. Each seat and litter has a small cabin light over it. -->
+  <ThingDef Name="PhobosCabinFixtureBase" ParentName="BuildingBase" Abstract="True">
+    <useHitPoints>false</useHitPoints>
+    <rotatable>true</rotatable>
+    <building>
+      <isInert>true</isInert>
+      <claimable>false</claimable>
+      <deconstructible>false</deconstructible>
+      <isTargetable>false</isTargetable>
+    </building>
+    <statBases>
+      <MarketValue>0</MarketValue>
+      <Beauty>0</Beauty>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCabinFixtureBase">
+    <defName>PhobosCabinSeat</defName>
+    <label>cabin seat</label>
+    <description>A fold-down seat along the cabin wall, with a reading light above it.</description>
+    <graphicData>
+      <texPath>Things/Building/Furniture/DiningChair</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>30</pathCost>
+    <statBases>
+      <Comfort>0.5</Comfort>
+    </statBases>
+    <building>
+      <isSittable>true</isSittable>
+    </building>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>(240,225,200,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCabinFixtureBase">
+    <defName>PhobosCabinLitter</defName>
+    <label>cabin litter</label>
+    <description>A stretcher held in a frame along the cabin wall, for a wounded or sick passenger. Doctors aboard tend whoever lies on it.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Bed/HospitalBed</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <size>(1,2)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <!-- A litter in an aircraft: less restful and a little worse to tend on than a hospital bed (authored). -->
+    <statBases>
+      <BedRestEffectiveness>0.8</BedRestEffectiveness>
+      <Comfort>0.6</Comfort>
+      <ImmunityGainSpeedFactor>1</ImmunityGainSpeedFactor>
+      <MedicalTendQualityOffset>0</MedicalTendQualityOffset>
+    </statBases>
+    <building>
+      <bed_showSleeperBody>False</bed_showSleeperBody>
+      <bed_healPerDay>4</bed_healPerDay>
+      <bed_defaultMedical>true</bed_defaultMedical>
+      <buildingTags>
+        <li>Bed</li>
+      </buildingTags>
+    </building>
+    <comps>
+      <li Class="CompProperties_AssignableToPawn">
+        <drawAssignmentOverlay>false</drawAssignmentOverlay>
+        <compClass>CompAssignableToPawn_Bed</compClass>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>(240,225,200,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCabinFixtureBase">
+    <defName>PhobosCabinTank</defName>
+    <label>ferry tank</label>
+    <description>A fuel tank strapped down in the cabin for a long flight. Nobody passes it.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Fittings/FerryTank</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Impassable</passability>
+    <fillPercent>1</fillPercent>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCabinFixtureBase">
+    <defName>PhobosCabinWayOut</defName>
+    <label>way out</label>
+    <description>The cabin's door or ramp, leading out beside the vehicle wherever it stands. It cannot be opened in the air.</description>
+    <thingClass>Phobos.VehicleSystems.Building_PhobosCabinWayOut</thingClass>
+    <graphicData>
+      <texPath>Things/Building/Door/DoorSimple_Mover</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <glowRadius>4</glowRadius>
+        <glowColor>(240,225,200,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_EnterCabin</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosEnterCabin</driverClass>
+    <reportString>going into TargetA's cabin.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_LeaveCabin</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosLeaveCabin</driverClass>
+    <reportString>leaving the cabin.</reportString>
+    <allowOpportunisticPrefix>true</allowOpportunisticPrefix>
+  </JobDef>
+</Defs>

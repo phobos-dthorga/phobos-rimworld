@@ -75,6 +75,29 @@
   <PhobosVehicleSystems_SettingBlindFlightWarnOnly>Blind take-offs: warn only</PhobosVehicleSystems_SettingBlindFlightWarnOnly>
   <PhobosVehicleSystems_SettingBlindFlightWarnOnlyDesc>Off by default: an aircraft whose flight instruments are broken or have no power will not take off at night or in fog. On: it takes off anyway, and a message says it is flying blind.</PhobosVehicleSystems_SettingBlindFlightWarnOnlyDesc>
   <PhobosVehicleSystems_SettingAltitudeHypoxia>Crews feel thin air when oxygen fails at height</PhobosVehicleSystems_SettingAltitudeHypoxia>
+  <!-- Walk-in cabins (Framework, vehicle cabins). {VEHICLE}: the vehicle; {PAWN}: a person; {REASON}: why not, a sentence. -->
+  <PhobosVehicleSystems_SettingVehicleCabins>Walk-in cabins</PhobosVehicleSystems_SettingVehicleCabins>
+  <PhobosVehicleSystems_SettingVehicleCabinsDesc>On by default. Colonists can walk into a vehicle's cabin (the Osprey's) to wait, rest or tend the wounded, on the ground or in flight, and carry a downed colonist in or out. While anyone is inside, the cabin is a small extra map; empty, it costs nothing. Off: nobody is offered the cabin, and anyone already inside can still leave.</PhobosVehicleSystems_SettingVehicleCabinsDesc>
+  <PhobosCabin_Enter>Go into the {VEHICLE}'s cabin</PhobosCabin_Enter>
+  <PhobosCabin_CannotEnter>Cannot go into the {VEHICLE}'s cabin: {REASON}</PhobosCabin_CannotEnter>
+  <PhobosCabin_Leave>Leave the cabin, out beside the {VEHICLE}</PhobosCabin_Leave>
+  <PhobosCabin_CannotLeave>Cannot leave the cabin: {REASON}</PhobosCabin_CannotLeave>
+  <PhobosCabin_CarryIn>Carry {PAWN} into the {VEHICLE}'s cabin</PhobosCabin_CarryIn>
+  <PhobosCabin_CannotCarryIn>Cannot carry {PAWN} into the {VEHICLE}'s cabin: {REASON}</PhobosCabin_CannotCarryIn>
+  <PhobosCabin_CarryOut>Carry {PAWN} out of the cabin</PhobosCabin_CarryOut>
+  <PhobosCabin_CannotCarryOut>Cannot carry {PAWN} out: {REASON}</PhobosCabin_CannotCarryOut>
+  <PhobosCabin_NoPath>there is no way to reach it.</PhobosCabin_NoPath>
+  <PhobosCabin_NotHere>the {VEHICLE} is not here.</PhobosCabin_NotHere>
+  <PhobosCabin_InTheAir>the {VEHICLE} is in the air.</PhobosCabin_InTheAir>
+  <PhobosCabin_NoVehicle>the vehicle it belonged to is gone.</PhobosCabin_NoVehicle>
+  <PhobosCabin_LeaveInFlight>the {VEHICLE} is flying between places; nobody can leave until it lands.</PhobosCabin_LeaveInFlight>
+  <PhobosCabin_LeaveInTheAir>the {VEHICLE} is in the air; nobody can leave until it lands.</PhobosCabin_LeaveInTheAir>
+  <PhobosCabin_WayOutReady>Leads out beside the {VEHICLE}.</PhobosCabin_WayOutReady>
+  <PhobosCabin_ViewVehicle>Show the {VEHICLE}</PhobosCabin_ViewVehicle>
+  <PhobosCabin_ViewVehicleDesc>Show the {VEHICLE} this cabin belongs to, outside.</PhobosCabin_ViewVehicleDesc>
+  <PhobosCabin_NoRoom>There is nowhere for {PAWN} to stand on the other side.</PhobosCabin_NoRoom>
+  <PhobosCabin_CouldNotOpen>The {VEHICLE}'s cabin could not be opened.</PhobosCabin_CouldNotOpen>
+  <PhobosCabin_Evacuated>The {VEHICLE} is lost. Everyone in its cabin is out, with what was left there.</PhobosCabin_Evacuated>
   <PhobosVehicleSystems_SettingRoughLandings>Rough landings</PhobosVehicleSystems_SettingRoughLandings>
   <PhobosVehicleSystems_SettingRoughLandingsDesc>On by default. An aircraft that lands where its crew cannot see to land, in poor visibility with its instruments out, or with its flight controls shot about, may come down hard and damage its landing gear. A working autopilot halves the risk. Never harms the crew.</PhobosVehicleSystems_SettingRoughLandingsDesc>
   <PhobosVehicleSystems_SettingAvionicsAim>Sights and weather affect an aircraft's aim</PhobosVehicleSystems_SettingAvionicsAim>
