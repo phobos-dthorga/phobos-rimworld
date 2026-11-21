@@ -1,0 +1,52 @@
+{
+  "made_by": "scripts/art/sam_lift.py (Segment Anything 2.1, facebook/sam2.1-hiera-large; no generator)",
+  "body": "assets/phobos-vehicles/references/deck-tent-crop-flatbed.png",
+  "body_sha256": "90923d3132f7175998938e1bfbf12f10da6ec95be7e6d63e436e7e3785d21cd1",
+  "edit": "assets/phobos-vehicles/generated/deck-tent-flatbed/deck-tent-flatbed-1.png",
+  "edit_sha256": "487b94765d29b721eb12e38eb1d531533ca2c4355617662c5f6afc512fccff3d",
+  "box": null,
+  "pick": "best",
+  "place": [
+    64,
+    256,
+    704,
+    1536
+  ],
+  "device": "cpu",
+  "prompts": [
+    {
+      "box": [
+        166,
+        235,
+        472,
+        1230
+      ],
+      "points": [
+        [
+          319,
+          559
+        ],
+        [
+          319,
+          559
+        ],
+        [
+          319,
+          708
+        ],
+        [
+          319,
+          876
+        ]
+      ],
+      "score": 0.934
+    }
+  ],
+  "part_bounds": [
+    256,
+    564,
+    511,
+    1411
+  ],
+  "sha256": "ef8d802357af40e55246f008761e84fe332d2890b243b506d1c14c18dbeae8a8"
+}
