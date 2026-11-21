@@ -36,6 +36,14 @@ standing rules for every picture and sound the mods ship or the tools generate. 
   branch, reference drawings and superseded or comparison picks on `art-references`, each with its sidecar or record. Add to them only
   with `scripts/art/archive_branch.py`, which adds commits on top, never rewrites, and refuses game art, the private style model and
   its dataset, and model files. `assets/*/references/` is ignored on `main`; the scripts that draw references draw them again.
+- **What appears in the game world is made paid; icons and buttons are made locally** (owner, 22 Nov 2026: "The art still waits for
+  later tonight though unless it appears in the game-world itself, then it uses a paid service"; the same day, by card, kit items
+  lying in stockpiles count as in the world, and on 22 Nov again, by card, that this rule is written here for every session).
+  Buildings, set-out pieces, beds, furniture, items, kits, medicine, resources and anything drawn on a vehicle go to the paid route
+  below, two tries each, the owner picking one card each; gizmo buttons, fitting icons and other pictures that are only icons go in
+  the local night run. **A part that sits on a vehicle and stands alone is drawn alone on white and laid on by script** (owner's
+  review, 22 Nov 2026: parts lifted out of an edited vehicle came out "scrubbed out" and dithered): the sprite exporter then gives
+  clean edges.
 - **Paid generation follows `docs/development/paid-image-generation-rules.md`** (owner, 8 Nov 2026: the OpenAI image API
   for vehicle bodies, with the rules learnt in Phobos Ostranauts; 18 Nov 2026: other services through fal.ai where the owner
   prefers their look, under the same rules). **Only our own art is ever uploaded** to a provider: the
