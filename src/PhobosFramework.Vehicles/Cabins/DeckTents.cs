@@ -31,7 +31,10 @@ public static class DeckTents
     /// <summary>The ability the deck tent fitting grants.</summary>
     public const string Ability = "DeckTent";
 
-    /// <summary>The open deck tents, by their map: read by the temperature answer, which every map asks often. Derived, never saved.</summary>
+    /// <summary>
+    /// The open cabins and deck tents, by their map: read by the temperature answer, which every map asks often. Derived, never saved. Every
+    /// cabin since Framework 0.230.0, so a walk-in cabin can take its vehicle's cab temperature.
+    /// </summary>
     static readonly Dictionary<Map, CompPhobosVehicleCabin> open = new();
     static Game? game;
 
@@ -42,18 +45,18 @@ public static class DeckTents
         game = Current.Game;
     }
 
-    /// <summary>How many deck tents are open: the temperature answer does nothing while there are none.</summary>
+    /// <summary>How many cabins and deck tents are open: the temperature answer does nothing while there are none.</summary>
     public static int OpenCount => open.Count;
 
     internal static void Note(CompPhobosVehicleCabin comp, Map? map, bool isOpen)
     {
         Check();
-        if (map == null || !comp.Props.deckTent) return;
+        if (map == null) return;
         if (isOpen) open[map] = comp;
         else open.Remove(map);
     }
 
-    /// <summary>The deck tent whose inside this map is, or null.</summary>
+    /// <summary>The cabin or deck tent whose inside this map is, or null.</summary>
     public static CompPhobosVehicleCabin? Of(Map map)
     {
         Check();
@@ -195,9 +198,11 @@ public static class TentBedtime
 }
 
 /// <summary>
-/// The air in a deck tent. The game gives a pocket map one fixed temperature from its Def, which suits a vehicle's cabin (held at 21 degrees
-/// C) and not a canvas tent on a deck, and it has no per-map figure to set instead. This postfix on the map's own outdoor temperature answers
-/// for an open deck tent's map only: the air where its vehicle stands, a little warmer. With no deck tent open it returns at once.
+/// The air in a deck tent and a walk-in cabin. The game gives a pocket map one fixed temperature from its Def (21 degrees C for our cabins),
+/// and it has no per-map figure to set instead. This postfix on the map's own outdoor temperature answers for an open deck tent's map: the
+/// air where its vehicle stands, a little warmer; and since Framework 0.230.0 for a walk-in cabin's: the temperature of its vehicle's cab, as
+/// the vehicle's Cabin system works it out (heater, air conditioning, the engine off, the weather), where the vehicle has one. A vehicle with
+/// no cab climate of ours keeps the fixed figure. With no cabin open it returns at once.
 /// </summary>
 [HarmonyPatch(typeof(MapTemperature), nameof(MapTemperature.OutdoorTemp), MethodType.Getter)]
 public static class DeckTentAir
@@ -205,6 +210,16 @@ public static class DeckTentAir
     public static void Postfix(Map ___map, ref float __result)
     {
         if (DeckTents.OpenCount == 0 || ___map == null) return;
-        if (DeckTents.Of(___map) is { } comp) __result = DeckTents.Temperature(comp);
+        if (DeckTents.Of(___map) is not { } comp) return;
+        if (comp.Props.deckTent)
+        {
+            __result = DeckTents.Temperature(comp);
+            return;
+        }
+        if (CabClimate.TryGet(comp.Vehicle, out float cab))
+        {
+            if (Seen.Wants("vehicles.cabin-air", comp.Vehicle)) Seen.Note("vehicles.cabin-air", comp.Vehicle, cab.ToString("0") + " C");
+            __result = cab;
+        }
     }
 }

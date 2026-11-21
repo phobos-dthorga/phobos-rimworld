@@ -173,6 +173,7 @@ public static class VehicleCabins
     {
         if (comp.Cabin is not { } cabin) return;
         VehiclePawn vehicle = comp.Vehicle;
+        Feed(vehicle, cabin);
         // A deck tent's people ride aboard once the vehicle is in a caravan (Framework 0.219.0).
         if (comp.Props.deckTent && !vehicle.Spawned && vehicle.GetVehicleCaravan() is { } caravan)
         {
@@ -198,6 +199,37 @@ public static class VehicleCabins
             Job leave = JobMaker.MakeJob(VehicleCabinDefOf.PhobosVehicleSystems_LeaveCabin, wayOut);
             pawn.jobs.TryTakeOrderedJob(leave, JobTag.Misc);
             if (Seen.Wants("vehicles.cabin-left-idle", vehicle)) Seen.Note("vehicles.cabin-left-idle", vehicle, pawn.LabelShort);
+        }
+    }
+
+    /// <summary>
+    /// Food in a cabin (Framework 0.230.0; docs/development/vehicle-cabins.md): nobody can reach the vehicle's cargo from the cabin's pocket
+    /// map, so a hungry person in it (a patient in a litter, someone in flight) went without. Anyone hungry inside now eats from the vehicle's
+    /// cargo, as a caravan's people eat from its packs: the best food they can eat now by the game's own caravan rules, eaten whole as the
+    /// game does there. Nothing to eat aboard, nothing happens, and the person stays hungry.
+    /// </summary>
+    static void Feed(VehiclePawn vehicle, Map cabin)
+    {
+        if (vehicle.inventory?.innerContainer is not { Count: > 0 } cargo) return;
+        foreach (Pawn pawn in cabin.mapPawns.AllPawnsSpawned)
+        {
+            if (pawn.needs?.food is not { } food || (int)food.CurCategory < (int)HungerCategory.Hungry) continue;
+            Thing? best = null;
+            float bestScore = 0f;
+            for (int index = 0; index < cargo.Count; index++)
+            {
+                Thing thing = cargo[index];
+                if (!CaravanPawnsNeedsUtility.CanEatForNutritionNow(thing, pawn)) continue;
+                float score = CaravanPawnsNeedsUtility.GetFoodScore(thing, pawn);
+                if (best != null && score <= bestScore) continue;
+                best = thing;
+                bestScore = score;
+            }
+            if (best == null) continue;
+            food.CurLevel += best.Ingested(pawn, food.NutritionWanted);
+            if (best.Destroyed) cargo.Remove(best);
+            if (Seen.Wants("vehicles.cabin-ate", vehicle)) Seen.Note("vehicles.cabin-ate", vehicle, pawn.LabelShort + ": " + best.LabelShort);
+            if (cargo.Count == 0) return;
         }
     }
 

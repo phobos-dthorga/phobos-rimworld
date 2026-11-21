@@ -37,6 +37,12 @@
     "338": {"parts": {
       "a caravan cooks at a packed kitchen box": [{"key": "camp.kitchen-box-caravan", "detail": "*"}]
     }},
+    "350": {"parts": {
+      "a hungry person in a cabin eats from the vehicle's cargo": ["vehicles.cabin-ate"]
+    }},
+    "349": {"parts": {
+      "a walk-in cabin takes its vehicle's cab temperature": ["vehicles.cabin-air"]
+    }},
     "348": {"parts": {
       "a shower on the road burns the heater's chemfuel for hot water": [{"key": "trailers.caravan-shower-heat", "variant": "hot"}],
       "with the heater dry, the shower is cold": [{"key": "trailers.caravan-shower-heat", "variant": "cold"}]

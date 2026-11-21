@@ -4,8 +4,8 @@
     Walk-in cabins (Framework, vehicle cabins; owner, 22 Nov 2026; docs/development/vehicle-cabins.md): a vehicle's cabin is a small pocket map,
     the game's own (in every copy, DLC or not), made when the first person goes in and removed once nobody is inside and the vehicle stands
     on a map. Its edge is the cabin's wall, so no wall is built. The pictures are the base game's (a dining chair, a hospital bed, a simple
-    door) and our ferry tank fitting's. The temperature inside is held at 21 degrees C, a simplification: the cabin's own heater and air
-    conditioning are not read here. Not yet tested in game.
+    door) and our ferry tank fitting's. The temperature below, 21 degrees C, is only the fallback: since Framework 0.230.0 a cabin
+    takes its vehicle's cab temperature where the vehicle's Cabin system works one out (DeckTentAir). Not yet tested in game.
   -->
   <BiomeDef>
     <defName>PhobosVehicleCabinBiome</defName>

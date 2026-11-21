@@ -1,8 +1,8 @@
 # Walk-in cabins for our vehicles (22 Nov 2026)
 
 **Status (22 Nov 2026):** built, not yet tested in game: D'thorga Framework 0.211.0 (the cabin), 0.211.1 (people in it count as aboard and
-share the seats' limit) and D'thorga Vehicles 0.96.0 (the Osprey's layouts).
-Test row 314.
+share the seats' limit), 0.230.0 (the cab's air and food from the cargo) and D'thorga Vehicles 0.96.0 (the Osprey's layouts).
+Test rows 314, 349 and 350.
 
 ## Read this first
 
@@ -44,6 +44,15 @@ for the Osprey.
   ever answers "full"). People in the cabin weigh on the aircraft and need oxygen at height as seated passengers do.
 - **In flight:** the cabin map stays where it is. The game will not close the map the vehicle left while people are in the cabin; when the
   vehicle lands, the cabin is pointed at its new map and the old one may close.
+- **The air inside (Framework 0.230.0; row 349):** the game gives a pocket map one fixed temperature from its Def (21 degrees C), with no
+  per-map figure. The deck tent's postfix on `MapTemperature.OutdoorTemp` now answers for every open cabin: a walk-in cabin takes its
+  vehicle's cab temperature from `CabClimate` (the Cabin system's heater, air conditioning and drift to the weather), and a vehicle with no
+  cab climate of ours keeps the 21. A loose end the owner asked to have tidied (22 Nov 2026). Other mods patch the same getter (Deep And
+  Deeper with a prefix, Vanilla Gravship Expanded with a postfix); ours answers only for our cabins' maps.
+- **Food (Framework 0.230.0; row 350):** nobody inside could reach the vehicle's cargo. On the vehicle's rare look, anyone hungry in the
+  cabin eats the best food in the cargo they can eat now, by the game's own caravan rules (`CaravanPawnsNeedsUtility`), eaten whole as a
+  caravan's people eat. **Agent's choice:** no ration locker or galley; the cargo is the larder. **Unknown:** whether Vehicle Framework
+  ticks an aircraft's comps while it flies between tiles off any map; if not, people eat once it lands.
 - **If the vehicle is lost:** everyone inside, and what was left there, is set down beside the wreck, or, if it was lost away from any
   map, on the map the cabin was last pointed at.
 

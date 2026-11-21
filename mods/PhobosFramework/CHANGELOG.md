@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.230.0] - 2026-11-22 - Draft
+
+Walk-in cabins take their vehicle's cab air and feed their people
+
+### Fixed
+
+- **A walk-in cabin is as warm or cold as its vehicle's cab.** The Osprey's cabin was held at 21 degrees whatever the weather or the cab's heater did. It now takes the temperature of the vehicle's cab, so its heater and air conditioning matter, and a cabin left with the engine off in the snow grows cold. A vehicle with no cab heating of ours keeps the 21 degrees. Not yet tested in game: row 349 of the test pass.
+- **People in a walk-in cabin eat from the vehicle's cargo.** Nobody inside could reach food, so a patient in a litter, or anyone in a long flight, went hungry. Anyone hungry inside now eats the best food in the vehicle's cargo they can eat, as a caravan's people eat from its packs. Not yet tested in game: row 350.
+
 ## [0.229.0] - 2026-11-22 - Draft
 
 Where a radiation dose goes
