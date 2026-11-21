@@ -270,6 +270,65 @@ To be asked as cards once this record has been read; the agent's recommendation 
 - **Art to plan before the first test** (the owner's rule: the whole built, with real art, before a first test): the pane item, the
   glass chain's goods and any bench, and a cracked-glass overlay for each of our own vehicles.
 
+### The glass chain: the owner's answers (cards, 22 Nov 2026, second round)
+
+| # | Question | The owner's answer | The agent's recommendation |
+| --- | --- | --- | --- |
+| 5 | Where the silica comes from | **Crushed sandstone** | The same |
+| 6 | The flux | **Either is fine**, and the owner asked what works with no other mod: **potash from wood ash as the base, soda ash as an option** where Vanilla Cooking Expanded's salt is active | The same |
+| 7 | The lime | **Limestone straight into the batch**, "while we retain the idea for quicklime later" | The same |
+| 8 | The plastics (the laminate's film, armoured glass's liner, vision blocks) | **A film of ours from chemfuel**, Rimefeller's plastics accepted where active | The same |
+| 9 | Where glass is melted | **The game's electric smelter** | A glass furnace of ours |
+| 10 | When the art is made | **An overnight run**, picked the next day one card per picture | The same |
+
+### The glass chain: the design [A, on the owner's answers]
+
+**The real chemistry, as a ballpark** (general glassmaking knowledge, not a cited source): window glass is about 72 % silica, 14 %
+soda and 9 % lime by mass. A batch for one tonne is roughly 730 kg of sand, 220 kg of soda ash (Na2CO3) and 190 kg of limestone
+(CaCO3); the two carbonates give off their carbon dioxide in the melt (about 91 kg and 84 kg), leaving about 965 kg of glass.
+**Potash** (K2CO3) stands in for soda ash mole for mole: about 290 kg for the same batch, giving potash glass, the forest glass of
+medieval Europe. **Real potash is scarce in wood ash**: a few per cent of the ash, and ash about a per cent of the wood, so a real
+batch would burn hundreds of tonnes of wood. The game's yield is an authored simplification, labelled so.
+
+```mermaid
+flowchart LR
+    S[Sandstone chunk] -->|stonecutter's table: crush| GS[Glass sand]
+    W[Wood] -->|a stove: burn, soak, boil down| P[Potash]
+    SA[Salt, with Vanilla Cooking Expanded] -->|a stove, with limestone| SO[Soda ash]
+    L[Limestone blocks] --> M
+    GS --> M[Electric smelter: melt and draw]
+    P --> M
+    SO -.either alkali.-> M
+    M --> PANE[Glass pane]
+    C[Chemfuel] -->|machining table| F[Plastic film]
+    PANE --> LAM[Laminated pane]
+    F --> LAM
+    PANE --> ARM[Armoured pane]
+    F --> ARM
+    F --> VB[Vision block]
+```
+
+| Item [A] | Made at | From (authored, for play) | Used for |
+| --- | --- | --- | --- |
+| **Glass sand** | Stonecutter's table | 1 sandstone chunk gives 20 | The melt |
+| **Potash** | A fueled or electric stove (boiling the lye) | Wood, with the soaking water taken as given without Dubs Bad Hygiene | The melt's alkali |
+| **Soda ash** (only with Vanilla Cooking Expanded) | The same stove | Its salt and limestone | The melt's alkali, in place of potash |
+| **Glass pane** | The game's electric smelter (power only) | Glass sand, potash or soda ash, and limestone blocks, about 7 to 2 to 2, by the real batch above | A side window; the base of every other kind |
+| **Plastic film** | Machining table | Chemfuel; Rimefeller's plastics accepted in its place | Laminating, the armoured liner, vision blocks |
+| **Laminated pane** | Machining table | Two panes and a film | A windscreen |
+| **Armoured pane** | Machining table | Several panes and films, and longer work | An armoured cab's glass |
+| **Vision block** | Machining table | Film (acrylic) and a little steel | A tank's or armoured vehicle's view |
+
+- **Where the goods live:** D'thorga Framework, with our other vehicle parts; nothing of the chain needs Vehicle Framework.
+- **Glass+Lights:** its glass is not part of the chain (it melts any stone chunk); it may be accepted in place of a glass pane where
+  active, as a parts-bill substitute, if the owner wants that later.
+- **Quicklime** stays an idea for later (the owner's word): a lime kiln whose quicklime could serve mortar and other chemistry.
+- **Repairs** take the kind's own goods: ordinary glass laminated panes and panes, armoured glass armoured panes, a tank's vision
+  blocks; by the share missing, as a liner takes panels.
+- **The pictures for the overnight run** (about 12): glass sand, potash, soda ash, a glass pane, a laminated pane, an armoured pane,
+  a vision block and a plastic film; and a cracked-glass overlay for each of our own closed-cab vehicles. No building: the melt is
+  the game's electric smelter.
+
 ## Who chose what
 
 - **Owner (22 Nov 2026):** glass as a vehicle part with knock-on effects; research and record only; then the answers above.
