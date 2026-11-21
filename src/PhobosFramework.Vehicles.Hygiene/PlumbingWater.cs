@@ -35,12 +35,16 @@ public sealed class PlumbingLink : VehiclePipes.ILink
         VehiclePipes.SystemsTakeWater(comp)
         || (VehiclePipes.Tank(comp) is { } tank && tank.Compartments.Any(c => c.contents != null && c.contents.ports.Any(port => port is Port_DubsPlumbing or Port_DubsSeptic)))
         // Framework 0.219.0 (the owner, 22 Nov 2026: the Billy was "exempt"): a trailer with its own water, such as the field kitchen.
-        || comp.Vehicle.GetComp<CompPhobosTrailerPlumbing>() is { OwnsWater: true };
+        || comp.Vehicle.GetComp<CompPhobosTrailerPlumbing>() is { OwnsWater: true }
+        // Framework 0.232.0: a crew water tank fitted.
+        || comp.Vehicle.GetComp<CompPhobosCrewWater>() is { Fitted: true };
 
     public void Update(VehiclePipes.IHost comp)
     {
         // A trailer's own water stands in its hidden tank whenever it is parked, so a bowser or plumbing beside it fills it (Framework 0.219.0).
         comp.Vehicle.GetComp<CompPhobosTrailerPlumbing>()?.SettleOwnWater(comp.ParkedForPipes);
+        // A crew water tank stands in its hidden tower whenever the vehicle is parked (Framework 0.232.0).
+        comp.Vehicle.GetComp<CompPhobosCrewWater>()?.Settle(comp.ParkedForPipes);
         var underlay = comp.Underlay(Key);
         int before = underlay.Changes;
         if (!comp.ParkedForPipes || !TakesWater(comp))
@@ -50,6 +54,14 @@ public sealed class PlumbingLink : VehiclePipes.ILink
         }
         Map map = comp.Vehicle.Map;
         CellRect footprint = comp.Vehicle.OccupiedRect();
+        // With a crew water tank, the pipes reach under everything its camp has set out too, so a basin or shower there joins it (Framework 0.232.0).
+        if (comp.Vehicle.GetComp<CompPhobosCrewWater>() is { Fitted: true } && comp.Vehicle.GetComp<CompPhobosCamp>() is { IsPitched: true } camp)
+        {
+            foreach (Thing piece in camp.Placed)
+            {
+                if (piece.Spawned && piece.Map == map) footprint = footprint.Encapsulate(piece.OccupiedRect());
+            }
+        }
         underlay.Renew(DubsPipes.Def, DubsPipes.Make);
         // Plumbing stands on any ground a vehicle can park on but water: the game will not build a pipe in water.
         underlay.Fill(footprint, map, cell => DubsPipes.IsPiped(cell, map), DubsPipes.Make, cell => !cell.GetTerrain(map).IsWater);

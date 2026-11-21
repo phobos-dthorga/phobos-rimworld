@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.232.0] - 2026-11-22 - Draft
+
+The crew water tank, and washing at camp
+
+### Added
+
+- **A crew water tank for any land vehicle, with Dubs Bad Hygiene** (the owner's go of 22 November 2026). A 120-litre tank made from a kit and fitted in a new water tank bay in the cargo space. On the road the crew drink and wash from it. Parked with the engine off it stands in the plumbing beneath the vehicle, so plumbing or a water bowser beside it fills it, and it never fills by itself. The water weighs what it holds, taken from the cargo capacity; a message says when it is down to a quarter, and the Fleet board shows it. Not yet tested in game: row 354 of the test pass.
+- **Dubs Bad Hygiene's basin and simple shower can be camp gear.** Uninstall them into a vehicle's cargo and the camp sets them out with the rest; with a crew water tank fitted, the pipes laid beneath the vehicle reach under the whole camp, so they draw from the tank. They are Dubs' own: a shower takes Dubs' 65 litres and is cold, as Dubs' showers are with no hot water tank on their pipes. Not yet tested in game: row 354.
+
+### Balance
+
+- **The crew water tank holds 120 litres, not the 60 the design first said**: one of Dubs' showers takes 65 litres, so a 60-litre tank could never run one. Authored, for the owner to revise.
+
 ## [0.231.0] - 2026-11-22 - Draft
 
 Camp lights

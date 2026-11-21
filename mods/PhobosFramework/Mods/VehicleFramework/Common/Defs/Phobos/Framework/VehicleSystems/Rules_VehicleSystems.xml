@@ -212,6 +212,11 @@
          Authored, from warming 20 L by 25 degrees (about 2.1 MJ) in a burner about 80% efficient; what one unit of chemfuel holds is the
          game's to say, so this is a gameplay figure: a full heater (25) gives a hundred showers. With less left, the shower is cold. -->
     <caravanShowerFuel>0.25</caravanShowerFuel>
+    <!-- The crew water tank (Framework 0.232.0; with Dubs Bad Hygiene only). 120 L, authored: the design's 60 L (three jerry cans) was raised
+         because one of Dubs' showers takes 65 L, so a 60 L tank could never run one; 100 to 150 L is a usual under-tray tank. "Low" below a
+         quarter, the design's figure. Real planning figures: about 2 L a person a day to drink in cool weather, 4 L in heat. -->
+    <crewTankLitres>120</crewTankLitres>
+    <crewTankLowShare>0.25</crewTankLowShare>
     <!-- Loads a vehicle gains from what it tows (Framework 0.216.0; docs/development/vehicle-field-kitchen.md). A field kitchen's packed cold
          box runs through the trailer's lead: its own working watts (100 W in its Def) at this vehicle's voltage, while it holds food. Shed
          with the fridge, late among the comforts, so the food outlives the air conditioning. -->

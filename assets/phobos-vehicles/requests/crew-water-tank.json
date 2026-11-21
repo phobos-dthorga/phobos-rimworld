@@ -1,0 +1,30 @@
+[
+ {
+  "name": "item-crew-water-tank",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+    "role": "our approved camp kit item (the roof tent kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/KitchenBox_north.png",
+    "role": "our approved camp piece (the kitchen box): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "item": "PhobosVehicleSystems_CrewWaterTankKit, the crew water tank",
+   "ships_as": "mods/PhobosFramework/Mods/VehiclesHygiene/Common/Textures/Phobos/VehicleSystems/Camp/CrewWaterTankKit.png",
+   "size": "drawn by the game on one cell; requested at 1024",
+   "why": "the crew water tank (Framework 0.232.0; docs/development/vehicle-accessories.md, Y2); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for a vehicle's crew water tank. Images 1 and 2 are our approved camp gear from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 80 percent of the canvas. Square canvas.\n\nA flat rectangular black polyethylene water tank of the kind bolted under a four-wheel-drive's tray, with a round blue screw filler cap on top, a small brass tap at one end, two steel mounting straps across it and a short coil of clear hose lying beside it.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground. No shadow outside the object."
+ }
+]

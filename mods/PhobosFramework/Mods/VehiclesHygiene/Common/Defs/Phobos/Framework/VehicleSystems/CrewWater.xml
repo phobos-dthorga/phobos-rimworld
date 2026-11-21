@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The crew water tank (Framework 0.232.0; docs/development/vehicle-accessories.md, Y2 and "Built: the crew water tank"), with Dubs Bad Hygiene
+    only: without it water has no meaning, so none of this loads. A fitting in the vehicle's water tank bay, made from a kit; it holds 120 L
+    (the rules Def's figure), weighs what it holds as cargo, and is refilled by the player's people: parked beside plumbing or a water bowser,
+    never by itself. Every cost, work, weight and figure is authored, agent defaults for the owner to revise. Not yet tested in game.
+  -->
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- An empty 120 L under-tray tank with its straps and hose: about 12 kg (authored, a polyethylene tank's). -->
+    <defName>PhobosVehicleSystems_CrewWaterTankKit</defName>
+    <label>crew water tank</label>
+    <description>A flat polyethylene water tank with straps, a tap and a hose, for a vehicle's water tank bay. Fitted, it carries water for the crew: they drink and wash from it on the road, and parked with the engine off it feeds a basin and a shower set out with the camp. Fill it by parking beside plumbing or a water bowser.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/CrewWaterTankKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>12</Mass>
+      <WorkToMake>2500</WorkToMake>
+      <MarketValue>80</MarketValue>
+    </statBases>
+    <costList>
+      <Chemfuel>20</Chemfuel>
+      <Steel>10</Steel>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_CrewWaterTank</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/CrewWaterTankKit</iconPath>
+    <label>crew water tank</label>
+    <description>A 120-litre water tank in the cargo space. On the road the crew drink and wash from it before their bottles. Parked with the engine off, it feeds the plumbing laid beneath the vehicle and its camp, so a basin and a shower set out with the camp draw from it, and plumbing or a water bowser beside the vehicle fills it. Water weighs what it holds, taken from the cargo capacity. It never fills by itself; a message says when it is down to a quarter.</description>
+    <roles><li>WaterTankBay</li></roles>
+    <materials><PhobosVehicleSystems_CrewWaterTankKit>1</PhobosVehicleSystems_CrewWaterTankKit><Steel>3</Steel></materials>
+    <givesBack><PhobosVehicleSystems_CrewWaterTankKit>1</PhobosVehicleSystems_CrewWaterTankKit></givesBack>
+    <kilograms>12</kilograms>
+    <work>1500</work>
+    <minSkill>2</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>CrewWater</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <!-- The hidden tower the tank stands in beneath its parked vehicle: Dubs' own water storage, 120 L as the tank, not drawn, not selectable. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>Phobos_CrewWaterStandIn</defName>
+    <label>crew water tank</label>
+    <description>A vehicle's crew water tank, joined to the plumbing beneath it.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Stations/PowerPoint</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <drawerType>None</drawerType>
+    <altitudeLayer>Conduits</altitudeLayer>
+    <passability>Standable</passability>
+    <selectable>false</selectable>
+    <useHitPoints>false</useHitPoints>
+    <rotatable>false</rotatable>
+    <tickerType>Normal</tickerType>
+    <leaveResourcesWhenKilled>false</leaveResourcesWhenKilled>
+    <clearBuildingArea>false</clearBuildingArea>
+    <filthLeaving IsNull="True" />
+    <building>
+      <isInert>true</isInert>
+      <isEdifice>false</isEdifice>
+      <deconstructible>false</deconstructible>
+      <claimable>false</claimable>
+    </building>
+    <comps>
+      <li Class="DubsBadHygiene.CompProperties_Pipe">
+        <mode>Sewage</mode>
+      </li>
+      <li Class="DubsBadHygiene.CompProperties_WaterStorage">
+        <WaterStorageCap>120</WaterStorageCap>
+      </li>
+    </comps>
+  </ThingDef>
+</Defs>

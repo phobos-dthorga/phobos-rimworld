@@ -355,6 +355,15 @@ public static class FleetService
     /// <summary>Days of food below which a convoy's row asks for food: under a day (agent's choice, the game's own warning colour starts there).</summary>
     const float LowFoodDays = 1f;
 
+    static bool WaterLow(VehiclePawn vehicle)
+    {
+        foreach (ThingComp comp in vehicle.AllComps)
+        {
+            if (comp is IVehicleWaterStore { Capacity: > 0f } store && store.Litres < store.Capacity * PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().crewTankLowShare) return true;
+        }
+        return false;
+    }
+
     /// <summary>The Fleet's lines for life on the road (Framework 0.230.0), noted when first shown.</summary>
     static string Road(VehiclePawn? vehicle, string key)
     {
@@ -457,6 +466,8 @@ public static class FleetService
             if (systems.Conditions.Count > 0) return "PhobosFleet_NeedsFaults".Translate(systems.Conditions.Count.Named("COUNT")).Resolve();
         }
         if (entry.Fuel >= 0f && entry.Fuel < LowFuel) return "PhobosFleet_NeedsFuel".Translate();
+        // Its crew water tank low (Framework 0.232.0, with Dubs Bad Hygiene).
+        if (entry.Vehicle != null && WaterLow(entry.Vehicle)) return Road(entry.Vehicle, "PhobosFleet_NeedsWater");
         // A convoy with less than a day of food (Framework 0.230.0), by the caravan's own figure, which counts what it tows.
         if (entry.Place is VehicleCaravan { Faction.IsPlayer: true } convoy && DaysWorthOfFoodCalculator.AnyFoodEatingPawn(convoy.PawnsListForReading)
             && convoy.DaysWorthOfFood.days < LowFoodDays)

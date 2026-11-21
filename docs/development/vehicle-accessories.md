@@ -708,6 +708,40 @@ tested in game.
 - **The Land Cruiser's own bed upgrades** (a mortar or howitzer platform) and a deck tent can both be fitted; nothing stops it. Left to
   the player (agent's choice).
 
+## Built: the crew water tank (22 Nov 2026)
+
+Y2 and Y12 of the owner's camp batch of 13 Nov 2026; the owner's go on 22 Nov 2026 ("#1": the crew water tank with a camp basin and
+shower, with Dubs Bad Hygiene). D'thorga Framework 0.232.0; row 354 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Carry a day or two of water in any truck; wash and shower at a camp away from home |
+| What it stops them doing | Nothing new: the tank must be filled, and showers empty it quickly |
+| How it changes play | Water becomes a thing to plan for a trip: people, days, and where the next fill is |
+| What outside notices | The colonists (thirst, hygiene, Dubs' cold-water memory), Dubs' plumbing (a tower beneath the parked vehicle that bowsers and pumps fill), the Fleet board and a message when it runs low |
+
+**Risk: low** (agent's grade): it only gives water; running dry leaves people as they were without it. No setting.
+
+**Agent's choices, for the owner to revise:**
+
+- **120 L, not the design's 60 L** [A]: one of Dubs' showers takes 65 L (Dubs' own figure, read in its Def), so a 60 L tank could never run
+  one. 100 to 150 L is a usual under-tray tank. Low below a quarter (the design's).
+- **The camp basin and shower are Dubs' own** (`BasinStuff`, `ShowerSimple`), made camp gear by a patch, rather than pieces of ours: the
+  same water use, hygiene and cold water as at home, and no new art. With no hot water tank on the camp's pipes Dubs' shower is cold.
+- **A new part, the water tank bay**, on every land vehicle beside the fridge bay, so the fitting has a part to go on and is lost with it.
+  Without Dubs the bay stays empty: no fitting for it loads.
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| The tank | `CompPhobosCrewWater` (Dubs tie-in), added at start-up to every land vehicle that can camp, trailers apart | Litres saved with the vehicle and the worst water quality put in. Its water weighs as cargo (`IVehicleCarriedLoad`, 1 kg a litre) |
+| Parked | `PlumbingLink.Update` calls `Settle` with the vehicle's pipes: a hidden 120 L Dubs tower (`Phobos_CrewWaterStandIn`) at the vehicle's centre | Pumps and our water bowser fill it as any tower; driving off takes its water back aboard. Under Dubs' unlimited pumping only what it held when laid comes back |
+| The camp's pipes | The same update, while the camp is pitched | Dubs' visible plumbing laid under everything the camp set out as well as the vehicle, so the basin and shower join it |
+| On the road | `WaterAboard` counts and takes it | After any bulk water tank of the same vehicle; the riders' drink and wash, and a kettle's water |
+| Low | A message once per fall below a quarter; the Fleet board's need "water: the crew tank is low" (`IVehicleWaterStore`) | |
+
+**Pictures:** the tank kit, paid, two attempts, about US$0.11 ([the record](../../assets/phobos-vehicles/requests/camp-lights-record.md));
+the agent's suggested pick ships until the owner picks. Life aboard (Y4), the riders drinking from it on a map, comes next.
+
 ## Built: camp lights (22 Nov 2026)
 
 The owner's choice (22 Nov 2026, card): **both** a fuel lantern and a 12-volt camp light, after the agent found the camp had no packable

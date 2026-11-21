@@ -371,6 +371,21 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.232.0: a bay for the crew water tank (Y2), in the cargo space beside the fridge's; used only with Dubs Bad Hygiene,
+             where the tank exists. Health and hit weight authored, a small tank's. -->
+        <role>WaterTankBay</role>
+        <add>
+          <key>PhobosWaterTankBay</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>water tank bay</label>
+          <health>25</health>
+          <depth>Internal</depth>
+          <hitWeight>0.1</hitWeight>
+          <hitWeightCE>4</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <role>HouseBatteryTray</role>
         <add>
           <key>PhobosHouseBatteryTray</key>

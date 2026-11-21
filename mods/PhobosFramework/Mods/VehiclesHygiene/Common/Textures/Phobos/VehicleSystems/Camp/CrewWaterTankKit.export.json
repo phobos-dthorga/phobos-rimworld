@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehiclesHygiene/Common/Textures/Phobos/VehicleSystems/Camp/CrewWaterTankKit.png",
+  "source": "assets/phobos-vehicles/generated/item-crew-water-tank/item-crew-water-tank-1.png",
+  "source_sha256": "2ca5917ce5570ec7ee1f7005c7b069109cd5874fa2a0bcb0e704638222099b22",
+  "target_sha256": "53a02d6006d484cdc2048aff5916a2f2ab09d9662633b99e9aa3cec697eca228",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "2ca5917ce5570ec7ee1f7005c7b069109cd5874fa2a0bcb0e704638222099b22",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-22T05:32:47",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

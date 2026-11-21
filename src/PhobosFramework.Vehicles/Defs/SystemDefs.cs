@@ -1148,6 +1148,12 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// by 25 degrees). With too little left, the shower is cold.
     /// </summary>
     public float caravanShowerFuel = 0.25f;
+    /// <summary>
+    /// The crew water tank (Framework 0.232.0; docs/development/vehicle-accessories.md, Y2): what it holds, in litres, and the share below which
+    /// it is "low" (authored: 120 L, the design's 60 L raised because one of Dubs' showers takes 65 L; low at a quarter, the design's).
+    /// </summary>
+    public float crewTankLitres = 120f;
+    public float crewTankLowShare = 0.25f;
     public float nightDriverFitRest = 0.3f;
     public float nightReliefRest = 0.6f;
     /// <summary>Jamming fields (Framework 0.225.0; docs/development/ea6b-prowler.md, step 2): the capabilities a hostile jamming field blinds,

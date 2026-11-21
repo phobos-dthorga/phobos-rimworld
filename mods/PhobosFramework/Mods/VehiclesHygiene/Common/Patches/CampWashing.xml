@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!--
+    Framework 0.232.0 (docs/development/vehicle-accessories.md, Y12): Dubs Bad Hygiene's own basin and simple shower can be camp gear.
+    Uninstalled into a vehicle's cargo, the camp sets them out with the rest of its gear, and the pipes the vehicle lays beneath its camp
+    join them to its crew water tank. Dubs' own fixtures, not copies: their water use, their hygiene and their cold water are Dubs'.
+  -->
+  <Operation Class="PatchOperationSequence">
+    <success>Always</success>
+    <operations>
+      <li Class="PatchOperationAddModExtension">
+        <xpath>Defs/ThingDef[defName="BasinStuff"]</xpath>
+        <value>
+          <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+            <work>60</work>
+          </li>
+        </value>
+      </li>
+      <li Class="PatchOperationAddModExtension">
+        <xpath>Defs/ThingDef[defName="ShowerSimple"]</xpath>
+        <value>
+          <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+            <work>80</work>
+          </li>
+        </value>
+      </li>
+    </operations>
+  </Operation>
+</Patch>

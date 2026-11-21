@@ -29,3 +29,14 @@ public static class CaravanWater
 
     public static float Take(Caravan caravan, float litres, bool kitchenFirst) => litres > 0f ? source?.Take(caravan, litres, kitchenFirst) ?? 0f : 0f;
 }
+
+/// <summary>
+/// A vehicle's own store of water (Framework 0.232.0: the crew water tank, with Dubs Bad Hygiene), read by the Fleet board for a tank running
+/// low. Litres and the store's size; a store not fitted holds 0.
+/// </summary>
+public interface IVehicleWaterStore
+{
+    float Litres { get; }
+
+    float Capacity { get; }
+}

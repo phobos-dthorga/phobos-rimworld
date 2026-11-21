@@ -14,4 +14,9 @@ background AI's mask, then `scripts/art/export_sprite.py`) on soil-coloured grou
 suggested lantern **2** (the glass and flame read at actual size) and camp light **1** (the lighter legs read on dark ground), and shipped
 them while the owner's pick is waited for.
 
-**Decision (owner):** waiting.
+**The crew water tank's kit (the same day, Framework 0.232.0).** Two attempts more from [crew-water-tank.json](crew-water-tank.json), about
+**US$0.11** (cap US$0.30; a first try stopped before buying anything on a wrong reference name). References: the roof tent kit and the
+kitchen box. Both clean; the agent suggested **1** (the plainer tank reads better at actual size) and shipped it while the owner's pick is
+waited for.
+
+**Decision (owner):** waiting, for all three.

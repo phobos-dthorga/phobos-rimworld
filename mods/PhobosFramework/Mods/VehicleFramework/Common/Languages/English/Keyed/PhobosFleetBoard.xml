@@ -46,6 +46,7 @@
 
   <PhobosFleet_NeedsFuel>fuel</PhobosFleet_NeedsFuel>
   <PhobosFleet_NeedsFood>food: less than a day left</PhobosFleet_NeedsFood>
+  <PhobosFleet_NeedsWater>water: the crew tank is low</PhobosFleet_NeedsWater>
   <PhobosFleet_NeedsFaults>faults to look at: {COUNT}</PhobosFleet_NeedsFaults>
   <PhobosFleet_NeedsBrakes>new brake pads: it cannot stop</PhobosFleet_NeedsBrakes>
   <PhobosFleet_NeedsRecovery>a caravan to reach it</PhobosFleet_NeedsRecovery>

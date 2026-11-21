@@ -64,6 +64,7 @@ public sealed class WaterAboard : CaravanWater.ISource
                 }
             }
             if (carrier.GetComp<CompPhobosTrailerPlumbing>() is { OwnsWater: true } kitchen) litres += kitchen.OwnWater;
+            if (carrier.GetComp<CompPhobosCrewWater>() is { } crew) litres += crew.Litres;
         }
         return litres;
     }
@@ -88,14 +89,24 @@ public sealed class WaterAboard : CaravanWater.ISource
                     if (carrier.GetComp<CompPhobosTrailerPlumbing>() is { OwnsWater: true } kitchen) taken += kitchen.TakeOwnWater(litres - taken);
                     continue;
                 }
-                if (carrier.GetComp<CompPhobosTank>() is not { } tank) continue;
-                foreach (PhobosTankContentsDef water in Waters)
+                // A crew water tank (Framework 0.232.0), after any bulk water tank of the same vehicle.
+                if (carrier.GetComp<CompPhobosTank>() is { } tank)
                 {
-                    if (taken >= litres - 0.0001f) break;
-                    float got = tank.TakeOut(water, litres - taken, out int from);
-                    if (got <= 0f) continue;
+                    foreach (PhobosTankContentsDef water in Waters)
+                    {
+                        if (taken >= litres - 0.0001f) break;
+                        float got = tank.TakeOut(water, litres - taken, out int from);
+                        if (got <= 0f) continue;
+                        taken += got;
+                        if (from > quality) quality = from;
+                    }
+                }
+                if (taken < litres - 0.0001f && carrier.GetComp<CompPhobosCrewWater>() is { } crew)
+                {
+                    float got = crew.Take(litres - taken, out int from);
                     taken += got;
-                    if (from > quality) quality = from;
+                    if (got > 0f && from > quality) quality = from;
+                    if (got > 0f && Seen.Wants("vehicles.crew-water-road", carrier)) Seen.Note("vehicles.crew-water-road", carrier, got.ToString("0.#") + " L");
                 }
             }
         }

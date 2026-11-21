@@ -468,6 +468,14 @@ the kit back in the cargo.
   the tent is warmer. Under an open awning or fly it warms nothing.
 - **Taking down any one wall brings that tent's canvas roof down**, as an awning's pole does.
 
+**Crew water tank** (with Dubs Bad Hygiene; not yet tested in game): make the kit at the vehicle parts bench (research **vehicle parts**)
+and fit it in the vehicle's **water tank bay**. It holds **120 litres**.
+
+- **On the road** the crew drink and wash from it. **Parked with the engine off**, it joins the plumbing beneath the vehicle: **park beside
+  plumbing or a water bowser to fill it**. It never fills by itself. A message, and the Fleet board, say when it is down to a quarter.
+- **Washing at camp:** uninstall a Dubs **basin** and **simple shower** into the cargo with the camp gear. The camp sets them out, and the pipes
+  under the camp join them to the tank. A shower takes **65 litres** and is cold (no hot water tank at camp).
+
 **Camp lights** (not yet tested in game): build them in the Architect (D'thorga, Motor pool; research **vehicle parts**) and pack them
 in the cargo with the camp gear. Both light themselves at dusk.
 

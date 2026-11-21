@@ -37,6 +37,11 @@
     "338": {"parts": {
       "a caravan cooks at a packed kitchen box": [{"key": "camp.kitchen-box-caravan", "detail": "*"}]
     }},
+    "354": {"parts": {
+      "a parked crew tank stands in its hidden tower": ["vehicles.crew-water-laid"],
+      "the crew drink from it on the road": ["vehicles.crew-water-road"],
+      "the Fleet board says it is low": [{"key": "vehicles.fleet-road-life", "variant": "PhobosFleet_NeedsWater"}]
+    }},
     "353": {"parts": {
       "a camp lantern burns while lit": ["framework.night-light-flame"],
       "a 12-volt camp light is fed by its vehicle": ["vehicles.camp-pole-light"]
