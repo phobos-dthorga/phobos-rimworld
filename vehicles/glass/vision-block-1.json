@@ -1,0 +1,56 @@
+{
+  "file": "vision-block-1.png",
+  "sha256": "567895de7a8d2024b2fb703a64065034fb51ecf4c933e2fcdf65bb80d8d7da71",
+  "date": "2026-11-22T08:55:40",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a tank periscope vision block, a wedge of clear acrylic in a short dark steel housing. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nOne tank periscope vision block: a chunky wedge-shaped block of clear blue-green acrylic with angled faces, set in a short dark steel housing with a mounting flange.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, text, letters, numbers, logos, floor, ground or cast shadow.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/glass-chain-items.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 383,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 255
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2139
+  },
+  "cost_usd": 0.055,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 24.5,
+  "references": [
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Upgrades/ArmouredCab.png",
+      "sha256": "d72407e1b5176204e1d6f2cfb64a5dc319e8ff1ae7258888e7da256e7ae9ba2d",
+      "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ElectricalKit.png",
+      "sha256": "3caab00ccee0809dd4f001c48f7f035d977d7f00bb504c023b065ac01b53f90d",
+      "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
