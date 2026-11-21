@@ -350,7 +350,8 @@ cooks, bills, ingredients and food poisoning work exactly as at home.
 
 **On the road:** while a caravan rests for the night, its cooks turn **raw food from its packs into simple meals** at a Billy it carries,
 on its own or hitched behind a vehicle: **up to 20 a cook**, burning half a unit of fuel a meal from the kitchen's burners, or chemfuel
-and wood in the packs. Raw food goes nearly twice as far that way. Turn it off with **Field kitchens cook in a caravan** in
+and wood in the packs. **The cooks also reach whatever the caravan tows** (not yet tested in game): raw food and fuel loaded into the
+Billy itself, into its packed cold box, or into another trailer on the hitch. Raw food goes nearly twice as far that way. Turn it off with **Field kitchens cook in a caravan** in
 D'thorga Framework's settings.
 
 **Driving through the night** (not yet tested in game): a caravan that never stops has no night's rest to cook in, so **its kettle

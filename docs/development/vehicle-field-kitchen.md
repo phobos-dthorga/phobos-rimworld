@@ -286,6 +286,22 @@ halt is one dictionary look-up in the night-rest answer while any caravan is hal
 **Who chose what:** the owner chose simmering by default and the halt as a per-caravan switch; the agent chose the half share, the
 hour, riders only, and that a halt happens only when there was a meal to stop for.
 
+## Built: the cooks reach the trailer's food (22 Nov 2026)
+
+**The gap.** A towed trailer rides in its hitch and is no member of the caravan, so the game's packs never held its cargo: caravan
+cooking could not see raw food or fuel loaded into the Billy itself, into its packed cold box, or into any other trailer in tow.
+**The owner said build it** (22 Nov 2026). Built in D'thorga Framework 0.216.0; row 323 of [the in-game test pass](in-game-test-pass.md).
+Not yet tested in game.
+
+- **What it lets the player do:** load the kitchen with its own food and fuel and send it. **What it stops:** nothing. **How it changes
+  play:** the Billy and its cold box become the caravan's larder, as they are at camp. **What outside notices:** the caravan's packs
+  (meals arrive there) and the trailer's cargo (raw food and fuel leave it).
+- **How:** `PhobosCaravanCooking.Larder` adds, to the caravan's packs, the cargo of every vehicle in tow (`Hitches.InTow`, along a whole
+  line of tows) and what any packed cold box holds. The kitchen is now found anywhere along a line, not only first behind the tractor.
+- **Still open, said plainly:** people in a caravan **eat** only from the caravan's packs. Food in a towed trailer that is not cooked
+  (meals, pemmican) is not eaten on the road; load ready food into a driven vehicle. That is the game's own caravan feeding, which this
+  does not patch.
+
 ## Sources
 
 - Wikipedia, [Field kitchen](https://en.wikipedia.org/wiki/Field_kitchen), read in full on 13 Nov 2026: Fissler's 1892 kitchen,

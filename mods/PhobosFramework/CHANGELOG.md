@@ -13,6 +13,8 @@ Camps, berths and working trailers meet
 
 - **A caravan that drives through the night cooks at its field kitchen** (the owner's choice of 22 November 2026). Caravan cooking ran only while a caravan rested for the night, so one driving in shifts with a Billy in tow never cooked and ate its food raw. Now its kettle simmers on the move: riders who are not driving or crewing a vehicle make half as many meals each (up to 10), for the same fuel a meal. Or select the caravan and switch on Meal halts, beside Drive through the night: it then stops for an hour each night, every cook works at the whole kitchen as at camp (up to 20 each), and it drives on by itself. A message says what was cooked, or that the kettle stayed cold because everyone aboard was driving. The Meal halts button borrows our switch icon until its own is made. For modders: onTheMoveShare and mealHaltTicks on the kitchen's caravan cooking extension. Not yet tested in game: row 322 of the test pass.
 
+- **A caravan's cooks reach the food in its trailers.** A towed trailer rides in its hitch and is no member of the caravan, so caravan cooking never saw raw food or fuel loaded into the Billy itself, into its packed cold box, or into another trailer in tow. The cooks now take from all of them as well as the packs, and the kitchen is found anywhere along a line of tows. Meals still join the caravan's packs. Not yet tested in game: row 323 of the test pass.
+
 ### Changed
 
 - **The setting Field kitchens cook in a resting caravan is now called Field kitchens cook in a caravan**, since it also covers a caravan that drives through the night. Its saved value and its default (on) are unchanged.

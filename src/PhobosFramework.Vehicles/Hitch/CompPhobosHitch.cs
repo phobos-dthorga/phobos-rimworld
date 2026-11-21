@@ -3,6 +3,7 @@ using System.Linq;
 using Phobos.Framework.Interface;
 using Phobos.Framework.Vehicles.Rules;
 using RimWorld;
+using RimWorld.Planet;
 using SmashTools;
 using UnityEngine;
 using Vehicles;
@@ -676,6 +677,19 @@ public static class Hitches
     {
         Check();
         towing.Remove(trailer);
+    }
+
+    /// <summary>
+    /// Every vehicle a caravan has in tow, each line nearest first. A towed vehicle rides in its hitch, so it is no member of the caravan: the
+    /// game's lists of a caravan's pawns and packs never hold it or its cargo (Framework 0.216.0: its field kitchen's cooks, its water).
+    /// </summary>
+    public static IEnumerable<VehiclePawn> InTow(Caravan caravan)
+    {
+        foreach (Pawn pawn in caravan.PawnsListForReading)
+        {
+            if (pawn is not VehiclePawn vehicle) continue;
+            foreach (VehiclePawn towed in CompPhobosHitch.Behind(vehicle)) yield return towed;
+        }
     }
 
     /// <summary>The hitch towing this trailer now, or null.</summary>

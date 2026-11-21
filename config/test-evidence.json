@@ -7,6 +7,9 @@
       "the kettle simmers on the move": ["trailers.caravan-simmer"],
       "a meal halt cooks and holds the caravan": ["trailers.caravan-meal-halt"]
     }},
+    "323": {"parts": {
+      "the cooks reach food in the trailer and its cold box": ["trailers.caravan-larder"]
+    }},
     "321": {"parts": {
       "the sleeper climbs into the bunk at bedtime": ["vehicles.bunk-sleep"],
       "the night heater burns for the sleeper": ["vehicles.bunk-heater"],
