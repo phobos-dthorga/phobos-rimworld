@@ -1,6 +1,7 @@
 # Railcars: a loadout for Trains of the Rim's wagons (22 Nov 2026)
 
-**Status (22 Nov 2026):** a design record with questions for the owner. Nothing here is designed in full or decided yet.
+**Status (22 Nov 2026):** a design record. **The owner chose to leave railcars alone** (22 Nov 2026); nothing was made from it, and it is kept
+for if Trains of the Rim is updated or the owner starts using trains.
 
 ## Read this first
 
@@ -82,6 +83,9 @@ Ideas only, none designed. Each would get its own four questions and risk grade 
 
 ## Questions for the owner
 
+**Answered by the owner, 22 Nov 2026:** leave railcars alone (R3, the agent's recommendation). Questions 2 and 3 fall away with it.
+The questions as they were put:
+
 1. **Go ahead at all?** R3, leave railcars alone (agent's recommendation unless trains are in use); R1, the slim loadout; or R2 designed
    properly first.
 2. **Do you use Trains of the Rim in the current 1.7 game, and does it work there?** This decides most of question 1.
@@ -89,7 +93,7 @@ Ideas only, none designed. Each would get its own four questions and risk grade 
 
 ## Who chose what
 
-- **Owner (22 Nov 2026):** the three wagons for a deck tent; a design record before anything is built.
+- **Owner (22 Nov 2026):** the three wagons for a deck tent; a design record before anything is built. Then, on reading it: leave railcars alone.
 - **Agent, for the owner to revise:** the three ways and the recommendation; every detail of R1; the ideas under R2.
 
 ## Sources
