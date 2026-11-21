@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- The radiation model (D'thorga Medical 0.21.0). -->
+  <PhobosMedical_PageRadiation>Radiation</PhobosMedical_PageRadiation>
+  <PhobosRadiation_SettingModel>Radiation sickness runs its real course</PhobosRadiation_SettingModel>
+  <PhobosRadiation_SettingModelDesc>On by default: radiation is a dose the body slowly repairs, and a large dose brings early sickness, a spell of feeling well, then the illness, which care can see someone through. It takes Dubs Rimatomics' radiation for people in place of its own sickness. Off: Rimatomics' own radiation sickness, as before.</PhobosRadiation_SettingModelDesc>
+  <PhobosRadiation_SettingHarshness>How harsh radiation is</PhobosRadiation_SettingHarshness>
+  <PhobosRadiation_SettingHarshnessDesc>How large a dose kills, and how much care helps. Realistic follows the medical sources.</PhobosRadiation_SettingHarshnessDesc>
+  <PhobosRadiation_HarshnessGentle>Gentle</PhobosRadiation_HarshnessGentle>
+  <PhobosRadiation_HarshnessGentleDesc>Half of those dosed die at 6 Gy without care, 9 Gy with full care.</PhobosRadiation_HarshnessGentleDesc>
+  <PhobosRadiation_HarshnessModerate>Moderate</PhobosRadiation_HarshnessModerate>
+  <PhobosRadiation_HarshnessModerateDesc>Half die at 5 Gy without care, 7.5 Gy with full care.</PhobosRadiation_HarshnessModerateDesc>
+  <PhobosRadiation_HarshnessRealistic>Realistic</PhobosRadiation_HarshnessRealistic>
+  <PhobosRadiation_HarshnessRealisticDesc>Half die at 4 Gy without care, 6 Gy with full care, as the medical sources say.</PhobosRadiation_HarshnessRealisticDesc>
+  <PhobosRadiation_HarshnessHarsh>Harsh</PhobosRadiation_HarshnessHarsh>
+  <PhobosRadiation_HarshnessHarshDesc>Half die at 3.5 Gy without care, 5 Gy with full care.</PhobosRadiation_HarshnessHarshDesc>
+  <PhobosRadiation_SettingEstimate>A doctor estimates a dose until it can be measured</PhobosRadiation_SettingEstimate>
+  <PhobosRadiation_SettingEstimateDesc>On by default: until Dubs Rimatomics' portable radiation detectors are researched (or without Rimatomics), a dose shows only as a doctor's estimate, from how soon the person vomited, and closer after two days in a hospital bed. Off: every dose shows exactly.</PhobosRadiation_SettingEstimateDesc>
+  <PhobosRadiation_TipExact>Dose now: {EFFECTIVE} Gy after repair; {LIFETIME} Gy over a lifetime. Exposure category {CATEGORY}.</PhobosRadiation_TipExact>
+  <PhobosRadiation_TipEstimate>A doctor's estimate: about {LOW} to {HIGH} Gy. Exposure category {CATEGORY}, if the estimate is right.</PhobosRadiation_TipEstimate>
+  <PhobosRadiation_TipUnknown>Exposed to radiation; how much is not known without a radiation counter. Exposure category {CATEGORY}.</PhobosRadiation_TipUnknown>
+</LanguageData>

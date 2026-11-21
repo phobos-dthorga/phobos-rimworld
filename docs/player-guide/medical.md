@@ -245,6 +245,26 @@ fluids after it. **Give your medics kits to carry:** Search and Rescue's restock
 to a parked helicopter instead of a far bed, switch on its **Take casualties aboard** (D'thorga Framework, in the
 [vehicle care chapter](vehicle-care.md)). Not yet tested in game.
 
+## Radiation
+
+Not yet tested in game. On by default (**Radiation sickness runs its real course**, on the **Radiation** settings page).
+
+- **A dose is something the body repairs.** Each person keeps their radiation dose; most of it heals over weeks, a tenth never. A dose
+  spread over days does far less than the same dose at once, so **getting people out quickly matters more than anything**.
+- **A large dose brings radiation sickness in three stages:** nausea and vomiting, sooner the larger the dose; then a spell when they
+  seem well, from about three weeks down to none at the very largest doses; then the illness itself, days or weeks after the dose.
+- **Who lives depends on the dose and the care.** Above about 4 to 6 Gy most die without care. A doctor's tending, bed rest in a clean
+  hospital room, fluids and medicine that speeds immunity all raise the dose someone can survive, **while they are ill**: the well
+  spell is the time to get them into a hospital bed.
+- **How much did they take?** Until Rimatomics' portable radiation detectors are researched, the radiation exposure condition shows a
+  **doctor's estimate**: someone who vomited within an hour took a lot; someone who never vomited took under about 2 Gy. Two days in a
+  hospital bed narrows it. After the research it shows the dose exactly.
+- **Suits and masks do not stop radiation.** Walls, a roof, earth and distance do: stay indoors in fallout. Rimatomics' fallout now fades
+  as real fallout does, to a tenth after a week.
+- **How harsh it is** is a setting: Gentle, **Moderate** (the default), Realistic or Harsh.
+- **With Rimatomics,** our model takes its radiation for people (robots keep Rimatomics' own), and anyone already carrying Rimatomics'
+  radiation sickness has it converted once.
+
 ## Radiation control (with Rimatomics)
 
 ![The radiation control point and the tools to paint and clear a controlled area](images/radiation-control.png)

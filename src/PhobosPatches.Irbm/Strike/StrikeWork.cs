@@ -129,7 +129,8 @@ public sealed class StrikeWork : FrameWork
         fragmentsLive = CombatExtendedFragments.Live(settings.fragments);
         fireBase = rules.FireChance(settings.fires);
         rimatomics = settings.fallout == FalloutMode.Automatic && zones.fallout && RimatomicsTieIn.Active;
-        radiation = rimatomics && settings.radiation && RimatomicsTieIn.CanIrradiate;
+        // D'thorga Medical's radiation model takes the dose in grays when it is on, with or without Rimatomics (Patches 0.35.0).
+        radiation = settings.radiation && (Phobos.Framework.Health.RadiationDoses.Active || (rimatomics && RimatomicsTieIn.CanIrradiate));
         flashBlindness = rimatomics ? RimatomicsTieIn.FlashBlindness : null;
         emp = settings.emp && zones.emp;
         pollution = settings.pollution && zones.pollution && ModsConfig.BiotechActive;
@@ -283,7 +284,7 @@ public sealed class StrikeWork : FrameWork
     /// A vehicle, through its own route (Patches 0.32.0; nuclear-strike-effects.md, NK1 to NK9; owner, 22 Nov 2026): the blast described as
     /// strengths from 0 to 1, 1 at the fireball's edge, by the same falloff and factors people take; the vehicle's taker does the rest. Those
     /// killed aboard are treated as the strike treats any death; those left aboard take the radiation dose people in the open take, cut by
-    /// the share the hull lets through (the owner's choice until a radiation model of our own replaces it).
+    /// the share the hull lets through: in grays to D'thorga Medical's radiation model when it is on, else Rimatomics' dose.
     /// </summary>
     void HitVehicle(ILargeBlastTaker taker, Pawn vehicle, float distance, StrikeZone zone)
     {
@@ -318,7 +319,7 @@ public sealed class StrikeWork : FrameWork
         if (!radiation || zone == StrikeZone.Fireball) return;
         foreach ((Pawn pawn, float share) in outcome.Inside)
         {
-            if (!pawn.Dead && RimatomicsTieIn.Irradiate(pawn, rules.radiationStrength * strength * share)) CrewDosed++;
+            if (!pawn.Dead && Irradiate(pawn, strength * share)) CrewDosed++;
         }
     }
 
@@ -400,7 +401,7 @@ public sealed class StrikeWork : FrameWork
         float strength = StrikeRule.Strength(distance, zones.fireballRadius, zones.reach);
         Blind(pawn, strength);
         // Counted only when Rimatomics took the dose (Patches 0.32.0, NK6): the count once meant calls made, a vehicle's included.
-        if (radiation && RimatomicsTieIn.Irradiate(pawn, rules.radiationStrength * strength)) Irradiated++;
+        if (radiation && Irradiate(pawn, strength)) Irradiated++;
         Pulse(pawn);
     }
 
@@ -425,6 +426,12 @@ public sealed class StrikeWork : FrameWork
         }
         Burned++;
     }
+
+    /// <summary>The strike's dose at this strength (1 at the fireball's edge): to D'thorga Medical's radiation model in grays when it is on,
+    /// otherwise to Rimatomics' radiation. True when a dose was given.</summary>
+    bool Irradiate(Pawn pawn, float strength) =>
+        Phobos.Framework.Health.RadiationDoses.Give(pawn, rules.radiationGraysAtFireballEdge * strength, "strike")
+        || (rimatomics && RimatomicsTieIn.Irradiate(pawn, rules.radiationStrength * strength));
 
     /// <summary>Rimatomics' flash blindness on each eye, more likely nearer the fireball.</summary>
     void Blind(Pawn pawn, float strength)

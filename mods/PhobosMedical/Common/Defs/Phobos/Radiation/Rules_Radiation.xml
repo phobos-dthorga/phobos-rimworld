@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The radiation model's figures (D'thorga Medical 0.21.0; docs/development/radiation-model.md). The dose bands, repair, timings and
+    the harshness presets are in the game-free rule (RadiationRule), from the record's sources; these are the rest, all authored. The
+    first loaded instance wins; another mod may patch it in XML. Not yet tested in game.
+  -->
+  <Phobos.Radiation.Defs.PhobosRadiationRulesDef>
+    <defName>PhobosRadiationRules</defName>
+    <!-- A dosed person's course is worked out every 300 ticks (five seconds at normal speed). -->
+    <intervalTicks>300</intervalTicks>
+    <!-- After its height, the illness recedes by 5 % of its severity a day. -->
+    <recoveryPerDay>0.05</recoveryPerDay>
+    <courseEndsBelow>0.2</courseEndsBelow>
+    <!-- Care, 0 to 1: tended (times tend quality) 0.35, in bed 0.2, in a clean room 0.15, on fluids 0.15, on a medicine that speeds
+         immunity 0.15. Full care moves the dose that kills half by the preset's figure (Moderate: 2.5 Gy). -->
+    <careTended>0.35</careTended>
+    <careInBed>0.2</careInBed>
+    <careClean>0.15</careClean>
+    <careFluids>0.15</careFluids>
+    <careImmunity>0.15</careImmunity>
+    <!-- A room is clean at cleanliness 0.6 or better: a hospital with sterile floors. -->
+    <cleanRoomFrom>0.6</cleanRoomFrom>
+    <smallestShown>0.05</smallestShown>
+  </Phobos.Radiation.Defs.PhobosRadiationRulesDef>
+</Defs>

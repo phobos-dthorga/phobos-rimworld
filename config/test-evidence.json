@@ -3,6 +3,15 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "361": {"parts": {
+      "a dose is taken and recorded": ["radiation.dose-taken"],
+      "a course of sickness starts": [{"key": "radiation.course", "variant": "started"}],
+      "the early sickness": [{"key": "radiation.course", "variant": "early"}],
+      "the illness": [{"key": "radiation.course", "variant": "illness"}],
+      "a recovery": [{"key": "radiation.course", "variant": "recovered"}]
+    }},
+    "362": [{"key": "radiation.dose-taken", "detail": "*strike*"}],
+    "363": ["radiation.converted"],
     "345": {"parts": {
       "the Busbar's mast jams while set up and running": ["vehicles.ground-jammer"]
     }},

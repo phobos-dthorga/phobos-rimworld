@@ -42,6 +42,9 @@
     <!-- With Dubs Rimatomics: radiation at the fireball's edge, falling with distance (its applyRads scales this by its own radiation
          setting and the pawn's toxic resistance), and the chance of flash blindness at the fireball's edge, falling likewise. -->
     <radiationStrength>5</radiationStrength>
+    <!-- With D'thorga Medical's radiation model on, the dose goes there instead, in grays: 10 Gy at the fireball's edge (authored),
+         falling with the same curve. Below about 4 to 6 Gy people mostly live with care; above about 8 few do. -->
+    <radiationGraysAtFireballEdge>10</radiationGraysAtFireballEdge>
     <flashBlindChance>0.6</flashBlindChance>
     <!-- Rimatomics' fallout on a struck map lasts this many days, and its drifting clouds live this many: the ranges its own strike
          uses (NuclearStrike, WorldObject_ICBMfission.MakeFallout, read 7 Nov 2026). -->

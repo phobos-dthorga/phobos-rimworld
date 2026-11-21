@@ -1,8 +1,31 @@
 # A radiation model of our own: dose, radiation sickness, care and late effects (22 Nov 2026)
 
-**Status (22 Nov 2026):** a design record. Nothing is built. The owner answered its questions the same day
-([the answers](#the-owners-answers-cards-22-nov-2026)); where an answer changed a proposal, the RM row says so. Nothing here has
-been tested in game.
+**Status (22 Nov 2026):** partly built, at the owner's word, in D'thorga Medical 0.21.0 (with Framework 0.229.0 and Patches 0.35.0):
+the dose and its repair, the course, care, the doctor's estimate and the exact dose, Rimatomics' doses taken and its conditions
+converted, the strike's dose in grays ([as built](#as-built-22-nov-2026)). Not built: late effects, contamination and the three
+medicines. The owner's answers are [below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363.
+
+## As built (22 Nov 2026)
+
+- **One saved condition, `PhobosRadiation_Dose`**, keeps every dose by game day, folds doses older than 150 days into the tenth beyond
+  repair, and holds the lifetime dose, the highest effective dose of the course, its start and the first vomiting. A step every 300
+  ticks from its own giver in OrganicStandard.
+- **The course follows the highest effective dose reached** [A], so an acute dose is not softened by repair while its illness runs;
+  repair matters for doses spread over days. It starts at 0.7 Gy.
+- **Who dies is decided, not rolled** [A]: each person has a fixed sensitivity drawn from who they are, spreading the lethal dose about
+  the preset's by about 0.8 Gy either way (ICRP's spread), and whether they vomit is fixed the same way. **Care raises their lethal dose
+  while they are ill**, by the preset's figure at full care: tended (by quality) 0.35, in bed 0.2, a clean room 0.15, on fluids 0.15, on
+  a medicine that speeds immunity 0.15.
+- **The illness** rises to its height over 14 days (blood), 6 (gut) or 1.5 (brain), at a severity of the dose over the person's lethal
+  dose; at 1 it kills, below it recedes 5 % a day. Its stages carry `lifeThreatening` from severe, so triage sees it.
+- **Rimatomics' doses**: a by-name prefix on `DubUtils.applyRads` takes the dose for anyone Rimatomics does not count a robot, at 9 Gy
+  per unit of its sickness, its radiation setting honoured, no toxic environment resistance; its fallout conditions are marked while
+  they dose a cell, and their dose fades by the 7:10 rule from the first day [A]. The Geiger click and a figure in milligrays are redone.
+- **Old Rimatomics conditions convert** the first time the step meets them, with the course started two days back.
+- **The strike** gives 10 Gy at the fireball's edge [A], falling with its curve, through the Framework's `RadiationDoses`; without
+  the model, Rimatomics as before.
+- **Not built yet:** late effects (RM8), contamination (RM6) with iodide's role, the three medicines (RM5), the shadow and graded
+  shelter of the strike (NK12, NK17, NK18), the strike's letter (NK13).
 
 The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md): shadow and a graded dose should "wait for our own
 model and when it does exist, we'll provide settings for players to configure it and the difficulty how they wish". Then: "Let's

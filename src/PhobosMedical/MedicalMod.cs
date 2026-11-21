@@ -24,6 +24,7 @@ public class MedicalSettings : ModSettings
     public TriageSettings triage = new();
     public MedicalEquipmentSettings equipment = new();
     public SaveBridgeSettings bridge = new();
+    public Phobos.Radiation.RadiationSettings radiation = new();
 
     public override void ExposeData()
     {
@@ -33,6 +34,7 @@ public class MedicalSettings : ModSettings
         triage.ExposeData();
         equipment.ExposeData();
         bridge.ExposeData();
+        radiation.ExposeData();
     }
 }
 
@@ -47,7 +49,7 @@ public class MedicalMod : SettingsBookMod
     public const string PackageId = "PhobosDthorga.Medical";
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = PackageId;
-    public const string ModVersion = "0.19.1";
+    public const string ModVersion = "0.21.0";
     public const string LogPrefix = "[D'thorga Medical]";
 
     /// <summary>The five mods this one replaced: package ID, name, settings folder and Mod class (for the one-time import).</summary>
@@ -82,6 +84,7 @@ public class MedicalMod : SettingsBookMod
         HarmonyPatchApplier.ApplyEach(harmony, typeof(MedicalMod).Assembly, LogPrefix);
         MedicalSaveBridgeMod.Start(harmony);
         MedicalEquipmentMod.Start();
+        Phobos.Radiation.RadiationPart.Start(harmony);
         LongEventHandler.ExecuteWhenFinished(LogLoaded);
     }
 
@@ -114,6 +117,7 @@ public class MedicalMod : SettingsBookMod
         TriageMod.Report(Part("triage")).Log();
         MedicalEquipmentMod.Report(Part("equipment")).Log();
         Protection.ProtectionPart.Report(Part("protective gear")).Log();
+        Phobos.Radiation.RadiationPart.Report(Part("radiation")).Log();
     }
 
     static LoadReport Part(string name) => new(LogPrefix, ModVersion, name);
@@ -130,6 +134,7 @@ public class MedicalMod : SettingsBookMod
             .Add(new SettingsPage("caustic", 20f, () => "PhobosMedical_PageCaustic".Translate(), BurnsAndSmokeMod.DrawCausticSettings))
             .Add(new SettingsPage("dosing", 30f, () => "PhobosMedical_SectionDosing".Translate(), DosingMod.DrawSettings))
             .Add(new SettingsPage("triage", 40f, () => "PhobosMedical_SectionTriage".Translate(), TriageMod.DrawSettings))
+            .Add(new SettingsPage("radiation", 45f, () => "PhobosMedical_PageRadiation".Translate(), Phobos.Radiation.RadiationPart.DrawSettings))
             .Add(new SettingsPage("bridge", 50f, () => "PhobosMedical_SectionSaveBridge".Translate(), MedicalSaveBridgeMod.DrawSettings))
             .Add(new SettingsPage("removing", 60f, () => "PhobosMedical_SectionRemoving".Translate(), DrawRemoving));
     }

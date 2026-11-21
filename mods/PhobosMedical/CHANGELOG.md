@@ -6,6 +6,30 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.21.0] - 2026-11-22 - Draft
+
+Radiation sickness that runs its real course
+
+0.20.0 was held by another piece of work and is skipped.
+
+### Added
+
+- **Radiation is a dose the body repairs, and a large one brings radiation sickness in its real course** (the owner's choices of 22 November 2026, docs/development/radiation-model.md). Each person keeps a dose in grays. The body repairs most of it over weeks, a tenth never, so a dose spread over days counts for less than one taken at once (the 1962 equivalent residual dose). From about 0.7 Gy comes the course: nausea and vomiting, sooner the larger the dose; a spell of feeling well, from about three weeks down to none above 9 Gy; then the illness, which the marrow, then the gut, then the brain bring on. It rises to a height and recedes, or kills. Not yet tested in game: rows 361 and 362 of the test pass.
+- **Care decides who lives.** A doctor's tending, bed rest, a clean room, fluids and medicine that speeds immunity each raise the dose a person can survive, while they are ill. Who is more sensitive is fixed by who they are, never rolled at the time.
+- **A doctor's estimate, or the exact dose.** Until Dubs Rimatomics' portable radiation detectors are researched, or without Rimatomics, a dose shows as a doctor's estimate from how soon the person vomited, closer after two days in a hospital bed. After the research it shows exactly, with the person's exposure category (0 to 3).
+- **Dubs Rimatomics' radiation, for people, comes to this model** (a setting, on by default). Its doses are taken as grays, its own radiation setting honoured. Suits and masks no longer cut the dose (they stop dust, not radiation: walls, earth and distance do); its fallout fades as real fallout does, a tenth after a week. The Geiger click stays. Robots keep Rimatomics' own radiation. Off, Rimatomics' radiation runs as before.
+- **A new settings page, Radiation**: the model on or off; how harsh radiation is (Gentle, **Moderate**, Realistic, Harsh: half of those dosed die at 6, 5, 4 or 3.5 Gy without care, and full care moves that by 3, 2.5, 2 or 1.5); and the doctor's estimate.
+
+### Save compatibility
+
+- **Existing Rimatomics radiation converts once** (the owner's choice): the first time the model looks at someone carrying Rimatomics' radiation sickness, fatal exposure or buildup, each becomes a dose in this model and is removed. One-way: switching the model off later does not bring Rimatomics' conditions back. Not yet tested in game: row 363 of the test pass.
+- **Removing D'thorga Medical leaves people with no radiation at all**: its button clears our conditions, and Rimatomics' do not come back.
+
+### Compatibility and limits
+
+- Late effects (cancer, cataract, sterility, pregnancy) and contamination, with potassium iodide's real role and three new medicines, come in the next versions, as the record says.
+- With D'thorga Patches 0.35.0, the nuclear strike gives its dose in grays to this model.
+
 ## [0.19.1] - 2026-11-21 - Draft
 
 Medical's own Architect tab, and art records cleaned

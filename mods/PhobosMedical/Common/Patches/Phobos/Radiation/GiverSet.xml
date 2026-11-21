@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- The radiation model's hook (D'thorga Medical 0.21.0), patched into OrganicStandard as the burns giver is: it reaches every flesh
+       race and works only for someone carrying a radiation dose, or one of Dubs Rimatomics' radiation conditions to convert. -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/HediffGiverSetDef[defName="OrganicStandard"]/hediffGivers</xpath>
+    <value>
+      <li Class="Phobos.Radiation.Givers.HediffGiver_PhobosRadiation">
+        <hediff>PhobosRadiation_Dose</hediff>
+      </li>
+    </value>
+  </Operation>
+</Patch>

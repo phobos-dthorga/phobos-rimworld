@@ -6,6 +6,14 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.35.0] - 2026-11-22 - Draft
+
+The strike's radiation, in grays
+
+### Changed
+
+- **With D'thorga Medical's radiation model on, the strike gives its radiation in grays to it**: 10 Gy at the fireball's edge, falling with the strike's own curve, to people in the open, and to the people aboard vehicles cut by the hull. Before, it gave Dubs Rimatomics a dose too small ever to show. Without the model, Rimatomics' dose as before. It also works without Rimatomics now, with the model. Not yet tested in game: row 362 of the test pass.
+
 ## [0.34.0] - 2026-11-22 - Draft
 
 The Prowler's jamming blinds other factions' radar

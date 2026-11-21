@@ -20,6 +20,18 @@ public static class Seen
         SeenInPlay.Note(Mod, MedicalMod.ModVersion, key, detail);
     }
 
+    /// <summary>Whether this note would be written now (on, and not yet seen this session): check it before building a note's text at the
+    /// call (Medical 0.21.0; tests/test_seen_note_cost.py).</summary>
+    public static bool Wants(string key, Thing? on = null, string? variant = null) => SeenInPlay.Wants(key, variant, on);
+
+    /// <summary>Notes a feature seen working in one of its cases (Medical 0.21.0: the radiation model's phases).</summary>
+    public static void Note(string key, Thing? on, string? what, string? variant)
+    {
+        if (!SeenInPlay.Wants(key, variant, on)) return;
+        string? detail = on == null ? what : what == null ? on.LabelShort : on.LabelShort + ": " + what;
+        SeenInPlay.Note(Mod, MedicalMod.ModVersion, key, detail, on, variant);
+    }
+
     /// <summary>A finish action for every job of ours that goes to a patient: notes care that gave way to someone carrying them (Medical 0.18.0).</summary>
     public static void WhenFieldCareGaveWay(Verse.AI.JobDriver driver, System.Func<Pawn?> patient) =>
         driver.AddFinishAction(condition =>

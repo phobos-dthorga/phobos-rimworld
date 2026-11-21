@@ -41,6 +41,9 @@ public class PhobosStrikeRulesDef : PhobosRulesDef
     public float blastPollutionChance = 0.35f;
     public float empAmount = 400f;
     public float radiationStrength = 5f;
+    /// <summary>With D'thorga Medical's radiation model: the dose at the fireball's edge, in grays, falling with the strike's curve
+    /// (Patches 0.35.0; radiation-model.md, RM9). Authored: at one metre a cell, a real warhead's prompt dose would be lethal far further out.</summary>
+    public float radiationGraysAtFireballEdge = 10f;
     public float flashBlindChance = 0.6f;
     public FloatRange falloutDays = new(10f, 30f);
     public IntRange cloudLifespanDays = new(2, 40);

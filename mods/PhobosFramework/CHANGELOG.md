@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.229.0] - 2026-11-22 - Draft
+
+Where a radiation dose goes
+
+### Added
+
+- **For modders: Phobos.Framework.Health.RadiationDoses**, where a source gives a whole-body radiation dose in grays, and D'thorga Medical's radiation model (0.21.0) takes it. D'thorga Patches' nuclear strike is the first source; with no model registered, or the model switched off, a source falls back to its own route. Nothing changes in play by itself.
+
 ## [0.228.0] - 2026-11-22 - Draft
 
 Loose ends of the camps, trailers and caravans, tidied
