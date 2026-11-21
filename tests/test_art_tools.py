@@ -497,13 +497,16 @@ class NightSafeCopiesTests(unittest.TestCase):
     def test_the_night_ends_with_safe_copies_and_a_failure_does_not_fail_it(self):
         code, summary = self.night()
         self.assertEqual(code, 0)
-        self.assertEqual(len(self.commands), 3)
-        self.assertEqual(self.commands[1:], [self.art_run.SAFE_COPIES, self.art_run.SAFE_COPIES_NOTES])
+        self.assertEqual(len(self.commands), 4)
+        self.assertEqual(self.commands[1:], [self.art_run.SAFE_COPIES, self.art_run.SAFE_COPIES_NOTES,
+                                             self.art_run.SAFE_COPIES_CHECK])
         self.assertTrue(self.commands[1][1].endswith('safe-copies.py'))
-        # 22 Nov 2026: the notes come from the shared tools' own list, in the pinned copy.
+        # 22 Nov 2026: the notes come from the shared tools' own list, in the pinned copy; then every copy is checked.
         self.assertTrue(self.commands[2][-1].endswith('phobos-modkit'))
+        self.assertEqual(self.commands[3][-1], 'verify')
         self.assertIn('| safe copies |', summary)
         self.assertIn('| safe copies of the notes |', summary)
+        self.assertIn('| check of every safe copy |', summary)
         self.assertIn('problems, exit code 1', summary)
 
     def test_no_safe_copies_skips_them(self):
@@ -511,6 +514,7 @@ class NightSafeCopiesTests(unittest.TestCase):
         self.assertEqual(len(self.commands), 1)
         self.assertNotIn(self.art_run.SAFE_COPIES, self.commands)
         self.assertNotIn(self.art_run.SAFE_COPIES_NOTES, self.commands)
+        self.assertNotIn(self.art_run.SAFE_COPIES_CHECK, self.commands)
         self.assertNotIn('safe copies', summary)
 
 

@@ -57,6 +57,9 @@ NIGHT_STEPS = ('generate', 'train', 'run')
 SAFE_COPIES = [sys.executable, str(ROOT / 'scripts' / 'safe-copies.py'), 'run']
 # The shared tools' own list (kit 1.67.0): Claude Code's notes about the owner, kept on K: only.
 SAFE_COPIES_NOTES = [*SAFE_COPIES, '--root', str(ROOT / 'external' / 'phobos-modkit')]
+# 22 Nov 2026: every copy hashed again against its record, every night (a few seconds of disk reads), so a damaged copy is found
+# before it is needed rather than when it is.
+SAFE_COPIES_CHECK = [sys.executable, str(ROOT / 'scripts' / 'safe-copies.py'), 'verify']
 
 
 def stay_awake(on):
@@ -549,7 +552,8 @@ def safe_copies_rows():
     about the owner (22 Nov 2026: the shared tools' own list): disk work only, so they run after the last step whatever the stop
     time, and a failure is a line in the summary, never the night's."""
     rows = []
-    for label, command in (('safe copies', SAFE_COPIES), ('safe copies of the notes', SAFE_COPIES_NOTES)):
+    for label, command in (('safe copies', SAFE_COPIES), ('safe copies of the notes', SAFE_COPIES_NOTES),
+                           ('check of every safe copy', SAFE_COPIES_CHECK)):
         began = _dt.datetime.now()
         print(f'--- {label}', flush=True)
         code, report = run_step(command)

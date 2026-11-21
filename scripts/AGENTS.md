@@ -167,8 +167,9 @@ for word; the root's rules apply here too.
   ours only when its manifest's hashes prove every picture. **RimWorld's Config folder, RimSort's own files and Claude's notes about
   the owner are personal: K: only too** (owner, 22 Nov 2026); the notes are the shared tools' own list (`--root
   external/phobos-modkit`). **The saves: the newest pair of the owner's rotation, autosaves left out, five earlier copies of each
-  on K:** (owner, 22 Nov 2026); older copies of a save are the one thing it lets go. `art-run.py night` runs both lists after the
-  last step; it uses no graphics card, so it may run while the owner plays. **Never delete or prune any other copy without the
+  on K:** (owner, 22 Nov 2026); older copies of a save are the one thing it lets go by itself. `art-run.py night` runs both lists
+  after the last step, then `verify` on every copy; it uses no graphics card, so it may run while the owner plays. `status` lists
+  copies the list no longer takes (a save that left the pair); `let-go` removes one only on the owner's word. **Never delete or prune any other copy without the
   owner's word**, and never touch the saves folder itself: the tool only reads it.
 - **Every path a script reads goes through the shared order** (owner, 19 Nov 2026: "a central settings page where everything or at
   least, most, of these sorts of things are managed"): argument, environment, `.local/install-settings.json`, the central settings
