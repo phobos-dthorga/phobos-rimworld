@@ -4,7 +4,7 @@
   <name>D'thorga Vehicles</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.94.0</modVersion>
+  <modVersion>0.95.0</modVersion>
   <description>Vehicles that keep running only while they are looked after. It adds working vehicles of its own, each with an upgrade tree: the Talus tipper truck, the Ullage bulk tanker for liquids and gases, the Kelly drill rig, the Datum survey truck, the Busbar generator set and the Fathom seabed crawler, a small research submarine. It also gives the vehicles of other mods you already drive the right systems for what they really are.
 
 What it does now:
@@ -12,6 +12,7 @@ What it does now:
 - Heavy trucks with air brakes (Vanilla Vehicles Expanded's Big Rig, RimThunder's HEMTT) must idle a few minutes to build air before they can drive.
 - The Humvee runs a 24-volt electrical system with two batteries.
 - Tanks with gas-turbine engines (RimThunder's M1A2) have no radiator: their engines are air-cooled and burn hard even at idle.
+- The UH-60M Black Hawk runs its two real turboshafts through its rotor drive, its avionics and flares, and lifts a 4-tonne sling load.
 - The A-10 and Su-25 (Close Air Support) run their real twin engines, avionics and flares, and dodge fire in the air.
 - The Harrier, the Hind, the Mongoose, the Cherokee and RimArrow's Ka-27PS and Mi-38 run gas turbines with their real lift limits; the Frog, Toad and Goliath lose lift with each thruster out.
 - Steam locomotives (Trains of the Rim) raise steam over hours, need water stops and have a fusible plug; the Goat shunter is diesel-electric.
@@ -54,6 +55,7 @@ Community-created content by House D'thorga (also spelt dthorga). Portions of th
     <li>potemkinvillager.mi24hindhelicopter</li>
     <li>potemkinvillager.mongooseattackhelicopter</li>
     <li>potemkinvillager.CloseAirSupport</li>
+    <li>z3nt3.uh60blackhawk</li>
     <li>killerbot.jltv</li>
     <li>killerbot.navistarmaxxpro</li>
     <li>serinairo.frontlineworkshop</li>

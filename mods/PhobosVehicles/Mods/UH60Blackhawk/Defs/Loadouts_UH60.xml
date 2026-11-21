@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    UH-60M Black Hawk (Vehicle Framework) by z3nt3 (z3nt3.uh60blackhawk, Workshop 3841587792, released 17 Nov 2026), taken into the fold at
+    the owner's request of 22 Nov 2026 (docs/development/uh60-blackhawk.md). A medium utility helicopter flown through Vehicle Framework's
+    own launch, as Vanilla Vehicles Expanded's Cherokee is, whose part names it shares: so the stock rotorcraft profile reads its phases and
+    checks its lift before it launches. Its own interior, airdrop and EVAC hoist are its author's and are left alone: no rescue hoist,
+    fast-rope bar or litter kit of ours is offered on it. Not yet tested in game.
+
+    Sources: Army Recognition, "UH-60M Black Hawk" (engines, maximum gross weight); Helis, "Sikorsky UH-60M Black Hawk" (empty mass); PlanesDB,
+    "Sikorsky UH-60 Black Hawk" (ceiling, sling load); the Pentagon's Director of Operational Test and Evaluation and FAS (APR-39, ALE-47,
+    fly-by-wire on the UH-60M upgrade). All secondary.
+  -->
+
+  <!--
+    Two General Electric T700-GE-701D turboshafts: 1,716 shp maximum continuous, 1,994 shp for 10 minutes, 2,000 shp for 2.5 minutes with one
+    engine out (secondary: Army Recognition), so shares of 1, 1.16 and 1.17. Rated speed and temperature limits are the Framework's authored
+    helicopter turboshaft's. Its power per tonne, 250, is the Framework's figure, and agrees with the real one: two engines' 1,280 kW
+    continuous over the 9,979 kg maximum gross weight is 257 kW a tonne. Empty mass 4,819 kg (secondary: Helis). Full internal fuel 1,100 kg is
+    authored: the mod's 360 fuel matches the 360 US gallons often given for the UH-60's internal tanks (from memory, unverified), at 6.7 lb a
+    gallon of JP-8.
+  -->
+  <Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+    <defName>PhobosDrivetrain_T700</defName>
+    <label>turboshafts</label>
+    <engine>
+      <kind>Turboshaft</kind>
+      <ratedRpm>20000</ratedRpm>
+      <kilowattsPerTonne>250</kilowattsPerTonne>
+      <idleFuelShare>0.2</idleFuelShare>
+      <turbine>
+        <idleSpeedPercent>60</idleSpeedPercent>
+        <ratings>
+          <li><name>maxContinuous</name><label>maximum continuous</label><share>1</share><speedPercent>100</speedPercent><temperatureLimit>775</temperatureLimit></li>
+          <li><name>takeoff</name><label>ten-minute</label><share>1.16</share><speedPercent>102</speedPercent><temperatureLimit>815</temperatureLimit><minutes>10</minutes></li>
+          <li><name>contingency</name><label>one engine out</label><share>1.17</share><speedPercent>104</speedPercent><temperatureLimit>850</temperatureLimit><minutes>2.5</minutes></li>
+        </ratings>
+      </turbine>
+    </engine>
+    <transmission>
+      <kind>None</kind>
+    </transmission>
+    <mass>
+      <emptyKilograms>4819</emptyKilograms>
+      <fuelKilogramsFull>1100</fuelKilogramsFull>
+    </mass>
+  </Phobos.VehicleSystems.PhobosVehicleDrivetrainDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutAircraft">
+    <defName>PhobosVehicleLoadout_UH60</defName>
+    <label>utility helicopter (twin turboshaft)</label>
+    <priority>Vehicle</priority>
+    <selector>
+      <vehicleDefs>
+        <li>UH60_Blackhawk</li>
+      </vehicleDefs>
+    </selector>
+    <systems>
+      <li><def>PhobosVehicleSystem_RotorDrive</def></li>
+      <li><def>PhobosVehicleSystem_Hydraulics</def></li>
+      <li><def>PhobosVehicleSystem_FlightHydraulics</def></li>
+    </systems>
+    <drivetrain>
+      <def>PhobosDrivetrain_T700</def>
+      <!-- The rotor drive's limit, 0.9 of both engines' maximum continuous, is authored as on the Hind and the Cherokee: no published figure
+           for the UH-60M's main transmission was found. -->
+      <set>
+        <transmissionLimit>0.9</transmissionLimit>
+      </set>
+    </drivetrain>
+    <flightProfile>PhobosFlightProfile_StockRotorcraft</flightProfile>
+    <!-- Ceiling 15,180 ft, 4,627 m, for the Black Hawk family (secondary: PlanesDB; Helis gives 3,200 m for the UH-60M). Built to cruise at
+         1,000 m, as every helicopter of ours (authored). Unpressurised, it never cruises where its crew needs oxygen. -->
+    <cruise>
+      <designMetres>1000</designMetres>
+      <ceilingMetres>4600</ceilingMetres>
+      <lift>Rotor</lift>
+    </cruise>
+    <avionics>
+      <!-- The Common Avionics Architecture System glass cockpit with inertial and satellite navigation, and fly-by-wire flight controls with
+           its autopilot on the UH-60M upgrade (secondary: FAS; Army briefings). -->
+      <navigation>Full</navigation>
+      <autopilot>true</autopilot>
+      <!-- Unarmed as the mod builds it: no weapon sight. Its crews fly with night-vision goggles, which this does not model. No radar. -->
+      <sight>None</sight>
+      <nightSight>false</nightSight>
+      <radar>false</radar>
+      <!-- The APR-39 radar warning receiver (secondary: DOT&E, which found it poor on the UH-60M, with a high false-alarm rate) and the ALE-47
+           chaff and flare dispensers (secondary). The cartridge load was not found: two ALE-47 magazines of 30 (secondary: Wikipedia,
+           "AN/ALE-47"), so 60, authored. -->
+      <warning>true</warning>
+      <countermeasures>true</countermeasures>
+      <countermeasureCartridges>60</countermeasureCartridges>
+      <oxygen>false</oxygen>
+      <!-- To another mod's air defence (DMS Expedition's scales, authored): a little slower than the Hind's 10 by its 280 km/h cruise
+           (secondary: Helis) against the Mi-24's, and the same size. -->
+      <airTrack>
+        <speed>8</speed>
+        <cruiseMetres>1000</cruiseMetres>
+        <lowCruiseMetres>1000</lowCruiseMetres>
+        <size>2.0</size>
+      </airTrack>
+    </avionics>
+    <!-- Sling loads: 9,000 lb, 4,082 kg, on its cargo hook (secondary: PlanesDB, for the UH-60L and M). The mod gives it no sling of its own. -->
+    <sling>
+      <ratedKilograms>4082</ratedKilograms>
+    </sling>
+    <partRoles>
+      <li>
+        <!-- The servos are actuators, as on the Cherokee: a destroyed one is replaced with a hydraulic actuator. -->
+        <role>Actuator</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- Avionics A7: the flight controls' hydraulic boost, on the servos. -->
+        <role>HydraulicPump</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>HydraulicLines</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Servos</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- Its transmission, gearbox and rotor mast are the rotor drive. -->
+        <role>RotorDrive</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>Transmission</li>
+              <li>Gearbox</li>
+              <li>RotorMast</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- Its three landing wheels: what a hard landing wears (avionics A4). -->
+        <role>LandingGear</role>
+        <all>true</all>
+        <find>
+          <li>
+            <keyContainsAny>
+              <li>LandingWheel</li>
+            </keyContainsAny>
+          </li>
+        </find>
+      </li>
+      <li>
+        <!-- A hook mount under the belly for the cargo hook fitting (sling loads): appended, so a hook is lost with its mount. Health and place
+             authored, as on the Cherokee. -->
+        <role>HookMount</role>
+        <add>
+          <key>PhobosHookMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>hook mount</label>
+          <health>40</health>
+          <cellsOf>RotorDrive</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>Engine1</role>
+        <find>
+          <li>
+            <key>LeftEngine</key>
+          </li>
+        </find>
+      </li>
+      <li>
+        <role>Engine2</role>
+        <find>
+          <li>
+            <key>RightEngine</key>
+          </li>
+        </find>
+      </li>
+    </partRoles>
+  </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
+</Defs>

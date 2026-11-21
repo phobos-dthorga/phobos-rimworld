@@ -8,7 +8,7 @@ top of the general systems D'thorga Framework gives every vehicle.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide**:
 [working vehicles](../../docs/player-guide/working-vehicles.md) and [submarines](../../docs/player-guide/submarines.md).
 
-Version 0.94.0, built 21 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
+Version 0.95.0, built 22 November 2026 for House D'thorga. **Not yet tested in game**, except the survey truck and its boom (owner,
 9 November 2026) and the Busbar's size and look (owner, 13 November 2026).
 
 ## Read this first (gotchas)

@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.95.0] - 2026-11-22 - Draft
+
+The UH-60M Black Hawk in the fold
+
+### Added
+
+- **The UH-60M Black Hawk runs its real systems** (the owner's request of 22 November 2026, with z3nt3's UH-60M Black Hawk): two T700 turboshafts through its transmission, gearbox and rotor mast, with their real continuous, ten-minute and one-engine-out ratings, and its lift checked before it launches as the Cherokee's is; fly-by-wire controls on hydraulics worked by its servos; full navigation and an autopilot; a warning receiver and 60 flare cartridges; and a cargo hook rated at 4,082 kg, the real Black Hawk's 9,000 lb, for lifting vehicles on a sling. Its three landing wheels take the wear of a hard landing. Its own walkable interior, airdrops and EVAC hoist are its author's and are left alone: no rescue hoist, fast-rope bar or litter kit of ours is offered on it. Not yet tested in game: row 313 of the test pass.
+
+### Compatibility and limits
+
+- With D'thorga Framework's setting that lets stock helicopters fly over the map on our own flight (off by default), that flight would also carry the Black Hawk; how it meets the mod's own hover modes is untested.
+
 ## [0.94.0] - 2026-11-21 - Draft
 
 The spall liner after its fault-read, and one for the Osprey
