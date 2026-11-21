@@ -187,6 +187,10 @@
     <campTentWork>600</campTentWork>
     <campAwningWork>450</campAwningWork>
     <campRoomWork>900</campRoomWork>
+    <!-- A deck tent's air (Framework 0.217.0, authored): 4 degrees warmer than the air where the vehicle stands, from the people and the
+         canvas, and never warmed past 15 degrees C. Small closed tents run a few degrees over the outside air; no source was read. -->
+    <deckTentWarmerBy>4</deckTentWarmerBy>
+    <deckTentWarmTo>15</deckTentWarmTo>
     <campReachCells>6</campReachCells>
     <campAtBaseChance>0.6</campAtBaseChance>
     <campAtBaseSwags>1~3</campAtBaseSwags>

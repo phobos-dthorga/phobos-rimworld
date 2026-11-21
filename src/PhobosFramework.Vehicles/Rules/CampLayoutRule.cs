@@ -96,6 +96,13 @@ public static class CampLayoutRule
         return new Room(x0, -RearTentDeep, x1, -1, x0 + (x1 - x0) / 2, -RearTentDeep);
     }
 
+    /// <summary>
+    /// The air in a canvas tent that stands on a vehicle's deck (Framework 0.217.0): the outside air, raised by <paramref name="warmerBy"/>
+    /// degrees from the people and the canvas, but never past <paramref name="warmTo"/>; air already that warm or warmer is left as it is.
+    /// </summary>
+    public static float TentTemperature(float outside, float warmerBy, float warmTo) =>
+        outside >= warmTo || warmerBy <= 0f ? outside : System.Math.Min(outside + warmerBy, warmTo);
+
     /// <summary>A map direction as a cell step: 0 north, 1 east, 2 south, 3 west, as the game counts rotations.</summary>
     public static (int x, int z) Step(int rotation) => (((rotation % 4) + 4) % 4) switch
     {

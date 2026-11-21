@@ -26,7 +26,7 @@ public static class VehicleCabins
     public static CompPhobosVehicleCabin? Of(VehiclePawn? vehicle) => vehicle?.GetComp<CompPhobosVehicleCabin>();
 
     /// <summary>Whether to offer the cabin at all on this vehicle: it has one, the setting is on, and it is the player's.</summary>
-    public static bool Offered(VehiclePawn vehicle) => Enabled && Of(vehicle) != null && vehicle.Faction == Faction.OfPlayer && !vehicle.Dead;
+    public static bool Offered(VehiclePawn vehicle) => Enabled && Of(vehicle) is { HasLayout: true } && vehicle.Faction == Faction.OfPlayer && !vehicle.Dead;
 
     /// <summary>Why nobody can go in now, or null. <paramref name="people"/>: how many would go in together (two when one carries another).</summary>
     public static string? EnterRefusal(VehiclePawn vehicle, int people = 1)
@@ -64,8 +64,9 @@ public static class VehicleCabins
         if (Of(vehicle) is not { } comp) return 0;
         PassengerSeats(vehicle, out int seats, out int seated);
         Phobos.Framework.Vehicles.Rules.CabinPlan plan = comp.Layout.Plan;
-        int places = Phobos.Framework.Vehicles.Rules.CabinLayoutRule.Count(plan, Phobos.Framework.Vehicles.Rules.CabinCell.Seat)
-            + Phobos.Framework.Vehicles.Rules.CabinLayoutRule.Count(plan, Phobos.Framework.Vehicles.Rules.CabinCell.LitterFoot);
+        int places = Phobos.Framework.Vehicles.Rules.CabinLayoutRule.Places(plan);
+        // A tent on the deck is no part of the cab: it holds its own places, whatever the seats hold (Framework 0.217.0).
+        if (comp.Props.deckTent) return System.Math.Max(0, places - Occupants(vehicle).Count);
         return Phobos.Framework.Vehicles.Rules.CabinRoomRule.CabinRoom(seats, seated, places, Occupants(vehicle).Count);
     }
 
@@ -94,7 +95,12 @@ public static class VehicleCabins
             Map map = PocketMapUtility.GeneratePocketMap(new IntVec3(layout.Plan.Width, 1, layout.Plan.Length), VehicleCabinDefOf.PhobosVehicleCabinMap,
                 null, vehicle.Map);
             comp.SetCabin(map);
-            if (Seen.Wants("vehicles.cabin-opened", vehicle)) Seen.Note("vehicles.cabin-opened", vehicle, $"{layout.Plan.Width} x {layout.Plan.Length}",
+            // A deck tent is noted apart, so its opening is never taken for a cabin's (Framework 0.217.0).
+            if (comp.Props.deckTent)
+            {
+                if (Seen.Wants("vehicles.deck-tent-opened", vehicle)) Seen.Note("vehicles.deck-tent-opened", vehicle, $"{layout.Plan.Width} x {layout.Plan.Length}");
+            }
+            else if (Seen.Wants("vehicles.cabin-opened", vehicle)) Seen.Note("vehicles.cabin-opened", vehicle, $"{layout.Plan.Width} x {layout.Plan.Length}",
                 layout.whenFitted.Count == 0 ? "as built" : string.Join(" + ", layout.whenFitted.Select(f => f.defName)));
             return map;
         }
@@ -175,6 +181,8 @@ public static class VehicleCabins
         }
         Building_PhobosCabinWayOut? wayOut = WayOut(cabin);
         if (wayOut == null) return;
+        // A deck tent: danger outside wakes everyone in it and sends them out (nobody on the map can see them).
+        if (comp.Props.deckTent) DeckTents.RareLook(comp, cabin, wayOut, inside);
         foreach (Pawn pawn in inside)
         {
             if (pawn.Faction != Faction.OfPlayer || pawn.Drafted || pawn.Downed || pawn.InBed() || pawn.InMentalState) continue;

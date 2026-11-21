@@ -66,6 +66,31 @@ public class CampTentRuleTests
         Assert.Equal((width) * 3, room.InsideCells);
     }
 
+    [Theory]
+    [InlineData(-20f, -16f)]
+    [InlineData(8f, 12f)]
+    [InlineData(13f, 15f)]
+    [InlineData(15f, 15f)]
+    [InlineData(30f, 30f)]
+    public void ADeckTentIsALittleWarmerThanTheAirButNeverPastComfort(float outside, float inside) =>
+        Assert.Equal(inside, CampLayoutRule.TentTemperature(outside, 4f, 15f));
+
+    [Fact]
+    public void ACabinLayoutTakesBeds()
+    {
+        CabinPlan plan = CabinLayoutRule.Parse(new[] { "B.B", "b.b", ".E." });
+        Assert.True(plan.Valid, string.Join("; ", plan.Problems));
+        Assert.Equal(2, CabinLayoutRule.Count(plan, CabinCell.BedFoot));
+        Assert.Equal(2, CabinLayoutRule.Places(plan));
+    }
+
+    [Fact]
+    public void ABedNeedsItsHeadAboveItsFoot()
+    {
+        Assert.False(CabinLayoutRule.Parse(new[] { "b.E", "B.." }).Valid);
+        Assert.False(CabinLayoutRule.Parse(new[] { "B.E" }).Valid);
+    }
+
     [Fact]
     public void PolesStandAtBothEndsOfASpan() => Assert.Equal(new[] { 2, 4 }, CampLayoutRule.PoleRowsBetween(2, 4));
 

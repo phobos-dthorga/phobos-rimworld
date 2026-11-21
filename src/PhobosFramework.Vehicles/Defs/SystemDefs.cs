@@ -1106,6 +1106,12 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float campAwningWork = 450f;
     /// <summary>The work of pitching or striking one closed tent of a camp, at construction speed (Framework 0.217.0, authored).</summary>
     public float campRoomWork = 900f;
+    /// <summary>
+    /// A deck tent's air (Framework 0.217.0, authored): how many degrees warmer than the outside its people and canvas keep it, and the
+    /// temperature that warmth never takes it past.
+    /// </summary>
+    public float deckTentWarmerBy = 4f;
+    public float deckTentWarmTo = 15f;
     public int campReachCells = 6;
     public float campAtBaseChance = 0.6f;
     public IntRange campAtBaseSwags = new(1, 3);

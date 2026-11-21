@@ -7,6 +7,11 @@
       "the kettle simmers on the move": ["trailers.caravan-simmer"],
       "a meal halt cooks and holds the caravan": ["trailers.caravan-meal-halt"]
     }},
+    "329": {"parts": {
+      "the deck tent opens as a room": ["vehicles.deck-tent-opened"],
+      "a chosen sleeper walks in at bedtime": ["vehicles.deck-tent-bedtime"],
+      "danger wakes and empties it": ["vehicles.deck-tent-danger"]
+    }},
     "328": {"parts": {
       "the side fly goes up": ["vehicles.camp-fly"],
       "the walled awning stands as a room": [{"key": "vehicles.camp-tent", "variant": "AwningRoom"}],

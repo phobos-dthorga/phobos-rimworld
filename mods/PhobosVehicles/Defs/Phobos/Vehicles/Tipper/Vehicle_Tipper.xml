@@ -361,6 +361,8 @@
     </li>
     </components>
     <modExtensions>
+      <!-- A flat deck (D'thorga Framework 0.217.0, Vehicles 0.98.0; the owner, 22 Nov 2026): it takes a deck tent, a walk-in room with two beds. -->
+      <li Class="Phobos.VehicleSystems.PhobosFlatDeckExtension" />
       <!-- Armour by class (D'thorga Framework 0.154.0; docs/development/vehicle-armour.md): Combat Extended shoots at the truck's full
            width, and the parts our systems append go inside, so each cell keeps the one outer part above. -->
       <li Class="Phobos.VehicleSystems.PhobosArmourExtension">

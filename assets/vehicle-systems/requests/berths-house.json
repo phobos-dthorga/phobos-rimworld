@@ -320,5 +320,51 @@
    "why": "tents for every vehicle (Framework 0.217.0; docs/development/vehicle-accessories.md, built 22 Nov 2026)",
    "route": "house"
   }
+ },
+ {
+  "name": "kit-deck-tent-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a low olive canvas ridge tent standing on a plank deck with steel rail clamps at its four corners. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Deck tent kit: a low ridge tent clamped to a plank deck",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Deck tent kit",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/DeckTentKit.png",
+   "why": "the deck tent (Framework 0.217.0; docs/development/vehicle-accessories.md, built 22 Nov 2026)",
+   "route": "house"
+  }
+ },
+ {
+  "name": "button-deck-tent-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a low olive canvas ridge tent with its door flap tied open, a pillow showing inside and a small crescent moon above it. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Deck tent sleepers button: a ridge tent with an open flap under a crescent moon",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Deck tent sleepers button",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/DeckTent.png",
+   "why": "the deck tent (Framework 0.217.0; docs/development/vehicle-accessories.md, built 22 Nov 2026)",
+   "route": "house"
+  }
  }
 ]

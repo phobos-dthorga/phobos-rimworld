@@ -20,6 +20,8 @@ public static class CabinSharedSeats
     {
         if (!__result || __instance.role == null || __instance.role.handlingTypes != HandlingType.None || __instance.vehicle == null) return;
         IReadOnlyList<Pawn> inCabin = VehicleCabins.Occupants(__instance.vehicle);
+        // People in a tent on the deck take no seat in the cab (Framework 0.217.0).
+        if (inCabin.Count > 0 && VehicleCabins.Of(__instance.vehicle)?.Props.deckTent == true) inCabin = System.Array.Empty<Pawn>();
         // A cab bunk takes a passenger seat's place in a cab of more than two seats (Framework 0.214.0, B2).
         int bunk = Berths.BunkTakesSeat(__instance.vehicle) ? 1 : 0;
         if (inCabin.Count == 0 && bunk == 0) return;

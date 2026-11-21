@@ -436,6 +436,7 @@ public sealed class VehicleFittings
     }
 
     bool Suits(PhobosVehicleFittingDef def) => def.Suits(comp.Repairs.Kilograms, HasPiston, IsTracked, PowerCounts) && def.SuitsLoadout(comp.Props.loadout)
+        && (!def.flatDeckOnly || comp.Vehicle.def.HasModExtension<PhobosFlatDeckExtension>())
         && MovesSomethingHere(def);
 
     /// <summary>How long an answer a screen asks for every frame is kept, in seconds of real time (authored: too short to notice, long

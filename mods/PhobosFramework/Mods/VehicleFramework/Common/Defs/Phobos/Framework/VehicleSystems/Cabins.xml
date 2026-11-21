@@ -129,6 +129,47 @@
   </ThingDef>
 
   <ThingDef ParentName="PhobosCabinFixtureBase">
+    <!-- Framework 0.217.0: a bed in a deck tent (the layout's B over b). An ordinary bed, as restful and comfortable as a swag (rest 1.0,
+         comfort 0.75, authored), with a small lamp. Part of the tent: never built, moved or sold. Our swag's picture: it is a swag's mattress. -->
+    <defName>PhobosCabinBed</defName>
+    <label>tent bed</label>
+    <description>A mattress on the deck inside a deck tent, with a lamp hung above it.</description>
+    <thingClass>Building_Bed</thingClass>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/Swag</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(1,2)</drawSize>
+    </graphicData>
+    <size>(1,2)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <statBases>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.75</Comfort>
+      <ImmunityGainSpeedFactor>1.05</ImmunityGainSpeedFactor>
+    </statBases>
+    <building>
+      <bed_showSleeperBody>False</bed_showSleeperBody>
+      <bed_healPerDay>4</bed_healPerDay>
+      <buildingTags>
+        <li>Bed</li>
+      </buildingTags>
+    </building>
+    <comps>
+      <li Class="CompProperties_AssignableToPawn">
+        <drawAssignmentOverlay>false</drawAssignmentOverlay>
+        <compClass>CompAssignableToPawn_Bed</compClass>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>3</glowRadius>
+        <glowColor>(240,225,200,0)</glowColor>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCabinFixtureBase">
     <defName>PhobosCabinTank</defName>
     <label>ferry tank</label>
     <description>A fuel tank strapped down in the cabin for a long flight. Nobody passes it.</description>

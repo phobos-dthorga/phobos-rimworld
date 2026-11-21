@@ -89,6 +89,65 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     /// <summary>The walls and flaps of the closed tents standing now. Saved.</summary>
     List<Thing> tentWalls = new();
 
+    // ---- The deck tent (Framework 0.217.0): a walk-in room on the deck, its sleepers chosen here ----
+
+    public bool DeckTentFitted => Granted(DeckTents.Ability);
+
+    /// <summary>The colonists who sleep in the deck tent at bedtime, chosen by the player. Saved.</summary>
+    List<Pawn> tentSleepers = new();
+
+    public bool IsTentSleeper(Pawn pawn) => tentSleepers.Contains(pawn);
+
+    /// <summary>How many the deck tent sleeps: its layout's beds.</summary>
+    int TentBeds => VehicleCabins.Of(Vehicle) is { Props.deckTent: true, HasLayout: true } cabin
+        ? Phobos.Framework.Vehicles.Rules.CabinLayoutRule.Count(cabin.Layout.Plan, Phobos.Framework.Vehicles.Rules.CabinCell.BedFoot)
+        : 0;
+
+    void ToggleTentSleeper(Pawn pawn)
+    {
+        NamedArgument who = pawn.LabelShort.Named("PAWN"), name = Vehicle.LabelShort.Named("VEHICLE");
+        if (tentSleepers.Remove(pawn))
+        {
+            TentSleepers.Note(this, pawn, false);
+            Messages.Message("PhobosDeckTent_Unassigned".Translate(who, name).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+            return;
+        }
+        tentSleepers.RemoveAll(p => p == null || p.Dead || p.Destroyed);
+        if (tentSleepers.Count >= TentBeds)
+        {
+            Messages.Message("PhobosDeckTent_Full".Translate(name, TentBeds.Named("COUNT")).Resolve(), Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        tentSleepers.Add(pawn);
+        TentSleepers.Note(this, pawn, true);
+        Messages.Message("PhobosDeckTent_Assigned".Translate(who, name).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+    }
+
+    Command_Action TentSleepersGizmo()
+    {
+        tentSleepers.RemoveAll(p => p == null || p.Dead || p.Destroyed);
+        return new Command_Action
+        {
+            defaultLabel = tentSleepers.Count == 0
+                ? "PhobosDeckTent_GizmoNobody".Translate().Resolve()
+                : "PhobosDeckTent_GizmoSleepers".Translate(string.Join(", ", tentSleepers.Select(p => p.LabelShort)).Named("NAMES")).Resolve(),
+            defaultDesc = "PhobosDeckTent_GizmoDesc".Translate(Vehicle.LabelShort.Named("VEHICLE"), TentBeds.Named("COUNT")).Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Fittings/DeckTent"),
+            action = () =>
+            {
+                var options = new List<FloatMenuOption>();
+                foreach (Pawn pawn in Vehicle.Map.mapPawns.FreeColonistsSpawned.Concat(tentSleepers).Distinct().OrderBy(p => p.LabelShort))
+                {
+                    Pawn chosen = pawn;
+                    string label = (tentSleepers.Contains(pawn) ? "PhobosDeckTent_OptionSleeps" : "PhobosDeckTent_OptionFree").Translate(pawn.LabelShort.Named("PAWN")).Resolve();
+                    options.Add(new FloatMenuOption(label, () => ToggleTentSleeper(chosen)));
+                }
+                if (options.Count == 0) options.Add(new FloatMenuOption("PhobosBunk_Nobody".Translate().Resolve(), null));
+                Find.WindowStack.Add(new FloatMenu(options));
+            },
+        };
+    }
+
     // ---- The cab bunk (Framework 0.214.0; the record's B2): a bed the vehicle holds, given out by the caravan's bed pass (Berths) ----
 
     internal const string CabBunkAbility = "CabBunk";
@@ -676,7 +735,11 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     }
 
     /// <summary>What it tells a driver who tries to take it away with its camp out, or null.</summary>
-    public string? HoldRefusal => IsPitched ? "PhobosCamp_HoldsVehicle".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : null;
+    public string? HoldRefusal => IsPitched ? "PhobosCamp_HoldsVehicle".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve()
+        : DeckTentOccupied ? "PhobosDeckTent_HoldsVehicle".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve() : null;
+
+    /// <summary>Someone is in the tent on its deck: it does not drive off with them (Framework 0.217.0).</summary>
+    bool DeckTentOccupied => VehicleCabins.Of(Vehicle) is { Props.deckTent: true, Cabin: { } inside } && inside.mapPawns.AllPawnsSpawnedCount > 0;
 
     public override AcceptanceReport CanMove(FloatMenuContext context) => HoldRefusal is { } held ? held : base.CanMove(context);
 
@@ -972,6 +1035,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         base.PostSpawnSetup(respawningAfterLoad);
         if (order != CampOrder.None) CampOrders.Note(this, true);
         BunkSleepers.Note(this, null, bunkSleeper);
+        foreach (Pawn sleeper in tentSleepers) TentSleepers.Note(this, sleeper, true);
         if (asleep) StartTicking();
         if (!respawningAfterLoad && Vehicle.Faction is { } faction && faction != Faction.OfPlayer && Vehicle.Map?.Parent is Settlement { Faction: var owner } && owner == faction)
         {
@@ -1056,6 +1120,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer || !Vehicle.Spawned) yield break;
         if (BunkFitted) yield return BunkSleeperGizmo();
+        if (DeckTentFitted && VehicleCabins.Enabled && Vehicle.Spawned && Vehicle.Faction == Faction.OfPlayer) yield return TentSleepersGizmo();
         if (order != CampOrder.None)
         {
             yield return new Command_Action
@@ -1160,6 +1225,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         Scribe_Collections.Look(ref spotCells, "PhobosCamp_SpotCells", LookMode.Value);
         Scribe_Collections.Look(ref spotDirections, "PhobosCamp_SpotDirections", LookMode.Value);
         Scribe_References.Look(ref bunkSleeper, "PhobosCamp_BunkSleeper");
+        Scribe_Collections.Look(ref tentSleepers, "PhobosCamp_TentSleepers", LookMode.Reference);
         Scribe_Values.Look(ref asleep, "PhobosCamp_Asleep");
         Scribe_Values.Look(ref asleepSince, "PhobosCamp_AsleepSince");
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
@@ -1178,6 +1244,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
                 if (index < placedSlots.Count) placedSlots.RemoveAt(index);
             }
             poles.RemoveAll(t => t == null);
+            tentSleepers ??= new List<Pawn>();
+            tentSleepers.RemoveAll(p => p == null);
             tentWalls ??= new List<Thing>();
             tentWalls.RemoveAll(t => t == null);
             if (spotCells.Count != spotSlots.Count || spotDirections.Count != spotSlots.Count) ForgetSpots();

@@ -11,6 +11,10 @@ public enum CabinCell
     LitterHead,
     /// <summary>A litter's foot, where the litter stands.</summary>
     LitterFoot,
+    /// <summary>A bed's head: the cell north of its foot (Framework 0.217.0, a deck tent's beds).</summary>
+    BedHead,
+    /// <summary>A bed's foot, where the bed stands.</summary>
+    BedFoot,
     /// <summary>A fuel tank: blocks the cell.</summary>
     Tank,
     /// <summary>The way out.</summary>
@@ -32,7 +36,7 @@ public sealed class CabinPlan
 /// <summary>
 /// Reads a walk-in cabin's layout (Framework, vehicle cabins, 22 Nov 2026). Rows are written nose first, so the first row is the top of the
 /// map: <c>S</c> a seat, <c>L</c> over <c>l</c> a litter (head over foot), <c>T</c> a fuel tank, <c>E</c> the way out (exactly one),
-/// <c>.</c> floor. Game-free.
+/// <c>B</c> over <c>b</c> a bed (Framework 0.217.0), <c>.</c> floor. Game-free.
 /// </summary>
 public static class CabinLayoutRule
 {
@@ -70,6 +74,8 @@ public static class CabinLayoutRule
                     case 'S': cell = CabinCell.Seat; break;
                     case 'L': cell = CabinCell.LitterHead; break;
                     case 'l': cell = CabinCell.LitterFoot; break;
+                    case 'B': cell = CabinCell.BedHead; break;
+                    case 'b': cell = CabinCell.BedFoot; break;
                     case 'T': cell = CabinCell.Tank; break;
                     case 'E':
                         cell = CabinCell.WayOut;
@@ -95,12 +101,19 @@ public static class CabinLayoutRule
                     plan.Problems.Add($"has a litter's foot at column {x + 1} with no head above it");
                 if (plan.Cells[x, z] == CabinCell.LitterHead && (z == 0 || plan.Cells[x, z - 1] != CabinCell.LitterFoot))
                     plan.Problems.Add($"has a litter's head at column {x + 1} with no foot below it");
+                if (plan.Cells[x, z] == CabinCell.BedFoot && (z + 1 >= plan.Length || plan.Cells[x, z + 1] != CabinCell.BedHead))
+                    plan.Problems.Add($"has a bed's foot at column {x + 1} with no head above it");
+                if (plan.Cells[x, z] == CabinCell.BedHead && (z == 0 || plan.Cells[x, z - 1] != CabinCell.BedFoot))
+                    plan.Problems.Add($"has a bed's head at column {x + 1} with no foot below it");
             }
         }
         return plan;
     }
 
-    /// <summary>How many of a kind of cell the plan has: seats, or litters counted by their feet.</summary>
+    /// <summary>The places a cabin holds people: its seats, its litters and its beds.</summary>
+    public static int Places(CabinPlan plan) => Count(plan, CabinCell.Seat) + Count(plan, CabinCell.LitterFoot) + Count(plan, CabinCell.BedFoot);
+
+    /// <summary>How many of a kind of cell the plan has: seats, or litters and beds counted by their feet.</summary>
     public static int Count(CabinPlan plan, CabinCell kind)
     {
         int count = 0;

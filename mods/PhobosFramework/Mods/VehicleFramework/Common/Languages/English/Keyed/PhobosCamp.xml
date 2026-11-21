@@ -36,6 +36,16 @@
   <PhobosCamp_TentAwningRoom>walled awning</PhobosCamp_TentAwningRoom>
   <PhobosCamp_TentRear>rear tent</PhobosCamp_TentRear>
   <PhobosCamp_TentCamper>fold-out tent</PhobosCamp_TentCamper>
+  <PhobosDeckTent_GizmoNobody>Deck tent: nobody</PhobosDeckTent_GizmoNobody>
+  <PhobosDeckTent_GizmoSleepers>Deck tent: {NAMES}</PhobosDeckTent_GizmoSleepers>
+  <PhobosDeckTent_GizmoDesc>Choose who sleeps in the tent on the {VEHICLE}'s deck, up to {COUNT}. At bedtime they walk to it and go in by themselves, and come out when rested. Danger about, or the vehicle on fire, wakes them and sends them out.</PhobosDeckTent_GizmoDesc>
+  <PhobosDeckTent_OptionSleeps>{PAWN} (sleeps here: click to take off)</PhobosDeckTent_OptionSleeps>
+  <PhobosDeckTent_OptionFree>{PAWN}</PhobosDeckTent_OptionFree>
+  <PhobosDeckTent_Assigned>{PAWN} will sleep in the tent on the {VEHICLE}'s deck.</PhobosDeckTent_Assigned>
+  <PhobosDeckTent_Unassigned>{PAWN} no longer sleeps in the tent on the {VEHICLE}'s deck.</PhobosDeckTent_Unassigned>
+  <PhobosDeckTent_Full>The tent on the {VEHICLE}'s deck sleeps {COUNT}. Take someone off first.</PhobosDeckTent_Full>
+  <PhobosDeckTent_HoldsVehicle>Someone is in the tent on the {VEHICLE}'s deck. Call them out first.</PhobosDeckTent_HoldsVehicle>
+  <PhobosDeckTent_WokenDanger>Danger: everyone in the tent on the {VEHICLE}'s deck is woken and coming out.</PhobosDeckTent_WokenDanger>
   <PhobosCamp_PieceInUse>Someone is using the {PIECE} at the {VEHICLE}'s camp. Wait until they are up, or call them away, before packing up.</PhobosCamp_PieceInUse>
   <PhobosCamp_HoldsVehicle>The {VEHICLE}'s camp is still set up beside it. Pack up camp first.</PhobosCamp_HoldsVehicle>
   <PhobosCamp_NoOrder>nothing is waiting to be done</PhobosCamp_NoOrder>

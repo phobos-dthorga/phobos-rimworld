@@ -650,6 +650,35 @@ run:** none while packed; a pitched tent is ordinary walls, a door and beds.
 **Art:** the four kits, the camper bed and the heater use our own nearest pictures (and the game's heater, by path) until theirs are
 made in the waiting run (`assets/vehicle-systems/requests/berths-house.json`).
 
+**Step 3, D'thorga Framework 0.217.0 and Vehicles 0.98.0: the deck tent, a pocket room.** Row 329 of
+[the in-game test pass](in-game-test-pass.md). Not yet tested in game, and it stands on the walk-in cabin code, which is itself
+untested (row 314).
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Sleep two people up off the ground on a flat deck, with no ground taken and no camp to set up |
+| What it stops them doing | Driving off with people in the tent; fitting a roof tent or rear tent on the same mount |
+| How it changes play | A flatbed or tipper parked anywhere, however cramped, is a bedroom; the camp order is not needed for it |
+| What outside the vehicle notices | The colonists (indoor beds, a room of their own), the outside air (it sets the tent's), raids and fire (they wake and empty it), the vehicle's orders (it holds while occupied) |
+
+**Risk: low** (agent's grade): people in the tent are out of sight, so danger outside wakes them and sends them out, and every way
+a cabin can strand someone already puts them back on a map. It shares the **Walk-in cabins** setting; no setting of its own.
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| Which vehicles | `PhobosFlatDeckExtension` on a vehicle's Def; ours: the Talus tipper and the Pintle flatbed | Other authors mark theirs in XML. Its `rows` give the tent's inside as a cabin layout (two beds by default) |
+| The fitting | `PhobosFitting_DeckTent` on the roof mount, `flatDeckOnly` | A new restriction on a fitting Def: only vehicles with the extension |
+| The room | A walk-in cabin (`CompProperties_PhobosVehicleCabin` with `deckTent`), added in code to a flat-deck vehicle that has no cabin of its own | A layout may now ask for an ability (`whenGranted`), and a deck tent has no cabin "as built": nothing is offered until the tent is fitted. Layouts take beds: `B` over `b` |
+| Not the cab | `VehicleCabins.Room`, `CabinSharedSeats` | A deck tent holds its own places and takes no passenger seat, unlike the Osprey's cabin |
+| Its air | `DeckTents.Temperature`; a postfix on the game's `MapTemperature.OutdoorTemp` | The game gives a pocket map one fixed temperature from its Def and has no per-map figure. The postfix answers only for an open deck tent's map: the air where the vehicle stands, 4 °C warmer [A], never warmed past 15 °C [A] (`CampLayoutRule.TentTemperature`, tested). With no deck tent open it returns at once. Atmosphere Overhaul patches the same getter with a postfix of its own; the two do not conflict |
+| Sleepers | **Deck tent: NAMES** on the vehicle (`CompPhobosCamp`); a postfix on the game's go-to-bed job giver (`TentBedtime`) | Up to the layout's beds. At bedtime the chosen colonist's job becomes "go into the cabin"; inside, the game's own rest finds a tent bed. Rested and idle, the cabin's rare look already walks them out and closes the room |
+| Danger | `DeckTents.RareLook`, on the vehicle's rare tick while the tent is open | A hostile threat on the vehicle's map, or the vehicle burning: everyone inside is woken and ordered out, with one message |
+| Holding the vehicle | `CompPhobosCamp.HoldRefusal` | Refuses a move while anyone is inside, saying so. Forming a caravan still takes the vehicle, and its people ride in the room as in a cabin (a known gap) |
+
+**Agent's choices, for the owner to revise:** two beds; the warmth figures; that the tent needs no camp order; that it shares the
+Walk-in cabins setting. **Other factions:** a cabin is for the player's people only; nothing is offered on another faction's vehicle.
+**Cost to run:** one small map's ticking while anyone is inside; one integer test on each outdoor-temperature read while none is open.
+
 ## Questions for the owner
 
 **Answered by the owner, 13 Nov 2026:** (1) **the power budget first**: loads and weight on fittings, the house battery, the

@@ -14,6 +14,10 @@ Test row 314.
 - **Written from the game's own code**, never from the Black Hawk's: its author's way of doing it was read only to judge that mod.
 - **Not yet tested in game.**
 
+**Since Framework 0.217.0 a cabin can also be a deck tent** (a tent on a flat deck, with beds, the outside air and its own rules):
+[vehicle-accessories.md](vehicle-accessories.md#built-tents-for-every-vehicle-22-nov-2026), step 3. What follows is the cabin as built
+for the Osprey.
+
 ## The four questions
 
 | Question | Answer |

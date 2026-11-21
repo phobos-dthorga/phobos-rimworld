@@ -209,6 +209,40 @@
     </recipeMaker>
   </ThingDef>
 
+  <ThingDef ParentName="PhobosCampKitBase">
+    <!-- Framework 0.217.0: a low frame tent that clamps to a flat deck's rails, with two mattresses: 30 kg (authored). -->
+    <defName>PhobosVehicleSystems_DeckTentKit</defName>
+    <label>deck tent</label>
+    <description>A low canvas frame tent with clamps for a flat deck's rails, and two mattresses. Fitted to the roof mount of a vehicle with a flat deck, it stands on the deck itself: a small room to walk into, with two beds, up off the ground. It takes no ground beside the vehicle.</description>
+    <graphicData>
+      <!-- Our own picture of the nearest kit until this one's is made (asked for in assets/vehicle-systems/requests/berths-house.json). -->
+      <texPath>Phobos/VehicleSystems/Camp/RoofTentKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>30</Mass>
+      <WorkToMake>4000</WorkToMake>
+      <MarketValue>170</MarketValue>
+    </statBases>
+    <costList>
+      <Cloth>80</Cloth>
+      <Steel>20</Steel>
+    </costList>
+    <recipeMaker>
+      <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+      <workSkill>Crafting</workSkill>
+      <recipeUsers Inherit="False">
+        <li>HandTailoringBench</li>
+        <li>ElectricTailoringBench</li>
+      </recipeUsers>
+      <skillRequirements Inherit="False">
+        <Crafting>3</Crafting>
+      </skillRequirements>
+      <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
   <!-- ===== The fittings ===== -->
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
@@ -301,6 +335,23 @@
     <grants><li>FoldOutCamper</li></grants>
     <!-- Only a trailer with a camp deck: the tent folds out from a flat deck. -->
     <loadouts><li>PhobosVehicleLoadout_TrailerCampDeck</li></loadouts>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_DeckTent</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/RoofTentKit</iconPath>
+    <label>deck tent</label>
+    <description>A tent that stands on the vehicle's own flat deck, on the roof mount. Right-click the vehicle with a colonist to go in: inside is a small room with two beds. Choose who sleeps there on the vehicle, and they walk in at bedtime by themselves. It takes no ground and needs no camp set up; its canvas keeps the wind and rain out and the air a little warmer than outside. The vehicle does not drive off while anyone is inside. It takes the roof mount, so not a roof tent or a rear tent there as well.</description>
+    <roles><li>RoofMount</li></roles>
+    <materials><PhobosVehicleSystems_DeckTentKit>1</PhobosVehicleSystems_DeckTentKit><Steel>5</Steel></materials>
+    <givesBack><PhobosVehicleSystems_DeckTentKit>1</PhobosVehicleSystems_DeckTentKit></givesBack>
+    <kilograms>30</kilograms>
+    <work>2500</work>
+    <minSkill>3</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>DeckTent</li></grants>
+    <!-- Only a vehicle whose Def says it has a flat deck (PhobosFlatDeckExtension). -->
+    <flatDeckOnly>true</flatDeckOnly>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
   <!-- Another faction's vehicles may carry the camp; at their own base, by the rules Def's chance, they stand with it out (CompPhobosCamp). -->

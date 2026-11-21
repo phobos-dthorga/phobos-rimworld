@@ -461,6 +461,17 @@ the kit back in the cargo.
   the tent is warmer. Under an open awning or fly it warms nothing.
 - **Taking down any one wall brings that tent's canvas roof down**, as an awning's pole does.
 
+**The deck tent** (not yet tested in game; needs the **Walk-in cabins** setting, which is on by default): for a vehicle with a **flat
+deck**, today the **Talus tipper** and the **Pintle flatbed**. Fit it to the roof mount (30 kg). It stands **on the deck**, so it
+needs no ground and no camp set up.
+
+- **Go in:** right-click the vehicle with a colonist. Inside is a small room with **two beds** and a flap that leads back out.
+- **Sleepers:** press **Deck tent: nobody** on the vehicle and choose up to two colonists. **At bedtime they walk in by themselves**,
+  and walk out when rested.
+- **Warmth:** canvas only. The air inside is that around the vehicle, about 4 °C warmer in the cold, never warmed past 15 °C.
+- **Danger wakes them:** a raid, or the vehicle on fire, wakes everyone inside and sends them out, with a message.
+- **The vehicle will not move while anyone is inside.** The cab's seats are not affected by people in the tent.
+
 - **Moved a swag by hand?** It goes back to that spot next time. **Forget the camp's layout** starts afresh.
 - **Pack up camp** rolls everything back into the vehicle. It waits for sleepers to get up. Anything you moved away from the camp,
   and anything lying under the awning, stays where it is.

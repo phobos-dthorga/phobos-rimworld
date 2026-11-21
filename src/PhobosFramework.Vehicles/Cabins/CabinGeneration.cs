@@ -47,6 +47,9 @@ public class GenStep_PhobosVehicleCabin : GenStep
                     case CabinCell.LitterFoot:
                         Place(VehicleCabinDefOf.PhobosCabinLitter, cell, map, Rot4.North);
                         break;
+                    case CabinCell.BedFoot:
+                        Place(VehicleCabinDefOf.PhobosCabinBed, cell, map, Rot4.North);
+                        break;
                     case CabinCell.Tank:
                         Place(VehicleCabinDefOf.PhobosCabinTank, cell, map, Rot4.North);
                         break;

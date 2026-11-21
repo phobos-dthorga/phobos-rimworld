@@ -88,6 +88,8 @@ public class PhobosVehicleFittingDef : Def
     public List<ThingDefCountClass> givesBack = new();
     /// <summary>Only vehicles on one of these loadouts (aircraft service-life upgrades: the Harrier's engine fits only a Harrier). Empty: any.</summary>
     public List<PhobosVehicleLoadoutDef> loadouts = new();
+    /// <summary>Only vehicles whose Def says they have a flat deck (PhobosFlatDeckExtension; Framework 0.217.0, the deck tent).</summary>
+    public bool flatDeckOnly;
     /// <summary>Only vehicles whose loadout is of one of these kinds ("Aircraft"). Empty: any.</summary>
     public List<string> kinds = new();
     /// <summary>Raised figures while the part stands: an avionics kit's capability (aircraft service-life upgrades).</summary>

@@ -212,6 +212,14 @@ public static class VehicleSystems
         // A trailer whose deck or side takes camp gear has it too (Framework 0.216.0, the camper trailer; 0.217.0, tank trailers and the
         // kitchen): its camp is pitched once it stands unhitched.
         if (def.type == VehicleType.Land && (!props.trailer || LoadoutSelector.TrailerCamps(def)) && !def.comps.Any(c => c is CompProperties_PhobosCamp)) def.comps.Add(new CompProperties_PhobosCamp());
+        // A flat deck takes a deck tent (Framework 0.217.0): a walk-in room on the game's pocket maps, there only while the tent is fitted.
+        // A vehicle with a cabin of its own keeps that one.
+        if (def.GetModExtension<PhobosFlatDeckExtension>() is { } deck && !def.comps.Any(c => c is CompProperties_PhobosVehicleCabin))
+        {
+            var tent = new CompProperties_PhobosVehicleCabin { deckTent = true };
+            tent.layouts.Add(new CabinLayoutSpec { whenGranted = { DeckTents.Ability }, rows = deck.rows });
+            def.comps.Add(tent);
+        }
         // The Dashboard and Systems tabs, before ThingDef.ResolveReferences resolves the tab list (this runs in its prefix; re-check the
         // order when Vehicle Framework releases 1.7). Only fitted designs get them.
         def.inspectorTabs ??= new List<System.Type>();
