@@ -286,7 +286,7 @@ lot when it comes. The grab never lifts from another faction's storage, or a thi
 
 A two-axle flatbed as wide as the trucks that tow it: 2,800 kg empty, 5,000 kg of cargo, with low sides and a drawbar. Its one upgrade, the greedy boards (+1,000 kg), shows as
 taller side boards. **It is also a camper trailer** (not yet tested in game): its deck takes a roof tent and an awning, and unhitched it
-pitches a camp of its own ([camping](vehicle-care.md#camping-awning-roof-tent-and-swags)).
+pitches a camp of its own ([camping](camping.md#camping-awning-roof-tent-and-swags)).
 
 1. **Build it** from the **motor pool** tab, after **towing and trailers** research.
 2. **Load it** through its cargo tab while it stands unhitched.
@@ -369,8 +369,8 @@ by a failing alternator, on a flat battery or unhitched, it is only a box. **Foo
 towed trailer is no freezer.
 
 **Food in a towed trailer is eaten on the road** (not yet tested in game): once the caravan's own packs run out of anything a person
-can eat, they eat from the cargo of whatever it tows. The caravan's days-of-food figure counts the packs only, so a trailer full of food
-shows as fewer days than you really have.
+can eat, they eat from the cargo of whatever it tows, and the caravan's days of food count it, on the world map and when forming a
+caravan.
 
 **Driving through the night** (not yet tested in game): a caravan that never stops has no night's rest to cook in, so **its kettle
 simmers on the move**: riders who are not driving or crewing make **half as many meals each** (up to 10), for the same fuel a meal.

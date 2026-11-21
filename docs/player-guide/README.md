@@ -36,6 +36,7 @@ What each mod does in a line, and how they depend on one another, is in [the pro
 | --- | --- | --- |
 | [Getting started](getting-started.md) | Every mod | Installing, load order, settings to decide before a colony, research, adding and removing a mod |
 | [Looking after vehicles](vehicle-care.md) | D'thorga Framework, with Vehicle Framework | Keeping any mod's vehicles running: flat batteries, overheating, services, repairs, tuning |
+| [Camping and life on the road](camping.md) | D'thorga Framework and D'thorga Vehicles, with Vehicle Framework | Tents, berths, camp gear, water, lights, the kitchen and life aboard on a long trip |
 | [Working vehicles](working-vehicles.md) | D'thorga Vehicles | Finding ore, drilling it, hauling it, moving fluids and powering a camp with trucks and trailers |
 | [Submarines](submarines.md) | D'thorga Vehicles and D'thorga Framework | Running a submarine: dive, hide, listen, ping, do research at sea |
 | [Medical](medical.md) | D'thorga Medical | Keeping burned, gassed or badly hurt colonists alive, triage and hospital equipment |
