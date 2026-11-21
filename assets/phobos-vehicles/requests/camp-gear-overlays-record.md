@@ -43,3 +43,8 @@ on the default and a repainted cab. **The owner kept both shells** ("the smaller
 shell (2) on the tipper, the drill rig, the Busbar and the flatbed's deck; the bolder one (1) on the bulk tanker and the survey truck.
 
 **Spent in all:** about US$1.30 for the 34 edits and US$0.11 for the two shells.
+
+**The rolled bags (Vehicles 0.105.0).** The roll lifted from the Billy carried a dashed fringe of the Billy's body along one edge, so every
+bag was redrawn from one drawn alone on white ([awning-roll-bag.json](awning-roll-bag.json), two attempts, about US$0.11) and laid by
+script on the left rail, mirrored on the right, and across a roof for a packed rear tent. **The owner kept the lighter one, attempt 2**
+(22 Nov 2026: "Keep the lighter one").
