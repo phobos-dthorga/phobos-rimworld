@@ -1,0 +1,46 @@
+[
+ {
+  "name": "station-fuel-pump-a",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, seen from directly above, floor plan, no legs: a small rugged frontier fuel pump building, a tall narrow steel cabinet twice as long as it is wide, with a round fuel gauge dial and a red fuel hose coiled on a hook at one end, a nozzle holstered on the side, and a squat cylindrical chemfuel tank cap at the other end. Draw it in exactly the art style of the reference images: a game building sprite with a very thick near-black outline, soft flat cel shading, pale panels, rounded corners and a muted palette. One building, centred, filling most of a tall narrow canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "A small rugged frontier fuel pump: a narrow steel cabinet with a gauge dial, a coiled red hose and nozzle, and a tank cap, seen from directly above",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DepotBay.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png"
+  ],
+  "width": 768,
+  "height": 1536,
+  "seeds": [11, 12, 13],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Fuel pump (service yard building, Framework 0.210.0)",
+   "building": "PhobosVehicles_FuelPump, footprint (1, 2), drawSize (1, 2): 128 x 256 in game, requested at 6 times that",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/FuelPump.png",
+   "why": "missing before the first install of 0.210.0; the owner chose local generation once the game is closed (21 Nov 2026). Style references are our own shipped stations",
+   "route": "v1"
+  }
+ },
+ {
+  "name": "station-fuel-pump-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, seen from directly above, floor plan, no legs: an old forecourt petrol bowser on a small concrete plinth with yellow and black hazard paint at its corners, a steel pump housing with a pale display panel, a thick black fuel hose looped down one side to a holstered nozzle, and a small orange warning light on top. Draw it in exactly the art style of the reference images: a game building sprite with a very thick near-black outline, soft flat cel shading, pale panels, rounded corners and a muted palette. One building, centred, filling most of a tall narrow canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "An old forecourt petrol bowser on a small hazard-painted concrete plinth, hose looped to a holstered nozzle, seen from directly above",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DepotBay.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png"
+  ],
+  "width": 768,
+  "height": 1536,
+  "seeds": [11, 12, 13],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Fuel pump (service yard building, Framework 0.210.0)",
+   "building": "PhobosVehicles_FuelPump, footprint (1, 2), drawSize (1, 2): 128 x 256 in game, requested at 6 times that",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/FuelPump.png",
+   "why": "missing before the first install of 0.210.0; the owner chose local generation once the game is closed (21 Nov 2026). Style references are our own shipped stations",
+   "route": "v1"
+  }
+ }
+]

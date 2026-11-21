@@ -315,6 +315,20 @@ with references, the new one with references, the new one alone. About five hour
 themselves made with v1 and references, so the new model learns the house style through v1's eyes and may also learn its habits; the
 "alone" route shows how much it took in. Night 8's picks stay final (owner: "pick now, keep them").
 
+**Night 9 ran on 21 Nov 2026 (06:02 to 11:01, stop time 12:30; the owner's go at bedtime: "queue up what we had planned for the
+GPU")**: `.local/art/night-9.json`, every step finished. The service yard's fuel pump was added first and last (agent's choice:
+`assets/vehicle-systems/requests/fuel-pump.json` on v1 with our depot bay and parts bench as style references, and
+`fuel-pump-house.json` on the new model), since Framework 0.210.0 cannot be installed without it. **The training finished all 3,000
+steps in 158 minutes** with `low_vram` off (no caption-caching stall this time); the squeezed fallback only re-saved the finished
+model; installed as `phobos-private-house-v1`. 58 pictures in all, about 2.5 minutes each; graphics memory freed after.
+**What the comparison shows (agent's reading, owner not yet judged):** the new model alone draws the house look (thick near-black
+outline, flat shading) without any reference, which v1 and v2 never did; it still mistakes objects when a wording is vague (the
+heavy-duty brakes' "c" wording drew a bearing). 14 pictures are flagged, nearly all against our own pictures in the training set; three
+against the game's round `IconMorbidA` at very low structure scores (0.07 to 0.11), kept local by the rule. The standard grain front's
+right-looking pictures are flagged at 0.97 against the wide front's pick: they are the wide front again, so the agent suggests cutting a
+shorter header from that pick by script. **Picks pending**: `.local/art/night-9-review/index.html`, with the agent's leans. The
+charging cable's overlay is drawn after the pump is picked, so it lines up with it.
+
 **In short: v3 is half-prepared and needs one night of about five hours. Before that, the owner decides whether to train on the game's
 art (v3 as planned) or on our own shipped picks.** Read from the files in `C:/AI/lora-experiments/` with no GPU work; nothing changed.
 
