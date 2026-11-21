@@ -158,6 +158,14 @@ for word; the root's rules apply here too.
   19 Nov 2026 on); `at --changelog PATH --when TIME` gives a changelog as it stood. The Companion's Timeline page runs it. **A test
   that installs, backs up or encodes points `PHOBOS_HISTORY` and `PHOBOS_SETTINGS` into its own folder** (`tests/test_deploy.py`
   does), or it writes into the owner's real log.
+- **Answer what is safely copied, and copy what cannot be made again, with `python scripts/safe-copies.py`** (owner, 21 Nov 2026:
+  "backup functionality for our training sets, models, etc."; phobos-modkit's safe-copies): `status` (the default) says each training,
+  model and note set's kind and whether it is copied, changed since or never copied; `plan`, `run`, `verify`, `restore`. What it
+  copies is `config/safe-copies.json`; **a new set of art work that cannot be made again gets an entry there in the same change**.
+  The owner's choices: copies go to K: (`safeCopiesPath`, marked private and local) and the private repository dthorga-safe-copies
+  (`safeCopiesRepositoryPath`), pushed after each run. **Anything made from the game's art goes to K: only**; a training counts as
+  ours only when its manifest's hashes prove every picture. `art-run.py night` runs it after the last step; it uses no graphics card,
+  so it may run while the owner plays. It never deletes; never delete or prune a copy without the owner's word.
 - **Every path a script reads goes through the shared order** (owner, 19 Nov 2026: "a central settings page where everything or at
   least, most, of these sorts of things are managed"): argument, environment, `.local/install-settings.json`, the central settings
   file, default, through `deploy.local_path` (phobos-modkit's `paths.resolve`). **A new setting of a script of ours is declared in

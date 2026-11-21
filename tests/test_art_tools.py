@@ -460,6 +460,56 @@ class ArtRunLoadsTests(unittest.TestCase):
                 sys.stderr = stderr
 
 
+class NightSafeCopiesTests(unittest.TestCase):
+    """21 Nov 2026: every night ends with safe copies of what cannot be made again; a failure is a line, never the night's."""
+
+    def setUp(self):
+        from unittest import mock
+        spec = importlib.util.spec_from_file_location('art_run_night', os.path.join(ROOT, 'scripts', 'art-run.py'))
+        self.art_run = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.art_run)
+        self.folder = tempfile.TemporaryDirectory()
+        self.addCleanup(self.folder.cleanup)
+        self.plan = os.path.join(self.folder.name, 'night.json')
+        with open(self.plan, 'w', encoding='utf-8') as handle:
+            json.dump([{'run': ['scripts/settings.py']}], handle)
+        self.commands = []
+        for name, value in (('run_step', self.fake_step), ('stay_awake', lambda on: None)):
+            patch = mock.patch.object(self.art_run, name, value)
+            patch.start()
+            self.addCleanup(patch.stop)
+
+    def fake_step(self, command):
+        self.commands.append(command)
+        return 1, 'K:/copies/_safe-copies/runs/x.json'
+
+    def night(self, *extra):
+        with open(os.devnull, 'w', encoding='utf-8') as quiet:
+            stdout, sys.stdout = sys.stdout, quiet
+            try:
+                code = self.art_run.main(['night', self.plan, '--stop-at', '23:59', *extra])
+            finally:
+                sys.stdout = stdout
+        summaries = [n for n in os.listdir(self.folder.name) if n.startswith('night-')]
+        with open(os.path.join(self.folder.name, summaries[0]), encoding='utf-8') as handle:
+            return code, handle.read()
+
+    def test_the_night_ends_with_safe_copies_and_a_failure_does_not_fail_it(self):
+        code, summary = self.night()
+        self.assertEqual(code, 0)
+        self.assertEqual(len(self.commands), 2)
+        self.assertEqual(self.commands[-1], self.art_run.SAFE_COPIES)
+        self.assertTrue(self.commands[-1][1].endswith('safe-copies.py'))
+        self.assertIn('| safe copies |', summary)
+        self.assertIn('problems, exit code 1', summary)
+
+    def test_no_safe_copies_skips_them(self):
+        code, summary = self.night('--no-safe-copies')
+        self.assertEqual(len(self.commands), 1)
+        self.assertNotIn(self.art_run.SAFE_COPIES, self.commands)
+        self.assertNotIn('safe copies', summary)
+
+
 if __name__ == '__main__':
     unittest.main()
 

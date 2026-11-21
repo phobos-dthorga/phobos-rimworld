@@ -498,7 +498,8 @@ class NightTests(RehearsalCase):
         with mock.patch.object(art_run, 'run_step', fake_step), mock.patch.object(art_run, 'stay_awake', lambda on: None), \
                 mock.patch('sys.stdout', new=open(os.devnull, 'w', encoding='utf-8')) as quiet:
             self.addCleanup(quiet.close)
-            code = art_run.main(['night', str(path), '--stop-at', '23:59'])
+            # The safe copies after the last step have their own tests (test_art_tools.NightSafeCopiesTests).
+            code = art_run.main(['night', str(path), '--stop-at', '23:59', '--no-safe-copies'])
         summaries = list(self.work.glob('night-*.md'))
         return code, summaries[0].read_text(encoding='utf-8') if summaries else None
 

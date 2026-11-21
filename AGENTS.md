@@ -117,6 +117,7 @@ Use the tool before reading raw files; how to use each is in [`scripts/AGENTS.md
 | The code behind a changelog entry | `python scripts/changes.py` |
 | What happened to our mods over time | `python scripts/history.py` |
 | Whether textures need encoding | `python scripts/textures.py` |
+| What is safely copied; copying trainings and models | `python scripts/safe-copies.py` |
 | Harmony targets and by-name lookups | `python scripts/check-targets.py` |
 
 ## Git and publication boundaries

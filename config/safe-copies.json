@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "description": "What scripts/safe-copies.py copies, and of which kind (phobos-modkit docs/safe-copies.md). The owner's choices of 21 Nov 2026: own files to K: and the private repository dthorga-safe-copies; anything made from the game's art to K: only. A training is own only when its manifest's hashes prove every picture in it is one of our picks (lora_experiment.py picks writes the manifest and the marker).",
+  "game": "rimworld",
+  "sets": [
+    {
+      "name": "lora-trainings",
+      "root": "loraWorkPath",
+      "units": true,
+      "kind": "proven",
+      "proof": {
+        "marker": "dataset/own-art.json",
+        "manifest": "manifest.json",
+        "hashKey": "sha256",
+        "files": ["**/*.png", "**/*.jpg", "**/*.jpeg", "**/*.webp"]
+      },
+      "exclude": ["**/_t_e_cache", "**/_latent_cache", "**/.aitk_size.json"],
+      "localOnly": ["output/**/*_0*.safetensors", "**/optimizer.pt"]
+    },
+    {
+      "name": "style-models",
+      "root": "comfyUiPath",
+      "folder": "ComfyUI/models/loras",
+      "include": ["phobos-private-*.safetensors"],
+      "kind": {"unitOf": "lora-trainings", "pattern": "phobos-private-{unit}.safetensors"}
+    },
+    {
+      "name": "art-notes",
+      "root": "artWorkPath",
+      "include": ["*.json", "*.md", "picks/*.html"],
+      "kind": "own"
+    },
+    {
+      "name": "art-notes-before-k",
+      "root": "@repository",
+      "folder": ".local/art",
+      "include": ["*.json", "*.md", "*.html"],
+      "kind": "own"
+    }
+  ],
+  "provenance": [
+    {"name": "ai-toolkit", "root": "aiToolkitPath"},
+    {"name": "base models", "file": "scripts/art/models.json"}
+  ]
+}

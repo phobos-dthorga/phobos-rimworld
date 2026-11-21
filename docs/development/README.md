@@ -186,7 +186,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Art pipeline](art-pipeline.md) (17 Nov 2026): how a picture reaches a mod today, its routes and steps; the first art design as history. Living.
 - [Image routes research](image-routes-research.md) (19 Oct to 8 Nov 2026): first routes, view-angle models, paid services compared. Research.
 - [Art backlog](art-backlog.md) (6 Nov 2026): every texture and preview the mods ship or still need. Living.
-- [Art backups hand-off](art-backups-handoff.md) (21 Nov 2026): "safe copies" of training sets and style models; owner's answers in. Not built.
+- [Art backups hand-off](art-backups-handoff.md) (21 Nov 2026): "safe copies" of training sets and style models. Built (kit 1.66.0); the Companion card to come.
 - [Art automation and medical equipment](art-automation-and-medical-equipment.md) (4 Nov 2026): split on 17 Nov; links to both halves. Stub.
 - [Background clean-up](background-cleanup.md) (12 Nov 2026): the background AI that clears white from our pictures. Built.
 - [Vehicle paint masks](vehicle-paint-masks.md) (16 Nov 2026): paint by region, repaired by parts, the fleck checker; overlay fit idea. Built.

@@ -17,6 +17,9 @@ stop for the game, but it does stop before free memory falls under --min-free-ra
     python scripts/art-run.py train C:/AI/lora-experiments/vanilla/config.yaml --stop-at 07:00
     python scripts/art-run.py night .local/art/night.json --stop-at 07:00
 
+After a night's last step, scripts/safe-copies.py run copies what cannot be made again (trainings, style models, plans) to the
+folders and private repository the owner chose, and the summary says how it went (owner, 21 Nov 2026); --no-safe-copies skips it.
+
 A night plan is a JSON list run in order under one stop time. A failed step does not end the night; a later step that needs its
 work fails in turn and says so. Each step is one of:
 
@@ -51,6 +54,7 @@ POLL_SECONDS = 5
 ES_CONTINUOUS, ES_SYSTEM_REQUIRED = 0x80000000, 0x00000001
 NOT_STARTED = 3  # The exit code for a run that a safeguard refused to start.
 NIGHT_STEPS = ('generate', 'train', 'run')
+SAFE_COPIES = [sys.executable, str(ROOT / 'scripts' / 'safe-copies.py'), 'run']
 
 
 def stay_awake(on):
@@ -538,6 +542,16 @@ def describe_step(step):
     return f'{kind}: {" ".join(step[kind]) if kind == "run" else step[kind]}'
 
 
+def safe_copies_row():
+    """Copies what the night made that cannot be made again (owner, 21 Nov 2026: automatically, every night): disk work only, so it
+    runs after the last step whatever the stop time, and a failure is a line in the summary, never the night's."""
+    began = _dt.datetime.now()
+    print('--- safe copies', flush=True)
+    code, report = run_step(SAFE_COPIES)
+    ended = 'copied; its report says what' if code == 0 else f'problems, exit code {code}; its report or the output above says which'
+    return f'| safe copies | {began:%H:%M} | {(_dt.datetime.now() - began).total_seconds() / 60:.0f} | {ended} | {report or ""} |'
+
+
 def night(args, stop_at, _game_names):
     """Each step in order, whatever became of the one before. The safeguards live in the steps, so a game started at midnight
     also refuses every later one. Writes one summary beside the plan, pointing at each step's own report."""
@@ -570,6 +584,8 @@ def night(args, stop_at, _game_names):
             code, report = run_step(step_command(step, stop_at, args))
             ended = {0: 'finished or stopped safely; its report says which', NOT_STARTED: 'a safeguard refused to start it'}.get(code, f'failed, exit code {code}')
             lines.append(f'| {describe_step(step)} | {began:%H:%M} | {(_dt.datetime.now() - began).total_seconds() / 60:.0f} | {ended} | {report or ""} |')
+        if not getattr(args, 'no_safe_copies', False):
+            lines.append(safe_copies_row())
     finally:
         stay_awake(False)
         path = plan_file.parent / f'night-{started:%Y%m%d-%H%M}.md'
@@ -594,6 +610,7 @@ def main(argv=None):
     parser.add_argument('--cpu-cores', metavar='LIST', help='with --cpu, the logical processors to use, such as 16-31 (default: those away from the game)')
     parser.add_argument('--min-free-ram-gb', type=float, default=safeguards.DEFAULT_MIN_FREE_RAM_GB,
                         help='with --cpu, end the run before free memory falls under this')
+    parser.add_argument('--no-safe-copies', action='store_true', help='night: skip the safe copies made after the last step')
     args = parser.parse_args(argv)
     if args.cpu and args.kind == 'train':
         parser.error('--cpu is for generate and night; training needs the graphics card')
