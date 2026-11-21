@@ -162,6 +162,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Medical equipment, second set](medical-equipment-2.md) (7 Nov 2026): the ventilator, steriliser and six more. Built.
 - [Ventilation and hydrogen](ventilation-and-hydrogen.md) (7 Nov 2026): the electrolyser's hydrogen, vents, and workstation gases. Record only.
 - [Vaccines and prevention](vaccines-and-prevention.md) (7 Nov 2026): doctors preventing disease in healthy pawns. Record only.
+- [A radiation model of our own](radiation-model.md) (22 Nov 2026): dose, radiation sickness, care, late effects; RM1 to RM16. Record only.
 
 ## D'thorga Patches
 
