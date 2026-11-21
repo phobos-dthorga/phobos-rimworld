@@ -3,8 +3,9 @@
 **Status (22 Nov 2026):** partly built, at the owner's word, in D'thorga Medical 0.21.0 (with Framework 0.229.0 and Patches 0.35.0):
 the dose and its repair, the course, care, the doctor's estimate and the exact dose, Rimatomics' doses taken and its conditions
 converted, the strike's dose in grays ([as built](#as-built-22-nov-2026)); dev actions to give and remove a dose in 0.22.0; late
-effects (RM8) in 0.23.0; worn armour's shielding (RM17) and contamination (RM6) in 0.24.0. Not built: the three medicines. The owner's answers are
-[below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363 and 369 to 373.
+effects (RM8) in 0.23.0; worn armour's shielding (RM17), contamination (RM6) and the three medicines (RM5) in 0.24.0. Not built: the strike's
+shelter, shadow and letter (NK12, NK13, NK17, NK18). The owner's answers are
+[below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363 and 369 to 374.
 
 ## As built (22 Nov 2026)
 
@@ -55,7 +56,15 @@ effects (RM8) in 0.23.0; worn armour's shielding (RM17) and contamination (RM6) 
   children [A, unverified] in 4 to 10 real years (a quarter, as the other late effects), on the neck, under the Cancer switch. With
   strip and wash on, a dusty colonist counts as needing the safety shower and leaves dusty clothes there, forbidden, through two hooks
   added to the shower's service. Not modelled: beta burns from dust on the skin (Rongelap), dust spreading to beds and floors.
-- **Not built yet:** the three medicines (RM5), the shadow and
+- **The three medicines (RM5), Medical 0.24.0** (the owner's choices: all three; two research projects, Radiation medicine and Marrow
+  stimulants; Prussian blue from steel and neutroamine). Drug-lab pills of the game's own kind, each giving an "on" condition: the
+  anti-sickness tablets hold the early sickness at an eased stage (no vomiting, eating) for half a day [A]; Prussian blue cuts the
+  half-life inside to a third for three days [P for the factor, A for the duration]; the marrow stimulant, if in the body within a day
+  of the course starting, adds 0.5 Gy to the person's lethal dose [A, the record's figure]. **Doctors give them by themselves** through
+  a doctor work giver of their own (the dosing part's job quits once pain or disease passes, so it could not carry these): tablets to
+  anyone in the early sickness, the stimulant once 2 Gy or more is measured or estimated from vomiting within five hours and still
+  within the day, Prussian blue once 0.05 Gy inside is still to come; never beyond the patient's medical care setting.
+- **Not built yet:** the shadow and
   graded shelter of the strike (NK12, NK17, NK18), the strike's letter (NK13).
 
 The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md): shadow and a graded dose should "wait for our own

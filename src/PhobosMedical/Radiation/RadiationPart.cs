@@ -85,6 +85,7 @@ public static class RadiationPart
         Phobos.Framework.Health.RadiationDoses.Register((pawn, grays, source) => RadiationService.Receive(pawn, grays * WornShielding.Pass(pawn), source), () => On);
         RimatomicsDose.Apply(harmony);
         Contamination.Start();
+        RadiationMedicine.Start();
     }
 
     internal static LoadReport Report(LoadReport report)

@@ -17,6 +17,8 @@ Radiation, slice 3: what is worn, contamination and three medicines
 - **Dusty colonists strip and wash**, a setting, off by default (the owner's choice, as caustic strip and rinse): a dusty colonist goes to a safety shower, leaves dusty clothes there, forbidden, and washes.
 - Dev action: Radiation: dust selected pawns as 1 Gy of fresh fallout would. The dose log now shows dust, the dose from inside and the thyroid's.
 
+- **Three radiation medicines, made at the drug lab, which doctors give by themselves** (the owner's choices: all three; two research projects; Prussian blue from steel and neutroamine; RM5). **Anti-sickness tablets** (research Radiation medicine; a neutroamine makes two) ease the early sickness for about half a day: no vomiting, eating again. **Prussian blue capsules** (Radiation medicine; a steel and a neutroamine make two) clear radioactive dust from inside the body about three times as fast for three days (Radiogardase label). **The marrow stimulant** (research Marrow stimulants, after Radiation medicine and Vitals monitor; three neutroamine), started within a day of the sickness beginning, raises the dose a person survives by half a gray, after filgrastim (Neupogen label); later it is too late. A doctor gives each to whoever needs it, the marrow stimulant once a dose of 2 Gy or more is measured or estimated from early vomiting; all three can also be given by hand or by drug policy. Pictures: the owner's picks. Not yet tested in game: row 374.
+
 ### Changed
 
 - **Potassium iodide now guards the thyroid** while the radiation model is on, and no longer takes radiation sickness down: it never could (US FDA, 2001). The radiation control line now guards against contamination, not the dose; its rule is unchanged.

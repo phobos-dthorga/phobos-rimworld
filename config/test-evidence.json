@@ -20,6 +20,10 @@
       "sterile for good": [{"key": "radiation.late", "variant": "sterile-permanent"}]
     }},
     "372": ["radiation.shielded"],
+    "374": {"parts": {
+      "a doctor sets off with a medicine": [{"key": "radiation.medicine", "variant": "given"}],
+      "a marrow stimulant in the body during the course": [{"key": "radiation.medicine", "variant": "marrow"}]
+    }},
     "373": {"parts": {
       "dust gathered and breathed": ["radiation.dust"],
       "a dose from inside": ["radiation.inside"],

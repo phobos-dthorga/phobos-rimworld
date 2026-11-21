@@ -18,6 +18,13 @@ public static class RadiationDefOf
     public static HediffDef Cataract = null!;
     public static HediffDef Sterilized = null!;
     [MayRequire("Dubwise.Rimatomics")] public static HediffDef? PotassiumIodide;
+    public static ThingDef PhobosRadiation_Antiemetic = null!;
+    public static ThingDef PhobosRadiation_MarrowStimulant = null!;
+    public static ThingDef PhobosRadiation_PrussianBlue = null!;
+    public static HediffDef PhobosRadiation_OnAntiemetic = null!;
+    public static HediffDef PhobosRadiation_OnMarrowStimulant = null!;
+    public static HediffDef PhobosRadiation_OnPrussianBlue = null!;
+    public static JobDef PhobosRadiation_GiveMedicine = null!;
 
     static RadiationDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(RadiationDefOf));
 }
@@ -66,6 +73,19 @@ public class PhobosRadiationRulesDef : PhobosRulesDef
     public float thyroidPerGray = 2f;
     /// <summary>How long caesium stays in the body, a half-life in days (Radiogardase label: about 110).</summary>
     public float insideHalfLifeDays = 110f;
+
+    // ---- The medicines (Medical 0.24.0, RM5) ----
+
+    /// <summary>How far a marrow stimulant started in time moves the dose a person survives, in grays (the record's 0.5, authored).</summary>
+    public float marrowStimulantMoves = 0.5f;
+    /// <summary>It helps only if started within this many days of the course beginning (the Neupogen label's benefit needed a day).</summary>
+    public float marrowStimulantWithinDays = 1f;
+    /// <summary>Doctors give it for a dose they know or estimate at this or more (the Neupogen label: "greater than 2 gray").</summary>
+    public float marrowStimulantFromGrays = 2f;
+    /// <summary>Prussian blue multiplies the body's half-life for what is inside by this (Radiogardase label: about 80 days to 26).</summary>
+    public float prussianBlueHalfLifeFactor = 0.33f;
+    /// <summary>Doctors give Prussian blue once this much dose from inside is still to come, in grays.</summary>
+    public float prussianBlueFromInside = 0.05f;
 
     public static PhobosRadiationRulesDef Current => Current<PhobosRadiationRulesDef>();
 }

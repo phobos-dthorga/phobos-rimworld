@@ -30,6 +30,8 @@
   <PhobosRadiation_Stripped>{PAWN_labelShort} left {COUNT} dusty garments at the shower.</PhobosRadiation_Stripped>
   <PhobosRadiation_TipDust>Fallout dust on the skin or clothes: wash it off.</PhobosRadiation_TipDust>
   <PhobosRadiation_TipInside>Radioactive dust inside the body: it gives its dose over weeks as the body clears it.</PhobosRadiation_TipInside>
+  <PhobosRadiation_RefusalCare>Their medical care setting allows no medicine</PhobosRadiation_RefusalCare>
+  <PhobosRadiation_NoMedicine>No {MEDICINE} within reach</PhobosRadiation_NoMedicine>
   <!-- Late effects (D'thorga Medical 0.23.0). -->
   <PhobosRadiation_SettingLateHeading>Late effects, months or years after a dose (strength set by the harshness above)</PhobosRadiation_SettingLateHeading>
   <PhobosRadiation_SettingCancer>Cancer</PhobosRadiation_SettingCancer>

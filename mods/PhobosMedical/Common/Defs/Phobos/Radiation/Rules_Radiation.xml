@@ -47,5 +47,14 @@
     <swallowedPerDustDay>0.01</swallowedPerDustDay>
     <thyroidPerGray>2</thyroidPerGray>
     <insideHalfLifeDays>110</insideHalfLifeDays>
+    <!-- The medicines (Medical 0.24.0). A marrow stimulant started within a day of the course moves the dose a person survives by 0.5 Gy
+         (the record's figure, authored after ICRP 103's "6 with growth factors" against about 5 with care); doctors give it for a dose
+         known or estimated at 2 Gy or more (Neupogen label). Prussian blue cuts the half-life inside to a third (Radiogardase label: about
+         80 days to 26 at Goiania); doctors give it once 0.05 Gy from inside is still to come. -->
+    <marrowStimulantMoves>0.5</marrowStimulantMoves>
+    <marrowStimulantWithinDays>1</marrowStimulantWithinDays>
+    <marrowStimulantFromGrays>2</marrowStimulantFromGrays>
+    <prussianBlueHalfLifeFactor>0.33</prussianBlueHalfLifeFactor>
+    <prussianBlueFromInside>0.05</prussianBlueFromInside>
   </Phobos.Radiation.Defs.PhobosRadiationRulesDef>
 </Defs>

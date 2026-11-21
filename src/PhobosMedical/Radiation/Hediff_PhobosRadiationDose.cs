@@ -62,6 +62,8 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
     /// <summary>The thyroid's dose from fallout's iodine, in grays, and when a thyroid cancer is due.</summary>
     public float thyroid;
     public int thyroidCancerDay = LateNone;
+    /// <summary>The tick a marrow stimulant was first in the body in this course, or -1.</summary>
+    public int marrowStart = -1;
 
     public const int LateNone = -1;
     public const int LateGiven = -2;
@@ -90,6 +92,7 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
         bloodCount = -1;
         illnessHeight = 0f;
         peak = Effective;
+        marrowStart = -1;
     }
 
     public void EndCourse()
@@ -99,6 +102,7 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
         bloodCount = -1;
         illnessHeight = 0f;
         peak = 0f;
+        marrowStart = -1;
     }
 
     public override void ExposeData()
@@ -128,6 +132,7 @@ public class Hediff_PhobosRadiationDose : HediffWithComps
         Scribe_Values.Look(ref inside, "PhobosRadiation_Inside");
         Scribe_Values.Look(ref thyroid, "PhobosRadiation_Thyroid");
         Scribe_Values.Look(ref thyroidCancerDay, "PhobosRadiation_ThyroidCancerDay", LateNone);
+        Scribe_Values.Look(ref marrowStart, "PhobosRadiation_MarrowStart", -1);
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             prenatal ??= new List<float>();

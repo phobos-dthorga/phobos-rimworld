@@ -271,6 +271,12 @@ Not yet tested in game. On by default (**Radiation sickness runs its real course
   later, a pregnancy may be lost. A child dosed while its body forms may be born with weaker movement and hands; dosed while its
   brain develops (most of all a third of the way through), it may learn more slowly. It carries its dose, and the cancer risk with it.
 - **Each late effect has its own switch** on the Radiation settings page.
+- **Radiation medicines**, made at the drug lab, given by doctors by themselves (or by hand, or by drug policy):
+  - **Anti-sickness tablets** (research **radiation medicine**): no vomiting and eating again, for about half a day of the early sickness.
+  - **Prussian blue capsules** (radiation medicine): clear radioactive dust from inside the body about three times as fast.
+  - **Marrow stimulant** (research **marrow stimulants**, after radiation medicine and the vitals monitor): **give it within a day of the
+    sickness beginning**; it raises the dose a person survives. Doctors give it once they know or estimate 2 Gy or more, from someone
+    vomiting within about five hours. Later, it is too late.
 - **Fallout dust.** Outdoors in fallout, dust settles on clothes and bare skin and keeps giving a small dose until washed off; breathed
   without a mask, it gives a dose from inside over weeks, and its iodine goes to the thyroid (a thyroid cancer years later, most of
   all in children) unless **potassium iodide** was taken first. **A suit keeps dust off the skin and a mask keeps it out of the lungs**;

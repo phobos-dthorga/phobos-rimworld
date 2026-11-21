@@ -52,6 +52,7 @@ public static class RadiationService
         Refresh(pawn, dose);
         if (dose.InCourse) RunCourse(pawn, dose);
         Contamination.Step(pawn, dose, Rules.intervalTicks / (double)GenDate.TicksPerDay);
+        RadiationMedicine.NoteMarrowStimulant(pawn, dose);
         LateEffects.GiveDue(pawn, dose);
         LateEffects.ForgetEndedPregnancy(pawn, dose);
     }
@@ -98,7 +99,8 @@ public static class RadiationService
         double daysToVomit = vomited ? (dose.firstVomit - dose.courseStart) / (double)GenDate.TicksPerDay : 0;
         RadiationPhase phase = RadiationRule.Phase(dose.peak, days, vomited, daysToVomit);
 
-        SetPresent(pawn, RadiationDefOf.PhobosRadiation_EarlySickness, phase == RadiationPhase.Early, 1f);
+        // The anti-sickness tablets ease the early sickness: no vomiting, eating again (its first stage).
+        SetPresent(pawn, RadiationDefOf.PhobosRadiation_EarlySickness, phase == RadiationPhase.Early, RadiationMedicine.OnAntiemetic(pawn) ? 0.5f : 1f);
         if (phase == RadiationPhase.Early && Seen.Wants("radiation.course", pawn, "early")) Seen.Note("radiation.course", pawn, "early sickness", "early");
 
         if (days >= 2 && dose.bloodCount < 0 && pawn.InBed() && pawn.CurrentBed() is { Medical: true }) dose.bloodCount = now;
@@ -111,7 +113,7 @@ public static class RadiationService
         double earlyEnds = (vomited ? daysToVomit : 0) + RadiationRule.EarlyDays(dose.peak);
         double intoIllness = days - earlyEnds - RadiationRule.WellDays(dose.peak);
         double care = Care(pawn, rules);
-        double lethal = RadiationRule.LethalDose(RadiationPart.Preset, care, Sensitivity(pawn, 2));
+        double lethal = RadiationRule.LethalDose(RadiationPart.Preset, care, Sensitivity(pawn, 2)) + RadiationMedicine.MarrowMoves(dose);
         float severity = (float)RadiationRule.Severity(dose.peak, lethal, intoIllness, rules.recoveryPerDay);
         bool rising = intoIllness <= RadiationRule.DaysToHeight(dose.peak);
         if (!rising && severity <= 0.001f)

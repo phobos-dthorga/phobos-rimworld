@@ -93,4 +93,41 @@
       </li>
     </modExtensions>
   </ResearchProjectDef>
+
+  <!-- Radiation medicine (Medical 0.24.0; the owner's choice of 22 Nov 2026: two projects). Positions are free spots in the medical lane. -->
+  <ResearchProjectDef ParentName="PhobosResearchMedicalBase">
+    <defName>PhobosResearch_RadiationMedicine</defName>
+    <label>radiation medicine</label>
+    <description>Treating people dosed with radiation: tablets against its sickness, and Prussian blue to clear radioactive caesium from the body.</description>
+    <baseCost>1200</baseCost>
+    <researchViewX>6</researchViewX>
+    <researchViewY>1.2</researchViewY>
+    <prerequisites>
+      <li>MedicineProduction</li>
+      <li>DrugProduction</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
+
+  <ResearchProjectDef ParentName="PhobosResearchMedicalBase">
+    <defName>PhobosResearch_MarrowStimulants</defName>
+    <label>marrow stimulants</label>
+    <description>Growth factors that drive the bone marrow to make white blood cells, given early to someone dosed with radiation to raise the dose they can survive.</description>
+    <baseCost>2400</baseCost>
+    <researchViewX>7</researchViewX>
+    <researchViewY>1.2</researchViewY>
+    <prerequisites>
+      <li>PhobosResearch_RadiationMedicine</li>
+      <li>VitalsMonitor</li>
+    </prerequisites>
+    <modExtensions>
+      <li Class="Phobos.Framework.Research.ResearchReplacesExtension">
+        <replaces />
+      </li>
+    </modExtensions>
+  </ResearchProjectDef>
 </Defs>

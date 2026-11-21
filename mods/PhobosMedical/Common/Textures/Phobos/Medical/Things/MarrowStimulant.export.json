@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/MarrowStimulant.png",
+  "source": "assets/vehicle-systems/generated/marrow-stimulant/marrow-stimulant-2.png",
+  "source_sha256": "e9fb8d07be21dff07d315edff49c5f167833a4a27774720e058efc1ef00aeb81",
+  "target_sha256": "63d554fbe6d04297f6f3f5d39d17bfc5e407c1f96f9ca6fc555929da443a12f2",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "e9fb8d07be21dff07d315edff49c5f167833a4a27774720e058efc1ef00aeb81",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-22T10:01:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

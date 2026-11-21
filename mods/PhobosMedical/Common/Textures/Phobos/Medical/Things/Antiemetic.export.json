@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosMedical/Common/Textures/Phobos/Medical/Things/Antiemetic.png",
+  "source": "assets/vehicle-systems/generated/antiemetic/antiemetic-2.png",
+  "source_sha256": "97ce42718c02051b5ecec28394ebaff48e76bd77c224f1515ee63018140f4984",
+  "target_sha256": "794ef705047893070e9703c88a33ec8709089971761391be772ffbd6e9f6aff5",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "97ce42718c02051b5ecec28394ebaff48e76bd77c224f1515ee63018140f4984",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-22T10:01:26",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

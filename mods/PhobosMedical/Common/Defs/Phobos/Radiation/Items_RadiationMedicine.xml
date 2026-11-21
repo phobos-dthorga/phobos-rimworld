@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The three radiation medicines (D'thorga Medical 0.24.0; docs/development/radiation-model.md, RM5; the owner's choices of 22 Nov 2026:
+    all three, two research projects, Prussian blue from steel and neutroamine). Made at the drug lab; doctors give them by themselves to
+    whoever needs one (RadiationMedicine), and they can be given by hand or by drug policy. What each does is in the code and the rules
+    Def; costs, durations and work are authored. Pictures: the owner's picks of 22 Nov 2026, made on the paid route. Not yet tested in
+    game.
+  -->
+  <ThingDef ParentName="MakeableDrugPillBase">
+    <defName>PhobosRadiation_Antiemetic</defName>
+    <label>anti-sickness tablets</label>
+    <description>Tablets against nausea and vomiting, as given to people sick from radiation. Taken during the early sickness, they stop the vomiting and let the person eat again for about half a day. They do nothing for the illness that follows.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/Antiemetic</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <WorkToMake>500</WorkToMake>
+      <MarketValue>14</MarketValue>
+      <Mass>0.005</Mass>
+    </statBases>
+    <costList>
+      <Neutroamine>1</Neutroamine>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_RadiationMedicine</researchPrerequisite>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <productCount>2</productCount>
+      <bulkRecipeCount>4</bulkRecipeCount>
+      <skillRequirements>
+        <Intellectual>4</Intellectual>
+      </skillRequirements>
+    </recipeMaker>
+    <ingestible>
+      <drugCategory>Medical</drugCategory>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PhobosRadiation_OnAntiemetic</hediffDef>
+          <severity>1.0</severity>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1010</listOrder>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="MakeableDrugPillBase">
+    <defName>PhobosRadiation_PrussianBlue</defName>
+    <label>Prussian blue capsules</label>
+    <description>Capsules of Prussian blue, the old dye, which binds radioactive caesium in the gut so the body passes it instead of taking it back up. Taken by someone carrying radioactive dust inside, they clear it about three times as fast for three days. They do nothing for radiation from outside.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/PrussianBlue</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <WorkToMake>700</WorkToMake>
+      <MarketValue>20</MarketValue>
+      <Mass>0.005</Mass>
+    </statBases>
+    <costList>
+      <Steel>1</Steel>
+      <Neutroamine>1</Neutroamine>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_RadiationMedicine</researchPrerequisite>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <productCount>2</productCount>
+      <bulkRecipeCount>4</bulkRecipeCount>
+      <skillRequirements>
+        <Intellectual>5</Intellectual>
+      </skillRequirements>
+    </recipeMaker>
+    <ingestible>
+      <drugCategory>Medical</drugCategory>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PhobosRadiation_OnPrussianBlue</hediffDef>
+          <severity>1.0</severity>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1011</listOrder>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="MakeableDrugPillBase">
+    <defName>PhobosRadiation_MarrowStimulant</defName>
+    <label>marrow stimulant</label>
+    <description>An injection that drives the bone marrow to make white blood cells, after the growth factors given to people dosed with radiation. Started within a day of the sickness beginning, it raises the dose a person can survive; later, it is too late to help much.</description>
+    <graphicData>
+      <texPath>Phobos/Medical/Things/MarrowStimulant</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <statBases>
+      <WorkToMake>1500</WorkToMake>
+      <MarketValue>60</MarketValue>
+      <Mass>0.02</Mass>
+    </statBases>
+    <costList>
+      <Neutroamine>3</Neutroamine>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_MarrowStimulants</researchPrerequisite>
+      <recipeUsers>
+        <li>DrugLab</li>
+      </recipeUsers>
+      <bulkRecipeCount>4</bulkRecipeCount>
+      <skillRequirements>
+        <Intellectual>8</Intellectual>
+      </skillRequirements>
+    </recipeMaker>
+    <ingestible>
+      <drugCategory>Medical</drugCategory>
+      <ingestSound>Ingest_Inject</ingestSound>
+      <ingestCommandString>Inject {0}</ingestCommandString>
+      <ingestReportString>Injecting {0}.</ingestReportString>
+      <outcomeDoers>
+        <li Class="IngestionOutcomeDoer_GiveHediff">
+          <hediffDef>PhobosRadiation_OnMarrowStimulant</hediffDef>
+          <severity>1.0</severity>
+        </li>
+      </outcomeDoers>
+    </ingestible>
+    <comps>
+      <li Class="CompProperties_Drug">
+        <listOrder>1012</listOrder>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <HediffDef>
+    <defName>PhobosRadiation_OnAntiemetic</defName>
+    <label>on anti-sickness tablets</label>
+    <description>Anti-sickness tablets are holding off the nausea and vomiting of radiation sickness.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(1, 0, 0.5)</defaultLabelColor>
+    <isBad>false</isBad>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-2</severityPerDay>
+        <showHoursToRecover>true</showHoursToRecover>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>PhobosRadiation_OnPrussianBlue</defName>
+    <label>on Prussian blue</label>
+    <description>Prussian blue is binding radioactive caesium in the gut, clearing it from the body about three times as fast.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(1, 0, 0.5)</defaultLabelColor>
+    <isBad>false</isBad>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.34</severityPerDay>
+        <showDaysToRecover>true</showDaysToRecover>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <HediffDef>
+    <defName>PhobosRadiation_OnMarrowStimulant</defName>
+    <label>on marrow stimulant</label>
+    <description>A marrow stimulant is driving the bone marrow to make white blood cells. Started within a day of radiation sickness beginning, it raises the dose this person can survive.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(1, 0, 0.5)</defaultLabelColor>
+    <isBad>false</isBad>
+    <scenarioCanAdd>false</scenarioCanAdd>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.2</severityPerDay>
+        <showDaysToRecover>true</showDaysToRecover>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <JobDef>
+    <defName>PhobosRadiation_GiveMedicine</defName>
+    <driverClass>Phobos.Radiation.Jobs.JobDriver_PhobosRadiationMedicine</driverClass>
+    <reportString>giving TargetA to TargetB.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <WorkGiverDef>
+    <defName>PhobosRadiation_DoctorMedicine</defName>
+    <label>give radiation medicine</label>
+    <giverClass>Phobos.Radiation.Jobs.WorkGiver_PhobosRadiationMedicine</giverClass>
+    <workType>Doctor</workType>
+    <priorityInType>84</priorityInType>
+    <verb>give radiation medicine to</verb>
+    <gerund>giving radiation medicine to</gerund>
+    <canBeDoneByMechs>false</canBeDoneByMechs>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+    <prioritizeSustains>true</prioritizeSustains>
+  </WorkGiverDef>
+</Defs>

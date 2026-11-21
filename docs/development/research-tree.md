@@ -52,6 +52,10 @@ graph LR
   DrugProduction --> Bronchodilators
   VitalsMonitor --> Anaesthesia
   HospitalBed --> BurnCare
+  MedicineProduction --> RadiationMedicine
+  DrugProduction --> RadiationMedicine
+  RadiationMedicine --> MarrowStimulants
+  VitalsMonitor --> MarrowStimulants
   VehicleParts --> Trailers
   Trailers --> FieldKitchen
   Electricity --> FieldKitchen
@@ -86,6 +90,8 @@ All are Industrial, named `PhobosResearch_<Name>`. Those names stay fixed once a
 | Bronchodilators | 600 | DrugProduction | | Bronchodilator vial | DrugProduction |
 | Anaesthesia | 1,800 | VitalsMonitor | | Anaesthesia machine | VitalsMonitor |
 | BurnCare | 1,200 | HospitalBed | AdvancedFirstAid | Burn bed | HospitalBed |
+| RadiationMedicine | 1,200 | MedicineProduction, DrugProduction | | Anti-sickness tablets, Prussian blue (22 Nov 2026) | |
+| MarrowStimulants | 2,400 | RadiationMedicine, VitalsMonitor | | Marrow stimulant (22 Nov 2026) | |
 | PipedOxygen | 1,500 | Respiratory, VGE_OxygenNetwork | | Oxygen stand, trolley, field oxygen | MedicineProduction, VGE_OxygenNetwork |
 
 **How the costs were set.** The first proposal ran from 300 to 1,500; the owner judged it low and suggested 2 to 4 times. Against the game's Machining (1,000) and Fabrication (4,000), and other mods' basic factories (5,000) and big rigs (4,000):
