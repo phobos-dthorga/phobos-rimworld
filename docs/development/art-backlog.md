@@ -326,8 +326,10 @@ outline, flat shading) without any reference, which v1 and v2 never did; it stil
 heavy-duty brakes' "c" wording drew a bearing). 14 pictures are flagged, nearly all against our own pictures in the training set; three
 against the game's round `IconMorbidA` at very low structure scores (0.07 to 0.11), kept local by the rule. The standard grain front's
 right-looking pictures are flagged at 0.97 against the wide front's pick: they are the wide front again, so the agent suggests cutting a
-shorter header from that pick by script. **Picks pending**: `.local/art/night-9-review/index.html`, with the agent's leans. The
-charging cable's overlay is drawn after the pump is picked, so it lines up with it.
+shorter header from that pick by script. **Picked 21 Nov 2026** (`assets/phobos-vehicles/requests/night-9-picks-record.md`): the
+fuel pump ships in Framework 0.210.1 and the paddock button in Farming 0.7.3, both house-v1 pictures; the heavy-duty brakes and clutch
+kit go to the paid service (the owner's choice, to match the parts pictures; the first try found the OpenAI account out of credit).
+Still to make: the standard grain front and the charging cable's overlay, drawn to line up with the picked pump.
 
 **In short: v3 is half-prepared and needs one night of about five hours. Before that, the owner decides whether to train on the game's
 art (v3 as planned) or on our own shipped picks.** Read from the files in `C:/AI/lora-experiments/` with no GPU work; nothing changed.

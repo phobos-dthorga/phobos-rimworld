@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.3] - 2026-11-21 - Draft
+
+The paddock button's own picture. Not yet tested in game.
+
+### Changed
+
+- **The button that marks a growing zone for machines has its own picture**: a green field split by a tyre track, drawn locally with our new house style model and picked by the owner. It borrowed the game's growing-zone picture before.
+
 ## [0.7.2] - 2026-11-21 - Draft
 
 Farming's own Architect tab

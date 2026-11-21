@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.210.1] - 2026-11-21 - Draft
+
+The fuel pump's picture. Not yet tested in game. **The charging cable still has no picture: hold this version back from your game until it has one.**
+
+### Added
+
+- **The fuel pump has its own picture**: an old fuel pump on a small concrete base with hazard-painted corners, drawn locally with our new house style model and picked by the owner. It had none in 0.210.0.
+
 ## [0.210.0] - 2026-11-21 - Draft
 
 The service yard: servicing, the dyno, fuel and parking in one place; and building upgrades. Not yet tested in game. **The fuel pump and its charging cable have no picture yet: they are made before the first test, so hold this version back from your game until then.**

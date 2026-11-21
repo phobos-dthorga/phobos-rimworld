@@ -1,0 +1,17 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/FuelPump.png",
+  "source": "assets/vehicle-systems/generated/station-fuel-pump-b-house/station-fuel-pump-b-house-11.png",
+  "source_sha256": "e31dffa67f6f5b6ea3fa04e593048c1483cba007f50436288072c17298df1999",
+  "target_sha256": "49c0776546c1268cbb85ad59d4e644cfaceac8586a07628607bc91721d30e6d8",
+  "size": [
+    128,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "e31dffa67f6f5b6ea3fa04e593048c1483cba007f50436288072c17298df1999",
+  "date": "2026-11-21T19:35:28",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

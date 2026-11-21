@@ -1,0 +1,52 @@
+[
+ {
+  "name": "fitting-heavy-brakes-paid",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [1, 2],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/BrakePadSet.png",
+    "role": "our approved brake pad set icon from the same family: match its outline weight, shading, palette and finish only; this new icon must look clearly heavier and different, so do not copy its layout"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+    "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "for": "Heavy-duty brakes (fitting)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/HeavyBrakes.png",
+   "why": "night 8's local tries read as a turbocharger and night 9's as a bearing; the owner chose the paid service on 21 Nov 2026 so it keeps the parts' art style",
+   "size": "a fitting icon shown at 128 px; requested at 8 times that"
+  },
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One tidy assembly, centred.\n\nCreate an ORIGINAL game icon for the D'thorga heavy-duty brakes: an uprated brake upgrade for a big truck. Image 1 is our approved brake pad set and image 2 our approved drivetrain kit, from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their layout: this must look clearly bigger and tougher than the plain brake pad set.\n\nDraw ONLY the brake assembly, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA large thick ventilated steel brake disc standing on its edge, with straight cooling slots cut across its face, gripped at the top by a big chunky muted orange four-piston brake caliper with two visible bolts.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, fan blades, turbine, dust, floor, ground or cast shadow."
+ },
+ {
+  "name": "part-clutch-kit-paid",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [1, 2],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/DrivetrainKit.png",
+    "role": "our approved vehicle part icon from the same family (a drivetrain kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/BrakePadSet.png",
+    "role": "our approved brake pad set icon from the same family: match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "for": "Clutch kit (item)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/Vehicles/Parts/ClutchKit.png",
+   "why": "night 8's local tries were a blank disc and an odd ring, and night 9's a turbine fan or two loose discs; the owner chose the paid service on 21 Nov 2026 so it keeps the parts' art style",
+   "size": "drawn at the game's 64 px item size; requested at 16 times that"
+  },
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One tidy bundle, centred.\n\nCreate an ORIGINAL game item sprite for the D'thorga clutch kit: a replacement clutch for a truck, sold as a boxed set of three parts. Image 1 is our approved drivetrain kit and image 2 our approved brake pad set, from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the three clutch parts, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA round steel clutch pressure plate lying flat, with its ring of spring fingers in the middle; leaning against it, a clutch friction disc with a brown friction ring and a splined steel hub in the centre; in front, one small release bearing.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, vehicles, text, letters, numbers, logos, dials, fan blades, turbine, dust, floor, ground or cast shadow."
+ }
+]
