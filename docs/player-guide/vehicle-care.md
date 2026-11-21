@@ -491,6 +491,11 @@ the kit back in the cargo.
 - **Rain, snow and ice take grip.** It only tells where grip is what holds a vehicle back: hills, mud and towing. A laden truck or
   a heavy tow may crawl or stall in a blizzard or on ice that it would pull through in the dry. All-terrain tyres help. The setting
   **Rain, snow and ice take grip** turns it off.
+- **Your traps leave your vehicles alone when you did not send them** (not yet tested in game). A vehicle of yours driving without your
+  order, on a trip to a dyno bay, a gathering or delivery run, towed, pushed by hand or heading off with a caravan, rolls over your traps
+  without setting them off. **A drive you order with a right-click is as before**: a trap goes off under it only now and then, as under a
+  colonist who knows it is there, so keep your own driving clear of trap lines. Enemy vehicles still set traps off. The setting
+  **Vehicles you did not send pass over your traps** turns it off.
 - **Light vehicles and rivers.** A car, buggy or light utility vehicle (under 2 tonnes) with its engine running in a river can draw
   water into its engine and damage it; a message warns as it enters the water. **A short crossing is a small gamble; driving along
   a river is asking for it.** Fit a **snorkel** to cross safely. Heavier vehicles ford the shallow rivers unaided.

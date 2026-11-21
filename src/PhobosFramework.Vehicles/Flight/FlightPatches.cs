@@ -80,24 +80,6 @@ public static class Patch_TryAttachFire_Flight
 }
 
 /// <summary>
-/// A trap on the ground does not go off under an aircraft of ours in the air (Framework 0.171.1; the owner's Cherokee, 19 Nov 2026, brought
-/// down by traps it flew over on arrival, every time). Its body stands on the cells beneath, and a trap ignores only pawns the game's own
-/// flight carries. A prefix that skips the original for one of ours in the air only, as VTOL Vehicle's and the Harrier's frameworks do for
-/// theirs: the original only rolls the chance and springs the trap, and skipping it covers every kind of trap, other mods' included, whatever
-/// chance each gives. Once it is down it is a vehicle on the ground, and a trap beneath it may spring as under any other.
-/// </summary>
-[HarmonyPatch(typeof(Building_Trap), "CheckSpring")]
-public static class Patch_CheckSpring_Flight
-{
-    public static bool Prefix(Building_Trap __instance, Pawn p)
-    {
-        if (!FlightRegistry.Any || p is not VehiclePawn vehicle || !FlightRegistry.InAir(vehicle)) return true;
-        Seen.Note("aircraft.trap-overflown", vehicle, __instance.def.defName);
-        return false;
-    }
-}
-
-/// <summary>
 /// Vehicle Framework rebuilds its list of comps to tick whenever a comp is added or removed (an upgrade), dropping every comp that ticks by
 /// request (fault-read W11, Framework 0.167.0): an aircraft in the air would stop flying. A postfix: each comp of ours that still needs its
 /// tick asks for it again.

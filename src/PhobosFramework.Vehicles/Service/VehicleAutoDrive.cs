@@ -201,6 +201,8 @@ public static class VehicleAutoDrive
         if (!vehicle.Drafted) return false;
         Job job = JobMaker.MakeJob(JobDefOf.Goto, cell);
         if (!vehicle.jobs.TryTakeOrderedJob(job, JobTag.Misc)) return false;
+        // Framework 0.213.0: an errand's drive is never the player's, even to a cell the player once sent it to (VehicleTraps).
+        VehicleTraps.ErrandTookOver(vehicle);
         if (endFacing is { } rot) vehicle.vehiclePather?.SetEndRotation(Full(rot));
         return true;
     }

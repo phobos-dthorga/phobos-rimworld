@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "318": {"parts": {
+      "an errand passes over a trap": ["vehicles.trap-passed-over"]
+    }},
     "317": {"parts": {
       "a base's vehicle stands with its camp out": ["vehicles.camp-at-base"]
     }},

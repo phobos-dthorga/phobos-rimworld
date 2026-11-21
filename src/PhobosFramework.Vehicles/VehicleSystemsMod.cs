@@ -111,6 +111,10 @@ public class VehicleSystemsSettings : ModSettings
     public bool accessoriesLoadEngine = true;
     /// <summary>Rough ground wears tyres, tracks and suspension faster than a road (crosslink 6; owner, 10 Nov 2026: a setting, on). Live.</summary>
     public bool roughGroundWear = true;
+    /// <summary>A vehicle of the player's on a drive the player did not order (an errand, a tow, a push, a caravan setting off) passes over
+    /// traps without setting them off (Framework 0.213.0, VehicleTraps; owner, 21 Nov 2026: "enabled by default"). It takes risk away rather
+    /// than adding it. Live.</summary>
+    public bool errandsPassTraps = true;
     /// <summary>Headlights light the ground ahead of the vehicle (Framework 0.104.0; owner, 12 Nov 2026: by default). Off, they still draw
     /// on the battery and give no light: for a player who wants every last tick. Live.</summary>
     public bool headlightBeams = true;
@@ -300,6 +304,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref lowOilCallsService, "PhobosVehicleSystems_LowOilCallsService", true);
         Scribe_Values.Look(ref accessoriesLoadEngine, "PhobosVehicleSystems_AccessoriesLoadEngine", true);
         Scribe_Values.Look(ref roughGroundWear, "PhobosVehicleSystems_RoughGroundWear", true);
+        Scribe_Values.Look(ref errandsPassTraps, "PhobosVehicleSystems_ErrandsPassTraps", true);
         Scribe_Values.Look(ref headlightBeams, "PhobosVehicleSystems_HeadlightBeams", true);
         Scribe_Values.Look(ref autoLights, "PhobosVehicleSystems_AutoLights", true);
         Scribe_Values.Look(ref weatherGrip, "PhobosVehicleSystems_WeatherGrip", true);
@@ -397,6 +402,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.lowOilCallsService) report.Off("low oil calling a service", "off (setting)");
         if (!Settings.accessoriesLoadEngine) report.Off("accessories loading the engine", "off (setting)");
         if (!Settings.roughGroundWear) report.Off("rough-ground wear", "off (setting)");
+        if (!Settings.errandsPassTraps) report.Off("vehicles off the player's orders passing over traps", "off (setting)");
         if (!Settings.headlightBeams) report.Off("headlight beams", "off (setting)");
         if (!Settings.autoLights) report.Off("lights switching themselves", "off (setting)");
         if (!Settings.weatherGrip) report.Off("weather on grip", "off (setting)");
@@ -516,6 +522,7 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Section("PhobosVehicleSettings_SectionGround".Translate());
         list.Check("PhobosVehicleSystems_SettingWeatherGrip".Translate(), ref s.weatherGrip, d.weatherGrip, "PhobosVehicleSystems_SettingWeatherGripDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingRoughGround".Translate(), ref s.roughGroundWear, d.roughGroundWear, "PhobosVehicleSystems_SettingRoughGroundDesc".Translate());
+        list.Check("PhobosVehicleSettings_ErrandsPassTraps".Translate(), ref s.errandsPassTraps, d.errandsPassTraps, "PhobosVehicleSettings_ErrandsPassTrapsDesc".Translate());
         list.Check("PhobosHitch_SettingOthers".Translate(), ref s.hitchOthersPlainRule, d.hitchOthersPlainRule, "PhobosHitch_SettingOthersDesc".Translate());
         list.Section("PhobosVehicleSettings_SectionLights".Translate());
         list.Check("PhobosVehicleSystems_SettingHeadlightBeams".Translate(), ref s.headlightBeams, d.headlightBeams, "PhobosVehicleSystems_SettingHeadlightBeamsDesc".Translate());

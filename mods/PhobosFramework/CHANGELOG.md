@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.213.0] - 2026-11-21 - Draft
+
+Your vehicles stop setting off your own traps when you did not send them
+
+### Added
+
+- **Vehicles you did not send pass over your traps** (the owner's request of 21 November 2026; a setting, on by default, in the vehicle systems' Ground, weather and towing section): a vehicle of yours driving without your order never sets off a trap it rolls over. That covers trips to a dyno bay, gathering and delivery runs, a trailer being towed, a vehicle pushed by hand and vehicles heading off with a caravan. A drive you order with a right-click, a drag or a shift-click queue is as before: a trap goes off under it only now and then, as under a colonist who knows it is there. Enemy vehicles still set your traps off. Not yet tested in game: row 318 of the test pass.
+
+### Changed
+
+- **No trap goes off under an aircraft in the air** is now decided in the same place as the new rule; what it does is unchanged.
+
+### Compatibility and limits
+
+- Where you sent a vehicle is not kept in the save: a drive you ordered before loading passes over traps until your next order to that vehicle.
+- It works with any trap, other mods' included, as the aircraft rule does. Other factions' vehicles are left to the game's own rule, and a vehicle you capture follows yours.
+
 ## [0.212.0] - 2026-11-22 - Draft
 
 A vehicle's camp: an awning, a roof tent and swags, set up beside it and packed away again
