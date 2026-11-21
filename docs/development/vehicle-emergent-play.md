@@ -423,7 +423,7 @@ perhaps the Fleet window as well". Rows 351 and 352 of [the in-game test pass](i
 - **A key for the board** (`PhobosMainTab_Fleet`, in the game's main tab keys): the game makes such a key only for a tab with a default
   key, so the board had none. **Agent's choice:** no default key, so it never takes one another mod uses; the owner picks one.
 - **The fleet in D'thorga Companion's atlas** is a separate piece for later (the owner's choice, 22 Nov 2026): recorded in the
-  Companion's repository when that work starts.
+  Companion's `docs/later.md`, "Atlas: the fleet layer", to build when the Companion is next worked on.
 
 ## As built: batch 1, reading the story (20 Nov 2026, Framework 0.181.0)
 
