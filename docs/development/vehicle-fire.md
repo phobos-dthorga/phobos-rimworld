@@ -231,6 +231,58 @@ To be asked as cards once this record has been read; the agent's recommendation 
 with its setting; FR10 gets a short design of its own (an extinguisher accessory that uses up its charges, and an automatic
 suppression upgrade). FR4, FR7, FR8 and FR11 to FR14 stay ideas, FR7 and FR12 waiting on the cab air and the glass.
 
+## FR10: an extinguisher and automatic suppression (design, 22 Nov 2026) [A]
+
+The owner's "design FR10". Nothing is built. Every figure is authored; the real figures behind it are in
+[what the real thing does](#what-the-real-thing-does).
+
+### FR10(a): the vehicle extinguisher, an accessory
+
+- **What it is:** a hand extinguisher clipped in the cab, fitted from the fittings window like our other accessories. **It uses up
+  something real** (the owner's rule for accessories): its charges.
+- **What it does:** a button on a burning vehicle, **Use the extinguisher**: someone aboard, or a colonist beside it, puts out or
+  shrinks the fire on the vehicle, through `AttachedFires`. Each use spends one charge. **Three charges** [A] for a dry-powder unit.
+- **The real limit, kept:** a hand extinguisher knocks a fire down but may not put it out, and plain water lets a fire flash back
+  within a second (McCormick and Clauson, 2006). So a use **shrinks the fire by a set amount** [A: as much as one firefoam burst],
+  enough to put out a small fire and to buy time against a big one.
+- **Refilling:** at the vehicle parts bench, from a charge of chemicals (the game's firefoam popper's ingredients as the stand-in,
+  to be read before building), by the player's people. Nothing refills itself.
+- **Weight:** about 9 kg [A], as carried mass under the accessories' rule.
+- **Other factions:** their crews do not use one (they bail out); a captured vehicle keeps its extinguisher and its charges.
+- **Art:** one icon for the fitting and its button, made with the next art batch.
+
+### FR10(b): automatic suppression, an upgrade
+
+- **What it is:** an upgrade node for armoured and military vehicles (our armour-kit columns), fitted with the armoured cab as
+  real crew-compartment systems are.
+- **What it does:** when a fire takes hold on the vehicle, **it fires by itself, once**, and puts the fire out at once, as real
+  systems do in a fraction of a second (161 to 384 ms with Halon, McCormick and Clauson). Then it is **spent** until recharged.
+- **What it costs:** its parts (a bottle, nozzles, sensors) through the parts bill, weight as carried mass, and a **recharge** at
+  the parts bench after each discharge [A]. A spent system shows on the Health tab and in an alert, as a spent spall liner does.
+- **The crew:** a real Halon discharge is safe for crews to breathe at the levels used; no harm is modelled [A].
+- **Which vehicles:** ours with the armoured cab; other authors' armoured vehicles may get it through the extension the spall liner
+  and the glass also want (one "fitted equipment" extension for all three, built once).
+
+### The four questions
+
+| Behaviour | Lets | Stops | Changes |
+| --- | --- | --- | --- |
+| The extinguisher | Put out a small fire on the spot | Losing a vehicle to a fire nobody could fight from inside it | Charges are carried and refilled; a fire is fought before it grows |
+| Automatic suppression | Shrug off one fire in a fight | Armoured vehicles burning out from a single incendiary | A suppressed vehicle needs a recharge before the next fight |
+
+**What outside the vehicle notices:** the colony, through the alert for a spent system; the map, where a fire goes out; raiders,
+whose incendiaries meet a vehicle that may put itself out once.
+
+**Risk:** both only protect the player's things: **none** to grade. No setting is needed for either, beyond fitting it or not.
+
+**To read before building:** the firefoam popper's recipe, for the refill's stand-in; how our accessories' charges are saved (the
+water tank's store is the pattern); whether the automatic system should also put out a fire on the ground under the vehicle (a real
+system protects only the compartment it is in: proposed no).
+
+**Questions for the owner, as cards when the owner wants it built:** three charges or another figure; whether the automatic system
+fires only for the crew compartment or the engine too (real vehicles have both, separately); and whether other authors' armoured
+vehicles may be fitted with it.
+
 ## Who chose what
 
 - **Owner (22 Nov 2026):** the record (the strike record's NK20), research and record only; then the answers above.
