@@ -85,5 +85,10 @@ roof tents with only what is darker than the cab kept, so no patch of the cab's 
 made by script instead (paid rules 7 and 11). Request and review: `assets/phobos-vehicles/requests/camp-gear-overlays.json`,
 `camp-gear-overlays-record.md`.
 
-- `GeneratorSet_RoofTent` (genset-roof-tent): attempt 2 of 2, the agent's suggested pick, waiting for the owner's pick. Edit `camp-gear-genset-roof-tent-2`, SHA-256 `9fc0ab216012e549a43047889b48e8b2e55ebcc99de1ce3c8f666b6494df7cb4`; north `0b8d43f36e1612a7073bdae92572dc2eaf884f9d10f846bb78bfc83f6ef07425`
+- `GeneratorSet_RoofTent` (genset-roof-tent): attempt 2 of 2, the owner's pick. Edit `camp-gear-genset-roof-tent-2`, SHA-256 `9fc0ab216012e549a43047889b48e8b2e55ebcc99de1ce3c8f666b6494df7cb4`; north `0b8d43f36e1612a7073bdae92572dc2eaf884f9d10f846bb78bfc83f6ef07425`
 - `GeneratorSet_SideRoll` (genset-side-roll): made by script from the Billy's lifted roll (attempt 2), laid along this vehicle's left rail. Edit `camp-gear-genset-side-roll-1`, SHA-256 `7c77917a05779d89ac073bca37f7f3c6f5e43fba912a96ad09e34ef5bfd3a91e`; north `0ac1c04c01b10241966bffb73f8891a49b31fae5a1252a4a6f6a4146265a946e`
+
+**The owner's review, 22 Nov 2026** (D'thorga Vehicles 0.104.0): the lifted roof tents had "issues and dithering" (parts scrubbed out); the
+roof tent is now drawn alone on white and laid by script, so the sprite exporter gives clean edges; both shells kept, by roof size.
+
+- `GeneratorSet_RoofTent`, again: the closed roof tent drawn alone (`roof-tent-closed-2`) and laid on the cab by script, the compact shell for a smaller roof; north `ef88d1e0d91feadfcb31e27c1146ac3f1538adb57ca1bb822c9e050efe5cfeb8`

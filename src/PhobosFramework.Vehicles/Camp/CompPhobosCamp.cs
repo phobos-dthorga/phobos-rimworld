@@ -61,6 +61,11 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     // ---- More tents (Framework 0.217.0; docs/development/vehicle-accessories.md, "Built: tents for every vehicle") ----
 
     internal const string SideFlyAbility = "SideFly", AwningRoomAbility = "AwningRoom", RearTentAbility = "RearTent", CamperAbility = "FoldOutCamper";
+    /// <summary>The roomy fold-out camper (Framework 0.235.0; the owner, 22 Nov 2026: "a roomy and non-roomy of these both too"): comfier beds.</summary>
+    internal const string CamperRoomyAbility = "FoldOutCamperRoomy";
+
+    /// <summary>Either camper's bed.</summary>
+    static bool IsCamperBed(ThingDef def) => def == VehicleCampDefOf.PhobosCamp_CamperBed || def == VehicleCampDefOf.PhobosCamp_CamperBedRoomy;
     const string CamperBedSlot = "CamperBed";
 
     bool Granted(string ability) => Systems is { Usable: true } systems && systems.Fittings.Grants(ability);
@@ -826,7 +831,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
                 if (placed.Any(p => p.def == VehicleCampDefOf.PhobosCamp_RoofTent)) work += rules.campTentWork;
                 if (poles.Count > 0) work += rules.campAwningWork;
                 if (tentWalls.Count > 0) work += rules.campRoomWork;
-                work += placed.Where(p => p.def != VehicleCampDefOf.PhobosCamp_RoofTent && p.def != VehicleCampDefOf.PhobosCamp_CamperBed).Sum(p => GearWork(p.def));
+                work += placed.Where(p => p.def != VehicleCampDefOf.PhobosCamp_RoofTent && !IsCamperBed(p.def)).Sum(p => GearWork(p.def));
             }
             return Mathf.Max(work, 1f);
         }
@@ -930,11 +935,18 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
                 else if (wall is Building_PhobosCanvasDoor flap) flap.roof = roof;
                 tentWalls.Add(GenSpawn.Spawn(wall, cell, map, WipeMode.VanishOrMoveAside));
             }
+            // The roomy camper's beds are its own (Framework 0.235.0); a held bed of the other camper's, after the fitting was changed, goes.
+            ThingDef bedDef = Granted(CamperRoomyAbility) ? VehicleCampDefOf.PhobosCamp_CamperBedRoomy : VehicleCampDefOf.PhobosCamp_CamperBed;
+            foreach (Thing other in Held.Where(t => IsCamperBed(t.def) && t.def != bedDef).ToList())
+            {
+                Held.Remove(other);
+                other.Destroy();
+            }
             foreach ((IntVec3 centre, Rot4 rot, _) in room.beds)
             {
-                Thing? bed = Held.FirstOrDefault(t => t.def == VehicleCampDefOf.PhobosCamp_CamperBed);
+                Thing? bed = Held.FirstOrDefault(t => t.def == bedDef);
                 if (bed != null) Held.Remove(bed);
-                else bed = ThingMaker.MakeThing(VehicleCampDefOf.PhobosCamp_CamperBed);
+                else bed = ThingMaker.MakeThing(bedDef);
                 if (bed.Faction != faction) bed.SetFaction(faction);
                 placed.Add(GenSpawn.Spawn(bed, centre, map, rot, WipeMode.VanishOrMoveAside));
                 placedSlots.Add(CamperBedSlot);
@@ -1011,7 +1023,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
                 left++;
                 continue;
             }
-            if (piece.def == VehicleCampDefOf.PhobosCamp_RoofTent || piece.def == VehicleCampDefOf.PhobosCamp_CamperBed)
+            if (piece.def == VehicleCampDefOf.PhobosCamp_RoofTent || IsCamperBed(piece.def))
             {
                 // A camper's bed in use stays where it is, if the vehicle must go without it.
                 if (leaving && piece is Building_Bed { CurOccupants: var sleeping } && sleeping.Any())

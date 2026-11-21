@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.235.0] - 2026-11-22 - Draft
+
+The fold-out camper, roomy or compact
+
+### Added
+
+- **The camper kit fits two ways too: roomy or compact** (the owner, 22 November 2026: "a roomy and non-roomy of these both too", as the deck tent). One kit; the fittings window offers **fold-out camper, compact** (as it was, 90 kg) and **fold-out camper, roomy** (110 kg, slower to fit, a little more cloth and steel), whose two double beds are comfier (90% against 80%). Taking either off gives the kit back. Not yet tested in game: row 360 of the test pass.
+
 ## [0.234.0] - 2026-11-22 - Draft
 
 The deck tent, roomy or light; the owner's picks for the camp pictures

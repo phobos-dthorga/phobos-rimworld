@@ -266,6 +266,18 @@
             <key>campFoldOutCamper</key>
             <looks>
               <li>
+                <fitting>PhobosFitting_FoldOutCamperRoomy</fitting>
+                <look>
+                  <graphicData>
+                    <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer_FoldOutCamperRoomy</texPath>
+                    <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                    <drawSize>(4, 8)</drawSize>
+                    <shaderType>Cutout</shaderType>
+                    <layer>2</layer>
+                  </graphicData>
+                </look>
+              </li>
+              <li>
                 <fitting>PhobosFitting_FoldOutCamper</fitting>
                 <look>
                   <graphicData>

@@ -1,0 +1,29 @@
+[
+ {
+  "name": "roof-tent-closed",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+    "role": "our approved roof tent kit (the same tent, packed): match its shell's colours, outline weight, shading and finish"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampHeater.png",
+    "role": "our approved camp piece seen from directly above: match its outline weight, shading and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "part": "the closed hard-shell roof tent, seen from directly above, alone",
+   "ships_as": "laid by script on the cab roof of each of our trucks (Vehicles 0.103.1)",
+   "why": "the owner's review of 22 Nov 2026: the lifted roof tents had \"issues and dithering\"; drawn alone on white instead, so the sprite exporter gives clean edges, then placed by script"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game sprite part: a closed hard-shell roof tent, seen from directly above, as it sits folded shut on a truck's cab roof. Image 1 is our approved roof tent kit (the same tent, packed): match its colours, outline weight, shading and finish. Image 2 is our camp gear seen from above, for style only.\n\nDraw ONLY the closed tent, alone and centred on a plain pure white background. It is a low rounded rectangle, about one and a third times as wide as it is deep, filling about 75 percent of the canvas width: a dark charcoal moulded shell with three shallow raised ribs running front to back, a thin band of sand-coloured canvas showing all round its edge under the shell's lip, two small steel latches on its lower edge, and a folded aluminium ladder lying flat along its right side.\n\nStyle: a top-down sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, cab, roof, rack, people, text, letters, numbers, logos, shadow outside the object, perspective or tilt."
+ }
+]

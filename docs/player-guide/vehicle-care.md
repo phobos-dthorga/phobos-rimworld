@@ -457,7 +457,7 @@ the kit back in the cargo.
 | **Side fly** (6 kg) | Side rail | A tarp over three rows at the rear of the camp's side, on two poles. Cheaper and lighter than the awning, and shorter. No room |
 | **Walled awning** (33 kg; an awning plus **awning walls**) | Side rail | A **closed canvas room** along the camp's side, four cells out and as long as the vehicle, with a door flap |
 | **Rear tent** (25 kg) | Roof mount or side rail | A **closed canvas room** behind the vehicle, a cell wider than it on each side and five deep. **Unhitch any trailer first** |
-| **Fold-out camper** (90 kg) | The Pintle flatbed's tent mount | A **closed canvas room** beside the trailer, five cells out and six along, with **two double beds** and a walkway |
+| **Fold-out camper**, compact (90 kg) or roomy (110 kg, comfier beds, slower to fit), from one kit | The Pintle flatbed's tent mount | A **closed canvas room** beside the trailer, five cells out and six along, with **two double beds** and a walkway |
 
 - **The side rail takes one of** the awning, the side fly, the walled awning or the rear tent; **the roof mount one of** the roof tent,
   the rear tent or (on the flatbed) the fold-out camper.

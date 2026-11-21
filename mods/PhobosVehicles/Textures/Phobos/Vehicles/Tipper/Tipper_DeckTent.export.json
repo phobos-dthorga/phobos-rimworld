@@ -1,10 +1,10 @@
 {
-  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Tipper/tipper-deck-light-1.png",
-  "master_sha256": "449f634e6b28e7f69514d1c234926d763af16dd4d1d791a4129b466a82ea9e56",
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Tipper/tipper-deck-light-2.png",
+  "master_sha256": "39d30465590eb334d6b73bf976ba86147c1ca8a4822730d29d75c99681839db2",
   "files": {
-    "Tipper_DeckTent_north.png": "8c6285298def3cd48ec9e3a8af3a4803799c4692a7ee9407df997bea75395071",
-    "Tipper_DeckTent_east.png": "6701d4c668f85314d21deadf215dffca8426edf3784d36e39614aacc1cbab0e4",
-    "Tipper_DeckTent_south.png": "41a8c831d40dfd8da5002004314c021bf23ceb9b35440f3beebefc22f9f523c1"
+    "Tipper_DeckTent_north.png": "05ee075dac73dabfb94fc278b95604c40e34f483315b924781f8e84bba8d6293",
+    "Tipper_DeckTent_east.png": "a5f0d3158b4d95406684a1ca0b850464e6c370c76cb3190acc418023582ce21c",
+    "Tipper_DeckTent_south.png": "13c473da87780e34071319394f6452ef870e225010cee72bbad679ae47cd3d09"
   },
   "date": "2026-11-22",
   "tool": "scripts/art/export_vehicle.py",

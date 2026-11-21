@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.104.0] - 2026-11-22 - Draft
+
+Clean roof tents, the owner's picks, and the roomy camper drawn
+
+### Added
+
+- **The roomy fold-out camper shows on the Pintle flatbed** (needs D'thorga Framework 0.235.0): the bigger of the two bought pictures; the compact camper keeps the other. Not yet tested in game: row 360.
+
+### Fixed
+
+- **The roof tents no longer have parts missing or ragged edges.** The ones drawn in 0.103.0 had their latches and ladders partly cut away and dithered edges. The closed roof tent is now drawn on its own and laid on each cab, in two shells: the compact one on the tipper, the drill rig, the Busbar and the flatbed's deck, the bolder one on the bulk tanker and the survey truck. Row 360.
+
+### Changed
+
+- **The tipper's light deck tent is the owner's pick** (the other of the two bought); the other camp gear pictures are picked as shipped.
+
 ## [0.103.0] - 2026-11-22 - Draft
 
 Camp gear drawn on our vehicles

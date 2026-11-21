@@ -1,0 +1,16 @@
+{
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Flatbed/flatbed-camper-1.png",
+  "master_sha256": "962cd38515cbb8933c02aaaafec6092cab9c16faf9c8b9bf5fe501b657a852cb",
+  "files": {
+    "FlatbedTrailer_FoldOutCamperRoomy_north.png": "0f139029bc402e5615ab8ffdc7245705da39324e546ba30721fc9f6bf6b73700",
+    "FlatbedTrailer_FoldOutCamperRoomy_east.png": "3a489428a50a1c503274b4af22356eec4d28ff5d83e1a35122ee84425aba2650",
+    "FlatbedTrailer_FoldOutCamperRoomy_south.png": "7fecfe3e412a03806ebb68ce0e89cc9059a74ed153191c72c884a46c09389366"
+  },
+  "date": "2026-11-22",
+  "tool": "scripts/art/export_vehicle.py",
+  "kind": "overlay",
+  "like": "Flatbed-x2.transform.json",
+  "fit": null,
+  "holes": [],
+  "ai_mask": null
+}

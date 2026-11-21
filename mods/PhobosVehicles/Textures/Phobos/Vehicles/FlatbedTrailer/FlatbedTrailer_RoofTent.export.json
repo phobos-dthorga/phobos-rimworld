@@ -1,10 +1,10 @@
 {
-  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Flatbed/flatbed-roof-tent-1.png",
-  "master_sha256": "56ce2ea2cc0318cf1717b50ff8d3d2a17d9f76009de37c3972b188a8d9912c96",
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Flatbed/flatbed-roof-tent-placed-2.png",
+  "master_sha256": "198c2b456937c892d1d1ebab4cd61dc01d20fa70d2fe6fdc21ab23ba2dd86493",
   "files": {
-    "FlatbedTrailer_RoofTent_north.png": "61d2c0f70dbf0b8a36c42c69e4af3c325536c396ec2331e5b7b4f9e6aa0895f2",
-    "FlatbedTrailer_RoofTent_east.png": "8b020ab0bc65f32c14aac0d035531de9fc02ad6d0dddb5ee4affb53d7ea69211",
-    "FlatbedTrailer_RoofTent_south.png": "3ac6382a714efbedcd7b01971f6d77c0349e7ff4006132ae74b760db1974bf74"
+    "FlatbedTrailer_RoofTent_north.png": "ac6adeb359b96626c6ef27155162cc58410477d3f1b93eb738e8d6551a64564c",
+    "FlatbedTrailer_RoofTent_east.png": "a260a6aac7c3c9bd25cc37192b9d04e1de268d4e73d3417f0ae14c65fdd6b52c",
+    "FlatbedTrailer_RoofTent_south.png": "21b0bdf98e47a4fd3b11efe3f8ed5f5dd0440fbb58dcf5b17b0d0ee5ccb4a181"
   },
   "date": "2026-11-22",
   "tool": "scripts/art/export_vehicle.py",

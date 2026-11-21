@@ -29,4 +29,17 @@ and 512 x 1152 refused; 512 x 1280 made), so small crops were sent half as large
 shipped: tipper roof tent **2**, tipper light deck tent **1**, tipper roomy deck tent **1**, tanker roof tent **2**, survey roof tent **2**,
 drill rig roof tent **2**, Busbar roof tent **2**, fold-out camper **2**.
 
-**Decision (owner):** waiting, for the eight with two attempts.
+**Decision (owner, 22 Nov 2026, one card each):** tipper roof tent 2, tipper light deck tent **2** (not the agent's 1), tipper roomy deck
+tent 1, drill rig 2, Busbar 2; the fold-out camper: **keep both** ("a roomy and non-roomy of these both too"): compact attempt 2, roomy
+attempt 1. On the tanker's and the survey truck's roof tents: **"Parts of the intended graphic are missing? Like they were scrubbed out?"**,
+and after a second lift, "There's still issues and dithering with them."
+
+**What changed for the roof tents (Vehicles 0.104.0).** The darker-than lift had cut every pale part (latches, ladder rungs, rim); a second
+lift kept them but left ragged, dithered edges and a scrap of the canvas behind one shell. Two tries at one defect, so by paid rule 7 the
+route changed: **the closed roof tent was drawn alone on white** ([roof-tent-closed.json](roof-tent-closed.json), two attempts, about
+US$0.11; references our roof tent kit and camp heater), exported by `scripts/art/export_sprite.py` after the background AI, which gives clean
+soft edges, and **laid on each cab by script** at the place and width the edits had chosen. Checked at game pixels, enlarged without smoothing,
+on the default and a repainted cab. **The owner kept both shells** ("the smaller one might fit the roofs with small footprints"): the compact
+shell (2) on the tipper, the drill rig, the Busbar and the flatbed's deck; the bolder one (1) on the bulk tanker and the survey truck.
+
+**Spent in all:** about US$1.30 for the 34 edits and US$0.11 for the two shells.

@@ -1,10 +1,10 @@
 {
-  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Tipper/tipper-roof-tent-2.png",
-  "master_sha256": "21a774706cace195dcb9053b226f5c567fededa2730eba15f93a7d980824e443",
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/Tipper/tipper-roof-tent-placed-2.png",
+  "master_sha256": "2bd441873c9b31fc73ddd304e2c20f7ff0df5afb24491f052b67775918c2ccf8",
   "files": {
-    "Tipper_RoofTent_north.png": "1503837389cc271024ee05d37ad4c9b15cd53ab50d739dfa32892c30bb99ef43",
-    "Tipper_RoofTent_east.png": "efba526acf9e366d4f6c8afd6094cce938afa67a9da8b9ff25366d1838b8796a",
-    "Tipper_RoofTent_south.png": "400b196972316f53d95ff432d85ee93a6bb1d9f0e47972ea9100e63f6cd4ebe1"
+    "Tipper_RoofTent_north.png": "c1304708ef83e23758d0d1776689ef64441ba681fe4acbd12a039136e5f9892d",
+    "Tipper_RoofTent_east.png": "a6af4739e38bc477651c5d191f97cf6732ba5a4842f7528494e5c777b086bd4f",
+    "Tipper_RoofTent_south.png": "08cfdc2669675a5db80cece7316b735aee3d2a23b28a1ca4966e6c26299071c1"
   },
   "date": "2026-11-22",
   "tool": "scripts/art/export_vehicle.py",

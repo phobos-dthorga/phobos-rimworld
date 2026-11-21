@@ -718,7 +718,10 @@ of the body and lifted out with Segment Anything, about US$0.06 ([the record](..
 3,500 against 2,500, 20 cloth and 5 steel more, 2 degrees warmer and may warm 2 degrees further, `PhobosCabinBedRoomy` beds at comfort 0.85
 against 0.75; all authored). Its picture on the flatbed is the fuller attempt (Vehicles 0.102.0; row 358). And **everything on ours**: the
 rest of the family is built in D'thorga Vehicles 0.103.0 (row 359; [the record](../../assets/phobos-vehicles/requests/camp-gear-overlays-record.md)):
-roof tents, side rolls, the tipper's deck tents and the flatbed's fold-out camper, about US$1.30. **Limits:** the side roll is drawn on the
+roof tents, side rolls, the tipper's deck tents and the flatbed's fold-out camper, about US$1.30. The roof tents were redrawn whole in Vehicles
+0.104.0 after the owner's review (a shell drawn alone and laid on each cab; two shells, by roof size), and the camper kit, like the deck tent,
+now fits **roomy** (`PhobosFitting_FoldOutCamperRoomy`, Framework 0.235.0: 110 kg against 90, work 5,000 against 4,000, `PhobosCamp_CamperBedRoomy`
+at comfort 0.9 against 0.8; authored) or **compact** (as built). Row 360. **Limits:** the side roll is drawn on the
 left rail whichever side the camp is pitched; a rear tent is not drawn.
 
 ## Built: life aboard (22 Nov 2026)

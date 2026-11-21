@@ -1,10 +1,10 @@
 {
-  "master": "assets/phobos-vehicles/generated/camp-gear-sam/DrillRig/drill-roof-tent-2.png",
-  "master_sha256": "22c06320b738cc802b0b27bfe566aa943f5a7e8bc16b08dc0d01293c59abf227",
+  "master": "assets/phobos-vehicles/generated/camp-gear-sam/DrillRig/drill-roof-tent-placed-2.png",
+  "master_sha256": "e3d4fb6cb9c4a5ea944c7427db5737fe75e1a8930b4e35114bab3e5c0f143047",
   "files": {
-    "DrillRig_RoofTent_north.png": "115cb1cb682aac2d42dbf04d1adf831881302b1013ffb762539819e32244c037",
-    "DrillRig_RoofTent_east.png": "588e9523755764b8b79ddc5245e93a24090f34593f42e359011cee73f8f53edf",
-    "DrillRig_RoofTent_south.png": "eef6121dd37b9cae1b1161b1e706040017dcb04e5097b87e0195ab835259ddd6"
+    "DrillRig_RoofTent_north.png": "b9cfdb4fa582c42ae1e00b353c74ebf9605d5f3c6ef32807b549a1d13b3f5a69",
+    "DrillRig_RoofTent_east.png": "598c615227d2aa354f4b5c4eb3e0ee3b03cc915e8091cd02e4463b4b629f9d9e",
+    "DrillRig_RoofTent_south.png": "c7c50aa37b5c278b8cad5fc21b5486b0a4759b76e51cd3676adb78495ec21597"
   },
   "date": "2026-11-22",
   "tool": "scripts/art/export_vehicle.py",

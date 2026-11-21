@@ -318,7 +318,7 @@
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
     <defName>PhobosFitting_FoldOutCamper</defName>
     <iconPath>Phobos/VehicleSystems/Camp/CamperKit</iconPath>
-    <label>fold-out camper</label>
+    <label>fold-out camper, compact</label>
     <description>A camper trailer's own tent, on its tent mount. When the trailer's camp is set up it folds out beside the trailer as a closed canvas room, five cells out and six along, with two double beds and a walkway. It takes the tent mount, so not a roof tent or a rear tent there as well.</description>
     <roles><li>RoofMount</li></roles>
     <materials><PhobosVehicleSystems_CamperKit>1</PhobosVehicleSystems_CamperKit><Steel>10</Steel></materials>
@@ -329,6 +329,24 @@
     <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
     <grants><li>FoldOutCamper</li></grants>
     <!-- Only a trailer with a camp deck: the tent folds out from a flat deck. -->
+    <loadouts><li>PhobosVehicleLoadout_TrailerCampDeck</li></loadouts>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <!-- Framework 0.235.0 (the owner, 22 Nov 2026: "a roomy and non-roomy of these both too", as the deck tent): the same kit fitted roomy, a
+         bigger box with thicker mattresses: comfier beds (comfort 0.9 against 0.8), 20 kg heavier and slower to fit (authored). -->
+    <defName>PhobosFitting_FoldOutCamperRoomy</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/CamperKit</iconPath>
+    <label>fold-out camper, roomy</label>
+    <description>The camper kit fitted roomy, in a bigger box on the trailer's tent mount. When the trailer's camp is set up it folds out beside the trailer as a closed canvas room, five cells out and six along, with two double beds on thicker mattresses, comfier than the compact camper's, and a walkway. It weighs more and takes longer to fit. It takes the tent mount, so not a roof tent or a rear tent there as well.</description>
+    <roles><li>RoofMount</li></roles>
+    <materials><PhobosVehicleSystems_CamperKit>1</PhobosVehicleSystems_CamperKit><Steel>15</Steel><Cloth>30</Cloth></materials>
+    <givesBack><PhobosVehicleSystems_CamperKit>1</PhobosVehicleSystems_CamperKit></givesBack>
+    <kilograms>110</kilograms>
+    <work>5000</work>
+    <minSkill>5</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleParts</researchPrerequisite>
+    <grants><li>FoldOutCamper</li><li>FoldOutCamperRoomy</li></grants>
     <loadouts><li>PhobosVehicleLoadout_TrailerCampDeck</li></loadouts>
   </Phobos.VehicleSystems.PhobosVehicleFittingDef>
 
@@ -522,7 +540,16 @@
     </building>
   </ThingDef>
 
-  <ThingDef ParentName="BuildingBase">
+  <ThingDef ParentName="PhobosCampCamperBedBase">
+    <!-- Framework 0.235.0: the roomy camper's double bed, thicker mattresses: comfort 0.9 against 0.8 (authored). -->
+    <defName>PhobosCamp_CamperBedRoomy</defName>
+    <label>roomy camper bed</label>
+    <statBases>
+      <Comfort>0.9</Comfort>
+    </statBases>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase" Name="PhobosCampCamperBedBase">
     <!-- Framework 0.217.0: one of a fold-out camper's two double beds. Rest 1.0, comfort 0.8, the roof tent's figures (authored). Never built by
          hand: the trailer's camp folds it out and away. It stands inside the camper's canvas room, so it is a bed indoors and gives no
          memory of its own. It can be taken down by hand, for nothing back, so one left by a lost trailer can be cleared. -->

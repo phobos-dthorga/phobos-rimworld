@@ -53,7 +53,13 @@ roof tents with only what is darker than the cab kept, so no patch of the cab's 
 made by script instead (paid rules 7 and 11). Request and review: `assets/phobos-vehicles/requests/camp-gear-overlays.json`,
 `camp-gear-overlays-record.md`.
 
-- `Tipper_RoofTent` (tipper-roof-tent): attempt 2 of 2, the agent's suggested pick, waiting for the owner's pick. Edit `camp-gear-tipper-roof-tent-2`, SHA-256 `8d92bf622e9d8b4ca3b407be281cc512c1a719ab6f7ca75e0ec9b72fc65e115b`; north `1503837389cc271024ee05d37ad4c9b15cd53ab50d739dfa32892c30bb99ef43`
+- `Tipper_RoofTent` (tipper-roof-tent): attempt 2 of 2, the owner's pick. Edit `camp-gear-tipper-roof-tent-2`, SHA-256 `8d92bf622e9d8b4ca3b407be281cc512c1a719ab6f7ca75e0ec9b72fc65e115b`; north `1503837389cc271024ee05d37ad4c9b15cd53ab50d739dfa32892c30bb99ef43`
 - `Tipper_SideRoll` (tipper-side-roll): made by script from the Billy's lifted roll (attempt 2), laid along this vehicle's left rail. Edit `camp-gear-tipper-side-roll-1`, SHA-256 `bbf9c3fece783fa88c0a0516d590b56b569b6a8a4c70b3c960c751d5ab3a2e6a`; north `c2fc240f8a33db493f7d50d7b47abf3807a58d73ce603b4ff20851ee5544dc06`
-- `Tipper_DeckTent` (tipper-deck-light): attempt 1 of 2, the agent's suggested pick, waiting for the owner's pick. Edit `camp-gear-tipper-deck-light-1`, SHA-256 `49976a042f80daa7b7b3718ad24dd35fe3bf72af096015f633f373b00e9340f0`; north `8c6285298def3cd48ec9e3a8af3a4803799c4692a7ee9407df997bea75395071`
-- `Tipper_DeckTentRoomy` (tipper-deck-roomy): attempt 1 of 2, the agent's suggested pick, waiting for the owner's pick. Edit `camp-gear-tipper-deck-roomy-1`, SHA-256 `c574bcd97c04b1b5ba8e4bc9c5dbf3cb8286378ae59aa085a17c09fb7a895e27`; north `3bb77feb746af47eb7449febb76f9b978c16bf67b120ec64e18f3a73c534d393`
+- `Tipper_DeckTent` (tipper-deck-light): attempt 1 of 2, the owner's pick. Edit `camp-gear-tipper-deck-light-1`, SHA-256 `49976a042f80daa7b7b3718ad24dd35fe3bf72af096015f633f373b00e9340f0`; north `8c6285298def3cd48ec9e3a8af3a4803799c4692a7ee9407df997bea75395071`
+- `Tipper_DeckTentRoomy` (tipper-deck-roomy): attempt 1 of 2, the owner's pick. Edit `camp-gear-tipper-deck-roomy-1`, SHA-256 `c574bcd97c04b1b5ba8e4bc9c5dbf3cb8286378ae59aa085a17c09fb7a895e27`; north `3bb77feb746af47eb7449febb76f9b978c16bf67b120ec64e18f3a73c534d393`
+
+**The owner's review, 22 Nov 2026** (D'thorga Vehicles 0.104.0): the lifted roof tents had "issues and dithering" (parts scrubbed out); the
+roof tent is now drawn alone on white and laid by script, so the sprite exporter gives clean edges; both shells kept, by roof size.
+
+- `Tipper_RoofTent`, again: the closed roof tent drawn alone (`roof-tent-closed-2`) and laid on the cab by script, the compact shell for a smaller roof; north `c1304708ef83e23758d0d1776689ef64441ba681fe4acbd12a039136e5f9892d`
+- `Tipper_DeckTent`: the owner's pick, attempt 2; north `05ee075dac73dabfb94fc278b95604c40e34f483315b924781f8e84bba8d6293`

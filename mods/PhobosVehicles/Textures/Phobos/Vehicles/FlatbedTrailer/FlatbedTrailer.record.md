@@ -44,4 +44,10 @@ made by script instead (paid rules 7 and 11). Request and review: `assets/phobos
 
 - `FlatbedTrailer_SideRoll` (flatbed-side-roll): made by script from the Billy's lifted roll (attempt 2), laid along this vehicle's left rail. Edit `camp-gear-flatbed-side-roll-1`, SHA-256 `d03ee6d8679ba04bd4bc0ed7cfd7ba2338dabee222a6177866d91142fbe19b83`; north `b9a1efbcdec75df36cc62b245995ecf6f77fdb06fd9a79693a09f2c4cd6b2086`
 - `FlatbedTrailer_RoofTent` (flatbed-roof-tent): made by script from the survey truck's lifted shell (attempt 2), sized to the deck. Edit `camp-gear-flatbed-roof-tent-1`, SHA-256 `35aae73345a0a269807388166c561fa19461fe50dd13e9e19e8b8c2dfdd40959`; north `61d2c0f70dbf0b8a36c42c69e4af3c325536c396ec2331e5b7b4f9e6aa0895f2`
-- `FlatbedTrailer_FoldOutCamper` (flatbed-camper): attempt 2 of 2, the agent's suggested pick, waiting for the owner's pick. Edit `camp-gear-flatbed-camper-2`, SHA-256 `6128dc187a2c8f737c8b7e4b0be9ee0df26b2e2a5cc9ea1ac3ef6ebc4a833b8f`; north `ef304385a55cf774e3d9a9c808eec76d0838c2a967f90ca8ccffb05906560be9`
+- `FlatbedTrailer_FoldOutCamper` (flatbed-camper): attempt 2 of 2, the owner's pick. Edit `camp-gear-flatbed-camper-2`, SHA-256 `6128dc187a2c8f737c8b7e4b0be9ee0df26b2e2a5cc9ea1ac3ef6ebc4a833b8f`; north `ef304385a55cf774e3d9a9c808eec76d0838c2a967f90ca8ccffb05906560be9`
+
+**The owner's review, 22 Nov 2026** (D'thorga Vehicles 0.104.0): the lifted roof tents had "issues and dithering" (parts scrubbed out); the
+roof tent is now drawn alone on white and laid by script, so the sprite exporter gives clean edges; both shells kept, by roof size.
+
+- `FlatbedTrailer_RoofTent`, again: the compact closed roof tent drawn alone (`roof-tent-closed-2`), laid on the deck by script; north `ac6adeb359b96626c6ef27155162cc58410477d3f1b93eb738e8d6551a64564c`
+- `FlatbedTrailer_FoldOutCamperRoomy`: the roomy camper, attempt 1 (the owner kept both: compact attempt 2, roomy attempt 1); north `0f139029bc402e5615ab8ffdc7245705da39324e546ba30721fc9f6bf6b73700`
