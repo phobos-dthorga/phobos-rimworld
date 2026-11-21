@@ -7,8 +7,7 @@
     that packs, built like the game's own bedroll. Each weighs what its kit weighs, taken from the cargo capacity; none changes speed or fuel
     through drag (owner). Every cost, work, weight and figure is authored, agent defaults for the owner to revise, except where the record names
     the owner's choice: the swag's "slept under the stars" at +5 and the roof tent's memory at +4 (owner, 13 Nov 2026). Not yet tested in game.
-    Interim pictures: until our own art is made (the record's art list), the swag, roof tent, pole and kits use the game's own pictures by path
-    (never copied), and the awning's canvas is a plain see-through fill.
+    The pictures are ours, made locally with our house style model and picked by the owner (21 Nov 2026); each texture's record says how.
   -->
 
   <!-- ===== The kits ===== -->
@@ -19,7 +18,7 @@
     <label>roof tent</label>
     <description>A two-person tent folded into a hard shell, with its ladder and mattress. Fitted to a vehicle's roof mount, it opens beside the parked vehicle when its camp is set up: a good bed for two, dry in rain.</description>
     <graphicData>
-      <texPath>Things/Item/Resource/Cloth</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/RoofTentKit</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>1</drawSize>
     </graphicData>
@@ -44,7 +43,7 @@
     <label>awning</label>
     <description>A canvas awning rolled in a bag, with folding arms and poles. Fitted to a vehicle's side rail, it rolls out over the ground along that side when its camp is set up, keeping rain and snow off whoever sits or sleeps beneath. It makes no room: the wind still blows through.</description>
     <graphicData>
-      <texPath>Things/Item/Resource/Cloth</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/AwningRoll</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>1</drawSize>
     </graphicData>
@@ -124,7 +123,7 @@
     <label>swag</label>
     <description>A canvas bedroll with its own foam mattress, a hood and short poles, rolled up tight for the road. It sleeps better than a plain bedroll and keeps the dew off, and caravans use it while travelling. Waking from a fair, mild night in one with nothing but sky overhead does wonders for the mood. Carried in a vehicle's cargo, it is laid out with the vehicle's camp and rolled up with it.</description>
     <graphicData>
-      <texPath>Things/Building/Furniture/Bed/Bedroll</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/Swag</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(1,2)</drawSize>
@@ -177,7 +176,7 @@
     <description>A vehicle's roof tent, unfolded beside it on its ladder: a mattress for two under canvas, up off the ground and out of the rain. The vehicle's camp folds it away again.</description>
     <thingClass>Phobos.VehicleSystems.Building_PhobosRoofTent</thingClass>
     <graphicData>
-      <texPath>Things/Building/Furniture/Bed/BedrollDouble</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/RoofTent</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(2,2)</drawSize>
@@ -232,7 +231,7 @@
     <description>A pole holding up the outer edge of a vehicle's awning, guyed to a peg. Taking one down brings the canvas down with it. The vehicle's camp strikes it.</description>
     <thingClass>Phobos.VehicleSystems.Building_PhobosAwningPole</thingClass>
     <graphicData>
-      <texPath>Things/Building/Furniture/LampStanding</texPath>
+      <texPath>Phobos/VehicleSystems/Camp/AwningPole</texPath>
       <graphicClass>Graphic_Single</graphicClass>
       <drawSize>(1,1)</drawSize>
     </graphicData>

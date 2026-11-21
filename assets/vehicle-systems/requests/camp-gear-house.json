@@ -190,5 +190,149 @@
    "why": "the camp (Framework 0.212.0; docs/development/vehicle-accessories.md, built 22 Nov 2026): interim game pictures until these; the owner chose one try each, now, with the game closed (22 Nov 2026)",
    "route": "house"
   }
+ },
+ {
+  "name": "camp-awning-pole-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, seen from directly above, floor plan, no legs: the round flat top cap of one steel tent pole as a small dark circle in the middle, with two thin taut tan guy ropes running diagonally out from it to two small steel tent pegs near the lower corners. Draw it in exactly the art style of the reference images: a game building sprite with a very thick near-black outline, soft flat cel shading and a muted palette. Small and centred, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Awning pole: a thin pole seen from above with two guy ropes to pegs",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DepotBay.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Awning pole",
+   "size": "building (1, 1)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningPole.png",
+   "why": "the camp (Framework 0.212.0; docs/development/vehicle-accessories.md, built 22 Nov 2026): interim game pictures until these; the owner chose one try each, now, with the game closed (22 Nov 2026); redo after try 1 (owner: weak or failed, 22 Nov 2026): drawn lying sideways, no guy ropes",
+   "route": "house"
+  }
+ },
+ {
+  "name": "camp-awning-pole-c",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, seen from directly above, floor plan, no legs: a tent pole seen straight down from above, just a small grey round cap ringed by a black outline, with three thin ropes radiating out to three small pegs pushed into the ground. Draw it in exactly the art style of the reference images: a game building sprite with a very thick near-black outline, soft flat cel shading and a muted palette. Small and centred, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Awning pole: a thin pole seen from above with two guy ropes to pegs",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/DepotBay.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Awning pole",
+   "size": "building (1, 1)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningPole.png",
+   "why": "the camp (Framework 0.212.0; docs/development/vehicle-accessories.md, built 22 Nov 2026): interim game pictures until these; the owner chose one try each, now, with the game closed (22 Nov 2026); redo after try 1 (owner: weak or failed, 22 Nov 2026): drawn lying sideways, no guy ropes",
+   "route": "house"
+  }
+ },
+ {
+  "name": "camp-awning-roll-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A long thin rolled-up khaki canvas tarp inside a zipped canvas carry bag, much longer than it is thick, lying diagonally, with two black buckle straps around it and a short carry handle. Draw it in exactly the art style of the reference images: a game item seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No table, no furniture, no legs. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Awning roll: a long rolled awning bag with folding arms and poles",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/FridgeUnit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/HouseBattery.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Awning roll",
+   "size": "item and fitting icon",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
+   "why": "the camp (Framework 0.212.0; docs/development/vehicle-accessories.md, built 22 Nov 2026): interim game pictures until these; the owner chose one try each, now, with the game closed (22 Nov 2026); redo after try 1 (owner: weak or failed, 22 Nov 2026): drew a footstool, not a rolled awning",
+   "route": "house"
+  }
+ },
+ {
+  "name": "camp-awning-roll-c",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A tightly rolled khaki canvas sheet like a long sausage, with a thin aluminium pole poking out of each end and two black straps around it, lying diagonally on the ground. Draw it in exactly the art style of the reference images: a game item seen from above at about sixty degrees, with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, filling about three quarters of the canvas, on a plain pure white background. No table, no furniture, no legs. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Awning roll: a long rolled awning bag with folding arms and poles",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/FridgeUnit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/HouseBattery.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Awning roll",
+   "size": "item and fitting icon",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
+   "why": "the camp (Framework 0.212.0; docs/development/vehicle-accessories.md, built 22 Nov 2026): interim game pictures until these; the owner chose one try each, now, with the game closed (22 Nov 2026); redo after try 1 (owner: weak or failed, 22 Nov 2026): drew a footstool, not a rolled awning",
+   "route": "house"
+  }
+ },
+ {
+  "name": "camp-button-pack-up-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game button icon: two tight khaki canvas rolls tied with black straps, one on top of the other, with a bold pale downward arrow just above them. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Pack up camp button: a rolled awning and swag strapped together, an arrow sweeping them in",
+  "references": [
+   "assets/vehicle-systems/generated/camp-button-set-up/camp-button-set-up-11.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/PackUp.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Pack up camp button",
+   "size": "command icon",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/PackUpCamp.png",
+   "why": "the camp (Framework 0.212.0; docs/development/vehicle-accessories.md, built 22 Nov 2026): interim game pictures until these; the owner chose one try each, now, with the game closed (22 Nov 2026); redo after try 1 (owner: weak or failed, 22 Nov 2026): a pot, a roll and a black swoosh; did not read as packing up",
+   "route": "house"
+  }
+ },
+ {
+  "name": "camp-button-pack-up-c",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game button icon: a khaki canvas duffel bag with a rolled swag strapped on top and a curved pale arrow sweeping into the bag's open end. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "subject": "Pack up camp button: a rolled awning and swag strapped together, an arrow sweeping them in",
+  "references": [
+   "assets/vehicle-systems/generated/camp-button-set-up/camp-button-set-up-11.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/PackUp.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Pack up camp button",
+   "size": "command icon",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/PackUpCamp.png",
+   "why": "the camp (Framework 0.212.0; docs/development/vehicle-accessories.md, built 22 Nov 2026): interim game pictures until these; the owner chose one try each, now, with the game closed (22 Nov 2026); redo after try 1 (owner: weak or failed, 22 Nov 2026): a pot, a roll and a black swoosh; did not read as packing up",
+   "route": "house"
+  }
  }
 ]

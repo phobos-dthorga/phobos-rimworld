@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/PackUpCamp.png",
+  "source": "assets/vehicle-systems/generated/camp-button-pack-up-b/camp-button-pack-up-b-11.png",
+  "source_sha256": "d5d808f0cd4737f2aec1bd7c532f94d0dc385f4440153501ce4414219f2711f2",
+  "target_sha256": "3bfa77e43dd033fe3dab600e594a2d555d87a489cbf32e6d702293881d7a23b0",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "d5d808f0cd4737f2aec1bd7c532f94d0dc385f4440153501ce4414219f2711f2",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-21T22:32:53",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningPole.png",
+  "source": "assets/vehicle-systems/generated/camp-awning-pole-b/camp-awning-pole-b-11.png",
+  "source_sha256": "60e50b663086e0fa515e27f4b543dac9e5d5126fa1d843ac9b21a538fcf011fc",
+  "target_sha256": "e29542f38ef33e514c451d9af6882ec2642a18228fdd8f3202cd2eb6a0090d8f",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "60e50b663086e0fa515e27f4b543dac9e5d5126fa1d843ac9b21a538fcf011fc",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-21T22:32:50",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

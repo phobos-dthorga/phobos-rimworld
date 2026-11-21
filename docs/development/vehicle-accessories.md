@@ -511,8 +511,8 @@ a camp only happens when the player orders it.
 
 **Known limits:** shooting one awning pole takes the whole awning's roof down, while the other poles and the canvas picture stay
 until packed. The canvas is drawn per row, so an awning that crosses a map section's edge may not draw while that section is off screen.
-**Art:** the swag, roof tent, awning pole and canvas, the two kits and the two buttons need pictures before the first test (the owner's
-rule); planned in the art backlog.
+**Art (Framework 0.213.1):** the swag, roof tent, awning pole and canvas, the two kits and the two buttons are our own, made on the house
+style model and picked by the owner on 21 Nov 2026 (three on a second round). Each texture's record says how.
 
 ## Questions for the owner
 

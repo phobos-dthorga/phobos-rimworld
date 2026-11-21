@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.213.1] - 2026-11-21 - Draft
+
+The camp's own pictures. Not yet tested in game.
+
+### Changed
+
+- **The camp has its own pictures**: the swag, the roof tent, the awning's poles and canvas, the roof tent and awning kits, and the Set up camp and Pack up camp buttons, in place of the game's bedroll, double bedroll, lamp and cloth borrowed until now. Made on our own style model and picked by the owner. The awning's canvas is now a sand-coloured sheet with a fringe along its outer edge and the rolled bar against the vehicle.
+
 ## [0.213.0] - 2026-11-21 - Draft
 
 Your vehicles stop setting off your own traps when you did not send them
@@ -22,13 +30,13 @@ Your vehicles stop setting off your own traps when you did not send them
 - Where you sent a vehicle is not kept in the save: a drive you ordered before loading passes over traps until your next order to that vehicle.
 - It works with any trap, other mods' included, as the aircraft rule does. Other factions' vehicles are left to the game's own rule, and a vehicle you capture follows yours.
 
-## [0.212.0] - 2026-11-22 - Draft
+## [0.212.0] - 2026-11-21 - Draft
 
 A vehicle's camp: an awning, a roof tent and swags, set up beside it and packed away again
 
 ### Added
 
-- **Set up camp beside a parked vehicle** (the owner's go of 22 November 2026): select a land vehicle and press **Set up camp**. Hover over the button first and the ground shows where everything will go. A colonist does the work, as construction. The awning rolls out over two rows along one side, the roof tent opens at the rear of that side, and the swags and bedrolls in the cargo are laid out under the awning or beside it, head to the vehicle. **Camp on the left/right** picks the side, as the driver sees it; a blocked side sends the camp to the other, and if both are blocked the button says why. A swag moved by hand goes back to that spot next time (**Forget the camp's layout** starts afresh). **Pack up camp** rolls everything back into the vehicle and waits for sleepers to get up. The vehicle will not drive off, or be towed, with its camp out. Not yet tested in game: rows 315 to 317 of the test pass.
+- **Set up camp beside a parked vehicle** (the owner's go of 21 November 2026): select a land vehicle and press **Set up camp**. Hover over the button first and the ground shows where everything will go. A colonist does the work, as construction. The awning rolls out over two rows along one side, the roof tent opens at the rear of that side, and the swags and bedrolls in the cargo are laid out under the awning or beside it, head to the vehicle. **Camp on the left/right** picks the side, as the driver sees it; a blocked side sends the camp to the other, and if both are blocked the button says why. A swag moved by hand goes back to that spot next time (**Forget the camp's layout** starts afresh). **Pack up camp** rolls everything back into the vehicle and waits for sleepers to get up. The vehicle will not drive off, or be towed, with its camp out. Not yet tested in game: rows 315 to 317 of the test pass.
 - **The awning**, a fitting on a new side rail on every land vehicle (15 kg; kit made at a tailoring bench, after vehicle parts research): a canvas roof over the camp's two rows, on poles, drawn see-through so people beneath still show. Rain and snow stay off; it makes no room and keeps out no cold.
 - **The roof tent**, a fitting on a new roof mount on every land vehicle (55 kg; kit made at the vehicle parts bench): a bed for two under its own canvas, as restful as a real bed, comfort 0.8, dry in rain. Waking in it gives **slept in a roof tent** (+4), which answers the game's "slept outside" (the owner's figure).
 - **The swag**, built like a bedroll (Architect, D'thorga, Motor pool): rest 1.0, comfort 0.75, 6 kg, and a caravan bed. Waking from a fair, mild night in one with open sky overhead gives **slept under the stars** (+5, the owner's figure); not under the awning, in rain or in the cold. The game's own bedrolls in the cargo are laid out with the camp too.
