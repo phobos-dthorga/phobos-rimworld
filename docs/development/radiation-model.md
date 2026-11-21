@@ -2,8 +2,8 @@
 
 **Status (22 Nov 2026):** partly built, at the owner's word, in D'thorga Medical 0.21.0 (with Framework 0.229.0 and Patches 0.35.0):
 the dose and its repair, the course, care, the doctor's estimate and the exact dose, Rimatomics' doses taken and its conditions
-converted, the strike's dose in grays ([as built](#as-built-22-nov-2026)). Not built: late effects, contamination and the three
-medicines. The owner's answers are [below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363.
+converted, the strike's dose in grays ([as built](#as-built-22-nov-2026)); dev actions to give and remove a dose in 0.22.0. Not
+built: late effects, contamination, worn armour's shielding (RM17) and the three medicines. The owner's answers are [below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363.
 
 ## As built (22 Nov 2026)
 
@@ -366,6 +366,46 @@ Beside them, switches for contamination, late effects, and the doctor's estimate
 | RM14 | A logbook line or tale for someone who survived a lethal-range dose | Idea |
 | RM15 | Rimatomics' fallout toxic bug: a note to its author, if the owner wants one | Leave, as before |
 | RM16 | Hair loss shown as a cosmetic condition from about 3 Gy | Idea |
+| RM17 | Worn mass shields a little against radiation from outside, weighted by the marrow it covers ([below](#rm17-worn-mass-shields-a-little)) | **Owner: take, with slice 3** |
+
+### RM17, worn mass shields a little
+
+Asked by the owner on 22 Nov 2026 ("is material worn taken into account? We could use Combat Extended's properties"). **Not built;
+to be built with contamination in slice 3** (the owner's choice), since all three read what a person wears.
+
+- **What stops gamma rays is mass per area, not strength.** To cut the strike's gamma rays to a tenth takes 3.3 inches of steel, 11 of
+  concrete or 16 of earth (Glasstone and Dolan, Table 8.41, as read for the [strike record](nuclear-strike-effects.md#the-dose-at-detonation)) **[P]**: about **650 kg of anything per square metre** at ordinary densities **[I]**. Gamma
+  rays are stopped mostly by scattering off electrons, and nearly all materials hold about the same number per gram, hydrogen about
+  twice as many **[I]** (textbook physics, no source read here). Fallout's gamma rays carry less energy, so the same mass stops a little
+  more of them **[I]**; no figure for fallout was read.
+- **So Combat Extended's armour ratings are not used.** They measure stopping a bullet: plasteel and hyperweave score high per kilogram
+  for their strength, which gamma rays ignore. **The apparel's mass as patched is used instead**, so Combat Extended's more realistic
+  masses (its flak vest weighs 11 kg, the game's 4) count without any code of ours, and players without it get the game's masses.
+- **Neutrons are not cut**: steel is poor against them (Glasstone and Dolan §8.66, the same) **[P]**, and armour's mix of materials is unknown. Agent's choice,
+  to keep it simple; revisit if armour ever records its material.
+- **Weighted by marrow.** The blood syndrome is the marrow's, and most of an adult's active marrow lies in the torso and pelvis: about
+  80% in the agent's memory of ICRP Publication 70's table, **unverified**; read it before the weights are set. Torso cover then counts
+  far more than arm or leg cover. Real wearable shields do this: StemRad's belt shields only the pelvic marrow (from memory,
+  **unverified**).
+- **The rule [A]:** each piece's mass is spread over the area of the body parts it covers (an authored area per part group); layers on
+  a part add up; each part's transmission is 10 to the power of minus its kilograms per square metre over the tenth-value mass; the cut
+  is the marrow-weighted sum. It applies to doses from outside only (the strike's flash dose, fallout lying on the ground, Rimatomics'
+  leaks), never to dust breathed or swallowed, which is the masks' and suits' work in slice 3. Read when the dose arrives; nothing saved.
+- **Its own switch** on the Radiation settings page, on by default (agent's default, after the owner's "settings for players to
+  configure").
+
+**What it does to armour in the owner's game** (masses as patched there, read with `query-defs.py`; covered areas and the cuts are the
+agent's estimates **[I]**, ballpark only):
+
+| Armour | Mass | Covers | About kg/m² | Cut to the strike's gamma dose |
+| --- | --- | --- | --- | --- |
+| Parka | 3 kg | torso, neck, shoulders, arms | 3 | about 1% |
+| Flak vest | 11 kg | torso, neck | 18 | about 5% (torso only, marrow-weighted) |
+| Recon armour | 30 kg | torso to legs | 19 | about 6% |
+| Cataphract armour | 80 kg | torso to legs | 50 | about 16% |
+
+**What it teaches, as the real thing does: armour barely helps; shelter does.** A basement passes a tenth or less (Glasstone and Dolan Table 8.72, in the
+[strike record](nuclear-strike-effects.md#the-dose-at-detonation)). A sixth off can still decide a life near the lethal dose: 6 Gy becomes 5, where half die without care under Moderate.
 
 ## The four questions
 
@@ -424,6 +464,7 @@ To be asked as cards; the agent's recommendation first.
 | 5 | RM5 and RM7, new items | The owner asked how Rimatomics' Geiger research ("a dosimeter of sorts") and its potassium iodide shape the choice. Answered: **the Geiger research serves as the dosimeter** (no badge), and **iodide guards the thyroid against fallout's iodine** (its real role). Then: **all three medicines** (an anti-sickness drug, a marrow stimulant, Prussian blue) | All four items, a badge among them |
 | 6 | What a player sees before the Geiger research, or without Rimatomics | **A doctor's estimate**, exact once researched | The same |
 | 7 | Existing saves | **Convert once at load** | Let them run their course |
+| 8 | RM17, worn armour (asked by the owner, 22 Nov 2026) | **By mass, weighted by marrow, built with slice 3**; not Combat Extended's armour ratings | The same |
 
 **What follows from the answers:**
 
@@ -494,7 +535,8 @@ Gathered by a research agent on 22 Nov 2026, which opened and read each, unless 
 - **RERF**, the atomic-bomb survivors' [leukaemia](https://www.rerf.or.jp/en/programs/roadmap/health_effects/late/leukemia/) and
   [solid cancer](https://www.rerf.or.jp/en/programs/roadmap/health_effects/late/cancrisk/) pages, served in Japanese and read in translation.
 - **Glasstone and Dolan, *The Effects of Nuclear Weapons*** (1977), [chapter IX](https://www.fourmilab.ch/etexts/www/effects/eonw_9.pdf)
-  and [chapter XII](https://www.fourmilab.ch/etexts/www/effects/eonw_12.pdf), hosted by Fourmilab.
+  and [chapter XII](https://www.fourmilab.ch/etexts/www/effects/eonw_12.pdf), hosted by Fourmilab; RM17's shielding figures come from
+  its chapter VIII, read for the [strike record](nuclear-strike-effects.md#sources).
 - **[US Department of Agriculture, Agriculture Handbook No. 234](https://www.govinfo.gov/content/pkg/GOVPUB-A-PURL-gpo21249/pdf/GOVPUB-A-PURL-gpo21249.pdf)**
   (1962), the equivalent residual dose. A word of its title is illegible in the scan.
 - **US Army FM 3-3-1, *Nuclear Contamination Avoidance*** (1994), Appendix A, in the [Internet Archive's scan](https://archive.org/download/MManuals/UsArmyNuclearContaminationAviodance1994.pdf),
