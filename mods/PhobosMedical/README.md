@@ -7,7 +7,7 @@ required.
 One of House D'thorga's mods (also spelt dthorga). **How to play it is in the player guide's
 [medical chapter](../../docs/player-guide/medical.md)**; this README holds the gotchas, the settings and the links for modders.
 
-Version 0.23.0, built 22 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
+Version 0.24.0, built 22 November 2026 for House D'thorga. **Partly tested in game:** the owner has tested radiation control on
 D'thorga Medical (11 November 2026), and burns, dosing, the oxygen concentrator, the burn unit bed and the save bridge on the five
 mods it replaced (3 to 6 November 2026). Everything else is not yet tested in game, nor is the merged mod as a whole.
 
@@ -134,6 +134,7 @@ dot), and use **Reset this page to defaults** at the bottom of a page. Read from
 | Radiation sickness runs its real course | Off: Dubs Rimatomics' own radiation sickness, as before | On |
 | How harsh radiation is | Gentle, Moderate, Realistic, Harsh: the dose that kills half without care, and how far care moves it | Moderate |
 | A doctor estimates a dose until it can be measured | Off: every dose shows exactly | On |
+| What is worn shields a little | Heavy clothing and armour cut radiation from outside by their weight: plate armour about a sixth | On |
 | Cancer | Each gray taken over a life adds a chance of leukaemia (from about a month) or a carcinoma (from about two and a half game years) | On |
 | Cataracts | From half a gray, a chance of cataracts in both eyes later, certain at 5 Gy | On |
 | Sterility | A man sterile for a while from 0.15 Gy; for good from 3.5 to 6 Gy (a woman 2.5 to 6) | On |

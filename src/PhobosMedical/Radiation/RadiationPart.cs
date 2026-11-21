@@ -32,6 +32,8 @@ public class RadiationSettings : ModSettings
     public bool pregnancyLoss = true;
     public bool pregnancyChild = true;
     public bool pregnancyCancer = true;
+    /// <summary>What a person wears shields them a little from radiation from outside, by its mass (RM17; owner, 22 Nov 2026).</summary>
+    public bool wornShielding = true;
 
     public override void ExposeData()
     {
@@ -45,6 +47,7 @@ public class RadiationSettings : ModSettings
         Scribe_Values.Look(ref pregnancyLoss, "PhobosRadiation_PregnancyLoss", true);
         Scribe_Values.Look(ref pregnancyChild, "PhobosRadiation_PregnancyChild", true);
         Scribe_Values.Look(ref pregnancyCancer, "PhobosRadiation_PregnancyCancer", true);
+        Scribe_Values.Look(ref wornShielding, "PhobosRadiation_WornShielding", true);
     }
 }
 
@@ -72,7 +75,8 @@ public static class RadiationPart
     /// <summary>Called once from the mod's constructor: registers the model with the Framework and applies the Rimatomics patch.</summary>
     internal static void Start(HarmonyLib.Harmony harmony)
     {
-        Phobos.Framework.Health.RadiationDoses.Register((pawn, grays, source) => RadiationService.Receive(pawn, grays, source), () => On);
+        // Every dose through the Framework (the strike) comes from outside, so what is worn shields it.
+        Phobos.Framework.Health.RadiationDoses.Register((pawn, grays, source) => RadiationService.Receive(pawn, grays * WornShielding.Pass(pawn), source), () => On);
         RimatomicsDose.Apply(harmony);
     }
 
@@ -100,6 +104,7 @@ public static class RadiationPart
             h => ("PhobosRadiation_Harshness" + h).Translate(), h => ("PhobosRadiation_Harshness" + h + "Desc").Translate(),
             "PhobosRadiation_SettingHarshnessDesc".Translate());
         list.Check("PhobosRadiation_SettingEstimate".Translate(), ref s.estimate, d.estimate, "PhobosRadiation_SettingEstimateDesc".Translate());
+        list.Check("PhobosRadiation_SettingWornShielding".Translate(), ref s.wornShielding, d.wornShielding, "PhobosRadiation_SettingWornShieldingDesc".Translate());
         list.Section("PhobosRadiation_SettingLateHeading".Translate());
         list.Check("PhobosRadiation_SettingCancer".Translate(), ref s.cancer, d.cancer, "PhobosRadiation_SettingCancerDesc".Translate());
         list.Check("PhobosRadiation_SettingCataract".Translate(), ref s.cataract, d.cataract, "PhobosRadiation_SettingCataractDesc".Translate());

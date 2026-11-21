@@ -19,6 +19,8 @@
   <PhobosRadiation_TipExact>Dose now: {EFFECTIVE} Gy after repair; {LIFETIME} Gy over a lifetime. Exposure category {CATEGORY}.</PhobosRadiation_TipExact>
   <PhobosRadiation_TipEstimate>A doctor's estimate: about {LOW} to {HIGH} Gy. Exposure category {CATEGORY}, if the estimate is right.</PhobosRadiation_TipEstimate>
   <PhobosRadiation_TipUnknown>Exposed to radiation; how much is not known without a radiation counter. Exposure category {CATEGORY}.</PhobosRadiation_TipUnknown>
+  <PhobosRadiation_SettingWornShielding>What is worn shields a little</PhobosRadiation_SettingWornShielding>
+  <PhobosRadiation_SettingWornShieldingDesc>On by default: heavy clothing and armour cut radiation from outside a little, by their weight, as real mass does; most over the chest and belly, where most of the blood-forming marrow is. Heavy plate armour cuts about a sixth, a parka almost nothing. Walls, earth and distance do far more.</PhobosRadiation_SettingWornShieldingDesc>
   <!-- Late effects (D'thorga Medical 0.23.0). -->
   <PhobosRadiation_SettingLateHeading>Late effects, months or years after a dose (strength set by the harshness above)</PhobosRadiation_SettingLateHeading>
   <PhobosRadiation_SettingCancer>Cancer</PhobosRadiation_SettingCancer>

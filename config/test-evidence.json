@@ -19,6 +19,7 @@
       "sterile for a while": [{"key": "radiation.late", "variant": "sterile-temporary"}],
       "sterile for good": [{"key": "radiation.late", "variant": "sterile-permanent"}]
     }},
+    "372": ["radiation.shielded"],
     "370": {"parts": {
       "a pregnancy lost": [{"key": "radiation.prenatal", "variant": "loss"}],
       "a child born with weaker movement": [{"key": "radiation.prenatal", "variant": "malformation"}],

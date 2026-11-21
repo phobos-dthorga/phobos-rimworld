@@ -259,7 +259,8 @@ Not yet tested in game. On by default (**Radiation sickness runs its real course
 - **How much did they take?** Until Rimatomics' portable radiation detectors are researched, the radiation exposure condition shows a
   **doctor's estimate**: someone who vomited within an hour took a lot; someone who never vomited took under about 2 Gy. Two days in a
   hospital bed narrows it. After the research it shows the dose exactly.
-- **Suits and masks do not stop radiation.** Walls, a roof, earth and distance do: stay indoors in fallout. Rimatomics' fallout now fades
+- **Suits and masks do not stop radiation.** Walls, a roof, earth and distance do: stay indoors in fallout. **Heavy armour helps a
+  little**, by its weight: plate armour cuts about a sixth, a parka almost nothing (a setting, on). Rimatomics' fallout now fades
   as real fallout does, to a tenth after a week.
 - **How harsh it is** is a setting: Gentle, **Moderate** (the default), Realistic or Harsh.
 - **Radiation can return long after.** Every gray someone takes over their life adds a chance of **leukaemia** (from about a month)

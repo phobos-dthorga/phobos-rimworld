@@ -6,6 +6,14 @@ entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.24.0] - 2026-11-22 - Draft
+
+Radiation, slice 3: what is worn, contamination and three medicines
+
+### Added
+
+- **What is worn shields a little against radiation from outside** (the owner's choice of 22 November 2026, docs/development/radiation-model.md, RM17): by its weight, as real mass does, most over the chest and belly where most of the blood-forming marrow lies. About 650 kg a square metre cuts gamma rays to a tenth (Glasstone and Dolan), so heavy plate armour cuts about a sixth and a parka almost nothing; Combat Extended's heavier, truer masses count by themselves. It applies to the strike's flash and to Dubs Rimatomics' leaks and fallout, never to dust breathed in. A setting, What is worn shields a little, on by default. Not yet tested in game: row 372 of the test pass.
+
 ## [0.23.0] - 2026-11-22 - Draft
 
 Radiation's late effects

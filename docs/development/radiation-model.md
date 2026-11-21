@@ -3,8 +3,8 @@
 **Status (22 Nov 2026):** partly built, at the owner's word, in D'thorga Medical 0.21.0 (with Framework 0.229.0 and Patches 0.35.0):
 the dose and its repair, the course, care, the doctor's estimate and the exact dose, Rimatomics' doses taken and its conditions
 converted, the strike's dose in grays ([as built](#as-built-22-nov-2026)); dev actions to give and remove a dose in 0.22.0; late
-effects (RM8) in 0.23.0. Not built: contamination, worn armour's shielding (RM17) and the three medicines. The owner's answers are
-[below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363 and 369 to 371.
+effects (RM8) in 0.23.0; worn armour's shielding (RM17) in 0.24.0. Not built: contamination and the three medicines. The owner's answers are
+[below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363 and 369 to 372.
 
 ## As built (22 Nov 2026)
 
@@ -42,7 +42,10 @@ effects (RM8) in 0.23.0. Not built: contamination, worn armour's shielding (RM17
     from a dose in weeks 3 to 7 above 0.5 Gy [A], slower learning at the CDC's 40 % a gray in weeks 8 to 15 (from ICRP's 0.3 Gy) and 15 %
     in weeks 16 to 25 (from 0.5 Gy), and **the child carries its dose**, so its own cancer chance follows. Growth restriction is left
     out: the game has no fitting condition.
-- **Not built yet:** contamination (RM6) with iodide's role, worn armour's shielding (RM17), the three medicines (RM5), the shadow and
+- **Worn armour's shielding (RM17), Medical 0.24.0**, as designed [below](#rm17-worn-mass-shields-a-little), behind its own setting
+  (on): each garment's mass as the game has it over the authored areas of the groups it covers, layers adding, weighted by the marrow
+  shares; applied to the Framework's doses (the strike) and every Rimatomics dose, all from outside.
+- **Not built yet:** contamination (RM6) with iodide's role, the three medicines (RM5), the shadow and
   graded shelter of the strike (NK12, NK17, NK18), the strike's letter (NK13).
 
 The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md): shadow and a graded dose should "wait for our own
@@ -388,8 +391,8 @@ Beside them, switches for contamination, late effects, and the doctor's estimate
 
 ### RM17, worn mass shields a little
 
-Asked by the owner on 22 Nov 2026 ("is material worn taken into account? We could use Combat Extended's properties"). **Not built;
-to be built with contamination in slice 3** (the owner's choice), since all three read what a person wears.
+Asked by the owner on 22 Nov 2026 ("is material worn taken into account? We could use Combat Extended's properties"). **Built in
+D'thorga Medical 0.24.0**, with slice 3 (the owner's choice), as below; not yet tested in game (row 372).
 
 - **What stops gamma rays is mass per area, not strength.** To cut the strike's gamma rays to a tenth takes 3.3 inches of steel, 11 of
   concrete or 16 of earth (Glasstone and Dolan, Table 8.41, as read for the [strike record](nuclear-strike-effects.md#the-dose-at-detonation)) **[P]**: about **650 kg of anything per square metre** at ordinary densities **[I]**. Gamma
