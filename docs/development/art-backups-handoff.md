@@ -6,7 +6,8 @@
 copied 1,587 files (1.07 GB) to K: and 382 of our own (145.7 MB) to the private repository dthorga-safe-copies; every copy verified,
 and a restore from the repository came back byte for byte. **22 Nov 2026, kit 1.67.0:** Claude's notes about the owner (335 files)
 and the game settings (RimWorld's Config, RimSort's settings, rules and mod notes: 206 files), personal, to K: only by the owner's
-choice. **Still to build: the saves**, which need a rule for how many older versions to keep first. **The owner answered its main questions the same day: [the owner's
+choice. **22 Nov 2026, kit 1.68.0: the saves**, the newest pair of the owner's rotation (autosaves left out), with five earlier
+copies of each kept on K: and older ones let go, by the owner's word; K: only. Every later step the owner chose is built. **The owner answered its main questions the same day: [the owner's
 answers](#the-owners-answers-21-nov-2026) overrule the proposal below wherever they differ.** Every other choice marked *proposal* is the
 agent's, for the owner to judge.
 
