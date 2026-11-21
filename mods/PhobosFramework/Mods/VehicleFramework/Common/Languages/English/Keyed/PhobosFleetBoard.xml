@@ -30,6 +30,10 @@
   <PhobosFleet_DoingRoad>on the road</PhobosFleet_DoingRoad>
   <PhobosFleet_DoingRoadFar>on the road, {DISTANCE} so far</PhobosFleet_DoingRoadFar>
   <PhobosFleet_DoingHalted>stopped on the way</PhobosFleet_DoingHalted>
+  <PhobosFleet_DoingNightCamp>camped for the night</PhobosFleet_DoingNightCamp>
+  <PhobosFleet_DoingMealHalt>halted for a meal</PhobosFleet_DoingMealHalt>
+  <PhobosFleet_DoingNightDrive>driving through the night</PhobosFleet_DoingNightDrive>
+  <PhobosFleet_DoingCamped>camped</PhobosFleet_DoingCamped>
   <PhobosFleet_DoingStranded>stranded</PhobosFleet_DoingStranded>
   <PhobosFleet_DoingFlying>flying</PhobosFleet_DoingFlying>
   <PhobosFleet_DoingFlyingFar>flying, {DISTANCE} so far</PhobosFleet_DoingFlyingFar>
@@ -41,6 +45,7 @@
   <PhobosFleet_DoingClaimable>standing unguarded</PhobosFleet_DoingClaimable>
 
   <PhobosFleet_NeedsFuel>fuel</PhobosFleet_NeedsFuel>
+  <PhobosFleet_NeedsFood>food: less than a day left</PhobosFleet_NeedsFood>
   <PhobosFleet_NeedsFaults>faults to look at: {COUNT}</PhobosFleet_NeedsFaults>
   <PhobosFleet_NeedsBrakes>new brake pads: it cannot stop</PhobosFleet_NeedsBrakes>
   <PhobosFleet_NeedsRecovery>a caravan to reach it</PhobosFleet_NeedsRecovery>

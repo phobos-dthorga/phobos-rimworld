@@ -397,6 +397,34 @@ model (owner). **Later:** EM4, EM9, EM16, EM18's warning, the rest of EM21. **He
 **Still open:** 4 (exhaust indoors: on or off by default), 5 (a lost convoy as a site, a hull on the map, or both) and 6 (raiders'
 fuel by distance, in a group not picked for now).
 
+## As built: life on the road in the logbook and the Fleet board (22 Nov 2026, Framework 0.230.0)
+
+The owner, 22 Nov 2026: "a lot of possibility for integrating much of the work we've done already and about to into our Vehicle Log and
+perhaps the Fleet window as well". Rows 351 and 352 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Read a trip's camps, night drives, meals and troubles afterwards; see from the Fleet board which convoys are camped, halted for a meal, driving on, or short of food |
+| What it stops them doing | Nothing |
+| How it changes play | A convoy's life between towns becomes something to read back, and a hungry convoy shows before its people starve |
+| What outside the vehicle notices | The logbook (EM23) and the Fleet board; nothing else new |
+
+**Risk: none** (agent's grade): it only writes and shows; no setting.
+
+- **The logbook's new kinds of entry** (`Stories.xml`, agent-authored words held for the owner's review): `PhobosLog_Camped` (the camp
+  order, set up from the cargo), `PhobosLog_NightDrive` (once a night at most, with everyone at the wheel), `PhobosLog_HandOver`,
+  `PhobosLog_RoadMeals` (the meals and how they were cooked), `PhobosLog_WaterDry`, `PhobosLog_HeaterDry` and `PhobosLog_TentWoken`. A
+  convoy's entries go in its first vehicle of the player's that keeps a logbook (`VehicleStory.Convoy`); one vehicle's in its own
+  (`VehicleStory.Of`).
+- **The Fleet board's lines** (`FleetService`): a convoy "camped for the night" (resting on its way), "halted for a meal", "driving
+  through the night"; a vehicle on a map "camped" while its camp is pitched; and a convoy's need "food: less than a day left", from the
+  caravan's own days of food, which counts towed food since Framework 0.228.0. **Agent's choice:** a day, where the game's own figure turns
+  to its warning colour. A water line was left out: the board cannot tell a convoy with empty tanks from one that never carried any.
+- **A key for the board** (`PhobosMainTab_Fleet`, in the game's main tab keys): the game makes such a key only for a tab with a default
+  key, so the board had none. **Agent's choice:** no default key, so it never takes one another mod uses; the owner picks one.
+- **The fleet in D'thorga Companion's atlas** is a separate piece for later (the owner's choice, 22 Nov 2026): recorded in the
+  Companion's repository when that work starts.
+
 ## As built: batch 1, reading the story (20 Nov 2026, Framework 0.181.0)
 
 The owner's word, 20 Nov 2026: "Proceed with Batches #1 through #4, step-wise if necessary", and "reuse/genericize code in the

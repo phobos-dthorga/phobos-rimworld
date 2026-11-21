@@ -29,6 +29,9 @@
   <PhobosCaravanCooking_NoFood>{CARAVAN} has a field kitchen, but no raw food to cook tonight.</PhobosCaravanCooking_NoFood>
   <PhobosCaravanCooking_NoFuel>{CARAVAN} has a field kitchen, but nothing to burn: carry chemfuel or wood, or fill its burners before you leave.</PhobosCaravanCooking_NoFuel>
   <PhobosCaravanCooking_NoWater>{CARAVAN} has a field kitchen, but no water for its kettle: fill the kitchen's tank, or bring a water bowser.</PhobosCaravanCooking_NoWater>
+  <PhobosLog_RoadMealsSimmer>Simmered on the move.</PhobosLog_RoadMealsSimmer>
+  <PhobosLog_RoadMealsHalt>At a meal halt.</PhobosLog_RoadMealsHalt>
+  <PhobosLog_RoadMealsCamp>At the night's camp.</PhobosLog_RoadMealsCamp>
   <PhobosCaravanWater_ShowerCold>{CARAVAN}'s water heater is out of chemfuel: its showers are cold until it is set out and refuelled.</PhobosCaravanWater_ShowerCold>
   <PhobosCaravanWater_Empty>{CARAVAN}'s water tanks are empty: its people drink from their bottles and whatever the land offers.</PhobosCaravanWater_Empty>
   <PhobosCaravanCooking_Simmered>{CARAVAN}'s kettle simmered {COUNT} {MEAL}s on the move tonight.</PhobosCaravanCooking_Simmered>

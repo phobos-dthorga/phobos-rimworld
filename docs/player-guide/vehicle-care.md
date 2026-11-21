@@ -615,6 +615,7 @@ Not yet tested in game.
   when the fuel aboard covers it; the tooltip says how many stops it will make. Whenever the tank falls to a quarter it sets down on the land
   below, pours, waits a little while and flies on. **It never sets down on water, in mountains or on an enemy's ground**: over the sea it
   flies on until it reaches land, so a long sea crossing still needs the fuel in the tank. Nothing pours fuel into an aircraft in the air.
+- **A key for the fleet board** (not yet tested in game): Options, Keyboard, main tabs, "toggle fleet tab". No key is set at first.
 - **The fleet button** on the bottom bar lists every vehicle you own, wherever it is, grouped by place, with its picture, what it is
   doing, the one thing it most needs, its fuel and its worst part (the redrawn page is not yet tested in game). A trailer sits under what
   pulls it. At the bottom are vehicles lying lost on the world map, hulls waiting to be taken apart, and other factions' vehicles standing

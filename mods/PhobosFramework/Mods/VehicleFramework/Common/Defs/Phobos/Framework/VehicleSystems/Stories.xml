@@ -145,6 +145,55 @@
     <text>Taken from {SUBJECT} by {WHO} {PLACE}. The logbook begins here.</text>
   </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
+  <!-- Life on the road (Framework 0.230.0; docs/development/vehicle-emergent-play.md, EM23): camps, night drives, meals cooked on the
+       road, and what ran dry. A convoy's entries go in its first vehicle's logbook. Agent-authored, held for the owner's review. -->
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_Camped</defName>
+    <label>camp</label>
+    <text>Made camp {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_NightDrive</defName>
+    <label>night drive</label>
+    <text>Drove on through the night {PLACE}. At the wheel: {WHO}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_HandOver</defName>
+    <label>change of driver</label>
+    <text>{WHO} took the wheel from {SUBJECT} {PLACE}.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_RoadMeals</defName>
+    <label>meals on the road</label>
+    <text>Cooked {VALUE} meals {PLACE}. {DETAIL}</text>
+    <value>Count</value>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_WaterDry</defName>
+    <label>water ran dry</label>
+    <text>The water tanks ran dry {PLACE}.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_HeaterDry</defName>
+    <label>cold showers</label>
+    <text>The water heater ran out of chemfuel {PLACE}. Cold showers from here on.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_TentWoken</defName>
+    <label>woken by danger</label>
+    <text>Danger {PLACE}: everyone in the deck tent was woken and sent out.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
   <!-- ===== Colonists' records ===== -->
 
   <RecordDef>

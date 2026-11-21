@@ -280,6 +280,13 @@ public class PhobosCaravanCooking : WorldComponent
             _ => "PhobosCaravanCooking_Cooked".Translate(caravanName, count, meal).Resolve(),
         };
         Tell(said, caravan, MessageTypeDefOf.PositiveEvent);
+        string how = way switch
+        {
+            CaravanCookRule.Way.Simmer => "PhobosLog_RoadMealsSimmer".Translate().Resolve(),
+            CaravanCookRule.Way.Halt => "PhobosLog_RoadMealsHalt".Translate().Resolve(),
+            _ => "PhobosLog_RoadMealsCamp".Translate().Resolve(),
+        };
+        VehicleStory.Convoy(caravan, VehicleStoryDefOf.PhobosLog_RoadMeals, detail: how, value: meals);
         if (at.IsBox)
         {
             if (Seen.Wants("camp.kitchen-box-caravan", kitchen, way.ToString())) Seen.Note("camp.kitchen-box-caravan", kitchen, meals + " meals, " + poisoned + " spoilt", way.ToString());

@@ -37,6 +37,20 @@
     "338": {"parts": {
       "a caravan cooks at a packed kitchen box": [{"key": "camp.kitchen-box-caravan", "detail": "*"}]
     }},
+    "352": {"parts": {
+      "a convoy camped for the night": [{"key": "vehicles.fleet-road-life", "variant": "PhobosFleet_DoingNightCamp"}],
+      "a convoy driving through the night": [{"key": "vehicles.fleet-road-life", "variant": "PhobosFleet_DoingNightDrive"}],
+      "a convoy halted for a meal": [{"key": "vehicles.fleet-road-life", "variant": "PhobosFleet_DoingMealHalt"}],
+      "a vehicle's camp pitched": [{"key": "vehicles.fleet-road-life", "variant": "PhobosFleet_DoingCamped"}],
+      "a convoy short of food": [{"key": "vehicles.fleet-road-life", "variant": "PhobosFleet_NeedsFood"}]
+    }},
+    "351": {"parts": {
+      "making camp is logged": [{"key": "vehicles.logbook", "variant": "PhobosLog_Camped"}],
+      "a night drive is logged": [{"key": "vehicles.logbook", "variant": "PhobosLog_NightDrive"}],
+      "a change of driver is logged": [{"key": "vehicles.logbook", "variant": "PhobosLog_HandOver"}],
+      "meals on the road are logged": [{"key": "vehicles.logbook", "variant": "PhobosLog_RoadMeals"}],
+      "dry tanks are logged": [{"key": "vehicles.logbook", "variant": "PhobosLog_WaterDry"}]
+    }},
     "350": {"parts": {
       "a hungry person in a cabin eats from the vehicle's cargo": ["vehicles.cabin-ate"]
     }},

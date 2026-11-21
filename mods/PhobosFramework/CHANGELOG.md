@@ -7,7 +7,12 @@ tested in game unless an entry says the owner tested it.
 
 ## [0.230.0] - 2026-11-22 - Draft
 
-Walk-in cabins take their vehicle's cab air and feed their people
+Walk-in cabins take their vehicle's cab air and feed their people; life on the road in the logbook and the Fleet board
+
+### Added
+
+- **Life on the road goes in the vehicle's logbook.** Making camp, each night driven through and who was at the wheel, each change of driver, the meals cooked on the road (on the move, at a meal halt or at the night's camp), the water tanks running dry, the water heater running out of chemfuel, and the deck tent's sleepers woken by danger. A convoy's entries go in its first vehicle's logbook. Not yet tested in game: row 351.
+- **The Fleet board says when a convoy is camped for the night, halted for a meal or driving through the night, when a vehicle's camp is pitched, and when a convoy has less than a day of food.** The board also has its own key, in Options, Keyboard, main tabs ("toggle fleet tab"), with no key set at first, so pick one there. Not yet tested in game: row 352.
 
 ### Fixed
 

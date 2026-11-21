@@ -93,6 +93,7 @@ public static class DeckTents
         }
         if (!anyone) return;
         Messages.Message("PhobosDeckTent_WokenDanger".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve(), vehicle, MessageTypeDefOf.NegativeEvent, historical: false);
+        VehicleStory.Of(vehicle, VehicleStoryDefOf.PhobosLog_TentWoken);
         if (Seen.Wants("vehicles.deck-tent-danger", vehicle)) Seen.Note("vehicles.deck-tent-danger", vehicle, inside.Count + " inside");
     }
 

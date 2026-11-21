@@ -956,6 +956,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         string message = "PhobosCamp_SetUp".Translate(name).Resolve();
         if (plan.gearLeft > 0) message += " " + "PhobosCamp_GearLeftPacked".Translate(plan.gearLeft.Named("COUNT")).Resolve();
         Messages.Message(message, Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+        VehicleStory.Of(Vehicle, VehicleStoryDefOf.PhobosLog_Camped);
         if (Seen.Wants("vehicles.camp-set-up", Vehicle))
         {
             Seen.Note("vehicles.camp-set-up", Vehicle, (plan.tent.HasValue ? "tent, " : "") + plan.poles.Count + " poles, " + plan.awning.Count + " roofed, " + plan.gear.Count + " gear, "

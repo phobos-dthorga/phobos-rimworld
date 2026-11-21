@@ -179,6 +179,7 @@ public static class CaravanDrinking
         {
             aboard.saidCold = true;
             Messages.Message("PhobosCaravanWater_ShowerCold".Translate(caravan.Label.Named("CARAVAN")).Resolve(), caravan, MessageTypeDefOf.CautionInput, historical: false);
+            VehicleStory.Convoy(caravan, VehicleStoryDefOf.PhobosLog_HeaterDry);
         }
     }
 
@@ -226,6 +227,7 @@ public static class CaravanDrinking
         {
             aboard.saidEmpty = true;
             Messages.Message("PhobosCaravanWater_Empty".Translate(caravan.Label.Named("CARAVAN")).Resolve(), caravan, MessageTypeDefOf.CautionInput, historical: false);
+            VehicleStory.Convoy(caravan, VehicleStoryDefOf.PhobosLog_WaterDry);
         }
     }
 }

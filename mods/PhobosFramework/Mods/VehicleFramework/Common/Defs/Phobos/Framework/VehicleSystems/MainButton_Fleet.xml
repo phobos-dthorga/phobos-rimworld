@@ -10,5 +10,14 @@
     <order>66</order>
     <validWithoutMap>true</validWithoutMap>
     <iconPath>Phobos/VehicleSystems/Service</iconPath>
+    <hotKey>PhobosMainTab_Fleet</hotKey>
   </MainButtonDef>
+
+  <!-- Framework 0.230.0: a key for the fleet board, in the game's own list of main tab keys (Options, Keyboard), with no key set by default so
+       it takes none another mod uses; the player picks one. The game makes such a key only for a tab with a default key, so it is ours. -->
+  <KeyBindingDef>
+    <defName>PhobosMainTab_Fleet</defName>
+    <label>toggle fleet tab</label>
+    <category>MainTabs</category>
+  </KeyBindingDef>
 </Defs>

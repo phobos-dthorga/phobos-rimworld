@@ -352,6 +352,16 @@ public static class FleetService
     }
 
     /// <summary>Says what the row's vehicle is doing and the one thing it most needs, once every row and what pulls what is known.</summary>
+    /// <summary>Days of food below which a convoy's row asks for food: under a day (agent's choice, the game's own warning colour starts there).</summary>
+    const float LowFoodDays = 1f;
+
+    /// <summary>The Fleet's lines for life on the road (Framework 0.230.0), noted when first shown.</summary>
+    static string Road(VehiclePawn? vehicle, string key)
+    {
+        if (vehicle != null && Seen.Wants("vehicles.fleet-road-life", vehicle, key)) Seen.Note("vehicles.fleet-road-life", vehicle, key, key);
+        return key.Translate();
+    }
+
     static void Describe(FleetEntry entry)
     {
         entry.Doing = Doing(entry);
@@ -393,7 +403,13 @@ public static class FleetService
                 return tiles >= 1f ? "PhobosFleet_DoingFlyingFar".Translate(WorldPlaces.DistanceText(tiles).Named("DISTANCE")) : "PhobosFleet_DoingFlying".Translate();
             case VehicleCaravan convoy:
                 if (systems != null && Stranding.Reason(systems) != null) return "PhobosFleet_DoingStranded".Translate();
-                if (convoy.vehiclePather is not { MovingNow: true }) return "PhobosFleet_DoingHalted".Translate();
+                // Life on the road (Framework 0.230.0): a meal halt, a night's camp, a night drive.
+                if (NightDriving.Current is { } nights && nights.Halted(convoy)) return Road(vehicle, "PhobosFleet_DoingMealHalt");
+                if (convoy.vehiclePather is not { MovingNow: true })
+                {
+                    return convoy.vehiclePather is { Moving: true } && convoy.NightResting ? Road(vehicle, "PhobosFleet_DoingNightCamp") : "PhobosFleet_DoingHalted".Translate();
+                }
+                if (NightDriving.Current is { } driving && driving.DrivesOn(convoy)) return Road(vehicle, "PhobosFleet_DoingNightDrive");
                 return tiles >= 1f ? "PhobosFleet_DoingRoadFar".Translate(WorldPlaces.DistanceText(tiles).Named("DISTANCE")) : "PhobosFleet_DoingRoad".Translate();
             case not null:
                 return "PhobosFleet_DoingGarage".Translate();
@@ -413,6 +429,8 @@ public static class FleetService
         if (vehicle.vehiclePather is { Moving: true }) return "PhobosFleet_DoingDriving".Translate();
         if (vehicle.Drafted) return "PhobosFleet_DoingEngine".Translate();
         if (DepotBays.Of(vehicle) is { } bay && bay.Pad.Contains(vehicle.Position)) return "PhobosFleet_DoingBay".Translate();
+        // Its camp pitched beside it (Framework 0.230.0).
+        if (vehicle.GetComp<CompPhobosCamp>() is { IsPitched: true }) return Road(vehicle, "PhobosFleet_DoingCamped");
         return "PhobosFleet_DoingParked".Translate();
     }
 
@@ -439,6 +457,12 @@ public static class FleetService
             if (systems.Conditions.Count > 0) return "PhobosFleet_NeedsFaults".Translate(systems.Conditions.Count.Named("COUNT")).Resolve();
         }
         if (entry.Fuel >= 0f && entry.Fuel < LowFuel) return "PhobosFleet_NeedsFuel".Translate();
+        // A convoy with less than a day of food (Framework 0.230.0), by the caravan's own figure, which counts what it tows.
+        if (entry.Place is VehicleCaravan { Faction.IsPlayer: true } convoy && DaysWorthOfFoodCalculator.AnyFoodEatingPawn(convoy.PawnsListForReading)
+            && convoy.DaysWorthOfFood.days < LowFoodDays)
+        {
+            return Road(entry.Vehicle, "PhobosFleet_NeedsFood");
+        }
         return null;
     }
 

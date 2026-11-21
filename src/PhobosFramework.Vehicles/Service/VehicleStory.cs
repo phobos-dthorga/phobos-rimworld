@@ -5,6 +5,7 @@ using Phobos.Framework.WorldMap;
 using RimWorld;
 using RimWorld.Planet;
 using Vehicles;
+using Vehicles.World;
 using Verse;
 
 namespace Phobos.VehicleSystems;
@@ -170,6 +171,27 @@ public static class VehicleStory
         }
     }
 
+    /// <summary>
+    /// An entry about a whole convoy (Framework 0.230.0): written in the logbook of its first vehicle of the player's with a logbook, so a
+    /// convoy's night drives, meals and dry tanks are read where its trips are.
+    /// </summary>
+    public static void Convoy(Caravan? caravan, PhobosLogEntryDef def, string who = "", string subject = "", string detail = "", float value = 0f)
+    {
+        if (caravan is not VehicleCaravan convoy || convoy.Faction != Faction.OfPlayer) return;
+        foreach (VehiclePawn vehicle in convoy.VehiclesListForReading)
+        {
+            if (vehicle.GetComp<CompPhobosVehicleSystems>() is not { Usable: true } comp) continue;
+            Log(comp, def, who, subject, detail, value);
+            return;
+        }
+    }
+
+    /// <summary>An entry in one vehicle's logbook, if it has one and is the player's (Framework 0.230.0).</summary>
+    public static void Of(VehiclePawn? vehicle, PhobosLogEntryDef def, string who = "", string subject = "", string detail = "", float value = 0f)
+    {
+        if (vehicle?.GetComp<CompPhobosVehicleSystems>() is { Usable: true } comp) Log(comp, def, who, subject, detail, value);
+    }
+
     /// <summary>A tale for a long journey's first driver.</summary>
     public static void LongJourney(Pawn driver, VehiclePawn vehicle) => Tale(VehicleStoryDefOf.PhobosTale_LongJourney, driver, vehicle);
 
@@ -212,6 +234,13 @@ public static class VehicleStoryDefOf
     public static PhobosLogEntryDef PhobosLog_Struck = null!;
     public static PhobosLogEntryDef PhobosLog_SpallWounded = null!;
     public static PhobosLogEntryDef PhobosLog_LinerSpent = null!;
+    public static PhobosLogEntryDef PhobosLog_Camped = null!;
+    public static PhobosLogEntryDef PhobosLog_NightDrive = null!;
+    public static PhobosLogEntryDef PhobosLog_HandOver = null!;
+    public static PhobosLogEntryDef PhobosLog_RoadMeals = null!;
+    public static PhobosLogEntryDef PhobosLog_WaterDry = null!;
+    public static PhobosLogEntryDef PhobosLog_HeaterDry = null!;
+    public static PhobosLogEntryDef PhobosLog_TentWoken = null!;
     public static RecordDef PhobosRecord_KilometresDriven = null!;
     public static RecordDef PhobosRecord_VehicleRepairs = null!;
     public static RecordDef PhobosRecord_VehiclesRecovered = null!;

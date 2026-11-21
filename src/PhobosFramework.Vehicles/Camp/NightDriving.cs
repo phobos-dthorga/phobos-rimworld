@@ -32,6 +32,9 @@ public class NightDriving : WorldComponent
     /// halt simply drives on, its meal already cooked.
     /// </summary>
     readonly Dictionary<int, int> haltUntil = new();
+    /// <summary>When each caravan's night drive was last written in its logbook (Framework 0.230.0), so a night is one entry. Derived.</summary>
+    readonly Dictionary<int, int> loggedAt = new();
+    const int LogGapTicks = GenDate.TicksPerDay / 2;
 
     public NightDriving(World world) : base(world)
     {
@@ -100,8 +103,19 @@ public class NightDriving : WorldComponent
                 }
             }
         }
+        if (all) LogNight(caravan);
         if (all && Seen.Wants("vehicles.night-drive", caravan.VehiclesListForReading.FirstOrDefault())) Seen.Note("vehicles.night-drive", caravan.VehiclesListForReading.FirstOrDefault(), caravan.Label);
         return all;
+    }
+
+    /// <summary>A night driven through goes in the convoy's logbook once, with who was at the wheel.</summary>
+    void LogNight(VehicleCaravan caravan)
+    {
+        int now = Find.TickManager.TicksGame;
+        if (loggedAt.TryGetValue(caravan.ID, out int last) && now - last < LogGapTicks && now >= last) return;
+        loggedAt[caravan.ID] = now;
+        string drivers = caravan.VehiclesListForReading.SelectMany(VehicleStory.Drivers).Select(p => p.LabelShort).ToCommaList(useAnd: true);
+        VehicleStory.Convoy(caravan, VehicleStoryDefOf.PhobosLog_NightDrive, who: drivers);
     }
 
     /// <summary>Swaps a tired driver with the most rested passenger of the same vehicle who can drive. False when nobody can take over.</summary>
@@ -120,6 +134,7 @@ public class NightDriving : WorldComponent
         if (!Swap(vehicle, driving, driver, seat, relief)) return false;
         Messages.Message("PhobosNightDrive_HandOver".Translate(relief.LabelShort.Named("RELIEF"), driver.LabelShort.Named("DRIVER"), vehicle.LabelShort.Named("VEHICLE")).Resolve(),
             caravan, MessageTypeDefOf.SilentInput, historical: false);
+        VehicleStory.Of(vehicle, VehicleStoryDefOf.PhobosLog_HandOver, who: relief.LabelShort, subject: driver.LabelShort);
         if (Seen.Wants("vehicles.night-drive-hand-over", vehicle)) Seen.Note("vehicles.night-drive-hand-over", vehicle, driver.LabelShort + " to " + relief.LabelShort);
         // The tired driver may want the bunk now: the caravan works out its beds again.
         caravan.beds?.Notify_PawnRemoved();
