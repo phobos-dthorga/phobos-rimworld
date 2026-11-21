@@ -168,7 +168,8 @@ def stage():
         width, height = record['size']
         divisor = math.gcd(width, height)
         export(source, STAGE / 'textures' / record['target'], min(width, height), f'{width // divisor}:{height // divisor}',
-               record['white_threshold'], record['soft_edge'], record.get('all_white', False), record.get('silhouette', False))
+               record['white_threshold'], record['soft_edge'], record.get('all_white', False), record.get('silhouette', False),
+               record.get('holes', []))
     bodies = {}
     for record_path in VEHICLE_EXPORT.glob('*.export.json'):
         record = json.loads(record_path.read_text(encoding='utf-8'))
@@ -211,6 +212,16 @@ def _shipped_for(staged):
     return VEHICLES.joinpath(*relative.parts[1:])
 
 
+def _stored(path):
+    """A staged file's path for review.json: relative to the repository when inside it, else whole. The stage moved to the art tools'
+    working folder (K: on the owner's PC) on 19 Nov 2026, outside the repository, and review failed on it until 21 Nov 2026. review.json
+    stays in that working folder, never committed, so a whole path there publishes nothing; ROOT / a whole path is that path."""
+    try:
+        return path.relative_to(ROOT).as_posix()
+    except ValueError:
+        return Path(path).as_posix()
+
+
 def _measure(before, after):
     """(pixels cleared, pixels made more solid, mean change on dark ground 0 to 255) between two textures of one size."""
     from PIL import Image, ImageChops, ImageStat
@@ -244,7 +255,7 @@ def review():
         if not shipped.is_file() or (staged.stem.endswith('m') and (staged.parent / f'{staged.stem[:-1]}.png').is_file()):
             continue
         before, after = Image.open(shipped).convert('RGBA'), Image.open(staged).convert('RGBA')
-        entry = {'staged': staged.relative_to(ROOT).as_posix(), 'shipped': shipped.relative_to(ROOT).as_posix(), 'flags': []}
+        entry = {'staged': _stored(staged), 'shipped': shipped.relative_to(ROOT).as_posix(), 'flags': []}
         if before.size != after.size:
             entry['flags'].append(f'size changed from {before.size} to {after.size}')
             entries.append({**entry, 'cleared': 0, 'gained': 0, 'change': 255.0})
@@ -302,15 +313,16 @@ looking: add <code>--include NAME</code>.</p></div>
     return entries
 
 
-def apply(skip=(), include=()):
+def apply(skip=(), include=(), only=()):
     """Copy the reviewed, unflagged textures over the shipped ones, carry each sprite's export record across, and update every texture
-    record that names a replaced file's old SHA-256."""
+    record that names a replaced file's old SHA-256. only, when given, limits it to those file names (21 Nov 2026: a fix to three
+    icons staged 21 changes, among them a gauge the AI would have bitten a blotch out of)."""
     import shutil
     entries = json.loads((REVIEW / 'review.json').read_text(encoding='utf-8'))
     replaced, hashes = [], {}
     for entry in entries:
         shipped, staged = ROOT / entry['shipped'], ROOT / entry['staged']
-        if (entry['flags'] and shipped.name not in include) or shipped.name in skip:
+        if (entry['flags'] and shipped.name not in include) or shipped.name in skip or (only and shipped.name not in only):
             continue
         old = file_sha256(shipped)
         shutil.copyfile(staged, shipped)
@@ -337,9 +349,12 @@ def main(argv=None):
     commands.add_parser('plan', help='list the originals and what is left to look at')
     commands.add_parser('stage', help="re-export every texture the records can rebuild into the art tools' working folder "
                         '(clean-stage), then write the review')
+    commands.add_parser('review', help='write the review again from what is already staged, without staging')
     applying = commands.add_parser('apply', help='copy the reviewed, unflagged textures into the mods')
     applying.add_argument('--skip', action='append', default=[], help='a texture file name to leave as it is; repeatable')
     applying.add_argument('--include', action='append', default=[], help='a flagged texture to apply after all, once looked at; repeatable')
+    applying.add_argument('--only', action='append', default=[], help='apply only this texture file name, leaving every other change '
+                          'staged; repeatable')
     run = commands.add_parser('masks', help='let the AI look at every original not yet done')
     where = run.add_mutually_exclusive_group(required=True)
     where.add_argument('--cpu', action='store_true', help='on the processor, below-normal priority, away from the game')
@@ -355,14 +370,14 @@ def main(argv=None):
         print(f'{len(pictures)} originals behind the shipped textures; {len(todo)} not yet looked at by the AI '
               f'(about {minutes:.0f} minutes on the processor, a few on the graphics card)')
         return 0
-    if args.command == 'stage':
-        for line in stage():
+    if args.command in ('stage', 'review'):
+        for line in stage() if args.command == 'stage' else ():
             print('not rebuilt:', line)
         entries = review()
         print(f'{len(entries)} textures changed, {sum(1 for e in entries if e["flags"])} flagged; review: {REVIEW / "index.html"}')
         return 0
     if args.command == 'apply':
-        replaced = apply(set(args.skip), set(args.include))
+        replaced = apply(set(args.skip), set(args.include), set(args.only))
         print(f'{len(replaced)} textures replaced; texture records updated to their new hashes')
         return 0
     return masks(args)

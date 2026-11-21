@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.96.1] - 2026-11-21 - Draft
+
+The run-flat tyres' icon. Not yet tested in game.
+
+### Fixed
+
+- **The run-flat tyres upgrade's icon shows the ground through the tyre's middle**: it had kept a patch of white there from the picture it was cut from. Nothing else in the picture changed.
+
 ## [0.96.0] - 2026-11-22 - Draft
 
 The Osprey's walk-in cabin

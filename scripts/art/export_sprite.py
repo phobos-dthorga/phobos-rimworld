@@ -227,8 +227,9 @@ def white_left(master, cut, threshold=235):
 def white_left_warning(patches):
     """The console line for white_left's findings."""
     where = '; '.join(f'{patch["share"] * 100:.1f}% of the master at {patch["at"][0]},{patch["at"][1]}' for patch in patches)
+    holes = ' '.join(f'--hole {patch["at"][0]},{patch["at"][1]}' for patch in patches)
     return (f'WARNING: white inside the object may be background left behind ({where}). Look at the sprite on coloured ground; '
-            'if it is a hole, export again with --all-white, or clean its mask (clean_backgrounds.py)')
+            f'if it is a hole, export again with {holes} (clears that patch only; --all-white clears every pale pixel, pale paint too)')
 
 
 def crop_to_content(image, margin_fraction=0.06):
@@ -252,12 +253,16 @@ def pad_to_aspect(image, aspect_w, aspect_h):
     return canvas
 
 
-def export(source, target, size, aspect, threshold, soft, all_white=False, as_silhouette=False):
+def export(source, target, size, aspect, threshold, soft, all_white=False, as_silhouette=False, holes=()):
+    """holes: (x, y) points of the master inside white the object encloses that is background (a tyre's middle), each cleared as
+    the edge is, as far as the object's outline (white_to_alpha). The record keeps them, so a re-export clears them again."""
+    holes = [tuple(int(value) for value in point) for point in holes]
     source = Path(source); target = Path(target)
     aspect_w, aspect_h = (int(part) for part in aspect.split(':'))
     master = Image.open(source)
     background = None if as_silhouette or all_white else ai_background(source)
-    cut = silhouette(master, threshold, soft) if as_silhouette else white_to_alpha(master, threshold, soft, all_white, background=background)
+    cut = silhouette(master, threshold, soft) if as_silhouette else white_to_alpha(master, threshold, soft, all_white, holes,
+                                                                                  background=background)
     # A silhouette is white on purpose, and --all-white keeps no white at all: only an ordinary cut can leave background behind.
     left = [] if as_silhouette or all_white else white_left(master, cut, threshold)
     sprite = pad_to_aspect(crop_to_content(cut), aspect_w, aspect_h)
@@ -277,6 +282,7 @@ def export(source, target, size, aspect, threshold, soft, all_white=False, as_si
         'all_white': all_white,
         'silhouette': as_silhouette,
         'ai_mask': file_sha256(source) if background is not None else None,
+        'holes': [list(point) for point in holes],
         'white_left': left,
         'date': _dt.datetime.now().isoformat(timespec='seconds'),
         'tool': 'export_sprite.py: ' + ('dark shape to a white silhouette' if as_silhouette else 'background white to alpha') + ', crop, pad, Lanczos downscale',
@@ -303,7 +309,8 @@ def sweep(root):
         checked += 1
         master = Image.open(source)
         background = ai_background(source) if record.get('ai_mask') else None
-        cut = white_to_alpha(master, record.get('white_threshold', 235), record.get('soft_edge', 30), background=background)
+        holes = [tuple(point) for point in record.get('holes', [])]
+        cut = white_to_alpha(master, record.get('white_threshold', 235), record.get('soft_edge', 30), holes=holes, background=background)
         left = white_left(master, cut, record.get('white_threshold', 235))
         if left:
             suspects.append((record['target'], left))
@@ -325,10 +332,13 @@ if __name__ == '__main__':
     parser.add_argument('--soft', type=int, default=30)
     parser.add_argument('--all-white', action='store_true', help='clear white inside the object too')
     parser.add_argument('--silhouette', action='store_true', help='a white shape from a dark one, for a picture the game tints')
+    parser.add_argument('--hole', action='append', default=[], metavar='X,Y',
+                        help='a point of the master in enclosed white that is background, cleared as far as the outline; repeatable')
     args = parser.parse_args()
     if args.sweep:
         sweep(REPO / args.sweep if not Path(args.sweep).is_absolute() else args.sweep)
     elif not (args.source and args.target):
         parser.error('give a source and a target, or --sweep')
     else:
-        export(args.source, args.target, args.size, args.aspect, args.threshold, args.soft, args.all_white, args.silhouette)
+        export(args.source, args.target, args.size, args.aspect, args.threshold, args.soft, args.all_white, args.silhouette,
+               [point.split(',') for point in args.hole])

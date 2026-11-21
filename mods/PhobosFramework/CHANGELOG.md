@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.211.2] - 2026-11-21 - Draft
+
+Two icons that showed white through a hole. Not yet tested in game.
+
+### Fixed
+
+- **The Service button's spanner and the long gearing tune's big gear show the ground through their holes**: both had kept a patch of white there from the picture they were cut from. Nothing else in either picture changed.
+
 ## [0.211.1] - 2026-11-22 - Draft
 
 Walk-in cabins: people in the cabin count as aboard, and share the seats' limit

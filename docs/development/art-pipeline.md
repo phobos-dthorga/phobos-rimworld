@@ -64,9 +64,12 @@ The other routes weighed (Gemini, fal.ai, Midjourney and others, the view-angle 
    building in place; measure the edit's offset and pass `--shift`), framed as the building was so the two line up (21 Nov 2026,
    the fuel pump's charging cable). Each writes an `.export.json` beside its output. **export_sprite warns when white it kept
    inside the object looks like background** (21 Nov 2026: a large enclosed patch in the master's own flat background colour, such
-   as a hole showing white); look at the sprite on coloured ground, and use `--all-white` if it is a hole. `export_sprite.py
-   --sweep` checks every shipped sprite the same way (about 4 minutes; its first run found three: the run-flat tyres, the service
-   spanner and the long gearing tune).
+   as a hole showing white); look at the sprite on coloured ground, and if it is a hole, export again with the `--hole X,Y` the
+   warning names (that patch only, as far as the outline; `--all-white` clears every pale pixel, pale paint too). The record keeps the
+   holes, so `clean_backgrounds.py stage` clears them again. `export_sprite.py --sweep` checks every shipped sprite the same way
+   (about 4 minutes; its first run found three, fixed the same day: the run-flat tyres, the service spanner and the long gearing
+   tune). **Apply a re-export with `clean_backgrounds.py apply --only NAME`** when only some staged changes are wanted: a full stage
+   also rebuilds textures nobody asked to change (21 Nov 2026: the stock engine tune's gauge would have lost a blotch of its face).
    Re-exporting existing textures goes through `clean_backgrounds.py stage`, its review page and `apply`.
 8. **Paint (vehicles).** Run `scripts/art/paint_segments.py` on the new master, then
    `python scripts/art/repaint_vehicles.py stage --paint repaired`, `review` and `apply --paint repaired`; then
