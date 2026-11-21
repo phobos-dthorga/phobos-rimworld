@@ -248,7 +248,7 @@
         </stages>
       </li>
       <li>
-        <!-- Crosslink 4: whether the vehicle is on fire, and how fiercely; while it burns, the radiator and its hoses cook. -->
+        <!-- Crosslink 4: whether the vehicle is on fire, and how fiercely. What a fire wears is FireWear.xml (Framework 0.221.0). -->
         <name>bodyFire</name>
         <description>How much of the vehicle is burning. Fire heats everything aboard and ruins the radiator.</description>
         <label>fire</label>
@@ -264,12 +264,6 @@
             <from>0.01</from>
             <label>burning</label>
             <notable>true</notable>
-            <effects>
-              <li Class="Phobos.VehicleSystems.Effect_DamagePart">
-                <role>Radiator</role>
-                <sharePerHour>0.5</sharePerHour>
-              </li>
-            </effects>
           </li>
         </stages>
       </li>

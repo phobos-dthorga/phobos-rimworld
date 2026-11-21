@@ -167,8 +167,15 @@ left on still run the battery down.
   vehicle whose engine is destroyed cannot move until it has a new one.
 - **In a caravan**, select it on the world map and press **Repair** for a vehicle that needs it; it must have stopped and have a
   mechanic. **The parts can be anywhere in the convoy's cargo**, not only in the broken vehicle (not yet tested in game).
-- **A fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats, and the radiator, the tyres and the battery burn. Put it out
-  within an in-game hour or expect a hot engine and a radiator to repair; left two hours, the engine boils over.
+- **A fire on a vehicle cooks it from the inside**: the cab grows stifling, the coolant heats, and the radiator, the tyres, the battery, the belts,
+  the hydraulic lines, the fuel tank and the brakes burn, and the wiring shorts. **A bigger fire burns faster**; a small one put out at once costs
+  little. Put a big one out within an in-game hour or expect a hot engine and a radiator to repair; left two hours, the engine boils over.
+- **Other factions' vehicles burn as yours do** (the setting **Other factions' vehicles burn as yours do**, on by default), so fire is a
+  way to stop a raider's truck.
+- **Some vehicles never catch fire** (tanks and trains among them, as their makers built them), but **a ground fire under one still burns
+  its tyres or tracks, belts and hoses** (the setting **Fire underneath burns fireproof vehicles' tyres and hoses**, on by default).
+- **Firefoam works on a burning vehicle with Combat Extended**: foam that lands on the vehicle now shrinks the fire on it, as it does
+  without Combat Extended. Not yet tested in game: row 340 of the test pass.
 - **A destroyed vehicle leaves its hull** (not yet tested in game; the setting **Destroyed vehicles leave a hull**, on by default): yours or
   anyone's, where it fell. Mark it to **Deconstruct**: it gives **salvaged vehicle parts**, worth a quarter of the vehicle, on top of the
   quarter of its materials Vehicle Framework drops where it is destroyed. A raiders' aircraft brought down leaves nothing.

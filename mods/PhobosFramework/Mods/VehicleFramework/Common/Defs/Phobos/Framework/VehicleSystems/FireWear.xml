@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Fire wearing a vehicle's parts (Framework 0.221.0; owner, 22 Nov 2026; docs/development/vehicle-fire.md, FR2, FR3, FR5, FR6). One
+    model for every vehicle: until 0.220.0 the radiator, tyres and battery wore at flat rates from stages in the systems' Defs, for the
+    player's vehicles only. Now each role wears its rate at full fire times the fire's size, never under a tenth of the rate while burning;
+    other factions' vehicles burn too (a setting, on); and the soft parts of a vehicle that cannot catch fire wear from a ground fire under
+    it (a setting, on). The first three rates are the old stages' figures; the rest are authored, after the real sources in the record:
+    wiring insulation and fluids are what first catch in most real vehicle fires (US Fire Administration, 2018), and tyre rubber breaks
+    down from about 180 degrees C (NTSB HAR-07/01). Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosFireWearRulesDef>
+    <defName>PhobosFireWearRules</defName>
+    <roles>
+      <!-- The radiator and its hoses (a soft part: the hoses go first). -->
+      <li><role>Radiator</role><sharePerHour>0.5</sharePerHour><soft>true</soft></li>
+      <!-- Tyres, and a tracked vehicle's road wheels where its loadout binds them as wheels. -->
+      <li><role>Wheels</role><sharePerHour>0.4</sharePerHour><soft>true</soft></li>
+      <li><role>Battery</role><sharePerHour>0.3</sharePerHour></li>
+      <li><role>Belt</role><sharePerHour>0.5</sharePerHour><soft>true</soft></li>
+      <li><role>HydraulicLines</role><sharePerHour>0.4</sharePerHour><soft>true</soft></li>
+      <li><role>FuelTank</role><sharePerHour>0.3</sharePerHour></li>
+      <li><role>Brakes</role><sharePerHour>0.2</sharePerHour></li>
+    </roles>
+    <!-- A burning vehicle wears at least a tenth of each rate, however small the fire. -->
+    <leastShareOfRate>0.1</leastShareOfRate>
+    <!-- No loadout has a wiring part, so a fire shorts the wiring as a hit on the battery does: 0.3 severity an hour at full fire. -->
+    <wiringRole>Battery</wiringRole>
+    <wiringPerHour>0.3</wiringPerHour>
+    <wiringCondition>PhobosVehicleCondition_ShortedWiring</wiringCondition>
+  </Phobos.VehicleSystems.PhobosFireWearRulesDef>
+</Defs>

@@ -5,6 +5,23 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.221.0] - 2026-11-22 - Draft
+
+Fire burns a vehicle by its size, burns more of it, and burns everyone's
+
+### Changed
+
+- **A fire wears a vehicle by how big it is, and wears more of it** (the owner's choices of 22 November 2026, fire on vehicles FR2 and FR3). Before, any fire on one of your vehicles wore its radiator, tyres and battery at a fixed rate however small. Now each part burns at its rate times the fire's size, never under a tenth of it while burning, and the belts, hydraulic lines, fuel tank and brakes burn too; a fire also shorts the wiring, as a hit on the battery does. One step for every vehicle in place of the wear stages the systems' Defs had. For modders: PhobosFireWearRulesDef. Not yet tested in game: row 340 of the test pass.
+
+### Added
+
+- **Other factions' vehicles burn as yours do** (FR6). A raider's or a trader's burning vehicle took no harm but cook-off; now its parts wear as yours do. A new setting, **Other factions' vehicles burn as yours do**, on by default.
+- **A ground fire burns a fireproof vehicle's soft parts** (FR5, the owner's "soft parts only"). About a quarter of the vehicles on a large list, tanks and trains among them, are built so fire never catches on them; a fire on the ground beneath one now wears its tyres or tracks, belts, hoses and radiator, never the rest. A new setting, **Fire underneath burns fireproof vehicles' tyres and hoses**, on by default.
+
+### Fixed
+
+- **Firefoam puts out a fire on a vehicle under Combat Extended** (FR9). Combat Extended's armour setting replaces Vehicle Framework's damage step for vehicles, and its replacement had no extinguishing, so foam that landed on a burning vehicle rather than on the fire's own cell put nothing out. Vehicle Framework's own extinguishing now runs, on the same terms as its EMP step (temporary patches, row 18).
+
 ## [0.220.0] - 2026-11-22 - Draft
 
 A burning vehicle is seen to be burning

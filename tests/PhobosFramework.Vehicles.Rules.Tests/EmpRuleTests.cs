@@ -69,6 +69,14 @@ public class EmpRuleTests
     }
 
     [Fact]
+    public void AnyMissedStepFollowsTheSameTerms()
+    {
+        Assert.True(EmpRule.StepMissed(isThatKindOfHit: true, amount: 20f, methodRan: false, combatExtendedTakesVehicleDamage: true));
+        Assert.False(EmpRule.StepMissed(true, 20f, methodRan: true, combatExtendedTakesVehicleDamage: true));
+        Assert.False(EmpRule.StepMissed(true, 0f, false, true));
+    }
+
+    [Fact]
     public void AHitHeldBackOnPurposeStaysHeldBack()
     {
         Assert.False(EmpRule.EmpStepMissed(true, amount: 0f, methodRan: false, combatExtendedTakesVehicleDamage: true));

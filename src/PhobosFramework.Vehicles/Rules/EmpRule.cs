@@ -55,7 +55,14 @@ public static class EmpRule
     /// (a hull under water, an aircraft in the air) has its amount set to nothing and stays held back.
     /// </summary>
     public static bool EmpStepMissed(bool isEmp, float amount, bool methodRan, bool combatExtendedTakesVehicleDamage) =>
-        isEmp && amount > 0f && !methodRan && combatExtendedTakesVehicleDamage;
+        StepMissed(isEmp, amount, methodRan, combatExtendedTakesVehicleDamage);
+
+    /// <summary>
+    /// The same for any of Vehicle Framework's own steps Combat Extended's replacement leaves out (Framework 0.221.0: extinguishing too,
+    /// vehicle-fire.md FR9): a hit of that kind, still carrying an amount, when the method did not run and Combat Extended is the reason.
+    /// </summary>
+    public static bool StepMissed(bool isThatKindOfHit, float amount, bool methodRan, bool combatExtendedTakesVehicleDamage) =>
+        isThatKindOfHit && amount > 0f && !methodRan && combatExtendedTakesVehicleDamage;
 
     /// <summary>Whether an EMP may stun (stall) the vehicle: never a mechanical one, nor one whose author opted out of being stunned.</summary>
     public static bool Stuns(EmpHardening hardening, bool authorSaysNoStun) => hardening != EmpHardening.Mechanical && !authorSaysNoStun;

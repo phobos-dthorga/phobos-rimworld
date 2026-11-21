@@ -20,6 +20,7 @@
 
   <!-- The game's short circuit, through a vehicle's hook-up lead -->
   <PhobosVehicleSystems_CauseShortCircuit>a surge from the grid when it shorted out</PhobosVehicleSystems_CauseShortCircuit>
+  <PhobosVehicleSystems_CauseFire>a fire on the vehicle burning through it</PhobosVehicleSystems_CauseFire>
   <PhobosVehicleSystems_ShortCircuitReached>The short circuit surged down the {VEHICLE}'s hook-up lead and shorted its wiring. Some of its circuits are dead until a mechanic repairs or patches them.</PhobosVehicleSystems_ShortCircuitReached>
 
 </LanguageData>

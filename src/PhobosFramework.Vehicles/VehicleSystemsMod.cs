@@ -142,6 +142,12 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>Ammunition in a burning vehicle's cargo can cook off (Framework 0.113.0, cross-links G13; owner, 13 Nov 2026: on by default,
     /// and only ever where Combat Extended's ammunition system is on). Live.</summary>
     public bool ammoCookOff = true;
+    /// <summary>Other factions' vehicles wear in a fire as the player's do (Framework 0.221.0, vehicle-fire.md FR6; owner, 22 Nov 2026).
+    /// Risk moderate, the agent's grade: on. Live.</summary>
+    public bool fireWearOthers = true;
+    /// <summary>A ground fire under a vehicle that cannot catch fire wears its soft parts (Framework 0.221.0, FR5; owner, 22 Nov 2026: "soft
+    /// parts only"). Risk moderate, the agent's grade: on. Live.</summary>
+    public bool fireWearUnderFireproof = true;
     /// <summary>Spall inside vehicles (Framework 0.207.0; docs/development/vehicle-spall.md): a round that beats an outer plate of the rifle
     /// class or heavier throws debris into the compartment behind it, wounding the crew and holing inner parts there. Combat Extended only.
     /// The owner graded its risk moderate (21 Nov 2026), so it starts on. Live.</summary>
@@ -247,6 +253,8 @@ public class VehicleSystemsSettings : ModSettings
         "aircraftFuel" => aircraftFuel,
         "cruiseHeight" => cruiseHeight,
         "ammoCookOff" => ammoCookOff,
+        "fireWearOthers" => fireWearOthers,
+        "fireWearUnderFireproof" => fireWearUnderFireproof,
         "spallInsideVehicles" => spallInsideVehicles,
         "spallOnOtherVehicles" => spallOnOtherVehicles,
         "shockSpall" => shockSpall,
@@ -318,6 +326,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref aircraftFuel, "PhobosVehicleSystems_AircraftFuel", true);
         Scribe_Values.Look(ref cruiseHeight, "PhobosVehicleSystems_CruiseHeight", true);
         Scribe_Values.Look(ref ammoCookOff, "PhobosVehicleSystems_AmmoCookOff", true);
+        Scribe_Values.Look(ref fireWearOthers, "PhobosVehicleSystems_FireWearOthers", true);
+        Scribe_Values.Look(ref fireWearUnderFireproof, "PhobosVehicleSystems_FireWearUnderFireproof", true);
         Scribe_Values.Look(ref spallInsideVehicles, "PhobosVehicleSystems_SpallInsideVehicles", true);
         Scribe_Values.Look(ref spallOnOtherVehicles, "PhobosVehicleSystems_SpallOnOtherVehicles", true);
         Scribe_Values.Look(ref shockSpall, "PhobosVehicleSystems_ShockSpall", true);
@@ -413,6 +423,8 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.autoLights) report.Off("lights switching themselves", "off (setting)");
         if (!Settings.weatherGrip) report.Off("weather on grip", "off (setting)");
         if (!Settings.ammoCookOff) report.Off("ammunition cook-off", "off (setting)");
+        if (!Settings.fireWearOthers) report.Off("fire wearing other factions' vehicles", "off (setting)");
+        if (!Settings.fireWearUnderFireproof) report.Off("ground fire wearing fireproof vehicles' soft parts", "off (setting)");
         else if (!CookOff.AmmoSystemOn) report.Off("ammunition cook-off", "Combat Extended's ammunition is not in use");
         if (!Settings.spallInsideVehicles) report.Off("spall inside vehicles", "off (setting)");
         else if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) report.Off("spall inside vehicles", "needs Combat Extended");
@@ -585,6 +597,10 @@ public class VehicleSystemsMod : SettingsBookMod
         VehicleSystemsSettings s = Settings, d = Defaults;
         list.Check("PhobosVehicleSystems_SettingTankExplosions".Translate(), ref s.tankExplosions, d.tankExplosions, "PhobosVehicleSystems_SettingTankExplosionsDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingAmmoCookOff".Translate(), ref s.ammoCookOff, d.ammoCookOff, "PhobosVehicleSystems_SettingAmmoCookOffDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingFireWearOthers".Translate(), ref s.fireWearOthers, d.fireWearOthers,
+            "PhobosVehicleSystems_SettingFireWearOthersDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingFireWearUnderFireproof".Translate(), ref s.fireWearUnderFireproof, d.fireWearUnderFireproof,
+            "PhobosVehicleSystems_SettingFireWearUnderFireproofDesc".Translate());
         list.Section("PhobosVehicleSystems_SectionSpall".Translate());
         list.Check("PhobosVehicleSystems_SettingSpall".Translate(), ref s.spallInsideVehicles, d.spallInsideVehicles, "PhobosVehicleSystems_SettingSpallDesc".Translate());
         if (s.spallInsideVehicles)

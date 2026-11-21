@@ -108,12 +108,18 @@ public static class EmpHardeningPatch
 public static class EmpUnderCombatExtendedPatch
 {
     static readonly MethodInfo? Electrify = AccessTools.Method("Vehicles.VehicleStatHandler:ElectrifyAllComponents");
+    static readonly MethodInfo? Extinguish = AccessTools.Method("Vehicles.VehicleStatHandler:TryExtinguishFire");
     static FieldInfo? settingsField;
     static FieldInfo? armourField;
     static bool looked;
 
-    public static void Postfix(VehicleStatHandler __instance, VehiclePawn ___vehicle, DamageInfo dinfo, bool __runOriginal)
+    public static void Postfix(VehicleStatHandler __instance, VehiclePawn ___vehicle, DamageInfo dinfo, IntVec2 hitCell, bool __runOriginal)
     {
+        if (dinfo.Def?.workerClass == typeof(DamageWorker_Extinguish))
+        {
+            ExtinguishMissed(__instance, ___vehicle, dinfo, hitCell, __runOriginal);
+            return;
+        }
         if (dinfo.Def != DamageDefOf.EMP || Electrify == null) return;
         if (!EmpRule.EmpStepMissed(true, dinfo.Amount, __runOriginal, CombatExtendedTakesVehicleDamage())) return;
         if (___vehicle == null || ___vehicle.Destroyed) return;
@@ -126,6 +132,27 @@ public static class EmpUnderCombatExtendedPatch
         catch (Exception problem)
         {
             VehicleSystemsMod.Logger.Warn("An EMP could not reach " + ___vehicle.LabelShort + " under Combat Extended: " + problem.Message);
+        }
+    }
+
+    /// <summary>
+    /// Extinguishing that hits a vehicle (Framework 0.221.0; vehicle-fire.md FR9; owner, 22 Nov 2026): Vehicle Framework's step shrinks the
+    /// fire burning on the vehicle, and Combat Extended's replacement leaves it out, so firefoam that landed on a burning vehicle rather than
+    /// on the fire's own cell put nothing out. Runs Vehicle Framework's own step, by name, on the same terms as the EMP's.
+    /// </summary>
+    static void ExtinguishMissed(VehicleStatHandler handler, VehiclePawn? vehicle, DamageInfo dinfo, IntVec2 hitCell, bool ran)
+    {
+        if (Extinguish == null || vehicle == null || vehicle.Destroyed) return;
+        if (!EmpRule.StepMissed(true, dinfo.Amount, ran, CombatExtendedTakesVehicleDamage())) return;
+        try
+        {
+            Extinguish.Invoke(handler, new object[] { dinfo, hitCell });
+            if (Seen.Wants("vehicles.extinguish-under-combat-extended", vehicle))
+                Seen.Note("vehicles.extinguish-under-combat-extended", vehicle, "extinguish step run");
+        }
+        catch (Exception problem)
+        {
+            VehicleSystemsMod.Logger.Warn("Extinguishing could not reach " + vehicle.LabelShort + " under Combat Extended: " + problem.Message);
         }
     }
 

@@ -1,7 +1,7 @@
 # Fire on vehicles: what burns today, what does not, and what a vehicle fire should do (22 Nov 2026)
 
-**Status (22 Nov 2026):** partly built. FR1 (seeing a fire on a vehicle) is built in D'thorga Framework 0.220.0, at the owner's
-word; every other row is unbuilt. Not yet tested in game: row 339 of the test pass.
+**Status (22 Nov 2026):** partly built, at the owner's word: FR1 (seeing a fire on a vehicle) in D'thorga Framework 0.220.0; FR2,
+FR3, FR5, FR6 and FR9 in 0.221.0. FR10 waits for its short design; every other row is unbuilt. Not yet tested in game: rows 339 and 340.
 
 The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md)'s row NK20 (fire that harms a vehicle): "Write its
 record next", the strike research having found that Combat Extended discards the game's fire damage against every vehicle. It began

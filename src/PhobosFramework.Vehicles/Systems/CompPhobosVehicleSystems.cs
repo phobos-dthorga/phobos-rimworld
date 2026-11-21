@@ -853,6 +853,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 Lamps.Update();
                 Beams.Update();
                 CookOff.RareTick(this);
+                FireWear.RareTick(this, lite: false);
                 if (++pipeLooks >= RareTicksPerPipeLook)
                 {
                     pipeLooks = 0;
@@ -869,6 +870,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 Beams.Update();
                 // Any faction's burning vehicle cooks off its ammunition (G13): cheap, read only while it burns.
                 CookOff.RareTick(this);
+                // Fire wears another faction's vehicle as it does the player's (Framework 0.221.0, FR6; a setting).
+                FireWear.RareTick(this, lite: true);
                 // Another faction's crew leaves a burning vehicle or a dead hull (Framework 0.115.0, C2).
                 CrewBailOut.RareTick(this);
                 break;

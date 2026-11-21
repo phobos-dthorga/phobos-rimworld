@@ -3,6 +3,12 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "340": {"parts": {
+      "your burning vehicle wears by the fire's size": [{"key": "vehicles.fire-wear", "variant": "own", "expect": {"fire": "> 0"}}],
+      "another faction's burning vehicle wears": [{"key": "vehicles.fire-wear", "variant": "other-faction"}],
+      "a fireproof vehicle's soft parts wear from fire beneath": [{"key": "vehicles.fire-wear", "variant": "fireproof", "expect": {"under": "> 0"}}],
+      "firefoam shrinks a vehicle's fire under Combat Extended": ["vehicles.extinguish-under-combat-extended"]
+    }},
     "339": ["framework.fire-on-vehicle"],
     "338": {"parts": {
       "a caravan cooks at a packed kitchen box": [{"key": "camp.kitchen-box-caravan", "detail": "*"}]
