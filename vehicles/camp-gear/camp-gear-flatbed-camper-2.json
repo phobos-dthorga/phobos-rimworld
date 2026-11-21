@@ -1,0 +1,51 @@
+{
+  "file": "camp-gear-flatbed-camper-2.png",
+  "sha256": "6128dc187a2c8f737c8b7e4b0be9ee0df26b2e2a5cc9ea1ac3ef6ebc4a833b8f",
+  "date": "2026-11-22T06:27:39",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is a close-up piece of the deck of our flatbed trailer, seen from directly above, the front of the vehicle toward the TOP of the canvas. Add a closed fold-out camper box resting on the deck: a long low rectangular box with a pale aluminium lid in ribbed panels, sand-coloured canvas showing in a thin band along its sides where the tent folds inside, two latches on its rear end and a small step folded against it. It fills most of the deck between the rails, never past them. Change NOTHING else: keep every other line, panel, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, text, letters, numbers, logos, dust, damage or shadows outside the vehicle.",
+  "seed": 2,
+  "size": [
+    640,
+    1536
+  ],
+  "request_file": "assets/phobos-vehicles/requests/camp-gear-overlays.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1196,
+    "input_tokens_details": {
+      "image_tokens": 960,
+      "text_tokens": 236
+    },
+    "output_tokens": 716,
+    "output_tokens_details": {
+      "image_tokens": 716,
+      "text_tokens": 0
+    },
+    "total_tokens": 1912
+  },
+  "cost_usd": 0.0303,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "640x1536",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    640,
+    1536
+  ],
+  "seconds": 17.4,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/camp-gear-crop-flatbed-camper.png",
+      "sha256": "e6931fe05b47a971595953fd4039463684d941864cb2b712cf44f2996bfc4f55",
+      "role": "a piece of our approved vehicle picture as the game draws it: the picture to add to, changing nothing else"
+    }
+  ]
+}
