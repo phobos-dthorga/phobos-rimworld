@@ -143,8 +143,8 @@ Use the tool before reading raw files; how to use each is in [`scripts/AGENTS.md
 
 - **Another author's bug is theirs to fix** (owner, 8 Nov 2026). Patch an active project only when its errors are rather extreme in
   nature (a storm that kills the log, lost colony data); otherwise leave it to the author and, where possible, draft a report for the
-  owner to post (agents never post), **carrying what the tools showed** (owner, 21 Nov 2026): the log lines, the chain that holds a
-  thing, the lines of their source. **If the project is abandoned, this reverses**: patch it. Judge that with
+  owner to post. **How a report is handled is a shared rule**, `external/phobos-modkit/rules/reports.md` (owner, 22 Nov 2026), read
+  before drafting one. **If the project is abandoned, this reverses**: patch it. Judge that with
   `python scripts/workshop-research.py report <mod>` (update date, the uploader's last reply) and say what it showed.
 - **RimWorld 1.7 only** (owner, 8 November 2026): never fix a 1.6-only failure. The detail is in `src/AGENTS.md`.
 
