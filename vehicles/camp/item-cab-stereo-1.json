@@ -1,0 +1,56 @@
+{
+  "file": "item-cab-stereo-1.png",
+  "sha256": "d4197632de435f006a790d50cf6688012c3b7d03d9fe74f39752a408e98a58c3",
+  "date": "2026-11-22T05:37:25",
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for a vehicle's cab stereo kit. Images 1 and 2 are our approved camp gear from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA rugged dark grey car radio head unit with two round knobs and a small green-lit display panel with no writing, beside a pair of small round black speakers and a short bundle of wiring with a plug.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground. No shadow outside the object.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/life-aboard-kits.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 367,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 239
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2123
+  },
+  "cost_usd": 0.0549,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 26.9,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+      "sha256": "15f6c16388ff46c9dafa26d692f682bd906bf4406606e4fa04d3e48e1b2f0a2a",
+      "role": "our approved camp kit item (the roof tent kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehiclesHygiene/Common/Textures/Phobos/VehicleSystems/Camp/CrewWaterTankKit.png",
+      "sha256": "53a02d6006d484cdc2048aff5916a2f2ab09d9662633b99e9aa3cec697eca228",
+      "role": "our camp kit item (the crew water tank): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}

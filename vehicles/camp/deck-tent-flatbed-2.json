@@ -1,0 +1,51 @@
+{
+  "file": "deck-tent-flatbed-2.png",
+  "sha256": "a4963fa05d8756151c0350cbee1c34111903dc4af98692caa98b5c520b8efbde",
+  "date": "2026-11-22T05:48:00",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down at the object's TOP SURFACE ONLY. Show no vertical front or side faces.\n\nImage 1 is the long deck of our flatbed trailer seen from directly above, the front of the trailer toward the TOP of the canvas: dark plank decking between pale side rails, with the wheels beside it. Add a canvas deck tent pitched on the deck: one long rectangular tent seen from above, its roof a sand-coloured canvas fly with a single straight ridge line running the length of the tent down its centre, each half of the roof shaded a little differently, a few guy lines and tie-down straps running to the deck's rails, a rolled-up door flap at its rear end. The tent covers the deck from just behind the first cross-member to the rear of the deck, and fills the deck's width between the rails, never past them. Change NOTHING else: keep every other line, plank, rail, wheel, colour and the plain white background exactly as in Image 1, at the same scale and position.\n\nDraw the addition in exactly the finish of Image 1: a thick near-black outline, soft flat cel shading with two or three tones, small clean details, no texture noise.\n\nNo people, beds, gear, text, letters, numbers, logos, dust, damage or shadows outside the trailer.",
+  "seed": 2,
+  "size": [
+    640,
+    1280
+  ],
+  "request_file": "assets/phobos-vehicles/requests/deck-tent-pilot.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 1087,
+    "input_tokens_details": {
+      "image_tokens": 800,
+      "text_tokens": 287
+    },
+    "output_tokens": 812,
+    "output_tokens_details": {
+      "image_tokens": 812,
+      "text_tokens": 0
+    },
+    "total_tokens": 1899
+  },
+  "cost_usd": 0.0322,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "640x1280",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    640,
+    1280
+  ],
+  "seconds": 20.2,
+  "references": [
+    {
+      "image": "assets/phobos-vehicles/references/deck-tent-crop-flatbed.png",
+      "sha256": "90923d3132f7175998938e1bfbf12f10da6ec95be7e6d63e436e7e3785d21cd1",
+      "role": "a piece of our approved Pintle flatbed trailer body (the owner's pick): the picture to add to, changing nothing else"
+    }
+  ]
+}
