@@ -1,0 +1,37 @@
+{
+  "file": "redraw-front-standard-c-v1-11.png",
+  "sha256": "72ed82325dbfac96a9591671bc766685f517ab86c210af4f84709997256cf38c",
+  "date": "2026-11-21T09:26:22",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosvanilla, A short combine grain front seen from above: a slim grey cutter bar with a row of small pointed knife guards along its front edge, the same as the third reference image but shorter. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands. No people, no combine, only the front.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/phobos-vehicles/requests/redraws-after-training.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 232.7,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/Turbocharger.png",
+      "sha256": "916cd1de2e3f26a2d047d234f81f0fff9dd3be18fc0d18740360113113dd555a"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/UpratedRadiator.png",
+      "sha256": "503ac51f16d79fb775b0c7eb95c5ee519de5a20cfdec5cef1f9541dca97a121d"
+    },
+    {
+      "image": "assets/phobos-vehicles/generated/farming-front-wide-b/farming-front-wide-b-11.png",
+      "sha256": "2db2a0110ee770c37835f04d41dc56d86878e438ee42532fc49984d8477df1aa"
+    }
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "lora_strength": 1.0
+}
