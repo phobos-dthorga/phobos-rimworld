@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.105.2] - 2026-11-22 - Draft
+
+The armour kits drawn clean
+
+### Fixed
+
+- **The trucks' armoured cab and heavy cab plates are drawn clean.** Thin grey and white lines floated beside the cab on the tanker, the drill rig and the survey truck: pieces of the old cab's outline left over when each kit was cut from its picture, found by the new picture check. They are gone on all five trucks, and each kit now has a thin dark edge, so the truck's pale roof no longer shows as a line beside it. Same kits, same place. Not yet tested in game: row 368.
+
 ## [0.105.1] - 2026-11-22 - Draft
 
 The Busbar's upgrades shown again

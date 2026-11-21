@@ -12,8 +12,5 @@
   "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Linked/Coax*_Atlas.png": "a linked-graphic atlas: small corner pieces by design",
   "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/SurveyTruck_Geophones_*.png": "the geophones' small cable tabs (looked at 22 Nov 2026)"
  },
- "known": {
-  "mods/PhobosVehicles/Textures/Phobos/Vehicles/*/*_ArmouredCab_*.png": "ghost fragments of outline floating beside the cab, left from cutting the plates out (found 22 Nov 2026); to fix",
-  "mods/PhobosVehicles/Textures/Phobos/Vehicles/*/*_HeavyCabPlates_*.png": "ghost fragments of outline floating beside the cab, left from cutting the plates out (found 22 Nov 2026); to fix"
- }
+ "known": {}
 }
