@@ -28,6 +28,10 @@
     "338": {"parts": {
       "a caravan cooks at a packed kitchen box": [{"key": "camp.kitchen-box-caravan", "detail": "*"}]
     }},
+    "348": {"parts": {
+      "a shower on the road burns the heater's chemfuel for hot water": [{"key": "trailers.caravan-shower-heat", "variant": "hot"}],
+      "with the heater dry, the shower is cold": [{"key": "trailers.caravan-shower-heat", "variant": "cold"}]
+    }},
     "347": {"parts": {
       "a caravan driving through the night shows the road's time only": ["vehicles.night-drive-arrival"]
     }},

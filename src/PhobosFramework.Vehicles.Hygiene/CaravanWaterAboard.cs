@@ -102,6 +102,28 @@ public sealed class WaterAboard : CaravanWater.ISource
         return taken;
     }
 
+    /// <summary>
+    /// Hot water for one shower on the road (Framework 0.228.0): burns this much chemfuel in a packed water heater along (a set-out piece
+    /// with Dubs' boiler and a fuel tank, as the shower trailer's), the fullest first. False when none has enough: the shower is cold.
+    /// </summary>
+    public static bool HeatShower(Caravan caravan, float fuel)
+    {
+        CompRefuelable? best = null;
+        foreach (VehiclePawn carrier in Carriers(caravan))
+        {
+            if (carrier.GetComp<CompPhobosSetOut>() is not { } setOut) continue;
+            foreach (Thing piece in setOut.PackedPieces)
+            {
+                if (!piece.def.comps.Any(comp => comp is CompProperties_CompBoiler)) continue;
+                if (piece.TryGetComp<CompRefuelable>() is not { } tank || tank.Fuel < fuel) continue;
+                if (best == null || tank.Fuel > best.Fuel) best = tank;
+            }
+        }
+        if (best == null) return false;
+        best.ConsumeFuel(fuel);
+        return true;
+    }
+
     /// <summary>Whether the caravan has a shower trailer along: plumbing of ours that is not a kitchen's own tank.</summary>
     public static bool HasShower(Caravan caravan) => Carriers(caravan).Any(carrier => carrier.GetComp<CompPhobosTrailerPlumbing>() is { OwnsWater: false });
 }
@@ -121,6 +143,7 @@ public static class CaravanDrinking
         public float litres;
         public bool shower;
         public bool saidEmpty;
+        public bool saidCold;
     }
 
     static readonly Dictionary<int, Seen_> seen = new();
@@ -138,6 +161,26 @@ public static class CaravanDrinking
     }
 
     static bool StandingStill(Caravan caravan) => caravan is VehicleCaravan vehicles ? !vehicles.vehiclePather.MovingNow : !caravan.pather.MovingNow;
+
+    /// <summary>
+    /// A shower on the road is hot while the packed water heater has chemfuel, and Dubs' own check then follows (a hot shower eases
+    /// hypothermia); cold without it, with Dubs' cold-water memory. Says once, per caravan, when the heater runs dry.
+    /// </summary>
+    static void Shower(Caravan caravan, Pawn pawn, Seen_ aboard, PhobosVehicleRulesDef rules)
+    {
+        bool hot = WaterAboard.HeatShower(caravan, rules.caravanShowerFuel);
+        SanitationUtil.WaterTempCheck(pawn, cold: !hot, bath: false);
+        if (Seen.Wants("trailers.caravan-shower-heat", pawn, hot ? "hot" : "cold")) Seen.Note("trailers.caravan-shower-heat", pawn, caravan.Label, hot ? "hot" : "cold");
+        if (hot)
+        {
+            aboard.saidCold = false;
+        }
+        else if (!aboard.saidCold)
+        {
+            aboard.saidCold = true;
+            Messages.Message("PhobosCaravanWater_ShowerCold".Translate(caravan.Label.Named("CARAVAN")).Resolve(), caravan, MessageTypeDefOf.CautionInput, historical: false);
+        }
+    }
 
     public static void Look(Caravan? caravan, Pawn pawn)
     {
@@ -174,6 +217,7 @@ public static class CaravanDrinking
                 {
                     hygiene!.CurLevel = aboard.shower ? rules.caravanShowerTo : rules.caravanWashTo;
                     string how = aboard.shower ? "shower" : "basin";
+                    if (aboard.shower) Shower(caravan, pawn, aboard, rules);
                     if (Seen.Wants("trailers.caravan-wash", pawn, how)) Seen.Note("trailers.caravan-wash", pawn, got.ToString("0.#") + " L", how);
                 }
             }

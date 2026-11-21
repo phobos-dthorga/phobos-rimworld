@@ -208,6 +208,10 @@
     <caravanWashBelow>0.3</caravanWashBelow>
     <caravanWashTo>0.7</caravanWashTo>
     <caravanShowerTo>1</caravanShowerTo>
+    <!-- Hot water for a shower on the road (Framework 0.228.0): the shower trailer's packed water heater burns this much chemfuel a shower.
+         Authored, from warming 20 L by 25 degrees (about 2.1 MJ) in a burner about 80% efficient; what one unit of chemfuel holds is the
+         game's to say, so this is a gameplay figure: a full heater (25) gives a hundred showers. With less left, the shower is cold. -->
+    <caravanShowerFuel>0.25</caravanShowerFuel>
     <!-- Loads a vehicle gains from what it tows (Framework 0.216.0; docs/development/vehicle-field-kitchen.md). A field kitchen's packed cold
          box runs through the trailer's lead: its own working watts (100 W in its Def) at this vehicle's voltage, while it holds food. Shed
          with the fridge, late among the comforts, so the food outlives the air conditioning. -->

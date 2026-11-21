@@ -1138,6 +1138,11 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     public float caravanWashBelow = 0.3f;
     public float caravanWashTo = 0.7f;
     public float caravanShowerTo = 1f;
+    /// <summary>
+    /// The chemfuel one shower on the road burns in a packed water heater for hot water (Framework 0.228.0; authored, about 2 MJ to warm 20 L
+    /// by 25 degrees). With too little left, the shower is cold.
+    /// </summary>
+    public float caravanShowerFuel = 0.25f;
     public float nightDriverFitRest = 0.3f;
     public float nightReliefRest = 0.6f;
     /// <summary>Jamming fields (Framework 0.225.0; docs/development/ea6b-prowler.md, step 2): the capabilities a hostile jamming field blinds,

@@ -508,10 +508,11 @@ of its own (agent's choice, for the owner to revise).
 | The caravan's water | `CaravanWater` (core), filled by `WaterAboard` in the Dubs tie-in | Every tank compartment holding a fluid that plumbs to Dubs' pipes, on any vehicle driven or in tow, and a kitchen's own tank (`CompPhobosTrailerPlumbing.TakeOwnWater`). Without Dubs, or in its lite mode, there is no source and nothing asks for water |
 | Drinking | `CaravanDrinking`, a prefix ahead of Dubs' own on the caravan's needs look (it never skips) | A thirsty member takes **1.5 L** [A] and is refilled, with Dubs' own dirty-water check at the tank's remembered quality. Dubs' look then finds nobody thirsty and leaves bottles alone. Tanks before the kitchen's own water |
 | Washing | The same look, only while the caravan stands still | Below 0.3 hygiene [A]: **5 L** to 0.7, the level Dubs' own caravan washing gives; with the shower trailer along, a **20 L** shower to full [A: five minutes at 4 L a minute] |
+| Hot water (Framework 0.228.0; row 348) | `WaterAboard.HeatShower`, called from the same look for a shower | **0.25 chemfuel a shower** [A: 20 L warmed by 25 degrees is about 2.1 MJ; what a unit of chemfuel holds is the game's to say], from a packed piece with Dubs' boiler and a fuel tank (the shower trailer's field water heater), the fullest first. Then Dubs' own `WaterTempCheck`: hot eases hypothermia, cold gives its cold-water memory. A message once a caravan when the heater runs dry. A loose end the owner asked to have tidied (22 Nov 2026); before it, road showers were hot for nothing |
 | The kettle | `CaravanCookRule.Meals`, a fourth limit | **1 L a meal** [A: the kettle's 10 L for a batch of ten], the kitchen's own tank first. No water, no meals, and a message says so |
 
-**Simplifications, labelled:** people drink on the move (the water is aboard) but wash only at a stop. A shower on the road burns no
-chemfuel for hot water and fills no waste tank; Dubs keeps a caravan's bladders full itself. A kitchen's own water does not keep its
+**Simplifications, labelled:** people drink on the move (the water is aboard) but wash only at a stop. A shower on the road fills no waste
+tank (Dubs' showers make no sewage at home either; only toilets and washing machines do); Dubs keeps a caravan's bladders full itself. A kitchen's own water does not keep its
 quality while packed, so it is drunk as clean. Animals with thirst drink the same 1.5 L. The figures are in the vehicle rules Def.
 
 **Other factions:** their caravans are not simulated person by person; nothing applies. **Cost to run:** per caravan member per needs
