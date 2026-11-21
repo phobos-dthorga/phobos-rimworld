@@ -3,6 +3,11 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "321": {"parts": {
+      "the sleeper climbs into the bunk at bedtime": ["vehicles.bunk-sleep"],
+      "wakes rested": [{"key": "vehicles.bunk-wake", "variant": "rested"}],
+      "danger wakes them": [{"key": "vehicles.bunk-wake", "variant": "PhobosBunk_WokenDanger"}]
+    }},
     "320": {"parts": {
       "the caravan drives on at night": ["vehicles.night-drive"],
       "a rested passenger takes the wheel": ["vehicles.night-drive-hand-over"]

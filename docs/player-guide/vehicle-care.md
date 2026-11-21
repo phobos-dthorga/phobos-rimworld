@@ -464,6 +464,9 @@ Not yet tested in game.
 - Each caravan has its own **Drive through the night** button, on once the setting is on; switch it off to rest that caravan at night.
 - **What it costs:** fuel for the extra hours, headlights at night, and tired people at the far end if bunks are short. The arrival
   time shown when planning still counts the nights, so you will arrive sooner than it says.
+- **Sleeping in a parked truck:** on a truck with a cab bunk, press **Bunk: nobody** and choose a colonist. At bedtime they climb
+  into the cab and sleep there while it stands still, warm if the cab is, and climb out rested or when their workday starts
+  (**slept in the cab**, +2). Danger, fire or illness wakes them at once. Sick colonists keep their real beds.
 
 ## Headlights
 

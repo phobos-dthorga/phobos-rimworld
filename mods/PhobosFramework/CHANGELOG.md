@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.215.0] - 2026-11-21 - Draft
+
+Sleeping in a parked truck's cab bunk
+
+### Added
+
+- **Sleep in a parked vehicle's cab bunk** (the owner's go of 21 November 2026; the last of the berths): on a vehicle with a cab bunk, press **Bunk: nobody** and choose who sleeps there. At bedtime, when the game would send them to bed, they walk to the vehicle instead, climb in and sleep in the cab's warmth while it stands still, resting as in the bunk. They climb out rested, or once their timetable turns to work, with a small good memory, **slept in the cab** (+2). A raid, a fire or feeling unwell wakes them at once and says so; a patient keeps a real bed and a doctor. Starting the vehicle with someone asleep aboard warns that they stay aboard if it drives off. Not yet tested in game: row 321 of the test pass.
+
+### Compatibility and limits
+
+- The sleeper takes a passenger seat while aboard, besides the seat the bunk itself takes in a larger cab. Food and other needs carry on as for anyone riding; they climb out when rested.
+
 ## [0.214.0] - 2026-11-21 - Draft
 
 Cab bunks, and driving through the night

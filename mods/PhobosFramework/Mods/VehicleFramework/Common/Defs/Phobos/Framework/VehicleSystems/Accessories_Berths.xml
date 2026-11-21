@@ -63,4 +63,26 @@
       </li>
     </comps>
   </ThingDef>
+
+  <!-- Sleeping in a parked vehicle's bunk (Framework 0.215.0; the record's B4): the walk and climb in, and the waking memory, "slept in the
+       cab", +2 (the record's figure, authored): no bedroom and no "slept outside" either way. -->
+  <JobDef>
+    <defName>PhobosVehicleSystems_BunkSleep</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosBunkSleep</driverClass>
+    <reportString>climbing into TargetA's bunk.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <ThoughtDef>
+    <defName>PhobosSleptInCab</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>slept in the cab</label>
+        <description>A bunk behind the seats, the cab warm around me. Not much room, but a decent night's sleep.</description>
+        <baseMoodEffect>2</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
 </Defs>

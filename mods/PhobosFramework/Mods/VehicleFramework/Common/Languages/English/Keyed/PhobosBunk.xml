@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Sleeping in a parked vehicle's cab bunk (D'thorga Framework 0.215.0). {PAWN}: the sleeper; {VEHICLE}: the vehicle. -->
+  <PhobosBunk_GizmoNobody>Bunk: nobody</PhobosBunk_GizmoNobody>
+  <PhobosBunk_GizmoSleeper>Bunk: {PAWN}</PhobosBunk_GizmoSleeper>
+  <PhobosBunk_GizmoDesc>Choose who sleeps in the {VEHICLE}'s cab bunk. At bedtime they walk to the vehicle, climb in and sleep in the cab's warmth while it stands still, and climb out rested or when their day begins. Danger, fire or illness wakes them at once. Patients keep their beds.</PhobosBunk_GizmoDesc>
+  <PhobosBunk_Nobody>Nobody</PhobosBunk_Nobody>
+  <PhobosBunk_Assigned>{PAWN} will sleep in the {VEHICLE}'s cab bunk.</PhobosBunk_Assigned>
+  <PhobosBunk_Unassigned>Nobody sleeps in the {VEHICLE}'s cab bunk now.</PhobosBunk_Unassigned>
+  <PhobosBunk_NotTheirs>the {VEHICLE}'s bunk is not theirs.</PhobosBunk_NotTheirs>
+  <PhobosBunk_Running>the {VEHICLE} is running or moving.</PhobosBunk_Running>
+  <PhobosBunk_Burning>the {VEHICLE} is on fire.</PhobosBunk_Burning>
+  <PhobosBunk_Danger>there is danger about.</PhobosBunk_Danger>
+  <PhobosBunk_NoSeat>the {VEHICLE} has no free seat for a sleeper.</PhobosBunk_NoSeat>
+  <PhobosBunk_StartedWithSleeper>{PAWN} is asleep in the {VEHICLE}'s bunk. They stay aboard if it drives off.</PhobosBunk_StartedWithSleeper>
+  <PhobosBunk_WokenDanger>{PAWN} is woken by danger and climbs out of the {VEHICLE}.</PhobosBunk_WokenDanger>
+  <PhobosBunk_WokenFire>{PAWN} is woken by fire and climbs out of the {VEHICLE}.</PhobosBunk_WokenFire>
+  <PhobosBunk_WokenUnwell>{PAWN} feels unwell and climbs out of the {VEHICLE} to find a proper bed.</PhobosBunk_WokenUnwell>
+  <PhobosBunk_WokenReassigned>{PAWN} climbs out of the {VEHICLE}: the bunk is someone else's now.</PhobosBunk_WokenReassigned>
+</LanguageData>

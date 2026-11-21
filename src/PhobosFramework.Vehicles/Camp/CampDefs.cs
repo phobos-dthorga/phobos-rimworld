@@ -44,6 +44,8 @@ public static class VehicleCampDefOf
     public static ThingDef PhobosCamp_CabBunk = null!;
     public static RoofDef Phobos_CanvasRoof = null!;
     public static JobDef PhobosVehicleSystems_CampWork = null!;
+    public static JobDef PhobosVehicleSystems_BunkSleep = null!;
+    public static ThoughtDef PhobosSleptInCab = null!;
 
     static VehicleCampDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(VehicleCampDefOf));
 }

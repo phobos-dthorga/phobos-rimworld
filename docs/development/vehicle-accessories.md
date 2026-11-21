@@ -1,6 +1,6 @@
 # Vehicle accessories: camp gear and comforts (13 Nov 2026)
 
-**Status (21 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), the camp in 0.212.0 with its art in 0.213.1 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)), and cab bunks and driving through the night in 0.214.0 (B2, B3; [what was built](#built-cab-bunks-and-driving-through-the-night-21-nov-2026)). Not yet tested in game. Still a design: sleeping inside a parked vehicle (B4), the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4) and the rest.
+**Status (21 Nov 2026):** built: the power budget batch in D'thorga Framework 0.129.0 (loads, weight and kits on fittings, the house battery Y5, the power outlet Y1, the 12-volt fridge Y7; [what was built](#built-the-power-budget-17-nov-2026)), the camp in 0.212.0 with its art in 0.213.1 (the camp order Y3, swags Y8, the awning Y9, the roof tent B1 and other factions' camps; [what was built](#built-the-camp-22-nov-2026)), cab bunks and driving through the night in 0.214.0 (B2, B3; [what was built](#built-cab-bunks-and-driving-through-the-night-21-nov-2026)), and sleeping in a parked vehicle's bunk in 0.215.0 (B4; [what was built](#built-sleeping-in-a-parked-vehicle-21-nov-2026)). Not yet tested in game. Still a design: the kitchen box and table (Y10, Y11), water (Y2, Y12), life aboard (Y4) and the rest.
 
 **A research and design record.** The owner, 13 November 2026: "I wish to
 explore vehicle accessories the player can install whether it's for entertainment, to help with camping, or something different
@@ -537,6 +537,28 @@ The owner had already chosen it as a setting, off by default (13 Nov 2026): **Dr
 
 **Known limits:** the arrival time shown while planning a route still counts the nights at rest, so trips arrive sooner than shown. A
 driver who never tires (a mechanoid) always counts as fit.
+
+## Built: sleeping in a parked vehicle (21 Nov 2026)
+
+Step 3, the last of the berths, built in D'thorga Framework 0.215.0: B4. Row 321 of [the in-game test pass](in-game-test-pass.md). Not yet
+tested in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Give a colonist a warm bed in a heavy truck's cab on a freezing map with no tent or building |
+| What it stops them doing | Using that seat for a passenger while they sleep |
+| How it changes play | A heavy truck with a heater is a shelter in its own right |
+| What outside the vehicle notices | The colonist (rest, a +2 memory), the map's danger (raids and fire wake them), and the doctor (patients never go there) |
+
+**Risk: low** (agent's grade, for the owner to confirm): every danger the record named wakes the sleeper and sets them down beside the vehicle
+at once, and nobody is sent there unwell. No setting: it happens only for a colonist the player assigns.
+
+| Piece | Where | Differs from the design |
+| --- | --- | --- |
+| Assignment | **Bunk: nobody / Bunk: NAME** on the vehicle, a list of the free colonists on the map (`CompPhobosCamp`) | One sleeper per bunk, chosen from a menu rather than a window like beds' |
+| Bedtime | A postfix on the game's go-to-bed job giver (`JobGiver_GetRest.TryGiveJob`): where the game chose a bed for an assigned colonist, the bunk's job takes its place | The record proposed a job giver at a think-tree point; the postfix keeps the game's own timing, needs, timetable, duties and emergencies exactly, and leaves patients alone |
+| Asleep aboard | The sleeper boards a passenger seat; the vehicle rests them at the bunk's figure each tick while it stands still, through the game's own rest call | No "life aboard" check (Y4) exists yet, so the bunk does it for its sleeper only |
+| Waking | Rested, the timetable turning to work, a hostile threat, fire, illness, or another sleeper chosen: they climb out beside the vehicle | Starting the vehicle only warns, as the record said; a sleeper aboard when it leaves rides on as a passenger |
 
 ## Questions for the owner
 

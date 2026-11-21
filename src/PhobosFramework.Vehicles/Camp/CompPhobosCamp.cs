@@ -107,6 +107,138 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         };
     }
 
+    // ---- Sleeping in the bunk while parked (Framework 0.215.0; the record's B4) ----
+
+    /// <summary>The colonist who sleeps in the bunk at bedtime, chosen by the player. Saved.</summary>
+    Pawn? bunkSleeper;
+    /// <summary>The bunk's sleeper is aboard asleep now, and since when. Saved.</summary>
+    bool asleep;
+    int asleepSince;
+    /// <summary>The player was told the vehicle was started with someone asleep aboard. Derived, never saved.</summary>
+    bool startWarned;
+
+    public Pawn? BunkSleeper => bunkSleeper;
+
+    void AssignSleeper(Pawn? pawn)
+    {
+        Pawn? before = bunkSleeper;
+        if (asleep && before != null && before != pawn) Wake("PhobosBunk_WokenReassigned");
+        bunkSleeper = pawn;
+        BunkSleepers.Note(this, before, pawn);
+        Messages.Message(pawn == null
+            ? "PhobosBunk_Unassigned".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve()
+            : "PhobosBunk_Assigned".Translate(pawn.LabelShort.Named("PAWN"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+    }
+
+    /// <summary>Why this colonist cannot go to sleep in the bunk now, or null. Read at bedtime and while they walk there.</summary>
+    public string? BedtimeRefusal(Pawn pawn)
+    {
+        NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
+        if (bunkSleeper != pawn || !BunkFitted) return "PhobosBunk_NotTheirs".Translate(name).Resolve();
+        if (!Vehicle.Spawned || Vehicle.Map != pawn.MapHeld) return "PhobosCamp_NotHere".Translate(name).Resolve();
+        if (Vehicle.vehiclePather is { Moving: true } || Vehicle.Drafted) return "PhobosBunk_Running".Translate(name).Resolve();
+        if (Vehicle.IsBurning()) return "PhobosBunk_Burning".Translate(name).Resolve();
+        if (GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map, countDormantPawnsAsHostile: false)) return "PhobosBunk_Danger".Translate().Resolve();
+        if (PassengerSeat() == null) return "PhobosBunk_NoSeat".Translate(name).Resolve();
+        if (!pawn.CanReach(Vehicle, Verse.AI.PathEndMode.Touch, Danger.Some)) return "PhobosCabin_NoPath".Translate().Resolve();
+        return null;
+    }
+
+    /// <summary>A passenger seat with room, for the sleeper to lie down in (the bunk sits behind the seats).</summary>
+    VehicleRoleHandler? PassengerSeat() =>
+        Vehicle.handlers?.FirstOrDefault(h => h.role != null && h.role.handlingTypes == HandlingType.None && h.AreSlotsAvailable);
+
+    /// <summary>The sleeper has reached the vehicle: aboard, and asleep in the bunk.</summary>
+    internal void ClimbIn(Pawn pawn)
+    {
+        if (BedtimeRefusal(pawn) is { } refusal)
+        {
+            Messages.Message(refusal, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            return;
+        }
+        if (PassengerSeat() is not { } seat || !Vehicle.TryAddPawn(pawn, seat)) return;
+        asleep = true;
+        asleepSince = Find.TickManager.TicksGame;
+        startWarned = false;
+        StartTicking();
+        if (Seen.Wants("vehicles.bunk-sleep", Vehicle)) Seen.Note("vehicles.bunk-sleep", Vehicle, pawn.LabelShort);
+    }
+
+    /// <summary>Every tick the sleeper rests at the bunk's figure while the vehicle stands still; every few seconds, whether to wake them.</summary>
+    void TickSleeper()
+    {
+        Pawn? sleeper = bunkSleeper;
+        if (sleeper == null || sleeper.Dead || !Vehicle.AllPawnsAboard.Contains(sleeper))
+        {
+            asleep = false;
+            return;
+        }
+        bool still = Vehicle.vehiclePather is not { Moving: true };
+        if (still && Bunk is { } bunk) sleeper.needs?.rest?.TickResting(bunk.GetStatValue(StatDefOf.BedRestEffectiveness));
+        if (!Vehicle.IsHashIntervalTick(WakeCheckTicks)) return;
+        if (Vehicle.Drafted && !startWarned)
+        {
+            startWarned = true;
+            Messages.Message("PhobosBunk_StartedWithSleeper".Translate(sleeper.LabelShort.Named("PAWN"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.CautionInput);
+        }
+        if (!Vehicle.Spawned) return;
+        if (GenHostility.AnyHostileActiveThreatToPlayer(Vehicle.Map, countDormantPawnsAsHostile: false)) Wake("PhobosBunk_WokenDanger");
+        else if (Vehicle.IsBurning()) Wake("PhobosBunk_WokenFire");
+        else if (sleeper.needs?.rest is not { } rest || rest.CurLevel >= RestedLevel) Wake(null);
+        else if (rest.CurLevel >= Need_Rest.DefaultFallAsleepMaxLevel && sleeper.timetable?.CurrentAssignment is { allowRest: false }) Wake(null);
+        else if (HealthAIUtility.ShouldSeekMedicalRest(sleeper)) Wake("PhobosBunk_WokenUnwell");
+    }
+
+    const int WakeCheckTicks = 250;
+    /// <summary>Rested enough to get up by themselves (authored, near the game's own natural waking).</summary>
+    const float RestedLevel = 0.98f;
+    /// <summary>The least time asleep for the waking memory, in ticks: an hour.</summary>
+    const int MemoryAfterTicks = 2500;
+
+    /// <summary>Climbs the sleeper out beside the vehicle; with a reason, the player is told why they were woken.</summary>
+    void Wake(string? reasonKey)
+    {
+        Pawn? sleeper = bunkSleeper;
+        asleep = false;
+        if (sleeper == null || !Vehicle.AllPawnsAboard.Contains(sleeper)) return;
+        bool slept = Find.TickManager.TicksGame - asleepSince >= MemoryAfterTicks;
+        if (Vehicle.Spawned) Vehicle.DisembarkPawn(sleeper);
+        if (slept && sleeper.needs?.mood?.thoughts?.memories is { } memories && !sleeper.IsWildMan()) memories.TryGainMemory(VehicleCampDefOf.PhobosSleptInCab);
+        string? said = reasonKey switch
+        {
+            "PhobosBunk_WokenDanger" => "PhobosBunk_WokenDanger".Translate(sleeper.LabelShort.Named("PAWN"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            "PhobosBunk_WokenFire" => "PhobosBunk_WokenFire".Translate(sleeper.LabelShort.Named("PAWN"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            "PhobosBunk_WokenUnwell" => "PhobosBunk_WokenUnwell".Translate(sleeper.LabelShort.Named("PAWN"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            "PhobosBunk_WokenReassigned" => "PhobosBunk_WokenReassigned".Translate(sleeper.LabelShort.Named("PAWN"), Vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            _ => null,
+        };
+        if (said != null) Messages.Message(said, sleeper, MessageTypeDefOf.NegativeEvent, historical: false);
+        string variant = reasonKey ?? "rested";
+        if (Seen.Wants("vehicles.bunk-wake", Vehicle, variant)) Seen.Note("vehicles.bunk-wake", Vehicle, sleeper.LabelShort, variant);
+    }
+
+    Command_Action BunkSleeperGizmo()
+    {
+        NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");
+        return new Command_Action
+        {
+            defaultLabel = bunkSleeper == null ? "PhobosBunk_GizmoNobody".Translate().Resolve() : "PhobosBunk_GizmoSleeper".Translate(bunkSleeper.LabelShort.Named("PAWN")).Resolve(),
+            defaultDesc = "PhobosBunk_GizmoDesc".Translate(name).Resolve(),
+            icon = SystemIcons.For("Phobos/VehicleSystems/Fittings/CabBunk"),
+            action = () =>
+            {
+                var options = new List<FloatMenuOption> { new("PhobosBunk_Nobody".Translate().Resolve(), () => AssignSleeper(null)) };
+                foreach (Pawn pawn in Vehicle.Map.mapPawns.FreeColonistsSpawned.OrderBy(p => p.LabelShort))
+                {
+                    Pawn chosen = pawn;
+                    options.Add(new FloatMenuOption(pawn.LabelShort, () => AssignSleeper(chosen)));
+                }
+                Find.WindowStack.Add(new FloatMenu(options));
+            },
+        };
+    }
+
     /// <summary>Whether its camp stands beside it now.</summary>
     public bool IsPitched => placed.Count > 0 || poles.Count > 0;
 
@@ -629,6 +761,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     {
         base.PostSpawnSetup(respawningAfterLoad);
         if (order != CampOrder.None) CampOrders.Note(this, true);
+        BunkSleepers.Note(this, null, bunkSleeper);
+        if (asleep) StartTicking();
         if (!respawningAfterLoad && Vehicle.Faction is { } faction && faction != Faction.OfPlayer && Vehicle.Map?.Parent is Settlement { Faction: var owner } && owner == faction)
         {
             campAtBase = true;
@@ -639,14 +773,13 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     public override void CompTick()
     {
         base.CompTick();
-        if (!campAtBase)
+        if (campAtBase)
         {
-            StopTicking();
-            return;
+            campAtBase = false;
+            PitchAtBase();
         }
-        campAtBase = false;
-        StopTicking();
-        PitchAtBase();
+        if (asleep) TickSleeper();
+        if (!campAtBase && !asleep) StopTicking();
     }
 
     /// <summary>
@@ -684,6 +817,8 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         CampOrders.Note(this, false);
         order = CampOrder.None;
         campAtBase = false;
+        // A sleeper aboard when it leaves rides on as a passenger: on the road the caravan's own beds (the bunk among them) take over.
+        asleep = false;
         if (IsPitched)
         {
             if (mode is DestroyMode.KillFinalize or DestroyMode.Deconstruct or DestroyMode.FailConstruction or DestroyMode.Cancel)
@@ -708,6 +843,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     {
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer || !Vehicle.Spawned) yield break;
+        if (BunkFitted) yield return BunkSleeperGizmo();
         if (order != CampOrder.None)
         {
             yield return new Command_Action
@@ -810,6 +946,9 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
         Scribe_Collections.Look(ref spotSlots, "PhobosCamp_SpotSlots", LookMode.Value);
         Scribe_Collections.Look(ref spotCells, "PhobosCamp_SpotCells", LookMode.Value);
         Scribe_Collections.Look(ref spotDirections, "PhobosCamp_SpotDirections", LookMode.Value);
+        Scribe_References.Look(ref bunkSleeper, "PhobosCamp_BunkSleeper");
+        Scribe_Values.Look(ref asleep, "PhobosCamp_Asleep");
+        Scribe_Values.Look(ref asleepSince, "PhobosCamp_AsleepSince");
         if (Scribe.mode == LoadSaveMode.PostLoadInit)
         {
             placed ??= new List<Thing>();
