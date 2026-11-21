@@ -65,3 +65,24 @@ def is_near_copy(distance, ssim, max_distance=NEAR_COPY_DISTANCE, min_ssim=NEAR_
     hashes as rows of the same shading, and matched any sprite that stretches the same way, upright or wide (owner, 12 Nov
     2026: "there is no tank like it in the original game"). The structural score is unaffected."""
     return (distance <= max_distance and proportions_agree) or ssim >= min_ssim
+
+
+# A folder holding only our own art carries this file (lora_experiment.py picks writes it into a dataset built from art-masters).
+# The near-copy check still compares against such a folder, but reports a likeness to it apart: it is no one else's art, so it
+# never keeps a picture off the art branches or out of the mods; it may only mean the model repeated a training picture (21 Nov
+# 2026: 9 of night 9's 14 flags were against our own house-v1 set, and were held back as if they were the game's).
+OWN_ART_MARKER = 'own-art.json'
+
+
+def is_own_art_folder(folder, own=()):
+    """Whether a source folder holds our own art: it carries the marker, or it is (or sits inside) a folder named as our own."""
+    from pathlib import Path
+    folder = Path(folder).resolve()
+    if (folder / OWN_ART_MARKER).is_file():
+        return True
+    return any(folder == Path(root).resolve() or folder.is_relative_to(Path(root).resolve()) for root in own)
+
+
+def split_flags(entries):
+    """Near-copy flags as (against others' art, against our own), each in its first order. An entry is ours when it says so."""
+    return [entry for entry in entries if not entry.get('own')], [entry for entry in entries if entry.get('own')]

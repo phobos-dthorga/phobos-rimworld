@@ -185,9 +185,9 @@ def near_copy_sources(requests, extra=()):
 
 
 def check_near_copies(python, generated, sources, folders):
-    """Returns (whether the check ran, the flags, a problem). Only this batch's request folders are checked: the generated folder
-    holds every earlier batch too. A flagged image is a finding, not a failure of the check, and the tool exits 1 for both, so
-    what tells them apart is whether it wrote its results."""
+    """Returns (whether the check ran, the flags against others' art, the likenesses to our own art, a problem). Only this batch's
+    request folders are checked: the generated folder holds every earlier batch too. A flagged image is a finding, not a failure of
+    the check, and the tool exits 1 for both, so what tells them apart is whether it wrote its results."""
     results = generated / 'near-copy.json'
     results.unlink(missing_ok=True)
     only = [argument for name in folders for argument in ('--only', name)]
@@ -195,21 +195,32 @@ def check_near_copies(python, generated, sources, folders):
         done = subprocess.run([python, '-I', str(ROOT / 'scripts' / 'art' / 'near_copy.py'), *only, str(generated), *sources],
                               capture_output=True, text=True, check=False)
     except OSError as error:
-        return False, [], f'near_copy.py: {error}'
+        return False, [], [], f'near_copy.py: {error}'
     if not results.is_file():
-        return False, [], f'near_copy.py: {done.stderr.strip()[-400:]}'
-    return True, json.loads(results.read_text(encoding='utf-8')).get('flagged', []), None
+        return False, [], [], f'near_copy.py: {done.stderr.strip()[-400:]}'
+    report = json.loads(results.read_text(encoding='utf-8'))
+    return True, report.get('flagged', []), report.get('close_to_own', []), None
 
 
-def near_copy_lines(sources, ran, flags):
+def _likeness(entry):
+    return f'  - {entry["output"]}: too close to {entry["source"]} (structure {entry["ssim"]}, hash distance {entry["hash_distance"]})'
+
+
+def near_copy_lines(sources, ran, flags, own=()):
+    """The report's near-copy section. Likenesses to our own art (a folder marked sort_rules.OWN_ART_MARKER, such as a style
+    model's dataset of our picks) come after, apart: they never stop a pick."""
     if not sources:
         return []
     if not ran:
         return ['- **The check did not run, so pick nothing from this batch until it has.**']
     if not flags:
-        return ['- Nothing flagged. A slightly tilted copy can still pass, so your eye is the last check.']
-    return [f'- **{len(flags)} flagged; do not pick these:**'] + [
-        f'  - {entry["output"]}: too close to {entry["source"]} (structure {entry["ssim"]}, hash distance {entry["hash_distance"]})' for entry in flags]
+        lines = ['- Nothing flagged. A slightly tilted copy can still pass, so your eye is the last check.']
+    else:
+        lines = [f'- **{len(flags)} flagged; do not pick these:**'] + [_likeness(entry) for entry in flags]
+    if own:
+        lines += [f'- {len(own)} close to our own art only: fine to pick and to archive, as no one else\'s art is in them; a close '
+                  'match to a training picture may mean the model repeated it.'] + [_likeness(entry) for entry in own]
+    return lines
 
 
 def timing_lines(timings):
@@ -238,15 +249,15 @@ def post_process(comfy, generated, folders, sources=()):
         steps += [[python, '-I', str(tools / 'contact_sheet.py'), str(generated), name] for name in existing]
     for step in steps:
         problems += _run_tool(step)
-    ran, flags = False, []
+    ran, flags, own = False, [], []
     if existing and sources:
-        ran, flags, problem = check_near_copies(python, generated, sources, existing)
+        ran, flags, own, problem = check_near_copies(python, generated, sources, existing)
         if problem:
             problems.append(problem)
     problems += _run_tool([sys.executable, '-I', str(tools / 'review_page.py'), str(generated)])
     if any((generated / name).is_dir() and any((generated / name).glob('*' + art.AUDIO_SUFFIX)) for name in dict.fromkeys(folders)):
         problems += _run_tool([sys.executable, '-I', str(tools / 'sound_review.py'), str(generated)])
-    return problems, near_copy_lines(sources if existing else (), ran, flags)
+    return problems, near_copy_lines(sources if existing else (), ran, flags, own)
 
 
 def _run_tool(step):

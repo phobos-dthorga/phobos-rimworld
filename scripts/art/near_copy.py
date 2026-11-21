@@ -67,25 +67,28 @@ def candidates(outputs, only=()):
     return [p for name in only for p in sorted((Path(outputs) / name).glob('*.png')) if not p.name.endswith('-sheet.png')]
 
 
-def compare(outputs, *sources, only=()):
-    source_data = [(p, *_prepared(p)) for folder in sources for p in pngs(folder)]
-    flagged, closest = [], []
+def compare(outputs, *sources, only=(), own=()):
+    """Returns (flags against others' art, likenesses to our own art, the closest source for each output). A source folder is our
+    own when it carries sort_rules.OWN_ART_MARKER or is named with --own."""
+    source_data = [(p, sort_rules.is_own_art_folder(folder, own), *_prepared(p)) for folder in sources for p in pngs(folder)]
+    found, closest = [], []
     for output in candidates(outputs, only):
         image, value = _prepared(output)
         best = None
-        for source, source_image, source_hash in source_data:
+        for source, ours, source_image, source_hash in source_data:
             distance = sort_rules.hamming(value, source_hash)
             similarity = ssim(image, source_image)
             alike = sort_rules.same_proportions(_ratio(image), _ratio(source_image))
             entry = {'output': output.name, 'source': source.name, 'hash_distance': distance, 'ssim': round(similarity, 3),
-                     'same_proportions': alike}
+                     'same_proportions': alike, 'own': ours}
             if sort_rules.is_near_copy(distance, similarity, proportions_agree=alike):
-                flagged.append(entry)
+                found.append(entry)
             if best is None or similarity > best['ssim']:
                 best = entry
         if best:
             closest.append(best)
-    return flagged, closest
+    flagged, close_to_own = sort_rules.split_flags(found)
+    return flagged, close_to_own, closest
 
 
 def _ratio(image):
@@ -102,13 +105,16 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument('--only', action='append', default=[], metavar='FOLDER',
                         help='check only the images directly inside this request folder of outputs; repeat for more')
+    parser.add_argument('--own', action='append', default=[], metavar='FOLDER',
+                        help='a source folder holding only our own art: likenesses to it are reported apart and never block a pick')
     parser.add_argument('outputs')
     parser.add_argument('sources', nargs='+')
     args = parser.parse_args()
-    flagged_entries, closest_entries = compare(args.outputs, *args.sources, only=args.only)
-    report = {'flagged': flagged_entries, 'closest_per_output': closest_entries,
+    flagged_entries, own_entries, closest_entries = compare(args.outputs, *args.sources, only=args.only, own=args.own)
+    report = {'flagged': flagged_entries, 'close_to_own': own_entries, 'closest_per_output': closest_entries,
               'thresholds': {'hash_distance_at_most': sort_rules.NEAR_COPY_DISTANCE, 'ssim_at_least': sort_rules.NEAR_COPY_SSIM,
                              'hash_needs_proportions_within': sort_rules.SAME_PROPORTIONS}}
     (Path(args.outputs) / 'near-copy.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
-    print(f'{len(closest_entries)} outputs compared, {len(flagged_entries)} near-copy flags')
+    print(f'{len(closest_entries)} outputs compared, {len(flagged_entries)} near-copy flags, '
+          f'{len(own_entries)} likenesses to our own art')
     sys.exit(1 if flagged_entries else 0)

@@ -37,5 +37,9 @@ by the new `scripts/art/export_overlay.py`; its coil reaches past the pump's rig
 
 ## Near-copy flags
 
-14 pictures were flagged and stay local: nearly all against our own pictures in house-v1's training set, three against the game's
-round `IconMorbidA` at very low structure scores (0.07 to 0.11). The reports beside each batch list them.
+14 pictures were flagged. **Corrected 21 Nov 2026** (the agent first said three were against the game's art; the check rerun with
+our own art told apart found five): **five are close to the game's art and stay local**: three against the round `IconMorbidA`
+(clutch kit c-house-12, c-housealone-11 and -12, structure 0.07 to 0.11), one against `FleshmassPieceC` (standard front d-v1-11)
+and one against `MedicineUltratech_a` (paddock d-house-11), both at structure 0.60. **The other nine were close only to our own
+pictures in house-v1's training set**, so they went to `art-references` with the rest once the check could tell the two apart. No
+pick was among the five.

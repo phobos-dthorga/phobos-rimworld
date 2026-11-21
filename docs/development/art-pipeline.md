@@ -48,7 +48,10 @@ The other routes weighed (Gemini, fal.ai, Midjourney and others, the view-angle 
    [paid generation rules](paid-image-generation-rules.md#running-the-openai-engine).
 3. **Near-copy check.** The runner checks every batch against its references' folders with `scripts/art/near_copy.py` and marks a
    flagged image "do not pick". A flagged image stays local, off the art branches. The owner's eye stays the last check
-   ([what the check catches](#vanilla-sprites)).
+   ([what the check catches](#vanilla-sprites)). **A likeness to our own art is reported apart and never blocks** (21 Nov 2026):
+   a source folder holding only our picks carries `own-art.json` (`lora_experiment.py picks` writes it into a style model's
+   dataset), or is named with `--own`; such an image may still be picked and archived, and a close match may only mean the model
+   repeated a training picture.
 4. **Review and pick.** The owner picks from the review page. Approved picks stay unless the owner reopens them.
 5. **Archive.** `python scripts/art/archive_branch.py art-masters manifest.json --message "..."` for the picks, `art-references` for
    the rest and for reference drawings: originals byte for byte with their records, added on top and never rewritten.
@@ -59,7 +62,11 @@ The other routes weighed (Gemini, fal.ai, Midjourney and others, the view-angle 
    vehicles (north, east, south, masks, icon and a transform the overlays reuse); `scripts/art/export_overlay.py` for a building
    upgrade's overlay, cut from an edit of the building's picked master that adds only the upgrade (the paid edit route keeps the
    building in place; measure the edit's offset and pass `--shift`), framed as the building was so the two line up (21 Nov 2026,
-   the fuel pump's charging cable). Each writes an `.export.json` beside its output.
+   the fuel pump's charging cable). Each writes an `.export.json` beside its output. **export_sprite warns when white it kept
+   inside the object looks like background** (21 Nov 2026: a large enclosed patch in the master's own flat background colour, such
+   as a hole showing white); look at the sprite on coloured ground, and use `--all-white` if it is a hole. `export_sprite.py
+   --sweep` checks every shipped sprite the same way (about 4 minutes; its first run found three: the run-flat tyres, the service
+   spanner and the long gearing tune).
    Re-exporting existing textures goes through `clean_backgrounds.py stage`, its review page and `apply`.
 8. **Paint (vehicles).** Run `scripts/art/paint_segments.py` on the new master, then
    `python scripts/art/repaint_vehicles.py stage --paint repaired`, `review` and `apply --paint repaired`; then

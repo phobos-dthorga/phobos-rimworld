@@ -178,6 +178,24 @@ class SortingTests(unittest.TestCase):
         self.assertEqual(sort_rules.mean_or_zero([]), 0.0)
         self.assertEqual(sort_rules.mean_or_zero([1.0, 0.5]), 0.75)
 
+    def test_a_folder_of_our_own_art_is_known_by_its_marker_or_by_name(self):
+        # 21 Nov 2026: night 9's likenesses to our own house-v1 set were held back as if they were the game's art.
+        with tempfile.TemporaryDirectory() as work:
+            ours, theirs = os.path.join(work, 'house', 'dataset'), os.path.join(work, 'vanilla', 'dataset')
+            os.makedirs(ours)
+            os.makedirs(theirs)
+            self.assertFalse(sort_rules.is_own_art_folder(ours))
+            lora_experiment.mark_own_art(ours, 'origin/art-masters')
+            self.assertTrue(sort_rules.is_own_art_folder(ours))
+            self.assertFalse(sort_rules.is_own_art_folder(theirs))
+            self.assertTrue(sort_rules.is_own_art_folder(theirs, own=[os.path.join(work, 'vanilla')]))
+
+    def test_likenesses_to_our_own_art_are_kept_apart_from_flags(self):
+        game = {'output': 'a.png', 'source': 'IconMorbidA.png', 'own': False}
+        house = {'output': 'a.png', 'source': 'gizmo-hold-11.png', 'own': True}
+        older = {'output': 'b.png', 'source': 'Bed.png'}  # A report written before the split carries no "own": it stays a flag.
+        self.assertEqual(sort_rules.split_flags([house, game, older]), ([game, older], [house]))
+
 
 class LoraExperimentTests(unittest.TestCase):
     def test_a_square_sprite_fits_the_long_side(self):
@@ -352,6 +370,41 @@ class ExportBackgroundTests(unittest.TestCase):
         self.assertEqual(result.getpixel((0, 0))[3], 0)
         self.assertEqual(result.getpixel((4, 4))[3], 0, 'white inside the shape becomes a hole')
         self.assertTrue(0 < result.getpixel((2, 2))[3] < 255, 'an edge stays soft')
+
+    def ring(self, hole_colour):
+        """A dark ring on the generator's white, its hole painted hole_colour: 40 x 40, the hole 12 x 12 (9% of the picture)."""
+        from PIL import Image, ImageDraw
+        image = Image.new('RGB', (40, 40), (254, 254, 254))
+        draw = ImageDraw.Draw(image)
+        draw.rectangle((8, 8, 31, 31), fill=(20, 20, 20))
+        draw.rectangle((14, 14, 25, 25), fill=hole_colour)
+        return image
+
+    def test_background_white_left_in_a_hole_is_found(self):
+        # 21 Nov 2026: the clutch kit's centre hole, and the run-flat tyres' since 12 Nov, showed white over the ground.
+        import export_sprite
+        image = self.ring((254, 254, 254))
+        left = export_sprite.white_left(image, self.white_to_alpha(image))
+        self.assertEqual(len(left), 1)
+        self.assertEqual(left[0]['flat'], 1.0)
+        self.assertIn('background left behind', export_sprite.white_left_warning(left))
+
+    def test_shaded_white_paint_is_not_taken_for_background(self):
+        import export_sprite
+        image = self.ring((240, 242, 238))  # Off-white, as a cel-shaded white part is drawn.
+        self.assertEqual(export_sprite.white_left(image, self.white_to_alpha(image)), [])
+
+    def test_a_cleared_hole_leaves_nothing_to_warn_of(self):
+        import export_sprite
+        image = self.ring((254, 254, 254))
+        self.assertEqual(export_sprite.white_left(image, self.white_to_alpha(image, all_white=True)), [])
+
+    def test_a_speck_is_too_small_to_warn_of(self):
+        import export_sprite
+        from PIL import ImageDraw
+        image = self.ring((20, 20, 20))
+        ImageDraw.Draw(image).point((20, 20), fill=(254, 254, 254))  # One pixel of 1,600: under WHITE_LEFT_SHARE.
+        self.assertEqual(export_sprite.white_left(image, self.white_to_alpha(image)), [])
 
 
 class RequestFileTests(unittest.TestCase):

@@ -323,8 +323,9 @@ steps in 158 minutes** with `low_vram` off (no caption-caching stall this time);
 model; installed as `phobos-private-house-v1`. 58 pictures in all, about 2.5 minutes each; graphics memory freed after.
 **What the comparison shows (agent's reading, owner not yet judged):** the new model alone draws the house look (thick near-black
 outline, flat shading) without any reference, which v1 and v2 never did; it still mistakes objects when a wording is vague (the
-heavy-duty brakes' "c" wording drew a bearing). 14 pictures are flagged, nearly all against our own pictures in the training set; three
-against the game's round `IconMorbidA` at very low structure scores (0.07 to 0.11), kept local by the rule. The standard grain front's
+heavy-duty brakes' "c" wording drew a bearing). 14 pictures are flagged: nine only against our own pictures in the training set
+(archived since the check tells our own art apart, 21 Nov 2026), five against the game's art, kept local by the rule (three against
+`IconMorbidA`, one each against `FleshmassPieceC` and `MedicineUltratech_a`; first miscounted as three). The standard grain front's
 right-looking pictures are flagged at 0.97 against the wide front's pick: they are the wide front again, so the agent suggests cutting a
 shorter header from that pick by script. **Picked 21 Nov 2026** (`assets/phobos-vehicles/requests/night-9-picks-record.md`): the
 fuel pump ships in Framework 0.210.1 and the paddock button in Farming 0.7.3, both house-v1 pictures. **The rest went to OpenAI's

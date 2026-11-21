@@ -383,7 +383,7 @@ class NearCopyTests(RehearsalCase):
                                     '.local/references/game.png']}]
         self.assertEqual(art_run.near_copy_sources(requests), [str(art_run.ROOT / '.local' / 'references')])
 
-    def post_process(self, flagged, writes=True, steps=None):
+    def post_process(self, flagged, writes=True, steps=None, own=None):
         generated = self.work / 'gen'
         for batch in ('tank', 'older-batch'):
             (generated / batch).mkdir(parents=True)
@@ -394,7 +394,8 @@ class NearCopyTests(RehearsalCase):
                 if steps is not None:
                     steps.append(step)
                 if writes:
-                    (generated / 'near-copy.json').write_text(json.dumps({'flagged': flagged}), encoding='utf-8')
+                    report = {'flagged': flagged, **({'close_to_own': own} if own is not None else {})}
+                    (generated / 'near-copy.json').write_text(json.dumps(report), encoding='utf-8')
             return mock.Mock(returncode=0 if not flagged else 1, stderr='a traceback')
         with mock.patch.object(art_run.subprocess, 'run', fake_run):
             return art_run.post_process('comfy', generated, ['tank'], ['refs'])
@@ -418,6 +419,19 @@ class NearCopyTests(RehearsalCase):
     def test_a_clean_batch_says_so(self):
         _, lines = self.post_process([])
         self.assertIn('Nothing flagged', lines[0])
+
+    def test_a_likeness_to_our_own_art_is_reported_apart_and_never_blocks(self):
+        # 21 Nov 2026: night 9's likenesses to our own house-v1 set read "do not pick", as if they were the game's art.
+        entry = {'output': 'tank-1.png', 'source': 'gizmo-hold-11.png', 'ssim': 0.62, 'hash_distance': 0, 'own': True}
+        _, lines = self.post_process([], own=[entry])
+        self.assertIn('Nothing flagged', lines[0])
+        self.assertIn('our own art only', lines[1])
+        self.assertNotIn('do not pick', '\n'.join(lines))
+        self.assertIn('tank-1.png: too close to gizmo-hold-11.png', lines[2])
+
+    def test_a_report_from_before_the_split_still_reads(self):
+        _, lines = self.post_process([])
+        self.assertEqual(len(lines), 1)
 
     def test_a_check_that_did_not_run_is_never_read_as_clean(self):
         problems, lines = self.post_process([], writes=False)

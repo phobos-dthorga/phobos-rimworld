@@ -29,6 +29,16 @@ AI_MASKS = art_paths.work('bgmasks')
 AI_SEED_BELOW = 64  # The AI is sure this is background: clearing may start here (authored, 12 Nov 2026).
 AI_OBJECT_FROM = 192  # The AI is sure this is the object: clearing never enters it, however white it is (authored).
 AI_WHOLE_PATCH = 0.9  # An enclosed white patch is cleared only if the AI would clear this share of it or more, else none (authored).
+# White the exporter kept inside the object that may be background after all (21 Nov 2026: the clutch kit's centre hole, and the
+# run-flat tyres' since 12 Nov, showed white over the ground). Real white parts are cel-shaded off-white; background left behind is
+# the master's own flat background colour. Measured on 13 exports: the two faults kept 1.0% and 5.4% of the master at 86% and 99%
+# background colour; real white parts (a steriliser's door, a survey dish) matched too, and every other kept patch was under 0.6% or
+# under 57%. The sweep of all 193 shipped sprites then warned on 14: three were holes showing white (the run-flat tyres, the service
+# spanner's ring at 0.4%, the long gearing's big gear at 0.3%), the rest real white parts (planes, paper, glassware). So it warns,
+# asking for a look on coloured ground, and never refuses (authored thresholds).
+WHITE_LEFT_SHARE = 0.0025  # A kept white patch this share of the master or more is worth a look.
+WHITE_LEFT_FLAT = 0.8  # ... when this share of it or more is within WHITE_LEFT_TOLERANCE of the background's own colour.
+WHITE_LEFT_TOLERANCE = 3
 
 
 REPO = Path(__file__).resolve().parents[2]
@@ -174,6 +184,53 @@ def silhouette(image, threshold=235, soft=30):
     return shape
 
 
+def background_colour(image):
+    """The median colour of the master's border: the plain background the generators draw on."""
+    rgb = image.convert('RGB')
+    width, height = rgb.size
+    pixels = rgb.load()
+    border = [pixels[x, y] for x in range(width) for y in (0, height - 1)] + [pixels[x, y] for y in range(height) for x in (0, width - 1)]
+    return tuple(sorted(colour[channel] for colour in border)[len(border) // 2] for channel in range(3))
+
+
+def white_left(master, cut, threshold=235):
+    """The white patches the cut kept opaque that look like background left behind (WHITE_LEFT_*), largest first, each as
+    {"share" of the master, "flat" share in the background's colour, "at" one of its pixels}. Empty when nothing looks left."""
+    rgb = master.convert('RGB').load()
+    alpha = cut.getchannel('A').load()
+    width, height = cut.size
+    background = background_colour(master)
+    kept = lambda x, y: alpha[x, y] >= 250 and min(rgb[x, y]) >= threshold
+    seen = bytearray(width * height)
+    found = []
+    for start in range(width * height):
+        x, y = start % width, start // width
+        if seen[start] or not kept(x, y):
+            continue
+        stack, size, flat = [start], 0, 0
+        seen[start] = 1
+        while stack:
+            index = stack.pop()
+            cx, cy = index % width, index // width
+            size += 1
+            flat += max(abs(a - b) for a, b in zip(rgb[cx, cy], background)) <= WHITE_LEFT_TOLERANCE
+            for neighbour in _neighbours(index, width, height):
+                if not seen[neighbour] and kept(neighbour % width, neighbour // width):
+                    seen[neighbour] = 1
+                    stack.append(neighbour)
+        share, flat_share = size / (width * height), flat / size
+        if share >= WHITE_LEFT_SHARE and flat_share >= WHITE_LEFT_FLAT:
+            found.append({'share': round(share, 4), 'flat': round(flat_share, 2), 'at': [x, y]})
+    return sorted(found, key=lambda patch: -patch['share'])
+
+
+def white_left_warning(patches):
+    """The console line for white_left's findings."""
+    where = '; '.join(f'{patch["share"] * 100:.1f}% of the master at {patch["at"][0]},{patch["at"][1]}' for patch in patches)
+    return (f'WARNING: white inside the object may be background left behind ({where}). Look at the sprite on coloured ground; '
+            'if it is a hole, export again with --all-white, or clean its mask (clean_backgrounds.py)')
+
+
 def crop_to_content(image, margin_fraction=0.06):
     box = image.getchannel('A').getbbox()
     if box is None:
@@ -201,6 +258,8 @@ def export(source, target, size, aspect, threshold, soft, all_white=False, as_si
     master = Image.open(source)
     background = None if as_silhouette or all_white else ai_background(source)
     cut = silhouette(master, threshold, soft) if as_silhouette else white_to_alpha(master, threshold, soft, all_white, background=background)
+    # A silhouette is white on purpose, and --all-white keeps no white at all: only an ordinary cut can leave background behind.
+    left = [] if as_silhouette or all_white else white_left(master, cut, threshold)
     sprite = pad_to_aspect(crop_to_content(cut), aspect_w, aspect_h)
     # Shrunk premultiplied, so the clear background's white never bleeds into the edge (12 Nov 2026: it left a pale rim on every icon).
     sprite = sprite.convert('RGBa').resize((size * aspect_w // min(aspect_w, aspect_h), size * aspect_h // min(aspect_w, aspect_h)),
@@ -218,17 +277,48 @@ def export(source, target, size, aspect, threshold, soft, all_white=False, as_si
         'all_white': all_white,
         'silhouette': as_silhouette,
         'ai_mask': file_sha256(source) if background is not None else None,
+        'white_left': left,
         'date': _dt.datetime.now().isoformat(timespec='seconds'),
         'tool': 'export_sprite.py: ' + ('dark shape to a white silhouette' if as_silhouette else 'background white to alpha') + ', crop, pad, Lanczos downscale',
     }
     target.with_suffix('.export.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
     print(f'wrote {target} {sprite.size}')
+    if left:
+        print(white_left_warning(left))
+    return record
+
+
+def sweep(root):
+    """Every shipped sprite's record under root, its master cut again as it was exported, and the ones that look as if they kept
+    background white (white_left). Reads only; a master no longer on this PC is listed as such."""
+    suspects, missing, checked = [], [], 0
+    for record_path in sorted(Path(root).rglob('*.export.json')):
+        record = json.loads(record_path.read_text(encoding='utf-8'))
+        if record.get('silhouette') or record.get('all_white') or 'source' not in record:
+            continue
+        source = REPO / record['source']
+        if not source.is_file():
+            missing.append(record['target'])
+            continue
+        checked += 1
+        master = Image.open(source)
+        background = ai_background(source) if record.get('ai_mask') else None
+        cut = white_to_alpha(master, record.get('white_threshold', 235), record.get('soft_edge', 30), background=background)
+        left = white_left(master, cut, record.get('white_threshold', 235))
+        if left:
+            suspects.append((record['target'], left))
+    print(f'{checked} sprites checked, {len(suspects)} may show background white, {len(missing)} masters not on this PC')
+    for target, left in suspects:
+        print(f'- {target}: ' + '; '.join(f'{patch["share"] * 100:.1f}% at {patch["at"][0]},{patch["at"][1]}' for patch in left))
+    return suspects
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument('source')
-    parser.add_argument('target')
+    parser.add_argument('source', nargs='?')
+    parser.add_argument('target', nargs='?')
+    parser.add_argument('--sweep', nargs='?', const='mods', metavar='FOLDER',
+                        help='instead of exporting, list every shipped sprite under FOLDER (default mods) that may show background white')
     parser.add_argument('--size', type=int, default=128, help='pixels along the shorter side')
     parser.add_argument('--aspect', default='1:1', help='width:height of the sprite, e.g. 1:1 or 2:5')
     parser.add_argument('--threshold', type=int, default=235)
@@ -236,4 +326,9 @@ if __name__ == '__main__':
     parser.add_argument('--all-white', action='store_true', help='clear white inside the object too')
     parser.add_argument('--silhouette', action='store_true', help='a white shape from a dark one, for a picture the game tints')
     args = parser.parse_args()
-    export(args.source, args.target, args.size, args.aspect, args.threshold, args.soft, args.all_white, args.silhouette)
+    if args.sweep:
+        sweep(REPO / args.sweep if not Path(args.sweep).is_absolute() else args.sweep)
+    elif not (args.source and args.target):
+        parser.error('give a source and a target, or --sweep')
+    else:
+        export(args.source, args.target, args.size, args.aspect, args.threshold, args.soft, args.all_white, args.silhouette)

@@ -275,6 +275,15 @@ def tag_words(path, tags):
     return [words for pattern, words in tags if fnmatch.fnmatch(path, pattern)]
 
 
+def mark_own_art(dataset, branch):
+    """Marks a dataset of our own picks as our own art, so the near-copy check reports a likeness to it apart from one to the
+    game's art (sort_rules.OWN_ART_MARKER): no one else's art is in it."""
+    import sort_rules  # Beside this script; imported here so the rest of this tool needs nothing more.
+    marker = {'own_art': True, 'from': branch,
+              'why': 'every picture is a pick of ours from an art branch, copied byte for byte; none is the game\'s or another author\'s'}
+    (Path(dataset) / sort_rules.OWN_ART_MARKER).write_text(json.dumps(marker, indent=1), encoding='utf-8')
+
+
 def picks(branch, work, name, trigger, settings, tags=()):
     """A dataset of the owner's own picks from an art branch, captioned with their subjects, and its training config. The pictures
     are copied byte for byte (ai-toolkit buckets them by size), with a manifest of where each came from."""
@@ -289,6 +298,7 @@ def picks(branch, work, name, trigger, settings, tags=()):
         (dataset / f'{stem}.txt').write_text(caption, encoding='utf-8')
         manifest.append({'image': path, 'sha256': record.get('sha256'), 'caption': caption})
     (work / 'manifest.json').write_text(json.dumps(manifest, indent=1), encoding='utf-8')
+    mark_own_art(dataset, branch)
     config = training_config(name, dataset, work / 'output', trigger, settings)
     (work / 'config.yaml').write_text(json.dumps(config, indent=2), encoding='utf-8')
     if settings.get('low_vram') is False:
