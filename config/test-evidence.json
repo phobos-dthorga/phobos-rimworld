@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "331": ["patches.turret-queue-saved"],
     "322": {"parts": {
       "the kettle simmers on the move": ["trailers.caravan-simmer"],
       "a meal halt cooks and holds the caravan": ["trailers.caravan-meal-halt"]

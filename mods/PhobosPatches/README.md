@@ -9,7 +9,7 @@ casting at The Dead Man's Switch's rotary forger.
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.31.0, built 22 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.31.1, built 22 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -143,8 +143,9 @@ A save made during a scorpion raid loads with the raid still working (temporary)
 
 ### Vehicle Framework and outposts
 
-Fires a vehicle could never put out are put out; repairs and upgrades show a progress bar (temporary); a caravan with vehicles cannot
-found an outpost through "create outpost"
+Fires a vehicle could never put out are put out; repairs and upgrades show a progress bar (temporary); a vehicle saved while one of
+its weapons is firing a burst keeps itself, its crew and its cargo in the save, where before it vanished with everyone aboard on
+loading (temporary; a save already made that way cannot be mended); a caravan with vehicles cannot found an outpost through "create outpost"
 ([outposts](../../docs/player-guide/patches.md#outposts-and-caravans-with-vehicles),
 [Vehicle Framework](../../docs/player-guide/patches.md#vehicle-framework-and-combat-extended)).
 

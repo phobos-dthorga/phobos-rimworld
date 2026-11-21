@@ -6,6 +6,18 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.31.1] - 2026-11-22 - Draft
+
+A vehicle saved mid-burst no longer vanishes with its crew
+
+### Fixed
+
+- **A vehicle saved while one of its weapons is firing a burst keeps itself and everyone aboard in the save** (the owner's Mongoose, 22 November 2026: saved mid-strike, it and its pilot and gunner were gone on loading). Vehicle Framework saves the bursts under way in a way they cannot be saved, so the save stopped part-way through that vehicle: its health, cargo, crew and passengers were never written, and on loading the game dropped the vehicle and everyone in it. Now the burst under way is left out of the save and kept in play, so the save is whole; after loading, the burst has ended and the weapon aims again at its target. Any vehicle with weapons, any faction's. A temporary patch for Vehicle Framework's fault: it switches itself off once Vehicle Framework saves them properly, and says so in the log. Not yet tested in game: row 331 of the test pass.
+
+### Save compatibility
+
+- **A save already cut short this way cannot be mended**: the vehicle and its crew were never written into it. Go back to an earlier save; this fix only keeps it from happening again. The load line of D'thorga Patches names the fix while it is on.
+
 ## [0.31.0] - 2026-11-22 - Draft
 
 The UH-60M Black Hawk built from real parts
