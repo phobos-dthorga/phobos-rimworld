@@ -708,6 +708,31 @@ tested in game.
 - **The Land Cruiser's own bed upgrades** (a mortar or howitzer platform) and a deck tent can both be fitted; nothing stops it. Left to
   the player (agent's choice).
 
+## Built: camp lights (22 Nov 2026)
+
+The owner's choice (22 Nov 2026, card): **both** a fuel lantern and a 12-volt camp light, after the agent found the camp had no packable
+light (the work lamps are fixed to the vehicle). D'thorga Framework 0.231.0; row 353 of [the in-game test pass](in-game-test-pass.md).
+Not yet tested in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Light a camp at night anywhere: a lantern on its own chemfuel, or lights fed from the vehicle's battery |
+| What it stops them doing | Nothing new: the lantern needs filling, the 12-volt lights flatten a battery left to run all night |
+| How it changes play | A night camp is no longer dark; choosing between fuel carried and a battery's charge becomes part of packing |
+| What outside notices | The colonists (the game's own darkness mood and work speed in the light), the vehicle's electrics (a new load), the map's temperature (the lantern's flame, a little) |
+
+**Risk: low** (agent's grade): the worst is a flat starter battery, which the electrics already guard against by shedding comforts first.
+No setting.
+
+| Piece | Where | Notes |
+| --- | --- | --- |
+| Lighting in the dark | `CompPhobosNightLight` (core, `src/PhobosFramework/Environment/`), beside the game's own glower comp | Tells the glower to stay dark while the sky glow is 0.5 or more [A: dusk]; a flame's fuel is used only while lit; optional warmth. Generic: any lamp can carry it |
+| Camp lantern | `PhobosCamp_Lantern` | Chemfuel, **2 a day of burning** [A: about one a night; a real hurricane lantern burns about a litre of kerosene in twenty hours], 5 held; glow radius 7 [A]; **2 heat a second** to 20 degrees C [A: a flame of a hundred watts or so] |
+| 12-volt camp light | `PhobosCamp_PoleLight`, fed through `CampLights` (vehicles) | **10 W each** [A: an LED light bar], a new load on the vehicle, **Camp lights** (the rules Def's `campLoads`, shed order 1, before the fridge), drawing while it is dark and a light set out by the camp is switched on. Lit only while that load runs. Glow radius 10 [A] |
+
+**Pictures:** paid, two attempts each, about US$0.22 ([the record](../../assets/phobos-vehicles/requests/camp-lights-record.md)); the agent's
+suggested picks ship until the owner picks.
+
 ## Built: the kitchen box, table and stools (22 Nov 2026)
 
 Y10 and Y11 of the owner's camp batch of 13 Nov 2026, deferred until after the berths. **The owner's choices** (22 Nov 2026, cards): the

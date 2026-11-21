@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampPoleLight.png",
+  "source": "assets/phobos-vehicles/generated/camp-pole-light/camp-pole-light-1.png",
+  "source_sha256": "68074cb5281aa673a189511e27103a0a797d56c0547f49ce8cab9d52073cbea9",
+  "target_sha256": "8b1392c110ae3893776a264541d6862d9dc14495e69d2454f7b99ec738ef8bb9",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "68074cb5281aa673a189511e27103a0a797d56c0547f49ce8cab9d52073cbea9",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-22T05:23:17",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.231.0] - 2026-11-22 - Draft
+
+Camp lights
+
+### Added
+
+- **Two camp lights: a camp lantern and a 12-volt camp light** (the owner's choice of 22 November 2026, "both"), built in the Architect (D'thorga, Motor pool) after vehicle parts research and carried packed in a vehicle's cargo; the camp sets them out with the rest of its gear. Both light themselves at dusk and go out at dawn. The lantern burns about one chemfuel a night, only while lit, needs no vehicle and gives off a little warmth. The 12-volt light runs from its vehicle's battery, about 10 watts each, as a new switch on the vehicle, Camp lights; it goes dark when that is switched off or the battery is flat, and has no power if set down away from a camp. Their pictures are bought and still wait for the owner's pick. Not yet tested in game: row 353 of the test pass.
+
 ## [0.230.0] - 2026-11-22 - Draft
 
 Walk-in cabins take their vehicle's cab air and feed their people; life on the road in the logbook and the Fleet board

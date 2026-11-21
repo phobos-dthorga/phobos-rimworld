@@ -468,6 +468,13 @@ the kit back in the cargo.
   the tent is warmer. Under an open awning or fly it warms nothing.
 - **Taking down any one wall brings that tent's canvas roof down**, as an awning's pole does.
 
+**Camp lights** (not yet tested in game): build them in the Architect (D'thorga, Motor pool; research **vehicle parts**) and pack them
+in the cargo with the camp gear. Both light themselves at dusk.
+
+- **Camp lantern** (2 kg): burns about **one chemfuel a night**, only while lit, and warms the air a little. Needs no vehicle. Fill it before you go.
+- **12-volt camp light** (4 kg): runs from the vehicle's battery, about 10 watts each. The vehicle gets a **Camp lights** switch; with it off,
+  or the battery flat, they go dark. Set down away from a camp, it has no power.
+
 **Kitchen box, table and stools** (not yet tested in game): build them in the Architect (D'thorga, Motor pool; research
 **vehicle parts**), uninstall them and load them into the cargo with the rest of the camp gear.
 

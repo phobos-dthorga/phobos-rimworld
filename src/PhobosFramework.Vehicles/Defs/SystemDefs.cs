@@ -1128,6 +1128,11 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// </summary>
     public List<ElectricalLoadSpec> towLoads = new();
     /// <summary>
+    /// Loads a vehicle gains from its camp (Framework 0.231.0: camp lights on a pole, fed from the vehicle's battery). Each load's
+    /// <c>available</c> says whether its camp has them set out, and its <c>when</c> whether they draw now.
+    /// </summary>
+    public List<ElectricalLoadSpec> campLoads = new();
+    /// <summary>
     /// Water on the road (Framework 0.216.0; docs/development/vehicle-trailers.md), all authored: what one drink and one wash take from a
     /// caravan's tanks, in litres; the hygiene below which a member washes; and what a wash from a basin's worth and a shower leave it at.
     /// Used only with a mod that gives water a meaning (Dubs Bad Hygiene).

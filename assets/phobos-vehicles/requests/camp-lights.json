@@ -1,0 +1,58 @@
+[
+ {
+  "name": "camp-lantern",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampHeater.png",
+    "role": "our approved camp piece seen from directly above (the camp heater): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampStool_north.png",
+    "role": "our approved camp piece seen from directly above (the camp stool): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "building": "PhobosCamp_Lantern, the camp lantern (not rotated)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampLantern.png",
+   "size": "drawn by the game at its footprint; requested at 1024 x 1024",
+   "why": "camp lights (Framework 0.231.0; docs/development/vehicle-accessories.md, Y2 to Y4 batch); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a piece of camping gear in a frontier colony. Images 1 and 2 are our approved camp pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The object fills about 60 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA hurricane lantern standing on the ground, seen from directly above: a round dark-green steel fuel base, a clear glass globe with a small warm yellow flame inside, a wire guard over the glass and a steel carry handle folded flat across the top.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles, food or loose goods. No ground beyond the object, no shadow outside it, no light rays or glow drawn around it, no perspective, no tilt."
+ },
+ {
+  "name": "camp-pole-light",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampHeater.png",
+    "role": "our approved camp piece seen from directly above (the camp heater): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampStool_north.png",
+    "role": "our approved camp piece seen from directly above (the camp stool): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "building": "PhobosCamp_PoleLight, the 12-volt camp light (not rotated)",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampPoleLight.png",
+   "size": "drawn by the game at its footprint; requested at 1024 x 1024",
+   "why": "camp lights (Framework 0.231.0; docs/development/vehicle-accessories.md, Y2 to Y4 batch); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a piece of camping gear in a frontier colony. Images 1 and 2 are our approved camp pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The object fills about 60 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA 12-volt camp light on a short telescopic pole, seen from directly above: three splayed grey tripod legs, a slim aluminium pole between them, a flat rectangular light bar with a pale white lens on top, and a coiled black cable with a small plug lying beside one leg.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, people, animals, vehicles, food or loose goods. No ground beyond the object, no shadow outside it, no light rays or glow drawn around it, no perspective, no tilt."
+ }
+]

@@ -234,6 +234,28 @@
         </ampsInputs>
       </li>
     </towLoads>
+    <!-- Loads a vehicle gains from its camp (Framework 0.231.0): its 12-volt camp lights on poles, each its own watts (10 W in its Def,
+         authored: an LED light bar) at this vehicle's voltage, while it is dark and they are switched on. Shed early among the comforts,
+         before the fridge, so the food outlasts the lights. -->
+    <campLoads>
+      <li>
+        <name>campLights</name>
+        <label>camp lights</label>
+        <description>The camp's 12-volt lights on their poles, run from this vehicle's battery while it is dark. Switched off, or with the battery flat, they go dark.</description>
+        <amps>1</amps>
+        <toggle>true</toggle>
+        <defaultOn>true</defaultOn>
+        <shedOrder>1</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Camp/CampPoleLight</iconPath>
+        <available Class="Phobos.VehicleSystems.When_CampLights" />
+        <when Class="Phobos.VehicleSystems.When_CampLights">
+          <inUse>true</inUse>
+        </when>
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_CampLightAmps" />
+        </ampsInputs>
+      </li>
+    </campLoads>
     <nightDriverFitRest>0.3</nightDriverFitRest>
     <nightReliefRest>0.6</nightReliefRest>
     <!-- What a hostile jamming field blinds (Framework 0.225.0): a radar jammer floods radar frequencies. Add nightSight or autopilot here to

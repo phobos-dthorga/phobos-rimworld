@@ -37,6 +37,10 @@
     "338": {"parts": {
       "a caravan cooks at a packed kitchen box": [{"key": "camp.kitchen-box-caravan", "detail": "*"}]
     }},
+    "353": {"parts": {
+      "a camp lantern burns while lit": ["framework.night-light-flame"],
+      "a 12-volt camp light is fed by its vehicle": ["vehicles.camp-pole-light"]
+    }},
     "352": {"parts": {
       "a convoy camped for the night": [{"key": "vehicles.fleet-road-life", "variant": "PhobosFleet_DoingNightCamp"}],
       "a convoy driving through the night": [{"key": "vehicles.fleet-road-life", "variant": "PhobosFleet_DoingNightDrive"}],

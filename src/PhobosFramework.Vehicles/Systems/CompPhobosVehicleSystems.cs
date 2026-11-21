@@ -188,6 +188,15 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                     if (!list.Exists(l => l.name == load.name)) list.Add(load);
                 }
             }
+            // What its camp sets out may draw on it (Framework 0.231.0: camp lights on a pole). Every vehicle that can camp has them listed;
+            // each one's own "available" says whether its camp has any out.
+            if (Vehicle.GetComp<CompPhobosCamp>() != null)
+            {
+                foreach (ElectricalLoadSpec load in Rules.campLoads)
+                {
+                    if (!list.Exists(l => l.name == load.name)) list.Add(load);
+                }
+            }
             loadsCache = list;
             return list;
         }

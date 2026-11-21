@@ -365,6 +365,9 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder
     /// <summary>Whether its camp stands beside it now.</summary>
     public bool IsPitched => placed.Count > 0 || poles.Count > 0 || tentWalls.Count > 0;
 
+    /// <summary>The pieces this camp has set out now (Framework 0.231.0, for its camp lights).</summary>
+    public List<Thing> Placed => placed;
+
     public CampOrder Order => order;
 
     // ---- IThingHolder: the roof tent while packed ----

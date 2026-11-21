@@ -819,6 +819,127 @@
     </modExtensions>
   </ThingDef>
 
+  <ThingDef ParentName="BuildingBase">
+    <!-- Framework 0.231.0 (the owner's choice of 22 Nov 2026, "both"; docs/development/vehicle-accessories.md, "Built: camp lights"): a hurricane
+         lantern, camp gear set out with the camp. It lights itself at dusk and burns chemfuel only while lit: about one unit a night (2 a day of
+         burning, authored; a real hurricane lantern burns about a litre of kerosene in twenty hours), five nights held. A little warmth (2 a second
+         to 20 degrees C at most, authored: a flame of a hundred watts or so). Needs no vehicle. -->
+    <defName>PhobosCamp_Lantern</defName>
+    <label>camp lantern</label>
+    <description>A hurricane lantern for a camp. Carried packed in a vehicle's cargo, it is set out with the camp. It lights itself at dusk and burns about one chemfuel a night, only while it is lit, and gives off a little warmth. It needs no vehicle.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/CampLantern</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>Standable</passability>
+    <fillPercent>0.1</fillPercent>
+    <rotatable>false</rotatable>
+    <tickerType>Normal</tickerType>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsFurniture</li>
+    </thingCategories>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>2031</uiOrder>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <statBases>
+      <MaxHitPoints>30</MaxHitPoints>
+      <Flammability>0.5</Flammability>
+      <Mass>2</Mass>
+      <WorkToBuild>500</WorkToBuild>
+    </statBases>
+    <costList>
+      <Steel>15</Steel>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>2.0</fuelConsumptionRate>
+        <fuelCapacity>5.0</fuelCapacity>
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+        <fuelFilter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </fuelFilter>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+      </li>
+      <li Class="CompProperties_Glower">
+        <glowRadius>7</glowRadius>
+        <glowColor>(184,136,83,0)</glowColor>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="Phobos.Framework.Environment.CompProperties_PhobosNightLight">
+        <heatPerSecond>2</heatPerSecond>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+        <work>30</work>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="BuildingBase">
+    <!-- Framework 0.231.0: a 12-volt camp light on a short pole, camp gear set out with the camp. It lights itself at dusk from its vehicle's battery,
+         as the camp lights load (10 W each, authored: an LED light bar), and goes dark when that load is switched off, shed or the battery is flat.
+         Set down by hand, away from a camp, it has no power. -->
+    <defName>PhobosCamp_PoleLight</defName>
+    <label>12-volt camp light</label>
+    <description>An LED camp light on a short pole, with a lead to its vehicle. Carried packed in a vehicle's cargo, it is set out with the camp and runs from that vehicle's battery: it lights itself at dusk and goes dark when the battery is flat or the camp lights are switched off on the vehicle. Set down away from a camp, it has no power.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/CampPoleLight</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <size>(1,1)</size>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>20</pathCost>
+    <fillPercent>0.15</fillPercent>
+    <rotatable>false</rotatable>
+    <tickerType>Normal</tickerType>
+    <minifiedDef>MinifiedThing</minifiedDef>
+    <thingCategories>
+      <li>BuildingsFurniture</li>
+    </thingCategories>
+    <designationCategory>PhobosVehicles_MotorPool</designationCategory>
+    <uiOrder>2032</uiOrder>
+    <researchPrerequisites>
+      <li>PhobosResearch_VehicleParts</li>
+    </researchPrerequisites>
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <Flammability>0.3</Flammability>
+      <Mass>4</Mass>
+      <WorkToBuild>700</WorkToBuild>
+    </statBases>
+    <costList>
+      <Steel>20</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Glower">
+        <glowRadius>10</glowRadius>
+        <glowColor>(217,217,208,0)</glowColor>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="Phobos.Framework.Environment.CompProperties_PhobosNightLight">
+        <supplied>true</supplied>
+        <watts>10</watts>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
+        <work>40</work>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
   <!-- ===== Waking ===== -->
 
   <ThoughtDef>
