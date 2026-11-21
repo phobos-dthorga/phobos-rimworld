@@ -162,6 +162,9 @@
          charger and its losses); the tipper's loading grab reaches 4 cells from the truck and a lift takes 20 game seconds (what a lift
          carries is the grab node's stat). -->
     <serviceLeadWatts>300</serviceLeadWatts>
+    <!-- The Busbar's ground jammer (Framework 0.227.0, authored): 800 W off the top of its 2,000 W, and a field of 18 cells. -->
+    <groundJammerWatts>800</groundJammerWatts>
+    <groundJammerRadius>18</groundJammerRadius>
     <!-- The generator set's battery drive (Framework 0.104.0, the hybrid; all authored): on the battery it keeps 0.35 of its speed (a slow
          creep), a cell costs 0.5 watt-days of the buffer (the buffer node's 150 carry it 300 cells, the design's "a few hundred"), and the
          running engine puts 400 W back into the buffer while the set is not set up (a full buffer in about nine game hours). -->

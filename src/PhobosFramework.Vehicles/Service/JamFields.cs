@@ -27,7 +27,8 @@ public readonly struct JamField
 
 /// <summary>
 /// Jamming fields jam our systems (Framework 0.225.0; owner, 22 Nov 2026: "fields jam our systems"; docs/development/ea6b-prowler.md, step 2).
-/// Any mod's jammer registers where its fields are (the EA-6B Prowler's, through D'thorga Patches; ours later); inside a field of a faction
+/// Any mod's jammer registers where its fields are (the EA-6B Prowler's, through D'thorga Patches; our own Busbar's ground jammer since 0.227.0,
+/// built in); inside a field of a faction
 /// hostile to it, a vehicle's radar and warning receiver (the rules Def's list) read as not working, so everything that relies on them (aim
 /// by radar in rain and at night, the dodge's warning, the lock-on warning) follows. Any faction's vehicles, both ways: the player's Prowler
 /// jams raiders' aircraft as theirs jams the player's. Fields are read again at most every second of game time per map and never saved.
@@ -36,7 +37,7 @@ public static class JamFields
 {
     const int RefreshTicks = 60;
 
-    static readonly List<Func<Map, IEnumerable<JamField>>> sources = new();
+    static readonly List<Func<Map, IEnumerable<JamField>>> sources = new() { GroundJammers };
     static readonly Dictionary<Map, (int tick, List<JamField> fields)> byMap = new();
     /// <summary>The player's vehicles told they are jammed, so each is told once while it stays inside.</summary>
     static readonly HashSet<VehiclePawn> told = new();
@@ -44,12 +45,25 @@ public static class JamFields
 
     static PhobosVehicleRulesDef Rules => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>();
 
+    /// <summary>Our own: each Busbar generator set whose jammer mast is working (Framework 0.227.0; docs/development/ea6b-prowler.md, step 4).</summary>
+    static IEnumerable<JamField> GroundJammers(Map map)
+    {
+        IReadOnlyList<Pawn> pawns = map.mapPawns.AllPawnsSpawned;
+        for (int i = 0; i < pawns.Count; i++)
+        {
+            if (pawns[i] is not VehiclePawn vehicle || vehicle.GetComp<CompPhobosGeneratorSet>() is not { JammerLive: true } set) continue;
+            if (Seen.Wants("vehicles.ground-jammer", vehicle)) Seen.Note("vehicles.ground-jammer", vehicle, set.JammerRadius.ToString("0") + " cells");
+            yield return new JamField(vehicle.DrawPos, set.JammerRadius, vehicle.Faction, vehicle);
+        }
+    }
+
     /// <summary>Registers a mod's jammer: called with a map, it lists the fields there now. Called once, at start-up.</summary>
     public static void Register(Func<Map, IEnumerable<JamField>> source)
     {
         if (source != null && !sources.Contains(source)) sources.Add(source);
     }
 
+    /// <summary>Whether any jammer could have a field: always, since our own ground jammers are built in.</summary>
     public static bool Any => sources.Count > 0;
 
     static void Check()

@@ -3,8 +3,9 @@
 **Status (22 Nov 2026):** step 1 built: D'thorga Vehicles 0.99.0 (engines, systems, ICAP upgrades, enemy fits), D'thorga Patches 0.33.0
 (parts list, parts bill, rearming, dodge, salvo button, the ICAP hook, realistic handling) and D'thorga Framework 0.224.0 (the jamming
 reach figure on fittings). Step 2 built: Framework 0.225.0 and Patches 0.34.0 (jamming fields blind other factions' radar and warning
-receivers). Step 3 built: Framework 0.226.0 (the self-protection jamming pod). Not yet tested in game: rows 342 to 344 of the
-[test pass](in-game-test-pass.md). Step 4 is a design below.
+receivers). Step 3 built: Framework 0.226.0 (the self-protection jamming pod). Step 4 built: Framework 0.227.0 and Vehicles
+0.100.0 (the Busbar's jammer mast). Not yet tested in game: rows 342 to 345 of the [test pass](in-game-test-pass.md). Still to draw: the
+icons of the two ICAP suites and the pod, and the mast's icon and overlay.
 
 ## Read this first
 
@@ -66,7 +67,11 @@ its fittings; one captured keeps them.
   stop working when shed (a simplification). The design as first written: a fitting of ours for other aircraft that makes enemy automated turrets slower to lock on and less
   accurate against the aircraft carrying it. We already have an infrared jammer upgrade for helicopters (`Phobos_InfraredJammer`); the pod
   is its radar-band partner.
-- **Step 4, a jamming truck:** an upgrade for one of our trucks: a smaller field of our own while parked and running, feeding step 2's
+- **Step 4, a jamming truck (built, Framework 0.227.0, Vehicles 0.100.0; the owner chose the Busbar generator set):** the **Jammer mast**
+  upgrade (`GroundJammer`, at (17, 2) on its tree). While the set is set up and running, it jams within 18 cells, a field of
+  `JamFields`' own (built in, so it needs no tie-in); it takes 800 W off the top of the 2,000 W output, before the service lead and the grid,
+  through the lead's rule (`GeneratorRule.StepWithLead`), and so burns fuel for it; short of that, it is silent. No on and off switch: it
+  jams whenever it can (agent default). Figures authored. The design as first written: an upgrade for one of our trucks: a smaller field of our own while parked and running, feeding step 2's
   field service. Which truck is the owner's call; it needs its own overlay art.
 
 ## Not built

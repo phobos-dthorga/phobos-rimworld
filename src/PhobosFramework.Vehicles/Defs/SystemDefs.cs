@@ -1073,6 +1073,10 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// <summary>The generator set's service lead (Framework 0.101.0, authored): the watts it takes off the top of the set's output, a heavy
     /// battery charger and its losses.</summary>
     public float serviceLeadWatts = 300f;
+    /// <summary>The Busbar's ground jammer (Framework 0.227.0, authored): the watts it takes off the top of the generator's output, and how far
+    /// its field reaches, in cells (about two fifths of the EA-6B Prowler's 44: a mast on the ground against pods in the air).</summary>
+    public float groundJammerWatts = 800f;
+    public float groundJammerRadius = 18f;
     /// <summary>The generator set's battery drive (Framework 0.104.0, the hybrid; all authored, BatteryDriveRule): the share of its speed it
     /// keeps on the battery, the buffer's watt-days one cell costs (a full 150 carries 300 cells), and the watts the running engine puts back
     /// into the buffer while the set is not set up.</summary>

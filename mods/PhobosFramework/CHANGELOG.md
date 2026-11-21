@@ -5,6 +5,13 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.227.0] - 2026-11-22 - Draft
+
+The Busbar's ground jammer
+
+### Added
+
+- **A ground jammer for the Busbar generator set** (with D'thorga Vehicles 0.100.0, its jammer mast upgrade; the owner's choice of 22 November 2026): while the set is set up and running, the mast jams within 18 cells, and inside that field other factions' vehicles lose their radar and warning receiver, as inside the EA-6B Prowler's. It takes 800 W off the top of the generator's 2,000 W, before any service lead and the grid, and burns fuel for it; with less than that to give, the mast falls silent. Its inspect line says which. A jamming fitting widens its field too. Figures authored. Not yet tested in game: row 345 of the test pass.
 ## [0.226.0] - 2026-11-22 - Draft
 
 A self-protection jamming pod for any aircraft

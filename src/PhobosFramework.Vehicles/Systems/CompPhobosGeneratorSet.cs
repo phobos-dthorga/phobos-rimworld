@@ -87,6 +87,8 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
     string? fault;
     HeatState heat;
     float leadWatts;
+    /// <summary>The ground jammer's watts this rare tick (Framework 0.227.0): it jams only while it gets all it asks.</summary>
+    float jammerWatts;
 
     enum HeatState { None, Warming, WarmEnough, Outdoors }
     readonly SustainedSound runningLoop = new();
@@ -372,11 +374,15 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
             ReadNet(stub.PowerNet, stub, out float need, out bool batteriesHaveRoom);
             // Full-output fuel follows the watts on offer, so a bigger or a damaged generator keeps the same watts per chemfuel.
             float full = Props.fullFuelPerDay * offered / Props.baseWatts;
-            // A service lead takes its watts off the top; the camp's grid gets the rest (Framework 0.101.0).
-            LeadStep withLead = GeneratorRule.StepWithLead(offered, leadTo != null ? Rules.serviceLeadWatts : 0f, need, batteriesHaveRoom, buffer, BufferCapacity,
+            // A service lead takes its watts off the top; the camp's grid gets the rest (Framework 0.101.0). The ground jammer's go first
+            // (Framework 0.227.0): both draw on the same output and fuel.
+            float wantJammer = JammerFitted ? Rules.groundJammerWatts : 0f;
+            float wantLead = leadTo != null ? Rules.serviceLeadWatts : 0f;
+            LeadStep withLead = GeneratorRule.StepWithLead(offered, wantJammer + wantLead, need, batteriesHaveRoom, buffer, BufferCapacity,
                 DaysPerRareTick, Props.idleFuelPerDay, full);
             GeneratorStep step = withLead.Camp;
-            leadWatts = withLead.LeadWatts;
+            jammerWatts = System.Math.Min(wantJammer, withLead.LeadWatts);
+            leadWatts = withLead.LeadWatts - jammerWatts;
             stub.SetOutput(step.OutputWatts);
             buffer = step.Buffer;
             load = step.Load;
@@ -443,6 +449,19 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
     public VehiclePawn? LeadTo => leadTo;
     /// <summary>Whether the lead is in and the set is giving it power now: what makes the vehicle at its end count as on shore power.</summary>
     public bool LeadLive => leadTo != null && deployed && running && leadWatts > 0f;
+
+    // ---- The ground jammer (Framework 0.227.0; owner, 22 Nov 2026: the Busbar; docs/development/ea6b-prowler.md, step 4) ----
+
+    /// <summary>The upgrade node that fits the jammer mast.</summary>
+    public const string JammerNode = "GroundJammer";
+
+    public bool JammerFitted => VehicleUpgrades.Unlocked(Vehicle, JammerNode);
+
+    /// <summary>Jamming now: fitted, set up and running, and given all the watts it asks.</summary>
+    public bool JammerLive => JammerFitted && deployed && running && jammerWatts >= Rules.groundJammerWatts - 0.5f;
+
+    /// <summary>How far its field reaches now, in cells: the rules' figure, widened by any jamming fittings.</summary>
+    public float JammerRadius => Rules.groundJammerRadius * (Vehicle.GetComp<CompPhobosVehicleSystems>() is { Usable: true } systems ? systems.Fittings.JamRadiusFactor : 1f);
 
     /// <summary>Why the set cannot run its lead now, or null.</summary>
     public string? LeadRefusal()
@@ -534,6 +553,12 @@ public class CompPhobosGeneratorSet : CompPhobosSetUp, IVehicleEngineDemand, IVe
             lines.Add(LeadLive
                 ? "PhobosVehicleSystems_LeadLine".Translate(leadTo.LabelShort.Named("VEHICLE"), leadWatts.ToString("N0").Named("WATTS")).Resolve()
                 : "PhobosVehicleSystems_LeadLineIdle".Translate(leadTo.LabelShort.Named("VEHICLE")).Resolve());
+        }
+        if (JammerFitted)
+        {
+            lines.Add(JammerLive
+                ? "PhobosJam_GroundJammerLine".Translate(JammerRadius.ToString("0").Named("CELLS"), jammerWatts.ToString("N0").Named("WATTS")).Resolve()
+                : "PhobosJam_GroundJammerShort".Translate(Rules.groundJammerWatts.ToString("N0").Named("WATTS")).Resolve());
         }
         if (BufferCapacity > 0f) lines.Add("PhobosVehicleSystems_GenBufferLine".Translate(buffer.ToString("N0").Named("CHARGE"), BufferCapacity.ToString("N0").Named("CAPACITY")).Resolve());
         return string.Join("\n", lines);

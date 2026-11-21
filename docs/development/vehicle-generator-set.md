@@ -13,6 +13,10 @@ generator-set sketch in [utility vehicles](utility-vehicles-design.md) and follo
 **Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026, and D'thorga Framework 0.111.1 builds against it
 ([the dependency audit](dependency-audit-2026-11-16.md)). "The build the 1.7 game loads" above was true when written.
 
+**Jammer mast (Vehicles 0.100.0, Framework 0.227.0; owner, 22 Nov 2026):** a new node, `GroundJammer`, jams within 18 cells while the set
+is set up and running, taking 800 W off the top of its output; designed in [the EA-6B Prowler's record](ea6b-prowler.md), step 4. Not yet
+tested in game.
+
 ## Read this first
 
 - **Setting up needs someone aboard and the engine running (owner, 13 November 2026; Framework 0.106.1, not yet tested in game).** The
@@ -230,6 +234,7 @@ flowchart TB
   BiggerAlternator["Uprated alternator"]
   CableReel["Cable reel"]
   BatteryBuffer["Battery buffer"]
+  GroundJammer["Jammer mast"]
   HeatRecovery["Exhaust heat exchanger"]
   HeavyFan["Heavy-duty fan"]
   PhobosServiceLead["Service lead"]

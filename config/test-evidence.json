@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "345": {"parts": {
+      "the Busbar's mast jams while set up and running": ["vehicles.ground-jammer"]
+    }},
     "344": {"parts": {
       "an automated turret's shot at an aircraft with the pod": ["aircraft.ecm-pod"]
     }},

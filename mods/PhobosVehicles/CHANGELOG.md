@@ -5,6 +5,17 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.100.0] - 2026-11-22 - Draft
+
+The Busbar's jammer mast
+
+### Added
+
+- **Jammer mast**, a new upgrade for the Busbar generator set (needs D'thorga Framework 0.227.0; the owner's choice of 22 November 2026): a folding mast of jamming antennas that, while the set is set up and running, jams within 18 cells. Enemy aircraft and vehicles inside lose their radar and their warning of attack. It takes 800 W of the set's output. Built from steel, components and two advanced components after microelectronics. Not yet tested in game: row 345 of the test pass.
+
+### Compatibility and limits
+
+- Its icon and the mast's picture on the truck are still to be drawn; until they are, the upgrade has none.
 ## [0.99.0] - 2026-11-22 - Draft
 
 The EA-6B Prowler in the fold

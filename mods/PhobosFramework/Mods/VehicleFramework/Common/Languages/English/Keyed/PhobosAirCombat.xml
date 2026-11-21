@@ -34,6 +34,9 @@
   <PhobosAirCombat_MagazineInspect>Chaff and flares: {HELD} of {CAPACITY} cartridges loaded</PhobosAirCombat_MagazineInspect>
 
   <!-- A closed sky over a base whose alarm has gone off. -->
+  <!-- The Busbar's ground jammer (Framework 0.227.0). {CELLS}: its reach; {WATTS}: what it draws. -->
+  <PhobosJam_GroundJammerLine>Jamming within {CELLS} cells, drawing {WATTS} W.</PhobosJam_GroundJammerLine>
+  <PhobosJam_GroundJammerShort>Jammer mast silent: it needs {WATTS} W from a running generator.</PhobosJam_GroundJammerShort>
   <!-- Inside a hostile jamming field (Framework 0.225.0). -->
   <PhobosJam_Jammed>The {VEHICLE} is being jammed: its radar shows only noise and its warning receiver is swamped. Both come back once it is out of the jamming.</PhobosJam_Jammed>
   <PhobosAirCombat_SkyClosed>The sky here is closed: the defenders' air defence is on alert, and the {VEHICLE} would be shot down on take-off. It opens again once their alert ends.</PhobosAirCombat_SkyClosed>
