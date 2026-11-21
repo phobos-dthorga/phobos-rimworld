@@ -4,6 +4,7 @@ using Phobos.Framework;
 using RimWorld;
 using RimWorld.Planet;
 using Vehicles;
+using Vehicles.World;
 using Verse;
 using Verse.AI;
 using Verse.AI.Group;
@@ -172,6 +173,12 @@ public static class VehicleCabins
     {
         if (comp.Cabin is not { } cabin) return;
         VehiclePawn vehicle = comp.Vehicle;
+        // A deck tent's people ride aboard once the vehicle is in a caravan (Framework 0.219.0).
+        if (comp.Props.deckTent && !vehicle.Spawned && vehicle.GetVehicleCaravan() is { } caravan)
+        {
+            DeckTents.IntoCaravan(comp, cabin, caravan);
+            return;
+        }
         if (!vehicle.Spawned || OnMapFlight.Airborne(vehicle)) return;
         List<Pawn> inside = cabin.mapPawns.AllPawnsSpawned.ToList();
         if (inside.Count == 0)

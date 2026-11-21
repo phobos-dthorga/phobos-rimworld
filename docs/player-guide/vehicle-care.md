@@ -472,7 +472,8 @@ needs no ground and no camp set up.
   and walk out when rested.
 - **Warmth:** canvas only. The air inside is that around the vehicle, about 4 °C warmer in the cold, never warmed past 15 °C.
 - **Danger wakes them:** a raid, or the vehicle on fire, wakes everyone inside and sends them out, with a message.
-- **The vehicle will not move while anyone is inside.** The cab's seats are not affected by people in the tent.
+- **The vehicle will not move while anyone is inside.** The cab's seats are not affected by people in the tent. If you form a
+  caravan with someone inside, they come out and ride aboard as it leaves.
 
 - **Moved a swag by hand?** It goes back to that spot next time. **Forget the camp's layout** starts afresh.
 - **Pack up camp** rolls everything back into the vehicle. It waits for sleepers to get up. Anything you moved away from the camp,

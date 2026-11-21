@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "337": {"parts": {
+      "people in a deck tent ride aboard when the vehicle joins a caravan": ["vehicles.deck-tent-caravan"]
+    }},
     "336": {"parts": {
       "a parked, packed Billy keeps its water tank beneath it": ["trailers.own-water-parked"],
       "a chemfuel line is laid beneath what a trailer or camp sets out": [{"key": "trailers.set-out-line", "detail": "*"}]

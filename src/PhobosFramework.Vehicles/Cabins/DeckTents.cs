@@ -3,6 +3,7 @@ using System.Linq;
 using HarmonyLib;
 using RimWorld;
 using Vehicles;
+using Vehicles.World;
 using Verse;
 using Verse.AI;
 
@@ -90,6 +91,41 @@ public static class DeckTents
         if (!anyone) return;
         Messages.Message("PhobosDeckTent_WokenDanger".Translate(vehicle.LabelShort.Named("VEHICLE")).Resolve(), vehicle, MessageTypeDefOf.NegativeEvent, historical: false);
         if (Seen.Wants("vehicles.deck-tent-danger", vehicle)) Seen.Note("vehicles.deck-tent-danger", vehicle, inside.Count + " inside");
+    }
+
+    /// <summary>
+    /// The vehicle has gone into a caravan with people in its deck tent (Framework 0.219.0): forming a caravan takes the vehicle as it stands,
+    /// and a room on the deck is no part of a caravan, so nobody would feed them on the road. Each comes out and rides aboard instead (a
+    /// passenger seat, else the cargo, as Vehicle Framework puts the downed), where the caravan counts and feeds them; what was left in the tent
+    /// goes into the cargo, and the room is closed.
+    /// </summary>
+    internal static void IntoCaravan(CompPhobosVehicleCabin comp, Map cabin, VehicleCaravan caravan)
+    {
+        VehiclePawn vehicle = comp.Vehicle;
+        var moved = new List<string>();
+        foreach (Pawn pawn in cabin.mapPawns.AllPawnsSpawned.ToList())
+        {
+            if (pawn.Dead) continue;
+            pawn.DeSpawn();
+            if (!vehicle.TryAddPawn(pawn) && !vehicle.inventory.innerContainer.TryAdd(pawn))
+            {
+                // No seat and no room: the caravan takes them as it takes anyone walking with it.
+                caravan.AddPawn(pawn, addCarriedPawnToWorldPawnsIfAny: true);
+            }
+            moved.Add(pawn.LabelShort);
+        }
+        foreach (Thing thing in cabin.listerThings.AllThings.Where(t => t.def.category == ThingCategory.Item).ToList())
+        {
+            thing.DeSpawn();
+            if (!vehicle.inventory.innerContainer.TryAdd(thing)) thing.Destroy();
+        }
+        PocketMapUtility.DestroyPocketMap(cabin);
+        comp.SetCabin(null);
+        caravan.RecacheVehiclesOrConvertCaravan();
+        if (moved.Count == 0) return;
+        Messages.Message("PhobosDeckTent_IntoCaravan".Translate(string.Join(", ", moved).Named("NAMES"), vehicle.LabelShort.Named("VEHICLE")).Resolve(),
+            caravan, MessageTypeDefOf.NeutralEvent, historical: false);
+        if (Seen.Wants("vehicles.deck-tent-caravan", vehicle)) Seen.Note("vehicles.deck-tent-caravan", vehicle, moved.Count + " aboard");
     }
 
     /// <summary>Why this colonist cannot go to the deck tent to sleep now, or null. Read at bedtime.</summary>

@@ -45,6 +45,7 @@
   <PhobosDeckTent_Unassigned>{PAWN} no longer sleeps in the tent on the {VEHICLE}'s deck.</PhobosDeckTent_Unassigned>
   <PhobosDeckTent_Full>The tent on the {VEHICLE}'s deck sleeps {COUNT}. Take someone off first.</PhobosDeckTent_Full>
   <PhobosDeckTent_HoldsVehicle>Someone is in the tent on the {VEHICLE}'s deck. Call them out first.</PhobosDeckTent_HoldsVehicle>
+  <PhobosDeckTent_IntoCaravan>{NAMES} came out of the tent on the {VEHICLE}'s deck to ride with the caravan.</PhobosDeckTent_IntoCaravan>
   <PhobosDeckTent_WokenDanger>Danger: everyone in the tent on the {VEHICLE}'s deck is woken and coming out.</PhobosDeckTent_WokenDanger>
   <PhobosCamp_PieceInUse>Someone is using the {PIECE} at the {VEHICLE}'s camp. Wait until they are up, or call them away, before packing up.</PhobosCamp_PieceInUse>
   <PhobosCamp_HoldsVehicle>The {VEHICLE}'s camp is still set up beside it. Pack up camp first.</PhobosCamp_HoldsVehicle>
