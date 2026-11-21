@@ -3,6 +3,9 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "335": {"parts": {
+      "a towed bowser tops up its caravan's vehicle": ["vehicles.cargo-refuel-towed"]
+    }},
     "334": {"parts": {
       "a caravan member eats from a towed trailer": ["trailers.caravan-ate-from-tow"]
     }},

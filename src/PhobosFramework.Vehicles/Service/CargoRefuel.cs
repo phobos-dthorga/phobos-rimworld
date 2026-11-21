@@ -23,13 +23,60 @@ public static class CargoRefuel
     public static bool Burns(VehiclePawn vehicle) =>
         vehicle.CompFueledTravel is { Props.fuelType: not null } fuel && !fuel.Props.electricPowered;
 
-    /// <summary>The fuel of the vehicle's kind the caravan carries, in units (every vehicle's cargo and every pawn's).</summary>
+    /// <summary>
+    /// The fuel of the vehicle's kind the caravan carries, in units: every vehicle's cargo and every pawn's, and since Framework 0.219.0 the
+    /// tanks of whatever the caravan tows (a fuel bowser), one unit of tank for one of fuel, as the bowser's hose gives it on a map.
+    /// </summary>
     public static int Carried(VehiclePawn vehicle)
     {
         if (!Burns(vehicle)) return 0;
         int total = 0;
         foreach (Thing thing in CompFueledTravel.AllFuelFromInventory(vehicle)) total += thing.stackCount;
-        return total;
+        return total + InTowedTanks(vehicle);
+    }
+
+    /// <summary>The tank contents a vehicle burns: those whose hose port fills a vehicle that burns this fuel (Port_VehicleFuel).</summary>
+    static bool FeedsVehicle(PhobosTankContentsDef contents, ThingDef fuelType)
+    {
+        foreach (TankPort port in contents.ports)
+        {
+            if (port is Port_VehicleFuel { thing: { } thing } && thing == fuelType) return true;
+        }
+        return false;
+    }
+
+    /// <summary>The towed tanks of the vehicle's caravan, with their compartments of its fuel.</summary>
+    static IEnumerable<(CompPhobosTank tank, PhobosTankContentsDef contents, float amount)> TowedFuel(VehiclePawn vehicle)
+    {
+        if (vehicle.CompFueledTravel?.Props.fuelType is not { } fuelType || vehicle.GetVehicleCaravan() is not { } caravan) yield break;
+        foreach (VehiclePawn towed in Hitches.InTow(caravan))
+        {
+            if (towed.GetComp<CompPhobosTank>() is not { } tank) continue;
+            foreach (TankCompartment compartment in tank.Compartments)
+            {
+                if (compartment.contents is { } contents && compartment.amount >= 1f && FeedsVehicle(contents, fuelType)) yield return (tank, contents, compartment.amount);
+            }
+        }
+    }
+
+    /// <summary>The vehicle's fuel in the tanks its caravan tows, in whole units.</summary>
+    static int InTowedTanks(VehiclePawn vehicle)
+    {
+        float total = 0f;
+        foreach ((_, _, float amount) in TowedFuel(vehicle)) total += amount;
+        return (int)total;
+    }
+
+    /// <summary>Takes up to this many units of the vehicle's fuel from the tanks its caravan tows; returns what came.</summary>
+    static int TakeFromTowedTanks(VehiclePawn vehicle, int most)
+    {
+        int taken = 0;
+        foreach ((CompPhobosTank tank, PhobosTankContentsDef contents, _) in TowedFuel(vehicle).ToList())
+        {
+            if (taken >= most) break;
+            taken += (int)tank.TakeOut(contents, most - taken, out _);
+        }
+        return taken;
     }
 
     /// <summary>
@@ -69,7 +116,14 @@ public static class CargoRefuel
                 continue;
             }
             comp.CargoFuelGoneTold = false;
-            fuel.ConsumeFuelFromInventory(pour);
+            // A towed bowser's tank first (Framework 0.219.0): the cans stay for when it is dry.
+            int fromTow = TakeFromTowedTanks(vehicle, pour);
+            if (fromTow > 0)
+            {
+                fuel.Refuel(fromTow);
+                if (Seen.Wants("vehicles.cargo-refuel-towed", vehicle)) Seen.Note("vehicles.cargo-refuel-towed", vehicle, fromTow + " " + fuel.Props.fuelType.defName);
+            }
+            if (pour > fromTow) fuel.ConsumeFuelFromInventory(pour - fromTow);
             stopTicks += CargoFuelRule.StopTicks(pour, fuel.FuelCapacity, rules.refuelStopHoursPerTank, GenDate.TicksPerHour);
             Messages.Message("PhobosVehicleSystems_CargoRefuelled".Translate(vehicle.LabelShort.Named("VEHICLE"), pour.Named("AMOUNT"),
                 fuel.Props.fuelType.label.Named("FUEL"), Carried(vehicle).Named("LEFT")).Resolve(), caravan, MessageTypeDefOf.SilentInput, historical: false);

@@ -111,6 +111,21 @@ colony map. Decision 5 stands: nothing pours into an aircraft in the air. Instea
 - **Captured:** the switch starts off.
 - **Cost:** one look per player aircraft in flight every 250 ticks; one field read every tick while it is down.
 
+## A towed fuel bowser (Framework 0.219.0, 22 Nov 2026)
+
+**The gap:** a fuel bowser on the hitch gave its caravan nothing on the world map. Vehicle Framework's own refuelling takes fuel items
+from the caravan's members, and a bowser holds litres in a tank, riding in the hitch outside the caravan. The agent found it on
+22 Nov 2026; the owner said proceed. Row 335 of [the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+- **What it lets the player do:** run a long trip on a towed bowser, as on cans. **What it stops:** nothing. **How it changes play:**
+  the bowser earns its tow: 2,500 litres behind a truck is a reach no load of cans gives. **What outside notices:** the caravan's
+  reach ring, its pace (the same short stop) and the bowser's litres.
+- **How:** `CargoRefuel.Carried` counts, beside the cargo, every towed tank compartment whose contents a hose fills this vehicle's fuel
+  from (`Port_VehicleFuel`), one tank unit for one unit of fuel, as on a map. The top-up takes from towed tanks first, then the cans.
+  The reach estimate reads the same count, so the ring grows by itself.
+- **Risk: low** (agent's grade): it uses fuel the player put in the bowser; nothing is lost. It needs the vehicle's own **Refuel from
+  cargo** switch, as cans do; no new setting.
+
 ## Not built
 
 - **On a map** (owner's decision 4). A drafted convoy far from base still needs a colonist to refuel it.
