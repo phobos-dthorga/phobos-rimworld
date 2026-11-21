@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CabStereoKit.png",
+  "source": "assets/phobos-vehicles/generated/item-cab-stereo/item-cab-stereo-1.png",
+  "source_sha256": "d4197632de435f006a790d50cf6688012c3b7d03d9fe74f39752a408e98a58c3",
+  "target_sha256": "9dcf647db4f53f8b2ea0f60b2017c28a6d76f31e338dfd5b869c5e91a2494e3a",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "d4197632de435f006a790d50cf6688012c3b7d03d9fe74f39752a408e98a58c3",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-22T05:42:22",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

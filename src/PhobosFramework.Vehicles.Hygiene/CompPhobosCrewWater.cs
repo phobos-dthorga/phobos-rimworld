@@ -172,6 +172,7 @@ public static class CrewWaterSetup
     static CrewWaterSetup()
     {
         if (PlumbingFeed.LiteMode) return;
+        LifeAboard.Drink = RiderDrinks;
         ThingDef? towerDef = DefDatabase<ThingDef>.GetNamedSilentFail("Phobos_CrewWaterStandIn");
         if (towerDef == null) return;
         foreach (VehicleDef def in DefDatabase<VehicleDef>.AllDefsListForReading)
@@ -180,5 +181,21 @@ public static class CrewWaterSetup
             if (def.comps.Any(c => c is CompProperties_PhobosCrewWater)) continue;
             def.comps.Add(new CompProperties_PhobosCrewWater { towerDef = towerDef });
         }
+    }
+
+    /// <summary>
+    /// A thirsty rider aboard a vehicle on a map drinks from its crew water tank (Framework 0.233.0, life aboard): the rules' drink, with Dubs'
+    /// own check of the water's quality. Nobody aboard could drink before: a rider starts no jobs.
+    /// </summary>
+    static bool RiderDrinks(VehiclePawn vehicle, Pawn pawn)
+    {
+        if (pawn.needs?.TryGetNeed<Need_Thirst>() is not { } thirst || thirst.CurCategory == ThirstCategory.Hydrated) return false;
+        if (vehicle.GetComp<CompPhobosCrewWater>() is not { Fitted: true } tank) return false;
+        float litres = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().caravanDrinkLitres;
+        if (tank.Litres < litres) return false;
+        tank.Take(litres, out int quality);
+        thirst.CurLevel = 1f;
+        SanitationUtil.ContaminationCheckWater(pawn, (ContaminationLevel)quality);
+        return true;
     }
 }

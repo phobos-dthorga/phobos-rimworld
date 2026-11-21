@@ -1,0 +1,58 @@
+[
+ {
+  "name": "item-cab-stereo",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+    "role": "our approved camp kit item (the roof tent kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehiclesHygiene/Common/Textures/Phobos/VehicleSystems/Camp/CrewWaterTankKit.png",
+    "role": "our camp kit item (the crew water tank): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "item": "PhobosVehicleSystems_CabStereoKit, the cab stereo",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CabStereoKit.png",
+   "size": "drawn by the game on one cell; requested at 1024",
+   "why": "life aboard (Framework 0.233.0; docs/development/vehicle-accessories.md, Y4, Y13 and Y14); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for a vehicle's cab stereo kit. Images 1 and 2 are our approved camp gear from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA rugged dark grey car radio head unit with two round knobs and a small green-lit display panel with no writing, beside a pair of small round black speakers and a short bundle of wiring with a plug.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground. No shadow outside the object."
+ },
+ {
+  "name": "item-reading-light",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+    "role": "our approved camp kit item (the roof tent kit): match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehiclesHygiene/Common/Textures/Phobos/VehicleSystems/Camp/CrewWaterTankKit.png",
+    "role": "our camp kit item (the crew water tank): match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "item": "PhobosVehicleSystems_ReadingLightKit, the cab reading light",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/ReadingLightKit.png",
+   "size": "drawn by the game on one cell; requested at 1024",
+   "why": "life aboard (Framework 0.233.0; docs/development/vehicle-accessories.md, Y4, Y13 and Y14); bought at the owner's word, 22 Nov 2026: things that appear in the game world use the paid service"
+  },
+  "prompt": "GAME ITEM SPRITE. One single object seen from above at a slight angle, centred, like an item lying on the ground in a top-down strategy game.\n\nCreate an ORIGINAL game item sprite for a vehicle's cab reading light kit. Images 1 and 2 are our approved camp gear from the same family: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY the object, alone on a plain pure white background, filling about 75 percent of the canvas. Square canvas.\n\nA small gooseneck reading lamp with a round warm-white lens on a flexible dark steel neck, its flat mounting base with two screw holes, and a short coiled wire with a plug.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted canvas and steel colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, labels, people, animals, vehicles or ground. No shadow outside the object."
+ }
+]

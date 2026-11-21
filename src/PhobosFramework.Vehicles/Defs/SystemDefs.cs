@@ -1153,6 +1153,24 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// it is "low" (authored: 120 L, the design's 60 L raised because one of Dubs' showers takes 65 L; low at a quarter, the design's).
     /// </summary>
     public float crewTankLitres = 120f;
+    /// <summary>
+    /// Life aboard and hotboxing (Framework 0.233.0; docs/development/vehicle-accessories.md, "Built: life aboard"; vehicle-hotboxing.md), all
+    /// authored: recreation an hour from the stereo and a book; riders read and take treats below this recreation; a treat at most every so
+    /// many hours; smoking for recreation below this, at most every so many hours; the bystanders' share in a closed and an open cab and the
+    /// least worth giving (the owner's starting figures, 12 Nov 2026); hours for smoke to clear; and the chance another faction's driver lit up.
+    /// </summary>
+    public float stereoJoyPerHour = 0.08f;
+    public float readingJoyPerHour = 0.12f;
+    public float lifeAboardJoyBelow = 0.9f;
+    public int treatGapHours = 4;
+    public float smokeJoyBelow = 0.5f;
+    public int smokeGapHours = 6;
+    public float bystanderShareClosed = 0.3f;
+    public float bystanderShareOpen = 0.05f;
+    public float bystanderLeast = 0.05f;
+    public float smokeClearHours = 1f;
+    public float smokeClearHoursOpen = 0.25f;
+    public float raiderHotboxChance = 0.05f;
     public float crewTankLowShare = 0.25f;
     public float nightDriverFitRest = 0.3f;
     public float nightReliefRest = 0.6f;

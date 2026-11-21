@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <!-- Life aboard and hotboxing (Framework 0.233.0). -->
+  <PhobosLifeAboard_Windows>Windows down</PhobosLifeAboard_Windows>
+  <PhobosLifeAboard_WindowsDesc>Wind the cab's windows down or up. Down, smoke clears fast and anyone smoking aboard keeps it mostly to themselves, but the cab's warmth or cool is lost to the air three times as fast.</PhobosLifeAboard_WindowsDesc>
+  <PhobosVehicleSystems_SettingHotboxing>Hotboxing</PhobosVehicleSystems_SettingHotboxing>
+  <PhobosVehicleSystems_SettingHotboxingDesc>On by default. A rider whose drug policy allows a smoked drug may light up aboard a vehicle. In a closed cab with its windows up the others aboard get a share of the high and remember it, for better or worse, and a high driver drives slower. Now and then another faction's driver arrives high. Off, nobody smokes aboard except by the game's own caravan schedule, and nobody shares it.</PhobosVehicleSystems_SettingHotboxingDesc>
+</LanguageData>

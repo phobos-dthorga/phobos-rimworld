@@ -19,4 +19,8 @@ them while the owner's pick is waited for.
 kitchen box. Both clean; the agent suggested **1** (the plainer tank reads better at actual size) and shipped it while the owner's pick is
 waited for.
 
-**Decision (owner):** waiting, for all three.
+**The stereo and reading light kits (the same day, Framework 0.233.0).** Four more from [life-aboard-kits.json](life-aboard-kits.json),
+about **US$0.22** (cap US$0.60). References: the roof tent kit and the crew water tank kit. All four clean; the agent suggested stereo
+**1** and reading light **1** (both read more clearly at actual size) and shipped them while the owner's pick is waited for.
+
+**Decision (owner):** waiting, for all five.

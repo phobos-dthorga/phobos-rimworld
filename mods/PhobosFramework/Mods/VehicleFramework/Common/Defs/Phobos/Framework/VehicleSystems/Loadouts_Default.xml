@@ -386,6 +386,34 @@
         </add>
       </li>
       <li>
+        <!-- Framework 0.233.0, life aboard: a slot in the dash for a stereo and a mount in the cab roof for a reading light (Y13 and Y14),
+             appended to every land vehicle. Inside the cab; health and hit weight authored, small fittings'. -->
+        <role>StereoSlot</role>
+        <add>
+          <key>PhobosStereoSlot</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>stereo slot</label>
+          <health>15</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
+        <role>CabLightMount</role>
+        <add>
+          <key>PhobosCabLightMount</key>
+          <countsTowardDestruction>false</countsTowardDestruction>
+          <label>cab light mount</label>
+          <health>10</health>
+          <depth>Internal</depth>
+          <hitWeight>0.05</hitWeight>
+          <hitWeightCE>2</hitWeightCE>
+          <cellsOf>Engine</cellsOf>
+        </add>
+      </li>
+      <li>
         <role>HouseBatteryTray</role>
         <add>
           <key>PhobosHouseBatteryTray</key>

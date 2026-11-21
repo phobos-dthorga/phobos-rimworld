@@ -205,5 +205,51 @@
    "why": "the deck tent (Framework 0.217.0; docs/development/vehicle-accessories.md, built 22 Nov 2026)",
    "route": "house"
   }
+ },
+ {
+  "name": "windows-button-b",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a vehicle's side window with its glass wound halfway down into the door, a little wisp of grey smoke drifting out through the gap. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people.",
+  "subject": "Windows button: a vehicle's side window wound halfway down, a wisp of smoke drifting out",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/BatteryWarmer.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Windows down button",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Windows.png",
+   "why": "hotboxing's windows switch (Framework 0.233.0; docs/development/vehicle-hotboxing.md); shows our switch icon until made",
+   "route": "house"
+  }
+ },
+ {
+  "name": "windows-button-c",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: a vehicle's side window with its glass wound halfway down into the door, a little wisp of grey smoke drifting out through the gap. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people.",
+  "subject": "Windows button: a vehicle's side window wound halfway down, a wisp of smoke drifting out",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/BatteryWarmer.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Windows down button",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Windows.png",
+   "why": "hotboxing's windows switch (Framework 0.233.0; docs/development/vehicle-hotboxing.md); shows our switch icon until made",
+   "route": "house"
+  }
  }
 ]

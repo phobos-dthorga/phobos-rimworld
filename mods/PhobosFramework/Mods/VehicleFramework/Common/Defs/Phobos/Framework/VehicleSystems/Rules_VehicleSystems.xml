@@ -217,6 +217,24 @@
          quarter, the design's figure. Real planning figures: about 2 L a person a day to drink in cool weather, 4 L in heat. -->
     <crewTankLitres>120</crewTankLitres>
     <crewTankLowShare>0.25</crewTankLowShare>
+    <!-- Life aboard and hotboxing (Framework 0.233.0), all authored. The stereo gives 0.08 recreation an hour and a book 0.12 (a long day's
+         drive of music lifts a bored rider by about half); riders read and take a treat below 0.9 recreation, a treat at most every 4 hours;
+         they smoke for recreation below 0.5, at most every 6 hours, as their drug policy allows. Each bystander takes 0.3 of the smoker's
+         dose in a closed cab with its windows up, 0.05 otherwise (Herrmann and colleagues, 2015: unventilated, mild effects; ventilated, none
+         worth showing; the owner's starting figures of 12 Nov 2026), and nothing below 0.05. Smoke clears in an hour, a quarter of that with
+         the windows down. Another faction's driver lights up on arrival one time in twenty. -->
+    <stereoJoyPerHour>0.08</stereoJoyPerHour>
+    <readingJoyPerHour>0.12</readingJoyPerHour>
+    <lifeAboardJoyBelow>0.9</lifeAboardJoyBelow>
+    <treatGapHours>4</treatGapHours>
+    <smokeJoyBelow>0.5</smokeJoyBelow>
+    <smokeGapHours>6</smokeGapHours>
+    <bystanderShareClosed>0.3</bystanderShareClosed>
+    <bystanderShareOpen>0.05</bystanderShareOpen>
+    <bystanderLeast>0.05</bystanderLeast>
+    <smokeClearHours>1</smokeClearHours>
+    <smokeClearHoursOpen>0.25</smokeClearHoursOpen>
+    <raiderHotboxChance>0.05</raiderHotboxChance>
     <!-- Loads a vehicle gains from what it tows (Framework 0.216.0; docs/development/vehicle-field-kitchen.md). A field kitchen's packed cold
          box runs through the trailer's lead: its own working watts (100 W in its Def) at this vehicle's voltage, while it holds food. Shed
          with the fridge, late among the comforts, so the food outlives the air conditioning. -->

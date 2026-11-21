@@ -37,6 +37,18 @@
     "338": {"parts": {
       "a caravan cooks at a packed kitchen box": [{"key": "camp.kitchen-box-caravan", "detail": "*"}]
     }},
+    "356": {"parts": {
+      "a rider smokes aboard": ["vehicles.hotbox-smoke"],
+      "a closed cab shares it": [{"key": "vehicles.hotbox-shared", "variant": "closed"}],
+      "with the windows down it does not": [{"key": "vehicles.hotbox-shared", "variant": "open"}],
+      "another faction's driver arrives high": ["vehicles.hotbox-raider"]
+    }},
+    "355": {"parts": {
+      "the stereo plays for those aboard": ["vehicles.life-aboard-music"],
+      "a rider reads": ["vehicles.life-aboard-read"],
+      "a rider has a treat": ["vehicles.life-aboard-treat"],
+      "a rider drinks from the crew tank": ["vehicles.life-aboard-drink"]
+    }},
     "354": {"parts": {
       "a parked crew tank stands in its hidden tower": ["vehicles.crew-water-laid"],
       "the crew drink from it on the road": ["vehicles.crew-water-road"],

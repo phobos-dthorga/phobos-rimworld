@@ -371,3 +371,9 @@ public class When_FlightPhase : VehicleSystemCondition
         return phase != null && phases.Contains(phase);
     }
 }
+
+/// <summary>The cab's windows are down (Framework 0.233.0): its air meets the outside faster, and smoke clears.</summary>
+public class When_WindowsDown : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => context.Comp.WindowsDown;
+}

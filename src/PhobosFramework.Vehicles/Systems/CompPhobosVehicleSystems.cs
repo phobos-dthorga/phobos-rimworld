@@ -461,6 +461,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     bool? closedCab;
 
+    /// <summary>The cab's windows are down (Framework 0.233.0, hotboxing): smoke clears and the cab's air meets the outside faster. Saved.</summary>
+    public bool WindowsDown;
+
     /// <summary>Whether this vehicle's cab shelters everyone aboard: the vehicle's own extension, else its loadout's cabin block.</summary>
     public bool ClosedCab
     {
@@ -654,6 +657,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Scribe_Collections.Look(ref pipeUnderlays, "PhobosVehicleSystems_PipeUnderlays", LookMode.Value, LookMode.Deep);
         pipeUnderlays ??= new Dictionary<string, Phobos.Framework.Persistence.PipeUnderlay>();
         Scribe_Values.Look(ref lastUpdateTick, "PhobosVehicleSystems_LastUpdate", -1);
+        Scribe_Values.Look(ref WindowsDown, "PhobosVehicleSystems_WindowsDown", false);
         Scribe_Values.Look(ref serviceRequested, "PhobosVehicleSystems_ServiceRequested", false);
         Scribe_Values.Look(ref RefuelFromCargo, "PhobosVehicleSystems_RefuelFromCargo", false);
         Scribe_Values.Look(ref LandedRefuelUntil, "PhobosVehicleSystems_LandedRefuelUntil", 0);
@@ -836,6 +840,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         RoughLandings.Watch(this);
         // Walk-in cabins (Framework, vehicle cabins): close an empty one on the ground, and walk idle colonists out.
         if (Vehicle.GetComp<CompPhobosVehicleCabin>() is { } cabin) VehicleCabins.RareLook(cabin);
+        // Life aboard (Framework 0.233.0): on a map here; on the road, the world component's look.
+        if (Usable && Vehicle.Spawned) LifeAboard.Look(this, null);
         switch (Tier)
         {
             case DetailTier.Full:
@@ -3176,6 +3182,18 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (!Usable || Vehicle.Faction != Faction.OfPlayer) yield break;
         if (homeBay is { parent.Destroyed: false }) yield return BayGizmos.GoButton(this, homeBay);
+        // The cab's windows (Framework 0.233.0, hotboxing): a closed cab only; an open one is always open to the air.
+        if (ClosedCab && Vehicle.VehicleDef.type == VehicleType.Land)
+        {
+            yield return new Command_Toggle
+            {
+                defaultLabel = "PhobosLifeAboard_Windows".Translate(),
+                defaultDesc = "PhobosLifeAboard_WindowsDesc".Translate(),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Windows"),
+                isActive = () => WindowsDown,
+                toggleAction = () => WindowsDown = !WindowsDown,
+            };
+        }
         if (Props.loadout != null)
         {
             foreach (ElectricalLoadSpec load in Loads)

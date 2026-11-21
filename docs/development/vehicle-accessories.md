@@ -708,6 +708,34 @@ tested in game.
 - **The Land Cruiser's own bed upgrades** (a mortar or howitzer platform) and a deck tent can both be fitted; nothing stops it. Left to
   the player (agent's choice).
 
+## Built: life aboard (22 Nov 2026)
+
+Y4, Y13 and Y14 of the owner's camp batch of 13 Nov 2026, with hotboxing ([its record](vehicle-hotboxing.md#as-built-22-nov-2026)), "as one
+piece" (owner, 13 Nov 2026); the owner's go on 22 Nov 2026. D'thorga Framework 0.233.0; rows 355 and 356 of
+[the in-game test pass](in-game-test-pass.md). Not yet tested in game.
+
+| Question | Answer |
+| --- | --- |
+| What it lets the player do | Keep riders content on long trips: music, books, a cup of tea, water from the tank |
+| What it stops them doing | Nothing new; a driver still does none of it |
+| How it changes play | Packing books, tea and a stereo for a trip matters, and so does who rides together |
+| What outside notices | The colonists' recreation, thirst, food and mood; the vehicle's electrics (two new loads) |
+
+**Risk: low** (agent's grade) for life aboard; hotboxing has its own setting (moderate). Every figure is the rules Def's and authored:
+
+| What | When | Figures [A] |
+| --- | --- | --- |
+| Music | A stereo fitted and playing (its load runs while anyone is aboard): everyone aboard, the driver too | 0.08 recreation an hour ("music", the game's own kind); 1 A at 12 V |
+| Drink | On a map, a thirsty rider and a crew water tank with enough (Dubs only) | The caravan's drink, 1.5 L, with Dubs' quality check |
+| Reading | A rider below 0.9 recreation, a book in reach (their packs, the cargo, the caravan's packs); after dark only by a fitted, lit reading light | 0.12 recreation an hour ("reading"); 0.3 A while dark with a passenger aboard |
+| A treat | A rider below 0.9 recreation, at most every 4 hours: the most enjoyable thing in reach eaten for pleasure that is no drug (tea, coffee, sweets) | The game's own eating, nutrition and recreation |
+
+**Limits:** reading gives recreation only, not a book's own lessons or the game's reading outcomes (a simplification). A treat is eaten
+whole as the game eats it.
+
+**Pictures:** the stereo and reading light kits, paid, two attempts each, about US$0.22 ([the record](../../assets/phobos-vehicles/requests/camp-lights-record.md));
+the agent's suggested picks ship until the owner picks.
+
 ## Built: the crew water tank (22 Nov 2026)
 
 Y2 and Y12 of the owner's camp batch of 13 Nov 2026; the owner's go on 22 Nov 2026 ("#1": the crew water tank with a camp basin and
@@ -740,7 +768,7 @@ shower, with Dubs Bad Hygiene). D'thorga Framework 0.232.0; row 354 of [the in-g
 | Low | A message once per fall below a quarter; the Fleet board's need "water: the crew tank is low" (`IVehicleWaterStore`) | |
 
 **Pictures:** the tank kit, paid, two attempts, about US$0.11 ([the record](../../assets/phobos-vehicles/requests/camp-lights-record.md));
-the agent's suggested pick ships until the owner picks. Life aboard (Y4), the riders drinking from it on a map, comes next.
+the agent's suggested pick ships until the owner picks. Riders drink from it on a map too, with life aboard (Framework 0.233.0).
 
 ## Built: camp lights (22 Nov 2026)
 

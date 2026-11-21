@@ -1,6 +1,9 @@
 # Hotboxing: smoking in a vehicle's cab (12 Nov 2026)
 
-**A design record. Nothing is built, and nothing here is tested in game.** The owner, 12 November 2026: "having pawns do drugs in
+**Status (22 Nov 2026):** built in D'thorga Framework 0.233.0 with life aboard, as the owner chose (13 Nov 2026: "as one piece"; the go of
+22 Nov 2026); not yet tested in game (row 356). What was built and how it differs from this design is in [As built](#as-built-22-nov-2026).
+
+The owner, 12 November 2026: "having pawns do drugs in
 vehicles ... When it comes to smokeleaf, you could have them hotbox and you could even have smoke FX come out near the windows." The
 owner's answers the same day: write it up before anything is built, and **a stoned driver drives worse, with real consequences:
 slower, with a little extra wear from rough driving, and no random crashes.** Facts marked "from the code" were read on 12 Nov 2026
@@ -191,6 +194,28 @@ The questions as they were put:
 - **Agent defaults, owner to revise:** every figure above; smoked drugs found by the smoke sound; no tolerance or addiction from
   secondhand smoke; a per-vehicle smoke number rather than a gas; the windows switch; the teetotaler test for the bad memory; the
   raiders' rare roll; the driver read by consciousness alone.
+
+## As built (22 Nov 2026)
+
+- **One look for everything aboard** (`src/PhobosFramework.Vehicles/LifeAboard/LifeAboard.cs`): on a map from the vehicle's slow tick, on the
+  road from a world component, every 250 ticks. The arithmetic is `LifeAboardRule` (game-free, tested).
+- **Who lights up:** a rider who is not driving, not a teetotaler, with a smoked drug (the game's smoke sound) in their packs, the vehicle's
+  cargo or the caravan's; on a map when their policy schedules it now (`ShouldTryToTakeScheduledNow`), anywhere for recreation when their
+  policy allows it for joy, their recreation is below the policy's figure and below 0.5, at most every 6 hours [A]. **In a caravan** the
+  game's own scheduled drug-taking is joined by a postfix on `Caravan_NeedsTracker.IngestDrug`, so its smoke fills the cab too.
+- **The share:** as designed (0.3 closed with windows up, 0.05 otherwise, nothing below 0.05), of the drug's own high from its outcome doer;
+  no tolerance or addiction. Memories `PhobosHotboxed` (+3) and `PhobosHotboxedAgainstWill` (-5), bad for a teetotaler and for a hard drug.
+- **The stoned driver: nothing new was needed.** The driver rules (Framework 0.113.0, `Systems_Driver.xml`) already slow a vehicle whose
+  driver's consciousness is low, down to x0.7, and wear tyres and brakes up to x1.1: a high driver is one of the causes they read.
+- **Smoke:** a number per vehicle, not saved, clearing in an hour (a quarter with the windows down); puffs from the vehicle on the map being
+  looked at while it lasts.
+- **Windows:** a "Windows down" switch on closed-cab land vehicles, saved (`CompPhobosVehicleSystems.WindowsDown`); down, a second flow takes
+  the cab's temperature to the outside at twice the shell's own rate (`Systems_Cabin.xml`, `When_WindowsDown`). Its icon waits for the local
+  night run (`assets/vehicle-systems/requests/berths-house.json`).
+- **Raiders:** once a vehicle of another faction is seen with people aboard on a map, one time in twenty its driver takes a smokeleaf high and
+  the cab fills. Seen only on a map (vehicles off the map do nothing).
+- **The setting, Hotboxing,** on by default: risk **moderate** (agent's grade; a mood swing and a slower driver, never harm beyond the drug's
+  own effects).
 
 ## Sources
 

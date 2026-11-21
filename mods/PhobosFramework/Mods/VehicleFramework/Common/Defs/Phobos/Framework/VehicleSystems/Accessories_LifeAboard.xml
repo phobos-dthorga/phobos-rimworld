@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Life aboard (Framework 0.233.0; docs/development/vehicle-accessories.md, Y4, Y13 and Y14, "Built: life aboard"; hotboxing,
+    docs/development/vehicle-hotboxing.md). A stereo in the dash and a reading light in the cab roof, made from kits at the vehicle parts bench
+    and fitted as the camp gear is; each draws on the vehicle's electrics while it is used. And hotboxing's two memories. Every cost, weight,
+    draw and figure is authored, agent defaults for the owner to revise, except the memories' +3 and -5 (the owner's starting figures,
+    12 Nov 2026). Not yet tested in game.
+  -->
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <defName>PhobosVehicleSystems_CabStereoKit</defName>
+    <label>cab stereo</label>
+    <description>A rugged car stereo with two speakers and its wiring. Fitted in a vehicle's dash, it plays for everyone aboard while it has power: a little recreation on a long drive.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/CabStereoKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>3</Mass>
+      <WorkToMake>2000</WorkToMake>
+      <MarketValue>70</MarketValue>
+    </statBases>
+    <costList>
+      <Steel>10</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosCampKitBase">
+    <defName>PhobosVehicleSystems_ReadingLightKit</defName>
+    <label>cab reading light</label>
+    <description>A small gooseneck reading lamp for a vehicle's cab. Fitted, it lets riders read a book from the cargo after dark, drawing a little from the vehicle's electrics while it does.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Camp/ReadingLightKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>1</drawSize>
+    </graphicData>
+    <statBases>
+      <Mass>1</Mass>
+      <WorkToMake>800</WorkToMake>
+      <MarketValue>25</MarketValue>
+    </statBases>
+    <costList>
+      <Steel>5</Steel>
+    </costList>
+    <recipeMaker>
+      <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    </recipeMaker>
+  </ThingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_CabStereo</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/CabStereoKit</iconPath>
+    <label>cab stereo</label>
+    <description>A stereo in the dash. While someone is aboard and it is switched on, everyone aboard, the driver too, gains a little recreation from the music. It draws about one amp.</description>
+    <roles><li>StereoSlot</li></roles>
+    <materials><PhobosVehicleSystems_CabStereoKit>1</PhobosVehicleSystems_CabStereoKit></materials>
+    <givesBack><PhobosVehicleSystems_CabStereoKit>1</PhobosVehicleSystems_CabStereoKit></givesBack>
+    <kilograms>3</kilograms>
+    <work>800</work>
+    <minSkill>2</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <grants><li>CabStereo</li></grants>
+    <loads>
+      <li>
+        <!-- 1 A at 12 V (the record's Y13 figure, authored: a car stereo at moderate volume), halved on a 24 V truck. Shed first. -->
+        <name>cabStereo</name>
+        <label>stereo</label>
+        <description>The cab stereo. Switched on and with power, it plays while someone is aboard.</description>
+        <amps>1</amps>
+        <toggle>true</toggle>
+        <defaultOn>true</defaultOn>
+        <shedOrder>0</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Camp/CabStereoKit</iconPath>
+        <when Class="Phobos.VehicleSystems.When_RidersAboard" />
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+        </ampsInputs>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_ReadingLight</defName>
+    <iconPath>Phobos/VehicleSystems/Camp/ReadingLightKit</iconPath>
+    <label>cab reading light</label>
+    <description>A reading lamp in the cab. After dark, riders who are not driving can read a book from the cargo or their packs by it. It draws a third of an amp while it is dark and someone besides the driver is aboard.</description>
+    <roles><li>CabLightMount</li></roles>
+    <materials><PhobosVehicleSystems_ReadingLightKit>1</PhobosVehicleSystems_ReadingLightKit></materials>
+    <givesBack><PhobosVehicleSystems_ReadingLightKit>1</PhobosVehicleSystems_ReadingLightKit></givesBack>
+    <kilograms>1</kilograms>
+    <work>400</work>
+    <minSkill>1</minSkill>
+    <researchPrerequisite>PhobosResearch_VehicleElectrics</researchPrerequisite>
+    <grants><li>ReadingLight</li></grants>
+    <loads>
+      <li>
+        <!-- 0.3 A at 12 V (the record's Y14 figure, authored: a small LED lamp). Shed first. -->
+        <name>readingLight</name>
+        <label>reading light</label>
+        <description>The cab's reading light. Switched on and with power, riders can read by it after dark.</description>
+        <amps>0.3</amps>
+        <toggle>true</toggle>
+        <defaultOn>true</defaultOn>
+        <shedOrder>0</shedOrder>
+        <iconPath>Phobos/VehicleSystems/Camp/ReadingLightKit</iconPath>
+        <when Class="Phobos.VehicleSystems.When_All">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_Dark" />
+            <li Class="Phobos.VehicleSystems.When_RidersAboard"><passengers>true</passengers></li>
+          </conditions>
+        </when>
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_TwelveVoltShare" />
+        </ampsInputs>
+      </li>
+    </loads>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <!-- ===== Hotboxing's memories (the owner's starting figures, 12 Nov 2026) ===== -->
+
+  <ThoughtDef>
+    <defName>PhobosHotboxed</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>hotboxed</label>
+        <description>Someone lit up in the cab with the windows up, and I got my share of it. Not a bad way to pass a long ride.</description>
+        <baseMoodEffect>3</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+  <ThoughtDef>
+    <defName>PhobosHotboxedAgainstWill</defName>
+    <durationDays>1</durationDays>
+    <stackLimit>1</stackLimit>
+    <stages>
+      <li>
+        <label>hotboxed against my will</label>
+        <description>Someone lit up in the cab and I had no choice but to breathe it. I did not want any of that in me.</description>
+        <baseMoodEffect>-5</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+</Defs>

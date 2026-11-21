@@ -117,6 +117,19 @@
         <factorParameter>insulationRate</factorParameter>
       </li>
       <li>
+        <!-- Framework 0.233.0 (hotboxing's windows): with the windows down the cab meets the outside air three times as fast (this flow twice
+             the shell's own, authored). -->
+        <name>windows</name>
+        <quantity>cabTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>insulationRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_WindowsDown" />
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Constant"><value>2</value></li>
+        </inputs>
+      </li>
+      <li>
         <name>heater</name>
         <quantity>cabTemperature</quantity>
         <kind>Toward</kind>

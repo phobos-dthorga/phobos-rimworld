@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.233.0] - 2026-11-22 - Draft
+
+Life aboard, and hotboxing
+
+### Added
+
+- **Life aboard: people riding in a vehicle now pass the time** (the owner's go of 22 November 2026). Nobody aboard a vehicle on a map could do anything before. Now, every few seconds, riders who are not driving drink from the crew water tank when thirsty (with Dubs Bad Hygiene), read a book from the cargo or their packs, or have a treat such as a cup of tea; on the road too, apart from the drink, which the caravan already gives. A driver does none of it. Not yet tested in game: row 355 of the test pass.
+- **A cab stereo and a cab reading light**, made from kits at the vehicle parts bench after vehicle electrics research and fitted in a new stereo slot and cab light mount. The stereo gives everyone aboard, the driver too, a little recreation while it plays (about 1 amp); the reading light lets riders read after dark (a third of an amp). Each has its own switch on the vehicle. Row 355.
+- **Hotboxing** (designed 12 November 2026 with the owner's answers; built now with life aboard, as the owner chose). A rider whose drug policy allows a smoked drug lights up aboard: when it is scheduled, or for recreation when they are bored. In a closed cab with its windows up the others aboard get a share of the high and remember it, "hotboxed" (good) or "hotboxed against my will" (bad, for anyone against drugs, and always for a hard drug's smoke); smoke drifts from the vehicle while it lasts. A high driver drives slower and harder on the vehicle, through the driver rules already in place. Now and then another faction's driver arrives high. Not yet tested in game: row 356.
+- **A Windows down switch on closed-cab land vehicles.** Down, smoke clears fast and is mostly kept by whoever is smoking, but the cab's warmth or cool is lost three times as fast. Its button shows our switch picture until its own icon is made. Row 356.
+- **A new setting, Hotboxing**, in the vehicle settings beside Drive through the night, **on** by default: riders may smoke aboard and share it in a closed cab. Off, nobody smokes aboard except by the game's own caravan drug schedule, and nobody shares it.
+
 ## [0.232.0] - 2026-11-22 - Draft
 
 The crew water tank, and washing at camp

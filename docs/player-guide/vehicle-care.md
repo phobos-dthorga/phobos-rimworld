@@ -468,6 +468,17 @@ the kit back in the cargo.
   the tent is warmer. Under an open awning or fly it warms nothing.
 - **Taking down any one wall brings that tent's canvas roof down**, as an awning's pole does.
 
+**Life aboard** (not yet tested in game): people riding in a vehicle pass the time by themselves. Riders who are not driving drink from the
+crew water tank when thirsty, read a **book** from the cargo or their packs, or have a **treat** (a tea, a coffee, something sweet). Pack
+books and tea for a long trip.
+
+- **Cab stereo** (vehicle parts bench, research **vehicle electrics**; fitted in the stereo slot): music for everyone aboard while it plays.
+  About 1 amp; its switch is on the vehicle.
+- **Cab reading light** (fitted in the cab light mount): riders can read after dark. A third of an amp.
+- **Smoking aboard** (setting **Hotboxing**, on): a rider whose drug policy allows a smoked drug may light up. With the cab closed and the
+  **windows up**, everyone aboard gets a share and remembers it, good or bad; a high driver drives slower. **Windows down** (a switch on the
+  vehicle) clears the smoke, but loses the cab's warmth or cool.
+
 **Crew water tank** (with Dubs Bad Hygiene; not yet tested in game): make the kit at the vehicle parts bench (research **vehicle parts**)
 and fit it in the vehicle's **water tank bay**. It holds **120 litres**.
 
