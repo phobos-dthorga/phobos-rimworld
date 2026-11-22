@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.237.0] - 2026-11-23 - Draft
+
+The glass chain
+
+### Added
+
+- **A real glass chain, for our vehicles' glass** (the owner's answers of 22 November 2026, docs/development/vehicle-glass.md, VG8). Crush sandstone into **glass sand** at the stonecutter's table; boil **potash** from wood at a stove (or, with Vanilla Cooking Expanded, **soda ash** from its salt and limestone); melt a **glass pane** at the game's electric smelter from seven glass sand, two potash or soda ash and two limestone blocks, as real window glass is about 72 % silica, 14 % alkali and 9 % lime. At the machining table: **plastic film** from chemfuel, **laminated panes** (two panes and a film: a windscreen), **armoured panes** (four panes and three films) and **vision blocks** (film and steel). Yields and work are authored for play; real potash takes far more wood. The vehicle glass that uses them comes next; until then they have no use. Pictures: the owner's picks. Not yet tested in game.
+
 ## [0.236.1] - 2026-11-23 - Draft
 
 Their own icons for the cab bunk, night driving, meal halts, the trailer cold box and the deck tent. Not yet tested in game.

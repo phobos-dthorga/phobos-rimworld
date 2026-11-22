@@ -213,6 +213,22 @@ Not yet tested in game. A vehicle loses its jobs before it is a wreck, and every
 - **Crews leave a burning vehicle or a dead hull** (one that can neither move nor fire). Raiders and other factions climb out by
   themselves, leaving the vehicle for you to claim. **Yours never leave on their own**: the **Crew in danger** alert lists them.
 
+## The glass chain
+
+**Not yet tested in game.** Our vehicles' glass is made, from the ground up. **Until the vehicle glass itself arrives, these goods have
+no use.**
+
+| Good | Where | From |
+| --- | --- | --- |
+| **Glass sand** | Stonecutter's table | 1 sandstone chunk gives 20 |
+| **Potash** | Fueled or electric stove | 20 wood gives 4 |
+| **Soda ash** (with Vanilla Cooking Expanded) | Fueled or electric stove | 4 salt and 2 limestone blocks give 4; it can stand in for potash |
+| **Glass pane** | **Electric smelter** | 7 glass sand, 2 potash or soda ash, 2 limestone blocks |
+| **Plastic film** | Machining table | 4 chemfuel gives 2 |
+| **Laminated pane** (a windscreen) | Machining table | 2 glass panes and 1 film |
+| **Armoured pane** | Machining table | 4 glass panes and 3 films |
+| **Vision block** | Machining table | 4 films and 3 steel |
+
 ## The workshop
 
 ![The vehicle parts bench, the dyno bay, the inspection pit and the depot bay](images/vehicle-workshop.png)

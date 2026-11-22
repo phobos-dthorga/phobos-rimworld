@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/Potash.png",
+  "source": "assets/vehicle-systems/generated/potash/potash-2.png",
+  "source_sha256": "0fbe9fc841afb4919ead5bca7baf0320aee3add087e7ccb8afddc9fa305cd535",
+  "target_sha256": "3da46788d5843e6de809f31631adcf7c31c1451018d86471e89b3c591eb58532",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "0fbe9fc841afb4919ead5bca7baf0320aee3add087e7ccb8afddc9fa305cd535",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T02:06:09",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

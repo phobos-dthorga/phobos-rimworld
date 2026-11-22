@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/ArmouredPane.png",
+  "source": "assets/vehicle-systems/generated/armoured-pane/armoured-pane-2.png",
+  "source_sha256": "32eb194d7354326bde6a056c141a362f0ac46ce0d5b7de668e5b6ca8aedc33d0",
+  "target_sha256": "48ccb79095bba251437c0241fd843c430cdf294b98229b40adf2e48317156d90",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "32eb194d7354326bde6a056c141a362f0ac46ce0d5b7de668e5b6ca8aedc33d0",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T02:06:19",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

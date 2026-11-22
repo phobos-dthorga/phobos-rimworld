@@ -283,6 +283,10 @@ system protects only the compartment it is in: proposed no).
 fires only for the crew compartment or the engine too (real vehicles have both, separately); and whether other authors' armoured
 vehicles may be fitted with it.
 
+**The owner's answers (cards, 23 Nov 2026):** **three charges**; **crew and engine, as two upgrade nodes**, each firing once and
+recharging, as real vehicles have; and **yes, other authors' armoured vehicles may be fitted**, through the extension the liner and
+the glass share. Not built yet.
+
 ## Who chose what
 
 - **Owner (22 Nov 2026):** the record (the strike record's NK20), research and record only; then the answers above.

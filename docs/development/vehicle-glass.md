@@ -1,7 +1,7 @@
 # Glass on our vehicles: a part that breaks, and what follows (22 Nov 2026)
 
-**Status (22 Nov 2026):** a research record. It changes no code, Def or setting, and every numbered idea in it (VG1 to VG14) is
-unbuilt and untested.
+**Status (23 Nov 2026):** partly built. The glass chain (VG8) is in D'thorga Framework 0.237.0, its goods with the owner's pictures;
+the glass part and everything on it (VG1 to VG7, VG10, VG11, VG13) are not built yet. Not yet tested in game.
 
 The owner, 22 Nov 2026, while the [nuclear strike record](nuclear-strike-effects.md) was being researched: "maybe we should make
 glass a component of our vehicles, and that could have its own, knock-on, effects!" And: "We could do so much work with glass
@@ -329,7 +329,13 @@ flowchart LR
   a vision block and a plastic film; and a cracked-glass overlay for each of our own closed-cab vehicles. No building: the melt is
   the game's electric smelter. **The eight items were made on the paid route instead and picked on 22 Nov 2026** (the owner's rule
   of that day: what lies in the game world is made paid; [the batch record](../../assets/vehicle-systems/requests/glass-and-radiation-medicines-record.md)).
-  The cracked-glass overlays are still to make.
+  The cracked-glass overlays are still to make: **the owner's choice (card, 23 Nov 2026): one vehicle's overlays as a pilot, picked,
+  then the rest the same way**, on the paid route with a dry run and a cap first.
+- **Built in D'thorga Framework 0.237.0** as above, in the Framework's always-loaded folder, with these yields [A]: 1 sandstone chunk to
+  20 glass sand; 20 wood to 4 potash; 4 salt and 2 limestone blocks to 4 soda ash (with Vanilla Cooking Expanded only); 7 glass sand,
+  2 alkali and 2 limestone blocks to a 5 kg pane; 4 chemfuel to 2 film; 2 panes and a film to a laminated pane; 4 panes and 3 films
+  to an armoured pane; 4 films and 3 steel to a vision block. Rimefeller is not on the owner's list, so its plastics are not yet
+  accepted in place of film (its Def name unread). No research gate of its own: the smelter and machining table carry theirs.
 
 ## Who chose what
 

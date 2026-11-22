@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/LaminatedPane.png",
+  "source": "assets/vehicle-systems/generated/laminated-pane/laminated-pane-3.png",
+  "source_sha256": "adc3b3ea941ebfbb164c9d32ce984b7e44be026a38f757ce208520bd6e20ee52",
+  "target_sha256": "827ceee99b2e5384b8e9ebae3f4289988a7cdaaaefc10c3ec584eff48727a503",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "adc3b3ea941ebfbb164c9d32ce984b7e44be026a38f757ce208520bd6e20ee52",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T02:06:17",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Common/Textures/Phobos/Framework/Glass/GlassSand.png",
+  "source": "assets/vehicle-systems/generated/glass-sand/glass-sand-2.png",
+  "source_sha256": "45d3151535fbce4ffa4fbea395e7c8fcc2573aa8bb774933e34c1c9e4b79109c",
+  "target_sha256": "fe0887d150bf08cf9bcc2365dc96816b99ef299dc4bedd119659ddf26e5a7b2d",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "45d3151535fbce4ffa4fbea395e7c8fcc2573aa8bb774933e34c1c9e4b79109c",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T02:06:07",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

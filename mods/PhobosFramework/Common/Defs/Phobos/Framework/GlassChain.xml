@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    The glass chain (D'thorga Framework 0.237.0; docs/development/vehicle-glass.md, VG8; the owner's answers of 22 Nov 2026: a real glass
+    chain, crushed sandstone for silica, potash from wood ash as the base alkali and soda ash where Vanilla Cooking Expanded's salt exists,
+    limestone straight into the batch, a film of ours from chemfuel, the game's electric smelter for the melt). For our vehicles' glass;
+    nothing here needs Vehicle Framework. The batch follows real window glass, about 72 % silica, 14 % alkali and 9 % lime by mass, as
+    7 sand to 2 alkali to 2 limestone blocks (general glassmaking knowledge, not a cited source); yields, masses, values and work are
+    authored. Real potash is a few per cent of wood ash, so a real batch would burn far more wood: the yield is a gameplay simplification.
+    Pictures: the owner's picks of 22 Nov 2026, made on the paid route. Not yet tested in game.
+  -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosGlassSand</defName>
+    <label>glass sand</label>
+    <description>Sandstone crushed fine, almost pure silica: the body of any glass.</description>
+    <graphicData>
+      <texPath>Phobos/Framework/Glass/GlassSand</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>75</stackLimit>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <MarketValue>0.6</MarketValue>
+      <Mass>0.5</Mass>
+      <Flammability>0</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>ResourcesRaw</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosPotash</defName>
+    <label>potash</label>
+    <description>Potassium carbonate, leached from wood ash with water and boiled down in iron pots, which gave it its name. The alkali that lets sand melt into glass at a furnace's heat: forest glass, as medieval glassmakers made it.</description>
+    <graphicData>
+      <texPath>Phobos/Framework/Glass/Potash</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>75</stackLimit>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <MarketValue>2.5</MarketValue>
+      <Mass>0.5</Mass>
+      <Flammability>0</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>ResourcesRaw</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosSodaAsh</defName>
+    <label>soda ash</label>
+    <description>Sodium carbonate, the alkali of modern window glass, made from salt and limestone. It takes the place of potash in a glass melt.</description>
+    <graphicData>
+      <texPath>Phobos/Framework/Glass/SodaAsh</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>75</stackLimit>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <MarketValue>2.5</MarketValue>
+      <Mass>0.5</Mass>
+      <Flammability>0</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>ResourcesRaw</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosGlassPane</defName>
+    <label>glass pane</label>
+    <description>A sheet of toughened glass, melted from sand, alkali and lime and drawn flat. A vehicle's side window, and the starting point of every other kind of vehicle glass.</description>
+    <graphicData>
+      <texPath>Phobos/Framework/Glass/GlassPane</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>25</stackLimit>
+    <statBases>
+      <MaxHitPoints>30</MaxHitPoints>
+      <MarketValue>12</MarketValue>
+      <Mass>5</Mass>
+      <Flammability>0</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosPlasticFilm</defName>
+    <label>plastic film</label>
+    <description>A clear, tough plastic sheet made from chemfuel. Laid between panes it holds broken glass together; built up thick, it is the inner layer of armoured glass and the body of a vision block.</description>
+    <graphicData>
+      <texPath>Phobos/Framework/Glass/PlasticFilm</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>50</stackLimit>
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <MarketValue>5</MarketValue>
+      <Mass>0.5</Mass>
+      <Flammability>1</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosLaminatedPane</defName>
+    <label>laminated pane</label>
+    <description>Two glass panes bonded to a plastic film between them: a windscreen. Struck, it cracks into a web and holds together, so the driver can still see to stop.</description>
+    <graphicData>
+      <texPath>Phobos/Framework/Glass/LaminatedPane</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>50</MaxHitPoints>
+      <MarketValue>35</MarketValue>
+      <Mass>10.5</Mass>
+      <Flammability>0</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosArmouredPane</defName>
+    <label>armoured pane</label>
+    <description>Many panes and films bonded into one thick block, with a clear plastic layer on the inside to catch splinters: an armoured cab's window, which stops rifle fire and keeps its shape when it cracks.</description>
+    <graphicData>
+      <texPath>Phobos/Framework/Glass/ArmouredPane</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>5</stackLimit>
+    <statBases>
+      <MaxHitPoints>120</MaxHitPoints>
+      <MarketValue>110</MarketValue>
+      <Mass>21.5</Mass>
+      <Flammability>0</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVisionBlock</defName>
+    <label>vision block</label>
+    <description>A thick prism of clear plastic in a steel mount, through which a tank's crew see out without opening a hatch. Small and tough; a hit clouds it rather than breaking through.</description>
+    <graphicData>
+      <texPath>Phobos/Framework/Glass/VisionBlock</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <MarketValue>30</MarketValue>
+      <Mass>3.5</Mass>
+      <Flammability>0</Flammability>
+    </statBases>
+    <thingCategories>
+      <li>Manufactured</li>
+    </thingCategories>
+  </ThingDef>
+
+  <!-- ===== Recipes ===== -->
+
+  <RecipeDef>
+    <defName>PhobosMake_GlassSand</defName>
+    <label>crush sandstone into glass sand</label>
+    <description>Crushes a sandstone chunk into glass sand.</description>
+    <jobString>Crushing sandstone.</jobString>
+    <workAmount>800</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>CutStone</effectWorking>
+    <soundWorking>Recipe_MakeStoneBlocks</soundWorking>
+    <recipeUsers>
+      <li>TableStonecutter</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>ChunkSandstone</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>ChunkSandstone</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <PhobosGlassSand>20</PhobosGlassSand>
+    </products>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>PhobosMake_Potash</defName>
+    <label>make potash from wood</label>
+    <description>Burns wood to ash, soaks the ash and boils the lye down to potash.</description>
+    <jobString>Making potash.</jobString>
+    <workAmount>1500</workAmount>
+    <workSpeedStat>CookSpeed</workSpeedStat>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_CookMeal</soundWorking>
+    <recipeUsers>
+      <li>FueledStove</li>
+      <li>ElectricStove</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>WoodLog</li>
+          </thingDefs>
+        </filter>
+        <count>20</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>WoodLog</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <PhobosPotash>4</PhobosPotash>
+    </products>
+  </RecipeDef>
+
+  <RecipeDef MayRequire="vanillaexpanded.vcooke">
+    <defName>PhobosMake_SodaAsh</defName>
+    <label>make soda ash</label>
+    <description>Makes soda ash from salt and limestone.</description>
+    <jobString>Making soda ash.</jobString>
+    <workAmount>1500</workAmount>
+    <workSpeedStat>CookSpeed</workSpeedStat>
+    <effectWorking>Cook</effectWorking>
+    <soundWorking>Recipe_CookMeal</soundWorking>
+    <recipeUsers>
+      <li>FueledStove</li>
+      <li>ElectricStove</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li MayRequire="vanillaexpanded.vcooke">VCE_Salt</li>
+          </thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>BlocksLimestone</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li MayRequire="vanillaexpanded.vcooke">VCE_Salt</li>
+        <li>BlocksLimestone</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <PhobosSodaAsh>4</PhobosSodaAsh>
+    </products>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>PhobosMake_GlassPane</defName>
+    <label>melt a glass pane</label>
+    <description>Melts glass sand with potash or soda ash and limestone, and draws a pane.</description>
+    <jobString>Melting glass.</jobString>
+    <workAmount>1200</workAmount>
+    <workSpeedStat>SmeltingSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smelt</effectWorking>
+    <soundWorking>Recipe_Smelt</soundWorking>
+    <recipeUsers>
+      <li>ElectricSmelter</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>PhobosGlassSand</li>
+          </thingDefs>
+        </filter>
+        <count>7</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>PhobosPotash</li>
+            <li>PhobosSodaAsh</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>BlocksLimestone</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>PhobosGlassSand</li>
+        <li>PhobosPotash</li>
+        <li>PhobosSodaAsh</li>
+        <li>BlocksLimestone</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <PhobosGlassPane>1</PhobosGlassPane>
+    </products>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>PhobosMake_PlasticFilm</defName>
+    <label>make plastic film</label>
+    <description>Makes clear plastic film from chemfuel.</description>
+    <jobString>Making plastic film.</jobString>
+    <workAmount>800</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <recipeUsers>
+      <li>TableMachining</li>
+    </recipeUsers>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Chemfuel</li>
+          </thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Chemfuel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <PhobosPlasticFilm>2</PhobosPlasticFilm>
+    </products>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>PhobosMake_LaminatedPane</defName>
+    <label>make a laminated pane</label>
+    <description>Bonds two glass panes to a plastic film between them: a windscreen.</description>
+    <jobString>Laminating glass.</jobString>
+    <workAmount>1500</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <recipeUsers>
+      <li>TableMachining</li>
+    </recipeUsers>
+    <skillRequirements>
+      <Crafting>5</Crafting>
+    </skillRequirements>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>PhobosGlassPane</li>
+          </thingDefs>
+        </filter>
+        <count>2</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>PhobosPlasticFilm</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>PhobosGlassPane</li>
+        <li>PhobosPlasticFilm</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <PhobosLaminatedPane>1</PhobosLaminatedPane>
+    </products>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>PhobosMake_ArmouredPane</defName>
+    <label>make an armoured pane</label>
+    <description>Bonds four glass panes and three films into one block of armoured glass.</description>
+    <jobString>Making armoured glass.</jobString>
+    <workAmount>3500</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <recipeUsers>
+      <li>TableMachining</li>
+    </recipeUsers>
+    <skillRequirements>
+      <Crafting>8</Crafting>
+    </skillRequirements>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>PhobosGlassPane</li>
+          </thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>PhobosPlasticFilm</li>
+          </thingDefs>
+        </filter>
+        <count>3</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>PhobosGlassPane</li>
+        <li>PhobosPlasticFilm</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <PhobosArmouredPane>1</PhobosArmouredPane>
+    </products>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>PhobosMake_VisionBlock</defName>
+    <label>make a vision block</label>
+    <description>Casts a thick prism of clear plastic and sets it in a steel mount.</description>
+    <jobString>Making a vision block.</jobString>
+    <workAmount>2000</workAmount>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <recipeUsers>
+      <li>TableMachining</li>
+    </recipeUsers>
+    <skillRequirements>
+      <Crafting>6</Crafting>
+    </skillRequirements>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>PhobosPlasticFilm</li>
+          </thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>Steel</li>
+          </thingDefs>
+        </filter>
+        <count>3</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>PhobosPlasticFilm</li>
+        <li>Steel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <PhobosVisionBlock>1</PhobosVisionBlock>
+    </products>
+  </RecipeDef>
+</Defs>

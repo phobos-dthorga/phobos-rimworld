@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.236.1, built 23 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.237.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -101,6 +101,9 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
 - **The health layer**: who the doctors look after and how urgent each condition is, and a button per care choice on each person
   ([triage](../../docs/player-guide/medical.md#triage)). How D'thorga Medical's parts share the work is in
   [the medical mods together](../../docs/medical-mods.md).
+- **A glass chain**: glass sand, potash (or soda ash with Vanilla Cooking Expanded), glass panes melted at the electric smelter, plastic
+  film, and laminated and armoured panes and vision blocks for our vehicles' glass
+  ([the glass chain](../../docs/player-guide/vehicle-care.md#the-glass-chain)).
 - **A D'thorga research tab** for vehicle parts and workshops; an existing colony gets a project free once if it had already done what
   it replaces ([research](../../docs/player-guide/getting-started.md#research)).
 - **Standby power**: idle buildings draw a tenth of their power and lights in empty rooms go dark, with no work every tick
