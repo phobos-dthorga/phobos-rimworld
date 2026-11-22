@@ -4,7 +4,7 @@
 soft ground grip) and D'thorga Farming 0.4.0 to 0.6.0 plus its Unreleased batch: the field run with an implement behind, lines of tows,
 articulated vehicles, the Thane T60, T130 and T400 in two models each, the turnover plough, both cultivators and the drill, their
 pictures, engine sounds from real recordings, upgrade trees with fitted parts, bought seed and its traders, and the "Hands use seed
-too" setting. **Not built:** the liquid ballast's own icon (it shows the dual wheels' until drawn), the lifted look, the tractors'
+too" setting. **Not built:** the lifted look, the tractors'
 door, brake and fuel sounds, and **the plough laying Vanilla Plants Expanded's tilled soil** (the tables below name it; no code does).
 **A fault-read of 21 Nov 2026 found 66 faults and smaller points in batches one and two**, fixed in Framework 0.202.0 and Farming 0.7.1
 ([record](fault-read-2026-11-21.md)): among them, wheat, barley, oats, rye and sorghum are now left to hands, since they harvest as

@@ -42,7 +42,7 @@ public class FarmingMod : SettingsBookMod
     const string DmsLegionPackageId = "srxf.deadmanswitch.legion";
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string HarmonyId = PackageId;
-    public const string ModVersion = "0.7.5";
+    public const string ModVersion = "0.7.6";
     public const string LogPrefix = "[D'thorga Farming]";
 
     public static readonly Phobos.Logging.PhobosLog Logger = Framework.Logging.Logs.For("D'thorga Farming");

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.6] - 2026-11-23 - Draft
+
+The liquid tyre ballast's own icon. Not yet tested in game.
+
+### Changed
+
+- **The liquid tyre ballast upgrade has its own icon**: a chunky tractor tyre with a blue water drop in its hub, on every Thane tractor's upgrade tab. It borrowed the dual wheels' icon until now. Not yet tested in game: row 379.
+
 ## [0.7.5] - 2026-11-23 - Draft
 
 The paddock button loses a pale rim. Not yet tested in game.

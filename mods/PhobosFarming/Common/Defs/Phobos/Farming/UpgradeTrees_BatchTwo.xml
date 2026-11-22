@@ -4,8 +4,8 @@
        weight on the vehicle's own mass (D'thorga Framework's Phobos_KitKilograms), so they add grip and fuel as real ballast does; dual
        wheels add soft-ground grip (Phobos_SoftGroundGripBonus, Framework 0.197.0). The bigger fuel tank is the Framework's auxiliary fuel
        tank fitting (every fuelled land vehicle has its cradle), drawn as a saddle tank on the Thanes. Figures and costs authored [A]. Node
-       keys are saved in the game: never rename or remove one. The liquid ballast's own icon is still to be drawn (the local model; its
-       request is farming-ballast-icon.json): until then it shows our dual tyre's, ballast going in the tyres. Not yet tested in game. -->
+       keys are saved in the game: never rename or remove one. The liquid ballast has its own icon (the local model, the owner's pick of
+       23 Nov 2026; request farming-ballast-icon.json). Not yet tested in game. -->
   <Vehicles.UpgradeTreeDef>
     <defName>Phobos_TractorT60_UpgradeTree</defName>
     <modExtensions>
@@ -17,7 +17,7 @@
       <label>Liquid tyre ballast</label>
       <displayLabel>true</displayLabel>
       <description>Water and antifreeze pumped into the rear tyres: 500 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
-      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <icon>Phobos/Farming/Upgrades/LiquidBallast</icon>
       <work>800</work>
       <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
@@ -102,7 +102,7 @@
       <label>Liquid tyre ballast</label>
       <displayLabel>true</displayLabel>
       <description>Water and antifreeze pumped into the rear tyres: 900 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
-      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <icon>Phobos/Farming/Upgrades/LiquidBallast</icon>
       <work>800</work>
       <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
@@ -163,7 +163,7 @@
       <label>Liquid tyre ballast</label>
       <displayLabel>true</displayLabel>
       <description>Water and antifreeze pumped into the rear tyres: 900 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
-      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <icon>Phobos/Farming/Upgrades/LiquidBallast</icon>
       <work>800</work>
       <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
@@ -248,7 +248,7 @@
       <label>Liquid tyre ballast</label>
       <displayLabel>true</displayLabel>
       <description>Water and antifreeze pumped into the rear tyres: 1600 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
-      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <icon>Phobos/Farming/Upgrades/LiquidBallast</icon>
       <work>800</work>
       <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
@@ -304,7 +304,7 @@
       <label>Liquid tyre ballast</label>
       <displayLabel>true</displayLabel>
       <description>Water and antifreeze pumped into the rear tyres: 1600 kg more on the driven wheels, for more grip under heavy draught, at a little more fuel.</description>
-      <icon>Phobos/Farming/Upgrades/DualWheels</icon>
+      <icon>Phobos/Farming/Upgrades/LiquidBallast</icon>
       <work>800</work>
       <gridCoordinate>(2, 2)</gridCoordinate>
       <drawSize>(80, 80)</drawSize>
