@@ -2,7 +2,7 @@
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/SetUpCamp.png",
   "source": "assets/vehicle-systems/generated/camp-button-set-up/camp-button-set-up-11.png",
   "source_sha256": "fb7167be1a249564cd855396cc5067dff2348e0aae94857fae99079daf12a674",
-  "target_sha256": "4eac59db28a661a8886446eaa564139adfdc2fa3673f414c8d19e4047f51b773",
+  "target_sha256": "6b77fb032b9fef45ba68e1927cae623d6cc67402161bbaeff4b822bbb43e2abe",
   "size": [
     128,
     128
@@ -14,6 +14,6 @@
   "ai_mask": "fb7167be1a249564cd855396cc5067dff2348e0aae94857fae99079daf12a674",
   "holes": [],
   "white_left": [],
-  "date": "2026-11-21T22:13:11",
+  "date": "2026-11-23T02:59:52",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

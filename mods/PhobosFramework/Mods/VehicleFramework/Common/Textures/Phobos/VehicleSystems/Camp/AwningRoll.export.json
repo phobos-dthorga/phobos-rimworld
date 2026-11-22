@@ -2,7 +2,7 @@
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
   "source": "assets/vehicle-systems/generated/camp-awning-roll-c/camp-awning-roll-c-11.png",
   "source_sha256": "04570f0924dbf44cad1eb989b472e750cd73d6da7976bc66be6d5436ba8d487f",
-  "target_sha256": "e57a2d7be84e8d905b33d650114e3a8689c61b10473e09382b56f64461828966",
+  "target_sha256": "cb57002c97e847711a567fc87d5eb0c1b5fae6df0736c5493640de0d2e83d1f5",
   "size": [
     128,
     128
@@ -14,6 +14,6 @@
   "ai_mask": "04570f0924dbf44cad1eb989b472e750cd73d6da7976bc66be6d5436ba8d487f",
   "holes": [],
   "white_left": [],
-  "date": "2026-11-21T22:32:51",
+  "date": "2026-11-23T02:59:00",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

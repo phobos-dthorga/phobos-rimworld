@@ -41,7 +41,7 @@
     "PhobosFramework.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.238.0",
+      "value": "0.238.1",
       "description": "D'thorga Framework's version: About.xml, every project of the mod, its ModVersion constants and both READMEs",
       "targets": [
         {
@@ -341,7 +341,7 @@
     "PhobosFarming.version": {
       "type": "version",
       "parts": 3,
-      "value": "0.7.4",
+      "value": "0.7.5",
       "description": "D'thorga Farming's version: About.xml, its project, its ModVersion constant and both READMEs",
       "targets": [
         {

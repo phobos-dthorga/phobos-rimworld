@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.238.1] - 2026-11-23 - Draft
+
+The camp's pictures and the fuel pump lose a pale rim. Not yet tested in game.
+
+### Fixed
+
+- **The camp's pictures and the fuel pump have clean edges**: the Set up camp and Pack up camp buttons, the awning pole and roll, the roof tent and its kit, the swag and the fuel pump showed a thin pale line just outside their dark outline, most plainly on dark ground. Drawn again from the same pictures without it (the owner spotted it, 23 November 2026). The drawings themselves are unchanged.
+
 ## [0.238.0] - 2026-11-23 - Draft
 
 Vehicles have glass

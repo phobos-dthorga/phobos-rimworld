@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.5] - 2026-11-23 - Draft
+
+The paddock button loses a pale rim. Not yet tested in game.
+
+### Fixed
+
+- **The paddock button has clean edges**: it showed a thin pale line just outside its dark outline, most plainly on dark ground. Drawn again from the same picture without it (the owner spotted it, 23 November 2026). The drawing itself is unchanged.
+
 ## [0.7.4] - 2026-11-21 - Draft
 
 The standard grain front's own picture. Not yet tested in game.

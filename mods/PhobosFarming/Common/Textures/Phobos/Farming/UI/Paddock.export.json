@@ -2,7 +2,7 @@
   "target": "mods/PhobosFarming/Common/Textures/Phobos/Farming/UI/Paddock.png",
   "source": "assets/phobos-vehicles/generated/redraw-paddock-c-house/redraw-paddock-c-house-11.png",
   "source_sha256": "e8737c9831fda5abc85be4f61bcb17ade2dba87b70c6f8030f690f4ec919b9b4",
-  "target_sha256": "b727a704187d58b2a91790204dd6bae0f48fa43700ad3b1f930d3e369a002f0f",
+  "target_sha256": "f2e796a7e95acc9902131ba582f618f20bbf8216f142b464e9f74f0fb2c90414",
   "size": [
     128,
     128
@@ -12,6 +12,8 @@
   "all_white": false,
   "silhouette": false,
   "ai_mask": "e8737c9831fda5abc85be4f61bcb17ade2dba87b70c6f8030f690f4ec919b9b4",
-  "date": "2026-11-21T19:35:30",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T02:57:13",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }

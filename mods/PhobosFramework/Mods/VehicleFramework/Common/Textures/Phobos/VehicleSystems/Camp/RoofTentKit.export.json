@@ -2,7 +2,7 @@
   "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
   "source": "assets/vehicle-systems/generated/camp-roof-tent-kit/camp-roof-tent-kit-11.png",
   "source_sha256": "fdcba15fbb88c7759165bb9df66d7006a26b839e35d96524634bdab704454a4a",
-  "target_sha256": "15f6c16388ff46c9dafa26d692f682bd906bf4406606e4fa04d3e48e1b2f0a2a",
+  "target_sha256": "d37079e8b417fd4c303a4c6413cc4d2dbba1203749030e0421f26bad46fd4feb",
   "size": [
     128,
     128
@@ -14,6 +14,6 @@
   "ai_mask": "fdcba15fbb88c7759165bb9df66d7006a26b839e35d96524634bdab704454a4a",
   "holes": [],
   "white_left": [],
-  "date": "2026-11-21T22:13:03",
+  "date": "2026-11-23T02:59:49",
   "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
 }
