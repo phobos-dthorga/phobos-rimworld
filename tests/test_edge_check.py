@@ -76,6 +76,16 @@ class EdgeCheckTests(unittest.TestCase):
         self.assertGreater(m['fringe'], 0.5 * m['edge'])
         self.assertTrue(edge_check.flagged(m))
 
+    def test_a_pale_highlight_inside_the_outline_is_no_fringe(self):
+        im = Image.new('RGBA', (128, 128), (0, 0, 0, 0))
+        d = ImageDraw.Draw(im)
+        d.rectangle((20, 20, 107, 107), fill=(30, 30, 30, 255))  # the dark outline, outermost
+        d.rectangle((21, 21, 106, 106), fill=(235, 235, 235, 255))  # a bright metal highlight just inside it
+        d.rectangle((23, 23, 104, 104), fill=(140, 140, 140, 255))  # the frame
+        path = Path(self.dir.name) / 'highlight.png'
+        im.save(path)
+        self.assertEqual(edge_check.measure(path)['fringe'], 0)
+
     def test_a_shape_pale_right_through_has_no_fringe(self):
         im = Image.new('RGBA', (128, 128), (0, 0, 0, 0))
         ImageDraw.Draw(im).rectangle((20, 20, 107, 107), fill=(225, 225, 222, 255))  # a pale tank, pale inside too

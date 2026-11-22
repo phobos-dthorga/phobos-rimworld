@@ -61,7 +61,7 @@ SEEN = 64             # and at least this opaque (a quarter): fainter white is t
 FRINGE_FLAG = 0.05    # this share of the edge or more flags the picture...
 FRINGE_MOST = 50      # ...when it is also this many pixels or more
 FRINGE_LOOK = 0.03    # this share or more is worth a look (shown by --list)
-VERSION = 4           # raise when the figures above change, so cached answers are worked out again
+VERSION = 5           # raise when the figures above change, so cached answers are worked out again
 
 
 def flagged(m: dict) -> bool:
@@ -119,7 +119,9 @@ def disk(radius: int) -> np.ndarray:
 
 
 def joined_fringe(rgba: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    """The fringe's pixels and the edge's: pale grey, visibly opaque pixels within EDGE of the outside, with nothing pale just inside."""
+    """The fringe's pixels and the edge's: pale grey, visibly opaque pixels within EDGE of the outside and touching it, with nothing
+    pale just inside. Touching: background left on lies outside the dark outline, while a pale highlight drawn just inside the outline
+    (the seed drill hopper's metal frame, 23 Nov 2026) has the outline between it and the outside."""
     shown = rgba[..., 3] >= FAINT
     if not shown.any():
         return shown, shown
@@ -129,7 +131,8 @@ def joined_fringe(rgba: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     rgb = rgba[..., :3]
     pale = (rgb.min(axis=2) >= PALE) & (rgb.max(axis=2) - rgb.min(axis=2) <= GREY)
     pale_inside = ndimage.binary_dilation(inside & ~deeper & pale, structure=disk(NEAR))
-    return edge & pale & (rgba[..., 3] >= SEEN) & ~pale_inside, edge
+    touching = ndimage.binary_dilation(~shown, structure=EIGHT)
+    return edge & pale & touching & (rgba[..., 3] >= SEEN) & ~pale_inside, edge
 
 
 def measured(path: Path, store: dict) -> dict:

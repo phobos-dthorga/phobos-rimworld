@@ -21,7 +21,9 @@ import math
 import sys
 from pathlib import Path
 
+import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageFilter, ImageMath
+from scipy import ndimage
 
 ROOT = Path(__file__).resolve().parents[2]
 G = ROOT / 'assets/phobos-vehicles/generated'
@@ -36,6 +38,7 @@ SPIN_PEAK_ALPHA = 110                              # The spinning disc's densest
 HUB_SHADOW = 30                                    # Pixels below the pick's hub cap that its drop shadow darkens (measured)
 ROTOR_DRAWN = G / 'osprey-rotor-clean-4k/osprey-rotor-clean-4k-1.png'
 WHITE = 236                                        # Paler than this is the white ground round the rotor
+GROUND_PALE, GROUND_GREY, GROUND_FADE = 170, 30, 12  # Pale grey reached from that ground in 12 steps is its fade, ground too
 OUTLINE_DARK = 90                                  # Darker than this in every channel is the drawing's near-black outline
 HUB_RING = 1.12                                    # The hub cap's outer edge, as a share of its ring's inner radius (measured)
 NOSE_BOX = (1800, 200, 2300, 414)                  # The pick's nose tip down to where the radar edit put its seam (measured)
@@ -212,7 +215,19 @@ def rotor():
     pale = drawn.convert('L').point(lambda v: 255 if v >= WHITE else 0)
     ImageDraw.floodfill(pale, (0, 0), 128)
     ground = pale.point(lambda v: 255 if v == 128 else 0)
+    # The drawing fades from its dark outline to the white over several pixels; that pale grey is ground too, or it stays solid as
+    # a pale line outside the outline (the edge check's fringe measure, 23 Nov 2026). The ground grows through pale grey pixels only,
+    # a pixel a step for GROUND_FADE steps, so it stops at the dark outline and the blades' own pale paint inside it stays.
+    rgb = np.asarray(drawn).astype(np.int16)
+    fade = (rgb.min(axis=2) >= GROUND_PALE) & (rgb.max(axis=2) - rgb.min(axis=2) <= GROUND_GREY)
+    ground_px = np.asarray(ground) > 0
+    grown = ndimage.binary_dilation(ground_px, structure=np.ones((3, 3), bool), iterations=GROUND_FADE, mask=fade | ground_px)
+    ground = Image.fromarray(np.where(grown, 255, 0).astype(np.uint8))
     alpha = ImageChops.invert(ground).filter(ImageFilter.GaussianBlur(0.8))
+    # The softened edge reaches a pixel into the ground, whose colour is the paper's white: give every ground pixel the colour of the
+    # nearest rotor pixel, so the edge fades in the rotor's own colours.
+    _, (iy, ix) = ndimage.distance_transform_edt(grown, return_indices=True)
+    drawn = Image.fromarray(np.asarray(drawn)[iy, ix])
     rotor_image = drawn.convert('RGBA')
     rotor_image.putalpha(alpha)
     # The hub: the pale disc inside its dark ring, flooded from the canvas's centre (the request put the hub there).

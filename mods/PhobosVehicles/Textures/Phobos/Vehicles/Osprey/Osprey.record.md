@@ -22,6 +22,8 @@ Made on 18 and 19 Nov 2026: **AI-generated**, every master picked by the owner. 
 | Osprey_Rotor, Osprey_RotorSpin | `osprey-rotor-clean-4k-1` | Redrawn clean alone at 4K; the disc made from it by script | `941a55ad4ce052c91d5535fb4fcf44c501133fe3036bf64b0227594f9ff5997c` |
 | Osprey_Nacelle* (pointed cap) | `osprey-nacelle-90-1` | Only its pointed caps are used, on the script-made tilted nacelles | `d12c5edb76480044e2edc338c742fceae08eca9f6b2fbe7ab6244dca258d5e98` |
 
+**The rotor cut again on 23 Nov 2026** (the owner's go, by card): `derive_osprey_parts.py` had cleared only the near-white ground round the redraw, so its fade from the dark outline to the paper stayed as a pale line outside the blades (the edge check's fringe measure). The ground now grows through that pale grey up to the outline, and the softened edge takes the blades' own colours. Osprey_Rotor and Osprey_RotorSpin re-exported; the hub found at the same place.
+
 ## Upgrade icons, interim (19 Nov 2026)
 
 `Upgrades/SecondHook`, `ArmourKit`, `InfraredJammer`, `TerrainRadar` and `InletBarrier` are made free by `export_osprey.py` from the
