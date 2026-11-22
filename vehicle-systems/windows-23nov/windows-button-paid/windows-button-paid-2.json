@@ -1,0 +1,56 @@
+{
+  "file": "windows-button-paid-2.png",
+  "sha256": "7ff8bebc3fbbf493bdfc4ac7cf1c7a5f889ccb6488278a1a53c2cf06ab9eedf3",
+  "date": "2026-11-23T02:05:45",
+  "prompt": "GAME BUTTON ICON. Seen straight from the side, flat, like a road sign. One object, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game button icon: the side of a truck cab door with its window wound right down, and a big puffy cloud of grey smoke pouring out of the open window and rising above the door into the open air. Images 1 and 2 are our approved button icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nThe window opening is empty, with only the top edge of the lowered glass showing at the bottom of the opening. The smoke starts inside the opening and billows out past the door's top edge, so most of the cloud is clearly outside the vehicle.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a button icon for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, text, letters, numbers, logos, arrows, ground or cast shadow.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/windows-paid.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 403,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 275
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2159
+  },
+  "cost_usd": 0.0551,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.9,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightDrive.png",
+      "sha256": "9ac3f501ecb141edd8826cd606958235bbb8bfd45d44bab596f15d64196d580e",
+      "role": "our approved button icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/MealHalt.png",
+      "sha256": "3b0fa83bc9f6c7bbdce3a1e5448d4dc58d570f0cf2c3f771038fc7851c53ecc8",
+      "role": "our approved button icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
