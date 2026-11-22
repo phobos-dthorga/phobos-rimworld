@@ -156,7 +156,7 @@ Every row is unbuilt. Verdicts are the agent's recommendations **[A]**: **Take**
 | **FR9** | **Extinguishing reaches a vehicle under Combat Extended**: firefoam and extinguish damage that hits a vehicle shrinks its fire | Combat Extended skips Vehicle Framework's step | Foam that works | — | Firefoam poppers near the motor pool | Small; a temporary-patches row (Combat Extended's gap). **Take** |
 | **FR10** | **A vehicle extinguisher**, an accessory that uses up its charges, and **automatic suppression**, an upgrade for armoured and military vehicles | Accessories use up something real (the owner's rule); real armoured vehicles carry it | Put a fire out from inside | — | Suppression is a reason to upgrade | Medium; needs art. **Idea** |
 | **FR11** | **Tyres that reignite and burst**: a burning tyre is hard to put out and may burst, hurting people near | NTSB and MSHA sources | — | — | Keep clear of a burning vehicle | Small. **Idea** |
-| **FR12** | **Glass lets fire in**: a vehicle's glass (the [glass record](vehicle-glass.md)) cracks in a fire, and a cab with glass gone takes the fire's heat faster | Real fires enter through the windscreen | — | — | Ties the two records | **Waiting** on the glass build |
+| **FR12** | **Glass lets fire in**: a vehicle's glass (the [glass record](vehicle-glass.md)) cracks in a fire, and a cab with glass gone takes the fire's heat faster | Real fires enter through the windscreen | — | — | Ties the two records | **Built: Framework 0.245.0** (the cracking came with the glass, 0.238.0) |
 | **FR13** | **A burnt-out hull**: a vehicle destroyed by fire leaves a blackened hull worth less salvage | Hulls exist | — | — | — | Small. **Idea** |
 | **FR14** | **Correct the fires record's refuel cause** | See "Found on the way" | — | — | — | **Done, 23 Nov 2026** (records only) |
 
@@ -332,6 +332,12 @@ grades and defaults below are the agent's, by the designs rule (on, unless high 
   burn stays the player's call, with the Crew in danger alert, as the owner chose on 16 Nov 2026. The knock-out rules' `crewsBailOut`
   still switches every faction's bail-out off. Setting **Your crews get out of a burning vehicle**, on (risk low: it saves people; a
   crew may leave a gun it was firing). **Outside the vehicle:** a message, and the crew on the map, in the fire's way.
+- **FR12, glass lets fire in** (XML only, the cab's `fireThroughGlass` flow): the glass already cracked and broke in a fire (Framework
+  0.238.0, VG3, through the fire wear table), but a cab with its glass gone then met the outside air nine times as fast, so it ran
+  cooler in a fire than a sealed cab, the wrong way round. The fire now comes in as freely as the air: the same eightfold figure on the
+  fire's heat, so the open cab reaches the sealed cab's heat (about 40 degrees C above the air at full fire) nine times as fast [A]. No
+  setting of its own: it follows **Vehicles have glass**, which already switches every effect of the glass, and it only hastens a heat
+  the cab already took [A]. **Outside the vehicle:** the crew's heat, read by the game for everyone aboard.
 
 ## Who chose what
 

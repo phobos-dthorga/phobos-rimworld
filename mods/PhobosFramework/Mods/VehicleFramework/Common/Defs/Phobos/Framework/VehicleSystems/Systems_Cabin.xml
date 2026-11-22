@@ -254,6 +254,22 @@
           <li Class="Phobos.VehicleSystems.Input_Fire" />
         </inputs>
       </li>
+      <li>
+        <!-- Framework 0.245.0 (vehicle-fire.md FR12; the owner's card of 23 Nov 2026: "glass lets fire in"): with the glass gone, the fire
+             comes in through the empty frames as freely as the air does, eight times the shell's heat again (the brokenGlass flow's own
+             figure, authored). Before this the open cab only met the outside air faster, so it ran cooler in a fire than a sealed one. Now
+             it reaches the same heat, about 40 degrees above the air at full fire, nine times as fast: within minutes, not most of an hour.
+             Real vehicle fires reach the cab through the windscreen once it fails (the record's sources). -->
+        <name>fireThroughGlass</name>
+        <quantity>cabTemperature</quantity>
+        <kind>Into</kind>
+        <factorParameter>fireHeat</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_GlassGone" />
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Fire" />
+          <li Class="Phobos.VehicleSystems.Input_Constant"><value>8</value></li>
+        </inputs>
+      </li>
     </flows>
   </Phobos.VehicleSystems.PhobosVehicleSystemDef>
 </Defs>

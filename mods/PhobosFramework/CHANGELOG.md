@@ -13,6 +13,10 @@ Fire on vehicles, the second round: crews get out, and what a fire leaves behind
 
 - **Your crews get out of a burning vehicle** (the owner's card of 23 November 2026, FR8 of the fire record): once a burning vehicle of yours has stopped, the people aboard climb out by themselves, as other factions' crews always have, with a message saying so. A driver taking it clear is never pulled out at the wheel, nobody gets out in the air, and a fire a suppression system puts out at once empties nothing. A dead hull that does not burn still waits for your order. New setting **Your crews get out of a burning vehicle** (Vehicle systems settings, Dangers page), on by default. Not yet tested in game: row 395 of the test pass.
 
+### Fixed
+
+- **A cab with its glass gone takes a fire's heat faster** (FR12): an open cab only met the outside air faster, so in a fire it ran cooler than a sealed one. Now the fire comes in through the empty frames as freely as the air does: the cab reaches the same heat, about 40 °C above the air at full fire, nine times as fast. It follows the **Vehicles have glass** setting. Not yet tested in game: row 396.
+
 ## [0.244.0] - 2026-11-23 - Draft
 
 One extension for what other authors' vehicles carry
