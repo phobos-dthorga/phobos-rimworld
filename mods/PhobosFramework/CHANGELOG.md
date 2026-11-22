@@ -14,6 +14,9 @@ Vehicles have glass
 - **Every closed-cab vehicle has glass, which cracks and breaks** (the owner's answers of 22 November 2026, docs/development/vehicle-glass.md, VG1 to VG4, VG7, VG10, VG11). One part, any mod's vehicle, born whole and never counted toward the vehicle's destruction: a windscreen and windows, armoured glass once the armoured cab is fitted, or vision blocks on a tracked vehicle; another mod's design may say which in its XML, or that it has none. Hits on the cab crack it, armoured glass and vision blocks far less readily; explosions break it out to two and a half times their own radius, with or without Combat Extended; fire cracks it; and a strike breaks it well beyond where it harms anything else. Not yet tested in game: row 376 of the test pass.
 - **Glass gone, the cab is open**: within the hour it takes the weather's temperature, smoke clears from it as with the windows down, and the Windows button says there is nothing to wind up.
 - **Re-glazing, never a free mend**: a mechanic re-glazes cracked or broken glass with the glass chain's goods loaded into the cargo, by the share missing: a laminated pane for the windscreen and glass panes for the side windows, armoured panes for armoured glass, vision blocks for a tank.
+- **Breaking glass cuts the people behind it** (VG5, the owner's choice: with the glass, behind its own setting, on): ordinary glass throws a splinter at each person in a seat behind it when it cracks badly and two when it goes, and now and then one finds an eye; armoured glass and vision blocks throw one only when they go. Cuts, so goggles, helmets and armour stop them by the game's own rule. Seats out in the open are not behind the glass. A logbook line names who was cut. Not yet tested in game: row 377.
+- **The driver's view** (VG6): with cracked glass the driver slows to three quarters in the dark, rain, snow or fog, and to nine tenths otherwise; with the glass gone, to four fifths in rain, snow or fog only; a tank with its vision blocks cracked to 85 %, gone to 60 %, the driver head-out. Never a rolled crash.
+- **An aircraft's canopy** (VG13): cracked or gone, a pressurised cabin holds no pressure, so above the height where people need oxygen the aircraft flies low unless the cabin oxygen fitting or the crew's oxygen sets cover everyone, as an unpressurised aircraft does.
 - **Seen where it matters**: the glass's kind and state on the Health tab, an alert naming vehicles whose glass is gone, and the logbook. A setting, Vehicles' glass cracks and breaks, on by default. Dev action: Vehicle systems: crack or break the glass of selected vehicles.
 
 ### Changed
@@ -26,7 +29,7 @@ Vehicles have glass
 
 ### Compatibility and limits
 
-- Splinters, the driver's view through cracked glass and an aircraft's canopy come next. The cracked-glass pictures on our own vehicles are to be made, a pilot first.
+- The cracked-glass pictures on our own vehicles are to be made, a pilot first. Cab air (gas and fallout through broken glass) waits for its own model.
 
 ## [0.237.1] - 2026-11-23 - Draft
 

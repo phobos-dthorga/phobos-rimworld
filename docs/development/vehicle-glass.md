@@ -2,8 +2,8 @@
 
 **Status (23 Nov 2026):** partly built. The glass chain (VG8) is in D'thorga Framework 0.237.0; the glass part with what breaks it,
 the open cab, re-glazing, other authors' vehicles and what the player sees (VG1 to VG4, VG7, VG10, VG11) in 0.238.0
-([as built](#the-glass-part-as-built-23-nov-2026)). Not built: splinters (VG5), the driver's view (VG6), the canopy (VG13) and the
-cracked-glass pictures. Not yet tested in game: row 376.
+and splinters, the driver's view and the canopy (VG5, VG6, VG13) with them ([as built](#the-glass-part-as-built-23-nov-2026)). Not
+built: the cracked-glass pictures. Not yet tested in game: rows 376 and 377.
 
 The owner, 22 Nov 2026, while the [nuclear strike record](nuclear-strike-effects.md) was being researched: "maybe we should make
 glass a component of our vehicles, and that could have its own, knock-on, effects!" And: "We could do so much work with glass
@@ -364,6 +364,14 @@ authored [A] unless marked.
   The spall liner and the glass now share one rule for such parts (`OwnGoodsParts`).
 - **What the player sees** (VG11): the Health tab row names the kind and state; an alert for glass gone; logbook entries for
   cracked and gone. A setting, "Vehicles' glass cracks and breaks", on (the record's low grade).
+- **Splinters** (VG5), behind "Breaking glass cuts the people behind it" (on; the record's moderate grade): per person in a seat that
+  is not exposed and whose cells meet the glass's, ordinary glass throws one splinter when a third or more goes at once and two when
+  it goes, armoured glass and vision blocks one only when they go; each the game's cut for 3, to the upper body's outside, one in
+  twenty to an eye. The game's cut, not More Injuries' "cut (spall)": no dependency, and armour stops it by the game's rule.
+- **The driver's view** (VG6): a factor on our speed cap, land vehicles only. Cracked: 0.75 in the dark (sun glow under 0.3) or rain,
+  snow or fog (a weather's accuracy under 0.9), else 0.9. Gone: 0.8 in that weather, else 1. Vision blocks: cracked 0.85, gone 0.6.
+- **The canopy** (VG13): a pressurised design's cabin counts as unpressurised while its glass is cracked or gone, so the cruising
+  height's oxygen line applies, as the avionics already work it out.
 
 ## Who chose what
 

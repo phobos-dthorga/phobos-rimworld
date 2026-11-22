@@ -51,5 +51,31 @@ public class GlassRuleTests
     public void VisionBlocksTakeBlocks() => Assert.Equal((0, 0, 0, 2), GlassRule.Goods(GlassKind.VisionBlocks, 0.5));
 
     [Fact]
+    public void OrdinaryGlassGoingThrowsTwoSplinters() => Assert.Equal(2, GlassRule.Splinters(GlassKind.Ordinary, 1, true));
+
+    [Fact]
+    public void ASmallCrackThrowsNone() => Assert.Equal(0, GlassRule.Splinters(GlassKind.Ordinary, 0.1, false));
+
+    [Fact]
+    public void ArmouredGlassThrowsNoneUntilItGoes()
+    {
+        Assert.Equal(0, GlassRule.Splinters(GlassKind.Armoured, 0.5, false));
+        Assert.Equal(1, GlassRule.Splinters(GlassKind.Armoured, 1, true));
+    }
+
+    [Fact]
+    public void SoundGlassSlowsNobody() => Assert.Equal(1, GlassRule.ViewFactor(GlassKind.Ordinary, GlassState.Sound, true, true), 9);
+
+    [Fact]
+    public void CrackedGlassAtNightIsSlower() =>
+        Assert.True(GlassRule.ViewFactor(GlassKind.Ordinary, GlassState.Cracked, true, false) < GlassRule.ViewFactor(GlassKind.Ordinary, GlassState.Cracked, false, false));
+
+    [Fact]
+    public void NoGlassOnAFineDaySlowsNobody() => Assert.Equal(1, GlassRule.ViewFactor(GlassKind.Ordinary, GlassState.Gone, false, false), 9);
+
+    [Fact]
+    public void ATankWithItsBlocksGoneCrawls() => Assert.True(GlassRule.ViewFactor(GlassKind.VisionBlocks, GlassState.Gone, false, false) <= 0.6);
+
+    [Fact]
     public void MoreMissingIsMoreWork() => Assert.True(GlassRule.ReglazeWork(1, 400, 800) > GlassRule.ReglazeWork(0.3, 400, 800));
 }

@@ -114,6 +114,13 @@ public static class VehicleStory
         Log(comp, VehicleStoryDefOf.PhobosLog_SpallWounded, who: pawn.LabelShort);
     }
 
+    /// <summary>Breaking glass cut someone aboard (Framework 0.238.0, VG5): one line a person per break.</summary>
+    public static void GlassSplinters(VehiclePawn vehicle, Pawn pawn)
+    {
+        if (vehicle == null || pawn == null || vehicle.GetComp<CompPhobosVehicleSystems>() is not { } comp || !Keeps(comp)) return;
+        Log(comp, VehicleStoryDefOf.PhobosLog_GlassSplinters, who: pawn.LabelShort);
+    }
+
     /// <summary>A vehicle's glass cracked, or went (Framework 0.238.0, VG11).</summary>
     public static void GlassBroken(VehiclePawn vehicle, bool gone)
     {
@@ -243,6 +250,7 @@ public static class VehicleStoryDefOf
     public static PhobosLogEntryDef PhobosLog_LinerSpent = null!;
     public static PhobosLogEntryDef PhobosLog_GlassCracked = null!;
     public static PhobosLogEntryDef PhobosLog_GlassGone = null!;
+    public static PhobosLogEntryDef PhobosLog_GlassSplinters = null!;
     public static PhobosLogEntryDef PhobosLog_Camped = null!;
     public static PhobosLogEntryDef PhobosLog_NightDrive = null!;
     public static PhobosLogEntryDef PhobosLog_HandOver = null!;

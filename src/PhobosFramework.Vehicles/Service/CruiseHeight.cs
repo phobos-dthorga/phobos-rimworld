@@ -58,7 +58,8 @@ public static class CruiseHeight
     /// </summary>
     public static double OxygenLine(VehiclePawn vehicle, CruiseSpec spec)
     {
-        if (spec.pressurised || CabinOxygen(vehicle)) return double.NaN;
+        // A cracked or broken canopy holds no pressure (Framework 0.238.0, VG13): the cabin is as an unpressurised one.
+        if ((spec.pressurised && !Glass.Breached(vehicle)) || CabinOxygen(vehicle)) return double.NaN;
         bool crewOxygen = AirCombat.Carries(vehicle, fit => fit.oxygen) && AirCombat.Works(vehicle, AirCombat.OxygenQuantity);
         List<Pawn>? passengers = vehicle.PawnsByHandlingType.TryGetValue(HandlingType.None, out List<Pawn>? list) ? list : null;
         foreach (Pawn pawn in vehicle.AllPawnsAboard)

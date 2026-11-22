@@ -20,6 +20,7 @@
       "sterile for good": [{"key": "radiation.late", "variant": "sterile-permanent"}]
     }},
     "372": ["radiation.shielded"],
+    "377": ["vehicles.glass-splinters"],
     "376": {"parts": {
       "glass cracked": [{"key": "vehicles.glass", "variant": "cracked"}],
       "glass gone": [{"key": "vehicles.glass", "variant": "gone"}],

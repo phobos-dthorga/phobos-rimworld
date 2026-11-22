@@ -226,6 +226,10 @@ glass** once the armoured cab is fitted, or **vision blocks** on a tank.
 - **Re-glazing:** load the goods into the vehicle's cargo and a mechanic re-glazes it: **a laminated pane** for a cracked windscreen
   and **glass panes** for the side windows, **armoured panes** for armoured glass, **vision blocks** for a tank. Nothing mends it for
   free.
+- **Splinters:** breaking glass cuts the people sitting behind it, now and then an eye; goggles and helmets help. A setting, **Breaking
+  glass cuts the people behind it**, on by default.
+- **The driver slows** with cracked glass in the dark or bad weather, and a tank with broken vision blocks crawls with the driver
+  head-out. **An aircraft with a cracked canopy** loses its pressure: it flies low unless everyone aboard has oxygen.
 - A setting, **Vehicles' glass cracks and breaks**, on by default.
 
 ## The glass chain

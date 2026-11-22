@@ -208,6 +208,7 @@ The vehicle sounds setting (on other mods' vehicles too) moved to D'thorga Vehic
 | Steam and electric | The Lightning runs on batteries | D'thorga Vehicles' Lightning becomes electric | Off |
 | Dangers and raids | Flammable tank loads explode | A destroyed tank of something flammable explodes, more violently the fuller; off, it only spills | On |
 | Dangers and raids | Ammunition aboard can cook off in a fire | With Combat Extended's ammunition: a burning vehicle's ammunition can explode, and a tank's turret can be blown off | On |
+| Dangers and raids | Breaking glass cuts the people behind it | When a cab's glass breaks, the people behind it take small cuts, now and then an eye | On (new in 0.238.0) |
 | Dangers and raids | Vehicles' glass cracks and breaks | A closed cab's glass breaks from hits, blasts, fire and a strike; gone, the cab is open to the weather until re-glazed with panes from the glass chain | On (new in 0.238.0) |
 | Dangers and raids | Beaten armour throws spall inside | With Combat Extended: a round that gets through a vehicle's rifle-proof or heavier plate breaks the inside loose, which can wound the crew behind it and hole parts inside; a spall liner catches most of it | On (new in 0.207.0) |
 | Dangers and raids | Also on other mods' vehicles | Spall on other mods' tanks and armoured cars too, whoever owns them; off, only D'thorga vehicles | On (new in 0.207.0) |

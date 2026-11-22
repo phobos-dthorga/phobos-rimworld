@@ -126,6 +126,13 @@
   </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
   <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_GlassSplinters</defName>
+    <label>cut by glass</label>
+    <text>The glass broke {PLACE}, and its splinters cut {WHO}.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
     <defName>PhobosLog_GlassGone</defName>
     <label>glass gone</label>
     <text>The glass went {PLACE}: the cab is open to the weather until it is re-glazed.</text>
