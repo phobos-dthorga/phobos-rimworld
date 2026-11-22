@@ -1,0 +1,56 @@
+{
+  "file": "suppressant-bottle-2.png",
+  "sha256": "832beeb8c36d56a70e9cf44aa47248f89dadad4c09726e7af5eb6b692eae26cd",
+  "date": "2026-11-23T08:14:23",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a military vehicle's fire suppression bottle lying on its side: a squat, rounded steel pressure cylinder painted dull red with a chunky brass discharge valve and a short braided steel pipe stub, and a pressure gauge on the valve. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no text, letters, numbers or logos.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/fire-fighting-items.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 328,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 200
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2084
+  },
+  "cost_usd": 0.0547,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 27.2,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/HouseBattery.png",
+      "sha256": "6abecd0073053f5aee0dc816c9aa099b19da5ac7399f51b8681884e2c9bbeaf0",
+      "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/FireBucket.png",
+      "sha256": "55660741b2da87ba884e9b62d3f24f5da129892e179e02e58d7286dfd0462e1f",
+      "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "file": "extinguisher-refill-2.png",
+  "sha256": "6a8fc71f484fcab1f8667ee3fd6c1a73432229563fa3f654125c81c465a2545f",
+  "date": "2026-11-23T08:13:30",
+  "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a refill kit for a fire extinguisher: a sealed heavy pale grey plastic bag of fine white powder beside a small brass-and-steel gas cartridge, the two together. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no text, letters, numbers or logos.",
+  "seed": 2,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/vehicle-systems/requests/fire-fighting-items.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 320,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 192
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2076
+  },
+  "cost_usd": 0.0547,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 26.5,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/CountermeasureCartridge.png",
+      "sha256": "d8e5f2081e0e1e015e07ee2e6071a06c7d0169ea53891b728bba4b9223dfd15d",
+      "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png",
+      "sha256": "42f693342680c093d07aed46e4d35d477e58b3f9f3149147a5810b957ef84408",
+      "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
