@@ -37,3 +37,25 @@ ground. Their export records name each box.
 - `TractorT130_Tank_northm.png`: SHA-256 `bd76a00d10cc7b1f1e85204bac43c36975244023dc6389fba45337f43d2378f3`
 - `TractorT130_Tank_south.png`: SHA-256 `432cd049eae037d1908eb42cbb7e99cdf083135016e4fa92f8230ab8fa207789`
 - `TractorT130_Tank_southm.png`: SHA-256 `1022fae82b2c3916ed00a8f8781cd73c21b5d4e1866ae2975b4407ebc685944e`
+
+## Own colours, no paint, clean rims (23 Nov 2026)
+
+**Made from the shipped pictures, not from the master**, D'thorga Farming 0.7.7 (the owner's choices of 23 Nov 2026: no paint for
+Farming's machines, and the white dithering at the borders fixed). `python scripts/art/bake_paint.py assets/phobos-vehicles/farming-unpainted.json
+--apply`: each painted picture became what the game drew in its own colours (the grey texture times this vehicle's Def colours under the
+mask, overlays and halves in their vehicle's colours), its mask was removed, and every partly transparent pixel on its outer edge paler
+than the pixel inside it took that pixel's colour, keeping its transparency (the pale rim left by exports before the soft-rim fix,
+5c6d04e8). Nothing moved: outlines, positions and overlays' fits are as before. East and south are the north turned. No game or other
+author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| TractorT130_Duals_north | `f0c1ea674b9ff9baafcbb028c0d7e20d0552a9d4d077852c1f26f0d2161bca6d` |
+| TractorT130_Duals_east | `d8960918d5a3bdd43d7b19cd1e9647741bce69bc3cdc87de4fb05f36f5d3986e` |
+| TractorT130_Duals_south | `d4e90b29b0dd8e7647666c6a18f63d5780d01475051ed3c70de4f62434bfad15` |
+| TractorT130_north | `1335b9eeb4616c4643c46141cfc067a9ade7537192716ad32dc027d6f7b4a209` |
+| TractorT130_east | `f4e82614aa75598e4c6a4a606d645c7aa510fcaa90b2e0138a6587aa394a88d8` |
+| TractorT130_south | `d75258b3240cd255203df1b46eb1430dd920054ed09ac8fb84eb6ef32013c71d` |
+| TractorT130_Tank_north | `149d3d70650e1c27ee790d1d7fd6cd5cd4ef2657027fbb300e3f29497a2c09cd` |
+| TractorT130_Tank_east | `9dd490724268b0908bbd248c098db6a4f8ab513760cc1991b4174f02edb2f98d` |
+| TractorT130_Tank_south | `24716fa6f1750056dde1f4b5f33c108cd2ce792df0f793d119954ed79538a7e3` |

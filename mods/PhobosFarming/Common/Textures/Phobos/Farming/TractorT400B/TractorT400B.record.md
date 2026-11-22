@@ -35,3 +35,25 @@ ground. Their export records name each box.
 - `TractorT400BRear_northm.png`: SHA-256 `8fa08a179938fc696c3cf6c1570e095378cdf5790924463cc47c42f67acc3b9a`
 - `TractorT400BRear_south.png`: SHA-256 `8bce5b7767a9382a7b52f369438b3581c640615a0e448f75455a8303d4f0f32b`
 - `TractorT400BRear_southm.png`: SHA-256 `c488858fb214b734710e643ded0236d16d95f9ac0e1b4cca6e71367bb026ae11`
+
+## Own colours, no paint, clean rims (23 Nov 2026)
+
+**Made from the shipped pictures, not from the master**, D'thorga Farming 0.7.7 (the owner's choices of 23 Nov 2026: no paint for
+Farming's machines, and the white dithering at the borders fixed). `python scripts/art/bake_paint.py assets/phobos-vehicles/farming-unpainted.json
+--apply`: each painted picture became what the game drew in its own colours (the grey texture times this vehicle's Def colours under the
+mask, overlays and halves in their vehicle's colours), its mask was removed, and every partly transparent pixel on its outer edge paler
+than the pixel inside it took that pixel's colour, keeping its transparency (the pale rim left by exports before the soft-rim fix,
+5c6d04e8). Nothing moved: outlines, positions and overlays' fits are as before. East and south are the north turned. No game or other
+author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| TractorT400BFront_north | `9f3635f80f9747b97632c80fd57b314498975f9e5ebe2e470b4efdba45045056` |
+| TractorT400BFront_east | `2b8128ff02fd576055e8890d23f95a7406180060c017bfb72fff690339ea23f5` |
+| TractorT400BFront_south | `c4bbbfaf0536eb6e6ac2feb81a9ef03d400cd96a25df7922aa9191d3944880ec` |
+| TractorT400BFront_Tank_north | `e5064b86305145acdfe950fb3e5f10e2790763437611492cb62c01a1c8899fd0` |
+| TractorT400BFront_Tank_east | `89530e6dd9a7c567a168ba6d6b4f23ba4b8ad320a011b17b8d4c2367bc03b67b` |
+| TractorT400BFront_Tank_south | `1c62cf86c71ca0528727a945cede241d83551ce17433e2b751009905ab2563d2` |
+| TractorT400BRear_north | `064fbf8f6e95d78d694a01cbddaf34664169495b038ff62d6d60817f494e697e` |
+| TractorT400BRear_east | `389042d17d83fade51ef3e25790e1564f4504619defb213650e910ff59fa2d60` |
+| TractorT400BRear_south | `fa8958aeac94d65fba1f3984830b809d9d708b8d66a2c10cd5202e4a0b14a7ef` |

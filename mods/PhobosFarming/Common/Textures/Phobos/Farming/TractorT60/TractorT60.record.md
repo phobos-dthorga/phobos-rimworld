@@ -43,3 +43,28 @@ ground. Their export records name each box.
 - `TractorT60_Weights_northm.png`: SHA-256 `9d4abc7f91c5d12442d8632b674ff1f916d1d51b10d28c2666780bbd16ef60b1`
 - `TractorT60_Weights_south.png`: SHA-256 `09b9fd1aa335a1c1684ee6dc30b8ce298addf751662d859cc346ebf263874aff`
 - `TractorT60_Weights_southm.png`: SHA-256 `1ed3c0c9508ae98aa2f30a3b083cc1700c4daaf469dba90bc53eb44f41d1f3d9`
+
+## Own colours, no paint, clean rims (23 Nov 2026)
+
+**Made from the shipped pictures, not from the master**, D'thorga Farming 0.7.7 (the owner's choices of 23 Nov 2026: no paint for
+Farming's machines, and the white dithering at the borders fixed). `python scripts/art/bake_paint.py assets/phobos-vehicles/farming-unpainted.json
+--apply`: each painted picture became what the game drew in its own colours (the grey texture times this vehicle's Def colours under the
+mask, overlays and halves in their vehicle's colours), its mask was removed, and every partly transparent pixel on its outer edge paler
+than the pixel inside it took that pixel's colour, keeping its transparency (the pale rim left by exports before the soft-rim fix,
+5c6d04e8). Nothing moved: outlines, positions and overlays' fits are as before. East and south are the north turned. No game or other
+author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| TractorT60_Duals_north | `c67916bba43b101bda7ebad6c1cf5f35d72ffc96aa6cb50299b3078c4f0dc489` |
+| TractorT60_Duals_east | `812c64b8d898ee1737844e2c8a9d882068675832da981cde7d836d3cf1a1fdf2` |
+| TractorT60_Duals_south | `9539db628c56ccda42dbed715d567082e266a42db60ed0e794e06fa357f1388b` |
+| TractorT60_north | `ed43cecdcd319f12f8ba9a4abc6adadee198208ccf16c02b08883519ebf626d7` |
+| TractorT60_east | `eb95db177b2f52ae0b509501656248a1742de07a3a6283d9456cb87cbbb1ee76` |
+| TractorT60_south | `8dd0b8f4340d5c6cfe0fc4addf8b3b482eee2786bf852d809ddef80260103fcd` |
+| TractorT60_Tank_north | `5ba20e3e64d01f920a1150bce64d8ade0addfa8061116e4a10ca8b4917ba591a` |
+| TractorT60_Tank_east | `bce268408a18a1379e270774076f8193659648ee4698f7497b84ea325420d24d` |
+| TractorT60_Tank_south | `5a6d8c04408b52eaa3b8de48be1541daf7a62ce6f83f75667f12c2cd0ea8117d` |
+| TractorT60_Weights_north | `0fdd32cd16901eeebb46a62b7fbc3f7e59874839bc32c25f86521bfcbd35f6a3` |
+| TractorT60_Weights_east | `efe0d7a68077c9277fb360e3bcdc41577d850a4b43647ab62ea3b784a1e07c25` |
+| TractorT60_Weights_south | `b31b9d84c19587889276cb53b3c21349d04770c6bea2daaad4d354dfe10c2720` |

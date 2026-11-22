@@ -34,6 +34,19 @@ Segment Anything gave a frame's edge to the body; the flatbed's rails, whose lig
 were joined to the paint inside a mostly painted part (counted without its outline: 43 % with it), which left pale dots at its edge. D'thorga
 Farming's bodies use the same exporter and are checked next. Not yet tested in game.
 
+**D'thorga Farming's machines are not offered paint either** (the owner's choice of 23 Nov 2026,
+Farming 0.7.7), after its bodies were checked: repainted red, the combine showed green lines round its panels and the T60 green blotches
+in its recesses, as the trucks had. A re-export was set aside: the exporter has moved on since Farming was made (new transforms, new
+outlines), so it would have shifted every picture and its fitted parts. Laying only the line rule's additions over the shipped pictures
+cured the lines, but the owner chose no paint. `scripts/art/bake_paint.py` makes a painted picture unpainted from the shipped files alone:
+the grey texture times its vehicle's Def colours under the mask (what the game drew), the mask removed, and the pale rim cleaned (below),
+so nothing moves; `assets/phobos-vehicles/farming-unpainted.json` names every picture and its colours, and `export_farming.py` bakes after
+every export. **The rim** (the owner's "white dithering" at every border): exports before the soft-rim fix (5c6d04e8) left a half-transparent
+pale grey pixel outside each outline; every partly transparent outer pixel paler than the pixel inside it (by 24) now takes that pixel's
+colour, keeping its transparency. **Open, next by the owner's card:** white background left inside some Farming pictures (the cultivator's
+roller gaps and a tine wedge, the T400B's lower-link eyes); shiny parts are as white and flat (the plough shares, the combine's cab roof),
+so the background AI on each master is to judge them.
+
 **For a new body:** run `scripts/art/paint_segments.py` on its master, then `python scripts/art/repaint_vehicles.py stage --paint repaired`, `review` and `apply --paint repaired`, and `python scripts/art/paint_check.py` before the owner sees it.
 
 ## Paint masks, by region (16 Nov 2026)

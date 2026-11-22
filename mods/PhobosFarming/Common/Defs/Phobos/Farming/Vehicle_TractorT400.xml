@@ -19,7 +19,9 @@
   <Vehicles.VehicleDef Name="PhobosFarming_TractorT400FrontBase" ParentName="BaseVehiclePawn" Abstract="True">
     <graphicData>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Farming 0.7.7): drawn in its own colours with no paint mask, so Vehicle
+           Framework offers no paint; repainted, the drawing's green lines showed through. scripts/art/bake_paint.py. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(5, 5)</drawSize>
     </graphicData>
     <fillPercent>0.8</fillPercent>
@@ -219,8 +221,6 @@
     <description>Thane T400: a very large articulated farm tractor that bends in the middle to steer. All its wheels drive and all its weight grips, so it pulls the widest implements through the heaviest ground; its rear half carries the three-point linkage and the drawbar. A large fuel deck lets it work long days.</description>
     <graphicData>
       <texPath>Phobos/Farming/TractorT400/TractorT400Front</texPath>
-      <color>(141, 165, 106)</color>
-      <colorTwo>(255, 227, 115)</colorTwo>
     </graphicData>
     <buildDef>Phobos_TractorT400Standard_Blueprint</buildDef>
     <statBases>
@@ -266,7 +266,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT400/TractorT400Front_Weights</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(5, 6)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -283,7 +283,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT400/TractorT400Front_Tank</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(5, 5)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -302,8 +302,6 @@
     <description>Thane T400 B: the ballasted large articulated farm tractor. Heavier than the standard T400, it grips harder under the heaviest draught and burns a little more fuel, with a smaller fuel deck. It bends in the middle to steer; its rear half carries the three-point linkage and the drawbar.</description>
     <graphicData>
       <texPath>Phobos/Farming/TractorT400B/TractorT400BFront</texPath>
-      <color>(141, 165, 106)</color>
-      <colorTwo>(255, 227, 115)</colorTwo>
     </graphicData>
     <buildDef>Phobos_TractorT400B_Blueprint</buildDef>
     <statBases>
@@ -348,7 +346,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT400B/TractorT400BFront_Tank</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(5, 5)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -365,10 +363,10 @@
   <Vehicles.VehicleDef Name="PhobosFarming_TractorT400RearBase" ParentName="BaseVehiclePawn" Abstract="True">
     <graphicData>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Farming 0.7.7): drawn in its own colours with no paint mask, so Vehicle
+           Framework offers no paint; repainted, the drawing's green lines showed through. scripts/art/bake_paint.py. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(5, 5)</drawSize>
-      <color>(141, 165, 106)</color>
-      <colorTwo>(255, 227, 115)</colorTwo>
     </graphicData>
     <fillPercent>0.8</fillPercent>
     <size>(4, 4)</size>

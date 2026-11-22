@@ -55,3 +55,28 @@ ground. Their export records name each box.
 - `PloughBody_northm.png`: SHA-256 `334a66740ff2739817852a78eb03e1cff35da608515457567c739af831d0379d`
 - `PloughBody_south.png`: SHA-256 `ee5f4ae0aae66a3d9ad8166933132bf2fad25da6220d8f02127f69546b5a4795`
 - `PloughBody_southm.png`: SHA-256 `334a66740ff2739817852a78eb03e1cff35da608515457567c739af831d0379d`
+
+## Own colours, no paint, clean rims (23 Nov 2026)
+
+**Made from the shipped pictures, not from the master**, D'thorga Farming 0.7.7 (the owner's choices of 23 Nov 2026: no paint for
+Farming's machines, and the white dithering at the borders fixed). `python scripts/art/bake_paint.py assets/phobos-vehicles/farming-unpainted.json
+--apply`: each painted picture became what the game drew in its own colours (the grey texture times this vehicle's Def colours under the
+mask, overlays and halves in their vehicle's colours), its mask was removed, and every partly transparent pixel on its outer edge paler
+than the pixel inside it took that pixel's colour, keeping its transparency (the pale rim left by exports before the soft-rim fix,
+5c6d04e8). Nothing moved: outlines, positions and overlays' fits are as before. East and south are the north turned. No game or other
+author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| Plough_north | `7c899966a23f557f35c44555bafd1acc27e9df434d96aa95e60ee021540494cf` |
+| Plough_east | `f98a5f3a4ea8894a2e9cdefe9fd58eb640c400a16e23bbaa68189e092643f771` |
+| Plough_south | `571ecc2ea6e59d68ae7ddb51323400bdcd4b950e344c10605ec125323465d2ed` |
+| Plough_Turned_north | `f81236122033519ce171723d7dcd1943e99db18e7e9439b153a3932ea00a45ea` |
+| Plough_Turned_east | `93889df21dc8200d24561bd8c6b5edaac34250cdacbdc7391d3e6b96eed7931b` |
+| Plough_Turned_south | `8589ac8fa37c16099819fd43ddeebf3c98dd959e79eac904118d1d30153c03a4` |
+| Plough_Turned_Wings_north | `53fa1480c85bae90611b2cdcafac0f3cf25908453e62ece78ad3eac6f8ced42f` |
+| Plough_Turned_Wings_east | `fafe6dd22106f26b432f7a39b37c9e479c9a80fd13664706ca685713a1af7ed7` |
+| Plough_Turned_Wings_south | `2ce9cab24da3ca2b3b679f33ccd88122dadd2a23b3c1188d4fdc1a5bbbc85e4d` |
+| Plough_Wings_north | `316fcf405e5ce706c41838dc1a6967d7d5dfedbd2118b5865b7697c61b750184` |
+| Plough_Wings_east | `0c4c0df7b54530294b075466292936a24fa57122be39474f6dc8c259c33da965` |
+| Plough_Wings_south | `4ac3a78998bc5dd4e282ec9a53ef02736b31ab3f8bc43412a5f33fa33459e763` |

@@ -16,10 +16,10 @@
     <graphicData>
       <texPath>Phobos/Farming/ChaserBin/ChaserBin</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Farming 0.7.7): drawn in its own colours with no paint mask, so Vehicle
+           Framework offers no paint; repainted, the drawing's green lines showed through. scripts/art/bake_paint.py. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(4, 8)</drawSize>
-      <color>(159, 189, 119)</color>
-      <colorTwo>(176, 166, 143)</colorTwo>
     </graphicData>
     <fillPercent>0.6</fillPercent>
     <buildDef>Phobos_ChaserBin_Blueprint</buildDef>

@@ -16,10 +16,10 @@
     <graphicData>
       <texPath>Phobos/Farming/Combine/Combine</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Farming 0.7.7): drawn in its own colours with no paint mask, so Vehicle
+           Framework offers no paint; repainted, the drawing's green lines showed through. scripts/art/bake_paint.py. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(8, 14)</drawSize>
-      <color>(171, 202, 135)</color>
-      <colorTwo>(252, 230, 157)</colorTwo>
     </graphicData>
     <fillPercent>1</fillPercent>
     <buildDef>Phobos_Combine_Blueprint</buildDef>

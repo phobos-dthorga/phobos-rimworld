@@ -41,3 +41,28 @@ its throat just over the body's front edge.
 ([record](../../../../../../../assets/phobos-vehicles/requests/combine-fronts-record.md)): `farming-combine-front-standard-sharp-2.png` and
 `farming-combine-front-wide-sharp-2.png`, placed by the same script.
 
+
+## Own colours, no paint, clean rims (23 Nov 2026)
+
+**Made from the shipped pictures, not from the master**, D'thorga Farming 0.7.7 (the owner's choices of 23 Nov 2026: no paint for
+Farming's machines, and the white dithering at the borders fixed). `python scripts/art/bake_paint.py assets/phobos-vehicles/farming-unpainted.json
+--apply`: each painted picture became what the game drew in its own colours (the grey texture times this vehicle's Def colours under the
+mask, overlays and halves in their vehicle's colours), its mask was removed, and every partly transparent pixel on its outer edge paler
+than the pixel inside it took that pixel's colour, keeping its transparency (the pale rim left by exports before the soft-rim fix,
+5c6d04e8). Nothing moved: outlines, positions and overlays' fits are as before. East and south are the north turned. No game or other
+author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| Combine_FrontCorn_north | `4e0df11a4f26c2e77f8f4e2b688b64a927a47e495828129c49d0dc6847a29e5f` |
+| Combine_FrontCorn_east | `f92ecfe44ff42dc6c8611c8e7498ad489eb44b66a8da725b656c992c4f1ea051` |
+| Combine_FrontCorn_south | `ed68e0c89b064c83357cdcd4231b933b4d60cac8fe97fa06c79898176c1739a9` |
+| Combine_FrontStandard_north | `a58a2f6b6688d40af89f955d85d2f51dcec4421f20e96782d989df71fcd080ac` |
+| Combine_FrontStandard_east | `3620d315a966bb6c0436af550bb229047c11bc204b3a95dc65a9c06a02341266` |
+| Combine_FrontStandard_south | `06224dd3e5ae3d0be528293e29ae6c56a85c59d63656fa46b6d22b826d3bf519` |
+| Combine_FrontWide_north | `a0ffed04052dd2cc78ef0a930bf9201030d85cb4e44c1189349d5803df836b1d` |
+| Combine_FrontWide_east | `932bfca72ea0aec2c2900289e48ec964619e5962c0d06346caba6dff6b23829e` |
+| Combine_FrontWide_south | `3c21644138d019d39e7386fb86b29bf0ba797c360a7da37ae6ac3b9fcde092f1` |
+| Combine_north | `48caa057c5391835efc5485c2e3a928cc2a67c49b10454256844bf34be6c3ff9` |
+| Combine_east | `692c8c57e079bbe9c2ede043ad747aa22fcd07ac4a09fdb692eba9c82d7ab133` |
+| Combine_south | `3daa52920a2a828eb3a824fc04e6293ecd361a78955fb9dd6417557bef3f26cd` |

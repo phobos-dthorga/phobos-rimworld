@@ -105,10 +105,10 @@
     <graphicData>
       <texPath>Phobos/Farming/Plough/PloughBody</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Farming 0.7.7): drawn in its own colours with no paint mask, so Vehicle
+           Framework offers no paint; repainted, the drawing's green lines showed through. scripts/art/bake_paint.py. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(4, 4)</drawSize>
-      <color>(157, 182, 118)</color>
-      <colorTwo>(255, 244, 65)</colorTwo>
     </graphicData>
     <buildDef>Phobos_PloughSillion_Blueprint</buildDef>
     <statBases>
@@ -174,7 +174,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/Plough/Plough_Turned</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 4)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -185,7 +185,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/Plough/Plough</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 4)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -202,7 +202,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/Plough/Plough_Turned_Wings</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 7)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -214,7 +214,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/Plough/Plough_Wings</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 7)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -235,7 +235,9 @@
   <Vehicles.VehicleDef Name="PhobosFarming_CultivatorBase" ParentName="PhobosFarming_MountedImplementBase" Abstract="True">
     <graphicData>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Farming 0.7.7): drawn in its own colours with no paint mask, so Vehicle
+           Framework offers no paint; repainted, the drawing's green lines showed through. scripts/art/bake_paint.py. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(4, 4)</drawSize>
     </graphicData>
     <components>
@@ -278,8 +280,6 @@
     <description>Tillman C4: a field cultivator for a tractor's three-point linkage, three dense rows of spring tines and a crumbler roller, four cells wide. It tears out weeds and wild plants and breaks up the soil, never touching a sown crop.</description>
     <graphicData>
       <texPath>Phobos/Farming/Cultivator/Cultivator</texPath>
-      <color>(142, 170, 116)</color>
-      <colorTwo>(255, 249, 77)</colorTwo>
     </graphicData>
     <buildDef>Phobos_CultivatorTillman_Blueprint</buildDef>
     <statBases>
@@ -319,7 +319,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/Cultivator/Cultivator_Wings</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(8, 4)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -338,8 +338,6 @@
     <description>Tillman C4 L: the light field cultivator, its spring tines spaced wider. It works the same four cells less deeply and pulls easier, so a small tractor handles it well; it never touches a sown crop.</description>
     <graphicData>
       <texPath>Phobos/Farming/CultivatorLight/CultivatorLight</texPath>
-      <color>(141, 165, 112)</color>
-      <colorTwo>(255, 239, 78)</colorTwo>
     </graphicData>
     <buildDef>Phobos_CultivatorTillmanLight_Blueprint</buildDef>
     <statBases>
@@ -379,7 +377,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/CultivatorLight/CultivatorLight_Wings</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(8, 4)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -400,10 +398,10 @@
     <graphicData>
       <texPath>Phobos/Farming/SeedDrill/SeedDrill</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Farming 0.7.7): drawn in its own colours with no paint mask, so Vehicle
+           Framework offers no paint; repainted, the drawing's green lines showed through. scripts/art/bake_paint.py. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(4, 5)</drawSize>
-      <color>(143, 168, 110)</color>
-      <colorTwo>(255, 215, 57)</colorTwo>
     </graphicData>
     <buildDef>Phobos_SeedDrillCoulter_Blueprint</buildDef>
     <size>(3, 4)</size>
@@ -542,7 +540,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/SeedDrill/SeedDrill_Wings</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(8, 5)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -559,7 +557,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/SeedDrill/SeedDrill_Hopper</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 5)</drawSize>
                     <layer>1</layer>
                   </graphicData>

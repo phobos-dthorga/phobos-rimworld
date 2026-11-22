@@ -31,3 +31,22 @@ ground. Their export records name each box.
 - `Cultivator_Wings_northm.png`: SHA-256 `f7f72e4dc34cfdce695307e434b0ab2272ff8e8293bf676db6441e349dec099f`
 - `Cultivator_Wings_south.png`: SHA-256 `4cf80b538c82a0be932c69fb72c9313fd9d7d02362528c4edf36145dec3cd517`
 - `Cultivator_Wings_southm.png`: SHA-256 `a9c5685bf2b48e185cf400b97c081738efd34a7f5a2f9296f6323f80ee5f6184`
+
+## Own colours, no paint, clean rims (23 Nov 2026)
+
+**Made from the shipped pictures, not from the master**, D'thorga Farming 0.7.7 (the owner's choices of 23 Nov 2026: no paint for
+Farming's machines, and the white dithering at the borders fixed). `python scripts/art/bake_paint.py assets/phobos-vehicles/farming-unpainted.json
+--apply`: each painted picture became what the game drew in its own colours (the grey texture times this vehicle's Def colours under the
+mask, overlays and halves in their vehicle's colours), its mask was removed, and every partly transparent pixel on its outer edge paler
+than the pixel inside it took that pixel's colour, keeping its transparency (the pale rim left by exports before the soft-rim fix,
+5c6d04e8). Nothing moved: outlines, positions and overlays' fits are as before. East and south are the north turned. No game or other
+author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| Cultivator_north | `b347d1ce1d42885c598a04263c35dfbb152d57106f15626a16eacf9cc0cc6efe` |
+| Cultivator_east | `da261806b35f7c7e3caf74a311d306da0800a555f9c55d26344be43f1890c9e0` |
+| Cultivator_south | `69d7ef4a06108179bba0c300fbcb29b5192c24ef526be7923aa52975ee02ed3f` |
+| Cultivator_Wings_north | `5c8fdbdf4b9f96cc2bed7d8f70bc324589b2f6e69e56c4501dc3437355b833b6` |
+| Cultivator_Wings_east | `0833bb05ad99933db0fb392da44e37945d5ccdbd38a8fae9c8ff5359a7553229` |
+| Cultivator_Wings_south | `aad7afb47eba84a0a3c3afbd7c9238e1d2b0935d465c1b355e54799efa812ddf` |

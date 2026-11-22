@@ -37,3 +37,25 @@ ground. Their export records name each box.
 - `SeedDrill_Wings_northm.png`: SHA-256 `f09b8b623f77dda47317a5daa475ba92f3186203b24550730a97d6500faed775`
 - `SeedDrill_Wings_south.png`: SHA-256 `3165a3ce27107648de6f1da7745987888a9d1754156a613975a32edb26884717`
 - `SeedDrill_Wings_southm.png`: SHA-256 `1a1bf26a3d3cc609d58971fc183db62ddf57f3a68de75d0c26b62072bcd8d0ab`
+
+## Own colours, no paint, clean rims (23 Nov 2026)
+
+**Made from the shipped pictures, not from the master**, D'thorga Farming 0.7.7 (the owner's choices of 23 Nov 2026: no paint for
+Farming's machines, and the white dithering at the borders fixed). `python scripts/art/bake_paint.py assets/phobos-vehicles/farming-unpainted.json
+--apply`: each painted picture became what the game drew in its own colours (the grey texture times this vehicle's Def colours under the
+mask, overlays and halves in their vehicle's colours), its mask was removed, and every partly transparent pixel on its outer edge paler
+than the pixel inside it took that pixel's colour, keeping its transparency (the pale rim left by exports before the soft-rim fix,
+5c6d04e8). Nothing moved: outlines, positions and overlays' fits are as before. East and south are the north turned. No game or other
+author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| SeedDrill_Hopper_north | `d3cb3c72bd2af2d14cf588adb0badf042473b020af76550ae19720ec1d7a6fde` |
+| SeedDrill_Hopper_east | `acec9e362d68cb7c3aafb1f5338dacd2a78577e90ef593efc1fa4a826ae3b381` |
+| SeedDrill_Hopper_south | `9626943ba1f16553129da51c2d2fb8ee5cf72d8735e0ab2a4f12b2dacb171bd1` |
+| SeedDrill_north | `e655eb7ca955d4d5831fe05543b7efdf2d9f7e9e4dc87bddab829b2fc060d1fe` |
+| SeedDrill_east | `7f7837af2ca980ae4539f3e9b4c691590cbf0515bc7a8b57bf75f0a4164f39cb` |
+| SeedDrill_south | `2028e81aca00d95927473ef058d367acc7aeadd073edf7725574b0c9b39ece6d` |
+| SeedDrill_Wings_north | `74a6e9bea13863cf3acc8b6fa1cfa6f6931eaf9142dc619c5a7126d0680816fa` |
+| SeedDrill_Wings_east | `951ffcb0da42a1cacfb2d61f51cacb2421b0d5d548c4999e7f1328c35d48511c` |
+| SeedDrill_Wings_south | `33e0f13919b58dbba13c72527b4182c7cb8c6ad8fd17b631d6870c812018c7e9` |

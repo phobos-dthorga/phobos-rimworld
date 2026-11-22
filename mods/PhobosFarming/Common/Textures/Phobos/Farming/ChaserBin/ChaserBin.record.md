@@ -15,3 +15,19 @@ processor. East and south are the north turned, with paint masks (suffix m) and 
 - `ChaserBin_northm.png`: SHA-256 `4375295d3594cd9879c100435f6b5ceefb3984d0de4fbf91e0f51ca129769302`
 - `ChaserBin_south.png`: SHA-256 `1e66a5f82434421a0ec6a3da304cc45185f399d5b8ad456a7632b19e42a2ce8c`
 - `ChaserBin_southm.png`: SHA-256 `001bca537205cc815228976ff781701400b3802a63f4eed7a3d31348407eea0d`
+
+## Own colours, no paint, clean rims (23 Nov 2026)
+
+**Made from the shipped pictures, not from the master**, D'thorga Farming 0.7.7 (the owner's choices of 23 Nov 2026: no paint for
+Farming's machines, and the white dithering at the borders fixed). `python scripts/art/bake_paint.py assets/phobos-vehicles/farming-unpainted.json
+--apply`: each painted picture became what the game drew in its own colours (the grey texture times this vehicle's Def colours under the
+mask, overlays and halves in their vehicle's colours), its mask was removed, and every partly transparent pixel on its outer edge paler
+than the pixel inside it took that pixel's colour, keeping its transparency (the pale rim left by exports before the soft-rim fix,
+5c6d04e8). Nothing moved: outlines, positions and overlays' fits are as before. East and south are the north turned. No game or other
+author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| ChaserBin_north | `5b423a9c30789ba951b97d51e905e13d9eae77c93826431d4dded3ecf0f37685` |
+| ChaserBin_east | `5dee6b62c1054b723065f4a650cbc30311b4f0531aa20f1e49af4350eb8ca906` |
+| ChaserBin_south | `1f5d2bc66795be00d848bec1e83fd467fd61b334b14d2c7b127d9720d1f33e08` |

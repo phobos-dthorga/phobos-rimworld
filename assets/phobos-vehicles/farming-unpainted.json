@@ -1,0 +1,476 @@
+{
+ "textures": "mods/PhobosFarming/Common/Textures/Phobos/Farming",
+ "pictures": [
+  {
+   "name": "ChaserBin/ChaserBin",
+   "color": [
+    159,
+    189,
+    119
+   ],
+   "colorTwo": [
+    176,
+    166,
+    143
+   ]
+  },
+  {
+   "name": "Combine/Combine_FrontCorn",
+   "unmasked": true
+  },
+  {
+   "name": "Combine/Combine_FrontStandard",
+   "unmasked": true
+  },
+  {
+   "name": "Combine/Combine_FrontWide",
+   "unmasked": true
+  },
+  {
+   "name": "Combine/Combine",
+   "color": [
+    171,
+    202,
+    135
+   ],
+   "colorTwo": [
+    252,
+    230,
+    157
+   ]
+  },
+  {
+   "name": "Plough/Plough",
+   "color": [
+    157,
+    182,
+    118
+   ],
+   "colorTwo": [
+    255,
+    244,
+    65
+   ]
+  },
+  {
+   "name": "Plough/Plough_Turned",
+   "color": [
+    157,
+    182,
+    118
+   ],
+   "colorTwo": [
+    255,
+    244,
+    65
+   ]
+  },
+  {
+   "name": "Plough/Plough_Turned_Wings",
+   "color": [
+    157,
+    182,
+    118
+   ],
+   "colorTwo": [
+    255,
+    244,
+    65
+   ]
+  },
+  {
+   "name": "Plough/Plough_Wings",
+   "color": [
+    157,
+    182,
+    118
+   ],
+   "colorTwo": [
+    255,
+    244,
+    65
+   ]
+  },
+  {
+   "name": "Plough/PloughBody",
+   "mask_only": true
+  },
+  {
+   "name": "Cultivator/Cultivator",
+   "color": [
+    142,
+    170,
+    116
+   ],
+   "colorTwo": [
+    255,
+    249,
+    77
+   ]
+  },
+  {
+   "name": "Cultivator/Cultivator_Wings",
+   "color": [
+    142,
+    170,
+    116
+   ],
+   "colorTwo": [
+    255,
+    249,
+    77
+   ]
+  },
+  {
+   "name": "CultivatorLight/CultivatorLight",
+   "color": [
+    141,
+    165,
+    112
+   ],
+   "colorTwo": [
+    255,
+    239,
+    78
+   ]
+  },
+  {
+   "name": "CultivatorLight/CultivatorLight_Wings",
+   "color": [
+    141,
+    165,
+    112
+   ],
+   "colorTwo": [
+    255,
+    239,
+    78
+   ]
+  },
+  {
+   "name": "SeedDrill/SeedDrill_Hopper",
+   "color": [
+    143,
+    168,
+    110
+   ],
+   "colorTwo": [
+    255,
+    215,
+    57
+   ]
+  },
+  {
+   "name": "SeedDrill/SeedDrill",
+   "color": [
+    143,
+    168,
+    110
+   ],
+   "colorTwo": [
+    255,
+    215,
+    57
+   ]
+  },
+  {
+   "name": "SeedDrill/SeedDrill_Wings",
+   "color": [
+    143,
+    168,
+    110
+   ],
+   "colorTwo": [
+    255,
+    215,
+    57
+   ]
+  },
+  {
+   "name": "TractorT60/TractorT60_Duals",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  },
+  {
+   "name": "TractorT60/TractorT60",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  },
+  {
+   "name": "TractorT60/TractorT60_Tank",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  },
+  {
+   "name": "TractorT60/TractorT60_Weights",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  },
+  {
+   "name": "TractorT60F/TractorT60F_Duals",
+   "color": [
+    147,
+    174,
+    105
+   ],
+   "colorTwo": [
+    255,
+    221,
+    80
+   ]
+  },
+  {
+   "name": "TractorT60F/TractorT60F",
+   "color": [
+    147,
+    174,
+    105
+   ],
+   "colorTwo": [
+    255,
+    221,
+    80
+   ]
+  },
+  {
+   "name": "TractorT60F/TractorT60F_Tank",
+   "color": [
+    147,
+    174,
+    105
+   ],
+   "colorTwo": [
+    255,
+    221,
+    80
+   ]
+  },
+  {
+   "name": "TractorT60F/TractorT60F_Weights",
+   "color": [
+    147,
+    174,
+    105
+   ],
+   "colorTwo": [
+    255,
+    221,
+    80
+   ]
+  },
+  {
+   "name": "TractorT130/TractorT130_Duals",
+   "color": [
+    157,
+    184,
+    119
+   ],
+   "colorTwo": [
+    255,
+    245,
+    93
+   ]
+  },
+  {
+   "name": "TractorT130/TractorT130",
+   "color": [
+    157,
+    184,
+    119
+   ],
+   "colorTwo": [
+    255,
+    245,
+    93
+   ]
+  },
+  {
+   "name": "TractorT130/TractorT130_Tank",
+   "color": [
+    157,
+    184,
+    119
+   ],
+   "colorTwo": [
+    255,
+    245,
+    93
+   ]
+  },
+  {
+   "name": "TractorT130RC/TractorT130RC_Duals",
+   "color": [
+    138,
+    162,
+    107
+   ],
+   "colorTwo": [
+    255,
+    237,
+    124
+   ]
+  },
+  {
+   "name": "TractorT130RC/TractorT130RC",
+   "color": [
+    138,
+    162,
+    107
+   ],
+   "colorTwo": [
+    255,
+    237,
+    124
+   ]
+  },
+  {
+   "name": "TractorT130RC/TractorT130RC_Tank",
+   "color": [
+    138,
+    162,
+    107
+   ],
+   "colorTwo": [
+    255,
+    237,
+    124
+   ]
+  },
+  {
+   "name": "TractorT130RC/TractorT130RC_Weights",
+   "color": [
+    138,
+    162,
+    107
+   ],
+   "colorTwo": [
+    255,
+    237,
+    124
+   ]
+  },
+  {
+   "name": "TractorT400/TractorT400Front",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  },
+  {
+   "name": "TractorT400/TractorT400Front_Tank",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  },
+  {
+   "name": "TractorT400/TractorT400Front_Weights",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  },
+  {
+   "name": "TractorT400/TractorT400Rear",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  },
+  {
+   "name": "TractorT400B/TractorT400BFront",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  },
+  {
+   "name": "TractorT400B/TractorT400BFront_Tank",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  },
+  {
+   "name": "TractorT400B/TractorT400BRear",
+   "color": [
+    141,
+    165,
+    106
+   ],
+   "colorTwo": [
+    255,
+    227,
+    115
+   ]
+  }
+ ]
+}

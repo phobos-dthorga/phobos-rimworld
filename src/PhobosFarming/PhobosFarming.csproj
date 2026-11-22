@@ -10,7 +10,7 @@
     <AssemblyName>PhobosFarming</AssemblyName>
     <ModFolder>PhobosFarming</ModFolder>
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.7.6</Version>
+    <Version>0.7.7</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

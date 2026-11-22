@@ -7,6 +7,10 @@ The combine's body and the chaser bin's body go through export_vehicle.py's own 
 the front is exactly as many cells wide as it cuts (6 or 8, owner's widths of 20 Nov 2026) at 128 px a cell, centred across the combine,
 and set with the bottom of its throat just over the top of the body, on a canvas the size of the body's. Run the background AI on the
 masters first (scripts/art/clean_backgrounds.py masks --also ...). Free: no generation, and the masters are never touched.
+
+D'thorga Farming's machines are not offered paint (the owner's choice of 23 Nov 2026, D'thorga Farming 0.7.7): every export ends by baking
+each painted picture's paint in, in its Def's own colours, dropping its mask and cleaning its pale rim (scripts/art/bake_paint.py, with
+assets/phobos-vehicles/farming-unpainted.json, which names every picture and its colours).
 """
 import argparse
 import json
@@ -21,8 +25,10 @@ from export_sprite import ai_background, export as export_sprite, white_to_alpha
 from export_vehicle import PIXELS_PER_CELL, export_body, record, separate_paint, sha, write_facings  # noqa: E402
 import art_paths  # noqa: E402
 import paint_check  # noqa: E402
+import bake_paint  # noqa: E402
 
 GENERATED = ROOT / 'assets' / 'phobos-vehicles' / 'generated'
+UNPAINTED = ROOT / 'assets' / 'phobos-vehicles' / 'farming-unpainted.json'
 COMBINE = GENERATED / 'farming-combine-body-north' / 'farming-combine-body-north-1.png'
 CHASER_BIN = GENERATED / 'farming-chaser-bin-body-north' / 'farming-chaser-bin-body-north-3.png'
 # (picture name, master, cells wide): the owner's picks of 20 Nov 2026, from the sharper round (high quality at about 3072 px wide) that
@@ -298,8 +304,15 @@ def main():
     textures = Path(args.mods) / 'PhobosFarming' / 'Common' / 'Textures' / 'Phobos' / 'Farming'
     if args.batch in ('two', 'all'):
         export_batch_two(textures)
-    if args.batch == 'two':
-        return
+    if args.batch != 'two':
+        export_batch_one(textures)
+    plan = json.loads(UNPAINTED.read_text(encoding='utf-8'))
+    plan['textures'] = str(textures)
+    for name, rim in bake_paint.run(plan, apply=True):
+        print(f'  {name}: paint baked in, {rim} rim pixels cleaned')
+
+
+def export_batch_one(textures):
     combine = export_body(COMBINE, textures / 'Combine', 'Combine', 9, COMBINE_DRAW, MAIN_HUE, ACCENT_HUE)
     print(f"Combine: {combine['width_cells']:.2f} cells wide; Def colours {combine['colours']}")
     chaser = export_body(CHASER_BIN, textures / 'ChaserBin', 'ChaserBin', 7, (4, 8), MAIN_HUE, ACCENT_HUE)

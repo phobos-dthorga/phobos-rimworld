@@ -5,6 +5,22 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.7] - 2026-11-23 - Draft
+
+Farming's machines keep their own colours, with clean edges
+
+### Changed
+
+- **Farming's machines keep their own colours** (the owner's choice of 23 November 2026): painted another colour, the tractors, combine, chaser bin and implements kept lines of their drawn green, so none is offered paint any more. Each looks exactly as it did in its own colours, its fitted parts too. Not yet tested in game: select any of them; it has no paint button.
+
+### Fixed
+
+- **No white rim round Farming's machines** (the owner's review of 23 November 2026): a pale grey rim showed outside the black outline of every machine, its fitted parts and the combine's fronts, left by exports made before the art tools' soft-rim fix. The rim now takes the outline's colour, so the edge stays soft but dark. Nothing moves. Not yet tested in game: look at a tractor on dark ground.
+
+### Save compatibility
+
+- A Farming machine already painted another colour shows its own colours again; nothing else in the save changes.
+
 ## [0.7.6] - 2026-11-23 - Draft
 
 The liquid tyre ballast's own icon. Not yet tested in game.

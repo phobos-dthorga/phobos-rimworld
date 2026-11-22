@@ -15,7 +15,9 @@
   <Vehicles.VehicleDef Name="PhobosFarming_TractorT60Base" ParentName="BaseVehiclePawn" Abstract="True">
     <graphicData>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Farming 0.7.7): drawn in its own colours with no paint mask, so Vehicle
+           Framework offers no paint; repainted, the drawing's green lines showed through. scripts/art/bake_paint.py. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(4, 6)</drawSize>
     </graphicData>
     <fillPercent>0.6</fillPercent>
@@ -253,8 +255,6 @@
     <description>Thane T60: a small farm tractor. It carries a plough or a cultivator on its three-point linkage and pulls a seed drill or a cart on its drawbar, and drives a paddock row by row with its implement working. Light and cheap to run, but it has little to spare for heavy ground.</description>
     <graphicData>
       <texPath>Phobos/Farming/TractorT60/TractorT60</texPath>
-      <color>(141, 165, 106)</color>
-      <colorTwo>(255, 227, 115)</colorTwo>
     </graphicData>
     <buildDef>Phobos_TractorT60_Blueprint</buildDef>
     <statBases>
@@ -286,7 +286,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT60/TractorT60_Weights</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 6)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -303,7 +303,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT60/TractorT60_Duals</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(5, 6)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -320,7 +320,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT60/TractorT60_Tank</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 6)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -339,8 +339,6 @@
     <description>Thane T60 F: the small farm tractor on wide tyres. A little heavier than the standard T60, it grips better on soft ground and burns a little more fuel. It carries a plough or a cultivator on its three-point linkage and pulls a seed drill or a cart on its drawbar.</description>
     <graphicData>
       <texPath>Phobos/Farming/TractorT60F/TractorT60F</texPath>
-      <color>(147, 174, 105)</color>
-      <colorTwo>(255, 221, 80)</colorTwo>
     </graphicData>
     <buildDef>Phobos_TractorT60F_Blueprint</buildDef>
     <statBases>
@@ -374,7 +372,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT60F/TractorT60F_Weights</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 6)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -391,7 +389,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT60F/TractorT60F_Duals</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(5, 6)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -408,7 +406,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT60F/TractorT60F_Tank</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 6)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -425,7 +423,9 @@
   <Vehicles.VehicleDef Name="PhobosFarming_TractorT130Base" ParentName="BaseVehiclePawn" Abstract="True">
     <graphicData>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Farming 0.7.7): drawn in its own colours with no paint mask, so Vehicle
+           Framework offers no paint; repainted, the drawing's green lines showed through. scripts/art/bake_paint.py. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(4, 7)</drawSize>
     </graphicData>
     <fillPercent>0.7</fillPercent>
@@ -664,8 +664,6 @@
     <description>Thane T130: a medium farm tractor with front ballast. It carries a plough or a cultivator on its three-point linkage, pulls a seed drill or a cart on its drawbar, and drives all four wheels; the ballast gives it grip for heavy draught, at a little more fuel.</description>
     <graphicData>
       <texPath>Phobos/Farming/TractorT130/TractorT130</texPath>
-      <color>(157, 184, 119)</color>
-      <colorTwo>(255, 245, 93)</colorTwo>
     </graphicData>
     <buildDef>Phobos_TractorT130_Blueprint</buildDef>
     <statBases>
@@ -696,7 +694,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT130/TractorT130_Duals</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(5, 7)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -713,7 +711,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT130/TractorT130_Tank</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 7)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -732,8 +730,6 @@
     <description>Thane T130 RC: the row-crop medium tractor. Lighter than the ballasted T130, it is a little thriftier and easier on soft ground, with less grip under heavy draught. It carries a plough or a cultivator on its three-point linkage and pulls a seed drill or a cart on its drawbar.</description>
     <graphicData>
       <texPath>Phobos/Farming/TractorT130RC/TractorT130RC</texPath>
-      <color>(138, 162, 107)</color>
-      <colorTwo>(255, 237, 124)</colorTwo>
     </graphicData>
     <buildDef>Phobos_TractorT130RC_Blueprint</buildDef>
     <statBases>
@@ -766,7 +762,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT130RC/TractorT130RC_Weights</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 7)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -783,7 +779,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT130RC/TractorT130RC_Duals</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(5, 7)</drawSize>
                     <layer>1</layer>
                   </graphicData>
@@ -800,7 +796,7 @@
                   <graphicData>
                     <texPath>Phobos/Farming/TractorT130RC/TractorT130RC_Tank</texPath>
                     <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-                    <shaderType>CutoutComplexPattern</shaderType>
+                    <shaderType>Cutout</shaderType>
                     <drawSize>(4, 7)</drawSize>
                     <layer>1</layer>
                   </graphicData>

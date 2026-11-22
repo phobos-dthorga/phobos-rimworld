@@ -41,3 +41,28 @@ ground. Their export records name each box.
 - `TractorT400Rear_northm.png`: SHA-256 `49e618b34e2ba9039dbd7bc326dcc1bcffd298bf97c4206a002dfac8ce030a5f`
 - `TractorT400Rear_south.png`: SHA-256 `d687cc0167c28b9bd4afd92e93d4acd5ac4803bef4d53852aa0efbe86d467b21`
 - `TractorT400Rear_southm.png`: SHA-256 `c943e6f3ac1f4d75d07ae705499f382934449040f23cf30b08832e0585cbd187`
+
+## Own colours, no paint, clean rims (23 Nov 2026)
+
+**Made from the shipped pictures, not from the master**, D'thorga Farming 0.7.7 (the owner's choices of 23 Nov 2026: no paint for
+Farming's machines, and the white dithering at the borders fixed). `python scripts/art/bake_paint.py assets/phobos-vehicles/farming-unpainted.json
+--apply`: each painted picture became what the game drew in its own colours (the grey texture times this vehicle's Def colours under the
+mask, overlays and halves in their vehicle's colours), its mask was removed, and every partly transparent pixel on its outer edge paler
+than the pixel inside it took that pixel's colour, keeping its transparency (the pale rim left by exports before the soft-rim fix,
+5c6d04e8). Nothing moved: outlines, positions and overlays' fits are as before. East and south are the north turned. No game or other
+author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| TractorT400Front_north | `8d74884145966b6412cb9afc749154af9a0182b14995ec53c51ecacea74285b8` |
+| TractorT400Front_east | `f43df652c74ed0437702b46dc03733d9651e0c7e3b3fb31c853157fdd03f4646` |
+| TractorT400Front_south | `bef49099f69f032c86667e451b4c2bb0f81f548f797a3fa2cfdb9eda96e417fa` |
+| TractorT400Front_Tank_north | `b69ffd9e99ced2f53eb5e3198da9b6aaf5b845a7157924e382c5dd82733a684b` |
+| TractorT400Front_Tank_east | `befdd5bbb7ad05100798da568ba4bc2dea1a876433dd70052aec68b2a834a981` |
+| TractorT400Front_Tank_south | `cee6598e852330a7b0a96ad48153c2207470a1c4df427917a3537491c87497b0` |
+| TractorT400Front_Weights_north | `b9692e58ffd53aa1ee4d565325f76bc1105c8b86c564320bcc0660c0aca1c5a8` |
+| TractorT400Front_Weights_east | `c1c849f76aab557538b8a6a9ad32e12b6860a5ba60bb930a7bec4ffe7d12d36f` |
+| TractorT400Front_Weights_south | `c5fb65684de641f3805b17118ed981a79a365ef5bce336e83798522854b826cc` |
+| TractorT400Rear_north | `a5d2af5f65b8b3ddd0c803da7d14ec559b67b8808fe87639657511badeb1bbd2` |
+| TractorT400Rear_east | `ad740732dda902be97ff8ad99c7cf3782067f28b1ec2ee1c5bb76b48a669e1a1` |
+| TractorT400Rear_south | `068c00ea83050163b19bfb133cf0adcc6ebaa77ec72b1edf011b3767ddfa43d7` |
