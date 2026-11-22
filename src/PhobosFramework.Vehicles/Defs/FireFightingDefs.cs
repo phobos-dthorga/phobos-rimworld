@@ -56,6 +56,14 @@ public class PhobosFireFightingRulesDef : PhobosRulesDef
     public float armouredFrom = 0.8f;
     public float armouredFromCombatExtended = 8f;
 
+    // ---- A leaking tank feeds the fire (Framework 0.245.0, FR4) ----
+    /// <summary>How often, an hour at full fire, a leaking tank's fuel catches beneath a burning vehicle; scaled by the fire's size.</summary>
+    public float leakCatchesPerHour = 3f;
+    /// <summary>The ground fire a caught leak starts, in the game's fire sizes (0.1 to 1.75).</summary>
+    public float leakFireSize = 0.6f;
+    /// <summary>The fuel each pool takes from the tank, in the vehicle's own fuel units.</summary>
+    public float leakFuelPerPool = 2f;
+
     public static PhobosFireFightingRulesDef Rules => Current<PhobosFireFightingRulesDef>();
 }
 

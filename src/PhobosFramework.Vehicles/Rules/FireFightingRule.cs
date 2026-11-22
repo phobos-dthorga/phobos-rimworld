@@ -66,6 +66,10 @@ public static class FireFightingRule
         return left < SmallestFire ? 0 : left;
     }
 
+    /// <summary>The chance something that happens at <paramref name="perHour"/> times an hour, at random, happens within
+    /// <paramref name="hours"/> (Framework 0.245.0: a leak catching, FR4; a tyre bursting or relighting, FR11). Never above one.</summary>
+    public static double ChanceIn(double perHour, double hours) => perHour <= 0 || hours <= 0 ? 0 : 1 - Math.Exp(-perHour * hours);
+
     /// <summary>Charges left after a use: never below none.</summary>
     public static int AfterUse(int charges) => Math.Max(0, charges - 1);
 

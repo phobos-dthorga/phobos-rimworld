@@ -58,4 +58,5 @@
   <PhobosVehicleSystems_TankPurgeButtonDesc>The empty tank still holds the last of its {CONTENTS}. Sends the nearest free colonist to wash it out. To choose who, select a colonist and right-click the vehicle.</PhobosVehicleSystems_TankPurgeButtonDesc>
   <PhobosVehicleSystems_ClaimButton>Claim</PhobosVehicleSystems_ClaimButton>
   <PhobosVehicleSystems_ClaimButtonDesc>Nobody is aboard and none of its people stand near. Sends the nearest free colonist to work on it and make it ours. To choose who, select a colonist and right-click the vehicle.</PhobosVehicleSystems_ClaimButtonDesc>
+  <PhobosFireFighting_LeakCaught>Fuel leaking from {VEHICLE} has caught: fire is spreading on the ground beneath it.</PhobosFireFighting_LeakCaught>
 </LanguageData>

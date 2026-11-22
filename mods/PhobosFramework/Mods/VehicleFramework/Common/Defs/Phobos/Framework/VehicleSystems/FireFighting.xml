@@ -63,6 +63,13 @@
          under Combat Extended, about what stops rifle fire. A vehicle may be marked in or out by Phobos.VehicleSystems.PhobosFittedEquipmentExtension. -->
     <armouredFrom>0.8</armouredFrom>
     <armouredFromCombatExtended>8</armouredFromCombatExtended>
+    <!-- A leaking tank feeds the fire (Framework 0.245.0, vehicle-fire.md FR4; a setting, off). While a vehicle burns and Vehicle
+         Framework's leak runs with fuel in the tank, the leak catches beneath it about three times an hour at full fire (about once in
+         three rare ticks), each time a ground fire of 0.6 that burns by the game's rules, taking 2 units of fuel. All authored: a pool fire
+         under a vehicle is what makes a real vehicle fire grow and spread (the record's sources, UN ECE R34 and SwRI). -->
+    <leakCatchesPerHour>3</leakCatchesPerHour>
+    <leakFireSize>0.6</leakFireSize>
+    <leakFuelPerPool>2</leakFuelPerPool>
   </Phobos.VehicleSystems.PhobosFireFightingRulesDef>
 
   <JobDef>

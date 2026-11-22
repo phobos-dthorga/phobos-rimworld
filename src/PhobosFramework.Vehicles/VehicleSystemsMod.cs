@@ -155,6 +155,9 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>The player's crews get out of a burning vehicle by themselves once it stops (Framework 0.245.0, vehicle-fire.md FR8; the owner's
     /// card of 23 Nov 2026). Risk low, the agent's grade (it saves people; a crew may leave a gun it was firing): on. Live.</summary>
     public bool playerCrewsBailOut = true;
+    /// <summary>A burning vehicle's leaking fuel tank catches as a pool of fire beneath it (Framework 0.245.0, vehicle-fire.md FR4; the owner's
+    /// card of 23 Nov 2026). Risk high, the agent's grade (a spreading ground fire can take people and other vehicles nearby): off. Live.</summary>
+    public bool fuelFeedsFire;
     /// <summary>Spall inside vehicles (Framework 0.207.0; docs/development/vehicle-spall.md): a round that beats an outer plate of the rifle
     /// class or heavier throws debris into the compartment behind it, wounding the crew and holing inner parts there. Combat Extended only.
     /// The owner graded its risk moderate (21 Nov 2026), so it starts on. Live.</summary>
@@ -268,6 +271,7 @@ public class VehicleSystemsSettings : ModSettings
         "fireWearOthers" => fireWearOthers,
         "fireWearUnderFireproof" => fireWearUnderFireproof,
         "playerCrewsBailOut" => playerCrewsBailOut,
+        "fuelFeedsFire" => fuelFeedsFire,
         "spallInsideVehicles" => spallInsideVehicles,
         "vehicleGlass" => vehicleGlass,
         "glassSplinters" => glassSplinters,
@@ -345,6 +349,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref fireWearOthers, "PhobosVehicleSystems_FireWearOthers", true);
         Scribe_Values.Look(ref fireWearUnderFireproof, "PhobosVehicleSystems_FireWearUnderFireproof", true);
         Scribe_Values.Look(ref playerCrewsBailOut, "PhobosVehicleSystems_PlayerCrewsBailOut", true);
+        Scribe_Values.Look(ref fuelFeedsFire, "PhobosVehicleSystems_FuelFeedsFire", false);
         Scribe_Values.Look(ref spallInsideVehicles, "PhobosVehicleSystems_SpallInsideVehicles", true);
         Scribe_Values.Look(ref vehicleGlass, "PhobosVehicleSystems_VehicleGlass", true);
         Scribe_Values.Look(ref glassSplinters, "PhobosVehicleSystems_GlassSplinters", true);
@@ -445,6 +450,7 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.fireWearOthers) report.Off("fire wearing other factions' vehicles", "off (setting)");
         if (!Settings.fireWearUnderFireproof) report.Off("ground fire wearing fireproof vehicles' soft parts", "off (setting)");
         if (!Settings.playerCrewsBailOut) report.Off("your crews leaving a burning vehicle", "off (setting)");
+        if (Settings.fuelFeedsFire) report.On("leaking fuel feeding vehicle fires (setting)");
         else if (!CookOff.AmmoSystemOn) report.Off("ammunition cook-off", "Combat Extended's ammunition is not in use");
         if (!Settings.spallInsideVehicles) report.Off("spall inside vehicles", "off (setting)");
         else if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) report.Off("spall inside vehicles", "needs Combat Extended");
@@ -624,6 +630,7 @@ public class VehicleSystemsMod : SettingsBookMod
             "PhobosVehicleSystems_SettingFireWearUnderFireproofDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingPlayerCrewsBailOut".Translate(), ref s.playerCrewsBailOut, d.playerCrewsBailOut,
             "PhobosVehicleSystems_SettingPlayerCrewsBailOutDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingFuelFeedsFire".Translate(), ref s.fuelFeedsFire, d.fuelFeedsFire, "PhobosVehicleSystems_SettingFuelFeedsFireDesc".Translate());
         list.Section("PhobosVehicleSystems_SectionSpall".Translate());
         list.Check("PhobosVehicleSystems_SettingSpall".Translate(), ref s.spallInsideVehicles, d.spallInsideVehicles, "PhobosVehicleSystems_SettingSpallDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingGlass".Translate(), ref s.vehicleGlass, d.vehicleGlass, "PhobosVehicleSystems_SettingGlassDesc".Translate());

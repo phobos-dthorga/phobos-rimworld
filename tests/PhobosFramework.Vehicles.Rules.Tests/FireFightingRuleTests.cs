@@ -73,4 +73,14 @@ public class FireFightingRuleTests
         Assert.False(FireFightingRule.Armoured(12, 8, false));
         Assert.True(FireFightingRule.Armoured(0, 8, true));
     }
+
+    [Fact]
+    public void AChanceGrowsWithTimeAndNeverPassesOne()
+    {
+        Assert.Equal(0, FireFightingRule.ChanceIn(0, 1));
+        Assert.Equal(0, FireFightingRule.ChanceIn(3, 0));
+        Assert.Equal(1 - System.Math.Exp(-0.3), FireFightingRule.ChanceIn(3, 0.1), 9);
+        Assert.True(FireFightingRule.ChanceIn(3, 0.2) > FireFightingRule.ChanceIn(3, 0.1));
+        Assert.True(FireFightingRule.ChanceIn(1000, 10) <= 1);
+    }
 }

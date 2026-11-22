@@ -871,6 +871,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 Beams.Update();
                 CookOff.RareTick(this);
                 FireWear.RareTick(this, lite: false);
+                // A leaking tank feeds the fire (Framework 0.245.0, FR4; a setting, off): read only while the vehicle burns.
+                LeakFire.RareTick(this);
                 // Fire zones, their spread and the suppression systems (Framework 0.241.0, FR10): read only while the vehicle burns.
                 if (Vehicle.GetComp<CompPhobosFireFighting>() is { } fireFighting) FireFighting.Look(fireFighting);
                 // The player's crew leaves a burning vehicle once it stops (Framework 0.245.0, FR8; a setting): after suppression has had its go.
@@ -893,6 +895,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 CookOff.RareTick(this);
                 // Fire wears another faction's vehicle as it does the player's (Framework 0.221.0, FR6; a setting).
                 FireWear.RareTick(this, lite: true);
+                LeakFire.RareTick(this);
                 // Any faction's vehicle with suppression fitted puts its fire out (Framework 0.241.0, FR10).
                 if (Vehicle.GetComp<CompPhobosFireFighting>() is { } fireFightingLite) FireFighting.Look(fireFightingLite);
                 // Another faction's crew leaves a burning vehicle or a dead hull (Framework 0.115.0, C2).

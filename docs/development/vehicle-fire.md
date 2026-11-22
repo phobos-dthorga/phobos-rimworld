@@ -148,7 +148,7 @@ Every row is unbuilt. Verdicts are the agent's recommendations **[A]**: **Take**
 | **FR1** | **See a fire on a vehicle.** One helper of ours, a vehicle burning when a fire is attached to it or under it, used by the six checks | The game's helper misses attached fires on anything larger than a cell | A tanker's valve opens in a fire; sleepers wake; service jobs keep clear | Sleeping through a truck fire | Nothing new to learn; things behave as they say | Small. **Take**: it is a fault in our code |
 | **FR2** | **Fire wear by the fire's size**, as the comments always said | Wear starts at any fire and runs at its full rate | A small fire put out quickly costs little | Losing a radiator to a spark | Fighting a fire early pays | Small. **Take** |
 | **FR3** | **More parts burn**: fuel tank, hydraulic lines, belts, brakes and the cab's fittings, by their roles; wiring through the shorted-wiring condition, since there is no wiring role | Our roles and conditions exist; the US statistics put wiring and fluids first | A long fire ruins a vehicle | A burnt-out truck needing only a radiator | Fire is costly enough to prevent | Small to medium. **Take** |
-| **FR4** | **A tank that leaks in a fire**: heat holes a fuel tank, and the leak feeds the fire | Vehicle Framework's leak already drops a flammable puddle under Combat Extended | A fire that grows from a burning vehicle | — | Fuel tanks are what makes a vehicle fire dangerous | Small. **Idea** |
+| **FR4** | **A tank that leaks in a fire**: heat holes a fuel tank, and the leak feeds the fire | Vehicle Framework's leak already drops a flammable puddle under Combat Extended | A fire that grows from a burning vehicle | — | Fuel tanks are what makes a vehicle fire dangerous | **Built: Framework 0.245.0**, a setting, off |
 | **FR5** | **Ground fire burns a vehicle that cannot catch**: a vehicle at flammability 0 standing in fire still has its tyres and soft parts worn | A quarter of the list never catches; its tyres would still burn | Fire matters to tanks and trains too | Driving a tank through a burning field unharmed | Tracks and tyres need watching near fire | Small. **Idea**: the owner's call, since it changes other authors' vehicles |
 | **FR6** | **Other factions' vehicles burn too**: fire wear in the lite tier | The lite tier runs only cook-off and bail-out | Burn out a raider's truck | Raiders' vehicles being fireproof | Incendiaries are a real tool against vehicles | Small. **Take**, cheap: one wear step on the rare tick |
 | **FR7** | **Smoke and heat in the cab**: the people aboard choke and overheat in a burning vehicle | Knocked-out row C3 and hotboxing's cab air; D'thorga Medical's smoke needs people on the map | Lose a crew to a fire | Sitting in a burning cab | Getting out of a burning vehicle matters | **Waiting** on the cab-air model (the owner's answer of 20 Nov 2026) |
@@ -175,7 +175,7 @@ Grades are the agent's proposals **[A]** until the owner confirms them.
 | --- | --- | --- | --- |
 | FR1 (seeing the fire) | Nothing: it makes things behave as they claim | None: a fix | Always on |
 | FR2, FR3 (wear by size, more parts) | Parts, over minutes, with the fire visible | Moderate | On, under the existing fire wear |
-| FR4 (a leaking tank feeds the fire) | A vehicle, faster | Moderate to high | Its own setting; the owner to grade |
+| FR4 (a leaking tank feeds the fire) | A vehicle, faster; people and vehicles near, by a spreading ground fire | High, the agent's grade (23 Nov 2026) | Its own setting, off (built 0.245.0) |
 | FR5, FR6 (fireproof vehicles and raiders' vehicles burn) | Parts of tanks and trains | Moderate | On, each with a setting |
 | FR8 (crews get out by themselves) | Nothing; it saves people. A crew may leave a gun it was firing | Low | On (built 0.245.0) |
 | FR11 (tyres burst) | People near a burning vehicle | High | Off by the rule |
@@ -338,6 +338,14 @@ grades and defaults below are the agent's, by the designs rule (on, unless high 
   fire's heat, so the open cab reaches the sealed cab's heat (about 40 degrees C above the air at full fire) nine times as fast [A]. No
   setting of its own: it follows **Vehicles have glass**, which already switches every effect of the glass, and it only hastens a heat
   the cab already took [A]. **Outside the vehicle:** the crew's heat, read by the game for everyone aboard.
+- **FR4, a leaking tank feeds the fire** (`LeakFire`, on both tiers' rare tick; figures on the fire rules): the fire already wears the
+  fuel tank role (FR3), and Vehicle Framework already leaks from a tank part worn below its own threshold (`Reactor_FuelLeak`). While a
+  vehicle burns and that leak runs with fuel in the tank, the leak catches beneath it about three times an hour at full fire, scaled by
+  the fire's size: a ground fire of 0.6 on a random cell under the vehicle, taking 2 units of fuel [A]. The game's own fire rules then
+  spread it and let it relight the vehicle. Any faction's vehicle. Setting **Leaking fuel feeds a vehicle fire**, **off**: risk high
+  [A], since a spreading ground fire can take people and other vehicles near, and the player cannot stop the leak once it runs.
+  **Not read:** whether every loadout's fuel tank role is the part carrying Vehicle Framework's leak reactor; where it is not, the tank
+  wears in a fire but never leaks, and nothing catches. **Outside the vehicle:** a message, the ground fire, and anyone in its way.
 - **FR13, a burnt-out hull** (`VehicleHulls`, `SalvageRule.BurntShare`): a vehicle that dies with a fire on it or under it leaves a hull
   marked burnt out (saved on the hull, `PhobosHull_BurntOut`): named "burnt-out", and giving half the salvaged parts, an eighth of the
   vehicle's worth instead of a quarter [A]: a fire takes the rubber, wiring, seals, glass and plastics, and softens springs and castings.

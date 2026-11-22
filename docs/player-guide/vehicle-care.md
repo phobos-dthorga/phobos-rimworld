@@ -177,6 +177,9 @@ left on still run the battery down.
   way to stop a raider's truck.
 - **Some vehicles never catch fire** (tanks and trains among them, as their makers built them), but **a ground fire under one still burns
   its tyres or tracks, belts and hoses** (the setting **Fire underneath burns fireproof vehicles' tyres and hoses**, on by default).
+- **Leaking fuel can feed the fire** (the setting **Leaking fuel feeds a vehicle fire**, **off by default**): with it on, once the fire
+  has worn the fuel tank into leaking, the fuel catches as a **pool of fire on the ground** beneath the vehicle, which spreads and can
+  set it alight again after an extinguisher. Keep people and other vehicles clear. Not yet tested in game: row 398.
 - **Firefoam works on a burning vehicle with Combat Extended**: foam that lands on the vehicle now shrinks the fire on it, as it does
   without Combat Extended. Not yet tested in game: row 340 of the test pass.
 - **A fire starts somewhere and spreads**: in the engine bay (most fires, and any hit on the engine, fuel or wiring), the crew compartment
