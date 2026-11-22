@@ -47,6 +47,23 @@ class EdgeCheckTests(unittest.TestCase):
         self.assertEqual(m['specks'], 2)
         self.assertFalse(edge_check.flagged(m))
 
+    def test_a_loose_thin_stroke_flags_but_a_thick_part_does_not(self):
+        im = Image.new('RGBA', (128, 128), (0, 0, 0, 0))
+        d = ImageDraw.Draw(im)
+        d.rectangle((30, 30, 97, 97), fill=(120, 110, 90, 255))
+        d.line((10, 110, 40, 110), fill=(20, 20, 20, 255), width=2)  # a ghost outline, apart from the shape
+        stroke = Path(self.dir.name) / 'stroke.png'
+        im.save(stroke)
+        m = edge_check.measure(stroke)
+        self.assertEqual((m['strokes'], m['specks']), (1, 0))
+        self.assertTrue(edge_check.flagged(m))
+        part = Path(self.dir.name) / 'part.png'
+        im2 = Image.new('RGBA', (128, 128), (0, 0, 0, 0))
+        ImageDraw.Draw(im2).rectangle((30, 30, 97, 97), fill=(120, 110, 90, 255))
+        ImageDraw.Draw(im2).rectangle((5, 105, 25, 120), fill=(120, 110, 90, 255))  # a second part with a body of its own
+        im2.save(part)
+        self.assertEqual(edge_check.measure(part)['strokes'], 0)
+
     def test_haze_is_counted_and_shown_but_never_flags(self):
         m = edge_check.measure(picture(self.dir.name, 'haze.png', haze=True))
         self.assertGreater(m['haze'], 0)

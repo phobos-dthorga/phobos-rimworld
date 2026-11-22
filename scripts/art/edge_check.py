@@ -8,8 +8,10 @@ The owner's review of 22 Nov 2026 found roof tents with parts "scrubbed out" and
 pieces of whatever they were cut from, a few pixels each, lying loose beside the picture. The game draws them at full size, so the owner
 sees them. This check counts such pieces: little islands of solid pixels, separate from everything else (8-connected), no bigger than
 SPECK_MOST pixels. A clean cut-out has none or one or two (a rivet, a lamp's glint); a fringe has dozens. A picture with at least
-SPECKS_FLAG of them is flagged. Pillow only: islands are searched from the pixels in sparse neighbourhoods, so a big picture costs little,
-and each file's answer is kept by its SHA-256 in the shared tools' cache, so the gate reads only new or changed pictures.
+SPECKS_FLAG of them is flagged. It also counts loose strokes: bigger islands, but a line a pixel or two thick and small beside the
+picture, as the armour kits' ghost outlines were (22 Nov 2026); one flags the picture. Islands are labelled with scipy (the owner
+installed numpy and scipy on 23 Nov 2026, BSD licences), every picture in seconds, and each file's answer is kept by its SHA-256 in
+the shared tools' cache, so the gate reads only new or changed pictures.
 
 Pictures the owner has seen and kept (sparks, rain, a scatter of rubble drawn on purpose) are listed in config/edge-check.json with why.
 Game-free apart from where it looks (mods/**/Textures): a next game names its own texture folders.
@@ -21,10 +23,11 @@ import fnmatch
 import hashlib
 import json
 import sys
-from collections import deque
 from pathlib import Path
 
-from PIL import Image, ImageFilter
+import numpy as np
+from PIL import Image
+from scipy import ndimage
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import _modkit  # noqa: E402  (the shared tools' import path)
@@ -33,20 +36,23 @@ from phobos_modkit import cache  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 ACCEPTED = ROOT / 'config' / 'edge-check.json'
+EIGHT = np.ones((3, 3), bool)  # islands are 8-connected
 SOLID = 96            # alpha at or above this counts as part of the picture
-SPARSE = 12           # a pixel with this many or fewer solid pixels in its 5 x 5 neighbourhood may belong to a speck
 SPECK_MOST = 24       # an island of at most this many pixels is a speck
 SPECKS_FLAG = 6       # this many specks or more flags the picture
+THIN = 0.15           # an island bigger than a speck that keeps no more than this share of itself through a 3 x 3 opening is a stroke...
+STROKE_SHARE = 0.02   # ...when it is also no more than this share of the picture's solid pixels (never the picture itself)
+STROKES_FLAG = 1      # one loose stroke flags the picture: the armour kits' ghost outlines were two to four (22 Nov 2026)
 FAINT = 8             # alpha from this up to SOLID is faint: a soft edge's own pixels, or haze
 HAZE_REACH = 2        # a faint pixel more than this many pixels from any solid one is haze, not a soft edge
 HAZE_FLAG = 60        # this many haze pixels or more is worth a look (shown by --list, never a failure)...
 HAZE_SHARE = 0.004    # ...when they are also at least this share of the solid pixels
-VERSION = 2           # raise when the figures above change, so cached answers are worked out again
+VERSION = 3           # raise when the figures above change, so cached answers are worked out again
 
 
 def flagged(m: dict) -> bool:
-    """Loose specks flag a picture. Haze is shown, never flagged: glass, a lamp's glow and a landing pad are faint on purpose."""
-    return m['specks'] >= SPECKS_FLAG
+    """Loose specks or a loose stroke flag a picture. Haze is shown, never flagged: glass, a lamp's glow and a landing pad are faint on purpose."""
+    return m['specks'] >= SPECKS_FLAG or m.get('strokes', 0) >= STROKES_FLAG
 
 
 def hazy(m: dict) -> bool:
@@ -54,54 +60,30 @@ def hazy(m: dict) -> bool:
 
 
 def describe(m: dict) -> str:
-    return f"{m['specks']:4} specks ({m['speck_pixels']} px), {m['haze']:5} haze px"
+    return f"{m['specks']:4} specks ({m['speck_pixels']} px), {m.get('strokes', 0):2} strokes ({m.get('stroke_pixels', 0)} px), {m['haze']:5} haze px"
 
 
 def measure(path: Path) -> dict:
-    """The picture's specks (islands of at most SPECK_MOST solid pixels) and its haze (faint pixels far from any solid one)."""
+    """The picture's specks (islands of at most SPECK_MOST solid pixels), its loose strokes (bigger islands, but thin and small beside
+    the picture) and its haze (faint pixels far from any solid one)."""
     with Image.open(path) as im:
         if im.mode not in ('RGBA', 'LA', 'PA') and 'transparency' not in im.info:
-            return {'specks': 0, 'speck_pixels': 0, 'haze': 0, 'solid': 0, 'opaque': True}
-        alpha = im.convert('RGBA').getchannel('A')
-    width, height = alpha.size
-    solid = alpha.point(lambda a: 255 if a >= SOLID else 0)
+            return {'specks': 0, 'speck_pixels': 0, 'strokes': 0, 'stroke_pixels': 0, 'haze': 0, 'solid': 0, 'opaque': True}
+        alpha = np.asarray(im.convert('RGBA').getchannel('A'))
+    solid = alpha >= SOLID
+    labels, count = ndimage.label(solid, structure=EIGHT)
+    sizes = np.bincount(labels.ravel(), minlength=count + 1)
+    sizes[0] = 0
+    total = int(sizes.sum())
+    specks = (sizes > 0) & (sizes <= SPECK_MOST)
+    # What of each island survives a 3 x 3 opening: almost nothing of a line two pixels thick, most of a part with any body.
+    kept = np.bincount(labels[ndimage.binary_opening(solid, structure=EIGHT)].ravel(), minlength=count + 1)
+    strokes = (sizes > SPECK_MOST) & (sizes <= STROKE_SHARE * total) & (kept <= THIN * sizes)
     # Haze: faint pixels beyond a soft edge's reach of every solid pixel (a fringe left beside a cut-out, a smear of background).
-    reach = solid.filter(ImageFilter.MaxFilter(2 * HAZE_REACH + 1)).tobytes()
-    haze = sum(1 for a, r in zip(alpha.tobytes(), reach) if FAINT <= a < SOLID and not r)
-    density = solid.filter(ImageFilter.BoxBlur(2))
-    mask = solid.tobytes()
-    near = density.tobytes()
-    limit = 255 * SPARSE // 25
-    seen = bytearray(width * height)
-    specks = 0
-    speck_pixels = 0
-    for start, (m, d) in enumerate(zip(mask, near)):
-        if not m or d > limit or seen[start]:
-            continue
-        # Walk this island, but no further than a speck can be: a bigger island is part of the picture.
-        queue = deque([start])
-        seen[start] = 1
-        size = 0
-        while queue and size <= SPECK_MOST:
-            here = queue.popleft()
-            size += 1
-            y, x = divmod(here, width)
-            for dy in (-1, 0, 1):
-                ny = y + dy
-                if ny < 0 or ny >= height:
-                    continue
-                row = ny * width
-                for dx in (-1, 0, 1):
-                    nx = x + dx
-                    if (dy or dx) and 0 <= nx < width:
-                        other = row + nx
-                        if mask[other] and not seen[other]:
-                            seen[other] = 1
-                            queue.append(other)
-        if size <= SPECK_MOST and not queue:
-            specks += 1
-            speck_pixels += size
-    return {'specks': specks, 'speck_pixels': speck_pixels, 'haze': haze, 'solid': sum(1 for m in mask if m), 'opaque': False}
+    reach = ndimage.binary_dilation(solid, structure=np.ones((2 * HAZE_REACH + 1,) * 2, bool))
+    haze = int(((alpha >= FAINT) & (alpha < SOLID) & ~reach).sum())
+    return {'specks': int(specks.sum()), 'speck_pixels': int(sizes[specks].sum()), 'strokes': int(strokes.sum()),
+            'stroke_pixels': int(sizes[strokes].sum()), 'haze': haze, 'solid': total, 'opaque': False}
 
 
 def measured(path: Path, store: dict) -> dict:

@@ -48,8 +48,8 @@ standing rules for every picture and sound the mods ship or the tools generate. 
   hid ragged edges): `sprites REQUEST.json` exports every attempt as it would ship and shows it at three times without smoothing and at
   actual size, on soil and stone; `overlays --vehicle Folder/Name --candidate LABEL=PATH` lays exported gear on the vehicle, tinted in
   its own colours and repainted. Never show the owner a card from a raw original or a smoothed enlargement alone.
-- **`python scripts/art/edge_check.py check` finds loose specks round shipped pictures** (part of the gate; `scan PATH` for any
-  picture): crumbs left from a cut-out. A flagged picture is fixed, or, when its specks are drawn on purpose (damage marks, frost,
+- **`python scripts/art/edge_check.py check` finds loose specks and loose strokes round shipped pictures** (part of the gate; `scan
+  PATH` for any picture): crumbs and ghost outlines left from a cut-out. A flagged picture is fixed, or, when its specks are drawn on purpose (damage marks, frost,
   spilled seeds), listed under `accepted` in `config/edge-check.json` with why; a real fault waiting to be fixed goes under `known`.
   It cannot see a fringe still joined to the picture or a part scrubbed away: the cards are for those.
 - **Paid generation follows `docs/development/paid-image-generation-rules.md`** (owner, 8 Nov 2026: the OpenAI image API
