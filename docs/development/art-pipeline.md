@@ -16,6 +16,13 @@ safeguards, the models, the owner's first picks, style training, the vanilla spr
 - **Every generated image goes to an art branch** unless it is truly fugly, byte for byte with its record; a near-copy stays local.
 - **The background AI looks at every picture before any export**, and a vehicle is judged tinted on dark ground, never raw.
 - **Text is never generated.** A Workshop preview's names are added by script.
+- **The owner picks on D'thorga Companion's Picks page** (the owner's choices of 23 Nov 2026: picks come from a file the repository
+  keeps, and a pick is kept as an answer): `review_cards.py sprites` offers each card's tries there as it draws them (`--no-offer`
+  draws cards only), and `sound_review.py --offer` offers each sound not yet picked, its levelled review copies as the tries. They go
+  into `config/picks.json` (ignored: it names files in the art work folder) through `scripts/art/art_picks.py` and phobos-modkit's
+  `picks`. **Apply an answer, then settle it**: export the chosen try, record it as usual, and run
+  `python -m phobos_modkit picks settle --root . --id ID` (from `external/phobos-modkit/python`, with `--root ../../..`); the
+  answers are read with `picks list`. Cards in a conversation stay for when the Companion is not at hand.
 
 ## Routes in use
 

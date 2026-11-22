@@ -27,6 +27,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import art_paths  # noqa: E402
+import art_picks  # noqa: E402
 import edge_check  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -66,14 +67,19 @@ def export(original: Path, out: Path, size: int, aspect: str) -> Path:
     return out
 
 
+def edge_note(path: Path) -> str:
+    """The edge check's figures for one export, in words: on its card, and as its try's note on the Companion's Picks page."""
+    m = edge_check.measure(path)
+    return f"{m['specks']} loose specks" + (' (flagged)' if edge_check.flagged(m) else '') + (', haze worth a look' if edge_check.hazy(m) else '')
+
+
 def sprite_card(title: str, exports: list[tuple[str, Path]], out: Path) -> None:
     f, small = font(26), font(18)
     columns = []
     for label, path in exports:
         pic = Image.open(path).convert('RGBA')
         big = pic.resize((pic.width * 3, pic.height * 3), Image.NEAREST)
-        m = edge_check.measure(path)
-        note = f"{m['specks']} loose specks" + (' (flagged)' if edge_check.flagged(m) else '') + (', haze worth a look' if edge_check.hazy(m) else '')
+        note = edge_note(path)
         width = big.width * 2 + 30
         col = Image.new('RGBA', (width, big.height + pic.height + 90), BACK)
         d = ImageDraw.Draw(col)
@@ -117,6 +123,12 @@ def sprites(args) -> int:
         out = folder / f"{n:02d}-{entry['name']}.png"
         sprite_card(f"{entry['name']}: {' or '.join(l for l, _ in exports)} (x3 above, actual size below; soil and stone)", exports, out)
         print(out)
+        if not args.no_offer:
+            # The same tries, offered on the Companion's Picks page (the owner's choice of 23 Nov 2026): the exports, as shipped.
+            art_picks.offer(entry['name'], entry.get('title') or entry['name'], 'picture',
+                            [(label, f'Try {label}', path, edge_note(path)) for label, path in exports],
+                            in_use=entry.get('target'), source=request_file.relative_to(ROOT).as_posix()
+                            if request_file.is_relative_to(ROOT) else str(request_file))
     return 0
 
 
@@ -198,6 +210,7 @@ def main(argv=None) -> int:
     s.add_argument('--only', help='one request by name')
     s.add_argument('--size', type=int, default=128, help='pixels along the shorter side, as shipped')
     s.add_argument('--aspect', default='1:1')
+    s.add_argument('--no-offer', action='store_true', help="draw the cards only, offering no pick on the Companion's Picks page")
     o = sub.add_parser('overlays', help='candidate pictures drawn on one of our vehicles')
     o.add_argument('--vehicle', required=True, help='texture folder and name, e.g. Tipper/Tipper or FieldKitchen/BillyFieldKitchen')
     o.add_argument('--candidate', action='append', required=True, help='LABEL=path to the exported ..._north.png')

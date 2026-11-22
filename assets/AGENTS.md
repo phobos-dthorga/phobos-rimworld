@@ -47,7 +47,9 @@ standing rules for every picture and sound the mods ship or the tools generate. 
 - **Draw the owner's picture cards with `python scripts/art/review_cards.py`** (owner's yes, 22 Nov 2026, after cards drawn by hand
   hid ragged edges): `sprites REQUEST.json` exports every attempt as it would ship and shows it at three times without smoothing and at
   actual size, on soil and stone; `overlays --vehicle Folder/Name --candidate LABEL=PATH` lays exported gear on the vehicle, tinted in
-  its own colours and repainted. Never show the owner a card from a raw original or a smoothed enlargement alone.
+  its own colours and repainted. Never show the owner a card from a raw original or a smoothed enlargement alone. **Its tries are
+  offered on D'thorga Companion's Picks page too** (the owner's choice of 23 Nov 2026), as are a listening page's sounds with
+  `sound_review.py --offer`: the owner picks there, and a session applies the pick and settles it (`docs/development/art-pipeline.md`).
 - **`python scripts/art/edge_check.py check` finds loose specks, loose strokes and pale fringes round shipped pictures** (part of the
   gate; `scan PATH` for any picture): crumbs, ghost outlines and white background left on by a cut-out. A flagged picture is fixed,
   or, when its marks are drawn on purpose (damage marks, frost, spilled seeds, a white icon), listed under `accepted` in

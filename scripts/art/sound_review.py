@@ -678,8 +678,42 @@ def review_order(measure):
     return (2 if serious else 1 if codes else 0, serious * 10 + len(codes))
 
 
-def build(generated, force=False, octaves=LOWERED_OCTAVES):
-    """Prepare every candidate under the generated folder and write the page. Returns the number that failed."""
+def picked_candidates(generated):
+    """The candidates already picked, from the asset set's picks.json beside generated/ ("folder/file.flac"); empty without one."""
+    path = Path(generated).parent / 'picks.json'
+    try:
+        data = json.loads(path.read_text(encoding='utf-8'))
+    except (OSError, ValueError):
+        return set()
+    return {p.get('candidate', '') for p in data.get('picks', []) if isinstance(p, dict)}
+
+
+def offer_picks(generated, folders, root=None):
+    """Offers each sound not yet picked on the Companion's Picks page (the owner's choice of 23 Nov 2026): its review copies, all
+    levelled to the same loudness, with each one's flags as its note."""
+    import art_picks  # noqa: PLC0415  (only when offering: it reaches the shared tools)
+    picked = picked_candidates(generated)
+    for folder in folders:
+        masters = sorted(folder.glob('*' + MASTER_SUFFIX))
+        if any(f'{folder.name}/{m.name}' in picked for m in masters):
+            continue
+        tries = []
+        for master in masters:
+            review = outputs_for(master)['review']
+            if not review.is_file():
+                continue
+            measure_file = outputs_for(master)['measure']
+            measure = json.loads(measure_file.read_text(encoding='utf-8')) if measure_file.is_file() else {}
+            label = master.stem.rsplit('-', 1)[-1]
+            tries.append((label, f'Try {label}', review, ', '.join(key for key, _ in flags_for(measure)) or 'no flags'))
+        if tries:
+            art_picks.offer(folder.name, folder.name, 'sound', tries, source=f'{Path(generated).name}/{folder.name}',
+                            root=root or art_picks.ROOT)
+
+
+def build(generated, force=False, octaves=LOWERED_OCTAVES, offer=False):
+    """Prepare every candidate under the generated folder and write the page; with offer, offer each sound not yet picked on the
+    Companion's Picks page. Returns the number that failed."""
     generated = Path(generated).resolve()
     exe = find_ffmpeg()
     if exe is None:
@@ -711,6 +745,8 @@ def build(generated, force=False, octaves=LOWERED_OCTAVES):
     (generated / 'sound-review.html').write_text(page, encoding='utf-8')
     (generated / 'sound-review.json').write_text(json.dumps(summary, indent=2), encoding='utf-8')
     print(f'wrote {generated / "sound-review.html"} ({sum(len(list(f.glob("*" + MASTER_SUFFIX))) for f in folders)} sounds, {failures} failed)')
+    if offer:
+        offer_picks(generated, folders)
     return failures
 
 
@@ -719,9 +755,10 @@ def main(argv=None):
     parser.add_argument('generated', help='the generated folder of one asset set')
     parser.add_argument('--force', action='store_true', help='remake every review file, even ones newer than their master')
     parser.add_argument('--octaves', type=int, choices=(1, 2, 3), default=LOWERED_OCTAVES, help='how far the lowered copy moves the highs down')
+    parser.add_argument('--offer', action='store_true', help="offer each sound not yet picked on the Companion's Picks page")
     args = parser.parse_args(argv)
     try:
-        failures = build(args.generated, args.force, args.octaves)
+        failures = build(args.generated, args.force, args.octaves, args.offer)
     except RuntimeError as error:
         print(error, file=sys.stderr)
         return 2

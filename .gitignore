@@ -47,3 +47,7 @@ Thumbs.db
 # Claude Code session scratchpad, including nested git worktrees.
 /.claude/
 *.stackdump
+
+# The picks waiting on D'thorga Companion's Picks page (scripts/art/art_picks.py): it names tries in the art work folder on
+# this PC, so it stays here.
+config/picks.json
