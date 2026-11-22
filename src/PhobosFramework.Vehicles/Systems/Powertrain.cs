@@ -291,6 +291,9 @@ public sealed class Powertrain
     /// <summary>Heat as a share of full-load heat, the unit the cooling system's flows were calibrated in.</summary>
     public double HeatShare => Result.HeatKw / fullLoadHeatKw;
 
+    /// <summary>The heat into the coolant at full load, kW (Framework 0.243.0: what the heater core's draw is set against).</summary>
+    public double FullLoadHeatKw => fullLoadHeatKw;
+
     public void MarkMassDirty() => massTick = -1;
 
     /// <summary>
@@ -456,6 +459,9 @@ public sealed class Powertrain
             PowerLoss = 1 - comp.EnginePowerFactor * comp.AirPowerFactor,
             // The engine-load ledger (Framework 0.131.0): what the engine was giving to other things at the last look.
             AccessoryKw = running ? comp.LedgerExtraKw : 0,
+            // Framework 0.243.0: idle-up under those loads.
+            IdleUpShare = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().idleUpShare,
+            IdleUpAtLoadShare = PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().idleUpAtLoadShare,
         };
         Vehicles.World.VehicleCaravan? caravan = vehicle.GetVehicleCaravan();
         if (vehicle.Spawned && vehicle.vehiclePather != null && vehicle.vehiclePather.Moving)
@@ -484,6 +490,10 @@ public sealed class Powertrain
             if (vehicle.Spawned) lastPosition = vehicle.Position.ToVector3Shifted();
         }
         Result = DrivetrainModel.Evaluate(Spec, conditions);
+        if (running && conditions.Speed <= 0 && Result.Rpm > Spec.IdleRpm + 1 && Seen.Wants("vehicles.idle-up", vehicle))
+        {
+            Seen.Note("vehicles.idle-up", vehicle, ((int)Spec.IdleRpm) + " to " + ((int)Result.Rpm) + " rpm");
+        }
         Cap = conditions.Speed > 0 ? DrivetrainModel.SmoothCap(Cap, Result.Cap) : 1;
         if (VehicleSystemsMod.DriveLog.DebugEnabled) LogDrive(vehicle, conditions);
         if (Turbine != null)

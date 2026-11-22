@@ -120,6 +120,10 @@ public struct DriveConditions
     /// an air conditioner, a pump. It comes off what is left for driving at every speed. The standing set a rated figure already
     /// includes (a water pump) is not counted here.</summary>
     public double AccessoryKw;
+    /// <summary>Idle-up (Framework 0.243.0): standing, the engine idles faster by up to this share of its idle once <see cref="AccessoryKw"/>
+    /// reaches <see cref="IdleUpAtLoadShare"/> of rated power (ShaftLoadRule.IdleRpm). 0: a plain idle.</summary>
+    public double IdleUpShare;
+    public double IdleUpAtLoadShare;
 }
 
 /// <summary>What the model works out from a sample. Derived, never saved.</summary>
@@ -209,7 +213,7 @@ public static class DrivetrainModel
         }
         if (spec.Transmission == TransmissionKind.None || c.Speed <= 0.05)
         {
-            Idle(spec, ref result);
+            Idle(spec, c, ref result);
             return result;
         }
         double speed = c.Speed;
@@ -340,9 +344,13 @@ public static class DrivetrainModel
     public static double TractionMotorLoad(DrivetrainSpec spec, double tractiveForceN) =>
         spec.ContinuousTractiveEffortN > 0 ? Math.Max(0, tractiveForceN) / spec.ContinuousTractiveEffortN : 0;
 
-    static void Idle(DrivetrainSpec spec, ref DriveResult result)
+    static void Idle(DrivetrainSpec spec, in DriveConditions c, ref DriveResult result)
     {
-        result.Rpm = spec.Engine == EngineKind.Electric ? 0 : spec.IdleRpm;
+        // Framework 0.243.0: the engine's control lifts idle under the loads it drives (idle-up), so a running air conditioner or a battery
+        // being refilled is heard and paid for standing still. Turbines keep their own idle (their fuel floor is a share, not friction).
+        result.Rpm = spec.Engine == EngineKind.Electric ? 0
+            : spec.IdleFuelShare > 0 ? spec.IdleRpm
+            : ShaftLoadRule.IdleRpm(spec.IdleRpm, c.AccessoryKw, spec.RatedPowerKw, c.IdleUpShare, c.IdleUpAtLoadShare);
         result.Gear = 0;
         result.Load = 0;
         result.EnginePowerKw = 0;

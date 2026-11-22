@@ -497,6 +497,10 @@ public class ElectricalLoadSpec
     /// <summary>A camp load (Framework 0.129.0, vehicle accessories: the fridge, the power outlet): with a house battery fitted it draws on that
     /// battery and never the starting battery, and its low-voltage cut-off stops it instead of the shedding order.</summary>
     public bool campLoad;
+    /// <summary>A standing load of a running engine (Framework 0.243.0: its control, injectors, fuel pump and ignition), which a rated power
+    /// and the vehicle author's fuel rate already allow for: the alternator's work for it is counted in the nominal cruise and takes nothing
+    /// off driving, as the water pump's does.</summary>
+    public bool baseline;
     /// <summary>Multiplied together with <see cref="amps"/> to give what the load draws now (Framework 0.129.0): a fridge by the air's
     /// temperature, an outlet by what the camp asks of it. Empty: the amps written here.</summary>
     public List<VehicleSystemInput> ampsInputs = new();
@@ -906,6 +910,30 @@ public class PhobosVehicleRulesDef : PhobosRulesDef
     /// authored: comfortably more than everything on it at once, so only a worn or damaged belt slips). A belt in poorer condition
     /// carries that share times its condition; asked for more, it slips and underdrives everything on it.</summary>
     public float beltCapacityShare = 0.3f;
+    /// <summary>
+    /// The alternator's true size on the engine (Framework 0.243.0; the owner's report of 23 Nov 2026 that it put no felt strain on the
+    /// engine; docs/development/vehicle-engine-loads.md, "The alternator, right-sized"). A charging system runs at about 14 V on a 12 V
+    /// vehicle and 28 V on a 24 V one, so its watts are its amps times the system's voltage times <see cref="chargingVoltsFactor"/>
+    /// (14 / 12, general). Turning, it drags even making nothing: its bearings, brushes and fan, <see cref="alternatorDragShare"/> of its
+    /// rated electrical watts (authored, approximate: about 70 W on a car's 65 A alternator, 220 W on a truck's 100 A at 24 V).
+    /// </summary>
+    public float chargingVoltsFactor = 14f / 12f;
+    public float alternatorDragShare = 0.08f;
+    /// <summary>
+    /// Idle-up (Framework 0.243.0): an engine's control raises its idle when the alternator, air conditioner or other loads are heavy, so
+    /// the engine does not stall or let the battery run down. Idle rises by <see cref="idleUpShare"/> of itself once what the engine drives
+    /// beyond its standing loads reaches <see cref="idleUpAtLoadShare"/> of its rated power, in proportion below that (authored: an air
+    /// conditioner commonly lifts a car's idle by 50 to 150 rpm, general).
+    /// </summary>
+    public float idleUpShare = 0.2f;
+    public float idleUpAtLoadShare = 0.05f;
+    /// <summary>
+    /// An electric vehicle's 12 V side (Framework 0.243.0): its converter draws on the drive battery for what the lights and other loads
+    /// take, at <see cref="converterEfficiency"/> (authored, approximate: DC-DC converters run about 90 to 95 %, general), from a pack taken
+    /// as <see cref="tractionPackKilowattHours"/> (the 72 kWh the traction battery's other draws are written against).
+    /// </summary>
+    public float converterEfficiency = 0.92f;
+    public float tractionPackKilowattHours = 72f;
     /// <summary>The share of the country's grade a road keeps on the world map (Framework 0.131.0; authored: roads are cut and filled),
     /// and the share a railway keeps (authored: a ruling grade is a quarter of a road's or less).</summary>
     public float roadGradeFactor = 0.5f;

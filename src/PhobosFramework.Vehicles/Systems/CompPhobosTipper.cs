@@ -21,7 +21,18 @@ public class CompProperties_PhobosTipper : VehicleCompProperties
     /// <summary>The half-disc the load lands on, in cells. Authored: about 100 cells, a base load of chunks.</summary>
     public float fanRadius = 8f;
     public float controlFloor = 0.5f;
+    /// <summary>No longer read (Framework 0.243.0): the work's share of the engine now follows what the hydraulics are doing, below. Kept so
+    /// a patch that sets it still loads.</summary>
     public float engineDemand = 0.5f;
+    /// <summary>
+    /// What the hydraulics take from the engine, as a share of its rated power (Framework 0.243.0; the owner's report of 23 Nov 2026 that
+    /// working loads should strain the engine): the body's hoist raising a load, the loading grab lifting, and the pump turning with
+    /// nothing to do while a gathering run hands over its next job. Authored, approximate: a tipper's hoist pump on its power take-off
+    /// takes some 20 to 30 kW, an eighth or so of a 220 kW engine; a loader crane's pump somewhat less (general).
+    /// </summary>
+    public float hoistPowerShare = 0.12f;
+    public float grabPowerShare = 0.08f;
+    public float idlePumpShare = 0.01f;
 
     public CompProperties_PhobosTipper() => compClass = typeof(CompPhobosTipper);
 }
@@ -61,10 +72,22 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
     protected override string SetUpRefusal => (grabbing ? "PhobosVehicleSystems_GrabHeld" : "PhobosVehicleSystems_TipHeld").Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve();
 
     public bool WantsEngine => deployed;
-    public float EngineDemand => Props.engineDemand;
-    /// <summary>Tipping and the grab cost heat and power, not fuel (Framework 0.131.0; the engine-loads record): a truck left with its
-    /// grab out would otherwise drain its tank standing.</summary>
-    public bool FuelFromModel => false;
+
+    /// <summary>
+    /// What the hydraulics ask of the engine now (Framework 0.243.0): the hoist while the body raises a load, the grab while it lifts, and the
+    /// pump's own drag while either waits for a gathering run's next job. Its heat, its engine speed and, with fuel following engine load, its
+    /// fuel all follow this: before, tipping and lifting heated the engine as if at half power and burned nothing (the owner's report of 23
+    /// Nov 2026, "The engine's loads, the second round" in docs/development/vehicle-engine-loads.md).
+    /// </summary>
+    public float WorkPowerShare => !deployed ? 0f
+        : grabbing ? (grabForRun && grabWanted == null ? Props.idlePumpShare : Props.grabPowerShare)
+        : tipForRun && tipWhich == null ? Props.idlePumpShare : Props.hoistPowerShare;
+
+    public float EngineDemand => WorkPowerShare;
+
+    /// <summary>The engine model burns the hydraulics' fuel (Framework 0.243.0), at the share above; a grab waiting for its next job takes only
+    /// the pump's drag, so a truck left with it out burns about its idle.</summary>
+    public bool FuelFromModel => true;
 
     ThingOwner Cargo => Vehicle.inventory.innerContainer;
 
@@ -302,11 +325,19 @@ public class CompPhobosTipper : CompPhobosSetUp, IVehicleEngineDemand, IVehicleG
         }
         if (grabbing)
         {
+            if (Systems?.WorkFuelFromModel == true && Seen.Wants("vehicles.tipper-work-fuel", Vehicle, "grab"))
+            {
+                Seen.Note("vehicles.tipper-work-fuel", Vehicle, WorkPowerShare.ToStringPercent() + " of the engine", "grab");
+            }
             GrabTick();
             return;
         }
         // Set again each look, so a tip under way when a save loads is heard again.
         VehicleWorkSounds.Loop(Vehicle, "Rams", true);
+        if (Systems?.WorkFuelFromModel == true && Seen.Wants("vehicles.tipper-work-fuel", Vehicle, "tip"))
+        {
+            Seen.Note("vehicles.tipper-work-fuel", Vehicle, WorkPowerShare.ToStringPercent() + " of the engine", "tip");
+        }
         if (Vehicle.CompFueledTravel is { EmptyTank: true } || Vehicle.GetStatValue(GeneratorDefOf.Phobos_RigControl) < Props.controlFloor)
         {
             Finish("PhobosVehicleSystems_TipStopped".Translate().Resolve(), UnloadEnd.Fault);

@@ -18,6 +18,8 @@ public enum FuelUse
     Flight,
     /// <summary>Taken out because the tank or pack can hold less than it holds (a worn pack): not a rate, never shown as one.</summary>
     Spilled,
+    /// <summary>An electric vehicle's converter feeding its 12 V side from the drive battery (Framework 0.243.0).</summary>
+    Electrics,
 }
 
 /// <summary>

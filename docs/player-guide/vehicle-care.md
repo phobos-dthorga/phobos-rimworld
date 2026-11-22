@@ -398,7 +398,8 @@ shows while a dyno bay is in reach. It works on any vehicle, from any mod, that 
 ## Cabs and comfort
 
 - **A closed cab shelters its passengers**: they feel the cab's temperature, not the weather, while the heater or air conditioner
-  has the engine to run on. The heater runs off the engine's heat, so a cab warms only once the engine has.
+  has the engine to run on. The heater runs off the engine's heat, so a cab warms only once the engine has, and **heating the cab
+  takes that heat from the engine**: in deep cold an idling engine with its heater on warms slowly, and may never get warm.
 - **Modern vehicles have climate control** and hold the cab near 21 °C by themselves. Older ones have a **cab heater** (below 5 °C
   outside) and an **air conditioner** (above 26 °C) you switch by hand. Each draws on the battery or alternator.
 - **Passengers have moods about it**: glad of a warm cab in the cold, unhappy in one too cold or hot for them.
@@ -417,7 +418,7 @@ for what its engine actually does.
 
 | What | When it works | What it takes |
 | --- | --- | --- |
-| **Alternator** | Always, for the lights, heaters and whatever the batteries are taking | A little: about half a kilowatt for lights and a heater; more just after a start, while the battery refills |
+| **Alternator** | Always: the engine's own electronics, the lights, heaters and whatever the batteries are taking; it drags a little even making nothing | A little: a few tenths of a kilowatt for the engine alone, about half a kilowatt more for lights and a heater; more just after a start, while the battery refills |
 | **Air-conditioner compressor** | While the cab is being cooled | 2.6 kW holding a cool cab, up to 5.6 kW cooling a hot one |
 | **Radiator fan** | When the engine runs hot | A lot at high engine speed, almost nothing at idle |
 | **Air brakes' compressor** (heavy trucks) | While the air is topped up after stops | About 1 % of the engine |
@@ -427,10 +428,15 @@ for what its engine actually does.
   without, and a small car more than twice as much. On a road the same loads are a few per cent.
 - **On a climb, in mud or under a heavy tow, switching loads off gets a little speed back**: what they take comes off what is left
   for driving.
-- **The Systems tab lists what the engine is driving** in Operator and Engineer display modes, with kilowatts in Engineer mode.
+- **The Systems tab lists what the engine is driving** in Operator and Engineer display modes, with kilowatts in Engineer mode, and
+  says what share of the fuel burned now they take, and the alternator's own share.
+- **A standing engine idles faster under its loads**, as a real engine's control does: about a tenth faster with a heavy truck's air
+  conditioner on, up to a fifth. A faster idle charges the battery better and burns a little more.
 - **A worn or damaged drive belt slips under a heavy load.** A message says so: the battery charges less and the engine cools
   less. Switch something off, and have the belt replaced.
-- **Working vehicles burn by the work**: a drill rig drilling takes half its engine, close to 100 chemfuel a day.
+- **Working vehicles burn by the work**: a drill rig drilling takes half its engine, close to 100 chemfuel a day. The tipper's hoist
+  takes about an eighth of its engine while it raises a load, and its loading grab a little less while it lifts.
+- **Electric vehicles' lights and other electrics draw on the drive battery** through its converter, as their heaters do.
 - **To go back to flat rates**, switch **Fuel use follows engine load** off in D'thorga Framework's settings, under vehicle systems.
 
 ### Thin air in high country

@@ -1,6 +1,9 @@
 # Engine loads: a top-down review and a design (18 Nov 2026)
 
-**Status (18 Nov 2026):** A research and design record, with its code checks done the same day. Built: the fixes for C1 and C4 (D'thorga
+**Status (23 Nov 2026):** A research and design record, with its code checks done the same day. **Second round built in Framework
+0.243.0** ([the alternator, right-sized](#the-engines-loads-the-second-round-23-nov-2026)): the alternator at its charging voltage with its
+drag and the engine's own electronics, idle-up, the fuel share on the Systems tab, the heater core, the tipper's hydraulics and an electric
+vehicle's converter; not yet tested in game, rows 390 to 393. Built: the fixes for C1 and C4 (D'thorga
 Framework 0.129.1, Vehicles 0.65.1), the step back's S1 to S6 and S8 (Framework 0.130.0) and the engine-load ledger with every load
 and C6 (Framework 0.131.0), and S7 with the turbine gaps and altitude (Framework 0.132.0, in
 [thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md)); not yet tested in game. S8 measured after: D'thorga Framework's share of ticking fell from
@@ -426,7 +429,7 @@ Built at the owner's word (decision 13); not yet tested in game. Where it differ
 | The air conditioner | A new belt load of 2.6 to 5.6 kW, in kilowatts whatever the engine. The 30 A electrical load stays as its blower and fans; it was not moved. **Watch:** on a small car that is more than twice the idle fuel, since the figures are a heavy truck's cab | `ShaftLoads.xml` |
 | The air compressor | Loaded while the air is below full, 1 % of rated power; its unloaded drag is left out | `ShaftLoads.xml` |
 | The oil pump | Not a load, as designed: it is inside the friction term | |
-| Work loads | Fuel through the engine model while fuel follows engine load, each work saying whether it may: the drill rig (its share now a Def figure) and the survey truck yes; the tipper and the generator set keep their own. The tanker's pump is a 10 kW load (C6) | `IVehicleEngineDemand.WorkPowerShare`, `FuelFromModel` |
+| Work loads | Fuel through the engine model while fuel follows engine load, each work saying whether it may: the drill rig (its share now a Def figure) and the survey truck yes; the generator set keeps its own. The tipper was listed here as keeping its own and had none: it burned nothing until Framework 0.243.0 (the second round, below). The tanker's pump is a 10 kW load (C6) | `IVehicleEngineDemand.WorkPowerShare`, `FuelFromModel` |
 | The fuel default | "Fuel use follows engine load" on by default (decision 1) | `VehicleSystemsMod.cs` |
 | Not on it yet | Turbine bleed air (S7); a hydraulic pump's own load beyond what work demands; the steering pump's extra while turning | |
 
@@ -461,6 +464,53 @@ The gaps:
 - **T-4, a small artefact:** the alternator's efficiency is read at the engine's speed times 2.5, and a turbine's speed (spool share
   of a rated speed up to 20,000 rpm) reads the curve's far end, about 45 %. Its output comes from the spool curve and is right; only
   its cost is slightly high.
+
+## The engine's loads, the second round (23 Nov 2026)
+
+The owner, 23 Nov 2026: "the alternator when in use doesn't seem to, in turn, have an effective strain on the engine like you would
+expect as in real-life", and other places may be the same; a report first, then "let's do #1 through #4". Built in Framework 0.243.0; not
+yet tested in game.
+
+### What the report found [code, the owner's settings and seen-in-play notes]
+
+- **The link was there and on** ("Accessories load the engine" and "Fuel use follows engine load" both on, the full drivetrain model):
+  the alternator was charged for the amps it made and burned with the rest. The seen-in-play notes showed whole ledgers of 0.1 to 6 kW
+  on the owner's vehicles.
+- **It was a tenth of a real one by day.** The only standing load was "ignition and instruments", 3 or 4 A; a modern engine's control
+  unit, injectors and fuel pump draw some 15 to 25 A all the time (general, approximate, not from a source). The amps were priced at
+  12 and 24 V, where a charging system runs at about 14 and 28; and an alternator making nothing cost nothing, where a real one drags.
+- **Nothing made it felt**: idle did not change with the loads, and nothing said what they cost in fuel.
+- **Elsewhere**: the cab heater took no heat from the coolant; the tipper's hoist and grab heated the engine as if at half power and
+  burned nothing; an electric vehicle's 12 V loads (lights, winch, outlet) cost its drive battery nothing, though its heaters did; the
+  light loadout (the dirtbike, the Charley, the Frog, Vanilla Vehicles Expanded's Prowler) carried a car's 65 A alternator. The power
+  outlet was checked and found to load the alternator for what it gives.
+- **Not a reason to make it large.** A real alternator's strain is a few per cent of fuel, felt most at idle; the honest fix is the
+  right size and the right feel. (The agent's view, given to the owner.)
+
+### What was built
+
+| Part | What it does now | Where |
+| --- | --- | --- |
+| Charging voltage | The alternator's watts are its amps at 14 V on a 12 V vehicle, 28 V on a 24 V one (`chargingVoltsFactor`, 14 / 12) | `Rules_VehicleSystems.xml`, `ReadLedger`, `CruiseGeneratorKw` |
+| Drag | It drags 8 % of its rated electrical watts whenever it turns, making anything or not: about 70 W on a car, 220 W on a heavy truck (authored) | `ShaftLoadRule.AlternatorDragKilowatts` |
+| The engine's own electronics | "Engine electronics and instruments": 15 A at 12 V or 8 A at 24 V for a 100 kW engine, scaled by rated power (a dirtbike's about a third, a tank's half as much again; authored) | `Loadouts_Default.xml`, `Input_RatedPower` |
+| Standing, not extra | The alternator's work for those electronics and its drag is a standing load, as the water pump: counted into the nominal cruise, so a cruise with nothing switched on still burns the author's rate, and taking nothing off driving. Everything switched on, and the batteries' refill, is extra and comes off driving | `ElectricalLoadSpec.baseline`, `BaselineShaftKwAt` |
+| Idle-up | Standing, the engine idles up to a fifth faster as the extra loads reach 5 % of its rated power: an air conditioner on a truck lifts it about a tenth. A faster idle turns more friction, so burns more, and turns the alternator faster, so it charges better; turbines keep their own idle (authored) | `ShaftLoadRule.IdleRpm`, `DrivetrainModel.Idle` |
+| The fuel line | The Systems tab's ledger line says what share of the fuel burned now goes to what the engine drives, and the alternator's own share (Operator and Engineer) | `ShaftLoadRule.FuelShare`, `InspectText.LoadsLine` |
+| The heater core | The cab's heat comes out of the coolant: 5 kW at full heat on a car, 8 on a heavy vehicle (authored), nothing from cold coolant and less as the cab nears warm. A cab heated in the cold keeps an idling engine slower to warm | `Systems_Cooling.xml` (`heaterCore`), `Input_HeaterCore` |
+| The tipper | Its hoist takes an eighth of the engine while raising a load, its grab 8 % while lifting, and the pump 1 % while it waits; its heat, engine speed and fuel follow that (authored) | `CompPhobosTipper.WorkPowerShare` |
+| Electric vehicles | The converter draws the 12 V side's output from the drive battery at 92 % (authored), on the 72 kWh pack its other draws are written against | `ShaftLoadRule.ConverterPackSharePerHour` |
+| Light vehicles | A 45 A alternator, between a motorcycle's and a small car's (general, approximate); medium vehicles keep the car's 65 A | `Loadouts_Default.xml` |
+
+**What it does to fuel, roughly (hand-worked, not measured in game).** A car idling with nothing on now pays for about 0.35 kW at the
+shaft beyond before, near 1 kW of fuel: a few per cent of its idle. With the air conditioner on, its idle rises and the extra loads cost
+somewhat more than before. At a cruise with nothing switched on, the author's rate holds.
+
+### Who chose what
+
+- **Owner (23 Nov 2026):** all four parts of the report's proposal ("let's do #1 through #4").
+- **Agent defaults:** every figure above marked authored; the electronics as a standing load (so cruises keep the author's rate); idle-up
+  only standing and not on turbines; the heater core's curve on the cab's temperature; the tipper's three shares; the light loadout's 45 A.
 
 ### Next slices
 

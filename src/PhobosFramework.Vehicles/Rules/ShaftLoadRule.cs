@@ -31,6 +31,45 @@ public static class ShaftLoadRule
     public static double AlternatorOutputAmps(double supplyAmps, double loadAmps, double chargingAmps) =>
         Math.Max(0, Math.Min(Math.Max(0, supplyAmps), Math.Max(0, loadAmps) + Math.Max(0, chargingAmps)));
 
+    /// <summary>
+    /// What an alternator drags while it turns, kW, whether or not it makes anything (Framework 0.243.0): its bearings, brushes and fan, a share
+    /// of its rated electrical watts. Nothing without one.
+    /// </summary>
+    public static double AlternatorDragKilowatts(double ratedAmps, double volts, double dragShare) =>
+        PowerUnits.Watts(Math.Max(0, ratedAmps), Math.Max(0, volts)) * Math.Max(0, dragShare) / 1000.0;
+
+    /// <summary>
+    /// The engine's idle speed with what it drives now (Framework 0.243.0, idle-up): its control raises idle as the loads beyond its standing
+    /// ones grow, by up to <paramref name="idleUpShare"/> of itself once they reach <paramref name="atLoadShare"/> of rated power, in proportion
+    /// below that. Never below the plain idle.
+    /// </summary>
+    public static double IdleRpm(double idleRpm, double extraKilowatts, double ratedKilowatts, double idleUpShare, double atLoadShare)
+    {
+        if (idleRpm <= 0 || ratedKilowatts <= 0 || atLoadShare <= 0) return Math.Max(0, idleRpm);
+        double share = Math.Min(1, Math.Max(0, extraKilowatts) / ratedKilowatts / atLoadShare);
+        return idleRpm * (1 + Math.Max(0, idleUpShare) * share);
+    }
+
+    /// <summary>
+    /// The share of the fuel burned now that goes to some shaft power (Framework 0.243.0, the Systems tab's fuel line): on the Willans line each
+    /// shaft kilowatt costs one over the indicated efficiency, friction being counted once in the whole. 0 to 1.
+    /// </summary>
+    public static double FuelShare(double kilowatts, double fuelKilowatts, double indicatedEfficiency)
+    {
+        if (kilowatts <= 0 || fuelKilowatts <= 0) return 0;
+        return Math.Min(1, kilowatts / Math.Max(0.05, indicatedEfficiency) / fuelKilowatts);
+    }
+
+    /// <summary>
+    /// What an electric vehicle's converter takes from its drive battery, as a share of the pack an hour (Framework 0.243.0): the 12 V side's
+    /// output in watts over the converter's efficiency, against the pack's size. 0 with nothing drawn.
+    /// </summary>
+    public static double ConverterPackSharePerHour(double outputAmps, double volts, double converterEfficiency, double packKilowattHours)
+    {
+        if (outputAmps <= 0 || volts <= 0 || packKilowattHours <= 0) return 0;
+        return PowerUnits.Watts(outputAmps, volts) / Math.Max(0.5, converterEfficiency) / 1000.0 / packKilowattHours;
+    }
+
     /// <summary>The shaft power the alternator takes to make those amps, kW.</summary>
     public static double AlternatorKilowatts(double outputAmps, double volts, double efficiency) =>
         AccessoryRules.ShaftKilowatts(PowerUnits.Watts(Math.Max(0, outputAmps), Math.Max(0, volts)), efficiency);

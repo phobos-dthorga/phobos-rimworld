@@ -66,4 +66,49 @@ public class ShaftLoadRuleTests
         Assert.Equal(0, ShaftLoadRule.BeltGrip(20, 0.3, 200, 0), 9);
         Assert.Equal(1, ShaftLoadRule.BeltGrip(0, 0.3, 200, 0.5), 9);
     }
+
+    // ---- The alternator, right-sized, and the loads felt (Framework 0.243.0) ----
+
+    [Fact]
+    public void AnAlternatorDragsAShareOfItsRatedWatts()
+    {
+        // A car's 65 A at 14 V is 910 W; 8 % of it is about 73 W.
+        Assert.Equal(0.0728, ShaftLoadRule.AlternatorDragKilowatts(65, 14, 0.08), 9);
+        Assert.Equal(0, ShaftLoadRule.AlternatorDragKilowatts(0, 14, 0.08), 9);
+    }
+
+    [Fact]
+    public void AtTheChargingVoltageTheAlternatorTakesASixthMore()
+    {
+        double atTwelve = ShaftLoadRule.AlternatorKilowatts(30, 12, 0.55);
+        double atFourteen = ShaftLoadRule.AlternatorKilowatts(30, 12 * 14.0 / 12.0, 0.55);
+        Assert.Equal(14.0 / 12.0, atFourteen / atTwelve, 9);
+    }
+
+    [Fact]
+    public void IdleRisesWithTheLoadsUpToItsShare()
+    {
+        Assert.Equal(700, ShaftLoadRule.IdleRpm(700, 0, 200, 0.2, 0.05), 9);
+        Assert.Equal(770, ShaftLoadRule.IdleRpm(700, 5, 200, 0.2, 0.05), 9); // 2.5 % of rated: half way, a tenth more
+        Assert.Equal(840, ShaftLoadRule.IdleRpm(700, 10, 200, 0.2, 0.05), 9);
+        Assert.Equal(840, ShaftLoadRule.IdleRpm(700, 50, 200, 0.2, 0.05), 9);
+        Assert.Equal(700, ShaftLoadRule.IdleRpm(700, -5, 200, 0.2, 0.05), 9);
+    }
+
+    [Fact]
+    public void EachShaftKilowattCostsOneOverTheIndicatedEfficiencyOfFuel()
+    {
+        // 2 kW at 40 % is 5 kW of fuel, a fifth of 25 kW burned.
+        Assert.Equal(0.2, ShaftLoadRule.FuelShare(2, 25, 0.4), 9);
+        Assert.Equal(1, ShaftLoadRule.FuelShare(50, 25, 0.4), 9);
+        Assert.Equal(0, ShaftLoadRule.FuelShare(2, 0, 0.4), 9);
+    }
+
+    [Fact]
+    public void AnElectricVehiclesConverterDrawsOnItsPack()
+    {
+        // 30 A at 14 V is 420 W, 457 W from the pack at 92 %: about 0.63 % of a 72 kWh pack an hour.
+        Assert.Equal(420.0 / 0.92 / 1000.0 / 72.0, ShaftLoadRule.ConverterPackSharePerHour(30, 14, 0.92, 72), 12);
+        Assert.Equal(0, ShaftLoadRule.ConverterPackSharePerHour(0, 14, 0.92, 72), 12);
+    }
 }

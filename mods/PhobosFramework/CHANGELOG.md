@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.243.0] - 2026-11-23 - Draft
+
+The engine feels what it drives. Not yet tested in game.
+
+### Changed
+
+- **The alternator loads the engine at its true size** (the owner's report of 23 November 2026, that it put no felt strain on the engine; docs/development/vehicle-engine-loads.md, the second round). It is priced at its charging voltage (14 V on a 12 V vehicle, 28 V on a 24 V one), drags a little whenever it turns, and now carries the engine's own electronics: a new standing load, "engine electronics and instruments", in place of "ignition and instruments", about 15 A on a car's engine and scaled by engine size, so a dirtbike's are a third of a car's. That standing part is counted in the vehicle author's fuel rate, so a cruise with nothing switched on burns what it did; idling, and everything switched on, costs more than before. Not yet tested in game: row 390 of the test pass.
+- **A standing engine idles faster under its loads**, as a real engine's control does: up to a fifth faster as what it drives grows (about a tenth with a heavy truck's air conditioner on), burning a little more and charging the battery better. A turbine keeps its own idle. Not yet tested in game: row 391.
+- **The Systems tab says what the loads cost in fuel**: the line naming what the engine drives now ends with the share of the fuel they take, and the alternator's own share.
+- **Light vehicles have a small engine's alternator**, 45 A in place of a car's 65 A: the dirtbike, the Charley, the Frog and Vanilla Vehicles Expanded's Prowler.
+
+### Fixed
+
+- **Heating the cab takes heat from the engine**: the heater core drew warmth from coolant without cooling it. It now takes 5 kW at full heat on a car and 8 on a heavy vehicle, nothing from cold coolant and less as the cab warms, so in deep cold an idling engine with its heater on warms slowly. Not yet tested in game: row 392.
+- **The tipper's hydraulics burn fuel**: tipping and the loading grab heated the engine as if at half power and burned nothing. The hoist now takes about an eighth of the engine while it raises a load, the grab 8 % while it lifts and the pump 1 % while either waits; heat, engine speed and, with fuel following engine load, fuel follow that. Not yet tested in game: row 393.
+- **An electric vehicle's lights and electrics draw on its drive battery**: its converter fed them for nothing, though its heaters drew on the pack. It now takes what it gives them from the pack, and the fuel line names "the lights and electrics". Row 393.
+
+### Save compatibility
+
+- **Safe on a running colony**: nothing new is saved. A patch that set the tipper's old engine demand still loads; the figure is no longer read.
+
+### Compatibility and limits
+
+- The engine electronics' figure assumes a modern fuel-injected engine on every vehicle; an old mechanical diesel draws less. The figures marked authored in the record are to tune in play.
+
 ## [0.242.0] - 2026-11-23 - Draft
 
 Buttons that send someone

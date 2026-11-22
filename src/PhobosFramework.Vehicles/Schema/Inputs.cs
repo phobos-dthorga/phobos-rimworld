@@ -122,6 +122,40 @@ public class Input_EngineRpm : VehicleSystemInput
     }
 }
 
+/// <summary>
+/// The engine's rated power in kW, from the drivetrain model (Framework 0.243.0): a running engine's own electronics grow with its size, so a
+/// dirtbike's draw far less than a truck's. Without a model it reads 100, so a figure written for an ordinary car is used as written.
+/// </summary>
+public class Input_RatedPower : VehicleSystemInput
+{
+    /// <summary>What it reads with no drivetrain model, kW.</summary>
+    public const float Unknown = 100f;
+
+    protected override float Raw(SystemContext context) =>
+        context.Comp.Powertrain is { } train && train.Spec.RatedPowerKw > 0 ? (float)train.Spec.RatedPowerKw : Unknown;
+}
+
+/// <summary>
+/// The heat the cab's heater core takes from the coolant now, as a share of the engine's full-load heat (Framework 0.243.0; the owner's
+/// report of 23 Nov 2026): the system's <c>heaterCoreKw</c> over the drivetrain model's full-load heat, so a flow scaled by
+/// <c>heatAtFullLoad</c> takes that many kilowatts. 0 without a full ground model, which has no figure to set it against.
+/// </summary>
+public class Input_HeaterCore : VehicleSystemInput
+{
+    public string kilowattsParameter = "heaterCoreKw";
+
+    protected override float Raw(SystemContext context)
+    {
+        if (context.Comp.Powertrain is not { Full: true, Ground: true } train || train.FullLoadHeatKw <= 0) return 0f;
+        float share = (float)(context.Parameter(kilowattsParameter) / train.FullLoadHeatKw);
+        if (share > 0f && context.Comp.EngineRunning && Seen.Wants("vehicles.heater-core", context.Vehicle))
+        {
+            Seen.Note("vehicles.heater-core", context.Vehicle, context.Parameter(kilowattsParameter).ToString("0") + " kW at full heat");
+        }
+        return share;
+    }
+}
+
 /// <summary>Engine heat into the coolant as a share of full-load heat, from the drivetrain model; without one, the engine load.</summary>
 public class Input_EngineHeat : VehicleSystemInput
 {

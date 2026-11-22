@@ -73,6 +73,9 @@
       <fireHeat>180</fireHeat>
       <!-- 1 until a block heater is fitted, whose fitting multiplies it to 0 (Fittings.xml), as a fusible plug's figure does. -->
       <blockHeaterAbsent>1</blockHeaterAbsent>
+      <!-- Framework 0.243.0: what the cab's heater core takes from the coolant at full heat, kW (authored, approximate: a car's heater gives
+           some 5 to 8 kW, general; heavy vehicles set 8). -->
+      <heaterCoreKw>5</heaterCoreKw>
     </parameters>
     <quantities>
       <li>
@@ -392,6 +395,51 @@
         <kind>Toward</kind>
         <target Class="Phobos.VehicleSystems.Input_Ambient" />
         <factorParameter>soakRate</factorParameter>
+      </li>
+      <li>
+        <!-- The heater core (Framework 0.243.0; the owner's report of 23 Nov 2026 that the engine's loads should strain it): the cab's heat comes
+             out of the coolant, so a cab heated in the cold keeps an idling engine cooler and slower to warm, and helps a hot one a little. Its
+             share of full-load heat (Input_HeaterCore) times heatAtFullLoad takes heaterCoreKw. It gives nothing from cold coolant, as the cab's
+             heater flow (the same curve), and less as the cab nears warm (authored: all of it at or below 0 degrees C, a third at 18, none at
+             26). Only with the full drivetrain model, which has a full-load heat to set it against. -->
+        <name>heaterCore</name>
+        <quantity>coolantTemperature</quantity>
+        <kind>From</kind>
+        <factorParameter>heatAtFullLoad</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_Any">
+          <conditions>
+            <li Class="Phobos.VehicleSystems.When_LoadActive"><load>cabHeater</load></li>
+            <li Class="Phobos.VehicleSystems.When_All">
+              <conditions>
+                <li Class="Phobos.VehicleSystems.When_LoadActive"><load>climateControl</load></li>
+                <li Class="Phobos.VehicleSystems.When_QuantityBelow"><quantity>cabTemperature</quantity><value>20</value></li>
+              </conditions>
+            </li>
+          </conditions>
+        </when>
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_HeaterCore" />
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>coolantTemperature</quantity>
+            <curve>
+              <points>
+                <li>(30, 0)</li>
+                <li>(60, 1)</li>
+              </points>
+            </curve>
+          </li>
+          <li Class="Phobos.VehicleSystems.Input_Quantity">
+            <quantity>cabTemperature</quantity>
+            <fallback Class="Phobos.VehicleSystems.Input_Constant"><value>26</value></fallback>
+            <curve>
+              <points>
+                <li>(0, 1)</li>
+                <li>(18, 0.33)</li>
+                <li>(26, 0)</li>
+              </points>
+            </curve>
+          </li>
+        </inputs>
       </li>
       <li>
         <!-- Crosslink 1: the night heater at camp keeps the coolant warm (see the comment at the top). -->

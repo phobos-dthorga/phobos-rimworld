@@ -44,6 +44,16 @@
          than everything on it at once, so only a worn or damaged belt slips), and the grade a road or a railway keeps of the country's
          (authored: roads are cut and filled to about half the hills they cross; a railway's ruling grade is a quarter or less). -->
     <beltCapacityShare>0.3</beltCapacityShare>
+    <!-- Framework 0.243.0 (docs/development/vehicle-engine-loads.md, "The alternator, right-sized"; the owner's report of 23 Nov 2026): the
+         charging system's true voltage (14 V on 12, 28 V on 24, general), the alternator's drag while it turns (8 % of its rated watts,
+         authored), idle-up (idle rises by up to a fifth once the loads reach 5 % of rated power, authored), and an electric vehicle's
+         converter (92 %, authored) on a 72 kWh pack (the figure its other draws are written against). -->
+    <chargingVoltsFactor>1.1667</chargingVoltsFactor>
+    <alternatorDragShare>0.08</alternatorDragShare>
+    <idleUpShare>0.2</idleUpShare>
+    <idleUpAtLoadShare>0.05</idleUpAtLoadShare>
+    <converterEfficiency>0.92</converterEfficiency>
+    <tractionPackKilowattHours>72</tractionPackKilowattHours>
     <roadGradeFactor>0.5</roadGradeFactor>
     <railGradeFactor>0.25</railGradeFactor>
     <!-- Framework 0.137.0: refuelling from cargo on the world map. A tank tops up at a quarter (owner, 18 Nov 2026), and pouring a

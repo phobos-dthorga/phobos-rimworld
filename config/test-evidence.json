@@ -616,6 +616,14 @@
       "purge sends someone": [{"key": "vehicles.send-nearest", "variant": "purge"}],
       "claim sends someone": [{"key": "vehicles.send-nearest", "variant": "claim"}]
     }},
+    "390": ["vehicles.alternator-sized"],
+    "391": ["vehicles.idle-up"],
+    "392": ["vehicles.heater-core"],
+    "393": {"parts": {
+      "the tipper's hoist burns fuel": [{"key": "vehicles.tipper-work-fuel", "variant": "tip"}],
+      "the loading grab burns fuel": [{"key": "vehicles.tipper-work-fuel", "variant": "grab"}],
+      "an electric vehicle's lights draw on its pack": ["vehicles.converter-draw"]
+    }},
     "386": {"parts": {
       "a fire starts in a zone": [{"key": "vehicles.fire-zone"}],
       "a fire spreads to the next zone": [{"key": "vehicles.fire-spread"}]

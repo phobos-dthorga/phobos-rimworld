@@ -481,6 +481,27 @@
     <drivetrain>
       <def>PhobosDrivetrain_LightPetrol</def>
     </drivetrain>
+    <!-- Framework 0.243.0: a small engine's charging system, 45 A, between a motorcycle's 25 to 30 A and a small car's 50 to 60 A (general,
+         approximate), where before it had a car's 65. The medium loadout, which inherits this one, keeps the car's. Lists every system
+         again, as the base's are replaced. -->
+    <systems Inherit="False">
+      <li>
+        <def>PhobosVehicleSystem_Electrical</def>
+        <set>
+          <alternatorAmps>45</alternatorAmps>
+        </set>
+      </li>
+      <li><def>PhobosVehicleSystem_Cooling</def></li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
+      <li><def>PhobosVehicleSystem_Driver</def></li>
+      <li><def>PhobosVehicleSystem_HouseBattery</def></li>
+    </systems>
     <loads>
       <li>
         <!-- Framework 0.103.0: the work lamps, once fitted (When_Granted). Two LED floodlights of about 60 W on 12 V, so 10 A (authored).
@@ -601,10 +622,30 @@
         </when>
       </li>
       <li>
+        <!-- Framework 0.243.0 (the owner's report of 23 Nov 2026; docs/development/vehicle-engine-loads.md, "The alternator, right-sized"): a
+             running engine's own electronics, its control unit, injectors, fuel pump and ignition with the instruments, which a modern
+             fuel-injected engine needs all the time. Written for a 100 kW engine (15 A at 12 V) and scaled by its rated power, so a dirtbike's take a
+             third of a car's and a tank's half as much again. Authored, approximate: a modern car's engine and its controls draw some 15 to 25 A
+             running (general). A standing load: the alternator's work for it is in the author's fuel rate, and takes nothing off driving. -->
         <name>instruments</name>
-        <label>ignition and instruments</label>
-        <amps>4</amps>
+        <label>engine electronics and instruments</label>
+        <description>The engine's control unit, injectors, fuel pump and ignition, with the instruments: always on while the engine runs.</description>
+        <amps>15</amps>
+        <baseline>true</baseline>
         <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_RatedPower">
+            <curve>
+              <points>
+                <li>(10, 0.3)</li>
+                <li>(50, 0.6)</li>
+                <li>(100, 1)</li>
+                <li>(250, 1.3)</li>
+                <li>(600, 1.6)</li>
+              </points>
+            </curve>
+          </li>
+        </ampsInputs>
       </li>
       <li>
         <!-- Automatic climate control (Framework 0.22.0): only on vehicles fitted with it (When_ClimateControl), or every closed cab
@@ -705,6 +746,20 @@
     <drivetrain>
       <def>PhobosDrivetrain_HeavyDiesel</def>
     </drivetrain>
+    <!-- Framework 0.243.0: a car's charging system again (the electrical system's own 65 A), not the light loadout's it inherits. -->
+    <systems Inherit="False">
+      <li><def>PhobosVehicleSystem_Electrical</def></li>
+      <li><def>PhobosVehicleSystem_Cooling</def></li>
+      <li><def>PhobosVehicleSystem_Lubrication</def></li>
+      <li><def>PhobosVehicleSystem_Fuel</def></li>
+      <li><def>PhobosVehicleSystem_Service</def></li>
+      <li><def>PhobosVehicleSystem_RunningGear</def></li>
+      <li><def>PhobosVehicleSystem_Brakes</def></li>
+      <li><def>PhobosVehicleSystem_Transmission</def></li>
+      <li><def>PhobosVehicleSystem_Cabin</def></li>
+      <li><def>PhobosVehicleSystem_Driver</def></li>
+      <li><def>PhobosVehicleSystem_HouseBattery</def></li>
+    </systems>
   </Phobos.VehicleSystems.PhobosVehicleLoadoutDef>
 
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef Name="PhobosVehicleLoadoutLandHeavy" ParentName="PhobosVehicleLoadoutLandBase">
@@ -727,7 +782,13 @@
           <starterAmpHours>0.3</starterAmpHours>
         </set>
       </li>
-      <li><def>PhobosVehicleSystem_Cooling</def></li>
+      <li>
+        <!-- Framework 0.243.0: a truck cab's larger heater core (authored, approximate: 8 kW against a car's 5). -->
+        <def>PhobosVehicleSystem_Cooling</def>
+        <set>
+          <heaterCoreKw>8</heaterCoreKw>
+        </set>
+      </li>
       <li><def>PhobosVehicleSystem_Lubrication</def></li>
       <li><def>PhobosVehicleSystem_Fuel</def></li>
       <li><def>PhobosVehicleSystem_Service</def></li>
@@ -900,10 +961,30 @@
         </when>
       </li>
       <li>
+        <!-- Framework 0.243.0 (the owner's report of 23 Nov 2026; docs/development/vehicle-engine-loads.md, "The alternator, right-sized"): a
+             running engine's own electronics, its control unit, injectors, fuel pump and ignition with the instruments, which a modern
+             fuel-injected engine needs all the time. Written for a 100 kW engine (8 A at 24 V) and scaled by its rated power, so a dirtbike's take a
+             third of a car's and a tank's half as much again. Authored, approximate: a modern car's engine and its controls draw some 15 to 25 A
+             running (general). A standing load: the alternator's work for it is in the author's fuel rate, and takes nothing off driving. -->
         <name>instruments</name>
-        <label>ignition and instruments</label>
-        <amps>3</amps>
+        <label>engine electronics and instruments</label>
+        <description>The engine's control unit, injectors, fuel pump and ignition, with the instruments: always on while the engine runs.</description>
+        <amps>8</amps>
+        <baseline>true</baseline>
         <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_RatedPower">
+            <curve>
+              <points>
+                <li>(10, 0.3)</li>
+                <li>(50, 0.6)</li>
+                <li>(100, 1)</li>
+                <li>(250, 1.3)</li>
+                <li>(600, 1.6)</li>
+              </points>
+            </curve>
+          </li>
+        </ampsInputs>
       </li>
       <li>
         <!-- Automatic climate control (Framework 0.22.0): only on vehicles fitted with it (When_ClimateControl), or every closed cab
@@ -1060,10 +1141,30 @@
         </when>
       </li>
       <li>
+        <!-- Framework 0.243.0 (the owner's report of 23 Nov 2026; docs/development/vehicle-engine-loads.md, "The alternator, right-sized"): a
+             running engine's own electronics, its control unit, injectors, fuel pump and ignition with the instruments, which a modern
+             fuel-injected engine needs all the time. Written for a 100 kW engine (15 A at 12 V) and scaled by its rated power, so a dirtbike's take a
+             third of a car's and a tank's half as much again. Authored, approximate: a modern car's engine and its controls draw some 15 to 25 A
+             running (general). A standing load: the alternator's work for it is in the author's fuel rate, and takes nothing off driving. -->
         <name>instruments</name>
-        <label>ignition and instruments</label>
-        <amps>3</amps>
+        <label>engine electronics and instruments</label>
+        <description>The engine's control unit, injectors, fuel pump and ignition, with the instruments: always on while the engine runs.</description>
+        <amps>15</amps>
+        <baseline>true</baseline>
         <when Class="Phobos.VehicleSystems.When_EngineRunning" />
+        <ampsInputs>
+          <li Class="Phobos.VehicleSystems.Input_RatedPower">
+            <curve>
+              <points>
+                <li>(10, 0.3)</li>
+                <li>(50, 0.6)</li>
+                <li>(100, 1)</li>
+                <li>(250, 1.3)</li>
+                <li>(600, 1.6)</li>
+              </points>
+            </curve>
+          </li>
+        </ampsInputs>
       </li>
       <li>
         <!-- Added in Framework 0.21.2: boats had no cab heater, so a closed cabin could only cool. Amps authored, as a land vehicle's fan. -->

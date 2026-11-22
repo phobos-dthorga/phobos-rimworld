@@ -98,7 +98,7 @@ public class DrivetrainTests
     [Fact]
     public void TheCurrentGearIsKeptBetweenTheShiftLines()
     {
-        DrivetrainSpec spec = Mule();
+        var spec = new DrivetrainSpec();
         // At 36 km/h the free choice is 3rd; a vehicle already in 2nd stays there while 2nd stays under the upshift line.
         int free = DrivetrainModel.ChooseGear(spec, 10, 7, 5, current: 0);
         Assert.Equal(3, free);
@@ -157,7 +157,7 @@ public class DrivetrainTests
     [Fact]
     public void FiveHundredSamplesStayCheap()
     {
-        DrivetrainSpec spec = Mule();
+        var spec = new DrivetrainSpec();
         var watch = Stopwatch.StartNew();
         double sum = 0;
         for (int i = 0; i < 500; i++)
@@ -234,5 +234,19 @@ public class TurbineTests
         Assert.Equal(0.02, TurbineModel.LifePerHour(25), 6);
         Assert.Equal(0.6, TurbineModel.FuelFraction(0.6, 0), 6);
         Assert.Equal(1, TurbineModel.FuelFraction(0.6, 1), 6);
+    }
+
+    [Fact]
+    public void AStandingEngineIdlesFasterUnderItsLoads()
+    {
+        var spec = new DrivetrainSpec();
+        var plain = new DriveConditions { EngineRunning = true, Speed = 0, MassKg = 1000, IdleUpShare = 0.2, IdleUpAtLoadShare = 0.05 };
+        var loaded = plain;
+        loaded.AccessoryKw = spec.RatedPowerKw * 0.05;
+        DriveResult idle = DrivetrainModel.Evaluate(spec, plain);
+        DriveResult up = DrivetrainModel.Evaluate(spec, loaded);
+        Assert.Equal(spec.IdleRpm, idle.Rpm, 9);
+        Assert.Equal(spec.IdleRpm * 1.2, up.Rpm, 9);
+        Assert.True(up.FuelPowerKw > idle.FuelPowerKw); // a faster idle turns more friction, so burns more
     }
 }

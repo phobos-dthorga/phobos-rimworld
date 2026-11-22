@@ -202,6 +202,7 @@
   <PhobosVehicleSystems_InspectBatteryFlatWith>{LOADS} on: the battery is flat.</PhobosVehicleSystems_InspectBatteryFlatWith>
   <PhobosVehicleLedger_Alternator>alternator</PhobosVehicleLedger_Alternator>
   <PhobosVehicleLedger_Driving>The engine is also driving: {LOADS}.</PhobosVehicleLedger_Driving>
+  <PhobosVehicleLedger_FuelShare>They take {SHARE} of the fuel it burns now, the alternator {ALTERNATOR}.</PhobosVehicleLedger_FuelShare>
   <PhobosVehicleLedger_Part>{LOAD} {KILOWATTS} kW</PhobosVehicleLedger_Part>
   <!-- Framework 0.132.0: an aircraft's bleed air on the same list, and thin air at height. -->
   <PhobosVehicleLedger_ReactionControl>air for the puffer jets</PhobosVehicleLedger_ReactionControl>
@@ -217,6 +218,7 @@
   <PhobosVehicleFuel_UseHeater>heaters</PhobosVehicleFuel_UseHeater>
   <PhobosVehicleFuel_UseLeak>a leak</PhobosVehicleFuel_UseLeak>
   <PhobosVehicleFuel_UseFlight>flying work</PhobosVehicleFuel_UseFlight>
+  <PhobosVehicleFuel_UseElectrics>the lights and electrics</PhobosVehicleFuel_UseElectrics>
   <PhobosVehicleSystems_InspectBatteryDead>The battery is flat: nothing electrical works until it is charged.</PhobosVehicleSystems_InspectBatteryDead>
   <PhobosVehicleSystems_InspectBatteryDeadWith>{LOADS} left on, but the battery is flat: nothing electrical works until it is charged.</PhobosVehicleSystems_InspectBatteryDeadWith>
   <PhobosVehicleSystems_MsgBatteryDead>{VEHICLE}'s battery is flat, and its {LOADS} have gone out. Run the engine or plug it in to charge it.</PhobosVehicleSystems_MsgBatteryDead>

@@ -223,6 +223,7 @@ public static class InspectText
         FuelUse.Heater => "PhobosVehicleFuel_UseHeater".Translate().Resolve(),
         FuelUse.Leak => "PhobosVehicleFuel_UseLeak".Translate().Resolve(),
         FuelUse.Flight => "PhobosVehicleFuel_UseFlight".Translate().Resolve(),
+        FuelUse.Electrics => "PhobosVehicleFuel_UseElectrics".Translate().Resolve(),
         _ => "PhobosVehicleFuel_UseEngine".Translate().Resolve(),
     };
 
@@ -235,7 +236,18 @@ public static class InspectText
         string parts = string.Join(", ", loads.Select(l => mode == DisplayMode.Engineer
             ? "PhobosVehicleLedger_Part".Translate(l.Label.Named("LOAD"), l.Kilowatts.ToString("0.#").Named("KILOWATTS")).Resolve()
             : l.Label));
-        return "PhobosVehicleLedger_Driving".Translate(parts.Named("LOADS")).Resolve();
+        string line = "PhobosVehicleLedger_Driving".Translate(parts.Named("LOADS")).Resolve();
+        // Framework 0.243.0 (the owner's report of 23 Nov 2026): what they cost in fuel, so the strain can be seen. Only for a piston engine on
+        // the full model, where each shaft kilowatt costs one over the indicated efficiency; a turbine's fuel has a floor of its own.
+        if (comp.Powertrain is { Full: true, Ground: true, IsAircraft: false } train && train.Spec.IdleFuelShare <= 0)
+        {
+            double fuelKw = train.FuelKwNow(comp.Engine);
+            double all = ShaftLoadRule.FuelShare(comp.LedgerKw, fuelKw, train.Spec.IndicatedEfficiency);
+            double alternator = ShaftLoadRule.FuelShare(comp.AlternatorKw * comp.BeltGrip, fuelKw, train.Spec.IndicatedEfficiency);
+            if (all > 0) line += " " + "PhobosVehicleLedger_FuelShare".Translate(((float)all).ToStringPercent().Named("SHARE"),
+                ((float)alternator).ToStringPercent().Named("ALTERNATOR")).Resolve();
+        }
+        return line;
     }
 
     /// <summary>The Engineer's power line (Framework 0.130.0, step S1), from the engine's one picture: its whole load, the shaft power driving

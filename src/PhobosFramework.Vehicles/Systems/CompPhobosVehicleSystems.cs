@@ -1015,6 +1015,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             SweepPartHealth();
             RefreshCaches();
             Powertrain?.ApplyFuel(hours);
+            ApplyConverterDraw(hours);
             if (EngineRunning) ChargeCarriedPacks(hours);
             foreach (SystemState state in states)
             {
@@ -1261,6 +1262,10 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// its demand. 0 with the engine stopped.</summary>
     public float GeneratorKw { get; private set; }
 
+    /// <summary>What the alternator takes at the shaft now before the belt's grip, kW (Framework 0.243.0, for the fuel line): what it makes,
+    /// at the charging voltage, and its drag. 0 with the engine stopped.</summary>
+    public float AlternatorKw { get; private set; }
+
     static string? reactionLabel, cabinAirLabel;
 
     const string BeltRole = "Belt";
@@ -1280,18 +1285,30 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         LedgerExtraShare = 0f;
         BeltGrip = 1f;
         GeneratorKw = 0f;
+        AlternatorKw = 0f;
         Powertrain? train = Powertrain;
         if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || !EngineRunning || train == null || states == null || states.Count == 0) return 0f;
         if (Vehicle.CompFueledTravel?.Props.electricPowered == true) return 0f;
         double rated = train.Spec.RatedPowerKw;
         if (rated <= 0) return 0f;
         PhobosVehicleRulesDef rules = Rules;
-        double alternatorKw = ShaftLoadRule.AlternatorKilowatts(
-            ShaftLoadRule.AlternatorOutputAmps(AlternatorSupplyAmps(), loadAmps + CampLoadAmps, ChargingAmps()), ElectricalVolts(),
-            rules.alternatorEfficiency.Evaluate(AlternatorRpm()));
+        // Framework 0.243.0 (the owner's report of 23 Nov 2026; docs/development/vehicle-engine-loads.md, the second round): priced at the
+        // charging voltage, with its drag while it turns, and split into the standing part (the engine's own electronics and that drag, which a
+        // rated power and the author's fuel rate already allow for) and the rest, which comes off driving.
+        double efficiency = rules.alternatorEfficiency.Evaluate(AlternatorRpm());
+        double chargingVolts = ElectricalVolts() * rules.chargingVoltsFactor;
+        double outputAmps = ShaftLoadRule.AlternatorOutputAmps(AlternatorSupplyAmps(), loadAmps + CampLoadAmps, ChargingAmps());
+        double dragKw = ShaftLoadRule.AlternatorDragKilowatts(AlternatorRatedAmps(), chargingVolts, rules.alternatorDragShare);
+        double alternatorKw = ShaftLoadRule.AlternatorKilowatts(outputAmps, chargingVolts, efficiency) + dragKw;
+        double alternatorBaselineKw = ShaftLoadRule.AlternatorKilowatts(System.Math.Min(outputAmps, BaselineLoadAmps), chargingVolts, efficiency) + dragKw;
+        AlternatorKw = (float)alternatorKw;
+        if (BaselineLoadAmps > 0f && dragKw > 0 && Seen.Wants("vehicles.alternator-sized", Vehicle))
+        {
+            Seen.Note("vehicles.alternator-sized", Vehicle, alternatorKw.ToString("0.00") + " kW, standing " + alternatorBaselineKw.ToString("0.00") + " kW");
+        }
         // An aircraft's generator is on its engine's gearbox and its other loads are bleed air (the turbine design), listed below.
         bool ground = train.Ground && !train.IsAircraft;
-        double beltKw = alternatorKw, otherKw = 0, baselineKw = 0;
+        double beltKw = alternatorKw, otherKw = 0, baselineKw = ground ? alternatorBaselineKw : 0;
         if (alternatorKw > 0) shaftLoads.Add(new ShaftLoadNow(alternatorLabel ??= "PhobosVehicleLedger_Alternator".Translate().Resolve(), (float)alternatorKw));
         int firstDef = shaftLoads.Count;
         if (ground)
@@ -1391,7 +1408,45 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             if (!def.baseline || (def.available != null && !def.available.Holds(context))) continue;
             total += ShaftLoadRule.Kilowatts(def.kilowatts, def.shareOfRated, train.Spec.RatedPowerKw, rpm, train.Spec.RatedRpm, def.speedExponent, 1);
         }
+        // Framework 0.243.0: the alternator's standing part (the engine's electronics and its drag), so that a cruise with nothing switched on
+        // still burns the author's rate.
+        PhobosVehicleRulesDef rules = Rules;
+        double volts = ElectricalVolts() * rules.chargingVoltsFactor;
+        float alternatorRpm = (float)(rpm * train.AlternatorRatio);
+        double supply = AlternatorRatedAmps() * rules.alternatorOutput.Evaluate(alternatorRpm);
+        total += ShaftLoadRule.AlternatorKilowatts(System.Math.Min(supply, BaselineLoadAmpsRunning(context)), volts, rules.alternatorEfficiency.Evaluate(alternatorRpm))
+            + ShaftLoadRule.AlternatorDragKilowatts(AlternatorRatedAmps(), volts, rules.alternatorDragShare);
         return total;
+    }
+
+    /// <summary>What the standing loads draw with the engine running, whatever is switched on now, in amps: the figure the nominal cruise
+    /// counts (Framework 0.243.0).</summary>
+    float BaselineLoadAmpsRunning(SystemContext context)
+    {
+        float amps = 0f;
+        foreach (ElectricalLoadSpec load in Loads)
+        {
+            if (!load.baseline || (load.available != null && !load.available.Holds(context))) continue;
+            amps += AmpsNow(load, context);
+        }
+        return amps;
+    }
+
+    /// <summary>
+    /// An electric vehicle's converter (Framework 0.243.0; the report of 23 Nov 2026 found its 12 V loads cost the drive battery nothing): while
+    /// it is switched on, what the converter gives the lights, winch, outlet and 12 V battery comes out of the drive battery, at the converter's
+    /// efficiency, as a share of the pack an hour. Its heaters and air conditioner draw on the pack already, in Systems_Electric.xml.
+    /// </summary>
+    void ApplyConverterDraw(double hours)
+    {
+        if (!EngineRunning || hours <= 0 || Vehicle.CompFueledTravel is not { Props.electricPowered: true } fuel || fuel.EmptyTank) return;
+        PhobosVehicleRulesDef rules = Rules;
+        double amps = ShaftLoadRule.AlternatorOutputAmps(AlternatorSupplyAmps(), loadAmps + CampLoadAmps, ChargingAmps());
+        double share = ShaftLoadRule.ConverterPackSharePerHour(amps, ElectricalVolts() * rules.chargingVoltsFactor, rules.converterEfficiency,
+            rules.tractionPackKilowattHours);
+        if (share <= 0) return;
+        VehicleFuel.Burn(Vehicle, (float)(share * fuel.FuelCapacity * hours), FuelUse.Electrics, this);
+        if (Seen.Wants("vehicles.converter-draw", Vehicle)) Seen.Note("vehicles.converter-draw", Vehicle, amps.ToString("0") + " A");
     }
 
     /// <summary>What the alternator can give now, in amps: its rating, by its own and its belt's condition and its speed.</summary>
@@ -1418,7 +1473,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     {
         if (!VehicleSystemsMod.Settings.accessoriesLoadEngine || states == null || states.Count == 0) return 0;
         double amps = System.Math.Min(loadAmps + CampLoadAmps, AlternatorRatedAmps());
-        return ShaftLoadRule.AlternatorKilowatts(amps, ElectricalVolts(), Rules.alternatorEfficiency.Evaluate(Rules.generatorRatedRpm));
+        double volts = ElectricalVolts() * Rules.chargingVoltsFactor;
+        return ShaftLoadRule.AlternatorKilowatts(amps, volts, Rules.alternatorEfficiency.Evaluate(Rules.generatorRatedRpm))
+            + ShaftLoadRule.AlternatorDragKilowatts(AlternatorRatedAmps(), volts, Rules.alternatorDragShare);
     }
 
     const string AlternatorAmpsParameter = "alternatorAmps";
@@ -1501,6 +1558,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     {
         float amps = 0f;
         float camp = 0f;
+        float baseline = 0f;
         switchedLoadsOn.Clear();
         shedLoads.Clear();
         deadLoads.Clear();
@@ -1532,12 +1590,19 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 if (load.toggle) deadLoads.Add(load.label);
                 continue;
             }
-            amps += AmpsNow(load, context);
+            float now = AmpsNow(load, context);
+            amps += now;
+            if (load.baseline) baseline += now;
             if (load.toggle) switchedLoadsOn.Add(load.label);
         }
         CampLoadAmps = camp;
+        BaselineLoadAmps = baseline;
         return amps;
     }
+
+    /// <summary>What the standing loads of a running engine draw now (Framework 0.243.0: its electronics), in amps: part of the loads' sum.
+    /// Derived, never saved.</summary>
+    public float BaselineLoadAmps { get; private set; }
 
     /// <summary>What a load draws now: its amps, times its inputs where it has any (a fridge by the heat, an outlet by what the camp asks).</summary>
     public float AmpsNow(ElectricalLoadSpec load, SystemContext context)
