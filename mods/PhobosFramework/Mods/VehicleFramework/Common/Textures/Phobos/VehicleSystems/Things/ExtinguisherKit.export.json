@@ -1,0 +1,19 @@
+{
+  "target": "paint-stage/fire-items/ExtinguisherKit.png",
+  "source": "assets/vehicle-systems/generated/extinguisher-kit/extinguisher-kit-2.png",
+  "source_sha256": "062ca1d54196c602f893d3ee7f338de223b7534a4b90f800c676c091ebe7896b",
+  "target_sha256": "8f1bf181b6874ec28c5d2a82c58b0ccbc8eb93e7fa982f577080294e25b88e1a",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "062ca1d54196c602f893d3ee7f338de223b7534a4b90f800c676c091ebe7896b",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T08:32:37",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

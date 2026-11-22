@@ -5,6 +5,21 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.241.0] - 2026-11-23 - Draft
+
+Fighting fires on vehicles
+
+### Added
+
+- **Fires on vehicles start in a place and spread** (docs/development/vehicle-fire.md, FR10; the owner's answers of 23 November 2026): in the engine bay, the crew compartment or the running gear, from the part hit just before the fire caught, and from the running gear into the engine bay and the engine bay into the crew compartment as they burn. Not yet tested in game: row 386 of the test pass.
+- **A vehicle extinguisher**: three charges, fitted in Fittings and tunes after Firefoam research. Use the extinguisher sends someone aboard, or the nearest free colonist; a right-click chooses who. A mechanic refills it at the vehicle with an extinguisher refill from the parts bench. Not yet tested in game: row 387.
+- **Automatic fire suppression**: an engine bay's and a crew compartment's system each put out a fire in their own part of the vehicle by themselves, once, then are spent until a mechanic recharges them with a suppressant bottle. Our trucks take them as upgrades (D'thorga Vehicles 0.107.0); another author's armoured vehicle takes them as fittings. A Fire protection spent alert names vehicles that need a recharge or a refill. Not yet tested in game: row 388.
+- **Three new items at the vehicle parts bench**: the vehicle extinguisher, the extinguisher refill and the suppressant bottle.
+
+### Save compatibility
+
+- Safe to add mid-game: every vehicle gets an extinguisher bracket and, where it can take them, its suppression parts at the next load.
+
 ## [0.240.0] - 2026-11-23 - Draft
 
 Drones come home, and their wrecks are carried back. Not yet tested in game.

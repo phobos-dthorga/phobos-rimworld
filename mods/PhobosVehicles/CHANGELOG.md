@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.107.0] - 2026-11-23 - Draft
+
+Fire suppression for the armoured trucks
+
+### Added
+
+- **Engine fire suppression and crew fire suppression** on the tipper, bulk tanker, drill rig, generator set and survey truck, after the armoured cab and Firefoam research: each puts out a fire in its own part of the truck by itself, once, and is spent until a mechanic recharges it with a suppressant bottle. Needs D'thorga Framework 0.241.0. Not yet tested in game: row 388 of the test pass.
+
 ## [0.106.3] - 2026-11-23 - Draft
 
 The field kitchen and flatbed keep their own colours

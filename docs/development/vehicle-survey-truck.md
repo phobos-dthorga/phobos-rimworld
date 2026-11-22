@@ -229,9 +229,13 @@ flowchart TB
   PhobosArmouredCab["Armoured cab"]
   PhobosRamBar["Ram bar"]
   PhobosHeavyCabPlates["Heavy cab plates"]
+  PhobosSuppressionEngine["Engine fire suppression"]
+  PhobosSuppressionCrew["Crew fire suppression"]
   PhobosSpallLiner["Spall liner (tie-in: CombatExtended)"]
   Hydrogeology["Groundwater sensor (tie-in: DubsBadHygiene)"]
   PhobosArmouredCab --> PhobosHeavyCabPlates
+  PhobosArmouredCab --> PhobosSuppressionEngine
+  PhobosArmouredCab --> PhobosSuppressionCrew
   PhobosArmouredCab --> PhobosSpallLiner
   classDef tiein stroke-dasharray: 5 5
   class PhobosSpallLiner,Hydrogeology tiein

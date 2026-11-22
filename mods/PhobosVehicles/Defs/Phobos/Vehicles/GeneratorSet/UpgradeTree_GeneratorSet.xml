@@ -526,6 +526,94 @@
         <Plasteel>40</Plasteel>
       </ingredients>
     </li>
+        <li>
+          <!-- Framework 0.241.0, FR10(b) (the owner's answers of 23 Nov 2026): the engine bay's automatic system. -->
+          <key>PhobosSuppressionEngine</key>
+          <label>Engine fire suppression</label>
+          <displayLabel>true</displayLabel>
+          <description>A bottle of suppressant piped to nozzles round the engine, set off by heat sensors. When a fire takes hold in the engine bay it puts it out by itself, in moments, before it can reach the cab.</description>
+          <upgradeExplanation>In the engine bay: puts out a fire there the moment it is sensed, before it spreads to the crew compartment.
+Discharges once, by itself, and is spent until a mechanic recharges it with a suppressant bottle.
+Cargo room: 30 kg less.
+Kit weight: 30 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Phobos/VehicleSystems/Things/SuppressantBottle</icon>
+          <work>1500</work>
+          <gridCoordinate>(34, 17)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>Firefoam</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosArmouredCab</li>
+          </prerequisiteNodes>
+          <upgrades>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+              <li>
+                <def>CargoCapacity</def>
+                <value>-30</value>
+              </li>
+              <li>
+                <def>Phobos_KitKilograms</def>
+                <value>30</value>
+              </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSuppressionUpgrade">
+              <zone>EngineBay</zone>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <PhobosVehicleSystems_SuppressantBottle>1</PhobosVehicleSystems_SuppressantBottle>
+            <Steel>15</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
+        <li>
+          <!-- Framework 0.241.0, FR10(b) (the owner's answers of 23 Nov 2026): the crew compartment's automatic system. -->
+          <key>PhobosSuppressionCrew</key>
+          <label>Crew fire suppression</label>
+          <displayLabel>true</displayLabel>
+          <description>A bottle of suppressant piped to nozzles in the cab, set off by fast flame sensors, as armoured vehicles carry. When fire reaches the crew compartment it puts it out by itself in a fraction of a second; the suppressant is safe for the crew to breathe.</description>
+          <upgradeExplanation>In the crew compartment: puts out a fire there the moment it is sensed, from a hit or from the engine bay.
+Discharges once, by itself, and is spent until a mechanic recharges it with a suppressant bottle.
+Cargo room: 30 kg less.
+Kit weight: 30 kg more, carried as cargo.</upgradeExplanation>
+          <icon>Phobos/VehicleSystems/Things/SuppressantBottle</icon>
+          <work>1500</work>
+          <gridCoordinate>(39, 17)</gridCoordinate>
+          <drawSize>(80, 80)</drawSize>
+          <researchPrerequisites>
+            <li>Firefoam</li>
+          </researchPrerequisites>
+          <prerequisiteNodes>
+            <li>PhobosArmouredCab</li>
+          </prerequisiteNodes>
+          <upgrades>
+            <li Class="Vehicles.StatUpgrade">
+              <vehicleStats>
+              <li>
+                <def>CargoCapacity</def>
+                <value>-30</value>
+              </li>
+              <li>
+                <def>Phobos_KitKilograms</def>
+                <value>30</value>
+              </li>
+              </vehicleStats>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSuppressionUpgrade">
+              <zone>CrewCompartment</zone>
+            </li>
+            <li Class="Phobos.VehicleSystems.PhobosSystemsUpgrade" />
+          </upgrades>
+          <ingredients>
+            <PhobosVehicleSystems_SuppressantBottle>1</PhobosVehicleSystems_SuppressantBottle>
+            <Steel>15</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+          </ingredients>
+        </li>
     </nodes>
   </Vehicles.UpgradeTreeDef>
 </Defs>

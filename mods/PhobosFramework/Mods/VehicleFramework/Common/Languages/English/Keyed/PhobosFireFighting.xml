@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fighting fires on vehicles (Framework 0.241.0; docs/development/vehicle-fire.md, FR10): the extinguisher, the suppression systems and
+     the zones a fire burns in. Agent-authored, held for the owner's review. -->
+<LanguageData>
+
+  <!-- Where a fire burns -->
+  <PhobosFireFighting_ZoneEngine>engine bay</PhobosFireFighting_ZoneEngine>
+  <PhobosFireFighting_ZoneCrew>crew compartment</PhobosFireFighting_ZoneCrew>
+  <PhobosFireFighting_ZoneGear>running gear</PhobosFireFighting_ZoneGear>
+  <PhobosFireFighting_ReachedCrew>The fire on the {VEHICLE} has reached the crew compartment.</PhobosFireFighting_ReachedCrew>
+
+  <!-- The hand extinguisher -->
+  <PhobosFireFighting_Use>Use the extinguisher</PhobosFireFighting_Use>
+  <PhobosFireFighting_UseDesc>Someone aboard turns the extinguisher on the fire, or, with nobody aboard, the nearest free colonist runs to use it: it knocks the fire down, and puts a small one out. To choose who goes, select a colonist and right-click the vehicle. {LEFT} of {FULL} charges left; a mechanic refills it at the vehicle.</PhobosFireFighting_UseDesc>
+  <PhobosFireFighting_NoExtinguisher>The {VEHICLE} has no extinguisher fitted.</PhobosFireFighting_NoExtinguisher>
+  <PhobosFireFighting_Empty>The {VEHICLE}'s extinguisher is empty: a mechanic refills it with an extinguisher refill.</PhobosFireFighting_Empty>
+  <PhobosFireFighting_NotBurning>The {VEHICLE} is not on fire.</PhobosFireFighting_NotBurning>
+  <PhobosFireFighting_NobodyFree>Nobody aboard the {VEHICLE} can use it, and no colonist is free to reach it.</PhobosFireFighting_NobodyFree>
+  <PhobosFireFighting_Sent>{PAWN} is going to fight the fire on the {VEHICLE} with its extinguisher.</PhobosFireFighting_Sent>
+  <PhobosFireFighting_UserCannot>{PAWN} cannot use an extinguisher</PhobosFireFighting_UserCannot>
+  <PhobosFireFighting_Menu>Fight the fire on the {VEHICLE} with its extinguisher</PhobosFireFighting_Menu>
+  <PhobosFireFighting_MenuCannot>Cannot fight the fire on the {VEHICLE}: {REASON}</PhobosFireFighting_MenuCannot>
+  <PhobosFireFighting_UsedOut>{PAWN} put out the fire on the {VEHICLE} with its extinguisher. {LEFT} charges left.</PhobosFireFighting_UsedOut>
+  <PhobosFireFighting_UsedDown>{PAWN} knocked the fire on the {VEHICLE} down with its extinguisher, but it still burns. {LEFT} charges left.</PhobosFireFighting_UsedDown>
+  <PhobosFireFighting_Inspect>Extinguisher: {LEFT} of {FULL} charges</PhobosFireFighting_Inspect>
+  <PhobosFireFighting_RepairRefill>refilling the extinguisher</PhobosFireFighting_RepairRefill>
+  <PhobosFireFighting_Refilled>{MECHANIC} refilled the {VEHICLE}'s extinguisher.</PhobosFireFighting_Refilled>
+
+  <!-- Automatic suppression -->
+  <PhobosFireFighting_Ready>ready</PhobosFireFighting_Ready>
+  <PhobosFireFighting_Spent>spent</PhobosFireFighting_Spent>
+  <PhobosFireFighting_InspectSystem>Fire suppression, {ZONE}: {STATE}</PhobosFireFighting_InspectSystem>
+  <PhobosFireFighting_SuppressedOut>The {VEHICLE}'s fire suppression went off in the {ZONE} and put the fire out. It is spent until recharged.</PhobosFireFighting_SuppressedOut>
+  <PhobosFireFighting_SuppressedPart>The {VEHICLE}'s fire suppression put out the fire in the {ZONE}, but the vehicle still burns elsewhere. It is spent until recharged.</PhobosFireFighting_SuppressedPart>
+  <PhobosFireFighting_RepairRecharge>recharging the {PART}</PhobosFireFighting_RepairRecharge>
+  <PhobosFireFighting_Recharged>{MECHANIC} recharged the {VEHICLE}'s {PART}. It is ready again.</PhobosFireFighting_Recharged>
+
+  <!-- The Health tab -->
+  <PhobosFireFighting_HealthCharges>{LEFT} of {FULL} charges</PhobosFireFighting_HealthCharges>
+  <PhobosFireFighting_HealthNoExtinguisher>no extinguisher fitted</PhobosFireFighting_HealthNoExtinguisher>
+  <PhobosFireFighting_HealthNotFitted>not fitted</PhobosFireFighting_HealthNotFitted>
+
+  <!-- The alert -->
+  <PhobosFireFighting_SpentAlert>Fire protection spent</PhobosFireFighting_SpentAlert>
+  <PhobosFireFighting_SpentIntro>These vehicles' fire protection has been used up. A mechanic recharges a suppression system with a suppressant bottle and refills an extinguisher with an extinguisher refill, both made at the vehicle parts bench.</PhobosFireFighting_SpentIntro>
+  <PhobosFireFighting_SpentLine>{VEHICLE}: {WHAT}</PhobosFireFighting_SpentLine>
+  <PhobosFireFighting_AlertExtinguisher>extinguisher empty</PhobosFireFighting_AlertExtinguisher>
+</LanguageData>

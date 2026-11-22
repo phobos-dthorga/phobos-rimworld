@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Fighting fires on vehicles (Framework 0.241.0; docs/development/vehicle-fire.md, FR10; the owner's answers of 23 Nov 2026: three charges, a
+    mechanic refills it, fire zones that spread, crew and engine systems as two upgrades, a suppressant bottle to recharge, other authors'
+    armoured vehicles by armour or by a mark). Every figure is authored, a gameplay simplification of the record's sources: real fires on
+    vehicles start mostly in the engine and its wiring and fluids (US Fire Administration, 2018), reach the passenger compartment minutes later
+    (Papageorge and Colwell, SAE 2024-01-2502, the abstract), and a crew compartment's system puts one out in a fraction of a second (McCormick
+    and Clauson, US Army TARDEC, 2006). Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosFireFightingRulesDef>
+    <defName>PhobosFireFightingRules</defName>
+    <!-- The zone a fire starts in, from the part hit just before it caught (within three game minutes). A fire with no such hit starts in
+         the engine bay, where most real vehicle fires do. -->
+    <roleZones>
+      <li><role>Engine</role><zone>EngineBay</zone></li>
+      <li><role>FuelTank</role><zone>EngineBay</zone></li>
+      <li><role>FuelPump</role><zone>EngineBay</zone></li>
+      <li><role>Battery</role><zone>EngineBay</zone></li>
+      <li><role>Alternator</role><zone>EngineBay</zone></li>
+      <li><role>Starter</role><zone>EngineBay</zone></li>
+      <li><role>Radiator</role><zone>EngineBay</zone></li>
+      <li><role>Belt</role><zone>EngineBay</zone></li>
+      <li><role>OilPump</role><zone>EngineBay</zone></li>
+      <li><role>HydraulicLines</role><zone>EngineBay</zone></li>
+      <li><role>HydraulicPump</role><zone>EngineBay</zone></li>
+      <li><role>Generator</role><zone>EngineBay</zone></li>
+      <li><role>Transmission</role><zone>EngineBay</zone></li>
+      <li><role>TractionBattery</role><zone>EngineBay</zone></li>
+      <li><role>Cabin</role><zone>CrewCompartment</zone></li>
+      <li><role>Glass</role><zone>CrewCompartment</zone></li>
+      <li><role>SleeperBerth</role><zone>CrewCompartment</zone></li>
+      <li><role>Avionics</role><zone>CrewCompartment</zone></li>
+      <li><role>Wheels</role><zone>RunningGear</zone></li>
+      <li><role>Brakes</role><zone>RunningGear</zone></li>
+      <li><role>DriveShaft</role><zone>RunningGear</zone></li>
+      <li><role>LandingGear</role><zone>RunningGear</zone></li>
+    </roleZones>
+    <hitLitHours>0.05</hitLitHours>
+    <fallbackZone>EngineBay</fallbackZone>
+    <!-- A tyre fire reaches the engine bay after about ten game minutes; an engine fire the crew compartment after about six. -->
+    <gearToEngineHours>0.4</gearToEngineHours>
+    <engineToCrewHours>0.25</engineToCrewHours>
+
+    <!-- The hand extinguisher: a dry-powder unit of three uses, each knocking a fire down by 0.75 of the game's fire sizes (0.1 to 1.75): a
+         small fire goes out, a big one is bought time. A colonist outside takes a second and a half to use it. -->
+    <bracketLabel>extinguisher bracket</bracketLabel>
+    <bracketHealth>20</bracketHealth>
+    <extinguisherCharges>3</extinguisherCharges>
+    <knockDown>0.75</knockDown>
+    <useTicks>90</useTicks>
+    <refill>PhobosVehicleSystems_ExtinguisherRefill</refill>
+    <refillWork>300</refillWork>
+
+    <!-- Automatic suppression: each system recharged with one bottle. -->
+    <engineSystemLabel>engine fire suppression</engineSystemLabel>
+    <crewSystemLabel>crew fire suppression</crewSystemLabel>
+    <systemHealth>30</systemHealth>
+    <bottle>PhobosVehicleSystems_SuppressantBottle</bottle>
+    <rechargeWork>600</rechargeWork>
+
+    <!-- Another author's vehicle counts as armoured from these outer-plate sharp armour figures: 0.8 in the game's own figures, 8 mm of steel
+         under Combat Extended, about what stops rifle fire. A vehicle may be marked in or out by Phobos.VehicleSystems.PhobosFittedEquipmentExtension. -->
+    <armouredFrom>0.8</armouredFrom>
+    <armouredFromCombatExtended>8</armouredFromCombatExtended>
+  </Phobos.VehicleSystems.PhobosFireFightingRulesDef>
+
+  <JobDef>
+    <defName>PhobosVehicleSystems_UseExtinguisher</defName>
+    <driverClass>Phobos.VehicleSystems.JobDriver_PhobosUseExtinguisher</driverClass>
+    <reportString>using TargetA's extinguisher.</reportString>
+    <casualInterruptible>false</casualInterruptible>
+  </JobDef>
+
+  <!-- The vehicle extinguisher: a dry-powder unit in its bracket. Steel and a component, as the game's own firefoam pack; chemfuel stands in
+       for its powder and charge, a gameplay simplification. -->
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicleSystems_ExtinguisherKit</defName>
+    <label>vehicle extinguisher</label>
+    <description>A dry-powder fire extinguisher in its bracket, to fit in a vehicle's cab. Fitted, its three charges let the crew, or a colonist beside the vehicle, knock down a fire on it; a small fire goes out. A mechanic refills it at the vehicle with an extinguisher refill.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/ExtinguisherKit</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.85</drawSize>
+    </graphicData>
+    <stackLimit>5</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>9</Mass>
+      <Flammability>0.2</Flammability>
+      <DeteriorationRate>0.5</DeteriorationRate>
+      <MarketValue>60</MarketValue>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicleSystems_ExtinguisherRefill</defName>
+    <label>extinguisher refill</label>
+    <description>A charge of extinguishing powder and a gas cartridge, enough to refill a vehicle's extinguisher to its full three charges. A mechanic puts it in at the vehicle.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/ExtinguisherRefill</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.8</drawSize>
+    </graphicData>
+    <stackLimit>10</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>40</MaxHitPoints>
+      <Mass>4</Mass>
+      <Flammability>0.2</Flammability>
+      <DeteriorationRate>1</DeteriorationRate>
+      <MarketValue>20</MarketValue>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+  </ThingDef>
+
+  <ThingDef ParentName="ResourceBase">
+    <defName>PhobosVehicleSystems_SuppressantBottle</defName>
+    <label>suppressant bottle</label>
+    <description>A pressurised bottle of fire suppressant with its valve, for an armoured vehicle's automatic fire suppression. Fitting the system's upgrade takes one; recharging a spent system takes another, put in by a mechanic at the vehicle.</description>
+    <graphicData>
+      <texPath>Phobos/VehicleSystems/Things/SuppressantBottle</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>0.9</drawSize>
+    </graphicData>
+    <stackLimit>5</stackLimit>
+    <techLevel>Industrial</techLevel>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <Mass>12</Mass>
+      <Flammability>0</Flammability>
+      <DeteriorationRate>0.5</DeteriorationRate>
+      <MarketValue>90</MarketValue>
+    </statBases>
+    <thingCategories>
+      <li>PhobosCategory_VehicleParts</li>
+    </thingCategories>
+  </ThingDef>
+
+  <RecipeDef>
+    <defName>PhobosVehicleSystems_MakeExtinguisherKit</defName>
+    <label>make vehicle extinguisher</label>
+    <description>Make a dry-powder fire extinguisher in its bracket, for a vehicle's cab.</description>
+    <jobString>Making a vehicle extinguisher.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <workAmount>1200</workAmount>
+    <ingredients>
+      <li><filter><thingDefs><li>Steel</li></thingDefs></filter><count>15</count></li>
+      <li><filter><thingDefs><li>ComponentIndustrial</li></thingDefs></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Chemfuel</li></thingDefs></filter><count>10</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>Steel</li><li>ComponentIndustrial</li><li>Chemfuel</li></thingDefs></fixedIngredientFilter>
+    <products><PhobosVehicleSystems_ExtinguisherKit>1</PhobosVehicleSystems_ExtinguisherKit></products>
+    <skillRequirements><Crafting>4</Crafting></skillRequirements>
+    <researchPrerequisite>Firefoam</researchPrerequisite>
+    <recipeUsers><li>PhobosVehicles_PartsBench</li></recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>PhobosVehicleSystems_MakeExtinguisherRefill</defName>
+    <label>make extinguisher refill</label>
+    <description>Make a refill for a vehicle's extinguisher: powder and a gas cartridge for its three charges.</description>
+    <jobString>Making an extinguisher refill.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <workAmount>500</workAmount>
+    <ingredients>
+      <li><filter><thingDefs><li>Steel</li></thingDefs></filter><count>2</count></li>
+      <li><filter><thingDefs><li>Chemfuel</li></thingDefs></filter><count>15</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>Steel</li><li>Chemfuel</li></thingDefs></fixedIngredientFilter>
+    <products><PhobosVehicleSystems_ExtinguisherRefill>1</PhobosVehicleSystems_ExtinguisherRefill></products>
+    <skillRequirements><Crafting>3</Crafting></skillRequirements>
+    <researchPrerequisite>Firefoam</researchPrerequisite>
+    <recipeUsers><li>PhobosVehicles_PartsBench</li></recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>PhobosVehicleSystems_MakeSuppressantBottle</defName>
+    <label>make suppressant bottle</label>
+    <description>Make a pressurised bottle of fire suppressant with its valve, for an armoured vehicle's automatic fire suppression.</description>
+    <jobString>Making a suppressant bottle.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <workSkill>Crafting</workSkill>
+    <effectWorking>Smith</effectWorking>
+    <soundWorking>Recipe_Smith</soundWorking>
+    <workAmount>1500</workAmount>
+    <ingredients>
+      <li><filter><thingDefs><li>Steel</li></thingDefs></filter><count>20</count></li>
+      <li><filter><thingDefs><li>ComponentIndustrial</li></thingDefs></filter><count>1</count></li>
+      <li><filter><thingDefs><li>Chemfuel</li></thingDefs></filter><count>25</count></li>
+    </ingredients>
+    <fixedIngredientFilter><thingDefs><li>Steel</li><li>ComponentIndustrial</li><li>Chemfuel</li></thingDefs></fixedIngredientFilter>
+    <products><PhobosVehicleSystems_SuppressantBottle>1</PhobosVehicleSystems_SuppressantBottle></products>
+    <skillRequirements><Crafting>5</Crafting></skillRequirements>
+    <researchPrerequisite>Firefoam</researchPrerequisite>
+    <recipeUsers><li>PhobosVehicles_PartsBench</li></recipeUsers>
+  </RecipeDef>
+
+  <!-- The extinguisher, fitted in its bracket; and, for other authors' armoured vehicles, whose upgrade trees we leave alone, the two
+       suppression systems as fittings on their mounts (ours are upgrade nodes). -->
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_Extinguisher</defName>
+    <label>vehicle extinguisher</label>
+    <description>A dry-powder extinguisher in the cab: three charges, each knocking a fire on the vehicle down, refilled by a mechanic.</description>
+    <iconPath>Phobos/VehicleSystems/Things/ExtinguisherKit</iconPath>
+    <roles><li>ExtinguisherBracket</li></roles>
+    <materials><PhobosVehicleSystems_ExtinguisherKit>1</PhobosVehicleSystems_ExtinguisherKit></materials>
+    <givesBack><PhobosVehicleSystems_ExtinguisherKit>1</PhobosVehicleSystems_ExtinguisherKit></givesBack>
+    <kilograms>9</kilograms>
+    <work>300</work>
+    <minSkill>1</minSkill>
+    <grants><li>PhobosExtinguisher</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_SuppressionEngine</defName>
+    <label>engine fire suppression</label>
+    <description>An automatic fire suppression system for the engine bay: it puts out a fire there by itself, once, and is spent until a mechanic recharges it with a suppressant bottle.</description>
+    <iconPath>Phobos/VehicleSystems/Things/SuppressantBottle</iconPath>
+    <roles><li>SuppressionEngineMount</li></roles>
+    <materials><PhobosVehicleSystems_SuppressantBottle>1</PhobosVehicleSystems_SuppressantBottle><Steel>15</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <kilograms>25</kilograms>
+    <work>1500</work>
+    <minSkill>5</minSkill>
+    <researchPrerequisite>Firefoam</researchPrerequisite>
+    <grants><li>PhobosSuppressionEngine</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleFittingDef>
+    <defName>PhobosFitting_SuppressionCrew</defName>
+    <label>crew fire suppression</label>
+    <description>An automatic fire suppression system for the crew compartment: it puts out a fire there by itself, once, and is spent until a mechanic recharges it with a suppressant bottle.</description>
+    <iconPath>Phobos/VehicleSystems/Things/SuppressantBottle</iconPath>
+    <roles><li>SuppressionCrewMount</li></roles>
+    <materials><PhobosVehicleSystems_SuppressantBottle>1</PhobosVehicleSystems_SuppressantBottle><Steel>15</Steel><ComponentIndustrial>2</ComponentIndustrial></materials>
+    <kilograms>25</kilograms>
+    <work>1500</work>
+    <minSkill>5</minSkill>
+    <researchPrerequisite>Firefoam</researchPrerequisite>
+    <grants><li>PhobosSuppressionCrew</li></grants>
+  </Phobos.VehicleSystems.PhobosVehicleFittingDef>
+</Defs>

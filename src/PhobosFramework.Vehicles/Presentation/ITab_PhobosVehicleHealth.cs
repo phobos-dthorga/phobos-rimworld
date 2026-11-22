@@ -693,10 +693,16 @@ public class ITab_PhobosVehicleHealth : ITab
                     Colour = state == GlassState.Sound ? PhobosWidgets.Good : state == GlassState.Cracked ? PhobosWidgets.Caution : PhobosWidgets.Bad,
                 });
             }
+            // The extinguisher's bracket and the suppression systems name their state (Framework 0.241.0, FR10).
+            else if (FireFighting.IsOwnGoods(part.props.key) && comp.Vehicle.GetComp<CompPhobosFireFighting>() is { } fireFighting)
+            {
+                row.Conditions.Add(FireFightingRow(fireFighting, part));
+                if (part.Health <= 0f) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthDestroyed".Translate(), Colour = PhobosWidgets.Bad });
+            }
             else if (part.Health <= 0f) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthDestroyed".Translate(), Colour = PhobosWidgets.Bad });
             foreach (RepairWork repair in comp.Repairs.Pending)
             {
-                if (repair.Kind is RepairKind.ReplacePart or RepairKind.Reline or RepairKind.Reglaze && repair.Part == part) row.Conditions.Add(new ConditionRow { Label = comp.Repairs.NeedsLine(repair), Colour = PhobosWidgets.Caution });
+                if (repair.Kind is RepairKind.ReplacePart or RepairKind.Reline or RepairKind.Reglaze or RepairKind.Refill or RepairKind.Recharge && repair.Part == part) row.Conditions.Add(new ConditionRow { Label = comp.Repairs.NeedsLine(repair), Colour = PhobosWidgets.Caution });
             }
             if (!comp.Fittings.GradeOf(part.props.key).isDefault) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_GradeLine".Translate(comp.Fittings.GradeOf(part.props.key).label.Named("GRADE")), Colour = PhobosWidgets.Good });
             if (comp.Fittings.FittedOn(part.props.key) is { } fitting) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_FitFittedLine".Translate(fitting.label.Named("FITTING")), Colour = PhobosWidgets.Good });
@@ -707,6 +713,26 @@ public class ITab_PhobosVehicleHealth : ITab
         }
 
         /// <summary>The part's own conditions (a holed radiator), each with its stage, and its severity when figures are shown.</summary>
+        /// <summary>The extinguisher's charges, or a suppression system's state (Framework 0.241.0, FR10).</summary>
+        static ConditionRow FireFightingRow(CompPhobosFireFighting comp, VehicleComponent part)
+        {
+            if (part.props.key == FireFighting.BracketKey)
+            {
+                if (!comp.ExtinguisherFittedAtAll) return new ConditionRow { Label = "PhobosFireFighting_HealthNoExtinguisher".Translate(), Colour = PhobosWidgets.Off };
+                int full = FireFighting.Rules.extinguisherCharges;
+                return new ConditionRow
+                {
+                    Label = "PhobosFireFighting_HealthCharges".Translate(comp.Charges.Named("LEFT"), full.Named("FULL")),
+                    Colour = comp.Charges >= full ? PhobosWidgets.Good : comp.Charges > 0 ? PhobosWidgets.Caution : PhobosWidgets.Bad,
+                };
+            }
+            FireZones zone = part.props.key == FireFighting.CrewSystemKey ? FireZones.CrewCompartment : FireZones.EngineBay;
+            if ((comp.Fitted & zone) == 0) return new ConditionRow { Label = "PhobosFireFighting_HealthNotFitted".Translate(), Colour = PhobosWidgets.Off };
+            return (comp.Ready & zone) != 0
+                ? new ConditionRow { Label = "PhobosFireFighting_Ready".Translate(), Colour = PhobosWidgets.Good }
+                : new ConditionRow { Label = "PhobosFireFighting_Spent".Translate(), Colour = PhobosWidgets.Bad };
+        }
+
         /// <summary>A spall liner's state, in the colour of what it means for the crew.</summary>
         static ConditionRow LinerRow(LinerState state) => state switch
         {

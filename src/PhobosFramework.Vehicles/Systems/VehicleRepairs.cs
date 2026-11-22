@@ -21,6 +21,10 @@ public enum RepairKind
     Reline,
     /// <summary>Cracked or broken glass re-glazed with the glass chain's goods (Framework 0.238.0, VG7).</summary>
     Reglaze,
+    /// <summary>The hand extinguisher refilled to full (Framework 0.241.0, FR10(a)).</summary>
+    Refill,
+    /// <summary>A spent suppression system recharged with a suppressant bottle (Framework 0.241.0, FR10(b)).</summary>
+    Recharge,
 }
 
 /// <summary>
@@ -30,7 +34,7 @@ public enum RepairKind
 /// </summary>
 public static class OwnGoodsParts
 {
-    public static bool Is(string? key) => key == Spall.LinerKey || key == Glass.Key;
+    public static bool Is(string? key) => key == Spall.LinerKey || key == Glass.Key || FireFighting.IsOwnGoods(key);
 }
 
 /// <summary>A repair waiting to be done: what it is, the work it takes and the ways of paying for it, ours first.</summary>
@@ -336,6 +340,32 @@ public sealed class VehicleRepairs
             repair.Options.Add(goods);
             pending.Add(repair);
         }
+        // The extinguisher short of charges, and spent suppression systems (Framework 0.241.0, FR10): a refill or a bottle, hauled in and
+        // put in by a mechanic at the vehicle, as every repair here; never a hauler's top-up.
+        if (comp.Vehicle.GetComp<CompPhobosFireFighting>() is { } fireFighting)
+        {
+            PhobosFireFightingRulesDef fireRules = FireFighting.Rules;
+            if (FireFighting.RefillWanted(fireFighting) is { } bracket && fireRules.refill != null)
+            {
+                var repair = new RepairWork
+                {
+                    Key = "refill/" + FireFighting.BracketKey, Kind = RepairKind.Refill, Part = bracket, Work = fireRules.refillWork,
+                    Label = "PhobosFireFighting_RepairRefill".Translate().Resolve(),
+                };
+                repair.Options.Add(new List<(ThingDef def, int count)> { (fireRules.refill, 1) });
+                pending.Add(repair);
+            }
+            foreach ((FireZones zone, VehicleComponent part) in FireFighting.RechargeWanted(fireFighting))
+            {
+                var repair = new RepairWork
+                {
+                    Key = "recharge/" + part.props.key, Kind = RepairKind.Recharge, Part = part, Work = fireRules.rechargeWork,
+                    Label = "PhobosFireFighting_RepairRecharge".Translate(part.props.label.Named("PART")).Resolve(),
+                };
+                repair.Options.Add(new List<(ThingDef def, int count)> { (fireRules.bottle!, 1) });
+                pending.Add(repair);
+            }
+        }
         foreach (FitOrder order in comp.Fittings.Orders)
         {
             VehicleFittings fittings = comp.Fittings;
@@ -512,6 +542,20 @@ public sealed class VehicleRepairs
                 comp.RememberAllPartHealths();
                 if (Seen.Wants("vehicles.glass", comp.Vehicle, "reglazed")) Seen.Note("vehicles.glass", comp.Vehicle, repair.Part.props.label, "reglazed");
                 text = "PhobosVehicleSystems_RepairReglazed".Translate(who, vehicle, repair.Part.props.label.Named("PART")).Resolve();
+                break;
+            case RepairKind.Refill:
+                // Full again (Framework 0.241.0, FR10(a)).
+                if (comp.Vehicle.GetComp<CompPhobosFireFighting>() is { } refilled) FireFighting.Refilled(refilled, repair.Part!);
+                comp.RememberAllPartHealths();
+                if (Seen.Wants("vehicles.extinguisher-refilled", comp.Vehicle)) Seen.Note("vehicles.extinguisher-refilled", comp.Vehicle, mechanic.LabelShort);
+                text = "PhobosFireFighting_Refilled".Translate(who, vehicle).Resolve();
+                break;
+            case RepairKind.Recharge:
+                // Ready again (Framework 0.241.0, FR10(b)).
+                if (comp.Vehicle.GetComp<CompPhobosFireFighting>() is { } recharged) FireFighting.Recharged(recharged, repair.Part!);
+                comp.RememberAllPartHealths();
+                if (Seen.Wants("vehicles.suppression-recharged", comp.Vehicle)) Seen.Note("vehicles.suppression-recharged", comp.Vehicle, repair.Part!.props.label);
+                text = "PhobosFireFighting_Recharged".Translate(who, vehicle, repair.Part!.props.label.Named("PART")).Resolve();
                 break;
             default:
                 if (repair.Condition == null && repair.Part != null)

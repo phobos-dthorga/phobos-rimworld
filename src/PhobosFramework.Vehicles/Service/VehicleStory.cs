@@ -129,6 +129,13 @@ public static class VehicleStory
     }
 
     /// <summary>The spall liner wore through and catches nothing until re-lined (Framework 0.209.0).</summary>
+    /// <summary>An automatic suppression system put out the fire in its zone (Framework 0.241.0, FR10(b)).</summary>
+    public static void SuppressionFired(VehiclePawn vehicle, string zone)
+    {
+        if (vehicle?.GetComp<CompPhobosVehicleSystems>() is not { } comp || !Keeps(comp)) return;
+        Log(comp, VehicleStoryDefOf.PhobosLog_SuppressionFired, detail: zone);
+    }
+
     public static void LinerSpent(VehiclePawn vehicle)
     {
         if (vehicle?.GetComp<CompPhobosVehicleSystems>() is not { } comp || !Keeps(comp)) return;
@@ -248,6 +255,7 @@ public static class VehicleStoryDefOf
     public static PhobosLogEntryDef PhobosLog_Struck = null!;
     public static PhobosLogEntryDef PhobosLog_SpallWounded = null!;
     public static PhobosLogEntryDef PhobosLog_LinerSpent = null!;
+    public static PhobosLogEntryDef PhobosLog_SuppressionFired = null!;
     public static PhobosLogEntryDef PhobosLog_GlassCracked = null!;
     public static PhobosLogEntryDef PhobosLog_GlassGone = null!;
     public static PhobosLogEntryDef PhobosLog_GlassSplinters = null!;

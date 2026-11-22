@@ -176,6 +176,18 @@ left on still run the battery down.
   its tyres or tracks, belts and hoses** (the setting **Fire underneath burns fireproof vehicles' tyres and hoses**, on by default).
 - **Firefoam works on a burning vehicle with Combat Extended**: foam that lands on the vehicle now shrinks the fire on it, as it does
   without Combat Extended. Not yet tested in game: row 340 of the test pass.
+- **A fire starts somewhere and spreads**: in the engine bay (most fires, and any hit on the engine, fuel or wiring), the crew compartment
+  (a hit through the cab) or the running gear (tyres and brakes). A tyre fire reaches the engine bay in about ten game minutes, an engine
+  fire the crew compartment in about six; a message says when it reaches the crew.
+- **A vehicle extinguisher** (after **Firefoam** research; made at the vehicle parts bench, fitted in **Fittings and tunes**): three
+  charges. **Use the extinguisher** on a burning vehicle: someone aboard uses it at once, or, with nobody aboard, **the nearest free
+  colonist runs over**; to choose who, select a colonist and right-click the vehicle. Each use knocks the fire down and puts a small one
+  out. **A mechanic refills it at the vehicle** with an **extinguisher refill** from the parts bench, by itself, as a repair.
+- **Automatic fire suppression** on our trucks with the armoured cab: **Engine fire suppression** and **Crew fire suppression**, two
+  upgrades (a **suppressant bottle** each, 30 kg as cargo). Each goes off by itself, once, when fire is in its own part of the truck, puts
+  it out, and is **spent** until a mechanic recharges it with another bottle. **Another author's armoured vehicle** (a tank, an armoured
+  car) takes both as fittings. The **Fire protection spent** alert names vehicles whose systems are spent or extinguisher empty. Not yet
+  tested in game: rows 386 to 388 of the test pass.
 - **A destroyed vehicle leaves its hull** (not yet tested in game; the setting **Destroyed vehicles leave a hull**, on by default): yours or
   anyone's, where it fell. Mark it to **Deconstruct**: it gives **salvaged vehicle parts**, worth a quarter of the vehicle, on top of the
   quarter of its materials Vehicle Framework drops where it is destroyed. A raiders' aircraft brought down leaves nothing.

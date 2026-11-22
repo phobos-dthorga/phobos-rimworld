@@ -140,6 +140,13 @@
   </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
   <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <!-- Framework 0.241.0, FR10(b): an automatic suppression system fired. Good news, but the system is spent until recharged. -->
+    <defName>PhobosLog_SuppressionFired</defName>
+    <label>fire suppressed</label>
+    <text>Fire in the {DETAIL} {PLACE}: the suppression system put it out, and is spent until recharged.</text>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
     <defName>PhobosLog_LinerSpent</defName>
     <label>spall liner spent</label>
     <text>The spall liner wore through {PLACE}: it catches nothing until it is re-lined.</text>

@@ -1,0 +1,59 @@
+[
+  {
+    "name": "extinguisher-kit",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/BoosterPack.png", "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/FireBucket.png", "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "thing": "PhobosVehicleSystems_ExtinguisherKit",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/ExtinguisherKit.png",
+      "why": "the vehicle extinguisher, an item lying in stockpiles and the fitting's icon (docs/development/vehicle-fire.md, FR10(a); the owner's answers of 23 Nov 2026)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a compact red dry-powder fire extinguisher, a short fat cylinder with a black squeeze handle and a short black hose, clipped into a simple grey steel wall bracket with a quick-release strap. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no text, letters, numbers or logos, no warning labels with writing."
+  },
+  {
+    "name": "extinguisher-refill",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/CountermeasureCartridge.png", "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/JumpStartKit.png", "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "thing": "PhobosVehicleSystems_ExtinguisherRefill",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/ExtinguisherRefill.png",
+      "why": "the extinguisher's refill, an item lying in stockpiles and hauled to the vehicle by a mechanic (FR10(a))",
+      "this_request": "paid route, two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object group, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a refill kit for a fire extinguisher: a sealed heavy pale grey plastic bag of fine white powder beside a small brass-and-steel gas cartridge, the two together. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no text, letters, numbers or logos."
+  },
+  {
+    "name": "suppressant-bottle",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [1, 2],
+    "references": [
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/HouseBattery.png", "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"},
+      {"image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/FireBucket.png", "role": "our approved item icon: match its outline weight, shading, palette and finish only; do not copy its shape"}
+    ],
+    "art_plan": {
+      "thing": "PhobosVehicleSystems_SuppressantBottle",
+      "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Things/SuppressantBottle.png",
+      "why": "the automatic fire suppression's bottle, an item lying in stockpiles, the upgrade's ingredient and its recharge (FR10(b))",
+      "this_request": "paid route, two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: a military vehicle's fire suppression bottle lying on its side: a squat, rounded steel pressure cylinder painted dull red with a chunky brass discharge valve and a short braided steel pipe stub, and a pressure gauge on the valve. Images 1 and 2 are our approved item icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo people, no text, letters, numbers or logos."
+  }
+]

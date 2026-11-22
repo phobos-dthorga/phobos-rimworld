@@ -54,8 +54,12 @@ DEFAULT_SIZE = (40.0, 40.0)
 TOP_ROW = 2
 MAX_ROW_STEP = 7
 # A tree of ours that cannot fit the tab, and why. D'thorga Framework's UpgradeTabScrollPatch scrolls one that does not fit, but a tree
-# that fits shows every upgrade at once: none needs to scroll today.
-MAY_SCROLL = {}
+# that fits shows every upgrade at once.
+MAY_SCROLL = {
+    # The owner's card of 23 Nov 2026: its pressure vessels push its armour columns a row lower than the other trucks', so of the two fire
+    # suppression nodes (Framework 0.241.0, FR10) only the engine's fits under the armoured cab; the crew's sits a row lower.
+    'Phobos_Tanker_UpgradeTree': "the tanker's crew fire suppression, a row below the tab (the owner's choice, 23 Nov 2026)",
+}
 
 
 @dataclass

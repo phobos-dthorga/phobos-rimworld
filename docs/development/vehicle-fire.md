@@ -1,7 +1,8 @@
 # Fire on vehicles: what burns today, what does not, and what a vehicle fire should do (22 Nov 2026)
 
-**Status (22 Nov 2026):** partly built, at the owner's word: FR1 (seeing a fire on a vehicle) in D'thorga Framework 0.220.0; FR2,
-FR3, FR5, FR6 and FR9 in 0.221.0. FR10 waits for its short design; every other row is unbuilt. Not yet tested in game: rows 339 and 340.
+**Status (23 Nov 2026):** partly built, at the owner's word: FR1 (seeing a fire on a vehicle) in D'thorga Framework 0.220.0; FR2,
+FR3, FR5, FR6 and FR9 in 0.221.0; FR10 (the extinguisher, automatic suppression and fire zones) in Framework 0.241.0 and Vehicles
+0.107.0. Every other row is unbuilt. Not yet tested in game: rows 339, 340 and 386 to 388.
 
 The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md)'s row NK20 (fire that harms a vehicle): "Write its
 record next", the strike research having found that Combat Extended discards the game's fire damage against every vehicle. It began
@@ -285,7 +286,38 @@ vehicles may be fitted with it.
 
 **The owner's answers (cards, 23 Nov 2026):** **three charges**; **crew and engine, as two upgrade nodes**, each firing once and
 recharging, as real vehicles have; and **yes, other authors' armoured vehicles may be fitted**, through the extension the liner and
-the glass share. Not built yet.
+the glass share.
+
+**More answers (cards, 23 Nov 2026):** the extinguisher's charges stay with it, and **a mechanic refills it at the vehicle**, as every
+repair of ours is done (the owner's worry: "that it won't be refilled like the flares", whose hauler top-up is an open fault); **fire
+zones with spread**, "as long as it's not too much of a performance concern"; a **suppressant bottle** to recharge; other authors'
+vehicles count as armoured **by armour or by a mark** ("Both?"). Then, by the owner's request, **the button sends someone**: with
+nobody aboard, the nearest free colonist runs to use it, the right-click kept for choosing who.
+
+### What was built (Framework 0.241.0, Vehicles 0.107.0)
+
+- **Fire zones** (`FireFightingRule`, `FireFighting`; rules in `FireFighting.xml`): a fire takes the zone of the part hit within three
+  game minutes before it caught (roles named in the rules: the engine and what sits by it, the cab and glass, the running gear), else the
+  engine bay [A]. It spreads from the running gear into the engine bay after 0.4 game hours and from the engine bay into the crew
+  compartment after 0.25 [A]. The game has one fire on a vehicle; the zones are ours, saved on `CompPhobosFireFighting`. Cost: a postfix
+  on `FireUtility.TryAttachFire` only notes the vehicle, handled on the next tick by a game component; the rest is read on the rare tick,
+  only while the vehicle burns.
+- **The extinguisher** (FR10(a)): a fitting on a bracket every vehicle with a loadout gets (trailers apart), three charges, each use
+  knocking the fire down by 0.75 of the game's fire sizes [A] (a small fire goes out). Its charges stay with the vehicle when it is
+  taken off, so refitting is no free refill. **Refilled by the repairs** (a refill item, made at the parts bench, hauled in and put in
+  by a mechanic), as relining is: listed by itself, never a hauler's top-up. The button sends the nearest free colonist with nobody
+  aboard (`Work/SendNearest`, in the Framework core for any button whose work needs a person).
+- **Automatic suppression** (FR10(b)): two nodes on our five armoured-cab trucks, `PhobosSuppressionEngine` and `PhobosSuppressionCrew`
+  (`PhobosSuppressionUpgrade`, a zone each; after the armoured cab and Firefoam; a bottle, 15 steel, 2 components, 30 kg carried). Each
+  discharges when its own zone burns, puts that zone out (the fire shrinks by the share of zones put out, or goes out), and is spent; the
+  repairs recharge it with a bottle. Its part on the Health tab reads ready or spent; the **Fire protection spent** alert, a message and
+  the vehicle's logbook say when it fires.
+- **Other authors' armoured vehicles**: both systems as fittings on mounts appended at start-up, when the vehicle's outer plates reach
+  0.8 sharp armour (8 under Combat Extended) [A], or `PhobosFittedEquipmentExtension.armoured` marks it in or out. The extension is the
+  one the spall liner and the glass are to share when next touched.
+- **Other factions:** any faction's vehicle with a system fitted puts its fire out; their crews do not use extinguishers. Zones are
+  kept for every burning vehicle.
+- **Known limit:** a fire in the running gear is covered by no system until it spreads, as with real systems.
 
 ## Who chose what
 

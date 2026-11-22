@@ -28,6 +28,53 @@ public static class AttachedFires
         return thing.IsBurning();
     }
 
+    /// <summary>The game destroys a fire smaller than this.</summary>
+    public const float SmallestFire = 0.1f;
+
+    /// <summary>The biggest fire burning on the thing, in the game's fire sizes; none when it does not burn.</summary>
+    public static float Biggest(ThingWithComps thing)
+    {
+        float biggest = 0f;
+        List<AttachableThing>? attachments = thing?.GetComp<CompAttachBase>()?.attachments;
+        if (attachments == null) return 0f;
+        foreach (AttachableThing attachment in attachments)
+        {
+            if (attachment is Fire { Destroyed: false } fire && fire.fireSize > biggest) biggest = fire.fireSize;
+        }
+        return biggest;
+    }
+
+    /// <summary>Knocks every fire burning on the thing down by <paramref name="size"/> (Framework 0.241.0, a vehicle's hand extinguisher):
+    /// one left smaller than the game keeps goes out. Says how many went out.</summary>
+    public static int KnockDown(ThingWithComps thing, float size) => Shrink(thing, fire => fire.fireSize - size);
+
+    /// <summary>Shrinks every fire burning on the thing to <paramref name="share"/> of its size (Framework 0.241.0, a vehicle's suppression
+    /// system putting out part of a fire). Says how many went out.</summary>
+    public static int ScaleTo(ThingWithComps thing, float share) => Shrink(thing, fire => fire.fireSize * share);
+
+    static int Shrink(ThingWithComps thing, System.Func<Fire, float> newSize)
+    {
+        List<AttachableThing>? attachments = thing?.GetComp<CompAttachBase>()?.attachments;
+        if (attachments == null || attachments.Count == 0) return 0;
+        var fires = new List<Fire>();
+        foreach (AttachableThing attachment in attachments)
+        {
+            if (attachment is Fire { Destroyed: false } fire) fires.Add(fire);
+        }
+        int out_ = 0;
+        foreach (Fire fire in fires)
+        {
+            float size = newSize(fire);
+            if (size < SmallestFire)
+            {
+                fire.Destroy();
+                out_++;
+            }
+            else fire.fireSize = size;
+        }
+        return out_;
+    }
+
     /// <summary>Puts out every fire burning on the thing, as water closing over it would, and says how many there were.</summary>
     public static int PutOut(ThingWithComps thing)
     {

@@ -871,6 +871,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 Beams.Update();
                 CookOff.RareTick(this);
                 FireWear.RareTick(this, lite: false);
+                // Fire zones, their spread and the suppression systems (Framework 0.241.0, FR10): read only while the vehicle burns.
+                if (Vehicle.GetComp<CompPhobosFireFighting>() is { } fireFighting) FireFighting.Look(fireFighting);
                 if (++pipeLooks >= RareTicksPerPipeLook)
                 {
                     pipeLooks = 0;
@@ -889,6 +891,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 CookOff.RareTick(this);
                 // Fire wears another faction's vehicle as it does the player's (Framework 0.221.0, FR6; a setting).
                 FireWear.RareTick(this, lite: true);
+                // Any faction's vehicle with suppression fitted puts its fire out (Framework 0.241.0, FR10).
+                if (Vehicle.GetComp<CompPhobosFireFighting>() is { } fireFightingLite) FireFighting.Look(fireFightingLite);
                 // Another faction's crew leaves a burning vehicle or a dead hull (Framework 0.115.0, C2).
                 CrewBailOut.RareTick(this);
                 break;
@@ -1960,6 +1964,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         Vehicle.statHandler?.MarkAllDirty();
         Repairs.Invalidate();
         HealthViewVersion++;
+        // A newly fitted extinguisher arrives full (Framework 0.241.0, FR10).
+        FireFighting.FittingsChanged(this);
     }
 
     /// <summary>The part-health memory beside each part's health now, for the dev action.</summary>
@@ -1985,6 +1991,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     void Notify_PartHit(VehicleComponent part, float healthLost, DamageDef? damage)
     {
         if (!Usable || healthLost <= 0f) return;
+        // The cause of a fire that catches soon after: its zone (Framework 0.241.0, FR10).
+        FireFighting.NoteHit(this, part);
         // Another faction's vehicle counts its hits but does not evolve (the light tier).
         if (Tier == DetailTier.Full) UpdateNow();
         else EnsureStates();

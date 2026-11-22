@@ -611,6 +611,21 @@
     }},
     "384": ["framework.recall-home"],
     "385": ["framework.reclaim-wreck"],
+    "386": {"parts": {
+      "a fire starts in a zone": [{"key": "vehicles.fire-zone"}],
+      "a fire spreads to the next zone": [{"key": "vehicles.fire-spread"}]
+    }},
+    "387": {"parts": {
+      "the extinguisher is used": [{"key": "vehicles.extinguisher-used"}],
+      "with nobody aboard the button sends a colonist": [{"key": "vehicles.extinguisher-sent"}],
+      "a mechanic refills it": [{"key": "vehicles.extinguisher-refilled"}],
+      "the alert names an empty extinguisher": [{"key": "vehicles.suppression-alert"}]
+    }},
+    "388": {"parts": {
+      "a node fits a ready system": [{"key": "vehicles.suppression-fitted", "variant": "fitted"}],
+      "a system puts its zone out": [{"key": "vehicles.suppression-fired", "expect": {"left": ">= 0"}}],
+      "a mechanic recharges it": [{"key": "vehicles.suppression-recharged"}]
+    }},
     "230": ["framework.error-attributed"],
     "232": {"parts": {
       "the armoured cab is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosArmouredCab", "detail": "*: fitted"}],

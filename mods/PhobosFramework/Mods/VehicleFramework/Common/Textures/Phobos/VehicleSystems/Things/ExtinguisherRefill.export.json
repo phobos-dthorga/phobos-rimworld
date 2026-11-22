@@ -1,0 +1,19 @@
+{
+  "target": "paint-stage/fire-items/ExtinguisherRefill.png",
+  "source": "assets/vehicle-systems/generated/extinguisher-refill/extinguisher-refill-2.png",
+  "source_sha256": "6a8fc71f484fcab1f8667ee3fd6c1a73432229563fa3f654125c81c465a2545f",
+  "target_sha256": "7f17868badd4714f62ffafe3ae571905a8050af9b217392280731a782f41527f",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "6a8fc71f484fcab1f8667ee3fd6c1a73432229563fa3f654125c81c465a2545f",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T08:32:40",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

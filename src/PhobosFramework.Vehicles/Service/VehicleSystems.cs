@@ -175,6 +175,11 @@ public static class VehicleSystems
         // A closed cab's glass (Framework 0.238.0, VG1): appended last, so the saved order of every earlier part stays as it was.
         Glass.Apply(def, props);
         if (props.addedKeys.Contains(Glass.Key)) added++;
+        // The extinguisher's bracket and the suppression systems (Framework 0.241.0, FR10): appended after the glass, for the same reason.
+        FireFighting.Apply(def, props);
+        if (props.addedKeys.Contains(FireFighting.BracketKey)) added++;
+        if (props.addedKeys.Contains(FireFighting.EngineSystemKey)) added++;
+        if (props.addedKeys.Contains(FireFighting.CrewSystemKey)) added++;
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).
         foreach (KeyValuePair<string, List<string>> pair in props.roleKeys)
         {
