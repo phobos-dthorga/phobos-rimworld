@@ -17,10 +17,10 @@
     <graphicData>
       <texPath>Phobos/Vehicles/FlatbedTrailer/FlatbedTrailer</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Vehicles 0.106.3): drawn in its own colours with no paint mask, so
+           Vehicle Framework offers no paint for it; repainted, its pale sand rails stayed patchy. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(4, 8)</drawSize>
-      <color>(180, 174, 143)</color>
-      <colorTwo>(222, 119, 14)</colorTwo>
     </graphicData>
     <fillPercent>0.5</fillPercent>
     <buildDef>Phobos_FlatbedTrailer_Blueprint</buildDef>

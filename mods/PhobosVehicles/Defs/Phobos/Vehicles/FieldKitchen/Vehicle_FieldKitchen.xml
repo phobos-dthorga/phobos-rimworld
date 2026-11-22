@@ -18,11 +18,11 @@
     <graphicData>
       <texPath>Phobos/Vehicles/FieldKitchen/BillyFieldKitchen</texPath>
       <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
-      <shaderType>CutoutComplexPattern</shaderType>
+      <!-- No paint (the owner's choice of 23 Nov 2026, D'thorga Vehicles 0.106.3): drawn in its own colours with no paint mask, so
+           Vehicle Framework offers no paint for it; repainted, its shutter frames stayed patchy. -->
+      <shaderType>Cutout</shaderType>
       <drawSize>(5, 9)</drawSize>
-      <!-- Its own picture since 17 Nov 2026 (owner's pick, attempt 3): the body takes the paint, olive as drawn; the canvas shutters stay as drawn. -->
-      <color>(145, 141, 109)</color>
-      <colorTwo>(176, 164, 128)</colorTwo>
+      <!-- Its own picture since 17 Nov 2026 (owner's pick, attempt 3), olive as drawn. -->
     </graphicData>
     <fillPercent>0.6</fillPercent>
     <buildDef>Phobos_FieldKitchen_Blueprint</buildDef>

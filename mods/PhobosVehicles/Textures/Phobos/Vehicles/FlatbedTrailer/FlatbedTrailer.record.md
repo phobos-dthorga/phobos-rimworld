@@ -6,12 +6,12 @@
 
 **Re-exported 13 Nov 2026 for D'thorga Vehicles 0.54.1**, when the trailer grew to 3 x 7 cells drawn at 4 x 8: from the same original, at the same look (5 cells long in a 3 x 6 picture became 20/3 in 4 x 8), so it is drawn at 128 px a cell instead of being stretched to about 96. The boards were refitted with `assets/phobos-vehicles/export_round_three.py --only FlatbedTrailer`. Checked by eye on dark ground beside the old picture.
 
-- `FlatbedTrailer_east.png`: SHA-256 `4a6ae2bb30e7300423688331879a3d14a6560f8214504b5ccc735c7bfbfe68ca`
+- `FlatbedTrailer_east.png`: SHA-256 `eaae9ee4badc90b760c2e2f2bb5cb8d18af57bdb1e39ab3bc85cd395cdf89d06`
 - `FlatbedTrailer_eastm.png`: SHA-256 `645c69e424e3d5c3ef5489d30e625defa5412d75da750cf40c706787a1732629`
 - `FlatbedTrailer_icon.png`: SHA-256 `e55c9a49640384cabe67a8d726b6798ffbaca59202e769be34e7e369edffbb64`
-- `FlatbedTrailer_north.png`: SHA-256 `3e58e0d0101acceae9f3bd5681bc1b9e53e5336c60b0fb0f461d4574931d2f5a`
+- `FlatbedTrailer_north.png`: SHA-256 `46005f7edc3ba2d9a74fdd14e79fbef8058818d61e1b32d8b888f4b50ac2241a`
 - `FlatbedTrailer_northm.png`: SHA-256 `30a3415991944365e786e72df8bae9bfb0a8905115f862f542dbcb7fc03129a0`
-- `FlatbedTrailer_south.png`: SHA-256 `9824b0b2980f6838af4531e6a98a6ac8c1d0309a0d4d2c94c756eed48425ccbc`
+- `FlatbedTrailer_south.png`: SHA-256 `6d40c376b5d870549bb5eacc1322e177f23fbd5c5b4bfe8e9c88901596fc5602`
 - `FlatbedTrailer_southm.png`: SHA-256 `b5fcc355ba2fa0099fbe506e83edceb4861501cee34b85b5bd9758aaf978de47`
 
 ## The greedy boards
@@ -62,3 +62,16 @@ roof tent is now drawn alone on white and laid by script, so the sprite exporter
 - `FlatbedTrailer_SideRoll`: 0942344662b4efcf5d7ff1f8ecfe50c80556e4df886f5f1054286f84a546f6cd
 - `FlatbedTrailer_SideRollRight` (mirrored): 69508595fcb8da91bebd67913bd6227dfd24c92b81e6e2c7459ed787081074f9
 - `FlatbedTrailer_RearTentRoof` (across the roof): 60d2a8e8242c05f5a7540df50e0cf8fcc86a93ee324d8b9e304f045215df28e2
+
+## Own colours, no paint (23 Nov 2026)
+
+**Facings exported again in their own colours from the same master on the same transform, and the paint masks removed**, D'thorga
+Vehicles 0.106.3 (the owner's choice of 23 Nov 2026: repainted, the body stayed patchy after the trucks' fixes, so it is not offered
+paint). `python scripts/art/repaint_vehicles.py stage --paint repaired` (this body is in its `UNPAINTED` list), then `apply`; the Def's
+shader is plain Cutout. The drawing, its outline and every overlay's fit are unchanged. No game or other author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| FlatbedTrailer_north | `46005f7edc3ba2d9a74fdd14e79fbef8058818d61e1b32d8b888f4b50ac2241a` |
+| FlatbedTrailer_east | `eaae9ee4badc90b760c2e2f2bb5cb8d18af57bdb1e39ab3bc85cd395cdf89d06` |
+| FlatbedTrailer_south | `6d40c376b5d870549bb5eacc1322e177f23fbd5c5b4bfe8e9c88901596fc5602` |

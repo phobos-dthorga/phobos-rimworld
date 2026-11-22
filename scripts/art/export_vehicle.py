@@ -305,7 +305,7 @@ def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, p
         if labels is not None:
             flat_parts = list(labels.get_flattened_data() if hasattr(labels, 'get_flattened_data') else labels.getdata())
             if settle_faint:
-                settle_doubtful_paint(image, kinds, flat_parts, min_saturation)
+                settle_doubtful_paint(image, kinds, flat_parts, min_saturation, None if settle_faint is True else settle_faint)
         absorb_paint_coloured_edges(image, kinds, main_hue, accent_hue, min_saturation, main_max_saturation, flat_parts)
     groups = {'main': [], 'accent': []}
     for y in range(height):
@@ -348,12 +348,12 @@ PAINT_DOUBT_SHARE = 0.12  # a part carrying less than this share of a paint plai
                           # them 16 to 25 %; 0.05 left red specks on the tank's right side, the owner's review; authored, 23 Nov 2026)
 
 
-def settle_doubtful_paint(image, kinds, parts, min_saturation):
+def settle_doubtful_paint(image, kinds, parts, min_saturation, band=None):
     """
     Paint only just above its body's saturation floor is dropped inside a Segment Anything part that plainly is not painted with it (the
     Pintle bowser, 23 Nov 2026: its white tank's warm shaded edge, saturation 0.11 to 0.13, took the olive paint and showed as red dashes
     when the bowser was painted red, while its walkway's pale rails, as faint, belong to the paint). No single floor parts the two; their
-    parts do. Asked for by body (settle_faint): on the generator set it broke up a painted rim that was right as shipped. Changes kinds in place and returns how many pixels lost their paint.
+    parts do. band: how far above the floor paint is faint (PAINT_DOUBT unless given). Asked for by body (settle_faint): on the generator set it broke up a painted rim that was right as shipped. Changes kinds in place and returns how many pixels lost their paint.
     """
     width = image.size[0]
     source = image.load()
@@ -369,7 +369,7 @@ def settle_doubtful_paint(image, kinds, parts, min_saturation):
         if tally.get(kind, 0) / sum(tally.values()) >= PAINT_DOUBT_SHARE:
             continue
         red, green, blue, _ = source[index % width, index // width]
-        if colorsys.rgb_to_hsv(red / 255, green / 255, blue / 255)[1] < min_saturation + PAINT_DOUBT:
+        if colorsys.rgb_to_hsv(red / 255, green / 255, blue / 255)[1] < min_saturation + (PAINT_DOUBT if band is None else band):
             was[index] = kind
             kinds[index] = None
     # A small patch dropped from inside one paint, ringed by it alone, was a plate the parts map lumped with its neighbour (the bowser's
@@ -621,13 +621,22 @@ def repaint_body(master, like, out, name, main_hue, accent_hue, min_saturation=M
                  main_max_saturation=1.0, settle_faint=False):
     """A body's texture and paint mask made again from its master on its own saved transform (scale, offset, canvas), so it registers
     with every overlay already fitted to it. paint is 'regions' (region_kinds), 'repaired' (regions, then flecks repaired by Segment
-    Anything's map), 'parts' (that map alone; both need the map made first) or 'pixels' (the old per-pixel rule, for comparison). Writes the facings and masks only; the icon and transform stay."""
+    Anything's map), 'parts' (that map alone; both need the map made first), 'pixels' (the old per-pixel rule, for comparison) or
+    'natural' (the body in its own colours with no paint mask, for one shipped without paint). Writes the facings and masks only; the icon and transform stay."""
     out.mkdir(parents=True, exist_ok=True)
     transform = json.loads(Path(like).read_text(encoding='utf-8'))
     background = ai_background(master)
     cut = white_to_alpha(Image.open(master), holes=holes, background=background)
     if cut.size != tuple(transform['master_size']):
         raise ValueError(f'{master} is {cut.size}, but its transform was made from {transform["master_size"]}')
+    if paint == 'natural':
+        # In its own colours, with no paint mask, for a body shipped without paint (repaint_vehicles.UNPAINTED).
+        scale, offset, canvas = transform['scale'], tuple(transform['offset']), tuple(transform['canvas'])
+        written = write_facings(place(cut, scale, offset, canvas), out, name)
+        record(out, name, master, written, {'kind': 'body-repaint', 'paint': 'natural', 'like': Path(like).name,
+                                            'holes': [list(point) for point in holes],
+                                            'ai_mask': file_sha256(master) if background is not None else None})
+        return {'colours': None, 'files': written}
     labels = None
     if paint in ('parts', 'repaired'):
         labels = parts_map(master)

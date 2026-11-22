@@ -25,8 +25,13 @@ tank's sections carry 0 to 2 % and the slivers of its edge 6 to 10 %, the hoops 
 small dropped patch ringed by one paint keeps it. Tried and set aside: floors of 0.14 (patchy walkway rails) and 0.16 (a broken walkway),
 a pixel-by-pixel part rule (a speckled crossing plate) and a 5 % line (red specks the owner found on the tank's right side). Per body
 because on the generator set it broke up a painted rim that was right as shipped; on the survey truck it would clear a few red dashes
-from its cream panel, the owner's call. The field kitchen and flatbed trailer stay held back: their shutter frames and pale sand rails
-paint patchily (the owner's answer, 23 Nov 2026). D'thorga
+from its cream panel, the owner's call. **The field kitchen and flatbed trailer are not offered paint** (the owner's choice of
+23 Nov 2026, D'thorga Vehicles 0.106.3): `repaint_vehicles.UNPAINTED` stages them in their own colours with no mask (`repaint_body`'s
+`natural`), `apply` removes their masks, and their Defs use plain Cutout, so Vehicle Framework shows no paint button
+(`VehiclePawn.DoInspectPaneButtons` asks whether the shader takes a colour mask). Tried first, and set aside with the paint: the
+kitchen's khaki shutter frames (saturation 0.17 to 0.25 about its 0.21 floor) settled by part with a 0.05 band, which left dashes where
+Segment Anything gave a frame's edge to the body; the flatbed's rails, whose lighter edge (0.15 to 0.17 about a 0.16 floor) and outer line
+were joined to the paint inside a mostly painted part (counted without its outline: 43 % with it), which left pale dots at its edge. D'thorga
 Farming's bodies use the same exporter and are checked next. Not yet tested in game.
 
 **For a new body:** run `scripts/art/paint_segments.py` on its master, then `python scripts/art/repaint_vehicles.py stage --paint repaired`, `review` and `apply --paint repaired`, and `python scripts/art/paint_check.py` before the owner sees it.

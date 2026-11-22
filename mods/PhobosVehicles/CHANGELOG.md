@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.106.3] - 2026-11-23 - Draft
+
+The field kitchen and flatbed keep their own colours
+
+### Changed
+
+- **The field kitchen and flatbed trailer keep their own colours** (the owner's choice of 23 November 2026): painted another colour, the field kitchen's shutter frames and the flatbed's pale sand rails came out patchy, so neither is offered paint any more. Both look as they did in their own colours. Not yet tested in game: select either; it has no paint button.
+
+### Save compatibility
+
+- A field kitchen or flatbed already painted another colour shows its own colours again; nothing else in the save changes.
+
 ## [0.106.2] - 2026-11-23 - Draft
 
 The Pintle bowser paints cleanly

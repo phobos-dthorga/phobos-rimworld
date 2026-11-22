@@ -40,25 +40,30 @@ BODIES = [
     ('DrillRig', 'DrillRig', 'drill-rig-body-north/drill-rig-body-north-2.png', DEFAULT_MAIN, DEFAULT_ACCENT, 0.16, [], SAND, ORANGE),
     ('GeneratorSet', 'GeneratorSet', 'generator-set-body-north/generator-set-body-north-3.png', DEFAULT_MAIN, DEFAULT_ACCENT, 0.16, [], SAND, ORANGE),
     ('Tipper', 'Tipper', 'tipper-body-north/tipper-body-north-3.png', DEFAULT_MAIN, DEFAULT_ACCENT, 0.16, [], SAND, ORANGE),
-    ('FlatbedTrailer', 'FlatbedTrailer', 'flatbed-trailer-body-north/flatbed-trailer-body-north-2.png', DEFAULT_MAIN, DEFAULT_ACCENT, 0.16,
-     [(406, 184), (362, 193), (419, 258), (353, 253), (384, 66)], (180, 174, 143), (222, 119, 14)),
     # Pintle bowser (23 Nov 2026): its stripe is drawn orange (the Def tints it blue) at hues up to 42, where the olive body starts; the
     # stripe is strongly coloured (saturation 0.35 and up) and the body dull, so MAIN_CEILING keeps the stripe out of the main paint.
     ('PintleBowser', 'PintleBowser', 'pintle-bowser-body-north/pintle-bowser-body-north-1.png', DEFAULT_MAIN, (8, 42), 0.12,
      [(446, 80), (425, 195), (467, 195), (410, 261), (495, 261)], (194, 187, 158), (64, 124, 190)),
-    # Billy (17 Nov 2026): the body takes the paint; its canvas shutters (saturation 0.16) stay as drawn, below the 0.21 floor (fewest flecks of 0.17 to 0.21).
-    ('BillyFieldKitchen', 'FieldKitchen', 'billy-field-kitchen-body-north/billy-field-kitchen-body-north-3.png', DEFAULT_MAIN, DEFAULT_ACCENT, 0.21,
-     [(446, 77), (424, 198), (468, 198), (413, 254), (479, 254)], (112, 118, 78), (176, 164, 128)),
     ('SeabedCrawler', 'SeabedCrawler', 'seabed-crawler-body-north/widened/seabed-crawler-3-wide.png', (185, 240), (8, 32), 0.05, [], (70, 78, 86), (214, 124, 44)),
     ('SeabedCrawler_Research', 'SeabedCrawler', 'seabed-crawler-body-north/widened/seabed-crawler-1-wide.png', (185, 240), (8, 32), 0.05, [], (70, 78, 86), (214, 124, 44)),
     ('SeabedCrawler_Sensor', 'SeabedCrawler', 'seabed-crawler-body-north/widened/seabed-crawler-4-wide.png', (185, 240), (8, 32), 0.05, [], (70, 78, 86), (214, 124, 44)),
 ]
 FACINGS = ('north', 'east', 'south')
+# Bodies shipped in their own colours with no paint mask, so Vehicle Framework offers no paint for them (the owner's choice of 23 Nov 2026,
+# D'thorga Vehicles 0.106.3: repainted, the field kitchen's shutter frames and the flatbed's pale sand rails stayed patchy after the trucks'
+# fixes; docs/development/vehicle-paint-masks.md has what was tried). Name, folder, master, holes; staged with any --paint and applied the same.
+UNPAINTED = [
+    ('FlatbedTrailer', 'FlatbedTrailer', 'flatbed-trailer-body-north/flatbed-trailer-body-north-2.png',
+     [(406, 184), (362, 193), (419, 258), (353, 253), (384, 66)]),
+    ('BillyFieldKitchen', 'FieldKitchen', 'billy-field-kitchen-body-north/billy-field-kitchen-body-north-3.png',
+     [(446, 77), (424, 198), (468, 198), (413, 254), (479, 254)]),
+]
 # A body whose main paint shares hues with its accent: no main paint is more saturated than this (the Pintle bowser's red dashes along
 # its tank when painted red, the owner's review of 23 Nov 2026: stripe pixels at hue 38 to 42 had taken the main paint).
 MAIN_CEILING = {'PintleBowser': 0.35}
-# Bodies whose faint paint is settled by Segment Anything's parts (export_vehicle.settle_doubtful_paint): the Pintle bowser's tank edge.
-SETTLE_FAINT = {'PintleBowser'}
+# Bodies whose faint paint is settled by Segment Anything's parts (export_vehicle.settle_doubtful_paint), with how far above the floor paint
+# counts as faint: the Pintle bowser's tank edge (0.11 to 0.13 over a 0.12 floor).
+SETTLE_FAINT = {'PintleBowser': 0.03}
 
 
 def sha(path):
@@ -94,9 +99,17 @@ def stage(paint, only):
             continue
         out = STAGE / paint / folder
         repaint_body(GEN / master, EXPORT / f'{name}.transform.json', out, name, main_hue, accent_hue, saturation, holes, paint,
-                     main_max_saturation=MAIN_CEILING.get(name, 1.0), settle_faint=name in SETTLE_FAINT)
+                     main_max_saturation=MAIN_CEILING.get(name, 1.0), settle_faint=SETTLE_FAINT.get(name, False))
         mended = mend_flecks(name, folder, GEN / master, out, colour, accent) if paint == 'repaired' else 0
         print(f'staged {paint}: {name}' + (f' ({mended} fleck{"" if mended == 1 else "s"} mended)' if mended else ''), flush=True)
+    for name, folder, master, holes in UNPAINTED:
+        if only and name not in only:
+            continue
+        out = STAGE / paint / folder
+        for facing in FACINGS:
+            (out / f'{name}_{facing}m.png').unlink(missing_ok=True)
+        repaint_body(GEN / master, EXPORT / f'{name}.transform.json', out, name, None, None, holes=holes, paint='natural')
+        print(f'staged {paint}: {name} (own colours, no paint mask)', flush=True)
 
 
 def tinted(texture, mask, colour, accent):
@@ -152,7 +165,8 @@ def review():
 
 
 def apply(paint, only):
-    for name, folder, *_ in BODIES:
+    unpainted = {row[0] for row in UNPAINTED}
+    for name, folder, *_ in BODIES + UNPAINTED:
         if only and name not in only:
             continue
         source, target = STAGE / paint / folder, TEXTURES / folder
@@ -162,6 +176,9 @@ def apply(paint, only):
                 file = f'{name}_{facing}{suffix}.png'
                 old = target / file
                 old_sha = sha(old) if old.is_file() else None
+                if suffix and name in unpainted:
+                    old.unlink(missing_ok=True)   # no paint mask: Vehicle Framework offers no paint without one
+                    continue
                 shutil.copyfile(source / file, old)
                 changed[old_sha] = sha(old)
         for record in target.glob('*.record.md'):
