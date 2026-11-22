@@ -76,7 +76,8 @@
         "clean-review",
         "paint-stage",
         "paint-review",
-        "armour-kits-stage"
+        "armour-kits-stage",
+        "fringe-stage"
       ],
       "kinds": "folders",
       "olderThanDays": 7,
