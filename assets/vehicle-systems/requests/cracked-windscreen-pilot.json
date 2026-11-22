@@ -1,0 +1,25 @@
+[
+  {
+    "name": "cracked-windscreen",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1536,
+    "height": 512,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Tipper/Tipper_north.png",
+        "role": "our approved tipper truck seen from directly above: match its outline weight, shading, palette and finish only; its windscreen is the thin dark strip at the front of the cab roof"
+      }
+    ],
+    "art_plan": {
+      "item": "the cracked-glass overlay (docs/development/vehicle-glass.md, VG11), laid by script onto each of our vehicles' windscreen strip and shown by the damage looks while the glass is cracked or gone",
+      "size": "drawn wide at 3:1 and scaled down by script to each windscreen strip (about 220 x 15 px on the tipper's 512 px body)",
+      "this_request": "the pilot (owner's card, 23 Nov 2026: one vehicle first, then the rest), two attempts; one master serves every vehicle"
+    },
+    "prompt": "TOP-DOWN GAME OVERLAY. Camera directly above, looking straight down, as on Image 1.\n\nCreate an ORIGINAL texture for a game: a long, thin strip of a truck's windscreen glass seen from directly above, badly cracked: dark blue-grey tinted glass crossed by bright white star-shaped impact cracks and long branching fracture lines, the glass still in one piece. Image 1 is our approved truck: match its outline weight, shading, palette and finish only; do NOT draw the truck.\n\nDraw ONLY the cracked glass strip, filling the canvas from edge to edge, with a thin near-black outline along its long edges. Style: a sprite for the game RimWorld: soft flat cel shading, bold clean crack lines that still read when shrunk to a strip 15 pixels tall, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no frame, no wipers, no people, text, letters, numbers or logos."
+  }
+]

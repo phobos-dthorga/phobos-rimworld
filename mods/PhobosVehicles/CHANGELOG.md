@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.106.0] - 2026-11-23 - Draft
+
+Cracked glass you can see
+
+### Added
+
+- **Cracked glass shows on our vehicles** (the owner's picks of 23 November 2026, docs/development/vehicle-glass.md, VG11): the tipper, bulk tanker, drill rig, generator set and survey truck show cracks and impact stars across their windscreens, and the Osprey across its cockpit, while D'thorga Framework's glass is cracked or gone. Cracks only, over each vehicle's own glass as drawn: its pillars and frame stay, and a crack stops at them. Needs D'thorga Framework 0.238.0. Not yet tested in game: row 376 of the test pass.
+
 ## [0.105.2] - 2026-11-22 - Draft
 
 The armour kits drawn clean

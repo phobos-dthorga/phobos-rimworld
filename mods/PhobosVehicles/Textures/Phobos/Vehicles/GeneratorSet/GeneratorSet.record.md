@@ -103,3 +103,18 @@ roof tent is now drawn alone on white and laid by script, so the sprite exporter
 - `GeneratorSet_SideRoll`: dfd71127911a59ba16a997bf59ddca6911462de653befff6563c2ec396f5fe52
 - `GeneratorSet_SideRollRight` (mirrored): d20f9ba3e5254efadcd6d87e303fcc66ada324b91a2301eadb691a7415227e78
 - `GeneratorSet_RearTentRoof` (across the roof): 46cc457be01a7beaf7263df4c03194fe6720c4924400337514fe34a69e86f99d
+
+## Cracked glass (23 Nov 2026)
+
+**Made free from one AI-generated master, picked by the owner on 23 November 2026**: `cracked-windscreen-1` (OpenAI gpt-image-2, medium
+quality, US$0.022; SHA-256 `9c1f786172dbc87156f3f02e10b2fe2bbfd25b63a8975529858b2ea25d2b5bfd`; prompt in `assets/vehicle-systems/requests/cracked-windscreen-pilot.json`, our approved tipper
+the only reference, for style). Its cracks are kept as light marks by `scripts/art/export_vehicle.py`'s `light_marks_to_alpha` (near-white
+lines and stars, its own glass falling away), fitted to this vehicle's glass and clipped to its panes by
+`assets/vehicle-systems/lay_cracked_glass.py`, so the vehicle's own glass, pillars and outline stay as drawn. East and south are north
+turned. Shown by D'thorga Framework's damage looks while the glass part is below 70 %. No game or other author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| GeneratorSet_DamageGlass_north | `b4017b0c52a78586512c618d1be3fef2484f6f59bb5877bca1143b89063ccd61` |
+| GeneratorSet_DamageGlass_east | `c2f80416e9d83f8c5bc8b3b6ba6800ba3cedcc3cff35a888f467afe1a240774d` |
+| GeneratorSet_DamageGlass_south | `12b1abb784232ed32e56a311e7cc5224f53f5e812552ebb6330a67e323dc4095` |

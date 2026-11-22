@@ -345,6 +345,27 @@ def marks_to_alpha(image):
     return result
 
 
+LIGHT_MARK_COLOUR = (236, 240, 244)  # Cracks in glass keep only their lightness: near-white lines and stars, whatever glass was drawn round them.
+LIGHT_MARK_FLOOR = 10  # Less than this much brighter than the glass around it is the glass itself, not a crack.
+LIGHT_MARK_GAIN = 3  # How quickly a crack turns opaque as it stands out (authored, 23 Nov 2026).
+LIGHT_MARK_SPREAD = 41  # The window, in master pixels, that "the glass around it" is judged over: wider than a star's glow, so its centre stays.
+
+
+def light_marks_to_alpha(image):
+    """
+    Light marks (cracks in glass, D'thorga Framework 0.238.0) as near-white with alpha from how much brighter each pixel is than the glass
+    around it, the mirror of marks_to_alpha: the master's own glass, its shading and its edges all fall away, so the marks lie over the
+    vehicle's own glass, which stays as drawn (the owner's choice of 23 Nov 2026, after pasting whole panes left ragged edges).
+    """
+    grey = image.convert('L')
+    around = grey.filter(ImageFilter.MedianFilter(LIGHT_MARK_SPREAD))
+    lift = ImageChops.subtract(grey, around)
+    alpha = lift.point(lambda value: 0 if value < LIGHT_MARK_FLOOR else min(255, value * LIGHT_MARK_GAIN))
+    result = Image.new('RGBA', image.size, LIGHT_MARK_COLOUR + (0,))
+    result.putalpha(alpha)
+    return result
+
+
 def place(image, scale, offset, canvas):
     """The image scaled (premultiplied, so no white fringe) and pasted at offset on a clear canvas."""
     size = (round(image.width * scale), round(image.height * scale))

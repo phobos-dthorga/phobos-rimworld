@@ -1,9 +1,10 @@
 # Glass on our vehicles: a part that breaks, and what follows (22 Nov 2026)
 
-**Status (23 Nov 2026):** partly built. The glass chain (VG8) is in D'thorga Framework 0.237.0; the glass part with what breaks it,
-the open cab, re-glazing, other authors' vehicles and what the player sees (VG1 to VG4, VG7, VG10, VG11) in 0.238.0
-and splinters, the driver's view and the canopy (VG5, VG6, VG13) with them ([as built](#the-glass-part-as-built-23-nov-2026)). Not
-built: the cracked-glass pictures. Not yet tested in game: rows 376 and 377.
+**Status (23 Nov 2026):** the base is built. The glass chain (VG8) is in D'thorga Framework 0.237.0; the glass part with what breaks
+it, the open cab, re-glazing, other authors' vehicles and what the player sees (VG1 to VG4, VG7, VG10, VG11), with splinters, the
+driver's view and the canopy (VG5, VG6, VG13), in 0.238.0; the cracked-glass pictures in D'thorga Vehicles 0.106.0
+([as built](#the-glass-part-as-built-23-nov-2026)). Still ideas: VG9, VG12, VG14; cab air waits for its own model. Not yet tested
+in game: rows 376 and 377.
 
 The owner, 22 Nov 2026, while the [nuclear strike record](nuclear-strike-effects.md) was being researched: "maybe we should make
 glass a component of our vehicles, and that could have its own, knock-on, effects!" And: "We could do so much work with glass
@@ -372,6 +373,13 @@ authored [A] unless marked.
   snow or fog (a weather's accuracy under 0.9), else 0.9. Gone: 0.8 in that weather, else 1. Vision blocks: cracked 0.85, gone 0.6.
 - **The canopy** (VG13): a pressurised design's cabin counts as unpressurised while its glass is cracked or gone, so the cruising
   height's oxygen line applies, as the avionics already work it out.
+- **The cracked-glass pictures** (VG11), D'thorga Vehicles 0.106.0, on our six closed-cab vehicles: one master (`cracked-windscreen-1`,
+  the owner's pick of the tipper pilot, US$0.04 for two tries), made into **marks only**, as the damage pictures are: a "light marks"
+  mode of `scripts/art/export_vehicle.py` keeps what is brighter than the glass around it, and `assets/vehicle-systems/lay_cracked_glass.py`
+  finds each vehicle's glass, fits the cracks to it (a squarer cockpit takes them at twice a windscreen's size) and clips them to the
+  panes, so each vehicle's own glass, pillars and outline stay as drawn. Shown by the damage looks below 70 %. **The approach changed
+  once** (owner, 23 Nov 2026: "we need to reassess our entire approach"): pasting whole cracked panes over the glass left ragged edges
+  that four rounds of fixes could not settle; marks over the glass as drawn have no edges to get wrong.
 
 ## Who chose what
 

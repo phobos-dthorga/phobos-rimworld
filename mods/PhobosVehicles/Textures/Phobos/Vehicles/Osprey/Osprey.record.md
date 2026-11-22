@@ -30,3 +30,18 @@ Made on 18 and 19 Nov 2026: **AI-generated**, every master picked by the owner. 
 Osprey's own art until the owner picks the icons drawn for them (`assets/phobos-vehicles/requests/osprey-upgrade-icons.json`, queued for
 the local model on 19 Nov 2026): the inlet barrier's grille, one jammer dome, the radar nose cap, our cargo hook fitting's icon twice, and
 the cockpit and cabins in steel grey. Nothing new was generated for them.
+
+## Cracked glass (23 Nov 2026)
+
+**Made free from one AI-generated master, picked by the owner on 23 November 2026**: `cracked-windscreen-1` (OpenAI gpt-image-2, medium
+quality, US$0.022; SHA-256 `9c1f786172dbc87156f3f02e10b2fe2bbfd25b63a8975529858b2ea25d2b5bfd`; prompt in `assets/vehicle-systems/requests/cracked-windscreen-pilot.json`, our approved tipper
+the only reference, for style). Its cracks are kept as light marks by `scripts/art/export_vehicle.py`'s `light_marks_to_alpha` (near-white
+lines and stars, its own glass falling away), fitted to this vehicle's glass and clipped to its panes by
+`assets/vehicle-systems/lay_cracked_glass.py`, so the vehicle's own glass, pillars and outline stay as drawn. East and south are north
+turned. Shown by D'thorga Framework's damage looks while the glass part is below 70 %. No game or other author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| Osprey_DamageGlass_north | `5caab4e1761bf3d7abc77a08a0a401bf781ba5b70def0fa5e9cfcf071fe0c8c1` |
+| Osprey_DamageGlass_east | `828f32481a3fbb9c946b38077f38cb2f2833deae2e5fbe4c1dabdebcc54ed023` |
+| Osprey_DamageGlass_south | `41fc4b5a2bb2f9d897dde46fec1a7f4b0da4e589bc4668001c595c050f8f2e1c` |

@@ -415,6 +415,25 @@
       <li Class="Vehicles.CompProperties_UpgradeTree">
         <def>Phobos_Tanker_UpgradeTree</def>
       </li>
+      <li Class="Phobos.VehicleSystems.CompProperties_PhobosDamageLooks">
+        <looks>
+          <!-- Cracked or broken glass (Framework 0.238.0, VG11; the owner's picks of 23 Nov 2026): cracks only, over the glass as
+               drawn, shown while the glass is below 70 % (cracked or gone). Made by assets/vehicle-systems/lay_cracked_glass.py. -->
+          <li>
+            <part>PhobosGlass</part>
+            <belowHealth>0.7</belowHealth>
+            <overlay>
+              <graphicData>
+                <texPath>Phobos/Vehicles/BulkTanker/BulkTanker_DamageGlass</texPath>
+                <graphicClass>Vehicles.Graphic_Vehicle</graphicClass>
+                <drawSize>(4, 11)</drawSize>
+                <shaderType>Cutout</shaderType>
+                <layer>3</layer>
+              </graphicData>
+            </overlay>
+          </li>
+        </looks>
+      </li>
       <li Class="Phobos.VehicleSystems.CompProperties_PhobosTank">
         <fittings>
         <li>
