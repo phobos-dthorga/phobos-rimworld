@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.243.1] - 2026-11-23 - Draft
+
+A dev action to see why something is not topped up
+
+### Added
+
+- **Framework: why isn't this topped up?** (dev mode; the owner's report of 23 November 2026 that an aircraft's chaff and flares were never refilled): select a building, mechanoid or vehicle that should be topped up and run it; the log lists every step the game and our work giver take before a hauler brings it material, in their order, with the first that says no (the setting, what it wants, the work giver's list, forbidden or outside the hauler's allowed area, reach, material to fetch). Reads only. Not yet tested in game.
+
 ## [0.243.0] - 2026-11-23 - Draft
 
 The engine feels what it drives. Not yet tested in game.
