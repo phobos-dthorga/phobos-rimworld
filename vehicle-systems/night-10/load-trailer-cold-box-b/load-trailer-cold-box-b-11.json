@@ -1,0 +1,33 @@
+{
+  "file": "load-trailer-cold-box-b-11.png",
+  "sha256": "926830cb4093cb00b56eaee224272ae29200988b92a85c1b3ece4677e88ad746",
+  "date": "2026-11-22T14:15:09",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosdthorga, A small game icon: a squat insulated steel chest with a hinged lid, a pale blue snowflake on its front, and a short black power cable with a round plug trailing from its side. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/berths-house.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 155.7,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/CampFridge.png",
+      "sha256": "d8391a896e8654225b2f147eeb7a2e942c66d0194409e26db05acb327f612f4f"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/CampOutlet.png",
+      "sha256": "1556375e42f671a4fef9104fd24eadfb7e9edfb603d69dccd338f6a0660139aa"
+    }
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "lora_strength": 1.0
+}
