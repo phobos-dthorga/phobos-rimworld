@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.238.2] - 2026-11-23 - Draft
+
+The camp table is back. Not yet tested in game.
+
+### Fixed
+
+- **The camp table loads again**: since it was added in 0.223.0 the game dropped the camp table at startup, with an error in the log, because the way it was marked as a place to gather and eat named something the game has no such thing as. It is now written the way the game's own tables are, so the camp sets out its table again, with its stools beside it, and people eat sitting down at it (found in the owner's log of 23 November 2026).
+
 ## [0.238.1] - 2026-11-23 - Draft
 
 The camp's pictures and the fuel pump lose a pale rim. Not yet tested in game.

@@ -808,7 +808,11 @@
       <isSittable>false</isSittable>
     </building>
     <comps>
-      <li Class="CompProperties_GatherSpot" />
+      <!-- The game's tables write it this way: there is no CompProperties_GatherSpot type, and naming one dropped the whole table at
+           startup until Framework 0.238.2. -->
+      <li>
+        <compClass>CompGatherSpot</compClass>
+      </li>
     </comps>
     <modExtensions>
       <li Class="Phobos.VehicleSystems.PhobosCampGearExtension">
