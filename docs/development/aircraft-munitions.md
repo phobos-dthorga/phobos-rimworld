@@ -106,4 +106,4 @@ part, fill by kg of real explosive, value from ingredients), written for its own
 ## Picture
 
 The seeker head's picture is paid art (an item lying in the world), two tries made on 23 Nov 2026
-(`assets/vehicle-patches/requests/seeker-head.json`), offered on D'thorga Companion's Picks page for the owner.
+(`assets/vehicle-patches/requests/seeker-head.json`); the owner picked attempt 1 on 23 Nov 2026.

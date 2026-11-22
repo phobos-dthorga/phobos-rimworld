@@ -16,7 +16,7 @@ The new aircraft's weapons in line with the Mk. 82
 
 ### Added
 
-- **The missile seeker head**: the guidance section inside each Hellfire and HARM (the owner's card: intermediate parts), 10 steel, 2 components and an advanced component, at the machining table or fabrication bench after Microelectronics basics. Its picture is made, two tries, awaiting the owner's pick.
+- **The missile seeker head**: the guidance section inside each Hellfire and HARM (the owner's card: intermediate parts), 10 steel, 2 components and an advanced component, at the machining table or fabrication bench after Microelectronics basics. Its picture is the owner's pick of two tries.
 - **The FAB-250 and RBK-250 are built on the Mk. 82 bomb case**, as all three are 250 kg-class bombs.
 
 ### Fixed
