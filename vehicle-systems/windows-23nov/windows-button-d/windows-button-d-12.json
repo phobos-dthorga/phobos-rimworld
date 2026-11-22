@@ -1,0 +1,37 @@
+{
+  "file": "windows-button-d-12.png",
+  "sha256": "0fb8b5a5f7e6183d9cb0e134685fdbe3a411e5947ecfd451b406f2e7416ab010",
+  "date": "2026-11-23T01:55:41",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosdthorga, A small game icon: the side of a truck cab door, its window glass wound right down so only the glass's top edge shows above the door, the window opening empty, and a big puffy cloud of grey smoke billowing out through the open window into the air outside the cab. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people.",
+  "negative_prompt": "",
+  "seed": 12,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/windows-redraw.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 226.4,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+      "sha256": "15f6c16388ff46c9dafa26d692f682bd906bf4406606e4fa04d3e48e1b2f0a2a"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/BatteryWarmer.png",
+      "sha256": "7ddedebd43b68bedf25eeef891dc90446350a2cf311df082e76800ce57360cae"
+    },
+    {
+      "image": "assets/vehicle-systems/generated/windows-button-c/windows-button-c-12.png",
+      "sha256": "bfc23d87aed440e01dfdf21aba025fe9d43fc356e4d4135c6e7653f6ab73288a"
+    }
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "lora_strength": 1.0
+}
