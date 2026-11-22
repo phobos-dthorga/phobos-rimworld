@@ -12,6 +12,7 @@ The armour kits drawn clean
 ### Fixed
 
 - **The trucks' armoured cab and heavy cab plates are drawn clean.** Thin grey and white lines floated beside the cab on the tanker, the drill rig and the survey truck: pieces of the old cab's outline left over when each kit was cut from its picture, found by the new picture check. They are gone on all five trucks, and each kit now has a thin dark edge, so the truck's pale roof no longer shows as a line beside it. Same kits, same place. Not yet tested in game: row 368.
+- **The armour kits lose a pale rim outside their new dark edge.** The kit's edge was softened before the exporter cut it from white, and the soft edge took some white with it: a faint pale line round the kit, found by the picture check's new fringe measure. All five trucks again. Row 368.
 
 ## [0.105.1] - 2026-11-22 - Draft
 

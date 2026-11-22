@@ -104,7 +104,9 @@ def lifted(truck, kit, work):
     shape = mask.point(lambda v: 255 if v >= 128 else 0)
     outline = ImageChops.subtract(shape.filter(ImageFilter.MaxFilter(2 * OUTLINE + 1)), shape)
     edit = Image.composite(Image.new('RGB', edit.size, INK), edit, outline)
-    mask = ImageChops.lighter(shape, outline).filter(ImageFilter.GaussianBlur(0.8))
+    # A hard edge: the kit is laid on white for the exporter, and a softened edge took white into its outer pixels, a pale rim
+    # outside the dark outline (the fringe check, 23 Nov 2026). The exporter's scaling smooths the edge without white.
+    mask = ImageChops.lighter(shape, outline)
     part = edit.convert('RGBA')
     part.putalpha(mask)
     part.save(work / f'lifted-{truck}-{kit}.png')
