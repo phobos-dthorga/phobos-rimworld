@@ -24,6 +24,14 @@ gave the go for a processor run first and the graphics card overnight if still n
 | **On the borders, icons and items** | `export_sprite.py` shrank the cut-out without premultiplying, so the clear background's white could bleed into edge pixels (measured small: see below) | Shrink premultiplied, as the vehicle exporter already did |
 | **On the borders, everything** | Soft edge pixels kept the white they were blended with | Take the white back out of each soft edge pixel: it showed alpha times the object plus the rest white, so the object's colour comes back exactly (`unmixed`) |
 
+**A fourth, 23 Nov 2026 (the owner: "white dithering around all of these", the berths icons from the house model):** the house model
+draws a soft outline that fades from black to white over about six pixels of a 1024 master. Only the near-white end of that fade was
+cleared; its grey middle stayed solid and the shrink to 128 px turned it into a pale ring outside the outline. The AI's mask fades in step
+with it (pixels 218, 194, 164, 131 against mask 10, 32, 87, 165), so `_soft_rim` in `export_sprite.py` lowers alpha to the mask's within
+about 10 pixels of cleared background, where the AI leans to background, and unmixes the white; near-white kept solid on purpose is never
+touched. On the eleven berths icons the pale half-see-through edge pixels fell from 29 to 705 each to none above 6% opacity. Shipped sprites change only when
+re-exported.
+
 The second and third need no AI: the background was pure white, so the white is subtracted, not guessed. That is why they are safe where
 "magic wand" tools are not, which guess where the background is.
 

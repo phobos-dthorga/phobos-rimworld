@@ -29,6 +29,9 @@ AI_MASKS = art_paths.work('bgmasks')
 AI_SEED_BELOW = 64  # The AI is sure this is background: clearing may start here (authored, 12 Nov 2026).
 AI_OBJECT_FROM = 192  # The AI is sure this is the object: clearing never enters it, however white it is (authored).
 AI_WHOLE_PATCH = 0.9  # An enclosed white patch is cleared only if the AI would clear this share of it or more, else none (authored).
+# How far in from cleared background the AI's soft edge sets alpha (_soft_rim), as a share of the master's longer side: 10 pixels of a
+# 1024 master, past the six-pixel fade measured on 23 Nov 2026 and about one pixel of a 128 sprite (authored).
+AI_RIM_REACH = 0.01
 # White the exporter kept inside the object that may be background after all (21 Nov 2026: the clutch kit's centre hole, and the
 # run-flat tyres' since 12 Nov, showed white over the ground). Real white parts are cel-shaded off-white; background left behind is
 # the master's own flat background colour. Measured on 13 exports: the two faults kept 1.0% and 5.4% of the master at 86% and 99%
@@ -120,6 +123,7 @@ def white_to_alpha(image, threshold=235, soft=30, all_white=False, holes=(), bac
 
     stack = [(x, y) for x in range(width) for y in (0, height - 1)] + [(x, y) for y in range(height) for x in (0, width - 1)]
     stack += [(int(x), int(y)) for x, y in holes if 0 <= x < width and 0 <= y < height]
+    master = rgba.copy().load() if background is not None else None
     flood(stack)
     if background is not None:
         edge_seen = bytes(seen)
@@ -129,7 +133,43 @@ def white_to_alpha(image, threshold=235, soft=30, all_white=False, holes=(), bac
                  if not seen[y * width + x] and sure[x, y] < AI_SEED_BELOW and min(pixels[x, y][:3]) >= threshold]
         flood(seeds, lambda x, y: sure[x, y] < AI_OBJECT_FROM)
         _whole_patches_only(original, pixels, edge_seen, seen, width, height, threshold)
+        _soft_rim(master, pixels, sure, width, height, threshold)
     return rgba
+
+
+def _soft_rim(master, pixels, sure, width, height, threshold):
+    """The outline's own fade, made see-through as the background AI sees it. Learnt 23 Nov 2026 (the owner: "white dithering around all
+    of these", the berths icons from the house model): the model draws a soft outline that fades from black to white over about six
+    pixels of a 1024 master, and only its near-white end was cleared, so its grey middle stayed solid and the downscale turned it into a
+    pale rim. The AI's mask fades in step with it (218, 194, 164, 131 against 10, 32, 87, 165), so within AI_RIM_REACH of cleared
+    background a pixel's alpha falls to the mask's where the mask is lower, and the white is taken out of its colour (unmixed). Only where
+    the AI leans to background (under AI_OBJECT_FROM), so pale paint inside an outline stays solid; and never near-white kept solid, so
+    white put back whole by _whole_patches_only stays as it was (when unsure, the white stays)."""
+    reach = max(2, round(max(width, height) * AI_RIM_REACH))
+    depth = [-1] * (width * height)
+    frontier = [y * width + x for y in range(height) for x in range(width) if pixels[x, y][3] < 255]
+    for index in frontier:
+        depth[index] = 0
+    step = 0
+    while frontier and step < reach:
+        step += 1
+        following = []
+        for index in frontier:
+            for neighbour in _neighbours(index, width, height):
+                if depth[neighbour] < 0:
+                    depth[neighbour] = step
+                    following.append(neighbour)
+        frontier = following
+    for index, d in enumerate(depth):
+        if d < 0:
+            continue
+        x, y = index % width, index // width
+        alpha = pixels[x, y][3]
+        lower = min(alpha, sure[x, y])
+        r, g, b, _ = master[x, y]
+        kept_white = alpha == 255 and min(r, g, b) >= threshold
+        if 0 < alpha and lower < alpha and sure[x, y] < AI_OBJECT_FROM and not kept_white:
+            pixels[x, y] = (unmixed(r, lower), unmixed(g, lower), unmixed(b, lower), lower)
 
 
 def _neighbours(index, width, height):

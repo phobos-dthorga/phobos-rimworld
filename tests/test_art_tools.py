@@ -354,6 +354,36 @@ class ExportBackgroundTests(unittest.TestCase):
         self.assertEqual(result.getpixel((4, 4))[3], 255)
         self.assertEqual(result.getpixel((0, 0))[3], 0, 'the outside still clears')
 
+    def soft_outline_case(self):
+        """One row of a house-model icon, 23 Nov 2026: white background, an outline fading to black over four pixels, then pale paint.
+        The AI's mask fades in step with the outline and is sure of the paint. 400 pixels wide, so the rim reaches four pixels in."""
+        from PIL import Image
+        row = [(255, 255, 255)] * 3 + [(218, 218, 218), (194, 194, 194), (164, 164, 164), (131, 131, 131)] + [(5, 5, 5)] * 3 \
+            + [(200, 200, 200)] * 390
+        sure = [0] * 3 + [10, 32, 87, 165] + [255] * 3 + [255] * 390
+        image = Image.new('RGB', (len(row), 3))
+        mask = Image.new('L', (len(row), 3))
+        for y in range(3):
+            for x, (colour, value) in enumerate(zip(row, sure)):
+                image.putpixel((x, y), colour)
+                mask.putpixel((x, y), value)
+        return image, mask
+
+    def test_a_soft_outline_fades_as_the_ai_sees_it(self):
+        # The owner, 23 Nov 2026: "white dithering around all of these". The grey middle of the fade stayed solid and became a pale rim.
+        image, mask = self.soft_outline_case()
+        result = self.white_to_alpha(image, background=mask)
+        self.assertEqual(result.getpixel((5, 1)), (0, 0, 0, 87), 'mid-grey turns see-through and dark, not solid and pale')
+        self.assertEqual(result.getpixel((4, 1))[3], 32)
+        self.assertLess(max(result.getpixel((6, 1))[:3]), 100, 'the white is taken out of its colour')
+        self.assertEqual(result.getpixel((8, 1)), (5, 5, 5, 255), 'the outline itself stays')
+        self.assertEqual(result.getpixel((11, 1)), (200, 200, 200, 255), 'pale paint the AI is sure of stays solid')
+
+    def test_without_the_ai_a_soft_outline_is_cut_as_before(self):
+        image, _ = self.soft_outline_case()
+        result = self.white_to_alpha(image)
+        self.assertEqual(result.getpixel((5, 1))[3], 255)
+
     def test_a_soft_edge_loses_the_white_it_was_mixed_with(self):
         import export_sprite
         # A fifth of a dark red object (40, 0, 0) over white shows as (212, 204, 204); with alpha 51 the red comes back exactly.
