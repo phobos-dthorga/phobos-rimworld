@@ -1,0 +1,51 @@
+{
+  "file": "cracked-windscreen-1.png",
+  "sha256": "9c1f786172dbc87156f3f02e10b2fe2bbfd25b63a8975529858b2ea25d2b5bfd",
+  "date": "2026-11-23T03:05:58",
+  "prompt": "TOP-DOWN GAME OVERLAY. Camera directly above, looking straight down, as on Image 1.\n\nCreate an ORIGINAL texture for a game: a long, thin strip of a truck's windscreen glass seen from directly above, badly cracked: dark blue-grey tinted glass crossed by bright white star-shaped impact cracks and long branching fracture lines, the glass still in one piece. Image 1 is our approved truck: match its outline weight, shading, palette and finish only; do NOT draw the truck.\n\nDraw ONLY the cracked glass strip, filling the canvas from edge to edge, with a thin near-black outline along its long edges. Style: a sprite for the game RimWorld: soft flat cel shading, bold clean crack lines that still read when shrunk to a strip 15 pixels tall, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo truck, no frame, no wipers, no people, text, letters, numbers or logos.",
+  "seed": 1,
+  "size": [
+    1536,
+    512
+  ],
+  "request_file": "assets/vehicle-systems/requests/cracked-windscreen-pilot.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 782,
+    "input_tokens_details": {
+      "image_tokens": 576,
+      "text_tokens": 206
+    },
+    "output_tokens": 535,
+    "output_tokens_details": {
+      "image_tokens": 535,
+      "text_tokens": 0
+    },
+    "total_tokens": 1317
+  },
+  "cost_usd": 0.0217,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1536x512",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1536,
+    512
+  ],
+  "seconds": 14.5,
+  "references": [
+    {
+      "image": "mods/PhobosVehicles/Textures/Phobos/Vehicles/Tipper/Tipper_north.png",
+      "sha256": "c4878ab96296ec35df9f35611a4c1ed14f838320c6a576cc562423c5bc901139",
+      "role": "our approved tipper truck seen from directly above: match its outline weight, shading, palette and finish only; its windscreen is the thin dark strip at the front of the cab roof"
+    }
+  ]
+}
