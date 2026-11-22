@@ -1,0 +1,171 @@
+{
+ "checked": "2026-11-22T20:16:11Z",
+ "clonesRead": 24,
+ "days": 30,
+ "findings": [
+  {
+   "commit": "592d03d66",
+   "date": "2026-11-21",
+   "link": "https://github.com/CombatExtended-Continued/CombatExtended/commit/592d03d66",
+   "member": "ProjectileCE.launcher",
+   "mod": "Combat Extended",
+   "ours": "src/PhobosFramework.Vehicles/Service/AirborneEvasion.cs:94",
+   "repository": "https://github.com/CombatExtended-Continued/CombatExtended",
+   "subject": "add core changes from vge patch"
+  },
+  {
+   "commit": "b6365b36e",
+   "date": "2026-11-05",
+   "link": "https://github.com/CombatExtended-Continued/CombatExtended/commit/b6365b36e",
+   "member": "Loadout.GetSlotsFor",
+   "mod": "Combat Extended",
+   "ours": "src/PhobosPatches.CombatExtended/KeepGuns/SidearmLoopGuard.cs:110",
+   "repository": "https://github.com/CombatExtended-Continued/CombatExtended",
+   "subject": "Fix divide by zero in ad hoc loadouts with magazineless weapons"
+  },
+  {
+   "commit": "239044326",
+   "date": "2026-11-05",
+   "link": "https://github.com/CombatExtended-Continued/CombatExtended/commit/239044326",
+   "member": "Loadout.GetSlotsFor",
+   "mod": "Combat Extended",
+   "ours": "src/PhobosPatches.CombatExtended/KeepGuns/SidearmLoopGuard.cs:110",
+   "repository": "https://github.com/CombatExtended-Continued/CombatExtended",
+   "subject": "Use ammo gen per mag override for ad hoc mag size"
+  },
+  {
+   "commit": "a7bfa781e",
+   "date": "2026-10-25",
+   "link": "https://github.com/CombatExtended-Continued/CombatExtended/commit/a7bfa781e",
+   "member": "VehicleArmorPatch.HitComponent",
+   "mod": "Combat Extended",
+   "ours": "src/PhobosFramework.Vehicles/Service/Spall.cs:85",
+   "repository": "https://github.com/CombatExtended-Continued/CombatExtended",
+   "subject": "Use SDK-provided csc for build workflows"
+  },
+  {
+   "commit": "6fc0644",
+   "date": "2026-11-06",
+   "link": "https://github.com/dsweber2/EnhancedIdeology/commit/6fc0644",
+   "member": "Messages.Message",
+   "mod": "Enhanced Ideology",
+   "ours": "src/PhobosFramework.Vehicles/Service/VehicleMessageLevel.cs:22",
+   "repository": "https://github.com/dsweber2/EnhancedIdeology",
+   "subject": "Medieval overhaul, add conversion letters (optional)"
+  },
+  {
+   "commit": "d4bfdfd0",
+   "date": "2026-11-21",
+   "link": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework/commit/d4bfdfd0",
+   "member": "CompAdvancedResourceProcessor.PostSpawnSetup",
+   "mod": "Vanilla Expanded Framework",
+   "ours": "src/PhobosFactory/Patches/BillRepairPatches.cs:32",
+   "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
+   "subject": "Advanced item processor supports constant resource draw from CompResourceTrader"
+  },
+  {
+   "commit": "a72a70d0",
+   "date": "2026-11-11",
+   "link": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework/commit/a72a70d0",
+   "member": "CompResourceStorage.AmountCanAccept",
+   "mod": "Vanilla Expanded Framework",
+   "ours": "src/PhobosMedical/Equipment/Patches/MedicalPatches.cs:16",
+   "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
+   "subject": "Added a virtual property to disable accepting contents for pipe net storages"
+  },
+  {
+   "commit": "910dfe7e",
+   "date": "2026-11-11",
+   "link": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework/commit/910dfe7e",
+   "member": "CompResourceStorage.AmountCanAccept",
+   "mod": "Vanilla Expanded Framework",
+   "ours": "src/PhobosMedical/Equipment/Patches/MedicalPatches.cs:16",
+   "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
+   "subject": "Pipenet: stunned by EMP checks"
+  },
+  {
+   "commit": "e38a1b01",
+   "date": "2026-11-05",
+   "link": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework/commit/e38a1b01",
+   "member": "CompAdvancedResourceProcessor.PostSpawnSetup",
+   "mod": "Vanilla Expanded Framework",
+   "ours": "src/PhobosFactory/Patches/BillRepairPatches.cs:32",
+   "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
+   "subject": "Progress bar tweaks"
+  },
+  {
+   "commit": "35dfb713",
+   "date": "2026-11-05",
+   "link": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework/commit/35dfb713",
+   "member": "CompAdvancedResourceProcessor.PostSpawnSetup",
+   "mod": "Vanilla Expanded Framework",
+   "ours": "src/PhobosFactory/Patches/BillRepairPatches.cs:32",
+   "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
+   "subject": "Progress bar configurable via xml"
+  },
+  {
+   "commit": "eb1c5565",
+   "date": "2026-10-28",
+   "link": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework/commit/eb1c5565",
+   "member": "Process.ResetProcess",
+   "mod": "Vanilla Expanded Framework",
+   "ours": "src/PhobosFactory/Patches/BatchInPartsPatches.cs:21",
+   "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
+   "subject": "Slightly change/update/fix advanced processor's processes"
+  },
+  {
+   "commit": "eb1c5565",
+   "date": "2026-10-28",
+   "link": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework/commit/eb1c5565",
+   "member": "Process.ExposeData",
+   "mod": "Vanilla Expanded Framework",
+   "ours": "src/PhobosFactory/Patches/BatchInPartsPatches.cs:10",
+   "repository": "https://github.com/Vanilla-Expanded/VanillaExpandedFramework",
+   "subject": "Slightly change/update/fix advanced processor's processes"
+  },
+  {
+   "commit": "b46032a6",
+   "date": "2026-11-15",
+   "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/b46032a6",
+   "member": "VehicleGui.DrawVehicleDefOnGUI",
+   "mod": "Vehicle Framework",
+   "ours": "src/PhobosFramework.Vehicles/Presentation/VehiclePicture.cs:19",
+   "repository": "https://github.com/SmashPhil/Vehicle-Framework",
+   "subject": "VF-414: Draw vehicle thing icons through VehicleGui"
+  },
+  {
+   "commit": "aaa6bd8c",
+   "date": "2026-11-15",
+   "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/aaa6bd8c",
+   "member": "CompUpgradeTree.PrerequisitesMet",
+   "mod": "Vehicle Framework",
+   "ours": "src/PhobosFramework.Vehicles/Service/UpgradeAnyOf.cs:74",
+   "repository": "https://github.com/SmashPhil/Vehicle-Framework",
+   "subject": "VF-412: Add upgrade research prerequisite check.  Require research prerequisites to all be"
+  },
+  {
+   "commit": "ecf7820d",
+   "date": "2026-11-11",
+   "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/ecf7820d",
+   "member": "RGBMaterialPool.Release",
+   "mod": "Vehicle Framework",
+   "ours": "src/PhobosPatches.Harrier/DisassemblyTrace.cs:271",
+   "repository": "https://github.com/SmashPhil/Vehicle-Framework",
+   "subject": "VF-409: Fix shader swapping mid-draw for gui draws through TextureDrawer. Waylith IMGUI do"
+  },
+  {
+   "commit": "ecf7820d",
+   "date": "2026-11-11",
+   "link": "https://github.com/SmashPhil/Vehicle-Framework/commit/ecf7820d",
+   "member": "VehiclePawn.GenerateGraphic",
+   "mod": "Vehicle Framework",
+   "ours": "src/PhobosPatches.Harrier/DisassemblyTrace.cs:296",
+   "repository": "https://github.com/SmashPhil/Vehicle-Framework",
+   "subject": "VF-409: Fix shader swapping mid-draw for gui draws through TextureDrawer. Waylith IMGUI do"
+  }
+ ],
+ "format": 1,
+ "game": "rimworld",
+ "kind": "upstream-watch",
+ "skipped": []
+}
