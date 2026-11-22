@@ -70,6 +70,19 @@
     <leakCatchesPerHour>3</leakCatchesPerHour>
     <leakFireSize>0.6</leakFireSize>
     <leakFuelPerPool>2</leakFuelPerPool>
+    <!-- Burning tyres (Framework 0.245.0, vehicle-fire.md FR11; two settings). Rubber holds its heat: tyre fires are known to relight after
+         they seem out, and a burning tyre under pressure can burst violently (NTSB HAR-07/01, the Wilmer motorcoach fire; MSHA's warnings
+         on tyre explosions near heat). Every figure authored: a fire that reached the running gear leaves the tyres smouldering for two
+         hours, lighting again about once an hour (a fire of 0.3) unless rain heavier than light rain falls on them; in a full-sized fire
+         each tyre bursts about once in 1.7 hours, a small blast of 8 damage reaching 1.9 cells, and the tyre is gone. -->
+    <tyreRole>Wheels</tyreRole>
+    <smoulderHours>2</smoulderHours>
+    <relightsPerHour>1</relightsPerHour>
+    <relightSize>0.3</relightSize>
+    <rainPutsOutAbove>0.25</rainPutsOutAbove>
+    <burstsPerHour>0.6</burstsPerHour>
+    <burstRadius>1.9</burstRadius>
+    <burstDamage>8</burstDamage>
   </Phobos.VehicleSystems.PhobosFireFightingRulesDef>
 
   <JobDef>

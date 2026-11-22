@@ -2293,7 +2293,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
 
     // ---- Parts ----
 
-    IEnumerable<VehicleComponent> PartsOf(string role)
+    internal IEnumerable<VehicleComponent> PartsOf(string role)
     {
         if (Vehicle?.statHandler == null || !Props.roleKeys.TryGetValue(role, out List<string>? keys)) yield break;
         foreach (string key in keys)
@@ -2414,6 +2414,15 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         RememberPartHealth(part);
         Vehicle.statHandler.MarkAllDirty();
         Repairs.NotifyRepairable();    // Vehicle Framework's list of vehicles to repair is fed only by real hits
+    }
+
+    /// <summary>Takes one part to nothing at once, outside any armour step, as wear does (Framework 0.245.0: a burst tyre, FR11).</summary>
+    internal void BreakPart(VehicleComponent part)
+    {
+        part.SetHealth(0f);
+        RememberPartHealth(part);
+        Vehicle.statHandler.MarkAllDirty();
+        Repairs.NotifyRepairable();
     }
 
     /// <summary>The role a loadout binds an aircraft's wheels, skids or landing legs to (Framework 0.140.0).</summary>

@@ -180,6 +180,10 @@ left on still run the battery down.
 - **Leaking fuel can feed the fire** (the setting **Leaking fuel feeds a vehicle fire**, **off by default**): with it on, once the fire
   has worn the fuel tank into leaking, the fuel catches as a **pool of fire on the ground** beneath the vehicle, which spreads and can
   set it alight again after an extinguisher. Keep people and other vehicles clear. Not yet tested in game: row 398.
+- **Burnt tyres can light again** (the setting **Burnt tyres can light again**, on by default): a fire that reached a wheeled vehicle's
+  tyres leaves them **smouldering for about two game hours** once it is out, and they may catch again; rain puts them out. **Burning
+  tyres can burst** (the setting **Burning tyres can burst**, **off by default**): a small blast that hurts anyone within about two
+  cells. Tracked vehicles have no tyres. Not yet tested in game: row 399.
 - **Firefoam works on a burning vehicle with Combat Extended**: foam that lands on the vehicle now shrinks the fire on it, as it does
   without Combat Extended. Not yet tested in game: row 340 of the test pass.
 - **A fire starts somewhere and spreads**: in the engine bay (most fires, and any hit on the engine, fuel or wiring), the crew compartment

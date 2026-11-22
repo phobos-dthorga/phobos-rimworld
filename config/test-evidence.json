@@ -624,6 +624,10 @@
       "the loading grab burns fuel": [{"key": "vehicles.tipper-work-fuel", "variant": "grab"}],
       "an electric vehicle's lights draw on its pack": ["vehicles.converter-draw"]
     }},
+    "399": {"parts": {
+      "smouldering tyres light again": [{"key": "vehicles.tyre-relit"}],
+      "a burning tyre bursts": [{"key": "vehicles.tyre-burst"}]
+    }},
     "398": ["vehicles.leak-fire"],
     "397": ["vehicles.hull-burnt-out"],
     "395": ["vehicles.own-crew-bailed-out"],

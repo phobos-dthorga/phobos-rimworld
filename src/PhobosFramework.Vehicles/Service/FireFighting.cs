@@ -207,14 +207,20 @@ public static class FireFighting
     /// One look at a vehicle's fire: on the tick after it catches, and on each rare tick. A new fire takes its zone; a burning one spreads;
     /// a ready system whose zone burns discharges. Nothing is read while the vehicle neither burns nor has zones to clear.
     /// </summary>
-    internal static void Look(CompPhobosFireFighting comp)
+    internal static void Look(CompPhobosFireFighting comp, bool rareTick = true)
     {
         VehiclePawn vehicle = comp.Vehicle;
         if (vehicle == null) return;
         float size = vehicle.Spawned ? AttachedFires.Biggest(vehicle) : 0f;
         if (size <= 0f)
         {
-            if (comp.burning != FireZones.None) comp.ClearZones();
+            if (comp.burning != FireZones.None)
+            {
+                // Burning tyres smoulder on once the fire is out (Framework 0.245.0, FR11).
+                TyreFire.WentOut(comp, comp.burning);
+                comp.ClearZones();
+            }
+            else if (rareTick) TyreFire.Smoulder(comp);
             return;
         }
         PhobosFireFightingRulesDef rules = Rules;
@@ -241,6 +247,8 @@ public static class FireFighting
                 }
                 if (Seen.Wants("vehicles.fire-spread", vehicle, reached.ToString())) Seen.Note("vehicles.fire-spread", vehicle, reached.ToString(), reached.ToString());
             }
+            // A burning tyre may burst (Framework 0.245.0, FR11): once a rare tick, never on the tick a fire attaches.
+            if (rareTick) TyreFire.Burst(comp, size);
         }
         Suppress(comp);
     }
@@ -402,6 +410,8 @@ public sealed class CompPhobosFireFighting : VehicleComp
     // The part hit last and when, for the cause of a fire; not saved (a fire after a load takes the fallback zone).
     internal FireZones lastHitZone;
     internal int lastHitTick = -1;
+    /// <summary>Until when its tyres smoulder after a fire in the running gear went out, or below none (Framework 0.245.0, FR11).</summary>
+    internal int smoulderUntil = -1;
 
     CompPhobosVehicleSystems? Systems => Vehicle?.GetComp<CompPhobosVehicleSystems>();
 
@@ -452,6 +462,7 @@ public sealed class CompPhobosFireFighting : VehicleComp
         Scribe_Values.Look(ref crewSince, "PhobosFireFighting_CrewSince", -1);
         Scribe_Values.Look(ref charges, "PhobosFireFighting_Charges", -1);
         Scribe_Values.Look(ref spent, "PhobosFireFighting_Spent");
+        Scribe_Values.Look(ref smoulderUntil, "PhobosFireFighting_SmoulderUntil", -1);
     }
 
     public override IEnumerable<Gizmo> CompGetGizmosExtra()
@@ -506,7 +517,7 @@ public sealed class GameComponent_PhobosFireFighting : GameComponent
         FireFighting.Ignited.Clear();
         foreach (CompPhobosFireFighting comp in now)
         {
-            if (comp.Vehicle is { Destroyed: false }) FireFighting.Look(comp);
+            if (comp.Vehicle is { Destroyed: false }) FireFighting.Look(comp, rareTick: false);
         }
     }
 }

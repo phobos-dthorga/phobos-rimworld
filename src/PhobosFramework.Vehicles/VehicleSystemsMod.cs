@@ -158,6 +158,12 @@ public class VehicleSystemsSettings : ModSettings
     /// <summary>A burning vehicle's leaking fuel tank catches as a pool of fire beneath it (Framework 0.245.0, vehicle-fire.md FR4; the owner's
     /// card of 23 Nov 2026). Risk high, the agent's grade (a spreading ground fire can take people and other vehicles nearby): off. Live.</summary>
     public bool fuelFeedsFire;
+    /// <summary>A wheeled vehicle's tyres smoulder after a fire in its running gear is out, and may light again (Framework 0.245.0, FR11). Risk
+    /// moderate, the agent's grade (the vehicle burns again, in sight): on. Live.</summary>
+    public bool tyresRelight = true;
+    /// <summary>A burning tyre may burst, a small blast hurting people near (Framework 0.245.0, FR11). Risk high, the agent's grade (people
+    /// near): off. Live.</summary>
+    public bool tyreBursts;
     /// <summary>Spall inside vehicles (Framework 0.207.0; docs/development/vehicle-spall.md): a round that beats an outer plate of the rifle
     /// class or heavier throws debris into the compartment behind it, wounding the crew and holing inner parts there. Combat Extended only.
     /// The owner graded its risk moderate (21 Nov 2026), so it starts on. Live.</summary>
@@ -272,6 +278,8 @@ public class VehicleSystemsSettings : ModSettings
         "fireWearUnderFireproof" => fireWearUnderFireproof,
         "playerCrewsBailOut" => playerCrewsBailOut,
         "fuelFeedsFire" => fuelFeedsFire,
+        "tyresRelight" => tyresRelight,
+        "tyreBursts" => tyreBursts,
         "spallInsideVehicles" => spallInsideVehicles,
         "vehicleGlass" => vehicleGlass,
         "glassSplinters" => glassSplinters,
@@ -350,6 +358,8 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref fireWearUnderFireproof, "PhobosVehicleSystems_FireWearUnderFireproof", true);
         Scribe_Values.Look(ref playerCrewsBailOut, "PhobosVehicleSystems_PlayerCrewsBailOut", true);
         Scribe_Values.Look(ref fuelFeedsFire, "PhobosVehicleSystems_FuelFeedsFire", false);
+        Scribe_Values.Look(ref tyresRelight, "PhobosVehicleSystems_TyresRelight", true);
+        Scribe_Values.Look(ref tyreBursts, "PhobosVehicleSystems_TyreBursts", false);
         Scribe_Values.Look(ref spallInsideVehicles, "PhobosVehicleSystems_SpallInsideVehicles", true);
         Scribe_Values.Look(ref vehicleGlass, "PhobosVehicleSystems_VehicleGlass", true);
         Scribe_Values.Look(ref glassSplinters, "PhobosVehicleSystems_GlassSplinters", true);
@@ -451,6 +461,8 @@ public class VehicleSystemsMod : SettingsBookMod
         if (!Settings.fireWearUnderFireproof) report.Off("ground fire wearing fireproof vehicles' soft parts", "off (setting)");
         if (!Settings.playerCrewsBailOut) report.Off("your crews leaving a burning vehicle", "off (setting)");
         if (Settings.fuelFeedsFire) report.On("leaking fuel feeding vehicle fires (setting)");
+        if (!Settings.tyresRelight) report.Off("burning tyres relighting", "off (setting)");
+        if (Settings.tyreBursts) report.On("burning tyres bursting (setting)");
         else if (!CookOff.AmmoSystemOn) report.Off("ammunition cook-off", "Combat Extended's ammunition is not in use");
         if (!Settings.spallInsideVehicles) report.Off("spall inside vehicles", "off (setting)");
         else if (!OptionalMods.IsActive(OptionalMods.CombatExtended)) report.Off("spall inside vehicles", "needs Combat Extended");
@@ -631,6 +643,8 @@ public class VehicleSystemsMod : SettingsBookMod
         list.Check("PhobosVehicleSystems_SettingPlayerCrewsBailOut".Translate(), ref s.playerCrewsBailOut, d.playerCrewsBailOut,
             "PhobosVehicleSystems_SettingPlayerCrewsBailOutDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingFuelFeedsFire".Translate(), ref s.fuelFeedsFire, d.fuelFeedsFire, "PhobosVehicleSystems_SettingFuelFeedsFireDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingTyresRelight".Translate(), ref s.tyresRelight, d.tyresRelight, "PhobosVehicleSystems_SettingTyresRelightDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingTyreBursts".Translate(), ref s.tyreBursts, d.tyreBursts, "PhobosVehicleSystems_SettingTyreBurstsDesc".Translate());
         list.Section("PhobosVehicleSystems_SectionSpall".Translate());
         list.Check("PhobosVehicleSystems_SettingSpall".Translate(), ref s.spallInsideVehicles, d.spallInsideVehicles, "PhobosVehicleSystems_SettingSpallDesc".Translate());
         list.Check("PhobosVehicleSystems_SettingGlass".Translate(), ref s.vehicleGlass, d.vehicleGlass, "PhobosVehicleSystems_SettingGlassDesc".Translate());

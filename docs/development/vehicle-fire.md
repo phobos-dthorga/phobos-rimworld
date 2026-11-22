@@ -2,8 +2,8 @@
 
 **Status (23 Nov 2026):** partly built, at the owner's word: FR1 (seeing a fire on a vehicle) in D'thorga Framework 0.220.0; FR2,
 FR3, FR5, FR6 and FR9 in 0.221.0; FR10 (the extinguisher, automatic suppression and fire zones) in Framework 0.241.0 and Vehicles
-0.107.0; FR8 (your crews get out) in Framework 0.245.0, with FR4, FR11, FR12 and FR13 following in that version (the owner's card of
-23 Nov 2026). FR7 is unbuilt. Not yet tested in game: rows 339, 340, 386 to 388 and 395 onwards.
+0.107.0; FR4, FR8, FR11, FR12 and FR13 in Framework 0.245.0 (the owner's card of 23 Nov 2026); FR14 corrected the fires record. FR7
+is unbuilt. Not yet tested in game: rows 339, 340, 386 to 388 and 395 to 399.
 
 The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md)'s row NK20 (fire that harms a vehicle): "Write its
 record next", the strike research having found that Combat Extended discards the game's fire damage against every vehicle. It began
@@ -155,7 +155,7 @@ Every row is unbuilt. Verdicts are the agent's recommendations **[A]**: **Take**
 | **FR8** | **Getting out**: the player's crew bail out of a burning vehicle by themselves, as other factions' do, behind a setting | Bail-out exists for other factions, with an alert for the player | Crews that save themselves | Losing a crew to an order they never got | Less micromanagement in a fire | **Built: Framework 0.245.0** (see below) |
 | **FR9** | **Extinguishing reaches a vehicle under Combat Extended**: firefoam and extinguish damage that hits a vehicle shrinks its fire | Combat Extended skips Vehicle Framework's step | Foam that works | — | Firefoam poppers near the motor pool | Small; a temporary-patches row (Combat Extended's gap). **Take** |
 | **FR10** | **A vehicle extinguisher**, an accessory that uses up its charges, and **automatic suppression**, an upgrade for armoured and military vehicles | Accessories use up something real (the owner's rule); real armoured vehicles carry it | Put a fire out from inside | — | Suppression is a reason to upgrade | Medium; needs art. **Idea** |
-| **FR11** | **Tyres that reignite and burst**: a burning tyre is hard to put out and may burst, hurting people near | NTSB and MSHA sources | — | — | Keep clear of a burning vehicle | Small. **Idea** |
+| **FR11** | **Tyres that reignite and burst**: a burning tyre is hard to put out and may burst, hurting people near | NTSB and MSHA sources | — | — | Keep clear of a burning vehicle | **Built: Framework 0.245.0**, two settings |
 | **FR12** | **Glass lets fire in**: a vehicle's glass (the [glass record](vehicle-glass.md)) cracks in a fire, and a cab with glass gone takes the fire's heat faster | Real fires enter through the windscreen | — | — | Ties the two records | **Built: Framework 0.245.0** (the cracking came with the glass, 0.238.0) |
 | **FR13** | **A burnt-out hull**: a vehicle destroyed by fire leaves a blackened hull worth less salvage | Hulls exist | — | — | — | **Built: Framework 0.245.0**, without the blackening |
 | **FR14** | **Correct the fires record's refuel cause** | See "Found on the way" | — | — | — | **Done, 23 Nov 2026** (records only) |
@@ -178,7 +178,8 @@ Grades are the agent's proposals **[A]** until the owner confirms them.
 | FR4 (a leaking tank feeds the fire) | A vehicle, faster; people and vehicles near, by a spreading ground fire | High, the agent's grade (23 Nov 2026) | Its own setting, off (built 0.245.0) |
 | FR5, FR6 (fireproof vehicles and raiders' vehicles burn) | Parts of tanks and trains | Moderate | On, each with a setting |
 | FR8 (crews get out by themselves) | Nothing; it saves people. A crew may leave a gun it was firing | Low | On (built 0.245.0) |
-| FR11 (tyres burst) | People near a burning vehicle | High | Off by the rule |
+| FR11 (tyres relight) | The vehicle burns again, in sight | Moderate, the agent's grade | On (built 0.245.0) |
+| FR11 (tyres burst) | People near a burning vehicle | High | Off by the rule (built 0.245.0) |
 
 ## Other factions' vehicles
 
@@ -346,6 +347,15 @@ grades and defaults below are the agent's, by the designs rule (on, unless high 
   [A], since a spreading ground fire can take people and other vehicles near, and the player cannot stop the leak once it runs.
   **Not read:** whether every loadout's fuel tank role is the part carrying Vehicle Framework's leak reactor; where it is not, the tank
   wears in a fire but never leaks, and nothing catches. **Outside the vehicle:** a message, the ground fire, and anyone in its way.
+- **FR11, burning tyres** (`TyreFire`, asked by `FireFighting.Look` on the rare tick; figures on the fire rules): only a wheeled vehicle,
+  its tyres the parts of the `Wheels` role; a design with a part keyed "track" has none (the one check, `VehicleFittings.TrackedDesign`,
+  now shared with the fittings). **Relighting:** a fire that had reached the running gear zone leaves the tyres smouldering for two hours
+  once it goes out (saved, `PhobosFireFighting_SmoulderUntil`), lighting again about once an hour (a fire of 0.3, starting in the running
+  gear) unless rain heavier than 0.25 falls on a vehicle under open sky [A]. Setting **Burnt tyres can light again**, on (risk moderate
+  [A]: the vehicle burns again, in sight). **Bursting:** while the running gear burns, each sound tyre bursts about 0.6 times an hour at
+  full fire, scaled by the fire's size, at most one a rare tick: the part goes to nothing and a blast of 8 Bomb damage reaches 1.9 cells
+  from that tyre's own cell, sparing the vehicle [A]. Setting **Burning tyres can burst**, off (risk high: people near). Any faction's
+  vehicle. **Outside the vehicle:** messages, the fire again, the blast and anyone in it.
 - **FR13, a burnt-out hull** (`VehicleHulls`, `SalvageRule.BurntShare`): a vehicle that dies with a fire on it or under it leaves a hull
   marked burnt out (saved on the hull, `PhobosHull_BurntOut`): named "burnt-out", and giving half the salvaged parts, an eighth of the
   vehicle's worth instead of a quarter [A]: a fire takes the rubber, wiring, seals, glass and plastics, and softens springs and castings.

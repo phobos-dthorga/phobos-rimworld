@@ -64,6 +64,21 @@ public class PhobosFireFightingRulesDef : PhobosRulesDef
     /// <summary>The fuel each pool takes from the tank, in the vehicle's own fuel units.</summary>
     public float leakFuelPerPool = 2f;
 
+    // ---- Burning tyres (Framework 0.245.0, FR11) ----
+    /// <summary>The role a loadout binds tyres to (a tracked vehicle's road wheels too, which never count: it has no tyres).</summary>
+    public string tyreRole = "Wheels";
+    /// <summary>Hours tyres smoulder after a fire in the running gear goes out, and how often an hour they light again meanwhile.</summary>
+    public float smoulderHours = 2f;
+    public float relightsPerHour = 1f;
+    /// <summary>The fire a smouldering tyre lights, in the game's fire sizes.</summary>
+    public float relightSize = 0.3f;
+    /// <summary>Rain heavier than this, on a vehicle under open sky, puts smouldering tyres out.</summary>
+    public float rainPutsOutAbove = 0.25f;
+    /// <summary>How often an hour one tyre bursts in a full-sized fire in the running gear; scaled by the fire's size.</summary>
+    public float burstsPerHour = 0.6f;
+    public float burstRadius = 1.9f;
+    public int burstDamage = 8;
+
     public static PhobosFireFightingRulesDef Rules => Current<PhobosFireFightingRulesDef>();
 }
 

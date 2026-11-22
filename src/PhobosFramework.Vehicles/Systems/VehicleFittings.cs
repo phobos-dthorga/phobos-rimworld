@@ -411,8 +411,12 @@ public sealed class VehicleFittings
 
     bool? tracked;
 
-    /// <summary>A hint by name, because nothing else marks a tracked vehicle (the loadout selector reads it the same way).</summary>
-    bool IsTracked => tracked ??= comp.Vehicle.VehicleDef.components.Any(part => part.key != null && part.key.IndexOf("track", System.StringComparison.OrdinalIgnoreCase) >= 0);
+    bool IsTracked => tracked ??= TrackedDesign(comp.Vehicle.VehicleDef);
+
+    /// <summary>Whether a design runs on tracks: a hint by name, because nothing else marks a tracked vehicle. Shared with burning tyres
+    /// (Framework 0.245.0, FR11), which a tracked vehicle has none of.</summary>
+    internal static bool TrackedDesign(VehicleDef def) =>
+        def.components?.Any(part => part.key != null && part.key.IndexOf("track", System.StringComparison.OrdinalIgnoreCase) >= 0) == true;
 
     /// <summary>Whether more engine power reaches the road: a piston engine driving the ground through the full model. A propeller's speed
     /// and an aircraft's flight phase do not follow it, so more power there would only cost heat and fuel.</summary>
