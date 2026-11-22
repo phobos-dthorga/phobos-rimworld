@@ -226,7 +226,9 @@ Not yet tested in game. A vehicle loses its jobs before it is a wreck, and every
 - **Field repairs** also **re-fits a thrown track or a wrecked wheel** with a component from
   the cargo, back to a quarter of its health: enough to drive home slowly. It still needs replacing properly.
 - **Crews leave a burning vehicle or a dead hull** (one that can neither move nor fire). Raiders and other factions climb out by
-  themselves, leaving the vehicle for you to claim. **Yours never leave on their own**: the **Crew in danger** alert lists them.
+  themselves, leaving the vehicle for you to claim. **Yours get out of a burning vehicle by themselves once it stops** (the setting
+  **Your crews get out of a burning vehicle**, on by default; never while it drives or flies); **in a dead hull they wait for your
+  order**, and the **Crew in danger** alert lists them. Not yet tested in game: row 395 of the test pass.
 
 ## Glass
 

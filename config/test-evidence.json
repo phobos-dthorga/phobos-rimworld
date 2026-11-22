@@ -624,6 +624,7 @@
       "the loading grab burns fuel": [{"key": "vehicles.tipper-work-fuel", "variant": "grab"}],
       "an electric vehicle's lights draw on its pack": ["vehicles.converter-draw"]
     }},
+    "395": ["vehicles.own-crew-bailed-out"],
     "394": {"parts": {
       "a marked vehicle's liner catches spall": [{"key": "vehicles.spall-liner-caught"}],
       "it is re-lined with panels": [{"key": "vehicles.spall-relined", "expect": {"panels": ">= 1"}}]

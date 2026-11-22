@@ -2,7 +2,8 @@
 
 **Status (23 Nov 2026):** partly built, at the owner's word: FR1 (seeing a fire on a vehicle) in D'thorga Framework 0.220.0; FR2,
 FR3, FR5, FR6 and FR9 in 0.221.0; FR10 (the extinguisher, automatic suppression and fire zones) in Framework 0.241.0 and Vehicles
-0.107.0. Every other row is unbuilt. Not yet tested in game: rows 339, 340 and 386 to 388.
+0.107.0; FR8 (your crews get out) in Framework 0.245.0, with FR4, FR11, FR12 and FR13 following in that version (the owner's card of
+23 Nov 2026). FR7 is unbuilt. Not yet tested in game: rows 339, 340, 386 to 388 and 395 onwards.
 
 The owner, 22 Nov 2026, on the [nuclear strike record](nuclear-strike-effects.md)'s row NK20 (fire that harms a vehicle): "Write its
 record next", the strike research having found that Combat Extended discards the game's fire damage against every vehicle. It began
@@ -151,7 +152,7 @@ Every row is unbuilt. Verdicts are the agent's recommendations **[A]**: **Take**
 | **FR5** | **Ground fire burns a vehicle that cannot catch**: a vehicle at flammability 0 standing in fire still has its tyres and soft parts worn | A quarter of the list never catches; its tyres would still burn | Fire matters to tanks and trains too | Driving a tank through a burning field unharmed | Tracks and tyres need watching near fire | Small. **Idea**: the owner's call, since it changes other authors' vehicles |
 | **FR6** | **Other factions' vehicles burn too**: fire wear in the lite tier | The lite tier runs only cook-off and bail-out | Burn out a raider's truck | Raiders' vehicles being fireproof | Incendiaries are a real tool against vehicles | Small. **Take**, cheap: one wear step on the rare tick |
 | **FR7** | **Smoke and heat in the cab**: the people aboard choke and overheat in a burning vehicle | Knocked-out row C3 and hotboxing's cab air; D'thorga Medical's smoke needs people on the map | Lose a crew to a fire | Sitting in a burning cab | Getting out of a burning vehicle matters | **Waiting** on the cab-air model (the owner's answer of 20 Nov 2026) |
-| **FR8** | **Getting out**: the player's crew bail out of a burning vehicle by themselves, as other factions' do, behind a setting | Bail-out exists for other factions, with an alert for the player | Crews that save themselves | Losing a crew to an order they never got | Less micromanagement in a fire | Small. **Idea** |
+| **FR8** | **Getting out**: the player's crew bail out of a burning vehicle by themselves, as other factions' do, behind a setting | Bail-out exists for other factions, with an alert for the player | Crews that save themselves | Losing a crew to an order they never got | Less micromanagement in a fire | **Built: Framework 0.245.0** (see below) |
 | **FR9** | **Extinguishing reaches a vehicle under Combat Extended**: firefoam and extinguish damage that hits a vehicle shrinks its fire | Combat Extended skips Vehicle Framework's step | Foam that works | — | Firefoam poppers near the motor pool | Small; a temporary-patches row (Combat Extended's gap). **Take** |
 | **FR10** | **A vehicle extinguisher**, an accessory that uses up its charges, and **automatic suppression**, an upgrade for armoured and military vehicles | Accessories use up something real (the owner's rule); real armoured vehicles carry it | Put a fire out from inside | — | Suppression is a reason to upgrade | Medium; needs art. **Idea** |
 | **FR11** | **Tyres that reignite and burst**: a burning tyre is hard to put out and may burst, hurting people near | NTSB and MSHA sources | — | — | Keep clear of a burning vehicle | Small. **Idea** |
@@ -176,7 +177,7 @@ Grades are the agent's proposals **[A]** until the owner confirms them.
 | FR2, FR3 (wear by size, more parts) | Parts, over minutes, with the fire visible | Moderate | On, under the existing fire wear |
 | FR4 (a leaking tank feeds the fire) | A vehicle, faster | Moderate to high | Its own setting; the owner to grade |
 | FR5, FR6 (fireproof vehicles and raiders' vehicles burn) | Parts of tanks and trains | Moderate | On, each with a setting |
-| FR8 (crews get out by themselves) | Nothing; it saves people | Low | On |
+| FR8 (crews get out by themselves) | Nothing; it saves people. A crew may leave a gun it was firing | Low | On (built 0.245.0) |
 | FR11 (tyres burst) | People near a burning vehicle | High | Off by the rule |
 
 ## Other factions' vehicles
@@ -319,6 +320,18 @@ nobody aboard, the nearest free colonist runs to use it, the right-click kept fo
 - **Other factions:** any faction's vehicle with a system fitted puts its fire out; their crews do not use extinguishers. Zones are
   kept for every burning vehicle.
 - **Known limit:** a fire in the running gear is covered by no system until it spreads, as with real systems.
+
+## What was built in the second round (Framework 0.245.0) [A]
+
+The owner's card of 23 Nov 2026: "FR4 + FR11 + FR13, FR8: crews bail out, FR12: glass lets fire in, FR14: correct the record". The
+grades and defaults below are the agent's, by the designs rule (on, unless high risk), for the owner to revise.
+
+- **FR8, your crews get out** (`CrewBailOut.PlayerRareTick`, on the full tier's rare tick after the suppression look): a burning vehicle
+  of the player's, with people aboard, empties once it has stopped (Vehicle Framework's pather not moving) and is not airborne. The
+  fire is read from the fires themselves, so a fire a system has just put out empties nothing. Only fire: a dead hull that does not
+  burn stays the player's call, with the Crew in danger alert, as the owner chose on 16 Nov 2026. The knock-out rules' `crewsBailOut`
+  still switches every faction's bail-out off. Setting **Your crews get out of a burning vehicle**, on (risk low: it saves people; a
+  crew may leave a gun it was firing). **Outside the vehicle:** a message, and the crew on the map, in the fire's way.
 
 ## Who chose what
 

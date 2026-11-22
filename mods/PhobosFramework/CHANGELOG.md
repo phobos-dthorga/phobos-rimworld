@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.245.0] - 2026-11-23 - Draft
+
+Fire on vehicles, the second round: crews get out, and what a fire leaves behind
+
+### Added
+
+- **Your crews get out of a burning vehicle** (the owner's card of 23 November 2026, FR8 of the fire record): once a burning vehicle of yours has stopped, the people aboard climb out by themselves, as other factions' crews always have, with a message saying so. A driver taking it clear is never pulled out at the wheel, nobody gets out in the air, and a fire a suppression system puts out at once empties nothing. A dead hull that does not burn still waits for your order. New setting **Your crews get out of a burning vehicle** (Vehicle systems settings, Dangers page), on by default. Not yet tested in game: row 395 of the test pass.
+
 ## [0.244.0] - 2026-11-23 - Draft
 
 One extension for what other authors' vehicles carry

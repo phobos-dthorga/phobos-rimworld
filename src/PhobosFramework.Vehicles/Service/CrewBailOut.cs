@@ -11,7 +11,8 @@ namespace Phobos.VehicleSystems;
 /// an alert; docs/development/vehicle-knocked-out-systems.md, C2). Vehicle Framework only empties a vehicle when it is destroyed or has stood
 /// idle five hours, so a crew sat in a burning or knocked-out hull until it was destroyed around them, and an enemy's vehicle could only be
 /// taken by destroying it. Read on the rare tick from Vehicle Framework's own answers (crew aboard, speed, weapons) and our fire share; costs
-/// a few reads per vehicle, on every faction's. Never touches the player's crews: <see cref="Alert_PhobosCrewInDanger"/> tells the player.
+/// a few reads per vehicle, on every faction's. The player's crews leave only a burning vehicle, by <see cref="PlayerRareTick"/> (a setting); for a dead
+/// hull <see cref="Alert_PhobosCrewInDanger"/> tells the player.
 /// </summary>
 public static class CrewBailOut
 {
@@ -52,5 +53,26 @@ public static class CrewBailOut
         }
         if (Seen.Wants("vehicles.crew-bailed-out", vehicle)) Seen.Note("vehicles.crew-bailed-out", vehicle, danger.ToString());
         vehicle.DisembarkAll();
+    }
+
+    /// <summary>
+    /// The rare tick for the player's vehicle (Framework 0.245.0; docs/development/vehicle-fire.md, FR8; the owner's card of 23 Nov 2026: "crews
+    /// bail out"): a crew gets out of a burning vehicle by itself, as other factions' crews do, once it has stopped, so a driver taking it
+    /// clear of danger is never pulled out at the wheel, and never in the air. Only fire, never a dead hull: staying in one is the player's
+    /// call. Read after the suppression systems have had their go this tick, from the fires themselves, so a fire just put out never empties
+    /// the vehicle. A setting, on (risk low, the agent's grade: it saves people). Costs one list read while there is a crew aboard.
+    /// </summary>
+    public static void PlayerRareTick(CompPhobosVehicleSystems comp)
+    {
+        VehiclePawn vehicle = comp.Vehicle;
+        if (vehicle == null || vehicle.Faction != Faction.OfPlayer || !vehicle.Spawned || !VehicleSystemsMod.Settings.playerCrewsBailOut
+            || !PhobosRulesDef.Current<PhobosKnockOutRulesDef>().crewsBailOut) return;
+        int aboard = vehicle.AllPawnsAboard.Count;
+        if (aboard == 0 || Phobos.Framework.Environment.AttachedFires.Biggest(vehicle) <= 0f) return;
+        if (vehicle.vehiclePather?.Moving == true || When_Airborne.Airborne(comp, live: true)) return;
+        vehicle.DisembarkAll();
+        Messages.Message("PhobosVehicleSystems_CrewBailedOutOwn".Translate(vehicle.LabelShort.Named("VEHICLE"), aboard.Named("COUNT")), vehicle,
+            MessageTypeDefOf.NegativeEvent);
+        if (Seen.Wants("vehicles.own-crew-bailed-out", vehicle)) Seen.Note("vehicles.own-crew-bailed-out", vehicle, aboard.ToString());
     }
 }

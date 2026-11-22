@@ -873,6 +873,8 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 FireWear.RareTick(this, lite: false);
                 // Fire zones, their spread and the suppression systems (Framework 0.241.0, FR10): read only while the vehicle burns.
                 if (Vehicle.GetComp<CompPhobosFireFighting>() is { } fireFighting) FireFighting.Look(fireFighting);
+                // The player's crew leaves a burning vehicle once it stops (Framework 0.245.0, FR8; a setting): after suppression has had its go.
+                CrewBailOut.PlayerRareTick(this);
                 if (++pipeLooks >= RareTicksPerPipeLook)
                 {
                     pipeLooks = 0;
