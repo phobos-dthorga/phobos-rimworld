@@ -273,7 +273,7 @@ So it has no setting of its own: it follows **Field kitchens cook in a caravan**
 | Which way a caravan cooks | `CaravanCookRule.WayFor` (game-free, tested) | Resting for the night: as before. Driving on at night: **simmer**, or **halt** where the player chose halts for that caravan. By day it does not cook |
 | Simmering on the move | `PhobosCaravanCooking.Cook` | The kettle alone works: **half a cook's meals** [A: `onTheMoveShare` 0.5 on the kitchen's Def, so 10 a cook], the same fuel a meal, the same 2 % outdoor spoiling. **Riders only**: whoever drives or crews a vehicle tends no kettle (`Berths.IsCrew`) |
 | A meal halt | `NightDriving.Halt`, and the night-rest postfix | The cooks work as at camp, then the caravan is held for **an hour** [A: `mealHaltTicks` 2,500] by answering "resting" for it, and drives on by the clock. No meal, no halt. The halt is not saved: a game loaded during one drives on, its meal already cooked |
-| The choice | **Meal halts**, a switch on the caravan beside **Drive through the night**, shown while it carries a kitchen | Off by default (the owner's choice). Greyed out with its reason while that caravan stops for the night anyway. Its own icon is asked for in `assets/vehicle-systems/requests/berths-house.json`; until it is made, the button shows our switch icon |
+| The choice | **Meal halts**, a switch on the caravan beside **Drive through the night**, shown while it carries a kitchen | Off by default (the owner's choice). Greyed out with its reason while that caravan stops for the night anyway. Its own icon, a kettle beside a stop sign, since Framework 0.236.1 (the owner's pick, 23 Nov 2026) |
 
 **A gameplay simplification, labelled:** the kettle is on the trailer and its cook rides in the tractor. Read it as the stew put on before
 setting out and seen to at the driver changes. Horse-drawn field kitchens were built to cook on the march; that is the agent's
@@ -332,8 +332,8 @@ new hazard; the cold box, a fridge and cold weather are the answers the game alr
 | Cold | `ColdInTow.Chill`, told from the tractor's look; `Building_PhobosColdBox.Cold` | While the load runs, each packed box behind is told so and stays at 4 °C until two looks pass without word. Told from the tractor's side because no list of tows names a trailer riding in a hitch after a game is loaded |
 
 **Limits, said plainly:** a packed box cannot be looked into (set the kitchen up to read its stacks). On a map, a packed kitchen hitched
-to a parked vehicle also runs its box from that vehicle's battery; unhitched and packed, the box is warm. Its own icon is asked for in
-`assets/vehicle-systems/requests/berths-house.json`; until then the load shows our switch icon.
+to a parked vehicle also runs its box from that vehicle's battery; unhitched and packed, the box is warm. Its own icon, an open cooler
+full of ice, since Framework 0.236.1 (the owner's pick, 23 Nov 2026).
 
 **Other factions:** raiders bring no kitchens; a base's kitchen stands set out. A captured kitchen follows these rules. A raider's
 vehicle on the light tier ages nothing in tow (the catch-up runs on the full tier only), which costs the player nothing.

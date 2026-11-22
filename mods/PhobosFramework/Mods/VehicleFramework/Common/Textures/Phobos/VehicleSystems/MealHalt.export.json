@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/MealHalt.png",
+  "source": "assets/vehicle-systems/generated/button-meal-halt-b/button-meal-halt-b-11.png",
+  "source_sha256": "bc01597d8b868d8bb13379deb3c88163b0fb371f59d882933bfa768a831a6336",
+  "target_sha256": "3b0fa83bc9f6c7bbdce3a1e5448d4dc58d570f0cf2c3f771038fc7851c53ecc8",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "bc01597d8b868d8bb13379deb3c88163b0fb371f59d882933bfa768a831a6336",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T01:48:08",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

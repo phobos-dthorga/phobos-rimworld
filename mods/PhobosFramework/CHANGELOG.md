@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.236.1] - 2026-11-23 - Draft
+
+Their own icons for the cab bunk, night driving, meal halts, the trailer cold box and the deck tent. Not yet tested in game.
+
+### Changed
+
+- **Five buttons and fittings have their own icons** in place of the plain switch picture they borrowed: the cab bunk (a bunk with a folded blanket), Drive through the night (a moon over a road), Meal halts (a kettle beside a stop sign), the trailer cold box (an open cooler full of ice) and the deck tent (a tent with a lamp in its doorway). Made on our own style model and picked by the owner. The Windows down switch keeps the switch picture until its redraw is picked.
+
 ## [0.236.0] - 2026-11-22 - Draft
 
 The limits of the camp and caravan work, followed up
