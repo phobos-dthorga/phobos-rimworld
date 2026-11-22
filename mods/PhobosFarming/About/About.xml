@@ -4,7 +4,7 @@
   <name>D'thorga Farming</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.7.7</modVersion>
+  <modVersion>0.7.8</modVersion>
   <description>Machines that work your fields. Mark a growing zone as a paddock, and a combine harvester cuts it row by row: the driver's skill sets the yield as it does by hand, every ripe plant goes into its grain tank, and unripe plants are left standing.
 
 Tractors in three sizes carry a turnover plough or a cultivator on a three-point linkage and pull a seed drill, each working a paddock row by row by itself. The drill sows from the crop's own grain kept back from a harvest, or from seed grain bought from traders. The largest tractor bends in the middle.

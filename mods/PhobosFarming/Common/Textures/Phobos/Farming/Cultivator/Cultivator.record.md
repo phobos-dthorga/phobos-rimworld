@@ -50,3 +50,18 @@ author's art was used.
 | Cultivator_Wings_north | `5c8fdbdf4b9f96cc2bed7d8f70bc324589b2f6e69e56c4501dc3437355b833b6` |
 | Cultivator_Wings_east | `0833bb05ad99933db0fb392da44e37945d5ccdbd38a8fae9c8ff5359a7553229` |
 | Cultivator_Wings_south | `aad7afb47eba84a0a3c3afbd7c9238e1d2b0935d465c1b355e54799efa812ddf` |
+
+## Holes cleared (23 Nov 2026)
+
+**The white left in the roller's gaps and beside a tine cleared, from the shipped picture**, D'thorga Farming 0.7.8 (the owner's card of
+23 Nov 2026: fix the white holes, the background AI to judge). `scripts/art/bake_paint.py`'s `clear_ai_holes`, named for this picture in
+`assets/phobos-vehicles/farming-unpainted.json`: each white pixel mapped back to the master by this body's transform, cleared where the
+background AI is sure it is background (under 64 of 255), its edge faded as the exporters' is, then the new edge's rim cleaned. The
+tube's drawn highlight along a gap, which the AI calls the object (218 to 242), stays. Nothing else changed. No game or other author's
+art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| Cultivator_north | `1aa8c19ba5d9cadac2d9c7d0d811d9e1d6a3323bcbe8ac4636bb960c5e0b29be` |
+| Cultivator_east | `6c41620bac01eb1e8de97d61aebab26feb8e00ad2f29bba1d957120a3391a638` |
+| Cultivator_south | `ee466caf6210842f6aa23278849b7d31a76fb31dac1bc074e691ceb7eeaae0ed` |

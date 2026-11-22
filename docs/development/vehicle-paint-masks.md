@@ -43,9 +43,12 @@ the grey texture times its vehicle's Def colours under the mask (what the game d
 so nothing moves; `assets/phobos-vehicles/farming-unpainted.json` names every picture and its colours, and `export_farming.py` bakes after
 every export. **The rim** (the owner's "white dithering" at every border): exports before the soft-rim fix (5c6d04e8) left a half-transparent
 pale grey pixel outside each outline; every partly transparent outer pixel paler than the pixel inside it (by 24) now takes that pixel's
-colour, keeping its transparency. **Open, next by the owner's card:** white background left inside some Farming pictures (the cultivator's
-roller gaps and a tine wedge, the T400B's lower-link eyes); shiny parts are as white and flat (the plough shares, the combine's cab roof),
-so the background AI on each master is to judge them.
+colour, keeping its transparency. **White left inside** (the owner's card of 23 Nov 2026, Farming 0.7.8):
+every white patch on Farming's bodies and the T400's halves (registered against their whole by alpha overlap) was mapped to its master and
+read against the background AI. It called background only the cultivator's roller gaps and the gap beside a tine (median 0 to 3 of 255);
+everything else it calls the object (115 to 255): the plough's shares, the combine's cab roof, the T400B's lower-link eyes, the thin lines
+on the light cultivator's and seed drill's rollers. `bake_paint.clear_ai_holes` cleared the cultivator's (`"ai_holes"` in the plan),
+fading the edge as the exporters do; a tube's drawn highlight along a gap, the AI's object, stays.
 
 **For a new body:** run `scripts/art/paint_segments.py` on its master, then `python scripts/art/repaint_vehicles.py stage --paint repaired`, `review` and `apply --paint repaired`, and `python scripts/art/paint_check.py` before the owner sees it.
 

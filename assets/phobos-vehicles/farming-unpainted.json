@@ -106,7 +106,8 @@
     255,
     249,
     77
-   ]
+   ],
+   "ai_holes": "assets/phobos-vehicles/generated/farming-cultivator-body-north/farming-cultivator-body-north-1.png"
   },
   {
    "name": "Cultivator/Cultivator_Wings",

@@ -5,7 +5,8 @@
 
 A plan is JSON: {"textures": "<folder the pictures live in>", "pictures": [{"name": "Folder/Name", "color":
 [r, g, b], "colorTwo": [r, g, b]}, ...]}. A picture with no mask (``"unmasked": true``) only has its rim cleaned; one that draws nothing
-(``"mask_only": true``, such as a blank body under its overlays) keeps its pictures and only loses its mask.
+(``"mask_only": true``, such as a blank body under its overlays) keeps its pictures and only loses its mask. ``"ai_holes": "<master>"``
+on a picture with a ``<name>.transform.json`` beside it also clears the white the background AI calls background (clear_ai_holes).
 
 Why (the owner's choice of 23 Nov 2026, D'thorga Farming): repainted, D'thorga Farming's machines kept lines of their drawn green, and the
 owner chose to make them non-recolourable rather than ship a repaint that might still show it; the same review found white dithering at
@@ -28,6 +29,11 @@ from PIL import Image, ImageChops
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import art_paths  # noqa: E402  The art tools' working folder (K: on the owner's PC), never a path written into the plan
+from export_sprite import AI_OBJECT_FROM, AI_SEED_BELOW, ai_background, unmixed  # noqa: E402
+
+ROOT = Path(__file__).resolve().parents[2]
+HOLE_WHITE = 235  # as white as the exporters clear (export_sprite's threshold): solid white the AI calls background is a hole
+HOLE_SOFT = 30    # the soft edge round a hole: this much less white fades from clear to solid, as the exporters do
 
 FACINGS = {'north': None, 'east': Image.ROTATE_270, 'south': Image.ROTATE_180}
 RIM_PALER = 24  # a rim pixel this much lighter (0 to 255) than the pixel inside it is pale rim, not the picture's own light edge (authored)
@@ -87,6 +93,53 @@ def clean_rim(image):
     return image, changed
 
 
+def clear_ai_holes(image, master, transform):
+    """White left inside a picture where the ground should show (the owner's review of 23 Nov 2026: the cultivator's roller gaps and the
+    gap beside a tine), judged by the background AI on the master, never by colour: shiny parts are as white (a plough share, a cab roof).
+    transform is the picture's export transform (scale and offset from the master). A pixel at least HOLE_WHITE white whose master pixel
+    the AI is sure is background clears; a less white pixel beside a hole, where the AI does not take it for the object, fades as the
+    exporters' soft edge does, its white taken out. Returns (image, pixels cleared)."""
+    mask = ai_background(master)
+    if mask is None:
+        raise SystemExit(f'{Path(master).name}: the background AI has not looked at it (clean_backgrounds.py masks --also ...)')
+    width_m, height_m = Image.open(master).size
+    sure = mask.resize((width_m, height_m)).load()
+    scale, (left, top) = transform['scale'], transform['offset']
+    image = image.copy()
+    pixels = image.load()
+    width, height = image.size
+
+    def verdict(x, y):
+        mx, my = int((x + 0.5 - left) / scale), int((y + 0.5 - top) / scale)
+        return sure[mx, my] if 0 <= mx < width_m and 0 <= my < height_m else 255
+
+    cleared = set()
+    for y in range(height):
+        for x in range(width):
+            r, g, b, a = pixels[x, y]
+            if a and min(r, g, b) >= HOLE_WHITE and verdict(x, y) < AI_SEED_BELOW:
+                pixels[x, y] = (r, g, b, 0)
+                cleared.add((x, y))
+    # Out from each hole through white the AI does not take for the object, as the exporters' flood does: a solid white pixel clears,
+    # a less white one fades with its white taken out, and the spread stops at anything darker.
+    stack = list(cleared)
+    while stack:
+        x, y = stack.pop()
+        for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+            if (nx, ny) in cleared or not (0 <= nx < width and 0 <= ny < height):
+                continue
+            r, g, b, a = pixels[nx, ny]
+            whiteness = min(r, g, b)
+            if not a or whiteness <= HOLE_WHITE - HOLE_SOFT or verdict(nx, ny) >= AI_OBJECT_FROM:
+                continue
+            alpha = min(a, max(0, int(255 * (HOLE_WHITE - whiteness) / HOLE_SOFT)))
+            pixels[nx, ny] = (unmixed(r, alpha), unmixed(g, alpha), unmixed(b, alpha), alpha)
+            cleared.add((nx, ny))
+            if alpha == 0:
+                stack.append((nx, ny))
+    return image, len(cleared)
+
+
 def write_facings(north, folder, name):
     written = []
     for facing, turn in FACINGS.items():
@@ -113,6 +166,10 @@ def run(plan, apply=False):
         mask_path = source / f'{name}_northm.png'
         if not picture.get('unmasked') and mask_path.is_file():   # no mask: baked already (an export of the other batch)
             north = baked(north, Image.open(mask_path), picture['color'], picture['colorTwo'])
+        if picture.get('ai_holes'):
+            transform = json.loads((source / f'{name}.transform.json').read_text(encoding='utf-8'))
+            north, holes = clear_ai_holes(north, ROOT / picture['ai_holes'], transform)
+            report.append((f"{picture['name']} holes", holes))
         north, rim = clean_rim(north)
         target = out / folder
         target.mkdir(parents=True, exist_ok=True)

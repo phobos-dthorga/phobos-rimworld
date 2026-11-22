@@ -53,6 +53,33 @@ class RimTests(unittest.TestCase):
         self.assertEqual(cleaned.getpixel((3, 2)), (90, 120, 60, 255))
 
 
+class HoleTests(unittest.TestCase):
+    """The cultivator's roller gaps (owner's review, 23 Nov 2026): white clears only where the background AI calls it background."""
+
+    def test_white_the_ai_calls_background_clears_and_shiny_white_stays(self):
+        picture = Image.new('RGBA', (10, 4), (60, 60, 60, 255))
+        for x in range(2, 5):
+            picture.putpixel((x, 1), (255, 255, 255, 255))   # a hole
+        for x in range(6, 9):
+            picture.putpixel((x, 1), (255, 255, 255, 255))   # a shiny part, as white
+        verdict = Image.new('L', (10, 4), 255)
+        for x in range(2, 5):
+            verdict.putpixel((x, 1), 0)
+        original = bake_paint.ai_background
+        bake_paint.ai_background = lambda master: verdict
+        try:
+            with tempfile.TemporaryDirectory() as root:
+                master = Path(root) / 'master.png'
+                Image.new('RGB', (10, 4)).save(master)
+                result, cleared = bake_paint.clear_ai_holes(picture, master, {'scale': 1.0, 'offset': [0, 0]})
+        finally:
+            bake_paint.ai_background = original
+        self.assertEqual(result.getpixel((3, 1))[3], 0)
+        self.assertEqual(result.getpixel((7, 1)), (255, 255, 255, 255))
+        self.assertEqual(result.getpixel((0, 0)), (60, 60, 60, 255))
+        self.assertEqual(cleared, 3)
+
+
 class PlanTests(unittest.TestCase):
     def test_apply_writes_turned_facings_and_drops_the_mask(self):
         with tempfile.TemporaryDirectory() as root:

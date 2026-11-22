@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.7.8] - 2026-11-23 - Draft
+
+The ground shows through the cultivator's roller
+
+### Fixed
+
+- **The ground shows through the cultivator's roller** (the owner's card of 23 November 2026): white was left in the gaps between its rear roller's bars and beside one tine, where the ground should show. Cleared where the background AI on the picture's master is sure it is background; shiny parts as white (the plough's shares, the combine's cab roof, the tractors' highlights) stay, as the AI calls them part of the machine. Not yet tested in game: look at the Tillman cultivator on soil.
+
 ## [0.7.7] - 2026-11-23 - Draft
 
 Farming's machines keep their own colours, with clean edges
