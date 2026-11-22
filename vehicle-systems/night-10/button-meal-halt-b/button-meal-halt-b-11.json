@@ -1,0 +1,33 @@
+{
+  "file": "button-meal-halt-b-11.png",
+  "sha256": "bc01597d8b868d8bb13379deb3c88163b0fb371f59d882933bfa768a831a6336",
+  "date": "2026-11-22T14:09:51",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosdthorga, A small game button icon: a round steel camp kettle pot with a lid and a curl of steam standing on a small burner flame, beside a red octagonal road halt sign on a short post. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One group, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/berths-house.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 167.0,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Headlights.png",
+      "sha256": "3584ec9b5a0c242ac16212e74e7c92fe8f281f5bb3f19573db6a2a4fc57cb76c"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightHeater.png",
+      "sha256": "7838276523c4fe9efe00a244627d9bf40c3967f15e5b434f2efa42d7bbd5cec4"
+    }
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "lora_strength": 1.0
+}

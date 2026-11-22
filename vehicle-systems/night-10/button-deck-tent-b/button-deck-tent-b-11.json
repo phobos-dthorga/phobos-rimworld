@@ -1,0 +1,33 @@
+{
+  "file": "button-deck-tent-b-11.png",
+  "sha256": "9217a5c5111af5f3889717a0b560f751e76bd8ac6f276b9855c8171dff08d40c",
+  "date": "2026-11-22T14:20:12",
+  "generator": "ComfyUI 0.41.0, local, FLUX.2 Klein 4B base fp8 (Black Forest Labs, Apache 2.0)",
+  "engine": "klein-base",
+  "model": "flux-2-klein-base-4b-fp8.safetensors",
+  "model_sha256": "44bab3a86fe98b85d21dd2a4729ebdc3ae51fb8a39f76e457e18c724219e6840",
+  "prompt": "phobosdthorga, A small game icon: a low olive canvas ridge tent with its door flap tied open, a pillow showing inside and a small crescent moon above it. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people, no vehicle, no car.",
+  "negative_prompt": "",
+  "seed": 11,
+  "steps": 50,
+  "cfg": 4.0,
+  "sampler": "euler/flux2",
+  "request_file": "assets/vehicle-systems/requests/berths-house.json",
+  "size": [
+    1024,
+    1024
+  ],
+  "seconds": 150.8,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+      "sha256": "15f6c16388ff46c9dafa26d692f682bd906bf4406606e4fa04d3e48e1b2f0a2a"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/AwningRoll.png",
+      "sha256": "e57a2d7be84e8d905b33d650114e3a8689c61b10473e09382b56f64461828966"
+    }
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "lora_strength": 1.0
+}
