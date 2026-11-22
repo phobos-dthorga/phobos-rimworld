@@ -15,9 +15,9 @@ jobs:
   watch:
     permissions:
       contents: write
-    uses: phobos-dthorga/phobos-modkit/.github/workflows/nightly-feed.yml@v1.90.1
+    uses: phobos-dthorga/phobos-modkit/.github/workflows/nightly-feed.yml@v1.91.1
     with:
-      kit-ref: v1.90.1
+      kit-ref: v1.91.1
       feed: phobos-rimworld
       title: Phobos RimWorld, nightly
       command: >-
