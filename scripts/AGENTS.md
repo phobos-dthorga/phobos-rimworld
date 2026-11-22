@@ -76,7 +76,11 @@ for word; the root's rules apply here too.
   **Whether an update or an author's source touched what we patch: `python scripts/upstream.py`** (owner's go-ahead, 18 Nov 2026):
   every member `src/` names on another author's type, against the archive's last update of each file (`updates`) and the source
   clones' commits since (`pending`, a warning before the Workshop build carries them). Run it after `refresh-mod-list.py` and before
-  an install; it matches by name, so read each listed commit or diff before acting on it.
+  an install; it matches by name, so read each listed commit or diff before acting on it. **It also runs each night on GitHub's
+  own machine** (`.github/workflows/upstream-watch.yml`, the owner's go-ahead of 23 Nov 2026, D'thorga Companion's
+  `docs/online.md` O3): `pending` for the last 30 days, from clones made straight from `config/source-repos.json`, with its
+  findings left on the `companion-results` branch, committed only when they change. Never commit to that branch by hand; the
+  run alone writes it. Its kit version is the `kit-ref` the workflow names, not this repository's pin.
   **After an update, start with `python scripts/update-check.py`** (owner, 20 Nov 2026: the checks run by hand after that day's
   updates, "implemented into Companion"; D'thorga Companion's Since you last played runs it): our patches' targets, whether an update
   touched the method a temporary patch's fault lives in, each update's size and new types, and whether our XML patches still find

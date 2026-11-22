@@ -1,0 +1,25 @@
+# The nightly upstream watch (the owner's go-ahead of 23 Nov 2026; D'thorga Companion's docs/online.md, O3): each night GitHub's
+# own machine looks for commits in the public source of mods we patch that touch a member our C# names, and leaves the findings on
+# the companion-results branch, committed only when they change. D'thorga Companion reads them from there. The kit runs at the
+# version named twice below (the workflow and kit-ref), never this repository's pin of it.
+name: Upstream watch
+on:
+  schedule:
+    - cron: "17 16 * * *" # 16:17 UTC: 3:17 am in Melbourne in summer; off the hour, which GitHub delays
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  watch:
+    permissions:
+      contents: write
+    uses: phobos-dthorga/phobos-modkit/.github/workflows/nightly-feed.yml@v1.90.1
+    with:
+      kit-ref: v1.90.1
+      feed: phobos-rimworld
+      title: Phobos RimWorld, nightly
+      command: >-
+        python3 -m phobos_modkit rimworld-upstream pending --root "$GITHUB_WORKSPACE" --days 30
+        --clone-into "$RUNNER_TEMP/clones" --feed "$FEED/upstream-watch.json"
