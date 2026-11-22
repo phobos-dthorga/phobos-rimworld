@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+  <!-- RimThunder Desert Sabre's vehicles, through D'thorga Framework's shared fitted-equipment extension (Framework 0.244.0; the owner's go of
+       23 Nov 2026; docs/development/vehicle-spall.md: one source per vehicle).
+       The M2A3 Bradley is lined: the M2A2 upgrade of 1988 added Kevlar spall liners inside the hull, which the M2A3 keeps (Wikipedia, "M2
+       Bradley", a secondary source: https://en.wikipedia.org/wiki/M2_Bradley; army-guide.com, "Bradley M2A2/M3A2", likewise:
+       https://army-guide.com/eng/product3206.html). With Combat Extended it carries our spall liner, born whole.
+       The M1A2 Abrams is left unlined: the sources the agent found conflict, and one quotes an Army study saying it uses none. -->
+  <Operation Class="PatchOperationAddModExtension">
+    <xpath>Defs/Vehicles.VehicleDef[defName="RT_M2A3_Vehicle"]</xpath>
+    <value>
+      <li Class="Phobos.VehicleSystems.PhobosFittedEquipmentExtension">
+        <lined>true</lined>
+      </li>
+    </value>
+  </Operation>
+</Patch>

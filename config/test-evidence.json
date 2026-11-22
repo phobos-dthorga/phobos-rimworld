@@ -624,6 +624,10 @@
       "the loading grab burns fuel": [{"key": "vehicles.tipper-work-fuel", "variant": "grab"}],
       "an electric vehicle's lights draw on its pack": ["vehicles.converter-draw"]
     }},
+    "394": {"parts": {
+      "a marked vehicle's liner catches spall": [{"key": "vehicles.spall-liner-caught"}],
+      "it is re-lined with panels": [{"key": "vehicles.spall-relined", "expect": {"panels": ">= 1"}}]
+    }},
     "386": {"parts": {
       "a fire starts in a zone": [{"key": "vehicles.fire-zone"}],
       "a fire spreads to the next zone": [{"key": "vehicles.fire-spread"}]
@@ -801,7 +805,9 @@
      "then": {"key": "vehicles.stage.airPressure", "detail": "*: brakes held on"}}
   ],
   "shared": {
-    "vehicles.turret-hand-cranked": "rows 124 and 137 both test a gun cranked by hand: 124 the turret drive on a flat battery, 137 each gun on its own mount"
+    "vehicles.turret-hand-cranked": "rows 124 and 137 both test a gun cranked by hand: 124 the turret drive on a flat battery, 137 each gun on its own mount",
+    "vehicles.spall-liner-caught": "rows 304 and 394 both see a liner catch spall: 304 on our trucks, 394 on another author's vehicle marked as lined (the Bradley)",
+    "vehicles.spall-relined": "rows 305 and 394 both see a liner re-lined: 305 on our trucks, 394 on another author's vehicle marked as lined (the Bradley)"
   },
   "unrowed": {},
   "versionNames": {

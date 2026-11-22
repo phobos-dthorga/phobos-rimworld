@@ -348,7 +348,29 @@ public static class Spall
     }
 
     /// <summary>Whether the vehicle's liner upgrade is fitted: a node of its tree carrying <see cref="PhobosSpallLinerUpgrade"/> is unlocked.</summary>
-    public static bool LinerFitted(VehiclePawn vehicle) => FittedLinerNode(vehicle) != null;
+    public static bool LinerFitted(VehiclePawn vehicle) => FittedLinerNode(vehicle) != null || MarkedLined(vehicle.VehicleDef);
+
+    /// <summary>Another author's design marked as carrying a liner (Framework 0.244.0, the shared extension).</summary>
+    internal static bool MarkedLined(VehicleDef def) => def.GetModExtension<PhobosFittedEquipmentExtension>()?.lined == true;
+
+    /// <summary>
+    /// Appends the liner part to a design marked as lined, with Combat Extended, at start-up (Framework 0.244.0; vehicle-spall.md: "other
+    /// authors' vehicles marked as lined get the same part ..., born at full health, so their liners wear too"). On the cab's cells, inside,
+    /// not counted toward destruction, as our trucks' is; ours come from the loadout patch instead, so a design that already has it is left.
+    /// </summary>
+    internal static void ApplyMarked(VehicleDef def, CompProperties_PhobosVehicleSystems props)
+    {
+        if (!MarkedLined(def) || !OptionalMods.IsActive(OptionalMods.CombatExtended) || def.components == null || def.components.Any(p => p.key == LinerKey)) return;
+        var add = new PartToAdd
+        {
+            key = LinerKey, label = "spall liner", health = 60, depth = VehicleComponent.VehiclePartDepth.Internal, hitWeight = 0.05f,
+            cellsOf = props.roleKeys.ContainsKey("Cabin") ? "Cabin" : "Engine", armor = new List<StatModifier>(), countsTowardDestruction = false,
+        };
+        def.components.Add(VehicleSystems.MakePart(def, add, props));
+        props.roleKeys["SpallLiner"] = new List<string> { LinerKey };
+        props.addedKeys.Add(LinerKey);
+        props.uncountedKeys.Add(LinerKey);
+    }
 
     /// <summary>The unlocked node carrying the liner upgrade, or null.</summary>
     static UpgradeNode? FittedLinerNode(VehiclePawn vehicle)
@@ -421,9 +443,10 @@ public static class Spall
     /// not loaded.</summary>
     internal static int PanelsToReline(VehiclePawn vehicle, VehicleComponent liner)
     {
-        if (Rules.Panel == null || liner.MaxHealth <= 0f || FittedLinerNode(vehicle) is not { } node) return 0;
-        // Each liner's own count, from its upgrade (Framework 0.209.0: the Osprey's lines more than a truck's cab).
-        int perLiner = node.upgrades.Find(u => u is PhobosSpallLinerUpgrade) is PhobosSpallLinerUpgrade { panels: > 0 } upgrade ? upgrade.panels : Rules.panelsPerLiner;
+        if (Rules.Panel == null || liner.MaxHealth <= 0f || !LinerFitted(vehicle)) return 0;
+        // Each liner's own count, from its upgrade (Framework 0.209.0: the Osprey's lines more than a truck's cab); a marked design's, the rules'.
+        int perLiner = FittedLinerNode(vehicle)?.upgrades.Find(u => u is PhobosSpallLinerUpgrade) is PhobosSpallLinerUpgrade { panels: > 0 } upgrade
+            ? upgrade.panels : Rules.panelsPerLiner;
         return SpallRule.PanelsToReline(liner.Health / liner.MaxHealth, perLiner);
     }
 

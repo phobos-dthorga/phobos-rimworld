@@ -349,8 +349,11 @@ authored [A] unless marked.
   their order; an existing vehicle gains it whole at its next load. It takes the cells of the design's cab part (the Cabin role), no
   armour of its own, a small hit weight, and is left out of the destruction sum and the vehicle's overall health. 40 health; what
   counts is its share: whole, **cracked** below 70 %, **gone** at nothing.
-- **Its kind:** a design's `PhobosGlassExtension` (VG10: any mod's VehicleDef may set the kind, or `none`); else armoured glass once
-  the armoured cab node is unlocked; else the loadout's (vision blocks on the tracked loadout, ordinary glass otherwise).
+- **Its kind:** a design's `PhobosFittedEquipmentExtension` (VG10: any mod's VehicleDef may set `glass`, or `noGlass`; since Framework
+  0.244.0 the one extension the fire, spall and glass records share, which replaced the glass-only `PhobosGlassExtension` no XML used);
+  else armoured glass once the armoured cab node is unlocked; else the loadout's (vision blocks on the tracked loadout, ordinary glass
+  otherwise), **and armoured glass where that says ordinary on another author's vehicle that counts as armoured** (by its outer armour or
+  the extension's `armoured`, as suppression decides it; a design with our armoured cab node is left to the node).
 - **What breaks it** (VG3): a reactor on every outer plate over the glass passes on 60 % of a hit for ordinary glass, 15 % for
   armoured, 10 % for vision blocks, counting a beaten plate's double report once; **every explosion**, through one postfix on the
   game's `Explosion.StartExplosion`, reaches glass out to 2.5 times its radius, falling in a straight line, at full share for ordinary

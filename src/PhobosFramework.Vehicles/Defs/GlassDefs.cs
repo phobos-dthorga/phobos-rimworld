@@ -28,13 +28,3 @@ public class PhobosGlassRulesDef : PhobosRulesDef
     public static PhobosGlassRulesDef Current => Current<PhobosGlassRulesDef>();
 }
 
-/// <summary>
-/// On any mod's VehicleDef (VG10): what this design's glass is, or that it has none. Without it, a closed-cab vehicle's glass follows its
-/// loadout (vision blocks for tracked vehicles, ordinary glass otherwise) and becomes armoured glass once the armoured cab is fitted.
-/// </summary>
-public class PhobosGlassExtension : DefModExtension
-{
-    public GlassKind kind = GlassKind.Ordinary;
-    /// <summary>No glass at all: a design whose cab is closed by plate only.</summary>
-    public bool none;
-}

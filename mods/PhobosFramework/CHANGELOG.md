@@ -5,6 +5,19 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.244.0] - 2026-11-23 - Draft
+
+One extension for what other authors' vehicles carry
+
+### Added
+
+- **Other authors' vehicles can carry a spall liner** (the owner's go of 23 November 2026): a vehicle a patch marks as lined, one source per vehicle, has the spall liner with Combat Extended, born whole; it wears and is re-lined with liner panels as our trucks' liners are. Not yet tested in game: row 394 of the test pass.
+- **Other authors' armoured vehicles have armoured glass** where their loadout says ordinary glass: the same armour test that offers them fire suppression.
+
+### Changed
+
+- **One extension for suppression, the spall liner and the glass**: what another author's vehicle carries is marked in one place. The glass-only extension of 0.238.0, which nothing used, is folded into it.
+
 ## [0.243.1] - 2026-11-23 - Draft
 
 A dev action to see why something is not topped up

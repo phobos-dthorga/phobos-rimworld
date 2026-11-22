@@ -34,7 +34,7 @@ public static class Glass
     {
         if (props.trailer || def.components == null || def.components.Any(p => p.key == Key)) return;
         bool closed = def.GetModExtension<PhobosVehicleCabinExtension>()?.closed ?? props.loadout?.cabin.closed ?? true;
-        if (!closed || def.GetModExtension<PhobosGlassExtension>()?.none == true) return;
+        if (!closed || def.GetModExtension<PhobosFittedEquipmentExtension>()?.noGlass == true) return;
         var add = new PartToAdd
         {
             key = Key,
@@ -68,9 +68,23 @@ public static class Glass
 
     public static GlassKind KindOf(VehiclePawn vehicle)
     {
-        if (vehicle.VehicleDef.GetModExtension<PhobosGlassExtension>() is { } extension) return extension.kind;
+        if (vehicle.VehicleDef.GetModExtension<PhobosFittedEquipmentExtension>()?.glass is { } marked) return marked;
         if (ArmouredCabFitted(vehicle)) return GlassKind.Armoured;
-        return vehicle.GetComp<CompPhobosVehicleSystems>()?.Props.loadout?.glass ?? GlassKind.Ordinary;
+        GlassKind byLoadout = vehicle.GetComp<CompPhobosVehicleSystems>()?.Props.loadout?.glass ?? GlassKind.Ordinary;
+        // Another author's armoured vehicle (Framework 0.244.0, the shared extension): armoured glass where its loadout says ordinary. Ours
+        // say it through the armoured cab instead, so a design with that node is left to it.
+        if (byLoadout == GlassKind.Ordinary && !HasArmouredCabNode(vehicle.VehicleDef) && FireFighting.Armoured(vehicle.VehicleDef)) return GlassKind.Armoured;
+        return byLoadout;
+    }
+
+    /// <summary>Whether the design's own upgrade tree has the armoured cab node (ours do).</summary>
+    static bool HasArmouredCabNode(VehicleDef def)
+    {
+        foreach (CompProperties comp in def.comps)
+        {
+            if (comp is CompProperties_UpgradeTree { def.nodes: { } nodes } && nodes.Exists(n => n.key == Rules.armouredCabNode)) return true;
+        }
+        return false;
     }
 
     static bool ArmouredCabFitted(VehiclePawn vehicle)

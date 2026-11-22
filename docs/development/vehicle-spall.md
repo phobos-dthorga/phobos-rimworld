@@ -2,7 +2,8 @@
 
 **Status (21 Nov 2026):** built in D'thorga Framework 0.207.0 and D'thorga Vehicles 0.92.0 at the owner's word ("Build, please"),
 with every answer below and its two pictures, picked by the owner the same day (the liner panel, and a quilted liner icon); a
-fault-read's fixes in Framework 0.209.0 and Vehicles 0.94.0. Not yet tested in game: rows 304 and 305 of the test pass.
+fault-read's fixes in Framework 0.209.0 and Vehicles 0.94.0; other authors' vehicles marked as lined, through the shared fitted-equipment
+extension, in Framework 0.244.0 (the M2A3 Bradley first, Vehicles 0.107.1). Not yet tested in game: rows 304, 305 and 394 of the test pass.
 [What differs from the design](#as-built-21-nov-2026).
 
 ## As built (21 Nov 2026)
@@ -19,8 +20,12 @@ fault-read's fixes in Framework 0.209.0 and Vehicles 0.94.0. Not yet tested in g
   link. Its grid place: under the armoured cab, beside the heavy plates.
 - **Only our five trucks and, from Vehicles 0.94.0, the Osprey carry a liner**, and only with Combat Extended. The Osprey's lines its
   cockpit and both cabins (90 health, six panels, 150 kg [A]); a liner's panel count is its upgrade's own (`panels`), so a re-line counts
-  each liner's sixths or quarters. The extension marking another author's vehicle as lined is not
-  built: no vehicle needs it yet.
+  each liner's sixths or quarters. **Another author's vehicle marked as lined** (Framework 0.244.0, the owner's go of 23 Nov 2026):
+  `PhobosFittedEquipmentExtension.lined`, the one extension the fire, spall and glass records share, set by a patch with one source per
+  vehicle. With Combat Extended such a design gets the liner part at start-up (60 health, on the cab's cells), born whole; it wears and
+  is re-lined with four panels as a truck's cab is. **The M2A3 Bradley** (RimThunder Desert Sabre) is marked: the M2A2 upgrade of 1988
+  added Kevlar spall liners, which the M2A3 keeps (Wikipedia, "M2 Bradley", and army-guide.com, both secondary). **The M1A2 Abrams is
+  not**: the sources found conflict, one quoting an Army study that it uses none.
 - **Read in code since (fault-read of 21 Nov 2026):** Rimarrow: Search & Rescue's prefix stops Combat Extended's walk, and so spall,
   only on its own two helicopters and only for a hit on a gap it leaves open on purpose; the Harrier's, Hind's, Mongoose's and A-10's
   prefixes only move the hit cell. A crew member's armour stops a fragment by Combat Extended's own rule once the fragment carries a

@@ -77,12 +77,3 @@ public class PhobosSuppressionUpgrade : Upgrade
     public override void Refund(VehiclePawn vehicle) => FireFighting.SystemFitted(vehicle, zone, fitted: false);
 }
 
-/// <summary>
-/// Equipment fitted to another author's vehicle by its Def (Framework 0.241.0; FR10's "fitted equipment" extension, which the spall liner
-/// and the glass are to share): whether it counts as armoured, where its armour figure alone would say otherwise. Added by an XML patch.
-/// </summary>
-public class PhobosFittedEquipmentExtension : DefModExtension
-{
-    /// <summary>True or false marks the vehicle armoured or not; unset leaves it to its armour.</summary>
-    public bool? armoured;
-}

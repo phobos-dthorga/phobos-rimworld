@@ -177,6 +177,9 @@ public static class VehicleSystems
         if (props.addedKeys.Contains(Glass.Key)) added++;
         // The extinguisher's bracket and the suppression systems (Framework 0.241.0, FR10): appended after the glass, for the same reason.
         FireFighting.Apply(def, props);
+        // A design another author's patch marks as lined gets the spall liner, born whole (Framework 0.244.0, the shared extension).
+        Spall.ApplyMarked(def, props);
+        if (props.addedKeys.Contains(Spall.LinerKey)) added++;
         if (props.addedKeys.Contains(FireFighting.BracketKey)) added++;
         if (props.addedKeys.Contains(FireFighting.EngineSystemKey)) added++;
         if (props.addedKeys.Contains(FireFighting.CrewSystemKey)) added++;

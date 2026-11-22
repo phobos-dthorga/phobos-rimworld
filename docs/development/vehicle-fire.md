@@ -313,8 +313,8 @@ nobody aboard, the nearest free colonist runs to use it, the right-click kept fo
   repairs recharge it with a bottle. Its part on the Health tab reads ready or spent; the **Fire protection spent** alert, a message and
   the vehicle's logbook say when it fires.
 - **Other authors' armoured vehicles**: both systems as fittings on mounts appended at start-up, when the vehicle's outer plates reach
-  0.8 sharp armour (8 under Combat Extended) [A], or `PhobosFittedEquipmentExtension.armoured` marks it in or out. The extension is the
-  one the spall liner and the glass are to share when next touched.
+  0.8 sharp armour (8 under Combat Extended) [A], or `PhobosFittedEquipmentExtension.armoured` marks it in or out. The spall liner
+  (`lined`) and the glass (`glass`, `noGlass`) share the extension since Framework 0.244.0.
 - **Other factions:** any faction's vehicle with a system fitted puts its fire out; their crews do not use extinguishers. Zones are
   kept for every burning vehicle.
 - **Known limit:** a fire in the running gear is covered by no system until it spreads, as with real systems.

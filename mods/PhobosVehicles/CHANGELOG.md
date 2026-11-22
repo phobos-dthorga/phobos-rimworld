@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.107.1] - 2026-11-23 - Draft
+
+The Bradley's spall liner
+
+### Added
+
+- **The M2A3 Bradley carries a spall liner** with RimThunder Desert Sabre and Combat Extended, as the real one has since the M2A2 upgrade of 1988: it catches spall from a round through the hull, wears, and is re-lined with liner panels. Needs D'thorga Framework 0.244.0. The M1A2 Abrams stays unlined, as the sources conflict. Not yet tested in game: row 394 of the test pass.
+
 ## [0.107.0] - 2026-11-23 - Draft
 
 Fire suppression for the armoured trucks
