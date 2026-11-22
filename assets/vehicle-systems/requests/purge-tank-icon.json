@@ -1,0 +1,26 @@
+[
+ {
+  "name": "purge-tank",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosvanilla, A round tank hatch seen from above, open, with a hose spraying clean water into it and a few drips and bubbles. Draw it in exactly the art style of the reference images: a small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette, readable when shrunk to a thumbnail. One object, centred, on a plain pure white background. No text, no letters, no numbers, no hands, no people.",
+  "subject": "A round tank hatch seen from above, open, with a hose spraying clean water into it and a few drips and bubbles",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/Contents.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/Unload.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-vanilla.safetensors",
+  "art_plan": {
+   "for": "Purge the tank",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Tank/Purge.png",
+   "since": "Framework 0.242.0",
+   "why": "the purge button's own icon, in place of the borrowed tank-contents icon (the owner's go of 23 Nov 2026; buttons are made in the local night run)"
+  }
+ }
+]

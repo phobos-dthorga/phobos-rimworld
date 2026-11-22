@@ -100,6 +100,7 @@ remaining cab edits. If the cab edits stay poor, the cab kits want the paid edit
 | Liquid oxygen store's button, belt toggle, tap arrows | The game's or Vanilla Expanded's own icons, in place | Allowed reuse, not stand-ins |
 | The gathering run's **Gather** and **Gather what** buttons (Framework 0.143.0) | The game's haul designator and stone-chunks category icons, by path in `CompProperties_PhobosGatherRun` | **Shipped, Framework 0.191.1**: gather-run-11 and gather-what-11 (the owner's picks of 20 Nov 2026) |
 | **Deliver** (Framework 0.175.0) | The game's eject picture, `UI/Commands/PodEject` (the cryptosleep casket's) | **Shipped, Framework 0.191.1**: deliver-12 (night 8, the owner's pick of 20 Nov 2026) |
+| **Purge the tank** button (Framework 0.242.0) | Our own tank-contents icon, `Tank/Contents` | **Own picture in the next local night run** (the owner's go of 23 Nov 2026): request `assets/vehicle-systems/requests/purge-tank-icon.json`, to ship as `Tank/Purge` |
 | **Drive back after delivering** (Framework 0.175.0) | Our depot's **Go to bay** picture, `Stations/BayGoTo` | **Shipped, Framework 0.191.1**: deliver-drive-back-12, a truck in a U-turn arrow (night 8, the owner's pick of 20 Nov 2026) |
 
 
