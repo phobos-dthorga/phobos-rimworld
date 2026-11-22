@@ -12,8 +12,12 @@ and a draft report for Vehicle Framework's author, whose bug it is.
   comp moves them to its own coordinates every tick, on a map it is not on.
 - **They tick but never change.** Between two saves 5,134 ticks apart their tick counters advanced by 5,130, yet every one stayed at size 1.70132506. A burning fire grows
   towards 1.75 or shrinks and dies; these do neither, and nothing in `Player.log` says why.
-- **The jet is not being harmed**: its parts rose from 72% to 100% by ordinary repair while "burning". The cost is that it reads as burning, so Vehicle Framework never
-  auto-refuels it and our service jobs leave it alone unless ordered. It sat at 0 of 250 fuel for three days.
+- **The jet is not being harmed**: its parts rose from 72% to 100% by ordinary repair while "burning". It sat at 0 of 250 fuel for three days. **Corrected 23 Nov
+  2026:** this record first blamed the fires for that, and they cannot be the cause. Vehicle Framework refuels only when `IsBurning()` is false, and the game's
+  `IsBurning()` counts only loose fires on a multi-cell thing's cells, never attached ones (`FireUtility.IsBurning`, `ContainsStaticFire`: `parent: null`) [code].
+  What held the refuelling is not known; candidates are a fuel leak (Vehicle Framework refuses to refuel a leaking tank, `WorkGiver_RefuelVehicle.CanRefuel`, and a
+  crash can leave one), no fuel or no colonist on the crash site's map, or auto-refuel switched off [inference]. The save no longer shows it: `PG5` was written
+  again on 12 Nov, and the jet is now a world pawn.
 - **Not ours.** No Phobos code touches fire attachment; the parts rose through repair; the save bridge was inert for that jet.
 
 ## What the evidence shows, in order
@@ -55,14 +59,15 @@ Cost: `GetComp<CompAttachBase>()` once per vehicle rare tick, from the game's co
 > **Fires attached to a vehicle are never put out, and multiply.** RimWorld 1.7.5000, Vehicle Framework 1.6.2144 (the `develop` source of 31 Oct 2026 looks the same here).
 > A Harrier (Harrier VTOL Attack Aircraft, with Combat Extended) hit by flamethrowers over an enemy base ended with 37 `Fire` things attached (three bursts within about
 > 1,000 ticks). It flew off and crashed on another map; the fires stayed spawned on the base map, still parented to the jet, moved to the jet's coordinates every tick by
-> `CompAttachBase`. They never change size (1.70132506 across two game hours of ticking). The vehicle reads as burning for ever, so `CompFueledTravel` never auto-refuels
-> it. `VehicleStatHandler.TryExtinguishFire` and the game's container auto-extinguish both act on the first fire only, so the rest can never go. Suggested: put attached
+> `CompAttachBase`. They never change size (1.70132506 across two game hours of ticking). `VehicleStatHandler.TryExtinguishFire` and the game's container auto-extinguish both act on the first fire only, so the rest can never go. Suggested: put attached
 > fires out in `VehiclePawn.DeSpawn`, and treat a second attached fire as a fault. Save with the 37 fires available on request.
 
 ## Who chose what
 
 - **Owner (10 Nov 2026):** that the fire bug is Vehicle Framework's and predates our mods; to implement a fix.
 - **Agent:** the reading of the saves and code, the two-patch shape, the rule, the message, and the removal conditions.
+- **Owner (card of 23 Nov 2026, FR14 in [fire on vehicles](vehicle-fire.md)):** correct the refuel cause. The agent did: the cause line and the draft report's
+  refuel sentence (which would have told the author something untrue).
 
 ## Sources
 

@@ -97,10 +97,11 @@ vehicle, as a share of the largest a fire grows; `Input_Fire` feeds it to the sy
 | People aboard | Vehicle Framework, by design | No burns, smoke or carbon monoxide aboard a burning vehicle |
 | Extinguishing as damage, under Combat Extended | Combat Extended skips Vehicle Framework's step | Firefoam that hits only the vehicle, not the fire, puts nothing out |
 
-**Found on the way:** [the Vehicle Framework fires record](vehicle-framework-fires.md) says the Harrier "reads as burning, so Vehicle
-Framework never auto-refuels it". Vehicle Framework's refuel test is `IsBurning()` (VFsrc `CompFueledTravel.cs:122-128`), which for a
-5 by 7 jet does not see attached fires [code, surveyed]. Something else may have held the refuelling; that record's cause is now in
-question. Not re-checked against the save.
+**Found on the way, corrected 23 Nov 2026 (FR14):** [the Vehicle Framework fires record](vehicle-framework-fires.md) said the Harrier
+"reads as burning, so Vehicle Framework never auto-refuels it". It cannot: Vehicle Framework's refuel test is `IsBurning()` (VFsrc
+`CompFueledTravel.cs:122-128`), and the game's `IsBurning()` counts only loose fires on a multi-cell thing, never attached ones [code].
+The record now says the cause is unknown, with a fuel leak as a candidate (Vehicle Framework refuses to refuel a leaking tank), and its
+draft report no longer makes the claim. The save that showed it was written again on 12 Nov, so it cannot be re-checked.
 
 ### Putting a fire out today [code, surveyed]
 
@@ -156,7 +157,7 @@ Every row is unbuilt. Verdicts are the agent's recommendations **[A]**: **Take**
 | **FR11** | **Tyres that reignite and burst**: a burning tyre is hard to put out and may burst, hurting people near | NTSB and MSHA sources | — | — | Keep clear of a burning vehicle | Small. **Idea** |
 | **FR12** | **Glass lets fire in**: a vehicle's glass (the [glass record](vehicle-glass.md)) cracks in a fire, and a cab with glass gone takes the fire's heat faster | Real fires enter through the windscreen | — | — | Ties the two records | **Waiting** on the glass build |
 | **FR13** | **A burnt-out hull**: a vehicle destroyed by fire leaves a blackened hull worth less salvage | Hulls exist | — | — | — | Small. **Idea** |
-| **FR14** | **Correct the fires record's refuel cause** | See "Found on the way" | — | — | — | A read of the save, then one line. **Take** |
+| **FR14** | **Correct the fires record's refuel cause** | See "Found on the way" | — | — | — | **Done, 23 Nov 2026** (records only) |
 
 ### What outside the vehicle notices
 
@@ -200,7 +201,7 @@ of ours that already exist; FR10 would add an accessory's charges, saved like ou
 2. Which figure Combat Extended's body-size multiplier scales in a fire's damage.
 3. Whether a hot cab reaches the game's heatstroke for the people aboard.
 4. Whether a destroyed vehicle's hull burns like a building.
-5. The fires record's refuel cause, against the save it came from (FR14).
+5. ~~The fires record's refuel cause, against the save it came from (FR14).~~ Done 23 Nov 2026: the save was rewritten, so the code settled it.
 6. The patched-Defs file is from 19 Nov: flammability figures to be read again from a fresh one.
 
 ## The short list
