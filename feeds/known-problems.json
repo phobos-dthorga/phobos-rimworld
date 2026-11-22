@@ -1,0 +1,70 @@
+{
+ "format": 1,
+ "game": "rimworld",
+ "kind": "known-problems",
+ "problems": [
+  {
+   "checked": "2026-11-23",
+   "do": "Don't build Chunk A, Chunk B or Bundle D on 1.7 until Adaptive Storage Framework is updated for it. Fill or deconstruct any empty one, then restart the game to free the leaked memory.",
+   "game": "rimworld",
+   "gameVersions": [
+    "1.7"
+   ],
+   "id": "adaptive-storage-empty-chunk-bundle",
+   "mods": [
+    {
+     "id": "adaptive.storage.framework",
+     "name": "Adaptive Storage Framework",
+     "workshopId": "3033901359"
+    },
+    {
+     "id": "Adaptive.Ideology.Storage",
+     "name": "Adaptive Ideology Storage",
+     "workshopId": "3301337278"
+    }
+   ],
+   "versions": "Adaptive Storage Framework's Workshop build of 14 Jun 2025 and its public source as last pushed (26 Mar 2026); players reported the same on its Workshop page on 14 and 22 Nov 2026",
+   "what": "On RimWorld 1.7, an Adaptive Ideology Storage Chunk A, Chunk B or Bundle D that is empty, or holds only things its filter refuses, throws an error every frame it is on screen (MissingMethodException for List.EnsureCapacity). Pawns, animals, doors and other buildings drawn after it vanish until it is out of view, and the errors leak memory. A newly built one starts empty."
+  },
+  {
+   "checked": "2026-11-23",
+   "do": "Switch Mounted Weapons off while you use Combat Extended's autoloaders.",
+   "game": "rimworld",
+   "id": "mounted-weapons-ce-autoloaders",
+   "mods": [
+    {
+     "id": "saintwacko.mountedweapons",
+     "name": "Mounted Weapons",
+     "workshopId": "3821152493"
+    },
+    {
+     "id": "CETeam.CombatExtended",
+     "name": "Combat Extended",
+     "workshopId": "2890901044"
+    }
+   ],
+   "versions": "Combat Extended's public source as of 22 Nov 2026 (TurretRegistry.GetAmmo unchanged since 2022); seen with Mounted Weapons' build of October 2026, and its update of 18 Nov 2026 is not yet checked",
+   "what": "With both on, Combat Extended's autoloaders throw an error every frame (\"Exception drawing CE_Autoloader\"), thousands a minute, and the game slows to a crawl. Mounted Weapons' Combat Extended add-on switches on Combat Extended's turret registry, whose GetAmmo does not allow for a missing turret."
+  },
+  {
+   "checked": "2026-11-20",
+   "do": "In UI Rethemed - Colonist Card's settings, Parts section, switch \"Tab buttons\" off.",
+   "game": "rimworld",
+   "id": "ui-rethemed-colonist-card-mint-bills",
+   "mods": [
+    {
+     "id": "LazyFridayStudio.UIRethemed.ColonistCard",
+     "name": "[LFS] UI Rethemed - Colonist Card",
+     "workshopId": "3828206639"
+    },
+    {
+     "id": "Dubwise.DubsMintMenus",
+     "name": "Dubs Mint Menus",
+     "workshopId": "1446523594"
+    }
+   ],
+   "versions": "Colonist Card's Workshop build of 19 Nov 2026 and Dubs Mint Menus' of 28 Oct 2026; switching the setting off was seen to fix it in play",
+   "what": "With Colonist Card's \"Tab buttons\" setting on, the Bills tab opens at the game's own narrow size, without Dubs Mint Menus' recipe list: the setting reads the open tab's size every frame, which uses up the one draw Mint Menus asks for. Mint Menus' width settings can't change it."
+  }
+ ]
+}

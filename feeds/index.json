@@ -1,0 +1,14 @@
+{
+ "format": 1,
+ "feed": "phobos-rimworld",
+ "title": "Phobos RimWorld",
+ "updated": "2026-11-22T20:50:20Z",
+ "files": [
+  {
+   "path": "known-problems.json",
+   "kind": "known-problems",
+   "bytes": 3180,
+   "sha256": "d8830f1b30ac51f9f15cfb10e07c29c5cf5471ad436a833eed5eee438e7d4f84"
+  }
+ ]
+}

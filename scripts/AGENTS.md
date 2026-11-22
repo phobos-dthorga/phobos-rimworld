@@ -81,6 +81,13 @@ for word; the root's rules apply here too.
   `docs/online.md` O3): `pending` for the last 30 days, from clones made straight from `config/source-repos.json`, with its
   findings left on the `companion-results` branch, committed only when they change. Never commit to that branch by hand; the
   run alone writes it. Its kit version is the `kit-ref` the workflow names, not this repository's pin.
+  **Known problems between other authors' mods are published in `feeds/known-problems.json`** (the owner's choice, 23 Nov 2026:
+  "public, facts and links"; D'thorga Companion's `docs/online.md` O2), which every Companion's Mod list check warns of. **Check
+  each entry as a report is checked before adding or changing it** (phobos-modkit `rules/reports.md`): against the author's newest
+  public source or Workshop build, saying in `versions` what it was checked against and what was not; plain facts and what to do,
+  no blame. Mark one `fixed` with the day once the author fixes it, rather than deleting it. Write it through the kit (`feeds
+  index --folder feeds --name phobos-rimworld --title "Phobos RimWorld" --write`, then `feeds check --folder feeds`), from kit
+  1.93.0 or newer: this repository's pin is older until it moves.
   **After an update, start with `python scripts/update-check.py`** (owner, 20 Nov 2026: the checks run by hand after that day's
   updates, "implemented into Companion"; D'thorga Companion's Since you last played runs it): our patches' targets, whether an update
   touched the method a temporary patch's fault lives in, each update's size and new types, and whether our XML patches still find
