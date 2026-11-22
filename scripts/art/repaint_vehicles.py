@@ -42,7 +42,9 @@ BODIES = [
     ('Tipper', 'Tipper', 'tipper-body-north/tipper-body-north-3.png', DEFAULT_MAIN, DEFAULT_ACCENT, 0.16, [], SAND, ORANGE),
     ('FlatbedTrailer', 'FlatbedTrailer', 'flatbed-trailer-body-north/flatbed-trailer-body-north-2.png', DEFAULT_MAIN, DEFAULT_ACCENT, 0.16,
      [(406, 184), (362, 193), (419, 258), (353, 253), (384, 66)], (180, 174, 143), (222, 119, 14)),
-    ('PintleBowser', 'PintleBowser', 'pintle-bowser-body-north/pintle-bowser-body-north-1.png', DEFAULT_MAIN, (8, 37), 0.12,
+    # Pintle bowser (23 Nov 2026): its stripe is drawn orange (the Def tints it blue) at hues up to 42, where the olive body starts; the
+    # stripe is strongly coloured (saturation 0.35 and up) and the body dull, so MAIN_CEILING keeps the stripe out of the main paint.
+    ('PintleBowser', 'PintleBowser', 'pintle-bowser-body-north/pintle-bowser-body-north-1.png', DEFAULT_MAIN, (8, 42), 0.12,
      [(446, 80), (425, 195), (467, 195), (410, 261), (495, 261)], (194, 187, 158), (64, 124, 190)),
     # Billy (17 Nov 2026): the body takes the paint; its canvas shutters (saturation 0.16) stay as drawn, below the 0.21 floor (fewest flecks of 0.17 to 0.21).
     ('BillyFieldKitchen', 'FieldKitchen', 'billy-field-kitchen-body-north/billy-field-kitchen-body-north-3.png', DEFAULT_MAIN, DEFAULT_ACCENT, 0.21,
@@ -52,6 +54,11 @@ BODIES = [
     ('SeabedCrawler_Sensor', 'SeabedCrawler', 'seabed-crawler-body-north/widened/seabed-crawler-4-wide.png', (185, 240), (8, 32), 0.05, [], (70, 78, 86), (214, 124, 44)),
 ]
 FACINGS = ('north', 'east', 'south')
+# A body whose main paint shares hues with its accent: no main paint is more saturated than this (the Pintle bowser's red dashes along
+# its tank when painted red, the owner's review of 23 Nov 2026: stripe pixels at hue 38 to 42 had taken the main paint).
+MAIN_CEILING = {'PintleBowser': 0.35}
+# Bodies whose faint paint is settled by Segment Anything's parts (export_vehicle.settle_doubtful_paint): the Pintle bowser's tank edge.
+SETTLE_FAINT = {'PintleBowser'}
 
 
 def sha(path):
@@ -86,7 +93,8 @@ def stage(paint, only):
         if only and name not in only:
             continue
         out = STAGE / paint / folder
-        repaint_body(GEN / master, EXPORT / f'{name}.transform.json', out, name, main_hue, accent_hue, saturation, holes, paint)
+        repaint_body(GEN / master, EXPORT / f'{name}.transform.json', out, name, main_hue, accent_hue, saturation, holes, paint,
+                     main_max_saturation=MAIN_CEILING.get(name, 1.0), settle_faint=name in SETTLE_FAINT)
         mended = mend_flecks(name, folder, GEN / master, out, colour, accent) if paint == 'repaired' else 0
         print(f'staged {paint}: {name}' + (f' ({mended} fleck{"" if mended == 1 else "s"} mended)' if mended else ''), flush=True)
 

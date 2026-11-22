@@ -280,7 +280,7 @@ def part_kinds(image, labels, main_hue, accent_hue, min_saturation=MIN_SATURATIO
 
 
 def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, per_pixel=False, labels=None, repair=False,
-                   main_max_saturation=1.0, line=None):
+                   main_max_saturation=1.0, line=None, settle_faint=False):
     """(grey-painted texture, mask, default colours). Each paint is scaled on its own, so its grey fills the shader's range and its
     default colour gives the master's tone back. Paint is decided by region (region_kinds) unless per_pixel asks for the old rule, kept
     for comparison only."""
@@ -304,6 +304,8 @@ def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, p
         flat_parts = None
         if labels is not None:
             flat_parts = list(labels.get_flattened_data() if hasattr(labels, 'get_flattened_data') else labels.getdata())
+            if settle_faint:
+                settle_doubtful_paint(image, kinds, flat_parts, min_saturation)
         absorb_paint_coloured_edges(image, kinds, main_hue, accent_hue, min_saturation, main_max_saturation, flat_parts)
     groups = {'main': [], 'accent': []}
     for y in range(height):
@@ -338,6 +340,68 @@ def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, p
                 written[x, y] = (grey, grey, grey, alpha)
                 marks[x, y] = channel_mark[kind]
     return texture, mask, {'color': defaults['main'], 'colorTwo': defaults['accent']}
+
+
+PAINT_DOUBT = 0.03  # saturation above the floor: paint this faint is decided by its part (authored, 23 Nov 2026)
+PAINT_DOUBT_SHARE = 0.12  # a part carrying less than this share of a paint plainly is not painted with it (the bowser's tank sections
+                          # carry 0 to 2 % and the slivers of its shaded edge 6 to 10 %, the hoops with the walkway plates crossing
+                          # them 16 to 25 %; 0.05 left red specks on the tank's right side, the owner's review; authored, 23 Nov 2026)
+
+
+def settle_doubtful_paint(image, kinds, parts, min_saturation):
+    """
+    Paint only just above its body's saturation floor is dropped inside a Segment Anything part that plainly is not painted with it (the
+    Pintle bowser, 23 Nov 2026: its white tank's warm shaded edge, saturation 0.11 to 0.13, took the olive paint and showed as red dashes
+    when the bowser was painted red, while its walkway's pale rails, as faint, belong to the paint). No single floor parts the two; their
+    parts do. Asked for by body (settle_faint): on the generator set it broke up a painted rim that was right as shipped. Changes kinds in place and returns how many pixels lost their paint.
+    """
+    width = image.size[0]
+    source = image.load()
+    counts: dict = {}
+    for index, part in enumerate(parts):
+        tally = counts.setdefault(part, {})
+        tally[kinds[index]] = tally.get(kinds[index], 0) + 1
+    was = {}
+    for index, kind in enumerate(kinds):
+        if kind is None:
+            continue
+        tally = counts[parts[index]]
+        if tally.get(kind, 0) / sum(tally.values()) >= PAINT_DOUBT_SHARE:
+            continue
+        red, green, blue, _ = source[index % width, index // width]
+        if colorsys.rgb_to_hsv(red / 255, green / 255, blue / 255)[1] < min_saturation + PAINT_DOUBT:
+            was[index] = kind
+            kinds[index] = None
+    # A small patch dropped from inside one paint, ringed by it alone, was a plate the parts map lumped with its neighbour (the bowser's
+    # walkway where it crosses a tank hoop went speckled without this): it keeps its paint. The tank's shaded edge is long and borders the
+    # unpainted tank, so it stays dropped.
+    height = image.size[1]
+    seen = set()
+    for start in list(was):
+        if start in seen or start not in was:
+            continue
+        patch, ring, head = [start], set(), 0
+        seen.add(start)
+        while head < len(patch):
+            here = patch[head]
+            head += 1
+            x, y = here % width, here // width
+            for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+                if not (0 <= nx < width and 0 <= ny < height):
+                    ring.add(None)
+                    continue
+                there = ny * width + nx
+                if there in was:
+                    if there not in seen:
+                        seen.add(there)
+                        patch.append(there)
+                else:
+                    ring.add(kinds[there])
+        if len(patch) <= PAINT_EDGE_HOLE_MAX and len(ring) == 1 and None not in ring:
+            for member in patch:
+                kinds[member] = was[member]
+                del was[member]
+    return len(was)
 
 
 PAINT_EDGE_REACH = 3        # master pixels: a paint-coloured pixel this close to paint is the paint's own line or rim
@@ -553,7 +617,8 @@ def export_body(master, out, name, cells_long, draw, main_hue, accent_hue, min_s
     return {'width_cells': width_cells, 'colours': colours, 'files': written, 'transform': transform}
 
 
-def repaint_body(master, like, out, name, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=(), paint='regions'):
+def repaint_body(master, like, out, name, main_hue, accent_hue, min_saturation=MIN_SATURATION, holes=(), paint='regions',
+                 main_max_saturation=1.0, settle_faint=False):
     """A body's texture and paint mask made again from its master on its own saved transform (scale, offset, canvas), so it registers
     with every overlay already fitted to it. paint is 'regions' (region_kinds), 'repaired' (regions, then flecks repaired by Segment
     Anything's map), 'parts' (that map alone; both need the map made first) or 'pixels' (the old per-pixel rule, for comparison). Writes the facings and masks only; the icon and transform stay."""
@@ -566,12 +631,14 @@ def repaint_body(master, like, out, name, main_hue, accent_hue, min_saturation=M
     labels = None
     if paint in ('parts', 'repaired'):
         labels = parts_map(master)
-    texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation, per_pixel=paint == 'pixels', labels=labels, repair=paint == 'repaired')
+    texture, mask, colours = separate_paint(cut, main_hue, accent_hue, min_saturation, per_pixel=paint == 'pixels', labels=labels, repair=paint == 'repaired',
+                                            main_max_saturation=main_max_saturation, settle_faint=settle_faint)
     scale, offset, canvas = transform['scale'], tuple(transform['offset']), tuple(transform['canvas'])
     written = write_facings(place(texture, scale, offset, canvas), out, name)
     written += write_facings(place_mask(mask, scale, offset, canvas), out, name, 'm')
     record(out, name, master, written, {'kind': 'body-repaint', 'paint': paint, 'like': Path(like).name, 'colours': colours,
                                         'main_hue': list(main_hue), 'accent_hue': list(accent_hue), 'min_saturation': min_saturation,
+                                        'main_max_saturation': main_max_saturation, 'settle_faint': settle_faint,
                                         'holes': [list(point) for point in holes], 'ai_mask': file_sha256(master) if background is not None else None})
     return {'colours': colours, 'files': written}
 

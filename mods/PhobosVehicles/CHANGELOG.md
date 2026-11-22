@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.106.2] - 2026-11-23 - Draft
+
+The Pintle bowser paints cleanly
+
+### Fixed
+
+- **The Pintle bowser paints cleanly** (the owner's review of 23 November 2026): painted another colour, its white tank showed dashes of the main colour along both sides, and its olive lines kept the drawing's colour. The stripe along the tank now takes only the second colour, the tank's shaded edge stays white, and its lines take the paint as the trucks' do since 0.106.1. In its own colours it looks as before. Not yet tested in game: paint the bowser red and look along the tank's sides.
+
 ## [0.106.1] - 2026-11-23 - Draft
 
 Repainted trucks no longer look rusty

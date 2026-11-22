@@ -15,8 +15,18 @@ hue is lighter and stays, the outline stays, and nothing joins across an outline
 then dotted lines, before these limits; all figures authored). Then `repaint_vehicles.py stage --paint repaired` mends the flecks
 `paint_check.py` still finds at game size with its `fill_flecks` (`mend_flecks`), so a staged body reaches the owner at 0. Shipped for the
 tipper, bulk tanker, drill rig, generator set and survey truck; **the owner held back the Pintle bowser, field kitchen and flatbed
-trailer** (23 Nov 2026), and said that if they cannot be put right they become non-recolourable. The Pintle bowser's red dashes along its
-tank (a few pixels of its blue stripe painted as the main colour, in the shipped mask too) are a fault of their own, next. D'thorga
+trailer** (23 Nov 2026), and said that if they cannot be put right they become non-recolourable. **The Pintle bowser followed in D'thorga Vehicles 0.106.2**
+(the owner's pick, 23 Nov 2026, after a second try): its red dashes along the tank had two causes. Its stripe is drawn a strong orange
+(the Def tints it blue) at hues up to 42, where the dull olive body starts, so `repaint_vehicles.py` gives it the hues 8 to 42 for the
+second paint and `MAIN_CEILING` 0.35 (no main paint more saturated). And the tank's warm shaded edge (saturation 0.11 to 0.13) sat just
+above its floor of 0.12; no single floor parts it from the walkway's pale rails, so `settle_faint` (`SETTLE_FAINT`, per body) drops paint
+within `PAINT_DOUBT` (0.03) of the floor inside a Segment Anything part carrying under `PAINT_DOUBT_SHARE` (12 %) of that paint: the
+tank's sections carry 0 to 2 % and the slivers of its edge 6 to 10 %, the hoops with the walkway plates crossing them 16 to 25 %. A
+small dropped patch ringed by one paint keeps it. Tried and set aside: floors of 0.14 (patchy walkway rails) and 0.16 (a broken walkway),
+a pixel-by-pixel part rule (a speckled crossing plate) and a 5 % line (red specks the owner found on the tank's right side). Per body
+because on the generator set it broke up a painted rim that was right as shipped; on the survey truck it would clear a few red dashes
+from its cream panel, the owner's call. The field kitchen and flatbed trailer stay held back: their shutter frames and pale sand rails
+paint patchily (the owner's answer, 23 Nov 2026). D'thorga
 Farming's bodies use the same exporter and are checked next. Not yet tested in game.
 
 **For a new body:** run `scripts/art/paint_segments.py` on its master, then `python scripts/art/repaint_vehicles.py stage --paint repaired`, `review` and `apply --paint repaired`, and `python scripts/art/paint_check.py` before the owner sees it.

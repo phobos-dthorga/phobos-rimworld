@@ -17,13 +17,13 @@
 - `PintleBowser_SecondHose_east.png`: SHA-256 `f472f3038309dd6343d54896792802ecf58fb4ee75a8dbf8c22e5dbed65710b3`
 - `PintleBowser_SecondHose_north.png`: SHA-256 `545dd630f3b6999c29a810e3b3ad3130c51bd88cbbd57f356bbc78a410460dcd`
 - `PintleBowser_SecondHose_south.png`: SHA-256 `99361b9cf7686eea9790aa6e8d4e5d48b684560f7e188875efd8ba0923822c2d`
-- `PintleBowser_east.png`: SHA-256 `580a258441c30da12bbe3b1d6b3057c8d0a4919dce72b46b54ea2b8a59571145`
-- `PintleBowser_eastm.png`: SHA-256 `9653c327d39c6c5ccbdc2238fc864c158bc2d1b4f73e2e5b1419091303288bbe`
+- `PintleBowser_east.png`: SHA-256 `848142918cdd51358484585b86a7fd60014f1efe5c590d1fb6f2a051ea29427c`
+- `PintleBowser_eastm.png`: SHA-256 `4cd60e8f333562e728d87fd2e6354e8462030f8f6ca2c2b631385bdeaf3e9089`
 - `PintleBowser_icon.png`: SHA-256 `a5c25ebeb4f1414eaefea23bdf37da7fd92597a8b9cb7db5866ec7dd49af67b6`
-- `PintleBowser_north.png`: SHA-256 `3197ad41833eeec1edd24cb41e2c2b82f38595251e029832f91d7f55378802d8`
-- `PintleBowser_northm.png`: SHA-256 `02bc27592b33780ab1dc077a0d554734bcc8b09362aa846717586897cb12c1e9`
-- `PintleBowser_south.png`: SHA-256 `8ae50304f7b276d7e1ff2dfb6cc55178ee241c0c8dc02fcb11e2bd32d9661803`
-- `PintleBowser_southm.png`: SHA-256 `c6e2a1db699e9450fee9725e844f430645a2374eea1f7eace12baed19898f76c`
+- `PintleBowser_north.png`: SHA-256 `c47174be8716b6945eb6e4891fdf49e22d7987d0730536992381314517dc7e44`
+- `PintleBowser_northm.png`: SHA-256 `a6e152d1e6b285693913f94fb3c0381128a40c25f5aada2d80ffff669c074eed`
+- `PintleBowser_south.png`: SHA-256 `ba8c9c7f2ab97bbdb7734f8ee767373cd2eed86ba0dd55ac965c5fe5b827ba1e`
+- `PintleBowser_southm.png`: SHA-256 `e692886bf2cadb6a191bab1bc8c4d57a28dd15f569dae652d2b8d2a022afa308`
 
 ## Camp gear drawn on the vehicle (22 Nov 2026)
 
@@ -45,3 +45,22 @@ made by script instead (paid rules 7 and 11). Request and review: `assets/phobos
 
 - `PintleBowser_SideRoll`: a16fcdcb1cb5b14723e9ebf45f60691d1bc1bd29ea75cdc84ad2a83f9f01ea7f
 - `PintleBowser_SideRollRight` (mirrored): f1ca1e0e1c326c60acfe8b089599d07e0ce9bc8decd0b67cdf395fe97dea326c
+
+## Paint made again (23 Nov 2026)
+
+**Facings and paint masks exported again from the same master on the same transform**, D'thorga Vehicles 0.106.2 (the owner's review
+of 23 Nov 2026: painted red, the tank's sides showed red dashes). `python scripts/art/repaint_vehicles.py stage --paint repaired`, then
+`apply`, with this body's own settings there: its stripe's hues widened to 8-42 and no main paint above saturation 0.35 (the stripe is
+drawn a strong orange beside the dull olive body), and `settle_faint`, which drops faint paint (within 0.03 of the floor) inside a
+Segment Anything part carrying under 12 % of it, the tank's warm shaded edge. Also the paint's own lines joining the paint and the
+game-size fleck mending of 0.106.1 (0 left). The drawing, its outline and every overlay's fit are unchanged. No game or other author's
+art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| PintleBowser_north | `c47174be8716b6945eb6e4891fdf49e22d7987d0730536992381314517dc7e44` |
+| PintleBowser_northm | `a6e152d1e6b285693913f94fb3c0381128a40c25f5aada2d80ffff669c074eed` |
+| PintleBowser_east | `848142918cdd51358484585b86a7fd60014f1efe5c590d1fb6f2a051ea29427c` |
+| PintleBowser_eastm | `4cd60e8f333562e728d87fd2e6354e8462030f8f6ca2c2b631385bdeaf3e9089` |
+| PintleBowser_south | `ba8c9c7f2ab97bbdb7734f8ee767373cd2eed86ba0dd55ac965c5fe5b827ba1e` |
+| PintleBowser_southm | `e692886bf2cadb6a191bab1bc8c4d57a28dd15f569dae652d2b8d2a022afa308` |

@@ -252,3 +252,37 @@ class PaintEdgeTests(unittest.TestCase):
         kinds = self.joined([self.LINE, self.LINE], holes=[(8, 5), (3, 5)])
         self.assertEqual(kinds[5 * 16 + 8], 'main')
         self.assertIsNone(kinds[5 * 16 + 3])
+
+
+class FaintPaintTests(unittest.TestCase):
+    """The Pintle bowser's tank edge (owner's review, 23 Nov 2026): paint just above the floor is dropped inside a part that plainly is not
+    painted, kept inside one that is, and a small patch ringed by one paint keeps it."""
+
+    FAINT, STRONG, WHITE = (150, 145, 132, 255), (120, 118, 80, 255), (220, 218, 214, 255)
+
+    def test_faint_paint_drops_in_an_unpainted_part_and_stays_in_a_painted_one(self):
+        image = Image.new('RGBA', (20, 10), self.WHITE)
+        kinds, parts = [None] * 200, [1] * 100 + [2] * 100   # part 1: the tank, rows 0-4; part 2: a painted panel, rows 5-9
+        for x in range(4, 7):
+            image.putpixel((x, 2), self.FAINT)              # a short run of the tank's shaded edge (3 % of it), taken for paint
+            kinds[2 * 20 + x] = 'main'
+        for x in range(20):
+            for y in range(5, 10):
+                image.putpixel((x, y), self.STRONG if y != 7 else self.FAINT)
+                kinds[y * 20 + x] = 'main'
+        ev.settle_doubtful_paint(image, kinds, parts, 0.10)
+        self.assertIsNone(kinds[2 * 20 + 5])
+        self.assertEqual(kinds[7 * 20 + 5], 'main')
+
+    def test_a_small_patch_ringed_by_one_paint_keeps_it(self):
+        image = Image.new('RGBA', (40, 40), self.STRONG)
+        kinds = ['main'] * 1600
+        parts = [1] * 1600
+        for y in range(40):
+            for x in range(40):
+                if not (5 <= x < 15 and 5 <= y < 15):
+                    kinds[y * 40 + x] = None                  # the plate is 6 % of its part, so faint paint in the part is doubtful
+                    image.putpixel((x, y), self.WHITE)
+        image.putpixel((9, 9), self.FAINT)                    # one faint pixel inside the painted plate
+        ev.settle_doubtful_paint(image, kinds, parts, 0.10)
+        self.assertEqual(kinds[9 * 40 + 9], 'main')
