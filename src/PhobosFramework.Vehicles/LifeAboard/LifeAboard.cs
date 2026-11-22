@@ -65,7 +65,7 @@ public static class LifeAboard
         Cab cab = cabs.GetOrCreateValue(vehicle);
         if (cab.smoke > 0f)
         {
-            cab.smoke = (float)LifeAboardRule.SmokeLeft(cab.smoke, HoursPerLook, comp.WindowsDown || !comp.ClosedCab ? Rules.smokeClearHoursOpen : Rules.smokeClearHours);
+            cab.smoke = (float)LifeAboardRule.SmokeLeft(cab.smoke, HoursPerLook, comp.WindowsDown || !comp.ClosedCab || Glass.Gone(comp.Vehicle) ? Rules.smokeClearHoursOpen : Rules.smokeClearHours);
             Puff(vehicle);
         }
         List<Pawn> aboard = vehicle.AllPawnsAboard;
@@ -210,7 +210,7 @@ public static class LifeAboard
         cabs.GetOrCreateValue(vehicle).smoke = 1f;
         IngestionOutcomeDoer_GiveHediff? high = drug.ingestible?.outcomeDoers?.OfType<IngestionOutcomeDoer_GiveHediff>().FirstOrDefault(d => d.hediffDef != null && d.severity > 0f);
         if (high == null) return;
-        double share = LifeAboardRule.BystanderShare(comp.ClosedCab, comp.WindowsDown, Rules.bystanderShareClosed, Rules.bystanderShareOpen);
+        double share = LifeAboardRule.BystanderShare(comp.ClosedCab, comp.WindowsDown || Glass.Gone(comp.Vehicle), Rules.bystanderShareClosed, Rules.bystanderShareOpen);
         float severity = (float)LifeAboardRule.BystanderSeverity(high.severity, share, Rules.bystanderLeast);
         if (severity <= 0f) return;
         bool hard = drug.ingestible!.drugCategory == DrugCategory.Hard;

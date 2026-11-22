@@ -119,6 +119,20 @@
   </Phobos.Framework.Persistence.PhobosLogEntryDef>
 
   <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_GlassCracked</defName>
+    <label>glass cracked</label>
+    <text>The glass cracked {PLACE}: it wants re-glazing.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
+    <defName>PhobosLog_GlassGone</defName>
+    <label>glass gone</label>
+    <text>The glass went {PLACE}: the cab is open to the weather until it is re-glazed.</text>
+    <bad>true</bad>
+  </Phobos.Framework.Persistence.PhobosLogEntryDef>
+
+  <Phobos.Framework.Persistence.PhobosLogEntryDef>
     <defName>PhobosLog_LinerSpent</defName>
     <label>spall liner spent</label>
     <text>The spall liner wore through {PLACE}: it catches nothing until it is re-lined.</text>

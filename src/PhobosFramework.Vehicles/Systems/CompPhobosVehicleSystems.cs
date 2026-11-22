@@ -3186,7 +3186,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         // The cab's windows (Framework 0.233.0, hotboxing): a closed cab only; an open one is always open to the air.
         if (ClosedCab && Vehicle.VehicleDef.type == VehicleType.Land)
         {
-            yield return new Command_Toggle
+            var windows = new Command_Toggle
             {
                 defaultLabel = "PhobosLifeAboard_Windows".Translate(),
                 defaultDesc = "PhobosLifeAboard_WindowsDesc".Translate(),
@@ -3194,6 +3194,9 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 isActive = () => WindowsDown,
                 toggleAction = () => WindowsDown = !WindowsDown,
             };
+            // With the glass gone there is nothing to wind up (Framework 0.238.0, VG4).
+            if (Glass.Gone(Vehicle)) windows.Disable("PhobosVehicleSystems_GlassGoneWindows".Translate());
+            yield return windows;
         }
         if (Props.loadout != null)
         {

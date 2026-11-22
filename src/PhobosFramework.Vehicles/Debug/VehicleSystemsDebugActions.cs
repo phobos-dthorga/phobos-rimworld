@@ -257,6 +257,32 @@ public static class VehicleSystemsDebugActions
         }
     }
 
+    [DebugAction(DebugCategory.Name, "Vehicle systems: crack or break the glass of selected vehicles", allowedGameStates = AllowedGameStates.PlayingOnMap)]
+    static List<DebugActionNode> DamageGlass()
+    {
+        var nodes = new List<DebugActionNode>();
+        foreach ((string name, float share) in new (string, float)[] { ("crack it (half gone)", 0.5f), ("break it out", 1f) })
+        {
+            float captured = share;
+            nodes.Add(new DebugActionNode(name, DebugActionType.Action, () =>
+            {
+                foreach (CompPhobosVehicleSystems comp in Selected())
+                {
+                    if (Glass.PartOf(comp.Vehicle) is not { } glass)
+                    {
+                        Log.Message(VehicleSystemsMod.LogPrefix + " " + comp.Vehicle.LabelShort + " has no glass (an open cab, a trailer, or a design marked without).");
+                        continue;
+                    }
+                    Glass.Damage(comp.Vehicle, glass.MaxHealth * captured, "a dev action");
+                    Log.Message(VehicleSystemsMod.LogPrefix + " " + comp.Vehicle.LabelShort + ": glass " + Glass.KindOf(comp.Vehicle) + ", now "
+                        + Glass.StateOf(glass) + " (" + glass.Health.ToString("0") + "/" + glass.MaxHealth.ToString("0") + ")"
+                        + (VehicleSystemsMod.Settings.vehicleGlass ? "" : "; the glass setting is off, so nothing broke."));
+                }
+            }));
+        }
+        return nodes;
+    }
+
     [DebugAction(DebugCategory.Name, "Vehicle systems: give a booster pack", allowedGameStates = AllowedGameStates.PlayingOnMap)]
     static List<DebugActionNode> GivePack()
     {

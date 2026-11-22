@@ -372,6 +372,12 @@ public class When_FlightPhase : VehicleSystemCondition
     }
 }
 
+/// <summary>The cab's glass is gone (Framework 0.238.0, VG4): the cab is open to the air.</summary>
+public class When_GlassGone : VehicleSystemCondition
+{
+    protected override bool HoldsRaw(SystemContext context) => Glass.Gone(context.Comp.Vehicle);
+}
+
 /// <summary>The cab's windows are down (Framework 0.233.0): its air meets the outside faster, and smoke clears.</summary>
 public class When_WindowsDown : VehicleSystemCondition
 {

@@ -20,6 +20,12 @@
       "sterile for good": [{"key": "radiation.late", "variant": "sterile-permanent"}]
     }},
     "372": ["radiation.shielded"],
+    "376": {"parts": {
+      "glass cracked": [{"key": "vehicles.glass", "variant": "cracked"}],
+      "glass gone": [{"key": "vehicles.glass", "variant": "gone"}],
+      "re-glazed": [{"key": "vehicles.glass", "variant": "reglazed"}],
+      "the alert": ["vehicles.glass-alert"]
+    }},
     "374": {"parts": {
       "a doctor sets off with a medicine": [{"key": "radiation.medicine", "variant": "given"}],
       "a marrow stimulant in the body during the course": [{"key": "radiation.medicine", "variant": "marrow"}]

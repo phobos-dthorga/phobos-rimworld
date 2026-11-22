@@ -130,6 +130,19 @@
         </inputs>
       </li>
       <li>
+        <!-- Framework 0.238.0 (vehicle glass, VG4): with the glass gone the cab is open, and meets the outside air nine times as fast as
+             the shell alone (this flow eight times the shell's own, authored): within the hour it is the weather's. -->
+        <name>brokenGlass</name>
+        <quantity>cabTemperature</quantity>
+        <kind>Toward</kind>
+        <target Class="Phobos.VehicleSystems.Input_Ambient" />
+        <factorParameter>insulationRate</factorParameter>
+        <when Class="Phobos.VehicleSystems.When_GlassGone" />
+        <inputs>
+          <li Class="Phobos.VehicleSystems.Input_Constant"><value>8</value></li>
+        </inputs>
+      </li>
+      <li>
         <name>heater</name>
         <quantity>cabTemperature</quantity>
         <kind>Toward</kind>

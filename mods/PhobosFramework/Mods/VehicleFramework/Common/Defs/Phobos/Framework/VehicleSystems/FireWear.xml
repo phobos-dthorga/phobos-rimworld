@@ -21,6 +21,8 @@
       <li><role>HydraulicLines</role><sharePerHour>0.4</sharePerHour><soft>true</soft></li>
       <li><role>FuelTank</role><sharePerHour>0.3</sharePerHour></li>
       <li><role>Brakes</role><sharePerHour>0.2</sharePerHour></li>
+      <!-- The glass (Framework 0.238.0, VG3): heat cracks toughened glass and the cab's own fire breaks it out. -->
+      <li><role>Glass</role><sharePerHour>0.6</sharePerHour></li>
     </roles>
     <!-- A burning vehicle wears at least a tenth of each rate, however small the fire. -->
     <leastShareOfRate>0.1</leastShareOfRate>

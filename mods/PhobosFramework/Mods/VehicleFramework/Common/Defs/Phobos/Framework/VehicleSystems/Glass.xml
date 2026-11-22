@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Vehicle glass (D'thorga Framework 0.238.0; docs/development/vehicle-glass.md, VG1 to VG4, VG7, VG10, VG11; the owner's answers of
+    22 Nov 2026). Every closed-cab vehicle, any mod's, has one glass part, born whole; how readily it breaks and what re-glazes it follow
+    its kind (GlassRule). The first loaded instance wins; another mod may patch it in XML. Every figure is authored. Not yet tested in game.
+  -->
+  <Phobos.VehicleSystems.PhobosGlassRulesDef>
+    <defName>PhobosGlassRules</defName>
+    <partHealth>40</partHealth>
+    <partLabel>glass</partLabel>
+    <!-- The glass chain's goods (Framework 0.237.0). -->
+    <laminatedPane>PhobosLaminatedPane</laminatedPane>
+    <glassPane>PhobosGlassPane</glassPane>
+    <armouredPane>PhobosArmouredPane</armouredPane>
+    <visionBlock>PhobosVisionBlock</visionBlock>
+    <!-- Re-glazing: 400 work for the job, and 1,200 more for all of it. -->
+    <reglazeBaseWork>400</reglazeBaseWork>
+    <reglazeWorkForAll>1200</reglazeWorkForAll>
+    <!-- Our trucks' armoured cab brings armoured glass with it, as its windscreen frame says. -->
+    <armouredCabNode>PhobosArmouredCab</armouredCabNode>
+  </Phobos.VehicleSystems.PhobosGlassRulesDef>
+</Defs>

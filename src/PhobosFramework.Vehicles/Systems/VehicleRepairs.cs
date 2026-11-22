@@ -19,6 +19,18 @@ public enum RepairKind
     Fitting,
     /// <summary>A worn spall liner re-lined with liner panels (Framework 0.207.0; owner, 21 Nov 2026).</summary>
     Reline,
+    /// <summary>Cracked or broken glass re-glazed with the glass chain's goods (Framework 0.238.0, VG7).</summary>
+    Reglaze,
+}
+
+/// <summary>
+/// The parts mended only with their own goods (Framework 0.238.0): the spall liner and the glass. Never mended for free, never graded, never
+/// replaced as a destroyed part, and left out of the vehicle's overall health, each with a repair of its own. One list, so a third such part
+/// is one line here.
+/// </summary>
+public static class OwnGoodsParts
+{
+    public static bool Is(string? key) => key == Spall.LinerKey || key == Glass.Key;
 }
 
 /// <summary>A repair waiting to be done: what it is, the work it takes and the ways of paying for it, ours first.</summary>
@@ -176,7 +188,7 @@ public sealed class VehicleRepairs
     /// <summary>Whether this part has a replacement cost at all, and so can be made in another grade.</summary>
     /// <summary>Never the spall liner (Framework 0.209.0, fault-read of 21 Nov 2026): a grade mended it for steel, and left a dead order on
     /// one not fitted. It also keeps the liner off the fittings window's list.</summary>
-    public bool CanBeGraded(VehicleComponent part) => part.props.key != Spall.LinerKey && SupplyFor(part) != null;
+    public bool CanBeGraded(VehicleComponent part) => !OwnGoodsParts.Is(part.props.key) && SupplyFor(part) != null;
 
     /// <summary>What a part of this grade costs, in words, for the menu.</summary>
     public string CostLine(VehicleComponent part, PhobosVehiclePartGradeDef grade)
@@ -203,7 +215,8 @@ public sealed class VehicleRepairs
     {
         // A spall liner is never mended for free, at any health and whatever the setting: only liner panels put it right, and one not
         // fitted sits at nothing by design (Framework 0.207.0; owner, 21 Nov 2026).
-        if (part.props.key == Spall.LinerKey) return true;
+        // Glass likewise: only its own goods re-glaze it (Framework 0.238.0).
+        if (OwnGoodsParts.Is(part.props.key)) return true;
         if ((part.Health > 0f && !Refitted(part)) || !Settings.destroyedPartsNeedSupplies || !PlayersVehicle) return false;
         return ReplacementOptions(part, out _).Count > 0;
     }
@@ -242,7 +255,7 @@ public sealed class VehicleRepairs
             {
                 // A part re-fitted in the field still waits for its proper replacement (M3).
                 if (part.Health > 0f && !Refitted(part)) continue;
-                if (part.props.key == Spall.LinerKey) continue;    // re-lined below, never replaced
+                if (OwnGoodsParts.Is(part.props.key)) continue;    // re-lined or re-glazed below, never replaced
 
                 List<List<(ThingDef def, int count)>> options = ReplacementOptions(part, out float work);
                 if (options.Count == 0) continue;
@@ -311,6 +324,17 @@ public sealed class VehicleRepairs
                 repair.Options.Add(new List<(ThingDef def, int count)> { (panel, panels) });
                 pending.Add(repair);
             }
+        }
+        // Cracked or broken glass (Framework 0.238.0, VG7): its own goods by the share missing, by its kind.
+        if (Glass.PartOf(comp.Vehicle) is { } glass && Glass.ReglazeGoods(comp.Vehicle, glass) is { } goods)
+        {
+            var repair = new RepairWork
+            {
+                Key = "reglaze/" + Glass.Key, Kind = RepairKind.Reglaze, Part = glass, Work = Glass.ReglazeWork(glass),
+                Label = "PhobosVehicleSystems_RepairReglaze".Translate(glass.props.label.Named("PART")).Resolve(),
+            };
+            repair.Options.Add(goods);
+            pending.Add(repair);
         }
         foreach (FitOrder order in comp.Fittings.Orders)
         {
@@ -481,6 +505,13 @@ public sealed class VehicleRepairs
                         values: new[] { new KeyValuePair<string, double>("panels", payment.Sum(line => line.count)) });
                 }
                 text = "PhobosVehicleSystems_RepairRelined".Translate(who, vehicle, repair.Part.props.label.Named("PART")).Resolve();
+                break;
+            case RepairKind.Reglaze:
+                // Whole again: the goods paid for what was missing (Framework 0.238.0, VG7).
+                repair.Part!.SetHealth(repair.Part.MaxHealth);    // raises Vehicle Framework's HealthChanged itself
+                comp.RememberAllPartHealths();
+                if (Seen.Wants("vehicles.glass", comp.Vehicle, "reglazed")) Seen.Note("vehicles.glass", comp.Vehicle, repair.Part.props.label, "reglazed");
+                text = "PhobosVehicleSystems_RepairReglazed".Translate(who, vehicle, repair.Part.props.label.Named("PART")).Resolve();
                 break;
             default:
                 if (repair.Condition == null && repair.Part != null)

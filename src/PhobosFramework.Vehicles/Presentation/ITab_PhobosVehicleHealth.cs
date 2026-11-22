@@ -683,10 +683,20 @@ public class ITab_PhobosVehicleHealth : ITab
                     row.HealthColour = PhobosWidgets.Off;
                 }
             }
+            // Glass names its kind and state, not "destroyed" (Framework 0.238.0, VG11).
+            else if (part.props.key == Glass.Key)
+            {
+                GlassState state = Glass.StateOf(part);
+                row.Conditions.Add(new ConditionRow
+                {
+                    Label = Glass.KindWord(Glass.KindOf(comp.Vehicle)) + ": " + Glass.StateWord(state),
+                    Colour = state == GlassState.Sound ? PhobosWidgets.Good : state == GlassState.Cracked ? PhobosWidgets.Caution : PhobosWidgets.Bad,
+                });
+            }
             else if (part.Health <= 0f) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_HealthDestroyed".Translate(), Colour = PhobosWidgets.Bad });
             foreach (RepairWork repair in comp.Repairs.Pending)
             {
-                if (repair.Kind is RepairKind.ReplacePart or RepairKind.Reline && repair.Part == part) row.Conditions.Add(new ConditionRow { Label = comp.Repairs.NeedsLine(repair), Colour = PhobosWidgets.Caution });
+                if (repair.Kind is RepairKind.ReplacePart or RepairKind.Reline or RepairKind.Reglaze && repair.Part == part) row.Conditions.Add(new ConditionRow { Label = comp.Repairs.NeedsLine(repair), Colour = PhobosWidgets.Caution });
             }
             if (!comp.Fittings.GradeOf(part.props.key).isDefault) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_GradeLine".Translate(comp.Fittings.GradeOf(part.props.key).label.Named("GRADE")), Colour = PhobosWidgets.Good });
             if (comp.Fittings.FittedOn(part.props.key) is { } fitting) row.Conditions.Add(new ConditionRow { Label = "PhobosVehicleSystems_FitFittedLine".Translate(fitting.label.Named("FITTING")), Colour = PhobosWidgets.Good });

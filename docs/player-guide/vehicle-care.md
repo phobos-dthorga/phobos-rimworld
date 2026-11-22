@@ -213,10 +213,24 @@ Not yet tested in game. A vehicle loses its jobs before it is a wreck, and every
 - **Crews leave a burning vehicle or a dead hull** (one that can neither move nor fire). Raiders and other factions climb out by
   themselves, leaving the vehicle for you to claim. **Yours never leave on their own**: the **Crew in danger** alert lists them.
 
+## Glass
+
+**Not yet tested in game.** Every vehicle with a closed cab, ours or another mod's, has **glass**: a windscreen and windows, **armoured
+glass** once the armoured cab is fitted, or **vision blocks** on a tank.
+
+- **What breaks it:** hits on the cab (armoured glass and vision blocks hold far better), **explosions well beyond where they hurt
+  anything else**, fire, and a missile strike.
+- **What you see:** the Health tab's **glass** row says its kind and whether it is whole, **cracked** or **gone**; an alert names
+  vehicles whose glass is gone; the logbook records it.
+- **Glass gone, the cab is open:** within the hour the cab is as hot or cold as the weather, and the **Windows** button greys out.
+- **Re-glazing:** load the goods into the vehicle's cargo and a mechanic re-glazes it: **a laminated pane** for a cracked windscreen
+  and **glass panes** for the side windows, **armoured panes** for armoured glass, **vision blocks** for a tank. Nothing mends it for
+  free.
+- A setting, **Vehicles' glass cracks and breaks**, on by default.
+
 ## The glass chain
 
-**Not yet tested in game.** Our vehicles' glass is made, from the ground up. **Until the vehicle glass itself arrives, these goods have
-no use.**
+**Not yet tested in game.** Our vehicles' glass is made, from the ground up.
 
 | Good | Where | From |
 | --- | --- | --- |

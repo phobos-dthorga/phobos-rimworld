@@ -79,6 +79,9 @@ public sealed class VehicleBlasts : ILargeBlastTaker
         }
         else
         {
+            // Glass breaks first and furthest (NK2, NK3; Framework 0.238.0, VG3): all of it from a quarter of the fireball edge's wind, cracked
+            // beyond (authored).
+            Glass.Strike(vehicle, Math.Max(hit.Wind * 4f, hit.Heat));
             bool battered = fate == VehicleBlastFate.Battered && Batter(vehicle, comp, severity, f);
             bool scorched = Scorch(vehicle, comp, rules, hit.Heat, f);
             if (battered || scorched)

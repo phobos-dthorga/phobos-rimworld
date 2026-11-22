@@ -156,6 +156,8 @@ public class VehicleSystemsSettings : ModSettings
     /// class or heavier throws debris into the compartment behind it, wounding the crew and holing inner parts there. Combat Extended only.
     /// The owner graded its risk moderate (21 Nov 2026), so it starts on. Live.</summary>
     public bool spallInsideVehicles = true;
+    /// <summary>Vehicles' glass cracks and breaks, and a cab with its glass gone is open (Framework 0.238.0; owner, 22 Nov 2026).</summary>
+    public bool vehicleGlass = true;
     /// <summary>The same on vehicles from other mods (owner, 21 Nov 2026: every vehicle, behind its own setting). Live.</summary>
     public bool spallOnOtherVehicles = true;
     /// <summary>A heavy hit the plate stops (a near miss of its armour, or a large blast) still knocks a little spall off the inside (owner,
@@ -261,6 +263,7 @@ public class VehicleSystemsSettings : ModSettings
         "fireWearOthers" => fireWearOthers,
         "fireWearUnderFireproof" => fireWearUnderFireproof,
         "spallInsideVehicles" => spallInsideVehicles,
+        "vehicleGlass" => vehicleGlass,
         "spallOnOtherVehicles" => spallOnOtherVehicles,
         "shockSpall" => shockSpall,
         "raidersArriveByAir" => raidersArriveByAir,
@@ -335,6 +338,7 @@ public class VehicleSystemsSettings : ModSettings
         Scribe_Values.Look(ref fireWearOthers, "PhobosVehicleSystems_FireWearOthers", true);
         Scribe_Values.Look(ref fireWearUnderFireproof, "PhobosVehicleSystems_FireWearUnderFireproof", true);
         Scribe_Values.Look(ref spallInsideVehicles, "PhobosVehicleSystems_SpallInsideVehicles", true);
+        Scribe_Values.Look(ref vehicleGlass, "PhobosVehicleSystems_VehicleGlass", true);
         Scribe_Values.Look(ref spallOnOtherVehicles, "PhobosVehicleSystems_SpallOnOtherVehicles", true);
         Scribe_Values.Look(ref shockSpall, "PhobosVehicleSystems_ShockSpall", true);
         Scribe_Values.Look(ref raidersArriveByAir, "PhobosVehicleSystems_RaidersArriveByAir", true);
@@ -610,6 +614,7 @@ public class VehicleSystemsMod : SettingsBookMod
             "PhobosVehicleSystems_SettingFireWearUnderFireproofDesc".Translate());
         list.Section("PhobosVehicleSystems_SectionSpall".Translate());
         list.Check("PhobosVehicleSystems_SettingSpall".Translate(), ref s.spallInsideVehicles, d.spallInsideVehicles, "PhobosVehicleSystems_SettingSpallDesc".Translate());
+        list.Check("PhobosVehicleSystems_SettingGlass".Translate(), ref s.vehicleGlass, d.vehicleGlass, "PhobosVehicleSystems_SettingGlassDesc".Translate());
         if (s.spallInsideVehicles)
         {
             list.Indent();

@@ -960,4 +960,16 @@
   <PhobosVehicleSystems_SectionStories>Stories</PhobosVehicleSystems_SectionStories>
   <PhobosVehicleSystems_SettingTripLetters>Letters for troubled journeys</PhobosVehicleSystems_SettingTripLetters>
   <PhobosVehicleSystems_SettingTripLettersDesc>When a vehicle comes back to a map after a journey on which it broke down, was stranded or someone aboard was hurt, a letter says how it went. Every journey goes in the vehicle's logbook either way.</PhobosVehicleSystems_SettingTripLettersDesc>
+  <!-- Vehicle glass (Framework 0.238.0). -->
+  <PhobosVehicleSystems_SettingGlass>Vehicles' glass cracks and breaks</PhobosVehicleSystems_SettingGlass>
+  <PhobosVehicleSystems_SettingGlassDesc>On by default: a closed cab has glass, which hits on the cab, blasts well beyond where they harm anything else, fire and a strike crack and break. With the glass gone the cab is open: it takes the weather's temperature within the hour and smoke clears from it. A mechanic re-glazes it with laminated panes and glass panes (armoured panes for an armoured cab, vision blocks for a tank) loaded into the cargo. Off: glass never breaks.</PhobosVehicleSystems_SettingGlassDesc>
+  <PhobosVehicleSystems_GlassSound>whole</PhobosVehicleSystems_GlassSound>
+  <PhobosVehicleSystems_GlassCracked>cracked</PhobosVehicleSystems_GlassCracked>
+  <PhobosVehicleSystems_GlassGone>gone: the cab is open</PhobosVehicleSystems_GlassGone>
+  <PhobosVehicleSystems_GlassOrdinary>windscreen and windows</PhobosVehicleSystems_GlassOrdinary>
+  <PhobosVehicleSystems_GlassArmoured>armoured glass</PhobosVehicleSystems_GlassArmoured>
+  <PhobosVehicleSystems_GlassVisionBlocks>vision blocks</PhobosVehicleSystems_GlassVisionBlocks>
+  <PhobosVehicleSystems_GlassGoneWindows>The glass is gone: there is nothing to wind up until it is re-glazed.</PhobosVehicleSystems_GlassGoneWindows>
+  <PhobosVehicleSystems_RepairReglaze>re-glazing the {PART}</PhobosVehicleSystems_RepairReglaze>
+  <PhobosVehicleSystems_RepairReglazed>{MECHANIC} re-glazed the {VEHICLE}. Its cab is whole again.</PhobosVehicleSystems_RepairReglazed>
 </LanguageData>

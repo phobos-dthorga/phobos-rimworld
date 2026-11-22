@@ -996,6 +996,8 @@
   <!-- Tracked vehicles of any mass: the heavy set with a tracked diesel. Rank 1 beats the light, medium and heavy loadouts. -->
   <Phobos.VehicleSystems.PhobosVehicleLoadoutDef ParentName="PhobosVehicleLoadoutLandHeavy">
     <defName>PhobosVehicleLoadout_LandTracked</defName>
+    <!-- Vision blocks, not windows (Framework 0.238.0, VG2): a tank's crew see out through small, tough blocks. -->
+    <glass>VisionBlocks</glass>
     <label>tracked vehicle</label>
     <kind>CombustionTracked</kind>
     <rank>1</rank>

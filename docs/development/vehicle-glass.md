@@ -1,7 +1,9 @@
 # Glass on our vehicles: a part that breaks, and what follows (22 Nov 2026)
 
-**Status (23 Nov 2026):** partly built. The glass chain (VG8) is in D'thorga Framework 0.237.0, its goods with the owner's pictures;
-the glass part and everything on it (VG1 to VG7, VG10, VG11, VG13) are not built yet. Not yet tested in game.
+**Status (23 Nov 2026):** partly built. The glass chain (VG8) is in D'thorga Framework 0.237.0; the glass part with what breaks it,
+the open cab, re-glazing, other authors' vehicles and what the player sees (VG1 to VG4, VG7, VG10, VG11) in 0.238.0
+([as built](#the-glass-part-as-built-23-nov-2026)). Not built: splinters (VG5), the driver's view (VG6), the canopy (VG13) and the
+cracked-glass pictures. Not yet tested in game: row 376.
 
 The owner, 22 Nov 2026, while the [nuclear strike record](nuclear-strike-effects.md) was being researched: "maybe we should make
 glass a component of our vehicles, and that could have its own, knock-on, effects!" And: "We could do so much work with glass
@@ -336,6 +338,32 @@ flowchart LR
   2 alkali and 2 limestone blocks to a 5 kg pane; 4 chemfuel to 2 film; 2 panes and a film to a laminated pane; 4 panes and 3 films
   to an armoured pane; 4 films and 3 steel to a vision block. Rimefeller is not on the owner's list, so its plastics are not yet
   accepted in place of film (its Def name unread). No research gate of its own: the smelter and machining table carry theirs.
+
+## The glass part, as built (23 Nov 2026)
+
+D'thorga Framework 0.238.0, on the owner's answers (the base with real art first; the pictures follow as a pilot). Every figure is
+authored [A] unless marked.
+
+- **The part** (`PhobosGlass`), appended at start-up to every closed-cab design's parts, last of all ours so earlier saved parts keep
+  their order; an existing vehicle gains it whole at its next load. It takes the cells of the design's cab part (the Cabin role), no
+  armour of its own, a small hit weight, and is left out of the destruction sum and the vehicle's overall health. 40 health; what
+  counts is its share: whole, **cracked** below 70 %, **gone** at nothing.
+- **Its kind:** a design's `PhobosGlassExtension` (VG10: any mod's VehicleDef may set the kind, or `none`); else armoured glass once
+  the armoured cab node is unlocked; else the loadout's (vision blocks on the tracked loadout, ordinary glass otherwise).
+- **What breaks it** (VG3): a reactor on every outer plate over the glass passes on 60 % of a hit for ordinary glass, 15 % for
+  armoured, 10 % for vision blocks, counting a beaten plate's double report once; **every explosion**, through one postfix on the
+  game's `Explosion.StartExplosion`, reaches glass out to 2.5 times its radius, falling in a straight line, at full share for ordinary
+  glass, a quarter for armoured and a fifth for vision blocks (so it works without Combat Extended, the record's first question);
+  fire through the fire wear table (0.6 of the glass an hour at full fire); a strike breaks it outright where the wind is a quarter of
+  the fireball edge's, and cracks it beyond, a third as much for armoured glass.
+- **The open cab** (VG4, temperature now): a flow pulls the cab toward the outside eight times the shell's rate while the glass is
+  gone; smoke clears and bystanders share as with the windows down; the Windows button is disabled and says why. Cab air waits for
+  its own model.
+- **Re-glazing** (VG7): a repair of its own once cracked: a laminated pane, plus a glass pane for each third missing (three for all);
+  or armoured panes, three for all; or vision blocks, four for all. 400 work and 1,200 more for all of it. Never mended for free.
+  The spall liner and the glass now share one rule for such parts (`OwnGoodsParts`).
+- **What the player sees** (VG11): the Health tab row names the kind and state; an alert for glass gone; logbook entries for
+  cracked and gone. A setting, "Vehicles' glass cracks and breaks", on (the record's low grade).
 
 ## Who chose what
 

@@ -5,6 +5,29 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.238.0] - 2026-11-23 - Draft
+
+Vehicles have glass
+
+### Added
+
+- **Every closed-cab vehicle has glass, which cracks and breaks** (the owner's answers of 22 November 2026, docs/development/vehicle-glass.md, VG1 to VG4, VG7, VG10, VG11). One part, any mod's vehicle, born whole and never counted toward the vehicle's destruction: a windscreen and windows, armoured glass once the armoured cab is fitted, or vision blocks on a tracked vehicle; another mod's design may say which in its XML, or that it has none. Hits on the cab crack it, armoured glass and vision blocks far less readily; explosions break it out to two and a half times their own radius, with or without Combat Extended; fire cracks it; and a strike breaks it well beyond where it harms anything else. Not yet tested in game: row 376 of the test pass.
+- **Glass gone, the cab is open**: within the hour it takes the weather's temperature, smoke clears from it as with the windows down, and the Windows button says there is nothing to wind up.
+- **Re-glazing, never a free mend**: a mechanic re-glazes cracked or broken glass with the glass chain's goods loaded into the cargo, by the share missing: a laminated pane for the windscreen and glass panes for the side windows, armoured panes for armoured glass, vision blocks for a tank.
+- **Seen where it matters**: the glass's kind and state on the Health tab, an alert naming vehicles whose glass is gone, and the logbook. A setting, Vehicles' glass cracks and breaks, on by default. Dev action: Vehicle systems: crack or break the glass of selected vehicles.
+
+### Changed
+
+- **The spall liner and the glass share one rule**: parts mended only with their own goods are never mended for free, graded or replaced as destroyed parts, and are left out of a vehicle's overall health.
+
+### Save compatibility
+
+- **Safe on a running colony**: every closed-cab vehicle gains its glass whole at the next load. Removing the mod drops the part with the rest of ours.
+
+### Compatibility and limits
+
+- Splinters, the driver's view through cracked glass and an aircraft's canopy come next. The cracked-glass pictures on our own vehicles are to be made, a pilot first.
+
 ## [0.237.1] - 2026-11-23 - Draft
 
 The Windows down switch has its own icon. Not yet tested in game.

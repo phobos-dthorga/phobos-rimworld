@@ -251,12 +251,12 @@ public static class SpallLinerLeftOutOfHealth
 
     public static void Postfix(VehicleStatHandler __instance)
     {
-        VehicleComponent? liner = __instance.GetComponent(Spall.LinerKey);
-        if (liner == null) return;
+        // The glass too (Framework 0.238.0): its own row and state, never the vehicle's health.
+        if (__instance.GetComponent(Spall.LinerKey) == null && __instance.GetComponent(Glass.Key) == null) return;
         float health = 0f, max = 0f;
         foreach (VehicleComponent part in __instance.components)
         {
-            if (part == liner) continue;
+            if (OwnGoodsParts.Is(part.props.key)) continue;
             health += part.Health;
             max += part.MaxHealth;
         }

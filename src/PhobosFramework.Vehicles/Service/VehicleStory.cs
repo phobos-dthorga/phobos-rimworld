@@ -114,6 +114,13 @@ public static class VehicleStory
         Log(comp, VehicleStoryDefOf.PhobosLog_SpallWounded, who: pawn.LabelShort);
     }
 
+    /// <summary>A vehicle's glass cracked, or went (Framework 0.238.0, VG11).</summary>
+    public static void GlassBroken(VehiclePawn vehicle, bool gone)
+    {
+        if (vehicle?.GetComp<CompPhobosVehicleSystems>() is not { } comp || !Keeps(comp)) return;
+        Log(comp, gone ? VehicleStoryDefOf.PhobosLog_GlassGone : VehicleStoryDefOf.PhobosLog_GlassCracked);
+    }
+
     /// <summary>The spall liner wore through and catches nothing until re-lined (Framework 0.209.0).</summary>
     public static void LinerSpent(VehiclePawn vehicle)
     {
@@ -234,6 +241,8 @@ public static class VehicleStoryDefOf
     public static PhobosLogEntryDef PhobosLog_Struck = null!;
     public static PhobosLogEntryDef PhobosLog_SpallWounded = null!;
     public static PhobosLogEntryDef PhobosLog_LinerSpent = null!;
+    public static PhobosLogEntryDef PhobosLog_GlassCracked = null!;
+    public static PhobosLogEntryDef PhobosLog_GlassGone = null!;
     public static PhobosLogEntryDef PhobosLog_Camped = null!;
     public static PhobosLogEntryDef PhobosLog_NightDrive = null!;
     public static PhobosLogEntryDef PhobosLog_HandOver = null!;

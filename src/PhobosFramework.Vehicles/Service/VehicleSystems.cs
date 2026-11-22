@@ -172,6 +172,9 @@ public static class VehicleSystems
         // A tank's ammunition rack can blow its turret off (T8; after the mounts, which the reaction needs).
         TurretPopping.Apply(def, props);
         if (props.addedKeys.Contains(WeaponMounts.PartKey)) added++;
+        // A closed cab's glass (Framework 0.238.0, VG1): appended last, so the saved order of every earlier part stays as it was.
+        Glass.Apply(def, props);
+        if (props.addedKeys.Contains(Glass.Key)) added++;
         // Every bound part reports its hits to the systems (a holed radiator loses coolant).
         foreach (KeyValuePair<string, List<string>> pair in props.roleKeys)
         {

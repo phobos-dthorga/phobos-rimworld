@@ -787,6 +787,9 @@ public class PhobosVehicleLoadoutDef : Def
     public LoadoutDrivetrain? drivetrain;
     /// <summary>Closed or open cab (closed by default); a vehicle's PhobosVehicleCabinExtension overrides it.</summary>
     public CabinSpec cabin = new();
+    /// <summary>What a closed cab's glass is (Framework 0.238.0, VG2): ordinary glass, or vision blocks for a tracked loadout. The armoured
+    /// cab upgrade and a vehicle's own <see cref="PhobosGlassExtension"/> override it.</summary>
+    public Phobos.Framework.Vehicles.Rules.GlassKind glass = Phobos.Framework.Vehicles.Rules.GlassKind.Ordinary;
     /// <summary>An aircraft's flight phases and the demand each puts on its engines.</summary>
     public PhobosVehicleFlightProfileDef? flightProfile;
     /// <summary>A helicopter's cargo hook, once fitted (Framework 0.92.0, sling loads): its rated load, sourced per aircraft.</summary>
