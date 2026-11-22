@@ -24,8 +24,8 @@ within `PAINT_DOUBT` (0.03) of the floor inside a Segment Anything part carrying
 tank's sections carry 0 to 2 % and the slivers of its edge 6 to 10 %, the hoops with the walkway plates crossing them 16 to 25 %. A
 small dropped patch ringed by one paint keeps it. Tried and set aside: floors of 0.14 (patchy walkway rails) and 0.16 (a broken walkway),
 a pixel-by-pixel part rule (a speckled crossing plate) and a 5 % line (red specks the owner found on the tank's right side). Per body
-because on the generator set it broke up a painted rim that was right as shipped; on the survey truck it would clear a few red dashes
-from its cream panel, the owner's call. **The field kitchen and flatbed trailer are not offered paint** (the owner's choice of
+because on the generator set it broke up a painted rim that was right as shipped; **on the survey truck it clears the red dashes from its
+cream panel, on since Vehicles 0.107.2** (the owner's card of 23 Nov 2026). **The field kitchen and flatbed trailer are not offered paint** (the owner's choice of
 23 Nov 2026, D'thorga Vehicles 0.106.3): `repaint_vehicles.UNPAINTED` stages them in their own colours with no mask (`repaint_body`'s
 `natural`), `apply` removes their masks, and their Defs use plain Cutout, so Vehicle Framework shows no paint button
 (`VehiclePawn.DoInspectPaneButtons` asks whether the shader takes a colour mask). Tried first, and set aside with the paint: the

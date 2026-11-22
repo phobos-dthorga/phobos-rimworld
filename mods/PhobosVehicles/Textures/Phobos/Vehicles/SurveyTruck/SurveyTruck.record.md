@@ -123,9 +123,16 @@ with it instead of keeping the master's olive, and `repaint_vehicles.py`'s `mend
 
 | Texture | SHA-256 |
 | --- | --- |
-| SurveyTruck_north | `93497c88fffdd9747f985782db0a8a3f57161fca2f94f2cd450b04246a3c07a5` |
-| SurveyTruck_northm | `6c52cdc7604f9a1b776369319b479258ec5748fd30b62a832bd668e6be8cd628` |
-| SurveyTruck_east | `144f6452940107ef858c5d450b874a483536f7b93670979d0995b0fa1f7452cc` |
-| SurveyTruck_eastm | `a769f8d6fec00803f0d0d0497e88bfe1df4cf8be8f5441b4264aed87a9c4e1bf` |
-| SurveyTruck_south | `d177307ca5e70e0bbfd532072a7a1f639877417ec1535a8043d2d9fd9061b6dd` |
-| SurveyTruck_southm | `c114a12dbf326797376c8cbe23f1c73b879d07fb7269f80ddf1f6f44a6ff6295` |
+| SurveyTruck_north | `376d3e8e8a57eabc1bcc4ba238076150a5b2083d6e803347946ad8af22bd7f6c` |
+| SurveyTruck_northm | `13e415775b64c30b7f10d31beca6fd45878b711fbc3819c388bcbd97e898f1d5` |
+| SurveyTruck_east | `ccefdd6c6b596235202908da6c93e8141efcd762f5a1c59fbf1d39a05b4c561e` |
+| SurveyTruck_eastm | `c376dd8b1a84ccb538c64a32c1a190fbad3316b3609f19983ecc92d37bf91f26` |
+| SurveyTruck_south | `2b6d0a97511c09b9758fbe1fc9d0a6250715460b9e9809678ca14c2c0817e349` |
+| SurveyTruck_southm | `fd2fdf6bb9bfd6015a1412e6b55c98c1bc5bded8464f6572efd1f30302e3789d` |
+
+## Faint paint settled (23 Nov 2026)
+
+**The paint masks made again with the faint-paint rule on**, D'thorga Vehicles 0.107.2 (the owner's card of 23 Nov 2026): `repaint_vehicles.py`'s
+`SETTLE_FAINT` now names this body (0.03), so paint just above its floor inside a Segment Anything part that plainly is not painted (the
+cream panel's warm edge) is dropped; painted another colour, the panel's edge no longer shows red dashes. The hashes in the table above
+are this export's (`apply` writes them over the old). The drawing, its outline and every overlay's fit are unchanged.

@@ -63,7 +63,7 @@ UNPAINTED = [
 MAIN_CEILING = {'PintleBowser': 0.35}
 # Bodies whose faint paint is settled by Segment Anything's parts (export_vehicle.settle_doubtful_paint), with how far above the floor paint
 # counts as faint: the Pintle bowser's tank edge (0.11 to 0.13 over a 0.12 floor).
-SETTLE_FAINT = {'PintleBowser': 0.03}
+SETTLE_FAINT = {'PintleBowser': 0.03, 'SurveyTruck': 0.03}
 
 
 def sha(path):

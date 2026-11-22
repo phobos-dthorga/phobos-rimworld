@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.107.2] - 2026-11-23 - Draft
+
+The survey truck's cream panel paints cleanly
+
+### Fixed
+
+- **The survey truck's cream panel paints cleanly** (the owner's card of 23 November 2026): painted another colour, the warm edge of its cream panel took the paint in dashes; it now stays cream. In its own colours it looks as before. Not yet tested in game: paint the survey truck red and look along the panel's edges.
+
 ## [0.107.1] - 2026-11-23 - Draft
 
 The Bradley's spall liner
