@@ -16,14 +16,7 @@
     <xpath>Defs/ThingDef[defName="DMS_TableAmmoPrinter"]</xpath>
     <match Class="PatchOperationSequence">
       <operations>
-        <!-- Mk. 82 -->
-        <li Class="PatchOperationAdd">
-          <success>Always</success>
-          <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/recipeMaker/recipeUsers</xpath>
-          <value>
-            <li>DMS_TableAmmoPrinter</li>
-          </value>
-        </li>
+        <!-- The Mk. 82 is put there by Mods/AircraftMunitions/Patches/Munitions_Shared.xml since 0.37.1, with the A-10's too. -->
         <!-- Mk. 84s -->
         <li Class="PatchOperationAdd">
           <success>Always</success>

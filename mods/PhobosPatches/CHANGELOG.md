@@ -6,6 +6,14 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.37.1] - 2026-11-23 - Draft
+
+The new munitions at the automated benches
+
+### Fixed
+
+- **The Shturm, Hellfire and HARM are made at The Dead Man's Switch's ammunition stamping machine too, as the bombs are**, and the missile seeker head and the jamming pod at The Dead Man's Switch - Expedition's precise fabrication center, as electronics (the owner's report of 23 November 2026: not every new munition was at the automated benches). The A-10's Mk. 82 is now at the stamping machine without the Harrier too. Bills already made stay where they are. Not yet tested in game: row 381 of the test pass.
+
 ## [0.37.0] - 2026-11-23 - Draft
 
 The new aircraft's weapons in line with the Mk. 82

@@ -33,6 +33,17 @@
             <Mass>45</Mass>
           </value>
         </li>
+        <!-- At The Dead Man's Switch's ammunition stamping machine too, as the bombs are (0.37.1, the owner's report of 23 Nov 2026). -->
+        <li Class="PatchOperationConditional">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="DMS_TableAmmoPrinter"]</xpath>
+          <match Class="PatchOperationAdd">
+            <xpath>Defs/ThingDef[defName="Mongoose_Ammo_HellfireMissile"]/recipeMaker/recipeUsers</xpath>
+            <value>
+              <li>DMS_TableAmmoPrinter</li>
+            </value>
+          </match>
+        </li>
       </operations>
     </match>
   </Operation>

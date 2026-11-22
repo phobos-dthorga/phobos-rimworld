@@ -26,7 +26,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | **UH-60M Black Hawk** (z3nt3) | Built from real parts by role: two turbines, its rotor drive and rotors, servos, hydraulics, landing gear, tanks, electrics and avionics, on a shell of steel, plasteel and a few components | Make or buy the turbines and other parts; finish or cancel a frame before installing |
 | **Close Air Support: A-10 Warthog & Su-25 Frogfoot** (potemkinvillager) | Fuller parts lists (avionics, hydraulics, wiring, landing gear, pylons, the gun); built from real parts by role (turbines, landing gear, tanks, generators, hydraulics; Construction 10); their bombs also at The Dead Man's Switch's ammunition fabricator. **Realistic handling** (off by default) flies them at speeds set by the real aircraft's | Turn on **Realistic handling** on the **Close Air Support** settings page if you want it, and restart |
 | Harrier, Hind, Mongoose, A-10, Su-25 | Rearming tops up the kind already loaded | A part-full magazine waits if that kind runs out |
-| A-10, Su-25, Hind, Mongoose, Prowler, with **Combat Extended** | Their bombs, missiles and jamming pods weigh what the real ones do and are made from what they are made of, priced like the Mk. 82 for their size: a FAB-250 or RBK-250 starts as a **Mk. 82 bomb case**, a Hellfire or HARM needs a **missile seeker head**. Worth about 520 (Shturm) to 2,000 silver (CBU-87) | Make bomb cases at the machining table and seeker heads at the machining table or fabrication bench (Microelectronics; one advanced component each). Ones already made keep their old cost |
+| A-10, Su-25, Hind, Mongoose, Prowler, with **Combat Extended** | Their bombs, missiles and jamming pods weigh what the real ones do and are made from what they are made of, priced like the Mk. 82 for their size: a FAB-250 or RBK-250 starts as a **Mk. 82 bomb case**, a Hellfire or HARM needs a **missile seeker head**. Worth about 520 (Shturm) to 2,000 silver (CBU-87) | Make bomb cases at the machining table and seeker heads at the machining table or fabrication bench (Microelectronics; one advanced component each). With The Dead Man's Switch, the missiles are bills at its ammunition stamping machine, and seeker heads and pods at the Expedition's precise fabrication center. Ones already made keep their old cost |
 | Harrier, being taken apart | A temporary trace writes each step of a vehicle's disassembly to the game's log, to find why the Harrier can't be taken apart | **Try one disassembly, on a copy of your save, and don't retry.** First tick **D'thorga Patches: Harrier disassembly** on D'thorga Framework's **Detailed logs** settings page: the trace is off until you do |
 | **RimThunder** with The Dead Man's Switch - Expedition | The rotary forger makes heavy castings 12 at a time from 1,200 steel | Keep the floor around the forger clear: 24 items drop beside it |
 | **Spaceship Turret Hull** (MK), with **Combat Extended** | All seven hulls load ammo like CE's own turrets, and no longer explode when destroyed | **Rebuild hulls built before**, while the ship is landed |
@@ -204,9 +204,12 @@ Extended nothing here changes. **Ones already made keep their old cost.**
 - **A colonist carries one at a time.** Stored on a vehicle or carried by a caravan they weigh what they really do. A jamming pod is
   used up into the Prowler's count when mounted, so it adds nothing to the jet's load.
 - **The Shturm has no seeker head**: it is steered by radio from the helicopter.
+- **With The Dead Man's Switch, the automated benches make them too**: the bombs and missiles at the ammunition stamping machine,
+  the jamming pod at the Expedition's precise fabrication center.
 
 **The missile seeker head** is the guidance section of a Hellfire or HARM: 10 steel, 2 components and 1 advanced component, 2,000
-work, Crafting 8, at the machining table or the fabrication bench, after **Microelectronics basics**. It weighs 5 kg and stacks to 10.
+work, Crafting 8, at the machining table or the fabrication bench, after **Microelectronics basics**; with The Dead Man's Switch -
+Expedition, at its precise fabrication center too. It weighs 5 kg and stacks to 10.
 It is this mod's item: **use them up or sell them before removing the mod**.
 
 ## Bombs and rockets at the ammunition fabricator

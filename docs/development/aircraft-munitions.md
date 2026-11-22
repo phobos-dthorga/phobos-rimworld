@@ -1,7 +1,8 @@
 # Aircraft munitions in line with the Mk. 82 (23 Nov 2026)
 
 **Status (23 Nov 2026):** built in D'thorga Patches 0.37.0: real weights, recipes and the two shared parts (the Mk. 82 bomb case for
-three bombs, the new missile seeker head). Not yet tested in game: row 380 of the [test pass](in-game-test-pass.md).
+three bombs, the new missile seeker head); 0.37.1 puts them at The Dead Man's Switch's automated benches. Not yet tested in game: rows
+380 and 381 of the [test pass](in-game-test-pass.md).
 
 ## Read this first
 
@@ -90,6 +91,12 @@ on radar emissions).
 - **Each mod's munitions** in its own folder: `Munitions_CloseAirSupport.xml` (inside the same 227 kg guard),
   `Munitions_EA6BProwler.xml`, and two new folders for the helicopters, `Mods/HindHelicopter` and `Mods/MongooseHelicopter`, each
   waiting on its item.
+- **At the automated benches** (0.37.1, the owner's report of 23 Nov 2026 that not every new munition was there): with The Dead
+  Man's Switch, every bomb and missile is a bill at its ammunition stamping machine too (the Mk. 82 moved there from the Harrier's
+  fabricator patch, so the A-10 alone has it), and the seeker head and the pod at the Expedition's precise fabrication center, as
+  electronics (agent's choice). Both run ordinary recipes (`Fortified.Building_WorkTableAutonomous`). VFE Factory's automated
+  machining bay already had them all, as it takes every machining-table recipe. **The stamping machine drops what it has loaded when
+  a haul is interrupted**: a HARM's bill is about seven trips, as a FAB-250's already was. If its bills stall, make them by hand.
 - **Weights** replace the authors' figures; bulk, work, skill and research stay theirs.
 - **Weight in play:** a colonist carries one at a time, as the Mk. 82 and Mk. 84 (227 and 907 kg) already are. Stored on a vehicle or
   in a caravan they now weigh what they really do. The pods are used up into the Prowler's count when mounted (its `EWPods.cs`),

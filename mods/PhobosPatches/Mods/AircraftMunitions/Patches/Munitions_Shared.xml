@@ -89,6 +89,22 @@
           <success>Always</success>
           <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases/MarketValue</xpath>
         </li>
+
+        <!--
+          The Mk. 82 at The Dead Man's Switch's ammunition stamping machine too (moved from the Harrier's Fabricator_HarrierVtol.xml in
+          0.37.1, so the A-10 alone has it). The machine runs ordinary recipes (Fortified.Building_WorkTableAutonomous), so naming it
+          among the bomb's benches is all it takes.
+        -->
+        <li Class="PatchOperationConditional">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="DMS_TableAmmoPrinter"]</xpath>
+          <match Class="PatchOperationAdd">
+            <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/recipeMaker/recipeUsers</xpath>
+            <value>
+              <li>DMS_TableAmmoPrinter</li>
+            </value>
+          </match>
+        </li>
       </operations>
     </match>
   </Operation>
@@ -148,6 +164,24 @@
           </recipeMaker>
         </ThingDef>
       </value>
+    </match>
+  </Operation>
+
+  <!--
+    The seeker head at The Dead Man's Switch - Expedition's precise fabrication center too (0.37.1, the owner's report of 23 Nov 2026 that
+    not every new munition was at the automated benches): electronics, so the precision bench rather than the ammunition stamping machine
+    (agent's choice). It runs ordinary recipes, as the stamping machine does.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="PhobosMissileSeekerHead"]/recipeMaker/recipeUsers</xpath>
+    <match Class="PatchOperationConditional">
+      <xpath>Defs/ThingDef[defName="DMSE_MicrogravityFacility"]</xpath>
+      <match Class="PatchOperationAdd">
+        <xpath>Defs/ThingDef[defName="PhobosMissileSeekerHead"]/recipeMaker/recipeUsers</xpath>
+        <value>
+          <li>DMSE_MicrogravityFacility</li>
+        </value>
+      </match>
     </match>
   </Operation>
 

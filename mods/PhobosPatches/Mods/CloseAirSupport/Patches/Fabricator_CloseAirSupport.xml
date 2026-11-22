@@ -3,11 +3,8 @@
   <!--
     Close Air Support's own bombs at The Dead Man's Switch's ammunition fabricator as well as the machining table, as the Harrier's are
     (owner, 21 Nov 2026: the Harrier's treatment). The fabricator runs an ordinary recipe, so naming it among each item's benches is all it
-    takes. The A-10's 500 lb bomb is the fixed-wing framework's shared item, which the Harrier's patch already puts there.
-
-    Their weights are left as their author set them: the cluster bombs are game-sized under Combat Extended (40 and 60 kg, where a real
-    RBK-250 is about 275 kg and a CBU-87 about 430). Real weights would need their recipes to cost that much too, from a sourced split
-    between casing and fill as the Harrier's bomb cases have; that is a follow-up in docs/development/close-air-support-jets.md.
+    takes. The A-10's 500 lb bomb is the fixed-wing framework's shared item, put there by Mods/AircraftMunitions with the Mk. 82's own
+    patch (0.37.1). Their weights and recipes are set in Munitions_CloseAirSupport.xml (0.37.0, docs/development/aircraft-munitions.md).
   -->
   <Operation Class="PatchOperationConditional">
     <xpath>Defs/ThingDef[defName="DMS_TableAmmoPrinter"]</xpath>
