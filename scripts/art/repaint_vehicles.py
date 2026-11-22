@@ -58,13 +58,37 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def mend_flecks(name, folder, master, out, colour, accent):
+    """The flecks paint_check.py still finds at game size, after the shrink blends the master's pixels, mended with its own fill_flecks:
+    each takes the paint that rings it (D'thorga Vehicles 0.106.1, when the paint's own lines joined the paint; the owner's rule that a
+    mask never reaches them speckled). East and south are written again from the mended north, as the exporter turns them. Returns how
+    many flecks it mended."""
+    import paint_check  # noqa: PLC0415  paint_check imports this module; imported here, when both are loaded
+    from export_vehicle import FACINGS  # noqa: PLC0415
+    flecks, problem = paint_check.check(name, folder, master, out, colour, accent)
+    if problem or not flecks:
+        return 0
+    north = Image.open(out / f'{name}_northm.png').convert('RGBA')
+    paint_check.fill_flecks(north, flecks)
+    record_path = out / f'{name}.export.json'
+    record = json.loads(record_path.read_text(encoding='utf-8'))
+    for facing, turn in FACINGS.items():
+        path = out / f'{name}_{facing}m.png'
+        (north if turn is None else north.transpose(turn)).save(path, optimize=True)
+        record['files'][path.name] = sha(path)
+    record['flecks_mended'] = len(flecks)
+    record_path.write_text(json.dumps(record, indent=2), encoding='utf-8')
+    return len(flecks)
+
+
 def stage(paint, only):
-    for name, folder, master, main_hue, accent_hue, saturation, holes, _, _ in BODIES:
+    for name, folder, master, main_hue, accent_hue, saturation, holes, colour, accent in BODIES:
         if only and name not in only:
             continue
         out = STAGE / paint / folder
         repaint_body(GEN / master, EXPORT / f'{name}.transform.json', out, name, main_hue, accent_hue, saturation, holes, paint)
-        print(f'staged {paint}: {name}', flush=True)
+        mended = mend_flecks(name, folder, GEN / master, out, colour, accent) if paint == 'repaired' else 0
+        print(f'staged {paint}: {name}' + (f' ({mended} fleck{"" if mended == 1 else "s"} mended)' if mended else ''), flush=True)
 
 
 def tinted(texture, mask, colour, accent):

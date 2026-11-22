@@ -112,3 +112,20 @@ turned. Shown by D'thorga Framework's damage looks while the glass part is below
 | SurveyTruck_DamageGlass_north | `13e9e56e32dc880594252b88f62e5c24d759c0bdfded7efeee715fd0ad3e2354` |
 | SurveyTruck_DamageGlass_east | `1acd5b299fe8c19c36a9db219d36fa41c80d5e8193f16f186881b6b0c70597cd` |
 | SurveyTruck_DamageGlass_south | `519d929646c8f9ace15bfdff2fc94da5506592e8c6c56795e38945bf3a38a7f3` |
+
+## Paint made again (23 Nov 2026)
+
+**Facings and paint masks exported again from the same master on the same transform**, D'thorga Vehicles 0.106.1 (the owner's review
+of 23 Nov 2026: repainted, the truck looked rusty). `python scripts/art/repaint_vehicles.py stage --paint repaired`, then `apply`:
+`scripts/art/export_vehicle.py`'s `absorb_paint_coloured_edges` lets the paint's own darker lines and rims join the paint, so they tint
+with it instead of keeping the master's olive, and `repaint_vehicles.py`'s `mend_flecks` mends what `paint_check.py` finds at game size
+(0 left). The drawing, its outline and every overlay's fit are unchanged. No game or other author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| SurveyTruck_north | `93497c88fffdd9747f985782db0a8a3f57161fca2f94f2cd450b04246a3c07a5` |
+| SurveyTruck_northm | `6c52cdc7604f9a1b776369319b479258ec5748fd30b62a832bd668e6be8cd628` |
+| SurveyTruck_east | `144f6452940107ef858c5d450b874a483536f7b93670979d0995b0fa1f7452cc` |
+| SurveyTruck_eastm | `a769f8d6fec00803f0d0d0497e88bfe1df4cf8be8f5441b4264aed87a9c4e1bf` |
+| SurveyTruck_south | `d177307ca5e70e0bbfd532072a7a1f639877417ec1535a8043d2d9fd9061b6dd` |
+| SurveyTruck_southm | `c114a12dbf326797376c8cbe23f1c73b879d07fb7269f80ddf1f6f44a6ff6295` |

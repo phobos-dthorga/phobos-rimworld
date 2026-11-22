@@ -53,13 +53,13 @@ transform. The originals are unchanged. SHA-256 of every texture now shipped:
 | GeneratorSet_SetUp_east.png | `82d496a96e70ecbec007fa56804cca36ed75a5757636b3edc7323e2cebd23046` |
 | GeneratorSet_SetUp_north.png | `9764459b18159c0dbdf4134aff62715803ded6340661ac5989d1d7fb92fe01d2` |
 | GeneratorSet_SetUp_south.png | `c93e8a6e340d841312e349a1723425ca9c7985111df8c0ded8ae234bb50416d5` |
-| GeneratorSet_east.png | `6a4ed6492dc1384d365a5ad1b2bd5d6d70dbf26b163eb4596918c226417dab26` |
-| GeneratorSet_eastm.png | `aba9f076486581f438aaf39f73ed140bd51894100b7c5debd80fb527b90cad6a` |
+| GeneratorSet_east.png | `21d2742445422104fc1c6310bec6cce161be774a896a4647105939867ded8c6c` |
+| GeneratorSet_eastm.png | `b6735ab9913acf43ef000d49d77d204706ed4220895d79bba7dd6a166fdab70b` |
 | GeneratorSet_icon.png | `6eed5311b6324e54f80a8f7e7f500b4fde6fa2b6a9a0774162a0d979f8ef8ddf` |
-| GeneratorSet_north.png | `1a6f7452cefe4e4e95bb41c5d08f969b045691030b02ae719f701d66fe07367b` |
-| GeneratorSet_northm.png | `79ed79034539fc8b71d4c29fae1f566113f7c99cd11b5cc989881f6ec13abc03` |
-| GeneratorSet_south.png | `063beb7f485307944431460cc1c9abf744e8f39ff4fa549c9de5d8c7954aa7d4` |
-| GeneratorSet_southm.png | `1ebd50ad30bc50c3d29f3e7db3dc4aa1eb98a88789b500e5537b752f01c427c2` |
+| GeneratorSet_north.png | `24776bf505e1ecde437526f1dc12a54acf983dd4e61138995bb88046d8dccef6` |
+| GeneratorSet_northm.png | `472520eb7826ac79ee3d59d2f9086490e80ec0bcd6f34f939d193836610f1581` |
+| GeneratorSet_south.png | `be663ac68f353b692aabd6d8007889001959497096f5a8cab155b31ae34367e8` |
+| GeneratorSet_southm.png | `538766e37ae269dbeef6e0d3bed519e38942518a0a7576832ed44e55e75de49d` |
 
 ## The drawn armour kits (19 Nov 2026)
 
@@ -118,3 +118,20 @@ turned. Shown by D'thorga Framework's damage looks while the glass part is below
 | GeneratorSet_DamageGlass_north | `b4017b0c52a78586512c618d1be3fef2484f6f59bb5877bca1143b89063ccd61` |
 | GeneratorSet_DamageGlass_east | `c2f80416e9d83f8c5bc8b3b6ba6800ba3cedcc3cff35a888f467afe1a240774d` |
 | GeneratorSet_DamageGlass_south | `12b1abb784232ed32e56a311e7cc5224f53f5e812552ebb6330a67e323dc4095` |
+
+## Paint made again (23 Nov 2026)
+
+**Facings and paint masks exported again from the same master on the same transform**, D'thorga Vehicles 0.106.1 (the owner's review
+of 23 Nov 2026: repainted, the truck looked rusty). `python scripts/art/repaint_vehicles.py stage --paint repaired`, then `apply`:
+`scripts/art/export_vehicle.py`'s `absorb_paint_coloured_edges` lets the paint's own darker lines and rims join the paint, so they tint
+with it instead of keeping the master's olive, and `repaint_vehicles.py`'s `mend_flecks` mends what `paint_check.py` finds at game size
+(0 left). The drawing, its outline and every overlay's fit are unchanged. No game or other author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| GeneratorSet_north | `24776bf505e1ecde437526f1dc12a54acf983dd4e61138995bb88046d8dccef6` |
+| GeneratorSet_northm | `472520eb7826ac79ee3d59d2f9086490e80ec0bcd6f34f939d193836610f1581` |
+| GeneratorSet_east | `21d2742445422104fc1c6310bec6cce161be774a896a4647105939867ded8c6c` |
+| GeneratorSet_eastm | `b6735ab9913acf43ef000d49d77d204706ed4220895d79bba7dd6a166fdab70b` |
+| GeneratorSet_south | `be663ac68f353b692aabd6d8007889001959497096f5a8cab155b31ae34367e8` |
+| GeneratorSet_southm | `538766e37ae269dbeef6e0d3bed519e38942518a0a7576832ed44e55e75de49d` |

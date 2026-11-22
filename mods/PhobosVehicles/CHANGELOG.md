@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.106.1] - 2026-11-23 - Draft
+
+Repainted trucks no longer look rusty
+
+### Fixed
+
+- **Repainted trucks no longer look rusty** (the owner's review of 23 November 2026): painted another colour, the tipper, bulk tanker, drill rig, generator set and survey truck kept the drawing's olive in their thin panel lines and rims, which read as rust beside red paint. Those lines now take the paint, a shade darker, as real panel lines are painted with the panel. In their own colours they look as before. The Pintle bowser, field kitchen and flatbed trailer are left as they were for now, by the owner's choice. Not yet tested in game: paint one of the five another colour and look at its panel lines.
+
 ## [0.106.0] - 2026-11-23 - Draft
 
 Cracked glass you can see

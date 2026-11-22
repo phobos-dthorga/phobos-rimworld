@@ -6,6 +6,19 @@ How our vehicles' paint masks (the `m` files, which tell the game where to tint)
 
 *Moved here on 17 Nov 2026 from `background-cleanup.md`; kept as written.*
 
+**The paint's own lines join it (23 Nov 2026, D'thorga Vehicles 0.106.1):** the owner's review found repainted trucks looked "rusty":
+regions leave a panel's thin lines and rims out of the paint, so they kept the master's olive under any colour. `absorb_paint_coloured_edges`
+(in `scripts/art/export_vehicle.py`) grows each paint outward, a touching pixel at a time and three master pixels at most, into pixels of
+its own hue that are darker than the paint (value 0.12 to 0.55) and at least half its saturation floor, inside a Segment Anything part that
+mostly carries that paint; a small gap left in a joined line (40 pixels or fewer, ringed by that paint) fills. A cream roof of the same
+hue is lighter and stays, the outline stays, and nothing joins across an outline (each tried and seen: smeared roofs, then loose islands,
+then dotted lines, before these limits; all figures authored). Then `repaint_vehicles.py stage --paint repaired` mends the flecks
+`paint_check.py` still finds at game size with its `fill_flecks` (`mend_flecks`), so a staged body reaches the owner at 0. Shipped for the
+tipper, bulk tanker, drill rig, generator set and survey truck; **the owner held back the Pintle bowser, field kitchen and flatbed
+trailer** (23 Nov 2026), and said that if they cannot be put right they become non-recolourable. The Pintle bowser's red dashes along its
+tank (a few pixels of its blue stripe painted as the main colour, in the shipped mask too) are a fault of their own, next. D'thorga
+Farming's bodies use the same exporter and are checked next. Not yet tested in game.
+
 **For a new body:** run `scripts/art/paint_segments.py` on its master, then `python scripts/art/repaint_vehicles.py stage --paint repaired`, `review` and `apply --paint repaired`, and `python scripts/art/paint_check.py` before the owner sees it.
 
 ## Paint masks, by region (16 Nov 2026)

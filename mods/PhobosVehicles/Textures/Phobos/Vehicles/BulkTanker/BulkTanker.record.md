@@ -90,3 +90,20 @@ turned. Shown by D'thorga Framework's damage looks while the glass part is below
 | BulkTanker_DamageGlass_north | `1fff04109deed4ea759a90dde99eea52275bf9655f490bb117f7b36b5225efb5` |
 | BulkTanker_DamageGlass_east | `e8f785413cc2116dd6936e7a2f89d388f0e7e6b02dfb68d9af823f314f0e80b7` |
 | BulkTanker_DamageGlass_south | `b968828d929de1af79b98a6d1286615c919148acdd0def63d7ed222a0188a40e` |
+
+## Paint made again (23 Nov 2026)
+
+**Facings and paint masks exported again from the same master on the same transform**, D'thorga Vehicles 0.106.1 (the owner's review
+of 23 Nov 2026: repainted, the truck looked rusty). `python scripts/art/repaint_vehicles.py stage --paint repaired`, then `apply`:
+`scripts/art/export_vehicle.py`'s `absorb_paint_coloured_edges` lets the paint's own darker lines and rims join the paint, so they tint
+with it instead of keeping the master's olive, and `repaint_vehicles.py`'s `mend_flecks` mends what `paint_check.py` finds at game size
+(0 left). The drawing, its outline and every overlay's fit are unchanged. No game or other author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| BulkTanker_north | `51c5c6eac78e8f2ac4f0a9c37639e7f565b594c25d35c8489d76514edec5ec66` |
+| BulkTanker_northm | `d8a694097f2cf9325e5560f0d0b69c4eb665ce237d2f738c70e3c3cb92972d5f` |
+| BulkTanker_east | `18d59753e4822804f6f9e368b3fbc47265b2e53bf9cf02e89ac1a3c40d49cfee` |
+| BulkTanker_eastm | `63b72686b8fed7f3e3b4810fc34d6e86f4a4e14dcd9ffda1bfc3e0db9f69e045` |
+| BulkTanker_south | `c20149388b82bb816d7887b307e2d1d8ee5b8e8468e98e84d900fccfd49a59f8` |
+| BulkTanker_southm | `8356b166936b31041153352f32e5e145784268a94de520a327adeefc6779b7e7` |

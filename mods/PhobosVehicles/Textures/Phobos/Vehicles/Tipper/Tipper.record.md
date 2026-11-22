@@ -89,3 +89,20 @@ turned. Shown by D'thorga Framework's damage looks while the glass part is below
 | Tipper_DamageGlass_north | `9a9bd4839936f87ae90647d7feca3590c81e97b1e4be4051acc739dc8467195c` |
 | Tipper_DamageGlass_east | `25e4875b9cd01ba3ccc2c544fe73be196043cadc4ec22bf32adbad69fb3c20e5` |
 | Tipper_DamageGlass_south | `e1934f3e2422e8c314a64a9649a17452d017802d4f04ea99959d2daf48283b5a` |
+
+## Paint made again (23 Nov 2026)
+
+**Facings and paint masks exported again from the same master on the same transform**, D'thorga Vehicles 0.106.1 (the owner's review
+of 23 Nov 2026: repainted, the truck looked rusty). `python scripts/art/repaint_vehicles.py stage --paint repaired`, then `apply`:
+`scripts/art/export_vehicle.py`'s `absorb_paint_coloured_edges` lets the paint's own darker lines and rims join the paint, so they tint
+with it instead of keeping the master's olive, and `repaint_vehicles.py`'s `mend_flecks` mends what `paint_check.py` finds at game size
+(0 left). The drawing, its outline and every overlay's fit are unchanged. No game or other author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| Tipper_north | `491967755b8ca04fd638ef6de946fa1c6b0bcef91129a9a43893f546303ae4c1` |
+| Tipper_northm | `fcfff2c25e16a7f5ff8baa5897865108c1618f521eb83826dad3a552567a9c36` |
+| Tipper_east | `33b007795d14df7b594417edf344e61763522482a1d035092d9a3d7eca161ec5` |
+| Tipper_eastm | `d8b657c2d914ef48e775bd3218a82e430b9e6a855c6e00002085ae699e878321` |
+| Tipper_south | `0529698678db2c2eb438f7ab80ef1a59f08bf239a892ac421e2a52a71deeb64a` |
+| Tipper_southm | `d7cf3445939068d9cd6c6fb33677eca9dbafdf14794da4f0ca72640abb6bae63` |

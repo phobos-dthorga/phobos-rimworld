@@ -86,3 +86,20 @@ turned. Shown by D'thorga Framework's damage looks while the glass part is below
 | DrillRig_DamageGlass_north | `9947b31cba674e1fddb05c8ba8ee746b1d1e9800319bb70096caffa04cb4d55c` |
 | DrillRig_DamageGlass_east | `77d6e4f1de2a8582413aff2d605687b88c14f7ee2b7406378215db216a3f0a30` |
 | DrillRig_DamageGlass_south | `b76833b08a41f21f7b0695ab9038036d0f4146cc9818ae88054a4bf8fac1039e` |
+
+## Paint made again (23 Nov 2026)
+
+**Facings and paint masks exported again from the same master on the same transform**, D'thorga Vehicles 0.106.1 (the owner's review
+of 23 Nov 2026: repainted, the truck looked rusty). `python scripts/art/repaint_vehicles.py stage --paint repaired`, then `apply`:
+`scripts/art/export_vehicle.py`'s `absorb_paint_coloured_edges` lets the paint's own darker lines and rims join the paint, so they tint
+with it instead of keeping the master's olive, and `repaint_vehicles.py`'s `mend_flecks` mends what `paint_check.py` finds at game size
+(0 left). The drawing, its outline and every overlay's fit are unchanged. No game or other author's art was used.
+
+| Texture | SHA-256 |
+| --- | --- |
+| DrillRig_north | `8f73bb643e04cd1efb24e532e3c2f90b29837844abce6dccf03fff66ca10c656` |
+| DrillRig_northm | `7eb12d7861268cfb7968d95ec384e2062a26f2033c50c19de4c2af74d0de5a9b` |
+| DrillRig_east | `61866c73514f9b541c0920c9849ca608dc7c0cf007a08c0f5c1b58d4a5b9b5d6` |
+| DrillRig_eastm | `67f9043702f12e2b911152aa97a715b759b07531cdc99d6f153d27d5dd430e9c` |
+| DrillRig_south | `44e7e141d6b4c2c65ce3e6acc99dbbd01a32009d46462a6af300a9ffde692c2e` |
+| DrillRig_southm | `24d1410374e15f7a1c66a5a5b1d75d96a6cb8d030dea50057545bb630d5df846` |

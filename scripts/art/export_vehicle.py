@@ -300,6 +300,11 @@ def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, p
         kinds = part_kinds(image, labels, main_hue, accent_hue, min_saturation)
     else:
         kinds = region_kinds(image, main_hue, accent_hue, min_saturation, main_max_saturation=main_max_saturation, line=line)
+    if not per_pixel:
+        flat_parts = None
+        if labels is not None:
+            flat_parts = list(labels.get_flattened_data() if hasattr(labels, 'get_flattened_data') else labels.getdata())
+        absorb_paint_coloured_edges(image, kinds, main_hue, accent_hue, min_saturation, main_max_saturation, flat_parts)
     groups = {'main': [], 'accent': []}
     for y in range(height):
         for x in range(width):
@@ -333,6 +338,112 @@ def separate_paint(image, main_hue, accent_hue, min_saturation=MIN_SATURATION, p
                 written[x, y] = (grey, grey, grey, alpha)
                 marks[x, y] = channel_mark[kind]
     return texture, mask, {'color': defaults['main'], 'colorTwo': defaults['accent']}
+
+
+PAINT_EDGE_REACH = 3        # master pixels: a paint-coloured pixel this close to paint is the paint's own line or rim
+PAINT_EDGE_SATURATION = 0.5  # its share of the paint's saturation floor: panel lines are drawn duller than the panels
+PAINT_EDGE_DARKEST = 0.12   # value: darker than this is the drawing's outline, which stays an outline
+PAINT_EDGE_LIGHTEST = 0.55  # value: lines and rims are darker than the paint; a lighter pixel of the same hue (a cream roof) is not paint
+PAINT_EDGE_PART_SHARE = 0.5  # a part carries a paint when at least this share of its pixels have it
+PAINT_EDGE_HOLE_MAX = 40    # master pixels: a gap in a joined line this small, ringed by its paint, is part of the line
+
+
+def absorb_paint_coloured_edges(image, kinds, main_hue, accent_hue, min_saturation, main_max_saturation, parts=None):
+    """
+    The paint's own panel lines and rims take the paint (D'thorga Vehicles 0.106.1; the owner's review of 23 Nov 2026: repainted trucks
+    looked "rusty"). The region rule leaves thin lines out of a paint region, so they kept the master's own colour: olive-khaki lines and
+    rims beside red paint read as rust. A pixel of the paint's hue, a little duller than the floor, within PAINT_EDGE_REACH of that paint
+    becomes that paint, so it greys and tints with it, as real panel lines are painted with the panel. The truck's own colours are
+    unchanged; near-black outlines stay outlines. Changes kinds in place and returns how many pixels joined.
+    """
+    width, height = image.size
+    source = image.load()
+    # With Segment Anything's parts map, a pixel joins only a paint its own part mostly carries: a panel's line belongs to the painted
+    # panel, a toolbox's dark edge beside it to the toolbox (a first try without this added flecks to the trailers' masks).
+    part_paint: dict = {}
+    if parts is not None:
+        counts: dict = {}
+        for index, part in enumerate(parts):
+            tally = counts.setdefault(part, {'main': 0, 'accent': 0, 'all': 0})
+            tally['all'] += 1
+            if kinds[index]:
+                tally[kinds[index]] += 1
+        for part, tally in counts.items():
+            for kind in ('main', 'accent'):
+                if tally['all'] and tally[kind] / tally['all'] >= PAINT_EDGE_PART_SHARE:
+                    part_paint[part] = kind
+    floor = min_saturation * PAINT_EDGE_SATURATION
+
+    def joins(index, kind):
+        red, green, blue, alpha = source[index % width, index // width]
+        if alpha < 128:
+            return False
+        hue, saturation, value = colorsys.rgb_to_hsv(red / 255, green / 255, blue / 255)
+        # Darker than the paint, down to just above the outline: lines, rims and the shadowed lip under a panel. A cream roof of the
+        # same hue is lighter, and stays unpainted (a first try without this smeared the paint over the roof's edges).
+        if not PAINT_EDGE_DARKEST <= value <= PAINT_EDGE_LIGHTEST or saturation < floor or saturation > main_max_saturation:
+            return False
+        hues = main_hue if kind == 'main' else accent_hue
+        if not hues[0] <= hue * 360 <= hues[1]:
+            return False
+        return parts is None or part_paint.get(parts[index]) == kind
+
+    # Grown out from the paint a touching pixel at a time, PAINT_EDGE_REACH steps at most, so every pixel that joins touches the paint
+    # it joins: one across an outline would be a loose island of paint (a first try by distance alone added flecks to the field kitchen).
+    joined = 0
+    joined_here = set()
+    frontier = [index for index, kind in enumerate(kinds) if kind]
+    for _ in range(PAINT_EDGE_REACH):
+        grown = []
+        for index in frontier:
+            kind = kinds[index]
+            x, y = index % width, index // width
+            for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+                if 0 <= nx < width and 0 <= ny < height:
+                    neighbour = ny * width + nx
+                    if kinds[neighbour] is None and joins(neighbour, kind):
+                        kinds[neighbour] = kind
+                        grown.append(neighbour)
+        joined += len(grown)
+        frontier = grown
+        joined_here.update(grown)
+    # A line's pixels just outside the colour window are left as holes in it, ringed by the paint that joined round them (a first try
+    # without this left the field kitchen's side line dotted). A hole of PAINT_EDGE_HOLE_MAX pixels or fewer, no outline in it, touching a
+    # pixel this rule joined and ringed by one paint only, takes that paint; holes the drawing made on purpose touch nothing joined.
+    seen = set()
+    for start in list(joined_here):
+        x, y = start % width, start // width
+        for nx, ny in ((x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)):
+            if not (0 <= nx < width and 0 <= ny < height):
+                continue
+            first = ny * width + nx
+            if first in seen or kinds[first] is not None:
+                continue
+            hole, ring, head, whole = [first], set(), 0, True
+            seen.add(first)
+            while head < len(hole) and len(hole) <= PAINT_EDGE_HOLE_MAX:
+                here = hole[head]
+                head += 1
+                red, green, blue, alpha = source[here % width, here // width]
+                if alpha < 128 or max(red, green, blue) / 255 < PAINT_EDGE_DARKEST:
+                    whole = False
+                hx, hy = here % width, here // width
+                for mx, my in ((hx - 1, hy), (hx + 1, hy), (hx, hy - 1), (hx, hy + 1)):
+                    if not (0 <= mx < width and 0 <= my < height):
+                        whole = False
+                        continue
+                    there = my * width + mx
+                    if kinds[there] is not None:
+                        ring.add(kinds[there])
+                    elif there not in seen:
+                        seen.add(there)
+                        hole.append(there)
+            if whole and len(hole) <= PAINT_EDGE_HOLE_MAX and len(ring) == 1:
+                kind = ring.pop()
+                for member in hole:
+                    kinds[member] = kind
+                joined += len(hole)
+    return joined
 
 
 def marks_to_alpha(image):

@@ -208,3 +208,47 @@ class ThinLineTests(unittest.TestCase):
         kinds = ev.region_kinds(self.panel(), (200, 280), (0, 34), line=(0.45, 9), **grey)
         self.assertEqual(kinds[30 * 60 + 29], 'main')
         self.assertEqual(kinds[30 * 60 + 28], 'main')
+
+
+class PaintEdgeTests(unittest.TestCase):
+    """The repaint's rust (owner's review, 23 Nov 2026): the paint's own darker lines and rims join the paint, so a red truck has no olive
+    lines left; a lighter pixel of the same hue, the outline, and anything across the outline stay as drawn."""
+
+    PANEL, LINE, CREAM, OUTLINE, GREY = (120, 118, 80, 255), (90, 90, 72, 255), (214, 206, 170, 255), (20, 20, 18, 255), (130, 130, 128, 255)
+    OLIVE = (38, 95)
+
+    def joined(self, columns, holes=()):
+        """A 16 x 10 picture: a painted olive panel in columns 0 to 7, then the given columns of colour; returns the kinds afterwards."""
+        image = Image.new('RGBA', (16, 10), (0, 0, 0, 0))
+        for y in range(10):
+            for x in range(8):
+                image.putpixel((x, y), self.PANEL)
+            for offset, colour in enumerate(columns):
+                image.putpixel((8 + offset, y), colour)
+        for point in holes:
+            image.putpixel(point, self.GREY)
+        kinds = [('main' if index % 16 < 8 else None) for index in range(160)]
+        for x, y in holes:
+            if x < 8:
+                kinds[y * 16 + x] = None
+        ev.absorb_paint_coloured_edges(image, kinds, self.OLIVE, (8, 34), 0.16, 1.0)
+        return kinds
+
+    def test_a_darker_line_of_the_paint_joins_it(self):
+        kinds = self.joined([self.LINE, self.LINE])
+        self.assertEqual(kinds[5 * 16 + 8], 'main')
+        self.assertEqual(kinds[5 * 16 + 9], 'main')
+
+    def test_a_lighter_cream_of_the_same_hue_and_the_outline_do_not(self):
+        kinds = self.joined([self.CREAM, self.OUTLINE])
+        self.assertIsNone(kinds[5 * 16 + 8])
+        self.assertIsNone(self.joined([self.OUTLINE])[5 * 16 + 8])
+
+    def test_nothing_joins_across_the_outline(self):
+        kinds = self.joined([self.OUTLINE, self.LINE])
+        self.assertIsNone(kinds[5 * 16 + 9])
+
+    def test_a_gap_in_a_joined_line_fills_and_a_mark_inside_the_panel_stays(self):
+        kinds = self.joined([self.LINE, self.LINE], holes=[(8, 5), (3, 5)])
+        self.assertEqual(kinds[5 * 16 + 8], 'main')
+        self.assertIsNone(kinds[5 * 16 + 3])
