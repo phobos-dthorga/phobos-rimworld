@@ -69,6 +69,30 @@
       "why": "vehicle bodies re-painted by scripts/art/repaint_vehicles.py stage, and their review page; applied or set aside within a week"
     },
     {
+      "name": "Art staging on the work drive",
+      "folder": "{setting:artWorkPath}",
+      "match": [
+        "clean-stage",
+        "clean-review",
+        "paint-stage",
+        "paint-review",
+        "armour-kits-stage"
+      ],
+      "kinds": "folders",
+      "olderThanDays": 7,
+      "why": "re-exports staged for review in the art tools' working folder (artWorkPath): applied or set aside within a week; made again on the next run"
+    },
+    {
+      "name": "Review cards",
+      "folder": "{setting:artWorkPath}",
+      "match": [
+        "cards"
+      ],
+      "kinds": "folders",
+      "olderThanDays": 7,
+      "why": "the owner's picture cards (scripts/art/review_cards.py), drawn again from the real export whenever wanted"
+    },
+    {
       "name": "Frozen game logs",
       "folder": ".local/logs",
       "match": [
