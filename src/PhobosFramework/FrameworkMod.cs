@@ -39,6 +39,12 @@ public class FrameworkSettings : ModSettings
     public bool topUpMachines = true;
     /// <summary>How full topping up fills a store (Framework 0.136.0; owner, 18 Nov 2026: a setting; agent default: the machine's own level).</summary>
     public TopUpLevel topUpLevel = TopUpLevel.OwnLevel;
+    /// <summary>Drones named by a PhobosRecallDef are called home while their power still covers the walk (Recall/Recalls; the owner's go-ahead of
+    /// 23 Nov 2026; on by default: it only makes losses rarer, graded low, agent default).</summary>
+    public bool recallInTime = true;
+    /// <summary>Haulers carry drone wrecks home, where the home takes back their salvage (Recall/Recalls; the owner's go-ahead of 23 Nov 2026; on by
+    /// default: graded low, agent default).</summary>
+    public bool reclaimWrecks = true;
     /// <summary>Standby power (Power/; the owner's choices of 22 Nov 2026, docs/development/standby-power.md): idle buildings draw a share
     /// of their power and lights in empty rooms go dark. On by default: it puts nothing at risk (graded low).</summary>
     public bool standbyPower = true;
@@ -104,6 +110,8 @@ public class FrameworkSettings : ModSettings
         Scribe_Values.Look(ref sayWhenTestHappens, "PhobosFramework_SayWhenTestHappens", false);
         Scribe_Values.Look(ref topUpMachines, "PhobosFramework_TopUpMachines", true);
         Scribe_Values.Look(ref topUpLevel, "PhobosFramework_TopUpLevel", TopUpLevel.OwnLevel);
+        Scribe_Values.Look(ref recallInTime, "PhobosFramework_RecallInTime", true);
+        Scribe_Values.Look(ref reclaimWrecks, "PhobosFramework_ReclaimWrecks", true);
         Scribe_Values.Look(ref standbyPower, "PhobosFramework_StandbyPower", true);
         Scribe_Values.Look(ref standbyLights, "PhobosFramework_StandbyLights", true);
         Scribe_Values.Look(ref standbyMachines, "PhobosFramework_StandbyMachines", true);
@@ -125,7 +133,7 @@ public class FrameworkSettings : ModSettings
 public class FrameworkMod : SettingsBookMod
 {
     public const string PackageId = "PhobosDthorga.Framework";
-    public const string ModVersion = "0.238.2";
+    public const string ModVersion = "0.240.0";
     public const string LogPrefix = "[D'thorga Framework]";
     public static readonly Phobos.Logging.PhobosLog Logger = Logging.Logs.For("D'thorga Framework");
 
@@ -185,6 +193,14 @@ public class FrameworkMod : SettingsBookMod
         topUps += ", filling to " + Settings.topUpLevel;
         if (!Settings.topUpMachines) report.Off(topUps, "setting");
         else report.On(topUps);
+        string drones = Recall.Recalls.KindCount + " kind(s) of drone";
+        foreach (Recall.PhobosRecallDef broken in Recall.Recalls.Problems) drones += "; " + broken.defName + " stands down (" + broken.problem + ")";
+        const string callHome = "drones called home while their power covers the walk";
+        if (Settings.recallInTime) report.On(callHome + ": " + drones);
+        else report.Off(callHome, "setting");
+        const string wrecks = "drone wrecks carried home and taken back into their platform's store";
+        if (Settings.reclaimWrecks) report.On(wrecks);
+        else report.Off(wrecks, "setting");
         string standby = Power.StandbyKinds.Describe() + ", standby draw " + Settings.standbyPercent + "%";
         if (Power.StandbyKinds.OtherModActive != null) report.Off(standby, Power.StandbyKinds.OtherModActive + " does the same job");
         else if (!Settings.standbyPower) report.Off(standby, "setting");
@@ -233,6 +249,8 @@ public class FrameworkMod : SettingsBookMod
                 level => ("PhobosFramework_TopUpLevel" + level + "Desc").Translate(), "PhobosFramework_SettingTopUpLevelDesc".Translate());
             list.Outdent();
         }
+        list.Check("PhobosFramework_SettingRecallInTime".Translate(), ref s.recallInTime, Defaults.recallInTime, "PhobosFramework_SettingRecallInTimeDesc".Translate());
+        list.Check("PhobosFramework_SettingReclaimWrecks".Translate(), ref s.reclaimWrecks, Defaults.reclaimWrecks, "PhobosFramework_SettingReclaimWrecksDesc".Translate());
 
         list.Section("PhobosFramework_SectionStandby".Translate());
         if (Power.StandbyKinds.OtherModActive != null) list.Note("PhobosFramework_StandbyOtherMod".Translate(Power.StandbyKinds.OtherModActive.Named("MOD")));

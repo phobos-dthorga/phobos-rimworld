@@ -453,6 +453,8 @@ Not yet tested in game. The Dead Man's Switch's drone platforms (the **engineeri
 and the **FPV nest**) hold steel that each drone they send out uses up. On their own they only offer a right-click order, **Fill**.
 
 - **Colonists doing hauling work now refill them by themselves**, once a platform is short by one drone's worth of steel or more.
+  They come before most other hauling (just after refuelling), gather up to a full stack from several smaller ones, and come even
+  while one of its drones is walking home.
 - **Keep steel where haulers can reach it**, and leave the platform unforbidden.
 - **How full is your choice**: **How full to fill them** in D'thorga Framework's settings. The default is the platform's own level
   (its starting store, as its own Fill order); you can ask for at least half, at least three-quarters, or full. An engineering
@@ -461,6 +463,22 @@ and the **FPV nest**) hold steel that each drone they send out uses up. On their
 - **The Hermit Crab and the Cluster Weaver carry steel for drones too.** A **mechanitor** brings it, walking out to them as they do to
   repair them: it is Smithing work, so give your mechanitor Smithing. Not while the mechanoid is fighting or burning.
 - **To switch it off**, untick **Keep machines and mechanoids topped up** in D'thorga Framework's settings.
+
+**Drones come home in time.** A drone that walks home gives its platform back the steel it was made from; one whose power cell runs
+flat on the way dies, gives nothing back and leaves a wreck. The drones' own mod calls them home at two hours of power however far
+away they are, so far-off drones used to die on the way and platforms set to deploy by themselves ran dry.
+
+- **A drone is now called home as soon as its power would barely cover the walk back**, along its real path, with half as much again
+  to spare. Far drones stop work sooner and come home.
+- **Drafted drones are left to you.**
+- **To switch it off**, untick **Call drones home while they can still get there** in D'thorga Framework's settings.
+
+**Wrecks go home.** Colonists doing hauling work carry a drone's wreck to its own platform, or to the nearest platform with room that
+holds steel, before it would go to a stockpile. The platform takes it apart and keeps the steel it is worth (25 for a trashpan, 30 for
+a uca); what does not fit is set down beside it.
+
+- **To switch it off**, untick **Carry drone wrecks home** in D'thorga Framework's settings. Wrecks are then hauled like other bodies.
+- **With every platform full**, wrecks are hauled like other bodies too.
 
 ## Where to find things
 

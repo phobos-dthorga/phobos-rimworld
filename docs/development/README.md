@@ -35,7 +35,8 @@ research or design with nothing built; **living** means kept current by every ch
 - [Pick-up and put-down loops](pick-up-loops.md) (21 Nov 2026): the loop watch names a colonist caught in one. Built, untested.
 - [Standby power](standby-power.md) (22 Nov 2026): idle buildings draw 10%, empty rooms go dark; in place of LightsOut and Turn It On and Off. Built, untested.
 - [D'thorga Framework: research and decisions](phobos-framework.md) (4 Nov 2026): room gases, supplied oxygen and the health layer, with their research. Built.
-- [Topping up machines](top-up-design.md) (18 Nov 2026): haulers refill machines that hold a material, named in data; drone platforms first. Built, untested.
+- [Topping up machines](top-up-design.md) (18 Nov 2026): haulers refill machines that hold a material, named in data. Built; passed in game.
+- [Drones called home, wrecks taken home](drone-recall-design.md) (23 Nov 2026): recall by the walk home; wrecks back to a platform. Built, untested.
 - [Parts bills](parts-bills.md) (11 Nov 2026): what a built thing is made of, by role, filled by installed mods' parts or ours. Built.
 - [Pipes and conduits beneath our things](network-underlays.md) (13 Nov 2026): hidden pipes under our buildings and parked vehicles. Built.
 - [A shared logging framework](logging-framework-design.md) (8 Nov 2026): the 10,000-message cap, phobos-log and verbose logging. Partly built.

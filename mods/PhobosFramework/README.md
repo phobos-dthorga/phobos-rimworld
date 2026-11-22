@@ -7,7 +7,7 @@ real systems**: a battery, an engine that runs hot, oil, tyres and brakes that w
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.238.2, built 23 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
+Version 0.240.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the owner has seen the gas layer and supplied
 oxygen working (5 November 2026) and a handful of vehicle features ([the list](../../docs/player-guide/vehicle-care.md#what-has-been-tested-in-game)).
 **Everything else, the health layer and most of the vehicle systems included, is not yet tested in game.**
 
@@ -158,6 +158,8 @@ changing one lists them (at the main menu it offers to restart). RimWorld saves 
 | General | Parts for building | Whose parts a build of ours asks for: **Other mods' parts where installed**, or **Always our own parts**. **Needs a restart.** Repairs accept either | Other mods' parts where installed |
 | General | Keep machines and mechanoids topped up | Colonists doing hauling work refill machines that hold a store of material and only offer a right-click fill order, such as a drone platform's steel, and a mechanitor refills mechanoids that carry one, as they repair them (named by D'thorga Patches). Off: by hand only | On |
 | General | How full to fill them (under the one above) | Its own fill level (as the machine's own fill order), at least half, at least three-quarters, or full. Never less than its own level | Its own fill level |
+| General | Call drones home while they can still get there | A drone on a power cell (named by D'thorga Patches: The Dead Man's Switch's) is called home as soon as its power would barely cover the walk back along its real path, with half as much again to spare, so it gets home and gives its steel back instead of dying on the way. Drafted drones are left alone. Off: only the drones' own mod's call, at two hours of power | On |
+| General | Carry drone wrecks home | Haulers carry a drone's wreck to its own platform, or the nearest with room that holds the same material, which keeps what the wreck is worth when butchered; the rest is set down beside it. Off: wrecks are hauled like other bodies | On |
 | General | Idle buildings use less power | Standby power: a workbench, research bench, television, turret, hydroponics basin, monitor or powered door draws its full power only while in use, and the share below while idle; indoor lights in empty rooms go dark and draw nothing. Checked about once a second of game time. Stands down while LightsOut or Turn It On and Off - RePowered is active | On |
 | General | Lights go dark in empty rooms; Animals turn the lights on (under the one above) | An indoor light is lit only while someone awake is in its room; outdoor lights and sun lamps are left alone. With the second, animals count too | On; Off |
 | General | Workbenches, research benches and televisions; Turrets, hydroponics and monitors; Powered doors (under the one above) | One switch for each kind. A turret on standby still fires and a door still opens at once | On |

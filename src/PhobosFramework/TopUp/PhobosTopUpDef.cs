@@ -106,6 +106,43 @@ public class PhobosTopUpDef : Def
         return problem == null ? found : null;
     }
 
+    /// <summary>The material a comp of this kind holds, wanted or not (Framework 0.240.0, for wrecks taken home); null if unread.</summary>
+    public ThingDef? MaterialIn(ThingComp comp)
+    {
+        Resolve();
+        if (problem != null) return null;
+        try
+        {
+            return ingredient!.Read(comp) as ThingDef;
+        }
+        catch (Exception error)
+        {
+            problem = "reading " + compClass + " failed: " + error.GetBaseException().Message;
+            TopUps.ReportProblem(this);
+            return null;
+        }
+    }
+
+    /// <summary>How much more a comp of this kind can hold (Framework 0.240.0): its capacity less what it holds, or -1 where the Def names
+    /// no capacity (the store then takes whatever it is given).</summary>
+    public int RoomIn(ThingComp comp)
+    {
+        Resolve();
+        if (problem != null || capacity == null || held == null) return -1;
+        try
+        {
+            int cap = capacity.Read(comp) is int c ? c : 0;
+            int holds = held.Read(comp) is int h ? h : 0;
+            return cap > 0 ? System.Math.Max(0, cap - holds) : -1;
+        }
+        catch (Exception error)
+        {
+            problem = "reading " + compClass + " failed: " + error.GetBaseException().Message;
+            TopUps.ReportProblem(this);
+            return -1;
+        }
+    }
+
     /// <summary>What a comp of this kind wants now; null when it wants nothing, names no material, or could not be read.</summary>
     public TopUpWant? Read(ThingComp comp)
     {

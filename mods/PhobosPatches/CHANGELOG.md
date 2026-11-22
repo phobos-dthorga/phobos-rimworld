@@ -6,6 +6,14 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.39.0] - 2026-11-23 - Draft
+
+The Dead Man's Switch's drones come home
+
+### Added
+
+- **The Dead Man's Switch's drones are called home while they can still get there, and their wrecks are carried back to a platform** (the owner's report of 23 November 2026; docs/development/drone-recall-design.md). A new Fortified Features Framework part names its drone comp, so D'thorga Framework 0.240.0 calls each drone home once its power would barely cover the walk, and haulers carry wrecks to a platform, which keeps their steel. Fortified's own call at two hours of power still stands. Loads only with Fortified Features Framework, adds no setting of its own (D'thorga Framework has two) and saves nothing, so it is safe to add to and remove from a running game. Not yet tested in game: rows 384 and 385 of the test pass.
+
 ## [0.38.0] - 2026-11-23 - Draft
 
 The research tab opens every time

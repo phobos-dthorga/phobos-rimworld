@@ -92,9 +92,75 @@ public static class TopUps
     /// <summary>How many kinds of vehicle are topped up, for the load line (Framework 0.180.0).</summary>
     public static int VehicleKindCount => Kinds.Count(k => k.Holder == Holder.Vehicle);
 
-    /// <summary>Whether a thing's store is a vehicle's (Framework 0.180.0): its job neither reserves it nor asks to, as Vehicle Framework's
-    /// own loading job does not, so a hauler never keeps a pilot from boarding.</summary>
+    /// <summary>Whether a thing's store is a vehicle's (Framework 0.180.0).</summary>
     public static bool IsVehicle(Thing? thing) => thing != null && KindOf(thing) is { Holder: Holder.Vehicle };
+
+    /// <summary>
+    /// Whether topping a thing up holds it for the one doing it. Only a mechanoid is held, as the game's mech repair holds it. A building is
+    /// not (Framework 0.240.0; the owner's report of 23 Nov 2026, drone bays "very rarely topped-up"): a drone walking home holds its
+    /// platform for the whole walk, so a hauler that asked to hold it was turned away all that while. A vehicle is not (Framework 0.180.0),
+    /// as Vehicle Framework's own loading job does not, so a hauler never keeps a pilot from boarding. Two haulers still never bring the
+    /// same load: each counts what the others are carrying to it (<see cref="AlreadyComing"/>).
+    /// </summary>
+    public static bool Holds(Thing? thing) => thing != null && KindOf(thing) is { Holder: Holder.Mechanoid };
+
+    /// <summary>The player's buildings on a map whose store a <see cref="PhobosTopUpDef"/> names, wanting or not (Framework 0.240.0: where
+    /// a wreck may be taken).</summary>
+    public static IEnumerable<Thing> BuildingStores(Map map, Faction faction)
+    {
+        foreach (Kind kind in Kinds)
+        {
+            if (kind.Holder != Holder.Building) continue;
+            List<Thing> things = map.listerThings.ThingsOfDef(kind.Def);
+            for (int i = 0; i < things.Count; i++)
+            {
+                if (things[i].Faction == faction) yield return things[i];
+            }
+        }
+    }
+
+    /// <summary>The material a thing's store holds, or null: not a kind we top up, or unread (Framework 0.240.0).</summary>
+    public static ThingDef? MaterialOf(Thing thing) => KindOf(thing) is { } kind && CompOf(thing, kind) is { } comp ? kind.TopUp.MaterialIn(comp) : null;
+
+    /// <summary>How much more a thing's store can hold: 0 for a thing we do not top up, -1 where no capacity is known (Framework 0.240.0).</summary>
+    public static int RoomIn(Thing thing) => KindOf(thing) is { } kind && CompOf(thing, kind) is { } comp ? kind.TopUp.RoomIn(comp) : 0;
+
+    /// <summary>
+    /// Puts <paramref name="count"/> of a material, made new, into a thing's store as far as it has room, and sets the rest down beside it
+    /// (Framework 0.240.0: a wreck's salvage). Returns how much went into the store.
+    /// </summary>
+    public static int TakeIn(Thing target, ThingDef material, int count)
+    {
+        if (count <= 0 || target.MapHeld is not { } map) return 0;
+        (int into, int beside) = RecallRule.TakeBack(count, RoomIn(target));
+        int stored = 0;
+        if (StoreOf(target) is { } store)
+        {
+            int left = into;
+            while (left > 0)
+            {
+                Thing stack = ThingMaker.MakeThing(material);
+                stack.stackCount = Math.Min(left, Math.Max(1, material.stackLimit));
+                left -= stack.stackCount;
+                int size = stack.stackCount;
+                if (store.TryAdd(stack)) stored += size;
+                else
+                {
+                    beside += stack.stackCount;
+                    if (!stack.Destroyed) stack.Destroy();
+                }
+            }
+        }
+        else beside += into;
+        while (beside > 0)
+        {
+            Thing stack = ThingMaker.MakeThing(material);
+            stack.stackCount = Math.Min(beside, Math.Max(1, material.stackLimit));
+            beside -= stack.stackCount;
+            GenPlace.TryPlaceThing(stack, target.PositionHeld, map, ThingPlaceMode.Near);
+        }
+        return stored;
+    }
 
     /// <summary>The Defs that stand down, with why, for the load line.</summary>
     public static IEnumerable<PhobosTopUpDef> Problems => DefDatabase<PhobosTopUpDef>.AllDefsListForReading.Where(d => d.problem != null);
@@ -219,18 +285,23 @@ public static class TopUps
         if (StoreOf(target) == null) return null;
         if (!TopUpRule.Worth(want.Amount, want.LeastLoad, forced)) return null;
         if (!pawn.CanReach(target, PathEndMode.Touch, Danger.Deadly)) return null;
-        // A vehicle is not reserved (Framework 0.180.0), as Vehicle Framework's own loading job leaves it free for its crew.
-        if (kind.Holder != Holder.Vehicle && !pawn.CanReserve(target, 1, -1, null, forced)) return null;
+        // Only a mechanoid is held (Holds): a drone walking home holds its platform, and a building or vehicle need not be.
+        if (Holds(target) && !pawn.CanReserve(target, 1, -1, null, forced)) return null;
         int toBring = TopUpRule.ToBring(want.Amount, AlreadyComing(target, pawn));
         if (!TopUpRule.Worth(toBring, want.LeastLoad, forced)) return null;
-        List<Thing> found = HaulAIUtility.FindFixedIngredientCount(pawn, want.Material, toBring);
+        // As much as the pawn can carry in one trip, gathered from as many stacks as it takes (Framework 0.240.0: one small stack a trip,
+        // 17 or 20 steel at a time, could not keep up with a platform sending drones out), as the game's own hauling to a container does.
+        int load = Math.Min(toBring, pawn.carryTracker.MaxStackSpaceEver(want.Material));
+        if (load <= 0) return null;
+        List<Thing> found = HaulAIUtility.FindFixedIngredientCount(pawn, want.Material, load);
         if (found.NullOrEmpty())
         {
             JobFailReason.Is("PhobosFramework_TopUpNoneToFetch".Translate(want.Material.label.Named("MATERIAL")));
             return null;
         }
         Job job = JobMaker.MakeJob(TopUpDefOf.PhobosFramework_TopUp, found[0], target);
-        job.count = Math.Min(toBring, found[0].stackCount);
+        job.count = load;
+        if (found.Count > 1) job.targetQueueA = found.Skip(1).Select(t => new LocalTargetInfo(t)).ToList();
         if (FrameworkMod.Logger.DebugEnabled)
         {
             FrameworkMod.Logger.Debug(pawn.LabelShort + " tops up " + target.LabelShort + " (" + target.ThingID + ") with " + job.count + " "
@@ -243,10 +314,23 @@ public static class TopUps
     /// The job's last step: puts what the pawn carries into the target's store, no more than it still wants (others may have filled it
     /// meanwhile), and drops the rest beside it. Returns how much went in.
     /// </summary>
-    public static int Deliver(Pawn pawn, Thing target)
+    public static int Deliver(Pawn pawn, Thing target, int stacks = 1)
     {
         Thing? carried = pawn.carryTracker.CarriedThing;
         if (carried == null) return 0;
+        if (!IsVehicle(target) && target is not Pawn)
+        {
+            // Evidence for row 383 (Framework 0.240.0): a load gathered from several stacks, and one brought while another (a drone walking
+            // home) holds the building.
+            if (stacks > 1 && Seen.Wants("framework.top-up-gathered", target))
+            {
+                Seen.Note("framework.top-up-gathered", target, carried.stackCount + " " + carried.def.label + " from " + stacks + " stacks");
+            }
+            if (Seen.Wants("framework.top-up-while-held", target) && target.Map?.reservationManager.FirstRespectedReserver(target, pawn) is { } holder)
+            {
+                Seen.Note("framework.top-up-while-held", target, "held by " + holder.LabelShort);
+            }
+        }
         int wanted = WantOf(target)?.Amount ?? 0;
         int moved = 0;
         if (StoreOf(target) is { } store && wanted > 0)
@@ -320,9 +404,22 @@ public class JobDriver_PhobosTopUp : JobDriver
     const TargetIndex Material = TargetIndex.A;
     const TargetIndex Target = TargetIndex.B;
 
-    public override bool TryMakePreToilReservations(bool errorOnFailed) =>
-        pawn.Reserve(job.GetTarget(Material), job, 1, -1, null, errorOnFailed)
-        && (TopUps.IsVehicle(job.GetTarget(Target).Thing) || pawn.Reserve(job.GetTarget(Target), job, 1, -1, null, errorOnFailed));
+    /// <summary>How many stacks this load was gathered from, for the seen-in-play note only.</summary>
+    int stacks;
+
+    public override void ExposeData()
+    {
+        base.ExposeData();
+        Scribe_Values.Look(ref stacks, "PhobosStacks", 0);
+    }
+
+    public override bool TryMakePreToilReservations(bool errorOnFailed)
+    {
+        if (!pawn.Reserve(job.GetTarget(Material), job, 1, -1, null, errorOnFailed)) return false;
+        // The further stacks of one load (Framework 0.240.0), as the game's own hauling to a container holds them.
+        pawn.ReserveAsManyAsPossible(job.GetTargetQueue(Material), job);
+        return !TopUps.Holds(job.GetTarget(Target).Thing) || pawn.Reserve(job.GetTarget(Target), job, 1, -1, null, errorOnFailed);
+    }
 
     protected override IEnumerable<Toil> MakeNewToils()
     {
@@ -331,11 +428,18 @@ public class JobDriver_PhobosTopUp : JobDriver
         this.FailOnForbidden(Target);
         // A vehicle has no mind to turn hostile (Framework 0.180.0): only its faction can, and leaving the map ends the job above.
         this.FailOn(() => job.GetTarget(Target).Thing is Pawn holder && (TopUps.IsVehicle(holder) ? holder.HostileTo(pawn) : holder.InAggroMentalState || holder.HostileTo(pawn)));
-        yield return Toils_Goto.GotoThing(Material, PathEndMode.ClosestTouch).FailOnDespawnedNullOrForbidden(Material).FailOnSomeonePhysicallyInteracting(Material);
+        Toil fetch = Toils_Goto.GotoThing(Material, PathEndMode.ClosestTouch).FailOnDespawnedNullOrForbidden(Material).FailOnSomeonePhysicallyInteracting(Material);
+        yield return fetch;
         yield return Toils_Haul.StartCarryThing(Material, putRemainderInQueue: false, subtractNumTakenFromJobCount: true);
+        Toil counted = ToilMaker.MakeToil("PhobosTopUpCountStack");
+        counted.initAction = () => stacks++;
+        counted.defaultCompleteMode = ToilCompleteMode.Instant;
+        yield return counted;
+        // Then the next stack of the load, while there is room in the pawn's hands (Framework 0.240.0).
+        yield return Toils_Haul.JumpIfAlsoCollectingNextTargetInQueue(fetch, Material);
         yield return Toils_Goto.GotoThing(Target, PathEndMode.Touch);
         Toil deliver = ToilMaker.MakeToil("PhobosTopUpDeliver");
-        deliver.initAction = () => TopUps.Deliver(pawn, job.GetTarget(Target).Thing);
+        deliver.initAction = () => TopUps.Deliver(pawn, job.GetTarget(Target).Thing, stacks);
         deliver.defaultCompleteMode = ToilCompleteMode.Instant;
         yield return deliver;
     }

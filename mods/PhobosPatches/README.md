@@ -9,7 +9,7 @@ PeteTimesSix), and RimThunder's heavy casting at The Dead Man's Switch's rotary 
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.38.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.39.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -108,7 +108,8 @@ Each part in a line or three; the guide chapter has the figures, tables and how 
 - **Soldiers keep their guns**: a colonist left holding a grenade, a satchel charge or nothing after being downed takes their own gun
   up again, and Simple Sidearms keeps the gun, not a grenade, as the weapon it hands back
   ([soldiers keep their guns](../../docs/player-guide/patches.md#soldiers-keep-their-guns)).
-- **Colonists refill The Dead Man's Switch's drone platforms with steel by themselves**
+- **Colonists refill The Dead Man's Switch's drone platforms with steel by themselves; its drones are called home while they can
+  still get there, and their wrecks are carried back to a platform for their steel**
   ([drone platforms](../../docs/player-guide/patches.md#drone-platforms)).
 
 ### Spaceship Turret Hull

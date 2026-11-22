@@ -1,6 +1,6 @@
 # Topping up machines that hold a material (18 Nov 2026)
 
-**Status (18 Nov 2026):** built in D'thorga Framework 0.134.0 (the work, the Def type, the setting) 0.135.0 (mechanoids, by a mechanitor; our own job) and 0.136.0 (the fill-level setting), with D'thorga Patches 0.22.0 naming Fortified Features Framework's platform comp, which covers four buildings and two mechanoids; 0.180.0 added vehicles, by haulers, naming our own aircraft dispensers' magazine ([avionics A16 revisited](vehicle-avionics.md#a16-revisited-the-dispensers-magazine-20-nov-2026)). Not yet tested in game.
+**Status (18 Nov 2026):** built in D'thorga Framework 0.134.0 (the work, the Def type, the setting) 0.135.0 (mechanoids, by a mechanitor; our own job) and 0.136.0 (the fill-level setting), with D'thorga Patches 0.22.0 naming Fortified Features Framework's platform comp, which covers four buildings and two mechanoids; 0.180.0 added vehicles, by haulers, naming our own aircraft dispensers' magazine ([avionics A16 revisited](vehicle-avionics.md#a16-revisited-the-dispensers-magazine-20-nov-2026)); 0.240.0 holds only mechanoids, gathers a load from several stacks and sits just below refuelling ([drone recall](drone-recall-design.md)). Row 190 passed in game (18 Nov 2026); 0.240.0's changes are not yet tested: row 383.
 
 ## Read this first
 
@@ -17,7 +17,9 @@
 - **Lets:** leave such machines alone; haulers keep them filled as they keep a generator fuelled.
 - **Stops:** nothing. The right-click order still works, and the setting switches the work off.
 - **Changes:** steel is drawn from stockpiles without an order, so a colony short of steel sees it go to the platforms. Hauling
-  priority decides when; the work sits below ordinary hauling (priority 20 in Hauling, authored).
+  priority decides when. Until 0.240.0 the work sat at 20 in Hauling, which this record called "below ordinary hauling": wrongly, as
+  the game's general hauling is 15, but it did sit behind nearly every other hauling job. Since 0.240.0 it is 139, just below the
+  game's refuelling at 140 (authored; the owner's report of 23 Nov 2026 that the bays were "very rarely topped-up").
 
 ## What was found [code]
 
@@ -42,7 +44,7 @@ Read from Fortified Features Framework's build of 12 Nov 2026 (the installed one
 | `TopUps` | Finds, once, every building Def carrying a named comp; says which of the player's buildings on a map want enough; makes the job | `src/PhobosFramework/TopUp/TopUps.cs` |
 | `TopUpRule` | Game-free: worth a walk once the least load is missing (an order by hand always); bring what is wanted less what others already carry | `src/PhobosFramework/Rules/TopUpRule.cs`, tested |
 | `WorkGiver_PhobosTopUp` | Hauling work; skipped at once with no Def, the setting off, or nothing wanting | `TopUps.cs`, `Common/Defs/Phobos/Framework/TopUp.xml` |
-| The job | Since 0.135.0 our own (`JobDriver_PhobosTopUp`): fetch one stack, go to the target (following a mechanoid), and put no more than it still wants straight into the named comp's store; drop the rest. 0.134.0 used the game's haul-to-container, which puts things into a thing's *first* store: on a mechanoid with another (Fortified's dead man's switch holds things too) that could be the wrong one | `TopUps.JobFor`, `TopUps.Deliver` |
+| The job | Since 0.135.0 our own (`JobDriver_PhobosTopUp`): fetch the material (since 0.240.0 from several stacks, up to what the hauler can carry, as the game's own hauling to a container gathers a load), go to the target (following a mechanoid), and put no more than it still wants straight into the named comp's store; drop the rest. Since 0.240.0 only a mechanoid is held for the job: a drone walking home holds its platform for the whole walk, and holding the building turned haulers away all that while. 0.134.0 used the game's haul-to-container, which puts things into a thing's *first* store: on a mechanoid with another (Fortified's dead man's switch holds things too) that could be the wrong one | `TopUps.JobFor`, `TopUps.Deliver` |
 | Mechanoids | `WorkGiver_PhobosTopUpMechanoid`: mechanitors only, Smithing, priority 190 (the game's mech repair is 200), any path danger, skipped while the mechanoid is fighting, burning, hostile or berserk, as `WorkGiver_RepairMech` asks | `TopUps.cs`, `TopUp.xml` |
 | Drone platforms | `PhobosTopUp_FortifiedMechPlatform`: `AmountToAutofill`, `Props.fixedIngredient`, least load `CostPerPawn` (one drone's worth) | `mods/PhobosPatches/Mods/Fortified/Defs/TopUp_Fortified.xml` |
 

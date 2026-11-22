@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Drones called home in time, and their wrecks taken home (D'thorga Patches 0.39.0, D'thorga Framework 0.240.0;
+    docs/development/drone-recall-design.md; the owner's report of 23 Nov 2026). Fortified Features Framework's drones (The Dead Man's
+    Switch's uca, erima, trashpan, hound, wildfowl and the rest) carry Fortified.CompDrone and the game's mechanoid power cell, and are
+    sent home by their own comp only when two hours of power are left, whatever the distance. In the owner's save they mostly died of a
+    flat cell on the way, giving their platform nothing back and leaving 58 wrecks. This names the comp, so D'thorga Framework calls a
+    drone home once its power barely covers its walk home, and haulers carry wrecks home, where the platform takes back their steel.
+
+    The names are members of Fortified.CompDrone as read on 23 Nov 2026 (the build of that day): PlatformOwner (the platform, or the pawn
+    wearing or carrying it), ReturnToPlatform(bool forceInterrupt) and Props.returnToDraftPlatformJob. 180 ticks is the wait in
+    Fortified's JobDriver_ReturnToPlatform before a drone is taken in. Fortified's own call at two hours still stands. Loaded only with
+    Fortified Features Framework. An addition, not a fix of a fault; docs/development/temporary-patches.md notes it under "Left out on
+    purpose". Not yet tested in game.
+  -->
+  <Phobos.Framework.Recall.PhobosRecallDef>
+    <defName>PhobosRecall_FortifiedDrone</defName>
+    <label>drone</label>
+    <compClass>Fortified.CompDrone</compClass>
+    <homeMember>PlatformOwner</homeMember>
+    <recallMethod>ReturnToPlatform</recallMethod>
+    <returningJobMember>Props.returnToDraftPlatformJob</returningJobMember>
+    <dockTicks>180</dockTicks>
+  </Phobos.Framework.Recall.PhobosRecallDef>
+</Defs>

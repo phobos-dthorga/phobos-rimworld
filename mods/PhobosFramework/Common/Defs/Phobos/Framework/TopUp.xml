@@ -4,8 +4,9 @@
     Topping up (D'thorga Framework 0.134.0; docs/development/top-up-design.md; owner, 18 Nov 2026): hauling work that keeps machines
     which hold a material filled to the level their own fill order fills them to, and (Framework 0.135.0) mechanitor work that does the same
     for the colony's mechanoids. Which machines is said in PhobosTopUpDefs, each in the folder of
-    the mod whose machines it names; with none, this work is skipped at once. Below ordinary hauling's "haul things" in priority, as the
-    game's own refuelling sits (authored). Not yet tested in game.
+    the mod whose machines it names; with none, this work is skipped at once. Since Framework 0.240.0 just below the game's own
+    refuelling in hauling (139 against its 140; authored): at 20 it waited behind nearly every other hauling job, and drone platforms
+    sending drones out emptied faster than it came (the owner's report of 23 Nov 2026). Not yet tested in game.
   -->
   <!-- The job both use: fetch one stack and put it straight into the named comp's store (Framework 0.135.0). -->
   <JobDef>
@@ -39,7 +40,7 @@
     <workType>Hauling</workType>
     <verb>top up</verb>
     <gerund>topping up</gerund>
-    <priorityInType>20</priorityInType>
+    <priorityInType>139</priorityInType>
     <requiredCapacities>
       <li>Manipulation</li>
     </requiredCapacities>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!--
+    Drones called home in time and wrecks taken home (D'thorga Framework 0.240.0; docs/development/drone-recall-design.md; the owner's
+    report of 23 Nov 2026: drone bays almost never full, and drone wrecks "littered all over the place"). Which drones is said in
+    PhobosRecallDefs, each in the folder of the mod whose drones it names; with none, the work is skipped at once and nothing is looked
+    at. Calling drones home needs no Def here: Phobos.Framework.Recall.GameComponent_PhobosRecall looks at them every 250 ticks.
+    Not yet tested in game.
+  -->
+  <JobDef>
+    <defName>PhobosFramework_ReclaimWreck</defName>
+    <driverClass>Phobos.Framework.Recall.JobDriver_PhobosReclaimWreck</driverClass>
+    <reportString>taking TargetA home.</reportString>
+    <casualInterruptible>true</casualInterruptible>
+  </JobDef>
+
+  <!-- Before the game's own corpse hauling (90), so a wreck goes home rather than to a stockpile (authored). -->
+  <WorkGiverDef>
+    <defName>PhobosFramework_ReclaimWreck</defName>
+    <label>take drone wrecks home</label>
+    <giverClass>Phobos.Framework.Recall.WorkGiver_PhobosReclaimWreck</giverClass>
+    <workType>Hauling</workType>
+    <verb>take home</verb>
+    <gerund>taking home</gerund>
+    <priorityInType>95</priorityInType>
+    <requiredCapacities>
+      <li>Manipulation</li>
+    </requiredCapacities>
+  </WorkGiverDef>
+</Defs>

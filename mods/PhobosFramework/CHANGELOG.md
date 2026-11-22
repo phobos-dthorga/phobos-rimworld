@@ -5,6 +5,31 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.240.0] - 2026-11-23 - Draft
+
+Drones come home, and their wrecks are carried back. Not yet tested in game.
+
+### Added
+
+- **Drones are called home while they can still get there** (the owner's report of 23 November 2026: drone bays "very rarely topped-up", and drone wrecks "littered all over the place"; docs/development/drone-recall-design.md). A drone that walks home gives its platform back the steel it was made from; one whose power cell runs flat on the way dies there and gives nothing back. In the owner's save every platform set to deploy by itself was nearly empty, and ten of ten recent wrecks had died of a flat cell, because their own mod calls them home at two hours of power however far away they are. Now a drone is also called home as soon as its power would barely cover the walk back, priced along its real path with half as much again to spare, through its own mod's call. Drafted drones are left alone. Which drones is said in data, a new PhobosRecallDef, so other mods can name theirs. Setting: **Call drones home while they can still get there**, on. Not yet tested in game: row 384 of the test pass.
+- **Drone wrecks are carried home**: haulers take a drone's wreck to its own platform, or to the nearest one with room that holds the same material, before it would go to a stockpile. The platform takes it apart and keeps what the wreck yields when butchered (25 steel for a trashpan, 30 for a uca); what does not fit is set down beside it. Setting: **Carry drone wrecks home**, on. Not yet tested in game: row 385.
+
+### Fixed
+
+- **Topping up no longer stands back while a drone walks home**: a returning drone holds its platform for the whole walk, and haulers that asked to hold the platform too were turned away all that while. Only a mechanoid is now held while it is topped up; two haulers still never bring the same steel. Not yet tested in game: row 383.
+
+### Changed
+
+- **Topping up brings full loads, sooner**: a hauler gathers up to a full stack from several smaller ones, as the game's own hauling to a container does, instead of the nearest single stack (17 or 20 steel at a time were seen), and the work now comes just after refuelling in hauling, where before it waited behind nearly every other hauling job.
+
+### Save compatibility
+
+- **Safe to add to a running colony and to remove**: nothing new is saved but a count kept by a hauler on a topping-up job. Wrecks already lying about are carried home from the first look.
+
+### Compatibility and limits
+
+- Why some drones died a cell or two from home with two hours of warning, and why one walked far slower than its speed, was not found; the padding is meant to cover it, and a look at the running game comes first if drones still die close to home.
+
 ## [0.238.2] - 2026-11-23 - Draft
 
 The camp table is back. Not yet tested in game.

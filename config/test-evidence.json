@@ -605,6 +605,12 @@
       "a second reader waited, and the lock held it off": ["patches.research-unlocks-reader-waited"],
       "a blank taken out (only if one turns up)": ["patches.research-unlocks-blank-removed"]
     }},
+    "383": {"parts": {
+      "a load gathered from several stacks": ["framework.top-up-gathered"],
+      "brought while a drone walking home holds the platform": ["framework.top-up-while-held"]
+    }},
+    "384": ["framework.recall-home"],
+    "385": ["framework.reclaim-wreck"],
     "230": ["framework.error-attributed"],
     "232": {"parts": {
       "the armoured cab is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosArmouredCab", "detail": "*: fitted"}],
