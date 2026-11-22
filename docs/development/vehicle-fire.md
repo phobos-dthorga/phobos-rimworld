@@ -157,7 +157,7 @@ Every row is unbuilt. Verdicts are the agent's recommendations **[A]**: **Take**
 | **FR10** | **A vehicle extinguisher**, an accessory that uses up its charges, and **automatic suppression**, an upgrade for armoured and military vehicles | Accessories use up something real (the owner's rule); real armoured vehicles carry it | Put a fire out from inside | — | Suppression is a reason to upgrade | Medium; needs art. **Idea** |
 | **FR11** | **Tyres that reignite and burst**: a burning tyre is hard to put out and may burst, hurting people near | NTSB and MSHA sources | — | — | Keep clear of a burning vehicle | Small. **Idea** |
 | **FR12** | **Glass lets fire in**: a vehicle's glass (the [glass record](vehicle-glass.md)) cracks in a fire, and a cab with glass gone takes the fire's heat faster | Real fires enter through the windscreen | — | — | Ties the two records | **Built: Framework 0.245.0** (the cracking came with the glass, 0.238.0) |
-| **FR13** | **A burnt-out hull**: a vehicle destroyed by fire leaves a blackened hull worth less salvage | Hulls exist | — | — | — | Small. **Idea** |
+| **FR13** | **A burnt-out hull**: a vehicle destroyed by fire leaves a blackened hull worth less salvage | Hulls exist | — | — | — | **Built: Framework 0.245.0**, without the blackening |
 | **FR14** | **Correct the fires record's refuel cause** | See "Found on the way" | — | — | — | **Done, 23 Nov 2026** (records only) |
 
 ### What outside the vehicle notices
@@ -338,6 +338,12 @@ grades and defaults below are the agent's, by the designs rule (on, unless high 
   fire's heat, so the open cab reaches the sealed cab's heat (about 40 degrees C above the air at full fire) nine times as fast [A]. No
   setting of its own: it follows **Vehicles have glass**, which already switches every effect of the glass, and it only hastens a heat
   the cab already took [A]. **Outside the vehicle:** the crew's heat, read by the game for everyone aboard.
+- **FR13, a burnt-out hull** (`VehicleHulls`, `SalvageRule.BurntShare`): a vehicle that dies with a fire on it or under it leaves a hull
+  marked burnt out (saved on the hull, `PhobosHull_BurntOut`): named "burnt-out", and giving half the salvaged parts, an eighth of the
+  vehicle's worth instead of a quarter [A]: a fire takes the rubber, wiring, seals, glass and plastics, and softens springs and castings.
+  **Not built: the blackening.** The hull is drawn as its vehicle by Vehicle Framework; a darker picture needs a draw patch or art of
+  its own, for the owner to decide. No setting of its own: it lessens a reward and puts nothing of the player's at risk [A]; it follows
+  **Destroyed vehicles leave a hull**. **Outside the vehicle:** the hull's name and text, and the parts the player gets.
 
 ## Who chose what
 

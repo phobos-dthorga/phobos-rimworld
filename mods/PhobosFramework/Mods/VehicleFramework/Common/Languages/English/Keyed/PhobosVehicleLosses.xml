@@ -5,6 +5,8 @@
 
   <!-- A destroyed vehicle's hull -->
   <PhobosVehicleSystems_HullInspect>The hull of a destroyed vehicle. Taken apart, it gives {COUNT} salvaged vehicle parts.</PhobosVehicleSystems_HullInspect>
+  <PhobosVehicleSystems_HullInspectBurnt>The burnt-out hull of a vehicle that died in a fire: its rubber, wiring and seals are gone. Taken apart, it gives {COUNT} salvaged vehicle parts, half what it would have.</PhobosVehicleSystems_HullInspectBurnt>
+  <PhobosVehicleSystems_HullBurntLabel>burnt-out {LABEL}</PhobosVehicleSystems_HullBurntLabel>
 
   <!-- A convoy whose last colonist died -->
   <PhobosVehicleSystems_LostConvoyLabel>lost convoy: {VEHICLES}</PhobosVehicleSystems_LostConvoyLabel>

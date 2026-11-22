@@ -19,6 +19,10 @@ public static class VehicleHulls
 {
     [ThreadStatic] static int suppressed;
 
+    /// <summary>The vehicle being destroyed just now while burning (Framework 0.245.0, FR13), so the hull its death leaves knows it is burnt
+    /// out. Set and cleared around Vehicle Framework's Kill; never saved.</summary>
+    [ThreadStatic] internal static VehiclePawn? dyingBurning;
+
     /// <summary>The salvaged parts item, or null if it is not loaded.</summary>
     public static ThingDef? SalvagedParts => salvaged ??= DefDatabase<ThingDef>.GetNamedSilentFail("PhobosVehicleSystems_SalvagedParts");
     static ThingDef? salvaged;
@@ -68,10 +72,14 @@ public static class VehicleHullOnKill
 {
     public static void Prefix(VehiclePawn __instance, DestroyMode destroyMode, ref bool spawnWreckage)
     {
+        // A vehicle dying in fire leaves a burnt-out hull (Framework 0.245.0, FR13): a fire on it or under it, read before it goes.
+        VehicleHulls.dyingBurning = __instance.Spawned && Phobos.Framework.Environment.AttachedFires.OnFire(__instance) ? __instance : null;
         if (spawnWreckage || destroyMode != DestroyMode.KillFinalize || !VehicleHulls.Leaves(__instance)) return;
         spawnWreckage = true;
         Seen.Note("vehicles.hull-left", __instance);
     }
+
+    public static void Postfix() => VehicleHulls.dyingBurning = null;
 }
 
 public class CompProperties_PhobosHull : CompProperties
@@ -79,16 +87,40 @@ public class CompProperties_PhobosHull : CompProperties
     public CompProperties_PhobosHull() => compClass = typeof(CompPhobosHull);
 }
 
-/// <summary>A destroyed vehicle's hull: says what it is, and gives salvaged parts when taken apart (Framework 0.187.0, EM3).</summary>
+/// <summary>A destroyed vehicle's hull: says what it is, and gives salvaged parts when taken apart (Framework 0.187.0, EM3). One left by a
+/// vehicle that died burning is burnt out (Framework 0.245.0, FR13): it says so in its name and gives half the parts.</summary>
 public class CompPhobosHull : ThingComp
 {
-    public override string CompInspectStringExtra() => "PhobosVehicleSystems_HullInspect".Translate(Parts().Named("COUNT")).Resolve();
+    bool burntOut;
 
-    /// <summary>The salvaged parts it gives: a quarter of its vehicle's worth (SalvageRule).</summary>
+    public bool BurntOut => burntOut;
+
+    public override string CompInspectStringExtra() =>
+        (burntOut ? "PhobosVehicleSystems_HullInspectBurnt" : "PhobosVehicleSystems_HullInspect").Translate(Parts().Named("COUNT")).Resolve();
+
+    public override string TransformLabel(string label) => burntOut ? "PhobosVehicleSystems_HullBurntLabel".Translate(label.Named("LABEL")).Resolve() : label;
+
+    /// <summary>The salvaged parts it gives: a quarter of its vehicle's worth, half that burnt out (SalvageRule).</summary>
     public int Parts()
     {
         if (VehicleHulls.SalvagedParts is not { } salvaged || parent is not VehicleBuilding { VehicleDef: { } vehicle }) return 0;
-        return Phobos.Framework.Rules.SalvageRule.HullParts(vehicle.BaseMarketValue, Phobos.Framework.Rules.SalvageRule.HullShare, salvaged.BaseMarketValue);
+        return Phobos.Framework.Rules.SalvageRule.HullParts(vehicle.BaseMarketValue, Phobos.Framework.Rules.SalvageRule.HullShareOf(burntOut),
+            salvaged.BaseMarketValue);
+    }
+
+    /// <summary>Born of a vehicle that died burning: burnt out. Only marks itself; spawns nothing.</summary>
+    public override void PostSpawnSetup(bool respawningAfterLoad)
+    {
+        base.PostSpawnSetup(respawningAfterLoad);
+        if (respawningAfterLoad || parent is not VehicleBuilding { vehicle: { } vehicle } || vehicle != VehicleHulls.dyingBurning) return;
+        burntOut = true;
+        if (Seen.Wants("vehicles.hull-burnt-out", parent)) Seen.Note("vehicles.hull-burnt-out", parent, Parts().ToString());
+    }
+
+    public override void PostExposeData()
+    {
+        base.PostExposeData();
+        Scribe_Values.Look(ref burntOut, "PhobosHull_BurntOut");
     }
 
     public override void PostDestroy(DestroyMode mode, Map previousMap)

@@ -15,6 +15,15 @@ public class SalvageRuleTests
     public void AWorthlessHullGivesNothing() => Assert.Equal(0, SalvageRule.HullParts(0));
 
     [Fact]
+    public void ABurntOutHullGivesHalf() => Assert.Equal(5, SalvageRule.HullParts(2400, SalvageRule.HullShareOf(burntOut: true)));
+
+    [Fact]
+    public void AHullThatNeverBurnedGivesItsQuarter() => Assert.Equal(SalvageRule.HullShare, SalvageRule.HullShareOf(burntOut: false));
+
+    [Fact]
+    public void ACheapBurntOutHullStillGivesOne() => Assert.Equal(1, SalvageRule.HullParts(50, SalvageRule.HullShareOf(burntOut: true)));
+
+    [Fact]
     public void PartsPayRoundedUp() => Assert.Equal(3, SalvageRule.PartsToPay(121));
 
     [Fact]

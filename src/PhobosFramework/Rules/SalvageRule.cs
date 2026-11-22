@@ -13,6 +13,13 @@ public static class SalvageRule
     /// <summary>The share of a vehicle's worth its hull gives as salvaged parts (authored, beside Vehicle Framework's own quarter).</summary>
     public const double HullShare = 0.25;
 
+    /// <summary>The share of that a burnt-out hull still gives (Framework 0.245.0; vehicle-fire.md, FR13; authored): a fire takes the rubber,
+    /// wiring, seals, glass and plastics, and softens springs and castings, so much less is fit to use again.</summary>
+    public const double BurntShare = 0.5;
+
+    /// <summary>The share of a vehicle's worth its hull gives as salvaged parts, burnt out or not.</summary>
+    public static double HullShareOf(bool burntOut) => burntOut ? HullShare * BurntShare : HullShare;
+
     /// <summary>One salvaged part's worth, silver; the item's market value in XML matches it (authored).</summary>
     public const double PartValue = 60;
 

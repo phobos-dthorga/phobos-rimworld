@@ -17,6 +17,10 @@ Fire on vehicles, the second round: crews get out, and what a fire leaves behind
 
 - **A cab with its glass gone takes a fire's heat faster** (FR12): an open cab only met the outside air faster, so in a fire it ran cooler than a sealed one. Now the fire comes in through the empty frames as freely as the air does: the cab reaches the same heat, about 40 °C above the air at full fire, nine times as fast. It follows the **Vehicles have glass** setting. Not yet tested in game: row 396.
 
+### Changed
+
+- **A vehicle that dies burning leaves a burnt-out hull** (FR13): its name says so, and taken apart it gives half the salvaged parts an ordinary hull does, its rubber, wiring and seals gone. It follows the **Destroyed vehicles leave a hull** setting. Not yet tested in game: row 397.
+
 ## [0.244.0] - 2026-11-23 - Draft
 
 One extension for what other authors' vehicles carry

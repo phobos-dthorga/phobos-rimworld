@@ -193,7 +193,8 @@ left on still run the battery down.
   tested in game: rows 386 to 388 of the test pass.
 - **A destroyed vehicle leaves its hull** (not yet tested in game; the setting **Destroyed vehicles leave a hull**, on by default): yours or
   anyone's, where it fell. Mark it to **Deconstruct**: it gives **salvaged vehicle parts**, worth a quarter of the vehicle, on top of the
-  quarter of its materials Vehicle Framework drops where it is destroyed. A raiders' aircraft brought down leaves nothing.
+  quarter of its materials Vehicle Framework drops where it is destroyed. A raiders' aircraft brought down leaves nothing. **A vehicle that
+  dies burning leaves a burnt-out hull**, named so, which gives **half** the salvaged parts (not yet tested in game: row 397).
 - **Salvaged parts pay for a salvaged-grade part**: order the salvaged grade for a destroyed part in **Fittings and tunes**, and the
   salvaged parts in the cargo pay for it as new materials would. It takes less punishment and faults more easily, as that grade does.
 - **Damage shows on our vehicles' pictures** once a part is below 60%: scorches, holes and tears.
