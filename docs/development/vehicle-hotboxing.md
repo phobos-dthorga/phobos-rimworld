@@ -210,8 +210,8 @@ The questions as they were put:
 - **Smoke:** a number per vehicle, not saved, clearing in an hour (a quarter with the windows down); puffs from the vehicle on the map being
   looked at while it lasts.
 - **Windows:** a "Windows down" switch on closed-cab land vehicles, saved (`CompPhobosVehicleSystems.WindowsDown`); down, a second flow takes
-  the cab's temperature to the outside at twice the shell's own rate (`Systems_Cabin.xml`, `When_WindowsDown`). Its icon waits for the local
-  night run (`assets/vehicle-systems/requests/berths-house.json`).
+  the cab's temperature to the outside at twice the shell's own rate (`Systems_Cabin.xml`, `When_WindowsDown`). Its icon, smoke pouring out of an
+  open cab window, since Framework 0.237.1 (the owner's pick, 23 Nov 2026; `assets/vehicle-systems/requests/windows-paid-record.md`).
 - **Raiders:** once a vehicle of another faction is seen with people aboard on a map, one time in twenty its driver takes a smokeleaf high and
   the cab fills. Seen only on a map (vehicles off the map do nothing).
 - **The setting, Hotboxing,** on by default: risk **moderate** (agent's grade; a mood swing and a slower driver, never harm beyond the drug's

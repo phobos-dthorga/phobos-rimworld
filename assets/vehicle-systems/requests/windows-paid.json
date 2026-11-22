@@ -1,0 +1,30 @@
+[
+ {
+  "name": "windows-button-paid",
+  "engine": "openai",
+  "quality": "medium",
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   1,
+   2
+  ],
+  "references": [
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/NightDrive.png",
+    "role": "our approved button icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+   },
+   {
+    "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/MealHalt.png",
+    "role": "our approved button icon: match its outline weight, shading, palette and finish only; do not copy its shape"
+   }
+  ],
+  "art_plan": {
+   "for": "Windows down button",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Windows.png",
+   "why": "hotboxing's windows switch (Framework 0.233.0; docs/development/vehicle-hotboxing.md); shows our switch icon until made",
+   "this_request": "paid route for an icon, on the owner's card of 23 Nov 2026 after two local rounds missed (smoke trapped behind the glass, then copies of it and grey balls); two attempts, dry run and a cap first"
+  },
+  "prompt": "GAME BUTTON ICON. Seen straight from the side, flat, like a road sign. One object, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game button icon: the side of a truck cab door with its window wound right down, and a big puffy cloud of grey smoke pouring out of the open window and rising above the door into the open air. Images 1 and 2 are our approved button icons: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nThe window opening is empty, with only the top edge of the lowered glass showing at the bottom of the opening. The smoke starts inside the opening and billows out past the door's top edge, so most of the cloud is clearly outside the vehicle.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a button icon for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, text, letters, numbers, logos, arrows, ground or cast shadow."
+ }
+]

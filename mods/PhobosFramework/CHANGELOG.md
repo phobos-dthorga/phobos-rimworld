@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.237.1] - 2026-11-23 - Draft
+
+The Windows down switch has its own icon. Not yet tested in game.
+
+### Changed
+
+- **The Windows down switch has its own icon**: a cab door with its window open and smoke pouring out, in place of the plain switch picture it borrowed. Picked by the owner.
+
 ## [0.237.0] - 2026-11-23 - Draft
 
 The glass chain

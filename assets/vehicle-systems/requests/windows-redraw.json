@@ -1,0 +1,50 @@
+[
+ {
+  "name": "windows-button-d",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: the side of a truck cab door, its window glass wound right down so only the glass's top edge shows above the door, the window opening empty, and a big puffy cloud of grey smoke billowing out through the open window into the air outside the cab. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people.",
+  "subject": "Windows button redraw: cab door, glass wound right down, a big cloud of smoke billowing out through the open window",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/BatteryWarmer.png",
+   "assets/vehicle-systems/generated/windows-button-c/windows-button-c-12.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11,
+   12
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Windows down button",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Windows.png",
+   "why": "hotboxing's windows switch (Framework 0.233.0; docs/development/vehicle-hotboxing.md); shows our switch icon until made; redraw on the owner's card, 23 Nov 2026: keep the smoke, make it plainly outside the cab",
+   "route": "house"
+  }
+ },
+ {
+  "name": "windows-button-e",
+  "engine": "klein-base",
+  "lora_comparison": false,
+  "prompt": "phobosdthorga, A small game icon: an open vehicle side window seen from outside, the glass lowered into the door, with three round puffs of grey smoke floating up and away outside the window, clearly outside the vehicle. A small game icon with a very thick near-black outline, bold simple shapes, flat cel shading and a muted palette. One object, centred, filling most of the canvas, on a plain pure white background. No text, no letters, no numbers. No people.",
+  "subject": "Windows button redraw: an open side window, three puffs of smoke floating out and away",
+  "references": [
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/RoofTentKit.png",
+   "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/BatteryWarmer.png"
+  ],
+  "width": 1024,
+  "height": 1024,
+  "seeds": [
+   11
+  ],
+  "lora": "phobos-private-house-v1.safetensors",
+  "art_plan": {
+   "for": "Windows down button",
+   "ships_as": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Windows.png",
+   "why": "hotboxing's windows switch (Framework 0.233.0; docs/development/vehicle-hotboxing.md); shows our switch icon until made; redraw on the owner's card, 23 Nov 2026: keep the smoke, make it plainly outside the cab",
+   "route": "house"
+  }
+ }
+]
