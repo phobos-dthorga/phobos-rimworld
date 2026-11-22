@@ -48,10 +48,11 @@ standing rules for every picture and sound the mods ship or the tools generate. 
   hid ragged edges): `sprites REQUEST.json` exports every attempt as it would ship and shows it at three times without smoothing and at
   actual size, on soil and stone; `overlays --vehicle Folder/Name --candidate LABEL=PATH` lays exported gear on the vehicle, tinted in
   its own colours and repainted. Never show the owner a card from a raw original or a smoothed enlargement alone.
-- **`python scripts/art/edge_check.py check` finds loose specks and loose strokes round shipped pictures** (part of the gate; `scan
-  PATH` for any picture): crumbs and ghost outlines left from a cut-out. A flagged picture is fixed, or, when its specks are drawn on purpose (damage marks, frost,
-  spilled seeds), listed under `accepted` in `config/edge-check.json` with why; a real fault waiting to be fixed goes under `known`.
-  It cannot see a fringe still joined to the picture or a part scrubbed away: the cards are for those.
+- **`python scripts/art/edge_check.py check` finds loose specks, loose strokes and pale fringes round shipped pictures** (part of the
+  gate; `scan PATH` for any picture): crumbs, ghost outlines and white background left on by a cut-out. A flagged picture is fixed,
+  or, when its marks are drawn on purpose (damage marks, frost, spilled seeds, a white icon), listed under `accepted` in
+  `config/edge-check.json` with why; a real fault waiting to be fixed goes under `known`. It cannot see a fringe in another colour or
+  a part scrubbed away: the cards are for those.
 - **Paid generation follows `docs/development/paid-image-generation-rules.md`** (owner, 8 Nov 2026: the OpenAI image API
   for vehicle bodies, with the rules learnt in Phobos Ostranauts; 18 Nov 2026: other services through fal.ai where the owner
   prefers their look, under the same rules). **Only our own art is ever uploaded** to a provider: the

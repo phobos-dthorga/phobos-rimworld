@@ -1,5 +1,5 @@
 {
- "description": "scripts/art/edge_check.py: shipped pictures with loose specks that are drawn on purpose (accepted), and real faults found and waiting to be fixed (known: shown at every check, never failing it). Paths from the repository root; * and ? match.",
+ "description": "scripts/art/edge_check.py: shipped pictures with loose specks, loose strokes or a pale edge that are drawn on purpose (accepted), and real faults found and waiting to be fixed (known: shown at every check, never failing it). Paths from the repository root; * and ? match.",
  "accepted": {
   "mods/PhobosVehicles/Textures/Phobos/Vehicles/*/*_Damage*.png": "damage marks: scattered scratches, chips and dents, drawn as many small pieces on purpose",
   "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Osprey_Nacelle*Damage*.png": "damage marks on the nacelles, as above",
@@ -10,7 +10,15 @@
   "mods/PhobosFarming/Common/Textures/Phobos/Farming/CultivatorLight/CultivatorLight_*.png": "the tines' small tips (looked at 22 Nov 2026)",
   "mods/PhobosFarming/Common/Textures/Phobos/Farming/Upgrades/CultivatorWings.png": "the tines' small tips (looked at 22 Nov 2026)",
   "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Linked/Coax*_Atlas.png": "a linked-graphic atlas: small corner pieces by design",
-  "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/SurveyTruck_Geophones_*.png": "the geophones' small cable tabs (looked at 22 Nov 2026)"
+  "mods/PhobosVehicles/Textures/Phobos/Vehicles/SurveyTruck/SurveyTruck_Geophones_*.png": "the geophones' small cable tabs (looked at 22 Nov 2026)",
+  "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Dash/OilHot.png": "a dashboard icon: white heat lines drawn on purpose (looked at 23 Nov 2026)",
+  "mods/PhobosMedical/Common/Textures/Phobos/Triage/UI/TriageTagOutline.png": "a white outline drawn on purpose, for the triage tag's colour to show through",
+  "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/UI/Signal.png": "an interface icon drawn in white on purpose"
  },
- "known": {}
+ "known": {
+  "mods/PhobosVehicles/Textures/Phobos/Vehicles/BulkTanker/BulkTanker_LiquidTank*.png": "a pale line outside the tank's dark outline: white background left on its edge (found 23 Nov 2026); to fix",
+  "mods/PhobosVehicles/Textures/Phobos/Vehicles/Osprey/Osprey_Rotor.png": "a pale line outside the blades' dark outline: white background left on their edges (found 23 Nov 2026); to fix",
+  "mods/PhobosFarming/Common/Textures/Phobos/Farming/SeedDrill/SeedDrill_Hopper_*.png": "a white line down the hopper's edge (found 23 Nov 2026); to fix",
+  "mods/PhobosVehicles/Textures/Phobos/Vehicles/SeabedCrawler/SeabedCrawler_Research_*.png": "a pale edge on the research gear (found 23 Nov 2026); left while submarine work is on the back burner"
+ }
 }

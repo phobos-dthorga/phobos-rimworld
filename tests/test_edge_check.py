@@ -64,6 +64,27 @@ class EdgeCheckTests(unittest.TestCase):
         im2.save(part)
         self.assertEqual(edge_check.measure(part)['strokes'], 0)
 
+    def test_a_pale_rim_outside_a_dark_outline_is_a_fringe(self):
+        im = Image.new('RGBA', (128, 128), (0, 0, 0, 0))
+        d = ImageDraw.Draw(im)
+        d.rectangle((20, 20, 107, 107), fill=(215, 212, 210, 160))  # white background left on, two-thirds opaque
+        d.rectangle((22, 22, 105, 105), fill=(30, 30, 30, 255))  # the dark outline
+        d.rectangle((26, 26, 101, 101), fill=(120, 110, 90, 255))  # the picture
+        path = Path(self.dir.name) / 'rim.png'
+        im.save(path)
+        m = edge_check.measure(path)
+        self.assertGreater(m['fringe'], 0.5 * m['edge'])
+        self.assertTrue(edge_check.flagged(m))
+
+    def test_a_shape_pale_right_through_has_no_fringe(self):
+        im = Image.new('RGBA', (128, 128), (0, 0, 0, 0))
+        ImageDraw.Draw(im).rectangle((20, 20, 107, 107), fill=(225, 225, 222, 255))  # a pale tank, pale inside too
+        path = Path(self.dir.name) / 'pale.png'
+        im.save(path)
+        m = edge_check.measure(path)
+        self.assertEqual(m['fringe'], 0)
+        self.assertFalse(edge_check.flagged(m))
+
     def test_haze_is_counted_and_shown_but_never_flags(self):
         m = edge_check.measure(picture(self.dir.name, 'haze.png', haze=True))
         self.assertGreater(m['haze'], 0)
