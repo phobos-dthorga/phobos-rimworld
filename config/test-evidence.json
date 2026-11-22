@@ -601,6 +601,10 @@
     }},
     "227": ["patches.turret-picture-after-loading"],
     "228": ["patches.raid-orders-rebuilt-on-load"],
+    "382": {"parts": {
+      "a second reader waited, and the lock held it off": ["patches.research-unlocks-reader-waited"],
+      "a blank taken out (only if one turns up)": ["patches.research-unlocks-blank-removed"]
+    }},
     "230": ["framework.error-attributed"],
     "232": {"parts": {
       "the armoured cab is fitted": [{"key": "vehicles.upgrade-rebuilds-systems", "variant": "PhobosArmouredCab", "detail": "*: fitted"}],

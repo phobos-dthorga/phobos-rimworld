@@ -6,6 +6,14 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.38.0] - 2026-11-23 - Draft
+
+The research tab opens every time
+
+### Fixed
+
+- **With Nice Research Tab, a blank entry can no longer stop the research tab opening** (temporary; the owner's report of 23 November 2026, and their choice of this guard). Now and then, opening the tab failed, its window showed errors every frame, and it stayed broken until the game was restarted: a research project's list of what it unlocks had a blank in it. The likely cause, not proven: Nice Research Tab reads those lists from a background task while the game reads them too, and Vanilla Expanded Framework's patches change the lists on every read, so two changes could meet. A new Nice Research Tab part lets only one reader at a time into those lists and takes out any blank that is there anyway, saying once in the log which project held it. It loads only while Nice Research Tab is active, adds no setting and saves nothing, so it is safe to add to and remove from a running game. Not yet tested in game: row 382 of the test pass.
+
 ## [0.37.1] - 2026-11-23 - Draft
 
 The new munitions at the automated benches

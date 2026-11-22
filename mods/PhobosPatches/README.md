@@ -3,13 +3,13 @@
 Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It covers
 **Harrier VTOL Attack Aircraft** and **Close Air Support: A-10 Warthog & Su-25 Frogfoot** by potemkinvillager, **UH-60M Black Hawk** by z3nt3, **InterRim Ballistic Missile** by Psionic Zephyr, **RimPacts**, **Visit
 Settlements** by Nina.Goblin, **Vehicle Framework**, **Vanilla Expanded Framework**'s outposts, **Vanilla Factions Expanded -
-Classical**, **Spaceship Turret Hull** by MK and **Combat Extended** (with **Simple sidearms** by PeteTimesSix), and RimThunder's heavy
-casting at The Dead Man's Switch's rotary forger.
+Classical**, **Nice Research Tab** by Andromeda, **Spaceship Turret Hull** by MK and **Combat Extended** (with **Simple sidearms** by
+PeteTimesSix), and RimThunder's heavy casting at The Dead Man's Switch's rotary forger.
 
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.37.1, built 23 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.38.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -27,7 +27,7 @@ the [changelog](CHANGELOG.md).
   Spaceship Turret Hull and Combat Extended together; the ammo guard and "soldiers keep their guns" with Combat Extended (that one needs
   D'thorga Framework 0.174.0 or later); the missile part with InterRim Ballistic
   Missile; one part each for RimPacts, Visit Settlements, Vehicle Framework and Vanilla Factions Expanded - Classical (that one needs
-  D'thorga Framework 0.168.0 or later); the outposts part with Vanilla Expanded Framework and Vehicle Framework together; the mech recharger part with Biotech (D'thorga
+  D'thorga Framework 0.168.0 or later); one for Nice Research Tab; the outposts part with Vanilla Expanded Framework and Vehicle Framework together; the mech recharger part with Biotech (D'thorga
   Framework 0.198.0 or later). A player running none of them sees nothing.
 - **With Biotech, mech rechargers drawing real power is off by default.** Before turning it on, check your grid: a tunneler or war
   queen charging draws about 1,000 W or more, and a shortage switches things off at random.
@@ -71,6 +71,8 @@ the [changelog](CHANGELOG.md).
 - **With Visit Settlements, pawns already lost to a closed map stay lost**: load a save from before.
 - **With Vanilla Factions Expanded - Classical, a save made during a scorpion raid now loads with the raid working** (temporary). **If
   you saved again after such a save loaded broken, before 0.25.0, load the save made before that**: the raid's orders are gone from it.
+- **With Nice Research Tab, the research tab can no longer be broken by a blank entry** (0.38.0, temporary, not yet tested in game).
+  If the log ever shows a D'thorga Patches warning naming a research project, the guard took a blank out of it: tell us the project.
 - **Keep Prison Labor up to date**: the guard for its first 1.7 build was removed in 0.19.2, as Prison Labor 1.7.1 fixed the crash.
 
 ## What it does
@@ -143,6 +145,11 @@ battery, a charging recharger warms its room, and a mech's information card show
 
 A save made during a scorpion raid loads with the raid still working (temporary)
 ([Classical](../../docs/player-guide/patches.md#vanilla-factions-expanded---classical)).
+
+### Nice Research Tab
+
+Research projects' unlock lists are read one at a time and kept free of blanks, so the research tab opens every time (temporary)
+([Nice Research Tab](../../docs/player-guide/patches.md#nice-research-tab)).
 
 ### Vehicle Framework and outposts
 

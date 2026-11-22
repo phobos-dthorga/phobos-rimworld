@@ -25,6 +25,8 @@
     {"row": 19, "patch": "TurretGraphicWhileLoadingPatch", "mod": "Vehicle Framework", "file": "Vehicles.dll", "members": ["VehicleTurret.PostPostLoadInit"]},
     {"row": 20, "patch": "RaidOrdersOnLoadPatch", "mod": "Vanilla Factions Expanded - Classical", "file": "VFEC.dll", "members": ["LordJob_ScorpionRaid.*"]},
     {"row": 21, "patch": "GravshipLandingAlignment", "mod": "Vehicle Framework", "file": "Vehicles.dll", "members": ["Ext_Vehicles.AdjustForVehicleOccupiedRect"]},
-    {"row": 22, "patch": "TurretQueueSavePatch", "mod": "Vehicle Framework", "file": "Vehicles.dll", "members": ["CompVehicleTurrets.PostExposeData"]}
+    {"row": 22, "patch": "TurretQueueSavePatch", "mod": "Vehicle Framework", "file": "Vehicles.dll", "members": ["CompVehicleTurrets.PostExposeData"]},
+    {"row": "23 (Nice Research Tab)", "patch": "ResearchUnlocksGuard", "mod": "Nice Research Tab", "file": "NiceResearchTab.dll", "members": ["ExtraCategoryDef.CacheAll", "NodeServer.*"]},
+    {"row": "23 (Vanilla Expanded Framework)", "patch": "ResearchUnlocksGuard", "mod": "Vanilla Expanded Framework", "file": "PipeSystem.dll", "members": ["ResearchProjectDef_UnlockedDefs_Patch.Postfix"]}
   ]
 }

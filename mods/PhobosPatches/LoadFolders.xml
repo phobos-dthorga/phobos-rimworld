@@ -37,6 +37,8 @@
     <li IfModActive="ninagoblin.visitsettlements">Mods/VisitSettlements/1.7</li>
     <!-- Temporary: a save made during a scorpion raid loads with the raid's orders (docs/development/temporary-patches.md). -->
     <li IfModActive="OskarPotocki.VFE.Classical">Mods/Classical/1.7</li>
+    <!-- Temporary: research projects' unlock lists read one at a time and kept free of blanks, so the research tab opens (docs/development/temporary-patches.md, row 23). -->
+    <li IfModActive="andromeda.niceresearchtab">Mods/NiceResearchTab/1.7</li>
     <li IfModActiveAll="OskarPotocki.VanillaFactionsExpanded.Core,SmashPhil.VehicleFramework">Mods/Outposts</li>
     <li IfModActiveAll="OskarPotocki.VanillaFactionsExpanded.Core,SmashPhil.VehicleFramework">Mods/Outposts/1.7</li>
   </v1.7>

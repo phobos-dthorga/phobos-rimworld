@@ -42,6 +42,7 @@ from the owner's saves.
 | `PhobosPatches.RimPacts` | `PhobosPatches/Mods/RimPacts/` | the framework; reads RimPacts by name | yes | `PhobosPatches.Rules.Tests` | tests only |
 | `PhobosPatches.VisitSettlements` | `PhobosPatches/Mods/VisitSettlements/` | the framework; finds Visit Settlements, RimPacts and Vehicle Framework members by name | yes | `PhobosPatches.Rules.Tests` | tests only |
 | `PhobosPatches.Classical` | `PhobosPatches/Mods/Classical/` (temporary, while Vanilla Factions Expanded - Classical's scorpion raid cannot be loaded from a save) | the framework; patches only the game's own method | yes | `PhobosFramework.Rules.Tests` (the constructor rule) | tests only |
+| `PhobosPatches.NiceResearchTab` | `PhobosPatches/Mods/NiceResearchTab/` (temporary, while research projects' unlock lists can gain a blank entry) | the framework; patches only the game's own getter | yes | none | no |
 | `PhobosPatches.Irbm` | `PhobosPatches/Mods/IRBM/` | the framework, InterRim Ballistic Missile's `IRBM.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |
 | `PhobosWaterTap` | `PhobosWaterTap/` | Dubs Bad Hygiene's `BadHygiene.dll` | no | `PhobosWaterTap.Rules.Tests` | tests only |
 | `PhobosRadio` | `PhobosRadioFramework/` | VEF's `PipeSystem.dll` | no | `PhobosRadio.Physics.Tests` | tests only |

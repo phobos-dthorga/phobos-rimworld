@@ -36,6 +36,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | IRBM with **RimPacts** | An ally's assault after your strike faces the garrison the town had before it. A world war attack shows its deadline | **Strike and attack early**: RimPacts gives a war attack 3 days |
 | **Visit Settlements** (Nina.Goblin) | A visited settlement's map stays open while any colonist of yours there is conscious, on foot or in a vehicle. Its food drops no longer fail every tick | Pawns already lost this way stay lost: load an earlier save |
 | **Vanilla Factions Expanded - Classical** (temporary) | A save made during a scorpion raid loads with the raid still working, instead of raiders who cannot act or leave and thousands of errors a minute | Nothing. **If you saved again after such a save loaded broken, load the save made before that.** Not yet tested in game |
+| **Nice Research Tab** (Andromeda; temporary) | A blank entry in a research project's unlock list can no longer stop the research tab opening, as it now and then did until a restart | Nothing. If the log shows a D'thorga Patches warning naming a research project, tell us which. Not yet tested in game |
 | **Vanilla Expanded Framework** outposts, with **Vehicle Framework** | A caravan with vehicles can't found an outpost through "create outpost", which could lose them | Leave the vehicles first and come on foot. The setting **Refuse to found an outpost from a caravan with vehicles** turns this off |
 | **Vehicle Framework** | Fires a vehicle could never put out are put out; a vehicle leaving a map takes no fire with it. Repairs and upgrades show the game's progress bar | Nothing |
 | **The Dead Man's Switch** drone platforms (Fortified Features Framework) | Colonists refill the engineering drone bay, the trashpan and hound stations and the FPV nest with steel by themselves; a mechanitor refills the Hermit Crab and the Cluster Weaver | Nothing: keep steel in reach. [Drone platforms](#drone-platforms) |
@@ -397,6 +398,18 @@ load that raid by itself).
   try, followed by a line saying the raid's orders were rebuilt.
 - **A game saved again after it loaded broken is not repaired**: the raid's orders were already gone when it was saved. Load the save
   made before that.
+
+## Nice Research Tab
+
+Now and then, opening the research tab failed: its window showed errors every frame and **stayed broken until the game was restarted**.
+A research project's list of what it unlocks had a blank in it. The likely cause, not proven, is two things changing those lists at
+the same moment: Nice Research Tab reads them from a background task while the game reads them too, and Vanilla Expanded Framework's
+patches change the lists as they are read. **Now only one reader at a time gets into those lists, and any blank is taken out**
+(temporary, until the cause is fixed where it starts).
+
+- **Nothing to do.** It loads only while Nice Research Tab is active, adds no setting and saves nothing: safe to add or remove at any time.
+- **If the log ever shows a D'thorga Patches warning naming a research project**, a blank was taken out of that project's list. The
+  tab still opens. Tell us the project: it says which mods put the blank there.
 
 ## Outposts and caravans with vehicles
 

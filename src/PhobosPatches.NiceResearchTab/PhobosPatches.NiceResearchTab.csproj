@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- D'thorga Patches' Nice Research Tab assembly (0.38.0): one temporary guard, so the research tab cannot be broken by a blank entry in a
+       research project's unlock list. It lives in Mods/NiceResearchTab/<version>, loaded only while Nice Research Tab is active, patches only
+       the game's own getter and references no assembly of the mod. RimWorld 1.7 only. To be removed when the fault is fixed
+       (docs/development/temporary-patches.md, row 23). -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Phobos.NiceResearchTabPatches</RootNamespace>
+    <AssemblyName>PhobosPatches.NiceResearchTab</AssemblyName>
+    <ModFolder>PhobosPatches</ModFolder>
+    <TieInFolder>Mods/NiceResearchTab/</TieInFolder>
+    <UsesHarmony>true</UsesHarmony>
+    <Version>0.38.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../PhobosFramework/PhobosFramework.csproj" Private="false" />
+  </ItemGroup>
+</Project>

@@ -4,7 +4,7 @@
   <name>D'thorga Patches</name>
   <author>Phobos A. D'thorga</author>
   <url>https://github.com/phobos-dthorga/phobos-rimworld</url>
-  <modVersion>0.37.1</modVersion>
+  <modVersion>0.38.0</modVersion>
   <description>Fixes and patches for other authors' mods, each switched on only while that mod is active. It copies nothing from them. It replaces D'thorga Vehicle Patches and D'thorga Missile Patches: switch those off when you switch this on.
 
 Harrier VTOL Attack Aircraft:
@@ -49,6 +49,10 @@ Vanilla Factions Expanded - Classical:
 
 A save made during a scorpion raid loads with the raid still working. Before, the game could not rebuild that raid from a save: the raiders stood unable to act or leave, and the game reported thousands of errors a minute.
 
+Nice Research Tab:
+
+The research tab can no longer be stopped from opening by a blank entry in a research project's list of what it unlocks. Before, now and then, opening the tab failed and reported errors every frame until the game was restarted.
+
 Needs Harmony and D'thorga Framework. Load it after the mods it patches. It does nothing if none of them is active.
 
 Community-created content by House D'thorga (also spelt dthorga). Portions of the materials used to create this content/mod are trademarks and/or copyrighted works of Ludeon Studios Inc. All rights reserved by Ludeon. This content/mod is not official and is not endorsed by Ludeon.</description>
@@ -90,6 +94,7 @@ Community-created content by House D'thorga (also spelt dthorga). Portions of th
     <li>z3nt3.uh60blackhawk</li>
     <li>ninagoblin.visitsettlements</li>
     <li>OskarPotocki.VFE.Classical</li>
+    <li>andromeda.niceresearchtab</li>
   </loadAfter>
   <!-- The two mods this one replaced (7 November 2026). Running either beside it would load the same patches twice. -->
   <incompatibleWith>
