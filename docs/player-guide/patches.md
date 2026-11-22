@@ -272,6 +272,11 @@ struck map**:
 | Other settlements in range | | The heat, fires and fallout only, unless you choose a full strike everywhere |
 
 - **Burns are spread over the skin**, so D'thorga Medical sees a burned body.
+- **Shelter counts, as it would.** The flash, heat and radiation come before the blast. **Anyone under a roof is spared the burns and
+  flash blindness**, even if the blast then takes the roof. The **dose** is cut by what stood over them: almost none of it in a wooden
+  or steel building, about a sixth behind **stone walls**, a twentieth under a thin rock roof, almost nothing **deep in a mountain**. A
+  gas mask does nothing against it. **Flash blindness** is likelier at night and lasts up to half an hour; by day, a couple of minutes.
+  Afterwards **a letter lists the dose each of your people took**. A setting, **Shadow and shelter from the strike**, on by default.
 - **The pulse** stops powered buildings and mechanoids standing in the open for a few hours.
 - **Vehicles, with D'thorga Framework's vehicles:** in the fireball a vehicle is gone with everyone aboard. Further out the blast
   throws it about: **weight decides**, so a car or a bus is wrecked (leaving its hull where that setting is on) where a tank is only

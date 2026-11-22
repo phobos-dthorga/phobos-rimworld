@@ -6,6 +6,15 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.36.0] - 2026-11-23 - Draft
+
+Shadow and shelter from a strike
+
+### Added
+
+- **What stood over people when the flash came now counts** (the owner's choice of 22 November 2026: with our own radiation model, a setting; docs/development/nuclear-strike-effects.md, NK12, NK17, NK18). The light, heat and radiation arrive before the blast, so each person's cover is judged before any roof falls. **Anyone under any roof is spared burns and flash blindness**, though they still take the blast. **The dose is cut by mass**, as Glasstone and Dolan give for buildings: almost all of it in a frame house, about a sixth behind stone walls, a twentieth under a thin rock roof, almost none deep in rock, which until now kept people from any dose at all. **Flash blindness is likelier at night and lasts longer**: about two minutes by day, up to half an hour by night (US Army FM 8-9). A setting, Shadow and shelter from the strike, on by default; off, the strike treats people as before. Not yet tested in game: row 375 of the test pass.
+- **The doses are told** (NK13): a letter lists each of your people the strike dosed, in words and grays, largest first, as where they stood would tell a doctor.
+
 ## [0.35.0] - 2026-11-22 - Draft
 
 The strike's radiation, in grays

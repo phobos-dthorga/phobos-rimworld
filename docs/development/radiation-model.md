@@ -3,8 +3,8 @@
 **Status (22 Nov 2026):** partly built, at the owner's word, in D'thorga Medical 0.21.0 (with Framework 0.229.0 and Patches 0.35.0):
 the dose and its repair, the course, care, the doctor's estimate and the exact dose, Rimatomics' doses taken and its conditions
 converted, the strike's dose in grays ([as built](#as-built-22-nov-2026)); dev actions to give and remove a dose in 0.22.0; late
-effects (RM8) in 0.23.0; worn armour's shielding (RM17), contamination (RM6) and the three medicines (RM5) in 0.24.0. Not built: the strike's
-shelter, shadow and letter (NK12, NK13, NK17, NK18). The owner's answers are
+effects (RM8) in 0.23.0; worn armour's shielding (RM17), contamination (RM6) and the three medicines (RM5) in 0.24.0. The strike's shelter,
+shadow and letter (NK12, NK13, NK17, NK18) followed in D'thorga Patches 0.36.0. The owner's answers are
 [below](#the-owners-answers-cards-22-nov-2026). Not yet tested in game: rows 361 to 363 and 369 to 374.
 
 ## As built (22 Nov 2026)

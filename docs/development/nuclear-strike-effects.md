@@ -1,8 +1,9 @@
 # Nuclear strikes, vehicles and people: why vehicles come through, and what a strike should do (22 Nov 2026)
 
 **Status (22 Nov 2026):** partly built. NK1 to NK6, NK8 and NK9 (as the existing dose cut by the hull) are built in D'thorga Patches
-0.32.0 and D'thorga Framework 0.218.0, at the owner's word; [as built](#as-built-22-nov-2026). Every other row is unbuilt; shadow and
-the graded dose wait for a radiation model of our own. Not yet tested in game: rows 332 and 333 of the test pass.
+0.32.0 and D'thorga Framework 0.218.0, at the owner's word; [as built](#as-built-22-nov-2026). Shadow, the graded dose, the doses
+told and flash by the light (NK12, NK13, NK17, NK18) followed in Patches 0.36.0, once our radiation model existed. Every other row
+is unbuilt. Not yet tested in game: rows 332, 333 and 375 of the test pass.
 
 The owner, 22 Nov 2026: "vehicles, and I think it's all of the ones under our purview, aren't affected by the nuclear weapons
 available to me in my Rimworld game. But this might be hiding a bigger problem." And: "it might be good to introduce some other,
@@ -57,6 +58,14 @@ design below:
 - **The setting:** "Vehicles in the strike", in D'thorga Patches' after-effects page, on by default.
 - **Left as it was:** the fast sweep for IRBM's other warheads (NK7, held), and the vehicle systems' "show figures only" mode, under
   which vehicles are struck as before.
+- **Shadow and shelter (NK12, NK13, NK17, NK18), Patches 0.36.0**, behind the setting "Shadow and shelter from the strike" (on):
+  each person's cover is judged before the roofs are stripped, from the roof over them and, under a built roof, whether the room's
+  walls are mostly stone (stony stuff or rock; rooms over 400 cells or open count as not) [A]. Any roof shadows burns and flash
+  blindness [P: "any solid, opaque material"; windows are not modelled]. The dose is cut by Table 8.72's gamma figures: a frame house
+  0.9, 9-inch concrete 0.15, three feet underground 0.003 [P], a thin rock roof 0.05 [A]; people under rock, who were skipped, now
+  take that share. Flash blindness is half as likely again in full dark [A] and starts at a severity the game heals in about 2
+  minutes by day to 30 at night [P: FM 8-9]. A letter lists each of the player's people dosed, in words and grays as stood outside
+  (before any worn shielding). Not done: clothing raising the heat a burn needs (NK17's second half), windows, neutrons.
 - **Still to read** (from the list below): how Combat Extended's armour for people treats the crew's blunt blows, which carry no
   penetration, as our falls from aircraft do; whether people killed aboard in the fireball are set down by Vehicle Framework before
   the vehicle vanishes.

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using IRBM;
 using Phobos.Framework;
 using Phobos.Framework.Environment;
@@ -80,6 +81,15 @@ public sealed class StrikeWork : FrameWork
     public int Burned { get; private set; }
     public int Blinded { get; private set; }
     public int Irradiated { get; private set; }
+    /// <summary>People the roof over them shadowed from the heat and flash (NK17).</summary>
+    public int Shadowed { get; private set; }
+
+    /// <summary>What stood over each person when the light, heat and dose arrived, judged before any roof is stripped (NK12, NK17).</summary>
+    readonly Dictionary<Pawn, StrikeCover> covers = new();
+    bool shadowAndShelter;
+    float sunGlow = 1f;
+    /// <summary>The player's people dosed, with the dose where they stood, for the letter (NK13).</summary>
+    readonly List<(Pawn pawn, float grays)> dosedPeople = new();
     public int Stunned { get; private set; }
     public int Wilted { get; private set; }
     public int Sheltered { get; private set; }
@@ -138,6 +148,10 @@ public sealed class StrikeWork : FrameWork
         ash = OptionalMods.ThingDefNamed("Filth_Ash");
         // Before anything is harmed: the town's garrison, for an ally's assault that follows (RimPacts sizes it to who is standing).
         if (Full) StrikeMemory.RecordBeforeStrike(Map);
+        shadowAndShelter = settings.shadowAndShelter;
+        sunGlow = GenCelestial.CurCelestialSunGlow(Map);
+        // Light, heat and the dose arrive before the blast: what stood overhead is judged before any roof falls.
+        if (shadowAndShelter) JudgeCovers();
         if (Full) StripRoofs();
         SnapshotThings();
         SnapshotCells();
@@ -161,6 +175,41 @@ public sealed class StrikeWork : FrameWork
         if (vehicleRoute && thing is Pawn && LargeBlasts.TakerFor(thing) is { } taker) return taker.Sheltered(thing, cell => IsSheltered(cell, zone));
         return IsSheltered(thing.Position, zone);
     }
+
+    /// <summary>Each person's cover when the flash came (NK12, NK17): the roof over them and, under a built one, whether the room is
+    /// walled mostly with stone. Vehicles take their own route and are left out.</summary>
+    void JudgeCovers()
+    {
+        IReadOnlyList<Pawn> pawns = Map.mapPawns.AllPawnsSpawned;
+        for (int i = 0; i < pawns.Count; i++)
+        {
+            Pawn pawn = pawns[i];
+            if (vehicleRoute && LargeBlasts.TakerFor(pawn) != null) continue;
+            RoofDef? roof = Map.roofGrid.RoofAt(pawn.Position);
+            bool natural = roof?.isNatural ?? false;
+            covers[pawn] = StrikeShelterRule.Cover(roof != null, natural, roof?.isThickRoof ?? false, roof != null && !natural && StoneWalled(pawn));
+        }
+    }
+
+    /// <summary>Whether a person's room is walled mostly with stone: stony stuff, or natural or smoothed rock. Rooms open to the sky or
+    /// too large to be one building count as not.</summary>
+    bool StoneWalled(Pawn pawn)
+    {
+        Room? room = pawn.GetRoom();
+        if (room == null || room.PsychologicallyOutdoors || room.CellCount > MaxRoomCells) return false;
+        int walls = 0, stone = 0;
+        foreach (IntVec3 cell in room.BorderCells)
+        {
+            if (!cell.InBounds(Map) || cell.GetEdifice(Map) is not { } edifice) continue;
+            walls++;
+            if (edifice.def.building?.isNaturalRock == true || edifice.Stuff?.stuffProps?.categories?.Contains(StuffCategoryDefOf.Stony) == true) stone++;
+        }
+        return walls > 0 && stone * 2 >= walls;
+    }
+
+    const int MaxRoomCells = 400;
+
+    StrikeCover CoverOf(Pawn pawn) => shadowAndShelter && covers.TryGetValue(pawn, out StrikeCover cover) ? cover : StrikeCover.Open;
 
     /// <summary>Built roofs everywhere, and every roof within the fireball, mountain or not: one pass before anything falls.</summary>
     void StripRoofs()
@@ -191,6 +240,12 @@ public sealed class StrikeWork : FrameWork
             if (IsShelteredThing(thing, ZoneAt(distance)))
             {
                 Sheltered++;
+                // Rock stops the blast but not all of the dose: what gets through, by its mass (NK12).
+                if (shadowAndShelter && radiation && thing is Pawn sheltered && covers.ContainsKey(sheltered) && !sheltered.Dead)
+                {
+                    float strength = StrikeRule.Strength(distance, zones.fireballRadius, zones.reach);
+                    if (Irradiate(sheltered, strength * StrikeShelterRule.DosePass(CoverOf(sheltered)))) Irradiated++;
+                }
                 continue;
             }
             chosen.Add(thing);
@@ -390,18 +445,23 @@ public sealed class StrikeWork : FrameWork
             return;
         }
         float falloff = StrikeRule.Falloff(distance, zones.reach);
+        StrikeCover cover = CoverOf(pawn);
+        bool shadowed = StrikeShelterRule.Shadowed(cover);
+        if (shadowed) Shadowed++;
         float blast = falloff * (zone == StrikeZone.Blast ? rules.pawnBlastFactor : rules.pawnThermalBlastFactor);
         if (blast > 0f) pawn.TakeDamage(new DamageInfo(DamageDefOf.Bomb, blast, 0f, -1f, Launcher, null, IRBM_DefOf.IRBM_MissileWeapon));
-        if (!pawn.Dead) Burn(pawn, falloff * rules.burnFactor);
+        // The heat came before the blast and a roof shadowed it, even one the blast then took away (NK17).
+        if (!pawn.Dead && !shadowed) Burn(pawn, falloff * rules.burnFactor);
         if (pawn.Dead)
         {
             AfterDeath(pawn, vaporise: zone == StrikeZone.Blast && corpses == CorpseMode.Vaporised);
             return;
         }
         float strength = StrikeRule.Strength(distance, zones.fireballRadius, zones.reach);
-        Blind(pawn, strength);
+        if (!shadowed) Blind(pawn, strength);
         // Counted only when Rimatomics took the dose (Patches 0.32.0, NK6): the count once meant calls made, a vehicle's included.
-        if (radiation && Irradiate(pawn, strength)) Irradiated++;
+        // The dose is cut by the mass over and around them (NK12).
+        if (radiation && Irradiate(pawn, strength * StrikeShelterRule.DosePass(cover))) Irradiated++;
         Pulse(pawn);
     }
 
@@ -429,20 +489,29 @@ public sealed class StrikeWork : FrameWork
 
     /// <summary>The strike's dose at this strength (1 at the fireball's edge): to D'thorga Medical's radiation model in grays when it is on,
     /// otherwise to Rimatomics' radiation. True when a dose was given.</summary>
-    bool Irradiate(Pawn pawn, float strength) =>
-        Phobos.Framework.Health.RadiationDoses.Give(pawn, rules.radiationGraysAtFireballEdge * strength, "strike")
-        || (rimatomics && RimatomicsTieIn.Irradiate(pawn, rules.radiationStrength * strength));
+    bool Irradiate(Pawn pawn, float strength)
+    {
+        float grays = rules.radiationGraysAtFireballEdge * strength;
+        bool given = Phobos.Framework.Health.RadiationDoses.Give(pawn, grays, "strike")
+            || (rimatomics && RimatomicsTieIn.Irradiate(pawn, rules.radiationStrength * strength));
+        if (given && shadowAndShelter && pawn.Faction == Faction.OfPlayer && pawn.RaceProps.Humanlike) dosedPeople.Add((pawn, grays));
+        return given;
+    }
 
     /// <summary>Rimatomics' flash blindness on each eye, more likely nearer the fireball.</summary>
     void Blind(Pawn pawn, float strength)
     {
         if (flashBlindness == null || pawn.health?.hediffSet == null || pawn.health.hediffSet.HasHediff(flashBlindness)) return;
-        if (!Rand.Chance(strength * rules.flashBlindChance)) return;
+        // Worse and longer at night, when the pupils are open (NK18).
+        float byLight = shadowAndShelter ? StrikeShelterRule.FlashChanceFactor(sunGlow) : 1f;
+        if (!Rand.Chance(strength * rules.flashBlindChance * byLight)) return;
         bool any = false;
-        foreach (BodyPartRecord part in pawn.health.hediffSet.GetNotMissingParts())
+        foreach (BodyPartRecord part in pawn.health.hediffSet.GetNotMissingParts().ToList())
         {
             if (!part.def.tags.Contains(BodyPartTagDefOf.SightSource)) continue;
-            pawn.health.AddHediff(flashBlindness, part);
+            Hediff blind = HediffMaker.MakeHediff(flashBlindness, pawn, part);
+            if (shadowAndShelter) blind.Severity = StrikeShelterRule.FlashSeverity(sunGlow);
+            pawn.health.AddHediff(blind, part);
             any = true;
         }
         if (any) Blinded++;
@@ -483,6 +552,29 @@ public sealed class StrikeWork : FrameWork
         if (chance > 0f && Rand.Chance(chance) && FireUtility.TryStartFireIn(cell, Map, rules.fireSize, Launcher)) Fires++;
     }
 
+    /// <summary>The doses the player's people took, on one letter (NK13): each in words and grays, as where they stood would tell a
+    /// doctor. Grouped by person, the largest first.</summary>
+    void TellDoses()
+    {
+        if (dosedPeople.Count == 0) return;
+        var byPerson = new Dictionary<Pawn, float>();
+        foreach ((Pawn pawn, float grays) in dosedPeople) byPerson[pawn] = (byPerson.TryGetValue(pawn, out float before) ? before : 0f) + grays;
+        var text = new System.Text.StringBuilder();
+        foreach (KeyValuePair<Pawn, float> entry in byPerson.OrderByDescending(e => e.Value))
+        {
+            if (entry.Value < 0.05f) continue;
+            text.Append('\n').Append("PhobosMissilePatches_DoseLine".Translate(entry.Key.Named("PAWN"), DoseWords(entry.Value).Named("BAND"),
+                entry.Value.ToString("0.0").Named("GRAYS")).Resolve());
+        }
+        if (text.Length == 0) return;
+        Find.LetterStack.ReceiveLetter("PhobosMissilePatches_DoseLetterLabel".Translate(), "PhobosMissilePatches_DoseLetterText".Translate(text.ToString().Named("LIST")),
+            LetterDefOf.NegativeEvent, new LookTargets(byPerson.Keys.Where(p => p.Spawned)));
+        dosedPeople.Clear();
+    }
+
+    static string DoseWords(float grays) => (grays < 1f ? "PhobosMissilePatches_DoseLight" : grays < 2f ? "PhobosMissilePatches_DoseModerate"
+        : grays < 4f ? "PhobosMissilePatches_DoseHeavy" : grays < 6f ? "PhobosMissilePatches_DoseSevere" : "PhobosMissilePatches_DoseLethal").Translate();
+
     void Pollute(IntVec3 cell)
     {
         if (!pollution || Map.pollutionGrid.IsPolluted(cell)) return;
@@ -496,7 +588,7 @@ public sealed class StrikeWork : FrameWork
         string line = Label + ": " + Total + " things and " + cells.Length + " cells in "
             + SecondsSinceStart.ToString("0.0") + " s over " + Frames + " frame" + (Frames == 1 ? "" : "s") + " (" + WorkMs.ToString("0") + " ms of work)"
             + ": vaporised " + Vaporised + ", wrecked " + Wrecked + ", damaged " + Damaged + ", killed " + Killed + ", burned " + Burned
-            + ", blinded " + Blinded + ", irradiated " + Irradiated + ", stunned " + Stunned + ", plants wilted " + Wilted
+            + ", blinded " + Blinded + ", irradiated " + Irradiated + ", shadowed " + Shadowed + ", stunned " + Stunned + ", plants wilted " + Wilted
             + ", sheltered " + Sheltered + " (" + shelter + "), already gone " + Gone + ", roofs stripped " + RoofsStripped
             + ", ground scoured " + Scoured + ", cells polluted " + Polluted + ", fires " + Fires
             + (VehiclesStruck > 0 ? "; vehicles: gone " + VehiclesGone + ", wrecked " + VehiclesWrecked + ", battered " + VehiclesBattered
@@ -504,6 +596,7 @@ public sealed class StrikeWork : FrameWork
                 + ", dosed " + CrewDosed : "")
             + (Errors > 0 ? ", " + Errors + " error" + (Errors == 1 ? "" : "s") + " swallowed; the first: " + FirstError : "") + ".";
         if (Errors > 0) MissilePatchesMod.Logger.Warn(line); else MissilePatchesMod.Logger.Info(line);
+        TellDoses();
         if (longMessageShown)
         {
             Messages.Message("PhobosMissilePatches_BlastSpent".Translate(PlaceLabel.Named("PLACE")), MessageTypeDefOf.NeutralEvent, historical: false);

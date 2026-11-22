@@ -80,4 +80,15 @@
   <PhobosMissilePatches_SectionDefence>Air defence</PhobosMissilePatches_SectionDefence>
   <PhobosMissilePatches_SettingCiwsShells>Close-in weapon systems shoot down Combat Extended shells</PhobosMissilePatches_SettingCiwsShells>
   <PhobosMissilePatches_SettingCiwsShellsDesc>With Combat Extended, mortar and artillery shells fly as a different kind of projectile, which the missile mod's close-in weapon systems never see. On, they take aim at incoming enemy shells headed for your things, by the same rules as any other shell. Off, they leave them alone.</PhobosMissilePatches_SettingCiwsShellsDesc>
+  <!-- Shadow and shelter (Patches 0.36.0). -->
+  <PhobosMissilePatches_SettingShadow>Shadow and shelter from the strike</PhobosMissilePatches_SettingShadow>
+  <PhobosMissilePatches_SettingShadowDesc>On by default: the light, heat and radiation reach people before the blast, so what stood over them counts. Anyone under any roof is spared burns and flash blindness; the dose is cut by mass, almost none in a frame house, to a sixth or so behind stone walls, to almost nothing deep in rock. Flash blindness is likelier and lasts longer at night. Doses taken by your people are told on a letter. Off: everyone not under rock takes the burns, the blindness and the whole dose.</PhobosMissilePatches_SettingShadowDesc>
+  <PhobosMissilePatches_DoseLetterLabel>Radiation from the strike</PhobosMissilePatches_DoseLetterLabel>
+  <PhobosMissilePatches_DoseLetterText>Where they stood when the flash came tells a doctor roughly what each took:{LIST}\n\nGet the worst into hospital beds before the sickness comes; walls, earth and distance would have helped, a mask would not.</PhobosMissilePatches_DoseLetterText>
+  <PhobosMissilePatches_DoseLine>{PAWN_labelShort}: {BAND}, about {GRAYS} Gy</PhobosMissilePatches_DoseLine>
+  <PhobosMissilePatches_DoseLight>a light dose</PhobosMissilePatches_DoseLight>
+  <PhobosMissilePatches_DoseModerate>a moderate dose</PhobosMissilePatches_DoseModerate>
+  <PhobosMissilePatches_DoseHeavy>a heavy dose</PhobosMissilePatches_DoseHeavy>
+  <PhobosMissilePatches_DoseSevere>a severe dose</PhobosMissilePatches_DoseSevere>
+  <PhobosMissilePatches_DoseLethal>a dose most do not survive</PhobosMissilePatches_DoseLethal>
 </LanguageData>

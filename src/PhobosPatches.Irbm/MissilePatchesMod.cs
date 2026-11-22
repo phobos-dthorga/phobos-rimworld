@@ -32,6 +32,9 @@ public class MissilePatchesSettings : ModSettings
     public bool emp = true;
     /// <summary>Vehicles take their own route through the strike (Patches 0.32.0; owner, 22 Nov 2026: graded with the strike, on).</summary>
     public bool vehiclesInStrike = true;
+    /// <summary>Shadow and shelter (Patches 0.36.0, NK12, NK17, NK18; owner, 22 Nov 2026: with our own radiation model, a setting): any roof
+    /// shadows the heat and flash, the dose is cut by mass, flash blindness follows the light, and doses are told on a letter.</summary>
+    public bool shadowAndShelter = true;
     public bool quietReveals = true;
     /// <summary>IRBM's CIWS also intercepts Combat Extended's shells (Patches 0.19.1, AD14; owner, 13 Nov 2026: patch it).</summary>
     public bool ciwsShells = true;
@@ -60,6 +63,7 @@ public class MissilePatchesSettings : ModSettings
         Scribe_Values.Look(ref pollution, "PhobosMissilePatches_Pollution", true);
         Scribe_Values.Look(ref emp, "PhobosMissilePatches_Emp", true);
         Scribe_Values.Look(ref vehiclesInStrike, "PhobosMissilePatches_VehiclesInStrike", true);
+        Scribe_Values.Look(ref shadowAndShelter, "PhobosMissilePatches_ShadowAndShelter", true);
         Scribe_Values.Look(ref quietReveals, "PhobosMissilePatches_QuietReveals", true);
         Scribe_Values.Look(ref ciwsShells, "PhobosMissilePatches_CiwsShells", true);
     }
@@ -76,7 +80,7 @@ public class MissilePatchesMod : SettingsBookMod
 {
     /// <summary>The Harmony ID is the packageId; never change it once the mod is published.</summary>
     public const string PackageId = "PhobosDthorga.Patches";
-    public const string ModVersion = "0.35.0";
+    public const string ModVersion = "0.36.0";
     public const string LogPrefix = "[D'thorga Patches]";
     public static readonly Phobos.Logging.PhobosLog Logger = Phobos.Framework.Logging.Logs.For("D'thorga Patches", "IRBM");
 
@@ -235,6 +239,7 @@ public class MissilePatchesMod : SettingsBookMod
             list.Check("PhobosMissilePatches_SettingVehicles".Translate(), ref s.vehiclesInStrike, d.vehiclesInStrike,
                 "PhobosMissilePatches_SettingVehiclesDesc".Translate());
             list.Warning(s.vehiclesInStrike ? null : "PhobosMissilePatches_WarnVehiclesOff".Translate().ToString());
+            list.Check("PhobosMissilePatches_SettingShadow".Translate(), ref s.shadowAndShelter, d.shadowAndShelter, "PhobosMissilePatches_SettingShadowDesc".Translate());
         }
         if (ModsConfig.IsActive(Patches.CiwsShells.CombatExtended))
         {
