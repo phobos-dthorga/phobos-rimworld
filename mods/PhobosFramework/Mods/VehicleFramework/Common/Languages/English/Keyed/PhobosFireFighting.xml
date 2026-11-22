@@ -45,4 +45,17 @@
   <PhobosFireFighting_SpentIntro>These vehicles' fire protection has been used up. A mechanic recharges a suppression system with a suppressant bottle and refills an extinguisher with an extinguisher refill, both made at the vehicle parts bench.</PhobosFireFighting_SpentIntro>
   <PhobosFireFighting_SpentLine>{VEHICLE}: {WHAT}</PhobosFireFighting_SpentLine>
   <PhobosFireFighting_AlertExtinguisher>extinguisher empty</PhobosFireFighting_AlertExtinguisher>
+
+  <!-- Send someone: buttons that send the nearest free colonist (Framework 0.242.0; the owner's choice of 23 Nov 2026) -->
+  <PhobosVehicleSystems_SendNobody>No colonist is free to reach the {VEHICLE} and do it.</PhobosVehicleSystems_SendNobody>
+  <PhobosVehicleSystems_SentTo>{PAWN} is going {WORK}.</PhobosVehicleSystems_SentTo>
+  <PhobosVehicleSystems_SentJumpStart>to jump-start the {VEHICLE}</PhobosVehicleSystems_SentJumpStart>
+  <PhobosVehicleSystems_SentPurge>to purge the {VEHICLE}'s tank</PhobosVehicleSystems_SentPurge>
+  <PhobosVehicleSystems_SentClaim>to claim the {VEHICLE}</PhobosVehicleSystems_SentClaim>
+  <PhobosVehicleSystems_JumpStartButton>Jump-start</PhobosVehicleSystems_JumpStartButton>
+  <PhobosVehicleSystems_JumpStartButtonDesc>Its battery is too low to start it. Sends the nearest free colonist with a way to jump-start it: a vehicle near, jump leads or a booster pack. To choose who, select a colonist and right-click the vehicle.</PhobosVehicleSystems_JumpStartButtonDesc>
+  <PhobosVehicleSystems_TankPurgeButton>Purge the tank</PhobosVehicleSystems_TankPurgeButton>
+  <PhobosVehicleSystems_TankPurgeButtonDesc>The empty tank still holds the last of its {CONTENTS}. Sends the nearest free colonist to wash it out. To choose who, select a colonist and right-click the vehicle.</PhobosVehicleSystems_TankPurgeButtonDesc>
+  <PhobosVehicleSystems_ClaimButton>Claim</PhobosVehicleSystems_ClaimButton>
+  <PhobosVehicleSystems_ClaimButtonDesc>Nobody is aboard and none of its people stand near. Sends the nearest free colonist to work on it and make it ours. To choose who, select a colonist and right-click the vehicle.</PhobosVehicleSystems_ClaimButtonDesc>
 </LanguageData>

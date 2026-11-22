@@ -122,6 +122,9 @@ full. A vehicle set up for work packs up first. **The depot bay** fills its own 
 
 ### Jump-starting
 
+**Press Jump-start on a vehicle that won't start** to send the nearest free colonist with a way to do it (a vehicle near, jump leads or
+a booster pack); the button says why when nobody can. To choose who, select a colonist and right-click the vehicle, as below.
+
 **Select a colonist and right-click the flat vehicle.** You need one of:
 
 - **another vehicle parked within 8 cells and a jump-start kit**; or
@@ -770,7 +773,7 @@ Not yet tested in game. Fit the **recovery winch** (the **Recovery** family in t
 
 - **Raiders' and visitors' vehicles run a simpler model**: they take hits, but nothing in them heats, wears or runs down by itself,
   which keeps a raid cheap. Capture one and it wakes to the full model on your settings.
-- **Claim a vehicle**: select a colonist and right-click it. Nobody may be aboard, and none of its owners' armed people within 12
+- **Claim a vehicle**: press **Claim** on it to send the nearest free colonist, or select a colonist and right-click it. Nobody may be aboard, and none of its owners' armed people within 12
   cells. It takes from half an hour to six hours by size. **Taking one from a faction that is not hostile costs 30 goodwill**, and
   the order says so. Machines' vehicles cannot be claimed.
 - They may come with fittings suited to their tech level, and keep them when captured.

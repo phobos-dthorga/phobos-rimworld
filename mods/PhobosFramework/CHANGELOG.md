@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.242.0] - 2026-11-23 - Draft
+
+Buttons that send someone
+
+### Added
+
+- **Jump-start, Purge the tank and Claim buttons send the nearest free colonist** (the owner's choice of 23 November 2026, after the extinguisher's button did): on a vehicle that won't start, an empty tank that needs purging, and another faction's vehicle that can be claimed. The right-click still sends the colonist you choose; a button says why when nobody can go. One helper in the Framework core does the finding, for any later button whose work needs a person. Not yet tested in game: row 389 of the test pass.
+
 ## [0.241.0] - 2026-11-23 - Draft
 
 Fighting fires on vehicles

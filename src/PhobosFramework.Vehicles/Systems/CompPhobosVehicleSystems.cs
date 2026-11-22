@@ -3192,6 +3192,20 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (!Usable || Vehicle.Faction != Faction.OfPlayer) yield break;
         if (homeBay is { parent.Destroyed: false }) yield return BayGizmos.GoButton(this, homeBay);
+        // A vehicle that won't start: the button sends the nearest colonist with a way to jump-start it (Framework 0.242.0).
+        if (Vehicle.Spawned && JumpStartNeed() != null)
+        {
+            yield return new Command_Action
+            {
+                defaultLabel = "PhobosVehicleSystems_JumpStartButton".Translate(),
+                defaultDesc = "PhobosVehicleSystems_JumpStartButtonDesc".Translate(),
+                icon = SystemIcons.For("Phobos/VehicleSystems/JumpStart"),
+                action = () =>
+                {
+                    if (JumpStartSend.OrderNearest(Vehicle) is { } why) Messages.Message(why, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+                },
+            };
+        }
         // The cab's windows (Framework 0.233.0, hotboxing): a closed cab only; an open one is always open to the air.
         if (ClosedCab && Vehicle.VehicleDef.type == VehicleType.Land)
         {

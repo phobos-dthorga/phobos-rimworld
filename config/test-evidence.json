@@ -611,6 +611,11 @@
     }},
     "384": ["framework.recall-home"],
     "385": ["framework.reclaim-wreck"],
+    "389": {"parts": {
+      "jump-start sends someone": [{"key": "vehicles.send-nearest", "variant": "jump-start"}],
+      "purge sends someone": [{"key": "vehicles.send-nearest", "variant": "purge"}],
+      "claim sends someone": [{"key": "vehicles.send-nearest", "variant": "claim"}]
+    }},
     "386": {"parts": {
       "a fire starts in a zone": [{"key": "vehicles.fire-zone"}],
       "a fire spreads to the next zone": [{"key": "vehicles.fire-spread"}]

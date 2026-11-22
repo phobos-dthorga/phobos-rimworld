@@ -163,6 +163,44 @@ public struct JumpStartRoute
 }
 
 /// <summary>
+/// The jump-start button on a vehicle that won't start (Framework 0.242.0; the owner's choice of 23 Nov 2026: "send someone"): the nearest
+/// free colonist who can use their hands and has a way to do it (a donor near, a kit or a booster pack) is sent, as the right-click sends
+/// the one chosen. Says why nobody can, from the nearest who tried.
+/// </summary>
+public static class JumpStartSend
+{
+    public static string? OrderNearest(VehiclePawn flat)
+    {
+        SystemState? need = flat.GetComp<CompPhobosVehicleSystems>()?.JumpStartNeed();
+        JumpStartSpec? spec = need?.Def.jumpStart;
+        if (need == null || spec == null) return null;
+        NamedArgument vehicle = flat.LabelShort.Named("VEHICLE");
+        VehiclePawn? donor = JumpStarts.FindDonor(flat, need.Def);
+        string? firstRefusal = null;
+        Pawn? helper = Phobos.Framework.Work.SendNearest.Find(flat, pawn =>
+        {
+            if (!(pawn.health?.capacities?.CapableOf(PawnCapacityDefOf.Manipulation) ?? false)) return false;
+            JumpStartRoute route = JumpStarts.Plan(donor, JumpStarts.NeedsKit && donor != null ? JumpStarts.FindKit(pawn) : null, () => JumpStarts.FindPack(pawn));
+            string? why = route.Missing switch
+            {
+                JumpStartMissing.Kit => "PhobosVehicleSystems_CannotJumpStartNoKit".Translate(vehicle).Resolve(),
+                JumpStartMissing.Donor => "PhobosVehicleSystems_CannotJumpStartNoDonor".Translate(vehicle, spec.reach.ToString("0").Named("REACH")).Resolve(),
+                _ => !JumpStarts.WorkCell(pawn, flat).IsValid ? "PhobosVehicleSystems_CannotJumpStartNoPath".Translate(vehicle).Resolve() : null,
+            };
+            firstRefusal ??= why;
+            return why == null;
+        }, PathEndMode.Touch, draftedToo: true);
+        if (helper == null) return firstRefusal ?? "PhobosVehicleSystems_SendNobody".Translate(vehicle).Resolve();
+        JumpStartRoute chosen = JumpStarts.Plan(donor, JumpStarts.NeedsKit && donor != null ? JumpStarts.FindKit(helper) : null, () => JumpStarts.FindPack(helper));
+        JumpStarts.Order(helper, flat, chosen, JumpStarts.WorkCell(helper, flat));
+        Messages.Message("PhobosVehicleSystems_SentTo".Translate(helper.LabelShort.Named("PAWN"), "PhobosVehicleSystems_SentJumpStart".Translate(vehicle).Named("WORK")),
+            helper, MessageTypeDefOf.SilentInput, historical: false);
+        if (Seen.Wants("vehicles.send-nearest", flat, "jump-start")) Seen.Note("vehicles.send-nearest", flat, helper.LabelShort, "jump-start");
+        return null;
+    }
+}
+
+/// <summary>
 /// "Jump-start the truck from the jeep" on a vehicle whose battery is too low to start it, for a colonist who can use their hands.
 /// Every refusal says why: no kit in stock for the donor near (when the leads must be crafted), no donor near and no booster pack with
 /// a start (unless one is assumed), nowhere to stand.

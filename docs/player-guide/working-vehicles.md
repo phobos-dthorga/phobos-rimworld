@@ -451,7 +451,8 @@ aboard to set it up.
 chemfuel. It lays Rimefeller's hidden pipeline beneath itself and pumps to and from Rimefeller's storage tanks; the pipeline under it
 goes when it drives off.
 
-- **An empty tank must be purged before it carries something else**: select a colonist and right-click the truck (four in-game
+- **An empty tank must be purged before it carries something else**: press **Purge the tank** to send the nearest free colonist, or
+  select a colonist and right-click the truck (four in-game
   hours; it takes water with Dubs Bad Hygiene).
 - **Taking a tank off with a load in it spills the load.** A damaged tank leaks; a destroyed tank of something flammable explodes,
   more violently the fuller it is (turn off **Flammable tank loads explode** and it only spills). A full tank slows the truck.

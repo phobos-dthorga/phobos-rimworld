@@ -966,5 +966,19 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
         foreach (Gizmo gizmo in base.CompGetGizmosExtra()) yield return gizmo;
         if (Vehicle.Faction != Faction.OfPlayer || Fitted == null) yield break;
         foreach (Gizmo gizmo in TankGizmos.For(this)) yield return gizmo;
+        // An empty tank still holding a residue: the button sends the nearest colonist to purge it (Framework 0.242.0).
+        if (Vehicle.Spawned && NeedsPurge)
+        {
+            yield return new Command_Action
+            {
+                defaultLabel = "PhobosVehicleSystems_TankPurgeButton".Translate(),
+                defaultDesc = "PhobosVehicleSystems_TankPurgeButtonDesc".Translate(ResidueLabels.Named("CONTENTS")),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Tank/Contents"),
+                action = () =>
+                {
+                    if (TankPurgeSend.OrderNearest(Vehicle) is { } why) Messages.Message(why, Vehicle, MessageTypeDefOf.RejectInput, historical: false);
+                },
+            };
+        }
     }
 }

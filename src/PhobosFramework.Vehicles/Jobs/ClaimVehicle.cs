@@ -80,6 +80,53 @@ public static class VehicleClaims
     }
 }
 
+/// <summary>The claim button on another faction's vehicle (Framework 0.242.0; the owner's choice of 23 Nov 2026: "send someone"): the
+/// nearest free colonist who can use their hands and reach it is sent, as the right-click sends the one chosen. Says why nobody can.</summary>
+public static class VehicleClaimSend
+{
+    public static string? OrderNearest(VehiclePawn vehicle)
+    {
+        if (!VehicleClaims.Offered(vehicle)) return null;
+        if (VehicleClaims.Refusal(vehicle) is string why) return why;
+        NamedArgument name = vehicle.LabelShort.Named("VEHICLE");
+        Pawn? worker = Phobos.Framework.Work.SendNearest.Find(vehicle, pawn => pawn.health?.capacities?.CapableOf(PawnCapacityDefOf.Manipulation) ?? false,
+            PathEndMode.Touch, draftedToo: true);
+        if (worker == null) return "PhobosVehicleSystems_SendNobody".Translate(name).Resolve();
+        Phobos.Framework.Work.SendNearest.Order(worker, JobMaker.MakeJob(VehicleClaimDefOf.PhobosVehicleSystems_ClaimVehicle, vehicle));
+        Messages.Message("PhobosVehicleSystems_SentTo".Translate(worker.LabelShort.Named("PAWN"), "PhobosVehicleSystems_SentClaim".Translate(name).Named("WORK")),
+            worker, MessageTypeDefOf.SilentInput, historical: false);
+        if (Seen.Wants("vehicles.send-nearest", vehicle, "claim")) Seen.Note("vehicles.send-nearest", vehicle, worker.LabelShort, "claim");
+        return null;
+    }
+}
+
+/// <summary>
+/// Vehicle Framework shows no buttons on another faction's vehicle; a postfix adds the claim button while one can be claimed (Framework
+/// 0.242.0). Only the button: claiming is the service's.
+/// </summary>
+[HarmonyLib.HarmonyPatch(typeof(VehiclePawn), nameof(VehiclePawn.GetGizmos))]
+public static class Patch_VehicleGizmos_Claim
+{
+    public static IEnumerable<Gizmo> Postfix(IEnumerable<Gizmo> __result, VehiclePawn __instance)
+    {
+        foreach (Gizmo gizmo in __result) yield return gizmo;
+        if (__instance.Faction == Faction.OfPlayer || !__instance.Spawned || !VehicleClaims.Offered(__instance)) yield break;
+        VehiclePawn vehicle = __instance;
+        var claim = new Command_Action
+        {
+            defaultLabel = "PhobosVehicleSystems_ClaimButton".Translate(),
+            defaultDesc = "PhobosVehicleSystems_ClaimButtonDesc".Translate(),
+            icon = SystemIcons.For("UI/Designators/Claim"),
+            action = () =>
+            {
+                if (VehicleClaimSend.OrderNearest(vehicle) is { } why) Messages.Message(why, vehicle, MessageTypeDefOf.RejectInput, historical: false);
+            },
+        };
+        if (VehicleClaims.Refusal(vehicle) is string refusal) claim.Disable(refusal);
+        yield return claim;
+    }
+}
+
 /// <summary>The right-click order to claim another faction's vehicle. Says why not when it cannot be done.</summary>
 public class FloatMenuOptionProvider_PhobosClaimVehicle : FloatMenuOptionProvider
 {
