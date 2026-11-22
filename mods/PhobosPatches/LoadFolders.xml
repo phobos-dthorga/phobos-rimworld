@@ -11,6 +11,10 @@
     <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol</li>
     <li IfModActive="potemkinvillager.av8bharrier">Mods/HarrierVtol/1.7</li>
     <li IfModActive="potemkinvillager.av8bharrier,potemkinvillager.mi24hindhelicopter,potemkinvillager.mongooseattackhelicopter,potemkinvillager.CloseAirSupport,potemkinvillager.ea6bprowler">Mods/AircraftRearm/1.7</li>
+    <!-- Parts several aircraft mods' munitions share: the Mk. 82 bomb case and the missile seeker head (docs/development/aircraft-munitions.md). -->
+    <li IfModActive="potemkinvillager.av8bharrier,potemkinvillager.mi24hindhelicopter,potemkinvillager.mongooseattackhelicopter,potemkinvillager.CloseAirSupport,potemkinvillager.ea6bprowler">Mods/AircraftMunitions</li>
+    <li IfModActive="potemkinvillager.mi24hindhelicopter">Mods/HindHelicopter</li>
+    <li IfModActive="potemkinvillager.mongooseattackhelicopter">Mods/MongooseHelicopter</li>
     <li IfModActive="potemkinvillager.CloseAirSupport">Mods/CloseAirSupport</li>
     <li IfModActive="potemkinvillager.CloseAirSupport">Mods/CloseAirSupport/1.7</li>
     <li IfModActive="potemkinvillager.ea6bprowler">Mods/EA6BProwler</li>

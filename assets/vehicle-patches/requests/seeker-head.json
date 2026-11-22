@@ -1,0 +1,30 @@
+[
+  {
+    "name": "seeker-head",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosPatches/Mods/AircraftMunitions/Textures/Phobos/VehiclePatches/BombCaseMk82.png",
+        "role": "our approved item icon from the same family of bomb and missile parts: match its outline weight, shading, palette and finish only; do not copy its shape"
+      },
+      {
+        "image": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombFillIncendiary.png",
+        "role": "our approved item icon from the same family of bomb and missile parts: match its outline weight, shading, palette and finish only; do not copy its shape"
+      }
+    ],
+    "art_plan": {
+      "thing": "PhobosMissileSeekerHead",
+      "ships_as": "mods/PhobosPatches/Mods/AircraftMunitions/Textures/Phobos/VehiclePatches/SeekerHead.png",
+      "why": "the guidance section that goes into a Hellfire or HARM missile (docs/development/aircraft-munitions.md; the owner's card of 23 Nov 2026: intermediate parts, a seeker head with its own picture)",
+      "this_request": "paid route (owner, 22 Nov 2026: what appears in the game world is made paid), two attempts, dry run and a cap first"
+    },
+    "prompt": "GAME ITEM ICON. Camera above the object looking down at about sixty degrees, the way the game RimWorld draws loose items on the floor. One object, centred, filling about three quarters of the canvas.\n\nCreate an ORIGINAL game item sprite: the detached nose section of a guided missile, lying on its side. Images 1 and 2 are our approved item icons from the same family of parts: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nA short, thick olive-drab steel cylinder, about twice as long as it is wide, with a rounded clear glass dome at the front end showing a small dark sensor inside, a thin bright metal ring where the dome meets the body, and an open back end with a round connector plate and a few short coloured wires.\n\nDraw ONLY this, alone on a plain pure white background.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art. It must read clearly when shrunk to 64 pixels: three big shapes, few small ones.\n\nNo people, hands, animals, fins, wings, flames, text, letters, numbers, logos, floor, ground or cast shadow."
+  }
+]

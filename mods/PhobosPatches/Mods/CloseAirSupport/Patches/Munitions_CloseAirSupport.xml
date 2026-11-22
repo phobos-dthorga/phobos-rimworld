@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    The Su-25's and A-10's bombs brought in line with the Mk. 82 under Combat Extended (0.37.0; owner's cards, 23 Nov 2026: real
+    weights, intermediate parts; docs/development/aircraft-munitions.md). Stock, the FAB-250 was worth about 280 silver, the RBK-250
+    about 190 and the CBU-87 about 380, beside the Mk. 82's 1,436 and the Mk. 84's 2,000 to 5,900. Without CE their racks load from
+    steel, the items have no recipe and none of this applies: everything sits inside the guard Close Air Support's own CE patch sets
+    (the Mk. 82's 227 kg), as the Mk. 82's own patch does.
+
+    Weights are the real ones (secondary sources in the record): FAB-250 250 kg (Wikipedia; the M-62 is 227 kg, the M-54 268 kg),
+    RBK-250 273 kg (Russian Wikipedia, the AO-1 load), CBU-87 430 kg (Wikipedia). Fills follow the Mk. 82's ratio per kg of real
+    explosive, about 0.23 FSX and 3.5 chemfuel:
+      FAB-250: 100 kg (Wikipedia; ISW gives 99 kg), so 23 FSX and 350 chemfuel.
+      CBU-87: 52.7 kg net explosive, its 202 bomblets together (US DoD Iraq Ordnance Identification Guide, 2004, primary), so 12 FSX
+        and 185 chemfuel.
+      RBK-250: no sourced fill; AUTHORED by the CBU-87's share of explosive by weight (12 %), 33 kg, so 8 FSX and 115 chemfuel.
+    Cases: the FAB-250 and RBK-250 are built on the Mk. 82 case (140 kg; Mods/AircraftMunitions), the FAB-250 with 20 more steel for its
+    150 kg body (250 kg less 100 kg of fill). The CBU-87's dispenser and bomblet bodies weigh about 377 kg (430 kg less the explosive);
+    600 steel (300 kg) stands for them, short on purpose as the Mk. 82's fill is. Components: one fuze set for a FAB-250; the bomblets'
+    fuzes for the cluster bombs, 6 and 10 (AUTHORED).
+
+    MarketValue is removed, so the game works it out from the ingredients (StatWorker_MarketValue): about 1,630, 1,060 and 2,000
+    silver. The authors' work, skill and bulk stand.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases[Mass="227"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+
+        <!-- FAB-250, 250 kg. -->
+        <li Class="PatchOperationConditional">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="Frogfoot_FAB250Bomb"]</xpath>
+          <match Class="PatchOperationSequence">
+            <operations>
+              <li Class="PatchOperationReplace">
+                <xpath>Defs/ThingDef[defName="Frogfoot_FAB250Bomb"]/costList</xpath>
+                <value>
+                  <costList>
+                    <PhobosBombMk82Case>1</PhobosBombMk82Case>
+                    <Steel>20</Steel>
+                    <FSX>23</FSX>
+                    <Chemfuel>350</Chemfuel>
+                    <ComponentIndustrial>2</ComponentIndustrial>
+                  </costList>
+                </value>
+              </li>
+              <li Class="PatchOperationRemove">
+                <success>Always</success>
+                <xpath>Defs/ThingDef[defName="Frogfoot_FAB250Bomb"]/statBases/MarketValue</xpath>
+              </li>
+            </operations>
+          </match>
+        </li>
+
+        <!-- RBK-250 cluster bomb, 273 kg (the authors' CE weight was 40 kg). -->
+        <li Class="PatchOperationConditional">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="Warthog_ClusterBomb"]</xpath>
+          <match Class="PatchOperationSequence">
+            <operations>
+              <li Class="PatchOperationReplace">
+                <xpath>Defs/ThingDef[defName="Warthog_ClusterBomb"]/costList</xpath>
+                <value>
+                  <costList>
+                    <PhobosBombMk82Case>1</PhobosBombMk82Case>
+                    <FSX>8</FSX>
+                    <Chemfuel>115</Chemfuel>
+                    <ComponentIndustrial>6</ComponentIndustrial>
+                  </costList>
+                </value>
+              </li>
+              <li Class="PatchOperationReplace">
+                <xpath>Defs/ThingDef[defName="Warthog_ClusterBomb"]/statBases/Mass</xpath>
+                <value>
+                  <Mass>273</Mass>
+                </value>
+              </li>
+              <li Class="PatchOperationRemove">
+                <success>Always</success>
+                <xpath>Defs/ThingDef[defName="Warthog_ClusterBomb"]/statBases/MarketValue</xpath>
+              </li>
+            </operations>
+          </match>
+        </li>
+
+        <!-- CBU-87 cluster bomb, 430 kg (the authors' CE weight was 60 kg). -->
+        <li Class="PatchOperationConditional">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="Warthog_HeavyClusterBomb"]</xpath>
+          <match Class="PatchOperationSequence">
+            <operations>
+              <li Class="PatchOperationReplace">
+                <xpath>Defs/ThingDef[defName="Warthog_HeavyClusterBomb"]/costList</xpath>
+                <value>
+                  <costList>
+                    <Steel>600</Steel>
+                    <FSX>12</FSX>
+                    <Chemfuel>185</Chemfuel>
+                    <ComponentIndustrial>10</ComponentIndustrial>
+                  </costList>
+                </value>
+              </li>
+              <li Class="PatchOperationReplace">
+                <xpath>Defs/ThingDef[defName="Warthog_HeavyClusterBomb"]/statBases/Mass</xpath>
+                <value>
+                  <Mass>430</Mass>
+                </value>
+              </li>
+              <li Class="PatchOperationRemove">
+                <success>Always</success>
+                <xpath>Defs/ThingDef[defName="Warthog_HeavyClusterBomb"]/statBases/MarketValue</xpath>
+              </li>
+            </operations>
+          </match>
+        </li>
+
+      </operations>
+    </match>
+  </Operation>
+
+</Patch>

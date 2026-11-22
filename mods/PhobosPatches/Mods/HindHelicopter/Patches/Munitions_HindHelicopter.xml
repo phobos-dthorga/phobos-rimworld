@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    The Hind's Shturm missile brought in line with the Mk. 82 (0.37.0; owner's cards, 23 Nov 2026: real weights;
+    docs/development/aircraft-munitions.md). The item exists only under Combat Extended, so the patch waits on it. Stock, it was worth
+    about 310 silver.
+
+    9M114 Shturm: 31.4 kg as a missile, 46.5 kg in its launch tube, as the item is (Russian and English Wikipedia, secondary); the
+    author's 46 kg was already near it. Radio command guidance, steered from the helicopter, so it carries no seeker head: 40 steel, 8 FSX
+    for its 5.3 kg shaped charge and the motor's charge, 40 chemfuel for the propellant, 8 components for the guidance receiver and
+    autopilot. AUTHORED, from the owner's table. About 520 silver.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="Hind_Ammo_ShturmMissile"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName="Hind_Ammo_ShturmMissile"]/costList</xpath>
+          <value>
+            <costList>
+              <Steel>40</Steel>
+              <FSX>8</FSX>
+              <Chemfuel>40</Chemfuel>
+              <ComponentIndustrial>8</ComponentIndustrial>
+            </costList>
+          </value>
+        </li>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName="Hind_Ammo_ShturmMissile"]/statBases/Mass</xpath>
+          <value>
+            <Mass>46.5</Mass>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+</Patch>

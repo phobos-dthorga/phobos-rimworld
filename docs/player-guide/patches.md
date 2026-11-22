@@ -13,8 +13,8 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 - **Mostly not yet tested in game**: see [the last section](#what-has-been-tested-in-game).
 - **After a missile strike, wait for the message that the blast has spent itself before saving**: a blast still running when you
   save is forgotten on load.
-- **Before removing it**: delete bomb, rocket and heavy-casting bills it added; with Combat Extended, use up or sell bomb cases and bomb
-  fills, and deconstruct turret hulls built under it.
+- **Before removing it**: delete bomb, rocket and heavy-casting bills it added; with Combat Extended, use up or sell bomb cases, bomb
+  fills and missile seeker heads, and deconstruct turret hulls built under it.
 
 ## What it changes, mod by mod
 
@@ -26,6 +26,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | **UH-60M Black Hawk** (z3nt3) | Built from real parts by role: two turbines, its rotor drive and rotors, servos, hydraulics, landing gear, tanks, electrics and avionics, on a shell of steel, plasteel and a few components | Make or buy the turbines and other parts; finish or cancel a frame before installing |
 | **Close Air Support: A-10 Warthog & Su-25 Frogfoot** (potemkinvillager) | Fuller parts lists (avionics, hydraulics, wiring, landing gear, pylons, the gun); built from real parts by role (turbines, landing gear, tanks, generators, hydraulics; Construction 10); their bombs also at The Dead Man's Switch's ammunition fabricator. **Realistic handling** (off by default) flies them at speeds set by the real aircraft's | Turn on **Realistic handling** on the **Close Air Support** settings page if you want it, and restart |
 | Harrier, Hind, Mongoose, A-10, Su-25 | Rearming tops up the kind already loaded | A part-full magazine waits if that kind runs out |
+| A-10, Su-25, Hind, Mongoose, Prowler, with **Combat Extended** | Their bombs, missiles and jamming pods weigh what the real ones do and are made from what they are made of, priced like the Mk. 82 for their size: a FAB-250 or RBK-250 starts as a **Mk. 82 bomb case**, a Hellfire or HARM needs a **missile seeker head**. Worth about 520 (Shturm) to 2,000 silver (CBU-87) | Make bomb cases at the machining table and seeker heads at the machining table or fabrication bench (Microelectronics; one advanced component each). Ones already made keep their old cost |
 | Harrier, being taken apart | A temporary trace writes each step of a vehicle's disassembly to the game's log, to find why the Harrier can't be taken apart | **Try one disassembly, on a copy of your save, and don't retry.** First tick **D'thorga Patches: Harrier disassembly** on D'thorga Framework's **Detailed logs** settings page: the trace is off until you do |
 | **RimThunder** with The Dead Man's Switch - Expedition | The rotary forger makes heavy castings 12 at a time from 1,200 steel | Keep the floor around the forger clear: 24 items drop beside it |
 | **Spaceship Turret Hull** (MK), with **Combat Extended** | All seven hulls load ammo like CE's own turrets, and no longer explode when destroyed | **Rebuild hulls built before**, while the ship is landed |
@@ -42,7 +43,7 @@ from it; without the mods it patches, it does nothing. [Back to the guide](READM
 | **Biotech** (Ludeon), a setting off by default | Mech rechargers draw power by the size of the mech on them, charging slows over the last fifth, and a charging recharger warms its room | **Turn it on** in the settings' Mechanoids page; check your grid can carry your biggest mech |
 | **Combat Extended**, with or without **Simple sidearms** (PeteTimesSix) | Colonists left holding a grenade, a satchel charge or nothing after being downed go back to their own gun. Not yet tested in game | **Hand a gun once to anyone who has none at all.** [Soldiers keep their guns](#soldiers-keep-their-guns) |
 
-![The Mk. 82 and Mk. 84 bomb cases](images/patches-items.png)
+![The Mk. 82 and Mk. 84 bomb cases and the missile seeker head](images/patches-items.png)
 
 ## The Harrier
 
@@ -173,7 +174,7 @@ Each bomb starts as an empty steel case, made first and then filled.
 
 | Case | Steel | Weighs | Work | Crafting skill | Stack |
 | --- | --- | --- | --- | --- | --- |
-| Mk. 82 bomb case | 280 | 140 kg | 1,000 | 6 | 4 |
+| Mk. 82 bomb case (also the FAB-250 and RBK-250) | 280 | 140 kg | 1,000 | 6 | 4 |
 | Mk. 84 bomb case (all four Mk. 84s) | 956 | 478 kg | 3,000 | 7 | 4 |
 
 - **Where:** the machining table; the rotary forger, with The Dead Man's Switch - Expedition; and the automated machining bay, with
@@ -182,6 +183,31 @@ Each bomb starts as an empty steel case, made first and then filled.
   there instead.**
 - **No research of their own**: each bomb keeps its own. They can be smelted back to steel.
 - They are this mod's items: **use them up or sell them before removing the mod**.
+
+### The other aircraft's bombs, missiles and pods
+
+The A-10's and Su-25's bombs, the Hind's and Mongoose's missiles and the Prowler's missile and jamming pod follow the same rule
+under Combat Extended: **their real weight, made from what they are made of, worth what a Mk. 82 is for their size.** Without Combat
+Extended nothing here changes. **Ones already made keep their old cost.**
+
+| Weapon | Weighs | Made from | Worth about |
+| --- | --- | --- | --- |
+| FAB-250 (Su-25) | 250 kg | 1 Mk. 82 bomb case, 20 steel, 23 FSX, 350 chemfuel, 2 components | 1,630 |
+| RBK-250 cluster bomb (Su-25) | 273 kg | 1 Mk. 82 bomb case, 8 FSX, 115 chemfuel, 6 components | 1,060 |
+| CBU-87 cluster bomb (A-10) | 430 kg | 600 steel, 12 FSX, 185 chemfuel, 10 components | 2,000 |
+| 9M114 Shturm (Hind) | 46.5 kg | 40 steel, 8 FSX, 40 chemfuel, 8 components | 520 |
+| AGM-114 Hellfire (Mongoose) | 45 kg | 1 missile seeker head, 40 steel, 10 FSX, 50 chemfuel, 6 components | 790 |
+| AGM-88 HARM (Prowler) | 360 kg | 1 missile seeker head, 140 steel, 15 FSX, 150 chemfuel, 10 components, 1 advanced component | 1,580 |
+| AN/ALQ-99 jamming pod (Prowler) | 431 kg | 80 steel, 20 gold, 10 components, 2 advanced components | 1,100 |
+
+- **The cluster bombs' explosive is mostly in their bomblets**, so they take less FSX and more steel than a plain bomb of their weight.
+- **A colonist carries one at a time.** Stored on a vehicle or carried by a caravan they weigh what they really do. A jamming pod is
+  used up into the Prowler's count when mounted, so it adds nothing to the jet's load.
+- **The Shturm has no seeker head**: it is steered by radio from the helicopter.
+
+**The missile seeker head** is the guidance section of a Hellfire or HARM: 10 steel, 2 components and 1 advanced component, 2,000
+work, Crafting 8, at the machining table or the fabrication bench, after **Microelectronics basics**. It weighs 5 kg and stacks to 10.
+It is this mod's item: **use them up or sell them before removing the mod**.
 
 ## Bombs and rockets at the ammunition fabricator
 

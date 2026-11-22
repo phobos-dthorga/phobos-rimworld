@@ -9,7 +9,7 @@ casting at The Dead Man's Switch's rotary forger.
 One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods, merged into it on 7 November 2026: **D'thorga
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
-Version 0.36.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
+Version 0.37.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
 10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
 not yet tested in game.
 
@@ -37,7 +37,7 @@ the [changelog](CHANGELOG.md).
 - **Safe to add to a running save.** A Harrier you already built keeps working and gains its new parts at full health; only new builds
   pay the new cost. Bombs already made stay as they are.
 - **Before removing it:** delete any bomb or rocket bills you added at an ammunition fabricator and any heavy casting bills at a rotary
-  forger; **with Combat Extended, use up or sell your bomb cases and bomb fills**, delete their bills, and **deconstruct turret hulls built under this
+  forger; **with Combat Extended, use up or sell your bomb cases, bomb fills and missile seeker heads**, delete their bills, and **deconstruct turret hulls built under this
   mod** (not yet tested either way). Without it the Harrier's costs go back to its own, and with RimPacts its flight framework fails
   to load fully again. Removing IRBM or RimPacts later is clean once the save has been loaded with 0.16.8 or later.
 - **Decide before a missile strike:** the blast settings below. Choices that cost speed say so in amber. **After a strike, wait for the
@@ -95,6 +95,9 @@ Each part in a line or three; the guide chapter has the figures, tables and how 
 
 - **Bombs cost what they weigh**, each built on a stackable steel **bomb case** of its own
   ([bombs](../../docs/player-guide/patches.md#bombs-under-combat-extended)).
+- **The other aircraft's bombs, missiles and jamming pods too** (A-10, Su-25, Hind, Mongoose, Prowler): real weights, a
+  **missile seeker head** inside each Hellfire and HARM
+  ([the other aircraft](../../docs/player-guide/patches.md#the-other-aircrafts-bombs-missiles-and-pods)).
 - **Bombs and rockets at the ammunition fabricator**
   ([fabricator](../../docs/player-guide/patches.md#bombs-and-rockets-at-the-ammunition-fabricator)).
 - **Heavy castings 12 at a time at the rotary forger**

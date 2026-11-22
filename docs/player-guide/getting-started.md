@@ -149,7 +149,7 @@ for what went missing, and with vehicles the save may fail to load.
 | D'thorga Medical | In its settings press **Remove every condition this mod adds, from every pawn**. Deconstruct its machines and burn unit beds; sell, use or destroy its items |
 | D'thorga Factory Additions | Remove the bills it added from each machine's Processes tab and let running batches finish. Deconstruct every deep factory hopper and fabrication bay |
 | D'thorga Water Tap | Deconstruct every tap, and **lay a pipe back where each stood**, or the plumbing is cut in two |
-| D'thorga Patches | Delete bomb, rocket and heavy-casting bills it added. With Combat Extended: use up or sell bomb cases and bomb fills, and deconstruct turret hulls built under it |
+| D'thorga Patches | Delete bomb, rocket and heavy-casting bills it added. With Combat Extended: use up or sell bomb cases, bomb fills and missile seeker heads, and deconstruct turret hulls built under it |
 | D'thorga Radio Framework | Deconstruct every radio building and drop every hand-held |
 
 ## When something goes wrong

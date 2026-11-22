@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    Parts more than one aircraft mod's munitions are made from, under Combat Extended (0.37.0; docs/development/aircraft-munitions.md).
+    This folder loads while any of the Harrier, Hind, Mongoose, Close Air Support or Prowler is active, and each part below exists
+    only while a munition that uses it does.
+
+    The Mk. 82 bomb case and the Mk. 82's own recipe moved here from the Harrier's folder in 0.37.0, unchanged: the A-10 of Close Air
+    Support loads the same Mk. 82 item (FWA_Bomb500lb), so with that mod alone the Mk. 82 kept its author's 60 steel, 45 chemfuel and two
+    components. Both mods' Combat Extended patches give the Mk. 82 its real 227 kg, so that weight is the guard: it holds only under CE.
+    The case's figures and the fill ratio are explained in the Harrier's Bombs_HarrierVtol.xml, beside the Mk. 84.
+
+    The Mk. 82 case is also the case of Close Air Support's FAB-250 and RBK-250 (owner's card, 23 Nov 2026: intermediate parts): all
+    three are 250 kg-class bombs, and their bodies weigh much the same (secondary sources in the record). One case for all three is a
+    gameplay simplification.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases[Mass="227"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationAdd">
+          <xpath>Defs</xpath>
+          <value>
+            <ThingDef ParentName="ResourceBase">
+              <defName>PhobosBombMk82Case</defName>
+              <label>Mk. 82 bomb case</label>
+              <description>The empty steel body of a 500 lb Mk. 82 bomb: forged and machined, with no filling, fuze or fins yet. Filling and finishing it makes the bomb, and a workshop can fit one out as the body of a FAB-250 or an RBK-250 cluster bomb too. Several stack together.</description>
+              <graphicData>
+                <texPath>Phobos/VehiclePatches/BombCaseMk82</texPath>
+                <graphicClass>Graphic_Single</graphicClass>
+              </graphicData>
+              <stackLimit>4</stackLimit>
+              <smeltable>true</smeltable>
+              <statBases>
+                <MaxHitPoints>150</MaxHitPoints>
+                <Mass>140</Mass>
+                <Bulk>20</Bulk>
+                <Flammability>0</Flammability>
+                <WorkToMake>1000</WorkToMake>
+              </statBases>
+              <thingCategories>
+                <li>Manufactured</li>
+              </thingCategories>
+              <costList>
+                <Steel>280</Steel>
+              </costList>
+              <recipeMaker>
+                <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+                <workSkill>Crafting</workSkill>
+                <effectWorking>Smith</effectWorking>
+                <soundWorking>Recipe_Machining</soundWorking>
+                <recipeUsers>
+                  <li>TableMachining</li>
+                </recipeUsers>
+                <skillRequirements>
+                  <Crafting>6</Crafting>
+                </skillRequirements>
+              </recipeMaker>
+            </ThingDef>
+          </value>
+        </li>
+
+        <!-- At Dead Man's Switch - Expedition's rotary forger too, while it exists (see the Harrier's file). -->
+        <li Class="PatchOperationConditional">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="DMSE_TableLathe"]</xpath>
+          <match Class="PatchOperationAdd">
+            <xpath>Defs/ThingDef[defName="PhobosBombMk82Case"]/recipeMaker/recipeUsers</xpath>
+            <value>
+              <li>DMSE_TableLathe</li>
+            </value>
+          </match>
+        </li>
+
+        <!-- Mk. 82, 227 kg: a 140 kg case, 10 kg FSX, 15 kg chemfuel and two components, 166 kg in all. -->
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/costList</xpath>
+          <value>
+            <costList>
+              <PhobosBombMk82Case>1</PhobosBombMk82Case>
+              <FSX>20</FSX>
+              <Chemfuel>300</Chemfuel>
+              <ComponentIndustrial>2</ComponentIndustrial>
+            </costList>
+          </value>
+        </li>
+        <li Class="PatchOperationRemove">
+          <success>Always</success>
+          <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases/MarketValue</xpath>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+  <!--
+    The missile seeker head (owner's card, 23 Nov 2026: intermediate parts): the guidance section of the Mongoose's Hellfire and the
+    Prowler's HARM, carrying the advanced component each missile needs. The real seekers differ (the Hellfire's homes on reflected laser
+    light, the HARM's on radar emissions); one part for both is a gameplay simplification. Its cost (10 steel, two components, one advanced
+    component), 5 kg weight, 2,000 work and skill are AUTHORED. Made at the machining table, where the missiles are, or at the fabrication
+    bench, where advanced components are; Microelectronics, as the game's own electronics. Both missiles exist only under Combat Extended,
+    so this does too.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="Mongoose_Ammo_HellfireMissile" or defName="Prowler_Ammo_HARM"]</xpath>
+    <match Class="PatchOperationAdd">
+      <xpath>Defs</xpath>
+      <value>
+        <ThingDef ParentName="ResourceBase">
+          <defName>PhobosMissileSeekerHead</defName>
+          <label>missile seeker head</label>
+          <description>The guidance section of a guided missile: a sensor behind a glass dome, the gimbal it turns on, and the electronics that steer the missile onto what it sees. One goes into each laser-guided or radar-homing missile. Delicate: keep it dry and out of fire.</description>
+          <graphicData>
+            <texPath>Phobos/VehiclePatches/SeekerHead</texPath>
+            <graphicClass>Graphic_Single</graphicClass>
+          </graphicData>
+          <stackLimit>10</stackLimit>
+          <healthAffectsPrice>true</healthAffectsPrice>
+          <statBases>
+            <MaxHitPoints>60</MaxHitPoints>
+            <Mass>5</Mass>
+            <Bulk>4</Bulk>
+            <Flammability>0.5</Flammability>
+            <WorkToMake>2000</WorkToMake>
+            <DeteriorationRate>1</DeteriorationRate>
+          </statBases>
+          <thingCategories>
+            <li>Manufactured</li>
+          </thingCategories>
+          <costList>
+            <Steel>10</Steel>
+            <ComponentIndustrial>2</ComponentIndustrial>
+            <ComponentSpacer>1</ComponentSpacer>
+          </costList>
+          <recipeMaker>
+            <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+            <workSkill>Crafting</workSkill>
+            <effectWorking>Smith</effectWorking>
+            <soundWorking>Recipe_Machining</soundWorking>
+            <recipeUsers>
+              <li>TableMachining</li>
+              <li>FabricationBench</li>
+            </recipeUsers>
+            <researchPrerequisite>MicroelectronicsBasics</researchPrerequisite>
+            <skillRequirements>
+              <Crafting>8</Crafting>
+            </skillRequirements>
+          </recipeMaker>
+        </ThingDef>
+      </value>
+    </match>
+  </Operation>
+
+</Patch>

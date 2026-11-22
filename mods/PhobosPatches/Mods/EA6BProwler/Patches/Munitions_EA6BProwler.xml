@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    The Prowler's HARM and jamming pod brought in line with the Mk. 82 (0.37.0; owner's cards, 23 Nov 2026: real weights, intermediate
+    parts, the pod raised as suggested; docs/development/aircraft-munitions.md). Both items exist only under Combat Extended, so each
+    patch waits on its item. Stock, the HARM was worth about 400 silver and the pod about 340.
+
+    AGM-88 HARM: 360 kg (800 lb), warhead 68 kg (150 lb), radar homing (US Navy fact file, archived 2004, primary); the author's CE
+    weight was 80 kg. Its seeker is the missile seeker head (Mods/AircraftMunitions), with one more advanced component for its wide-band
+    receivers; 150 steel less the head's 10 for the airframe and motor case; 15 FSX for the warhead (the Mk. 82's ratio, 0.23 per kg);
+    150 chemfuel for the motor's propellant; 10 components. All but the weight and warhead AUTHORED. About 1,580 silver.
+
+    AN/ALQ-99 pod: 431 kg (950 lb; Carlo Kopp, Australian Aviation, January 1989, secondary); the author's weight was 40 kg. A pod is
+    used up into the jet's count when mounted (EWPods.cs), so its weight never rides on the jet as cargo. 80 steel, 20 gold for its
+    transmitters' contacts and wave guides, 10 components and 2 advanced components, AUTHORED (owner's card). About 1,100 silver: four
+    pods are about 4,400 on top of the jet.
+
+    The HARM has no fixed market value of its own, nor the pod, so the game already works theirs out from the ingredients.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="Prowler_Ammo_HARM"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName="Prowler_Ammo_HARM"]/costList</xpath>
+          <value>
+            <costList>
+              <PhobosMissileSeekerHead>1</PhobosMissileSeekerHead>
+              <Steel>140</Steel>
+              <FSX>15</FSX>
+              <Chemfuel>150</Chemfuel>
+              <ComponentIndustrial>10</ComponentIndustrial>
+              <ComponentSpacer>1</ComponentSpacer>
+            </costList>
+          </value>
+        </li>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName="Prowler_Ammo_HARM"]/statBases/Mass</xpath>
+          <value>
+            <Mass>360</Mass>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="Prowler_EWPod"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName="Prowler_EWPod"]/costList</xpath>
+          <value>
+            <costList>
+              <Steel>80</Steel>
+              <Gold>20</Gold>
+              <ComponentIndustrial>10</ComponentIndustrial>
+              <ComponentSpacer>2</ComponentSpacer>
+            </costList>
+          </value>
+        </li>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName="Prowler_EWPod"]/statBases/Mass</xpath>
+          <value>
+            <Mass>431</Mass>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+</Patch>

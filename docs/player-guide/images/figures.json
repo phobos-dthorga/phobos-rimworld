@@ -373,8 +373,9 @@
       "cardWidth": 124,
       "columns": 2,
       "items": [
-        {"label": "Mk. 82 bomb case", "icon": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombCaseMk82.png"},
-        {"label": "Mk. 84 bomb case", "icon": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombCaseMk84.png"}
+        {"label": "Mk. 82 bomb case", "icon": "mods/PhobosPatches/Mods/AircraftMunitions/Textures/Phobos/VehiclePatches/BombCaseMk82.png"},
+        {"label": "Mk. 84 bomb case", "icon": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombCaseMk84.png"},
+        {"label": "Missile seeker head", "icon": "mods/PhobosPatches/Mods/AircraftMunitions/Textures/Phobos/VehiclePatches/SeekerHead.png"}
       ]
     }
   ]

@@ -6,6 +6,27 @@ says the owner tested it.
 
 ## [Unreleased]
 
+## [0.37.0] - 2026-11-23 - Draft
+
+The new aircraft's weapons in line with the Mk. 82
+
+### Balance
+
+- **The A-10's, Su-25's, Hind's, Mongoose's and Prowler's bombs, missiles and jamming pods now cost what the Mk. 82 does for their size** (the owner's request of 23 November 2026: they were far too cheap; docs/development/aircraft-munitions.md). Under Combat Extended each has its real weight and is made from what it is made of, its value worked out from the ingredients: the FAB-250 about 1,630 silver (was 280), the RBK-250 1,060 (190), the CBU-87 2,000 (380), the Shturm 520 (310), the Hellfire 790 (410), the HARM 1,580 (400) and the jamming pod 1,100 (340). Real weights: the RBK-250 273 kg (was 40), the CBU-87 430 kg (60), the HARM 360 kg (80), the pod 431 kg (40), the Hellfire 45 kg and the Shturm 46.5 kg. Fills follow the Mk. 82's rule, by kg of real explosive, so the cluster bombs take little FSX and more steel. Weapons already made keep their old cost. Without Combat Extended nothing changes. Not yet tested in game: row 380 of the test pass.
+
+### Added
+
+- **The missile seeker head**: the guidance section inside each Hellfire and HARM (the owner's card: intermediate parts), 10 steel, 2 components and an advanced component, at the machining table or fabrication bench after Microelectronics basics. Its picture is made, two tries, awaiting the owner's pick.
+- **The FAB-250 and RBK-250 are built on the Mk. 82 bomb case**, as all three are 250 kg-class bombs.
+
+### Fixed
+
+- **With Close Air Support and without the Harrier, the A-10's Mk. 82 now costs what it does with the Harrier**: the Mk. 82 bomb case and the Mk. 82's recipe now load with either jet. Before, the A-10 alone kept its author's 60 steel, 45 chemfuel and two components.
+
+### Save compatibility
+
+- Safe to add to a running save. Before removing the mod, use up or sell missile seeker heads, as bomb cases.
+
 ## [0.36.0] - 2026-11-23 - Draft
 
 Shadow and shelter from a strike

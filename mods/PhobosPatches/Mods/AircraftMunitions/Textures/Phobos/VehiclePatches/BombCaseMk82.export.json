@@ -1,5 +1,5 @@
 {
-  "target": "mods/PhobosPatches/Mods/HarrierVtol/Textures/Phobos/VehiclePatches/BombCaseMk82.png",
+  "target": "mods/PhobosPatches/Mods/AircraftMunitions/Textures/Phobos/VehiclePatches/BombCaseMk82.png",
   "source": "assets/vehicle-patches/generated/bomb-case-mk82/bomb-case-mk82-12.png",
   "source_sha256": "03abaa0525898951225a80b1d878cd151938e6206351f1c77318883825affcb1",
   "target_sha256": "765f854e2b2f33ba83d948b573ab5ce2d4e01530ec126babbe47b22665bb0702",

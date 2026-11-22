@@ -32,6 +32,9 @@
     MarketValue is removed from the bombs and never set on the cases, so the game works it out from the ingredients, its
     normal rule for made items (StatWorker_MarketValue). Change a number here to rescale a bomb.
 
+    The Mk. 82 case and the Mk. 82's recipe moved to Mods/AircraftMunitions/Patches/Munitions_Shared.xml in 0.37.0, unchanged, so
+    they apply with Close Air Support's A-10 alone too, which loads the same Mk. 82; the figures above still describe them.
+
     The cases were PhobosBombCaseMk82 and PhobosBombCaseMk84 until 0.14.2. An item's defName must not end in a digit (the game
     reads its ID from the digits at the end of name + number), so they were renamed; BombCaseRename.cs carries older saves across.
   -->
@@ -40,46 +43,10 @@
     <match Class="PatchOperationSequence">
       <operations>
 
-        <!-- The two bomb cases. Added as Defs here so they exist only under CE, where the bombs use them. -->
+        <!-- The Mk. 84 case. Added as a Def here so it exists only under CE, where the bombs use it. -->
         <li Class="PatchOperationAdd">
           <xpath>Defs</xpath>
           <value>
-            <ThingDef ParentName="ResourceBase">
-              <defName>PhobosBombMk82Case</defName>
-              <label>Mk. 82 bomb case</label>
-              <description>The empty steel body of a 500 lb Mk. 82 bomb: forged and machined, with no filling, fuze or fins yet. Filling and finishing it makes the bomb. Several stack together.</description>
-              <graphicData>
-                <texPath>Phobos/VehiclePatches/BombCaseMk82</texPath>
-                <graphicClass>Graphic_Single</graphicClass>
-              </graphicData>
-              <stackLimit>4</stackLimit>
-              <smeltable>true</smeltable>
-              <statBases>
-                <MaxHitPoints>150</MaxHitPoints>
-                <Mass>140</Mass>
-                <Bulk>20</Bulk>
-                <Flammability>0</Flammability>
-                <WorkToMake>1000</WorkToMake>
-              </statBases>
-              <thingCategories>
-                <li>Manufactured</li>
-              </thingCategories>
-              <costList>
-                <Steel>280</Steel>
-              </costList>
-              <recipeMaker>
-                <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
-                <workSkill>Crafting</workSkill>
-                <effectWorking>Smith</effectWorking>
-                <soundWorking>Recipe_Machining</soundWorking>
-                <recipeUsers>
-                  <li>TableMachining</li>
-                </recipeUsers>
-                <skillRequirements>
-                  <Crafting>6</Crafting>
-                </skillRequirements>
-              </recipeMaker>
-            </ThingDef>
             <ThingDef ParentName="ResourceBase">
               <defName>PhobosBombMk84Case</defName>
               <label>Mk. 84 bomb case</label>
@@ -120,7 +87,7 @@
         </li>
 
         <!--
-          Both cases at the rotary forger too, while Dead Man's Switch - Expedition provides it. The forger runs ordinary
+          The case at the rotary forger too, while Dead Man's Switch - Expedition provides it. The forger runs ordinary
           recipes (Fortified.Building_WorkTableAutonomous, read 3 and 6 Nov 2026), so naming it is all it takes. The
           RecipeDefs are generated after patches, from these recipeUsers. A sequence step that fails ends the sequence,
           hence success Always.
@@ -129,27 +96,11 @@
           <success>Always</success>
           <xpath>Defs/ThingDef[defName="DMSE_TableLathe"]</xpath>
           <match Class="PatchOperationAdd">
-            <xpath>Defs/ThingDef[defName="PhobosBombMk82Case" or defName="PhobosBombMk84Case"]/recipeMaker/recipeUsers</xpath>
+            <xpath>Defs/ThingDef[defName="PhobosBombMk84Case"]/recipeMaker/recipeUsers</xpath>
             <value>
               <li>DMSE_TableLathe</li>
             </value>
           </match>
-        </li>
-
-        <!-- Mk. 82, 227 kg: a 140 kg case, 10 kg FSX, 15 kg chemfuel and two components, 166 kg in all. -->
-        <li Class="PatchOperationReplace">
-          <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/costList</xpath>
-          <value>
-            <costList>
-              <PhobosBombMk82Case>1</PhobosBombMk82Case>
-              <FSX>20</FSX>
-              <Chemfuel>300</Chemfuel>
-              <ComponentIndustrial>2</ComponentIndustrial>
-            </costList>
-          </value>
-        </li>
-        <li Class="PatchOperationRemove">
-          <xpath>Defs/ThingDef[defName="FWA_Bomb500lb"]/statBases/MarketValue</xpath>
         </li>
 
         <!-- Mk. 84 incendiary, 907 kg: 604 kg of materials, short on purpose (see the header). -->

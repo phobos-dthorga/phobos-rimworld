@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!--
+    The Mongoose's Hellfire brought in line with the Mk. 82 (0.37.0; owner's cards, 23 Nov 2026: real weights, intermediate parts;
+    docs/development/aircraft-munitions.md). The item exists only under Combat Extended, so the patch waits on it. Stock, it was worth
+    about 410 silver.
+
+    AGM-114K Hellfire II: 45 kg (100 lb), a 9 kg tandem shaped charge, semi-active laser seeker (Wikipedia; designation-systems.net
+    gives 45.7 kg; secondary); the author's 47 kg was near it. Its seeker is the missile seeker head (Mods/AircraftMunitions); 40 steel
+    for the body and motor case, 10 FSX for the warheads and the motor's charge, 50 chemfuel for the propellant, 6 components. AUTHORED,
+    from the owner's table, with the head carrying an advanced component and two of the components. About 790 silver.
+  -->
+  <Operation Class="PatchOperationConditional">
+    <xpath>Defs/ThingDef[defName="Mongoose_Ammo_HellfireMissile"]</xpath>
+    <match Class="PatchOperationSequence">
+      <operations>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName="Mongoose_Ammo_HellfireMissile"]/costList</xpath>
+          <value>
+            <costList>
+              <PhobosMissileSeekerHead>1</PhobosMissileSeekerHead>
+              <Steel>40</Steel>
+              <FSX>10</FSX>
+              <Chemfuel>50</Chemfuel>
+              <ComponentIndustrial>6</ComponentIndustrial>
+            </costList>
+          </value>
+        </li>
+        <li Class="PatchOperationReplace">
+          <xpath>Defs/ThingDef[defName="Mongoose_Ammo_HellfireMissile"]/statBases/Mass</xpath>
+          <value>
+            <Mass>45</Mass>
+          </value>
+        </li>
+      </operations>
+    </match>
+  </Operation>
+
+</Patch>
