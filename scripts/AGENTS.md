@@ -86,8 +86,7 @@ for word; the root's rules apply here too.
   each entry as a report is checked before adding or changing it** (phobos-modkit `rules/reports.md`): against the author's newest
   public source or Workshop build, saying in `versions` what it was checked against and what was not; plain facts and what to do,
   no blame. Mark one `fixed` with the day once the author fixes it, rather than deleting it. Write it through the kit (`feeds
-  index --folder feeds --name phobos-rimworld --title "Phobos RimWorld" --write`, then `feeds check --folder feeds`), from kit
-  1.93.0 or newer: this repository's pin is older until it moves.
+  index --folder feeds --name phobos-rimworld --title "Phobos RimWorld" --write`, then `feeds check --folder feeds`).
   **After an update, start with `python scripts/update-check.py`** (owner, 20 Nov 2026: the checks run by hand after that day's
   updates, "implemented into Companion"; D'thorga Companion's Since you last played runs it): our patches' targets, whether an update
   touched the method a temporary patch's fault lives in, each update's size and new types, and whether our XML patches still find

@@ -6,10 +6,11 @@
       "name": "Install backups",
       "folder": ".local/deploy-backups",
       "match": [
-        "*-????????-??????"
+        "*-????????-??????",
+        "*-????????-??????.zip"
       ],
-      "kinds": "folders",
-      "group": "^(?P<group>.+)-\\d{8}-\\d{6}$",
+      "kinds": "any",
+      "group": "^(?P<group>.+)-\\d{8}-\\d{6}(\\.zip)?$",
       "order": "name",
       "keepNewest": 1,
       "liveGroups": "mods/{group}/About/About.xml",

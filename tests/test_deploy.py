@@ -287,7 +287,8 @@ class HeldFolderTests(unittest.TestCase):
             lines = []
             self.assertEqual([], deploy.tidy_backups(['A'], root=folder, log=lines.append))
             self.assertEqual(1, len(lines))
-            self.assertIn('were not removed', lines[0])
+            # phobos-modkit 1.96.0: tidying packs backups as zips too, so its failure says the backups were not all tidied.
+            self.assertIn('were not all tidied', lines[0])
 
 
 def installed_mod_with_textures(game, mod='Example', pngs=('Textures/A.png', 'Mods/Other/Common/Textures/B.png')):
