@@ -8,6 +8,9 @@ tested in game unless an entry says the owner tested it.
 ### Changed
 
 - **The README's link into the player guide follows its vehicle chapters**: Looking after vehicles became five chapters (vehicle systems, damage and repairs, the workshop, on the road, aircraft and sling loads). Docs only.
+- **The README is slimmer**: real gotchas only, with the tested status brought up to date, a fleet table that now names the
+  paste bowser, the Billy field kitchen, the shower trailer and the Osprey, the settings and links; how each vehicle works is
+  the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
 
 ## [0.116.1] - 2026-11-23 - Draft
 

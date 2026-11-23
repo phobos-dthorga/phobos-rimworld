@@ -7,10 +7,10 @@ and new bills, from neutroamine out of human meat to other mods' drug lab recipe
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.14.2, built 18 November 2026 for House D'thorga. **Partly tested in game:** the human-meat bill (owner, 28 October
-2026), the drug lab bills appearing on their machines (29 October 2026), belts taking from switched-on storage only when they
-point away from it (29 and 30 October 2026), and a bill with no recipe taken off a machine (10 November 2026). Everything else is
-not yet tested in game.
+Version 0.14.2, built 18 November 2026 for House D'thorga. **Partly tested in game:** the human-meat bill (owner, 28 October 2026),
+the drug lab bills appearing on their machines (29 October 2026), belts taking from switched-on storage only when they point away
+from it (29 and 30 October 2026), and a bill with no recipe taken off a machine (10 November 2026). Everything else is not yet tested
+in game.
 
 ## Read this first (gotchas)
 
