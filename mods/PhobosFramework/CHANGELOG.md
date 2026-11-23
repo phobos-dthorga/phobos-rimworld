@@ -13,6 +13,14 @@ tested in game unless an entry says the owner tested it.
   has passed, the dyno bay trips and the service yard among them. Nothing in play changes.
 - **The fire timings in the gas rules' comments are in game minutes**: a gas pass is about 1.4 game minutes, not one, so a small fire fills a 20-cell room with carbon monoxide in about 72 game minutes, not 50. The owner chose to keep this pace (24 November 2026); nothing in play changes.
 
+## [0.276.2] - 2026-11-24 - Draft
+
+A trailer on a diagonal no longer stops its tractor beside a wall
+
+### Fixed
+
+- **A towed trailer running down a diagonal keeps going past a wall or fence it does not touch** (the owner's L-ATV and shower trailer, 24 November 2026: "The trailer cannot follow" on a clear south-east drive). A trailer takes a straight box of cells its full length, and as it settled onto a diagonal that box flipped from lying across to standing upright, reaching a cell or more past the trailer's picture into the wall. Within 15 degrees of a diagonal it may now stand either way round, keeping the way it already stands where that fits. Not yet tested in game.
+
 ## [0.276.1] - 2026-11-24 - Draft
 
 Three settings move to the cabs and camps page

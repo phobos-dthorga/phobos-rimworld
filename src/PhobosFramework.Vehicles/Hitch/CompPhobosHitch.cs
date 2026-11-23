@@ -365,7 +365,8 @@ public sealed partial class CompPhobosHitch : VehicleComp
         heading = (float)pose.Heading;
     }
 
-    /// <summary>Moves the trailer to the cells and facing its pose asks for, if they are clear, and turns its picture by the rest.</summary>
+    /// <summary>Moves the trailer to the cells and facing its pose asks for, if they are clear, and turns its picture by the rest. Near a
+    /// diagonal either neighbouring facing will do (Framework 0.276.2, <see cref="HitchRule.Facings"/>), the one it stands on first.</summary>
     bool TryPlace(TrailerPose pose, TowGeometry props)
     {
         VehiclePawn towed = trailer!;
@@ -373,7 +374,12 @@ public sealed partial class CompPhobosHitch : VehicleComp
         // A towed vehicle of its own (the recovery tow) is held: whoever is aboard cannot drive it off while it hangs on the tow bar.
         if (towed.vehiclePather is { Moving: true } own) own.StopDead();
         (double cx, double cz) = HitchRule.CentreOf(pose, props.AxleToCentre);
-        int facing = HitchRule.Cardinal(pose.Heading);
+        (int first, int second) = HitchRule.Facings(pose.Heading, towed.Rotation.AsInt);
+        return TryPlaceFacing(towed, map, pose, cx, cz, first) || (second >= 0 && TryPlaceFacing(towed, map, pose, cx, cz, second));
+    }
+
+    bool TryPlaceFacing(VehiclePawn towed, Map map, TrailerPose pose, double cx, double cz, int facing)
+    {
         IntVec2 size = towed.def.Size;
         (int x, int z) = HitchRule.CellFor(cx, cz, size.x, size.z, facing);
         var cell = new IntVec3(x, 0, z);
@@ -403,7 +409,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
             }
             SayMoved(towed);
         }
-        towed.Transform.rotation = (float)HitchRule.Remainder(pose.Heading);
+        towed.Transform.rotation = (float)HitchRule.TurnFrom(pose.Heading, facing);
         // The rest of the place, under a cell (Framework 0.265.1): the trailer is drawn where the tow puts it, its drawbar's eye on the hitch,
         // rather than at the middle of its cells up to half a cell off along the tow and across it.
         (double tx, double tz) = HitchRule.TrueCentre(x, z, size.x, size.z, facing);
@@ -411,13 +417,19 @@ public sealed partial class CompPhobosHitch : VehicleComp
         return true;
     }
 
-    /// <summary>Whether the trailer could stand where this pose puts it: its cells on the map and clear (fault-read H3).</summary>
+    /// <summary>Whether the trailer could stand where this pose puts it: its cells on the map and clear (fault-read H3), on either facing
+    /// near a diagonal, as <see cref="TryPlace"/> would stand it.</summary>
     bool PoseFits(TrailerPose pose, TowGeometry props, VehiclePawn towed, Map map)
     {
         (double cx, double cz) = HitchRule.CentreOf(pose, props.AxleToCentre);
-        int facing = HitchRule.Cardinal(pose.Heading);
-        (int x, int z) = HitchRule.CellFor(cx, cz, towed.def.Size.x, towed.def.Size.z, facing);
-        return Clear(towed.VehicleRect(new IntVec3(x, 0, z), new Rot4(facing)), map, towed);
+        (int first, int second) = HitchRule.Facings(pose.Heading, towed.Rotation.AsInt);
+        return Fits(first) || (second >= 0 && Fits(second));
+
+        bool Fits(int facing)
+        {
+            (int x, int z) = HitchRule.CellFor(cx, cz, towed.def.Size.x, towed.def.Size.z, facing);
+            return Clear(towed.VehicleRect(new IntVec3(x, 0, z), new Rot4(facing)), map, towed);
+        }
     }
 
     /// <summary>Whether the trailer can stand on these cells: on the map, on ground a person can walk, and clear of every other vehicle

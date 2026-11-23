@@ -85,6 +85,32 @@ public static class HitchRule
     /// <summary>What is left of a heading after its facing: the extra turn the picture is drawn with, within [-45, 45] degrees.</summary>
     public static double Remainder(double heading) => Difference(heading, Cardinal(heading) * 90.0);
 
+    /// <summary>The extra turn a picture standing on <paramref name="facing"/> is drawn with to point along a heading.</summary>
+    public static double TurnFrom(double heading, int facing) => Difference(heading, facing * 90.0);
+
+    /// <summary>
+    /// How near a diagonal a heading must be for a footprint to stand on its neighbouring facing: within this many degrees of 45. An authored
+    /// value (Framework 0.276.2), not geometry. A footprint is a square box the trailer's full length along one axis, so a long trailer near a
+    /// diagonal overhangs its picture by about the same either way round; turned to its nearest facing alone, the box flipped upright as the
+    /// trailer settled onto a south-east drive and reached a cell further into a wall the picture never touched (the owner's L-ATV and shower
+    /// trailer, 24 Nov 2026).
+    /// </summary>
+    public const double DiagonalSlackDegrees = 15;
+
+    /// <summary>
+    /// The facings a footprint may take for a heading, best first: the nearest, and within <see cref="DiagonalSlackDegrees"/> of a diagonal
+    /// the neighbouring one too (<c>Second</c> is -1 otherwise). The facing it already has (<paramref name="current"/>) comes first while it is
+    /// one of the two, so a trailer running down a diagonal keeps its cells rather than flicking between them.
+    /// </summary>
+    public static (int First, int Second) Facings(double heading, int current)
+    {
+        int nearest = Cardinal(heading);
+        double rest = Remainder(heading);
+        if (45 - Math.Abs(rest) > DiagonalSlackDegrees) return (nearest, -1);
+        int neighbour = (nearest + (rest >= 0 ? 1 : 3)) % 4;
+        return current == neighbour ? (neighbour, nearest) : (nearest, neighbour);
+    }
+
     /// <summary>
     /// The middle of a footprint standing on a cell, as Vehicle Framework works it out (VehiclePawn.TrueCenter): the cell's middle, moved
     /// half a cell where the footprint's width or length is even. A footprint turned east or west swaps its width and length.

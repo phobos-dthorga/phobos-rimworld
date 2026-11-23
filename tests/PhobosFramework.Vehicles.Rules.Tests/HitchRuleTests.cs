@@ -85,6 +85,25 @@ public class HitchRuleTests
     }
 
     [Fact]
+    public void NearADiagonalTheFootprintMayStandEitherWay()
+    {
+        // Well off a diagonal: the nearest facing only.
+        Assert.Equal((1, -1), HitchRule.Facings(100, 1));
+        // A south-east drive (135 rounds to south): south first, east as the other; already east, east stays first.
+        Assert.Equal((2, 1), HitchRule.Facings(135, 0));
+        Assert.Equal((1, 2), HitchRule.Facings(135, 1));
+        // Within the slack either side of 45, and of 315 across north.
+        Assert.Equal((0, 1), HitchRule.Facings(35, 0));
+        Assert.Equal((1, 0), HitchRule.Facings(50, 1));
+        Assert.Equal((0, 3), HitchRule.Facings(320, 2));
+        Assert.Equal((0, -1), HitchRule.Facings(45 - HitchRule.DiagonalSlackDegrees - 1, 1));
+        // The picture's extra turn from the facing it stands on.
+        Assert.Equal(-50, HitchRule.TurnFrom(130, 2), 6);
+        Assert.Equal(40, HitchRule.TurnFrom(130, 1), 6);
+        Assert.Equal(-40, HitchRule.TurnFrom(320, 0), 6);
+    }
+
+    [Fact]
     public void TheMiddleOfAnEvenFootprintFollowsVehicleFramework()
     {
         // A 2 x 5 trailer facing north: half a cell east of the cell's middle; facing east, its 5 x 2 is half a cell south.
