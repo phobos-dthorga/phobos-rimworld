@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.107.3] - 2026-11-23 - Draft
+
+The A-10's and Su-25's new engines go in as a pair
+
+### Fixed
+
+- **The A-10's uprated engines and the Su-25's R-195 engines are fitted to both engines together**, one new engine and one job each, and the aircraft gains nothing until both are in (the owner's report of 23 November 2026). Before, each engine was ordered on its own and one done gave half the gain, a jet with one engine stronger than the other. Needs D'thorga Framework 0.246.0. Other factions' jets that arrive refitted have both engines done, as before. Not yet tested in game: row 400 of the test pass.
+
 ## [0.107.2] - 2026-11-23 - Draft
 
 The survey truck's cream panel paints cleanly

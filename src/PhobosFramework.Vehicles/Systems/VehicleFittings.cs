@@ -238,7 +238,7 @@ public sealed class VehicleFittings
     void Recache()
     {
         if (statFactors != null) return;
-        FitFigures figures = FitFigures.Of(fitted.Select(part => (part.def!, PartsOf(part.def!))), ActiveTunes());
+        FitFigures figures = FitFigures.Of(fitted.Where(part => part.def != null && SetWorks(part.def)).Select(part => (part.def!, PartsOf(part.def!))), ActiveTunes());
         statFactors = figures.Stats;
         parameterFactors = figures.Parameters;
         power = (float)figures.Power;
@@ -273,6 +273,8 @@ public sealed class VehicleFittings
     {
         var fittings = new List<(PhobosVehicleFittingDef, int)>();
         // An axle's row counts every wheel of it that has the fitting: each gives its share, as on the vehicle.
+        // A matched set's row shows the whole set's effect: it gives nothing until the set is whole, and all of it then.
+        if (fitting is { matchedSet: true } && fittedParts > 0) fittedParts = PartsOf(fitting);
         for (int i = 0; fitting != null && i < fittedParts; i++) fittings.Add((fitting, PartsOf(fitting)));
         return FitFigures.Of(fittings, tune == null ? Enumerable.Empty<PhobosVehicleTuneDef>() : new[] { tune });
     }
@@ -405,6 +407,27 @@ public sealed class VehicleFittings
         return keys.Count;
     }
 
+    // ---- Matched sets (Framework 0.246.0; owner, 23 Nov 2026: both engines of a twin-engined jet together) ----
+
+    /// <summary>Whether a fitting works: an ordinary one always; a matched set only once every part of its roles carries it.</summary>
+    public bool SetWorks(PhobosVehicleFittingDef def) =>
+        !def.matchedSet || FittingRule.PartsCounted(fitted.Count(f => f.def == def), PartsOf(def), matchedSet: true) > 0;
+
+    /// <summary>How many parts of a matched set still lack it while some carry it; 0 for a whole set, an ordinary fitting, or none fitted.</summary>
+    public int SetPartsMissing(PhobosVehicleFittingDef def)
+    {
+        if (!def.matchedSet) return 0;
+        int carrying = fitted.Count(f => f.def == def);
+        return carrying == 0 ? 0 : System.Math.Max(0, PartsOf(def) - carrying);
+    }
+
+    /// <summary>How many parts a matched set goes on, for what the player reads.</summary>
+    public int SetSize(PhobosVehicleFittingDef def) => PartsOf(def);
+
+    /// <summary>The parts a fitting goes on as a matched set: every listed part playing one of its roles. One part for an ordinary fitting.</summary>
+    List<VehicleComponent> SetPartsFor(VehicleComponent part, PhobosVehicleFittingDef def) =>
+        def.matchedSet ? ListedParts().Where(p => def.roles.Any(role => comp.PartPlays(p, role))).ToList() : new List<VehicleComponent> { part };
+
     // ---- What can be done ----
 
     bool HasPiston => comp.Powertrain?.Spec.Engine == EngineKind.Piston;
@@ -531,6 +554,24 @@ public sealed class VehicleFittings
         {
             return "PhobosVehicleSystems_FitNoResearch".Translate(def.researchPrerequisite.LabelCap.Named("RESEARCH")).Resolve();
         }
+        if (def.matchedSet)
+        {
+            // A matched set goes on every part of its roles or none: any one that cannot take it refuses the set, naming the part.
+            foreach (VehicleComponent setPart in SetPartsFor(part, def))
+            {
+                if (setPart == part || FittedOn(setPart.props.key) == def) continue;
+                if (PartRefusal(setPart) is { } other)
+                {
+                    return "PhobosVehicleSystems_FitSetRefused".Translate(setPart.props.label.Named("PART"), other.Named("REASON")).Resolve();
+                }
+            }
+        }
+        return PartRefusal(part);
+    }
+
+    /// <summary>Why this part cannot take a fitting now, research aside; null when it can.</summary>
+    string? PartRefusal(VehicleComponent part)
+    {
         if (part.Health <= 0f) return "PhobosVehicleSystems_FitPartDestroyed".Translate().Resolve();
         PhobosVehiclePartGradeDef grade = GradeOf(part.props.key);
         return grade.holdsFitting ? null : "PhobosVehicleSystems_FitGradeHoldsNone".Translate(grade.label.Named("GRADE")).Resolve();
@@ -571,7 +612,7 @@ public sealed class VehicleFittings
     }
 
     /// <summary>Whether a fitting on this vehicle grants this ability (a cargo hook), its part still standing.</summary>
-    public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability)
+    public bool Grants(string ability) => fitted.Any(f => f.def != null && f.def.grants.Contains(ability) && SetWorks(f.def)
         && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f });
 
     /// <summary>The factor on the vehicle's jamming reach from every fitting whose part still stands (Framework 0.224.0): 1 with none.</summary>
@@ -582,7 +623,7 @@ public sealed class VehicleFittings
             float factor = 1f;
             foreach (FittedPart part in fitted)
             {
-                if (part.def == null || part.def.jamRadiusFactor == 1f) continue;
+                if (part.def == null || part.def.jamRadiusFactor == 1f || !SetWorks(part.def)) continue;
                 if (comp.Vehicle.statHandler?.GetComponent(part.partKey) is { Health: > 0f }) factor *= part.def.jamRadiusFactor;
             }
             return factor;
@@ -594,7 +635,7 @@ public sealed class VehicleFittings
     {
         foreach (FittedPart part in fitted)
         {
-            if (part.def == null || !part.def.grants.Contains(ability)) continue;
+            if (part.def == null || !part.def.grants.Contains(ability) || !SetWorks(part.def)) continue;
             if (comp.Vehicle.statHandler?.GetComponent(part.partKey) is { Health: > 0f } standing) return standing;
         }
         return null;
@@ -602,7 +643,7 @@ public sealed class VehicleFittings
 
     /// <summary>The fittings on parts that are not destroyed, as <see cref="Grants"/> counts them.</summary>
     public IEnumerable<PhobosVehicleFittingDef> FittedDefs() => fitted
-        .Where(f => f.def != null && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f })
+        .Where(f => f.def != null && SetWorks(f.def) && comp.Vehicle.statHandler?.GetComponent(f.partKey) is { Health: > 0f })
         .Select(f => f.def!);
 
     public FitOrder? OrderOn(string partKey) => orders.FirstOrDefault(o => o.partKey == partKey);
@@ -696,7 +737,7 @@ public sealed class VehicleFittings
 
     /// <summary>Whether a fitting on the vehicle grants boost (Framework 0.123.0), counted from what is fitted, so a boost tune stands down the
     /// moment its turbocharger is taken off or lost.</summary>
-    bool HasBoost => fitted.Any(f => f.def != null && f.def.grants.Contains(BoostAbility));
+    bool HasBoost => fitted.Any(f => f.def != null && f.def.grants.Contains(BoostAbility) && SetWorks(f.def));
 
     /// <summary>The tunes that act now: all of them, but a boost tune only while its turbocharger is fitted.</summary>
     IEnumerable<PhobosVehicleTuneDef> ActiveTunes() => tunes.Where(t => t.axis != VehicleTuneAxis.Boost || HasBoost);
@@ -722,8 +763,25 @@ public sealed class VehicleFittings
 
     void OrderFitting(VehicleComponent part, PhobosVehicleFittingDef def, bool quiet)
     {
-        orders.RemoveAll(o => o.partKey == part.props.key);
-        Add(new FitOrder { partKey = part.props.key, fitting = def }, quiet);
+        if (!def.matchedSet)
+        {
+            orders.RemoveAll(o => o.partKey == part.props.key);
+            Add(new FitOrder { partKey = part.props.key, fitting = def }, quiet);
+            return;
+        }
+        // A matched set is ordered on every part of its roles that does not carry it or wait for it already, one job a part.
+        int ordered = 0;
+        foreach (VehicleComponent setPart in SetPartsFor(part, def))
+        {
+            string key = setPart.props.key;
+            if (FittedOn(key) == def || OrderOn(key)?.fitting == def) continue;
+            orders.RemoveAll(o => o.partKey == key);
+            Add(new FitOrder { partKey = key, fitting = def }, quiet: true);
+            ordered++;
+        }
+        if (quiet || ordered == 0) return;
+        VehicleNotices.Send("PhobosVehicleSystems_FitSetOrdered".Translate(def.label.Named("FITTING"), comp.Vehicle.LabelShort.Named("VEHICLE"),
+            ordered.Named("COUNT")), MessageTypeDefOf.SilentInput, historical: false);
     }
 
     // ---- Families (Framework 0.103.0; docs/development/vehicle-upgrades-round-two.md) ----
@@ -831,8 +889,15 @@ public sealed class VehicleFittings
 
     public void OrderRemoval(VehicleComponent part)
     {
-        orders.RemoveAll(o => o.partKey == part.props.key);
-        Add(new FitOrder { partKey = part.props.key, remove = true });
+        // A matched set comes off every part together, as it went on.
+        PhobosVehicleFittingDef? on = FittedOn(part.props.key);
+        List<VehicleComponent> parts = on is { matchedSet: true } ? SetPartsFor(part, on).Where(p => FittedOn(p.props.key) == on).ToList()
+            : new List<VehicleComponent> { part };
+        foreach (VehicleComponent setPart in parts)
+        {
+            orders.RemoveAll(o => o.partKey == setPart.props.key);
+            Add(new FitOrder { partKey = setPart.props.key, remove = true }, quiet: setPart != part);
+        }
     }
 
     public void OrderTune(PhobosVehicleTuneDef tune)
@@ -859,6 +924,13 @@ public sealed class VehicleFittings
     public void Cancel(FitOrder order)
     {
         if (!orders.Remove(order)) return;
+        // A matched set's orders go together: half a set ordered would leave the vehicle waiting on a job nobody asked for.
+        PhobosVehicleFittingDef? set = order.fitting is { matchedSet: true } ? order.fitting
+            : order.remove && FittedOn(order.partKey) is { matchedSet: true } on ? on : null;
+        if (set != null)
+        {
+            orders.RemoveAll(o => order.fitting != null ? o.fitting == set : o.remove && FittedOn(o.partKey) == set);
+        }
         comp.Repairs.Invalidate();
         VehicleNotices.Send("PhobosVehicleSystems_FitCancelledMessage".Translate(LabelOf(order).CapitalizeFirst().Named("WORK"), comp.Vehicle.LabelShort.Named("VEHICLE")), MessageTypeDefOf.SilentInput, historical: false);
     }
@@ -939,6 +1011,8 @@ public sealed class VehicleFittings
             // A fitting put on over another takes that one off: its kit comes back too (Framework 0.129.0).
             if (replaced != null && replaced != order.fitting && GiveBack(replaced) is { } back) text += " " + back;
             if (Seen.On) Seen.Note("vehicles.fitting-done." + order.fitting.defName, comp.Vehicle, PartLabel(order.partKey));
+            // A matched set made whole by this part (Framework 0.246.0): the effect starts now.
+            if (Seen.On && order.fitting.matchedSet && SetWorks(order.fitting)) Seen.Note("vehicles.matched-set-whole", comp.Vehicle, order.fitting.defName);
         }
         orders.Remove(order);
         Changed();

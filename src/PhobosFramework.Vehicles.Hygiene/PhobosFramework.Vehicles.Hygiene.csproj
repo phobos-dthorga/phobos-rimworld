@@ -11,7 +11,7 @@
     <TieInFolder>Mods/VehiclesHygiene/</TieInFolder>
     <!-- One patch (Framework 0.216.0): a caravan's people drink and wash from its tanks, ahead of Dubs' own caravan look. -->
     <UsesHarmony>true</UsesHarmony>
-    <Version>0.245.0</Version>
+    <Version>0.246.0</Version>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
   </PropertyGroup>
   <ItemGroup>

@@ -4,7 +4,9 @@
     The A-10's and Su-25's own service-life upgrades (owner, 21 Nov 2026; docs/development/aircraft-service-life-upgrades.md). Fittings of ours,
     beside Close Air Support's upgrade trees, never in them. Both jets now start as their early versions (Loadouts_CloseAirSupport.xml); what
     any aircraft can take (navigation, autopilot, night sight, radar) is D'thorga Framework's kits. An engine fitting goes on each engine and
-    gives its share, so a re-engining is complete only with both engines done. Materials, work and skill are authored.
+    gives its share, so a re-engining is complete only with both engines done. Since Vehicles 0.107.3 an engine fitting is a matched set
+    (owner, 23 Nov 2026: one engine stronger than the other "wouldn't fly very stable"): ordered on both engines at once, one turbine and
+    one job each, and changing nothing until both carry it. Materials, work and skill are authored.
   -->
 
   <Phobos.VehicleSystems.PhobosVehicleFittingDef>
@@ -14,8 +16,9 @@
          this does not model. -->
     <defName>PhobosFitting_FrogfootR195</defName>
     <label>R-195 engine</label>
-    <description>The Su-25's later engine, a little stronger than the R-95Sh it was first built with. Fit one to each engine: each gives half of the gain, so the aircraft climbs, carries and copes with heat and an engine out better only once both are done.</description>
+    <description>The Su-25's later engine, a little stronger than the R-95Sh it was first built with. Both engines are changed together, one new engine each, and the aircraft climbs, carries and copes with heat and an engine out better once both are in.</description>
     <roles><li>Engine1</li><li>Engine2</li></roles>
+    <matchedSet>true</matchedSet>
     <loadouts><li>PhobosVehicleLoadout_Frogfoot</li></loadouts>
     <piston>No</piston>
     <materials><PhobosVehicles_TurbineAssembly>1</PhobosVehicles_TurbineAssembly><Steel>20</Steel><ComponentIndustrial>3</ComponentIndustrial></materials>
@@ -49,8 +52,9 @@
          factor; the claim at altitude is not modelled. A manufacturer's claim, never flight-tested in service. -->
     <defName>PhobosFitting_WarthogUpratedTF34</defName>
     <label>uprated engines (offered, never fielded)</label>
-    <description>A stronger engine of the same family, offered to re-engine the A-10 but never bought, built here to the maker's own figures. Fit one to each engine: each gives half of the gain. With both, the A-10 has the thrust its pilots always wanted, and an engine out leaves it far more to fly home on.</description>
+    <description>A stronger engine of the same family, offered to re-engine the A-10 but never bought, built here to the maker's own figures. Both engines are changed together, one new engine each. With both in, the A-10 has the thrust its pilots always wanted, and an engine out leaves it far more to fly home on.</description>
     <roles><li>Engine1</li><li>Engine2</li></roles>
+    <matchedSet>true</matchedSet>
     <loadouts><li>PhobosVehicleLoadout_Warthog</li></loadouts>
     <piston>No</piston>
     <materials><PhobosVehicles_TurbineAssembly>1</PhobosVehicles_TurbineAssembly><Plasteel>30</Plasteel><ComponentSpacer>2</ComponentSpacer></materials>

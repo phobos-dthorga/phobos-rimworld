@@ -15,6 +15,14 @@ public static class FittingRule
         return partsOfRole <= 1 ? factor : Math.Pow(factor, 1.0 / partsOfRole);
     }
 
+    /// <summary>
+    /// How many of a fitting's parts count towards its effect (Framework 0.246.0, a matched set: owner, 23 Nov 2026, an aircraft's
+    /// re-engining fitted to both engines together). An ordinary fitting counts every part that carries it; a matched set counts none of
+    /// them until every part of its roles does, so a twin-engined jet never flies with one engine stronger than the other.
+    /// </summary>
+    public static int PartsCounted(int fittedParts, int partsOfRole, bool matchedSet) =>
+        fittedParts <= 0 ? 0 : matchedSet && fittedParts < partsOfRole ? 0 : fittedParts;
+
     /// <summary>A mechanic at or above the job's minimum skill always succeeds; one below it may not try (owner: no random failure).</summary>
     public static bool SkilledEnough(int skill, int minimum) => skill >= minimum;
 

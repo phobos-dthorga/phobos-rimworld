@@ -409,6 +409,11 @@ public class Dialog_PhobosVehicleFittings : Window
                 {
                     line = "PhobosVehicleSystems_AxleMixed".Translate(line.Named("LINE"), commonCount.Named("FITTED"), parts.Count.Named("WHEELS")).Resolve();
                 }
+                // A matched set part-way done: its row says the effect waits for the rest (Framework 0.246.0).
+                if (!hoverFitting && fitting is { matchedSet: true } && Fittings.SetPartsMissing(fitting) is var missing and > 0)
+                {
+                    line = "PhobosVehicleSystems_SetWaiting".Translate(line.Named("LINE"), missing.Named("MISSING")).Resolve();
+                }
                 if (hoverFitting || tunePreview) line = "PhobosVehicleSystems_EffectPreview".Translate(line.Named("LINE")).Resolve().Colorize(PreviewColour);
                 rowLine = PhobosWidgets.WrappedLine(PartNameWidth, y + PictureButton + 2f, view.width - PartNameWidth, line);
             }
@@ -500,6 +505,7 @@ public class Dialog_PhobosVehicleFittings : Window
         string tip = def.LabelCap + " (" + Materials(Fittings.MaterialsFor(def.materials)) + ")\n" + Hours(def.work) + "\n\n" + def.description;
         if (FittingText.Effects(def, VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain) is { } effects) tip += "\n\n" + effects;
         if (def.minSkill > 0) tip += "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(def.minSkill.Named("SKILL")).CapitalizeFirst();
+        if (def.matchedSet) tip += "\n\n" + "PhobosVehicleSystems_FitSetNote".Translate(Fittings.SetSize(def).Named("COUNT")).Resolve();
         if (refusal != null) tip += "\n\n" + refusal.Colorize(PhobosWidgets.Bad);
         return tip;
     }
@@ -559,7 +565,8 @@ public class Dialog_PhobosVehicleFittings : Window
             if (def == on) continue;
             string label = def.LabelCap + " (" + Materials(Fittings.MaterialsFor(def.materials)) + ")";
             string tip = def.description + (FittingText.Effects(def, VehicleSystemsMod.Settings.displayMode == DisplayMode.Plain) is { } effects ? "\n\n" + effects : "")
-                + (def.minSkill > 0 ? "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(def.minSkill.Named("SKILL")).CapitalizeFirst() : "");
+                + (def.minSkill > 0 ? "\n\n" + "PhobosVehicleSystems_FitNeedsSkill".Translate(def.minSkill.Named("SKILL")).CapitalizeFirst() : "")
+                + (def.matchedSet ? "\n\n" + "PhobosVehicleSystems_FitSetNote".Translate(Fittings.SetSize(def).Named("COUNT")).Resolve() : "");
             string? refusal = Fittings.Refusal(def, part);
             PhobosVehicleFittingDef captured = def;
             string text = refusal == null ? label : label + ": " + refusal;

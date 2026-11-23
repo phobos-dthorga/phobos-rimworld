@@ -5,6 +5,18 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.246.0] - 2026-11-23 - Draft
+
+Matched sets: both engines changed together
+
+### Added
+
+- **A fitting can be a matched set**, fitted to every part of its roles together (the owner's report of 23 November 2026: the A-10's new engines went on one engine at a time, and a jet with one engine stronger than the other "wouldn't fly very stable"). Ordering it on one part orders it on all of them, one job and one set of materials each; cancelling or taking it off one does all of them; a part that cannot take it refuses the whole set and says which; and it changes nothing until every part carries it. The fittings window says so in its tip, and a half-done set's row says what it waits for. For other mods: matchedSet in a fitting's XML. Not yet tested in game: row 400 of the test pass.
+
+### Save compatibility
+
+- Safe. An aircraft that already had one engine done keeps it; its gain now waits for the other engine, where before it gave half.
+
 ## [0.245.0] - 2026-11-23 - Draft
 
 Fire on vehicles, the second round: crews get out, and what a fire leaves behind

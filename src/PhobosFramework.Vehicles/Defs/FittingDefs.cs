@@ -46,6 +46,12 @@ public class PhobosVehicleFittingDef : Def
     public UnityEngine.Texture2D? Icon => SystemIcons.IfExistsCached(iconPath);
 
     public List<string> roles = new();
+    /// <summary>
+    /// Fitted to every part of its roles together, and working only once every one of them carries it (Framework 0.246.0; owner, 23 Nov
+    /// 2026: a twin-engined jet re-engined one engine at a time "wouldn't fly very stable"). Ordering, cancelling or taking it off one part
+    /// does so on all of them; each part is still its own job and takes its own materials. Until the set is whole it moves no figure.
+    /// </summary>
+    public bool matchedSet;
     public List<ThingDefCountClass> materials = new();
     /// <summary>Work in ticks for a mechanic of construction speed 1.</summary>
     public float work = 1200f;

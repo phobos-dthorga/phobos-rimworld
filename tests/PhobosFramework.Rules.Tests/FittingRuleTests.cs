@@ -5,6 +5,17 @@ namespace Phobos.Framework.Rules.Tests;
 
 public class FittingRuleTests
 {
+    [Theory]
+    [InlineData(1, 2, false, 1)]
+    [InlineData(2, 2, false, 2)]
+    [InlineData(1, 2, true, 0)]
+    [InlineData(2, 2, true, 2)]
+    [InlineData(3, 4, true, 0)]
+    [InlineData(0, 2, true, 0)]
+    [InlineData(1, 1, true, 1)]
+    public void AMatchedSetCountsOnlyOnceEveryPartCarriesIt(int fitted, int parts, bool matched, int expected) =>
+        Assert.Equal(expected, FittingRule.PartsCounted(fitted, parts, matched));
+
     [Fact]
     public void OnePartGivesTheWholeFactor() => Assert.Equal(1.2, FittingRule.PartShare(1.2, 1), 6);
 

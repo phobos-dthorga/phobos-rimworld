@@ -1,7 +1,8 @@
 # Aircraft service-life upgrades (21 Nov 2026)
 
 **Status (21 Nov 2026):** built, not yet tested in game: D'thorga Framework 0.208.0 (engine and avionics fittings, the older-save fittings,
-and the avionics' effects A3, A4, A10, A11) and D'thorga Vehicles 0.93.0 (the jets' early fits and their own upgrades). Test rows 306 and 307.
+and the avionics' effects A3, A4, A10, A11) and D'thorga Vehicles 0.93.0 (the jets' early fits and their own upgrades). Test rows 306 and 307. Since Framework 0.246.0 and
+Vehicles 0.107.3 the A-10's and Su-25's new engines are a matched pair (row 400).
 
 ## Read this first
 
@@ -31,7 +32,10 @@ and the avionics' effects A3, A4, A10, A11) and D'thorga Vehicles 0.93.0 (the je
   (`kinds`, such as Aircraft).
 - **Engine upgrades** (`thrustFactor`, `hotDerateFactor`): a turbine's rated thrust and its output against demand grow by the factor,
   and its loss in hot air shrinks by the other. Shared across a twin's engines by Framework's share-per-part rule, so a re-engining
-  is complete only with both engines done.
+  is complete only with both engines done. **Since Framework 0.246.0 the two twins' engine fittings are matched sets** (`matchedSet`;
+  the owner, 23 Nov 2026: fitted one engine at a time, the jet "wouldn't fly very stable"): ordered on both engines at once, one
+  turbine and one job each, cancelled and taken off together, and moving no figure until both carry it. Before, one engine done gave
+  half the gain. An aircraft that already had one engine done keeps it, and its gain waits for the other; the fittings window says so.
 - **Avionics kits** (`parameterFloors`): while the fitting's part stands, a system's figure is at least the fitting's. The avionics
   system gains the figures autopilot, sight, nightSight and radar beside its existing ones, each a quantity read from its part, its
   power and its figure, as the warning receiver is. Every aircraft gets three small mount parts for them (an autopilot servo bay, a
