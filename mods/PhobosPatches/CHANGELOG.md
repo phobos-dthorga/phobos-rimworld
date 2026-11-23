@@ -19,6 +19,7 @@ says the owner tested it.
 - **The README is slimmer**: real gotchas, one line per patched mod, the settings and links; the settings table gains the
   sidearm fetch guard and the two Realistic handling settings it lacked. The record links moved to the repository's modders'
   page for this mod. The README and the Workshop draft now name the owner's later passes and the C-17. Nothing in play changes.
+- **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
 ## [0.40.0] - 2026-11-23 - Draft
 

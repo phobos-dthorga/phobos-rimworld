@@ -19,6 +19,7 @@ entry says the owner tested it.
   parked in the design records since 17 November, are gathered on one modders' page with the checks done. The README and the
   Workshop draft now name the owner's tests of this mod itself, where they said the merged mod was untested. Nothing in play
   changes.
+- **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
 ## [0.26.1] - 2026-11-24 - Draft
 

@@ -15,6 +15,7 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
 - **The README is slimmer**: what the mod needs, its real gotchas, what it adds, its settings and links; the notes for modders and
   the checks done are on the repository's modders' page for this mod. The Workshop draft's tested line now names the deep
   hopper's four stacks too. Nothing in play changes.
+- **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
 ## [0.14.2] - 2026-11-18 - Draft
 

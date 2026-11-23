@@ -12,8 +12,9 @@ One of House D'thorga's mods (also spelt dthorga). It replaces two earlier mods,
 Vehicle Patches** and **D'thorga Missile Patches** ([why](../../docs/development/mod-consolidation.md)).
 
 Version 0.40.0, built 23 November 2026 for House D'thorga. **Partly tested in game:** the Vehicle Framework fires part (owner,
-10 November 2026: the stuck fires went out) and one missile strike on an earlier version (owner, 7 November 2026). Everything else is
-not yet tested in game.
+10 November 2026: the stuck fires went out), one missile strike on an earlier version (owner, 7 November 2026), the Prison Labor
+guard, drone platforms kept topped up and drones called home in time, soldiers going back to their own guns, sidearms that loop
+being stopped, mech rechargers drawing real power, and the Nice Research Tab guard. Everything else is not yet tested in game.
 
 **How to play with it is in the player guide's [Patches chapter](../../docs/player-guide/patches.md).** Each version's changes are
 in the [changelog](CHANGELOG.md).

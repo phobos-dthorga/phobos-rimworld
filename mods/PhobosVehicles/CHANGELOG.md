@@ -11,6 +11,7 @@ tested in game unless an entry says the owner tested it.
 - **The README is slimmer**: real gotchas only, with the tested status brought up to date, a fleet table that now names the
   paste bowser, the Billy field kitchen, the shower trailer and the Osprey, the settings and links; how each vehicle works is
   the guide's. The Workshop draft's tested line and trailers are brought into step. Nothing in play changes.
+- **The README's version line names every test passed so far**, as its gotchas already did. Nothing in play changes.
 
 ## [0.116.1] - 2026-11-23 - Draft
 

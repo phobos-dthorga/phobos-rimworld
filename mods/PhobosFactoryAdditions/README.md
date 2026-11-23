@@ -9,13 +9,13 @@ One of House D'thorga's mods (also spelt dthorga).
 
 Version 0.14.2, built 18 November 2026 for House D'thorga. **Partly tested in game:** the human-meat bill (owner, 28 October 2026),
 the drug lab bills appearing on their machines (29 October 2026), belts taking from switched-on storage only when they point away
-from it (29 and 30 October 2026), and a bill with no recipe taken off a machine (10 November 2026). Everything else is not yet tested
-in game.
+from it (29 and 30 October 2026), a bill with no recipe taken off a machine (10 November 2026), and a deep hopper taking four
+stacks of output. Two of these passed only in part. Everything else is not yet tested in game.
 
 ## Read this first (gotchas)
 
-- **Partly tested in game**: the four items on the version line above, and a deep hopper taking four stacks of output. Two
-  passed only in part; the list, with dates, ends the guide's [Factory chapter](../../docs/player-guide/factory.md#tested-in-game).
+- **Partly tested in game**: the five items on the version line above, a deep hopper taking four stacks of output among them.
+  Two passed only in part; the list, with dates, ends the guide's [Factory chapter](../../docs/player-guide/factory.md#tested-in-game).
   **Everything else is not yet tested in game.**
 - **Needs Harmony, D'thorga Framework, Vanilla Expanded Framework and Vanilla Furniture Expanded - Factory.** Load it after all
   four, and after every mod it adds bills for. Its About file asks for that order, so RimSort sorts it for you.
