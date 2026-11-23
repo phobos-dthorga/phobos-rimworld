@@ -268,6 +268,8 @@ public class JobDriver_PhobosDiagnose : PhobosVehicleWorkDriver
 
     protected override float TotalWork => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().diagnoseWork * (Systems?.BayWorkFactor ?? 1f);
 
+    protected override bool OrderStands => Systems?.Diagnostics.Requested == true;
+
     protected override StatDef Stat => StatDefOf.ConstructionSpeed;
 
     protected override SkillDef Skill => SkillDefOf.Construction;

@@ -74,6 +74,8 @@ public class JobDriver_PhobosSlingHookUp : PhobosResumableVehicleWork, Phobos.Fr
 
     protected override float TotalWork => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().slingHookUpWork;
 
+    protected override bool OrderStands => SlingWaits.WaitingOn(Vehicle) != null;
+
     protected override StatDef Stat => StatDefOf.GeneralLaborSpeed;
 
     protected override IEnumerable<Toil> MakeNewToils()

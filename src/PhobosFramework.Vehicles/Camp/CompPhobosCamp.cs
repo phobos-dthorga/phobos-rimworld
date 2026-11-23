@@ -967,6 +967,7 @@ public sealed class CompPhobosCamp : VehicleComp, IThingHolder, IVehicleLookSwit
     public void CancelOrder()
     {
         if (order == CampOrder.None) return;
+        PhobosResumableVehicleWork.ForgetOrder(Vehicle, VehicleCampDefOf.PhobosVehicleSystems_CampWork, order.ToString());
         order = CampOrder.None;
         CampOrders.Note(this, false);
         Messages.Message("PhobosCamp_OrderCancelled".Translate(Vehicle.LabelShort.Named("VEHICLE")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);

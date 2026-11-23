@@ -26,6 +26,8 @@ public class JobDriver_PhobosHitchUp : PhobosResumableVehicleWork, Phobos.Framew
 
     protected override float TotalWork => PhobosVehicleRulesDef.Current<PhobosVehicleRulesDef>().hitchUpWork;
 
+    protected override bool OrderStands => Hitches.WaitingOn(Vehicle) != null;
+
     protected override StatDef Stat => StatDefOf.GeneralLaborSpeed;
 
     protected override IEnumerable<Toil> MakeNewToils()

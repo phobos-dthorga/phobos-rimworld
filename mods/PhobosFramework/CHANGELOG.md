@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.274.1] - 2026-11-24 - Draft
+
+A cancelled order starts afresh
+
+### Changed
+
+- **Calling off an order at a vehicle forgets its unfinished work** (the owner's word of 24 November 2026: "keeping progress on cancel is maybe a bit much"). Cancelling a trailer's or a camp's set-up or pack-up, a hitch, a sling lift or a diagnosis means giving it again starts from nothing, as a cancelled building frame does. Work interrupted by a meal, sleep, a raid or a draft is still picked up where it was left. Not yet tested in game.
+
 ## [0.274.0] - 2026-11-24 - Draft
 
 Unfinished work at a vehicle is picked up where it was left
@@ -19,7 +27,7 @@ Unfinished work at a vehicle is picked up where it was left
 
 ### Save compatibility
 
-- Safe to add mid-game. Work left unfinished is kept in the save for 20 in-game days after it was last worked on (an agent default, for the owner to revise), then forgotten.
+- Safe to add mid-game. Work left unfinished is kept in the save for 20 in-game days after it was last worked on (the owner's choice), then forgotten.
 
 ## [0.273.3] - 2026-11-24 - Draft
 

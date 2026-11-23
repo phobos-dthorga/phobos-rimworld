@@ -11,7 +11,7 @@ public static class ResumeRule
 {
     /// <summary>
     /// Work left untouched this many days is forgotten, so a thing that is gone or an order given up leaves nothing behind for ever.
-    /// Agent default (24 Nov 2026), for the owner to revise: long enough for anything a colony comes back to.
+    /// The owner's choice (24 Nov 2026, "Keep 20 days"), from the agent's proposal: long enough for anything a colony comes back to.
     /// </summary>
     public const int ForgetAfterDays = 20;
 

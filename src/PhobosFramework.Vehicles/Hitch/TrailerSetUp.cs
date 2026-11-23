@@ -73,6 +73,8 @@ public class JobDriver_PhobosTrailerSetUp : PhobosResumableVehicleWork, Phobos.F
     /// <summary>Setting up and packing up keep their own work.</summary>
     protected override string ResumeOrder => HandSetUps.On(Vehicle)?.HandOrder.ToString() ?? "";
 
+    protected override bool OrderStands => HandSetUps.On(Vehicle) != null;
+
     protected override StatDef Stat => StatDefOf.ConstructionSpeed;
 
     protected override SkillDef Skill => SkillDefOf.Construction;

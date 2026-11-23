@@ -74,6 +74,8 @@ public class JobDriver_PhobosCamp : PhobosResumableVehicleWork, Phobos.Framework
     /// <summary>Pitching camp and packing it up keep their own work.</summary>
     protected override string ResumeOrder => CampOrders.On(Vehicle)?.Order.ToString() ?? "";
 
+    protected override bool OrderStands => CampOrders.On(Vehicle) != null;
+
     protected override StatDef Stat => StatDefOf.ConstructionSpeed;
 
     protected override SkillDef Skill => SkillDefOf.Construction;

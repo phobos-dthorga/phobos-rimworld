@@ -288,6 +288,7 @@ public sealed class CompPhobosSling : VehicleComp, IThingHolder, IKeepsTicking
     {
         if (hooked == null) return;
         Say("PhobosSling_Cancelled".Translate(hooked.LabelShort.Named("LOAD")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+        PhobosResumableVehicleWork.ForgetOrder(hooked as VehiclePawn, VehicleSystemsJobDefOf.PhobosVehicleSystems_SlingHookUp);
         hooked = null;
         awaitingCrew = false;
         SlingWaits.Note(this, false);

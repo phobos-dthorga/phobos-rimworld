@@ -173,6 +173,7 @@ public sealed partial class CompPhobosHitch : VehicleComp
     {
         if (pending == null) return;
         Say("PhobosHitch_Cancelled".Translate(pending.LabelShort.Named("TRAILER")).Resolve(), Vehicle, MessageTypeDefOf.SilentInput, historical: false);
+        PhobosResumableVehicleWork.ForgetOrder(pending, VehicleSystemsJobDefOf.PhobosVehicleSystems_HitchUp);
         pending = null;
         Hitches.NoteWaiting(this, false);
     }

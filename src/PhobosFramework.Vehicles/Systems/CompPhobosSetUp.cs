@@ -435,6 +435,7 @@ public abstract class CompPhobosSetUp : VehicleComp
     {
         if (handOrder == HandSetUpOrder.None) return;
         bool wasSetUp = handOrder == HandSetUpOrder.SetUp;
+        PhobosResumableVehicleWork.ForgetOrder(Vehicle, VehicleSystemsJobDefOf.PhobosVehicleSystems_TrailerSetUp, handOrder.ToString());
         handOrder = HandSetUpOrder.None;
         HandSetUps.Note(this, false);
         NamedArgument name = Vehicle.LabelShort.Named("VEHICLE");

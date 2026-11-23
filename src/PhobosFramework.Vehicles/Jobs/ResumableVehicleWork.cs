@@ -30,9 +30,22 @@ public abstract class PhobosResumableVehicleWork : JobDriver_WorkVehicle
     /// another): each keeps its own work. Empty where there is only ever one.</summary>
     protected virtual string ResumeOrder => "";
 
+    /// <summary>Whether the order this job works on still stands as the job ends. An order the player called off keeps no work (the owner,
+    /// 24 Nov 2026: "keeping progress on cancel is maybe a bit much"); one interrupted by a meal, sleep or a raid does.</summary>
+    protected virtual bool OrderStands => true;
+
+    static string KeyFor(VehiclePawn vehicle, JobDef job, string order) => ResumableWork.Key(vehicle, job.defName + "|" + order);
+
+    /// <summary>The player called an order off: its kept work is forgotten, so giving it again starts afresh. Called from each order's
+    /// cancel; a job at work on it then ends without keeping any (<see cref="OrderStands"/>).</summary>
+    public static void ForgetOrder(VehiclePawn? vehicle, JobDef job, string order = "")
+    {
+        if (vehicle != null) ResumableWork.Forget(KeyFor(vehicle, job, order));
+    }
+
     protected override void ResetWork()
     {
-        resumeKey = ResumableWork.Key(Vehicle, job.def.defName + "|" + ResumeOrder);
+        resumeKey = KeyFor(Vehicle, job.def, ResumeOrder);
         total = TotalWork;
         work = ResumableWork.WorkLeft(resumeKey, total);
     }
@@ -44,11 +57,11 @@ public abstract class PhobosResumableVehicleWork : JobDriver_WorkVehicle
         foreach (Toil toil in base.MakeNewToils()) yield return toil;
     }
 
-    /// <summary>The job ended, finished or not: keep what is left for the next person, or forget finished work.</summary>
+    /// <summary>The job ended, finished or not: keep what is left for the next person, or forget work finished or called off.</summary>
     void Remember()
     {
         if (resumeKey == null) return;
-        if (work <= 0f) ResumableWork.Forget(resumeKey);
+        if (work <= 0f || !OrderStands) ResumableWork.Forget(resumeKey);
         else ResumableWork.Keep(resumeKey, work, total);
     }
 

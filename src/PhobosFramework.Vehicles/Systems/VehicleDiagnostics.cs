@@ -30,7 +30,12 @@ public sealed class VehicleDiagnostics
 
     public bool Requested => requested;
 
-    public void SetRequested(bool on) => requested = on;
+    public void SetRequested(bool on)
+    {
+        // Called off: a diagnosis asked for again starts afresh (the owner, 24 Nov 2026).
+        if (requested && !on) PhobosResumableVehicleWork.ForgetOrder(comp.Vehicle, VehicleSystemsJobDefOf.PhobosVehicleSystems_Diagnose);
+        requested = on;
+    }
 
     /// <summary>What a requested diagnosis waits for, or null when a mechanic can do it now.</summary>
     public string? WaitingFor() => comp.Fittings.NearRig() ? null : "PhobosVehicleSystems_DiagnoseNeedsRig".Translate(comp.Vehicle.LabelShort.Named("VEHICLE")).Resolve();
