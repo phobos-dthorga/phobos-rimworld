@@ -9,9 +9,11 @@ what it lands on (Framework 0.159.0). A [fault-read](fault-read-2026-11-19.md) b
 be fitted and the spinning rotors would not show, among others: its own faults are fixed in Vehicles 0.82.0 with Framework 0.163.0. Not built: the terrain radar's night-and-weather rule, sounds and drawn icons. The owner flew slice 1 in dev mode: "It does
 work but is extremely bare bones" (19 Nov 2026).
 
+How flight works now: [systems/flight.md](systems/flight.md); this record keeps its history.
+
 The owner asked for the Osprey on 18 November 2026: "the Osprey is definitely something I would like to implement!" This is its
 design record, row MV3 in [outstanding work](outstanding-work.md). It is the first aircraft of ours, the first vehicle on
-[our own flight over the map](vehicle-flight-over-the-map.md) and the first with [armour by class](vehicle-armour.md). The owner
+[our own flight over the map](archive/vehicle-flight-over-the-map.md) and the first with [armour by class](vehicle-armour.md). The owner
 also asked that a good portion be built, with its proper art, before any first test; [the first batch](#the-first-batch) is that
 portion. The research behind it, and the owner's earlier decisions, are in
 [modern military vehicles](modern-military-vehicles.md#the-tiltrotor-v-22-osprey) and are not repeated here.
@@ -364,7 +366,7 @@ The guide's is used.
 
 ## Flying it
 
-On [our own flight over the map](vehicle-flight-over-the-map.md), with these figures of its own **[A]**: forward speed over a map
+On [our own flight over the map](archive/vehicle-flight-over-the-map.md), with these figures of its own **[A]**: forward speed over a map
 0.35 cells a tick (the Hind's is 0.40), turning 1.8 degrees a tick, a flight height of 30 m, take-off and landing in 300 ticks, a
 full roll of 20 cells and a shortest of 5. On the map its nacelles are upright and it flies as a helicopter; between tiles it
 flies as an aeroplane, at 17.5.
@@ -537,7 +539,7 @@ Web pages were read by a research helper on 18 Nov 2026.
 | Wikipedia, "Mil Mi-24", "Mil Mi-38", "Boeing CH-47 Chinook" ([Mi-24](https://en.wikipedia.org/wiki/Mil_Mi-24), [Mi-38](https://en.wikipedia.org/wiki/Mil_Mi-38), [CH-47](https://en.wikipedia.org/wiki/Boeing_CH-47_Chinook)) | The comparison aircraft's real sizes, weights, speeds and ranges | The pages |
 | Wikipedia, "M134 Minigun", "M2 Browning", "M240 machine gun" ([M134](https://en.wikipedia.org/wiki/M134_Minigun), [M2](https://en.wikipedia.org/wiki/M2_Browning), [M240](https://en.wikipedia.org/wiki/M240_machine_gun)) | Cartridges and rates of fire | The pages |
 | The aircraft Defs on the owner's list | Every game figure of another author's quoted here | `scripts/query-defs.py`, 18 Nov 2026 |
-| [Our own flight over the map](vehicle-flight-over-the-map.md), [armour](vehicle-armour.md), [thin air and turbines](vehicle-altitude-and-turbines.md) | The rules these figures feed | Our own records |
+| [Our own flight over the map](archive/vehicle-flight-over-the-map.md), [armour](vehicle-armour.md), [thin air and turbines](vehicle-altitude-and-turbines.md) | The rules these figures feed | Our own records |
 
 **Unverified. No Def carries these as fact:**
 

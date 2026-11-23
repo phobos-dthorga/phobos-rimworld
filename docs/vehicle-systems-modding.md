@@ -305,7 +305,7 @@ shipped archetypes are in `Drivetrains.xml`, every figure labelled. The turbine 
 helicopter's rotor drive accepts, as a share of all engines' maximum-continuous output, scaled by the `RotorDrive` parts' condition;
 demand above it is over-torque, which `PhobosVehicleSystem_RotorDrive` turns into wear) and `liftToWeightAtMaxGross` (for the
 `Thruster` engine kind: thrust as a multiple of empty mass plus full cargo and fuel). A loadout may override either in its
-drivetrain `set`. See [the power and lift record](development/vehicle-power-and-lift-design.md). The design is in
+drivetrain `set`. See [the power and lift record](development/archive/vehicle-power-and-lift-design.md). The design is in
 [the turbine record](development/archive/vehicle-turbine-design.md).
 
 ### Flight profiles

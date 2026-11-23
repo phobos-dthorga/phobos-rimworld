@@ -5,9 +5,11 @@ Combat Extended's shells, a temporary patch); built in D'thorga Framework 0.119.
 aircraft batch, with avionics A12, A14 and A16), AD7 and the launch warning; not built: AD1, AD4 to AD6 and AD8 to AD13. Not yet tested in
 game. Also read on 17 Nov 2026, with no change to the mods: how VTOL Raids brings its aircraft, and the heat seeker's rule for AD5.
 
+How flight works now: [systems/flight.md](systems/flight.md); this record keeps its history.
+
 **A research record.** The owner, 13 November 2026, asked that the
 [soft-dependency exploration](soft-dependency-crosslinks.md) include InterRim Ballistic Missile and The Dead Man's Switch "for their
-anti-air, RADAR, FCS, etc.". This record answers that part. It joins four existing designs: [avionics](vehicle-avionics.md) (A10 to
+anti-air, RADAR, FCS, etc.". This record answers that part. It joins four existing designs: [avionics](archive/vehicle-avionics.md) (A10 to
 A13, A16), [cross-map strikes](cross-map-strikes.md), the [submarine framework](submarine-framework.md) and the
 [seabed crawler](vehicle-seabed-crawler.md)'s radar mast.
 

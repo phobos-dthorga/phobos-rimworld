@@ -40,7 +40,7 @@ to revise; **[P]** a primary source; **[S]** a secondary source or a search summ
 | An aircraft sets down for fuel | Flying a journey with its tank at a quarter or less, it lands on the tile beneath, pours from **its own hold**, and flies on. Not over water, mountains or an enemy's ground | **[code]** `CargoRefuel.FlightLook`, same file, line 186-236; `NoLandingReason`, line 165 |
 | Tanks and bowsers | A tanker or bowser trailer holds fuel as a fluid and pours it into vehicles on a map | [working trailers](vehicle-trailers.md) |
 | A trailer goes along off the map | What a vehicle tows travels with it in a convoy | **[code]** `src/PhobosFramework.Vehicles/Hitch/TowTravel.cs:9-31` |
-| The sling | A helicopter carries a vehicle, a trailer included, to another tile | [sling loads](vehicle-sling-design.md) |
+| The sling | A helicopter carries a vehicle, a trailer included, to another tile | [sling loads](archive/vehicle-sling-design.md) |
 | Several legs in one flight | A flight is a list of places with one arrival action at the end. Whether the player can add a place in between is **not read** | **[code]** `FlightPath`, Vehicle Framework decompile, line 84386-84476 |
 
 **Nothing in the owner's mod list does this** ([the list](owner-mod-list.md), searched for stash, cache, depot and supply on 20 Nov

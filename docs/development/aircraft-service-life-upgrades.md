@@ -4,6 +4,8 @@
 and the avionics' effects A3, A4, A10, A11) and D'thorga Vehicles 0.93.0 (the jets' early fits and their own upgrades). Test rows 306 and 307. Since Framework 0.246.0 and
 Vehicles 0.107.3 the A-10's and Su-25's new engines are a matched pair (row 400).
 
+How flight works now: [systems/flight.md](systems/flight.md); this record keeps its history.
+
 ## Read this first
 
 - **The owner's request (21 Nov 2026):** upgrades of our own for the jets, "whether it's jet-by-jet or across the range, given that many

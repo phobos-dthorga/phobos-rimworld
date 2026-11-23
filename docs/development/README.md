@@ -68,11 +68,8 @@ research or design with nothing built; **living** means kept current by every ch
 ### Power, drivetrain and aircraft
 
 - [Engines and drivetrains](systems/engines-and-drivetrain.md) (23 Nov 2026): how engines, gears, loads and fuel work now. Living.
-- [Power and lift](vehicle-power-and-lift-design.md) (8 Nov 2026): many engines, rotor drives, thrust pods and diesel-electric. Built.
+- [Flight](systems/flight.md) (23 Nov 2026): how aircraft fly, lift, refuel, see, dodge and jam now. Living.
 - [The world map and the cab](vehicle-world-map-design.md) (8 Nov 2026): caravans, cab climate, booster packs, ground and cab moods. Built.
-- [Avionics for every aircraft](vehicle-avionics.md) (13 Nov 2026): instruments, navigation, sensors and the avionics fit. Partly built.
-- [Sling loads](vehicle-sling-design.md) (11 Nov 2026): a helicopter carries a vehicle under it. Partly built; take-off owner-tested.
-- [Our own flight over the map](vehicle-flight-over-the-map.md) (18 Nov 2026): hover, circling, rolling take-off, cruising height. Slices 1-6 built.
 - [Real figures for named vehicles](vehicle-real-figures-design.md) (8 Nov 2026): power, weights, gearboxes; kerb mass; class by empty mass. Built.
 
 ### Upgrades and cross-links
@@ -122,10 +119,6 @@ research or design with nothing built; **living** means kept current by every ch
 - [Per-engine realism](per-engine-realism.md) (23 Nov 2026): power by engine health, yaw, matched axles, wear per engine. Step 1 built, untested.
 - [Walk-in cabins](vehicle-cabins.md) (22 Nov 2026): a vehicle's cabin as a small pocket map; the Osprey first. Built, untested.
 - [Railcars](vehicle-railcars.md) (22 Nov 2026): a loadout for Trains of the Rim's wagons, so they can take fittings. Set aside by the owner; nothing built.
-- [UH-60M Black Hawk](uh60-blackhawk.md) (22 Nov 2026): z3nt3's Black Hawk in the fold; a judgement of the mod. Built, untested.
-- [C-17 Globemaster III](c17-globemaster.md) (23 Nov 2026): z3nt3's C-17 in the fold; four engines by wing; its hold's weight. Built, untested.
-- [Close Air Support's A-10 and Su-25](close-air-support-jets.md) (21 Nov 2026): both jets in the fold, our own dodge. Built, untested.
-- [EA-6B Prowler](ea6b-prowler.md) (22 Nov 2026): the jamming jet in the fold, ICAP upgrades; ECM ideas, steps 2 to 4. Step 1 built, untested.
 - [Modern military aircraft and vehicles](modern-military-vehicles.md) (18 Nov 2026): the Osprey, armed candidates, crewless fits. Record only.
 - [Armour for our armed vehicles](vehicle-armour.md) (18 Nov 2026): classes by the threat stopped; Combat Extended first. Record only.
 - [Spall inside our vehicles](vehicle-spall.md) (21 Nov 2026): debris from a beaten plate, and spall liners; Combat Extended only. Built, untested.
@@ -225,6 +218,14 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Steam boilers](archive/vehicle-steam-design.md) (8 Nov 2026): raising steam, safety valves and the fusible plug for Trains of the Rim. Archived.
 - [Electric vehicles](archive/vehicle-electric-design.md) (8 Nov 2026): traction batteries, the electric drive and charging. Archived.
 - [Engine loads](archive/vehicle-engine-loads.md) (18 Nov 2026): a top-down review, and one ledger of what the engine drives. Archived.
+- [Power and lift](archive/vehicle-power-and-lift-design.md) (8 Nov 2026): many engines, rotor drives, thrust pods and diesel-electric. Archived.
+- [Avionics for every aircraft](archive/vehicle-avionics.md) (13 Nov 2026): instruments, navigation, sensors and the avionics fit. Archived.
+- [Sling loads](archive/vehicle-sling-design.md) (11 Nov 2026): a helicopter carries a vehicle under it. Archived.
+- [Our own flight over the map](archive/vehicle-flight-over-the-map.md) (18 Nov 2026): hover, circling, rolling take-off, cruising height. Archived.
+- [UH-60M Black Hawk](archive/uh60-blackhawk.md) (22 Nov 2026): z3nt3's Black Hawk in the fold; a judgement of the mod. Archived.
+- [C-17 Globemaster III](archive/c17-globemaster.md) (23 Nov 2026): z3nt3's C-17 in the fold; four engines by wing; its hold's weight. Archived.
+- [Close Air Support's A-10 and Su-25](archive/close-air-support-jets.md) (21 Nov 2026): both jets in the fold, our own dodge. Archived.
+- [EA-6B Prowler](archive/ea6b-prowler.md) (22 Nov 2026): the jamming jet in the fold, ICAP upgrades; ECM ideas, steps 2 to 4. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

@@ -270,7 +270,7 @@ rough-strip debris, engines starting in turn).
 
 ## After round two
 
-- **Four engines by wing, and a named hold's weight** (Framework 0.254.0): [c17-globemaster.md](c17-globemaster.md). Lopsided thrust
+- **Four engines by wing, and a named hold's weight** (Framework 0.254.0): [c17-globemaster.md](archive/c17-globemaster.md). Lopsided thrust
   (steps 2 and 5) and side tanks (step 11) now take any number of engines by where each sits; "only a twin pulls" above describes them
   as first built.
 - **The fleet audit** in the same record: grit at a stock launch (a fault in step 10, fixed), and the Cherokee, Ka-27PS and Mi-38

@@ -5,6 +5,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
 
 - [Engines and drivetrains](engines-and-drivetrain.md) (23 Nov 2026): engine kinds, gears and the speed cap, loads, fuel,
   starting, failure, thin air and descents. Living; the pilot.
+- [Flight](flight.md) (23 Nov 2026): our own flight over a map, leaving and arriving, cruising height, lift-off limits, the
+  sling, refuelling on a journey, avionics, aim, dodging, countermeasures, jamming and the aircraft in the fold. Living.
 
 ## The template
 
@@ -13,6 +15,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
    flow in Mermaid, the per-tick and per-rare-tick path, where the numbers come from).
 3. `## Code` (file, what it holds), `## Defs and XML` (each type linked to the reference site), `## Settings` (labels and
    defaults; link the settings reference), `## Saved data and removal`, `## Tie-ins`, `## Performance` (measured, with source).
-4. `## Limits and known gaps`, `## Tests` (rule tests, Python tests, test-list rows), `## Why it is this way` (links only).
+4. `## Limits and known gaps`, `## Tests` (rule tests, Python tests, test-list rows), `## Why it is this way` (links only),
+   ending with a **Records kept in place** line: the records still in `docs/development/` that cover part of this system.
 5. No dated history and no "the owner said" outside the Status line and the decision log; real-world figures keep their
    sources, and authored values and simplifications say so.
+6. Prose lines stay within 130 characters; table lines may run to 160.

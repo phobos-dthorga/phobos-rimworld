@@ -17,8 +17,8 @@ is the newer word.
 
 The owner chose on 18 November 2026 that our aircraft fly over the map on flight code of our own, built on neither existing flight
 mod: "We simply learn where we can from said, named, mods because I wish to go our own, more improved, route", designed for
-hovering and circling together, with the hover half built first ([modern military vehicles](modern-military-vehicles.md), decision
-2 and the fourteenth). This is that design: row MV1 in [outstanding work](outstanding-work.md). The same day the owner asked for
+hovering and circling together, with the hover half built first ([modern military vehicles](../modern-military-vehicles.md), decision
+2 and the fourteenth). This is that design: row MV1 in [outstanding work](../outstanding-work.md). The same day the owner asked for
 three engine gaps to be settled inside it, because all three belong to the flight model: **a rule for leaving the ground rolling**,
 **flight phases that come from our own flight**, and **a cruising height between tiles**. The V-22 Osprey (MV3) and every later
 aircraft of ours stand on this record; the Osprey's own figures are set in its own record, not here.
@@ -518,7 +518,7 @@ Worked (standard atmosphere):
 ### Candidly: how often it will matter
 
 On the owner's world a tenth of the land stands above 1,500 m, about a hundredth above 2,500 m, and the highest tile is 3,968 m
-([world elevation](world-elevation-and-descents.md)). A sound helicopter clears nearly all of it. **High ground will stop an
+([world elevation](../world-elevation-and-descents.md)). A sound helicopter clears nearly all of it. **High ground will stop an
 aircraft only when it is heavy or has lost an engine, over the few great ranges.** The everyday effects are the oxygen line and
 the cost of flying low, and those are small for anything but a jet. If that proves too faint in play, the oxygen line is the part
 worth keeping.
@@ -827,7 +827,7 @@ ordinary landed vehicle on the cell it was over. **Land everything before removi
 | **Parked at a base we attack** | On the lite tier: hits are counted and nothing else runs. The comp does not tick |
 | **One we capture** | Claimed with the claim order; it flies for us at once. Its engines are judged by the same three thresholds |
 | **Being shot at by them** | Their guns hit it as any vehicle's. Their melee cannot. Their people are slowed beneath a hover as ours are |
-| **Their air defences** | On a map it is an ordinary target for every gun. Whether The Dead Man's Switch's on-map air-defence turrets see it is a read for [air-defence tie-ins](air-defence-tie-ins.md) |
+| **Their air defences** | On a map it is an ordinary target for every gun. Whether The Dead Man's Switch's on-map air-defence turrets see it is a read for [air-defence tie-ins](../air-defence-tie-ins.md) |
 | **What the player is shown** | Nothing their crew could not know: no enemy aircraft's fuel, margin or strip is shown |
 | **Cost with several on a map** | The per-tick step for each one in the air; nothing for the parked |
 
@@ -953,7 +953,7 @@ difference from them stands: nothing on what a pawn may walk or stand on, on rea
 
 Read in code, not seen in game. **A submarine destroyed while it is under takes its crew with it** (inferred from the order of
 calls): Vehicle Framework puts everyone out before it removes a destroyed vehicle, and our rule that nobody steps out of a hull
-that is under refuses them while that flag is still set. It is row CR8 in [outstanding work](outstanding-work.md). The guard
+that is under refuses them while that flag is still set. It is row CR8 in [outstanding work](../outstanding-work.md). The guard
 designed above allows a destruction through, which is the fix.
 
 ### Still unknown from code alone
@@ -963,7 +963,7 @@ designed above allows a destruction through, which is the fix.
 - The measured cost of a cell crossed, and the garbage Vehicle Framework's claim makes.
 - Whether clearing smoke and gas beneath an aircraft reads as rotor wash or as a fault.
 - Whether our `Launch` prefix really runs after both flight mods' and our own prompt in the owner's load order.
-- Combat Extended's part is in [the armour record](vehicle-armour.md#in-the-air).
+- Combat Extended's part is in [the armour record](../vehicle-armour.md#in-the-air).
 
 ## Read 19 Nov 2026: other authors' aircraft on our flight
 
@@ -1136,7 +1136,7 @@ pages were read by a research helper on 18 Nov 2026.
 | RimWorld 1.7, build 1.7.9805, decompiled | The game's flight tracker, projectiles, drawing layers, roofs | The local decompile; summarised, never copied |
 | rabiosus's VTOL Vehicle framework (15 Nov 2026 build), the Fixed-Wing Aircraft Framework fork and the Harrier (16 Nov 2026 build), the Hind, decompiled | How each solves on-map flight; patch counts from `scripts/query-patches.py` | Local decompiles; summarised in our words. Neither states a licence: ideas only |
 | Players' comments on the VTOL Vehicle and Harrier Workshop pages, 3 Oct to 15 Nov 2026 | "Caravan Lost" on map changes; launches broken by updates | `scripts/workshop-research.py report`, from its cache |
-| Bell Boeing, *V-22 Osprey Pocket Guide*, 2007, as read for [modern military vehicles](modern-military-vehicles.md) | The Osprey's vertical and short take-off weights, its ceilings, its landing gear | That record's reading; a third-party host |
+| Bell Boeing, *V-22 Osprey Pocket Guide*, 2007, as read for [modern military vehicles](../modern-military-vehicles.md) | The Osprey's vertical and short take-off weights, its ceilings, its landing gear | That record's reading; a third-party host |
 | Wikipedia, "McDonnell Douglas AV-8B Harrier II", specifications, citing Nordeen (2006), Boeing and Airforce-technology.com ([page](https://en.wikipedia.org/wiki/McDonnell_Douglas_AV-8B_Harrier_II)) | "Rolling takeoff: 31,000 lb (14,100 kg)", "Vertical takeoff: 20,755 lb (9,415 kg)" | The page |
 | Wikipedia, "Bell Boeing V-22 Osprey", citing McKinney, "Flying the V-22", *Vertical*, and its specifications' sources ([page](https://en.wikipedia.org/wiki/Bell_Boeing_V-22_Osprey)) | The cabin is not pressurised and oxygen is worn above 10,000 feet; 275 knots, and 305 at 15,000 ft; service ceiling 25,000 ft; downwash over 80 knots | The page |
 | Wikipedia, "Mil Mi-24", specifications, citing the OE Data Integration Network ([page](https://en.wikipedia.org/wiki/Mil_Mi-24)) | "Cruise speed: 270 km/h"; maximum 320 km/h; service ceiling 5,750 m. **This closes the modern military record's open item**: the Hind's real cruising speed is sourced | The page |
@@ -1144,7 +1144,7 @@ pages were read by a research helper on 18 Nov 2026.
 | Wikipedia, "True airspeed" ([page](https://en.wikipedia.org/wiki/True_airspeed)) | True airspeed is equivalent airspeed times the root of sea-level density over the air's density. The page carries a notice that it lacks inline citations, and its formula was read through a converter that lost the root sign | The page; our reading of the formula |
 | Wikipedia, "Lockheed AC-130" ([page](https://en.wikipedia.org/wiki/Lockheed_AC-130)) | "the gunship performs a pylon turn, flying in a large circle around the target" | The page |
 | United States, 14 CFR 91.177, at Cornell's Legal Information Institute ([section](https://www.law.cornell.edu/cfr/text/14/91.177)) | "an altitude of 1,000 feet above the highest obstacle"; "2,000 feet" in designated mountainous areas | The page |
-| [Thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md) and its sources | The standard atmosphere, a turbine's output with pressure, hover power with density | Our own record |
+| [Thin air, turbines and aircraft fuel](../vehicle-altitude-and-turbines.md) and its sources | The standard atmosphere, a turbine's output with pressure, hover power with density | Our own record |
 
 **Unverified. No rule or Def carries these as fact:**
 

@@ -6,11 +6,12 @@ between tiles and on a map (T-3). **Not yet tested in game** (rows 187 and 188).
 the light model, water boiling lower, brake cooling, and descents (held). The landing check at a
 journey's end is built in Framework 0.140.0 ([below](#the-landing-check-at-a-journeys-end-framework-01400)), **not yet tested in game**
 (row 198). A flight's own cruising height between tiles is built in Framework 0.141.0, in
-[our own flight over the map](vehicle-flight-over-the-map.md#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover), **not yet
+[our own flight over the map](archive/vehicle-flight-over-the-map.md#built-18-nov-2026-the-cruising-height-and-phases-that-follow-the-hover), **not yet
 tested in game** (row 199). Upgrades that move Vehicle Framework's fuel rate now reach a flight mod's own on-map rate (20 Nov 2026,
 [below](#their-20-nov-2026-updates-the-harriers-armour-fuel-is-handed-back-on-a-map)), **not yet tested in game** (row 282).
 
 How engines and drivetrains work now: [systems/engines-and-drivetrain.md](systems/engines-and-drivetrain.md); this record keeps its history.
+How flight works now: [systems/flight.md](systems/flight.md); this record keeps its history.
 
 This record follows [engine loads](archive/vehicle-engine-loads.md), which found that turbines had not come as far as piston engines (its
 gaps T-1 to T-4), and [world elevation](world-elevation-and-descents.md), which found that every world tile has a real height in
@@ -120,7 +121,7 @@ grants `Boost` (the turbocharger) gives any piston engine the same hold. The rea
   have; taking it as lost speed would slow every raider in high country whether or not power held them back.
 - **A flight between tiles has no cruising height** (as this record built it; Framework 0.141.0 adds one, as the status line says). It keeps the air of the tile it left, for its lift check at launch; where it
   lands, the air of that tile decides its landing ([the landing check](#the-landing-check-at-a-journeys-end-framework-01400)).
-  One is designed, not built, in [our own flight over the map](vehicle-flight-over-the-map.md#a-cruising-height-between-tiles).
+  One is designed, not built, in [our own flight over the map](archive/vehicle-flight-over-the-map.md#a-cruising-height-between-tiles).
 - **Fuel does not change with height.** Thin air leaves less power; the work done burns what it burned.
 - **Not built:** water boiling lower, brakes cooling less, steam locomotives, electric motors' cooling.
 

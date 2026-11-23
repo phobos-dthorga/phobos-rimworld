@@ -4,6 +4,8 @@
 three bombs, the new missile seeker head); 0.37.1 puts them at The Dead Man's Switch's automated benches. Not yet tested in game: rows
 380 and 381 of the [test pass](in-game-test-pass.md).
 
+How flight works now: [systems/flight.md](systems/flight.md); this record keeps its history.
+
 ## Read this first
 
 - **Under Combat Extended only.** Without CE these jets and helicopters load straight from steel, and nothing here applies.

@@ -84,7 +84,7 @@ Vanilla Vehicles Expanded - Tier 3's twin-rotor cargo helicopter. What it has in
 - **From VVE - Upgrades Extended:** a tree of five stat nodes: cargo capacity, armour, flight speed, fuel consumption, fuel
   capacity (read from the tree's Def as written).
 - **From us:** two turboshaft engines with a rotor drive, a cabin, real figures, a loadout, and a sling hook rated from the
-  CH-47F's centre hook ([the sling record](vehicle-sling-design.md)). Cherokee Sling, the mod ours stands down for, is not on
+  CH-47F's centre hook ([the sling record](archive/vehicle-sling-design.md)). Cherokee Sling, the mod ours stands down for, is not on
   the owner's list, so our sling is the one in play.
 
 ## The proposal
@@ -224,7 +224,7 @@ beyond the owner's choice of the signature is an agent choice, labelled for the 
   foam. Water from a bucket is not foam, so the drop destroys the fires on the cells it covers, and the fires attached to things on
   them, and gives nobody a condition. Heat from fire (D'thorga Medical's hot cells) is worked out from the fires there are, so it
   follows by itself: no tie-in needed.
-- **How a slung flight works on a map today** (part 2, d8ae738, recorded in [the sling design](vehicle-sling-design.md)): only Vehicle
+- **How a slung flight works on a map today** (part 2, d8ae738, recorded in [the sling design](archive/vehicle-sling-design.md)): only Vehicle
   Framework's take-off and landing, through its own stand-in; no hover and no orders in mid-air, because that stand-in is shared with
   other aircraft mods' patches. A bucket that must fly to water and on to a fire cannot ride on it.
 - **So the bucket run is a stand-in of our own**, the shape Vehicle Framework itself uses: the helicopter leaves the map into a thing of
@@ -379,7 +379,7 @@ The questions as they were put:
 - Vehicle Framework, by Smash Phil: its upgrade types, read from our decompile and summarised in our own words.
 - Vanilla Vehicles Expanded and its Tier 3, by the Vanilla Expanded team; VVE - Upgrades Extended and Trains of the Rim, by
   their Workshop authors: Def names and counts read from the installed mods, nothing copied.
-- The Cherokee's hook rating: the source is given in [the sling record](vehicle-sling-design.md).
+- The Cherokee's hook rating: the source is given in [the sling record](archive/vehicle-sling-design.md).
 
 ## Vehicle upgrade families: upgrades shared across many vehicles (12 Nov 2026)
 

@@ -475,7 +475,7 @@ A hitch of ours could keep **one number, the trailer's heading,** and move it th
 | **Camp trailer** | Carry a packed camp, tents and stores, and drop it whole | Nothing new | Camping trips start from one hitch, not a loading list |
 
 The Cherokee needs nothing here: a trailer is a vehicle, so the sling's own mass rules decide whether it can lift one
-(inference from [the sling record](vehicle-sling-design.md)).
+(inference from [the sling record](archive/vehicle-sling-design.md)).
 
 ### Questions for the owner
 

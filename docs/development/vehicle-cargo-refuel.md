@@ -3,6 +3,8 @@
 **Status (18 Nov 2026):** Built in D'thorga Framework 0.137.0 (caravans, row 193) and 0.139.0 (aircraft setting down on a journey, row
 197). **Not yet tested in game.** Not built: refuelling from cargo on a map, or pouring into an aircraft in the air.
 
+How flight works now: [systems/flight.md](systems/flight.md); this record keeps its history.
+
 The owner asked for a vehicle to top its tank up from the fuel its caravan carries, "without you making a bunch of stops across the
 world map", with the range worked out again to count it.
 

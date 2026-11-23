@@ -132,7 +132,7 @@ One row per unbuilt proposal that names another author's mod. The design stays i
 
 | Home record (row) | Other mod | Idea | Status there | Fresh verdict |
 | --- | --- | --- | --- | --- |
-| [Avionics](vehicle-avionics.md) A7 | Vanilla Vehicles Expanded, Harrier | Flight hydraulics on their parts | Agreed | Unchanged: first batch |
+| [Avionics](archive/vehicle-avionics.md) A7 | Vanilla Vehicles Expanded, Harrier | Flight hydraulics on their parts | Agreed | Unchanged: first batch |
 | Avionics A10, A11, A12 | Harrier, fixed-wing framework, VTOL Vehicle | Sight, night and evasion scale their figures | Agreed, hooks | Unchanged; A12 now also reads DMS fire control ([air defence](air-defence-tie-ins.md)) |
 | Avionics A13, A16 | InterRim Ballistic Missile, The Dead Man's Switch | Radar strike warning; countermeasures | Deferred; later | **Revisited** in the air-defence record: DMS Expedition's chaff and seekers change A16's premise |
 | Avionics L5 | Vanilla Vehicles Expanded Warbird and Smuggler | Piston loadout | Agreed | Unchanged |

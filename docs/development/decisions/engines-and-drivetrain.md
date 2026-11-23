@@ -62,7 +62,7 @@ overturns an earlier one says so.
 | 23 Nov | Electronics standing; no idle-up on turbines | agent default | Keep the cruise rate | [lo], Second round |
 | 23 Nov | Round three: sized AC, electronics by type, dim lamps | owner | "#1 through #5" | [lo], Third round |
 | 23 Nov | Hills climb then descend; brake fade a setting, on | owner's card | Slope and roughness | [we], Descents as built |
-| 23 Nov | Power by health, wear per engine, yaw on twin jets | owner's card | Four ideas | [pe], Read this first |
+| 23 Nov | Power by health, wear per engine, yaw on twin jets (widened 23 Nov) | owner's card | Four ideas | [pe], Read this first |
 | 23 Nov | Damaged engine gives half to all; out at 20 % | agent default | Authored shape | [pe], Step 1 |
 | 23 Nov | Lopsided thrust burns fuel (third drag exception) | owner's card | Trim is drag | [pe], Round two |
 | 23 Nov | Engine-out ratings, start in turn, grit, side tanks | owner's card | The smaller ideas | [pe], Round two |

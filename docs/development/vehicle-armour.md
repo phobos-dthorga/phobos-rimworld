@@ -197,7 +197,7 @@ first armed vehicle is built.
 
 **Decided (owner, 18 Nov 2026, the agent's recommendation): in the first build an aircraft in the air has the same hit box it
 has on the ground, and its guns fire from the turret Def's ordinary shot height.** Real height may follow as a later slice. A wall between a shooter and the aircraft blocks the shot both ways, as
-[our own flight over the map](vehicle-flight-over-the-map.md#being-shot-at-and-shooting) already accepts for line of sight, and as
+[our own flight over the map](archive/vehicle-flight-over-the-map.md#being-shot-at-and-shooting) already accepts for line of sight, and as
 both existing flight mods do: neither raises its aircraft **[code]**.
 
 What real height under Combat Extended would take **[code]**:
@@ -215,7 +215,7 @@ that an aircraft cannot hit. It is the more truthful model and the riskier one, 
 
 ### What cannot reach it
 
-[Our own flight](vehicle-flight-over-the-map.md#being-shot-at-and-shooting) refuses a hit that cannot reach an aircraft in the
+[Our own flight](archive/vehicle-flight-over-the-map.md#being-shot-at-and-shooting) refuses a hit that cannot reach an aircraft in the
 air. Every ordinary hit, Combat Extended's included, ends in `VehicleStatHandler.ApplyDamage` **[code]**, where our prefix already
 runs first. A melee hit carries a tool and a ranged one does not, so the rule can tell them apart. Vehicle Framework's own direct
 part damage (collision scratches, its vaporise path, exploding parts) does not pass through there and is left alone.

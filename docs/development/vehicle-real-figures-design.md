@@ -2,7 +2,7 @@
 
 A design record, built the same day in D'thorga Vehicles 0.4.0 (Draft). **Not yet tested in game.** Part 2 of the owner's approved
 proposals of 8 Nov 2026 ("real figures for the single-engine military vehicles, the L-ATV first"), after part 1,
-[power and lift](vehicle-power-and-lift-design.md). Every figure comes from [the research record](vehicle-figures-research.md) and
+[power and lift](archive/vehicle-power-and-lift-design.md). Every figure comes from [the research record](vehicle-figures-research.md) and
 is labelled in the Defs: **[P]** primary, **[S]** secondary, **[I]** our inference, **[A]** authored.
 
 How engines and drivetrains work now: [systems/engines-and-drivetrain.md](systems/engines-and-drivetrain.md); this record keeps its history.
@@ -20,7 +20,7 @@ How engines and drivetrains work now: [systems/engines-and-drivetrain.md](system
 - **All the named drivetrains are in one file** (`mods/PhobosVehicles/Defs/Drivetrains_RealVehicles.xml`), loaded always because
   it names no other mod; each loadout loads only with its vehicle's mod. Both M1A2 mods share one AGT1500 Def.
 - **The "no engine part" Defs were our scan's mistake**: the BMP-1 variants, the MaxxPro and the L-ATV have their engines in parent
-  Defs (see [power and lift](vehicle-power-and-lift-design.md#which-vehicles-from-their-own-parts)). They are all fitted here.
+  Defs (see [power and lift](archive/vehicle-power-and-lift-design.md#which-vehicles-from-their-own-parts)). They are all fitted here.
 
 ## The vehicles
 

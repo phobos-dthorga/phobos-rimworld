@@ -135,7 +135,7 @@ So that nothing is proposed twice. A row here points at these and adds only what
 
 | Already recorded | Where | State |
 | --- | --- | --- |
-| A dropped sling load becomes a world-map wreck site | [the sling](vehicle-sling-design.md) | Built |
+| A dropped sling load becomes a world-map wreck site | [the sling](archive/vehicle-sling-design.md) | Built |
 | Wreck on death and salvage | [vehicle health](vehicle-health-design.md), slice 3 | "Not now", open |
 | Crews bail out; turret blown off; thrown tracks; field re-fit | [knocked out, not destroyed](vehicle-knocked-out-systems.md) | Mostly built |
 | Raiders kidnap into a cage trailer; captives at enemy bases | [prisoner transport](vehicle-prisoner-transport.md) | Answered, not built |

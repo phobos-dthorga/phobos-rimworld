@@ -413,7 +413,7 @@ warning on loading a save with a hull on a hook (Vehicle Framework saves a hull'
 **Also on the hook (Framework 0.101.0, batch 3's signatures):** the **water bucket** hangs from the same cargo hook and keeps to the
 sling's weather rule and hook capacity, but flies its runs as a stand-in of our own, not through Vehicle Framework's flight; the
 **litter kit** rides in the cabin and through a flight like the sling's load, held by a comp of its own. Both are designed in
-[vehicle upgrades, round two](vehicle-upgrades-round-two.md).
+[vehicle upgrades, round two](../vehicle-upgrades-round-two.md).
 
 ## Open questions
 

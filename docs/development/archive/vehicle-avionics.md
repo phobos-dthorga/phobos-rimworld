@@ -8,8 +8,8 @@ and 0.180.0 with Vehicles 0.89.0 (A16's cartridges in a magazine, topped up by h
 A research record. The owner, 13 November 2026: "One area I have seen that
 is lacking is with the avionics of aircraft, particularly with the Harrier, but this does apply to all aircraft that are part of my
 game, in general." It is the second of three records of the cross-links round three review. It follows
-[the authors' override contract](vehicle-author-overrides.md), whose `avionics` block it fills in, and is followed by [cross-links,
-round three](vehicle-crosslinks.md#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026), which covers ground vehicles and boats.
+[the authors' override contract](../vehicle-author-overrides.md), whose `avionics` block it fills in, and is followed by [cross-links,
+round three](../vehicle-crosslinks.md#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026), which covers ground vehicles and boats.
 
 How to read it:
 
@@ -64,7 +64,7 @@ From the code, what is and is not there:
 
 - **Modelled for aircraft**: the turbine's temperature, ratings and hot-section life; hot and hung starts; engines out as lost
   power; rotor over-torque; the hover margin and lift checks; bleed air; one battery and a generator; cab temperature
-  ([turbine design](archive/vehicle-turbine-design.md), [power and lift](vehicle-power-and-lift-design.md)).
+  ([turbine design](../archive/vehicle-turbine-design.md), [power and lift](vehicle-power-and-lift-design.md)).
 - **Vehicle Framework's `FlightControl` stat is read by nothing in its own code** (it is named only at `VF:18254` and
   `VF:51125`). Our Harrier patch is the one reader (`src/PhobosPatches.Harrier/FlightControlRule.cs:17-39`).
 - **Every Vehicle Framework stat already takes our stat part** (`src/PhobosFramework.Vehicles/Service/VehicleSystems.cs:229`),
@@ -107,7 +107,7 @@ override contract asks for.
 | `Oxygen` | Crew oxygen for a high cruise | Basic | 2 A | Yes |
 
 - **Levels, not eras.** Round one set aside "era-specific electrics" because loadouts do not know an era
-  ([round one](vehicle-crosslinks.md#vehicle-system-crosslinks-research-and-record-9-nov-2026)). Two levels say enough: a Warbird's gunsight is Basic, a Harrier's is Full.
+  ([round one](../vehicle-crosslinks.md#vehicle-system-crosslinks-research-and-record-9-nov-2026)). Two levels say enough: a Warbird's gunsight is Basic, a Harrier's is Full.
 - **The amps replace the flat 15 A.** An aircraft's avionics draw is the sum of what it carries: a Mosquito about 4 A, a Harrier
   about 45 A. All authored; the direction is real (a radar is the heavy load).
 - **Where a capability sits.** On the author's own part where one suits (`Dashboard`, `Servos`, `Cockpit`), on our Harrier parts,
@@ -115,7 +115,7 @@ override contract asks for.
 
 ### The override Def's `avionics` block (proposed fields)
 
-This fills the placeholder in [the override contract](vehicle-author-overrides.md).
+This fills the placeholder in [the override contract](../vehicle-author-overrides.md).
 
 | Field | Meaning |
 | --- | --- |
@@ -229,7 +229,7 @@ author's damage model, not an aiming figure, and nothing of ours should scale it
 | A10 | **A sight aims the weapons** | `Sight` out → miss radius and spread ×1.5; degraded ×1.25; a Full sight working is today's accuracy | Keep attacking with a damaged sight, at a cost | Pin-point bombing with the sight shot out | The cockpit and nose become what an attack aircraft's worth hangs on | **hook** ×3 (bomb aim, bomb scatter, rocket spread), plus the Vehicle Framework turret report for the others | Set the level, scale it, switch it off | **Take, second batch**, one framework at a time, after the Unity-type check |
 | A11 | **Night and bad weather blunt an attack unless the aircraft can see** | In poor visibility, air-to-ground accuracy ×0.7 unless `NightSight` (night) or `Radar` (weather) works. Vehicle Framework's turrets already lose accuracy to weather; a working radar would give half of it back | Attack at night with the right fit | Day-fighter accuracy at midnight | The Harrier and the Mongoose earn their night sights; the Warbird is a day aircraft | **hook**, the same ones as A10 | As A10 | **Take with A10** |
 | A12 | **Evasion depends on controls and warning** | The Harrier's evasion × flight control (A8) × 1.0 with `Warning` working, 0.75 without | Dodge as well as today in a sound jet | Dodging fire in a jet with shot-up controls | Damage compounds: a jet hit in the hydraulics is easier to hit again | **hook** (one postfix on `Evasion.ChanceFor`) | Scale it, switch it off | **Take, first among the hooks**: smallest and clearest. The VTOL helicopters have no evasion figure to scale |
-| A13 | **Radar as a strike warning** | A working radar on a parked or airborne aircraft warns of an inbound strike a little earlier | An earlier warning | Nothing | An aircraft on the pad doubles as a sentry | **job**, in the strike code | Drop the radar | **Not here**: it belongs with the radar already designed for [cross-map strikes](cross-map-strikes.md) and the [Seabed Crawler](vehicle-seabed-crawler.md); raise it there |
+| A13 | **Radar as a strike warning** | A working radar on a parked or airborne aircraft warns of an inbound strike a little earlier | An earlier warning | Nothing | An aircraft on the pad doubles as a sentry | **job**, in the strike code | Drop the radar | **Not here**: it belongs with the radar already designed for [cross-map strikes](../cross-map-strikes.md) and the [Seabed Crawler](../vehicle-seabed-crawler.md); raise it there |
 
 ## 4. Crew survival and defences
 
@@ -253,7 +253,7 @@ The Mi-24 carries a warning receiver, an infrared jammer and an ASO-2 dispenser 
 | A16 | **Countermeasures** | Cartridges made at the parts bench and loaded aboard; a button spends some for a short evasion bonus while under fire | Buy a safer pass over a defended target | Using them for nothing: they run out | A consumable to stock before a strike | **hook** (the same evasion postfix) and **job** (the item and the button) | Drop the capability | **Later.** Real dispensers answer missiles, and the anti-air in this game is guns and rockets, so the honest effect is small. Only where an evasion figure exists (the Harrier) |
 | A17 | **Ejection** | An aircraft marked `ejects`, destroyed while airborne on a map, puts its crew down nearby, hurt but alive | Lose the jet and keep the pilot | Nothing | Pilots become worth more than airframes | **hook**, into each framework's crash path | Mark an aircraft as having seats | **Read first.** What happens to a crew today when a VTOL helicopter or the Harrier is destroyed in the air was not traced, and Vehicle Framework's world crash already makes a site with the crew. Not proposed until that is known |
 
-**Revisited on 13 Nov 2026** in [air-defence tie-ins](air-defence-tie-ins.md): The Dead Man's Switch - Expedition has chaff, fire-control
+**Revisited on 13 Nov 2026** in [air-defence tie-ins](../air-defence-tie-ins.md): The Dead Man's Switch - Expedition has chaff, fire-control
 lock and seekers, so A16 has an opponent once our aircraft are visible to its air defence (AD3); A12 gains radar-directed guns (AD1); A13
 gains a way in through AD8 and AD9.
 
@@ -321,7 +321,7 @@ Cost with several on a map: nothing each tick for any of them.
 - **Launch and landing rules run at those events.** The world-flight factors are read when Vehicle Framework asks for the speed or
   the fuel rate, from values cached at the rare tick.
 - **Weapon hooks run per shot or per bomb**, and each begins by asking whether the shooter is an aircraft with a fit.
-- The whole of it sits inside the vehicle model's budget in [the health design](vehicle-health-design.md).
+- The whole of it sits inside the vehicle model's budget in [the health design](../vehicle-health-design.md).
 
 ## Argued against
 
@@ -366,7 +366,7 @@ air-combat batch (AD3, AD2, A16), so oxygen arrives in the same install.
 
 ## Built (17 Nov 2026, the aircraft batch)
 
-**Framework 0.119.0, Vehicles 0.58.0 and Patches 0.21.0, not yet tested in game**, with [air-defence tie-ins](air-defence-tie-ins.md) AD2 and
+**Framework 0.119.0, Vehicles 0.58.0 and Patches 0.21.0, not yet tested in game**, with [air-defence tie-ins](../air-defence-tie-ins.md) AD2 and
 AD3: the warning receiver, the dispensers and crew oxygen have readings (`warningReceiver`, `countermeasures`, `crewOxygen`) on the avionics
 system. **A14** as designed (the Harrier `cruisesHigh`; its oxygen needs its part, power and an engine's bleed air through `Input_Bleed`),
 with the owner's hypoxia setting giving a short condition of our own, `PhobosAltitudeHypoxia`, when oxygen fails during a high cruise.
@@ -387,7 +387,7 @@ reasons for each piece of aircraft", and proposed handling countermeasures as am
   recorded; the magazine bypasses cargo altogether rather than answering each.
 - **What was built:** `CompPhobosDispensers`, a magazine of real cartridge Things given to every design whose avionics carry
   countermeasures, sized by the fit's `countermeasureCartridges` (Harrier 60, an AN/ALE-39 set; Hind 128, four ASO-2V of 32; both
-  secondary sources, in the loadouts). D'thorga Framework's [topping up](top-up-design.md) gained vehicles, so haulers carry cartridges
+  secondary sources, in the loadouts). D'thorga Framework's [topping up](../top-up-design.md) gained vehicles, so haulers carry cartridges
   from storage to a parked aircraft once ten are missing (`magazineLeastLoad`, authored); the job never reserves the aircraft, as VF's
   own loading job does not. The magazine's weight loads the engine as a turret's rounds do and takes no cargo room.
 - **Lets** the player stock any aircraft with dispensers the same way. **Stops** a crate of cartridges in the cargo acting as a
@@ -467,7 +467,7 @@ The questions as they were put:
 - **Other authors' code**, read from our decompiles and summarised in our own words; none of it is copied: Vehicle Framework, by
   Smash Phil; the Harrier and the fixed-wing framework; VTOL Vehicle, by rabiosus; the Hind and Mongoose mods; VTOL Raids; Vanilla
   Vehicles Expanded and its Tier 3, by the Vanilla Expanded team. No endorsement by any of them is implied.
-- **Our own records**: [the override contract](vehicle-author-overrides.md), [the turbine design](archive/vehicle-turbine-design.md),
-  [power and lift](vehicle-power-and-lift-design.md), [the Harrier patches](vehicle-patches.md),
-  [Vehicle Framework mechanics](vehicle-framework-mechanics.md), [the sling](vehicle-sling-design.md),
-  [cross-links round one](vehicle-crosslinks.md#vehicle-system-crosslinks-research-and-record-9-nov-2026) and [round two](vehicle-crosslinks.md#vehicle-crosslinks-round-two-deeper-chains-more-fittings-and-what-the-stations-should-do-10-nov-2026).
+- **Our own records**: [the override contract](../vehicle-author-overrides.md), [the turbine design](../archive/vehicle-turbine-design.md),
+  [power and lift](vehicle-power-and-lift-design.md), [the Harrier patches](../vehicle-patches.md),
+  [Vehicle Framework mechanics](../vehicle-framework-mechanics.md), [the sling](vehicle-sling-design.md),
+  [cross-links round one](../vehicle-crosslinks.md#vehicle-system-crosslinks-research-and-record-9-nov-2026) and [round two](../vehicle-crosslinks.md#vehicle-crosslinks-round-two-deeper-chains-more-fittings-and-what-the-stations-should-do-10-nov-2026).

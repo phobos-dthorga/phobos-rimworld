@@ -4,6 +4,8 @@
 ([their decisions](#the-owners-decisions-on-the-open-questions-18-nov-2026)). No vehicle or mechanic here is built; six
 faults its code reads found in shipped code were fixed in D'thorga Framework 0.140.1, not yet tested in game.
 
+How flight works now: [systems/flight.md](systems/flight.md); this record keeps its history.
+
 Researched on 18 November 2026 by an agent at the owner's request: "I really, really enjoy the military aircraft in my
 Rimworld gaming and to a slightly lesser extent, just interesting military vehicles that can also serve autonomously
 ... modern concepts are more my thing. But the Osprey is definitely something I would like to implement!" This is the
@@ -311,11 +313,11 @@ fuel follow the aeroplane, the map follows the helicopter. No visible tilt is ne
 map the nacelles are upright. **[A]**
 
 **Thin air and one engine.** Both come from systems already built: `AirRule` for height and heat, the turbine and
-multi-engine models for one engine driving both rotors ([power and lift](vehicle-power-and-lift-design.md),
+multi-engine models for one engine driving both rotors ([power and lift](archive/vehicle-power-and-lift-design.md),
 [turbines](archive/vehicle-turbine-design.md)). What is new is the consequence: with one engine the hover margin is below zero
 at any useful weight, so the aircraft may only take off or land rolling, and the refusal says so.
 
-**Hook.** Our [sling](vehicle-sling-design.md) as built, with a hook class of 4,536 kg between the medium class (4,080
+**Hook.** Our [sling](archive/vehicle-sling-design.md) as built, with a hook class of 4,536 kg between the medium class (4,080
 kg) and the Cherokee (11,800 kg). The second hook is an upgrade that raises it to 6,804 kg. A loaded Pintle trailer is
 a vehicle, so it could be slung as a cargo load with no new code **[I]**, subject to its weight.
 
@@ -382,7 +384,7 @@ Agent-authored; no figure is set.
 | Cabin fit | Stretchers; ferry tanks; tanker kit | Only one of these (the bare cabin is troop seats) |
 | Hooks | Cargo hook; then second hook | The second needs the first |
 | Guns | Ramp gun; belly gun | Free-standing; the belly gun costs load |
-| Flying | Refuelling probe; terrain-following radar (night and weather, through the [avionics fit](vehicle-avionics.md)) | Free-standing |
+| Flying | Refuelling probe; terrain-following radar (night and weather, through the [avionics fit](archive/vehicle-avionics.md)) | Free-standing |
 | Crew | Crewless fit | Free-standing |
 
 The body is drawn bare, and each visible node is its own overlay: the hooks, the ramp gun, the belly turret, the probe,
@@ -905,7 +907,7 @@ for both hovering and circling from the start, and the hover half is built first
   not built. The Osprey's own design record followed the same day: [the V-22 Osprey](vehicle-osprey.md).
 - **2, 3 and the fourteenth.** A design record for our own flight over the map, in D'thorga Framework's core because
   every aircraft of ours will use it. It comes before the Osprey's own design record. **Written 18 Nov 2026:**
-  [our own flight over the map](vehicle-flight-over-the-map.md); nothing in it is in code.
+  [our own flight over the map](archive/vehicle-flight-over-the-map.md); nothing in it is in code.
 - **5.** A read of how one vehicle can be held inside another; the owner hears the verdict plainly either way.
 - **7.** The anchor helicopter is the Hind (owner, 18 Nov 2026, [later choices](#the-owners-later-choices-18-nov-2026));
   the agent had first suggested the Louie, which would have put the Osprey above everything on the list.
@@ -1053,7 +1055,7 @@ Asked after the code reads, the same day:
 1. **Row CR7**: the forty other uses of the game's footprint on a vehicle. The owner has not been asked.
 2. ~~The Hind's real cruising speed~~ **Sourced 18 Nov 2026:** "Cruise speed: 270 km/h" **[S, Wikipedia's Mi-24
    specifications, citing the OE Data Integration Network]**, the figure the anchor was worked from
-   ([our own flight over the map](vehicle-flight-over-the-map.md#sources)).
+   ([our own flight over the map](archive/vehicle-flight-over-the-map.md#sources)).
 3. **Vehicle Framework's own armour figures** for players without Combat Extended: authored ratings, set when the
    first armoured Def is written.
 4. **Everything in the radio section**, until the radio framework is picked up again.

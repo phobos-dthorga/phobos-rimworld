@@ -439,7 +439,7 @@ named so they can be checked, not cited):
 - **The chemistry is a tie-in, not a requirement.** D'thorga Farming ships plain fertiliser, lime and spray items with simple
   recipes and trader stock [A]; the real routes (ammonia, nitric acid, ammonium nitrate, superphosphate) belong to the planned
   chemical industry mod and replace the simple recipes when it is present.
-- **The aircraft waits on our own flight being tested** ([record](vehicle-flight-over-the-map.md)); it reuses the circling and the
+- **The aircraft waits on our own flight being tested** ([record](archive/vehicle-flight-over-the-map.md)); it reuses the circling and the
   water drop.
 
 ### Hay, irrigation and forestry (short entries, AG5)

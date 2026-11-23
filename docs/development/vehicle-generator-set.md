@@ -14,7 +14,7 @@ generator-set sketch in [utility vehicles](utility-vehicles-design.md) and follo
 ([the dependency audit](dependency-audit-2026-11-16.md)). "The build the 1.7 game loads" above was true when written.
 
 **Jammer mast (Vehicles 0.100.0, Framework 0.227.0; owner, 22 Nov 2026):** a new node, `GroundJammer`, jams within 18 cells while the set
-is set up and running, taking 800 W off the top of its output; designed in [the EA-6B Prowler's record](ea6b-prowler.md), step 4. Not yet
+is set up and running, taking 800 W off the top of its output; designed in [the EA-6B Prowler's record](archive/ea6b-prowler.md), step 4. Not yet
 tested in game. Until its own icon is drawn it borrows the Osprey's infrared jammer icon, and it has no overlay on the truck until the
 mast's art exists (Vehicles 0.105.1: the icon it first named was not drawn, which stopped the Customize tab drawing at it).
 
@@ -197,7 +197,7 @@ the Goat); rolling resistance and grip through the normal ground path, no `fixed
 straight line from idle to rated with load, and `TractionMotorLoad` above 1 heats the motors (`DrivetrainModel.cs:28-33, 68-71,
 272-307, 310-311`).
 
-**Sources and simplifications.** The diesel-electric model and its motor-heating fit are in [power and lift](vehicle-power-and-lift-design.md)
+**Sources and simplifications.** The diesel-electric model and its motor-heating fit are in [power and lift](archive/vehicle-power-and-lift-design.md)
 (the Class 08 and the EffiShunter 300; the Baldwin switcher manual's short-time ratings). The genset truck's mass and power are general
 knowledge of the class, unverified. "Quiet" is not modelled: the game has no noise, so the buffer moves range, never sound. Fuel burning in step with the net's draw is a simplification of a governor; the game's own generators burn fuel at a
 flat rate whatever the load, so this is kinder than vanilla and is labelled as such.
@@ -432,7 +432,7 @@ into it and may be stuck: **park it in the open before updating**. The depot bay
   `Drivetrains.xml:256-276`, `Rules_VehicleSystems.xml:22`, `Systems_Electrical.xml:36, 230-239`, `Systems_Electric.xml`, `Tanks.xml:50`
   (all under `mods/PhobosFramework/Mods/VehicleFramework/Common/Defs/Phobos/Framework/VehicleSystems/`).
 - Design records: [utility vehicles](utility-vehicles-design.md) (principles 8 and 9, the stats table, the tanker as the shape),
-  [electric vehicles](archive/vehicle-electric-design.md), [power and lift](vehicle-power-and-lift-design.md) (the diesel-electric model and
+  [electric vehicles](archive/vehicle-electric-design.md), [power and lift](archive/vehicle-power-and-lift-design.md) (the diesel-electric model and
   its railway sources), [vehicle health, slice 3](vehicle-health-design.md#vehicle-health-slice-3-what-it-does-to-the-player-8-nov-2026-built-9-nov-2026), [outstanding work](outstanding-work.md) (I1, I2).
 - Real machines, grounding only, general knowledge and unverified: light-medium genset trucks of 6 to 7.5 t with engines near 100 kW;
   the British Rail Class 08's starting-to-continuous tractive-effort ratio, as cited in power and lift.

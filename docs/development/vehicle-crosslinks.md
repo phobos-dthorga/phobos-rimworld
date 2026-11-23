@@ -232,7 +232,7 @@ start differentiating them, or to change the tuning rig; "all suggestions, ideas
 the research and record. Every proposal answers for itself (what it lets the player do, stops them doing,
 and changes), figures are the agent's and authored, sources are labelled, and the owner's call is asked at the end.
 
-**Next round:** [round three](#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026) (13 Nov 2026), with [avionics](vehicle-avionics.md) and [the authors' override contract](vehicle-author-overrides.md).
+**Next round:** [round three](#vehicle-cross-links-round-three-the-crew-weather-and-ground-combat-damage-electrics-and-hydraulics-13-nov-2026) (13 Nov 2026), with [avionics](archive/vehicle-avionics.md) and [the authors' override contract](vehicle-author-overrides.md).
 
 ### Read this first
 
@@ -538,7 +538,7 @@ record purview for any further and deeper cross-links we can make", with avionic
 purview to cover all vehicles, ground-based and all." It is the third of three records in this review:
 
 1. [The authors' override contract](vehicle-author-overrides.md): how another mod's author changes any of this in XML.
-2. [Avionics for every aircraft](vehicle-avionics.md): rows A1 to A17 and loose ends L1 to L6. **Aircraft rows are not repeated
+2. [Avionics for every aircraft](archive/vehicle-avionics.md): rows A1 to A17 and loose ends L1 to L6. **Aircraft rows are not repeated
    here.**
 3. This record: every other vehicle, plus what carries over from [round one](#vehicle-system-crosslinks-research-and-record-9-nov-2026) and
    [round two](#vehicle-crosslinks-round-two-deeper-chains-more-fittings-and-what-the-stations-should-do-10-nov-2026), the faults found on the way, and a short list ranked across all three.
@@ -780,14 +780,14 @@ The cheapest rows with the clearest play value, in order. Each names its record.
 
 1. **T6** (round two): a dry tank hurts the fuel pump. XML, two lines.
 2. **G18** (this record): an air-brake warning before the brakes lock. XML, two lines.
-3. **A5** ([avionics](vehicle-avionics.md)): an aircraft's generator follows its engine. XML.
-4. **A9** ([avionics](vehicle-avionics.md)): an engine out is felt. XML.
-5. **G16 with A6** (this record and [avionics](vehicle-avionics.md)): one load-shedding rule for every vehicle. Hub.
+3. **A5** ([avionics](archive/vehicle-avionics.md)): an aircraft's generator follows its engine. XML.
+4. **A9** ([avionics](archive/vehicle-avionics.md)): an engine out is felt. XML.
+5. **G16 with A6** (this record and [avionics](archive/vehicle-avionics.md)): one load-shedding rule for every vehicle. Hub.
 6. **G15** (this record): fire reaches the tyres and the battery. XML.
 7. **G1 with G2** (this record, with [hotboxing](vehicle-hotboxing.md)): one driver rule. Hub.
 8. **G5** (this record): rain, snow and ice take grip. Input and hub.
 9. **G9** (this record): darkness without headlights. Input.
-10. **A8** ([avionics](vehicle-avionics.md)): one flight-control rule, which also mends fault 1. Hub.
+10. **A8** ([avionics](archive/vehicle-avionics.md)): one flight-control rule, which also mends fault 1. Hub.
 
 Next after these: T4 with F3 (brake wear by mass and speed), G11 (a holed tank), and the cold-weather additions T8, F4, F5 and F7.
 

@@ -4,7 +4,7 @@
 (parts list, parts bill, rearming, dodge, salvo button, the ICAP hook, realistic handling) and D'thorga Framework 0.224.0 (the jamming
 reach figure on fittings). Step 2 built: Framework 0.225.0 and Patches 0.34.0 (jamming fields blind other factions' radar and warning
 receivers). Step 3 built: Framework 0.226.0 (the self-protection jamming pod). Step 4 built: Framework 0.227.0 and Vehicles
-0.100.0 (the Busbar's jammer mast). Not yet tested in game: rows 342 to 345 of the [test pass](in-game-test-pass.md). Still to draw: the
+0.100.0 (the Busbar's jammer mast). Not yet tested in game: rows 342 to 345 of the [test pass](../in-game-test-pass.md). Still to draw: the
 icons of the two ICAP suites and the pod, and the mast's icon and overlay (the mast borrows the Osprey's infrared jammer icon meanwhile,
 and names no overlay until its art exists: Vehicles 0.105.1).
 

@@ -386,9 +386,10 @@ None of these is a test in game.
 - **Archived records**, kept unchanged for their history: [drivetrain and engine
   speed](../archive/vehicle-drivetrain-design.md), [gas turbines](../archive/vehicle-turbine-design.md), [electric
   vehicles](../archive/vehicle-electric-design.md), [steam boilers](../archive/vehicle-steam-design.md), [engine
-  loads](../archive/vehicle-engine-loads.md).
-- **Records that cover engines and another system**, still in place: [power and lift](../vehicle-power-and-lift-design.md),
-  [per-engine realism](../per-engine-realism.md), [thin air, turbines and aircraft fuel](../vehicle-altitude-and-turbines.md),
-  [real figures](../vehicle-real-figures-design.md), [world elevation and descents](../world-elevation-and-descents.md).
+  loads](../archive/vehicle-engine-loads.md), and, with [flight](flight.md), [power and
+  lift](../archive/vehicle-power-and-lift-design.md).
 - **Sources and figures**: [vehicle figures research](../vehicle-figures-research.md), [steam and diesel-electric
   research](../steam-and-diesel-electric-research.md), [vehicle simulation references](../vehicle-references.md).
+- **Records kept in place** (they cover engines and another system): [per-engine realism](../per-engine-realism.md), [thin air,
+  turbines and aircraft fuel](../vehicle-altitude-and-turbines.md), [real figures](../vehicle-real-figures-design.md), [world
+  elevation and descents](../world-elevation-and-descents.md).
