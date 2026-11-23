@@ -70,3 +70,15 @@ Archived on 23 Nov 2026; how they work now: [hitches and trailers](../systems/hi
 
 - [The hitch and the generic trailer](vehicle-hitch-design.md) (11 Nov 2026): our own hitch, slices 1 to 4, and how RimThunder's
   trailers follow their tractor.
+
+## Stations, yard and depots
+
+Archived on 23 Nov 2026; how they work now: [stations, yard and depots](../systems/stations-yard-and-depots.md).
+
+- [Vehicle stations](vehicle-stations.md) (8 to 9 Nov 2026): the motor pool tab, parts bench, dyno bay, depot bays, the garage
+  and fleet tools; with [upgrades and fittings](../systems/upgrades-and-fittings.md).
+- [The service yard](vehicle-service-yard.md) (20 Nov 2026): servicing, dyno, fuel and parking in one capped zone; building
+  upgrades.
+- [Bay trips](vehicle-bay-trips.md) (20 Nov 2026): vehicles driven, towed or pushed to a dyno bay for repair by themselves.
+- [Depots and forward fuel points](vehicle-depots.md) (20 Nov 2026): fuel and vehicles left on the world map, and what time
+  does to them.

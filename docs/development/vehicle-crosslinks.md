@@ -7,6 +7,8 @@ loses before it is a wreck carries on in [knocked out, not destroyed](archive/ve
 
 How vehicle damage works now: [systems/vehicle-damage.md](systems/vehicle-damage.md); this record keeps its history.
 
+How stations, yard and depots work now: [systems/stations-yard-and-depots.md](systems/stations-yard-and-depots.md); this record keeps its history.
+
 **Status (17 Nov 2026):** round one is built (D'thorga Framework 0.67.0 to 0.70.0); rounds two and three are built except engine braking
 (T5 with F6, held by the owner) and the rows argued against or left for later (G10, G19, G20). Not yet tested in game. Each round's
 own status line opens its section.

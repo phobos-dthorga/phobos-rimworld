@@ -349,8 +349,9 @@ None of these is a test in game.
 
 - **[The decision log](../decisions/upgrades-and-fittings.md)**: every choice, one line each, with who made it and where.
 - **Archived records**, kept unchanged for their history: [vehicle tuning and
-  upgrades](../archive/vehicle-tuning-and-upgrades.md), and, with flight and engines, [aircraft service-life
-  upgrades](../archive/aircraft-service-life-upgrades.md).
+  upgrades](../archive/vehicle-tuning-and-upgrades.md); with flight and engines, [aircraft service-life
+  upgrades](../archive/aircraft-service-life-upgrades.md); and, with [stations, yard and depots](stations-yard-and-depots.md),
+  [vehicle stations](../archive/vehicle-stations.md).
 - **Records kept in place** (they cover upgrades and another system): [vehicle upgrades, round
-  two](../vehicle-upgrades-round-two.md), [vehicle stations](../vehicle-stations.md), [parts bills](../parts-bills.md), [utility
-  vehicles](../utility-vehicles-design.md), [militarised service vehicles](../vehicle-militarised-service-vehicles.md).
+  two](../vehicle-upgrades-round-two.md), [parts bills](../parts-bills.md), [utility vehicles](../utility-vehicles-design.md),
+  [militarised service vehicles](../vehicle-militarised-service-vehicles.md).

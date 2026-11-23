@@ -254,7 +254,7 @@ to EM29. **Nothing built or decided**; the owner picks.
 | EP3 | **Owner to say whether it is meant:** a repair at a halt on the world map counts supplies in that one vehicle's cargo only, though a convoy refuels from every vehicle's cargo (the record's "Found on the way", 3) | Framework | — | **Done in Framework 0.181.0** (batch 1, EM1): repairs and services at a halt count supplies across the whole convoy's cargo. Not yet tested in game |
 | EP4 | The patched-Defs file is out of date (8 Nov 2026, 335 mods; 364 active), so tools read Defs as written. The owner's step when convenient: Framework's dev action "write patched Defs at the next start", then a restart | tools | — | Open, the owner's step |
 | EP6 | **Build batches 1 to 4** of the short list (owner, 20 Nov 2026: "Proceed with Batches #1 through #4, step-wise if necessary", generic code in the Framework core). Batch 1: faults that say why, the logbook, records and tales, the trip report, stranded convoys | Framework | Exhaust off by default; a lost convoy and a destroyed vehicle both leave something; all four unwise orders now (owner, 20 Nov 2026, cards) | **Batch 1 built: Framework 0.181.0** (rows 256 to 258); **batch 2: Framework 0.185.0** (row 259); **batch 3: Framework 0.187.0, Vehicles 0.90.0** (row 260); **batch 4: Framework 0.187.0** (row 261); all four built; **the small round: Framework 0.188.0** (brakes overrun, snow forecast, gravship warning; rows 269 and 270; the fleet board redrawn, row 271); **EM11 and EM12: Framework 0.190.0** (hours on type, "their" vehicle; row 275, the overnight go-ahead); not yet tested in game; **EM21(b), the sling lifts a hull: Framework 0.197.0** (row 286) |
-| EP7 | **Depots** ([record](vehicle-depots.md)): the owner's five answers given 20 Nov 2026 (own place; crates too; the aircraft's stop in batch 1; four pressures with a cause; cargo swap only). Open: whether the rule on settings by risk is for every mod | Framework | Settings by risk: high-risk pressures start off, the rest on, each with its own setting (owner, 20 Nov 2026) | **Batch 1 built: Framework 0.199.0** (rows 288, 289); **batch 2: Framework 0.200.0** (DP7-DP9, DP10 through DP7; row 290); not yet tested in game |
+| EP7 | **Depots** ([record](archive/vehicle-depots.md)): the owner's five answers given 20 Nov 2026 (own place; crates too; the aircraft's stop in batch 1; four pressures with a cause; cargo swap only). Open: whether the rule on settings by risk is for every mod | Framework | Settings by risk: high-risk pressures start off, the rest on, each with its own setting (owner, 20 Nov 2026) | **Batch 1 built: Framework 0.199.0** (rows 288, 289); **batch 2: Framework 0.200.0** (DP7-DP9, DP10 through DP7; row 290); not yet tested in game |
 | EP5 | Reads still to do before any build: Vehicle Framework's starting fuel for ground raid vehicles and what its sabotage order does to one out of fuel (EM5); a gravship landing that turns a vehicle of several cells (EM18); real carbon monoxide figures by engine kind (EM20) | docs | — | Open; the exhaust figures were settled as ballparks in Framework 0.187.0 (owner, 20 Nov 2026: approximations are fine) **EM5 read 20 Nov 2026**: raid vehicles start at 45-85% of a tank; raiders bomb their own vehicle when it cannot move; whether a dry one stops is open; the owner to choose a shape (record, "Read: EM5") **EM18 read 20 Nov 2026**: a vehicle with an even side may land a cell out of place when the ship lands turned (always on a half turn, on some quarter turns) (the game and Vehicle Framework draw footprints differently); left to its author; two cheap ways round it for the owner (record, "Read: EM18") |
 
 ## Nuclear strikes and vehicle glass (22 Nov 2026)
@@ -289,7 +289,7 @@ The owner asked whether walk-in cabins belong anywhere else, then asked for the 
 
 ## Garage and fleet tools (from 8 Nov 2026)
 
-The design is [the vehicle garage and fleet tools](vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
+The design is [the vehicle garage and fleet tools](archive/vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
 
 | # | What | Where | Owner | Status |
 | --- | --- | --- | --- | --- |
@@ -507,7 +507,7 @@ lists it. A row that is only partly done stays in its table above.
 | G2 | Refuse convoys at the normal "create outpost" window, with a setting | Patches | Yes (8 Nov 2026) | Built: Patches 0.15.0. Not yet tested in game |
 | G3 | Parked-vehicle warning | Framework | Yes (8 Nov 2026) | Built: Framework 0.32.0. Not yet tested in game |
 | G4 | Fleet board | Framework | Yes (8 Nov 2026) | Built: Framework 0.32.0; redrawn in 0.188.0 (groups, doing and needs, a detail pane, keyboard; row 271). Not yet tested in game |
-| G6 | Home depot bays | Framework, Vehicles | Yes (8 Nov 2026) | Built in Framework 0.45.0 ([record](vehicle-stations.md#home-depot-bays-design-9-nov-2026)), not yet tested in game |
+| G6 | Home depot bays | Framework, Vehicles | Yes (8 Nov 2026) | Built in Framework 0.45.0 ([record](archive/vehicle-stations.md#home-depot-bays-design-9-nov-2026)), not yet tested in game |
 
 ### Done: Logging (from 8 Nov 2026)
 

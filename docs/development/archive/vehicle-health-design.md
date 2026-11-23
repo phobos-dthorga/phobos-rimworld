@@ -573,7 +573,7 @@ radiator, oil pump, battery, starter, clutch, fuel pump or water pump, so we app
 
 - SmashPhil, Vehicle Framework 1.6 (`.local/decompiled/VehicleFramework-1.6/`) and its `develop` branch, MIT; read for research, not copied.
 - Our records: [the vehicle health design](vehicle-health-design.md), [utility vehicles](../utility-vehicles-design.md),
-  [the garage](../vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
+  [the garage](vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
 
 ## The two tabs, one answer (23 Nov 2026)
 

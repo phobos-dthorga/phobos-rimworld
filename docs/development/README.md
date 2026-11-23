@@ -89,7 +89,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [Gathering runs](vehicle-gathering-runs.md) (19 Nov 2026): a vehicle fetching loose things by itself, by filter; the Talus first. Built.
 - [Militarised service vehicles](vehicle-militarised-service-vehicles.md) (19 Nov 2026): armour kits, guns and smoke for the five trucks. Design only.
 - [The mobile generator set](vehicle-generator-set.md) (9 Nov 2026): the Busbar, feeding a camp's grid when parked. Built; size and look owner-tested.
-- [Vehicle stations](vehicle-stations.md) (8 to 9 Nov 2026): the parts bench, tuning rig, motor pool tab, depot bays and the garage. Built.
+- [Stations, yard and depots](systems/stations-yard-and-depots.md) (23 Nov 2026): how stations, the yard, bay trips, depots and the garage work now. Living.
 - [Working trailers](vehicle-trailers.md) (13 Nov 2026): the shared base, the bowsers and a catalogue of nineteen trailers. Partly built.
 - [Hitches and trailers](systems/hitches-and-trailers.md) (23 Nov 2026): how hitching, couplings, trailers, towing and recovery work now. Living.
 - [The field kitchen trailer](vehicle-field-kitchen.md) (13 Nov 2026): Billy, the owner's kitchen on wheels. Built; enemy bases and locker not.
@@ -135,10 +135,7 @@ research or design with nothing built; **living** means kept current by every ch
 - [World elevation and descents](world-elevation-and-descents.md) (18 Nov 2026): tile heights measured; descents, altitude, radio line of sight. Research.
 - [Animating our vehicles](vehicle-animation-research.md) (9 Nov 2026): what can move, and where motion helps. Partly built; the boom owner-tested.
 - [Emergent play around the vehicles](vehicle-emergent-play.md) (20 Nov 2026): where unplanned stories could come from; three audits, EM1 to EM29. Partly built.
-- [Service yard](vehicle-service-yard.md) (20 Nov 2026): servicing, dyno, fuel and parking in one capped zone; building upgrades. Built 0.210.0, untested.
-- [Bay trips](vehicle-bay-trips.md) (20 Nov 2026): vehicles driven, towed or pushed to a dyno bay for repair by themselves. Built, untested.
 - [Traps and vehicles](vehicle-traps.md) (21 Nov 2026): your vehicles pass over your traps when you did not send them; a setting. Built 0.213.0, untested.
-- [Depots and forward fuel points](vehicle-depots.md) (20 Nov 2026): fuel left on the world map for later trips; DP1 to DP6. Design only.
 
 ## D'thorga Medical
 
@@ -231,6 +228,10 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Hotboxing](archive/vehicle-hotboxing.md) (12 Nov 2026): smoking in a vehicle's cab. Archived.
 - [Walk-in cabins](archive/vehicle-cabins.md) (22 Nov 2026): a vehicle's cabin as a small pocket map; the Osprey first. Archived.
 - [The hitch and the generic trailer](archive/vehicle-hitch-design.md) (11 Nov 2026): our own hitch, a trailer any vehicle tows, RimThunder's way. Archived.
+- [Vehicle stations](archive/vehicle-stations.md) (8 to 9 Nov 2026): the parts bench, tuning rig, motor pool tab, depot bays and the garage. Archived.
+- [Service yard](archive/vehicle-service-yard.md) (20 Nov 2026): servicing, dyno, fuel and parking in one capped zone; building upgrades. Archived.
+- [Bay trips](archive/vehicle-bay-trips.md) (20 Nov 2026): vehicles driven, towed or pushed to a dyno bay for repair by themselves. Archived.
+- [Depots and forward fuel points](archive/vehicle-depots.md) (20 Nov 2026): fuel left on the world map for later trips; DP1 to DP10. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

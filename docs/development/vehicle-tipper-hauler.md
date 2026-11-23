@@ -20,7 +20,7 @@ and follows the shape of that record's bulk tanker. `VF.cs` below is our decompi
   tailgate spreader as sketched moves no figure that any code reads, so the agent cuts it from the first tree (below, "The spreader").
 - **The risk:** the tip job is new code on the game's placement rules (`GenPlace`), and chunks need one cell each: a full load of chunks needs
   about a hundred clear cells. A big `CargoCapacity` also raises every caravan's capacity, so it is a balance figure, not just a truck figure.
-- **Depends on:** the drill rig for something worth hauling (its cuttings and chunks), [the garage](vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026) to keep it between
+- **Depends on:** the drill rig for something worth hauling (its cuttings and chunks), [the garage](archive/vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026) to keep it between
   jobs, [the generator set](vehicle-generator-set.md) for the camp's power (the family rule: the tipper's only electrical loads are its lights).
 - **Not here:** no Helixien gas hooks; deepchem and every other fluid ride in the bulk tanker, never in the tipper.
 

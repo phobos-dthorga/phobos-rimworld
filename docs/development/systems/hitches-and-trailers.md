@@ -11,7 +11,7 @@ This page says how hitches and trailers work now. Why they are this way is in th
 log](../decisions/hitches-and-trailers.md) and the [archived records](#why-it-is-this-way). How the vehicle code is laid out in
 general is in [How the code is built](../architecture.md). The tow's load on the engine is on [engines and
 drivetrains](engines-and-drivetrain.md); camping from a trailer is on [camping and life aboard](camping-and-life-aboard.md); bay
-trips, which use the recovery tow and pushing, are on the stations page.
+trips, which use the recovery tow and pushing, are on [stations, yard and depots](stations-yard-and-depots.md).
 
 ## Read this first (gotchas)
 

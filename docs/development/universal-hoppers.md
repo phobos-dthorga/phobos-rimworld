@@ -2,6 +2,8 @@
 
 **Status (17 Nov 2026):** UH1 and UH12 built in D'thorga Framework 0.125.0, UH3, UH5 and UH13's workings in Framework 0.127.0, UH2 in D'thorga Vehicles 0.63.0, the UH13 chute in Vehicles 0.64.0, UH6 in D'thorga Factory Additions 0.14.0 and UH9 as a guide note (owner's go, 17 Nov 2026; [what was built](#built-17-nov-2026)); not yet tested in game. UH16 was researched and stays parked. The other rows are ideas.
 
+How stations, yard and depots work now: [systems/stations-yard-and-depots.md](systems/stations-yard-and-depots.md); this record keeps its history.
+
 The owner's request, 17 Nov 2026: "I just thought of something and its (near-)Universal Hoppers! Like, we could have one that takes
 aggregate from our Talus and the patched conveyors of ours would then transport all that throughout the machinations of our colony!
 This is just one example of what is to be many." The owner then said "aggregate" meant **chunks**. This record is the research and

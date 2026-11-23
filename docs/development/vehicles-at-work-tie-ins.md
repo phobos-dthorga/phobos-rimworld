@@ -5,6 +5,8 @@
 vehicle's parking place); built in Framework 0.177.0: VW3 (a driver fetched for our errands, with our own Drive work when it is absent); built in Framework
 0.183.0: VW8 (its colonists leave alone a vehicle that driving would wreck). Not yet tested in game. Not built: VW5; VW4 and VW7 work with no code of ours; VW6 set aside.
 
+How stations, yard and depots work now: [systems/stations-yard-and-depots.md](systems/stations-yard-and-depots.md); this record keeps its history.
+
 **A research record.** The owner, 19 November 2026: "This is a research and record purview, strictly. But I wish to add 'Vehicles at
 Work' as a soft dependency. How might we benefit from that both as a soft-dep and perhaps learning from as well? With the latter, I think
 we are always doing such regarding the Agricultural mod but it might be applicable to other parts of our RimWorld mods too." This record

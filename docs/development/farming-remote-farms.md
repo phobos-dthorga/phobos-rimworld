@@ -123,7 +123,7 @@ development package ID; they are the mods' own source (agent's judgement, from t
 ### The farmstead
 
 - **A world object of ours** (RF1), not a Vanilla Expanded outpost (owner): no new hard dependency, and none of the outposts'
-  known hazards for vehicles (the garage, in [vehicle stations](vehicle-stations.md)). It implements the existing `IPhobosVehicleHolder`, so
+  known hazards for vehicles (the garage, in [vehicle stations](archive/vehicle-stations.md)). It implements the existing `IPhobosVehicleHolder`, so
   the fleet board lists its machines.
 - **It is founded from a real visit**: the player's convoy arrives, the map opens as any tile's does, paddocks are marked, sheds and
   bins built, and a crew and machines assigned. Founding needs at least one paddock and one person who can grow [A].

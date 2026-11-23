@@ -15,6 +15,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   bunks, driving through the night, caravan cooking, walk-in cabins, life aboard, hotboxing and the cab. Living.
 - [Hitches and trailers](hitches-and-trailers.md) (23 Nov 2026): the hitch, couplings, chains, trailers and their set-up, towing
   on the map and the world map, the recovery winch and tow, and pushing by hand. Living.
+- [Stations, yard and depots](stations-yard-and-depots.md) (23 Nov 2026): the motor pool's stations, depot bays, building
+  upgrades, the service yard, bay trips, the park, the fleet board, the garage, depots, chutes and unloading bays. Living.
 
 ## The template
 

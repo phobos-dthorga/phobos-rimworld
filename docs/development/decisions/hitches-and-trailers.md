@@ -154,4 +154,4 @@ overturns an earlier one says so.
 [pt]: ../vehicle-prisoner-transport.md
 [fk]: ../vehicle-field-kitchen.md
 [em]: ../vehicle-emergent-play.md
-[bt]: ../vehicle-bay-trips.md
+[bt]: ../archive/vehicle-bay-trips.md

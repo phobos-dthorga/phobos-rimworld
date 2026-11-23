@@ -5,7 +5,7 @@ not yet tested in game (rows 288 and 289). Batch 2 built in 0.200.0 (DP7, DP8, D
 day ([the answers](#the-owners-answers-20-nov-2026)); the rule on settings by risk is now a shared rule (phobos-modkit 1.63.0).
 
 The owner, 20 Nov 2026, choosing what follows the emergent-play work: "Sling lifts a hull and design the depots, step-wise if
-necessary". This is the design for row EM4 of [the emergent-play record](vehicle-emergent-play.md): "Leave a bowser or fuel cans at a
+necessary". This is the design for row EM4 of [the emergent-play record](../vehicle-emergent-play.md): "Leave a bowser or fuel cans at a
 tile; an aircraft sets down at it".
 
 Evidence marks: **[code]** read in our source or a decompile, with the place; **[A]** the agent's proposal or figure, for the owner
@@ -38,12 +38,12 @@ to revise; **[P]** a primary source; **[S]** a secondary source or a search summ
 | Garage outposts | A staffed outpost holding vehicles with no time limit; they are not ticked while parked. Needs Vanilla Outposts Expanded | **[code]** `Outpost_PhobosGarage`, `src/PhobosFramework.Vehicles.Outposts/Outpost_PhobosGarage.cs:26-30` |
 | A convoy refuels from cargo | Any vehicle of a convoy tops up from fuel carried anywhere in the convoy | **[code]** `CargoRefuel.Tick`, `src/PhobosFramework.Vehicles/Service/CargoRefuel.cs:39` |
 | An aircraft sets down for fuel | Flying a journey with its tank at a quarter or less, it lands on the tile beneath, pours from **its own hold**, and flies on. Not over water, mountains or an enemy's ground | **[code]** `CargoRefuel.FlightLook`, same file, line 186-236; `NoLandingReason`, line 165 |
-| Tanks and bowsers | A tanker or bowser trailer holds fuel as a fluid and pours it into vehicles on a map | [working trailers](vehicle-trailers.md) |
+| Tanks and bowsers | A tanker or bowser trailer holds fuel as a fluid and pours it into vehicles on a map | [working trailers](../vehicle-trailers.md) |
 | A trailer goes along off the map | What a vehicle tows travels with it in a convoy | **[code]** `src/PhobosFramework.Vehicles/Hitch/TowTravel.cs:9-31` |
-| The sling | A helicopter carries a vehicle, a trailer included, to another tile | [sling loads](archive/vehicle-sling-design.md) |
+| The sling | A helicopter carries a vehicle, a trailer included, to another tile | [sling loads](vehicle-sling-design.md) |
 | Several legs in one flight | A flight is a list of places with one arrival action at the end. Whether the player can add a place in between is **not read** | **[code]** `FlightPath`, Vehicle Framework decompile, line 84386-84476 |
 
-**Nothing in the owner's mod list does this** ([the list](owner-mod-list.md), searched for stash, cache, depot and supply on 20 Nov
+**Nothing in the owner's mod list does this** ([the list](../owner-mod-list.md), searched for stash, cache, depot and supply on 20 Nov
 2026): Vanilla Outposts Expanded and its add-ons are the nearest, and they are staffed outposts, not unattended fuel.
 
 ## The design
@@ -175,7 +175,7 @@ slow, foreseen loss of part of it (DP8 low, DP9 moderate) is not.
   [Fram Museum's page on the third Fram expedition](https://frammuseum.no/polar-history/expeditions/the-third-fram-expedition-1910-1914/)
   and of [Amundsen's own account](https://gutenberg.org/files/4229/4229-h/4229-h.htm); the pages not read in full).
 - **Mawson's air tractor** made "a successful depot-laying trip with 700 pounds of supplies on 2 December" 1912 (**[P]**, cited in
-  full in [the emergent-play record](vehicle-emergent-play.md)).
+  full in [the emergent-play record](../vehicle-emergent-play.md)).
 - **Forward refuelling for helicopters** is ordinary military practice: the US Army's techniques publication for forward arming and
   refueling points, ATP 3-04.94 of 26 January 2012 (**[S]** a search summary; an
   [archived copy](https://webarchive.library.unt.edu/web/20130213212822/http:/armypubs.army.mil/doctrine/DR_pubs/dr_a/pdf/atp3_04x94.pdf)

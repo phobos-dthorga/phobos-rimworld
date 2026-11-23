@@ -15,7 +15,7 @@ is our inference. Nothing here is tested in game.
 ## Read this first
 
 - **Nothing here needs another mod.** The driver call, the self-drive, the recovery tow and the hitch are ours
-  ([Vehicles at Work tie-ins](vehicles-at-work-tie-ins.md), VW3; `Service/VehicleAutoDrive.cs`; `Hitch/Recovery.cs`). With Vehicles at
+  ([Vehicles at Work tie-ins](../vehicles-at-work-tie-ins.md), VW3; `Service/VehicleAutoDrive.cs`; `Hitch/Recovery.cs`). With Vehicles at
   Work on, the driver comes from its Drive column, as for Deliver and Gather; without it, from ours.
 - **Somebody must have Drive work.** It starts off for everyone. With nobody assigned, vehicles wait and the alert says so.
 - **Aircraft, boats and trailers never go**: none of them can be driven across a map to a bay. A dyno bay built beside the pad still
@@ -212,5 +212,5 @@ when a vehicle has work that sends it and nothing else stands in the way. The al
 
 - **生吃螃蟹要吐壳**, [Vehicles at Work](https://steamcommunity.com/sharedfiles/filedetails/?id=3835520732): the lessons taken (one saved
   place for a trip, a time limit per stage, an early stall check, a "why it will not go" line), from our read of 19 Nov 2026
-  ([the record](vehicles-at-work-tie-ins.md)). No code of theirs is used, and no endorsement is implied.
+  ([the record](../vehicles-at-work-tie-ins.md)). No code of theirs is used, and no endorsement is implied.
 - **SmashPhil**, [Vehicle Framework](https://github.com/SmashPhil/Vehicle-Framework): boarding, drafting and pathing, which every trip uses.

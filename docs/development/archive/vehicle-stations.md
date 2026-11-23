@@ -2,7 +2,7 @@
 
 **Status: built in D'thorga Framework 0.43.0. Not yet tested in game.**
 
-How upgrades and fittings work now: [systems/upgrades-and-fittings.md](systems/upgrades-and-fittings.md); this record keeps its history.
+How upgrades and fittings work now: [systems/upgrades-and-fittings.md](../systems/upgrades-and-fittings.md); this record keeps its history.
 
 **Merged here on 17 Nov 2026**, each kept as written: [Home depot bays: design](#home-depot-bays-design-9-nov-2026); [The vehicle garage and fleet tools: design](#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
 
@@ -91,7 +91,7 @@ How upgrades and fittings work now: [systems/upgrades-and-fittings.md](systems/u
 | A "Go to bay" button, self-refuelling, faster service; no auto-return; crews and convoys left to Crew Presets | Owner, 9 Nov 2026 |
 | A shelf for the parts, the 2 x 1 building with an outlined pad, one vehicle to a bay | Agent, from the owner's choice of "holds its spare parts" |
 | Pad 3 by 10, pump 30 an hour, tank 200, work at 70%, 100 W, 80 steel and 3 components | Agent, authored |
-| A fuel tank and a fuel pump as parts beside that cost (Framework 0.95.0, [parts bills](parts-bills.md)) | Agent's proposal, approved by the owner with the plan, 11 Nov 2026 |
+| A fuel tank and a fuel pump as parts beside that cost (Framework 0.95.0, [parts bills](../parts-bills.md)) | Agent's proposal, approved by the owner with the plan, 11 Nov 2026 |
 | Pad 3 by 6 against the bay, vehicles parked nose to the bay (Framework 0.94.2) | Owner asked for the pad "brought back a little", 11 Nov 2026; the length and parking spot are the agent's |
 
 ## The vehicle garage and fleet tools: design (8 Nov 2026)
@@ -104,7 +104,7 @@ of Vanilla Expanded Framework's 1.7 build and Vehicle Framework's 1.6 build (the
 in our own words. Where this record says something will happen in play, that is an inference until the owner has seen it.
 
 **Vehicle Framework, 17 Nov 2026:** VF's own 1.7 build shipped on 14 Nov 2026, and D'thorga Framework 0.111.1 builds against it
-([the dependency audit](dependency-audit-2026-11-16.md)). The VF references in this record were read from its 1.6 build, which the
+([the dependency audit](../dependency-audit-2026-11-16.md)). The VF references in this record were read from its 1.6 build, which the
 game loaded when this was written; check one against the 1.7 build before acting on it.
 
 The owner asked on 8 November 2026 for a garage built on the outposts system, because the player will now be dealing with a

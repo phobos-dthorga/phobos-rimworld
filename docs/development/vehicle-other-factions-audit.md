@@ -83,7 +83,7 @@ These say nothing about other factions. Until each is next touched, this record 
 [drivetrain](archive/vehicle-drivetrain-design.md) (the lite tier, above), [sling](archive/vehicle-sling-design.md) (salvage, above),
 [tipper](vehicle-tipper-hauler.md), [drill rig](vehicle-drill-rig.md), [generator set](vehicle-generator-set.md) (F3),
 [survey truck](vehicle-survey-truck.md), [turbine](archive/vehicle-turbine-design.md) (F1, F2), [electric](archive/vehicle-electric-design.md),
-[world map](vehicle-world-map-design.md), [depot bays](vehicle-stations.md#home-depot-bays-design-9-nov-2026), [stations](vehicle-stations.md),
+[world map](vehicle-world-map-design.md), [depot bays](archive/vehicle-stations.md#home-depot-bays-design-9-nov-2026), [stations](archive/vehicle-stations.md),
 [utility vehicles](utility-vehicles-design.md). The rest are research, art and reference records, where the rule does not apply.
 
 ## Decisions for the owner
