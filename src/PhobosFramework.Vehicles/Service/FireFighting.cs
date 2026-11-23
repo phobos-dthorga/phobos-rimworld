@@ -272,6 +272,8 @@ public static class FireFighting
             }
             else AttachedFires.ScaleTo(vehicle, (float)share);
             VehicleStory.SuppressionFired(vehicle, ZoneWord(zone));
+            // Framework 0.253.0: heard going off (S143, the owner's pick).
+            if (vehicle.Spawned) VehicleSystemSoundDefOf.PhobosVehicleSystems_SuppressionDischarge.PlayOneShot(new TargetInfo(vehicle.Position, vehicle.Map));
             if (vehicle.Faction == Faction.OfPlayer)
             {
                 string key = left == FireZones.None ? "PhobosFireFighting_SuppressedOut" : "PhobosFireFighting_SuppressedPart";
@@ -345,7 +347,8 @@ public static class FireFighting
         comp.charges = FireFightingRule.AfterUse(comp.charges);
         bool out_ = AttachedFires.Biggest(vehicle) <= 0f;
         if (out_) comp.ClearZones();
-        SoundDefOf.Interact_BeatFire.PlayOneShot(new TargetInfo(vehicle.Position, vehicle.Map));
+        // Framework 0.253.0: its own sound (S142, the owner's pick), in place of the game's Interact_BeatFire.
+        VehicleSystemSoundDefOf.PhobosVehicleSystems_Extinguisher.PlayOneShot(new TargetInfo(vehicle.Position, vehicle.Map));
         FleckMaker.ThrowMicroSparks(vehicle.DrawPos, vehicle.Map);
         string key = out_ ? "PhobosFireFighting_UsedOut" : "PhobosFireFighting_UsedDown";
         Messages.Message(key.Translate(user.LabelShort.Named("PAWN"), vehicle.LabelShort.Named("VEHICLE"), comp.Charges.Named("LEFT")), vehicle,

@@ -6547,5 +6547,212 @@
       "cfg": 1.0,
       "prompt": "Starting a huge articulated four-wheel-drive farm tractor with a big turbocharged diesel engine of about 500 horsepower, heard from outside: a heavy starter motor cranks slowly, the big engine catches with a deep, booming diesel roar and a turbo whistle, then settles into a low, rumbling idle. Outdoors, close. Length: 6 seconds"
     }
+  },
+  "GlassCrack": {
+    "name": "GlassCrack",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/GlassCrack.ogg",
+    "sha256": "d44c311866e4c78d11afae21bf743e14bf54054497842f501541178a752417db",
+    "master_sha256": "037fd137321b91b8671f71936a3141adccf158d21593e17be5a0f5137d35bd3e",
+    "fingerprint": "46af57d526baff8a04dcf4bfc415090ee203bf025c13dfa1c3bcf79f7672c8b6",
+    "date": "2026-11-23",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -13.66 dBTP",
+      "gain_db": -7.46
+    },
+    "reference": {
+      "defName": "Metal_Drop",
+      "effective": "peak -22.7 dB",
+      "volume": [
+        25.0,
+        25.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -37.7,
+      "true_peak": -13.7,
+      "seconds": 0.73,
+      "flags": [
+        "highs",
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 82,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A stone chip striking a vehicle windscreen: a single sharp tick and a short crackle of laminated glass cracking, still in one piece. Close, quiet, not alarming. Length: 2 seconds"
+    }
+  },
+  "Extinguisher": {
+    "name": "Extinguisher",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Extinguisher.ogg",
+    "sha256": "37f505dd7885ff46cf4a4c46c7d4c36ddcf83d6d0d717defcb042ac435f78478",
+    "master_sha256": "43d51bc5d52c961e0c655bafd57c794d2ac4010209d73434cb8ff65fe81b9f5d",
+    "fingerprint": "48e16f2e7c85748e29e36ba5be3e6f37843a9e803621433b8d5f9512db0ec5dd",
+    "date": "2026-11-23",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "true peak, to -2.38 dBTP",
+      "gain_db": -1.58
+    },
+    "reference": {
+      "defName": "Interact_BeatFire",
+      "effective": "peak -18.3 dB",
+      "volume": [
+        16.0,
+        16.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -19.2,
+      "true_peak": -2.2,
+      "seconds": 0.91,
+      "flags": [
+        "highs"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 82,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A small handheld dry-powder fire extinguisher discharged in two short bursts: a sharp pressurised hiss and soft powdery whoosh, then the valve snapping shut. Outdoors, a few metres away, not loud. Length: 3 seconds"
+    }
+  },
+  "SuppressionDischarge": {
+    "name": "SuppressionDischarge",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/SuppressionDischarge.ogg",
+    "sha256": "c0529ac3e4eb86827baa02b5664c992543cc66455c040f94ef4787e732bb1ba1",
+    "master_sha256": "5fddc120d246adbae324872b0fd36bfea429264eb497be07bec0146e45d4cf4c",
+    "fingerprint": "18f16275be91e7760e9d900b15351f82faabfbe05e27b345b62aae696162fbd8",
+    "date": "2026-11-23",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -15.14 LUFS",
+      "gain_db": 4.8
+    },
+    "reference": {
+      "defName": "HissJet",
+      "effective": "-17.1 LUFS",
+      "volume": [
+        40.0,
+        40.0
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -17.2,
+      "true_peak": -1.1,
+      "seconds": 4.03,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 83,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "An automatic fire suppression system going off inside a truck's engine bay: a muffled metallic click, then a steady rushing hiss of gas from several nozzles behind a closed panel, fading out. Heard from outside the vehicle, muffled, not alarming. Length: 4 seconds"
+    }
+  },
+  "TankPurge": {
+    "name": "TankPurge",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/TankPurge.ogg",
+    "sha256": "5eba0c779b8f4b22a55690fd0f082144108db83cd601638e00af6b514f539fa6",
+    "master_sha256": "521baf9371978b9968f61dd48ea2975d2dacc7fdc698bce3f58cc0f626b25b51",
+    "fingerprint": "d8175fb8cb8198242ad5eeb8a5abe4b338a361a10d64817212ef19a8bab90256",
+    "date": "2026-11-23",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.01 LUFS",
+      "gain_db": 4.29
+    },
+    "reference": {
+      "defName": "Interact_Repair",
+      "effective": "-38.4 LUFS",
+      "volume": [
+        17.17392,
+        17.17392
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.1,
+      "true_peak": -6.7,
+      "seconds": 6.07,
+      "flags": [],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 81,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "Clean water from a hose splashing hollowly into an empty metal tank through an open hatch, sloshing inside, then draining out of a valve at the bottom with a gurgle. Outdoors, calm. Length: 6 seconds"
+    }
+  },
+  "WindowsDown": {
+    "name": "WindowsDown",
+    "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/WindowsDown.ogg",
+    "sha256": "29f11ec0d00507e995acfeb429a55a1a1f8a6fa37c391364c0d43e15f17c3491",
+    "master_sha256": "c3fe62be7c643a56989cf8d9f019c31350ef156ca71f43aeda2f3b3cbe7466aa",
+    "fingerprint": "3992980c442112a4453e24a7ec6edcc62858ff1d8df4fc2e9c34c71fbb2775ef",
+    "date": "2026-11-23",
+    "ffmpeg": "ffmpeg version 9.0.2-full_build-www.gyan.dev Copyright (c) 2000-2026 the FFmpeg developers",
+    "processing": {
+      "levelled_by": "loudness, to -26.73 LUFS",
+      "gain_db": 7.07
+    },
+    "reference": {
+      "defName": "Interact_Repair_Start",
+      "effective": "-42.9 LUFS",
+      "volume": [
+        9.304348,
+        12.56522
+      ],
+      "distance": null,
+      "channels": 1
+    },
+    "result": {
+      "lufs": -26.7,
+      "true_peak": -1.5,
+      "seconds": 1.3,
+      "flags": [
+        "spiky"
+      ],
+      "seam_dip_db": null,
+      "loop_gap_s": null
+    },
+    "source": {
+      "generator": "ComfyUI 0.41.0, local, Stable Audio 3 Small SFX, distilled (Stability AI, Stability AI Community License; Comfy-Org packaging)",
+      "model": "stable_audio_3_small_sfx.safetensors",
+      "model_sha256": "ed9cf1b6172f1a8c2921a9560c21109ff3239524563ced9dce6dcdef41e2f515",
+      "seed": 83,
+      "steps": 8,
+      "cfg": 1.0,
+      "prompt": "A truck cab's side window being wound down by a hand crank: a soft rhythmic ratcheting of the winder and the glass sliding down in its rubber seal, ending with a gentle thunk. Close, quiet. Length: 3 seconds"
+    }
   }
 }

@@ -389,4 +389,108 @@
       <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
     </modExtensions>
   </SoundDef>
+  <!-- S142: a dry-powder extinguisher's two bursts. At the game's Interact_BeatFire, which it replaces. The owner's pick of 23 Nov 2026 (Framework 0.253.0). -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_Extinguisher</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/Extinguisher</clipPath>
+          </li>
+        </grains>
+        <volumeRange>16</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S143: automatic suppression discharging behind a panel. Beside the game's HissJet -6 dB. The owner's pick of 23 Nov 2026 (Framework 0.253.0). -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_SuppressionDischarge</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/SuppressionDischarge</clipPath>
+          </li>
+        </grains>
+        <volumeRange>40</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S144: a hose into a hollow tank, then a gurgling drain. Beside the game's Interact_Repair -3 dB. The owner's pick of 23 Nov 2026 (Framework 0.253.0). -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_TankPurge</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/TankPurge</clipPath>
+          </li>
+        </grains>
+        <volumeRange>17</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S145: a hand-crank window winder. Beside the game's Interact_Repair_Start -3 dB. The owner's pick of 23 Nov 2026 (Framework 0.253.0). -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_WindowsDown</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/WindowsDown</clipPath>
+          </li>
+        </grains>
+        <volumeRange>11</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
+
+  <!-- S146: a stone chip cracking a windscreen. Beside the game's Metal_Drop -3 dB. The owner's pick of 23 Nov 2026 (Framework 0.253.0). -->
+  <SoundDef>
+    <defName>PhobosVehicleSystems_GlassCrack</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>2</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <clipPath>Phobos/VehicleSystems/GlassCrack</clipPath>
+          </li>
+        </grains>
+        <volumeRange>25</volumeRange>
+        <distRange>25~70</distRange>
+      </li>
+    </subSounds>
+    <modExtensions>
+      <li Class="Phobos.Framework.Sounds.PhobosSoundVolumeExtension" />
+    </modExtensions>
+  </SoundDef>
 </Defs>

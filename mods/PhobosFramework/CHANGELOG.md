@@ -5,6 +5,15 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.253.0] - 2026-11-23 - Draft
+
+The purge button's own icon, and five new sounds. Not yet tested in game.
+
+### Changed
+
+- **The Purge the tank button has its own icon**: a tank with its hatch open, a hose spraying clean water in and dirty liquid draining out, in place of the borrowed tank-contents icon. The owner's pick of 23 November 2026.
+- **Five new sounds** (the owner's picks of 23 November 2026, from night 11's tries): the vehicle extinguisher's two bursts, in place of the game's own beating-out-a-fire sound; automatic suppression going off behind a panel, which was silent; a hose going into a tank and the tank draining, as a colonist starts to purge it; the window winder, as the windows go down; and glass cracking, as a vehicle's glass cracks. Each is levelled against the nearest game sound and follows the D'thorga sounds volume setting.
+
 ## [0.252.0] - 2026-11-23 - Draft
 
 Per-engine realism, round two finished: engines lit in turn, grit in the intakes, and a twin's side tanks. Three changes in one commit, as they share their code.

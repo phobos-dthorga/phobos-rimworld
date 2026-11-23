@@ -465,6 +465,13 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
     /// <summary>The cab's windows are down (Framework 0.233.0, hotboxing): smoke clears and the cab's air meets the outside faster. Saved.</summary>
     public bool WindowsDown;
 
+    /// <summary>Winds the windows down or up (Framework 0.253.0: the winder heard going down, S145, the owner's pick).</summary>
+    public void SetWindowsDown(bool down)
+    {
+        if (down && !WindowsDown) VehicleSystemSounds.PlayOnce(this, VehicleSystemSoundDefOf.PhobosVehicleSystems_WindowsDown);
+        WindowsDown = down;
+    }
+
     /// <summary>Whether this vehicle's cab shelters everyone aboard: the vehicle's own extension, else its loadout's cabin block.</summary>
     public bool ClosedCab
     {
@@ -3380,7 +3387,7 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 defaultDesc = "PhobosLifeAboard_WindowsDesc".Translate(),
                 icon = SystemIcons.For("Phobos/VehicleSystems/Windows"),
                 isActive = () => WindowsDown,
-                toggleAction = () => WindowsDown = !WindowsDown,
+                toggleAction = () => SetWindowsDown(!WindowsDown),
             };
             // With the glass gone there is nothing to wind up (Framework 0.238.0, VG4).
             if (Glass.Gone(Vehicle)) windows.Disable("PhobosVehicleSystems_GlassGoneWindows".Translate());

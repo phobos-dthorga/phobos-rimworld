@@ -289,11 +289,11 @@ weapons stay their authors' own: we never replace another mod's vehicle sounds.
 | S125 | Hydrogen detector | Deferred by the owner | ventilation-and-hydrogen.md; same question as S99 |
 | S126 | Each new utility vehicle (excavator, bulldozer, crane, recovery truck, flatbed winch, ambulance without a siren, and more) | Sketched in the catalogue | utility-vehicles-design.md: a unique set each, as above, when built |
 | S129 | The bowsers' pump (numbered S128 until 16 Nov 2026, which the hook latch already held; a small trailer pump, its own, not the Ullage's power take-off), and legs going down on a trailer | **In, Vehicles 0.59.0 (17 Nov 2026)**: the owner's picks, bowser-pump-41 (the Pintle trailers' pump, `PhobosVehicles_BowserPump`) and trailer-legs-43 (`PhobosVehicles_TrailerLegs`, every trailer of ours). With them, the field kitchen's and shower trailer's own: range burner 42 (low, under the game's frying: the owner's note), kettle lid 42, tent pitch 42, water heater 41; the cold box silent (owner's choice). `assets/phobos-sounds/exports.json` | vehicle-trailers.md, Q3 and Q4; their hoses, relief valve, leak and purge share the tanker's, being the same things |
-| S142 | Vehicle extinguisher in use (it plays the game's `Interact_BeatFire` now) | Fire fighting (Framework 0.241.0) | **Candidates made, night 11 (23 Nov 2026)**: `assets/phobos-sounds/requests/night-11.json`, three tries; on the Picks page, not wired |
-| S143 | Automatic suppression going off in the engine bay | Fire fighting (Framework 0.241.0) | Candidates made, night 11, as S142 |
-| S144 | Purge the tank: a hose into a hollow tank, then a gurgling drain | Purge the tank (Framework 0.242.0) | Candidates made, night 11, as S142 |
-| S145 | Windows down: a hand-crank winder | Hotboxing's windows switch (Framework 0.233.0) | Candidates made, night 11, as S142 |
-| S146 | Vehicle glass cracking: a stone chip on a windscreen | Vehicle glass (Vehicles 0.106.0) | Candidates made, night 11, as S142 |
+| S142 | Vehicle extinguisher in use (it plays the game's `Interact_BeatFire` now) | Fire fighting (Framework 0.241.0) | **Shipped, Framework 0.253.0**: try 82, the owner's pick of 23 Nov 2026 on the Companion's Picks page, as `Extinguisher.ogg` |
+| S143 | Automatic suppression going off in the engine bay | Fire fighting (Framework 0.241.0) | **Shipped, Framework 0.253.0**: try 83, the owner's pick of 23 Nov 2026 on the Companion's Picks page, as `SuppressionDischarge.ogg` |
+| S144 | Purge the tank: a hose into a hollow tank, then a gurgling drain | Purge the tank (Framework 0.242.0) | **Shipped, Framework 0.253.0**: try 81, the owner's pick of 23 Nov 2026 on the Companion's Picks page, as `TankPurge.ogg` |
+| S145 | Windows down: a hand-crank winder | Hotboxing's windows switch (Framework 0.233.0) | **Shipped, Framework 0.253.0**: try 83, the owner's pick of 23 Nov 2026 on the Companion's Picks page, as `WindowsDown.ogg` |
+| S146 | Vehicle glass cracking: a stone chip on a windscreen | Vehicle glass (Vehicles 0.106.0) | **Shipped, Framework 0.253.0**: try 82, the owner's pick of 23 Nov 2026 on the Companion's Picks page, as `GlassCrack.ogg` |
 | S127 | Radio phases 2 to 4 (HF static crashes, dish rotator, direction finding, moonbounce) | Back burner | radio-framework-design.md |
 
 ## Order of work (agent's proposal)

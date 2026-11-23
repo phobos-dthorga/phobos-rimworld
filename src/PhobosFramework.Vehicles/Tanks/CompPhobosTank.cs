@@ -973,7 +973,7 @@ public class CompPhobosTank : CompPhobosSetUp, IVehicleCarriedLoad
             {
                 defaultLabel = "PhobosVehicleSystems_TankPurgeButton".Translate(),
                 defaultDesc = "PhobosVehicleSystems_TankPurgeButtonDesc".Translate(ResidueLabels.Named("CONTENTS")),
-                icon = SystemIcons.For("Phobos/VehicleSystems/Tank/Contents"),
+                icon = SystemIcons.For("Phobos/VehicleSystems/Tank/Purge"),
                 action = () =>
                 {
                     if (TankPurgeSend.OrderNearest(Vehicle) is { } why) Messages.Message(why, Vehicle, MessageTypeDefOf.RejectInput, historical: false);

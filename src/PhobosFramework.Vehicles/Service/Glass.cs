@@ -6,6 +6,7 @@ using RimWorld;
 using UnityEngine;
 using Vehicles;
 using Verse;
+using Verse.Sound;
 
 namespace Phobos.VehicleSystems;
 
@@ -129,6 +130,9 @@ public static class Glass
         comp?.Repairs.Invalidate();
         Splinter(vehicle, glass, shareBefore - Share(glass), after == GlassState.Gone && before != GlassState.Gone);
         if (after == before) return;
+        // Framework 0.253.0: heard cracking (S146, the owner's pick).
+        if (after == GlassState.Cracked && vehicle.Spawned)
+            VehicleSystemSoundDefOf.PhobosVehicleSystems_GlassCrack.PlayOneShot(new TargetInfo(vehicle.Position, vehicle.Map));
         if (Seen.Wants("vehicles.glass", vehicle, after == GlassState.Gone ? "gone" : "cracked"))
         {
             Seen.Note("vehicles.glass", vehicle, cause + ", " + KindOf(vehicle), after == GlassState.Gone ? "gone" : "cracked");

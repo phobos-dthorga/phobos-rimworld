@@ -1754,6 +1754,66 @@
       "offset_db": 4,
       "volume": 21,
       "why": "The Thane tractors' own voices (D'thorga Farming, batch two): no medium recording has an engine start, so the owner chose a generated one (20 Nov 2026) and picked this try by question card from the listening page; made on the processor with Stable Audio's sound-effects model (assets/phobos-sounds/requests/farming-tractors.json). Reference and offset are agent choices, as our trucks'."
+    },
+    {
+      "name": "Extinguisher",
+      "use": "Vehicle extinguisher used on a burning vehicle (S142, Framework 0.253.0)",
+      "picked": "2026-11-23",
+      "candidate": "n11-extinguisher/n11-extinguisher-82.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/Extinguisher.ogg",
+      "reference": "Interact_BeatFire",
+      "offset_db": 0,
+      "volume": 16,
+      "why": "Takes the place of the game's Interact_BeatFire, which it played before, at the same level. The owner's pick on the Companion's Picks page, 23 Nov 2026."
+    },
+    {
+      "name": "SuppressionDischarge",
+      "use": "Automatic fire suppression going off in an engine bay or cab (S143, Framework 0.253.0)",
+      "picked": "2026-11-23",
+      "candidate": "n11-suppression/n11-suppression-83.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/SuppressionDischarge.ogg",
+      "reference": "HissJet",
+      "offset_db": -6,
+      "volume": 40,
+      "why": "Muffled behind a panel, so a little below the game's HissJet, as the safety valve is. The owner's pick on the Companion's Picks page, 23 Nov 2026."
+    },
+    {
+      "name": "TankPurge",
+      "use": "A colonist starting to purge a tank (S144, Framework 0.253.0)",
+      "picked": "2026-11-23",
+      "candidate": "n11-purge/n11-purge-81.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/TankPurge.ogg",
+      "reference": "Interact_Repair",
+      "offset_db": -3,
+      "volume": 17,
+      "why": "Work on the vehicle, so beside the game's repair work, as the fuel nozzle is. The owner's pick on the Companion's Picks page, 23 Nov 2026."
+    },
+    {
+      "name": "WindowsDown",
+      "use": "A vehicle's windows wound down (S145, Framework 0.253.0)",
+      "picked": "2026-11-23",
+      "candidate": "n11-window/n11-window-83.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/WindowsDown.ogg",
+      "reference": "Interact_Repair_Start",
+      "offset_db": -3,
+      "volume": 11,
+      "why": "A small hand action on the vehicle, beside the game's repair start, as the brake squeal is. The owner's pick on the Companion's Picks page, 23 Nov 2026."
+    },
+    {
+      "name": "GlassCrack",
+      "use": "A vehicle's glass cracking (S146, Framework 0.253.0)",
+      "picked": "2026-11-23",
+      "candidate": "n11-glass-crack/n11-glass-crack-82.flac",
+      "kind": "oneshot",
+      "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Sounds/Phobos/VehicleSystems/GlassCrack.ogg",
+      "reference": "Metal_Drop",
+      "offset_db": -3,
+      "volume": 25,
+      "why": "A sharp knock on the vehicle, beside the game's Metal_Drop -3 dB, as cargo set down is. The owner's pick on the Companion's Picks page, 23 Nov 2026."
     }
   ]
 }

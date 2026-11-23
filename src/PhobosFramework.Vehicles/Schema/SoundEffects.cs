@@ -92,6 +92,12 @@ public static class VehicleSystemSoundDefOf
     public static SoundDef PhobosVehicleSystems_WarningChime = null!;
     public static SoundDef PhobosVehicleSystems_JumpStartKit = null!;
     public static SoundDef PhobosVehicleSystems_BoosterPack = null!;
+    // Framework 0.253.0: the owner's picks of night 11 (S142 to S146).
+    public static SoundDef PhobosVehicleSystems_Extinguisher = null!;
+    public static SoundDef PhobosVehicleSystems_SuppressionDischarge = null!;
+    public static SoundDef PhobosVehicleSystems_TankPurge = null!;
+    public static SoundDef PhobosVehicleSystems_WindowsDown = null!;
+    public static SoundDef PhobosVehicleSystems_GlassCrack = null!;
 
     static VehicleSystemSoundDefOf() => DefOfHelper.EnsureInitializedInCtor(typeof(VehicleSystemSoundDefOf));
 }

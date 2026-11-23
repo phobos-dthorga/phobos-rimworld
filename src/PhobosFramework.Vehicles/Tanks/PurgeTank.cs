@@ -3,6 +3,7 @@ using System.Linq;
 using RimWorld;
 using Vehicles;
 using Verse;
+using Verse.Sound;
 using Verse.AI;
 
 namespace Phobos.VehicleSystems;
@@ -86,6 +87,12 @@ public class JobDriver_PhobosPurgeTank : JobDriver
         yield return Toils_Goto.GotoCell(CellIndex, PathEndMode.OnCell);
         Toil work = Toils_General.Wait(Tank?.Props.purgeTicks ?? 10000, VehicleIndex);
         work.WithProgressBarToilDelay(VehicleIndex);
+        // Framework 0.253.0: the hose going in and the tank draining (S144, the owner's pick), as the work starts.
+        work.AddPreInitAction(() =>
+        {
+            if (job.GetTarget(VehicleIndex).Thing is { Spawned: true } vehicle)
+                VehicleSystemSoundDefOf.PhobosVehicleSystems_TankPurge.PlayOneShot(new TargetInfo(vehicle.Position, vehicle.Map));
+        });
         work.PlaySustainerOrSound(() => VehicleWorkSounds.Find(Vehicle, "Purge"));
         yield return work;
         yield return new Toil { initAction = () => Tank?.FinishPurge(), defaultCompleteMode = ToilCompleteMode.Instant };
