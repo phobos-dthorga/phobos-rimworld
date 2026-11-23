@@ -38,6 +38,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   belts, the output guard, bill repair, the fabrication bay's generated bills, the deep hopper, new bills and piped water. Living.
 - [Patches](patches.md) (24 Nov 2026): D'thorga Patches' tie-ins by kind: fixes for other authors' faults, fixes our design
   needs, the aircraft in the fold, munitions at real weight, other additions and the IRBM strike. Living.
+- [Medical save bridge](medical-save-bridge.md) (24 Nov 2026): D'thorga Medical's bridge for colonies saved before More Injuries
+  or another mod that adds body parts: the gate, re-numbering, class upgrades, the wipe held, the report and the question. Living.
 
 ## The template
 

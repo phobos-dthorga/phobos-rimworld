@@ -8,6 +8,8 @@ player guide is the mod's README; this holds the code readings, the evidence, th
 a handoff the owner brought from a claude.ai investigation of the PG17 colony's logs and saves; what that handoff marked as a
 hypothesis was checked here before anything was built.
 
+How the medical save bridge works now: [systems/medical-save-bridge.md](systems/medical-save-bridge.md); this record keeps its history.
+
 ## The failure
 
 The owner added More Injuries (Continued) by Th3Fr3d (Workshop 3348840185, version 1.6.0.2, GPL-3.0, source on

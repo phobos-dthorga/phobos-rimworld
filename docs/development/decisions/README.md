@@ -19,3 +19,4 @@ One table per system: each decision in one row, with its date, who made it, why 
 - [Farming](farming.md) (24 Nov 2026): 227 decisions, 19 to 23 Nov 2026. Living.
 - [Factory Additions](factory.md) (24 Nov 2026): 117 decisions, 28 Oct to 17 Nov 2026. Living.
 - [Patches](patches.md) (24 Nov 2026): 136 decisions, 2 to 22 Nov 2026. Living.
+- [Medical save bridge](medical-save-bridge.md) (24 Nov 2026): 13 decisions, 3 to 7 Nov 2026. Living.

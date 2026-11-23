@@ -444,8 +444,8 @@ Every tie-in is in the [tie-in register](../tie-in-register.md). None is require
   devices ([medical equipment](medical-equipment.md)); the airway burn keeps `removesHediff`, so it stays surgical to it.
 - **VFE Medical** (the drip stand), **Dubs Bad Hygiene** (washing; [medical equipment](medical-equipment.md)), **Useful Marks**
   (the tag), **Hospitality** (guests), **Atmosphere Overhaul** and **Celsius** (fire heat stands down), **Biotech** (tox gas).
-- **The save bridge** (More Injuries beside Medical Surgery Expanded 2) is not described here: see the [medical save
-  bridge](../medical-save-bridge.md).
+- **The save bridge** (More Injuries beside Medical Surgery Expanded 2) has a page of its own: [the medical save
+  bridge](medical-save-bridge.md).
 
 ## Performance
 
