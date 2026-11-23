@@ -51,11 +51,16 @@ public sealed class PhobosLogEntry : IExposable
     }
 
     /// <summary>The entry's date, short, as it was where the entry was written.</summary>
-    public string DateText()
-    {
-        UnityEngine.Vector2 longLat = tile.Valid && Find.WorldGrid != null ? Find.WorldGrid.LongLatOf(tile) : UnityEngine.Vector2.zero;
-        return GenDate.DateShortStringAt(GenDate.TickGameToAbs(tick), longLat);
-    }
+    public string DateText() => GenDate.DateShortStringAt(GenDate.TickGameToAbs(tick), LongLat());
+
+    /// <summary>The entry's day in full, as it was where the entry was written: the logbook tab's heading (Framework 0.267.0).</summary>
+    public string DayText() => GenDate.DateFullStringAt(GenDate.TickGameToAbs(tick), LongLat());
+
+    /// <summary>The hour of the day the entry was written, there (Framework 0.267.0).</summary>
+    public string HourText() =>
+        "PhobosLogbook_HourOfDay".Translate(GenDate.HourOfDay(GenDate.TickGameToAbs(tick), LongLat().x).Named("HOUR")).Resolve();
+
+    UnityEngine.Vector2 LongLat() => tile.Valid && Find.WorldGrid != null ? Find.WorldGrid.LongLatOf(tile) : UnityEngine.Vector2.zero;
 
     string ValueText() => def?.value switch
     {

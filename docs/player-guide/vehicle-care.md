@@ -48,7 +48,7 @@ or an aircraft in flight.
 
 **Rest the mouse on any reading or part** to learn what it means, what moves it, and what losing it costs.
 
-**The Logbook tab** (not yet tested in game) is the vehicle's life story, newest first, kept for as long as you have it (up to 200
+**The Logbook tab** (not yet tested in game) is the vehicle's life story, newest first, each day under a heading of its own with the hour beside each entry, kept for as long as you have it (up to 200
 entries): every journey it set out on and where it ended, with the distance, the fuel burnt and who drove; every repair and service
 with the mechanic's name; every fault with what caused it; tows, winch recoveries, the day it came under fire, the day you took it
 from another faction. It is on the world map too. Only your own vehicles keep one: a captured vehicle's begins the day you take it.

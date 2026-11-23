@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.267.0] - 2026-11-23 - Draft
+
+The Logbook, by the day
+
+### Changed
+
+- **The Logbook tab writes each day once, as a heading, with the hour beside each entry** (the owner's choice of 23 November 2026), where every row repeated the date. The newest day comes first, an entry's words have more room, and what went wrong stays red. The world map's Logbook tab reads the same. Not yet tested in game: row 443 of the test pass.
+
 ## [0.266.1] - 2026-11-23 - Draft
 
 A hot part blames the fire around it, and a save loads clean

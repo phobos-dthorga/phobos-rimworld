@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "443": ["framework.logbook.day-headings"],
     "444": ["vehicles.hot-air-message"],
     "442":["vehicles.health-tab.figure-column"],
     "441": ["vehicles.hitch.drawn-in-place"],

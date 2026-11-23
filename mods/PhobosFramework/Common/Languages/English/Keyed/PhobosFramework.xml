@@ -151,6 +151,7 @@
   <PhobosLogbook_Tab>Logbook</PhobosLogbook_Tab>
   <PhobosLogbook_Empty>Nothing written yet. Journeys, repairs, faults and close calls are noted here as they happen.</PhobosLogbook_Empty>
   <PhobosLogbook_Hours>{HOURS} h</PhobosLogbook_Hours>
+  <PhobosLogbook_HourOfDay>{HOUR}h</PhobosLogbook_HourOfDay>
 
   <!-- The season ahead at a place (Framework 0.188.0) -->
   <PhobosSeason_SnowComes>Snow reaches the ground {PLACE} in about {DAYS} days.</PhobosSeason_SnowComes>
