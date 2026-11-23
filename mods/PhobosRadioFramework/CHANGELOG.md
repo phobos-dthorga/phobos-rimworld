@@ -26,6 +26,10 @@ The radio comes alive: a step chart, lamps and needles, a mast light, the coax g
 - **The link-budget window draws the budget as steps** (the owner's go of 24 November 2026): the power sent, each gain a step up and
   each loss a step down, to what arrives, with the noise and what the mode needs as lines. Operator shows the direction that
   decides; Engineer both. Not yet tested in game: row 468.
+- **The desk and the amplifiers show when they send**: a red lamp lights and the meter's needle rises while the station is in use,
+  for the fifth of the time voice is keyed; an amplifier's needle shows its output against its rating. Not yet tested in game:
+  row 469.
+- **The mast has a red warning light that flashes at night.** Not yet tested in game: row 470.
 
 ## [0.5.0] - 2026-11-24 - Draft
 

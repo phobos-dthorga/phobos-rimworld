@@ -5,6 +5,8 @@
        on coax (next version). Twenty-five watts, authored. -->
   <ThingDef ParentName="BuildingBase">
     <defName>PhobosRadio_BaseStation</defName>
+    <!-- Drawn each frame too, for its transmit lamp and meter needle (Radio 0.6.0). -->
+    <drawerType>MapMeshAndRealTime</drawerType>
     <label>radio base station</label>
     <description>A transceiver, a power supply and a short whip on the desk. Works both VHF and UHF, so any hand-held can reach it. Walls and rock between it and a colonist cut the signal; an antenna outside on coax does far better. Transmitting draws extra power and warms the room.</description>
     <thingClass>Building</thingClass>
@@ -59,6 +61,13 @@
         <noiseFigureDb>6</noiseFigureDb>
         <antennaGainDbi>0</antennaGainDbi>
         <antennaHeightMetres>2</antennaHeightMetres>
+      </li>
+      <!-- RV6 (Radio 0.6.0): the transmit lamp at the meter face's top corner, the needle from its foot; measured from the picture. -->
+      <li Class="Phobos.Radio.CompProperties_RadioMarks">
+        <marks>
+          <li><kind>TransmitLamp</kind><offset>(0.555,0,0.570)</offset><size>0.04</size></li>
+          <li><kind>Needle</kind><offset>(0.621,0,0.445)</offset><length>0.13</length></li>
+        </marks>
       </li>
       <li Class="Phobos.Radio.CompProperties_FeedlinePort">
         <pipeNet>PhobosRadio_FeedlineNet</pipeNet>

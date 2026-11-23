@@ -96,6 +96,8 @@
 
   <ThingDef ParentName="PhobosRadio_AntennaBase">
     <defName>PhobosRadio_Mast</defName>
+    <!-- Drawn each frame too, for its warning light at night (Radio 0.6.0). -->
+    <drawerType>MapMeshAndRealTime</drawerType>
     <label>mast antenna</label>
     <description>A collinear antenna on a ten-metre mast: three decibels of gain, and high enough to see over walls, so only the last few metres around a hand-held can block it. Connect it to the base station with coax; keep the run short.</description>
     <graphicData>
@@ -125,6 +127,12 @@
         </bands>
         <gainDbi>3</gainDbi>
         <heightMetres>10</heightMetres>
+      </li>
+      <!-- RV7 (Radio 0.6.0): a red warning light just over the radome's cap, about 3.1 cells above the footing in the picture. -->
+      <li Class="Phobos.Radio.CompProperties_RadioMarks">
+        <marks>
+          <li><kind>WarningLight</kind><offset>(0,0,3.16)</offset><size>0.06</size></li>
+        </marks>
       </li>
       <li Class="Phobos.Radio.CompProperties_FeedlinePort">
         <pipeNet>PhobosRadio_FeedlineNet</pipeNet>

@@ -35,13 +35,16 @@ public class CompAmplifier : ThingComp
     private const int RareTicks = 250;
     private bool sending;
 
+    /// <summary>Its station is in use and it is powered: it amplifies and draws (the needle, Radio 0.6.0).</summary>
+    public bool Sending => sending;
+
     public CompProperties_Amplifier Props => (CompProperties_Amplifier)props;
 
     /// <summary>Switched on and fed: only then does it amplify. Unpowered, a signal passes through it, less its loss.</summary>
     public bool Powered => parent.TryGetComp<CompPowerTrader>() is not { } power || power.PowerOn;
 
     /// <summary>The station on its coax, if one is.</summary>
-    private CompRadio? Station => parent.TryGetComp<CompFeedlinePort>() is { } port ? FeedlineService.StationOn(port) : null;
+    public CompRadio? StationNow => parent.TryGetComp<CompFeedlinePort>() is { } port ? FeedlineService.StationOn(port) : null;
 
     /// <summary>What it puts out for its station, in watts, or 0 with no station.</summary>
     public float OutputWatts(CompRadio? station) =>
@@ -56,7 +59,7 @@ public class CompAmplifier : ThingComp
     {
         if (!parent.Spawned) return;
         var power = parent.TryGetComp<CompPowerTrader>();
-        var station = Station;
+        var station = StationNow;
         var inUse = Powered && station != null && station.parent.Spawned && RadioNet.For(parent.Map).InTouchCount(station.parent) > 0;
         if (power != null)
         {
@@ -87,7 +90,7 @@ public class CompAmplifier : ThingComp
     public override string CompInspectStringExtra()
     {
         if (!parent.Spawned) return string.Empty;
-        var station = Station;
+        var station = StationNow;
         if (station == null) return "PhobosRadio_AmplifierNoStation".Translate(Props.ratedOutputWatts.ToString("0").Named("RATED"));
         if (!Powered) return "PhobosRadio_AmplifierUnpowered".Translate();
         return "PhobosRadio_AmplifierOutput".Translate(OutputWatts(station).ToString("0").Named("OUTPUT"),

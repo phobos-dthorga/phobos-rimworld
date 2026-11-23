@@ -36,6 +36,9 @@ public class CompRadio : ThingComp
     private const int RareTicks = 250;
     private bool transmitting;
 
+    /// <summary>A station in use: in touch with someone, so it sends for the mode's duty cycle (the lamp and needle, Radio 0.6.0).</summary>
+    public bool Transmitting => transmitting;
+
     public CompProperties_Radio Props => (CompProperties_Radio)props;
     public ModeDef Mode => Props.mode!;
 

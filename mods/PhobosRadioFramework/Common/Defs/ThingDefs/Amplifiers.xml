@@ -5,6 +5,8 @@
        (Phobos.Radio.CompAmplifier). Figures authored; 100 W and 400 W are the Australian Standard and Advanced licences' limits. -->
   <ThingDef ParentName="BuildingBase" Name="PhobosRadio_AmplifierBase" Abstract="True">
     <thingClass>Building</thingClass>
+    <!-- Drawn each frame too, for its lamp and meter needle (Radio 0.6.0). -->
+    <drawerType>MapMeshAndRealTime</drawerType>
     <altitudeLayer>Building</altitudeLayer>
     <passability>PassThroughOnly</passability>
     <pathCost>40</pathCost>
@@ -53,6 +55,13 @@
         <ratedOutputWatts>100</ratedOutputWatts>
         <lossDb>0.5</lossDb>
       </li>
+      <!-- RV6: its meter face is at about (33..42, 92..100) of its 128 px picture. -->
+      <li Class="Phobos.Radio.CompProperties_RadioMarks">
+        <marks>
+          <li><kind>TransmitLamp</kind><offset>(-0.180,0,-0.227)</offset><size>0.025</size></li>
+          <li><kind>Needle</kind><offset>(-0.207,0,-0.281)</offset><length>0.055</length></li>
+        </marks>
+      </li>
     </comps>
     <researchPrerequisites>
       <li>PhobosRadio_LinearAmplifiers</li>
@@ -94,6 +103,13 @@
         <gainDb>10</gainDb>
         <ratedOutputWatts>400</ratedOutputWatts>
         <lossDb>0.5</lossDb>
+      </li>
+      <!-- RV6: its meter face is at about (45..54, 88..95) of its 128 px picture. -->
+      <li Class="Phobos.Radio.CompProperties_RadioMarks">
+        <marks>
+          <li><kind>TransmitLamp</kind><offset>(-0.086,0,-0.195)</offset><size>0.025</size></li>
+          <li><kind>Needle</kind><offset>(-0.113,0,-0.242)</offset><length>0.05</length></li>
+        </marks>
       </li>
     </comps>
     <researchPrerequisites>
