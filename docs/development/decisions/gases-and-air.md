@@ -74,4 +74,4 @@ overturns an earlier one says so.
 [bs]: ../archive/burns-and-smoke.md
 [cg]: ../archive/caustic-gas.md
 [vh]: ../ventilation-and-hydrogen.md
-[me]: ../medical-equipment.md
+[me]: ../archive/medical-equipment.md

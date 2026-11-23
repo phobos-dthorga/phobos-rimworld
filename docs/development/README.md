@@ -133,9 +133,8 @@ research or design with nothing built; **living** means kept current by every ch
 Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 
 - [Injuries and care](systems/medical-injuries-and-care.md) (23 Nov 2026): how burns, smoke, caustic gas, dosing and triage work now. Living.
+- [Medical equipment](systems/medical-equipment.md) (23 Nov 2026): how the oxygen, beds, devices, alarm and showers work now. Living.
 - [Medical save bridge](medical-save-bridge.md) (3 Nov 2026): why adding More Injuries beside MSE2 wiped wounds, and the bridge. Built.
-- [Medical equipment](medical-equipment.md) (5 Nov 2026): bedside oxygen and the burn unit bed. Built.
-- [Medical equipment, second set](medical-equipment-2.md) (7 Nov 2026): the ventilator, steriliser and six more. Built.
 - [Ventilation and hydrogen](ventilation-and-hydrogen.md) (7 Nov 2026): the electrolyser's hydrogen, vents, and workstation gases. Record only.
 - [Vaccines and prevention](vaccines-and-prevention.md) (7 Nov 2026): doctors preventing disease in healthy pawns. Record only.
 - [A radiation model of our own](radiation-model.md) (22 Nov 2026): dose, radiation sickness, care, late effects; RM1 to RM16. Partly built, untested.
@@ -237,6 +236,8 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Caustic gas](archive/caustic-gas.md) (5 Nov 2026): the game's tox gas on eyes, lungs and skin, slow by default. Archived.
 - [Emergency dosing](archive/emergency-dosing.md) (5 Nov 2026): doctors giving painkillers and sedatives by themselves, by effect. Archived.
 - [Triage](archive/triage.md) (6 Nov 2026): queueing life-saving surgery, classing conditions by effect. Archived.
+- [Medical equipment](archive/medical-equipment.md) (5 Nov 2026): bedside oxygen and the burn unit bed. Archived.
+- [Medical equipment, second set](archive/medical-equipment-2.md) (7 Nov 2026): the ventilator, steriliser and six more. Archived.
 - [Code audit: saves and cost per tick](code-audit-2026-11-11.md) (11 Nov 2026): one save fault, fixed in Framework 0.96.1. Archived.
 - [Crash record: stack overflow](crash-2026-11-09-stack-overflow.md) (9 Nov 2026): Prison Labor's loop, fixed by its author. Archived.
 - [RimWorld 1.7 readiness](rimworld-1.7-readiness.md) (24 Oct 2026): the mod list before the move to 1.7. Archived.

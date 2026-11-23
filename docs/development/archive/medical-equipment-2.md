@@ -1,7 +1,7 @@
 # Medical equipment, second set: design (7 Nov 2026)
 
 A design record. **All eight pieces are built** (D'thorga Medical 0.7.0, 7 Nov 2026, not yet tested in game); see Built below. The owner chose all eight proposals from the
-[art backlog](art-backlog.md#proposed-medical-equipment-agent-ideas-6-nov-2026-for-the-owner) for D'thorga Medical Equipment (7 Nov
+[art backlog](../art-backlog.md#proposed-medical-equipment-agent-ideas-6-nov-2026-for-the-owner) for D'thorga Medical Equipment (7 Nov
 2026), in this order. The first set (oxygen, burn care, the field kit and the hand pump) is in the [medical equipment record](medical-equipment.md).
 
 ## Read this first

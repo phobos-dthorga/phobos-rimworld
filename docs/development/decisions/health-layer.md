@@ -40,7 +40,7 @@ overturns an earlier one says so.
 [pf]: ../archive/phobos-framework.md
 [tr]: ../archive/triage.md
 [ed]: ../archive/emergency-dosing.md
-[me]: ../medical-equipment.md
+[me]: ../archive/medical-equipment.md
 [rm]: ../radiation-model.md
 [sd]: ../soft-dependency-crosslinks.md
 [cg]: ../archive/caustic-gas.md

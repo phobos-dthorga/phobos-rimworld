@@ -357,9 +357,9 @@ None of these is a test in game.
 - **Archived records**, kept unchanged for their history: [the radiation control line](../archive/radiation-control-line.md);
   with [the health layer](health-layer.md), [D'thorga Framework: research and decisions](../archive/phobos-framework.md); and,
   with [injuries and care](medical-injuries-and-care.md), [burns and smoke](../archive/burns-and-smoke.md) and [caustic
-  gas](../archive/caustic-gas.md).
+  gas](../archive/caustic-gas.md); with [medical equipment](medical-equipment.md), [its first
+  record](../archive/medical-equipment.md).
 - **Modders' guide**: [D'thorga Framework for modders, Gases](../../framework-modding.md#gases), [Supplied
   oxygen](../../framework-modding.md#supplied-oxygen) and [Protective-gear
   lines](../../framework-modding.md#protective-gear-lines).
-- **Records kept in place** (they cover gases and D'thorga Medical): [medical equipment](../medical-equipment.md), [ventilation
-  and hydrogen](../ventilation-and-hydrogen.md).
+- **Records kept in place** (they cover gases and D'thorga Medical): [ventilation and hydrogen](../ventilation-and-hydrogen.md).

@@ -133,3 +133,11 @@ Archived on 23 Nov 2026; how they work now: [injuries and care](../systems/medic
   [the health layer](../systems/health-layer.md).
 - [Triage](triage.md) (6 Nov 2026): queueing life-saving surgery, classing conditions by effect; with [the health
   layer](../systems/health-layer.md).
+
+## Medical equipment
+
+Archived on 23 Nov 2026; how it works now: [medical equipment](../systems/medical-equipment.md).
+
+- [Medical equipment](medical-equipment.md) (5 Nov 2026): bedside oxygen, the burn unit bed, the oxygen chain; with [gases and
+  air](../systems/gases-and-air.md) and [the health layer](../systems/health-layer.md).
+- [Medical equipment, second set](medical-equipment-2.md) (7 Nov 2026): the ventilator, steriliser and six more.

@@ -40,6 +40,8 @@ How the health layer works now: [systems/health-layer.md](systems/health-layer.m
 
 How injuries and care works now: [systems/medical-injuries-and-care.md](systems/medical-injuries-and-care.md); this record keeps its history.
 
+How medical equipment works now: [systems/medical-equipment.md](systems/medical-equipment.md); this record keeps its history.
+
 ## Read this first
 
 - **Found on the way, likely a live fault in the owner's game: Vehicles at Work drives vehicles our systems refuse to move.** It is on

@@ -13,4 +13,5 @@ One table per system: each decision in one row, with its date, who made it, why 
 - [The health layer and care](health-layer.md) (23 Nov 2026): 29 decisions, 5 to 22 Nov 2026. Living.
 - [Power, top-up and machines](power-and-machines.md) (23 Nov 2026): 183 decisions, 2 to 23 Nov 2026. Living.
 - [Framework services](framework-services.md) (23 Nov 2026): 107 decisions, 4 to 23 Nov 2026. Living.
-- [Injuries and care](medical-injuries-and-care.md) (23 Nov 2026): 102 decisions, 4 to 17 Nov 2026. Living.
+- [Injuries and care](medical-injuries-and-care.md) (23 Nov 2026): 99 decisions, 4 to 13 Nov 2026. Living.
+- [Medical equipment](medical-equipment.md) (23 Nov 2026): 65 decisions, 4 to 16 Nov 2026. Living.

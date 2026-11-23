@@ -10,7 +10,7 @@ Emergency Dosing 0.3.0). **Not yet tested in game:** everything else, including 
 Rescue's medics) and P2 (caustic gas, when play brings it up).
 
 This page says how D'thorga Medical hurts and cares for people now: burns, smoke, gas and acid, the doctors who dose on their
-own, and triage. The machines, beds and kits are on medical equipment, radiation on
+own, and triage. The machines, beds and kits are on [medical equipment](medical-equipment.md), radiation on
 radiation, the Framework's shared part (patients, danger, care choices, field care) on [the health
 layer](health-layer.md), and the gases themselves on [gases and air](gases-and-air.md). Why it is this way is in the [decision
 log](../decisions/medical-injuries-and-care.md) and the [records](#why-it-is-this-way). What a player does is in the [player
@@ -76,7 +76,7 @@ tend.
 | Source | Quality | Where |
 | --- | --- | --- |
 | A fluids bill with a saline bag (More Injuries) | 1 | `Mods/MoreInjuries/Defs/.../Fluids_MoreInjuries.xml`; never fails |
-| A fluids kit hung by a doctor | 0.9 | A device: medical equipment |
+| A fluids kit hung by a doctor | 0.9 | A device: [medical equipment](medical-equipment.md) |
 | A drip stand linked to the bed (VFE Medical's) | 0.7 | `BedsideFluids`, on each burns pass |
 
 All three qualities are authored. A drip never replaces better fluids.
@@ -160,8 +160,8 @@ The game spreads a fire's heat evenly through its room and throws it away outdoo
 - An acid or chemical burn (a Def with `PhobosRinsedByWaterExtension`: the game's two) puts **chemical on the skin**, which
   deepens the open chemical burns by up to 2 an hour (authored), ignoring armour, until spent in about three hours.
 - **Washing it off** ends it and eases the pain for a few hours. The washing happens at a safety shower, an eyewash (enough when
-  every acid burn is on an eye) or a Dubs Bad Hygiene shower or bath: the buildings and the walk are on medical
-  equipment. `CausticService.WashingProbes` lets a tie-in report washing elsewhere.
+  every acid burn is on an eye) or a Dubs Bad Hygiene shower or bath: the buildings and the walk are on [medical
+  equipment](medical-equipment.md). `CausticService.WashingProbes` lets a tie-in report washing elsewhere.
 
 ### Caustic gas
 
@@ -439,8 +439,8 @@ Every tie-in is in the [tie-in register](../tie-in-register.md). None is require
   therapy is found by triage through `PhobosTriageExtension` (`BrainTherapy_MoreInjuries.xml`), its other operations as any
   recipe is.
 - **Search and Rescue**: its carriers lift patients our doctors are dosing (the Framework's field care); its field medics use our
-  devices (medical equipment); the airway burn keeps `removesHediff`, so it stays surgical to it.
-- **VFE Medical** (the drip stand), **Dubs Bad Hygiene** (washing; medical equipment), **Useful Marks**
+  devices ([medical equipment](medical-equipment.md)); the airway burn keeps `removesHediff`, so it stays surgical to it.
+- **VFE Medical** (the drip stand), **Dubs Bad Hygiene** (washing; [medical equipment](medical-equipment.md)), **Useful Marks**
   (the tag), **Hospitality** (guests), **Atmosphere Overhaul** and **Celsius** (fire heat stands down), **Biotech** (tox gas).
 - **The save bridge** (More Injuries beside Medical Surgery Expanded 2) is not described here: see the [medical save
   bridge](../medical-save-bridge.md).

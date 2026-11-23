@@ -390,7 +390,7 @@ references plus the v1 style model, and the fixed view phrase "seen from directl
 
 The store's frost (its code waits for it, owner), the electrolyser, the chamber's top-down 1 by 3 redraw, a real whip, the radio base
 station, the second set of medical equipment
-([its record](medical-equipment-2.md)) and the four vents ([ventilation and hydrogen](ventilation-and-hydrogen.md)). Every new button
+([its record](archive/medical-equipment-2.md)) and the four vents ([ventilation and hydrogen](ventilation-and-hydrogen.md)). Every new button
 gets its icon in the same change (owner rule, 7 Nov 2026).
 
 **Since then (12 Nov 2026):** every item on this list shipped or was settled, except the whip (held until the radio resumes) and the

@@ -3,11 +3,13 @@
 A design record, nothing built. The owner's call (7 Nov 2026): the oxygen electrolyser's hydrogen becomes **a flammable room gas of
 ours**, and the colony gets **vent-like furniture** to deal with it: a powered extractor fan, a passive roof or wall vent, a fume hood
 and a hydrogen detector. How gases work is in the [D'thorga Framework record](archive/phobos-framework.md); the electrolyser is in the
-[medical equipment record](medical-equipment.md).
+[medical equipment record](archive/medical-equipment.md).
 
 **Merged here on 17 Nov 2026**, each kept as written: [Workstation environmental effects: design](#workstation-environmental-effects-design-7-nov-2026).
 
 How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
+
+How medical equipment works now: [systems/medical-equipment.md](systems/medical-equipment.md); this record keeps its history.
 
 ## Read this first
 

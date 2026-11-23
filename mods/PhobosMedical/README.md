@@ -157,8 +157,8 @@ them:
   [caustic gas](../../docs/development/archive/caustic-gas.md)
 - [Emergency dosing](../../docs/development/archive/emergency-dosing.md#for-modders-moved-from-the-readme-17-nov-2026)
 - [Triage](../../docs/development/archive/triage.md#for-modders-moved-from-the-readme-17-nov-2026)
-- [Medical equipment](../../docs/development/medical-equipment.md#for-modders-moved-from-the-readme-17-nov-2026) and
-  [the second set](../../docs/development/medical-equipment-2.md)
+- [Medical equipment](../../docs/development/archive/medical-equipment.md#for-modders-moved-from-the-readme-17-nov-2026) and
+  [the second set](../../docs/development/archive/medical-equipment-2.md)
 - [The save bridge](../../docs/development/medical-save-bridge.md#for-modders-moved-from-the-readme-17-nov-2026)
 - [Radiation control](../../docs/development/archive/radiation-control-line.md#for-modders-moved-from-the-readme-17-nov-2026)
 - The health layer every part shares (who the doctors' patients are, how dangerous a condition is, what a pawn is breathing, the

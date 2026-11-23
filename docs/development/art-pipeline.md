@@ -90,7 +90,7 @@ The other routes weighed (Gemini, fal.ai, Midjourney and others, the view-angle 
 
 ## The first design's art half (4 Nov 2026, updated 5 Nov 2026)
 
-*Moved here on 17 Nov 2026 from `art-automation-and-medical-equipment.md` ("Art automation and medical equipment: design"); kept as written. Its tables of where everything stood and of decisions, and its open questions, were split by row: the art rows are here (the table of where everything stands is as of 7 Nov 2026), the medical rows went with its medical half to [medical equipment](medical-equipment.md#the-first-designs-medical-half-4-to-5-nov-2026).*
+*Moved here on 17 Nov 2026 from `art-automation-and-medical-equipment.md` ("Art automation and medical equipment: design"); kept as written. Its tables of where everything stood and of decisions, and its open questions, were split by row: the art rows are here (the table of where everything stands is as of 7 Nov 2026), the medical rows went with its medical half to [medical equipment](archive/medical-equipment.md#the-first-designs-medical-half-4-to-5-nov-2026).*
 
 **Status (17 Nov 2026):** the table under "Where everything stands" is as of 7 Nov 2026. Since then the five medical mods have been
 parts of D'thorga Medical and the two patch mods parts of D'thorga Patches (7 Nov; [mod consolidation](mod-consolidation.md)), so there
@@ -262,7 +262,7 @@ Sizes read from the file headers in the game's `Assets.zip` (RimWorld 1.7.4998, 
 
 Some of those counts include mask files, which are not usable art. Most sprites are well short of training size, and a 64 px sprite gives an upscaler little to work from, so a style model could learn the flaws as if they were the style (agent inference).
 
-**The look, read from the sprites themselves (5 Nov 2026):** a **thick near-black outline** around every shape, soft cel shading, pale grey panels with rounded corners on machines, muted colours, and small blue screens. Odyssey has its own [oxygen pump](medical-equipment.md#medical-equipment) sprite, a useful reference.
+**The look, read from the sprites themselves (5 Nov 2026):** a **thick near-black outline** around every shape, soft cel shading, pale grey panels with rounded corners on machines, muted colours, and small blue screens. Odyssey has its own [oxygen pump](archive/medical-equipment.md#medical-equipment) sprite, a useful reference.
 
 **Extraction:** the sprites are in a rearranged block format, not plain DDS. `.local/tools/art/extract_references.py` reads it, and 12 medical references and 60 varied training sprites are in `.local/references/`. The extractor is not committed, because it was written from the game's decompiled loader, and nor is its output.
 

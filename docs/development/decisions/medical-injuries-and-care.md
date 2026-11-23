@@ -107,9 +107,6 @@ monoxide's source and fire heat in [gases and air](gases-and-air.md); they are n
 | 11 Nov | Coughing, never doubled with another mod's; it stands down | owner | No double sounds | [sc], Owner's answers (11 Nov 2026, going to bed) |
 | 13 Nov | VFE Medical's drip stand gives burn-shock fluids | owner | Uses the hospital built | [sd], Questions for the owner |
 | 13 Nov | The drip's fluids at quality 0.7, below the kit's 0.9 | agent choice | A hung kit stays better | [sd], Questions for the owner |
-| 16 Nov | Search and Rescue's medics use our devices next | owner | High value in battles | [sd], Questions for the owner |
-| 16 Nov | Its medics' lanes at 121 and 106, devices split between them | agent choice | Around its own treatments | [sd], Questions for the owner |
-| 17 Nov | Evacuation to a vehicle left to its author, as a request | agent choice | Its planner is not ours to patch | [sd], Questions for the owner |
 
 [bs]: ../archive/burns-and-smoke.md
 [cg]: ../archive/caustic-gas.md

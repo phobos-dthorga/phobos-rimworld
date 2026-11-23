@@ -1,12 +1,12 @@
 # Medical equipment: research and decisions (5 Nov 2026, updated 7 Nov 2026)
 
-**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../mods/PhobosMedical/README.md)** ([why](mod-consolidation.md)); paths below are updated, the rest is as recorded.
+**Since 7 November 2026 this mod is a part of [D'thorga Medical](../../../mods/PhobosMedical/README.md)** ([why](../mod-consolidation.md)); paths below are updated, the rest is as recorded.
 
-The record behind [D'thorga Medical Equipment](../../mods/PhobosMedical/README.md). **The owner reports a patient's breathing improving on the concentrator (5 Nov 2026, on 0.1.0) and the burn unit bed working (6 Nov 2026, on 0.2.0); the bedside stand and everything added in 0.3.0 are not yet tested in game.** The wider plan's medical half, with the oxygen chain, is [at the end of this record](#the-first-designs-medical-half-4-to-5-nov-2026); its art half is in the [art pipeline](art-pipeline.md).
+The record behind [D'thorga Medical Equipment](../../../mods/PhobosMedical/README.md). **The owner reports a patient's breathing improving on the concentrator (5 Nov 2026, on 0.1.0) and the burn unit bed working (6 Nov 2026, on 0.2.0); the bedside stand and everything added in 0.3.0 are not yet tested in game.** The wider plan's medical half, with the oxygen chain, is [at the end of this record](#the-first-designs-medical-half-4-to-5-nov-2026); its art half is in the [art pipeline](../art-pipeline.md).
 
-How gases and air works now: [systems/gases-and-air.md](systems/gases-and-air.md); this record keeps its history.
+How gases and air works now: [systems/gases-and-air.md](../systems/gases-and-air.md); this record keeps its history.
 
-How the health layer works now: [systems/health-layer.md](systems/health-layer.md); this record keeps its history.
+How the health layer works now: [systems/health-layer.md](../systems/health-layer.md); this record keeps its history.
 
 ## The problem
 
@@ -17,7 +17,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 - **The game's vitals monitor** and **VFE Medical's IV stand** are one-tile `CompProperties_Facility` buildings with `mustBePlacedAdjacent`, listed in a bed's `CompProperties_AffectedByFacilities`. The IV stand is added by a patch naming `HospitalBed`. `CompFacility.LinkedBuildings` gives the beds, `CanBeActive` checks power, and a null `statOffsets` is safe.
 - **Vanilla Gravship Expanded:** `VGE_OxygenCanister` is an item, explosive when burned. `VGE_OxygenNet` lists it in `linkToRefuelables`, and Vanilla Expanded Framework's `AutoLinkRefuelables` adds a pipe link to any refuelable building whose fuel filter accepts it.
 - **Organ Failure's ventilation** tests for the hediff `QE_LifeSupport`, which no mod the owner has installed defines, so the surgery never appears in the owner's game.
-- **Clearance:** carbon monoxide's half-life is about 320 minutes on room air and 70 to 80 on oxygen ([sources](archive/burns-and-smoke.md#sources)).
+- **Clearance:** carbon monoxide's half-life is about 320 minutes on room air and 70 to 80 on oxygen ([sources](burns-and-smoke.md#sources)).
 
 ## Decisions
 
@@ -49,7 +49,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 | One oxygen network, Vanilla Gravship Expanded's; no network of our own | Owner, 7 Nov 2026, confirming the agent's choice |
 | Patients who need oxygen go to a free chamber first, and there is no surgery in a chamber | Owner, 7 Nov 2026 |
 | With Dubs Bad Hygiene active, the electrolyser draws its water from the plumbing; without it, water stays assumed | Owner, 7 Nov 2026 |
-| The electrolyser's hydrogen becomes a flammable room gas of ours, with vents to deal with it ([ventilation and hydrogen](ventilation-and-hydrogen.md)) | Owner, 7 Nov 2026 |
+| The electrolyser's hydrogen becomes a flammable room gas of ours, with vents to deal with it ([ventilation and hydrogen](../ventilation-and-hydrogen.md)) | Owner, 7 Nov 2026 |
 | An unpowered liquid oxygen store stops filling; it still gives out what it holds, and boils off | Owner, 7 Nov 2026 |
 | The store's frost waits for its art; the code follows | Owner, 7 Nov 2026 |
 | The second set of equipment, all eight pieces ([medical equipment, second set](medical-equipment-2.md)) | Owner, 7 Nov 2026 |
@@ -69,7 +69,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 | Burn unit bed: wound healing and pain on air cells | x1.25 and x0.85 | Authored |
 | Burn unit bed: power, cost, skill | 200 W; 120 steel, 30 cloth, 7 components; Construction 8; Hospital bed research | Authored |
 | One oxygen network unit (one canister) | One patient-hour, about 0.3 cubic metres at 5 L/min | Authored, from the stand's rate |
-| Carbon monoxide half-life, hyperbaric | 22.5 min | Sourced, the middle of 15 to 30 ([burns and smoke](archive/burns-and-smoke.md#sources)) |
+| Carbon monoxide half-life, hyperbaric | 22.5 min | Sourced, the middle of 15 to 30 ([burns and smoke](burns-and-smoke.md#sources)) |
 | Hyperbaric chamber: breathing, oxygen use, power | +0.3 up to normal; 6 canisters a patient-hour; 800 W | Authored. Real chambers use far more oxygen (from memory, unverified) |
 | Field oxygen kit: duration | One in-game hour | Authored; a small medical cylinder of a few hundred litres at 5 L/min (from memory, unverified) |
 | Hand ventilation: breathing, threshold | +0.3 up to normal, for breathing under 0.5 and above 0 | Authored |
@@ -117,7 +117,7 @@ The owner wants our own medical equipment, hospital and field. Carbon monoxide a
 
 ## Open points
 
-Updated 7 Nov 2026, after D'thorga Medical 0.6.0; the open work is listed in [outstanding work](outstanding-work.md).
+Updated 7 Nov 2026, after D'thorga Medical 0.6.0; the open work is listed in [outstanding work](../outstanding-work.md).
 
 - **Done in D'thorga Medical 0.7.0** (owner, 7 Nov 2026: supplied oxygen treats More Injuries' hypoxia; not yet tested in game):
   organ hypoxia heals 4 a day faster on oxygen and cerebral hypoxia 2 (authored; the brain's benefit is less certain), times the
@@ -159,18 +159,18 @@ chamber is a game tier, not medical advice: the review cited in the burns record
 
 ## The first design's medical half (4 to 5 Nov 2026)
 
-*Moved here on 17 Nov 2026 from `art-automation-and-medical-equipment.md` ("Art automation and medical equipment: design"); kept as written. Its opening and its art half went to the [art pipeline](art-pipeline.md#the-first-designs-art-half-4-nov-2026-updated-5-nov-2026); its tables of where everything stood and of decisions, and its open questions, were split by row, the medical rows here; the table of where everything stands is as of 7 Nov 2026. Dropped because this record already says them: the paragraph "Pipes come free" (see What exists, above), the bullet on airway support (Decisions: no Questionable Ethics), the paragraph on treatment tiers for carbon monoxide (Figures, and the note under For modders), and the engineering note that it is its own mod (Decisions).*
+*Moved here on 17 Nov 2026 from `art-automation-and-medical-equipment.md` ("Art automation and medical equipment: design"); kept as written. Its opening and its art half went to the [art pipeline](../art-pipeline.md#the-first-designs-art-half-4-nov-2026-updated-5-nov-2026); its tables of where everything stood and of decisions, and its open questions, were split by row, the medical rows here; the table of where everything stands is as of 7 Nov 2026. Dropped because this record already says them: the paragraph "Pipes come free" (see What exists, above), the bullet on airway support (Decisions: no Questionable Ethics), the paragraph on treatment tiers for carbon monoxide (Figures, and the note under For modders), and the engineering note that it is its own mod (Decisions).*
 
 ### Where everything stands
 
 | Work | State | Next step | Record |
 | --- | --- | --- | --- |
-| D'thorga Framework 0.3.0 | Draft. The owner reports the gas layer and supplied oxygen working (5 Nov 2026); the health layer (6 Nov) is not yet tested in game | The health layer, through Triage | [Framework](archive/phobos-framework.md) |
-| D'thorga Burns and Smoke 0.5.0 | Draft. The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); the tracheotomy and the fire heat in the open are not yet tested in game | The fire heat and the tracheotomy | [Burns and smoke](archive/burns-and-smoke.md) |
-| D'thorga Emergency Dosing 0.3.1 | Draft. The owner reports doctors' dosing working (5 Nov 2026, on 0.3.0); self-medication and the bleeding hold not yet tested in game | Self-medication | [Emergency dosing](archive/emergency-dosing.md) |
-| D'thorga Triage 0.1.2 | Draft, 7 Nov 2026 (0.1.2 adds the button's own icon); not yet tested in game | The owner's first test | [Triage](archive/triage.md) |
-| Native 1.7 builds of all ten mods | Built; the owner plays 1.7 and has tested several mods on it | The rest of the owner's tests | [Building](building.md) |
-| Burns and Smoke: eschar, escharotomy | Planned | The owner's go; their test passed the gate on 5 Nov 2026 | [Burns and smoke](archive/burns-and-smoke.md) |
+| D'thorga Framework 0.3.0 | Draft. The owner reports the gas layer and supplied oxygen working (5 Nov 2026); the health layer (6 Nov) is not yet tested in game | The health layer, through Triage | [Framework](phobos-framework.md) |
+| D'thorga Burns and Smoke 0.5.0 | Draft. The owner reports burn numbers, progression and the tie-ins working (5 Nov 2026, on 0.4.2); the tracheotomy and the fire heat in the open are not yet tested in game | The fire heat and the tracheotomy | [Burns and smoke](burns-and-smoke.md) |
+| D'thorga Emergency Dosing 0.3.1 | Draft. The owner reports doctors' dosing working (5 Nov 2026, on 0.3.0); self-medication and the bleeding hold not yet tested in game | Self-medication | [Emergency dosing](emergency-dosing.md) |
+| D'thorga Triage 0.1.2 | Draft, 7 Nov 2026 (0.1.2 adds the button's own icon); not yet tested in game | The owner's first test | [Triage](triage.md) |
+| Native 1.7 builds of all ten mods | Built; the owner plays 1.7 and has tested several mods on it | The rest of the owner's tests | [Building](../building.md) |
+| Burns and Smoke: eschar, escharotomy | Planned | The owner's go; their test passed the gate on 5 Nov 2026 | [Burns and smoke](burns-and-smoke.md) |
 | D'thorga Medical Equipment 0.3.0 | Draft: concentrator, bedside stand, burn unit bed, and in 0.3.0 the hyperbaric chamber, field oxygen kit, manual resuscitator, silver burn dressings, electrolyser and liquid oxygen store, all built on Vanilla Gravship Expanded's oxygen network where they pipe oxygen. The owner reports breathing improving on the concentrator (on 0.1.0) and the burn unit bed working (on 0.2.0); the bedside stand is not yet tested in game | The stand and its pipe link | [Record](medical-equipment.md) |
 
 ### Decisions so far
@@ -233,7 +233,7 @@ None of the oxygen above treats a patient yet, as far as these Defs show: it ser
 - **Vanilla Expanded Framework is a required dependency of this mod** (owner, 4 Nov 2026). Its PipeSystem module can carry our own
   piped oxygen when Vanilla Gravship Expanded is absent, the same module that network already uses and the radio framework's
   feedline relies on. Declared in `modDependencies`; the installed assembly is referenced with `Private=false`, never copied
-  (CC BY-NC-ND 4.0, [third-party notices](../../THIRD_PARTY_NOTICES.md)). D'thorga Framework and Burns and Smoke stay free of it,
+  (CC BY-NC-ND 4.0, [third-party notices](../../../THIRD_PARTY_NOTICES.md)). D'thorga Framework and Burns and Smoke stay free of it,
   so a mod using only those needs nothing extra (agent assumption, for the owner to correct).
 - **Its own treatment jobs:** More Injuries' suction and CPR target lists are hard-coded, so new devices cannot join them through XML.
 - **Oxygen is a treatment you supply, not a gas in the room**, which keeps it clear of an air model.
@@ -243,5 +243,5 @@ None of the oxygen above treats a patient yet, as far as these Defs show: it ser
 | Question | For |
 | --- | --- |
 | ~~Is the electrolyser's water a Dubs Bad Hygiene pipe tie-in or a water item?~~ Settled 7 Nov 2026: with Dubs Bad Hygiene it draws from the plumbing; without it, water stays assumed ([medical equipment record](medical-equipment.md)) | Owner |
-| ~~Should vented hydrogen be a room gas of ours, flammable in a closed room?~~ Settled 7 Nov 2026: yes, the owner's call; not built ([ventilation and hydrogen](ventilation-and-hydrogen.md)) | Owner |
+| ~~Should vented hydrogen be a room gas of ours, flammable in a closed room?~~ Settled 7 Nov 2026: yes, the owner's call; not built ([ventilation and hydrogen](../ventilation-and-hydrogen.md)) | Owner |
 | ~~Is the frost one overlay texture or several frames?~~ Settled 12 Nov 2026: neither; the frost is drawn in code from the store's outline (Medical 0.15.0) | Agent, when the store's art is picked |
