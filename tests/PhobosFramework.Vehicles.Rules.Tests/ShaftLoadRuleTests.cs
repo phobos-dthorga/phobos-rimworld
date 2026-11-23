@@ -111,4 +111,27 @@ public class ShaftLoadRuleTests
         Assert.Equal(420.0 / 0.92 / 1000.0 / 72.0, ShaftLoadRule.ConverterPackSharePerHour(30, 14, 0.92, 72), 12);
         Assert.Equal(0, ShaftLoadRule.ConverterPackSharePerHour(0, 14, 0.92, 72), 12);
     }
+
+    // ---- Third round (Framework 0.249.0) ----
+
+    [Fact]
+    public void SteeringWorksHardestAtWalkingPaceAndOnlyWhileTurning()
+    {
+        Assert.Equal(0, ShaftLoadRule.SteeringWork(false, 1), 9);
+        Assert.Equal(1, ShaftLoadRule.SteeringWork(true, 0), 9);
+        Assert.Equal(0.5, ShaftLoadRule.SteeringWork(true, 6), 9);
+        Assert.Equal(0.2, ShaftLoadRule.SteeringWork(true, 30), 9);
+    }
+
+    [Fact]
+    public void LampsBurnFullWhileTheAlternatorCarriesThem() => Assert.Equal(1, HeadlightRule.LampShare(true, 0.1), 9);
+
+    [Fact]
+    public void LampsOnTheBatteryDimWithItsCharge()
+    {
+        double full = HeadlightRule.LampShare(false, 1), flat = HeadlightRule.LampShare(false, 0);
+        Assert.InRange(full, 0.70, 0.73); // (12.7 / 14) to the 3.4th: about seven-tenths
+        Assert.InRange(flat, 0.53, 0.57); // (11.8 / 14) to the 3.4th
+        Assert.True(HeadlightRule.LampShare(false, 0.5) < full);
+    }
 }

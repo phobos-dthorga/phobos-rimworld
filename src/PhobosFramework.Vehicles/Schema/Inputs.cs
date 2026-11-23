@@ -135,6 +135,29 @@ public class Input_RatedPower : VehicleSystemInput
         context.Comp.Powertrain is { } train && train.Spec.RatedPowerKw > 0 ? (float)train.Spec.RatedPowerKw : Unknown;
 }
 
+/// <summary>How hard the power steering is working now, 0 to 1 (Framework 0.249.0): the vehicle's own reading, from turning and speed.</summary>
+public class Input_SteeringWork : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context) => context.Comp.SteeringWork;
+}
+
+/// <summary>
+/// How much electricity the engine needs to run, against a modern electronically controlled one (Framework 0.249.0): its Def's
+/// <c>electronicsShare</c>, a quarter or so on an old mechanical diesel. 1 without a drivetrain model.
+/// </summary>
+public class Input_EngineElectronics : VehicleSystemInput
+{
+    protected override float Raw(SystemContext context)
+    {
+        float share = context.Comp.Powertrain is { } train ? (float)train.ElectronicsShare : 1f;
+        if (share < 1f && context.Comp.EngineRunning && Seen.Wants("vehicles.engine-electronics", context.Vehicle))
+        {
+            Seen.Note("vehicles.engine-electronics", context.Vehicle, share.ToStringPercent() + " of a modern engine's");
+        }
+        return share;
+    }
+}
+
 /// <summary>
 /// The heat the cab's heater core takes from the coolant now, as a share of the engine's full-load heat (Framework 0.243.0; the owner's
 /// report of 23 Nov 2026): the system's <c>heaterCoreKw</c> over the drivetrain model's full-load heat, so a flow scaled by

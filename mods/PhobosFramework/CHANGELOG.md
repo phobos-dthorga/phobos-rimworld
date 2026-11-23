@@ -5,6 +5,17 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.249.0] - 2026-11-23 - Draft
+
+The engine's loads, the third round: four changes made together in one working tree. Not yet tested in game.
+
+### Changed
+
+- **The air conditioner's compressor is sized to the vehicle** (the owner's go-ahead of 23 November 2026; docs/development/vehicle-engine-loads.md, the third round): it took a heavy truck's 2.6 to 5.6 kW on every vehicle, so a small car's idle fuel more than doubled with it on. It is now scaled by the engine's rated power as a stand-in for the vehicle's size: whole on a heavy truck, about three-fifths on a car, a third on a small vehicle, a fifth more on a tank. Not yet tested in game: row 412 of the test pass.
+- **An old mechanical diesel needs less electricity to run**: each engine now says how much electricity it needs against a modern electronic one, and D'thorga Vehicles 0.108.1 gives its seven mechanically injected diesels a quarter (the HMMWV, M113, Bradley, M48H, T-54, BMP-1 and Wiesel). Their alternators take less. Not yet tested in game: row 413.
+- **Headlights dim when the battery carries them**: with the engine off, or when the loads outrun the alternator, they burn at the battery's voltage, as halogen lamps do, about seven-tenths of their light from a full battery and a little over half from a flat one. The pool of light dims and the inspect pane says so. Not yet tested in game: row 414.
+- **Steering at walking pace, the air compressor and the hydraulic pump take their share**: a new "steering effort" load while turning slowly (about 1 % of the engine, less at speed), the air brakes' compressor still dragging a little with the air full, and an engine-driven hydraulic pump's own drag on the drill rig, survey truck and tipper (the tipper's waiting pump no longer asks a share of its own). Not yet tested in game: row 415.
+
 ## [0.248.0] - 2026-11-23 - Draft
 
 Per-engine realism, round two: the cards brought in line, and four smaller ideas

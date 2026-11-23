@@ -645,6 +645,8 @@
               </points>
             </curve>
           </li>
+          <!-- Framework 0.249.0: an old mechanically injected diesel needs a quarter or so (its drivetrain's electronicsShare). -->
+          <li Class="Phobos.VehicleSystems.Input_EngineElectronics" />
         </ampsInputs>
       </li>
       <li>
@@ -984,6 +986,8 @@
               </points>
             </curve>
           </li>
+          <!-- Framework 0.249.0: an old mechanically injected diesel needs a quarter or so (its drivetrain's electronicsShare). -->
+          <li Class="Phobos.VehicleSystems.Input_EngineElectronics" />
         </ampsInputs>
       </li>
       <li>
@@ -1164,6 +1168,8 @@
               </points>
             </curve>
           </li>
+          <!-- Framework 0.249.0: an old mechanically injected diesel needs a quarter or so (its drivetrain's electronicsShare). -->
+          <li Class="Phobos.VehicleSystems.Input_EngineElectronics" />
         </ampsInputs>
       </li>
       <li>

@@ -51,6 +51,8 @@ public sealed class Powertrain
     public readonly double KerbKg;
     /// <summary>How many times faster than the crankshaft the alternator turns (check C4, Framework 0.129.1), from the engine's Def.</summary>
     public readonly double AlternatorRatio;
+    /// <summary>How much electricity the engine needs to run, against a modern electronic one (Framework 0.249.0), from the engine's Def.</summary>
+    public readonly double ElectronicsShare;
     /// <summary>Whether air is forced into a piston engine (Framework 0.132.0): turbocharged as built, or with a fitting that grants
     /// <see cref="ForcedInductionGrant"/>. It then holds its rated power in thin air up to <see cref="HoldsPowerToMetres"/>.</summary>
     public readonly bool ForcedInduction;
@@ -91,6 +93,7 @@ public sealed class Powertrain
         fuelKgFull = Get("fuelKilogramsFull", mass.fuelKilogramsFull);
         EngineXml engine = def?.engine ?? new EngineXml();
         AlternatorRatio = Get("alternatorRatio", engine.alternatorRatio);
+        ElectronicsShare = Get("electronicsShare", engine.electronicsShare);
         // Fittings and tunes move only piston engines' figures (their Defs say so); a change builds the powertrain again.
         VehicleFittings fittings = comp.Fittings;
         ForcedInduction = engine.turbocharged || fittings.Grants(ForcedInductionGrant);

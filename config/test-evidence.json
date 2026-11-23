@@ -3,6 +3,13 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "413": ["vehicles.engine-electronics"],
+    "414": ["vehicles.lamps-dim"],
+    "415": {"parts": {
+      "steering effort while turning": [{"key": "vehicles.shaft-load", "variant": "PhobosShaftLoad_SteeringEffort"}],
+      "the hydraulic pump's drag": [{"key": "vehicles.shaft-load", "variant": "PhobosShaftLoad_HydraulicPump"}]
+    }},
+    "412": [{"key": "vehicles.shaft-load", "variant": "PhobosShaftLoad_AirConditioner"}],
     "361": {"parts": {
       "a dose is taken and recorded": ["radiation.dose-taken"],
       "a course of sickness starts": [{"key": "radiation.course", "variant": "started"}],

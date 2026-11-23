@@ -112,6 +112,8 @@
       <ratedKilowatts>119.4</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <!-- D'thorga Vehicles 0.108.1 (Framework 0.249.0): the 6.5 L diesel's mechanical injection pump needs little electricity to run, a quarter of a modern electronic engine's (general, approximate). -->
+      <electronicsShare>0.25</electronicsShare>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -225,6 +227,8 @@
       <ratedKilowatts>158</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <!-- D'thorga Vehicles 0.108.1 (Framework 0.249.0): the Detroit Diesel 6V53's mechanical unit injectors needs little electricity to run, a quarter of a modern electronic engine's (general, approximate). -->
+      <electronicsShare>0.25</electronicsShare>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -263,6 +267,8 @@
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
       <turbocharged>true</turbocharged>
+      <!-- D'thorga Vehicles 0.108.1 (Framework 0.249.0): the Cummins VTA-903T, mechanically injected needs little electricity to run, a quarter of a modern electronic engine's (general, approximate). -->
+      <electronicsShare>0.25</electronicsShare>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -300,6 +306,8 @@
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
       <turbocharged>true</turbocharged>
+      <!-- D'thorga Vehicles 0.108.1 (Framework 0.249.0): the AVDS-1790's mechanical injection needs little electricity to run, a quarter of a modern electronic engine's (general, approximate). -->
+      <electronicsShare>0.25</electronicsShare>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -373,6 +381,8 @@
       <ratedKilowatts>388</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <!-- D'thorga Vehicles 0.108.1 (Framework 0.249.0): the V-54's mechanical injection needs little electricity to run, a quarter of a modern electronic engine's (general, approximate). -->
+      <electronicsShare>0.25</electronicsShare>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -409,6 +419,8 @@
       <ratedKilowatts>220</ratedKilowatts>
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
+      <!-- D'thorga Vehicles 0.108.1 (Framework 0.249.0): the UTD-20's mechanical injection needs little electricity to run, a quarter of a modern electronic engine's (general, approximate). -->
+      <electronicsShare>0.25</electronicsShare>
     </engine>
     <transmission>
       <kind>Automatic</kind>
@@ -446,6 +458,8 @@
       <torqueCurve><points><li>(0, 0)</li><li>(0.25, 0.6)</li><li>(0.5, 0.95)</li><li>(0.65, 1)</li><li>(0.85, 0.95)</li><li>(1, 0.85)</li><li>(1.1, 0)</li></points></torqueCurve>
       <indicatedEfficiency>0.40</indicatedEfficiency>
       <turbocharged>true</turbocharged>
+      <!-- D'thorga Vehicles 0.108.1 (Framework 0.249.0): the Audi five-cylinder turbo-diesel's mechanical injection pump needs little electricity to run, a quarter of a modern electronic engine's (general, approximate). -->
+      <electronicsShare>0.25</electronicsShare>
     </engine>
     <transmission>
       <kind>Automatic</kind>

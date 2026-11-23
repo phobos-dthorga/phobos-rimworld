@@ -32,7 +32,9 @@ public class CompProperties_PhobosTipper : VehicleCompProperties
     /// </summary>
     public float hoistPowerShare = 0.12f;
     public float grabPowerShare = 0.08f;
-    public float idlePumpShare = 0.01f;
+    /// <summary>Since Framework 0.249.0 the pump's own drag is on the engine's ledger (PhobosShaftLoad_HydraulicPump), so a waiting hoist or
+    /// grab asks nothing more.</summary>
+    public float idlePumpShare;
 
     public CompProperties_PhobosTipper() => compClass = typeof(CompPhobosTipper);
 }

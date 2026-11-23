@@ -71,6 +71,13 @@ public class EngineXml
     /// alternator idles below the speed it starts charging at.</summary>
     public float alternatorRatio = DefaultAlternatorRatio;
     public const float DefaultAlternatorRatio = 2.5f;
+    /// <summary>
+    /// How much electricity the engine itself needs to run, against a modern electronically controlled one (Framework 0.249.0; the owner's
+    /// go-ahead of 23 Nov 2026): 1 for an engine run by a control unit, with electronic injectors and an electric fuel pump; about a quarter
+    /// for an old mechanically injected diesel, which needs little more than its instruments and a stop solenoid (authored, approximate). The
+    /// "engine electronics and instruments" load is multiplied by it.
+    /// </summary>
+    public float electronicsShare = 1f;
     /// <summary>Whether a piston engine is turbocharged or supercharged as built (Framework 0.132.0): it then holds its rated power in thin
     /// air up to <see cref="holdsPowerToMetres"/>. A naturally aspirated engine loses power from the sea up; fitting a turbocharger gives it
     /// the same hold. Turbines and electric motors do not read it.</summary>

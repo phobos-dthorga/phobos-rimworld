@@ -1182,6 +1182,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
             Moving, WorkTurningEngine);
         // Step S1 (Framework 0.130.0): the engine's one picture, put together here and nowhere else. Since 0.131.0 the loads' share is the
         // whole ledger's: the alternator and everything else the engine drives.
+        // Framework 0.249.0: steering effort, from the way the vehicle points changing since the last look while it moves.
+        double heading = Vehicle.Spawned ? Phobos.VehicleSystems.CompPhobosHitch.VehicleHeading(Vehicle) : double.NaN;
+        bool turning = EngineRunning && Moving && !double.IsNaN(heading) && !double.IsNaN(lastHeading) && heading != lastHeading;
+        lastHeading = heading;
+        SteeringWork = (float)ShaftLoadRule.SteeringWork(turning, Powertrain?.LastMovingSpeed ?? 0);
         float rpm = EngineRunning ? EngineRpm(AlternatorFallbackIdleRpm, AlternatorFallbackCruiseRpm) : 0f;
         Engine = new EngineState(why, rpm, driveLoad, ReadLedger(rpm));
         EngineLoad = Engine.Load;
@@ -1349,6 +1354,11 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
                 else otherKw += kw;
                 if (def.baseline) baselineKw += kw;
                 shaftLoads.Add(new ShaftLoadNow(def.label, (float)kw));
+                // Framework 0.249.0: which load was seen taking what, by its defName, so a test row can name one.
+                if (Seen.Wants("vehicles.shaft-load", Vehicle, def.defName))
+                {
+                    Seen.Note("vehicles.shaft-load", Vehicle, kw.ToString("0.00") + " kW of " + train.Spec.RatedPowerKw.ToString("0") + " kW rated", def.defName);
+                }
                 beltDrivenNow.Add(def.beltDriven);
             }
         }
@@ -1623,6 +1633,25 @@ public class CompPhobosVehicleSystems : VehicleComp, VehiclePipes.IHost, Phobos.
         CampLoadAmps = camp;
         BaselineLoadAmps = baseline;
         return amps;
+    }
+
+    /// <summary>How hard the power steering works now, 0 to 1 (Framework 0.249.0), and the heading it was read against. Derived, never saved.</summary>
+    public float SteeringWork { get; private set; }
+    double lastHeading = double.NaN;
+
+    /// <summary>
+    /// How bright lamps on the starting battery burn now, against full (Framework 0.249.0): full while the engine runs and the alternator
+    /// carries every load; otherwise at the battery's voltage by its charge (HeadlightRule.LampShare); nothing on a dead battery.
+    /// </summary>
+    public float LampShare
+    {
+        get
+        {
+            if (!LoadsPowered) return 0f;
+            bool carries = EngineRunning && AlternatorSupplyAmps() >= loadAmps;
+            float charge = TryGetQuantity("charge", out float c) ? c : 1f;
+            return (float)HeadlightRule.LampShare(carries, charge);
+        }
     }
 
     /// <summary>What the standing loads of a running engine draw now (Framework 0.243.0: its electronics), in amps: part of the loads' sum.

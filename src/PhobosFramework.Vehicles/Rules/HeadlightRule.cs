@@ -36,4 +36,27 @@ public static class HeadlightRule
     /// player's own vehicles default to.
     /// </summary>
     public static bool LiteBurns(bool night, bool moving) => night && moving;
+
+    /// <summary>The charging system's voltage over the battery's nominal one: 14 V on 12 (general).</summary>
+    public const double ChargingVolts = 14.0 / 12.0;
+
+    /// <summary>A resting lead-acid battery's voltage over its nominal one, flat and full: about 11.8 V and 12.7 V on 12 (general).</summary>
+    public const double FlatVolts = 11.8 / 12.0, FullVolts = 12.7 / 12.0;
+
+    /// <summary>A halogen lamp's light against its voltage, to this power (Framework 0.249.0; general: a tungsten-halogen lamp's output goes
+    /// with about the 3.4th power of its voltage). The vehicles' headlights are taken as halogen (authored).</summary>
+    public const double LampVoltageExponent = 3.4;
+
+    /// <summary>
+    /// How bright the headlights burn against their full brightness (Framework 0.249.0; the owner's go-ahead of 23 Nov 2026, "lights dim
+    /// when the alternator can't keep up"): full while the alternator carries every load at its charging voltage; otherwise at the
+    /// battery's own voltage, by its charge, to <see cref="LampVoltageExponent"/>: about seven-tenths from a full battery, a little over
+    /// half from a nearly flat one. 0 to 1.
+    /// </summary>
+    public static double LampShare(bool alternatorCarries, double charge)
+    {
+        if (alternatorCarries) return 1;
+        double volts = FlatVolts + (FullVolts - FlatVolts) * Math.Max(0, Math.Min(1, charge));
+        return Math.Pow(volts / ChargingVolts, LampVoltageExponent);
+    }
 }

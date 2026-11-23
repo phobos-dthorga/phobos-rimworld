@@ -42,7 +42,7 @@
     <description>The power steering's pump, turned by the drive belt whenever the engine runs.</description>
     <order>20</order>
     <!-- Table 5-11: hydraulic power steering, unloaded, 0.4, 1.1 and 3.0 hp at 600, 1,200 and 1,800 rpm: 3 hp of 400 at rated speed, rising
-         about with the square of speed. The extra while steering at low speed is left out (authored simplification). -->
+         about with the square of speed. The extra while steering at low speed is its own load since Framework 0.249.0, below. -->
     <shareOfRated>0.0075</shareOfRated>
     <speedExponent>2</speedExponent>
     <beltDriven>true</beltDriven>
@@ -50,6 +50,46 @@
     <available Class="Phobos.VehicleSystems.When_HasQuantity">
       <quantity>steeringAssist</quantity>
     </available>
+  </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+    <defName>PhobosShaftLoad_SteeringEffort</defName>
+    <label>steering effort</label>
+    <description>The power steering pump working hard while the wheels are turned, most of all at walking pace.</description>
+    <order>21</order>
+    <!-- Framework 0.249.0 (the owner's go-ahead of 23 Nov 2026): steering at low speed raises the pump's pressure, so it takes several times
+         its idling figure (general). Authored, approximate: 1 % of rated power while turning at walking pace, falling to a fifth of that by
+         12 m/s (ShaftLoadRule.SteeringWork); steady with engine speed. Turning is read from the way the vehicle points changing between the
+         vehicle's looks. -->
+    <shareOfRated>0.01</shareOfRated>
+    <speedExponent>0</speedExponent>
+    <beltDriven>true</beltDriven>
+    <available Class="Phobos.VehicleSystems.When_HasQuantity">
+      <quantity>steeringAssist</quantity>
+    </available>
+    <inputs>
+      <li Class="Phobos.VehicleSystems.Input_SteeringWork" />
+    </inputs>
+  </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+
+  <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
+    <defName>PhobosShaftLoad_HydraulicPump</defName>
+    <label>hydraulic pump</label>
+    <description>The engine-driven hydraulic pump, turning and circulating its oil whenever the engine runs, before any work asks it for more.</description>
+    <order>25</order>
+    <!-- Framework 0.249.0 (the owner's go-ahead of 23 Nov 2026): an open-centre pump turning with nothing to drive still drags, about 0.4 % of
+         the engine's rated power at rated speed, rising with speed (authored, approximate). The work it does is the work's own share
+         (the drill rig's, the tipper's hoist and grab). Only on vehicles with engine-driven hydraulics, while they hold pressure. -->
+    <shareOfRated>0.004</shareOfRated>
+    <speedExponent>1</speedExponent>
+    <available Class="Phobos.VehicleSystems.When_HasQuantity">
+      <quantity>hydraulicPressure</quantity>
+    </available>
+    <inputs>
+      <li Class="Phobos.VehicleSystems.Input_Quantity">
+        <quantity>hydraulicPressure</quantity>
+      </li>
+    </inputs>
   </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
 
   <Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
@@ -87,7 +127,11 @@
     <!-- Table 5-11: 7.5 hp (5.6 kW) cooling a hot cab, 3.5 hp (2.6 kW) holding a cool one, "not including blower", at any engine speed. In
          kilowatts, not a share: a cab is a cab whatever the engine. It works while the air conditioner's own load runs, or climate control
          is cooling a cab above 22 degrees C, as the cab's cooling flows do; between 24 and 32 degrees C of cab it goes from holding to
-         cooling (authored). The 30 A (15 A at 24 V) of the air conditioner's electrical load stays: its blower and condenser fan. -->
+         cooling (authored). The 30 A (15 A at 24 V) of the air conditioner's electrical load stays: its blower and condenser fan.
+         Framework 0.249.0 (the owner's go-ahead of 23 Nov 2026): those figures are a heavy truck's, and a car's cab and compressor are
+         smaller, so they are scaled by the engine's rated power as a stand-in for the vehicle's size: whole at 300 kW and above (Table 5-11's
+         400 hp truck), about three-fifths on a 100 kW car (3.4 kW cooling, 1.6 holding), a third on a 40 kW one, and a fifth more on a tank's
+         crew compartment (authored, approximate: a car's compressor commonly takes 1 to 4 kW, general). -->
     <kilowatts>5.6</kilowatts>
     <speedExponent>0</speedExponent>
     <beltDriven>true</beltDriven>
@@ -122,6 +166,17 @@
           </points>
         </curve>
       </li>
+      <li Class="Phobos.VehicleSystems.Input_RatedPower">
+        <curve>
+          <points>
+            <li>(40, 0.35)</li>
+            <li>(100, 0.6)</li>
+            <li>(200, 0.85)</li>
+            <li>(300, 1)</li>
+            <li>(1000, 1.2)</li>
+          </points>
+        </curve>
+      </li>
     </inputs>
   </Phobos.VehicleSystems.PhobosVehicleShaftLoadDef>
 
@@ -131,8 +186,9 @@
     <description>The air brakes' compressor, geared to the engine, working while the brakes' air is being topped up.</description>
     <order>50</order>
     <!-- Table 5-11: a loaded compressor takes 1.1, 2.5 and 4.0 hp at 600, 1,200 and 1,800 rpm (4 hp of 400 at rated speed is 1 %, rising with
-         speed), and 0.2 to 1.0 hp unloaded, which is left out. It is loaded while the air is below full (authored: from 0.97 down to 0.9 of
-         full it comes on). Reopened by the owner on 18 Nov 2026, after round two of the cross-links argued it out. -->
+         speed), and 0.2 to 1.0 hp unloaded. It is loaded while the air is below full (authored: from 0.97 down to 0.9 of full it comes on).
+         Reopened by the owner on 18 Nov 2026, after round two of the cross-links argued it out. Framework 0.249.0 (the owner's go-ahead of
+         23 Nov 2026): unloaded it still turns and drags, a fifth of its loaded figure (Table 5-11's 0.2 to 1.0 hp against 1.1 to 4.0). -->
     <shareOfRated>0.01</shareOfRated>
     <speedExponent>1</speedExponent>
     <available Class="Phobos.VehicleSystems.When_HasQuantity">
@@ -144,7 +200,7 @@
         <curve>
           <points>
             <li>(0.9, 1)</li>
-            <li>(0.97, 0)</li>
+            <li>(0.97, 0.2)</li>
           </points>
         </curve>
       </li>

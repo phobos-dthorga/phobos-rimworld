@@ -30,6 +30,8 @@ public sealed class Headlights
     readonly ElectricalLoadSpec? load;
     int lastLook = -LookInterval;
     double litHeading = double.NaN;
+    /// <summary>The brightness the beam was placed at (Framework 0.249.0), so a change of a twentieth or more places it again.</summary>
+    float litShare = -1f;
 
     public Headlights(CompPhobosVehicleSystems comp)
     {
@@ -123,9 +125,14 @@ public sealed class Headlights
         // A beam reaching past the map's edge lights the edge's cell (Framework 0.120.5): put out there, it stayed dark until the next rare
         // tick, since the per-tick look only moves a lit beam.
         var cell = new IntVec3(x, 0, z).ClampInsideMap(vehicle.Map);
-        if (light.Lit && cell == light.Cell && heading == litHeading) return;
+        // Framework 0.249.0: our own vehicles' beams dim with the battery's voltage while the alternator cannot carry every load; another
+        // faction's, with no electrics, burn full.
+        float share = comp.Tier == DetailTier.Full ? comp.LampShare : 1f;
+        if (light.Lit && cell == light.Cell && heading == litHeading && System.Math.Abs(share - litShare) < 0.05f) return;
         litHeading = heading;
-        light.Place(vehicle, vehicle.Map, cell, beam.radius, beam.colour * beam.brightness);
+        litShare = share;
+        light.Place(vehicle, vehicle.Map, cell, beam.radius, beam.colour * (beam.brightness * share));
+        if (share < 0.95f && Seen.Wants("vehicles.lamps-dim", vehicle)) Seen.Note("vehicles.lamps-dim", vehicle, share.ToStringPercent());
     }
 
     /// <summary>Takes the beam off the map: the switch, the engine or the hour put it out, or the vehicle left the map.</summary>

@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.108.1] - 2026-11-23 - Draft
+
+Old mechanical diesels need less electricity to run. Not yet tested in game.
+
+### Changed
+
+- **The HMMWV, M113, Bradley, M48H, T-54, BMP-1 and Wiesel run on mechanically injected diesels**: their drivetrains now say their engines need about a quarter of a modern electronic engine's electricity to run, which D'thorga Framework 0.249.0 reads, so their alternators take less from the engine (the owner's go-ahead of 23 November 2026; docs/development/vehicle-engine-loads.md, the third round). Needs D'thorga Framework 0.249.0 or later; with an older one the figure is ignored. Not yet tested in game: row 413 of the test pass.
+
 ## [0.108.0] - 2026-11-23 - Draft
 
 Twin jets pulled by an engine out

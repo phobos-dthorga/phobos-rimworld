@@ -70,6 +70,19 @@ public static class ShaftLoadRule
         return PowerUnits.Watts(outputAmps, volts) / Math.Max(0.5, converterEfficiency) / 1000.0 / packKilowattHours;
     }
 
+    /// <summary>The speed by which steering effort has fallen to its floor, m/s (Framework 0.249.0; authored).</summary>
+    public const double SteeringFadeSpeed = 12;
+
+    /// <summary>
+    /// How hard the power steering works now, 0 to 1 (Framework 0.249.0): nothing while the wheels are straight; turning, the most at walking
+    /// pace and a fifth of it by <see cref="SteeringFadeSpeed"/>, as a real pump's pressure falls with speed (authored).
+    /// </summary>
+    public static double SteeringWork(bool turning, double speedMetresPerSecond)
+    {
+        if (!turning) return 0;
+        return Math.Max(0.2, Math.Min(1, 1 - Math.Max(0, speedMetresPerSecond) / SteeringFadeSpeed));
+    }
+
     /// <summary>The shaft power the alternator takes to make those amps, kW.</summary>
     public static double AlternatorKilowatts(double outputAmps, double volts, double efficiency) =>
         AccessoryRules.ShaftKilowatts(PowerUnits.Watts(Math.Max(0, outputAmps), Math.Max(0, volts)), efficiency);

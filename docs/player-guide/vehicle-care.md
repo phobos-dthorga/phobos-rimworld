@@ -432,17 +432,24 @@ for what its engine actually does.
 | What | When it works | What it takes |
 | --- | --- | --- |
 | **Alternator** | Always: the engine's own electronics, the lights, heaters and whatever the batteries are taking; it drags a little even making nothing | A little: a few tenths of a kilowatt for the engine alone, about half a kilowatt more for lights and a heater; more just after a start, while the battery refills |
-| **Air-conditioner compressor** | While the cab is being cooled | 2.6 kW holding a cool cab, up to 5.6 kW cooling a hot one |
+| **Air-conditioner compressor** | While the cab is being cooled | On a heavy truck 2.6 kW holding a cool cab, up to 5.6 kW cooling a hot one; on a car about three-fifths of that, on a small vehicle a third |
 | **Radiator fan** | When the engine runs hot | A lot at high engine speed, almost nothing at idle |
 | **Air brakes' compressor** (heavy trucks) | While the air is topped up after stops | About 1 % of the engine |
 | **A tanker's pump** | While it pumps on the engine | 10 kW |
 
 - **You feel it most standing still.** An idling heavy truck with its air conditioner on burns a third to two-thirds more than one
-  without, and a small car more than twice as much. On a road the same loads are a few per cent.
+  without, and a car somewhat more. On a road the same loads are a few per cent.
 - **On a climb, in mud or under a heavy tow, switching loads off gets a little speed back**: what they take comes off what is left
   for driving.
 - **The Systems tab lists what the engine is driving** in Operator and Engineer display modes, with kilowatts in Engineer mode, and
   says what share of the fuel burned now they take, and the alternator's own share.
+- **Headlights dim when the battery carries them**: with the engine off, or when the loads outrun the alternator at idle, they burn
+  at the battery's lower voltage, about seven-tenths of their light from a full battery and less as it runs down. The inspect pane
+  says so. Start the engine, or switch something off, and they brighten.
+- **Old mechanical diesels** (the M113, Bradley, HMMWV, M48, T-54, BMP-1 and Wiesel) need far less electricity to run than a modern
+  engine, so their alternators take less.
+- **Steering at walking pace works the power steering pump hard**, and an idling vehicle's hydraulic pump and air compressor still
+  drag a little.
 - **A standing engine idles faster under its loads**, as a real engine's control does: about a tenth faster with a heavy truck's air
   conditioner on, up to a fifth. A faster idle charges the battery better and burns a little more.
 - **A worn or damaged drive belt slips under a heavy load.** A message says so: the battery charges less and the engine cools

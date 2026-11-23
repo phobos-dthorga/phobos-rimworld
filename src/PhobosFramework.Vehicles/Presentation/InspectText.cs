@@ -54,6 +54,11 @@ public static class InspectText
         if (air != null) lines.Add(air);
         string? electrics = ElectricsLine(comp.Electrics, mode);
         if (electrics != null) lines.Add(electrics);
+        // Framework 0.249.0: headlights burning on the battery's voltage.
+        if (comp.Beams.On && comp.LampShare is var lamps && lamps > 0f && lamps < 0.95f)
+        {
+            lines.Add("PhobosVehicleSystems_InspectLampsDim".Translate(lamps.ToStringPercent().Named("SHARE")).Resolve());
+        }
         string? fuel = FuelLine(comp, mode);
         if (fuel != null) lines.Add(fuel);
         if (comp.PipeFuelLine != null) lines.Add(comp.PipeFuelLine);

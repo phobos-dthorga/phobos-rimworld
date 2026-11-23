@@ -3,7 +3,8 @@
 **Status (23 Nov 2026):** A research and design record, with its code checks done the same day. **Second round built in Framework
 0.243.0** ([the alternator, right-sized](#the-engines-loads-the-second-round-23-nov-2026)): the alternator at its charging voltage with its
 drag and the engine's own electronics, idle-up, the fuel share on the Systems tab, the heater core, the tipper's hydraulics and an electric
-vehicle's converter; not yet tested in game, rows 390 to 393. Built: the fixes for C1 and C4 (D'thorga
+vehicle's converter; not yet tested in game, rows 390 to 393. **Third round built in Framework 0.249.0**
+([the third round](#the-engines-loads-the-third-round-23-nov-2026)); not yet tested in game, rows 412 to 416. Built: the fixes for C1 and C4 (D'thorga
 Framework 0.129.1, Vehicles 0.65.1), the step back's S1 to S6 and S8 (Framework 0.130.0) and the engine-load ledger with every load
 and C6 (Framework 0.131.0), and S7 with the turbine gaps and altitude (Framework 0.132.0, in
 [thin air, turbines and aircraft fuel](vehicle-altitude-and-turbines.md)); not yet tested in game. S8 measured after: D'thorga Framework's share of ticking fell from
@@ -426,7 +427,7 @@ Built at the owner's word (decision 13); not yet tested in game. Where it differ
 | The alternator | Charged for the amps it makes: the loads' and the batteries', never more than its supply | `ShaftLoadRule.AlternatorOutputAmps` |
 | The belt | Carries 30 % of rated power when sound (authored), times its condition; asked for more it slips, and everything on it is underdriven: the alternator's supply, the water pump's flow and the cab's cooling read the grip | `ShaftLoadRule.BeltGrip`, `DriveShare` |
 | The fan | Its cost only. The cooling it gives is already in the radiator's figures, so cooling is unchanged; it takes power as the coolant passes 95 to 103 °C (authored) | `ShaftLoads.xml` |
-| The air conditioner | A new belt load of 2.6 to 5.6 kW, in kilowatts whatever the engine. The 30 A electrical load stays as its blower and fans; it was not moved. **Watch:** on a small car that is more than twice the idle fuel, since the figures are a heavy truck's cab | `ShaftLoads.xml` |
+| The air conditioner | A new belt load of 2.6 to 5.6 kW, in kilowatts whatever the engine. The 30 A electrical load stays as its blower and fans; it was not moved. **Watch:** on a small car that is more than twice the idle fuel, since the figures are a heavy truck's cab. **Since Framework 0.249.0 scaled by rated power** (third round, below) | `ShaftLoads.xml` |
 | The air compressor | Loaded while the air is below full, 1 % of rated power; its unloaded drag is left out | `ShaftLoads.xml` |
 | The oil pump | Not a load, as designed: it is inside the friction term | |
 | Work loads | Fuel through the engine model while fuel follows engine load, each work saying whether it may: the drill rig (its share now a Def figure) and the survey truck yes; the generator set keeps its own. The tipper was listed here as keeping its own and had none: it burned nothing until Framework 0.243.0 (the second round, below). The tanker's pump is a 10 kW load (C6) | `IVehicleEngineDemand.WorkPowerShare`, `FuelFromModel` |
@@ -511,6 +512,29 @@ somewhat more than before. At a cruise with nothing switched on, the author's ra
 - **Owner (23 Nov 2026):** all four parts of the report's proposal ("let's do #1 through #4").
 - **Agent defaults:** every figure above marked authored; the electronics as a standing load (so cruises keep the author's rate); idle-up
   only standing and not on turbines; the heater core's curve on the cab's temperature; the tipper's three shares; the light loadout's 45 A.
+
+## The engine's loads, the third round (23 Nov 2026)
+
+The owner, 23 Nov 2026, after the second round: "Let's proceed with #1 through #5", the five follow-ups proposed then: the air
+conditioner sized to the vehicle, the engine's electronics by engine type, lights that dim when the alternator cannot keep up,
+descents and engine braking, and the small leftovers. Built in Framework 0.249.0 (descents in their own change); not yet tested in game.
+
+| Part | What it does now | Where |
+| --- | --- | --- |
+| The air conditioner, sized | Its compressor's 2.6 to 5.6 kW (Table 5-11's heavy truck) is scaled by the engine's rated power as a stand-in for the vehicle's size: whole from 300 kW, about three-fifths at 100 kW, a third at 40 kW, a fifth more on a 1,000 kW tank (authored, approximate) | `ShaftLoads.xml`, `Input_RatedPower` |
+| Engine electronics by type | Each drivetrain's engine says how much electricity it needs to run against a modern electronic one (`electronicsShare`, 1 by default). D'thorga Vehicles' mechanically injected diesels take a quarter: the HMMWV's 6.5 L, the M113's 6V53, the Bradley's VTA-903T, the M48H's AVDS-1790, the T-54's V-54, the BMP-1's UTD-20 and the Wiesel's Audi diesel (general, approximate). Vehicles with no drivetrain of their own count as modern | `EngineXml.electronicsShare`, `Input_EngineElectronics`, `Drivetrains_RealVehicles.xml` |
+| Lamps on the battery's voltage | While the alternator carries every load the headlights burn full; otherwise they burn at the battery's resting voltage, 11.8 to 12.7 V on 12 by its charge, against the charging 14, to the 3.4th power, as a halogen lamp's light goes (general; halogen assumed, authored): about seven-tenths from a full battery, a little over half from a flat one. The pool of light dims and the inspect pane says so. Another faction's vehicles have no electrics and burn full | `HeadlightRule.LampShare`, `Headlights.Place` |
+| Steering effort | A second steering load beside the standing pump: 1 % of rated power while turning at walking pace, falling to a fifth of that by 12 m/s; turning is read from the way the vehicle points changing between its looks (authored) | `ShaftLoads.xml`, `ShaftLoadRule.SteeringWork`, `Input_SteeringWork` |
+| The air compressor unloaded | Still drags a fifth of its loaded figure with the air full (Table 5-11: 0.2 to 1.0 hp unloaded against 1.1 to 4.0 loaded) | `ShaftLoads.xml` |
+| The hydraulic pump | An engine-driven pump turning with nothing to drive drags 0.4 % of rated power at rated speed, rising with speed (authored); its work stays the work's own share, so the tipper's waiting pump asks nothing more | `ShaftLoads.xml`, `CompPhobosTipper.idlePumpShare` |
+
+### Who chose what (third round)
+
+- **Owner (23 Nov 2026):** all five follow-ups.
+- **Agent defaults:** every figure in the table marked authored; rated power as the stand-in for a vehicle's size; which of D'thorga
+  Vehicles' engines count as mechanical; halogen headlights; turning read from the vehicle's heading.
+- **Limits:** a vehicle another mod gives its own engine is counted modern unless its drivetrain says otherwise; LED headlights would not
+  dim this way; turning is seen only as the vehicle's eight headings change, so gentle curves read as straight.
 
 ### Next slices
 
