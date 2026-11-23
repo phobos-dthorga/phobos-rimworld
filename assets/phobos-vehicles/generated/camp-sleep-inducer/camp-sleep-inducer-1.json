@@ -1,0 +1,56 @@
+{
+  "file": "camp-sleep-inducer-1.png",
+  "sha256": "31c57912f3bd603897833fadc610de0a3d9d226495dbba6a5d95f2b8ff92632e",
+  "date": "2026-11-23T20:28:16",
+  "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a portable bedside machine in a frontier colony. Images 1 and 2 are our approved camp pieces from the same family, seen from directly above: match their outline weight, shading, palette and finish only. Do NOT copy their shapes.\n\nSquare canvas. The object fills about 60 percent of the canvas, one unit by one unit, centred, on a plain pure white background.\n\nA compact sleep-aid unit standing on the floor, seen from directly above: a rounded rectangular case of off-white and grey steel with a dark rubber carry handle folded flat across the top, a small round soft-blue indicator lens set into the lid, a few cooling slots along one edge, and a short coiled lead tucked against one side.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted steel and canvas colours, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, screens, dials, people, animals, vehicles, beds or loose goods. No ground beyond the object, no shadow outside it, no light rays or glow drawn around it, no perspective, no tilt.",
+  "seed": 1,
+  "size": [
+    1024,
+    1024
+  ],
+  "request_file": "assets/phobos-vehicles/requests/crew-machines.json",
+  "generator": "OpenAI gpt-image-2 through the OpenAI image API (paid per image)",
+  "engine": "openai",
+  "model": "gpt-image-2",
+  "seed_note": "an attempt number naming the file; the API takes no seed, so a rerun gives a different image",
+  "quality": "medium",
+  "ai_disclosure": "Made with generative AI: OpenAI gpt-image-2, prompted by the Phobos art scripts.",
+  "terms": "OpenAI Services Agreement, sections 4.1 and 4.4, as recorded in the Phobos Ostranauts repository on 2026-10-07 and summarised again on 2026-11-08: API customers own Output, OpenAI assigns any rights it has, and Output may not be unique; no use of Output to build competing models. Dated secondary records: the openai.com page refuses automated reads, so the owner confirms the current text.",
+  "endpoint": "/images/edits",
+  "usage": {
+    "input_tokens": 429,
+    "input_tokens_details": {
+      "image_tokens": 128,
+      "text_tokens": 301
+    },
+    "output_tokens": 1756,
+    "output_tokens_details": {
+      "image_tokens": 1756,
+      "text_tokens": 0
+    },
+    "total_tokens": 2185
+  },
+  "cost_usd": 0.0552,
+  "cost_is_estimate": false,
+  "reported_quality": "medium",
+  "reported_size": "1024x1024",
+  "reported_background": "opaque",
+  "reported_output_format": "png",
+  "returned_size": [
+    1024,
+    1024
+  ],
+  "seconds": 30.9,
+  "references": [
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampHeater.png",
+      "sha256": "d4b9e4585d438b79cf510f352f439a5c76124da6ff622a709394260c84daacf2",
+      "role": "our approved camp piece seen from directly above (the camp heater): match its outline weight, shading, palette and finish only; do not copy its shape"
+    },
+    {
+      "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Camp/CampLantern.png",
+      "sha256": "9aa756714c3b191f8157cc4b16f6bca0c0ad24b5411877d4c65bf308c2907197",
+      "role": "our approved camp piece seen from directly above (the camp lantern): match its outline weight, shading, palette and finish only; do not copy its shape"
+    }
+  ]
+}
