@@ -22,9 +22,12 @@ install folder. Uses no graphics card, so it is safe while a game runs.
 
     python scripts/art/sound_review.py assets/phobos-sounds/generated
     python scripts/art/sound_review.py assets/phobos-sounds/generated --force      remake every review file
+    python scripts/art/sound_review.py assets/phobos-sounds/generated --offer "n11-*"   offer those sounds on the Picks page
+    python scripts/art/sound_review.py assets/phobos-sounds/generated --offer assets/phobos-sounds/requests/night-11.json
 """
 import argparse
 from array import array
+import fnmatch
 import glob
 import html
 import json
@@ -688,12 +691,29 @@ def picked_candidates(generated):
     return {p.get('candidate', '') for p in data.get('picks', []) if isinstance(p, dict)}
 
 
-def offer_picks(generated, folders, root=None):
-    """Offers each sound not yet picked on the Companion's Picks page (the owner's choice of 23 Nov 2026): its review copies, all
-    levelled to the same loudness, with each one's flags as its note."""
+def offer_names(names):
+    """The sound names an --offer asks for: each argument a folder name, a pattern such as n11-*, or a request file whose entries'
+    names are taken. Named, never "every sound not yet picked": a folder whose round was settled under another name (a rewording,
+    a real recording) has no pick of its own, so a sweep offered 25 long-settled sounds on 23 Nov 2026."""
+    found = []
+    for name in names:
+        path = Path(name)
+        if path.suffix.lower() == '.json' and path.is_file():
+            entries = json.loads(path.read_text(encoding='utf-8'))
+            found += [entry['name'] for entry in entries if isinstance(entry, dict) and entry.get('name')]
+        else:
+            found.append(name)
+    return found
+
+
+def offer_picks(generated, folders, names, root=None):
+    """Offers the named sounds on the Companion's Picks page (the owner's choice of 23 Nov 2026), each not yet picked: its review
+    copies, all levelled to the same loudness, with each one's flags as its note. Returns the names that matched no sound folder."""
     import art_picks  # noqa: PLC0415  (only when offering: it reaches the shared tools)
+    patterns = offer_names(names)
     picked = picked_candidates(generated)
-    for folder in folders:
+    unmatched = [p for p in patterns if not any(fnmatch.fnmatchcase(folder.name, p) for folder in folders)]
+    for folder in (f for f in folders if any(fnmatch.fnmatchcase(f.name, p) for p in patterns)):
         masters = sorted(folder.glob('*' + MASTER_SUFFIX))
         if any(f'{folder.name}/{m.name}' in picked for m in masters):
             continue
@@ -709,11 +729,12 @@ def offer_picks(generated, folders, root=None):
         if tries:
             art_picks.offer(folder.name, folder.name, 'sound', tries, source=f'{Path(generated).name}/{folder.name}',
                             root=root or art_picks.ROOT)
+    return unmatched
 
 
-def build(generated, force=False, octaves=LOWERED_OCTAVES, offer=False):
-    """Prepare every candidate under the generated folder and write the page; with offer, offer each sound not yet picked on the
-    Companion's Picks page. Returns the number that failed."""
+def build(generated, force=False, octaves=LOWERED_OCTAVES, offer=None):
+    """Prepare every candidate under the generated folder and write the page; with offer (a list of names, patterns or request
+    files), offer those sounds not yet picked on the Companion's Picks page. Returns the number that failed."""
     generated = Path(generated).resolve()
     exe = find_ffmpeg()
     if exe is None:
@@ -746,7 +767,8 @@ def build(generated, force=False, octaves=LOWERED_OCTAVES, offer=False):
     (generated / 'sound-review.json').write_text(json.dumps(summary, indent=2), encoding='utf-8')
     print(f'wrote {generated / "sound-review.html"} ({sum(len(list(f.glob("*" + MASTER_SUFFIX))) for f in folders)} sounds, {failures} failed)')
     if offer:
-        offer_picks(generated, folders)
+        for name in offer_picks(generated, folders, offer):
+            print(f'offered nothing for {name}: no sound folder under {generated} matches it', file=sys.stderr)
     return failures
 
 
@@ -755,7 +777,8 @@ def main(argv=None):
     parser.add_argument('generated', help='the generated folder of one asset set')
     parser.add_argument('--force', action='store_true', help='remake every review file, even ones newer than their master')
     parser.add_argument('--octaves', type=int, choices=(1, 2, 3), default=LOWERED_OCTAVES, help='how far the lowered copy moves the highs down')
-    parser.add_argument('--offer', action='store_true', help="offer each sound not yet picked on the Companion's Picks page")
+    parser.add_argument('--offer', nargs='+', metavar='NAME', help="offer these sounds, not yet picked, on the Companion's Picks page: "
+                        'folder names, patterns such as "n11-*", or a request file (its entries\' names)')
     args = parser.parse_args(argv)
     try:
         failures = build(args.generated, args.force, args.octaves, args.offer)
