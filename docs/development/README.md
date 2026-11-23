@@ -159,6 +159,7 @@ Five mods until 7 November 2026; each record keeps its own mod's name and scope.
 - [Radio reference checks](radio-reference-checks.md) (18 Oct 2026): each reference figure checked against its source. Research.
 - [Map scale research](map-scale-research.md) (19 Oct 2026): what a cell and a world tile measure, and why 1 m per cell. Research.
 - [Radio visuals](radio-visuals.md) (23 Nov 2026): twenty ways to show the link budget as pictures; coverage, ray line and side view built. Partly built.
+- [Radio stations](radio-stations.md) (24 Nov 2026): the radio desk and a new radio terminal (SDR and amplifier), each its own kit. Record only.
 
 ## Art and sound
 
