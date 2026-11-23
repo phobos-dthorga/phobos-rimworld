@@ -78,7 +78,7 @@ through RimPacts' own option or shuttle. Confirmed by the owner in play on 8 Nov
 **What the owner saw.** `Player-prev.log` of 8 November ended at the game's 10,000-message limit at 18:24 after 6,846 identical
 `NullReferenceException`s from `VS_WorldComponent_SettlementEvents.WorldComponentTick` in six minutes; the next session's `Player.log`
 did the same at 20:07 after 8,247. After the limit no mod can log anything for the rest of the session
-([logging record](logging-framework-design.md)).
+([logging record](archive/logging-framework-design.md)).
 
 **The cause** (read from the owner's log trace and Visit Settlements' 1.7 assembly of 22 October 2026, decompiled to
 `.local/decompiled/VisitSettlements-1.7`; Nina.Goblin's code, our summary). The world component counts ticks and, at

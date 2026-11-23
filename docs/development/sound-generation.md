@@ -5,6 +5,8 @@ Medical 0.12.0 and Vehicles 0.31.0 (see [Into the game](#into-the-game-built-10-
 Since then the catalogue's phases have shipped: 117 sounds in all on 17 Nov 2026 ([sound catalogue](sound-catalogue.md)).
 **Real recordings (19 Nov 2026):** a real, named machine may now sound like itself from public-domain or CC0 recordings ([below](#real-recordings-19-nov-2026)); the V-22 Osprey's 17 candidate cuts are on a listening page, none picked.
 
+How Framework services works now: [systems/framework-services.md](systems/framework-services.md); this record keeps its history.
+
 ## Read this first (gotchas)
 
 - **Local, like the icon pipeline.** Stable Audio 3 Small SFX runs in the owner's ComfyUI (0.41.0 already supports it), driven

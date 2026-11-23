@@ -12,3 +12,4 @@ One table per system: each decision in one row, with its date, who made it, why 
 - [Gases and air](gases-and-air.md) (23 Nov 2026): 61 decisions, 4 to 22 Nov 2026. Living.
 - [The health layer and care](health-layer.md) (23 Nov 2026): 29 decisions, 5 to 22 Nov 2026. Living.
 - [Power, top-up and machines](power-and-machines.md) (23 Nov 2026): 183 decisions, 2 to 23 Nov 2026. Living.
+- [Framework services](framework-services.md) (23 Nov 2026): 107 decisions, 4 to 23 Nov 2026. Living.

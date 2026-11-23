@@ -9,6 +9,8 @@ what it saw working, and phobos-modkit's test-pass and D'thorga Companion's Test
 owner's word. The owner likes it because it "plays well with my spontaneity". This record sharpens the evidence without asking
 anything more of the owner during play.
 
+How Framework services works now: [systems/framework-services.md](systems/framework-services.md); this record keeps its history.
+
 ## Why: two finds the notes held but nothing flagged (18 Nov 2026)
 
 Both were found only by reading the notes by eye:

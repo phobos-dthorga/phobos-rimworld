@@ -108,3 +108,15 @@ Archived on 23 Nov 2026; how they work now: [power, top-up and machines](../syst
   parked vehicles.
 - [Parts bills](parts-bills.md) (11 Nov 2026): what a built thing is made of, by role; with [upgrades and
   fittings](../systems/upgrades-and-fittings.md).
+
+## Framework services
+
+Archived on 23 Nov 2026; how they work now: [Framework services](../systems/framework-services.md).
+
+- [Settings pages](settings-pages.md) (20 Nov 2026): every settings window as pages with search, changed only and reset.
+- [A shared logging framework](logging-framework-design.md) (8 Nov 2026): the 10,000-message cap, phobos-log and verbose logging.
+- [Pick-up and put-down loops](pick-up-loops.md) (21 Nov 2026): the loop watch names a colonist caught in one.
+- [Our Architect tab and its sub-tabs](architect-tabs.md) (21 Nov 2026): one D'thorga tab with sub-tabs.
+- [Colony mood file](mood-snapshot.md) (10 Nov 2026): every colonist's thoughts written at each save for the mood report.
+- [Drones called home, wrecks taken home](drone-recall-design.md) (23 Nov 2026): recall by the walk home; wrecks back to a
+  platform.

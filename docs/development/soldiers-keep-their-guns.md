@@ -115,7 +115,7 @@ does not name is never dropped (the loadout keeps what it does not list), which 
 allows, by Combat Extended's own excess rule (`LoadoutExcessRule`, game-free and tested, fed through `LoadoutBridge`, also by name),
 the fetch is dropped and the player told once per colonist and weapon each session. **Limit:** Simple Sidearms picks one remembered
 weapon at a time, so one listed after the refused copy waits until the copy is taken off the list. The general
-[loop watch](pick-up-loops.md) in D'thorga Framework names any other such loop.
+[loop watch](archive/pick-up-loops.md) in D'thorga Framework names any other such loop.
 
 ## Options not built (for the owner)
 

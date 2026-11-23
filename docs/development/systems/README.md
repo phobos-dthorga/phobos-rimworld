@@ -23,6 +23,8 @@ is the way it is lives in its [decision log](../decisions/README.md) and in the 
   lapsing treatments, lasting conditions and the radiation-dose door. Living.
 - [Power, top-up and machines](power-and-machines.md) (23 Nov 2026): standby power, topping up, parts bills for buildings, the
   research tab, pipes and conduits beneath, linking like another building, building over, bulk holds. Living.
+- [Framework services](framework-services.md) (23 Nov 2026): settings books, logging, long jobs and the loop watch, the
+  Architect's sub-tabs, the mood file, drone recall, sound volume, pictures and bars, rules Defs and save helpers. Living.
 
 ## The template
 

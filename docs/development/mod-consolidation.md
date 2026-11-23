@@ -4,6 +4,8 @@ The record of why and how eleven D'thorga mods became six on 7 November 2026 (se
 tested in game** as merged mods. The player guides are [D'thorga Medical](../../mods/PhobosMedical/README.md) and
 [D'thorga Patches](../../mods/PhobosPatches/README.md); the standing rule it produced is "Fewer, broader mods" in `AGENTS.md`.
 
+How Framework services works now: [systems/framework-services.md](systems/framework-services.md); this record keeps its history.
+
 ## The decision
 
 | | Before (11 mods) | After (6 mods) |

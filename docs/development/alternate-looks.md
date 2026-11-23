@@ -18,6 +18,8 @@ unused still."
 **How to read the marks:** **[code]** was read in code on 19 Nov 2026, never run; **[I]** our inference; **[A]** an agent's proposal
 for the owner to revise.
 
+How Framework services works now: [systems/framework-services.md](systems/framework-services.md); this record keeps its history.
+
 ## Read this first
 
 - **The idea:** a vehicle, building or item of ours that has more than one good picture lets the player choose which it wears. The

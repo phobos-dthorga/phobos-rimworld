@@ -403,7 +403,7 @@ Every log made this way is listed under **Verbose logging** in D'thorga Framewor
 chasing; `Debug` lines are written only then. Make the logs in the Mod class so they exist by the time the settings window opens.
 The game-free pieces (message signatures, the bounded tally, "at most once per so many ticks") came from the Framework's `Rules/` and
 now live in phobos-log itself: `Phobos.Logging.LogSignature`, `StormTally` and `Throttle`.
-The design is in [the logging record](development/logging-framework-design.md).
+The design is in [the logging record](development/archive/logging-framework-design.md).
 
 ## Tools for developers
 

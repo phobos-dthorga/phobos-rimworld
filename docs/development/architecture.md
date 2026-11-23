@@ -351,7 +351,7 @@ and each README. Two mods have a button:
 - **One window per book.** `SettingsBookMod` and `SettingsBook` (`src/PhobosFramework/UI/SettingsBook.cs`) let several `Mod`
   classes share one settings window: every D'thorga Patches tie-in adds its page to the `PhobosDthorga.Patches` book, and
   whichever loads hosts it. The vehicle systems have a book of their own. The layout is in
-  [settings pages](settings-pages.md).
+  [Framework services](systems/framework-services.md#settings-books-and-pages).
 - **Settings that change Defs** are read by XML patches through `PatchFlags`
   (`src/PhobosFramework/Patching/PatchFlags.cs`) and take effect at the next start.
 - **Every setting, generated**, is in [the settings reference](settings-reference.md)
@@ -364,7 +364,7 @@ and each README. Two mods have a button:
   `Logger.Debug`, behind `Logger.DebugEnabled` where a line costs anything; the Framework's settings switch each log's detail
   on. The Framework also keeps the game's log alive past its 10,000-message limit (`Logging/GameLogKeeper.cs`), says when
   our code was on an error's path (`Logging/ErrorNotes.cs`), and every mod logs one load line (`LoadReport.cs`). The record
-  is [the logging framework](logging-framework-design.md).
+  is in [Framework services](systems/framework-services.md#logging).
 - **Seen-in-play notes** (`Seen.Note`, `src/PhobosFramework/Debug/SeenInPlay.cs`, off by default) tell the test list a
   feature ran. They prove the code ran, never that it looked right ([seen-in-play checks](seen-in-play-checks.md)).
 
@@ -392,8 +392,8 @@ and each README. Two mods have a button:
   its first record is [archived](archive/phobos-framework.md).
 - [Vehicle health design](archive/vehicle-health-design.md): the condition layer, the tiers and the performance budget.
 - [Tie-ins with other mods](tie-in-register.md) and [patches for other authors' faults](temporary-patches.md). Living.
-- [Every setting of every mod](settings-reference.md) (generated) and [settings pages](settings-pages.md).
-- [The logging framework](logging-framework-design.md) and [seen-in-play checks](seen-in-play-checks.md).
+- [Every setting of every mod](settings-reference.md) (generated) and [Framework services](systems/framework-services.md):
+  settings pages, logging and the rest of the core's shared services; [seen-in-play checks](seen-in-play-checks.md).
 - [Mod consolidation](mod-consolidation.md): why namespaces and keys outlived the mods that named them.
 - [Analysis tooling](analysis-tooling.md): which tool answers which question.
 - [The modders' reference site](https://phobos-dthorga.github.io/phobos-rimworld/), generated from the code (built, not yet

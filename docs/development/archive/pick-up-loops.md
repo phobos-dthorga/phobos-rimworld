@@ -4,7 +4,7 @@
 
 On 21 Nov 2026 the owner traced a repeated pick-up and drop sound to Carlotta, then Yunxing: Simple Sidearms fetched a second copy of
 their gun and Combat Extended's loadout dropped it, over and over (D'thorga Patches' guard for that case is in
-[soldiers keep their guns](soldiers-keep-their-guns.md#sidearms-that-loop)). The owner chose, by question card, a general watch as well,
+[soldiers keep their guns](../soldiers-keep-their-guns.md#sidearms-that-loop)). The owner chose, by question card, a general watch as well,
 for loops from any mods: **"notice and tell"**, never stepping in.
 
 ## Read this first

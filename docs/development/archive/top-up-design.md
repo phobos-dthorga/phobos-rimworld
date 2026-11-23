@@ -1,6 +1,6 @@
 # Topping up machines that hold a material (18 Nov 2026)
 
-**Status (18 Nov 2026):** built in D'thorga Framework 0.134.0 (the work, the Def type, the setting) 0.135.0 (mechanoids, by a mechanitor; our own job) and 0.136.0 (the fill-level setting), with D'thorga Patches 0.22.0 naming Fortified Features Framework's platform comp, which covers four buildings and two mechanoids; 0.180.0 added vehicles, by haulers, naming our own aircraft dispensers' magazine ([avionics A16 revisited](../archive/vehicle-avionics.md#a16-revisited-the-dispensers-magazine-20-nov-2026)); 0.240.0 holds only mechanoids, gathers a load from several stacks and sits just below refuelling ([drone recall](../drone-recall-design.md)). Row 190 passed in game (18 Nov 2026); 0.240.0's changes are not yet tested: row 383.
+**Status (18 Nov 2026):** built in D'thorga Framework 0.134.0 (the work, the Def type, the setting) 0.135.0 (mechanoids, by a mechanitor; our own job) and 0.136.0 (the fill-level setting), with D'thorga Patches 0.22.0 naming Fortified Features Framework's platform comp, which covers four buildings and two mechanoids; 0.180.0 added vehicles, by haulers, naming our own aircraft dispensers' magazine ([avionics A16 revisited](../archive/vehicle-avionics.md#a16-revisited-the-dispensers-magazine-20-nov-2026)); 0.240.0 holds only mechanoids, gathers a load from several stacks and sits just below refuelling ([drone recall](drone-recall-design.md)). Row 190 passed in game (18 Nov 2026); 0.240.0's changes are not yet tested: row 383.
 
 ## Read this first
 

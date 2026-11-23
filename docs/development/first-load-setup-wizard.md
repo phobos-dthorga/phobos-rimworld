@@ -3,6 +3,8 @@
 **Status: recorded for later. Nothing is designed or built.** The owner asked for this to be kept until the right point in development;
 an agent may raise it when it judges that point has come. It waits in the Deferred table of [outstanding work](outstanding-work.md#deferred).
 
+How Framework services works now: [systems/framework-services.md](systems/framework-services.md); this record keeps its history.
+
 ## The idea (owner, 9 Nov 2026)
 
 When the time is right, offer the player a wizard the first time they load a game with our mods, to customise how they wish to play.
