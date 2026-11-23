@@ -24,6 +24,16 @@ def pick_id(name: str) -> str:
     return (tidy or "pick")[:80]
 
 
+# A sound's pick id is its name after this, so a picture and a sound of one name each reach the owner (23 Nov 2026: night 12's
+# picture and sound "n12-exhaust-brake" shared an id, and the sound replaced the picture; phobos-modkit 1.103.1 now refuses it).
+SOUND_PREFIX = "sound-"
+
+
+def item_id(name: str, kind: str) -> str:
+    """A pick's id: a picture's is its request's name; a sound's has "sound-" in front."""
+    return pick_id(SOUND_PREFIX + name if kind == "sound" else name)
+
+
 def _picks():
     sys.path.insert(0, str(ROOT / "scripts"))
     import _modkit  # noqa: PLC0415  (the shared tools, from the pinned submodule)
@@ -37,6 +47,6 @@ def _picks():
 def offer(name: str, title: str, kind: str, tries: list[tuple[str, str, Path, str]], in_use: str | None = None,
           context: str = "", source: str = "", root: Path = ROOT) -> dict:
     """Offers one pick: tries as (id, label, file, note). Offering the same name again replaces it, for tries made again."""
-    item = {"id": pick_id(name), "title": title, "kind": kind, "inUse": in_use, "context": context, "from": source,
+    item = {"id": item_id(name, kind), "title": title, "kind": kind, "inUse": in_use, "context": context, "from": source,
             "tries": [{"id": pick_id(try_id), "label": label, "path": str(path), "note": note} for try_id, label, path, note in tries]}
     return _picks().offer(root, item, grounds=GROUNDS if kind == "picture" else None)

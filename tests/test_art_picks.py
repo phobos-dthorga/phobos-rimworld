@@ -63,7 +63,7 @@ class ArtPicksTests(unittest.TestCase):
                                                      encoding='utf-8')
         self.assertEqual(sound_review.offer_picks(generated, folders, ['tent-heater', 'kettle-boil'], root=self.root), [])
         picks = self.read()['picks']
-        self.assertEqual([p['id'] for p in picks], ['tent-heater'])
+        self.assertEqual([p['id'] for p in picks], ['sound-tent-heater'])
         self.assertEqual([(t['id'], t['note']) for t in picks[0]['tries']], [('11', 'no flags'), ('12', 'no flags')])
         self.assertTrue(picks[0]['tries'][0]['path'].endswith('tent-heater-11.review.ogg'))
 
@@ -71,14 +71,23 @@ class ArtPicksTests(unittest.TestCase):
         """23 Nov 2026: a bare --offer swept up 25 settled sounds whose rounds were picked under another folder's name."""
         generated, folders = self.sounds((('n11-purge', (81,)), ('n11-window', (81,)), ('concentrator-hum', (12,))))
         self.assertEqual(sound_review.offer_picks(generated, folders, ['n11-*'], root=self.root), [])
-        self.assertEqual(self.offered(), ['n11-purge', 'n11-window'])
+        self.assertEqual(self.offered(), ['sound-n11-purge', 'sound-n11-window'])
 
     def test_a_request_file_names_its_sounds_and_a_name_matching_nothing_is_returned(self):
         generated, folders = self.sounds((('n11-purge', (81,)), ('old-hum', (1,))))
         request = Path(self.dir.name) / 'night-11.json'
         request.write_text(json.dumps([{'name': 'n11-purge', 'engine': 'sa3-sfx'}]), encoding='utf-8')
         self.assertEqual(sound_review.offer_picks(generated, folders, [str(request), 'n11-typo'], root=self.root), ['n11-typo'])
-        self.assertEqual(self.offered(), ['n11-purge'])
+        self.assertEqual(self.offered(), ['sound-n11-purge'])
+
+    def test_a_picture_and_a_sound_of_one_name_are_both_offered(self):
+        """23 Nov 2026: night 12's picture and sound "n12-exhaust-brake" shared an id, and the sound replaced the picture."""
+        try_file = Path(self.dir.name) / 'try.png'
+        try_file.write_bytes(b'png')
+        art_picks.offer('n12-exhaust-brake', 'Exhaust brake', 'picture', [('11', 'Try 11', try_file, '')], root=self.root)
+        generated, folders = self.sounds((('n12-exhaust-brake', (121,)),))
+        self.assertEqual(sound_review.offer_picks(generated, folders, ['n12-exhaust-brake'], root=self.root), [])
+        self.assertEqual(self.offered(), ['n12-exhaust-brake', 'sound-n12-exhaust-brake'])
 
     def test_offer_needs_a_name(self):
         with self.assertRaises(SystemExit), contextlib.redirect_stderr(io.StringIO()):

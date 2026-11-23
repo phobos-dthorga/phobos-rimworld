@@ -18,7 +18,8 @@ safeguards, the models, the owner's first picks, style training, the vanilla spr
 - **Text is never generated.** A Workshop preview's names are added by script.
 - **The owner picks on D'thorga Companion's Picks page** (the owner's choices of 23 Nov 2026: picks come from a file the repository
   keeps, and a pick is kept as an answer): `review_cards.py sprites` offers each card's tries there as it draws them (`--no-offer`
-  draws cards only), and `sound_review.py --offer NAME ...` offers the sounds named (folder names, patterns such as `n11-*`, or a request file), each not yet picked, its levelled review copies as the tries; never a whole folder, where settled rounds have no pick of their own. They go
+  draws cards only), and `sound_review.py --offer NAME ...` offers the sounds named (folder names, patterns such as `n11-*`, or a request file), each not yet picked, its levelled review copies as the tries; never a whole folder, where settled rounds have no pick of their own. A sound's pick id
+  is its folder name with `sound-` in front, so a picture and a sound of one name are both offered (23 Nov 2026, night 12). They go
   into `config/picks.json` (ignored: it names files in the art work folder) through `scripts/art/art_picks.py` and phobos-modkit's
   `picks`. **Apply an answer, then settle it**: export the chosen try, record it as usual, and run
   `python -m phobos_modkit picks settle --root . --id ID` (from `external/phobos-modkit/python`, with `--root ../../..`); the
