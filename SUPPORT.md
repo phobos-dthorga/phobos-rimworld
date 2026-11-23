@@ -8,7 +8,7 @@ Support is best-effort, with no promised response time.
 
 | Symptom | What to check |
 | --- | --- |
-| The ZIP from GitHub has no mod in it | Source archives are not built mods. See [installing](docs/installing-mods.md). |
+| The ZIP from GitHub has no mod in it | Source archives are not built mods. See [getting started](docs/player-guide/getting-started.md). |
 | A mod is greyed out with a missing dependency | Switch on the mod it names (D'thorga Framework, Harmony, Vanilla Expanded Framework and so on) and load it above. |
 | Part of D'thorga Medical does nothing | Check the load lines in `Player.log`: each mod prints one line saying what it switched on and what it left off, and why; D'thorga Medical prints one per part. |
 | A doctor will not do something you expected | Select the doctor, right-click the patient: the game names the reason. D'thorga Medical's triage and dosing parts add their own reasons there and in messages. |

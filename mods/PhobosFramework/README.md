@@ -32,10 +32,8 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   with no gas.
 - **Before removing it** (after the mods that depend on it): if vehicles used the systems, load the colony, press **Remove the added
   parts from this colony's vehicles** in the vehicle systems settings, save, then remove the mod, or saved vehicles may fail to load.
-  First also **delete every vehicle park and service yard zone**, **empty every garage**, **recover every sling wreck and depot**, **let a water drop run land and unload every litter** (switch off
-  **Take casualties aboard** first, or carriers keep bringing more), and **take
-  any extra fuel tank off**: whatever is in them goes with the mod. Jump-start kits and booster packs vanish with an error line each;
-  sell or destroy them for a clean log. A line per missing map component on the next load is harmless.
+  Parks, yards, garages, sling wrecks, convoys, depots, litters and extra fuel tanks need emptying first too: the whole list is in
+  [Getting started, Removing a mod](../../docs/player-guide/getting-started.md#removing-a-mod).
 - **Settings to decide before a colony** (the table below has them all): **Which vehicles** and **Parts for building** need a restart;
   **Drivetrain shown, speeds unchanged** keeps every vehicle at its author's speed; the aircraft lift-off rule; and, for steam
   locomotives, **Boiler explosions** and **Realistic feed water**.
@@ -100,7 +98,7 @@ oxygen working (5 November 2026) and a handful of vehicle features ([the list](.
   [carbon monoxide](../../docs/player-guide/medical.md#carbon-monoxide).
 - **The health layer**: who the doctors look after and how urgent each condition is, and a button per care choice on each person
   ([triage](../../docs/player-guide/medical.md#triage)). How D'thorga Medical's parts share the work is in
-  [the medical mods together](../../docs/medical-mods.md).
+  [the player guide's medical chapter](../../docs/player-guide/medical.md).
 - **A glass chain**: glass sand, potash (or soda ash with Vanilla Cooking Expanded), glass panes melted at the electric smelter, plastic
   film, and laminated and armoured panes and vision blocks for our vehicles' glass
   ([the glass chain](../../docs/player-guide/vehicle-care.md#the-glass-chain)).

@@ -11,7 +11,7 @@ them running. It applies to **every Vehicle Framework vehicle from any mod**, no
 - **Not yet tested in game.** Everything in this chapter is built and checked offline; none of it has been seen in a real colony
   except where the [last section](#what-has-been-tested-in-game) says so.
 - **It changes every Vehicle Framework vehicle you have**, unless you narrow **Which vehicles** in the settings
-  (**D'thorga Framework: vehicle systems**). That needs a restart, so **decide before you load a colony**. Switching vehicles off
+  (**D'thorga Vehicle Systems**). That needs a restart, so **decide before you load a colony**. Switching vehicles off
   later is safe.
 - **Build a vehicle parts bench early** (research **vehicle parts**, then the Architect's **D'thorga** tab, **Motor pool**). Our parts, kits and
   booster packs are made only there.
@@ -32,9 +32,8 @@ them running. It applies to **every Vehicle Framework vehicle from any mod**, no
   launch. **Cruising height between places** in the settings turns this off.
 - **Removing D'thorga Framework or Vehicle Framework from a colony that used the systems: press the removal button first.** Load
   the colony, press **Remove the added parts from this colony's vehicles** in the settings, save, then remove the mod. Without it,
-  saved vehicles may fail to load. Before that, also **take every vehicle out of every garage**, **recover every sling wreck, lost convoy
-  and depot** on the world map, **let a water drop run land and unload every litter**, and **take any extra fuel tank off**: whatever is left in them goes
-  with the mod.
+  saved vehicles may fail to load. Garages, sling wrecks, convoys, depots, litters and extra fuel tanks need emptying first too:
+  the whole list is in [Getting started, Removing a mod](getting-started.md#removing-a-mod).
 
 ## The three tabs
 
@@ -685,7 +684,7 @@ their own: [camping and life on the road](camping.md).
   - The fuel the launch screen shows, and whether it says there is enough, count the height of every stretch.
 - **Thin air in high country** takes power from the engines and asks more of the rotor: see
   [thin air in high country](#thin-air-in-high-country).
-- **Carrying a vehicle on a sling** (lifting and landing tested in game by the owner, with the Cherokee):
+- **Carrying a vehicle on a sling** (lifting tested in game by the owner, with the Cherokee; landing and setting the load down not yet tested):
   1. Fit the helicopter a **cargo hook** (Fittings and tunes). The **Cherokee**, the **Louie**, the **Hind**, and RimArrow's **Ka-27PS**
      and **Mi-38** have a mount for one (all but the Cherokee not yet tested in game). The Hind flies across the map: its load hangs under it there and comes down once
      it has landed.

@@ -5,7 +5,8 @@ your own, with D'thorga Framework's vehicle systems (RimWorld 1.7). Everything i
 input, condition or effect. **Not yet tested in game**: the schema may change before the first public release, and this page will
 say so when it does.
 
-**What this page covers (17 Nov 2026):** it was first written for Framework 0.10.0 and describes D'thorga Framework as of 0.117; its
+**What this page covers (17 Nov 2026):** it was first written for Framework 0.10.0 and describes D'thorga Framework as of 0.117
+(much built since is missing below; a reference generated from the code is planned); its
 inputs table was checked against that version's code and lists every input class. **Not yet covered here:** the avionics block on a loadout (since 0.119.0 it also takes `cruisesHigh` and an `airTrack` block with
 `speed`, `cruiseMetres`, `lowCruiseMetres` and `size`, how the aircraft looks to The Dead Man's Switch - Expedition's air defence; the
 figures are in `PhobosAirCombatRules`), weapon mounts and the knock-out rules

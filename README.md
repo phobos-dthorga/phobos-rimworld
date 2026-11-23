@@ -31,7 +31,7 @@ chapter in the [player guide](docs/player-guide/README.md). Several older mods w
 | Mod | What it does | Tested in game |
 | --- | --- | --- |
 | [D'thorga Framework](mods/PhobosFramework/README.md) | The shared library: what a pawn breathes, carbon monoxide from fires, the health layer the medical mods share; with Vehicle Framework, vehicle systems (battery, coolant, oil, engines, tyres, brakes, wear and service), a workshop, fittings and tunes, sling loads and submarine diving | Partly: gas layer and oxygen, through other mods |
-| [D'thorga Vehicles](mods/PhobosVehicles/README.md) | Working vehicles (a bulk tanker, drill rig, tipper, survey truck, generator set, seabed crawler and the Pintle trailers) and real figures for other mods' vehicles | Partly: the survey truck, and the generator set's size and look |
+| [D'thorga Vehicles](mods/PhobosVehicles/README.md) | Working vehicles (a bulk tanker, drill rig, tipper, survey truck, generator set, seabed crawler, the Pintle trailers with the field kitchen and shower trailer, and the V-22 Osprey), the bulk bunker and loading chute, and real figures for other mods' vehicles | Partly: the survey truck, and the generator set's size and look |
 | [D'thorga Medical](mods/PhobosMedical/README.md) | Five mods in one since 7 November 2026: burns, burn shock, airway burns and smoke; doctors who dose and operate on their own (triage); oxygen, a burn unit bed and other hospital kit; radiation control with Rimatomics; and a safe way to add More Injuries to a running colony | Partly, as the five mods before the merge; not yet as one |
 | [D'thorga Factory Additions](mods/PhobosFactoryAdditions/README.md) | Additions to Vanilla Furniture Expanded - Factory: belts from any storage, an automated fabrication bay, a deep hopper, other mods' drug labs as factory bills, and fixes | Partly: the human-meat bill |
 | [D'thorga Patches](mods/PhobosPatches/README.md) | Fixes and honest costs for other authors' mods: the Harrier VTOL, RimThunder's heavy casting, Spaceship Turret Hull under Combat Extended, InterRim Ballistic Missile's strategic blast, Visit Settlements and Vehicle Framework | Partly: the stuck vehicle fires, and the missile fix once |
@@ -90,7 +90,7 @@ flowchart LR
 A solid arrow means "needs, loaded before it"; a dotted one is an optional tie-in that loads only while that mod is active.
 Other optional tie-ins (More Injuries, Combat Extended, Vanilla Gravship Expanded, the mods D'thorga Patches fixes, and more) work
 the same way; each README lists them. How D'thorga Medical's parts share the work when a colonist is hurt is in
-[the medical mods together](docs/medical-mods.md).
+[the player guide's medical chapter](docs/player-guide/medical.md).
 
 ## Choose your starting point
 

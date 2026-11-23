@@ -1,6 +1,6 @@
 # Documentation
 
-An index of the documents. **No mod is published on the Steam Workshop yet**; all seven install from source
+An index of the documents. **No mod is published on the Steam Workshop yet**; all eight install from source
 ([getting started](player-guide/getting-started.md)). What each mod does, and how they depend on one another, is in
 [the project README](../README.md#the-mods).
 
@@ -16,7 +16,6 @@ An index of the documents. **No mod is published on the Steam Workshop yet**; al
 ## For players
 
 - **[The player guide](player-guide/README.md)**: start here.
-- [The medical mods together](medical-mods.md): what happens when a colonist is hurt, and which part does what.
 - [Help and troubleshooting](../SUPPORT.md): where the log is and what a useful report needs.
 
 ## For modders

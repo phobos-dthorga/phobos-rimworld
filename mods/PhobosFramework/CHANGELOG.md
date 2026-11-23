@@ -5,6 +5,13 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+### Changed
+
+- **Removing the mod: one full list of steps** (the owner's docs rewrite, step 1, 23 Nov 2026). The README now points to the
+  player guide's Getting started, Removing a mod, which gathers every step the copies had between them (parks and yards, garages,
+  sling wrecks, lost convoys and depots, litters, extra fuel tanks, jump-start kits); the Workshop page names lost convoys, litters
+  and kits too. The modding guide no longer says the Framework needs no Harmony: it has needed Harmony since 0.205.0.
+
 ## [0.256.0] - 2026-11-23 - Draft
 
 The Systems and Health tabs agree: one answer for which parts each system covers

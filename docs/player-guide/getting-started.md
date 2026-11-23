@@ -11,7 +11,7 @@ Install the mods, pick the settings that are hard to change later, and know how 
 - **Back up your save first**, every time you add, remove or update a mod. Saves are in
   `%USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Saves`, which most cloud sync tools skip.
 - **Update every D'thorga mod together.** They are built as a set: D'thorga Vehicles, for example, needs a recent D'thorga
-  Framework, and its About file names the lowest version it accepts.
+  Framework, and an older Framework beside a newer Vehicles is not tested.
 - **Finish or cancel any vehicle or depot bay under construction before you update.** What they are built from can change
   between versions; a frame keeps what was already delivered and then asks for the new list.
 - **The install script never edits your mod list.** Switch the mods on yourself in the game's Mods menu or in RimSort.
@@ -144,8 +144,8 @@ for what went missing, and with vehicles the save may fail to load.
 
 | Mod | Before you remove it |
 | --- | --- |
-| D'thorga Framework | Remove the mods that need it first. If vehicles used the systems, load the colony, press **Remove the added parts from this colony's vehicles** in its vehicle settings, then save. **Take every vehicle out of every garage**, or they go with it; likewise **recover every sling wreck**, **let a water drop run land and unload every litter**, and **take any extra fuel tank off**. Sell or use up jump-start kits and booster packs if you want a clean log |
-| D'thorga Vehicles | **Scrap every one of our vehicles** (tanker, drill rig, tipper, survey truck, generator set, seabed crawler): they go with the mod. Pack up a set-up generator set first, or its cable end is left behind. Empty every garage |
+| D'thorga Framework | Remove the mods that need it first. If vehicles used the systems, load the colony, press **Remove the added parts from this colony's vehicles** in **D'thorga Vehicle Systems** settings, then save. Before that, **delete every vehicle park and service yard zone**, **take every vehicle out of every garage**, **recover every sling wreck, lost convoy and depot** on the world map, **let a water drop run land and unload every litter** (switch off **Take casualties aboard** first, or carriers keep bringing more), and **take any extra fuel tank off**: whatever is left in them goes with the mod. Jump-start kits and booster packs vanish with an error line each, so sell or use them up for a clean log. A line per missing map component on the next load is harmless |
+| D'thorga Vehicles | **Scrap every one of our vehicles** (tipper, tanker, drill rig, survey truck, generator set, seabed crawler, every trailer, the Osprey): they go with the mod. Pack up a set-up generator set first, or its cable end is left behind. **Take every vehicle out of every garage**, and **empty and deconstruct every bulk bunker and loading chute**, or their goods are left on the ground. Other mods' vehicles go back to the general systems |
 | D'thorga Medical | In its settings press **Remove every condition this mod adds, from every pawn**. Deconstruct its machines and burn unit beds; sell, use or destroy its items |
 | D'thorga Factory Additions | Remove the bills it added from each machine's Processes tab and let running batches finish. Deconstruct every deep factory hopper and fabrication bay |
 | D'thorga Water Tap | Deconstruct every tap, and **lay a pipe back where each stood**, or the plumbing is cut in two |

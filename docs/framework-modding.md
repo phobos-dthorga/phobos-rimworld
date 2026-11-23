@@ -5,15 +5,17 @@ care choices, protective-gear lines, parts bills, water and pipes beneath things
 every D'thorga mod shares (settings, logging, long jobs, rules Defs). **Vehicles have their own page**: [vehicle systems for modders](vehicle-systems-modding.md). The reasons behind each
 design are in [the framework's design record](development/phobos-framework.md).
 
-**Status (17 Nov 2026):** describes D'thorga Framework 0.117. **Partly tested in game:** the owner saw the gas layer and supplied
+**Status (23 Nov 2026):** written for D'thorga Framework 0.117. Services added since are not on this page yet; a reference
+generated from the code is planned. **Partly tested in game:** the owner saw the gas layer and supplied
 oxygen working through D'thorga Medical (5 November 2026). The health layer, protective-gear lines and parts bills are **not yet
 tested in game**. Names may still change before the first public release; this page will say so when they do.
 
 ## Read this first (gotchas)
 
-- **Load after D'thorga Framework** and list it in your `modDependencies`. It needs no other mod and no Harmony.
-- **The core has no Harmony.** Where a service needs a patch (protective-gear lines), the consuming mod applies it and calls the
-  core; see each section.
+- **Load after D'thorga Framework** and list it in your `modDependencies`. It needs Harmony (since Framework 0.205.0), which
+  nearly every mod list already has, and no other mod.
+- **The core patches only its own few places with Harmony** (the Architect's sub-tabs and the loop watch, since 0.205.0). Where a
+  service needs a patch of the game (protective-gear lines), the consuming mod applies it and calls the core; see each section.
 - **Reuse what exists before adding a gas** (the owner's rule, 4 November 2026). Smoke is the game's or Combat Extended's; the
   framework carries its own gas only where nothing else does. Ask whether yours earns its place.
 - **Player text stays in your `Languages/English/Keyed`**, never in C#; the framework draws your buttons from your keys.

@@ -22,7 +22,7 @@ from the owner's saves.
 
 | Project (`src/`) | Builds into (`mods/`, per version) | References besides the game | Harmony | Rule tests (`tests/`) | On GitHub |
 | --- | --- | --- | --- | --- | --- |
-| `PhobosFramework` | `PhobosFramework/` | nothing | no | `PhobosFramework.Rules.Tests` | builds and tests |
+| `PhobosFramework` | `PhobosFramework/` | nothing (Harmony since 0.205.0: the Architect's sub-tabs and the loop watch) | yes | `PhobosFramework.Rules.Tests` | builds and tests |
 | `PhobosMedical` | `PhobosMedical/` | the framework, VEF's `PipeSystem.dll` (Vanilla Gravship Expanded through Defs only; More Injuries by name at run time) | yes | `PhobosMedical.Rules.Tests` | tests only |
 | `PhobosFactory` | `PhobosFactoryAdditions/` | VEF's `PipeSystem.dll`, VFE Factory's `VanillaFurnitureExpandedFactory.dll` | yes | `PhobosFactory.Rules.Tests` | tests only |
 | `PhobosFactory.Hygiene` | `PhobosFactoryAdditions/Mods/DubsBadHygiene/` | the factory core, the framework's hygiene tie-in, `PipeSystem.dll`, Dubs Bad Hygiene's `BadHygiene.dll` | yes | none | no |
@@ -44,6 +44,11 @@ from the owner's saves.
 | `PhobosPatches.Classical` | `PhobosPatches/Mods/Classical/` (temporary, while Vanilla Factions Expanded - Classical's scorpion raid cannot be loaded from a save) | the framework; patches only the game's own method | yes | `PhobosFramework.Rules.Tests` (the constructor rule) | tests only |
 | `PhobosPatches.NiceResearchTab` | `PhobosPatches/Mods/NiceResearchTab/` (temporary, while research projects' unlock lists can gain a blank entry) | the framework; patches only the game's own getter | yes | none | no |
 | `PhobosPatches.Irbm` | `PhobosPatches/Mods/IRBM/` | the framework, InterRim Ballistic Missile's `IRBM.dll` | yes | `PhobosPatches.Rules.Tests` | tests only |
+| `PhobosFarming` | `PhobosFarming/` | the framework and its vehicle systems, Vehicle Framework's `Vehicles.dll` and `SmashTools.dll` | yes | none | no |
+| `PhobosFramework.Vehicles.Dmse` | `PhobosFramework/Mods/VehiclesDmse/` (with The Dead Man's Switch - Expedition active) | the framework and its vehicle systems, DMSE's `DMSE.dll`, `Vehicles.dll`, `SmashTools.dll`: the air-defence tie-in | yes | none | no |
+| `PhobosPatches.Biotech` | `PhobosPatches/Mods/Biotech/` | the framework; the mechs' battery presets | yes | none | no |
+| `PhobosPatches.CloseAirSupport` | `PhobosPatches/Mods/CloseAirSupport/` | the framework; the A-10's and Su-25's figures | no | none | no |
+| `PhobosPatches.Prowler` | `PhobosPatches/Mods/EA6BProwler/` | the framework and its vehicle systems, `Vehicles.dll`, `SmashTools.dll`: the Prowler's jamming fields | yes | none | no |
 | `PhobosWaterTap` | `PhobosWaterTap/` | Dubs Bad Hygiene's `BadHygiene.dll` | no | `PhobosWaterTap.Rules.Tests` | tests only |
 | `PhobosRadio` | `PhobosRadioFramework/` | VEF's `PipeSystem.dll` | no | `PhobosRadio.Physics.Tests` | tests only |
 
