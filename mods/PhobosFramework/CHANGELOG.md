@@ -13,6 +13,7 @@ The rest of the Systems tab's cards, as rows
 
 - **The Turbine card and the rest of the Engine and drivetrain card read as rows** (the owner's word of 23 November 2026: all the applicable cards). Turbine speed (a bar), temperature, flight phase, rating, engines working, the extra work for bled air and the lift for a hover each take a row; so do the power left in thin air, what is towed and its weight, and the speed the vehicle is held to, with what holds it as a word beside the figure. Not yet tested in game: row 436 of the test pass.
 - **The Weapons card gives each weapon a row like the loads'**: its name, what it is doing in its colour, and how fast it works against the right edge while it is slowed. Its mount's chip sits under the name, with why it is slow and how it turns beside it. Not yet tested in game: row 436.
+- **A reading kept part by part lists its parts as a small table** under its row, two to a row with each part's figure at its edge, where it was one sentence; which part is seen to first stays beside the heading. Not yet tested in game: row 436.
 
 ## [0.261.0] - 2026-11-23 - Draft
 

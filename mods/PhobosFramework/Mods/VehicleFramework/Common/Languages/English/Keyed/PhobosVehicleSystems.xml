@@ -686,9 +686,8 @@
   <PhobosVehicleSystems_SysRowHoverTip>The lift its engines can give now, against what a hover needs at this weight.</PhobosVehicleSystems_SysRowHoverTip>
   <PhobosVehicleSystems_LimitPower>its engine</PhobosVehicleSystems_LimitPower>
   <PhobosVehicleSystems_LimitTraction>its grip on the ground</PhobosVehicleSystems_LimitTraction>
-  <PhobosVehicleSystems_SysPartFiguresUsed>Used, part by part: {LIST}. {FIRST}</PhobosVehicleSystems_SysPartFiguresUsed>
-  <PhobosVehicleSystems_SysPartFiguresLeft>Left, part by part: {LIST}. {FIRST}</PhobosVehicleSystems_SysPartFiguresLeft>
-  <PhobosVehicleSystems_SysPartFigure>{PART} {FIGURE}</PhobosVehicleSystems_SysPartFigure>
+  <PhobosVehicleSystems_SysPartsUsed>Used, part by part</PhobosVehicleSystems_SysPartsUsed>
+  <PhobosVehicleSystems_SysPartsLeft>Left, part by part</PhobosVehicleSystems_SysPartsLeft>
   <PhobosVehicleSystems_SysPartFirst>The most worn is seen to first, one at a time.</PhobosVehicleSystems_SysPartFirst>
   <PhobosVehicleSystems_SysPartFirstAxle>The most worn axle is seen to first, both sides together.</PhobosVehicleSystems_SysPartFirstAxle>
   <PhobosVehicleSystems_HoverDry>can hover</PhobosVehicleSystems_HoverDry>

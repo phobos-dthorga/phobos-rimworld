@@ -312,26 +312,50 @@ public partial class ITab_VehicleSystems : ITab
         y += 4f;
     }
 
-    /// <summary>A quantity kept per part (Framework 0.248.0; each engine's hot-section life since 0.247.0): one line under its row listing
-    /// each part's figure, in the units its gauge shows, and which is seen to first.</summary>
+    /// <summary>A quantity kept per part (Framework 0.248.0; each engine's hot-section life since 0.247.0): under its row, each part's
+    /// figure in the units its gauge shows, as a small table, and which is seen to first.</summary>
     static void DrawPartFigures(CompPhobosVehicleSystems comp, QuantitySpec quantity, ref float y, float width)
     {
         if (quantity.perPart == null) return;
         List<(string part, float figure)> figures = comp.PartFigures.Shown(quantity).ToList();
         if (figures.Count < 2) return;
+        Seen.Note("vehicles.systems-tab.part-table", comp.Vehicle);
         bool remaining = !quantity.remainingLabel.NullOrEmpty();
         float span = Mathf.Max(0.0001f, quantity.max - quantity.min);
-        string list = string.Join(", ", figures.Select(f => "PhobosVehicleSystems_SysPartFigure".Translate(f.part.Named("PART"),
-            (remaining ? 1f - (f.figure - quantity.min) / span : (f.figure - quantity.min) / span).ToStringPercent("0").Named("FIGURE")).Resolve()));
-        string line = (remaining ? "PhobosVehicleSystems_SysPartFiguresLeft" : "PhobosVehicleSystems_SysPartFiguresUsed")
-            .Translate(list.Named("LIST"), (quantity.perPart.restoreByAxle ? "PhobosVehicleSystems_SysPartFirstAxle" : "PhobosVehicleSystems_SysPartFirst").Translate().Named("FIRST")).Resolve();
-        using (new TextBlock(GameFont.Tiny, TextAnchor.UpperLeft))
+        // Framework 0.262.0 (the owner's word of 23 Nov 2026: all the applicable cards): a small heading, then the parts two to a row,
+        // each with its figure against its cell's edge, where the whole was one sentence. Which is seen to first stays beside the heading.
+        float left = ArrowSize + 8f, inner = width - left - 4f;
+        string heading = (remaining ? "PhobosVehicleSystems_SysPartsLeft" : "PhobosVehicleSystems_SysPartsUsed").Translate();
+        string first = (quantity.perPart.restoreByAxle ? "PhobosVehicleSystems_SysPartFirstAxle" : "PhobosVehicleSystems_SysPartFirst").Translate();
+        float headingWidth = inner * PartHeadingShare, rowHeight = PhobosWidgets.FigureRowHeight;
+        var headingRow = new Rect(left, y, inner, rowHeight);
+        using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleLeft))
         {
-            float height = Mathf.Max(Row * 0.8f, Text.CalcHeight(line, width - ArrowSize - 12f));
-            Widgets.Label(new Rect(ArrowSize + 8f, y, width - ArrowSize - 12f, height), line.Colorize(DetailColour));
-            y += height;
+            Widgets.Label(new Rect(left + 6f, y, headingWidth - 6f, rowHeight), heading.Colorize(DetailColour));
+        }
+        using (new TextBlock(GameFont.Tiny, TextAnchor.MiddleRight))
+        {
+            float firstWidth = inner - headingWidth - 6f;
+            Widgets.Label(new Rect(left + headingWidth, y, firstWidth, rowHeight), first.Truncate(firstWidth).Colorize(DetailColour));
+        }
+        TooltipHandler.TipRegion(headingRow, first);
+        y += rowHeight;
+        float cell = inner / PartColumns;
+        for (int i = 0; i < figures.Count; i++)
+        {
+            (string part, float figure) = figures[i];
+            float share = remaining ? 1f - (figure - quantity.min) / span : (figure - quantity.min) / span;
+            float cellY = y;
+            PhobosWidgets.FigureRow(ref cellY, left + cell * (i % PartColumns), cell - 6f, part.CapitalizeFirst(), share.ToStringPercent("0"),
+                colour: DetailColour, font: GameFont.Tiny);
+            if (i % PartColumns == PartColumns - 1 || i == figures.Count - 1) y = cellY;
         }
     }
+
+    /// <summary>How many parts' figures stand side by side under a reading kept part by part.</summary>
+    const int PartColumns = 2;
+    /// <summary>The share of that table's heading row its name takes; which part is seen to first has the rest.</summary>
+    const float PartHeadingShare = 0.4f;
 
     /// <summary>Shortened names remembered, so a row's text is measured once and not every frame; forgotten when the tab's width changes
     /// (the map's tab and the world's differ).</summary>

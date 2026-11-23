@@ -5,7 +5,8 @@
   "rows": {
     "436": {"parts": {
       "the turbine card": ["vehicles.systems-tab.turbine-rows"],
-      "the weapons card": ["vehicles.systems-tab.weapon-rows"]
+      "the weapons card": ["vehicles.systems-tab.weapon-rows"],
+      "the part-by-part table": ["vehicles.systems-tab.part-table"]
     }},
     "435": ["vehicles.systems-tab.loads-total"],
     "434": ["vehicles.systems-tab.ledger-rows"],
