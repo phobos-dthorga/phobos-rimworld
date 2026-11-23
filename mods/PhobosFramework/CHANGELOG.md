@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.273.1] - 2026-11-23 - Draft
+
+The exhaust brake gets its own icon
+
+### Fixed
+
+- **The exhaust brake fitting shows its own icon** (the owner's pick of 23 November 2026, night 12's vanilla look, try 11), where it borrowed the turbocharger's picture. Not yet tested in game.
+
 ## [0.273.0] - 2026-11-23 - Draft
 
 A building can hold a tank load, and meals made from meals keep their ingredients

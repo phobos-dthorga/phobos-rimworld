@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Fittings/ExhaustBrake.png",
+  "source": "assets/vehicle-systems/generated/n12-exhaust-brake/n12-exhaust-brake-11.png",
+  "source_sha256": "6b51bc9ee7eadbb37a99ac9c10c32da45bea1092d6670d225fddf8a494bbd568",
+  "target_sha256": "57893d63501d3fcca057d06b43fcc9bfe3834612b23e18a89dba50939a217b44",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "6b51bc9ee7eadbb37a99ac9c10c32da45bea1092d6670d225fddf8a494bbd568",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-23T23:47:00",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

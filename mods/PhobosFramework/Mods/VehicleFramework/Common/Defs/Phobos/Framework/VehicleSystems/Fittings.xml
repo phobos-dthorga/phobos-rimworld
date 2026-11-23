@@ -407,9 +407,10 @@
     <!-- Framework 0.251.0, descents (the owner's choice of 23 Nov 2026, the cross-links' F6): a valve in the exhaust that closes on the
          overrun, so the engine pumps against it and holds the vehicle back, about half the engine's rated power at rated speed ("about half
          the retarding power of engine brakes", the Wyoming report). Diesels only. An engine with a compression brake already holds more, so
-         it adds nothing there. Its picture is the turbocharger's until its own is drawn. Materials, work and skill authored. -->
+         it adds nothing there. Its own picture since Framework 0.273.1 (the owner's pick of 23 Nov 2026, night 12's try 11); the
+         turbocharger's before. Materials, work and skill authored. -->
     <defName>PhobosFitting_ExhaustBrake</defName>
-    <iconPath>Phobos/VehicleSystems/Fittings/Turbocharger</iconPath>
+    <iconPath>Phobos/VehicleSystems/Fittings/ExhaustBrake</iconPath>
     <label>exhaust brake</label>
     <description>A valve that closes the exhaust when the driver lifts off, so the engine itself holds the vehicle back on a long descent. The service brakes stay cool and last longer.</description>
     <roles><li>Engine</li><li>Engine1</li><li>Engine2</li><li>Engine3</li><li>Engine4</li><li>Engine5</li><li>Engine6</li><li>Engine7</li><li>Engine8</li></roles>
