@@ -12,6 +12,8 @@
   <PhobosRadio_SettingMetresPerCell>Metres per map cell: {METRES}</PhobosRadio_SettingMetresPerCell>
   <PhobosRadio_SettingMetresPerCellDesc>What one map cell measures. Decide before you start a colony: changing it later changes every distance and cable loss, so links that worked may stop. The game never defines it; 1 m matches the furniture, about 26 m matches walking speed.</PhobosRadio_SettingMetresPerCellDesc>
   <PhobosRadio_SettingInTouchThought>"In touch with home" mood for colonists whose radio reaches a base station</PhobosRadio_SettingInTouchThought>
+  <PhobosRadio_SettingTerminalNoise>Radio terminals make radio noise</PhobosRadio_SettingTerminalNoise>
+  <PhobosRadio_SettingTerminalNoiseDesc>A radio terminal's computer makes electrical noise, as real computers do, so an antenna close to it, its own stub antenna included, hears colonists less well. Turn it off to treat the terminal as quiet.</PhobosRadio_SettingTerminalNoiseDesc>
   <PhobosRadio_SettingInTouchThoughtDesc>A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Turn it off to keep the radios as a pure readout.</PhobosRadio_SettingInTouchThoughtDesc>
 
   <!-- Gizmos. -->
@@ -58,6 +60,11 @@
   <PhobosRadio_ProfileAntenna>antenna, {HEIGHT} m</PhobosRadio_ProfileAntenna>
   <PhobosRadio_ProfileHandheld>hand-held, {HEIGHT} m</PhobosRadio_ProfileHandheld>
   <PhobosRadio_ProfileDistance>{DISTANCE} m apart</PhobosRadio_ProfileDistance>
+
+  <!-- Linear amplifiers. -->
+  <PhobosRadio_AmplifierNoStation>Raises a station's signal up to {RATED} W. Join it into the coax between a station and an antenna.</PhobosRadio_AmplifierNoStation>
+  <PhobosRadio_AmplifierUnpowered>No power: signals pass through it unamplified.</PhobosRadio_AmplifierUnpowered>
+  <PhobosRadio_AmplifierOutput>Raises {STATION}'s signal to {OUTPUT} W (rated {RATED} W), on the antennas whose cable runs through it.</PhobosRadio_AmplifierOutput>
 
   <!-- Feedline ports. -->
   <PhobosRadio_PortNoCable>No coax connected.</PhobosRadio_PortNoCable>

@@ -23,7 +23,7 @@
 
   <ThingDef ParentName="PhobosRadio_AntennaBase">
     <defName>PhobosRadio_Whip</defName>
-    <label>whip antenna</label>
+    <label>compact ground-plane</label>
     <description>A quarter-wave whip on a short pole, three metres up. No gain, but it gets the antenna outside, which is what a shack under a roof needs most. Connect it to the base station with coax.</description>
     <graphicData>
       <texPath>Phobos/Radio/Things/Whip</texPath>
@@ -48,6 +48,43 @@
           <li>PhobosRadio_UHF</li>
         </bands>
         <gainDbi>0</gainDbi>
+        <heightMetres>3</heightMetres>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort">
+        <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
+      </li>
+      <li Class="Phobos.Framework.Upgrades.CompProperties_PhobosBuildingUpgrades" />
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_AntennaBase">
+    <defName>PhobosRadio_WhipFullSize</defName>
+    <label>full-size ground-plane</label>
+    <description>A ground-plane antenna with a full quarter-wave radiator and four radials, three metres up: about 2 dB more than the compact ground-plane on both bands (approximate), for a little more steel and work. Connect it to a station with coax.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/WhipFullSize</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <!-- The ground-plane's radials span about a metre; the footing (about 28% up the picture) sits on its cell (Radio 0.4.0). -->
+      <drawSize>(1.5,2.25)</drawSize>
+      <drawOffset>(0,0,0.49)</drawOffset>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>80</MaxHitPoints>
+      <WorkToBuild>600</WorkToBuild>
+      <Flammability>0.2</Flammability>
+    </statBases>
+    <costList>
+      <Steel>25</Steel>
+    </costList>
+    <uiOrder>2112</uiOrder>
+    <comps>
+      <li Class="Phobos.Radio.CompProperties_Antenna">
+        <bands>
+          <li>PhobosRadio_VHF</li>
+          <li>PhobosRadio_UHF</li>
+        </bands>
+        <!-- A quarter-wave ground-plane's usual figure, approximate (the owner's card of 24 Nov 2026: compact vs full-size). -->
+        <gainDbi>2</gainDbi>
         <heightMetres>3</heightMetres>
       </li>
       <li Class="Phobos.Radio.CompProperties_FeedlinePort">

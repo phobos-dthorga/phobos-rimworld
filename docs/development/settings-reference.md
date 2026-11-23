@@ -273,8 +273,9 @@ Generated from the mod's source code and language files by `python scripts/doc-t
 | --- | --- | --- |
 | Metres per map cell: ... | What one map cell measures. Decide before you start a colony: changing it later changes every distance and cable loss, so links that worked may stop. The game never defines it; 1 m matches the furniture, about 26 m matches walking speed. | 1 |
 | "In touch with home" mood for colonists whose radio reaches a base station | A small mood bonus for a free colonist wearing a hand-held with a working link to a base station. Turn it off to keep the radios as a pure readout. | On |
+| Radio terminals make radio noise | A radio terminal's computer makes electrical noise, as real computers do, so an antenna close to it, its own stub antenna included, hears colonists less well. Turn it off to treat the terminal as quiet. | On |
 
-2 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
+3 settings, in the order the settings window draws them. **Default** is what the game uses until the setting is changed. A setting the window shows only in some games (another mod active, another setting on) is listed all the same.
 
 Saved, but not found drawn in the window by the reader (kept by the window itself, or drawn by code it cannot follow): `displayMode`.
 <!-- end generated -->

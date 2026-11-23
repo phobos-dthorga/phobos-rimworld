@@ -86,10 +86,13 @@ public static class LinkBudgetService
             PathLossDb: pathLossDb,
             ObstructionLossDb: obstructionDb,
             ReceiveAntennaGainDbi: rx.AntennaGainDbi,
-            ReceiveFeedLossDb: rx.FeedLossDb,
+            ReceiveFeedLossDb: rx.FeedLossDb + rx.ReceiveOnlyLossDb,
             NoiseFloorDbm: noiseFloorAtRxDbm,
             RequiredSnrDb: mode.requiredSnrDb);
 }
 
-/// <summary>What one end brings to a link on one band: its power, its antenna's gain and its cable's loss.</summary>
-public readonly record struct EndSide(double TransmitPowerDbm, double AntennaGainDbi, double FeedLossDb);
+/// <summary>
+/// What one end brings to a link on one band: its power, its antenna's gain, its cable's loss both ways, and what costs it only on
+/// receive (the amplifiers in its run, switched out of the line; Radio 0.5.0).
+/// </summary>
+public readonly record struct EndSide(double TransmitPowerDbm, double AntennaGainDbi, double FeedLossDb, double ReceiveOnlyLossDb = 0);

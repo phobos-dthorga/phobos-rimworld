@@ -2,8 +2,8 @@
 
 How your own mod can add a radio, a band, an antenna or a noisy machine to D'thorga Radio Framework, with no C#. Players start at
 [the mod's README](../../mods/PhobosRadioFramework/README.md) and [the player guide](../player-guide/radio.md). The design, its
-phases and its physics are in [the radio framework design](../development/radio-framework-design.md). **Work on the radio is
-paused** (owner, 9 Nov 2026): a fault is still fixed, but no new features or phases until it resumes. **Not yet tested in game.**
+phases and its physics are in [the radio framework design](../development/radio-framework-design.md). Work on the radio
+resumed on 23 Nov 2026, after its pause from 9 Nov. **Not yet tested in game.**
 
 ## Defs to extend
 
@@ -13,9 +13,12 @@ Everything is a Def:
 - One `Phobos.Radio.RadioRulesDef`: the tuning values, including coverage's limits.
 - `Phobos.Radio.CompProperties_Radio`, on any apparel or building.
 - `Phobos.Radio.CompProperties_Antenna` plus `Phobos.Radio.CompProperties_FeedlinePort`, on an antenna building.
+- `Phobos.Radio.CompProperties_Amplifier` (`gainDb`, `ratedOutputWatts`, `lossDb`) plus `CompProperties_FeedlinePort` and a power
+  comp, on an amplifier building (0.5.0): it counts for an antenna only when the cable path from the station passes through it.
 - Three `DefModExtension`s:
   - `RadioObstructionExtension` (`lossDb` per crossing), on a stuff or building Def;
-  - `RadioNoiseExtension` (`noiseDbmAt1m`, `radiusCells`, `noiseWhen` = PowerOn, Connected or Always), on a building Def;
+  - `RadioNoiseExtension` (`noiseDbmAt1m`, `radiusCells`, `noiseWhen` = PowerOn, Connected or Always, and `computerNoise`, true
+    for a computer the setting *Radio terminals make radio noise* may silence), on a building Def;
   - `RadioCoaxExtension` (`lossDbPer100m` at `referenceMHz`), on a coax Def listed in the `PhobosRadio_FeedlineNet` pipe net.
 
 `Common/Patches` shows how the vanilla materials and generators get theirs.

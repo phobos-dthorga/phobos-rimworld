@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/RadioTerminal.png",
+  "source": "assets/phobos-radio/generated/radio-terminal/radio-terminal-1.png",
+  "source_sha256": "95a1f756eb469b107f98c363de045fa48149c2a5b6bdd3bd90addd01fffefb45",
+  "target_sha256": "1baa9cb2b192feafec169e5512361f1edc7825d0b8b1968309b6ae874085a198",
+  "size": [
+    384,
+    256
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "95a1f756eb469b107f98c363de045fa48149c2a5b6bdd3bd90addd01fffefb45",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-24T03:10:48",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

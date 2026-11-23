@@ -76,6 +76,7 @@ public sealed class NoiseService
 
     private static bool IsActive(Building building, RadioNoiseExtension extension)
     {
+        if (extension.computerNoise && !RadioMod.Settings.terminalNoise) return false;
         switch (extension.noiseWhen)
         {
             case NoiseWhen.Always:

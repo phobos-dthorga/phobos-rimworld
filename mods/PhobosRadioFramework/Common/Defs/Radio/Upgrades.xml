@@ -34,6 +34,7 @@
     <description>A longer steel pole that lifts the whip from three metres to five, over most walls, so only walls close to a hand-held still get in the way.</description>
     <buildings>
       <li>PhobosRadio_Whip</li>
+      <li>PhobosRadio_WhipFullSize</li>
     </buildings>
     <costList>
       <Steel>20</Steel>

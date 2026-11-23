@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <!-- Linear amplifiers (Radio 0.5.0; the owner's cards of 24 Nov 2026: "Separate, on the coax", then two models, "100 W and
+       400 W"). Each joins the coax net and counts for an antenna only when the cable path from the station to it passes through
+       (Phobos.Radio.CompAmplifier). Figures authored; 100 W and 400 W are the Australian Standard and Advanced licences' limits. -->
+  <ThingDef ParentName="BuildingBase" Name="PhobosRadio_AmplifierBase" Abstract="True">
+    <thingClass>Building</thingClass>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>40</pathCost>
+    <fillPercent>0.4</fillPercent>
+    <rotatable>false</rotatable>
+    <size>(1,1)</size>
+    <terrainAffordanceNeeded>Light</terrainAffordanceNeeded>
+    <designationCategory>PhobosRadio_Architect</designationCategory>
+    <tickerType>Rare</tickerType>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Small</destroySound>
+    </building>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_AmplifierBase">
+    <defName>PhobosRadio_LinearAmplifier</defName>
+    <label>linear amplifier</label>
+    <description>A radio power amplifier for the cable between a station and its antennas. It raises what the station sends tenfold, up to 100 watts: the desk's 25 W or the terminal's 10 W both come out at 100 W. It draws power and warms the room while the station is sending, and costs a little on receive. It only helps antennas whose cable passes through it.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/LinearAmplifier</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <WorkToBuild>1000</WorkToBuild>
+      <Flammability>0.4</Flammability>
+    </statBases>
+    <costList>
+      <Steel>40</Steel>
+      <ComponentIndustrial>2</ComponentIndustrial>
+    </costList>
+    <uiOrder>2115</uiOrder>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>20</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort">
+        <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_Amplifier">
+        <gainDb>10</gainDb>
+        <ratedOutputWatts>100</ratedOutputWatts>
+        <lossDb>0.5</lossDb>
+      </li>
+    </comps>
+    <researchPrerequisites>
+      <li>PhobosRadio_LinearAmplifiers</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
+  </ThingDef>
+
+  <ThingDef ParentName="PhobosRadio_AmplifierBase">
+    <defName>PhobosRadio_HeavyLinearAmplifier</defName>
+    <label>heavy linear amplifier</label>
+    <description>A heavier radio power amplifier for the cable between a station and its antennas: tenfold, up to 400 watts, at four times the lighter one's draw and heat while the station is sending. It only helps antennas whose cable passes through it.</description>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/HeavyLinearAmplifier</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(1,1)</drawSize>
+    </graphicData>
+    <statBases>
+      <MaxHitPoints>140</MaxHitPoints>
+      <WorkToBuild>1800</WorkToBuild>
+      <Flammability>0.4</Flammability>
+    </statBases>
+    <costList>
+      <Steel>80</Steel>
+      <ComponentIndustrial>4</ComponentIndustrial>
+      <ComponentSpacer>1</ComponentSpacer>
+    </costList>
+    <uiOrder>2116</uiOrder>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>40</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort">
+        <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_Amplifier">
+        <gainDb>10</gainDb>
+        <ratedOutputWatts>400</ratedOutputWatts>
+        <lossDb>0.5</lossDb>
+      </li>
+    </comps>
+    <researchPrerequisites>
+      <li>PhobosRadio_HighPowerAmplifiers</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>6</constructionSkillPrerequisite>
+  </ThingDef>
+</Defs>

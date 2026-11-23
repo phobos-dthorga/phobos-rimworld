@@ -1,7 +1,7 @@
 # Radio paid batch 1: the radio desk, the radio terminal, the amplifier, the whip and the mast (24 Nov 2026)
 
 **Status (24 Nov 2026):** bought, ten pictures for about US$0.50 of the owner's US$1.00 cap, and picked. The desk, whip and mast
-are exported and ship in Radio 0.4.0; the terminal's and both amplifiers' wait for their buildings, and the second whip for its model. [The run, as it went](#the-run-24-nov-2026) is below the dry run.
+are exported and ship in Radio 0.4.0; the terminal, both amplifiers and the second whip in Radio 0.5.0. All ten are applied. [The run, as it went](#the-run-24-nov-2026) is below the dry run.
 
 ## The owner's direction
 

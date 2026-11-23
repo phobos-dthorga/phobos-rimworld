@@ -17,6 +17,8 @@ public class RadioSettings : ModSettings
     /// <summary>What one map cell measures. Changing it mid-save changes every path and feedline loss.</summary>
     public float metresPerCell = 1f;
     public bool inTouchThought = true;
+    /// <summary>Whether the radio terminal's computer counts as a noise source (Radio 0.5.0; on, the owner's choice of 24 Nov 2026).</summary>
+    public bool terminalNoise = true;
 
     public override void ExposeData()
     {
@@ -24,6 +26,7 @@ public class RadioSettings : ModSettings
         Scribe_Values.Look(ref displayMode, "displayMode", DisplayMode.Plain);
         Scribe_Values.Look(ref metresPerCell, "metresPerCell", 1f);
         Scribe_Values.Look(ref inTouchThought, "inTouchThought", true);
+        Scribe_Values.Look(ref terminalNoise, "terminalNoise", true);
     }
 }
 
@@ -58,6 +61,9 @@ public class RadioMod : Mod
         listing.Gap();
         listing.CheckboxLabeled("PhobosRadio_SettingInTouchThought".Translate(), ref Settings.inTouchThought,
             "PhobosRadio_SettingInTouchThoughtDesc".Translate());
+        listing.Gap();
+        listing.CheckboxLabeled("PhobosRadio_SettingTerminalNoise".Translate(), ref Settings.terminalNoise,
+            "PhobosRadio_SettingTerminalNoiseDesc".Translate());
         listing.End();
     }
 }

@@ -200,9 +200,9 @@ public sealed class RadioNet : MapComponent
         foreach (var antenna in FeedlineService.AntennasOn(port))
         {
             if (!antenna.parent.Spawned) continue;
-            var segments = FeedlineService.Segments(port.PipeNet, station.parent, antenna.parent, metresPerCell);
-            if (segments == null) continue;
-            var end = RadioEndpoint.ViaAntenna(station, antenna, segments);
+            var path = FeedlineService.Path(port.PipeNet, station.parent, antenna.parent, metresPerCell);
+            if (path == null) continue;
+            var end = RadioEndpoint.ViaAntenna(station, antenna, path);
             if (end.Bands.Count > 0) ends.Add(end);
         }
         return ends;

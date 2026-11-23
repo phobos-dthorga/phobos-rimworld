@@ -12,6 +12,24 @@ public readonly record struct FeedSegment(float Metres, RadioCoaxExtension Coax)
 }
 
 /// <summary>
+/// The cable between a station and one antenna: its coax by type, and the amplifiers the path passes through on the way (Radio 0.5.0).
+/// An amplifier on a branch of the net, off the path, is not in it.
+/// </summary>
+public sealed class FeedPath
+{
+    public static readonly FeedPath None = new(new List<FeedSegment>(), new List<CompAmplifier>());
+
+    public List<FeedSegment> Segments { get; }
+    public List<CompAmplifier> Amplifiers { get; }
+
+    public FeedPath(List<FeedSegment> segments, List<CompAmplifier> amplifiers)
+    {
+        Segments = segments;
+        Amplifiers = amplifiers;
+    }
+}
+
+/// <summary>
 /// Walks a Vanilla Expanded Framework pipe net as a cable run. VEF keeps a net when a connector joins it and rebuilds it when
 /// one leaves, so a cached route is keyed on the net, its size and the metres a cell stands for.
 /// </summary>
@@ -19,7 +37,7 @@ public static class FeedlineService
 {
     private static readonly RadioCoaxExtension DefaultCoax = new();
     // Weak on the net: a net holds its whole map, and neither a load nor a rebuilt net may keep one alive here.
-    private static readonly ConditionalWeakTable<PipeNet, Dictionary<(Thing from, Thing to, float metresPerCell, int connectors), List<FeedSegment>?>> cache = new();
+    private static readonly ConditionalWeakTable<PipeNet, Dictionary<(Thing from, Thing to, float metresPerCell, int connectors), FeedPath?>> cache = new();
     private static readonly Queue<IntVec3> queue = new();
     private static readonly Dictionary<IntVec3, int> seen = new();
 
@@ -47,18 +65,19 @@ public static class FeedlineService
     }
 
     /// <summary>
-    /// The coax between two things on the same net as segments, or null when no cable path joins them.
-    /// Breadth-first over the net's cells, cardinal steps; endpoint footprints cost nothing.
+    /// The cable between two things on the same net, or null when no cable path joins them: its coax as segments and the
+    /// amplifiers on the way. Breadth-first over the net's cells, cardinal steps; endpoint footprints cost nothing. Kept per net
+    /// until a connector joins or leaves it; whether an amplifier is powered is read by its caller, never kept here.
     /// </summary>
-    public static List<FeedSegment>? Segments(PipeNet net, Thing from, Thing to, float metresPerCell)
+    public static FeedPath? Path(PipeNet net, Thing from, Thing to, float metresPerCell)
     {
         var routes = cache.GetOrCreateValue(net);
         var key = (from, to, metresPerCell, net.connectors.Count);
         if (routes.TryGetValue(key, out var cached)) return cached;
-        var segments = Trace(net, from, to, metresPerCell);
-        routes[key] = segments;
+        var path = Trace(net, from, to, metresPerCell);
+        routes[key] = path;
         if (routes.Count > 256) routes.Clear();
-        return segments;
+        return path;
     }
 
     public static float LossDb(List<FeedSegment>? segments, BandDef band)
@@ -69,7 +88,7 @@ public static class FeedlineService
         return total;
     }
 
-    private static List<FeedSegment>? Trace(PipeNet net, Thing from, Thing to, float metresPerCell)
+    private static FeedPath? Trace(PipeNet net, Thing from, Thing to, float metresPerCell)
     {
         var map = net.map;
         var grid = net.networkGrid;
@@ -99,21 +118,39 @@ public static class FeedlineService
         }
         if (reached == null) return null;
 
-        // Walk back, counting coax cells by type; endpoint cells are not coax.
+        // Walk back, counting coax cells by type and noting each amplifier the path passes through; endpoint cells are not coax.
         var metresByCoax = new Dictionary<RadioCoaxExtension, float>();
+        var amplifiers = new List<CompAmplifier>();
         var current = reached.Value;
         while (parentOf.TryGetValue(current, out var previous))
         {
             if (!fromCells.Contains(current) && !toCells.Contains(current))
             {
-                var coax = CoaxAt(map, current, net.def) ?? DefaultCoax;
-                metresByCoax[coax] = (metresByCoax.TryGetValue(coax, out var m) ? m : 0f) + metresPerCell;
+                var amplifier = AmplifierAt(map, current);
+                if (amplifier != null)
+                {
+                    if (!amplifiers.Contains(amplifier)) amplifiers.Add(amplifier);
+                }
+                else
+                {
+                    var coax = CoaxAt(map, current, net.def) ?? DefaultCoax;
+                    metresByCoax[coax] = (metresByCoax.TryGetValue(coax, out var m) ? m : 0f) + metresPerCell;
+                }
             }
             current = previous;
         }
         var segments = new List<FeedSegment>();
         foreach (var pair in metresByCoax) segments.Add(new FeedSegment(pair.Value, pair.Key));
-        return segments;
+        return new FeedPath(segments, amplifiers);
+    }
+
+    private static CompAmplifier? AmplifierAt(Map map, IntVec3 cell)
+    {
+        foreach (var thing in cell.GetThingList(map))
+        {
+            if (thing.TryGetComp<CompAmplifier>() is { } amplifier) return amplifier;
+        }
+        return null;
     }
 
     private static RadioCoaxExtension? CoaxAt(Map map, IntVec3 cell, PipeNetDef net)

@@ -9,6 +9,9 @@ This is the first step, local radio on one map. [Back to the guide](README.md).
 ## Read this first (gotchas)
 
 - **Needs D'thorga Framework and Vanilla Expanded Framework** (the coax is the latter's pipe network; the upgrades are the former's).
+- **The radio terminal is noisy by design**: its computer drowns antennas within a few metres, its own stub included. Site antennas
+  away from it, or switch **Radio terminals make radio noise** off in the mod's settings. **Amplifiers only help antennas whose coax
+  passes through them.**
 - **The upgrades are experimental**: the desk, whip and mast each have an **Upgrades** button.
 - **Decide Metres per map cell before a colony** (default 1). It changes every contact's range.
 - **The hand-held is worn on the belt slot**, so a colonist can't wear a shield belt and a radio together.
@@ -46,7 +49,12 @@ few seconds, and redraws when you build, so you can see a wall's radio shadow ap
 the colour of their signal, with a mark on everything in the way: a filled orange square on a wall that cost signal, a hollow ring on
 one the line passed over, a red diamond on rock. The radio button's window shows the same path from the side. **The desk, whip and mast take upgrades** from their Upgrades button,
 fitted by builders: a quieter receiver for the desk, a taller pole for the whip, and an extension or a longer antenna for the mast.
-Select the station afterwards and the coverage shows what it bought. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
+Select the station afterwards and the coverage shows what it bought. **A second station, and amplifiers:** the **radio terminal**
+(research software radio) is a computer driving a software-defined radio, only 10 W but able to hear faint hand-helds the desk
+misses; its little stub antenna works poorly, and its computer makes noise that spoils antennas close to it, so run coax to a whip
+or mast a few metres away. A **linear amplifier** (up to 100 W) or **heavy linear amplifier** (up to 400 W) joined into the coax
+raises what either station sends, for the antennas whose cable runs through it, and draws power and warms its room while the
+station is sending. The **full-size ground-plane** is a slightly better whip. A colonist in good contact gets a small **in touch with home** mood, and a fainter one on a weak
 link. **While placing** an antenna or the station, the cursor shows its height, the roof and the noise there; red means overhead
 mountain.
 

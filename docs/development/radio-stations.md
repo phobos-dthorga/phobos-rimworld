@@ -1,6 +1,8 @@
 # Radio stations: the radio desk and the radio terminal (24 Nov 2026)
 
-**Status (24 Nov 2026):** partly built. The building upgrades for the radio desk and both antennas are built in Radio Framework 0.4.0
+**Status (24 Nov 2026):** partly built. The radio terminal, both linear amplifiers and the full-size ground-plane are built in Radio
+Framework 0.5.0 ([as built](#as-built-radio-050-24-nov-2026)), not yet tested in game. The building upgrades for the radio desk and
+both antennas are built in Radio Framework 0.4.0
 ([below](#building-upgrades-radio-040)), not yet tested in game. The radio terminal and the linear amplifier are designed, not built;
 their pictures, the desk's, the whip's and the mast's are bought and wait for the owner's picks
 (`assets/phobos-radio/requests/paid-1-record.md`).
@@ -114,6 +116,34 @@ Nothing here is built yet; the desk's, whip's and mast's pictures ship in Radio 
 | Radio terminal | Picked try 1, whose radio box has a stub antenna; by card: **"A weak stub that works"** **[O]** | The terminal gains a built-in stub: about −5 dBi at 1 m, indoors under its roof, so it reaches hand-helds on its own, poorly; coax to a whip or mast is far better. This replaces "None of its own" in the tables above |
 | Whips | "Both with varying specs, just like real life! ^ ^"; by card: **compact vs full-size** **[O]** | **Compact ground-plane** (try 1, today's whip): 0 dBi, 15 steel, as now. **Full-size ground-plane** (try 2, its radiator a full quarter wave): about 2 dBi on both bands (a quarter-wave ground-plane's usual figure, approximate), 25 steel and more work. Both 3 m and both take the taller pole |
 | Linear amplifiers | "Offer both as alternate models with varying specs to each ^ ^"; by card: **100 W and 400 W** **[O]** | **Linear amplifier** (try 1): up to 100 W (Standard licence), 20 W on standby. **Heavy linear amplifier** (try 2): up to 400 W (Advanced licence), 40 W on standby, four times the draw and heat while sending, behind a later research step and an advanced component |
+
+## As built: Radio 0.5.0 (24 Nov 2026)
+
+The owner, 24 Nov 2026: "Go ahead and build the terminal, amplifiers and full-size whip". All **[code]**; nothing is tested in game.
+
+| Kit | defName | Figures as built **[A]** | Research |
+| --- | --- | --- | --- |
+| Radio terminal | `PhobosRadio_RadioTerminal` | 3 x 2, 150 W idle; 10 W out; noise figure 2 dB; stub at 1 m, −5 dBi; its own noise −75 dBm at 1 m out to 8 cells (`computerNoise`) | Software radio (1,200), after Local radio |
+| Linear amplifier | `PhobosRadio_LinearAmplifier` | 1 x 1, 20 W standby; +10 dB up to 100 W; 0.5 dB on receive | Linear amplifiers (900), after Local radio |
+| Heavy linear amplifier | `PhobosRadio_HeavyLinearAmplifier` | 1 x 1, 40 W standby; +10 dB up to 400 W; 0.5 dB on receive | High-power amplifiers (1,600), after Linear amplifiers |
+| Full-size ground-plane | `PhobosRadio_WhipFullSize` | 1 x 1, 3 m, 2 dBi; 25 steel; takes the taller pole | Local radio |
+
+- **In the run, not on the net.** `FeedlineService.Path` walks the cable from the station to each antenna and returns the amplifiers it
+  passes through with the coax (`FeedPath`); an amplifier on a branch is not in it. The route is kept per net as before; whether an
+  amplifier is powered is read each time links are worked out.
+- **Several in one run [A]:** the strongest powered one decides (`Amplifier.ThroughWatts`, game-free and tested); they are not
+  chained. Unpowered, a signal passes through less its loss. On receive every amplifier in the run costs its loss, as each is
+  switched out of the line (`EndSide.ReceiveOnlyLossDb`, shown in the sheet's receive cable line).
+- **Draw and heat [A]:** while its station is in touch with anyone, an amplifier draws its output over the mode's efficiency times
+  the duty cycle, and pushes the rest into its room as heat; every amplifier on a station's coax counts as sending, whichever antenna
+  is in use.
+- **Power on and off** reaches the net and the coverage picture through the game's own power signals, so nothing polls.
+- **The terminal's noise** is a `RadioNoiseExtension` in its own Def with `computerNoise`, counted only while the setting **Radio
+  terminals make radio noise** is on (default on, the owner's card). It reaches its own stub, as a real computer beside its antenna
+  would.
+- **The whip's label** is now "compact ground-plane"; its defName and figures are unchanged.
+- **Cost (the performance rule):** an amplifier adds a few multiplications per endpoint each time links are worked out, about once a
+  second; its rare tick reads its station's in-touch count. Nothing per frame or per cell.
 
 ## Building upgrades (Radio 0.4.0)
 

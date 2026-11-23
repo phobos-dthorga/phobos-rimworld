@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/HeavyLinearAmplifier.png",
+  "source": "assets/phobos-radio/generated/linear-amplifier/linear-amplifier-2.png",
+  "source_sha256": "7e0e47ac762833f1bceddf51322b6ec95d83e0e8ff127bc03fed90dcebbfe501",
+  "target_sha256": "716a296313bd2a77117eb47cc01ddcc7dff7a46567d2bb198f65926bed1862a7",
+  "size": [
+    128,
+    128
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "7e0e47ac762833f1bceddf51322b6ec95d83e0e8ff127bc03fed90dcebbfe501",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-24T03:10:52",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}

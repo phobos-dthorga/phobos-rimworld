@@ -1,3 +1,4 @@
+using System;
 using Phobos.Radio.Physics;
 using Xunit;
 
@@ -145,6 +146,33 @@ public class NoiseFloorTests
         Assert.Equal(Decibels.PowerSumDbm(new[] { -100.0, -97.0 }), Decibels.PowerSumDbm(-100, -97), 9);
         Assert.Equal(-100.0, Decibels.PowerSumDbm(-100, double.NegativeInfinity), 9);
         Assert.True(double.IsNegativeInfinity(Decibels.PowerSumDbm(double.NegativeInfinity, double.NegativeInfinity)));
+    }
+}
+
+public class AmplifierTests
+{
+    [Fact]
+    public void TenDbOfGainIsTenTimesThePowerUpToItsRating()
+    {
+        Assert.Equal(100.0, Amplifier.OutputWatts(10, 10, 100), 6);   // the terminal's 10 W through the 100 W amplifier
+        Assert.Equal(100.0, Amplifier.OutputWatts(25, 10, 100), 6);   // the desk's 25 W would make 250: capped
+        Assert.Equal(250.0, Amplifier.OutputWatts(25, 10, 400), 6);   // the heavy amplifier's 400 W rating leaves room
+        Assert.Equal(0.0, Amplifier.OutputWatts(0, 10, 100));
+    }
+
+    [Fact]
+    public void TheStrongestPoweredAmplifierDecides()
+    {
+        var both = new (double, double, double, bool)[] { (10, 100, 0.5, true), (10, 400, 0.5, true) };
+        Assert.Equal(250.0, Amplifier.ThroughWatts(25, both), 6);
+    }
+
+    [Fact]
+    public void AnIdleAmplifierOnlyCostsItsLossOnTheWayThrough()
+    {
+        var idle = new (double, double, double, bool)[] { (10, 100, 0.5, false) };
+        Assert.Equal(25.0 * Math.Pow(10, -0.05), Amplifier.ThroughWatts(25, idle), 6);
+        Assert.Equal(25.0, Amplifier.ThroughWatts(25, Array.Empty<(double, double, double, bool)>()), 6);
     }
 }
 

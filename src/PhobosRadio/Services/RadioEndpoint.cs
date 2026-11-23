@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Verse;
 
@@ -16,7 +17,10 @@ public sealed class RadioEndpoint
     public float AntennaHeightMetres { get; }
     public float AntennaGainDbi { get; }
     public IReadOnlyList<FeedSegment> Feedline { get; }
+    /// <summary>What the station sends into its cable, after any amplifier in its run (Radio 0.5.0).</summary>
     public float TransmitPowerWatts { get; }
+    /// <summary>What the amplifiers in its run cost on receive, switched out of the line, in dB (Radio 0.5.0).</summary>
+    public float ReceiveThroughAmplifiersDb { get; }
     public float NoiseFigureDb { get; }
     public IReadOnlyList<BandDef> Bands { get; }
     public ModeDef Mode { get; }
@@ -24,14 +28,15 @@ public sealed class RadioEndpoint
     public string AntennaLabel { get; }
 
     public RadioEndpoint(Thing thing, IntVec3 cell, CompRadio radio, IReadOnlyList<BandDef> bands, float antennaHeightMetres,
-        float antennaGainDbi, IReadOnlyList<FeedSegment> feedline, string antennaLabel)
+        float antennaGainDbi, IReadOnlyList<FeedSegment> feedline, string antennaLabel, IReadOnlyList<CompAmplifier>? amplifiers = null)
     {
         Thing = thing;
         Cell = cell;
         AntennaHeightMetres = antennaHeightMetres;
         AntennaGainDbi = antennaGainDbi;
         Feedline = feedline;
-        TransmitPowerWatts = radio.Props.transmitPowerWatts;
+        TransmitPowerWatts = ThroughAmplifiers(radio.Props.transmitPowerWatts, amplifiers, out var receiveLossDb);
+        ReceiveThroughAmplifiersDb = receiveLossDb;
         // A station's receive preamplifier (Radio 0.4.0); a hand-held takes no upgrades and keeps its own.
         NoiseFigureDb = RadioUpgrades.NoiseFigureDb(radio.parent, radio.Props.noiseFigureDb);
         Bands = bands;
@@ -40,7 +45,26 @@ public sealed class RadioEndpoint
     }
 
     /// <summary>What this end brings to a link on a band.</summary>
-    public EndSide Side(BandDef band) => new(Physics.Decibels.FromWatts(TransmitPowerWatts), AntennaGainDbi, FeedLossDb(band));
+    public EndSide Side(BandDef band) =>
+        new(Physics.Decibels.FromWatts(TransmitPowerWatts), AntennaGainDbi, FeedLossDb(band), ReceiveThroughAmplifiersDb);
+
+    /// <summary>
+    /// The power a station sends through the amplifiers in its cable run, read as they are now (powered or not), and what they cost on
+    /// receive: each one's loss, as every amplifier is switched out of the line while the station listens.
+    /// </summary>
+    private static float ThroughAmplifiers(float driveWatts, IReadOnlyList<CompAmplifier>? amplifiers, out float receiveLossDb)
+    {
+        receiveLossDb = 0f;
+        if (amplifiers == null || amplifiers.Count == 0) return driveWatts;
+        Span<(double, double, double, bool)> figures = stackalloc (double, double, double, bool)[amplifiers.Count];
+        for (var i = 0; i < amplifiers.Count; i++)
+        {
+            var props = amplifiers[i].Props;
+            figures[i] = (props.gainDb, props.ratedOutputWatts, props.lossDb, amplifiers[i].Powered);
+            receiveLossDb += props.lossDb;
+        }
+        return (float)Physics.Amplifier.ThroughWatts(driveWatts, figures);
+    }
 
     public float FeedLossDb(BandDef band)
     {
@@ -65,13 +89,15 @@ public sealed class RadioEndpoint
             "PhobosRadio_AntennaBuiltIn".Translate());
 
     /// <summary>A station heard through an antenna building on its coax; the bands are those both support.</summary>
-    public static RadioEndpoint ViaAntenna(CompRadio station, CompAntenna antenna, List<FeedSegment> feedline)
+    public static RadioEndpoint ViaAntenna(CompRadio station, CompAntenna antenna, FeedPath path)
     {
+        var feedline = path.Segments;
         var bands = new List<BandDef>();
         foreach (var band in station.Props.bands) if (antenna.Props.bands.Contains(band)) bands.Add(band);
         // The antenna's own figures, or what its fitted upgrades set (Radio 0.4.0).
         return new RadioEndpoint(station.parent, antenna.parent.Position, station, bands,
             RadioUpgrades.Figure(antenna.parent, RadioUpgrades.HeightMetres, antenna.Props.heightMetres),
-            RadioUpgrades.Figure(antenna.parent, RadioUpgrades.GainDbi, antenna.Props.gainDbi), feedline, antenna.parent.LabelCap);
+            RadioUpgrades.Figure(antenna.parent, RadioUpgrades.GainDbi, antenna.Props.gainDbi), feedline, antenna.parent.LabelCap,
+            path.Amplifiers);
     }
 }

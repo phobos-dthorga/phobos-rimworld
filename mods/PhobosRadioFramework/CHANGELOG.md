@@ -17,6 +17,31 @@ published yet. Not yet tested in game unless an entry says the owner tested it.
   notes for modders, the dev actions and the checks done are on the repository's modders' page for the radio. The Workshop
   draft now says it needs D'thorga Framework, as it has since 0.4.0, and names the upgrades. Nothing in play changes.
 
+## [0.5.0] - 2026-11-24 - Draft
+
+The radio terminal, linear amplifiers and a full-size ground-plane
+
+### Added
+
+- **The radio terminal**, a second station (the owner's go-ahead of 24 November 2026): a computer driving a software-defined radio, 10 W
+  of its own with a very quiet receiver and a weak stub antenna. Its computer is itself a source of radio noise, so its antennas
+  want to be a few metres away. Research software radio. Not yet tested in game: row 464.
+- **Two linear amplifiers for the coax**: one up to 100 W, a heavy one up to 400 W. Each counts only for antennas whose cable passes
+  through it, draws power and warms its room while its station is sending, and costs a little on receive. Not yet tested in game:
+  row 465.
+- **A full-size ground-plane**, about 2 dB better than the compact one for a little more steel; the taller pole fits both. Not yet
+  tested in game: row 466.
+- **A new setting, Radio terminals make radio noise** (on by default), to treat the terminal as quiet. Not yet tested in game: row 467.
+
+### Changed
+
+- **The whip is now called the compact ground-plane**, beside the new full-size one. Its figures are unchanged.
+
+### Compatibility and limits
+
+- Safe with a running save: nothing new is saved beyond the setting. Where the research screen puts the three new projects is not
+  yet seen in game (row 464).
+
 ## [0.4.0] - 2026-11-24 - Draft
 
 Upgrades for the radio desk and the antennas (experimental)

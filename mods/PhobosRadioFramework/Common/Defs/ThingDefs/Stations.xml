@@ -76,4 +76,92 @@
     </researchPrerequisites>
     <constructionSkillPrerequisite>4</constructionSkillPrerequisite>
   </ThingDef>
+  <!-- The radio terminal (Radio 0.5.0; docs/development/radio-stations.md): a computer driving a software-defined radio. Its own
+       figures, authored: 10 W (the Australian Foundation licence's limit), a quiet 2 dB receiver, a weak stub antenna at 1 m
+       (the owner's card of 24 Nov 2026: "A weak stub that works"), and its computer's own noise, which the setting "Radio
+       terminals make radio noise" can switch off. A linear amplifier in its coax raises what it sends. -->
+  <ThingDef ParentName="BuildingBase">
+    <defName>PhobosRadio_RadioTerminal</defName>
+    <label>radio terminal</label>
+    <description>A computer driving a software-defined radio: ten watts of its own, but a very quiet receiver, so it hears faint hand-helds the desk would miss. Its little stub antenna works, poorly; it does far better with coax to a whip or mast outside, ideally through a linear amplifier. The computer itself makes electrical noise, so keep antennas a few metres from it. Works both VHF and UHF.</description>
+    <thingClass>Building</thingClass>
+    <graphicData>
+      <texPath>Phobos/Radio/Things/RadioTerminal</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <drawSize>(3,2)</drawSize>
+      <shadowData>
+        <volume>(2.8,0.5,1.4)</volume>
+      </shadowData>
+    </graphicData>
+    <altitudeLayer>Building</altitudeLayer>
+    <passability>PassThroughOnly</passability>
+    <pathCost>50</pathCost>
+    <blockWind>true</blockWind>
+    <fillPercent>0.5</fillPercent>
+    <canOverlapZones>false</canOverlapZones>
+    <rotatable>false</rotatable>
+    <size>(3,2)</size>
+    <statBases>
+      <MaxHitPoints>180</MaxHitPoints>
+      <WorkToBuild>2600</WorkToBuild>
+      <Flammability>0.6</Flammability>
+    </statBases>
+    <building>
+      <destroySound>BuildingDestroyed_Metal_Big</destroySound>
+    </building>
+    <costList>
+      <Steel>120</Steel>
+      <ComponentIndustrial>6</ComponentIndustrial>
+      <ComponentSpacer>1</ComponentSpacer>
+    </costList>
+    <terrainAffordanceNeeded>Medium</terrainAffordanceNeeded>
+    <designationCategory>PhobosRadio_Architect</designationCategory>
+    <uiOrder>2111</uiOrder>
+    <tickerType>Rare</tickerType>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <shortCircuitInRain>true</shortCircuitInRain>
+        <basePowerConsumption>150</basePowerConsumption>
+      </li>
+      <li Class="CompProperties_Flickable" />
+      <li Class="CompProperties_Breakdownable" />
+      <li Class="Phobos.Radio.CompProperties_Radio">
+        <isStation>true</isStation>
+        <bands>
+          <li>PhobosRadio_VHF</li>
+          <li>PhobosRadio_UHF</li>
+        </bands>
+        <mode>PhobosRadio_VoiceFM</mode>
+        <transmitPowerWatts>10</transmitPowerWatts>
+        <!-- Authored: a quiet front end with a preamplifier; unverified against a source. -->
+        <noiseFigureDb>2</noiseFigureDb>
+        <!-- The stub: short for its wavelength, so below a quarter-wave whip; approximate. -->
+        <antennaGainDbi>-5</antennaGainDbi>
+        <antennaHeightMetres>1</antennaHeightMetres>
+      </li>
+      <li Class="Phobos.Radio.CompProperties_FeedlinePort">
+        <pipeNet>PhobosRadio_FeedlineNet</pipeNet>
+      </li>
+    </comps>
+    <modExtensions>
+      <!-- Its computer's noise, authored: -75 dBm at 1 m, out to 8 cells, fading like every source. -->
+      <li Class="Phobos.Radio.RadioNoiseExtension">
+        <noiseDbmAt1m>-75</noiseDbmAt1m>
+        <radiusCells>8</radiusCells>
+        <noiseWhen>PowerOn</noiseWhen>
+        <computerNoise>true</computerNoise>
+      </li>
+    </modExtensions>
+    <inspectorTabs>
+      <li>Phobos.Radio.UI.ITab_RadioNet</li>
+    </inspectorTabs>
+    <placeWorkers>
+      <li>Phobos.Radio.UI.PlaceWorker_AntennaSiting</li>
+    </placeWorkers>
+    <researchPrerequisites>
+      <li>PhobosRadio_SoftwareRadio</li>
+    </researchPrerequisites>
+    <constructionSkillPrerequisite>5</constructionSkillPrerequisite>
+  </ThingDef>
 </Defs>

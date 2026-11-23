@@ -5,14 +5,16 @@ Radio that works like radio: every contact is decided by a real link budget, and
 
 One of House D'thorga's mods (also spelt dthorga).
 
-Version 0.4.0, built 24 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
+Version 0.5.0, built 24 November 2026 for House D'thorga. **Not yet tested in game.** It was built and deployed on 19 October
 2026, but the Def loading, the coax net, the gizmos and the mood have not been seen running.
 
 ## Read this first (gotchas)
 
 - **Not yet tested in game.** The owner has not passed any of it yet: it builds and installs, but its buildings, its coax network,
   its buttons and its mood have not been seen running in a colony.
-- **Work on this mod is paused.** No new features until it resumes; a fault that is reported is still fixed.
+- **Two stations, from 0.5.0**: the radio base station (25 W, a built-in whip) and the **radio terminal** (10 W, a very quiet
+  receiver, a weak stub, and **its own computer noise**, which the setting *Radio terminals make radio noise* turns off).
+  **Linear amplifiers only help antennas whose coax passes through them.**
 - **Needs D'thorga Framework and Vanilla Expanded Framework.** The coax is Vanilla Expanded Framework's pipe network; the upgrades
   are D'thorga Framework's. Load it after Core, the DLCs, Harmony, Vanilla Expanded Framework and D'thorga Framework; its About
   file asks for that order, so RimSort sorts it for you. Harmony comes with D'thorga Framework.
@@ -33,6 +35,8 @@ figures are here.
 
 - **Hand-held radios**, VHF and UHF, a **base station** with a built-in whip, **coax feedline**, and **whip and mast antennas**,
   after the **Local radio** research.
+- **A radio terminal**, **linear amplifiers** of 100 W and 400 W for the coax, and a **full-size ground-plane** (0.5.0), after
+  **Software radio**, **Linear amplifiers** and **High-power amplifiers**.
 - **A link budget for every contact**, both directions, the worse one deciding: workable, faint or no contact.
 - **What a colonist sees**: a Radio button with signal bars and the reason, the station's **Net** tab, coverage painted on the map
   when the station or an antenna is selected, and a line from a selected colonist to the antenna they use.
@@ -44,8 +48,12 @@ figures are here.
 | Hand-held radio (VHF) and (UHF) | Machining table, 20 steel + 1 component | 5 W, worn on the belt. VHF reaches further outdoors; UHF copes better with walls |
 | Radio base station | Architect → D'thorga → Radio, 100 steel + 3 components | 2 × 2, needs power (60 W idle, more while in use), both bands, built-in whip, 25 W |
 | Coax feedline | Architect → D'thorga → Radio, 2 steel per cell | Laid like power conduit, from the station to an antenna. Runs under walls |
-| Whip antenna | Architect → D'thorga → Radio, 15 steel | 1 × 1, 3 m high, no gain |
+| Compact ground-plane (the whip) | Architect → D'thorga → Radio, 15 steel | 1 × 1, 3 m high, no gain |
+| Full-size ground-plane (0.5.0) | Architect → D'thorga → Radio, 25 steel | 1 × 1, 3 m high, about 2 dBi: a full quarter-wave radiator |
 | Mast antenna | Architect → D'thorga → Radio, 60 steel + 1 component | 1 × 1, 10 m high, 3 dBi. Sees over walls |
+| Radio terminal (0.5.0) | Architect → D'thorga → Radio, 120 steel + 6 components + 1 advanced component | 3 × 2, 150 W, 10 W out, a 2 dB receiver, a weak stub antenna (about −5 dBi at 1 m); its computer makes noise out to 8 cells |
+| Linear amplifier (0.5.0) | Architect → D'thorga → Radio, 40 steel + 2 components | 1 × 1, in the coax: ten times what the station sends, up to 100 W; 20 W on standby, more while sending; 0.5 dB lost on receive |
+| Heavy linear amplifier (0.5.0) | Architect → D'thorga → Radio, 80 steel + 4 components + 1 advanced component | The same, up to 400 W; 40 W on standby, four times the draw and heat while sending |
 
 **What decides a link**, with its figures:
 

@@ -28,6 +28,11 @@ public class RadioNoiseExtension : DefModExtension
     /// <summary>How far it is counted, in cells; 0 means the rules Def's default.</summary>
     public int radiusCells;
     public NoiseWhen noiseWhen = NoiseWhen.PowerOn;
+    /// <summary>
+    /// A computer's noise, such as the radio terminal's (Radio 0.5.0): counted only while the setting "Radio terminals make radio
+    /// noise" is on (the owner's card of 24 Nov 2026: "noisy by default, but enable/disable via a setting").
+    /// </summary>
+    public bool computerNoise;
 }
 
 /// <summary>On a coax Def: its loss per 100 m at a reference frequency, scaled by √(f/fref).</summary>

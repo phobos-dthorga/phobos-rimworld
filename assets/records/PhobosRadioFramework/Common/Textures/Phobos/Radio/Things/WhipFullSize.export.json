@@ -1,0 +1,19 @@
+{
+  "target": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/WhipFullSize.png",
+  "source": "assets/phobos-radio/generated/whip-ground-plane/whip-ground-plane-2.png",
+  "source_sha256": "9f006f7576e61766fd6f2d9692eaa9334cf9372151b41a62201c6fd88f4479fd",
+  "target_sha256": "1515bc6f4440c97670325176169602a8fc0fba0f9b7359ce8eed3838d9453b02",
+  "size": [
+    192,
+    288
+  ],
+  "white_threshold": 235,
+  "soft_edge": 30,
+  "all_white": false,
+  "silhouette": false,
+  "ai_mask": "9f006f7576e61766fd6f2d9692eaa9334cf9372151b41a62201c6fd88f4479fd",
+  "holes": [],
+  "white_left": [],
+  "date": "2026-11-24T03:10:57",
+  "tool": "export_sprite.py: background white to alpha, crop, pad, Lanczos downscale"
+}
