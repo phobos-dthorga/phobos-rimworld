@@ -128,35 +128,39 @@ public partial class ITab_VehicleSystems
     /// the whole train's on the full model. Off the full model, the speed the weight behind holds it to. What holds a full-model tow
     /// back is the word on <see cref="DrawHeldBack"/>'s row.
     /// </summary>
-    static void DrawTowing(CompPhobosHitch hitch, Powertrain train, ref float y, float width, bool engineer)
+    internal static void DrawTowing(CompPhobosHitch hitch, Powertrain? train, ref float y, float width, bool engineer, float x = 0f)
     {
         if (hitch.Trailer is not { } towed) return;
-        PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowTowing".Translate(towed.LabelShort.Named("TRAILER")), Kilograms(hitch.TowedKilograms));
+        PhobosWidgets.FigureRow(ref y, x, width, "PhobosVehicleSystems_SysRowTowing".Translate(towed.LabelShort.Named("TRAILER")), Kilograms(hitch.TowedKilograms));
         if (!hitch.FullModel)
         {
             if (hitch.PlainSpeedCap >= 0.995f) return;
             string word = "PhobosVehicleSystems_SysHeldByWeight".Translate();
             string label = "PhobosVehicleSystems_SysRowHeld".Translate();
-            Rect row = WordRow(ref y, width, label, word, PhobosWidgets.Caution, hitch.PlainSpeedCap.ToStringPercent(), WordAfterShortName, out bool cut);
+            Rect row = WordRow(ref y, width, label, word, PhobosWidgets.Caution, hitch.PlainSpeedCap.ToStringPercent(), WordAfterShortName, out bool cut, x);
             WordTip(row, label, word, cut, null);
             return;
         }
-        if (engineer) PhobosWidgets.FigureRow(ref y, 0f, width, "PhobosVehicleSystems_SysRowTrain".Translate(), Kilograms(train.MassKg() + hitch.TowedKilograms));
+        if (engineer && train != null)
+        {
+            PhobosWidgets.FigureRow(ref y, x, width, "PhobosVehicleSystems_SysRowTrain".Translate(), Kilograms(train.MassKg() + hitch.TowedKilograms));
+        }
     }
 
     /// <summary>
     /// The share of its speed the vehicle is held to, while it is held, with what holds it as the row's word: towing, the hitch's own
-    /// words (crawling or held, by grip, a gear or power); otherwise its engine or its grip on the ground.
+    /// words (crawling or held, by grip, a gear or power); otherwise its engine or its grip on the ground. Without
+    /// <paramref name="figures"/> (the Dashboard in Plain mode) the row says only that it is slowed, and by what.
     /// </summary>
-    static void DrawHeldBack(CompPhobosVehicleSystems comp, Powertrain train, ref float y, float width)
+    internal static void DrawHeldBack(CompPhobosVehicleSystems comp, Powertrain train, ref float y, float width, bool figures = true, float x = 0f)
     {
         if (train.Cap >= 0.99) return;
         string word = comp.Hitch is { Trailer: not null, FullModel: true } && TowText.HeldBack(train) is { } towing ? towing
             : "PhobosVehicleSystems_SysHeldBy".Translate(
                 (train.Result.Limit == DriveLimit.Traction ? "PhobosVehicleSystems_LimitTraction" : "PhobosVehicleSystems_LimitPower").Translate().Named("LIMIT")).Resolve();
-        string label = "PhobosVehicleSystems_SysRowHeld".Translate();
-        Rect row = WordRow(ref y, width, label, word, PhobosWidgets.Caution, ((float)train.Cap).ToStringPercent(), WordAfterShortName, out bool cut);
-        WordTip(row, label, word, cut, "PhobosVehicleSystems_SysRowHeldTip".Translate());
+        string label = (figures ? "PhobosVehicleSystems_SysRowHeld" : "PhobosVehicleSystems_SysRowSlowed").Translate();
+        Rect row = WordRow(ref y, width, label, word, PhobosWidgets.Caution, figures ? ((float)train.Cap).ToStringPercent() : "", WordAfterShortName, out bool cut, x);
+        WordTip(row, label, word, cut, figures ? "PhobosVehicleSystems_SysRowHeldTip".Translate().Resolve() : null);
     }
 
     /// <summary>

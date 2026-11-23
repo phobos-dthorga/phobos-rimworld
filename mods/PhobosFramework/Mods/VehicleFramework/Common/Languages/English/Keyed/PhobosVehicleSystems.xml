@@ -664,6 +664,7 @@
   <PhobosVehicleSystems_SysLedgerFuelTip>Of fuel: the share of the fuel burned now that goes to turning it.</PhobosVehicleSystems_SysLedgerFuelTip>
   <!-- Framework 0.262.0: thin air, the tow, what holds the vehicle back and the turbine, as rows. -->
   <PhobosVehicleSystems_SysRowHeld>Speed held to</PhobosVehicleSystems_SysRowHeld>
+  <PhobosVehicleSystems_SysRowSlowed>Slowed</PhobosVehicleSystems_SysRowSlowed>
   <PhobosVehicleSystems_SysRowHeldTip>The share of its speed the vehicle can reach now, and what holds it there.</PhobosVehicleSystems_SysRowHeldTip>
   <PhobosVehicleSystems_SysHeldBy>by {LIMIT}</PhobosVehicleSystems_SysHeldBy>
   <PhobosVehicleSystems_SysHeldByWeight>by the weight behind it</PhobosVehicleSystems_SysHeldByWeight>

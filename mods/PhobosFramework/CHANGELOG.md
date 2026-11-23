@@ -5,6 +5,14 @@ tested in game unless an entry says the owner tested it.
 
 ## [Unreleased]
 
+## [0.263.0] - 2026-11-23 - Draft
+
+The Dashboard's tow, as rows
+
+### Changed
+
+- **The Dashboard tab shows what the vehicle tows as rows** (the owner's word of 23 November 2026), the same ones the Systems tab draws: the towed vehicle with its weight, the whole train in Engineer mode, and while the tow holds it back, what holds it, with the share of its speed it keeps in Operator and Engineer modes. The rest of the Dashboard is gauges, lights and switches, and stays as it is. Not yet tested in game: row 437 of the test pass.
+
 ## [0.262.0] - 2026-11-23 - Draft
 
 The rest of the Systems tab's cards, as rows

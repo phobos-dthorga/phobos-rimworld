@@ -3,6 +3,7 @@
   "doc": "docs/development/in-game-test-pass.md",
   "game": "rimworld",
   "rows": {
+    "437": ["vehicles.dashboard.tow-rows"],
     "436": {"parts": {
       "the turbine card": ["vehicles.systems-tab.turbine-rows"],
       "the weapons card": ["vehicles.systems-tab.weapon-rows"],

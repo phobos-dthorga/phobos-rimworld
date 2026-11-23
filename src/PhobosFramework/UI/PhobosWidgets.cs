@@ -349,7 +349,8 @@ public static class PhobosWidgets
     public const float FigureRowHeight = 20f;
     /// <summary>How wide each figure column of a card's plain row is.</summary>
     public const float FigureColumnWidth = 76f;
-    const float FigureRowInset = 6f;
+    /// <summary>How far a card row's name and its last figure stand in from the row's ends.</summary>
+    public const float FigureRowInset = 6f;
 
     /// <summary>
     /// One plain row of a card (Framework 0.260.0): a name on the left and its figure against the right edge. With a

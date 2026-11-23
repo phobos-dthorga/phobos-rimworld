@@ -143,12 +143,12 @@ public static class InspectText
             : "PhobosVehicleSystems_InspectServiceDue".Translate(due.Def.service.label.Named("SERVICE")).Resolve();
     }
 
-    /// <summary>The engine's line: Plain only when it labours or the wheels spin; Operator gear and rpm (or spool and turbine
-    /// temperature); Engineer adds load and kilowatts.</summary>
     /// <summary>An engine above this share of its load is labouring: the plain inspect line says so, and the Systems tab's load bar turns
     /// amber (authored).</summary>
     public const float LabouringLoad = 0.9f;
 
+    /// <summary>The engine's line: Plain only when it labours or the wheels spin; Operator gear and rpm (or spool and turbine
+    /// temperature); Engineer adds load and kilowatts.</summary>
     static string? EngineLine(CompPhobosVehicleSystems comp, DisplayMode mode)
     {
         Powertrain? train = comp.Powertrain;

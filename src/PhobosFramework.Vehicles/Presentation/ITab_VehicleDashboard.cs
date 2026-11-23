@@ -77,14 +77,17 @@ public class ITab_VehicleDashboard : ITab
             float height = Mathf.Max(24f, Text.CalcHeight(waiting, outer.width));
             Widgets.Label(new Rect(outer.x, y, outer.width, height), waiting);
             y += height + 4f;
-            // What it tows (hitch slice 3, Framework 0.104.0).
-            if (comp.Hitch is { Trailer: not null } hitch)
-            {
-                string towing = TowText.Towing(hitch, mode);
-                float towingHeight = Mathf.Max(24f, Text.CalcHeight(towing, outer.width));
-                Widgets.Label(new Rect(outer.x, y, outer.width, towingHeight), towing);
-                y += towingHeight + 4f;
-            }
+        }
+        // What it tows (hitch slice 3, Framework 0.104.0), as the Systems tab's rows since Framework 0.263.0 (the owner's word of 23 Nov
+        // 2026): the towed vehicle and its weight, the whole train for engineers, and while a tow holds it back, what holds it, with the
+        // share of its speed it keeps for those who read figures. The rows' text lines up with the line above and the gauges below.
+        if (comp.Hitch is { Trailer: not null } hitch)
+        {
+            float rowX = outer.x - PhobosWidgets.FigureRowInset, rowWidth = outer.width + PhobosWidgets.FigureRowInset * 2f;
+            ITab_VehicleSystems.DrawTowing(hitch, comp.Powertrain, ref y, rowWidth, mode == DisplayMode.Engineer, rowX);
+            if (hitch.FullModel && comp.Powertrain is { } towing) ITab_VehicleSystems.DrawHeldBack(comp, towing, ref y, rowWidth, figures, rowX);
+            Seen.Note("vehicles.dashboard.tow-rows", comp.Vehicle);
+            y += 6f;
         }
 
         // The gauges.
