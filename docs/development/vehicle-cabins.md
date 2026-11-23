@@ -67,3 +67,23 @@ anyone is inside. The setting, **Walk-in cabins**, starts on.
 
 The cabin is for the player's people: another faction's vehicle offers no cabin order, and a captured one offers it once it is the
 player's.
+
+## Proposals for later (23 Nov 2026)
+
+The owner asked, after the C-17 joined the fold, whether walk-in cabins belong anywhere else, then: "Write down the two proposals for
+later then." **Nothing is built or decided**; both wait on the gate below. Agent's proposals, ranked.
+
+**The gate, first: measure the Osprey's.** Its cabin is not yet tested in game (rows 314, 349, 350), and its cost was never measured: a
+cabin ticks one small map for as long as anyone is in it. The owner's standing view is that realism costing frame rate feels like lag.
+So, in order: the owner tests the Osprey's cabin; then a `perf.py` recording (asked for first, the game saved) with someone in the cabin,
+against one without. A small cost opens the two proposals; a large one sends the cabin itself back for a cheaper design first.
+
+| # | Proposal | Why | What it would take | Waits on |
+| --- | --- | --- | --- | --- |
+| CB1 | **A crew room on Vanilla Vehicles Expanded's Goliath** | Its own description calls it "more of a movable mini-base than a deployment pod": a 5 by 5 craft with four turret stations. Bunks, and later a workbench, fit what it already is | A loadout entry with `CompProperties_PhobosVehicleCabin` layouts, as the Osprey's: bunks first, a workbench row once fitted (layouts follow fittings). No new code expected; its own art for the room | The gate above |
+| CB2 | **A flying hospital on the C-17 Globemaster III** | Real C-17s fly aeromedical evacuation, up to 36 litters; the Osprey's litter layout would suit its hold | A layout following a litter fitting, sized for the hold. **First check its author's updates**: z3nt3 gave the Black Hawk an interior of their own (a pocket map), and may do the same for the C-17; two interiors on one aircraft would clash, so ours waits until theirs is ruled out or can host ours | The gate, and the author's next updates ([c17-globemaster.md](c17-globemaster.md)) |
+
+**Weighed and set aside (agent's judgement, 23 Nov 2026):** trucks and trailers (the cab bunk, field kitchen and shower trailer already
+cover living aboard without a second map); the jets and attack helicopters (nowhere to walk); the trains (our loadouts cover the
+locomotives only; coaches would first need Trains of the Rim's carriages taken into the fold).
+

@@ -276,6 +276,17 @@ the owner proposed glass as a vehicle part ([vehicle glass](vehicle-glass.md)). 
 | NS5 | Reads still to do before any build: how Combat Extended's armour for people treats a blunt hit at no penetration; setting a part's health from outside a hit; killing a crew through the seats; whether Rimatomics' dose can ignore a gas mask; Rimatomics' fallout sign in game; IRBM's removal of caravans in its current build; what a blast reports to a cab plate without Combat Extended | docs | — | Open |
 | NS6 | What harmed the Highwayman at Gukpoi (ammunition cooking off is the guess): a dev-mode strike with Vehicle Framework's damage logging on would show it and confirm the route | — | — | Open, the owner's step if wanted |
 
+## Walk-in cabins elsewhere (23 Nov 2026)
+
+The owner asked whether walk-in cabins belong anywhere else, then asked for the two proposals to be written down for later
+([walk-in cabins, proposals for later](vehicle-cabins.md#proposals-for-later-23-nov-2026)). **Nothing built or decided.**
+
+| # | Item | Mod | Owner's decision | Status |
+| --- | --- | --- | --- | --- |
+| CB0 | **The gate:** the owner tests the Osprey's cabin (rows 314, 349, 350), then a `perf.py` recording with someone in it, asked for first | Framework | Write down for later (owner, 23 Nov 2026) | Open, the owner's test first |
+| CB1 | A crew room on the Goliath (Vanilla Vehicles Expanded), bunks then a workbench | Vehicles | Write down for later | Open, after CB0 |
+| CB2 | A flying hospital on the C-17, litters in its hold; first check its author's updates for an interior of their own | Vehicles | Write down for later | Open, after CB0 and the author's updates |
+
 ## Garage and fleet tools (from 8 Nov 2026)
 
 The design is [the vehicle garage and fleet tools](vehicle-stations.md#the-vehicle-garage-and-fleet-tools-design-8-nov-2026).
