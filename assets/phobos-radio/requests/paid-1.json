@@ -5,7 +5,10 @@
     "quality": "medium",
     "width": 1024,
     "height": 1024,
-    "seeds": [1, 2],
+    "seeds": [
+      1,
+      2
+    ],
     "references": [
       {
         "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
@@ -26,7 +29,10 @@
     "quality": "medium",
     "width": 1536,
     "height": 1024,
-    "seeds": [1, 2],
+    "seeds": [
+      1,
+      2
+    ],
     "references": [
       {
         "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
@@ -36,53 +42,33 @@
     "art_plan": {
       "building": "PhobosRadio_RadioTerminal (planned, docs/development/radio-stations.md), footprint (3, 2), the vanilla comms console's, drawSize (3, 2) so 384 x 256 in game; requested at four times that",
       "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/RadioTerminal.png",
-      "why": "the owner, 24 Nov 2026: 'A computer terminal can effectively be a base station with an SDR and hefty amplifier'; by card, its own station with its own stats, designed now",
+      "why": "the owner, 24 Nov 2026: 'A computer terminal can effectively be a base station with an SDR and hefty amplifier'; by card, its own station with its own stats, designed now; the owner's card of 24 Nov 2026 put the amplifier in a building of its own on the coax, so this picture has none",
       "later_overlays": "a waterfall on its screen (RV3) would be a mark laid over it, so the monitor is drawn from above as a dark slab with no picture on it"
     },
-    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a radio terminal: a computer workstation that drives a software-defined radio, with a heavy linear amplifier beside it, the modern base station of a hard-scrabble frontier colony. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape or contents.\n\nWide canvas. The desk fills about 90 percent of the canvas width and 75 percent of its height, centred, on a plain pure white background. It is one and a half times as wide as it is deep. The front edge, where the operator sits, is at the BOTTOM.\n\nIts plan, from left to right: at the LEFT, a heavy amplifier cabinet of dark steel, seen from above, its lid a large grille of cooling fins with one thick cable socket at the back; in the MIDDLE, the workstation: a wide flat monitor seen from above as a thin dark slab along the back edge, a flat keyboard and a mouse at the front, and a small slim radio box beside the keyboard with two cable sockets; at the RIGHT, a compact computer tower seen from above with a round fan grille, and a coiled headset resting on it. One black cable leaves the back edge from the amplifier; the other cables are neatly bundled along the back.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive and grey steel, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, needles, lit lamps, glowing screens, pictures on the monitor, people, chairs, animals or loose goods. No floor beyond the desk, no shadow outside it, no perspective, no tilt."
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a radio terminal: a computer workstation that drives a software-defined radio, the modern base station of a hard-scrabble frontier colony. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape or contents.\n\nWide canvas. The desk fills about 90 percent of the canvas width and 75 percent of its height, centred, on a plain pure white background. It is one and a half times as wide as it is deep. The front edge, where the operator sits, is at the BOTTOM.\n\nIts plan, from left to right: at the LEFT, a small slim radio box of dark steel with two cable sockets and a little cooling grille, and a closed notebook; in the MIDDLE, a wide flat monitor seen from above as a thin dark slab along the back edge, with a flat keyboard and a mouse at the front; at the RIGHT, a compact computer tower seen from above with a round fan grille, and a coiled headset resting on it. One black cable leaves the back edge from the radio box; the other cables are neatly bundled along the back.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive and grey steel, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, needles, lit lamps, glowing screens, pictures on the monitor, people, chairs, animals or loose goods. No floor beyond the desk, no shadow outside it, no perspective, no tilt."
   },
   {
-    "name": "whip-ground-plane",
+    "name": "linear-amplifier",
     "engine": "openai",
     "quality": "medium",
     "width": 1024,
-    "height": 1536,
-    "seeds": [1, 2],
+    "height": 1024,
+    "seeds": [
+      1,
+      2
+    ],
     "references": [
       {
         "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
-        "role": "our approved vehicle parts bench: match its outline weight, shading, palette and finish only; do not copy its shape, contents or overhead view"
+        "role": "our approved vehicle parts bench, seen from directly above: match its outline weight, shading, palette and finish only; do not copy its shape or contents"
       }
     ],
     "art_plan": {
-      "building": "PhobosRadio_Whip, footprint (1, 1), drawSize (1, 1.5) so 128 x 192 in game; requested at about eight times that, the cheapest portrait size",
-      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Whip.png",
-      "why": "the shipped whip is a stand-in (a lattice mast); physically a dual-band ground-plane: a vertical radiator of about 0.5 m (a quarter wave at 146 MHz is about 51 cm) and drooping radials, on a 3 m pole",
-      "camera": "a front view standing upright, as the game draws trees and lamps: a tall thin antenna seen from straight above would be a dot (agent's choice, for the owner to revise)",
-      "later_overlays": "none planned"
+      "building": "PhobosRadio_LinearAmplifier (planned, docs/development/radio-stations.md), footprint (1, 1), drawSize (1, 1) so 128 x 128 in game; requested at eight times that",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/LinearAmplifier.png",
+      "why": "the owner's card of 24 Nov 2026: the hefty amplifier is a building of its own on the coax, which either station can use",
+      "later_overlays": "a transmit lamp would be a mark laid over it (as RV6), so no lamp is drawn lit and its meter has no needle"
     },
-    "prompt": "FRONT ELEVATION VIEW, as the game RimWorld draws tall standing things such as trees and lamps: the object stands upright, seen from the front at eye level with only a hint of its top, its foot at the BOTTOM of the canvas. No isometric angle, no perspective, no tilt.\n\nCreate an ORIGINAL game building sprite for a whip antenna: a small dual-band radio antenna on a short steel pole, put up outside a hard-scrabble frontier colony's radio room. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape, contents or overhead view.\n\nTall portrait canvas. The antenna fills about 90 percent of the canvas height, centred, on a plain pure white background.\n\nFrom the bottom up: a small square concrete footing; a plain galvanised steel pole rising about three quarters of the height; at its top, a small grey weatherproof connector housing, from which four thin stiff rods slope down and outwards at forty-five degrees, like the ribs of an open umbrella; above the housing, one thin upright rod, about a fifth of the pole's length, with a small ball tip. A black cable runs down the pole to the footing.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted grey steel, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, lamps, lights, flags, birds, people, wires to anything else, ground beyond the footing, shadow outside the antenna, landscape or sky."
-  },
-  {
-    "name": "mast-collinear",
-    "engine": "openai",
-    "quality": "medium",
-    "width": 768,
-    "height": 1920,
-    "seeds": [1, 2],
-    "references": [
-      {
-        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
-        "role": "our approved vehicle parts bench: match its outline weight, shading, palette and finish only; do not copy its shape, contents or overhead view"
-      }
-    ],
-    "art_plan": {
-      "building": "PhobosRadio_Mast, footprint (1, 1), drawSize (1, 2.5) so 128 x 320 in game; requested at six times that",
-      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
-      "why": "the shipped mast is drawn at an isometric angle with no outline; physically a 10 m mast carrying a collinear for its 3 dBi, so a white fibreglass radome at the top rather than a broadcast tower's tip",
-      "camera": "a front view standing upright, as the game draws trees and lamps (agent's choice, for the owner to revise)",
-      "later_overlays": "RV7, a red warning light at the top that blinks at night, would be a mark laid over it, so no lamp is drawn"
-    },
-    "prompt": "FRONT ELEVATION VIEW, as the game RimWorld draws tall standing things such as trees and lamps: the object stands upright, seen from the front at eye level with only a hint of its top, its foot at the BOTTOM of the canvas. No isometric angle, no perspective, no tilt.\n\nCreate an ORIGINAL game building sprite for a mast antenna: a ten-metre guyed steel mast carrying a tall slim radio antenna, put up outside a hard-scrabble frontier colony's radio room. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape, contents or overhead view.\n\nVery tall narrow portrait canvas. The mast fills about 95 percent of the canvas height, centred, on a plain pure white background.\n\nFrom the bottom up: a square concrete footing; a slim triangular steel lattice mast braced with zig-zag struts, rising about four fifths of the height; three thin guy wires running from two thirds of the way up down and outwards to small anchor blocks either side of the footing; at the top, a short steel stub carrying a tall slim white fibreglass tube with a rounded cap, about a fifth of the mast's height. A black cable runs down the mast to the footing.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted grey steel and white fibreglass, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, lamps, warning lights, flags, birds, people, dishes, extra antennas, ground beyond the footing, shadow outside the mast, landscape or sky."
+    "prompt": "ORTHOGRAPHIC VERTICAL OVERHEAD PLAN VIEW. Camera directly above, looking straight down onto the object from above. Rectangular edges run horizontally and vertically on the canvas. Show no vertical outside faces.\n\nCreate an ORIGINAL game building sprite for a linear amplifier: a heavy radio power amplifier cabinet standing on the floor, wired into the cable between a radio station and its antenna, in a hard-scrabble frontier colony. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape or contents.\n\nSquare canvas. The cabinet fills about 70 percent of the canvas, square, centred, on a plain pure white background.\n\nSeen from above: a squat square cabinet of dark olive steel with rounded corners; most of its lid is one large round fan grille over cooling fins; two sturdy carry handles along the left and right edges; at the front edge, a small square meter with a plain pale face and no needle beside one round knob; one thick black cable leaving the middle of the top edge and one leaving the middle of the bottom edge, in and out.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted olive and grey steel, pale panels, rounded corners, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, needles, lit lamps, glowing screens, people, animals or loose goods. No floor beyond the cabinet, no shadow outside it, no perspective, no tilt."
   }
 ]

@@ -1,0 +1,52 @@
+[
+  {
+    "name": "whip-ground-plane",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1536,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+        "role": "our approved vehicle parts bench: match its outline weight, shading, palette and finish only; do not copy its shape or contents"
+      }
+    ],
+    "art_plan": {
+      "building": "PhobosRadio_Whip, footprint (1, 1), drawSize (1, 1.5) so 128 x 192 in game; requested at about eight times that, the cheapest portrait size",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Whip.png",
+      "why": "the shipped whip is a stand-in (a lattice mast); physically a dual-band ground-plane: a vertical radiator of about 0.5 m (a quarter wave at 146 MHz is about 51 cm) and drooping radials, on a 3 m pole",
+      "camera": "a steep view from above and a little in front, as the game draws trees and standing lamps; the owner's screenshot of 24 Nov 2026 showed trees are 'not quite upright at all'",
+      "later_overlays": "none planned"
+    },
+    "prompt": "STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as the game RimWorld draws its trees and standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened, so only a short strip of its front shows below the top; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.\n\nCreate an ORIGINAL game building sprite for a whip antenna: a small dual-band radio antenna on a short steel pole, put up outside a hard-scrabble frontier colony's radio room. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape, contents.\n\nPortrait canvas. The antenna fills about 80 percent of the canvas height, centred, on a plain pure white background.\n\nSeen steeply from above: a small square concrete footing at the bottom; a short foreshortened galvanised steel pole rising from it; at its top, a small round grey connector housing, from which four thin stiff rods spread out and down like the ribs of an open umbrella, making a clear X-shaped star when seen from above; from the centre of the housing, one thin rod pointing up, foreshortened, with a small ball tip. A black cable runs down the pole to the footing.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted grey steel, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, lamps, lights, flags, birds, people, wires to anything else, ground beyond the footing, shadow outside the antenna, landscape or sky."
+  },
+  {
+    "name": "mast-collinear",
+    "engine": "openai",
+    "quality": "medium",
+    "width": 1024,
+    "height": 1536,
+    "seeds": [
+      1,
+      2
+    ],
+    "references": [
+      {
+        "image": "mods/PhobosFramework/Mods/VehicleFramework/Common/Textures/Phobos/VehicleSystems/Stations/PartsBench.png",
+        "role": "our approved vehicle parts bench: match its outline weight, shading, palette and finish only; do not copy its shape or contents"
+      }
+    ],
+    "art_plan": {
+      "building": "PhobosRadio_Mast, footprint (1, 1), drawSize (1, 2.5) so 128 x 320 in game; requested at six times that; requested at 1024 x 1536, the cheapest portrait size: with the height foreshortened and the guy wires spread, its drawSize may need widening when exported",
+      "ships_as": "mods/PhobosRadioFramework/Common/Textures/Phobos/Radio/Things/Mast.png",
+      "why": "the shipped mast is drawn at an isometric angle with no outline; physically a 10 m mast carrying a collinear for its 3 dBi, so a white fibreglass radome at the top rather than a broadcast tower's tip",
+      "camera": "a steep view from above and a little in front, as the game draws trees and standing lamps; the owner's screenshot of 24 Nov 2026 showed trees are 'not quite upright at all'",
+      "later_overlays": "RV7, a red warning light at the top that blinks at night, would be a mark laid over it, so no lamp is drawn"
+    },
+    "prompt": "STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as the game RimWorld draws its trees and standing lamps: we look mostly DOWN onto the object's top; its height is strongly foreshortened, so only a short strip of its front shows below the top; its foot at the BOTTOM of the canvas and its top towards the TOP. No side-on view, no isometric angle, no tilt.\n\nCreate an ORIGINAL game building sprite for a mast antenna: a ten-metre guyed steel mast carrying a tall slim radio antenna, put up outside a hard-scrabble frontier colony's radio room. Image 1 is our approved parts bench from the same maker: match its outline weight, shading, palette and finish only. Do NOT copy its shape, contents.\n\nPortrait canvas. The mast fills about 90 percent of the canvas height, centred, on a plain pure white background.\n\nSeen steeply from above: a square concrete footing at the bottom; a slim triangular steel lattice mast braced with zig-zag struts, foreshortened, rising towards the top of the canvas; three thin guy wires running from high on the mast down and outwards to three small anchor blocks spread around the footing, forming a Y when seen from above; at the top, a short steel stub carrying a slim white fibreglass tube with a rounded cap, its cap seen mostly from above. A black cable runs down the mast to the footing.\n\nStyle: a sprite for the game RimWorld: a thick near-black outline around every shape, soft flat cel shading with two or three tones per material, muted grey steel and white fibreglass, a few small clean details, no texture noise. Not a photograph, not a 3D render, not pixel art.\n\nNo text, letters, numbers, logos, lamps, warning lights, flags, birds, people, dishes, extra antennas, ground beyond the footing, shadow outside the mast, landscape or sky."
+  }
+]

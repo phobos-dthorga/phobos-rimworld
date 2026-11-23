@@ -1,6 +1,7 @@
-# Radio paid batch 1: the radio desk, the radio terminal, the whip and the mast (24 Nov 2026)
+# Radio paid batch 1: the radio desk, the radio terminal, the amplifier, the whip and the mast (24 Nov 2026)
 
-**Status (24 Nov 2026):** dry run only. Nothing has been generated or bought. The real run waits for the owner's go.
+**Status (24 Nov 2026):** bought, ten pictures for about US$0.50 of the owner's US$1.00 cap; all five picks wait on D'thorga
+Companion's Picks page. Nothing is exported or shipped yet. [The run, as it went](#the-run-24-nov-2026) is below the dry run.
 
 ## The owner's direction
 
@@ -50,3 +51,37 @@ The figure is the engine's ceiling, not a price: the real cost is worked out fro
 
 Review each try at native size and half size, the background AI before export, the review cards (`review_cards.py`) on the Picks
 page, the edge check; then the owner's picks, the unpicked tries to `art-references` and the picks' masters to `art-masters`.
+
+## The run (24 Nov 2026)
+
+**The owner's go, by card:** "Go, cap US$1.00". The same cards changed the batch:
+
+- **The antennas' camera waited for the owner's screenshot of the trees**, which showed they are "not quite upright at all": the game
+  draws standing things steeply from above and a little in front, the height shortened to a stub. The whip and mast moved to
+  [paid-2-antennas.json](paid-2-antennas.json) with that camera ("STEEP HIGH-ANGLE VIEW FROM ABOVE AND SLIGHTLY IN FRONT, exactly as
+  the game RimWorld draws its trees and standing lamps"), both at 1024 x 1536.
+- **The amplifier became its own building on the coax** (the owner's card), so the terminal's prompt lost its amplifier cabinet and a
+  `linear-amplifier` request (1024 x 1024, overhead) joined [paid-1.json](paid-1.json). The agent swapped it in within the same cap,
+  having told the owner a separate amplifier meant another picture.
+
+| Run | Pictures | Spent | Cap given |
+| --- | --- | --- | --- |
+| `paid-1.json`: desk, terminal, amplifier | 6 | about US$0.321 (US$0.057, 0.057, 0.046, 0.046, 0.057, 0.057) | US$0.62 |
+| `paid-2-antennas.json`: whip, mast | 4 | about US$0.183 (US$0.046 each) | US$0.41 |
+| **Together** | **10** | **about US$0.504** | the owner's US$1.00 |
+
+Costs are the engine's, from OpenAI's returned token counts. Every size came back as asked. The background AI looked at all ten
+before the cards were drawn; every card shows 0 loose specks.
+
+**The agent's review at native and three times size (for the owner to overrule):**
+
+| Picture | Try 1 | Try 2 | Agent's suggestion |
+| --- | --- | --- | --- |
+| Radio desk | Clean layout; transceiver with a small display panel, mic, logbook, unlit meter | Fuller transceiver face with knobs; meter with three buttons; a lip on the front edge | Either |
+| Radio terminal | **The radio box has a stub antenna**, which the design says the terminal has none of | No antenna; radio box with two cables; monitor, keyboard, tower, headset | **2** |
+| Linear amplifier | Fan grille, two handles, unlit meter, cable in at the top and out at the bottom | The same, bolder | Either |
+| Whip | X of radials; the radiator much shorter than the radials | **Radiator about as long as the radials**, as a quarter-wave ground-plane's are | **2** |
+| Mast | Lattice, white collinear, three guy anchors in a Y | The same, cleaner lattice, cable inside it | Either |
+
+**For the export:** the mast's guy anchors spread well beyond one cell, so its drawn size (today 1 x 2.5) will need widening, to be
+judged on the map at export. Cards: `K:\phobos-rimworld\art\cards\paid-1\` and `paid-2-antennas\`.
